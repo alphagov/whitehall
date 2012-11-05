@@ -1,6 +1,27 @@
 require 'addressable/uri'
+require 'delegate'
 
 module GovspeakHelper
+  def govspeak_to_html(govspeak, images=[])
+    wrapped_in_govspeak_div(bare_govspeak_to_html(govspeak, images))
+  end
+
+  def govspeak_edition_to_html(edition)
+    wrapped_in_govspeak_div(bare_govspeak_edition_to_html(edition))
+  end
+
+  def bare_govspeak_edition_to_html(edition)
+    images = edition.respond_to?(:images) ? edition.images : []
+    partially_processed_govspeak = edition_body_with_attachments_and_alt_format_information(edition)
+    bare_govspeak_to_html(partially_processed_govspeak, images)
+  end
+
+  def govspeak_headers(govspeak, level = 2)
+    level = (level..level) unless level.is_a?(Range)
+    build_govspeak_document(govspeak).headers.select do |header|
+      level.cover?(header.level)
+    end
+  end
 
   class OrphanedHeadingError < StandardError
     attr_reader :heading
@@ -10,67 +31,9 @@ module GovspeakHelper
     end
   end
 
-  def govspeak_body_to_admin_html(body, images, attachments, alternative_format_contact_email = nil)
-    text = govspeak_with_attachments_to_html(body, attachments, alternative_format_contact_email)
-    govspeak_to_admin_html(text, images)
-  end
-
-  def govspeak_edition_to_admin_html(edition)
-    images = edition.respond_to?(:images) ? edition.images : []
-    text = markup_with_attachments_to_html(edition)
-    govspeak_to_admin_html(text, images)
-  end
-
-  def bare_govspeak_to_admin_html(text, images = [], attachments = [])
-    markup_to_html_with_replaced_admin_links(text, images) do |replacement_html, edition|
-      latest_edition = edition && edition.document.latest_edition
-      if latest_edition.nil?
-        replacement_html = content_tag(:del, replacement_html)
-        explanation = state = "deleted"
-      else
-        state = latest_edition.state
-        explanation = link_to(state, admin_edition_path(latest_edition))
-      end
-
-      content_tag :span, class: "#{state}_link" do
-        annotation = content_tag(:sup, safe_join(['(', explanation, ')']), class: 'explanation')
-        safe_join [replacement_html, annotation], ' '
-      end
-    end
-  end
-
-  def govspeak_to_admin_html(*args)
-    content_tag(:div, bare_govspeak_to_admin_html(*args).html_safe, class: 'govspeak')
-  end
-
-  def bare_govspeak_edition_to_html(edition)
-    images = edition.respond_to?(:images) ? edition.images : []
-    text = markup_with_attachments_to_html(edition)
-    bare_govspeak_to_html(text, images)
-  end
-
-  def govspeak_edition_to_html(*args)
-    content_tag(:div, bare_govspeak_edition_to_html(*args), class: 'govspeak')
-  end
-
-  def bare_govspeak_to_html(text, images = [])
-    markup_to_html_with_replaced_admin_links(text, images)
-  end
-
-  def govspeak_to_html(*args)
-    content_tag(:div, bare_govspeak_to_html(*args).html_safe, class: 'govspeak')
-  end
-
-  def govspeak_headers(text, level = 2)
-    level = (level..level) unless level.is_a?(Range)
-    build_govspeak_document(text).headers.select do |header|
-      level.cover?(header.level)
-    end
-  end
-
-  def govspeak_header_hierarchy(text)
+  def govspeak_header_hierarchy(govspeak)
     headers = []
-    govspeak_headers(text, 2..3).each do |header|
+    govspeak_headers(govspeak, 2..3).each do |header|
       if header.level == 2
         headers << {header: header, children: []}
       elsif header.level == 3
@@ -83,8 +46,16 @@ module GovspeakHelper
 
   private
 
-  def markup_to_html_with_replaced_admin_links(text, images = [], &block)
-    markup_to_nokogiri_doc(text, images).tap do |nokogiri_doc|
+  def bare_govspeak_to_html(govspeak, images = [])
+    govspeak_to_html_with_replaced_admin_links(govspeak, images)
+  end
+
+  def wrapped_in_govspeak_div(html_string)
+    content_tag(:div, html_string.html_safe, class: 'govspeak')
+  end
+
+  def govspeak_to_html_with_replaced_admin_links(govspeak, images = [], &block)
+    markup_to_nokogiri_doc(govspeak, images).tap do |nokogiri_doc|
       replace_internal_admin_links_in nokogiri_doc, &block
     end.to_html.html_safe
   end
@@ -111,25 +82,26 @@ module GovspeakHelper
     end
   end
 
-  def markup_to_nokogiri_doc(text, images = [])
-    govspeak = build_govspeak_document(text, images)
+  def markup_to_nokogiri_doc(govspeak, images = [])
+    govspeak = build_govspeak_document(govspeak, images)
     doc = Nokogiri::HTML::Document.new
     doc.encoding = "UTF-8"
     doc.fragment(govspeak.to_html)
   end
 
-  def govspeak_with_attachments_to_html(text, attachments = [], alternative_format_contact_email = nil)
-    text.gsub(/\n{0,2}^!@([0-9]+)\s*/) do
+  def govspeak_with_attachments_and_alt_format_information(govspeak, attachments = [], alternative_format_contact_email = nil)
+    govspeak.gsub(/\n{0,2}^!@([0-9]+)\s*/) do
       if attachment = attachments[$1.to_i - 1]
-        "\n\n" + render(partial: "documents/attachment.html.erb", object: attachment, locals: {alternative_format_contact_email: alternative_format_contact_email}) + "\n\n"
+        "\n\n" + render(partial: "documents/attachment.html.erb", object: AssetHostDecorator.new(attachment), locals: {alternative_format_contact_email: alternative_format_contact_email}) + "\n\n"
       else
         "\n\n"
       end
     end
   end
 
-  def markup_with_attachments_to_html(edition)
-    govspeak_with_attachments_to_html(edition.body, edition.respond_to?(:attachments) ? edition.attachments : [], edition.alternative_format_contact_email)
+  def edition_body_with_attachments_and_alt_format_information(edition)
+    attachments = edition.respond_to?(:attachments) ? edition.attachments : []
+    govspeak_with_attachments_and_alt_format_information(edition.body, attachments, edition.alternative_format_contact_email)
   end
 
   def is_internal_admin_link?(href)
@@ -152,29 +124,19 @@ module GovspeakHelper
   end
 
   def find_edition_and_supporting_page_from_uri(uri)
-    id = uri[/\/([^\/]+)$/, 1]
-    if uri =~ /\/supporting\-pages\//
-      begin
-        supporting_page = SupportingPage.find(id)
-      rescue ActiveRecord::RecordNotFound
-        supporting_page = nil
-      end
-      if supporting_page
-        edition = supporting_page.edition
-      else
-        edition = nil
-      end
-    else
-      edition = Edition.send(:with_exclusive_scope) do
-        begin
-          Edition.find(id)
-        rescue ActiveRecord::RecordNotFound
-          nil
-        end
-      end
-      supporting_page = nil
+    edition_id, supporting_page_id = nil
+    if uri[%r{/admin/editions/(\d+)/supporting-pages/([\w-]+)$}]
+      edition_id, supporting_page_id = $1, $2
+    elsif uri[%r{/admin/(?:#{admin_edition_controller_names.join("|")})/(\d+)$}]
+      edition_id = $1
     end
+    edition = edition_id && Edition.send(:with_exclusive_scope) { Edition.where(id: edition_id).first }
+    supporting_page = supporting_page_id && edition && edition.supporting_pages.where(slug: supporting_page_id).first
     [edition, supporting_page]
+  end
+
+  def admin_edition_controller_names
+    @admin_edition_controller_names ||= Whitehall.edition_classes.map(&:sti_name).map(&:tableize)
   end
 
   def rewritten_href_for_edition(edition, supporting_page)
@@ -189,28 +151,17 @@ module GovspeakHelper
     Whitehall.public_host_for(host) || host
   end
 
-  def build_govspeak_document(text, images = [])
+  def build_govspeak_document(govspeak, images = [])
     request_host = respond_to?(:request) ? request.host : nil
-    hosts = [request_host, ActionController::Base.default_url_options[:host]].compact
-    hosts = hosts + Whitehall.admin_hosts
-    Govspeak::Document.new(text, document_domains: hosts).tap do |document|
-      document.images = images.map {|i| ImageAssetHostDecorator.new(i, Whitehall.asset_host)}
+    hosts = [request_host] + Whitehall.admin_hosts + Whitehall.public_hosts
+    Govspeak::Document.new(govspeak, document_domains: hosts).tap do |document|
+      document.images = images.map {|i| AssetHostDecorator.new(i)}
     end
   end
 
-  class ImageAssetHostDecorator
-    extend Forwardable
-
-    attr_reader :image
-    delegate [:alt_text, :caption] => :image
-
-    def initialize(image, asset_host)
-      @image = image
-      @asset_host = asset_host || ""
-    end
-
-    def url
-      @asset_host + image.url.to_s
+  class AssetHostDecorator < SimpleDelegator
+    def url(*args)
+      (Whitehall.asset_host || "") + super(*args)
     end
   end
 end

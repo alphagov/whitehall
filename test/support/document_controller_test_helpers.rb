@@ -449,7 +449,16 @@ module DocumentControllerTestHelpers
 
   private
 
+  def controller_attributes_for_instance(edition, attribute_overrides = {})
+    attributes = edition.attributes
+    attributes['organisation_ids'] = edition.organisations.map(&:id) if edition.respond_to?(:organisations)
+    attributes.deep_merge(attribute_overrides)
+  end
+
   def controller_attributes_for(edition_type, attributes = {})
+    attributes = attributes.merge(
+      organisation_ids: [(Organisation.first || create(:organisation)).id]
+    )
     attributes_for(edition_type, attributes)
   end
 end

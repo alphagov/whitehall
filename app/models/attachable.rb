@@ -9,7 +9,9 @@ module Attachable
       has_many :attachments, through: attachment_join_table_name
 
       no_substantive_attachment_attributes = ->(attrs) do
-        attrs.fetch(:attachment_attributes, {}).except(:accessible).values.all?(&:blank?)
+        att_attrs = attrs.fetch(:attachment_attributes, {})
+        att_attrs.except(:accessible, :attachment_data_attributes).values.all?(&:blank?) &&
+          att_attrs.fetch(:attachment_data_attributes, {}).values.all?(&:blank?)
       end
       accepts_nested_attributes_for attachment_join_table_name, reject_if: no_substantive_attachment_attributes, allow_destroy: true
 
@@ -17,7 +19,8 @@ module Attachable
         add_trait do
           def process_associations_after_save(edition)
             @edition.attachments.each do |a|
-              edition.send(edition.class.attachment_join_table_name).create(attachment_id: a.id)
+              attachment = Attachment.create(a.attributes)
+              edition.send(edition.class.attachment_join_table_name).create(attachment: attachment)
             end
           end
         end
@@ -27,6 +30,15 @@ module Attachable
 
   included do
     class_attribute :attachment_join_table_name
+  end
+
+  def build_empty_attachment
+    attachment_join_model_instances = send(self.class.attachment_join_table_name)
+    unless attachment_join_model_instances.any?(&:new_record?)
+      join_model_instance = attachment_join_model_instances.build
+      attachment_instance = join_model_instance.build_attachment
+      attachment_instance.build_attachment_data
+    end
   end
 
   def allows_attachments?
@@ -61,5 +73,18 @@ module Attachable
 
   def indexable_attachment_content
     attachments.all.map { |a| "Attachment: #{a.title}" }.join(". ")
+  end
+
+  module JoinModel
+    extend ActiveSupport::Concern
+
+    module ClassMethods
+      def attachable_join_model_for(class_name)
+        belongs_to :attachment, dependent: :destroy
+        belongs_to class_name
+
+        accepts_nested_attributes_for :attachment, reject_if: :all_blank
+      end
+    end
   end
 end

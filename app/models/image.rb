@@ -10,8 +10,8 @@ class Image < ActiveRecord::Base
 
   default_scope order(:id)
 
-  def url
-    image_data.file_url
+  def url(*args)
+    image_data.file_url(*args)
   end
 
   private

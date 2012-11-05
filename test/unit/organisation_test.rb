@@ -60,6 +60,11 @@ class OrganisationTest < ActiveSupport::TestCase
     assert build(:organisation, url: "http://www.example.com").valid?
   end
 
+  test 'should be invalid without a organisation logo type' do
+    organisation = build(:organisation, organisation_logo_type: nil)
+    refute organisation.valid?
+  end
+
   test "should be orderable ignoring common prefixes" do
     culture = create(:organisation, name: "Department for Culture and Sports")
     education = create(:organisation, name: "Department of Education")
@@ -132,6 +137,18 @@ class OrganisationTest < ActiveSupport::TestCase
     permanent_secretary = create(:board_member_role)
     organisation = create(:organisation, roles:  [permanent_secretary])
     assert_equal [], organisation.ministerial_roles
+  end
+
+  test "#traffic_commissioner_roles includes all traffic commissioner roles" do
+    traffic_commissioner = create(:traffic_commissioner_role)
+    organisation = create(:organisation, roles: [traffic_commissioner])
+    assert_equal [traffic_commissioner], organisation.traffic_commissioner_roles
+  end
+
+  test "#traffic_commissioner_roles excludes all non traffic commissioner roles" do
+    permanent_secretary = create(:board_member_role)
+    organisation = create(:organisation, roles:  [permanent_secretary])
+    assert_equal [], organisation.traffic_commissioner_roles
   end
 
   test "#top_military_role returns the first role marked as the chief_of_the_defence_staff" do
@@ -438,4 +455,10 @@ class OrganisationTest < ActiveSupport::TestCase
     end
   end
 
+  test "can report whether any published publications of a particular type are available" do
+    organisation = create(:organisation)
+    refute organisation.has_published_publications_of_type?(PublicationType::FoiRelease)
+    create(:published_publication, :foi_release, organisations: [organisation])
+    assert organisation.has_published_publications_of_type?(PublicationType::FoiRelease)
+  end
 end

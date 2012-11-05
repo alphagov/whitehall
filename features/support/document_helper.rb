@@ -9,11 +9,17 @@ module DocumentHelper
   end
 
   def begin_drafting_document(options)
+    if Organisation.count == 0
+      create(:organisation)
+    end
     visit admin_editions_path
     click_link "Create #{options[:type].titleize}"
     fill_in "Title", with: options[:title]
     fill_in "Body", with: options[:body] || "Any old iron"
     fill_in_change_note_if_required
+    if has_css?("select[name='edition[organisation_ids][]']")
+      select Organisation.first.name, from: "edition[organisation_ids][]"
+    end
     if options[:alternative_format_provider]
       select options[:alternative_format_provider].name, from: "edition_alternative_format_provider_id"
     end
@@ -45,8 +51,9 @@ module DocumentHelper
   end
 
   def begin_drafting_speech(options)
+    organisation = create(:ministerial_department)
     person = create_person("Colonel Mustard")
-    role = create(:ministerial_role, name: "Attorney General")
+    role = create(:ministerial_role, name: "Attorney General", organisations: [organisation])
     role_appointment = create(:role_appointment, person: person, role: role, started_at: Date.parse('2010-01-01'))
     speech_type = SpeechType::Transcript
     begin_drafting_document options.merge(type: 'speech')
@@ -62,7 +69,7 @@ module DocumentHelper
   end
 
   def jpg_image
-    File.open(Rails.root.join("features/fixtures/portas-review.jpg"))
+    File.open(Rails.root.join("test/fixtures/minister-of-funk.960x640.jpg"))
   end
 
   def fill_in_publication_fields

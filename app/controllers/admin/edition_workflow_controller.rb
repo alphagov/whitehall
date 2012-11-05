@@ -2,6 +2,7 @@ class Admin::EditionWorkflowController < Admin::BaseController
   include PublicDocumentRoutesHelper
 
   before_filter :find_edition
+  before_filter :limit_edition_access!
   before_filter :lock_edition
   before_filter :set_change_note
   before_filter :set_minor_change_flag

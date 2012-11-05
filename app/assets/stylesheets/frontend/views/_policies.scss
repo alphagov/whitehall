@@ -1,10 +1,20 @@
 .policies-index {
   .page-header {
-    padding: 0 0 ($gutter + $gutter-one-third);
+    padding: $gutter-one-third 0 0;
     margin: 0;
     position: relative;
   }
-
+  .block-1{
+    .inner-block header{
+      background: $info-background;
+      margin-bottom:0;
+      padding-bottom:0;
+      h1{
+        padding-left:$gutter-half;
+        padding-bottom: 3px;
+      }
+    }
+  }
   .alphabetical-list .alphabetical-row {
     .inner {
       padding-top: $gutter-one-third;
@@ -34,23 +44,38 @@
 
   .meta-three {
     clear: both;
-    padding: $gutter*2 0 $gutter;
+    position: relative;
+    padding: $gutter 0 $gutter-half;
+    @extend %contain-floats;
+    
+    @include media(tablet){
+      padding: ($gutter*2) 0 ($gutter*1.5);
+    }
   }
 
-    .block-1, .block-2, .block-3 {
-      display: block;
-      float: none;
-      width: 100%;
+  .block-1, .block-2, .block-3 {
+    display: block;
+    float: none;
+    width: 100%;
+  }
+  
+  .block-1 {
+    padding-bottom: 0;
+    @include media(tablet){
+      padding-bottom: $gutter;
     }
+  }
 
   @include media(desktop){
-    .block-2, .block-3 {
+    .block-2 {
       float: left;
       display: inline;
-      width: 25%;
+      width: 33.333%;
     }
     .block-3 {
-      width: 75%;
+      float: left;
+      display: inline;
+      width: 66.666%;
     }
   }
 
@@ -61,7 +86,6 @@
   }
 
   .contextual-info {
-    @include core-14;
     nav {
       margin-top: 0;
     }
@@ -80,32 +104,17 @@
   }
 
   .contextual-info .supporting_pages {
+    margin-top: $gutter-half*-1;
     li {
-      border-width: 0 1px 0 0;
-      border-style: solid;
-      border-color: $light-keyline;
-      padding: 0;
-      a {
-        background-color: $info-background;
-        display: block;
-        min-height: 50px;
-        border-bottom: 1px solid $white;
-        padding: $gutter-two-thirds;
-        overflow: hidden;
-        text-decoration: none;
-        z-index: 1;
-        &:hover,
-        &:focus {
-          background-color: $info-background-hover;
-          @include transition(background, 0.5s, ease)
+      @include media(desktop){
+        margin-bottom: $gutter-one-third;
+        a {
+          max-width: 16.5em;
         }
       }
-    }
-    li.active {
-      a {
-        background-color: $white;
+      &.active a {
+        color: $body-text;
       }
-      border-width: 1px 0 1px 1px;
     }
   }
 
@@ -118,72 +127,47 @@
   }
 
   .policy-navigation {
-
     border-bottom: 1px solid $light-keyline;
-    display: block;
-    //margin: $gutter 0 $gutter-two-thirds;
+    float: left;
     width: 100%;
-    ul {
-      margin: 0;
-      overflow: hidden;
-      position: relative;
-      @include box-sizing(border);
-      width: 100%;
-      li {
-        float: left;
-        display: inline;
-        margin-right: 1px;
-        width: 33%;
+    margin: 0 ($gutter * -1 + 2px);
+    padding: 0 ($gutter - 2px);
 
-        a {
-          @include core-19;
-          background-color: $info-background;
-          color: $link-text;
-          display: block;
-          padding: $gutter-one-third 0;
-          text-align: center;
-          text-decoration: none;
-          width: auto;
-          &.current {
-            border: 1px solid $light-keyline;
-            border-bottom: none;
-            background-color: $white;
-            color: $body-text;
-          }
-          &:hover, &:focus {
-            background-color: $info-background-hover;
-          }
+    li {
+      list-style: none;
+      float: left;
+      width: 33.333%;
+      padding: 0;
+      
+      a {
+        display: block;
+        @include core-24;
+        padding: $gutter-half 0 $gutter-half ($gutter-half + 2px);
+        margin: 0 2px;
+        background: $light-warm-grey;
+        color: $body-text;
+        
+        @include media(tablet){
+          margin-bottom: 4px;
         }
-      }
-      li:last-child {
-        margin-right: 0;
+        
+        &:hover,
+        &:focus {
+          background: $light-blue-grey;
+        }
+        &.current {
+          position: relative;
+          margin-bottom: -1px;
+          @include core-24;
+          padding: $gutter-half 0 ($gutter-half + 4px) ($gutter-half + 1px);
+          border: 1px solid $light-keyline;
+          border-bottom: none;
+          background: $white;
+          text-decoration: none;          
+        }
+        
       }
     }
-
-    @include media(tablet){
-      margin: $gutter 0 $gutter-two-thirds;
-      width: auto;
-      ul {
-        margin: 0 auto -1px 20%;
-        width: auto;
-        li {
-          width: 8em;
-        }
-      }
-    }
-
-    @include media(desktop){
-    display: block;
-    width: auto;
-      ul {
-        margin: 0 auto -1px 25%;
-        width: auto;
-        li {
-          width: 11em;
-        }
-      }
-    }
-
   }
 
 
@@ -222,7 +206,8 @@
 
 .policies-activities {
   .policy {
-    .block-1, .block-2 {
+    .block-1, .block-2 {  
+      position: relative;
       display: block;
       float: none;
       width: 100%;
@@ -231,10 +216,8 @@
 
   // see helpers/_feed.scss for the other styles
   .subscribe {
-    float: right;
-  }
-
-  .document-list .document-row td {
-    width: 22%;
+    position: absolute;
+    right: $gutter;
+    bottom: $gutter*-1;
   }
 }

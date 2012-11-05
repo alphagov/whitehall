@@ -19,6 +19,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
   should_allow_organisations_for :publication
   should_allow_ministerial_roles_for :publication
   should_allow_attachments_for :publication
+  should_allow_references_to_statistical_data_sets_for :publication
   should_require_alternative_format_provider_for :publication
   show_should_display_attachments_for :publication
   should_allow_attachment_references_for :publication
@@ -43,6 +44,14 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     assert_select "form#edition_new" do
       assert_select "select[name*='edition[publication_date']", count: 3
       assert_select "select[name='edition[publication_type_id]']"
+    end
+  end
+
+  test "new doesn't allow consultation to be chosen as the type" do
+    get :new
+
+    assert_select "select[name='edition[publication_type_id]']" do
+      assert_select "option", text: PublicationType::Consultation.singular_name, count: 0
     end
   end
 
@@ -72,9 +81,10 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
       edition_attachments_attributes: {
         "0" => { attachment_attributes: attributes_for(:attachment,
           title: "attachment-title",
-          file: fixture_file_upload('greenpaper.pdf', 'application/pdf'),
           order_url: 'http://example.com/publication',
-          price: "1.23")
+          price: "1.23").merge(attachment_data_attributes: {
+            file: fixture_file_upload('greenpaper.pdf', 'application/pdf')
+          })
         }
       }
     })
@@ -82,6 +92,38 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     created_publication = Publication.last
     assert_equal 'http://example.com/publication', created_publication.attachments.first.order_url
     assert_equal 1.23, created_publication.attachments.first.price
+  end
+
+  test "create should record the access_limited flag for a National Statistic publications" do
+    post :create, edition: controller_attributes_for(:publication,
+      publication_date: Date.parse("1805-10-21"),
+      publication_type_id: PublicationType::NationalStatistics.id,
+      access_limited: true
+    )
+
+    assert created_publication = Publication.last
+    assert created_publication.access_limited?
+  end
+
+  test "edit displays persisted access_limited flag for National Statistic publications" do
+    publication = create(:publication, publication_type_id: PublicationType::NationalStatistics.id, access_limited: false)
+
+    get :edit, id: publication
+
+    assert_select "form#edition_edit" do
+      assert_select "input[name='edition[access_limited]'][type=checkbox]"
+      assert_select "input[name='edition[access_limited]'][type=checkbox][checked=checked]", count: 0
+    end
+  end
+
+  test "edit will always check access_limited flag ignoring the persisted value for non-statistic publications" do
+    publication = create(:publication, publication_type_id: PublicationType::PolicyPaper.id, access_limited: false)
+
+    get :edit, id: publication
+
+    assert_select "form#edition_edit" do
+      assert_select "input[name='edition[access_limited]'][type=checkbox][checked=checked]"
+    end
   end
 
   test "edit displays publication fields" do
@@ -110,7 +152,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
   test "update should save modified publication attributes" do
     publication = create(:publication)
 
-    put :update, id: publication, edition: publication.attributes.merge(
+    put :update, id: publication, edition: controller_attributes_for_instance(publication,
       publication_date: Date.parse("1815-06-18")
     )
 

@@ -25,6 +25,8 @@ class Response < ActiveRecord::Base
   private
 
   def no_substantive_attachment_attributes?(attrs)
-    attrs.fetch(:attachment_attributes, {}).except(:accessible).values.all?(&:blank?)
+    att_attrs = attrs.fetch(:attachment_attributes, {})
+    att_attrs.except(:accessible, :attachment_data_attributes).values.all?(&:blank?) &&
+      att_attrs.fetch(:attachment_data_attributes, {}).values.all?(&:blank?)
   end
 end

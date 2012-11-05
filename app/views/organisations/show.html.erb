@@ -1,6 +1,6 @@
 <% page_title @organisation.name %>
 <% page_class "organisations-show" %>
-<%= organisation_wrapper(@organisation, class: "hcard group") do %>
+<%= organisation_wrapper(@organisation) do %>
 
   <div class="block-1">
     <div class="inner-block">
@@ -47,21 +47,21 @@
           <%= organisation_display_name_and_parental_relationship(@organisation) %><% if @organisation.department? %>,
           supported by <%= link_to "#{@organisation.child_organisations.count} agencies and public bodies", organisations_path(anchor: @organisation.slug) %>.  <% end %>
         </p>
-        <p><%= organisation_navigation_link_to "Read more about what we do", about_organisation_path(@organisation) %></p>
+        <p><%= link_to "Read more about what we do", about_organisation_path(@organisation) %></p>
       </section>
     </div>
   </div>
 
-  <div class="block-6">
-    <div class="inner-block">
-      <% if @topics.any? %>
+  <% if @topics.any? %>
+    <div class="block-6">
+      <div class="inner-block">
         <section id="topics">
           <h1 class="label">We focus on these topics</h1>
           <%= render partial: "topics/list_description", locals: {topics: @topics, organisation: @organisation} %>
         </section>
-      <% end %>
+      </div>
     </div>
-  </div>
+  <% end %>
 
   <div class="block-7">
     <div class="inner-block">
@@ -108,7 +108,7 @@
         <% if @ministers.any? %>
           <section id="ministers">
             <h1 class="label">Our ministers</h1>
-            <ul>
+            <ul class="js-hide-extra-rows">
               <% @ministers.each do |minister| %>
                 <%= content_tag_for(:li, minister) do %>
                   <div class="inner">
@@ -144,7 +144,7 @@
                 <% end %>
             </ul>
 
-            <ul class="management-secondary">
+            <ul class="management-secondary js-hide-extra-rows-2">
               <% @civil_servants.to_a.from(1).each do |civil_servant| %>
                 <%= content_tag_for(:li, civil_servant) do %>
                   <div class="inner">
@@ -155,16 +155,14 @@
                 <% end %>
               <% end %>
             </ul>
-
           </section>
         <% end %>
-
 
         <% if @organisation.military_roles.any? %>
           <section id="military">
             <h1 class="label">Military</h1>
             <% if @top_military_role %>
-              <ul>
+              <ul class="js-hide-extra-rows">
                 <%= content_tag_for(:li, @top_military_role) do %>
                   <div class="inner">
                     <div class="image_holder">
@@ -179,39 +177,53 @@
             <p class="view_all"><%= link_to "View all chiefs of staff", chiefs_of_staff_organisation_path(@organisation) %></p>
           </section>
         <% end %>
+
+        <% if @traffic_commissioner_roles.any? %>
+          <section id="traffic_commissioners">
+            <h1 class="label">Traffic commissioners</h1>
+            <ul class="js-hide-extra-rows">
+              <% @traffic_commissioner_roles.each do |traffic_commissioner_role| %>
+                <%= content_tag_for(:li, traffic_commissioner_role) do %>
+                  <div class="inner">
+                    <h1 class="visuallyhidden">Traffic commissioner</h1>
+                    <div class="image_holder">
+                      <%= traffic_commissioner_role.current_person_image %>
+                    </div>
+                    <h3 class="current-appointee"><%= traffic_commissioner_role.current_person_link %></h3>
+                    <p class="role"><%= traffic_commissioner_role.link %></p>
+                  </div>
+                <% end %>
+              <% end %>
+            </ul>
+          </section>
+        <% end %>
       </section>
     </div>
   </div>
 
-  <div class="block-10">
+  <div class="block-10 vcard">
     <div class="inner-block">
       <h1 class="label">Contact <%= @organisation.display_name %></h1>
       <div id="org-contacts">
         <% addresses = @organisation.contacts.select { |c| c.address.present? } %>
         <% others = @organisation.contacts - addresses %>
-        <div class="addresses">
+        <div class="addresses js-hide-extra-rows">
           <% addresses.each do |contact| %>
             <div class="organisation_contact complex">
               <div class="contact-inner">
                 <h2><%= contact.description %></h2>
                 <% if contact.address.present? %>
                   <div class="adr">
-                    <p class="fn org name"><%= @organisation.name %></p>
-                    <% if @organisation.acronym.present? %>
-                      <p class="nickname"><%= @organisation.acronym %></p>
-                    <% end %>
+                    <p class="fn org name visuallyhidden"><%= @organisation.name %></p>
                     <p class="street-address"><%= format_with_html_line_breaks(contact.address) %></p>
                     <p class="postal-code"><%= contact.postcode %></p>
                   </div>
                 <% end %>
                 <% if contact.email.present? %>
-                  <p class="email"><span class="type">Email</span> <%= mail_to contact.email, contact.email, :class => "email" %></p>
+                  <p class="email"><span class="type">Email</span> <%= mail_to contact.email, contact.email, class: 'email' %></p>
                 <% end %>
                 <% contact.contact_numbers.each do |number| %>
                   <p class="tel"><span class="type"><%= number.label %></span> <%= number.number %></p>
-                <% end %>
-                <% if contact.mappable? %>
-                  <p><%= link_to_google_map(contact) %></p>
                 <% end %>
               </div>
             </div>
@@ -226,9 +238,6 @@
                 <% end %>
                 <% contact.contact_numbers.each do |number| %>
                   <p class="tel"><%= number.number %><span class="type"> <%= number.label %> </span></p>
-                <% end %>
-                <% if contact.mappable? %>
-                  <p><%= link_to_google_map(contact) %></p>
                 <% end %>
               </div>
             </div>
@@ -245,7 +254,15 @@
 
   <div class="block-11">
     <div class="inner-block">
-      <%= render 'navigation', organisation: @organisation %>
+      <h1 class="label">Other key links</h1>
+      <nav class="group sub_navigation" role="navigation">
+        <ul>
+          <% @organisation.corporate_information_pages.each do |corporate_information_page| %>
+            <li><%= link_to corporate_information_page.title, organisation_corporate_information_page_path(@organisation, corporate_information_page) %></li>
+          <% end %>
+          <li><a href="https://jobsstatic.civilservice.gov.uk/csjobs.html" rel="external">Jobs</a></li>
+        </ul>
+      </nav>
     </div>
   </div>
 

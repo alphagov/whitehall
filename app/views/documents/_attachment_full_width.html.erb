@@ -20,7 +20,7 @@
           <% document.attachments[1..-1].each do |attachment| %>
             <%= render partial: "documents/attachment",
                       object: attachment,
-                      locals: { hide_thumbnail: true,
+                      locals: { hide_thumbnail: false,
                                 alternative_format_contact_email: document.alternative_format_contact_email } %>
           <% end %>
         </div>

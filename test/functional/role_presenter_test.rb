@@ -2,7 +2,7 @@ require 'test_helper'
 
 class RolePresenterTest < PresenterTestCase
   setup do
-    @role = stub_record(:role)
+    @role = stub_record(:role_without_organisations)
     @presenter = RolePresenter.decorate(@role)
   end
 
@@ -44,7 +44,8 @@ class RolePresenterTest < PresenterTestCase
   end
 
   test "#announcements returns 10 published speeches and news articles sorted by descending date" do
-    @role = stub_record(:ministerial_role)
+    organisation = stub_record(:organisation, organisation_type: stub_record(:ministerial_organisation_type))
+    @role = stub_record(:ministerial_role, organisations: [organisation])
     @presenter = RolePresenter.decorate(@role)
 
     two_published_speeches = [
@@ -52,10 +53,10 @@ class RolePresenterTest < PresenterTestCase
       stub("speech2", delivered_on: 30.days.ago)
     ]
 
-    ten_published_news_articles = 10.times.map do |i| 
+    ten_published_news_articles = 10.times.map do |i|
       stub("news_article_#{i}", published_at: i.days.ago - 3.days )
     end
-    
+
     @role.stubs(:published_speeches).returns(
       stub("all speeches", limit: two_published_speeches))
     @role.stubs(:published_news_articles).returns(

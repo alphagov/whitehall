@@ -17,7 +17,7 @@ module ApplicationHelper
   def atom_discovery_link_tag(url=nil, title=nil)
     @atom_discovery_link_url = url if url.present?
     @atom_discovery_link_title = title if title.present?
-    auto_discovery_link_tag(:atom, @atom_discovery_link_url || atom_feed_url, title: @atom_discovery_link_title || "Recent updates")
+    auto_discovery_link_tag(:atom, @atom_discovery_link_url || atom_feed_url(format: :atom), title: @atom_discovery_link_title || "Recent updates")
   end
 
   def publication_atom_feed_url
@@ -70,6 +70,12 @@ module ApplicationHelper
     end
   end
 
+  def statistical_data_set_options
+    StatisticalDataSet.latest_edition.map do |data_set|
+      [data_set.document_id, data_set.title]
+    end
+  end
+
   def ministerial_role_options
     MinisterialRole.alphabetical_by_person.map do |role|
       [role.id, "#{role.name}, in #{role.organisations.collect(&:name).to_sentence} (#{role.current_person_name})"]
@@ -87,7 +93,7 @@ module ApplicationHelper
   def publication_type_options
     [
       ["", [""]],
-      ["Common types", PublicationType.primary.map { |publication_type|
+      ["Common types", (PublicationType.primary - [PublicationType::Consultation]).map { |publication_type|
         [publication_type.singular_name, publication_type.id]
       }],
       ["Less common types", PublicationType.less_common.map { |publication_type|
@@ -180,10 +186,21 @@ module ApplicationHelper
     link_to(name, path, html_options.merge(class: classes.join(" ")), &block)
   end
 
+  def main_navigation_documents_class
+    document_paths = [publications_path, consultations_path, announcements_path]
+    if document_paths.include? current_main_navigation_path(params)
+      "current"
+    else
+      ""
+    end
+  end
+
   def current_main_navigation_path(parameters)
     case parameters[:controller]
+    when "home"
+      how_government_works_path
     when "site"
-      home_path
+        root_path
     when "announcements", "news_articles", "speeches"
       announcements_path
     when "topics"
@@ -194,7 +211,7 @@ module ApplicationHelper
       consultations_path
     when "ministerial_roles"
       ministerial_roles_path
-    when "organisations"
+    when "organisations", "corporate_information_pages"
       organisations_path
     when "countries", "international_priorities"
       countries_path
@@ -268,5 +285,15 @@ module ApplicationHelper
 
   def mainstream_category_path(category)
     url_for(controller: '/mainstream_categories', action: :show, id: category, parent_tag: category.parent_tag, only_path: true)
+  end
+
+  def collection_list_class(items, minimum_columns=1)
+    if items.length > 8 || minimum_columns == 3
+      "three-columns"
+    elsif items.length > 3 || minimum_columns == 2
+      "two-columns"
+    else
+      "one-column"
+    end
   end
 end

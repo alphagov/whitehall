@@ -9,7 +9,8 @@ class RoleTypePresenterTest < ActiveSupport::TestCase
       ]],
       ["Managerial", [
         ["Permanent secretary", "permanent_secretary"],
-        ["Board member", "board_member"]
+        ["Board member", "board_member"],
+        ["Traffic commissioner", "traffic_commissioner"]
       ]],
       ["Military", [
         ["Chief of the defence staff", "chief_of_the_defence_staff"],

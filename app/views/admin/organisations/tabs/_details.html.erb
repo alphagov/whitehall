@@ -23,5 +23,6 @@
     <% @organisation.social_media_accounts.each do |sma| %>
       <tr><th><%= sma.social_media_service.name %></th><td><%= link_to sma.url, sma.url %></td></tr>
     <% end %>
+    <tr><th>Crest</th><td><%= @organisation.organisation_logo_type.title %></td></tr>
   </table>
 </div>

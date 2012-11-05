@@ -8,15 +8,6 @@ jQuery(function($) {
   $('.alphabetical-row').equalHeightHelper({selectorsToResize: ['li']});
   $('.js-toggle-change-notes').toggler();
   $('.js-hide-other-links').hideOtherLinks();
-  $('.js-nav-helper').each(function () {
-    $(this).find('.inner ul').append($.li('', '.st'));
-  }).navHelper({
-    breakpoints: [
-      { width: 540, label: 'All sections', exclude: '.home, .current' },
-      { width: 850, label: 'More sections', exclude: '.home, .current, .primary' }
-    ],
-    appendTo: '.js-nav-helper .inner li.st'
-  });
 
   var inside_gov = $(".inside_gov_home");
   if(inside_gov.length != 0){
@@ -47,20 +38,16 @@ jQuery(function($) {
 
   $(".js-document-filter").enableDocumentFilter();
 
-  $('.js-hide-extra-logos .organisations-icon-list .organisation').hideExtraRows({
+  $('.js-hide-extra-logos .organisations-icon-list').hideExtraRows({
     appendToParent: true,
     showWrapper: $('<li class="show-other-content" />')
   });
-
-  // FIXME: use the `js-` prefix instead
-  $('.organisations-show #ministers .ministerial_role').hideExtraRows();
-
-  $('.organisations-show .management-secondary .board_member_role').hideExtraRows();
-
-  $('.organisations-show #military .military_role').hideExtraRows();
-
-  $('.organisations-show .addresses .organisation_contact').hideExtraRows();
+  $('.js-hide-extra-rows').hideExtraRows();
+  $('.js-hide-extra-rows-2').hideExtraRows({ rows: 2 });
+  $('.js-hide-extra-rows-3').hideExtraRows({ rows: 3 });
 
   GOVUK.hideDepartmentChildren.init();
+
+  $('.js-toggle-nav').toggler({header: ".toggler", content: ".content", showArrow: false, actLikeLightbox: true})
 
 });

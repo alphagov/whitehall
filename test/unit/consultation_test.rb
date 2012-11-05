@@ -24,6 +24,12 @@ class ConsultationTest < EditionTestCase
     refute consultation.valid?
   end
 
+  test "should be invalid if publication type not set to consultation" do
+    consultation = build(:consultation)
+    consultation.publication_type_id = PublicationType::PolicyPaper
+    refute consultation.valid?
+  end
+
   test "should build a draft copy of the existing consultation with inapplicable nations" do
     published_consultation = create(:published_consultation, nation_inapplicabilities_attributes: [
       {nation: Nation.wales, alternative_url: "http://wales.gov.uk"},
@@ -210,7 +216,8 @@ class ConsultationTest < EditionTestCase
   test "should copy the response summary and link to the original attachments when creating a new draft" do
     consultation = create(:published_consultation)
     response = consultation.create_response! summary: 'response-summary'
-    attachment = response.attachments.create! title: 'attachment-title', file: fixture_file_upload('greenpaper.pdf')
+    attachment = response.attachments.create! title: 'attachment-title'
+    attachment_data = attachment.create_attachment_data! file: fixture_file_upload('greenpaper.pdf')
 
     new_draft = consultation.create_draft(build(:user))
     new_draft.reload
@@ -219,7 +226,8 @@ class ConsultationTest < EditionTestCase
     assert_not_equal response, new_draft.response
     assert_equal 1, new_draft.response.attachments.length
     assert_equal 'attachment-title', new_draft.response.attachments.first.title
-    assert_equal attachment, new_draft.response.attachments.first
+    assert_not_equal attachment, new_draft.response.attachments.first
+    assert_equal attachment_data, new_draft.response.attachments.first.attachment_data
   end
 
   test "should report that the response has not been published if the consultation is still open" do

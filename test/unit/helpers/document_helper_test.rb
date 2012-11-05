@@ -8,7 +8,8 @@ class DocumentHelperTest < ActionView::TestCase
   end
 
   test '#edition_organisation_class returns "no_organisation" if doc has no organisation' do
-    edition = create(:edition)
+    edition = build(:edition)
+    edition.organisations = []
     assert_equal 'unknown_organisation', edition_organisation_class(edition)
   end
 
@@ -90,5 +91,9 @@ class DocumentHelperTest < ActionView::TestCase
   test "should return MS Powerpoint Presentation for humanized content type" do
     assert_equal "MS Powerpoint Presentation", humanized_content_type("ppt")
     assert_equal "MS Powerpoint Presentation", humanized_content_type("pptx")
+  end
+
+  test "should return Zip archive for humanized content type" do
+    assert_equal '<abbr title="Zip archive">ZIP</abbr>', humanized_content_type("zip")
   end
 end

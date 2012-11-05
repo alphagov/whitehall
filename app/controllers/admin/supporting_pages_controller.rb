@@ -2,6 +2,7 @@ class Admin::SupportingPagesController < Admin::BaseController
   include PublicDocumentRoutesHelper
 
   before_filter :find_edition
+  before_filter :limit_edition_access!
   before_filter :find_supporting_page, only: [:show, :edit, :update, :destroy]
 
   def new
@@ -64,9 +65,6 @@ class Admin::SupportingPagesController < Admin::BaseController
   end
 
   def build_attachment
-    unless @supporting_page.supporting_page_attachments.any?(&:new_record?)
-      supporting_page_attachment = @supporting_page.supporting_page_attachments.build
-      supporting_page_attachment.build_attachment
-    end
+    @supporting_page.build_empty_attachment
   end
 end

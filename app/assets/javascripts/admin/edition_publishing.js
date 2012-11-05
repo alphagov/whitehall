@@ -47,6 +47,26 @@ jQuery(function($) {
   hideScheduledPublication();
 })(jQuery);
 
+(function($) {
+  var publicationTypeChooser = $('.js-toggle-access-limited-checkbox');
+  var hideAccessLimited = function() {
+    var chosenId = parseInt(publicationTypeChooser.val(), 10);
+    var accessLimitedIds = publicationTypeChooser.data('access-limitable-type-ids');
+    if (accessLimitedIds.indexOf(chosenId) >= 0) {
+      $('#access-limited-checkbox').find('input[type=checkox]').attr('checked', 'checked');
+      $('#access-limited-checkbox').fadeIn();
+    } else {
+      $('#access-limited-checkbox').fadeOut();
+    }
+  }
+
+  if (publicationTypeChooser.size() > 0) {
+    publicationTypeChooser.change(hideAccessLimited)
+    hideAccessLimited();
+  }
+})(jQuery);
+
+
 (function($){
   var $input = $('#edition_summary'),
       $message = $('.summary-length-info').hide(),

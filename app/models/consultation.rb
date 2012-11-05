@@ -8,6 +8,7 @@ class Consultation < Publicationesque
   validates :opening_on, presence: true
   validates :closing_on, presence: true
   validate :closing_on_must_be_after_opening_on
+  validate :must_have_consultation_as_publication_type
 
   has_one :consultation_participation, foreign_key: :edition_id, dependent: :destroy
 
@@ -27,10 +28,15 @@ class Consultation < Publicationesque
         response_attributes = @edition.response.attributes.except('edition_id')
         new_response = edition.create_response(response_attributes)
         @edition.response.attachments.each do |attachment|
-          new_response.consultation_response_attachments.create(attachment: attachment)
+          new_response.consultation_response_attachments.create(attachment: Attachment.create(attachment.attributes))
         end
       end
     end
+  end
+
+  def initialize(*args)
+    super
+    self.publication_type_id = PublicationType::Consultation.id
   end
 
   def not_yet_open?
@@ -78,6 +84,12 @@ class Consultation < Publicationesque
   def closing_on_must_be_after_opening_on
     if closing_on && opening_on && closing_on.to_date <= opening_on.to_date
       errors.add :closing_on,  "must be after the opening on date"
+    end
+  end
+
+  def must_have_consultation_as_publication_type
+    unless publication_type_id == PublicationType::Consultation.id
+      errors.add :publication_type_id, "must be set to consultation"
     end
   end
 

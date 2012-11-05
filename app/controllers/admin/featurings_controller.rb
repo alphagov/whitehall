@@ -1,5 +1,6 @@
 class Admin::FeaturingsController < Admin::BaseController
   before_filter :load_edition
+  before_filter :limit_edition_access!
   before_filter :ensure_edition_is_featurable
 
   def create

@@ -1,0 +1,138 @@
+#global-nav {
+  margin: 4px $gutter-half 0;
+  border-bottom: 4px solid $inside-gov-nav;
+  @extend %contain-floats;
+
+  @include media(tablet){
+    margin: 4px $gutter 0;
+  }
+  
+  @include media(desktop){
+    text-align: right;
+  }
+
+  a,
+  .toggler {
+    @include core-16;
+    display: block;
+    padding: $gutter-one-third+1 8px 9px;
+    text-decoration: none;
+    color: $inside-gov-nav;
+
+    @include media(desktop){
+      display: inline-block;
+    }
+
+    &:hover,
+    &:focus {
+      text-decoration: underline;
+    }
+  }
+
+  .home a {
+    display: block;
+    float: left;
+    padding-left: 0;
+  }
+  .jump-link {
+    float: right;
+
+    @include media(desktop){
+      position: absolute;
+      left: -99999em;
+    }
+  }
+  .toggler {
+    cursor: pointer;
+
+    &:focus {
+      outline: none;
+    }
+    &:after {
+      display: inline-block;
+      font-size: 8px;
+      height: 8px;
+      padding-left: 5px;
+      vertical-align: middle;
+      content: " \25BC";
+    }
+  }
+  &.open {
+    .toggler {
+      &:after {
+        content: " \25B2";
+      }
+    }
+  }
+  nav {
+    clear: both;
+    background: $inside-gov-nav-dropdown;
+
+    @include media(desktop){
+      clear: none;
+      background: transparent;
+      position: static;
+    }
+
+    .current {
+      color: $white;
+      background: $inside-gov-nav;
+    }
+    a {
+      color: $white;
+
+      @include media(desktop){
+        color: $inside-gov-nav;
+      }
+    }
+    li {
+      display: block;
+      position: relative;
+
+      @include media(desktop){
+        display: inline;
+      }
+
+      .subtype {
+        @include media(desktop){
+          width: 14em;
+          text-align: left;
+          background: $inside-gov-nav-dropdown;
+          position: absolute;
+          right: 0;
+          z-index: 1;
+          @include ie(7){
+            top: 40px;
+          }
+
+          li {
+            width: 100%;
+            display: block;
+            a {
+              display: block;
+              color: $white;
+            }
+          }
+        }
+      }
+      .toggler {
+        position: absolute;
+        left: -9999em;
+
+        @include media(desktop){
+          position: static;
+        }
+      }
+    }
+  }
+  &.open {
+    .toggler {
+      background: $inside-gov-nav-dropdown;
+      color: $white;
+    }
+    .toggler.current {
+      background: $inside-gov-nav-dropdown;
+    }
+  }
+}
+

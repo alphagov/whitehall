@@ -8,7 +8,12 @@ module Whitehall
     end
 
     def migrations
-      Dir["#{@path}/*_*.rb"].map do |f|
+      files = if ENV["VERSION"]
+        Dir["#{@path}/#{ENV["VERSION"]}_*.rb"]
+      else
+        Dir["#{@path}/*_*.rb"]
+      end
+      files.map do |f|
         DataMigration.new(f, logger: @logger)
       end
     end
@@ -20,7 +25,7 @@ module Whitehall
     def run
       if due.any?
         @logger.info "Running #{due.size} data migrations..."
-        due.each do |migration|
+        due.sort_by(&:version).each do |migration|
           migration.run
         end
       else

@@ -26,9 +26,9 @@ Whitehall::Application.routes.draw do
 
   scope Whitehall.router_prefix, shallow_path: Whitehall.router_prefix do
     root to: "home#home"
-    match '/home' => "home#show", as: :home
-    match 'feed.atom' => 'home#show', format: false, defaults: { format: 'atom' }, as: :atom_feed
-    match '/tour' => 'home#tour'
+    match '/home' => redirect("")
+    match '/feed' => 'home#feed', constraints: { format: :atom }, as: :atom_feed
+    match '/tour' => redirect("/tour", prefix: "")
 
     resources :announcements, only: [:index], path: 'announcements'
     resources :policies, only: [:index, :show] do
@@ -42,6 +42,7 @@ Whitehall::Application.routes.draw do
     resources :publications, only: [:index, :show]
     resources :case_studies, path: 'case-studies', only: [:show, :index]
     resources :speeches, only: [:show]
+    resources :statistical_data_sets, path: 'statistical-data-sets', only: [:index, :show]
     match "/speeches" => redirect("/announcements")
 
     resources :international_priorities, path: "international-priorities", only: [:index, :show]
@@ -76,6 +77,7 @@ Whitehall::Application.routes.draw do
 
     match "/search" => "search#index"
     match "/autocomplete" => "search#autocomplete"
+    match "/how-government-works" => "home#how-government-works", as: 'how_government_works'
 
     constraints(AdminRequest) do
       namespace :admin do
@@ -116,6 +118,7 @@ Whitehall::Application.routes.draw do
         resources :news_articles, path: 'news', except: [:index]
         resources :consultations, except: [:index]
         resources :speeches, except: [:index]
+        resources :statistical_data_sets, path: 'statistical-data-sets', except: [:index]
         resources :detailed_guides, path: "detailed-guides", except: [:index]
         resources :people, except: [:show]
         resources :roles, except: [:show] do
@@ -151,6 +154,6 @@ Whitehall::Application.routes.draw do
 
   mount TestTrack::Engine => "test" if Rails.env.test?
 
-  match '/government/uploads/*path.:extension' => "placeholder#virus_checking_placeholder_image", constraints: { extension: /(jpe?g|gif|png)/i }
+  match '/government/uploads/*path.:extension' => "placeholder#placeholder_image", constraints: { extension: /(jpe?g|gif|png)/i }
   match '/government/uploads/*path' => redirect("/placeholder"), as: :attachment_placeholder
 end

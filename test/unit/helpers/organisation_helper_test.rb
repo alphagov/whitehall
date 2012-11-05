@@ -16,36 +16,6 @@ class OrganisationHelperTest < ActionView::TestCase
     assert_equal "Building Law and Hygiene", organisation_display_name(organisation)
   end
 
-  test 'organisation home page should be related to home page in organisation navigation' do
-    organisation = create(:organisation, name: 'Cabinet Office')
-    assert_equal organisation_path(organisation), current_organisation_navigation_path(controller: 'organisations', action: 'show', id: organisation.slug)
-  end
-
-  test 'organisation about page should be related to about page in organisation navigation' do
-    organisation = create(:organisation, name: 'Cabinet Office')
-    assert_equal about_organisation_path(organisation), current_organisation_navigation_path(controller: 'organisations', action: 'about', id: organisation.slug)
-  end
-
-  test 'should add current class to link if current page is related to link' do
-    stubs(:current_organisation_navigation_path).returns('/some/path')
-    html = organisation_navigation_link_to('Link body', '/some/path')
-    anchor = Nokogiri::HTML.fragment(html)/'a'
-    assert_equal 'Link body', anchor.inner_text
-    assert_equal '/some/path', anchor.attr('href').value
-    classes = (anchor.attr('class').try(:value) || '').split
-    assert classes.include?('current')
-  end
-
-  test 'should not add current class to link if current page is not related to link' do
-    stubs(:current_organisation_navigation_path).returns('/some/other/path')
-    html = organisation_navigation_link_to('Link body', '/some/path')
-    anchor = Nokogiri::HTML.fragment(html)/'a'
-    assert_equal 'Link body', anchor.inner_text
-    assert_equal '/some/path', anchor.attr('href').value
-    classes = (anchor.attr('class').try(:value) || '').split
-    refute classes.include?('current')
-  end
-
   test 'organisation header helper should place org specific class onto the div' do
     organisation = build(:organisation, slug: "organisation-slug-yeah", name: "Building Law and Hygiene")
     html = organisation_wrapper(organisation) {  }
@@ -53,19 +23,14 @@ class OrganisationHelperTest < ActionView::TestCase
     assert_match /organisation-slug-yeah/, div.attr('class').value
   end
 
-  test 'should convert organisation type into a suitable css class name' do
-    organisation_type = build(:organisation_type, name: "Ministerial department")
-    assert_equal 'ministerial-department', organisation_type_class(organisation_type)
-  end
-
-  test 'given an organisation should return suitable org-identifying class names' do
+  test 'given an organisation should return suitable org-identifying logo class names' do
     organisation_type = build(:organisation_type, name: "Ministerial department")
 
     organisation =  build(:organisation, slug: "organisation-slug-hmm", organisation_type: organisation_type)
-    assert_equal 'organisation-slug-hmm ministerial-department single-identity', organisation_logo_classes(organisation, use_single_identity_branding: true)
+    assert_equal 'organisation-logo organisation-logo-single-identity', organisation_logo_classes(organisation)
 
-    organisation =  build(:organisation, slug: "organisation-slug-yeah", organisation_type: organisation_type, use_single_identity_branding: false)
-    assert_equal 'organisation-slug-yeah ministerial-department', organisation_logo_classes(organisation)
+    organisation =  build(:organisation, slug: "organisation-slug-yeah", organisation_type: organisation_type, organisation_logo_type: OrganisationLogoType::NoIdentity)
+    assert_equal 'organisation-logo organisation-logo-no-identity', organisation_logo_classes(organisation)
   end
 end
 
@@ -137,7 +102,7 @@ class OrganisationHelperDisplayNameWithParentalRelationshipTest < ActionView::Te
     assert_relationship_type_is_described_as('Tribunal non-departmental public bodies', 'a tribunal non-departmental public body')
     assert_relationship_type_is_described_as('Public corporations', 'a public corporation')
     assert_relationship_type_is_described_as('Independent monitoring bodies', 'an independent monitoring body')
-    assert_relationship_type_is_described_as('Others', 'a public body')
+    assert_relationship_type_is_described_as('Others', 'a body')
   end
 
   test 'definite article skipped for certain parent organisations' do
@@ -147,5 +112,20 @@ class OrganisationHelperDisplayNameWithParentalRelationshipTest < ActionView::Te
 
   test 'definite article skipped if name starts with "The"' do
     assert_definite_article_skipped 'The National Archives'
+  end
+end
+
+class OrganisationSiteThumbnailPathTest < ActionView::TestCase
+  include OrganisationHelper
+
+  test 'organisation_site_thumbnail_path contains the organisation slug' do
+    organisation = stub('organisation', slug: 'slug')
+    assert_match %r{organisation_screenshots/slug.png}, organisation_site_thumbnail_path(organisation)
+  end
+
+  test 'organisation_site_thumbnail_path uses the placeholder image if the file does not exist' do
+    organisation = stub('organisation', slug: 'slug')
+    stubs(:image_path).raises(Sprockets::Helpers::RailsHelper::AssetPaths::AssetNotPrecompiledError).then.returns("return_path")
+    assert_equal "return_path", organisation_site_thumbnail_path(organisation)
   end
 end

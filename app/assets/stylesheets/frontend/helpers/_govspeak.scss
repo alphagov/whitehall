@@ -41,6 +41,10 @@
     }
   }
 
+  a {
+    text-decoration: underline;
+  }
+
   ol {
     list-style: decimal;
     list-style-position: outside;
@@ -76,7 +80,6 @@
   }
 
   abbr {
-    border-bottom: .1em dotted;
     cursor: help;
   }
 
@@ -84,6 +87,7 @@
     padding: 0;
     margin: 0 0 0 (-$gutter);
     border: 0;
+    color: lighten($body-text, 33.333%);
 
     &:before {
       content: "\201C";
@@ -92,7 +96,6 @@
       padding-top: 0;
     }
     p {
-      @include core-24;
       padding-left: $gutter-half;
       @include media(tablet) {
         padding-left: $gutter;
@@ -127,103 +130,38 @@
       @include core-14;
     }
   }
-  // inline attachment pullouts
-  .attachment {
-    background: $info-background;
-    position: relative;
-    margin: 0;
-    padding: $gutter-half 0;
-    width: 100%;
-    overflow: hidden;
-
-    .attachment-thumb {
-      position: relative;
-      width: 25%;
-      float: left;
-      text-align: center;
-      min-height: 25px;
-      margin-top: 7px;
-
-      a {
-        background: $white;
-        margin: 0 $gutter-half;
-      }
-      .download-button {
-        display: block;
-        position: absolute;
-        top: 0;
-        left: 50%;
-        width: 30px;
-        height: 25px;
-        margin: 0 0 0 -15px;
-        z-index:3;
-        text-indent: -9999em;
-        background: transparent image-url('download-icon.png') no-repeat 0 0;
-        @include media(desktop){
-          top: 50%;
-          margin-top: -12.5px;
-        }
-      }
-      .thumbnail {
-        display: block;
-
-        img {
-          position: relative;
-          width: 100%;
-          max-width: 105px;
-          max-height: 140px;
-          display: none;
-          @include media(desktop){
-            display: inline;
-          }
-        }
-      }
-    }
-
-    .attachment-details {
-      width: 75%;
-      float: right;
-      position: relative;
-
-      .title {
-        @include core-24;
-      }
-      .extra-description {
-        max-width: 35em;
-        @include core-16;
-      }
-      h3, p {
-        @include core-14;
-        padding: 0 $gutter-half 0 0;
-        margin: 0;
-      }
-    }
-    .accessibility-warning {
-      h3 {
-        color: $body-text;
-        .toggler {
-          color: $link-text;
-          cursor: pointer;
-          &:hover {
-            text-decoration: underline;
-          }
-        }
-      }
-    }
-  }
 
   .information-block,
   .call-to-action {
     margin: $gutter 0 $gutter $gutter-half*-1;
     background: $info-background none no-repeat 98% $gutter-two-thirds;
     padding: $gutter-one-third 55px $gutter-one-third $gutter-half;
+    position: relative;
     p {
       margin: 0;
       padding: 0;
     }
   }
-  .information-block {
-    background-image: image-url('information-icon.png');
+
+  .information-block:after {
+    content: "info";
+    text-indent: -9999px;
+    background-color: $inside-gov-brand;
+    background-image: image-url('icon-information-transparent.png');
+    background-position: center;
+    height: $gutter;
+    width: $gutter;
+    position: absolute;
+    overflow: hidden;
+    top: $gutter-two-thirds;
+    right: $gutter-two-thirds;
+    @include border-radius($gutter);
+  }
+
+  @include ie-lte(7) {
+    .information-block {
+      background-image: image-url('information-icon.png');
+    }
   }
 
   table {
@@ -293,5 +231,10 @@
         }
       }
     }
+  }
+
+  .address {
+    border-left: 1px solid $light-keyline;
+    padding-left: $gutter-half;
   }
 }

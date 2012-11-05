@@ -95,69 +95,23 @@
       @include core-48;
     }
     
-    .simple-alphabetical-list {
-      padding-top: $gutter;
-    
-      .alphabetical-row {
-        list-style: none;
-        display: block;
-        position: relative;
-        overflow: hidden;
-        width: auto;
-        padding-left: 50px;
+  }
+  .simple-alphabetical-list {
+    .alphabetical-row ul li {
+      padding: 0;
+    }
+    .current-appointee {
+      @include core-19;
+      padding-bottom: 0;
+    }
 
-        @include media(tablet) {
-          width: 75%;
-          padding-left: 25%;
-        }
-        
-        .image_holder {
-          display: none;
-        }
-      
-        h2 {
-          position: relative;
-          float: left;
-          display: inline;
-          width: 50px;
-          margin-left: -50px;
-          text-align: center;
-          @include core-48;
-          color: $low-contrast;
+    .role {
+      @include core-14;
+      padding-top: 0;
 
-          @include media(tablet) {
-            float: right;
-            width: 1em;
-            margin-right: -100%;
-            right: 200%;
-            padding: 0 $gutter-half;
-            padding-top: 4px;
-            padding-top: 0.4rem;
-          }
-        }
-      
-        ul {
-          padding: 0 $gutter-half;
-          
-          .current-appointee {
-            @include core-19;
-            padding-bottom: 0;
-          }
-        
-          .role {
-            @include core-14;
-            padding-top: 0;
-            
-            a {
-              color: $body-text;
-            }
-          }
-          
-        }
-        
-      } // simple-alphabetical-list      
-        
+      a {
+        color: $body-text;
+      }
     }
   }
-
 }

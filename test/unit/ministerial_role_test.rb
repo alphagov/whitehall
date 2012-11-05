@@ -73,7 +73,7 @@ class MinisterialRoleTest < ActiveSupport::TestCase
   end
 
   test "should be destroyable when it has no appointments, organisations or editions" do
-    ministerial_role = create(:ministerial_role, role_appointments: [], organisations: [], editions: [])
+    ministerial_role = create(:ministerial_role_without_organisation, role_appointments: [], organisations: [], editions: [])
     assert ministerial_role.destroyable?
     assert ministerial_role.destroy
   end
@@ -92,7 +92,7 @@ class MinisterialRoleTest < ActiveSupport::TestCase
 
   test 'should return search index data suitable for Rummageable' do
     person = create(:person, forename: 'David', surname: 'Cameron', biography: 'David Cameron became Prime Minister in May 2010.')
-    ministerial_role = create(:ministerial_role, name: 'Prime Minister')
+    ministerial_role = create(:ministerial_role_without_organisation, name: 'Prime Minister')
     create(:ministerial_role_appointment, role: ministerial_role, person: person)
 
     assert_equal 'David Cameron (Prime Minister)', ministerial_role.search_index['title']
@@ -102,7 +102,7 @@ class MinisterialRoleTest < ActiveSupport::TestCase
   end
 
   test 'should add ministerial role to search index on creating' do
-    ministerial_role = build(:ministerial_role)
+    ministerial_role = build(:ministerial_role_without_organisation)
 
     search_index_data = stub('search index data')
     ministerial_role.stubs(:search_index).returns(search_index_data)
@@ -112,7 +112,7 @@ class MinisterialRoleTest < ActiveSupport::TestCase
   end
 
   test 'should add ministerial role to search index on updating' do
-    ministerial_role = create(:ministerial_role)
+    ministerial_role = create(:ministerial_role_without_organisation)
 
     search_index_data = stub('search index data')
     ministerial_role.stubs(:search_index).returns(search_index_data)
@@ -123,7 +123,7 @@ class MinisterialRoleTest < ActiveSupport::TestCase
   end
 
   test 'should remove ministerial role from search index on destroying' do
-    ministerial_role = create(:ministerial_role)
+    ministerial_role = create(:ministerial_role_without_organisation)
     Rummageable.expects(:delete).with("/government/ministers/#{ministerial_role.slug}", Whitehall.government_search_index_name)
     ministerial_role.destroy
   end
@@ -134,10 +134,10 @@ class MinisterialRoleTest < ActiveSupport::TestCase
     edward_garnier = create(:person, forename: 'Edward', surname: 'Garnier', biography: 'Garnerian.')
     david_cameron = create(:person, forename: 'David', surname: 'Cameron', biography: 'Cameronian.')
 
-    deputy_prime_minister = create(:ministerial_role, name: 'Deputy Prime Minister', cabinet_member: true)
-    culture_minister = create(:ministerial_role, name: 'Secretary of State for Culture', cabinet_member: true)
-    solicitor_general = create(:ministerial_role, name: 'Solicitor General', cabinet_member: false)
-    prime_minister = create(:ministerial_role, name: 'Prime Minister', cabinet_member: true)
+    deputy_prime_minister = create(:ministerial_role_without_organisation, name: 'Deputy Prime Minister', cabinet_member: true)
+    culture_minister = create(:ministerial_role_without_organisation, name: 'Secretary of State for Culture', cabinet_member: true)
+    solicitor_general = create(:ministerial_role_without_organisation, name: 'Solicitor General', cabinet_member: false)
+    prime_minister = create(:ministerial_role_without_organisation, name: 'Prime Minister', cabinet_member: true)
 
     create(:ministerial_role_appointment, role: deputy_prime_minister, person: nick_clegg)
     create(:ministerial_role_appointment, role: culture_minister, person: jeremy_hunt)

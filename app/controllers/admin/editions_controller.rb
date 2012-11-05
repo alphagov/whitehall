@@ -2,6 +2,7 @@ class Admin::EditionsController < Admin::BaseController
   before_filter :remove_blank_parameters
   before_filter :clear_scheduled_publication_if_not_activated, only: [:create, :update]
   before_filter :find_edition, only: [:show, :edit, :update, :submit, :revise, :reject, :destroy]
+  before_filter :limit_edition_access!, only: [:show, :edit, :update, :submit, :revise, :reject, :destroy]
   before_filter :prevent_modification_of_unmodifiable_edition, only: [:edit, :update]
   before_filter :default_arrays_of_ids_to_empty, only: [:update]
   before_filter :build_edition, only: [:new, :create]
@@ -109,6 +110,9 @@ class Admin::EditionsController < Admin::BaseController
     if @edition.can_be_associated_with_role_appointments?
       params[:edition][:role_appointment_ids] ||= []
     end
+    if @edition.can_be_associated_with_statistical_data_sets?
+      params[:edition][:statistical_data_set_document_ids] ||= []
+    end
     if @edition.can_be_related_to_policies?
       params[:edition][:related_document_ids] ||= []
     end
@@ -156,7 +160,7 @@ class Admin::EditionsController < Admin::BaseController
   end
 
   def filter
-    @filter ||= params_filters.any? && EditionFilter.new(edition_class, params_filters)
+    @filter ||= params_filters.any? && EditionFilter.new(edition_class, current_user, params_filters)
   end
 
   def detect_other_active_editors
@@ -184,13 +188,14 @@ class Admin::EditionsController < Admin::BaseController
   class EditionFilter
     attr_reader :options
 
-    def initialize(source, options={})
-      @source, @options = source, options
+    def initialize(source, current_user, options={})
+      @source, @current_user, @options = source, current_user, options
     end
 
     def editions
       @editions ||= (
         editions = @source
+        editions = editions.accessible_to(@current_user)
         editions = editions.by_type(options[:type].classify) if options[:type]
         editions = editions.__send__(options[:state]) if options[:state]
         editions = editions.authored_by(author) if options[:author]
@@ -200,8 +205,8 @@ class Admin::EditionsController < Admin::BaseController
       ).page(options[:page]).per(page_size)
     end
 
-    def page_title(current_user)
-      "#{ownership(current_user)} #{edition_state} #{document_type.humanize.pluralize.downcase}#{title_matches}".squeeze(' ')
+    def page_title
+      "#{ownership} #{edition_state} #{document_type.humanize.pluralize.downcase}#{title_matches}".squeeze(' ')
     end
 
     def page_size
@@ -218,12 +223,12 @@ class Admin::EditionsController < Admin::BaseController
 
     private
 
-    def ownership(current_user)
-      if author && author == current_user
+    def ownership
+      if author && author == @current_user
         "My"
       elsif author
         "#{author.name}'s"
-      elsif organisation && organisation == current_user.organisation
+      elsif organisation && organisation == @current_user.organisation
         "My department's"
       elsif organisation
         "#{organisation.name}'s"

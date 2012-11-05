@@ -1,17 +1,10 @@
 .organisations-index {
   .page-header {
-    padding: $gutter 0;
+    padding: $gutter-half 0;
 
-    @include media(desktop){
-      width: 70%;
-    }
-  }
-  .heading-block {
-    h1 {
-      @include core-19;
-    }
-    .content {
-      border-top: 2px solid $black;
+    @include media(tablet){
+      width: 75%;
+      padding: $gutter*2 0 $gutter;
     }
   }
 
@@ -132,18 +125,20 @@
     @include media(tablet) {
       padding-bottom: $gutter*2;
     }
-    
+
     img {
       width: 100%;
       height: auto;
     }
   }
-  
+
   .block-1 {
     padding-top: $gutter-one-third;
-    padding-bottom: 0;
+    @include media(tablet) {
+      padding-bottom: $gutter-half;
+    }
   }
-  
+
   @include media(tablet) {
     .block-4 {
       float: left;
@@ -152,7 +147,7 @@
       margin-right: -100%;
       margin-left: 0;
     }
-    
+
     .block-5 {
       float: left;
       display: inline;
@@ -160,38 +155,45 @@
       width: 66.6666666%;
       margin-right: -100%;
       margin-left: 33.333333%;
-      
+
       .inner-block {
         padding-left: $gutter-two-thirds;
       }
     }
   }
-  
+
   h1.label,
   .topic h2 {
     @include core-27;
     margin-bottom: $gutter-two-thirds;
   }
-  
+
+  p a {
+    text-decoration: underline;
+  }
+
   .page-header h1 {
     overflow: hidden;
-    padding: $gutter-two-thirds 0 $gutter-one-third;
+    padding: $gutter 0 $gutter-one-third;
   }
-  
+
   .organisation-news {
     margin: 0 (-$gutter-half);
+
+    .first h2 {
+      margin-top: $gutter-one-sixth;
+    }
 
     article {
       @include media(tablet) {
         float: left;
         width: 66%;
         display: inline;
-        margin-top: $gutter-two-thirds;
         overflow: hidden;
       }
     }
     .content {
-      padding: $gutter-half;
+      padding: $gutter-half $gutter-half $gutter-one-third;
     }
     h2 {
       @include core-27;
@@ -225,7 +227,6 @@
       }
     }
     .secondary {
-      margin: $gutter-two-thirds 0 0;
       @include media(tablet){
         width: 33%;
       }
@@ -249,240 +250,84 @@
       }
     }
   }
-  
+
   .document-list .document-row {
     @include core-14;
     border-bottom: none;
-    
+
     th {
       @include core-14;
       margin: $gutter-one-third 0 0 0;
       padding: 0;
     }
-    
+
     td {
       margin: 0;
       padding: 0 $gutter-one-third 0 0;
-      color: $low-contrast;
     }
   }
-  
+
   .block-5 {
     p {
       @include core-19;
     }
-  
+
     .parent_organisations {
       margin-bottom: $gutter-one-third;
     }
   }
-  
-  #topics {
-    .topic {
-      list-style: none;
-      counter-increment: headings 1;
-      h2:before {
-        content: counter(headings, decimal-leading-zero) ".";
-        display: block;
-      }
-      
-      .summary p {
-        @include core-19;
-      }
-    
-      @include media(tablet) {
-        margin-top: $gutter-two-thirds;
-        padding-top: $gutter-one-third;
-        padding-left: 33.333333%;
-        border-top: 1px solid $light-keyline;
-        
-        &:first-child {
-          border-top: none;
-        }
-        
-        h2 {
-          position: relative;
-          float: left;
-          width: 45%;
-          margin-left: -50%;
-          margin-top: $gutter-one-sixth;
-          margin-bottom: $gutter-one-third;
-        }
-        
-        .summary {
-          padding-left: $gutter-half;
-          a {
-            white-space: nowrap;
-          }
-        }
-      }
-    }
-    
-    ol.wide {
-      @include media(tablet) {
-        margin: 0 ($gutter-half*-1);
-        
-        .topic {
-          margin-top: 0;
-          float: left;
-          display: inline;
-          width: 50%;
-          padding-left: 0;
-          padding-bottom: $gutter-two-thirds;
-          border-top: none;
-          
-          &:nth-child(2n+1) {
-            clear: both;
-          }
-          
-          .container {
-            padding: 0 $gutter-half;
-          }
-          
-          h2 {
-            width: 100%;
-            float: none;
-            margin-left: 0;
-            margin-top: 0;
-          }
-          
-          .summary {
-            padding-left: 0;
-          }
-        }
-      }
 
-    }
-    
-    ol.ultra-wide {
-      margin: 0 ($gutter-half*-1);
 
-      .topic {
-        @include media(tablet) {
-          margin-top: 0;
-          float: left;
-          display: inline;
-          width: 33.333333%;
-          padding-left: 0;
-          padding-bottom: $gutter-two-thirds;
-          border-top: none;
-          
-          &:nth-child(3n+1) {
-            clear: both;
-          }
-          
-          .container {
-            padding: 0 $gutter-half;
-          }
-          
-          h2 {
-            width: 100%;
-            float: none;
-            margin-left: 0;
-            margin-top: 0;
-          }
-          
-          .summary {
-            padding-left: 0;
-          }
-        }
-      }
-    }
-
-  } // .topic
-    
-    
-  .heading-block {
-    @include media(desktop){
-      .label {
-        width: 33.3%;
-      }
-      .content {
-        width: 66.6%;
-      }
-    }
-    .documents-list {
-      @include media(desktop){
-        padding-left: $gutter-half;
-      }
-
-      .document {
-        list-style: none;
-        padding: 0 0 $gutter-one-sixth;
-        margin-bottom: $gutter-one-third;
-        border-bottom: 1px solid $light-keyline;
-      }
-    }
-  
-    h2 a {
-      display: block;
-      @include core-19;
-    }
-    
-    p, .metadata {
-      @include core-14;
-      padding-top: 1px;
-    }
-    
-    .metadata li {
-      display: inline;
-      padding-right: $gutter-one-third;
-    }
-    
-    .see-all {
-      @include core-19;
-      @include media(desktop) {
-        padding-left: $gutter-half;
-      }
-    }
-  }
-  
   #who {
     #ministers,
     #management,
-    #military {
+    #military,
+    #traffic_commissioners {
       display: block;
       clear: both;
       overflow: hidden;
     }
-    
+
     #management,
-    #military {
+    #military,
+    #traffic_commissioners {
       padding-top: $gutter-half;
       @include media(tablet) {
         padding-top: $gutter*2;
       }
     }
-    
+
     ul {
       position: relative;
       overflow: hidden;
       margin: 0 ($gutter-half*-1);
     }
-  
+
     .ministerial_role,
     .board_member_role,
-    .military_role {
+    .military_role,
+    .traffic_commissioner_role
+    {
       list-style: none;
-      
+
       @include media(tablet) {
         float: left;
         width: 25%;
-      
+
         &:nth-child(4n+1) {
           clear: both;
         }
       }
-      
+
       .inner {
         padding: 0 $gutter-half $gutter-half;
       }
-      
+
       .image_holder {
         float: none;
         margin: 0;
         width: 100%;
-        
+
         img {
           display: block;
           width: 100%;
@@ -490,7 +335,7 @@
           min-height: 50px;
         }
       }
-      
+
       .current-appointee {
         padding-top: 0;
         a {
@@ -498,13 +343,22 @@
           &:focus,
           &:active {
             text-decoration: none;
-            
+
             strong {
               text-decoration: underline;
             }
           }
         }
-        
+    
+      .role a {
+        text-decoration: none;
+        &:hover,
+        &:focus,
+        &:active {
+          text-decoration: underline;
+        }
+      }
+
         span {
           display: block;
           @include core-14;
@@ -528,7 +382,7 @@
         }
       }
     }
-    
+
     #management {
       @include media(tablet) {
         // some minus margin juggling here to align the columns
@@ -557,11 +411,11 @@
           margin-left: 25%;
           li {
             width: 33.333333%;
-                  
+
             &:nth-child(4n+1) {
               clear: none;
             }
-                  
+
             &:nth-child(3n+1) {
               clear: both;
             }
@@ -569,26 +423,26 @@
         }
       }
     }
-    
+
     .show-other-content {
       float: left;
       clear: both;
       margin-right: -100%;
       margin-left: 0;
     }
-    
+
   } // end #who
-  
+
   #org-contacts {
-  
+
     h2 {
       @include core-24;
     }
-    
+
     .organisation_contact h2 {
       margin-bottom: $gutter-half;
     }
-    
+
     .addresses {
       p {
         margin: 0 0 $gutter-one-third;
@@ -596,7 +450,7 @@
           display: block;
         }
       }
-      
+
       .adr {
         margin: 0 0 $gutter-one-third;
         p {
@@ -604,26 +458,26 @@
         }
       }
     }
-  
+
     @include media(tablet) {
       position: relative;
       overflow: hidden;
       margin: 0 ($gutter*-0.5);
-    
+
       .addresses {
         float: left;
         clear: both;
         margin-right: -100%;
         margin-left: 0;
         width: 66.666666%;
-        
+
         .organisation_contact {
           padding-bottom: $gutter-two-thirds;
         }
-        
+
         .complex {
           padding: 0 $gutter-half $gutter-two-thirds;
-          
+
           .contact-inner {
             position: relative;
             overflow: hidden;
@@ -631,27 +485,27 @@
             display: block;
             padding-left: 50%;
           }
-          
+
           h2 {
             position: relative;
             margin-left: -100%;
             width: 200%;
           }
-          
+
           .adr {
             position: relative;
             margin-left: -100%;
             width: 100%;
           }
-          
+
           p {
             padding-left: $gutter-half;
           }
-          
+
           .adr {
             display: inline;
             float: left;
-            
+
             p {
               padding-left: 0;
             }
@@ -662,7 +516,7 @@
           float: left;
           display: inline;
           width: 50%;
-          
+
           .contact-inner {
             padding: 0 $gutter-half;
           }
@@ -679,21 +533,21 @@
         bottom: 0;
         left: $gutter-one-third;
       }
-      
+
       .social-media {
         float: left;
         clear: none;
         margin-right: -100%;
         margin-left: 66.666666%;
         width: 33.333333%;
-        
+
         section {
           padding: 0 $gutter-half;
         }
       }
     }
   }
-  
+
   .social-media-accounts {
     li {
       list-style: none;
@@ -704,7 +558,7 @@
       padding: 0;
       line-height: ($gutter-two-thirds+$gutter-one-sixth);
     }
-    
+
     .connect {
       float: left;
       display: inline;
@@ -717,39 +571,44 @@
       background-image: image-url("social-icons-white.png");
       background-repeat: no-repeat;
     }
-    
+
     .facebook .connect {
       background-position: -2px -2px;
     }
-    
+
     .twitter .connect {
       background-position: -2px -32px;
     }
-    
+
     .youtube .connect {
       background-position: -2px -62px;
     }
-    
+
     .flickr .connect {
       background-position: -2px -92px;
     }
   }
-  
-  
-    
+
+
+
   // org color bands
-  
-  #topics h1, #ministers h1, #management h1, #military h1, #org-contacts h2, #recently_updated h1, #what-we-do h1 {
+
+  #topics h1,
+  #ministers h1,
+  #management h1,
+  #military h1,
+  #traffic_commissioners h1,
+  #org-contacts h2,
+  #recently_updated h1,
+  #what-we-do h1 {
     border-bottom-width: 5px;
     border-bottom-style: solid;
   }
   @include department-colours("h1", border-color);
   @include department-colours("h2", border-color);
-  @include department-colours(".social-media-link .connect", background-color);
-  @include department-colours("a", color);
-
+  @include websafe-department-colours(".social-media-link .connect", background-color);
+  @include websafe-department-colours("a", color);
 }
-
 .organisations-external {
   @include media(desktop){
     .block-2 {
@@ -783,7 +642,7 @@
   }
   .thumbnail {
     img {
-      box-shadow: 3px 3px 4px #999;
+      box-shadow: 3px 3px 7px #999;
       width: 100%;
       max-width: 287px;
     }
@@ -792,8 +651,100 @@
     @include core-24;
   }
   .information-block {
-    padding: $gutter-two-thirds $gutter-one-third;
+    padding: $gutter-two-thirds $gutter*2 $gutter-two-thirds $gutter-one-third;
     margin-top: 0;
   }
 }
+
+// Used on:
+// organisations#about, corporate_information_page#show
+.organisation-page {
+  @include department-colours('nav a', color);
+  @include department-colours('.body a', color);
+  @include department-colours('.body .attachment .accessibility-warning h3 .toggler', color);
+  @include department-colours('.corporate-info a', color);
+
+  @include media(desktop){
+    .block-1 {
+      width: 33%;
+      float: left;
+    }
+    .block-2 {
+      width: 66%;
+      float: right;
+    }
+  }
+
+  .page-header {
+    padding: $gutter-half 0;
+  }
+
+  nav {
+    @include core-16;
+    padding: ($gutter - $gutter-one-third) 0 $gutter;
+    ol {
+      li {
+        padding-top: $gutter-one-sixth;
+        list-style: disc;
+        margin-left: 1.2em;
+      }
+    }
+  }
+  .main {
+    @include core-48;
+
+    @include media(desktop){
+      margin: ($gutter*3 + $gutter-half) 0 $gutter-half;
+    }
+  }
+  .description {
+    @include core-27;
+  }
+  .body {
+    h2 {
+      border-bottom: 1px solid $light-keyline;
+
+      &:first-child {
+        margin-top: $gutter;
+      }
+    }
+  }
+  .corporate-info {
+    padding-top: $gutter-half;
+
+    h1 {
+      @include core-27;
+      border-bottom: 4px solid;
+    }
+    h2 {
+      @include core-16;
+      padding-top: $gutter-two-thirds;
+    }
+
+    ul {
+      li {
+        list-style: none;
+        border-bottom: 1px solid $light-keyline;
+        padding: $gutter-one-sixth 0;
+
+        h3 {
+          @include core-19;
+          padding: 0;
+        }
+        .metadata {
+          @include core-14;
+          padding: 0;
+        }
+      }
+    }
+    .transparency {
+      a {
+        @include core-19;
+      }
+    }
+  }
+  @include department-colours('.corporate-info h1', border-color);
+}
+
+
 

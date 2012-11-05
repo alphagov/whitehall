@@ -1,0 +1,8 @@
+Description:
+    Creates a blank timestamped data migration file
+
+Example:
+    rails generate data_migration name
+
+    This will create:
+        db/data_migration/{timestamp}_{name}

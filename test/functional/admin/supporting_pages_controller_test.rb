@@ -9,7 +9,7 @@ class Admin::SupportingPagesControllerTest < ActionController::TestCase
 
   should_be_an_admin_controller
   should_allow_attachments_for :supporting_page
-  
+
   def process(action, parameters, session, flash, method)
     parameters ||= {}
     if !parameters.has_key?(:edition_id)
@@ -228,4 +228,16 @@ class Admin::SupportingPagesControllerTest < ActionController::TestCase
     assert_equal "Cannot destroy a supporting page that has been published", flash[:alert]
   end
 
+  test "should limit edition access" do
+    protected_edition = stub("protected edition", id: "1")
+    protected_edition.expects(:accessible_by?).with(@current_user).returns(false)
+    Edition.expects(:find).with(protected_edition.id).returns(protected_edition)
+    get :show, edition_id: protected_edition.id, id: "2"
+
+    assert_response 403
+  end
+
+  def controller_attributes_for(edition_type, attributes = {})
+    super.reject { |k,_| k == :organisation_ids }
+  end
 end

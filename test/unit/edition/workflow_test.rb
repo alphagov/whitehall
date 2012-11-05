@@ -48,7 +48,11 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
 
   test "indicates pre-publication status" do
     pre, post = Edition.state_machine.states.map(&:name).partition do |state|
-      build(:edition, state).pre_publication?
+      if state == :deleted
+        create(:edition, state)
+      else
+        build(:edition, state)
+      end.pre_publication?
     end
 
     assert_equal [:draft, :submitted, :rejected, :scheduled], pre
@@ -165,8 +169,9 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
   end
 
   test "should not find deleted editions by default" do
-    deleted_edition = create(:deleted_edition)
-    assert_nil Edition.find_by_id(deleted_edition.id)
+    edition = create(:draft_edition)
+    edition.delete!
+    assert_nil Edition.find_by_id(edition.id)
   end
 
   [:draft, :submitted, :rejected].each do |state|

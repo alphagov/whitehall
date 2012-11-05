@@ -3,12 +3,27 @@
   position: relative;
   clear: both;
   padding-bottom: $gutter-two-thirds;
+  @include core-16;
   
   h1 {
-    @include core-14;
   }
   nav {
-    @include core-14;
+    overflow: hidden;
+    
+    li {
+      float: left;
+      list-style-position: inside;
+      padding-right: $gutter-half;
+      padding-top: $gutter-one-sixth;
+    }
+    
+    @include media(tablet){
+      overflow: visible;
+      li {
+        float: none;
+        padding-right: 0;
+      }
+    }
   }
   a {
     position: relative;
@@ -16,6 +31,6 @@
     vertical-align: top;
   }
   p {
-    @include core-14;
+    @include core-16;
   }
 }

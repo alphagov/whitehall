@@ -28,6 +28,20 @@ class DocumentSeriesTest < ActiveSupport::TestCase
     assert_equal [new_publication, old_publication], series.published_editions
   end
 
+  test 'published_publications should return published publications' do
+    series = create(:document_series)
+    published_publication = create(:published_publication, document_series: series)
+    draft_publication = create(:draft_publication, document_series: series)
+    assert_equal [published_publication], series.published_publications
+  end
+
+  test 'published_statistical_data_sets should return published statistical data sets' do
+    series = create(:document_series)
+    published_statistical_data_set = create(:published_statistical_data_set, document_series: series)
+    draft_statistical_data_set = create(:draft_statistical_data_set, document_series: series)
+    assert_equal [published_statistical_data_set], series.published_statistical_data_sets
+  end
+
   test 'should not be destroyable if editions are associated' do
     series = create(:document_series)
     publication = create(:draft_publication, document_series: series)

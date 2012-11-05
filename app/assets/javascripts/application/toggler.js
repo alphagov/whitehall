@@ -2,7 +2,9 @@
   $.fn.toggler = function (options) {
     options = $.extend({
       header: '.toggle',
-      content: '.overlay'
+      content: '.overlay',
+      showArrow: true,
+      actLikeLightbox: false
     }, options);
     this.each(function(i, el){
       var wrapper = $(el),
@@ -19,7 +21,11 @@
         wrapper.addClass('toggleable');
 
         overlay.addClass('visuallyhidden');
-        overlay.prepend('<span class="arrow"></span>');
+        overlay.removeClass('js-hidden');
+
+        if (options.showArrow){
+          overlay.prepend('<span class="arrow"></span>');
+        }
 
         header.keyup(function(e) {
           if (e.which == 13) {
@@ -28,10 +34,21 @@
           }
         });
 
+        header.click(function (e) {
+          e.preventDefault();
+        });
+
         header.mouseup(function (e) {
           e.preventDefault();
           toggle();
         });
+        if(options.actLikeLightbox) {
+          $(document).click(function(e){
+            if($(e.target).closest(wrapper).length === 0 && wrapper.hasClass('open')){
+              toggle();
+            }
+          });
+        }
       };
     });
     return this;

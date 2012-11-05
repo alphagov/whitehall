@@ -186,7 +186,7 @@ Then /^I should not see the policy "([^"]*)" in the list of draft documents$/ do
 end
 
 Then /^(#{THE_DOCUMENT}) should be visible to the public$/ do |edition|
-  visit homepage
+  visit publications_path
   css_selector = record_css_selector(edition)
   case edition
   when Publication
@@ -194,7 +194,9 @@ Then /^(#{THE_DOCUMENT}) should be visible to the public$/ do |edition|
   when NewsArticle, Speech
     click_link "Announcements"
   when Consultation
-    click_link "Consultations"
+    click_link "Publications"
+    select "Consultations", from: "Publication type"
+    click_button "Refresh"
   when Policy
     visit policies_path
   when DetailedGuide

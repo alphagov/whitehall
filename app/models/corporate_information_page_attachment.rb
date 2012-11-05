@@ -1,6 +1,4 @@
 class CorporateInformationPageAttachment < ActiveRecord::Base
-  belongs_to :corporate_information_page
-  belongs_to :attachment, dependent: :destroy
-
-  accepts_nested_attributes_for :attachment, reject_if: :all_blank
+  include ::Attachable::JoinModel
+  attachable_join_model_for :corporate_information_page
 end

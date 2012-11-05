@@ -24,6 +24,6 @@ class Admin::CountriesController < Admin::BaseController
   end
 
   def load_news_articles
-    @news_articles = NewsArticle.published.in_country(@country).by_first_published_at
+    @news_articles = NewsArticle.accessible_to(current_user).published.in_country(@country).by_first_published_at
   end
 end

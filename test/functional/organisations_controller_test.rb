@@ -2,8 +2,6 @@ require "test_helper"
 
 class OrganisationsControllerTest < ActionController::TestCase
 
-  SUBPAGE_ACTIONS = [:about, :consultations]
-
   should_be_a_public_facing_controller
 
   include FilterRoutesHelper
@@ -41,16 +39,16 @@ class OrganisationsControllerTest < ActionController::TestCase
     end
   end
 
-  test "#show indicates when an organisation is part of the single identity branding" do
-    organisation = create(:organisation, use_single_identity_branding: true)
+  test "#show uses the correct logo type branding" do
+    organisation = create(:organisation)
     get :show, id: organisation
-    assert_select ".page-header .single-identity"
+    assert_select ".organisation-logo-stacked-single-identity"
   end
 
   test "#show indicates when an organisation is not part of the single identity branding" do
-    organisation = create(:organisation, use_single_identity_branding: false)
+    organisation = create(:organisation, organisation_logo_type_id: OrganisationLogoType::NoIdentity.id)
     get :show, id: organisation
-    refute_select ".single-identity"
+    assert_select ".organisation-logo-stacked-no-identity"
   end
 
   test "shows primary featured editions in ordering defined by association" do
@@ -77,7 +75,6 @@ class OrganisationsControllerTest < ActionController::TestCase
     editions.take(6).each do |edition|
       assert_select_object edition.edition do
         assert_select "img[src$='#{edition.image.file.url}'][alt=?]", edition.alt_text
-        assert_select ".document-type", 'News article'
       end
     end
     refute_select_object editions.last.edition
@@ -113,11 +110,12 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_template 'external'
   end
 
-  test "shows a thumbnail link of the organisation site when joining" do
+  test "shows a link and thumbnail link of the organisation site when joining" do
     organisation = create(:organisation, govuk_status: 'joining', url: 'http://example.com')
 
     get :show, id: organisation
 
+    assert_select ".url a[href=?]", organisation.url
     assert_select ".thumbnail" do
       assert_select "a[href=?]", organisation.url do
         assert_select "img[src$=?]", "#{organisation.slug}.png"
@@ -125,18 +123,18 @@ class OrganisationsControllerTest < ActionController::TestCase
     end
   end
 
-  test "shows a thumbnail link of the organisation site when exempt" do
+  test "shows a link and thumbnail link of the organisation site when exempt" do
     organisation = create(:organisation, govuk_status: 'exempt', url: 'http://example.com')
 
     get :show, id: organisation
 
+    assert_select ".url a[href=?]", organisation.url
     assert_select ".thumbnail" do
       assert_select "a[href=?]", organisation.url do
         assert_select "img[src$=?]", "#{organisation.slug}.png"
       end
     end
   end
-
 
   test "should not display an empty published policies section" do
     organisation = create(:organisation)
@@ -238,23 +236,65 @@ class OrganisationsControllerTest < ActionController::TestCase
     end
   end
 
-  test "should display 3 announcements with a link to announcements filter if there are many announcements" do
+  test "should display announcements in reverse chronological order" do
     organisation = create(:organisation)
     role = create(:ministerial_role, organisations: [organisation])
     role_appointment = create(:ministerial_role_appointment, role: role)
     announcement_1 = create(:published_news_article, organisations: [organisation], published_at: 2.days.ago)
-    announcement_2 = create(:published_speech, role_appointment: role_appointment, published_at: 3.days.ago)
+    announcement_2 = create(:published_speech, role_appointment: role_appointment, delivered_on: 3.days.ago)
     announcement_3 = create(:published_news_article, organisations: [organisation], published_at: 4.days.ago)
     announcement_4 = create(:published_news_article, organisations: [organisation], published_at: 1.days.ago)
+
+    get :show, id: organisation
+
+    assert_equal [announcement_4, announcement_1, announcement_2], assigns[:announcements]
+  end
+
+  test "should display 3 announcements with a link to announcements filter if there are many announcements" do
+    organisation = create(:organisation)
+    role = create(:ministerial_role, organisations: [organisation])
+    role_appointment = create(:ministerial_role_appointment, role: role)
+    announcement_1 = create(:published_news_article, organisations: [organisation], published_at: 1.days.ago)
+    announcement_2 = create(:published_speech, role_appointment: role_appointment, delivered_on: 2.days.ago)
+    announcement_3 = create(:published_news_article, organisations: [organisation], published_at: 3.days.ago)
+    announcement_4 = create(:published_news_article, organisations: [organisation], published_at: 4.days.ago)
 
     get :show, id: organisation
 
     assert_select '#announcements' do
       assert_select_object(announcement_1)
       assert_select_object(announcement_2)
-      assert_select_object(announcement_4)
-      refute_select_object(announcement_3)
+      assert_select_object(announcement_3)
+      refute_select_object(announcement_4)
       assert_select "a[href='#{announcements_filter_path(organisation)}']"
+    end
+  end
+
+  test "should display the date on which a speech was delivered and its announcement type" do
+    organisation = create(:organisation)
+    role = create(:ministerial_role, organisations: [organisation])
+    role_appointment = create(:ministerial_role_appointment, role: role)
+    delivered_on = Date.parse("1999-12-31")
+    speech = create(:published_speech, role_appointment: role_appointment, delivered_on: delivered_on, speech_type: SpeechType::WrittenStatement)
+
+    get :show, id: organisation
+
+    assert_select_object(speech) do
+      assert_select "abbr.delivered_on[title=?]", delivered_on.iso8601
+      assert_select ".announcement-type", "Statement to parliament"
+    end
+  end
+
+  test "should display when a news article was first published and its announcement type" do
+    first_published_at = Time.zone.parse("2001-01-01 01:01")
+    organisation = create(:organisation)
+    news_article = create(:published_news_article, organisations: [organisation], published_at: first_published_at)
+
+    get :show, id: organisation
+
+    assert_select_object(news_article) do
+      assert_select "abbr.first_published_at[title=?]", first_published_at.iso8601
+      assert_select ".announcement-type", "News article"
     end
   end
 
@@ -273,7 +313,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     )
     get :show, id: organisation
 
-    assert_select ".organisation.hcard" do
+    assert_select ".vcard" do
       assert_select ".fn.org", "Ministry of Pomp"
       assert_select ".adr" do
         assert_select ".street-address", "1 Smashing Place, London"
@@ -288,46 +328,10 @@ class OrganisationsControllerTest < ActionController::TestCase
     end
   end
 
-  test "should link to a google map" do
-    organisation = create(:organisation, contacts_attributes: [{description: "Main", latitude: 51.498772, longitude: -0.130974}])
-    get :show, id: organisation
-    assert_select "a[href='http://maps.google.co.uk/maps?q=51.498772,-0.130974']"
-  end
-
-  test "should show published consultations associated with the organisation" do
-    published_consultation = create(:published_consultation)
-    draft_consultation = create(:draft_consultation)
-    organisation = create(:organisation, editions: [published_consultation, draft_consultation])
-
-    get :consultations, id: organisation
-
-    assert_select_object(published_consultation)
-    refute_select_object(draft_consultation)
-  end
-
-  test "should show consultations in order of publication date" do
-    earlier_consultation = create(:published_consultation, published_at: 2.days.ago)
-    later_consultation = create(:published_consultation, published_at: 1.days.ago)
-    organisation = create(:organisation, editions: [earlier_consultation, later_consultation])
-
-    get :consultations, id: organisation
-
-    assert_equal [later_consultation, earlier_consultation], assigns(:consultations)
-  end
-
-  SUBPAGE_ACTIONS.each do |action|
-    test "should show social media accounts on organisation #{action} subpage" do
-      social_media_account = create(:social_media_account)
-      organisation = create(:organisation, social_media_accounts: [social_media_account])
-      get action, id: organisation
-      assert_select ".social-media-accounts"
-    end
-
-    test "should show description on organisation #{action} subpage" do
-      organisation = create(:organisation, description: "organisation-description")
-      get action, id: organisation
-      assert_select ".description", text: "organisation-description"
-    end
+  test "should show description on organisation about subpage" do
+    organisation = create(:organisation, description: "organisation-description")
+    get :about, id: organisation
+    assert_select ".description", text: "organisation-description"
   end
 
   test "should render the about-us content using govspeak markup" do
@@ -369,6 +373,18 @@ class OrganisationsControllerTest < ActionController::TestCase
     get :show, id: organisation
 
     assert_equal [senior_role, junior_role], assigns(:ministerial_roles).collect(&:model)
+  end
+
+  test "shows traffic commissioner roles in the specified order" do
+    junior_role = create(:traffic_commissioner_role)
+    senior_role = create(:traffic_commissioner_role)
+    organisation = create(:organisation)
+    create(:organisation_role, organisation: organisation, role: junior_role, ordering: 2)
+    create(:organisation_role, organisation: organisation, role: senior_role, ordering: 1)
+
+    get :show, id: organisation
+
+    assert_equal [senior_role, junior_role], assigns(:traffic_commissioner_roles).collect(&:model)
   end
 
   test "shows links to ministers people pages" do
@@ -418,11 +434,11 @@ class OrganisationsControllerTest < ActionController::TestCase
 
   test "should display the minister's picture if available" do
     ministerial_role = create(:ministerial_role)
-    person = create(:person, image: File.open(File.join(Rails.root, 'test', 'fixtures', 'minister-of-funk.jpg')))
+    person = create(:person, image: File.open(File.join(Rails.root, 'test', 'fixtures', 'minister-of-funk.960x640.jpg')))
     create(:role_appointment, person: person, role: ministerial_role)
     organisation = create(:organisation, ministerial_roles: [ministerial_role])
     get :show, id: organisation
-    assert_select "img[src*=minister-of-funk.jpg]"
+    assert_select "img[src*=minister-of-funk.960x640.jpg]"
   end
 
   test "should display a generic image if the minister doesn't have their own picture" do
@@ -463,16 +479,6 @@ class OrganisationsControllerTest < ActionController::TestCase
     refute_select management_selector
   end
 
-  test "should display all chiefs of staff" do
-    chief_of_staff = create(:military_role)
-    chief_of_the_defence_staff = create(:military_role, chief_of_the_defence_staff: true)
-    organisation = create(:organisation, roles: [chief_of_staff, chief_of_the_defence_staff])
-
-    get :chiefs_of_staff, id: organisation
-
-    assert_select_object chief_of_staff
-  end
-
   test "should link to the organisation's chiefs of staff page" do
     organisation = create(:organisation)
     role = create(:military_role, organisations: [organisation])
@@ -505,9 +511,9 @@ class OrganisationsControllerTest < ActionController::TestCase
     ministerial_department = create(:organisation_type, name: "Ministerial Department")
     organisation = create(:organisation, organisation_type: ministerial_department)
 
-    [:show, :about, :consultations].each do |page|
+    [:show, :about].each do |page|
       get page, id: organisation
-      assert_select "##{dom_id(organisation)}.#{organisation.slug}.ministerial-department"
+      assert_select "##{dom_id(organisation)}.#{organisation.slug}"
     end
   end
 

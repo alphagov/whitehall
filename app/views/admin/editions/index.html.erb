@@ -1,4 +1,4 @@
-<% page_title @filter.page_title(current_user) %>
+<% page_title @filter.page_title %>
 <section class="documents">
   <div class="row-fluid">
     <div class="span2">
@@ -16,19 +16,22 @@
           <li><%= link_to "Detailed Guide", new_admin_detailed_guide_path, title: "Create Detailed Guide" %></li>
           <li><%= link_to "International Priority", new_admin_international_priority_path, title: "Create International Priority" %></li>
           <li><%= link_to "Case Study", new_admin_case_study_path, title: "Create Case Study" %></li>
+          <li><%= link_to "Statistical Data Set", new_admin_statistical_data_set_path, title: "Create Statistical Data Set" %></li>
         </ul>
       </div>
 
       <nav class="well" style="padding: 8px 0;">
         <ul class="nav nav-list">
           <li class="nav-header">Filter by Title</li>
-          <%= form_tag("", method: :get, class: "pull-left") do %>
-            <%= hidden_field_tag :organisation, params[:organisation_id] if params[:organisation_id] %>
-            <%= hidden_field_tag :type, params[:type] if params[:type] %>
-            <%= hidden_field_tag :state, params[:state] if params[:state] %>
-            <%= hidden_field_tag :author, params[:author] if params[:author] %>
-            <input type="search" id="search_title" name="title" value="<%= params[:title] %>" placeholder="Search title">
-          <% end %>
+          <li>
+            <%= form_tag("", method: :get, class: "pull-left") do %>
+              <%= hidden_field_tag :organisation, params[:organisation_id] if params[:organisation_id] %>
+              <%= hidden_field_tag :type, params[:type] if params[:type] %>
+              <%= hidden_field_tag :state, params[:state] if params[:state] %>
+              <%= hidden_field_tag :author, params[:author] if params[:author] %>
+              <input type="search" id="search_title" name="title" value="<%= params[:title] %>" placeholder="Search title">
+            <% end %>
+          </li>
           <li class="nav-header">Filter by Author</li>
           <%= link_to_filter('Me', {author: current_user, organisation: nil}, title: "Show documents by me") %>
           <%= link_to_filter('My department', {author: nil, organisation: current_user.organisation}, title: "Show documents by my department") %>
@@ -53,6 +56,7 @@
           <%= link_to_filter 'Detailed guide', {type: 'detailed_guide'}, title: "Show only detailed guides" %>
           <%= link_to_filter 'International priorities', {type: 'international_priorities'}, title: "Show only international priorities" %>
           <%= link_to_filter 'Case studies', {type: 'case_studies'}, title: "Show only case studies" %>
+          <%= link_to_filter 'Statistical data sets', {type: 'statistical_data_sets'}, title: "Show only statistical data sets" %>
 
           <li class="nav-header">Filter by state</li>
           <% document_type = (params[:type] || "document").pluralize %>
@@ -67,7 +71,7 @@
     </div>
 
     <div class="collection span10">
-      <h1><%= @filter.page_title(current_user) %></h1>
+      <h1><%= @filter.page_title %></h1>
 
       <%= paginate @filter.editions, theme: 'twitter-bootstrap' %>
       <table class="table table-striped">
@@ -98,6 +102,9 @@
                 <span class="title"><%= link_to edition.title, admin_edition_path(edition), title: "View document #{edition.title}" %></span>
                 <% if edition.force_published? %>
                   <span class="force_published label label-important">not reviewed</span>
+                <% end %>
+                <% if edition.access_limited? %>
+                  <span class="access_limited label label-important">limited access</span>
                 <% end %>
                 <% if edition.has_supporting_pages? %>
                   <div class="supporting_pages additional_information well">

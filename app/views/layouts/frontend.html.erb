@@ -22,26 +22,31 @@
   <body class="website government">
     <div class="header-context group"><!-- deliberately empty --></div>
     <div id="whitehall-wrapper">
-      <nav class="group js-nav-helper" id="global-nav" role="navigation">
+      <div class="js-toggle-nav" id="global-nav">
         <div class="inner">
-          <ul>
-            <li id="inside_gov_link"><%= main_navigation_link_to "Inside government", home_path, class: "home" %></li>
-            <li><%= main_navigation_link_to "Departments", organisations_path %></li>
-            <li><%= main_navigation_link_to "Topics", topics_path, class: "primary" %></li>
-            <li><%= main_navigation_link_to "Policies", policies_path %></li>
-            <li><%= main_navigation_link_to "Publications", publications_path, class: "primary" %></li>
-            <li><%= main_navigation_link_to "Consultations", consultations_path %></li>
-            <li><%= main_navigation_link_to "Announcements", announcements_path, class: "primary" %></li>
-            <li><%= main_navigation_link_to "Ministers", ministerial_roles_path %></li>
-          </ul>
+          <span class="home"><%= link_to "Inside government", root_path %></span>
+          <span class="jump-link"><a href="#navigation" class="toggler">menu</a></span>
+          <nav role="navigation" class="content">
+            <ul id="navigation">
+              <li><%= main_navigation_link_to 'How government works', how_government_works_path %></li>
+              <li><%= main_navigation_link_to "Departments", organisations_path %></li>
+              <li><%= main_navigation_link_to "Topics", topics_path %></li>
+              <li><%= main_navigation_link_to "Policies", policies_path %></li>
+              <li><span class="toggler <%= main_navigation_documents_class %>">Documents</span>
+                <ul class="subtype content js-hidden">
+                  <li><%= main_navigation_link_to "Publications", publications_path %></li>
+                  <li><%= main_navigation_link_to "Announcements", announcements_path %></li>
+                </ul>
+              </li>
+            </ul>
+          </nav>
         </div>
-      </nav>
+      </div>
       <div id="content"></div>
       <div id="page" class="<%= content_for?(:page_class) ? yield(:page_class) : '' %>" >
         <%= yield %>
       </div>
     </div>
-    <%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?sensor=false" %>
     <%= javascript_include_tag "application", defer: true %>
   </body>
 </html>

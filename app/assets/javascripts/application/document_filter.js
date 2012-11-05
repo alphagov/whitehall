@@ -137,6 +137,7 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
           params = $form.serializeArray();
 
       $submitButton.addClass('disabled');
+      $(".count span").text("Loading ");
       documentFilter.loading = true;
       // TODO: make a spinny updating thing
       $.ajax(jsonUrl, {
@@ -150,15 +151,57 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
           documentFilter.updateAtomFeed(data);
           if (data.results) {
             documentFilter.drawTable(data);
+            documentFilter.liveResultSummary(data, documentFilter.currentPageState());
           }
           var newUrl = url + "?" + $form.serialize();
           history.pushState(documentFilter.currentPageState(), null, newUrl);
           window._gaq && _gaq.push(['_trackPageview', newUrl]);
           // undo double-click protection
-          $submitButton.removeAttr('disabled').removeClass('disabled');
+          //$submitButton.removeAttr('disabled').removeClass('disabled');
+
         },
         error: function() {
           $submitButton.removeAttr('disabled');
+        }
+      });
+    },
+    liveResultSummary: function(data, formStatus){
+      var $selections = $('.selections');
+      $selections.html("");
+      $(".results .count span").text(data.total_count);
+
+      $selections.html("Results in <span class='topics-selections chosen'></span> and published by <span class='departments-selections chosen'></span>");
+      if(formStatus.selected){
+        var i = formStatus.selected.length;
+
+        while(i--){
+          var j = formStatus.selected[i].title.length;
+          while(j--){
+            $selections.find("."+formStatus.selected[i].id+"-selections")
+              .append("<span>"+formStatus.selected[i].title[j]+" <a href='' data-val='"+formStatus.selected[i].value[j]+"' title='Remove this filter'>x</a></span> ");
+          }
+        }
+
+        documentFilter.filterEvents();
+      }
+    },
+    filterEvents: function(){
+      $(".selections .chosen span a").on("click", function(){
+        documentFilter.removeFilters($(this).attr("data-val"));
+        $(this).parent().remove();
+        return false;
+      });
+    },
+    removeFilters: function(removed){
+      var options = $("select option");
+      $(options).each(function(){
+        if($(this).attr("value") == removed){
+          $(this).removeAttr("selected");
+          var $select = $(this).parent("select");
+          if($select.children("option:selected").length == 0){
+            $select.find(">:first-child").prop("selected", true);
+          };
+          $(this).parent("select").change();
         }
       });
     },
@@ -167,7 +210,12 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
         html: $('.filter-results').html(),
         selected: $.map(documentFilter.$form.find('select'), function(n) {
           var $n = $(n);
-          return {id: $n.attr('id'), value: $n.val()};
+          var id = $n.attr('id');
+          var titles = [];
+          $("#" + id  + " option:selected").each(function(){
+            titles.push($(this).text());
+          });
+          return {id: id, value: $n.val(), title: titles};
         }),
         text: $.map(documentFilter.$form.find('input[type=text]'), function(n) {
           var $n = $(n);
@@ -269,9 +317,27 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
 
         history.replaceState(documentFilter.currentPageState(), null);
         $form.submit(documentFilter.submitFilters);
-        $form.find('select').change(function(e){
+        $form.find('select, input[name=direction]:radio').change(function(e){
           $form.submit();
         });
+
+        var delay = (function(){
+          var timer = 0;
+          return function(callback, ms){
+            clearTimeout (timer);
+            timer = setTimeout(callback, ms);
+          }
+        })();
+
+        $form.find('input[name=keywords]').keyup(function () {
+          delay(function () {
+            $form.submit();
+          }, 600);
+        });
+
+
+        $(".submit").addClass("js-hidden");
+        
       }
       if($('#show-more-documents .previous').length === 0){
         documentFilter.initScroll();

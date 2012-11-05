@@ -18,7 +18,7 @@ Dir[Rails.root.join('test/support/*.rb')].each { |f| require f }
 Mocha::Configuration.prevent(:stubbing_non_existent_method)
 
 class ActiveSupport::TestCase
-  include Factory::Syntax::Methods
+  include FactoryGirl::Syntax::Methods
   include ModelStubbingHelpers
   include HtmlAssertions
   extend GovspeakValidationTestHelper
@@ -40,7 +40,7 @@ class ActiveSupport::TestCase
   end
 
   def assert_same_elements(array1, array2)
-    assert_equal array1.sort, array2.sort, "Different elements in #{array1.inspect} and #{array2}.inspect"
+    assert_equal array1.to_set, array2.to_set, "Different elements in #{array1.inspect} and #{array2}.inspect"
   end
 
   def count_queries

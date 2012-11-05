@@ -52,4 +52,15 @@ class Admin::PreviewControllerTest < ActionController::TestCase
     post :preview, body: "<script>alert('woah');</script>"
     assert_response :forbidden
   end
+
+  test "preview returns a 403 if any of the referenced attachments are inaccessible to the current user" do
+    attachment = build(:attachment)
+    attachment.stubs(:id).returns("1")
+    attachment.stubs(:accessible_by?).with(@current_user).returns(false)
+    Attachment.stubs(:find).with(attachment.id).returns(attachment)
+
+    post :preview, body: "blah", attachment_ids: [attachment.id]
+
+    assert_response :forbidden
+  end
 end

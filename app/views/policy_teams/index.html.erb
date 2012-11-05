@@ -1,26 +1,31 @@
 <% page_title "Policy teams" %>
 <% page_class "policy-teams-index" %>
 
-<div>
-  <div class="block-1">
-    <div class="inner-block">
-      <section class="page-header">
-        <h1>Policy teams</h1>
-      </section>
-    </div>
+<div class="block-1">
+  <div class="inner-block">
+    <header class="page-header">
+      <h1>Policy teams</h1>
+    </header>
   </div>
+</div>
 
-  <div class="block-2">
-    <div class="inner-block">
-      <% if @policy_teams.any? %>
-        <ul>
-          <% @policy_teams.each do |team| %>
-            <%= content_tag_for :li, team do %>
-              <% link_to team.name, team %>
+<div class="block-2">
+  <div class="inner-block">
+    <section class="simple-alphabetical-list">
+    <% if @policy_teams.any? %>
+      <% @policy_teams.group_by { |team| (team.name || '-').first.upcase }.each do |letter, entries| %>
+        <div class="alphabetical-row">
+          <h2 class="alphabetical-list-letter"><%= letter %></h2>
+          <ul>
+            <% entries.each do |team| %>
+              <%= content_tag_for :li, team do %>
+                <% link_to team.name, team %>
+              <% end %>
             <% end %>
-          <% end %>
-        </ul>
+          </ul>
+        </div>
       <% end %>
-    </div>
+    <% end %>
+    </section>
   </div>
 </div>

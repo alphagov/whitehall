@@ -21,12 +21,25 @@ class Person < ActiveRecord::Base
   validates :name, presence: true
   validates_with SafeHtmlValidator
 
+  validate :image_must_be_960px_by_640px, if: :image_changed?
+
   extend FriendlyId
   friendly_id :slug_name, use: :slugged
 
   delegate :url, to: :image, prefix: :image
 
   before_destroy :prevent_destruction_if_appointed
+
+  def ministerial_roles_at(date)
+    role_appointments_at(date).map(&:role).select { |role| role.is_a?(MinisterialRole) }
+  end
+
+  def role_appointments_at(date)
+    role_appointments.where([
+      ":date >= started_at AND (:date <= ended_at OR ended_at IS NULL)",
+      {date: date}
+    ])
+  end
 
   def published_speeches
     speeches.latest_published_edition.order("delivered_on desc")
@@ -53,6 +66,17 @@ class Person < ActiveRecord::Base
   end
 
   private
+
+  def image_changed?
+    changes["carrierwave_image"].present?
+  end
+
+  def image_must_be_960px_by_640px
+    image_file = image && image.path && MiniMagick::Image.open(image.path)
+    unless image_file.nil? || (image_file[:width] == 960 && image_file[:height] == 640)
+      errors.add(:image, "must be 960px wide and 640px tall")
+    end
+  end
 
   def slug_name
     prefix = forename.present? ? forename : title

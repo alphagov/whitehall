@@ -2,18 +2,22 @@ require 'test_helper'
 
 class Admin::EditionsController
   class EditionFilterTest < ActiveSupport::TestCase
+    setup do
+      @current_user = build(:user)
+    end
+
     test "should filter by edition type" do
       policy = create(:policy)
       another_edition = create(:publication)
 
-      assert_equal [policy], EditionFilter.new(Edition, type: 'policy').editions
+      assert_equal [policy], EditionFilter.new(Edition, @current_user, type: 'policy').editions
     end
 
     test "should filter by edition state" do
       draft_edition = create(:draft_policy)
       edition_in_other_state = create(:published_policy)
 
-      assert_equal [draft_edition], EditionFilter.new(Edition, state: 'draft').editions
+      assert_equal [draft_edition], EditionFilter.new(Edition, @current_user, state: 'draft').editions
     end
 
     test "should filter by edition author" do
@@ -21,7 +25,7 @@ class Admin::EditionsController
       edition = create(:policy, authors: [author])
       edition_by_another_author = create(:policy)
 
-      assert_equal [edition], EditionFilter.new(Edition, author: author.to_param).editions
+      assert_equal [edition], EditionFilter.new(Edition, @current_user, author: author.to_param).editions
     end
 
     test "should filter by organisation" do
@@ -30,7 +34,7 @@ class Admin::EditionsController
       edition_in_no_organisation = create(:policy)
       edition_in_another_organisation = create(:publication, organisations: [create(:organisation)])
 
-      assert_equal [edition], EditionFilter.new(Edition, organisation: organisation.to_param).editions
+      assert_equal [edition], EditionFilter.new(Edition, @current_user, organisation: organisation.to_param).editions
     end
 
     test "should filter by edition type, state and author" do
@@ -38,7 +42,7 @@ class Admin::EditionsController
       policy = create(:draft_policy, authors: [author])
       another_edition = create(:published_policy, authors: [author])
 
-      assert_equal [policy], EditionFilter.new(Edition, type: 'policy', state: 'draft', author: author.to_param).editions
+      assert_equal [policy], EditionFilter.new(Edition, @current_user, type: 'policy', state: 'draft', author: author.to_param).editions
     end
 
     test "should filter by edition type, state and organisation" do
@@ -46,21 +50,21 @@ class Admin::EditionsController
       policy = create(:draft_policy, organisations: [organisation])
       another_edition = create(:published_policy, organisations: [organisation])
 
-      assert_equal [policy], EditionFilter.new(Edition, type: 'policy', state: 'draft', organisation: organisation.to_param).editions
+      assert_equal [policy], EditionFilter.new(Edition, @current_user, type: 'policy', state: 'draft', organisation: organisation.to_param).editions
     end
 
     test "should filter by title" do
       detailed = create(:policy, title: "Test mcTest")
       policy = create(:policy, title: "A policy")
 
-      assert_equal [detailed], EditionFilter.new(Edition, title: "test").editions
+      assert_equal [detailed], EditionFilter.new(Edition, @current_user, title: "test").editions
     end
 
     test "should return the editions ordered by most recent first" do
       older_policy = create(:draft_policy, updated_at: 3.days.ago)
       newer_policy = create(:draft_policy, updated_at: 1.minute.ago)
 
-      assert_equal [newer_policy, older_policy], EditionFilter.new(Edition, {}).editions
+      assert_equal [newer_policy, older_policy], EditionFilter.new(Edition, @current_user, {}).editions
     end
 
     test "should provide efficient access to edition creators" do
@@ -70,7 +74,7 @@ class Admin::EditionsController
       create(:consultation)
 
       query_count = count_queries do
-        editions = EditionFilter.new(Edition).editions
+        editions = EditionFilter.new(Edition, @current_user).editions
         editions.each { |d| d.creator.name }
       end
 
@@ -79,75 +83,75 @@ class Admin::EditionsController
     end
 
     test "should be invalid if author can't be found" do
-      filter = EditionFilter.new(Edition, author: 'invalid')
+      filter = EditionFilter.new(Edition, @current_user, author: 'invalid')
       refute filter.valid?
     end
 
     test "should be invalid if organisation can't be found" do
-      filter = EditionFilter.new(Edition, organisation: 'invalid')
+      filter = EditionFilter.new(Edition, @current_user, organisation: 'invalid')
       refute filter.valid?
     end
 
     test "should generate page title when there are no filter options" do
-      filter = EditionFilter.new(Edition)
-      assert_equal "Everyone's documents", filter.page_title(build(:user))
+      filter = EditionFilter.new(Edition, build(:user))
+      assert_equal "Everyone's documents", filter.page_title
     end
 
     test "should generate page title when we're displaying active documents" do
-      filter = EditionFilter.new(Edition, state: 'active')
-      assert_equal "Everyone's documents", filter.page_title(build(:user))
+      filter = EditionFilter.new(Edition, build(:user), state: 'active')
+      assert_equal "Everyone's documents", filter.page_title
     end
 
     test "should generate page title when filtering by document state" do
-      filter = EditionFilter.new(Edition, state: 'draft')
-      assert_equal "Everyone's draft documents", filter.page_title(build(:user))
+      filter = EditionFilter.new(Edition, build(:user), state: 'draft')
+      assert_equal "Everyone's draft documents", filter.page_title
     end
 
     test "should generate page title when filtering by document type" do
-      filter = EditionFilter.new(Edition, type: 'news_article')
-      assert_equal "Everyone's news articles", filter.page_title(build(:user))
+      filter = EditionFilter.new(Edition, build(:user), type: 'news_article')
+      assert_equal "Everyone's news articles", filter.page_title
     end
 
     test "should generate page title when filtering by any organisation" do
       organisation = create(:organisation, name: "Cabinet Office")
-      filter = EditionFilter.new(Edition, organisation: organisation.to_param)
-      assert_equal "Cabinet Office's documents", filter.page_title(build(:user))
+      filter = EditionFilter.new(Edition, build(:user), organisation: organisation.to_param)
+      assert_equal "Cabinet Office's documents", filter.page_title
     end
 
     test "should generate page title when filtering by my organisation" do
       organisation = create(:organisation)
       user = create(:user, organisation: organisation)
-      filter = EditionFilter.new(Edition, organisation: organisation.to_param)
-      assert_equal "My department's documents", filter.page_title(user)
+      filter = EditionFilter.new(Edition, user, organisation: organisation.to_param)
+      assert_equal "My department's documents", filter.page_title
     end
 
     test "should generate page title when filtering by any author" do
       user = create(:user, name: 'John Doe')
-      filter = EditionFilter.new(Edition, author: user.to_param)
-      assert_equal "John Doe's documents", filter.page_title(build(:user))
+      filter = EditionFilter.new(Edition, build(:user), author: user.to_param)
+      assert_equal "John Doe's documents", filter.page_title
     end
 
     test "should generate page title when filtering by my documents" do
       user = create(:user)
-      filter = EditionFilter.new(Edition, author: user.to_param)
-      assert_equal "My documents", filter.page_title(user)
+      filter = EditionFilter.new(Edition, user, author: user.to_param)
+      assert_equal "My documents", filter.page_title
     end
 
     test "should generate page title when filtering by document state, document type and organisation" do
       organisation = create(:organisation, name: 'Cabinet Office')
-      filter = EditionFilter.new(Edition, state: 'published', type: 'consultation', organisation: organisation.to_param)
-      assert_equal "Cabinet Office's published consultations", filter.page_title(build(:user))
+      filter = EditionFilter.new(Edition, build(:user), state: 'published', type: 'consultation', organisation: organisation.to_param)
+      assert_equal "Cabinet Office's published consultations", filter.page_title
     end
 
     test "should generate page title when filtering by document state, document type and author" do
       user = create(:user, name: 'John Doe')
-      filter = EditionFilter.new(Edition, state: 'rejected', type: 'speech', author: user.to_param)
-      assert_equal "John Doe's rejected speeches", filter.page_title(build(:user))
+      filter = EditionFilter.new(Edition, build(:user), state: 'rejected', type: 'speech', author: user.to_param)
+      assert_equal "John Doe's rejected speeches", filter.page_title
     end
 
     test "should generate page title when filtering by title" do
-      filter = EditionFilter.new(Edition, title: 'test')
-      assert_equal "Everyone's documents that match 'test'", filter.page_title(build(:user))
+      filter = EditionFilter.new(Edition, build(:user), title: 'test')
+      assert_equal "Everyone's documents that match 'test'", filter.page_title
     end
   end
 end
@@ -181,21 +185,21 @@ class Admin::EditionsControllerTest < ActionController::TestCase
 
   test 'should pass filter parameters to an edition filter' do
     stub_filter = stub_edition_filter
-    Admin::EditionsController::EditionFilter.expects(:new).with(anything, {"state" => "draft", "type" => "policy"}).returns(stub_filter)
+    Admin::EditionsController::EditionFilter.expects(:new).with(anything, anything, {"state" => "draft", "type" => "policy"}).returns(stub_filter)
 
     get :index, state: :draft, type: :policy
   end
 
   test "should not pass blank parameters to the edition filter" do
     stub_filter = stub_edition_filter
-    Admin::EditionsController::EditionFilter.expects(:new).with(anything, {"state" => "draft"}).returns(stub_filter)
+    Admin::EditionsController::EditionFilter.expects(:new).with(anything, anything, {"state" => "draft"}).returns(stub_filter)
 
     get :index, state: :draft, author: ""
   end
 
   test 'should strip out any invalid states passed as parameters' do
     stub_filter = stub_edition_filter
-    Admin::EditionsController::EditionFilter.expects(:new).with(anything, {"type" => "policy"}).returns(stub_filter)
+    Admin::EditionsController::EditionFilter.expects(:new).with(anything, anything, {"type" => "policy"}).returns(stub_filter)
 
     get :index, state: :haxxor_method, type: :policy
   end
@@ -387,6 +391,57 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     get :index, state: :draft
 
     assert_select_object(draft_edition) { refute_select ".state" }
+  end
+
+  test "index should not display limited access editions which I don't have access to" do
+    my_organisation, other_organisation = create(:organisation), create(:organisation)
+    login_as(create(:user, organisation: my_organisation))
+    accessible = [
+      create(:draft_policy),
+      create(:draft_publication, publication_type: PublicationType::NationalStatistics, access_limited: true, organisations: [my_organisation]),
+      create(:draft_publication, publication_type: PublicationType::NationalStatistics, access_limited: false, organisations: [other_organisation])
+    ]
+    inaccessible = create(:draft_publication, publication_type: PublicationType::NationalStatistics, access_limited: true, organisations: [other_organisation])
+
+    get :index, state: :active
+
+    accessible.each do |edition|
+      assert_select_object(edition)
+    end
+    refute_select_object(inaccessible)
+  end
+
+  test "index should indicate the protected status of limited access editions which I do have access to" do
+    my_organisation = create(:organisation)
+    login_as(create(:user, organisation: my_organisation))
+    publication = create(:draft_publication, publication_type: PublicationType::NationalStatistics, access_limited: true, organisations: [my_organisation])
+
+    get :index, state: :active
+
+    assert_select_object(publication) do
+      assert_select "span", "limited access"
+    end
+  end
+
+  test "should prevent viewing or modification of limited access editions which I don't have access to" do
+    my_organisation, other_organisation = create(:organisation), create(:organisation)
+    login_as(create(:user, organisation: my_organisation))
+    inaccessible = create(:draft_publication, publication_type: PublicationType::NationalStatistics, access_limited: true, organisations: [other_organisation])
+
+    get :show, id: inaccessible
+    assert_response 403
+
+    get :edit, id: inaccessible
+    assert_response 403
+
+    put :update, id: inaccessible, edition: {summary: "new-summary"}
+    assert_response 403
+
+    post :revise, id: inaccessible
+    assert_response 403
+
+    delete :destroy, id: inaccessible
+    assert_response 403
   end
 
   def stub_edition_filter(attributes = {})

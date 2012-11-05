@@ -5,10 +5,8 @@ class AnnouncementFilterJsonPresenter < DocumentFilterJsonPresenter
 
   def document_hash(document)
     super.merge(
-      publication_date: h.render_datetime_microformat(document, :first_published_at) {
-        document.first_published_at.to_s(:long_ordinal)
-      }.html_safe,
-      announcement_type: h.announcement_type(document)
+      publication_date: document.display_date_microformat,
+      announcement_type: document.display_announcement_type
     )
   end
 end

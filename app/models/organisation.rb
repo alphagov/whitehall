@@ -82,6 +82,10 @@ class Organisation < ActiveRecord::Base
             class_name: 'MilitaryRole',
             through: :organisation_roles,
             source: :role
+  has_many :traffic_commissioner_roles,
+            class_name: 'TrafficCommissionerRole',
+            through: :organisation_roles,
+            source: :role
   has_many :permanent_secretary_board_member_roles,
             class_name: 'BoardMemberRole',
             through: :organisation_roles,
@@ -120,6 +124,7 @@ class Organisation < ActiveRecord::Base
     if: :provides_alternative_formats?,
     message: "can't be blank as there are editions which use this organisation as the alternative format provider"}
   validates :govuk_status, inclusion: {in: %w{live joining exempt}}
+  validates :organisation_logo_type_id, presence: true
 
   default_scope order(arel_table[:name])
 
@@ -132,6 +137,14 @@ class Organisation < ActiveRecord::Base
   friendly_id :name, use: :slugged
 
   before_destroy { |r| r.destroyable? }
+
+  def organisation_logo_type
+    OrganisationLogoType.find_by_id(organisation_logo_type_id)
+  end
+
+  def organisation_logo_type=(organisation_logo_type)
+    self.organisation_logo_type_id = organisation_logo_type && organisation_logo_type.id
+  end
 
   def should_generate_new_friendly_id?
     new_record?
@@ -223,6 +236,10 @@ class Organisation < ActiveRecord::Base
 
   def unused_corporate_information_page_types
     CorporateInformationPageType.all - corporate_information_pages.map(&:type)
+  end
+
+  def has_published_publications_of_type?(publication_type)
+    published_publications.where("editions.publication_type_id" => publication_type.id).any?
   end
 
   private

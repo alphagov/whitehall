@@ -11,7 +11,7 @@ class Edition::AccessControlTest < ActiveSupport::TestCase
 
   [:published, :archived, :deleted].each do |state|
     test "should not be editable if #{state}" do
-      edition = build("#{state}_edition")
+      edition = create("#{state}_edition")
       refute edition.editable?
     end
   end
@@ -28,7 +28,7 @@ class Edition::AccessControlTest < ActiveSupport::TestCase
 
   [:draft, :rejected, :published, :archived, :deleted].each do |state|
     test "should not be rejectable if #{state}" do
-      edition = build("#{state}_edition")
+      edition = create("#{state}_edition")
       refute edition.rejectable_by?(build(:departmental_editor))
     end
   end
@@ -42,7 +42,7 @@ class Edition::AccessControlTest < ActiveSupport::TestCase
 
   [:submitted, :published, :archived, :deleted].each do |state|
     test "should not be submittable if #{state}" do
-      edition = build("#{state}_edition")
+      edition = create("#{state}_edition")
       refute edition.submittable?
     end
   end
@@ -54,11 +54,17 @@ class Edition::AccessControlTest < ActiveSupport::TestCase
     end
   end
 
-  [:scheduled, :published, :archived, :deleted].each do |state|
+  [:scheduled, :published, :archived].each do |state|
     test "should not be deletable if #{state}" do
       document = create("#{state}_edition")
       refute document.deletable?
     end
+  end
+
+  test "should not be deletable if deleted" do
+    document = create("draft_edition")
+    document.delete!
+    refute document.deletable?
   end
 
   test "should allow another editor to retrospectively approve a force-published document" do

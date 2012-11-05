@@ -7,11 +7,7 @@ gem 'mysql2'
 gem 'jquery-rails'
 gem 'transitions', require: ['transitions', 'active_record/transitions']
 gem 'carrierwave'
-if ENV['GOVSPEAK_DEV']
-  gem 'govspeak', path: '../govspeak'
-else
-  gem 'govspeak', '~> 1.0.1'
-end
+gem 'govspeak', '~> 1.2.2'
 gem 'kramdown', git: 'https://github.com/alphagov/kramdown.git', branch: "add-gemspec"
 gem 'validates_email_format_of'
 gem 'friendly_id', '4.0.0.beta14'
@@ -38,9 +34,10 @@ gem 'kaminari'
 gem 'bootstrap-kaminari-views'
 gem 'gds-api-adapters', '2.8.1'
 gem 'whenever', '0.7.3', require: false
+gem 'mini_magick'
 
 group :assets do
-  gem 'govuk_frontend_toolkit', '0.6.4'
+  gem 'govuk_frontend_toolkit', '0.7.0'
   gem 'sass', '3.2.1'
   gem 'sass-rails', '3.1.4'
   gem 'uglifier'
@@ -50,12 +47,12 @@ group :development, :staging, :test do
   gem 'faker'
   gem 'thin'
   gem 'quiet_assets'
-  gem 'rails-dev-boost', git: 'https://github.com/thedarkone/rails-dev-boost.git', require: 'rails_development_boost'
+  gem 'rails-dev-boost', '~> 0.2.1'
   gem 'brakeman'
 end
 
 group :test do
-  gem 'factory_girl', '~> 2.6.0'
+  gem 'factory_girl'
   gem 'hash_syntax'
   gem 'mocha', '0.10.0', require: false
   gem 'test_track'

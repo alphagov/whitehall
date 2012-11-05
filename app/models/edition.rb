@@ -5,6 +5,7 @@ class Edition < ActiveRecord::Base
 
   include Edition::Identifiable
   include Edition::AccessControl
+  include Edition::LimitedAccess
   include Edition::Workflow
   include Edition::Organisations
   include Edition::Publishing
@@ -142,6 +143,10 @@ class Edition < ActiveRecord::Base
     false
   end
 
+  def can_be_associated_with_statistical_data_sets?
+    false
+  end
+
   def can_be_associated_with_countries?
     false
   end
@@ -191,6 +196,10 @@ class Edition < ActiveRecord::Base
   end
 
   def can_be_grouped_in_series?
+    false
+  end
+
+  def can_limit_access?
     false
   end
 
@@ -307,7 +316,14 @@ class Edition < ActiveRecord::Base
     end
 
     def authored_by(user)
-      joins(:edition_authors).where(edition_authors: {user_id: user}).group(:edition_id)
+      if user && user.id
+        where("EXISTS (
+          SELECT * FROM edition_authors ea_authorship_check
+          WHERE
+            ea_authorship_check.edition_id=editions.id
+            AND ea_authorship_check.user_id=?
+          )", user.id)
+      end
     end
 
     def by_type(type)

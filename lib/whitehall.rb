@@ -2,6 +2,7 @@ module Whitehall
   autoload :Random, 'whitehall/random'
   autoload :RandomKey, 'whitehall/random_key'
   autoload :FormBuilder, 'whitehall/form_builder'
+  autoload :Uploader, 'whitehall/uploader'
 
   mattr_accessor :government_search_client
   mattr_accessor :mainstream_search_client
@@ -38,6 +39,12 @@ module Whitehall
       'whitehall-admin.production.alphagov.co.uk'
     ]
 
+    def system_binaries
+      {
+        zipinfo: "/usr/bin/zipinfo"
+      }
+    end
+
     def asset_host
       ENV['GOVUK_ASSET_HOST']
     end
@@ -48,6 +55,10 @@ module Whitehall
 
     def admin_hosts
       ADMIN_HOSTS
+    end
+
+    def public_hosts
+      PUBLIC_HOSTS.values.uniq
     end
 
     def government_single_domain?(request)
@@ -101,12 +112,19 @@ module Whitehall
     end
 
     def government_search_index
-      edition_classes = Edition.subclasses - [DetailedGuide] - DetailedGuide.subclasses
-      (edition_classes + [MinisterialRole, Organisation, SupportingPage, Topic]).map(&:search_index).sum([])
+      (government_edition_classes + [MinisterialRole, Organisation, SupportingPage, Topic]).map(&:search_index).sum([])
     end
 
     def detailed_guidance_search_index
       [DetailedGuide].map(&:search_index).sum([])
+    end
+
+    def edition_classes
+      Edition.descendants - [Publicationesque, Announcement]
+    end
+
+    def government_edition_classes
+      edition_classes - [DetailedGuide] - DetailedGuide.descendants
     end
 
     private

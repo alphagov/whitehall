@@ -1,50 +1,69 @@
 <% page_title "About ", @organisation.name %>
-<% page_class "organisation_subpages" %>
+<% page_class "organisations-about organisation-page" %>
 
-<%= organisation_wrapper(@organisation, class: "") do %>
-  <div class="block-1">
-    <div class="inner-block">
-      <%= render 'header', organisation: @organisation, title: "About" %>
-    </div>
-  </div>
-
-  <div class="block-2">
-    <div class="inner-block">
-      <div class="sidebar sub_navigation_container">
-        <%= render 'sidebar', organisation: @organisation %>
-      </div>
-    </div>
-  </div>
-
-  <div class="block-3">
-    <div class="inner-block">
-      <div class="about_page">
-        <div>
-          <article class="document">
-            <div class="body">
-              <%= govspeak_to_html @organisation.about_us %>
-            </div>
-          </article>
+<%= organisation_wrapper(@organisation) do %>
+  <article>
+    <div class="block-1">
+      <div class="inner-block">
+        <%= render partial: 'organisations/header', locals: {
+              organisation: @organisation,
+              link_to_organisation: true
+            } %>
+        <div class="contextual-info js-stick-at-top-when-scrolling">
+          <nav>
+            <h1>About us</h1>
+            <ol>
+              <li><%= link_to "What we do", "#what-we-do" %></li>
+              <% govspeak_headers(@organisation.about_us).each do |header| %>
+                <li><%= link_to header.text, "##{header.id}" %></li>
+              <% end %>
+              <li><%= link_to "Corporate information", "#corporate-information" %></li>
+            </ol>
+          </nav>
         </div>
-        <% if @corporate_publications.any? %>
-          <div>
-          </div>
-          <div>
-          <h1>Corporate publications</h1>
-          <% @corporate_publications.each do |publication| %>
-            <%#= article_section("Corporate publications", @corporate_publications, {id: 'publications',  article_wrapper_class: ""}) do |publication| %>
-            <%= content_tag_for :div, publication, class: 'item' do %>
-              <h2 class="article_title"><%= link_to publication.title, public_document_path(publication), title: "View #{publication.title}" %></h2>
-              <span class="metadata">
-                Updated <%= relative_time(publication.updated_at, class: 'updated_at') %>
-              </span>
-            <% end %>
-          <% end %>
-          </div>
-        <% end %>
-
       </div>
     </div>
-  </div>
+    <div class="block-2">
+      <div class="inner-block">
+        <h1 class="main">What we do</h1>
+        <p class="description">
+          <%= @organisation.description %>
+        </p>
+        <div class="body">
+          <%= govspeak_to_html @organisation.about_us %>
+        </div>
 
+        <aside class="corporate-info" id="corporate-information">
+          <h1>Corporate information</h1>
+          <% if has_any_transparency_pages?(@organisation) %>
+            <h2>Transparency</h2>
+            <ul class="transparency">
+              <% @organisation.corporate_information_pages.each do |page| %>
+                <li><%= link_to page.title, organisation_corporate_information_page_path(@organisation, page) %></li>
+              <% end %>
+              <% if @organisation.has_published_publications_of_type?(PublicationType::TransparencyData) %>
+                <li><%= link_to "Transparency data", publications_path(publication_type: 'transparency-data', :'departments[]' => @organisation.slug) %></li>
+              <% end %>
+              <% if @organisation.has_published_publications_of_type?(PublicationType::FoiRelease) %>
+                <li><%= link_to "FOI releases", publications_path(publication_type: 'foi-releases', :'departments[]' => @organisation.slug) %></li>
+              <% end %>
+            </ul>
+          <% end %>
+          <% if @corporate_publications.any? %>
+            <h2>Reports</h2>
+            <ul>
+              <% @corporate_publications.each do |publication| %>
+                <%= content_tag_for :li, publication, class: 'item' do %>
+                  <h3 class="title"><%= link_to publication.title, public_document_path(publication) %></h3>
+                  <span class="metadata">
+                    Updated <%= relative_time(publication.updated_at, class: 'updated-at') %>
+                  </span>
+                <% end %>
+              <% end %>
+            </ul>
+          <% end %>
+        </aside>
+      </div>
+    </div>
+  </article>
 <% end %>

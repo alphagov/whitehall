@@ -4,6 +4,7 @@ class PublicationTest < EditionTestCase
   should_allow_image_attachments
   should_be_attachable
   should_not_allow_inline_attachments
+  should_allow_referencing_of_statistical_data_sets
   should_allow_a_summary_to_be_written
   should_protect_against_xss_and_content_attacks_on :title, :body, :summary, :change_note
 
@@ -22,7 +23,8 @@ class PublicationTest < EditionTestCase
     draft_publication = published_publication.create_draft(create(:policy_writer))
 
     assert_kind_of Attachment, published_publication.attachments.first
-    assert_equal published_publication.attachments, draft_publication.attachments
+    assert_not_equal published_publication.attachments, draft_publication.attachments
+    assert_equal published_publication.attachments.first.attachment_data, draft_publication.attachments.first.attachment_data
     assert_equal published_publication.publication_date, draft_publication.publication_date
     assert_equal published_publication.publication_type, draft_publication.publication_type
   end
@@ -37,14 +39,14 @@ class PublicationTest < EditionTestCase
     refute publication.valid?
   end
 
-  test ".in_chronological_order returns docs order in ascending order of publication_date" do
+  test ".in_chronological_order returns publications in ascending order of publication_date" do
     jan = create(:publication, publication_date: Date.parse("2011-01-01"))
     mar = create(:publication, publication_date: Date.parse("2011-03-01"))
     feb = create(:publication, publication_date: Date.parse("2011-02-01"))
     assert_equal [jan, feb, mar], Publication.in_chronological_order.all
   end
 
-  test ".in_reverse_chronological_order returns docs order in descending order of publication_date" do
+  test ".in_reverse_chronological_order returns publications in descending order of publication_date" do
     jan = create(:publication, publication_date: Date.parse("2011-01-01"))
     mar = create(:publication, publication_date: Date.parse("2011-03-01"))
     feb = create(:publication, publication_date: Date.parse("2011-02-01"))
@@ -129,5 +131,15 @@ class PublicationsInTopicsTest < ActiveSupport::TestCase
     assert policy_1_b.publish_as(user, force: true), "Should be able to publish"
     topic_1_b.reload
     assert_equal [published_publication], Publication.in_topic([topic_1_b]).all
+  end
+
+  test "access_limited flag is ignored for non-stats types" do
+    e = build(:draft_publication, publication_type: PublicationType::PolicyPaper, access_limited: true)
+    refute e.access_limited?
+  end
+
+  test "persisted value of access_limited flag is nil for non-stats types" do
+    e = create(:draft_publication, publication_type: PublicationType::PolicyPaper, access_limited: true)
+    assert e.reload.read_attribute(:access_limited).nil?
   end
 end

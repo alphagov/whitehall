@@ -10,6 +10,7 @@ class AttachmentUploader < WhitehallUploader
 
   process :set_content_type
   after :retrieve_from_cache, :set_content_type
+  before :cache, :validate_zipfile_contents!
 
   version :thumbnail, if: :pdf? do
     def full_filename(for_file)
@@ -46,6 +47,49 @@ class AttachmentUploader < WhitehallUploader
   end
 
   def extension_white_list
-    %w(pdf csv rtf png jpg doc docx xls xlsx ppt pptx)
+    %w(pdf csv rtf png jpg doc docx xls xlsx ppt pptx zip)
   end
+
+  class ZipFile
+    class NonUTF8ContentsError < RuntimeError; end
+
+    def initialize(zip_path)
+      @zip_path = zip_path
+    end
+
+    def filenames
+      unless @filenames
+        zipinfo_output = `#{Whitehall.system_binaries[:zipinfo]} -1 "#{@zip_path}"`
+        @filenames = zipinfo_output.split(/[\r\n]+/)
+      end
+      @filenames
+    rescue ArgumentError => e
+      raise NonUTF8ContentsError, "Some filenames in zip aren't UTF-8: #{zipinfo_output}"
+    end
+
+    def extensions
+      filenames.map do |f|
+        if match = f.match(/\.([^\.]+)\Z/)
+          match[1]
+        else
+          nil
+        end
+      end.compact
+    end
+  end
+
+  def validate_zipfile_contents!(new_file)
+    extension = new_file.extension.to_s
+    return unless extension == 'zip'
+    present_extensions = ZipFile.new(new_file.path).extensions.uniq
+    whitelist = extension_white_list - ['zip']
+    illegal_extensions = present_extensions - whitelist
+    if illegal_extensions.any?
+      raise CarrierWave::IntegrityError, "You are not allowed to upload a zip file containing #{illegal_extensions.join(", ")} files, allowed types: #{extension_white_list.inspect}"
+    end
+  rescue AttachmentUploader::ZipFile::NonUTF8ContentsError
+    raise CarrierWave::IntegrityError, "Your zipfile must not contain filenames that aren't encoded in UTF-8"
+  end
+
+
 end

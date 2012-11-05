@@ -70,8 +70,15 @@ nav.consultations_scope {
   .consultation-block {
     background: $inside-gov-brand;
     color: $white;
-    overflow: hidden;
-    margin: $gutter 0;
+    margin: $gutter-one-third ($gutter-half*-1) 0;
+    @include media(tablet){
+      margin: $gutter 0 0;
+    }
+    
+    &+.consultation-block {
+      padding-top: 0;
+      margin-top: 0;
+    }
 
     &.consultation-open {
       padding: $gutter-one-third 0;
@@ -127,8 +134,11 @@ nav.consultations_scope {
     }
 
     &.consultation-closed {
-      padding: $gutter-one-third;
-      @include core-19;
+      padding: $gutter-two-thirds $gutter-half;
+      
+      p {
+        @include core-19;
+      }
 
       h2 {
         @include core-48;
@@ -141,10 +151,6 @@ nav.consultations_scope {
     }
 
     &.consultation-responded {
-      .attachment-full-width {
-        color: $body-text;
-      }
-
       h2 {
       }
       .run-time {
@@ -163,6 +169,10 @@ nav.consultations_scope {
     background: $inside-gov-brand;
     color: $white;
     @include core-19;
+    margin: 0 ($gutter-half*-1);
+    @include media(tablet){
+      margin: 0;
+    }
 
     .content {
       margin: 0 $gutter-one-third $gutter-half;
@@ -202,4 +212,9 @@ nav.consultations_scope {
       }
     }
   }
+
+  .block-2 .heading-block {
+    padding-top: $gutter;
+  }
+
 }

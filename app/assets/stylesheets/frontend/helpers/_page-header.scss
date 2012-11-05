@@ -12,15 +12,6 @@
     }
   }
 
-  h2 {
-    position: relative;
-    @include core-14;
-    margin-bottom: $gutter-two-thirds*-1;
-    @media (max-width: 640px) {
-      margin-bottom: 0;
-    }
-  }
-
   .explanation {
     margin-top: $gutter-two-thirds*-1;
     @include core-19;

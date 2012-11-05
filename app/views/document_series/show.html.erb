@@ -3,40 +3,108 @@
 
 <div class="block-1">
   <div class="inner-block">
-    <header class="page-header">
-      <h1><%= @document_series.name %></h1>
-      <p>A document series from <%= link_to @organisation.name, organisation_path(@organisation) %>.</p>
-    </header>
-    <div class="description">
-      <%= govspeak_to_html @document_series.description %>
+    <section class="document-page-header">
+      <header class="page-header">
+      <h1 class="page_title">
+        <span class="inner">
+          <span class="label">Series</span>
+          <span class="title"><%= @document_series.name %></span>
+        </span>
+      </h1>
+        <aside class="meta">
+          <dl>
+            <dd class="organisations">
+              <%= render  partial: 'organisations/organisations_logo_list',
+                        locals: { organisations: [@organisation] } %>
+            </dd>
+          </dl>
+        </aside>
+      </header>
+    </section>
+  </div>
+</div>
+
+<div class="block-2 ">
+  <div class="inner-block">
+    <div class="contextual-info js-stick-at-top-when-scrolling">
+      <nav>
+        <h1>Contents</h1>
+        <ol>
+          <% unless @document_series.description.blank? %>
+            <li><a href="#this-series">In this series</a></li>
+          <% end %>
+          <% govspeak_headers(@document_series.description).each do |header| %>
+            <li><%= link_to header.text, "##{header.id}" %></li>
+          <% end %>
+          <% if @published_publications.any? %>
+            <li><a href="#publications">Publications</a></li>
+          <% end %>
+          <% if @published_statistical_data_sets.any? %>
+            <li><a href="#statistical-data-sets">Statistical data sets</a></li>
+          <% end %>
+        </ol>
+      </nav>
     </div>
   </div>
 </div>
 
-<div class="block-2">
+<div class="block-3">
   <div class="inner-block">
     <section id="document_series" class="group">
-      <% if @published_editions.any? %>
-        <table class="document-list">
-          <thead class="visuallyhidden">
-            <tr>
-              <th scope="col">Title</th>
-              <th scope="col">Date</th>
-            </tr>
-          </thead>
 
-          <tbody>
-            <% @published_editions.each do |edition| %>
-              <%= content_tag_for :tr, edition, class: "document-row" do %>
-                <th scope="row" class="title attribute"><%= edition.link %></th>
-                <td class="date attribute"><%= edition.display_date_microformat %></td>
-              <% end %>
-            <% end %>
-          </tbody>
-        </table>
-      <% else %>
-        <p>There are no documents in this series at the moment.</p>
-      <% end %>
+    <% unless @document_series.description.blank? %>
+      <div class="description">
+        <h2 id="this-series">In this series</h2>
+        <%= govspeak_to_html @document_series.description %>
+      </div>
+    <% end %>
+
+      <div class="publications">
+        <% if @published_publications.any? %>
+            <h2 id="publications">Publications</h2>
+            <table class="document-list">
+              <thead class="visuallyhidden">
+                <tr>
+                  <th scope="col">Title</th>
+                  <th scope="col">Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @published_publications.each do |publication| %>
+                  <%= content_tag_for :tr, publication, class: "document-row" do %>
+                    <th scope="row" class="title attribute"><%= publication.link %></th>
+                    <td class="date attribute"><%= publication.display_date_microformat %></td>
+                  <% end %>
+                <% end %>
+              </tbody>
+            </table>
+        <% else %>
+          <p>There are no publications in this series at the moment.</p>
+        <% end %>
+      </div>
+
+      <div class="statistical-data-sets">
+        <% if @published_statistical_data_sets.any? %>
+            <h2 id="statistical-data-sets">Statistical data sets</h2>
+            <table class="document-list statistical-data-sets">
+              <thead class="visuallyhidden">
+                <tr>
+                  <th scope="col">Title</th>
+                  <th scope="col">Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @published_statistical_data_sets.each do |statistical_data_set| %>
+                  <%= content_tag_for :tr, statistical_data_set, class: "document-row" do %>
+                    <th scope="row" class="title attribute"><%= statistical_data_set.link %></th>
+                    <td class="date attribute"><%= statistical_data_set.display_date_microformat %></td>
+                  <% end %>
+                <% end %>
+              </tbody>
+            </table>
+        <% end %>
+      </div>
+
     </section>
   </div>
 </div>

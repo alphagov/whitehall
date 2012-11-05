@@ -1,7 +1,7 @@
 Then /^I should see a placeholder thumbnail whilst the attachment is being virus checked$/ do
   assert page.has_css?(".attachment a[href*='#{@attachment_filename}']", text: @attachment_title)
 
-  assert_final_path(attachment_thumbnail_path, "thumbnail-virus-checking.png")
+  assert_final_path(attachment_thumbnail_path, "thumbnail-placeholder.png")
 end
 
 Then /^clicking on the attachment redirects me to an explanatory page$/ do
@@ -25,7 +25,7 @@ When /^I check the image for the new person$/ do
 end
 
 Then /^the image will be quarantined for virus checking$/ do
-  assert_final_path(person_image_path, "thumbnail-virus-checking.png")
+  assert_final_path(person_image_path, "thumbnail-placeholder.png")
 end
 
 Then /^the virus checked image will be available for viewing$/ do

@@ -43,7 +43,7 @@ class Admin::EditionOrganisationsControllerTest < ActionController::TestCase
       featured: "true",
       alt_text: "new-alt-text",
       image_attributes: {
-        file: fixture_file_upload('minister-of-funk.jpg')
+        file: fixture_file_upload('minister-of-funk.960x640.jpg')
       }
     }
 
@@ -60,7 +60,7 @@ class Admin::EditionOrganisationsControllerTest < ActionController::TestCase
       featured: "true",
       alt_text: nil,
       image_attributes: {
-        file: fixture_file_upload('minister-of-funk.jpg')
+        file: fixture_file_upload('minister-of-funk.960x640.jpg')
       }
     }
 
@@ -88,13 +88,13 @@ class Admin::EditionOrganisationsControllerTest < ActionController::TestCase
       featured: "true",
       alt_text: nil,
       image_attributes: {
-        file: fixture_file_upload('minister-of-funk.jpg')
+        file: fixture_file_upload('minister-of-funk.960x640.jpg')
       }
     }
 
     assert_select "form" do
-      assert_select "input[name='edition_organisation[image_attributes][file_cache]'][value$='minister-of-funk.jpg']"
-      assert_select ".already_uploaded", text: "minister-of-funk.jpg already uploaded"
+      assert_select "input[name='edition_organisation[image_attributes][file_cache]'][value$='minister-of-funk.960x640.jpg']"
+      assert_select ".already_uploaded", text: "minister-of-funk.960x640.jpg already uploaded"
     end
   end
 
@@ -124,5 +124,18 @@ class Admin::EditionOrganisationsControllerTest < ActionController::TestCase
     edition_organisation = create(:edition_organisation, organisation: organisation)
     post :update, id: edition_organisation, edition_organisation: {}
     assert_redirected_to admin_organisation_path(organisation, anchor: "documents")
+  end
+
+  test "should prevent access to editon_organisations of inaccessible editions" do
+    protected_edition = stub("protected edition")
+    protected_edition.stubs(:accessible_by?).with(@current_user).returns(false)
+    edition_organisation = build(:edition_organisation)
+    edition_organisation.stubs(:edition).returns(protected_edition)
+    EditionOrganisation.stubs(:find).with("1").returns(edition_organisation)
+
+    get :edit, id: "1"
+    assert_response 403
+    get :update, id: "1"
+    assert_response 403
   end
 end

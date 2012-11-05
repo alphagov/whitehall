@@ -1,19 +1,39 @@
 .policy-teams {
-  @media (min-width: 768px) {
-    .block-2 {
-      width: 40%;
+
+  .page-header h1 {
+    @include core-48;
+    margin-top: $gutter-one-third;
+    @include media(tablet){
+      margin-bottom: ($gutter - $gutter-one-sixth);
+      width: 75%;
+      float: left;
+    }
+  }
+  
+  @include media(desktop) {
+    .block-2, .block-3 {
+      width: 33%;
       float: left;
       display: inline;
     }
 
     .block-3 {
-      width: 60%;
-      float: left;
-      display: inline;
-
+      width: 66%;
       .policies {
         list-style: none;
       }
     }
+  }
+  h2 {
+    @include core-27;
+    color: lighten($body-text, 20%);
+    margin-top: $gutter;
+    @include media(tablet) {
+      margin-top: $gutter-half;
+    }
+  }
+
+  .policy, .email {
+    @include core-19;
   }
 }

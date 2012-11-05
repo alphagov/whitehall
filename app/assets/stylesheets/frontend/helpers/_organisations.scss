@@ -14,276 +14,643 @@
     top: 1px;
     margin-left: 7px;
     padding-bottom: 6px;
-    .organisation-logo-small {
-      font-size: 13px;
-    }
   }
   .single-identity {
     margin-left: 0;
     top: 0;
     padding-bottom: $gutter-one-third;
-    .organisation-logo-small {
-      font-size: 15px;
-    }
   }
 }
 
-
-
-
-// small logos - used across the site
-
-.organisation-logo-small {
-  font-family: $Helvetica-Regular;
-  font-size: 15px;
-  font-size: 1.5rem;
+.organisation-logo-no-identity {
+  font-family: Helvetica, Arial;
   font-weight: 400;
-  letter-spacing: 0;
-  text-transform: none;
-  line-height: 1;
-  display:block;
-  padding-top: 2px;
-  padding-top: 0.2rem;
-  padding-bottom: 3px;
-  padding-bottom: 0.3rem;
-  color: $black;
-  background: none;
-  
-  @media (max-width: 640px) {
-    font-size: 1.3rem;
-    line-height: (15/13);
-  }
-  
-  &[rel="external"] {
-    background: none;
-  }
-  
-  &:active {
-    color: $black;
+  display: block;
+  position: relative;
+  white-space: nowrap;
+  background-repeat: no-repeat;
+  font-size: 13px;
+  line-height: 15px;
+  padding: 3px 0 2px 0;
+
+  &:link,
+  &:visited {
+    color: #000;
+}
+
+}
+.organisation-logo-stacked-no-identity {
+  @extend .organisation-logo-no-identity;
+}
+.organisation-logo-identity {
+  @extend .organisation-logo-no-identity;
+  border-left: 2px solid;
+}
+
+
+// Plain single identity
+.organisation-logo-single-identity {
+  @extend .organisation-logo-identity;
+
+  padding: 3px 0 2px 35px;
+  background-image: image-url("crests/org_crest_13px.png");
+  background-position: 5px center;
+  background-size: auto 20px;
+}
+.organisation-logo-stacked-single-identity {
+  @extend .organisation-logo-identity;
+
+  padding: 20px 0 0 6px;
+  background-image: image-url("crests/org_crest_13px.png");
+  background-position: 5px top;
+  background-size: auto 20px;
+}
+.organisation-logo-stacked-single-identity span {
+  display: block;
+  top: 3px;
+  position: relative;
+}
+@media all and (-webkit-min-device-pixel-ratio: 2) {
+  .organisation-logo-single-identity,
+  .organisation-logo-stacked-single-identity {
+    background-image: image-url("crests/org_crest_13px_x2.png");
   }
 }
 
-.single-identity .organisation-logo-small {
-  padding-top: 20px;
-  padding-top: 2rem;
-  padding-bottom: 0px;
-  padding-left: 5px;
-  border-left-width: 2px;
-  border-left-style: solid;
-  background: image-url("coa-default-20.gif") no-repeat 4px 0;
-  
-  span {
-    position: relative;
-    top: 2px;
+// BIS
+.organisation-logo-bis {
+  @extend .organisation-logo-identity;
+
+  padding: 3px 0 2px 30px;
+  background-image: image-url("crests/bis_crest_13px.png");
+  background-position: 5px center;
+  background-size: auto 20px;
+}
+.organisation-logo-stacked-bis {
+  @extend .organisation-logo-identity;
+
+  padding: 20px 0 0 6px;
+  background-image: image-url("crests/bis_crest_13px.png");
+  background-position: 5px top;
+  background-size: auto 20px;
+}
+.organisation-logo-stacked-bis span {
+  display: block;
+  top: 3px;
+  position: relative;
+}
+@media all and (-webkit-min-device-pixel-ratio: 2) {
+  .organisation-logo-bis,
+  .organisation-logo-stacked-bis {
+    background-image: image-url("crests/bis_crest_13px_x2.png");
   }
-  
-  @media (max-width: 640px) {
-    padding-top: 20px;
-    padding-top: 2rem;
-    background-image: image-url("coa-default-18.gif");
-    
-    span {
+}
+
+// Scotland Office
+.organisation-logo-so {
+  @extend .organisation-logo-identity;
+
+  padding: 3px 0 2px 35px;
+  background-image: image-url("crests/so_crest_13px.png");
+  background-position: 5px center;
+  background-size: auto 20px;
+}
+.organisation-logo-stacked-so {
+  @extend .organisation-logo-identity;
+
+  padding: 20px 0 0 6px;
+  background-image: image-url("crests/so_crest_13px.png");
+  background-position: 5px top;
+  background-size: auto 20px;
+}
+.organisation-logo-stacked-so span {
+  display: block;
+  top: 3px;
+  position: relative;
+}
+@media all and (-webkit-min-device-pixel-ratio: 2) {
+  .organisation-logo-so,
+  .organisation-logo-stacked-so {
+    background-image: image-url("crests/so_crest_13px_x2.png");
+  }
+}
+
+// Home Office
+.organisation-logo-ho {
+  @extend .organisation-logo-identity;
+
+  padding: 5px 0 5px 24px;
+  background-image: image-url("crests/ho_crest_13px.png");
+  background-position: 5px center;
+  background-size: auto 25px;
+}
+.organisation-logo-stacked-ho {
+  @extend .organisation-logo-identity;
+
+  padding: 25px 0 0 6px;
+  background-image: image-url("crests/ho_crest_13px.png");
+  background-position: 5px top;
+  background-size: auto 25px;
+}
+.organisation-logo-stacked-ho span {
+  display: block;
+  top: 3px;
+  position: relative;
+}
+@media all and (-webkit-min-device-pixel-ratio: 2) {
+  .organisation-logo-ho,
+  .organisation-logo-stacked-ho {
+    background-image: image-url("crests/ho_crest_13px_x2.png");
+  }
+}
+
+// MOD
+.organisation-logo-mod {
+  @extend .organisation-logo-identity;
+
+  padding: 5px 0 5px 30px;
+  background-image: image-url("crests/mod_crest_13px.png");
+  background-position: 5px center;
+  background-size: auto 25px;
+}
+.organisation-logo-stacked-mod {
+  @extend .organisation-logo-identity;
+
+  padding: 25px 0 0 6px;
+  background-image: image-url("crests/mod_crest_13px.png");
+  background-position: 5px top;
+  background-size: auto 25px;
+}
+.organisation-logo-stacked-mod span {
+  display: block;
+  top: 3px;
+  position: relative;
+}
+@media all and (-webkit-min-device-pixel-ratio: 2) {
+  .organisation-logo-mod,
+  .organisation-logo-stacked-mod {
+    background-image: image-url("crests/mod_crest_13px_x2.png");
+  }
+}
+
+// Wales Office
+.organisation-logo-wales {
+  @extend .organisation-logo-identity;
+
+  padding: 5px 0 5px 26px;
+  background-image: image-url("crests/wales_crest_13px.png");
+  background-position: 5px center;
+  background-size: auto 25px;
+}
+.organisation-logo-stacked-wales {
+  @extend .organisation-logo-identity;
+
+  padding: 25px 0 0 6px;
+  background-image: image-url("crests/wales_crest_13px.png");
+  background-position: 5px top;
+  background-size: auto 25px;
+}
+.organisation-logo-stacked-wales span {
+  display: block;
+  top: 3px;
+  position: relative;
+}
+@media all and (-webkit-min-device-pixel-ratio: 2) {
+  .organisation-logo-wales,
+  .organisation-logo-stacked-wales {
+    background-image: image-url("crests/wales_crest_13px_x2.png");
+  }
+}
+
+
+// Non-cornforming Medium
+.organisation-logo-no-identity-medium {
+  @extend .organisation-logo-no-identity;
+  @include media(desktop){
+    font-size: 18px;
+    line-height: 20px;
+    padding: 3px 0 2px 0;
+  }
+}
+.organisation-logo-identity-medium {
+  @extend .organisation-logo-no-identity-medium;
+  @include media(desktop){
+    border-left: 2px solid;
+  }
+}
+
+// Single identity Medium
+.organisation-logo-single-identity-medium {
+  @extend .organisation-logo-identity-medium;
+  @include media(desktop){
+    padding: 3px 0 2px 44px;
+    background-image: image-url("crests/org_crest_18px.png");
+    background-position: 6px center;
+    background-size: auto 25px;
+  }
+}
+.organisation-logo-stacked-single-identity-medium {
+  @extend .organisation-logo-identity-medium;
+  @include media(desktop){
+    padding: 25px 0 0 7px;
+    background-image: image-url("crests/org_crest_18px.png");
+    background-position: 6px top;
+    background-size: auto 25px;
+  }
+}
+@include media(desktop){
+  .organisation-logo-stacked-single-identity-medium span {
+      display: block;
       top: 3px;
-    }
+      position: relative;
   }
-  
-  &.single-line {
-    padding-top: 2px;
-    padding-top: 0.2rem;
-    padding-bottom: 3px;
-    padding-bottom: 0.3rem;
-    padding-left: 35px;
-    background-position: 4px 50%;
-  
-    span {
-      top: 0;
-      position: static;
-    }
-    
-    @media (max-width: 640px) {
-      padding-top: 1px;
-      padding-top: 0.1rem;
-      padding-bottom: 1px;
-      padding-bottom: 0.1rem;
-      padding-left: 31px;
-      padding-left: 3.1rem;
-      background-position: 5px 50%;
+  @media all and (-webkit-min-device-pixel-ratio: 2) {
+    .organisation-logo-single-identity-medium,
+    .organisation-logo-stacked-single-identity-medium {
+      background-image: image-url("crests/org_crest_18px_x2.png");
     }
   }
 }
 
-@include department-colours('.organisation-logo-small', border-color);
-
-
-
-// medium logos - used across the org list page
-
-.organisation-logo-medium {
-  font-family: $Helvetica-Regular;
-  font-size: 18px;
-  font-size: 1.8rem;
-  font-weight: 400;
-  letter-spacing: 0;
-  text-transform: none;
-  line-height: (20/18);
-  float: left;
-  display:block;
-  padding-top: 2px;
-  padding-top: 0.2rem;
-  padding-bottom: 3px;
-  padding-bottom: 0.3rem;
-  color: $black;
-  background: none;
-  
-  @media (max-width: 640px) {
-    font-size: 1.3rem;
-    line-height: (15/13);
-  }
-  
-  &[rel="external"] {
-    background: none;
-  }
-  
-  &:active {
-    color: $black;
+// BIS Medium
+.organisation-logo-bis-medium {
+  @extend .organisation-logo-identity-medium;
+  @include media(desktop){
+    padding: 3px 0 2px 38px;
+    background-image: image-url("crests/bis_crest_18px.png");
+    background-position: 6px center;
+    background-size: auto 25px;
   }
 }
-
-.single-identity .organisation-logo-medium {
-  padding-top: 26px;
-  padding-top: 2.6rem;
-  padding-bottom: 0px;
-  padding-left: 8px;
-  border-left-width: 2px;
-  border-left-style: solid;
-  background: image-url("coa-default-24.gif") no-repeat 7px 0;
-  
-  span {
-    position: relative;
+.organisation-logo-stacked-bis-medium {
+  @extend .organisation-logo-identity-medium;
+  @include media(desktop){
+    padding: 25px 0 0 7px;
+    background-image: image-url("crests/bis_crest_18px.png");
+    background-position: 6px top;
+    background-size: auto 25px;
+  }
+}
+@include media(desktop){
+  .organisation-logo-stacked-bis-medium span {
+    display: block;
     top: 3px;
-  }
-  
-  @media (max-width: 640px) {
-    padding-top: 20px;
-    padding-top: 2rem;
-    background-image: image-url("coa-default-18.gif");
-    
-    span {
-      top: 3px;
-    }
-  }
-  
-  &.single-line {
-    padding-top: 2px;
-    padding-top: 0.2rem;
-    padding-bottom: 3px;
-    padding-bottom: 0.3rem;
-    padding-left: 46px;
-    background-position: 7px 50%;
-  
-    span {
-      top: 0;
-      position: static;
-    }
-    
-    @media (max-width: 640px) {
-      padding-top: 1px;
-      padding-top: 0.1rem;
-      padding-bottom: 1px;
-      padding-bottom: 0.1rem;
-      padding-left: 31px;
-      padding-left: 3.1rem;
-      background-position: 7px 50%;
-    }
-  }
-}
-
-
-
-
-// large logos - used on org pages
-
-.organisation-logo-large {
-  font-family: $Helvetica-Regular;
-  font-size: 27px;
-  font-size: 2.7rem;
-  font-weight: 400;
-  letter-spacing: 0;
-  text-transform: none;
-  line-height: (30/26.8); /* 30px */
-  display:block;
-  padding-top: 3px;
-  padding-top: 0.3rem;
-  padding-bottom: 2px;
-  padding-bottom: 0.2rem;
-  color: $black;
-  background: none;
-  
-  @media (max-width: 640px) {
-    font-size: 1.4rem;
-    line-height: (15/14);
-  }
-  
-  &[rel="external"] {
-    background: none;
-  }
-  
-  &:active {
-    color: $black;
-  }
-}
-
-.single-identity .organisation-logo-large {
-  padding-top: 40px;
-  padding-top: 4.0rem;
-  padding-bottom: 0;
-  padding-left: 10px;
-  border-left-width: 3px;
-  border-left-style: solid;
-  background: image-url("coa-default-27.png") no-repeat 10px 0;
-  
-  span {
     position: relative;
-    top: 5px;
   }
-  
-  @media (max-width: 640px) {
-    padding-top: 20px;
-    padding-top: 2rem;
-    padding-bottom: 0px;
-    padding-left: 5px;
-    border-left-width: 2px;
-    border-left-style: solid;
-    background: image-url("coa-default-20.gif") no-repeat 4px 0;
-    
-    span {
-      top: 2px;
-    }
-  }
-  
-  &.single-line {
-    padding-top: 3px;
-    padding-top: 0.3rem;
-    padding-bottom: 2px;
-    padding-bottom: 0.2rem;
-    padding-left: 70px;
-    background-position: 10px 50%;
-  
-    span {
-      top: 0;
-      position: static;
-    }
-    
-    @media (max-width: 640px) {
-      padding-top: 2px;
-      padding-top: 0.2rem;
-      padding-bottom: 3px;
-      padding-bottom: 0.3rem;
-      padding-left: 35px;
-      background-position: 4px 50%;
+  @media all and (-webkit-min-device-pixel-ratio: 2) {
+    .organisation-logo-bis-medium,
+    .organisation-logo-stacked-bis-medium {
+      background-image: image-url("crests/bis_crest_18px_x2.png");
     }
   }
 }
 
-@include department-colours('.organisation-logo-large', border-color);
+// Scotland Office Medium
+.organisation-logo-so-medium {
+  @extend .organisation-logo-identity-medium;
+  @include media(desktop){
+    padding: 3px 0 2px 45px;
+    background-image: image-url("crests/so_crest_18px.png");
+    background-position: 6px center;
+    background-size: auto 25px;
+  }
+}
+.organisation-logo-stacked-so-medium {
+  @extend .organisation-logo-identity-medium;
+  @include media(desktop){
+    padding: 25px 0 0 7px;
+    background-image: image-url("crests/so_crest_18px.png");
+    background-position: 6px top;
+    background-size: auto 25px;
+  }
+}
+@include media(desktop){
+  .organisation-logo-stacked-so-medium span {
+    display: block;
+    top: 3px;
+    position: relative;
+  }
+  @media all and (-webkit-min-device-pixel-ratio: 2) {
+    .organisation-logo-so-medium,
+    .organisation-logo-stacked-so-medium {
+      background-image: image-url("crests/so_crest_18px_x2.png");
+    }
+  }
+}
 
+// Home Office Medium
+.organisation-logo-ho-medium {
+  @extend .organisation-logo-identity-medium;
+  @include media(desktop){
+    padding: 8px 0 7px 32px;
+    background-image: image-url("crests/ho_crest_18px.png");
+    background-position: 6px center;
+    background-size: auto 35px;
+  }
+}
+.organisation-logo-stacked-ho-medium {
+  @extend .organisation-logo-identity-medium;
+  @include media(desktop){
+    padding: 35px 0 0 7px;
+    background-image: image-url("crests/ho_crest_18px.png");
+    background-position: 6px top;
+    background-size: auto 35px;
+  }
+}
+@include media(desktop){
+  .organisation-logo-stacked-ho-medium span {
+    display: block;
+    top: 3px;
+    position: relative;
+  }
+  @media all and (-webkit-min-device-pixel-ratio: 2) {
+    .organisation-logo-ho-medium,
+    .organisation-logo-stacked-ho-medium {
+      background-image: image-url("crests/ho_crest_18px_x2.png");
+    }
+  }
+}
+
+// MOD Medium
+.organisation-logo-mod-medium {
+  @extend .organisation-logo-identity-medium;
+  @include media(desktop){
+    padding: 8px 0 7px 36px;
+    background-image: image-url("crests/mod_crest_18px.png");
+    background-position: 6px center;
+    background-size: auto 35px;
+  }
+}
+.organisation-logo-stacked-mod-medium {
+  @extend .organisation-logo-identity-medium;
+  @include media(desktop){
+    padding: 35px 0 0 7px;
+    background-image: image-url("crests/mod_crest_18px.png");
+    background-position: 6px top;
+    background-size: auto 35px;
+  }
+}
+@include media(desktop){
+  .organisation-logo-stacked-mod-medium span {
+    display: block;
+    top: 3px;
+    position: relative;
+  }
+  @media all and (-webkit-min-device-pixel-ratio: 2) {
+    .organisation-logo-mod-medium,
+    .organisation-logo-stacked-mod-medium {
+      background-image: image-url("crests/mod_crest_18px_x2.png");
+    }
+  }
+}
+
+// Wales Medium
+.organisation-logo-wales-medium {
+  @extend .organisation-logo-identity-medium;
+  @include media(desktop){
+    padding: 8px 0 7px 35px;
+    background-image: image-url("crests/wales_crest_18px.png");
+    background-position: 6px center;
+    background-size: auto 35px;
+  }
+}
+.organisation-logo-stacked-wales-medium {
+  @extend .organisation-logo-identity-medium;
+  @include media(desktop){
+    padding: 35px 0 0 7px;
+    background-image: image-url("crests/wales_crest_18px.png");
+    background-position: 6px top;
+    background-size: auto 35px;
+  }
+}
+@include media(desktop){
+  .organisation-logo-stacked-wales-medium span {
+    display: block;
+    top: 3px;
+    position: relative;
+  }
+  @media all and (-webkit-min-device-pixel-ratio: 2) {
+    .organisation-logo-wales-medium,
+    .organisation-logo-stacked-wales-medium {
+      background-image: image-url("crests/wales_crest_18px_x2.png");
+    }
+  }
+}
+
+
+
+// Non-conforming Largr
+.organisation-logo-no-identity-large {
+  @extend .organisation-logo-no-identity;
+  @include media(desktop){
+    font-size: 27px;
+    line-height: 30px;
+    padding: 5px 0 5px 0;
+  }
+}
+.organisation-logo-identity-large {
+  @extend .organisation-logo-no-identity-large;
+  @include media(desktop){
+    border-left: 3px solid;
+  }
+}
+
+// Single Identity Large
+.organisation-logo-single-identity-large {
+  @extend .organisation-logo-identity-large;
+  @include media(desktop){
+    padding: 5px 0 5px 65px;
+    background-image: image-url("crests/org_crest_27px.png");
+    background-position: 9px center;
+    background-size: auto 40px;
+  }
+}
+.organisation-logo-stacked-single-identity-large {
+  @extend .organisation-logo-identity-large;
+  @include media(desktop){
+    padding: 40px 0 0 10px;
+    background-image: image-url("crests/org_crest_27px.png");
+    background-position: 9px top;
+    background-size: auto 40px;
+  }
+}
+@include media(desktop){
+  .organisation-logo-stacked-single-identity-large span {
+    display: block;
+    top: 5px;
+    position: relative;
+  }
+  @media all and (-webkit-min-device-pixel-ratio: 2) {
+    .organisation-logo-single-identity-large,
+    .organisation-logo-stacked-single-identity-large {
+      background-image: image-url("crests/org_crest_27px_x2.png");
+    }
+  }
+}
+
+// BIS Large
+.organisation-logo-bis-large {
+  @extend .organisation-logo-identity-large;
+  @include media(desktop){
+    padding: 5px 0 5px 56px;
+    background-image: image-url("crests/bis_crest_27px.png");
+    background-position: 9px center;
+    background-size: auto 40px;
+  }
+}
+.organisation-logo-stacked-bis-large {
+  @extend .organisation-logo-identity-large;
+  @include media(desktop){
+    padding: 40px 0 0 10px;
+    background-image: image-url("crests/bis_crest_27px.png");
+    background-position: 9px top;
+    background-size: auto 40px;
+  }
+}
+@include media(desktop){
+  .organisation-logo-stacked-bis-large span {
+    display: block;
+    top: 5px;
+    position: relative;
+  }
+  @media all and (-webkit-min-device-pixel-ratio: 2) {
+    .organisation-logo-bis-large,
+    .organisation-logo-stacked-bis-large {
+      background-image: image-url("crests/bis_crest_27px_x2.png");
+    }
+  }
+}
+
+// Scotland Office Large
+.organisation-logo-so-large {
+  @extend .organisation-logo-identity-large;
+  @include media(desktop){
+    padding: 5px 0 5px 67px;
+    background-image: image-url("crests/so_crest_27px.png");
+    background-position: 9px center;
+    background-size: auto 40px;
+  }
+}
+.organisation-logo-stacked-so-large {
+  @extend .organisation-logo-identity-large;
+  @include media(desktop){
+    padding: 40px 0 0 10px;
+    background-image: image-url("crests/so_crest_27px.png");
+    background-position: 9px top;
+    background-size: auto 40px;
+  }
+}
+@include media(desktop){
+  .organisation-logo-stacked-so-large span {
+    display: block;
+    top: 5px;
+    position: relative;
+  }
+  @media all and (-webkit-min-device-pixel-ratio: 2) {
+    .organisation-logo-so-large,
+    .organisation-logo-stacked-so-large {
+      background-image: image-url("crests/so_crest_27px_x2.png");
+    }
+  }
+}
+
+// Home Office Large
+.organisation-logo-ho-large {
+  @extend .organisation-logo-identity-large;
+  @include media(desktop){
+    padding: 10px 0 10px 46px;
+    background-image: image-url("crests/ho_crest_27px.png");
+    background-position: 9px center;
+    background-size: auto 50px;
+  }
+}
+.organisation-logo-stacked-ho-large {
+  @extend .organisation-logo-identity-large;
+  @include media(desktop){
+    padding: 50px 0 0 10px;
+    background-image: image-url("crests/ho_crest_27px.png");
+    background-position: 9px top;
+    background-size: auto 50px;
+  }
+}
+@include media(desktop){
+  .organisation-logo-stacked-ho-large span {
+    display: block;
+    top: 5px;
+    position: relative;
+  }
+  @media all and (-webkit-min-device-pixel-ratio: 2) {
+    .organisation-logo-ho-large,
+    .organisation-logo-stacked-ho-large {
+      background-image: image-url("crests/ho_crest_27px_x2.png");
+    }
+  }
+}
+
+// MOD Large
+.organisation-logo-mod-large {
+  @extend .organisation-logo-identity-large;
+  @include media(desktop){
+    padding: 10px 0 10px 53px;
+    background-image: image-url("crests/mod_crest_27px.png");
+    background-position: 9px center;
+    background-size: auto 50px;
+  }
+}
+.organisation-logo-stacked-mod-large {
+  @extend .organisation-logo-identity-large;
+  @include media(desktop){
+    padding: 50px 0 0 10px;
+    background-image: image-url("crests/mod_crest_27px.png");
+    background-position: 9px top;
+    background-size: auto 50px;
+  }
+}
+@include media(desktop){
+  .organisation-logo-stacked-mod-large span {
+    display: block;
+    top: 5px;
+    position: relative;
+  }
+  @media all and (-webkit-min-device-pixel-ratio: 2) {
+    .organisation-logo-mod-large,
+    .organisation-logo-stacked-mod-large {
+      background-image: image-url("crests/mod_crest_27px_x2.png");
+    }
+  }
+}
+
+// Wales Large
+.organisation-logo-wales-large {
+  @extend .organisation-logo-identity-large;
+  @include media(desktop){
+    padding: 10px 0 10px 51px;
+    background-image: image-url("crests/wales_crest_27px.png");
+    background-position: 9px center;
+    background-size: auto 50px;
+  }
+}
+.organisation-logo-stacked-wales-large {
+  @extend .organisation-logo-identity-large;
+  @include media(desktop){
+    padding: 50px 0 0 10px;
+    background-image: image-url("crests/wales_crest_27px.png");
+    background-position: 9px top;
+    background-size: auto 50px;
+  }
+}
+@include media(desktop){
+  .organisation-logo-stacked-wales-large span {
+    display: block;
+    top: 5px;
+    position: relative;
+  }
+  @media all and (-webkit-min-device-pixel-ratio: 2) {
+    .organisation-logo-wales-large,
+    .organisation-logo-stacked-wales-large {
+      background-image: image-url("crests/wales_crest_27px_x2.png");
+    }
+  }
+}
+
+@include department-colours('.organisation-logo', border-color);

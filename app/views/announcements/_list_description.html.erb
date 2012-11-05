@@ -4,12 +4,10 @@
       <h2><%= link_to announcement.title, public_document_path(announcement), title: "View #{announcement.title}", class: "title" %></h2>
       <ul class="metadata">
         <li class="attribute first-published-at">
-          <%= render_datetime_microformat(announcement, :first_published_at) {
-            announcement.first_published_at.to_s(:long_ordinal)
-          }%>
+          <%= announcement.display_date_microformat %>
         </li>
         <li class="announcement-type attribute">
-          <%= announcement_type(announcement) %>
+          <%= announcement.display_announcement_type %>
         </li>
       </ul>
     <% end %>

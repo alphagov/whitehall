@@ -4,17 +4,60 @@
   @extend %contain-floats;
 
   h1 {
-    @include core-24;
-  }
-  @include media(desktop){
-    h1 {
+    @include core-27;
+
+    @include media(tablet){
       float: left;
       clear: both;
-      width: 25%;
+      width: 33.3%;
+      margin-top: $gutter-half;
     }
-    .content {
-      float: left;
-      width: 75%;
+  }
+  .content {
+    @include media(tablet){
+      float: right;
+      width: 66.6%;
+    }
+
+    article {
+      @include media(tablet){
+        padding-left: $gutter-half;
+      }
+    }
+
+    .documents-list {
+      @include media(tablet){
+        margin-top: $gutter-half;
+        padding-left: $gutter-half;
+      }
+
+      .document {
+        list-style: none;
+        padding: 0 0 $gutter-one-sixth;
+        border-bottom: 1px solid $light-keyline;
+
+        h2 a {
+          display: block;
+          @include core-19;
+        }
+
+        p, .metadata {
+          @include core-14;
+          padding-top: 1px;
+        }
+
+        .metadata li {
+          display: inline;
+          padding-right: $gutter;
+        }
+      }
+    }
+    .see-all {
+      @include core-19;
+
+      @include media(desktop) {
+        padding-left: $gutter-half;
+      }
     }
   }
 }

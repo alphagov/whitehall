@@ -6,11 +6,14 @@ class Publication < Publicationesque
   include Edition::AlternativeFormatProvider
   include Edition::Countries
   include Edition::DocumentSeries
+  include Edition::StatisticalDataSets
+  include Edition::LimitedAccess
 
   validates :publication_date, presence: true
   validates :publication_type_id, presence: true
 
   after_update { |p| p.published_related_policies.each(&:update_published_related_publication_count) }
+  before_save ->(record) { record.access_limited = nil unless record.publication_type.can_limit_access? }
 
   def allows_inline_attachments?
     false
@@ -40,11 +43,21 @@ class Publication < Publicationesque
     publication_date.to_date
   end
 
-  def set_timestamp_for_sorting
-    self.timestamp_for_sorting = publication_date
-  end
-
   def statistics?
     [PublicationType::Statistics, PublicationType::NationalStatistics].include?(publication_type)
+  end
+
+  def can_limit_access?
+    true
+  end
+
+  def access_limited?
+    statistics? && super
+  end
+
+  private
+
+  def set_timestamp_for_sorting
+    self.timestamp_for_sorting = publication_date
   end
 end

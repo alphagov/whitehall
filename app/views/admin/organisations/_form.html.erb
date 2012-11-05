@@ -4,7 +4,8 @@
     <%= organisation_form.text_field :name %>
     <%= organisation_form.text_field :acronym %>
     <%= organisation_form.text_area :logo_formatted_name, rows: "4", style: "width: auto" %>
-    <%= organisation_form.check_box :use_single_identity_branding, label_text: "Use single identity branding?" %>
+    <%= organisation_form.label :organisation_logo_type_id, 'Logo Crest' %>
+    <%= organisation_form.select :organisation_logo_type_id, options_from_collection_for_select(OrganisationLogoType.all, "id", "title", organisation.organisation_logo_type_id), {}, class: 'chzn-select', data: { placeholder: "Choose logo crest..."} %>
     <%= organisation_form.text_area :description %>
     <%= organisation_form.text_field :url %>
     <%= organisation_form.label :organisation_type_id, "Organisation type" %>
@@ -69,6 +70,16 @@
     </fieldset>
   <% end %>
 
+  <% if @traffic_commissioner_organisation_roles.any? %>
+    <fieldset id="traffic_commissioner_ordering" class="sortable">
+      <legend>Traffic commissioner ordering</legend>
+      <%= organisation_form.fields_for :organisation_roles, @traffic_commissioner_organisation_roles do |organisation_role_form| %>
+        <div class="well">
+          <%= organisation_role_form.text_field :ordering, label_text: "#{organisation_role_form.object.role.name}, #{organisation_role_form.object.role.current_person_name}", class: "ordering" %>
+        </div>
+      <% end %>
+    </fieldset>
+  <% end %>
 
   <%= organisation_form.save_or_cancel(cancel: (@organisation.persisted? ? admin_organisation_path(@organisation) : admin_organisations_path)) %>
 <% end %>

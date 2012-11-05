@@ -1,12 +1,20 @@
 GenericEdition = Class.new(Edition)
 
 Rails.application.routes.url_helpers.module_eval do
-  def generic_edition_path(id)
-    "/government/generic-editions/#{id}"
+  def generic_edition_path(options = {})
+    "/government/generic-editions/#{options[:id].to_param}"
+  end
+
+  def generic_edition_url(options = {})
+    options[:host] + generic_edition_path(options)
   end
 
   def admin_generic_edition_path(edition)
     "/government/admin/generic-editions/#{edition.to_param}"
+  end
+
+  def admin_generic_edition_url(edition)
+    "http://test.host" + admin_generic_edition_path(edition)
   end
 
   def edit_admin_generic_edition_path(edition)
@@ -25,6 +33,10 @@ FactoryGirl.define do
     body "edition-body"
     change_note "change-note"
 
+    after :build do |edition, evaluator|
+      edition.organisations = FactoryGirl.build_list(:organisation, 1) unless evaluator.organisations.any?
+    end
+
     trait(:draft) { state "draft" }
     trait(:submitted) { state "submitted" }
     trait(:rejected) { state "rejected" }
@@ -34,7 +46,12 @@ FactoryGirl.define do
       first_published_at { published_at }
       force_published { false }
     end
-    trait(:deleted) { state "deleted" }
+    trait(:deleted) {
+      state "draft"
+      after :create do |edition|
+        edition.delete!
+      end
+    }
     trait(:archived) { state "archived" }
     trait(:featured) { featured true }
     trait(:scheduled) {

@@ -5,12 +5,6 @@ GIT
   specs:
     kramdown (0.13.7)
 
-GIT
-  remote: https://github.com/thedarkone/rails-dev-boost.git
-  revision: c648d229fa981c5f9bcbd8ac6baa520582c248c6
-  specs:
-    rails-dev-boost (0.1.1)
-
 GEM
   remote: http://rubygems.org/
   remote: https://gems.gemfury.com/vo6ZrmjBQu5szyywDszE/
@@ -113,8 +107,8 @@ GEM
     excon (0.7.6)
     execjs (1.2.4)
       multi_json (~> 1.0)
-    factory_girl (2.6.4)
-      activesupport (>= 2.3.9)
+    factory_girl (4.1.0)
+      activesupport (>= 3.0.0)
     faker (1.0.1)
       i18n (~> 0.4)
     faraday (0.8.4)
@@ -144,11 +138,11 @@ GEM
       warden (~> 1.2)
     gherkin (2.4.21)
       json (>= 1.4.6)
-    govspeak (1.0.1)
+    govspeak (1.2.2)
       htmlentities (~> 4)
       kramdown (~> 0.13.3)
       sanitize (= 2.0.3)
-    govuk_frontend_toolkit (0.6.4)
+    govuk_frontend_toolkit (0.7.0)
       rails (>= 3.1.0)
       sass (>= 3.2.0)
     haml (3.1.6)
@@ -188,6 +182,8 @@ GEM
       treetop (~> 1.4.8)
     metaclass (0.0.1)
     mime-types (1.19)
+    mini_magick (3.4)
+      subexec (~> 0.2.1)
     minitest (2.5.1)
     mocha (0.10.0)
       metaclass (~> 0.0.1)
@@ -246,6 +242,8 @@ GEM
       activesupport (= 3.1.7)
       bundler (~> 1.0)
       railties (= 3.1.7)
+    rails-dev-boost (0.2.1)
+      rails (>= 3.0)
     railties (3.1.7)
       actionpack (= 3.1.7)
       activesupport (= 3.1.7)
@@ -315,6 +313,7 @@ GEM
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
     statsd-ruby (1.0.0)
+    subexec (0.2.2)
     term-ansicolor (1.0.6)
     terminal-table (1.4.5)
     test_track (0.0.4)
@@ -369,14 +368,14 @@ DEPENDENCIES
   database_cleaner (~> 0.8.0)
   draper
   exception_notification
-  factory_girl (~> 2.6.0)
+  factory_girl
   faker
   fog
   friendly_id (= 4.0.0.beta14)
   gds-api-adapters (= 2.8.1)
   gds-sso (~> 1.2.2)
-  govspeak (~> 1.0.1)
-  govuk_frontend_toolkit (= 0.6.4)
+  govspeak (~> 1.2.2)
+  govuk_frontend_toolkit (= 0.7.0)
   hash_syntax
   isbn_validation
   jquery-rails
@@ -384,6 +383,7 @@ DEPENDENCIES
   kramdown!
   launchy (~> 2.0.5)
   lograge
+  mini_magick
   minitest (= 2.5.1)
   mocha (= 0.10.0)
   mysql2
@@ -395,7 +395,7 @@ DEPENDENCIES
   quiet_assets
   rabl
   rails (= 3.1.7)
-  rails-dev-boost!
+  rails-dev-boost (~> 0.2.1)
   rake (= 0.9.2)
   router-client (~> 3.0.1)
   rummageable (= 0.5.0)

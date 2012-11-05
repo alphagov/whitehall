@@ -67,9 +67,6 @@ private
   end
 
   def build_attachment
-    unless @corporate_information_page.corporate_information_page_attachments.any?(&:new_record?)
-      corporate_information_page_attachment = @corporate_information_page.corporate_information_page_attachments.build
-      corporate_information_page_attachment.build_attachment
-    end
+    @corporate_information_page.build_empty_attachment
   end
 end

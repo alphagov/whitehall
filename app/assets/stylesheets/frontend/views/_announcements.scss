@@ -1,11 +1,21 @@
 
 .announcements-index {
   .page-header {
-    padding: 0 0 ($gutter + $gutter-one-third);
+    padding: $gutter-one-third 0 0;
     margin: 0;
   }
 
   .block-4 {
     width: 100%;
+  }
+  .block-1{
+    .inner-block header{
+      background: $info-background;
+      margin-bottom:0;
+      h1{
+        padding-left:$gutter-half;
+        padding-bottom: 3px;
+      }
+    }
   }
 }

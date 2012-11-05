@@ -57,6 +57,7 @@ module DocumentHelper
       "rtf" => content_tag(:abbr, 'RTF', title: 'Rich Text Format'),
       "png" => content_tag(:abbr, 'PNG', title: 'Portable Network Graphic'),
       "jpg" => "JPEG",
+      "zip" => content_tag(:abbr, 'ZIP', title: 'Zip archive'),
       "doc" => MS_WORD_DOCUMENT_HUMANIZED_CONTENT_TYPE,
       "docx" => MS_WORD_DOCUMENT_HUMANIZED_CONTENT_TYPE,
       "xls" => MS_EXCEL_SPREADSHEET_HUMANIZED_CONTENT_TYPE,

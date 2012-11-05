@@ -1,10 +1,4 @@
 module OrganisationHelper
-  def organisation_branding_class(organisation)
-    if organisation.use_single_identity_branding?
-      "single-identity"
-    end
-  end
-
   def organisation_display_name(organisation)
     if organisation.acronym.present?
       content_tag(:abbr, organisation.acronym, title: organisation.name)
@@ -23,7 +17,7 @@ module OrganisationHelper
 
   def organisation_type_name(organisation)
     type_name = ActiveSupport::Inflector.singularize(organisation.organisation_type.name.downcase)
-    type_name == 'other' ? 'public body' : type_name
+    type_name == 'other' ? 'body' : type_name
   end
 
   def organisation_display_name_and_parental_relationship(organisation)
@@ -58,21 +52,6 @@ module OrganisationHelper
     'aeiou'.include?(word_or_phrase.downcase[0])
   end
 
-  def organisation_navigation_link_to(body, path)
-    if (current_organisation_navigation_path(params) == path) ||
-       (params[:action] == "management_team" && path == current_organisation_navigation_path(params.merge(action: "about")))
-      css_class = 'current'
-    else
-      css_class = nil
-    end
-
-    link_to body, path, class: css_class
-  end
-
-  def current_organisation_navigation_path(params)
-    url_for params.slice(:controller, :action, :id).merge(only_path: true)
-  end
-
   def organisation_view_all_tag(organisation, kind)
     path = send(:"#{kind}_organisation_path", @organisation)
     text = (kind == :announcements) ? "news & speeches" : kind
@@ -80,25 +59,38 @@ module OrganisationHelper
   end
 
   def organisation_wrapper(organisation, options = {}, &block)
-    content_tag_for :div, organisation, class: organisation_logo_classes(organisation, options) do
+    content_tag_for :div, organisation, class: organisation.slug do
       block.call
     end
   end
 
-  def organisation_type_class(organisation_type)
-    organisation_type.name.downcase.gsub(/\s/, '-') if organisation_type && organisation_type.name.present?
-  end
-
   def organisation_logo_classes(organisation, options={})
-    classes = []
-    classes << organisation.slug
-    classes << organisation_type_class(organisation.organisation_type)
-    classes << organisation_branding_class(organisation) unless options[:no_single_identity]
-    classes << options[:class] if options[:class]
-    classes.compact.join(" ").strip
+    logo_class = [ 'organisation-logo' ]
+    logo_class << 'stacked' if options[:stacked]
+    if options[:use_identity] == false
+      logo_class << 'no-identity'
+    else
+      logo_class << organisation.organisation_logo_type.class_name
+    end
+    logo_class = logo_class.join('-')
+
+    classes = [ 'organisation-logo' ]
+    classes << logo_class
+    classes << "#{logo_class}-#{options[:size]}" if options[:size]
+    classes.join(" ")
   end
 
   def organisation_site_thumbnail_path(organisation)
-    image_path("organisation_screenshots/#{organisation.slug}.png")
+    begin
+      image_path("organisation_screenshots/#{organisation.slug}.png")
+    rescue Sprockets::Helpers::RailsHelper::AssetPaths::AssetNotPrecompiledError
+      image_path("thumbnail-placeholder.png")
+    end
+  end
+
+  def has_any_transparency_pages?(organisation)
+    @organisation.corporate_information_pages.any? ||
+      @organisation.has_published_publications_of_type?(PublicationType::FoiRelease) ||
+      @organisation.has_published_publications_of_type?(PublicationType::TransparencyData)
   end
 end

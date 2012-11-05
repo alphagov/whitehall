@@ -7,7 +7,12 @@ module NavigationHelpers
   #
 
   def homepage
-    home_path
+    # temporary substitute for the real home page until it has proper navigation links
+    organisations_path
+  end
+
+  def ministers_page
+    ministerial_roles_path
   end
 
   def path_to(page_name)
@@ -46,6 +51,11 @@ module NavigationHelpers
   def visit_organisation(name)
     organisation = Organisation.find_by_name!(name)
     visit organisation_path(organisation)
+  end
+
+  def visit_organisation_about_page(name)
+    organisation = Organisation.find_by_name!(name)
+    visit about_organisation_path(organisation)
   end
 end
 

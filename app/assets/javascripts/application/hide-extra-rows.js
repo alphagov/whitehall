@@ -11,47 +11,54 @@
   }
 
   $.fn.hideExtraRows = function(options) {
-    options = options || {};
+    options = $.extend({
+      rows: 1
+    }, options);
 
-    if (this.length > 1) {
-      // measure the height of the first element
-      var firstTop = getOffset(this.first()),
-          toHide = false;
+    this.each(function(i, el){
+      var $children = $(el).children();
 
-      this.slice(1).each(function(i, el) {
-        if (toHide || (!toHide && getOffset($(el)) > firstTop)) {
-          toHide = true;
-          $(el).addClass('js-hidden');
-        }
-      });
+      if ($children.length > 1) {
+        // measure the height of the first element
+        var firstTop = getOffset($children.first()),
+            lineCount = 0;
 
-      if (toHide) {
-        var openButton = $('<a class="show-other-content" href="#" title="Show additional content"><span class="plus">+&nbsp;</span>others</a>');
+        $children.slice(1).each(function(i, el) {
+          if((lineCount < options.rows) && getOffset($(el)) > firstTop){
+            firstTop = getOffset($(el));
+            lineCount = lineCount + 1;
+          }
+          if(lineCount >= options.rows){
+            $(el).addClass('js-hidden');
+          }
+        });
 
-        openButton.on('click', $.proxy(function(e) {
-          e.preventDefault();
-          this.filter('.js-hidden').removeClass('js-hidden').addClass('js-shown');
+        if(lineCount >= options.rows){
+          var openButton = $('<a class="show-other-content" href="#" title="Show additional content"><span class="plus">+&nbsp;</span>others</a>');
+
+          openButton.on('click', function(e) {
+            e.preventDefault();
+            $children.filter('.js-hidden').removeClass('js-hidden').addClass('js-shown');
+            if (options.showWrapper) {
+              options.showWrapper.remove();
+            }
+            else {
+              $(e.target).remove();
+            }
+          });
+
           if (options.showWrapper) {
-            options.showWrapper.remove();
+            openButton = options.showWrapper.append(openButton);
           }
-          else {
-            $(e.target).remove();
+
+          if (options.appendToParent) {
+            $children.first().parent().append(openButton);
+          } else {
+            $children.first().parent().after(openButton);
           }
-        }, this));
-
-        if (options.showWrapper) {
-          openButton = options.showWrapper.append(openButton);
-        }
-
-        if (options.appendToParent) {
-          this.first().parent().append(openButton);
-        }
-        else {
-          this.first().parent().after(openButton);
         }
       }
-    }
-
+    });
     return this;
   };
 }(jQuery));

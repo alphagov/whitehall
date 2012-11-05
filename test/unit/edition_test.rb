@@ -285,7 +285,8 @@ class EditionTest < ActiveSupport::TestCase
     submitted_edition = create(:submitted_edition)
     rejected_edition = create(:rejected_edition)
     published_edition = create(:published_edition)
-    deleted_edition = create(:deleted_edition)
+    deleted_edition = create(:draft_edition)
+    deleted_edition.delete!
     archived_edition = create(:archived_edition)
     assert_same_elements [draft_edition, submitted_edition, rejected_edition, published_edition], Edition.active
   end
@@ -309,6 +310,12 @@ class EditionTest < ActiveSupport::TestCase
   test "should still be valid if has no image and no alt text" do
     article = build(:news_article, images: [])
     assert article.valid?
+  end
+
+  test "should be invalid if has no organisation" do
+    edition = build(:edition)
+    edition.organisations = []
+    refute edition.valid?
   end
 
   test "should still be archivable if alt text validation would normally fail" do
@@ -468,27 +475,27 @@ class EditionTest < ActiveSupport::TestCase
     refute EditorialRemark.find_by_id(relation.id)
   end
 
-  test "#in_chronological_order returns docs order in ascending order of first_published_at" do
+  test ".in_chronological_order returns editions in ascending order of first_published_at" do
     jan = create(:edition, first_published_at: Date.parse("2011-01-01"))
     mar = create(:edition, first_published_at: Date.parse("2011-03-01"))
     feb = create(:edition, first_published_at: Date.parse("2011-02-01"))
     assert_equal [jan, feb, mar], Edition.in_chronological_order.all
   end
 
-  test "#in_reverse_chronological_order returns docs order in descending order of first_published_at" do
+  test ".in_reverse_chronological_order returns editions in descending order of first_published_at" do
     jan = create(:edition, first_published_at: Date.parse("2011-01-01"))
     mar = create(:edition, first_published_at: Date.parse("2011-03-01"))
     feb = create(:edition, first_published_at: Date.parse("2011-02-01"))
     assert_equal [mar, feb, jan], Edition.in_reverse_chronological_order.all
   end
 
-  test "#published_before returns editions whose first_published_at is before the given date" do
+  test ".published_before returns editions whose first_published_at is before the given date" do
     jan = create(:edition, first_published_at: Date.parse("2011-01-01"))
     feb = create(:edition, first_published_at: Date.parse("2011-02-01"))
     assert_equal [jan], Edition.published_before("2011-01-29").all
   end
 
-  test "#published_after returns editions whose first_published_at is after the given date" do
+  test ".published_after returns editions whose first_published_at is after the given date" do
     jan = create(:edition, first_published_at: Date.parse("2011-01-01"))
     feb = create(:edition, first_published_at: Date.parse("2011-02-01"))
     assert_equal [feb], Edition.published_after("2011-01-29").all
@@ -547,5 +554,11 @@ class EditionTest < ActiveSupport::TestCase
   test "should find editions with title containing regular expression characters" do
     edition_with_nasty_characters = create(:edition, title: "title with [stuff in brackets]")
     assert_equal [edition_with_nasty_characters], Edition.with_title_containing("[stuff")
+  end
+
+  test "cannot limit access to an ordinary edition" do
+    refute build(:edition).can_limit_access?
+    refute build(:edition).access_limited?
+    assert build(:edition).accessible_by?(nil)
   end
 end

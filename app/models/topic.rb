@@ -20,20 +20,37 @@ class Topic < ActiveRecord::Base
   has_many :topic_memberships
   has_many :policies, through: :topic_memberships
   has_many :detailed_guides, through: :topic_memberships
-  has_many :published_detailed_guides, through: :topic_memberships, class_name: "DetailedGuide", conditions: { "editions.state" => "published" }, source: :detailed_guide
+  has_many :published_detailed_guides,
+            through: :topic_memberships,
+            class_name: "DetailedGuide",
+            conditions: { "editions.state" => "published" },
+            source: :detailed_guide
 
   has_many :organisation_topics
   has_many :organisations, through: :organisation_topics
 
-  has_many :published_policies, through: :topic_memberships, class_name: "Policy", conditions: { "editions.state" => "published" }, source: :policy
-  has_many :archived_policies, through: :topic_memberships, class_name: "Policy", conditions: { state: "archived" }, source: :policy
+  has_many :published_policies,
+            through: :topic_memberships,
+            class_name: "Policy",
+            conditions: { "editions.state" => "published" },
+            source: :policy
+  has_many :archived_policies,
+            through: :topic_memberships,
+            class_name: "Policy",
+            conditions: { state: "archived" },
+            source: :policy
 
-  has_many :published_editions, through: :topic_memberships, conditions: { "editions.state" => "published" }, source: :edition
+  has_many :published_editions,
+            through: :topic_memberships,
+            conditions: { "editions.state" => "published" },
+            source: :edition
 
   has_many :topic_relations
-  has_many :related_topics, through: :topic_relations, before_remove: -> pa, rpa {
-    TopicRelation.relation_for(pa.id, rpa.id).destroy_inverse_relation
-  }
+  has_many :related_topics,
+            through: :topic_relations,
+            before_remove: -> pa, rpa {
+              TopicRelation.relation_for(pa.id, rpa.id).destroy_inverse_relation
+            }
 
   validates_with SafeHtmlValidator
   validates :name, presence: true, uniqueness: true

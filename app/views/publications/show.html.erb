@@ -15,26 +15,21 @@
     <div class="inner-block">
       <%= render partial: "documents/attachment_full_width",
                 locals: { document: @document } %>
-      <% if @document.part_of_series? %>
-        <p class="document-series">
-          <span>This publication is part of a series:</span> <%= link_to @document.document_series.name, organisation_document_series_path(@document.document_series.organisation, @document.document_series) %>
-        </p>
-      <% end %>
     </div>
   </div>
 
-    <div class="block-3">
-      <div class="inner-block">
-        <section id="details" class="heading-block">
-          <h1>Detail</h1>
-          <div class="content">
-            <article>
-              <div class="body">
-                <%= govspeak_edition_to_html @document %>
-              </div>
-            </article>
-          </div>
-        </section>
+  <div class="block-3">
+    <div class="inner-block">
+      <section id="details" class="heading-block">
+        <h1>Detail</h1>
+        <div class="content">
+          <article>
+            <div class="body">
+              <%= govspeak_edition_to_html @document %>
+            </div>
+          </article>
+        </div>
+      </section>
     </div>
   </div>
 </div>

@@ -151,7 +151,7 @@ module TestsForNationalApplicability
   private
 
   def attributes_for_edition(attributes = {})
-    attributes_for(edition_class.name.underscore, attributes)
+    controller_attributes_for(edition_class.name.underscore, attributes)
   end
 
   def create_edition(attributes = {})

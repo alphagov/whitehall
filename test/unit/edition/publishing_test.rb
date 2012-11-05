@@ -74,7 +74,8 @@ class Edition::PublishingControlsTest < ActiveSupport::TestCase
 
   test "is never approvable when deleted" do
     editor = create(:departmental_editor)
-    edition = create(:deleted_edition)
+    edition = create(:draft_edition)
+    edition.delete!
     refute edition.approvable_by?(editor)
     refute edition.approvable_by?(editor, force: true)
     assert_equal "This edition has been deleted", edition.reason_to_prevent_approval_by(editor)
@@ -258,6 +259,13 @@ class Edition::PublishingTest < ActiveSupport::TestCase
     edition = create(:submitted_edition, change_note: "change-note", document: first_edition.document)
     edition.publish_as(create(:departmental_editor))
     assert first_edition.reload.archived?
+  end
+
+  test "publication clears the access_limited flag from a statistics publication if it was set" do
+    edition = create(:submitted_publication, access_limited: true, publication_type: PublicationType::NationalStatistics)
+    assert edition.access_limited
+    edition.publish_as(create(:departmental_editor))
+    assert edition.reload.access_limited.nil?
   end
 
   test "publication fails if not publishable by user" do

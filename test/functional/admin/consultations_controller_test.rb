@@ -60,7 +60,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
       assert_select "input[type='text'][name='edition[response_attributes][consultation_response_attachments_attributes][0][attachment_attributes][unique_reference]']"
       assert_select "input[type='text'][name='edition[response_attributes][consultation_response_attachments_attributes][0][attachment_attributes][command_paper_number]']"
       assert_select "input[type='checkbox'][name='edition[response_attributes][consultation_response_attachments_attributes][0][attachment_attributes][accessible]']"
-      assert_select "input[type='file'][name='edition[response_attributes][consultation_response_attachments_attributes][0][attachment_attributes][file]']"
+      assert_select "input[type='file'][name='edition[response_attributes][consultation_response_attachments_attributes][0][attachment_attributes][attachment_data_attributes][file]']"
     end
   end
 
@@ -82,7 +82,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
   end
 
   test "create should create a new consultation" do
-    attributes = attributes_for(:consultation,
+    attributes = controller_attributes_for(:consultation,
       consultation_participation_attributes: {
         link_url: "http://participation.com",
         email: "countmein@participation.com",
@@ -106,14 +106,16 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
   end
 
   test "create should create a new consultation and a response with attachments" do
-    attributes = attributes_for(:consultation,
+    attributes = controller_attributes_for(:consultation,
       response_attributes: {
         summary: 'response-summary',
         consultation_response_attachments_attributes: {
           '0' => {
             attachment_attributes: {
               title: 'attachment-title',
-              file: fixture_file_upload('greenpaper.pdf')
+              attachment_data_attributes: {
+                file: fixture_file_upload('greenpaper.pdf')
+              }
             }
           }
         }
@@ -137,7 +139,9 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
           '0' => {
             attachment_attributes: {
               title: 'attachment-title',
-              file: fixture_file_upload('greenpaper.pdf')
+              attachment_data_attributes: {
+                file: fixture_file_upload('greenpaper.pdf')
+              }
             }
           }
         }
@@ -145,7 +149,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     }
 
     assert_select "form#edition_new" do
-      assert_select "input[name='edition[response_attributes][consultation_response_attachments_attributes][0][attachment_attributes][file_cache]'][value$='greenpaper.pdf']"
+      assert_select "input[name='edition[response_attributes][consultation_response_attachments_attributes][0][attachment_attributes][attachment_data_attributes][file_cache]'][value$='greenpaper.pdf']"
       assert_select ".already_uploaded", text: "greenpaper.pdf already uploaded"
     end
   end
@@ -196,7 +200,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
   end
 
   test "create should create a new consultation without consultation participation if participation fields are all blank" do
-    attributes = attributes_for(:consultation,
+    attributes = controller_attributes_for(:consultation,
       consultation_participation_attributes: {
         link_url: nil,
         email: nil,
@@ -214,7 +218,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
   end
 
   test "creating a consultation with invalid data but valid form file should still display the cached form file" do
-    attributes = attributes_for(:consultation,
+    attributes = controller_attributes_for(:consultation,
       consultation_participation_attributes: {
         link_url: nil,
         email: nil,
@@ -278,7 +282,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
   test "show displays the response details and links to attachments" do
     consultation = create(:consultation)
     response = consultation.create_response!(summary: 'response-summary')
-    attachment = response.attachments.create!(title: 'attachment-title', file: fixture_file_upload('greenpaper.pdf'))
+    attachment = response.attachments.create!(title: 'attachment-title', attachment_data: create(:attachment_data,  file: fixture_file_upload('greenpaper.pdf')))
 
     get :show, id: consultation
 
@@ -362,7 +366,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
   test "edit shows the details of the response and response attachments" do
     consultation = create(:consultation)
     consultation_response = consultation.create_response!(summary: 'response-summary')
-    attachment = consultation_response.attachments.create!(title: 'attachment-title', file: fixture_file_upload('greenpaper.pdf'))
+    attachment = consultation_response.attachments.create!(title: 'attachment-title', attachment_data: create(:attachment_data, file: fixture_file_upload('greenpaper.pdf')))
 
     get :edit, id: consultation
 
@@ -377,7 +381,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
   test "update should save modified consultation attributes" do
     consultation = create(:consultation)
 
-    put :update, id: consultation, edition: {
+    put :update, id: consultation, edition: controller_attributes_for_instance(consultation,
       summary: "new-summary",
       opening_on: 1.day.ago,
       closing_on: 50.days.from_now,
@@ -385,7 +389,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
         link_url: "http://consult.com",
         email: "tell-us-what-you-think@gov.uk"
       }
-    }
+    )
 
     consultation.reload
     assert_equal "new-summary", consultation.summary
@@ -398,10 +402,10 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
   test "update should build a response with a single attachment ready for populating if the form was posted without any response or attachment data and the consultation update failed" do
     consultation = create(:consultation)
 
-    put :update, id: consultation, edition: {
+    put :update, id: consultation, edition: controller_attributes_for_instance(consultation,
       title: '',
       response_attributes: {}
-    }
+    )
 
     consultation = assigns(:edition)
     assert_equal 1, consultation.response.consultation_response_attachments.length
@@ -411,14 +415,14 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
   test "update should build a single attachment ready for populating if the form was posted without any attachment data and the consultation update failed" do
     consultation = create(:consultation)
 
-    put :update, id: consultation, edition: {
+    put :update, id: consultation, edition: controller_attributes_for_instance(consultation,
       title: '',
       response_attributes: {
         consultation_response_attachments_attributes: {
           '0' => {}
         }
       }
-    }
+    )
 
     consultation = assigns(:edition)
     assert_equal 1, consultation.response.consultation_response_attachments.length
@@ -428,7 +432,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
   test "update should not build a new response attachment if the first attachment could not be saved and the consultation update failed" do
     consultation = create(:consultation)
 
-    put :update, id: consultation, edition: {
+    put :update, id: consultation, edition: controller_attributes_for_instance(consultation,
       title: '',
       response_attributes: {
         consultation_response_attachments_attributes: {
@@ -439,7 +443,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
           }
         }
       }
-    }
+    )
 
     consultation = assigns(:edition)
     assert_equal 1, consultation.response.consultation_response_attachments.length
@@ -449,22 +453,24 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
   test "update should show the cached response attachment that's been uploaded if the consultation update fails" do
     consultation = create(:consultation)
 
-    put :update, id: consultation, edition: {
+    put :update, id: consultation, edition: controller_attributes_for_instance(consultation,
       title: '',
       response_attributes: {
         consultation_response_attachments_attributes: {
           '0' => {
             attachment_attributes: {
               title: 'attachment-title',
-              file: fixture_file_upload('greenpaper.pdf')
+              attachment_data_attributes: {
+                file: fixture_file_upload('greenpaper.pdf')
+              }
             }
           }
         }
       }
-    }
+    )
 
     assert_select "form#edition_edit" do
-      assert_select "input[name='edition[response_attributes][consultation_response_attachments_attributes][0][attachment_attributes][file_cache]'][value$='greenpaper.pdf']"
+      assert_select "input[name='edition[response_attributes][consultation_response_attachments_attributes][0][attachment_attributes][attachment_data_attributes][file_cache]'][value$='greenpaper.pdf']"
       assert_select ".already_uploaded", text: "greenpaper.pdf already uploaded"
     end
   end
@@ -472,12 +478,12 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
   test "update should save consultation without consultation participation if participation fields are all blank" do
     consultation = create(:consultation)
 
-    put :update, id: consultation, edition: consultation.attributes.merge({
+    put :update, id: consultation, edition: controller_attributes_for_instance(consultation,
       consultation_participation_attributes: {
         link_url: nil,
         email: nil
       }
-    })
+    )
 
     consultation.reload
     assert_nil consultation.consultation_participation
@@ -488,7 +494,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     participation = create(:consultation_participation, consultation_response_form: response_form)
     consultation = create(:consultation, consultation_participation: participation)
 
-    attributes = consultation.attributes.merge(
+    attributes = controller_attributes_for_instance(consultation,
       consultation_participation_attributes: {
         id: participation.id,
         consultation_response_form_attributes: {

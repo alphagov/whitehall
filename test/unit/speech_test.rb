@@ -41,11 +41,10 @@ class SpeechTest < EditionTestCase
   end
 
   test "save should populate organisations based on the role_appointment that delivered the speech" do
-    speech = create(:speech)
     organisation = create(:organisation)
     ministerial_role = create(:ministerial_role, organisations: [organisation])
     role_appointment = create(:role_appointment, role: ministerial_role)
-    speech.update_attributes!(role_appointment: role_appointment)
+    speech = create(:speech, role_appointment: role_appointment)
 
     assert_equal [organisation], speech.organisations
   end
@@ -94,5 +93,19 @@ class SpeechTest < EditionTestCase
     subsequent_role_appointment = create(:role_appointment, role: ministerial_role, started_at: 1.day.ago)
 
     assert_equal person, speech.person
+  end
+
+  test ".in_chronological_order returns speeches in ascending order of delivered_on" do
+    jan = create(:speech, delivered_on: Date.parse("2011-01-01"))
+    mar = create(:speech, delivered_on: Date.parse("2011-03-01"))
+    feb = create(:speech, delivered_on: Date.parse("2011-02-01"))
+    assert_equal [jan, feb, mar], Speech.in_chronological_order.all
+  end
+
+  test ".in_reverse_chronological_order returns speeches in descending order of delivered_on" do
+    jan = create(:speech, delivered_on: Date.parse("2011-01-01"))
+    mar = create(:speech, delivered_on: Date.parse("2011-03-01"))
+    feb = create(:speech, delivered_on: Date.parse("2011-02-01"))
+    assert_equal [mar, feb, jan], Speech.in_reverse_chronological_order.all
   end
 end

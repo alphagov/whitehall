@@ -11,15 +11,25 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121019110948) do
+ActiveRecord::Schema.define(:version => 20121101094252) do
 
-  create_table "attachments", :force => true do |t|
+  create_table "attachment_data", :force => true do |t|
     t.string   "carrierwave_file"
-    t.datetime "created_at"
-    t.datetime "updated_at"
     t.string   "content_type"
     t.integer  "file_size"
     t.integer  "number_of_pages"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "attachment_sources", :force => true do |t|
+    t.integer "attachment_id"
+    t.string  "url"
+  end
+
+  create_table "attachments", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "title"
     t.boolean  "accessible"
     t.string   "isbn"
@@ -27,6 +37,7 @@ ActiveRecord::Schema.define(:version => 20121019110948) do
     t.string   "command_paper_number"
     t.string   "order_url"
     t.integer  "price_in_pence"
+    t.integer  "attachment_data_id"
   end
 
   create_table "consultation_participations", :force => true do |t|
@@ -129,6 +140,11 @@ ActiveRecord::Schema.define(:version => 20121019110948) do
 
   add_index "document_series", ["slug"], :name => "index_document_series_on_slug"
 
+  create_table "document_sources", :force => true do |t|
+    t.integer "document_id"
+    t.string  "url"
+  end
+
   create_table "documents", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -221,6 +237,11 @@ ActiveRecord::Schema.define(:version => 20121019110948) do
     t.integer "role_appointment_id"
   end
 
+  create_table "edition_statistical_data_sets", :force => true do |t|
+    t.integer "edition_id"
+    t.integer "document_id"
+  end
+
   create_table "editions", :force => true do |t|
     t.string   "title"
     t.text     "body",                                        :limit => 16777215
@@ -258,6 +279,7 @@ ActiveRecord::Schema.define(:version => 20121019110948) do
     t.integer  "primary_mainstream_category_id"
     t.boolean  "replaces_businesslink",                                           :default => false
     t.datetime "scheduled_publication"
+    t.boolean  "access_limited"
   end
 
   add_index "editions", ["document_id"], :name => "index_editions_on_document_id"
@@ -386,7 +408,7 @@ ActiveRecord::Schema.define(:version => 20121019110948) do
     t.text     "logo_formatted_name"
     t.string   "alternative_format_contact_email"
     t.string   "govuk_status",                     :default => "live", :null => false
-    t.boolean  "use_single_identity_branding",     :default => true
+    t.integer  "organisation_logo_type_id",        :default => 2
   end
 
   add_index "organisations", ["organisation_type_id"], :name => "index_organisations_on_organisation_type_id"

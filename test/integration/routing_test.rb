@@ -49,29 +49,24 @@ class RoutingTest < ActionDispatch::IntegrationTest
     host! 'whitehall.preview.alphagov.co.uk'
     login_as_admin
     get_via_redirect admin_root_path
-    assert_select "a.open_website[href=?]", "http://www.preview.alphagov.co.uk/government/home"
+    assert_select "a.open_website[href=?]", "http://www.preview.alphagov.co.uk/government"
   end
 
   test "admin links to open website points to router website in production" do
     host! 'whitehall.production.alphagov.co.uk'
     login_as_admin
     get_via_redirect admin_root_path
-    assert_select "a.open_website[href=?]", "http://www.gov.uk/government/home"
+    assert_select "a.open_website[href=?]", "http://www.gov.uk/government"
   end
 
-  test "should link to whitehall tour from home page" do
-    get_via_redirect "/government/home"
-    assert_select "a[href=?]", tour_path
+  test "should redirect from old home page to new home page in case the URL has escaped into the wild" do
+    get "/government/home"
+    assert_redirected_to "/government"
   end
 
-  test "should route to whitehall tour page" do
-    get_via_redirect tour_path
-    assert_response :success
-  end
-
-  test "whitehall tour page links to generic feedback link" do
-    get_via_redirect tour_path
-    assert_select "a[href=?]", "/feedback"
+  test "should redirect from old tour page to mainstream tour page in case the URL has escaped into the wild" do
+    get "/government/tour"
+    assert_redirected_to "/tour"
   end
 
   test "admin is unreachable in preview from whitehall" do
