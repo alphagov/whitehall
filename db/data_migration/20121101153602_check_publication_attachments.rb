@@ -27,8 +27,6 @@ affected_files.each do |affected_file|
         end
         if edition
           logger.warn "Row #{ix + 2} '#{row.legacy_url}' missing attachments (Edition #{edition.id}) - #{missing.inspect}"
-        else
-          logger.warn "Row #{ix + 2} '#{row.legacy_url}' missing attachments - #{missing.inspect}"
         end
       end
     end
