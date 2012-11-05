@@ -13,3 +13,4 @@
 /coverage
 /test/reports
 /incoming-uploads
+/attachment-cache
