@@ -5,22 +5,39 @@
   }
   .thirds-width-section,
   .halves-width-section{
+    overflow:visible;
     margin-left:-$gutter;
     margin-right:-$gutter;
     clear:both;
+    margin-top:$gutter;
+    margin-bottom:$gutter*2;
     div{
       float:left;
+
     }
     .two-thirds{
       width:66%;
+      margin-bottom:$gutter;
     }
     .one-third{
       width:33%;
+      margin-bottom:$gutter;
     }
     .one-half{
       width:50%;
+      margin-bottom:$gutter;
     }
   }
+  .feature-value{
+    font-size:5em;
+    padding-top:0.4em;
+    padding-bottom:0;
+    margin:0;
+    color:$inside-gov-brand;
+    display:block;
+    line-height:1em;
+  }
+
   .feature-ministers{
     p{
       color: #999;
@@ -44,7 +61,7 @@
         padding-top:0.4em;
         padding-bottom:0;
         margin:0;
-        color:purple;
+        color:$inside-gov-brand;
         display:block;
         line-height:1em;
       }
@@ -68,7 +85,7 @@
   }
   h2{
     @include core-36;
-    border-bottom: 3px solid $inside-gov-brand;
+    border-bottom: 5px solid $inside-gov-brand;
     margin: 0 0 $gutter;
     clear:both;
   }
@@ -89,6 +106,7 @@
   
   p.intro {
     @include core-27;
+    margin-bottom:$gutter;
   }
 
   
