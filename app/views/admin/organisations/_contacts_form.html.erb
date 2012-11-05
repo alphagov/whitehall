@@ -3,6 +3,7 @@
   <%= contacts_form.text_area :address, rows: 3, class: "address", horizontal: true %>
   <%= contacts_form.text_field :postcode, horizontal: true %>
   <%= contacts_form.text_field :email, horizontal: true %>
+  <%= contacts_form.text_field :contact_form_url, horizontal: true %>
   <fieldset class="contact_numbers">
     <legend>Phone numbers</legend>
     <%= contacts_form.fields_for :contact_numbers, contacts_form.object.contact_numbers + [ContactNumber.new] do |contact_number_form| %>

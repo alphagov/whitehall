@@ -1,3 +1,5 @@
+require 'validators/url_validator.rb'
+
 class Organisation < ActiveRecord::Base
   include Searchable
   include Rails.application.routes.url_helpers
@@ -118,7 +120,7 @@ class Organisation < ActiveRecord::Base
   validates :name, presence: true, uniqueness: true
   validates :organisation_type_id, presence: true
   validates :logo_formatted_name, presence: true
-  validates :url, format: { with: /\Ahttps?\:\/\//, message: "Must start with http(s)" }, allow_blank: true
+  validates :url, url: true, allow_blank: true
   validates :alternative_format_contact_email, email_format: {allow_blank: true}
   validates :alternative_format_contact_email, presence: {
     if: :provides_alternative_formats?,

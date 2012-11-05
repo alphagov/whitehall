@@ -6,6 +6,11 @@ class ContactTest < ActiveSupport::TestCase
     refute contact.valid?
   end
 
+  test "should be invalid if contact_form_url is invalid" do
+    contact = build(:contact, contact_form_url: "not.a.url")
+    refute contact.valid?
+  end
+
   test "should allow creation of nested contact numbers" do
     contact = create(:contact, contact_numbers_attributes: [{label: "Telephone", number: "123"}])
     assert_equal 1, contact.contact_numbers.count

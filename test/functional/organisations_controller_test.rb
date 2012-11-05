@@ -304,6 +304,7 @@ class OrganisationsControllerTest < ActionController::TestCase
       name: "Ministry of Pomp", contacts_attributes: [{
         description: "Main",
         email: "pomp@gov.uk",
+        contact_form_url: "http://pomp.gov.uk/contact",
         address: "1 Smashing Place, London", postcode: "LO1 8DN",
         contact_numbers_attributes: [
           { label: "Helpline", number: "02079460000" },
@@ -324,6 +325,9 @@ class OrganisationsControllerTest < ActionController::TestCase
       end
       assert_select ".email", /pomp@gov\.uk/ do
         assert_select ".type", "Email"
+      end
+      assert_select ".contact_form_url" do
+        assert_select "a[href=http://pomp.gov.uk/contact]"
       end
     end
   end
