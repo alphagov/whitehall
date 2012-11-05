@@ -1,7 +1,7 @@
 
 .inside_gov_how-gov-works {
   .full-width-section{
-    clear:both
+    clear:both;
   }
   .thirds-width-section,
   .halves-width-section{
@@ -27,6 +27,20 @@
       width:50%;
       margin-bottom:$gutter;
     }
+  }
+
+  .gov-types, .ministers, .cabinet, .coalition, .policy, .civil-service{
+    h3{
+      border-top:1px solid #000;
+      padding-top:$gutter-half;
+    }
+  }
+  .civil-service{
+    margin-top:$gutter;
+    .two-thirds{
+      margin-top:-$gutter*2;
+    }
+    
   }
   .feature-value{
     font-size:5em;
@@ -92,6 +106,7 @@
   h3{
     @include core-27;
     margin: 0 0 $gutter-half;
+    width:100%
   }
   h4{
     @include core-24;
