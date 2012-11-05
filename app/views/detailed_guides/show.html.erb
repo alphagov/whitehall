@@ -1,6 +1,8 @@
 <% page_title @document.title, "Detailed guidance" %>
 <% page_class "detailed-guides-show" %>
 
+<%= api_link_tag api_detailed_guide_url(@document.document) %>
+
 <div class="document_page <%= @document.type.downcase %>">
   <div class="block-1">
     <div class="inner-block">

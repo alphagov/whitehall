@@ -20,6 +20,10 @@ module ApplicationHelper
     auto_discovery_link_tag(:atom, @atom_discovery_link_url || atom_feed_url(format: :atom), title: @atom_discovery_link_title || "Recent updates")
   end
 
+  def api_link_tag(path)
+    tag :link, href: path, rel: 'alternate', type: Mime::JSON
+  end
+
   def publication_atom_feed_url
     url_for(params.except(:utf8, :_, :date, :direction, :page).merge(format: "atom", only_path: false))
   end

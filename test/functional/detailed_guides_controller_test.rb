@@ -97,6 +97,14 @@ That's all
     assert_equal category.title, artefact_headers['tags'].first['title']
   end
 
+  test "show includes link to API representation" do
+    detailed_guide = create(:published_detailed_guide)
+
+    get :show, id: detailed_guide.document
+
+    assert_select "link[rel=alternate][href=?]", api_detailed_guide_url(detailed_guide.document)
+  end
+
   private
 
   def given_two_detailed_guides_in_two_organisations
