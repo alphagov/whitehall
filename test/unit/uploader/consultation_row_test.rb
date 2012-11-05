@@ -23,12 +23,19 @@ module Whitehall::Uploader
       assert_equal "a-title", row.title
     end
 
+    test "takes summary from the summary column, converting relative links to absolute" do
+      Parsers::RelativeToAbsoluteLinks.stubs(:parse).with("relative links", "url").returns("absolute links")
+      row = consultation_row("summary" => "relative links")
+      row.stubs(:organisation).returns(stub("organisation", url: "url"))
+      assert_equal "absolute links", row.summary
+    end
+
     test "takes legacy url from the old_url column" do
       row = consultation_row("old_url" => "http://example.com/old-url")
       assert_equal "http://example.com/old-url", row.legacy_url
     end
 
-    test "takes body from the 'body' column" do
+    test "takes body from the 'body' column, converting relative links to absolute" do
       Parsers::RelativeToAbsoluteLinks.stubs(:parse).with("relative links", "url").returns("absolute links")
       row = consultation_row("body" => "relative links")
       row.stubs(:organisation).returns(stub("organisation", url: "url"))
@@ -107,7 +114,7 @@ module Whitehall::Uploader
 
     test "supplies an attribute list for the new consultation record" do
       row = consultation_row({})
-      attribute_keys = [:title, :body, :opening_on, :closing_on, :organisations, :related_policies, :attachments, :alternative_format_provider, :response]
+      attribute_keys = [:title, :summary, :body, :opening_on, :closing_on, :organisations, :related_policies, :attachments, :alternative_format_provider, :response]
       attribute_keys.each do |key|
         row.stubs(key).returns(key.to_s)
       end

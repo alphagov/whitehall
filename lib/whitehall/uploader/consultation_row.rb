@@ -17,6 +17,10 @@ module Whitehall::Uploader
       row['title']
     end
 
+    def summary
+      Parsers::RelativeToAbsoluteLinks.parse(row['summary'], organisation.url)
+    end
+
     def legacy_url
       row['old_url']
     end
@@ -34,7 +38,7 @@ module Whitehall::Uploader
     end
 
     def organisation
-      Finders::OrganisationFinder.find(row['organisation'], @logger, @line_number).first
+      @organisation ||= Finders::OrganisationFinder.find(row['organisation'], @logger, @line_number).first
     end
 
     def organisations
@@ -60,6 +64,7 @@ module Whitehall::Uploader
     def attributes
       {
         title: title,
+        summary: summary,
         body: body,
         opening_on: opening_on,
         closing_on: closing_on,
