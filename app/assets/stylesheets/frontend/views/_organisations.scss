@@ -616,45 +616,89 @@
       float: right;
     }
     .block-3 {
-      clear: both;
       width: 33%;
       float: left;
     }
     .block-4 {
-      width: 66%;
-      float: right;
+      width: 100%;
+      clear: both;
     }
     .block-5 {
+      width: 100%;
       clear: both;
-      width: 66%;
-      float: right;
     }
   }
 
   .page-header {
-    padding: $gutter-half 0;
+    padding: $gutter-half 0 $gutter 0;
+
+    @include media(desktop) {
+      padding-bottom: $gutter*2;
+    }
   }
   .description {
-    margin-bottom: $gutter;
     p {
       @include core-19;
     }
+
+    margin-bottom: $gutter;
+
+    @include media(desktop) {
+      margin-bottom: $gutter*2;
+    }
   }
   .thumbnail {
+    margin-bottom: $gutter*2;
+
     img {
       box-shadow: 3px 3px 7px #999;
       width: 100%;
       max-width: 287px;
     }
   }
-  .url {
-    @include core-24;
-  }
   .information-block {
-    padding: $gutter-two-thirds $gutter*2 $gutter-two-thirds $gutter-one-third;
+    @include core-19;
+    padding: $gutter-two-thirds 33% $gutter-two-thirds 0;
     margin-top: 0;
+    margin-bottom: $gutter;
+    background-color: transparent;
+    border: solid $black 1px;
+    border-width: 5px 0 1px 0;
+    position: relative;
+
+    @include media(desktop) {
+      margin-bottom: $gutter*2;
+    }
   }
+
+  .information-block:after {
+    content: "info";
+    text-indent: -9999px;
+    background-color: $inside-gov-brand;
+    background-image: image-url('icon-information-transparent.png');
+    background-position: center;
+    height: $gutter;
+    width: $gutter;
+    position: absolute;
+    overflow: hidden;
+    @include border-radius($gutter);
+
+    top: $gutter-one-third;
+    right: $gutter-two-thirds;
+
+    @include media(desktop) {
+      top: $gutter-one-third;
+      right: $gutter-one-third;
+    }
+
+  }
+
+  #recently-updated table {
+    margin-top: $gutter-one-third;
+  }
+
 }
+
 
 // Used on:
 // organisations#about, corporate_information_page#show
