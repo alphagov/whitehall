@@ -8,7 +8,7 @@
         <span><%= format_with_html_line_breaks(h(organisation.logo_formatted_name)) %></span>
       <% end %>
     <% else %>
-      <span class="<%= organisation_logo_classes(organisation, size: 'large', stacked: true) %>">
+      <span class="<%= organisation_logo_classes(organisation, size: 'medium', stacked: true) %>">
         <span><%= format_with_html_line_breaks(h(organisation.logo_formatted_name)) %></span>
       </span>
     <% end %>
