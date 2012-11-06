@@ -40,11 +40,8 @@
   }
   .coalition p{
     background-color:$info-background;
-    padding-left:$gutter-half;
-    padding-right:$gutter-half;
+    padding:$gutter-half;
     margin-top:-0.5em;
-    padding-bottom:$gutter-half;
-    padding-top:$gutter-half;
   }
   .civil-service{
     margin-top:$gutter;
@@ -148,8 +145,7 @@
     width: 100%;
     margin-top: $gutter*2;
   }
-
-  
+   
   p.intro {
     @include core-27;
     margin-bottom:$gutter;
