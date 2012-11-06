@@ -71,6 +71,7 @@ nav.consultations_scope {
     background: $inside-gov-brand;
     color: $white;
     margin: $gutter-one-third ($gutter-half*-1) 0;
+    @extend %contain-floats;
     @include media(tablet){
       margin: $gutter 0 0;
     }
