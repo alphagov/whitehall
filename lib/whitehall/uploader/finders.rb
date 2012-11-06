@@ -3,6 +3,7 @@ module Whitehall
     module Finders
       autoload :OrganisationFinder, 'whitehall/uploader/finders/organisation_finder'
       autoload :PoliciesFinder, 'whitehall/uploader/finders/policies_finder'
+      autoload :RoleAppointmentsFinder, 'whitehall/uploader/finders/role_appointments_finder'
     end
   end
 end
