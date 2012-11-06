@@ -22,7 +22,7 @@
   }
 }
 
-.organisation-logo-no-identity {
+.organisation-logo {
   font-family: Helvetica, Arial;
   font-weight: 400;
   display: block;
@@ -36,8 +36,10 @@
   &:link,
   &:visited {
     color: #000;
+  }
 }
 
+.organisation-logo-no-identity {
 }
 .organisation-logo-stacked-no-identity {
   @extend .organisation-logo-no-identity;
@@ -250,6 +252,36 @@
     background-image: image-url("crests/coastguard_13px_x2.png");
   }
 }
+
+// Parliment Portcullis
+.organisation-logo-portcullis {
+  @extend .organisation-logo-identity;
+
+  padding: 3px 0 2px 26px;
+  background-image: image-url("crests/portcullis_13px.png");
+  background-position: 5px center;
+  background-size: auto 20px;
+}
+.organisation-logo-stacked-portcullis {
+  @extend .organisation-logo-identity;
+
+  padding: 25px 0 0 6px;
+  background-image: image-url("crests/portcullis_13px.png");
+  background-position: 5px top;
+  background-size: auto 20px;
+}
+.organisation-logo-stacked-portcullis span {
+  display: block;
+  top: 3px;
+  position: relative;
+}
+@media all and (-webkit-min-device-pixel-ratio: 2) {
+  .organisation-logo-portcullis,
+  .organisation-logo-stacked-portcullis {
+    background-image: image-url("crests/portcullis_13px_x2.png");
+  }
+}
+
 
 
 // Non-cornforming Medium
@@ -495,6 +527,39 @@
     .organisation-logo-coastguard-medium,
     .organisation-logo-stacked-coastguard-medium {
       background-image: image-url("crests/coastguard_18px_x2.png");
+    }
+  }
+}
+
+// Parliment Portcullis
+.organisation-logo-portcullis-medium {
+  @extend .organisation-logo-identity-medium;
+  @include media(tablet){
+    padding: 3px 0 2px 34px;
+    background-image: image-url("crests/portcullis_18px.png");
+    background-position: 6px center;
+    background-size: auto 25px;
+  }
+}
+.organisation-logo-stacked-portcullis-medium {
+  @extend .organisation-logo-identity-medium;
+  @include media(tablet){
+    padding: 25px 0 0 7px;
+    background-image: image-url("crests/portcullis_18px.png");
+    background-position: 6px top;
+    background-size: auto 25px;
+  }
+}
+@include media(tablet){
+  .organisation-logo-stacked-portcullis-medium span {
+    display: block;
+    top: 3px;
+    position: relative;
+  }
+  @media all and (-webkit-min-device-pixel-ratio: 2) {
+    .organisation-logo-portcullis-medium,
+    .organisation-logo-stacked-portcullis-medium {
+      background-image: image-url("crests/portcullis_18px_x2.png");
     }
   }
 }
@@ -747,5 +812,39 @@
     }
   }
 }
+
+// Parliment Portcullis
+.organisation-logo-portcullis-large {
+  @extend .organisation-logo-identity-large;
+  @include media(tablet){
+    padding: 5px 0 5px 52px;
+    background-image: image-url("crests/portcullis_27px.png");
+    background-position: 9px center;
+    background-size: auto 40px;
+  }
+}
+.organisation-logo-stacked-portcullis-large {
+  @extend .organisation-logo-identity-large;
+  @include media(tablet){
+    padding: 40px 0 0 10px;
+    background-image: image-url("crests/portcullis_27px.png");
+    background-position: 9px top;
+    background-size: auto 40px;
+  }
+}
+@include media(tablet){
+  .organisation-logo-stacked-portcullis-large span {
+    display: block;
+    top: 5px;
+    position: relative;
+  }
+  @media all and (-webkit-min-device-pixel-ratio: 2) {
+    .organisation-logo-portcullis-large,
+    .organisation-logo-stacked-portcullis-large {
+      background-image: image-url("crests/portcullis_27px_x2.png");
+    }
+  }
+}
+
 
 @include department-colours('.organisation-logo', border-color);

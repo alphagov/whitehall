@@ -31,4 +31,7 @@ class OrganisationLogoType
   HMCoastguard = create(
     id: 8, title: "HM Coastguard", class_name: "coastguard"
   )
+  Portcullis = create(
+    id: 9, title: "Portcullis", class_name: "portcullis"
+  )
 end
