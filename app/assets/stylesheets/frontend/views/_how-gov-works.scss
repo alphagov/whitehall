@@ -3,6 +3,9 @@
   .full-width-section{
     clear:both;
   }
+  ul{
+    padding-left:1.2em;
+  }
   p, li{
     @include core-19;
   }
