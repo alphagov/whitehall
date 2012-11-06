@@ -26,11 +26,11 @@
           if($img.length > 0){
             var image = new Image();
             image.onload = function(){
-              root.GOVUK.stopScrollingAtFooter.addEl($(el), $(el).height());
+              root.GOVUK.stopScrollingAtFooter.addEl($(el), $(el).outerHeight());
             };
             image.src = $img.attr('src');
           } else {
-            root.GOVUK.stopScrollingAtFooter.addEl($(el), $(el).height());
+            root.GOVUK.stopScrollingAtFooter.addEl($(el), $(el).outerHeight());
           }
         });
       }

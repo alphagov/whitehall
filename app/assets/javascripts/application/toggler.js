@@ -14,6 +14,7 @@
       function toggle() {
         wrapper.toggleClass('open')
         overlay.toggleClass('visuallyhidden');
+        $(document).trigger('govuk.pageSizeChanged');
       }
 
       if (header.length > 0 && overlay.length > 0) {
