@@ -98,7 +98,7 @@ module Whitehall::Uploader
 
       Builders::AttachmentBuilder.stubs(:build).with("title", "url", @attachment_cache, anything, anything).returns(attachment)
 
-      row = consultation_row("attachment_1_title" => "title", "attachment_1_url" => "url", "consultation_URN" => "unique-reference-number", "consultation_ISBN" => "isbn")
+      row = consultation_row("attachment_1_title" => "title", "attachment_1_url" => "url", "consultation_urn" => "unique-reference-number", "consultation_isbn" => "isbn")
 
       row.attachments
     end
@@ -168,7 +168,7 @@ module Whitehall::Uploader
 
       Builders::AttachmentBuilder.stubs(:build).with("title", "url", @attachment_cache, anything, anything).returns(attachment)
 
-      builder = response_builder("response_1_title" => "title", "response_1_url" => "url", "response_1_ISBN" => "isbn")
+      builder = response_builder("response_1_title" => "title", "response_1_url" => "url", "response_1_isbn" => "isbn")
 
       builder.attachments
     end

@@ -55,7 +55,7 @@ module Whitehall::Uploader
           next unless row["attachment_#{number}_title"] || row["attachment_#{number}_url"]
           Builders::AttachmentBuilder.build(row["attachment_#{number}_title"], row["attachment_#{number}_url"], @attachment_cache, @logger, @line_number)
         end.compact
-        AttachmentMetadataBuilder.build(@attachments.first, row["order_url"], row["ISBN"], row["URN"], row["command_paper_number"])
+        AttachmentMetadataBuilder.build(@attachments.first, row["order_url"], row["isbn"], row["urn"], row["command_paper_number"])
       end
       @attachments
     end

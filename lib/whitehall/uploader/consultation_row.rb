@@ -86,8 +86,8 @@ module Whitehall::Uploader
       end.compact
 
       if consultation = result.first
-        consultation.unique_reference = row["consultation_URN"]
-        consultation.isbn = row["consultation_ISBN"]
+        consultation.unique_reference = row["consultation_urn"]
+        consultation.isbn = row["consultation_isbn"]
       end
 
       result
@@ -132,7 +132,7 @@ module Whitehall::Uploader
         1.upto(50).map do |number|
           if row["response_#{number}_title"] || row["response_#{number}_url"]
             attachment = Builders::AttachmentBuilder.build(row["response_#{number}_title"], row["response_#{number}_url"], @attachment_cache, @logger, @line_number)
-            attachment.isbn = row["response_#{number}_ISBN"]
+            attachment.isbn = row["response_#{number}_isbn"]
             attachment
           end
         end.compact

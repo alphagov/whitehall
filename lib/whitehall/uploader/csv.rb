@@ -4,7 +4,7 @@ class Whitehall::Uploader::Csv
   attr_reader :row_class, :model_class
 
   def initialize(data, row_class, model_class, attachment_cache, logger = Logger.new($stdout), error_csv_path=nil)
-    @csv = CSV.new(data, headers: true)
+    @csv = CSV.new(data, headers: true, header_converters: :downcase)
     @row_class = row_class
     @model_class = model_class
     @logger = logger

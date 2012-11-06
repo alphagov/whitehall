@@ -9,7 +9,7 @@ class DclgConsultationImportTest < ActiveSupport::TestCase
 
     stub_request(:get, "http://www.example.com/documents/response/first-responder.pdf").to_return(body: "response-content")
 
-    data = File.read("test/fixtures/dclg_consultation_import_test.csv")
+    data = File.read(Rails.root.join("test/fixtures/dclg_consultation_import_test.csv"))
     ConsultationUploader.new(csv_data: data).upload
 
     consultation = Consultation.first
