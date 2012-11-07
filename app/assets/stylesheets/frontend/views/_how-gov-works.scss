@@ -79,6 +79,7 @@
     padding-bottom:0;
     margin:0;
     color:$inside-gov-brand;
+    @include bold;
     display:block;
     line-height:1em;
   }
@@ -107,6 +108,7 @@
         padding-bottom:0;
         margin:0;
         color:$inside-gov-brand;
+        @include bold;
         display:block;
         line-height:1em;
       }
@@ -122,10 +124,10 @@
   }
   h1 {
     @include core-48;
+    @include bold;
     margin: 0 0 $gutter;
     @include media(desktop) {
       margin-top: 0;
-      padding-top: 0;
     }
   }
   h2{
@@ -136,17 +138,19 @@
   }
   h3{
     @include core-27;
+    @include bold;
     margin: 0 0 $gutter-half;
     width:100%
   }
   h4{
     @include core-24;
+    @include bold;
   }
   .block-1, .block-2 {
     float: none;
     display: block;
     width: 100%;
-    margin-top: $gutter*2;
+    margin-top: $gutter*1.5;
   }
    
   p.intro {
