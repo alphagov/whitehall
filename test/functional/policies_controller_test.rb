@@ -222,7 +222,7 @@ That's all
   test "activity displays metadata about the recently changed documents" do
     published_at = Time.zone.now
     policy = create(:published_policy)
-    speech = create(:published_speech, published_at: published_at, related_policies: [policy])
+    speech = create(:published_speech, published_at: published_at, delivered_on: published_at, related_policies: [policy])
 
     get :activity, id: policy.document
 
@@ -231,6 +231,19 @@ That's all
         assert_select ".document-row .type", text: "Speech"
         assert_select ".document-row .published-at[title='#{published_at.iso8601}']"
       end
+    end
+  end
+
+  test "activity uses publication_date to indicate when a publication was changed" do
+    policy = create(:published_policy)
+    edition = create(:published_publication,
+      related_policies: [policy],
+      publication_date: 2.days.ago.to_date)
+
+    get :activity, id: policy.document
+
+    assert_select_object edition do
+      assert_select '.document-row .date', text: %r{#{edition.publication_date.to_s(:long_ordinal)}}
     end
   end
 
@@ -251,12 +264,12 @@ That's all
     end
   end
 
-  test "activity orders recently changed documents relating to the policy most recent first" do
+  test "activity orders recently changed documents in reverse chronological order" do
     policy = create(:published_policy)
-    publication = create(:published_publication, published_at: 4.weeks.ago, related_policies: [policy])
+    publication = create(:published_publication, published_at: 1.day.ago, publication_date: 4.weeks.ago, related_policies: [policy])
     consultation = create(:published_consultation, published_at: 1.weeks.ago, related_policies: [policy])
     news_article = create(:published_news_article, published_at: 3.weeks.ago, related_policies: [policy])
-    speech = create(:published_speech, published_at: 2.weeks.ago, related_policies: [policy])
+    speech = create(:published_speech, published_at: 2.weeks.ago, delivered_on: 2.weeks.ago, related_policies: [policy])
 
     get :activity, id: policy.document
 
@@ -345,10 +358,10 @@ That's all
 
   test 'activity atom feed shows activity documents' do
     policy = create(:published_policy)
-    publication = create(:published_publication, published_at: 4.weeks.ago, related_policies: [policy])
+    publication = create(:published_publication, published_at: 1.day.ago, publication_date: 4.weeks.ago, related_policies: [policy])
     consultation = create(:published_consultation, published_at: 1.weeks.ago, related_policies: [policy])
     news_article = create(:published_news_article, published_at: 3.weeks.ago, related_policies: [policy])
-    speech = create(:published_speech, published_at: 2.weeks.ago, related_policies: [policy])
+    speech = create(:published_speech, published_at: 2.days.ago, delivered_on: 2.weeks.ago, related_policies: [policy])
 
     get :activity, id: policy.document, format: "atom"
 

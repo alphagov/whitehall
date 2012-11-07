@@ -15,13 +15,13 @@ class PoliciesController < DocumentsController
   def show
     @policy = @document
     @countries = @policy.countries
-    @recently_changed_documents = Edition.published.related_to(@policy).by_published_at
+    @recently_changed_documents = Edition.published.related_to(@policy).in_reverse_chronological_order
     @show_navigation = (@policy.supporting_pages.any? or @recently_changed_documents.any?)
   end
 
   def activity
     @policy = @document
-    @recently_changed_documents = Edition.published.related_to(@policy).by_published_at
+    @recently_changed_documents = Edition.published.related_to(@policy).in_reverse_chronological_order
     if @recently_changed_documents.empty?
       render text: "Not found", status: :not_found
     end
