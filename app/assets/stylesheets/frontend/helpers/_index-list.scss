@@ -25,21 +25,20 @@
     }
 
   }
+}
 
-  .index-list-container {
-    margin-left: 33.333%;
-    
-    h3 {
-      @include core-19;
-    }
-
-    ul {
-      li {
-        list-style: none;
-        border-bottom: 1px solid $light-keyline;
-        @include core-19;
-      }
-    }
+.index-list-container {
+  margin-left: 33.333%;
+  
+  h3 {
+    @include core-19;
   }
+}
 
+.index-list {
+  li {
+    list-style: none;
+    border-bottom: 1px solid $light-keyline;
+    @include core-19;
+  }
 }
