@@ -90,7 +90,7 @@ class Whitehall::Uploader::PublicationRowTest < ActiveSupport::TestCase
     @attachment_cache.stubs(:fetch).with("http://example.com/attachment.pdf").returns(File.open(Rails.root.join("test", "fixtures", "two-pages.pdf")))
 
     row = Whitehall::Uploader::PublicationRow.new({
-      "json_attachments" => ActiveSupport::JSON.encode([{"title" => "first title", "url" => "http://example.com/attachment.pdf"}])
+      "json_attachments" => ActiveSupport::JSON.encode([{"title" => "first title", "link" => "http://example.com/attachment.pdf"}])
     }, 1, @attachment_cache, Logger.new(StringIO.new))
 
     attachment = Attachment.new(title: "first title")
