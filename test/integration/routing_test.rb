@@ -59,11 +59,6 @@ class RoutingTest < ActionDispatch::IntegrationTest
     assert_select "a.open_website[href=?]", "http://www.gov.uk/government"
   end
 
-  test "should redirect from old home page to new home page in case the URL has escaped into the wild" do
-    get "/government/home"
-    assert_redirected_to "/government"
-  end
-
   test "should redirect from old tour page to mainstream tour page in case the URL has escaped into the wild" do
     get "/government/tour"
     assert_redirected_to "/tour"
