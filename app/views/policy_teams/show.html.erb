@@ -10,7 +10,7 @@
   <div class="block-2">
     <div class="inner-block">
       <section class="contextual-info js-stick-at-top-when-scrolling">
-        <% if govspeak_headers(@policy_team.description).any? %>
+        <% if govspeak_headers(@policy_team.description).any? || @policies.any? || @policy_team.email %>
           <h1>Contents</h1>
           <nav class="policy-parts" role="navigation">
               <ol id="document_sections">
