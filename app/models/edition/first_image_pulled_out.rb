@@ -3,7 +3,7 @@ module Edition::FirstImagePulledOut
 
   included do
     validates :body, format: {
-      without: /^!!1[^\w]/,
+      without: /^!!1([^\d]|$)/,
       message: "cannot have a reference to the first image in the text"
     }
   end
