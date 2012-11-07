@@ -1,5 +1,6 @@
 class NewsArticlePresenter < Draper::Base
   include EditionPresenterHelper
+  include LeadImagePresenterHelper
 
   decorates :news_article
 
