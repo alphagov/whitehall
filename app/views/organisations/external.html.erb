@@ -5,7 +5,7 @@
   <div class="block-1">
     <div class="inner-block">
       <div>
-        <%= render 'header', organisation: @organisation %>
+        <%= render 'header', organisation: @organisation, locals: {logo_size: 'medium'} %>
       </div>
     </div>
   </div>
@@ -15,6 +15,8 @@
       <div class="description">
         <p><%= @organisation.description %></p>
         <p class="parent_organisations"><%= organisation_display_name_and_parental_relationship(@organisation) %></p>
+
+        <p><%= link_to @organisation.url, @organisation.url %></p>
       </div>
     </div>
   </div>
@@ -27,7 +29,7 @@
     </div>
   </div>
 
-  <div class="block-4 govspeak">
+  <div class="block-4">
     <div class="inner-block">
       <aside class="govuk-status information-block">
         <% if @organisation.joining? %>
@@ -36,19 +38,19 @@
         This organisation has a separate website
         <% end %>
       </aside>
-      <div class="url">
-        Go to: <%= link_to @organisation.url, @organisation.url %>
-      </div>
     </div>
   </div>
 
   <% if @recently_updated.present? %>
     <div class="block-5">
       <div class="inner-block">
-          <section id="recently_updated" class="latest_documents">
-            <h1 class="label">Mentions on GOV.UK</h1>
+        <section id="recently-updated" class="heading-block latest_documents">
+          <h1>Mentions on GOV.UK</h1>
+
+          <div class="content">
             <%= render partial: "shared/recently_updated", locals: {recently_updated: @recently_updated} %>
-          </section>
+          </div>
+        </section>
       </div>
     </div>
   <% end %>
