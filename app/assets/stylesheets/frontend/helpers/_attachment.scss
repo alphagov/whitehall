@@ -12,10 +12,6 @@ $thumbnail-width: 99px;
     padding: $gutter-half 0 0 ($thumbnail-width + $gutter);
   }
   
-  .attachment-without-thumbnail {
-    margin-top: $gutter;
-  }
-  
   .attachment-thumb {
     position: relative;
     float: left;
@@ -28,10 +24,19 @@ $thumbnail-width: 99px;
   
     img {
       display: block;
-      width: 99px;
+      width: $thumbnail-width;
       height: 140px;
       background: white;
       @include box-shadow(0 2px 2px rgba(0,0,0,0.4));
+    }
+  }
+  
+  .title a {
+    text-decoration: none;
+    @include bold;
+    &:hover,
+    &:focus {
+      text-decoration: underline;
     }
   }
   
@@ -76,7 +81,7 @@ $thumbnail-width: 99px;
 
 .attachment-full-width {
   margin: $gutter ($gutter-half*-1);
-  padding: $gutter-half;
+  padding: $gutter-two-thirds $gutter-half $gutter-half;
   background: $info-background;
   @extend %contain-floats;
   
@@ -86,9 +91,19 @@ $thumbnail-width: 99px;
     background: transparent;
   }
   
+  h2.supporting-documents-title {
+    @include core-16;
+    margin-top: $gutter;
+    color: $body-text;
+  }
+  
+  .attachment-without-thumbnail {
+    margin-top: $gutter;
+  }
+  
   @include media(tablet){
     margin: $gutter 0;
-    padding: $gutter-half $gutter-half  $gutter-half 34.8%;
+    padding: $gutter-two-thirds $gutter-half  $gutter-half 34.8%;
     .attachment {
       padding-left: 0;
       

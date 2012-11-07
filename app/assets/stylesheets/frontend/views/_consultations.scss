@@ -159,6 +159,9 @@ nav.consultations_scope {
         padding: $gutter-half;
         .dates {
           white-space: nowrap;
+          abbr {
+            @include bold;
+          }
         }
       }
       a {
@@ -218,4 +221,8 @@ nav.consultations_scope {
     padding-top: $gutter*1.5;
   }
 
+  
+  &+.attachment-full-width {
+    margin-top: 0;
+  }
 }
