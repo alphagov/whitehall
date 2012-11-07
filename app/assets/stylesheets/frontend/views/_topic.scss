@@ -25,11 +25,26 @@
 
   .page-header {
     @extend %contain-floats;
+    padding: $gutter-half 0 0;
+    
+    @include media(tablet){
+      padding: $gutter*1.5 0 0;
+    }
 
     h1 {
       width: 75%;
       float: left;
-      margin-top: $gutter-one-third;
+      
+      .label {
+        display: block;
+        @include light;
+        padding-bottom: 0;
+      }
+      
+      .topic {
+        display: block;
+        @include bold;
+      }
     }
     .meta {
       margin-top: $gutter;

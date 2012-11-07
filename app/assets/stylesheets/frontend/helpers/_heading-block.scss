@@ -39,6 +39,7 @@
         h2 a {
           display: block;
           @include core-19;
+          @include bold;
         }
 
         p, .metadata {

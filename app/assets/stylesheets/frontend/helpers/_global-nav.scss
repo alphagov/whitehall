@@ -1,21 +1,30 @@
+
 #global-nav {
   margin: 4px $gutter-half 0;
-  border-bottom: 4px solid $inside-gov-nav;
-  @extend %contain-floats;
+  border-bottom: $gutter-one-third solid $inside-gov-secondary;
 
   @include media(tablet){
-    margin: 4px $gutter 0;
+    margin: $gutter-one-sixth $gutter 0;
   }
   
   @include media(desktop){
     text-align: right;
+  }
+  
+  .inner {
+    border-bottom: $gutter-one-sixth solid $inside-gov-nav;
+    padding-bottom: 2px;
+    @extend %contain-floats;
+    @include media(tablet){
+      padding-bottom: 0;
+    }
   }
 
   a,
   .toggler {
     @include core-16;
     display: block;
-    padding: $gutter-one-third+1 8px 9px;
+    padding: $gutter-one-third 8px;
     text-decoration: none;
     color: $inside-gov-nav;
 
@@ -66,12 +75,14 @@
   }
   nav {
     clear: both;
-    background: $inside-gov-nav-dropdown;
+    background: $inside-gov-secondary;
+    margin-bottom: 3px;
 
     @include media(desktop){
       clear: none;
       background: transparent;
       position: static;
+      margin-bottom: 0;
     }
 
     .current {
@@ -79,11 +90,7 @@
       background: $inside-gov-nav;
     }
     a {
-      color: $white;
-
-      @include media(desktop){
-        color: $inside-gov-nav;
-      }
+      color: $inside-gov-nav;
     }
     li {
       display: block;
@@ -97,10 +104,11 @@
         @include media(desktop){
           width: 14em;
           text-align: left;
-          background: $inside-gov-nav-dropdown;
+          background: $inside-gov-secondary;
           position: absolute;
           right: 0;
           z-index: 1;
+          @include box-shadow(0 2px 6px rgba(0, 0, 0, 0.2));
           @include ie(7){
             top: 40px;
           }
@@ -110,7 +118,6 @@
             display: block;
             a {
               display: block;
-              color: $white;
             }
           }
         }
@@ -118,21 +125,24 @@
       .toggler {
         position: absolute;
         left: -9999em;
+        &:focus {
+          text-decoration: none;
+        }
 
         @include media(desktop){
-          position: static;
+          position: relative;
+          left: auto;
+          z-index: 10;
         }
       }
     }
   }
   &.open {
     .toggler {
-      background: $inside-gov-nav-dropdown;
-      color: $white;
+      background: $inside-gov-secondary;
     }
     .toggler.current {
-      background: $inside-gov-nav-dropdown;
+      background: $inside-gov-secondary;
     }
   }
 }
-

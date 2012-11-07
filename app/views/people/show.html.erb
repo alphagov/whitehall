@@ -80,18 +80,18 @@
           <table class="document-list">
             <thead class="visuallyhidden">
               <tr>
-                <th scope="col">Date</th>
                 <th scope="col">Title</th>
+                <th scope="col">Date</th>
               </tr>
             </thead>
 
             <tbody>
               <% @person.previous_role_appointments.each do |appointment| %>
                 <%= content_tag_for :tr, appointment, class: "document-row" do %>
+                  <th scope="row" class="title attribute"><%= appointment.role_link %></th>
                   <td class="date attribute">
                     <%= appointment.date_range %>
                   </td>
-                  <th scope="row" class="title attribute"><%= appointment.role_link %></th>
                 <% end %>
               <% end %>
             </tbody>

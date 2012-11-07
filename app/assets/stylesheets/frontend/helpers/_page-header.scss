@@ -7,7 +7,6 @@
   h1 {
     @include core-48;
     .label {
-      color: $low-contrast;
       display: block;
     }
   }
