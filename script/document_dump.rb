@@ -19,7 +19,7 @@ CSV do |csv_out|
     if edition
       status = (edition.state == 'published' ? '301' : '')
       whole_tag = (edition.state == 'published' ? 'Closed' : 'Open')
-      csv_out << [document.document_source.url, public_document_url(edition, :protocol => 'https'), status, whole_tag, document.slug, admin_edition_url(edition, :host => "whitehall-admin.#{ENV['FACTER_govuk_platform']}.alphagov.co.uk", :protocol => 'https'), edition.state]
+      csv_out << [document.document_source.url, public_document_url(edition, protocol: 'https'), status, whole_tag, document.slug, admin_edition_url(edition, host: "whitehall-admin.#{ENV['FACTER_govuk_platform']}.alphagov.co.uk", protocol: 'https'), edition.state]
     else
       csv_out << [document.document_source.url, '', '', 'Open']
     end
