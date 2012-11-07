@@ -5,6 +5,7 @@ class CaseStudiesController < DocumentsController
 
   def show
     @related_policies = @document.published_related_policies
+    @document = CaseStudyPresenter.decorate(@document)
   end
 
   private

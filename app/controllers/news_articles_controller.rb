@@ -5,6 +5,7 @@ class NewsArticlesController < DocumentsController
 
   def show
     @related_policies = @document.published_related_policies
+    @document = NewsArticlePresenter.decorate(@document)
   end
 
   private

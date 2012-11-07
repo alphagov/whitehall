@@ -682,12 +682,13 @@ module AdminEditionControllerTestHelpers
       end
 
       test "can embed image inline and see it in preview" do
-        edition = create(edition_type, body: "!!1")
-        image = create(:image, edition: edition)
+        edition = create(edition_type, body: "!!2")
+        image1 = create(:image, edition: edition)
+        image2 = create(:image, edition: edition)
 
         get :show, id: edition
 
-        assert_select 'article .body figure.image.embedded img[src=?]', %r{#{image.url}}
+        assert_select 'article .body figure.image.embedded img[src=?]', %r{#{image2.url}}
       end
     end
 

@@ -34,6 +34,14 @@ module DocumentBehaviour
       end
     end
 
+    def should_have_first_image_pulled_out
+      test "should include the FirstImagePulledOut module" do
+        # *NOTE*. The Edition::FirstImagePulledOut module is tested separately so it
+        # should be enough to just test its inclusion here.
+        assert edition_class_from_test_name.ancestors.include?(Edition::FirstImagePulledOut)
+      end
+    end
+
     def should_be_attachable
       test "should include the Attachable behaviour module" do
         # *NOTE*. The ::Attachable module is tested separately so it

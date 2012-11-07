@@ -84,8 +84,8 @@ module DocumentControllerTestHelpers
 
     def should_display_inline_images_for(document_type)
       test "show displays #{document_type} with inline images" do
-        images = [create(:image)]
-        edition = create("published_#{document_type}", body: "!!1", images: images)
+        images = [create(:image), create(:image)]
+        edition = create("published_#{document_type}", body: "!!2", images: images)
 
         get :show, id: edition.document
 
