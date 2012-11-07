@@ -11,7 +11,7 @@ module PublicDocumentRoutesHelper
   end
 end
 
-CSV do |csv_out|
+CSV.open('/tmp/document_mappings.csv', 'wb') do |csv_out|
 
   csv_out << ['Old Url','New Url','Status','Whole Tag','Slug','Admin Url','State']
   Document.joins(:document_source).all.each do |document|
