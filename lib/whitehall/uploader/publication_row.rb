@@ -51,10 +51,7 @@ module Whitehall::Uploader
 
     def attachments
       if @attachments.nil?
-        @attachments = 1.upto(50).map do |number|
-          next unless row["attachment_#{number}_title"] || row["attachment_#{number}_url"]
-          Builders::AttachmentBuilder.build(row["attachment_#{number}_title"], row["attachment_#{number}_url"], @attachment_cache, @logger, @line_number)
-        end.compact
+        @attachments = attachments_from_columns + attachments_from_json
         AttachmentMetadataBuilder.build(@attachments.first, row["order_url"], row["isbn"], row["urn"], row["command_paper_number"])
       end
       @attachments
@@ -70,6 +67,26 @@ module Whitehall::Uploader
        :ministerial_roles, :attachments, :alternative_format_provider].map.with_object({}) do |name, result|
         result[name] = __send__(name)
       end
+    end
+
+    private
+
+    def attachments_from_json
+      if row["json_attachments"]
+        attachment_data = ActiveSupport::JSON.decode(row["json_attachments"])
+        attachment_data.map do |attachment|
+          Builders::AttachmentBuilder.build(attachment["title"], attachment["url"], @attachment_cache, @logger, @line_number)
+        end
+      else
+        []
+      end
+    end
+
+    def attachments_from_columns
+      1.upto(50).map do |number|
+        next unless row["attachment_#{number}_title"] || row["attachment_#{number}_url"]
+        Builders::AttachmentBuilder.build(row["attachment_#{number}_title"], row["attachment_#{number}_url"], @attachment_cache, @logger, @line_number)
+      end.compact
     end
 
     class AttachmentMetadataBuilder

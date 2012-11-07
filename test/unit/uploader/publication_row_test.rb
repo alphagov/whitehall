@@ -85,6 +85,18 @@ class Whitehall::Uploader::PublicationRowTest < ActiveSupport::TestCase
     assert_equal [attachment.attributes], row.attachments.collect(&:attributes)
     assert_equal "http://example.com/attachment.pdf", row.attachments.first.attachment_source.url
   end
+
+  test "finds any attachments specified in JSON in the json_attachments column" do
+    @attachment_cache.stubs(:fetch).with("http://example.com/attachment.pdf").returns(File.open(Rails.root.join("test", "fixtures", "two-pages.pdf")))
+
+    row = Whitehall::Uploader::PublicationRow.new({
+      "json_attachments" => ActiveSupport::JSON.encode([{"title" => "first title", "url" => "http://example.com/attachment.pdf"}])
+    }, 1, @attachment_cache, Logger.new(StringIO.new))
+
+    attachment = Attachment.new(title: "first title")
+    assert_equal [attachment.attributes], row.attachments.collect(&:attributes)
+    assert_equal "http://example.com/attachment.pdf", row.attachments.first.attachment_source.url
+  end
 end
 
 class Whitehall::Uploader::PublicationRow::AttachmentMetadataBuilderTest < ActiveSupport::TestCase
