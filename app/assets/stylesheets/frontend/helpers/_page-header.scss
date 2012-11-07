@@ -28,14 +28,19 @@
     }
     .show-other-content {
       float: left;
-      padding-left: $gutter-one-third;
-      padding-right: $gutter-one-third;
       margin-left: $gutter-half;
       @include core-14;
+      padding: 3px 6px 0 4px;
     }
   }
-  .organisations-icon-list .organisation {
-    margin-bottom: $gutter-one-third;
+  .organisations-icon-list {
+    padding-bottom: $gutter-one-third;
+    .organisation {
+      padding-bottom: 0;
+    }
+    .hm-government {
+      padding-bottom: $gutter-one-sixth;
+    }
   }
 }
 
@@ -53,12 +58,17 @@
   }
 }
 .show-other-content {
+  @include core-14;
   background: $info-background;
   text-decoration: none;
-  display: inline-block;
-  padding: 0 4px;
+  display: inline;
   margin-left: 0.3em;
   @include border-radius(0.250em);
+  padding: 1px 4px 0;
+  @include media(tablet) {
+    padding: 3px 6px 0 4px;
+  }
+  white-space: nowrap;
 
   .plus {
     display: inline-block;

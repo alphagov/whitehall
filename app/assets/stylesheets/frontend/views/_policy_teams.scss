@@ -1,12 +1,12 @@
 .policy-teams {
-
-  .page-header h1 {
-    @include core-48;
-    margin-top: $gutter-one-third;
+  .page-header {
+    padding: $gutter-half 0;
     @include media(tablet){
-      margin-bottom: ($gutter - $gutter-one-sixth);
-      width: 75%;
-      float: left;
+      padding: $gutter*1.5 0 ($gutter + $gutter-one-third);
+    }
+    h1 {
+      padding-bottom: 0;
+      @include bold;
     }
   }
   
