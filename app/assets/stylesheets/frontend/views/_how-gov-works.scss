@@ -34,7 +34,9 @@
       margin-bottom:$gutter;
     }
   }
-
+  .ministers{
+    margin-bottom:$gutter*2;
+  }
   .gov-types, .ministers, .cabinet, .coalition, .policy, .civil-service{
     h3{
       border-top:1px solid $light-keyline;
