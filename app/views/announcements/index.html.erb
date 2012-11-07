@@ -33,12 +33,12 @@
               <%= link_to announcement.title, public_document_path(announcement),
                   title: "View #{announcement.title}" %>
             </th>
+            <td class="attribute first_published_at">
+              <%= announcement.display_date_microformat %>
+            </td>
             <td class="attribute organisations">
               <%= announcement.organisations.map { |o|
                 organisation_display_name(o) }.to_sentence.html_safe %>
-            </td>
-            <td class="attribute first_published_at">
-              <%= announcement.display_date_microformat %>
             </td>
             <td class="announcement_type attribute">
               <%= announcement.display_announcement_type %>
