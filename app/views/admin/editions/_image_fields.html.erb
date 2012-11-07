@@ -30,9 +30,13 @@
           <% checkbox_args[0].merge!(label_text: "(uncheck to remove)") %>
           <%= images_fields.check_box :_destroy, *checkbox_args  %>
         </div>
-          <p>Markdown to use:
-            <input type="text" readonly="readonly" value="!!<%= i %>" />
-          </p>
+          <% if edition.image_disallowed_in_body_text?(i) %>
+            <p>This image is shown automatically, and is not available for use inline in the body.</p>
+          <% else %>
+            <p>Markdown to use:
+              <input type="text" readonly="readonly" value="!!<%= i %>" />
+            </p>
+          <% end %>
       </div>
     <% end %>
   <% end %>

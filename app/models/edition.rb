@@ -203,6 +203,10 @@ class Edition < ActiveRecord::Base
     false
   end
 
+  def image_disallowed_in_body_text?(i)
+    false
+  end
+
   def create_draft(user)
     unless published?
       raise "Cannot create new edition based on edition in the #{state} state"

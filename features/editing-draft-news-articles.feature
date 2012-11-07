@@ -20,3 +20,16 @@ Scenario: Viewing associated people on news articles not roles
   And I visit the news article "News 1"
   Then the article mentions "Don Deputy" and links to their bio page
   And the news article tag is the same as the person in the text
+
+Scenario: Lead image automatically selected as first uploaded image
+  Given I am an editor
+  When I draft a new news article "Stubble to be Outlawed"
+  Then I should see the first uploaded image used as the lead image
+  And if no image is uploaded a default image is shown
+
+Scenario: First image not allowed in markdown
+  Given I am a writer
+  When I draft a new news article "Stubble to be Outlawed"
+  Then I should be informed I shouldn't use this image in the markdown
+  When I attempt to add the article image into the markdown
+  Then my attempt to save it should fail with error "first image"
