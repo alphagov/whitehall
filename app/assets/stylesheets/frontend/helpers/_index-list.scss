@@ -5,22 +5,18 @@
     padding: $gutter-half 0;
 
     .title {
-      padding: 0;
-      margin: 0;
-      padding-top: 12px;
-      padding-top: 1.2rem;
+      display: block;
+      @include light;
+      padding-bottom: 0;
     }
 
     .label {
-      color: $low-contrast;
-      padding: 0;
-      margin: 0;
-      padding-bottom: 8px;
-      padding-bottom: 0.8rem;
+      display: block;
+      @include bold;
     }
 
     @include media(tablet){
-      padding: $gutter*2 0 $gutter;
+      padding: $gutter*1.5 0 ($gutter + $gutter-one-third);
       width: 80%;
     }
 

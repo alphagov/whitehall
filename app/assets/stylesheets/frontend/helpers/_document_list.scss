@@ -19,10 +19,7 @@
       display: inline;
       width: 100%;
       margin-top: $gutter-one-sixth;
-      @media (min-width: 860px) {
-        @include core-24;
-      }
-      padding-bottom: 0;
+      @include bold;
 
       @include ie(6) {
         width: 85%;
@@ -34,7 +31,7 @@
       text-align: left;
       float: left;
       display: inline;
-      padding-top: $gutter-one-sixth;
+      padding-top: 0;
       padding-right: $gutter;
       margin-bottom: $gutter-one-sixth;
     }
@@ -43,13 +40,13 @@
   .document-row:first-child {
     th {
       @include core-27;
-      padding-bottom: 0;
+      @include bold;
     }
   }
   .document-row:nth-child(2) {
     th {
       @include core-24;
-      padding-bottom: 0;
+      @include bold;
     }
   }
 

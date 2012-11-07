@@ -4,7 +4,12 @@
 
     @include media(tablet){
       width: 75%;
-      padding: $gutter*2 0 $gutter;
+      padding: $gutter*1.5 0 ($gutter + $gutter-one-third);
+    }
+
+    .page_title {
+      display: block;
+      @include bold;
     }
   }
 
@@ -14,6 +19,7 @@
     h1 {
       padding-top: 0;
     }
+    
     .department {
       @extend %contain-floats;
       padding: $gutter-one-third 0;
@@ -135,7 +141,7 @@
   .block-1 {
     padding-top: $gutter-one-third;
     @include media(tablet) {
-      padding-bottom: $gutter-half;
+      padding-bottom: $gutter-one-sixth;
     }
   }
 
@@ -174,7 +180,7 @@
 
   .page-header h1 {
     overflow: hidden;
-    padding: $gutter 0 $gutter-one-third;
+    padding: $gutter-two-thirds 0 $gutter-one-third;
   }
 
   .organisation-news {

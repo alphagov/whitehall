@@ -1,25 +1,30 @@
 .document-page-header {
   @extend %contain-floats;
-  padding-bottom: $gutter-half;
+  padding-bottom: ($gutter-two-thirds + $gutter-one-sixth);
 
   h1 {
     @include core-36;
-    margin-top: ($gutter - $gutter-one-sixth);
+    margin-top: ($gutter-two-thirds);
     @include media(tablet){
-      margin-bottom: ($gutter + $gutter-one-third);
+      margin-bottom: ($gutter + $gutter-one-third - 3px);
       width: 75%;
       float: left;
+    }
+    
+    .label {
+      display: block;
+      @include light;
+    }
+    
+    .title {
+      display: block;
+      @include bold;
     }
 
     .inner {
       @include media(desktop){
         display: block;
         padding-right:$gutter-half;
-      }
-
-      .label {
-        color: lighten($body-text, 30%);
-        display: block;
       }
     }
   }
@@ -31,9 +36,10 @@
       @include core-14;
 
       dt {
-        width: 7em;
+        @include bold;
         float: left;
         clear: left;
+        padding-right: $gutter-one-third;
       }
       dd {
         float: left;

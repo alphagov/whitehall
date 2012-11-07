@@ -17,15 +17,15 @@
         margin-left:-$gutter-two-thirds;
         margin-right:-$gutter-two-thirds;
         margin-top: $gutter-half;
-        padding:$gutter-one-third 0 0 $gutter-one-third;
+        padding:$gutter-two-thirds 0 0 $gutter-one-third;
         @extend %contain-floats;
         .count{
-          @include core-36;  
-          padding-top: $gutter-one-third;
+          @include core-36;
+          @include bold;
+          padding-bottom: 0;
           @include media (desktop) {
             float: left;
             width: 33.333%;
-            text-indent: $gutter-half;
             white-space: nowrap;
           }
         }
@@ -34,7 +34,6 @@
           @include core-14;  
           padding-top:$gutter-two-thirds;
           @include media (desktop) {
-            left: $gutter-half;
             float: right;
             width: 66.666%;
           }

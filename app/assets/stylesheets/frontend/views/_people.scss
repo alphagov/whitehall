@@ -11,31 +11,26 @@
 
 .biographical-page {
   .page-header {
-    margin: ($gutter - $gutter-one-sixth) 0 $gutter;
+    padding: $gutter-half 0;
+    @include media(tablet){
+      padding: $gutter*1.5 0 ($gutter + $gutter-one-third);
+    }
   }
 
   header.person {
     h1 {
       padding-bottom: 0;
+      @include bold;
     }
     
     ul li {
-      color: $grey-63;
       list-style: none;
       @include core-27;
+      @include light;
     }
 
     ul li + li:before {
       content:"& ";
-    }
-
-    ul.single li {
-      @include core-48;
-      margin-left: 0;
-      padding-top: 0;
-      @include media(desktop){
-        margin-left: -3px;
-      }
     }
   }
 
@@ -117,8 +112,10 @@
 
   .current-role-holder {
     h1 {
-      color: $grey-63;
+      @include light;
       .name {
+        display: block;
+        @include bold;
         color: $body-text;
       }
     }
