@@ -1,5 +1,6 @@
 <% page_title @document.title, "Consultations" %>
 <% page_class consultation_css_class(@document) %>
+<%= analytics_for_organisations @document.organisations %>
 
 <div class="document-page <%= @document.type.downcase %>">
   <div class="block-1">

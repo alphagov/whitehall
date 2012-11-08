@@ -1,5 +1,6 @@
 <% page_title @ministerial_role.name %>
 <% page_class "ministerial-role-show biographical-page" %>
+<%= analytics_for_organisations @ministerial_role.organisations %>
 
 <%= content_tag_for :div, @ministerial_role, class: 'two-column-page ministerial-department ' + ministerial_role_organisation_class(@ministerial_role) do %>
   <div class="block-1">

@@ -2,6 +2,7 @@
   header_title ||= ""
 %>
 <% page_title @document.title, "Documents" if page_title.blank? %>
+<%= analytics_for_organisations @document.organisations %>
 
 <article class="document-page <%= @document.type.downcase %>">
   <div class="block-1">

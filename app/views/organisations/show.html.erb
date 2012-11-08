@@ -1,5 +1,7 @@
 <% page_title @organisation.name %>
 <% page_class "organisations-show" %>
+<%= analytics_for_organisations [@organisation] %>
+
 <%= organisation_wrapper(@organisation) do %>
 
   <div class="block-1">

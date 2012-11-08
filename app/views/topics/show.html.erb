@@ -1,6 +1,7 @@
 <% page_title @topic.name, "Topics" %>
 <% page_class "topics-show" %>
 <% atom_discovery_link_tag topic_url(@topic, format: 'atom'), "Latest activity on #{@topic.name}" %>
+<%= analytics_for_organisations @topic.organisations %>
 
 <div class="block block-1">
   <div class="inner-block">

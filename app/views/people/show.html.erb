@@ -1,5 +1,6 @@
 <% page_title @person.name %>
 <% page_class "people-show biographical-page" %>
+<%= analytics_for_organisations @person.organisations %>
 
 <%= content_tag_for :div, @person, class: "two-column-page" do %>
   <div class="block-1">
