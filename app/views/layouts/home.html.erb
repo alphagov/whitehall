@@ -19,11 +19,13 @@
     <%= atom_discovery_link_tag %>
 
   </head>
-  <body class="website government">
+  <body class="website government sunset">
     <div id="whitehall-wrapper">
-      <div id="content"></div>
-      <div id="page" class="<%= content_for?(:page_class) ? yield(:page_class) : '' %>" >
-        <%= yield %>
+      <div id="whitehall-inner">
+        <div id="content"></div>
+        <div id="page" class="<%= content_for?(:page_class) ? yield(:page_class) : '' %>" >
+          <%= yield %>
+        </div>
       </div>
     </div>
     <%= javascript_include_tag "application", defer: true %>
