@@ -36,7 +36,7 @@
           <%= link_to_filter('Me', {author: current_user, organisation: nil}, title: "Show documents by me") %>
           <%= link_to_filter('My department', {author: nil, organisation: current_user.organisation}, title: "Show documents by my department") %>
 
-          <li class="organisation-filter <%= (params[:organisation] && params[:organisation] != current_user.organisation.id) ? 'active' : nil %>">
+          <li class="organisation-filter <%= (params[:organisation] && params[:organisation] != current_user.organisation_id) ? 'active' : nil %>">
             <%= form_tag("", method: :get) do %>
               <%= select_tag :organisation, options_from_collection_for_select(Organisation.all - [current_user.organisation], 'id', 'name', params[:organisation]), class: 'chzn-select', include_blank: true, data: { placeholder: "Other organisations..." } %>
               <%= hidden_field_tag :type, params[:type] if params[:type] %>
