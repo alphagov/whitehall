@@ -30,10 +30,13 @@
   <div class="block-4">
     <div class="inner-block">
       <section id="recently_updated" class="latest_documents">
-          <h1 class="label">Latest</h1>
-        <%= render(partial: "shared/recently_updated",
-         locals: {recently_updated: @recently_updated}
-        ) if @recently_updated.present? %>
+        <h1 class="label">Latest</h1>
+        <% if @recently_updated.any? %>
+          <%= render partial: "shared/recently_updated",
+                      locals: {recently_updated: @recently_updated} %>
+        <% else %>
+          <p>No recent updates</p>
+        <% end %>
       </section>
     </div>
   </div>
