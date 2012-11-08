@@ -217,7 +217,7 @@
   // see helpers/_feed.scss for the other styles
   .subscribe {
     position: absolute;
-    right: $gutter;
-    bottom: $gutter*-1;
+    right: $gutter-half;
+    top: 0;
   }
 }

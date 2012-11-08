@@ -6,6 +6,7 @@
   @include core-16;
   
   h1 {
+    @include bold;
   }
   nav {
     overflow: hidden;
@@ -17,6 +18,7 @@
       padding-top: $gutter-one-sixth;
     
       @media (min-width: 1px ){
+        margin-left: $gutter-half;
         list-style: none;
         &:before {
           content: "-";
