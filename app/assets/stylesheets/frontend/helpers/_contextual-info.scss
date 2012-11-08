@@ -15,6 +15,17 @@
       list-style-position: inside;
       padding-right: $gutter-half;
       padding-top: $gutter-one-sixth;
+    
+      @media (min-width: 1px ){
+        list-style: none;
+        &:before {
+          content: "-";
+          position: relative;
+          float: left;
+          width: $gutter-half;
+          margin-left: $gutter-half*-1;
+        }
+      }
     }
     
     @include media(tablet){

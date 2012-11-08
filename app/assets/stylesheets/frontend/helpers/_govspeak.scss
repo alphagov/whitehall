@@ -54,7 +54,7 @@
     list-style: disc;
     list-style-position: outside;
     padding: 0;
-    margin: 0;
+    margin: 0 0 $gutter-half;
   }
 
   li {
@@ -74,6 +74,21 @@
       }
     }
   }
+  
+  @media (min-width: 1px ){
+    ul li {
+      padding-left: $gutter-half;
+      list-style: none;
+      &:before {
+        content: "-";
+        position: relative;
+        float: left;
+        width: $gutter-half;
+        margin-left: $gutter-half*-1;
+      }
+    }
+  }
+
 
   em, i {
     font-style: italic;
