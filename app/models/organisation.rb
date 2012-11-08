@@ -139,6 +139,13 @@ class Organisation < ActiveRecord::Base
   friendly_id :name, use: :slugged
 
   before_destroy { |r| r.destroyable? }
+  after_save :ensure_analytics_identifier
+
+  def ensure_analytics_identifier
+    unless analytics_identifier.present?
+      update_attribute(:analytics_identifier, organisation_type.analytics_prefix + self.id.to_s)
+    end
+  end
 
   def organisation_logo_type
     OrganisationLogoType.find_by_id(organisation_logo_type_id)

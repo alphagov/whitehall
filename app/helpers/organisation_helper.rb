@@ -97,4 +97,13 @@ module OrganisationHelper
   def filter_terms(organisation)
     [organisation.slug, organisation.name, organisation.acronym].join(' ')
   end
+
+  CUSTOM_VARIABLE = {
+    allocated_index: 9,
+    name: "Organisation(s)",
+  }
+
+  def analytics_for_organisations(organisations)
+    %{<script type='text/javascript'>_gaq.push(['_setCustomVar', #{CUSTOM_VARIABLE[:allocated_index]}, '#{CUSTOM_VARIABLE[:name]}', '#{organisations.map(&:analytics_identifier).join(' ')}']);</script>}.html_safe
+  end
 end

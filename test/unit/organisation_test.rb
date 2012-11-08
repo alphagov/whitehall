@@ -461,4 +461,17 @@ class OrganisationTest < ActiveSupport::TestCase
     create(:published_publication, :foi_release, organisations: [organisation])
     assert organisation.has_published_publications_of_type?(PublicationType::FoiRelease)
   end
+
+  test "ensures that analytics identifier exists on save" do
+    organisation = build(:organisation)
+    refute organisation.analytics_identifier.present?
+    organisation.save!
+    assert organisation.reload.analytics_identifier.present?
+  end
+
+  test "only sets analytics identifier if nil" do
+    organisation = build(:organisation, analytics_identifier: "FOO123" )
+    organisation.save!
+    assert_equal "FOO123", organisation.reload.analytics_identifier
+  end
 end
