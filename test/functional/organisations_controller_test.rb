@@ -115,7 +115,7 @@ class OrganisationsControllerTest < ActionController::TestCase
 
     get :show, id: organisation
 
-    assert_select ".url a[href=?]", organisation.url
+    assert_select ".description a[href=?]", organisation.url
     assert_select ".thumbnail" do
       assert_select "a[href=?]", organisation.url do
         assert_select "img[src$=?]", "#{organisation.slug}.png"
@@ -128,7 +128,7 @@ class OrganisationsControllerTest < ActionController::TestCase
 
     get :show, id: organisation
 
-    assert_select ".url a[href=?]", organisation.url
+    assert_select ".description a[href=?]", organisation.url
     assert_select ".thumbnail" do
       assert_select "a[href=?]", organisation.url do
         assert_select "img[src$=?]", "#{organisation.slug}.png"
