@@ -35,8 +35,8 @@ class OrganisationHelperTest < ActionView::TestCase
 
   test 'analytics_for_organisations outputs script tag which calls relevant JS function' do
     organisations = [create(:organisation), create(:organisation)]
-    analytics_ids = organisations.map(&:analytics_identifier).join(' ')
-    assert_equal %{<script type='text/javascript'>_gaq.push(['_setCustomVar', 9, 'Organisation(s)', '#{analytics_ids}']);</script>}, analytics_for_organisations(organisations)
+    analytics_ids = '<'+organisations.map(&:analytics_identifier).join('><') + '>'
+    assert_equal %{<script type='text/javascript'>_gaq.push(['_setCustomVar', 9, 'Organisation(s)', '#{analytics_ids}', 3]);</script>}, analytics_for_organisations(organisations)
   end
 end
 
