@@ -1,6 +1,8 @@
 <% page_title "#{@document_series.name}", "Document series" %>
 
-<%= link_to "Back to #{@document_series.organisation.name}", admin_organisation_path(@document_series.organisation) %>
+<p><%= link_to "Back to #{@document_series.organisation.name}", admin_organisation_path(@document_series.organisation) %></p>
+
+<p><%= link_to "View on public site", organisation_document_series_path(@document_series.organisation, @document_series) %></p>
 
 <h1><%= @document_series.name %></h1>
 
