@@ -14,6 +14,12 @@ class EditionTest < ActiveSupport::TestCase
     assert_equal 'format name', Edition.new.format_name
   end
 
+  test "returns capitalized format name as default display type" do
+    edition = Edition.new
+    edition.stubs(:format_name).returns('format name')
+    assert_equal 'Format name', edition.display_type
+  end
+
   test "adds a document before validation if none provided" do
     edition = build(:edition)
     edition.valid?

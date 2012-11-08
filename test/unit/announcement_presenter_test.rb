@@ -12,10 +12,10 @@ class AnnouncementPresenterTest < ActiveSupport::TestCase
 
     speech_types.each do |type, expected|
       speech = AnnouncementPresenter.decorate(build(:published_speech, speech_type: type))
-      assert_equal expected, speech.display_announcement_type
+      assert_equal expected, speech.display_type
     end
 
     news_article = AnnouncementPresenter.decorate(build(:published_news_article))
-    assert_equal "News article", news_article.display_announcement_type
+    assert_equal "News article", news_article.display_type
   end
 end

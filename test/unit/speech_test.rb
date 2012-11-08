@@ -31,6 +31,23 @@ class SpeechTest < EditionTestCase
     assert speech.valid?
   end
 
+  test "has statement to parliament display type if written statement" do
+    speech = build(:speech, speech_type: SpeechType::WrittenStatement)
+    assert_equal "Statement to parliament", speech.display_type
+  end
+
+  test "has statement to parliament display type if oral statement" do
+    speech = build(:speech, speech_type: SpeechType::OralStatement)
+    assert_equal "Statement to parliament", speech.display_type
+  end
+
+  test "has speech display type if not oral statement or written statement" do
+    (SpeechType.all - [SpeechType::WrittenStatement, SpeechType::OralStatement]).each do |type|
+      speech = build(:speech, speech_type: type)
+      assert_equal "Speech", speech.display_type
+    end
+  end
+
   test "create should populate organisations based on the role_appointment that delivered the speech" do
     organisation = create(:organisation)
     ministerial_role = create(:ministerial_role, organisations: [organisation])

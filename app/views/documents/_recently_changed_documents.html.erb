@@ -24,7 +24,7 @@
             <%= relative_time((document.timestamp_for_sorting).to_datetime, class: 'published-at') %>
           </td>
           <td class="type attribute">
-            <%= document.format_name.titleize %>
+            <%= document.display_type %>
           </td>
         <% end %>
       <% end %>

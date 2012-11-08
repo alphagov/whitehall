@@ -298,6 +298,10 @@ class Edition < ActiveRecord::Base
     self.class.format_name
   end
 
+  def display_type
+    format_name.capitalize
+  end
+
   def first_published_date
     first_published_at
   end

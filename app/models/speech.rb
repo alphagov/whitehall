@@ -16,6 +16,14 @@ class Speech < Announcement
     self.speech_type_id = speech_type && speech_type.id
   end
 
+  def display_type
+    if [SpeechType::WrittenStatement, SpeechType::OralStatement].include?(speech_type)
+      "Statement to parliament"
+    else
+      super
+    end
+  end
+
   private
 
   def populate_organisations_based_on_role_appointment

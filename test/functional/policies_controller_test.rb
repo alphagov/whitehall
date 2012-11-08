@@ -276,6 +276,15 @@ That's all
     assert_equal [consultation, speech, news_article, publication], assigns(:recently_changed_documents)
   end
 
+  test "activity shows the display type of speeches" do
+    policy = create(:published_policy)
+    speech = create(:published_speech, speech_type: SpeechType::WrittenStatement, related_policies: [policy])
+
+    get :activity, id: policy.document
+
+    assert_select ".speech .type", text: "Statement to parliament"
+  end
+
   test "supporting case studies are included in page" do
     policy = create(:published_policy)
     case_study = create(:published_case_study, related_policies: [policy])

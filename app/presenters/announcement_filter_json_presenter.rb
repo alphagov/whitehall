@@ -6,7 +6,7 @@ class AnnouncementFilterJsonPresenter < DocumentFilterJsonPresenter
   def document_hash(document)
     super.merge(
       publication_date: document.display_date_microformat,
-      announcement_type: document.display_announcement_type
+      announcement_type: document.display_type
     )
   end
 end
