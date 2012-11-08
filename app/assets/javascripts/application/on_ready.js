@@ -50,4 +50,6 @@ jQuery(function($) {
 
   $('.js-toggle-nav').toggler({header: ".toggler", content: ".content", showArrow: false, actLikeLightbox: true})
 
+  GOVUK.filterListItems.init();
+
 });

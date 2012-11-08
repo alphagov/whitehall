@@ -3,7 +3,7 @@
 <div class="organisations-index">
   <div class="block-1">
     <div class="inner-block">
-      <header class="page-header">
+      <header class="page-header js-filter-list">
         <h1 class="page_title">Departments, agencies &amp; public&nbsp;bodies</h1>
       </header>
     </div>
@@ -11,12 +11,14 @@
 
   <div class="block-2">
     <div class="inner-block">
-      <div class="heading-block ministerial-departments js-hide-department-children">
+      <div class="heading-block ministerial-departments js-hide-department-children js-filter-block">
         <h1>Ministerial departments</h1>
         <div class="content">
           <ol>
             <% @ministerial_departments.each do |ministerial_department| %>
-              <%= content_tag_for :li, ministerial_department, class: 'department' do %>
+              <%= content_tag_for :li, ministerial_department,
+                                  class: 'department js-filter-item',
+                                    "data-filter-terms" => filter_terms(ministerial_department) do %>
                 <h2 id="<%= ministerial_department.slug %>" class="<%= ministerial_department.slug %>">
                   <%= link_to organisation_path(ministerial_department), class: organisation_logo_classes(ministerial_department, size: 'medium') do %>
                     <span><%= ministerial_department.logo_formatted_name %></span>
@@ -42,18 +44,22 @@
           </ol>
         </div>
       </div>
-      <div class="heading-block ministerial-departments">
+      <div class="heading-block other-departments js-filter-block">
         <h1>All others</h1>
         <div class="content">
           <ol class="index-list">
             <% @all_other_organisations.each do |organisation| %>
-              <%= content_tag_for :li, organisation do %>
+              <%= content_tag_for :li, organisation, class: 'js-filter-item',
+                            "data-filter-terms" => filter_terms(organisation) do %>
                 <%= link_to organisation.name, organisation_path(organisation) %>
               <% end %>
             <% end %>
           </ol>
         </div>
       </div>
+    </div>
+    <div class="js-filter-no-results">
+      <p>No departments match that filter.</p>
     </div>
   </div>
 </div>

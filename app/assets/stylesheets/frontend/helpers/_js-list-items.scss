@@ -1,0 +1,13 @@
+.js-filter-no-results {
+  display: none;
+  width: 66%;
+  float: right;
+
+  &.reveal {
+    display: block;
+  }
+
+  p {
+    @include core-19;
+  }
+}

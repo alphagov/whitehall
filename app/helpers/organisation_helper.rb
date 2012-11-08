@@ -93,4 +93,8 @@ module OrganisationHelper
       @organisation.has_published_publications_of_type?(PublicationType::FoiRelease) ||
       @organisation.has_published_publications_of_type?(PublicationType::TransparencyData)
   end
+
+  def filter_terms(organisation)
+    [organisation.slug, organisation.name, organisation.acronym].join(' ')
+  end
 end
