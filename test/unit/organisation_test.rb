@@ -463,7 +463,7 @@ class OrganisationTest < ActiveSupport::TestCase
   end
 
   test "ensures that analytics identifier exists on save" do
-    organisation = build(:organisation)
+    organisation = build(:organisation, analytics_identifier: nil)
     refute organisation.analytics_identifier.present?
     organisation.save!
     assert organisation.reload.analytics_identifier.present?

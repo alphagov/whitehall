@@ -105,6 +105,10 @@ module OrganisationHelper
   }
 
   def analytics_for_organisations(organisations)
-    %{<script type='text/javascript'>_gaq.push(['_setCustomVar', #{CUSTOM_VARIABLE[:allocated_index]}, '#{CUSTOM_VARIABLE[:name]}', '<#{organisations.map(&:analytics_identifier).join('><')}>', #{CUSTOM_VARIABLE[:scope]}]);</script>}.html_safe
+    %{<script type='text/javascript'>
+      //<![CDATA[
+      _gaq.push(['_setCustomVar', #{CUSTOM_VARIABLE[:allocated_index]}, '#{CUSTOM_VARIABLE[:name]}', '<#{organisations.map(&:analytics_identifier).join('><')}>', #{CUSTOM_VARIABLE[:scope]}]);
+      //]]>
+      </script>}.html_safe
   end
 end

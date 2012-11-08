@@ -4,6 +4,8 @@ FactoryGirl.define do
     sequence(:logo_formatted_name) { |index| "organisation-#{index} logo text".split(" ").join("\n") }
     organisation_type
 
+    analytics_identifier "T123"
+
     organisation_logo_type_id { OrganisationLogoType::SingleIdentity.id }
   end
 

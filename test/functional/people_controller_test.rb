@@ -18,6 +18,7 @@ class PeopleControllerTest < ActionController::TestCase
   setup do
     @person = stub_record(:person)
     @person.stubs(:current_role_appointments).returns([])
+    @person.stubs(:organisations).returns([])
     @person.stubs(:previous_role_appointments).returns([])
     @person.stubs(:current_ministerial_roles).returns([])
     @person.stubs(:published_speeches).returns(stub("all published speeches", limit: []))
