@@ -3,17 +3,37 @@
 #whitehall-wrapper {
   font-family: $NTA-Light;
   position: relative;
-  overflow: hidden;
+  overflow: visible;
   margin: 0 auto;
   padding-top: 0;
   padding-bottom: $gutter;
   background: transparent;
   color: $body-text;
+  border-top: 50px solid #f4f4f4;
   -webkit-font-smoothing: antialiased;
 
   @include media(desktop) {
     padding-bottom: $gutter*4;
   }
+
+  #whitehall-inner {
+    position: relative;
+    margin: -50px auto 0;
+    width: auto;
+    overflow: hidden;
+    max-width: $max-site-width + $gutter*2;
+  }
+  
+  @include media(tablet){
+    border-top: 60px solid #f8f8f8;
+    #whitehall-inner {
+      margin-top: -60px;
+    }
+  }
+}
+
+.detailed-guidance #whitehall-wrapper {
+  border-color: transparent;
 }
 
 #whitehall-wrapper {

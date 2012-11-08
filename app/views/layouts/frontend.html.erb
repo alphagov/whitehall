@@ -22,29 +22,31 @@
   <body class="website government">
     <div class="header-context group"><!-- deliberately empty --></div>
     <div id="whitehall-wrapper">
-      <div class="js-toggle-nav" id="global-nav">
-        <div class="inner">
-          <span class="home"><%= link_to "Inside Government", root_path %></span>
-          <span class="jump-link"><a href="#navigation" class="toggler">menu</a></span>
-          <nav role="navigation" class="content">
-            <ul id="navigation">
-              <li><%= main_navigation_link_to 'How government works', how_government_works_path %></li>
-              <li><%= main_navigation_link_to "Departments", organisations_path %></li>
-              <li><%= main_navigation_link_to "Topics", topics_path %></li>
-              <li><%= main_navigation_link_to "Policies", policies_path %></li>
-              <li><span class="toggler <%= main_navigation_documents_class %>">Documents</span>
-                <ul class="subtype content js-hidden">
-                  <li><%= main_navigation_link_to "Publications", publications_path %></li>
-                  <li><%= main_navigation_link_to "Announcements", announcements_path %></li>
-                </ul>
-              </li>
-            </ul>
-          </nav>
+      <div id="whitehall-inner">
+        <div class="js-toggle-nav" id="global-nav">
+          <div class="inner">
+            <span class="home"><%= link_to "Inside Government", root_path %></span>
+            <span class="jump-link"><a href="#navigation" class="toggler">menu</a></span>
+            <nav role="navigation" class="content">
+              <ul id="navigation">
+                <li><%= main_navigation_link_to 'How government works', how_government_works_path %></li>
+                <li><%= main_navigation_link_to "Departments", organisations_path %></li>
+                <li><%= main_navigation_link_to "Topics", topics_path %></li>
+                <li><%= main_navigation_link_to "Policies", policies_path %></li>
+                <li><span class="toggler <%= main_navigation_documents_class %>">Documents</span>
+                  <ul class="subtype content js-hidden">
+                    <li><%= main_navigation_link_to "Publications", publications_path %></li>
+                    <li><%= main_navigation_link_to "Announcements", announcements_path %></li>
+                  </ul>
+                </li>
+              </ul>
+            </nav>
+          </div>
         </div>
-      </div>
-      <div id="content"></div>
-      <div id="page" class="<%= content_for?(:page_class) ? yield(:page_class) : '' %>" >
-        <%= yield %>
+        <div id="content"></div>
+        <div id="page" class="<%= content_for?(:page_class) ? yield(:page_class) : '' %>" >
+          <%= yield %>
+        </div>
       </div>
     </div>
     <%= javascript_include_tag "application", defer: true %>
