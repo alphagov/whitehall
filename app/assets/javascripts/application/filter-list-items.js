@@ -12,7 +12,7 @@
       var $filterList = $('.js-filter-list');
 
       if($filterList.length === 1){
-        filter.$form = $('<form><label for="who-are-you-looking-for">Which organisation are you looking for?</label> <input name="who-are-you-looking-for"></form>');
+        filter.$form = $('<form class="filter-list-form"><label for="who-are-you-looking-for">Which organisation are you looking for?</label> <input name="who-are-you-looking-for"></form>');
         filter.$filterItems = $('.js-filter-item');
         filter.$filterBlock = $('.js-filter-block');
 
@@ -21,7 +21,9 @@
         filter.$form.find('input').keyup(filter.updateResults);
       }
     },
-    updateResults: function(){
+    updateResults: function(e){
+      e.preventDefault();
+
       var search = filter.$form.find('input').val(),
           itemsToShow = filter.getItems(search);
 

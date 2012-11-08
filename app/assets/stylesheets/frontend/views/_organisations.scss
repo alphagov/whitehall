@@ -1,6 +1,7 @@
 .organisations-index {
   .page-header {
     padding: $gutter-half 0;
+    @extend %contain-floats;
 
     @include media(tablet){
       width: 75%;
@@ -11,6 +12,20 @@
       display: block;
       @include bold;
     }
+
+    .filter-list-form {
+      label {
+        @include core-19;
+        color: $low-contrast;
+        display: inline-block;
+      }
+      input {
+        display: inline-block;
+        margin: 7px $gutter-one-third 3px;
+        width: 30%;
+      }
+    }
+
   }
 
   .ministerial-departments {
