@@ -14,4 +14,11 @@ module LeadImagePresenterHelper
       'placeholder'
     end
   end
+
+  def lead_image_caption
+    if (images.first)
+      caption = images.first.caption && images.first.caption.strip
+      caption.present? && caption
+    end
+  end
 end
