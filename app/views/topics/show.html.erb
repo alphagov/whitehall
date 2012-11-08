@@ -39,21 +39,16 @@
   </div>
 </div>
 
-<% if @policies.any? %>
-  <div class="block block-4">
-    <div class="inner-block">
-      <section id="policies" class="policies">
-        <h1 class="label">Policies in this topic</h1>
-        <div class="content collection-list <%= collection_list_class(@policies, minimum_columns=2) %>">
+<div class="block block-5">
+  <div class="inner-block">
+    <% if @policies.any? %>
+      <section id="policies" class="policies heading-block">
+        <h1 class="label">Policies</h1>
+        <div class="content">
           <%= render partial: "policies/list_description", locals: {policies: @policies} %>
         </div>
       </section>
-    </div>
-  </div>
-<% end %>
-
-<div class="block block-5">
-  <div class="inner-block">
+    <% end %>
     <% if @publications.any? %>
       <section id="publications" class="heading-block">
         <h1 class="label">Publications</h1>
