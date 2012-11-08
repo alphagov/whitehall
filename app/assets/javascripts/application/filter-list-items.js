@@ -25,6 +25,7 @@
       var search = filter.$form.find('input').val(),
           itemsToShow = filter.getItems(search);
 
+      $(document).trigger('govuk.hideDepartmentChildren.hideAll');
       filter.$filterItems.hide();
       $(itemsToShow).show();
       filter.hideEmptyBlocks(itemsToShow);

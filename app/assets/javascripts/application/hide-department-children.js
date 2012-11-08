@@ -4,7 +4,7 @@
       $ = root.jQuery;
   if(typeof root.GOVUK === 'undefined') { root.GOVUK = {}; }
 
-  root.GOVUK.hideDepartmentChildren = {
+  var hideDepartmentChildren = {
     init: function(){
       var $departments = $('.js-hide-department-children .department'),
           windowHash = root.location.hash;
@@ -23,6 +23,12 @@
         });
         $viewAll.insertBefore($department.find('.child-organisations'))
       });
+
+      $(document).on('govuk.hideDepartmentChildren.hideAll', hideDepartmentChildren.hideAllChildren);
+    },
+    hideAllChildren: function(){
+      $('.js-hide-department-children .department').addClass('js-hiding-children');
     }
   };
+  root.GOVUK.hideDepartmentChildren = hideDepartmentChildren;
 }).call(this);
