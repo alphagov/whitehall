@@ -25,7 +25,7 @@
           <li class="nav-header">Filter by Title</li>
           <li>
             <%= form_tag("", method: :get, class: "pull-left") do %>
-              <%= hidden_field_tag :organisation, params[:organisation_id] if params[:organisation_id] %>
+              <%= hidden_field_tag :organisation, params[:organisation] if params[:organisation] %>
               <%= hidden_field_tag :type, params[:type] if params[:type] %>
               <%= hidden_field_tag :state, params[:state] if params[:state] %>
               <%= hidden_field_tag :author, params[:author] if params[:author] %>
@@ -35,11 +35,19 @@
           <li class="nav-header">Filter by Author</li>
           <%= link_to_filter('Me', {author: current_user, organisation: nil}, title: "Show documents by me") %>
           <%= link_to_filter('My department', {author: nil, organisation: current_user.organisation}, title: "Show documents by my department") %>
+
+          <li class="organisation-filter <%= (params[:organisation] && params[:organisation] != current_user.organisation.id) ? 'active' : nil %>">
+            <%= form_tag("", method: :get) do %>
+              <%= select_tag :organisation, options_from_collection_for_select(Organisation.all - [current_user.organisation], 'id', 'name', params[:organisation]), class: 'chzn-select', include_blank: true, data: { placeholder: "Other organisations..." } %>
+              <%= hidden_field_tag :type, params[:type] if params[:type] %>
+              <%= hidden_field_tag :state, params[:state] if params[:state] %>
+              <%= submit_tag "Go", class: "btn" %>
+            <% end %>
+          </li>
           <%= link_to_filter('Everyone', {author: nil, organisation: nil}, title: "Show documents by everyone") %>
           <li class="author-filter <%= (params[:author] && params[:author] != current_user.id.to_s) ? 'active' : nil %>">
             <%= form_tag("", method: :get) do %>
               <%= select_tag :author, options_from_collection_for_select(User.all - [current_user], 'id', 'name', params[:author]), class: 'chzn-select', include_blank: true, data: { placeholder: "Other authors..." } %>
-              <%= hidden_field_tag :organisation, params[:organisation_id] if params[:organisation_id] %>
               <%= hidden_field_tag :type, params[:type] if params[:type] %>
               <%= hidden_field_tag :state, params[:state] if params[:state] %>
               <%= submit_tag "Go", class: "btn" %>
