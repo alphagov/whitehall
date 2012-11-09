@@ -176,13 +176,18 @@
       margin: 0;
 
       li {
-        display: inline;
+        margin-left: 0;
+        padding-top: 0;
+        &:before {
+          content: none;
+        }
       }
       .more-like-this {
         display: block;
         margin-top: $gutter;
         background: $detailed-guidance-brand;
         padding: $gutter-one-sixth;
+        margin-left: 0;
 
         a {
           border-bottom: 0;
