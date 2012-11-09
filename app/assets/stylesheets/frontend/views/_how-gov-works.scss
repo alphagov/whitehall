@@ -3,12 +3,23 @@
   .full-width-section{
     clear:both;
   }
-  ul{
-    padding-left:1.2em;
-  }
   p, li{
     @include core-19;
   }
+  @media (min-width: 1px ){
+    ul li {
+      padding-left: $gutter-half;
+      list-style: none;
+      &:before {
+        content: "-";
+        position: relative;
+        float: left;
+        width: $gutter-half;
+        margin-left: $gutter-half*-1;
+      }
+    }
+  }
+
   .thirds-width-section,
   .halves-width-section{
     overflow:visible;
@@ -161,7 +172,6 @@
   }
 
   
-
   
 
   
