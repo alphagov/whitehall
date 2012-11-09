@@ -11,6 +11,7 @@ class TopicsController < PublicFacingController
     @detailed_guides = @topic.detailed_guides.published.limit(5)
     @related_topics = @topic.related_topics
     @recently_changed_documents = @topic.recently_changed_documents
+    set_slimmer_organisations_header(@topic.organisations)
 
     respond_to do |format|
       format.html {

@@ -25,4 +25,8 @@ class ApplicationController < ActionController::Base
   def set_proposition
     set_slimmer_headers(proposition: "government")
   end
+
+  def set_slimmer_organisations_header(organisations)
+    set_slimmer_headers(organisations: "<#{organisations.map(&:analytics_identifier).join('><')}>")
+  end
 end

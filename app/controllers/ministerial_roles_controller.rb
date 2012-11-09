@@ -14,5 +14,6 @@ class MinisterialRolesController < PublicFacingController
     load_published_documents_in_scope do |scope|
       scope.in_ministerial_role(@ministerial_role).by_published_at
     end
+    set_slimmer_organisations_header(@ministerial_role.organisations)
   end
 end

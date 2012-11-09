@@ -17,6 +17,7 @@ class PoliciesController < DocumentsController
     @countries = @policy.countries
     @recently_changed_documents = Edition.published.related_to(@policy).in_reverse_chronological_order
     @show_navigation = (@policy.supporting_pages.any? or @recently_changed_documents.any?)
+    set_slimmer_organisations_header(@policy.organisations)
   end
 
   def activity

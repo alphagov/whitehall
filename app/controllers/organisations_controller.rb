@@ -19,6 +19,7 @@ class OrganisationsController < PublicFacingController
       @ministers = ministers
       @civil_servants = civil_servants
       @traffic_commissioners = traffic_commissioners
+      set_slimmer_organisations_header([@organisation])
     else
       render action: 'external'
     end

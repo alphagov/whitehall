@@ -5,6 +5,7 @@ class ConsultationsController < DocumentsController
 
   def show
     @related_policies = @document.published_related_policies
+    set_slimmer_organisations_header(@document.organisations)
   end
 
   private

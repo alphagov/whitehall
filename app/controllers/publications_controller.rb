@@ -24,6 +24,7 @@ class PublicationsController < DocumentsController
 
   def show
     @related_policies = @document.statistics? ? [] : @document.published_related_policies
+    set_slimmer_organisations_header(@document.organisations)
   end
 
 private
