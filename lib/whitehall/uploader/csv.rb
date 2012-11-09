@@ -24,8 +24,11 @@ class Whitehall::Uploader::Csv
           if model.save
             DocumentSource.create!(document: model.document, url: row.legacy_url)
           else
-            store_error(data_row, model.errors.full_messages)
-            @logger.warn "Row #{ix + 2} '#{row.legacy_url}' couldn't be saved for the following reasons: #{model.errors.full_messages}"
+            base_errors = model.errors.full_messages
+            attachment_errors = model.attachments.reject(&:valid?).map { |a| [a.attachment_source.url, a.errors.full_messages] }
+            errors = base_errors + attachment_errors
+            store_error(data_row, errors)
+            @logger.warn "Row #{ix + 2} '#{row.legacy_url}' couldn't be saved for the following reasons: #{errors}"
           end
         end
       rescue => e
@@ -43,7 +46,7 @@ class Whitehall::Uploader::Csv
   def store_error(row, error_messages)
     @error_csv_headers ||= [ERROR_MESSAGE_HEADER] + @csv.headers
     @error_csv ||= CSV.open(@error_csv_path, "wb", write_headers: true, headers: @error_csv_headers)
-    row[ERROR_MESSAGE_HEADER] = error_messages
+    row[ERROR_MESSAGE_HEADER] = [error_messages].flatten.join(", ")
     @error_csv << row.fields(*@error_csv_headers)
   end
 

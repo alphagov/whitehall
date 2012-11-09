@@ -48,18 +48,33 @@ class Whitehall::Uploader::CsvTest < ActiveSupport::TestCase
   end
 
   test 'logs failure if save unsuccessful' do
-    @errors = stub('errors', full_messages: "Feeling funky")
+    @errors = stub('errors', full_messages: ["Feeling funky"])
     @model.stubs(:save).returns(false)
     @model.stubs(:errors).returns(@errors)
+    @model.stubs(:attachments).returns([])
 
     Whitehall::Uploader::Csv.new(@data, @row_class, @model_class, @attachment_cache, Logger.new(@log_buffer), @error_csv_path).import_as(@user)
-    assert_match /Row 2 'row-legacy-url' couldn't be saved for the following reasons: Feeling funky/, @log_buffer.string
+    assert_match /Row 2 'row-legacy-url' couldn't be saved for the following reasons:.*Feeling funky.*/, @log_buffer.string
+  end
+
+  test 'logs failures within attachments if save unsuccessful' do
+    @errors = stub('errors', full_messages: ["Feeling funky"])
+    @model.stubs(:save).returns(false)
+    @model.stubs(:errors).returns(@errors)
+    attachment = stub('attachment', errors: stub('attachment-errors', full_messages: 'attachment error'))
+    attachment.stubs(:valid?).returns(false)
+    attachment.stubs(:attachment_source).returns(stub('attachment-source', url: 'url'))
+    @model.stubs(:attachments).returns([attachment])
+
+    Whitehall::Uploader::Csv.new(@data, @row_class, @model_class, @attachment_cache, Logger.new(@log_buffer), @error_csv_path).import_as(@user)
+    assert_match /Row 2 'row-legacy-url' couldn't be saved for the following reasons:.*attachment error.*/, @log_buffer.string
   end
 
   test 'stores CSV of failure rows' do
-    @errors = stub('errors', full_messages: "Feeling funky")
+    @errors = stub('errors', full_messages: ["Feeling funky"])
     @model.stubs(:save).returns(false)
     @model.stubs(:errors).returns(@errors)
+    @model.stubs(:attachments).returns([])
 
     Whitehall::Uploader::Csv.new(@data, @row_class, @model_class, @attachment_cache, Logger.new(@log_buffer), @error_csv_path).import_as(@user)
 
