@@ -48,4 +48,18 @@ class EditionOrganisationTest < ActiveSupport::TestCase
 
     assert_nil edition_organisation.image
   end
+
+  test "should indicate that image is ready if image is not quarantined" do
+    clean_image = stub("clean-image", virus_checked?: true)
+    edition_organisation = build(:edition_organisation)
+    edition_organisation.stubs(:image).returns(clean_image)
+    assert edition_organisation.image_ready?
+  end
+
+  test "should indicate that image is not ready if image is still quarantined" do
+    quarantined_image = stub("quarantined-image", virus_checked?: false)
+    edition_organisation = build(:edition_organisation)
+    edition_organisation.stubs(:image).returns(quarantined_image)
+    refute edition_organisation.image_ready?
+  end
 end

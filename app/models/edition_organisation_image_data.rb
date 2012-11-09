@@ -4,6 +4,10 @@ class EditionOrganisationImageData < ActiveRecord::Base
 
   validate :image_must_be_960px_by_640px, if: :image_changed?
 
+  def virus_checked?
+    file.present? && File.exist?(file.path)
+  end
+
   private
 
   def image_changed?
