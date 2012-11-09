@@ -73,6 +73,12 @@ class Whitehall::Uploader::PublicationRowTest < ActiveSupport::TestCase
     assert_equal [organisation], row.organisations
   end
 
+  test "uses the organisation as the alternative format provider" do
+    organisation = create(:organisation)
+    row = Whitehall::Uploader::PublicationRow.new({"organisation" => organisation.name}, 1, @attachment_cache)
+    assert_equal organisation, row.alternative_format_provider
+  end
+
   test "finds up to 42 attachments in columns attachment 1 title, attachement 1 url..." do
     @attachment_cache.stubs(:fetch).with("http://example.com/attachment.pdf").returns(File.open(Rails.root.join("test", "fixtures", "two-pages.pdf")))
 

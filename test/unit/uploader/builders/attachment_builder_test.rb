@@ -1,3 +1,5 @@
+require "test_helper"
+
 class Whitehall::Uploader::Builders::AttachmentBuilderTest < ActiveSupport::TestCase
   def setup
     @log_buffer = StringIO.new
@@ -14,23 +16,28 @@ class Whitehall::Uploader::Builders::AttachmentBuilderTest < ActiveSupport::Test
   end
 
   test "downloads an attachment from the URL given" do
-    attachment = Whitehall::Uploader::Builders::AttachmentBuilder.build(@title, @url, @cache, @log, @line_number)
+    attachment = Whitehall::Uploader::Builders::AttachmentBuilder.build({title: @title}, @url, @cache, @log, @line_number)
     assert attachment.file.present?
   end
 
   test "stores the attachment title" do
-    attachment = Whitehall::Uploader::Builders::AttachmentBuilder.build(@title, @url, @cache, @log, @line_number)
+    attachment = Whitehall::Uploader::Builders::AttachmentBuilder.build({title: @title}, @url, @cache, @log, @line_number)
     assert_equal "attachment title", attachment.title
   end
 
+  test "stores the attachment unique reference if given" do
+    attachment = Whitehall::Uploader::Builders::AttachmentBuilder.build({title: @title, unique_reference: "abc"}, @url, @cache, @log, @line_number)
+    assert_equal "abc", attachment.unique_reference
+  end
+
   test "stores the original URL against the attachment source" do
-    attachment = Whitehall::Uploader::Builders::AttachmentBuilder.build(@title, @url, @cache, @log, @line_number)
+    attachment = Whitehall::Uploader::Builders::AttachmentBuilder.build({title: @title}, @url, @cache, @log, @line_number)
     assert_equal @url, attachment.attachment_source.url
   end
 
   test "logs a warning if cache couldn't find the attachment" do
     @cache.stubs(:fetch).raises(Whitehall::Uploader::AttachmentCache::RetrievalError.new("some error to do with attachment retrieval"))
-    Whitehall::Uploader::Builders::AttachmentBuilder.build(@title, @url, @cache, @log, @line_number)
+    Whitehall::Uploader::Builders::AttachmentBuilder.build({title: @title}, @url, @cache, @log, @line_number)
     assert_match /Row 1: Unable to fetch attachment .* some error to do with attachment retrieval/, @log_buffer.string
   end
 end

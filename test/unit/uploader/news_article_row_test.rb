@@ -2,11 +2,8 @@
 # *NOTE* this file deliberately does not include test_helper
 # in order to attempt to speed up the tests
 
-require 'active_support/test_case'
-require 'minitest/autorun'
-
+require File.expand_path("../../../fast_test_helper", __FILE__)
 require 'whitehall/uploader/news_article_row'
-require 'logger'
 
 module Whitehall::Uploader
   class NewsArticleRowTest < ActiveSupport::TestCase

@@ -81,7 +81,7 @@ module Whitehall::Uploader
     def build_attachments
       result = 1.upto(50).map do |number|
         if row["attachment_#{number}_title"] || row["attachment_#{number}_url"]
-          Builders::AttachmentBuilder.build(row["attachment_#{number}_title"], row["attachment_#{number}_url"], @attachment_cache, @logger, @line_number)
+          Builders::AttachmentBuilder.build({title: row["attachment_#{number}_title"]}, row["attachment_#{number}_url"], @attachment_cache, @logger, @line_number)
         end
       end.compact
 
@@ -131,7 +131,7 @@ module Whitehall::Uploader
       def build_attachments
         1.upto(50).map do |number|
           if row["response_#{number}_title"] || row["response_#{number}_url"]
-            attachment = Builders::AttachmentBuilder.build(row["response_#{number}_title"], row["response_#{number}_url"], @attachment_cache, @logger, @line_number)
+            attachment = Builders::AttachmentBuilder.build({title: row["response_#{number}_title"]}, row["response_#{number}_url"], @attachment_cache, @logger, @line_number)
             attachment.isbn = row["response_#{number}_isbn"]
             attachment
           end

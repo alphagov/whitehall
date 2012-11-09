@@ -2,11 +2,8 @@
 # *NOTE* this file deliberately does not include test_helper
 # in order to attempt to speed up the tests
 
-require 'active_support/test_case'
-require 'minitest/autorun'
-
+require File.expand_path("../../../fast_test_helper", __FILE__)
 require 'whitehall/uploader/consultation_row'
-require 'logger'
 
 module Whitehall::Uploader
   class ConsultationRowTest < ActiveSupport::TestCase
@@ -82,7 +79,7 @@ module Whitehall::Uploader
         title = "title #{i}"
         hash["attachment_#{i}_title"] = title
         hash["attachment_#{i}_url"] = url
-        Builders::AttachmentBuilder.stubs(:build).with(title, url, @attachment_cache, anything, anything).returns(attachments[i - 1])
+        Builders::AttachmentBuilder.stubs(:build).with({title: title}, url, @attachment_cache, anything, anything).returns(attachments[i - 1])
       end
 
       row = consultation_row(attributes)
@@ -96,7 +93,7 @@ module Whitehall::Uploader
       attachment.expects(:unique_reference=).with("unique-reference-number")
       attachment.expects(:isbn=).with("isbn")
 
-      Builders::AttachmentBuilder.stubs(:build).with("title", "url", @attachment_cache, anything, anything).returns(attachment)
+      Builders::AttachmentBuilder.stubs(:build).with({title: "title"}, "url", @attachment_cache, anything, anything).returns(attachment)
 
       row = consultation_row("attachment_1_title" => "title", "attachment_1_url" => "url", "consultation_urn" => "unique-reference-number", "consultation_isbn" => "isbn")
 
@@ -153,7 +150,7 @@ module Whitehall::Uploader
         title = "title #{i}"
         hash["response_#{i}_title"] = title
         hash["response_#{i}_url"] = url
-        Builders::AttachmentBuilder.stubs(:build).with(title, url, @attachment_cache, anything, anything).returns(attachments[i - 1])
+        Builders::AttachmentBuilder.stubs(:build).with({title: title}, url, @attachment_cache, anything, anything).returns(attachments[i - 1])
       end
 
       builder = response_builder(attributes)
@@ -166,7 +163,7 @@ module Whitehall::Uploader
       attachment = stub("attachment")
       attachment.expects(:isbn=).with("isbn")
 
-      Builders::AttachmentBuilder.stubs(:build).with("title", "url", @attachment_cache, anything, anything).returns(attachment)
+      Builders::AttachmentBuilder.stubs(:build).with({title: "title"}, "url", @attachment_cache, anything, anything).returns(attachment)
 
       builder = response_builder("response_1_title" => "title", "response_1_url" => "url", "response_1_isbn" => "isbn")
 

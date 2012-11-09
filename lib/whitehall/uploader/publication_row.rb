@@ -75,7 +75,7 @@ module Whitehall::Uploader
       if row["json_attachments"]
         attachment_data = ActiveSupport::JSON.decode(row["json_attachments"])
         attachment_data.map do |attachment|
-          Builders::AttachmentBuilder.build(attachment["title"], attachment["link"], @attachment_cache, @logger, @line_number)
+          Builders::AttachmentBuilder.build({title: attachment["title"]}, attachment["link"], @attachment_cache, @logger, @line_number)
         end
       else
         []
@@ -85,7 +85,7 @@ module Whitehall::Uploader
     def attachments_from_columns
       1.upto(50).map do |number|
         next unless row["attachment_#{number}_title"] || row["attachment_#{number}_url"]
-        Builders::AttachmentBuilder.build(row["attachment_#{number}_title"], row["attachment_#{number}_url"], @attachment_cache, @logger, @line_number)
+        Builders::AttachmentBuilder.build({title: row["attachment_#{number}_title"]}, row["attachment_#{number}_url"], @attachment_cache, @logger, @line_number)
       end.compact
     end
 
