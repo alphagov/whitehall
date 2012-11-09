@@ -3,7 +3,7 @@ class HomeController < PublicFacingController
   before_filter :set_search_path_home, only: [:sunset]
 
   def feed
-    @recently_updated = Edition.published.by_published_at.includes(:document, :organisations).limit(10)
+    @recently_updated = Edition.published.in_reverse_chronological_order.includes(:document, :organisations).limit(10)
   end
 
   def sunset
