@@ -126,6 +126,6 @@ class Topic < ActiveRecord::Base
   end
 
   def recently_changed_documents
-    (policies.published + published_related_editions).sort_by(&:published_at).reverse
+    (policies.published + published_related_editions).sort_by(&:timestamp_for_sorting).reverse
   end
 end

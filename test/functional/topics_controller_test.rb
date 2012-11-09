@@ -32,7 +32,7 @@ class TopicsControllerTest < ActionController::TestCase
     topic = create(:topic, policies: [policy])
     published = []
     4.times do |i|
-      published << create(:published_publication, title: "title-#{i}", related_policies: [policy])
+      published << create(:published_publication, title: "title-#{i}", related_policies: [policy], publication_date: i.days.ago)
     end
 
     get :show, id: topic
@@ -215,10 +215,10 @@ class TopicsControllerTest < ActionController::TestCase
     end
   end
 
-  test "show displays recently changed documents including the policy in order of the edition's publication date with most recent first" do
-    policy_1 = create(:published_policy, published_at: 2.weeks.ago)
-    publication_1 = create(:published_publication, published_at: 6.weeks.ago, related_policies: [policy_1])
-    policy_2 = create(:published_policy, published_at: 5.weeks.ago)
+  test "show displays recently changed documents including the policy in reverse chronological order" do
+    policy_1 = create(:published_policy, first_published_at: 2.weeks.ago)
+    publication_1 = create(:published_publication, publication_date: 6.weeks.ago, related_policies: [policy_1])
+    policy_2 = create(:published_policy, first_published_at: 5.weeks.ago)
 
     topic = create(:topic, policies: [policy_1, policy_2])
 
@@ -279,10 +279,9 @@ class TopicsControllerTest < ActionController::TestCase
     assert_select "a.feed[href=?]", topic_url(topic, format: 'atom')
   end
 
-  test 'Atom feed has the right elements' do
-    document = create(:document)
+  test 'atom feed has the right elements' do
     topic = build(:topic, id: 1)
-    topic.stubs(:recently_changed_documents).returns([build(:published_policy, document: document)])
+    topic.stubs(:recently_changed_documents).returns([create(:published_policy)])
     Topic.stubs(:find).returns(topic)
 
     get :show, id: topic, format: :atom
@@ -308,11 +307,11 @@ class TopicsControllerTest < ActionController::TestCase
     end
   end
 
-  test 'Atom feed shows a list of recently published documents' do
+  test 'atom feed shows a list of recently published documents' do
     document = create(:document)
     recent_documents = [
-      newer_edition = build(:published_policy, document: document, published_at: 1.day.ago),
-      older_edition = build(:published_policy, document: document, published_at: 1.month.ago)
+      newer_edition = create(:published_policy, document: document, first_published_at: 1.month.ago, published_at: 1.day.ago),
+      older_edition = create(:archived_policy, document: document, first_published_at: 1.month.ago, published_at: 1.month.ago)
     ]
     topic = build(:topic, id: 1)
     topic.stubs(:recently_changed_documents).returns(recent_documents)
@@ -321,7 +320,7 @@ class TopicsControllerTest < ActionController::TestCase
     get :show, id: topic, format: :atom
 
     assert_select_atom_feed do
-      assert_select 'feed > updated', text: newer_edition.published_at.iso8601
+      assert_select 'feed > updated', text: newer_edition.first_published_at.iso8601
 
       assert_select 'feed > entry' do |entries|
         entries.zip(recent_documents) do |entry, document|
@@ -336,11 +335,8 @@ class TopicsControllerTest < ActionController::TestCase
     end
   end
 
-  test 'Atom feed only shows the last 10 recently changed documents' do
-    document = create(:document)
-    recent_documents = Array.new(20) {
-      build(:published_policy, document: document)
-    }
+  test 'atom feed only shows the last 10 recently changed documents' do
+    recent_documents = Array.new(20) { create(:published_policy) }
     topic = build(:topic, id: 1)
     topic.stubs(:recently_changed_documents).returns(recent_documents)
     Topic.stubs(:find).returns(topic)
@@ -352,7 +348,7 @@ class TopicsControllerTest < ActionController::TestCase
     end
   end
 
-  test 'Atom feed shows topic creation time if no recent publications' do
+  test 'atom feed shows topic creation time if no recent publications' do
     topic = build(:topic, id: 1, created_at: 1.day.ago)
     topic.stubs(:recently_changed_documents).returns([])
     Topic.stubs(:find).returns(topic)
