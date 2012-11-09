@@ -32,7 +32,7 @@ class TopicsControllerTest < ActionController::TestCase
     topic = create(:topic, policies: [policy])
     published = []
     4.times do |i|
-      published << create(:published_publication, title: "title-#{i}", related_policies: [policy], publication_date: i.days.ago)
+      published << create(:published_publication, title: "title-#{i}", related_policies: [policy], published_at: i.days.ago)
     end
 
     get :show, id: topic
