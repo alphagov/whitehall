@@ -39,16 +39,16 @@ class HomeControllerTest < ActionController::TestCase
 
     get :feed, format: :atom
 
-    documents = Edition.published.in_reverse_chronological_order
+    documents = Edition.published.by_published_at
     recent_documents = documents[0...10]
     older_documents = documents[10..-1]
 
     assert_select_atom_feed do
-      assert_select 'feed > updated', text: documents.map(&:timestamp_for_sorting).max.iso8601
+      assert_select 'feed > updated', text: documents.map(&:published_at).max.iso8601
 
       assert_select 'feed > entry' do |entries|
         entries.zip(recent_documents) do |entry, document|
-          assert_select entry, 'entry > published', text: document.timestamp_for_sorting.iso8601
+          assert_select entry, 'entry > published', text: document.first_published_at.iso8601
           assert_select entry, 'entry > updated', text: document.published_at.iso8601
           assert_select entry, 'entry > link[rel=?][type=?][href=?]', 'alternate', 'text/html', public_document_url(document)
           assert_select entry, 'entry > title', text: document.title
@@ -67,11 +67,11 @@ class HomeControllerTest < ActionController::TestCase
 
   def create_published_documents
     5.downto(1) do |x|
-      create(:published_policy, first_published_at: x.days.ago)
-      create(:published_news_article, first_published_at: x.days.ago)
-      create(:published_speech, delivered_on: x.days.ago)
-      create(:published_publication, publication_date: x.days.ago)
-      create(:published_consultation, first_published_at: x.days.ago)
+      create(:published_policy, published_at: x.days.ago)
+      create(:published_news_article, published_at: x.days.ago)
+      create(:published_speech, published_at: x.days.ago)
+      create(:published_publication, published_at: x.days.ago)
+      create(:published_consultation, published_at: x.days.ago)
     end
   end
 
