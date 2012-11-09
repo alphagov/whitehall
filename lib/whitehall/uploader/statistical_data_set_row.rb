@@ -22,7 +22,8 @@ module Whitehall::Uploader
     end
 
     def body
-      row['body']
+      body = row['body']
+      body.blank? ? generated_attachment_body : body
     end
 
     def legacy_url
@@ -53,6 +54,10 @@ module Whitehall::Uploader
     end
 
     private
+
+    def generated_attachment_body
+      attachments.map.with_index { |_, i| "!@#{i+1}" }.join("\n\n")
+    end
 
     def attachments_from_columns
       1.upto(100).map do |number|

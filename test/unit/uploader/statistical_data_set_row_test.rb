@@ -30,6 +30,14 @@ module Whitehall::Uploader
       assert_equal "Some body goes here", row.body
     end
 
+    test "generates a body linking to all attachments where the body is empty" do
+      attachments, attributes = attachments_and_attributes_for(10)
+
+      row = statistica_data_set_row(attributes.merge("body" => " "))
+      body_referencing_attachments = (1..10).map { |i| "!@#{i}" }.join("\n\n")
+      assert_equal body_referencing_attachments, row.body
+    end
+
     test "should have a legacy url from the old_url column" do
       row = statistica_data_set_row("old_url" => "http://example.com/legacy-url")
       assert_equal "http://example.com/legacy-url", row.legacy_url
@@ -57,9 +65,20 @@ module Whitehall::Uploader
     end
 
     test "finds up to 100 attachments in columns attachment 1 title, attachement 1 url..." do
-      attachments = (1..100).map {|i| stub_everything("attachment-#{i}") }
+      attachments, attributes = attachments_and_attributes_for(100)
 
-      attributes = (1..100).each.with_object({}) do |i, hash|
+      row = statistica_data_set_row(attributes)
+
+      assert_equal attachments.first, row.attachments.first
+      assert_equal attachments.last, row.attachments.last
+    end
+
+    private
+
+    def attachments_and_attributes_for(count)
+      attachments = (1..count).map {|i| stub_everything("attachment-#{i}") }
+
+      attributes = (1..count).each.with_object({}) do |i, hash|
         url = "http://example.com/attachment-#{i}.pdf"
         title = "title #{i}"
         unique_reference = "urn-#{i}"
@@ -71,10 +90,7 @@ module Whitehall::Uploader
         Builders::AttachmentBuilder.stubs(:build).with({title: title, unique_reference: unique_reference, created_at: publication_date}, url, @attachment_cache, anything, anything).returns(attachments[i - 1])
       end
 
-      row = statistica_data_set_row(attributes)
-
-      assert_equal attachments.first, row.attachments.first
-      assert_equal attachments.last, row.attachments.last
+      [attachments, attributes]
     end
   end
 end
