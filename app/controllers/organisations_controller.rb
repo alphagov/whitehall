@@ -10,7 +10,7 @@ class OrganisationsController < PublicFacingController
   def show
     @recently_updated = @organisation.published_editions.by_published_at.limit(3)
     if @organisation.live?
-      @featured_editions = FeaturedEditionPresenter.decorate(@organisation.featured_edition_organisations.select(&:image_ready?)[0..5])
+      @featured_editions = FeaturedEditionPresenter.decorate(@organisation.featured_edition_organisations.limit(6))
       @top_military_role = @organisation.top_military_role && RolePresenter.decorate(@organisation.top_military_role)
       @policies = PolicyPresenter.decorate(@organisation.published_policies.by_published_at.limit(3))
       @topics = @organisation.topics_with_content

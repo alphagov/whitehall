@@ -63,23 +63,6 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_equal [policy, news_article], assigns(:featured_editions).collect(&:model)
   end
 
-  test "only shows featured editions whose images have been virus checked" do
-    organisation = build(:organisation, id: 123)
-    Organisation.stubs(:find).returns(organisation)
-
-    with_quarantined_image = build(:featured_edition_organisation)
-    with_quarantined_image.stubs(image_ready?: false)
-
-    with_virus_checked_image = build(:featured_edition_organisation)
-    with_virus_checked_image.stubs(image_ready?: true)
-
-    organisation.stubs(:featured_edition_organisations).returns([with_quarantined_image, with_virus_checked_image])
-
-    get :show, id: organisation
-
-    assert_equal [with_virus_checked_image.edition], assigns(:featured_editions).collect(&:model)
-  end
-
   test "shows a maximum of 6 featured editions" do
     organisation = create(:organisation)
     editions = []

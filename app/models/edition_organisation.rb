@@ -7,8 +7,4 @@ class EditionOrganisation < ActiveRecord::Base
 
   validates :edition, :organisation, presence: true
   validates :image, :alt_text, presence: true, if: :featured?
-
-  def image_ready?
-    image.virus_checked?
-  end
 end
