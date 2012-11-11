@@ -32,8 +32,8 @@ class OrganisationsController < PublicFacingController
 
   def ministers
     @ministerial_roles = @organisation.ministerial_roles.order("organisation_roles.ordering").map do |role|
-      RolePresenter.new(role)
-    end
+      RolePresenter.new(role) if role.current_person
+    end.compact
   end
 
   def civil_servants

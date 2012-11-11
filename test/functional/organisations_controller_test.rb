@@ -368,8 +368,8 @@ class OrganisationsControllerTest < ActionController::TestCase
   end
 
   test "shows ministerial roles in the specified order" do
-    junior_role = create(:ministerial_role)
-    senior_role = create(:ministerial_role)
+    junior_role = create(:ministerial_role, role_appointments: [create(:role_appointment)])
+    senior_role = create(:ministerial_role, role_appointments: [create(:role_appointment)])
     organisation = create(:organisation)
     create(:organisation_role, organisation: organisation, role: junior_role, ordering: 2)
     create(:organisation_role, organisation: organisation, role: senior_role, ordering: 1)
@@ -377,6 +377,18 @@ class OrganisationsControllerTest < ActionController::TestCase
     get :show, id: organisation
 
     assert_equal [senior_role, junior_role], assigns(:ministerial_roles).collect(&:model)
+  end
+
+  test "only shows ministerials roles for which there are people currently appointed" do
+    assigned_role = create(:ministerial_role, role_appointments: [create(:role_appointment)])
+    vacant_role = create(:ministerial_role)
+    organisation = create(:organisation)
+    create(:organisation_role, organisation: organisation, role: assigned_role, ordering: 2)
+    create(:organisation_role, organisation: organisation, role: vacant_role, ordering: 1)
+
+    get :show, id: organisation
+
+    assert_equal [assigned_role], assigns(:ministerial_roles).collect(&:model)
   end
 
   test "shows traffic commissioner roles in the specified order" do
@@ -425,15 +437,6 @@ class OrganisationsControllerTest < ActionController::TestCase
       assert_select "a[href=#{ministerial_role_path(ministerial_role_2)}]", text: "Minister of State"
     end
     refute_select_object(minister_in_another_organisation)
-  end
-
-  test "shows minister role even if it is not currently fulfilled by any person" do
-    minister = create(:ministerial_role, people: [])
-    organisation = create(:organisation, ministerial_roles: [minister])
-
-    get :show, id: organisation
-
-    assert_select_object(minister)
   end
 
   test "should display the minister's picture if available" do
