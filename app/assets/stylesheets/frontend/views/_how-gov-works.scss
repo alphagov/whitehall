@@ -117,13 +117,15 @@
   .civil-pie {
     display:block;
     height: 19rem;
-    width: 25.65rem;
+    max-width: 250px;
+    margin: 0 auto;
     padding-top: 9.5rem;
     background-color:#fff;
     vertical-align:middle;
     text-align:center;
     background-image: image-url("how-gov-works/Civil_Service_Info.png");
     background-repeat:no-repeat;
+    background-size: 100% auto;
 
     @media all and (-webkit-min-device-pixel-ratio: 2) {
       background-image: image-url("how-gov-works/Civil_Service_Infox2.png");
@@ -154,6 +156,7 @@
 
   .feature-ministers{
     p {
+      text-align: center;
       color: #999;
       @include core-48;
       padding: $gutter-half 0 $gutter;
@@ -203,11 +206,13 @@
       }
     }
 
-    span.invert {
-      background-color: $coalition-green;
-      border-color: $coalition-green;
-      .count a, span {
-        color: white;
+    @include media(tablet) {
+      span.invert {
+        background-color: $coalition-green;
+        border-color: $coalition-green;
+        .count a, span {
+          color: white;
+        }
       }
     }
   }
@@ -340,6 +345,76 @@
     margin: 0;
     border: solid $light-keyline;
     border-width: 0 0 1px;
+  }
+  
+  @media (min-width: 640px) and (max-width: 900px) {
+    .prime-minister,
+    .history {
+      .one-half {
+        width: 66.666%;
+        &:first-child {
+          width: 33.333%;
+        }
+      }
+    }
+    
+    .cabinet {
+      .two-thirds,
+      .one-third {
+        width: 50%;
+      }
+    }
+    
+    .depts-cont,
+    .legislation,
+    .access-infomation {
+      .one-third {
+        float: right;
+        width: 66.666%;
+        &:first-child {
+          float: left;
+          width: 33.333%;
+        }
+      }
+    }
+    
+    .gov-types {
+      .one-third {
+        width: 100%;
+      }
+    }
+  }
+      
+  @media (min-width: 640px) and (max-width: 810px) {
+    .feature-ministers {
+      p {
+        font-size: 30px;
+      }
+      span.circle .count {
+        top: 5px;
+      }
+      span.circle .caption {
+        position: relative;
+        top: -5px;
+        @include core-14;
+      }
+    }
+  }
+      
+  @media (min-width: 811px) and (max-width: 980px) {
+    .feature-ministers {
+      p {
+        font-size: 39px;
+      }
+      span.circle .count {
+        top: 5px;
+      }
+      span.circle .caption {
+        position: relative;
+        top: -5px;
+        @include core-14;
+      }
+    }
   }
   
 }
