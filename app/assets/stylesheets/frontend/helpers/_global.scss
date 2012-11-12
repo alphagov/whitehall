@@ -9,3 +9,9 @@
 body.js-enabled .js-hidden {
   display: none;
 }
+body.js-enabled #whitehall-wrapper #global-nav nav {
+  display: none;
+}
+body.js-enabled #whitehall-wrapper #global-nav.toggleable nav {
+  display: block;
+}

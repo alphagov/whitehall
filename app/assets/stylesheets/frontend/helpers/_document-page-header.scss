@@ -22,6 +22,8 @@
     }
 
     .inner {
+      position: static;
+
       @include media(desktop){
         display: block;
         padding-right:$gutter-half;
