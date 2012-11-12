@@ -165,8 +165,6 @@
       float: left;
       display: inline;
       width: 33.333333%;
-      margin-right: -100%;
-      margin-left: 0;
     }
 
     .block-5 {
@@ -174,8 +172,6 @@
       display: inline;
       clear: none;
       width: 66.6666666%;
-      margin-right: -100%;
-      margin-left: 33.333333%;
 
       .inner-block {
         padding-left: $gutter-two-thirds;
