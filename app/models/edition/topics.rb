@@ -27,8 +27,16 @@ module Edition::Topics
   end
 
   module ClassMethods
-    def published_in_topic(topic)
+    def in_topic(topic)
       joins(:topics).where('topics.id' => topic)
+    end
+
+    def published_in_topic(topic)
+      published.in_topic(topic)
+    end
+
+    def scheduled_in_topic(topic)
+      scheduled.in_topic(topic)
     end
   end
 end
