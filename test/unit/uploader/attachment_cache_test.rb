@@ -88,8 +88,23 @@ class Whitehall::Uploader::AttachmentCacheTest < ActiveSupport::TestCase
 
   test "adds a PDF extension if the file is detected as a PDF but has no extension" do
     url = "http://example.com/attachment"
-    stub_request(:get, url).to_return(body: File.open(@pdf_path), status: 200)
+    stub_request(:get, url).to_return(body: "", status: 200)
+    Whitehall::Uploader::AttachmentCache::FileTypeDetector.stubs(:detected_type).returns(:pdf)
     assert_equal "attachment.pdf", File.basename(@cache.fetch(url).path)
+  end
+
+  test "adds an XLS extension if the file is detected as an Excel file but has no extension" do
+    url = "http://example.com/attachment"
+    stub_request(:get, url).to_return(body: "", status: 200)
+    Whitehall::Uploader::AttachmentCache::FileTypeDetector.stubs(:detected_type).returns(:xls)
+    assert_equal "attachment.xls", File.basename(@cache.fetch(url).path)
+  end
+
+  test "adds an DOC extension if the file is detected as an Word file but has no extension" do
+    url = "http://example.com/attachment"
+    stub_request(:get, url).to_return(body: "", status: 200)
+    Whitehall::Uploader::AttachmentCache::FileTypeDetector.stubs(:detected_type).returns(:doc)
+    assert_equal "attachment.doc", File.basename(@cache.fetch(url).path)
   end
 
   private
