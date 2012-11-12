@@ -6,5 +6,5 @@ every SCHEDULED_PUBLISHING_PRECISION_IN_MINUTES.minutes, roles: [:backend] do
 end
 
 every :day, roles: [:frontend] do
-  runner 'script/document_dump'
+  runner 'script/document_dump.rb'
 end
