@@ -41,20 +41,23 @@
       margin-right:-$gutter;
 
       .inner-block {
-        padding: 0 $gutter-half;
+        padding: 0 $gutter;
       }
 
-      .two-thirds{
-        width:66%;
-        margin-bottom:$gutter;
+      .two-thirds {
+        width: 66.666%;
+        margin-bottom: $gutter;
+        float: left;
       }
-      .one-third{
-        width:33%;
-        margin-bottom:$gutter;
+      .one-third {
+        width: 33.333%;
+        margin-bottom: $gutter;
+        float: left;
       }
-      .one-half{
-        width:50%;
-        margin-bottom:$gutter;
+      .one-half {
+        width: 50%;
+        margin-bottom: $gutter;
+        float: left;
       }
     }
   }
