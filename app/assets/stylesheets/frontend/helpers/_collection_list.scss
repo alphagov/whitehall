@@ -4,12 +4,6 @@
   .collection-item {
     @include core-19;
     list-style: none;
-    counter-increment: headings 1;
-
-    h2:before {
-      content: counter(headings, decimal-leading-zero) ".";
-      display: block;
-    }
 
     .summary a {
       white-space: nowrap;
