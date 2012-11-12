@@ -63,8 +63,7 @@
 }
 .organisation-logo-stacked-single-identity span {
   display: block;
-  top: 3px;
-  position: relative;
+  padding-top: 3px;
 }
 @media all and (-webkit-min-device-pixel-ratio: 2) {
   .organisation-logo-single-identity,
@@ -92,8 +91,7 @@
 }
 .organisation-logo-stacked-bis span {
   display: block;
-  top: 3px;
-  position: relative;
+  padding-top: 3px;
 }
 @media all and (-webkit-min-device-pixel-ratio: 2) {
   .organisation-logo-bis,
@@ -121,8 +119,7 @@
 }
 .organisation-logo-stacked-so span {
   display: block;
-  top: 3px;
-  position: relative;
+  padding-top: 3px;
 }
 @media all and (-webkit-min-device-pixel-ratio: 2) {
   .organisation-logo-so,
@@ -150,8 +147,7 @@
 }
 .organisation-logo-stacked-ho span {
   display: block;
-  top: 3px;
-  position: relative;
+  padding-top: 3px;
 }
 @media all and (-webkit-min-device-pixel-ratio: 2) {
   .organisation-logo-ho,
@@ -179,8 +175,7 @@
 }
 .organisation-logo-stacked-mod span {
   display: block;
-  top: 3px;
-  position: relative;
+  padding-top: 3px;
 }
 @media all and (-webkit-min-device-pixel-ratio: 2) {
   .organisation-logo-mod,
@@ -208,8 +203,7 @@
 }
 .organisation-logo-stacked-wales span {
   display: block;
-  top: 3px;
-  position: relative;
+  padding-top: 3px;
 }
 @media all and (-webkit-min-device-pixel-ratio: 2) {
   .organisation-logo-wales,
@@ -237,8 +231,7 @@
 }
 .organisation-logo-stacked-coastguard span {
   display: block;
-  top: 3px;
-  position: relative;
+  padding-top: 3px;
 }
 @media all and (-webkit-min-device-pixel-ratio: 2) {
   .organisation-logo-coastguard,
@@ -266,8 +259,7 @@
 }
 .organisation-logo-stacked-portcullis span {
   display: block;
-  top: 3px;
-  position: relative;
+  padding-top: 3px;
 }
 @media all and (-webkit-min-device-pixel-ratio: 2) {
   .organisation-logo-portcullis,
@@ -316,8 +308,7 @@
 @include media(tablet){
   .organisation-logo-stacked-single-identity-medium span {
       display: block;
-      top: 3px;
-      position: relative;
+      padding-top: 3px;
   }
   @media all and (-webkit-min-device-pixel-ratio: 2) {
     .organisation-logo-single-identity-medium,
@@ -349,8 +340,7 @@
 @include media(tablet){
   .organisation-logo-stacked-bis-medium span {
     display: block;
-    top: 3px;
-    position: relative;
+    padding-top: 3px;
   }
   @media all and (-webkit-min-device-pixel-ratio: 2) {
     .organisation-logo-bis-medium,
@@ -382,8 +372,7 @@
 @include media(tablet){
   .organisation-logo-stacked-so-medium span {
     display: block;
-    top: 3px;
-    position: relative;
+    padding-top: 3px;
   }
   @media all and (-webkit-min-device-pixel-ratio: 2) {
     .organisation-logo-so-medium,
@@ -415,8 +404,7 @@
 @include media(tablet){
   .organisation-logo-stacked-ho-medium span {
     display: block;
-    top: 3px;
-    position: relative;
+    padding-top: 3px;
   }
   @media all and (-webkit-min-device-pixel-ratio: 2) {
     .organisation-logo-ho-medium,
@@ -448,8 +436,7 @@
 @include media(tablet){
   .organisation-logo-stacked-mod-medium span {
     display: block;
-    top: 3px;
-    position: relative;
+    padding-top: 3px;
   }
   @media all and (-webkit-min-device-pixel-ratio: 2) {
     .organisation-logo-mod-medium,
@@ -481,8 +468,7 @@
 @include media(tablet){
   .organisation-logo-stacked-wales-medium span {
     display: block;
-    top: 3px;
-    position: relative;
+    padding-top: 3px;
   }
   @media all and (-webkit-min-device-pixel-ratio: 2) {
     .organisation-logo-wales-medium,
@@ -514,8 +500,7 @@
 @include media(tablet){
   .organisation-logo-stacked-coastguard-medium span {
     display: block;
-    top: 3px;
-    position: relative;
+    padding-top: 3px;
   }
   @media all and (-webkit-min-device-pixel-ratio: 2) {
     .organisation-logo-coastguard-medium,
@@ -547,8 +532,7 @@
 @include media(tablet){
   .organisation-logo-stacked-portcullis-medium span {
     display: block;
-    top: 3px;
-    position: relative;
+    padding-top: 3px;
   }
   @media all and (-webkit-min-device-pixel-ratio: 2) {
     .organisation-logo-portcullis-medium,
@@ -598,8 +582,7 @@
 @include media(tablet){
   .organisation-logo-stacked-single-identity-large span {
     display: block;
-    top: 5px;
-    position: relative;
+    padding-top: 5px;
   }
   @media all and (-webkit-min-device-pixel-ratio: 2) {
     .organisation-logo-single-identity-large,
@@ -631,8 +614,7 @@
 @include media(tablet){
   .organisation-logo-stacked-bis-large span {
     display: block;
-    top: 5px;
-    position: relative;
+    padding-top: 5px;
   }
   @media all and (-webkit-min-device-pixel-ratio: 2) {
     .organisation-logo-bis-large,
@@ -664,8 +646,7 @@
 @include media(tablet){
   .organisation-logo-stacked-so-large span {
     display: block;
-    top: 5px;
-    position: relative;
+    padding-top: 5px;
   }
   @media all and (-webkit-min-device-pixel-ratio: 2) {
     .organisation-logo-so-large,
@@ -697,8 +678,7 @@
 @include media(tablet){
   .organisation-logo-stacked-ho-large span {
     display: block;
-    top: 5px;
-    position: relative;
+    padding-top: 5px;
   }
   @media all and (-webkit-min-device-pixel-ratio: 2) {
     .organisation-logo-ho-large,
@@ -730,8 +710,7 @@
 @include media(tablet){
   .organisation-logo-stacked-mod-large span {
     display: block;
-    top: 5px;
-    position: relative;
+    padding-top: 5px;
   }
   @media all and (-webkit-min-device-pixel-ratio: 2) {
     .organisation-logo-mod-large,
@@ -763,8 +742,7 @@
 @include media(tablet){
   .organisation-logo-stacked-wales-large span {
     display: block;
-    top: 5px;
-    position: relative;
+    padding-top: 5px;
   }
   @media all and (-webkit-min-device-pixel-ratio: 2) {
     .organisation-logo-wales-large,
@@ -796,8 +774,7 @@
 @include media(tablet){
   .organisation-logo-stacked-coastguard-large span {
     display: block;
-    top: 5px;
-    position: relative;
+    padding-top: 5px;
   }
   @media all and (-webkit-min-device-pixel-ratio: 2) {
     .organisation-logo-coastguard-large,
@@ -829,8 +806,7 @@
 @include media(tablet){
   .organisation-logo-stacked-portcullis-large span {
     display: block;
-    top: 5px;
-    position: relative;
+    padding-top: 5px;
   }
   @media all and (-webkit-min-device-pixel-ratio: 2) {
     .organisation-logo-portcullis-large,
