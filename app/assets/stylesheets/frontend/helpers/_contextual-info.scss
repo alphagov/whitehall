@@ -17,7 +17,7 @@
       padding-right: $gutter-half;
       padding-top: $gutter-one-sixth;
     
-      @media (min-width: 1px ){
+      @media (min-width: 1px ){ // target modern browsers
         margin-left: $gutter-half;
         list-style: none;
         &:before {

@@ -75,7 +75,7 @@
     }
   }
   
-  @media (min-width: 1px ){
+  @media (min-width: 1px ){ // target modern browsers
     ul li {
       padding-left: $gutter-half;
       list-style: none;
