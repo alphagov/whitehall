@@ -132,8 +132,8 @@ module Edition::ScheduledPublishing
     private
 
     def scheduled_publication_is_in_the_future
-      if scheduled_publication.present? && scheduled_publication < Time.zone.now
-        errors[:scheduled_publication] << "date must be in the future"
+      if scheduled_publication.present? && scheduled_publication < Whitehall.default_cache_max_age.from_now
+        errors[:scheduled_publication] << "date must be at least #{Whitehall.default_cache_max_age / 60} minutes from now"
       end
     end
 

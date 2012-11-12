@@ -129,7 +129,7 @@ module AdminEditionControllerScheduledPublishingTestHelpers
       end
 
       test "update should clear scheduled_publication if scheduled_publication_active not checked" do
-        selected_time = Time.zone.now
+        selected_time = 1.day.from_now
         edition = create(edition_type, scheduled_publication: selected_time)
 
         edition_attributes = controller_attributes_for_instance(edition,

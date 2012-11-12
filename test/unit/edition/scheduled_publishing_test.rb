@@ -1,15 +1,15 @@
 require "test_helper"
 
 class Edition::ScheduledPublishingTest < ActiveSupport::TestCase
-  test "draft, submitted or rejected edition is not valid if scheduled_publication date is in the past" do
+  test "draft, submitted or rejected edition is not valid if scheduled_publication date is sooner than the default minimum cache lifetime" do
     editor = build(:departmental_editor)
     Edition.state_machine.states.each do |state|
-      edition = create(:edition, state.name, scheduled_publication: 1.minute.from_now)
+      edition = create(:edition, state.name, scheduled_publication: Whitehall.default_cache_max_age.from_now - 1.second + 1.minute)
       Timecop.freeze(2.minutes.from_now) do
         edition.stubs(:reason_to_prevent_approval_by).returns(nil)
         if [:draft, :submitted, :rejected].include?(state.name)
           refute edition.valid?, "#{state.name} edition should be invalid"
-          assert edition.errors[:scheduled_publication].include?("date must be in the future")
+          assert edition.errors[:scheduled_publication].include?("date must be at least 30 minutes from now")
         else
           assert edition.valid?, "#{state.name} edition should be valid, but #{edition.errors.full_messages.inspect}"
         end
@@ -19,8 +19,8 @@ class Edition::ScheduledPublishingTest < ActiveSupport::TestCase
 
   test "scheduled_publication can be in the past when rejecting" do
     editor = create(:departmental_editor)
-    edition = create(:edition, :submitted, scheduled_publication: 1.minute.from_now)
-    Timecop.freeze(2.minutes.from_now) do
+    edition = create(:edition, :submitted, scheduled_publication: Whitehall.default_cache_max_age.from_now)
+    Timecop.freeze(Whitehall.default_cache_max_age.from_now + 1.minute) do
       assert edition.reject!
       assert edition.rejected?
       assert edition.reload.rejected?
@@ -29,10 +29,10 @@ class Edition::ScheduledPublishingTest < ActiveSupport::TestCase
 
   test "scheduled_publication must be in the future if editing a rejected document" do
     editor = create(:departmental_editor)
-    edition = create(:edition, :rejected, scheduled_publication: 1.minute.from_now)
-    Timecop.freeze(2.minutes.from_now) do
+    edition = create(:edition, :rejected, scheduled_publication: Whitehall.default_cache_max_age.from_now + 1.minute)
+    Timecop.freeze(Whitehall.default_cache_max_age.from_now + 2.minutes) do
       refute edition.valid?
-      edition.scheduled_publication = 1.minute.from_now
+      edition.scheduled_publication = Whitehall.default_cache_max_age.from_now
       assert edition.valid?
     end
   end
