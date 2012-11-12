@@ -171,6 +171,13 @@ class Edition::ScheduledPublishingTest < ActiveSupport::TestCase
     end
   end
 
+  test "can find editions due for publication within a certain time span" do
+    due_in_one_day = create(:edition, :scheduled, scheduled_publication: 1.day.from_now)
+    due_in_two_days = create(:edition, :scheduled, scheduled_publication: 2.days.from_now)
+    assert_equal [due_in_one_day], Edition.due_for_publication(1.day)
+    assert_equal [due_in_one_day, due_in_two_days], Edition.due_for_publication(2.days)
+  end
+
   test ".scheduled_publishing_robot creates a scheduled publishing robot user account if none exists" do
     assert_difference "User.count", 1 do
       Edition.scheduled_publishing_robot
