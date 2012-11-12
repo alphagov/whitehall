@@ -5,7 +5,7 @@
   p, li{
     @include core-19;
   }
-  @media (min-width: 1px ){
+  @media (min-width: 1px ){ // target modern browsers
     ul li {
       padding-left: $gutter-half;
       list-style: none;
@@ -52,7 +52,7 @@
   .ministers{
     margin-bottom:$gutter*2;
   }
-  .gov-types, .ministers, .cabinet, .coalition, .policy, .civil-service{
+  .gov-types, .ministers, .cabinet, .coalition, .civil-service{
     h3{
       border-top:1px solid $light-keyline;
       padding-top:$gutter;
@@ -77,6 +77,12 @@
           padding-right:$gutter;
         }
       }
+      strong {
+        @include bold;
+      }
+    }
+    .caption {
+      @include core-16;
     }
   }
   .civil-pie{
@@ -89,6 +95,10 @@
     text-align:center;
     background-image: image-url("how-gov-works/Civil_Service_Info.png");
     background-repeat:no-repeat;
+    @media all and (-webkit-min-device-pixel-ratio: 2) {
+      background-image: image-url("how-gov-works/Civil_Service_Infox2.png");
+      background-size: 250px 250px;
+    }
   }
   .feature-value{
     font-size:5em;
@@ -101,6 +111,7 @@
   }
   
   .feature-caption {
+    @include core-16;
     display: block;
     padding-bottom: $gutter;
   }
@@ -141,7 +152,7 @@
 
       span{
         color:black;
-        @include core-19;
+        @include core-16;
         display:block;
         padding:0;
         margin:0;
@@ -159,7 +170,41 @@
   .ministers .caption {
     max-width: 26em;
   }
+  
+  .policy-count {
+    text-align: center;
+    p {
+      @include core-16;
+    }
+    
+    p.circle{
+      background-color:$info-background;
+      border:1px solid $info-background;
+      width:192px;
+      height:192px;
+      -moz-border-radius: 96px;
+      -webkit-border-radius: 96px;
+      border-radius: 96px;
+      display:block;
+      margin: 0 auto;
+      text-align:center;
+      padding:0;
+      margin-bottom: $gutter-half;
+      vertical-align: middle;
 
+      .count{
+        position: relative;
+        top: $gutter-one-third;
+        font-size:95px;
+        padding-top:0.4em;
+        padding-bottom:0;
+        margin:0;
+        @include bold;
+        display:block;
+        line-height:1em;
+      }
+    }
+  }
   
   h1 {
     @include core-48;
@@ -179,11 +224,31 @@
     @include core-27;
     @include bold;
     margin: 0 0 $gutter-half;
-    width:100%
+    width:100%;
+    &.with-gutter {
+      margin-top: $gutter-half;
+    }
+  }
+  .prime-minister,
+  .dep-prime-minister,
+  .depts-cont {
+    h3 {
+      @include core-24;
+      @include bold;
+      margin-bottom: 0;
+    }
+  }
+  .policy {
+    h3 {
+      margin-bottom: 0;
+    }
   }
   h4{
     @include core-24;
     @include bold;
+    &.with-gutter {
+      margin-top: $gutter-half;
+    }
   }
   .block-1, .block-2 {
     float: none;
@@ -196,6 +261,9 @@
     @include core-27;
     margin-bottom:$gutter*2;
     max-width: 26em;
+  }
+  p.small-print {
+    @include core-14;
   }
   h2.coalition {
     border-color: $coalition-green;
