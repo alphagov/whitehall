@@ -1,4 +1,6 @@
 class PublicationsController < DocumentsController
+  include CacheControlHelper
+
   class PublicationesqueDecorator < SimpleDelegator
     def documents
       PublicationesquePresenter.decorate(__getobj__.documents)
@@ -9,6 +11,7 @@ class PublicationsController < DocumentsController
     params[:page] ||= 1
     params[:direction] ||= "before"
     document_filter = Whitehall::DocumentFilter.new(all_publications, params)
+    expire_on_next_scheduled_publication(scheduled_publications)
     @filter = PublicationesqueDecorator.new(document_filter)
 
     respond_to do |format|
@@ -31,6 +34,11 @@ private
 
   def all_publications
     Publicationesque.published.includes(:document, :organisations, :attachments, response: :attachments)
+  end
+
+  def scheduled_publications
+    unfiltered = Publicationesque.scheduled.order("scheduled_publication asc")
+    Whitehall::DocumentFilter.new(unfiltered, params.except(:direction)).documents
   end
 
   def document_class
