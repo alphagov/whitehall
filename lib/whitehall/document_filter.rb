@@ -81,7 +81,7 @@ private
   end
 
   def filter_by_topics!
-    @documents = @documents.in_topic(selected_topics) if selected_topics.any?
+    @documents = @documents.published_in_topic(selected_topics) if selected_topics.any?
   end
 
   def filter_by_departments!

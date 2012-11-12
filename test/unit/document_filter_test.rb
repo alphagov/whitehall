@@ -68,7 +68,7 @@ class DocumentFilterTest < ActiveSupport::TestCase
     topic = stub_topic("car-tax")
 
     filtered_scope = stub_document_scope('filtered_scope')
-    document_scope.expects(:in_topic).with([topic]).returns(filtered_scope)
+    document_scope.expects(:published_in_topic).with([topic]).returns(filtered_scope)
 
     filter = Whitehall::DocumentFilter.new(document_scope, topics: [topic.slug])
 
@@ -79,7 +79,7 @@ class DocumentFilterTest < ActiveSupport::TestCase
     topic = stub_topic("car-tax")
 
     filtered_scope = stub_document_scope('filtered_scope')
-    document_scope.stubs(:in_topic).with([topic]).returns(filtered_scope)
+    document_scope.stubs(:published_in_topic).with([topic]).returns(filtered_scope)
 
     filter = Whitehall::DocumentFilter.new(document_scope, topics: [topic.slug])
 
@@ -87,7 +87,7 @@ class DocumentFilterTest < ActiveSupport::TestCase
   end
 
   test "topics param does not filter if topics are not present" do
-    document_scope.expects(:in_topic).never
+    document_scope.expects(:published_in_topic).never
 
     filter = Whitehall::DocumentFilter.new(document_scope, topics: "")
 
@@ -95,7 +95,7 @@ class DocumentFilterTest < ActiveSupport::TestCase
   end
 
   test "topics param does not filter if topic is 'all'" do
-    document_scope.expects(:in_topic).never
+    document_scope.expects(:published_in_topic).never
 
     filter = Whitehall::DocumentFilter.new(document_scope, topics: ['all'])
 
@@ -217,7 +217,7 @@ class DocumentFilterTest < ActiveSupport::TestCase
     topic = stub_topic("car-tax")
 
     document_scope.expects(:in_organisation).with([organisation]).returns(document_scope)
-    document_scope.expects(:in_topic).with([topic]).returns(document_scope)
+    document_scope.expects(:published_in_topic).with([topic]).returns(document_scope)
     document_scope.expects(:page).with(2).returns(document_scope)
 
     filter = Whitehall::DocumentFilter.new(document_scope,
@@ -295,7 +295,7 @@ private
     document_scope.stubs(:published_before).returns(document_scope)
     document_scope.stubs(:published_after).returns(document_scope)
     document_scope.stubs(:alphabetical).returns(document_scope)
-    document_scope.stubs(:in_topic).returns(document_scope)
+    document_scope.stubs(:published_in_topic).returns(document_scope)
     document_scope.stubs(:in_organisation).returns(document_scope)
     document_scope.stubs(:where).with(has_entry(:publication_type_id, anything)).returns(document_scope)
     document_scope.stubs(:per).returns(document_scope)

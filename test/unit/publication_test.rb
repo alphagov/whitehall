@@ -80,19 +80,19 @@ class PublicationsInTopicsTest < ActiveSupport::TestCase
   test "should be able to find a publication using the topic of an associated policy" do
     published_publication = create(:published_publication, related_policies: @topic_1.policies)
 
-    assert_equal [published_publication], Publication.in_topic([@topic_1]).all
+    assert_equal [published_publication], Publication.published_in_topic([@topic_1]).all
   end
 
   test "should return the publications with the given policy but not other policies" do
     published_publication_1 = create(:published_publication, related_policies: @topic_1.policies)
     published_publication_2 = create(:published_publication, related_policies: @topic_1.policies + @topic_2.policies)
 
-    assert_equal [published_publication_1, published_publication_2], Publication.in_topic([@topic_1]).all
-    assert_equal [published_publication_2], Publication.in_topic([@topic_2]).all
+    assert_equal [published_publication_1, published_publication_2], Publication.published_in_topic([@topic_1]).all
+    assert_equal [published_publication_2], Publication.published_in_topic([@topic_2]).all
   end
 
   test "should ignore non-integer topic ids" do
-    assert_equal [], Publication.in_topic(["'bad"]).all
+    assert_equal [], Publication.published_in_topic(["'bad"]).all
   end
 
   test "returns publications with any of the listed topics" do
@@ -101,21 +101,21 @@ class PublicationsInTopicsTest < ActiveSupport::TestCase
       create(:published_publication, related_policies: @topic_2.policies)
     ]
 
-    assert_equal publications, Publication.in_topic([@topic_1, @topic_2]).all
+    assert_equal publications, Publication.published_in_topic([@topic_1, @topic_2]).all
   end
 
   test "should only find published publications, not draft ones" do
     published_publication = create(:published_publication, related_policies: [@policy_1])
     create(:draft_publication, related_policies: [@policy_1])
 
-    assert_equal [published_publication], Publication.in_topic([@topic_1]).all
+    assert_equal [published_publication], Publication.published_in_topic([@topic_1]).all
   end
 
   test "should only consider associations through published policies, not draft ones" do
     published_publication = create(:published_publication, related_policies: [@policy_1, @draft_policy])
 
-    assert_equal [published_publication], Publication.in_topic([@topic_1]).all
-    assert_equal [], Publication.in_topic([@topic_with_draft_policy]).all
+    assert_equal [published_publication], Publication.published_in_topic([@topic_1]).all
+    assert_equal [], Publication.published_in_topic([@topic_with_draft_policy]).all
   end
 
   test "should consider the topics of the latest published edition of a policy" do
@@ -125,12 +125,12 @@ class PublicationsInTopicsTest < ActiveSupport::TestCase
     topic_1_b = create(:topic, policies: [policy_1_b])
     published_publication = create(:published_publication, related_policies: [policy_1_b])
 
-    assert_equal [], Publication.in_topic([topic_1_b]).all
+    assert_equal [], Publication.published_in_topic([topic_1_b]).all
 
     policy_1_b.change_note = "test"
     assert policy_1_b.publish_as(user, force: true), "Should be able to publish"
     topic_1_b.reload
-    assert_equal [published_publication], Publication.in_topic([topic_1_b]).all
+    assert_equal [published_publication], Publication.published_in_topic([topic_1_b]).all
   end
 
   test "access_limited flag is ignored for non-stats types" do

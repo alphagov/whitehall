@@ -26,7 +26,7 @@ module Edition::RelatedPolicies
   end
 
   module ClassMethods
-    def in_topic(topics)
+    def published_in_topic(topics)
       topic_ids = topics.map do |topic|
         topic.respond_to?(:id) ? topic.id.to_i : topic.to_i
       end
