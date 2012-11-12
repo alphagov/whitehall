@@ -67,14 +67,6 @@ module Edition::ScheduledPublishing
 
   module InstanceMethods
 
-    def seconds_until_scheduled_publication
-      if scheduled?
-        scheduled_publication - Time.zone.now
-      else
-        nil
-      end
-    end
-
     def schedulable_by?(user, options = {})
       reason_to_prevent_scheduling_by(user, options).nil?
     end
