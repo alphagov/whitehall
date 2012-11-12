@@ -62,141 +62,137 @@
 
 .inside_gov_homepage {
 
+  // desktop columns
+  .organisations-inner, .topics-inner {
+    @extend %contain-floats;
+  }
+
   @include media(desktop) {
-    .block-1 {
-      width: 33%;
-
-      float: left;
-      display: inline;
+    .intro-section {
+      margin: 0 $gutter;
+      clear: both;
     }
 
-    .block-2 {
-      width: 66%;
-
-      float: left;
-      display: inline;
-    }
-
-    .block-3 {
-      width: 100%;
-
-      float: left;
-      display: inline;
-    }
-  }
-
-  h1 {
-    margin-bottom: $gutter;
-  }
-
-  h2 {
-    @include core-36;
-    margin: $gutter-half 0 $gutter 0;
-  }
-
-  h3 {
-    @include core-24;
-    margin: $gutter-half 0 $gutter 0;
-  }
-
-  p {
-    @include core-19;
-    margin-bottom: $gutter-half;
-    &:nth-child(2) {
-      margin-bottom: $gutter;
-    }
-  }
-
-  p.intro {
-    @include core-27;
-  }
-
-  .intro-section {
-    clear: both;
-    margin: $gutter 0 ($gutter*2) 0;
-
-    padding-right: 33%;
-
-    @include media(desktop) {
-      margin: ($gutter*2) 0;
-      background: transparent image-url("inside-gov-homepage.png") no-repeat 90% 100%;
-    }
-  }
-
-  .topics-section {
-    clear: both;
-    margin-bottom: ($gutter*2);
-
-    h2 {
-      margin-bottom: 0;
-    }
-
-    h3 {
-      margin-top: 0;
-    }
-
-    .topics.inner-block {
-      padding: 0 $gutter-half;
-    }
-
-    @include media(desktop) {
-      ul.index-list {
-        padding: 0 $gutter-half;          
-      }
-    }
-  }
-
-  .organisations-section {
-    clear: both;
-    margin-bottom: ($gutter*2);
-
-    .departments, .agencies {
-      padding: 0 $gutter-half $gutter $gutter-half;
+    .organisations-section {
+      padding: 0;
       clear: both;
 
-      .inner-block {
-        padding: 0;
+      .organisations-inner {
+        padding: 0 $gutter-half;
 
-        @include media(desktop) {
+        .inner-block {
           padding: 0 $gutter-half;
         }
       }
 
-      h3 {
-        padding: 0;
-        margin: 0;
-      }
-    }
-
-    .organisation-count {
-      @include core-24;
-
-      @include media(desktop) {
-        @include core-48;
-        color: $inside-gov-brand;
-        display: block;
-      }
-    }
-
-    ul.organisation-list {
-      list-style: none;
-      float: left;
-
-      margin-bottom: ($gutter-half);
-      width: 100%;
-
-      li {
+      .departments, .agencies {
         width: 50%;
         float: left;
-        display: inline;
+      }
+    }
+
+    .topics-section {
+      clear: both;
+      padding: 0 $gutter-half;
+
+      h2 {
+        margin-left: $gutter-half;
+        margin-right: $gutter-half;
       }
 
-      .organisation div {
-        @include media(desktop) {
-          margin: 0 $gutter-half;
+      .topics-inner {
+
+        .inner-block {
+          padding: 0 $gutter-half;
         }
+      }
+
+      .topics-column {
+        width: 33.333%;
+        float: left;
       }
     }
   }
 
+  // typography
+
+  h2 {
+    @include core-27;
+    @include bold;
+
+    border-bottom: 5px solid $black;
+    margin-bottom: $gutter;
+  }
+
+  h3 {
+    @include core-27;
+    @include bold;
+  }
+
+  // section specific styles
+
+  .intro-section {
+    width: 66.666%;
+    padding-right: 33.333%;
+
+    margin-top: ($gutter*2);
+
+    h1 {
+      @include bold;
+      margin-bottom: $gutter;
+    }
+
+    p.intro {
+      @include core-27;
+    }
+  }
+
+  .organisations-section {
+    margin-top: ($gutter*2);
+
+    .live-count {
+      @include core-27;
+      margin-bottom: $gutter;
+    }
+
+    .organisation-count {
+      @include core-80;
+      @include bold;
+      display: block;
+    }
+
+    .departments {
+      h2 { border-color: $grass-green; }
+      a { color: $grass-green; }
+    }
+
+    .agencies {
+      h2 { border-color: $light-blue; }
+      a { color: $light-blue; }
+    }
+  }
+
+  .topics-section {
+    margin-top: ($gutter*2);
+
+    h2 { border-color: $fuschia; }
+    a { color: $fuschia; }
+
+    p {
+      @include core-16;
+    }
+  }
+
+  .govspeak {
+    margin: ($gutter*2) $gutter 0 $gutter;
+
+    .information-block {
+      border: 5px solid $purple;
+      border-width: 5px 0;
+    }
+
+    p {
+      margin-bottom: $gutter;
+    }
+  }
 }
