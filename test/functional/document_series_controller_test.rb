@@ -50,4 +50,19 @@ class DocumentSeriesControllerTest < ActionController::TestCase
     assert_select "h1 .title", "series-name"
     assert_select ".description", "In this series\n        description-in-html"
   end
+
+  test "show sets Cache-Control: max-age to the time of the next scheduled publication in the series" do
+    user = login_as(:departmental_editor)
+    organisation = create(:organisation)
+    series = create(:document_series, organisation: organisation)
+    publication = create(:draft_publication, document_series: series, scheduled_publication: Time.zone.now + Whitehall.default_cache_max_age * 2)
+    publication.schedule_as(user, force: true)
+
+    Timecop.freeze(Time.zone.now + Whitehall.default_cache_max_age * 1.5) do
+      get :show, organisation_id: organisation, id: series
+    end
+
+    assert_cache_control("max-age=#{Whitehall.default_cache_max_age/2}")
+  end
+
 end
