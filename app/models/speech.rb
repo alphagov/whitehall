@@ -28,7 +28,8 @@ class Speech < Announcement
 
   def populate_organisations_based_on_role_appointment
     self.edition_organisations = []
-    self.organisations = organisations_via_role_appointment
+    self.organisations = []
+    organisations_via_role_appointment.each { |o| self.organisations << o }
   end
 
   def organisations_via_role_appointment

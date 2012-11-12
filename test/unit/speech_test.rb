@@ -91,6 +91,18 @@ class SpeechTest < EditionTestCase
     assert_equal [organisation_2], speech.organisations(true)
   end
 
+  test "organisation association to edition preserved when edition state changes" do
+    user = create(:departmental_editor)
+    organisation = create(:ministerial_department)
+    ministerial_role = create(:ministerial_role, organisations: [organisation])
+    role_appointment = create(:role_appointment, role: ministerial_role)
+    speech = create(:speech, :draft,
+      scheduled_publication: Time.zone.now + Whitehall.default_cache_max_age * 2,
+      role_appointment: role_appointment)
+    speech.schedule!
+    assert_equal [speech], organisation.reload.editions
+  end
+
   test "#person should return the person who gave the speech" do
     organisation = create(:organisation)
     ministerial_role = create(:ministerial_role, organisations: [organisation])
