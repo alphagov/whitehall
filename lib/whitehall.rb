@@ -70,7 +70,7 @@ module Whitehall
     end
 
     def default_cache_max_age
-      2.minutes
+      30.minutes
     end
 
     def platform
