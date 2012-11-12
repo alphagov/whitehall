@@ -68,7 +68,7 @@ class Edition < ActiveRecord::Base
 
     def modifiable_attributes(previous_state)
       if previous_state == 'scheduled'
-        %w{state updated_at force_published published_at first_published_at}
+        %w{state updated_at force_published published_at first_published_at access_limited}
       else
         %w{state updated_at force_published}
       end
