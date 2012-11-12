@@ -5,7 +5,6 @@ jQuery(function($) {
   $('section.article_group').equalHeightHelper({selectorsToResize: ['article']});
   $('#featured-news-articles').equalHeightHelper({selectorsToResize: ['.img img']});
   $('.floated_list').equalHeightHelper({selectorsToResize: ['li']});
-  $('.alphabetical-row').equalHeightHelper({selectorsToResize: ['li']});
   $('.js-toggle-change-notes').toggler();
   $('.js-hide-other-links').hideOtherLinks();
 
