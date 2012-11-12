@@ -122,6 +122,15 @@ class PoliciesControllerTest < ActionController::TestCase
     assert_select "a.minister", text: "minister-name"
   end
 
+  test "should use role name if no minister is in role related to the policy" do
+    role = create(:ministerial_role)
+    edition = create(:published_policy, ministerial_roles: [role])
+
+    get :show, id: edition.document
+
+    assert_select "a.minister", text: role.name
+  end
+
   test "shows link to each policy section in the markdown" do
     policy = create(:published_policy, body: %{
 ## First Section
