@@ -37,11 +37,11 @@
     }
     
     @include media(tablet) {
-      margin-left:-$gutter;
-      margin-right:-$gutter;
+      margin-left:-$gutter-half;
+      margin-right:-$gutter-half;
 
       .inner-block {
-        padding: 0 $gutter;
+        padding: 0 $gutter-half;
       }
 
       .two-thirds {
@@ -62,16 +62,17 @@
     }
   }
   
+  .depts {
+    .two-thirds,
+    .one-third {
+      margin-bottom: 0;
+    }
+  }
+  
   .ministers{
     margin-bottom:$gutter*2;
   }
 
-  .gov-types, .ministers, .cabinet, .coalition, .policy, .civil-service{
-    h3{
-      border-top:1px solid $light-keyline;
-      padding-top:$gutter;
-    }
-  }
   .coalition {
     margin-top: $gutter;
 
@@ -200,13 +201,13 @@
         padding: 0;
         margin: 0;
       }
+    }
 
-      span.invert {
-        background-color: $coalition-green;
-        border-color: $coalition-green;
-        .count a, span {
-          color: white;
-        }
+    span.invert {
+      background-color: $coalition-green;
+      border-color: $coalition-green;
+      .count a, span {
+        color: white;
       }
     }
   }
@@ -282,7 +283,8 @@
 
   .prime-minister,
   .dep-prime-minister,
-  .depts-cont {
+  .depts-cont,
+  .gov-types {
     h3 {
       @include core-24;
       @include bold;
@@ -292,11 +294,14 @@
 
   .policy {
     h3 {
-      margin: $gutter 0 0;
-      width:100%;
-      @include media(tablet) {
-        margin-top: 0;
-      }
+      margin-bottom: 0;
+    }
+  }
+
+  .gov-types, .ministers, .cabinet, .coalition, .civil-service{
+    h3{
+      border-top:1px solid $light-keyline;
+      padding-top:$gutter;
     }
   }
 

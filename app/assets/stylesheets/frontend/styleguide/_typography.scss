@@ -199,10 +199,10 @@
 }
 
 @mixin bold {
-//  font-weight: 800;
+  font-weight: 800;
 }
 
 @mixin light {
   font-weight: 400;
-  color: $low-contrast;
+//  color: $low-contrast;
 }
