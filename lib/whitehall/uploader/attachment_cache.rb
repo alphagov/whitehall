@@ -71,7 +71,7 @@ class Whitehall::Uploader::AttachmentCache
           end
         end
         File.open(local_path, 'r')
-      elsif response.is_a?(Net::HTTPMovedPermanently)
+      elsif response.is_a?(Net::HTTPMovedPermanently) || response.is_a?(Net::HTTPMovedTemporarily)
         download(response['Location'])
       else
         raise RetrievalError, "got response status #{response.code}"
