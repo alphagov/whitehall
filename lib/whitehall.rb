@@ -69,6 +69,10 @@ module Whitehall
       !Rails.env.production? || ADMIN_HOSTS.include?(request.host)
     end
 
+    def default_cache_max_age
+      2.minutes
+    end
+
     def platform
       ENV["FACTER_govuk_platform"] || Rails.env
     end
