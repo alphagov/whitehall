@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121107140027) do
+ActiveRecord::Schema.define(:version => 20121112150614) do
 
   create_table "attachment_data", :force => true do |t|
     t.string   "carrierwave_file"
@@ -27,6 +27,8 @@ ActiveRecord::Schema.define(:version => 20121107140027) do
     t.string  "url"
   end
 
+  add_index "attachment_sources", ["attachment_id"], :name => "index_attachment_sources_on_attachment_id"
+
   create_table "attachments", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -40,6 +42,8 @@ ActiveRecord::Schema.define(:version => 20121107140027) do
     t.integer  "attachment_data_id"
   end
 
+  add_index "attachments", ["attachment_data_id"], :name => "index_attachments_on_attachment_data_id"
+
   create_table "consultation_participations", :force => true do |t|
     t.integer  "edition_id"
     t.string   "link_url"
@@ -50,12 +54,18 @@ ActiveRecord::Schema.define(:version => 20121107140027) do
     t.text     "postal_address"
   end
 
+  add_index "consultation_participations", ["consultation_response_form_id"], :name => "index_cons_participations_on_cons_response_form_id"
+  add_index "consultation_participations", ["edition_id"], :name => "index_consultation_participations_on_edition_id"
+
   create_table "consultation_response_attachments", :force => true do |t|
     t.integer  "response_id"
     t.integer  "attachment_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "consultation_response_attachments", ["attachment_id"], :name => "index_consultation_response_attachments_on_attachment_id"
+  add_index "consultation_response_attachments", ["response_id"], :name => "index_consultation_response_attachments_on_response_id"
 
   create_table "consultation_response_forms", :force => true do |t|
     t.string   "carrierwave_file"
@@ -139,12 +149,15 @@ ActiveRecord::Schema.define(:version => 20121107140027) do
     t.text     "description"
   end
 
+  add_index "document_series", ["organisation_id"], :name => "index_document_series_on_organisation_id"
   add_index "document_series", ["slug"], :name => "index_document_series_on_slug"
 
   create_table "document_sources", :force => true do |t|
     t.integer "document_id"
     t.string  "url"
   end
+
+  add_index "document_sources", ["document_id"], :name => "index_document_sources_on_document_id"
 
   create_table "documents", :force => true do |t|
     t.datetime "created_at"
@@ -193,6 +206,9 @@ ActiveRecord::Schema.define(:version => 20121107140027) do
     t.datetime "updated_at"
   end
 
+  add_index "edition_mainstream_categories", ["edition_id"], :name => "index_edition_mainstream_categories_on_edition_id"
+  add_index "edition_mainstream_categories", ["mainstream_category_id"], :name => "index_edition_mainstream_categories_on_mainstream_category_id"
+
   create_table "edition_ministerial_roles", :force => true do |t|
     t.integer  "edition_id"
     t.integer  "ministerial_role_id"
@@ -221,6 +237,7 @@ ActiveRecord::Schema.define(:version => 20121107140027) do
   end
 
   add_index "edition_organisations", ["edition_id", "organisation_id"], :name => "index_edition_organisations_on_edition_id_and_organisation_id", :unique => true
+  add_index "edition_organisations", ["edition_organisation_image_data_id"], :name => "index_edition_orgs_on_edition_org_image_data_id"
   add_index "edition_organisations", ["organisation_id"], :name => "index_edition_organisations_on_organisation_id"
 
   create_table "edition_relations", :force => true do |t|
@@ -238,10 +255,16 @@ ActiveRecord::Schema.define(:version => 20121107140027) do
     t.integer "role_appointment_id"
   end
 
+  add_index "edition_role_appointments", ["edition_id"], :name => "index_edition_role_appointments_on_edition_id"
+  add_index "edition_role_appointments", ["role_appointment_id"], :name => "index_edition_role_appointments_on_role_appointment_id"
+
   create_table "edition_statistical_data_sets", :force => true do |t|
     t.integer "edition_id"
     t.integer "document_id"
   end
+
+  add_index "edition_statistical_data_sets", ["document_id"], :name => "index_edition_statistical_data_sets_on_document_id"
+  add_index "edition_statistical_data_sets", ["edition_id"], :name => "index_edition_statistical_data_sets_on_edition_id"
 
   create_table "editions", :force => true do |t|
     t.string   "title"
@@ -283,9 +306,14 @@ ActiveRecord::Schema.define(:version => 20121107140027) do
     t.boolean  "access_limited"
   end
 
+  add_index "editions", ["alternative_format_provider_id"], :name => "index_editions_on_alternative_format_provider_id"
   add_index "editions", ["document_id"], :name => "index_editions_on_document_id"
+  add_index "editions", ["document_series_id"], :name => "index_editions_on_document_series_id"
   add_index "editions", ["first_published_at"], :name => "index_editions_on_first_published_at"
+  add_index "editions", ["policy_team_id"], :name => "index_editions_on_policy_team_id"
+  add_index "editions", ["primary_mainstream_category_id"], :name => "index_editions_on_primary_mainstream_category_id"
   add_index "editions", ["publication_date"], :name => "index_editions_on_publication_date"
+  add_index "editions", ["publication_type_id"], :name => "index_editions_on_publication_type_id"
   add_index "editions", ["role_appointment_id"], :name => "index_editions_on_role_appointment_id"
   add_index "editions", ["speech_type_id"], :name => "index_editions_on_speech_type_id"
   add_index "editions", ["state"], :name => "index_editions_on_state"
@@ -414,6 +442,7 @@ ActiveRecord::Schema.define(:version => 20121107140027) do
     t.string   "analytics_identifier"
   end
 
+  add_index "organisations", ["organisation_logo_type_id"], :name => "index_organisations_on_organisation_logo_type_id"
   add_index "organisations", ["organisation_type_id"], :name => "index_organisations_on_organisation_type_id"
   add_index "organisations", ["slug"], :name => "index_organisations_on_slug"
 
@@ -455,6 +484,8 @@ ActiveRecord::Schema.define(:version => 20121107140027) do
     t.datetime "updated_at"
     t.date     "published_on"
   end
+
+  add_index "responses", ["edition_id"], :name => "index_responses_on_edition_id"
 
   create_table "role_appointments", :force => true do |t|
     t.integer  "role_id"
