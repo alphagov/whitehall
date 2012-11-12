@@ -11,9 +11,9 @@ class MinisterialRolesController < PublicFacingController
 
   def show
     @ministerial_role = RolePresenter.decorate(MinisterialRole.find(params[:id]))
-    load_published_documents_in_scope do |scope|
-      scope.in_ministerial_role(@ministerial_role).by_published_at
-    end
+    @policies = Policy.published.in_ministerial_role(@ministerial_role).by_published_at
+    @publications = Publication.published.in_ministerial_role(@ministerial_role).by_published_at
+    @consultations = Consultation.published.in_ministerial_role(@ministerial_role).by_published_at
     set_slimmer_organisations_header(@ministerial_role.organisations)
   end
 end
