@@ -160,6 +160,17 @@
     }
   }
 
+  .block-2 {
+    padding-bottom: 0;
+  }
+
+  .block-4, .block-5 {
+    padding-top: $gutter-half;
+    @include media(tablet) {
+      padding-top: $gutter*2;
+    }
+  }
+
   @include media(tablet) {
     .block-4 {
       float: left;
