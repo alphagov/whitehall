@@ -339,12 +339,16 @@ class Edition < ActiveRecord::Base
     end
 
     def related_to(edition)
-      case edition
-      when Policy
-        where(id: edition.related_editions.collect(&:id))
+      related = if edition.is_a?(Policy)
+        edition.related_editions
       else
-        where(id: edition.related_policies.collect(&:id))
+        edition.related_policies
       end
+
+      # This works around a wierd bug in ActiveRecord where an outer scope applied
+      # to Edition would be applied to this association. See EditionActiveRecordBugWorkaroundTest.
+      all_after_forcing_query_execution = related.all
+      where(id: all_after_forcing_query_execution.collect(&:id))
     end
 
     def latest_edition
