@@ -7,7 +7,7 @@ ActiveRecord::Base.establish_connection(mysql_slave_config)
 
 module PublicDocumentRoutesHelper
   def request
-    OpenStruct.new(:host => "whitehall.#{ENV['FACTER_govuk_platform']}.alphagov.co.uk")
+    OpenStruct.new(host: "whitehall.#{ENV['FACTER_govuk_platform']}.alphagov.co.uk")
   end
 end
 
