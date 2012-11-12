@@ -1,3 +1,5 @@
+require "whitehall/uploader/parsers"
+
 class Whitehall::Uploader::Parsers::DateParser
   def self.parse(date, logger, line_number)
     return nil if date.blank?
@@ -13,6 +15,7 @@ class Whitehall::Uploader::Parsers::DateParser
       end
     rescue
       logger.warn "Row #{line_number}: Unable to parse the date '#{date}'"
+      nil
     end
   end
 end

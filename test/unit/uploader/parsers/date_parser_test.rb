@@ -1,4 +1,6 @@
-require 'test_helper'
+require "fast_test_helper"
+
+require "whitehall/uploader/parsers/date_parser"
 
 class Whitehall::Uploader::Parsers::DateParserTest < ActiveSupport::TestCase
   def setup
@@ -27,7 +29,11 @@ class Whitehall::Uploader::Parsers::DateParserTest < ActiveSupport::TestCase
     assert_nil Whitehall::Uploader::Parsers::DateParser.parse('', @log, @line_number)
   end
 
-  test "logs a warning if the date could'nt be parsed" do
+  test "returns nil if date cannot be parsed" do
+    assert_nil Whitehall::Uploader::Parsers::DateParser.parse('11/012012', @log, @line_number)
+  end
+
+  test "logs a warning if the date cannot be parsed" do
     Whitehall::Uploader::Parsers::DateParser.parse('11/012012', @log, @line_number)
     assert_match /Unable to parse the date '11\/012012'/, @log_buffer.string
   end
