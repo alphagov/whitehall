@@ -386,11 +386,13 @@ That's all
     assert_select_atom_feed do
       assert_select 'feed > id', 1
       assert_select 'feed > title', 1
+      assert_select 'feed > updated', 1.week.ago.iso8601
       assert_select 'feed > link[rel=?][type=?][href=?]', 'alternate', 'text/html', activity_policy_url(policy.document), 1
 
       assert_select 'feed > entry' do |entries|
         entries.zip([consultation, speech, news_article, publication]).each do |entry, document|
           assert_select entry, 'entry > title', text: document.title
+          assert_select entry, 'entry > published', text: document.timestamp_for_sorting.iso8601
         end
       end
     end
