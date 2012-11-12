@@ -65,6 +65,15 @@ class PublicationTest < EditionTestCase
     assert_equal [feb], Publication.published_after("2011-01-29").all
   end
 
+  test "access_limited flag is ignored for non-stats types" do
+    e = build(:draft_publication, publication_type: PublicationType::PolicyPaper, access_limited: true)
+    refute e.access_limited?
+  end
+
+  test "persisted value of access_limited flag is nil for non-stats types" do
+    e = create(:draft_publication, publication_type: PublicationType::PolicyPaper, access_limited: true)
+    assert e.reload.read_attribute(:access_limited).nil?
+  end
 end
 
 class PublicationsInTopicsTest < ActiveSupport::TestCase
@@ -131,15 +140,5 @@ class PublicationsInTopicsTest < ActiveSupport::TestCase
     assert policy_1_b.publish_as(user, force: true), "Should be able to publish"
     topic_1_b.reload
     assert_equal [published_publication], Publication.published_in_topic([topic_1_b]).all
-  end
-
-  test "access_limited flag is ignored for non-stats types" do
-    e = build(:draft_publication, publication_type: PublicationType::PolicyPaper, access_limited: true)
-    refute e.access_limited?
-  end
-
-  test "persisted value of access_limited flag is nil for non-stats types" do
-    e = create(:draft_publication, publication_type: PublicationType::PolicyPaper, access_limited: true)
-    assert e.reload.read_attribute(:access_limited).nil?
   end
 end
