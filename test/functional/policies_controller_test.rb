@@ -374,6 +374,18 @@ That's all
     assert_select "a.feed[href=?]", feed_url
   end
 
+  test 'activity atom feed shows latest 10 documents' do
+    policy = create(:published_policy)
+    11.times do
+      create(:published_publication, related_policies: [policy])
+    end
+    get :activity, id: policy.document, format: "atom"
+
+    assert_select_atom_feed do
+      assert_select 'feed > entry', count: 10
+    end
+  end
+
   test 'activity atom feed shows activity documents' do
     policy = create(:published_policy)
     publication = create(:published_publication, published_at: 1.day.ago, publication_date: 4.weeks.ago, related_policies: [policy])
