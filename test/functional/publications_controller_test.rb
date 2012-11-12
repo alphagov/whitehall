@@ -490,9 +490,11 @@ class PublicationsControllerTest < ActionController::TestCase
     get :index, format: :atom
 
     assert_select_atom_feed do
+      assert_select 'feed > updated', 1.days.ago.iso8601
       assert_select 'feed > entry' do |entries|
         entries.zip([newest, middle, oldest]).each do |entry, document|
           assert_select entry, 'entry > title', text: document.title
+          assert_select entry, 'entry > published', text: document.timestamp_for_sorting.iso8601
         end
       end
     end
