@@ -141,4 +141,11 @@ class PublicationsInTopicsTest < ActiveSupport::TestCase
     topic_1_b.reload
     assert_equal [published_publication], Publication.published_in_topic([topic_1_b]).all
   end
+
+  test "should be able to get items scheduled in a particular topic" do
+    scheduled_publication = create(:scheduled_publication, related_policies: [@policy_1])
+    create(:published_publication, related_policies: [@policy_1])
+
+    assert_equal [scheduled_publication], Publication.scheduled_in_topic([@topic_1]).all
+  end
 end
