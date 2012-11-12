@@ -20,8 +20,9 @@
     position: relative;
     margin: -50px auto 0;
     width: auto;
-    overflow: hidden;
     max-width: $max-site-width + $gutter*2;
+
+    @extend %contain-floats;
   }
   
   @include media(tablet){
