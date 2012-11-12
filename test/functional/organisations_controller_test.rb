@@ -16,6 +16,39 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_select ".organisation .description", text: "organisation-description"
   end
 
+  def self.sets_cache_control_max_age_to_time_of_next_scheduled(edition_type)
+    test "#show sets Cache-Control: max-age to the time of the next scheduled #{edition_type}" do
+      user = login_as(:departmental_editor)
+      organisation = create(:ministerial_department)
+      edition = if block_given?
+        yield organisation
+      else
+        create(edition_type, :draft,
+          scheduled_publication: Time.zone.now + Whitehall.default_cache_max_age * 2,
+          organisations: [organisation])
+      end
+      assert edition.schedule_as(user, force: true)
+
+      Timecop.freeze(Time.zone.now + Whitehall.default_cache_max_age * 1.5) do
+        get :show, id: organisation
+      end
+
+      assert_cache_control("max-age=#{Whitehall.default_cache_max_age/2}")
+    end
+  end
+
+  sets_cache_control_max_age_to_time_of_next_scheduled(:policy)
+  sets_cache_control_max_age_to_time_of_next_scheduled(:publication)
+  sets_cache_control_max_age_to_time_of_next_scheduled(:consultation)
+  sets_cache_control_max_age_to_time_of_next_scheduled(:speech) do |organisation|
+    ministerial_role = FactoryGirl.create(:ministerial_role, organisations: [organisation])
+    role_appointment = FactoryGirl.create(:role_appointment, role: ministerial_role)
+    FactoryGirl.create(:speech, :draft,
+      scheduled_publication: Time.zone.now + Whitehall.default_cache_max_age * 2,
+      role_appointment: role_appointment)
+  end
+  sets_cache_control_max_age_to_time_of_next_scheduled(:news_article)
+
   test "#show links to the chief of the defence staff" do
     chief_of_the_defence_staff = create(:military_role, chief_of_the_defence_staff: true)
     person = create(:person)
