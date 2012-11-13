@@ -129,7 +129,7 @@
 
     @media all and (-webkit-min-device-pixel-ratio: 2) {
       background-image: image-url("how-gov-works/Civil_Service_Infox2.png");
-      background-size: 250px 250px;
+      background-size: 100% auto;
     }
 
     margin: 0 auto;
@@ -367,7 +367,7 @@
     
     .depts-cont,
     .legislation,
-    .access-infomation {
+    .access-information {
       .one-third {
         float: right;
         width: 66.666%;
@@ -378,6 +378,16 @@
       }
     }
     
+    .depts-cont .one-third:nth-child(2),
+    .legislation .one-third:nth-child(4),
+    .access-information .one-third:nth-child(2) {
+      margin-bottom: $gutter-half;
+    }
+    
+    .legislation .one-third:nth-child(3) {
+      display: none;
+    }
+    
     .gov-types {
       .one-third {
         width: 100%;
@@ -385,10 +395,26 @@
     }
   }
       
-  @media (min-width: 640px) and (max-width: 810px) {
+  @media (min-width: 640px) and (max-width: 760px) {
     .feature-ministers {
       p {
         font-size: 30px;
+      }
+      span.circle .count {
+        top: 5px;
+      }
+      span.circle .caption {
+        position: relative;
+        top: -5px;
+        @include core-14;
+      }
+    }
+  }
+      
+  @media (min-width: 761px) and (max-width: 980px) {
+    .feature-ministers {
+      p {
+        font-size: 35px;
       }
       span.circle .count {
         top: 5px;
