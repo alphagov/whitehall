@@ -22,10 +22,8 @@
 
   root.GOVUK.cookie = function(name, value, days){
     if(typeof value !== 'undefined'){
-      console.log('setting');
       return root.GOVUK.setCookie(name, value, days);
     } else {
-      console.log('getting');
       return root.GOVUK.getCookie(name);
     }
   };
