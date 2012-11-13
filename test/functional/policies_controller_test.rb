@@ -243,6 +243,22 @@ That's all
     end
   end
 
+  test "activity sets Cache-Control: max-age to the time of the next scheduled publication" do
+    policy = create(:published_policy)
+    user = login_as(:departmental_editor)
+    p1 = create(:published_publication, published_at: Time.zone.now, related_policies: [policy])
+    p2 = create(:draft_publication,
+      scheduled_publication: Time.zone.now + Whitehall.default_cache_max_age * 2,
+      related_policies: [policy])
+    p2.schedule_as(user, force: true)
+
+    Timecop.freeze(Time.zone.now + Whitehall.default_cache_max_age * 1.5) do
+      get :activity, id: policy.document
+    end
+
+    assert_cache_control("max-age=#{Whitehall.default_cache_max_age/2}")
+  end
+
   test "activity uses publication_date to indicate when a publication was changed" do
     policy = create(:published_policy)
     edition = create(:published_publication,

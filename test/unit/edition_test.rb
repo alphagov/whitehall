@@ -86,11 +86,13 @@ class EditionTest < ActiveSupport::TestCase
     topic_2 = create(:topic)
     draft_policy = create(:draft_policy, topics: [topic_1])
     published_policy = create(:published_policy, topics: [topic_1])
+    scheduled_policy = create(:scheduled_policy, topics: [topic_1])
     published_in_second_topic = create(:published_policy, topics: [topic_2])
 
-    assert_equal [draft_policy, published_policy], Policy.in_topic(topic_1)
-    assert_equal [published_policy], Policy.published.in_topic(topic_1)
-    assert_equal [published_in_second_topic], Policy.in_topic(topic_2)
+    assert_equal [draft_policy, published_policy, scheduled_policy], Policy.in_topic(topic_1)
+    assert_equal [published_policy], Policy.published_in_topic(topic_1)
+    assert_equal [scheduled_policy], Policy.scheduled_in_topic(topic_1)
+    assert_equal [published_in_second_topic], Policy.published_in_topic(topic_2)
   end
 
   test "should return a list of editions in an organisation" do

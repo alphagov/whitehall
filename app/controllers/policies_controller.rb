@@ -1,4 +1,6 @@
 class PoliciesController < DocumentsController
+  include CacheControlHelper
+
   before_filter :find_document, only: [:show, :activity]
 
   respond_to :html
@@ -23,6 +25,8 @@ class PoliciesController < DocumentsController
   def activity
     @policy = @document
     @recently_changed_documents = Edition.published.related_to(@policy).in_reverse_chronological_order
+    expire_on_next_scheduled_publication(Edition.scheduled.related_to(@policy))
+
     if @recently_changed_documents.empty?
       render text: "Not found", status: :not_found
     end

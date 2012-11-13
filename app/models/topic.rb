@@ -44,6 +44,10 @@ class Topic < ActiveRecord::Base
             through: :topic_memberships,
             conditions: { "editions.state" => "published" },
             source: :edition
+  has_many :scheduled_editions,
+            through: :topic_memberships,
+            conditions: { "editions.state" => "scheduled" },
+            source: :edition
 
   has_many :topic_relations
   has_many :related_topics,

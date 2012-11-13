@@ -27,6 +27,47 @@ class TopicsControllerTest < ActionController::TestCase
     end
   end
 
+  test "#show sets Cache-Control: max-age to the time of the next scheduled policy" do
+    user = login_as(:departmental_editor)
+    policy = create(:draft_policy, scheduled_publication: Time.zone.now + Whitehall.default_cache_max_age * 2)
+    topic = create(:topic, policies: [policy])
+    policy.schedule_as(user, force: true)
+
+    Timecop.freeze(Time.zone.now + Whitehall.default_cache_max_age * 1.5) do
+      get :show, id: topic
+    end
+
+    assert_cache_control("max-age=#{Whitehall.default_cache_max_age/2}")
+  end
+
+  test "#show sets Cache-Control: max-age to the time of the next scheduled publication in an associated policy" do
+    user = login_as(:departmental_editor)
+    policy = create(:published_policy, title: "policy-title", summary: "policy-summary")
+    topic = create(:topic, policies: [policy])
+    publication = create(:draft_publication, scheduled_publication: Time.zone.now + Whitehall.default_cache_max_age * 2, related_policies: [policy])
+    publication.schedule_as(user, force: true)
+
+    Timecop.freeze(Time.zone.now + Whitehall.default_cache_max_age * 1.5) do
+      get :show, id: topic
+    end
+
+    assert_cache_control("max-age=#{Whitehall.default_cache_max_age/2}")
+  end
+
+  test "#show sets Cache-Control: max-age to the time of the next scheduled announcement in an associated policy" do
+    user = login_as(:departmental_editor)
+    policy = create(:published_policy, title: "policy-title", summary: "policy-summary")
+    topic = create(:topic, policies: [policy])
+    news = create(:draft_news_article, scheduled_publication: Time.zone.now + Whitehall.default_cache_max_age * 2, related_policies: [policy])
+    news.schedule_as(user, force: true)
+
+    Timecop.freeze(Time.zone.now + Whitehall.default_cache_max_age * 1.5) do
+      get :show, id: topic
+    end
+
+    assert_cache_control("max-age=#{Whitehall.default_cache_max_age/2}")
+  end
+
   test "shows 3 published publications and links to more" do
     policy = create(:published_policy, title: "policy-title", summary: "policy-summary")
     topic = create(:topic, policies: [policy])
