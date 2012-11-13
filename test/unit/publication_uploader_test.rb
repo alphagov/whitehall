@@ -7,6 +7,7 @@ class PublicationUploaderTest < ActiveSupport::TestCase
     @log_buffer = StringIO.new
     @logger = Logger.new(@log_buffer)
     @error_csv_path = Rails.root.join("tmp", "csv_errors.csv")
+    FileUtils.mkdir_p(File.dirname(@error_csv_path))
   end
 
   teardown do
