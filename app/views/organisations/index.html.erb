@@ -12,7 +12,7 @@
   <div class="block-2">
     <div class="inner-block">
       <div class="heading-block ministerial-departments js-hide-department-children js-filter-block">
-        <h1>Ministerial departments</h1>
+        <h1 id="departments">Ministerial departments</h1>
         <div class="content">
           <ol>
             <% @ministerial_departments.each do |ministerial_department| %>
@@ -45,7 +45,7 @@
         </div>
       </div>
       <div class="heading-block other-departments js-filter-block">
-        <h1>All others</h1>
+        <h1 id="all-others">All others</h1>
         <div class="content">
           <ol class="index-list">
             <% @all_other_organisations.each do |organisation| %>
