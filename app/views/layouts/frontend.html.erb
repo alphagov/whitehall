@@ -44,6 +44,10 @@
           </div>
         </div>
         <div id="content"></div>
+        <div class="progress-bar" id="progress-bar" data-join-count="2">
+          <div class="bar"><div class="joined"></div></div>
+          <p>2 of 25  ministerial departments have moved their corporate websites to GOV.UK. <%= link_to "More will join soon", root_path %></p>
+        </div>
         <div id="page" class="<%= content_for?(:page_class) ? yield(:page_class) : '' %>" >
           <%= yield %>
         </div>
