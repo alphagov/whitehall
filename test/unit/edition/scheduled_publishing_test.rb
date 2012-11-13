@@ -27,6 +27,16 @@ class Edition::ScheduledPublishingTest < ActiveSupport::TestCase
     end
   end
 
+  test "scheduled_publication can be in the past when unpublishing" do
+    editor = create(:departmental_editor)
+    edition = create(:edition, :published, scheduled_publication: Whitehall.default_cache_max_age.from_now)
+    Timecop.freeze(Whitehall.default_cache_max_age.from_now + 1.minute) do
+      assert edition.unpublish!
+      assert edition.draft?
+      assert edition.reload.draft?
+    end
+  end
+
   test "scheduled_publication must be in the future if editing a rejected document" do
     editor = create(:departmental_editor)
     edition = create(:edition, :rejected, scheduled_publication: Whitehall.default_cache_max_age.from_now + 1.minute)
