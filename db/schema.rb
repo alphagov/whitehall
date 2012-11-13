@@ -301,8 +301,8 @@ ActiveRecord::Schema.define(:version => 20121112150614) do
     t.integer  "published_related_publication_count",                             :default => 0,       :null => false
     t.datetime "timestamp_for_sorting"
     t.integer  "primary_mainstream_category_id"
-    t.datetime "scheduled_publication"
     t.boolean  "replaces_businesslink",                                           :default => false
+    t.datetime "scheduled_publication"
     t.boolean  "access_limited"
   end
 

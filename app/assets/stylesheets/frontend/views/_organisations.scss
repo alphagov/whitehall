@@ -679,7 +679,7 @@
     margin-bottom: $gutter*2;
 
     img {
-      box-shadow: 3px 3px 7px #999;
+      @include box-shadow(0 2px 2px rgba(0,0,0,0.4));
       width: 100%;
       max-width: 287px;
     }
