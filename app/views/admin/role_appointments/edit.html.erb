@@ -4,16 +4,7 @@
   <h1>Edit appointment to position of <%= @role_appointment.role.name %> </h1>
 
   <%= form_for [:admin, @role_appointment] do |form| %>
-    <%= form.errors %>
-
-    <%= form.label :person_id, 'Person' %>
-    <%= form.select :person_id, options_from_collection_for_select(Person.all, 'id', 'name', form.object.person_id), {include_blank: true}, class: 'chzn-select', data: { placeholder: "Choose person..." }, disabled: true %>
-    <p>Once an appointment has been created the person cannot be changed, to preserve this person's relationship to any associated speeches.</p>
-
-    <%= form.label :started_at %>
-    <%= form.date_select :started_at, { include_blank: true }, { :class => "date" } %>
-    <%= form.label :ended_at %>
-    <%= form.date_select :ended_at, { include_blank: true }, { :class => "date" } %>
+    <%= render partial: 'admin/role_appointments/form', locals: { form: form } %>
 
     <%= form.save_or_cancel cancel: edit_admin_role_path(@role_appointment.role) %>
   <% end %>
