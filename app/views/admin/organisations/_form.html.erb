@@ -16,8 +16,10 @@
   </fieldset>
   <fieldset>
     <legend>Associations</legend>
+    <%= hidden_field_tag "organisation[parent_organisation_ids][]", "", id: "organisation_parent_organisation_ids_default" %>
     <%= organisation_form.label :parent_organisation_ids, 'Sponsoring departments' %>
     <%= organisation_form.select :parent_organisation_ids, options_from_collection_for_select(Organisation.departments - [organisation_form.object], 'id', 'name', organisation.parent_organisation_ids), {}, multiple: true, class: 'chzn-select', data: { placeholder: "Choose associated departments..." } %>
+    <%= hidden_field_tag "organisation[topic_ids][]", "", id: "organisation_topic_ids_default" %>
     <%= organisation_form.label :topic_ids, 'Topics' %>
     <%= organisation_form.select :topic_ids, options_from_collection_for_select(Topic.all, 'id', 'name', organisation.topic_ids), {}, multiple: true, class: 'chzn-select', data: { placeholder: "Choose topics..."} %>
   </fieldset>
