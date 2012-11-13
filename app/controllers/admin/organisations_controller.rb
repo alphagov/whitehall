@@ -3,7 +3,6 @@ class Admin::OrganisationsController < Admin::BaseController
   before_filter :build_organisation_roles, only: [:new]
   before_filter :load_organisation, only: [:show, :edit, :update, :destroy]
   before_filter :build_social_media_account, only: [:new, :edit]
-  before_filter :default_arrays_of_ids_to_empty, only: [:update]
   before_filter :destroy_blank_phone_numbers, only: [:create, :update]
   before_filter :destroy_blank_social_media_accounts, only: [:create, :update]
 
@@ -74,11 +73,6 @@ class Admin::OrganisationsController < Admin::BaseController
     @ministerial_organisation_roles = @organisation.organisation_roles.joins(:role).merge(Role.ministerial).order(:ordering)
     @board_member_organisation_roles = @organisation.organisation_roles.joins(:role).merge(Role.board_member).order(:ordering)
     @traffic_commissioner_organisation_roles = @organisation.organisation_roles.joins(:role).merge(Role.traffic_commissioner).order(:ordering)
-  end
-
-  def default_arrays_of_ids_to_empty
-    params[:organisation][:topic_ids] ||= []
-    params[:organisation][:parent_organisation_ids] ||= []
   end
 
   def destroy_blank_phone_numbers

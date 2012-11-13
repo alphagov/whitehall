@@ -23,6 +23,14 @@ class DocumentSeries < ActiveRecord::Base
     published_editions.where(type: StatisticalDataSet.name)
   end
 
+  def scheduled_publications
+    editions.scheduled.where(type: Publication.name)
+  end
+
+  def scheduled_statistical_data_sets
+    editions.scheduled.where(type: StatisticalDataSet.name)
+  end
+
   protected
 
   def destroyable?

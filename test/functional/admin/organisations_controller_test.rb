@@ -468,7 +468,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
       organisation_attributes.merge(topic_ids: [create(:topic).id])
     )
 
-    put :update, id: organisation, organisation: organisation_attributes
+    put :update, id: organisation, organisation: organisation_attributes.merge(topic_ids: [""])
 
     organisation.reload
     assert_equal [], organisation.topics
@@ -480,7 +480,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
       organisation_attributes.merge(parent_organisation_ids: [create(:organisation).id])
     )
 
-    put :update, id: organisation, organisation: organisation_attributes
+    put :update, id: organisation, organisation: organisation_attributes.merge(parent_organisation_ids: [""])
 
     organisation.reload
     assert_equal [], organisation.parent_organisations
@@ -576,6 +576,17 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert_equal 3, edition_association_1.reload.ordering
     assert_equal 2, edition_association_2.reload.ordering
     assert_equal 1, edition_association_3.reload.ordering
+  end
+
+  test "updating order of featured editions should not lose topics or parent organisations" do
+    topic = create(:topic)
+    parent_organisation = create(:organisation)
+    organisation = create(:organisation, topics: [topic], parent_organisations: [parent_organisation])
+
+    put :update, id: organisation, organisation: {edition_organisations_attributes: {}}
+
+    assert_equal [topic], organisation.reload.topics
+    assert_equal [parent_organisation], organisation.reload.parent_organisations
   end
 
   test "shows a list of corporate information pages" do

@@ -160,13 +160,22 @@
     }
   }
 
+  .block-2 {
+    padding-bottom: 0;
+  }
+
+  .block-4, .block-5 {
+    padding-top: $gutter-half;
+    @include media(tablet) {
+      padding-top: $gutter*2;
+    }
+  }
+
   @include media(tablet) {
     .block-4 {
       float: left;
       display: inline;
       width: 33.333333%;
-      margin-right: -100%;
-      margin-left: 0;
     }
 
     .block-5 {
@@ -174,8 +183,6 @@
       display: inline;
       clear: none;
       width: 66.6666666%;
-      margin-right: -100%;
-      margin-left: 33.333333%;
 
       .inner-block {
         padding-left: $gutter-two-thirds;
@@ -672,7 +679,7 @@
     margin-bottom: $gutter*2;
 
     img {
-      box-shadow: 3px 3px 7px #999;
+      @include box-shadow(0 2px 2px rgba(0,0,0,0.4));
       width: 100%;
       max-width: 287px;
     }

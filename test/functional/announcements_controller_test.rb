@@ -16,6 +16,18 @@ class AnnouncementsControllerTest < ActionController::TestCase
     assert_select_object announced_today[1]
   end
 
+  test "index sets Cache-Control: max-age to the time of the next scheduled publication" do
+    user = login_as(:departmental_editor)
+    news = create(:draft_news_article, scheduled_publication: Time.zone.now + Whitehall.default_cache_max_age * 2)
+    news.schedule_as(user, force: true)
+
+    Timecop.freeze(Time.zone.now + Whitehall.default_cache_max_age * 1.5) do
+      get :index
+    end
+
+    assert_cache_control("max-age=#{Whitehall.default_cache_max_age/2}")
+  end
+
   test "index shows which type a record is" do
     announced_today = [
       create(:published_news_article),

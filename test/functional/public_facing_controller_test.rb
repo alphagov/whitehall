@@ -16,10 +16,10 @@ class PublicFacingControllerTest < ActionController::TestCase
     end
   end
 
-  test "all public facing requests are considered stale after 2 minutes" do
+  test "all public facing requests are considered stale after default_cache_max_age" do
     with_routing_to_test_action do
       get :test
-      assert response.headers["Cache-Control"].split(", ").include?("max-age=120")
+      assert response.headers["Cache-Control"].split(", ").include?("max-age=#{Whitehall.default_cache_max_age.to_i}")
     end
   end
 

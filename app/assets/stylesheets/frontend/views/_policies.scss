@@ -65,6 +65,10 @@
       padding-bottom: $gutter;
     }
   }
+  
+  .block-2 {
+    display: none;
+  }
 
   @include media(desktop){
     .block-2 {

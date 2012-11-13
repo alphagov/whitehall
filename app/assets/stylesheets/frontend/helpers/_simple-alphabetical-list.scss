@@ -7,11 +7,10 @@
     position: relative;
     overflow: hidden;
     width: auto;
-    padding-left: 50px;
+    padding-left: 25%;
 
     @include media(tablet) {
       width: 75%;
-      padding-left: 25%;
     }
 
     .image_holder {
@@ -27,6 +26,7 @@
       text-align: center;
       @include core-48;
       color: $low-contrast;
+      top: -3px;
 
       @include media(tablet) {
         float: right;
@@ -36,14 +36,22 @@
         padding: 0 $gutter-half;
         padding-top: 4px;
         padding-top: 0.4rem;
+        top: 7px;
       }
     }
 
     ul {
-      padding: 0 $gutter-half;
+      @include media(tablet) {
+        padding: 0 $gutter-half;
+      }
 
       li {
         @include core-19;
+        padding-bottom: $gutter-one-third;
+        
+        .role {
+          @include core-14;
+        }
       }
     }
   }

@@ -243,6 +243,22 @@ That's all
     end
   end
 
+  test "activity sets Cache-Control: max-age to the time of the next scheduled publication" do
+    policy = create(:published_policy)
+    user = login_as(:departmental_editor)
+    p1 = create(:published_publication, published_at: Time.zone.now, related_policies: [policy])
+    p2 = create(:draft_publication,
+      scheduled_publication: Time.zone.now + Whitehall.default_cache_max_age * 2,
+      related_policies: [policy])
+    p2.schedule_as(user, force: true)
+
+    Timecop.freeze(Time.zone.now + Whitehall.default_cache_max_age * 1.5) do
+      get :activity, id: policy.document
+    end
+
+    assert_cache_control("max-age=#{Whitehall.default_cache_max_age/2}")
+  end
+
   test "activity uses publication_date to indicate when a publication was changed" do
     policy = create(:published_policy)
     edition = create(:published_publication,
@@ -374,6 +390,18 @@ That's all
     assert_select "a.feed[href=?]", feed_url
   end
 
+  test 'activity atom feed shows latest 10 documents' do
+    policy = create(:published_policy)
+    11.times do
+      create(:published_publication, related_policies: [policy])
+    end
+    get :activity, id: policy.document, format: "atom"
+
+    assert_select_atom_feed do
+      assert_select 'feed > entry', count: 10
+    end
+  end
+
   test 'activity atom feed shows activity documents' do
     policy = create(:published_policy)
     publication = create(:published_publication, published_at: 1.day.ago, publication_date: 4.weeks.ago, related_policies: [policy])
@@ -386,11 +414,13 @@ That's all
     assert_select_atom_feed do
       assert_select 'feed > id', 1
       assert_select 'feed > title', 1
+      assert_select 'feed > updated', 1.week.ago.iso8601
       assert_select 'feed > link[rel=?][type=?][href=?]', 'alternate', 'text/html', activity_policy_url(policy.document), 1
 
       assert_select 'feed > entry' do |entries|
         entries.zip([consultation, speech, news_article, publication]).each do |entry, document|
           assert_select entry, 'entry > title', text: document.title
+          assert_select entry, 'entry > published', text: document.timestamp_for_sorting.iso8601
         end
       end
     end

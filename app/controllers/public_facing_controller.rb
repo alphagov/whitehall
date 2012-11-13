@@ -7,7 +7,7 @@ class PublicFacingController < ApplicationController
   private
 
   def set_cache_control_headers
-    expires_in 2.minutes, public: true
+    expires_in Whitehall.default_cache_max_age, public: true
   end
 
   def set_search_path

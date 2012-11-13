@@ -30,7 +30,7 @@ module Edition::RelatedPolicies
       topic_ids = topics.map do |topic|
         topic.respond_to?(:id) ? topic.id.to_i : topic.to_i
       end
-      latest_published_edition.where("
+      where("
         EXISTS (
           SELECT 1
           FROM edition_relations er
@@ -49,6 +49,14 @@ module Edition::RelatedPolicies
             AND tm.topic_id in (?)
         )
       ", topic_ids)
+    end
+
+    def published_in_topic(topics)
+      latest_published_edition.in_topic(topics)
+    end
+
+    def scheduled_in_topic(topics)
+      scheduled.in_topic(topics)
     end
   end
 end

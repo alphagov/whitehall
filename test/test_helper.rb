@@ -106,6 +106,7 @@ class ActionController::TestCase
   include ControllerTestHelpers
   include ResourceTestHelpers
   include AtomTestHelpers
+  include CacheControlTestHelpers
 
   attr_reader :current_user
 

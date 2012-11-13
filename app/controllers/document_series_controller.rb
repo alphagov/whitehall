@@ -1,4 +1,5 @@
 class DocumentSeriesController < PublicFacingController
+  include CacheControlHelper
   before_filter :load_organisation
 
   def index
@@ -10,6 +11,7 @@ class DocumentSeriesController < PublicFacingController
     @published_publications = PublicationesquePresenter.decorate(@document_series.published_publications)
     @published_statistical_data_sets = StatisticalDataSetPresenter.decorate(@document_series.published_statistical_data_sets)
     set_slimmer_organisations_header([@document_series.organisation])
+    expire_on_next_scheduled_publication(@document_series.scheduled_publications + @document_series.scheduled_statistical_data_sets)
   end
 
   private

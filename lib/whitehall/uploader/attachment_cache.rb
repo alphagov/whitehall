@@ -20,6 +20,22 @@ class Whitehall::Uploader::AttachmentCache
     end
   end
 
+  class FileTypeDetector
+    def self.detected_type(local_path)
+      file_type = `file "#{local_path}"`.strip
+      if file_type =~ /PDF document/
+        :pdf
+      elsif file_type =~ /Microsoft Excel/
+        :xls
+      elsif file_type =~ /Microsoft Office Word/
+        :doc
+      else
+        nil
+      end
+    end
+  end
+
+
   private
 
   def cache_path(url)
@@ -44,15 +60,18 @@ class Whitehall::Uploader::AttachmentCache
         File.open(local_path, 'w', encoding: 'ASCII-8BIT') do |file|
           file.write(response.body)
         end
-        if File.extname(local_path) == ""
-          file_type = `file -e cdf -b "#{local_path}"`.strip
-          if file_type =~ /^PDF /
-            FileUtils.mv(local_path, local_path + ".pdf")
-            local_path = local_path + ".pdf"
+        if File.extname(local_path).blank?
+          detected_type = FileTypeDetector.detected_type(local_path)
+          if detected_type
+            FileUtils.mv(local_path, local_path + ".#{detected_type}")
+            local_path = local_path + ".#{detected_type}"
+            @logger.info "Detected file type: #{detected_type}; moved to #{local_path}"
+          else
+            @logger.warn "Unknown file type for #{local_path}"
           end
         end
         File.open(local_path, 'r')
-      elsif response.is_a?(Net::HTTPMovedPermanently)
+      elsif response.is_a?(Net::HTTPMovedPermanently) || response.is_a?(Net::HTTPMovedTemporarily)
         download(response['Location'])
       else
         raise RetrievalError, "got response status #{response.code}"

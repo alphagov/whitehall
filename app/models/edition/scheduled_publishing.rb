@@ -11,19 +11,49 @@ module Edition::ScheduledPublishing
     end
 
     def publish_all_due_editions_as(user, logger = Rails.logger)
+      logger.info "SCHEDULED PUBLISHING"
+      logger.info "Time now: #{Time.zone.now}"
       Whitehall.stats_collector.increment("scheduled_publishing.call_rate")
-      Whitehall.stats_collector.gauge("scheduled_publishing.due", due_for_publication.count)
-      due_for_publication.shuffle.each do |edition|
-        publish_atomically_as(user, edition.id, logger)
+      schedule = due_for_publication(5.minutes).order("scheduled_publication asc").map do |edition|
+        [edition.id, edition.scheduled_publication, edition.title]
       end
-      Whitehall.stats_collector.gauge("scheduled_publishing.due", due_for_publication.reload.count)
+
+      log_schedule(logger, schedule)
+
+      schedule.each do |edition_id, scheduled_publication, title|
+        wait_until(scheduled_publication, logger) do
+          logger.info "Time now is #{Time.zone.now}, publishing #{edition_id} - #{title}"
+          publish_atomically_as(user, edition_id, logger)
+        end
+      end
+      Whitehall.stats_collector.gauge("scheduled_publishing.due", due_for_publication(5.minutes).reload.count)
+      logger.info "SCHEDULED PUBLISHING COMPLETE"
     end
 
-    def due_for_publication
-      scheduled.where(arel_table[:scheduled_publication].lteq(Time.zone.now))
+    def due_for_publication(within_time = 0)
+      cutoff = Time.zone.now + within_time
+      scheduled.where(arel_table[:scheduled_publication].lteq(cutoff))
     end
 
   private
+
+    def log_schedule(logger, schedule)
+      Whitehall.stats_collector.gauge("scheduled_publishing.due", schedule.size)
+      logger.info "Detected #{schedule.size} editions to publish:"
+      schedule.each do |edition_id, scheduled_publication, title|
+        logger.info "#{edition_id} - #{title} - due at #{scheduled_publication}"
+      end
+    end
+
+    def wait_until(timestamp, logger, &block)
+      while Time.zone.now < timestamp
+        time_to_wait = timestamp - Time.zone.now
+        logger.info "Waiting #{time_to_wait} seconds"
+        sleep(time_to_wait)
+      end
+      yield
+    end
+
     def create_scheduled_publishing_robot
       permissions = {
         GDS::SSO::Config.default_scope => [
@@ -132,8 +162,8 @@ module Edition::ScheduledPublishing
     private
 
     def scheduled_publication_is_in_the_future
-      if scheduled_publication.present? && scheduled_publication < Time.zone.now
-        errors[:scheduled_publication] << "date must be in the future"
+      if scheduled_publication.present? && scheduled_publication < Whitehall.default_cache_max_age.from_now
+        errors[:scheduled_publication] << "date must be at least #{Whitehall.default_cache_max_age / 60} minutes from now"
       end
     end
 

@@ -1,4 +1,6 @@
 class OrganisationsController < PublicFacingController
+  include CacheControlHelper
+
   before_filter :load_organisation, only: [:show, :about]
 
   def index
@@ -20,6 +22,7 @@ class OrganisationsController < PublicFacingController
       @civil_servants = civil_servants
       @traffic_commissioners = traffic_commissioners
       set_slimmer_organisations_header([@organisation])
+      expire_on_next_scheduled_publication(@organisation.scheduled_editions)
     else
       render action: 'external'
     end

@@ -5,7 +5,6 @@ jQuery(function($) {
   $('section.article_group').equalHeightHelper({selectorsToResize: ['article']});
   $('#featured-news-articles').equalHeightHelper({selectorsToResize: ['.img img']});
   $('.floated_list').equalHeightHelper({selectorsToResize: ['li']});
-  $('.alphabetical-row').equalHeightHelper({selectorsToResize: ['li']});
   $('.js-toggle-change-notes').toggler();
   $('.js-hide-other-links').hideOtherLinks();
 
@@ -51,5 +50,6 @@ jQuery(function($) {
   $('.js-toggle-nav').toggler({header: ".toggler", content: ".content", showArrow: false, actLikeLightbox: true})
 
   GOVUK.filterListItems.init();
+  GOVUK.joiningMessage.init();
 
 });

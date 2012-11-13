@@ -26,6 +26,18 @@ class PublicationsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "index sets Cache-Control: max-age to the time of the next scheduled publication" do
+    user = login_as(:departmental_editor)
+    news = create(:draft_publication, scheduled_publication: Time.zone.now + Whitehall.default_cache_max_age * 2)
+    news.schedule_as(user, force: true)
+
+    Timecop.freeze(Time.zone.now + Whitehall.default_cache_max_age * 1.5) do
+      get :index
+    end
+
+    assert_cache_control("max-age=#{Whitehall.default_cache_max_age/2}")
+  end
+
   test "renders the publication summary from plain text" do
     publication = create(:published_publication, summary: 'plain text & so on')
     get :show, id: publication.document
@@ -490,9 +502,11 @@ class PublicationsControllerTest < ActionController::TestCase
     get :index, format: :atom
 
     assert_select_atom_feed do
+      assert_select 'feed > updated', 1.days.ago.iso8601
       assert_select 'feed > entry' do |entries|
         entries.zip([newest, middle, oldest]).each do |entry, document|
           assert_select entry, 'entry > title', text: document.title
+          assert_select entry, 'entry > published', text: document.timestamp_for_sorting.iso8601
         end
       end
     end

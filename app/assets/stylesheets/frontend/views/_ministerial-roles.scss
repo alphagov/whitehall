@@ -4,15 +4,28 @@
   .block-1 {
     padding-top: $gutter-one-sixth;
     
-    .page_title {
-      color: $low-contrast;
-      padding-bottom: 0;
+    .page-header {
+      @extend %contain-floats;
+      padding: $gutter-half 0 0;
+      
+      @include media(tablet){
+        padding: $gutter*1.5 0 0;
+      }
+    
+      h1 {
+        width: 75%;
+        float: left;
+        display: block;
+        @include light;
+        padding-bottom: 0;
+      }
     }
   }
   
   .block-2 {
     h1.label {
       @include core-48;
+      @include bold;
       padding-top: 0;
     }
     
@@ -23,9 +36,11 @@
     }
     
     .ministerial_role {
+      clear: both;
       list-style: none;
       
       @include media(tablet) {
+        clear: none;
         float: left;
         width: 25%;
       
@@ -39,9 +54,21 @@
       }
       
       .image_holder {
-        float: none;
+        float: left;
         margin: 0;
-        width: 100%;
+        width: 25%;
+        @include media(tablet) {
+          float: none;
+          width: 100%;
+        }
+        
+        a {
+          display: block;
+          padding: ($gutter-one-third - 2px) $gutter-half ($gutter-one-third + 2px) 0;
+          @include media(tablet) {
+            padding: 0;
+          }
+        }
         
         img {
           display: block;
@@ -50,11 +77,22 @@
           min-height: 50px;
         }
       }
+                
+      strong {
+        @include bold;
+      }
       
       .current-appointee {
+        float: right;
+        width: 75%;
         @include core-19;
         padding-top: 0;
         
+        @include media(tablet) {
+          float: none;
+          width: auto;
+        }
+
         a {
           &:hover,
           &:focus,
@@ -68,10 +106,17 @@
         }
         
         span {
-          display: block;
+          display: inline;
+          float: right;
+          width: 75%;
           @include core-14;
           color: $low-contrast;
-          margin-bottom: ($gutter-one-sixth*-1)
+          margin-bottom: ($gutter-one-sixth*-1);
+        
+          @include media(tablet) {
+            float: none;
+            width: auto;
+          }
         }
       }
       
@@ -93,25 +138,18 @@
   
     h1.label {
       @include core-48;
+      @include bold;
     }
     
   }
   .simple-alphabetical-list {
-    .alphabetical-row ul li {
-      padding: 0;
-    }
-    .current-appointee {
-      @include core-19;
-      padding-bottom: 0;
+    
+    strong {
+      @include bold;
     }
 
-    .role {
-      @include core-14;
-      padding-top: 0;
-
-      a {
-        color: $body-text;
-      }
+    .role a {
+      color: $body-text;
     }
   }
 }

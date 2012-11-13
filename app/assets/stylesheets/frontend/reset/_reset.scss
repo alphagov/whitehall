@@ -11,9 +11,10 @@
   color: $body-text;
   border-top: 50px solid #f4f4f4;
   -webkit-font-smoothing: antialiased;
+  border-bottom: $gutter-one-third solid $inside-gov-secondary;
 
   @include media(desktop) {
-    padding-bottom: $gutter*4;
+    padding-bottom: $gutter*2;
   }
 
   #whitehall-inner {

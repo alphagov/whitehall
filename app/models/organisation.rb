@@ -67,6 +67,12 @@ class Organisation < ActiveRecord::Base
             class_name: "Policy",
             conditions: { "editions.state" => "published"},
             source: :edition
+  has_many :scheduled_editions,
+            through: :edition_organisations,
+            class_name: "Edition",
+            conditions: { state: "scheduled" },
+            order: "scheduled_publication ASC",
+            source: :edition
 
   has_many :document_series
 

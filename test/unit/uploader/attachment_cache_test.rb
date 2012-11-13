@@ -49,6 +49,15 @@ class Whitehall::Uploader::AttachmentCacheTest < ActiveSupport::TestCase
     assert_equal File.read(@pdf_path), result.read
   end
 
+  test "follows 302 redirect and downloads attachment from new location" do
+    old_url = "http://example.com/old.pdf"
+    new_url = "http://example.com/new.pdf"
+    stub_request(:get, old_url).to_return(body: "", status: 302, headers: {Location: new_url})
+    stub_request(:get, new_url).to_return(body: File.open(@pdf_path), status: 200)
+    result = @cache.fetch(old_url)
+    assert_equal File.read(@pdf_path), result.read
+  end
+
   test "allows attachments to be downloaded from https urls" do
     url = "https://example.com/attachment.pdf"
     stub_request(:get, url).to_return(body: File.open(@pdf_path), status: 200)
@@ -88,8 +97,23 @@ class Whitehall::Uploader::AttachmentCacheTest < ActiveSupport::TestCase
 
   test "adds a PDF extension if the file is detected as a PDF but has no extension" do
     url = "http://example.com/attachment"
-    stub_request(:get, url).to_return(body: File.open(@pdf_path), status: 200)
+    stub_request(:get, url).to_return(body: "", status: 200)
+    Whitehall::Uploader::AttachmentCache::FileTypeDetector.stubs(:detected_type).returns(:pdf)
     assert_equal "attachment.pdf", File.basename(@cache.fetch(url).path)
+  end
+
+  test "adds an XLS extension if the file is detected as an Excel file but has no extension" do
+    url = "http://example.com/attachment"
+    stub_request(:get, url).to_return(body: "", status: 200)
+    Whitehall::Uploader::AttachmentCache::FileTypeDetector.stubs(:detected_type).returns(:xls)
+    assert_equal "attachment.xls", File.basename(@cache.fetch(url).path)
+  end
+
+  test "adds an DOC extension if the file is detected as an Word file but has no extension" do
+    url = "http://example.com/attachment"
+    stub_request(:get, url).to_return(body: "", status: 200)
+    Whitehall::Uploader::AttachmentCache::FileTypeDetector.stubs(:detected_type).returns(:doc)
+    assert_equal "attachment.doc", File.basename(@cache.fetch(url).path)
   end
 
   private
