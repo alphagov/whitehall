@@ -377,6 +377,7 @@
             }
           }
         }
+      }
     
       .role a {
         text-decoration: none;
@@ -387,20 +388,20 @@
         }
       }
 
-        span {
-          display: block;
-          @include core-14;
-          padding-bottom: 0;
-          color: $low-contrast;
-        }
-        strong {
-          display: block;
-          @include core-19;
-        }
-        &.privy_counsellor strong {
-          padding-top: 0;
-        }
+      span {
+        display: block;
+        @include core-14;
+        padding-bottom: 0;
+        color: $low-contrast;
       }
+      strong {
+        display: block;
+        @include core-19;
+      }
+      &.privy_counsellor strong {
+        padding-top: 0;
+      }
+
       .role {
         @include core-14;
         padding-top: 2px;

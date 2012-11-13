@@ -105,6 +105,15 @@
           }
         }
         
+        strong {
+          display: block;
+          padding-top: 7px;
+        }
+        
+        .person-title+strong {
+          padding-top: 0;
+        }
+        
         span {
           display: inline;
           float: right;
