@@ -121,6 +121,7 @@ class Organisation < ActiveRecord::Base
   accepts_nested_attributes_for :social_media_accounts, allow_destroy: true
   accepts_nested_attributes_for :organisation_roles
   accepts_nested_attributes_for :edition_organisations
+  accepts_nested_attributes_for :organisation_topics, reject_if: -> attributes { attributes['topic_id'].blank? }, allow_destroy: true
 
   validates_with SafeHtmlValidator
   validates :name, presence: true, uniqueness: true

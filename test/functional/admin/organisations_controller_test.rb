@@ -90,6 +90,26 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert_equal OrganisationLogoType::BusinessInnovationSkills, organisation.organisation_logo_type
   end
 
+  test "creating correctly set ordering of topics" do
+    attributes = attributes_for(:organisation)
+
+    organisation_type = create(:organisation_type)
+    topic_ids = [create(:topic), create(:topic)].map(&:id)
+
+    post :create, organisation: attributes.merge(
+      organisation_topics_attributes: [
+        {topic_id: topic_ids[0], ordering: 1 },
+        {topic_id: topic_ids[1], ordering: 2 }
+      ],
+      organisation_type_id: organisation_type.id
+    )
+
+    assert organisation = Organisation.last
+    assert organisation.organisation_topics.map(&:ordering).all?(&:present?), "no ordering"
+    assert_equal organisation.organisation_topics.map(&:ordering).sort, organisation.organisation_topics.map(&:ordering).uniq.sort
+    assert_equal topic_ids, organisation.organisation_topics.sort_by(&:ordering).map(&:topic_id)
+  end
+
   test "creating should be able to create a new social media account for the organisation" do
     attributes = attributes_for(:organisation)
     organisation_type = create(:organisation_type)

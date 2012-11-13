@@ -474,4 +474,12 @@ class OrganisationTest < ActiveSupport::TestCase
     organisation.save!
     assert_equal "FOO123", organisation.reload.analytics_identifier
   end
+
+  test "topics are explicitly ordered" do
+    topics = [create(:topic), create(:topic)]
+    organisation = create(:organisation)
+    organisation.organisation_topics.create(topic_id: topics[0].id, ordering: 2)
+    organisation.organisation_topics.create(topic_id: topics[1].id, ordering: 1)
+    assert_equal [topics[1], topics[0]], organisation.topics
+  end
 end
