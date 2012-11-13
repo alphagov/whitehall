@@ -108,6 +108,23 @@
       }
       strong {
         @include bold;
+        border-left: 1em solid #eee;
+        padding-left: $gutter-one-third;
+      }
+      .dwp strong {
+        border-color: #912b88;
+      }
+      .hmrc strong {
+        border-color: #a755a0;
+      }
+      .moj strong {
+        border-color: #bd80b8;
+      }
+      .mod strong {
+        border-color: #e3aacf;
+      }
+      .others strong {
+        border-color: #e9d5e7;
       }
     }
     .caption {
