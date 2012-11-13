@@ -51,6 +51,25 @@
 
 // CORE FONTS - NEW TRANSPORT
 
+// Display size used for infographics and pull-quotes/splashes
+@mixin core-80($line-height: (80 / 80), $line-height-640: (55 / 53)) {
+  font-family: $NTA-Light;
+  @if $is-print == false {
+    font-size: 80px;
+    font-size: 8rem;
+  } @else {
+    font-size: 28pt;
+  }
+  line-height: $line-height;
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+  @media (max-width: 640px) {
+    font-size: 5.3rem;
+    line-height: $line-height-640;
+  }
+}
+
 // Suitable for page headings
 @mixin core-48 {
   font-family: $NTA-Light;
