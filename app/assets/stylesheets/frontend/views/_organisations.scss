@@ -643,6 +643,9 @@
     .block-2 {
       width: 66%;
       float: right;
+      .inner-block {
+        padding-left: $gutter-one-sixth;
+      }
     }
     .block-3 {
       width: 33%;
