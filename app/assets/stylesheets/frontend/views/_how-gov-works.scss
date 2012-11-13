@@ -5,6 +5,9 @@
 
   p, li{
     @include core-19;
+    a {
+      text-decoration: underline;
+    }
   }
   @media (min-width: 1px ){ // target modern browsers
     ul li {
@@ -163,6 +166,13 @@
     @include bold;
     display:block;
     line-height:1em;
+    a {
+      text-decoration: none;
+      &:hover,
+      &:focus {
+        text-decoration: underline;
+      }
+    }
   }
   
   .feature-caption {
@@ -184,6 +194,13 @@
       text-align: center;
       padding: 0;
       vertical-align: middle;
+      a {
+        text-decoration: none;
+        &:hover,
+        &:focus {
+          text-decoration: underline;
+        }
+      }
 
       .count {
         position: relative;
@@ -258,6 +275,13 @@
       padding:0;
       margin-bottom: $gutter-half;
       vertical-align: middle;
+      a {
+        text-decoration: none;
+        &:hover,
+        &:focus {
+          text-decoration: underline;
+        }
+      }
 
       .count{
         position: relative;
