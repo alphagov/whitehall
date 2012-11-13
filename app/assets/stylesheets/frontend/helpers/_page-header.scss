@@ -35,11 +35,9 @@
   }
   .organisations-icon-list {
     padding-bottom: $gutter-one-third;
-    .organisation {
-      padding-bottom: 0;
-    }
     .hm-government {
       padding-bottom: $gutter-one-sixth;
+      margin-bottom: $gutter-one-sixth;
     }
   }
 }

@@ -55,7 +55,7 @@
         padding: $gutter-half 0;
         
         @include media(tablet){
-          margin-top: $gutter*2.5;
+          margin-top: $gutter;
           float: right;
           width: 25%;
           padding: 0;
@@ -69,9 +69,14 @@
             float: none;
             margin-right: 0;
           }
+          
+          &.hm-government {
+            margin-bottom: $gutter-one-sixth;
+          }
         }
 
         .organisations-icon-list {
+          padding-bottom: ($gutter*0.25);
           @include media(tablet){
             margin-left: $gutter-half;
           }
