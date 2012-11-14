@@ -83,15 +83,8 @@
       }
       
       .current-appointee {
-        float: right;
-        width: 75%;
         @include core-19;
         padding-top: 0;
-        
-        @include media(tablet) {
-          float: none;
-          width: auto;
-        }
 
         a {
           &:hover,
