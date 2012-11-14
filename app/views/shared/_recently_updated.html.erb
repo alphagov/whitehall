@@ -14,7 +14,7 @@
         <%= published_or_updated(document) %>
         <%= relative_time(document.published_at, class: 'published-at') %>
       </td>
-      <td class="metadata"><span class="document_type type"><%= document.format_name.titleize %></span></td>
+      <td class="metadata"><span class="document_type type"><%= document.format_name.capitalize %></span></td>
     <% end %>
   <% end %>
   </tbody>
