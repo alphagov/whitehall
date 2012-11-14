@@ -14,9 +14,9 @@ class OrganisationsController < PublicFacingController
     if @organisation.live?
       @featured_editions = FeaturedEditionPresenter.decorate(@organisation.featured_edition_organisations.limit(6))
       @top_military_role = @organisation.top_military_role && RolePresenter.decorate(@organisation.top_military_role)
-      @policies = PolicyPresenter.decorate(@organisation.published_policies.by_published_at.limit(3))
+      @policies = PolicyPresenter.decorate(@organisation.published_policies.in_reverse_chronological_order.limit(3))
       @topics = @organisation.topics_with_content
-      @publications = PublicationesquePresenter.decorate(@organisation.published_publications.by_published_at.limit(3))
+      @publications = PublicationesquePresenter.decorate(@organisation.published_publications.in_reverse_chronological_order.limit(3))
       @announcements = AnnouncementPresenter.decorate(@organisation.published_announcements.in_reverse_chronological_order.limit(3))
       @ministers = ministers
       @civil_servants = civil_servants
