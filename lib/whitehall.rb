@@ -124,7 +124,11 @@ module Whitehall
     end
 
     def edition_classes
-      Edition.descendants - [Publicationesque, Announcement]
+      [NewsArticle, Speech, Policy, Publication, Consultation, InternationalPriority, DetailedGuide, CaseStudy, StatisticalDataSet]
+    end
+
+    def edition_route_path_segments
+      %w(news speeches policies publications consultations international-priorities detailed-guides case-studies statistical-data-sets)
     end
 
     def government_edition_classes
