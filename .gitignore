@@ -13,6 +13,5 @@
 /coverage
 /test/reports
 /incoming-uploads
-/clean-uploads
 /attachment-cache
 /*_import_errors.csv

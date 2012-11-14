@@ -154,9 +154,6 @@ Whitehall::Application.routes.draw do
 
   mount TestTrack::Engine => "test" if Rails.env.test?
 
-  match '/government/uploads/system/uploads/attachment_data/file/:id/*file.:extension' => "attachments#show"
-  match '/government/uploads/*path.:extension' => "public_uploads#show"
-
   match '/government/uploads/*path.:extension' => "placeholder#placeholder_image", constraints: { extension: /(jpe?g|gif|png)/i }
   match '/government/uploads/*path' => redirect("/placeholder"), as: :attachment_placeholder
 end
