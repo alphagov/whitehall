@@ -39,6 +39,47 @@ class GovspeakHelperLinkRewritingTest < ActionView::TestCase
     assert_rewrites_link(from: admin_supporting_page_url(supporting_page_2), to: public_supporting_page_url(policy_2, supporting_page_2))
   end
 
+  test "should rewrite link to an admin page for an organisation as a link to its public page" do
+    organisation = create(:organisation)
+    assert_rewrites_link(from: admin_organisation_url(organisation), to: organisation_url(organisation))
+  end
+
+  test "should not raise exception when link to an admin page for an organisation corporate information is present" do
+    organisation = create(:organisation, name: "department-for-communities-and-local-government")
+    page = create(:corporate_information_page, organisation: organisation)
+    path = admin_organisation_corporate_information_page_path(organisation, page)
+    assert_nothing_raised do
+      govspeak_to_html("[text](#{path})")
+    end
+  end
+
+  test "should not raise exception when link to an admin edit page for an organisation corporate information is present" do
+    organisation = create(:organisation, name: "department-for-communities-and-local-government")
+    page = create(:corporate_information_page, organisation: organisation)
+    path = edit_admin_organisation_corporate_information_page_path(organisation, page)
+    assert_nothing_raised do
+      govspeak_to_html("[text](#{path})")
+    end
+  end
+
+  test "should not raise exception when link to an admin page for an organisation document series is present" do
+    organisation = create(:organisation, name: "department-for-communities-and-local-government")
+    document_series = create(:document_series, organisation: organisation)
+    path = admin_organisation_document_series_path(organisation, document_series)
+    assert_nothing_raised do
+      govspeak_to_html("[text](#{path})")
+    end
+  end
+
+  test "should not raise exception when link to an admin edit page for an organisation document series is present" do
+    organisation = create(:organisation, name: "department-for-communities-and-local-government")
+    document_series = create(:document_series, organisation: organisation)
+    path = edit_admin_organisation_document_series_path(organisation, document_series)
+    assert_nothing_raised do
+      govspeak_to_html("[text](#{path})")
+    end
+  end
+
   test 'should rewrite admin link to an archived edition as a link to its published edition' do
     archived_edition, published_edition = create_archived_policy_with_published_edition
     assert_rewrites_link(from: admin_edition_url(archived_edition), to: public_document_url(published_edition))

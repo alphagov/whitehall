@@ -182,14 +182,6 @@ class GovspeakHelperTest < ActionView::TestCase
     assert_select_within_html html, ".govspeak .attachment.embedded a[href^='https://some.cdn.com/']"
   end
 
-  test "rewrites organisation links" do
-    organisation = create(:organisation)
-    url = admin_organisation_url(organisation)
-    govspeak = "this and [that](#{url}) yeah?"
-    html = govspeak_to_html(govspeak)
-    assert_select_within_html html, "a[href='#{organisation_url(organisation)}']"
-  end
-
   private
 
   def internal_preview_host

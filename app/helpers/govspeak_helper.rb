@@ -172,8 +172,11 @@ module GovspeakHelper
   end
 
   def find_organisation_from_uri(uri)
-    slug = uri.split("/").last
-    Organisation.find(slug)
+    organisation_id = nil
+    if uri[%r{/admin/organisations/([\w-]+)$}]
+      organisation_id = $1
+    end
+    Organisation.where(slug: organisation_id).first
   end
 
   def rewritten_href_for_edition(edition, supporting_page)
