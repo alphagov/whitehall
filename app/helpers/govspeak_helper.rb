@@ -64,8 +64,13 @@ module GovspeakHelper
     nokogiri_doc.search('a').each do |anchor|
       next unless is_internal_admin_link?(uri = anchor['href'])
 
-      edition, supporting_page = find_edition_and_supporting_page_from_uri(uri)
-      replacement_html = replacement_html_for(anchor, edition, supporting_page)
+      if is_admin_organisation_uri?(uri)
+        organisation = find_organisation_from_uri(uri)
+        replacement_html = replacement_html_for_organisation(anchor, organisation)
+      else
+        edition, supporting_page = find_edition_and_supporting_page_from_uri(uri)
+        replacement_html = replacement_html_for(anchor, edition, supporting_page)
+      end
       replacement_html = yield(replacement_html, edition) if block_given?
 
       anchor.replace Nokogiri::HTML.fragment(replacement_html)
@@ -76,6 +81,16 @@ module GovspeakHelper
     if edition.present? && edition.linkable?
       anchor.dup.tap do |anchor|
         anchor['href'] = rewritten_href_for_edition(edition, supporting_page)
+      end.to_html.html_safe
+    else
+      anchor.inner_text
+    end
+  end
+
+  def replacement_html_for_organisation(anchor, organisation)
+    if organisation.present?
+      anchor.dup.tap do |anchor|
+        anchor['href'] = rewritten_href_for_organisation(organisation)
       end.to_html.html_safe
     else
       anchor.inner_text
@@ -123,6 +138,26 @@ module GovspeakHelper
     end
   end
 
+  def is_admin_organisation_uri?(href)
+    return false unless href.is_a? String
+    begin
+      uri = Addressable::URI.parse(href)
+    rescue Addressable::URI::InvalidURIError
+      return false
+    end
+
+    admin_organisation_path = [Whitehall.router_prefix, "admin", "organisations"].join("/")
+
+    if %w(http https).include?(uri.scheme)
+
+      truncated_link_uri = [normalise_host(uri.host), uri.path.split("/")[1,3]].join("/")
+      truncated_host_uri = [normalise_host(request.host) + admin_organisation_path].join("/")
+      truncated_link_uri == truncated_host_uri
+    else
+      uri.path.start_with?(admin_organisation_path)
+    end
+  end
+
   def find_edition_and_supporting_page_from_uri(uri)
     edition_path_pattern = Whitehall.edition_route_path_segments.join("|")
     edition_id, supporting_page_id = nil
@@ -136,12 +171,21 @@ module GovspeakHelper
     [edition, supporting_page]
   end
 
+  def find_organisation_from_uri(uri)
+    slug = uri.split("/").last
+    Organisation.find(slug)
+  end
+
   def rewritten_href_for_edition(edition, supporting_page)
     if supporting_page
       public_supporting_page_url(edition, supporting_page)
     else
       public_document_url(edition)
     end
+  end
+
+  def rewritten_href_for_organisation(organisation)
+    organisation_url(organisation)
   end
 
   def normalise_host(host)
