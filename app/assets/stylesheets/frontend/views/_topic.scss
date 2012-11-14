@@ -32,8 +32,10 @@
     }
 
     h1 {
-      width: 75%;
-      float: left;
+      @include media(tablet) {
+        width: 75%;
+        float: left;
+      }
       
       .label {
         display: block;
@@ -46,17 +48,20 @@
         @include bold;
       }
     }
-    .meta {
+    .meta {      
       margin-top: $gutter;
-      float: right;
-      width: 25%;
-      padding: 0;
 
-      .organisations-icon-list {
-        margin-left: $gutter-half;
-      }
-      .show-other-content {
-        margin-left: $gutter-two-thirds;
+      @include media(tablet) {
+        float: right;
+        width: 25%;
+        padding: 0;
+
+        .organisations-icon-list {
+          margin-left: $gutter-half;
+        }
+        .show-other-content {
+          margin-left: $gutter-two-thirds;
+        }
       }
     }
   }
