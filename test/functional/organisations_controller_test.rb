@@ -169,6 +169,15 @@ class OrganisationsControllerTest < ActionController::TestCase
     end
   end
 
+  test "doesn't show a thumbnail if the organisation has no url" do
+    organisation = create(:organisation, govuk_status: 'exempt', url: '')
+
+    get :show, id: organisation
+
+    assert_select ".description a[href=?]", organisation.url
+    assert_select ".thumbnail", false
+  end
+
   test "should not display an empty published policies section" do
     organisation = create(:organisation)
     get :show, id: organisation
