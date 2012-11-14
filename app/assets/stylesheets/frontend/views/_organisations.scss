@@ -84,6 +84,7 @@
 
         .child-organisations {
           display: none;
+
         }
       }
     }
@@ -91,7 +92,10 @@
       clear: both;
       margin: 0 (-15px);
       background: $info-background;
+      p{
+        padding-bottom:$gutter-half;
 
+      }
       .child-inner {
         padding: $gutter-half;
       }
