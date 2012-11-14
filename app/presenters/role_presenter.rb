@@ -56,7 +56,7 @@ class RolePresenter < Draper::Base
       name
     end
 
-    def image_url
+    def image_url(size)
       "blank-person.png"
     end
 

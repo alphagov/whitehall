@@ -1,10 +1,11 @@
 <%
   extra_class ||= ""
+  image_size ||= :s300
 %>
 <%= content_tag_for(:article, edition, nil, class: "#{edition_organisation_class(edition)} #{extra_class}") do %>
   <div class="content">
     <%= link_to public_document_path(edition) do %>
-      <span class="img"><%= edition.image_tag %></span>
+      <span class="img"><%= edition.image_tag(image_size) %></span>
       <h2><%= edition.title %></h2>
     <% end %>
     <% unless edition.summary.blank? %>

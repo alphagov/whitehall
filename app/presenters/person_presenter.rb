@@ -44,7 +44,7 @@ class PersonPresenter < Draper::Base
   end
 
   def image
-    img = image_url || 'blank-person.png'
+    img = image_url(:s216) || 'blank-person.png'
     h.image_tag img, alt: name
   end
 end
