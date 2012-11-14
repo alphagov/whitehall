@@ -264,11 +264,13 @@
       }
     }
     .secondary {
+      clear: both;
+
       @include media(tablet){
         width: 33%;
+        clear: none;
       }
-
-      @include media(desktop){
+      @include media(tablet){
         &.item-0,
         &.item-1 {
           .summary {
@@ -277,6 +279,32 @@
         }
         &.item-2 {
           clear:left;
+        }
+      }
+
+      .img-holder {
+        width: 25%;
+        float: left;
+        @include media(tablet){
+          width: 100%;
+          float: none;
+        }
+
+        .img {
+          display: block;
+          padding: $gutter-one-third $gutter-half 0 0;
+          @include media(tablet){
+            padding: 0;
+          }
+        }
+      }
+
+      .text {
+        float: left;
+        width: 75%;
+        @include media(tablet){
+          float: none;
+          width: 100%;
         }
       }
       h2 {
@@ -343,9 +371,12 @@
     .ministerial_role,
     .board_member_role,
     .military_role,
-    .traffic_commissioner_role
-    {
+    .traffic_commissioner_role {
       list-style: none;
+      clear: left;
+      @include media(tablet){
+        clear: none;
+      }
 
       @include media(tablet) {
         float: left;
@@ -361,15 +392,28 @@
       }
 
       .image_holder {
-        float: none;
+        float: left;
         margin: 0;
-        width: 100%;
+        width: 25%;
 
-        img {
-          display: block;
+        @include media(tablet){
+          float: none;
           width: 100%;
-          height: auto;
-          min-height: 50px;
+        }
+
+        span {
+          padding: $gutter-one-third $gutter-half 0 0;
+
+          @include media(desktop){
+            padding: 0;
+          }
+
+          img {
+            display: block;
+            width: 100%;
+            height: auto;
+            min-height: 50px;
+          }
         }
       }
 

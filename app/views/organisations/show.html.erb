@@ -119,7 +119,9 @@
                   <div class="inner">
                     <h1 class="visuallyhidden">Minister</h1>
                     <div class="image_holder">
-                      <%= minister.current_person_image %>
+                      <span class="img">
+                        <%= minister.current_person_image %>
+                      </span>
                     </div>
                     <h3 class="current-appointee<%= " privy_counsellor" if minister.current_person.privy_counsellor? %>">
                       <%= minister.current_person_link %>
@@ -141,7 +143,9 @@
                   <div class="inner">
                     <h1 class="visuallyhidden">Board member</h1>
                     <div class="image_holder">
-                      <%= @civil_servants.first.current_person_image %>
+                      <span class="img">
+                        <%= @civil_servants.first.current_person_image %>
+                      </span>
                     </div>
                     <h3 class="current-appointee"><%= @civil_servants.first.current_person_link %></h3>
                     <p class="role"><%= @civil_servants.first.link %></p>
