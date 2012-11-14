@@ -9,18 +9,9 @@
       text-decoration: underline;
     }
   }
-  @media (min-width: 1px ){ // target modern browsers
-    ul li {
-      padding-left: $gutter-half;
-      list-style: none;
-      &:before {
-        content: "-";
-        position: relative;
-        float: left;
-        width: $gutter-half;
-        margin-left: $gutter-half*-1;
-      }
-    }
+  
+  li {
+    margin-left: $gutter;
   }
 
   .thirds-width-section,
