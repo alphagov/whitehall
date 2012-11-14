@@ -98,10 +98,10 @@
     color: orange
   }
 
-  a[rel=external]:after {
-    content: '';
-  }
   .govspeak {
+    a[rel=external]:after {
+      content: '';
+    }
     a[rel=external] {
       padding-right: 18px;
       margin-right: 2px;

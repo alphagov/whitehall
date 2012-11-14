@@ -1,4 +1,9 @@
 .organisations-index {
+
+  .omissions {
+    margin-top: $gutter*2;
+  }
+
   .page-header {
     padding: $gutter-half 0;
     @extend %contain-floats;
@@ -377,6 +382,7 @@
             }
           }
         }
+      }
     
       .role a {
         text-decoration: none;
@@ -387,20 +393,20 @@
         }
       }
 
-        span {
-          display: block;
-          @include core-14;
-          padding-bottom: 0;
-          color: $low-contrast;
-        }
-        strong {
-          display: block;
-          @include core-19;
-        }
-        &.privy_counsellor strong {
-          padding-top: 0;
-        }
+      span {
+        display: block;
+        @include core-14;
+        padding-bottom: 0;
+        color: $low-contrast;
       }
+      strong {
+        display: block;
+        @include core-19;
+      }
+      &.privy_counsellor strong {
+        padding-top: 0;
+      }
+
       .role {
         @include core-14;
         padding-top: 2px;
@@ -642,6 +648,9 @@
     .block-2 {
       width: 66%;
       float: right;
+      .inner-block {
+        padding-left: $gutter-one-sixth;
+      }
     }
     .block-3 {
       width: 33%;

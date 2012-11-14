@@ -9,18 +9,9 @@
       text-decoration: underline;
     }
   }
-  @media (min-width: 1px ){ // target modern browsers
-    ul li {
-      padding-left: $gutter-half;
-      list-style: none;
-      &:before {
-        content: "-";
-        position: relative;
-        float: left;
-        width: $gutter-half;
-        margin-left: $gutter-half*-1;
-      }
-    }
+  
+  li {
+    margin-left: $gutter;
   }
 
   .thirds-width-section,
@@ -115,19 +106,19 @@
         padding-left: $gutter-one-third;
       }
       .dwp strong {
-        border-color: #912b88;
+        border-color: #00beb7;
       }
       .hmrc strong {
-        border-color: #a755a0;
+        border-color: #008080;
       }
       .moj strong {
-        border-color: #bd80b8;
+        border-color: #231f20;
       }
       .mod strong {
-        border-color: #e3aacf;
+        border-color: #7A5F71;
       }
       .others strong {
-        border-color: #e9d5e7;
+        border-color: #c8c8c8;
       }
     }
     .caption {

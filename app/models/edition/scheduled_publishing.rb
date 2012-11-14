@@ -168,7 +168,7 @@ module Edition::ScheduledPublishing
     end
 
     def scheduled_publication_must_be_in_the_future?
-      draft? || submitted? || (state_was == 'rejected' && rejected?)
+      (draft? && state_was == 'draft') || submitted? || (state_was == 'rejected' && rejected?)
     end
   end
 end

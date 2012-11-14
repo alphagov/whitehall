@@ -1,6 +1,8 @@
 require 'test_helper'
 
 class ApplicationHelperTest < ActionView::TestCase
+  include ERB::Util
+
   test "should supply options with IDs and descriptions for the all ministerial appointments" do
     theresa_may_appointment = appoint_minister(forename: "Theresa", surname: "May", role: "Secretary of State", organisation: "Home Office", started_at: Date.parse('2011-01-01'))
     philip_hammond_appointment = appoint_minister(forename: "Philip", surname: "Hammond", role: "Secretary of State", organisation: "Ministry of Defence", started_at: Date.parse('2011-01-01'))
@@ -52,7 +54,7 @@ class ApplicationHelperTest < ActionView::TestCase
     assert format_in_paragraphs("").html_safe?
   end
 
-  test "should format with html line breaks and mark the string as html safe" do
+  test "should format with html line breaks, escape special chars and mark the string as html safe" do
     assert_equal "", format_with_html_line_breaks(nil)
     assert_equal "", format_with_html_line_breaks("")
     assert_equal "line 1", format_with_html_line_breaks("line 1")
@@ -60,6 +62,7 @@ class ApplicationHelperTest < ActionView::TestCase
     assert_equal "line 1<br/>line 2", format_with_html_line_breaks("line 1\r\nline 2")
     assert_equal "line 1<br/><br/>line 2", format_with_html_line_breaks("line 1\n\nline 2")
     assert_equal "line 1<br/><br/>line 2", format_with_html_line_breaks("line 1\r\n\r\nline 2")
+    assert_equal "&lt;script&gt;&amp;", format_with_html_line_breaks("<script>&")
     assert format_with_html_line_breaks("").html_safe?
   end
 

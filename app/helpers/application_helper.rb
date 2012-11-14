@@ -42,7 +42,7 @@ module ApplicationHelper
   end
 
   def format_with_html_line_breaks(string)
-    (string||"").gsub(/(?:\r?\n)/, "<br/>").html_safe
+    (h(string)||"").gsub(/(?:\r?\n)/, "<br/>").html_safe
   end
 
   def link_to_attachment(attachment)
@@ -202,7 +202,11 @@ module ApplicationHelper
   def current_main_navigation_path(parameters)
     case parameters[:controller]
     when "home"
-      how_government_works_path
+      if parameters[:action] == 'home'
+        root_path
+      else
+        how_government_works_path
+      end
     when "site"
         root_path
     when "announcements", "news_articles", "speeches"

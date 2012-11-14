@@ -6,3 +6,16 @@
 
 Mime::Type.unregister :html
 Mime::Type.register "text/html", :html, %w( application/xhtml+xml application/vnd.wap.xhtml+xml), %w( xhtml )
+Mime::Type.register "text/rtf", :rtf
+
+Mime::Type.register "image/jpeg", :jpg, [], %w( jpeg )
+Mime::Type.register "image/png", :png
+
+Mime::Type.register "application/zip", :zip
+Mime::Type.register "application/pdf", :pdf
+Mime::Type.register "application/msword", :doc
+Mime::Type.register "application/vnd.openxmlformats-officedocument.wordprocessingml.document", :docx
+Mime::Type.register "application/vnd.ms-excel", :xls
+Mime::Type.register "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", :xlsx
+Mime::Type.register "application/vnd.ms-powerpoint", :ppt
+Mime::Type.register "application/vnd.openxmlformats-officedocument.presentationml.presentation", :pptx

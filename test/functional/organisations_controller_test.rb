@@ -234,39 +234,52 @@ class OrganisationsControllerTest < ActionController::TestCase
 
   test "should display the organisation's policies with content" do
     organisation = create(:organisation)
-    policies = [0, 1, 2].map { |n| create(:published_policy, organisations: [organisation]) }
+    policy = create(:published_policy, organisations: [organisation], summary: "policy-summary")
     get :show, id: organisation
     assert_select "#policies" do
-      assert_select_object policies[1] do
-        assert_select '.summary', text: policies[1].summary
-      end
-      assert_select_object policies[2] do
-        assert_select '.summary', text: policies[2].summary
-      end
-      assert_select_object policies[0] do
-        assert_select '.summary', text: policies[0].summary
+      assert_select_object policy do
+        assert_select '.summary', text: "policy-summary"
       end
     end
   end
 
+  test "should display organisation's latest three policies" do
+    organisation = create(:organisation)
+    policy_2 = create(:published_policy, organisations: [organisation], first_published_at: 2.days.ago)
+    policy_4 = create(:published_policy, organisations: [organisation], first_published_at: 4.days.ago)
+    policy_3 = create(:published_policy, organisations: [organisation], first_published_at: 3.days.ago)
+    policy_1 = create(:published_policy, organisations: [organisation], first_published_at: 1.day.ago)
+    get :show, id: organisation
+    assert_equal [policy_1, policy_2, policy_3], assigns[:policies]
+  end
+
   test "should display the organisation's publications with content" do
     organisation = create(:organisation)
-    publications = [0, 1, 2].map { |n| create(:published_publication, organisations: [organisation]) }
+    publication = create(:published_publication, organisations: [organisation], publication_type: PublicationType::PolicyPaper, publication_date: Date.parse("2012-01-01"))
+    consultation = create(:published_consultation, organisations: [organisation], first_published_at: Time.zone.parse("2012-01-01 01:01:01"))
+
     get :show, id: organisation
+
     assert_select "#publications" do
-      assert_select_object publications[1] do
-        assert_select '.publication-date'
-        assert_select '.document-type'
+      assert_select_object publication do
+        assert_select '.publication-date abbr[title=?]', Date.parse("2012-01-01").iso8601
+        assert_select '.document-type', "Policy paper"
       end
-      assert_select_object publications[2] do
-        assert_select '.publication-date'
-        assert_select '.document-type'
-      end
-      assert_select_object publications[0] do
-        assert_select '.publication-date'
-        assert_select '.document-type'
+      assert_select_object consultation do
+        assert_select '.publication-date abbr[title=?]', Time.zone.parse("2012-01-01 01:01:01").iso8601
+        assert_select '.document-type', "Open consultation"
       end
     end
+  end
+
+  test "should display organisation's latest three publications" do
+    organisation = create(:organisation)
+    publication_2 = create(:published_publication, organisations: [organisation], publication_date: 2.days.ago)
+    publication_4 = create(:published_publication, organisations: [organisation], publication_date: 4.days.ago)
+    publication_3 = create(:published_publication, organisations: [organisation], publication_date: 3.days.ago)
+    publication_1 = create(:published_publication, organisations: [organisation], publication_date: 1.day.ago)
+    get :show, id: organisation
+    assert_equal [publication_1, publication_2, publication_3], assigns[:publications]
   end
 
   test "should display announcements in reverse chronological order" do

@@ -33,13 +33,9 @@
   }
 }
 
-.organisation-logo-no-identity {
-}
 .organisation-logo-stacked-no-identity {
-  @extend .organisation-logo-no-identity;
 }
 .organisation-logo-identity {
-  @extend .organisation-logo-no-identity;
   border-left: 2px solid;
 }
 
@@ -280,7 +276,6 @@
 
 // Non-cornforming Medium
 .organisation-logo-no-identity-medium {
-  @extend .organisation-logo-no-identity;
   @include media(tablet){
     font-size: 18px;
     line-height: 20px;
@@ -561,8 +556,8 @@
 
 
 // Non-conforming Largr
-.organisation-logo-no-identity-large {
-  @extend .organisation-logo-no-identity;
+.organisation-logo-no-identity-large,
+.organisation-logo-stacked-no-identity-large {
   @include media(tablet){
     font-size: 27px;
     line-height: 30px;

@@ -12,14 +12,16 @@ class GovspeakHelperLinkRewritingTest < ActionView::TestCase
   end
   attr_reader :request
 
-  test "should rewrite absolute link to an admin page for a published speech as link to its public page" do
-    speech = create(:published_speech)
-    assert_rewrites_link(from: admin_edition_url(speech), to: public_document_url(speech))
-  end
+  Whitehall.edition_classes.each do |edition_class|
+    test "should rewrite absolute link to an admin page for a published #{edition_class} as link to its public page" do
+      edition = create("published_#{edition_class.name.underscore}")
+      assert_rewrites_link(from: admin_edition_url(edition), to: public_document_url(edition))
+    end
 
-  test "should rewrite relative link to an admin page for a published speech as link to its public page" do
-    speech = create(:published_speech)
-    assert_rewrites_link(from: admin_edition_path(speech), to: public_document_url(speech))
+    test "should rewrite relative link to an admin page for a published #{edition_class} as link to its public page" do
+      edition = create("published_#{edition_class.name.underscore}")
+      assert_rewrites_link(from: admin_edition_path(edition), to: public_document_url(edition))
+    end
   end
 
   test "should rewrite absolute link to an admin page for a published supporting page as link to its public page" do

@@ -2,6 +2,8 @@ class Admin::OrganisationsController < Admin::BaseController
   before_filter :build_organisation, only: [:new]
   before_filter :build_organisation_roles, only: [:new]
   before_filter :load_organisation, only: [:show, :edit, :update, :destroy]
+  before_filter :build_organisation_topics, only: [:new, :edit]
+  before_filter :delete_absent_organisation_topics, only: [:update]
   before_filter :build_social_media_account, only: [:new, :edit]
   before_filter :destroy_blank_phone_numbers, only: [:create, :update]
   before_filter :destroy_blank_social_media_accounts, only: [:create, :update]
@@ -57,6 +59,25 @@ class Admin::OrganisationsController < Admin::BaseController
     @ministerial_organisation_roles = []
     @board_member_organisation_roles = []
     @traffic_commissioner_organisation_roles = []
+  end
+
+  def build_organisation_topics
+    n = @organisation.organisation_topics.count
+    @organisation.organisation_topics.each.with_index do |ot, i|
+      ot.ordering = i
+    end
+    (n...10).each do |i|
+      @organisation.organisation_topics.build(ordering: i)
+    end
+  end
+
+  def delete_absent_organisation_topics
+    return unless params[:organisation] && params[:organisation][:organisation_topics_attributes]
+    params[:organisation][:organisation_topics_attributes].each do |p|
+      if p[:topic_id].blank?
+        p["_destroy"] = true
+      end
+    end
   end
 
   def load_organisation

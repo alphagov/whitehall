@@ -27,6 +27,7 @@ Whitehall::Application.routes.draw do
   scope Whitehall.router_prefix, shallow_path: Whitehall.router_prefix do
     root to: "home#sunset"
     match '/home' => 'home#home'
+    match "/how-government-works" => "home#how-government-works", as: 'how_government_works'
     match '/feed' => 'home#feed', constraints: { format: :atom }, as: :atom_feed
     match '/tour' => redirect("/tour", prefix: "")
 
@@ -77,7 +78,6 @@ Whitehall::Application.routes.draw do
 
     match "/search" => "search#index"
     match "/autocomplete" => "search#autocomplete"
-    match "/how-government-works" => "home#how-government-works", as: 'how_government_works'
 
     constraints(AdminRequest) do
       namespace :admin do
@@ -153,6 +153,9 @@ Whitehall::Application.routes.draw do
   match ':id' => 'detailed_guides#show', constraints: {id: /[A-z0-9\-]+/}, as: 'detailed_guide'
 
   mount TestTrack::Engine => "test" if Rails.env.test?
+
+  match '/government/uploads/system/uploads/attachment_data/file/:id/*file.:extension' => "attachments#show"
+  match '/government/uploads/*path.:extension' => "public_uploads#show"
 
   match '/government/uploads/*path.:extension' => "placeholder#placeholder_image", constraints: { extension: /(jpe?g|gif|png)/i }
   match '/government/uploads/*path' => redirect("/placeholder"), as: :attachment_placeholder

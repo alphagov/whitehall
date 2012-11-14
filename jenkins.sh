@@ -7,3 +7,6 @@ time bundle exec rake db:create db:migrate db:test:prepare --trace && \
 RAILS_ENV=production SKIP_OBSERVERS_FOR_ASSET_TASKS=true time bundle exec rake assets:clean --trace && \
 RAILS_ENV=test CUCUMBER_FORMAT=progress TEST_COVERAGE=true time bundle exec rake ci:setup:minitest default test:cleanup --trace && \
 RAILS_ENV=production SKIP_OBSERVERS_FOR_ASSET_TASKS=true time bundle exec rake assets:precompile --trace
+EXIT_STATUS=$?
+echo "EXIT STATUS: $EXIT_STATUS"
+exit $EXIT_STATUS
