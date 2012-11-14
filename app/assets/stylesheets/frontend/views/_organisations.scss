@@ -1,4 +1,9 @@
 .organisations-index {
+
+  .omissions {
+    margin-top: $gutter*2;
+  }
+
   .page-header {
     padding: $gutter-half 0;
     @extend %contain-floats;
