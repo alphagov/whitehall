@@ -7,6 +7,6 @@ CarrierWave.configure do |config|
     require 'whitehall/quarantined_file_storage'
     config.storage Whitehall::QuarantinedFileStorage
     config.incoming_root = Rails.root.join 'incoming-uploads'
-    config.clean_root = Rails.root.join 'public'
+    config.clean_root = Rails.root.join 'public/government/uploads'
   end
 end

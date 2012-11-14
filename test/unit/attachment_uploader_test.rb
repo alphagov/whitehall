@@ -8,6 +8,12 @@ class AttachmentUploaderTest < ActiveSupport::TestCase
     assert_equal %w(pdf csv rtf png jpg doc docx xls xlsx ppt pptx zip), uploader.extension_white_list
   end
 
+  test "should store uploads in a directory that persists across deploys" do
+    model = stub("AR Model", id: 1)
+    uploader = AttachmentUploader.new(model, "mounted-as")
+    assert_match /^system/, uploader.store_dir
+  end
+
   test "should not generate thumbnail versions of non pdf files" do
     AttachmentUploader.enable_processing = true
 

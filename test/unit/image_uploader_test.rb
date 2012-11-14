@@ -16,6 +16,12 @@ class ImageUploaderTest < ActiveSupport::TestCase
     assert_equal %w(jpg jpeg gif png), uploader.extension_white_list
   end
 
+  test "should store uploads in a directory that persists across deploys" do
+    model = stub("AR Model", id: 1)
+    uploader = ImageUploader.new(model, "mounted-as")
+    assert_match /^system/, uploader.store_dir
+  end
+
   test "should create resized versions of the image" do
     model = stub("AR Model", id: 1)
     @uploader = ImageUploader.new(model, "mounted-as")
