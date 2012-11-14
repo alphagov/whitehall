@@ -85,7 +85,7 @@
   // section specific styles
 
   .intro-section {
-    margin-top: ($gutter*2);
+    margin-top: $gutter*1.5;;
 
     h1 {
       @include bold;
@@ -129,6 +129,33 @@
       @include core-80;
       @include bold;
       display: block;
+
+      @include media(tablet) {
+        @include core-48;
+      }
+
+      @include media(desktop) {
+        @include core-80;
+      }
+    }
+
+    h2 {
+      @include media(tablet) {
+        padding-right: 33%;
+        min-height: (30/27)*3em;
+      }
+
+      @include media($min-width: '753px') {
+        min-height: (30/27)*2em;
+      }
+
+      @include media(desktop) {
+        min-height: auto;
+      }
+
+      @include media($min-width: '900px') {
+        padding-right: 0;
+      }
     }
 
     .departments {
@@ -142,7 +169,7 @@
       margin-top: $gutter*2;
     }
 
-    @include media(desktop) {
+    @include media(tablet) {
       padding: 0;
       clear: both;
 
@@ -175,7 +202,7 @@
       @include core-16;
     }
 
-    @include media(desktop) {
+    @include media(tablet) {
       clear: both;
       padding: 0 $gutter-half;
 

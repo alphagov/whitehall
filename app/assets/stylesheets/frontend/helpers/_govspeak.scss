@@ -150,7 +150,7 @@
   .call-to-action {
     margin: $gutter 0 $gutter $gutter-half*-1;
     background: $info-background none no-repeat 98% $gutter-two-thirds;
-    padding: $gutter-one-third 55px $gutter-one-third $gutter-half;
+    padding: $gutter-one-third ($gutter*2) $gutter-one-third $gutter-half;
     position: relative;
     p {
       margin: 0;
