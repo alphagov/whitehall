@@ -1,7 +1,8 @@
 .organisations-index {
 
   .omissions {
-    margin-top: $gutter*2;
+    padding: $gutter*2 $gutter 0;
+    clear: both;
   }
 
   .page-header {
