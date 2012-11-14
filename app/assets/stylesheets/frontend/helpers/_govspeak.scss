@@ -58,7 +58,6 @@
   }
 
   li {
-    width: 90%;
     @include core-19;
     margin-left: $gutter*1.2;
 
@@ -68,6 +67,7 @@
 
     @media (min-width: 768px) {
       margin-left: 0;
+      width: 90%;
 
       li {
         margin-left: $gutter*2;
