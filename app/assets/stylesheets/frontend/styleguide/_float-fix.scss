@@ -1,7 +1,5 @@
 // helpers for containing floats
 
-@import "_media-queries";
-
 %contain-floats {
   &:after {
     content: ".";
