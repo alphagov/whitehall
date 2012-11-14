@@ -202,7 +202,11 @@ module ApplicationHelper
   def current_main_navigation_path(parameters)
     case parameters[:controller]
     when "home"
-      how_government_works_path
+      if parameters[:action] == 'home'
+        root_path
+      else
+        how_government_works_path
+      end
     when "site"
         root_path
     when "announcements", "news_articles", "speeches"
