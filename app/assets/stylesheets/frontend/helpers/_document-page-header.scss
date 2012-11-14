@@ -62,14 +62,12 @@
         }
         
         li {
-          float: left;
-          margin-right: $gutter-half;
-        
+          margin-left: 0;
+
           @include media(tablet) {
-            float: none;
-            margin-right: 0;
+            margin-left: 7px;
           }
-          
+
           &.hm-government {
             margin-bottom: $gutter-one-sixth;
           }
