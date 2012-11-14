@@ -29,3 +29,16 @@ task :organisation_screenshots => :environment do
     end
   end
 end
+
+namespace :organisation_screenshots do
+  task :clean => :environment do
+    screenshot_root = Rails.root + "app/assets/images/organisation_screenshots"
+    all_slugs = Organisation.all.map(&:slug)
+
+    Dir[File.join(screenshot_root, "*")].each do |file|
+      unless all_slugs.include?(File.basename(file, ".png"))
+        FileUtils.rm(file)
+      end
+    end
+  end
+end
