@@ -1,4 +1,20 @@
 .people-list {
+  .page-header {
+    padding: $gutter-half 0;
+    @include media(tablet){
+      padding: $gutter*1.5 0 ($gutter + $gutter-one-third);
+      width: 75%;
+    }
+    .title {
+      @include light;
+      padding-bottom: 0;
+    }
+    .label {
+      @include core-48;
+      @include bold;
+      padding-top: 0;
+    }
+  }
   .alphabetical-list .alphabetical-row li {
     padding: 0 0 $gutter-half 0;
     float: none;
