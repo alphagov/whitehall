@@ -2,24 +2,52 @@ require "csv"
 
 namespace :export do
 
-  desc "Export list of documents (CREATED_SINCE timestamp optional)"
+  PUBLIC_HOST = "www.gov.uk"
+  ADMIN_HOST = "whitehall-admin.production.alphagov.co.uk"
+
+  desc "Export list of documents"
   task :document_list => :environment do
-    include Rails.application.routes.url_helpers
-    include Admin::EditionRoutesHelper
-
-    created_since_text = ENV['CREATED_SINCE']
-    created_since = created_since_text.present? ? Time.zone.parse(created_since_text) : Time.at(0)
-    document_identities = Document.includes(:latest_edition).where('document_identities.created_at >= :created_since', created_since: created_since)
-    documents = document_identities.map(&:latest_edition).compact
-
     CSV do |csv|
-      csv << ["Title", "Admin URL", "State", "Type", "Authors"]
-      documents.each do |document|
-        author_names = document.edition_authors.map(&:user).uniq.map(&:name)
-        admin_url = "https://whitehall.production.alphagov.co.uk" + admin_edition_path(document)
-        csv << [document.title, admin_url, document.state, document.type, *author_names]
+      csv << [
+        "Document ID",
+        "Document slug",
+        "Document type",
+        "Document latest edition state",
+        "Document public URL",
+        "Edition ID",
+        "Edition title",
+        "Edition state",
+        "Admin edition URL",
+        "Authors..."
+      ]
+      Document.find_each do |document|
+        document.editions.sort_by(&:id).each do |edition|
+          csv << [
+            document.id,
+            document.slug,
+            document.document_type,
+            document.latest_edition.state,
+            document.published? ? routes_helper.public_document_url(edition, host: PUBLIC_HOST, protocol: "https") : nil,
+            edition.id,
+            edition.title,
+            edition.state,
+            routes_helper.admin_edition_url(edition, host: ADMIN_HOST, protocol: "https"),
+            *edition.authors.uniq.map(&:name)
+          ]
+        end
       end
     end
+  end
+
+  def routes_helper
+    @routes_helper ||= Class.new do
+      include Rails.application.routes.url_helpers
+      include PublicDocumentRoutesHelper
+      include Admin::EditionRoutesHelper
+      def request
+        OpenStruct.new(host: PUBLIC_HOST)
+      end
+    end.new
   end
 
 end
