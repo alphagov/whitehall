@@ -137,8 +137,10 @@
     }
 
     .title-block {
-      float: left;
-      width: 50%;
+      @include media(tablet) {
+        float: left;
+        width: 50%;
+      }
 
       h1 {
         padding-left: 0;
