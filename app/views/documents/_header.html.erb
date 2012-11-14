@@ -43,7 +43,7 @@
       <% end %>
       <% if document.respond_to?(:countries) && document.countries.any? %>
         <dt><%= document.countries.length == 1 ? "Country" : "Countries" %>:</dt>
-        <dd class="document-countries js-hide-other-links"><%= list_of_links_to_countries(document.countries) %></dd>
+        <dd class="document-countries js-hide-other-links"><%= list_of_links_to_countries_once_world_goes_live(document.countries) %></dd>
       <% end %>
       <% if document.respond_to?(:inapplicable_nations) && document.inapplicable_nations.any? %>
         <dt>Applies to:</dt>
