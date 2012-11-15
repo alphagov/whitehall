@@ -12,9 +12,16 @@ class CorporateInformationPage < ActiveRecord::Base
   validates :organisation, :body, :type, presence: true
   validates :type_id, uniqueness: {scope: :organisation_id, message: "already exists for this organisation"}
 
-  def self.for_slug(slug)
-    type = CorporateInformationPageType.find(slug)
-    find_by_type_id!(type.id)
+  class << self
+    def for_slug!(slug)
+      type = CorporateInformationPageType.find(slug)
+      find_by_type_id!(type.id)
+    end
+
+    def for_slug(slug)
+      type = CorporateInformationPageType.find(slug)
+      where(type_id: type.id).first
+    end
   end
 
   def type

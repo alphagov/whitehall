@@ -35,7 +35,7 @@ class Admin::CorporateInformationPagesController < Admin::BaseController
     end
   rescue ActiveRecord::StaleObjectError
     flash.now[:alert] = %{This page has been saved since you opened it. Your version appears at the top and the latest version appears at the bottom. Please incorporate any relevant changes into your version and then save it.}
-    @conflicting_corporate_information_page = @organisation.corporate_information_pages.for_slug(params[:id])
+    @conflicting_corporate_information_page = @organisation.corporate_information_pages.for_slug!(params[:id])
     @corporate_information_page.lock_version = @conflicting_corporate_information_page.lock_version
     build_attachment
     render action: "edit"
@@ -55,7 +55,7 @@ class Admin::CorporateInformationPagesController < Admin::BaseController
 private
 
   def find_corporate_information_page
-    @corporate_information_page = @organisation.corporate_information_pages.for_slug(params[:id])
+    @corporate_information_page = @organisation.corporate_information_pages.for_slug!(params[:id])
   end
 
   def build_corporate_information_page
