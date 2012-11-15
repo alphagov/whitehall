@@ -105,6 +105,14 @@ That's all
     assert_select "link[rel=alternate][href=?]", api_detailed_guide_url(detailed_guide.document)
   end
 
+  test "the format name is being set to 'detailed_guidance'" do
+    guide = create(:published_detailed_guide)
+
+    get :show, id: guide.document
+
+    assert_equal "detailed_guidance", response.headers["X-Slimmer-Format"]
+  end
+
   private
 
   def given_two_detailed_guides_in_two_organisations

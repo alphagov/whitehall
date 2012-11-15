@@ -25,10 +25,6 @@ module Admin::EditionsHelper
     params[:state] == 'active'
   end
 
-  def show_featuring_controls?(*editions)
-    !viewing_all_active_editions? && params[:type] && editions.any?(&:featurable?)
-  end
-
   class EditionFormBuilder < Whitehall::FormBuilder
     def alternative_format_provider_select
       if object.respond_to?(:alternative_format_provider)

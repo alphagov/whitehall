@@ -27,7 +27,7 @@ Whitehall::Application.routes.draw do
   scope Whitehall.router_prefix, shallow_path: Whitehall.router_prefix do
     root to: "home#home"
     match "/how-government-works" => "home#how-government-works", as: 'how_government_works'
-    match '/feed' => 'home#feed', constraints: { format: :atom }, as: :atom_feed
+    match '/feed' => 'home#feed', defaults: { format: :atom }, constraints: { format: :atom }, as: :atom_feed
     match '/tour' => redirect("/tour", prefix: "")
 
     resources :announcements, only: [:index], path: 'announcements'
@@ -101,7 +101,6 @@ Whitehall::Application.routes.draw do
             post :schedule, to: 'edition_workflow#schedule'
             post :unschedule, to: 'edition_workflow#unschedule'
           end
-          resource :featuring, only: [:create, :update, :destroy]
           resources :supporting_pages, path: "supporting-pages", except: [:index]
           resources :editorial_remarks, only: [:new, :create], shallow: true
           resources :fact_check_requests, only: [:show, :create, :edit, :update], shallow: true

@@ -324,22 +324,6 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     assert_redirected_to admin_editions_path(state: :draft)
   end
 
-  test "should not display the featured column on the 'all edition' page" do
-    policy = create(:draft_policy)
-    refute policy.featurable?
-    get :index, state: :draft
-    refute_select "th", text: "Featured"
-    refute_select "td.featured"
-  end
-
-  test "should not display the featured column on a filtered edition page where that edition is not featureable" do
-    policy = create(:draft_policy)
-    refute policy.featurable?
-    get :index, state: :draft, type: "policy"
-    refute_select "th", text: "Featured"
-    refute_select "td.featured"
-  end
-
   test "should not show published editions as force published" do
     policy = create(:published_policy)
     get :index, state: :published, type: :policy

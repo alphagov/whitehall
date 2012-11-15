@@ -9,6 +9,7 @@ module Whitehall
   mattr_accessor :detailed_guidance_search_client
   mattr_accessor :mainstream_content_api
   mattr_accessor :stats_collector
+  mattr_accessor :skip_safe_html_validation
 
   revision_file = "#{Rails.root}/REVISION"
   if File.exists?(revision_file)

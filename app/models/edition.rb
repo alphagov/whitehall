@@ -171,10 +171,6 @@ class Edition < ActiveRecord::Base
     false
   end
 
-  def featurable?
-    false
-  end
-
   def allows_attachments?
     false
   end

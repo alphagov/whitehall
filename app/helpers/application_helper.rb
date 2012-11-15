@@ -228,6 +228,12 @@ module ApplicationHelper
     end
   end
 
+  def progress_bar_link
+    unless params[:controller] == "home" && params[:action] == "home"
+      link_to "More will join soon", root_path
+    end
+  end
+
   def featured_grid_class(count=0)
     case count
     when 1
