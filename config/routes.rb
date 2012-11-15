@@ -101,7 +101,6 @@ Whitehall::Application.routes.draw do
             post :schedule, to: 'edition_workflow#schedule'
             post :unschedule, to: 'edition_workflow#unschedule'
           end
-          resource :featuring, only: [:create, :update, :destroy]
           resources :supporting_pages, path: "supporting-pages", except: [:index]
           resources :editorial_remarks, only: [:new, :create], shallow: true
           resources :fact_check_requests, only: [:show, :create, :edit, :update], shallow: true
