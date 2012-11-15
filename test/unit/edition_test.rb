@@ -377,10 +377,6 @@ class EditionTest < ActiveSupport::TestCase
     assert_equal [consultation], Edition.by_type('Consultation')
   end
 
-  test "should not be featurable" do
-    refute build(:edition).featurable?
-  end
-
   test "should return search index suitable for Rummageable" do
     policy = create(:published_policy, title: "policy-title")
     slug = policy.document.slug
