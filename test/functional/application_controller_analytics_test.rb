@@ -11,6 +11,11 @@ class ApplicationControllerAnalyticsTest < ActionController::TestCase
       set_slimmer_organisations_header(orgs)
       render text: "ok"
     end
+
+    def test_format
+      set_slimmer_format_header("format_name")
+      render text: "ok"
+    end
   end
 
   tests TestController
@@ -34,5 +39,15 @@ class ApplicationControllerAnalyticsTest < ActionController::TestCase
       get :test_organisations
     end
     assert_equal "<D1><D2>", response.headers["X-Slimmer-Organisations"]
+  end
+
+  test "sets format header for google analytics" do
+    with_routing do |map|
+      map.draw do
+        match '/test_format', to: 'application_controller_analytics_test/test#test_format'
+      end
+      get :test_format
+    end
+    assert_equal "format_name", response.headers["X-Slimmer-Format"]
   end
 end

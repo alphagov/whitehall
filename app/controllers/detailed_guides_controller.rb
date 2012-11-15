@@ -1,4 +1,6 @@
 class DetailedGuidesController < DocumentsController
+  FORMAT_NAME = "detailed_guidance"
+
   layout "detailed-guidance"
   skip_before_filter :set_search_path
   before_filter :set_search_index
@@ -10,6 +12,7 @@ class DetailedGuidesController < DocumentsController
   def show
     @categories = @document.mainstream_categories
     @topics = @document.topics
+    set_slimmer_format_header(FORMAT_NAME)
     render action: "show"
   end
 

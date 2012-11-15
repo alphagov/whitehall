@@ -59,4 +59,12 @@ class NewsArticlesControllerTest < ActionController::TestCase
       assert_select ".published-at[title='#{updated_news_article.published_at.iso8601}']"
     end
   end
+
+  test "the format name is being set to news" do
+    news_article = create(:published_news_article)
+
+    get :show, id: news_article.document
+
+    assert_equal "news", response.headers["X-Slimmer-Format"]
+  end
 end

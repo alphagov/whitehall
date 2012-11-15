@@ -425,4 +425,12 @@ That's all
       end
     end
   end
+
+  test "the format name is being set to policy" do
+    policy = create(:published_policy)
+
+    get :show, id: policy.document
+
+    assert_equal "policy", response.headers["X-Slimmer-Format"]
+  end
 end
