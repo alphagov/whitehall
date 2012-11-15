@@ -75,9 +75,6 @@ Whitehall::Application.routes.draw do
 
     resources :policy_teams, path: 'policy-teams', only: [:index, :show]
 
-    match "/search" => "search#index"
-    match "/autocomplete" => "search#autocomplete"
-
     constraints(AdminRequest) do
       namespace :admin do
         root to: redirect('/admin/editions')
