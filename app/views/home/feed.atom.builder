@@ -4,7 +4,12 @@ atom_feed language: 'en-GB', url: atom_feed_url(format: :atom), root_url: root_u
   feed.author do |author|
     author.name 'HM Government'
   end
-  feed.updated @recently_updated.first.timestamp_for_sorting
+
+  if @recently_updated.any?
+    feed.updated @recently_updated.first.timestamp_for_sorting
+  else
+    feed.updated Time.now
+  end
 
   @recently_updated.each do |document|
     feed.entry(document, url: public_document_url(document), published: document.timestamp_for_sorting, updated: document.published_at) do |entry|

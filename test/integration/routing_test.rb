@@ -98,4 +98,20 @@ class RoutingTest < ActionDispatch::IntegrationTest
     get "/specialist/vat-tax-rates"
     assert_redirected_to "/vat-tax-rates"
   end
+
+  test "atom feed responds with atom to both /government/feed and /government/feed.atom requests" do
+    get "/government/feed"
+    assert_equal 200, response.status
+    assert_equal Mime::ATOM, response.content_type
+
+    get "/government/feed.atom"
+    assert_equal 200, response.status
+    assert_equal Mime::ATOM, response.content_type
+  end
+
+  test "atom feed returns 404s for other content types" do
+    assert_raises ActionController::RoutingError do
+      get "/government/feed.json"
+    end
+  end
 end
