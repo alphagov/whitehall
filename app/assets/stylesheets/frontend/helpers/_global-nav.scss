@@ -2,6 +2,8 @@
 #global-nav {
   margin: 4px $gutter-half 0;
   border-bottom: $gutter-one-third solid $inside-gov-secondary;
+  position: relative;
+  z-index: 100;
 
   @include media(tablet){
     margin: $gutter-one-sixth $gutter 0;
