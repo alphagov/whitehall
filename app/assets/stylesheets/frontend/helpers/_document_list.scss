@@ -11,30 +11,31 @@
     @include ie(6) {
       position: static;
     }
+  }
 
-    th {
-      @include core-19;
-      text-align: left;
-      float: left;
-      display: inline;
-      width: 100%;
-      margin-top: $gutter-one-sixth;
-      @include bold;
+  th {
+    @include core-19;
+    text-align: left;
+    float: left;
+    display: inline;
+    width: 100%;
+    margin-top: $gutter-one-sixth;
+    @include bold;
+    vertical-align: top;
 
-      @include ie(6) {
-        width: 85%;
-      }
+    @include ie(6) {
+      width: 85%;
     }
-    
-    td {
-      @include core-14;
-      text-align: left;
-      float: left;
-      display: inline;
-      padding-top: 0;
-      padding-right: $gutter;
-      margin-bottom: $gutter-one-sixth;
-    }
+  }
+
+  td {
+    @include core-14;
+    text-align: left;
+    float: left;
+    display: inline;
+    padding-top: 0;
+    padding-right: $gutter;
+    margin-bottom: $gutter-one-sixth;
   }
   
   .document-row:first-child {
