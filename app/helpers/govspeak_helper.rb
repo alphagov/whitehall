@@ -65,7 +65,7 @@ module GovspeakHelper
       next unless is_internal_admin_link?(uri = anchor['href'])
 
       if is_admin_organisation_uri?(uri)
-        organisation = find_organisation_from_uri(uri)
+        organisation = find_organisation_and_related_entities_from_uri(uri)
         replacement_html = replacement_html_for_organisation(anchor, organisation)
       else
         edition, supporting_page = find_edition_and_supporting_page_from_uri(uri)
@@ -167,16 +167,19 @@ module GovspeakHelper
       edition_id = $1
     end
     edition = edition_id && Edition.send(:with_exclusive_scope) { Edition.where(id: edition_id).first }
-    supporting_page = supporting_page_id && edition && edition.supporting_pages.where(slug: supporting_page_id).first
+    supporting_page = edition && supporting_page_id && edition.supporting_pages.where(slug: supporting_page_id).first
     [edition, supporting_page]
   end
 
-  def find_organisation_from_uri(uri)
-    organisation_id = nil
+  def find_organisation_and_related_entities_from_uri(uri)
+    organisation_id, corporate_information_page_id = nil, nil
     if uri[%r{/admin/organisations/([\w-]+)$}]
       organisation_id = $1
+    elsif uri[%r{/admin/organisations/([\w-]+)/corporate_information_pages/([\w-]+)$}]
+      organisation_id, corporate_information_page_id = $1, $2
     end
-    Organisation.where(slug: organisation_id).first
+    organisation = organisation_id && Organisation.where(slug: organisation_id).first
+    corporate_information_page = organisation && corporate_information_page_id && organisation.corporate_information_pages.for_slug!(corporate_information_page_id)
   end
 
   def rewritten_href_for_edition(edition, supporting_page)
