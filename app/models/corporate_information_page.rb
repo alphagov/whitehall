@@ -17,6 +17,11 @@ class CorporateInformationPage < ActiveRecord::Base
       type = CorporateInformationPageType.find(slug)
       find_by_type_id!(type.id)
     end
+
+    def for_slug(slug)
+      type = CorporateInformationPageType.find(slug)
+      where(type_id: type.id).first
+    end
   end
 
   def type

@@ -65,8 +65,8 @@ module GovspeakHelper
       next unless is_internal_admin_link?(uri = anchor['href'])
 
       if is_admin_organisation_uri?(uri)
-        organisation = find_organisation_and_related_entities_from_uri(uri)
-        replacement_html = replacement_html_for_organisation(anchor, organisation)
+        organisation, corporate_information_page, document_series = find_organisation_and_related_entities_from_uri(uri)
+        replacement_html = replacement_html_for_organisation_and_related_entities(anchor, organisation, corporate_information_page, document_series)
       else
         edition, supporting_page = find_edition_and_supporting_page_from_uri(uri)
         replacement_html = replacement_html_for(anchor, edition, supporting_page)
@@ -87,10 +87,10 @@ module GovspeakHelper
     end
   end
 
-  def replacement_html_for_organisation(anchor, organisation)
+  def replacement_html_for_organisation_and_related_entities(anchor, organisation, corporate_information_page, document_series)
     if organisation.present?
       anchor.dup.tap do |anchor|
-        anchor['href'] = rewritten_href_for_organisation(organisation)
+        anchor['href'] = rewritten_href_for_organisation_and_related_entities(organisation, corporate_information_page, document_series)
       end.to_html.html_safe
     else
       anchor.inner_text
@@ -172,14 +172,22 @@ module GovspeakHelper
   end
 
   def find_organisation_and_related_entities_from_uri(uri)
-    organisation_id, corporate_information_page_id = nil, nil
+    organisation_id, corporate_information_page_id, document_series_id = nil, nil, nil
     if uri[%r{/admin/organisations/([\w-]+)$}]
       organisation_id = $1
     elsif uri[%r{/admin/organisations/([\w-]+)/corporate_information_pages/([\w-]+)$}]
       organisation_id, corporate_information_page_id = $1, $2
+    elsif uri[%r{/admin/organisations/([\w-]+)/corporate_information_pages/([\w-]+)/edit$}]
+      organisation_id, corporate_information_page_id = $1, $2
+    elsif uri[%r{/admin/organisations/([\w-]+)/document_series/([\w-]+)$}]
+      organisation_id, document_series_id = $1, $2
+    elsif uri[%r{/admin/organisations/([\w-]+)/document_series/([\w-]+)/edit$}]
+      organisation_id, document_series_id = $1, $2
     end
     organisation = organisation_id && Organisation.where(slug: organisation_id).first
-    corporate_information_page = organisation && corporate_information_page_id && organisation.corporate_information_pages.for_slug!(corporate_information_page_id)
+    corporate_information_page = organisation && corporate_information_page_id && organisation.corporate_information_pages.for_slug(corporate_information_page_id)
+    document_series = organisation && document_series_id && organisation.document_series.where(slug: document_series_id).first
+    [organisation, corporate_information_page, document_series]
   end
 
   def rewritten_href_for_edition(edition, supporting_page)
@@ -190,8 +198,14 @@ module GovspeakHelper
     end
   end
 
-  def rewritten_href_for_organisation(organisation)
-    organisation_url(organisation)
+  def rewritten_href_for_organisation_and_related_entities(organisation, corporate_information_page, document_series)
+    if organisation && corporate_information_page
+      organisation_corporate_information_page_url(organisation, corporate_information_page)
+    elsif organisation && document_series
+      organisation_document_series_url(organisation, document_series)
+    else
+      organisation_url(organisation)
+    end
   end
 
   def normalise_host(host)
