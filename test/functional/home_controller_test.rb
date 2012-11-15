@@ -57,13 +57,6 @@ class HomeControllerTest < ActionController::TestCase
     end
   end
 
-  # CP: Commented whilst we change the search to point elsewhere
-  #test "sunset homepage points search to main site search" do
-    #get :home
-
-    #assert_equal "/search", response.headers["X-Slimmer-Search-Path"]
-  #end
-
   private
 
   def create_published_documents

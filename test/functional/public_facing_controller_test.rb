@@ -26,7 +26,7 @@ class PublicFacingControllerTest < ActionController::TestCase
   test "all public facing requests should use the inside government search" do
     with_routing_to_test_action do
       get :test
-      assert_equal search_path, response.headers["X-Slimmer-Search-Path"]
+      assert_equal 'government', response.headers["X-Slimmer-Search-Index"]
     end
   end
 
