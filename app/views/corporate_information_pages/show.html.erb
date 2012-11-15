@@ -9,7 +9,7 @@
               organisation: @organisation,
               link_to_organisation: true
             } %>
-        <% if govspeak_headers(@corporate_information_page.body).any %>
+        <% if govspeak_headers(@corporate_information_page.body).any? %>
           <nav class="js-stick-at-top-when-scrolling">
             <h1>Contents</h1>
             <ol>
