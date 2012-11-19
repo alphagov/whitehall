@@ -39,7 +39,7 @@
       <% elsif @document.open? %>
         <div class="consultation-block <%= consultation_css_class(@document) %>">
           <h2>This consultation closes on <%= absolute_date(@document.closing_on, class: 'closing-on') %></h2>
-          <p class="jump"><a href="#download">Jump to consulation download</a></p>
+          <p class="jump"><a href="#download">Jump to consultation download</a></p>
         </div>
       <% end %>
 
