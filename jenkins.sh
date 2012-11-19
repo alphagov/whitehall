@@ -9,5 +9,4 @@ RAILS_ENV=test CUCUMBER_FORMAT=progress time bundle exec rake ci:setup:minitest 
 RAILS_ENV=production SKIP_OBSERVERS_FOR_ASSET_TASKS=true time bundle exec rake assets:precompile --trace
 EXIT_STATUS=$?
 echo "EXIT STATUS: $EXIT_STATUS"
-echo "Deliberately flunking build to avoid triggering tagging or deploying"
-exit 1
+exit $EXIT_STATUS
