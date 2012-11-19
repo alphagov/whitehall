@@ -7,20 +7,20 @@ module Edition::LimitedAccess
 
   module ClassMethods
     def accessible_to(user)
-      clauses = ['access_limited is null OR access_limited=false']
+      clauses = ['access_limited IS NULL OR access_limited = false']
       binds = {}
       if user && user.organisation
-        clauses << "exists (
-               select * from edition_organisations eo_accessibility_check
-               where
-                 eo_accessibility_check.edition_id=editions.id
-               and eo_accessibility_check.organisation_id=:organisation_id)"
+        clauses << "EXISTS (
+               SELECT * FROM edition_organisations eo_accessibility_check
+               WHERE
+                 eo_accessibility_check.edition_id = editions.id
+               AND eo_accessibility_check.organisation_id = :organisation_id)"
         binds[:organisation_id] = user.organisation.id
-        clauses << "exists (
-               select * from edition_authors author_accessibility_check
-               where
-                 author_accessibility_check.edition_id=editions.id
-               and author_accessibility_check.user_id=:user_id)"
+        clauses << "EXISTS (
+               SELECT * FROM edition_authors author_accessibility_check
+               WHERE
+                 author_accessibility_check.edition_id = editions.id
+               AND author_accessibility_check.user_id = :user_id)"
         binds[:user_id] = user.id
       end
       where("(#{clauses.join(' OR ')})", binds)
