@@ -15,6 +15,13 @@ class Admin::EditorialRemarksControllerTest < ActionController::TestCase
     assert_select "#{record_css_selector(edition)} .body", text: "edition-body"
   end
 
+  test "should render the editorial remark form for a statistical data set" do
+    StatisticalDataSet.stubs(access_limited_by_default?: false)
+    edition = create(:draft_statistical_data_set, title: "edition-title", body: "edition-body")
+    get :new, edition_id: edition
+    assert_select "form#new_editorial_remark"
+  end
+
   test "should redirect to the edition" do
     edition = create(:submitted_speech)
     post :create, edition_id: edition, editorial_remark: { body: "editorial-remark-body" }

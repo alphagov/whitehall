@@ -1,6 +1,6 @@
 module Admin::EditionRoutesHelper
   EDITION_TYPES = [Policy, Publication, NewsArticle, Consultation, Speech,
-                   InternationalPriority, DetailedGuide, CaseStudy]
+                   InternationalPriority, DetailedGuide, CaseStudy, StatisticalDataSet]
 
   def self.edition_instance_route(name)
     EDITION_TYPES.each do |type|
