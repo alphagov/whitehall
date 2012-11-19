@@ -28,13 +28,15 @@ module ConsultationsHelper
   end
 
   def consultation_css_class(consultation)
-    'consultation' + if consultation.response_published?
-      ' consultation-responded'
+    consultation_class = ''
+    if consultation.response_published?
+      consultation_class = 'consultation-responded'
     elsif consultation.closed?
-      ' consultation-closed'
+      consultation_class = 'consultation-closed'
     elsif consultation.open?
-      ' consultation-open'
+      consultation_class = 'consultation-open'
     end
+    "consultation #{consultation_class}"
   end
 
   def consultation_header_title(consultation)
