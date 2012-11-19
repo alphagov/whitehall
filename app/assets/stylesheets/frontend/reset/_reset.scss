@@ -36,7 +36,16 @@
 
 .detailed-guidance #whitehall-wrapper,
 .sunset #whitehall-wrapper {
-  border-color: transparent;
+  border: 0;
+
+  #whitehall-inner {
+    position: static;
+    margin-top: 0;
+
+    @include media(tablet){
+      margin-top: 0;
+    }
+  }
 }
 
 #whitehall-wrapper {
