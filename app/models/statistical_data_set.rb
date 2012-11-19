@@ -26,6 +26,8 @@ class StatisticalDataSet < Edition
   end
 
   def set_access_limited
-    self.access_limited = self.class.access_limited_by_default? if access_limited.nil?
+    if new_record? && access_limited.nil?
+      self.access_limited = self.class.access_limited_by_default?
+    end
   end
 end
