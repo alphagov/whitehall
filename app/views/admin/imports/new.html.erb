@@ -1,0 +1,28 @@
+<% page_title "New import" %>
+
+<div class="span8">
+  <section>
+    <h1>New import</h1>
+
+    <%= form_for [:admin, @import] do |import_form| %>
+      <%= import_form.errors %>
+
+      <fieldset>
+        <%= content_tag :div, class: "control-group" do %>
+          <%= import_form.label :data_type, 'Type' %>
+          <%= content_tag :div, class: "controls" do %>
+            <%= import_form.select :data_type, Import::TYPES.keys, label_text: "Type" %>
+          <% end %>
+        <% end %>
+        <%= content_tag :div, class: "control-group" do %>
+          <%= import_form.label :file, 'CSV File' %>
+          <%= content_tag :div, class: "controls" do %>
+            <%= import_form.file_field :file %>
+          <% end %>
+        <% end %>
+      </fieldset>
+
+      <%= import_form.save_or_cancel cancel: admin_imports_path %>
+    <% end %>
+  </section>
+</div>

@@ -2,6 +2,7 @@ require 'whitehall/uploader/builders'
 
 class Whitehall::Uploader::Builders::AttachmentBuilder
   def self.build(attributes, url, cache, logger, line_number)
+    return nil if attributes[:title].blank? && url.blank?
     begin
       file = cache.fetch(url)
     rescue Whitehall::Uploader::AttachmentCache::RetrievalError => e

@@ -14,6 +14,7 @@ class User < ActiveRecord::Base
     DEPARTMENTAL_EDITOR = 'Editor'
     GDS_EDITOR = 'GDS Editor'
     PUBLISH_SCHEDULED_EDITIONS = 'Publish scheduled editions'
+    IMPORTER = 'Import CSVs'
   end
 
   def role

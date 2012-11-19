@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121114110411) do
+ActiveRecord::Schema.define(:version => 20121120171257) do
 
   create_table "attachment_data", :force => true do |t|
     t.string   "carrierwave_file"
@@ -140,6 +140,22 @@ ActiveRecord::Schema.define(:version => 20121114110411) do
 
   add_index "data_migration_records", ["version"], :name => "index_data_migration_records_on_version", :unique => true
 
+  create_table "delayed_jobs", :force => true do |t|
+    t.integer  "priority",   :default => 0
+    t.integer  "attempts",   :default => 0
+    t.text     "handler"
+    t.text     "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by"
+    t.string   "queue"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
+
   create_table "document_series", :force => true do |t|
     t.string   "name"
     t.integer  "organisation_id"
@@ -155,6 +171,8 @@ ActiveRecord::Schema.define(:version => 20121114110411) do
   create_table "document_sources", :force => true do |t|
     t.integer "document_id"
     t.string  "url"
+    t.integer "import_id"
+    t.integer "row_number"
   end
 
   add_index "document_sources", ["document_id"], :name => "index_document_sources_on_document_id"
@@ -363,6 +381,23 @@ ActiveRecord::Schema.define(:version => 20121114110411) do
 
   add_index "images", ["edition_id"], :name => "index_images_on_edition_id"
   add_index "images", ["image_data_id"], :name => "index_images_on_image_data_id"
+
+  create_table "imports", :force => true do |t|
+    t.string   "original_filename"
+    t.string   "data_type"
+    t.text     "csv_data",           :limit => 2147483647
+    t.text     "import_errors"
+    t.text     "already_imported"
+    t.text     "successful_rows"
+    t.integer  "creator_id"
+    t.datetime "import_started_at"
+    t.datetime "import_finished_at"
+    t.integer  "total_rows"
+    t.integer  "current_row"
+    t.text     "log",                :limit => 2147483647
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "mainstream_categories", :force => true do |t|
     t.string   "slug"

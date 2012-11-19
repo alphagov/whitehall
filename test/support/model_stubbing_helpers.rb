@@ -3,6 +3,8 @@ module ModelStubbingHelpers
     result = build(type, options)
     result.stubs(:id).returns(next_record_id)
     result.stubs(:new_record?).returns(false)
+    result.stubs(:created_at).returns(Time.zone.now) if result.respond_to?(:created_at)
+    result.stubs(:updated_at).returns(Time.zone.now) if result.respond_to?(:updated_at)
     result
   end
 

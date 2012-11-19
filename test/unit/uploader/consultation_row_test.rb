@@ -15,6 +15,64 @@ module Whitehall::Uploader
       ConsultationRow.new(data, 1, @attachment_cache)
     end
 
+    def consultation_row_with_keys(keys)
+      data = Hash[keys.zip(1.upto(keys.size))]
+      consultation_row(data)
+    end
+
+    def basic_headings
+      %w{
+        old_url title summary body opening_date closing_date
+        policy_1 policy_2 policy_3 policy_4
+        organisation minister_1 minister_2 respond_url respond_email respond_postal_address
+        respond_form_title respond_form_attachment consultation_ISBN consultation_URN
+        publication_date order_url command_paper_number price response_date
+        response_summary comments
+      }
+    end
+
+    test "validates row headings" do
+      keys = basic_headings + %w{
+        response_1_url response_1_title response_1_ISBN response_1_URN response_1_command_reference response_1_order_URL response_1_price
+        attachment_1_url attachment_1_title
+      }
+      assert_equal [], ConsultationRow.heading_validation_errors(keys)
+    end
+
+    test "validation reports missing row headings" do
+      keys = basic_headings - ['title']
+      assert_equal ["Missing fields: 'title'"], ConsultationRow.heading_validation_errors(keys)
+    end
+
+    test "validation reports extra row headings" do
+      keys = basic_headings + ['extra_stuff']
+      assert_equal ["Unexpected fields: 'extra_stuff'"], ConsultationRow.heading_validation_errors(keys)
+    end
+
+    test "validation accepts a complete set of response headings" do
+      keys = basic_headings + %w{response_1_url response_1_title response_1_ISBN response_1_URN response_1_command_reference response_1_order_URL response_1_price}
+      assert_equal [], ConsultationRow.heading_validation_errors(keys)
+    end
+
+    test "validation accepts a complete set of attachment headings" do
+      keys = basic_headings + %w{attachment_1_url attachment_1_title}
+      assert_equal [], ConsultationRow.heading_validation_errors(keys)
+    end
+
+    test "validation complains of missing attachment headings" do
+      keys = basic_headings + %w{attachment_1_title}
+      assert_equal [
+        "Missing fields: 'attachment_1_url'",
+        ], ConsultationRow.heading_validation_errors(keys)
+    end
+
+    test "validation complains of missing response headings" do
+      keys = basic_headings + %w{response_1_title response_1_ISBN response_1_URN response_1_command_reference response_1_order_URL response_1_price}
+      assert_equal [
+        "Missing fields: 'response_1_url'",
+        ], ConsultationRow.heading_validation_errors(keys)
+    end
+
     test "takes title from the title column" do
       row = consultation_row("title" => "a-title")
       assert_equal "a-title", row.title

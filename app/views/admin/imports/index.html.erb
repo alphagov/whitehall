@@ -1,0 +1,32 @@
+<% page_title "Imports" %>
+
+<section>
+  <nav class="actions">
+    <%= link_to "New import", new_admin_import_path, class: "btn new_resource" %>
+  </nav>
+
+  <h1>Imports</h1>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Created</th>
+        <th>Creator</th>
+        <th>Filename</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @imports.each do |import| %>
+        <%= content_tag_for(:tr, import) do %>
+          <td class="created_at">
+            <%= render_datetime_microformat(import, :created_at) { import.created_at.to_s(:long)} %>
+          </td>
+          <td class="creator"><%= linked_author import.creator %></td>
+          <td class="filename"><%= link_to import.original_filename, [:admin, import] %></td>
+          <td class="status"><%= import.status %></td>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+</section>
