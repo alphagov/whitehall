@@ -7,7 +7,6 @@ class Publication < Publicationesque
   include Edition::Countries
   include Edition::DocumentSeries
   include Edition::StatisticalDataSets
-  include Edition::LimitedAccess
 
   validates :publication_date, presence: true
   validates :publication_type_id, presence: true
