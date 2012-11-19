@@ -79,6 +79,7 @@ class Edition::AuditTrailTest < ActiveSupport::TestCase
     policy_writer = create(:policy_writer)
     PaperTrail.whodunnit = policy_writer
     edition = doc.create_draft(policy_writer)
+    p [:user_count, User.count]
     assert_equal "edition", edition.audit_trail.last.event
     assert_equal policy_writer, edition.audit_trail.last.actor
   end
