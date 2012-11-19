@@ -32,6 +32,9 @@
           <ul>
             <li><%= link_to "Biography", '#biography' %></li>
             <li><%= link_to (@person.current_role_appointments.count == 1 ? "Role" : "Roles"), "#current-roles" %></li>
+            <% if @person.previous_role_appointments.any? %>
+              <li><%= link_to "Previous roles", "#previous-roles" %></li>
+            <% end %>
             <% if @person.has_policy_responsibilities? %>
               <li><%= link_to "Policy", "#policy" %></li>
             <% end %>
