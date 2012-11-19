@@ -48,13 +48,18 @@ class RolePresenterTest < PresenterTestCase
     @role = stub_record(:ministerial_role, organisations: [organisation])
     @presenter = RolePresenter.decorate(@role)
 
-    two_published_speeches = [
-      stub("speech1", delivered_on: 1.days.ago),
-      stub("speech2", delivered_on: 30.days.ago)
-    ]
+    speech_1 = Speech.new
+    speech_1.stubs(:delivered_on).returns(1.days.ago)
+
+    speech_2 = Speech.new
+    speech_2.stubs(:delivered_on).returns(30.days.ago)
+
+    two_published_speeches = [ speech_1, speech_2 ]
 
     ten_published_news_articles = 10.times.map do |i|
-      stub("news_article_#{i}", published_at: i.days.ago - 3.days )
+      article = NewsArticle.new
+      article.stubs(:first_published_at).returns(i.days.ago - 3.days)
+      article
     end
 
     @role.stubs(:published_speeches).returns(
