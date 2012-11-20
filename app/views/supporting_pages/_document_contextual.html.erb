@@ -1,7 +1,8 @@
-<section class="contextual-info">
+<section class="contextual-info supporting_pages">
   <% if (supporting_pages = @policy.supporting_pages).any? %>
-    <nav class="supporting_pages" role="navigation">
-      <ul>
+    <nav role="navigation">
+      <a href="#contents" class="js-showhide contents-toggle">Show all supporting documents</a>
+      <ul id="contents">
         <% supporting_pages.each do |supporting_page| %>
           <% options = supporting_page == @supporting_page ? {class: "active"} : {} %>
           <%= content_tag :li, options do %>
