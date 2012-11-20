@@ -23,7 +23,7 @@ class AnnouncementsController < PublicFacingController
         render json: AnnouncementFilterJsonPresenter.new(@filter)
       end
       format.atom do
-        @announcments = @filter.documents.sort_by(&:timestamp_for_sorting).reverse
+        @announcements = @filter.documents.sort_by(&:timestamp_for_sorting).reverse
       end
     end
   end
