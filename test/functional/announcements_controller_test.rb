@@ -137,4 +137,51 @@ class AnnouncementsControllerTest < ActionController::TestCase
       refute_select_object(speech)
     end
   end
+
+  test "index generates an atom feed for the current filter" do
+    org = create(:organisation, name: "org-name")
+
+    get :index, format: :atom, departments: [org.to_param]
+
+    assert_select_atom_feed do
+      assert_select 'feed > id', 1
+      assert_select 'feed > title', 1
+      assert_select 'feed > author, feed > entry > author'
+      assert_select 'feed > updated', 1
+      assert_select 'feed > link[rel=?][type=?][href=?]', 'self', 'application/atom+xml',
+                    publications_url(format: :atom, departments: [org.to_param]), 1
+      assert_select 'feed > link[rel=?][type=?][href=?]', 'alternate', 'text/html', root_url, 1
+    end
+  end
+
+  test "index generates an atom feed entries for announcments matching the current filter" do
+    org = create(:organisation, name: "org-name")
+    other_org = create(:organisation, name: "other-org")
+    create(:published_news_article, organisations: [org])
+    create(:published_speech, organisations: [other_org])
+
+    get :index, format: :atom, departments: [org.to_param]
+
+    assert_select_atom_feed do
+      assert_select 'feed > entry', count: 1 do |entries|
+        entries.each do |entry|
+          assert_select entry, 'entry > id', 1
+          assert_select entry, 'entry > published', 1
+          assert_select entry, 'entry > updated', 1
+          assert_select entry, 'entry > link[rel=?][type=?]', 'alternate', 'text/html', 1
+          assert_select entry, 'entry > title', 1
+          assert_select entry, 'entry > content[type=?]', 'html', 1
+        end
+      end
+    end
+  end
+
+  test 'index atom feed should return a valid feed if there are no matching documents' do
+    get :index, format: :atom
+
+    assert_select_atom_feed do
+      assert_select 'feed > updated', text: Time.zone.now.iso8601
+      assert_select 'feed > entry', count: 0
+    end
+  end
 end
