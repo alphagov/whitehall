@@ -138,6 +138,19 @@ class AnnouncementsControllerTest < ActionController::TestCase
     end
   end
 
+  test 'index has atom feed autodiscovery link' do
+    get :index
+    assert_select_autodiscovery_link announcements_url(format: "atom")
+  end
+
+  test 'index atom feed autodiscovery link includes any present filters' do
+    topic = create(:topic)
+    organisation = create(:organisation)
+
+    get :index, topics: [topic], departments: [organisation]
+
+    assert_select_autodiscovery_link announcements_url(format: "atom", topics: [topic], departments: [organisation])
+  end
   test "index generates an atom feed for the current filter" do
     org = create(:organisation, name: "org-name")
 
@@ -149,12 +162,12 @@ class AnnouncementsControllerTest < ActionController::TestCase
       assert_select 'feed > author, feed > entry > author'
       assert_select 'feed > updated', 1
       assert_select 'feed > link[rel=?][type=?][href=?]', 'self', 'application/atom+xml',
-                    publications_url(format: :atom, departments: [org.to_param]), 1
+                    announcements_url(format: :atom, departments: [org.to_param]), 1
       assert_select 'feed > link[rel=?][type=?][href=?]', 'alternate', 'text/html', root_url, 1
     end
   end
 
-  test "index generates an atom feed entries for announcments matching the current filter" do
+  test "index generates an atom feed entries for announcements matching the current filter" do
     org = create(:organisation, name: "org-name")
     other_org = create(:organisation, name: "other-org")
     create(:published_news_article, organisations: [org])
