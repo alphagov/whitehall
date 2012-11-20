@@ -41,7 +41,11 @@
         @include bold;
         float: left;
         clear: left;
-        padding-right: $gutter-one-third;
+        width: 33%;
+        @include media(tablet) {
+          width: auto;
+          padding-right: $gutter-one-third;
+        }
       }
       dd {
         float: left;
@@ -80,7 +84,9 @@
           }
         }
         .show-other-content {
-          margin-left: $gutter-two-thirds;
+          @include media(tablet) {
+            margin-left: $gutter-two-thirds;
+          }
         }
       }
 
