@@ -2,6 +2,7 @@ class AnnouncementsController < PublicFacingController
   include CacheControlHelper
 
   respond_to :html, :json
+  respond_to :atom, only: :index
 
   class AnnouncementDecorator < SimpleDelegator
     def documents
@@ -15,7 +16,16 @@ class AnnouncementsController < PublicFacingController
     document_filter = Whitehall::DocumentFilter.new(all_announcements, params)
     expire_on_next_scheduled_publication(scheduled_announcements)
     @filter = AnnouncementDecorator.new(document_filter)
-    respond_with AnnouncementFilterJsonPresenter.new(@filter)
+
+    respond_to do |format|
+      format.html
+      format.json do
+        render json: AnnouncementFilterJsonPresenter.new(@filter)
+      end
+      format.atom do
+        @announcements = @filter.documents.sort_by(&:timestamp_for_sorting).reverse
+      end
+    end
   end
 
 private

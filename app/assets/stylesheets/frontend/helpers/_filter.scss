@@ -31,7 +31,7 @@
         }
         .selections{
           position: relative;
-          @include core-14;  
+          @include core-14;
           padding-top:$gutter-two-thirds;
           @include media (desktop) {
             float: right;
@@ -165,6 +165,11 @@
     opacity: 0.3;
     cursor: default;
     *background: lighten($charcoal-grey, 70%);
+  }
+}
+.filter-feed {
+  .subscribe {
+    float: right;
   }
 }
 
