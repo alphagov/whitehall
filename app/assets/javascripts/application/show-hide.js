@@ -13,7 +13,7 @@
 
         showHide.$toggle.on('click', showHide.toggle);
         
-        if (showHide.$toggle.is(':visisble')) {
+        if (showHide.$toggle.is(':visible')) {
           // if toggle is visible
           showHide.hideStuff(); // hide stuff on init
         }
@@ -21,7 +21,7 @@
     },
     toggle: function(e) {
       e.preventDefault();
-      if (showHide.$target.is(':visible')) {
+      if (!showHide.$target.hasClass('js-hidden')) {
         showHide.hideStuff();
       } else {
         showHide.showStuff();
