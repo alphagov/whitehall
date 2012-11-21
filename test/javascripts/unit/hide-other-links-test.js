@@ -45,6 +45,6 @@ test("check fullstop is preserved", function() {
 
 test("check element has correct aria value", function() {
   $('.js-hide-other-links').hideOtherLinks();
-  ok($('.js-hide-other-links').attr('aria-live') == polite);
+  ok($('.js-hide-other-links').attr('aria-live') == "polite");
 });
 
