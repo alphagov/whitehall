@@ -7,6 +7,12 @@ class Admin::ImportsControllerTest < ActionController::TestCase
 
   should_be_an_admin_controller
 
+  test "import permission required to access" do
+    login_as :departmental_editor
+    get :new
+    assert_response 403
+  end
+
   test "new shows an interface to start a new import" do
     get :new
   end
@@ -48,7 +54,7 @@ class Admin::ImportsControllerTest < ActionController::TestCase
   end
 
   test "show shows declares success on success" do
-    import = stub_record(:import, creator: current_user)
+    import = stub_record(:import, creator: current_user, document_sources: [], already_imported: [])
     import.stubs(:status).returns(:success)
     Import.stubs(:find).with(import.id.to_s).returns(import)
 
@@ -77,6 +83,6 @@ class Admin::ImportsControllerTest < ActionController::TestCase
   end
 
   def new_import
-    @new_import ||= stub("new import", id: 1, to_param: "1", enqueue!: nil)
+    @new_import ||= stub("new import", id: 1, to_param: "1", enqueue!: nil, valid?: true, document_sources: [], already_imported: [])
   end
 end

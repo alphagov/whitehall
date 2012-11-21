@@ -12,7 +12,7 @@
   <% elsif @import.status == :failed %>
     <p class="summary">Import failed with <%= pluralize(@import.import_errors.count, "error") %></p>
 
-    <table>
+    <table id="errors">
       <thead>
         <tr>
           <th>Row Number</th>
@@ -35,7 +35,7 @@
   <% else %>
     <p class="summary">Imported successfully</p>
 
-    <h2>Documents added</h2>
+    <h2 id="success">Documents added</h2>
     <% if @import.document_sources.any? %>
       <ul class="added">
         <% @import.document_sources.each do |document_source| %>
@@ -46,7 +46,7 @@
       <p class="added">None</p>
     <% end %>
 
-    <h2>Already imported</h2>
+    <h2 id="already_imported">Already imported</h2>
     <% if @import.already_imported.any? %>
       <ul class="already_imported">
         <% @import.already_imported.each do |already_imported| %>
@@ -59,7 +59,7 @@
       <p class="already_imported">None</p>
     <% end %>
 
-    <h2>Log</h2>
+    <h2 id="log">Log</h2>
     <p class="log"><pre><%= @import.log %></pre></p>
 
 

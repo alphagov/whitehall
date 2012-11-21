@@ -23,6 +23,12 @@ module Admin::UrlHelper
     admin_header_link "Policy teams", admin_policy_teams_path
   end
 
+  def admin_imports_header_link
+    if current_user && current_user.can_import?
+      admin_header_link "Import", admin_imports_path
+    end
+  end
+
   def admin_header_link(name, path, path_matcher = nil)
     path_matcher ||= Regexp.new("^#{Regexp.escape(path)}")
     if user_signed_in?

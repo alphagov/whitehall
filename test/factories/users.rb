@@ -29,6 +29,6 @@ FactoryGirl.define do
   end
 
   factory :importer, parent: :user do
-    permissions { Hash[GDS::SSO::Config.default_scope => [User::Permissions::SIGNIN, User::Permissions::IMPORTER]] }
+    permissions { Hash[GDS::SSO::Config.default_scope => [User::Permissions::SIGNIN, User::Permissions::IMPORT]] }
   end
 end

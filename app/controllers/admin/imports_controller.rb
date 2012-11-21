@@ -1,4 +1,5 @@
 class Admin::ImportsController < Admin::BaseController
+  before_filter :require_import_permission!
 
   def index
     @imports = Import.all
@@ -21,5 +22,9 @@ class Admin::ImportsController < Admin::BaseController
 
   def show
     @import = Import.find(params[:id])
+  end
+
+  def require_import_permission!
+    authorise_user!(GDS::SSO::Config.default_scope, User::Permissions::IMPORT)
   end
 end

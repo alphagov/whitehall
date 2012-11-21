@@ -11,7 +11,7 @@
         <%= content_tag :div, class: "control-group" do %>
           <%= import_form.label :data_type, 'Type' %>
           <%= content_tag :div, class: "controls" do %>
-            <%= import_form.select :data_type, Import::TYPES.keys, label_text: "Type" %>
+            <%= import_form.select :data_type, Import::TYPES.keys.map {|k| [k.to_s.humanize, k]}, label_text: "Type" %>
           <% end %>
         <% end %>
         <%= content_tag :div, class: "control-group" do %>
