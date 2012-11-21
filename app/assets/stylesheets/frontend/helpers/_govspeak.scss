@@ -86,7 +86,7 @@
 
   blockquote {
     padding: 0;
-    margin: 0 0 0 (-$gutter);
+    margin: 0;
     border: 0;
     color: lighten($body-text, 33.333%);
 
@@ -104,6 +104,10 @@
     }
     & p:after {
       content: "\201D";
+    }
+
+    @include media(desktop) {
+      margin: 0 0 0 (-$gutter);
     }
   }
 
