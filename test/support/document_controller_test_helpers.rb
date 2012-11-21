@@ -418,6 +418,13 @@ module DocumentControllerTestHelpers
           assert_select ".next span", text: "3 of 3"
         end
       end
+
+      test "should preserve query params in next pagination link for #{edition_type}" do
+        documents = (1..45).to_a.map { |i| create("published_#{edition_type}", title: "keyword-#{i}") }
+        get :index, keywords: 'keyword'
+
+        assert_select "link[rel=next][type='application/json'][href*='keywords=keyword']"
+      end
     end
 
     def should_return_json_suitable_for_the_document_filter(document_type)
