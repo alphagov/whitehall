@@ -20,16 +20,7 @@ class Role < ActiveRecord::Base
   before_destroy :prevent_destruction_unless_destroyable
 
   extend FriendlyId
-  friendly_id :name, use: :slugged
-
-  def should_generate_new_friendly_id?
-    new_record?
-  end
-
-  def normalize_friendly_id(value)
-    value = value.gsub(/'/, '') if value
-    super value
-  end
+  friendly_id
 
   def occupied?
     current_role_appointments.any?

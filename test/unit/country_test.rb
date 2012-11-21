@@ -19,6 +19,11 @@ class CountryTest < ActiveSupport::TestCase
     assert_equal 'new-holland', country.slug
   end
 
+  test "should not include apostrophes in slug" do
+    country = create(:country, name: "Bob's bike")
+    assert_equal 'bobs-bike', country.slug
+  end
+
   test 'should not be featured' do
     country = create(:country, name: 'Cascadia')
     refute country.featured?

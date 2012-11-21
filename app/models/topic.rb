@@ -98,20 +98,11 @@ class Topic < ActiveRecord::Base
   scope :randomized, order('RAND()')
 
   extend FriendlyId
-  friendly_id :name, use: :slugged
+  friendly_id
 
   def update_counts
     update_attribute(:published_edition_count, published_editions.count)
     update_attribute(:published_policies_count, published_policies.count)
-  end
-
-  def should_generate_new_friendly_id?
-    new_record?
-  end
-
-  def normalize_friendly_id(value)
-    value = value.gsub(/'/, '') if value
-    super value
   end
 
   def published_related_editions

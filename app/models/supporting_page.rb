@@ -23,15 +23,6 @@ class SupportingPage < ActiveRecord::Base
   extend FriendlyId
   friendly_id :title, use: :scoped, scope: :edition
 
-  def should_generate_new_friendly_id?
-    new_record?
-  end
-
-  def normalize_friendly_id(value)
-    value = value.gsub(/'/, '') if value
-    super value
-  end
-
   def alternative_format_contact_email
     edition && edition.alternative_format_contact_email
   end

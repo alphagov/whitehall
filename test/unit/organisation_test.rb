@@ -222,7 +222,7 @@ class OrganisationTest < ActiveSupport::TestCase
     assert_equal 'love-all-the-people', organisation.slug
   end
 
-  test "should concatenate words containing apostrophes" do
+  test "should not include apostrophes in slug" do
     organisation = create(:organisation, name: "Bob's bike")
     assert_equal 'bobs-bike', organisation.slug
   end

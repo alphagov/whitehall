@@ -59,4 +59,9 @@ class DocumentSeriesTest < ActiveSupport::TestCase
     series.update_attributes(name: 'The Worst Series Ever')
     assert_equal 'the-best-series-ever', series.reload.slug
   end
+
+  test "should not include apostrophes in slug" do
+    series = create(:document_series, name: "Bob's bike")
+    assert_equal 'bobs-bike', series.slug
+  end
 end

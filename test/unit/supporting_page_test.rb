@@ -48,7 +48,7 @@ class SupportingPageTest < ActiveSupport::TestCase
     assert_equal 'love-all-the-people', supporting_page.slug
   end
 
-  test "should concatenate words containing apostrophes" do
+  test "should not include apostrophes in slug" do
     supporting_page = create(:supporting_page, title: "Bob's bike")
     assert_equal 'bobs-bike', supporting_page.slug
   end

@@ -39,9 +39,8 @@ class Document < ActiveRecord::Base
     end
   end
 
-  def normalize_friendly_id(value)
-    value = value.gsub(/'/, '') if value
-    super value
+  def should_generate_new_friendly_id?
+    true
   end
 
   def update_slug_if_possible(new_title)

@@ -24,7 +24,7 @@ class Person < ActiveRecord::Base
   validate :image_must_be_960px_by_640px, if: :image_changed?
 
   extend FriendlyId
-  friendly_id :slug_name, use: :slugged
+  friendly_id :slug_name
 
   delegate :url, to: :image, prefix: :image
 

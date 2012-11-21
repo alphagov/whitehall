@@ -59,7 +59,7 @@ class TopicTest < ActiveSupport::TestCase
     assert_equal 'love-all-the-people', topic.slug
   end
 
-  test "should concatenate words containing apostrophes" do
+  test "should not include apostrophes in slug" do
     topic = create(:topic, name: "Bob's bike")
     assert_equal 'bobs-bike', topic.slug
   end

@@ -358,7 +358,7 @@ class EditionTest < ActiveSupport::TestCase
     assert_equal 'my-policy-title', edition.document.slug
   end
 
-  test "should concatenate words containing apostrophes" do
+  test "should not include apostrophes in slug" do
     edition = create(:edition, title: "Bob's bike")
     assert_equal 'bobs-bike', edition.document.slug
   end

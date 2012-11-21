@@ -76,7 +76,18 @@ class RoleTest < ActiveSupport::TestCase
     assert_equal [parker, swingler, ziller], Role.alphabetical_by_person
   end
 
-  test "should concatenate words containing apostrophes" do
+  test 'should set a slug from the name' do
+    role = create(:role, name: 'Prime Minister')
+    assert_equal 'prime-minister', role.slug
+  end
+
+  test 'should not change the slug when the name is changed' do
+    role = create(:role, name: 'Prime Minister')
+    role.update_attributes(name: 'Chancellor of the Exchequer')
+    assert_equal 'prime-minister', role.slug
+  end
+
+  test "should not include apostrophes in slug" do
     role = create(:role, name: "Bob's bike")
     assert_equal 'bobs-bike', role.slug
   end

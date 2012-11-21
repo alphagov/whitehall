@@ -143,7 +143,7 @@ class Organisation < ActiveRecord::Base
              boost_phrases: :acronym
 
   extend FriendlyId
-  friendly_id :name, use: :slugged
+  friendly_id
 
   before_destroy { |r| r.destroyable? }
   after_save :ensure_analytics_identifier
@@ -160,10 +160,6 @@ class Organisation < ActiveRecord::Base
 
   def organisation_logo_type=(organisation_logo_type)
     self.organisation_logo_type_id = organisation_logo_type && organisation_logo_type.id
-  end
-
-  def should_generate_new_friendly_id?
-    new_record?
   end
 
   def self.ordered_by_name_ignoring_prefix
@@ -196,11 +192,6 @@ class Organisation < ActiveRecord::Base
 
   def display_name
     [acronym, name].find { |s| s.present? }
-  end
-
-  def normalize_friendly_id(value)
-    value = value.gsub(/'/, '') if value
-    super value
   end
 
   def search_link

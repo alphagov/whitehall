@@ -118,6 +118,17 @@ class PersonTest < ActiveSupport::TestCase
     assert_equal 'lord-barry-of-toxteth', person.slug
   end
 
+  test 'should not change the slug when the name is changed' do
+    person = create(:person, forename: "John", surname: "Smith")
+    person.update_attributes(forename: "Joe", surname: "Bloggs")
+    assert_equal 'john-smith', person.slug
+  end
+
+  test "should not include apostrophes in slug" do
+    person = create(:person, forename: "Tim", surname: "O'Reilly")
+    assert_equal 'tim-oreilly', person.slug
+  end
+
   test 'should generate sort key from surname and first name' do
     person = Person.new(forename: 'Hercule', surname: 'Poirot')
     assert_equal 'poirot hercule', person.sort_key
