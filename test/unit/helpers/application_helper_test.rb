@@ -1,7 +1,10 @@
+# encoding: UTF-8
+
 require 'test_helper'
 
 class ApplicationHelperTest < ActionView::TestCase
   include ERB::Util
+  include Rails.application.routes.url_helpers
 
   test "should supply options with IDs and descriptions for the all ministerial appointments" do
     theresa_may_appointment = appoint_minister(forename: "Theresa", surname: "May", role: "Secretary of State", organisation: "Home Office", started_at: Date.parse('2011-01-01'))
@@ -183,6 +186,21 @@ class ApplicationHelperTest < ActionView::TestCase
     policy = create(:policy, title: "Policy title", topics: [first_topic, second_topic, third_topic])
     options = related_policy_options
     assert_equal [[policy.document_id, "Policy title (First topic, Second topic and Third topic)"]], related_policy_options
+  end
+
+  test "JSON URL generator returns the correct format automatically" do
+    stubs(:params).returns(action: "index", controller: "publications")
+    assert_equal filter_json_url, "/government/publications.json"
+  end
+
+  test "JSON URL generator preserves extra params correctly" do
+    stubs(:params).returns(action: "index", controller: "publications", keywords: "test", extra: "extra")
+    assert_equal filter_json_url, "/government/publications.json?extra=extra&keywords=test"
+  end
+
+  test "JSON URL generator strips spurious query params" do
+    stubs(:params).returns(action: "index", controller: "publications", utf8: "✓", _: "jquerycache")
+    assert_equal filter_json_url, "/government/publications.json"
   end
 
   private
