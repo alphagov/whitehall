@@ -4,16 +4,7 @@ module Whitehall
     LINE_BREAK = '\r\n?|\n'
 
     def remove(source)
-      source.lines.map do |line|
-        if line[0] == '>' && line.match(/[#{QUOTE}]/)
-          line.
-            sub(/^>\s*[#{QUOTE}]+/, '> ').
-            sub(/[#{QUOTE}]+[ \t]*(#{LINE_BREAK})/, '\1').
-            sub(/[#{QUOTE}]+[ \t]*$/, '')
-        else
-          line
-        end
-      end.join
+      source.gsub(/^>\s*[#{QUOTE}]+(.+?)[#{QUOTE}]*[ \t]*(#{LINE_BREAK}?)$/, '> \1\2')
     end
   end
 end
