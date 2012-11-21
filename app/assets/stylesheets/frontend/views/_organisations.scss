@@ -518,6 +518,10 @@
         float: left;
         margin: 0;
         width: 25%;
+        min-width: 5rem;
+        min-width: 50px;
+        min-height: 5rem;
+        min-height: 50px;
 
         @include media(tablet){
           float: none;
@@ -525,17 +529,29 @@
         }
 
         span {
-          padding: $gutter-one-third $gutter-half 0 0;
+          margin: $gutter-one-third $gutter-half 0 0;
+          overflow: hidden;
 
           @include media(desktop){
-            padding: 0;
+            margin: 0;
           }
 
           img {
             display: block;
-            width: 100%;
-            height: auto;
+            min-width: 7.8rem;
+            min-width: 78px;
+            min-height: 5rem;
             min-height: 50px;
+
+            @include media($max-width: '350px') {
+              margin-left: -25%;
+            }
+
+            @include media(tablet) {
+              width: 100%;
+              height: auto;
+              margin-left: 0;
+            }
           }
         }
       }
