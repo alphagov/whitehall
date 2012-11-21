@@ -45,8 +45,12 @@ module GovspeakHelper
   end
 
   private
+  def remove_extra_quotes_from_blockquotes(govspeak)
+    Whitehall::ExtraQuoteRemover.new.remove(govspeak)
+  end
 
   def bare_govspeak_to_html(govspeak, images = [])
+    govspeak = remove_extra_quotes_from_blockquotes(govspeak)
     govspeak_to_html_with_replaced_admin_links(govspeak, images)
   end
 
