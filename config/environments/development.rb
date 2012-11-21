@@ -34,7 +34,7 @@ Whitehall::Application.configure do
     orig_host = config.asset_host
     config.asset_host = Proc.new do |source|
       if source =~ %r{system/uploads}
-        "https://whitehall-frontend-production.s3.amazonaws.com"
+        "https://assets.digital.cabinet-office.gov.uk"
       else
         orig_host
       end
