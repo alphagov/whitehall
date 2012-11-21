@@ -7,6 +7,40 @@ class Whitehall::Uploader::PublicationRowTest < ActiveSupport::TestCase
     @attachment_cache = stub('attachment cache')
   end
 
+  def basic_headings
+    %w{old_url  title summary body  publication_type
+      policy_1  policy_2  policy_3  policy_4
+      organisation  document_series publication_date
+      country_1 country_2 country_3
+      order_url price ISBN  URN command_paper_number}
+  end
+
+  test "validates row headings" do
+    assert_equal [], Whitehall::Uploader::PublicationRow.heading_validation_errors(basic_headings)
+  end
+
+  test "validation reports missing row headings" do
+    keys = basic_headings - ['title']
+    assert_equal ["Missing fields: 'title'"], Whitehall::Uploader::PublicationRow.heading_validation_errors(keys)
+  end
+
+  test "validation reports extra row headings" do
+    keys = basic_headings + ['extra_stuff']
+    assert_equal ["Unexpected fields: 'extra_stuff'"], Whitehall::Uploader::PublicationRow.heading_validation_errors(keys)
+  end
+
+  test "validation accepts a complete set of attachment headings" do
+    keys = basic_headings + %w{attachment_1_url attachment_1_title}
+    assert_equal [], Whitehall::Uploader::PublicationRow.heading_validation_errors(keys)
+  end
+
+  test "validation complains of missing attachment headings" do
+    keys = basic_headings + %w{attachment_1_title}
+    assert_equal [
+      "Missing fields: 'attachment_1_url'",
+      ], Whitehall::Uploader::PublicationRow.heading_validation_errors(keys)
+  end
+
   test "takes title from the title column" do
     row = Whitehall::Uploader::PublicationRow.new({"title" => "a-title"}, 1, @attachment_cache)
     assert_equal "a-title", row.title

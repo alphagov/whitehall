@@ -11,6 +11,24 @@ module Whitehall::Uploader
       NewsArticleRow.new(data, 1)
     end
 
+    def basic_headings
+      %w{old_url title summary body first_published policy_1 policy_2 policy_3 policy_4 minister_1 minister_2 organisation country_1 country_2 country_3}
+    end
+
+    test "validates row headings" do
+      assert_equal [], NewsArticleRow.heading_validation_errors(basic_headings)
+    end
+
+    test "validation reports missing row headings" do
+      keys = basic_headings - ['title']
+      assert_equal ["Missing fields: 'title'"], NewsArticleRow.heading_validation_errors(keys)
+    end
+
+    test "validation reports extra row headings" do
+      keys = basic_headings + ['extra_stuff']
+      assert_equal ["Unexpected fields: 'extra_stuff'"], NewsArticleRow.heading_validation_errors(keys)
+    end
+
     test "takes legacy url from the old_url column" do
       row = news_article_row("old_url" => "http://example.com/old-url")
       assert_equal "http://example.com/old-url", row.legacy_url

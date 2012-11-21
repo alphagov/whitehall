@@ -1,9 +1,10 @@
 require 'whitehall/uploader/finders'
 require 'whitehall/uploader/parsers'
 require 'whitehall/uploader/builders'
+require 'whitehall/uploader/row'
 
 module Whitehall::Uploader
-  class StatisticalDataSetRow
+  class StatisticalDataSetRow < Row
     attr_reader :row
 
     def initialize(row, line_number, attachment_cache, logger = Logger.new($stdout))
@@ -11,6 +12,15 @@ module Whitehall::Uploader
       @line_number = line_number
       @logger = logger
       @attachment_cache = attachment_cache
+    end
+
+    def self.required_fields(headings)
+      required_fields = super.dup
+      required_fields += %w{document_series}
+      required_fields += provided_attachment_ids(headings).map do |i|
+        ("attachment_#{i}_url attachment_#{i}_title attachment_#{i}_ISBN attachment_#{i}_URN " +
+        "attachment_#{i}_command_reference attachment_#{i}_order_URL attachment_#{i}_price").split(" ")
+      end.flatten
     end
 
     def title

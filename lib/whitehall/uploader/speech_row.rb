@@ -1,5 +1,7 @@
+require 'whitehall/uploader/row'
+
 module Whitehall::Uploader
-  class SpeechRow
+  class SpeechRow < Row
     attr_reader :row
 
     def initialize(row, line_number, attachment_cache, logger = Logger.new($stdout))
@@ -7,6 +9,12 @@ module Whitehall::Uploader
       @line_number = line_number
       @logger = logger
       @attachment_cache = attachment_cache
+    end
+
+    def self.required_fields(headings)
+      super +
+        %w{policy_1 policy_2 policy_3 policy_4} +
+        %w{first_published country_1 country_2 country_3 type delivered_by delivered_on event_and_location}
     end
 
     def legacy_url

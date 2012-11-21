@@ -9,7 +9,11 @@ class Import < ActiveRecord::Base
   belongs_to :creator, class_name: "User"
 
   TYPES = {
-    consultation: [Whitehall::Uploader::ConsultationRow, Consultation]
+    consultation: [Whitehall::Uploader::ConsultationRow, Consultation],
+    news_article: [Whitehall::Uploader::NewsArticleRow, NewsArticle],
+    publication: [Whitehall::Uploader::PublicationRow, Publication],
+    speech: [Whitehall::Uploader::SpeechRow, Speech],
+    statistical_data_set: [Whitehall::Uploader::StatisticalDataSetRow, StatisticalDataSet]
   }
 
   validates :csv_data, presence: true

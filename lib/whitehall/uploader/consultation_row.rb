@@ -1,9 +1,10 @@
 require 'whitehall/uploader/finders'
 require 'whitehall/uploader/parsers'
 require 'whitehall/uploader/builders'
+require 'whitehall/uploader/row'
 
 module Whitehall::Uploader
-  class ConsultationRow
+  class ConsultationRow < Row
     attr_reader :row
 
     def initialize(row, line_number, attachment_cache, logger = Logger.new($stdout))
@@ -13,10 +14,13 @@ module Whitehall::Uploader
       @attachment_cache = attachment_cache
     end
 
-    def self.heading_validation_errors(headings)
-      required_fields = %w{old_url title summary body opening_date closing_date
-        policy_1 policy_2 policy_3 policy_4 organisation
-        minister_1 minister_2 respond_url respond_email
+    def self.required_fields(headings)
+      required_fields = super.dup
+      required_fields += %w{policy_1 policy_2 policy_3 policy_4}
+      required_fields += %w{
+        minister_1 minister_2
+        opening_date closing_date
+        respond_url respond_email
         respond_postal_address respond_form_title respond_form_attachment
         consultation_ISBN consultation_URN publication_date order_url
         command_paper_number price response_date response_summary comments
@@ -27,29 +31,7 @@ module Whitehall::Uploader
       required_fields += provided_attachment_ids(headings).map do |i|
         "attachment_#{i}_url attachment_#{i}_title".split(" ")
       end.flatten
-      missing_fields = required_fields.map(&:downcase) - headings.map(&:downcase)
-      extra_fields = headings.map(&:downcase) - required_fields.map(&:downcase)
-
-      errors = []
-      errors << "Missing fields: '#{missing_fields.join("', '")}'" if missing_fields.any?
-      errors << "Unexpected fields: '#{extra_fields.join("', '")}'" if extra_fields.any?
-      errors
-    end
-
-    def self.provided_response_ids(headings)
-      headings.map do |k|
-        if match = k.match(/^response_([0-9]+).*$/)
-          match[1]
-        end
-      end.compact.uniq
-    end
-
-    def self.provided_attachment_ids(headings)
-      headings.map do |k|
-        if match = k.match(/^attachment_([0-9]+).*$/)
-          match[1]
-        end
-      end.compact.uniq
+      required_fields
     end
 
     def title
