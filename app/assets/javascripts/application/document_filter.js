@@ -29,7 +29,7 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
         if (data.next_page_url) {
           $li = $('<li class="next" />');
           $a = $('<a>Next page '+ documentFilter.progressSpan(data.next_page, data.total_pages) +'</a>').attr('href', data.next_page_url);
-          $link = $('link[rel=next][type=application/json]')
+          $link = $('link[rel=next][type=application/json]');
           if ($link.length) {
             $link.attr("href", data.next_page_url);
           }

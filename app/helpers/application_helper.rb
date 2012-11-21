@@ -28,6 +28,10 @@ module ApplicationHelper
     url_for(params.except(:utf8, :_, :date, :direction, :page).merge(format: "atom", only_path: false))
   end
 
+  def filter_json_url(args={})
+    url_for(params.except(:utf8, :_).merge(format: "json").merge(args))
+  end
+
   def labelled_check_box(object_name, attribute, text)
     for_attribute = [object_name, attribute].map(&:to_s).join("_")
     label_tag "", {for: for_attribute, class: "for_checkbox"} do
