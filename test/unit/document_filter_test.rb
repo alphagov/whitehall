@@ -1,6 +1,7 @@
 require 'test_helper'
 
 class DocumentFilterTest < ActiveSupport::TestCase
+  include DocumentFilterHelpers
 
   test "#all_topics returns all topics with content, alphabetically" do
     scope = stub('topic scope')
@@ -209,7 +210,9 @@ class DocumentFilterTest < ActiveSupport::TestCase
   test "if page param given, returns a page of documents using page size of 20" do
     document_scope.expects(:page).with(3).returns(document_scope)
     document_scope.expects(:per).with(20).returns(document_scope)
-    Whitehall::DocumentFilter.new(document_scope, page: 3).documents
+    with_number_of_documents_per_page(20) do
+      Whitehall::DocumentFilter.new(document_scope, page: 3).documents
+    end
   end
 
   test "allows combination of filter options" do

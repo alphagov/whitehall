@@ -4,6 +4,11 @@ class Whitehall::DocumentFilter
 
   delegate [:count, :current_page, :num_pages, :last_page?, :first_page?, :total_count] => :documents
 
+  class << self
+    attr_accessor :number_of_documents_per_page
+  end
+  self.number_of_documents_per_page = 20
+
   def initialize(documents, params = {})
     @documents = documents
     @params = params
@@ -109,7 +114,7 @@ private
 
   def paginate!
     if @params[:page].present?
-      @documents = @documents.page(@params[:page]).per(20)
+      @documents = @documents.page(@params[:page]).per(self.class.number_of_documents_per_page)
     end
   end
 

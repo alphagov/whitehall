@@ -2,6 +2,7 @@ require "test_helper"
 
 class AnnouncementsControllerTest < ActionController::TestCase
   include ActionView::Helpers::DateHelper
+  include DocumentFilterHelpers
 
   should_be_a_public_facing_controller
   should_return_json_suitable_for_the_document_filter :news_article
@@ -114,26 +115,30 @@ class AnnouncementsControllerTest < ActionController::TestCase
     assert_equal expected_document_ids, actual_document_ids
   end
 
-  test "index shows only the first 20 news articles or speeches" do
-    news = (0...15).map { |n| create(:published_news_article, published_at: n.days.ago) }
-    speeches = (15...25).map { |n| create(:published_speech, delivered_on: n.days.ago) }
+  test "index shows only the first page of news articles or speeches" do
+    news = (1..3).map { |n| create(:published_news_article, published_at: n.days.ago) }
+    speeches = (4..6).map { |n| create(:published_speech, delivered_on: n.days.ago) }
 
-    get :index
+    with_number_of_documents_per_page(4) do
+      get :index
+    end
 
-    assert_documents_appear_in_order_within("#announcements-container", news + speeches[0...5])
-    speeches[5..10].each do |speech|
+    assert_documents_appear_in_order_within("#announcements-container", news + speeches[0..0])
+    (speeches[1..2]).each do |speech|
       refute_select_object(speech)
     end
   end
 
   test "index shows the requested page" do
-    news = (0...15).map { |n| create(:published_news_article, published_at: n.days.ago) }
-    speeches = (15...25).map { |n| create(:published_speech, delivered_on: n.days.ago) }
+    news = (1..3).map { |n| create(:published_news_article, published_at: n.days.ago) }
+    speeches = (4..6).map { |n| create(:published_speech, delivered_on: n.days.ago) }
 
-    get :index, page: 2
+    with_number_of_documents_per_page(4) do
+      get :index, page: 2
+    end
 
-    assert_documents_appear_in_order_within("#announcements-container", speeches[5..10])
-    (news + speeches[0...5]).each do |speech|
+    assert_documents_appear_in_order_within("#announcements-container", speeches[1..2])
+    (news + speeches[0..0]).each do |speech|
       refute_select_object(speech)
     end
   end
