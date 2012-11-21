@@ -306,6 +306,35 @@ class Edition::PublishingTest < ActiveSupport::TestCase
     refute Edition.find(edition.id).published?
   end
 
+  test "a draft edition has no published version" do
+    draft_edition = create(:draft_edition)
+    assert_nil draft_edition.published_version
+  end
+
+  test "publication of first edition sets published version to 1.0" do
+    edition = create(:submitted_edition)
+    edition.publish_as(create(:departmental_editor))
+    assert_equal '1.0', edition.reload.published_version
+  end
+
+  test "publishing a minor change to an edition updates the minor version" do
+    editor = create(:departmental_editor)
+    edition = create(:published_edition)
+    new_draft = edition.create_draft(editor)
+    new_draft.minor_change = true
+    new_draft.publish_as(editor, force: true)
+    assert_equal '1.1', new_draft.reload.published_version
+  end
+
+  test "publishing a major change to an edition updates the major version and sets minor version to zero" do
+    editor = create(:departmental_editor)
+    edition = create(:published_edition)
+    new_draft = edition.create_draft(editor)
+    new_draft.change_note = 'My new version'
+    new_draft.publish_as(editor, force: true)
+    assert_equal '2.0', new_draft.reload.published_version
+  end
+
   test "#approve_retrospectively_as should clear the force_published flag, and return true on success" do
     editor, other_editor = create(:departmental_editor), create(:departmental_editor)
     edition = create(:submitted_policy)

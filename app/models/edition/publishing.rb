@@ -28,6 +28,12 @@ module Edition::Publishing
     first_published_at && first_published_at == published_at
   end
 
+  def published_version
+    if published_major_version and published_minor_version
+      "#{published_major_version}.#{published_minor_version}"
+    end
+  end
+
   def change_note_required?
     if deleted? || archived?
       false
@@ -98,6 +104,13 @@ module Edition::Publishing
       self.access_limited = nil
       if ! scheduled?
         self.force_published = options[:force]
+      end
+      if minor_change?
+        self.published_major_version = Edition.unscoped.where(document_id: document_id).maximum(:published_major_version) || 1
+        self.published_minor_version = (Edition.unscoped.where(document_id: document_id, published_major_version: published_major_version).maximum(:published_minor_version) || -1) + 1
+      else
+        self.published_major_version = (Edition.unscoped.where(document_id: document_id).maximum(:published_major_version) || 0) + 1
+        self.published_minor_version = 0
       end
       publish!
       true

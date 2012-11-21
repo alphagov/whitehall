@@ -45,6 +45,8 @@ FactoryGirl.define do
       published_at { 1.day.ago }
       first_published_at { published_at }
       force_published { false }
+      published_major_version 1
+      published_minor_version 0
     end
     trait(:deleted) {
       state "draft"
