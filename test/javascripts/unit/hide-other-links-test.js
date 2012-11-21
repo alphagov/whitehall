@@ -39,7 +39,7 @@ test("created link should have correct count", function() {
   ok(linkCount == otherCount);
 });
 
-test("check fullstop is retained", function() {
+test("check fullstop is preserved", function() {
   $('.js-hide-other-links').hideOtherLinks();
   ok($('.js-hide-other-links').text().substr(-1) == ".");
 });
