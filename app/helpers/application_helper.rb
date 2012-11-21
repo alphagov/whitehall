@@ -24,7 +24,7 @@ module ApplicationHelper
     tag :link, href: path, rel: 'alternate', type: Mime::JSON
   end
 
-  def publication_atom_feed_url
+  def filter_atom_feed_url
     url_for(params.except(:utf8, :_, :date, :direction, :page).merge(format: "atom", only_path: false))
   end
 

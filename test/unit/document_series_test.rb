@@ -48,4 +48,15 @@ class DocumentSeriesTest < ActiveSupport::TestCase
     series.destroy
     assert DocumentSeries.find(series.id)
   end
+
+  test "should generate a slug based on its name" do
+    series = create(:document_series, name: 'The Best Series Ever')
+    assert_equal 'the-best-series-ever', series.reload.slug
+  end
+
+  test "should not change the slug when the name is changed" do
+    series = create(:document_series, name: 'The Best Series Ever')
+    series.update_attributes(name: 'The Worst Series Ever')
+    assert_equal 'the-best-series-ever', series.reload.slug
+  end
 end

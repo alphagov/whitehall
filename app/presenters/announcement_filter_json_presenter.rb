@@ -1,6 +1,6 @@
 class AnnouncementFilterJsonPresenter < DocumentFilterJsonPresenter
   def as_json(options = nil)
-    super.merge atom_feed_url: h.publication_atom_feed_url
+    super.merge atom_feed_url: h.filter_atom_feed_url
   end
 
   def document_hash(document)
