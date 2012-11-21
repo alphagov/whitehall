@@ -20,11 +20,11 @@ module Edition::Identifiable
   end
 
   def ensure_presence_of_document
-    self.document ||= Document.new(sluggable_string: self.sluggable_title)
+    self.document ||= Document.new(sluggable_string: title)
   end
 
   def update_document_slug
-    document.update_slug_if_possible(self.sluggable_title)
+    document.update_slug_if_possible(title)
   end
 
   def propagate_type_to_document

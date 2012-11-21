@@ -242,10 +242,6 @@ class Edition < ActiveRecord::Base
     "#{title} (#{state})"
   end
 
-  def sluggable_title
-    title
-  end
-
   def indexable_content
     body_without_markup
   end
