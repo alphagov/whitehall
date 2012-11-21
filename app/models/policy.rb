@@ -41,14 +41,10 @@ class Policy < Edition
 
   after_destroy :remove_edition_relations
 
-  def sluggable_title
-    title
-  end
-
   def alternative_format_provider_required?
     true
   end
-  
+
   def can_have_summary?
     true
   end
