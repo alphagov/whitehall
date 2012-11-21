@@ -322,6 +322,8 @@ ActiveRecord::Schema.define(:version => 20121123095808) do
     t.datetime "scheduled_publication"
     t.boolean  "replaces_businesslink",                                           :default => false
     t.boolean  "access_limited"
+    t.integer  "published_major_version"
+    t.integer  "published_minor_version"
   end
 
   add_index "editions", ["alternative_format_provider_id"], :name => "index_editions_on_alternative_format_provider_id"

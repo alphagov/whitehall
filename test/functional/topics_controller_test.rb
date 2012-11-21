@@ -240,9 +240,8 @@ class TopicsControllerTest < ActionController::TestCase
   end
 
   test "show displays metadata about the recently changed documents" do
-    published_at = Time.zone.now
     policy = create(:published_policy)
-    speech = create(:published_speech, published_at: published_at, related_policies: [policy])
+    speech = create(:published_speech, related_policies: [policy])
 
     topic = create(:topic, policies: [policy])
 
@@ -251,7 +250,7 @@ class TopicsControllerTest < ActionController::TestCase
     assert_select "#recently-updated" do
       assert_select_prefix_object speech, prefix="recent" do
         assert_select '.type', text: "Speech"
-        assert_select ".published-at[title='#{published_at.iso8601}']"
+        assert_select ".published-at[title='#{speech.timestamp_for_sorting.iso8601}']"
       end
     end
   end

@@ -12,7 +12,7 @@ class SupportingPagesController < PublicFacingController
 
   def show
     @document = @policy
-    @recently_changed_documents = Edition.published.related_to(@policy).by_published_at
+    @recently_changed_documents = Edition.published.related_to(@policy).in_reverse_chronological_order
     set_slimmer_organisations_header(@supporting_page.edition.organisations)
   end
 

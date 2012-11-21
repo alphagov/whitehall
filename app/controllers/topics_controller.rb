@@ -11,7 +11,7 @@ class TopicsController < PublicFacingController
     expire_on_next_scheduled_publication(@topic.scheduled_editions +
       Publication.scheduled_in_topic([@topic]) +
       Announcement.scheduled_in_topic([@topic]))
-    @publications = PublicationesquePresenter.decorate(Publication.published_in_topic([@topic]).by_published_at.limit(3))
+    @publications = PublicationesquePresenter.decorate(Publication.published_in_topic([@topic]).in_reverse_chronological_order.limit(3))
     @announcements = AnnouncementPresenter.decorate(Announcement.published_in_topic([@topic]).in_reverse_chronological_order.limit(3))
     @detailed_guides = @topic.detailed_guides.published.limit(5)
     @related_topics = @topic.related_topics

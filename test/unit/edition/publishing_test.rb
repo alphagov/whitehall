@@ -233,11 +233,11 @@ class Edition::PublishingTest < ActiveSupport::TestCase
   end
 
   test "publication does not update time of publication if minor change" do
-    published_edition = create(:published_edition)
-    edition = create(:submitted_edition, change_note: nil, minor_change: true, document: published_edition.document)
+    original_publishing_time = 1.day.ago
+    edition = create(:submitted_edition, published_at: original_publishing_time, change_note: nil, minor_change: true)
     Timecop.travel 1.day.from_now
     edition.publish_as(create(:departmental_editor))
-    assert_equal published_edition.published_at, edition.reload.published_at
+    assert_equal original_publishing_time, edition.published_at
   end
 
   test "publication preserves time of first publication if provided" do

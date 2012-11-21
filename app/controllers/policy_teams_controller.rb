@@ -5,6 +5,6 @@ class PolicyTeamsController < PublicFacingController
 
   def show
     @policy_team = PolicyTeam.find(params[:id])
-    @policies = @policy_team.policies.published.by_published_at
+    @policies = @policy_team.policies.published.in_reverse_chronological_order
   end
 end

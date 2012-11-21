@@ -42,11 +42,11 @@ class Person < ActiveRecord::Base
   end
 
   def published_speeches
-    speeches.latest_published_edition.order("delivered_on desc")
+    speeches.latest_published_edition.in_reverse_chronological_order
   end
 
   def published_news_articles
-    news_articles.latest_published_edition.order("published_at desc")
+    news_articles.latest_published_edition.in_reverse_chronological_order
   end
 
   def destroyable?

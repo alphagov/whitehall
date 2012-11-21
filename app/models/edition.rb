@@ -363,6 +363,10 @@ class Edition < ActiveRecord::Base
   end
 
   def set_timestamp_for_sorting
-    self.timestamp_for_sorting = first_published_at
+    if first_published_version?
+      self.timestamp_for_sorting = first_published_at
+    else
+      self.timestamp_for_sorting = published_at
+    end
   end
 end

@@ -604,10 +604,11 @@ class OrganisationsControllerTest < ActionController::TestCase
   end
 
   test "shows 3 most recently published editions associated with organisation" do
-    editions = 3.times.map { |n| create(:published_policy, published_at: n.days.ago) } +
-                3.times.map { |n| create(:published_publication, published_at: (3 + n).days.ago) } +
-                3.times.map { |n| create(:published_consultation, published_at: (6 + n).days.ago) } +
-                3.times.map { |n| create(:published_speech, published_at: (9 + n).days.ago) }
+    # different edition types sort on different attributes
+    editions = [create(:published_policy, first_published_at: 1.days.ago),
+               create(:published_publication, publication_date: 2.days.ago),
+               create(:published_consultation, first_published_at: 3.days.ago),
+               create(:published_speech, delivered_on: 4.days.ago)]
 
     organisation = create(:organisation, editions: editions)
     get :show, id: organisation
@@ -616,9 +617,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     editions[0,3].each do |edition|
       assert_select_prefix_object edition, :recent
     end
-    editions[3,9].each do |edition|
-      refute_select_prefix_object edition, :recent
-    end
+    refute_select_prefix_object editions[3], :recent
   end
 
   test "should not show most recently published editions when there are none" do
