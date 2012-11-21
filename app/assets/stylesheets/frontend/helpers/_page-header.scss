@@ -59,7 +59,7 @@
   @include core-14;
   background: $info-background;
   text-decoration: none;
-  display: inline;
+  display: inline-block;
   margin-left: 0.3em;
   @include border-radius(0.250em);
   padding: 1px 4px 0;
