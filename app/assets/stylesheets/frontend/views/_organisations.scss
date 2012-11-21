@@ -609,6 +609,13 @@
           display: none;
         }
 
+        .email {
+          word-break: break-word;
+
+          @include ie(6) {
+            word-break: break-all;
+          }
+        }
       }
 
       .show-other-content {
