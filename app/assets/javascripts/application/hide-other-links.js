@@ -12,10 +12,12 @@
           showHide = $('<span class="other-content" />'),
           shownElements = [],
           hiddenElements = [],
-          currentlyAppending = shownElements;
+          currentlyAppending = shownElements,
+          fullStop = false;
 
       $($el.contents()).each(function(i, el) {
         if (el.nodeValue && (el.nodeValue === "." || el.nodeValue === ' ')) {
+          fullStop = (el.nodeValue === ".");
           return;
         }
         currentlyAppending.push(el);
@@ -37,7 +39,9 @@
         });
 
         $el.append(showHide);
-        $el.append(".");
+        if (fullStop) {
+          $el.append(".");
+        }
 
         showHide.hide();
 
