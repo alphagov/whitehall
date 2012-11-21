@@ -16,7 +16,6 @@ module("hide-other-things: hides all but first element in collection", {
 
 test("should group elements into other-content span", function () {
   $('.js-hide-other-links').hideOtherLinks();
-  console.log($('.other-content').length);
   ok($('.other-content').length > 0 && $('.other-content').children().length == 3);
 });
 
