@@ -20,6 +20,11 @@ class Whitehall::Uploader::Builders::AttachmentBuilderTest < ActiveSupport::Test
     assert attachment.file.present?
   end
 
+  test "does nothing if both title and url blank" do
+    attachment = Whitehall::Uploader::Builders::AttachmentBuilder.build({title: ""}, "", @cache, @log, @line_number)
+    assert attachment.nil?
+  end
+
   test "stores the attachment title" do
     attachment = Whitehall::Uploader::Builders::AttachmentBuilder.build({title: @title}, @url, @cache, @log, @line_number)
     assert_equal "attachment title", attachment.title

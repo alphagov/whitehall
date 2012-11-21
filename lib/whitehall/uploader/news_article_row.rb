@@ -1,14 +1,22 @@
 require 'whitehall/uploader/finders'
 require 'whitehall/uploader/parsers'
 require 'whitehall/uploader/builders'
+require 'whitehall/uploader/row'
+
 module Whitehall::Uploader
-  class NewsArticleRow
+  class NewsArticleRow < Row
     attr_reader :row
 
     def initialize(row, line_number, attachment_cache = nil, logger = Logger.new($stdout))
       @row = row
       @line_number = line_number
       @logger = logger
+    end
+
+    def self.required_fields(headings)
+      super +
+        %w{policy_1 policy_2 policy_3 policy_4} +
+        %w{first_published country_1 country_2 country_3 minister_1 minister_2}
     end
 
     def legacy_url

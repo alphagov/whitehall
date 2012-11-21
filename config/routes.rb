@@ -122,6 +122,8 @@ Whitehall::Application.routes.draw do
         resources :countries, only: [:index, :edit, :update]
         resources :case_studies, path: "case-studies", except: [:index]
 
+        resources :imports
+
         match "preview" => "preview#preview", via: :post
       end
     end

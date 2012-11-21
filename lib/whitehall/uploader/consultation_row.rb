@@ -1,9 +1,10 @@
 require 'whitehall/uploader/finders'
 require 'whitehall/uploader/parsers'
 require 'whitehall/uploader/builders'
+require 'whitehall/uploader/row'
 
 module Whitehall::Uploader
-  class ConsultationRow
+  class ConsultationRow < Row
     attr_reader :row
 
     def initialize(row, line_number, attachment_cache, logger = Logger.new($stdout))
@@ -11,6 +12,26 @@ module Whitehall::Uploader
       @line_number = line_number
       @logger = logger
       @attachment_cache = attachment_cache
+    end
+
+    def self.required_fields(headings)
+      required_fields = super.dup
+      required_fields += %w{policy_1 policy_2 policy_3 policy_4}
+      required_fields += %w{
+        minister_1 minister_2
+        opening_date closing_date
+        respond_url respond_email
+        respond_postal_address respond_form_title respond_form_attachment
+        consultation_ISBN consultation_URN publication_date order_url
+        command_paper_number price response_date response_summary comments
+      }
+      required_fields += provided_response_ids(headings).map do |i|
+        "response_#{i}_url response_#{i}_title response_#{i}_ISBN response_#{i}_URN response_#{i}_command_reference response_#{i}_order_URL response_#{i}_price".split(" ")
+      end.flatten
+      required_fields += provided_attachment_ids(headings).map do |i|
+        "attachment_#{i}_url attachment_#{i}_title".split(" ")
+      end.flatten
+      required_fields
     end
 
     def title

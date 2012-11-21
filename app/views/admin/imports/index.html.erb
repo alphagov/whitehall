@@ -1,0 +1,44 @@
+<% page_title "Imports" %>
+
+<section>
+  <nav class="actions">
+    <%= link_to "New import", new_admin_import_path, class: "btn new_resource" %>
+  </nav>
+
+  <h1>Imports</h1>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Started</th>
+        <th>Creator</th>
+        <th>Type</th>
+        <th>Filename</th>
+        <th>Status</th>
+        <th># success</th>
+        <th># already imported</th>
+        <th># errors</th>
+        <th>Finished</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @imports.each do |import| %>
+        <%= content_tag_for(:tr, import) do %>
+          <td class="started_at">
+            <%= import.import_started_at && render_datetime_microformat(import, :import_started_at) { import.import_started_at.to_s(:long)} %>
+          </td>
+          <td class="creator"><%= linked_author import.creator %></td>
+          <td class="type"><%= import.data_type %></td>
+          <td class="filename"><%= link_to import.original_filename, [:admin, import] %></td>
+          <td class="status"><%= import.status %></td>
+          <td class="success_count"><%= link_to import.document_sources.count, admin_import_path(import, anchor: "success") %></td>
+          <td class="already_imported_count"><%= link_to import.already_imported && import.already_imported.size, admin_import_path(import, anchor: "already_imported") %></td>
+          <td class="error_count"><%= link_to import.import_errors && import.import_errors.size, admin_import_path(import, anchor: "errors") %></td>
+          <td class="finished_at">
+            <%= import.import_finished_at && render_datetime_microformat(import, :import_finished_at) { import.import_finished_at.to_s(:long)} %>
+          </td>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+</section>

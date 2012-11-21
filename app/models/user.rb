@@ -14,6 +14,7 @@ class User < ActiveRecord::Base
     DEPARTMENTAL_EDITOR = 'Editor'
     GDS_EDITOR = 'GDS Editor'
     PUBLISH_SCHEDULED_EDITIONS = 'Publish scheduled editions'
+    IMPORT = 'Import CSVs'
   end
 
   def role
@@ -32,6 +33,10 @@ class User < ActiveRecord::Base
 
   def can_publish_scheduled_editions?
     has_permission?(GDS::SSO::Config.default_scope, Permissions::PUBLISH_SCHEDULED_EDITIONS)
+  end
+
+  def can_import?
+    has_permission?(GDS::SSO::Config.default_scope, Permissions::IMPORT)
   end
 
   def organisation_name
