@@ -39,9 +39,12 @@ class GovspeakHelperLinkRewritingTest < ActionView::TestCase
     assert_rewrites_link(from: admin_supporting_page_url(supporting_page_2), to: public_supporting_page_url(policy_2, supporting_page_2))
   end
 
-  test "should rewrite link to an admin page for an organisation as a link to its public page" do
+  test "should not raise exception when link to an admin page for an organisation is present" do
     organisation = create(:organisation)
-    assert_rewrites_link(from: admin_organisation_url(organisation), to: organisation_url(organisation))
+    path = admin_organisation_url(organisation)
+    assert_nothing_raised do
+      govspeak_to_html("[text](#{path})")
+    end
   end
 
   test "should not raise exception when link to an admin page for an organisation corporate information is present" do
