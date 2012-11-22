@@ -1,6 +1,6 @@
 module DocumentHelper
   def published_or_updated(edition)
-    edition.first_edition? ? 'published' : 'updated'
+    edition.first_published_version? ? 'published' : 'updated'
   end
 
   def edition_organisation_class(edition)

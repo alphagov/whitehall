@@ -140,14 +140,14 @@ class EditionTest < ActiveSupport::TestCase
     assert_equal [policy], edition_2.published_related_policies
   end
 
-  test "#first_edition? is true if published and first_published_at equals published_at" do
-    policy = create(:published_policy)
-    assert policy.first_edition?
+  test "#first_published_version? is true if published and published_major_version is 1" do
+    policy = build(:published_policy, published_major_version: 1)
+    assert policy.first_published_version?
   end
 
-  test "#first_edition? is false if published and first_published_at doesn't equal published_at" do
-    policy = create(:published_policy, first_published_at: 1.minute.ago)
-    refute policy.first_edition?
+  test "#first_edition? is false if published and published_major_version is not 1" do
+    policy = build(:published_policy, published_major_version: 2)
+    refute policy.first_published_version?
   end
 
   test "#creator= builds an edition_author with the given creator for new records" do

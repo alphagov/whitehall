@@ -271,19 +271,24 @@ class TopicsControllerTest < ActionController::TestCase
   end
 
   test "show distinguishes between published and updated documents" do
-    first_edition = create(:published_policy)
-    updated_edition = create(:published_policy, published_at: Time.zone.now, first_published_at: 1.day.ago)
+    first_major_edition = create(:published_policy, published_major_version: 1)
+    first_minor_edition = create(:published_policy, published_major_version: 1, published_minor_version: 1)
+    second_major_edition = create(:published_policy, published_major_version: 2)
 
-    topic = create(:topic, policies: [first_edition, updated_edition])
+    topic = create(:topic, policies: [first_major_edition, first_minor_edition, second_major_edition])
 
     get :show, id: topic
 
-    assert_select_prefix_object first_edition, prefix="recent" do
-      assert_select '.published-date ', text: /published/
+    assert_select_prefix_object first_major_edition, prefix="recent" do
+      assert_select '.document-row', text: /published/
     end
 
-    assert_select_prefix_object updated_edition, prefix="recent" do
-      assert_select '.published-date', text: /updated/
+    assert_select_prefix_object first_minor_edition, prefix="recent" do
+      assert_select '.document-row', text: /published/
+    end
+
+    assert_select_prefix_object second_major_edition, prefix="recent" do
+      assert_select '.document-row', text: /updated/
     end
   end
 

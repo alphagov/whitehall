@@ -24,8 +24,8 @@ module Edition::Publishing
     end
   end
 
-  def first_edition?
-    first_published_at && first_published_at == published_at
+  def first_published_version?
+    published_major_version.nil? || published_major_version == 1
   end
 
   def published_version

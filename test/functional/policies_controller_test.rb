@@ -275,16 +275,21 @@ That's all
   test "activity distinguishes between published and updated documents" do
     policy = create(:published_policy)
 
-    first_edition = create(:published_news_article, related_policies: [policy])
-    updated_edition = create(:published_news_article, related_policies: [policy], published_at: Time.zone.now, first_published_at: 1.day.ago)
+    first_major_edition = create(:published_news_article, related_policies: [policy], published_major_version: 1)
+    first_minor_edition = create(:published_news_article, related_policies: [policy], published_major_version: 1, published_minor_version: 1)
+    second_major_edition = create(:published_news_article, related_policies: [policy], published_major_version: 2)
 
     get :activity, id: policy.document
 
-    assert_select_object first_edition do
+    assert_select_object first_major_edition do
       assert_select '.document-row', text: /Published/
     end
 
-    assert_select_object updated_edition do
+    assert_select_object first_minor_edition do
+      assert_select '.document-row', text: /Published/
+    end
+
+    assert_select_object second_major_edition do
       assert_select '.document-row', text: /Updated/
     end
   end
