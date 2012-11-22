@@ -17,6 +17,10 @@ module Whitehall
       assert_remover_transforms candidate => candidate
     end
 
+    test "ignores nil" do
+      assert_leaves_untouched nil
+    end
+
     test "ignores text without double quotes" do
       assert_leaves_untouched %{no quotes\na few lines,\n\n\n\nbut no quotes\n\n}
     end

@@ -4,6 +4,7 @@ module Whitehall
     LINE_BREAK = '\r\n?|\n'
 
     def remove(source)
+      return nil if source.nil?
       source.gsub(/^>\s*[#{QUOTE}]+(.+?)[#{QUOTE}]*[ \t]*(#{LINE_BREAK}?)$/, '> \1\2')
     end
   end
