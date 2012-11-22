@@ -1,9 +1,13 @@
 fieldset.sortable {
   margin-top: 0;
+
+  legend {
+    margin-bottom: 10px;
+  }
 }
 
 .ui-sortable {
-  margin-top: 2em;
+  margin-top: 0;
 
   margin-left: 0;
 
