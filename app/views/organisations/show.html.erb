@@ -130,22 +130,16 @@
             <section id="ministers">
               <h1 class="label">Our ministers</h1>
               <ul class="js-hide-extra-rows">
-                <% @ministers.each do |minister| %>
-                  <%= content_tag_for(:li, minister) do %>
-                    <div class="inner">
-                      <h1 class="visuallyhidden">Minister</h1>
-                      <div class="image_holder">
-                        <span class="img">
-                          <%= minister.current_person_image %>
-                        </span>
-                      </div>
-                      <h3 class="current-appointee<%= " privy_counsellor" if minister.current_person.privy_counsellor? %>">
-                        <%= minister.current_person_link %>
-                      </h3>
-                      <p class="role"><%= minister.link %></p>
-                    </div>
-                  <% end %>
-                <% end %>
+              <% @ministers.each do |minister, roles| %>
+                <%= render partial: "ministerial_roles/role",
+                            locals: {
+                              person: minister,
+                              person_class: 'ministerial_role',
+                              roles: roles,
+                              hlevel: "h3",
+                              hide_image: true
+                            } %>
+              <% end %>
               </ul>
             </section>
           <% end %>
