@@ -59,6 +59,7 @@ class Admin::OrganisationsController < Admin::BaseController
     @ministerial_organisation_roles = []
     @board_member_organisation_roles = []
     @traffic_commissioner_organisation_roles = []
+    @special_representative_organisation_roles = []
   end
 
   def build_organisation_topics
@@ -94,6 +95,7 @@ class Admin::OrganisationsController < Admin::BaseController
     @ministerial_organisation_roles = @organisation.organisation_roles.joins(:role).merge(Role.ministerial).order(:ordering)
     @board_member_organisation_roles = @organisation.organisation_roles.joins(:role).merge(Role.board_member).order(:ordering)
     @traffic_commissioner_organisation_roles = @organisation.organisation_roles.joins(:role).merge(Role.traffic_commissioner).order(:ordering)
+    @special_representative_organisation_roles = @organisation.organisation_roles.joins(:role).merge(Role.special_representative).order(:ordering)
   end
 
   def destroy_blank_phone_numbers

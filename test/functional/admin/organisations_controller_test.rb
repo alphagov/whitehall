@@ -412,6 +412,18 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert_equal [organisation_senior_traffic_commissioner_role, organisation_junior_traffic_commissioner_role], assigns(:traffic_commissioner_organisation_roles)
   end
 
+  test "editing shows special representative roles in their currently specified order" do
+    junior_representative_role = create(:special_representative_role)
+    senior_representative_role = create(:special_representative_role)
+    organisation = create(:organisation)
+    organisation_junior_representative_role = create(:organisation_role, organisation: organisation, role: junior_representative_role, ordering: 2)
+    organisation_senior_representative_role = create(:organisation_role, organisation: organisation, role: senior_representative_role, ordering: 1)
+
+    get :edit, id: organisation
+
+    assert_equal [organisation_senior_representative_role, organisation_junior_representative_role], assigns(:special_representative_organisation_roles)
+  end
+
   test "editing does not display an empty ministerial roles section" do
     organisation = create(:organisation)
     get :edit, id: organisation
