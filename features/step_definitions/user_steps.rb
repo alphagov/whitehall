@@ -12,10 +12,18 @@ When /^I set the email address for "([^"]*)" to "([^"]*)"$/ do |name, email_addr
   click_button "Save"
 end
 
-When /^I set the organisation for "([^"]*)" to "([^"]*)"$/ do |name, organisation|
-  begin_editing_user_details(name)
-  select organisation, from: "Organisation"
-  click_button "Save"
+When /^I view my own user record$/ do
+  visit admin_user_path
+end
+
+Then /^I can see my organisation$/ do
+  assert page.has_css?(".user .organisation", text: User.last.organisation)
+
+end
+
+Then /^I cannot change my organisation$/ do
+  begin_editing_user_details(User.last.name)
+  assert page.has_no_css?("select[name=organisation_id]")
 end
 
 When /^I set the role for "([^"]*)" to departmental editor$/ do |name|

@@ -27,7 +27,7 @@ Scenario: Logged in users should be able to set their email address
 Scenario: Logged in users should be able to view but not edit their organisation
   Given I am a writer called "John Smith"
   And the organisation "Department of Beards" exists
-  When I view my own user recor
+  When I view my own user record
   Then I can see my organisation
   But I cannot change my organisation
 

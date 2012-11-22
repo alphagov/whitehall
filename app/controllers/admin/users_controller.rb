@@ -8,6 +8,7 @@ class Admin::UsersController < Admin::BaseController
   end
 
   def update
+    params[:user].delete(:organisation_id)
     if @user.update_attributes(params[:user])
       redirect_to admin_user_path, notice: "Your settings have been saved"
     else

@@ -31,7 +31,6 @@ class Admin::UsersControllerTest < ActionController::TestCase
 
     assert_select "form[action='#{admin_user_path}']" do
       assert_select "input[name='user[email]'][type='text'][value='user@example.com']"
-      assert_select "select[name='user[organisation_id]']"
       assert_select "input[type='submit'][value='Save']"
     end
   end
@@ -74,5 +73,11 @@ class Admin::UsersControllerTest < ActionController::TestCase
     put :update, user: { email: "invalid-email-address" }
 
     assert_select ".errors li", text: "Email does not appear to be valid"
+  end
+
+  test "update does not allow organisation changes" do
+    organisation = create(:organisation)
+    put :update, user: { organisation_id: organisation.id }
+    refute_equal @user.reload.organisation, organisation
   end
 end
