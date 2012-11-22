@@ -21,6 +21,7 @@ class OrganisationsController < PublicFacingController
       @ministers = ministers
       @civil_servants = civil_servants
       @traffic_commissioners = traffic_commissioners
+      @special_representatives = special_representatives
       set_slimmer_organisations_header([@organisation])
       expire_on_next_scheduled_publication(@organisation.scheduled_editions)
     else
@@ -48,6 +49,12 @@ class OrganisationsController < PublicFacingController
 
   def traffic_commissioners
     @traffic_commissioner_roles = @organisation.traffic_commissioner_roles.order("organisation_roles.ordering").map do |role|
+      RolePresenter.new(role)
+    end
+  end
+
+  def special_representatives
+    @organisation.special_representative_roles.order("organisation_roles.ordering").map do |role|
       RolePresenter.new(role)
     end
   end

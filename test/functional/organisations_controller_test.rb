@@ -551,6 +551,30 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_select 'a[href=?]', chiefs_of_staff_organisation_path(organisation)
   end
 
+  test "shows special representatives with links to person pages" do
+    representative = create(:person)
+    special_representative_role = create(:special_representative_role)
+    create(:role_appointment, role: special_representative_role, person: representative)
+
+    organisation = create(:organisation, special_representative_roles: [special_representative_role])
+
+    get :show, id: organisation
+
+    assert_select special_representative_selector do
+      assert_select_object(special_representative_role) do
+        assert_select "a[href='#{person_path(representative)}']"
+      end
+    end
+  end
+
+  test "should not display an empty special representatives section" do
+    organisation = create(:organisation, special_representative_roles: [])
+
+    get :show, id: organisation
+
+    refute_select special_representative_selector
+  end
+
   test "should display a list of organisations" do
     ministerial_org = create(:ministerial_organisation_type)
     organisation_1 = create(:organisation, organisation_type_id: ministerial_org.id)

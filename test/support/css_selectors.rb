@@ -65,6 +65,10 @@ module CssSelectors
     "#management"
   end
 
+  def special_representative_selector
+    "#special_representatives"
+  end
+
   def featured_documents_selector
     "#featured-documents"
   end

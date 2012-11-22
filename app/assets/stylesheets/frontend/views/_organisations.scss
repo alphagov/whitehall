@@ -40,7 +40,7 @@
     h1 {
       padding-top: 0;
     }
-    
+
     .department {
       @extend %contain-floats;
       padding: $gutter-one-third 0;
@@ -348,7 +348,8 @@
     #ministers,
     #management,
     #military,
-    #traffic_commissioners {
+    #traffic_commissioners,
+    #special_representatives {
       display: block;
       clear: both;
       overflow: hidden;
@@ -356,7 +357,8 @@
 
     #management,
     #military,
-    #traffic_commissioners {
+    #traffic_commissioners,
+    #special_representatives {
       padding-top: $gutter-half;
       @include media(tablet) {
         padding-top: $gutter*2;
@@ -372,7 +374,8 @@
     .ministerial_role,
     .board_member_role,
     .military_role,
-    .traffic_commissioner_role {
+    .traffic_commissioner_role,
+    .special_representative_role {
       list-style: none;
       clear: left;
       @include media(tablet){
@@ -432,7 +435,7 @@
           }
         }
       }
-    
+
       .role a {
         text-decoration: none;
         &:hover,
@@ -688,6 +691,7 @@
   #management h1,
   #military h1,
   #traffic_commissioners h1,
+  #special_representatives h1,
   #org-contacts h2,
   #recently_updated h1,
   #what-we-do h1 {
@@ -822,7 +826,7 @@
     h1 {
       @include bold;
     }
-    
+
     ol {
       li {
         padding-top: $gutter-one-sixth;

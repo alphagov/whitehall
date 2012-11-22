@@ -134,6 +134,29 @@
           </section>
         <% end %>
 
+        <% if @special_representatives.any? %>
+          <section id="special_representatives">
+            <h1 class="label">Special representatives</h1>
+            <ul class="js-hide-extra-rows">
+              <% @special_representatives.each do |special_representative| %>
+                <%= content_tag_for(:li, special_representative) do %>
+                  <div class="inner">
+                    <h1 class="visuallyhidden"><%= special_representative.name %></h1>
+                    <div class="image_holder">
+                      <span class="img">
+                        <%= special_representative.current_person_image %>
+                      </span>
+                    </div>
+                    <h3 class="current-appointee">
+                      <%= special_representative.current_person_link %>
+                    </h3>
+                    <p class="role"><%= special_representative.link %></p>
+                  </div>
+                <% end %>
+              <% end %>
+            </ul>
+          </section>
+        <% end %>
 
         <% if @civil_servants.any? %>
           <section id="management">
