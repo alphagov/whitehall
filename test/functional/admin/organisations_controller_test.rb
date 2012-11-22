@@ -373,7 +373,8 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
 
     get :edit, id: organisation
 
-    assert_select "#minister_ordering label", text: /Prime Minister, John Doe/i
+    assert_select "#minister_ordering label", text: /Prime Minister/i
+    assert_select "#minister_ordering label", text: /John Doe/i
   end
 
   test "editing shows ministerial roles in their currently specified order" do
