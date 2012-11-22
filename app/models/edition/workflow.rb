@@ -80,7 +80,7 @@ module Edition::Workflow
   end
 
   def pre_publication?
-    PRE_PUBLICATION_STATES.include?(state.to_s)
+    Edition::PRE_PUBLICATION_STATES.include?(state.to_s)
   end
 
   def archive_previous_editions
