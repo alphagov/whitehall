@@ -104,6 +104,10 @@ class Organisation < ActiveRecord::Base
             through: :organisation_roles,
             source: :role,
             conditions: { permanent_secretary: false }
+  has_many :special_representative_roles,
+            class_name: 'SpecialRepresentativeRole',
+            through: :organisation_roles,
+            source: :role
 
   has_many :people, through: :roles
 

@@ -176,6 +176,12 @@ class OrganisationTest < ActiveSupport::TestCase
     assert_equal [], organisation.board_member_roles
   end
 
+  test '#special_representative_roles includes all special representatives' do
+    representative = create(:special_representative_role)
+    organisation = create(:organisation, roles:  [representative])
+    assert_equal [representative], organisation.special_representative_roles
+  end
+
   test 'should be creatable with contact data' do
     params = {
       contacts_attributes: [
