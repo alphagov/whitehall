@@ -74,5 +74,12 @@ module Whitehall
         %{> Today the coalition is remedying those deficiencies by putting in place a new fast track process where the people's elected representatives have responsibility for the final decisions about Britain's future instead of unelected commissioners.}
       )
     end
+
+    test "removes quotes correctly from multi-line blockquotes" do
+      assert_remover_transforms(
+        %{> "Here is a block quote using 2 lines and two of the arrows.\n> I am not sure how this will render.  I think it will mash them together."} =>
+        %{> Here is a block quote using 2 lines and two of the arrows.\n> I am not sure how this will render.  I think it will mash them together.}
+      )
+    end
   end
 end
