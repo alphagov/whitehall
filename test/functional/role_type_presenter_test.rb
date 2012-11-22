@@ -15,6 +15,9 @@ class RoleTypePresenterTest < ActiveSupport::TestCase
       ["Military", [
         ["Chief of the defence staff", "chief_of_the_defence_staff"],
         ["Chief of staff", "chief_of_staff"]
+      ]],
+      ["FCO", [
+        ["Special representative", "special_representative"]
       ]]
     ]
     assert_equal expected, RoleTypePresenter.options
@@ -83,6 +86,11 @@ class RoleTypePresenterTest < ActiveSupport::TestCase
   test "should generate attributes for chief of staff" do
     expected = {type: "MilitaryRole", cabinet_member: false, permanent_secretary: false, chief_of_the_defence_staff: false}
     assert_equal expected, RoleTypePresenter.role_attributes_from(type: "chief_of_staff")
+  end
+
+  test "should generate attributes for FCO special representative" do
+    expected = {type: "SpecialRepresentativeRole", cabinet_member: false, permanent_secretary: false, chief_of_the_defence_staff: false}
+    assert_equal expected, RoleTypePresenter.role_attributes_from(type: "special_representative")
   end
 
   test "should generate attributes for cabinet minister by default" do

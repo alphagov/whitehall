@@ -191,6 +191,14 @@ class Admin::RolesControllerTest < ActionController::TestCase
     assert role = MilitaryRole.last
   end
 
+  test "create should create a new special representative role" do
+    post :create, role: attributes_for(:special_representative_role,
+      type: "special_representative",
+    )
+
+    assert role = SpecialRepresentativeRole.last
+  end
+
   test "create redirects to the index on success" do
     post :create, role: attributes_for(:role)
 
