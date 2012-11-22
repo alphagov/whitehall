@@ -80,7 +80,7 @@ module Edition::Workflow
   end
 
   def pre_publication?
-    [:draft, :submitted, :rejected, :scheduled].include?(state.to_sym)
+    PRE_PUBLICATION_STATES.include?(state.to_s)
   end
 
   def archive_previous_editions

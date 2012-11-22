@@ -83,6 +83,7 @@ class Edition < ActiveRecord::Base
 
   UNMODIFIABLE_STATES = %w(scheduled published archived deleted).freeze
   FROZEN_STATES = %w(archived deleted).freeze
+  PRE_PUBLICATION_STATES = %w(draft submitted rejected scheduled).freeze
 
   def skip_main_validation?
     FROZEN_STATES.include?(state)
