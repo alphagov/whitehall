@@ -217,6 +217,36 @@ class OrganisationTest < ActiveSupport::TestCase
     assert organisation.valid?
   end
 
+  test 'should be creatable with mainstream link data' do
+    params = {
+      organisation_mainstream_links_attributes: [
+        {slug: "/blah/blah",
+         title: "Blah blah"},
+        {slug: "/wah/wah",
+         title: "Wah wah"},
+      ]
+    }
+    organisation = create(:organisation, params)
+
+    links = organisation.organisation_mainstream_links
+    assert_equal 2, links.count
+    assert_equal "/blah/blah", links[0].slug
+    assert_equal "Blah blah", links[0].title
+    assert_equal "/wah/wah", links[1].slug
+    assert_equal "Wah wah", links[1].title
+  end
+
+  test 'should ignore blank mainstream link attributes' do
+    params = {
+      organisation_mainstream_links_attributes: [
+        {slug: "",
+         title: ""}
+      ]
+    }
+    organisation = build(:organisation, params)
+    assert organisation.valid?
+  end
+
   test "should set a slug from the organisation name" do
     organisation = create(:organisation, name: 'Love all the people')
     assert_equal 'love-all-the-people', organisation.slug

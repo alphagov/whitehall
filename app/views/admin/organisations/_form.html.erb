@@ -51,6 +51,13 @@
       <%= account_form.text_field :url, horizontal: true %>
     <% end %>
   </fieldset>
+  <fieldset class="named organisation_mainstream_links form-horizontal">
+    <legend>Mainstream links</legend>
+    <%= organisation_form.fields_for :organisation_mainstream_links do |mainstream_link_form| %>
+      <%= mainstream_link_form.text_field :slug, horizontal: true %>
+      <%= mainstream_link_form.text_field :title, horizontal: true %>
+    <% end %>
+  </fieldset>
   <fieldset>
     <%= organisation_form.text_area :about_us, class: "previewable" %>
   </fieldset>

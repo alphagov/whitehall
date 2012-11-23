@@ -44,6 +44,13 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert_select "input[type=text][name='organisation[social_media_accounts_attributes][0][url]']"
   end
 
+  test "should display fields for new organisation mainstream links" do
+    get :new
+
+    assert_select "input[type=text][name='organisation[organisation_mainstream_links_attributes][0][slug]']"
+    assert_select "input[type=text][name='organisation[organisation_mainstream_links_attributes][0][title]']"
+  end
+
   test "should allow creation of an organisation without any contact details" do
     organisation_type = create(:organisation_type)
 
@@ -127,6 +134,25 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert social_media_account = organisation.social_media_accounts.last
     assert_equal social_media_service, social_media_account.social_media_service
     assert_equal "https://twitter.com/#!/bisgovuk", social_media_account.url
+  end
+
+  test "creating should be able to create a new mainstream link for the organisation" do
+    attributes = attributes_for(:organisation)
+    organisation_type = create(:organisation_type)
+    social_media_service = create(:social_media_service)
+
+    post :create, organisation: attributes.merge(
+      organisation_type_id: organisation_type.id,
+      organisation_mainstream_links_attributes: {"0" =>{
+        slug: "/mainstream/something",
+        title: "Something on mainstream"
+      }}
+    )
+
+    assert organisation = Organisation.last
+    assert organisation_mainstream_link = organisation.organisation_mainstream_links.last
+    assert_equal "/mainstream/something", organisation_mainstream_link.slug
+    assert_equal "Something on mainstream", organisation_mainstream_link.title
   end
 
   test "creating should redirect back to the index" do

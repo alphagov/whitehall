@@ -117,11 +117,13 @@ class Organisation < ActiveRecord::Base
 
   has_many :contacts, dependent: :destroy
   has_many :social_media_accounts, dependent: :destroy
+  has_many :organisation_mainstream_links, dependent: :destroy
 
   has_many :corporate_information_pages, dependent: :destroy
 
   accepts_nested_attributes_for :contacts, reject_if: :contact_and_contact_numbers_are_blank
   accepts_nested_attributes_for :social_media_accounts, allow_destroy: true
+  accepts_nested_attributes_for :organisation_mainstream_links, allow_destroy: true, reject_if: :all_blank
   accepts_nested_attributes_for :organisation_roles
   accepts_nested_attributes_for :edition_organisations
   accepts_nested_attributes_for :organisation_topics, reject_if: -> attributes { attributes['topic_id'].blank? }, allow_destroy: true

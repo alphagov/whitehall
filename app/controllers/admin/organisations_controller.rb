@@ -5,6 +5,7 @@ class Admin::OrganisationsController < Admin::BaseController
   before_filter :build_organisation_topics, only: [:new, :edit]
   before_filter :delete_absent_organisation_topics, only: [:update]
   before_filter :build_social_media_account, only: [:new, :edit]
+  before_filter :build_organisation_mainstream_links, only: [:new, :edit]
   before_filter :destroy_blank_phone_numbers, only: [:create, :update]
   before_filter :destroy_blank_social_media_accounts, only: [:create, :update]
 
@@ -88,6 +89,12 @@ class Admin::OrganisationsController < Admin::BaseController
   def build_social_media_account
     unless @organisation.social_media_accounts.any?(&:new_record?)
       @organisation.social_media_accounts.build
+    end
+  end
+
+  def build_organisation_mainstream_links
+    unless @organisation.organisation_mainstream_links.any?(&:new_record?)
+      @organisation.organisation_mainstream_links.build
     end
   end
 
