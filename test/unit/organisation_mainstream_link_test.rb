@@ -13,6 +13,6 @@ class OrganisationMainstreamLinkTest < ActiveSupport::TestCase
 
   test "should not be valid with a url that doesn't start with http" do
     link = build(:organisation_mainstream_link, url: "not a link")
-    refute
+    refute link.valid?
   end
 end
