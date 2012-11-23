@@ -47,7 +47,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
   test "should display fields for new organisation mainstream links" do
     get :new
 
-    assert_select "input[type=text][name='organisation[organisation_mainstream_links_attributes][0][slug]']"
+    assert_select "input[type=text][name='organisation[organisation_mainstream_links_attributes][0][url]']"
     assert_select "input[type=text][name='organisation[organisation_mainstream_links_attributes][0][title]']"
   end
 
@@ -144,14 +144,14 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     post :create, organisation: attributes.merge(
       organisation_type_id: organisation_type.id,
       organisation_mainstream_links_attributes: {"0" =>{
-        slug: "/mainstream/something",
+        url: "http://www.gov.uk/mainstream/something",
         title: "Something on mainstream"
       }}
     )
 
     assert organisation = Organisation.last
     assert organisation_mainstream_link = organisation.organisation_mainstream_links.last
-    assert_equal "/mainstream/something", organisation_mainstream_link.slug
+    assert_equal "http://www.gov.uk/mainstream/something", organisation_mainstream_link.url
     assert_equal "Something on mainstream", organisation_mainstream_link.title
   end
 

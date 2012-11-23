@@ -220,9 +220,9 @@ class OrganisationTest < ActiveSupport::TestCase
   test 'should be creatable with mainstream link data' do
     params = {
       organisation_mainstream_links_attributes: [
-        {slug: "/blah/blah",
+        {url: "https://www.gov.uk/blah/blah",
          title: "Blah blah"},
-        {slug: "/wah/wah",
+        {url: "https://www.gov.uk/wah/wah",
          title: "Wah wah"},
       ]
     }
@@ -230,16 +230,16 @@ class OrganisationTest < ActiveSupport::TestCase
 
     links = organisation.organisation_mainstream_links
     assert_equal 2, links.count
-    assert_equal "/blah/blah", links[0].slug
+    assert_equal "https://www.gov.uk/blah/blah", links[0].url
     assert_equal "Blah blah", links[0].title
-    assert_equal "/wah/wah", links[1].slug
+    assert_equal "https://www.gov.uk/wah/wah", links[1].url
     assert_equal "Wah wah", links[1].title
   end
 
   test 'should ignore blank mainstream link attributes' do
     params = {
       organisation_mainstream_links_attributes: [
-        {slug: "",
+        {url: "",
          title: ""}
       ]
     }

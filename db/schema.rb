@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121123122504) do
+ActiveRecord::Schema.define(:version => 20121123162657) do
 
   create_table "attachment_data", :force => true do |t|
     t.string   "carrierwave_file"
@@ -426,7 +426,7 @@ ActiveRecord::Schema.define(:version => 20121123122504) do
 
   create_table "organisation_mainstream_links", :force => true do |t|
     t.integer  "organisation_id"
-    t.string   "slug"
+    t.string   "url"
     t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"

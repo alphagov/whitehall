@@ -19,7 +19,7 @@
       <h4>Quick links</h4>
       <ul>
         <% organisation.organisation_mainstream_links.each do |link| %>
-          <li><%= link_to link.title, link.public_url(request.host) %></li>
+          <li><%= link_to link.title, link.url %></li>
         <% end %>
       </ul>
     </div>
