@@ -210,9 +210,29 @@
     text-decoration: underline;
   }
 
-  .page-header h1 {
-    overflow: hidden;
-    padding: $gutter-two-thirds 0 $gutter-one-third;
+  .page-header {
+    h1, .organisation_mainstream_links {
+      padding: $gutter-two-thirds 0 $gutter-one-third;
+    }
+
+    h1 {
+      overflow: hidden;
+
+      &.with_mainstream_links {
+        float: left;
+        width: 66%;
+      }
+    }
+
+    .organisation_mainstream_links {
+      list-style: none;
+      float: left;
+      width: 33%;
+
+      li {
+        @include core-24;
+      }
+    }
   }
 
   .organisation-news {

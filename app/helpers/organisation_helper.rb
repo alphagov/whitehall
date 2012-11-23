@@ -104,4 +104,9 @@ module OrganisationHelper
     scope: 3,
   }
 
+  def organisation_h1_class(organisation)
+    classes = %w(page_title name)
+    classes << "with_mainstream_links" if organisation.organisation_mainstream_links.any?
+    classes.join(" ")
+  end
 end

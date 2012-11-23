@@ -183,3 +183,21 @@ When /^I associate a Transparency data publication to the "([^"]*)"$/ do |name|
   organisation = Organisation.find_by_name!(name)
   publication = create(:published_publication, :transparency_data, organisations: [organisation])
 end
+
+When /^I add some mainstream links to "([^"]*)" via the admin$/ do |organisation_name|
+  organisation = Organisation.find_by_name!(organisation_name)
+  visit admin_organisation_path(organisation)
+  click_link "Edit"
+  within ".organisation_mainstream_links" do
+    fill_in "Slug", with: "https://www.gov.uk/mainstream/tool-alpha"
+    fill_in "Title", with: "Tool Alpha"
+  end
+  click_button "Save"
+end
+
+Then /^the mainstream links for "([^"]*)" should be visible on the public site$/ do |organisation_name|
+  visit_organisation organisation_name
+  within ".organisation_mainstream_links" do
+    assert page.has_css?("a[href='https://www.gov.uk/mainstream/tool-alpha']", "Tool Alpha")
+  end
+end

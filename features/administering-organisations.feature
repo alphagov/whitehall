@@ -27,3 +27,9 @@ Scenario: Requesting publications in alternative format
   And a published publication "Charleston styles today" with a PDF attachment and alternative format provider "Ministry of Pop"
   When I visit the publication "Charleston styles today"
   Then I should see a mailto link for the alternative format contact email "alternative.format@ministry-of-pop.gov.uk"
+
+Scenario: Adding mainstream services
+  Given I am an admin called "Jane"
+  And the organisation "Ministry of Pop" exists
+  When I add some mainstream links to "Ministry of Pop" via the admin
+  Then the mainstream links for "Ministry of Pop" should be visible on the public site
