@@ -23,8 +23,8 @@ class CorporateInformationPageType
   TermsOfReference = create(
     id: 4, title_template: "Terms of reference", slug: "terms-of-reference"
   )
-  BoardMeetingPaper = create(
-    id: 5, title_template: "Board meeting papers", slug: "board-meeting-papers"
+  OurGovernance = create(
+    id: 5, title_template: "Our governance", slug: "our-governance"
   )
   Statistics = create(
     id: 6, title_template: "Statistics at %s", slug: "statistics"
