@@ -188,7 +188,7 @@ When /^I add some mainstream links to "([^"]*)" via the admin$/ do |organisation
   organisation = Organisation.find_by_name!(organisation_name)
   visit admin_organisation_path(organisation)
   click_link "Edit"
-  within ".organisation_mainstream_links" do
+  within ".organisation-mainstream-links" do
     fill_in "Url", with: "https://www.gov.uk/mainstream/tool-alpha"
     fill_in "Title", with: "Tool Alpha"
   end
@@ -197,7 +197,7 @@ end
 
 Then /^the mainstream links for "([^"]*)" should be visible on the public site$/ do |organisation_name|
   visit_organisation organisation_name
-  within ".organisation_mainstream_links" do
+  within ".organisation-mainstream-links" do
     assert page.has_css?("a[href='https://www.gov.uk/mainstream/tool-alpha']", "Tool Alpha")
   end
 end
