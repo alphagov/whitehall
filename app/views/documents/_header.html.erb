@@ -47,7 +47,7 @@
       <% end %>
       <% if document.respond_to?(:inapplicable_nations) && document.inapplicable_nations.any? %>
         <dt>Applies to:</dt>
-        <dd><%= only_applies_to_nations_paragraph(document) %></dd>
+        <dd><%= only_applies_to_nations_list(document) %></dd>
       <% end %>
       <% if document.respond_to?(:policy_team) && document.policy_team %>
         <dt>Policy team:</dt>

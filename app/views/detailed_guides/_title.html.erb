@@ -3,5 +3,5 @@
   <% if document.summary.present? %>
     <p class="summary"><%= document.summary %></p>
   <% end %>
-  <%= only_applies_to_nations_paragraph(@document) %>
+  <p>Only applies to <%= only_applies_to_nations_list(@document) %></p>
 </div>
