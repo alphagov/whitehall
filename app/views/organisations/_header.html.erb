@@ -15,10 +15,13 @@
     <% end %>
   <% end %>
   <% if organisation.organisation_mainstream_links.any? %>
-    <ul class="organisation_mainstream_links">
-      <% organisation.organisation_mainstream_links.each do |link| %>
-        <li><%= link_to link.title, link.public_url(request.host) %></li>
-      <% end %>
-    </ul>
+    <div class="organisation_mainstream_links">
+      <h4>Quick links</h4>
+      <ul>
+        <% organisation.organisation_mainstream_links.each do |link| %>
+          <li><%= link_to link.title, link.public_url(request.host) %></li>
+        <% end %>
+      </ul>
+    </div>
   <% end %>
 </header>

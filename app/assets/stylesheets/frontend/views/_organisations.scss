@@ -219,18 +219,33 @@
       overflow: hidden;
 
       &.with_mainstream_links {
-        float: left;
-        width: 66%;
+        @include media(640px){
+          float: left;
+          width: 66%;
+        }
       }
     }
 
     .organisation_mainstream_links {
-      list-style: none;
-      float: left;
-      width: 33%;
+      @include media(640px){
+        float: left;
+        width: 33%;
 
-      li {
-        @include core-24;
+        h4 {
+          display: none;
+        }
+      }
+
+      ul {
+        list-style: none;
+
+        @include media(640px){
+          padding-left: $gutter-two-thirds;
+        }
+
+        li {
+          @include core-19;
+        }
       }
     }
   }
