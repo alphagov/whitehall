@@ -1,4 +1,4 @@
-Feature: Filtering documents by author
+Feature: Filtering documents by author in admin
 
 Scenario: Viewing only documents written by me
   Given I am a writer

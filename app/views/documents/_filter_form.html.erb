@@ -20,8 +20,8 @@
         <div class="filter-inner">
           <% if defined?(filter_by_publication_type) && filter_by_publication_type %>
             <div class="publication-type">
-              <%= label_tag "publication_type", "Publication type", class: "title" %>
-              <%= select_tag :publication_type, publication_type_filter_options(@filter.all_publication_types, @filter.selected_publication_type) %>
+              <%= label_tag "publication_filter_option", "Publication type", class: "title" %>
+              <%= select_tag :publication_filter_option, publication_type_filter_options(@filter.publication_types_for_filter, @filter.selected_publication_filter_option) %>
             </div>
           <% end %>
 

@@ -9,8 +9,8 @@ module DocumentFilterHelper
     options_for_select([["All departments", "all"]] + organisations.map{ |o| [o.name, o.slug] }, selected_values)
   end
 
-  def publication_type_filter_options(publication_types, selected_publication_type = nil)
-    selected_value = selected_publication_type ? selected_publication_type.slug : "all"
-    options_for_select([["All publication types", "all"]] + publication_types.map{ |pt| [pt.plural_name, pt.slug] }, [selected_value])
+  def publication_type_filter_options(publication_filter_options, selected_publication_filter_options = nil)
+    selected_value = selected_publication_filter_options ? selected_publication_filter_options.slug : "all"
+    options_for_select([["All publication types", "all"]] + publication_filter_options.map{ |pt| [pt.label, pt.slug] }, [selected_value])
   end
 end

@@ -163,3 +163,18 @@ Then /^the metadata changes should not be public until the draft is published$/ 
   click_link(Edition.last.title)
   page.should have_css(".attachment-details .title", text: @attachment_title)
 end
+
+Given /^a published publication "([^"]*)" with type "([^"]*)"$/ do |publication_title, publication_type|
+  type_id = PublicationType.all.select{|pt| pt.singular_name == publication_type }.first.id
+  create(:published_publication, title: publication_title, publication_type_id: type_id)
+end
+
+When /^I filter the publications list by "([^"]*)"$/ do |publication_filter|
+  visit publications_path
+  select publication_filter, from: "Publication type"
+  click_on "Refresh results"
+end
+
+Then /^I should see "([^"]*)" in the result list$/ do |title|
+  assert page.has_css?("table.document-list .title", text: %r{#{title}})
+end

@@ -38,10 +38,8 @@ class DocumentFilterTest < ActiveSupport::TestCase
     Whitehall::DocumentFilter.new([]).all_organisations_with(:document_type)
   end
 
-  test "#all_publication_types returns all publication types except generic 'Publication'" do
-    publication_types = Whitehall::DocumentFilter.new([]).all_publication_types
-    publication_types_without_unknown = PublicationType.ordered_by_prevalence - [PublicationType::Unknown]
-    assert_equal publication_types_without_unknown, publication_types
+  test "#publication_types_for_filter returns all publication filter option types" do
+    assert_equal Whitehall::PublicationFilterOption.all, Whitehall::DocumentFilter.new([]).publication_types_for_filter
   end
 
   test "#selected_topics returns an empty set by default" do
@@ -52,8 +50,8 @@ class DocumentFilterTest < ActiveSupport::TestCase
     assert_equal [], Whitehall::DocumentFilter.new(document_scope).selected_organisations
   end
 
-  test "#selected_publication_type returns nil by default" do
-    assert_nil Whitehall::DocumentFilter.new(document_scope).selected_publication_type
+  test "#selected_publication_filter_option returns nil by default" do
+    assert_nil Whitehall::DocumentFilter.new(document_scope).selected_publication_filter_option
   end
 
   test "#documents returns the given set of documents when unfiltered" do
@@ -189,22 +187,21 @@ class DocumentFilterTest < ActiveSupport::TestCase
   end
 
   test "publication_type param filters by publication type" do
-    publication_type = stub_publication_type("statistics", id: 123)
+    publication_filter_option = stub_publication_filter_option("testing filter - statistics", publication_types: [stub('type', id: 123)])
 
     filtered_scope = stub_document_scope('filtered_scope')
-    document_scope.expects(:where).with(publication_type_id: 123).returns(filtered_scope)
+    document_scope.expects(:where).with(publication_type_id: [123]).returns(filtered_scope)
 
-    filter = Whitehall::DocumentFilter.new(document_scope, publication_type: publication_type.slug)
-
+    filter = Whitehall::DocumentFilter.new(document_scope, publication_filter_option: publication_filter_option.slug)
     assert_equal filtered_scope, filter.documents
   end
 
-  test "publication_type param sets #selected_publication_type" do
-    publication_type = stub_publication_type("statistics", id: 234)
+  test "publication_filter_option param sets #selected_publication_filter_option" do
+    publication_filter_option = stub_publication_filter_option("testing filter option - statistics")
 
-    filter = Whitehall::DocumentFilter.new(document_scope, publication_type: publication_type.slug)
+    filter = Whitehall::DocumentFilter.new(document_scope, publication_filter_option: publication_filter_option.slug)
 
-    assert_equal publication_type, filter.selected_publication_type
+    assert_equal publication_filter_option, filter.selected_publication_filter_option
   end
 
   test "if page param given, returns a page of documents using page size of 20" do
@@ -319,8 +316,18 @@ private
   end
 
   def stub_publication_type(slug, attributes={})
-    publication_type = stub("publication-type-#{slug}", {slug: slug, pluralized_name: slug.humanize.pluralize}.merge(attributes))
+    publication_type = stub("publication-type-#{slug}", {id: slug, slug: slug, pluralized_name: slug.humanize.pluralize}.merge(attributes))
     PublicationType.stubs(:find_by_slug).with(slug).returns(publication_type)
     publication_type
+  end
+
+  def stub_publication_filter_option(label, attributes={})
+    publication_filter_option = stub("publication-filter-option-#{label}", {
+      label: label.humanize.pluralize,
+      slug: label,
+      publication_types: [stub_publication_type(label)]
+    }.merge(attributes))
+    Whitehall::PublicationFilterOption.stubs(:find_by_slug).returns(publication_filter_option)
+    publication_filter_option
   end
 end

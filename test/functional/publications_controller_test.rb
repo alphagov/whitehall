@@ -184,13 +184,10 @@ class PublicationsControllerTest < ActionController::TestCase
   end
 
   test "index highlights selected publication type filter options" do
-    create(:published_publication, publication_type_id: PublicationType::PolicyPaper)
-    create(:published_publication, publication_type_id: PublicationType::Form)
+    get :index, publication_filter_option: "forms"
 
-    get :index, publication_type: PublicationType::Form.slug
-
-    assert_select "select[name='publication_type']" do
-      assert_select "option[selected='selected']", text: PublicationType::Form.plural_name
+    assert_select "select[name='publication_filter_option']" do
+      assert_select "option[selected='selected']", text: Whitehall::PublicationFilterOption::Form.label
     end
   end
 
