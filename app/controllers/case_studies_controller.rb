@@ -1,6 +1,6 @@
 class CaseStudiesController < DocumentsController
   def index
-    @case_studies = CaseStudy.published.includes(:document).by_published_at
+    @case_studies = CaseStudy.published.includes(:document).in_reverse_chronological_order
   end
 
   def show
