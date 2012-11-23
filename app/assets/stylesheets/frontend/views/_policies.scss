@@ -35,19 +35,12 @@
 }
 
 .policy {
-  @include media(desktop){
-    .meta-topic {
-      float: left;
-      width: 50%;
-    }
-  }
-
   .meta-three {
     clear: both;
     position: relative;
     padding: $gutter 0 $gutter-half;
     @extend %contain-floats;
-    
+
     @include media(tablet){
       padding: ($gutter + $gutter-one-third - 2px) 0 ($gutter*1.5);
     }
@@ -58,7 +51,7 @@
     float: none;
     width: 100%;
   }
-  
+
   .block-1 {
     padding-bottom: 0;
     @include media(tablet) {
@@ -122,13 +115,13 @@
       display: block;
       text-decoration: none;
       zoom: 1;
-      
+
       background: transparent image-url("accordian-arrow.png") 100% -40px no-repeat;
       background-position: 100% -4rem;
-      
+
       margin-left: 0;
       padding: 0.5em 2em;
-      
+
       float: none;
       clear: both;
 
@@ -222,7 +215,7 @@
       float: left;
       width: 33.333%;
       padding: 0;
-      
+
       a {
         display: block;
         @include core-24;
@@ -230,11 +223,11 @@
         margin: 0 2px;
         background: $light-warm-grey;
         color: $body-text;
-        
+
         @include media(tablet){
           margin-bottom: 4px;
         }
-        
+
         &:hover,
         &:focus {
           background: $light-blue-grey;
@@ -247,9 +240,9 @@
           border: 1px solid $light-keyline;
           border-bottom: none;
           background: $white;
-          text-decoration: none;          
+          text-decoration: none;
         }
-        
+
       }
     }
   }
@@ -290,7 +283,7 @@
 
 .policies-activities {
   .policy {
-    .block-1, .block-2 {  
+    .block-1, .block-2 {
       position: relative;
       display: block;
       float: none;
