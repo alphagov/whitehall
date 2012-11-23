@@ -38,36 +38,9 @@
   }
 
   @include media(tablet){
-    .page-header,
-    .meta-context {
+    .page-header {
       width: 75%;
       float: left;
-    }
-    .meta-changes {
-      text-align: right;
-      padding-top: $gutter-half;
-    }
-  }
-
-  .meta-topic,
-  .meta-context {
-    @include core-14;
-    overflow: hidden;
-    .notice {
-      display: inline;
-      float: left;
-      width: 50%;
-      p {
-        background: none;
-      }
-    }
-    p {
-      display: inline;
-    }
-    ul, li {
-      display: inline;
-      margin: 0;
-      padding: 0;
     }
   }
 
