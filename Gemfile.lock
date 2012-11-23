@@ -260,8 +260,6 @@ GEM
     rake (0.9.2)
     rdoc (3.12)
       json (~> 1.4)
-    rest-client (1.6.7)
-      mime-types (>= 1.16)
     router-client (3.0.2)
       activesupport
       builder
@@ -281,10 +279,7 @@ GEM
     ruby_parser (2.3.1)
       sexp_processor (~> 3.0)
     rubyzip (0.9.4)
-    rummageable (0.6.0)
-      json
-      plek (>= 0.5.0)
-      rest-client
+    rummageable (0.6.1)
     sanitize (2.0.3)
       nokogiri (>= 1.4.4, < 1.6)
     sass (3.2.1)
@@ -404,7 +399,7 @@ DEPENDENCIES
   rails-dev-boost (~> 0.2.1)
   rake (= 0.9.2)
   router-client (~> 3.0.1)
-  rummageable (= 0.6.0)
+  rummageable (= 0.6.1)
   sass (= 3.2.1)
   sass-rails (= 3.1.4)
   simplecov
