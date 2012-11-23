@@ -36,8 +36,10 @@
       <aside class="govuk-status information-block">
         <% if @organisation.joining? %>
         This organisation currently has a separate website but will soon be incorporated into GOV.UK
+        <% elsif @organisation.url.present? %>
+          This organisation has a separate website
         <% else %>
-        This organisation has a separate website
+          This organisation has no website
         <% end %>
       </aside>
     </div>
