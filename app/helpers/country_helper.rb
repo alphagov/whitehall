@@ -1,10 +1,4 @@
 module CountryHelper
-  def applies_to_countries_paragraph(document)
-    if document.respond_to?(:countries) && document.countries.any?
-      content_tag :p, "Applies to #{list_of_links_to_countries_once_world_goes_live(document.countries)}.".html_safe, class: 'document-countries'
-    end
-  end
-
   def country_navigation_link_to(body, path)
     link_to body, path, class: ('current' if current_country_navigation_path(params) == path)
   end
