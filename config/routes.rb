@@ -79,7 +79,8 @@ Whitehall::Application.routes.draw do
       namespace :admin do
         root to: redirect('/admin/editions')
 
-        resource :user, only: [:show, :edit, :update]
+        resources :users, only: [:index, :show, :edit, :update]
+
         resources :authors, only: [:show]
         resources :organisations do
           resources :document_series

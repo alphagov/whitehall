@@ -1,11 +1,16 @@
 <% page_title "Edit " + @user.name, "Users" %>
 <section class="user">
   <h1>Edit settings</h1>
-  <%= form_for @user, as: :user, url: admin_user_path, html: { method: :put } do |form| %>
+  <%= form_for @user, as: :user, url: admin_user_path(@user), html: { method: :put } do |form| %>
     <%= form.errors %>
 
     <%= form.text_field :email %>
 
-    <%= form.save_or_cancel cancel: admin_user_path %>
+    <% if @user.editable_by?(current_user) %>
+      <%= form.label :organisation_id, 'Organisation' %>
+      <%= form.select :organisation_id, options_from_collection_for_select(Organisation.all, 'id', 'name', form.object.organisation_id), {}, class: 'chzn-select', data: { placeholder: "Choose your organisation" } %>
+    <% end %>
+
+    <%= form.save_or_cancel cancel: admin_user_path(@user) %>
   <% end %>
 </section>

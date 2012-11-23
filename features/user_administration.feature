@@ -19,17 +19,12 @@ Scenario: Logged in GDS editors should see their role
   Given I am a GDS editor
   Then I should see that I am logged in as a "GDS Editor"
 
-Scenario: Logged in users should be able to set their email address
-  Given I am a writer called "John Smith"
-  When I set the email address for "John Smith" to "writer@example.com"
-  Then I should see my email address is "writer@example.com"
-
-Scenario: Logged in users should be able to view but not edit their organisation
+Scenario: Logged in users should be able to view but not edit their record
   Given I am a writer called "John Smith"
   And the organisation "Department of Beards" exists
   When I view my own user record
-  Then I can see my organisation
-  But I cannot change my organisation
+  Then I can see my user details
+  But I cannot change my user details
 
 Scenario: Logged in GDS editors can edit other users organisations
   Given I am a GDS editor

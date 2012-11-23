@@ -1,16 +1,25 @@
 class Admin::UsersController < Admin::BaseController
   before_filter :load_user, only: [:show, :edit, :update]
 
+  def index
+    @users = User.all
+  end
+
   def show
   end
 
   def edit
+    head :forbidden unless (@user.editable_by?(current_user))
   end
 
   def update
-    params[:user].delete(:organisation_id)
+    unless @user.editable_by?(current_user)
+      head :forbidden
+      return
+    end
+
     if @user.update_attributes(params[:user])
-      redirect_to admin_user_path, notice: "Your settings have been saved"
+      redirect_to admin_user_path(@user), notice: "Your settings have been saved"
     else
       render action: "edit"
     end
@@ -19,6 +28,6 @@ class Admin::UsersController < Admin::BaseController
   private
 
   def load_user
-    @user = current_user
+    @user = User.find(params[:id])
   end
 end

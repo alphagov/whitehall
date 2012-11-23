@@ -1,5 +1,5 @@
 Given /^there is a user called "([^"]*)"$/ do |name|
-  create(:policy_writer, name: name)
+  @user = create(:policy_writer, name: name)
 end
 
 Given /^there is a user called "([^"]*)" with email address "([^"]*)"$/ do |name, email|
@@ -13,17 +13,18 @@ When /^I set the email address for "([^"]*)" to "([^"]*)"$/ do |name, email_addr
 end
 
 When /^I view my own user record$/ do
-  visit admin_user_path
+  visit admin_user_path(@user)
 end
 
-Then /^I can see my organisation$/ do
-  assert page.has_css?(".user .organisation", text: User.last.organisation)
-
+Then /^I can see my user details/ do
+  assert page.has_css?(".user .name", text: @user.name)
+  assert page.has_css?(".user .email", text: %r{#{@user.email}})
 end
 
-Then /^I cannot change my organisation$/ do
-  begin_editing_user_details(User.last.name)
-  assert page.has_no_css?("select[name=organisation_id]")
+Then /^I cannot change my user details/ do
+  assert page.has_no_css?("a", text: "Edit")
+  visit edit_admin_user_path(@user)
+  assert page.has_no_css?("form")
 end
 
 When /^I set the role for "([^"]*)" to departmental editor$/ do |name|
@@ -38,12 +39,12 @@ When /^I visit the admin author page for "([^"]*)"$/ do |name|
 end
 
 Then /^I should see my organisation is "([^"]*)"$/ do |organisation|
-  visit admin_user_path
+  visit admin_user_path(@user)
   assert page.has_css?(".user .organisation", text: organisation)
 end
 
 Then /^I should see that I am logged in as a "([^"]*)"$/ do |role|
-  visit admin_user_path
+  visit admin_user_path(@user)
   within "#session" do
     click_link "#user_settings"
   end
@@ -51,7 +52,7 @@ Then /^I should see that I am logged in as a "([^"]*)"$/ do |role|
 end
 
 Then /^I should see my email address is "([^"]*)"$/ do |email_address|
-  visit admin_user_path
+  visit admin_user_path(@user)
   assert page.has_css?(".user .email", text: email_address)
 end
 
@@ -60,6 +61,25 @@ Then /^I should see an email address "([^"]*)"$/ do |email_address|
 end
 
 Then /^I should see that I am a departmental editor$/ do
-  visit admin_user_path
+  visit admin_user_path(@user)
   assert page.has_css?(".role", "Departmental Editor")
+end
+
+When /^I visit the user list in the admin section$/ do
+  visit admin_users_path
+end
+
+Then /^I should see "([^"]*)" in the user list$/ do |name|
+  assert page.has_content?(name)
+end
+
+When /^I set the organisation for "([^"]*)" to "([^"]*)"$/ do |user_name, organisation_name|
+  visit edit_admin_user_path(User.find_by_name(user_name))
+  select organisation_name, from: 'Organisation'
+  click_on "Save"
+end
+
+Then /^the organisation for "([^"]*)" is "([^"]*)"$/ do |user_name, organisation_name|
+  assert page.has_css?(".user .name", text: user_name)
+  assert page.has_css?(".user .organisation", text: organisation_name)
 end

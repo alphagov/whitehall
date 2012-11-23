@@ -1,7 +1,10 @@
 <% page_title @user.name, "Users" %>
 <section class="user">
   <nav class="actions">
-    <%= link_to "Edit", edit_admin_user_path, title: "Edit Settings", class: "btn" %>
+    <%= link_to "&laquo; User list".html_safe, admin_users_path, title: "See user list", class: "btn" %>
+    <% if @user.editable_by?(current_user) %>
+      <%= link_to "Edit", edit_admin_user_path(@user), title: "Edit Settings", class: "btn" %>
+    <% end %>
   </nav>
   <div class="settings">
     <h1>Settings</h1>
@@ -16,6 +19,6 @@
     <p class="organisation"><%= @user.organisation_name %></p>
 
     <h2>Email Address</h2>
-    <p class="email"><%= @user.email %></p>
+    <p class="email"><%= mail_to @user.email %></p>
   </div>
 </section>

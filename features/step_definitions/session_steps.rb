@@ -1,5 +1,5 @@
 Given /^I am (?:a|an) (writer|editor|admin|GDS editor)(?: called "([^"]*)")?$/ do |role, name|
-  user = case role
+  @user = case role
   when "writer"
     create(:policy_writer, name: (name || "Wally Writer"))
   when "editor"
@@ -9,7 +9,7 @@ Given /^I am (?:a|an) (writer|editor|admin|GDS editor)(?: called "([^"]*)")?$/ d
   when "GDS editor"
     create(:gds_editor)
   end
-  login_as user
+  login_as @user
 end
 
 Given /^I am a writer in the organisation "([^"]*)"$/ do |organisation|

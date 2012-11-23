@@ -29,6 +29,10 @@ module Admin::UrlHelper
     end
   end
 
+  def admin_users_header_link
+    admin_header_link "Users", admin_users_path
+  end
+
   def admin_header_link(name, path, path_matcher = nil)
     path_matcher ||= Regexp.new("^#{Regexp.escape(path)}")
     if user_signed_in?

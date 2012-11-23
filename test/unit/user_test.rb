@@ -47,4 +47,21 @@ class UserTest < ActiveSupport::TestCase
     user.assign_attributes({permissions: {'Whitehall' => ['Superuser']}}, as: :oauth)
     assert_equal ['Superuser'], user.permissions['Whitehall']
   end
+
+  test 'should not allow editing to just anyone' do
+    user = build(:user)
+    another_user = build(:user)
+    refute user.editable_by?(another_user)
+  end
+
+  test 'should not allow editing by themselves for the moment' do
+    user = build(:user)
+    refute user.editable_by?(user)
+  end
+
+  test 'should allow editing by GDS Editor' do
+    user = build(:user)
+    gds_editor = build(:gds_editor)
+    assert user.editable_by?(gds_editor)
+  end
 end

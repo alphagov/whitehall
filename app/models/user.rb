@@ -46,4 +46,8 @@ class User < ActiveRecord::Base
   def has_email?
     email.present?
   end
+
+  def editable_by?(user)
+    user.gds_editor?
+  end
 end
