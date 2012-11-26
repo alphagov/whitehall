@@ -2,13 +2,19 @@ class RemoveDeletedMainstreamCategory < ActiveRecord::Migration
   class EditionMainstreamCategory < ActiveRecord::Base
     belongs_to :mainstream_category
   end
+  class MainstreamCategory < ActiveRecord::Base
+  end
 
   def up
     puts "Removing all edition associations with the tax-and-legislation-for-corporations category"
-    EditionMainstreamCategory.where(mainstream_category_id: 46).destroy_all
+    category_to_delete = MainstreamCategory.where(slug: 'tax-and-legislation-for-corporations').first
 
-    puts "Remove the tax-and-legislation-for-corporations mainstream sub-category"
-    execute "DELETE FROM mainstream_categories WHERE id = 46"
+    if category_to_delete
+      EditionMainstreamCategory.where(mainstream_category_id: category_to_delete).destroy_all
+
+      puts "Remove the tax-and-legislation-for-corporations mainstream sub-category"
+      category_to_delete.destroy
+    end
   end
 
   def down
