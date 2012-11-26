@@ -9,6 +9,6 @@ class PublicUploadsController < ApplicationController
   private
 
   def upload_path
-    "clean-uploads/" + [params[:path], params[:extension]].join(".")
+    Whitehall.clean_upload_path + [params[:path], params[:extension]].join(".")
   end
 end

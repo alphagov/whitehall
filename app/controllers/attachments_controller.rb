@@ -2,7 +2,7 @@ class AttachmentsController < ApplicationController
   include UploadsControllerHelper
 
   def show
-    clean_path = "clean-uploads/system/uploads/attachment_data/file/#{params[:id]}/#{params[:file]}.#{params[:extension]}"
+    clean_path = Whitehall.clean_upload_path + "system/uploads/attachment_data/file/#{params[:id]}/#{params[:file]}.#{params[:extension]}"
     full_path = File.expand_path(clean_path)
 
     if attachment_visible?(params[:id])

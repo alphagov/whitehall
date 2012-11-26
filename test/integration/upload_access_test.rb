@@ -18,12 +18,8 @@ class UploadAccessTest < ActionDispatch::IntegrationTest
     load Rails.root + 'config/initializers/carrierwave.rb'
   end
 
-  def clean_upload_root
-    Rails.root.join('clean-uploads')
-  end
-
   def path_to_clean_upload(path)
-    clean_upload_root.join(path.from("/government/uploads/".size))
+    Whitehall.clean_upload_path.join(path.from("/government/uploads/".size))
   end
 
   def nginx_path_to_clean_upload(path)
@@ -47,7 +43,7 @@ class UploadAccessTest < ActionDispatch::IntegrationTest
   def get_via_nginx(path)
     get path, {}, {
       "HTTP_X_SENDFILE_TYPE" => "X-Accel-Redirect",
-      "HTTP_X_ACCEL_MAPPING" => "#{clean_upload_root}/=/clean-uploads/"
+      "HTTP_X_ACCEL_MAPPING" => "#{Whitehall.clean_upload_path}/=/clean-uploads/"
     }
   end
 
@@ -69,7 +65,7 @@ class UploadAccessTest < ActionDispatch::IntegrationTest
   def assert_sent_private_upload(upload, content_type)
     assert_equal 200, response.status
     assert_equal content_type, response.content_type
-    assert_equal "max-age=0, private", response.header['Cache-Control']
+    assert_equal "no-cache, max-age=0, private", response.header['Cache-Control']
   end
 
   test 'allows everyone access to general uploads' do

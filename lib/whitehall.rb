@@ -104,6 +104,10 @@ module Whitehall
       end
     end
 
+    def clean_upload_path
+      Rails.root.join 'clean-uploads'
+    end
+
     def government_search_index_name
       '/government'
     end

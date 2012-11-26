@@ -2,11 +2,11 @@ module UploadsControllerHelper
   private
 
   def send_upload(path, options = {})
-    if File.exists?(path)
+    if upload_exists?(path)
       if options[:public]
         expires_in(Whitehall.default_cache_max_age, public: true)
       else
-        expires_in(0, public: false)
+        response.headers['Cache-Control'] = 'no-cache, max-age=0, private'
       end
 
       if mime_type = mime_type_for(path)
@@ -29,5 +29,10 @@ module UploadsControllerHelper
 
   def mime_type_for(path)
     Mime::Type.lookup_by_extension(File.extname(path).from(1))
+  end
+
+  def upload_exists?(path)
+    full_path = File.expand_path(path)
+    File.exists?(full_path) && full_path.starts_with?(Whitehall.clean_upload_path.to_s )
   end
 end
