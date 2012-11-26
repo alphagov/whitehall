@@ -105,7 +105,7 @@ module Whitehall
     end
 
     def clean_upload_path
-      Rails.root.join 'clean-uploads'
+      Rails.root.join('clean-uploads').realpath
     end
 
     def government_search_index_name
