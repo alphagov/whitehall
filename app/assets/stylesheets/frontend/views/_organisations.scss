@@ -793,6 +793,7 @@
     padding: $gutter-two-thirds 33% $gutter-two-thirds 0;
     margin-top: 0;
     margin-bottom: $gutter;
+    min-height: $gutter;
     background-color: transparent;
     border: solid $black 1px;
     border-width: 5px 0 1px 0;
@@ -815,10 +816,10 @@
     overflow: hidden;
     @include border-radius($gutter);
 
-    top: $gutter-one-third;
-    right: $gutter-two-thirds;
+    top: $gutter-one-third/2;
+    right: $gutter-one-third/2 ;
 
-    @include media(desktop) {
+    @include media(tablet) {
       top: $gutter-one-third;
       right: $gutter-one-third;
     }
