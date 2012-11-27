@@ -11,7 +11,6 @@ class Whitehall::Uploader::PublicationRowTest < ActiveSupport::TestCase
     %w{old_url  title summary body  publication_type
       policy_1  policy_2  policy_3  policy_4
       organisation  document_series publication_date
-      country_1 country_2 country_3
       order_url price ISBN  URN command_paper_number}
   end
 
@@ -21,12 +20,12 @@ class Whitehall::Uploader::PublicationRowTest < ActiveSupport::TestCase
 
   test "validation reports missing row headings" do
     keys = basic_headings - ['title']
-    assert_equal ["Missing fields: 'title'"], Whitehall::Uploader::PublicationRow.heading_validation_errors(keys)
+    assert_equal ["missing fields: 'title'"], Whitehall::Uploader::PublicationRow.heading_validation_errors(keys)
   end
 
   test "validation reports extra row headings" do
     keys = basic_headings + ['extra_stuff']
-    assert_equal ["Unexpected fields: 'extra_stuff'"], Whitehall::Uploader::PublicationRow.heading_validation_errors(keys)
+    assert_equal ["unexpected fields: 'extra_stuff'"], Whitehall::Uploader::PublicationRow.heading_validation_errors(keys)
   end
 
   test "validation accepts a complete set of attachment headings" do
@@ -37,7 +36,7 @@ class Whitehall::Uploader::PublicationRowTest < ActiveSupport::TestCase
   test "validation complains of missing attachment headings" do
     keys = basic_headings + %w{attachment_1_title}
     assert_equal [
-      "Missing fields: 'attachment_1_url'",
+      "missing fields: 'attachment_1_url'",
       ], Whitehall::Uploader::PublicationRow.heading_validation_errors(keys)
   end
 
@@ -126,6 +125,30 @@ class Whitehall::Uploader::PublicationRowTest < ActiveSupport::TestCase
     assert_equal "http://example.com/attachment.pdf", row.attachments.first.attachment_source.url
   end
 
+  test "records the order_url, price, isbn, urn and command_paper_number on the first attachment" do
+    @attachment_cache.stubs(:fetch).with("http://example.com/attachment.pdf").returns(File.open(Rails.root.join("test", "fixtures", "two-pages.pdf")))
+
+    row = Whitehall::Uploader::PublicationRow.new({
+      "attachment_1_title" => "first title",
+      "attachment_1_url" => "http://example.com/attachment.pdf",
+      "order_url" => "http://example.com/order-it.php",
+      "price" => "11.99",
+      "isbn" => "1 86192 090 3",
+      "urn" => "10/899",
+      "command_paper_number" => "Cm 5861"
+    }, 1, @attachment_cache, Logger.new(StringIO.new))
+
+    attachment = Attachment.new(
+      title: "first title",
+      order_url: "http://example.com/order-it.php",
+      price_in_pence: "1199",
+      isbn: "1 86192 090 3",
+      unique_reference: "10/899",
+      command_paper_number: "Cm 5861"
+    )
+    assert_equal [attachment.attributes], row.attachments.collect(&:attributes)
+  end
+
   test "finds any attachments specified in JSON in the json_attachments column" do
     @attachment_cache.stubs(:fetch).with("http://example.com/attachment.pdf").returns(File.open(Rails.root.join("test", "fixtures", "two-pages.pdf")))
 
@@ -145,11 +168,11 @@ class Whitehall::Uploader::PublicationRow::AttachmentMetadataBuilderTest < Activ
   end
 
   test "does nothing if there are no attachments" do
-    Whitehall::Uploader::PublicationRow::AttachmentMetadataBuilder.build(nil, "order-url", "isbn", "urn", "command-paper-number")
+    Whitehall::Uploader::PublicationRow::AttachmentMetadataBuilder.build(nil, "order-url", "isbn", "urn", "command-paper-number", "")
   end
 
   test "does nothing if no attributes are set" do
-    Whitehall::Uploader::PublicationRow::AttachmentMetadataBuilder.build(@attachment, nil, nil, nil, nil)
+    Whitehall::Uploader::PublicationRow::AttachmentMetadataBuilder.build(@attachment, nil, nil, nil, nil, nil)
   end
 
   test "sets all attributes if given" do
@@ -157,12 +180,14 @@ class Whitehall::Uploader::PublicationRow::AttachmentMetadataBuilderTest < Activ
     @attachment.expects(:isbn=).with("ISBN")
     @attachment.expects(:unique_reference=).with("unique-reference")
     @attachment.expects(:command_paper_number=).with("command-paper-number")
-    Whitehall::Uploader::PublicationRow::AttachmentMetadataBuilder.build(@attachment, "order-url", "ISBN", "unique-reference", "command-paper-number")
+    @attachment.expects(:price=).with("12.34")
+    Whitehall::Uploader::PublicationRow::AttachmentMetadataBuilder.build(@attachment, "order-url", "ISBN", "unique-reference", "command-paper-number", "12.34")
   end
 
   test "sets any subset of attributes that are given" do
     @attachment.expects(:isbn=).with("ISBN")
     @attachment.expects(:command_paper_number=).with("command-paper-number")
-    Whitehall::Uploader::PublicationRow::AttachmentMetadataBuilder.build(@attachment, nil, "ISBN", nil, "command-paper-number")
+    @attachment.expects(:price=).with("12.34")
+    Whitehall::Uploader::PublicationRow::AttachmentMetadataBuilder.build(@attachment, nil, "ISBN", nil, "command-paper-number", "12.34")
   end
 end

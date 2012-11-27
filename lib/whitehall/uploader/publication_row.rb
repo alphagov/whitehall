@@ -11,14 +11,14 @@ module Whitehall::Uploader
       @attachment_cache = attachment_cache
     end
 
-    def self.required_fields(headings)
-      required_fields = super.dup
-      required_fields += %w{policy_1 policy_2 policy_3 policy_4}
-      required_fields += %w{country_1 country_2 country_3 publication_type document_series publication_date order_url price isbn urn command_paper_number}
-      required_fields += provided_attachment_ids(headings).map do |i|
-        "attachment_#{i}_url attachment_#{i}_title".split(" ")
-      end.flatten
-      required_fields
+    def self.validator
+      HeadingValidator.new
+        .required(%w{old_url title summary body organisation})
+        .multiple("policy_#", 1..4)
+        .required(%w{publication_type document_series publication_date})
+        .required(%w{order_url price isbn urn command_paper_number}) # First attachment
+        .ignored("ignore_*")
+        .multiple(%w{attachment_#_url attachment_#_title}, 0..50)
     end
 
     def title
@@ -64,7 +64,7 @@ module Whitehall::Uploader
     def attachments
       if @attachments.nil?
         @attachments = attachments_from_columns + attachments_from_json
-        AttachmentMetadataBuilder.build(@attachments.first, row["order_url"], row["isbn"], row["urn"], row["command_paper_number"])
+        AttachmentMetadataBuilder.build(@attachments.first, row["order_url"], row["isbn"], row["urn"], row["command_paper_number"], row["price"])
       end
       @attachments
     end
@@ -102,12 +102,13 @@ module Whitehall::Uploader
     end
 
     class AttachmentMetadataBuilder
-      def self.build(attachment, order_url, isbn, unique_reference, command_paper_number)
-        return unless attachment && (order_url || isbn || unique_reference || command_paper_number)
+      def self.build(attachment, order_url, isbn, unique_reference, command_paper_number, price)
+        return unless attachment && (order_url || isbn || unique_reference || command_paper_number || price)
         attachment.order_url = order_url
         attachment.isbn = isbn
         attachment.unique_reference = unique_reference
         attachment.command_paper_number = command_paper_number
+        attachment.price = price
       end
     end
   end

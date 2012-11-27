@@ -14,24 +14,17 @@ module Whitehall::Uploader
       @attachment_cache = attachment_cache
     end
 
-    def self.required_fields(headings)
-      required_fields = super.dup
-      required_fields += %w{policy_1 policy_2 policy_3 policy_4}
-      required_fields += %w{
-        minister_1 minister_2
-        opening_date closing_date
-        respond_url respond_email
-        respond_postal_address respond_form_title respond_form_attachment
-        consultation_ISBN consultation_URN publication_date order_url
-        command_paper_number price response_date response_summary comments
-      }
-      required_fields += provided_response_ids(headings).map do |i|
-        "response_#{i}_url response_#{i}_title response_#{i}_ISBN response_#{i}_URN response_#{i}_command_reference response_#{i}_order_URL response_#{i}_price".split(" ")
-      end.flatten
-      required_fields += provided_attachment_ids(headings).map do |i|
-        "attachment_#{i}_url attachment_#{i}_title".split(" ")
-      end.flatten
-      required_fields
+    def self.validator
+      HeadingValidator.new
+        .required(%w{old_url title summary body organisation})
+        .multiple("policy_#", 1..4)
+        .required(%w{opening_date closing_date})
+        .optional(%w{respond_url respond_email respond_postal_address respond_form_title respond_form_attachment}) # are these implemented?
+        .optional(%w{consultation_ISBN consultation_URN})
+        .required(%w{response_date response_summary})
+        .ignored("ignore_*")
+        .multiple(%w{response_#_url response_#_title response_#_ISBN}, 0..50)
+        .multiple(%w{attachment_#_url attachment_#_title}, 0..50)
     end
 
     def title

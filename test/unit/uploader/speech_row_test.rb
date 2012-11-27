@@ -6,7 +6,7 @@ class Whitehall::Uploader::SpeechRowTest < ActiveSupport::TestCase
   end
 
   def basic_headings
-    %w{old_url title summary body  type  delivered_by  delivered_on  first_published event_and_location  policy_1  policy_2  policy_3  policy_4  organisation  country_1 country_2 country_3}
+    %w{old_url title summary body  type  delivered_by  delivered_on event_and_location  policy_1  policy_2  policy_3  policy_4  organisation}
   end
 
   test "validates row headings" do
@@ -15,12 +15,12 @@ class Whitehall::Uploader::SpeechRowTest < ActiveSupport::TestCase
 
   test "validation reports missing row headings" do
     keys = basic_headings - ['title']
-    assert_equal ["Missing fields: 'title'"], Whitehall::Uploader::SpeechRow.heading_validation_errors(keys)
+    assert_equal ["missing fields: 'title'"], Whitehall::Uploader::SpeechRow.heading_validation_errors(keys)
   end
 
   test "validation reports extra row headings" do
     keys = basic_headings + ['extra_stuff']
-    assert_equal ["Unexpected fields: 'extra_stuff'"], Whitehall::Uploader::SpeechRow.heading_validation_errors(keys)
+    assert_equal ["unexpected fields: 'extra_stuff'"], Whitehall::Uploader::SpeechRow.heading_validation_errors(keys)
   end
 
   test "takes legacy url from the old_url column" do

@@ -25,8 +25,6 @@ module ConsultationCsvSampleHelpers
       "policy_2" => "",
       "policy_3" => "",
       "policy_4" => "",
-      "minister_1" => "",
-      "minister_2" => "",
       "respond_url" => "",
       "respond_email" => "",
       "respond_postal_address" => "",
@@ -34,13 +32,8 @@ module ConsultationCsvSampleHelpers
       "respond_form_attachment" => "",
       "consultation_ISBN" => "",
       "consultation_URN" => "",
-      "publication_date" => "",
-      "order_url" => "",
-      "command_paper_number" => "",
-      "price" => "",
       "response_date" => "",
-      "response_summary" => "",
-      "comments" => ""
+      "response_summary" => ""
     }
   end
 
@@ -53,7 +46,8 @@ class ImportTest < ActiveSupport::TestCase
   include ConsultationCsvSampleHelpers
 
   test "valid if known type" do
-    assert Import.new(csv_data: csv_sample, data_type: "consultation").valid?
+    i = Import.new(csv_data: csv_sample, data_type: "consultation")
+    assert i.valid?, i.errors.full_messages.to_s
   end
 
   test "invalid if unknown type" do

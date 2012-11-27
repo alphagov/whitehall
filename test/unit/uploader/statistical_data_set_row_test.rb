@@ -16,7 +16,7 @@ module Whitehall::Uploader
     end
 
     def basic_headings
-      %w{old_url title summary body organisation document_series}
+      %w{old_url title summary body organisation data_series}
     end
 
     test "validates row headings" do
@@ -25,23 +25,23 @@ module Whitehall::Uploader
 
     test "validation reports missing row headings" do
       keys = basic_headings - ['title']
-      assert_equal ["Missing fields: 'title'"], StatisticalDataSetRow.heading_validation_errors(keys)
+      assert_equal ["missing fields: 'title'"], StatisticalDataSetRow.heading_validation_errors(keys)
     end
 
     test "validation reports extra row headings" do
       keys = basic_headings + ['extra_stuff']
-      assert_equal ["Unexpected fields: 'extra_stuff'"], StatisticalDataSetRow.heading_validation_errors(keys)
+      assert_equal ["unexpected fields: 'extra_stuff'"], StatisticalDataSetRow.heading_validation_errors(keys)
     end
 
     test "validation accepts a complete set of attachment headings" do
-      keys = basic_headings + %w{attachment_1_url  attachment_1_title  attachment_1_ISBN attachment_1_URN  attachment_1_command_reference  attachment_1_order_URL  attachment_1_price}
+      keys = basic_headings + %w{attachment_1_url attachment_1_title attachment_1_URN attachment_1_published_date}
       assert_equal [], StatisticalDataSetRow.heading_validation_errors(keys)
     end
 
     test "validation complains of missing attachment headings" do
-      keys = basic_headings + %w{attachment_1_title  attachment_1_ISBN attachment_1_URN  attachment_1_command_reference  attachment_1_order_URL  attachment_1_price}
+      keys = basic_headings + %w{attachment_1_title attachment_1_URN attachment_1_published_date}
       assert_equal [
-        "Missing fields: 'attachment_1_url'",
+        "missing fields: 'attachment_1_url'",
         ], StatisticalDataSetRow.heading_validation_errors(keys)
     end
 

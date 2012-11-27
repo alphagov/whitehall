@@ -13,10 +13,13 @@ module Whitehall::Uploader
       @logger = logger
     end
 
-    def self.required_fields(headings)
-      super +
-        %w{policy_1 policy_2 policy_3 policy_4} +
-        %w{first_published country_1 country_2 country_3 minister_1 minister_2}
+    def self.validator
+      HeadingValidator.new
+        .required(%w{old_url title summary body organisation})
+        .ignored("ignore_*")
+        .required('first_published')
+        .multiple("policy_#", 1..4)
+        .multiple("minister_#", 1..2)
     end
 
     def legacy_url
