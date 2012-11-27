@@ -614,7 +614,9 @@ class OrganisationsControllerTest < ActionController::TestCase
     non_ministerial_org = create(:non_ministerial_organisation_type)
     public_corporation_org = create(:public_corporation_organisation_type)
 
-    10.times { create(:organisation, organisation_type_id: ministerial_org.id) }
+    4.times { create(:organisation, organisation_type_id: ministerial_org.id) }
+    3.times { create(:organisation, organisation_type_id: non_ministerial_org.id) }
+    3.times { create(:organisation, organisation_type_id: public_corporation_org.id) }
     queries_used = count_queries { get :index }
     assert 10 > queries_used, "Expected less than 10 queries, #{queries_used} were counted"
   end
