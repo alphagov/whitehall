@@ -20,6 +20,10 @@ class OrganisationType < ActiveRecord::Base
   end
 
   def self.unlistable
+    sub_organisation
+  end
+
+  def self.sub_organisation
     where(name: "Sub-organisation")
   end
 

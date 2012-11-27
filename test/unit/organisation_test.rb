@@ -114,6 +114,12 @@ class OrganisationTest < ActiveSupport::TestCase
     assert sub_organisation.errors.full_messages.include?("Parent organisations must not be empty for sub-organisations")
   end
 
+  test 'can list its sub-organisations' do
+    parent = create(:organisation)
+    sub_organisation = create(:sub_organisation, parent_organisations: [parent])
+    assert_equal [sub_organisation], parent.sub_organisations
+  end
+
   test '#ministerial_roles includes all ministerial roles' do
     minister = create(:ministerial_role)
     organisation = create(:organisation, roles:  [minister])
