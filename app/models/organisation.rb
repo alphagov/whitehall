@@ -180,6 +180,10 @@ class Organisation < ActiveRecord::Base
     child_organisations.group_by(&:organisation_type).sort_by { |type,department| type.listing_order }
   end
 
+  def sub_organisations
+    child_organisations.joins(:organisation_type).merge(OrganisationType.sub_organisation)
+  end
+
   def live?
     govuk_status == 'live'
   end

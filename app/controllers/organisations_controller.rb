@@ -31,6 +31,7 @@ class OrganisationsController < PublicFacingController
       @civil_servants = civil_servants
       @traffic_commissioners = traffic_commissioners
       @special_representatives = special_representatives
+      @sub_organisations = @organisation.sub_organisations
       set_slimmer_organisations_header([@organisation])
       expire_on_next_scheduled_publication(@organisation.scheduled_editions)
     else
