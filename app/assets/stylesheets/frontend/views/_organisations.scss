@@ -255,6 +255,19 @@
     }
   }
 
+  .sub-organisation .page-header {
+    h1 {
+      float: left;
+      width: 33.333333%;
+    }
+
+    h2.sub-organisation-name {
+      float: left;
+      width: 66.666666%;
+      @include core-48;
+    }
+  }
+
   .organisation-news {
     margin: 0 (-$gutter-half);
 
@@ -859,6 +872,14 @@
 
   .page-header {
     padding: $gutter-half 0;
+
+    h2.sub-organisation-name {
+      padding-top: $gutter !important;
+      @include core-36;
+      a {
+        color: #000;
+      }
+    }
   }
 
   nav {

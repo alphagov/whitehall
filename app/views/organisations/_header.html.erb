@@ -1,6 +1,17 @@
 <%
   link_to_organisation ||= false
   logo_size ||= 'large'
+
+  link_to_sub_organisation = link_to_organisation
+
+  if organisation.organisation_type.sub_organisation?
+    sub_organisation = organisation
+    organisation = sub_organisation.parent_organisations.first
+    link_to_organisation = true
+    logo_size = 'medium'
+  else
+    sub_organisation = nil
+  end
 %>
 <header class="page-header">
   <%= content_tag :h1, class: organisation_h1_class(organisation) do %>
@@ -12,6 +23,15 @@
       <span class="<%= organisation_logo_classes(organisation, size: logo_size, stacked: true) %>">
         <span><%= format_with_html_line_breaks(h(organisation.logo_formatted_name)) %></span>
       </span>
+    <% end %>
+  <% end %>
+  <% if sub_organisation %>
+    <%= content_tag :h2, class: "sub-organisation-name" do %>
+      <% if link_to_sub_organisation %>
+        <%= link_to sub_organisation.name, organisation_path(sub_organisation), class: "sub-organisation-name" %>
+      <% else %>
+        <%= sub_organisation.name %>
+      <% end %>
     <% end %>
   <% end %>
   <% if organisation.organisation_mainstream_links.any? %>

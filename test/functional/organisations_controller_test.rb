@@ -137,6 +137,16 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_select ".organisation-logo-stacked-no-identity"
   end
 
+  test "#show includes the parent organisation branding on a sub-organisation" do
+    organisation = create(:organisation, logo_formatted_name: "Ministry of Jam")
+    sub_organisation = create(:sub_organisation, name: "Marmalade Inspection Board", parent_organisations: [organisation])
+
+    get :show, id: sub_organisation
+
+    assert_select ".page-header .organisation-logo", "Ministry of Jam"
+    assert_select ".page-header .sub-organisation-name", "Marmalade Inspection Board"
+  end
+
   test "shows primary featured editions in ordering defined by association" do
     organisation = create(:organisation)
     news_article = create(:published_news_article)
