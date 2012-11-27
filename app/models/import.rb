@@ -73,11 +73,12 @@ class Import < ActiveRecord::Base
       ds = DocumentSource.create!(document: model.document, url: row.legacy_url, import: self, row_number: row_number)
       progress_logger.success(row_number, model)
     else
-      model.errors.full_messages.each do |error_message|
-        progress_logger.error(row_number, error_message)
+      model.errors.keys.each do |attribute|
+        next if attribute == :attachments
+        progress_logger.error(row_number, "#{attribute}: #{model.errors[attribute].join(", ")}")
       end
       attachment_errors = model.attachments.reject(&:valid?).each do |a|
-        progress_logger.error(row_number, "Attachment '#{a.attachment_source.url}' error: #{a.errors.full_messages.to_s}")
+        progress_logger.error(row_number, "Attachment '#{a.attachment_source.url}': #{a.errors.full_messages.to_s}")
       end
     end
   rescue => e
