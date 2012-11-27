@@ -645,7 +645,7 @@ class OrganisationsControllerTest < ActionController::TestCase
 
     [:show, :about].each do |page|
       get page, id: organisation
-      assert_select "##{dom_id(organisation)}.#{organisation.slug}"
+      assert_select "##{dom_id(organisation)}.#{organisation.slug}.ministerial-department"
     end
   end
 
