@@ -49,6 +49,7 @@
       list-style: none;
 
       li {
+        float: none;
         @include core-16;
       }
     }
