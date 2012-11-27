@@ -23,7 +23,7 @@ module Whitehall
     TransparencyData = create(id: 9, label: "Transparency data", publication_types: [PublicationType::TransparencyData])
     Treaty = create(id: 9, label: "Treaties", publication_types: [PublicationType::Treaty])
     FoiRelease = create(id: 10, label: "FOI releases", publication_types: [PublicationType::FoiRelease])
-    IndependentReport = create(id: 11, label: "Independent rpeorts", publication_types: [PublicationType::IndependentReport])
+    IndependentReport = create(id: 11, label: "Independent reports", publication_types: [PublicationType::IndependentReport])
     CircularLetterOrBulletin = create(id: 12, label: "Circulars, letters and bulletins", publication_types: [PublicationType::CircularLetterOrBulletin])
     PromotionalMaterial = create(id: 13, label: "Promotional material", publication_types: [PublicationType::PromotionalMaterial])
   end
