@@ -39,6 +39,14 @@ class OrganisationsControllerTest < ActionController::TestCase
     end
   end
 
+  test "index shouldn't include sub-organisations" do
+    sub_organisation = create(:sub_organisation)
+
+    get :index
+
+    refute_select_object(sub_organisation)
+  end
+
   test "index avoids n+1 selects" do
     ministerial_org = create(:ministerial_organisation_type)
     non_ministerial_org = create(:non_ministerial_organisation_type)
@@ -48,7 +56,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     3.times { create(:organisation, organisation_type_id: non_ministerial_org.id) }
     3.times { create(:organisation, organisation_type_id: public_corporation_org.id) }
     queries_used = count_queries { get :index }
-    assert 10 > queries_used, "Expected less than 10 queries, #{queries_used} were counted"
+    assert 11 > queries_used, "Expected less than 11 queries, #{queries_used} were counted"
   end
 
   test "shows organisation name and description" do

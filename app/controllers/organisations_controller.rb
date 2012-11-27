@@ -15,7 +15,7 @@ class OrganisationsController < PublicFacingController
 
     @agencies_and_government_bodies = Organisation.where('organisation_type_id NOT IN (?)', [
       ministerial_department_type, non_ministerial_department_type, public_corporation_type
-    ]).ordered_by_name_ignoring_prefix
+    ] + OrganisationType.unlistable).ordered_by_name_ignoring_prefix
   end
 
   def show

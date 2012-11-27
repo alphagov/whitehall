@@ -19,4 +19,11 @@ FactoryGirl.define do
   factory :organisation_with_alternative_format_contact_email, parent: :organisation, aliases: [:alternative_format_provider] do
     alternative_format_contact_email "alternative@example.com"
   end
+
+  factory :sub_organisation, parent: :organisation do
+    organisation_type {
+      type = FactoryGirl.build(:sub_organisation_type)
+      OrganisationType.find_by_name(type.name) || FactoryGirl.create(:sub_organisation_type)
+    }
+  end
 end

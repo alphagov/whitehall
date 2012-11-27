@@ -23,6 +23,7 @@ class OrganisationTypeTest < ActiveSupport::TestCase
       "Public corporation",
       "Independent monitoring body",
       "Ad-hoc advisory group",
+      "Sub-organisation",
       "Other"
     ]
     type_names.shuffle.each { |t| create(:organisation_type, name: t) }
@@ -46,5 +47,11 @@ class OrganisationTypeTest < ActiveSupport::TestCase
     organisation_type = build(:organisation_type,
                               name: "Ad-hoc advisory group")
     refute organisation_type.department?
+  end
+
+  test "unlistable should include sub-organisations" do
+    org_types = stub('org types')
+    OrganisationType.expects(:where).with(name: "Sub-organisation").returns(org_types)
+    assert_equal org_types, OrganisationType.unlistable
   end
 end

@@ -11,11 +11,16 @@ class OrganisationType < ActiveRecord::Base
     "Public corporation",
     "Independent monitoring body",
     "Ad-hoc advisory group",
+    "Sub-organisation",
     "Other"
   ]
 
   def self.in_listing_order
     all.sort_by { |ot| ot.listing_order }
+  end
+
+  def self.unlistable
+    where(name: "Sub-organisation")
   end
 
   def listing_order
