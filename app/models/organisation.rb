@@ -228,16 +228,6 @@ class Organisation < ActiveRecord::Base
       "where organisational_relationships.child_organisation_id=organisations.id)")
   end
 
-  def root_organisation
-    path = []
-    current = self
-    while current && ! path.include?(current)
-      path << current
-      current = current.parent_organisations.first
-    end
-    path.last
-  end
-
   def destroyable?
     child_organisations.none? && organisation_roles.none? && !new_record?
   end
