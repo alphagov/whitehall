@@ -15,16 +15,18 @@
   </div>
   <div class="block-2 ">
     <div class="inner-block">
-      <div class="contextual-info js-stick-at-top-when-scrolling">
-        <nav>
-          <h1>Contents</h1>
-          <ol>
-            <% govspeak_headers(@document.body).each do |header| %>
-              <li><%= link_to header.text, "##{header.id}" %></li>
-            <% end %>
-          </ol>
-        </nav>
-      </div>
+      <% if govspeak_headers(@document.body).any? %>
+        <div class="contextual-info js-stick-at-top-when-scrolling">
+          <nav>
+            <h1>Contents</h1>
+            <ol>
+              <% govspeak_headers(@document.body).each do |header| %>
+                <li><%= link_to header.text, "##{header.id}" %></li>
+              <% end %>
+            </ol>
+          </nav>
+        </div>
+      <% end %>
     </div>
   </div>
 
