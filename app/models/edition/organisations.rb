@@ -35,9 +35,13 @@ module Edition::Organisations
     edition_organisations.where(organisation_id: organisation.id).first
   end
 
+  def skip_organisation_validation?
+    false
+  end
+
 private
   def at_least_one_organisation
-    unless edition_organisations.any? || organisations.any?
+    unless skip_organisation_validation? || edition_organisations.any? || organisations.any?
       errors[:organisations] = "at least one required"
     end
   end
