@@ -10,7 +10,8 @@
   <% elsif @import.status == :running %>
     <p class="summary">Import running (row <%= @import.current_row %> / <%= @import.total_rows %></p>
   <% elsif @import.status == :failed %>
-    <p class="summary">Import failed with <%= pluralize(@import.import_errors.count, "error") %></p>
+    <h2 class="summary">Import failed with <%= pluralize(@import.import_errors.count, "error") %></h2>
+    <%= link_to "Download annotated CSV", annotated_admin_import_path(@import), class:"download" %>
 
     <table id="errors">
       <thead>

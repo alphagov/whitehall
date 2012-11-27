@@ -1,6 +1,9 @@
 require 'test_helper'
+require 'support/consultation_csv_sample_helpers'
 
 class Admin::ImportsControllerTest < ActionController::TestCase
+  include ConsultationCsvSampleHelpers
+
   setup do
     login_as :importer
   end
@@ -66,7 +69,7 @@ class Admin::ImportsControllerTest < ActionController::TestCase
   end
 
   test "show shows errors if any" do
-    import = stub_record(:import, import_errors: [{row_number: 1, message: "Policy 'blah' does not exist"}],
+    import = stub_record(:import, import_errors: [{row_number: 2, message: "Policy 'blah' does not exist"}],
       creator: current_user)
     import.stubs(:status).returns(:failed)
     Import.stubs(:find).with(import.id.to_s).returns(import)
@@ -76,10 +79,31 @@ class Admin::ImportsControllerTest < ActionController::TestCase
     assert_select record_css_selector(import) do
       assert_select ".summary", /Import failed with 1 error/
       assert_select ".import_error" do
-        assert_select ".row_number", "1"
+        assert_select ".row_number", "2"
         assert_select ".message", "Policy 'blah' does not exist"
       end
     end
+  end
+
+  test "can export annotated version of file with errors" do
+    import = stub_record(:import,
+      original_filename: "consultations.csv",
+      import_started_at: Time.zone.parse("2011-01-01 12:13:14"),
+      csv_data: consultation_csv_sample,
+      import_errors: [{row_number: 2, message: "Policy 'blah' does not exist"}],
+      creator: current_user)
+    import.stubs(:status).returns(:failed)
+    Import.stubs(:find).with(import.id.to_s).returns(import)
+
+    get :annotated, id: import
+
+    assert_equal "text/csv", response.headers["Content-Type"]
+    assert_equal %{attachment; filename="consultations-errors-2011-01-01-121314.csv"}, response.headers["Content-Disposition"]
+    original_upload = CSV.parse(import.csv_data)
+    parsed_response = CSV.parse(response.body)
+    assert_equal original_upload.size, parsed_response.size
+    assert_equal ["Errors"] + original_upload[0].map(&:downcase), parsed_response[0]
+    assert_equal ["Policy 'blah' does not exist"] + original_upload[1], parsed_response[1]
   end
 
   def new_import

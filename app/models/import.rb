@@ -49,6 +49,16 @@ class Import < ActiveRecord::Base
     end
   end
 
+  def import_errors_for_row(row_number)
+    import_errors_by_row.fetch(row_number, []).map do |import_error|
+      import_error[:message]
+    end
+  end
+
+  def import_errors_by_row
+    @import_errors_by_row ||= import_errors.group_by {|error| error[:row_number]}
+  end
+
   def perform(options = {})
     attachment_cache = options[:attachment_cache] || Whitehall::Uploader::AttachmentCache.new(Whitehall::Uploader::AttachmentCache.default_root_directory, logger)
     progress_logger = options[:progress_logger] || ProgressLogger.new(self)
