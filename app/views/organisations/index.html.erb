@@ -46,10 +46,10 @@
         </div>
       </div>
       <div class="heading-block other-departments js-filter-block">
-        <h1 id="all-others">All others</h1>
+        <h1 id="non-ministerial-departments">Non ministerial departments</h1>
         <div class="content">
           <ol class="index-list">
-            <% @all_other_organisations.each do |organisation| %>
+            <% @non_ministerial_departments.each do |organisation| %>
               <%= content_tag_for :li, organisation, class: 'js-filter-item',
                             "data-filter-terms" => filter_terms(organisation) do %>
                 <%= link_to organisation.name, organisation_path(organisation) %>
@@ -58,6 +58,35 @@
           </ol>
         </div>
       </div>
+
+      <div class="heading-block other-departments js-filter-block">
+        <h1 id="agencies-and-public-bodies">Agencies &amp; other public bodies</h1>
+        <div class="content">
+          <ol class="index-list">
+            <% @agencies_and_government_bodies.each do |organisation| %>
+              <%= content_tag_for :li, organisation, class: 'js-filter-item',
+                            "data-filter-terms" => filter_terms(organisation) do %>
+                <%= link_to organisation.name, organisation_path(organisation) %>
+              <% end %>
+            <% end %>
+          </ol>
+        </div>
+      </div>
+
+      <div class="heading-block other-departments js-filter-block">
+        <h1 id="public-corporations">Public corporations</h1>
+        <div class="content">
+          <ol class="index-list">
+            <% @public_corporations.each do |organisation| %>
+              <%= content_tag_for :li, organisation, class: 'js-filter-item',
+                            "data-filter-terms" => filter_terms(organisation) do %>
+                <%= link_to organisation.name, organisation_path(organisation) %>
+              <% end %>
+            <% end %>
+          </ol>
+        </div>
+      </div>      
+
     </div>
     <div class="js-filter-no-results">
       <p>No departments match that filter.</p>

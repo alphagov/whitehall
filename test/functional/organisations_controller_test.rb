@@ -576,19 +576,47 @@ class OrganisationsControllerTest < ActionController::TestCase
   end
 
   test "should display a list of organisations" do
-    ministerial_org = create(:ministerial_organisation_type)
-    organisation_1 = create(:organisation, organisation_type_id: ministerial_org.id)
-    organisation_2 = create(:organisation)
+    ministerial_org_type = create(:ministerial_organisation_type)
+
+    organisation_1 = create(:organisation, organisation_type_id: ministerial_org_type.id)
 
     get :index
 
     assert_select_object(organisation_1)
-    assert_select_object(organisation_2)
+  end
+
+  test "should display a list of non-ministerial departments" do
+    non_ministerial_org_type = create(:non_ministerial_organisation_type)
+    organisation = create(:organisation, organisation_type_id: non_ministerial_org_type.id)
+
+    get :index
+
+    assert_select '#agencies-and-public-bodies'
+    assert_select '.other-departments' do
+      assert_select_object(organisation)
+    end
+  end
+
+  test "should display a list of public corporation organisations" do
+    public_corporation_org_type = create(:public_corporation_organisation_type)
+    organisation = create(:organisation, organisation_type_id: public_corporation_org_type.id)
+
+    get :index
+
+    assert_select '#public-corporations'
+    assert_select '.other-departments' do
+      assert_select_object(organisation)
+    end
   end
 
   test "index avoids n+1 selects" do
     ministerial_org = create(:ministerial_organisation_type)
-    10.times { create(:organisation, organisation_type_id: ministerial_org.id) }
+    non_ministerial_org = create(:non_ministerial_organisation_type)
+    public_corporation_org = create(:public_corporation_organisation_type)
+
+    4.times { create(:organisation, organisation_type_id: ministerial_org.id) }
+    3.times { create(:organisation, organisation_type_id: non_ministerial_org.id) }
+    3.times { create(:organisation, organisation_type_id: public_corporation_org.id) }
     queries_used = count_queries { get :index }
     assert 10 > queries_used, "Expected less than 10 queries, #{queries_used} were counted"
   end
