@@ -6,6 +6,21 @@ class ApplicationHelperTest < ActionView::TestCase
   include ERB::Util
   include Rails.application.routes.url_helpers
 
+  class TestView
+    module RailsPathToImage
+      def path_to_image(source)
+        'assets.example.com' + source
+      end
+    end
+
+    def user_signed_in?
+      false
+    end
+
+    include RailsPathToImage
+    include ApplicationHelper
+  end
+
   test "should supply options with IDs and descriptions for the all ministerial appointments" do
     theresa_may_appointment = appoint_minister(forename: "Theresa", surname: "May", role: "Secretary of State", organisation: "Home Office", started_at: Date.parse('2011-01-01'))
     philip_hammond_appointment = appoint_minister(forename: "Philip", surname: "Hammond", role: "Secretary of State", organisation: "Ministry of Defence", started_at: Date.parse('2011-01-01'))
@@ -201,6 +216,24 @@ class ApplicationHelperTest < ActionView::TestCase
   test "JSON URL generator strips spurious query params" do
     stubs(:params).returns(action: "index", controller: "publications", utf8: "✓", _: "jquerycache")
     assert_equal filter_json_url, "/government/publications.json"
+  end
+
+  test "skips asset host for image paths if user signed in and image in uploads" do
+    view = TestView.new
+    view.stubs(:user_signed_in?).returns(true)
+    assert_equal '/government/uploads/path/to/my/image', view.path_to_image('/government/uploads/path/to/my/image')
+  end
+
+  test "uses asset host for image paths if user signed in but image not in uploads" do
+    view = TestView.new
+    view.stubs(:user_signed_in?).returns(true)
+    assert_equal 'assets.example.com/path/to/another/image', view.path_to_image('/path/to/another/image')
+  end
+
+  test "uses asset standard rails image paths if user not signed in" do
+    view = TestView.new
+    view.stubs(:user_signed_in?).returns(false)
+    assert_equal 'assets.example.com/government/uploads/path/to/my/image', view.path_to_image('/government/uploads/path/to/my/image')
   end
 
   private

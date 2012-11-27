@@ -152,7 +152,6 @@ Whitehall::Application.routes.draw do
 
   mount TestTrack::Engine => "test" if Rails.env.test?
 
-  match '/government/uploads/*path.:extension' => "public_uploads#show", constraints: { extension: /(jpe?g|gif|png)/i }
   match '/government/uploads/system/uploads/attachment_data/file/:id/*file.:extension' => "attachments#show"
   match '/government/uploads/*path.:extension' => "public_uploads#show"
 end

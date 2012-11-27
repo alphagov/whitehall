@@ -314,4 +314,12 @@ module ApplicationHelper
       "one-column"
     end
   end
+
+  def path_to_image(source)
+    if source.starts_with?("/government/uploads") && user_signed_in?
+      source
+    else
+      super(source)
+    end
+  end
 end
