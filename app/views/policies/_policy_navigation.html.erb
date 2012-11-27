@@ -9,7 +9,7 @@
       </li>
     <% end %>
     <% if @recently_changed_documents.present? %>
-      <li><%= link_to_with_current "Activity", activity_policy_path(@policy.document) %></li>
+      <li><%= link_to_with_current "Latest", activity_policy_path(@policy.document) %></li>
     <% end %>
   </ul>
 </nav>
