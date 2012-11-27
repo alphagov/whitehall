@@ -440,6 +440,17 @@ class OrganisationsControllerTest < ActionController::TestCase
     end
   end
 
+  test "should display sub-organisations" do
+    organisation = create(:organisation)
+    sub_organisation = create(:sub_organisation, parent_organisations: [organisation])
+
+    get :show, id: organisation
+
+    assert_select ".sub_organisations" do
+      assert_select_object(sub_organisation)
+    end
+  end
+
   test "should show description on organisation about subpage" do
     organisation = create(:organisation, description: "organisation-description")
     get :about, id: organisation

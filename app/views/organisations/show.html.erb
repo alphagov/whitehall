@@ -301,4 +301,21 @@
     </div>
   </div>
 
+  <% if @sub_organisations.any? %>
+    <div class="block-12">
+      <div class="inner-block">
+        <h1 class="label">High profile groups within <%= @organisation.display_name %></h1>
+        <nav class="group sub_navigation" role="navigation">
+          <ul class="sub_organisations">
+            <% @sub_organisations.each do |sub_organisation| %>
+              <%= content_tag_for :li, sub_organisation do %>
+                <%= link_to sub_organisation.name, organisation_path(sub_organisation) %>
+              <% end %>
+            <% end %>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  <% end %>
+
 <% end %>
