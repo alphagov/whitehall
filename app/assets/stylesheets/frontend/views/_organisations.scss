@@ -874,8 +874,8 @@
     padding: $gutter-half 0;
 
     h2.sub-organisation-name {
-      padding-top: $gutter !important;
       @include core-36;
+      padding-top: $gutter;
       a {
         color: #000;
       }
