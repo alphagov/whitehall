@@ -64,7 +64,7 @@ module Whitehall::Uploader
     def attachments
       if @attachments.nil?
         @attachments = attachments_from_columns + attachments_from_json
-        AttachmentMetadataBuilder.build(@attachments.first, row["order_url"], row["isbn"], row["urn"], row["command_paper_number"])
+        AttachmentMetadataBuilder.build(@attachments.first, row["order_url"], row["isbn"], row["urn"], row["command_paper_number"], row["price"])
       end
       @attachments
     end
@@ -102,12 +102,13 @@ module Whitehall::Uploader
     end
 
     class AttachmentMetadataBuilder
-      def self.build(attachment, order_url, isbn, unique_reference, command_paper_number)
-        return unless attachment && (order_url || isbn || unique_reference || command_paper_number)
+      def self.build(attachment, order_url, isbn, unique_reference, command_paper_number, price)
+        return unless attachment && (order_url || isbn || unique_reference || command_paper_number || price)
         attachment.order_url = order_url
         attachment.isbn = isbn
         attachment.unique_reference = unique_reference
         attachment.command_paper_number = command_paper_number
+        attachment.price = price
       end
     end
   end
