@@ -108,6 +108,12 @@ class OrganisationTest < ActiveSupport::TestCase
     assert_equal [parent.id], Organisation.parent_organisations.map(&:id)
   end
 
+  test 'sub-organisations are not valid without a parent organisation' do
+    sub_organisation = build(:sub_organisation, parent_organisations: [])
+    refute sub_organisation.valid?, "Sub-organisations should not be valid without a parent"
+    assert sub_organisation.errors.full_messages.include?("Parent organisations must not be empty for sub-organisations")
+  end
+
   test '#ministerial_roles includes all ministerial roles' do
     minister = create(:ministerial_role)
     organisation = create(:organisation, roles:  [minister])

@@ -139,6 +139,7 @@ class Organisation < ActiveRecord::Base
     message: "can't be blank as there are editions which use this organisation as the alternative format provider"}
   validates :govuk_status, inclusion: {in: %w{live joining exempt}}
   validates :organisation_logo_type_id, presence: true
+  validate :sub_organisations_must_have_a_parent
 
   default_scope order(arel_table[:name])
 
@@ -259,5 +260,13 @@ class Organisation < ActiveRecord::Base
         }
       )
     }
+  end
+
+  def sub_organisations_must_have_a_parent
+    if organisation_type && organisation_type.sub_organisation?
+      if parent_organisations.empty?
+        errors[:parent_organisations] << "must not be empty for sub-organisations"
+      end
+    end
   end
 end

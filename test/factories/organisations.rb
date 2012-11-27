@@ -21,6 +21,7 @@ FactoryGirl.define do
   end
 
   factory :sub_organisation, parent: :organisation do
+    parent_organisations { [build(:organisation)] }
     organisation_type {
       type = FactoryGirl.build(:sub_organisation_type)
       OrganisationType.find_by_name(type.name) || FactoryGirl.create(:sub_organisation_type)

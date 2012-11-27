@@ -38,4 +38,8 @@ class OrganisationType < ActiveRecord::Base
   def self.departmental_types
     all.select { |t| t.department? }
   end
+
+  def sub_organisation?
+    name == "Sub-organisation"
+  end
 end
