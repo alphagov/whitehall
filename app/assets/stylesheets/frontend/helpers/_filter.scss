@@ -1,79 +1,26 @@
 .filter-block {
-  background: $info-background;
-
   h2 {
     @include core-19;
-    padding: 0 $gutter-half;
   }
 
   form {
-    padding: 0 $gutter-one-sixth;
+    padding: 0;
     
     fieldset {
       position: relative;
-      .results{
-        background-color:white;
-        clear:both;
-        margin-left:-$gutter-two-thirds;
-        margin-right:-$gutter-two-thirds;
-        margin-top: $gutter-half;
-        padding:$gutter-two-thirds 0 0 $gutter-one-third;
-        @extend %contain-floats;
-        .count{
-          @include core-36;
-          @include bold;
-          padding-bottom: 0;
-          @include media (desktop) {
-            float: left;
-            width: 33.333%;
-            white-space: nowrap;
-          }
-        }
-        .selections{
-          position: relative;
-          @include core-14;
-          padding-top:$gutter-two-thirds;
-          @include media (desktop) {
-            float: right;
-            width: 66.666%;
-          }
-        }
-        .chosen span,
-        .chosen span{
-          background-color: $info-background;
-          padding:0 $gutter-one-third;
-          display: inline-block;
-        }
-      }
+
       .filter {
         width: 100%;
-        float: left;
-        .filter-inner {
-          padding: $gutter-one-sixth $gutter-one-third;
-        }
-      }
-      @include media (desktop) {
-        .filter {
-          width: 33.33%;
-          .filter-inner {
-            padding: $gutter-half $gutter-one-third $gutter-half;
-          }
-        }
-        .filter:nth-child(2) .filter-inner {
-          padding-right: 0;
-        }
-        .filter:nth-child(3) .filter-inner {
-          padding-left: 1px;
-        }
+        margin-top: $gutter;
       }
     }
   }
 
-  label.title {
-    @include core-14;
-    display: block;
-    padding-top: 0;
+  label {
+    @include core-27;
+    margin-bottom: $gutter-half;
   }
+
   input {
     @include core-14;
     background: $white;
@@ -82,7 +29,6 @@
     @include media (desktop) {
       padding: $gutter-one-sixth 0;
       text-indent: $gutter-one-third;
-      border: 0;
     }
   }
   select {
@@ -92,15 +38,9 @@
     width: 100%;
   }
   .multi-row-select {
-    border: 0;
+    // border: 1px solid $light-keyline;
     width: 100%;
     padding-bottom: 0;
-    @include media (tablet) {
-      padding: $gutter-one-third;
-    }
-    @include media (desktop) {
-//      height: 195px;
-    }
   }
   .checkbox input {
     width: auto;
@@ -183,6 +123,28 @@
     p {
       @include core-19;
     }
+  }
+}
+
+.filter-results-summary {
+  .count{
+    @include core-36;
+    @include bold;
+
+    padding-bottom: 0;
+  }
+
+  .selections{
+    position: relative;
+    @include core-14;
+    padding-top:$gutter-two-thirds;
+  }
+
+  .chosen span,
+  .chosen span{
+    background-color: $info-background;
+    padding:0 $gutter-one-third;
+    display: inline-block;
   }
 }
 

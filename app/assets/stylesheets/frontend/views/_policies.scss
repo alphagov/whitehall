@@ -1,20 +1,24 @@
 .policies-index {
-  .page-header {
-    padding: $gutter-one-third 0 0;
-    margin: 0;
-    position: relative;
-  }
-  .block-1{
-    .inner-block header{
-      background: $info-background;
-      margin-bottom:0;
-      padding-bottom:0;
-      h1{
-        padding-left:$gutter-half;
-        padding-bottom: 3px;
-      }
+  .block-1 {
+    h1 {
+      margin-bottom: $gutter;
     }
   }
+
+  .block-2 {
+    float: left;
+    width: 33.333%;
+
+    .inner-block {
+      padding-right: 0;
+    }
+  }
+
+  .block-3 {
+    float: left;
+    width: 66.666%;
+  }
+
   .alphabetical-list .alphabetical-row {
     .inner {
       padding-top: $gutter-one-third;
