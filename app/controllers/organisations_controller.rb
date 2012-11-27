@@ -5,8 +5,17 @@ class OrganisationsController < PublicFacingController
 
   def index
     ministerial_department_type = OrganisationType.find_by_name('Ministerial department')
+    non_ministerial_department_type = OrganisationType.find_by_name('Non-ministerial department')
+    public_corporation_type = OrganisationType.find_by_name('Public corporation')
+
     @ministerial_departments = Organisation.where(organisation_type_id: ministerial_department_type).all(include: [:organisation_type, { child_organisations: :organisation_type}])
-    @all_other_organisations = Organisation.where('organisation_type_id != ?', ministerial_department_type.id).ordered_by_name_ignoring_prefix
+
+    @public_corporations = Organisation.where(organisation_type_id: public_corporation_type)
+    @non_ministerial_departments = Organisation.where(organisation_type_id: non_ministerial_department_type)
+
+    @agencies_and_government_bodies = Organisation.where('organisation_type_id NOT IN (?)', [
+      ministerial_department_type, non_ministerial_department_type, public_corporation_type
+    ]).ordered_by_name_ignoring_prefix
   end
 
   def show
