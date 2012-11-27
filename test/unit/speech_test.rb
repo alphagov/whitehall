@@ -16,11 +16,6 @@ class SpeechTest < EditionTestCase
     refute speech.valid?
   end
 
-  test "should be invalid without a role_appointment" do
-    speech = build(:speech, role_appointment: nil)
-    refute speech.valid?
-  end
-
   test "should be invalid without a delivered_on" do
     speech = build(:speech, delivered_on: nil)
     refute speech.valid?
@@ -29,6 +24,22 @@ class SpeechTest < EditionTestCase
   test "should be valid without a location" do
     speech = build(:speech, location: nil)
     assert speech.valid?
+  end
+
+  test "should be invalid without a role_appointment" do
+    speech = build(:speech, role_appointment: nil)
+    refute speech.valid?
+  end
+
+  test "should be invalid if role_appointment has no associated organisation" do
+    speech = build(:speech, role_appointment: build(:role_appointment, role: nil))
+    refute speech.valid?
+  end
+
+  test "associates itself with role appointments organisation on save" do
+    speech = build(:speech)
+    speech.save!
+    assert_equal speech.role_appointment.role.organisations, speech.reload.organisations
   end
 
   test "has statement to parliament display type if written statement" do

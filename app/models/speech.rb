@@ -1,8 +1,9 @@
 class Speech < Announcement
   include Edition::Appointment
 
+  after_save :populate_organisations_based_on_role_appointment
+
   validates :speech_type_id, :delivered_on, presence: true
-  before_validation :populate_organisations_based_on_role_appointment
 
   validate :role_appointment_has_associated_organisation
 
@@ -26,10 +27,16 @@ class Speech < Announcement
 
   private
 
+  def skip_organisation_validation?
+    true
+  end
+
   def populate_organisations_based_on_role_appointment
-    self.edition_organisations = []
-    self.organisations = []
-    organisations_via_role_appointment.each { |o| self.organisations << o }
+    unless deleted?
+      self.edition_organisations = []
+      self.organisations = []
+      organisations_via_role_appointment.each { |o| self.organisations << o }
+    end
   end
 
   def organisations_via_role_appointment
