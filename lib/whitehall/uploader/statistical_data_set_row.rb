@@ -14,13 +14,11 @@ module Whitehall::Uploader
       @attachment_cache = attachment_cache
     end
 
-    def self.required_fields(headings)
-      required_fields = super.dup
-      required_fields += %w{document_series}
-      required_fields += provided_attachment_ids(headings).map do |i|
-        ("attachment_#{i}_url attachment_#{i}_title attachment_#{i}_ISBN attachment_#{i}_URN " +
-        "attachment_#{i}_command_reference attachment_#{i}_order_URL attachment_#{i}_price").split(" ")
-      end.flatten
+    def self.validator
+      HeadingValidator.new
+        .required(%w{old_url title summary body organisation})
+        .required(%w{data_series})
+        .multiple(%w{attachment_#_url attachment_#_title attachment_#_URN attachment_#_published_date}, 0..100)
     end
 
     def title

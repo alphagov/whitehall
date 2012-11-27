@@ -9,12 +9,12 @@ module Whitehall
       end
 
       def required(fields)
-        @required_fields.concat([*fields])
+        @required_fields.concat([*fields].map(&:downcase))
         self
       end
 
       def optional(fields)
-        @optional_fields.concat([*fields])
+        @optional_fields.concat([*fields].map(&:downcase))
         self
       end
 
@@ -24,7 +24,7 @@ module Whitehall
       end
 
       def ignored(pattern)
-        @ignored_patterns << Regexp.new('\A' + Regexp.escape(pattern).gsub('\*', '.*') + '\z')
+        @ignored_patterns << Regexp.new('\A' + Regexp.escape(pattern.downcase).gsub('\*', '.*') + '\z')
         self
       end
 
@@ -37,16 +37,17 @@ module Whitehall
       end
 
       def validate(headings)
-        headings = without_ignored(headings)
+        headings = normalise(headings)
         ValidationResult.new(
-          duplicate: duplicates(headings),
+          duplicates: duplicates(headings),
           missing: missing(headings),
           extra: extra(headings)
         )
       end
 
+    private
       def duplicates(headings)
-        without_ignored(headings).group_by {|heading| heading}.reject {|k, list| list.size<2}.keys
+        normalise(headings).group_by {|heading| heading}.reject {|k, list| list.size<2}.keys
       end
 
       def missing(headings)
@@ -59,7 +60,11 @@ module Whitehall
 
       def extra(headings)
         correlated = @correlated_fields.map { |c| c.accepted(headings) }.flatten
-        without_ignored(headings) - (@required_fields + @optional_fields + correlated)
+        normalise(headings) - (@required_fields + @optional_fields + correlated)
+      end
+
+      def normalise(headings)
+        without_ignored(headings.map(&:downcase))
       end
 
       def without_ignored(headings)
@@ -80,14 +85,32 @@ module Whitehall
         def errors
           @errors_by_category.map do |category, errors|
             next if errors.empty?
-            "#{category} fields: '#{errors.join("', '")}'"
+            "#{describe_category(category)} fields: '#{errors.join("', '")}'"
           end.compact
+        end
+
+        def method_missing(method, *args, &block)
+          @errors_by_category.fetch(method)
+        end
+
+        def respond_to_missing?(method)
+          @errors_by_category.has_key?(method)
+        end
+
+      private
+        def describe_category(category)
+          case category
+          when :duplicates then "duplicate"
+          when :extra then "unexpected"
+          when :missing then "missing"
+          else category.to_s
+          end
         end
       end
 
       class CorrelatedFieldValidator
         def initialize(correlated_fields, acceptable_cohort_count = 1..Float::INFINITY)
-          @correlated_fields = [*correlated_fields]
+          @correlated_fields = [*correlated_fields].map(&:downcase)
           @acceptable_cohort_count = acceptable_cohort_count
           bad_fields = @correlated_fields.reject {|f| f.count('#') == 1 }
           if bad_fields.any?
