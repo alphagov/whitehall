@@ -1,5 +1,6 @@
 class Admin::ImportsController < Admin::BaseController
   before_filter :require_import_permission!
+  before_filter :find_import, only: [:show, :annotated]
 
   def index
     @imports = Import.all
@@ -21,10 +22,32 @@ class Admin::ImportsController < Admin::BaseController
   end
 
   def show
-    @import = Import.find(params[:id])
   end
 
+  def annotated
+    filename = File.basename(@import.original_filename, ".csv")
+    filename << "-errors-"
+    filename << @import.import_started_at.strftime("%Y-%m-%d-%H%M%S")
+    filename << ".csv"
+    headers["Content-Type"] ||= 'text/csv'
+    headers["Content-Disposition"] = "attachment; filename=\"#{filename}\""
+
+    self.response_body = Enumerator.new do |yielder|
+      yielder << (["Errors"] + @import.rows.headers).to_csv
+      @import.rows.each_with_index do |row, ix|
+        row_number = ix + 2
+        errors = @import.import_errors_for_row(row_number).join(", ")
+        yielder << ([errors] + row.fields).to_csv
+      end
+    end
+  end
+
+private
   def require_import_permission!
     authorise_user!(GDS::SSO::Config.default_scope, User::Permissions::IMPORT)
+  end
+
+  def find_import
+    @import = Import.find(params[:id])
   end
 end

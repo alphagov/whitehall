@@ -1,57 +1,16 @@
 require "test_helper"
-
-module ConsultationCsvSampleHelpers
-  def csv_sample(additional_fields = {}, extra_rows = [])
-    data = minimally_valid_row.merge(additional_fields)
-    lines = []
-    lines << CSV.generate_line(data.keys, encoding: "UTF-8")
-    lines << CSV.generate_line(data.values, encoding: "UTF-8")
-    extra_rows.each do |row|
-      lines << CSV.generate_line(default_row.merge(row).values, encoding: "UTF-8")
-    end
-    lines.join
-  end
-
-  def minimally_valid_row
-    {
-      "old_url"          => "http://example.com",
-      "title"            => "title",
-      "summary"          => "summary",
-      "body"             => "body",
-      "opening_date" => "11/16/2011",
-      "closing_date" => "11/16/2012",
-      "organisation"     => sample_organisation.slug,
-      "policy_1" => "",
-      "policy_2" => "",
-      "policy_3" => "",
-      "policy_4" => "",
-      "respond_url" => "",
-      "respond_email" => "",
-      "respond_postal_address" => "",
-      "respond_form_title" => "",
-      "respond_form_attachment" => "",
-      "consultation_ISBN" => "",
-      "consultation_URN" => "",
-      "response_date" => "",
-      "response_summary" => ""
-    }
-  end
-
-  def sample_organisation
-    @sample_organisation ||= (Organisation.first || create(:organisation))
-  end
-end
+require 'support/consultation_csv_sample_helpers'
 
 class ImportTest < ActiveSupport::TestCase
   include ConsultationCsvSampleHelpers
 
   test "valid if known type" do
-    i = Import.new(csv_data: csv_sample, data_type: "consultation")
+    i = Import.new(csv_data: consultation_csv_sample, data_type: "consultation")
     assert i.valid?, i.errors.full_messages.to_s
   end
 
   test "invalid if unknown type" do
-    refute Import.new(csv_data: csv_sample, data_type: "not_valid").valid?
+    refute Import.new(csv_data: consultation_csv_sample, data_type: "not_valid").valid?
   end
 
   test 'invalid if row is invalid for the given data' do
@@ -90,7 +49,7 @@ class ImportSavingTest < ActiveSupport::TestCase
   end
 
   test "#perform records the document source of successfully imported records" do
-    i = Import.create!(csv_data: csv_sample, creator: @user, data_type: "consultation")
+    i = Import.create!(csv_data: consultation_csv_sample, creator: @user, data_type: "consultation")
     i.stubs(:row_class).returns(@row_class)
     i.stubs(:model_class).returns(@model_class)
     DocumentSource.expects(:create!).with(document: @document, url: @row.legacy_url, import: i, row_number: 2)
@@ -98,12 +57,12 @@ class ImportSavingTest < ActiveSupport::TestCase
   end
 
   test 'logs failure if save unsuccessful' do
-    @errors = stub('errors', full_messages: ["Feeling funky"])
+    @errors = {body: ["required"]}
     @model.stubs(:save).returns(false)
     @model.stubs(:errors).returns(@errors)
     @model.stubs(:attachments).returns([])
 
-    @progress_logger.expects(:error).with(2, "Feeling funky")
+    @progress_logger.expects(:error).with(2, "body: required")
 
     i = Import.new(csv_data: @data, creator: @user)
     i.stubs(:row_class).returns(@row_class)
@@ -115,7 +74,7 @@ class ImportSavingTest < ActiveSupport::TestCase
   end
 
   test 'logs failures within attachments if save unsuccessful' do
-    @errors = stub('errors', full_messages: [])
+    @errors = {attachments: ["is invalid"]}
     @model.stubs(:save).returns(false)
     @model.stubs(:errors).returns(@errors)
     attachment = stub('attachment', errors: stub('attachment-errors', full_messages: 'attachment error'))
@@ -123,7 +82,7 @@ class ImportSavingTest < ActiveSupport::TestCase
     attachment.stubs(:attachment_source).returns(stub('attachment-source', url: 'url'))
     @model.stubs(:attachments).returns([attachment])
 
-    @progress_logger.expects(:error).with(2, "Attachment 'url' error: attachment error")
+    @progress_logger.expects(:error).with(2, "Attachment 'url': attachment error")
 
     i = Import.new(csv_data: @data, creator: @user)
     i.stubs(:row_class).returns(@row_class)
