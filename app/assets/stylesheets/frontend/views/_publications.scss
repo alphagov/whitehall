@@ -1,14 +1,6 @@
 // Styles for Publications view
 
 .publications-index {
-  .page-header {
-    padding: $gutter-one-third 0 0;
-    margin: 0;
-    position: relative;
-
-    
-  }
-
   @include ie(6) {
     .block-2,
     .block-3,
@@ -17,23 +9,32 @@
     }
   }
   
-  .block-2 {
-    position: relative;
-  }
-  .block-4 {
-    width: 100%;
+  .block-1 {
+    .page-header {
+      margin: $gutter*1.5 0 0 0;
+      position: relative;
 
-  }
-  .block-1{
-    .inner-block header{
-      background: $info-background;
-      margin-bottom:0;
       h1 {
-        padding-left:$gutter-half;
-        padding-bottom: 3px;
+        margin-bottom: $gutter;
       }
     }
   }
+
+  @include media(tablet) {
+    .block-2 {
+      float: left;
+      width: 33.333%;
+
+      .inner-block {
+        padding-right: 0;
+      }
+    }
+
+    .block-4 {
+      float: left;
+      width: 66.666%;
+    }
+  } 
 }
 
 .publication {
