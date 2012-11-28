@@ -198,6 +198,21 @@ class Edition::ScheduledPublishingTest < ActiveSupport::TestCase
     assert_equal nil, Edition.scheduled_publishing_robot.uid
     assert Edition.scheduled_publishing_robot.can_publish_scheduled_editions?
   end
+
+  test ".scheduled_for_publication_as returns edition if edition is scheduled" do
+    edition = create(:draft_publication, scheduled_publication: 1.day.from_now)
+    edition.schedule_as(create(:departmental_editor), force: true)
+    assert_equal edition, Publication.scheduled_for_publication_as(edition.document.to_param)
+  end
+
+  test ".scheduled_for_publication_as returns nil if edition is not scheduled" do
+    edition = create(:draft_publication, scheduled_publication: 1.day.from_now)
+    assert_nil Edition.scheduled_for_publication_as(edition.document.to_param)
+  end
+
+  test ".scheduled_for_publication_as returns nil if document is unknown" do
+    assert_nil Edition.scheduled_for_publication_as('unknown')
+  end
 end
 
 class Edition::PublishAllDueEditionsTest < ActiveSupport::TestCase

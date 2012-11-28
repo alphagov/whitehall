@@ -35,6 +35,11 @@ module Edition::ScheduledPublishing
       scheduled.where(arel_table[:scheduled_publication].lteq(cutoff))
     end
 
+    def scheduled_for_publication_as(slug)
+      document = Document.at_slug(document_type, slug)
+      document && document.scheduled_edition
+    end
+
   private
 
     def log_schedule(logger, schedule)

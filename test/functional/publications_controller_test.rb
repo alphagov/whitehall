@@ -26,6 +26,29 @@ class PublicationsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "show responds with 'not found' and default cache control 'max-age' if no document exists" do
+    user = login_as(:departmental_editor)
+    publication = create(:draft_publication)
+
+    get :show, id: publication.document
+
+    assert_response :not_found
+    assert_cache_control("max-age=#{Whitehall.default_cache_max_age}")
+  end
+
+  test "show responds with 'not found' and shorter cache control 'max-age' if document is scheduled for publication" do
+    user = login_as(:departmental_editor)
+    publication = create(:draft_publication, scheduled_publication: Time.zone.now + Whitehall.default_cache_max_age * 2)
+    publication.schedule_as(user, force: true)
+
+    Timecop.freeze(Time.zone.now + Whitehall.default_cache_max_age * 1.5) do
+      get :show, id: publication.document
+    end
+
+    assert_response :not_found
+    assert_cache_control("max-age=#{Whitehall.default_cache_max_age/2}")
+  end
+
   test "index sets Cache-Control: max-age to the time of the next scheduled publication" do
     user = login_as(:departmental_editor)
     news = create(:draft_publication, scheduled_publication: Time.zone.now + Whitehall.default_cache_max_age * 2)

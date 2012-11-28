@@ -32,6 +32,15 @@ class PublicationsController < DocumentsController
 
 private
 
+  def find_document
+    unless @document = find_document_or_edition
+      if document = document_class.scheduled_for_publication_as(params[:id])
+        expire_on_next_scheduled_publication([document])
+      end
+      render text: "Not found", status: :not_found
+    end
+  end
+
   def all_publications
     Publicationesque.published.includes(:document, :organisations, :attachments, response: :attachments)
   end

@@ -13,6 +13,9 @@ class Document < ActiveRecord::Base
   has_one  :published_edition,
            class_name: 'Edition',
            conditions: { state: 'published' }
+  has_one  :scheduled_edition,
+           class_name: 'Edition',
+           conditions: { state: 'scheduled' }
   has_one  :unpublished_edition,
            class_name: 'Edition',
            conditions: { state: %w[ draft submitted rejected ] }

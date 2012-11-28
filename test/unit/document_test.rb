@@ -124,4 +124,12 @@ class DocumentTest < ActiveSupport::TestCase
     history = document.change_history
     assert_equal 4.days.ago, history[0].published_at
   end
+
+  test "should return scheduled edition" do
+    publication = create(:draft_publication, scheduled_publication: 1.day.from_now)
+    publication.schedule_as(create(:departmental_editor), force: true)
+    document = publication.document.reload
+
+    assert_equal publication, document.scheduled_edition
+  end
 end
