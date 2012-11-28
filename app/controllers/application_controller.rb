@@ -4,6 +4,12 @@ class ApplicationController < ActionController::Base
   include GDS::SSO::ControllerMethods
   include Slimmer::Headers
 
+  ANALYTICS_FORMAT = Hash.new("undefined")
+  ANALYTICS_FORMAT.merge!(
+    policy: "policy",
+    news: "news",
+    detailed_guidance: "detailed_guidance")
+
   protect_from_forgery
 
   before_filter :set_proposition

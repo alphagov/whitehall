@@ -14,6 +14,7 @@ class SupportingPagesController < PublicFacingController
     @document = @policy
     @recently_changed_documents = Edition.published.related_to(@policy).in_reverse_chronological_order
     set_slimmer_organisations_header(@supporting_page.edition.organisations)
+    set_slimmer_format_header(ANALYTICS_FORMAT[:policy])
   end
 
   private

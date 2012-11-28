@@ -1,5 +1,5 @@
 class PoliciesController < DocumentsController
-  FORMAT_NAME = "policy"
+  include CacheControlHelper
 
   before_filter :find_document, only: [:show, :activity]
 
@@ -20,13 +20,14 @@ class PoliciesController < DocumentsController
     @recently_changed_documents = Edition.published.related_to(@policy).in_reverse_chronological_order
     @show_navigation = (@policy.supporting_pages.any? or @recently_changed_documents.any?)
     set_slimmer_organisations_header(@policy.organisations)
-    set_slimmer_format_header(FORMAT_NAME)
+    set_slimmer_format_header(ANALYTICS_FORMAT[:policy])
   end
 
   def activity
     @policy = @document
     @recently_changed_documents = Edition.published.related_to(@policy).in_reverse_chronological_order
     expire_on_next_scheduled_publication(Edition.scheduled.related_to(@policy))
+    set_slimmer_format_header(ANALYTICS_FORMAT[:policy])
 
     if @recently_changed_documents.empty?
       render text: "Not found", status: :not_found

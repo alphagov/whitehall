@@ -265,4 +265,13 @@ class SupportingPagesControllerTest < ActionController::TestCase
       assert_select ".title", text: attachment.title
     end
   end
+
+  test "the format name is being set to 'policy' on the detail tab" do
+    policy = create(:published_policy)
+    supporting_page = create(:supporting_page, edition: policy)
+
+    get :show, policy_id: policy.document, id: supporting_page
+
+    assert_equal "policy", response.headers["X-Slimmer-Format"]
+  end
 end
