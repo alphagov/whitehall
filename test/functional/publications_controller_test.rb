@@ -26,18 +26,6 @@ class PublicationsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "index sets Cache-Control: max-age to the time of the next scheduled publication" do
-    user = login_as(:departmental_editor)
-    publication = create(:draft_publication, scheduled_publication: Time.zone.now + Whitehall.default_cache_max_age * 2)
-    publication.schedule_as(user, force: true)
-
-    Timecop.freeze(Time.zone.now + Whitehall.default_cache_max_age * 1.5) do
-      get :index
-    end
-
-    assert_cache_control("max-age=#{Whitehall.default_cache_max_age/2}")
-  end
-
   test "renders the publication summary from plain text" do
     publication = create(:published_publication, summary: 'plain text & so on')
     get :show, id: publication.document
@@ -149,6 +137,18 @@ class PublicationsControllerTest < ActionController::TestCase
     15.times { create(:published_publication) }
     number_of_queries = count_queries { get :index }
     assert number_of_queries < 15
+  end
+
+  test "index sets Cache-Control: max-age to the time of the next scheduled publication" do
+    user = login_as(:departmental_editor)
+    publication = create(:draft_publication, scheduled_publication: Time.zone.now + Whitehall.default_cache_max_age * 2)
+    publication.schedule_as(user, force: true)
+
+    Timecop.freeze(Time.zone.now + Whitehall.default_cache_max_age * 1.5) do
+      get :index
+    end
+
+    assert_cache_control("max-age=#{Whitehall.default_cache_max_age/2}")
   end
 
   test 'index should not use n+1 selects for consultations with outcomes' do
