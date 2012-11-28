@@ -5,7 +5,7 @@ module ConsultationCsvSampleHelpers
     lines << CSV.generate_line(data.keys, encoding: "UTF-8")
     lines << CSV.generate_line(data.values, encoding: "UTF-8")
     extra_rows.each do |row|
-      lines << CSV.generate_line(default_row.merge(row).values, encoding: "UTF-8")
+      lines << CSV.generate_line(minimally_valid_consultation_row.merge(row).values, encoding: "UTF-8")
     end
     lines.join
   end

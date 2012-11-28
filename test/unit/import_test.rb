@@ -115,4 +115,21 @@ class ImportSavingTest < ActiveSupport::TestCase
       progress_logger: @progress_logger
     )
   end
+
+  test 'bad data is rolled back, but import is saved' do
+    data = consultation_csv_sample({}, [{'title' => '', 'old_url' => 'http://example.com/invalid'}])
+    Import.use_separate_connection
+    Import.transaction do
+      i = Import.create(csv_data: data, creator: stub_record(:user), data_type: "consultation")
+      i.perform(
+        attachment_cache: @attachment_cache,
+        progress_logger: @progress_logger
+      )
+      assert_equal 1, Import.count, "Import wasn't saved correctly"
+      assert_equal 0, Consultation.count, "Imported rows weren't rolled back correctly"
+      # roll back all changes as we're inside a new transaction
+      raise ActiveRecord::Rollback
+    end
+  end
+
 end
