@@ -27,6 +27,10 @@ class OrganisationType < ActiveRecord::Base
     where(name: "Sub-organisation")
   end
 
+  def self.agency_or_public_body
+    where(arel_table[:name].not_eq("Sub-organisation"))
+  end
+
   def listing_order
     LISTING_ORDER.index(name)
   end

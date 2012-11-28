@@ -24,11 +24,11 @@
                     <span><%= ministerial_department.logo_formatted_name %></span>
                   <% end %>
                 </h2>
-                <% if ministerial_department.child_organisations.any? %>
-                  <p class="works-with">Works with <%= ministerial_department.child_organisations.length %> agencies &amp; public bodies</p>
+                <% if ministerial_department.agencies_and_public_bodies.any? %>
+                  <p class="works-with">Works with <%= ministerial_department.agencies_and_public_bodies.count %> agencies &amp; public bodies</p>
                   <div class="child-organisations"><div class="child-inner">
                     <p><%= link_to "#{ministerial_department.name} homepage", organisation_path(ministerial_department) %></p>
-                    <% ministerial_department.child_organisations_by_type.each do |type,departments| %>
+                    <% ministerial_department.agencies_and_public_bodies_by_type.each do |type,departments| %>
                       <h3><%= type.name %></h3>
                       <ol>
                         <% departments.each do |department| %>
@@ -85,7 +85,7 @@
             <% end %>
           </ol>
         </div>
-      </div>      
+      </div>
 
     </div>
     <div class="js-filter-no-results">

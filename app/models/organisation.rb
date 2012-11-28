@@ -176,8 +176,12 @@ class Organisation < ActiveRecord::Base
     joins(:organisation_type).all.sort_by { |o| o.organisation_type.listing_order }
   end
 
-  def child_organisations_by_type
-    child_organisations.group_by(&:organisation_type).sort_by { |type,department| type.listing_order }
+  def agencies_and_public_bodies
+    child_organisations.joins(:organisation_type).merge(OrganisationType.agency_or_public_body)
+  end
+
+  def agencies_and_public_bodies_by_type
+    agencies_and_public_bodies.group_by(&:organisation_type).sort_by { |type,department| type.listing_order }
   end
 
   def sub_organisations

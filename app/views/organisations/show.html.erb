@@ -56,7 +56,7 @@
           <p class="description"><%= @organisation.description %></p>
           <p class="parent_organisations">
             <%= organisation_display_name_and_parental_relationship(@organisation) %><% if @organisation.department? %>,
-            supported by <%= link_to "#{@organisation.child_organisations.count} agencies and public bodies", organisations_path(anchor: @organisation.slug) %>.  <% end %>
+            supported by <%= link_to "#{@organisation.agencies_and_public_bodies.count} agencies and public bodies", organisations_path(anchor: @organisation.slug) %>.  <% end %>
           </p>
           <p><%= link_to "Read more about what we do", about_organisation_path(@organisation) %></p>
         <% end %>

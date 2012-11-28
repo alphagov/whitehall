@@ -114,6 +114,16 @@ class OrganisationTest < ActiveSupport::TestCase
     assert sub_organisation.errors.full_messages.include?("Parent organisations must not be empty for sub-organisations")
   end
 
+  test 'can list its agencies and public bodies, i.e. all child organisations except sub-organisations' do
+    parent_org_1 = create(:organisation)
+    parent_org_2 = create(:organisation)
+    child_org_1 = create(:organisation, parent_organisations: [parent_org_1])
+    child_org_2 = create(:sub_organisation, parent_organisations: [parent_org_1])
+    child_org_3 = create(:organisation, parent_organisations: [parent_org_1])
+
+    assert_equal [child_org_1, child_org_3], parent_org_1.agencies_and_public_bodies
+  end
+
   test 'can list its sub-organisations' do
     parent = create(:organisation)
     sub_organisation = create(:sub_organisation, parent_organisations: [parent])

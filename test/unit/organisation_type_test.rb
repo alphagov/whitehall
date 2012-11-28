@@ -54,4 +54,12 @@ class OrganisationTypeTest < ActiveSupport::TestCase
     OrganisationType.expects(:where).with(name: "Sub-organisation").returns(org_types)
     assert_equal org_types, OrganisationType.unlistable
   end
+
+  test "agency_or_public_body should exclude sub-organisations" do
+    department = create(:organisation_type, name: "Ministerial department")
+    group = create(:organisation_type, name: "Ad-hoc advisory group")
+    sub_organisation = create(:organisation_type, name: "Sub-organisation")
+
+    assert_equal [department, group], OrganisationType.agency_or_public_body
+  end
 end
