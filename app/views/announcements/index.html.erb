@@ -13,14 +13,18 @@
 <div class="block-2">
   <div class="inner-block">
     <%= render partial: "documents/filter_form", locals: {document_type: :announcement, filter_by_date: true} %>
-    <div class="filter-feed">
-      <%= link_to_feed filter_atom_feed_url %>
-    </div>
   </div>
 </div>
 
 <div class="block-4">
-  <div class="inner-block filter-results" id="announcements-container" aria-live="polite"><%# this class used by Javascript %>
+  <div class="inner-block">
+    <%= render partial: "documents/filter_results" %>
+
+    <div class="filter-feed">
+      <%= link_to_feed filter_atom_feed_url %>
+    </div>
+
+    <div class="filter-results" id="announcements-container" aria-live="polite"><%# this class used by Javascript %>
     <% if @filter.documents.any? %>
       <table class="document-list emphasise-recent" id="document-list"><%# this class used by Javascript %>
         <thead class="visuallyhidden">
@@ -53,17 +57,16 @@
                 Field of operation: <%= link_to announcement.operational_field.name, announcement.operational_field %>
               </td>
             <% end %>
-
           <% end %>
-        <% end %>
-        </tbody>
-      </table>
-      <%= paginate @filter.documents %>
-    <% else %>
-      <div class="no-results">
-        <h2>There are no matching announcements.</h2>
-        <p>Try making your search broader and try again.</p>
-      </div>
-    <% end %>
+          </tbody>
+        </table>
+        <%= paginate @filter.documents %>
+      <% else %>
+        <div class="no-results">
+          <h2>There are no matching announcements.</h2>
+          <p>Try making your search broader and try again.</p>
+        </div>
+      <% end %>
+    </div>
   </div>
 </div>
