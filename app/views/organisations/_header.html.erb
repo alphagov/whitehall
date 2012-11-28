@@ -8,7 +8,7 @@
     sub_organisation = organisation
     organisation = sub_organisation.parent_organisations.first
     link_to_organisation = true
-    logo_size = 'medium'
+    logo_size = 'large'
   else
     sub_organisation = nil
   end
@@ -26,12 +26,14 @@
     <% end %>
   <% end %>
   <% if sub_organisation %>
-    <%= content_tag :h2, class: "sub-organisation-name" do %>
-      <% if link_to_sub_organisation %>
-        <%= link_to sub_organisation.name, organisation_path(sub_organisation), class: "sub-organisation-name" %>
-      <% else %>
-        <%= sub_organisation.name %>
-      <% end %>
+    <%= content_tag :div, class: "sub-organisation-name" do %>
+      <h2>
+        <% if link_to_sub_organisation %>
+          <%= link_to sub_organisation.name, organisation_path(sub_organisation), class: "sub-organisation-name" %>
+        <% else %>
+          <%= sub_organisation.name %>
+        <% end %>
+      </h2>
     <% end %>
   <% end %>
   <% if organisation.organisation_mainstream_links.any? %>

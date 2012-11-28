@@ -261,10 +261,15 @@
       width: 33.333333%;
     }
 
-    h2.sub-organisation-name {
+    .sub-organisation-name {
       float: left;
       width: 66.666666%;
-      @include core-48;
+
+      h2 {
+        @include core-48;
+        padding-left: $gutter-one-third;
+        margin-top: $gutter;
+      }
     }
   }
 
@@ -396,6 +401,15 @@
     }
   }
 
+  .body {
+    h2 {
+      border-bottom: 1px solid $light-keyline;
+
+      &:first-child {
+        margin-top: $gutter;
+      }
+    }
+  }
 
   #who {
     #ministers,
@@ -873,11 +887,13 @@
   .page-header {
     padding: $gutter-half 0;
 
-    h2.sub-organisation-name {
-      @include core-36;
-      padding-top: $gutter;
-      a {
-        color: #000;
+    .sub-organisation-name {
+      h2 {
+        @include core-36;
+        padding-top: $gutter;
+        a {
+          color: #000;
+        }
       }
     }
   }
