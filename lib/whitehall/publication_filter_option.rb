@@ -21,10 +21,10 @@ module Whitehall
     ResearchAndAnalysis = create(id: 7, label: "Research and analysis", publication_types: [PublicationType::ResearchAndAnalysis])
     CorporateReport = create(id: 8, label: "Corporate reports", publication_types: [PublicationType::CorporateReport])
     TransparencyData = create(id: 9, label: "Transparency data", publication_types: [PublicationType::TransparencyData])
-    Treaty = create(id: 9, label: "Treaties", publication_types: [PublicationType::Treaty])
-    FoiRelease = create(id: 10, label: "FOI releases", publication_types: [PublicationType::FoiRelease])
-    IndependentReport = create(id: 11, label: "Independent reports", publication_types: [PublicationType::IndependentReport])
-    CircularLetterOrBulletin = create(id: 12, label: "Circulars, letters and bulletins", publication_types: [PublicationType::CircularLetterOrBulletin])
-    PromotionalMaterial = create(id: 13, label: "Promotional material", publication_types: [PublicationType::PromotionalMaterial])
+    Treaty = create(id: 10, label: "Treaties", publication_types: [PublicationType::Treaty])
+    FoiRelease = create(id: 11, label: "FOI releases", publication_types: [PublicationType::FoiRelease])
+    IndependentReport = create(id: 12, label: "Independent reports", publication_types: [PublicationType::IndependentReport])
+    CircularLetterOrBulletin = create(id: 13, label: "Circulars, letters and bulletins", publication_types: [PublicationType::CircularLetterOrBulletin])
+    PromotionalMaterial = create(id: 14, label: "Promotional material", publication_types: [PublicationType::PromotionalMaterial])
   end
 end
