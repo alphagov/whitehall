@@ -19,6 +19,15 @@ class ImportTest < ActiveSupport::TestCase
     refute i.valid?
     assert_equal ["Bad stuff"], i.errors[:csv_data]
   end
+
+  test "doesn't raise if some headings are blank" do
+    i = Import.new(csv_data: "a,,b\n1,,3", creator: stub_record(:user), data_type: "consultation")
+    begin
+      assert i.headers
+    rescue => e
+      fail e
+    end
+  end
 end
 
 class ImportSavingTest < ActiveSupport::TestCase

@@ -99,8 +99,14 @@ class Import < ActiveRecord::Base
     @logger ||= Logger.new(ImportLogIo.new(self))
   end
 
+  def headers
+    rows.headers
+  end
+
+  NilAsBlankConverter = ->(heading) { heading || "" }
+
   def rows
-    @rows ||= CSV.parse(csv_data, headers: true, header_converters: :downcase)
+    @rows ||= CSV.parse(csv_data, headers: true, header_converters: [NilAsBlankConverter, :downcase])
   end
 
   def row_class
@@ -113,7 +119,7 @@ class Import < ActiveRecord::Base
 
   def valid_csv_headings?
     return unless row_class && csv_data
-    heading_validation_errors = row_class.heading_validation_errors(rows.headers)
+    heading_validation_errors = row_class.heading_validation_errors(headers)
     heading_validation_errors.each do |e|
       errors.add(:csv_data, e)
     end
