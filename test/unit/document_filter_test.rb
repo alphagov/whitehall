@@ -204,6 +204,20 @@ class DocumentFilterTest < ActiveSupport::TestCase
     assert_equal publication_filter_option, filter.selected_publication_filter_option
   end
 
+  test "publication_type param also sets #selected_publication_filter_option to keep old links working" do
+    publication_filter_option = stub_publication_filter_option("testing filter option - statistics")
+    filter = Whitehall::DocumentFilter.new(document_scope, publication_type: publication_filter_option.slug)
+
+    assert_equal publication_filter_option, filter.selected_publication_filter_option
+  end
+
+  test "publication_filter_option overwrites older publication_type param" do
+    publication_filter_option = stub_publication_filter_option("testing filter option - statistics")
+    filter = Whitehall::DocumentFilter.new(document_scope, publication_type: 'foobar', publication_filter_option: publication_filter_option.slug)
+
+    assert_equal publication_filter_option, filter.selected_publication_filter_option
+  end
+
   test "if page param given, returns a page of documents using page size of 20" do
     document_scope.expects(:page).with(3).returns(document_scope)
     document_scope.expects(:per).with(20).returns(document_scope)
@@ -327,7 +341,7 @@ private
       slug: label,
       publication_types: [stub_publication_type(label)]
     }.merge(attributes))
-    Whitehall::PublicationFilterOption.stubs(:find_by_slug).returns(publication_filter_option)
+    Whitehall::PublicationFilterOption.expects(:find_by_slug).with(label).at_least_once.returns(publication_filter_option)
     publication_filter_option
   end
 end

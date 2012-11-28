@@ -55,7 +55,8 @@ class Whitehall::DocumentFilter
   end
 
   def selected_publication_filter_option
-    Whitehall::PublicationFilterOption.find_by_slug(@params[:publication_filter_option])
+    filter_option = @params[:publication_filter_option] || @params[:publication_type]
+    Whitehall::PublicationFilterOption.find_by_slug(filter_option)
   end
 
   def keywords
