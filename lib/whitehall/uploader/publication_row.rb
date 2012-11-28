@@ -16,7 +16,7 @@ module Whitehall::Uploader
         .required(%w{old_url title summary body organisation})
         .multiple("policy_#", 1..4)
         .required(%w{publication_type document_series publication_date})
-        .required(%w{order_url price isbn urn command_paper_number}) # First attachment
+        .optional(%w{order_url price isbn urn command_paper_number}) # First attachment
         .ignored("ignore_*")
         .multiple(%w{attachment_#_url attachment_#_title}, 0..50)
     end
