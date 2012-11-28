@@ -13,6 +13,7 @@ class Role < ActiveRecord::Base
   scope :ministerial, where(type: 'MinisterialRole')
   scope :board_member, where(type: 'BoardMemberRole')
   scope :traffic_commissioner, where(type: 'TrafficCommissionerRole')
+  scope :military, where(type: 'MilitaryRole')
   scope :special_representative, where(type: 'SpecialRepresentativeRole')
 
   validates :name, presence: true

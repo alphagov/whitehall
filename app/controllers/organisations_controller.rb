@@ -22,13 +22,13 @@ class OrganisationsController < PublicFacingController
     @recently_updated = @organisation.published_editions.in_reverse_chronological_order.limit(3)
     if @organisation.live?
       @featured_editions = FeaturedEditionPresenter.decorate(@organisation.featured_edition_organisations.limit(6))
-      @top_military_role = @organisation.top_military_role && RolePresenter.decorate(@organisation.top_military_role)
       @policies = PolicyPresenter.decorate(@organisation.published_policies.in_reverse_chronological_order.limit(3))
       @topics = @organisation.topics_with_content
       @publications = PublicationesquePresenter.decorate(@organisation.published_publications.in_reverse_chronological_order.limit(3))
       @announcements = AnnouncementPresenter.decorate(@organisation.published_announcements.in_reverse_chronological_order.limit(3))
       @ministers = ministers
       @civil_servants = civil_servants
+      @military_roles = military_roles
       @traffic_commissioners = traffic_commissioners
       @special_representatives = special_representatives
       @sub_organisations = @organisation.sub_organisations
@@ -59,6 +59,12 @@ class OrganisationsController < PublicFacingController
 
   def traffic_commissioners
     @traffic_commissioner_roles = @organisation.traffic_commissioner_roles.order("organisation_roles.ordering").map do |role|
+      RolePresenter.new(role)
+    end
+  end
+
+  def military_roles
+    @military_roles = @organisation.military_roles.order("organisation_roles.ordering").map do |role|
       RolePresenter.new(role)
     end
   end

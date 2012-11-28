@@ -136,6 +136,26 @@
             </section>
           <% end %>
 
+          <% if @military_roles.any? %>
+            <section id="military">
+              <h1 class="label">Our senior military officials</h1>
+              <ul class="js-hide-extra-rows">
+                <% @military_roles.each do |military_role| %>
+                  <%= content_tag_for(:li, military_role) do %>
+                    <div class="inner">
+                      <h1 class="visuallyhidden">Military role</h1>
+                      <div class="image_holder">
+                        <%= military_role.current_person_image %>
+                      </div>
+                      <h3 class="current-appointee"><%= military_role.current_person_link %></h3>
+                      <p class="role"><%= military_role.link %></p>
+                    </div>
+                  <% end %>
+                <% end %>
+              </ul>
+            </section>
+          <% end %>
+
           <% if @special_representatives.any? %>
             <section id="special_representatives">
               <h1 class="label">Special representatives</h1>
@@ -189,26 +209,6 @@
                   <% end %>
                 <% end %>
               </ul>
-            </section>
-          <% end %>
-
-          <% if @organisation.military_roles.any? %>
-            <section id="military">
-              <h1 class="label">Our senior military officials</h1>
-              <% if @top_military_role %>
-                <ul class="js-hide-extra-rows">
-                  <%= content_tag_for(:li, @top_military_role) do %>
-                    <div class="inner">
-                      <div class="image_holder">
-                        <%= @top_military_role.current_person_image %>
-                      </div>
-                      <h3 class="current-appointee"><%= @top_military_role.current_person_link %></h3>
-                      <p class="role"><%= @top_military_role.link %></p>
-                    </div>
-                  <% end %>
-                </ul>
-              <% end %>
-              <p class="view_all"><%= link_to "View all chiefs of staff", chiefs_of_staff_organisation_path(@organisation) %></p>
             </section>
           <% end %>
 

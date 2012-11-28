@@ -370,11 +370,13 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     ministerial_role = create(:ministerial_role)
     board_member_role = create(:board_member_role)
     traffic_commissioner_role = create(:traffic_commissioner_role)
+    military_role = create(:military_role)
 
     organisation = create(:organisation)
     organisation_ministerial_role = create(:organisation_role, organisation: organisation, role: ministerial_role)
     organisation_board_member_role = create(:organisation_role, organisation: organisation, role: board_member_role)
     organisation_traffic_commissioner_role = create(:organisation_role, organisation: organisation, role: traffic_commissioner_role)
+    organisation_military_role = create(:organisation_role, organisation: organisation, role: military_role)
 
     get :edit, id: organisation
 
@@ -389,6 +391,11 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert_select "#traffic_commissioner_ordering input[name^='organisation[organisation_roles_attributes]'][value=#{organisation_traffic_commissioner_role.id}]"
     refute_select "#traffic_commissioner_ordering input[name^='organisation[organisation_roles_attributes]'][value=#{organisation_ministerial_role.id}]"
     refute_select "#traffic_commissioner_ordering input[name^='organisation[organisation_roles_attributes]'][value=#{organisation_board_member_role.id}]"
+
+    assert_select "#military_ordering input[name^='organisation[organisation_roles_attributes]'][value=#{organisation_military_role.id}]"
+    refute_select "#military_ordering input[name^='organisation[organisation_roles_attributes]'][value=#{organisation_ministerial_role.id}]"
+    refute_select "#military_ordering input[name^='organisation[organisation_roles_attributes]'][value=#{organisation_board_member_role.id}]"
+    refute_select "#military_ordering input[name^='organisation[organisation_roles_attributes]'][value=#{organisation_traffic_commissioner_role.id}]"
   end
 
   test "editing shows ministerial role and current person's name" do

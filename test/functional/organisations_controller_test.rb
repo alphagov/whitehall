@@ -538,6 +538,18 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_equal [senior_role, junior_role], assigns(:traffic_commissioner_roles).collect(&:model)
   end
 
+  test "shows military roles in the specified order" do
+    junior_role = create(:military_role)
+    senior_role = create(:military_role)
+    organisation = create(:organisation)
+    create(:organisation_role, organisation: organisation, role: junior_role, ordering: 2)
+    create(:organisation_role, organisation: organisation, role: senior_role, ordering: 1)
+
+    get :show, id: organisation
+
+    assert_equal [senior_role, junior_role], assigns(:military_roles).collect(&:model)
+  end
+
   test "shows links to ministers people pages" do
     minister = create(:ministerial_role)
     person = create(:person)
@@ -619,16 +631,6 @@ class OrganisationsControllerTest < ActionController::TestCase
     get :show, id: organisation
 
     refute_select management_selector
-  end
-
-  test "should link to the organisation's chiefs of staff page" do
-    organisation = create(:organisation)
-    role = create(:military_role, organisations: [organisation])
-    role_appointment = create(:role_appointment, role: role)
-
-    get :show, id: organisation
-
-    assert_select 'a[href=?]', chiefs_of_staff_organisation_path(organisation)
   end
 
   test "shows special representatives with links to person pages" do

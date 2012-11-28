@@ -144,19 +144,6 @@ class OrganisationTest < ActiveSupport::TestCase
     assert_equal [], organisation.traffic_commissioner_roles
   end
 
-  test "#top_military_role returns the first role marked as the chief_of_the_defence_staff" do
-    chief_of_staff = create(:military_role, chief_of_the_defence_staff: false)
-    chief_of_the_defence_staff = create(:military_role, chief_of_the_defence_staff: true)
-    organisation = create(:organisation, roles:  [chief_of_staff, chief_of_the_defence_staff])
-    assert_equal chief_of_the_defence_staff, organisation.top_military_role
-  end
-
-  test "#top_military_role returns nil if the chief_of_the_defence_staff role doesn't exist" do
-    chief_of_staff = create(:military_role, chief_of_the_defence_staff: false)
-    organisation = create(:organisation, roles:  [chief_of_staff])
-    assert_nil organisation.top_military_role
-  end
-
   test '#board_member_roles includes all non-ministerial roles' do
     permanent_secretary = create(:board_member_role)
     organisation = create(:organisation, roles:  [permanent_secretary])
