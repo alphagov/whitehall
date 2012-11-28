@@ -1,6 +1,4 @@
 class PublicationsController < DocumentsController
-  include CacheControlHelper
-
   class PublicationesqueDecorator < SimpleDelegator
     def documents
       PublicationesquePresenter.decorate(__getobj__.documents)

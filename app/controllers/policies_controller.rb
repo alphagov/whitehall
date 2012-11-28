@@ -1,5 +1,4 @@
 class PoliciesController < DocumentsController
-  include CacheControlHelper
   FORMAT_NAME = "policy"
 
   before_filter :find_document, only: [:show, :activity]
