@@ -68,170 +68,173 @@
     </div>
   <% end %>
 
-  <div class="block-7">
-    <div class="inner-block">
-      <% if @policies.any? %>
-        <section id="policies" class="heading-block">
-          <h1 class="label">Our policies</h1>
-          <div class="content">
-            <%= render partial: "policies/list_description", locals: {policies: @policies} %>
-            <p class="see-all">
-              <%= link_to 'See all of our policies', policies_filter_path(@organisation) %>
-            </p>
-          </div>
-        </section>
-      <% end %>
-      <% if @publications.any? %>
-        <section id="publications" class="heading-block">
-          <h1 class="label">Our publications</h1>
-          <div class="content">
-            <%= render partial: "publications/list_description", locals: {publications: @publications} %>
-            <p class="see-all">
-              <%= link_to 'See all of our publications', publications_filter_path(@organisation) %>
-            </p>
-          </div>
-        </section>
-      <% end %>
-      <% if @announcements.any? %>
-        <section id="announcements" class="heading-block">
-          <h1 class="label">Our announcements</h1>
-          <div class="content">
-            <%= render partial: "announcements/list_description", locals: {announcements: @announcements} %>
-            <p class="see-all">
-              <%= link_to "See all of our announcements", announcements_filter_path(@organisation) %>
-            </p>
-          </div>
-        </section>
+  <% if @policies.any? || @publications.any? || @announcements.any? %>
+    <div class="block-7">
+      <div class="inner-block">
+        <% if @policies.any? %>
+          <section id="policies" class="heading-block">
+            <h1 class="label">Our policies</h1>
+            <div class="content">
+              <%= render partial: "policies/list_description", locals: {policies: @policies} %>
+              <p class="see-all">
+                <%= link_to 'See all of our policies', policies_filter_path(@organisation) %>
+              </p>
+            </div>
+          </section>
         <% end %>
+        <% if @publications.any? %>
+          <section id="publications" class="heading-block">
+            <h1 class="label">Our publications</h1>
+            <div class="content">
+              <%= render partial: "publications/list_description", locals: {publications: @publications} %>
+              <p class="see-all">
+                <%= link_to 'See all of our publications', publications_filter_path(@organisation) %>
+              </p>
+            </div>
+          </section>
+        <% end %>
+        <% if @announcements.any? %>
+          <section id="announcements" class="heading-block">
+            <h1 class="label">Our announcements</h1>
+            <div class="content">
+              <%= render partial: "announcements/list_description", locals: {announcements: @announcements} %>
+              <p class="see-all">
+                <%= link_to "See all of our announcements", announcements_filter_path(@organisation) %>
+              </p>
+            </div>
+          </section>
+          <% end %>
+      </div>
     </div>
-  </div>
+  <% end %>
 
-
-  <div class="block-9">
-    <div class="inner-block">
-      <section id="who">
-        <% if @ministers.any? %>
-          <section id="ministers">
-            <h1 class="label">Our ministers</h1>
-            <ul class="js-hide-extra-rows">
-              <% @ministers.each do |minister| %>
-                <%= content_tag_for(:li, minister) do %>
-                  <div class="inner">
-                    <h1 class="visuallyhidden">Minister</h1>
-                    <div class="image_holder">
-                      <span class="img">
-                        <%= minister.current_person_image %>
-                      </span>
-                    </div>
-                    <h3 class="current-appointee<%= " privy_counsellor" if minister.current_person.privy_counsellor? %>">
-                      <%= minister.current_person_link %>
-                    </h3>
-                    <p class="role"><%= minister.link %></p>
-                  </div>
-                <% end %>
-              <% end %>
-            </ul>
-          </section>
-        <% end %>
-
-        <% if @special_representatives.any? %>
-          <section id="special_representatives">
-            <h1 class="label">Special representatives</h1>
-            <ul class="js-hide-extra-rows">
-              <% @special_representatives.each do |special_representative| %>
-                <%= content_tag_for(:li, special_representative) do %>
-                  <div class="inner">
-                    <h1 class="visuallyhidden"><%= special_representative.name %></h1>
-                    <div class="image_holder">
-                      <span class="img">
-                        <%= special_representative.current_person_image %>
-                      </span>
-                    </div>
-                    <h3 class="current-appointee">
-                      <%= special_representative.current_person_link %>
-                    </h3>
-                    <p class="role"><%= special_representative.link %></p>
-                  </div>
-                <% end %>
-              <% end %>
-            </ul>
-          </section>
-        <% end %>
-
-        <% if @civil_servants.any? %>
-          <section id="management">
-            <h1 class="label">Our management</h1>
-            <ul>
-                <%= content_tag_for(:li, @civil_servants.first) do %>
-                  <div class="inner">
-                    <h1 class="visuallyhidden">Board member</h1>
-                    <div class="image_holder">
-                      <span class="img">
-                        <%= @civil_servants.first.current_person_image %>
-                      </span>
-                    </div>
-                    <h3 class="current-appointee"><%= @civil_servants.first.current_person_link %></h3>
-                    <p class="role"><%= @civil_servants.first.link %></p>
-                  </div>
-                <% end %>
-            </ul>
-
-            <ul class="management-secondary js-hide-extra-rows-2">
-              <% @civil_servants.to_a.from(1).each do |civil_servant| %>
-                <%= content_tag_for(:li, civil_servant) do %>
-                  <div class="inner">
-                    <h1 class="visuallyhidden">Board member</h1>
-                    <h3 class="current-appointee"><%= civil_servant.current_person_link %></h3>
-                    <p class="role"><%= civil_servant.link %></p>
-                  </div>
-                <% end %>
-              <% end %>
-            </ul>
-          </section>
-        <% end %>
-
-        <% if @organisation.military_roles.any? %>
-          <section id="military">
-            <h1 class="label">Our senior military officials</h1>
-            <% if @top_military_role %>
+  <% if @ministers.any? || @special_representatives.any? || @civil_servants.any? || @organisation.military_roles.any? || @traffic_commissioner_roles.any? %>
+    <div class="block-9">
+      <div class="inner-block">
+        <section id="who">
+          <% if @ministers.any? %>
+            <section id="ministers">
+              <h1 class="label">Our ministers</h1>
               <ul class="js-hide-extra-rows">
-                <%= content_tag_for(:li, @top_military_role) do %>
-                  <div class="inner">
-                    <div class="image_holder">
-                      <%= @top_military_role.current_person_image %>
+                <% @ministers.each do |minister| %>
+                  <%= content_tag_for(:li, minister) do %>
+                    <div class="inner">
+                      <h1 class="visuallyhidden">Minister</h1>
+                      <div class="image_holder">
+                        <span class="img">
+                          <%= minister.current_person_image %>
+                        </span>
+                      </div>
+                      <h3 class="current-appointee<%= " privy_counsellor" if minister.current_person.privy_counsellor? %>">
+                        <%= minister.current_person_link %>
+                      </h3>
+                      <p class="role"><%= minister.link %></p>
                     </div>
-                    <h3 class="current-appointee"><%= @top_military_role.current_person_link %></h3>
-                    <p class="role"><%= @top_military_role.link %></p>
-                  </div>
+                  <% end %>
                 <% end %>
               </ul>
-            <% end %>
-            <p class="view_all"><%= link_to "View all chiefs of staff", chiefs_of_staff_organisation_path(@organisation) %></p>
-          </section>
-        <% end %>
+            </section>
+          <% end %>
 
-        <% if @traffic_commissioner_roles.any? %>
-          <section id="traffic_commissioners">
-            <h1 class="label">Traffic commissioners</h1>
-            <ul class="js-hide-extra-rows">
-              <% @traffic_commissioner_roles.each do |traffic_commissioner_role| %>
-                <%= content_tag_for(:li, traffic_commissioner_role) do %>
-                  <div class="inner">
-                    <h1 class="visuallyhidden">Traffic commissioner</h1>
-                    <div class="image_holder">
-                      <%= traffic_commissioner_role.current_person_image %>
+          <% if @special_representatives.any? %>
+            <section id="special_representatives">
+              <h1 class="label">Special representatives</h1>
+              <ul class="js-hide-extra-rows">
+                <% @special_representatives.each do |special_representative| %>
+                  <%= content_tag_for(:li, special_representative) do %>
+                    <div class="inner">
+                      <h1 class="visuallyhidden"><%= special_representative.name %></h1>
+                      <div class="image_holder">
+                        <span class="img">
+                          <%= special_representative.current_person_image %>
+                        </span>
+                      </div>
+                      <h3 class="current-appointee">
+                        <%= special_representative.current_person_link %>
+                      </h3>
+                      <p class="role"><%= special_representative.link %></p>
                     </div>
-                    <h3 class="current-appointee"><%= traffic_commissioner_role.current_person_link %></h3>
-                    <p class="role"><%= traffic_commissioner_role.link %></p>
-                  </div>
+                  <% end %>
                 <% end %>
+              </ul>
+            </section>
+          <% end %>
+
+          <% if @civil_servants.any? %>
+            <section id="management">
+              <h1 class="label">Our management</h1>
+              <ul>
+                  <%= content_tag_for(:li, @civil_servants.first) do %>
+                    <div class="inner">
+                      <h1 class="visuallyhidden">Board member</h1>
+                      <div class="image_holder">
+                        <span class="img">
+                          <%= @civil_servants.first.current_person_image %>
+                        </span>
+                      </div>
+                      <h3 class="current-appointee"><%= @civil_servants.first.current_person_link %></h3>
+                      <p class="role"><%= @civil_servants.first.link %></p>
+                    </div>
+                  <% end %>
+              </ul>
+
+              <ul class="management-secondary js-hide-extra-rows-2">
+                <% @civil_servants.to_a.from(1).each do |civil_servant| %>
+                  <%= content_tag_for(:li, civil_servant) do %>
+                    <div class="inner">
+                      <h1 class="visuallyhidden">Board member</h1>
+                      <h3 class="current-appointee"><%= civil_servant.current_person_link %></h3>
+                      <p class="role"><%= civil_servant.link %></p>
+                    </div>
+                  <% end %>
+                <% end %>
+              </ul>
+            </section>
+          <% end %>
+
+          <% if @organisation.military_roles.any? %>
+            <section id="military">
+              <h1 class="label">Our senior military officials</h1>
+              <% if @top_military_role %>
+                <ul class="js-hide-extra-rows">
+                  <%= content_tag_for(:li, @top_military_role) do %>
+                    <div class="inner">
+                      <div class="image_holder">
+                        <%= @top_military_role.current_person_image %>
+                      </div>
+                      <h3 class="current-appointee"><%= @top_military_role.current_person_link %></h3>
+                      <p class="role"><%= @top_military_role.link %></p>
+                    </div>
+                  <% end %>
+                </ul>
               <% end %>
-            </ul>
-          </section>
-        <% end %>
-      </section>
+              <p class="view_all"><%= link_to "View all chiefs of staff", chiefs_of_staff_organisation_path(@organisation) %></p>
+            </section>
+          <% end %>
+
+          <% if @traffic_commissioner_roles.any? %>
+            <section id="traffic_commissioners">
+              <h1 class="label">Traffic commissioners</h1>
+              <ul class="js-hide-extra-rows">
+                <% @traffic_commissioner_roles.each do |traffic_commissioner_role| %>
+                  <%= content_tag_for(:li, traffic_commissioner_role) do %>
+                    <div class="inner">
+                      <h1 class="visuallyhidden">Traffic commissioner</h1>
+                      <div class="image_holder">
+                        <%= traffic_commissioner_role.current_person_image %>
+                      </div>
+                      <h3 class="current-appointee"><%= traffic_commissioner_role.current_person_link %></h3>
+                      <p class="role"><%= traffic_commissioner_role.link %></p>
+                    </div>
+                  <% end %>
+                <% end %>
+              </ul>
+            </section>
+          <% end %>
+        </section>
+      </div>
     </div>
-  </div>
+  <% end %>
 
   <div class="block-10 vcard">
     <div class="inner-block">
@@ -287,19 +290,21 @@
     </div>
   </div>
 
-  <div class="block-11">
-    <div class="inner-block">
-      <h1 class="label">Corporate information</h1>
-      <nav class="group sub_navigation" role="navigation">
-        <ul>
-          <% @organisation.corporate_information_pages.each do |corporate_information_page| %>
-            <li><%= link_to corporate_information_page.title, organisation_corporate_information_page_path(@organisation, corporate_information_page) %></li>
-          <% end %>
-          <li><a href="https://jobsstatic.civilservice.gov.uk/csjobs.html" rel="external">Jobs</a></li>
-        </ul>
-      </nav>
+  <% if @organisation.corporate_information_pages.any? %>
+    <div class="block-11">
+      <div class="inner-block">
+        <h1 class="label">Corporate information</h1>
+        <nav class="group sub_navigation" role="navigation">
+          <ul>
+            <% @organisation.corporate_information_pages.each do |corporate_information_page| %>
+              <li><%= link_to corporate_information_page.title, organisation_corporate_information_page_path(@organisation, corporate_information_page) %></li>
+            <% end %>
+            <li><a href="https://jobsstatic.civilservice.gov.uk/csjobs.html" rel="external">Jobs</a></li>
+          </ul>
+        </nav>
+      </div>
     </div>
-  </div>
+  <% end %>
 
   <% if @sub_organisations.any? %>
     <div class="block-12">
