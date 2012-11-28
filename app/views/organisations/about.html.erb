@@ -17,7 +17,9 @@
               <% govspeak_headers(@organisation.about_us).each do |header| %>
                 <li><%= link_to header.text, "##{header.id}" %></li>
               <% end %>
-              <li><%= link_to "Corporate information", "#corporate-information" %></li>
+              <% if has_any_transparency_pages?(@organisation) || @corporate_publications.any? %>
+                <li><%= link_to "Corporate information", "#corporate-information" %></li>
+              <% end %>
             </ol>
           </nav>
         </div>
@@ -33,36 +35,38 @@
           <%= govspeak_to_html @organisation.about_us %>
         </div>
 
-        <aside class="corporate-info" id="corporate-information">
-          <h1>Corporate information</h1>
-          <% if has_any_transparency_pages?(@organisation) %>
-            <h2>Transparency</h2>
-            <ul class="transparency">
-              <% @organisation.corporate_information_pages.each do |page| %>
-                <li><%= link_to page.title, organisation_corporate_information_page_path(@organisation, page) %></li>
-              <% end %>
-              <% if @organisation.has_published_publications_of_type?(PublicationType::TransparencyData) %>
-                <li><%= link_to "Transparency data", publications_path(publication_type: 'transparency-data', :'departments[]' => @organisation.slug) %></li>
-              <% end %>
-              <% if @organisation.has_published_publications_of_type?(PublicationType::FoiRelease) %>
-                <li><%= link_to "FOI releases", publications_path(publication_type: 'foi-releases', :'departments[]' => @organisation.slug) %></li>
-              <% end %>
-            </ul>
-          <% end %>
-          <% if @corporate_publications.any? %>
-            <h2>Reports</h2>
-            <ul>
-              <% @corporate_publications.each do |publication| %>
-                <%= content_tag_for :li, publication, class: 'item' do %>
-                  <h3 class="title"><%= link_to publication.title, public_document_path(publication) %></h3>
-                  <span class="metadata">
-                    Updated <%= relative_time(publication.updated_at, class: 'updated-at') %>
-                  </span>
+        <% if has_any_transparency_pages?(@organisation) || @corporate_publications.any? %>
+          <aside class="corporate-info" id="corporate-information">
+            <h1>Corporate information</h1>
+            <% if has_any_transparency_pages?(@organisation) %>
+              <h2>Transparency</h2>
+              <ul class="transparency">
+                <% @organisation.corporate_information_pages.each do |page| %>
+                  <li><%= link_to page.title, organisation_corporate_information_page_path(@organisation, page) %></li>
                 <% end %>
-              <% end %>
-            </ul>
-          <% end %>
-        </aside>
+                <% if @organisation.has_published_publications_of_type?(PublicationType::TransparencyData) %>
+                  <li><%= link_to "Transparency data", publications_path(publication_type: 'transparency-data', :'departments[]' => @organisation.slug) %></li>
+                <% end %>
+                <% if @organisation.has_published_publications_of_type?(PublicationType::FoiRelease) %>
+                  <li><%= link_to "FOI releases", publications_path(publication_type: 'foi-releases', :'departments[]' => @organisation.slug) %></li>
+                <% end %>
+              </ul>
+            <% end %>
+            <% if @corporate_publications.any? %>
+              <h2>Reports</h2>
+              <ul>
+                <% @corporate_publications.each do |publication| %>
+                  <%= content_tag_for :li, publication, class: 'item' do %>
+                    <h3 class="title"><%= link_to publication.title, public_document_path(publication) %></h3>
+                    <span class="metadata">
+                      Updated <%= relative_time(publication.updated_at, class: 'updated-at') %>
+                    </span>
+                  <% end %>
+                <% end %>
+              </ul>
+            <% end %>
+          </aside>
+        <% end %>
       </div>
     </div>
   </article>
