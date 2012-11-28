@@ -1,4 +1,6 @@
 class DocumentsController < PublicFacingController
+  include CacheControlHelper
+
   before_filter :find_document, only: [:show]
 
   private
@@ -13,6 +15,9 @@ class DocumentsController < PublicFacingController
 
   def find_document
     unless @document = find_document_or_edition
+      if document = document_class.scheduled_for_publication_as(params[:id])
+        expire_on_next_scheduled_publication([document])
+      end
       render text: "Not found", status: :not_found
     end
   end
