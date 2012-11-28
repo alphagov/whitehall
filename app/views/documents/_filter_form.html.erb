@@ -3,6 +3,25 @@
   <%= form_tag send(:"#{document_type.to_s.pluralize}_path"), method: :get, id: "document-filter", class: 'js-document-filter' do %>
     <fieldset>
       <legend class="visuallyhidden">Filter <%= document_type.to_s.pluralize %></legend>
+
+      <div class="filter" id="keyword-filter">
+        <div class="filter-inner">
+          <%= label_tag "keywords", "Contains", class: 'title' %>
+          <%= text_field_tag :keywords, @filter.keywords, placeholder: "keywords" %>
+        </div>
+      </div>
+
+      <div class="filter">
+        <div class="filter-inner">
+          <% if defined?(filter_by_publication_type) && filter_by_publication_type %>
+            <div class="publication-type">
+              <%= label_tag "publication_filter_option", "Publication type", class: "title" %>
+              <%= select_tag :publication_filter_option, publication_type_filter_options(@filter.publication_types_for_filter, @filter.selected_publication_filter_option), class: "single-row-select" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
       <div class="filter">
         <div class="filter-inner">
           <%= label_tag "topics", "Topic" %>
@@ -13,21 +32,16 @@
         <div class="filter-inner">
           <%= label_tag "departments", "Department" %>
           <%= select_tag :departments, organisation_filter_options(@filter.all_organisations_with(document_type), @filter.selected_organisations), size: 9, multiple: true, class: "multi-row-select" %>
+
+          <div class="sub-filter">
+            <%= label_tag "sub_orgs", "Child organisations", class: 'sub-title' %>
+            <%= select_tag :sub_orgs, '<option>Choose a child organisation</option>'.html_safe, class: "single-row-select" %>
+          </div>
         </div>
       </div>
-      
+
       <div class="filter">
         <div class="filter-inner">
-          <% if defined?(filter_by_publication_type) && filter_by_publication_type %>
-            <div class="publication-type">
-              <%= label_tag "publication_filter_option", "Publication type", class: "title" %>
-              <%= select_tag :publication_filter_option, publication_type_filter_options(@filter.publication_types_for_filter, @filter.selected_publication_filter_option) %>
-            </div>
-          <% end %>
-
-          <%= label_tag "keywords", "Contains", class: 'title' %>
-          <%= text_field_tag :keywords, @filter.keywords, placeholder: "keywords" %>
-
           <% if defined?(filter_by_date) and filter_by_date %>
             <div class="date-range">
               <h3>Published</h3>
@@ -38,7 +52,7 @@
                 <% end %>
               <% end %>
               <%= label_tag "date", "Date", class: "visuallyhidden" %>
-              <%= select_tag :date, options_for_select(recent_month_filter_options(24, @filter.date)), include_blank: false %>
+              <%= select_tag :date, options_for_select(recent_month_filter_options(24, @filter.date)), include_blank: false, class: "single-row-select" %>
             </div>
           <% end %>
           <div class="submit">

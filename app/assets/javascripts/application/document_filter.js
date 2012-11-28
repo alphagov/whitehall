@@ -166,9 +166,10 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
       });
     },
     liveResultSummary: function(data, formStatus){
-      var $selections = $('.selections');
+      var $selections = $('.selections'), $title = $('.page_title').find('span');
       $selections.html("");
-      $(".results .count span").text(data.total_count);
+      $title.text('');
+      $(".count span").text(data.total_count);
 
       $selections.html("Results in <span class='topics-selections chosen'></span> and published by <span class='departments-selections chosen'></span>");
       if(formStatus.selected){
@@ -179,6 +180,10 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
           while(j--){
             $selections.find("."+formStatus.selected[i].id+"-selections")
               .append("<span>"+formStatus.selected[i].title[j]+" <a href='' data-val='"+formStatus.selected[i].value[j]+"' title='Remove this filter'>x</a></span> ");
+          }
+
+          if (formStatus.selected[i].id == "publication_filter_option" && formStatus.selected[i].value != "all") {
+            $title.text(": "+formStatus.selected[i].title[0]);
           }
         }
 
@@ -329,12 +334,21 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
           }
         })();
 
-        $form.find('input[name=keywords]').keyup(function () {
-          delay(function () {
-            $form.submit();
-          }, 600);
-        });
+        $('#keyword-filter').clone()
+          .attr('id', 'keyword-filter-clone')
+          .appendTo('.filter-results-summary')
+          .find('input[name=keywords]')
+          .attr('id', 'keywords-clone')
+          .keyup(function() {
+            $('#keyword-filter').find('input[name=keywords]').val(this.value).trigger('keyup');
+          });
 
+          $('#keyword-filter').addClass('visuallyhidden')
+          .find('input[name=keywords]').keyup(function () {
+            delay(function () {
+              $form.submit();
+            }, 600);
+          });
 
         $(".submit").addClass("js-hidden");
         
