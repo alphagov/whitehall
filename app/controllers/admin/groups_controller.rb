@@ -8,6 +8,7 @@ class Admin::GroupsController < Admin::BaseController
 
   def new
     @group = @organisation.groups.build
+    @group.group_memberships.build
   end
 
   def create
@@ -21,6 +22,7 @@ class Admin::GroupsController < Admin::BaseController
 
   def edit
     @group = Group.find(params[:id])
+    @group.group_memberships.build
   end
 
   def update
@@ -35,7 +37,7 @@ class Admin::GroupsController < Admin::BaseController
     if @group.destroy
       redirect_to admin_organisation_path(@organisation, anchor: "groups"), notice: %{"#{@group.name}" destroyed.}
     else
-      message = "Cannot destroy a group with memberships or organisation"
+      message = "Cannot destroy a group with members."
       redirect_to admin_organisation_path(@organisation, anchor: "groups"), alert: message
     end
   end

@@ -742,17 +742,34 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     end
   end
 
-  test "show provides delete buttons for groups" do
+  test "show should display links to members of an existing group" do
     organisation = create(:organisation)
-    group = create(:group, organisation: organisation)
+    person_one, person_two = create(:person), create(:person)
+    group = create(:group, organisation: organisation, members: [person_one, person_two])
 
     get :show, id: organisation
 
     assert_select_object group do
-      assert_select ".delete form[action='#{admin_organisation_group_path(organisation, group)}']" do
+      assert_select "a[href='#{edit_admin_person_path(person_one)}']"
+      assert_select "a[href='#{edit_admin_person_path(person_two)}']"
+    end
+  end
+
+  test "show provides delete buttons for destroyable groups" do
+    organisation = create(:organisation)
+    destroyable_group = create(:group, organisation: organisation, members: [])
+    undestroyable_group = create(:group, organisation: organisation, members: [create(:person)])
+
+    get :show, id: organisation
+
+    assert_select_object destroyable_group do
+      assert_select ".delete form[action='#{admin_organisation_group_path(organisation, destroyable_group)}']" do
         assert_select "input[name='_method'][value='delete']"
         assert_select "input[type='submit']"
       end
+    end
+    assert_select_object undestroyable_group do
+      refute_select ".delete form"
     end
   end
 end

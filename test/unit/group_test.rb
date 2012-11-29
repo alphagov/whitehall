@@ -26,4 +26,16 @@ class GroupTest < ActiveSupport::TestCase
     group = create(:group, name: "Bob's committee")
     assert_equal 'bobs-committee', group.slug
   end
+
+  test "should be destroyable when it has no members" do
+    group = create(:group, members: [])
+    assert group.destroyable?
+    assert group.destroy
+  end
+
+  test "should not be destroyable when it has members" do
+    group = create(:group, members: [create(:person)])
+    refute group.destroyable?
+    refute group.destroy
+  end
 end

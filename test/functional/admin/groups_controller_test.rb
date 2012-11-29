@@ -17,6 +17,14 @@ class Admin::GroupsControllerTest < ActionController::TestCase
     end
   end
 
+  test "new should display fields for adding a new member of the group" do
+    get :new, organisation_id: @organisation.id
+
+    assert_select "form#new_group" do
+      assert_select "select[name='group[group_memberships_attributes][0][person_id]']"
+    end
+  end
+
   test "create should create a new group" do
     post :create, organisation_id: @organisation.id, group: attributes_for(:group,
       name: "group-name"
@@ -55,6 +63,31 @@ class Admin::GroupsControllerTest < ActionController::TestCase
     assert_select "form[action='#{admin_organisation_group_path(@organisation, group)}']" do
       assert_select "input[name='group[name]'][value='group-name']"
       assert_select "input[type='submit']"
+    end
+  end
+
+  test "edit should display fields for editing or deleting an existing member of an existing group" do
+    person = create(:person)
+    group = create(:group, name: "group-name", organisation: @organisation, members: [person])
+
+    get :edit, organisation_id: @organisation.id, id: group
+
+    assert_select "form#edit_#{dom_id(group)}" do
+      assert_select "input[type='hidden'][name='group[group_memberships_attributes][0][id]'][value=?]", group.group_memberships.first.id
+      assert_select "select[name='group[group_memberships_attributes][0][person_id]']" do
+        assert_select "option[selected='selected'][value=?]", person.id
+      end
+      assert_select "input[type='checkbox'][name='group[group_memberships_attributes][0][_destroy]'][value=1]"
+    end
+  end
+
+  test "edit should display fields for adding a new member of an existing group" do
+    group = create(:group, name: "group-name", organisation: @organisation)
+
+    get :edit, organisation_id: @organisation.id, id: group
+
+    assert_select "form#edit_#{dom_id(group)}" do
+      assert_select "select[name='group[group_memberships_attributes][0][person_id]']"
     end
   end
 
@@ -103,5 +136,15 @@ class Admin::GroupsControllerTest < ActionController::TestCase
     assert_redirected_to admin_organisation_path(@organisation, anchor: "groups")
     refute Group.find_by_id(group.id)
     assert_equal %{"Prime Minister" destroyed.}, flash[:notice]
+  end
+
+  test "should not be able to destroy an indestructible group" do
+    group = create(:group, name: "Prime Minister", members: [create(:person)])
+
+    delete :destroy, organisation_id: @organisation.id, id: group
+
+    assert_redirected_to admin_organisation_path(@organisation, anchor: "groups")
+    assert Group.find_by_id(group.id)
+    assert_equal %{Cannot destroy a group with members.}, flash[:alert]
   end
 end

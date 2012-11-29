@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121129085833) do
+ActiveRecord::Schema.define(:version => 20121129130121) do
 
   create_table "attachment_data", :force => true do |t|
     t.string   "carrierwave_file"
@@ -365,6 +365,16 @@ ActiveRecord::Schema.define(:version => 20121129085833) do
   add_index "fact_check_requests", ["edition_id"], :name => "index_fact_check_requests_on_edition_id"
   add_index "fact_check_requests", ["key"], :name => "index_fact_check_requests_on_key", :unique => true
   add_index "fact_check_requests", ["requestor_id"], :name => "index_fact_check_requests_on_requestor_id"
+
+  create_table "group_memberships", :force => true do |t|
+    t.integer  "group_id"
+    t.integer  "person_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "group_memberships", ["group_id"], :name => "index_group_memberships_on_group_id"
+  add_index "group_memberships", ["person_id"], :name => "index_group_memberships_on_person_id"
 
   create_table "groups", :force => true do |t|
     t.integer  "organisation_id"
