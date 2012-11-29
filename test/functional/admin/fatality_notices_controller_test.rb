@@ -16,6 +16,7 @@ class Admin::FatalityNoticesControllerTest < ActionController::TestCase
 
   should_allow_organisations_for :fatality_notice
   should_allow_attached_images_for :fatality_notice
+  should_allow_role_appointments_for :fatality_notice
   should_be_rejectable :fatality_notice
   should_be_publishable :fatality_notice
   should_be_force_publishable :fatality_notice

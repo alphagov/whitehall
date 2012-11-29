@@ -85,6 +85,17 @@
     </section>
   <% end %>
 
+  <% if edition.respond_to?(:role_appointments) %>
+    <section>
+      <h2>Ministerial Appointments</h2>
+      <% if edition.role_appointments.any? %>
+        <%= render partial: "admin/role_appointments/list", locals: {role_appointments: edition.role_appointments} %>
+      <% else %>
+        <p>This document isn't assigned to any ministerial appointments.</p>
+      <% end %>
+    </section>
+  <% end %>
+
   <% if edition.can_be_associated_with_countries? %>
     <section>
       <h2>Countries</h2>

@@ -4,6 +4,9 @@
     <%= render partial: 'organisation_fields', locals: { form: form, edition: edition } %>
     <%= form.label :operational_field_id, 'Field of operation' %>
     <%= form.select :operational_field_id, operational_field_select_options(edition), {include_blank: true, allow_blank: true}, {class: 'chzn-select', data: { placeholder: "Choose the field of operation..." }} %>
+
+    <%= render partial: 'appointment_fields', locals: { form: form, edition: edition } %>
+
   </fieldset>
 
   <%= render partial: 'first_published_at', locals: { form: form, edition: edition } %>
