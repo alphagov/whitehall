@@ -24,8 +24,7 @@ module Whitehall::Uploader
       %w{
         old_url title summary body opening_date closing_date
         policy_1 policy_2 policy_3 policy_4
-        organisation respond_url respond_email respond_postal_address
-        respond_form_title respond_form_attachment consultation_ISBN consultation_URN
+        organisation consultation_ISBN consultation_URN
         response_date response_summary
       }
     end
