@@ -40,6 +40,12 @@ module Whitehall
       'whitehall-admin.production.alphagov.co.uk'
     ]
 
+    ANALYTICS_FORMAT = {
+      policy: "policy",
+      news: "news",
+      detailed_guidance: "detailed_guidance"
+    }
+
     def system_binaries
       {
         zipinfo: "/usr/bin/zipinfo"
@@ -138,6 +144,10 @@ module Whitehall
 
     def government_edition_classes
       edition_classes - [DetailedGuide] - DetailedGuide.descendants
+    end
+
+    def analytics_format(format)
+      ANALYTICS_FORMAT[format]
     end
 
     private
