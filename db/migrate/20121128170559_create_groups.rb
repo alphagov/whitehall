@@ -1,6 +1,6 @@
 class CreateGroups < ActiveRecord::Migration
   def change
-    create_table :groups, :force => true do |t|
+    create_table :groups, force: true do |t|
       t.references :organisation
       t.string :name
       t.timestamps

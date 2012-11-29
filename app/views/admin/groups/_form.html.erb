@@ -1,11 +1,7 @@
-<%= form_for [:admin, group] do |form| %>
+<%= form_for [:admin, @group.organisation, @group] do |form| %>
   <%= form.errors %>
 
-  <fieldset>
-    <%= form.text_field :name %>
-    <%= form.label :organisation_id, 'Organisation' %>
-    <%= form.select :organisation_id, options_from_collection_for_select(Organisation.all, 'id', 'name', group.organisation_id), {}, class: 'chzn-select', data: { placeholder: "Choose organisation..." } %>
-  </fieldset>
+  <%= form.text_field :name %>
 
-  <%= form.save_or_cancel cancel: admin_groups_path %>
+  <%= form.save_or_cancel cancel: admin_organisation_path(@group.organisation, anchor: "groups") %>
 <% end %>

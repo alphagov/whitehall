@@ -1,4 +1,5 @@
 class Admin::GroupsController < Admin::BaseController
+  before_filter :load_organisation
   before_filter :load_group, only: [:edit, :update, :destroy]
 
   def index
@@ -6,13 +7,13 @@ class Admin::GroupsController < Admin::BaseController
   end
 
   def new
-    @group = Group.new
+    @group = @organisation.groups.build
   end
 
   def create
-    @group = Group.new(params[:group])
+    @group = @organisation.groups.build(params[:group])
     if @group.save
-      redirect_to admin_groups_path, notice: %{"#{@group.name}" created.}
+      redirect_to admin_organisation_path(@organisation, anchor: "groups"), notice: %{"#{@group.name}" created.}
     else
       render action: "new"
     end
@@ -24,7 +25,7 @@ class Admin::GroupsController < Admin::BaseController
 
   def update
     if @group.update_attributes(params[:group])
-      redirect_to admin_groups_path, notice: %{"#{@group.name}" updated.}
+      redirect_to admin_organisation_path(@organisation, anchor: "groups"), notice: %{"#{@group.name}" updated.}
     else
       render action: "edit"
     end
@@ -32,14 +33,18 @@ class Admin::GroupsController < Admin::BaseController
 
   def destroy
     if @group.destroy
-      redirect_to admin_groups_path, notice: %{"#{@group.name}" destroyed.}
+      redirect_to admin_organisation_path(@organisation, anchor: "groups"), notice: %{"#{@group.name}" destroyed.}
     else
       message = "Cannot destroy a group with memberships or organisation"
-      redirect_to admin_groups_path, alert: message
+      redirect_to admin_organisation_path(@organisation, anchor: "groups"), alert: message
     end
   end
 
   private
+
+  def load_organisation
+    @organisation = Organisation.find(params[:organisation_id])
+  end
 
   def load_group
     @group = Group.find(params[:id])

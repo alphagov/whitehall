@@ -689,4 +689,70 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
       refute_select "a[href='#{new_admin_organisation_corporate_information_page_path(organisation)}']"
     end
   end
+
+  test "show should display a list of groups" do
+    organisation = create(:organisation, name: "organisation-name")
+    group_one = create(:group, name: "group-one", organisation: organisation)
+    group_two = create(:group, name: "group-two", organisation: organisation)
+
+    get :show, id: organisation
+
+    assert_select ".groups" do
+      assert_select_object group_one do
+        assert_select ".name", "group-one"
+      end
+      assert_select_object group_two do
+        assert_select ".name", "group-two"
+      end
+    end
+  end
+
+  test "show should display groups in alphabetical order" do
+    organisation = create(:organisation)
+    group_A = create(:group, name: "A", organisation: organisation)
+    group_C = create(:group, name: "C", organisation: organisation)
+    group_B = create(:group, name: "B", organisation: organisation)
+
+    get :show, id: organisation
+
+    assert_equal [group_A, group_B, group_C], assigns(:organisation).groups
+  end
+
+  test "show should display a link to create a new group" do
+    organisation = create(:organisation)
+    get :show, id: organisation
+
+    assert_select "#groups" do
+      assert_select "a[href='#{new_admin_organisation_group_path(organisation)}']"
+    end
+  end
+
+  test "show should display links to edit an existing group" do
+    organisation = create(:organisation)
+    group_one = create(:group, organisation: organisation)
+    group_two = create(:group, organisation: organisation)
+
+    get :show, id: organisation
+
+    assert_select_object group_one do
+      assert_select "a[href='#{edit_admin_organisation_group_path(organisation, group_one)}']"
+    end
+    assert_select_object group_two do
+      assert_select "a[href='#{edit_admin_organisation_group_path(organisation, group_two)}']"
+    end
+  end
+
+  test "show provides delete buttons for groups" do
+    organisation = create(:organisation)
+    group = create(:group, organisation: organisation)
+
+    get :show, id: organisation
+
+    assert_select_object group do
+      assert_select ".delete form[action='#{admin_organisation_group_path(organisation, group)}']" do
+        assert_select "input[name='_method'][value='delete']"
+        assert_select "input[type='submit']"
+      end
+    end
+  end
 end

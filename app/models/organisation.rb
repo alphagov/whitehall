@@ -77,6 +77,7 @@ class Organisation < ActiveRecord::Base
 
   has_many :organisation_roles
   has_many :roles, through: :organisation_roles
+  has_many :groups
   has_many :ministerial_roles,
             class_name: 'MinisterialRole',
             through: :organisation_roles,

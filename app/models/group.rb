@@ -6,6 +6,8 @@ class Group < ActiveRecord::Base
   extend FriendlyId
   friendly_id
 
+  default_scope order(:name)
+
   def destroyable?
     true
   end

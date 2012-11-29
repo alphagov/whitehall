@@ -83,6 +83,7 @@ Whitehall::Application.routes.draw do
 
         resources :authors, only: [:show]
         resources :organisations do
+          resources :groups, except: [:show]
           resources :document_series
           resources :corporate_information_pages
         end
@@ -120,7 +121,6 @@ Whitehall::Application.routes.draw do
         resources :roles, except: [:show] do
           resources :role_appointments, only: [:new, :create, :edit, :update, :destroy], shallow: true
         end
-        resources :groups, except: [:show]
         resources :countries, only: [:index, :edit, :update]
         resources :case_studies, path: "case-studies", except: [:index]
 
