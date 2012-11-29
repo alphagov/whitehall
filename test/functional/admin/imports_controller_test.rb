@@ -32,10 +32,13 @@ class Admin::ImportsControllerTest < ActionController::TestCase
     post :create, import: {file: csv_file}
   end
 
-  test "should run the import on successful upload" do
-    new_import.expects(:enqueue!)
-    Import.stubs(:create_from_file).returns(new_import)
-    post :create, import: {file: fixture_file_upload("dft_publication_import_with_json_test.csv")}
+  test "should run an existing import when the run button is clicked" do
+    import = stub_record(:import, creator: current_user)
+    import.stubs(:status).returns(:new)
+    Import.stubs(:find).with(import.id.to_s).returns(import)
+
+    import.expects(:enqueue!)
+    post :run, id: import
   end
 
   test "redirects to show on successful upload" do
@@ -45,19 +48,20 @@ class Admin::ImportsControllerTest < ActionController::TestCase
   end
 
   test "show declares queued if queued" do
-    import = stub_record(:import, creator: current_user)
+    import = stub_record(:import, creator: current_user, import_enqueued_at: Time.zone.now)
     import.stubs(:status).returns(:queued)
     Import.stubs(:find).with(import.id.to_s).returns(import)
 
     get :show, id: import
 
     assert_select record_css_selector(import) do
-      assert_select ".summary", /Import queued/
+      assert_select ".summary", "Queued"
     end
   end
 
   test "show shows declares success on success" do
-    import = stub_record(:import, creator: current_user, document_sources: [], already_imported: [])
+    import = stub_record(:import, creator: current_user, document_sources: [], already_imported: [],
+      import_enqueued_at: Time.zone.now, import_started_at: Time.zone.now, import_finished_at: Time.zone.now)
     import.stubs(:status).returns(:success)
     Import.stubs(:find).with(import.id.to_s).returns(import)
 
@@ -70,7 +74,7 @@ class Admin::ImportsControllerTest < ActionController::TestCase
 
   test "show shows errors if any" do
     import = stub_record(:import, import_errors: [{row_number: 2, message: "Policy 'blah' does not exist"}],
-      creator: current_user)
+      creator: current_user, import_enqueued_at: Time.zone.now, import_started_at: Time.zone.now, import_finished_at: Time.zone.now)
     import.stubs(:status).returns(:failed)
     Import.stubs(:find).with(import.id.to_s).returns(import)
 

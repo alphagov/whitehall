@@ -1,9 +1,9 @@
 class Admin::ImportsController < Admin::BaseController
   before_filter :require_import_permission!
-  before_filter :find_import, only: [:show, :annotated]
+  before_filter :find_import, only: [:show, :annotated, :run]
 
   def index
-    @imports = Import.all
+    @imports = Import.order("id desc")
   end
 
   def new
@@ -14,11 +14,15 @@ class Admin::ImportsController < Admin::BaseController
     csv_file = params[:import].delete(:file)
     @import = Import.create_from_file(current_user, csv_file, params[:import][:data_type])
     if @import.valid?
-      @import.enqueue!
       redirect_to admin_import_path(@import)
     else
       render :new
     end
+  end
+
+  def run
+    @import.enqueue!
+    redirect_to admin_import_path(@import)
   end
 
   def show

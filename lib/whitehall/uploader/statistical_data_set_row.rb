@@ -19,6 +19,7 @@ module Whitehall::Uploader
         .required(%w{old_url title summary body organisation})
         .required(%w{data_series})
         .multiple(%w{attachment_#_url attachment_#_title attachment_#_URN attachment_#_published_date}, 0..100)
+        .ignored("ignore_*")
     end
 
     def title

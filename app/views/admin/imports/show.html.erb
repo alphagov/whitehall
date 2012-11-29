@@ -5,11 +5,24 @@
   <p>Created: <%= render_datetime_microformat(@import, :created_at) { @import.created_at.to_s(:long)} %></p>
   <p>Imported by <%= linked_author @import.creator %></p>
 
-  <% if @import.status == :queued %>
-    <p class="summary">Import queued</p>
+  <% if @import.status == :new %>
+    <h2 class="summary">New import</h2>
+    <p><%= @import.rows.size %> rows</p>
+    <%= button_to "Run", run_admin_import_path(@import), class: "btn btn-large btn-primary" %>
+  <% elsif @import.status == :queued %>
+    <h2 class="summary">Queued</h2>
+    <p>Queued: <%= render_datetime_microformat(@import, :import_enqueued_at) { @import.import_enqueued_at.to_s(:long)} %></p>
+
   <% elsif @import.status == :running %>
+    <p>Queued: <%= render_datetime_microformat(@import, :import_enqueued_at) { @import.import_enqueued_at.to_s(:long)} %></p>
+    <p>Started: <%= render_datetime_microformat(@import, :import_started_at) { @import.import_started_at.to_s(:long)} %></p>
+
     <p class="summary">Import running (row <%= @import.current_row %> / <%= @import.total_rows %></p>
   <% elsif @import.status == :failed %>
+    <p>Queued: <%= render_datetime_microformat(@import, :import_enqueued_at) { @import.import_enqueued_at.to_s(:long)} %></p>
+    <p>Started: <%= render_datetime_microformat(@import, :import_started_at) { @import.import_started_at.to_s(:long)} %></p>
+    <p>Finished: <%= render_datetime_microformat(@import, :import_finished_at) { @import.import_finished_at.to_s(:long)} %></p>
+
     <h2 class="summary">Import failed with <%= pluralize(@import.import_errors.count, "error") %></h2>
     <%= link_to "Download annotated CSV", annotated_admin_import_path(@import), class:"download" %>
 
@@ -34,7 +47,10 @@
     <p class="log"><pre><%= @import.log %></pre></p>
 
   <% else %>
-    <p class="summary">Imported successfully</p>
+    <h2 class="summary">Imported successfully</h2>
+    <p>Queued: <%= render_datetime_microformat(@import, :import_enqueued_at) { @import.import_enqueued_at.to_s(:long)} %></p>
+    <p>Started: <%= render_datetime_microformat(@import, :import_started_at) { @import.import_started_at.to_s(:long)} %></p>
+    <p>Finished: <%= render_datetime_microformat(@import, :import_finished_at) { @import.import_finished_at.to_s(:long)} %></p>
 
     <h2 id="success">Documents added</h2>
     <% if @import.document_sources.any? %>
@@ -53,7 +69,7 @@
         <% @import.already_imported.each do |already_imported| %>
           <% document_source = DocumentSource.find_by_url(already_imported[:url]) %>
           <% edition = document_source.document.latest_edition %>
-          <li><%= link_to edition.title, admin_edition_path(edition) %> imported from <%= link_to document_source.url, document_source.url %></li>
+          <li><%= link_to edition.title, admin_edition_path(edition) %> imported from <%= link_to document_source.url, document_source.url %> (<%= link_to "Import ##{document_source.import_id}", admin_import_path(document_source.import_id) %>)</li>
         <% end %>
       </ul>
     <% else %>
