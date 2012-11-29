@@ -5,7 +5,8 @@ class Group < ActiveRecord::Base
 
   accepts_nested_attributes_for :group_memberships, allow_destroy: true
 
-  validates :name, :organisation, presence: true
+  validates :name, presence: true, uniqueness: { scope: :organisation_id }
+  validates :organisation_id, presence: true
 
   extend FriendlyId
   friendly_id

@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :group do
-    name "group-name"
+    sequence(:name) { |index| "group-#{index}" }
     organisation
   end
 end

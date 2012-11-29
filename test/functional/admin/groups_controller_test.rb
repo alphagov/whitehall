@@ -42,7 +42,9 @@ class Admin::GroupsControllerTest < ActionController::TestCase
   end
 
   test "create should inform the user when a group is created successfully" do
-    post :create, organisation_id: @organisation.id, group: attributes_for(:group)
+    post :create, organisation_id: @organisation.id, group: attributes_for(:group,
+      name: "group-name"
+    )
 
     assert_equal %{"group-name" created.}, flash[:notice]
   end

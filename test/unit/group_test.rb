@@ -11,6 +11,20 @@ class GroupTest < ActiveSupport::TestCase
     refute group.valid?
   end
 
+  test "should be invalid if name already exists for this organisation" do
+    organisation = create(:organisation)
+    existing_group = create(:group, organisation: organisation, name: "Defence Council")
+    group = build(:group, organisation: organisation, name: existing_group.name)
+    refute group.valid?
+  end
+
+  test "should be valid if name already exists for another organisation" do
+    organisation, another_organisation = create(:organisation), create(:organisation)
+    existing_group = create(:group, organisation: organisation, name: "Defence Council")
+    group = build(:group, organisation: another_organisation, name: existing_group.name)
+    assert group.valid?
+  end
+
   test "should generate a slug based on its name" do
     group = create(:group, name: 'My Group Name')
     assert_equal 'my-group-name', group.slug
