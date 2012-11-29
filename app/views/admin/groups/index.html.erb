@@ -1,0 +1,32 @@
+<% page_title "Groups" %>
+
+<nav class="actions">
+  <%= link_to "Create Group", new_admin_group_path, class: "btn new_resource", title: "Create a Group" %>
+</nav>
+
+<h1>Group</h1>
+
+<table class="groups table table-striped">
+  <thead>
+    <tr>
+      <th width="30%">Name</th>
+      <th width="15%">Organisation</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @groups.each do |group| %>
+      <%= content_tag_for(:tr, group) do %>
+        <td class="name"><%= link_to group.name, edit_admin_group_path(group), title: "Edit group #{group.name}" %></td>
+        <td class="organisation"><%= group.organisation.name %></td>
+        <td class="delete">
+          <% if group.destroyable? %>
+            <%= button_to 'delete', admin_group_path(group), method: :delete, class: 'btn btn-danger', confirm: "Are you sure you wish to remove this group?" %>
+          <% else %>
+            <span>Cannot delete</span>
+          <% end %>
+        </td>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>

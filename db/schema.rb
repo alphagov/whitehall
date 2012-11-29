@@ -366,6 +366,15 @@ ActiveRecord::Schema.define(:version => 20121129085833) do
   add_index "fact_check_requests", ["key"], :name => "index_fact_check_requests_on_key", :unique => true
   add_index "fact_check_requests", ["requestor_id"], :name => "index_fact_check_requests_on_requestor_id"
 
+  create_table "groups", :force => true do |t|
+    t.integer  "organisation_id"
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "groups", ["organisation_id"], :name => "index_groups_on_organisation_id"
+
   create_table "image_data", :force => true do |t|
     t.string   "carrierwave_image"
     t.datetime "created_at"

@@ -120,6 +120,7 @@ Whitehall::Application.routes.draw do
         resources :roles, except: [:show] do
           resources :role_appointments, only: [:new, :create, :edit, :update, :destroy], shallow: true
         end
+        resources :groups, except: [:show]
         resources :countries, only: [:index, :edit, :update]
         resources :case_studies, path: "case-studies", except: [:index]
 
