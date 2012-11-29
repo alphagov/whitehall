@@ -12,6 +12,13 @@ class Whitehall::Uploader::Finders::CountriesFinderTest < ActiveSupport::TestCas
     assert_equal [country], Whitehall::Uploader::Finders::CountriesFinder.find(country.slug, @log, @line_number)
   end
 
+  test "returns an array of countries" do
+    country_1 = create(:country)
+    country_2 = create(:country)
+    country_3 = create(:country)
+    assert_equal [country_1, country_2, country_3], Whitehall::Uploader::Finders::CountriesFinder.find(country_1.slug, country_2.slug, country_3.slug, @log, @line_number)
+  end
+
   test "returns an empty array if the slugs are blank" do
     assert_equal [], Whitehall::Uploader::Finders::CountriesFinder.find('', @log, @line_number)
   end
