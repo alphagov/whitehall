@@ -32,11 +32,6 @@
         <div class="filter-inner">
           <%= label_tag "departments", "Department" %>
           <%= select_tag :departments, organisation_filter_options(@filter.all_organisations_with(document_type), @filter.selected_organisations), size: 9, multiple: true, class: "multi-row-select" %>
-
-          <div class="sub-filter">
-            <%= label_tag "sub_orgs", "Child organisations", class: 'sub-title' %>
-            <%= select_tag :sub_orgs, '<option>Choose a child organisation</option>'.html_safe, class: "single-row-select" %>
-          </div>
         </div>
       </div>
 
