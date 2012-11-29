@@ -43,3 +43,14 @@ Then /^I should see the minister's name listed at the top$/ do
   assert page.has_css?("dt", text: "Minister:")
   assert page.has_css?("dd", text: %r{#{@person.name}})
 end
+
+When /^I look at the fatality notice titled "([^"]*)"$/ do |title|
+  @notice = FatalityNotice.find_by_title(title)
+  visit document_path(@notice)
+end
+
+Then /^I can view the field of operations information from a link in the metadata$/ do
+  click_link @notice.operational_field.name
+
+  page.has_content(@notice.operational_field.description)
+end

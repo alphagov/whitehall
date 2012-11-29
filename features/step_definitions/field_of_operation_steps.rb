@@ -1,7 +1,8 @@
-When /^I create a new field of operation called "([^"]*)"$/ do |field_name|
+When /^I create a new field of operation called "([^"]*)" with description "([^"]*)"$/ do |field_name, description|
   visit admin_operational_fields_path
   click_on "Add field of operation"
   fill_in "Name", with: field_name
+  fill_in "Description", with: description
   click_on "Save"
 end
 

@@ -1,5 +1,6 @@
 FactoryGirl.define do
   factory :operational_field do
-    name 'operational-field-name'
+    sequence(:name) { |index| "field-#{index}" }
+    description "description of field"
   end
 end

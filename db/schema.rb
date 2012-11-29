@@ -453,6 +453,7 @@ ActiveRecord::Schema.define(:version => 20121130142956) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "description"
   end
 
   create_table "organisation_mainstream_links", :force => true do |t|

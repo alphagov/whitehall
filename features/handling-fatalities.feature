@@ -26,14 +26,14 @@ Feature: Handling Fatalities
 
   - We'll model fatality notices as a new edition type. Fatality Notices will be editioned to add the eulogies later.
   - We'll create a new FieldOfOperation model in the schema, which can only be associated with Fatality Notices.
-  - Fatalities should show on the announcements index
+  - Fatalities should show on the announcements index, with a filter
   - Link ministers too
 
   Background:
     Given I am an editor
 
   Scenario: Editor adds field of operation
-    When I create a new field of operation called "New Field"
+    When I create a new field of operation called "New Field" with description "Description"
     Then I am able to associate fatality notices with "New Field"
 
   Scenario: Writer creates a fatality notice
@@ -47,10 +47,14 @@ Feature: Handling Fatalities
     When I link the minister "Nick Smith" to the fatality notice
     Then I should see the minister's name listed at the top
 
-  Scenario: Citizen looks for fatality list
+  Scenario: Citizen looks at field of operations information
     Given there is a fatality notice titled "Death of Joe and Jim" in the field "Iraq"
-    When I look at the list of fatalities for "Iraq"
-    Then I should see the fatality notice listed
+    When I look at the fatality notice titled "Death of Joe and Jim"
+    Then I can view the field of operations information from a link in the metadata
+
+  Scenario: Citizen sees all fatalities in a filtered list
+    Given there is a fatality notice titled "Death of Joe and Jim" in the field "Iraq"
+    When I visit the list of announcements
+    Then I can view the field of operations information from a link in the metadata
 
   Scenario: Only MOD editors/writers can create fatality notices
-  Scenario: Only MOD editors/writers can create eulogies
