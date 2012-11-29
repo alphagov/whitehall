@@ -34,11 +34,14 @@ class Import < ActiveRecord::Base
   end
 
   def enqueue!
+    update_column(:import_enqueued_at, Time.zone.now)
     Delayed::Job.enqueue(Job.new(self.id))
   end
 
   def status
-    if import_started_at.nil?
+    if import_enqueued_at.nil?
+      :new
+    elsif import_started_at.nil?
       :queued
     elsif import_finished_at.nil?
       :running
@@ -56,7 +59,7 @@ class Import < ActiveRecord::Base
   end
 
   def import_errors_by_row
-    @import_errors_by_row ||= import_errors.group_by {|error| error[:row_number]}
+    @import_errors_by_row ||= import_errors && import_errors.group_by {|error| error[:row_number]}
   end
 
   def perform(options = {})

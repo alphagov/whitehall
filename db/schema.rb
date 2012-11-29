@@ -399,6 +399,7 @@ ActiveRecord::Schema.define(:version => 20121129085833) do
     t.text     "log",                :limit => 2147483647
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "import_enqueued_at"
   end
 
   create_table "mainstream_categories", :force => true do |t|
