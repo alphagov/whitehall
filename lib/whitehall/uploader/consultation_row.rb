@@ -19,7 +19,6 @@ module Whitehall::Uploader
         .required(%w{old_url title summary body organisation})
         .multiple("policy_#", 1..4)
         .required(%w{opening_date closing_date})
-        .optional(%w{respond_url respond_email respond_postal_address respond_form_title respond_form_attachment}) # are these implemented?
         .optional(%w{consultation_ISBN consultation_URN})
         .required(%w{response_date response_summary})
         .ignored("ignore_*")
