@@ -1,0 +1,2 @@
+class FatalityNotice < Announcement
+end
