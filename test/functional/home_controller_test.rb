@@ -64,9 +64,19 @@ class HomeControllerTest < ActionController::TestCase
   end
 
   test "non home page page doeesn't link to iself in the progress bar" do
-    get "how-government-works".to_sym
+    get :how_government_works
 
     assert_select ".progress-bar a[href=#{root_path}]"
+  end
+
+  test "home page shows a count of published policies" do
+    create(:published_policy)
+    create(:draft_policy)
+
+    get :how_government_works
+
+    assert_equal 1, assigns[:policy_count]
+    assert_select ".policy-count .count", "1"
   end
 
   private

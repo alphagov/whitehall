@@ -8,4 +8,8 @@ class HomeController < PublicFacingController
   def sunset
     render layout: 'home'
   end
+
+  def how_government_works
+    @policy_count = Policy.published.count
+  end
 end
