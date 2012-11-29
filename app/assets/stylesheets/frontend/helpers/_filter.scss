@@ -37,6 +37,8 @@
       padding: $gutter-one-sixth 0;
       text-indent: $gutter-one-third;
     }
+
+    border-color: $light-keyline;
   }
 
   select {
@@ -47,10 +49,9 @@
   }
 
   .multi-row-select {
-    // border: 1px solid $light-keyline;
+    border: 1px solid $light-keyline;
     width: 100%;
     padding-bottom: 0;
-    border-color: $light-keyline;
   }
 
   .checkbox input {
@@ -147,7 +148,7 @@
 
   .chosen {
     margin-bottom: $gutter-one-third;
-  
+
     span {
       @include core-24;
       @include bold;
@@ -157,7 +158,7 @@
       padding:0 $gutter-one-third;
       display: inline-block;
       margin-bottom: ($gutter-one-third/2);
-      
+
       a {
         @include core-19;
         line-height: 0;
