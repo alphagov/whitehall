@@ -1,7 +1,8 @@
 class PoliciesController < DocumentsController
-  FORMAT_NAME = "policy"
+  include CacheControlHelper
 
   before_filter :find_document, only: [:show, :activity]
+  before_filter :set_analytics_format, only:[:show, :activity]
 
   respond_to :html
   respond_to :atom, only: :activity
@@ -20,7 +21,6 @@ class PoliciesController < DocumentsController
     @recently_changed_documents = Edition.published.related_to(@policy).in_reverse_chronological_order
     @show_navigation = (@policy.supporting_pages.any? or @recently_changed_documents.any?)
     set_slimmer_organisations_header(@policy.organisations)
-    set_slimmer_format_header(FORMAT_NAME)
   end
 
   def activity
@@ -41,5 +41,9 @@ class PoliciesController < DocumentsController
 
   def policies
     Policy.published.includes(:document)
+  end
+
+  def analytics_format
+    :policy
   end
 end

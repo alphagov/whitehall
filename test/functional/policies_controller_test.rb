@@ -438,4 +438,12 @@ That's all
 
     assert_equal "policy", response.headers["X-Slimmer-Format"]
   end
+
+  test "the format name is being set to 'policy' on the latest (activity?) tab" do
+    policy = create(:published_policy)
+
+    get :activity, id: policy.document
+
+    assert_equal "policy", response.headers["X-Slimmer-Format"]
+  end
 end

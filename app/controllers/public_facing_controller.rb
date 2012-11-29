@@ -28,4 +28,8 @@ class PublicFacingController < ApplicationController
       expires_in(duration, public: true)
     end
   end
+
+  def set_analytics_format
+    set_slimmer_format_header(Whitehall.analytics_format(analytics_format))
+  end
 end
