@@ -5,19 +5,23 @@ class DetailedGuidesController < DocumentsController
   before_filter :set_search_index
   before_filter :set_artefact, only: [:show]
   before_filter :set_expiry, only: [:show]
+  before_filter :set_analytics_format, only:[:show]
 
   respond_to :html, :json
 
   def show
     @categories = @document.mainstream_categories
     @topics = @document.topics
-    set_slimmer_format_header(ANALYTICS_FORMAT[:detailed_guidance])
     render action: "show"
   end
 
 private
   def document_class
     DetailedGuide
+  end
+
+  def analytics_format
+    :detailed_guidance
   end
 
   def set_search_index
