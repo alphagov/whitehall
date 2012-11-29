@@ -38,8 +38,9 @@ Whitehall::Application.routes.draw do
       resources :supporting_pages, path: "supporting-pages", only: [:index, :show]
     end
     resources :news_articles, path: 'news', only: [:show]
-    resources :fatality_notices, path: 'fatalities', except: [:index]
+    resources :fatality_notices, path: 'fatalities', only: [:show]
     match "/news" => redirect("/announcements")
+    match "/fatalities" => redirect("/announcements")
     resources :publications, only: [:index, :show]
     resources :case_studies, path: 'case-studies', only: [:show, :index]
     resources :speeches, only: [:show]

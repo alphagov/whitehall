@@ -9,6 +9,8 @@ class AnnouncementPresenter < Draper::Base
       :delivered_on
     when NewsArticle
       :first_published_at
+    when FatalityNotice
+      :first_published_at
     else
       raise "Unexpected type: #{announcement.type}"
     end

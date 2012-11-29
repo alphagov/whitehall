@@ -37,6 +37,12 @@
           <dd class="person"><%= link_to_person document.person %></dd>
         <% end %>
       <% end %>
+      <% if document.respond_to?(:operational_field) %>
+        <dt>Field of operation:</dt>
+        <%= content_tag_for :dd, document.operational_field do %>
+          <%= document.operational_field.name %>
+        <% end %>
+      <% end %>
       <% if document.respond_to?(:role_appointments) && document.role_appointments.any? %>
         <dt><%= document.role_appointments.length == 1 ? "Minister" : "Ministers" %>:</dt>
         <dd><%= list_of_links_to_role_appointments(document.role_appointments) %></dd>

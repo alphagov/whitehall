@@ -40,6 +40,7 @@ Feature: Handling Fatalities
     When I create a fatality notice titled "Death of Joe" in the field "Iraq"
     Then the fatality notice should be visible on the public site
     And the document should be clearly marked as a fatality notice
+    And the document should show the field of operation as "Iraq"
 
   Scenario: Writer links minister with a fatality notice
     Given there is a fatality notice titled "Death of Joe" in the field "Iraq"
