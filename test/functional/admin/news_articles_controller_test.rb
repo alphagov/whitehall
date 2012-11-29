@@ -35,9 +35,7 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
   test "new displays news article fields" do
     get :new
 
-    assert_select "form#edition_new" do
-      assert_select "textarea.previewable[name='edition[notes_to_editors]']"
-    end
+
   end
 
   test "show renders the summary" do

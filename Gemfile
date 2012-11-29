@@ -33,7 +33,7 @@ gem 'lograge'
 gem 'unicorn'
 gem 'kaminari'
 gem 'bootstrap-kaminari-views'
-gem 'gds-api-adapters', '2.8.1'
+gem 'gds-api-adapters', '4.1.3'
 gem 'whenever', '0.7.3', require: false
 gem 'mini_magick'
 
