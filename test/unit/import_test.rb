@@ -20,6 +20,14 @@ class ImportTest < ActiveSupport::TestCase
     assert_equal ["Bad stuff"], i.errors[:csv_data]
   end
 
+  test "invalid if file has invalid UTF8 encoding" do
+    csv_data = File.open(Rails.root.join("test/fixtures/invalid_encoding.csv"), "r:binary").read
+    csv_file = stub("file", read: csv_data, original_filename: "invalid_encoding.csv")
+    i = Import.create_from_file(stub_record(:user), csv_file, "consultation")
+    refute i.valid?
+    assert i.errors[:csv_data].any? {|e| e =~ /Invalid UTF-8 character encoding/}
+  end
+
   test "doesn't raise if some headings are blank" do
     i = Import.new(csv_data: "a,,b\n1,,3", creator: stub_record(:user), data_type: "consultation")
     begin

@@ -16,16 +16,17 @@ class Import < ActiveRecord::Base
     statistical_data_set: [Whitehall::Uploader::StatisticalDataSetRow, StatisticalDataSet]
   }
 
-  validates :csv_data, presence: true
+  validates :csv_data, presence: true, if: :valid_csv_data_encoding?
+  validate :valid_csv_data_encoding!
   validates :data_type, inclusion: { in: TYPES.keys.map(&:to_s), message: "%{value} is not a valid type" }
-  validate :valid_csv_headings?
+  validate :valid_csv_headings?, if: :valid_csv_data_encoding?
 
   def self.create_from_file(current_user, csv_file, data_type)
     Import.create(
       data_type: data_type,
-      csv_data: csv_file.read,
+      csv_data: csv_file && csv_file.read.force_encoding('utf-8'),
       creator_id: current_user.id,
-      original_filename: csv_file.original_filename,
+      original_filename: csv_file && csv_file.original_filename,
       import_errors: [],
       already_imported: [],
       successful_rows: [],
@@ -126,6 +127,14 @@ class Import < ActiveRecord::Base
 
   def model_class
     data_type && TYPES[data_type.to_sym] && TYPES[data_type.to_sym][1]
+  end
+
+  def valid_csv_data_encoding!
+    errors.add(:csv_data, "Invalid #{csv_data.encoding} character encoding") unless valid_csv_data_encoding?
+  end
+
+  def valid_csv_data_encoding?
+    csv_data && csv_data.valid_encoding?
   end
 
   def valid_csv_headings?
