@@ -3,6 +3,9 @@ class Group < ActiveRecord::Base
 
   validates :name, :organisation, presence: true
 
+  extend FriendlyId
+  friendly_id
+
   def destroyable?
     true
   end

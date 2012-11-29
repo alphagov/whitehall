@@ -371,9 +371,11 @@ ActiveRecord::Schema.define(:version => 20121129085833) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "slug"
   end
 
   add_index "groups", ["organisation_id"], :name => "index_groups_on_organisation_id"
+  add_index "groups", ["slug"], :name => "index_groups_on_slug"
 
   create_table "image_data", :force => true do |t|
     t.string   "carrierwave_image"
