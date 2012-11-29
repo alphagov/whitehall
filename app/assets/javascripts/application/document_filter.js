@@ -180,13 +180,13 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
       } else {
         summary = 'No results ';
       }
-      
+
       if(formStatus.selected) {
         var i = formStatus.selected.length;
 
         while(i--) {
           var j = formStatus.selected[i].title.length;
-          
+
           if (j > 0) {
             if (formStatus.selected[i].id != 'sub_orgs') {
               if (formStatus.selected[i].id == 'topics') {
@@ -367,21 +367,12 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
           }
         })();
 
-        $('#keyword-filter').clone()
-          .attr('id', 'keyword-filter-clone')
-          .appendTo('.filter-results-summary')
-          .find('input[name=keywords]')
-          .attr('id', 'keywords-clone')
-          .keyup(function() {
-            $('#keyword-filter').find('input[name=keywords]').val(this.value).trigger('keyup');
-          });
-
-          $('#keyword-filter').addClass('visuallyhidden')
-          .find('input[name=keywords]').keyup(function () {
-            delay(function () {
-              $form.submit();
-            }, 600);
-          });
+        $('#keyword-filter')
+        .find('input[name=keywords]').keyup(function () {
+          delay(function () {
+            $form.submit();
+          }, 600);
+        });
 
         $(".submit").addClass("js-hidden");
         
