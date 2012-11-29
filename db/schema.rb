@@ -319,17 +319,19 @@ ActiveRecord::Schema.define(:version => 20121130142956) do
     t.integer  "published_related_publication_count",                             :default => 0,       :null => false
     t.datetime "timestamp_for_sorting"
     t.integer  "primary_mainstream_category_id"
-    t.datetime "scheduled_publication"
     t.boolean  "replaces_businesslink",                                           :default => false
+    t.datetime "scheduled_publication"
     t.boolean  "access_limited"
     t.integer  "published_major_version"
     t.integer  "published_minor_version"
+    t.integer  "operational_field_id"
   end
 
   add_index "editions", ["alternative_format_provider_id"], :name => "index_editions_on_alternative_format_provider_id"
   add_index "editions", ["document_id"], :name => "index_editions_on_document_id"
   add_index "editions", ["document_series_id"], :name => "index_editions_on_document_series_id"
   add_index "editions", ["first_published_at"], :name => "index_editions_on_first_published_at"
+  add_index "editions", ["operational_field_id"], :name => "index_editions_on_operational_field_id"
   add_index "editions", ["policy_team_id"], :name => "index_editions_on_policy_team_id"
   add_index "editions", ["primary_mainstream_category_id"], :name => "index_editions_on_primary_mainstream_category_id"
   add_index "editions", ["publication_date"], :name => "index_editions_on_publication_date"
@@ -446,6 +448,12 @@ ActiveRecord::Schema.define(:version => 20121130142956) do
 
   add_index "nation_inapplicabilities", ["edition_id"], :name => "index_nation_inapplicabilities_on_edition_id"
   add_index "nation_inapplicabilities", ["nation_id"], :name => "index_nation_inapplicabilities_on_nation_id"
+
+  create_table "operational_fields", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "organisation_mainstream_links", :force => true do |t|
     t.integer  "organisation_id"

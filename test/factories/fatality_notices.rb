@@ -3,6 +3,7 @@ FactoryGirl.define do
     title "news-title"
     summary "news-summary"
     body  "news-body"
+    operational_field
   end
 
   factory :draft_fatality_notice, parent: :fatality_notice, traits: [:draft]

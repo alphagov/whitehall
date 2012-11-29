@@ -35,4 +35,38 @@ class Admin::FatalityNoticesControllerTest < ActionController::TestCase
 
     assert_select ".summary", text: "a-simple-summary"
   end
+
+  test "when creating allows assignment to operational field" do
+    get :new
+
+    assert_select "form#edition_new" do
+      assert_select "select[name='edition[operational_field_id]']"
+    end
+  end
+
+  test "when editing allows assignment to operational field" do
+    field = create(:operational_field)
+    edition = create(:fatality_notice, operational_field: field)
+
+    get :edit, id: edition
+
+    assert_select "form#edition_edit" do
+      assert_select "select[name='edition[operational_field_id]']"
+    end
+  end
+
+  test "shows assigned operational field" do
+    field = create(:operational_field)
+    edition = create(:fatality_notice, operational_field: field)
+
+    get :show, id: edition
+
+    assert_select "section", text: %r{#{field.name}}
+  end
+
+  private
+
+  def controller_attributes_for(edition_type, attributes = {})
+    super.merge(operational_field_id: create(:operational_field).id)
+  end
 end

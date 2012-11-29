@@ -32,30 +32,19 @@ Feature: Handling Fatalities
   Background:
     Given I am an editor
 
+  Scenario: Editor adds field of operation
+    When I create a new field of operation called "New Field"
+    Then I am able to associate fatality notices with "New Field"
+
   Scenario: Writer creates a fatality notice
     When I create a fatality notice titled "Death of Joe" in the field "Iraq"
     Then the fatality notice should be visible on the public site
     And the document should be clearly marked as a fatality notice
 
-  Scenario: Writer features a fatality notice
-    Given there is a fatality notice titled "Death of Joe" in the field "Iraq"
-    When I feature the fatality notice
-    Then it should show up on the department homepage
-
   Scenario: Writer links minister with a fatality notice
     Given there is a fatality notice titled "Death of Joe" in the field "Iraq"
     When I link the minister "Nick Smith" to the fatality notice
     Then I should see the minister's name listed at the top
-
-  Scenario: Editor adds field of operation
-    When I create a new field of operation called "New Field"
-    Then I am able to associate fatality notices with "New Field"
-
-  Scenario: Editor removes field of operation
-    Given there is a field of operation called "New Field" without associated fatalities
-    Then I can delete the field of operation record "New Field"
-    When I create a fatality notice titled "Death of Joe" in the field "Iraq"
-    Then I cannot delete the field of operation "Iraq"
 
   Scenario: Citizen looks for fatality list
     Given there is a fatality notice titled "Death of Joe and Jim" in the field "Iraq"

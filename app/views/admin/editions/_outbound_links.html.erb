@@ -10,6 +10,13 @@
     <% end %>
   </section>
 
+  <% if edition.respond_to?(:operational_field) %>
+    <section>
+      <h2>Field of operation</h2>
+      <p><%= edition.operational_field.name %></p>
+    </section>
+  <% end %>
+
   <% if edition.respond_to?(:alternative_format_provider) %>
     <section>
       <h2>Alternative format provider</h2>
