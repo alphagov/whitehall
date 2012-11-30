@@ -11,14 +11,17 @@ module CacheControlHelper
       Whitehall.default_cache_max_age
     elsif seconds_away >= 1
       seconds_away
-    elsif seconds_away < -600
-      nil
-    elsif seconds_away < -300
-      30
-    elsif seconds_away < -30
-      5
-    elsif seconds_away < 1
-      1
+    elsif seconds_away >= -30
+      # If publication was due less than 30 seconds ago then it's likely the scheduled
+      # publisher is working correctly.  Setting max-age to 1 second will help a little
+      # with load, whilst still ensuring the document appears as soon as its published
+      1.second
+    else
+      # If more than 30 seconds has elapsed since publication was due, then something
+      # may have gone wrong.  Increase the max-age to 1 minute, so that the majority
+      # of requests will still hit the cache, yet when the publication issue has been
+      # resolved it will only be 1 minute before it appears.
+      1.minute
     end
   end
 end

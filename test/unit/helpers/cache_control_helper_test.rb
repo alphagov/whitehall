@@ -22,17 +22,11 @@ class CacheControlHelperTest < ActionView::TestCase
   end
 
   test "gracefully controls expiry time for pages where scheduled items are overdue" do
-    assert_equal 1, @controller.max_age_for(Time.zone.now)
-    (-30..-1).step(3).each do |secs_ago|
-      assert_equal 1, @controller.max_age_for(secs_ago.seconds.from_now)
+    (-30..1).step(3).each do |secs_ago|
+      assert_equal 1, @controller.max_age_for(secs_ago.seconds.from_now), secs_ago
     end
-    (-300..-31).step(10).each do |secs_ago|
-      assert_equal 5, @controller.max_age_for(secs_ago.seconds.from_now)
-    end
-    (-600..-301).step(10).each do |secs_ago|
-      assert_equal 30, @controller.max_age_for(secs_ago.seconds.from_now)
-    end
-    assert_equal nil, @controller.max_age_for(601.seconds.ago)
+
+    assert_equal 60, @controller.max_age_for(31.seconds.ago)
   end
 
   test "never sends an expiry time longer than the default max cache time" do
