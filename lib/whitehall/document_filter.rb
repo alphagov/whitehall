@@ -73,6 +73,12 @@ class Whitehall::DocumentFilter
 
   def date
     Date.parse(@params[:date]) if @params[:date].present?
+  rescue ArgumentError => e
+    if e.message[/invalid date/]
+      return nil
+    else
+      raise e
+    end
   end
 
 private

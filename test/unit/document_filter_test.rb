@@ -176,6 +176,10 @@ class DocumentFilterTest < ActiveSupport::TestCase
     assert_equal Date.parse("2012-01-01 12:23:45"), Whitehall::DocumentFilter.new(document_scope, date: "2012-01-01 12:23:45").date
   end
 
+  test "invalid date param sets date attribute to nil" do
+    assert_equal nil, Whitehall::DocumentFilter.new(document_scope, date: "invalid-date").date
+  end
+
   test "can filter after a date" do
     document_scope.expects(:published_after).with(Date.parse("2012-01-01 12:23:45")).returns(document_scope)
     Whitehall::DocumentFilter.new(document_scope, date: "2012-01-01 12:23:45", direction: "after").documents
