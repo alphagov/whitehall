@@ -13,6 +13,17 @@ module ControllerTestHelpers
         assert @controller.is_a?(PublicFacingController), "the controller should be a public facing controller"
       end
     end
+
+    def should_require_fatality_handling_permission_to_access(*actions)
+      test "requires the ability to handle fatalities to access" do
+        login_as :policy_writer
+        actions.each do |action|
+          get action, id: 1
+          assert_response 403
+        end
+      end
+    end
+
   end
 
   def govspeak_transformation_fixture(transformation, &block)

@@ -15,7 +15,7 @@ module AdminEditionControllerTestHelpers
 
     def should_show_document_audit_trail_for(edition_type, action)
       test "should show who created the document and when on #{action}" do
-        tom = login_as(create(:author, name: "Tom", email: "tom@example.com"))
+        tom = login_as(create(:gds_editor, name: "Tom", email: "tom@example.com"))
         draft_edition = create("draft_#{edition_type}")
 
         request.env['HTTPS'] = 'on'

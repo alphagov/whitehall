@@ -30,8 +30,8 @@ Feature: Handling Fatalities
   - Link ministers too
 
   Background:
-    Given I am an editor
-    And an organisation has been assigned to handle fatalities
+    Given an organisation "MOD" has been assigned to handle fatalities
+    And I am an editor in the organisation "MOD"
 
   Scenario: Editor adds field of operation
     When I create a new field of operation called "New Field" with description "Description"
@@ -58,4 +58,11 @@ Feature: Handling Fatalities
     When I visit the list of announcements
     Then I can view the field of operations information from a link in the metadata
 
-  Scenario: Only MOD editors/writers can create fatality notices
+  Scenario: Only editors/writers from organisations which handle fatalities can create fatality notices
+    Given I am a writer in the organisation "DFT"
+    Then I cannot edit fields of operation
+    And I cannot create new fatality notices
+
+  Scenario: GDS editors can also edit fatality notices
+    Given I am a GDS editor
+    Then I can create a fatality notice

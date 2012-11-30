@@ -12,10 +12,15 @@ Given /^I am (?:a|an) (writer|editor|admin|GDS editor)(?: called "([^"]*)")?$/ d
   login_as @user
 end
 
-Given /^I am a writer in the organisation "([^"]*)"$/ do |organisation|
+Given /^I am (?:an?) (writer|editor) in the organisation "([^"]*)"$/ do |role, organisation|
   organisation = Organisation.find_or_create_by_name(organisation)
-  user = create(:policy_writer, organisation: organisation)
-  login_as user
+  @user = case role
+  when "writer"
+    create(:policy_writer, name: "Wally Writer", organisation: organisation)
+  when "editor"
+    create(:departmental_editor, name: "Eddie Editor", organisation: organisation)
+  end
+  login_as @user
 end
 
 Given /^I am a visitor$/ do

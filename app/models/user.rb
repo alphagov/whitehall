@@ -50,4 +50,8 @@ class User < ActiveRecord::Base
   def editable_by?(user)
     user.gds_editor?
   end
+
+  def can_handle_fatalities?
+    gds_editor? || (organisation && organisation.handles_fatalities?)
+  end
 end

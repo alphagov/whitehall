@@ -202,6 +202,6 @@ Then /^the mainstream links for "([^"]*)" should be visible on the public site$/
   end
 end
 
-Given /^an organisation has been assigned to handle fatalities$/ do
-  create(:organisation, name: "Fatality notice handlers", handles_fatalities: true)
+Given /^an organisation "([^"]*)" has been assigned to handle fatalities$/ do |organisation_name|
+  create(:organisation, name: organisation_name, handles_fatalities: true)
 end

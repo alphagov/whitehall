@@ -2,10 +2,11 @@ require "test_helper"
 
 class Admin::OperationalFieldsControllerTest < ActionController::TestCase
   setup do
-    login_as :departmental_editor
+    login_as :gds_editor
   end
 
   should_be_an_admin_controller
+  should_require_fatality_handling_permission_to_access :index, :new, :edit
 
   test "index should list operational fields ordered alphabetically by name" do
     team_b = create(:operational_field, name: "field-b")

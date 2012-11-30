@@ -2,10 +2,11 @@ require 'test_helper'
 
 class Admin::FatalityNoticesControllerTest < ActionController::TestCase
   setup do
-    login_as :policy_writer
+    login_as :gds_editor
   end
 
   should_be_an_admin_controller
+  should_require_fatality_handling_permission_to_access :new, :edit
 
   should_allow_showing_of :fatality_notice
   should_allow_creating_of :fatality_notice

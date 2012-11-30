@@ -1,4 +1,6 @@
 class Admin::OperationalFieldsController < Admin::BaseController
+  before_filter :require_fatality_handling_permission!
+
   def index
     @operational_fields = OperationalField.order(:name)
   end

@@ -7,8 +7,16 @@ class Admin::BaseController < ApplicationController
   before_filter :skip_slimmer
 
   def limit_edition_access!
-    unless @edition.accessible_by?(current_user)
-      render "admin/editions/forbidden", status: 403
-    end
+    forbidden! unless @edition.accessible_by?(current_user)
+  end
+
+  def require_fatality_handling_permission!
+    forbidden! unless current_user.can_handle_fatalities?
+  end
+
+  private
+
+  def forbidden!
+    render "admin/editions/forbidden", status: 403
   end
 end

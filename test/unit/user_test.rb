@@ -64,4 +64,21 @@ class UserTest < ActiveSupport::TestCase
     gds_editor = build(:gds_editor)
     assert user.editable_by?(gds_editor)
   end
+
+  test 'cannot handle fatalities by default' do
+    user = build(:user)
+    refute user.can_handle_fatalities?
+  end
+
+  test 'can handle fatalities if a GDS editor' do
+    gds_editor = build(:gds_editor)
+    assert gds_editor.can_handle_fatalities?
+  end
+
+  test 'can handle fatalities if our organisation is set to handle them' do
+    not_allowed = build(:user, organisation: build(:organisation, handles_fatalities: false))
+    refute not_allowed.can_handle_fatalities?
+    user = build(:user, organisation: build(:organisation, handles_fatalities: true))
+    assert user.can_handle_fatalities?
+  end
 end

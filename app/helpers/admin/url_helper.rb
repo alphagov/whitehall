@@ -34,7 +34,9 @@ module Admin::UrlHelper
   end
 
   def admin_fields_of_operation_header_link
-    admin_header_link "Fields of operation", admin_operational_fields_path
+    if current_user && current_user.can_handle_fatalities?
+      admin_header_link "Fields of operation", admin_operational_fields_path
+    end
   end
 
   def admin_header_link(name, path, path_matcher = nil)
