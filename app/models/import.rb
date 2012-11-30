@@ -69,17 +69,16 @@ class Import < ActiveRecord::Base
 
     progress_logger.start(rows)
     ActiveRecord::Base.transaction do
-      success = true
       rows.each_with_index do |data_row, ix|
         row_number = ix + 2
         row = row_class.new(data_row.to_hash, row_number, attachment_cache, logger)
         if DocumentSource.find_by_url(row.legacy_url)
           progress_logger.already_imported(row_number, row.legacy_url)
         else
-          success = success && import_row(row, row_number, creator, progress_logger)
+          import_row(row, row_number, creator, progress_logger)
         end
       end
-      raise ActiveRecord::Rollback unless success
+      raise ActiveRecord::Rollback if import_errors.any?
     end
 
     progress_logger.finish

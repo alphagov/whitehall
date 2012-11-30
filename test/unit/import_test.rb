@@ -53,20 +53,19 @@ class ImportSavingTest < ActiveSupport::TestCase
     @user = stub_record(:user)
     DocumentSource.stubs(:find_by_url).returns(nil)
     DocumentSource.stubs(:create!)
-    @progress_logger = stub_everything("progress logger")
   end
 
-  test "#perform notifies the progress logger of start" do
-    i = Import.new(csv_data: "a\n1", creator: @user, data_type: "consultation")
+  test "records the start time and total number of rows in the csv" do
+    i = Import.create(csv_data: consultation_csv_sample, creator: @user, data_type: "consultation", import_errors: [])
     i.stubs(:row_class).returns(@row_class)
     i.stubs(:model_class).returns(@model_class)
-    i.save
-    @progress_logger.expects(:start)
-    i.perform(progress_logger: @progress_logger)
+    i.perform
+    assert_equal 1, i.total_rows
+    assert_equal Time.zone.now, i.import_started_at
   end
 
   test "#perform records the document source of successfully imported records" do
-    i = Import.create!(csv_data: consultation_csv_sample, creator: @user, data_type: "consultation")
+    i = Import.create!(csv_data: consultation_csv_sample, creator: @user, data_type: "consultation", import_errors: [])
     i.stubs(:row_class).returns(@row_class)
     i.stubs(:model_class).returns(@model_class)
     DocumentSource.expects(:create!).with(document: @document, url: @row.legacy_url, import: i, row_number: 2)
@@ -79,15 +78,13 @@ class ImportSavingTest < ActiveSupport::TestCase
     @model.stubs(:errors).returns(@errors)
     @model.stubs(:attachments).returns([])
 
-    @progress_logger.expects(:error).with(2, "body: required")
-
-    i = Import.new(csv_data: @data, creator: @user)
+    i = Import.create(csv_data: consultation_csv_sample, creator: @user, data_type: "consultation", import_errors: [])
     i.stubs(:row_class).returns(@row_class)
     i.stubs(:model_class).returns(@model_class)
-    i.perform(
-      attachment_cache: @attachment_cache,
-      progress_logger: @progress_logger
-    )
+    i.perform(attachment_cache: @attachment_cache)
+    assert_equal 1, i.import_errors.size
+    assert_equal 2, i.import_errors[0][:row_number]
+    assert_match /body: required/, i.import_errors[0][:message]
   end
 
   test 'logs failures within attachments if save unsuccessful' do
@@ -99,40 +96,34 @@ class ImportSavingTest < ActiveSupport::TestCase
     attachment.stubs(:attachment_source).returns(stub('attachment-source', url: 'url'))
     @model.stubs(:attachments).returns([attachment])
 
-    @progress_logger.expects(:error).with(2, "Attachment 'url': attachment error")
-
-    i = Import.new(csv_data: @data, creator: @user)
+    i = Import.create(csv_data: consultation_csv_sample, creator: @user, data_type: "consultation", import_errors: [])
     i.stubs(:row_class).returns(@row_class)
     i.stubs(:model_class).returns(@model_class)
-    i.perform(
-      attachment_cache: @attachment_cache,
-      progress_logger: @progress_logger
-    )
+    i.perform(attachment_cache: @attachment_cache)
+    assert_equal 1, i.import_errors.size
+    assert_equal 2, i.import_errors[0][:row_number]
+    assert_match /Attachment 'url': attachment error/, i.import_errors[0][:message]
   end
 
   test 'logs errors for exceptions' do
     @model.stubs(:save).raises("Something awful happened")
 
-    @progress_logger.expects(:error).with(2, regexp_matches(/Something awful happened/))
-
-    i = Import.new(csv_data: @data, creator: @user)
+    i = Import.create(csv_data: consultation_csv_sample, creator: @user, data_type: "consultation", import_errors: [])
     i.stubs(:row_class).returns(@row_class)
     i.stubs(:model_class).returns(@model_class)
-    i.perform(
-      attachment_cache: @attachment_cache,
-      progress_logger: @progress_logger
-    )
+    i.perform(attachment_cache: @attachment_cache)
+    assert_equal 1, i.import_errors.size
+    assert_equal 2, i.import_errors[0][:row_number]
+    assert_match /Something awful happened/, i.import_errors[0][:message]
   end
 
   test 'bad data is rolled back, but import is saved' do
     data = consultation_csv_sample({}, [{'title' => '', 'old_url' => 'http://example.com/invalid'}])
     Import.use_separate_connection
+    Import.delete_all
     Import.transaction do
-      i = Import.create(csv_data: data, creator: stub_record(:user), data_type: "consultation")
-      i.perform(
-        attachment_cache: @attachment_cache,
-        progress_logger: @progress_logger
-      )
+      i = Import.create(csv_data: data, creator: stub_record(:user), data_type: "consultation", import_errors: [])
+      i.perform(attachment_cache: @attachment_cache)
       assert_equal 1, Import.count, "Import wasn't saved correctly"
       assert_equal 0, Consultation.count, "Imported rows weren't rolled back correctly"
       # roll back all changes as we're inside a new transaction
