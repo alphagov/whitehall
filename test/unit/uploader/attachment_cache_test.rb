@@ -95,6 +95,14 @@ class Whitehall::Uploader::AttachmentCacheTest < ActiveSupport::TestCase
     end
   end
 
+  test "uses the content-disposition header if present to determine the local filename" do
+    url = "http://example.com/attachment"
+    stub_request(:get, url).to_return(body: "",
+      status: 200,
+      headers: {"Content-Disposition" => 'attachment; filename="my-file.docx"'})
+    assert_equal "my-file.docx", File.basename(@cache.fetch(url).path)
+  end
+
   test "adds a PDF extension if the file is detected as a PDF but has no extension" do
     url = "http://example.com/attachment"
     stub_request(:get, url).to_return(body: "", status: 200)
