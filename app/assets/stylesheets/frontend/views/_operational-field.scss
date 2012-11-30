@@ -1,0 +1,42 @@
+.operational-field-page {
+
+  h2 {
+    @include core-27;
+  }
+
+  .page_title {
+    @include core-36;
+  }
+
+  .operational-field-page .description {
+    margin-top: 0;
+  }
+
+  .publications {
+    clear: both;
+    overflow: hidden;
+    padding: 0 0 $gutter*2 0;
+  }
+
+  section#operational_field {
+    .document-list {
+      margin-top: 0;
+    }
+  }
+
+  .govspeak {
+    padding-bottom: $gutter;
+  }
+
+  @include media(desktop) {
+    .block-2, .block-3 {
+      float: left;
+      display: inline;
+      width: 33%;
+    }
+    .block-3 {
+      width: 66%;
+    }
+  }
+
+}

@@ -40,7 +40,7 @@
       <% if document.respond_to?(:operational_field) %>
         <dt>Field of operation:</dt>
         <%= content_tag_for :dd, document.operational_field do %>
-          <%= document.operational_field.name %>
+          <%= link_to document.operational_field.name, document.operational_field %>
         <% end %>
       <% end %>
       <% if document.respond_to?(:role_appointments) && document.role_appointments.any? %>

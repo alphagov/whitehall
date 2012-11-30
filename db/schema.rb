@@ -519,6 +519,7 @@ ActiveRecord::Schema.define(:version => 20121130142956) do
     t.string   "govuk_status",                     :default => "live", :null => false
     t.integer  "organisation_logo_type_id",        :default => 2
     t.string   "analytics_identifier"
+    t.boolean  "handles_fatalities",               :default => false
   end
 
   add_index "organisations", ["organisation_logo_type_id"], :name => "index_organisations_on_organisation_logo_type_id"

@@ -2,8 +2,9 @@ require "test_helper"
 
 class FatalityNoticeTest < EditionTestCase
   should_allow_image_attachments
+  should_have_first_image_pulled_out
   should_allow_a_summary_to_be_written
-  should_protect_against_xss_and_content_attacks_on :title, :body, :summary, :change_note
+  should_protect_against_xss_and_content_attacks_on :title, :body, :summary, :change_note, :notes_to_editors
   should_allow_role_appointments
 
   test "is only valid with a field of operation" do
