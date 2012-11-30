@@ -3,7 +3,7 @@ class Group < ActiveRecord::Base
   has_many :group_memberships
   has_many :members, through: :group_memberships, source: :person
 
-  accepts_nested_attributes_for :group_memberships, allow_destroy: true
+  accepts_nested_attributes_for :group_memberships, allow_destroy: true, reject_if: :all_blank
 
   validates :name, presence: true, uniqueness: { scope: :organisation_id }
   validates :organisation_id, presence: true

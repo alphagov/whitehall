@@ -27,14 +27,22 @@ class Admin::GroupsControllerTest < ActionController::TestCase
     end
   end
 
-  test "create should create a new group" do
+  test "create should create a new group with new members ignoring blank members" do
+    person_one, person_two = create(:person), create(:person)
+
     post :create, organisation_id: @organisation.id, group: attributes_for(:group,
-      name: "group-name"
+      name: "group-name",
+      group_memberships_attributes: {
+        "0" => { person_id: person_one.id },
+        "1" => { person_id: person_two.id },
+        "2" => { person_id: "" }
+      }
     )
 
     assert group = Group.last
     assert_equal "group-name", group.name
     assert_equal @organisation, group.organisation
+    assert_equal [person_one, person_two], group.group_memberships.map(&:person)
   end
 
   test "create redirects to the organisation page groups tab on success" do
@@ -104,8 +112,61 @@ class Admin::GroupsControllerTest < ActionController::TestCase
       name: "new-name"
     }
 
-    group = Group.find(group.id)
-    assert_equal "new-name", group.name
+    assert_equal "new-name", group.reload.name
+  end
+
+  test "update should add a new member" do
+    person = create(:person)
+    group = create(:group, name: "group-name", organisation: @organisation)
+
+    put :update, organisation_id: @organisation.id, id: group, group: {
+      group_memberships_attributes: {
+        "0" => { person_id: person.id }
+      }
+    }
+
+    assert_equal [person], group.members(reload=true)
+  end
+
+  test "update should update a member" do
+    person_one, person_two = create(:person), create(:person)
+    group = create(:group, name: "group-name", organisation: @organisation)
+    membership_one = create(:group_membership, group: group, person: person_one)
+
+    put :update, organisation_id: @organisation.id, id: group, group: {
+      group_memberships_attributes: {
+        "0" => { id: membership_one.id, person_id: person_two.id, _destroy: 0 }
+      }
+    }
+
+    assert_equal [person_two], group.members(reload=true)
+  end
+
+  test "update should delete a member" do
+    person = create(:person)
+    group = create(:group, name: "group-name", organisation: @organisation)
+    membership = create(:group_membership, group: group, person: person)
+
+    put :update, organisation_id: @organisation.id, id: group, group: {
+      group_memberships_attributes: {
+        "0" => { id: membership.id, person_id: person.id, _destroy: 1 }
+      }
+    }
+
+    assert_equal [], group.members(reload=true)
+  end
+
+  test "update should ignore new blank members" do
+    group = create(:group, name: "group-name", organisation: @organisation)
+
+    put :update, organisation_id: @organisation.id, id: group, group: {
+      group_memberships_attributes: {
+        "0" => { person_id: "" }
+      }
+    }
+
+    group.reload
+    assert_equal [], group.group_memberships.map(&:person)
   end
 
   test "update redirects to the organisation page groups tab on success" do
