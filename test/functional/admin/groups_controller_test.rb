@@ -13,6 +13,7 @@ class Admin::GroupsControllerTest < ActionController::TestCase
 
     assert_select "form[action='#{admin_organisation_groups_path(@organisation)}']" do
       assert_select "input[name='group[name]'][type='text']"
+      assert_select "textarea[name='group[description]']"
       assert_select "input[type='submit']"
     end
   end
@@ -32,6 +33,7 @@ class Admin::GroupsControllerTest < ActionController::TestCase
 
     post :create, organisation_id: @organisation.id, group: attributes_for(:group,
       name: "group-name",
+      description: "group-description",
       group_memberships_attributes: {
         "0" => { person_id: person_one.id },
         "1" => { person_id: person_two.id },
@@ -41,6 +43,7 @@ class Admin::GroupsControllerTest < ActionController::TestCase
 
     assert group = Group.last
     assert_equal "group-name", group.name
+    assert_equal "group-description", group.description
     assert_equal @organisation, group.organisation
     assert_equal [person_one, person_two], group.group_memberships.map(&:person)
   end
@@ -82,12 +85,13 @@ class Admin::GroupsControllerTest < ActionController::TestCase
   end
 
   test "edit should display form for updating an existing group" do
-    group = create(:group, name: "group-name", organisation: @organisation)
+    group = create(:group, name: "group-name", description: "group-description", organisation: @organisation)
 
     get :edit, organisation_id: @organisation.id, id: group
 
     assert_select "form[action='#{admin_organisation_group_path(@organisation, group)}']" do
       assert_select "input[name='group[name]'][value='group-name']"
+      assert_select "textarea[name='group[description]']", "group-description"
       assert_select "input[type='submit']"
     end
   end
@@ -120,13 +124,16 @@ class Admin::GroupsControllerTest < ActionController::TestCase
   end
 
   test "update should modify existing group" do
-    group = create(:group, name: "group-name", organisation: @organisation)
+    group = create(:group, name: "group-name", description: "group-description", organisation: @organisation)
 
     put :update, organisation_id: @organisation.id, id: group, group: {
-      name: "new-name"
+      name: "new-name",
+      description: "new-description"
     }
 
-    assert_equal "new-name", group.reload.name
+    group.reload
+    assert_equal "new-name", group.name
+    assert_equal "new-description", group.description
   end
 
   test "update should add a new member" do
