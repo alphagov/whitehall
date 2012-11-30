@@ -20,6 +20,7 @@ module Whitehall::Uploader
         .required('first_published')
         .multiple("policy_#", 1..4)
         .multiple("minister_#", 1..2)
+        .multiple("country_#", 1..4)
     end
 
     def legacy_url
@@ -58,8 +59,12 @@ module Whitehall::Uploader
       Finders::RoleAppointmentsFinder.find(first_published_at, row['minister_1'], row['minister_2'], @logger, @line_number)
     end
 
+    def countries
+      Finders::CountriesFinder.find(row['country_1'], row['country_2'], row['country_3'], row['country_4'], @logger, @line_number)
+    end
+
     def attributes
-      [:title, :summary, :body, :organisations, :first_published_at, :related_policies, :role_appointments].map.with_object({}) do |name, result|
+      [:title, :summary, :body, :organisations, :first_published_at, :related_policies, :role_appointments, :countries].map.with_object({}) do |name, result|
         result[name] = __send__(name)
       end
     end
