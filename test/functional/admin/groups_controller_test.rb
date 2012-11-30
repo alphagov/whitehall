@@ -17,11 +17,13 @@ class Admin::GroupsControllerTest < ActionController::TestCase
     end
   end
 
-  test "new should display fields for adding a new member of the group" do
+  test "new should display 5 sets of fields for adding a new member of the group" do
     get :new, organisation_id: @organisation.id
 
     assert_select "form#new_group" do
-      assert_select "select[name='group[group_memberships_attributes][0][person_id]']"
+      (0..4).each do |index|
+        assert_select "select[name='group[group_memberships_attributes][#{index}][person_id]']"
+      end
     end
   end
 
@@ -83,13 +85,15 @@ class Admin::GroupsControllerTest < ActionController::TestCase
     end
   end
 
-  test "edit should display fields for adding a new member of an existing group" do
+  test "edit should display 5 sets of fields for adding a new member of an existing group" do
     group = create(:group, name: "group-name", organisation: @organisation)
 
     get :edit, organisation_id: @organisation.id, id: group
 
     assert_select "form#edit_#{dom_id(group)}" do
-      assert_select "select[name='group[group_memberships_attributes][0][person_id]']"
+      (0..4).each do |index|
+        assert_select "select[name='group[group_memberships_attributes][#{index}][person_id]']"
+      end
     end
   end
 

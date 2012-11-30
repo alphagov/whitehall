@@ -8,7 +8,7 @@ class Admin::GroupsController < Admin::BaseController
 
   def new
     @group = @organisation.groups.build
-    @group.group_memberships.build
+    5.times { @group.group_memberships.build }
   end
 
   def create
@@ -22,7 +22,7 @@ class Admin::GroupsController < Admin::BaseController
 
   def edit
     @group = Group.find(params[:id])
-    @group.group_memberships.build
+    5.times { @group.group_memberships.build }
   end
 
   def update
