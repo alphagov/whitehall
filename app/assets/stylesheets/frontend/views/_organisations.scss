@@ -179,6 +179,10 @@
     padding-bottom: 0;
   }
 
+  .filter-feed .subscribe {
+    margin-top: $gutter-one-third;
+  }
+
   .block-4, .block-5 {
     padding-top: $gutter-half;
     @include media(tablet) {

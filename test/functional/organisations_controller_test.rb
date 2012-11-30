@@ -469,6 +469,14 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_select_autodiscovery_link organisation_url(organisation, format: "atom")
   end
 
+  test 'show includes a link to the atom feed' do
+    organisation = create(:organisation)
+
+    get :show, id: organisation
+
+    assert_select "a.feed[href=?]", organisation_url(organisation, format: :atom)
+  end
+
   test "show generates an atom feed entries for latest activity" do
     organisation = create(:organisation, name: "org-name")
     create(:published_publication, organisations: [organisation])

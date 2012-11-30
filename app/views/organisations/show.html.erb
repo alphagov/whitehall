@@ -33,6 +33,9 @@
   <div class="block-4">
     <div class="inner-block">
       <section id="recently_updated" class="latest_documents">
+        <div class="filter-feed">
+          <%= link_to_feed organisation_url(@organisation, format: :atom) %>
+        </div>
         <h1 class="label">Latest</h1>
         <% if @recently_updated.any? %>
           <%= render partial: "shared/recently_updated",
