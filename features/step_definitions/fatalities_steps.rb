@@ -15,7 +15,7 @@ end
 
 Then /^the document should be clearly marked as a fatality notice$/ do
   click_link FatalityNotice.last.title
-  assert page.has_css?(".label", text: "Fatality")
+  assert page.has_css?(".label", text: /Operations/)
 end
 
 Then /^the document should show the field of operation as "([^"]*)"$/ do |field|
@@ -45,12 +45,12 @@ Then /^I should see the minister's name listed at the top$/ do
 end
 
 When /^I look at the fatality notice titled "([^"]*)"$/ do |title|
-  @notice = FatalityNotice.find_by_title(title)
-  visit document_path(@notice)
+  visit document_path(FatalityNotice.find_by_title(title))
 end
 
 Then /^I can view the field of operations information from a link in the metadata$/ do
-  click_link @notice.operational_field.name
+  notice = FatalityNotice.last
+  click_link notice.operational_field.name
 
-  page.has_content(@notice.operational_field.description)
+  assert page.has_content?(notice.operational_field.description)
 end

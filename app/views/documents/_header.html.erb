@@ -37,7 +37,7 @@
           <dd class="person"><%= link_to_person document.person %></dd>
         <% end %>
       <% end %>
-      <% if document.respond_to?(:operational_field) %>
+      <% if document.has_operational_field? %>
         <dt>Field of operation:</dt>
         <%= content_tag_for :dd, document.operational_field do %>
           <%= link_to document.operational_field.name, document.operational_field %>

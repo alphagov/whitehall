@@ -1,16 +1,22 @@
 require "test_helper"
 
 class FatalityNoticeTest < EditionTestCase
+  include ActionDispatch::TestProcess
+
+  should_allow_role_appointments
   should_allow_image_attachments
   should_have_first_image_pulled_out
   should_allow_a_summary_to_be_written
-  should_protect_against_xss_and_content_attacks_on :title, :body, :summary, :change_note, :notes_to_editors
-  should_allow_role_appointments
+  should_protect_against_xss_and_content_attacks_on :title, :body, :summary, :change_note
 
   test "is only valid with a field of operation" do
     refute build(:fatality_notice, operational_field: nil).valid?
 
     operational_field = build(:operational_field)
     assert build(:fatality_notice, operational_field: operational_field).valid?
+  end
+
+  test "has operational field" do
+    assert build(:fatality_notice).has_operational_field?
   end
 end

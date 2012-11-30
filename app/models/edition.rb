@@ -203,6 +203,10 @@ class Edition < ActiveRecord::Base
     false
   end
 
+  def has_operational_field?
+    false
+  end
+
   def image_disallowed_in_body_text?(i)
     false
   end

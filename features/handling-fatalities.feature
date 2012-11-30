@@ -31,6 +31,7 @@ Feature: Handling Fatalities
 
   Background:
     Given I am an editor
+    And an organisation has been assigned to handle fatalities
 
   Scenario: Editor adds field of operation
     When I create a new field of operation called "New Field" with description "Description"

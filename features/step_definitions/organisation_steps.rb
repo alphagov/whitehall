@@ -201,3 +201,7 @@ Then /^the mainstream links for "([^"]*)" should be visible on the public site$/
     assert page.has_css?("a[href='https://www.gov.uk/mainstream/tool-alpha']", "Tool Alpha")
   end
 end
+
+Given /^an organisation has been assigned to handle fatalities$/ do
+  create(:organisation, name: "Fatality notice handlers", handles_fatalities: true)
+end

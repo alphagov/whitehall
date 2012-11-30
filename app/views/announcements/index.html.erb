@@ -48,6 +48,12 @@
             <td class="announcement_type attribute">
               <%= announcement.display_type %>
             </td>
+            <% if announcement.has_operational_field? %>
+              <td class="attribute field_of_operation">
+                Field of operation: <%= link_to announcement.operational_field.name, announcement.operational_field %>
+              </td>
+            <% end %>
+
           <% end %>
         <% end %>
         </tbody>
