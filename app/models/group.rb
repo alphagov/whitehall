@@ -8,6 +8,16 @@ class Group < ActiveRecord::Base
   validates :name, presence: true, uniqueness: { scope: :organisation_id }
   validates :organisation_id, presence: true
 
+  class Validator < ActiveModel::Validator
+    def validate(record)
+      if record && record.group_memberships.map(&:person) != record.group_memberships.map(&:person).uniq
+        record.errors[:base] = "The same person has been added more than once."
+      end
+    end
+  end
+
+  validates_with Validator
+
   extend FriendlyId
   friendly_id
 

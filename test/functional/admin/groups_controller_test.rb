@@ -67,6 +67,20 @@ class Admin::GroupsControllerTest < ActionController::TestCase
     assert_select ".form-errors"
   end
 
+  test "create should not allow the same person to be added to the same group" do
+    person = create(:person)
+
+    post :create, organisation_id: @organisation.id, group: attributes_for(:group,
+      name: "group-name",
+      group_memberships_attributes: {
+        "0" => { person_id: person.id },
+        "1" => { person_id: person.id }
+      }
+    )
+
+    assert_select ".form-errors", /The same person has been added more than once/
+  end
+
   test "edit should display form for updating an existing group" do
     group = create(:group, name: "group-name", organisation: @organisation)
 
@@ -188,11 +202,25 @@ class Admin::GroupsControllerTest < ActionController::TestCase
   test "update with invalid data should display errors" do
     group = create(:group)
 
-    put :update, organisation_id: @organisation.id, id: group, group: attributes_for(:group, 
+    put :update, organisation_id: @organisation.id, id: group, group: attributes_for(:group,
       name: nil
     )
 
     assert_select ".form-errors"
+  end
+
+  test "update should not allow the same person to be added to the same group" do
+    group, person = create(:group), create(:person)
+    membership = create(:group_membership, group: group, person: person)
+
+    put :update, organisation_id: @organisation.id, id: group, group: attributes_for(:group,
+      group_memberships_attributes: {
+        "0" => { id: membership.id, person_id: person.id, _destroy: 0 },
+        "1" => { person_id: person.id }
+      }
+    )
+
+    assert_select ".form-errors", /The same person has been added more than once/
   end
 
   test "should be able to destroy a destroyable group" do
