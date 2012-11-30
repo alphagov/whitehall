@@ -217,9 +217,9 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
           }
         }
 
-        $selections.html(summary);
-
       }
+
+      $selections.html(summary);
 
       documentFilter.filterEvents();
     },
@@ -375,7 +375,7 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
         });
 
         $(".submit").addClass("js-hidden");
-        
+
       }
       if($('#show-more-documents .previous').length === 0){
         documentFilter.initScroll();
