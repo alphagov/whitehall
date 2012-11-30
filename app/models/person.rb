@@ -15,7 +15,7 @@ class Person < ActiveRecord::Base
   has_many :board_member_roles, class_name: 'BoardMemberRole', through: :role_appointments, source: :role
   has_many :current_board_member_roles, class_name: 'BoardMemberRole', through: :current_role_appointments, source: :role
 
-  has_many :organisation_roles, through: :ministerial_roles
+  has_many :organisation_roles, through: :current_roles
   has_many :organisations, through: :organisation_roles
 
   validates :name, presence: true
