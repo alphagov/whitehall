@@ -42,4 +42,23 @@ class OperationalFieldsControllerTest < ActionController::TestCase
     get :show, id: iraq
     assert_equal [FatalityNoticePresenter.new(iraq_fatality)], assigns(:fatality_notices)
   end
+
+  test "index displays a rudimentary index of fields (for url hackers)" do
+    fields = [
+      stub_record(:operational_field),
+      stub_record(:operational_field),
+      stub_record(:operational_field)
+    ]
+    OperationalField.stubs(:all).returns(fields)
+
+    get :index
+
+    assert_select ".fields-of-operation" do
+      fields.each do |field|
+        assert_select_object field do
+          assert_select "a[href=#{operational_field_path(field)}]"
+        end
+      end
+    end
+  end
 end

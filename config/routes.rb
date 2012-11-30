@@ -78,7 +78,7 @@ Whitehall::Application.routes.draw do
     end
 
     resources :policy_teams, path: 'policy-teams', only: [:index, :show]
-    resources :operational_fields, path: 'fields-of-operation', only: [:show]
+    resources :operational_fields, path: 'fields-of-operation', only: [:index, :show]
 
     constraints(AdminRequest) do
       namespace :admin do
