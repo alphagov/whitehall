@@ -84,7 +84,7 @@ module Whitehall::Uploader
 
     test "supplies an attribute list for the new news article record" do
       row = news_article_row({})
-      attribute_keys = [:title, :summary, :body, :organisations, :first_published_at, :related_policies, :role_appointments]
+      attribute_keys = [:title, :summary, :body, :organisations, :first_published_at, :related_policies, :role_appointments, :countries]
       attribute_keys.each do |key|
         row.stubs(key).returns(key.to_s)
       end
