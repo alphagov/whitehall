@@ -10,6 +10,8 @@ class PublicationesquePresenter < Draper::Base
       :publication_date
     when Consultation
       :first_published_at
+    when StatisticalDataSet
+      :first_published_at
     else
       raise "Unexpected type: #{publicationesque.type}"
     end
@@ -21,6 +23,8 @@ class PublicationesquePresenter < Draper::Base
       publication_type.singular_name
     when Consultation
       consultation_header_title(self)
+    when StatisticalDataSet
+      "Statistical data set"
     else
       raise "Unexpected type: #{publicationesque.type}"
     end

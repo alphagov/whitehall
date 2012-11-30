@@ -26,6 +26,12 @@ class PublicationesquePresenterTest < ActiveSupport::TestCase
     assert presenter.part_of_series?
   end
 
+  test "should return display publication type on statistical data set" do
+    publication = build(:statistical_data_set)
+    presenter = PublicationesquePresenter.decorate(publication)
+    assert_equal "Statistical data set", presenter.display_publication_type
+  end
+
   test "should indicate when publication is not part of a series" do
     publication = build(:publication, document_series: nil)
     presenter = PublicationesquePresenter.decorate(publication)

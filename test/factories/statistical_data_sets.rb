@@ -3,6 +3,7 @@ FactoryGirl.define do
     title   "statistical-data-set-title"
     body    "statistical-data-set-body"
     summary "statistical-data-set-summary"
+    publication_date 10.days.ago
   end
 
   factory :draft_statistical_data_set, parent: :statistical_data_set, traits: [:draft]

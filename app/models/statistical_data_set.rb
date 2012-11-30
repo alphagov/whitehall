@@ -1,9 +1,6 @@
-class StatisticalDataSet < Edition
+class StatisticalDataSet < Publicationesque
   include Edition::DocumentSeries
-  include ::Attachable
   include Edition::AlternativeFormatProvider
-
-  attachable :edition
 
   after_initialize :set_access_limited
 
