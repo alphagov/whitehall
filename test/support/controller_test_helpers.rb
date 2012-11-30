@@ -14,11 +14,12 @@ module ControllerTestHelpers
       end
     end
 
-    def should_require_fatality_handling_permission_to_access(*actions)
+    def should_require_fatality_handling_permission_to_access(edition_type, *actions)
       test "requires the ability to handle fatalities to access" do
+        edition = create(edition_type)
         login_as :policy_writer
         actions.each do |action|
-          get action, id: 1
+          get action, id: edition.id
           assert_response 403
         end
       end
