@@ -112,7 +112,13 @@ private
   def filter_by_publication_filter_option!
     if selected_publication_filter_option
       publication_ids = selected_publication_filter_option.publication_types.map(&:id)
-      @documents = @documents.where(publication_type_id: publication_ids)
+      if selected_publication_filter_option.edition_types.any?
+        edition_types = selected_publication_filter_option.edition_types
+        editions = @documents.arel_table
+        @documents = @documents.where(editions[:publication_type_id].in(publication_ids).or(editions[:type].in(edition_types)))
+      else
+        @documents = @documents.where(publication_type_id: publication_ids)
+      end
     end
   end
 

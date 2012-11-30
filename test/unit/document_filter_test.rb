@@ -196,6 +196,17 @@ class DocumentFilterTest < ActiveSupport::TestCase
     assert_equal filtered_scope, filter.documents
   end
 
+  test "publication_type param can also filter by publication edition type" do
+    publication_filter_option = stub_publication_filter_option("testing filter - statistics", publication_types: [stub('type', id: 123), stub('other type', id: 234)], edition_types: ["EditionType"])
+
+    filtered_scope = stub_document_scope('filtered_scope')
+    expected_query = "(`editions`.`publication_type_id` IN (123, 234) OR `editions`.`type` IN ('EditionType'))"
+    document_scope.expects(:where).with(responds_with(:to_sql, expected_query)).returns(filtered_scope)
+
+    filter = Whitehall::DocumentFilter.new(document_scope, publication_filter_option: publication_filter_option.slug)
+    assert_equal filtered_scope, filter.documents
+  end
+
   test "publication_filter_option param sets #selected_publication_filter_option" do
     publication_filter_option = stub_publication_filter_option("testing filter option - statistics")
 
@@ -303,6 +314,7 @@ private
       current_page: stub_everything,
       num_pages: stub_everything
     )
+    document_scope.stubs(:arel_table).returns(Edition.arel_table)
     document_scope.stubs(:in_reverse_chronological_order).returns(document_scope)
     document_scope.stubs(:in_chronological_order).returns(document_scope)
     document_scope.stubs(:with_summary_containing).returns(document_scope)
@@ -339,7 +351,8 @@ private
     publication_filter_option = stub("publication-filter-option-#{label}", {
       label: label.humanize.pluralize,
       slug: label,
-      publication_types: [stub_publication_type(label)]
+      publication_types: [stub_publication_type(label)],
+      edition_types: []
     }.merge(attributes))
     Whitehall::PublicationFilterOption.expects(:find_by_slug).with(label).at_least_once.returns(publication_filter_option)
     publication_filter_option

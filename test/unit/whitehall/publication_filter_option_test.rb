@@ -20,5 +20,9 @@ module Whitehall
       option = PublicationFilterOption.create(label: "Test Filter Option")
       assert_equal option, PublicationFilterOption.find_by_slug("test-filter-option")
     end
+
+    test "edition_types is an empty array by default" do
+      assert_equal [], PublicationFilterOption.new.edition_types
+    end
   end
 end
