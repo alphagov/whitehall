@@ -461,6 +461,35 @@ class OrganisationsControllerTest < ActionController::TestCase
     end
   end
 
+  test 'show has atom feed autodiscovery link' do
+    organisation = create(:organisation)
+
+    get :show, id: organisation
+
+    assert_select_autodiscovery_link organisation_url(organisation, format: "atom")
+  end
+
+  test "show generates an atom feed entries for latest activity" do
+    organisation = create(:organisation, name: "org-name")
+    create(:published_publication, organisations: [organisation])
+    create(:published_policy, organisations: [organisation])
+
+    get :show, id: organisation, format: :atom
+
+    assert_select_atom_feed do
+      assert_select 'feed > entry', count: 2 do |entries|
+        entries.each do |entry|
+          assert_select entry, 'entry > id', 1
+          assert_select entry, 'entry > published', 1
+          assert_select entry, 'entry > updated', 1
+          assert_select entry, 'entry > link[rel=?][type=?]', 'alternate', 'text/html', 1
+          assert_select entry, 'entry > title', 1
+          assert_select entry, 'entry > content[type=?]', 'html', 1
+        end
+      end
+    end
+  end
+
   test "should show description on organisation about subpage" do
     organisation = create(:organisation, description: "organisation-description")
     get :about, id: organisation

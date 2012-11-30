@@ -19,23 +19,31 @@ class OrganisationsController < PublicFacingController
   end
 
   def show
-    @recently_updated = @organisation.published_editions.in_reverse_chronological_order.limit(3)
-    if @organisation.live?
-      @featured_editions = FeaturedEditionPresenter.decorate(@organisation.featured_edition_organisations.limit(6))
-      @policies = PolicyPresenter.decorate(@organisation.published_policies.in_reverse_chronological_order.limit(3))
-      @topics = @organisation.topics_with_content
-      @publications = PublicationesquePresenter.decorate(@organisation.published_publications.in_reverse_chronological_order.limit(3))
-      @announcements = AnnouncementPresenter.decorate(@organisation.published_announcements.in_reverse_chronological_order.limit(3))
-      @ministers = ministers
-      @civil_servants = civil_servants
-      @military_roles = military_roles
-      @traffic_commissioners = traffic_commissioners
-      @special_representatives = special_representatives
-      @sub_organisations = @organisation.sub_organisations
-      set_slimmer_organisations_header([@organisation])
-      expire_on_next_scheduled_publication(@organisation.scheduled_editions)
-    else
-      render action: 'external'
+    recently_updated_source = @organisation.published_editions.in_reverse_chronological_order
+    respond_to do |format|
+      format.atom do
+        @documents = EditionCollectionPresenter.new(recently_updated_source.limit(10))
+      end
+      format.html do
+        @recently_updated = recently_updated_source.limit(3)
+        if @organisation.live?
+          @featured_editions = FeaturedEditionPresenter.decorate(@organisation.featured_edition_organisations.limit(6))
+          @policies = PolicyPresenter.decorate(@organisation.published_policies.in_reverse_chronological_order.limit(3))
+          @topics = @organisation.topics_with_content
+          @publications = PublicationesquePresenter.decorate(@organisation.published_publications.in_reverse_chronological_order.limit(3))
+          @announcements = AnnouncementPresenter.decorate(@organisation.published_announcements.in_reverse_chronological_order.limit(3))
+          @ministers = ministers
+          @civil_servants = civil_servants
+          @military_roles = military_roles
+          @traffic_commissioners = traffic_commissioners
+          @special_representatives = special_representatives
+          @sub_organisations = @organisation.sub_organisations
+          set_slimmer_organisations_header([@organisation])
+          expire_on_next_scheduled_publication(@organisation.scheduled_editions)
+        else
+          render action: 'external'
+        end
+      end
     end
   end
 

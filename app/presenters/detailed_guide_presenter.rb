@@ -1,7 +1,7 @@
-class PolicyPresenter < Draper::Base
+class DetailedGuidePresenter < Draper::Base
   include EditionPresenterHelper
 
-  decorates :policy
+  decorates :detailed_guide
 
   def display_date_attribute_name
     :first_published_at
