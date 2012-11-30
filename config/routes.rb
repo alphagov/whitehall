@@ -63,7 +63,9 @@ Whitehall::Application.routes.draw do
         get :chiefs_of_staff, path: 'chiefs-of-staff'
       end
       resources :corporate_information_pages, only: [:show], path: 'about'
+      resources :groups, only: [:show]
     end
+    match "/organisations/:organisation_id/groups" => redirect("/organisations/%{organisation_id}")
 
     resources :ministerial_roles, path: 'ministers', only: [:index, :show]
     resources :people, only: [:index, :show]

@@ -99,6 +99,12 @@ class RoutingTest < ActionDispatch::IntegrationTest
     assert_redirected_to "/vat-tax-rates"
   end
 
+  test "redirects organisation groups index URL to organisation page" do
+    organisation = create(:organisation)
+    get "/government/organisations/#{organisation.to_param}/groups"
+    assert_redirected_to organisation_path(organisation)
+  end
+
   test "atom feed responds with atom to both /government/feed and /government/feed.atom requests" do
     get "/government/feed"
     assert_equal 200, response.status
