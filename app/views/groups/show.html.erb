@@ -14,6 +14,9 @@
     <div class="block-2">
       <div class="inner-block">
         <h1 class="main"><%= @group.name %></h1>
+        <p class="description">
+          <%= govspeak_to_html @group.description %>
+        </p>
         <div class="body">
           <% if @group_members.any? %>
             <ul class="group-members">
