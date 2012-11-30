@@ -12,7 +12,7 @@ module Whitehall::Uploader
     end
 
     def basic_headings
-      %w{old_url title summary body first_published policy_1 policy_2 policy_3 policy_4 minister_1 minister_2 organisation}
+      %w{old_url title summary body first_published policy_1 policy_2 policy_3 policy_4 minister_1 minister_2 organisation country_1 country_2 country_3 country_4}
     end
 
     test "validates row headings" do
@@ -84,12 +84,19 @@ module Whitehall::Uploader
 
     test "supplies an attribute list for the new news article record" do
       row = news_article_row({})
-      attribute_keys = [:title, :summary, :body, :organisations, :first_published_at, :related_policies, :role_appointments]
+      attribute_keys = [:title, :summary, :body, :organisations, :first_published_at, :related_policies, :role_appointments, :countries]
       attribute_keys.each do |key|
         row.stubs(key).returns(key.to_s)
       end
       expected_attributes = attribute_keys.each.with_object({}) {|key, hash| hash[key] = key.to_s }
       assert_equal expected_attributes, row.attributes
+    end
+
+    test "finds related countries using the country finder" do
+      countries = 5.times.map { stub('country') }
+      Finders::CountriesFinder.stubs(:find).with("first", "second", "third", "fourth", anything, anything).returns(countries)
+      row = news_article_row("country_1" => "first", "country_2" => "second", "country_3" => "third", "country_4" => "fourth")
+      assert_equal countries, row.countries
     end
   end
 end
