@@ -57,13 +57,13 @@ class HomeControllerTest < ActionController::TestCase
     end
   end
 
-  test "home page doeesn't link to iself in the progress bar" do
+  test "home page doesn't link to itself in the progress bar" do
     get :home
 
     refute_select ".progress-bar a[href=#{root_path}]"
   end
 
-  test "non home page page doeesn't link to iself in the progress bar" do
+  test "non home page doesn't link to itself in the progress bar" do
     get :how_government_works
 
     assert_select ".progress-bar a[href=#{root_path}]"
