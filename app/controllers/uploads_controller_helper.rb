@@ -10,9 +10,9 @@ module UploadsControllerHelper
       end
 
       if mime_type = mime_type_for(path)
-        send_file path, type: mime_type_for(path)
+        send_file path, type: mime_type_for(path), disposition: 'inline'
       else
-        send_file path
+        send_file path, disposition: 'inline'
       end
     else
       redirect_to_placeholder(path)
