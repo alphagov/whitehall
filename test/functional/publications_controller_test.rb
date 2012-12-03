@@ -216,7 +216,7 @@ class PublicationsControllerTest < ActionController::TestCase
   end
 
   test "index orders consultations by first_published_at date by default" do
-    consultations = 5.times.map {|i| create(:published_consultation, first_published_at: (10 - i).days.ago) }
+    consultations = 5.times.map {|i| create(:published_consultation, opening_on: (10 - i).days.ago) }
 
     get :index
 
@@ -226,7 +226,7 @@ class PublicationsControllerTest < ActionController::TestCase
 
   test "index orders documents by appropriate timestamp by default" do
     documents = [
-      consultation = create(:published_consultation, first_published_at: 5.days.ago),
+      consultation = create(:published_consultation, opening_on: 5.days.ago),
       publication = create(:published_publication, publication_date: 4.days.ago)
     ]
 
@@ -303,7 +303,8 @@ class PublicationsControllerTest < ActionController::TestCase
     org2 = create(:organisation, name: "other-org")
     consultation = create(:published_consultation, title: "consultation-title",
                          organisations: [org, org2],
-                         first_published_at: Time.zone.parse("2012-03-14"))
+                         opening_on: Time.zone.parse("2012-03-14"),
+                         closing_on: Time.zone.parse("2012-03-15"))
 
     get :index, format: :json
 
@@ -315,8 +316,8 @@ class PublicationsControllerTest < ActionController::TestCase
     assert_equal consultation.id, json["id"]
     assert_equal consultation_path(consultation.document), json["url"]
     assert_equal "org-name and other-org", json["organisations"]
-    assert_equal %{<abbr class="first_published_at" title="2012-03-14T00:00:00+00:00">14 March 2012</abbr>}, json["publication_date"]
-    assert_equal "Open consultation", json["publication_type"]
+    assert_equal %{<abbr class="timestamp_for_sorting" title="2012-03-14T00:00:00+00:00">14 March 2012</abbr>}, json["publication_date"]
+    assert_equal "Consultation", json["publication_type"]
   end
 
   test "index requested as JSON includes URL to the atom feed including any filters" do
@@ -458,14 +459,14 @@ class PublicationsControllerTest < ActionController::TestCase
     end
   end
 
-  test 'index atom feed uses first_published_at for published and updated fields of a consultation' do
-    first_published_at = 15.days.ago
-    create(:published_consultation, published_at: 1.day.ago, first_published_at: first_published_at)
+  test 'index atom feed uses opening_on for published and updated fields of a consultation' do
+    opening_on = 15.days.ago
+    create(:published_consultation, published_at: 1.day.ago, opening_on: opening_on)
 
     get :index, format: :atom
 
     assert_select_atom_feed do
-      formatted_publication_date = first_published_at.xmlschema
+      formatted_publication_date = opening_on.xmlschema
       assert_select 'feed > updated', text: formatted_publication_date
 
       assert_select 'feed > entry' do |entries|
@@ -491,10 +492,10 @@ class PublicationsControllerTest < ActionController::TestCase
     end
   end
 
-  test 'index atom feed orders consultations according to first_published_at (newest first)' do
-    oldest = create(:published_consultation, published_at: 1.days.ago, first_published_at: 5.days.ago, title: "oldest")
-    newest = create(:published_consultation, published_at: 5.days.ago, first_published_at: 1.days.ago, title: "newest")
-    middle = create(:published_consultation, published_at: 8.days.ago, first_published_at: 3.days.ago, title: "middle")
+  test 'index atom feed orders consultations according to opening_on (newest first)' do
+    oldest = create(:published_consultation, published_at: 1.days.ago, opening_on: 5.days.ago, title: "oldest")
+    newest = create(:published_consultation, published_at: 5.days.ago, opening_on: 1.days.ago, title: "newest")
+    middle = create(:published_consultation, published_at: 8.days.ago, opening_on: 3.days.ago, title: "middle")
 
     get :index, format: :atom
 
@@ -509,9 +510,9 @@ class PublicationsControllerTest < ActionController::TestCase
     end
   end
 
-  test 'index atom feed orders mixed publications and consultations according to publication_date or first_published_at (newest first)' do
+  test 'index atom feed orders mixed publications and consultations according to publication_date or opening_on (newest first)' do
     oldest = create(:published_publication, published_at: 1.days.ago, publication_date: 5.days.ago, title: "oldest")
-    newest = create(:published_consultation, published_at: 5.days.ago, first_published_at: 1.days.ago, title: "newest")
+    newest = create(:published_consultation, published_at: 5.days.ago, opening_on: 1.days.ago, title: "newest")
     middle = create(:published_publication, published_at: 8.days.ago, publication_date: 3.days.ago, title: "middle")
 
     get :index, format: :atom

@@ -409,10 +409,10 @@ That's all
 
   test 'activity atom feed shows activity documents' do
     policy = create(:published_policy)
-    publication = create(:published_publication, published_at: 1.day.ago, publication_date: 4.weeks.ago, related_policies: [policy])
-    consultation = create(:published_consultation, published_at: 1.weeks.ago, related_policies: [policy])
+    publication = create(:published_publication, publication_date: 4.weeks.ago, related_policies: [policy])
+    consultation = create(:published_consultation, opening_on: 1.weeks.ago, related_policies: [policy])
     news_article = create(:published_news_article, published_at: 3.weeks.ago, related_policies: [policy])
-    speech = create(:published_speech, published_at: 2.days.ago, delivered_on: 2.weeks.ago, related_policies: [policy])
+    speech = create(:published_speech, delivered_on: 2.weeks.ago, related_policies: [policy])
 
     get :activity, id: policy.document, format: "atom"
 
