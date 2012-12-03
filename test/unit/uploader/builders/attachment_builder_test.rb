@@ -43,6 +43,6 @@ class Whitehall::Uploader::Builders::AttachmentBuilderTest < ActiveSupport::Test
   test "logs a warning if cache couldn't find the attachment" do
     @cache.stubs(:fetch).raises(Whitehall::Uploader::AttachmentCache::RetrievalError.new("some error to do with attachment retrieval"))
     Whitehall::Uploader::Builders::AttachmentBuilder.build({title: @title}, @url, @cache, @log, @line_number)
-    assert_match /Row 1: Unable to fetch attachment .* some error to do with attachment retrieval/, @log_buffer.string
+    assert_match /Unable to fetch attachment .* some error to do with attachment retrieval/, @log_buffer.string
   end
 end

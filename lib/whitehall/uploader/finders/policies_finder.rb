@@ -9,7 +9,7 @@ class Whitehall::Uploader::Finders::PoliciesFinder
           document.latest_edition
         end
       else
-        logger.warn "Row #{line_number}: Unable to find Document with slug '#{slug}'"
+        logger.error "Unable to find Document with slug '#{slug}'"
         nil
       end
     end.compact

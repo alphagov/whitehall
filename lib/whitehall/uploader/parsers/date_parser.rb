@@ -11,10 +11,10 @@ class Whitehall::Uploader::Parsers::DateParser
       elsif date =~ /\d{4}\-\d{2}\-\d{2}/
         Date.strptime(date, '%Y-%m-%d')
       else
-        Date.strptime(date, '%m/%d/%Y')
+        raise "unparsable"
       end
     rescue
-      logger.warn "Row #{line_number}: Unable to parse the date '#{date}'"
+      logger.error "Unable to parse the date '#{date}', should be in form DD-MMM-YYYY"
       nil
     end
   end
