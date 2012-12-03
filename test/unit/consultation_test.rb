@@ -258,4 +258,16 @@ class ConsultationTest < EditionTestCase
 
     assert_equal today, consultation.response_published_on
   end
+
+  test "first published date is the date of consultation opening" do
+    consultation = create(:published_consultation, opening_on: 4.days.ago)
+
+    assert_equal 4.days.ago.to_date, consultation.first_published_date
+  end
+
+  test "sets inital timestamp for sorting as opening date" do
+    consultation = create(:published_consultation, opening_on: 4.days.ago)
+
+    assert_equal 4.days.ago, consultation.timestamp_for_sorting
+  end
 end
