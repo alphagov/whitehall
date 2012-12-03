@@ -139,7 +139,6 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
   test "creating should be able to create a new mainstream link for the organisation" do
     attributes = attributes_for(:organisation)
     organisation_type = create(:organisation_type)
-    social_media_service = create(:social_media_service)
 
     post :create, organisation: attributes.merge(
       organisation_type_id: organisation_type.id,
@@ -153,6 +152,22 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert organisation_mainstream_link = organisation.organisation_mainstream_links.last
     assert_equal "http://www.gov.uk/mainstream/something", organisation_mainstream_link.url
     assert_equal "Something on mainstream", organisation_mainstream_link.title
+  end
+
+  test "updating should destroy existing mainstream links if all its field are blank" do
+    attributes = attributes_for(:organisation)
+    organisation = create(:organisation, attributes)
+    link = create(:organisation_mainstream_link, organisation: organisation)
+
+    put :update, id: organisation, organisation: attributes.merge(
+      organisation_mainstream_links_attributes: {"0" =>{
+          id: link.id,
+          url: "",
+          title: ""
+      }}
+    )
+
+    assert_equal 0, organisation.organisation_mainstream_links.length
   end
 
   test "creating should redirect back to the index" do

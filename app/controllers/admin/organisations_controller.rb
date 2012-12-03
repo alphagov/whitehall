@@ -8,6 +8,7 @@ class Admin::OrganisationsController < Admin::BaseController
   before_filter :build_organisation_mainstream_links, only: [:new, :edit]
   before_filter :destroy_blank_phone_numbers, only: [:create, :update]
   before_filter :destroy_blank_social_media_accounts, only: [:create, :update]
+  before_filter :destroy_blank_mainstream_links, only: [:create, :update]
 
   def index
     @organisations = Organisation.all
@@ -126,6 +127,16 @@ class Admin::OrganisationsController < Admin::BaseController
       params[:organisation][:social_media_accounts_attributes].each do |index, account|
         if account[:social_media_service_id].blank? && account[:url].blank?
           account[:_destroy] = "1"
+        end
+      end
+    end
+  end
+
+  def destroy_blank_mainstream_links
+    if params[:organisation][:organisation_mainstream_links_attributes]
+      params[:organisation][:organisation_mainstream_links_attributes].each do |index, link|
+        if link[:title].blank? && link[:url].blank?
+          link[:_destroy] = "1"
         end
       end
     end
