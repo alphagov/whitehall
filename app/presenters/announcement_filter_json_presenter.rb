@@ -4,7 +4,11 @@ class AnnouncementFilterJsonPresenter < DocumentFilterJsonPresenter
   end
 
   def document_hash(document)
-    super.merge(
+    hash = super
+    if (document.has_operational_field?)
+      hash.merge!(field_of_operation: "Field of operation: " + h.link_to(document.operational_field.name, document.operational_field))
+    end
+    hash.merge(
       publication_date: document.display_date_microformat,
       announcement_type: document.display_type
     )
