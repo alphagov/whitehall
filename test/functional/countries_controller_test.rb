@@ -44,6 +44,44 @@ class CountriesControllerTest < ActionController::TestCase
     assert_select ".about a[href='#{about_country_path(country)}']"
   end
 
+  test 'show has atom feed autodiscovery link' do
+    country = create(:country)
+
+    get :show, id: country
+
+    assert_select_autodiscovery_link country_url(country, format: "atom")
+  end
+
+  test 'show includes a link to the atom feed' do
+    country = create(:country)
+
+    get :show, id: country
+
+    assert_select "a.feed[href=?]", country_url(country, format: :atom)
+  end
+
+
+  test "show generates an atom feed entries for latest activity" do
+    country = create(:country)
+    create(:published_publication, countries: [country])
+    create(:published_policy, countries: [country])
+
+    get :show, id: country, format: :atom
+
+    assert_select_atom_feed do
+      assert_select 'feed > entry', count: 2 do |entries|
+        entries.each do |entry|
+          assert_select entry, 'entry > id', 1
+          assert_select entry, 'entry > published', 1
+          assert_select entry, 'entry > updated', 1
+          assert_select entry, 'entry > link[rel=?][type=?]', 'alternate', 'text/html', 1
+          assert_select entry, 'entry > title', 1
+          assert_select entry, 'entry > content[type=?]', 'html', 1
+        end
+      end
+    end
+  end
+
   test "should display an about page for the country" do
     country = create(:country,
       name: "country-name",

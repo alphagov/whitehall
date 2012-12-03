@@ -6,8 +6,19 @@ class Country < ActiveRecord::Base
   }
 
   has_many :edition_countries
-  has_many :editions, through: :edition_countries
-  has_many :featured_news_articles, through: :edition_countries, class_name: "NewsArticle", source: :edition, conditions: { "edition_countries.featured" => true, "editions.state" => "published" }
+  has_many :editions,
+            through: :edition_countries
+  has_many :published_editions,
+            through: :edition_countries,
+            class_name: "Edition",
+            conditions: { state: "published" },
+            source: :edition
+  has_many :featured_news_articles,
+            through: :edition_countries,
+            class_name: "NewsArticle",
+            source: :edition,
+            conditions: { "edition_countries.featured" => true,
+                          "editions.state" => "published" }
 
   validates_with SafeHtmlValidator
   validates :name, presence: true

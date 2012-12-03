@@ -7,13 +7,20 @@ class CountriesController < PublicFacingController
   end
 
   def show
-    @international_priorities = InternationalPriority.published.in_country(@country).in_reverse_chronological_order
-    @news_articles = NewsArticle.published.in_country(@country).in_reverse_chronological_order
-    @policies = Policy.published.in_country(@country).in_reverse_chronological_order
-    @speeches = Speech.published.in_country(@country).in_reverse_chronological_order
-    @publications = Publication.published.in_country(@country).in_reverse_chronological_order
+    respond_to do |format|
+      format.atom do
+        @documents = EditionCollectionPresenter.new(@country.published_editions.in_reverse_chronological_order.limit(10))
+      end
+      format.html do
+        @international_priorities = InternationalPriority.published.in_country(@country).in_reverse_chronological_order
+        @news_articles = NewsArticle.published.in_country(@country).in_reverse_chronological_order
+        @policies = Policy.published.in_country(@country).in_reverse_chronological_order
+        @speeches = Speech.published.in_country(@country).in_reverse_chronological_order
+        @publications = Publication.published.in_country(@country).in_reverse_chronological_order
 
-    @featured_news_articles = @country.featured_news_articles.in_reverse_chronological_order.limit(3)
+        @featured_news_articles = @country.featured_news_articles.in_reverse_chronological_order.limit(3)
+      end
+    end
   end
 
   def about

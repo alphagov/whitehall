@@ -1,5 +1,6 @@
 <% page_title @country.name, "UK and the world" %>
 <% page_class "countries_homepage" %>
+<% atom_discovery_link_tag country_url(@country, format: :atom), "Latest activity" %>
 <%= content_tag_for(:div, @country) do %>
 
   <div class="block-1">
@@ -7,6 +8,9 @@
       <header class="page-header countries <% if @featured_news_articles.any? %>with_featured<% end %>">
         <h1 class="country name page_title"><%= @country.name %></h1>
       </header>
+      <div class="filter-feed">
+        <%= link_to_feed country_url(@country, format: :atom) %>
+      </div>
     </div>
   </div>
 
