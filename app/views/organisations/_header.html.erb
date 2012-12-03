@@ -1,6 +1,7 @@
 <%
   link_to_organisation ||= false
   logo_size ||= 'large'
+  show_mainstream_links ||= false
 
   link_to_sub_organisation = link_to_organisation
 
@@ -36,7 +37,7 @@
       </h2>
     <% end %>
   <% end %>
-  <% if organisation.organisation_mainstream_links.any? %>
+  <% if show_mainstream_links && organisation.organisation_mainstream_links.any? %>
     <div class="organisation-mainstream-links">
       <h4>Quick links</h4>
       <ul>

@@ -757,6 +757,17 @@ class OrganisationsControllerTest < ActionController::TestCase
     refute_select ".social-media-accounts"
   end
 
+  test "should show mainstream category links if there are some" do
+    organisation = create(:organisation)
+    link = create(:organisation_mainstream_link, organisation: organisation)
+
+    get :show, id: organisation
+
+    assert_select '.organisation-mainstream-links' do
+      assert_select "a[href='#{link.url}']", text: link.title
+    end
+  end
+
   private
 
   def assert_disclaimer_present(organisation)
