@@ -206,6 +206,14 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_template 'external'
   end
 
+  test "showing an transitioning organisation renders the external template" do
+    organisation = create(:organisation, govuk_status: 'transitioning')
+
+    get :show, id: organisation
+
+    assert_template 'external'
+  end
+
   test "shows a link and thumbnail link of the organisation site when joining" do
     organisation = create(:organisation, govuk_status: 'joining', url: 'http://example.com')
 
