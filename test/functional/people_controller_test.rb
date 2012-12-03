@@ -134,4 +134,37 @@ class PeopleControllerTest < ActionController::TestCase
       end
     end
   end
+
+  test 'show has atom feed autodiscovery link' do
+    get :show, id: @person
+    assert_select_autodiscovery_link person_url(@person, format: "atom")
+  end
+end
+
+class PeopleControllerAtomFeedTest < ActionController::TestCase
+  tests PeopleController
+
+  test "show generates an atom feed of news and speeches associated with the person" do
+    person = create(:person)
+    role_appointment = create(:role_appointment, person: person)
+    expected_entries = [
+      create(:published_news_article, role_appointments: [role_appointment]),
+      create(:published_speech, role_appointment: role_appointment, delivered_on: 1.day.ago)
+    ]
+
+    get :show, format: :atom, id: person
+
+    assert_select_atom_feed do
+      assert_select 'feed > entry', count: 2 do |actual_entries|
+        expected_entries.zip(actual_entries).each do |expected, actual_entry|
+          assert_select actual_entry, 'entry > id', 1
+          assert_select actual_entry, 'entry > published', 1
+          assert_select actual_entry, 'entry > updated', 1
+          assert_select actual_entry, 'entry > link[rel=?][type=?]', 'alternate', 'text/html', 1
+          assert_select actual_entry, 'entry > title', expected.title
+          assert_select actual_entry, 'entry > content[type=?]', 'html', 1
+        end
+      end
+    end
+  end
 end

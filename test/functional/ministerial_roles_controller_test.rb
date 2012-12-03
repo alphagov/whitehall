@@ -99,6 +99,36 @@ class MinisterialRolesControllerTest < ActionController::TestCase
     end
   end
 
+  test 'show has atom feed autodiscovery link' do
+    ministerial_role = create(:ministerial_role)
+    get :show, id: ministerial_role
+    assert_select_autodiscovery_link ministerial_role_url(ministerial_role, format: "atom")
+  end
+
+  test "show generates an atom feed of news and speeches associated with the ministerial role" do
+    ministerial_role = create(:ministerial_role)
+    role_appointment = create(:role_appointment, role: ministerial_role)
+    expected_entries = [
+      create(:published_news_article, role_appointments: [role_appointment]),
+      create(:published_speech, role_appointment: role_appointment, delivered_on: 1.day.ago)
+    ]
+
+    get :show, format: :atom, id: ministerial_role
+
+    assert_select_atom_feed do
+      assert_select 'feed > entry', count: 2 do |actual_entries|
+        expected_entries.zip(actual_entries).each do |expected, actual_entry|
+          assert_select actual_entry, 'entry > id', 1
+          assert_select actual_entry, 'entry > published', 1
+          assert_select actual_entry, 'entry > updated', 1
+          assert_select actual_entry, 'entry > link[rel=?][type=?]', 'alternate', 'text/html', 1
+          assert_select actual_entry, 'entry > title', expected.title
+          assert_select actual_entry, 'entry > content[type=?]', 'html', 1
+        end
+      end
+    end
+  end
+
   test "should not display an empty published speeches section" do
     ministerial_role = create(:ministerial_role)
 

@@ -5,7 +5,7 @@ class CountriesControllerTest < ActionController::TestCase
   should_show_published_documents_associated_with :country, :news_articles, :first_published_at
   should_show_published_documents_associated_with :country, :policies
   should_show_published_documents_associated_with :country, :speeches, :delivered_on
-  should_show_published_documents_associated_with :country, :publications
+  should_show_published_documents_associated_with :country, :publications, :publication_date
   should_show_published_documents_associated_with :country, :international_priorities
 
   test "index should display a list of countries" do

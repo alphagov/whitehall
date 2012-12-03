@@ -1,7 +1,13 @@
 class PeopleController < PublicFacingController
   def show
     @person = PersonPresenter.decorate(Person.find(params[:id]))
-    set_slimmer_organisations_header(@person.organisations)
+
+    respond_to do |format|
+      format.html do
+        set_slimmer_organisations_header(@person.organisations)
+      end
+      format.atom
+    end
   end
 
   def index
