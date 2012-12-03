@@ -18,7 +18,7 @@ class AnnouncementFilterJsonPresenterTest < PresenterTestCase
     operational_field = stub_record(:operational_field, name: "Name")
     fatality_notice = stub_record(:fatality_notice,
       document: document,
-      first_published_at: Time.now,
+      first_published_at: Time.zone.now,
       organisations: [organisation],
       operational_field: operational_field)
     hash = AnnouncementFilterJsonPresenter.new(@filter).document_hash(AnnouncementPresenter.new(fatality_notice))
