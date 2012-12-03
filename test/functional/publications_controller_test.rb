@@ -16,7 +16,7 @@ class PublicationsControllerTest < ActionController::TestCase
   should_show_related_policies_for :publication
   should_be_previewable :publication
   should_paginate :publication, timestamp_key: :publication_date
-  should_paginate :consultation
+  should_paginate :consultation, timestamp_key: :opening_on
   should_return_json_suitable_for_the_document_filter :publication
   should_return_json_suitable_for_the_document_filter :consultation
 
