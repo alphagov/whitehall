@@ -12,4 +12,5 @@ class HomeController < PublicFacingController
   def how_government_works
     @policy_count = Policy.published.count
   end
+
 end

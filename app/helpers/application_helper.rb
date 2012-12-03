@@ -322,4 +322,13 @@ module ApplicationHelper
       super(source)
     end
   end
+
+  def ministerial_department_count
+    @ministerial_department_count ||= Organisation.where(organisation_type_id: OrganisationType.find_by_name('Ministerial department')).count
+  end
+
+  def non_ministerial_department_count
+    @non_ministerial_department_count ||= Organisation.where(organisation_type_id: OrganisationType.find_by_name('Non-ministerial department')).count
+  end
+
 end
