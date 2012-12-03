@@ -150,11 +150,6 @@ Whitehall::Application.routes.draw do
     match '/placeholder' => 'placeholder#show', as: :placeholder
   end
 
-  VanityRedirector.new(Rails.root.join("app", "data", "vanity-redirects.csv")).each do |from, to|
-    match from, to: redirect(to)
-    match from.upcase, to: redirect(to)
-  end
-
   get 'healthcheck' => 'healthcheck#check'
 
   # XXX: we use a blank prefix here because redirect has been
