@@ -9,8 +9,12 @@ class DclgConsultationImportTest < ActiveSupport::TestCase
 
     stub_request(:get, "http://www.example.com/documents/response/first-responder.pdf").to_return(body: "response-content")
 
-    data = File.read(Rails.root.join("test/fixtures/dclg_consultation_import_test.csv"))
-    ConsultationUploader.new(csv_data: data).upload
+    filename = Rails.root.join("test/fixtures/dclg_consultation_import_test.csv")
+    file = stub("uploaded file", read: File.read(filename), original_filename: filename)
+    import = Import.create_from_file(creator, file, "consultation")
+    assert import.valid?, import.errors.full_messages.join(", ")
+    import.perform
+    assert_equal [], import.import_errors
 
     consultation = Consultation.first
     refute_nil consultation

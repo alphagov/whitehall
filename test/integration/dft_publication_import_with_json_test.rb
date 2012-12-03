@@ -8,8 +8,12 @@ class DftPublicationWithJsonImportTest < ActiveSupport::TestCase
     policy = create(:policy, title: "managing-improving-and-investing-in-the-road-network")
     stub_request(:get, "http://assets.dft.gov.uk/publications/a5m1-dunstable-norther-bypass/inspector-report.pdf").to_return(body: "attachment-content")
 
-    data = File.read(Rails.root.join("test/fixtures/dft_publication_import_with_json_test.csv"))
-    PublicationUploader.new(csv_data: data).upload
+    filename = Rails.root.join("test/fixtures/dft_publication_import_with_json_test.csv")
+    file = stub("uploaded file", read: File.read(filename), original_filename: filename)
+    import = Import.create_from_file(creator, file, "publication")
+    assert import.valid?, import.errors.full_messages.join(", ")
+    import.perform
+    assert_equal [], import.import_errors
 
     publication = Publication.first
     refute_nil publication

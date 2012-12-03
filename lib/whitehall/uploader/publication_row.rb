@@ -19,6 +19,7 @@ module Whitehall::Uploader
         .optional(%w{order_url price isbn urn command_paper_number}) # First attachment
         .ignored("ignore_*")
         .multiple(%w{attachment_#_url attachment_#_title}, 0..50)
+        .optional('json_attachments')
     end
 
     def title

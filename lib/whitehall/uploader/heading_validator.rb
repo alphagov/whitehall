@@ -64,7 +64,7 @@ module Whitehall
       end
 
       def normalise(headings)
-        without_ignored(headings.map(&:downcase))
+        without_ignored(headings.reject(&:nil?).map(&:downcase))
       end
 
       def without_ignored(headings)

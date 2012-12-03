@@ -7,8 +7,12 @@ class StatisticalDataSetImportTest < ActiveSupport::TestCase
     statistical_data_series = create(:document_series, name: "Statistical Series 1", organisation: organisation)
     stub_request(:get, "http://www.example.com/documents/fire/pdf/2205794.pdf").to_return(body: "attachment-content")
 
-    data = File.read(Rails.root.join("test/fixtures/dft_statistical_data_set_sample.csv"))
-    StatisticalDataSetUploader.new(csv_data: data, error_csv_path: Rails.root.join("tmp", "csv_errors.csv")).upload
+    filename = Rails.root.join("test/fixtures/dft_statistical_data_set_sample.csv")
+    file = stub("uploaded file", read: File.read(filename), original_filename: filename)
+    import = Import.create_from_file(creator, file, "statistical_data_set")
+    assert import.valid?, import.errors.full_messages.join(", ")
+    import.perform
+    assert_equal [], import.import_errors
 
     statistical_data_set = StatisticalDataSet.first
     refute_nil statistical_data_set
