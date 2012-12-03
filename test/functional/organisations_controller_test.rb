@@ -328,7 +328,7 @@ class OrganisationsControllerTest < ActionController::TestCase
   test "should display the organisation's publications with content" do
     organisation = create(:organisation)
     publication = create(:published_publication, organisations: [organisation], publication_type: PublicationType::PolicyPaper, publication_date: Date.parse("2012-01-01"))
-    consultation = create(:published_consultation, organisations: [organisation], first_published_at: Time.zone.parse("2012-01-01 01:01:01"))
+    consultation = create(:published_consultation, organisations: [organisation], opening_on: 3.days.ago)
 
     get :show, id: organisation
 
@@ -338,7 +338,7 @@ class OrganisationsControllerTest < ActionController::TestCase
         assert_select '.document-type', "Policy paper"
       end
       assert_select_object consultation do
-        assert_select '.publication-date abbr[title=?]', Time.zone.parse("2012-01-01 01:01:01").iso8601
+        assert_select '.publication-date abbr[title=?]', 3.days.ago.iso8601
         assert_select '.document-type', "Open consultation"
       end
     end
