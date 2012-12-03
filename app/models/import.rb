@@ -1,5 +1,3 @@
-require 'logger'
-
 class Import < ActiveRecord::Base
   serialize :import_errors
   serialize :already_imported
@@ -64,18 +62,19 @@ class Import < ActiveRecord::Base
   end
 
   def perform(options = {})
-    attachment_cache = options[:attachment_cache] || Whitehall::Uploader::AttachmentCache.new(Whitehall::Uploader::AttachmentCache.default_root_directory, logger)
-    progress_logger = options[:progress_logger] || ProgressLogger.new(self)
+    attachment_cache = options[:attachment_cache] || Whitehall::Uploader::AttachmentCache.new(Whitehall::Uploader::AttachmentCache.default_root_directory, progress_logger)
 
     progress_logger.start(rows)
     ActiveRecord::Base.transaction do
       rows.each_with_index do |data_row, ix|
         row_number = ix + 2
-        row = row_class.new(data_row.to_hash, row_number, attachment_cache, logger)
-        if DocumentSource.find_by_url(row.legacy_url)
-          progress_logger.already_imported(row_number, row.legacy_url)
-        else
-          import_row(row, row_number, creator, progress_logger)
+        progress_logger.at_row(row_number) do
+          row = row_class.new(data_row.to_hash, row_number, attachment_cache, progress_logger)
+          if DocumentSource.find_by_url(row.legacy_url)
+            progress_logger.already_imported(row.legacy_url)
+          else
+            import_row(row, row_number, creator, progress_logger)
+          end
         end
       end
       raise ActiveRecord::Rollback if import_errors.any?
@@ -84,30 +83,30 @@ class Import < ActiveRecord::Base
     progress_logger.finish
   end
 
+  def progress_logger
+    @progress_logger ||= ProgressLogger.new(self)
+  end
+
   def import_row(row, row_number, creator, progress_logger)
     attributes = row.attributes.merge(creator: creator)
     model = model_class.new(attributes)
     if model.save
       ds = DocumentSource.create!(document: model.document, url: row.legacy_url, import: self, row_number: row_number)
-      progress_logger.success(row_number, model)
+      progress_logger.success(model)
       true
     else
       model.errors.keys.each do |attribute|
         next if attribute == :attachments
-        progress_logger.error(row_number, "#{attribute}: #{model.errors[attribute].join(", ")}")
+        progress_logger.error("#{attribute}: #{model.errors[attribute].join(", ")}")
       end
       attachment_errors = model.attachments.reject(&:valid?).each do |a|
-        progress_logger.error(row_number, "Attachment '#{a.attachment_source.url}': #{a.errors.full_messages.to_s}")
+        progress_logger.error("Attachment '#{a.attachment_source.url}': #{a.errors.full_messages.to_s}")
       end
       false
     end
   rescue => e
-    progress_logger.error(row_number, e.to_s + "\n" + e.backtrace.join("\n"))
+    progress_logger.error(e.to_s + "\n" + e.backtrace.join("\n"))
     false
-  end
-
-  def logger
-    @logger ||= Logger.new(ImportLogIo.new(self))
   end
 
   def headers
@@ -157,24 +156,16 @@ class Import < ActiveRecord::Base
     Import.establish_connection Rails.configuration.database_configuration[Rails.env]
   end
 
-  class ImportLogIo
-    def initialize(import)
-      @import = import
-    end
-
-    def write(data)
-      log = @import.log || ""
-      log << data
-      @import.update_column(:log, log)
-    end
-
-    def close
-    end
-  end
-
   class ProgressLogger
     def initialize(import)
       @import = import
+      @current_row = nil
+    end
+
+    def at_row(row_number, &block)
+      @current_row = row_number
+      yield
+      @current_row = nil
     end
 
     def start(rows)
@@ -186,20 +177,34 @@ class Import < ActiveRecord::Base
       @import.update_column(:import_finished_at, Time.zone.now)
     end
 
-    def error(row_number, error_message)
+    def info(message)
+      write_log(:info, message)
+    end
+
+    def warn(message)
+      write_log(:warning, message)
+    end
+
+    def error(error_message)
       @import.import_errors ||= []
-      @import.import_errors << {row_number: row_number, message: error_message}
+      @import.import_errors << {row_number: @current_row, message: error_message}
       @import.save
     end
 
-    def success(row_number, model_object)
-      @import.update_column(:current_row, row_number)
+    def success(model_object)
+      @import.update_column(:current_row, @current_row)
     end
 
-    def already_imported(row_number, url)
+    def already_imported(url)
       @import.already_imported ||= []
-      @import.already_imported << {row_number: row_number, url: url}
+      @import.already_imported << {row_number: @current_row, url: url}
       @import.save
+    end
+
+    def write_log(level, data)
+      log = @import.log || ""
+      log << "Row #{@current_row || '-'} - #{level}: #{data}"
+      @import.update_column(:log, log)
     end
   end
 
@@ -209,8 +214,7 @@ class Import < ActiveRecord::Base
     end
 
     def error(delayed_job, error)
-      puts error.to_s + error.backtrace.join("\n")
-      import.logger.error(error.to_s + error.backtrace.join("\n"))
+      import.progress_logger.error(error.to_s + error.backtrace.join("\n"))
     end
 
   private

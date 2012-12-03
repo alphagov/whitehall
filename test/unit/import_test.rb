@@ -36,27 +36,12 @@ class ImportTest < ActiveSupport::TestCase
       fail e
     end
   end
-end
-
-class ImportSavingTest < ActiveSupport::TestCase
-  include ConsultationCsvSampleHelpers
-
-  setup do
-    @row = stub('row', attributes: {row: :one}, legacy_url: 'row-legacy-url', valid?: true)
-    @row_class = stub('row-class', new: @row, heading_validation_errors: [])
-    @data = "header-a,header-b,header-c\na1,b1,c1"
-
-    @document = stub('document')
-    @model = stub('model', save: true, document: @document)
-    @model_class = stub('model-class', new: @model)
-
-    @user = stub_record(:user)
-    DocumentSource.stubs(:find_by_url).returns(nil)
-    DocumentSource.stubs(:create!)
-  end
 
   test "records the start time and total number of rows in the csv" do
-    i = Import.create(csv_data: consultation_csv_sample, creator: @user, data_type: "consultation", import_errors: [])
+    stub_document_source
+    stub_row_class
+    stub_model_class
+    i = Import.create(csv_data: consultation_csv_sample, creator: stub_record(:user), data_type: "consultation", import_errors: [])
     i.stubs(:row_class).returns(@row_class)
     i.stubs(:model_class).returns(@model_class)
     i.perform
@@ -65,7 +50,10 @@ class ImportSavingTest < ActiveSupport::TestCase
   end
 
   test "#perform records the document source of successfully imported records" do
-    i = Import.create!(csv_data: consultation_csv_sample, creator: @user, data_type: "consultation", import_errors: [])
+    stub_document_source
+    stub_row_class
+    stub_model_class
+    i = Import.create!(csv_data: consultation_csv_sample, creator: stub_record(:user), data_type: "consultation", import_errors: [])
     i.stubs(:row_class).returns(@row_class)
     i.stubs(:model_class).returns(@model_class)
     DocumentSource.expects(:create!).with(document: @document, url: @row.legacy_url, import: i, row_number: 2)
@@ -73,21 +61,39 @@ class ImportSavingTest < ActiveSupport::TestCase
   end
 
   test 'logs failure if save unsuccessful' do
+    stub_document_source
+    stub_row_class
+    stub_model_class
     @errors = {body: ["required"]}
     @model.stubs(:save).returns(false)
     @model.stubs(:errors).returns(@errors)
     @model.stubs(:attachments).returns([])
 
-    i = Import.create(csv_data: consultation_csv_sample, creator: @user, data_type: "consultation", import_errors: [])
+    i = Import.create(csv_data: consultation_csv_sample, creator: stub_record(:user), data_type: "consultation", import_errors: [])
     i.stubs(:row_class).returns(@row_class)
     i.stubs(:model_class).returns(@model_class)
-    i.perform(attachment_cache: @attachment_cache)
+    i.perform
     assert_equal 1, i.import_errors.size
     assert_equal 2, i.import_errors[0][:row_number]
     assert_match /body: required/, i.import_errors[0][:message]
   end
 
+  test 'logs failure if unable to parse a date' do
+    i = Import.create(csv_data: consultation_csv_sample("opening_date" => "31/10/2012"), creator: stub_record(:user), data_type: "consultation", import_errors: [])
+    i.perform
+    assert i.import_errors.find {|e| e[:message] =~ /Unable to parse the date/}
+  end
+
+  test 'logs failure if unable to find an organisation' do
+    i = Import.create(csv_data: consultation_csv_sample("organisation" => "does-not-exist"), creator: stub_record(:user), data_type: "consultation", import_errors: [])
+    i.perform
+    assert i.import_errors.find {|e| e[:message] =~ /Unable to find Organisation/}
+  end
+
   test 'logs failures within attachments if save unsuccessful' do
+    stub_document_source
+    stub_row_class
+    stub_model_class
     @errors = {attachments: ["is invalid"]}
     @model.stubs(:save).returns(false)
     @model.stubs(:errors).returns(@errors)
@@ -96,39 +102,62 @@ class ImportSavingTest < ActiveSupport::TestCase
     attachment.stubs(:attachment_source).returns(stub('attachment-source', url: 'url'))
     @model.stubs(:attachments).returns([attachment])
 
-    i = Import.create(csv_data: consultation_csv_sample, creator: @user, data_type: "consultation", import_errors: [])
+    i = Import.create(csv_data: consultation_csv_sample, creator: stub_record(:user), data_type: "consultation", import_errors: [])
     i.stubs(:row_class).returns(@row_class)
     i.stubs(:model_class).returns(@model_class)
-    i.perform(attachment_cache: @attachment_cache)
+    i.perform
     assert_equal 1, i.import_errors.size
     assert_equal 2, i.import_errors[0][:row_number]
     assert_match /Attachment 'url': attachment error/, i.import_errors[0][:message]
   end
 
   test 'logs errors for exceptions' do
+    stub_document_source
+    stub_row_class
+    stub_model_class
     @model.stubs(:save).raises("Something awful happened")
 
-    i = Import.create(csv_data: consultation_csv_sample, creator: @user, data_type: "consultation", import_errors: [])
+    i = Import.create(csv_data: consultation_csv_sample, creator: stub_record(:user), data_type: "consultation", import_errors: [])
     i.stubs(:row_class).returns(@row_class)
     i.stubs(:model_class).returns(@model_class)
-    i.perform(attachment_cache: @attachment_cache)
+    i.perform
     assert_equal 1, i.import_errors.size
     assert_equal 2, i.import_errors[0][:row_number]
     assert_match /Something awful happened/, i.import_errors[0][:message]
   end
 
   test 'bad data is rolled back, but import is saved' do
+    stub_document_source
+    stub_row_class
+    stub_model_class
     data = consultation_csv_sample({}, [{'title' => '', 'old_url' => 'http://example.com/invalid'}])
     Import.use_separate_connection
     Import.delete_all
     Import.transaction do
       i = Import.create(csv_data: data, creator: stub_record(:user), data_type: "consultation", import_errors: [])
-      i.perform(attachment_cache: @attachment_cache)
+      i.perform
       assert_equal 1, Import.count, "Import wasn't saved correctly"
       assert_equal 0, Consultation.count, "Imported rows weren't rolled back correctly"
-      # roll back all changes as we're inside a new transaction
+      # roll back changes to the import record to ensure we don't leave test data lying around
       raise ActiveRecord::Rollback
     end
+  end
+
+private
+  def stub_document_source
+    DocumentSource.stubs(:find_by_url).returns(nil)
+    DocumentSource.stubs(:create!)
+  end
+
+  def stub_row_class
+    @row = stub('row', attributes: {row: :one}, legacy_url: 'row-legacy-url', valid?: true)
+    @row_class = stub('row-class', new: @row, heading_validation_errors: [])
+  end
+
+  def stub_model_class
+    @document = stub('document')
+    @model = stub('model', save: true, document: @document)
+    @model_class = stub('model-class', new: @model)
   end
 
 end

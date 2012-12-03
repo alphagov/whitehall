@@ -36,7 +36,7 @@ class PublicationUploaderTest < ActiveSupport::TestCase
       "title"            => "title",
       "summary"          => "summary",
       "body"             => "body",
-      'publication_date' => '11/16/2011',
+      'publication_date' => '16-Nov-2011',
       'publication_type' => 'foi-releases',
       'organisation'     => sample_organisation.slug
     )
@@ -235,7 +235,7 @@ private
       "title"            => "title",
       "summary"          => "summary",
       "body"             => "body",
-      "publication_date" => "11/16/2011",
+      "publication_date" => "16-Nov-2011",
       "publication_type" => "foi-releases",
       "organisation"     => sample_organisation.slug
     }

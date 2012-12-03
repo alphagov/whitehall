@@ -4,7 +4,7 @@ class Whitehall::Uploader::Finders::CountriesFinder
 
     countries = slugs.map do |slug|
       country = Country.find_by_slug(slug)
-      logger.warn "Unable to find Country with slug '#{slug}'" unless country
+      logger.error "Unable to find Country with slug '#{slug}'" unless country
       country
     end.compact
   end

@@ -9,10 +9,6 @@ class Whitehall::Uploader::Parsers::DateParserTest < ActiveSupport::TestCase
     @line_number = 1
   end
 
-  test "returns the date" do
-    assert_equal Date.parse('2012-11-01'), Whitehall::Uploader::Parsers::DateParser.parse('11/01/2012', @log, @line_number)
-  end
-
   test "can parse dates in dd-MMM-yy format" do
     assert_equal Date.parse('2012-05-23'), Whitehall::Uploader::Parsers::DateParser.parse('23-May-12', @log, @line_number)
   end

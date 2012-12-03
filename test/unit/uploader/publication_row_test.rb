@@ -81,7 +81,7 @@ class Whitehall::Uploader::PublicationRowTest < ActiveSupport::TestCase
     row = Whitehall::Uploader::PublicationRow.new({
       "minister_1" => minister_1.slug,
       "minister_2" => minister_2.slug,
-      "publication_date" => "11/16/2011"
+      "publication_date" => "16-Nov-2011"
     }, 1, @attachment_cache)
     assert_equal [role_1, role_2], row.ministerial_roles
   end
