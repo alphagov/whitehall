@@ -18,6 +18,7 @@ module Whitehall::Uploader
         .required("type")
         .multiple("policy_#", 1..4)
         .required(%w{delivered_by delivered_on event_and_location})
+        .multiple("country_#", 0..4)
     end
 
     def legacy_url
@@ -63,9 +64,14 @@ module Whitehall::Uploader
     def attributes
       [:title, :summary, :body, :speech_type,
        :role_appointment, :delivered_on, :location,
-       :related_policies, :first_published_at].map.with_object({}) do |name, result|
+       :related_policies, :first_published_at,
+        :countries].map.with_object({}) do |name, result|
         result[name] = __send__(name)
       end
+    end
+
+    def countries
+      Finders::CountriesFinder.find(row['country_1'], row['country_2'], row['country_3'], row['country_4'], @logger, @line_number)
     end
 
   end

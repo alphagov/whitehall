@@ -6,7 +6,7 @@ class Whitehall::Uploader::SpeechRowTest < ActiveSupport::TestCase
   end
 
   def basic_headings
-    %w{old_url title summary body  type  delivered_by  delivered_on event_and_location  policy_1  policy_2  policy_3  policy_4  organisation}
+    %w{old_url title summary body  type  delivered_by  delivered_on event_and_location  policy_1  policy_2  policy_3  policy_4  organisation country_1 country_2 country_3 country_4}
   end
 
   test "validates row headings" do
@@ -86,5 +86,17 @@ class Whitehall::Uploader::SpeechRowTest < ActiveSupport::TestCase
   test "takes the first_published_at date from the delivered_on column" do
     row = Whitehall::Uploader::SpeechRow.new({"delivered_on" => "16-May-12"}, 1, @attachment_cache)
     assert_equal Date.parse("2012-05-16"), row.first_published_at
+  end
+
+  test "finds related countries using the country finder" do
+    countries = 5.times.map { stub('country') }
+    Whitehall::Uploader::Finders::CountriesFinder.stubs(:find).with("first", "second", "third", "fourth", anything, anything).returns(countries)
+    row = Whitehall::Uploader::PublicationRow.new({
+        "country_1" => "first",
+        "country_2" => "second",
+        "country_3" => "third",
+        "country_4" => "fourth"
+      }, 1, @attachment_cache)
+    assert_equal countries, row.countries
   end
 end
