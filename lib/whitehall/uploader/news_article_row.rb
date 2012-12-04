@@ -20,7 +20,7 @@ module Whitehall::Uploader
         .required('first_published')
         .multiple("policy_#", 1..4)
         .multiple("minister_#", 1..2)
-        .multiple("country_#", 1..4)
+        .multiple("country_#", 0..4)
     end
 
     def legacy_url
