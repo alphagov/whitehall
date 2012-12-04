@@ -158,6 +158,17 @@
       }
     }
 
+    .coming-soon {
+      padding-top: $gutter;
+
+      h3 {
+        @include core-19;
+      }
+      p {
+        @include core-16;
+      }
+    }
+
     .departments {
       h2 { border-color: $grass-green; }
       a { color: $grass-green; }
@@ -192,7 +203,7 @@
   .topics-section {
     margin-top: ($gutter*2);
 
-    h2 { 
+    h2 {
       border-color: $fuschia;
     }
 

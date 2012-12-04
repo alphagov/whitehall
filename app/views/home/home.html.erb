@@ -17,13 +17,25 @@
       <div class="inner-block">
         <h2>Ministerial departments</h2>
 
-        <div class="live-count"><span class="organisation-count">2 of <a href="/government/organisations#departments">
-          <%= ministerial_department_count %></a></span> are live on GOV.UK</div>
-
+        <div class="live-count">
+          <span class="organisation-count">
+            <span class="live-ministerial-departments"><%= @live_ministerial_departments.length %></span> of
+            <%= link_to ministerial_department_count, organisations_path(anchor: 'departments') %>
+          </span>
+          are live on GOV.UK
+        </div>
         <ul class="index-list">
-          <li><a href="/government/organisations/department-for-communities-and-local-government">Department for Communities and Local Government</a></li>
-          <li><a href="/government/organisations/department-for-transport">Department for Transport</a></li>
+          <% @live_ministerial_departments.each do |department| %>
+            <li><%= link_to department.name, organisation_path(department) %></li>
+          <% end %>
         </ul>
+
+        <% if @transitioning_ministerial_departments.any? %>
+          <div class="coming-soon">
+            <h3>Coming soon</h3>
+            <p><%= @transitioning_ministerial_departments.map(&:name).to_sentence %>.</p>
+          </div>
+        <% end %>
       </div>
     </div>
 
@@ -31,13 +43,26 @@
       <div class="inner-block">
         <h2>Other departments &amp; public bodies</h2>
 
-        <div class="live-count"><span class="organisation-count">3 of <a href="/government/organisations#agencies-and-public-bodies">300+</a></span> are live on GOV.UK</div>
+        <div class="live-count">
+          <span class="organisation-count">
+            <span class="live-other-departments"><%= @live_other_departments.length %></span> of
+            <%= link_to '300+', organisations_path(anchor: 'agencies-and-public-bodies') %>
+          </span>
+          are live on GOV.UK
+        </div>
 
         <ul class="index-list">
-          <li><a href="/government/organisations/building-regulations-advisory-committee">Building Regulations Advisory Committee</a></li>
-          <li><a href="/government/organisations/driving-standards-agency">Driving Standards Agency</a></li>
-          <li><a href="/government/organisations/planning-inspectorate">Planning Inspectorate</a></li>
+          <% @live_other_departments.each do |department| %>
+            <li><%= link_to department.name, organisation_path(department) %></li>
+          <% end %>
         </ul>
+
+        <% if @transitioning_other_departments.any? %>
+          <div class="coming-soon">
+            <h3>Coming soon</h3>
+            <p><%= @transitioning_other_departments.map(&:name).to_sentence %>.</p>
+          </div>
+        <% end %>
       </div>
     </div>
   </div>

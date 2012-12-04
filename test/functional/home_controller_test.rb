@@ -69,7 +69,7 @@ class HomeControllerTest < ActionController::TestCase
     assert_select ".progress-bar a[href=#{root_path}]"
   end
 
-  test "home page shows a count of published policies" do
+  test "how government works page shows a count of published policies" do
     create(:published_policy)
     create(:draft_policy)
 
@@ -77,6 +77,45 @@ class HomeControllerTest < ActionController::TestCase
 
     assert_equal 1, assigns[:policy_count]
     assert_select ".policy-count .count", "1"
+  end
+
+  test "home page shows a count of live ministerial departmernts" do
+    create(:ministerial_department, govuk_status: 'live')
+
+    get :home
+
+    assert_select '.live-ministerial-departments', '1'
+  end
+
+  test "home page shows a count of live non-ministerial departmernts" do
+    # need to have the ministerial type so we can select non-ministerial
+    create(:ministerial_organisation_type)
+
+    type = create(:non_ministerial_organisation_type)
+    create(:organisation, govuk_status: 'live', organisation_type: type)
+
+    get :home
+
+    assert_select '.live-other-departments', '1'
+  end
+
+  test "home page lists coming soon minsterial departments" do
+    department = create(:ministerial_department, govuk_status: 'transitioning')
+
+    get :home
+
+    assert_select '.departments .coming-soon p', /#{department.name}/
+  end
+
+  test "home page lists coming soon non-minsterial departments" do
+    create(:ministerial_organisation_type)
+
+    type = create(:non_ministerial_organisation_type)
+    department = create(:organisation, govuk_status: 'transitioning', organisation_type: type)
+
+    get :home
+
+    assert_select '.agencies .coming-soon p', /#{department.name}/
   end
 
   private
