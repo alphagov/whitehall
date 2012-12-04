@@ -70,9 +70,7 @@
       border-color: $light-keyline;
       @include box-shadow(1px 1px 1px #fff);
       @include border-radius($gutter-one-sixth);
-         -moz-appearance: none;
-          -ms-appearance: none;
-      -webkit-appearance: none;
+      @include appearance(none);
     }
   }
 
