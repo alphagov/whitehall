@@ -21,10 +21,20 @@ class Import < ActiveRecord::Base
   validates :data_type, inclusion: { in: TYPES.keys.map(&:to_s), message: "%{value} is not a valid type" }
   validate :valid_csv_headings?, if: :valid_csv_data_encoding?
 
+  def self.read_file(file)
+    return nil unless file
+    raw = file.read.force_encoding("ascii-8bit")
+    if raw[0..2] == "\uFEFF".force_encoding("ascii-8bit")
+      raw[3..-1]
+    else
+      raw
+    end.force_encoding('utf-8')
+  end
+
   def self.create_from_file(current_user, csv_file, data_type)
     Import.create(
       data_type: data_type,
-      csv_data: csv_file && csv_file.read.force_encoding('utf-8'),
+      csv_data: read_file(csv_file),
       creator_id: current_user.id,
       original_filename: csv_file && csv_file.original_filename,
       already_imported: [],

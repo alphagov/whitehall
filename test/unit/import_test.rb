@@ -28,6 +28,13 @@ class ImportTest < ActiveSupport::TestCase
     assert i.errors[:csv_data].any? {|e| e =~ /Invalid UTF-8 character encoding/}
   end
 
+  test "accepts UTF8 byte order mark" do
+    csv_data = File.open(Rails.root.join("test/fixtures/byte_order_mark_test_sample.csv"), "r:binary").read
+    csv_file = stub("file", read: csv_data, original_filename: "byte_order_mark_test_sample.csv")
+    i = Import.create_from_file(stub_record(:user), csv_file, "consultation")
+    assert_equal 'old', i.csv_data[0..2]
+  end
+
   test "doesn't raise if some headings are blank" do
     i = Import.new(csv_data: "a,,b\n1,,3", creator: stub_record(:user), data_type: "consultation")
     begin
