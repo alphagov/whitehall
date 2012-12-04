@@ -1,5 +1,6 @@
 # encoding: UTF-8
 
+require File.expand_path("../../../fast_test_helper", __FILE__)
 require 'test_helper'
 
 class Whitehall::Uploader::PublicationRowTest < ActiveSupport::TestCase
@@ -11,7 +12,8 @@ class Whitehall::Uploader::PublicationRowTest < ActiveSupport::TestCase
     %w{old_url  title summary body  publication_type
       policy_1  policy_2  policy_3  policy_4
       organisation  document_series publication_date
-      order_url price ISBN  URN command_paper_number}
+      order_url price ISBN  URN command_paper_number
+      country_1 country_2 country_3 country_4}
   end
 
   test "validates row headings" do
@@ -189,5 +191,17 @@ class Whitehall::Uploader::PublicationRow::AttachmentMetadataBuilderTest < Activ
     @attachment.expects(:command_paper_number=).with("command-paper-number")
     @attachment.expects(:price=).with("12.34")
     Whitehall::Uploader::PublicationRow::AttachmentMetadataBuilder.build(@attachment, nil, "ISBN", nil, "command-paper-number", "12.34")
+  end
+
+  test "finds related countries using the country finder" do
+    countries = 5.times.map { stub('country') }
+    Whitehall::Uploader::Finders::CountriesFinder.stubs(:find).with("first", "second", "third", "fourth", anything, anything).returns(countries)
+    row = Whitehall::Uploader::PublicationRow.new({
+        "country_1" => "first",
+        "country_2" => "second",
+        "country_3" => "third",
+        "country_4" => "fourth"
+      }, 1, @attachment_cache)
+    assert_equal countries, row.countries
   end
 end

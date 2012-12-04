@@ -20,6 +20,7 @@ module Whitehall::Uploader
         .ignored("ignore_*")
         .multiple(%w{attachment_#_url attachment_#_title}, 0..50)
         .optional('json_attachments')
+        .multiple("country_#", 0..4)
     end
 
     def title
@@ -74,10 +75,14 @@ module Whitehall::Uploader
       organisations.first
     end
 
+    def countries
+      Finders::CountriesFinder.find(row['country_1'], row['country_2'], row['country_3'], row['country_4'], @logger, @line_number)
+    end
+
     def attributes
       [:title, :summary, :body, :publication_date, :publication_type,
        :related_policies, :organisations, :document_series,
-       :ministerial_roles, :attachments, :alternative_format_provider].map.with_object({}) do |name, result|
+       :ministerial_roles, :attachments, :alternative_format_provider, :countries].map.with_object({}) do |name, result|
         result[name] = __send__(name)
       end
     end
