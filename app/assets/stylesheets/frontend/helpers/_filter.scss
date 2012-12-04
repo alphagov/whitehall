@@ -11,7 +11,7 @@
 
       .filter {
         width: 100%;
-        margin-top: $gutter;
+        margin-top: $gutter-two-thirds;
       }
     }
   }
@@ -21,7 +21,7 @@
   }
 
   label {
-    @include core-24;
+    @include core-19;
 
     &.sub-title {
       @include core-19;
@@ -148,19 +148,25 @@
     margin-bottom: $gutter-one-third;
 
     span {
-      @include core-24;
+    //  @include core-24;
       @include bold;
       color: $link-text;
 
       background-color: $info-background;
-      padding:0 $gutter-one-third;
-      display: inline-block;
+      padding:0 $gutter-one-sixth;
       margin-bottom: ($gutter-one-third/2);
+      @include border-radius(3px);
+      
+      @include media (tablet) {
+        white-space: nowrap;
+      }
 
       a {
+        position: relative;
+        top: 2px;
         @include core-19;
         line-height: 0;
-        display: none;
+        text-decoration: none;
       }
 
       &:hover a {
