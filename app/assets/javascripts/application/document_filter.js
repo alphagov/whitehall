@@ -167,11 +167,11 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
     },
     liveResultSummary: function(data, formStatus){
       var $selections = $('.selections'),
-          $title = $('.page_title').find('span'),
+          $title = $('.page_title'),
           summary = '';
 
       $selections.html('');
-      $title.text('');
+      $title.find('span').remove();
 
       if (data.total_count > 0) {
         summary = 'Showing <span class="count">' + data.total_count +' result';
@@ -189,7 +189,7 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
 
           if (j > 0) {
             if (formStatus.selected[i].id == "publication_filter_option" && formStatus.selected[i].value != "all") {
-              $title.text(": "+formStatus.selected[i].title[0]);
+              $title.append('<span>: '+formStatus.selected[i].title[0]+'</span>');
             } else if (formStatus.selected[i].id != 'sub_orgs' && formStatus.selected[i].id != 'date') {
               if (formStatus.selected[i].id == 'topics') {
                 summary += 'about ';
