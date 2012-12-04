@@ -65,7 +65,7 @@ class OrganisationsControllerTest < ActionController::TestCase
       description: "organisation-description"
     )
     get :show, id: organisation
-    assert_select ".organisation .name", text: "unformatted name"
+    assert_select ".organisation h1", text: "unformatted name"
     assert_select ".organisation .description", text: "organisation-description"
   end
 

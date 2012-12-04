@@ -15,7 +15,7 @@
   end
 %>
 <header class="page-header">
-  <%= content_tag :h1, class: organisation_h1_class(organisation) do %>
+  <%= content_tag :h1 do %>
     <% if link_to_organisation %>
       <%= link_to organisation_path(organisation), class: organisation_logo_classes(organisation, size: logo_size, stacked: true) do %>
         <span><%= format_with_html_line_breaks(h(organisation.logo_formatted_name)) %></span>

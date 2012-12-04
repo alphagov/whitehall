@@ -98,10 +98,4 @@ module OrganisationHelper
   def filter_terms(organisation)
     [organisation.slug, organisation.name, organisation.acronym].join(' ')
   end
-
-  def organisation_h1_class(organisation)
-    classes = %w(page_title name)
-    classes << "with-mainstream-links" if organisation.organisation_mainstream_links.any?
-    classes
-  end
 end
