@@ -58,15 +58,16 @@
               </td>
             <% end %>
           <% end %>
-          </tbody>
-        </table>
-        <%= paginate @filter.documents %>
-      <% else %>
-        <div class="no-results">
-          <h2>There are no matching announcements.</h2>
-          <p>Try making your search broader and try again.</p>
-        </div>
-      <% end %>
+        <% end %>
+        </tbody>
+      </table>
+      <%= paginate @filter.documents %>
+    <% else %>
+      <div class="no-results">
+        <h2>There are no matching announcements.</h2>
+        <p>Try making your search broader and try again.</p>
+      </div>
+    <% end %>
     </div>
   </div>
 </div>
