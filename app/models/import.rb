@@ -1,8 +1,10 @@
+require 'csv'
+
 class Import < ActiveRecord::Base
-  serialize :import_errors
   serialize :already_imported
   serialize :successful_rows
   has_many :document_sources
+  has_many :import_errors, dependent: :destroy
 
   belongs_to :creator, class_name: "User"
 
@@ -25,7 +27,6 @@ class Import < ActiveRecord::Base
       csv_data: csv_file && csv_file.read.force_encoding('utf-8'),
       creator_id: current_user.id,
       original_filename: csv_file && csv_file.original_filename,
-      import_errors: [],
       already_imported: [],
       successful_rows: [],
       log: ""
@@ -52,13 +53,13 @@ class Import < ActiveRecord::Base
   end
 
   def import_errors_for_row(row_number)
-    import_errors_by_row.fetch(row_number, []).map do |import_error|
-      import_error[:message]
+    import_errors.where(row_number: row_number).map do |import_error|
+      import_error.message
     end
   end
 
-  def import_errors_by_row
-    @import_errors_by_row ||= import_errors && import_errors.group_by {|error| error[:row_number]}
+  def number_of_rows_with_errors
+    import_errors.count(:row_number, distinct: true)
   end
 
   def perform(options = {})
@@ -154,6 +155,7 @@ class Import < ActiveRecord::Base
     # files without worrying about transactional
     # rollbacks for the actual import process.
     Import.establish_connection Rails.configuration.database_configuration[Rails.env]
+    ImportError.establish_connection Rails.configuration.database_configuration[Rails.env]
   end
 
   class ProgressLogger
@@ -186,9 +188,7 @@ class Import < ActiveRecord::Base
     end
 
     def error(error_message)
-      @import.import_errors ||= []
-      @import.import_errors << {row_number: @current_row, message: error_message}
-      @import.save
+      @import.import_errors.create!(row_number: @current_row, message: error_message)
     end
 
     def success(model_object)

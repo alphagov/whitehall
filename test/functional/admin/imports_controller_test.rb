@@ -73,10 +73,11 @@ class Admin::ImportsControllerTest < ActionController::TestCase
   end
 
   test "show shows errors if any" do
-    import = stub_record(:import, import_errors: [{row_number: 2, message: "Policy 'blah' does not exist"}],
-      creator: current_user, import_enqueued_at: Time.zone.now, import_started_at: Time.zone.now, import_finished_at: Time.zone.now)
-    import.stubs(:status).returns(:failed)
-    Import.stubs(:find).with(import.id.to_s).returns(import)
+    import = create(:import, creator: current_user,
+      import_enqueued_at: Time.zone.now,
+      import_started_at: Time.zone.now,
+      import_finished_at: Time.zone.now)
+    import.import_errors.create(row_number: 2, message: "Policy 'blah' does not exist")
 
     get :show, id: import
 
@@ -90,14 +91,13 @@ class Admin::ImportsControllerTest < ActionController::TestCase
   end
 
   test "can export annotated version of file with errors" do
-    import = stub_record(:import,
+    import = create(:import, creator: current_user,
       original_filename: "consultations.csv",
-      import_started_at: Time.zone.parse("2011-01-01 12:13:14"),
       csv_data: consultation_csv_sample,
-      import_errors: [{row_number: 2, message: "Policy 'blah' does not exist"}],
-      creator: current_user)
-    import.stubs(:status).returns(:failed)
-    Import.stubs(:find).with(import.id.to_s).returns(import)
+      import_enqueued_at: Time.zone.now,
+      import_started_at: Time.zone.parse("2011-01-01 12:13:14"),
+      import_finished_at: Time.zone.now)
+    import.import_errors.create(row_number: 2, message: "Policy 'blah' does not exist")
 
     get :annotated, id: import
 

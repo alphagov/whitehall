@@ -39,7 +39,7 @@
           <% if import.import_started_at %>
             <td class="success_count"><%= link_to import.document_sources.count, admin_import_path(import, anchor: "success") %></td>
             <td class="already_imported_count"><%= link_to import.already_imported && import.already_imported.size, admin_import_path(import, anchor: "already_imported") %></td>
-            <td class="error_count"><%= link_to import.import_errors_by_row && import.import_errors_by_row.size, admin_import_path(import, anchor: "errors") %></td>
+            <td class="error_count"><%= link_to import.number_of_rows_with_errors, admin_import_path(import, anchor: "errors") %></td>
             <td class="finished_at">
               <%= import.import_finished_at && render_datetime_microformat(import, :import_finished_at) { import.import_finished_at.to_s(:long)} %>
             </td>

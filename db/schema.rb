@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121203111348) do
+ActiveRecord::Schema.define(:version => 20121204101837) do
 
   create_table "attachment_data", :force => true do |t|
     t.string   "carrierwave_file"
@@ -408,11 +408,19 @@ ActiveRecord::Schema.define(:version => 20121203111348) do
   add_index "images", ["edition_id"], :name => "index_images_on_edition_id"
   add_index "images", ["image_data_id"], :name => "index_images_on_image_data_id"
 
+  create_table "import_errors", :force => true do |t|
+    t.integer  "import_id"
+    t.integer  "row_number"
+    t.string   "message"
+    t.datetime "created_at"
+  end
+
+  add_index "import_errors", ["import_id"], :name => "index_import_errors_on_import_id"
+
   create_table "imports", :force => true do |t|
     t.string   "original_filename"
     t.string   "data_type"
     t.text     "csv_data",           :limit => 2147483647
-    t.text     "import_errors"
     t.text     "already_imported"
     t.text     "successful_rows"
     t.integer  "creator_id"
