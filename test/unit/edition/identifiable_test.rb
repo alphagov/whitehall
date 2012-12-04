@@ -80,4 +80,24 @@ class Edition::IdentifiableTest < ActiveSupport::TestCase
     policy = create(:published_policy)
     refute policy.previewable?
   end
+
+  test "slug of an associated draft policy doesn't increment unexpectedly" do
+    policy1 = create(:draft_policy, title: "This is my policy")
+    policy2 = create(:draft_policy, title: "This is my policy")
+    policy1.body = "foo"
+    policy1.save
+
+    slug = policy2.document.slug
+    policy2.save
+    assert_equal slug, policy2.document.reload.slug
+  end
+
+  test "slug changes of draft if title changes" do
+    policy = create(:draft_policy, title: "This is my policy")
+    old_slug = policy.document.slug
+    policy.title = "Another thing"
+    policy.save
+
+    refute_equal old_slug, policy.document.reload.slug
+  end
 end
