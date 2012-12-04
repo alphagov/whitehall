@@ -137,7 +137,7 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
           params = $form.serializeArray();
 
       $submitButton.addClass('disabled');
-      $(".count span").text("Loading ");
+      $(".filter-results-summary").find('.selections').text("Loading results…");
       documentFilter.loading = true;
       // TODO: make a spinny updating thing
       $.ajax(jsonUrl, {
@@ -166,24 +166,64 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
       });
     },
     liveResultSummary: function(data, formStatus){
-      var $selections = $('.selections');
-      $selections.html("");
-      $(".results .count span").text(data.total_count);
+      var $selections = $('.selections'),
+          $title = $('.page_title'),
+          summary = '';
 
-      $selections.html("Results in <span class='topics-selections chosen'></span> and published by <span class='departments-selections chosen'></span>");
-      if(formStatus.selected){
+      $selections.html('');
+      $title.find('span').remove();
+
+      if (data.total_count > 0) {
+        summary = 'Showing <span class="count">' + data.total_count +' result';
+        if (data.total_count != 1) summary += 's';
+        summary += '</span> ';
+      } else {
+        summary = 'No results ';
+      }
+
+      if(formStatus.selected) {
         var i = formStatus.selected.length;
 
-        while(i--){
+        while(i--) {
           var j = formStatus.selected[i].title.length;
-          while(j--){
-            $selections.find("."+formStatus.selected[i].id+"-selections")
-              .append("<span>"+formStatus.selected[i].title[j]+" <a href='' data-val='"+formStatus.selected[i].value[j]+"' title='Remove this filter'>x</a></span> ");
+
+          if (j > 0) {
+            if (formStatus.selected[i].id == "publication_filter_option") {
+              if (formStatus.selected[i].value != "all") {
+                $title.append('<span>: '+formStatus.selected[i].title[0]+'</span>');
+              }
+            } else if (formStatus.selected[i].id != 'sub_orgs' && formStatus.selected[i].id != 'date') {
+              if (formStatus.selected[i].id == 'topics') {
+                summary += 'about ';
+              } else if (formStatus.selected[i].id == 'departments') {
+                summary += 'published by ';
+              }
+
+              summary += '<span class="'+formStatus.selected[i].id+'-selections chosen"> ';
+
+              while(j--) {
+                var selection = "<span>"+formStatus.selected[i].title[j]+" <a href='' data-val='"+formStatus.selected[i].value[j]+"' title='Remove this filter'>&times;</a></span> ";
+                if (j > 1) {
+                  selection += ", ";
+                } else if (j == 1 && formStatus.selected[i].title.length > 1) {
+                  selection += " and ";
+                }
+
+                summary += selection;
+              }
+
+              summary += '</span> ';
+            }
+
+
           }
         }
 
-        documentFilter.filterEvents();
       }
+
+      $selections.html(summary);
+
+      documentFilter.filterEvents();
     },
     filterEvents: function(){
       $(".selections .chosen span a").on("click", function(){
@@ -329,15 +369,15 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
           }
         })();
 
-        $form.find('input[name=keywords]').keyup(function () {
+        $('#keyword-filter')
+        .find('input[name=keywords]').keyup(function () {
           delay(function () {
             $form.submit();
           }, 600);
         });
 
-
         $(".submit").addClass("js-hidden");
-        
+
       }
       if($('#show-more-documents .previous').length === 0){
         documentFilter.initScroll();

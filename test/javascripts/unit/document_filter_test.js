@@ -25,7 +25,7 @@ module("Document filter", {
     this.atomLink = $('<div class="subscribe"><a class="feed">feed</a></div>');
     $('#qunit-fixture').append(this.atomLink);
 
-    this.resultsCount = $('<div class="results"><div class="count"><span></span></div></div>');
+    this.resultsCount = $('<div class="filter-results-summary"><h3 class="selections"></h3></div>');
     $('#qunit-fixture').append(this.resultsCount);
 
     this.selections = $('<div class="selections"></div>');
@@ -339,7 +339,7 @@ test("should create live count value", function(){
   var data = { total_count: 1337 };
 
   window.GOVUK.documentFilter.liveResultSummary(data, {});
-  equals(this.resultsCount.find('span').text(), '1337');
+  equals(this.resultsCount.find('span.count').text(), '1337 results');
 });
 
 test("should update selections to match filters", function(){
@@ -356,7 +356,7 @@ test("should update selections to match filters", function(){
 
   window.GOVUK.documentFilter.liveResultSummary(data, formStatus);
 
-  equals(this.selections.find('.topics-selections span').text(), 'my-title x');
+  equals(this.selections.find('.topics-selections span').text(), 'my-title ×');
   equals(this.selections.find('.topics-selections span a').attr('data-val'), 'my-value');
 });
 
@@ -389,4 +389,3 @@ test("should select first item in filter if no item would be selected", function
   GOVUK.documentFilter.removeFilters('dept1');
   equal(this.filterForm.find('select option:first-child:selected').length, 1);
 });
-
