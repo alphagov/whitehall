@@ -13,60 +13,64 @@
 
 <div class="block-2">
   <div class="inner-block">
-    
     <%= render partial: "documents/filter_form", locals: {document_type: :publication, filter_by_date: true, filter_by_publication_type: true} %>
-    <div class="filter-feed">
-      <%= link_to_feed filter_atom_feed_url %>
-    </div>
   </div>
 </div>
 
 <div class="block-4">
-  <div class="inner-block filter-results" id="publications-container" aria-live="polite"><%# this class used by Javascript %>
+  <div class="inner-block">
+    <%= render partial: "documents/filter_results" %>
     
-    <% if @filter.documents.any? %>
-      <table class="document-list emphasise-recent" id="document-list"><%# this class used by Javascript %>
-        <thead class="visuallyhidden">
-          <tr>
-            <th scope="col">Title</th>
-            <th scope="col">Publication Date</th>
-            <th scope="col">Publication Organisations</th>
-            <th scope="col">Publication Type</th>
-            <th scope="col">Publication Series</th>
-          </tr>
-        </thead>
-        <tbody>
-        <% @filter.documents.each_with_index do |document, i| %>
-          <%= content_tag_for(:tr, document, class: "document-row#{i < 3 ? ' recent' : ''}") do %>
-            <th scope="row" class="title attribute">
-              <%= link_to document.title, public_document_path(document),
-                  title: "View #{document.title}" %>
-            </th>
-            <td class="attribute publication_date">
-              <%= document.display_date_microformat %>
-            </td>
-            <td class="attribute organisations">
-              <%= document.organisations.map { |o|
-                organisation_display_name(o) }.to_sentence.html_safe %>
-            </td>
-            <td class="publication_type attribute">
-              <%= document.display_publication_type %>
-            </td>
-            <td class="publication_series attribute">
-              <% if document.part_of_series? %>
-                Part of a series: <%= link_to document.document_series.name, organisation_document_series_path(document.document_series.organisation, document.document_series) %>
-              <% end %>
-            </td>
+    <div class="filter-feed">
+      <%= link_to_feed filter_atom_feed_url %>
+    </div>
+    
+    <div class="filter-results" id="publications-container" aria-live="polite"><%# this class used by Javascript %>
+      
+      <% if @filter.documents.any? %>
+        <table class="document-list emphasise-recent" id="document-list"><%# this class used by Javascript %>
+          <thead class="visuallyhidden">
+            <tr>
+              <th scope="col">Title</th>
+              <th scope="col">Publication Date</th>
+              <th scope="col">Publication Organisations</th>
+              <th scope="col">Publication Type</th>
+              <th scope="col">Publication Series</th>
+            </tr>
+          </thead>
+          <tbody>
+          <% @filter.documents.each_with_index do |document, i| %>
+            <%= content_tag_for(:tr, document, class: "document-row#{i < 3 ? ' recent' : ''}") do %>
+              <th scope="row" class="title attribute">
+                <%= link_to document.title, public_document_path(document),
+                    title: "View #{document.title}" %>
+              </th>
+              <td class="attribute publication_date">
+                <%= document.display_date_microformat %>
+              </td>
+              <td class="attribute organisations">
+                <%= document.organisations.map { |o|
+                  organisation_display_name(o) }.to_sentence.html_safe %>
+              </td>
+              <td class="publication_type attribute">
+                <%= document.display_publication_type %>
+              </td>
+              <td class="publication_series attribute">
+                <% if document.part_of_series? %>
+                  Part of a series: <%= link_to document.document_series.name, organisation_document_series_path(document.document_series.organisation, document.document_series) %>
+                <% end %>
+              </td>
+            <% end %>
           <% end %>
-        <% end %>
-        </tbody>
-      </table>
-      <%= paginate @filter.documents %>
-    <% else %>
-      <div class="no-results">
-        <h2>There are no matching publications.</h2>
-        <p>Try making your search broader and try again.</p>
-      </div>
-    <% end %>
+          </tbody>
+        </table>
+        <%= paginate @filter.documents %>
+      <% else %>
+        <div class="no-results">
+          <h2>There are no matching publications.</h2>
+          <p>Try making your search broader and try again.</p>
+        </div>
+      <% end %>
+    </div>
   </div>
 </div>

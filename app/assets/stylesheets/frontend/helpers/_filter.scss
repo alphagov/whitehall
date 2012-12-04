@@ -1,79 +1,33 @@
 .filter-block {
-  background: $info-background;
-
   h2 {
     @include core-19;
-    padding: 0 $gutter-half;
   }
 
   form {
-    padding: 0 $gutter-one-sixth;
+    padding: 0;
     
     fieldset {
       position: relative;
-      .results{
-        background-color:white;
-        clear:both;
-        margin-left:-$gutter-two-thirds;
-        margin-right:-$gutter-two-thirds;
-        margin-top: $gutter-half;
-        padding:$gutter-two-thirds 0 0 $gutter-one-third;
-        @extend %contain-floats;
-        .count{
-          @include core-36;
-          @include bold;
-          padding-bottom: 0;
-          @include media (desktop) {
-            float: left;
-            width: 33.333%;
-            white-space: nowrap;
-          }
-        }
-        .selections{
-          position: relative;
-          @include core-14;
-          padding-top:$gutter-two-thirds;
-          @include media (desktop) {
-            float: right;
-            width: 66.666%;
-          }
-        }
-        .chosen span,
-        .chosen span{
-          background-color: $info-background;
-          padding:0 $gutter-one-third;
-          display: inline-block;
-        }
-      }
+
       .filter {
         width: 100%;
-        float: left;
-        .filter-inner {
-          padding: $gutter-one-sixth $gutter-one-third;
-        }
-      }
-      @include media (desktop) {
-        .filter {
-          width: 33.33%;
-          .filter-inner {
-            padding: $gutter-half $gutter-one-third $gutter-half;
-          }
-        }
-        .filter:nth-child(2) .filter-inner {
-          padding-right: 0;
-        }
-        .filter:nth-child(3) .filter-inner {
-          padding-left: 1px;
-        }
+        margin-top: $gutter;
       }
     }
   }
 
-  label.title {
-    @include core-14;
-    display: block;
-    padding-top: 0;
+  .sub-filter {
+    margin-top: $gutter-half;
   }
+
+  label {
+    @include core-24;
+
+    &.sub-title {
+      @include core-19;
+    }
+  }
+
   input {
     @include core-14;
     background: $white;
@@ -82,66 +36,59 @@
     @include media (desktop) {
       padding: $gutter-one-sixth 0;
       text-indent: $gutter-one-third;
-      border: 0;
     }
+
+    border-color: $light-keyline;
   }
+
   select {
     @include core-14;
     background: #fff;
     line-height: 1.3;
     width: 100%;
   }
+
   .multi-row-select {
-    border: 0;
+    border: 1px solid $light-keyline;
     width: 100%;
     padding-bottom: 0;
-    @include media (tablet) {
-      padding: $gutter-one-third;
-    }
-    @include media (desktop) {
-//      height: 195px;
-    }
   }
+
   .checkbox input {
     width: auto;
   }
-  .publication-type {
-    padding-bottom: $gutter-one-sixth;
-  }
+
   @include media (tablet) {
-    .publication-type,
-    .date-range {
-      select {
-        border: 1px solid #555;
-        margin: $gutter-one-sixth 0;
-        padding: $gutter-one-sixth $gutter-one-sixth $gutter-one-sixth $gutter-one-third;
-        width: 100%;
-        background: #fff;
-        background-image: image-url('dropdown-arrow-small.png');
-        background-repeat: no-repeat;
-        background-position: right center;
-        border-color: $light-keyline;
-        @include box-shadow(1px 1px 1px #fff);
-        @include border-radius($gutter-one-sixth);
-           -moz-appearance: none;
-            -ms-appearance: none;
-        -webkit-appearance: none;
-      }
+    .single-row-select {
+      border: 1px solid #555;
+      padding: $gutter-one-sixth $gutter-one-sixth $gutter-one-sixth $gutter-one-third;
+      width: 100%;
+      background: #fff;
+      background-image: image-url('dropdown-arrow-small.png');
+      background-repeat: no-repeat;
+      background-position: right center;
+      border-color: $light-keyline;
+      @include box-shadow(1px 1px 1px #fff);
+      @include border-radius($gutter-one-sixth);
+      @include appearance(none);
     }
   }
+
   .date-range {
-    padding-top: $gutter-one-third;
+    padding-bottom: $gutter-one-third;
 
     h3 {
       @include core-14;
       display: inline;
       padding-right: $gutter-half;
     }
+
     label {
       @include core-14;
       padding-right: $gutter-one-third;
     }
   }
+
   .submit {
     padding: $gutter-two-thirds 0 $gutter-one-third;
     margin: $gutter-one-sixth 0 0;
@@ -150,6 +97,7 @@
       padding-bottom: 0;
     }
   }
+
   .button {
     margin-top: $gutter;
     display: block;
@@ -167,6 +115,7 @@
     *background: lighten($charcoal-grey, 70%);
   }
 }
+
 .filter-feed {
   .subscribe {
     float: right;
@@ -182,6 +131,41 @@
     }
     p {
       @include core-19;
+    }
+  }
+}
+
+.filter-results-summary {
+  .count{
+    padding-bottom: 0;
+  }
+
+  .selections {
+    @include core-19;
+  }
+
+  .chosen {
+    margin-bottom: $gutter-one-third;
+
+    span {
+      @include core-24;
+      @include bold;
+      color: $link-text;
+
+      background-color: $info-background;
+      padding:0 $gutter-one-third;
+      display: inline-block;
+      margin-bottom: ($gutter-one-third/2);
+
+      a {
+        @include core-19;
+        line-height: 0;
+        display: none;
+      }
+
+      &:hover a {
+        display: inline;
+      }
     }
   }
 }
