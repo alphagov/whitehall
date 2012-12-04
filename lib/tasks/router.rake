@@ -19,10 +19,6 @@ namespace :router do
   task :register_routes => :router_environment do
     @router.create_route "government", "prefix", @application_name
     @router.delete_route "specialist"
-    VanityRedirector.new(Rails.root.join("app", "data", "vanity-redirects.csv")).each do |r, _|
-      @router.create_route(r, "full", @application_name)
-      @router.create_route(r.upcase, "full", @application_name)
-    end
   end
 
   desc "Register whitehall application and routes with the router (run this task on server in cluster)"
