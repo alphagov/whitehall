@@ -99,12 +99,6 @@ module OrganisationHelper
     [organisation.slug, organisation.name, organisation.acronym].join(' ')
   end
 
-  CUSTOM_VARIABLE = {
-    allocated_index: 9,
-    name: "Organisation(s)",
-    scope: 3,
-  }
-
   def organisation_h1_class(organisation)
     classes = %w(page_title name)
     classes << "with-mainstream-links" if organisation.organisation_mainstream_links.any?
