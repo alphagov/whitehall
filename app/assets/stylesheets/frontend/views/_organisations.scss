@@ -289,6 +289,7 @@
 
       &.first {
         .content {
+          @extend %contain-floats;
           .img-holder {
             @include media(tablet){
               width: 66.66%;
@@ -382,8 +383,11 @@
       }
 
       .content {
-        margin: $gutter/4;
-        padding: $gutter/4;
+        margin: $gutter-half;
+        padding: $gutter-one-sixth $gutter-half $gutter-one-third;
+        @include media(tablet){
+          padding-top: $gutter-half;
+        }
         background: $info-background;
 
         h1 {

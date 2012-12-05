@@ -34,7 +34,6 @@
     }
   }
   .organisations-icon-list {
-    padding-bottom: $gutter-one-third;
     .hm-government {
       padding-bottom: $gutter-one-sixth;
       margin-bottom: $gutter-one-sixth;
@@ -57,19 +56,6 @@
 }
 .show-other-content {
   @include core-14;
-  background: $info-background;
-  text-decoration: none;
-  display: inline-block;
   margin-left: 0.3em;
-  @include border-radius(0.250em);
-  padding: 1px 4px 0;
-  @include media(tablet) {
-    padding: 3px 6px 0 4px;
-  }
   white-space: nowrap;
-
-  .plus {
-    display: inline-block;
-    line-height: 0.5;
-  }
 }
