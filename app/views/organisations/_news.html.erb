@@ -4,13 +4,12 @@
 %>
 <%= content_tag_for(:article, edition, nil, class: "#{edition_organisation_class(edition)} #{extra_class}") do %>
   <div class="content">
-    <%= link_to public_document_path(edition), title: "Read the #{edition.title} article", class: 'img-holder' do %>
-      <span class="img"><%= edition.image_tag(image_size) %></span>
-    <% end %>
+    <span class="img-holder">
+      <%= link_to edition.image_tag(image_size), public_document_path(edition), title: "Read the #{edition.title} article", class: 'img'%>
+    </span>
     <div class="text">
-      <%= link_to public_document_path(edition) do %>
-        <h2><%= edition.title %></h2>
-      <% end %>
+      <p class="meta"><%= absolute_date(edition.timestamp_for_sorting) %> &mdash; <%= edition.display_type %></p>
+      <h2><%= link_to edition.title, public_document_path(edition) %></h2>
       <% unless edition.summary.blank? %>
         <p class="summary"><%= truncate(edition.summary, length: 150, separator: ' ') %></p>
       <% end %>

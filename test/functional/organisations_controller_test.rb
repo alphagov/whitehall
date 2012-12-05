@@ -168,9 +168,13 @@ class OrganisationsControllerTest < ActionController::TestCase
     end
 
     get :show, id: organisation
-    editions.take(6).each do |edition|
+
+    assert_select_object editions[0].edition do
+      assert_select "img[src$='#{editions[0].image.file.url(:s630)}'][alt=?]", editions[0].alt_text
+    end
+    editions[1...6].each do |edition|
       assert_select_object edition.edition do
-        assert_select "img[src$='#{edition.image.file.url}'][alt=?]", edition.alt_text
+        assert_select "img[src$='#{edition.image.file.url(:s300)}'][alt=?]", edition.alt_text
       end
     end
     refute_select_object editions.last.edition
@@ -179,7 +183,7 @@ class OrganisationsControllerTest < ActionController::TestCase
   test "should not display an empty featured editions section" do
     organisation = create(:organisation)
     get :show, id: organisation
-    refute_select "#featured-documents"
+    refute_select "#featured-documents article"
   end
 
   test "showing a live organisation renders the show template" do
@@ -722,7 +726,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     organisation = create(:organisation, editions: editions)
     get :show, id: organisation
 
-    assert_select "h1", "Latest"
+    assert_select ".latest-documents h1", "Latest"
     editions[0,3].each do |edition|
       assert_select_prefix_object edition, :recent
     end

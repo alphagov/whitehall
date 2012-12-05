@@ -10,10 +10,10 @@
     </div>
   </div>
 
-  <% if @featured_editions.any? %>
-    <div class="block-2">
-      <div class="inner-block">
-        <section class="organisation-news items-<%= @featured_editions.length %>" id="featured-documents">
+  <div class="block-2">
+    <div class="inner-block">
+      <section class="organisation-news items-<%= @featured_editions.length %>" id="featured-documents">
+        <% if @featured_editions.any? %>
           <%= render partial: 'news',
                     locals: { edition: @featured_editions.first,
                               extra_class: 'first',
@@ -23,46 +23,51 @@
                       locals: { edition: edition,
                                 extra_class: "secondary item-#{i}" } %>
           <% end %>
-        </section>
-      </div>
-    </div>
-  <% end %>
-
-  <div class="block-4">
-    <div class="inner-block">
-      <section id="recently_updated" class="latest_documents">
-        <div class="filter-feed">
-          <%= link_to_feed organisation_url(@organisation, format: :atom) %>
-        </div>
-        <h1 class="label">Latest</h1>
-        <% if @recently_updated.any? %>
-          <%= render partial: "shared/recently_updated",
-                      locals: {recently_updated: @recently_updated} %>
-        <% else %>
-          <p>No recent updates</p>
         <% end %>
+
+        <section id="recently-updated" class="latest-documents">
+          <div class="content">
+            <h1 class="label">Latest</h1>
+            <% if @recently_updated.any? %>
+              <%= render partial: "shared/recently_updated",
+                          locals: {recently_updated: @recently_updated} %>
+            <% else %>
+              <p>No recent updates</p>
+            <% end %>
+            <div class="filter-feed">
+              <%= link_to_feed organisation_url(@organisation, format: :atom) %>
+            </div>
+          </div>
+        </section>
       </section>
     </div>
   </div>
 
   <div class="block-5">
     <div class="inner-block">
-      <section id="what-we-do">
-        <% if @organisation.organisation_type.sub_organisation? %>
-          <p class="description"><%= @organisation.description %></p>
-          <div class="body">
-            <%= govspeak_to_html @organisation.about_us %>
-          </div>
-        <% else %>
-          <h1 class="label">What we do</h1>
-          <p class="description"><%= @organisation.description %></p>
-          <p class="parent_organisations">
-            <%= organisation_display_name_and_parental_relationship(@organisation) %><% if @organisation.department? %>,
-            supported by <%= link_to "#{@organisation.agencies_and_public_bodies.count} agencies and public bodies", organisations_path(anchor: @organisation.slug) %>.  <% end %>
-          </p>
-          <p><%= link_to "Read more about what we do", about_organisation_path(@organisation) %></p>
-        <% end %>
+      <section id="what-we-do" class="what-we-do">
+        <div class="content">
+          <% if @organisation.organisation_type.sub_organisation? %>
+            <p class="description"><%= @organisation.description %></p>
+            <div class="body">
+              <%= govspeak_to_html @organisation.about_us %>
+            </div>
+          <% else %>
+            <h1 class="label">What we do</h1>
+            <p class="description"><%= @organisation.description %></p>
+            <p class="parent_organisations">
+              <%= organisation_display_name_and_parental_relationship(@organisation) %><% if @organisation.department? %>,
+              supported by <%= link_to "#{@organisation.agencies_and_public_bodies.count} agencies and public bodies", organisations_path(anchor: @organisation.slug) %>.  <% end %>
+            </p>
+            <p><%= link_to "Read more about what we do", about_organisation_path(@organisation) %></p>
+          <% end %>
+        </div>
       </section>
+      <div class="social-media">
+        <div class="content">
+          <%= render 'social_media_accounts', organisation: @organisation %>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -291,9 +296,6 @@
           <% end %>
         </div>
 
-        <div class="social-media">
-          <%= render 'social_media_accounts', organisation: @organisation %>
-        </div>
 
       </div>
     </div>

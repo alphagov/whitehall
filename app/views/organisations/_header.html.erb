@@ -38,13 +38,13 @@
     <% end %>
   <% end %>
   <% if show_mainstream_links && organisation.organisation_mainstream_links.any? %>
-    <div class="organisation-mainstream-links">
+    <aside class="organisation-mainstream-links">
       <h4>Quick links</h4>
       <ul>
         <% organisation.organisation_mainstream_links.each do |link| %>
           <li><%= link_to link.title, link.url %></li>
         <% end %>
       </ul>
-    </div>
+    </aside>
   <% end %>
 </header>

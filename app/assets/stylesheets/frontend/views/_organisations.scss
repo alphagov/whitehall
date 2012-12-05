@@ -145,7 +145,6 @@
   .block-1,
   .block-2,
   .block-3,
-  .block-4,
   .block-5,
   .block-6,
   .block-7,
@@ -176,37 +175,11 @@
   }
 
   .block-2 {
-    padding-bottom: 0;
+    padding-bottom: $gutter;
   }
 
   .filter-feed .subscribe {
     margin-top: $gutter-one-third;
-  }
-
-  .block-4, .block-5 {
-    padding-top: $gutter-half;
-    @include media(tablet) {
-      padding-top: $gutter*2;
-    }
-  }
-
-  @include media(tablet) {
-    .block-4 {
-      float: left;
-      display: inline;
-      width: 33.333333%;
-    }
-
-    .block-5 {
-      float: left;
-      display: inline;
-      clear: none;
-      width: 66.6666666%;
-
-      .inner-block {
-        padding-left: $gutter-two-thirds;
-      }
-    }
   }
 
   h1.label,
@@ -221,9 +194,10 @@
 
   .page-header {
     padding: $gutter-two-thirds 0 $gutter-one-third;
+    overflow: hidden;
 
     h1 {
-      overflow: hidden;
+      padding: 0;
 
       @include media(tablet){
         float: left;
@@ -232,12 +206,19 @@
     }
 
     .organisation-mainstream-links {
+      padding-top: $gutter;
+
       @include media(tablet){
         float: left;
         width: 33%;
+      }
 
-        h4 {
-          display: none;
+      h4 {
+        @include core-19;
+
+        @include media(tablet){
+          position: absolute;
+          left: -9999em;
         }
       }
 
@@ -249,7 +230,7 @@
         }
 
         li {
-          @include core-19;
+          @include core-16;
         }
       }
     }
@@ -276,69 +257,84 @@
   .organisation-news {
     margin: 0 (-$gutter-half);
 
-    .first h2 {
-      margin-top: $gutter-one-sixth;
-    }
-
     article {
       @include media(tablet) {
         float: left;
-        width: 66%;
         display: inline;
         overflow: hidden;
       }
-    }
-    .content {
-      padding: $gutter-half $gutter-half $gutter-one-third;
-    }
-    h2 {
-      @include core-27;
-    }
-    .summary {
-      @include core-19;
-    }
-    .meta, .document-type {
-      float: left;
-      padding-right: $gutter-one-third;
-      white-space: nowrap;
-      @include core-16;
-      color: $low-contrast;
-    }
-    .img, .body {
-      @include media(tablet){
-        padding-right: $gutter-half;
-      }
-    }
-    &.items-4 {
-      @include media(desktop) {
-        .item-2 {
-          width: 66%;
 
-          .img {
-            display: block;
-            float: left;
-            width: 33%;
+      .content {
+        padding: $gutter-half $gutter-half $gutter-one-third;
+
+        .img {
+          display: block;
+          @include media(tablet){
+            padding-right: $gutter-half;
+          }
+        }
+        .meta {
+          @include core-14;
+          color: $low-contrast;
+          padding-bottom: 0;
+        }
+        h2 {
+          @include core-19;
+          padding-top: 0;
+        }
+        .summary {
+          @include core-16;
+        }
+      }
+
+      &.first {
+        .content {
+          .img-holder {
+            @include media(tablet){
+              width: 66.66%;
+              float: left;
+            }
+          }
+          .text {
+            @include media(tablet){
+              width: 33.33%;
+              float: left;
+
+              .meta, h2, .summary {
+                padding-left: $gutter-half;
+              }
+              .meta {
+                padding-top: 0;
+              }
+            }
+            h2 {
+              @include core-24;
+            }
+            .summary {
+              @include core-19;
+            }
           }
         }
       }
+      &.item-3 {
+        clear: both;
+      }
     }
+    &.items-1,
+    &.items-4 {
+      .latest-documents {
+        @include media(tablet){
+          width: 66.66%;
+        }
+      }
+    }
+
     .secondary {
       clear: both;
 
       @include media(tablet){
         width: 33%;
         clear: none;
-      }
-      @include media(tablet){
-        &.item-0,
-        &.item-1 {
-          .summary {
-            display: none;
-          }
-        }
-        &.item-2 {
-          clear:left;
-        }
       }
 
       .img-holder {
@@ -373,21 +369,77 @@
         @include core-16;
       }
     }
+
+    .latest-documents {
+      clear: both;
+      padding-top: $gutter-half;
+
+      @include media(tablet){
+        clear: none;
+        float: left;
+        width: 33%;
+        padding: 0;
+      }
+
+      .content {
+        margin: $gutter/4;
+        padding: $gutter/4;
+        background: $info-background;
+
+        h1 {
+          margin-bottom: 0;
+        }
+
+        .subscribe {
+          float: none;
+        }
+      }
+    }
   }
 
-  .document-list .document-row {
-    @include core-14;
-    border-bottom: none;
+  .document-list {
+    margin: 0;
 
-    th {
+    .document-row {
       @include core-14;
-      margin: $gutter-one-third 0 0 0;
-      padding: 0;
+      border-bottom: none;
+
+      th {
+        @include core-14;
+        margin: $gutter-one-third 0 0 0;
+        padding: 0;
+      }
+
+      td {
+        margin: 0;
+        padding: 0 $gutter-one-third 0 0;
+      }
+    }
+  }
+
+  .what-we-do {
+    @include media(tablet){
+      float: left;
+      width: 66.66%;
+
+      .content {
+        padding-right: $gutter-half;
+      }
+    }
+  }
+
+  .social-media {
+    @include media(tablet){
+      float: left;
+      width: 33.33%;
+
+      .content {
+        padding-left: $gutter-half;
+      }
     }
 
-    td {
-      margin: 0;
-      padding: 0 $gutter-one-third 0 0;
+    h2 {
+      @include core-24;
     }
   }
 
@@ -694,17 +746,6 @@
         left: $gutter-one-third;
       }
 
-      .social-media {
-        float: left;
-        clear: none;
-        margin-right: -100%;
-        margin-left: 66.666666%;
-        width: 33.333333%;
-
-        section {
-          padding: 0 $gutter-half;
-        }
-      }
     }
   }
 
@@ -761,6 +802,7 @@
   #special_representatives h1,
   #org-contacts h2,
   #recently_updated h1,
+  .social-media h2,
   #what-we-do h1 {
     border-bottom-width: 5px;
     border-bottom-style: solid;

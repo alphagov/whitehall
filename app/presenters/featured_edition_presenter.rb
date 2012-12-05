@@ -9,11 +9,7 @@ class FeaturedEditionPresenter < Draper::Base
   end
 
   def image_tag(size)
-    unless edition_organisation.image.file.url.is_a?(String)
-      image_url = edition_organisation.image.file.url(size || :s630)
-    else
-      image_url = edition_organisation.image.file.url
-    end
+    image_url = edition_organisation.image.file.url(size || :s630)
     h.image_tag image_url, class: 'featured-image', alt: edition_organisation.alt_text
   end
 end
