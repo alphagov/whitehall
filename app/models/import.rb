@@ -20,6 +20,7 @@ class Import < ActiveRecord::Base
   validate :valid_csv_data_encoding!
   validates :data_type, inclusion: { in: TYPES.keys.map(&:to_s), message: "%{value} is not a valid type" }
   validate :valid_csv_headings?, if: :valid_csv_data_encoding?
+  validate :all_rows_have_old_url?, if: :valid_csv_data_encoding?
 
   def self.read_file(file)
     return nil unless file
@@ -151,6 +152,12 @@ class Import < ActiveRecord::Base
     heading_validation_errors = row_class.heading_validation_errors(headers)
     heading_validation_errors.each do |e|
       errors.add(:csv_data, e)
+    end
+  end
+
+  def all_rows_have_old_url?
+    if blank_row_number = rows.find_index { |row| row.fields.any?(&:present?) && row['old_url'].blank? }
+      errors.add(:csv_data, "Row #{blank_row_number + 2}: old_url is blank")
     end
   end
 

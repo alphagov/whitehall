@@ -17,7 +17,19 @@ class ImportTest < ActiveSupport::TestCase
     Whitehall::Uploader::ConsultationRow.stubs(:heading_validation_errors).with(['a']).returns(["Bad stuff"])
     i = Import.new(csv_data: "a\n1", creator: stub_record(:user), data_type: "consultation")
     refute i.valid?
-    assert_equal ["Bad stuff"], i.errors[:csv_data]
+    assert_includes i.errors[:csv_data], "Bad stuff"
+  end
+
+  test 'invalid if any row lacks an old_url' do
+    i = Import.new(csv_data: consultation_csv_sample("old_url" => ""), creator: stub_record(:user), data_type: "consultation")
+    refute i.valid?, i.errors.full_messages.join(", ")
+    assert_equal ["Row 2: old_url is blank"], i.errors[:csv_data]
+  end
+
+  test 'valid if a whole row is completely blank' do
+    blank_row = Hash[minimally_valid_consultation_row.map {|k,v| [k,'']}]
+    i = Import.new(csv_data: consultation_csv_sample(blank_row), creator: stub_record(:user), data_type: "consultation")
+    assert i.valid?, i.errors.full_messages.join(", ")
   end
 
   test "invalid if file has invalid UTF8 encoding" do
