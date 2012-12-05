@@ -17,4 +17,5 @@ jQuery(document).ready(function($) {
     window.location.hash = e.target.hash;
     window.scrollTo(0, 0);
   })
+  $('.js-toggle-nav').toggler({header: ".toggler", content: ".content", showArrow: false, actLikeLightbox: true})
 })

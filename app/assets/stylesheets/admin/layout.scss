@@ -1,5 +1,5 @@
 body {
-  padding-top: 80px;
+  padding-top: 100px;
   padding-bottom: 40px;
 }
 .sidebar-nav {
@@ -9,8 +9,182 @@ body {
   padding-bottom: 40px;
 }
 
-header .open_website {
-  margin-right: 4em;
+header {
+  a:hover {
+    color: $white;
+  }
+    .open_website {
+    margin-right: 4em;
+  }
+}
+
+.row-fluid .span2 {
+  width: 100%;
+  @include media(desktop) {
+    width: 14%;
+  }
+}
+
+#global-nav {
+  background-color: #3b3b3b;
+  border-top: 1px solid #444;
+  clear: both;
+  overflow: hidden;
+
+  .toggler {
+    display: block;
+    cursor: pointer;
+    padding: $gutter-one-third 8px;
+    text-decoration: none;
+    width: 50px;
+
+    @include media(desktop){
+      display: inline-block;
+    }
+
+    &:hover,
+    &:focus {
+      text-decoration: underline;
+      outline: none;
+    }
+    &:after {
+      display: inline-block;
+      font-size: 8px;
+      height: 20px;
+      padding-left: 5px;
+      vertical-align: middle;
+      content: " \25BC";
+    }
+  }
+
+  &.open {
+    .toggler {
+      &:after {
+        content: " \25B2";
+      }
+    }
+  }
+
+  .jump-link {
+    float: right;
+
+    @include media(tablet){
+      position: absolute;
+      left: -99999em;
+    }
+  }
+
+  nav {
+    clear: both;
+
+    @include media(tablet){
+      clear: none;
+      background: transparent;
+      position: static;
+      margin-bottom: 0;
+    }
+
+    li {
+      display: block;
+      position: relative;
+
+      @include media(tablet){
+        display: inline;
+      }
+
+      .subtype {
+        @include media(tablet){
+          width: 14em;
+          text-align: left;
+          background: $inside-gov-secondary;
+          position: absolute;
+          right: 0;
+          z-index: 1;
+          @include box-shadow(0 2px 6px rgba(0, 0, 0, 0.2));
+          @include ie(7){
+            top: 40px;
+          }
+
+          li {
+            width: 100%;
+            display: block;
+            a {
+              display: block;
+            }
+          }
+        }
+      }
+      .toggler {
+        position: absolute;
+        &:focus {
+          text-decoration: none;
+        }
+
+        @include media(tablet){
+          position: relative;
+          left: auto;
+          z-index: 10;
+        }
+      }
+    }
+  }
+}
+
+.navbar .visuallyhidden {
+  display: none;
+  @include media(tablet) {
+    display: block;
+  }
+}
+
+.navbar-fixed-top,
+.navbar-fixed-bottom {
+  position: static;
+  margin: -100px 0 20px 0;
+  @include media(desktop) {
+    position: fixed;
+    margin: 0;
+  }
+}
+
+.navbar .nav.pull-right {
+  top: 0;
+  right: 0;
+  width: 100%;
+  .session-info-wrapper {
+    padding: 0 $gutter-two-thirds;
+    float: right;
+    @include media(tablet) {
+      float: left;
+    }
+  }
+  @include media(tablet) {
+    width: auto;
+  }
+}
+
+.navbar {
+  .website {
+    background-color: #000;
+    width: 100%;
+    .brand {
+      margin-left: 0;
+      &:hover {
+        color: $white;
+      }
+      &:after {
+        content: "|";
+        margin-left: $gutter-two-thirds;
+      }
+    }
+    @include media(tablet) {
+      width: auto;
+    }
+  }
+}
+
+.container-fluid {
+  padding: 0;
 }
 
 @include ie(6){
