@@ -85,6 +85,19 @@ class ImportTest < ActiveSupport::TestCase
     i.perform
   end
 
+  test "#perform skips blank rows" do
+    blank_row = Hash[minimally_valid_consultation_row.map {|k,v| [k,'']}]
+    Import.use_separate_connection
+    Import.delete_all
+    ImportError.delete_all
+    i = Import.create!(csv_data: consultation_csv_sample({}, [blank_row]), creator: stub_record(:user), data_type: "consultation")
+    i.perform
+    assert_equal [], i.import_errors
+    assert_equal 1, i.document_sources.count
+    assert_match /blank, skipped/, i.log
+    i.destroy
+  end
+
   test 'logs failure if save unsuccessful' do
     stub_document_source
     stub_row_class

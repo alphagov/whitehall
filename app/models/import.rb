@@ -82,6 +82,10 @@ class Import < ActiveRecord::Base
       rows.each_with_index do |data_row, ix|
         row_number = ix + 2
         progress_logger.at_row(row_number) do
+          if blank_row?(data_row)
+            progress_logger.info("blank, skipped")
+            next
+          end
           row = row_class.new(data_row.to_hash, row_number, attachment_cache, progress_logger)
           if DocumentSource.find_by_url(row.legacy_url)
             progress_logger.already_imported(row.legacy_url)
@@ -130,6 +134,10 @@ class Import < ActiveRecord::Base
 
   def rows
     @rows ||= CSV.parse(csv_data, headers: true, header_converters: [NilAsBlankConverter, :downcase])
+  end
+
+  def blank_row?(row)
+    row.fields.all?(&:blank?)
   end
 
   def row_class
