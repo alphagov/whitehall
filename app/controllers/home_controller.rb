@@ -19,6 +19,7 @@ class HomeController < PublicFacingController
 
   def how_government_works
     @policy_count = Policy.published.count
+    @non_ministerial_department_count = Organisation.where(organisation_type_id: OrganisationType.find_by_name('Non-ministerial department')).count
   end
 
 end

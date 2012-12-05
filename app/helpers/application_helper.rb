@@ -338,8 +338,4 @@ module ApplicationHelper
   def joined_ministerial_department_percent
     number_to_percentage(100*joined_ministerial_department_count.to_f/ministerial_department_count)
   end
-
-  def non_ministerial_department_count
-    @non_ministerial_department_count ||= Organisation.where(organisation_type_id: OrganisationType.find_by_name('Non-ministerial department')).count
-  end
 end
