@@ -26,6 +26,12 @@ class ImportTest < ActiveSupport::TestCase
     assert_equal ["Row 2: old_url is blank"], i.errors[:csv_data]
   end
 
+  test 'invalid if any an old_url is duplicated within the file' do
+    i = Import.new(csv_data: consultation_csv_sample({"old_url" => "http://example.com"}, [{"old_url" => "http://example.com"}]), creator: stub_record(:user), data_type: "consultation")
+    refute i.valid?, i.errors.full_messages.join(", ")
+    assert_equal ["Duplicate old_url 'http://example.com' in rows 2, 3"], i.errors[:csv_data]
+  end
+
   test 'valid if a whole row is completely blank' do
     blank_row = Hash[minimally_valid_consultation_row.map {|k,v| [k,'']}]
     i = Import.new(csv_data: consultation_csv_sample(blank_row), creator: stub_record(:user), data_type: "consultation")

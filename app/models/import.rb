@@ -21,6 +21,7 @@ class Import < ActiveRecord::Base
   validates :data_type, inclusion: { in: TYPES.keys.map(&:to_s), message: "%{value} is not a valid type" }
   validate :valid_csv_headings?, if: :valid_csv_data_encoding?
   validate :all_rows_have_old_url?, if: :valid_csv_data_encoding?
+  validate :no_duplicate_old_urls, if: :valid_csv_data_encoding?
 
   def self.read_file(file)
     return nil unless file
@@ -158,6 +159,16 @@ class Import < ActiveRecord::Base
   def all_rows_have_old_url?
     if blank_row_number = rows.find_index { |row| row.fields.any?(&:present?) && row['old_url'].blank? }
       errors.add(:csv_data, "Row #{blank_row_number + 2}: old_url is blank")
+    end
+  end
+
+  def no_duplicate_old_urls
+    urls = rows.map.with_index { |row, i| [i + 2, row['old_url']] }
+    duplicates = urls.group_by { |row_number, old_url| old_url }.select { |old_url, set| set.size > 1 }
+    if duplicates.any?
+      duplicates.each do |old_url, set|
+        errors.add(:csv_data, "Duplicate old_url '#{old_url}' in rows #{set.map {|r| r[0]}.join(', ')}")
+      end
     end
   end
 
