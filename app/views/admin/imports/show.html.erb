@@ -17,7 +17,7 @@
     <p>Queued: <%= render_datetime_microformat(@import, :import_enqueued_at) { @import.import_enqueued_at.to_s(:long)} %></p>
     <p>Started: <%= render_datetime_microformat(@import, :import_started_at) { @import.import_started_at.to_s(:long)} %></p>
 
-    <p class="summary">Import running (row <%= @import.current_row %> / <%= @import.total_rows %></p>
+    <p class="summary">Import running (row <%= @import.current_row %>/<%= @import.total_rows %>)</p>
   <% elsif @import.status == :failed %>
     <p>Queued: <%= render_datetime_microformat(@import, :import_enqueued_at) { @import.import_enqueued_at.to_s(:long)} %></p>
     <p>Started: <%= render_datetime_microformat(@import, :import_started_at) { @import.import_started_at.to_s(:long)} %></p>
