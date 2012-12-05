@@ -74,6 +74,14 @@ class Import < ActiveRecord::Base
     import_errors.count(:row_number, distinct: true)
   end
 
+  def acting_as(user)
+    original_user = PaperTrail.whodunnit
+    PaperTrail.whodunnit = user
+    yield
+  ensure
+    PaperTrail.whodunnit = original_user
+  end
+
   def perform(options = {})
     attachment_cache = options[:attachment_cache] || Whitehall::Uploader::AttachmentCache.new(Whitehall::Uploader::AttachmentCache.default_root_directory, progress_logger)
 
@@ -90,7 +98,9 @@ class Import < ActiveRecord::Base
           if document_source = DocumentSource.find_by_url(row.legacy_url)
             progress_logger.already_imported(row.legacy_url, document_source)
           else
-            import_row(row, row_number, creator, progress_logger)
+            acting_as(creator) do
+              import_row(row, row_number, creator, progress_logger)
+            end
           end
         end
       end
