@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121204101837) do
+ActiveRecord::Schema.define(:version => 20121205130148) do
 
   create_table "attachment_data", :force => true do |t|
     t.string   "carrierwave_file"
@@ -411,7 +411,7 @@ ActiveRecord::Schema.define(:version => 20121204101837) do
   create_table "import_errors", :force => true do |t|
     t.integer  "import_id"
     t.integer  "row_number"
-    t.string   "message"
+    t.text     "message"
     t.datetime "created_at"
   end
 
