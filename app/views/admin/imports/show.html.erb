@@ -68,7 +68,7 @@
       <ul class="already_imported">
         <% @import.already_imported.each do |already_imported| %>
           <% document_source = DocumentSource.find_by_url(already_imported[:url]) %>
-          <% edition = document_source.document.latest_edition %>
+          <% edition = document_source && document_source.document.latest_edition %>
           <li>
             <% if edition %>
               <%= link_to edition.title, admin_edition_path(edition) %>
@@ -81,8 +81,10 @@
                   orginal import job not recorded
                 <% end %>
               )
-            <% else %>
+            <% elsif document_source %>
               <em>imported edition has been deleted</em>
+            <% else %>
+              <em>edition not found: <code><%= already_imported[:url] %></code></em>
             <% end %>
           </li>
         <% end %>
