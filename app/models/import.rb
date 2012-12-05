@@ -87,8 +87,8 @@ class Import < ActiveRecord::Base
             next
           end
           row = row_class.new(data_row.to_hash, row_number, attachment_cache, progress_logger)
-          if DocumentSource.find_by_url(row.legacy_url)
-            progress_logger.already_imported(row.legacy_url)
+          if document_source = DocumentSource.find_by_url(row.legacy_url)
+            progress_logger.already_imported(row.legacy_url, document_source)
           else
             import_row(row, row_number, creator, progress_logger)
           end
@@ -231,10 +231,8 @@ class Import < ActiveRecord::Base
       @import.update_column(:current_row, @current_row)
     end
 
-    def already_imported(url)
-      @import.already_imported ||= []
-      @import.already_imported << {row_number: @current_row, url: url}
-      @import.save
+    def already_imported(url, document_source)
+      error("#{url} already imported by import '#{document_source.import_id}' row '#{document_source.row_number}'")
     end
 
     def write_log(level, data)

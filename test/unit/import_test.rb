@@ -85,6 +85,18 @@ class ImportTest < ActiveSupport::TestCase
     i.perform
   end
 
+  test "#perform records an error if a document has already been imported" do
+    DocumentSource.stubs(:find_by_url).with("http://example.com").returns(stub("document source", row_number: 2, import_id: 3))
+    Import.use_separate_connection
+    Import.delete_all
+    ImportError.delete_all
+    i = Import.create!(csv_data: consultation_csv_sample("old_url" => "http://example.com"), creator: stub_record(:user), data_type: "consultation")
+    i.perform
+    assert_equal 1, i.import_errors.count
+    assert_match /already imported/, i.import_errors.map(&:message).first
+    i.destroy
+  end
+
   test "#perform skips blank rows" do
     blank_row = Hash[minimally_valid_consultation_row.map {|k,v| [k,'']}]
     Import.use_separate_connection
