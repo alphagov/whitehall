@@ -158,7 +158,7 @@ class PublicationsControllerTest < ActionController::TestCase
       response.attachments << build(:attachment)
     end
     number_of_queries = count_queries { get :index }
-    assert number_of_queries < 15
+    assert number_of_queries < 17
   end
 
   test "index highlights selected topic filter options" do

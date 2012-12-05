@@ -26,6 +26,7 @@ class PeopleControllerTest < ActionController::TestCase
     Person.stubs(:find).with(@person.to_param).returns(@person)
     @controller.instance_variable_set(:@ministerial_department_count, 23)
     @controller.instance_variable_set(:@non_ministerial_department_count, 17)
+    @controller.instance_variable_set(:@joined_ministerial_department_count, 2)
   end
 
   test "show displays name and biography" do
