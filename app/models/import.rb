@@ -213,7 +213,7 @@ class Import < ActiveRecord::Base
 
     def write_log(level, data)
       log = @import.log || ""
-      log << "Row #{@current_row || '-'} - #{level}: #{data}"
+      log << "Row #{@current_row || '-'} - #{level}: #{data}\n"
       @import.update_column(:log, log)
     end
   end
