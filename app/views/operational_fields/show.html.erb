@@ -62,14 +62,14 @@
                   <% if fatality_notice.fatality_notice_casualties.any? %>
                     <%= fatality_notice.summary %>
                   <% else %>
-                    <%= link_to fatality_notice.summary, fatality_notice_path(fatality_notice) %>
+                    <%= link_to fatality_notice.summary, public_document_url(fatality_notice) %>
                   <% end %>
                 </h3>
                 <% if fatality_notice.fatality_notice_casualties.any? %>
                   <ul class="casualties">
                     <% fatality_notice.fatality_notice_casualties.each do |casualty| %>
                       <%= content_tag_for :li, casualty do %>
-                        <%= link_to casualty.personal_details, fatality_notice_path(fatality_notice) %>
+                        <%= link_to casualty.personal_details, public_document_url(fatality_notice) %>
                       <% end %>
                     <% end %>
                   </ul>

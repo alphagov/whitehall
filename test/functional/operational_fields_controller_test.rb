@@ -60,7 +60,7 @@ class OperationalFieldsControllerTest < ActionController::TestCase
     get :show, id: iraq
 
     assert_select_object fatality_notice do
-      assert_select ".summary a[href='#{fatality_notice_path(fatality_notice)}']", text: fatality_notice.summary
+      assert_select ".summary a[href='#{public_document_url(fatality_notice)}']", text: fatality_notice.summary
       refute_select '.casualties'
     end
   end
