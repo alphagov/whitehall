@@ -1,4 +1,4 @@
-.person {
+.person-excerpt {
   list-style: none;
   clear: left;
   @include media(tablet){
@@ -16,46 +16,39 @@
 
   .inner {
     padding: 0 $gutter-half $gutter-half;
+    @extend %contain-floats;
   }
 
   .image_holder {
     float: left;
     margin: 0;
+    padding-right: $gutter-one-third;
     width: 25%;
-    min-width: 5rem;
-    min-width: 50px;
+    min-width: 7.7rem;
+    min-width: 77px;
     min-height: 5rem;
     min-height: 50px;
 
     @include media(tablet){
+      padding: 0;
       float: none;
       width: 100%;
     }
 
-    span {
-      margin: $gutter-one-third $gutter-half 0 0;
-      overflow: hidden;
+    img {
+      display: block;
 
-      @include media(desktop){
-        margin: 0;
-      }
+      width: 100%;
+      height: auto;
 
-      img {
-        display: block;
-        min-width: 7.8rem;
-        min-width: 78px;
-        min-height: 5rem;
-        min-height: 50px;
+      // @include media($max-width: '350px') {
+      //   margin-left: -25%;
+      // }
 
-        @include media($max-width: '350px') {
-          margin-left: -25%;
-        }
-
-        @include media(tablet) {
-          width: 100%;
-          height: auto;
-          margin-left: 0;
-        }
+      @include media(tablet) {
+        width: 100%;
+        height: auto;
+        margin-left: 0;
       }
     }
   }
