@@ -1,2 +1,7 @@
 <%= form.label :statistical_data_set_document_ids, 'Related statistical data sets' %>
-<%= form.select :statistical_data_set_document_ids, options_from_collection_for_select(statistical_data_set_options, :first, :last, edition.statistical_data_set_document_ids), {}, multiple: true, class: 'chzn-select', data: { placeholder: "Choose statistical data sets..."} %>
+<%= form.select :statistical_data_set_document_ids,
+                options_from_collection_for_select(statistical_data_set_options, :first, :last, edition.statistical_data_set_document_ids),
+                { include_blank: true },
+                multiple: true,
+                class: 'chzn-select',
+                data: { placeholder: "Choose statistical data sets..."} %>
