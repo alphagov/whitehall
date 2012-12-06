@@ -181,11 +181,11 @@ header {
       width: auto;
     }
   }
+  .container-fluid {
+    padding: 0;
+  }
 }
 
-.container-fluid {
-  padding: 0;
-}
 
 @include ie(6){
   .navbar-fixed-top, .navbar-fixed-bottom {
