@@ -5,20 +5,16 @@
   <div class="inner-block">
     <section class="document-page-header">
       <header class="page-header">
-      <h1 class="page_title">
-        <span class="inner">
-          <span class="label">British fatalities</span>
-          <span class="title">Operations in <%= @operational_field.name %></span>
-        </span>
-      </h1>
-        <aside class="meta">
-          <dl>
-            <dd class="organisations">
-              <%= render  partial: 'organisations/organisations_logo_list',
-                        locals: { organisations: [@organisation] } %>
-            </dd>
-          </dl>
-        </aside>
+        <h1 class="page_title">
+          <span class="inner">
+            <span class="label">British fatalities</span>
+            <span class="title">Operations in <%= @operational_field.name %></span>
+          </span>
+        </h1>
+        <div class="meta">
+          <%= render partial: 'organisations/organisations_logo_list',
+              locals: { organisations: [@organisation] } %>
+        </div>
       </header>
     </section>
   </div>
