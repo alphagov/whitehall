@@ -43,6 +43,28 @@ class OperationalFieldsControllerTest < ActionController::TestCase
     assert_equal [FatalityNoticePresenter.new(iraq_fatality)], assigns(:fatality_notices)
   end
 
+  test "shows recent casualties" do
+    iraq = create(:operational_field)
+    fatality_notice = create(:published_fatality_notice, operational_field: iraq)
+    casualty = create(:fatality_notice_casualty, fatality_notice: fatality_notice)
+
+    get :show, id: iraq
+
+    assert_select_object casualty
+  end
+
+  test "only shows title when there are no casualties" do
+    iraq = create(:operational_field)
+    fatality_notice = create(:published_fatality_notice, operational_field: iraq)
+
+    get :show, id: iraq
+
+    assert_select_object fatality_notice do
+      assert_select ".summary a[href='#{fatality_notice_path(fatality_notice)}']", text: fatality_notice.summary
+      refute_select '.casualties'
+    end
+  end
+
   test "index displays a rudimentary index of fields (for url hackers)" do
     fields = [
       stub_record(:operational_field),
