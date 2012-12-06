@@ -130,14 +130,13 @@
             <section id="ministers">
               <h1 class="label">Our ministers</h1>
               <ul class="js-hide-extra-rows">
-              <% @ministers.each do |minister, roles| %>
-                <%= render partial: "ministerial_roles/role",
+              <% @ministers.each do |role| %>
+                <%= render partial: "people/person",
                             locals: {
-                              person: minister,
-                              person_class: 'ministerial_role',
-                              roles: roles,
+                              person: role.current_person,
+                              roles: [role],
                               hlevel: "h3",
-                              hide_image: true
+                              hide_image: false
                             } %>
               <% end %>
               </ul>
@@ -148,18 +147,15 @@
             <section id="military">
               <h1 class="label">Our senior military officials</h1>
               <ul class="js-hide-extra-rows">
-                <% @military_roles.each do |military_role| %>
-                  <%= content_tag_for(:li, military_role) do %>
-                    <div class="inner">
-                      <h1 class="visuallyhidden">Military role</h1>
-                      <div class="image_holder">
-                        <%= military_role.current_person_image %>
-                      </div>
-                      <h3 class="current-appointee"><%= military_role.current_person_link %></h3>
-                      <p class="role"><%= military_role.link %></p>
-                    </div>
-                  <% end %>
-                <% end %>
+                <% @military_roles.each do |role| %>
+                <%= render partial: "people/person",
+                            locals: {
+                              person: role.current_person,
+                              roles: [role],
+                              hlevel: "h3",
+                              hide_image: false
+                            } %>
+              <% end %>
               </ul>
             </section>
           <% end %>
@@ -168,22 +164,15 @@
             <section id="special_representatives">
               <h1 class="label">Special representatives</h1>
               <ul class="js-hide-extra-rows">
-                <% @special_representatives.each do |special_representative| %>
-                  <%= content_tag_for(:li, special_representative) do %>
-                    <div class="inner">
-                      <h1 class="visuallyhidden"><%= special_representative.name %></h1>
-                      <div class="image_holder">
-                        <span class="img">
-                          <%= special_representative.current_person_image %>
-                        </span>
-                      </div>
-                      <h3 class="current-appointee">
-                        <%= special_representative.current_person_link %>
-                      </h3>
-                      <p class="role"><%= special_representative.link %></p>
-                    </div>
-                  <% end %>
-                <% end %>
+                <% @special_representatives.each do |role| %>
+                <%= render partial: "people/person",
+                            locals: {
+                              person: role.current_person,
+                              roles: [role],
+                              hlevel: "h3",
+                              hide_image: false
+                            } %>
+              <% end %>
               </ul>
             </section>
           <% end %>
@@ -192,29 +181,24 @@
             <section id="management">
               <h1 class="label">Our management</h1>
               <ul>
-                  <%= content_tag_for(:li, @civil_servants.first) do %>
-                    <div class="inner">
-                      <h1 class="visuallyhidden">Board member</h1>
-                      <div class="image_holder">
-                        <span class="img">
-                          <%= @civil_servants.first.current_person_image %>
-                        </span>
-                      </div>
-                      <h3 class="current-appointee"><%= @civil_servants.first.current_person_link %></h3>
-                      <p class="role"><%= @civil_servants.first.link %></p>
-                    </div>
-                  <% end %>
+                <%= render partial: "people/person",
+                locals: {
+                  person: @civil_servants.first.current_person,
+                  roles: [@civil_servants.first],
+                  hlevel: "h3",
+                  hide_image: false
+                } %>
               </ul>
 
               <ul class="management-secondary js-hide-extra-rows-2">
                 <% @civil_servants.to_a.from(1).each do |civil_servant| %>
-                  <%= content_tag_for(:li, civil_servant) do %>
-                    <div class="inner">
-                      <h1 class="visuallyhidden">Board member</h1>
-                      <h3 class="current-appointee"><%= civil_servant.current_person_link %></h3>
-                      <p class="role"><%= civil_servant.link %></p>
-                    </div>
-                  <% end %>
+                  <%= render partial: "people/person",
+                  locals: {
+                    person: civil_servant.current_person,
+                    roles: [civil_servant],
+                    hlevel: "h3",
+                    hide_image: true
+                  } %>
                 <% end %>
               </ul>
             </section>
@@ -224,17 +208,14 @@
             <section id="traffic_commissioners">
               <h1 class="label">Traffic commissioners</h1>
               <ul class="js-hide-extra-rows">
-                <% @traffic_commissioner_roles.each do |traffic_commissioner_role| %>
-                  <%= content_tag_for(:li, traffic_commissioner_role) do %>
-                    <div class="inner">
-                      <h1 class="visuallyhidden">Traffic commissioner</h1>
-                      <div class="image_holder">
-                        <%= traffic_commissioner_role.current_person_image %>
-                      </div>
-                      <h3 class="current-appointee"><%= traffic_commissioner_role.current_person_link %></h3>
-                      <p class="role"><%= traffic_commissioner_role.link %></p>
-                    </div>
-                  <% end %>
+                <% @traffic_commissioner_roles.each do |traffic_commissioner| %>
+                  <%= render partial: "people/person",
+                  locals: {
+                    person: traffic_commissioner.current_person,
+                    roles: [traffic_commissioner],
+                    hlevel: "h3",
+                    hide_image: false
+                  } %>
                 <% end %>
               </ul>
             </section>

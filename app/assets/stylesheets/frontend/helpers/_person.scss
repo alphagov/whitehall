@@ -1,0 +1,109 @@
+.person {
+  list-style: none;
+  clear: left;
+  @include media(tablet){
+    clear: none;
+  }
+
+  @include media(tablet) {
+    float: left;
+    width: 25%;
+
+    &:nth-child(4n+1) {
+      clear: both;
+    }
+  }
+
+  .inner {
+    padding: 0 $gutter-half $gutter-half;
+  }
+
+  .image_holder {
+    float: left;
+    margin: 0;
+    width: 25%;
+    min-width: 5rem;
+    min-width: 50px;
+    min-height: 5rem;
+    min-height: 50px;
+
+    @include media(tablet){
+      float: none;
+      width: 100%;
+    }
+
+    span {
+      margin: $gutter-one-third $gutter-half 0 0;
+      overflow: hidden;
+
+      @include media(desktop){
+        margin: 0;
+      }
+
+      img {
+        display: block;
+        min-width: 7.8rem;
+        min-width: 78px;
+        min-height: 5rem;
+        min-height: 50px;
+
+        @include media($max-width: '350px') {
+          margin-left: -25%;
+        }
+
+        @include media(tablet) {
+          width: 100%;
+          height: auto;
+          margin-left: 0;
+        }
+      }
+    }
+  }
+
+  .current-appointee {
+    padding-top: 0;
+    a {
+      &:hover,
+      &:focus,
+      &:active {
+        text-decoration: none;
+
+        strong {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+
+  .role a {
+    text-decoration: none;
+    &:hover,
+    &:focus,
+    &:active {
+      text-decoration: underline;
+    }
+  }
+
+  span {
+    display: block;
+    @include core-14;
+    padding-bottom: 0;
+    color: $low-contrast;
+  }
+  strong {
+    display: block;
+    @include core-19;
+  }
+  &.privy_counsellor strong {
+    padding-top: 0;
+  }
+
+  .role {
+    @include core-14;
+    padding-top: 2px;
+    padding-top: 0.2rem;
+    a {
+      color: $body-text;
+    }
+  }
+}

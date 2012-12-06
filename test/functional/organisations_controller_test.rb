@@ -110,7 +110,7 @@ class OrganisationsControllerTest < ActionController::TestCase
 
     get :show, id: organisation
 
-    assert_select_object chief_of_the_defence_staff do
+    assert_select_object person do
       assert_select "a[href=?]", person_path(person), text: person.name
     end
   end
@@ -576,8 +576,8 @@ class OrganisationsControllerTest < ActionController::TestCase
   end
 
   test "shows traffic commissioner roles in the specified order" do
-    junior_role = create(:traffic_commissioner_role)
-    senior_role = create(:traffic_commissioner_role)
+    junior_role = create(:traffic_commissioner_role, role_appointments: [create(:role_appointment)])
+    senior_role = create(:traffic_commissioner_role, role_appointments: [create(:role_appointment)])
     organisation = create(:organisation)
     create(:organisation_role, organisation: organisation, role: junior_role, ordering: 2)
     create(:organisation_role, organisation: organisation, role: senior_role, ordering: 1)
@@ -588,8 +588,8 @@ class OrganisationsControllerTest < ActionController::TestCase
   end
 
   test "shows military roles in the specified order" do
-    junior_role = create(:military_role)
-    senior_role = create(:military_role)
+    junior_role = create(:military_role, role_appointments: [create(:role_appointment)])
+    senior_role = create(:military_role, role_appointments: [create(:role_appointment)])
     organisation = create(:organisation)
     create(:organisation_role, organisation: organisation, role: junior_role, ordering: 2)
     create(:organisation_role, organisation: organisation, role: senior_role, ordering: 1)
@@ -607,7 +607,7 @@ class OrganisationsControllerTest < ActionController::TestCase
 
     get :show, id: organisation
 
-    assert_select_object minister do
+    assert_select_object person do
       assert_select "a[href=?]", person_path(person), text: person.name
     end
   end
@@ -624,11 +624,11 @@ class OrganisationsControllerTest < ActionController::TestCase
 
     get :show, id: organisation
 
-    assert_select_object(ministerial_role_1) do
+    assert_select_object(person_1) do
       assert_select ".current-appointee a[href=#{person_path(person_1)}]", "Fred"
       assert_select "a[href=#{ministerial_role_path(ministerial_role_1)}]", text: "Secretary of State"
     end
-    assert_select_object(ministerial_role_2) do
+    assert_select_object(person_2) do
       assert_select ".current-appointee a[href=#{person_path(person_2)}]", "Bob"
       assert_select "a[href=#{ministerial_role_path(ministerial_role_2)}]", text: "Minister of State"
     end
@@ -665,10 +665,10 @@ class OrganisationsControllerTest < ActionController::TestCase
     get :show, id: organisation
 
     assert_select management_selector do
-      assert_select_object(permanent_secretary) do
+      assert_select_object(senior_person) do
         assert_select "a[href='#{person_path(senior_person)}']"
       end
-      assert_select_object(junior) do
+      assert_select_object(junior_person) do
         assert_select "a[href='#{person_path(junior_person)}']"
       end
     end
@@ -692,7 +692,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     get :show, id: organisation
 
     assert_select special_representative_selector do
-      assert_select_object(special_representative_role) do
+      assert_select_object(representative) do
         assert_select "a[href='#{person_path(representative)}']"
       end
     end
