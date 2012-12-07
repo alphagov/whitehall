@@ -43,7 +43,7 @@ class MinisterialRolesControllerTest < ActionController::TestCase
 
     get :index
 
-    assert_select ".ministerial_role" do
+    assert_select_object(person) do
       assert_select ".current-appointee", text: "John Doe"
       assert_minister_role_links_to_their_role(ministerial_role)
     end
@@ -56,8 +56,8 @@ class MinisterialRolesControllerTest < ActionController::TestCase
 
     get :index
 
-    assert_select ".ministerial_role" do
-      assert_select ".current-appointee a[href=?]", person_path(person), text: "John Doe"
+    assert_select_object(person) do
+      assert_select "a[href=?]", person_path(person), text: "John Doe"
       assert_minister_role_links_to_their_role(ministerial_role)
     end
   end

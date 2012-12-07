@@ -15,7 +15,13 @@
       <h1 class="label">Cabinet ministers</h1>
       <ul id="cabinet" class="cabinet_list">
         <% @cabinet_ministerial_roles.each do |person, roles| %>
-          <%= render partial: "role", locals: {person: person, roles: roles, hlevel: "h2"} %>
+          <%= render partial: "people/person",
+              locals: {
+                person: person,
+                roles: roles,
+                hlevel: "h2",
+                hide_image: false
+          } %>
         <% end %>
       </ul>
     </section>
@@ -32,7 +38,7 @@
             <h2 class="alphabetical-list-letter"><%= letter %></h2>
             <ul class="ministerial_roles">
               <% entries.each do |person, roles| %>
-                <%= render partial: "role",
+                <%= render partial: "people/person",
                             locals: {
                               person: person,
                               roles: roles,

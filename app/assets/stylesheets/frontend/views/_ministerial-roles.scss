@@ -52,31 +52,6 @@
       .inner {
         padding: 0 $gutter-half $gutter-half;
       }
-      
-      .image_holder {
-        float: left;
-        margin: 0;
-        width: 25%;
-        @include media(tablet) {
-          float: none;
-          width: 100%;
-        }
-        
-        a {
-          display: block;
-          padding: ($gutter-one-third - 2px) $gutter-half ($gutter-one-third + 2px) 0;
-          @include media(tablet) {
-            padding: 0;
-          }
-        }
-        
-        img {
-          display: block;
-          width: 100%;
-          height: auto;
-          min-height: 50px;
-        }
-      }
                 
       strong {
         @include bold;
