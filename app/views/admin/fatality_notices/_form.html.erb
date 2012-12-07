@@ -7,10 +7,12 @@
 
   </fieldset>
 
-  <fieldset class="named fatality-notice-casualties form-horizontal">
+  <fieldset class="named fatality-notice-casualties form-horizontal js-duplicate-fields">
     <legend>Casualties</legend>
     <%= form.fields_for :fatality_notice_casualties do |casualty_form| %>
-      <%= casualty_form.text_area :personal_details, horizontal: true %>
+      <div class="js-duplicate-fields-set">
+        <%= casualty_form.text_area :personal_details, horizontal: true, rows: 2 %>
+      </div>
     <% end %>
   </fieldset>
 
