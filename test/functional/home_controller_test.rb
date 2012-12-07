@@ -127,6 +127,7 @@ class HomeControllerTest < ActionController::TestCase
 
   test "home page lists coming soon non-minsterial departments" do
     create(:ministerial_organisation_type)
+    create(:sub_organisation_type)
 
     type = create(:non_ministerial_organisation_type)
     department = create(:organisation, govuk_status: 'transitioning', organisation_type: type)
@@ -134,6 +135,17 @@ class HomeControllerTest < ActionController::TestCase
     get :home
 
     assert_select '.agencies .coming-soon p', /#{department.name}/
+  end
+
+  test "home page does not list transitioning sub-orgs" do
+    create(:ministerial_organisation_type)
+    create(:sub_organisation_type)
+
+    department = create(:sub_organisation, govuk_status: 'transitioning')
+
+    get :home
+
+    refute_select '.agencies .coming-soon p', text: /#{department.name}/
   end
 
   private
