@@ -85,6 +85,14 @@ class ImportTest < ActiveSupport::TestCase
     i.perform
   end
 
+  test "document version history is recorded in the name of the creator" do
+    user = create(:user)
+    i = Import.create!(csv_data: consultation_csv_sample, creator: user, data_type: "consultation")
+    i.perform
+    e = i.document_sources.map {|ds| ds.document.editions}.flatten.first
+    assert_equal user.id, e.versions.first.whodunnit.to_i
+  end
+
   test "#perform records an error if a document has already been imported" do
     DocumentSource.stubs(:find_by_url).with("http://example.com").returns(stub("document source", row_number: 2, import_id: 3))
     Import.use_separate_connection
