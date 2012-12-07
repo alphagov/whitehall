@@ -41,10 +41,6 @@
       width: 100%;
       height: auto;
 
-      // @include media($max-width: '350px') {
-      //   margin-left: -25%;
-      // }
-
       @include media(tablet) {
         width: 100%;
         height: auto;
