@@ -117,7 +117,7 @@ class HomeControllerTest < ActionController::TestCase
     assert_select '.live-other-departments', '1'
   end
 
-  test "home page lists coming soon minsterial departments" do
+  test "home page lists coming soon ministerial departments" do
     department = create(:ministerial_department, govuk_status: 'transitioning')
 
     get :home
@@ -125,7 +125,7 @@ class HomeControllerTest < ActionController::TestCase
     assert_select '.departments .coming-soon p', /#{department.name}/
   end
 
-  test "home page lists coming soon non-minsterial departments" do
+  test "home page lists coming soon non-ministerial departments" do
     create(:ministerial_organisation_type)
     create(:sub_organisation_type)
 
