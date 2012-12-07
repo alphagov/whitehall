@@ -32,6 +32,22 @@ database.yml.
     $ bundle exec rake db:create:all
     $ bundle exec rake db:schema:load
 
+### Running tests locally
+
+Three environment variables must be set up, typically:
+
+    GOVUK_APP_DOMAIN=dev.gov.uk
+    GOVUK_ASSET_HOST=http://static.dev.gov.uk
+    RAILS_ENV=test
+
+Then run
+
+    $ bundle exec rake
+
+Alternatively run
+
+    $ govuk_setenv whitehall-frontend env RAILS_ENV=test bundle exec rake
+
 ### Getting a copy of live data
 
 There's a capistrano task which will download a dump of the mysql
