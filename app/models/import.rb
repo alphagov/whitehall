@@ -98,8 +98,8 @@ class Import < ActiveRecord::Base
           if document_source = DocumentSource.find_by_url(row.legacy_url)
             progress_logger.already_imported(row.legacy_url, document_source)
           else
-            acting_as(creator) do
-              import_row(row, row_number, creator, progress_logger)
+            acting_as(automatic_data_importer) do
+              import_row(row, row_number, automatic_data_importer, progress_logger)
             end
           end
         end
@@ -112,6 +112,10 @@ class Import < ActiveRecord::Base
 
   def progress_logger
     @progress_logger ||= ProgressLogger.new(self)
+  end
+
+  def automatic_data_importer
+    User.find_by_name!("Automatic Data Importer")
   end
 
   def import_row(row, row_number, creator, progress_logger)

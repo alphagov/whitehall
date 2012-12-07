@@ -4,6 +4,10 @@ require 'support/consultation_csv_sample_helpers'
 class ImportTest < ActiveSupport::TestCase
   include ConsultationCsvSampleHelpers
 
+  setup do
+    @automatic_data_importer = create(:importer, name: "Automatic Data Importer")
+  end
+
   test "valid if known type" do
     i = Import.new(csv_data: consultation_csv_sample, data_type: "consultation")
     assert i.valid?, i.errors.full_messages.to_s
@@ -85,12 +89,12 @@ class ImportTest < ActiveSupport::TestCase
     i.perform
   end
 
-  test "document version history is recorded in the name of the creator" do
-    user = create(:user)
-    i = Import.create!(csv_data: consultation_csv_sample, creator: user, data_type: "consultation")
+  test "document version history is recorded in the name of the automatic data importer" do
+    i = Import.create!(csv_data: consultation_csv_sample, creator: stub_record(:user), data_type: "consultation")
     i.perform
     e = i.document_sources.map {|ds| ds.document.editions}.flatten.first
-    assert_equal user.id, e.versions.first.whodunnit.to_i
+    assert_equal [@automatic_data_importer], e.authors
+    assert_equal @automatic_data_importer.id, e.versions.first.whodunnit.to_i
   end
 
   test "#perform records an error if a document has already been imported" do
