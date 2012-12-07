@@ -1,4 +1,4 @@
-.fields-of-operation-list {
+.fields-of-operation-index {
   .page-header {
     padding: $gutter-half 0;
     @include media(tablet){
@@ -25,7 +25,7 @@
   }
 }
 
-.operational-field-page {
+.operational-field-show {
 
   h2 {
     @include core-27;
