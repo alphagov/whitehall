@@ -22,8 +22,8 @@ module Whitehall::Uploader
         .optional(%w{consultation_ISBN consultation_URN})
         .required(%w{response_date response_summary})
         .ignored("ignore_*")
-        .multiple(%w{response_#_url response_#_title response_#_ISBN}, 0..50)
-        .multiple(%w{attachment_#_url attachment_#_title}, 0..50)
+        .multiple(%w{response_#_url response_#_title response_#_ISBN}, 0..Row::ATTACHMENT_LIMIT)
+        .multiple(%w{attachment_#_url attachment_#_title}, 0..Row::ATTACHMENT_LIMIT)
     end
 
     def title
@@ -92,7 +92,7 @@ module Whitehall::Uploader
     private
 
     def build_attachments
-      result = 1.upto(50).map do |number|
+      result = 1.upto(Row::ATTACHMENT_LIMIT).map do |number|
         if row["attachment_#{number}_title"] || row["attachment_#{number}_url"]
           Builders::AttachmentBuilder.build({title: row["attachment_#{number}_title"]}, row["attachment_#{number}_url"], @attachment_cache, @logger, @line_number)
         end
@@ -142,7 +142,7 @@ module Whitehall::Uploader
       private
 
       def build_attachments
-        1.upto(50).map do |number|
+        1.upto(Row::ATTACHMENT_LIMIT).map do |number|
           if row["response_#{number}_title"] || row["response_#{number}_url"]
             attachment = Builders::AttachmentBuilder.build({title: row["response_#{number}_title"]}, row["response_#{number}_url"], @attachment_cache, @logger, @line_number)
             attachment.isbn = row["response_#{number}_isbn"]

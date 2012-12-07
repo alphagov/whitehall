@@ -2,6 +2,8 @@ require 'whitehall/uploader/heading_validator'
 
 module Whitehall::Uploader
   class Row
+    ATTACHMENT_LIMIT = 100
+
     def self.heading_validation_errors(headings)
       validator.errors(headings)
     end
