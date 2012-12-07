@@ -839,6 +839,11 @@
     }
   }
 
+
+  p .url-link {
+    display: block;
+    word-wrap: break-word;
+  }
   .page-header {
     padding: $gutter-half 0 $gutter 0;
 
@@ -901,7 +906,6 @@
       top: $gutter-one-third;
       right: $gutter-one-third;
     }
-
   }
 
   #recently-updated table {
