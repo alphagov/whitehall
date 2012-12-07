@@ -24,5 +24,4 @@ class FatalityNotice < Announcement
   def has_operational_field?
     true
   end
-
 end
