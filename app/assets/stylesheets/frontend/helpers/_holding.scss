@@ -1,0 +1,13 @@
+.holding-block {
+  @include media(desktop){
+    width: 66%;
+    margin: $gutter 0;
+  }
+
+  h1 {
+    @include core-48;
+  }
+  p {
+    @include core-24;
+  }
+}
