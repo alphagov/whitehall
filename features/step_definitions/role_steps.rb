@@ -20,5 +20,5 @@ end
 Then /^I should see "([^"]*)" listed on the "([^"]*)" organisation page$/ do |person_name, organisation_name|
   visit_organisation organisation_name
   role = find_person(person_name).roles.first
-  assert page.has_css?(record_css_selector(role))
+  assert page.has_css?(record_css_selector(role.current_person))
 end
