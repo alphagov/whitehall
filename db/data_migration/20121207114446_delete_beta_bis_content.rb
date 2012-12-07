@@ -19,7 +19,7 @@ data.each do |row|
   elsif ! edition.deleted?
     old_title = edition.title
     edition.title = "DELETED (#{old_title})"
-    edition.delete
+    edition.state = 'deleted'
     edition.save
     puts "Deleted #{old_title}"
     deleted += 1
