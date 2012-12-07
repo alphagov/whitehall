@@ -1,0 +1,98 @@
+.person-excerpt {
+  list-style: none;
+  clear: left;
+  @include media(tablet){
+    clear: none;
+  }
+
+  @include media(tablet) {
+    float: left;
+    width: 25%;
+
+    &:nth-child(4n+1) {
+      clear: both;
+    }
+  }
+
+  .inner {
+    padding: 0 $gutter-half $gutter-half;
+    @extend %contain-floats;
+  }
+
+  .image_holder {
+    float: left;
+    margin: 0;
+    padding-right: $gutter-one-third;
+    width: 25%;
+    min-width: 7.7rem;
+    min-width: 77px;
+    min-height: 5rem;
+    min-height: 50px;
+
+    @include media(tablet){
+      padding: 0;
+      float: none;
+      width: 100%;
+    }
+
+    img {
+      display: block;
+
+      width: 100%;
+      height: auto;
+
+      @include media(tablet) {
+        width: 100%;
+        height: auto;
+        margin-left: 0;
+      }
+    }
+  }
+
+  .current-appointee {
+    padding-top: 0;
+    a {
+      &:hover,
+      &:focus,
+      &:active {
+        text-decoration: none;
+
+        strong {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+
+  .role a {
+    text-decoration: none;
+    &:hover,
+    &:focus,
+    &:active {
+      text-decoration: underline;
+    }
+  }
+
+  span {
+    display: block;
+    @include core-14;
+    padding-bottom: 0;
+    color: $low-contrast;
+  }
+  strong {
+    display: block;
+    @include core-19;
+  }
+  &.privy_counsellor strong {
+    padding-top: 0;
+  }
+
+  .role {
+    @include core-14;
+    padding-top: 2px;
+    padding-top: 0.2rem;
+    a {
+      color: $body-text;
+    }
+  }
+}

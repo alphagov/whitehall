@@ -31,9 +31,7 @@
     @include media(tablet){
       padding: $gutter*1.5 0 ($gutter + $gutter-one-third);
     }
-  }
 
-  header.person {
     h1 {
       padding-bottom: 0;
       @include bold;

@@ -27,7 +27,7 @@ class RolePresenter < Draper::Base
     if path
       h.link_to name, path
     else
-      name
+      ERB::Util.html_escape name
     end
   end
 
