@@ -8,10 +8,6 @@ jQuery(function($) {
   $('.js-toggle-change-notes').toggler();
   $('.js-hide-other-links').hideOtherLinks();
 
-  var inside_gov = $(".inside_gov_home");
-  if(inside_gov.length != 0){
-    $(".recently_updated").news_ticker();
-  }
   $('section.featured_carousel').each(function () {
     $(this).addClass('slider');
     $(this).find('article').addClass('slide');
