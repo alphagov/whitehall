@@ -39,6 +39,12 @@ Given /^the "([^"]*)" organisation is associated with traffic commissioners$/ do
   create(:role_appointment, role: traffic_commissioner_role)
 end
 
+Given /^the "([^"]*)" organisation is associated with scientific advisors$/ do |organisation_name|
+  organisation = Organisation.find_by_name(organisation_name) || create(:ministerial_department, name: organisation_name)
+  chief_scientific_advisor_role = create(:chief_scientific_advisor_role, name: "csi-role", organisations: [organisation])
+  create(:role_appointment, role: chief_scientific_advisor_role)
+end
+
 Given /^a submitted corporate publication "([^"]*)" about the "([^"]*)"$/ do |publication_title, organisation_name|
   organisation = Organisation.find_by_name(organisation_name)
   create(:submitted_corporate_publication, title: publication_title, organisations: [organisation])
@@ -105,7 +111,7 @@ end
 
 Then /^I should be able to view all civil servants for the "([^"]*)" organisation$/ do |name|
   organisation = Organisation.find_by_name!(name)
-  organisation.board_member_roles.each do |role|
+  organisation.management_roles.each do |role|
     assert page.has_css?(record_css_selector(role.current_person))
   end
 end

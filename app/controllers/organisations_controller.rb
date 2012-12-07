@@ -60,7 +60,7 @@ class OrganisationsController < PublicFacingController
   end
 
   def civil_servants
-    @civil_servant_roles = @organisation.board_member_roles.order("organisation_roles.ordering").map do |role|
+    @civil_servant_roles = @organisation.management_roles.order("organisation_roles.ordering").map do |role|
       RolePresenter.new(role)
     end
   end

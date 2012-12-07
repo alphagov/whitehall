@@ -98,4 +98,12 @@ module OrganisationHelper
   def filter_terms(organisation)
     [organisation.slug, organisation.name, organisation.acronym].join(' ')
   end
+
+  def people_to_show?
+    @ministers.any? ||
+      @special_representatives.any? ||
+      @civil_servants.any? ||
+      @organisation.military_roles.any? ||
+      @traffic_commissioner_roles.any?
+  end
 end

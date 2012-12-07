@@ -82,10 +82,10 @@ class Organisation < ActiveRecord::Base
             class_name: 'MinisterialRole',
             through: :organisation_roles,
             source: :role
-  has_many :board_member_roles,
-            class_name: 'BoardMemberRole',
+  has_many :management_roles,
             through: :organisation_roles,
-            source: :role
+            source: :role,
+            conditions: "type = 'BoardMemberRole' OR type = 'ChiefScientificAdvisorRole'"
   has_many :military_roles,
             class_name: 'MilitaryRole',
             through: :organisation_roles,
@@ -94,16 +94,6 @@ class Organisation < ActiveRecord::Base
             class_name: 'TrafficCommissionerRole',
             through: :organisation_roles,
             source: :role
-  has_many :permanent_secretary_board_member_roles,
-            class_name: 'BoardMemberRole',
-            through: :organisation_roles,
-            source: :role,
-            conditions: { permanent_secretary: true }
-  has_many :other_board_member_roles,
-            class_name: 'BoardMemberRole',
-            through: :organisation_roles,
-            source: :role,
-            conditions: { permanent_secretary: false }
   has_many :special_representative_roles,
             class_name: 'SpecialRepresentativeRole',
             through: :organisation_roles,

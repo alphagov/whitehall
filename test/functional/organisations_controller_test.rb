@@ -660,7 +660,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     junior = create(:board_member_role)
     junior_person = create(:person)
     create(:role_appointment, role: junior, person: junior_person)
-    organisation = create(:organisation, board_member_roles: [permanent_secretary, junior])
+    organisation = create(:organisation, management_roles: [permanent_secretary, junior])
 
     get :show, id: organisation
 
@@ -675,7 +675,7 @@ class OrganisationsControllerTest < ActionController::TestCase
   end
 
   test "should not display an empty management team section" do
-    organisation = create(:organisation, board_member_roles: [])
+    organisation = create(:organisation, management_roles: [])
 
     get :show, id: organisation
 

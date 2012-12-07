@@ -122,7 +122,7 @@
     </div>
   <% end %>
 
-  <% if @ministers.any? || @special_representatives.any? || @civil_servants.any? || @organisation.military_roles.any? || @traffic_commissioner_roles.any? %>
+  <% if people_to_show? %>
     <div class="block-9">
       <div class="inner-block">
         <section id="who">

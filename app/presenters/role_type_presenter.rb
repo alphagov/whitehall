@@ -17,7 +17,8 @@ class RoleTypePresenter
     "Managerial" => {
       "permanent_secretary" => RoleType.new(BoardMemberRole.name, false, true, false),
       "board_member" => RoleType.new(BoardMemberRole.name, false, false, false),
-      "traffic_commissioner" => RoleType.new(TrafficCommissionerRole.name, false, false, false)
+      "traffic_commissioner" => RoleType.new(TrafficCommissionerRole.name, false, false, false),
+      "chief_scientific_advisor" => RoleType.new(ChiefScientificAdvisorRole.name, false, false, false)
     },
     "Military" => {
       "chief_of_the_defence_staff" => RoleType.new(MilitaryRole.name, false, false, true),

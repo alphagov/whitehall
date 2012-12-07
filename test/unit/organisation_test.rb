@@ -159,16 +159,22 @@ class OrganisationTest < ActiveSupport::TestCase
     assert_equal [], organisation.traffic_commissioner_roles
   end
 
-  test '#board_member_roles includes all non-ministerial roles' do
+  test '#management_roles includes all board member roles' do
     permanent_secretary = create(:board_member_role)
     organisation = create(:organisation, roles:  [permanent_secretary])
-    assert_equal [permanent_secretary], organisation.board_member_roles
+    assert_equal [permanent_secretary], organisation.management_roles
   end
 
-  test '#board_member_roles excludes any ministerial roles' do
+  test '#management_roles excludes any ministerial roles' do
     minister = create(:ministerial_role)
     organisation = create(:organisation, roles:  [minister])
-    assert_equal [], organisation.board_member_roles
+    assert_equal [], organisation.management_roles
+  end
+
+  test '#management_roles also includes chief scientific advisor roles' do
+    chief_scientific_advisor = create(:chief_scientific_advisor_role)
+    organisation = create(:organisation, roles:  [chief_scientific_advisor])
+    assert_equal [chief_scientific_advisor], organisation.management_roles
   end
 
   test '#special_representative_roles includes all special representatives' do

@@ -81,11 +81,11 @@
       </div>
     <% end %>
 
-    <% if @board_member_organisation_roles.any? %>
+    <% if @management_organisation_roles.any? %>
       <div class="span4">
         <fieldset id="board_member_ordering" class="sortable">
-          <legend>Board member ordering</legend>
-          <%= organisation_role_ordering_fields(organisation_form, @board_member_organisation_roles) %>
+          <legend>Management team ordering</legend>
+          <%= organisation_role_ordering_fields(organisation_form, @management_organisation_roles) %>
         </fieldset>
       </div>
     <% end %>
