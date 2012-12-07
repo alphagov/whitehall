@@ -23,6 +23,8 @@ module Whitehall
     load asset_host_override
   end
 
+  class NoConfigurationError < StandardError; end
+
   class << self
     PUBLIC_HOSTS = {
       'whitehall.preview.alphagov.co.uk'    => 'www.preview.alphagov.co.uk',
@@ -53,7 +55,7 @@ module Whitehall
     end
 
     def asset_host
-      ENV['GOVUK_ASSET_HOST']
+      ENV['GOVUK_ASSET_HOST'] || raise(NoConfigurationError, 'Expected GOVUK_ASSET_HOST to be set. Perhaps you should run your task through govuk_setenv <appname>?')
     end
 
     def router_prefix
