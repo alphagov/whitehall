@@ -57,7 +57,7 @@
           <h2 id="fatalities">Fatalities</h2>
           <ul>
             <% @fatality_notices.each do |fatality_notice| %>
-              <%= content_tag_for :li, fatality_notice do %>
+              <%= content_tag_for :li, fatality_notice, class: 'fatality-notice' do %>
                 <h3 class="summary">
                   <% if fatality_notice.fatality_notice_casualties.any? %>
                     <%= fatality_notice.summary %>
@@ -68,7 +68,7 @@
                 <% if fatality_notice.fatality_notice_casualties.any? %>
                   <ul class="casualties">
                     <% fatality_notice.fatality_notice_casualties.each do |casualty| %>
-                      <%= content_tag_for :li, casualty do %>
+                      <%= content_tag_for :li, casualty, class: 'casualty' do %>
                         <%= link_to casualty.personal_details, public_document_url(fatality_notice) %>
                       <% end %>
                     <% end %>
