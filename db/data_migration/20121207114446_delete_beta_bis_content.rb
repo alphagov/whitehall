@@ -20,6 +20,7 @@ data.each do |row|
     old_title = edition.title
     edition.title = "DELETED (#{old_title})"
     edition.delete
+    edition.save
     puts "Deleted #{old_title}"
     deleted += 1
   end
