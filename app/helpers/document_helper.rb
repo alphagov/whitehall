@@ -55,6 +55,7 @@ module DocumentHelper
       "pdf" => content_tag(:abbr, 'PDF', title: 'Portable Document Format'),
       "csv" => content_tag(:abbr, 'CSV', title: 'Comma-separated Values'),
       "rtf" => content_tag(:abbr, 'RTF', title: 'Rich Text Format'),
+      "rdf" => content_tag(:abbr, 'RDF', title: 'Resource Description Framework'),
       "png" => content_tag(:abbr, 'PNG', title: 'Portable Network Graphic'),
       "jpg" => "JPEG",
       "zip" => content_tag(:abbr, 'ZIP', title: 'Zip archive'),
