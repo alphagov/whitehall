@@ -66,6 +66,50 @@ class Admin::FatalityNoticesControllerTest < ActionController::TestCase
     assert_select "section", text: %r{#{field.name}}
   end
 
+  test "should display fields for new fatality notice casualties" do
+    get :new
+
+    assert_select "textarea[name='edition[fatality_notice_casualties_attributes][0][personal_details]']"
+  end
+
+  test "creating should be able to create a new casualty for the fatality notice" do
+    attributes = attributes_for(:fatality_notice)
+    field = create(:operational_field)
+    org = create(:organisation)
+
+    post :create, edition: attributes.merge(
+      operational_field_id: field.id,
+      organisation_ids: [org.id],
+      fatality_notice_casualties_attributes: {"0" =>{
+        personal_details: "Personal details"
+      }}
+    )
+    assert fatality_notice = FatalityNotice.last
+    assert fatality_notice_casuality = fatality_notice.fatality_notice_casualties.last
+    assert_equal "Personal details", fatality_notice_casuality.personal_details
+  end
+
+  test "updating should destroy existing fatality notice casualties if all its field are blank" do
+    attributes = attributes_for(:fatality_notice)
+    field = create(:operational_field)
+    org = create(:organisation)
+    attributes.merge!({
+        organisation_ids: [org.id],
+        operational_field_id: field.id
+      })
+    fatality_notice = create(:fatality_notice, attributes)
+    casualty = create(:fatality_notice_casualty, fatality_notice: fatality_notice)
+
+    put :update, id: fatality_notice, edition: attributes.merge(
+      fatality_notice_casualties_attributes: {"0" =>{
+          id: casualty.id,
+          personal_details: "",
+      }}
+    )
+
+    assert_equal 0, fatality_notice.fatality_notice_casualties.length
+  end
+
   private
 
   def controller_attributes_for(edition_type, attributes = {})

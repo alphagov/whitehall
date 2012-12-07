@@ -1,24 +1,20 @@
 <% page_title @operational_field.name %>
-<% page_class "operational-field-page" %>
+<% page_class "operational-field-show" %>
 
 <div class="block-1">
   <div class="inner-block">
     <section class="document-page-header">
       <header class="page-header">
-      <h1 class="page_title">
-        <span class="inner">
-          <span class="label">British fatalities</span>
-          <span class="title">Operations in <%= @operational_field.name %></span>
-        </span>
-      </h1>
-        <aside class="meta">
-          <dl>
-            <dd class="organisations">
-              <%= render  partial: 'organisations/organisations_logo_list',
-                        locals: { organisations: [@organisation] } %>
-            </dd>
-          </dl>
-        </aside>
+        <h1 class="page_title">
+          <span class="inner">
+            <span class="label">British fatalities</span>
+            <span class="title">Operations in <%= @operational_field.name %></span>
+          </span>
+        </h1>
+        <div class="meta">
+          <%= render partial: 'organisations/organisations_logo_list',
+              locals: { organisations: [@organisation] } %>
+        </div>
       </header>
     </section>
   </div>
@@ -59,22 +55,28 @@
       <div class="fatalities">
         <% if @fatality_notices.any? %>
           <h2 id="fatalities">Fatalities</h2>
-          <table class="document-list">
-            <thead class="visuallyhidden">
-              <tr>
-                <th scope="col">Title</th>
-                <th scope="col">Date</th>
-              </tr>
-            </thead>
-            <tbody>
-              <% @fatality_notices.each do |fatality_notice| %>
-                <%= content_tag_for :tr, fatality_notice, class: "document-row" do %>
-                  <th scope="row" class="title attribute"><%= fatality_notice.link %></th>
-                  <td class="date attribute"><%= fatality_notice.display_date_microformat %></td>
+          <ul>
+            <% @fatality_notices.each do |fatality_notice| %>
+              <%= content_tag_for :li, fatality_notice, class: 'fatality-notice' do %>
+                <h3 class="summary">
+                  <% if fatality_notice.fatality_notice_casualties.any? %>
+                    <%= fatality_notice.summary %>
+                  <% else %>
+                    <%= link_to fatality_notice.summary, public_document_url(fatality_notice) %>
+                  <% end %>
+                </h3>
+                <% if fatality_notice.fatality_notice_casualties.any? %>
+                  <ul class="casualties">
+                    <% fatality_notice.fatality_notice_casualties.each do |casualty| %>
+                      <%= content_tag_for :li, casualty, class: 'casualty' do %>
+                        <%= link_to casualty.personal_details, public_document_url(fatality_notice) %>
+                      <% end %>
+                    <% end %>
+                  </ul>
                 <% end %>
               <% end %>
-            </tbody>
-          </table>
+            <% end %>
+          </ul>
         <% else %>
           <p>There have been no fatality notices added for this field of operation yet.</p>
         <% end %>
