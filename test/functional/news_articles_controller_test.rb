@@ -29,21 +29,6 @@ class NewsArticlesControllerTest < ActionController::TestCase
     assert_select ".body", text: "body-in-html"
   end
 
-  #test "renders the news article notes to editors using govspeak" do
-  #  news_article = create(:published_news_article, notes_to_editors: "notes-to-editors-in-govspeak")
-  #  govspeak_transformation_fixture default: "\n", "notes-to-editors-in-govspeak" => "notes-to-editors-in-html" do
-  #    get :show, id: news_article.document
-  #  end
-
-  #  assert_select "#{notes_to_editors_selector}", text: /notes-to-editors-in-html/
-  #end
-
-  #test "excludes the notes to editors section if they're empty" do
-  #  news_article = create(:published_news_article, notes_to_editors: "")
-  #  get :show, id: news_article.document
-  #  refute_select "#{notes_to_editors_selector}"
-  #end
-
   test "shows when updated news article was first published and last updated" do
     news_article = create(:published_news_article, published_at: 10.days.ago)
 
