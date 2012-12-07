@@ -18,7 +18,7 @@ module Whitehall::Uploader
         .required(%w{publication_type document_series publication_date})
         .optional(%w{order_url price isbn urn command_paper_number}) # First attachment
         .ignored("ignore_*")
-        .multiple(%w{attachment_#_url attachment_#_title}, 0..ATTACHMENT_LIMIT)
+        .multiple(%w{attachment_#_url attachment_#_title}, 0..Row::ATTACHMENT_LIMIT)
         .optional('json_attachments')
         .multiple("country_#", 0..4)
     end
@@ -101,7 +101,7 @@ module Whitehall::Uploader
     end
 
     def attachments_from_columns
-      1.upto(ATTACHMENT_LIMIT).map do |number|
+      1.upto(Row::ATTACHMENT_LIMIT).map do |number|
         next unless row["attachment_#{number}_title"] || row["attachment_#{number}_url"]
         Builders::AttachmentBuilder.build({title: row["attachment_#{number}_title"]}, row["attachment_#{number}_url"], @attachment_cache, @logger, @line_number)
       end.compact
