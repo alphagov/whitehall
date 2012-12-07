@@ -7,5 +7,14 @@
 
   </fieldset>
 
+  <fieldset class="named fatality-notice-casualties form-horizontal js-duplicate-fields">
+    <legend>Casualties</legend>
+    <%= form.fields_for :fatality_notice_casualties do |casualty_form| %>
+      <div class="js-duplicate-fields-set">
+        <%= casualty_form.text_area :personal_details, horizontal: true, rows: 2 %>
+      </div>
+    <% end %>
+  </fieldset>
+
   <%= render partial: 'first_published_at', locals: { form: form, edition: edition } %>
 <% end %>
