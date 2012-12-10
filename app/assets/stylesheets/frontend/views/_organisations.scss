@@ -968,7 +968,7 @@
       @include core-19;
       @include bold;
     }
-    &+ aside {
+    &+ aside, p {
       clear: both;
       padding-top: $gutter-half;
     }
