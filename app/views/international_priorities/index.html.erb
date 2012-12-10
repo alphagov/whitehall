@@ -1,10 +1,32 @@
 <% page_title "International Priorities" %>
 <% page_class "international-priorities-index" %>
 
-<div class="g4">
-  <header class="page-header">
-    <h1 class="page_title">International Priorities</h1>
-  </header>
+<div class="block-1">
+  <div class="inner-block">
+    <header class="page-header">
+      <h1 class="title">International Priorities</h1>
+    </header>
+  </div>
 </div>
 
-<%= render partial: "grouped_list", locals: {international_priorities: @international_priorities} %>
+<div class="block-2">
+  <div class="inner-block">
+    <section class="simple-alphabetical-list" id="international_priorities">
+      <% @international_priorities.group_by {|ip| ip.title.first.upcase }.sort.in_groups_of(3, false) do |row| %>
+        <% row.each do |letter, international_priorities_group| %>
+          <div class="alphabetical-row" id="international_priorities_<%= letter.downcase %>">
+            <h2 class="alphabetical-list-letter"><%= letter %></h2>
+              <ul class="international_priorities">
+                <% international_priorities_group.each do |international_priority| %>
+                  <%= content_tag_for(:li, international_priority) do %>
+                    <%= link_to international_priority.title, public_document_path(international_priority), title: "View #{international_priority.title}", class: "title" %>
+                  <% end %>
+                <% end %>
+              </ul>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    </section>
+  </div>
+</div>
