@@ -148,6 +148,16 @@ class HomeControllerTest < ActionController::TestCase
     refute_select '.agencies .coming-soon p', text: /#{department.name}/
   end
 
+  test "home page lists topics with policies" do
+    topics = [0, 1, 2].map { |n| create(:topic, published_policies_count: n) }
+
+    get :home
+
+    refute_select_object(topics[0])
+    assert_select_object(topics[1])
+    assert_select_object(topics[2])
+  end
+
   private
 
   def create_published_documents

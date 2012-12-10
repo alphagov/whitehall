@@ -81,29 +81,19 @@
     </div>
   </div>
 
-  <div class="topics-column">
-    <div class="inner-block">
-      <ul class="topics index-list">
-        <li class="topic" id="topic_13"><a href="/government/topics/climate-change">Climate change</a></li>
-        <li class="topic" id="topic_18"><a href="/government/topics/community-and-society">Community and society</a></li>
-        <li class="topic" id="topic_10"><a href="/government/topics/economic-growth">Economic growth</a></li>
-        <li class="topic" id="topic_60"><a href="/government/topics/environment">Environment</a></li>
-        <li class="topic" id="topic_20"><a href="/government/topics/housing">Housing</a></li>
-      </ul>
+  <% @topics.in_groups(2, false) do |topics| %>
+    <div class="topics-column">
+      <div class="inner-block">
+        <ul class="topics index-list">
+          <% topics.each do |topic| %>
+            <%= content_tag_for(:li, topic) do %>
+              <%= link_to topic.name, topic_path(topic) %>
+            <% end %>
+          <% end %>
+        </ul>
+      </div>
     </div>
-  </div>
-
-  <div class="topics-column">
-    <div class="inner-block">
-      <ul class="topics index-list">
-        <li class="topic" id="topic_21"><a href="/government/topics/local-government">Local government</a></li>
-        <li class="topic" id="topic_48"><a href="/government/topics/national-security">National security</a></li>
-        <li class="topic" id="topic_22"><a href="/government/topics/planning-and-building">Planning and building</a></li>
-        <li class="topic" id="topic_19"><a href="/government/topics/public-safety-and-emergencies">Public safety and emergencies</a></li>
-        <li class="topic" id="topic_56"><a href="/government/topics/transport">Transport</a></li>
-      </ul>
-    </div>
-  </div>
+  <% end %>
 </section>
 
 <section class="govspeak inner-block">

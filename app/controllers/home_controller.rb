@@ -8,6 +8,7 @@ class HomeController < PublicFacingController
     @live_other_departments = Organisation.where("organisation_type_id != ? AND govuk_status='live'", ministerial_department_type)
     @transitioning_ministerial_departments = Organisation.where("organisation_type_id = ? AND govuk_status ='transitioning'", ministerial_department_type)
     @transitioning_other_departments = Organisation.where("organisation_type_id NOT IN (?, ?) AND govuk_status='transitioning'", ministerial_department_type, sub_organisation_type)
+    @topics = Topic.with_policies.alphabetical.all
   end
 
   def feed
