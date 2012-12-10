@@ -1,7 +1,6 @@
 jQuery(function($) {
   $("#notes_to_editors").addToggleLink(".notes_to_editors");
   $("abbr.time_ago").timeago();
-  $('section.featured_items').equalHeightHelper({selectorsToResize: ['h2 a', 'p.summary', 'div.image_summary']});
   $('.js-toggle-change-notes').toggler();
   $('.js-hide-other-links').hideOtherLinks();
 
