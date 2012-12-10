@@ -14,7 +14,12 @@ class CorporateInformationPage < ActiveRecord::Base
 
   def self.for_slug(slug)
     type = CorporateInformationPageType.find(slug)
-    find_by_type_id!(type.id)
+    find_by_type_id(type && type.id)
+  end
+
+  def self.for_slug!(slug)
+    type = CorporateInformationPageType.find(slug)
+    find_by_type_id!(type && type.id)
   end
 
   def type
