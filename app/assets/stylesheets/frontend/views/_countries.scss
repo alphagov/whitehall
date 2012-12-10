@@ -1,15 +1,4 @@
-.countries-index {
-  .alphabetical-list .alphabetical-row li {
-    padding: 0 0 $gutter-half 0;
-    float: none;
-    display: block;
-  }
-  .alphabetical-list .alphabetical-row li:first-child {
-    padding-top: $gutter;
-  }
-}
-
-.countries_homepage {
+.countries-show {
   .img {
     img {
       height: 576px;
@@ -49,7 +38,7 @@
   }
 }
 
-.country_about {
+.countries-about {
   .block-3, .block-4 {
     float: left;
     display: inline;
