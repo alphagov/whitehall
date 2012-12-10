@@ -1,5 +1,4 @@
 jQuery(function($) {
-  $("#notes_to_editors").addToggleLink(".notes_to_editors");
   $("abbr.time_ago").timeago();
   $('.js-toggle-change-notes').toggler();
   $('.js-hide-other-links').hideOtherLinks();
