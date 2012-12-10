@@ -13,7 +13,8 @@ class Import < ActiveRecord::Base
     news_article: [Whitehall::Uploader::NewsArticleRow, NewsArticle],
     publication: [Whitehall::Uploader::PublicationRow, Publication],
     speech: [Whitehall::Uploader::SpeechRow, Speech],
-    statistical_data_set: [Whitehall::Uploader::StatisticalDataSetRow, StatisticalDataSet]
+    statistical_data_set: [Whitehall::Uploader::StatisticalDataSetRow, StatisticalDataSet],
+    fatality_notice: [Whitehall::Uploader::FatalityNoticeRow, FatalityNotice]
   }
 
   validates :csv_data, presence: true, if: :valid_csv_data_encoding?
@@ -127,12 +128,20 @@ class Import < ActiveRecord::Base
       true
     else
       model.errors.keys.each do |attribute|
-        next if attribute == :attachments
+        next if [:attachments, :images].include?(attribute)
         progress_logger.error("#{attribute}: #{model.errors[attribute].join(", ")}")
       end
-      attachment_errors = model.attachments.reject(&:valid?).each do |a|
-        progress_logger.error("Attachment '#{a.attachment_source.url}': #{a.errors.full_messages.to_s}")
+      if model.respond_to?(:attachments)
+        model.attachments.reject(&:valid?).each do |a|
+          progress_logger.error("Attachment '#{a.attachment_source.url}': #{a.errors.full_messages.to_s}")
+        end
       end
+      if model.respond_to?(:images)
+        model.images.reject(&:valid?).each do |i|
+          progress_logger.error("Image '#{i.caption}': #{i.errors.full_messages.to_s}")
+        end
+      end
+
       false
     end
   rescue => e
