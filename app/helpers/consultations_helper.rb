@@ -1,16 +1,4 @@
 module ConsultationsHelper
-  def consultation_time_remaining_phrase(consultation)
-    if consultation.open?
-      closing_interval = time_ago_in_words(consultation.closing_on + 1.day)
-      "Closes in #{closing_interval}"
-    elsif consultation.not_yet_open?
-      opening_interval = time_ago_in_words(consultation.opening_on)
-      "Opens in #{opening_interval}"
-    else
-      ""
-    end
-  end
-
   def consultation_opening_phrase(consultation)
     date = render_datetime_microformat(consultation, :opening_on) { consultation.opening_on.to_s(:long_ordinal) }
     (((consultation.opening_on < Date.today) ? "Opened on " : "Opens on ") + date).html_safe
