@@ -116,7 +116,7 @@
           @include core-16;
           display: block;
           @include media(desktop){
-            width: 33%;
+            width: 33.33%;
             float: left;
           }
 
@@ -145,7 +145,6 @@
   .block-1,
   .block-2,
   .block-3,
-  .block-5,
   .block-6,
   .block-7,
   .block-8,
@@ -201,7 +200,7 @@
 
       @include media(tablet){
         float: left;
-        width: 66%;
+        width: 66.66%;
       }
     }
 
@@ -210,7 +209,8 @@
 
       @include media(tablet){
         float: left;
-        width: 33%;
+        width: 33.33%;
+        padding-top: 0;
       }
 
       h4 {
@@ -239,12 +239,12 @@
   .sub-organisation .page-header {
     h1 {
       float: left;
-      width: 33.333333%;
+      width: 33.33%;
     }
 
     .sub-organisation-name {
       float: left;
-      width: 66.666666%;
+      width: 66.66%;
 
       h2 {
         @include core-48;
@@ -254,8 +254,17 @@
     }
   }
 
+  .block-2 {
+    .inner-block {
+      padding: 0;
+
+      @include media(tablet){
+        padding: 0 $gutter-half;
+      }
+    }
+  }
+
   .organisation-news {
-    margin: 0 (-$gutter-half);
 
     article {
       @include media(tablet) {
@@ -334,7 +343,7 @@
       clear: both;
 
       @include media(tablet){
-        width: 33%;
+        width: 33.33%;
         clear: none;
       }
 
@@ -378,7 +387,7 @@
       @include media(tablet){
         clear: none;
         float: left;
-        width: 33%;
+        width: 33.33%;
         padding: 0;
       }
 
@@ -397,6 +406,14 @@
         .subscribe {
           float: none;
         }
+      }
+    }
+  }
+
+  .has-social {
+    .organisation-news.items-0 .latest-documents {
+      @include media(desktop){
+        width: 66.66%;
       }
     }
   }
@@ -425,10 +442,9 @@
     @include media(tablet){
       float: left;
       width: 66.66%;
-
-      .content {
-        padding-right: $gutter-half;
-      }
+    }
+    .content {
+      padding: $gutter-half;
     }
   }
 
@@ -436,18 +452,16 @@
     @include media(tablet){
       float: left;
       width: 33.33%;
-
-      .content {
-        padding-left: $gutter-half;
-      }
     }
-
+    .content {
+      padding: $gutter-half;
+    }
     h2 {
       @include core-24;
     }
   }
 
-  .block-5 {
+  .what-we-do {
     p {
       @include core-19;
     }
@@ -455,14 +469,14 @@
     .parent_organisations {
       margin-bottom: $gutter-one-third;
     }
-  }
 
-  .body {
-    h2 {
-      border-bottom: 1px solid $light-keyline;
+    .body {
+      h2 {
+        border-bottom: 1px solid $light-keyline;
 
-      &:first-child {
-        margin-top: $gutter;
+        &:first-child {
+          margin-top: $gutter;
+        }
       }
     }
   }
@@ -521,7 +535,7 @@
           margin-right: -100%;
           margin-left: 25%;
           li {
-            width: 33.333333%;
+            width: 33.33%;
 
             &:nth-child(4n+1) {
               clear: none;
@@ -580,7 +594,7 @@
         clear: both;
         margin-right: -100%;
         margin-left: 0;
-        width: 66.666666%;
+        width: 66.66%;
 
         .organisation_contact {
           padding-bottom: $gutter-two-thirds;
@@ -721,14 +735,14 @@
 .organisations-external {
   @include media(desktop){
     .block-2 {
-      width: 66%;
+      width: 66.66%;
       float: right;
       .inner-block {
         padding-left: $gutter-one-sixth;
       }
     }
     .block-3 {
-      width: 33%;
+      width: 33.33%;
       float: left;
     }
     .block-4 {
@@ -775,7 +789,7 @@
   }
   .information-block {
     @include core-19;
-    padding: $gutter-two-thirds 33% $gutter-two-thirds 0;
+    padding: $gutter-two-thirds 33.33% $gutter-two-thirds 0;
     margin-top: 0;
     margin-bottom: $gutter;
     min-height: $gutter;
@@ -827,11 +841,11 @@
 
   @include media(desktop){
     .block-1 {
-      width: 33%;
+      width: 33.33%;
       float: left;
     }
     .block-2 {
-      width: 66%;
+      width: 66.66%;
       float: right;
     }
   }
