@@ -160,23 +160,6 @@
             </section>
           <% end %>
 
-          <% if @special_representatives.any? %>
-            <section id="special_representatives">
-              <h1 class="label">Special representatives</h1>
-              <ul class="js-hide-extra-rows">
-                <% @special_representatives.each do |role| %>
-                <%= render partial: "people/person",
-                            locals: {
-                              person: role.current_person,
-                              roles: [role],
-                              hlevel: "h3",
-                              hide_image: false
-                            } %>
-              <% end %>
-              </ul>
-            </section>
-          <% end %>
-
           <% if @civil_servants.any? %>
             <section id="management">
               <h1 class="label">Our management</h1>
@@ -217,6 +200,23 @@
                     hide_image: false
                   } %>
                 <% end %>
+              </ul>
+            </section>
+          <% end %>
+
+          <% if @special_representatives.any? %>
+            <section id="special_representatives">
+              <h1 class="label">Special representatives</h1>
+              <ul class="js-hide-extra-rows">
+                <% @special_representatives.each do |role| %>
+                <%= render partial: "people/person",
+                            locals: {
+                              person: role.current_person,
+                              roles: [role],
+                              hlevel: "h3",
+                              hide_image: false
+                            } %>
+              <% end %>
               </ul>
             </section>
           <% end %>
