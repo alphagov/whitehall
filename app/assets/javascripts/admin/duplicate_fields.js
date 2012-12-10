@@ -45,7 +45,6 @@
           $el.attr('id', currentId.replace('_'+ index +'_', '_'+ (index+1) +'_'));
         }
         if(currentFor && currentFor.match(/_([0-9]+)_/)){
-          console.log('updateing for');
           if(index === false){
             index = parseInt(currentFor.match(/_([0-9]+)_/)[1], 10);
           }
