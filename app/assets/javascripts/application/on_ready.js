@@ -5,20 +5,6 @@ jQuery(function($) {
   $('.js-toggle-change-notes').toggler();
   $('.js-hide-other-links').hideOtherLinks();
 
-  $('section.featured_carousel').each(function () {
-    $(this).addClass('slider');
-    $(this).find('article').addClass('slide');
-    $(this).wrap($.div('', '.slider_wrap'));
-    $('.slider_wrap').carousel({
-      slider: '.slider',
-      slide: '.slide',
-      addNav: true,
-      addPagination: false,
-      namespace: 'carousel',
-      speed: 300 // ms.
-    });
-  });
-
   $('.document.body').enhanceYoutubeVideoLinks();
 
   $('.detailed-guides-show').trackExternalLinks();

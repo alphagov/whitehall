@@ -280,13 +280,6 @@ module ApplicationHelper
     end
   end
 
-  def featured_carousel_classes(options = {})
-    classes = ["featured_carousel"]
-    classes << "organisation-news" if options[:organisational_context]
-    classes << "country_news" if options[:country_context]
-    classes.join(" ")
-  end
-
   def linked_author(author)
     link_to(author.name, admin_author_path(author))
   end
