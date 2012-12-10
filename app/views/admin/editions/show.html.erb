@@ -18,6 +18,7 @@
         <li><a href="#attachments" data-toggle="tab">Attachments <span class="badge"><%= @edition.attachments.count %></span></a></li>
       <% end %>
       <li><a href="#associations" data-toggle="tab">Associations</a></li>
+      <li><a href="#document-sources" data-toggle="tab">Legacy URLs</a></li>
     </ul>
     <div class="tab-content">
       <section class="document_page tab-pane active" id="document">
@@ -157,6 +158,16 @@
           </section>
         <% end %>
       </section>
+        <section class="tab-pane" id="document-sources">
+          <h1>document-sources</h1>
+          <% if @edition.document.document_source %>
+            <ul>
+              <li><%= @edition.document.document_source.url %></li>
+            </ul>
+          <% else %>
+            <p>No Legacy URLs</p>
+          <% end %>
+        </section>      
     </div>
   </div>
 </div>
