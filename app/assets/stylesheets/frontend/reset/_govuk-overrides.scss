@@ -3,29 +3,14 @@
 html {
   background: white;
 }
-body, 
+
+body,
 body.js-enabled {
   padding: 0;
 }
 
-// this rule overrides the sticky global header
-.js-enabled #global-header {
-  position: relative;
-}
-
 #global-header .header-global,
-#footer .beta-notice p,
 #footer .inner {
   width: auto;
   max-width: $max-site-width;
-}
-
-
-#footer .beta-notice {
-  padding: $gutter-half $gutter;
-}
-
-#footer .beta-notice p {
-  display: block;
-  margin: 0 auto;
 }

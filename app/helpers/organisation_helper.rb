@@ -7,14 +7,6 @@ module OrganisationHelper
     end
   end
 
-  def organisation_name_with_acronym(organisation)
-    if organisation.acronym.present?
-      "%s (%s)" % [organisation.name, organisation.acronym]
-    else
-      organisation.name
-    end
-  end
-
   def organisation_type_name(organisation)
     type_name = ActiveSupport::Inflector.singularize(organisation.organisation_type.name.downcase)
     type_name == 'other' ? 'body' : type_name
@@ -50,12 +42,6 @@ module OrganisationHelper
 
   def starts_with_vowel?(word_or_phrase)
     'aeiou'.include?(word_or_phrase.downcase[0])
-  end
-
-  def organisation_view_all_tag(organisation, kind)
-    path = send(:"#{kind}_organisation_path", @organisation)
-    text = (kind == :announcements) ? "news & speeches" : kind
-    content_tag(:span, safe_join(['View all', content_tag(:span, @organisation.name, class: "visuallyhidden"), link_to(text, path)], ' '), class: "view_all")
   end
 
   def organisation_wrapper(organisation, options = {}, &block)

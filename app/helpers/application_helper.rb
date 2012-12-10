@@ -32,15 +32,6 @@ module ApplicationHelper
     url_for(params.except(:utf8, :_).merge(format: "json").merge(args))
   end
 
-  def labelled_check_box(object_name, attribute, text)
-    for_attribute = [object_name, attribute].map(&:to_s).join("_")
-    label_tag "", {for: for_attribute, class: "for_checkbox"} do
-      check_box(object_name, attribute) +
-      "&nbsp;".html_safe +
-      content_tag(:span, text)
-    end
-  end
-
   def format_in_paragraphs(string)
     safe_join (string||"").split(/(?:\r?\n){2}/).collect { |paragraph| content_tag(:p, paragraph) }
   end
@@ -52,14 +43,6 @@ module ApplicationHelper
   def link_to_attachment(attachment)
     return unless attachment
     link_to attachment.filename, attachment.url
-  end
-
-  def publication_summary(publication)
-    if publication.summary.present?
-      publication.summary
-    else
-      truncate(publication.body, { length: 200 })
-    end
   end
 
   def role_appointment(appointment, link=false)
@@ -160,10 +143,6 @@ module ApplicationHelper
     request.path =~ path_matcher ? 'current' : ''
   end
 
-  def yes_or_no(boolean)
-    boolean ? "Yes" : "No"
-  end
-
   def render_datetime_microformat(object, method, &block)
     content_tag(:abbr, class: method, title: object.send(method).iso8601, &block)
   end
@@ -238,17 +217,6 @@ module ApplicationHelper
     end
   end
 
-  def featured_grid_class(count=0)
-    case count
-    when 1
-      "g3"
-    when 2
-      "g-half"
-    when 3
-      "g1"
-    end
-  end
-
   def article_section(title, collection, options = {}, &block)
     content_tag(:section, id: options[:id], class: ["article_section", options[:class]]) do
       concat content_tag(:h1, title)
@@ -278,13 +246,6 @@ module ApplicationHelper
       end
       concat row
     end
-  end
-
-  def featured_carousel_classes(options = {})
-    classes = ["featured_carousel"]
-    classes << "organisation-news" if options[:organisational_context]
-    classes << "country_news" if options[:country_context]
-    classes.join(" ")
   end
 
   def linked_author(author)
