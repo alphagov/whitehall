@@ -140,6 +140,8 @@
     }
   }
 }
+
+
 .organisations-show {
 
   .block-1,
@@ -949,5 +951,27 @@
   @include department-colours('.corporate-info h1', border-color);
 }
 
-
+.organisation-page, .organisations-show {
+  .block-2 h1.label {
+    @include core-27;
+    margin: $gutter 0 $gutter-half 0;
+  }
+  .corporate-information {
+    float: left;
+    width: 50%;
+    nav {
+      display: block;
+      padding-top: 0;
+      width: 100%;
+    }
+    h2 {
+      @include core-19;
+      @include bold;
+    }
+    &+ aside, p {
+      clear: both;
+      padding-top: $gutter-half;
+    }
+  }
+}
 

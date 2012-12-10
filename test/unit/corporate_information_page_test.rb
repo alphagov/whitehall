@@ -85,4 +85,37 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
     corporate_information_page = build(:corporate_information_page, organisation: organisation)
     corporate_information_page.attachments << build(:attachment)
   end
+
+  test "should be able to get corporate information pages for a particular menu" do
+    organisation = create(:organisation_with_alternative_format_contact_email)
+
+    by_menu_heading = {
+      our_information: [
+        CorporateInformationPageType::Statistics,
+        CorporateInformationPageType::OurEnergyUse,
+        CorporateInformationPageType::ComplaintsProcedure,
+        CorporateInformationPageType::TermsOfReference,
+        CorporateInformationPageType::OurGovernance,
+        CorporateInformationPageType::Membership
+      ],
+      jobs_and_contracts: [
+        CorporateInformationPageType::Procurement,
+        CorporateInformationPageType::Recruitment
+      ],
+      other: [
+        CorporateInformationPageType::PublicationScheme,
+        CorporateInformationPageType::WelshLanguageScheme,
+        CorporateInformationPageType::PersonalInformationCharter
+      ]
+    }
+
+    by_menu_heading.values.flatten.each do |type|
+      corporate_information_page = create(:corporate_information_page, organisation: organisation, type: type)
+    end
+
+    by_menu_heading.keys.each do |menu_heading|
+      assert_same_elements by_menu_heading[menu_heading], organisation.corporate_information_pages.by_menu_heading(menu_heading).map(&:type)
+    end
+  end
+
 end

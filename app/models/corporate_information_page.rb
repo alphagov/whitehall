@@ -14,7 +14,12 @@ class CorporateInformationPage < ActiveRecord::Base
 
   def self.for_slug(slug)
     type = CorporateInformationPageType.find(slug)
-    find_by_type_id!(type.id)
+    find_by_type_id(type && type.id)
+  end
+
+  def self.for_slug!(slug)
+    type = CorporateInformationPageType.find(slug)
+    find_by_type_id!(type && type.id)
   end
 
   def type
@@ -31,5 +36,10 @@ class CorporateInformationPage < ActiveRecord::Base
 
   def title
     type.title(organisation)
+  end
+
+  def self.by_menu_heading(menu_heading)
+    type_ids = CorporateInformationPageType.by_menu_heading(menu_heading).map(&:id)
+    where(type_id: type_ids)
   end
 end
