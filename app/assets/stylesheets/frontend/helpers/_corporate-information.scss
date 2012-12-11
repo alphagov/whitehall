@@ -1,0 +1,30 @@
+.corporate-information {
+  h1 {
+    @include core-27;
+    margin: $gutter 0 $gutter-half 0;
+  }
+  .corporate-information-block {
+    @include media(tablet){
+      float: left;
+      width: 50%;
+    }
+
+    nav {
+      display: block;
+      padding: 0 0 $gutter-half;
+      width: 100%;
+    }
+    h2 {
+      @include core-19;
+      @include bold;
+    }
+  }
+  .information {
+    clear: both;
+
+    @include media(tablet){
+      max-width: 36em;
+    }
+  }
+}
+

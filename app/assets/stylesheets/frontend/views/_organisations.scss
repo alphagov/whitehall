@@ -837,9 +837,8 @@
 // organisations#about, corporate_information_page#show
 .organisation-page {
   @include department-colours('nav a', color);
-  @include department-colours('.body a', color);
+  @include department-colours('.block-2 a', color);
   @include department-colours('.body .attachment .accessibility-warning h3 .toggler', color);
-  @include department-colours('.corporate-info a', color);
 
   @include media(desktop){
     .block-1 {
@@ -910,18 +909,11 @@
       }
     }
   }
-  .corporate-info {
-    padding-top: $gutter-half;
-
-    h1 {
-      @include core-27;
-      border-bottom: 4px solid;
-    }
+  .corporate-publications {
     h2 {
-      @include core-16;
-      padding-top: $gutter-two-thirds;
+      @include core-19;
+      margin: $gutter 0 $gutter-half 0;
     }
-
     ul {
       li {
         list-style: none;
@@ -949,29 +941,5 @@
     }
   }
   @include department-colours('.corporate-info h1', border-color);
-}
-
-.organisation-page, .organisations-show {
-  .block-2 h1.label {
-    @include core-27;
-    margin: $gutter 0 $gutter-half 0;
-  }
-  .corporate-information {
-    float: left;
-    width: 50%;
-    nav {
-      display: block;
-      padding-top: 0;
-      width: 100%;
-    }
-    h2 {
-      @include core-19;
-      @include bold;
-    }
-    &+ aside, p {
-      clear: both;
-      padding-top: $gutter-half;
-    }
-  }
 }
 
