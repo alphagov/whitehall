@@ -1057,7 +1057,7 @@ module AdminEditionControllerTestHelpers
         )
 
         edition = edition_class.last
-        assert_equal [first_organisation, second_organisation], edition.organisations
+        assert_equal [first_organisation, second_organisation], edition.organisations.sort
       end
 
       test "edit should display edition organisations field" do
