@@ -46,6 +46,7 @@ module ApplicationHelper
   end
 
   def role_appointment(appointment, link=false)
+    link = false unless appointment.role.ministerial?
     role_text = (link ? link_to(appointment.role.name, appointment.role) : appointment.role.name)
     if appointment.current?
       role_text.html_safe
