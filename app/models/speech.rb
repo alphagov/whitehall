@@ -25,6 +25,10 @@ class Speech < Announcement
     end
   end
 
+  def delivery_title
+    role_appointment.role.ministerial? ? "Minister" : "Speaker"
+  end
+
   private
 
   def skip_organisation_validation?

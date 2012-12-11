@@ -148,4 +148,12 @@ class SpeechTest < EditionTestCase
     feb = create(:speech, delivered_on: Date.parse("2011-02-01"))
     assert_equal [mar, feb, jan], Speech.in_reverse_chronological_order.all
   end
+
+  test "delivery title should show 'Minister:' for ministerial role appointments" do
+    assert_equal "Minister", build(:speech, role_appointment: build(:ministerial_role_appointment)).delivery_title
+  end
+
+  test "delivery title should show 'Speaker:' for all other appointments" do
+    assert_equal "Speaker", build(:speech, role_appointment: build(:board_member_role_appointment)).delivery_title
+  end
 end

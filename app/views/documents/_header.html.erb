@@ -32,9 +32,9 @@
           <dt><%= document.ministerial_roles.length == 1 ? "Minister" : "Ministers" %>:</dt>
           <dd class="js-hide-other-links"><%= list_of_links_to_ministers(document.ministerial_roles) %></dd>
         <% end %>
-        <% if document.respond_to?(:person) && document.person %>
-          <dt>Minister:</dt>
-          <dd class="person"><%= link_to_person document.person %></dd>
+        <% if document.respond_to?(:delivery_title) %>
+          <dt><%= document.delivery_title %>:</dt>
+          <dd class="person"><%= link_to_person document.role_appointment.person %></dd>
         <% end %>
       <% end %>
       <% if document.has_operational_field? %>
