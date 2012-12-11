@@ -9,7 +9,7 @@ development:
 # Do not set this db to the same as development or production.
 test: &test
   adapter: mysql2
-  database: whitehall_test
+  database: whitehall_test<%= ENV['TEST_ENV_NUMBER'] %>
   username: whitehall
   password: whitehall
 

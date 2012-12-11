@@ -50,6 +50,7 @@ group :development, :staging, :test do
   gem 'quiet_assets'
   gem 'rails-dev-boost', '~> 0.2.1'
   gem 'brakeman'
+  gem 'parallel_tests'
 end
 
 group :test do
