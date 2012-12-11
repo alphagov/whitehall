@@ -162,10 +162,17 @@
         <h1>Legacy URLs</h1>
         <% if @edition.document.document_source %>
           <ul>
-            <li><%= @edition.document.document_source.url %></li>
+            <li><%= @edition.document.document_source.url %> <span class="add_document_source"> <%= link_to edit_admin_edition_document_sources_path(@edition), title: "Edit legacy url for #{@edition.title}", :class => "btn btn-primary" do %>
+              <i class="icon-pencil icon-white"></i> Edit
+            <% end %>
+            </span>
+            <%= link_to admin_edition_document_sources_path(@edition), method: :delete, confirm: 'Are you sure you want to remove this legacy url?', class: 'btn btn-danger', title: "Remove legacy url for #{@edition.title}" do %>
+              <i class="icon-trash icon-white"></i> Delete
+            <% end %>
+            </li>
           </ul>
         <% else %>
-          <span class="add_supporting_page pull-right"> <%= link_to new_admin_edition_document_source_path(@edition), title: "Add legacy url to #{@edition.title}", :class => "btn btn-primary" do %>
+          <span class="add_document_source pull-right"> <%= link_to new_admin_edition_document_sources_path(@edition), title: "Add legacy url to #{@edition.title}", :class => "btn btn-primary" do %>
             <i class="icon-plus-sign icon-white"></i> Add
           <% end %>
           </span>

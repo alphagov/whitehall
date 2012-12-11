@@ -11,9 +11,23 @@ Feature: Managing Document Sources
     And I view the publication "One must have many urls"
     Then I should see the legacy url "http://im-old.com"
 
-  Scenario: Managing legacy URLs
+  Scenario: Creating a legacy URL
     Given a draft publication "One must have many urls" exists
     When I add "http://im-old.com" as a legacy url to the "One must have many urls" publication
     And I visit the list of draft documents
     And I view the publication "One must have many urls"
     Then I should see the legacy url "http://im-old.com"
+
+  Scenario: Editing a legacy URL
+    Given a draft publication "One must have many urls" with a legacy url "http://im-old.com"
+    When I change the legacy url "http://im-old.com" to "http://im-really-old.com" on the "One must have many urls" publication
+    And I visit the list of draft documents
+    And I view the publication "One must have many urls"
+    Then I should see the legacy url "http://im-really-old.com"
+
+  Scenario: Removing a legacy URL
+    Given a draft publication "One must have many urls" with a legacy url "http://im-old.com"
+    When I remove the legacy url "http://im-old.com" on the "One must have many urls" publication
+    And I visit the list of draft documents
+    And I view the publication "One must have many urls"
+    Then I should see that it has no legacy urls

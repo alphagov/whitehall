@@ -1,0 +1,11 @@
+<% page_title "Edit legacy URL for " + @edition.title %>
+
+<h1>Edit legacy url for <%= link_to @edition.title, admin_edition_path(@edition) %></h1>
+
+<div class="row-fluid">
+  <div class="span8">
+    <section>
+      <%= render partial: "form", locals: {document_source: @document_source} %>
+    </section>
+  </div>
+</div>
