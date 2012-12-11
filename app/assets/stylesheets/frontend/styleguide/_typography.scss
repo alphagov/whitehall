@@ -23,7 +23,6 @@
 //        line-height (52px) / font-size (45px) = relative line-height
 //
 //      font-weight: 300;
-//      letter-spacing: 0.01em;
 //      text-transform: none;
 //      _ Again, we cant assume anything about pre-exising CSS on the
 //        page, so setting these values (even if just resetting them
@@ -62,7 +61,6 @@
   }
   line-height: $line-height;
   font-weight: 400;
-  letter-spacing: 0;
   text-transform: none;
   @media (max-width: 640px) {
     font-size: 5.3rem;
@@ -77,7 +75,6 @@
   font-size: 4.8rem;
   line-height: 1.0416666667; // 50 / 48
   font-weight: 400;
-  letter-spacing: 0;
   text-transform: none;
   padding-top: 12px;
   padding-top: 1.2rem;
@@ -98,7 +95,6 @@
   font-size: 3.6rem;
   line-height: 1.1111111111; // 40/36
   font-weight: 400;
-  letter-spacing: 0;
   text-transform: none;
   padding-top: 6px;
   padding-top: 0.6rem;
@@ -119,7 +115,6 @@
   font-size: 2.7rem;
   line-height: 1.1111111111; // 30px
   font-weight: 400;
-  letter-spacing: 0;
   text-transform: none;
   padding-top: 3px;
   padding-top: 0.3rem;
@@ -140,7 +135,6 @@
   font-size: 2.4rem;
   line-height: (30/24); /* 30px */
   font-weight: 400;
-  letter-spacing: 0;
   text-transform: none;
   padding-top: 3px;
   padding-top: 0.3rem;
@@ -161,7 +155,6 @@
   font-size: 1.9rem;
   line-height: (25/19); /* 25px */
   font-weight: 400;
-  letter-spacing: 0;
   text-transform: none;
   padding-top: 7px;
   padding-top: 0.7rem;
@@ -182,7 +175,6 @@
   font-size: 1.6rem;
   line-height: (20/16); /* 20px */
   font-weight: 400;
-  letter-spacing: 0;
   text-transform: none;
   padding-top: 5px;
   padding-top: 0.5rem;
@@ -203,7 +195,6 @@
   font-size: 1.4rem;
   line-height: 1.4285714286; // 20 / 14
   font-weight: 400;
-  letter-spacing: 0;
   text-transform: none;
   padding-top: 6px;
   padding-top: 0.6rem;
