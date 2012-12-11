@@ -19,6 +19,8 @@ module FilterRoutesHelper
         out[:departments] = [obj.slug]
       elsif obj.is_a? Topic
         out[:topics] = [obj.slug]
+      else
+        out = out.merge(obj)
       end
       out
     end

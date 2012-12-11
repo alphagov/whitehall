@@ -288,13 +288,13 @@
                 <li><%= link_to corporate_information_page.title, organisation_corporate_information_page_path(@organisation, corporate_information_page) %></li>
               <% end %>
               <% if @organisation.has_published_publications_of_type?(PublicationType::CorporateReport) %>
-                <li><%= link_to "Corporate reports", publications_path(publication_type: 'corporate-reports', :'departments[]' => @organisation.slug) %></li>
+                <li><%= link_to "Corporate reports", publications_filter_path(@organisation, publication_type: 'corporate-reports') %></li>
               <% end %>
               <% if @organisation.has_published_publications_of_type?(PublicationType::TransparencyData) %>
-                <li><%= link_to "Transparency data", publications_path(publication_type: 'transparency-data', :'departments[]' => @organisation.slug) %></li>
+                <li><%= link_to "Transparency data", publications_filter_path(@organisation, publication_type: 'transparency-data') %></li>
               <% end %>
               <% if @organisation.has_published_publications_of_type?(PublicationType::FoiRelease) %>
-                <li><%= link_to "FOI releases", publications_path(publication_type: 'foi-releases', :'departments[]' => @organisation.slug) %></li>
+                <li><%= link_to "FOI releases", publications_filter_path(@organisation, publication_type: 'foi-releases') %></li>
               <% end %>
             </ul>
           </nav>
