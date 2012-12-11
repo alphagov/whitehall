@@ -217,7 +217,12 @@
         <div class="one-third">
           <div class="inner-block">
             <h4>Consultations</h4>
-            <p>When government makes or changes policy they listen and respond to your views through a consultation. You can <a href="https://www.gov.uk/government/publications?publication_type=consultations">search for all government consultations</a> - including those that are open or have closed.</p>
+            <p>
+              When government makes or changes policy they listen and respond to
+              your views through a consultation. You can
+              <%= link_to "search for all government consultations", publications_filter_path(:publication_filter_option => 'consultations' %>
+              - including those that are open or have closed.
+            </p>
             <p>The government is committed to <a href="http://www.cabinetoffice.gov.uk/resource-library/consultation-principles-guidance" rel="external">improving consultations</a> as part of Civil Service Reform.</p>
           </div>
         </div>
@@ -282,13 +287,23 @@
         <div class="one-third">
           <div class="inner-block">
             <h4>Freedom of information</h4>
-            <p>The Freedom of Information Act gives you the right to ask any public sector organisation for all the recorded information it has on any subject. Anyone can make a request for information – known as a Freedom of Information (or FOI) request.  There are no restrictions in your age, nationality or where you live.</p>
+            <p>The Freedom of Information Act gives you the right to ask any
+            public sector organisation for all the recorded information it has
+            on any subject. Anyone can make a request for information –
+            known as a Freedom of Information (or FOI) request.  There are no
+            restrictions in your age, nationality or where you live.</p>
             <p><a href="https://www.gov.uk/make-a-freedom-of-information-request">How to make a freedom of information request</a></p>
-            <p><a href="/government/publications?utf8=✓&amp;topics%5B%5D=all&amp;departments%5B%5D=all&amp;publication_type=foi-releases&amp;keywords=&amp;direction=before&amp;date=2012-12-01">See FOI releases on gov.uk</a></p>
+            <p><%= link_to "See FOI releases on gov.uk", publications_filter_path(:publication_filter_option => 'foi-releases') %></p>
 
             <h4 class="with-gutter">Statistics</h4>
-            <p>Government produces official statistics about most areas of public life. Statistics are used by people inside and outside government to make informed decisions and to measure the success of government policies and services. <a href="https://www.gov.uk/how-national-and-official-statistics-are-assured">Find out about the legislation</a> that governs the publication of UK national and official statistics.</p>
-            <p><a href="/government/publications?utf8=✓&amp;topics%5B%5D=all&amp;departments%5B%5D=all&amp;publication_type=statistics&amp;keywords=&amp;direction=before&amp;date=2012-12-01">See statistics publications on gov.uk</a></p>
+            <p>Government produces official statistics about most areas of
+            public life. Statistics are used by people inside and outside
+            government to make informed decisions and to measure the success of
+            government policies and services. <a
+              href="https://www.gov.uk/how-national-and-official-statistics-are-assured">Find
+              out about the legislation</a> that governs the publication of UK
+            national and official statistics.</p>
+            <p><%= link_to "See statistics publications on gov.uk", publications_filter_path(:publication_filter_option => 'statistics') %></p>
 
           </div>
         </div>
