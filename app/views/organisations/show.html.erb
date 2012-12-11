@@ -87,7 +87,7 @@
       <div class="inner-block">
         <% if @policies.any? %>
           <section id="policies" class="heading-block">
-            <h1 class="label">Our policies</h1>
+            <h1 class="label"><%= link_to 'Our policies', policies_filter_path(@organisation) %></h1>
             <div class="content">
               <%= render partial: "policies/list_description", locals: {policies: @policies} %>
               <p class="see-all">
@@ -98,7 +98,7 @@
         <% end %>
         <% if @publications.any? %>
           <section id="publications" class="heading-block">
-            <h1 class="label">Our publications</h1>
+            <h1 class="label"><%= link_to 'Our publications', publications_filter_path(@organisation) %></h1>
             <div class="content">
               <%= render partial: "publications/list_description", locals: {publications: @publications} %>
               <p class="see-all">
@@ -109,7 +109,7 @@
         <% end %>
         <% if @announcements.any? %>
           <section id="announcements" class="heading-block">
-            <h1 class="label">Our announcements</h1>
+            <h1 class="label"><%= link_to "Our announcements", announcements_filter_path(@organisation) %></h1>
             <div class="content">
               <%= render partial: "announcements/list_description", locals: {announcements: @announcements} %>
               <p class="see-all">
