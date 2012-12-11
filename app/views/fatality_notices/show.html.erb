@@ -1,3 +1,5 @@
 <% page_title @document.title, 'Fatality notice' %>
+<% page_class 'fatality-notices-show' %>
+
 <%= render  template: 'documents/show',
     locals: { header_title: "Operations in #{@document.operational_field.name}" } %>
