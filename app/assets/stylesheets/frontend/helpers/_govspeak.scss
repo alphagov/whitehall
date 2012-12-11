@@ -1,4 +1,11 @@
 .govspeak {
+  h2:first-child,
+  h3:first-child,
+  h4:first-child,
+  p:first-child {
+    margin-top: 0;
+  }
+
   h2 {
     @include core-27;
     color: lighten($body-text, 20%);
@@ -27,10 +34,6 @@
   }
   h5, h6 {
     margin: 0;
-  }
-
-  h2:first-child {
-    margin-top: 0;
   }
 
   p {
