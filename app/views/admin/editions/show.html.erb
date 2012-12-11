@@ -159,27 +159,11 @@
         <% end %>
       </section>
       <section class="tab-pane" id="document-sources">
-        <h1>Legacy URLs</h1>
-        <% if @edition.document.document_sources.any? %>
-          <ul>
-            <% @edition.document.document_sources.each do |document_source| %>
-              <li><%= document_source.url %> <span class="add_document_source"> <%= link_to edit_admin_edition_document_sources_path(@edition), title: "Edit legacy url for #{@edition.title}", :class => "btn btn-primary" do %>
-                <i class="icon-pencil icon-white"></i> Edit
-              <% end %>
-              </span>
-              <%= link_to admin_edition_document_sources_path(@edition), method: :delete, confirm: 'Are you sure you want to remove this legacy url?', class: 'btn btn-danger', title: "Remove legacy url for #{@edition.title}" do %>
-                <i class="icon-trash icon-white"></i> Delete
-              <% end %>
-              </li>
-            <% end %>
-          </ul>
-        <% else %>
-          <span class="add_document_source pull-right"> <%= link_to new_admin_edition_document_sources_path(@edition), title: "Add legacy url to #{@edition.title}", :class => "btn btn-primary" do %>
-            <i class="icon-plus-sign icon-white"></i> Add
+        <h1>Legacy URLs (one per line)</h1>
+          <%= form_tag admin_edition_document_sources_path(@edition), method: :put do %>
+            <%= text_area_tag :document_sources, @edition.document.document_sources.map(&:url).join("\n"), rows: 30 %>
+            <%= submit_tag "Update", class: "btn-primary btn-large" %>
           <% end %>
-          </span>
-          <p>No Legacy URLs</p>
-        <% end %>
       </section>
     </div>
   </div>

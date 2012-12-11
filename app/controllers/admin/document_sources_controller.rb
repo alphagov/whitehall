@@ -1,34 +1,15 @@
 class Admin::DocumentSourcesController < Admin::BaseController
   before_filter :find_edition
 
-  def new
-    @document_source = @edition.document.document_sources.build
-  end
-
-  def create
-    @document_source = @edition.document.document_sources.build(params[:document_source])
-    if @document_source.save
-      redirect_to admin_edition_path(@edition, anchor: 'document-sources')
-    else
-      render :new
-    end
-  end
-
-  def edit
-    @document_source = @edition.document.document_sources.first
-  end
-
   def update
-    @document_source = @edition.document.document_sources.first
-    if @document_source.update_attributes(params[:document_source])
-      redirect_to admin_edition_path(@edition, anchor: 'document-sources')
-    else
-      render :edit
+    @document_sources = params[:document_sources]
+    if @document_sources.present?
+      @edition.document.document_sources.destroy_all
+      @document_sources.split(/\r?\n/).each do |source|
+        @edition.document.document_sources.create(url: source)
+      end
     end
-  end
-
-  def destroy
-    @edition.document.document_sources.first.destroy
+    
     redirect_to admin_edition_path(@edition, anchor: 'document-sources')
   end
 
