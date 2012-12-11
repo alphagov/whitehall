@@ -25,8 +25,8 @@ class Admin::DocumentSourcesControllerTest < ActionController::TestCase
       url: "http://woo.example.com"
     }
 
-    assert_not_nil edition.document.document_source
-    document_source = edition.document.document_source
+    assert_not_nil edition.document.document_sources.first
+    document_source = edition.document.document_sources.first
     assert_equal "http://woo.example.com", document_source.url
     assert_redirected_to admin_policy_path(edition, anchor: 'document-sources')
   end
@@ -37,7 +37,7 @@ class Admin::DocumentSourcesControllerTest < ActionController::TestCase
     post :create, edition_id: edition, document_source: { url: "" }
 
     assert_response :success
-    assert_nil edition.document.document_source
+    assert_nil edition.document.document_sources.first
     assert_select "form" do
       assert_select ".field_with_errors input[name=?]", "document_source[url]"
     end
@@ -45,7 +45,7 @@ class Admin::DocumentSourcesControllerTest < ActionController::TestCase
 
   test "edit form has url inputs" do
     edition = create(:draft_policy)
-    edition.document.create_document_source(url: 'http://www.example.com/')
+    edition.document.document_sources.create(url: 'http://www.example.com/')
 
     get :edit, edition_id: edition
 
@@ -58,7 +58,7 @@ class Admin::DocumentSourcesControllerTest < ActionController::TestCase
 
   test "update should change an existing document source" do
     edition = create(:draft_policy)
-    document_source = edition.document.create_document_source(url: 'http://www.example.com/')
+    document_source = edition.document.document_sources.create(url: 'http://www.example.com/')
 
     put :update, edition_id: edition, document_source: {
       url: "http://woo.example.com"
@@ -71,7 +71,7 @@ class Admin::DocumentSourcesControllerTest < ActionController::TestCase
 
   test "update should allow errors to be corrected" do
     edition = create(:draft_policy)
-    document_source = edition.document.create_document_source(url: 'http://www.example.com/')
+    document_source = edition.document.document_sources.create(url: 'http://www.example.com/')
 
     put :update, edition_id: edition, document_source: { url: "" }
 
@@ -85,7 +85,7 @@ class Admin::DocumentSourcesControllerTest < ActionController::TestCase
 
   test "destroy should remove an existing document source" do
     edition = create(:draft_policy)
-    document_source = edition.document.create_document_source(url: 'http://www.example.com/')
+    document_source = edition.document.document_sources.create(url: 'http://www.example.com/')
 
     delete :destroy, edition_id: edition
 

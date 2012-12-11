@@ -160,9 +160,9 @@
       </section>
       <section class="tab-pane" id="document-sources">
         <h1>Legacy URLs</h1>
-        <% if @edition.document.document_source %>
+        <% if @edition.document.document_sources.first %>
           <ul>
-            <li><%= @edition.document.document_source.url %> <span class="add_document_source"> <%= link_to edit_admin_edition_document_sources_path(@edition), title: "Edit legacy url for #{@edition.title}", :class => "btn btn-primary" do %>
+            <li><%= @edition.document.document_sources.first.url %> <span class="add_document_source"> <%= link_to edit_admin_edition_document_sources_path(@edition), title: "Edit legacy url for #{@edition.title}", :class => "btn btn-primary" do %>
               <i class="icon-pencil icon-white"></i> Edit
             <% end %>
             </span>
