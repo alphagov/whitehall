@@ -112,6 +112,7 @@ Whitehall::Application.routes.draw do
           resources :supporting_pages, path: "supporting-pages", except: [:index]
           resources :editorial_remarks, only: [:new, :create], shallow: true
           resources :fact_check_requests, only: [:show, :create, :edit, :update], shallow: true
+          resources :document_sources, path: "document-sources", only: [:new, :create]
         end
 
         resources :publications, except: [:index]

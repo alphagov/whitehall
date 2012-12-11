@@ -158,16 +158,20 @@
           </section>
         <% end %>
       </section>
-        <section class="tab-pane" id="document-sources">
-          <h1>document-sources</h1>
-          <% if @edition.document.document_source %>
-            <ul>
-              <li><%= @edition.document.document_source.url %></li>
-            </ul>
-          <% else %>
-            <p>No Legacy URLs</p>
+      <section class="tab-pane" id="document-sources">
+        <h1>Legacy URLs</h1>
+        <% if @edition.document.document_source %>
+          <ul>
+            <li><%= @edition.document.document_source.url %></li>
+          </ul>
+        <% else %>
+          <span class="add_supporting_page pull-right"> <%= link_to new_admin_edition_document_source_path(@edition), title: "Add legacy url to #{@edition.title}", :class => "btn btn-primary" do %>
+            <i class="icon-plus-sign icon-white"></i> Add
           <% end %>
-        </section>      
+          </span>
+          <p>No Legacy URLs</p>
+        <% end %>
+      </section>
     </div>
   </div>
 </div>

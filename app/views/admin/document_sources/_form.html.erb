@@ -1,0 +1,6 @@
+<%= form_for document_source, url: admin_edition_document_sources_path(@edition) do |form| %>
+  <%= form.errors %>
+  <%= form.text_field :url, label_text: 'Legacy URL' %>
+
+  <%= form.save_or_cancel cancel: admin_edition_path(@edition, anchor: 'document-sources') %>
+<% end %>
