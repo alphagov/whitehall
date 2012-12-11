@@ -18,9 +18,7 @@
         <li><a href="#attachments" data-toggle="tab">Attachments <span class="badge"><%= @edition.attachments.count %></span></a></li>
       <% end %>
       <li><a href="#associations" data-toggle="tab">Associations</a></li>
-      <% if current_user.can_import? %>
-        <li><a href="#document-sources" data-toggle="tab">Old URLs</a></li>
-      <% end %>
+      <li><a href="#document-sources" data-toggle="tab">Old URLs</a></li>
     </ul>
     <div class="tab-content">
       <section class="document_page tab-pane active" id="document">
@@ -160,15 +158,22 @@
           </section>
         <% end %>
       </section>
-      <% if current_user.can_import? %>
-        <section class="tab-pane" id="document-sources">
+      <section class="tab-pane" id="document-sources">
+        <% if current_user.can_import? %>
           <h1>Old URLs (one per line)</h1>
             <%= form_tag admin_edition_document_sources_path(@edition), method: :put do %>
               <%= text_area_tag :document_sources, @edition.document.document_sources.map(&:url).join("\n"), rows: 30 %>
               <%= submit_tag "Update", class: "btn-primary btn-large" %>
             <% end %>
-        </section>
-      <% end %>
+        <% else %>
+          <h1>Old URLs</h1>
+          <ul>
+            <% @edition.document.document_sources.map(&:url).each do |url| %>
+              <li><%= url %></li>
+            <% end %>  
+          </ul>
+        <% end %>
+      </section>
     </div>
   </div>
 </div>
