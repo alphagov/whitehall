@@ -10,7 +10,6 @@
       float: left;
       clear: both;
       width: 33.3%;
-      margin-top: $gutter-half;
     }
   }
   .content {
@@ -27,7 +26,6 @@
 
     .documents-list {
       @include media(tablet){
-        margin-top: $gutter-half;
         padding-left: $gutter-half;
       }
 
