@@ -3,11 +3,9 @@ class Admin::DocumentSourcesController < Admin::BaseController
 
   def update
     @document_sources = params[:document_sources]
-    if @document_sources.present?
-      @edition.document.document_sources.destroy_all
-      @document_sources.split(/\r?\n/).each do |source|
-        @edition.document.document_sources.create(url: source)
-      end
+    @edition.document.document_sources.destroy_all
+    @document_sources.split(/\r?\n/).each do |source|
+      @edition.document.document_sources.create(url: source)
     end
     
     redirect_to admin_edition_path(@edition, anchor: 'document-sources')
