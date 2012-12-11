@@ -33,11 +33,11 @@ class CorporateInformationPageType
   Statistics = create(
     id: 6, title_template: "Statistics at %s", slug: "statistics", menu_heading: :our_information,
   )
-  Recruitment = create(
-    id: 7, title_template: "Working for %s", slug: "recruitment", menu_heading: :jobs_and_contracts,
-  )
   Procurement = create(
-    id: 8, title_template: "Procurement at %s", slug: "procurement", menu_heading: :jobs_and_contracts,
+    id: 7, title_template: "Procurement at %s", slug: "procurement", menu_heading: :jobs_and_contracts,
+  )
+  Recruitment = create(
+    id: 8, title_template: "Working for %s", slug: "recruitment", menu_heading: :jobs_and_contracts,
   )
   OurEnergyUse = create(
     id: 9, title_template: "Our energy use", slug: "our-energy-use", menu_heading: :our_information,
