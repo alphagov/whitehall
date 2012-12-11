@@ -3,7 +3,7 @@ Feature: Managing Document Sources
   I want to manage the legacy urls on a document.
 
   Background:
-    Given I am a writer
+    Given I am an importer
 
   Scenario: Viewing legacy URLs
     Given a draft publication "One must have many urls" with legacy urls "http://im-old.com" and "http://im-really-old.com"
