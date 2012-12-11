@@ -1,4 +1,5 @@
 class Admin::DocumentSourcesController < Admin::BaseController
+  before_filter :require_import_permission!
   before_filter :find_edition
 
   def update
