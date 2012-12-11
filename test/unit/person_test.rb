@@ -158,6 +158,10 @@ class PersonTest < ActiveSupport::TestCase
     assert_equal 'poirot hercule', person.sort_key
   end
 
+  test 'name should not have trailing whitespace' do
+    assert_equal 'Claire Moriarty', build(:person, title: '', forename: 'Claire', surname: 'Moriarty', letters: '').name
+  end
+
   test '#ministerial_roles_at returns the ministerial roles held by the person at the date specified' do
     person = create(:person)
     oldest_role = create(:ministerial_role)

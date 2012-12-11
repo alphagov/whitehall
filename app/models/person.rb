@@ -54,7 +54,11 @@ class Person < ActiveRecord::Base
   end
 
   def name
-    [("The Rt Hon" if privy_counsellor?), title, forename, surname, letters].compact.join(' ')
+    name_as_words(("The Rt Hon" if privy_counsellor?), title, forename, surname, letters)
+  end
+
+  def name_without_privy_counsellor_prefix
+    name_as_words(title, forename, surname, letters)
   end
 
   def previous_role_appointments
@@ -66,6 +70,12 @@ class Person < ActiveRecord::Base
   end
 
   private
+
+  def name_as_words(*elements)
+    elements.select do |word|
+      word.present?
+    end.join(' ')
+  end
 
   def image_changed?
     changes["carrierwave_image"].present?

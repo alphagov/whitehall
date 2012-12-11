@@ -26,7 +26,7 @@ class ApplicationHelperTest < ActionView::TestCase
     philip_hammond_appointment = appoint_minister(forename: "Philip", surname: "Hammond", role: "Secretary of State", organisation: "Ministry of Defence", started_at: Date.parse('2011-01-01'))
     philip_hammond_home_secretary_appointment = appoint_minister(forename: "Philip", surname: "Hammond", role: "Secretary of State", organisation: "Home Office", started_at: Date.parse('2010-01-01'), ended_at: Date.parse('2011-01-01'))
 
-    options = ministerial_appointment_options
+    options = role_appointment_options
 
     assert_equal 3, options.length
     assert options.include? [philip_hammond_appointment.id, "Philip Hammond, Secretary of State, in Ministry of Defence"]
@@ -47,9 +47,20 @@ class ApplicationHelperTest < ActionView::TestCase
     assert options.include? [home_secretary.id, "Secretary of State, in Home Office (Theresa May)"]
   end
 
-  test "should not include non-ministerial appointments" do
-    create(:board_member_role_appointment)
-    assert_equal [], ministerial_appointment_options
+  test "ministerial_appointment_options should not include non-ministerial appointments" do
+    appointment = create(:board_member_role_appointment)
+    assert_equal 0, ministerial_appointment_options.length
+  end
+
+  test "role_appointment_options should all appointments" do
+    organisation = create(:organisation, name: "Org")
+    role = create(:role, organisations: [organisation], name: "Role")
+    person = create(:person, forename: "Joe", surname: "Bloggs")
+    appointment = create(:board_member_role_appointment, role: role, person: person)
+
+    options = role_appointment_options
+    assert_equal 1, options.length
+    assert options.include? [appointment.id, "Joe Bloggs, Role, in Org"]
   end
 
   test '#link_to_attachment returns nil when attachment is nil' do

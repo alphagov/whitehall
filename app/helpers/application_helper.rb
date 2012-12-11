@@ -57,7 +57,11 @@ module ApplicationHelper
   end
 
   def ministerial_appointment_options
-    RoleAppointment.for_ministerial_roles.alphabetical_by_person.map do |appointment|
+    role_appointment_options(RoleAppointment.for_ministerial_roles)
+  end
+
+  def role_appointment_options(filter = RoleAppointment)
+    filter.alphabetical_by_person.map do |appointment|
       [appointment.id, "#{appointment.person.name}, #{role_appointment(appointment)}, in #{appointment.role.organisations.collect(&:name).to_sentence}"]
     end
   end
