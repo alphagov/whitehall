@@ -18,7 +18,9 @@
         <li><a href="#attachments" data-toggle="tab">Attachments <span class="badge"><%= @edition.attachments.count %></span></a></li>
       <% end %>
       <li><a href="#associations" data-toggle="tab">Associations</a></li>
-      <li><a href="#document-sources" data-toggle="tab">Legacy URLs</a></li>
+      <% if current_user.can_import? %>
+        <li><a href="#document-sources" data-toggle="tab">Old URLs</a></li>
+      <% end %>
     </ul>
     <div class="tab-content">
       <section class="document_page tab-pane active" id="document">
@@ -158,13 +160,15 @@
           </section>
         <% end %>
       </section>
-      <section class="tab-pane" id="document-sources">
-        <h1>Legacy URLs (one per line)</h1>
-          <%= form_tag admin_edition_document_sources_path(@edition), method: :put do %>
-            <%= text_area_tag :document_sources, @edition.document.document_sources.map(&:url).join("\n"), rows: 30 %>
-            <%= submit_tag "Update", class: "btn-primary btn-large" %>
-          <% end %>
-      </section>
+      <% if current_user.can_import? %>
+        <section class="tab-pane" id="document-sources">
+          <h1>Old URLs (one per line)</h1>
+            <%= form_tag admin_edition_document_sources_path(@edition), method: :put do %>
+              <%= text_area_tag :document_sources, @edition.document.document_sources.map(&:url).join("\n"), rows: 30 %>
+              <%= submit_tag "Update", class: "btn-primary btn-large" %>
+            <% end %>
+        </section>
+      <% end %>
     </div>
   </div>
 </div>
