@@ -48,7 +48,7 @@ this will load data from production into your local database.
 
 ### Running the server locally
 
-    $ script/rails s
+    $ ./startup.sh
 
 ## Creating new users in Production
 
@@ -57,10 +57,10 @@ whitehall in production.  You can create new sign-on-o-tron accounts
 with the capistrano task in alphagov-deployment/sign-on-o-tron.  This
 will email the new user and prompt them to create their account.
 
-## Using local assets
+## Using remote assets
 
-* Set `STATIC_DEV` to point to your local instance of the `static` app
-  when running the `whitehall` app e.g. `STATIC_DEV=http://static.dev`
+* Set `STATIC_DEV` to point to the remote instance of the `static` app
+  when running the `whitehall` app e.g. `STATIC_DEV=https://static.preview.alphagov.co.uk`
 
 ## Getting search running locally
 
