@@ -69,7 +69,7 @@ class Topic < ActiveRecord::Base
   validates :description, presence: true
 
   accepts_nested_attributes_for :topic_memberships
-  accepts_nested_attributes_for :lead_organisation_topics
+  accepts_nested_attributes_for :organisation_topics
 
   default_scope where(arel_table[:state].not_eq("deleted"))
 

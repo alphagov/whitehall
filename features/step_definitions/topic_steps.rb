@@ -80,8 +80,15 @@ When /^I set the order of the lead organisations in the "([^"]*)" topic to:$/ do
   topic = Topic.find_by_name!(topic_name)
   visit edit_admin_topic_path(topic)
 
-  table.rows.each_with_index do |(organisation_name), index|
+  lead_organisations = table.rows.map { |(organisation_name)| organisation_name }
+  lead_organisations.each_with_index do |organisation_name, index|
     fill_in organisation_name, with: index
+    fill_in organisation_name+' is lead?', with: '1'
+  end
+  other_organisations = topic.organisations.map(&:name) - lead_organisations
+  other_organisations.each do |organisation_name|
+    fill_in organisation_name, with: ''
+    fill_in organisation_name+' is lead?', with: '0'
   end
   click_button "Save"
 end
@@ -116,7 +123,15 @@ end
 Then /^I should see the order of the lead organisations in the "([^"]*)" topic is:$/ do |topic_name, expected_table|
   topic = Topic.find_by_name!(topic_name)
   visit edit_admin_topic_path(topic)
-  rows = find("#lead_organisation_order").all('label')
+  rows = find("#lead_organisation_order").all(:xpath, './/label[./a]')
+  table = rows.map { |r| r.all('a').map { |c| c.text.strip } }
+  expected_table.diff!(table)
+end
+
+Then /^I should see the following organisations for the "([^"]*)" topic:$/ do |topic_name, expected_table|
+  topic = Topic.find_by_name!(topic_name)
+  visit edit_admin_topic_path(topic)
+  rows = find("#organisations").all(:xpath, './/label[./a]')
   table = rows.map { |r| r.all('a').map { |c| c.text.strip } }
   expected_table.diff!(table)
 end
