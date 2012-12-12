@@ -17,8 +17,11 @@
               <% govspeak_headers(@organisation.about_us).each do |header| %>
                 <li><%= link_to header.text, "##{header.id}" %></li>
               <% end %>
-              <% if has_any_transparency_pages?(@organisation) || @corporate_publications.any? %>
-                <li><%= link_to "Corporate information", "#corporate-information" %></li>
+              <% if has_any_transparency_pages?(@organisation) %>
+                <li><%= link_to "Corporate information", "#corporate-info" %></li>
+              <% end %>
+              <% if @corporate_publications.any? %>
+                <li><%= link_to "Corporate reports", "#corporate-reports" %></li>
               <% end %>
             </ol>
           </nav>
@@ -39,8 +42,8 @@
                        locals: { organisation: @organisation } %>
           <% end %>
           <% if @corporate_publications.any? %>
-            <section class="corporate-publications">
-              <h2>Reports</h2>
+            <section class="corporate-publications" id="corporate-reports">
+              <h1>Corporate reports</h1>
               <ul>
                 <% @corporate_publications.each do |publication| %>
                   <%= content_tag_for :li, publication, class: 'item' do %>

@@ -913,8 +913,8 @@
     }
   }
   .corporate-publications {
-    h2 {
-      @include core-19;
+    h1 {
+      @include core-27;
       margin: $gutter 0 $gutter-half 0;
     }
     ul {
