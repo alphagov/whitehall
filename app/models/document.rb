@@ -32,7 +32,7 @@ class Document < ActiveRecord::Base
                AND e2.id > editions.id
                AND e2.state <> 'deleted')}
 
-  has_one :document_source
+  has_many :document_sources
 
   attr_accessor :sluggable_string
 
