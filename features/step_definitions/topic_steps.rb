@@ -14,6 +14,12 @@ Given /^the topic "([^"]*)" is associated with organisation "([^"]*)"$/ do |topi
   organisation.topics << topic
 end
 
+Given /^the topic "([^"]*)" has "([^"]*)" as a lead organisation$/ do |topic_name, organisation_name|
+  topic = Topic.find_by_name(topic_name) || create(:topic, name: topic_name)
+  organisation = Organisation.find_by_name(organisation_name) || create(:ministerial_department, name: organisation_name)
+  OrganisationTopic.create(topic: topic, organisation: organisation, lead: true)
+end
+
 Given /^the topic "([^"]*)" contains a published and a draft detailed guide$/ do |topic_name|
   detailed_guides = [build(:published_detailed_guide), build(:draft_detailed_guide)]
   create(:topic, name: topic_name, detailed_guides: detailed_guides)
@@ -73,8 +79,6 @@ end
 When /^I set the order of the lead organisations in the "([^"]*)" topic to:$/ do |topic_name, table|
   topic = Topic.find_by_name!(topic_name)
   visit edit_admin_topic_path(topic)
-
-  pending 'how do I select that an org is lead?'
 
   table.rows.each_with_index do |(organisation_name), index|
     fill_in organisation_name, with: index

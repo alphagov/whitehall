@@ -39,13 +39,16 @@ Scenario: Ordering policies within a topic
 
 Scenario: Choosing and ordering lead organisations within a topic
   Given a topic called "Facial Hair" with description "Against All Follicles"
-  And the topic "Facial Hair" is associated with organisation "Ministry of Grooming"
-  And the topic "Facial Hair" is associated with organisation "Ministry of War"
-  And the topic "Facial Hair" is associated with organisation "Department of Scissors and Wax"
+  And the topic "Facial Hair" has "Ministry of Grooming" as a lead organisation
+  And the topic "Facial Hair" has "Ministry of War" as a lead organisation
+  And the topic "Facial Hair" has "Department of Scissors and Wax" as a lead organisation
   When I set the order of the lead organisations in the "Facial Hair" topic to:
+    |Organisation|
     |Department of Scissors and Wax|
+    |Ministry of Grooming|
     |Ministry of War|
   Then I should see the order of the lead organisations in the "Facial Hair" topic is:
     |Department of Scissors and Wax|
+    |Ministry of Grooming|
     |Ministry of War|
 

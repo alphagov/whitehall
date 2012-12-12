@@ -25,5 +25,18 @@
     <% end %>
   </fieldset>
 
+  <fieldset id="lead_organisation_order" class="named">
+    <legend>Lead organisations</legend>
+
+    <div class="sortable">
+      <%= topic_form.fields_for :lead_organisation_topics, topic.lead_organisation_topics do |lead_organisation_form| %>
+        <% lead_organisation = lead_organisation_form.object.organisation %>
+        <div id="<%= dom_id(lead_organisation) %>" class="well">
+          <%= lead_organisation_form.text_field :lead_ordering, label_text: link_to(lead_organisation.name, admin_organisation_path(lead_organisation)), class: "ordering" %>
+        </div>
+      <% end %>
+    </div>
+  </fieldset>
+
   <%= topic_form.save_or_cancel cancel: admin_topics_path %>
 <% end %>

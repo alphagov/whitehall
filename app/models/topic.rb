@@ -29,6 +29,14 @@ class Topic < ActiveRecord::Base
   has_many :organisation_topics
   has_many :organisations, through: :organisation_topics
 
+  has_many :lead_organisation_topics,
+            class_name: 'OrganisationTopic',
+            conditions: { organisation_topics: { lead: true } },
+            order: 'organisation_topics.lead_ordering'
+  has_many :lead_organisations,
+            through: :lead_organisation_topics,
+            source: :organisation
+
   has_many :published_policies,
             through: :topic_memberships,
             class_name: "Policy",
@@ -61,6 +69,7 @@ class Topic < ActiveRecord::Base
   validates :description, presence: true
 
   accepts_nested_attributes_for :topic_memberships
+  accepts_nested_attributes_for :lead_organisation_topics
 
   default_scope where(arel_table[:state].not_eq("deleted"))
 
