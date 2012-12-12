@@ -14,14 +14,23 @@ end
 CSV.open(Rails.root.join('public/government/document_mappings.csv'), 'wb') do |csv_out|
 
   csv_out << ['Old Url','New Url','Status','Whole Tag','Slug','Admin Url','State']
-  Document.joins(:document_source).all.each do |document|
+  DocumentSource.joins(:document).each do |document_source|
+    document = document_source.document
     edition = document.published_edition || document.latest_edition
     if edition
-      status = (edition.state == 'published' ? '301' : '')
-      whole_tag = (edition.state == 'published' ? 'Closed' : 'Open')
-      csv_out << [document.document_source.url, public_document_url(edition, protocol: 'https'), status, whole_tag, document.slug, admin_edition_url(edition, host: "whitehall-admin.#{ENV['FACTER_govuk_platform']}.alphagov.co.uk", protocol: 'https'), edition.state]
+      status = (edition.published? ? '301' : '')
+      whole_tag = (edition.published? ? 'Closed' : 'Open')
+      csv_out << [
+        document_source.url,
+        public_document_url(edition, protocol: 'https'),
+        status,
+        whole_tag,
+        document.slug,
+        admin_edition_url(edition, host: "whitehall-admin.#{ENV['FACTER_govuk_platform']}.alphagov.co.uk", protocol: 'https'),
+        edition.state
+      ]
     else
-      csv_out << [document.document_source.url, '', '', 'Open']
+      csv_out << [document_source.url, '', '', 'Open']
     end
   end
 
