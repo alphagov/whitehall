@@ -16,7 +16,7 @@ connection = Fog::Storage.new({
 
 BUCKET_NAME = "fco-temp-attachment-store"
 
-@directory = connection.directories.get(BUCKET_NAME) || connection.directories.create(:key => BUCKET_NAME, :public => 'true')
+@directory = connection.directories.get(BUCKET_NAME) || connection.directories.create(key: BUCKET_NAME, public: 'true')
 
 def upload_file(file, data)
   begin
@@ -33,7 +33,7 @@ def upload_file(file, data)
   @directory.files.create(
     :key    => file,
     :body   => data,
-    :public => true
+    public: true
   ).public_url
 end
 
