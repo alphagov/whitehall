@@ -46,11 +46,12 @@ end
 
 group :development, :staging, :test do
   gem 'faker'
-  gem 'thin', '1.5.0'
   gem 'quiet_assets'
   gem 'rails-dev-boost', '~> 0.2.1'
   gem 'brakeman'
   gem 'parallel_tests'
+  gem 'better_errors'
+  gem 'binding_of_caller'
 end
 
 group :test do
