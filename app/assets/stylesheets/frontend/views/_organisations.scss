@@ -743,7 +743,7 @@
       width: 66.66%;
       float: right;
       .inner-block {
-        padding-left: $gutter-one-sixth;
+        padding-left: $gutter-one-third;
       }
     }
     .block-3 {
@@ -765,13 +765,44 @@
     display: block;
     word-wrap: break-word;
   }
+
   .page-header {
-    padding: $gutter-half 0 $gutter 0;
+    @include media(tablet) {
+      padding: $gutter-half 0 $gutter 0;
+    }
+
+    h1 {
+      @include media(desktop){
+        float: left;
+        padding-top: 0;
+        width: 33.33%;
+      }
+    }
+
+    .sub-organisation-name {
+      h2 {
+        @include core-36;
+        padding-left: 0;
+        margin-top: $gutter-half;
+        a {
+          color: #000;
+        }
+        @include media(desktop) {
+          @include core-48;
+        }
+      }
+      @include media(desktop) {
+        float: left;
+        margin-bottom: $gutter;
+        width: 66.66%;
+      }
+    }
 
     @include media(desktop) {
       padding-bottom: $gutter*2;
     }
   }
+
   .description {
     p {
       @include core-19;
@@ -945,4 +976,3 @@
   }
   @include department-colours('.corporate-info h1', border-color);
 }
-
