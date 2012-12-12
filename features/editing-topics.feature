@@ -37,3 +37,17 @@ Scenario: Ordering policies within a topic
     |Outlaw Moustaches|
     |Free monobrow treatment|
 
+Scenario: Ordering organisations within a topic
+  Given a topic called "Facial Hair" with description "Against All Follicles"
+  And the topic "Facial Hair" is associated with organisation "Ministry of Grooming"
+  And the topic "Facial Hair" is associated with organisation "Ministry of War"
+  And the topic "Facial Hair" is associated with organisation "Department of Scissors and Wax"
+  When I set the order of the organisations in the "Facial Hair" topic to:
+    |Department of Scissors and Wax|
+    |Ministry of Grooming|
+    |Ministry of War|
+  Then I should see the order of the organisations in the "Facial Hair" topic is:
+    |Department of Scissors and Wax|
+    |Ministry of Grooming|
+    |Ministry of War|
+

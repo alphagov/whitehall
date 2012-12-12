@@ -8,6 +8,12 @@ Given /^the topic "([^"]*)" contains some policies$/ do |topic_name|
   2.times do create(:draft_policy,     topics: [topic]); end
 end
 
+Given /^the topic "([^"]*)" is associated with organisation "([^"]*)"$/ do |topic_name, organisation_name|
+  topic = Topic.find_by_name(topic_name) || create(:topic, name: topic_name)
+  organisation = Organisation.find_by_name(organisation_name) || create(:ministerial_department, name: organisation_name)
+  organisation.topics << topic
+end
+
 Given /^the topic "([^"]*)" contains a published and a draft detailed guide$/ do |topic_name|
   detailed_guides = [build(:published_detailed_guide), build(:draft_detailed_guide)]
   create(:topic, name: topic_name, detailed_guides: detailed_guides)
@@ -70,6 +76,15 @@ Then /^I should see in the admin the "([^"]*)" topic description is "([^"]*)"$/ 
   assert page.has_css?(".description", text: description)
 end
 
+When /^I set the order of the organisations in the "([^"]*)" topic to:$/ do |topic_name, table|
+  topic = Topic.find_by_name!(topic_name)
+  visit edit_admin_topic_path(topic)
+  table.rows.each_with_index do |(organisation_name), index|
+    fill_in organisation_name, with: index
+  end
+  click_button "Save"
+end
+
 Then /^I should see in the admin the "([^"]*)" topic is related to topic "([^"]*)"$/ do |name, related_name|
   visit admin_topics_path
   topic = Topic.find_by_name(name)
@@ -87,6 +102,14 @@ Then /^I should see the order of the policies in the "([^"]*)" topic is:$/ do |n
   topic = Topic.find_by_name!(name)
   visit topic_path(topic)
   rows = find("#policies").all('h2')
+  table = rows.map { |r| r.all('a').map { |c| c.text.strip } }
+  expected_table.diff!(table)
+end
+
+Then /^I should see the order of the organisations in the "([^"]*)" topic is:$/ do |topic_name, expected_table|
+  topic = Topic.find_by_name!(topic_name)
+  visit edit_admin_topic_path(topic)
+  rows = find("#organisation_order").all('label')
   table = rows.map { |r| r.all('a').map { |c| c.text.strip } }
   expected_table.diff!(table)
 end
