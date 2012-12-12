@@ -10,8 +10,8 @@ end
 
 connection = Fog::Storage.new({
   :provider                 => 'AWS',
-  :aws_access_key_id        => 'AKIAJ7CWDM3PKCFLQZUA',
-  :aws_secret_access_key    => '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'
+  :aws_access_key_id        => 'XXX',
+  :aws_secret_access_key    => 'XXX'
 })
 
 BUCKET_NAME = "fco-temp-attachment-store"
