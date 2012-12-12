@@ -70,19 +70,22 @@ When /^I set the order of the policies in the "([^"]*)" topic to:$/ do |name, ta
   click_button "Save"
 end
 
-Then /^I should see in the admin the "([^"]*)" topic description is "([^"]*)"$/ do |name, description|
-  visit admin_topics_path
-  assert page.has_css?(".name", text: name)
-  assert page.has_css?(".description", text: description)
-end
-
-When /^I set the order of the organisations in the "([^"]*)" topic to:$/ do |topic_name, table|
+When /^I set the order of the lead organisations in the "([^"]*)" topic to:$/ do |topic_name, table|
   topic = Topic.find_by_name!(topic_name)
   visit edit_admin_topic_path(topic)
+
+  pending 'how do I select that an org is lead?'
+
   table.rows.each_with_index do |(organisation_name), index|
     fill_in organisation_name, with: index
   end
   click_button "Save"
+end
+
+Then /^I should see in the admin the "([^"]*)" topic description is "([^"]*)"$/ do |name, description|
+  visit admin_topics_path
+  assert page.has_css?(".name", text: name)
+  assert page.has_css?(".description", text: description)
 end
 
 Then /^I should see in the admin the "([^"]*)" topic is related to topic "([^"]*)"$/ do |name, related_name|
@@ -106,10 +109,10 @@ Then /^I should see the order of the policies in the "([^"]*)" topic is:$/ do |n
   expected_table.diff!(table)
 end
 
-Then /^I should see the order of the organisations in the "([^"]*)" topic is:$/ do |topic_name, expected_table|
+Then /^I should see the order of the lead organisations in the "([^"]*)" topic is:$/ do |topic_name, expected_table|
   topic = Topic.find_by_name!(topic_name)
   visit edit_admin_topic_path(topic)
-  rows = find("#organisation_order").all('label')
+  rows = find("#lead_organisation_order").all('label')
   table = rows.map { |r| r.all('a').map { |c| c.text.strip } }
   expected_table.diff!(table)
 end
