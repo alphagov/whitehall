@@ -1,6 +1,5 @@
 class FatalityNoticePresenter < Draper::Base
   include EditionPresenterHelper
-  include LeadImagePresenterHelper
 
   decorates :fatality_notice
 
