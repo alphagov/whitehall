@@ -29,14 +29,6 @@ class Topic < ActiveRecord::Base
   has_many :organisation_topics
   has_many :organisations, through: :organisation_topics
 
-  has_many :lead_organisation_topics,
-            class_name: 'OrganisationTopic',
-            conditions: { organisation_topics: { lead: true } },
-            order: 'organisation_topics.lead_ordering'
-  has_many :lead_organisations,
-            through: :lead_organisation_topics,
-            source: :organisation
-
   has_many :published_policies,
             through: :topic_memberships,
             class_name: "Policy",
@@ -108,6 +100,14 @@ class Topic < ActiveRecord::Base
 
   extend FriendlyId
   friendly_id
+
+  def lead_organisations
+    organisations.where(organisation_topics: {lead: true}).reorder("organisation_topics.lead_ordering")
+  end
+  
+  def lead_organisation_topics
+    organisation_topics.where(lead: true).order("organisation_topics.lead_ordering")
+  end
 
   def update_counts
     update_attribute(:published_edition_count, published_editions.count)
