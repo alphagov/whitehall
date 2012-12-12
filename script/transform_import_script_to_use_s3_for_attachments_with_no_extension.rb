@@ -9,9 +9,9 @@ def run(cmd)
 end
 
 connection = Fog::Storage.new({
-  :provider                 => 'AWS',
-  :aws_access_key_id        => 'XXX',
-  :aws_secret_access_key    => 'XXX'
+  provider: 'AWS',
+  aws_access_key_id: 'XXX',
+  aws_secret_access_key: 'XXX'
 })
 
 BUCKET_NAME = "fco-temp-attachment-store"
@@ -31,8 +31,8 @@ def upload_file(file, data)
   end
   $stderr.puts "Uploading #{file} to S3"
   @directory.files.create(
-    :key    => file,
-    :body   => data,
+    key: file,
+    body: data,
     public: true
   ).public_url
 end
