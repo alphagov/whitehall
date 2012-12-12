@@ -18,10 +18,15 @@ header {
   }
 }
 
-.row-fluid .span2 {
-  width: 100%;
-  @include media(desktop) {
-    width: 14%;
+.row-fluid {
+  .nav li + .nav-header {
+    clear: both;
+  }
+  .span2 {
+    width: 100%;
+    @include media(desktop) {
+      width: 14%;
+    }
   }
 }
 
