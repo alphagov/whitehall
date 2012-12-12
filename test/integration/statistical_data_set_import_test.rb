@@ -20,7 +20,7 @@ class StatisticalDataSetImportTest < ActiveSupport::TestCase
     assert_equal creator, statistical_data_set.creator
     assert_equal [organisation], statistical_data_set.organisations
     assert_equal statistical_data_series, statistical_data_set.document_series
-    assert_equal "http://example.com/legacy-url", statistical_data_set.document.document_source.url
+    assert_equal "http://example.com/legacy-url", statistical_data_set.document.document_sources.first.url
 
     assert_equal "!@1 !@2", statistical_data_set.body
 

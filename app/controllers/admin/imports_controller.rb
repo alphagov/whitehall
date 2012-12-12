@@ -47,9 +47,6 @@ class Admin::ImportsController < Admin::BaseController
   end
 
 private
-  def require_import_permission!
-    authorise_user!(GDS::SSO::Config.default_scope, User::Permissions::IMPORT)
-  end
 
   def find_import
     @import = Import.find(params[:id])

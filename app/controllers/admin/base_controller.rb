@@ -14,6 +14,10 @@ class Admin::BaseController < ApplicationController
     forbidden! unless current_user.can_handle_fatalities?
   end
 
+  def require_import_permission!
+    authorise_user!(GDS::SSO::Config.default_scope, User::Permissions::IMPORT)
+  end
+
   private
 
   def forbidden!
