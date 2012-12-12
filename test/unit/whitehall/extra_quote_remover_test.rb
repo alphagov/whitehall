@@ -81,5 +81,20 @@ module Whitehall
         %{> Here is a block quote using 2 lines and two of the arrows.\n> I am not sure how this will render.  I think it will mash them together.}
       )
     end
+
+    test "preserves multiline blockquotes with plain newlines quotes" do
+      text = %{> "I was so very sorry to hear of the deaths of these five brave soldiers, killed in the course of their duties in Afghanistan. That they were killed by one of those they were working alongside is a particular tragedy.> \n> "The memory of WO1 (RSM) Darren Chant, Sgt Matthew Telford, Cpl Nicholas Webster-Smith, Cpl Steven Boote and Guardsman James Major will live on. They were men of courage who died building security in Afghanistan and protecting people in the UK from terrorism.\n> \n> "My deepest sympathies and condolences lie with their grieving families, friends, and all those who served alongside them, who will feel the pain of loss most intensely. They are in all our thoughts."}
+      assert_remover_transforms(
+        text =>
+        %{> I was so very sorry to hear of the deaths of these five brave soldiers, killed in the course of their duties in Afghanistan. That they were killed by one of those they were working alongside is a particular tragedy.\n> \n> The memory of WO1 (RSM) Darren Chant, Sgt Matthew Telford, Cpl Nicholas Webster-Smith, Cpl Steven Boote and Guardsman James Major will live on. They were men of courage who died building security in Afghanistan and protecting people in the UK from terrorism.\n> \n> My deepest sympathies and condolences lie with their grieving families, friends, and all those who served alongside them, who will feel the pain of loss most intensely. They are in all our thoughts.}
+        )
+    end
+
+    test "preserve newlines when there's a blockquote with additional text after" do
+      text = %{> \n> blah}
+      assert_remover_transforms(
+        text => text
+      )
+    end
   end
 end
