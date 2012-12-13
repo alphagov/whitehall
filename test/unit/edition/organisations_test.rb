@@ -56,4 +56,25 @@ class Edition::OrganisationsTest < ActiveSupport::TestCase
       }, "loading organisations should not contact the database"
     }, "organisations association wasn't eager-loaded"
   end
+
+  test "new edition of document will retain lead and supporting organisations and their orderings" do
+    organisation_1 = create(:organisation)
+    organisation_2 = create(:organisation)
+    organisation_3 = create(:organisation)
+    news_article = create(:published_news_article, lead_organisations: [organisation_3, organisation_1], supporting_organisations: [organisation_2])
+
+    new_edition = news_article.create_draft(create(:policy_writer))
+    new_edition.change_note = 'change-note'
+    new_edition.publish_as(create(:departmental_editor), force: true)
+
+    lead_edition_organisations = new_edition.lead_edition_organisations
+    assert_equal 2, lead_edition_organisations.size
+    assert_equal organisation_3, lead_edition_organisations[0].organisation
+    assert_equal organisation_1, lead_edition_organisations[1].organisation
+
+    supporting_edition_organisations = new_edition.supporting_edition_organisations
+    assert_equal 1, supporting_edition_organisations.size
+    assert_equal organisation_2, supporting_edition_organisations[0].organisation
+  end
+
 end
