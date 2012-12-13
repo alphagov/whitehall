@@ -5,7 +5,7 @@ class HomeController < PublicFacingController
     ministerial_department_type = OrganisationType.find_by_name('Ministerial department')
     sub_organisation_type = OrganisationType.find_by_name('Sub-organisation')
     @live_ministerial_departments = Organisation.where("organisation_type_id = ? AND govuk_status ='live'", ministerial_department_type)
-    @live_other_departments = Organisation.where("organisation_type_id != ? AND govuk_status='live'", ministerial_department_type)
+    @live_other_departments = Organisation.where("organisation_type_id NOT IN (?,?) AND govuk_status='live'", ministerial_department_type, sub_organisation_type)
     @transitioning_ministerial_departments = Organisation.where("organisation_type_id = ? AND govuk_status ='transitioning'", ministerial_department_type)
     @transitioning_other_departments = Organisation.where("organisation_type_id NOT IN (?, ?) AND govuk_status='transitioning'", ministerial_department_type, sub_organisation_type)
     @topics = Topic.with_policies.alphabetical.all
