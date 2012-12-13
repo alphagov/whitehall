@@ -59,21 +59,19 @@
             <% @fatality_notices.each do |fatality_notice| %>
               <%= content_tag_for :li, fatality_notice, class: 'fatality-notice' do %>
                 <h3 class="summary">
-                  <% if fatality_notice.fatality_notice_casualties.any? %>
-                    <%= fatality_notice.summary %>
-                  <% else %>
-                    <%= link_to fatality_notice.summary, public_document_url(fatality_notice) %>
-                  <% end %>
+                  <%= fatality_notice.summary %>
                 </h3>
+                <ul class="casualties">
                 <% if fatality_notice.fatality_notice_casualties.any? %>
-                  <ul class="casualties">
                     <% fatality_notice.fatality_notice_casualties.each do |casualty| %>
                       <%= content_tag_for :li, casualty, class: 'casualty' do %>
                         <%= link_to casualty.personal_details, public_document_url(fatality_notice) %>
                       <% end %>
                     <% end %>
-                  </ul>
+                <% else %>
+                  <li class="casualty"><%= link_to fatality_notice.title, public_document_url(fatality_notice) %></li>
                 <% end %>
+                </ul>
               <% end %>
             <% end %>
           </ul>
