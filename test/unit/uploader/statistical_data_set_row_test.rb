@@ -88,6 +88,15 @@ module Whitehall::Uploader
       assert_equal [organisation], row.organisations
     end
 
+    test "generates lead_edition_organisations by asking the edition organisation builder to build a lead with each found organisation" do
+      o = stub(:organisation)
+      row = statistica_data_set_row({})
+      row.stubs(:organisations).returns([o])
+      leo = stub(:lead_edition_organisation)
+      Whitehall::Uploader::Builders::EditionOrganisationBuilder.stubs(:build_lead).with(o, 1).returns(leo)
+      assert_equal [leo], row.lead_edition_organisations
+    end
+
     test "uses the organisation as the alternative format provider" do
       organisation = stub("organisation")
       Finders::OrganisationFinder.stubs(:find).with("name or slug", anything, anything, @default_organisation).returns([organisation])

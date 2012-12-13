@@ -1,3 +1,6 @@
+require 'whitehall/uploader/finders'
+require 'whitehall/uploader/parsers'
+require 'whitehall/uploader/builders'
 require 'whitehall/uploader/row'
 
 module Whitehall::Uploader
@@ -56,6 +59,12 @@ module Whitehall::Uploader
       Finders::OrganisationFinder.find(row['organisation'], @logger, @line_number, @default_organisation)
     end
 
+    def lead_edition_organisations
+      organisations.map.with_index do |o, idx|
+        Builders::EditionOrganisationBuilder.build_lead(o, idx + 1)
+      end
+    end
+
     def document_series
       Finders::DocumentSeriesFinder.find(row['document_series'], @logger, @line_number)
     end
@@ -82,7 +91,7 @@ module Whitehall::Uploader
 
     def attributes
       [:title, :summary, :body, :publication_date, :publication_type,
-       :related_policies, :organisations, :document_series,
+       :related_policies, :lead_edition_organisations, :document_series,
        :ministerial_roles, :attachments, :alternative_format_provider,
        :world_locations].map.with_object({}) do |name, result|
         result[name] = __send__(name)
