@@ -77,7 +77,6 @@
 <div class="block block-6">
   <div class="inner-block">
     <aside class="elsewhere">
-      <h1>Related</h1>
       <% if @detailed_guides.any? %>
         <section id="detailed-guidance" class="title-block">
           <div class="content">
@@ -95,7 +94,7 @@
       <% if @related_topics.any? %>
         <section id="related-topics" class="title-block">
           <div class="content">
-            <h1 class="label">Other topics</h1>
+            <h1 class="label">Related topics</h1>
             <ul>
               <% @related_topics.each do |topic| %>
                 <%= content_tag_for :li, topic do %>
