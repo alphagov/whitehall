@@ -135,7 +135,7 @@ module Whitehall
     end
 
     def edition_classes
-      [NewsArticle, Speech, Policy, Publication, Consultation, InternationalPriority, DetailedGuide, CaseStudy, StatisticalDataSet]
+      [NewsArticle, Speech, Policy, Publication, Consultation, InternationalPriority, DetailedGuide, CaseStudy, StatisticalDataSet, FatalityNotice]
     end
 
     def edition_route_path_segments
