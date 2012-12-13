@@ -68,6 +68,9 @@
           <%= link_to_filter 'International priorities', {type: 'international_priorities'}, title: "Show only international priorities" %>
           <%= link_to_filter 'Case studies', {type: 'case_studies'}, title: "Show only case studies" %>
           <%= link_to_filter 'Statistical data sets', {type: 'statistical_data_sets'}, title: "Show only statistical data sets" %>
+          <% if current_user.can_handle_fatalities? %>
+            <%= link_to_filter 'Fatality notices', {type: 'fatality_notices'}, title: "Show only fatality notices" %>
+          <% end %>
 
           <li class="nav-header">Filter by state</li>
           <% document_type = (params[:type] || "document").pluralize %>
