@@ -19,9 +19,9 @@ CSV.open(Rails.root.join('public/government/new_document_mappings.csv'), 'wb') d
     if edition
       status = (edition.state == 'published' ? '301' : '')
       whole_tag = (edition.state == 'published' ? 'Closed' : 'Open')
-      csv_out << [document.document_source ? document.document_source.url : '', public_document_url(edition, protocol: 'https'), status, whole_tag, document.slug, admin_edition_url(edition, host: "whitehall-admin.#{ENV['FACTER_govuk_platform']}.alphagov.co.uk", protocol: 'https'), edition.state]
+      csv_out << [document.document_sources.any? ? document.document_sources.first.url : '', public_document_url(edition, protocol: 'https'), status, whole_tag, document.slug, admin_edition_url(edition, host: "whitehall-admin.#{ENV['FACTER_govuk_platform']}.alphagov.co.uk", protocol: 'https'), edition.state]
     else
-      csv_out << [document.document_source ? document.document_source.url : '' , '', '', 'Open']
+      csv_out << [document.document_sources.any? ? document.document_sources.first.url : '' , '', '', 'Open']
     end
   end
 
