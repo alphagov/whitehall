@@ -1,6 +1,10 @@
+mod = Organisation.find_by_slug('ministry-of-defence')
+
+return unless mod
+
 count = 0
 # for each document that is a news article in MOD
-Document.find_by_sql("SELECT d.* FROM documents d left join editions e on d.id = e.document_id left join edition_organisations eo ON eo.edition_id = e.id WHERE eo.organisation_id = 17 and document_type in ('NewsArticle','FatalityNotice')").each do |document|
+Document.find_by_sql("SELECT d.* FROM documents d left join editions e on d.id = e.document_id left join edition_organisations eo ON eo.edition_id = e.id WHERE eo.organisation_id = #{mod.id} and document_type in ('NewsArticle','FatalityNotice')").each do |document|
 #  get all the editions sorted by creation ASC
   editions = Edition.unscoped.where('document_id = ?', document.id).order('id ASC')
   #  for each edition in the document
