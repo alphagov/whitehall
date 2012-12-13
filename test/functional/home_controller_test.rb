@@ -106,11 +106,13 @@ class HomeControllerTest < ActionController::TestCase
   end
 
   test "home page shows a count of live non-ministerial departmernts" do
-    # need to have the ministerial type so we can select non-ministerial
+    # need to have the ministerial and suborg type so we can select non-ministerial
     create(:ministerial_organisation_type)
+    create(:sub_organisation_type)
 
     type = create(:non_ministerial_organisation_type)
-    create(:organisation, govuk_status: 'live', organisation_type: type)
+    org = create(:organisation, govuk_status: 'live', organisation_type: type)
+    sub_org = create(:sub_organisation, govuk_status: 'live', parent_organisations: [create(:ministerial_department)])
 
     get :home
 

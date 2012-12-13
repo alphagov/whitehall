@@ -5,7 +5,7 @@ FactoryGirl.define do
   end
 
   factory :ministerial_organisation_type, parent: :organisation_type do
-    name "Ministerial Department"
+    name "Ministerial department"
   end
 
   factory :non_ministerial_organisation_type, parent: :organisation_type do
