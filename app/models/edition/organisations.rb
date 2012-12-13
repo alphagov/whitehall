@@ -13,6 +13,24 @@ module Edition::Organisations
     has_many :edition_organisations, foreign_key: :edition_id, dependent: :destroy
     has_many :organisations, through: :edition_organisations
 
+    has_many :lead_edition_organisations, foreign_key: :edition_id,
+                                          class_name: 'EditionOrganisation',
+                                          conditions: {lead: true},
+                                          order: 'edition_organisations.lead_ordering'
+
+    has_many :supporting_edition_organisations, foreign_key: :edition_id,
+                                                class_name: 'EditionOrganisation',
+                                                conditions: {lead: false}
+
+    def lead_organisations
+      organisations.where(edition_organisations: { lead: true }).reorder('edition_organisations.lead_ordering')
+    end
+
+    def supporting_organisations
+      organisations.where(edition_organisations: { lead: false })
+    end
+    accepts_nested_attributes_for :edition_organisations, reject_if: -> attributes { attributes['organisation_id'].blank? }, allow_destroy: true
+
     validate :at_least_one_organisation
 
     add_trait Trait
