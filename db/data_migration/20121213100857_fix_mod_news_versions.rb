@@ -15,7 +15,9 @@ Document.find_by_sql("SELECT d.* FROM documents d left join editions e on d.id =
     #   change minor version to be i
     edition.update_column(:published_minor_version, i)
     #   change minor_change to true
-    edition.update_column(:minor_change, true)
+    if i > 0
+      edition.update_column(:minor_change, true)
+    end
     #   call edition.set_timestamp_for_sorting
     edition.update_column(:timestamp_for_sorting, edition.first_published_at)
     #  end for
