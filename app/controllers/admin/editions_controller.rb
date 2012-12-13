@@ -8,6 +8,8 @@ class Admin::EditionsController < Admin::BaseController
   before_filter :build_edition, only: [:new, :create]
   before_filter :detect_other_active_editors, only: [:edit]
   before_filter :redirect_to_controller_for_type, only: [:show]
+  before_filter :build_edition_organisations, only: [:new, :edit]
+  before_filter :delete_absent_edition_organisations, only: [:create, :update]
 
   def index
     if filter && filter.valid?
@@ -101,7 +103,7 @@ class Admin::EditionsController < Admin::BaseController
   end
 
   def default_arrays_of_ids_to_empty
-    params[:edition][:organisation_ids] ||= []
+    # params[:edition][:organisation_ids] ||= []
     if @edition.can_be_associated_with_topics?
       params[:edition][:topic_ids] ||= []
     end
@@ -127,6 +129,26 @@ class Admin::EditionsController < Admin::BaseController
 
   def build_edition_dependencies
     build_image
+  end
+
+  def build_edition_organisations
+    n = @edition.lead_edition_organisations.count
+    (n...4).each do |i|
+      @edition.lead_edition_organisations.build(lead_ordering: i)
+    end
+    n = @edition.supporting_edition_organisations.count
+    (n...6).each do |i|
+      @edition.supporting_edition_organisations.build
+    end
+  end
+
+  def delete_absent_edition_organisations
+    return unless params[:edition] && params[:edition][:edition_organisations_attributes]
+    params[:edition][:edition_organisations_attributes].each do |p|
+      if p[:organisation_id].blank?
+        p["_destroy"] = true
+      end
+    end
   end
 
   def build_image

@@ -32,6 +32,7 @@ module Edition::Organisations
     accepts_nested_attributes_for :edition_organisations, reject_if: -> attributes { attributes['organisation_id'].blank? }, allow_destroy: true
 
     before_validation :make_all_edition_organisations_mine
+    after_save :reset_edition_organisations
     validate :at_least_one_lead_organisation
 
     add_trait Trait
@@ -71,5 +72,14 @@ private
     edition_organisations.each { |eo| eo.edition = self unless eo.edition == self }
     lead_edition_organisations.each { |eo| eo.edition = self unless eo.edition == self }
     supporting_edition_organisations.each { |eo| eo.edition = self unless eo.edition == self }
+  end
+
+  def reset_edition_organisations
+    # we have 3 ways into the underlying data structure for EditionOrganisations
+    # safest to reset all the assocations after saving so they all pick up
+    # any changes made via the other endpoints.
+    self.association(:edition_organisations).reset
+    self.association(:lead_edition_organisations).reset
+    self.association(:supporting_edition_organisations).reset
   end
 end

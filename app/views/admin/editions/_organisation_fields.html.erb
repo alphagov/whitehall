@@ -1,3 +1,34 @@
-<%= form.label :organisation_ids, 'Producing organisations' %>
-<%= form.select :organisation_ids, options_from_collection_for_select(Organisation.all, 'id', 'name', edition.organisation_ids), {}, multiple: true, class: 'chzn-select', data: { placeholder: "Choose organisations which produced this document..." } %>
+<fieldset class="named">
+  <legend>Producing organisations</legend>
+
+  <div class="row-fluid">
+    <fieldset class="named span4">
+      <legend>Lead organisations</legend>
+
+      <% form.object.lead_edition_organisations.each.with_index do |eo, idx| %>
+        <%= label_tag "edition_edition_organisations_attributes_organisation_id_lead_#{idx}" do %>
+          Organisation <%= idx + 1 %>
+          <%= select_tag "edition[edition_organisations_attributes][][organisation_id]", options_from_collection_for_select(Organisation.all, 'id', 'name', eo.organisation_id), include_blank: true, multiple: false, class: 'chzn-select', data: { placeholder: "Choose a lead organisation which produced this document..."}, id: "edition_edition_organisations_attributes_organisation_id_lead_#{idx + 1}" %>
+          <%= hidden_field_tag "edition[edition_organisations_attributes][][lead_ordering]", idx %>
+          <%= hidden_field_tag "edition[edition_organisations_attributes][][id]", eo.id %>
+          <%= hidden_field_tag "edition[edition_organisations_attributes][][lead]", '1' %>
+        <% end %>
+      <% end %>
+    </fieldset>
+
+    <fieldset class="named span4">
+      <legend>Supporting organisations</legend>
+
+      <% form.object.supporting_edition_organisations.each.with_index do |eo, idx| %>
+        <%= label_tag "edition_edition_organisations_attributes_organisation_id_supporting_#{idx}" do %>
+          Organisation <%= idx + 1%>
+          <%= select_tag "edition[edition_organisations_attributes][][organisation_id]", options_from_collection_for_select(Organisation.all, 'id', 'name', eo.organisation_id), include_blank: true, multiple: false, class: 'chzn-select', data: { placeholder: "Choose a supporting organisation which produced this document..."}, id: "edition_edition_organisations_attributes_organisation_id_supporting_#{idx + 1}" %>
+          <%= hidden_field_tag "edition[edition_organisations_attributes][][lead_ordering]", '' %>
+          <%= hidden_field_tag "edition[edition_organisations_attributes][][id]", eo.id %>
+          <%= hidden_field_tag "edition[edition_organisations_attributes][][lead]", '0' %>
+        <% end %>
+      <% end %>
+    </fieldset>
+  </div>
+</fieldset>
 <%= form.alternative_format_provider_select %>
