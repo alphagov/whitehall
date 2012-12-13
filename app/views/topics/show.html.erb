@@ -78,18 +78,20 @@
   <div class="inner-block">
     <aside class="elsewhere">
       <h1>Related</h1>
-      <section id="detailed-guidance" class="title-block">
-        <div class="content">
-          <h1 class="label">Detailed guidance</h1>
-          <ul>
-            <% @detailed_guides.each do |detailed_guide| %>
-              <%= content_tag_for :li, detailed_guide do %>
-                <%= link_to detailed_guide.title, public_document_path(detailed_guide) %>
+      <% if @detailed_guides.any? %>
+        <section id="detailed-guidance" class="title-block">
+          <div class="content">
+            <h1 class="label">Detailed guidance</h1>
+            <ul>
+              <% @detailed_guides.each do |detailed_guide| %>
+                <%= content_tag_for :li, detailed_guide do %>
+                  <%= link_to detailed_guide.title, public_document_path(detailed_guide) %>
+                <% end %>
               <% end %>
-            <% end %>
-          </ul>
-        </div>
-      </section>
+            </ul>
+          </div>
+        </section>
+      <% end %>
       <% if @related_topics.any? %>
         <section id="related-topics" class="title-block">
           <div class="content">
