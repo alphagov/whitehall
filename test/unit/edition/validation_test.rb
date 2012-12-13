@@ -57,4 +57,19 @@ class Edition::ValidationTest < ActiveSupport::TestCase
     edition = build(:published_policy, document: published_edition.document.reload)
     refute edition.valid?
   end
+
+  test "should be invalid when it has no organisations" do
+    edition = build(:edition, create_default_organisation: false, lead_organisations: [], supporting_organisations: [])
+    refute edition.valid?
+  end
+
+  test "should be invalid when it has only supporting organisations" do
+    edition = build(:edition, create_default_organisation: false, lead_organisations: [], supporting_organisations: [build(:organisation)])
+    refute edition.valid?
+  end
+
+  test "should be valid when it has a lead organisation, but no supporting organisation" do
+    edition = build(:edition, create_default_organisation: false, lead_organisations: [build(:organisation)], supporting_organisations: [])
+    assert edition.valid?
+  end
 end

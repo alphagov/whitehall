@@ -31,7 +31,7 @@ module Edition::Organisations
     end
     accepts_nested_attributes_for :edition_organisations, reject_if: -> attributes { attributes['organisation_id'].blank? }, allow_destroy: true
 
-    validate :at_least_one_organisation
+    validate :at_least_one_lead_organisation
 
     add_trait Trait
   end
@@ -58,9 +58,11 @@ module Edition::Organisations
   end
 
 private
-  def at_least_one_organisation
-    unless skip_organisation_validation? || edition_organisations.any? || organisations.any?
-      errors[:organisations] = "at least one required"
+  def at_least_one_lead_organisation
+    unless skip_organisation_validation?
+      unless lead_edition_organisations.any? || edition_organisations.detect {|eo| eo.lead? }
+        errors[:lead_organisations] = "at least one required"
+      end
     end
   end
 end
