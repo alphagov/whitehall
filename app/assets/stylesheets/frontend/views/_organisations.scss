@@ -223,6 +223,7 @@
         float: left;
         width: 33.33%;
         padding-top: 0;
+        margin-top: ($gutter-one-third * -1);
       }
 
       h4 {
@@ -243,6 +244,9 @@
 
         li {
           @include core-16;
+          @include media(tablet){
+            padding-bottom: 0;
+          }
         }
       }
     }
