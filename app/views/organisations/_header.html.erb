@@ -37,7 +37,7 @@
       </h2>
     <% end %>
   <% end %>
-  <% if show_mainstream_links && organisation.organisation_mainstream_links.any? %>
+  <% if show_mainstream_links && organisation.organisation_mainstream_links.any? && sub_organisation.nil? %>
     <aside class="organisation-mainstream-links">
       <h4>Quick links</h4>
       <ul>

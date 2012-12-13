@@ -772,6 +772,16 @@ class OrganisationsControllerTest < ActionController::TestCase
     end
   end
 
+  test "should not show mainstream categories on suborg pages" do
+    organisation = create(:organisation)
+    link = create(:organisation_mainstream_link, organisation: organisation)
+    sub_organisation = create(:sub_organisation, parent_organisations: [organisation])
+
+    get :show, id: sub_organisation
+
+    refute_select "a[href='#{link.url}']", text: link.title
+  end
+
   private
 
   def assert_disclaimer_present(organisation)
