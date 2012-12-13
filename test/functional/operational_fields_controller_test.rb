@@ -45,6 +45,21 @@ class OperationalFieldsControllerTest < ActionController::TestCase
     assert_equal [FatalityNoticePresenter.new(iraq_fatality)], assigns(:fatality_notices)
   end
 
+  test "orders the fatality notice by reverse chronological order" do
+    iraq = create(:operational_field)
+    old_iraq_fatality = create(:published_fatality_notice, operational_field: iraq)
+    new_iraq_fatality = create(:published_fatality_notice, operational_field: iraq)
+
+    old_iraq_fatality.update_column(:timestamp_for_sorting, 2.weeks.ago)
+    new_iraq_fatality.update_column(:timestamp_for_sorting, 2.days.ago)
+
+    get :show, id: iraq
+    assert_equal [
+      FatalityNoticePresenter.new(new_iraq_fatality),
+      FatalityNoticePresenter.new(old_iraq_fatality)
+    ], assigns(:fatality_notices)
+  end
+
   test "shows recent casualties" do
     iraq = create(:operational_field)
     fatality_notice = create(:published_fatality_notice, operational_field: iraq)
