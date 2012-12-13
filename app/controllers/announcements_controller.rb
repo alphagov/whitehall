@@ -13,6 +13,8 @@ class AnnouncementsController < PublicFacingController
   def index
     params[:page] ||= 1
     params[:direction] ||= "before"
+    clean_malformed_params_array(:topics)
+    clean_malformed_params_array(:departments)
     document_filter = Whitehall::DocumentFilter.new(all_announcements, params)
     expire_on_next_scheduled_publication(scheduled_announcements)
     @filter = AnnouncementDecorator.new(document_filter)

@@ -8,6 +8,10 @@ class AnnouncementsControllerTest < ActionController::TestCase
   should_return_json_suitable_for_the_document_filter :news_article
   should_return_json_suitable_for_the_document_filter :speech
 
+  test "index should handle badly formatted params for topics and departments" do
+    get :index, :departments => {"0" => "all"}, :topics => {"0" => "all"}
+  end
+
   test "index shows a mix of news and speeches" do
     announced_today = [create(:published_news_article), create(:published_speech)]
 

@@ -27,4 +27,10 @@ class ApplicationController < ActionController::Base
   def set_slimmer_format_header(format_name)
     set_slimmer_headers(format: format_name)
   end
+
+  def clean_malformed_params_array(key)
+    if params[key].kind_of?(Hash)
+      params[key] = params[key].values
+    end
+  end
 end
