@@ -3,7 +3,7 @@
 %>
 <section class="corporate-information" id="corporate-info">
   <h1>Corporate information</h1>
-  <div class="corporate-information-block">
+  <div class="corporate-information-block access-our-info">
     <h2>Access our information</h2>
     <nav class="group sub_navigation" role="navigation">
       <ul>
@@ -22,7 +22,7 @@
       </ul>
     </nav>
   </div>
-  <div class="corporate-information-block">
+  <div class="corporate-information-block jobs-contracts">
     <h2>Jobs and contracts</h2>
     <nav class="group sub_navigation corporate-information" role="navigation">
       <ul>
@@ -33,7 +33,7 @@
       </ul>
     </nav>
   </div>
-  <p>
+  <p class="information">
     <% if organisation.corporate_information_pages.for_slug("publication-scheme").present? %>
       Read about the types of information we routinely publish in our
       <%= link_to "Publication Scheme", organisation_corporate_information_page_path(organisation, "publication-scheme") %>.
