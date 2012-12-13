@@ -15,7 +15,7 @@ class PoliciesControllerTest < ActionController::TestCase
   should_return_json_suitable_for_the_document_filter :policy
 
   test "index should handle badly formatted params for topics and departments" do
-    get :index, :departments => {"0" => "all"}, :topics => {"0" => "all"}
+    get :index, departments: {'0' => "all"}, topics: {'0' => "all"}
   end
 
   test "show displays the date that the policy was updated" do
