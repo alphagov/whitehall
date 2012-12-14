@@ -105,7 +105,7 @@ class Admin::StatisticalDataSetsControllerTest < ActionController::TestCase
     StatisticalDataSet.stubs(access_limited_by_default?: true)
     data_set = create(:statistical_data_set, access_limited: false)
 
-    put :update, id: data_set, edition: controller_attributes_for(:statistical_data_set,
+    put :update, id: data_set, edition: controller_attributes_for_instance(data_set,
       access_limited: true
     )
 
@@ -117,7 +117,7 @@ class Admin::StatisticalDataSetsControllerTest < ActionController::TestCase
     StatisticalDataSet.stubs(access_limited_by_default?: true)
     data_set = create(:statistical_data_set, access_limited: true, authors: [@current_user])
 
-    put :update, id: data_set, edition: controller_attributes_for(:statistical_data_set,
+    put :update, id: data_set, edition: controller_attributes_for_instance(data_set,
       access_limited: false
     )
 
