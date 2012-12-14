@@ -2,7 +2,7 @@ module Admin::EditionsController::NationalApplicability
   extend ActiveSupport::Concern
 
   included do
-    before_filter :build_edition, only: [:new]
+    skip_before_filter :build_edition, except: [:new]
 
     before_filter :build_nation_inapplicabilities, only: [:new, :edit]
   end
