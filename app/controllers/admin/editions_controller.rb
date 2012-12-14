@@ -129,6 +129,7 @@ class Admin::EditionsController < Admin::BaseController
 
   def build_edition_dependencies
     build_image
+    build_edition_organisations
   end
 
   def build_edition_organisations
