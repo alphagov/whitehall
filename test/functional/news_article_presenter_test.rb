@@ -5,6 +5,9 @@ class NewsArticlePresenterTest < PresenterTestCase
   setup do
     organisation = build(:organisation, slug: "slug", organisation_type: build(:organisation_type))
     @news_article = build(:news_article, organisations: [organisation])
+    # TODO: perhaps rethink edition factory, so this apparent duplication
+    # isn't neccessary
+    @news_article.stubs(:organisations).returns([organisation])
     @presenter = NewsArticlePresenter.decorate(@news_article)
   end
 
