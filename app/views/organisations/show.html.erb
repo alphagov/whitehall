@@ -129,7 +129,7 @@
           <% if @ministers.any? %>
             <section id="ministers">
               <h1 class="label">Our ministers</h1>
-              <ul class="js-hide-extra-rows">
+              <ul>
               <% @ministers.each do |role| %>
                 <%= render partial: "people/person",
                             locals: {
