@@ -281,6 +281,10 @@
   }
 
   .organisation-news {
+    @include media(tablet) {
+      margin-bottom: $gutter;
+      overflow: hidden;
+    }
 
     article {
       @include media(tablet) {
@@ -294,9 +298,6 @@
 
         .img {
           display: block;
-          @include media(tablet){
-            padding-right: $gutter-half;
-          }
         }
         .meta {
           @include core-14;
@@ -314,14 +315,21 @@
 
       &.first {
         .content {
+          padding: $gutter-half 0 $gutter-one-third 0;
           @extend %contain-floats;
           .img-holder {
             @include media(tablet){
               width: 66.66%;
               float: left;
             }
+            .img {
+              padding: 0 $gutter-half;
+            }
           }
           .text {
+            .meta, h2, .summary {
+              padding: 0 $gutter-half;
+            }
             @include media(tablet){
               width: 33.33%;
               float: left;
