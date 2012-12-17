@@ -17,6 +17,7 @@ class Whitehall::DocumentFilter
     filter_by_keywords!
     filter_by_date!
     filter_by_publication_filter_option!
+    filter_by_announcement_filter_option!
     paginate!
     apply_sort_direction!
   end
@@ -46,6 +47,10 @@ class Whitehall::DocumentFilter
     Whitehall::PublicationFilterOption.all
   end
 
+  def announcement_types_for_filter
+    Whitehall::AnnouncementFilterOption.all
+  end
+
   def selected_topics
     find_by_slug(Topic, @params[:topics])
   end
@@ -57,6 +62,11 @@ class Whitehall::DocumentFilter
   def selected_publication_filter_option
     filter_option = @params[:publication_filter_option] || @params[:publication_type]
     Whitehall::PublicationFilterOption.find_by_slug(filter_option)
+  end
+
+  def selected_announcement_type_option
+    filter_option = @params[:announcement_type_option] || @params[:announcement_type]
+    Whitehall::AnnouncementFilterOption.find_by_slug(filter_option)
   end
 
   def keywords
@@ -124,6 +134,15 @@ private
         @documents = @documents.where(editions[:publication_type_id].in(publication_ids).or(editions[:type].in(edition_types)))
       else
         @documents = @documents.where(publication_type_id: publication_ids)
+      end
+    end
+  end
+
+  def filter_by_announcement_filter_option!
+    if selected_announcement_type_option
+      @documents = @documents.where(@documents.arel_table[:type].in(selected_announcement_type_option.edition_types))
+      if selected_announcement_type_option.speech_types.present?
+        @documents = @documents.where(@documents.arel_table[:speech_type_id].in(selected_announcement_type_option.speech_types.map(&:id)))
       end
     end
   end

@@ -19,6 +19,15 @@ class SpeechType
     all.find { |type| type.slug == slug }
   end
 
+  def self.non_statements
+    all - statements
+  end
+
+  def self.statements
+    [WrittenStatement, OralStatement]
+  end
+
+
   Transcript = create(
     id: 1, name: "Transcript", genus: "Speech",
     explanation: "This is a transcript of the speech, exactly as it was delivered."

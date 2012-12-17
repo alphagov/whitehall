@@ -42,6 +42,10 @@ class DocumentFilterTest < ActiveSupport::TestCase
     assert_equal Whitehall::PublicationFilterOption.all, Whitehall::DocumentFilter.new([]).publication_types_for_filter
   end
 
+  test "#announcement_types_for_filter returns all announcement filter option types" do
+    assert_equal ["News article", "Speech", "Statement", "Fatality notice"], Whitehall::DocumentFilter.new([]).announcement_types_for_filter.map(&:label)
+  end
+
   test "#selected_topics returns an empty set by default" do
     assert_equal [], Whitehall::DocumentFilter.new(document_scope).selected_topics
   end
@@ -224,6 +228,18 @@ class DocumentFilterTest < ActiveSupport::TestCase
     filter = Whitehall::DocumentFilter.new(document_scope, publication_type: publication_filter_option.slug)
 
     assert_equal publication_filter_option, filter.selected_publication_filter_option
+  end
+
+  test "can filter announcements by type" do
+    news_article = create(:published_news_article)
+    fatality_notice = create(:published_fatality_notice)
+    transcript = create(:published_speech, speech_type: SpeechType::Transcript)
+    statement = create(:published_speech, speech_type: SpeechType::WrittenStatement)
+
+    assert_equal [news_article.id], Whitehall::DocumentFilter.new(Announcement.published, announcement_type: "news-article").documents.map(&:id)
+    assert_equal [fatality_notice.id], Whitehall::DocumentFilter.new(Announcement.published, announcement_type: "fatality-notice").documents.map(&:id)
+    assert_equal [transcript.id], Whitehall::DocumentFilter.new(Announcement.published, announcement_type: "speech").documents.map(&:id)
+    assert_equal [statement.id], Whitehall::DocumentFilter.new(Announcement.published, announcement_type: "statement").documents.map(&:id)
   end
 
   test "publication_filter_option overwrites older publication_type param" do
