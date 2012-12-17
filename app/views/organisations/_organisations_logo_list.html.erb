@@ -4,12 +4,11 @@
   remove_line_breaks ||= false
   lead_organisations ||= []
   organisations ||= []
-  total_organisations = organisations + lead_organisations
 %>
 
-<ul class="organisations-icon-list<%= " multiple-orgs" if total_organisations.length > 1 %> js-hide-extra-rows-<%= 1 + lead_organisations.size %>">
+<ul class="organisations-icon-list<%= " multiple-orgs" if organisations.length > 1 %> js-hide-extra-rows-<%= 1 + lead_organisations.size %>">
 
-  <% if total_organisations.length > 1 %>
+  <% if organisations.length > 1 %>
     <li class="organisation hm-government">
       <span class="organisation-logo organisation-logo-stacked-single-identity">
         <span><%= remove_line_breaks ? "HM Government" : "HM Government".html_safe %></span>
@@ -27,7 +26,7 @@
     <% end %>
   <% end %>
 
-  <% organisations.each do |organisation| %>
+  <% (organisations - lead_organisations).each do |organisation| %>
     <%= content_tag_for(:li, organisation, class: organisation.slug) do %>
       <%= link_to organisation_path(organisation),
             title: organisation.logo_formatted_name,
