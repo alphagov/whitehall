@@ -892,9 +892,9 @@
 // Used on:
 // organisations#about, corporate_information_page#show
 .organisation-page {
-  @include department-colours('nav a', color);
-  @include department-colours('.block-2 a', color);
-  @include department-colours('.body .attachment .accessibility-warning h3 .toggler', color);
+  @include websafe-department-colours('nav a', color);
+  @include websafe-department-colours('.block-2 a', color);
+  @include websafe-department-colours('.body .attachment .accessibility-warning h3 .toggler', color);
 
   @include media(desktop){
     .block-1 {
