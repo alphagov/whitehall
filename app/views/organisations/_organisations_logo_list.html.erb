@@ -2,9 +2,12 @@
   extra_class ||= ""
   external_links ||= false
   remove_line_breaks ||= false
+  lead_organisations ||= []
+  organisations ||= []
 %>
 
-<ul class="organisations-icon-list<%= " multiple-orgs" if organisations.length > 1 %> js-hide-extra-rows-3">
+<ul class="organisations-icon-list<%= " multiple-orgs" if organisations.length > 1 %> js-hide-extra-rows-<%= 1 + lead_organisations.size %>">
+
   <% if organisations.length > 1 %>
     <li class="organisation hm-government">
       <span class="organisation-logo organisation-logo-stacked-single-identity">
@@ -12,7 +15,18 @@
       </span>
     </li>
   <% end %>
-  <% organisations.each do |organisation| %>
+
+  <% lead_organisations.each do |organisation| %>
+    <%= content_tag_for(:li, organisation, class: organisation.slug) do %>
+      <%= link_to organisation_path(organisation),
+            title: organisation.logo_formatted_name,
+            class: organisation_logo_classes(organisation, {stacked: true, use_identity: (organisations.length == 1)}) do %>
+        <span><%= remove_line_breaks ? organisation.logo_formatted_name : format_with_html_line_breaks(h(organisation.logo_formatted_name)) %></span>
+      <% end %>
+    <% end %>
+  <% end %>
+
+  <% (organisations - lead_organisations).each do |organisation| %>
     <%= content_tag_for(:li, organisation, class: organisation.slug) do %>
       <%= link_to organisation_path(organisation),
             title: organisation.logo_formatted_name,

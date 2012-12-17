@@ -61,6 +61,7 @@ class Topic < ActiveRecord::Base
   validates :description, presence: true
 
   accepts_nested_attributes_for :topic_memberships
+  accepts_nested_attributes_for :organisation_topics
 
   default_scope where(arel_table[:state].not_eq("deleted"))
 
@@ -99,6 +100,14 @@ class Topic < ActiveRecord::Base
 
   extend FriendlyId
   friendly_id
+
+  def lead_organisations
+    organisations.where(organisation_topics: {lead: true}).reorder("organisation_topics.lead_ordering")
+  end
+  
+  def lead_organisation_topics
+    organisation_topics.where(lead: true).order("organisation_topics.lead_ordering")
+  end
 
   def update_counts
     update_attribute(:published_edition_count, published_editions.count)
