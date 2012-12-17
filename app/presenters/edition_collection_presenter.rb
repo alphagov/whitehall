@@ -39,6 +39,8 @@ class EditionCollectionPresenter
       NewsArticlePresenter
     when DetailedGuide
       DetailedGuidePresenter
+    when InternationalPriority
+      InternationalPriorityPresenter
     end
   end
 end
