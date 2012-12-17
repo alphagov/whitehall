@@ -37,3 +37,20 @@ Scenario: Ordering policies within a topic
     |Outlaw Moustaches|
     |Free monobrow treatment|
 
+Scenario: Choosing and ordering lead organisations within a topic
+  Given a topic called "Facial Hair" with description "Against All Follicles"
+  And the topic "Facial Hair" has "Ministry of Grooming" as a lead organisation
+  And the topic "Facial Hair" has "Ministry of War" as a lead organisation
+  And the topic "Facial Hair" is associated with organisation "Department of Scissors and Wax"
+  And the topic "Facial Hair" is associated with organisation "Ministry of Sideburns"
+  When I set the order of the lead organisations in the "Facial Hair" topic to:
+    |Organisation|
+    |Ministry of Sideburns|
+    |Department of Scissors and Wax|
+    |Ministry of Grooming|
+  Then I should see the order of the lead organisations in the "Facial Hair" topic is:
+    |Ministry of Sideburns|
+    |Department of Scissors and Wax|
+    |Ministry of Grooming|
+  And I should see the following organisations for the "Facial Hair" topic:
+    |Ministry of War|

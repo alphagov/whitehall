@@ -25,5 +25,34 @@
     <% end %>
   </fieldset>
 
+  <div class="row-fluid">
+    <fieldset id="organisations" class="named span4">
+      <legend>Organisations</legend>
+
+      <div id="organisation_sortable">
+        <%= topic_form.fields_for :organisation_topics, topic.organisation_topics.where(lead: false) do |organisation_form| %>
+          <% organisation = organisation_form.object.organisation %>
+          <div id="<%= dom_id(organisation) %>" class="well">
+            <%= organisation_form.text_field :lead_ordering, label_text: link_to(organisation.name, admin_organisation_path(organisation)), class: "ordering" %>
+            <%= organisation_form.text_field :lead, label_text: "#{organisation.name} is lead?", class: "lead" %>
+          </div>
+        <% end %>
+      </div>
+    </fieldset>
+
+    <fieldset id="lead_organisation_order" class="named span4">
+      <legend>Lead organisations</legend>
+
+      <div id="lead_organisation_sortable">
+        <%= topic_form.fields_for :organisation_topics, topic.lead_organisation_topics do |lead_organisation_form| %>
+          <% lead_organisation = lead_organisation_form.object.organisation %>
+          <div id="<%= dom_id(lead_organisation) %>" class="well">
+            <%= lead_organisation_form.text_field :lead_ordering, label_text: link_to(lead_organisation.name, admin_organisation_path(lead_organisation)), class: "ordering" %>
+            <%= lead_organisation_form.text_field :lead, label_text: "#{lead_organisation.name} is lead?", class: "lead" %>
+          </div>
+        <% end %>
+      </div>
+    </fieldset>
+  </div>
   <%= topic_form.save_or_cancel cancel: admin_topics_path %>
 <% end %>
