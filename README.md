@@ -59,8 +59,8 @@ will email the new user and prompt them to create their account.
 
 ## Using local assets
 
-* Set `GOVUK_ASSET_HOST` to point to your local instance of the `static` app
-  when running the `whitehall` app e.g. `STATIC_DEV=http://static.dev`, this is set
+* Set `GOVUK_ASSET_ROOT` to point to your local instance of the `static` app
+  when running the `whitehall` app e.g. `GOVUK_ASSET_ROOT=http://static.dev`, this is set
   for you within the development VM.
 
 ## Getting search running locally

@@ -28,7 +28,7 @@ Whitehall::Application.configure do
   # Expands the lines which load the assets
   config.assets.debug = true
 
-  config.slimmer.asset_host = ENV['GOVUK_ASSET_HOST'] || "https://static.preview.alphagov.co.uk"
+  config.slimmer.asset_host = ENV['GOVUK_ASSET_ROOT'] || "https://static.preview.alphagov.co.uk"
 
   if ENV['SHOW_PRODUCTION_IMAGES']
     orig_host = config.asset_host
