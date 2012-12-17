@@ -1,7 +1,7 @@
 # static.preview SSL certificate is causing errors in Cucumber tests,
 # so we're ignoring SSL errors for now.
 Capybara.register_driver :webkit do |app|
-  Capybara::Driver::Webkit.new(app, :ignore_ssl_errors => true)
+  Capybara::Driver::Webkit.new(app, ignore_ssl_errors: true)
 end
 
 Capybara.javascript_driver = :webkit
