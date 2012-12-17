@@ -3,7 +3,7 @@ jQuery(function($) {
 
   $('.js-hide-other-links').hideOtherLinks();
 
-  $('.document.body').enhanceYoutubeVideoLinks();
+  $('.govspeak').enhanceYoutubeVideoLinks();
 
   $('.detailed-guides-show').trackExternalLinks();
 
