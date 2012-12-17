@@ -24,6 +24,17 @@
 
       <div class="filter">
         <div class="filter-inner">
+          <% if defined?(filter_by_announcement_type) && filter_by_announcement_type %>
+            <div class="announcement-type">
+              <%= label_tag "announcement_type_option", "Announcement type", class: "title" %>
+              <%= select_tag :announcement_type_option, announcement_type_filter_options(@filter.announcement_types_for_filter, @filter.selected_announcement_type_option), size: 5, multiple: false, class: "multi-row-select" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="filter">
+        <div class="filter-inner">
           <%= label_tag "topics", "Topic" %>
           <%= select_tag :topics, topic_filter_options(@filter.all_topics_with(document_type), @filter.selected_topics), size: 5, multiple: true, class: "multi-row-select" %>
         </div>
