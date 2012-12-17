@@ -28,6 +28,11 @@ class EditionCollectionPresenterTest < ActiveSupport::TestCase
     assert_kind_of DetailedGuidePresenter, collection.first
   end
 
+  test "should wrap international priority in an international priority presenter" do
+    collection = EditionCollectionPresenter.new([build(:international_priority)])
+    assert_kind_of InternationalPriorityPresenter, collection.first
+  end
+
   test "should wrap instances within methods that return arrays" do
     collection = EditionCollectionPresenter.new([build(:detailed_guide), build(:policy)])
     assert_kind_of PolicyPresenter, collection[1,1].first
