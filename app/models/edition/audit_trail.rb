@@ -84,7 +84,11 @@ module Edition::AuditTrail
     end
 
     def actor
-      version.whodunnit && User.find(version.whodunnit)
+      if User.exists?(version.whodunnit)
+        User.find(version.whodunnit)
+      else
+        nil # for deleted users
+      end
     end
 
     private
