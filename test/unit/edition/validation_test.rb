@@ -72,4 +72,69 @@ class Edition::ValidationTest < ActiveSupport::TestCase
     edition = build(:edition, create_default_organisation: false, lead_organisations: [build(:organisation)], supporting_organisations: [])
     assert edition.valid?
   end
+
+  test 'should be invalid when it duplicates lead organisations on create' do
+    o1 = create(:organisation)
+    edition = build(:edition, create_default_organisation: false,
+                              lead_organisations: [o1, o1])
+    refute edition.valid?
+  end
+
+  test 'should be invalid when it duplicates lead organisations on save' do
+    o1 = create(:organisation)
+    edition = create(:edition, create_default_organisation: false,
+                               lead_organisations: [o1])
+    edition.lead_edition_organisations.build(organisation: o1)
+    refute edition.valid?
+  end
+
+  test 'should be invalid when it duplicates organisations via lead and supporting on create' do
+    o1 = create(:organisation)
+    edition = build(:edition, create_default_organisation: false,
+                              lead_organisations: [o1],
+                              supporting_organisations: [o1])
+    refute edition.valid?
+  end
+  test 'should be invalid when it duplicates organisations via lead and supporting on save' do
+    o1 = create(:organisation)
+    edition = create(:edition, create_default_organisation: false,
+                               lead_organisations: [o1])
+    edition.supporting_edition_organisations.build(organisation: o1)
+    refute edition.valid?
+  end
+
+  test 'should be invalid when it duplicates organisations via edition organisations directly on create' do
+    o1 = create(:organisation)
+    edition = build(:edition, create_default_organisation: false,
+                              edition_organisations: [build(:edition_organisation, organisation: o1, lead: true),
+                                                      build(:edition_organisation, organisation: o1, lead: false)])
+    refute edition.valid?
+  end
+
+  test 'should be invalid when it duplicates organisations via edition organisations directly on save' do
+    o1 = create(:organisation)
+    edition = create(:edition, create_default_organisation: false,
+                               edition_organisations: [build(:edition_organisation, organisation: o1, lead: true)])
+    edition.edition_organisations.build(organisation: o1, lead: false)
+    refute edition.valid?
+  end
+
+  test 'should be invalid when it duplicates support organisations on create' do
+    o1 = create(:organisation)
+    o2 = create(:organisation)
+    edition = build(:edition, create_default_organisation: false,
+                              lead_organisations: [o1],
+                              supporting_organisations: [o2, o2])
+    refute edition.valid?
+  end
+
+  test 'should be invalid when it duplicates support organisations on save' do
+    o1 = create(:organisation)
+    o2 = create(:organisation)
+    edition = create(:edition, create_default_organisation: false,
+                               lead_organisations: [o1],
+                               supporting_organisations: [o2])
+    edition.supporting_edition_organisations.build(organisation: o2)
+    refute edition.valid?
+  end
 end
