@@ -79,6 +79,7 @@ private
     # safest to reset all the assocations after saving so they all pick up
     # any changes made via the other endpoints.
     self.association(:edition_organisations).reset
+    self.association(:organisations).reset
     self.association(:lead_edition_organisations).reset
     self.association(:supporting_edition_organisations).reset
   end
