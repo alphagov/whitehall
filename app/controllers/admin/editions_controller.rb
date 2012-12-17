@@ -133,13 +133,24 @@ class Admin::EditionsController < Admin::BaseController
   end
 
   def build_edition_organisations
-    n = @edition.lead_edition_organisations.count
-    (n...4).each do |i|
-      @edition.lead_edition_organisations.build(lead_ordering: i)
-    end
-    n = @edition.supporting_edition_organisations.count
-    (n...6).each do |i|
-      @edition.supporting_edition_organisations.build
+    if @edition.errors.any?
+      n = @edition.edition_organisations.select { |eo| eo.lead? }.count
+      (n...4).each do |i|
+        @edition.edition_organisations.build(lead_ordering: i, lead: true)
+      end
+      n = @edition.edition_organisations.reject { |eo| eo.lead? }.count
+      (n...6).each do |i|
+        @edition.edition_organisations.build(lead: false)
+      end
+    else
+      n = @edition.lead_edition_organisations.count
+      (n...4).each do |i|
+        @edition.lead_edition_organisations.build(lead_ordering: i)
+      end
+      n = @edition.supporting_edition_organisations.count
+      (n...6).each do |i|
+        @edition.supporting_edition_organisations.build
+      end
     end
   end
 
