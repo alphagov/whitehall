@@ -12,9 +12,7 @@ atom_feed language: 'en-GB', root_url: topic_url(@topic) do |feed|
 
   @recently_changed_documents.each do |document|
     feed.entry(document, url: public_document_url(document), published: document.timestamp_for_sorting, updated: document.published_at) do |entry|
-      entry.title document.title
-      entry.summary document.summary
-      entry.content govspeak_edition_to_html(document), type: 'html'
+      document_as_feed_entry(document, feed, feed_wants_summaries_only?)
     end
   end
 end
