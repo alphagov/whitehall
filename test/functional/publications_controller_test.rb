@@ -401,20 +401,48 @@ class PublicationsControllerTest < ActionController::TestCase
   test "index generates an atom feed entries for publications matching the current filter" do
     org = create(:organisation, name: "org-name")
     other_org = create(:organisation, name: "other-org")
-    create(:published_publication, organisations: [org])
-    create(:published_publication, organisations: [other_org])
+    p1 = create(:published_publication, organisations: [org], publication_date: 2.days.ago)
+    c1 = create(:published_consultation, organisations: [org], opening_on: 1.day.ago)
+    p2 = create(:published_publication, organisations: [other_org])
 
     get :index, format: :atom, departments: [org.to_param]
 
     assert_select_atom_feed do
-      assert_select 'feed > entry', count: 1 do |entries|
-        entries.each do |entry|
+      assert_select 'feed > entry', count: 2 do |entries|
+        entries.zip([c1, p1]).each do |entry, document|
           assert_select entry, 'entry > id', 1
-          assert_select entry, 'entry > published', 1
-          assert_select entry, 'entry > updated', 1
-          assert_select entry, 'entry > link[rel=?][type=?]', 'alternate', 'text/html', 1
-          assert_select entry, 'entry > title', 1
-          assert_select entry, 'entry > content[type=?]', 'html', 1
+          assert_select entry, 'entry > published', count: 1, text: document.timestamp_for_sorting.iso8601
+          assert_select entry, 'entry > updated', count: 1, text: document.timestamp_for_update.iso8601
+          assert_select entry, 'entry > link[rel=?][type=?][href=?]', 'alternate', 'text/html', public_document_url(document)
+          assert_select entry, 'entry > title', count: 1, text: document.title
+          assert_select entry, 'entry > summary', count: 1, text: document.summary
+          assert_select entry, 'entry > category', count: 1, text: document.format_name.titleize
+          assert_select entry, 'entry > content[type=?]', 'html', count: 1, text: /#{document.body}/
+        end
+      end
+    end
+  end
+
+  test "index generates an atom feed with sumamry content and prefixed title entries for publications matching the current filter when requested" do
+    org = create(:organisation, name: "org-name")
+    other_org = create(:organisation, name: "other-org")
+    p1 = create(:published_publication, organisations: [org], publication_date: 2.days.ago)
+    c1 = create(:published_consultation, organisations: [org], opening_on: 1.day.ago)
+    p2 = create(:published_publication, organisations: [other_org])
+
+    get :index, format: :atom, departments: [org.to_param], govdelivery_version: 'yes'
+
+    assert_select_atom_feed do
+      assert_select 'feed > entry', count: 2 do |entries|
+        entries.zip([c1, p1]).each do |entry, document|
+          assert_select entry, 'entry > id', 1
+          assert_select entry, 'entry > published', count: 1, text: document.timestamp_for_sorting.iso8601
+          assert_select entry, 'entry > updated', count: 1, text: document.timestamp_for_update.iso8601
+          assert_select entry, 'entry > link[rel=?][type=?][href=?]', 'alternate', 'text/html', public_document_url(document)
+          assert_select entry, 'entry > title', count: 1, text: "#{document.format_name.titleize}: #{document.title}"
+          assert_select entry, 'entry > summary', count: 1, text: document.summary
+          assert_select entry, 'entry > category', count: 1, text: document.format_name.titleize
+          assert_select entry, 'entry > content[type=?]', 'text', count: 1, text: document.summary
         end
       end
     end
@@ -438,40 +466,6 @@ class PublicationsControllerTest < ActionController::TestCase
           assert_select entry, 'entry > title', 1
           assert_select entry, 'entry > content[type=?]', 'html', 1
         end
-      end
-    end
-  end
-
-  test 'index atom feed uses publication_date for published and updated fields of a publication' do
-    publication_date = 15.days.ago
-    create(:published_publication, published_at: 1.day.ago, publication_date: publication_date)
-
-    get :index, format: :atom
-
-    assert_select_atom_feed do
-      formatted_publication_date = publication_date.to_date.xmlschema
-      assert_select 'feed > updated', text: formatted_publication_date
-
-      assert_select 'feed > entry' do |entries|
-        assert_select entries.first, 'entry > published', text: formatted_publication_date
-        assert_select entries.first, 'entry > updated', text: formatted_publication_date
-      end
-    end
-  end
-
-  test 'index atom feed uses opening_on for published and updated fields of a consultation' do
-    opening_on = 15.days.ago
-    create(:published_consultation, published_at: 1.day.ago, opening_on: opening_on)
-
-    get :index, format: :atom
-
-    assert_select_atom_feed do
-      formatted_publication_date = opening_on.xmlschema
-      assert_select 'feed > updated', text: formatted_publication_date
-
-      assert_select 'feed > entry' do |entries|
-        assert_select entries.first, 'entry > published', text: formatted_publication_date
-        assert_select entries.first, 'entry > updated', text: formatted_publication_date
       end
     end
   end
