@@ -430,6 +430,7 @@ That's all
         entries.zip([consultation, speech, news_article, publication]).each do |entry, document|
           assert_select entry, 'entry > title', text: document.title
           assert_select entry, 'entry > summary', text: document.summary
+          assert_select entry, 'entry > category', text: document.format_name.titleize
           assert_select entry, 'entry > published', text: document.timestamp_for_sorting.iso8601
           assert_select entry, 'entry > content', text: Builder::XChar.encode(@controller.view_context.govspeak_edition_to_html(document))
         end
@@ -437,14 +438,14 @@ That's all
     end
   end
 
-  test 'activity atom feed shows activity documents with summaries instead of full content when requested' do
+  test 'activity atom feed shows activity documents with summaries and prefixed titles instead of full content when requested' do
     policy = create(:published_policy)
     publication = create(:published_publication, publication_date: 4.weeks.ago, related_policies: [policy])
     consultation = create(:published_consultation, opening_on: 1.weeks.ago, related_policies: [policy])
     news_article = create(:published_news_article, published_at: 3.weeks.ago, related_policies: [policy])
     speech = create(:published_speech, delivered_on: 2.weeks.ago, related_policies: [policy])
 
-    get :activity, id: policy.document, format: "atom", summaries_only: '1'
+    get :activity, id: policy.document, format: "atom", govdelivery_version: '1'
 
     assert_select_atom_feed do
       assert_select 'feed > id', 1
@@ -454,8 +455,9 @@ That's all
 
       assert_select 'feed > entry' do |entries|
         entries.zip([consultation, speech, news_article, publication]).each do |entry, document|
-          assert_select entry, 'entry > title', text: document.title
+          assert_select entry, 'entry > title', text: "#{document.format_name.titleize}: #{document.title}"
           assert_select entry, 'entry > summary', text: document.summary
+          assert_select entry, 'entry > category', text: document.format_name.titleize
           assert_select entry, 'entry > published', text: document.timestamp_for_sorting.iso8601
           assert_select entry, 'entry > content', text: document.summary
         end

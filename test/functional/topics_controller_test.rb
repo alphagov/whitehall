@@ -381,7 +381,7 @@ class TopicsControllerTest < ActionController::TestCase
     end
   end
 
-  test 'atom feed shows a list of summarised documents when asked' do
+  test 'atom feed shows a list of summarised and title prefixed documents when asked' do
     document = create(:document)
     recent_documents = [
       newer_edition = create(:published_policy, document: document, first_published_at: 1.month.ago, published_at: 1.day.ago),
@@ -391,7 +391,7 @@ class TopicsControllerTest < ActionController::TestCase
     topic.stubs(:recently_changed_documents).returns(recent_documents)
     Topic.stubs(:find).returns(topic)
 
-    get :show, id: topic, format: :atom, summaries_only: 'yes'
+    get :show, id: topic, format: :atom, govdelivery_version: 'yes'
 
     assert_select_atom_feed do
       assert_select 'feed > updated', text: newer_edition.first_published_at.iso8601
@@ -401,7 +401,7 @@ class TopicsControllerTest < ActionController::TestCase
           assert_select entry, 'entry > published', text: document.first_published_at.iso8601
           assert_select entry, 'entry > updated', text: document.published_at.iso8601
           assert_select entry, 'entry > link[rel=?][type=?][href=?]', 'alternate', 'text/html', public_document_url(document)
-          assert_select entry, 'entry > title', text: document.title
+          assert_select entry, 'entry > title', text: "#{document.format_name.titleize}: #{document.title}"
           assert_select entry, 'entry > summary', text: document.summary
           assert_select entry, 'entry > category', text: document.format_name.titleize
           assert_select entry, 'entry > content', text: document.summary
