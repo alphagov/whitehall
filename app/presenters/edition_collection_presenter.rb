@@ -41,6 +41,8 @@ class EditionCollectionPresenter
       DetailedGuidePresenter
     when InternationalPriority
       InternationalPriorityPresenter
+    when CaseStudy
+      CaseStudyPresenter
     end
   end
 end
