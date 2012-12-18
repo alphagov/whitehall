@@ -66,11 +66,7 @@ class Whitehall::DocumentFilter
 
   def selected_announcement_type_option
     filter_option = @params[:announcement_type_option] || @params[:announcement_type]
-    if filter_option 
-      filter_option
-    else
-      nil
-    end
+    filter_option
   end
 
   def keywords
@@ -143,10 +139,19 @@ private
   end
 
   def filter_by_announcement_filter_option!
-    if selected_announcement_type_option.present?
+    if selected_announcement_type_option
       type = selected_announcement_type_option.classify
       editions = @documents.arel_table
-      @documents = @documents.where(editions[:type].in(type))
+      case type
+      when "Speech"
+        speech_ids = [SpeechType::Transcript, SpeechType::DraftText, SpeechType::SpeakingNotes].map(&:id)
+        @documents = @documents.where(editions[:type].in(type)).where(editions[:speech_type_id].in(speech_ids))
+      when "Statement"
+        statement_ids = [SpeechType::WrittenStatement, SpeechType::OralStatement].map(&:id)
+        @documents = @documents.where(editions[:type].in("Speech")).where(editions[:speech_type_id].in(statement_ids))
+      else
+        @documents = @documents.where(editions[:type].in(type))
+      end
     end
   end
 

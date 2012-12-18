@@ -33,8 +33,7 @@ class AnnouncementsController < PublicFacingController
 private
 
   def all_announcements
-    Announcement.published
-      .includes(:document, :organisations)
+    Announcement.published.includes(:document, :organisations)
   end
 
   def scheduled_announcements

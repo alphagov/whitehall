@@ -27,7 +27,7 @@
           <% if defined?(filter_by_announcement_type) && filter_by_announcement_type %>
             <div class="announcement-type">
               <%= label_tag "announcement_type_option", "Announcement type", class: "title" %>
-              <%= select_tag :announcement_type_option, announcement_type_filter_options(@filter.announcement_types_for_filter, @filter.selected_announcement_type_option), size: 5, multiple: false, class: "multi-row-select" %>
+              <%= select_tag :announcement_type_option, announcement_type_filter_options(@filter.announcement_types_for_filter, @filter.selected_announcement_type_option), class: "single-row-select" %>
             </div>
           <% end %>
         </div>
