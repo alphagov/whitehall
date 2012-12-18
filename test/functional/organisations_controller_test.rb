@@ -1,6 +1,8 @@
 require "test_helper"
 
 class OrganisationsControllerTest < ActionController::TestCase
+  include ActionDispatch::Routing::UrlFor
+  include PublicDocumentRoutesHelper
   include FilterRoutesHelper
 
   should_be_a_public_facing_controller
@@ -489,22 +491,47 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_select "a.feed[href=?]", organisation_url(organisation, format: :atom)
   end
 
-  test "show generates an atom feed entries for latest activity" do
+  test "show generates an atom feed with entries for latest activity" do
     organisation = create(:organisation, name: "org-name")
-    create(:published_publication, organisations: [organisation])
-    create(:published_policy, organisations: [organisation])
+    pub = create(:published_publication, organisations: [organisation], publication_date: 4.weeks.ago)
+    pol = create(:published_policy, organisations: [organisation], publication_date: 2.weeks.ago)
 
     get :show, id: organisation, format: :atom
 
     assert_select_atom_feed do
       assert_select 'feed > entry', count: 2 do |entries|
-        entries.each do |entry|
+        entries.zip([pol, pub]).each do |entry, document|
           assert_select entry, 'entry > id', 1
-          assert_select entry, 'entry > published', 1
-          assert_select entry, 'entry > updated', 1
-          assert_select entry, 'entry > link[rel=?][type=?]', 'alternate', 'text/html', 1
-          assert_select entry, 'entry > title', 1
-          assert_select entry, 'entry > content[type=?]', 'html', 1
+          assert_select entry, 'entry > published', count: 1, text: document.timestamp_for_sorting.iso8601
+          assert_select entry, 'entry > updated', count: 1, text: document.timestamp_for_update.iso8601
+          assert_select entry, 'entry > link[rel=?][type=?][href=?]', 'alternate', 'text/html', public_document_url(document)
+          assert_select entry, 'entry > title', count: 1, text: document.title
+          assert_select entry, 'entry > summary', count: 1, text: document.summary
+          assert_select entry, 'entry > category', count: 1, text: document.format_name.titleize
+          assert_select entry, 'entry > content[type=?]', 'html', count: 1, text: /#{document.body}/
+        end
+      end
+    end
+  end
+
+  test "show generates an atom feed with summary and prefixed titles in entries for latest activity when govdelivery version is requested" do
+    organisation = create(:organisation, name: "org-name")
+    pub = create(:published_publication, organisations: [organisation], publication_date: 4.weeks.ago)
+    pol = create(:published_policy, organisations: [organisation], publication_date: 2.weeks.ago)
+
+    get :show, id: organisation, format: :atom, govdelivery_version: 'true'
+
+    assert_select_atom_feed do
+      assert_select 'feed > entry', count: 2 do |entries|
+        entries.zip([pol, pub]).each do |entry, document|
+          assert_select entry, 'entry > id', 1
+          assert_select entry, 'entry > published', count: 1, text: document.timestamp_for_sorting.iso8601
+          assert_select entry, 'entry > updated', count: 1, text: document.timestamp_for_update.iso8601
+          assert_select entry, 'entry > link[rel=?][type=?][href=?]', 'alternate', 'text/html', public_document_url(document)
+          assert_select entry, 'entry > title', count: 1, text: "#{document.format_name.titleize}: #{document.title}"
+          assert_select entry, 'entry > summary', count: 1, text: document.summary
+          assert_select entry, 'entry > category', count: 1, text: document.format_name.titleize
+          assert_select entry, 'entry > content[type=?]', 'text', count: 1, text: document.summary
         end
       end
     end
