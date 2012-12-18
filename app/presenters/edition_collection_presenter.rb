@@ -43,6 +43,8 @@ class EditionCollectionPresenter
       InternationalPriorityPresenter
     when CaseStudy
       CaseStudyPresenter
+    when FatalityNotice
+      FatalityNoticePresenter
     end
   end
 end

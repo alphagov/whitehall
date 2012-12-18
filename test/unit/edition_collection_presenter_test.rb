@@ -38,6 +38,11 @@ class EditionCollectionPresenterTest < ActiveSupport::TestCase
     assert_kind_of CaseStudyPresenter, collection.first
   end
 
+  test "should wrap fatality notices in a fatality notice presenter" do
+    collection = EditionCollectionPresenter.new([build(:fatality_notice)])
+    assert_kind_of FatalityNoticePresenter, collection.first
+  end
+
   test "should wrap instances within methods that return arrays" do
     collection = EditionCollectionPresenter.new([build(:detailed_guide), build(:policy)])
     assert_kind_of PolicyPresenter, collection[1,1].first
