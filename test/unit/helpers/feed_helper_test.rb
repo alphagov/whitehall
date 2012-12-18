@@ -62,7 +62,7 @@ class FeedHelperTest < ActionView::TestCase
     document = Edition.new(title: 'A thing!', summary: 'A thing has happened')
     builder = mock('builder')
     builder.expects(:title).with document.title
-    builder.expects(:category).with document.format_name.titleize
+    builder.expects(:category).with document.display_type
     builder.expects(:summary).with document.summary
     expects(:govspeak_edition_to_html).with(document).returns('govspoken content')
     builder.expects(:content).with('govspoken content', type: 'html')
@@ -72,8 +72,8 @@ class FeedHelperTest < ActionView::TestCase
   test 'document_as_feed_entry sets the title, category, summary, and content on the builder using the summary as the content when govdelivery_version is true' do
     document = Edition.new(title: 'A thing!', summary: 'A thing has happened')
     builder = mock('builder')
-    builder.expects(:title)
-    builder.expects(:category).with document.format_name.titleize
+    builder.stubs(:title)
+    builder.expects(:category).with document.display_type
     builder.expects(:summary).with document.summary
     expects(:govspeak_edition_to_html).never
     builder.expects(:content).with(document.summary, type: 'text')
@@ -83,10 +83,10 @@ class FeedHelperTest < ActionView::TestCase
   test 'document_as_feed_entry sets the title, category, summary, and content on the builder prefixing the title with the format_name of the document when govdelivery_version is true' do
     document = Edition.new(title: 'A thing!', summary: 'A thing has happened')
     builder = mock('builder')
-    builder.expects(:title).with "#{document.format_name.titleize}: #{document.title}"
-    builder.expects(:category).with document.format_name.titleize
-    builder.expects(:summary).with document.summary
-    builder.expects(:content)
+    builder.expects(:title).with "#{document.display_type}: #{document.title}"
+    builder.stubs(:category)
+    builder.stubs(:summary)
+    builder.stubs(:content)
     document_as_feed_entry(document, builder, true)
   end
 end

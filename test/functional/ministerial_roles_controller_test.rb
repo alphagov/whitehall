@@ -127,7 +127,7 @@ class MinisterialRolesControllerTest < ActionController::TestCase
           assert_select actual_entry, 'entry > link[rel=?][type=?][href=?]', 'alternate', 'text/html', public_document_url(expected)
           assert_select actual_entry, 'entry > title', count: 1, text: expected.title
           assert_select actual_entry, 'entry > summary', count: 1, text: expected.summary
-          assert_select actual_entry, 'entry > category', count: 1, text: expected.format_name.titleize
+          assert_select actual_entry, 'entry > category', count: 1, text: expected.display_type
           assert_select actual_entry, 'entry > content[type=?]', 'html', count: 1, text: /#{expected.body}/
         end
       end
@@ -151,9 +151,9 @@ class MinisterialRolesControllerTest < ActionController::TestCase
           assert_select actual_entry, 'entry > published', count: 1, text: expected.timestamp_for_sorting.iso8601
           assert_select actual_entry, 'entry > updated', count: 1, text: expected.timestamp_for_update.iso8601
           assert_select actual_entry, 'entry > link[rel=?][type=?][href=?]', 'alternate', 'text/html', public_document_url(expected)
-          assert_select actual_entry, 'entry > title', count: 1, text: "#{expected.format_name.titleize}: #{expected.title}"
+          assert_select actual_entry, 'entry > title', count: 1, text: "#{expected.display_type}: #{expected.title}"
           assert_select actual_entry, 'entry > summary', count: 1, text: expected.summary
-          assert_select actual_entry, 'entry > category', count: 1, text: expected.format_name.titleize
+          assert_select actual_entry, 'entry > category', count: 1, text: expected.display_type
           assert_select actual_entry, 'entry > content[type=?]', 'text', count: 1, text: expected.summary
         end
       end

@@ -79,7 +79,7 @@ class CountriesControllerTest < ActionController::TestCase
           assert_select entry, 'entry > link[rel=?][type=?][href=?]', 'alternate', 'text/html', public_document_url(document)
           assert_select entry, 'entry > title', count: 1, text: document.title
           assert_select entry, 'entry > summary', count: 1, text: document.summary
-          assert_select entry, 'entry > category', count: 1, text: document.format_name.titleize
+          assert_select entry, 'entry > category', count: 1, text: document.display_type
           assert_select entry, 'entry > content[type=?]', 'html', count: 1, text: /#{document.body}/
         end
       end
@@ -100,9 +100,9 @@ class CountriesControllerTest < ActionController::TestCase
           assert_select entry, 'entry > published', count: 1, text: document.timestamp_for_sorting.iso8601
           assert_select entry, 'entry > updated', count: 1, text: document.timestamp_for_update.iso8601
           assert_select entry, 'entry > link[rel=?][type=?][href=?]', 'alternate', 'text/html', public_document_url(document)
-          assert_select entry, 'entry > title', count: 1, text: "#{document.format_name.titleize}: #{document.title}"
+          assert_select entry, 'entry > title', count: 1, text: "#{document.display_type}: #{document.title}"
           assert_select entry, 'entry > summary', count: 1, text: document.summary
-          assert_select entry, 'entry > category', count: 1, text: document.format_name.titleize
+          assert_select entry, 'entry > category', count: 1, text: document.display_type
           assert_select entry, 'entry > content[type=?]', 'text', count: 1, text: document.summary
         end
       end

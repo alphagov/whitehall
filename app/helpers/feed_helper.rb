@@ -14,7 +14,7 @@ module FeedHelper
   end
 
   def document_as_feed_entry(document, builder, govdelivery_version = false)
-    document_category = document.format_name.titleize
+    document_category = document.display_type
     if govdelivery_version
       builder.title "#{document_category}: #{document.title}"
     else

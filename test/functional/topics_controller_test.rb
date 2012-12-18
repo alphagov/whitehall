@@ -374,7 +374,7 @@ class TopicsControllerTest < ActionController::TestCase
           assert_select entry, 'entry > link[rel=?][type=?][href=?]', 'alternate', 'text/html', public_document_url(document)
           assert_select entry, 'entry > title', text: document.title
           assert_select entry, 'entry > summary', text: document.summary
-          assert_select entry, 'entry > category', text: document.format_name.titleize
+          assert_select entry, 'entry > category', text: document.display_type
           assert_select entry, 'entry > content', text: /#{document.body}/
         end
       end
@@ -401,9 +401,9 @@ class TopicsControllerTest < ActionController::TestCase
           assert_select entry, 'entry > published', text: document.timestamp_for_sorting.iso8601
           assert_select entry, 'entry > updated', text: document.timestamp_for_update.iso8601
           assert_select entry, 'entry > link[rel=?][type=?][href=?]', 'alternate', 'text/html', public_document_url(document)
-          assert_select entry, 'entry > title', text: "#{document.format_name.titleize}: #{document.title}"
+          assert_select entry, 'entry > title', text: "#{document.display_type}: #{document.title}"
           assert_select entry, 'entry > summary', text: document.summary
-          assert_select entry, 'entry > category', text: document.format_name.titleize
+          assert_select entry, 'entry > category', text: document.display_type
           assert_select entry, 'entry > content', text: document.summary
         end
       end
