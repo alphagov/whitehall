@@ -57,8 +57,7 @@ class DocumentFilterJsonPresenterTest < PresenterTestCase
       "type" => "publication",
       "title" => publication.title,
       "url" => "/government/publications/some-doc",
-      "organisations" => "Ministry of Silly",
-      "updated_at" => "2011-11-11T11:11:11+00:00"
+      "organisations" => "Ministry of Silly"
       }, json['results'].first)
   end
 end

@@ -30,8 +30,7 @@ class DocumentFilterJsonPresenter < Draper::Base
       url: h.public_document_path(document),
       organisations: document.organisations.map { |o|
         h.organisation_display_name(o)
-      }.to_sentence.html_safe,
-      updated_at: document.updated_at
+      }.to_sentence.html_safe
     }
   end
 end
