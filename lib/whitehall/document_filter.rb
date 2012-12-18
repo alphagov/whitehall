@@ -140,7 +140,7 @@ private
 
   def filter_by_announcement_filter_option!
     if selected_announcement_type_option
-      type = selected_announcement_type_option.classify
+      type = selected_announcement_type_option
       editions = @documents.arel_table
       case type
       when "Speech"

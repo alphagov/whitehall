@@ -42,6 +42,10 @@ class DocumentFilterTest < ActiveSupport::TestCase
     assert_equal Whitehall::PublicationFilterOption.all, Whitehall::DocumentFilter.new([]).publication_types_for_filter
   end
 
+  test "#announcement_types_for_filter returns all announcement filter option types" do
+    assert_equal ["NewsArticle", "Speech", "Statement", "FatalityNotice"], Whitehall::DocumentFilter.new([]).announcement_types_for_filter
+  end
+
   test "#selected_topics returns an empty set by default" do
     assert_equal [], Whitehall::DocumentFilter.new(document_scope).selected_topics
   end
@@ -188,6 +192,16 @@ class DocumentFilterTest < ActiveSupport::TestCase
   test "filtering after a date returns documents in chronological order" do
     document_scope.expects(:in_chronological_order).returns(document_scope)
     Whitehall::DocumentFilter.new(document_scope, date: "2012-01-01 12:23:45", direction: "after").documents
+  end
+
+  test "announcement_type param filters by news article announcement type" do
+    filtered_scope = stub_document_scope('filtered_scope')
+
+    expected_query = "`editions`.`type` IN ('NewsArticle')"
+    document_scope.expects(:where).with(responds_with(:to_sql, expected_query)).returns(filtered_scope)
+
+    filter = Whitehall::DocumentFilter.new(document_scope, announcement_type_option: "NewsArticle")
+    assert_equal filtered_scope, filter.documents
   end
 
   test "publication_type param filters by publication type" do
