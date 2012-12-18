@@ -369,8 +369,8 @@ class TopicsControllerTest < ActionController::TestCase
 
       assert_select 'feed > entry' do |entries|
         entries.zip(recent_documents) do |entry, document|
-          assert_select entry, 'entry > published', text: document.first_published_at.iso8601
-          assert_select entry, 'entry > updated', text: document.published_at.iso8601
+          assert_select entry, 'entry > published', text: document.timestamp_for_sorting.iso8601
+          assert_select entry, 'entry > updated', text: document.timestamp_for_update.iso8601
           assert_select entry, 'entry > link[rel=?][type=?][href=?]', 'alternate', 'text/html', public_document_url(document)
           assert_select entry, 'entry > title', text: document.title
           assert_select entry, 'entry > summary', text: document.summary
@@ -398,8 +398,8 @@ class TopicsControllerTest < ActionController::TestCase
 
       assert_select 'feed > entry' do |entries|
         entries.zip(recent_documents) do |entry, document|
-          assert_select entry, 'entry > published', text: document.first_published_at.iso8601
-          assert_select entry, 'entry > updated', text: document.published_at.iso8601
+          assert_select entry, 'entry > published', text: document.timestamp_for_sorting.iso8601
+          assert_select entry, 'entry > updated', text: document.timestamp_for_update.iso8601
           assert_select entry, 'entry > link[rel=?][type=?][href=?]', 'alternate', 'text/html', public_document_url(document)
           assert_select entry, 'entry > title', text: "#{document.format_name.titleize}: #{document.title}"
           assert_select entry, 'entry > summary', text: document.summary

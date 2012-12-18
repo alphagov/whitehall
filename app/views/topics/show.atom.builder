@@ -11,9 +11,5 @@ atom_feed language: 'en-GB', root_url: topic_url(@topic) do |feed|
   end
 
   govdelivery_version = feed_wants_govdelivery_version?
-  @recently_changed_documents.each do |document|
-    feed.entry(document, url: public_document_url(document), published: document.timestamp_for_sorting, updated: document.published_at) do |entry|
-      document_as_feed_entry(document, feed, govdelivery_version)
-    end
-  end
+  documents_as_feed_entries(@recently_changed_documents, feed, govdelivery_version)
 end

@@ -428,6 +428,8 @@ That's all
 
       assert_select 'feed > entry' do |entries|
         entries.zip([consultation, speech, news_article, publication]).each do |entry, document|
+          assert_select entry, 'entry > published', text: document.timestamp_for_sorting.iso8601
+          assert_select entry, 'entry > updated', text: document.timestamp_for_update.iso8601
           assert_select entry, 'entry > title', text: document.title
           assert_select entry, 'entry > summary', text: document.summary
           assert_select entry, 'entry > category', text: document.format_name.titleize
@@ -455,6 +457,8 @@ That's all
 
       assert_select 'feed > entry' do |entries|
         entries.zip([consultation, speech, news_article, publication]).each do |entry, document|
+          assert_select entry, 'entry > published', text: document.timestamp_for_sorting.iso8601
+          assert_select entry, 'entry > updated', text: document.timestamp_for_update.iso8601
           assert_select entry, 'entry > title', text: "#{document.format_name.titleize}: #{document.title}"
           assert_select entry, 'entry > summary', text: document.summary
           assert_select entry, 'entry > category', text: document.format_name.titleize

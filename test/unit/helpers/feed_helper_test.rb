@@ -2,6 +2,9 @@ require 'test_helper'
 
 class FeedHelperTest < ActionView::TestCase
   include GovspeakHelper
+  # include this just so public_document_url can be stubbed later
+  include PublicDocumentRoutesHelper
+
   test 'feed_wants_govdelivery_version? is false when there is no govdelivery_version param' do
     stubs(:params).returns({})
     refute feed_wants_govdelivery_version?
@@ -30,6 +33,29 @@ class FeedHelperTest < ActionView::TestCase
   test 'feed_wants_govdelivery_version? is false when there is a govdelivery_version param set to something other than "1", "yes", "true", or "on"' do
     stubs(:params).returns({govdelivery_version: 'monkey'})
     refute feed_wants_govdelivery_version?
+  end
+
+  test 'documents_as_feed_entries exposes each document as an entry and calls document_as_feed_entry on it' do
+    d1 = Publication.new
+    d1.stubs(:id).returns(12)
+    d1.stubs(:timestamp_for_sorting).returns(1.week.ago)
+    d1.stubs(:timestamp_for_update).returns(3.days.ago)
+    d2 = Policy.new
+    d2.stubs(:id).returns(14)
+    d2.stubs(:timestamp_for_sorting).returns(2.weeks.ago)
+    d2.stubs(:timestamp_for_update).returns(13.days.ago)
+    builder = mock('builder')
+    entries = sequence('entries')
+    builder.expects(:entry).with(d2, url: '/policy_url', published: 2.weeks.ago, updated: 13.days.ago).yields(builder).in_sequence(entries)
+    builder.expects(:entry).with(d1, url: '/publication_url', published: 1.week.ago, updated: 3.days.ago).yields(builder).in_sequence(entries)
+    feed_entry = sequence('feed_entry')
+    expects(:document_as_feed_entry).with(d2, builder, false).in_sequence(feed_entry)
+    expects(:document_as_feed_entry).with(d1, builder, false).in_sequence(feed_entry)
+
+    stubs(:public_document_url).with(d2).returns '/policy_url'
+    stubs(:public_document_url).with(d1).returns '/publication_url'
+
+    documents_as_feed_entries([d2,d1], builder, false)
   end
 
   test 'document_as_feed_entry sets the title, category, summary, and content on the builder, using the govspoken version of the document as the content when govdelivery_version is false' do
