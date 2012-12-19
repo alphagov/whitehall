@@ -32,6 +32,7 @@ FactoryGirl.define do
     title "edition-title"
     body "edition-body"
     change_note "change-note"
+    summary 'edition-summary'
 
     after :build do |edition, evaluator|
       edition.organisations = FactoryGirl.build_list(:organisation, 1) unless evaluator.organisations.any?
