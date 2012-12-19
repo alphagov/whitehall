@@ -1,10 +1,90 @@
+.organisations-box {
+  background: $panel-colour;
+
+  .organisations-box-inner {
+    padding: $gutter-half;
+  }
+
+  h3 {
+    @include ig-core-14;
+    border-bottom: 1px solid $border-colour;
+  }
+  p {
+    padding-bottom: $gutter-half;
+  }
+  ol {
+    overflow: hidden;
+    margin: 0 (-$gutter-one-third) $gutter-one-third;
+    li {
+      @include ig-core-16;
+      display: block;
+
+      @include media(desktop){
+        width: 33.33%;
+        float: left;
+      }
+
+      &:nth-child(3n+1) {
+        clear: left;
+      }
+
+      a {
+        display: block;
+        padding: 0 $gutter-one-third;
+      }
+    }
+  }
+}
 
 .organisations-icon-list {
+  position: relative;
+
+  .show-other-content {
+    padding: 0;
+    color: $link-colour;
+
+    &:hover,
+    &:focus {
+      text-decoration: underline;
+      outline: none;
+      cursor: pointer;
+    }
+    &:after {
+      display: inline-block;
+      font-size: 8px;
+      height: 10px;
+      padding-left: 5px;
+      vertical-align: middle;
+      content: " \25BC";
+    }
+  }
+  &.open {
+    .show-other-content:after {
+      content: " \25B2";
+    }
+  }
+
   .organisation {
     overflow: hidden;
     list-style: none;
-    padding-bottom: $gutter-one-third;
-  // stops descenders being cropped off
+    padding-bottom: $gutter-one-third; // stops descenders being cropped off
+  }
+
+  .organisations-box {
+    @include media(tablet){
+      position: absolute;
+      width: 200%;
+      right: 0;
+      z-index: 10;
+    }
+
+    ol {
+      li {
+        @include media(tablet){
+          width: 100%;
+        }
+      }
+    }
   }
 }
 

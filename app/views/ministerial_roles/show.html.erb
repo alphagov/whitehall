@@ -44,11 +44,7 @@
     <div class="inner-block" id="responsibilities">
       <%= content_tag_for :section, @ministerial_role, class: "responsibilities" do %>
         <%= render  partial: 'organisations/organisations_logo_list',
-                    locals: {
-                      organisations: @ministerial_role.organisations,
-                      external_links: false,
-                      remove_line_breaks: false
-                    } %>
+                    locals: { organisations: @ministerial_role.organisations } %>
 
         <h1>Responsibilities</h1>
         <%= @ministerial_role.responsibilities %>
