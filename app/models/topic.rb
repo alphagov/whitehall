@@ -1,4 +1,4 @@
-class Topic < ActiveRecord::Base
+class Topic < Classification
   include ActiveRecord::Transitions
   include Searchable
   include Rails.application.routes.url_helpers
@@ -104,7 +104,7 @@ class Topic < ActiveRecord::Base
   def lead_organisations
     organisations.where(organisation_topics: {lead: true}).reorder("organisation_topics.lead_ordering")
   end
-  
+
   def lead_organisation_topics
     organisation_topics.where(lead: true).order("organisation_topics.lead_ordering")
   end

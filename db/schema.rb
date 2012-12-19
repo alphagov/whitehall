@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121212120302) do
+ActiveRecord::Schema.define(:version => 20121218171226) do
 
   create_table "attachment_data", :force => true do |t|
     t.string   "carrierwave_file"
@@ -43,6 +43,20 @@ ActiveRecord::Schema.define(:version => 20121212120302) do
   end
 
   add_index "attachments", ["attachment_data_id"], :name => "index_attachments_on_attachment_data_id"
+
+  create_table "classifications", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.text     "description"
+    t.string   "slug"
+    t.string   "state"
+    t.integer  "published_edition_count",  :default => 0, :null => false
+    t.integer  "published_policies_count", :default => 0, :null => false
+    t.string   "type"
+  end
+
+  add_index "classifications", ["slug"], :name => "index_policy_areas_on_slug"
 
   create_table "consultation_participations", :force => true do |t|
     t.integer  "edition_id"
@@ -672,19 +686,6 @@ ActiveRecord::Schema.define(:version => 20121212120302) do
 
   add_index "topic_relations", ["related_topic_id"], :name => "index_policy_topic_relations_on_related_policy_topic_id"
   add_index "topic_relations", ["topic_id"], :name => "index_policy_topic_relations_on_policy_topic_id"
-
-  create_table "topics", :force => true do |t|
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.text     "description"
-    t.string   "slug"
-    t.string   "state"
-    t.integer  "published_edition_count",  :default => 0, :null => false
-    t.integer  "published_policies_count", :default => 0, :null => false
-  end
-
-  add_index "topics", ["slug"], :name => "index_policy_areas_on_slug"
 
   create_table "users", :force => true do |t|
     t.string   "name"
