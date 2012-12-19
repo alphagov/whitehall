@@ -26,8 +26,8 @@ class Classification < ActiveRecord::Base
             conditions: { "editions.state" => "published" },
             source: :detailed_guide
 
-  has_many :organisation_topics
-  has_many :organisations, through: :organisation_topics
+  has_many :organisation_classifications
+  has_many :organisations, through: :organisation_classifications
 
   has_many :published_policies,
             through: :topic_memberships,
@@ -61,7 +61,7 @@ class Classification < ActiveRecord::Base
   validates :description, presence: true
 
   accepts_nested_attributes_for :topic_memberships
-  accepts_nested_attributes_for :organisation_topics
+  accepts_nested_attributes_for :organisation_classifications
 
   default_scope where(arel_table[:state].not_eq("deleted"))
 
@@ -102,11 +102,11 @@ class Classification < ActiveRecord::Base
   friendly_id
 
   def lead_organisations
-    organisations.where(organisation_topics: {lead: true}).reorder("organisation_topics.lead_ordering")
+    organisations.where(organisation_classifications: {lead: true}).reorder("organisation_classifications.lead_ordering")
   end
 
-  def lead_organisation_topics
-    organisation_topics.where(lead: true).order("organisation_topics.lead_ordering")
+  def lead_organisation_classifications
+    organisation_classifications.where(lead: true).order("organisation_classifications.lead_ordering")
   end
 
   def update_counts

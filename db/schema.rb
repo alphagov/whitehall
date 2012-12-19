@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121218171226) do
+ActiveRecord::Schema.define(:version => 20121219114123) do
 
   create_table "attachment_data", :force => true do |t|
     t.string   "carrierwave_file"
@@ -487,6 +487,20 @@ ActiveRecord::Schema.define(:version => 20121218171226) do
 
   add_index "operational_fields", ["slug"], :name => "index_operational_fields_on_slug"
 
+  create_table "organisation_classifications", :force => true do |t|
+    t.integer  "organisation_id",                      :null => false
+    t.integer  "classification_id",                    :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "ordering"
+    t.boolean  "lead",              :default => false, :null => false
+    t.integer  "lead_ordering"
+  end
+
+  add_index "organisation_classifications", ["classification_id"], :name => "index_org_classifications_on_classification_id"
+  add_index "organisation_classifications", ["organisation_id", "ordering"], :name => "index_org_classifications_on_organisation_id_and_ordering", :unique => true
+  add_index "organisation_classifications", ["organisation_id"], :name => "index_org_classifications_on_organisation_id"
+
   create_table "organisation_mainstream_links", :force => true do |t|
     t.integer  "organisation_id"
     t.string   "url"
@@ -505,20 +519,6 @@ ActiveRecord::Schema.define(:version => 20121218171226) do
 
   add_index "organisation_roles", ["organisation_id"], :name => "index_organisation_roles_on_organisation_id"
   add_index "organisation_roles", ["role_id"], :name => "index_organisation_roles_on_role_id"
-
-  create_table "organisation_topics", :force => true do |t|
-    t.integer  "organisation_id",                      :null => false
-    t.integer  "classification_id",                    :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "ordering"
-    t.boolean  "lead",              :default => false, :null => false
-    t.integer  "lead_ordering"
-  end
-
-  add_index "organisation_topics", ["classification_id"], :name => "index_organisation_policy_topics_on_policy_topic_id"
-  add_index "organisation_topics", ["organisation_id", "ordering"], :name => "index_organisation_topics_on_organisation_id_and_ordering", :unique => true
-  add_index "organisation_topics", ["organisation_id"], :name => "index_organisation_policy_topics_on_organisation_id"
 
   create_table "organisation_types", :force => true do |t|
     t.string   "name"
