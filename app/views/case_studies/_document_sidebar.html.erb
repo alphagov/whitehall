@@ -1,3 +1,8 @@
-<aside class="sidebar">
-  <%= image_tag document.lead_image_path, alt: document.lead_image_alt_text %>
+<aside class="lead-image-sidebar sidebar">
+  <figure class="image embedded">
+    <%= image_tag document.lead_image_path, alt: document.lead_image_alt_text %>
+    <% if document.lead_image_caption.present? %>
+      <figcaption><%= document.lead_image_caption %></figcaption>
+    <% end %>
+  </figure>
 </aside>
