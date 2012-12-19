@@ -9,7 +9,7 @@
     float: left;
     width: 25%;
 
-    &:nth-child(4n+1) {
+    &.clear-person {
       clear: both;
     }
   }

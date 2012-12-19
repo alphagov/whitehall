@@ -14,13 +14,14 @@
     <section class="cab_ministers">
       <h1 class="label">Cabinet ministers</h1>
       <ul id="cabinet" class="cabinet_list">
-        <% @cabinet_ministerial_roles.each do |person, roles| %>
+        <% @cabinet_ministerial_roles.each_with_index do |(person, roles), i| %>
           <%= render partial: "people/person",
               locals: {
                 person: person,
                 roles: roles,
                 hlevel: "h2",
-                hide_image: false
+                hide_image: false,
+                extra_class: (i % 4 == 0) ? 'clear-person' : ''
           } %>
         <% end %>
       </ul>

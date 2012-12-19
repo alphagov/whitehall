@@ -1,6 +1,9 @@
-<% hide_image ||= false %>
+<%
+  hide_image ||= false
+  extra_class ||= ""
+%>
 <% if person.model.present? %>
-  <%= content_tag_for(:li, person, class: 'person-excerpt') do %>
+  <%= content_tag_for(:li, person, class: "person-excerpt #{extra_class}") do %>
     <div class="inner">
       <% unless hide_image %>
         <div class="image_holder">

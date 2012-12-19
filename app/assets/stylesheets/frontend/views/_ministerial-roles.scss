@@ -35,81 +35,8 @@
       overflow: hidden;
     }
     
-    .ministerial_role {
-      clear: both;
-      list-style: none;
-      
-      @include media(tablet) {
-        clear: none;
-        float: left;
-        width: 25%;
-      
-        &:nth-child(4n+1) {
-          clear: both;
-        }
-      }
-      
-      .inner {
-        padding: 0 $gutter-half $gutter-half;
-      }
-                
-      strong {
-        @include bold;
-      }
-      
-      .current-appointee {
-        @include core-19;
-        padding-top: 0;
-
-        a {
-          &:hover,
-          &:focus,
-          &:active {
-            text-decoration: none;
-            
-            strong {
-              text-decoration: underline;
-            }
-          }
-        }
-        
-        strong {
-          display: block;
-          padding-top: 7px;
-        }
-        
-        .person-title+strong {
-          padding-top: 0;
-        }
-        
-        span {
-          display: inline;
-          float: right;
-          width: 75%;
-          @include core-14;
-          color: $low-contrast;
-          margin-bottom: ($gutter-one-sixth*-1);
-        
-          @include media(tablet) {
-            float: none;
-            width: auto;
-          }
-        }
-      }
-      
-      .role {
-        @include core-14;
-        padding-top: 2px;
-        padding-top: 0.2rem;
-        
-        a {
-          color: $body-text;
-        }
-      }
-      
-    }
   }
-  
+
   .block-3 {
     padding-top: ($gutter*2);
   
@@ -118,6 +45,12 @@
       @include bold;
     }
     
+  }
+  .other {
+    .person-excerpt {
+      float: none;
+      width: auto;
+    }
   }
   .simple-alphabetical-list {
     

@@ -130,13 +130,13 @@
             <section id="ministers">
               <h1 class="label">Our ministers</h1>
               <ul>
-              <% @ministers.each do |role| %>
+              <% @ministers.each_with_index do |role, i| %>
                 <%= render partial: "people/person",
                             locals: {
                               person: role.current_person,
                               roles: [role],
                               hlevel: "h3",
-                              hide_image: false
+                              extra_class: (i % 4 == 0) ? 'clear-person' : ''
                             } %>
               <% end %>
               </ul>
@@ -147,13 +147,14 @@
             <section id="military">
               <h1 class="label">Our senior military officials</h1>
               <ul class="js-hide-extra-rows">
-                <% @military_roles.each do |role| %>
+                <% @military_roles.each_with_index do |role, i| %>
                 <%= render partial: "people/person",
                             locals: {
                               person: role.current_person,
                               roles: [role],
                               hlevel: "h3",
-                              hide_image: false
+                              hide_image: false,
+                              extra_class: (i % 4 == 0) ? 'clear-person' : ''
                             } %>
               <% end %>
               </ul>
@@ -174,13 +175,14 @@
               </ul>
 
               <ul class="management-secondary js-hide-extra-rows-2">
-                <% @civil_servants.to_a.from(1).each do |civil_servant| %>
+                <% @civil_servants.to_a.from(1).each_with_index do |civil_servant, i| %>
                   <%= render partial: "people/person",
                   locals: {
                     person: civil_servant.current_person,
                     roles: [civil_servant],
                     hlevel: "h3",
-                    hide_image: true
+                    hide_image: true,
+                    extra_class: (i % 3 == 0) ? 'clear-person' : ''
                   } %>
                 <% end %>
               </ul>
@@ -191,13 +193,14 @@
             <section id="traffic_commissioners">
               <h1 class="label">Traffic commissioners</h1>
               <ul class="js-hide-extra-rows">
-                <% @traffic_commissioner_roles.each do |traffic_commissioner| %>
+                <% @traffic_commissioner_roles.each_with_index do |traffic_commissioner, i| %>
                   <%= render partial: "people/person",
                   locals: {
                     person: traffic_commissioner.current_person,
                     roles: [traffic_commissioner],
                     hlevel: "h3",
-                    hide_image: false
+                    hide_image: false,
+                    extra_class: (i % 4 == 0) ? 'clear-person' : ''
                   } %>
                 <% end %>
               </ul>
@@ -208,13 +211,14 @@
             <section id="special_representatives">
               <h1 class="label">Special representatives</h1>
               <ul class="js-hide-extra-rows">
-                <% @special_representatives.each do |role| %>
+                <% @special_representatives.each_with_index do |role, i| %>
                 <%= render partial: "people/person",
                             locals: {
                               person: role.current_person,
                               roles: [role],
                               hlevel: "h3",
-                              hide_image: false
+                              hide_image: false,
+                              extra_class: (i % 4 == 0) ? 'clear-person' : ''
                             } %>
               <% end %>
               </ul>
