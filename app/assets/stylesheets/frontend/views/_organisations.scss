@@ -359,6 +359,7 @@
     &.items-4 {
       .latest-documents {
         @include media(tablet){
+          clear: both;
           width: 66.66%;
         }
       }
@@ -428,6 +429,9 @@
           margin-bottom: 0;
         }
 
+        table {
+          margin-top: $gutter-one-third;
+        }
         .subscribe {
           float: none;
         }
@@ -881,10 +885,6 @@
       top: $gutter-one-third;
       right: $gutter-one-third;
     }
-  }
-
-  #recently-updated table {
-    margin-top: $gutter-one-third;
   }
 
 }
