@@ -49,11 +49,11 @@ class Classification < ActiveRecord::Base
             conditions: { "editions.state" => "scheduled" },
             source: :edition
 
-  has_many :topic_relations, foreign_key: :classification_id
-  has_many :related_topics,
-            through: :topic_relations,
+  has_many :classification_relations
+  has_many :related_classifications,
+            through: :classification_relations,
             before_remove: -> pa, rpa {
-              TopicRelation.relation_for(pa.id, rpa.id).destroy_inverse_relation
+              ClassificationRelation.relation_for(pa.id, rpa.id).destroy_inverse_relation
             }
 
   validates_with SafeHtmlValidator

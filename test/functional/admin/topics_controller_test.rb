@@ -21,7 +21,7 @@ class Admin::TopicsControllerTest < ActionController::TestCase
     get :new
 
     assert_select "form#new_topic" do
-      assert_select "select[name*='topic[related_topic_ids]']"
+      assert_select "select[name*='topic[related_classification_ids]']"
     end
   end
 
@@ -41,11 +41,11 @@ class Admin::TopicsControllerTest < ActionController::TestCase
     attributes = attributes_for(:topic, name: "new-topic")
 
     post :create, topic: attributes.merge(
-      related_topic_ids: [first_topic.id, second_topic.id]
+      related_classification_ids: [first_topic.id, second_topic.id]
     )
 
     assert topic = Topic.find_by_name("new-topic")
-    assert_equal [first_topic, second_topic].to_set, topic.related_topics.to_set
+    assert_equal [first_topic, second_topic].to_set, topic.related_classifications.to_set
   end
 
   test "creating a topic without a name shows errors" do
@@ -71,7 +71,7 @@ class Admin::TopicsControllerTest < ActionController::TestCase
   test "index should show related topics" do
     topic_1 = create(:topic)
     topic_2 = create(:topic)
-    topic = create(:topic, related_topics: [topic_1, topic_2])
+    topic = create(:topic, related_classifications: [topic_1, topic_2])
 
     get :index
 
@@ -99,13 +99,13 @@ class Admin::TopicsControllerTest < ActionController::TestCase
   test "edit should display related topics field with selections" do
     topic_1 = create(:topic, name: "related-topic-1")
     topic_2 = create(:topic, name: "related-topic-2")
-    topic = create(:topic, related_topics: [topic_1, topic_2])
+    topic = create(:topic, related_classifications: [topic_1, topic_2])
 
     get :edit, id: topic
 
     form_id = "edit_#{dom_id(topic)}"
     assert_select "form##{form_id}" do
-      assert_select "select[name*='topic[related_topic_ids]']" do
+      assert_select "select[name*='topic[related_classification_ids]']" do
         assert_select "option[selected='selected']", text: "related-topic-1"
         assert_select "option[selected='selected']", text: "related-topic-2"
       end
@@ -121,7 +121,7 @@ class Admin::TopicsControllerTest < ActionController::TestCase
 
     form_id = "edit_#{dom_id(topic)}"
     assert_select "form##{form_id}" do
-      assert_select "select[name*='topic[related_topic_ids]']" do
+      assert_select "select[name*='topic[related_classification_ids]']" do
         assert_select "option", text: "topic-1"
         assert_select "option", text: "topic-2"
         assert_select "option", text: "topic-for-editing", count: 0
@@ -146,14 +146,14 @@ class Admin::TopicsControllerTest < ActionController::TestCase
     first_topic = create(:topic)
     second_topic = create(:topic)
 
-    topic = create(:topic, related_topics: [first_topic])
+    topic = create(:topic, related_classifications: [first_topic])
 
     put :update, id: topic, topic: {
-      related_topic_ids: [second_topic.id]
+      related_classification_ids: [second_topic.id]
     }
 
     topic.reload
-    assert_equal [second_topic], topic.related_topics
+    assert_equal [second_topic], topic.related_classifications
   end
 
   test "update should remove all related topics if none specified" do
@@ -161,13 +161,13 @@ class Admin::TopicsControllerTest < ActionController::TestCase
     second_topic = create(:topic)
 
     topic = create(:topic,
-      related_topic_ids: [first_topic.id, second_topic.id]
+      related_classification_ids: [first_topic.id, second_topic.id]
     )
 
     put :update, id: topic, topic: {}
 
     topic.reload
-    assert_equal [], topic.related_topics
+    assert_equal [], topic.related_classifications
   end
 
   test "updating without a description shows errors" do

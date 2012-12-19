@@ -92,12 +92,12 @@
           </div>
         </section>
       <% end %>
-      <% if @related_topics.any? %>
+      <% if @related_classifications.any? %>
         <section id="related-topics" class="title-block">
           <div class="content">
             <h1 class="label">Related topics</h1>
             <ul>
-              <% @related_topics.each do |topic| %>
+              <% @related_classifications.each do |topic| %>
                 <%= content_tag_for :li, topic do %>
                   <%= link_to topic.name, topic_path(topic) %>
                 <% end %>

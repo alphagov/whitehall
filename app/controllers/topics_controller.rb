@@ -14,7 +14,7 @@ class TopicsController < PublicFacingController
     @publications = PublicationesquePresenter.decorate(Publication.published_in_topic([@topic]).in_reverse_chronological_order.limit(3))
     @announcements = AnnouncementPresenter.decorate(Announcement.published_in_topic([@topic]).in_reverse_chronological_order.limit(3))
     @detailed_guides = @topic.detailed_guides.published.limit(5)
-    @related_topics = @topic.related_topics
+    @related_classifications = @topic.related_classifications
     @recently_changed_documents = @topic.recently_changed_documents
     set_slimmer_organisations_header(@topic.organisations)
 

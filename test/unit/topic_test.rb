@@ -178,35 +178,35 @@ class TopicTest < ActiveSupport::TestCase
   test "return topics bi-directionally related to specific topic" do
     topic_1 = create(:topic)
     topic_2 = create(:topic)
-    topic = create(:topic, related_topics: [topic_1, topic_2])
+    topic = create(:topic, related_classifications: [topic_1, topic_2])
 
-    assert_equal [topic_1, topic_2], topic.related_topics
-    assert_equal [topic], topic_1.related_topics
-    assert_equal [topic], topic_2.related_topics
+    assert_equal [topic_1, topic_2], topic.related_classifications
+    assert_equal [topic], topic_1.related_classifications
+    assert_equal [topic], topic_2.related_classifications
   end
 
   test "should add related topics bi-directionally" do
     topic_1 = create(:topic)
     topic_2 = create(:topic)
-    topic = create(:topic, related_topics: [])
+    topic = create(:topic, related_classifications: [])
 
-    topic.update_attributes!(related_topic_ids: [topic_1.id, topic_2.id])
+    topic.update_attributes!(related_classification_ids: [topic_1.id, topic_2.id])
 
-    assert_equal [topic_1, topic_2], topic.related_topics
-    assert_equal [topic], topic_1.related_topics
-    assert_equal [topic], topic_2.related_topics
+    assert_equal [topic_1, topic_2], topic.related_classifications
+    assert_equal [topic], topic_1.related_classifications
+    assert_equal [topic], topic_2.related_classifications
   end
 
   test "should remove related topics bi-directionally" do
     topic_1 = create(:topic)
     topic_2 = create(:topic)
-    topic = create(:topic, related_topics: [topic_1, topic_2])
+    topic = create(:topic, related_classifications: [topic_1, topic_2])
 
-    topic.update_attributes!(related_topic_ids: [])
+    topic.update_attributes!(related_classification_ids: [])
 
-    assert_equal [], topic.related_topics
-    assert_equal [], topic_1.related_topics
-    assert_equal [], topic_2.related_topics
+    assert_equal [], topic.related_classifications
+    assert_equal [], topic_1.related_classifications
+    assert_equal [], topic_2.related_classifications
   end
 
 

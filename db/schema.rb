@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121219114123) do
+ActiveRecord::Schema.define(:version => 20121219114144) do
 
   create_table "attachment_data", :force => true do |t|
     t.string   "carrierwave_file"
@@ -43,6 +43,16 @@ ActiveRecord::Schema.define(:version => 20121219114123) do
   end
 
   add_index "attachments", ["attachment_data_id"], :name => "index_attachments_on_attachment_data_id"
+
+  create_table "classification_relations", :force => true do |t|
+    t.integer  "classification_id",         :null => false
+    t.integer  "related_classification_id", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "classification_relations", ["classification_id"], :name => "index_classification_relations_on_classification_id"
+  add_index "classification_relations", ["related_classification_id"], :name => "index_classification_relations_on_related_classification_id"
 
   create_table "classifications", :force => true do |t|
     t.string   "name"
@@ -676,16 +686,6 @@ ActiveRecord::Schema.define(:version => 20121219114123) do
 
   add_index "topic_memberships", ["classification_id"], :name => "index_topic_memberships_on_topic_id"
   add_index "topic_memberships", ["edition_id"], :name => "index_topic_memberships_on_edition_id"
-
-  create_table "topic_relations", :force => true do |t|
-    t.integer  "classification_id",         :null => false
-    t.integer  "related_classification_id", :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "topic_relations", ["classification_id"], :name => "index_policy_topic_relations_on_policy_topic_id"
-  add_index "topic_relations", ["related_classification_id"], :name => "index_policy_topic_relations_on_related_policy_topic_id"
 
   create_table "users", :force => true do |t|
     t.string   "name"

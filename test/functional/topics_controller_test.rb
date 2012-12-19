@@ -183,7 +183,7 @@ class TopicsControllerTest < ActionController::TestCase
     related_topic_1 = create(:topic)
     related_topic_2 = create(:topic)
     unrelated_topic = create(:topic)
-    topic = create(:topic, related_topics: [related_topic_1, related_topic_2])
+    topic = create(:topic, related_classifications: [related_topic_1, related_topic_2])
 
     get :show, id: topic
 
@@ -199,7 +199,7 @@ class TopicsControllerTest < ActionController::TestCase
   end
 
   test "show does not display empty related topics section" do
-    topic = create(:topic, related_topics: [])
+    topic = create(:topic, related_classifications: [])
 
     get :show, id: topic
 

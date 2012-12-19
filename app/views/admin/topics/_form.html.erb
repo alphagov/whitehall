@@ -7,8 +7,8 @@
   </fieldset>
 
   <fieldset>
-    <%= topic_form.label :related_topic_ids, "Related topics" %>
-    <%= topic_form.select :related_topic_ids, options_from_collection_for_select(Topic.all - [topic], 'id', 'name', topic.related_topic_ids), {}, multiple: true, class: 'chzn-select', data: { placeholder: "Choose related topics..."} %>
+    <%= topic_form.label :related_classification_ids, "Related topics" %>
+    <%= topic_form.select :related_classification_ids, options_from_collection_for_select(Topic.all - [topic], 'id', 'name', topic.related_classification_ids), {}, multiple: true, class: 'chzn-select', data: { placeholder: "Choose related topics..."} %>
   </fieldset>
 
   <fieldset id="policy_order" class="named sortable">

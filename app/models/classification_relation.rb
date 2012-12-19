@@ -1,5 +1,6 @@
-class TopicRelation < ActiveRecord::Base
+class ClassificationRelation < ActiveRecord::Base
   belongs_to :classification
+  belongs_to :related_classification, foreign_key: :related_classification_id, class_name: "Classification"
   belongs_to :topic, foreign_key: :classification_id, class_name: "Topic"
   belongs_to :related_topic, foreign_key: :related_classification_id, class_name: "Topic"
 

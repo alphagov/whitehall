@@ -60,6 +60,6 @@ class Admin::TopicsController < Admin::BaseController
   private
 
   def default_arrays_of_ids_to_empty
-    params[:topic][:related_topic_ids] ||= []
+    params[:topic][:related_classification_ids] ||= []
   end
 end

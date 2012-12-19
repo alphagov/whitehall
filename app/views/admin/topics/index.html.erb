@@ -26,7 +26,7 @@
         </td>
         <td class="related">
           <ul>
-            <% topic.related_topics.each do |pa| %>
+            <% topic.related_classifications.each do |pa| %>
               <%= content_tag_for(:li, pa) do %>
                 <%= link_to pa.name, edit_admin_topic_path(pa), title: "Edit topic #{pa.name}" %>
               <% end %>
