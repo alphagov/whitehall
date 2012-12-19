@@ -2,6 +2,8 @@ require "test_helper"
 
 class AnnouncementsControllerTest < ActionController::TestCase
   include ActionView::Helpers::DateHelper
+  include ActionDispatch::Routing::UrlFor
+  include PublicDocumentRoutesHelper
   include DocumentFilterHelpers
 
   should_be_a_public_facing_controller
@@ -176,23 +178,49 @@ class AnnouncementsControllerTest < ActionController::TestCase
     end
   end
 
-  test "index generates an atom feed entries for announcements matching the current filter" do
+  test "index generates an atom feed with entries for announcements matching the current filter" do
     org = create(:organisation, name: "org-name")
     other_org = create(:organisation, name: "other-org")
-    create(:published_news_article, organisations: [org])
-    create(:published_speech, organisations: [other_org])
+    news = create(:published_news_article, organisations: [org], published_at: 1.week.ago)
+    speech = create(:published_speech, organisations: [other_org], published_at: 3.days.ago)
 
     get :index, format: :atom, departments: [org.to_param]
 
     assert_select_atom_feed do
       assert_select 'feed > entry', count: 1 do |entries|
-        entries.each do |entry|
+        entries.zip([news]).each do |entry, document|
           assert_select entry, 'entry > id', 1
-          assert_select entry, 'entry > published', 1
-          assert_select entry, 'entry > updated', 1
-          assert_select entry, 'entry > link[rel=?][type=?]', 'alternate', 'text/html', 1
-          assert_select entry, 'entry > title', 1
-          assert_select entry, 'entry > content[type=?]', 'html', 1
+          assert_select entry, 'entry > published', count: 1, text: document.timestamp_for_sorting.iso8601
+          assert_select entry, 'entry > updated', count: 1, text: document.timestamp_for_update.iso8601
+          assert_select entry, 'entry > link[rel=?][type=?][href=?]', 'alternate', 'text/html', public_document_url(document)
+          assert_select entry, 'entry > title', count: 1, text: document.title
+          assert_select entry, 'entry > summary', count: 1, text: document.summary
+          assert_select entry, 'entry > category', count: 1, text: document.display_type
+          assert_select entry, 'entry > content[type=?]', 'html', count: 1, text: /#{document.body}/
+        end
+      end
+    end
+  end
+
+  test "index generates an atom feed with summary content and prefixed title entries for announcements matching the current filter when requested" do
+    org = create(:organisation, name: "org-name")
+    other_org = create(:organisation, name: "other-org")
+    news = create(:published_news_article, organisations: [org], published_at: 1.week.ago)
+    speech = create(:published_speech, organisations: [other_org], published_at: 3.days.ago)
+
+    get :index, format: :atom, departments: [org.to_param], govdelivery_version: 'on'
+
+    assert_select_atom_feed do
+      assert_select 'feed > entry', count: 1 do |entries|
+        entries.zip([news]).each do |entry, document|
+          assert_select entry, 'entry > id', 1
+          assert_select entry, 'entry > published', count: 1, text: document.timestamp_for_sorting.iso8601
+          assert_select entry, 'entry > updated', count: 1, text: document.timestamp_for_update.iso8601
+          assert_select entry, 'entry > link[rel=?][type=?][href=?]', 'alternate', 'text/html', public_document_url(document)
+          assert_select entry, 'entry > title', count: 1, text: "#{document.display_type}: #{document.title}"
+          assert_select entry, 'entry > summary', count: 1, text: document.summary
+          assert_select entry, 'entry > category', count: 1, text: document.display_type
+          assert_select entry, 'entry > content[type=?]', 'text', count: 1, text: document.summary
         end
       end
     end

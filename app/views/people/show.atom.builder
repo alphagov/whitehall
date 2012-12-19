@@ -5,12 +5,7 @@ atom_feed language: 'en-GB', root_url: root_url do |feed|
     author.name 'HM Government'
   end
   announcements = @person.announcements
-  feed.updated(announcements.any? ? announcements.first.display_date : Time.zone.now)
 
-  announcements.each do |document|
-    feed.entry(document, url: public_document_url(document), published: document.display_date, updated: document.display_date) do |entry|
-      entry.title document.title
-      entry.content govspeak_edition_to_html(document), type: 'html'
-    end
-  end
+  govdelivery_version = feed_wants_govdelivery_version?
+  documents_as_feed_entries(announcements, feed, govdelivery_version)
 end

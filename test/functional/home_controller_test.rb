@@ -27,6 +27,8 @@ class HomeControllerTest < ActionController::TestCase
           assert_select entry, 'entry > updated', 1
           assert_select entry, 'entry > link[rel=?][type=?]', 'alternate', 'text/html', 1
           assert_select entry, 'entry > title', 1
+          assert_select entry, 'entry > summary', 1
+          assert_select entry, 'entry > category', 1
           assert_select entry, 'entry > content[type=?]', 'html', 1
         end
       end
@@ -44,14 +46,44 @@ class HomeControllerTest < ActionController::TestCase
     older_documents = documents[10..-1]
 
     assert_select_atom_feed do
-      assert_select 'feed > updated', text: documents.map(&:timestamp_for_sorting).max.iso8601
+      assert_select 'feed > updated', text: recent_documents.first.timestamp_for_update.iso8601
 
       assert_select 'feed > entry' do |entries|
         entries.zip(recent_documents) do |entry, document|
-          assert_select entry, 'entry > published', text: document.timestamp_for_sorting.iso8601
-          assert_select entry, 'entry > updated', text: document.published_at.iso8601
+          assert_select entry, 'entry > published', count: 1, text: document.timestamp_for_sorting.iso8601
+          assert_select entry, 'entry > updated', count: 1, text: document.timestamp_for_update.iso8601
           assert_select entry, 'entry > link[rel=?][type=?][href=?]', 'alternate', 'text/html', public_document_url(document)
-          assert_select entry, 'entry > title', text: document.title
+          assert_select entry, 'entry > title', count: 1, text: document.title
+          assert_select entry, 'entry > summary', count: 1, text: document.summary
+          assert_select entry, 'entry > category', count: 1, text: document.display_type
+          assert_select entry, 'entry > content[type=?]', 'html', count: 1, text: /#{document.body}/
+        end
+      end
+    end
+  end
+
+  test 'Atom feed shows a list of recently published documents with summary content and prefixe titles when requested' do
+    create_published_documents
+    draft_documents = create_draft_documents
+
+    get :feed, format: :atom, govdelivery_version: 'yes'
+
+    documents = Edition.published.in_reverse_chronological_order
+    recent_documents = documents[0...10]
+    older_documents = documents[10..-1]
+
+    assert_select_atom_feed do
+      assert_select 'feed > updated', text: recent_documents.first.timestamp_for_update.iso8601
+
+      assert_select 'feed > entry' do |entries|
+        entries.zip(recent_documents) do |entry, document|
+          assert_select entry, 'entry > published', count: 1, text: document.timestamp_for_sorting.iso8601
+          assert_select entry, 'entry > updated', count: 1, text: document.timestamp_for_update.iso8601
+          assert_select entry, 'entry > link[rel=?][type=?][href=?]', 'alternate', 'text/html', public_document_url(document)
+          assert_select entry, 'entry > title', count: 1, text: "#{document.display_type}: #{document.title}"
+          assert_select entry, 'entry > summary', count: 1, text: document.summary
+          assert_select entry, 'entry > category', count: 1, text: document.display_type
+          assert_select entry, 'entry > content[type=?]', 'text', count: 1, text: document.summary
         end
       end
     end

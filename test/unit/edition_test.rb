@@ -565,4 +565,13 @@ class EditionTest < ActiveSupport::TestCase
     refute build(:edition).access_limited?
     assert build(:edition).accessible_by?(nil)
   end
+
+  test 'exposes published_at as timestamp_for_update' do
+    e = build(:edition, published_at: 1.week.ago,
+                        first_published_at: 2.weeks.ago,
+                        created_at: 3.weeks.ago,
+                        updated_at: 4.weeks.ago,
+                        timestamp_for_sorting: 5.weeks.ago)
+    assert_equal 1.week.ago, e.timestamp_for_update
+  end
 end

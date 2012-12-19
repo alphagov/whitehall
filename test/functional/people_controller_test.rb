@@ -142,6 +142,9 @@ class PeopleControllerTest < ActionController::TestCase
 end
 
 class PeopleControllerAtomFeedTest < ActionController::TestCase
+  include ActionDispatch::Routing::UrlFor
+  include PublicDocumentRoutesHelper
+
   tests PeopleController
 
   test "show generates an atom feed of news and speeches associated with the person" do
@@ -158,11 +161,39 @@ class PeopleControllerAtomFeedTest < ActionController::TestCase
       assert_select 'feed > entry', count: 2 do |actual_entries|
         expected_entries.zip(actual_entries).each do |expected, actual_entry|
           assert_select actual_entry, 'entry > id', 1
-          assert_select actual_entry, 'entry > published', 1
-          assert_select actual_entry, 'entry > updated', 1
-          assert_select actual_entry, 'entry > link[rel=?][type=?]', 'alternate', 'text/html', 1
-          assert_select actual_entry, 'entry > title', expected.title
-          assert_select actual_entry, 'entry > content[type=?]', 'html', 1
+          assert_select actual_entry, 'entry > published', count: 1, text: expected.timestamp_for_sorting.iso8601
+          assert_select actual_entry, 'entry > updated', count: 1, text: expected.timestamp_for_update.iso8601
+          assert_select actual_entry, 'entry > link[rel=?][type=?][href=?]', 'alternate', 'text/html', public_document_url(expected)
+          assert_select actual_entry, 'entry > title', count: 1, text: expected.title
+          assert_select actual_entry, 'entry > summary', count: 1, text: expected.summary
+          assert_select actual_entry, 'entry > category', count: 1, text: expected.display_type
+          assert_select actual_entry, 'entry > content[type=?]', 'html', count: 1, text: /#{expected.body}/
+        end
+      end
+    end
+  end
+
+  test "show generates an atom feed with summary content and prefixed titles when requested" do
+    person = create(:person)
+    role_appointment = create(:role_appointment, person: person)
+    expected_entries = [
+      create(:published_news_article, role_appointments: [role_appointment]),
+      create(:published_speech, role_appointment: role_appointment, delivered_on: 1.day.ago)
+    ]
+
+    get :show, format: :atom, id: person, govdelivery_version: '1'
+
+    assert_select_atom_feed do
+      assert_select 'feed > entry', count: 2 do |actual_entries|
+        expected_entries.zip(actual_entries).each do |expected, actual_entry|
+          assert_select actual_entry, 'entry > id', 1
+          assert_select actual_entry, 'entry > published', count: 1, text: expected.timestamp_for_sorting.iso8601
+          assert_select actual_entry, 'entry > updated', count: 1, text: expected.timestamp_for_update.iso8601
+          assert_select actual_entry, 'entry > link[rel=?][type=?][href=?]', 'alternate', 'text/html', public_document_url(expected)
+          assert_select actual_entry, 'entry > title', count: 1, text: "#{expected.display_type}: #{expected.title}"
+          assert_select actual_entry, 'entry > summary', count: 1, text: expected.summary
+          assert_select actual_entry, 'entry > category', count: 1, text: expected.display_type
+          assert_select actual_entry, 'entry > content[type=?]', 'text', count: 1, text: expected.summary
         end
       end
     end

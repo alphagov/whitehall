@@ -2,6 +2,7 @@ FactoryGirl.define do
   factory :international_priority, class: InternationalPriority, parent: :edition do
     title "international-priority-title"
     body  "international-priority-body"
+    summary nil
   end
 
   factory :draft_international_priority, parent: :international_priority, traits: [:draft]
