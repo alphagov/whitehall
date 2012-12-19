@@ -2,6 +2,7 @@
 
 - Titles and navigation links should only capitalise first letter, not every word.
 - URLs should use hyphens, not underscores.
+- Follow the [style guide](https://www.gov.uk/designprinciples/styleguide).
 
 ## Code ##
 
