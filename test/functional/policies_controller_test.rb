@@ -423,7 +423,7 @@ That's all
     assert_select_atom_feed do
       assert_select 'feed > id', 1
       assert_select 'feed > title', 1
-      assert_select 'feed > updated', 1.week.ago.iso8601
+      assert_select 'feed > updated', consultation.timestamp_for_update.iso8601
       assert_select 'feed > link[rel=?][type=?][href=?]', 'alternate', 'text/html', activity_policy_url(policy.document), 1
 
       assert_select 'feed > entry' do |entries|
@@ -452,7 +452,7 @@ That's all
     assert_select_atom_feed do
       assert_select 'feed > id', 1
       assert_select 'feed > title', 1
-      assert_select 'feed > updated', 1.week.ago.iso8601
+      assert_select 'feed > updated', consultation.timestamp_for_update.iso8601
       assert_select 'feed > link[rel=?][type=?][href=?]', 'alternate', 'text/html', activity_policy_url(policy.document), 1
 
       assert_select 'feed > entry' do |entries|

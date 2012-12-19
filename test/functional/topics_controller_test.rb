@@ -365,7 +365,7 @@ class TopicsControllerTest < ActionController::TestCase
     get :show, id: topic, format: :atom
 
     assert_select_atom_feed do
-      assert_select 'feed > updated', text: newer_edition.first_published_at.iso8601
+      assert_select 'feed > updated', text: newer_edition.timestamp_for_update.iso8601
 
       assert_select 'feed > entry' do |entries|
         entries.zip(recent_documents) do |entry, document|
@@ -394,7 +394,7 @@ class TopicsControllerTest < ActionController::TestCase
     get :show, id: topic, format: :atom, govdelivery_version: 'yes'
 
     assert_select_atom_feed do
-      assert_select 'feed > updated', text: newer_edition.first_published_at.iso8601
+      assert_select 'feed > updated', text: newer_edition.timestamp_for_update.iso8601
 
       assert_select 'feed > entry' do |entries|
         entries.zip(recent_documents) do |entry, document|

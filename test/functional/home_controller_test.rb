@@ -46,7 +46,7 @@ class HomeControllerTest < ActionController::TestCase
     older_documents = documents[10..-1]
 
     assert_select_atom_feed do
-      assert_select 'feed > updated', text: documents.map(&:timestamp_for_sorting).max.iso8601
+      assert_select 'feed > updated', text: recent_documents.first.timestamp_for_update.iso8601
 
       assert_select 'feed > entry' do |entries|
         entries.zip(recent_documents) do |entry, document|
@@ -73,7 +73,7 @@ class HomeControllerTest < ActionController::TestCase
     older_documents = documents[10..-1]
 
     assert_select_atom_feed do
-      assert_select 'feed > updated', text: documents.map(&:timestamp_for_sorting).max.iso8601
+      assert_select 'feed > updated', text: recent_documents.first.timestamp_for_update.iso8601
 
       assert_select 'feed > entry' do |entries|
         entries.zip(recent_documents) do |entry, document|
