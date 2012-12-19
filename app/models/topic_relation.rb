@@ -1,15 +1,16 @@
 class TopicRelation < ActiveRecord::Base
-  belongs_to :topic
-  belongs_to :related_topic, class_name: "Topic"
+  belongs_to :classification
+  belongs_to :topic, foreign_key: :classification_id, class_name: "Topic"
+  belongs_to :related_topic, foreign_key: :related_classification_id, class_name: "Topic"
 
-  validates :topic_id, presence: true
-  validates :related_topic_id, presence: true
-  validates :topic_id, uniqueness: { scope: :related_topic_id }
+  validates :classification_id, presence: true
+  validates :related_classification_id, presence: true
+  validates :classification_id, uniqueness: { scope: :related_classification_id }
 
   class Validator < ActiveModel::Validator
     def validate(record)
-      if record && record.topic_id && record.topic_id == record.related_topic_id
-        record.errors[:topic] = "cannot relate to itself"
+      if record && record.classification_id && record.classification_id == record.related_classification_id
+        record.errors[:classification] = "cannot relate to itself"
       end
     end
   end
@@ -20,13 +21,13 @@ class TopicRelation < ActiveRecord::Base
   after_destroy :destroy_inverse_relation
 
   class << self
-    def relation_for(topic_id, related_topic_id)
-      where(topic_id: topic_id, related_topic_id: related_topic_id).first
+    def relation_for(classification_id, related_classification_id)
+      where(classification_id: classification_id, related_classification_id: related_classification_id).first
     end
   end
 
   def inverse_relation
-    self.class.relation_for(related_topic_id, topic_id)
+    self.class.relation_for(related_classification_id, classification_id)
   end
 
   def readonly?
@@ -36,8 +37,8 @@ class TopicRelation < ActiveRecord::Base
   def create_inverse_relation
     unless inverse_relation.present?
       self.class.create!(
-        topic_id: related_topic_id,
-        related_topic_id: topic_id
+        classification_id: related_classification_id,
+        related_classification_id: classification_id
       )
     end
   end

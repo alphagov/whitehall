@@ -49,7 +49,7 @@ class Classification < ActiveRecord::Base
             conditions: { "editions.state" => "scheduled" },
             source: :edition
 
-  has_many :topic_relations
+  has_many :topic_relations, foreign_key: :classification_id
   has_many :related_topics,
             through: :topic_relations,
             before_remove: -> pa, rpa {

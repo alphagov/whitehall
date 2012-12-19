@@ -46,7 +46,7 @@ module Edition::RelatedPolicies
             JOIN topic_memberships tm ON tm.edition_id = policy.id
           WHERE
             er.edition_id = editions.id
-            AND tm.topic_id in (?)
+            AND tm.classification_id in (?)
         )
       ", topic_ids)
     end

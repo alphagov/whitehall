@@ -78,7 +78,7 @@ class Admin::OrganisationsController < Admin::BaseController
   def delete_absent_organisation_topics
     return unless params[:organisation] && params[:organisation][:organisation_topics_attributes]
     params[:organisation][:organisation_topics_attributes].each do |p|
-      if p[:topic_id].blank?
+      if p[:classification_id].blank?
         p["_destroy"] = true
       end
     end

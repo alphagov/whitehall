@@ -1,6 +1,6 @@
 class TopicMembership < ActiveRecord::Base
   belongs_to :edition
-  belongs_to :topic
+  belongs_to :topic, foreign_key: :classification_id
   belongs_to :policy, foreign_key: :edition_id
   belongs_to :detailed_guide, foreign_key: :edition_id
 

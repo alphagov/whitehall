@@ -2,12 +2,12 @@ require 'test_helper'
 
 class TopicRelationTest < ActiveSupport::TestCase
   test "should be invalid without a topic id" do
-    topic_relation = build(:topic_relation, topic_id: nil)
+    topic_relation = build(:topic_relation, classification_id: nil)
     refute topic_relation.valid?
   end
 
   test "should be invalid without a related topic id" do
-    topic_relation = build(:topic_relation, related_topic_id: nil)
+    topic_relation = build(:topic_relation, related_classification_id: nil)
     refute topic_relation.valid?
   end
 
@@ -38,7 +38,7 @@ class TopicRelationTest < ActiveSupport::TestCase
     topic = create(:topic)
     relation = build(:topic_relation, topic: topic, related_topic: topic)
     refute relation.valid?
-    assert relation.errors[:topic].include?("cannot relate to itself")
+    assert relation.errors[:classification].include?("cannot relate to itself"), relation.errors.full_messages.join(", ")
   end
 
   test "should create inverse relation on create" do
