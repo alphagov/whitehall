@@ -13,10 +13,10 @@
 
   <fieldset id="policy_order" class="named sortable">
     <legend>Policy ordering</legend>
-    <%= topic_form.fields_for :topic_memberships, topic.topic_memberships.for_type(Policy).published do |topic_membership_form| %>
-      <% policy = topic_membership_form.object.policy %>
+    <%= topic_form.fields_for :classification_memberships, topic.classification_memberships.for_type(Policy).published do |classification_membership_form| %>
+      <% policy = classification_membership_form.object.policy %>
       <div id="<%= dom_id(policy) %>" class="well">
-        <%= topic_membership_form.text_field :ordering, label_text: link_to(policy.title, admin_edition_path(policy)), class: "ordering" %>
+        <%= classification_membership_form.text_field :ordering, label_text: link_to(policy.title, admin_edition_path(policy)), class: "ordering" %>
         <p>
           <%= [pluralize(Publication.published.related_to(policy).count, "publication"),
                pluralize(NewsArticle.published.related_to(policy).count, "news article")].to_sentence %>

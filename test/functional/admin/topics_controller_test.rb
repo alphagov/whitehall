@@ -181,8 +181,8 @@ class Admin::TopicsControllerTest < ActionController::TestCase
     topic = create(:topic)
     policy = create(:published_policy, topics: [topic])
     draft_policy = create(:draft_policy, topics: [topic])
-    published_association = topic.topic_memberships.where(edition_id: policy.id).first
-    draft_association = topic.topic_memberships.where(edition_id: draft_policy.id).first
+    published_association = topic.classification_memberships.where(edition_id: policy.id).first
+    draft_association = topic.classification_memberships.where(edition_id: draft_policy.id).first
 
     get :edit, id: topic.id
 
@@ -193,9 +193,9 @@ class Admin::TopicsControllerTest < ActionController::TestCase
   test "allows updating of edition ordering" do
     topic = create(:topic)
     policy = create(:policy, topics: [topic])
-    association = topic.topic_memberships.first
+    association = topic.classification_memberships.first
 
-    put :update, id: topic.id, topic: {name: "Blah", description: "Blah", topic_memberships_attributes: {
+    put :update, id: topic.id, topic: {name: "Blah", description: "Blah", classification_memberships_attributes: {
       "0" => {id: association.id, ordering: "4"}
     }}
 

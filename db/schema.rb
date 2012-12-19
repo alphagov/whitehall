@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121219114144) do
+ActiveRecord::Schema.define(:version => 20121219170526) do
 
   create_table "attachment_data", :force => true do |t|
     t.string   "carrierwave_file"
@@ -43,6 +43,17 @@ ActiveRecord::Schema.define(:version => 20121219114144) do
   end
 
   add_index "attachments", ["attachment_data_id"], :name => "index_attachments_on_attachment_data_id"
+
+  create_table "classification_memberships", :force => true do |t|
+    t.integer  "classification_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "edition_id"
+    t.integer  "ordering"
+  end
+
+  add_index "classification_memberships", ["classification_id"], :name => "index_classification_memberships_on_classification_id"
+  add_index "classification_memberships", ["edition_id"], :name => "index_classification_memberships_on_edition_id"
 
   create_table "classification_relations", :force => true do |t|
     t.integer  "classification_id",         :null => false
@@ -675,17 +686,6 @@ ActiveRecord::Schema.define(:version => 20121219114144) do
 
   add_index "supporting_pages", ["edition_id"], :name => "index_supporting_pages_on_edition_id"
   add_index "supporting_pages", ["slug"], :name => "index_supporting_documents_on_slug"
-
-  create_table "topic_memberships", :force => true do |t|
-    t.integer  "classification_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "edition_id"
-    t.integer  "ordering"
-  end
-
-  add_index "topic_memberships", ["classification_id"], :name => "index_topic_memberships_on_topic_id"
-  add_index "topic_memberships", ["edition_id"], :name => "index_topic_memberships_on_edition_id"
 
   create_table "users", :force => true do |t|
     t.string   "name"

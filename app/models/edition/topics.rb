@@ -3,15 +3,15 @@ module Edition::Topics
 
   class Trait < Edition::Traits::Trait
     def process_associations_before_save(edition)
-      edition.topic_memberships = @edition.topic_memberships.map do |dt|
-        TopicMembership.new(dt.attributes.except(:id))
+      edition.classification_memberships = @edition.classification_memberships.map do |dt|
+        ClassificationMembership.new(dt.attributes.except(:id))
       end
     end
   end
 
   included do
-    has_many :topic_memberships, dependent: :destroy, foreign_key: :edition_id
-    has_many :topics, through: :topic_memberships
+    has_many :classification_memberships, dependent: :destroy, foreign_key: :edition_id
+    has_many :topics, through: :classification_memberships, source: :classification
     after_update :update_topic_counts
 
     add_trait Trait

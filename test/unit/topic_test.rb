@@ -68,10 +68,10 @@ class TopicTest < ActiveSupport::TestCase
     topic = create(:topic)
     first_policy = create(:policy, topics: [topic])
     second_policy = create(:policy, topics: [topic])
-    first_association = topic.topic_memberships.find_by_edition_id(first_policy.id)
-    second_association = topic.topic_memberships.find_by_edition_id(second_policy.id)
+    first_association = topic.classification_memberships.find_by_edition_id(first_policy.id)
+    second_association = topic.classification_memberships.find_by_edition_id(second_policy.id)
 
-    topic.update_attributes(topic_memberships_attributes: {
+    topic.update_attributes(classification_memberships_attributes: {
       first_association.id => {id: first_association.id, edition_id: first_policy.id, ordering: "2"},
       second_association.id => {id: second_association.id, edition_id: second_policy.id, ordering: "1"}
     })
@@ -370,7 +370,7 @@ class TopicTest < ActiveSupport::TestCase
     assert_equal 0, topic.published_edition_count
 
     policy = create(:published_policy)
-    topic_membership = create(:topic_membership, topic: topic, policy: policy)
+    classification_membership = create(:classification_membership, classification: topic, policy: policy)
     assert_equal 1, topic.reload.published_edition_count
 
     policy.update_attributes(state: :draft)
@@ -379,7 +379,7 @@ class TopicTest < ActiveSupport::TestCase
     policy.update_attributes(state: :published)
     assert_equal 1, topic.reload.published_edition_count
 
-    topic_membership.reload.destroy
+    classification_membership.reload.destroy
     assert_equal 0, topic.reload.published_edition_count
   end
 
@@ -388,7 +388,7 @@ class TopicTest < ActiveSupport::TestCase
     assert_equal 0, topic.published_policies_count
 
     policy = create(:published_policy)
-    topic_membership = create(:topic_membership, topic: topic, policy: policy)
+    classification_membership = create(:classification_membership, classification: topic, policy: policy)
     assert_equal 1, topic.reload.published_policies_count
 
     policy.update_attributes(state: :draft)
@@ -397,7 +397,7 @@ class TopicTest < ActiveSupport::TestCase
     policy.update_attributes(state: :published)
     assert_equal 1, topic.reload.published_policies_count
 
-    topic_membership.reload.destroy
+    classification_membership.reload.destroy
     assert_equal 0, topic.reload.published_policies_count
   end
 

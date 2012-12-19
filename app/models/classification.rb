@@ -17,11 +17,11 @@ class Classification < ActiveRecord::Base
     end
   end
 
-  has_many :topic_memberships
-  has_many :policies, through: :topic_memberships
-  has_many :detailed_guides, through: :topic_memberships
+  has_many :classification_memberships
+  has_many :policies, through: :classification_memberships
+  has_many :detailed_guides, through: :classification_memberships
   has_many :published_detailed_guides,
-            through: :topic_memberships,
+            through: :classification_memberships,
             class_name: "DetailedGuide",
             conditions: { "editions.state" => "published" },
             source: :detailed_guide
@@ -30,22 +30,22 @@ class Classification < ActiveRecord::Base
   has_many :organisations, through: :organisation_classifications
 
   has_many :published_policies,
-            through: :topic_memberships,
+            through: :classification_memberships,
             class_name: "Policy",
             conditions: { "editions.state" => "published" },
             source: :policy
   has_many :archived_policies,
-            through: :topic_memberships,
+            through: :classification_memberships,
             class_name: "Policy",
             conditions: { state: "archived" },
             source: :policy
 
   has_many :published_editions,
-            through: :topic_memberships,
+            through: :classification_memberships,
             conditions: { "editions.state" => "published" },
             source: :edition
   has_many :scheduled_editions,
-            through: :topic_memberships,
+            through: :classification_memberships,
             conditions: { "editions.state" => "scheduled" },
             source: :edition
 
@@ -60,7 +60,7 @@ class Classification < ActiveRecord::Base
   validates :name, presence: true, uniqueness: true
   validates :description, presence: true
 
-  accepts_nested_attributes_for :topic_memberships
+  accepts_nested_attributes_for :classification_memberships
   accepts_nested_attributes_for :organisation_classifications
 
   default_scope where(arel_table[:state].not_eq("deleted"))
