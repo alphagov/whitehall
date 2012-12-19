@@ -314,6 +314,7 @@
       }
 
       &.first {
+        width: 100%;
         .content {
           padding: $gutter-half 0 $gutter-one-third 0;
           @extend %contain-floats;
