@@ -4,7 +4,6 @@ atom_feed language: 'en-GB', root_url: activity_policy_url(@policy.document) do 
   feed.author do |author|
     author.name 'HM Government'
   end
-  feed.updated @recently_changed_documents.first.timestamp_for_sorting
 
   govdelivery_version = feed_wants_govdelivery_version?
   documents_as_feed_entries(@recently_changed_documents.limit(10), feed, govdelivery_version)

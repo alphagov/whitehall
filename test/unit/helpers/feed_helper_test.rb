@@ -46,6 +46,7 @@ class FeedHelperTest < ActionView::TestCase
     d2.stubs(:timestamp_for_update).returns(13.days.ago)
     builder = mock('builder')
     entries = sequence('entries')
+    builder.stubs(:updated)
     builder.expects(:entry).with(d2, url: '/policy_url', published: 2.weeks.ago, updated: 13.days.ago).yields(builder).in_sequence(entries)
     builder.expects(:entry).with(d1, url: '/publication_url', published: 1.week.ago, updated: 3.days.ago).yields(builder).in_sequence(entries)
     feed_entry = sequence('feed_entry')
@@ -56,6 +57,25 @@ class FeedHelperTest < ActionView::TestCase
     stubs(:public_document_url).with(d1).returns '/publication_url'
 
     documents_as_feed_entries([d2,d1], builder, false)
+  end
+
+  test 'documents_as_feed_entries sets the updated of the builder to the supplied feed_updated_timestamp if no documents are present' do
+    builder = mock('builder')
+    builder.expects(:updated).with('it is time')
+    documents_as_feed_entries([], builder, false, 'it is time')
+  end
+
+  test 'documents_as_feed_entries sets the updated of the builder to the timestamp_for_update of the first supplied document' do
+    d = Publication.new
+    d.stubs(:id).returns(12)
+    d.stubs(:timestamp_for_sorting).returns(1.week.ago)
+    d.stubs(:timestamp_for_update).returns(3.days.ago)
+
+    builder = mock('builder')
+    builder.expects(:updated).with(3.days.ago)
+    builder.stubs(:entry)
+    stubs(:public_document_url)
+    documents_as_feed_entries([d], builder, false, 'it is time')
   end
 
   test 'document_as_feed_entry sets the title, category, summary, and content on the builder, using the govspoken version of the document as the content when govdelivery_version is false' do

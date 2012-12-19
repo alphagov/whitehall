@@ -5,7 +5,15 @@ module FeedHelper
     end
   end
 
-  def documents_as_feed_entries(documents, builder, govdelivery_version = false)
+  def documents_as_feed_entries(documents, builder, govdelivery_version = false, feed_updated_timestamp = Time.current)
+    feed_updated_timestamp =
+      if documents.any? 
+        documents.first.timestamp_for_update
+      else
+        feed_updated_timestamp
+      end
+    builder.updated feed_updated_timestamp
+
     documents.each do |document|
       builder.entry(document, url: public_document_url(document), published: document.timestamp_for_sorting, updated: document.timestamp_for_update) do |entry|
         document_as_feed_entry(document, builder, govdelivery_version)
