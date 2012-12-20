@@ -1,0 +1,74 @@
+class Admin::ClassificationsController < Admin::BaseController
+  helper_method :model_class
+
+  before_filter :default_arrays_of_ids_to_empty, only: [:update]
+
+  def index
+    @classifications = ClassificationsPresenter.decorate(model_class.order(:name))
+    @new_classification = model_class.new
+  end
+
+  def new
+    @classification = model_class.new
+  end
+
+  def create
+    @classification = model_class.new(object_params)
+    if @classification.save
+      redirect_to admin_topics_path, notice: "#{human_friendly_model_name} created"
+    else
+      render action: "new"
+    end
+  end
+
+  def edit
+    @classification = model_class.find(params[:id])
+  end
+
+  def update
+    @classification = model_class.find(params[:id])
+    if @classification.update_attributes(object_params)
+      redirect_to admin_topics_path, notice: "#{human_friendly_model_name} updated"
+    else
+      render action: "edit"
+    end
+  end
+
+  def destroy
+    @classification = model_class.find(params[:id])
+    @classification.delete!
+    if @classification.deleted?
+      redirect_to admin_topics_path, notice: "#{human_friendly_model_name} destroyed"
+    else
+      redirect_to admin_topics_path, alert: "Cannot destroy #{human_friendly_model_name} with associated content"
+    end
+  end
+
+  def human_friendly_model_name
+    model_class.name.underscore.humanize
+  end
+
+  class ClassificationsPresenter < Draper::Base
+    def breakdown
+      published_policy_ids = policies.published.select("editions.id")
+      {
+        "published policy" => published_policy_ids.count,
+        "published detailed guide" => detailed_guides.published.count
+      }
+    end
+  end
+
+  private
+
+  def model_attribute_name
+    model_class.name.underscore
+  end
+
+  def object_params
+    params[model_attribute_name]
+  end
+
+  def default_arrays_of_ids_to_empty
+    object_params[:related_topic_ids] ||= []
+  end
+end

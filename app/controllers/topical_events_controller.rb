@@ -1,0 +1,2 @@
+class TopicalEventsController < ClassificationsController
+end

@@ -57,6 +57,8 @@ Whitehall::Application.routes.draw do
     end
 
     resources :topics, path: "topics", only: [:index, :show]
+    resources :topical_events, path: "topical-events", only: [:show]
+
     resources :organisations, only: [:index, :show] do
       resources :document_series, only: [:index, :show], path: 'series'
       member do
@@ -97,6 +99,7 @@ Whitehall::Application.routes.draw do
         resources :edition_organisations, only: [:edit, :update]
         resources :edition_countries, only: [:update]
         resources :topics, path: "topics", except: [:show]
+        resources :topical_events, path: "topical-events", except: [:show]
 
         resources :editions, only: [:index] do
           member do

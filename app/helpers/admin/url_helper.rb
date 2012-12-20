@@ -3,6 +3,10 @@ module Admin::UrlHelper
     admin_header_link "Topics", admin_topics_path
   end
 
+  def admin_topical_events_header_link
+    admin_header_link "Topical events", admin_topical_events_path
+  end
+
   def admin_organisations_header_link
     admin_header_link "Departments & agencies", admin_organisations_path
   end
