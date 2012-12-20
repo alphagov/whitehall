@@ -57,7 +57,7 @@ Whitehall::Application.routes.draw do
     end
 
     resources :topics, path: "topics", only: [:index, :show]
-    resources :topical_events, path: "topical-events", only: [:show]
+    resources :topical_events, path: "topical-events", only: [:index, :show]
 
     resources :organisations, only: [:index, :show] do
       resources :document_series, only: [:index, :show], path: 'series'

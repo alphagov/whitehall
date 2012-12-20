@@ -35,7 +35,7 @@
     <section>
       <h1>Topics</h1>
       <% if edition.topics.any? %>
-        <%= render partial: "topics/list", locals: {topics: edition.topics} %>
+        <%= render partial: "classifications/list", locals: {topics: edition.topics} %>
       <% else %>
         <p>This document isn't assigned to any topics.</p>
       <% end %>

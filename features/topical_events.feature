@@ -10,10 +10,9 @@ Scenario: Adding a new topical event
   Then I should see the topical event "Moustache Growing Convention" in the admin interface
   And I should see the topical event "Moustache Growing Convention" on the frontend
 
-# Scenario: Associating policies with topical events
-#   Given a topical event "Moustache Growing Convention" exists
-#   And the draft policy "Hirsuitness" exists
-#   When I associate the policy "Hirsuitness" with the topical event "Moustache Growing Convention"
-#   And publish the policy "Hirsuitness"
-#   Then I should see the policy "Hirsuitness" on the topical event "G8 Summit"
-#
+@wip
+Scenario: Associating a speech with a topical event
+  When I create a new topical event "Moustache Growing Convention" with description "Annual convention on moustach growing"
+  And I draft a new speech "Famous moustaches of the 19th century" relating it to topical event "Moustache Growing Convention"
+  And I force publish the speech "Famous moustaches of the 19th century"
+  Then I should see the speech "Famous moustaches of the 19th century" in the announcements section of the topical event "Moustache Growing Convention"

@@ -156,4 +156,11 @@ class SpeechTest < EditionTestCase
   test "delivery title should show 'Speaker:' for all other appointments" do
     assert_equal "Speaker", build(:speech, role_appointment: build(:board_member_role_appointment)).delivery_title
   end
+
+  test "can associate a speech with a topical event" do
+    speech = create(:speech)
+    speech.topical_events << TopicalEvent.new(name: "foo", description: "bar")
+    assert speech.can_be_associated_with_topical_events?
+    assert_equal 1, speech.topical_events.size
+  end
 end
