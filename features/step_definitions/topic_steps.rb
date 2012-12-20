@@ -17,7 +17,7 @@ end
 Given /^the topic "([^"]*)" has "([^"]*)" as a lead organisation$/ do |topic_name, organisation_name|
   topic = Topic.find_by_name(topic_name) || create(:topic, name: topic_name)
   organisation = Organisation.find_by_name(organisation_name) || create(:ministerial_department, name: organisation_name)
-  OrganisationTopic.create(topic: topic, organisation: organisation, lead: true)
+  OrganisationClassification.create(topic: topic, organisation: organisation, lead: true)
 end
 
 Given /^the topic "([^"]*)" contains a published and a draft detailed guide$/ do |topic_name|
