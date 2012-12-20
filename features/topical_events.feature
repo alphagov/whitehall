@@ -21,3 +21,11 @@ Scenario: Associating a news article with a topical event
   And I draft a new news article "Famous moustaches of the 19th century" relating it to topical event "Moustache Growing Convention"
   And I force publish the news article "Famous moustaches of the 19th century"
   Then I should see the news article "Famous moustaches of the 19th century" in the announcements section of the topical event "Moustache Growing Convention"
+
+Scenario: Featuring news on an topical event page
+  When I create a new topical event "Moustache Growing Convention" with description "Annual convention on moustach growing"
+  And I draft a new news article "Famous moustaches of the 19th century" relating it to topical event "Moustache Growing Convention"
+  And I force publish the news article "Famous moustaches of the 19th century"
+  When I feature the news article "Famous moustaches of the 19th century" for topical event "Moustache Growing Convention" with image "minister-of-funk.960x640.jpg"
+  Then I should see the featured news articles in the "Moustache Growing Convention" topical event are:
+    | Famous moustaches of the 19th century | s630_minister-of-funk.960x640.jpg |

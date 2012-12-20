@@ -1,10 +1,11 @@
 class TopicalEventsController < ClassificationsController
+  before_filter :load_topical_event, only: [:show, :update]
+
   def index
     redirect_to "topics/index"
   end
 
   def show
-    @topical_event = TopicalEvent.find(params[:id])
     @policies = @topical_event.published_policies
     # expire_on_next_scheduled_publication(@topical_event.scheduled_editions +
     #   Publication.scheduled_in_topic([@topical_event]) +
@@ -24,6 +25,10 @@ class TopicalEventsController < ClassificationsController
         @recently_changed_documents = @recently_changed_documents[0...10]
       }
     end
+  end
+
+  def load_topical_event
+    @topical_event = TopicalEvent.find(params[:id])
   end
 
 end

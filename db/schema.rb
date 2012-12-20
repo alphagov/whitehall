@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121220145855) do
+ActiveRecord::Schema.define(:version => 20121220172647) do
 
   create_table "attachment_data", :force => true do |t|
     t.string   "carrierwave_file"
@@ -43,6 +43,26 @@ ActiveRecord::Schema.define(:version => 20121220145855) do
   end
 
   add_index "attachments", ["attachment_data_id"], :name => "index_attachments_on_attachment_data_id"
+
+  create_table "classification_featuring_image_data", :force => true do |t|
+    t.string   "carrierwave_image"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "classification_featurings", :force => true do |t|
+    t.integer  "edition_id"
+    t.integer  "classification_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "ordering"
+    t.integer  "classification_featuring_image_data_id"
+    t.string   "alt_text"
+  end
+
+  add_index "classification_featurings", ["classification_featuring_image_data_id"], :name => "index_cl_feat_on_edition_org_image_data_id"
+  add_index "classification_featurings", ["classification_id"], :name => "index_cl_feat_on_classification_id"
+  add_index "classification_featurings", ["edition_id", "classification_id"], :name => "index_cl_feat_on_edition_id_and_classification_id", :unique => true
 
   create_table "classification_memberships", :force => true do |t|
     t.integer  "classification_id"

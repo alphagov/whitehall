@@ -1,38 +1,6 @@
 require 'test_helper'
 
 class TopicTest < ActiveSupport::TestCase
-  should_protect_against_xss_and_content_attacks_on :name, :description
-
-  test "should default to the 'current' state" do
-    topic = Topic.new
-    assert topic.current?
-  end
-
-  test 'should be invalid without a name' do
-    topic = build(:topic, name: nil)
-    refute topic.valid?
-  end
-
-  test "should be invalid without a state" do
-    topic = build(:topic, state: nil)
-    refute topic.valid?
-  end
-
-  test "should be invalid with an unsupported state" do
-    topic = build(:topic, state: "foobar")
-    refute topic.valid?
-  end
-
-  test 'should be invalid without a unique name' do
-    existing_topic = create(:topic)
-    new_topic = build(:topic, name: existing_topic.name)
-    refute new_topic.valid?
-  end
-
-  test 'should be invalid without a description' do
-    topic = build(:topic, description: nil)
-    refute topic.valid?
-  end
 
   test "should allow association with policies" do
     policy = create(:draft_policy)

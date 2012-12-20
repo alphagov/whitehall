@@ -34,6 +34,30 @@ Then /^I should see (#{THE_DOCUMENT}) in the announcements section of the topica
   end
 end
 
+When /^I feature the news article "([^"]*)" for topical event "([^"]*)" with image "([^"]*)"$/ do |news_article_title, topical_event_name, image_filename|
+  topical_event = TopicalEvent.find_by_name!(topical_event_name)
+  visit feature_admin_topical_event_path(topical_event)
+  news_article = NewsArticle.find_by_title(news_article_title)
+  within record_css_selector(news_article) do
+    click_link "Feature"
+  end
+  attach_file "Select an image to be shown when featuring", Rails.root.join("test/fixtures/#{image_filename}")
+  fill_in :alt_text, with: "An accessible description of the image"
+  click_button "Save"
+end
+
+Then /^I should see the featured news articles in the "([^"]*)" topical event are:$/ do |name, expected_table|
+  visit TopicalEvent.find_by_name!(name)
+  rows = find(featured_documents_selector).all('.news_article')
+  table = rows.collect do |row|
+    [
+      row.find('h2').text.strip,
+      File.basename(row.find('.featured-image')['src'])
+    ]
+  end
+  expected_table.diff!(table)
+end
+
 def create_topical_event(options = {})
   visit admin_root_path
   click_link "Topical events"

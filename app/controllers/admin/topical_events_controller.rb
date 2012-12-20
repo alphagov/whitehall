@@ -19,4 +19,14 @@ class Admin::TopicalEventsController < Admin::ClassificationsController
       end
     end
   end
+
+  def update
+    @classification = model_class.find(params[:id])
+    if @classification.update_attributes!(object_params)
+      redirect_to [:admin, @classification, :classification_featurings], notice: "Order of featured items updated"
+    else
+      redirect_to [:admin, @classification, :classification_featurings], warning: "Error"
+    end
+  end
+
 end
