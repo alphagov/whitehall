@@ -75,9 +75,109 @@
         float: right;
       }
 
-      .govspeak {
+      .govspeak, .social-media-accounts {
         @include media(tablet){
           padding-left: $gutter-half;
+        }
+      }
+
+      .social-media-accounts {
+        @extend %contain-floats;
+
+        li {
+          float: left;
+          clear: none;
+          padding-right: $gutter-half;
+        }
+      }
+    }
+  }
+
+  .featured-news {
+    margin: 0 (-$gutter-half);
+
+    article {
+      float: left;
+      width: 100%;
+      
+      .content {
+        padding: $gutter-half;
+      }
+      .img {
+        img {
+          width: 100%;
+        }
+      }
+      .text {
+        h2 {
+          @include copy-19;
+        }
+        p {
+          @include copy-16;
+        }
+      }
+    }
+
+    &.items-1 {
+
+      article {
+        .img {
+          @include media(desktop){
+            width: 50%;
+            float: left;
+          }
+        }
+        .text {
+          @include media(desktop){
+            width: 50%;
+            float: left;
+          }
+        }
+      }
+    }
+
+    &.items-2 {
+      article {
+        @include media(desktop){
+          width: 50%;
+          float: left;
+        }
+      }
+    }
+    &.items-2,
+    &.items-4 {
+      article {
+        @include media(desktop){
+          width: 50%;
+          float: left;
+        }
+      }
+    }
+    &.items-3,
+    &.items-6 {
+      article {
+        @include media(desktop){
+          width: 33.33%;
+          float: left;
+        }
+      }
+    }
+    &.items-5 {
+      article {
+        &.item-0,
+        &.item-1 {
+          @include media(desktop){
+            width: 50%;
+            float: left;
+          }
+        }
+        &.item-2,
+        &.item-3,
+        &.item-4 {
+          @include media(desktop){
+            width: 33.33%;
+            float: left;
+          }
         }
       }
     }
