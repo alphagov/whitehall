@@ -73,19 +73,19 @@ Feature: Importing new editions
     When I import the following data as CSV as "Publication" for "Department for Transport":
       |old_url|title|summary|body|organisation|policy_1|publication_type|document_series|publication_date|order_url|price|isbn|urn|command_paper_number|ignore_1|attachment_1_url|attachment_1_title|country_1|
       |http://example.com/1|title|summary|body|weird organisation||weird type||14-Dec-2011||||||||||
-    Then the import should fail with errors "unknown organisation" and "unknown type" and no editions are created
+    Then the import should fail with errors about organisation and sub type and no editions are created
 
   Scenario: Importing publication with organisation already set in the data
     When I import the following data as CSV as "Publication" for "Department for Transport":
       |old_url|title|summary|body|organisation|policy_1|publication_type|document_series|publication_date|order_url|price|isbn|urn|command_paper_number|ignore_1|attachment_1_url|attachment_1_title|country_1|
       |http://example.com/1|title|summary|body|foreign-commonwealth-office||||14-Dec-2011||||||||||
-    Then the import succeeds, creating 1 imported publication for "Foreign and Commonwealth Office" with "UNKNOWN" publication type
+    Then the import succeeds, creating 1 imported publication for "Foreign and Commonwealth Office" with "unknown" publication type
 
   Scenario: Importing publications sets imported state, UNKNOWN type and default organisation, to be filled in later
     When I import the following data as CSV as "Publication" for "Department for Transport":
       |old_url|title|summary|body|organisation|policy_1|publication_type|document_series|publication_date|order_url|price|isbn|urn|command_paper_number|ignore_1|attachment_1_url|attachment_1_title|country_1|
       |http://example.com/1|title|summary|body|||||14-Dec-2011||||||||||
-    Then the import succeeds, creating 1 imported publication for "Department for Transport" with "UNKNOWN" publication type
+    Then the import succeeds, creating 1 imported publication for "Department for Transport" with "unknown" publication type
     When I set the imported publication's type to "Policy paper"
     Then I can make the imported publication into a draft edition
 
@@ -93,7 +93,7 @@ Feature: Importing new editions
     When I import the following data as CSV as "Speech" for "Department for Transport":
       |old_url|title|summary|body|organisation|policy_1|type|delivered_by|delivered_on|event_and_location|country_1|
       |http://example.com/1|title|summary|body|||||14-Dec-2011|location||
-    Then the import succeeds, creating 1 imported speech for "Department for Transport" with "UNKNOWN" speech type and with no deliverer set
+    Then the import succeeds, creating 1 imported speech for "Department for Transport" with "unknown" speech type and with no deliverer set
     When I set the imported speech's type to "Transcript"
     And I set the deliverer of the speech to "Joe Bloggs"
     Then I can make the imported speech into a draft edition

@@ -101,7 +101,7 @@ class ImportTest < ActiveSupport::TestCase
     stub_document_source
     stub_row_class
     stub_model_class
-    import = perform_import(creator: stub_record(:user)) do |import|
+    import = perform_import do |import|
       import.stubs(:row_class).returns(@row_class)
       import.stubs(:model_class).returns(@model_class)
     end
@@ -120,8 +120,13 @@ class ImportTest < ActiveSupport::TestCase
     end
   end
 
+  test "#peform creates editions in the imported state" do
+    perform_import
+    assert_equal Edition.count, Edition.imported.count
+  end
+
   test "document version history is recorded in the name of the automatic data importer" do
-    i = perform_import(creator: stub_record(:user))
+    i = perform_import
     e = i.document_sources.map {|ds| ds.document.editions}.flatten.first
     assert_equal [@automatic_data_importer], e.authors
     assert_equal @automatic_data_importer.id, e.versions.first.whodunnit.to_i

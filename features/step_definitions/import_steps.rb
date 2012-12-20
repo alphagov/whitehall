@@ -22,10 +22,25 @@ Then /^the import should fail and no editions are created$/ do
   assert page.has_content?("Import failed")
 end
 
-Then /^the import succeeds, creating (\d+) imported edition with validation problems$/ do |edition_count|
-  pending # express the regexp above with the code you wish you had
+Then /^the import succeeds, creating (\d+) imported publication for "([^"]*)" with "([^"]*)" publication type$/ do |edition_count, organisation_name, publication_sub_type_slug|
+  organisation = Organisation.find_by_name(organisation_name)
+  publication_sub_type  = PublicationType.find_by_slug(publication_sub_type_slug)
+  assert_equal edition_count.to_i, Edition.imported.count
+
+  edition = Edition.imported.first
+  assert_kind_of Publication, edition
+  assert_equal organisation, edition.organisations.first
+  assert_equal publication_sub_type, edition.publication_type
 end
 
-After do |scenario|
-  save_and_open_page if scenario.failed?
+Then /^the import should fail with errors about organisation and sub type and no editions are created$/ do
+  assert page.has_content?("Import failed")
+  assert page.has_content?("Unable to find Organisation named 'weird organisation'")
+  assert page.has_content?("Unable to find Publication type with slug 'weird type'")
+
+  assert_equal 0, Edition.count
 end
+
+# After do |scenario|
+#   save_and_open_page if scenario.failed?
+# end

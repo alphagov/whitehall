@@ -123,7 +123,7 @@ class Import < ActiveRecord::Base
   end
 
   def import_row(row, row_number, creator, progress_logger)
-    attributes = row.attributes.merge(creator: creator)
+    attributes = row.attributes.merge(creator: creator, state: 'imported')
     model = model_class.new(attributes)
     if model.save
       ds = DocumentSource.create!(document: model.document, url: row.legacy_url, import: self, row_number: row_number)
