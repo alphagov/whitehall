@@ -2,6 +2,8 @@ class Admin::ClassificationsController < Admin::BaseController
   helper_method :model_class
 
   before_filter :default_arrays_of_ids_to_empty, only: [:update]
+  before_filter :build_object, only: [:new]
+  before_filter :load_object, only: [:edit]
 
   def index
     @classifications = ClassificationsPresenter.decorate(model_class.order(:name))
@@ -9,7 +11,6 @@ class Admin::ClassificationsController < Admin::BaseController
   end
 
   def new
-    @classification = model_class.new
   end
 
   def create
@@ -22,7 +23,6 @@ class Admin::ClassificationsController < Admin::BaseController
   end
 
   def edit
-    @classification = model_class.find(params[:id])
   end
 
   def update
@@ -56,6 +56,14 @@ class Admin::ClassificationsController < Admin::BaseController
         "published detailed guide" => detailed_guides.published.count
       }
     end
+  end
+
+  def build_object
+    @classification = model_class.new
+  end
+
+  def load_object
+    @classification = model_class.find(params[:id])
   end
 
   private

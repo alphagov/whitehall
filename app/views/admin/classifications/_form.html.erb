@@ -8,6 +8,8 @@
 
   <%= render partial: 'related_topics', locals: {classification_form: classification_form} %>
 
+  <%= render partial: 'social_media', locals: {classification_form: classification_form} %>
+
   <fieldset id="policy_order" class="named sortable">
     <legend>Policy ordering</legend>
     <%= classification_form.fields_for :classification_memberships, classification.classification_memberships.for_type(Policy).published do |classification_membership_form| %>
