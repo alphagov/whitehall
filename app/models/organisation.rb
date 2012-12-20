@@ -102,7 +102,7 @@ class Organisation < ActiveRecord::Base
   has_many :people, through: :roles
 
   has_many :organisation_classifications, dependent: :destroy, order: 'organisation_classifications.ordering'
-  has_many :topics, through: :organisation_classifications
+  has_many :topics, through: :organisation_classifications, order: 'organisation_classifications.ordering'
   has_many :classifications, through: :organisation_classifications
 
   has_many :users, dependent: :nullify
