@@ -4,7 +4,7 @@
   }
 
   p, li{
-    @include core-19;
+    @include ig-core-19;
     a {
       text-decoration: underline;
     }
@@ -122,7 +122,7 @@
       }
     }
     .caption {
-      @include core-16;
+      @include ig-core-16;
     }
   }
   .civil-pie {
@@ -167,7 +167,7 @@
   }
   
   .feature-caption {
-    @include core-16;
+    @include ig-core-16;
     display: block;
     padding-bottom: $gutter;
   }
@@ -176,7 +176,7 @@
     p {
       text-align: center;
       color: #999;
-      @include core-48;
+      @include ig-core-48;
       padding: $gutter-half 0 $gutter;
     }
 
@@ -224,7 +224,7 @@
 
       span{
         color:black;
-        @include core-16;
+        @include ig-core-16;
         display: block;
         padding: 0;
         margin: 0;
@@ -249,7 +249,7 @@
   .policy-count {
     text-align: center;
     p {
-      @include core-16;
+      @include ig-core-16;
     }
     
     p.circle{
@@ -289,7 +289,7 @@
   }
   
   h1 {
-    @include core-48;
+    @include ig-core-48;
     @include bold;
     margin: 0 0 $gutter;
     @include media(desktop) {
@@ -298,7 +298,7 @@
   }
 
   h2 {
-    @include core-36;
+    @include ig-core-36;
     border-bottom: 5px solid $inside-gov-brand;
     margin: $gutter 0 $gutter;
     clear:both;
@@ -309,7 +309,7 @@
   }
 
   h3 {
-    @include core-27;
+    @include ig-core-27;
     @include bold;
     margin: 0 0 $gutter-half;
     width:100%;
@@ -323,7 +323,7 @@
   .depts-cont,
   .gov-types {
     h3 {
-      @include core-24;
+      @include ig-core-24;
       @include bold;
       margin-bottom: 0;
     }
@@ -343,7 +343,7 @@
   }
 
   h4 {
-    @include core-24;
+    @include ig-core-24;
     @include bold;
     &.with-gutter {
       margin-top: $gutter-half;
@@ -357,12 +357,12 @@
   }
    
   p.intro {
-    @include core-27;
+    @include ig-core-27;
     margin-bottom:$gutter*2;
     max-width: 26em;
   }
   p.small-print {
-    @include core-14;
+    @include ig-core-14;
   }
   h2.coalition {
     border-color: $coalition-green;
@@ -434,7 +434,7 @@
       span.circle .caption {
         position: relative;
         top: -5px;
-        @include core-14;
+        @include ig-core-14;
       }
     }
   }
@@ -450,7 +450,7 @@
       span.circle .caption {
         position: relative;
         top: -5px;
-        @include core-14;
+        @include ig-core-14;
       }
     }
   }
@@ -466,7 +466,7 @@
       span.circle .caption {
         position: relative;
         top: -5px;
-        @include core-14;
+        @include ig-core-14;
       }
     }
   }

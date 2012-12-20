@@ -2,7 +2,7 @@
 .inside_gov_sunset {
 
   h1 {
-    @include core-48;
+    @include ig-core-48;
     margin: 0 0 $gutter;
     @include media(desktop) {
       margin-top: 0;
@@ -20,7 +20,7 @@
   .block-1 {
 
     p {
-      @include core-19;
+      @include ig-core-19;
       margin-bottom: $gutter-half;
       &:nth-child(2) {
         margin-bottom: $gutter;
@@ -28,7 +28,7 @@
     }
 
     p.intro {
-      @include core-27;
+      @include ig-core-27;
     }
 
   }
@@ -65,7 +65,7 @@
   // typography
 
   h2 {
-    @include core-27;
+    @include ig-core-27;
     @include bold;
 
     border-bottom: 5px solid $black;
@@ -73,7 +73,7 @@
   }
 
   h3 {
-    @include core-27;
+    @include ig-core-27;
     @include bold;
   }
 
@@ -93,7 +93,7 @@
     }
 
     p.intro {
-      @include core-27;
+      @include ig-core-27;
     }
 
     @include media(tablet) {
@@ -121,21 +121,21 @@
     margin-top: ($gutter*2);
 
     .live-count {
-      @include core-27;
+      @include ig-core-27;
       margin-bottom: $gutter;
     }
 
     .organisation-count {
-      @include core-80;
+      @include ig-core-80;
       @include bold;
       display: block;
 
       @include media(tablet) {
-        @include core-48;
+        @include ig-core-48;
       }
 
       @include media(desktop) {
-        @include core-80;
+        @include ig-core-80;
       }
     }
 
@@ -162,10 +162,10 @@
       padding-top: $gutter;
 
       h3 {
-        @include core-19;
+        @include ig-core-19;
       }
       p {
-        @include core-16;
+        @include ig-core-16;
       }
     }
 
@@ -210,7 +210,7 @@
     a { color: $fuschia; }
 
     p {
-      @include core-16;
+      @include ig-core-16;
     }
 
     @include media(tablet) {

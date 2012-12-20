@@ -51,7 +51,7 @@
 // CORE FONTS - NEW TRANSPORT
 
 // Display size used for infographics and pull-quotes/splashes
-@mixin core-80($line-height: (80 / 80), $line-height-640: (55 / 53)) {
+@mixin ig-core-80($line-height: (80 / 80), $line-height-640: (55 / 53)) {
   font-family: $NTA-Light;
   @if $is-print == false {
     font-size: 80px;
@@ -69,7 +69,7 @@
 }
 
 // Suitable for page headings
-@mixin core-48 {
+@mixin ig-core-48 {
   font-family: $NTA-Light;
   font-size: 48px;
   font-size: 4.8rem;
@@ -89,7 +89,7 @@
 }
 
 // Suitable for page headings
-@mixin core-36 {
+@mixin ig-core-36 {
   font-family: $NTA-Light;
   font-size: 36px;
   font-size: 3.6rem;
@@ -109,7 +109,7 @@
 }
 
 // Suitable for body headings
-@mixin core-27 {
+@mixin ig-core-27 {
   font-family: $NTA-Light;
   font-size: 27px;
   font-size: 2.7rem;
@@ -129,7 +129,7 @@
 }
 
 // Suitable for short body copy
-@mixin core-24 {
+@mixin ig-core-24 {
   font-family: $NTA-Light;
   font-size: 24px;
   font-size: 2.4rem;
@@ -149,7 +149,7 @@
 }
 
 // Suitable for long body copy
-@mixin core-19 {
+@mixin ig-core-19 {
   font-family: $NTA-Light;
   font-size: 19px;
   font-size: 1.9rem;
@@ -169,7 +169,7 @@
 }
 
 // Suitable body pullouts and asides
-@mixin core-16 {
+@mixin ig-core-16 {
   font-family: $NTA-Light;
   font-size: 16px;
   font-size: 1.6rem;
@@ -189,7 +189,7 @@
 }
 
 // Suitable for captions, buttons etc
-@mixin core-14 {
+@mixin ig-core-14 {
   font-family: $NTA-Light;
   font-size: 14px;
   font-size: 1.4rem;

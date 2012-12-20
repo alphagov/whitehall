@@ -7,7 +7,7 @@
   }
 
   h2 {
-    @include core-27;
+    @include ig-core-27;
     color: lighten($text-colour, 20%);
     margin-top: $gutter;
     @media (max-width: 640px) {
@@ -15,7 +15,7 @@
     }
   }
   h3 {
-    @include core-24;
+    @include ig-core-24;
     color: lighten($text-colour, 20%);
     margin-top: $gutter;
     @media (max-width: 640px) {
@@ -25,7 +25,7 @@
   h4,
   h5,
   h6 {
-    @include core-19;
+    @include ig-core-19;
     color: lighten($text-colour, 20%);
     margin-top: $gutter;
     @media (max-width: 640px) {
@@ -37,7 +37,7 @@
   }
 
   p {
-    @include core-19;
+    @include ig-core-19;
     margin: $gutter-half 0;
     @media (max-width: 640px) {
       margin: $gutter-one-sixth 0;
@@ -61,7 +61,7 @@
   }
 
   li {
-    @include core-19;
+    @include ig-core-19;
     margin-left: $gutter*1.2;
 
     li {
@@ -96,7 +96,7 @@
     &:before {
       content: "\201C";
       float: left;
-      @include core-48;
+      @include ig-core-48;
       padding-top: 0;
     }
     p {
@@ -135,7 +135,7 @@
     }
 
     figcaption {
-      @include core-14;
+      @include ig-core-14;
     }
   }
 
@@ -177,7 +177,7 @@
     border-spacing: 0;
     margin: $gutter -1em $gutter -1em;
     width: 100%;
-    @include core-19;
+    @include ig-core-19;
 
     caption {
       text-align:left;

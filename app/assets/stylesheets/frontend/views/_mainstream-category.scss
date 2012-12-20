@@ -20,7 +20,7 @@
     padding-top: $gutter-half;
 
     h1 {
-      @include core-36;
+      @include ig-core-36;
     }
   }
 
@@ -30,7 +30,7 @@
     list-style: none;
 
     .guide {
-      @include core-19;
+      @include ig-core-19;
       margin-bottom: $gutter-half;
     }
   }

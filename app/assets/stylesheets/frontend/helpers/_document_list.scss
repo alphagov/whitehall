@@ -14,7 +14,7 @@
   }
 
   th {
-    @include core-19;
+    @include ig-core-19;
     text-align: left;
     float: left;
     display: inline;
@@ -29,7 +29,7 @@
   }
 
   td {
-    @include core-14;
+    @include ig-core-14;
     text-align: left;
     float: left;
     display: inline;
@@ -40,13 +40,13 @@
   
   .document-row:first-child {
     th {
-      @include core-27;
+      @include ig-core-27;
       @include bold;
     }
   }
   .document-row:nth-child(2) {
     th {
-      @include core-24;
+      @include ig-core-24;
       @include bold;
     }
   }

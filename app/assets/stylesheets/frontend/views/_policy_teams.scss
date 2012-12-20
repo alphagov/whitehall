@@ -33,7 +33,7 @@
     }
   }
   h2 {
-    @include core-27;
+    @include ig-core-27;
     color: lighten($text-colour, 20%);
     margin-top: $gutter;
     @include media(tablet) {
@@ -44,18 +44,18 @@
   .description {
     padding-bottom: $gutter-half;
     .govspeak p:first-child {
-      @include core-24;
+      @include ig-core-24;
     }
   }
 
   .policy {
-    @include core-19;
+    @include ig-core-19;
     list-style: none;
     border-bottom: 1px solid $border-colour;
     @include bold;
   }
 
   .email {
-    @include core-19;
+    @include ig-core-19;
   }
 }
