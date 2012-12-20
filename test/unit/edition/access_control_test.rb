@@ -2,7 +2,7 @@ require "test_helper"
 
 class Edition::AccessControlTest < ActiveSupport::TestCase
 
-  [:draft, :submitted, :rejected].each do |state|
+  [:imported, :draft, :submitted, :rejected].each do |state|
     test "should be editable if #{state}" do
       edition = build("#{state}_edition")
       assert edition.editable?
@@ -47,7 +47,7 @@ class Edition::AccessControlTest < ActiveSupport::TestCase
     end
   end
 
-  [:draft, :submitted, :rejected].each do |state|
+  [:imported, :draft, :submitted, :rejected].each do |state|
     test "should be deletable if #{state}" do
       edition = create("#{state}_edition")
       assert edition.deletable?
@@ -58,6 +58,25 @@ class Edition::AccessControlTest < ActiveSupport::TestCase
     test "should not be deletable if #{state}" do
       document = create("#{state}_edition")
       refute document.deletable?
+    end
+  end
+
+  test 'is ready to convert to draft if it is imported and valid as a draft' do
+    document = build(:imported_edition)
+    document.stubs(:valid_as_draft?).returns(true)
+    assert document.ready_to_convert_to_draft?
+  end
+
+  test 'is not ready to convert to draft if it is imported but not valid as a draft' do
+    document = build(:imported_edition)
+    document.stubs(:valid_as_draft?).returns(false)
+    refute document.ready_to_convert_to_draft?
+  end
+
+  [:draft, :scheduled, :published, :archived, :submitted, :rejected].each do |state|
+    test "is not ready to convert to draft if it is #{state}" do
+      document = build("#{state}_edition")
+      refute document.ready_to_convert_to_draft?
     end
   end
 

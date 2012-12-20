@@ -13,6 +13,23 @@ class PublicationTest < EditionTestCase
     refute publication.valid?
   end
 
+  test 'imported publications are valid when the publication_type is \'imported-awaiting-type\'' do
+    publication = build(:publication, state: 'imported', publication_type: PublicationType.find_by_slug('imported-awaiting-type'))
+    assert publication.valid?
+  end
+
+  test 'imported publications are not valid_as_draft? when the publcation_type is \'imported-awaiting-type\'' do
+    publication = build(:publication, state: 'imported', publication_type: PublicationType.find_by_slug('imported-awaiting-type'))
+    refute publication.valid_as_draft?
+  end
+
+  [:draft, :scheduled, :published, :archived, :submitted, :rejected].each do |state|
+    test "#{state} editions are not valid when the publication type is 'imported-awaiting-type'" do
+      edition = build(:publication, state: state, publication_type: PublicationType.find_by_slug('imported-awaiting-type'))
+      refute edition.valid?
+    end
+  end
+
   test "should build a draft copy of the existing publication" do
     published_publication = create(:published_publication,
       :with_attachment,

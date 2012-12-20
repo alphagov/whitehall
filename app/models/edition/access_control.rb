@@ -2,15 +2,19 @@ module Edition::AccessControl
   extend ActiveSupport::Concern
 
   def deletable?
-    draft? || submitted? || rejected?
+    imported? || draft? || submitted? || rejected?
   end
 
   def editable?
-    draft? || submitted? || rejected?
+    imported? || draft? || submitted? || rejected?
   end
 
   def submittable?
     draft? || rejected?
+  end
+
+  def ready_to_convert_to_draft?
+    imported? && valid_as_draft?
   end
 
   def rejectable_by?(user)

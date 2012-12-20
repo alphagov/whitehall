@@ -10,6 +10,7 @@ class Publication < Publicationesque
 
   validates :publication_date, presence: true
   validates :publication_type_id, presence: true
+  validate :only_imported_publications_can_be_awaiting_type
 
   after_update { |p| p.published_related_policies.each(&:update_published_related_publication_count) }
   before_save ->(record) { record.access_limited = nil unless record.publication_type.can_limit_access? }
@@ -55,6 +56,12 @@ class Publication < Publicationesque
   end
 
   private
+
+  def only_imported_publications_can_be_awaiting_type
+    unless self.imported?
+      errors.add(:publication_type, 'must be changed') if PublicationType::ImportedAwaitingType == self.publication_type
+    end
+  end
 
   def set_timestamp_for_sorting
     self.timestamp_for_sorting = publication_date

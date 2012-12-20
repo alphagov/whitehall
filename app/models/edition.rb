@@ -368,6 +368,19 @@ class Edition < ActiveRecord::Base
     end
   end
 
+  def valid_as_draft?
+    if imported?
+      begin
+        self.try_draft
+        return valid?
+      ensure
+        self.back_to_imported
+      end
+    else
+      valid?
+    end
+  end
+
   private
 
   def body_required?

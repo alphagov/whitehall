@@ -574,4 +574,30 @@ class EditionTest < ActiveSupport::TestCase
                         timestamp_for_sorting: 5.weeks.ago)
     assert_equal 1.week.ago, e.timestamp_for_update
   end
+
+  [:draft, :scheduled, :published, :archived, :submitted, :rejected].each do |state|
+    test "valid_as_draft? is true for valid #{state} editions" do
+      edition = build("#{state}_edition")
+      assert edition.valid_as_draft?
+    end
+  end
+
+  test 'valid_as_draft? is false for an imported edition that is not valid as a draft' do
+    edition = build(:imported_edition)
+    # force a validation that will fail for a draft
+    edition.class_eval {
+      validate :no_drafts_allowed
+      def no_drafts_allowed
+        errors.add(:base, 'no drafts allowed') if self.draft?
+      end
+    }
+    # assert it is valid as itself, but refute that it's valid as a draft
+    assert edition.valid?
+    refute edition.valid_as_draft?
+  end
+
+  test 'valid_as_draft? is true for an imported edition that is valid as a draft' do
+    edition = build(:imported_edition)
+    assert edition.valid_as_draft?
+  end
 end
