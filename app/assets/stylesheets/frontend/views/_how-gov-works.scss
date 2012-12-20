@@ -75,7 +75,7 @@
     }
 
     p{
-      background-color:$info-background;
+      background-color:$panel-colour;
       padding:$gutter-half;
       margin-top:-0.5em;
     }
@@ -95,7 +95,7 @@
       margin-bottom:$gutter-half;
       margin-top:$gutter-half;
       tr{
-        border-bottom:1px solid $light-keyline;
+        border-bottom:1px solid $border-colour;
         td{
           padding-right:$gutter;
         }
@@ -209,8 +209,8 @@
       }
 
       @include media(tablet) {
-        background-color:$info-background;
-        border:1px solid $info-background;
+        background-color:$panel-colour;
+        border:1px solid $panel-colour;
         width:4em;
         height:4em;
         -moz-border-radius: 2em;
@@ -253,8 +253,8 @@
     }
     
     p.circle{
-      background-color:$info-background;
-      border:1px solid $info-background;
+      background-color:$panel-colour;
+      border:1px solid $panel-colour;
       width:192px;
       height:192px;
       -moz-border-radius: 96px;
@@ -337,7 +337,7 @@
 
   .gov-types, .ministers, .cabinet, .coalition, .civil-service{
     h3{
-      border-top:1px solid $light-keyline;
+      border-top:1px solid $border-colour;
       padding-top:$gutter;
     }
   }
@@ -375,7 +375,7 @@
   
   hr.keyline {
     margin: 0;
-    border: solid $light-keyline;
+    border: solid $border-colour;
     border-width: 0 0 1px;
   }
   

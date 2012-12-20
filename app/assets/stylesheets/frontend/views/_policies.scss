@@ -114,7 +114,7 @@
       float: none;
       clear: both;
 
-      border: solid 1px $light-keyline;
+      border: solid 1px $border-colour;
       border-width: 1px 0;
 
       line-height: (45/16);
@@ -136,7 +136,7 @@
     li {
       margin-left: 0;
       float: none;
-      border-bottom: solid 1px $light-keyline;
+      border-bottom: solid 1px $border-colour;
 
       &:before { display: none; }
 
@@ -169,7 +169,7 @@
       }
 
       &.active a {
-        color: $body-text;
+        color: $text-colour;
       }
 
       @include ie(6) {
@@ -186,14 +186,14 @@
 
   // this is shown when there's no policy-navigation
   .no-navigation {
-    border-bottom: 1px solid $light-keyline;
+    border-bottom: 1px solid $border-colour;
     padding-bottom: 50px;
     // this margin-bottom depends on font size, but we can't add ems and px
     margin-bottom: $gutter + 34px;
   }
 
   .policy-navigation {
-    border-bottom: 1px solid $light-keyline;
+    border-bottom: 1px solid $border-colour;
     float: left;
     width: 100%;
     margin: 0 ($gutter * -1 + 2px);
@@ -210,8 +210,8 @@
         @include core-24;
         padding: $gutter-half 0 $gutter-half ($gutter-half + 2px);
         margin: 0 2px;
-        background: $light-warm-grey;
-        color: $body-text;
+        background: $panel-colour;
+        color: $text-colour;
 
         @include media(tablet){
           margin-bottom: 4px;
@@ -219,14 +219,14 @@
 
         &:hover,
         &:focus {
-          background: $light-blue-grey;
+          background: $panel-colour;
         }
         &.current {
           position: relative;
           margin-bottom: -1px;
           @include core-24;
           padding: $gutter-half 0 ($gutter-half + 4px) ($gutter-half + 1px);
-          border: 1px solid $light-keyline;
+          border: 1px solid $border-colour;
           border-bottom: none;
           background: $white;
           text-decoration: none;
@@ -242,7 +242,7 @@
     h1 {
       // from _document.scss h2
       @include core-27;
-      color: lighten($body-text, 50%);
+      color: lighten($text-colour, 50%);
       margin-top: $gutter;
       @media (max-width: 640px) {
         margin-top: $gutter-half;

@@ -27,7 +27,7 @@
     .filter-list-form {
       label {
         @include core-19;
-        color: $low-contrast;
+        color: $secondary-text-colour;
         display: inline-block;
       }
       input {
@@ -50,7 +50,7 @@
       @extend %contain-floats;
       padding: $gutter-one-third 0;
       list-style: none;
-      border-bottom: 1px solid $light-keyline;
+      border-bottom: 1px solid $border-colour;
 
       h2 {
         padding: $gutter-one-third 0;
@@ -68,7 +68,7 @@
         }
       }
       .view-all {
-        background: $info-background;
+        background: $panel-colour;
         @include border-radius(3px);
         padding: 2px $gutter-one-sixth;
         margin: 3px $gutter-half 10px;
@@ -97,7 +97,7 @@
     .child-organisations {
       clear: both;
       margin: 0 (-15px);
-      background: $info-background;
+      background: $panel-colour;
       p{
         padding-bottom:$gutter-half;
 
@@ -107,7 +107,7 @@
       }
       h3 {
         @include core-14;
-        border-bottom: 1px solid $light-keyline;
+        border-bottom: 1px solid $border-colour;
       }
       ol {
         overflow: hidden;
@@ -134,7 +134,7 @@
     .index-list {
       li {
         list-style: none;
-        border-bottom: 1px solid $light-keyline;
+        border-bottom: 1px solid $border-colour;
         @include core-19;
       }
     }
@@ -301,7 +301,7 @@
         }
         .meta {
           @include core-14;
-          color: $low-contrast;
+          color: $secondary-text-colour;
           padding-bottom: 0;
         }
         h2 {
@@ -423,7 +423,7 @@
         @include media(tablet){
           padding-top: $gutter-half;
         }
-        background: $info-background;
+        background: $panel-colour;
 
         h1 {
           margin-bottom: 0;
@@ -504,7 +504,7 @@
 
     .body {
       h2 {
-        border-bottom: 1px solid $light-keyline;
+        border-bottom: 1px solid $border-colour;
 
         &:first-child {
           margin-top: $gutter;
@@ -951,7 +951,7 @@
   }
   .body {
     h2 {
-      border-bottom: 1px solid $light-keyline;
+      border-bottom: 1px solid $border-colour;
 
       &:first-child {
         margin-top: $gutter;
@@ -966,7 +966,7 @@
     ul {
       li {
         list-style: none;
-        border-bottom: 1px solid $light-keyline;
+        border-bottom: 1px solid $border-colour;
         padding: $gutter-one-sixth 0;
 
         h3 {

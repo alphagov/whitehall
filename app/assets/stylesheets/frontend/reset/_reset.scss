@@ -8,7 +8,7 @@
   padding-top: 0;
   padding-bottom: $gutter;
   background: transparent;
-  color: $body-text;
+  color: $text-colour;
   border-top: 50px solid #f4f4f4;
   -webkit-font-smoothing: antialiased;
   border-bottom: $gutter-one-third solid $inside-gov-secondary;
@@ -90,7 +90,7 @@
   }
 
   a {
-    color: $link-text;
+    color: $link-colour;
     text-decoration: none;
 
     &:hover,

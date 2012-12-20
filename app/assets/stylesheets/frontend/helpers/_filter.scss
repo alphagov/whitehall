@@ -38,7 +38,7 @@
       text-indent: $gutter-one-third;
     }
 
-    border-color: $light-keyline;
+    border-color: $border-colour;
   }
 
   select {
@@ -49,7 +49,7 @@
   }
 
   .multi-row-select {
-    border: 1px solid $light-keyline;
+    border: 1px solid $border-colour;
     width: 100%;
     padding-bottom: 0;
   }
@@ -67,7 +67,7 @@
       background-image: image-url('dropdown-arrow-small.png');
       background-repeat: no-repeat;
       background-position: right center;
-      border-color: $light-keyline;
+      border-color: $border-colour;
       @include box-shadow(1px 1px 1px #fff);
       @include border-radius($gutter-one-sixth);
       @include appearance(none);
@@ -112,7 +112,9 @@
   .disabled {
     opacity: 0.3;
     cursor: default;
-    *background: lighten($charcoal-grey, 70%);
+    @include ie-lte(7){
+      color: $secondary-text-colour;
+    }
   }
 }
 
@@ -125,7 +127,7 @@
 .filter-results {
   .no-results {
     padding: $gutter 0 $gutter-half;
-    border-bottom: 1px solid $light-keyline;
+    border-bottom: 1px solid $border-colour;
     h2 {
       @include core-27;
     }
@@ -150,9 +152,9 @@
     span {
     //  @include core-24;
       @include bold;
-      color: $link-text;
+      color: $link-colour;
 
-      background-color: $info-background;
+      background-color: $panel-colour;
       padding:0 $gutter-one-sixth;
       margin-bottom: ($gutter-one-third/2);
       @include border-radius(3px);

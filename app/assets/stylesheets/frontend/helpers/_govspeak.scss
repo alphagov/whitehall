@@ -8,7 +8,7 @@
 
   h2 {
     @include core-27;
-    color: lighten($body-text, 20%);
+    color: lighten($text-colour, 20%);
     margin-top: $gutter;
     @media (max-width: 640px) {
       margin-top: $gutter-half;
@@ -16,7 +16,7 @@
   }
   h3 {
     @include core-24;
-    color: lighten($body-text, 20%);
+    color: lighten($text-colour, 20%);
     margin-top: $gutter;
     @media (max-width: 640px) {
       margin-top: $gutter-half;
@@ -26,7 +26,7 @@
   h5,
   h6 {
     @include core-19;
-    color: lighten($body-text, 20%);
+    color: lighten($text-colour, 20%);
     margin-top: $gutter;
     @media (max-width: 640px) {
       margin-top: $gutter-half;
@@ -91,7 +91,7 @@
     padding: 0;
     margin: 0;
     border: 0;
-    color: lighten($body-text, 33.333%);
+    color: lighten($text-colour, 33.333%);
 
     &:before {
       content: "\201C";
@@ -142,7 +142,7 @@
   .information-block,
   .call-to-action {
     margin: $gutter 0 $gutter $gutter-half*-1;
-    background: $info-background none no-repeat 98% $gutter-two-thirds;
+    background: $panel-colour none no-repeat 98% $gutter-two-thirds;
     padding: $gutter-one-third ($gutter*2) $gutter-one-third $gutter-half;
     position: relative;
     p {
@@ -242,7 +242,7 @@
   }
 
   .address {
-    border-left: 1px solid $light-keyline;
+    border-left: 1px solid $border-colour;
     padding-left: $gutter-half;
   }
 }

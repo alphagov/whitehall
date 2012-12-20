@@ -1,7 +1,7 @@
 .detailed-guides-index,
 .detailed-guides-show {
   a {
-    color: $detailed-guidance-link-text;
+    color: $link-colour;
   }
 }
 .detailed-guides-index {
@@ -87,7 +87,7 @@
 
       li {
         list-style: none;
-        color: $body-text;
+        color: $text-colour;
         margin-bottom: $gutter-one-sixth;
         @include media (640px) {
           margin-bottom: $gutter-one-third;
@@ -145,7 +145,7 @@
         float: right;
       }
       p {
-        color: $body-text;
+        color: $text-colour;
       }
       .businesslink-logo {
         display: block;
@@ -171,7 +171,7 @@
     }
 
     ol {
-      border-top: 1px solid $light-keyline;
+      border-top: 1px solid $border-colour;
       @include core-16;
       padding: 0;
       margin: 0;
@@ -200,7 +200,7 @@
       a {
         display: block;
         padding: $gutter-one-sixth 0;
-        border-bottom: 1px solid $light-keyline;
+        border-bottom: 1px solid $border-colour;
       }
     }
   }
@@ -236,7 +236,7 @@
 
     .inner {
       padding: $gutter-one-third;
-      background: $info-background none no-repeat 98% $gutter-two-thirds;
+      background: $panel-colour none no-repeat 98% $gutter-two-thirds;
 
       h4 {
         margin-bottom: $gutter-one-sixth;
@@ -297,13 +297,13 @@
       }
 
       .inner {
-        background: $info-background;
+        background: $panel-colour;
         padding: 0 $gutter-one-third $gutter-one-third;
       }
 
       h2 {
         @include core-19;
-        color: $body-text;
+        color: $text-colour;
       }
 
       ul {
@@ -403,11 +403,11 @@
       line-height: $gutter-two-thirds+6px;
 
       &.active {
-        background: darken($info-background, 5%);
+        background: darken($panel-colour, 5%);
       }
       &:hover,
       &:focus {
-        background: $info-background;
+        background: $panel-colour;
       }
       span {
         display: block;

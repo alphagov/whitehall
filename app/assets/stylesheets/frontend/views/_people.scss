@@ -122,7 +122,7 @@
       .name {
         display: block;
         @include bold;
-        color: $body-text;
+        color: $text-colour;
       }
     }
   }

@@ -34,7 +34,7 @@
 .index-list {
   li {
     list-style: none;
-    border-bottom: 1px solid $light-keyline;
+    border-bottom: 1px solid $border-colour;
     @include core-19;
   }
 }
