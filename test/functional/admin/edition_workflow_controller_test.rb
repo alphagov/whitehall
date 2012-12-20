@@ -381,6 +381,58 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
     assert_equal 'All workflow actions require a lock version', response.body
   end
 
+  test 'convert_to_draft turns the given edition into a draft' do
+    @edition.expects(:convert_to_draft!)
+    post :convert_to_draft, id: @edition, lock_version: 1
+  end
+
+  test 'convert_to_draft reports that the document has been published' do
+    @edition.stubs(:convert_to_draft!)
+    post :convert_to_draft, id: @edition, lock_version: 1
+    assert_equal "The imported document #{@edition.title} has been converted into a draft", flash[:notice]
+  end
+
+  test 'convert_to_draft redirects back to the draft edition index' do
+    @edition.stubs(:convert_to_draft!)
+    post :convert_to_draft, id: @edition, lock_version: 1
+    assert_redirected_to admin_editions_path(state: :draft)
+  end
+
+  test 'convert_to_draft redirects back to the edition with an error message on validation error' do
+    @edition.errors.add(:base, "It isn't ready yet")
+    @edition.stubs(:convert_to_draft!).raises(ActiveRecord::RecordInvalid, @edition)
+    post :convert_to_draft, id: @edition, lock_version: 1
+    assert_redirected_to admin_policy_path(@edition)
+    assert_equal "Unable to convert this imported edition to a draft because it is invalid (It isn't ready yet). Please edit it and try again.", flash[:alert]
+  end
+
+  test 'convert_to_draft redirects back to the edition with an error message when it can\'t be transitioned' do
+    @edition.stubs(:convert_to_draft!).raises(Transitions::InvalidTransition, @edition)
+    post :convert_to_draft, id: @edition, lock_version: 1
+    assert_redirected_to admin_policy_path(@edition)
+    assert_equal "Unable to convert this imported edition to a draft because it is not ready yet. Please try again.", flash[:alert]
+  end
+
+  test 'convert_to_draft sets lock version on edition before attempting to unpublish to guard against unpublishing stale objects' do
+    lock_before_unpublishing = sequence('lock-before-unpublishing')
+    @edition.expects(:lock_version=).with('92').in_sequence(lock_before_unpublishing)
+    @edition.expects(:convert_to_draft!).in_sequence(lock_before_unpublishing)
+    post :convert_to_draft, id: @edition, lock_version: 92
+  end
+
+  test 'convert_to_draft redirects back to the edition with an error message if a stale object error is thrown' do
+    @edition.stubs(:convert_to_draft!).raises(ActiveRecord::StaleObjectError)
+    post :convert_to_draft, id: @edition, lock_version: 1
+    assert_redirected_to admin_policy_path(@edition)
+    assert_equal 'This document has been edited since you viewed it; you are now viewing the latest version', flash[:alert]
+  end
+
+  test 'convert_to_draft responds with 422 if missing a lock version' do
+    post :convert_to_draft, id: @edition
+    assert_equal 422, response.status
+    assert_equal 'All workflow actions require a lock version', response.body
+  end
+
   test "should prevent access to inaccessible editions" do
     protected_edition = stub("protected edition", id: "1")
     protected_edition.stubs(:accessible_by?).with(@current_user).returns(false)
