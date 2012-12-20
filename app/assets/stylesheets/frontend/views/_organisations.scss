@@ -281,10 +281,6 @@
   }
 
   .organisation-news {
-    @include media(tablet) {
-      margin-bottom: $gutter;
-      overflow: hidden;
-    }
 
     article {
       @include media(tablet) {
