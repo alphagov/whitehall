@@ -19,4 +19,5 @@ class TopicalEvent < Classification
 
   accepts_nested_attributes_for :social_media_accounts, allow_destroy: true
 
+  alias :display_name :to_s
 end
