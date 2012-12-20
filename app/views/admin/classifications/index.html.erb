@@ -18,7 +18,10 @@
   <tbody>
     <% @classifications.each do |classification| %>
       <%= content_tag_for(:tr, classification) do %>
-        <td class="name"><%= link_to classification.name, [:edit, :admin, classification], title: "Edit #{model_name.humanize.downcase} #{classification.name}" %></td>
+        <td class="name">
+          <%= link_to classification.name, [:edit, :admin, classification], title: "Edit #{model_name.humanize.downcase} #{classification.name}" %>
+          (<%= link_to "view", classification, title: "View #{classification.name} on the public website" %>)
+        </td>
         <td class="description"><%= classification.description %></td>
         <td class="details">
           <%= classification.breakdown.map { |key, count|

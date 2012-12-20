@@ -1,6 +1,5 @@
 class Speech < Announcement
   include Edition::Appointment
-  include Edition::TopicalEvents
 
   after_save :populate_organisations_based_on_role_appointment
 

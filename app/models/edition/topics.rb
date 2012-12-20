@@ -3,7 +3,7 @@ module Edition::Topics
   include Edition::Classifications
 
   included do
-    has_many :topics, through: :classification_memberships, source: :classification
+    has_many :topics, through: :classification_memberships, source: :topic
     after_update :update_topic_counts
   end
 

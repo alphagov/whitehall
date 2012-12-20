@@ -1,6 +1,10 @@
 class TopicalEvent < Classification
   has_many :social_media_accounts, as: :socialable, dependent: :destroy
 
+  has_many :announcments, through: :classification_memberships
+  has_many :news_articles, through: :classification_memberships
+  has_many :speeches, through: :classification_memberships
+
   has_many :published_announcements,
             through: :classification_memberships,
             class_name: "Announcement",

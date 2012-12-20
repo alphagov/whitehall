@@ -15,3 +15,9 @@ Scenario: Associating a speech with a topical event
   And I draft a new speech "Famous moustaches of the 19th century" relating it to topical event "Moustache Growing Convention"
   And I force publish the speech "Famous moustaches of the 19th century"
   Then I should see the speech "Famous moustaches of the 19th century" in the announcements section of the topical event "Moustache Growing Convention"
+
+Scenario: Associating a news article with a topical event
+  When I create a new topical event "Moustache Growing Convention" with description "Annual convention on moustach growing"
+  And I draft a new news article "Famous moustaches of the 19th century" relating it to topical event "Moustache Growing Convention"
+  And I force publish the news article "Famous moustaches of the 19th century"
+  Then I should see the news article "Famous moustaches of the 19th century" in the announcements section of the topical event "Moustache Growing Convention"

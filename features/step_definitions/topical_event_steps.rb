@@ -20,12 +20,17 @@ When /^I draft a new speech "([^"]*)" relating it to topical event "([^"]*)"$/ d
   click_button "Save"
 end
 
-Then /^I should see the speech "([^"]*)" in the announcements section of the topical event "([^"]*)"$/ do |speech_name, topical_event_name|
+When /^I draft a new news article "([^"]*)" relating it to topical event "([^"]*)"$/ do |news_article_title, topical_event_name|
+  begin_drafting_document type: "news_article", title: news_article_title
+  select topical_event_name, from: "Topical events"
+  click_button "Save"
+end
+
+Then /^I should see (#{THE_DOCUMENT}) in the announcements section of the topical event "([^"]*)"$/ do |edition, topical_event_name|
   topical_event = TopicalEvent.find_by_name!(topical_event_name)
-  speech = Speech.find_by_title!(speech_name)
   visit topical_event_path(topical_event)
   within "#announcements" do
-    assert page.has_css?(record_css_selector(speech))
+    assert page.has_css?(record_css_selector(edition))
   end
 end
 

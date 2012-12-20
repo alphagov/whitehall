@@ -18,6 +18,7 @@ class Classification < ActiveRecord::Base
   end
 
   has_many :classification_memberships
+  has_many :editions, through: :classification_memberships
   has_many :policies, through: :classification_memberships
   has_many :detailed_guides, through: :classification_memberships
   has_many :published_detailed_guides,
