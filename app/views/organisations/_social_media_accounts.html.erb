@@ -6,7 +6,7 @@
         <%= content_tag_for(:li, account) do %>
           <%= link_to account.url,
                       class: "social-media-link #{account.service_name.downcase}" do %>
-            <span class="connect">Connect with <%= account.organisation.display_name %> on</span> <%= account.service_name %>
+            <span class="connect">Connect with <%= account.socialable.display_name %> on</span> <%= account.service_name %>
           <% end %>
         <% end %>
       <% end %>
