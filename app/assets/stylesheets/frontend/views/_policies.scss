@@ -63,7 +63,7 @@
 
 
   .supporting-page-title {
-    @include core-27;
+    @include ig-core-27;
     margin-bottom: $gutter;
   }
 
@@ -140,7 +140,7 @@
 
       &:before { display: none; }
 
-      @include core-19;
+      @include ig-core-19;
       line-height: (45/16);
 
       @include media(tablet) {
@@ -207,7 +207,7 @@
 
       a {
         display: block;
-        @include core-24;
+        @include ig-core-24;
         padding: $gutter-half 0 $gutter-half ($gutter-half + 2px);
         margin: 0 2px;
         background: $panel-colour;
@@ -224,7 +224,7 @@
         &.current {
           position: relative;
           margin-bottom: -1px;
-          @include core-24;
+          @include ig-core-24;
           padding: $gutter-half 0 ($gutter-half + 4px) ($gutter-half + 1px);
           border: 1px solid $border-colour;
           border-bottom: none;
@@ -241,7 +241,7 @@
   #case-studies {
     h1 {
       // from _document.scss h2
-      @include core-27;
+      @include ig-core-27;
       color: lighten($text-colour, 50%);
       margin-top: $gutter;
       @media (max-width: 640px) {
@@ -251,7 +251,7 @@
     li {
       // from _document.scss li
       width: 90%;
-      @include core-19;
+      @include ig-core-19;
       margin-left: $gutter*1.2;
 
       li {

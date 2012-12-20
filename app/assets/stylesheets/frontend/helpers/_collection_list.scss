@@ -2,7 +2,7 @@
   @extend %contain-floats;
 
   .collection-item {
-    @include core-19;
+    @include ig-core-19;
     list-style: none;
 
     .summary a {

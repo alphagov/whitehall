@@ -3,7 +3,7 @@
   position: relative;
   clear: both;
   padding-bottom: $gutter-two-thirds;
-  @include core-16;
+  @include ig-core-16;
   
   h1 {
     @include bold;
@@ -44,6 +44,6 @@
     vertical-align: top;
   }
   p {
-    @include core-16;
+    @include ig-core-16;
   }
 }

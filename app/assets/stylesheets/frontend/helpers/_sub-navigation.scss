@@ -1,6 +1,6 @@
 .sub_navigation {
   li {
-    @include core-19;
+    @include ig-core-19;
     @media (min-width: 1px ){ // target modern browsers
       list-style: none;
       padding-left: $gutter-half;

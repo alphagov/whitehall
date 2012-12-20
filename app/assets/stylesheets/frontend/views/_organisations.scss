@@ -26,7 +26,7 @@
 
     .filter-list-form {
       label {
-        @include core-19;
+        @include ig-core-19;
         color: $secondary-text-colour;
         display: inline-block;
       }
@@ -60,7 +60,7 @@
       .view-all {
         display: block;
         float: left;
-        @include core-16;
+        @include ig-core-16;
       }
       .works-with {
         @include media(desktop){
@@ -106,14 +106,14 @@
         padding: $gutter-half;
       }
       h3 {
-        @include core-14;
+        @include ig-core-14;
         border-bottom: 1px solid $border-colour;
       }
       ol {
         overflow: hidden;
         margin: 0 (-$gutter-one-third) $gutter-one-third;
         li {
-          @include core-16;
+          @include ig-core-16;
           display: block;
           @include media(desktop){
             width: 33.33%;
@@ -135,7 +135,7 @@
       li {
         list-style: none;
         border-bottom: 1px solid $border-colour;
-        @include core-19;
+        @include ig-core-19;
       }
     }
   }
@@ -185,7 +185,7 @@
 
   h1.label,
   .topic h2 {
-    @include core-27;
+    @include ig-core-27;
     margin-bottom: $gutter-two-thirds;
   }
 
@@ -227,7 +227,7 @@
       }
 
       h4 {
-        @include core-19;
+        @include ig-core-19;
 
         @include media(tablet){
           position: absolute;
@@ -243,7 +243,7 @@
         }
 
         li {
-          @include core-16;
+          @include ig-core-16;
           @include media(tablet){
             padding-bottom: 0;
           }
@@ -263,7 +263,7 @@
       width: 66.66%;
 
       h2 {
-        @include core-48;
+        @include ig-core-48;
         padding-left: $gutter-one-third;
         margin-top: $gutter;
       }
@@ -296,16 +296,16 @@
           display: block;
         }
         .meta {
-          @include core-14;
+          @include ig-core-14;
           color: $secondary-text-colour;
           padding-bottom: 0;
         }
         h2 {
-          @include core-19;
+          @include ig-core-19;
           padding-top: 0;
         }
         .summary {
-          @include core-16;
+          @include ig-core-16;
         }
       }
 
@@ -339,10 +339,10 @@
               }
             }
             h2 {
-              @include core-24;
+              @include ig-core-24;
             }
             .summary {
-              @include core-19;
+              @include ig-core-19;
             }
           }
         }
@@ -395,10 +395,10 @@
         }
       }
       h2 {
-        @include core-19;
+        @include ig-core-19;
       }
       .summary {
-        @include core-16;
+        @include ig-core-16;
       }
     }
 
@@ -450,11 +450,11 @@
     margin: 0;
 
     .document-row {
-      @include core-14;
+      @include ig-core-14;
       border-bottom: none;
 
       th {
-        @include core-14;
+        @include ig-core-14;
         margin: $gutter-one-third 0 0 0;
         padding: 0;
       }
@@ -485,13 +485,13 @@
       padding: $gutter-half;
     }
     h2 {
-      @include core-24;
+      @include ig-core-24;
     }
   }
 
   .what-we-do {
     p {
-      @include core-19;
+      @include ig-core-19;
     }
 
     .parent_organisations {
@@ -581,7 +581,7 @@
   #org-contacts {
 
     h2 {
-      @include core-24;
+      @include ig-core-24;
     }
 
     .organisation_contact h2 {
@@ -695,7 +695,7 @@
       clear: both;
       overflow: hidden;
       margin: $gutter-half 0;
-      @include core-16;
+      @include ig-core-16;
       padding: 0;
       line-height: ($gutter-two-thirds+$gutter-one-sixth);
     }
@@ -796,14 +796,14 @@
 
     .sub-organisation-name {
       h2 {
-        @include core-36;
+        @include ig-core-36;
         padding-left: 0;
         margin-top: $gutter-half;
         a {
           color: #000;
         }
         @include media(desktop) {
-          @include core-48;
+          @include ig-core-48;
         }
       }
       @include media(desktop) {
@@ -820,7 +820,7 @@
 
   .description {
     p {
-      @include core-19;
+      @include ig-core-19;
     }
 
     margin-bottom: $gutter;
@@ -839,7 +839,7 @@
     }
   }
   .information-block {
-    @include core-19;
+    @include ig-core-19;
     padding: $gutter-two-thirds 33.33% $gutter-two-thirds 0;
     margin-top: 0;
     margin-bottom: $gutter;
@@ -901,7 +901,7 @@
 
     .sub-organisation-name {
       h2 {
-        @include core-36;
+        @include ig-core-36;
         padding-top: $gutter;
         a {
           color: #000;
@@ -911,7 +911,7 @@
   }
 
   nav {
-    @include core-16;
+    @include ig-core-16;
     padding: ($gutter - $gutter-one-third) 0 $gutter;
     h1 {
       @include bold;
@@ -936,14 +936,14 @@
     }
   }
   .main {
-    @include core-48;
+    @include ig-core-48;
 
     @include media(desktop){
       margin: ($gutter*3 + $gutter-half) 0 $gutter-half;
     }
   }
   .description {
-    @include core-27;
+    @include ig-core-27;
   }
   .body {
     h2 {
@@ -956,7 +956,7 @@
   }
   .corporate-publications {
     h1 {
-      @include core-27;
+      @include ig-core-27;
       margin: $gutter 0 $gutter-half 0;
     }
     ul {
@@ -966,11 +966,11 @@
         padding: $gutter-one-sixth 0;
 
         h3 {
-          @include core-19;
+          @include ig-core-19;
           padding: 0;
         }
         .metadata {
-          @include core-14;
+          @include ig-core-14;
           padding: 0;
         }
         a {
@@ -980,7 +980,7 @@
     }
     .transparency {
       a {
-        @include core-19;
+        @include ig-core-19;
         @include bold;
       }
     }

@@ -50,13 +50,13 @@
 
       li {
         float: none;
-        @include core-16;
+        @include ig-core-16;
       }
     }
   }
 
   .notice p {
-    @include core-16;
+    @include ig-core-16;
     padding: $gutter-one-third;
     margin-bottom: $gutter;
     background: yellow;

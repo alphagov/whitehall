@@ -20,7 +20,7 @@
     }
     .button {
       @include button($detailed-guidance-brand);
-      @include core-19;
+      @include ig-core-19;
       padding-bottom: 7px;
       padding-bottom: 0.7rem;
     }
@@ -101,12 +101,12 @@
         float: left;
         padding-left: $gutter-one-third;
         padding-right: $gutter-one-third;
-        @include core-14;
+        @include ig-core-14;
       }
     }
 
     .label {
-      @include core-14;
+      @include ig-core-14;
       margin-bottom: 0;
       max-width: 33em;
       a {
@@ -118,7 +118,7 @@
       padding-top: 0;
     }
     .page-meta {
-      @include core-19;
+      @include ig-core-19;
       max-width: 33em;
       p {
         display: inline;
@@ -138,7 +138,7 @@
     }
 
     .replaces-businesslink {
-      @include core-16;
+      @include ig-core-16;
       padding-top: 10px;
 
       @include media(desktop){
@@ -157,7 +157,7 @@
   }
 
   .meta {
-    @include core-14;
+    @include ig-core-14;
     @include media(desktop) {
       float: right;
     }
@@ -167,12 +167,12 @@
     padding-top: $gutter-one-sixth;
 
     h1 {
-      @include core-19;
+      @include ig-core-19;
     }
 
     ol {
       border-top: 1px solid $border-colour;
-      @include core-16;
+      @include ig-core-16;
       padding: 0;
       margin: 0;
 
@@ -215,10 +215,10 @@
 
   .in-page-navigation {
     h3 {
-      @include core-16;
+      @include ig-core-16;
     }
     li {
-      @include core-16;
+      @include ig-core-16;
       padding: 0;
       list-style: disc;
     }
@@ -260,7 +260,7 @@
     margin: 0 -$gutter;
 
     h1 {
-      @include core-27;
+      @include ig-core-27;
       background: $detailed-guidance-brand;
       color: $white;
       margin: $gutter;
@@ -278,11 +278,11 @@
       }
 
       h2 {
-        @include core-27;
+        @include ig-core-27;
       }
 
       ul {
-        @include core-19;
+        @include ig-core-19;
         color: $detailed-guidance-brand;
 
         li {
@@ -302,12 +302,12 @@
       }
 
       h2 {
-        @include core-19;
+        @include ig-core-19;
         color: $text-colour;
       }
 
       ul {
-        @include core-16;
+        @include ig-core-16;
       }
     }
 
@@ -395,7 +395,7 @@
 
   .filters {
     li a {
-      @include core-16;
+      @include ig-core-16;
       display: block;
       padding: 3px 3px 3px 6px;
       width: 100%;
@@ -420,7 +420,7 @@
   }
   .result-block {
     h2 {
-      @include core-24;
+      @include ig-core-24;
       padding-top: 0;
       margin-bottom: $gutter-half;
     }
@@ -440,7 +440,7 @@
         margin-bottom: $gutter-one-third;
       }
       .meta {
-        @include core-16;
+        @include ig-core-16;
       }
       .meta {
         display: block;

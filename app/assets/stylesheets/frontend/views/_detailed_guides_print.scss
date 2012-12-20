@@ -1,14 +1,14 @@
 .detailed-guides-show {
   .change-notes {
     h1 {
-      @include core-14;
+      @include ig-core-14;
     }
     .overlay {
       display: none;
     }
   }
   .metadata {
-    @include core-14;
+    @include ig-core-14;
   }
   .page-header {
     padding-bottom: $gutter*2;

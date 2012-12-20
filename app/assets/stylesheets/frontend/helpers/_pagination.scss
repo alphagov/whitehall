@@ -6,7 +6,7 @@
   width: 100%;
 
   li {
-    @include core-27;
+    @include ig-core-27;
     display: block;
     padding: 0;
     margin: 0;
@@ -52,7 +52,7 @@
 
       span {
         display: block;
-        @include core-14;
+        @include ig-core-14;
       }
       &:focus span,
       &:hover span {
