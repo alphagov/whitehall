@@ -50,6 +50,28 @@ Then /^the import should fail with errors about organisation and sub type and no
   assert_equal 0, Edition.count
 end
 
+Then /^I can't make the imported publication into a draft edition yet$/ do
+  visit_document_preview Edition.imported.last.title
+
+  assert page.has_no_button?('Convert to draft')
+end
+
+When /^I set the imported publication's type to "([^"]*)"$/ do |publication_sub_type|
+  begin_editing_document Edition.imported.last.title
+  select publication_sub_type, from: 'Publication type'
+  click_on 'Save'
+end
+
+Then /^I can make the imported publication into a draft edition$/ do
+  edition = Edition.imported.last
+  visit_document_preview edition.title
+
+  click_on 'Convert to draft'
+
+  edition.reload
+  assert edition.draft?
+end
+
 # After do |scenario|
 #   save_and_open_page if scenario.failed?
 # end
