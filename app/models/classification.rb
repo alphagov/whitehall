@@ -132,4 +132,8 @@ class Classification < ActiveRecord::Base
   def recently_changed_documents
     (policies.published + published_related_editions).sort_by(&:timestamp_for_sorting).reverse
   end
+
+  def to_s
+    name
+  end
 end
