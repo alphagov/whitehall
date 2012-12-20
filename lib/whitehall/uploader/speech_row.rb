@@ -4,7 +4,7 @@ module Whitehall::Uploader
   class SpeechRow < Row
     attr_reader :row
 
-    def initialize(row, line_number, attachment_cache, logger = Logger.new($stdout))
+    def initialize(row, line_number, attachment_cache, organisation, logger = Logger.new($stdout))
       @row = row
       @line_number = line_number
       @logger = logger

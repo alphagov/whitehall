@@ -98,7 +98,7 @@ class Import < ActiveRecord::Base
             progress_logger.info("blank, skipped")
             next
           end
-          row = row_class.new(data_row.to_hash, row_number, attachment_cache, progress_logger)
+          row = row_class.new(data_row.to_hash, row_number, attachment_cache, organisation, progress_logger)
           if document_source = DocumentSource.find_by_url(row.legacy_url)
             progress_logger.already_imported(row.legacy_url, document_source)
           else

@@ -7,11 +7,12 @@ module Whitehall::Uploader
   class ConsultationRow < Row
     attr_reader :row
 
-    def initialize(row, line_number, attachment_cache, logger = Logger.new($stdout))
+    def initialize(row, line_number, attachment_cache, default_organisation, logger = Logger.new($stdout))
       @row = row
       @line_number = line_number
       @logger = logger
       @attachment_cache = attachment_cache
+      @default_organisation = default_organisation
     end
 
     def self.validator
@@ -51,7 +52,7 @@ module Whitehall::Uploader
     end
 
     def organisation
-      @organisation ||= Finders::OrganisationFinder.find(row['organisation'], @logger, @line_number).first
+      @organisation ||= Finders::OrganisationFinder.find(row['organisation'], @logger, @line_number, @default_organisation).first
     end
 
     def organisations

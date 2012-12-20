@@ -5,6 +5,10 @@ class Whitehall::Uploader::SpeechRowTest < ActiveSupport::TestCase
     @attachment_cache = stub('attachment cache')
   end
 
+  def new_speech_row(data)
+    Whitehall::Uploader::SpeechRow.new(data, 1, @attachment_cache, stub("Organisation"))
+  end
+
   def basic_headings
     %w{old_url title summary body  type  delivered_by  delivered_on event_and_location  policy_1  policy_2  policy_3  policy_4  organisation country_1 country_2 country_3 country_4}
   end
@@ -24,27 +28,27 @@ class Whitehall::Uploader::SpeechRowTest < ActiveSupport::TestCase
   end
 
   test "takes legacy url from the old_url column" do
-    row = Whitehall::Uploader::SpeechRow.new({"old_url" => "http://example.com/old-url"}, 1, @attachment_cache)
+    row = new_speech_row({"old_url" => "http://example.com/old-url"})
     assert_equal "http://example.com/old-url", row.legacy_url
   end
 
   test "takes title from the title column" do
-    row = Whitehall::Uploader::SpeechRow.new({"title" => "a-title"}, 1, @attachment_cache)
+    row = new_speech_row({"title" => "a-title"})
     assert_equal "a-title", row.title
   end
 
   test "takes body from the body column" do
-    row = Whitehall::Uploader::SpeechRow.new({"body" => "Some body goes here"}, 1, @attachment_cache)
+    row = new_speech_row({"body" => "Some body goes here"})
     assert_equal "Some body goes here", row.body
   end
 
   test "takes summary from the summary column" do
-    row = Whitehall::Uploader::SpeechRow.new({"summary" => "a-summary"}, 1, @attachment_cache)
+    row = new_speech_row({"summary" => "a-summary"})
     assert_equal "a-summary", row.summary
   end
 
   test "finds speech type by slug in the speech type column" do
-    row = Whitehall::Uploader::SpeechRow.new({"type" => "transcript"}, 1, @attachment_cache)
+    row = new_speech_row({"type" => "transcript"})
     assert_equal SpeechType::Transcript, row.speech_type
   end
 
@@ -52,10 +56,7 @@ class Whitehall::Uploader::SpeechRowTest < ActiveSupport::TestCase
     minister = create(:person)
     role = create(:ministerial_role)
     role_appointment = create(:role_appointment, role: role, person: minister)
-    row = Whitehall::Uploader::SpeechRow.new({
-      "delivered_by" => minister.slug,
-      "delivered_on" => "16-May-12"
-    }, 1, @attachment_cache)
+    row = new_speech_row({ "delivered_by" => minister.slug, "delivered_on" => "16-May-12" })
     assert_equal role_appointment, row.role_appointment
   end
 
@@ -64,39 +65,39 @@ class Whitehall::Uploader::SpeechRowTest < ActiveSupport::TestCase
     policy_2 = create(:published_policy, title: "Policy 2")
     policy_3 = create(:published_policy, title: "Policy 3")
     policy_4 = create(:published_policy, title: "Policy 4")
-    row = Whitehall::Uploader::SpeechRow.new({"policy_1" => policy_1.slug,
+    row = new_speech_row({"policy_1" => policy_1.slug,
       "policy_2" => policy_2.slug,
       "policy_3" => policy_3.slug,
       "policy_4" => policy_4.slug
-    }, 1, @attachment_cache)
+    })
 
     assert_equal [policy_1, policy_2, policy_3, policy_4], row.related_policies
   end
 
   test "takes location from the event_and_location column" do
-    row = Whitehall::Uploader::SpeechRow.new({"event_and_location" => "a-location"}, 1, @attachment_cache)
+    row = new_speech_row({"event_and_location" => "a-location"})
     assert_equal "a-location", row.location
   end
 
   test "parses the delivered_on date from the delivered_on column" do
-    row = Whitehall::Uploader::SpeechRow.new({"delivered_on" => "16-May-12"}, 1, @attachment_cache)
+    row = new_speech_row({"delivered_on" => "16-May-12"})
     assert_equal Date.parse("2012-05-16"), row.delivered_on
   end
 
   test "takes the first_published_at date from the delivered_on column" do
-    row = Whitehall::Uploader::SpeechRow.new({"delivered_on" => "16-May-12"}, 1, @attachment_cache)
+    row = new_speech_row({"delivered_on" => "16-May-12"})
     assert_equal Date.parse("2012-05-16"), row.first_published_at
   end
 
   test "finds related countries using the country finder" do
     countries = 5.times.map { stub('country') }
     Whitehall::Uploader::Finders::CountriesFinder.stubs(:find).with("first", "second", "third", "fourth", anything, anything).returns(countries)
-    row = Whitehall::Uploader::PublicationRow.new({
+    row = new_speech_row({
         "country_1" => "first",
         "country_2" => "second",
         "country_3" => "third",
         "country_4" => "fourth"
-      }, 1, @attachment_cache)
+      })
     assert_equal countries, row.countries
   end
 end

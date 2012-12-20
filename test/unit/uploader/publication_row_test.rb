@@ -6,6 +6,11 @@ require 'test_helper'
 class Whitehall::Uploader::PublicationRowTest < ActiveSupport::TestCase
   setup do
     @attachment_cache = stub('attachment cache')
+    @default_organisation = stub('Organisation')
+  end
+
+  def new_publication_row(csv_data, logger = Logger.new($stdout))
+    Whitehall::Uploader::PublicationRow.new(csv_data, 1, @attachment_cache, @default_organisation, logger)
   end
 
   def basic_headings
@@ -43,33 +48,33 @@ class Whitehall::Uploader::PublicationRowTest < ActiveSupport::TestCase
   end
 
   test "takes title from the title column" do
-    row = Whitehall::Uploader::PublicationRow.new({"title" => "a-title"}, 1, @attachment_cache)
+    row = new_publication_row({"title" => "a-title"})
     assert_equal "a-title", row.title
   end
 
   test "takes summary from the summary column" do
-    row = Whitehall::Uploader::PublicationRow.new({"summary" => "a-summary"}, 1, @attachment_cache)
+    row = new_publication_row({"summary" => "a-summary"})
     assert_equal "a-summary", row.summary
   end
 
   test "takes body from the body column" do
-    row = Whitehall::Uploader::PublicationRow.new({"body" => "Some body goes here"}, 1, @attachment_cache)
+    row = new_publication_row({"body" => "Some body goes here"})
     assert_equal "Some body goes here", row.body
   end
 
   test "takes legacy url from the old_url column" do
-    row = Whitehall::Uploader::PublicationRow.new({"old_url" => "http://example.com/old-url"}, 1, @attachment_cache)
+    row = new_publication_row({"old_url" => "http://example.com/old-url"})
     assert_equal "http://example.com/old-url", row.legacy_url
   end
 
   test "finds document series by slug in doc_series column" do
     document_series = create(:document_series)
-    row = Whitehall::Uploader::PublicationRow.new({"document_series" => document_series.slug}, 1, @attachment_cache)
+    row = new_publication_row({"document_series" => document_series.slug})
     assert_equal document_series, row.document_series
   end
 
   test "finds publication type by slug in the pub type column" do
-    row = Whitehall::Uploader::PublicationRow.new({"publication_type" => "guidance"}, 1, @attachment_cache)
+    row = new_publication_row({"publication_type" => "guidance"})
     assert_equal PublicationType::Guidance, row.publication_type
   end
 
@@ -80,11 +85,9 @@ class Whitehall::Uploader::PublicationRowTest < ActiveSupport::TestCase
     role_2 = create(:ministerial_role)
     create(:role_appointment, role: role_1, person: minister_1)
     create(:role_appointment, role: role_2, person: minister_2)
-    row = Whitehall::Uploader::PublicationRow.new({
-      "minister_1" => minister_1.slug,
-      "minister_2" => minister_2.slug,
-      "publication_date" => "16-Nov-2011"
-    }, 1, @attachment_cache)
+    row = new_publication_row({ "minister_1" => minister_1.slug,
+                                "minister_2" => minister_2.slug,
+                                "publication_date" => "16-Nov-2011" })
     assert_equal [role_1, role_2], row.ministerial_roles
   end
 
@@ -93,34 +96,33 @@ class Whitehall::Uploader::PublicationRowTest < ActiveSupport::TestCase
     policy_2 = create(:published_policy, title: "Policy 2")
     policy_3 = create(:published_policy, title: "Policy 3")
     policy_4 = create(:published_policy, title: "Policy 4")
-    row = Whitehall::Uploader::PublicationRow.new({"policy_1" => policy_1.slug,
-      "policy_2" => policy_2.slug,
-      "policy_3" => policy_3.slug,
-      "policy_4" => policy_4.slug
-    }, 1, @attachment_cache)
+    row = new_publication_row({ "policy_1" => policy_1.slug,
+                                "policy_2" => policy_2.slug,
+                                "policy_3" => policy_3.slug,
+                                "policy_4" => policy_4.slug })
 
     assert_equal [policy_1, policy_2, policy_3, policy_4], row.related_policies
   end
 
   test "finds organisation by name in org column" do
     organisation = create(:organisation)
-    row = Whitehall::Uploader::PublicationRow.new({"organisation" => organisation.name}, 1, @attachment_cache)
+    row = new_publication_row({"organisation" => organisation.name})
     assert_equal [organisation], row.organisations
   end
 
   test "uses the organisation as the alternative format provider" do
     organisation = create(:organisation)
-    row = Whitehall::Uploader::PublicationRow.new({"organisation" => organisation.name}, 1, @attachment_cache)
+    row = new_publication_row({"organisation" => organisation.name})
     assert_equal organisation, row.alternative_format_provider
   end
 
   test "finds up to 42 attachments in columns attachment 1 title, attachement 1 url..." do
     @attachment_cache.stubs(:fetch).with("http://example.com/attachment.pdf").returns(File.open(Rails.root.join("test", "fixtures", "two-pages.pdf")))
 
-    row = Whitehall::Uploader::PublicationRow.new({
+    row = new_publication_row({
       "attachment_1_title" => "first title",
-      "attachment_1_url" => "http://example.com/attachment.pdf"
-    }, 1, @attachment_cache, Logger.new(StringIO.new))
+      "attachment_1_url" => "http://example.com/attachment.pdf" 
+    }, Logger.new(StringIO.new))
 
     attachment = Attachment.new(title: "first title")
     assert_equal [attachment.attributes], row.attachments.collect(&:attributes)
@@ -130,7 +132,7 @@ class Whitehall::Uploader::PublicationRowTest < ActiveSupport::TestCase
   test "records the order_url, price, isbn, urn and command_paper_number on the first attachment" do
     @attachment_cache.stubs(:fetch).with("http://example.com/attachment.pdf").returns(File.open(Rails.root.join("test", "fixtures", "two-pages.pdf")))
 
-    row = Whitehall::Uploader::PublicationRow.new({
+    row = new_publication_row({
       "attachment_1_title" => "first title",
       "attachment_1_url" => "http://example.com/attachment.pdf",
       "order_url" => "http://example.com/order-it.php",
@@ -138,7 +140,7 @@ class Whitehall::Uploader::PublicationRowTest < ActiveSupport::TestCase
       "isbn" => "1 86192 090 3",
       "urn" => "10/899",
       "command_paper_number" => "Cm 5861"
-    }, 1, @attachment_cache, Logger.new(StringIO.new))
+    }, Logger.new(StringIO.new))
 
     attachment = Attachment.new(
       title: "first title",
@@ -154,9 +156,9 @@ class Whitehall::Uploader::PublicationRowTest < ActiveSupport::TestCase
   test "finds any attachments specified in JSON in the json_attachments column" do
     @attachment_cache.stubs(:fetch).with("http://example.com/attachment.pdf").returns(File.open(Rails.root.join("test", "fixtures", "two-pages.pdf")))
 
-    row = Whitehall::Uploader::PublicationRow.new({
+    row = new_publication_row({
       "json_attachments" => ActiveSupport::JSON.encode([{"title" => "first title", "link" => "http://example.com/attachment.pdf"}])
-    }, 1, @attachment_cache, Logger.new(StringIO.new))
+    }, Logger.new(StringIO.new))
 
     attachment = Attachment.new(title: "first title")
     assert_equal [attachment.attributes], row.attachments.collect(&:attributes)
@@ -201,7 +203,7 @@ class Whitehall::Uploader::PublicationRow::AttachmentMetadataBuilderTest < Activ
         "country_2" => "second",
         "country_3" => "third",
         "country_4" => "fourth"
-      }, 1, @attachment_cache)
+      }, 1, stub("cache"), stub("organisation"))
     assert_equal countries, row.countries
   end
 end
