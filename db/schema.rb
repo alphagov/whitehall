@@ -495,6 +495,7 @@ ActiveRecord::Schema.define(:version => 20121221113430) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "import_enqueued_at"
+    t.integer  "organisation_id"
   end
 
   create_table "mainstream_categories", :force => true do |t|

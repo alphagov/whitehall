@@ -17,7 +17,8 @@ class Import < ActiveRecord::Base
     fatality_notice: [Whitehall::Uploader::FatalityNoticeRow, FatalityNotice]
   }
 
-  validates :csv_data, presence: true, if: :valid_csv_data_encoding?
+  validate :csv_data_supplied
+  validates :organisation_id, presence: true
   validate :valid_csv_data_encoding!
   validates :data_type, inclusion: { in: TYPES.keys.map(&:to_s), message: "%{value} is not a valid type" }
   validate :valid_csv_headings?, if: :valid_csv_data_encoding?
@@ -171,8 +172,16 @@ class Import < ActiveRecord::Base
     data_type && TYPES[data_type.to_sym] && TYPES[data_type.to_sym][1]
   end
 
+  # We cannot use the standard presence validator as sometimes
+  # broken data cannot have string methods called on it
+  def csv_data_supplied
+    errors.add(:csv_data, "not supplied") if csv_data.nil?
+  end
+
   def valid_csv_data_encoding!
-    errors.add(:csv_data, "Invalid #{csv_data.encoding} character encoding") unless valid_csv_data_encoding?
+    if (csv_data)
+      errors.add(:csv_data, "Invalid #{csv_data.encoding} character encoding") unless valid_csv_data_encoding?
+    end
   end
 
   def valid_csv_data_encoding?
