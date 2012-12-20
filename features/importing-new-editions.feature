@@ -76,16 +76,17 @@ Feature: Importing new editions
     Then the import should fail with errors about organisation and sub type and no editions are created
 
   Scenario: Importing publication with organisation already set in the data
+    Given the organisation "Foreign Commonwealth Office" exists
     When I import the following data as CSV as "Publication" for "Department for Transport":
       |old_url|title|summary|body|organisation|policy_1|publication_type|document_series|publication_date|order_url|price|isbn|urn|command_paper_number|ignore_1|attachment_1_url|attachment_1_title|country_1|
       |http://example.com/1|title|summary|body|foreign-commonwealth-office||||14-Dec-2011||||||||||
-    Then the import succeeds, creating 1 imported publication for "Foreign and Commonwealth Office" with "unknown" publication type
+    Then the import succeeds, creating 1 imported publication for "Foreign Commonwealth Office" with "imported-awaiting-type" publication type
 
   Scenario: Importing publications sets imported state, UNKNOWN type and default organisation, to be filled in later
     When I import the following data as CSV as "Publication" for "Department for Transport":
       |old_url|title|summary|body|organisation|policy_1|publication_type|document_series|publication_date|order_url|price|isbn|urn|command_paper_number|ignore_1|attachment_1_url|attachment_1_title|country_1|
       |http://example.com/1|title|summary|body|||||14-Dec-2011||||||||||
-    Then the import succeeds, creating 1 imported publication for "Department for Transport" with "unknown" publication type
+    Then the import succeeds, creating 1 imported publication for "Department for Transport" with "imported-awaiting-type" publication type
     When I set the imported publication's type to "Policy paper"
     Then I can make the imported publication into a draft edition
 

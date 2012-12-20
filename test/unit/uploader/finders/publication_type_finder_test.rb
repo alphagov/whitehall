@@ -19,4 +19,8 @@ class Whitehall::Uploader::Finders::PublicationTypeFinderTest < ActiveSupport::T
     Whitehall::Uploader::Finders::PublicationTypeFinder.find('made-up-publication-type-slug', @log, @line_number)
     assert_match /Unable to find Publication type with slug 'made-up-publication-type-slug'/, @log_buffer.string
   end
+
+  test 'uses the Unknown type for a blank slug' do
+    assert_equal PublicationType::ImportedAwaitingType, Whitehall::Uploader::Finders::PublicationTypeFinder.find('', @log, @line_number)
+  end
 end

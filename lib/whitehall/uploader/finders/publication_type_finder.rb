@@ -1,6 +1,7 @@
 class Whitehall::Uploader::Finders::PublicationTypeFinder
   SPECIAL_CASES = {
-    'Impact assessment' => PublicationType::ImpactAssessment
+    'Impact assessment' => PublicationType::ImpactAssessment,
+    '' => PublicationType::ImportedAwaitingType
   }
 
   def self.find(slug, logger, line_number)

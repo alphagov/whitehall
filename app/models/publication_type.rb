@@ -72,4 +72,7 @@ class PublicationType
 
   # Temporary to allow migration
   Unknown                = create(id: 999, singular_name: "Publication", plural_name: "Publication", prevalence: :migration)
+
+  # For imported publications with a blank publication_type field
+  ImportedAwaitingType   = create(id: 1000, singular_name: "Imported - awaiting type", plural_name: "Imported - awaiting type", prevalence: :migration)
 end
