@@ -18,7 +18,7 @@ def find_edition_by_attachment(url)
   file_name = parts[-1]
   edition = Edition.unscoped.find(EditionAttachment.where(attachment_id: Attachment.where(attachment_data_id: edition_id).first.id).first.edition_id)
   if edition.state != 'published'
-    AttachmentData.find(:all, :conditions => ['carrierwave_file = ? AND NOT id = ?', file_name, edition_id]).each do |attachment|
+    AttachmentData.find(:all, conditions: ['carrierwave_file = ? AND NOT id = ?', file_name, edition_id]).each do |attachment|
       edition = Edition.unscoped.find(EditionAttachment.where(attachment_id: Attachment.where(attachment_data_id: attachment.id).first.id).first.edition_id)
       if edition.state == 'published'
         return url_for(Attachment.where(attachment_data_id: attachment.id).first.url)
