@@ -615,7 +615,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
   test "updating should destroy existing social media account if all its field are blank" do
     attributes = attributes_for(:organisation)
     organisation = create(:organisation, attributes)
-    account = create(:social_media_account, organisation: organisation)
+    account = create(:social_media_account, socialable: organisation)
 
     put :update, id: organisation, organisation: attributes.merge(
       social_media_accounts_attributes: {"0" => {

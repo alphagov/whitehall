@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121219170526) do
+ActiveRecord::Schema.define(:version => 20121220145855) do
 
   create_table "attachment_data", :force => true do |t|
     t.string   "carrierwave_file"
@@ -648,15 +648,16 @@ ActiveRecord::Schema.define(:version => 20121219170526) do
   add_index "roles", ["slug"], :name => "index_roles_on_slug"
 
   create_table "social_media_accounts", :force => true do |t|
-    t.integer  "organisation_id"
+    t.integer  "socialable_id"
     t.integer  "social_media_service_id"
     t.string   "url"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "socialable_type"
   end
 
-  add_index "social_media_accounts", ["organisation_id"], :name => "index_social_media_accounts_on_organisation_id"
   add_index "social_media_accounts", ["social_media_service_id"], :name => "index_social_media_accounts_on_social_media_service_id"
+  add_index "social_media_accounts", ["socialable_id"], :name => "index_social_media_accounts_on_organisation_id"
 
   create_table "social_media_services", :force => true do |t|
     t.string   "name"

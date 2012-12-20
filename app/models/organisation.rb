@@ -108,7 +108,7 @@ class Organisation < ActiveRecord::Base
   has_many :users, dependent: :nullify
 
   has_many :contacts, dependent: :destroy
-  has_many :social_media_accounts, dependent: :destroy
+  has_many :social_media_accounts, as: :socialable, dependent: :destroy
   has_many :organisation_mainstream_links, dependent: :destroy
 
   has_many :corporate_information_pages, dependent: :destroy
