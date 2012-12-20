@@ -1,13 +1,14 @@
 
 When /^I import the following data as CSV as "([^"]*)" for "([^"]*)":$/ do |document_type, organisation_name, table|
   create(:user, name: 'Automatic Data Importer')
-  organisation = Organisation.find_or_create_by_name(organisation_name)
+  organisation = create(:organisation, name: organisation_name)
   Import.use_separate_connection
 
   with_import_csv_file(table) do |path|
     visit new_admin_import_path
     select document_type, from: 'Type'
     attach_file 'CSV File', path
+    select organisation_name, from: 'Default organisation'
     click_button 'Save'
     click_button 'Run'
 

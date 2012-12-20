@@ -7,6 +7,7 @@ class Import < ActiveRecord::Base
   has_many :import_errors, dependent: :destroy
 
   belongs_to :creator, class_name: "User"
+  belongs_to :organisation
 
   TYPES = {
     consultation: [Whitehall::Uploader::ConsultationRow, Consultation],
@@ -35,9 +36,10 @@ class Import < ActiveRecord::Base
     end.force_encoding('utf-8')
   end
 
-  def self.create_from_file(current_user, csv_file, data_type)
+  def self.create_from_file(current_user, csv_file, data_type, organisation_id)
     Import.create(
       data_type: data_type,
+      organisation_id: organisation_id,
       csv_data: read_file(csv_file),
       creator_id: current_user.id,
       original_filename: csv_file && csv_file.original_filename,

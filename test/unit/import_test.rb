@@ -4,6 +4,10 @@ require 'support/consultation_csv_sample_helpers'
 class ImportTest < ActiveSupport::TestCase
   include ConsultationCsvSampleHelpers
 
+  def organisation_id
+    1
+  end
+
   def new_import(params = {})
     valid_params = {
       csv_data: consultation_csv_sample,
@@ -72,7 +76,7 @@ class ImportTest < ActiveSupport::TestCase
   test "invalid if file has invalid UTF8 encoding" do
     csv_data = File.open(Rails.root.join("test/fixtures/invalid_encoding.csv"), "r:binary").read
     csv_file = stub("file", read: csv_data, original_filename: "invalid_encoding.csv")
-    i = Import.create_from_file(stub_record(:user), csv_file, "consultation")
+    i = Import.create_from_file(stub_record(:user), csv_file, "consultation", organisation_id)
     refute i.valid?
     assert i.errors[:csv_data].any? {|e| e =~ /Invalid UTF-8 character encoding/}
   end
@@ -80,7 +84,7 @@ class ImportTest < ActiveSupport::TestCase
   test "accepts UTF8 byte order mark" do
     csv_data = File.open(Rails.root.join("test/fixtures/byte_order_mark_test_sample.csv"), "r:binary").read
     csv_file = stub("file", read: csv_data, original_filename: "byte_order_mark_test_sample.csv")
-    i = Import.create_from_file(stub_record(:user), csv_file, "consultation")
+    i = Import.create_from_file(stub_record(:user), csv_file, "consultation", organisation_id)
     assert_equal 'old', i.csv_data[0..2]
   end
 
