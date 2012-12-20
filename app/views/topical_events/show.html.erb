@@ -27,23 +27,13 @@
         <section class="description">
           <%= govspeak_to_html @topical_event.description %>
 
-          <ul class="social-media-accounts">
-            <li class="social_media_account" id="social_media_account_5">
-              <a href="http://blogs.fco.gov.uk/digitaldiplomacy/platforms/#TW" class="social-media-link twitter">
-                <span class="connect">Connect with FCO on</span> Twitter
-              </a>
-            </li>
-            <li class="social_media_account" id="social_media_account_8">
-              <a href="http://www.youtube.com/profile?user=ukforeignoffice" class="social-media-link youtube">
-                <span class="connect">Connect with FCO on</span> YouTube
-              </a>
-            </li>
-            <li class="social_media_account" id="social_media_account_9">
-              <a href="http://blogs.fco.gov.uk/digitaldiplomacy/platforms/#FL" class="social-media-link flickr">
-                <span class="connect">Connect with FCO on</span> Flickr
-              </a>
-            </li>
-          </ul>
+          <% if @topical_event.social_media_accounts.any? %>
+            <div class="social-media">
+              <div class="content">
+                <%= render 'shared/social_media_accounts', socialable: @topical_event, followus: false %>
+              </div>
+            </div>
+          <% end %>
         </section>
       </div>
     </div>

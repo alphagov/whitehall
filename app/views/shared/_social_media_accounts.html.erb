@@ -1,8 +1,11 @@
-<% if organisation.social_media_accounts.any? %>
+<% followus ||= true %>
+<% if socialable.social_media_accounts.any? %>
   <section>
-    <h2 class="label">Follow us</h2>
+    <% unless followus %>
+      <h2 class="label">Follow us</h2>
+    <% end %>
     <ul class="social-media-accounts">
-      <% organisation.social_media_accounts.each do |account| %>
+      <% socialable.social_media_accounts.each do |account| %>
         <%= content_tag_for(:li, account) do %>
           <%= link_to account.url,
                       class: "social-media-link #{account.service_name.downcase}" do %>

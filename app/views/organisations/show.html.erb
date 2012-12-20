@@ -64,7 +64,7 @@
       <% if @organisation.social_media_accounts.any? %>
         <div class="social-media">
           <div class="content">
-            <%= render 'social_media_accounts', organisation: @organisation %>
+            <%= render 'shared/social_media_accounts', socialable: @organisation %>
           </div>
         </div>
       <% end %>
