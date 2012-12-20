@@ -3,6 +3,8 @@ class ClassificationMembership < ActiveRecord::Base
   belongs_to :classification, foreign_key: :classification_id
   belongs_to :policy, foreign_key: :edition_id
   belongs_to :detailed_guide, foreign_key: :edition_id
+  belongs_to :announcement, foreign_key: :edition_id
+  belongs_to :publication, foreign_key: :edition_id
 
   validates :edition, :classification, presence: true
 

@@ -1,13 +1,13 @@
-<% page_title @topic.name, "Topical Event" %>
+<% page_title @topical_event.name, "Topical Event" %>
 <% page_class "topical-events-show" %>
-<% atom_discovery_link_tag topic_url(@topic, format: 'atom'), "Latest activity on #{@topic.name}" %>
+<% atom_discovery_link_tag topic_url(@topical_event, format: 'atom'), "Latest activity on #{@topical_event.name}" %>
 
-<%= content_tag_for(:div, @topic, class: "classification #{@topic.class.name.underscore}") do %>
+<%= content_tag_for(:div, @topical_event, class: "classification #{@topical_event.class.name.underscore}") do %>
 
   <div class="block">
     <div class="inner-block">
       <header class="page-header">
-        <h1><%= image_tag "g8-2013-logo.png", alt: @topic.name %></h1>
+        <h1><%= image_tag "g8-2013-logo.png", alt: @topical_event.name %></h1>
         <h2><span>UK Presidency of G8 2013<span></h2>
       </header>
 
@@ -15,7 +15,7 @@
         <section id="recently-updated" class="latest-documents">
           <header>
             <h1 class="label">Latest</h1>
-            <%= link_to_feed topic_url(@topic, format: 'atom') %>
+            <%= link_to_feed topic_url(@topical_event, format: 'atom') %>
           </header>
           <% if @recently_changed_documents.any? %>
             <%= render partial: "shared/recently_updated",
@@ -25,7 +25,7 @@
           <% end %>
         </section>
         <section class="description">
-          <%= govspeak_to_html @topic.description %>
+          <%= govspeak_to_html @topical_event.description %>
 
           <ul class="social-media-accounts">
             <li class="social_media_account" id="social_media_account_5">
@@ -66,7 +66,7 @@
           <div class="content">
             <%= render partial: "publications/list_description", locals: {publications: @publications} %>
             <p class="see-all">
-              <%#= link_to 'See all publications', publications_filter_path(@topic) %>
+              <%#= link_to 'See all publications', publications_filter_path(@topical_event) %>
             </p>
           </div>
         </section>
@@ -77,7 +77,7 @@
           <div class="content">
             <%= render partial: "announcements/list_description", locals: {announcements: @announcements} %>
             <p class="see-all">
-              <%#= link_to "See all announcements", announcements_filter_path(@topic) %>
+              <%#= link_to "See all announcements", announcements_filter_path(@topical_event) %>
             </p>
           </div>
         </section>
@@ -119,8 +119,8 @@
       </aside>
         <div class="meta">
           <%= render partial: 'organisations/organisations_logo_list',
-                    locals: { organisations: @topic.organisations,
-                              lead_organisations: @topic.lead_organisations } %>
+                    locals: { organisations: @topical_event.organisations,
+                              lead_organisations: @topical_event.lead_organisations } %>
         </div>
     </div>
   </div>

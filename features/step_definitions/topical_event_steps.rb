@@ -22,9 +22,10 @@ end
 
 Then /^I should see the speech "([^"]*)" in the announcements section of the topical event "([^"]*)"$/ do |speech_name, topical_event_name|
   topical_event = TopicalEvent.find_by_name!(topical_event_name)
+  speech = Speech.find_by_title!(speech_name)
   visit topical_event_path(topical_event)
-  assert_select "anouncements" do
-    assert_select record_css_selector(Speech.find_by_name!(speech_name))
+  within "#announcements" do
+    assert page.has_css?(record_css_selector(speech))
   end
 end
 

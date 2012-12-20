@@ -10,7 +10,6 @@ Scenario: Adding a new topical event
   Then I should see the topical event "Moustache Growing Convention" in the admin interface
   And I should see the topical event "Moustache Growing Convention" on the frontend
 
-@wip
 Scenario: Associating a speech with a topical event
   When I create a new topical event "Moustache Growing Convention" with description "Annual convention on moustach growing"
   And I draft a new speech "Famous moustaches of the 19th century" relating it to topical event "Moustache Growing Convention"
