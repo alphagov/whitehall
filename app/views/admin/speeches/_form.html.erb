@@ -13,6 +13,7 @@
     <legend>Associations</legend>
     <%= render partial: "related_policy_fields", locals: { form: form, edition: edition } %>
     <%= render partial: "country_fields", locals: { form: form, edition: edition } %>
+    <%= render partial: 'topical_event_fields', locals: { form: form, edition: edition } %>
   </fieldset>
 
   <%= render partial: 'first_published_at', locals: { form: form, edition: edition } %>

@@ -47,6 +47,17 @@
     </section>
   <% end %>
 
+  <% if edition.can_be_associated_with_topical_events? %>
+    <section>
+      <h2>Topical events</h2>
+      <% if edition.topical_events.any? %>
+        <%= render partial: "classifications/list", locals: {topics: edition.topical_events} %>
+      <% else %>
+        <p>This document isn't assigned to any topical events.</p>
+      <% end %>
+    </section>
+  <% end %>
+
   <% if edition.respond_to?(:mainstream_categories) %>
     <section>
       <h2>Detailed guidance category</h2>
