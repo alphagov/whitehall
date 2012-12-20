@@ -36,6 +36,11 @@ class SpeechTest < EditionTestCase
     refute speech.valid?
   end
 
+  test "is valid if imported and role_appointment has no associated organisation" do
+    speech = build(:speech, role_appointment: nil, state: 'imported')
+    assert speech.valid?
+  end
+
   test "associates itself with role appointments organisation on save" do
     speech = build(:speech)
     speech.save!

@@ -1,5 +1,6 @@
 class Whitehall::Uploader::Finders::SpeechTypeFinder
   SPECIAL_CASES = {
+    '' => SpeechType::ImportedAwaitingType
   }
 
   def self.find(slug, logger, line_number)

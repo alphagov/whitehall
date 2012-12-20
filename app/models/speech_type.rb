@@ -33,4 +33,5 @@ class SpeechType
   )
   WrittenStatement = create(id: 4, name: "Written statement")
   OralStatement = create(id: 5, name: "Oral statement")
+  ImportedAwaitingType = create(id: 1000, name: "Imported - Awaiting Type")
 end

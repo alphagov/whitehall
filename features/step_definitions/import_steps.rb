@@ -22,7 +22,7 @@ Then /^the import should fail and no editions are created$/ do
   assert page.has_content?("Import failed")
 end
 
-Then /^the import succeeds, creating (\d+) imported publication for "([^"]*)" with "([^"]*)" publication type$/ do |edition_count, organisation_name, publication_sub_type_slug|
+Then /^the import succeeds, creating (\d+) imported publications? for "([^"]*)" with "([^"]*)" publication type$/ do |edition_count, organisation_name, publication_sub_type_slug|
   organisation = Organisation.find_by_name(organisation_name)
   publication_sub_type  = PublicationType.find_by_slug(publication_sub_type_slug)
   assert_equal edition_count.to_i, Edition.imported.count
@@ -31,6 +31,15 @@ Then /^the import succeeds, creating (\d+) imported publication for "([^"]*)" wi
   assert_kind_of Publication, edition
   assert_equal organisation, edition.organisations.first
   assert_equal publication_sub_type, edition.publication_type
+end
+
+Then /^the import succeeds, creating (\d+) imported speech(?:es)? with "([^"]*)" speech type and with no deliverer set$/ do |edition_count, speech_type_slug|
+  speech_type = SpeechType.find_by_slug(speech_type_slug)
+  assert_equal edition_count.to_i, Edition.imported.count
+
+  edition = Edition.imported.first
+  assert_kind_of Speech, edition
+  assert_equal speech_type, edition.speech_type
 end
 
 Then /^the import should fail with errors about organisation and sub type and no editions are created$/ do
