@@ -4,7 +4,7 @@
   @extend %contain-floats;
 
   h1 {
-    @include core-27;
+    @include ig-core-27;
 
     @include media(tablet){
       float: left;
@@ -36,12 +36,12 @@
 
         h2 a {
           display: block;
-          @include core-19;
+          @include ig-core-19;
           @include bold;
         }
 
         p, .metadata {
-          @include core-14;
+          @include ig-core-14;
           padding-top: 1px;
         }
 
@@ -52,7 +52,7 @@
       }
     }
     .see-all {
-      @include core-19;
+      @include ig-core-19;
 
       @include media(desktop) {
         padding-left: $gutter-half;

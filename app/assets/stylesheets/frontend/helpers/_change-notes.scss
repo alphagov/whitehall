@@ -1,7 +1,7 @@
 .change-notes {
   display: inline-block;
   position: relative;
-  // @include core-14;
+  // @include ig-core-14;
   min-width: 160px;
   padding: 0;
 
@@ -55,7 +55,7 @@
     dt, dd {
       width: auto;
       float: none;
-      @include core-14;
+      @include ig-core-14;
       padding: 0 $gutter-one-third;
     }
     dd {

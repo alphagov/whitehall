@@ -10,7 +10,7 @@
       padding-bottom: 0;
     }
     .label {
-      @include core-48;
+      @include ig-core-48;
       @include bold;
       padding-top: 0;
     }
@@ -30,11 +30,11 @@
   }
 
   h2 {
-    @include core-27;
+    @include ig-core-27;
   }
 
   .page_title {
-    @include core-36;
+    @include ig-core-36;
   }
 
   .meta {
@@ -52,7 +52,7 @@
   .fatalities {
     ul {
       list-style: none;
-      @include core-16;
+      @include ig-core-16;
 
       .fatality-notice {
         margin: $gutter 0 $gutter-half;

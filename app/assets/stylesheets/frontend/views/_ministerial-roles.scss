@@ -24,7 +24,7 @@
   
   .block-2 {
     h1.label {
-      @include core-48;
+      @include ig-core-48;
       @include bold;
       padding-top: 0;
     }
@@ -41,7 +41,7 @@
     padding-top: ($gutter*2);
   
     h1.label {
-      @include core-48;
+      @include ig-core-48;
       @include bold;
     }
     

@@ -16,7 +16,7 @@
     margin-top: $gutter;
 
     p {
-      @include core-24;
+      @include ig-core-24;
     }
   }
 
@@ -24,7 +24,7 @@
     padding-top: $gutter+$gutter-one-third;
 
     p {
-      @include core-16;
+      @include ig-core-16;
     }
   }
 

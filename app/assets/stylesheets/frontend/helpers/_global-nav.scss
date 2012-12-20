@@ -24,7 +24,7 @@
 
   a,
   .toggler {
-    @include core-16;
+    @include ig-core-16;
     display: block;
     padding: $gutter-one-third 8px;
     text-decoration: none;
@@ -173,7 +173,7 @@
   }
   
   p {
-    @include core-16;
+    @include ig-core-16;
   }
 
   .close-button {

@@ -3,7 +3,7 @@
   padding-bottom: ($gutter-two-thirds + $gutter-one-sixth);
 
   h1 {
-    @include core-36;
+    @include ig-core-36;
     margin-top: ($gutter-two-thirds);
     @include media(tablet){
       margin-bottom: ($gutter + $gutter-one-third - 3px);
@@ -35,7 +35,7 @@
     
     dl {
       display: inline;
-      @include core-14;
+      @include ig-core-14;
 
       dt {
         @include bold;

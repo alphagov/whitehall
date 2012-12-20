@@ -5,7 +5,7 @@
   background-position: 0 8px;
 
   h1 {
-    @include core-48;
+    @include ig-core-48;
     .label {
       display: block;
     }
@@ -13,7 +13,7 @@
 
   .explanation {
     margin-top: $gutter-two-thirds*-1;
-    @include core-19;
+    @include ig-core-19;
   }
 
   .ministers .minister {
@@ -29,7 +29,7 @@
     .show-other-content {
       float: left;
       margin-left: $gutter-half;
-      @include core-14;
+      @include ig-core-14;
       padding: 3px 6px 0 4px;
     }
   }
@@ -55,7 +55,7 @@
   }
 }
 .show-other-content {
-  @include core-14;
+  @include ig-core-14;
   margin-left: 0.3em;
   white-space: nowrap;
 }
