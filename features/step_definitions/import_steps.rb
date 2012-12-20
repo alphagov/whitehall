@@ -1,6 +1,7 @@
-When /^I import the following data as CSV as "([^"]*)":$/ do |document_type, table|
+
+When /^I import the following data as CSV as "([^"]*)" for "([^"]*)":$/ do |document_type, organisation_name, table|
   create(:user, name: 'Automatic Data Importer')
-  organisation = Organisation.find_or_create_by_name('Department Of Grooming')
+  organisation = Organisation.find_or_create_by_name(organisation_name)
   Import.use_separate_connection
 
   with_import_csv_file(table) do |path|
@@ -23,6 +24,7 @@ end
 Then /^the import succeeds, creating (\d+) imported edition with validation problems$/ do |edition_count|
   pending # express the regexp above with the code you wish you had
 end
+
 After do |scenario|
   save_and_open_page if scenario.failed?
 end

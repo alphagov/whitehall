@@ -67,7 +67,7 @@ Feature: Importing new editions
   - field_of_operation: required
 
   Background:
-    Given I am logged in as a user which can import data
+    Given I am an importer
 
   Scenario: Importing publications with unrecognised types will be rejected
     When I import the following data as CSV as "Publication" for "Department for Transport":
