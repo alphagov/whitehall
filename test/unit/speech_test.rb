@@ -16,6 +16,21 @@ class SpeechTest < EditionTestCase
     refute speech.valid?
   end
 
+  [:imported, :deleted].each do |state|
+    test "#{state} editions are valid when the type is 'imported-awaiting-type'" do
+      speech = build(:speech, state: state, speech_type: SpeechType.find_by_slug('imported-awaiting-type'))
+      assert speech.valid?
+    end
+  end
+
+  [:draft, :scheduled, :published, :archived, :submitted, :rejected].each do |state|
+    test "#{state} editions are not valid when the publication type is 'imported-awaiting-type'" do
+      edition = build(:speech, state: state, speech_type: SpeechType.find_by_slug('imported-awaiting-type'))
+      refute edition.valid?
+    end
+  end
+
+
   test "should be invalid without a delivered_on" do
     speech = build(:speech, delivered_on: nil)
     refute speech.valid?
