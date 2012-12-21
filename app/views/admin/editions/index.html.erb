@@ -75,6 +75,7 @@
           <li class="nav-header">Filter by state</li>
           <% document_type = (params[:type] || "document").pluralize %>
           <%= link_to_filter 'All', {state: :active}, title: "Show #{document_type} in any workflow state" %>
+          <%= link_to_filter 'Imported (pre-draft)', {state: :imported}, title: "Show only imported pre-draft #{document_type}" %>
           <%= link_to_filter 'Drafts', {state: :draft}, title: "Show only draft #{document_type}" %>
           <%= link_to_filter 'Submitted', {state: :submitted}, title: "Show only submitted #{document_type}" %>
           <%= link_to_filter 'Rejected', {state: :rejected}, title: "Show only rejected #{document_type}" %>

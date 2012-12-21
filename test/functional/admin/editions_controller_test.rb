@@ -357,6 +357,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
 
   test "should display state information when viewing all active editions" do
     draft_edition = create(:draft_policy)
+    imported_edition = create(:imported_edition)
     submitted_edition = create(:submitted_publication)
     rejected_edition = create(:rejected_news_article)
     published_edition = create(:published_consultation)
@@ -364,6 +365,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     get :index, state: :active
 
     assert_select_object(draft_edition) { assert_select ".state", "Draft" }
+    assert_select_object(imported_edition) { assert_select ".state", "Imported" }
     assert_select_object(submitted_edition) { assert_select ".state", "Submitted" }
     assert_select_object(rejected_edition) { assert_select ".state", "Rejected" }
     assert_select_object(published_edition) { assert_select ".state", "Published" }
