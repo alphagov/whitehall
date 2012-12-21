@@ -70,7 +70,7 @@ class Admin::OrganisationsController < Admin::BaseController
     @organisation.organisation_classifications.each.with_index do |ot, i|
       ot.ordering = i
     end
-    (n...10).each do |i|
+    (n...13).each do |i|
       @organisation.organisation_classifications.build(ordering: i)
     end
   end
