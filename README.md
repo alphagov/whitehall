@@ -46,7 +46,7 @@ Then run
 
 Alternatively run
 
-    $ govuk_setenv whitehall-frontend env RAILS_ENV=test bundle exec rake
+    $ govuk_setenv whitehall env RAILS_ENV=test bundle exec rake
 
 ### Getting a copy of live data
 
@@ -55,7 +55,7 @@ database and load it on your local machine:
 
     cap db:import
 
-To use it, go to the `whitehall-admin` directory in
+To use it, go to the `whitehall` directory in
 `alphagov-deployment` and then do:
 
     $ SSH_USER=$USER DEPLOY_TO=production bundle exec cap db:import
