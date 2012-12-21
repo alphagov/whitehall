@@ -2,7 +2,7 @@ class TopicalEventsController < ClassificationsController
   before_filter :load_topical_event, only: [:show, :update]
 
   def index
-    redirect_to "topics/index"
+    redirect_to :topics
   end
 
   def show
