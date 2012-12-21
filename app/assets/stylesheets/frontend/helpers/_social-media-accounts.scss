@@ -1,0 +1,40 @@
+.social-media-accounts {
+  li {
+    list-style: none;
+    clear: both;
+    overflow: hidden;
+    margin: $gutter-half 0;
+    @include core-16;
+    padding: 0;
+    line-height: (5*$gutter-one-sixth);
+  }
+
+  .connect {
+    float: left;
+    display: inline;
+    width: (5*$gutter-one-sixth);
+    height: (5*$gutter-one-sixth);
+    text-indent: -999em;
+    overflow: hidden;
+    margin-right: $gutter-one-third;
+    background-color: $inside-gov-brand;
+    background-image: image-url("social-icons-white.png");
+    background-repeat: no-repeat;
+  }
+
+  .facebook .connect {
+    background-position: -2px -2px;
+  }
+
+  .twitter .connect {
+    background-position: -2px -32px;
+  }
+
+  .youtube .connect {
+    background-position: -2px -62px;
+  }
+
+  .flickr .connect {
+    background-position: -2px -92px;
+  }
+}

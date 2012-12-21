@@ -101,13 +101,14 @@ class Organisation < ActiveRecord::Base
 
   has_many :people, through: :roles
 
-  has_many :organisation_topics, dependent: :destroy, order: 'organisation_topics.ordering'
-  has_many :topics, through: :organisation_topics
+  has_many :organisation_classifications, dependent: :destroy, order: 'organisation_classifications.ordering'
+  has_many :topics, through: :organisation_classifications, order: 'organisation_classifications.ordering'
+  has_many :classifications, through: :organisation_classifications
 
   has_many :users, dependent: :nullify
 
   has_many :contacts, dependent: :destroy
-  has_many :social_media_accounts, dependent: :destroy
+  has_many :social_media_accounts, as: :socialable, dependent: :destroy
   has_many :organisation_mainstream_links, dependent: :destroy
 
   has_many :corporate_information_pages, dependent: :destroy
@@ -117,7 +118,7 @@ class Organisation < ActiveRecord::Base
   accepts_nested_attributes_for :organisation_mainstream_links, allow_destroy: true, reject_if: :all_blank
   accepts_nested_attributes_for :organisation_roles
   accepts_nested_attributes_for :edition_organisations
-  accepts_nested_attributes_for :organisation_topics, reject_if: -> attributes { attributes['topic_id'].blank? }, allow_destroy: true
+  accepts_nested_attributes_for :organisation_classifications, reject_if: -> attributes { attributes['classification_id'].blank? }, allow_destroy: true
 
   validates_with SafeHtmlValidator
   validates :name, presence: true, uniqueness: true

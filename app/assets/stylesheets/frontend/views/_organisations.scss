@@ -689,46 +689,6 @@
     }
   }
 
-  .social-media-accounts {
-    li {
-      list-style: none;
-      clear: both;
-      overflow: hidden;
-      margin: $gutter-half 0;
-      @include ig-core-16;
-      padding: 0;
-      line-height: ($gutter-two-thirds+$gutter-one-sixth);
-    }
-
-    .connect {
-      float: left;
-      display: inline;
-      width: ($gutter-two-thirds+$gutter-one-sixth);
-      height: ($gutter-two-thirds+$gutter-one-sixth);
-      text-indent: -5000%;
-      overflow: hidden;
-      margin-right: $gutter-one-third;
-      background-color: $inside-gov-brand;
-      background-image: image-url("social-icons-white.png");
-      background-repeat: no-repeat;
-    }
-
-    .facebook .connect {
-      background-position: -2px -2px;
-    }
-
-    .twitter .connect {
-      background-position: -2px -32px;
-    }
-
-    .youtube .connect {
-      background-position: -2px -62px;
-    }
-
-    .flickr .connect {
-      background-position: -2px -92px;
-    }
-  }
 
 
 

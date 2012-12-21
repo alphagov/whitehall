@@ -17,7 +17,7 @@ end
 Given /^the topic "([^"]*)" has "([^"]*)" as a lead organisation$/ do |topic_name, organisation_name|
   topic = Topic.find_by_name(topic_name) || create(:topic, name: topic_name)
   organisation = Organisation.find_by_name(organisation_name) || create(:ministerial_department, name: organisation_name)
-  OrganisationTopic.create(topic: topic, organisation: organisation, lead: true)
+  OrganisationClassification.create(topic: topic, organisation: organisation, lead: true)
 end
 
 Given /^the topic "([^"]*)" contains a published and a draft detailed guide$/ do |topic_name|
@@ -38,7 +38,7 @@ end
 Given /^the topic "([^"]*)" is related to the topic "([^"]*)"$/ do |name, related_name|
   related_topic = create(:topic, name: related_name)
   topic = Topic.find_by_name(name)
-  topic.update_attributes!(related_topics: [related_topic])
+  topic.update_attributes!(related_classifications: [related_topic])
 end
 
 When /^I create a new topic "([^"]*)" with description "([^"]*)"$/ do |name, description|
@@ -47,7 +47,7 @@ end
 
 When /^I create a new topic "([^"]*)" related to topic "([^"]*)"$/ do |name, related_name|
   create_topic(name: related_name)
-  create_topic(name: name, related_topics: [related_name])
+  create_topic(name: name, related_classifications: [related_name])
 end
 
 When /^I edit the topic "([^"]*)" to have description "([^"]*)"$/ do |name, description|
@@ -175,7 +175,7 @@ def create_topic(options = {})
   click_link "Create topic"
   fill_in "Name", with: options[:name] || "topic-name"
   fill_in "Description", with: options[:description] || "topic-description"
-  (options[:related_topics] || []).each do |related_name|
+  (options[:related_classifications] || []).each do |related_name|
     select related_name, from: "Related topics"
   end
   click_button "Save"

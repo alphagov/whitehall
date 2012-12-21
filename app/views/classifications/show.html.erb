@@ -1,0 +1,106 @@
+<% page_title @topic.name, "Topics" %>
+<% page_class "topics-show" %>
+<% atom_discovery_link_tag topic_url(@topic, format: 'atom'), "Latest activity on #{@topic.name}" %>
+
+<%= content_tag_for(:div, @topic, class: "classification #{@topic.class.name.underscore}") do %>
+  <div class="block block-1">
+    <div class="inner-block">
+      <%= render partial: "header" %>
+    </div>
+  </div>
+
+  <div class="block block-2">
+    <div class="inner-block">
+      <section id="recently-updated" class="latest-documents">
+        <header>
+          <h1 class="label">Latest</h1>
+          <%= link_to_feed topic_url(@topic, format: 'atom') %>
+        </header>
+        <% if @recently_changed_documents.any? %>
+          <%= render partial: "shared/recently_updated",
+                    locals: { recently_updated: @recently_changed_documents } %>
+        <% else %>
+          <p>There are no updates yet.</p>
+        <% end %>
+      </section>
+    </div>
+  </div>
+
+  <div class="block block-3">
+    <div class="inner-block">
+       <section class="what">
+          <%= govspeak_to_html @topic.description %>
+        </section>
+    </div>
+  </div>
+
+  <div class="block block-4">
+    <div class="inner-block">
+      <% if @policies.any? %>
+        <section id="policies" class="policies heading-block">
+          <h1 class="label">Policies</h1>
+          <div class="content">
+            <%= render partial: "policies/list_description", locals: {policies: @policies} %>
+          </div>
+        </section>
+      <% end %>
+      <% if @publications.any? %>
+        <section id="publications" class="heading-block">
+          <h1 class="label">Publications</h1>
+          <div class="content">
+            <%= render partial: "publications/list_description", locals: {publications: @publications} %>
+            <p class="see-all">
+              <%= link_to 'See all publications', publications_filter_path(@topic) %>
+            </p>
+          </div>
+        </section>
+      <% end %>
+      <% if @announcements.any? %>
+        <section id="announcements" class="heading-block">
+          <h1 class="label">Announcements</h1>
+          <div class="content">
+            <%= render partial: "announcements/list_description", locals: {announcements: @announcements} %>
+            <p class="see-all">
+              <%= link_to "See all announcements", announcements_filter_path(@topic) %>
+            </p>
+          </div>
+        </section>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="block block-6">
+    <div class="inner-block">
+      <aside class="elsewhere">
+        <% if @detailed_guides.any? %>
+          <section id="detailed-guidance" class="title-block">
+            <div class="content">
+              <h1 class="label">Detailed guidance</h1>
+              <ul>
+                <% @detailed_guides.each do |detailed_guide| %>
+                  <%= content_tag_for :li, detailed_guide do %>
+                    <%= link_to detailed_guide.title, public_document_path(detailed_guide) %>
+                  <% end %>
+                <% end %>
+              </ul>
+            </div>
+          </section>
+        <% end %>
+        <% if @related_classifications.any? %>
+          <section id="related-topics" class="title-block">
+            <div class="content">
+              <h1 class="label">Related topics</h1>
+              <ul>
+                <% @related_classifications.each do |topic| %>
+                  <%= content_tag_for :li, topic do %>
+                    <%= link_to topic.name, topic_path(topic) %>
+                  <% end %>
+                <% end %>
+              </ul>
+            </div>
+          </section>
+        <% end %>
+      </aside>
+    </div>
+  </div>
+<% end %>

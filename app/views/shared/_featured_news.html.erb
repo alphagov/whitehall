@@ -1,6 +1,7 @@
 <%
   extra_class ||= ""
   image_size ||= :s300
+  show_meta ||= false
 %>
 <%= content_tag_for(:article, edition, nil, class: "#{edition_organisation_class(edition)} #{extra_class}") do %>
   <div class="content">
@@ -8,7 +9,9 @@
       <%= link_to edition.image_tag(image_size), public_document_path(edition), title: "Read the #{edition.title} article", class: 'img'%>
     </span>
     <div class="text">
-      <p class="meta"><%= absolute_date(edition.timestamp_for_sorting) %> &mdash; <%= edition.display_type %></p>
+      <% if show_meta %>
+        <p class="meta"><%= absolute_date(edition.timestamp_for_sorting) %> &mdash; <%= edition.display_type %></p>
+      <% end %>
       <h2><%= link_to edition.title, public_document_path(edition) %></h2>
       <% unless edition.summary.blank? %>
         <p class="summary"><%= truncate(edition.summary, length: 150, separator: ' ') %></p>

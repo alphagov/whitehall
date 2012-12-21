@@ -13,6 +13,13 @@
 
 <div class="block-2">
   <div class="inner-block">
+    <div class="all-topical_events index-list-container">
+      <% if @topical_events.any? %>
+        <%= render partial: "list", locals: { topics: @topical_events } %>
+      <% else %>
+        <p>We don't have any topical_events with published documents at present.</p>
+      <% end %>
+    </div>
     <div class="all-topics index-list-container">
       <% if @topics.any? %>
         <%= render partial: "list", locals: { topics: @topics } %>

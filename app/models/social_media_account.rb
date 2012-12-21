@@ -1,5 +1,5 @@
 class SocialMediaAccount < ActiveRecord::Base
-  belongs_to :organisation
+  belongs_to :socialable, polymorphic: true
   belongs_to :social_media_service
 
   validates :social_media_service_id, presence: true

@@ -1,38 +1,6 @@
 require 'test_helper'
 
 class TopicTest < ActiveSupport::TestCase
-  should_protect_against_xss_and_content_attacks_on :name, :description
-
-  test "should default to the 'current' state" do
-    topic = Topic.new
-    assert topic.current?
-  end
-
-  test 'should be invalid without a name' do
-    topic = build(:topic, name: nil)
-    refute topic.valid?
-  end
-
-  test "should be invalid without a state" do
-    topic = build(:topic, state: nil)
-    refute topic.valid?
-  end
-
-  test "should be invalid with an unsupported state" do
-    topic = build(:topic, state: "foobar")
-    refute topic.valid?
-  end
-
-  test 'should be invalid without a unique name' do
-    existing_topic = create(:topic)
-    new_topic = build(:topic, name: existing_topic.name)
-    refute new_topic.valid?
-  end
-
-  test 'should be invalid without a description' do
-    topic = build(:topic, description: nil)
-    refute topic.valid?
-  end
 
   test "should allow association with policies" do
     policy = create(:draft_policy)
@@ -68,10 +36,10 @@ class TopicTest < ActiveSupport::TestCase
     topic = create(:topic)
     first_policy = create(:policy, topics: [topic])
     second_policy = create(:policy, topics: [topic])
-    first_association = topic.topic_memberships.find_by_edition_id(first_policy.id)
-    second_association = topic.topic_memberships.find_by_edition_id(second_policy.id)
+    first_association = topic.classification_memberships.find_by_edition_id(first_policy.id)
+    second_association = topic.classification_memberships.find_by_edition_id(second_policy.id)
 
-    topic.update_attributes(topic_memberships_attributes: {
+    topic.update_attributes(classification_memberships_attributes: {
       first_association.id => {id: first_association.id, edition_id: first_policy.id, ordering: "2"},
       second_association.id => {id: second_association.id, edition_id: second_policy.id, ordering: "1"}
     })
@@ -178,35 +146,35 @@ class TopicTest < ActiveSupport::TestCase
   test "return topics bi-directionally related to specific topic" do
     topic_1 = create(:topic)
     topic_2 = create(:topic)
-    topic = create(:topic, related_topics: [topic_1, topic_2])
+    topic = create(:topic, related_classifications: [topic_1, topic_2])
 
-    assert_equal [topic_1, topic_2], topic.related_topics
-    assert_equal [topic], topic_1.related_topics
-    assert_equal [topic], topic_2.related_topics
+    assert_equal [topic_1, topic_2], topic.related_classifications
+    assert_equal [topic], topic_1.related_classifications
+    assert_equal [topic], topic_2.related_classifications
   end
 
   test "should add related topics bi-directionally" do
     topic_1 = create(:topic)
     topic_2 = create(:topic)
-    topic = create(:topic, related_topics: [])
+    topic = create(:topic, related_classifications: [])
 
-    topic.update_attributes!(related_topic_ids: [topic_1.id, topic_2.id])
+    topic.update_attributes!(related_classification_ids: [topic_1.id, topic_2.id])
 
-    assert_equal [topic_1, topic_2], topic.related_topics
-    assert_equal [topic], topic_1.related_topics
-    assert_equal [topic], topic_2.related_topics
+    assert_equal [topic_1, topic_2], topic.related_classifications
+    assert_equal [topic], topic_1.related_classifications
+    assert_equal [topic], topic_2.related_classifications
   end
 
   test "should remove related topics bi-directionally" do
     topic_1 = create(:topic)
     topic_2 = create(:topic)
-    topic = create(:topic, related_topics: [topic_1, topic_2])
+    topic = create(:topic, related_classifications: [topic_1, topic_2])
 
-    topic.update_attributes!(related_topic_ids: [])
+    topic.update_attributes!(related_classification_ids: [])
 
-    assert_equal [], topic.related_topics
-    assert_equal [], topic_1.related_topics
-    assert_equal [], topic_2.related_topics
+    assert_equal [], topic.related_classifications
+    assert_equal [], topic_1.related_classifications
+    assert_equal [], topic_2.related_classifications
   end
 
 
@@ -370,7 +338,7 @@ class TopicTest < ActiveSupport::TestCase
     assert_equal 0, topic.published_edition_count
 
     policy = create(:published_policy)
-    topic_membership = create(:topic_membership, topic: topic, policy: policy)
+    classification_membership = create(:classification_membership, classification: topic, policy: policy)
     assert_equal 1, topic.reload.published_edition_count
 
     policy.update_attributes(state: :draft)
@@ -379,7 +347,7 @@ class TopicTest < ActiveSupport::TestCase
     policy.update_attributes(state: :published)
     assert_equal 1, topic.reload.published_edition_count
 
-    topic_membership.reload.destroy
+    classification_membership.reload.destroy
     assert_equal 0, topic.reload.published_edition_count
   end
 
@@ -388,7 +356,7 @@ class TopicTest < ActiveSupport::TestCase
     assert_equal 0, topic.published_policies_count
 
     policy = create(:published_policy)
-    topic_membership = create(:topic_membership, topic: topic, policy: policy)
+    classification_membership = create(:classification_membership, classification: topic, policy: policy)
     assert_equal 1, topic.reload.published_policies_count
 
     policy.update_attributes(state: :draft)
@@ -397,7 +365,7 @@ class TopicTest < ActiveSupport::TestCase
     policy.update_attributes(state: :published)
     assert_equal 1, topic.reload.published_policies_count
 
-    topic_membership.reload.destroy
+    classification_membership.reload.destroy
     assert_equal 0, topic.reload.published_policies_count
   end
 

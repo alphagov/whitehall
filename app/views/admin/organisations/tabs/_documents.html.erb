@@ -1,14 +1,16 @@
 <div class="tab-pane" id="documents">
-  <h2>Featured documents</h2>
-  <%= form_for [:admin, @organisation], as: :organisation do |form| %>
-    <fieldset class="sortable">
-      <%= form.fields_for :edition_organisations, @organisation.featured_edition_organisations do |fe_form| %>
-        <div class="well">
-          <%= fe_form.text_field :ordering, label_text: link_to(fe_form.object.edition.title, admin_edition_path(fe_form.object.edition)), class: "ordering" %>
-        </div>
-      <% end %>
-    </fieldset>
-    <%= form.submit "Save", class: "btn" %>
+  <% if @organisation.featured_edition_organisations.any? %>
+    <h2>Featured documents</h2>
+    <%= form_for [:admin, @organisation], as: :organisation do |form| %>
+      <fieldset class="sortable">
+        <%= form.fields_for :edition_organisations, @organisation.featured_edition_organisations do |fe_form| %>
+          <div class="well">
+            <%= fe_form.text_field :ordering, label_text: link_to(fe_form.object.edition.title, admin_edition_path(fe_form.object.edition)), class: "ordering" %>
+          </div>
+        <% end %>
+      </fieldset>
+      <%= form.submit "Save", class: "btn" %>
+    <% end %>
   <% end %>
 
   <h2>Published documents (<%= link_to "View all", admin_editions_path(organisation: @organisation.slug, state: :active)%>)</h2>

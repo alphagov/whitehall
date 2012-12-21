@@ -33,4 +33,11 @@ class NewsArticleTest < EditionTestCase
     news_article = create(:news_article, related_policies: [first_related_policy, second_related_policy])
     assert_equal [topic], news_article.topics
   end
+
+  test "can associate news articles with topical events" do
+    news_article = create(:news_article)
+    assert news_article.can_be_associated_with_topical_events?
+    assert topical_event = news_article.topical_events.create(name: "Test", description: "Test")
+    assert_equal [news_article], topical_event.news_articles
+  end
 end

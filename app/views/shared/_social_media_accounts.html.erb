@@ -1,0 +1,18 @@
+<% followus ||= true %>
+<% if socialable.social_media_accounts.any? %>
+  <section>
+    <% unless followus %>
+      <h2 class="label">Follow us</h2>
+    <% end %>
+    <ul class="social-media-accounts">
+      <% socialable.social_media_accounts.each do |account| %>
+        <%= content_tag_for(:li, account) do %>
+          <%= link_to account.url,
+                      class: "social-media-link #{account.service_name.downcase}" do %>
+            <span class="connect">Connect with <%= account.socialable.display_name %> on</span> <%= account.service_name %>
+          <% end %>
+        <% end %>
+      <% end %>
+    </ul>
+  </section>
+<% end %>

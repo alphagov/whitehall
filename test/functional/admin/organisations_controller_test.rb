@@ -78,7 +78,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
 
     post :create, organisation: attributes.merge(
       organisation_type_id: organisation_type.id,
-      topic_ids: [topic.id],
+      classification_ids: [topic.id],
       contacts_attributes: [{description: "Enquiries", contact_numbers_attributes: [{label: "Fax", number: "020712435678"}]}],
       organisation_logo_type_id: OrganisationLogoType::BusinessInnovationSkills.id
     )
@@ -104,17 +104,17 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     topic_ids = [create(:topic), create(:topic)].map(&:id)
 
     post :create, organisation: attributes.merge(
-      organisation_topics_attributes: [
-        {topic_id: topic_ids[0], ordering: 1 },
-        {topic_id: topic_ids[1], ordering: 2 }
+      organisation_classifications_attributes: [
+        {classification_id: topic_ids[0], ordering: 1 },
+        {classification_id: topic_ids[1], ordering: 2 }
       ],
       organisation_type_id: organisation_type.id
     )
 
     assert organisation = Organisation.last
-    assert organisation.organisation_topics.map(&:ordering).all?(&:present?), "no ordering"
-    assert_equal organisation.organisation_topics.map(&:ordering).sort, organisation.organisation_topics.map(&:ordering).uniq.sort
-    assert_equal topic_ids, organisation.organisation_topics.sort_by(&:ordering).map(&:topic_id)
+    assert organisation.organisation_classifications.map(&:ordering).all?(&:present?), "no ordering"
+    assert_equal organisation.organisation_classifications.map(&:ordering).sort, organisation.organisation_classifications.map(&:ordering).uniq.sort
+    assert_equal topic_ids, organisation.organisation_classifications.sort_by(&:ordering).map(&:classification_id)
   end
 
   test "creating should be able to create a new social media account for the organisation" do
@@ -242,7 +242,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
 
     post :create, organisation: attributes.merge(
       organisation_type_id: organisation_type.id,
-      topic_ids: [topic.id],
+      classification_ids: [topic.id],
       contacts_attributes: {"0" => {
         description: "Enquiries",
         contact_numbers_attributes: {
@@ -559,10 +559,10 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
   test "update should remove all related topics if none specified" do
     organisation_attributes = {name: "Ministry of Sound"}
     organisation = create(:organisation,
-      organisation_attributes.merge(topic_ids: [create(:topic).id])
+      organisation_attributes.merge(topics: [create(:topic)])
     )
 
-    put :update, id: organisation, organisation: organisation_attributes.merge(topic_ids: [""])
+    put :update, id: organisation, organisation: organisation_attributes.merge(classification_ids: [""])
 
     organisation.reload
     assert_equal [], organisation.topics
@@ -615,7 +615,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
   test "updating should destroy existing social media account if all its field are blank" do
     attributes = attributes_for(:organisation)
     organisation = create(:organisation, attributes)
-    account = create(:social_media_account, organisation: organisation)
+    account = create(:social_media_account, socialable: organisation)
 
     put :update, id: organisation, organisation: attributes.merge(
       social_media_accounts_attributes: {"0" => {

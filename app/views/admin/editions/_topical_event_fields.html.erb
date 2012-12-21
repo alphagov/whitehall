@@ -1,0 +1,2 @@
+<%= form.label :topical_event_ids, 'Topical events' %>
+<%= form.select :topical_event_ids, options_from_collection_for_select(TopicalEvent.order(:name), 'id', 'name', edition.topical_event_ids), {}, multiple: true, class: 'chzn-select', data: { placeholder: "Choose topical events..."} %>
