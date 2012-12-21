@@ -7,8 +7,8 @@
   <div class="block">
     <div class="inner-block">
       <header class="page-title">
-        <h1><span><%= image_tag "g8-2013-logo.png", alt: @topical_event.name %></span></h1>
-        <h2><span>UK Presidency of G8 2013</span></h2>
+        <h1><%= image_tag(@topical_event.logo_url, alt: @topical_event.logo_alt_text) if @topical_event.logo? %></h1>
+        <h2><span><%= @topical_event.name %></span></h2>
       </header>
 
       <div class="page-description">

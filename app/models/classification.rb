@@ -69,6 +69,9 @@ class Classification < ActiveRecord::Base
   scope :with_content, where("published_edition_count <> 0")
   scope :with_policies, where("published_policies_count <> 0")
 
+  mount_uploader :logo, ImageUploader, mount_on: :carrierwave_image
+  validates :logo, presence: true
+
   def self.with_related_detailed_guides
     joins(:published_detailed_guides).group(arel_table[:id])
   end
@@ -137,4 +140,9 @@ class Classification < ActiveRecord::Base
   def to_s
     name
   end
+
+  private
+    def logo_changed?
+      changes["carrierwave_image"].present?
+    end
 end
