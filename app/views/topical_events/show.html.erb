@@ -51,7 +51,7 @@
     </div>
   </div>
 
-  <div class="block block-4">
+  <div class="block">
     <div class="inner-block">
       <% if @policies.any? %>
         <section id="policies" class="policies heading-block">
@@ -83,46 +83,50 @@
           </div>
         </section>
       <% end %>
-    </div>
-  </div>
-
-  <div class="block block-6">
-    <div class="inner-block">
-      <aside class="elsewhere">
-        <% if @detailed_guides.any? %>
-          <section id="detailed-guidance" class="title-block">
-            <div class="content">
-              <h1 class="label">Detailed guidance</h1>
-              <ul>
-                <% @detailed_guides.each do |detailed_guide| %>
-                  <%= content_tag_for :li, detailed_guide do %>
-                    <%= link_to detailed_guide.title, public_document_path(detailed_guide) %>
-                  <% end %>
+      <% if @detailed_guides.any? %>
+        <section id="detailed-guidance" class="heading-block">
+          <h1 class="label">Detailed guidance</h1>
+          <div class="content">
+            <ul class="documents-list">
+              <% @detailed_guides.each do |detailed_guide| %>
+                <%= content_tag_for :li, detailed_guide, class: 'document' do %>
+                  <h2><%= link_to detailed_guide.title, public_document_path(detailed_guide) %></h2>
                 <% end %>
-              </ul>
-            </div>
-          </section>
-        <% end %>
-        <% if @related_classifications.any? %>
-          <section id="related-topics" class="title-block">
-            <div class="content">
-              <h1 class="label">Related topics</h1>
-              <ul>
-                <% @related_classifications.each do |topic| %>
-                  <%= content_tag_for :li, topic do %>
-                    <%= link_to topic.name, topic_path(topic) %>
-                  <% end %>
+              <% end %>
+            </ul>
+          </div>
+        </section>
+      <% end %>
+      <% if @related_classifications.any? %>
+        <section id="related-topics" class="heading-block">
+          <h1 class="label">Related topics</h1>
+          <div class="content">
+            <ul class="documents-list">
+              <% @related_classifications.each do |topic| %>
+                <%= content_tag_for :li, topic do %>
+                  <%= link_to topic.name, topic_path(topic) %>
                 <% end %>
-              </ul>
-            </div>
-          </section>
-        <% end %>
-      </aside>
-        <div class="meta">
-          <%= render partial: 'organisations/organisations_logo_list',
-                    locals: { organisations: @topical_event.organisations,
-                              lead_organisations: @topical_event.lead_organisations } %>
+              <% end %>
+            </ul>
+          </div>
+        </section>
+      <% end %>
+      <section id="organisations" class="heading-block organisations">
+        <h1 class="label">Departments</h1>
+        <div class="content">
+          <ul>
+            <% @topical_event.lead_organisations.each do |organisation| %>
+              <%= content_tag_for(:li, organisation, class: organisation.slug) do %>
+                <%= link_to organisation_path(organisation),
+                      title: organisation.logo_formatted_name,
+                      class: organisation_logo_classes(organisation, {stacked: true}) do %>
+                  <span><%= format_with_html_line_breaks(h(organisation.logo_formatted_name)) %></span>
+                <% end %>
+              <% end %>
+            <% end %>
+          </ul>
         </div>
+      </section>
     </div>
   </div>
 <% end %>

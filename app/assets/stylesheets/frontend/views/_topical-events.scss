@@ -238,4 +238,18 @@
     }
   }
 
+  .organisations {
+    ul {
+      list-style: none;
+
+      li {
+        padding: 0 0 $gutter-half;
+        @include media(tablet){
+          float: left;
+          width: 127px; // kill me now! this is far to tight but they have been 'signed off' on one line.
+          min-height: 90px;
+        }
+      }
+    }
+  }
 }
