@@ -13,9 +13,9 @@
         None
       <% end %>
       </td></tr>
-    <tr><th>Topics</th><td>
-      <% if @organisation.topics.any? %>
-        <%= @organisation.topics.map {|t| link_to(t.name, [:edit, :admin, t]) }.to_sentence.html_safe %>
+    <tr><th>Topics and Topical Events</th><td>
+      <% if @organisation.classifications.any? %>
+        <%= @organisation.classifications.map {|t| link_to(t.name, [:edit, :admin, t]) }.to_sentence.html_safe %>
       <% else %>
         None
       <% end %>
