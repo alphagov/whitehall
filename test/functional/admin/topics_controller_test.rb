@@ -225,6 +225,6 @@ class Admin::TopicsControllerTest < ActionController::TestCase
     topic_with_published_policy = create(:topic, policies: [build(:published_policy)])
 
     delete :destroy, id: topic_with_published_policy.id
-    assert_equal "Cannot destroy topic with associated content", flash[:alert]
+    assert_equal "Cannot destroy Topic with associated content", flash[:alert]
   end
 end
