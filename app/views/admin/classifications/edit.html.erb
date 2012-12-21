@@ -1,0 +1,26 @@
+<% page_title "Edit " + @classification.name %>
+
+<div class="span8">
+  <section>
+    <h1>Edit <%= model_class.name.underscore.humanize.downcase %></h1>
+    <%= render partial: "form", locals: {classification: @classification} %>
+  </section>
+</div>
+
+<div class="sidebar span4">
+  <section class="display_heading">
+    <h1>Delete <%= model_class.name.underscore.humanize.downcase %></h1>
+    <% if @classification.destroyable? %>
+      <%= button_to 'Delete', admin_topic_path(@classification), method: :delete, confirm: "Are you sure you want to delete: #{@classification} ?", class: 'btn btn-danger' %>
+    <% else %>
+      <div class="policies_preventing_destruction">
+        <p>This topic can't be deleted as it has associated policies:</p>
+        <ul>
+          <% policies_preventing_destruction(@classification).each do |policy| %>
+            <li><%= policy %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+  </section>
+</div>

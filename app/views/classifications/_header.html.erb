@@ -1,0 +1,8 @@
+<header class="page-header">
+  <h1><span class="label">Topic</span> <span class="topic"><%= @topic.name %></span></h1>
+  <div class="meta">
+    <%= render partial: 'organisations/organisations_logo_list',
+               locals: { organisations: @topic.organisations,
+                         lead_organisations: @topic.lead_organisations } %>
+  </div>
+</header>

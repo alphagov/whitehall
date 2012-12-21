@@ -1,0 +1,132 @@
+<% page_title @topical_event.name, "Topical Event" %>
+<% page_class "topical-events-show" %>
+<% atom_discovery_link_tag topic_url(@topical_event, format: 'atom'), "Latest activity on #{@topical_event.name}" %>
+
+<%= content_tag_for(:div, @topical_event, class: "classification #{@topical_event.class.name.underscore}") do %>
+
+  <div class="block">
+    <div class="inner-block">
+      <header class="page-title">
+        <h1><%= image_tag(@topical_event.logo_url, alt: @topical_event.logo_alt_text) if @topical_event.logo? %></h1>
+        <h2><span><%= @topical_event.name %></span></h2>
+      </header>
+
+      <div class="page-description">
+        <section id="recently-updated" class="latest-documents">
+          <header>
+            <h1 class="label">Latest</h1>
+            <%= link_to_feed topic_url(@topical_event, format: 'atom') %>
+          </header>
+          <% if @recently_changed_documents.any? %>
+            <%= render partial: "shared/recently_updated",
+                      locals: { recently_updated: @recently_changed_documents } %>
+          <% else %>
+            <p class="no-updates">There are no updates yet.</p>
+          <% end %>
+        </section>
+        <section class="description">
+          <%= govspeak_to_html @topical_event.description %>
+
+          <% if @topical_event.social_media_accounts.any? %>
+            <%= render partial: 'shared/social_media_accounts',
+                      locals: { socialable: @topical_event, followus: false } %>
+          <% end %>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="inner-block">
+      <% if @featured_editions.any? %>
+        <section class="featured-news items-<%= @featured_editions.length %>">
+          <% @featured_editions.each_with_index do |edition, i| %>
+            <%= render partial: 'shared/featured_news',
+                      locals: { edition: edition,
+                                image_size: :s465,
+                                extra_class: "item-#{i}"} %>
+          <% end %>
+        </section>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="inner-block">
+      <% if @policies.any? %>
+        <section id="policies" class="policies heading-block">
+          <h1 class="label">Policies</h1>
+          <div class="content">
+            <%= render partial: "policies/list_description", locals: {policies: @policies} %>
+          </div>
+        </section>
+      <% end %>
+      <% if @publications.any? %>
+        <section id="publications" class="heading-block">
+          <h1 class="label">Publications</h1>
+          <div class="content">
+            <%= render partial: "publications/list_description", locals: {publications: @publications} %>
+            <p class="see-all">
+              <%#= link_to 'See all publications', publications_filter_path(@topical_event) %>
+            </p>
+          </div>
+        </section>
+      <% end %>
+      <% if @announcements.any? %>
+        <section id="announcements" class="heading-block">
+          <h1 class="label">Announcements</h1>
+          <div class="content">
+            <%= render partial: "announcements/list_description", locals: {announcements: @announcements} %>
+            <p class="see-all">
+              <%#= link_to "See all announcements", announcements_filter_path(@topical_event) %>
+            </p>
+          </div>
+        </section>
+      <% end %>
+      <% if @detailed_guides.any? %>
+        <section id="detailed-guidance" class="heading-block">
+          <h1 class="label">Detailed guidance</h1>
+          <div class="content">
+            <ul class="documents-list">
+              <% @detailed_guides.each do |detailed_guide| %>
+                <%= content_tag_for :li, detailed_guide, class: 'document' do %>
+                  <h2><%= link_to detailed_guide.title, public_document_path(detailed_guide) %></h2>
+                <% end %>
+              <% end %>
+            </ul>
+          </div>
+        </section>
+      <% end %>
+      <% if @related_classifications.any? %>
+        <section id="related-topics" class="heading-block">
+          <h1 class="label">Related topics</h1>
+          <div class="content">
+            <ul class="documents-list">
+              <% @related_classifications.each do |topic| %>
+                <%= content_tag_for :li, topic do %>
+                  <%= link_to topic.name, topic_path(topic) %>
+                <% end %>
+              <% end %>
+            </ul>
+          </div>
+        </section>
+      <% end %>
+      <section id="organisations" class="heading-block organisations">
+        <h1 class="label">Departments</h1>
+        <div class="content">
+          <ul>
+            <% @topical_event.lead_organisations.each do |organisation| %>
+              <%= content_tag_for(:li, organisation, class: organisation.slug) do %>
+                <%= link_to organisation_path(organisation),
+                      title: organisation.logo_formatted_name,
+                      class: organisation_logo_classes(organisation, {stacked: true}) do %>
+                  <span><%= format_with_html_line_breaks(h(organisation.logo_formatted_name)) %></span>
+                <% end %>
+              <% end %>
+            <% end %>
+          </ul>
+        </div>
+      </section>
+    </div>
+  </div>
+<% end %>

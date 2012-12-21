@@ -2,6 +2,7 @@ class Announcement < Edition
   include Edition::Images
   include Edition::RelatedPolicies
   include Edition::Countries
+  include Edition::TopicalEvents
 
   def can_have_summary?
     true

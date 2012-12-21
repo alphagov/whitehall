@@ -416,7 +416,7 @@ class OrganisationTest < ActiveSupport::TestCase
 
   test 'destroy deletes related social media accounts' do
     organisation = create(:organisation)
-    social_media_account = create(:social_media_account, organisation: organisation)
+    social_media_account = create(:social_media_account, socialable: organisation)
     organisation.destroy
     assert_nil SocialMediaAccount.find_by_id(social_media_account.id)
   end
@@ -432,7 +432,7 @@ class OrganisationTest < ActiveSupport::TestCase
     organisation = create(:organisation)
     topic = create(:topic, organisations: [organisation])
     organisation.destroy
-    assert_equal 0, OrganisationTopic.count
+    assert_equal 0, OrganisationClassification.count
   end
 
   test 'destroy unsets user organisation' do
@@ -521,8 +521,9 @@ class OrganisationTest < ActiveSupport::TestCase
   test "topics are explicitly ordered" do
     topics = [create(:topic), create(:topic)]
     organisation = create(:organisation)
-    organisation.organisation_topics.create(topic_id: topics[0].id, ordering: 2)
-    organisation.organisation_topics.create(topic_id: topics[1].id, ordering: 1)
+    organisation.organisation_classifications.create(classification_id: topics[0].id, ordering: 2)
+    organisation.organisation_classifications.create(classification_id: topics[1].id, ordering: 1)
+    assert_match /order by/i, organisation.topics.to_sql
     assert_equal [topics[1], topics[0]], organisation.topics
   end
 end

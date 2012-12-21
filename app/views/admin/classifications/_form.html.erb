@@ -1,22 +1,22 @@
-<%= form_for [:admin, topic] do |topic_form| %>
-  <%= topic_form.errors %>
+<%= form_for [:admin, classification] do |classification_form| %>
+  <%= classification_form.errors %>
 
   <fieldset>
-    <%= topic_form.text_field :name %>
-    <%= topic_form.text_area :description %>
+    <%= classification_form.text_field :name %>
+    <%= classification_form.text_area :description %>
   </fieldset>
 
-  <fieldset>
-    <%= topic_form.label :related_topic_ids, "Related topics" %>
-    <%= topic_form.select :related_topic_ids, options_from_collection_for_select(Topic.all - [topic], 'id', 'name', topic.related_topic_ids), {}, multiple: true, class: 'chzn-select', data: { placeholder: "Choose related topics..."} %>
-  </fieldset>
+  <%= render partial: 'related_topics', locals: {classification_form: classification_form} %>
+  <%= render partial: 'logo', locals: {classification_form: classification_form} %>
+
+  <%= render partial: 'social_media', locals: {classification_form: classification_form} %>
 
   <fieldset id="policy_order" class="named sortable">
     <legend>Policy ordering</legend>
-    <%= topic_form.fields_for :topic_memberships, topic.topic_memberships.for_type(Policy).published do |topic_membership_form| %>
-      <% policy = topic_membership_form.object.policy %>
+    <%= classification_form.fields_for :classification_memberships, classification.classification_memberships.for_type(Policy).published do |classification_membership_form| %>
+      <% policy = classification_membership_form.object.policy %>
       <div id="<%= dom_id(policy) %>" class="well">
-        <%= topic_membership_form.text_field :ordering, label_text: link_to(policy.title, admin_edition_path(policy)), class: "ordering" %>
+        <%= classification_membership_form.text_field :ordering, label_text: link_to(policy.title, admin_edition_path(policy)), class: "ordering" %>
         <p>
           <%= [pluralize(Publication.published.related_to(policy).count, "publication"),
                pluralize(NewsArticle.published.related_to(policy).count, "news article")].to_sentence %>
@@ -30,7 +30,7 @@
       <legend>Organisations</legend>
 
       <div id="organisation_sortable">
-        <%= topic_form.fields_for :organisation_topics, topic.organisation_topics.where(lead: false) do |organisation_form| %>
+        <%= classification_form.fields_for :organisation_classifications, classification.organisation_classifications.where(lead: false) do |organisation_form| %>
           <% organisation = organisation_form.object.organisation %>
           <div id="<%= dom_id(organisation) %>" class="well">
             <%= organisation_form.text_field :lead_ordering, label_text: link_to(organisation.name, admin_organisation_path(organisation)), class: "ordering" %>
@@ -44,7 +44,7 @@
       <legend>Lead organisations</legend>
 
       <div id="lead_organisation_sortable">
-        <%= topic_form.fields_for :organisation_topics, topic.lead_organisation_topics do |lead_organisation_form| %>
+        <%= classification_form.fields_for :organisation_classifications, classification.lead_organisation_classifications do |lead_organisation_form| %>
           <% lead_organisation = lead_organisation_form.object.organisation %>
           <div id="<%= dom_id(lead_organisation) %>" class="well">
             <%= lead_organisation_form.text_field :lead_ordering, label_text: link_to(lead_organisation.name, admin_organisation_path(lead_organisation)), class: "ordering" %>
@@ -54,5 +54,5 @@
       </div>
     </fieldset>
   </div>
-  <%= topic_form.save_or_cancel cancel: admin_topics_path %>
+  <%= classification_form.save_or_cancel cancel: admin_topics_path %>
 <% end %>

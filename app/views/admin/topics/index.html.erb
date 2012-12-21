@@ -1,11 +1,12 @@
-<% page_title "Topics" %>
+<% model_name = model_class.name.underscore %>
+<% page_title model_name.humanize %>
 <nav class="actions">
-  <%= link_to "Create topic", new_admin_topic_path, class: "btn new_resource", title: "Create a Topic" %>
+  <%= link_to "Create #{model_name.humanize.downcase}", [:new, :admin, model_name], class: "btn new_resource", title: "Create a #{model_name.humanize.downcase}" %>
 </nav>
 
-<h1>Topics</h1>
+<h1><%= model_name.humanize.pluralize %></h1>
 
-<table class="topics table table-striped">
+<table class="<%= model_name %> table table-striped">
   <thead>
     <tr>
       <th width="15%">Name</th>
@@ -15,20 +16,23 @@
     </tr>
   </thead>
   <tbody>
-    <% @topics.each do |topic| %>
-      <%= content_tag_for(:tr, topic) do %>
-        <td class="name"><%= link_to topic.name, edit_admin_topic_path(topic), title: "Edit topic #{topic.name}" %></td>
-        <td class="description"><%= topic.description %></td>
+    <% @classifications.each do |classification| %>
+      <%= content_tag_for(:tr, classification) do %>
+        <td class="name">
+          <%= link_to classification.name, [:edit, :admin, classification], title: "Edit #{model_name.humanize.downcase} #{classification.name}" %>
+          (<%= link_to "view", classification, title: "View #{classification.name} on the public website" %>)
+        </td>
+        <td class="description"><%= classification.description %></td>
         <td class="details">
-          <%= topic.breakdown.map { |key, count|
+          <%= classification.breakdown.map { |key, count|
             pluralize count, key
            }.to_sentence %>
         </td>
         <td class="related">
           <ul>
-            <% topic.related_topics.each do |pa| %>
+            <% classification.related_classifications.each do |pa| %>
               <%= content_tag_for(:li, pa) do %>
-                <%= link_to pa.name, edit_admin_topic_path(pa), title: "Edit topic #{pa.name}" %>
+                <%= link_to pa.name, edit_admin_topic_path(pa), title: "Edit #{model_name.humanize.downcase} #{pa.name}" %>
               <% end %>
             <% end %>
           </ul>

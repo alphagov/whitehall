@@ -14,13 +14,15 @@
     <div class="inner-block">
       <section class="organisation-news items-<%= @featured_editions.length %>" id="featured-documents">
         <% if @featured_editions.any? %>
-          <%= render partial: 'news',
+          <%= render partial: 'shared/featured_news',
                     locals: { edition: @featured_editions.first,
                               extra_class: 'first',
+                              show_meta: true,
                               image_size: :s630 } %>
           <% @featured_editions.to_a.from(1).each_with_index do |edition, i| %>
-            <%= render partial: 'news',
+            <%= render partial: 'shared/featured_news',
                       locals: { edition: edition,
+                                show_meta: true,
                                 extra_class: "secondary item-#{i}" } %>
           <% end %>
         <% end %>
@@ -64,7 +66,7 @@
       <% if @organisation.social_media_accounts.any? %>
         <div class="social-media">
           <div class="content">
-            <%= render 'social_media_accounts', organisation: @organisation %>
+            <%= render 'shared/social_media_accounts', socialable: @organisation %>
           </div>
         </div>
       <% end %>
@@ -76,7 +78,7 @@
       <div class="inner-block">
         <section id="topics">
           <h1 class="label">We work on these topics</h1>
-          <%= render partial: "topics/list_description", locals: {topics: @topics, organisation: @organisation} %>
+          <%= render partial: "classifications/list_description", locals: {topics: @topics, organisation: @organisation} %>
         </section>
       </div>
     </div>
