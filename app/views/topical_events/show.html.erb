@@ -8,7 +8,7 @@
     <div class="inner-block">
       <header class="page-title">
         <h1><%= image_tag "g8-2013-logo.png", alt: @topical_event.name %></h1>
-        <h2><span>UK Presidency of G8 2013<span></h2>
+        <h2><span>UK Presidency of G8 2013</span></h2>
       </header>
 
       <div class="page-description">
@@ -38,52 +38,15 @@
 
   <div class="block">
     <div class="inner-block">
-      <section class="featured-news items-4">
-        <article class="policy cabinet-office secondary item-0" id="policy_55819">
-          <div class="content">
-            <span class="img-holder">
-              <a href="/government/policies/establishing-stability-in-afghanistan" class="img" title="Read the Establishing stability in Afghanistan article"><img alt="Afghanistan: PATRICK BAZ/AFP/Getty Images" class="featured-image" src="https://assets.digital.cabinet-office.gov.uk/government/uploads/system/uploads/edition_organisation_image_data/file/238/s465_Afghanistan-final.jpg"></a>
-            </span>
-            <div class="text">
-              <h2><a href="/government/policies/establishing-stability-in-afghanistan">Establishing stability in Afghanistan</a></h2>
-              <p class="summary">How the UK is helping Afghanistan to become a more secure nation with international support. </p>
-            </div>
-          </div>
-        </article>
-        <article class="speech foreign-commonwealth-office secondary item-1" id="speech_59987">
-          <div class="content">
-            <span class="img-holder">
-              <a href="/government/speeches/the-foreign-office-one-of-the-great-offices-of-state" class="img" title="Read the The Foreign Office, one of the great offices of state. article"><img alt="The FCO grand staircase " class="featured-image" src="https://assets.digital.cabinet-office.gov.uk/government/uploads/system/uploads/edition_organisation_image_data/file/271/s465_FCO-staircase-final.jpg"></a>
-            </span>
-            <div class="text">
-              <h2><a href="/government/speeches/the-foreign-office-one-of-the-great-offices-of-state">The Foreign Office, one of the great offices of state.</a></h2>
-              <p class="summary">The Foreign Secretary gave a speech on the Foreign and Commonwealth Office as part of the Speaker's lecture series on great offices of state.</p>
-            </div>
-          </div>
-        </article>
-        <article class="news_article foreign-commonwealth-office secondary item-2" id="news_article_59945">
-          <div class="content">
-            <span class="img-holder">
-              <a href="/government/news/christmas-holiday-travel-advice" class="img" title="Read the Christmas Holiday Travel Advice article"><img alt="EyesWideOpen/Getty Images" class="featured-image" src="https://assets.digital.cabinet-office.gov.uk/government/uploads/system/uploads/edition_organisation_image_data/file/259/s465_Ski-final.jpg"></a>
-            </span>
-            <div class="text">
-              <h2><a href="/government/news/christmas-holiday-travel-advice">Christmas Holiday Travel Advice</a></h2>
-              <p class="summary">A few simple preparations before and during your holiday can help to make your Christmas trip safe and trouble free.</p>
-            </div>
-          </div>
-        </article>
-        <article class="policy cabinet-office secondary item-0" id="policy_55819">
-          <div class="content">
-            <span class="img-holder">
-              <a href="/government/policies/establishing-stability-in-afghanistan" class="img" title="Read the Establishing stability in Afghanistan article"><img alt="Afghanistan: PATRICK BAZ/AFP/Getty Images" class="featured-image" src="https://assets.digital.cabinet-office.gov.uk/government/uploads/system/uploads/edition_organisation_image_data/file/238/s465_Afghanistan-final.jpg"></a>
-            </span>
-            <div class="text">
-              <h2><a href="/government/policies/establishing-stability-in-afghanistan">Establishing stability in Afghanistan</a></h2>
-              <p class="summary">How the UK is helping Afghanistan to become a more secure nation with international support. </p>
-            </div>
-          </div>
-        </article>
-      </section>
+      <% if @featured_editions.any? %>
+        <section class="featured-news items-<%= @featured_editions.length %>">
+          <% @featured_editions.each_with_index do |edition, i| %>
+            <%= render partial: 'shared/featured_news',
+                      locals: { edition: edition,
+                                image_size: :s630 } %>
+          <% end %>
+        </section>
+      <% end %>
     </div>
   </div>
 

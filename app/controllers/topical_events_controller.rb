@@ -15,6 +15,7 @@ class TopicalEventsController < ClassificationsController
     @detailed_guides = @topical_event.detailed_guides.published.limit(5)
     @related_classifications = @topical_event.related_classifications
     @recently_changed_documents = @topical_event.recently_changed_documents
+    @featured_editions = FeaturedEditionPresenter.decorate(@topical_event.classification_featurings.limit(6))
     set_slimmer_organisations_header(@topical_event.organisations)
 
     respond_to do |format|
