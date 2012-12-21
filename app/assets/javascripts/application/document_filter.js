@@ -47,7 +47,7 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
     progressSpan: function(current, total) {
       return '<span>' + current + " of " + total + '</span>';
     },
-    importantAttributes: ["id", "title", "url", "type"],
+    importantAttributes: ["id", "title", "url", "type", "updated_at"],
     importantAttribute: function(attribute) {
       return ($.inArray(attribute, documentFilter.importantAttributes) < 0);
     },
