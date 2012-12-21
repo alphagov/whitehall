@@ -41,4 +41,8 @@ class TopicalEvent < Classification
     last = classification_featurings.order("ordering desc").limit(1).last
     last ? last.ordering + 1 : 1
   end
+
+  def recently_changed_documents
+    (published_announcements + published_publications).sort_by(&:timestamp_for_sorting).reverse
+  end
 end
