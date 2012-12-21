@@ -10,8 +10,8 @@ class TopicalEventsController < ClassificationsController
     # expire_on_next_scheduled_publication(@topical_event.scheduled_editions +
     #   Publication.scheduled_in_topic([@topical_event]) +
     #   Announcement.scheduled_in_topic([@topical_event]))
-    @publications = PublicationesquePresenter.decorate(@topical_event.published_publications.in_reverse_chronological_order.limit(3))
-    @announcements = AnnouncementPresenter.decorate(@topical_event.published_announcements.in_reverse_chronological_order.limit(3))
+    @publications = PublicationesquePresenter.decorate(@topical_event.published_publications.in_reverse_chronological_order.limit(6))
+    @announcements = AnnouncementPresenter.decorate(@topical_event.published_announcements.in_reverse_chronological_order.limit(6))
     @detailed_guides = @topical_event.detailed_guides.published.limit(5)
     @related_classifications = @topical_event.related_classifications
     @recently_changed_documents = @topical_event.recently_changed_documents
