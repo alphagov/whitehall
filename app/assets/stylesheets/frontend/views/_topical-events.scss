@@ -1,6 +1,6 @@
 .topical-events-show {
 
-  .page-header {
+  .page-title {
     @include media(tablet){
       padding: $gutter*2 0;
       overflow: hidden;
@@ -10,6 +10,7 @@
       @include media(tablet){
         width: 33.33%;
         float: left;
+        padding-top: 4px;
 
         img {
           width: 100%;
