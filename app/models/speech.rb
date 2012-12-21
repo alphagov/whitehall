@@ -36,7 +36,7 @@ class Speech < Announcement
   end
 
   def populate_organisations_based_on_role_appointment
-    unless deleted?
+    unless deleted? or organisations_via_role_appointment.empty?
       self.edition_organisations = []
       self.organisations = []
       organisations_via_role_appointment.each { |o| self.organisations << o }

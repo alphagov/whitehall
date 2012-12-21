@@ -3,10 +3,11 @@ require 'test_helper'
 class Whitehall::Uploader::SpeechRowTest < ActiveSupport::TestCase
   setup do
     @attachment_cache = stub('attachment cache')
+    @default_organisation = stub('Organisation')
   end
 
-  def new_speech_row(data)
-    Whitehall::Uploader::SpeechRow.new(data, 1, @attachment_cache, stub("Organisation"))
+  def new_speech_row(data = {})
+    Whitehall::Uploader::SpeechRow.new(data, 1, @attachment_cache, @default_organisation)
   end
 
   def basic_headings
@@ -45,6 +46,19 @@ class Whitehall::Uploader::SpeechRowTest < ActiveSupport::TestCase
   test "takes summary from the summary column" do
     row = new_speech_row({"summary" => "a-summary"})
     assert_equal "a-summary", row.summary
+  end
+
+  test "finds temporary organisation from the organisation field" do
+    organisation = stub('Organisation', name: 'Treasury')
+    Organisation.stubs(:find_by_name).with('Treasury').returns(organisation)
+
+    row = new_speech_row({"organisation" => "Treasury"})
+    assert_equal [organisation], row.organisations
+  end
+
+  test "uses default organisation as temporary org if the organisation field is blank" do
+    row = new_speech_row({"organisation" => ""})
+    assert_equal [@default_organisation], row.organisations
   end
 
   test "finds speech type by slug in the speech type column" do

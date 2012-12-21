@@ -73,12 +73,10 @@ class SpeechTest < EditionTestCase
     assert_equal [organisation], speech.organisations
   end
 
-  test "save should populate organisations based on the role_appointment that delivered the speech" do
+  test "imported speeches without role_appointments yet will preserve organisations for now" do
     organisation = create(:organisation)
-    ministerial_role = create(:ministerial_role, organisations: [organisation])
-    role_appointment = create(:role_appointment, role: ministerial_role)
-    speech = create(:speech, role_appointment: role_appointment)
-
+    speech = build(:speech, organisations: [organisation], state: 'imported', role_appointment: nil)
+    speech.save
     assert_equal [organisation], speech.organisations
   end
 

@@ -50,7 +50,7 @@ Then /^the import should fail with errors about organisation and sub type and no
   assert_equal 0, Edition.count
 end
 
-Then /^I can't make the imported publication into a draft edition yet$/ do
+Then /^I can't make the imported (?:publication|speech) into a draft edition yet$/ do
   visit_document_preview Edition.imported.last.title
 
   assert page.has_no_button?('Convert to draft')
@@ -62,7 +62,7 @@ When /^I set the imported publication's type to "([^"]*)"$/ do |publication_sub_
   click_on 'Save'
 end
 
-Then /^I can make the imported publication into a draft edition$/ do
+Then /^I can make the imported (?:publication|speech) into a draft edition$/ do
   edition = Edition.imported.last
   visit_document_preview edition.title
 
@@ -75,3 +75,27 @@ end
 # After do |scenario|
 #   save_and_open_page if scenario.failed?
 # end
+Then /^the imported speech's organisation is set to "([^"]*)"$/ do |organisation_name|
+  assert_equal organisation_name, Edition.imported.last.organisations.first.name
+end
+
+When /^I set the imported speech's type to "([^"]*)"$/ do |speech_type|
+  begin_editing_document Edition.imported.last.title
+  select speech_type, from: 'Type'
+  click_on 'Save'
+end
+
+When /^I set the deliverer of the speech to "([^"]*)" from the "([^"]*)"$/ do |person_name, organisation_name|
+  person = find_or_create_person(person_name)
+  organisation = create(:ministerial_department, name: organisation_name)
+  role = create(:role, organisations: [organisation])
+  create(:role_appointment, role: role, person: person)
+
+  begin_editing_document Edition.imported.last.title
+  select person_name, from: 'Delivered by'
+  click_on 'Save'
+end
+
+Then /^the speech's organisation is set to "([^"]*)"$/ do |organisation_name|
+  assert_equal Edition.last.organisations, [Organisation.find_by_name(organisation_name)]
+end

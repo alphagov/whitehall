@@ -66,7 +66,7 @@
         <section class="tab-pane supporting_pages" id="supporting_pages">
           <h1>Supporting pages
           <% if @edition.editable? %>
-            <span class="add_supporting_page pull-right"> <%= link_to new_admin_edition_supporting_page_path(@edition), title: "Add supporting page to #{@edition.title}", :class => "btn btn-primary" do %>
+            <span class="add_supporting_page pull-right"> <%= link_to new_admin_edition_supporting_page_path(@edition), title: "Add supporting page to #{@edition.title}", class: "btn btn-primary" do %>
               <i class="icon-plus-sign icon-white"></i> Add
             <% end %>
             </span>
@@ -188,20 +188,7 @@
   <%= render partial: 'navigation', locals: { edition: @edition } %>
 
   <% if @edition.is_a?(Speech) %>
-    <p class="details">
-      <span class="type"><%= @edition.speech_type.name %></span>
-      for speech delivered by
-      <span class="role_appointment">
-        <span class="person"><%= link_to @edition.role_appointment.person.name, @edition.role_appointment.person %></span>
-        <span class="role"><%= role_appointment(@edition.role_appointment, true) %></span>
-        in
-        <span class="organisations"><%= @edition.role.organisations.map {|o| link_to(o.name, o)}.to_sentence.html_safe %></span>
-      </span>
-      on
-      <span class="delivered_on"><%= @edition.delivered_on.to_s(:long_ordinal) %></span>
-      at
-      <span class="location"><%= @edition.location %></span>
-    </p>
+    <%= render partial: 'speech_details' %>
   <% end %>
 
   <%= sidebar_tabs edition_tabs(@edition) do |tabs| %>
@@ -209,7 +196,7 @@
       <h1>Activity</h1>
       <%= link_to "Add new remark", new_admin_edition_editorial_remark_path(@edition), class: "btn add-remark" %>
       <ul>
-      <%= render :partial => "audit_trail_entry", :collection => @edition.audit_trail.reverse %>
+      <%= render partial: "audit_trail_entry", collection: @edition.audit_trail.reverse %>
       </ul>
     <% end %>
 
