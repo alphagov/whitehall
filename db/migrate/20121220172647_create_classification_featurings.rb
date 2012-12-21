@@ -16,8 +16,8 @@ class CreateClassificationFeaturings < ActiveRecord::Migration
       t.string   "alt_text"
     end
 
-    add_index "classification_featurings", ["edition_id", "classification_id"], :name => "index_cl_feat_on_edition_id_and_classification_id", :unique => true
-    add_index "classification_featurings", ["classification_featuring_image_data_id"], :name => "index_cl_feat_on_edition_org_image_data_id"
-    add_index "classification_featurings", ["classification_id"], :name => "index_cl_feat_on_classification_id"
+    add_index "classification_featurings", ["edition_id", "classification_id"], name: "index_cl_feat_on_edition_id_and_classification_id", unique: true
+    add_index "classification_featurings", ["classification_featuring_image_data_id"], name: "index_cl_feat_on_edition_org_image_data_id"
+    add_index "classification_featurings", ["classification_id"], name: "index_cl_feat_on_classification_id"
   end
 end
