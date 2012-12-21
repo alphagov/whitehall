@@ -319,10 +319,12 @@
     }
   }
 
+  @include ie(8) {
+    padding-top: $gutter-half; // to fix margin-top floating sibling bug
+  }
+
+
   @include media(desktop) {
-    @include ie(8){
-      padding-top: $gutter-half; // to fix margin-top floating sibling bug
-    }
     .meta {
       position: relative;
       z-index: 49;
