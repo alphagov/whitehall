@@ -7,7 +7,7 @@
   <div class="block">
     <div class="inner-block">
       <header class="page-title">
-        <h1><%= image_tag "g8-2013-logo.png", alt: @topical_event.name %></h1>
+        <h1><span><%= image_tag "g8-2013-logo.png", alt: @topical_event.name %></span></h1>
         <h2><span>UK Presidency of G8 2013</span></h2>
       </header>
 
@@ -21,7 +21,7 @@
             <%= render partial: "shared/recently_updated",
                       locals: { recently_updated: @recently_changed_documents } %>
           <% else %>
-            <p>There are no updates yet.</p>
+            <p class="no-updates">There are no updates yet.</p>
           <% end %>
         </section>
         <section class="description">
@@ -43,7 +43,8 @@
           <% @featured_editions.each_with_index do |edition, i| %>
             <%= render partial: 'shared/featured_news',
                       locals: { edition: edition,
-                                image_size: :s630 } %>
+                                image_size: :s465,
+                                extra_class: "item-#{i}"} %>
           <% end %>
         </section>
       <% end %>
