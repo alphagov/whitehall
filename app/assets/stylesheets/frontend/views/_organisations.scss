@@ -155,8 +155,7 @@
   .block-7,
   .block-8,
   .block-9,
-  .block-10,
-  .block-11 {
+  .block-10 {
     display: block;
     clear: both;
     overflow: hidden;
@@ -183,6 +182,22 @@
     padding-bottom: $gutter;
   }
 
+  .block-10 {
+    .inner-block {
+      padding: 0 $gutter-half;
+    }
+    h1 {
+      border-bottom-width: 5px;
+      border-bottom-style: solid;
+      @include department-colours("h1", border-color);
+      margin-bottom: 20px;
+    }
+    h2 {
+      @include ig-core-24;
+    }
+
+  }
+
   .filter-feed .subscribe {
     margin-top: $gutter-one-third;
   }
@@ -195,16 +210,6 @@
 
   p a {
     text-decoration: underline;
-  }
-
-  .jobs-contracts {
-    padding-left: $gutter-one-third;
-  }
-  .corporate-information-block {
-    width: 65%;
-  }
-  .access-our-info {
-    width: 33.33%;
   }
   
   .page-header {
@@ -582,8 +587,39 @@
 
   } // end #who
 
-  #org-contacts {
+  .contact-wrapper, .corporate-information {
+    float: left;
+    display: inline;
+    width: 100%;
+    nav {
+      padding: 0 $gutter-half;
+    }
+    @include media(desktop) {
+      width: 66.66%;
+    }
+    @include media(tablet) {
+      margin-bottom: $gutter;
+      h1 {
+        margin: 0 $gutter-half $gutter-two-thirds;
+      }
+    }
+  }
 
+  .corporate-information {
+    width: 100%;
+    h2, nav, p {
+      padding: 0 $gutter-half;
+    }
+    nav {
+      margin-bottom: $gutter;
+    }
+    @include media(desktop) {
+      width: 33.33%;
+    }
+  }
+
+  #org-contacts {
+    margin-bottom: $gutter;
     h2 {
       @include ig-core-24;
     }
@@ -611,40 +647,36 @@
     @include media(tablet) {
       position: relative;
       overflow: hidden;
-      margin: 0 ($gutter*-0.5);
+      padding: 0 $gutter-half;
 
       .addresses {
         float: left;
         clear: both;
-        margin-right: -100%;
-        margin-left: 0;
-        width: 66.66%;
+        width: 100%;
 
         .organisation_contact {
           padding-bottom: $gutter-two-thirds;
         }
 
         .complex {
-          padding: 0 $gutter-half $gutter-two-thirds;
+          padding: 0 0 $gutter;
 
           .contact-inner {
             position: relative;
             overflow: hidden;
             float: none;
             display: block;
-            padding-left: 50%;
+            padding-left: 37%;
           }
 
           h2 {
-            position: relative;
-            margin-left: -100%;
-            width: 200%;
+            border-bottom: 1px solid $border-colour;
           }
 
           .adr {
             position: relative;
-            margin-left: -100%;
-            width: 100%;
+            margin-left: -58%;
+            width: 50%;
           }
 
           p {
@@ -665,9 +697,8 @@
           float: left;
           display: inline;
           width: 50%;
-
-          .contact-inner {
-            padding: 0 $gutter-half;
+          h2 {
+            border-bottom: 1px solid $border-colour;
           }
         }
 

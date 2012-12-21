@@ -233,81 +233,79 @@
 
   <div class="block-10 vcard">
     <div class="inner-block">
-      <h1 class="label">Contact <%= @organisation.display_name %></h1>
-      <div id="org-contacts">
-        <% addresses = @organisation.contacts.select { |c| c.address.present? } %>
-        <% others = @organisation.contacts - addresses %>
-        <div class="addresses js-hide-extra-rows">
-          <% addresses.each do |contact| %>
-            <div class="organisation_contact complex">
-              <div class="contact-inner">
-                <h2><%= contact.description %></h2>
-                <% if contact.address.present? %>
-                  <div class="adr">
-                    <p class="fn org name visuallyhidden"><%= @organisation.name %></p>
-                    <p class="street-address"><%= format_with_html_line_breaks(contact.address) %></p>
-                    <p class="postal-code"><%= contact.postcode %></p>
+      <div class="contact-wrapper">
+        <h1 class="label">Contact <%= @organisation.display_name %></h1>
+        <div id="org-contacts">
+          <% addresses = @organisation.contacts.select { |c| c.address.present? } %>
+          <% others = @organisation.contacts - addresses %>
+          <div class="addresses js-hide-extra-rows-2">
+            <% addresses.each do |contact| %>
+              <div class="organisation_contact complex">
+                  <h2><%= contact.description %></h2>
+                <div class="contact-inner">
+                  <% if contact.address.present? %>
+                    <div class="adr">
+                      <p class="fn org name visuallyhidden"><%= @organisation.name %></p>
+                      <p class="street-address"><%= format_with_html_line_breaks(contact.address) %></p>
+                      <p class="postal-code"><%= contact.postcode %></p>
+                    </div>
+                  <% end %>
+                  <div class="email-url-number">
+                    <% if contact.email.present? %>
+                        <p class="email"><span class="type">Email</span> <%= mail_to contact.email, contact.email, class: 'email' %></p>
+                    <% end %>
+                    <% if contact.contact_form_url.present? %>
+                      <p class="contact_form_url"><span class="type">Contact form</span><%= link_to contact.contact_form_url.truncate(25), contact.contact_form_url %></p>
+                    <% end %>
+                    <% contact.contact_numbers.each do |number| %>
+                      <p class="tel"><span class="type"><%= number.label %></span> <%= number.number %></p>
+                    <% end %>
                   </div>
-                <% end %>
-                <% if contact.email.present? %>
-                  <p class="email"><span class="type">Email</span> <%= mail_to contact.email, contact.email, class: 'email' %></p>
-                <% end %>
-                <% if contact.contact_form_url.present? %>
-                  <p class="contact_form_url"><span class="type">Contact form</span><%= link_to contact.contact_form_url.truncate(25), contact.contact_form_url %></p>
-                <% end %>
-                <% contact.contact_numbers.each do |number| %>
-                  <p class="tel"><span class="type"><%= number.label %></span> <%= number.number %></p>
-                <% end %>
+                </div>
               </div>
-            </div>
-          <% end %>
+            <% end %>
 
-          <% others.each do |contact| %>
-            <div class="organisation_contact simple">
-              <div class="contact-inner">
-                <h2><%= contact.description %></h2>
-                <% if contact.email.present? %>
-                  <p class="email"><span class="type">Email</span> <%= mail_to contact.email, contact.email, :class => "email" %></p>
-                <% end %>
-                <% contact.contact_numbers.each do |number| %>
-                  <p class="tel"><%= number.number %><span class="type"> <%= number.label %> </span></p>
-                <% end %>
+            <% others.each do |contact| %>
+              <div class="organisation_contact simple">
+                <div class="contact-inner">
+                  <h2><%= contact.description %></h2>
+                  <% if contact.email.present? %>
+                    <p class="email"><span class="type">Email</span> <%= mail_to contact.email, contact.email, :class => "email" %></p>
+                  <% end %>
+                  <% contact.contact_numbers.each do |number| %>
+                    <p class="tel"><%= number.number %><span class="type"> <%= number.label %> </span></p>
+                  <% end %>
+                </div>
               </div>
-            </div>
-          <% end %>
+            <% end %>
+          </div>
         </div>
 
-
+          <% if @sub_organisations.any? %>
+            <section id="high-profile-units">
+              <h1 class="label">High profile groups within <%= @organisation.display_name %></h1>
+              <nav class="group sub_navigation" role="navigation">
+                <ul class="sub_organisations">
+                  <% @sub_organisations.each do |sub_organisation| %>
+                    <%= content_tag_for :li, sub_organisation do %>
+                      <%= link_to sub_organisation.name, organisation_path(sub_organisation) %>
+                    <% end %>
+                  <% end %>
+                </ul>
+              </nav>
+            </section>
+          <% end %>
       </div>
+
+        <% if @organisation.corporate_information_pages.any? %>
+              <%= render partial: 'corporate_information',
+                          locals: { organisation: @organisation, show_corporate_reports: true } %>
+        <% end %>
+
     </div>
   </div>
 
-  <% if @organisation.corporate_information_pages.any? %>
-    <div class="block-11">
-      <div class="inner-block">
-        <%= render partial: 'corporate_information',
-                    locals: { organisation: @organisation, show_corporate_reports: true } %>
-      </div>
-    </div>
-  <% end %>
 
-  <% if @sub_organisations.any? %>
-    <div class="block-12">
-      <div class="inner-block">
-        <section id="high-profile-units">
-          <h1 class="label">High profile groups within <%= @organisation.display_name %></h1>
-          <nav class="group sub_navigation" role="navigation">
-            <ul class="sub_organisations">
-              <% @sub_organisations.each do |sub_organisation| %>
-                <%= content_tag_for :li, sub_organisation do %>
-                  <%= link_to sub_organisation.name, organisation_path(sub_organisation) %>
-                <% end %>
-              <% end %>
-            </ul>
-          </nav>
-        </section>
-      </div>
-    </div>
-  <% end %>
+
 
 <% end %>
