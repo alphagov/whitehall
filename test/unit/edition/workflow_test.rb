@@ -103,7 +103,7 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
     end
   end
 
-  [:draft, :submitted, :rejected].each do |state|
+  [:imported, :draft, :submitted, :rejected].each do |state|
     test "deleting a #{state} edition transitions it into the deleted state" do
       edition = create("#{state}_edition")
       edition.delete!

@@ -72,9 +72,6 @@ Then /^I can make the imported (?:publication|speech) into a draft edition$/ do
   assert edition.draft?
 end
 
-# After do |scenario|
-#   save_and_open_page if scenario.failed?
-# end
 Then /^the imported speech's organisation is set to "([^"]*)"$/ do |organisation_name|
   assert_equal organisation_name, Edition.imported.last.organisations.first.name
 end
@@ -98,4 +95,13 @@ end
 
 Then /^the speech's organisation is set to "([^"]*)"$/ do |organisation_name|
   assert_equal Edition.last.organisations, [Organisation.find_by_name(organisation_name)]
+end
+
+Then /^I can delete the imported edition if I choose to$/ do
+  edition = Edition.imported.last
+
+  visit_document_preview edition.title
+  click_on 'Delete'
+
+  assert edition.reload.deleted?
 end

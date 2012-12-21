@@ -5,7 +5,7 @@ class Speech < Announcement
 
   validates :speech_type_id, :delivered_on, presence: true
 
-  validate :role_appointment_has_associated_organisation, unless: ->(speech) { speech.imported? }
+  validate :role_appointment_has_associated_organisation, unless: ->(speech) { speech.can_have_some_invalid_data? }
 
   delegate :genus, :explanation, to: :speech_type
 

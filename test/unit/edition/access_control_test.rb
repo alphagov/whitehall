@@ -16,6 +16,20 @@ class Edition::AccessControlTest < ActiveSupport::TestCase
     end
   end
 
+  [:imported, :deleted].each do |state|
+    test "can have some invalid data if #{state}" do
+      edition = create("#{state}_edition")
+      assert edition.can_have_some_invalid_data?
+    end
+  end
+
+  [:draft, :submitted, :rejected, :published, :archived].each do |state|
+    test "cannot have some invalid data if #{state}" do
+      edition = build("#{state}_edition")
+      refute edition.can_have_some_invalid_data?
+    end
+  end
+
   test "should be rejectable by editors if submitted" do
     edition = build(:submitted_edition)
     assert edition.rejectable_by?(build(:departmental_editor))

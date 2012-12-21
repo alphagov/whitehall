@@ -13,6 +13,10 @@ module Edition::AccessControl
     draft? || rejected?
   end
 
+  def can_have_some_invalid_data?
+    imported? || deleted?
+  end
+
   def ready_to_convert_to_draft?
     imported? && valid_as_draft?
   end

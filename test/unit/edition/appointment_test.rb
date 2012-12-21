@@ -35,7 +35,7 @@ class Edition::AppointmentTest< ActiveSupport::TestCase
     refute EditionWithAppointment.new(valid_edition_attributes).valid?
   end
 
-  test "imported editions don't have to have a role appointment" do
+  test "editions allowed some invalid data don't have to have a role appointment" do
     EditionWithAppointment.new(valid_edition_attributes.merge(state: 'imported')).valid?
   end
 end

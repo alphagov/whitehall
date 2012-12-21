@@ -36,7 +36,7 @@ class SpeechTest < EditionTestCase
     refute speech.valid?
   end
 
-  test "is valid if imported and role_appointment has no associated organisation" do
+  test "is valid if can have some invalid data and role_appointment has no associated organisation" do
     speech = build(:speech, role_appointment: nil, state: 'imported')
     assert speech.valid?
   end

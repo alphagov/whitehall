@@ -97,8 +97,15 @@ Feature: Importing new editions
       |http://example.com/1|title|summary|body|||||14-Dec-2011|location||
     Then the import succeeds, creating 1 imported speech with "imported-awaiting-type" speech type and with no deliverer set
     And the imported speech's organisation is set to "Department for Transport"
-    And I can't make the imported publication into a draft edition yet
+    Then I can't make the imported speech into a draft edition yet
+    When I set the deliverer of the speech to "Joe Bloggs" from the "Foreign Commonwealth Office"
+    And I can't make the imported speech into a draft edition yet
     When I set the imported speech's type to "Transcript"
-    And I set the deliverer of the speech to "Joe Bloggs" from the "Foreign Commonwealth Office"
     Then I can make the imported speech into a draft edition
     And the speech's organisation is set to "Foreign Commonwealth Office"
+
+  Scenario: Importing edition and then deleting it
+    When I import the following data as CSV as "Speech" for "Department for Transport":
+      |old_url|title|summary|body|organisation|policy_1|type|delivered_by|delivered_on|event_and_location|country_1|
+      |http://example.com/1|title|summary|body|||||14-Dec-2011|location||
+    Then I can delete the imported edition if I choose to

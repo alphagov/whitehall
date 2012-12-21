@@ -10,7 +10,7 @@ class Publication < Publicationesque
 
   validates :publication_date, presence: true
   validates :publication_type_id, presence: true
-  validate :only_imported_publications_can_be_awaiting_type
+  validate :only_publications_allowed_invalid_data_can_be_awaiting_type
 
   after_update { |p| p.published_related_policies.each(&:update_published_related_publication_count) }
   before_save ->(record) { record.access_limited = nil unless record.publication_type.can_limit_access? }
@@ -57,8 +57,8 @@ class Publication < Publicationesque
 
   private
 
-  def only_imported_publications_can_be_awaiting_type
-    unless self.imported?
+  def only_publications_allowed_invalid_data_can_be_awaiting_type
+    unless self.can_have_some_invalid_data?
       errors.add(:publication_type, 'must be changed') if PublicationType::ImportedAwaitingType == self.publication_type
     end
   end
