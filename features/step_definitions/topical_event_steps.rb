@@ -36,7 +36,7 @@ end
 
 When /^I feature the news article "([^"]*)" for topical event "([^"]*)" with image "([^"]*)"$/ do |news_article_title, topical_event_name, image_filename|
   topical_event = TopicalEvent.find_by_name!(topical_event_name)
-  visit feature_admin_topical_event_path(topical_event)
+  visit admin_topical_event_classification_featurings_path(topical_event)
   news_article = NewsArticle.find_by_title(news_article_title)
   within record_css_selector(news_article) do
     click_link "Feature"
@@ -47,8 +47,8 @@ When /^I feature the news article "([^"]*)" for topical event "([^"]*)" with ima
 end
 
 Then /^I should see the featured news articles in the "([^"]*)" topical event are:$/ do |name, expected_table|
-  visit TopicalEvent.find_by_name!(name)
-  rows = find(featured_documents_selector).all('.news_article')
+  visit topical_event_path(TopicalEvent.find_by_name!(name))
+  rows = find('.featured-news').all('.news_article')
   table = rows.collect do |row|
     [
       row.find('h2').text.strip,

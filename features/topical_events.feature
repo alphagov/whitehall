@@ -28,4 +28,4 @@ Scenario: Featuring news on an topical event page
   And I force publish the news article "Famous moustaches of the 19th century"
   When I feature the news article "Famous moustaches of the 19th century" for topical event "Moustache Growing Convention" with image "minister-of-funk.960x640.jpg"
   Then I should see the featured news articles in the "Moustache Growing Convention" topical event are:
-    | Famous moustaches of the 19th century | s630_minister-of-funk.960x640.jpg |
+    | Famous moustaches of the 19th century | s465_minister-of-funk.960x640.jpg |
