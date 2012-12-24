@@ -17,7 +17,7 @@
   <% if @featured_news_articles.any? %>
   <div class="block-2">
     <div class="inner-block">
-    <%= render partial: "shared/hero_rotator", locals: {editions: @featured_news_articles, options: {world_location_context: true}} %>
+      <%= render 'shared/hero_rotator', editions: @featured_news_articles %>
     </div>
   </div>
   <% end %>
