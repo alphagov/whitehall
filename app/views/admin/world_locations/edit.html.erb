@@ -1,9 +1,9 @@
-<% page_title "Edit " + @country.name %>
+<% page_title "Edit " + @world_location.name %>
 
-<div class="span8 countries-edit-span">
+<div class="span8 world-locations-edit-span">
   <section>
-    <h1>Edit country</h1>
-    <%= form_for([:admin, @country]) do |form| %>
+    <h1>Edit world location</h1>
+    <%= form_for([:admin, @world_location]) do |form| %>
       <%= form.text_area :description %>
 
       <fieldset>
@@ -11,7 +11,7 @@
       </fieldset>
 
       <%= form.check_box :active,
-                label_text: "Active (can visitors click through from the country list?)" %>
+                label_text: "Active (can visitors click through from the world location list?)" %>
 
       <fieldset>
         <legend>Embassy contact details</legend>
@@ -20,12 +20,12 @@
         <%= form.text_field :embassy_email %>
       </fieldset>
 
-      <%= form.save_or_cancel cancel: admin_countries_path %>
+      <%= form.save_or_cancel cancel: admin_world_locations_path %>
     <% end %>
   </section>
 </div>
 
-<div class="span4 countries-edit-span">
+<div class="span4 world-locations-edit-span">
   <%= sidebar_tabs news_articles: "News articles", govspeak_help: "Formatting Help" do |tabs| %>
     <%= tabs.pane id: "news_articles" do %>
       <% if @news_articles.any? %>
@@ -44,7 +44,7 @@
                 <td><%= link_to news_article.title, admin_edition_path(news_article) %></td>
                 <td><%= time_ago_in_words news_article.updated_at %> ago</td>
                 <td>
-                  <% association = news_article.edition_countries.where(country_id: @country).first %>
+                  <% association = news_article.edition_world_locations.where(world_location_id: @world_location).first %>
                   <%= form_for([:admin, association], html: {class: "button_to"}) do |f| %>
                     <% if association.featured? %>
                       <%= f.hidden_field :featured, value: false %>
