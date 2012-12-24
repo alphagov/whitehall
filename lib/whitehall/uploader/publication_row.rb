@@ -76,14 +76,15 @@ module Whitehall::Uploader
       organisations.first
     end
 
-    def countries
-      Finders::CountriesFinder.find(row['country_1'], row['country_2'], row['country_3'], row['country_4'], @logger, @line_number)
+    def world_locations
+      Finders::WorldLocationsFinder.find(row['country_1'], row['country_2'], row['country_3'], row['country_4'], @logger, @line_number)
     end
 
     def attributes
       [:title, :summary, :body, :publication_date, :publication_type,
        :related_policies, :organisations, :document_series,
-       :ministerial_roles, :attachments, :alternative_format_provider, :countries].map.with_object({}) do |name, result|
+       :ministerial_roles, :attachments, :alternative_format_provider,
+       :world_locations].map.with_object({}) do |name, result|
         result[name] = __send__(name)
       end
     end

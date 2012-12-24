@@ -70,13 +70,13 @@ module Whitehall::Uploader
       [:title, :summary, :body, :speech_type,
        :role_appointment, :delivered_on, :location, :organisations,
        :related_policies, :first_published_at,
-        :countries].map.with_object({}) do |name, result|
+       :world_locations].map.with_object({}) do |name, result|
         result[name] = __send__(name)
       end
     end
 
-    def countries
-      Finders::CountriesFinder.find(row['country_1'], row['country_2'], row['country_3'], row['country_4'], @logger, @line_number)
+    def world_locations
+      Finders::WorldLocationsFinder.find(row['country_1'], row['country_2'], row['country_3'], row['country_4'], @logger, @line_number)
     end
 
   end

@@ -195,15 +195,15 @@ class Whitehall::Uploader::PublicationRow::AttachmentMetadataBuilderTest < Activ
     Whitehall::Uploader::PublicationRow::AttachmentMetadataBuilder.build(@attachment, nil, "ISBN", nil, "command-paper-number", "12.34")
   end
 
-  test "finds related countries using the country finder" do
-    countries = 5.times.map { stub('country') }
-    Whitehall::Uploader::Finders::CountriesFinder.stubs(:find).with("first", "second", "third", "fourth", anything, anything).returns(countries)
+  test "finds related world locations using the world location finder" do
+    world_locations = 5.times.map { stub('world_location') }
+    Whitehall::Uploader::Finders::WorldLocationsFinder.stubs(:find).with("first", "second", "third", "fourth", anything, anything).returns(world_locations)
     row = Whitehall::Uploader::PublicationRow.new({
         "country_1" => "first",
         "country_2" => "second",
         "country_3" => "third",
         "country_4" => "fourth"
       }, 1, stub("cache"), stub("organisation"))
-    assert_equal countries, row.countries
+    assert_equal world_locations, row.world_locations
   end
 end
