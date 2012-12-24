@@ -44,16 +44,14 @@
           </div>
         </div>
         <div id="content"></div>
-        <% unless cookies['inside-gov-joining'] == joined_ministerial_department_count.to_s %>
-          <div class="progress-bar js-progress-bar" id="progress-bar" data-join-count="<%= joined_ministerial_department_count %>">
-            <div class="bar"><div class="joined" style="width: <%= joined_ministerial_department_percent %>"></div></div>
-            <p>
-              <%= joined_ministerial_department_count %> of <%= ministerial_department_count %>
-              ministerial departments have moved their corporate websites to GOV.UK.
-              <%= progress_bar_link %>
-            </p>
-          </div>
-        <% end %>
+        <div class="progress-bar js-progress-bar js-hidden" id="progress-bar" data-join-count="<%= joined_ministerial_department_count %>">
+          <div class="bar"><div class="joined" style="width: <%= joined_ministerial_department_percent %>"></div></div>
+          <p>
+            <%= joined_ministerial_department_count %> of <%= ministerial_department_count %>
+            ministerial departments have moved their corporate websites to GOV.UK.
+            <%= progress_bar_link %>
+          </p>
+        </div>
         <div id="page" class="<%= content_for?(:page_class) ? yield(:page_class) : '' %>" >
           <%= yield %>
         </div>
