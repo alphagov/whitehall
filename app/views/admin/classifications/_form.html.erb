@@ -54,5 +54,5 @@
       </div>
     </fieldset>
   </div>
-  <%= classification_form.save_or_cancel cancel: admin_topics_path %>
+  <%= classification_form.save_or_cancel cancel: [:admin, model_class] %>
 <% end %>
