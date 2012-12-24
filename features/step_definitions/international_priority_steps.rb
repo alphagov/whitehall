@@ -3,7 +3,7 @@ When /^I draft a new international priority "([^"]*)"$/ do |title|
   click_button "Save"
 end
 
-Given /^a published international priority "([^"]*)" exists relating to the country "([^"]*)"$/ do |title, country_name|
-  country = Country.find_by_name!(country_name)
-  create(:published_international_priority, title: title, countries: [country])
+Given /^a published international priority "([^"]*)" exists relating to the (?:country|overseas territory|international delegation) "([^"]*)"$/ do |title, world_location_name|
+  world_location = WorldLocation.find_by_name!(world_location_name)
+  create(:published_international_priority, title: title, world_locations: [world_location])
 end

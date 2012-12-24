@@ -43,14 +43,14 @@ Given /^a published (publication|policy|news article|consultation) "([^"]*)" was
   create("published_#{document_class(document_type).name.underscore}".to_sym, title: title, organisations: [organisation])
 end
 
-Given /^a published (publication|policy|news article|consultation) "([^"]*)" exists relating to the country "([^"]*)"$/ do |document_type, title, country_name|
-  country = Country.find_by_name!(country_name)
-  create("published_#{document_class(document_type).name.underscore}".to_sym, title: title, countries: [country])
+Given /^a published (publication|policy|news article|consultation) "([^"]*)" exists relating to the (?:country|overseas territory|international delegation) "([^"]*)"$/ do |document_type, title, world_location_name|
+  world_location = WorldLocation.find_by_name!(world_location_name)
+  create("published_#{document_class(document_type).name.underscore}".to_sym, title: title, world_locations: [world_location])
 end
 
-Given /^a published (publication|policy|news article|consultation) "([^"]*)" exists relating to the country "([^"]*)" produced (\d+) days ago$/ do |document_type, title, country_name, days_ago|
-  country = Country.find_by_name!(country_name)
-  create("published_#{document_class(document_type).name.underscore}".to_sym, title: title, first_published_at: days_ago.to_i.days.ago, countries: [country])
+Given /^a published (publication|policy|news article|consultation) "([^"]*)" exists relating to the (?:country|overseas territory|international delegation) "([^"]*)" produced (\d+) days ago$/ do |document_type, title, world_location_name, days_ago|
+  world_location = WorldLocation.find_by_name!(world_location_name)
+  create("published_#{document_class(document_type).name.underscore}".to_sym, title: title, first_published_at: days_ago.to_i.days.ago, world_locations: [world_location])
 end
 
 Given /^a submitted (publication|policy|news article|consultation|speech|international priority|detailed guide) "([^"]*)" exists$/ do |document_type, title|
