@@ -67,7 +67,7 @@
       <% end %>
       <% if document.respond_to?(:statistical_data_sets) && document.statistical_data_sets.any? %>
         <dt>Live data:</dt>
-        <dd class='live-data'><%= list_of_links_to_statistical_data_sets(document.published_statistical_data_sets) %></dd>
+        <dd class="live-data"><%= list_of_links_to_statistical_data_sets(document.published_statistical_data_sets) %></dd>
       <% end %>
     </dl>
     <%= national_statistics_logo(document) %>
