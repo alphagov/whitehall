@@ -73,7 +73,7 @@ Whitehall::Application.routes.draw do
 
     resources :ministerial_roles, path: 'ministers', only: [:index, :show]
     resources :people, only: [:index, :show]
-    resources :countries, path: 'world', only: [:index, :show] do
+    resources :world_locations, path: 'world', only: [:index, :show] do
       member do
         get :about
       end

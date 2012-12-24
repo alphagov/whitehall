@@ -23,7 +23,7 @@ When /^I add contact details for the embassy in "([^"]*)"$/ do |name|
 end
 
 When /^I navigate to the "([^"]*)" (?:country|overseas territory|international delegation)'s (about|home) page$/ do |world_location_name, page_name|
-  within('.country nav') do
+  within('.world_location nav') do
     click_link \
       case page_name
       when 'about'  then 'About'
@@ -64,7 +64,7 @@ Then /^I should see contact details for the embassy in "([^"]*)"$/ do |name|
 end
 
 Then /^I should see the world location navigation$/ do
-  assert page.has_css?('.world-location nav')
+  assert page.has_css?('.world_location nav')
 end
 
 Then /^I should see the "([^"]*)" (?:country|overseas territory|international delegation)'s (about|home) page$/ do |world_location_name, page_name|
@@ -78,11 +78,11 @@ Then /^I should see the "([^"]*)" (?:country|overseas territory|international de
 end
 
 Then /^I should see a (?:country|overseas territory|international delegation) called "([^"]*)"$/ do |name|
-  assert page.has_css?(".world-location", text: name)
+  assert page.has_css?(".world_location", text: name)
 end
 
 Then /^I should not see a link to the (?:country|overseas territory|international delegation) called "([^"]*)"$/ do |text|
-  refute page.has_css?(".world-location a", text: text)
+  refute page.has_css?(".world_location a", text: text)
 end
 
 Then /^the (?:country|overseas territory|international delegation) called "([^"]*)" should be featured$/ do |name|

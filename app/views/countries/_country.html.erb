@@ -1,7 +1,0 @@
-<%= content_tag_for(:li, country) do %>
-  <%= if country.active?
-        link_to country.name, country_path(country)
-      else
-        country.name
-      end %>
-<% end %>
