@@ -13,14 +13,18 @@
       if(joining.$progressBar.length === 1){
         var joiningCookie = root.GOVUK.cookie(joining.cookieName);
 
-        if(""+ joining.$progressBar.data('join-count') === joiningCookie){
-          joining.hideBar();
+        if(""+ joining.$progressBar.data('join-count') !== joiningCookie){
+          joining.showBar();
         }
+
         joining.addCloseButton();
       }
     },
+    showBar: function(){
+      joining.$progressBar.removeClass('js-hidden');
+    },
     hideBar: function(){
-      joining.$progressBar.hide();
+      joining.$progressBar.addClass('js-hidden');
     },
     closeBar: function(){
       root.GOVUK.cookie(joining.cookieName, joining.$progressBar.data('join-count'), 30);
