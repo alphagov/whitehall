@@ -1,4 +1,4 @@
-module Edition::Countries
+module Edition::WorldLocations
   extend ActiveSupport::Concern
 
   class Trait < Edition::Traits::Trait

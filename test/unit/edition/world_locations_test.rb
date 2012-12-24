@@ -1,6 +1,6 @@
 require "test_helper"
 
-class Edition::CountriesTest < ActiveSupport::TestCase
+class Edition::WorldLocationsTest < ActiveSupport::TestCase
   test "#destroy should also remove the relationship" do
     edition = create(:draft_policy, world_locations: [create(:world_location)])
     relation = edition.edition_world_locations.first
