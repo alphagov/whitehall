@@ -97,7 +97,7 @@ Whitehall::Application.routes.draw do
         resources :policy_teams, except: [:show]
         resources :operational_fields, except: [:show]
         resources :edition_organisations, only: [:edit, :update]
-        resources :edition_world_locations, only: [:update], controller: 'admin/edition_countries'
+        resources :edition_world_locations, only: [:update]
         resources :topics, path: "topics", except: [:show]
         resources :topical_events, path: "topical-events", except: [:show] do
           resources :classification_featurings, path: "featurings"
