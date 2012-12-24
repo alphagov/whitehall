@@ -1,11 +1,10 @@
 <fieldset class="named logo form-horizontal">
   <legend>Logo</legend>
     <div class="control-group">
+      <% if classification.logo_url %>
+        <%= image_tag classification.logo_url %>
+      <% end %>
       <%= classification_form.text_field :logo_alt_text %>
       <%= classification_form.file_field :logo %>
-      <% if classification_form.object.logo_cache.present? %>
-        <span class="already_uploaded"><%= File.basename(classification_form.object.logo_cache) %> already uploaded</span>
-      <% end %>
-      <%= classification_form.hidden_field :logo_cache %>
     </div>
 </fieldset>
