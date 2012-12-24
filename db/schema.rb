@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121221113430) do
+ActiveRecord::Schema.define(:version => 20121224111601) do
 
   create_table "attachment_data", :force => true do |t|
     t.string   "carrierwave_file"
@@ -175,21 +175,6 @@ ActiveRecord::Schema.define(:version => 20121221113430) do
   end
 
   add_index "corporate_information_pages", ["organisation_id", "type_id"], :name => "index_corporate_information_pages_on_organisation_id_and_type_id", :unique => true
-
-  create_table "countries", :force => true do |t|
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.text     "embassy_address"
-    t.string   "embassy_telephone"
-    t.string   "embassy_email"
-    t.string   "slug"
-    t.text     "description"
-    t.text     "about"
-    t.boolean  "active",            :default => false, :null => false
-  end
-
-  add_index "countries", ["slug"], :name => "index_countries_on_slug"
 
   create_table "data_migration_records", :force => true do |t|
     t.string "version"
@@ -736,5 +721,20 @@ ActiveRecord::Schema.define(:version => 20121221113430) do
   end
 
   add_index "versions", ["item_type", "item_id"], :name => "index_versions_on_item_type_and_item_id"
+
+  create_table "world_locations", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.text     "embassy_address"
+    t.string   "embassy_telephone"
+    t.string   "embassy_email"
+    t.string   "slug"
+    t.text     "description"
+    t.text     "about"
+    t.boolean  "active",            :default => false, :null => false
+  end
+
+  add_index "world_locations", ["slug"], :name => "index_world_locations_on_slug"
 
 end

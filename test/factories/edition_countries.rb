@@ -1,5 +1,5 @@
 FactoryGirl.define do
   factory :edition_country do
-    country
+    world_location
   end
 end

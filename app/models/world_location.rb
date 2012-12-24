@@ -1,11 +1,11 @@
-class Country < ActiveRecord::Base
-  FEATURED_COUNTRY_NAMES = ["Spain"]
+class WorldLocation < ActiveRecord::Base
+  FEATURED_WORLD_LOCATION_NAMES = ["Spain"]
 
-  FEATURED_COUNTRY_URLS = {
+  FEATURED_WORLD_LOCATION_URLS = {
     "Spain"  => ["http://ukinspain.fco.gov.uk"]
   }
 
-  has_many :edition_countries
+  has_many :edition_countries, foreign_key: :country_id
   has_many :editions,
             through: :edition_countries
   has_many :published_editions,
@@ -27,14 +27,14 @@ class Country < ActiveRecord::Base
   friendly_id
 
   def featured?
-    FEATURED_COUNTRY_NAMES.include?(name)
+    FEATURED_WORLD_LOCATION_NAMES.include?(name)
   end
 
   def self.featured
-    where(name: FEATURED_COUNTRY_NAMES)
+    where(name: FEATURED_WORLD_LOCATION_NAMES)
   end
 
   def urls
-    FEATURED_COUNTRY_URLS[name] || []
+    FEATURED_WORLD_LOCATION_URLS[name] || []
   end
 end
