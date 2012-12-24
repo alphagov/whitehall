@@ -110,15 +110,6 @@ class HomeControllerTest < ActionController::TestCase
     assert_select '.progress-bar', /1 of 2/
   end
 
-  test "progress bar does not show if you have suppressed it" do
-    @request.cookies['inside-gov-joining'] = '1'
-    org = create(:ministerial_department)
-
-    get :home
-
-    refute_select '.progress-bar'
-  end
-
   test "how government works page shows a count of published policies" do
     create(:published_policy)
     create(:draft_policy)
