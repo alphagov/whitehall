@@ -89,3 +89,7 @@ Then /^the (?:country|overseas territory|international delegation) called "([^"]
   world_location = WorldLocation.find_by_name(name)
   assert has_css?("#{record_css_selector(world_location)}.featured")
 end
+
+Then /^I should see that it is an? (country|overseas territory|international delegation)$/ do |world_location_type|
+  assert has_css?('.world-location.type', text: world_location_type.capitalize)
+end

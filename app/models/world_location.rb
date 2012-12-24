@@ -28,6 +28,10 @@ class WorldLocation < ActiveRecord::Base
     self.world_location_type_id = new_world_location_type && new_world_location_type.id
   end
 
+  def display_type
+    world_location_type.name
+  end
+
   validates_with SafeHtmlValidator
   validates :name, :world_location_type_id, presence: true
 

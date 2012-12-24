@@ -44,3 +44,17 @@ Scenario: Hard-coded featured countries are featured
   Given a country "Spain" exists
   When I visit the world locations page
   Then the country called "Spain" should be featured
+
+Scenario: World locations tell me what type they are
+  Given a country "Spain" exists
+  And an overseas territory "British Antarctic Territory" exists
+  And an international delegation "United Nations" exists
+
+  When I view the country "Spain"
+  Then I should see that it is a country
+
+  When I view the overseas territory "British Antarctic Territory"
+  Then I should see that it is an overseas territory
+
+  When I view the overseas territory "United Nations"
+  Then I should see that it is an international delegation

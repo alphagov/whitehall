@@ -29,6 +29,13 @@ class WorldLocationTest < ActiveSupport::TestCase
     assert_equal 'bobs-bike', world_location.slug
   end
 
+  test "has name of it's world location type as display type" do
+    world_location_type = WorldLocationType::Country
+    world_location_type.stubs(:name).returns('The Moon')
+    world_location = build(:world_location, world_location_type: world_location_type)
+    assert_equal "The Moon", world_location.display_type
+  end
+
   test 'should not be featured' do
     world_location = create(:world_location, name: 'Cascadia')
     refute world_location.featured?
