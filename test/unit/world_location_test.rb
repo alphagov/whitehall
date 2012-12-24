@@ -13,12 +13,12 @@ class WorldLocationTest < ActiveSupport::TestCase
     refute world_location.valid?
   end
 
-  test 'should set a slug from the country name' do
+  test 'should set a slug from the name' do
     world_location = create(:world_location, name: 'Costa Rica')
     assert_equal 'costa-rica', world_location.slug
   end
 
-  test 'should not change the slug when the country name is changed' do
+  test 'should not change the slug when the name is changed' do
     world_location = create(:world_location, name: 'New Holland')
     world_location.update_attributes(name: 'Australia')
     assert_equal 'new-holland', world_location.slug
