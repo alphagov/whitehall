@@ -5,19 +5,19 @@ class WorldLocation < ActiveRecord::Base
     "Spain"  => ["http://ukinspain.fco.gov.uk"]
   }
 
-  has_many :edition_countries, foreign_key: :country_id
+  has_many :edition_world_locations
   has_many :editions,
-            through: :edition_countries
+            through: :edition_world_locations
   has_many :published_editions,
-            through: :edition_countries,
+            through: :edition_world_locations,
             class_name: "Edition",
             conditions: { state: "published" },
             source: :edition
   has_many :featured_news_articles,
-            through: :edition_countries,
+            through: :edition_world_locations,
             class_name: "NewsArticle",
             source: :edition,
-            conditions: { "edition_countries.featured" => true,
+            conditions: { "edition_world_locations.featured" => true,
                           "editions.state" => "published" }
 
   validates_with SafeHtmlValidator

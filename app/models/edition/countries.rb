@@ -8,8 +8,8 @@ module Edition::Countries
   end
 
   included do
-    has_many :edition_countries, foreign_key: :edition_id, dependent: :destroy
-    has_many :countries, through: :edition_countries
+    has_many :edition_world_locations, foreign_key: :edition_id, dependent: :destroy
+    has_many :countries, through: :edition_world_locations, source: :world_location
 
     add_trait Trait
   end
@@ -20,7 +20,7 @@ module Edition::Countries
 
   module ClassMethods
     def in_country(country)
-      joins(:countries).where('countries.id' => country)
+      joins(:countries).where('world_locations.id' => country)
     end
   end
 end

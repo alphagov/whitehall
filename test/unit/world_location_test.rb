@@ -60,9 +60,9 @@ class WorldLocationTest < ActiveSupport::TestCase
     news_b = create(:published_news_article)
     news_c = create(:published_news_article)
 
-    create(:edition_country, world_location: world_location, edition: news_a, featured: true)
-    create(:edition_country, world_location: world_location, edition: news_b, featured: true)
-    create(:edition_country, world_location: other_world_location, edition: news_c, featured: true)
+    create(:edition_world_location, world_location: world_location, edition: news_a, featured: true)
+    create(:edition_world_location, world_location: world_location, edition: news_b, featured: true)
+    create(:edition_world_location, world_location: other_world_location, edition: news_c, featured: true)
 
     assert_equal [news_a, news_b], world_location.featured_news_articles
   end
@@ -73,8 +73,8 @@ class WorldLocationTest < ActiveSupport::TestCase
     news_a = create(:published_news_article)
     news_b = create(:draft_news_article)
 
-    create(:edition_country, world_location: world_location, edition: news_a, featured: true)
-    create(:edition_country, world_location: world_location, edition: news_b, featured: true)
+    create(:edition_world_location, world_location: world_location, edition: news_a, featured: true)
+    create(:edition_world_location, world_location: world_location, edition: news_b, featured: true)
 
     assert_equal [news_a], world_location.featured_news_articles
   end
@@ -85,8 +85,8 @@ class WorldLocationTest < ActiveSupport::TestCase
     news_a = create(:published_news_article)
     news_b = create(:published_news_article)
 
-    create(:edition_country, world_location: world_location, edition: news_a, featured: false)
-    create(:edition_country, world_location: world_location, edition: news_b, featured: true)
+    create(:edition_world_location, world_location: world_location, edition: news_a, featured: false)
+    create(:edition_world_location, world_location: world_location, edition: news_b, featured: true)
 
     assert_equal [news_b], world_location.featured_news_articles
   end

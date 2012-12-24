@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121224111601) do
+ActiveRecord::Schema.define(:version => 20121224113221) do
 
   create_table "attachment_data", :force => true do |t|
     t.string   "carrierwave_file"
@@ -249,17 +249,6 @@ ActiveRecord::Schema.define(:version => 20121224111601) do
   add_index "edition_authors", ["edition_id"], :name => "index_edition_authors_on_edition_id"
   add_index "edition_authors", ["user_id"], :name => "index_edition_authors_on_user_id"
 
-  create_table "edition_countries", :force => true do |t|
-    t.integer  "edition_id"
-    t.integer  "country_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.boolean  "featured",   :default => false
-  end
-
-  add_index "edition_countries", ["country_id"], :name => "index_edition_countries_on_country_id"
-  add_index "edition_countries", ["edition_id"], :name => "index_edition_countries_on_edition_id"
-
   create_table "edition_mainstream_categories", :force => true do |t|
     t.integer  "edition_id"
     t.integer  "mainstream_category_id"
@@ -326,6 +315,17 @@ ActiveRecord::Schema.define(:version => 20121224111601) do
 
   add_index "edition_statistical_data_sets", ["document_id"], :name => "index_edition_statistical_data_sets_on_document_id"
   add_index "edition_statistical_data_sets", ["edition_id"], :name => "index_edition_statistical_data_sets_on_edition_id"
+
+  create_table "edition_world_locations", :force => true do |t|
+    t.integer  "edition_id"
+    t.integer  "world_location_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "featured",          :default => false
+  end
+
+  add_index "edition_world_locations", ["edition_id"], :name => "index_edition_world_locations_on_edition_id"
+  add_index "edition_world_locations", ["world_location_id"], :name => "index_edition_world_locations_on_world_location_id"
 
   create_table "editions", :force => true do |t|
     t.string   "title"
