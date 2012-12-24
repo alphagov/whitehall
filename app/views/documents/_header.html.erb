@@ -47,9 +47,9 @@
         <dt><%= document.role_appointments.length == 1 ? "Minister" : "Ministers" %>:</dt>
         <dd><%= list_of_links_to_role_appointments(document.role_appointments) %></dd>
       <% end %>
-      <% if document.respond_to?(:countries) && document.countries.any? %>
-        <dt><%= document.countries.length == 1 ? "Country" : "Countries" %>:</dt>
-        <dd class="document-countries js-hide-other-links"><%= list_of_links_to_countries_once_world_goes_live(document.countries) %></dd>
+      <% if document.respond_to?(:world_locations) && document.world_locations.any? %>
+        <dt><%= document.world_locations.length == 1 ? "World location" : "World locations" %>:</dt>
+        <dd class="document-world-locations js-hide-other-links"><%= list_of_links_to_world_locations_once_world_goes_live(document.world_locations) %></dd>
       <% end %>
       <% if document.respond_to?(:inapplicable_nations) && document.inapplicable_nations.any? %>
         <dt>Applies to:</dt>
