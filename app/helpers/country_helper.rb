@@ -15,8 +15,4 @@ module CountryHelper
                          id: "world_location_#{world_location.id}"
     }.to_sentence.html_safe
   end
-
-  def list_of_links_to_statistical_data_sets(data_sets)
-    data_sets.map { |data_set| link_to data_set.title, public_document_path(data_set) }.to_sentence.html_safe
-  end
 end
