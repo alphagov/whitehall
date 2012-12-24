@@ -88,7 +88,7 @@ class OrganisationsControllerTest < ActionController::TestCase
         get :show, id: organisation
       end
 
-      assert_cache_control("max-age=#{Whitehall.default_cache_max_age/2}")
+      assert_cache_control("max-age=#{5.minutes}")
     end
   end
 

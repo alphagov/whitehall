@@ -2,6 +2,7 @@ class OrganisationsController < PublicFacingController
   include CacheControlHelper
 
   before_filter :load_organisation, only: [:show, :about]
+  before_filter :set_cache_max_age, only: [:show]
 
   def index
     ministerial_department_type = OrganisationType.find_by_name('Ministerial department')
@@ -85,5 +86,9 @@ class OrganisationsController < PublicFacingController
 
   def load_organisation
     @organisation = Organisation.find(params[:id])
+  end
+
+  def set_cache_max_age
+    @cache_max_age = 5.minutes
   end
 end
