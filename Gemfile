@@ -28,7 +28,7 @@ gem 'rabl'
 gem "paper_trail"
 gem 'aws-ses', require: 'aws/ses'
 gem 'draper'
-gem 'newrelic_rpm'
+gem 'newrelic_rpm', '3.5.3.25'
 gem 'lograge'
 gem 'unicorn'
 gem 'kaminari'
