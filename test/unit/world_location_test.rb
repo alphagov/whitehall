@@ -8,6 +8,11 @@ class WorldLocationTest < ActiveSupport::TestCase
     refute world_location.valid?
   end
 
+  test "should be invalid without a world location type" do
+    world_location = build(:world_location, world_location_type: nil)
+    refute world_location.valid?
+  end
+
   test 'should set a slug from the country name' do
     world_location = create(:world_location, name: 'Costa Rica')
     assert_equal 'costa-rica', world_location.slug

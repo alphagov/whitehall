@@ -20,8 +20,16 @@ class WorldLocation < ActiveRecord::Base
             conditions: { "edition_world_locations.featured" => true,
                           "editions.state" => "published" }
 
+  def world_location_type
+    WorldLocationType.find_by_id(world_location_type_id)
+  end
+
+  def world_location_type=(new_world_location_type)
+    self.world_location_type_id = new_world_location_type && new_world_location_type.id
+  end
+
   validates_with SafeHtmlValidator
-  validates :name, presence: true
+  validates :name, :world_location_type_id, presence: true
 
   extend FriendlyId
   friendly_id
