@@ -2,6 +2,7 @@ class OrganisationsController < PublicFacingController
   include CacheControlHelper
 
   before_filter :load_organisation, only: [:show, :about]
+  skip_before_filter :set_cache_control_headers, only: [:show]
   before_filter :set_cache_max_age, only: [:show]
 
   def index
@@ -21,6 +22,7 @@ class OrganisationsController < PublicFacingController
 
   def show
     recently_updated_source = @organisation.published_editions.in_reverse_chronological_order
+    expires_in 5.minutes, public: true
     respond_to do |format|
       format.atom do
         @documents = EditionCollectionPresenter.new(recently_updated_source.limit(10))
