@@ -74,7 +74,7 @@ GEM
     capybara-webkit (0.12.1)
       capybara (>= 1.0.0, < 1.2)
       json
-    carrierwave (0.5.7)
+    carrierwave (0.5.8)
       activesupport (~> 3.0)
     childprocess (0.2.2)
       ffi (~> 1.0.6)
@@ -369,7 +369,7 @@ DEPENDENCIES
   bootstrap-kaminari-views
   brakeman
   capybara-webkit
-  carrierwave
+  carrierwave (= 0.5.8)
   ci_reporter
   cucumber (~> 1.0.6)
   cucumber-rails (~> 1.0.5)
