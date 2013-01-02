@@ -982,3 +982,25 @@
   }
   @include department-colours('.corporate-info h1', border-color);
 }
+
+
+.organisations-about {
+  .corporate-information-block {
+    @include media(tablet){
+      float: left;
+      width: 50%;
+    }
+
+    nav {
+      display: block;
+      padding: 0 0 $gutter-half;
+      width: 100%;
+    }
+    h2 {
+      @include ig-core-19;
+      @include bold;
+    }
+  }
+}
+
+
