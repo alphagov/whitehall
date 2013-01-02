@@ -42,7 +42,7 @@
       <% end %>
       <p class="attachment">
         <% checkbox_args = nested_attribute_destroy_checkbox_options(edition_attachments_fields) %>
-        <% label_text = link_to_attachment(edition_attachments_fields.object.attachment) + " (uncheck to remove)" %>
+        <% label_text = link_to_attachment(edition_attachments_fields.object.attachment) + " (uncheck to delete)" %>
         <% checkbox_args[0].merge!(label_text: label_text) %>
         <%= edition_attachments_fields.check_box :_destroy, *checkbox_args  %>
       </p>
