@@ -12,6 +12,8 @@ module Admin::AuditTrailHelper
     html << " ".html_safe
     if actor
       html << content_tag(:span, class: "actor") { linked_author(actor) }
+    else
+      html << "User (removed)"
     end
     html << " ".html_safe
     html << relative_time(entry.created_at, class: "created_at")
