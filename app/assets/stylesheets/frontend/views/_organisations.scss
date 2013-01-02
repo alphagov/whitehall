@@ -666,30 +666,28 @@
             overflow: hidden;
             float: none;
             display: block;
-            padding-left: 37%;
           }
 
           h2 {
             border-bottom: 1px solid $border-colour;
           }
 
-          .adr {
-            position: relative;
-            margin-left: -58%;
-            width: 50%;
-          }
-
           p {
             padding-left: $gutter-half;
           }
 
-          .adr {
+          .adr, .email-url-number {
             display: inline;
             float: left;
+            width: 40%;
 
             p {
               padding-left: 0;
             }
+          }
+
+          .email-url-number {
+            width: 60%;
           }
         }
 
