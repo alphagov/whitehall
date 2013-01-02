@@ -21,8 +21,11 @@ Feature: Speed tagging editions
     And I should not be able to tag the publication with "Jane Smith"
 
   Scenario: Speed tagging only shows relevant policies
+    Given a published policy "Local beards" for the organisation "DCLG"
+    And a published policy "Beard taxes" for the organisation "Treasury"
     When I go to speed tag a newly imported publication for "DCLG"
-    And I should only see policies for my edition's organisation
+    And I should be able to tag the publication with "Local beards"
+    And I should not be able to tag the publication with "Beard taxes"
 
   Scenario: Speed tagging shows speech required fields
     When I go to speed tag a newly imported speech
