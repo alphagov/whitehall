@@ -96,6 +96,7 @@
     &:before {
       content: "\201C";
       float: left;
+      clear: both;
       @include ig-core-48;
       padding-top: 0;
     }
