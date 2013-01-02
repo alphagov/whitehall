@@ -28,6 +28,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
   should_allow_association_between_countries_and :publication
   should_be_rejectable :publication
   should_be_publishable :publication
+  should_allow_unpublishing_for :publication
   should_be_force_publishable :publication
   should_be_able_to_delete_an_edition :publication
   should_link_to_public_version_when_published :publication

@@ -20,6 +20,7 @@ class Admin::FatalityNoticesControllerTest < ActionController::TestCase
   should_allow_role_appointments_for :fatality_notice
   should_be_rejectable :fatality_notice
   should_be_publishable :fatality_notice
+  should_allow_unpublishing_for :fatality_notice
   should_be_force_publishable :fatality_notice
   should_be_able_to_delete_an_edition :fatality_notice
   should_link_to_public_version_when_published :fatality_notice

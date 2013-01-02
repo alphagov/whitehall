@@ -120,4 +120,11 @@ class RoutingTest < ActionDispatch::IntegrationTest
       get "/government/feed.json"
     end
   end
+
+  test "routing to editions#show will redirect to correct edition type" do
+    login_as_admin
+    publication = create(:publication)
+    get "/government/admin/editions/#{publication.id}"
+    assert_redirected_to "/government/admin/publications/#{publication.id}"
+  end
 end

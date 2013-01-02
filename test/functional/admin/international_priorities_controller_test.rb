@@ -22,6 +22,7 @@ class Admin::InternationalPrioritiesControllerTest < ActionController::TestCase
 
   should_be_rejectable :international_priority
   should_be_publishable :international_priority
+  should_allow_unpublishing_for :international_priority
   should_be_force_publishable :international_priority
   should_be_able_to_delete_an_edition :international_priority
   should_link_to_public_version_when_published :international_priority

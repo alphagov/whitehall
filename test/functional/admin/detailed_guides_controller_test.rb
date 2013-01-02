@@ -24,6 +24,7 @@ class Admin::DetailedGuidesControllerTest < ActionController::TestCase
   should_allow_attached_images_for :detailed_guide
   should_be_rejectable :detailed_guide
   should_be_publishable :detailed_guide
+  should_allow_unpublishing_for :detailed_guide
   should_be_force_publishable :detailed_guide
   should_be_able_to_delete_an_edition :detailed_guide
   should_link_to_public_version_when_published :detailed_guide

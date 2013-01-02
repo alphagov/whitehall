@@ -18,6 +18,7 @@ class Admin::CaseStudiesControllerTest < ActionController::TestCase
   should_allow_attached_images_for :case_study
   should_be_rejectable :case_study
   should_be_publishable :case_study
+  should_allow_unpublishing_for :case_study
   should_be_force_publishable :case_study
   should_be_able_to_delete_an_edition :case_study
   should_link_to_public_version_when_published :case_study

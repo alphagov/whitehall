@@ -120,6 +120,8 @@ Whitehall::Application.routes.draw do
           resource :document_sources, path: "document-sources", except: [:show]
         end
 
+        match "/editions/:id" => "editions#show", via: :get
+
         resources :publications, except: [:index]
 
         resources :policies, except: [:index]

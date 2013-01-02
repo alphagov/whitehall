@@ -27,6 +27,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
   should_allow_attachment_references_for :consultation
   should_be_rejectable :consultation
   should_be_publishable :consultation
+  should_allow_unpublishing_for :consultation
   should_be_force_publishable :consultation
   should_be_able_to_delete_an_edition :consultation
   should_link_to_public_version_when_published :consultation

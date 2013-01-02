@@ -79,6 +79,30 @@ module AdminEditionControllerTestHelpers
       end
     end
 
+    def should_allow_unpublishing_for(edition_type)
+      edition_class = edition_class_for(edition_type)
+
+      test "should display unpublish button" do
+        edition = create(edition_type)
+        edition.stubs(:unpublishable_by?).returns(true)
+        edition_class.stubs(:find).returns(edition)
+
+        get :show, id: edition
+
+        assert_select "form[action=?]", unpublish_admin_edition_path(edition, lock_version: edition.lock_version)
+      end
+
+      test "should not display unpublish button if edition is not unpublishable" do
+        edition = create(edition_type)
+        edition.stubs(:unpublishable_by?).returns(false)
+        edition_class.stubs(:find).returns(edition)
+
+        get :show, id: edition
+
+        refute_select "form[action=?]", unpublish_admin_edition_path(edition)
+      end
+    end
+
     def should_allow_creating_of(edition_type)
       edition_class = edition_class_for(edition_type)
 

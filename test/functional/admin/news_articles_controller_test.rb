@@ -21,6 +21,7 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
   should_allow_attached_images_for :news_article
   should_be_rejectable :news_article
   should_be_publishable :news_article
+  should_allow_unpublishing_for :news_article
   should_be_force_publishable :news_article
   should_be_able_to_delete_an_edition :news_article
   should_link_to_public_version_when_published :news_article

@@ -7,6 +7,7 @@ class Admin::EditionsController < Admin::BaseController
   before_filter :default_arrays_of_ids_to_empty, only: [:update]
   before_filter :build_edition, only: [:new, :create]
   before_filter :detect_other_active_editors, only: [:edit]
+  before_filter :redirect_to_controller_for_type, only: [:show]
 
   def index
     if filter && filter.valid?
@@ -182,6 +183,12 @@ class Admin::EditionsController < Admin::BaseController
         end
       end
       params[:edition][:scheduled_publication] = nil
+    end
+  end
+
+  def redirect_to_controller_for_type
+    if params[:controller] == 'admin/editions'
+      redirect_to admin_edition_path(@edition)
     end
   end
 
