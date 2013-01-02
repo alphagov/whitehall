@@ -1,0 +1,7 @@
+<%= content_tag_for(:li, world_location) do %>
+  <%= if world_location.active?
+        link_to world_location.name, world_location_path(world_location)
+      else
+        world_location.name
+      end %>
+<% end %>

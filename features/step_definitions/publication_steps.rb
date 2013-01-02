@@ -1,6 +1,6 @@
-Given /^a published publication "([^"]*)" exists that is about "([^"]*)"$/ do |publication_title, country_name|
-  country = Country.find_by_name!(country_name)
-  create(:published_publication, title: publication_title, countries: [country])
+Given /^a published publication "([^"]*)" exists that is about "([^"]*)"$/ do |publication_title, world_location_name|
+  world_location = WorldLocation.find_by_name!(world_location_name)
+  create(:published_publication, title: publication_title, world_locations: [world_location])
 end
 
 Given /^a draft publication "([^"]*)" with a PDF attachment$/ do |title|
@@ -140,9 +140,9 @@ Then /^I should see "([^"]*)" is a corporate publication of the "([^"]*)"$/ do |
   assert has_css?("#{corporate_publications_selector}, .publication a", text: title)
 end
 
-Then /^I should see that the publication is about "([^"]*)"$/ do |country_name|
-  country = Country.find_by_name!(country_name)
-  assert has_css?(".document-countries #{record_css_selector(country)}")
+Then /^I should see that the publication is about "([^"]*)"$/ do |world_location_name|
+  world_location = WorldLocation.find_by_name!(world_location_name)
+  assert has_css?(".document-world-locations #{record_css_selector(world_location)}")
 end
 
 Then /^I should get a "([^"]*)" error$/ do |error_code|

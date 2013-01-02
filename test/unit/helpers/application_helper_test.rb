@@ -156,11 +156,11 @@ class ApplicationHelperTest < ActionView::TestCase
     assert_equal organisations_path, current_main_navigation_path(controller: "organisations", action: "news")
   end
 
-  test "country-related pages should be related to uk and the world main navigation" do
-    assert_equal countries_path, current_main_navigation_path(controller: "countries", action: "index")
-    assert_equal countries_path, current_main_navigation_path(controller: "countries", action: "show")
-    assert_equal countries_path, current_main_navigation_path(controller: "international_priorities", action: "index")
-    assert_equal countries_path, current_main_navigation_path(controller: "international_priorities", action: "show")
+  test "world-location-related pages should be related to uk and the world main navigation" do
+    assert_equal world_locations_path, current_main_navigation_path(controller: "world_locations", action: "index")
+    assert_equal world_locations_path, current_main_navigation_path(controller: "world_locations", action: "show")
+    assert_equal world_locations_path, current_main_navigation_path(controller: "international_priorities", action: "index")
+    assert_equal world_locations_path, current_main_navigation_path(controller: "international_priorities", action: "show")
   end
 
   test "policy pages should be related to policy main navigation" do

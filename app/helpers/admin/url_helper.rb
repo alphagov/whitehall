@@ -19,8 +19,8 @@ module Admin::UrlHelper
     admin_header_link "People", admin_people_path
   end
 
-  def admin_countries_header_link
-    admin_header_link "Countries", admin_countries_path
+  def admin_world_locations_header_link
+    admin_header_link "World locations", admin_world_locations_path
   end
 
   def admin_policy_teams_header_link

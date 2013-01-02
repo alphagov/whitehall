@@ -1,0 +1,59 @@
+.world-locations-show {
+  .img {
+    img {
+      height: 576px;
+      width: 100%;
+      @media (max-width: 768px) {
+        height: auto;
+      }
+    }
+  }
+  .block-4, .block-5, .block-6, .block-7 {
+    float: left;
+    display: inline;
+    width: 25%;
+    li {
+      list-style: none;
+    }
+    section {
+      padding-top: $gutter;
+    }
+  }
+  .sub_navigation_container {
+    li {
+      list-style: none;
+    }
+  }
+  .article_section {
+    h1 {
+      @include ig-core-16;
+    }
+  }
+  @media (max-width: 768px) {
+    .block-4, .block-5, .block-6, .block-7 {
+      float: none;
+      display: block;
+      width: auto;
+    }
+  }
+}
+
+.world-locations-about {
+  .block-3, .block-4 {
+    float: left;
+    display: inline;
+    width: 25%;
+  }
+
+  .block-4 {
+    width: 75%;
+  }
+
+  .sub_navigation_container {
+    top: 0;
+    margin-bottom: 0;
+    li {
+      list-style: none;
+    }
+  }
+}

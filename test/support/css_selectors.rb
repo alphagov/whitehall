@@ -73,8 +73,8 @@ module CssSelectors
     "#featured-documents"
   end
 
-  def countries_selector
-    "#countries"
+  def world_locations_selector
+    "#world-locations"
   end
 
   def publish_form_selector(document)

@@ -4,7 +4,7 @@ class Publication < Publicationesque
   include Edition::Ministers
   include Edition::FactCheckable
   include Edition::AlternativeFormatProvider
-  include Edition::Countries
+  include Edition::WorldLocations
   include Edition::DocumentSeries
   include Edition::StatisticalDataSets
 

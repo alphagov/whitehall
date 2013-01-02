@@ -155,7 +155,7 @@ class Edition < ActiveRecord::Base
     false
   end
 
-  def can_be_associated_with_countries?
+  def can_be_associated_with_world_locations?
     false
   end
 

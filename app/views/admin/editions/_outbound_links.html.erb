@@ -107,13 +107,13 @@
     </section>
   <% end %>
 
-  <% if edition.can_be_associated_with_countries? %>
+  <% if edition.can_be_associated_with_world_locations? %>
     <section>
-      <h2>Countries</h2>
-      <% if edition.countries.any? %>
-        <%= render partial: "admin/countries/list", locals: {countries: edition.countries} %>
+      <h2>World locations</h2>
+      <% if edition.world_locations.any? %>
+        <%= render partial: "admin/world_locations/list", locals: {world_locations: edition.world_locations} %>
       <% else %>
-        <p>This document isn't assigned to any countries.</p>
+        <p>This document isn't assigned to any world locations.</p>
       <% end %>
     </section>
   <% end %>

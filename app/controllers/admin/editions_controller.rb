@@ -117,8 +117,8 @@ class Admin::EditionsController < Admin::BaseController
     if @edition.can_be_related_to_policies?
       params[:edition][:related_document_ids] ||= []
     end
-    if @edition.can_be_associated_with_countries?
-      params[:edition][:country_ids] ||= []
+    if @edition.can_be_associated_with_world_locations?
+      params[:edition][:world_location_ids] ||= []
     end
     if @edition.can_be_associated_with_mainstream_categories?
       params[:edition][:other_mainstream_category_ids] ||= []
