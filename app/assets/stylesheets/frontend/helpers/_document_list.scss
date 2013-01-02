@@ -8,7 +8,7 @@
     overflow: hidden;
     position: relative;
     list-style: none;
-    @include ie(6) {
+    @include ie-lte(7) {
       position: static;
     }
   }
