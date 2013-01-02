@@ -191,14 +191,6 @@
       }
     }
 
-    &.items-2 {
-      article {
-        @include media(tablet){
-          width: 50%;
-          float: left;
-        }
-      }
-    }
     &.items-2,
     &.items-4 {
       article {
@@ -206,6 +198,9 @@
           width: 50%;
           float: left;
         }
+      }
+      .item-2 {
+        clear: left;
       }
     }
     &.items-3,
@@ -215,6 +210,9 @@
           width: 33.33%;
           float: left;
         }
+      }
+      .item-3 {
+        clear: left;
       }
     }
     &.items-5 {
@@ -234,6 +232,9 @@
             float: left;
           }
         }
+      }
+      .item-2 {
+        clear: left;
       }
     }
   }
