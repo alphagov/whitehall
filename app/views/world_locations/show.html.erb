@@ -1,0 +1,111 @@
+<% page_title @world_location.name, "UK and the world" %>
+<% page_class "world-locations-show" %>
+<% atom_discovery_link_tag world_location_url(@world_location, format: :atom), "Latest activity" %>
+<%= content_tag_for(:div, @world_location) do %>
+
+  <div class="block-1">
+    <div class="inner-block">
+      <header class="page-header world-locations <% if @featured_news_articles.any? %>with_featured<% end %>">
+        <h2 class="world-location type"><%= @world_location.display_type %></h2>
+        <h1 class="world-location name page_title"><%= @world_location.name %></h1>
+      </header>
+      <div class="filter-feed">
+        <%= link_to_feed world_location_url(@world_location, format: :atom) %>
+      </div>
+    </div>
+  </div>
+
+  <% if @featured_news_articles.any? %>
+  <div class="block-2">
+    <div class="inner-block">
+      <%= render 'shared/hero_rotator', editions: @featured_news_articles %>
+    </div>
+  </div>
+  <% end %>
+
+  <div class="block-3">
+    <div class="inner-block">
+      <div class="sidebar <% if @featured_news_articles.any? %>sub_navigation_container<% end %>">
+        <%= render 'navigation', world_location: @world_location %>
+        <section id="about_us" class="info">
+          <h1 class="label">About us</h1>
+          <p class="about">
+            <span class="description"><%= format_with_html_line_breaks(@world_location.description) %></span>
+            <a href="<%= about_world_location_path(@world_location) %>" title='<%= "Further information about #{@world_location.name}" %>'>Read more<span class="visuallyhidden"> about <%= @world_location.name %></span>.</a>
+          </p>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <div class="block-4">
+    <div class="inner-block">
+      <% if @news_articles.any? %>
+        <%= article_section("News", @news_articles, {id: 'news_articles', class: 'latest_documents'}) do |news_article| %>
+          <h2 class="article_title"><%= link_to news_article.title, public_document_path(news_article), title: "View #{news_article.title}", class: "title" %></h2>
+          <span class="metadata">
+            Updated <%= relative_time(news_article.updated_at, class: 'updated_at') %>
+          </span>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="block-5">
+    <div class="inner-block">
+      <% if @international_priorities.any? %>
+        <%= article_section("Priorities", @international_priorities, {id: 'international_priorities', class: 'latest_documents', article_wrapper_class: ''}) do |international_priorities| %>
+          <h2 class="article_title"><%= link_to international_priorities.title, public_document_path(international_priorities), title: "View #{international_priorities.title}", class: "title" %></h2>
+          <span class="metadata">
+            Updated <%= relative_time(international_priorities.updated_at, class: 'updated_at') %>
+          </span>
+        <% end %>
+      <% end %>
+
+      <% if @speeches.any? %>
+        <%= article_section("Speeches", @speeches, {id: 'speeches', class: 'latest_documents'}) do |speech| %>
+          <h2 class="article_title"><%= link_to speech.title, public_document_path(speech), title: "View #{speech.title}", class: "title" %></h2>
+          <span class="metadata">
+            Updated <%= relative_time(speech.updated_at, class: 'updated_at') %>
+          </span>
+        <% end %>
+      <% end %>
+
+      <% if @policies.any? %>
+        <%= article_section("Policies", @policies, {id: 'policies', class: 'latest_documents'}) do |policy| %>
+          <h2 class="article_title"><%= link_to policy.title, public_document_path(policy), title: "View #{policy.title}", class: "title" %></h2>
+          <span class="metadata">
+            Updated <%= relative_time(policy.updated_at, class: 'updated_at') %>
+          </span>
+        <% end %>
+      <% end %>
+
+      <% if @publications.any? %>
+        <%= article_section("Publications", @publications, {id: 'publications', class: 'latest_documents'}) do |publication| %>
+          <h2 class="article_title"><%= link_to publication.title, public_document_path(publication), title: "View #{publication.title}", class: "title" %></h2>
+          <span class="metadata">
+            Updated <%= relative_time(publication.updated_at, class: 'updated_at') %>
+          </span>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="block-6">
+    <div class="inner-block">
+      <% if @world_location.embassy_address.present? %>
+        <section class="vcard info embassy_contact_details">
+          <h1 class="fn org name label">UK contacts in <%= @world_location.name %></h1>
+          <div class="adr">
+            <p class="embassy_address street-address"><%= safe_join(@world_location.embassy_address.split("\n"), "<br/>".html_safe) %></p>
+          </div>
+          <p class="embassy_telephone tel">
+            <span class="type">Telephone</span>:
+            <span class="value"><%= @world_location.embassy_telephone %></span>
+          </p>
+          <p class="embassy_email email"><%= mail_to @world_location.embassy_email %></p>
+        </section>
+      <% end %>
+    </div>
+  </div>
+<% end %>

@@ -16,7 +16,7 @@ class Admin::SpeechesControllerTest < ActionController::TestCase
   should_show_document_audit_trail_for :speech, :edit
 
   should_allow_related_policies_for :speech
-  should_allow_association_between_countries_and :speech
+  should_allow_association_between_world_locations_and :speech
   should_allow_attached_images_for :speech
   should_be_rejectable :speech
   should_be_publishable :speech

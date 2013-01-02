@@ -1,4 +1,4 @@
 class InternationalPriority < Edition
   include Edition::Images
-  include Edition::Countries
+  include Edition::WorldLocations
 end

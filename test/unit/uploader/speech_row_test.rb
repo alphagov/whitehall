@@ -103,15 +103,15 @@ class Whitehall::Uploader::SpeechRowTest < ActiveSupport::TestCase
     assert_equal Date.parse("2012-05-16"), row.first_published_at
   end
 
-  test "finds related countries using the country finder" do
-    countries = 5.times.map { stub('country') }
-    Whitehall::Uploader::Finders::CountriesFinder.stubs(:find).with("first", "second", "third", "fourth", anything, anything).returns(countries)
+  test "finds related world locations using the world location finder" do
+    world_locations = 5.times.map { stub('world_location') }
+    Whitehall::Uploader::Finders::WorldLocationsFinder.stubs(:find).with("first", "second", "third", "fourth", anything, anything).returns(world_locations)
     row = new_speech_row({
         "country_1" => "first",
         "country_2" => "second",
         "country_3" => "third",
         "country_4" => "fourth"
       })
-    assert_equal countries, row.countries
+    assert_equal world_locations, row.world_locations
   end
 end

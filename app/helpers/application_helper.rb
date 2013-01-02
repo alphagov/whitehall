@@ -209,8 +209,8 @@ module ApplicationHelper
       ministerial_roles_path
     when "organisations", "corporate_information_pages"
       organisations_path
-    when "countries", "international_priorities"
-      countries_path
+    when "world_locations", "international_priorities"
+      world_locations_path
     when "policies", "supporting_pages"
       policies_path
     end

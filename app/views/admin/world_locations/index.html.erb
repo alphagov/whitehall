@@ -1,0 +1,21 @@
+<% page_title "World locations" %>
+
+<h1>World locations</h1>
+<table id="world-locations" class="table table-striped">
+  <thead>
+    <tr>
+      <th width="15%">Name</th>
+      <th>Embassy</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @world_locations.each do |world_location| %>
+      <%= content_tag_for(:tr, world_location) do %>
+        <td><%= link_to world_location.name, edit_admin_world_location_path(world_location) %> (<%= world_location.world_location_type.name %>)</td>
+        <td>
+          <%= safe_join([world_location.embassy_address, world_location.embassy_telephone, mail_to(world_location.embassy_email)], "<br/>".html_safe) %>
+        </td>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>

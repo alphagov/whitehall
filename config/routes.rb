@@ -73,7 +73,7 @@ Whitehall::Application.routes.draw do
 
     resources :ministerial_roles, path: 'ministers', only: [:index, :show]
     resources :people, only: [:index, :show]
-    resources :countries, path: 'world', only: [:index, :show] do
+    resources :world_locations, path: 'world', only: [:index, :show] do
       member do
         get :about
       end
@@ -97,7 +97,7 @@ Whitehall::Application.routes.draw do
         resources :policy_teams, except: [:show]
         resources :operational_fields, except: [:show]
         resources :edition_organisations, only: [:edit, :update]
-        resources :edition_countries, only: [:update]
+        resources :edition_world_locations, only: [:update]
         resources :topics, path: "topics", except: [:show]
         resources :topical_events, path: "topical-events", except: [:show] do
           resources :classification_featurings, path: "featurings"
@@ -137,7 +137,7 @@ Whitehall::Application.routes.draw do
         resources :roles, except: [:show] do
           resources :role_appointments, only: [:new, :create, :edit, :update, :destroy], shallow: true
         end
-        resources :countries, only: [:index, :edit, :update]
+        resources :world_locations, only: [:index, :edit, :update]
         resources :case_studies, path: "case-studies", except: [:index]
 
         resources :imports do

@@ -17,7 +17,7 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
   should_allow_related_policies_for :news_article
   should_allow_organisations_for :news_article
   should_allow_role_appointments_for :news_article
-  should_allow_association_between_countries_and :news_article
+  should_allow_association_between_world_locations_and :news_article
   should_allow_attached_images_for :news_article
   should_be_rejectable :news_article
   should_be_publishable :news_article

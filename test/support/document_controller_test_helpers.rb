@@ -143,29 +143,29 @@ module DocumentControllerTestHelpers
       end
     end
 
-    def should_show_the_countries_associated_with(document_type)
-      test "should display the countries associated with this #{document_type}" do
-        first_country = create(:country)
-        second_country = create(:country)
-        third_country = create(:country)
-        edition = create("published_#{document_type}", countries: [first_country, second_country])
+    def should_show_the_world_locations_associated_with(document_type)
+      test "should display the world locations associated with this #{document_type}" do
+        first_location = create(:country)
+        second_location = create(:overseas_territory)
+        third_location = create(:international_delegation)
+        edition = create("published_#{document_type}", world_locations: [first_location, second_location])
 
         get :show, id: edition.document
 
-        assert_select '.document-countries' do
-          assert_select "##{dom_id(first_country)}", text: first_country.name
-          assert_select "##{dom_id(second_country)}", text: second_country.name
-          assert_select "##{dom_id(third_country)}", count: 0
+        assert_select '.document-world-locations' do
+          assert_select "##{dom_id(first_location)}", text: first_location.name
+          assert_select "##{dom_id(second_location)}", text: second_location.name
+          assert_select "##{dom_id(third_location)}", count: 0
         end
       end
 
-      test "should not display an empty list of countries for #{document_type}" do
-        edition = create("published_#{document_type}", countries: [])
+      test "should not display an empty list of world locations for #{document_type}" do
+        edition = create("published_#{document_type}", world_locations: [])
 
         get :show, id: edition.document
 
         assert_select metadata_nav_selector do
-          refute_select '.country'
+          refute_select '.world-location'
         end
       end
     end

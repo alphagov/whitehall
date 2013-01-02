@@ -5,7 +5,7 @@ class PoliciesControllerTest < ActionController::TestCase
 
   should_be_a_public_facing_controller
 
-  should_show_the_countries_associated_with :policy
+  should_show_the_world_locations_associated_with :policy
   should_display_inline_images_for :policy
   should_show_inapplicable_nations :policy
   should_be_previewable :policy

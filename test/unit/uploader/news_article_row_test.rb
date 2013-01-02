@@ -88,7 +88,7 @@ module Whitehall::Uploader
 
     test "supplies an attribute list for the new news article record" do
       row = news_article_row({})
-      attribute_keys = [:title, :summary, :body, :organisations, :first_published_at, :related_policies, :role_appointments, :countries]
+      attribute_keys = [:title, :summary, :body, :organisations, :first_published_at, :related_policies, :role_appointments, :world_locations]
       attribute_keys.each do |key|
         row.stubs(key).returns(key.to_s)
       end
@@ -96,11 +96,11 @@ module Whitehall::Uploader
       assert_equal expected_attributes, row.attributes
     end
 
-    test "finds related countries using the country finder" do
-      countries = 5.times.map { stub('country') }
-      Finders::CountriesFinder.stubs(:find).with("first", "second", "third", "fourth", anything, anything).returns(countries)
+    test "finds related world locations using the world location finder" do
+      world_locations = 5.times.map { stub('world_location') }
+      Finders::WorldLocationsFinder.stubs(:find).with("first", "second", "third", "fourth", anything, anything).returns(world_locations)
       row = news_article_row("country_1" => "first", "country_2" => "second", "country_3" => "third", "country_4" => "fourth")
-      assert_equal countries, row.countries
+      assert_equal world_locations, row.world_locations
     end
   end
 end

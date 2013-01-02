@@ -1,0 +1,41 @@
+<% page_title "About #{@world_location.name}" %>
+<% page_class "world-locations-about" %>
+<%= content_tag_for(:div, @world_location) do %>
+
+  <div class="block-1">
+    <div class="inner-block">
+      <header class="page-header world-locations">
+        <h1 class="world-location name page_title"><%= @world_location.name %></h1>
+      </header>
+    </div>
+  </div>
+
+  <div class="block-2">
+    <div class="inner-block">
+      <div class="sidebar sub_navigation_container">
+        <%= render 'navigation', world_location: @world_location %>
+        <section id="about_us" class="info">
+          <h1 class="label">About us</h1>
+          <p class="about">
+            <span class="description"><%= format_with_html_line_breaks(@world_location.description) %></span>
+            <a href="<%= about_world_location_path(@world_location) %>" title='<%= "Further information about #{@world_location.name}" %>'>Read more<span class="visuallyhidden"> about <%= @world_location.name %></span>.</a>
+          </p>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <div class="block-3">
+    <div class="inner-block">
+      <div class="document_page">
+        <div class="document_view">
+          <article class="document">
+            <div class="body">
+              <%= govspeak_to_html @world_location.about %>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
