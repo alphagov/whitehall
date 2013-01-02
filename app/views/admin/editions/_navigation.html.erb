@@ -1,13 +1,9 @@
 <nav class="actions">
   <% if edition.published? %>
-    <div class="public_version">
-      <p>View <%= link_to edition.title, public_document_url(edition) %> on public website</p>
-    </div>
+    <%= link_to "View on public website", public_document_url(edition), class: 'btn public_version' %>
   <% end %>
   <% if edition.previewable? %>
-    <div class="preview_version">
-      <p>Preview <%= link_to edition.title, preview_document_path(edition) %> on public website</p>
-    </div>
+    <%= link_to "Preview on public website", preview_document_path(edition), class: 'btn preview_version' %>
   <% end %>
   <% if edition.force_published? %>
     <div class="alert alert-error force_published">

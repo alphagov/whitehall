@@ -1,9 +1,8 @@
 <% page_title @edition.title, @edition.format_name %>
 
-<div class="span8 document-preview">
+<div class="span6 document-preview">
   <div class="tabbable">
     <ul class="nav nav-tabs">
-      <li><p class="guidance">Please review all content:</p></li>
       <li class="active"><a href="#document" data-toggle="tab">Document</a></li>
       <% if @edition.change_note_required? %>
         <li><a href="#change-note" data-toggle="tab">Change note</a></li>
@@ -169,41 +168,46 @@
   </div>
 </div>
 
-<div class="span4">
+<div class="span6">
+  <div class='clearfix'>
 
-  <span class="back">
-    back to <%= link_to 'document list', admin_editions_path %>
-  </span>
+    <%= render partial: "rejected_by", locals: { edition: @edition } %>
+    <%= render partial: 'navigation', locals: { edition: @edition } %>
 
-  <%= render partial: "rejected_by", locals: { edition: @edition } %>
-  <%= render partial: 'navigation', locals: { edition: @edition } %>
+  </div>
 
   <% if @edition.is_a?(Speech) %>
     <%= render partial: 'speech_details' %>
   <% end %>
 
-  <%= sidebar_tabs edition_tabs(@edition) do |tabs| %>
-    <%= tabs.pane class: "audit-trail", id: "history" do %>
-      <h1>Activity</h1>
-      <%= link_to "Add new remark", new_admin_edition_editorial_remark_path(@edition), class: "btn add-remark" %>
-      <ul>
-      <%= render partial: "audit_trail_entry", collection: @edition.audit_trail.reverse %>
-      </ul>
-    <% end %>
-
-    <% if @edition.can_be_fact_checked? %>
-      <%= tabs.pane class: "fact_checking", id: "fact_checking" do %>
-        <h1>Fact checking</h1>
-        <%= render partial: 'fact_check_responses', locals: {edition: @edition}  %>
-        <section class="request">
-          <h1>Send request</h1>
-          <%= form_for [:admin, @edition, FactCheckRequest.new] do |f| %>
-            <%= f.text_field :email_address %>
-            <%= f.text_area :instructions, cols: nil, rows: nil, label_text: "Extra instructions" %>
-            <%= f.submit 'Send request', class: "btn" %>
-          <% end %>
-        </section>
+  <div class='speed-tag'>
+    <p>Document sources:</p>
+    <ul>
+      <% @edition.document.document_sources.each do |document_source| %>
+        <li><%= link_to document_source.url, document_source.url %></li>
       <% end %>
+    </ul>
+
+    <p>Organisation(s): <%= @edition.organisations.map {|o| link_to(organisation_display_name(o), admin_organisation_path(o)) }.to_sentence.html_safe %></p>
+
+    <%= form_for [:admin, @edition], as: :edition, builder: Admin::EditionsHelper::EditionFormBuilder do |form| %>
+      <%= form.select :organisation_ids, options_from_collection_for_select(Organisation.all, 'id', 'name', @edition.organisation_ids), {}, multiple: true, style: 'display: none' %>
+      <div class="row-fluid">
+        <h3>Ministers</h3>
+        <% columnize(@edition.organisations.map(&:ministerial_roles).flatten) do |column| %>
+          <div class="span5">
+            <% column.each do |role| %>
+              <label class='checkbox'>
+                <%= check_box_tag 'edition[ministerial_role_ids][]', role.id, @edition.ministerial_roles.include?(role) %>
+                <%= RolePresenter.new(role).current_person.name %><br/>
+                <%= RolePresenter.new(role).link %>
+              </label>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+      <%= render partial: "additional_significant_fields", locals: {form: form, edition: form.object} %>
+      <%= submit_tag "Save", class: 'btn btn-primary' %>
     <% end %>
-  <% end %>
+  </div>
 </div>

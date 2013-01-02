@@ -1,0 +1,9 @@
+<fieldset>
+  <%= form.label :speech_type_id, "Type" %>
+  <%= form.select :speech_type_id, options_from_collection_for_select(SpeechType.all, :id, :name, edition.speech_type_id) %>
+  <%= form.label :role_appointment_id, 'Delivered by' %>
+    <%= form.select :role_appointment_id, options_from_collection_for_select(role_appointment_options, :first, :last, edition.role_appointment_id), { include_blank: true }, class: 'chzn-select', data: { placeholder: "Choose a speaker..." } %>
+  <%= form.label :delivered_on %>
+  <%= form.date_select :delivered_on, { include_blank: true }, { :class => "date" } %>
+  <%= form.text_field :location %>
+</fieldset>

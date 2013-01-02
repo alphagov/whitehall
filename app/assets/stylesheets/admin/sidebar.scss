@@ -6,7 +6,14 @@
 }
 
 nav.actions {
-  margin-bottom: 2em;
+  float: right;
+  margin-bottom: 1em;
+}
+
+.speed-tag {
+  form fieldset {
+    margin-top: 1em;
+  }
 }
 
 .sidebar {
