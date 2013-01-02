@@ -35,6 +35,11 @@ class Edition::PublishingControlsTest < ActiveSupport::TestCase
     assert edition.approvable_by?(create(:departmental_editor), force: true)
   end
 
+  test "is not force approvable when imported" do
+    edition = create(:imported_edition)
+    refute edition.approvable_by?(create(:departmental_editor), force: true)
+  end
+
   test "is not normally approvable by the original creator" do
     editor = create(:departmental_editor)
     edition = create(:submitted_edition, creator: editor)

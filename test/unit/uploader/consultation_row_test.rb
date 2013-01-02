@@ -9,10 +9,11 @@ module Whitehall::Uploader
   class ConsultationRowTest < ActiveSupport::TestCase
     setup do
       @attachment_cache = stub('attachment cache')
+      @default_organisation = stub('Organisation')
     end
 
     def consultation_row(data)
-      ConsultationRow.new(data, 1, @attachment_cache)
+      ConsultationRow.new(data, 1, @attachment_cache, @default_organisation)
     end
 
     def consultation_row_with_keys(keys)
@@ -109,7 +110,7 @@ module Whitehall::Uploader
 
     test "finds an organisation using the organisation finder" do
       organisation = stub("Organisation")
-      Finders::OrganisationFinder.stubs(:find).with("name or slug", anything, anything).returns([organisation])
+      Finders::OrganisationFinder.stubs(:find).with("name or slug", anything, anything, @default_organisation).returns([organisation])
       row = consultation_row("organisation" => "name or slug")
       assert_equal organisation, row.organisation
     end

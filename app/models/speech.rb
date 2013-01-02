@@ -5,9 +5,10 @@ class Speech < Announcement
 
   validates :speech_type_id, :delivered_on, presence: true
 
-  validate :role_appointment_has_associated_organisation
+  validate :role_appointment_has_associated_organisation, unless: ->(speech) { speech.can_have_some_invalid_data? }
 
   delegate :genus, :explanation, to: :speech_type
+  validate :only_speeches_allowed_invalid_data_can_be_awaiting_type
 
   def speech_type
     SpeechType.find_by_id(speech_type_id)
@@ -36,7 +37,7 @@ class Speech < Announcement
   end
 
   def populate_organisations_based_on_role_appointment
-    unless deleted?
+    unless deleted? or organisations_via_role_appointment.empty?
       self.edition_organisations = []
       self.organisations = []
       organisations_via_role_appointment.each { |o| self.organisations << o }
@@ -54,6 +55,12 @@ class Speech < Announcement
   def role_appointment_has_associated_organisation
     unless organisations_via_role_appointment.any?
       errors.add(:role_appointment, "must have an associated organisation")
+    end
+  end
+
+  def only_speeches_allowed_invalid_data_can_be_awaiting_type
+    unless self.can_have_some_invalid_data?
+      errors.add(:speech_type, 'must be changed') if SpeechType::ImportedAwaitingType == self.speech_type
     end
   end
 end

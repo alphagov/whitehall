@@ -1,6 +1,7 @@
 FactoryGirl.define do
   factory :import do
     data_type "consultation"
+    organisation
     csv_data (
       "old_url,title,summary,body,organisation,"+
       "policy_1,policy_2,policy_3,policy_4," +

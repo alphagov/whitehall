@@ -10,7 +10,7 @@ class DftPublicationWithJsonImportTest < ActiveSupport::TestCase
 
     filename = Rails.root.join("test/fixtures/dft_publication_import_with_json_test.csv")
     file = stub("uploaded file", read: File.read(filename), original_filename: filename)
-    import = Import.create_from_file(creator, file, "publication")
+    import = Import.create_from_file(creator, file, "publication", organisation.id)
     assert import.valid?, import.errors.full_messages.join(", ")
     import.perform
     assert_equal [], import.import_errors

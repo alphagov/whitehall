@@ -16,6 +16,21 @@ class SpeechTest < EditionTestCase
     refute speech.valid?
   end
 
+  [:imported, :deleted].each do |state|
+    test "#{state} editions are valid when the type is 'imported-awaiting-type'" do
+      speech = build(:speech, state: state, speech_type: SpeechType.find_by_slug('imported-awaiting-type'))
+      assert speech.valid?
+    end
+  end
+
+  [:draft, :scheduled, :published, :archived, :submitted, :rejected].each do |state|
+    test "#{state} editions are not valid when the publication type is 'imported-awaiting-type'" do
+      edition = build(:speech, state: state, speech_type: SpeechType.find_by_slug('imported-awaiting-type'))
+      refute edition.valid?
+    end
+  end
+
+
   test "should be invalid without a delivered_on" do
     speech = build(:speech, delivered_on: nil)
     refute speech.valid?
@@ -34,6 +49,11 @@ class SpeechTest < EditionTestCase
   test "should be invalid if role_appointment has no associated organisation" do
     speech = build(:speech, role_appointment: build(:role_appointment, role: nil))
     refute speech.valid?
+  end
+
+  test "is valid if can have some invalid data and role_appointment has no associated organisation" do
+    speech = build(:speech, role_appointment: nil, state: 'imported')
+    assert speech.valid?
   end
 
   test "associates itself with role appointments organisation on save" do
@@ -68,12 +88,10 @@ class SpeechTest < EditionTestCase
     assert_equal [organisation], speech.organisations
   end
 
-  test "save should populate organisations based on the role_appointment that delivered the speech" do
+  test "imported speeches without role_appointments yet will preserve organisations for now" do
     organisation = create(:organisation)
-    ministerial_role = create(:ministerial_role, organisations: [organisation])
-    role_appointment = create(:role_appointment, role: ministerial_role)
-    speech = create(:speech, role_appointment: role_appointment)
-
+    speech = build(:speech, organisations: [organisation], state: 'imported', role_appointment: nil)
+    speech.save
     assert_equal [organisation], speech.organisations
   end
 

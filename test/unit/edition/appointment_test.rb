@@ -3,6 +3,10 @@ require 'test_helper'
 class Edition::AppointmentTest< ActiveSupport::TestCase
   class EditionWithAppointment < Edition
     include ::Edition::Appointment
+
+    def imported?
+      state == 'imported'
+    end
   end
 
   include ActionDispatch::TestProcess
@@ -27,7 +31,11 @@ class Edition::AppointmentTest< ActiveSupport::TestCase
     assert @edition.person
   end
 
-  test "editions with appointment enabled but not set aren't valid" do
+  test "editions with role appointment enabled but not set aren't valid" do
     refute EditionWithAppointment.new(valid_edition_attributes).valid?
+  end
+
+  test "editions allowed some invalid data don't have to have a role appointment" do
+    EditionWithAppointment.new(valid_edition_attributes.merge(state: 'imported')).valid?
   end
 end

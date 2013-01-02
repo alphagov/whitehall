@@ -7,8 +7,12 @@ require 'whitehall/uploader/news_article_row'
 
 module Whitehall::Uploader
   class NewsArticleRowTest < ActiveSupport::TestCase
+    setup do
+      @default_organisation = stub('Organisation')
+    end
+
     def news_article_row(data)
-      NewsArticleRow.new(data, 1)
+      NewsArticleRow.new(data, 1, stub('Attachment cache'), @default_organisation)
     end
 
     def basic_headings
@@ -55,7 +59,7 @@ module Whitehall::Uploader
 
     test "finds an organisation using the organisation finder" do
       organisation = stub("Organisation")
-      Finders::OrganisationFinder.stubs(:find).with("name or slug", anything, anything).returns([organisation])
+      Finders::OrganisationFinder.stubs(:find).with("name or slug", anything, anything, @default_organisation).returns([organisation])
       row = news_article_row("organisation" => "name or slug")
       assert_equal organisation, row.organisation
     end

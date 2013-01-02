@@ -65,6 +65,8 @@ module Edition::Publishing
   def reason_to_prevent_approval_by(user, options = {})
     if !valid?
       "This edition is invalid. Edit the edition to fix validation problems"
+    elsif imported?
+      "This edition is not ready for publishing"
     elsif published?
       "This edition has already been published"
     elsif archived?

@@ -30,6 +30,7 @@ module Edition::Workflow
     end
 
     state_machine auto_scopes: true do
+      state :imported
       state :draft
       state :submitted
       state :rejected
@@ -38,8 +39,20 @@ module Edition::Workflow
       state :archived
       state :deleted
 
+      event :try_draft do
+        transitions from: :imported, to: :draft
+      end
+
+      event :back_to_imported do
+        transitions from: :draft, to: :imported
+      end
+
+      event :convert_to_draft do
+        transitions from: :imported, to: :draft, guard: ->(edition){ edition.valid_as_draft? }
+      end
+
       event :delete, success: -> edition { edition.run_callbacks(:delete) } do
-        transitions from: [:draft, :submitted, :rejected], to: :deleted,
+        transitions from: [:imported, :draft, :submitted, :rejected], to: :deleted,
           guard: lambda { |d| d.deletable? }
       end
 

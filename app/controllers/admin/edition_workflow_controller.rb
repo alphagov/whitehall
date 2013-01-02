@@ -13,9 +13,15 @@ class Admin::EditionWorkflowController < Admin::BaseController
 
   rescue_from ActiveRecord::RecordInvalid do
     redirect_to admin_edition_path(@edition),
-      alert: "Unable to #{params[:action]} this edition because it is invalid (#{@edition.errors.full_messages.to_sentence}). " +
+      alert: "Unable to #{action_name_as_human_interaction(params[:action])} because it is invalid (#{@edition.errors.full_messages.to_sentence}). " +
              "Please edit it and try again."
   end
+
+  rescue_from Transitions::InvalidTransition do
+    redirect_to admin_edition_path(@edition),
+      alert: "Unable to #{action_name_as_human_interaction(params[:action])} because it is not ready yet. Please try again."
+  end
+
 
   def submit
     @edition.submit!
@@ -77,6 +83,12 @@ class Admin::EditionWorkflowController < Admin::BaseController
     end
   end
 
+  def convert_to_draft
+    @edition.convert_to_draft!
+    redirect_to admin_editions_path(state: :draft),
+      notice: "The imported document #{@edition.title} has been converted into a draft"
+  end
+
   private
 
   def users_to_notify(edition)
@@ -104,6 +116,15 @@ class Admin::EditionWorkflowController < Admin::BaseController
   def set_minor_change_flag
     if params[:edition] && params[:edition][:minor_change]
       @edition.minor_change = params[:edition][:minor_change]
+    end
+  end
+
+  def action_name_as_human_interaction(action_name)
+    case action_name.to_s
+    when 'convert_to_draft'
+      "convert this imported edition to a draft"
+    else
+      "#{action_name} this edition"
     end
   end
 end

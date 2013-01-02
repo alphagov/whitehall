@@ -4,6 +4,10 @@ require 'support/consultation_csv_sample_helpers'
 class Admin::ImportsControllerTest < ActionController::TestCase
   include ConsultationCsvSampleHelpers
 
+  def organisation_id
+    "1"
+  end
+
   setup do
     login_as :importer
   end
@@ -22,13 +26,13 @@ class Admin::ImportsControllerTest < ActionController::TestCase
 
   test "be able to upload a tagged CSV file" do
     csv_file = fixture_file_upload("dft_publication_import_with_json_test.csv")
-    Import.expects(:create_from_file).with(anything, csv_file, "consultation").returns(new_import)
-    post :create, import: {file: csv_file, data_type: "consultation"}
+    Import.expects(:create_from_file).with(anything, csv_file, "consultation", organisation_id).returns(new_import)
+    post :create, import: {file: csv_file, data_type: "consultation", organisation_id: organisation_id}
   end
 
   test "record the person who uploaded a CSV file" do
     csv_file = fixture_file_upload("dft_publication_import_with_json_test.csv")
-    Import.expects(:create_from_file).with(current_user, anything, anything).returns(new_import)
+    Import.expects(:create_from_file).with(current_user, anything, anything, anything).returns(new_import)
     post :create, import: {file: csv_file}
   end
 

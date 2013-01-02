@@ -9,10 +9,11 @@ module Whitehall::Uploader
   class StatisticalDataSetRowTest < ActiveSupport::TestCase
     setup do
       @attachment_cache = stub('attachment cache')
+      @default_organisation = stub('Organisation')
     end
 
     def statistica_data_set_row(data)
-      StatisticalDataSetRow.new(data, 1, @attachment_cache)
+      StatisticalDataSetRow.new(data, 1, @attachment_cache, @default_organisation)
     end
 
     def basic_headings
@@ -82,14 +83,14 @@ module Whitehall::Uploader
 
     test "finds organisation by slug in org column" do
       organisation = stub("organisation")
-      Finders::OrganisationFinder.stubs(:find).with("name or slug", anything, anything).returns([organisation])
+      Finders::OrganisationFinder.stubs(:find).with("name or slug", anything, anything, @default_organisation).returns([organisation])
       row = statistica_data_set_row("organisation" => "name or slug")
       assert_equal [organisation], row.organisations
     end
 
     test "uses the organisation as the alternative format provider" do
       organisation = stub("organisation")
-      Finders::OrganisationFinder.stubs(:find).with("name or slug", anything, anything).returns([organisation])
+      Finders::OrganisationFinder.stubs(:find).with("name or slug", anything, anything, @default_organisation).returns([organisation])
       row = statistica_data_set_row("organisation" => "name or slug")
       assert_equal organisation, row.alternative_format_provider
     end
