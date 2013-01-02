@@ -169,24 +169,24 @@
 </div>
 
 <div class="span6">
-  <div class='clearfix'>
+  <h2 class='pull-right'><%= @edition.state.capitalize %> <%= @edition.type.underscore.titlecase %></h2>
 
     <%= render partial: "rejected_by", locals: { edition: @edition } %>
     <%= render partial: 'navigation', locals: { edition: @edition } %>
-
-  </div>
 
   <% if @edition.is_a?(Speech) %>
     <%= render partial: 'speech_details' %>
   <% end %>
 
   <div class='speed-tag'>
-    <p>Document sources:</p>
-    <ul>
-      <% @edition.document.document_sources.each do |document_source| %>
-        <li><%= link_to document_source.url, document_source.url %></li>
-      <% end %>
-    </ul>
+    <% unless @edition.document.document_sources.empty? %>
+      <p>Document sources:</p>
+      <ul>
+        <% @edition.document.document_sources.each do |document_source| %>
+          <li><%= link_to document_source.url, document_source.url %></li>
+        <% end %>
+      </ul>
+    <% end %>
 
     <p>Organisation(s): <%= @edition.organisations.map {|o| link_to(organisation_display_name(o), admin_organisation_path(o)) }.to_sentence.html_safe %></p>
 
@@ -200,8 +200,8 @@
               <% column.each do |role| %>
                 <label class='checkbox'>
                   <%= check_box_tag 'edition[ministerial_role_ids][]', role.id, @edition.ministerial_roles.include?(role) %>
-                  <%= RolePresenter.new(role).current_person.name %><br/>
-                  <%= RolePresenter.new(role).link %>
+                  <%= RolePresenter.new(role).current_person.name %>
+                  <p class='muted'><%= RolePresenter.new(role).name %></p>
                 </label>
               <% end %>
             </div>

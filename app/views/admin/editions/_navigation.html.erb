@@ -1,10 +1,4 @@
 <nav class="actions">
-  <% if edition.published? %>
-    <%= link_to "View on public website", public_document_url(edition), class: 'btn public_version' %>
-  <% end %>
-  <% if edition.previewable? %>
-    <%= link_to "Preview on public website", preview_document_path(edition), class: 'btn preview_version' %>
-  <% end %>
   <% if edition.force_published? %>
     <div class="alert alert-error force_published">
       <p>This edition has not yet been reviewed by a
@@ -23,6 +17,13 @@
         <p>Scheduled publication proposed for <%= l edition.scheduled_publication, format: :long %>. </p>
       <% end %>
     </div>
+  <% end %>
+
+  <% if edition.published? %>
+    <%= link_to "View on public website", public_document_url(edition), class: 'btn public_version' %>
+  <% end %>
+  <% if edition.previewable? %>
+    <%= link_to "Preview", preview_document_path(edition), class: 'btn preview_version' %>
   <% end %>
 
   <% if !edition.is_latest_edition? %>
