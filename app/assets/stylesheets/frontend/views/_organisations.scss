@@ -554,8 +554,7 @@
           position: relative;
           float: left;
           width: 25%;
-          margin-right: -100%;
-          margin-left: 0;
+          margin: 0;
           li {
             width: 100%;
           }
@@ -564,8 +563,6 @@
           position: relative;
           float: left;
           width: 75%;
-          margin-right: -100%;
-          margin-left: 25%;
           li {
             width: 33.33%;
           }
