@@ -19,4 +19,8 @@ class Whitehall::Uploader::Finders::SpeechTypeFinderTest < ActiveSupport::TestCa
     Whitehall::Uploader::Finders::SpeechTypeFinder.find('made-up-speech-type-slug', @log, @line_number)
     assert_match /Unable to find Speech type with slug 'made-up-speech-type-slug'/, @log_buffer.string
   end
+
+  test 'uses the ImportedAwaitingType type for a blank slug' do
+    assert_equal SpeechType::ImportedAwaitingType, Whitehall::Uploader::Finders::SpeechTypeFinder.find('', @log, @line_number)
+  end
 end

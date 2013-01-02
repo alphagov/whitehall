@@ -7,6 +7,7 @@ class Import < ActiveRecord::Base
   has_many :import_errors, dependent: :destroy
 
   belongs_to :creator, class_name: "User"
+  belongs_to :organisation
 
   TYPES = {
     consultation: [Whitehall::Uploader::ConsultationRow, Consultation],
@@ -17,7 +18,8 @@ class Import < ActiveRecord::Base
     fatality_notice: [Whitehall::Uploader::FatalityNoticeRow, FatalityNotice]
   }
 
-  validates :csv_data, presence: true, if: :valid_csv_data_encoding?
+  validate :csv_data_supplied
+  validates :organisation_id, presence: true
   validate :valid_csv_data_encoding!
   validates :data_type, inclusion: { in: TYPES.keys.map(&:to_s), message: "%{value} is not a valid type" }
   validate :valid_csv_headings?, if: :valid_csv_data_encoding?
@@ -34,9 +36,10 @@ class Import < ActiveRecord::Base
     end.force_encoding('utf-8')
   end
 
-  def self.create_from_file(current_user, csv_file, data_type)
+  def self.create_from_file(current_user, csv_file, data_type, organisation_id)
     Import.create(
       data_type: data_type,
+      organisation_id: organisation_id,
       csv_data: read_file(csv_file),
       creator_id: current_user.id,
       original_filename: csv_file && csv_file.original_filename,
@@ -95,7 +98,7 @@ class Import < ActiveRecord::Base
             progress_logger.info("blank, skipped")
             next
           end
-          row = row_class.new(data_row.to_hash, row_number, attachment_cache, progress_logger)
+          row = row_class.new(data_row.to_hash, row_number, attachment_cache, organisation, progress_logger)
           if document_source = DocumentSource.find_by_url(row.legacy_url)
             progress_logger.already_imported(row.legacy_url, document_source)
           else
@@ -120,7 +123,7 @@ class Import < ActiveRecord::Base
   end
 
   def import_row(row, row_number, creator, progress_logger)
-    attributes = row.attributes.merge(creator: creator)
+    attributes = row.attributes.merge(creator: creator, state: 'imported')
     model = model_class.new(attributes)
     if model.save
       ds = DocumentSource.create!(document: model.document, url: row.legacy_url, import: self, row_number: row_number)
@@ -171,8 +174,16 @@ class Import < ActiveRecord::Base
     data_type && TYPES[data_type.to_sym] && TYPES[data_type.to_sym][1]
   end
 
+  # We cannot use the standard presence validator as sometimes
+  # broken data cannot have string methods called on it
+  def csv_data_supplied
+    errors.add(:csv_data, "not supplied") if csv_data.nil?
+  end
+
   def valid_csv_data_encoding!
-    errors.add(:csv_data, "Invalid #{csv_data.encoding} character encoding") unless valid_csv_data_encoding?
+    if (csv_data)
+      errors.add(:csv_data, "Invalid #{csv_data.encoding} character encoding") unless valid_csv_data_encoding?
+    end
   end
 
   def valid_csv_data_encoding?

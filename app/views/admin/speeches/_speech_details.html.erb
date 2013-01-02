@@ -1,0 +1,21 @@
+<p class="details">
+  <% if @edition.role_appointment %>
+    <span class="type"><%= @edition.speech_type.name %></span>
+    for speech delivered by
+    <span class="role_appointment">
+      <span class="person"><%= link_to @edition.role_appointment.person.name, @edition.role_appointment.person %></span>
+      <span class="role"><%= role_appointment(@edition.role_appointment, true) %></span>
+      in
+      <span class="organisations"><%= @edition.role.organisations.map {|o| link_to(o.name, o)}.to_sentence.html_safe %></span>
+    </span>
+  <% else %>
+    Speech type: <span class="type"><%= @edition.speech_type.name %></span><br/>
+    Organisation:
+    <span class="organisations"><%= @edition.organisations.map {|o| link_to(o.name, o)}.to_sentence.html_safe %></span><br/>
+    Delivered
+  <% end %>
+  on
+  <span class="delivered_on"><%= @edition.delivered_on.to_s(:long_ordinal) %></span>
+  at
+  <span class="location"><%= @edition.location %></span>
+</p>

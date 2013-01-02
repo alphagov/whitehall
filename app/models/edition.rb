@@ -86,7 +86,7 @@ class Edition < ActiveRecord::Base
 
   UNMODIFIABLE_STATES = %w(scheduled published archived deleted).freeze
   FROZEN_STATES = %w(archived deleted).freeze
-  PRE_PUBLICATION_STATES = %w(draft submitted rejected scheduled).freeze
+  PRE_PUBLICATION_STATES = %w(imported draft submitted rejected scheduled).freeze
 
   def skip_main_validation?
     FROZEN_STATES.include?(state)
@@ -365,6 +365,19 @@ class Edition < ActiveRecord::Base
 
     def latest_published_edition
       published.where("NOT EXISTS (SELECT 1 FROM editions e2 WHERE e2.document_id = editions.document_id AND e2.id > editions.id AND e2.state = 'published')")
+    end
+  end
+
+  def valid_as_draft?
+    if imported?
+      begin
+        self.try_draft
+        return valid?
+      ensure
+        self.back_to_imported
+      end
+    else
+      valid?
     end
   end
 

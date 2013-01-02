@@ -4,7 +4,17 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
 
   test "when initially created" do
     edition = create(:edition)
+    refute edition.imported?
     assert edition.draft?
+    refute edition.submitted?
+    refute edition.scheduled?
+    refute edition.published?
+  end
+
+  test "when imported" do
+    edition = create(:imported_edition)
+    assert edition.imported?
+    refute edition.draft?
     refute edition.submitted?
     refute edition.scheduled?
     refute edition.published?
@@ -12,6 +22,7 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
 
   test "when submitted" do
     edition = create(:submitted_edition)
+    refute edition.imported?
     refute edition.draft?
     assert edition.submitted?
     refute edition.scheduled?
@@ -21,6 +32,7 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
   test "when published" do
     edition = create(:submitted_edition)
     edition.publish_as(create(:departmental_editor))
+    refute edition.imported?
     refute edition.draft?
     assert edition.published?
     refute edition.scheduled?
@@ -31,6 +43,7 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
     editor = create(:departmental_editor)
     edition = create(:draft_edition, creator: editor)
     edition.publish_as(editor, force: true)
+    refute edition.imported?
     refute edition.draft?
     assert edition.published?
     refute edition.scheduled?
@@ -40,6 +53,7 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
   test "when scheduled" do
     edition = create(:submitted_edition, scheduled_publication: 1.day.from_now)
     edition.schedule_as(create(:departmental_editor))
+    refute edition.imported?
     refute edition.draft?
     refute edition.published?
     assert edition.scheduled?
@@ -55,7 +69,7 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
       end.pre_publication?
     end
 
-    assert_equal [:draft, :submitted, :rejected, :scheduled], pre
+    assert_equal [:imported, :draft, :submitted, :rejected, :scheduled], pre
     assert_equal [:published, :archived, :deleted], post
   end
 
@@ -89,7 +103,7 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
     end
   end
 
-  [:draft, :submitted, :rejected].each do |state|
+  [:imported, :draft, :submitted, :rejected].each do |state|
     test "deleting a #{state} edition transitions it into the deleted state" do
       edition = create("#{state}_edition")
       edition.delete!

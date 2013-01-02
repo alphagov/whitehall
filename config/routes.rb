@@ -113,6 +113,7 @@ Whitehall::Application.routes.draw do
             post :unpublish, to: 'edition_workflow#unpublish'
             post :schedule, to: 'edition_workflow#schedule'
             post :unschedule, to: 'edition_workflow#unschedule'
+            post :convert_to_draft, to: 'edition_workflow#convert_to_draft'
           end
           resources :supporting_pages, path: "supporting-pages", except: [:index]
           resources :editorial_remarks, only: [:new, :create], shallow: true

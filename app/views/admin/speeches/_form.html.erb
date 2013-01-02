@@ -3,11 +3,18 @@
     <%= form.label :speech_type_id, "Type" %>
     <%= form.select :speech_type_id, options_from_collection_for_select(SpeechType.all, :id, :name, edition.speech_type_id) %>
     <%= form.label :role_appointment_id, 'Delivered by' %>
-    <%= form.select :role_appointment_id, options_from_collection_for_select(role_appointment_options, :first, :last, edition.role_appointment_id), {}, class: 'chzn-select', data: { placeholder: "Choose a minister..." } %>
+    <%= form.select :role_appointment_id, options_from_collection_for_select(role_appointment_options, :first, :last, edition.role_appointment_id), { include_blank: true }, class: 'chzn-select', data: { placeholder: "Choose a speaker..." } %>
     <%= form.label :delivered_on %>
     <%= form.date_select :delivered_on, { include_blank: true }, { :class => "date" } %>
     <%= form.text_field :location %>
   </fieldset>
+  <% if edition.role_appointment.nil? %>
+    <fieldset>
+      <legend>Temporary associations</legend>
+      <p>This field will be overwritten once the deliverer of the speech is chosen: it is used to ensure the right department checks the speech after import.</p>
+      <%= render partial: 'organisation_fields', locals: { form: form, edition: edition } %>
+    </fieldset>
+  <% end %>
 
   <fieldset>
     <legend>Associations</legend>
