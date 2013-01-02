@@ -24,11 +24,11 @@
         span {
           padding-right: $gutter-half;
           display: block;
-
-          img {
-            width: 100%;
-          }
         }
+      }
+      img {
+        width: 100%;
+        max-width: 320px;
       }
     }
     h2 {
