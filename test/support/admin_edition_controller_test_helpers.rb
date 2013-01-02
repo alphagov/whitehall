@@ -53,32 +53,6 @@ module AdminEditionControllerTestHelpers
       end
     end
 
-    def should_have_notes_to_editors(edition_type)
-      edition_class = edition_class_for(edition_type)
-
-      test "create should create a new #{edition_type} with notes to editors" do
-        attributes = controller_attributes_for(edition_type)
-
-        post :create, edition: attributes.merge(
-          notes_to_editors: "notes-to-editors"
-        )
-
-        created_edition = edition_class.last
-        assert_equal "notes-to-editors", created_edition.notes_to_editors
-      end
-
-      test "update should save modified #{edition_type} notes to editors" do
-        edition = create(edition_type)
-
-        put :update, id: edition, edition: controller_attributes_for_instance(edition,
-          notes_to_editors: "new-notes-to-editors"
-        )
-
-        saved_edition = edition.reload
-        assert_equal "new-notes-to-editors", saved_edition.notes_to_editors
-      end
-    end
-
     def should_allow_unpublishing_for(edition_type)
       edition_class = edition_class_for(edition_type)
 
