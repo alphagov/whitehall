@@ -44,7 +44,8 @@
         <% checkbox_args = nested_attribute_destroy_checkbox_options(edition_attachments_fields) %>
         <% label_text = link_to_attachment(edition_attachments_fields.object.attachment) + " (uncheck to delete)" %>
         <% checkbox_args[0].merge!(label_text: label_text) %>
-        <%= edition_attachments_fields.check_box :_destroy, *checkbox_args  %>
+        <%= edition_attachments_fields.check_box :_destroy, *checkbox_args %>
+        <%= link_to "Update this attachment", edit_admin_attachment_datum_path(edition_attachments_fields.object.attachment.attachment_data), target: :blank %>
       </p>
       <% if show_inline_attachment_help %>
         <p>Markdown to use:

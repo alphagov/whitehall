@@ -1,0 +1,14 @@
+<% page_title "Update attachment data" %>
+<div class="span8">
+<section>
+  <h1>Update attachment data for: </h1>
+    <p>
+      <pre><%= @attachment_data.carrierwave_file %></pre>
+    </p>
+    <%= form_for([:admin, @attachment_data]) do |form| %>
+      <%= form.label :file %>
+      <%= form.file_field :file %>
+      <%= form.submit "Update", class: "btn" %>
+    <% end %>
+  </section>
+</div>

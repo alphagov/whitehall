@@ -88,6 +88,8 @@ Whitehall::Application.routes.draw do
 
         resources :users, only: [:index, :show, :edit, :update]
 
+        resources :attachment_data, only: [:edit, :update]
+
         resources :authors, only: [:show]
         resources :organisations do
           resources :groups, except: [:show]
