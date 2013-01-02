@@ -2,6 +2,8 @@ class OrganisationsController < PublicFacingController
   include CacheControlHelper
 
   before_filter :load_organisation, only: [:show, :about]
+  skip_before_filter :set_cache_control_headers, only: [:show]
+  before_filter :set_cache_max_age, only: [:show]
 
   def index
     ministerial_department_type = OrganisationType.find_by_name('Ministerial department')
@@ -20,6 +22,7 @@ class OrganisationsController < PublicFacingController
 
   def show
     recently_updated_source = @organisation.published_editions.in_reverse_chronological_order
+    expires_in 5.minutes, public: true
     respond_to do |format|
       format.atom do
         @documents = EditionCollectionPresenter.new(recently_updated_source.limit(10))
@@ -85,5 +88,9 @@ class OrganisationsController < PublicFacingController
 
   def load_organisation
     @organisation = Organisation.find(params[:id])
+  end
+
+  def set_cache_max_age
+    @cache_max_age = 5.minutes
   end
 end
