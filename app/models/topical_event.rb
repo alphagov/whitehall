@@ -1,4 +1,10 @@
 class TopicalEvent < Classification
+  searchable title: :name,
+             link: :search_link,
+             content: :description,
+             format: 'topical_event',
+             description: :description
+
   has_many :social_media_accounts, as: :socialable, dependent: :destroy
 
   has_many :announcments, through: :classification_memberships
