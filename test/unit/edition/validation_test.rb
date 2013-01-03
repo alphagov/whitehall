@@ -29,11 +29,6 @@ class Edition::ValidationTest < ActiveSupport::TestCase
     refute edition.valid?
   end
 
-  test "should be invalid when published without first_published_at" do
-    edition = build(:published_edition, first_published_at: nil)
-    refute edition.valid?
-  end
-
   test "should be invalid if document has existing draft editions" do
     draft_edition = create(:draft_edition)
     edition = build(:edition, document: draft_edition.document.reload)

@@ -310,6 +310,14 @@ class Edition < ActiveRecord::Base
     format_name.capitalize
   end
 
+  def first_public_at
+    first_published_at
+  end
+
+  def make_public_at(date)
+    self.first_published_at ||= date
+  end
+
   def first_published_date
     first_published_at
   end
@@ -399,17 +407,18 @@ class Edition < ActiveRecord::Base
     end
   end
 
+  def set_public_timestamp
+    if first_published_version?
+      self.public_timestamp = first_public_at
+    else
+      self.public_timestamp = major_change_published_at
+    end
+  end
+
   private
 
   def body_required?
     true
   end
 
-  def set_public_timestamp
-    if first_published_version?
-      self.public_timestamp = first_published_at
-    else
-      self.public_timestamp = major_change_published_at
-    end
-  end
 end

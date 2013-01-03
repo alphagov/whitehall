@@ -67,6 +67,13 @@ class Consultation < Publicationesque
     response.published_on_or_default
   end
 
+  def first_public_at
+    opening_on
+  end
+
+  def make_public_at(date)
+  end
+
   def first_published_date
     opening_on.to_date
   end
@@ -104,14 +111,6 @@ class Consultation < Publicationesque
   def hash_with_blank_values?(hash)
     hash.values.inject(true) do |result, value|
       result && (value.is_a?(Hash) ? hash_with_blank_values?(value) : value.blank?)
-    end
-  end
-
-  def set_public_timestamp
-    if first_published_version?
-      self.public_timestamp = opening_on
-    else
-      self.public_timestamp = major_change_published_at
     end
   end
 

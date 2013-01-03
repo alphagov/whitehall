@@ -2,11 +2,9 @@ module Edition::Publishing
   extend ActiveSupport::Concern
 
   included do
-    validates :major_change_published_at, :first_published_at, presence: true, if: -> edition { edition.published? }
+    validates :major_change_published_at, presence: true, if: -> edition { edition.published? }
     validate :change_note_present!, if: :change_note_required?
 
-    scope :first_published_since, -> time { where(arel_table[:first_published_at].gt(time)) }
-    scope :first_published_during, -> period { where(first_published_at: period) }
     scope :significant_change, where(minor_change: false)
   end
 
@@ -101,7 +99,7 @@ module Edition::Publishing
   def publish_as(user, options = {})
     if publishable_by?(user, options)
       self.major_change_published_at = Time.zone.now unless self.minor_change?
-      self.first_published_at ||= major_change_published_at
+      make_public_at(major_change_published_at)
       self.access_limited = nil
       if ! scheduled?
         self.force_published = options[:force]

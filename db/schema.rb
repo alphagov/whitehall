@@ -347,7 +347,7 @@ ActiveRecord::Schema.define(:version => 20130111144356) do
     t.date     "delivered_on"
     t.date     "opening_on"
     t.date     "closing_on"
-    t.datetime "published_at"
+    t.datetime "major_change_published_at"
     t.datetime "first_published_at"
     t.date     "publication_date"
     t.text     "summary"
@@ -365,7 +365,7 @@ ActiveRecord::Schema.define(:version => 20130111144356) do
     t.integer  "alternative_format_provider_id"
     t.integer  "document_series_id"
     t.integer  "published_related_publication_count",                             :default => 0,       :null => false
-    t.datetime "timestamp_for_sorting"
+    t.datetime "public_timestamp"
     t.integer  "primary_mainstream_category_id"
     t.datetime "scheduled_publication"
     t.boolean  "replaces_businesslink",                                           :default => false
@@ -384,12 +384,12 @@ ActiveRecord::Schema.define(:version => 20130111144356) do
   add_index "editions", ["operational_field_id"], :name => "index_editions_on_operational_field_id"
   add_index "editions", ["policy_team_id"], :name => "index_editions_on_policy_team_id"
   add_index "editions", ["primary_mainstream_category_id"], :name => "index_editions_on_primary_mainstream_category_id"
+  add_index "editions", ["public_timestamp"], :name => "index_editions_on_public_timestamp"
   add_index "editions", ["publication_date"], :name => "index_editions_on_publication_date"
   add_index "editions", ["publication_type_id"], :name => "index_editions_on_publication_type_id"
   add_index "editions", ["role_appointment_id"], :name => "index_editions_on_role_appointment_id"
   add_index "editions", ["speech_type_id"], :name => "index_editions_on_speech_type_id"
   add_index "editions", ["state"], :name => "index_editions_on_state"
-  add_index "editions", ["timestamp_for_sorting"], :name => "index_editions_on_timestamp_for_sorting"
   add_index "editions", ["type"], :name => "index_editions_on_type"
 
   create_table "editorial_remarks", :force => true do |t|

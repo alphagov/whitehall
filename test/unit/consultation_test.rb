@@ -265,9 +265,9 @@ class ConsultationTest < EditionTestCase
     assert_equal 4.days.ago.to_date, consultation.first_published_date
   end
 
-  test "sets inital timestamp for sorting as opening date" do
-    consultation = create(:published_consultation, opening_on: 4.days.ago)
-
-    assert_equal 4.days.ago, consultation.public_timestamp
+  test "make_public_at should not set first_published_at" do
+    consultation = build(:consultation, first_published_at: nil)
+    consultation.make_public_at(2.days.ago)
+    refute consultation.first_published_at
   end
 end

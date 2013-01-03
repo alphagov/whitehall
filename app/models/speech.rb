@@ -30,6 +30,13 @@ class Speech < Announcement
     role_appointment.role.ministerial? ? "Minister" : "Speaker"
   end
 
+  def first_public_at
+    delivered_on
+  end
+
+  def make_public_at(date)
+  end
+
   private
 
   def skip_organisation_validation?
@@ -48,10 +55,6 @@ class Speech < Announcement
 
   def organisations_via_role_appointment
     role_appointment && role_appointment.role && role_appointment.role.organisations || []
-  end
-
-  def set_public_timestamp
-    self.public_timestamp = delivered_on
   end
 
   def role_appointment_has_associated_organisation

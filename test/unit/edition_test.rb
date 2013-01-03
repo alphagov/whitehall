@@ -560,6 +560,34 @@ class EditionTest < ActiveSupport::TestCase
     assert build(:edition).accessible_by?(nil)
   end
 
+  test "make_public_at should set first_published_at if its empty" do
+    e = build(:edition, first_published_at: nil)
+    e.make_public_at(2.days.ago)
+    assert_equal 2.days.ago, e.first_published_at
+  end
+
+  test "make_public_at should no update first_published_at if its not empty" do
+    e = build(:edition, first_published_at: 4.days.ago)
+    e.make_public_at(2.days.ago)
+    assert_equal 4.days.ago, e.first_published_at
+  end
+
+  test "set_public_timestamp should use first_public_at if first_published_version" do
+    e = build(:edition, public_timestamp: nil)
+    e.stubs(:first_public_at).returns(3.days.ago)
+    e.set_public_timestamp
+    assert_equal 3.days.ago, e.public_timestamp
+  end
+
+  test "set_public_timestamp should use major_change_published_at if not first_published_version" do
+    e = build(:edition,
+              public_timestamp: nil,
+              published_major_version: 2,
+              major_change_published_at: 4.days.ago)
+    e.set_public_timestamp
+    assert_equal 4.days.ago, e.public_timestamp
+  end
+
   test 'exposes major_change_published_at as timestamp_for_update' do
     e = build(:edition, major_change_published_at: 1.week.ago,
                         first_published_at: 2.weeks.ago,
