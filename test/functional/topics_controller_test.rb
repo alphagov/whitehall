@@ -312,14 +312,14 @@ class TopicsControllerTest < ActionController::TestCase
 
   test 'show has Atom feed autodiscovery link' do
     topic = build(:topic, id: 1)
-    Classification.stubs(:find).returns(topic)
+    Topic.stubs(:find).returns(topic)
     get :show, id: topic
     assert_select_autodiscovery_link topic_url(topic, format: 'atom')
   end
 
   test 'show links to the atom feed' do
     topic = build(:topic, id: 1)
-    Classification.stubs(:find).returns(topic)
+    Topic.stubs(:find).returns(topic)
     get :show, id: topic
     assert_select "a.feed[href=?]", topic_url(topic, format: 'atom')
   end
@@ -327,7 +327,7 @@ class TopicsControllerTest < ActionController::TestCase
   test 'atom feed has the right elements' do
     topic = build(:topic, id: 1)
     topic.stubs(:recently_changed_documents).returns([create(:published_policy)])
-    Classification.stubs(:find).returns(topic)
+    Topic.stubs(:find).returns(topic)
 
     get :show, id: topic, format: :atom
 
@@ -360,7 +360,7 @@ class TopicsControllerTest < ActionController::TestCase
     ]
     topic = build(:topic, id: 1)
     topic.stubs(:recently_changed_documents).returns(recent_documents)
-    Classification.stubs(:find).returns(topic)
+    Topic.stubs(:find).returns(topic)
 
     get :show, id: topic, format: :atom
 
@@ -389,7 +389,7 @@ class TopicsControllerTest < ActionController::TestCase
     ]
     topic = build(:topic, id: 1)
     topic.stubs(:recently_changed_documents).returns(recent_documents)
-    Classification.stubs(:find).returns(topic)
+    Topic.stubs(:find).returns(topic)
 
     get :show, id: topic, format: :atom, govdelivery_version: 'yes'
 
@@ -415,7 +415,7 @@ class TopicsControllerTest < ActionController::TestCase
     recent_documents = Array.new(20) { create(:published_policy) }
     topic = build(:topic, id: 1)
     topic.stubs(:recently_changed_documents).returns(recent_documents)
-    Classification.stubs(:find).returns(topic)
+    Topic.stubs(:find).returns(topic)
 
     get :show, id: topic, format: :atom
 
@@ -427,7 +427,7 @@ class TopicsControllerTest < ActionController::TestCase
   test 'atom feed shows topic creation time if no recent publications' do
     topic = build(:topic, id: 1, created_at: 1.day.ago)
     topic.stubs(:recently_changed_documents).returns([])
-    Classification.stubs(:find).returns(topic)
+    Topic.stubs(:find).returns(topic)
 
     get :show, id: topic, format: :atom
     assert_select_atom_feed do

@@ -1,15 +1,11 @@
 class TopicalEventsController < ClassificationsController
-  before_filter :load_topical_event, only: [:show, :update]
-
   def index
     redirect_to :topics
   end
 
   def show
+    @topical_event = TopicalEvent.find(params[:id])
     @policies = @topical_event.published_policies
-    # expire_on_next_scheduled_publication(@topical_event.scheduled_editions +
-    #   Publication.scheduled_in_topic([@topical_event]) +
-    #   Announcement.scheduled_in_topic([@topical_event]))
     @publications = PublicationesquePresenter.decorate(@topical_event.published_publications.in_reverse_chronological_order.limit(6))
     @announcements = AnnouncementPresenter.decorate(@topical_event.published_announcements.in_reverse_chronological_order.limit(6))
     @detailed_guides = @topical_event.detailed_guides.published.limit(5)
@@ -27,9 +23,4 @@ class TopicalEventsController < ClassificationsController
       }
     end
   end
-
-  def load_topical_event
-    @topical_event = TopicalEvent.find(params[:id])
-  end
-
 end
