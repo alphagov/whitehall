@@ -78,10 +78,6 @@ class Consultation < Publicationesque
     opening_on.to_date
   end
 
-  def last_significantly_changed_on
-    ((response_published? && response_published_on) || (closed? && closing_on) || (open? && opening_on) || first_published_at).to_date
-  end
-
   def allows_attachment_references?
     true
   end

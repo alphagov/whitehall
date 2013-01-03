@@ -121,29 +121,6 @@ class ConsultationTest < EditionTestCase
     assert_equal 0, Consultation.upcoming.count
   end
 
-  test "should have last significant change on first published date for unopen consultation" do
-    consultation = create(:published_consultation, first_published_at: 1.day.ago, opening_on: 1.day.from_now, closing_on: 2.days.from_now)
-    assert_equal 1.day.ago.to_date, consultation.last_significantly_changed_on
-  end
-
-  test "should have last significant change on opening date for open consultation" do
-    consultation = create(:published_consultation, first_published_at: 2.days.ago, opening_on: 1.day.ago, closing_on: 1.day.from_now)
-    assert_equal 1.day.ago.to_date, consultation.last_significantly_changed_on
-  end
-
-  test "should have last significant change on closing date for closed consultation" do
-    consultation = create(:published_consultation, first_published_at: 3.days.ago, opening_on: 2.days.ago, closing_on: 1.day.ago)
-    assert_equal 1.day.ago.to_date, consultation.last_significantly_changed_on
-  end
-
-  test "should have last significant change on response first published date for consultation with response" do
-    consultation = create(:published_consultation, first_published_at: 4.days.ago, opening_on: 3.days.ago, closing_on: 2.day.ago)
-    response = consultation.create_response!
-    response.stubs(:published?).returns(true)
-    response.stubs(:published_on).returns(1.day.ago)
-    assert_equal 1.day.ago.to_date, consultation.last_significantly_changed_on
-  end
-
   test "should not create a participation if all participation fields are blank" do
     attributes = {link_url: nil, consultation_response_form_attributes: {title: nil, file: nil}}
     consultation = create(:consultation, consultation_participation_attributes: attributes)
