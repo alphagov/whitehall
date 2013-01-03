@@ -103,7 +103,7 @@ class TopicsControllerTest < ActionController::TestCase
     topic = create(:topic, policies: [policy])
     published = []
     4.times do |i|
-      published << create(:published_news_article, title: "title-#{i}", related_policies: [policy], published_at: i.days.ago)
+      published << create(:published_news_article, title: "title-#{i}", related_policies: [policy], major_change_published_at: i.days.ago)
     end
 
     get :show, id: topic
@@ -250,7 +250,7 @@ class TopicsControllerTest < ActionController::TestCase
     assert_select "#recently-updated" do
       assert_select_prefix_object speech, prefix="recent" do
         assert_select '.type', text: "Speech"
-        assert_select ".published-at[title='#{speech.timestamp_for_sorting.iso8601}']"
+        assert_select ".published-at[title='#{speech.public_timestamp.iso8601}']"
       end
     end
   end
@@ -366,8 +366,8 @@ class TopicsControllerTest < ActionController::TestCase
   test 'atom feed shows a list of recently published documents' do
     document = create(:document)
     recent_documents = [
-      newer_edition = create(:published_policy, document: document, first_published_at: 1.month.ago, published_at: 1.day.ago),
-      older_edition = create(:archived_policy, document: document, first_published_at: 1.month.ago, published_at: 1.month.ago)
+      newer_edition = create(:published_policy, document: document, first_published_at: 1.month.ago, major_change_published_at: 1.day.ago),
+      older_edition = create(:archived_policy, document: document, first_published_at: 1.month.ago, major_change_published_at: 1.month.ago)
     ]
     topic = build(:topic, id: 1)
     topic.stubs(:recently_changed_documents).returns(recent_documents)
@@ -380,7 +380,7 @@ class TopicsControllerTest < ActionController::TestCase
 
       assert_select 'feed > entry' do |entries|
         entries.zip(recent_documents) do |entry, document|
-          assert_select entry, 'entry > published', text: document.timestamp_for_sorting.iso8601
+          assert_select entry, 'entry > published', text: document.public_timestamp.iso8601
           assert_select entry, 'entry > updated', text: document.timestamp_for_update.iso8601
           assert_select entry, 'entry > link[rel=?][type=?][href=?]', 'alternate', 'text/html', public_document_url(document)
           assert_select entry, 'entry > title', text: document.title
@@ -395,8 +395,8 @@ class TopicsControllerTest < ActionController::TestCase
   test 'atom feed shows a list of summarised and title prefixed documents when asked' do
     document = create(:document)
     recent_documents = [
-      newer_edition = create(:published_policy, document: document, first_published_at: 1.month.ago, published_at: 1.day.ago),
-      older_edition = create(:archived_policy, document: document, first_published_at: 1.month.ago, published_at: 1.month.ago)
+      newer_edition = create(:published_policy, document: document, first_published_at: 1.month.ago, major_change_published_at: 1.day.ago),
+      older_edition = create(:archived_policy, document: document, first_published_at: 1.month.ago, major_change_published_at: 1.month.ago)
     ]
     topic = build(:topic, id: 1)
     topic.stubs(:recently_changed_documents).returns(recent_documents)
@@ -409,7 +409,7 @@ class TopicsControllerTest < ActionController::TestCase
 
       assert_select 'feed > entry' do |entries|
         entries.zip(recent_documents) do |entry, document|
-          assert_select entry, 'entry > published', text: document.timestamp_for_sorting.iso8601
+          assert_select entry, 'entry > published', text: document.public_timestamp.iso8601
           assert_select entry, 'entry > updated', text: document.timestamp_for_update.iso8601
           assert_select entry, 'entry > link[rel=?][type=?][href=?]', 'alternate', 'text/html', public_document_url(document)
           assert_select entry, 'entry > title', text: "#{document.display_type}: #{document.title}"

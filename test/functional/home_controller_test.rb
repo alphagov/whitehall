@@ -50,7 +50,7 @@ class HomeControllerTest < ActionController::TestCase
 
       assert_select 'feed > entry' do |entries|
         entries.zip(recent_documents) do |entry, document|
-          assert_select entry, 'entry > published', count: 1, text: document.timestamp_for_sorting.iso8601
+          assert_select entry, 'entry > published', count: 1, text: document.public_timestamp.iso8601
           assert_select entry, 'entry > updated', count: 1, text: document.timestamp_for_update.iso8601
           assert_select entry, 'entry > link[rel=?][type=?][href=?]', 'alternate', 'text/html', public_document_url(document)
           assert_select entry, 'entry > title', count: 1, text: document.title
@@ -77,7 +77,7 @@ class HomeControllerTest < ActionController::TestCase
 
       assert_select 'feed > entry' do |entries|
         entries.zip(recent_documents) do |entry, document|
-          assert_select entry, 'entry > published', count: 1, text: document.timestamp_for_sorting.iso8601
+          assert_select entry, 'entry > published', count: 1, text: document.public_timestamp.iso8601
           assert_select entry, 'entry > updated', count: 1, text: document.timestamp_for_update.iso8601
           assert_select entry, 'entry > link[rel=?][type=?][href=?]', 'alternate', 'text/html', public_document_url(document)
           assert_select entry, 'entry > title', count: 1, text: "#{document.display_type}: #{document.title}"

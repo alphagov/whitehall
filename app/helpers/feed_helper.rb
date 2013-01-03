@@ -13,7 +13,7 @@ module FeedHelper
     builder.updated feed_updated_timestamp
 
     documents.each do |document|
-      builder.entry(document, url: public_document_url(document), published: document.timestamp_for_sorting, updated: document.timestamp_for_update) do |entry|
+      builder.entry(document, url: public_document_url(document), published: document.public_timestamp, updated: document.timestamp_for_update) do |entry|
         document_as_feed_entry(document, builder, govdelivery_version)
       end
     end

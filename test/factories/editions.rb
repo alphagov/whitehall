@@ -66,8 +66,8 @@ FactoryGirl.define do
     trait(:rejected) { state "rejected" }
     trait(:published) do
       state "published"
-      published_at { 1.day.ago }
-      first_published_at { published_at }
+      major_change_published_at { 1.day.ago }
+      first_published_at { major_change_published_at }
       force_published { false }
       published_major_version 1
       published_minor_version 0

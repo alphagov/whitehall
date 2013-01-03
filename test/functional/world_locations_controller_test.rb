@@ -65,8 +65,8 @@ class WorldLocationsControllerTest < ActionController::TestCase
 
   test "show generates an atom feed with entries for latest activity" do
     world_location = create(:world_location)
-    pub = create(:published_publication, world_locations: [world_location], published_at: 1.week.ago)
-    pol = create(:published_policy, world_locations: [world_location], published_at: 1.day.ago)
+    pub = create(:published_publication, world_locations: [world_location], major_change_published_at: 1.week.ago)
+    pol = create(:published_policy, world_locations: [world_location], major_change_published_at: 1.day.ago)
 
     get :show, id: world_location, format: :atom
 
@@ -74,7 +74,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
       assert_select 'feed > entry', count: 2 do |entries|
         entries.zip([pol, pub]).each do |entry, document|
           assert_select entry, 'entry > id', 1
-          assert_select entry, 'entry > published', count: 1, text: document.timestamp_for_sorting.iso8601
+          assert_select entry, 'entry > published', count: 1, text: document.public_timestamp.iso8601
           assert_select entry, 'entry > updated', count: 1, text: document.timestamp_for_update.iso8601
           assert_select entry, 'entry > link[rel=?][type=?][href=?]', 'alternate', 'text/html', public_document_url(document)
           assert_select entry, 'entry > title', count: 1, text: document.title
@@ -88,8 +88,8 @@ class WorldLocationsControllerTest < ActionController::TestCase
 
   test "show generates an atom feed with summary content and prefixed title entries for latest activity when requested" do
     world_location = create(:world_location)
-    pub = create(:published_publication, world_locations: [world_location], published_at: 1.week.ago)
-    pol = create(:published_policy, world_locations: [world_location], published_at: 1.day.ago)
+    pub = create(:published_publication, world_locations: [world_location], major_change_published_at: 1.week.ago)
+    pol = create(:published_policy, world_locations: [world_location], major_change_published_at: 1.day.ago)
 
     get :show, id: world_location, format: :atom, govdelivery_version: 'on'
 
@@ -97,7 +97,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
       assert_select 'feed > entry', count: 2 do |entries|
         entries.zip([pol, pub]).each do |entry, document|
           assert_select entry, 'entry > id', 1
-          assert_select entry, 'entry > published', count: 1, text: document.timestamp_for_sorting.iso8601
+          assert_select entry, 'entry > published', count: 1, text: document.public_timestamp.iso8601
           assert_select entry, 'entry > updated', count: 1, text: document.timestamp_for_update.iso8601
           assert_select entry, 'entry > link[rel=?][type=?][href=?]', 'alternate', 'text/html', public_document_url(document)
           assert_select entry, 'entry > title', count: 1, text: "#{document.display_type}: #{document.title}"

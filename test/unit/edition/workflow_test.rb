@@ -121,7 +121,7 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
 
   [:draft, :submitted, :scheduled].each do |state|
     test "publishing a #{state} edition transitions it into the published state" do
-      edition = create("#{state}_edition", published_at: 1.day.ago, first_published_at: 1.day.ago)
+      edition = create("#{state}_edition", major_change_published_at: 1.day.ago, first_published_at: 1.day.ago)
       edition.publish!
       assert edition.published?
     end
@@ -129,7 +129,7 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
 
   [:rejected, :archived, :deleted].each do |state|
     test "should prevent a #{state} edition being published" do
-      edition = create("#{state}_edition", published_at: 1.day.ago, first_published_at: 1.day.ago)
+      edition = create("#{state}_edition", major_change_published_at: 1.day.ago, first_published_at: 1.day.ago)
       edition.publish! rescue nil
       refute edition.published?
     end
@@ -163,20 +163,20 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
   end
 
   test "should prevent a submitted edition from being published if it has a scheduled date" do
-    edition = create("submitted_edition", published_at: 1.day.ago, first_published_at: 1.day.ago, scheduled_publication: 1.day.from_now)
+    edition = create("submitted_edition", major_change_published_at: 1.day.ago, first_published_at: 1.day.ago, scheduled_publication: 1.day.from_now)
     edition.publish!
     refute edition.published?
   end
 
   test "should allow a submitted edition to be scheduled if it has a scheduled date" do
-    edition = create("submitted_edition", published_at: 1.day.ago, first_published_at: 1.day.ago, scheduled_publication: 1.day.from_now)
+    edition = create("submitted_edition", major_change_published_at: 1.day.ago, first_published_at: 1.day.ago, scheduled_publication: 1.day.from_now)
     edition.schedule!
     refute edition.published?
     assert edition.scheduled?
   end
 
   test "should prevent a submitted edition from being scheduled if it does not have a scheduled date" do
-    edition = create("submitted_edition", published_at: 1.day.ago, first_published_at: 1.day.ago, scheduled_publication: nil)
+    edition = create("submitted_edition", major_change_published_at: 1.day.ago, first_published_at: 1.day.ago, scheduled_publication: nil)
     edition.schedule!
     refute edition.scheduled?
   end
@@ -215,10 +215,10 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
     end
   end
 
-  test "should be able to change published_at and first_published_at when scheduled" do
+  test "should be able to change major_change_published_at and first_published_at when scheduled" do
     edition = create(:edition, :scheduled)
     edition.first_published_at = Time.zone.now
-    edition.published_at = Time.zone.now
+    edition.major_change_published_at = Time.zone.now
     assert edition.valid?
   end
 

@@ -9,7 +9,7 @@ class PublicationesquePresenter < Draper::Base
     when Publication
       :publication_date
     when Consultation
-      :timestamp_for_sorting
+      :public_timestamp
     when StatisticalDataSet
       :first_published_at
     else

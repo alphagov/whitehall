@@ -2,7 +2,7 @@ module ResourceTestHelpers
   extend ActiveSupport::Concern
 
   module ClassMethods
-    def should_render_a_list_of(plural, timestamp_key = :published_at)
+    def should_render_a_list_of(plural, timestamp_key = :major_change_published_at)
       type = plural.to_s.singularize
       test "index links to published #{plural}" do
         thing = create(:"published_#{type}", title: "#{type}-title")

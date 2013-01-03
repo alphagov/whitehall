@@ -5,7 +5,7 @@ class NewsArticlePresenter < Draper::Base
   decorates :news_article
 
   def display_date_attribute_name
-    :published_at
+    :major_change_published_at
   end
 
   def lead_image_path

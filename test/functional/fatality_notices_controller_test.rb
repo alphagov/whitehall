@@ -28,7 +28,7 @@ class FatalityNoticesControllerTest < ActionController::TestCase
   end
 
   test "shows when updated fatality notice was first published and last updated" do
-    fatality_notice = create(:published_fatality_notice, published_at: 10.days.ago)
+    fatality_notice = create(:published_fatality_notice, major_change_published_at: 10.days.ago)
 
     editor = create(:departmental_editor)
     updated_fatality_notice = fatality_notice.create_draft(editor)
@@ -39,7 +39,7 @@ class FatalityNoticesControllerTest < ActionController::TestCase
 
     assert_select ".meta" do
       assert_select ".published-at[title='#{fatality_notice.first_published_at.iso8601}']"
-      assert_select ".published-at[title='#{updated_fatality_notice.published_at.iso8601}']"
+      assert_select ".published-at[title='#{updated_fatality_notice.major_change_published_at.iso8601}']"
     end
   end
 

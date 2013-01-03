@@ -49,7 +49,7 @@ class TopicalEvent < Classification
   end
 
   def recently_changed_documents
-    (published_announcements + published_publications).sort_by(&:timestamp_for_sorting).reverse
+    (published_announcements + published_publications).sort_by(&:public_timestamp).reverse
   end
 
   def search_link

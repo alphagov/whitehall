@@ -268,6 +268,6 @@ class ConsultationTest < EditionTestCase
   test "sets inital timestamp for sorting as opening date" do
     consultation = create(:published_consultation, opening_on: 4.days.ago)
 
-    assert_equal 4.days.ago, consultation.timestamp_for_sorting
+    assert_equal 4.days.ago, consultation.public_timestamp
   end
 end

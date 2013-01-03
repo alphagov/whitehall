@@ -322,7 +322,7 @@ class PublicationsControllerTest < ActionController::TestCase
     assert_equal consultation.id, json["id"]
     assert_equal consultation_path(consultation.document), json["url"]
     assert_equal "org-name and other-org", json["organisations"]
-    assert_equal %{<abbr class="timestamp_for_sorting" title="2012-03-14T00:00:00+00:00">14 March 2012</abbr>}, json["publication_date"]
+    assert_equal %{<abbr class="public_timestamp" title="2012-03-14T00:00:00+00:00">14 March 2012</abbr>}, json["publication_date"]
     assert_equal "Consultation", json["publication_type"]
   end
 
@@ -417,7 +417,7 @@ class PublicationsControllerTest < ActionController::TestCase
       assert_select 'feed > entry', count: 2 do |entries|
         entries.zip([c1, p1]).each do |entry, document|
           assert_select entry, 'entry > id', 1
-          assert_select entry, 'entry > published', count: 1, text: document.timestamp_for_sorting.iso8601
+          assert_select entry, 'entry > published', count: 1, text: document.public_timestamp.iso8601
           assert_select entry, 'entry > updated', count: 1, text: document.timestamp_for_update.iso8601
           assert_select entry, 'entry > link[rel=?][type=?][href=?]', 'alternate', 'text/html', public_document_url(document)
           assert_select entry, 'entry > title', count: 1, text: document.title
@@ -442,7 +442,7 @@ class PublicationsControllerTest < ActionController::TestCase
       assert_select 'feed > entry', count: 2 do |entries|
         entries.zip([c1, p1]).each do |entry, document|
           assert_select entry, 'entry > id', 1
-          assert_select entry, 'entry > published', count: 1, text: document.timestamp_for_sorting.iso8601
+          assert_select entry, 'entry > published', count: 1, text: document.public_timestamp.iso8601
           assert_select entry, 'entry > updated', count: 1, text: document.timestamp_for_update.iso8601
           assert_select entry, 'entry > link[rel=?][type=?][href=?]', 'alternate', 'text/html', public_document_url(document)
           assert_select entry, 'entry > title', count: 1, text: "#{document.display_type}: #{document.title}"
@@ -477,9 +477,9 @@ class PublicationsControllerTest < ActionController::TestCase
   end
 
   test 'index atom feed orders publications according to publication_date (newest first)' do
-    oldest = create(:published_publication, published_at: 1.days.ago, publication_date: 5.days.ago, title: "oldest")
-    newest = create(:published_publication, published_at: 5.days.ago, publication_date: 1.days.ago, title: "newest")
-    middle = create(:published_publication, published_at: 8.days.ago, publication_date: 3.days.ago, title: "middle")
+    oldest = create(:published_publication, major_change_published_at: 1.days.ago, publication_date: 5.days.ago, title: "oldest")
+    newest = create(:published_publication, major_change_published_at: 5.days.ago, publication_date: 1.days.ago, title: "newest")
+    middle = create(:published_publication, major_change_published_at: 8.days.ago, publication_date: 3.days.ago, title: "middle")
 
     get :index, format: :atom
 
@@ -493,9 +493,9 @@ class PublicationsControllerTest < ActionController::TestCase
   end
 
   test 'index atom feed orders consultations according to opening_on (newest first)' do
-    oldest = create(:published_consultation, published_at: 1.days.ago, opening_on: 5.days.ago, title: "oldest")
-    newest = create(:published_consultation, published_at: 5.days.ago, opening_on: 1.days.ago, title: "newest")
-    middle = create(:published_consultation, published_at: 8.days.ago, opening_on: 3.days.ago, title: "middle")
+    oldest = create(:published_consultation, major_change_published_at: 1.days.ago, opening_on: 5.days.ago, title: "oldest")
+    newest = create(:published_consultation, major_change_published_at: 5.days.ago, opening_on: 1.days.ago, title: "newest")
+    middle = create(:published_consultation, major_change_published_at: 8.days.ago, opening_on: 3.days.ago, title: "middle")
 
     get :index, format: :atom
 
@@ -504,16 +504,16 @@ class PublicationsControllerTest < ActionController::TestCase
       assert_select 'feed > entry' do |entries|
         entries.zip([newest, middle, oldest]).each do |entry, document|
           assert_select entry, 'entry > title', text: document.title
-          assert_select entry, 'entry > published', text: document.timestamp_for_sorting.iso8601
+          assert_select entry, 'entry > published', text: document.public_timestamp.iso8601
         end
       end
     end
   end
 
   test 'index atom feed orders mixed publications and consultations according to publication_date or opening_on (newest first)' do
-    oldest = create(:published_publication, published_at: 1.days.ago, publication_date: 5.days.ago, title: "oldest")
-    newest = create(:published_consultation, published_at: 5.days.ago, opening_on: 1.days.ago, title: "newest")
-    middle = create(:published_publication, published_at: 8.days.ago, publication_date: 3.days.ago, title: "middle")
+    oldest = create(:published_publication, major_change_published_at: 1.days.ago, publication_date: 5.days.ago, title: "oldest")
+    newest = create(:published_consultation, major_change_published_at: 5.days.ago, opening_on: 1.days.ago, title: "newest")
+    middle = create(:published_publication, major_change_published_at: 8.days.ago, publication_date: 3.days.ago, title: "middle")
 
     get :index, format: :atom
 

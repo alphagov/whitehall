@@ -36,7 +36,7 @@ class Document < ActiveRecord::Base
 
   attr_accessor :sluggable_string
 
-  class Change < Struct.new(:published_at, :note)
+  class Change < Struct.new(:major_change_published_at, :note)
     def set_as_first_change
       self.note = "First published." if note.blank?
     end
@@ -59,13 +59,13 @@ class Document < ActiveRecord::Base
   end
 
   def change_history
-    editions = ever_published_editions.significant_change.by_published_at
+    editions = ever_published_editions.significant_change.by_major_change_published_at
 
     first_edition = editions.pop
     oldest_change = Change.new(first_published_date, first_edition ? first_edition.change_note : nil)
     oldest_change.set_as_first_change
 
-    editions.map { |e| Change.new(e.published_at, e.change_note) }.push(oldest_change)
+    editions.map { |e| Change.new(e.major_change_published_at, e.change_note) }.push(oldest_change)
   end
 
   class << self

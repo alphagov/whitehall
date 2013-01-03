@@ -259,27 +259,27 @@ class EditionTest < ActiveSupport::TestCase
     end
   end
 
-  test ".by_published_at orders by published_at descending" do
-    policy = create(:policy, published_at: 2.hours.ago)
-    publication = create(:publication, published_at: 4.hours.ago)
-    article = create(:news_article, published_at: 1.hour.ago)
-    assert_equal [article, policy, publication], Edition.by_published_at
+  test ".by_major_change_published_at orders by major_change_published_at descending" do
+    policy = create(:policy, major_change_published_at: 2.hours.ago)
+    publication = create(:publication, major_change_published_at: 4.hours.ago)
+    article = create(:news_article, major_change_published_at: 1.hour.ago)
+    assert_equal [article, policy, publication], Edition.by_major_change_published_at
   end
 
-  test ".latest_published_at returns the most recent published_at from published editions" do
-    policy = create(:published_policy, published_at: 2.hours.ago)
-    publication = create(:published_publication, published_at: 4.hours.ago)
-    assert_equal policy.published_at, Edition.latest_published_at
+  test ".latest_major_change_published_at returns the most recent major_change_published_at from published editions" do
+    policy = create(:published_policy, major_change_published_at: 2.hours.ago)
+    publication = create(:published_publication, major_change_published_at: 4.hours.ago)
+    assert_equal policy.major_change_published_at, Edition.latest_major_change_published_at
   end
 
-  test ".latest_published_at ignores unpublished editions" do
-    policy = create(:draft_policy, published_at: 2.hours.ago)
-    publication = create(:published_publication, published_at: 4.hours.ago)
-    assert_equal publication.published_at, Edition.latest_published_at
+  test ".latest_major_change_published_at ignores unpublished editions" do
+    policy = create(:draft_policy, major_change_published_at: 2.hours.ago)
+    publication = create(:published_publication, major_change_published_at: 4.hours.ago)
+    assert_equal publication.major_change_published_at, Edition.latest_major_change_published_at
   end
 
-  test ".latest_published_at returns nil if no published editions exist" do
-    assert_nil Edition.latest_published_at
+  test ".latest_major_change_published_at returns nil if no published editions exist" do
+    assert_nil Edition.latest_major_change_published_at
   end
 
   test "should only return the submitted editions" do
@@ -560,12 +560,12 @@ class EditionTest < ActiveSupport::TestCase
     assert build(:edition).accessible_by?(nil)
   end
 
-  test 'exposes published_at as timestamp_for_update' do
-    e = build(:edition, published_at: 1.week.ago,
+  test 'exposes major_change_published_at as timestamp_for_update' do
+    e = build(:edition, major_change_published_at: 1.week.ago,
                         first_published_at: 2.weeks.ago,
                         created_at: 3.weeks.ago,
                         updated_at: 4.weeks.ago,
-                        timestamp_for_sorting: 5.weeks.ago)
+                        public_timestamp: 5.weeks.ago)
     assert_equal 1.week.ago, e.timestamp_for_update
   end
 

@@ -16,7 +16,7 @@
         <div class="news_body">
           <div class="meta">
             Posted
-            <%= relative_time(edition.published_at, class: 'published_at') %>
+            <%= relative_time(edition.major_change_published_at, class: 'major_change_published_at') %>
           </div>
           <h2><%= link_to edition.title, public_document_path(edition), class: "title" %></h2>
           <% unless edition.summary.blank? %>

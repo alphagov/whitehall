@@ -31,7 +31,7 @@ class CaseStudiesControllerTest < ActionController::TestCase
   end
 
   test "shows when it was last updated" do
-    case_study = create(:published_case_study, published_at: 10.days.ago)
+    case_study = create(:published_case_study, major_change_published_at: 10.days.ago)
 
     editor = create(:departmental_editor)
     updated_case_study = case_study.create_draft(editor)
@@ -41,7 +41,7 @@ class CaseStudiesControllerTest < ActionController::TestCase
     get :show, id: updated_case_study.document
 
     assert_select ".meta" do
-      assert_select ".published-at[title='#{updated_case_study.published_at.iso8601}']"
+      assert_select ".published-at[title='#{updated_case_study.major_change_published_at.iso8601}']"
     end
   end
 end

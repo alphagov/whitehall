@@ -71,7 +71,7 @@ class DocumentTest < ActiveSupport::TestCase
   end
 
   test "should list change history when only one edition with a minor change exists" do
-    edition = create(:published_policy, published_at: 1.day.ago, minor_change: true)
+    edition = create(:published_policy, major_change_published_at: 1.day.ago, minor_change: true)
 
     history = edition.change_history
     assert_equal 1, history.length
@@ -79,10 +79,10 @@ class DocumentTest < ActiveSupport::TestCase
   end
 
   test "should list change history for published editions" do
-    original_edition = create(:archived_edition, published_at: 3.days.ago, change_note: "first version")
+    original_edition = create(:archived_edition, major_change_published_at: 3.days.ago, change_note: "first version")
     document = original_edition.document
-    new_edition_1 = create(:archived_edition, document: document, published_at: 2.days.ago, change_note: "some changes")
-    new_edition_2 = create(:published_edition, document: document, published_at: 1.day.ago, change_note: "more changes")
+    new_edition_1 = create(:archived_edition, document: document, major_change_published_at: 2.days.ago, change_note: "some changes")
+    new_edition_2 = create(:published_edition, document: document, major_change_published_at: 1.day.ago, change_note: "more changes")
 
     history = document.change_history
     assert_equal "more changes", history[0].note
@@ -91,26 +91,26 @@ class DocumentTest < ActiveSupport::TestCase
   end
 
   test "should omit minor changes from change history" do
-    original_edition = create(:archived_edition, published_at: 3.days.ago)
+    original_edition = create(:archived_edition, major_change_published_at: 3.days.ago)
     document = original_edition.document
-    new_edition_1 = create(:archived_edition, document: document, published_at: 2.days.ago, change_note: "some changes")
-    new_edition_2 = create(:published_edition, document: document, published_at: 1.day.ago, change_note: "", minor_change: true)
+    new_edition_1 = create(:archived_edition, document: document, major_change_published_at: 2.days.ago, change_note: "some changes")
+    new_edition_2 = create(:published_edition, document: document, major_change_published_at: 1.day.ago, change_note: "", minor_change: true)
 
     history = document.change_history
     assert_equal "some changes", history[0].note
   end
 
   test "should omit drafts from change history" do
-    original_edition = create(:archived_edition, published_at: 3.days.ago)
+    original_edition = create(:archived_edition, major_change_published_at: 3.days.ago)
     document = original_edition.document
-    new_edition_1 = create(:draft_edition, document: document, published_at: 2.days.ago, change_note: "some changes")
+    new_edition_1 = create(:draft_edition, document: document, major_change_published_at: 2.days.ago, change_note: "some changes")
 
     history = document.change_history
     refute_equal "some changes", history[0].note
   end
 
   test "should start change history with First Published if it would otherwise be blank" do
-    original_edition = create(:published_edition, published_at: 3.days.ago, change_note: "", minor_change: false)
+    original_edition = create(:published_edition, major_change_published_at: 3.days.ago, change_note: "", minor_change: false)
     document = original_edition.document
 
     history = document.change_history
@@ -118,11 +118,11 @@ class DocumentTest < ActiveSupport::TestCase
   end
 
   test "should replace first change note date with first published" do
-    original_edition = create(:published_edition, first_published_at: 4.days.ago, published_at: 3.days.ago, minor_change: false)
+    original_edition = create(:published_edition, first_published_at: 4.days.ago, major_change_published_at: 3.days.ago, minor_change: false)
     document = original_edition.document
 
     history = document.change_history
-    assert_equal 4.days.ago, history[0].published_at
+    assert_equal 4.days.ago, history[0].major_change_published_at
   end
 
   test "should return scheduled edition" do

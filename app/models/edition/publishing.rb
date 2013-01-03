@@ -2,7 +2,7 @@ module Edition::Publishing
   extend ActiveSupport::Concern
 
   included do
-    validates :published_at, :first_published_at, presence: true, if: -> edition { edition.published? }
+    validates :major_change_published_at, :first_published_at, presence: true, if: -> edition { edition.published? }
     validate :change_note_present!, if: :change_note_required?
 
     scope :first_published_since, -> time { where(arel_table[:first_published_at].gt(time)) }
@@ -11,16 +11,16 @@ module Edition::Publishing
   end
 
   module ClassMethods
-    def by_published_at
-      order(arel_table[:published_at].desc)
+    def by_major_change_published_at
+      order(arel_table[:major_change_published_at].desc)
     end
 
     def by_first_published_at
       order(arel_table[:first_published_at].desc)
     end
 
-    def latest_published_at
-      published.maximum(:published_at)
+    def latest_major_change_published_at
+      published.maximum(:major_change_published_at)
     end
   end
 
@@ -100,8 +100,8 @@ module Edition::Publishing
 
   def publish_as(user, options = {})
     if publishable_by?(user, options)
-      self.published_at = Time.zone.now unless self.minor_change?
-      self.first_published_at ||= published_at
+      self.major_change_published_at = Time.zone.now unless self.minor_change?
+      self.first_published_at ||= major_change_published_at
       self.access_limited = nil
       if ! scheduled?
         self.force_published = options[:force]

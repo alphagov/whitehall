@@ -63,7 +63,7 @@ class Publication < Publicationesque
     end
   end
 
-  def set_timestamp_for_sorting
-    self.timestamp_for_sorting = publication_date
+  def set_public_timestamp
+    self.public_timestamp = publication_date
   end
 end

@@ -5,7 +5,7 @@
 <% else %>
   <%-
     history = document.change_history
-    most_recent_change = history.first.published_at
+    most_recent_change = history.first.major_change_published_at
   -%>
   <% if history.length == 1 %>
     <section class="change-notes">
@@ -18,7 +18,7 @@
         <dl>
           <% history.each do |change| %>
             <dt><%= change.note %></dt>
-            <dd><%= absolute_time(change.published_at, class: 'published-at') %></dd>
+            <dd><%= absolute_time(change.major_change_published_at, class: 'published-at') %></dd>
           <% end %>
         </dl>
       </div>

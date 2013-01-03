@@ -107,11 +107,11 @@ class Consultation < Publicationesque
     end
   end
 
-  def set_timestamp_for_sorting
+  def set_public_timestamp
     if first_published_version?
-      self.timestamp_for_sorting = opening_on
+      self.public_timestamp = opening_on
     else
-      self.timestamp_for_sorting = published_at
+      self.public_timestamp = major_change_published_at
     end
   end
 

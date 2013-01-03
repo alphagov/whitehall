@@ -161,7 +161,7 @@ class PeopleControllerAtomFeedTest < ActionController::TestCase
       assert_select 'feed > entry', count: 2 do |actual_entries|
         expected_entries.zip(actual_entries).each do |expected, actual_entry|
           assert_select actual_entry, 'entry > id', 1
-          assert_select actual_entry, 'entry > published', count: 1, text: expected.timestamp_for_sorting.iso8601
+          assert_select actual_entry, 'entry > published', count: 1, text: expected.public_timestamp.iso8601
           assert_select actual_entry, 'entry > updated', count: 1, text: expected.timestamp_for_update.iso8601
           assert_select actual_entry, 'entry > link[rel=?][type=?][href=?]', 'alternate', 'text/html', public_document_url(expected)
           assert_select actual_entry, 'entry > title', count: 1, text: expected.title
@@ -187,7 +187,7 @@ class PeopleControllerAtomFeedTest < ActionController::TestCase
       assert_select 'feed > entry', count: 2 do |actual_entries|
         expected_entries.zip(actual_entries).each do |expected, actual_entry|
           assert_select actual_entry, 'entry > id', 1
-          assert_select actual_entry, 'entry > published', count: 1, text: expected.timestamp_for_sorting.iso8601
+          assert_select actual_entry, 'entry > published', count: 1, text: expected.public_timestamp.iso8601
           assert_select actual_entry, 'entry > updated', count: 1, text: expected.timestamp_for_update.iso8601
           assert_select actual_entry, 'entry > link[rel=?][type=?][href=?]', 'alternate', 'text/html', public_document_url(expected)
           assert_select actual_entry, 'entry > title', count: 1, text: "#{expected.display_type}: #{expected.title}"

@@ -31,7 +31,7 @@ class SupportingPagesControllerTest < ActionController::TestCase
 
     get :show, policy_id: policy.document, id: supporting_page
 
-    assert_select ".published-at[title=#{policy.published_at.iso8601}]"
+    assert_select ".published-at[title=#{policy.major_change_published_at.iso8601}]"
   end
 
   test "show includes the main policy navigation" do
@@ -243,7 +243,7 @@ class SupportingPagesControllerTest < ActionController::TestCase
   test "shows activity link when viewing supporting details" do
     policy = create(:published_policy)
     supporting_page = create(:supporting_page, edition: policy)
-    speech = create(:published_speech, published_at: 2.weeks.ago, related_policies: [policy])
+    speech = create(:published_speech, major_change_published_at: 2.weeks.ago, related_policies: [policy])
 
     get :show, policy_id: policy.document, id: supporting_page
 

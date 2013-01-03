@@ -170,7 +170,7 @@ module DocumentControllerTestHelpers
       end
     end
 
-    def should_show_published_documents_associated_with(model_name, has_many_association, timestamp_key = :published_at)
+    def should_show_published_documents_associated_with(model_name, has_many_association, timestamp_key = :major_change_published_at)
       singular = has_many_association.to_s.singularize
       test "shows only published #{has_many_association.to_s.humanize.downcase}" do
         published_edition = create("published_#{singular}")
@@ -235,7 +235,7 @@ module DocumentControllerTestHelpers
     def should_be_previewable(document_type)
       test "#{document_type} preview should be visible for logged in users" do
         first_edition = create("published_#{document_type}",
-                               published_at: 1.months.ago,
+                               major_change_published_at: 1.months.ago,
                                first_published_at: 2.months.ago)
         document = first_edition.document
         draft_edition = create("draft_#{document_type}",
@@ -249,7 +249,7 @@ module DocumentControllerTestHelpers
 
       test "#{document_type} preview should be hidden from public" do
         first_edition = create("published_#{document_type}",
-                               published_at: 1.months.ago,
+                               major_change_published_at: 1.months.ago,
                                first_published_at: 2.months.ago)
         document = first_edition.document
         draft_edition = create("draft_#{document_type}",
@@ -265,7 +265,7 @@ module DocumentControllerTestHelpers
       test "#{action} displays default change note for first edition of #{document_type}" do
         first_edition = create("published_#{document_type}",
                                change_note: nil,
-                               published_at: 1.month.ago)
+                               major_change_published_at: 1.month.ago)
 
         instance_exec(first_edition, &block)
 
@@ -278,19 +278,19 @@ module DocumentControllerTestHelpers
         second_edition = create("published_#{document_type}",
                                 change_note: nil,
                                 minor_change: true,
-                                published_at: 1.months.ago,
+                                major_change_published_at: 1.months.ago,
                                 first_published_at: 2.months.ago)
         document = second_edition.document
         first_edition = create("archived_#{document_type}",
                                change_note: "First effort.",
                                document: document,
-                               published_at: 2.months.ago,
+                               major_change_published_at: 2.months.ago,
                                first_published_at: 2.months.ago)
 
         instance_exec(second_edition, &block)
 
         assert_select ".change-notes" do
-          refute_select ".published-at[title='#{second_edition.published_at.iso8601}']"
+          refute_select ".published-at[title='#{second_edition.major_change_published_at.iso8601}']"
           refute_select "dt", text: ""
         end
       end
@@ -299,18 +299,18 @@ module DocumentControllerTestHelpers
         editions = []
         editions << create("published_#{document_type}",
                            change_note: "Third go.",
-                           published_at: 1.month.ago,
+                           major_change_published_at: 1.month.ago,
                            first_published_at: 3.months.ago)
         document = editions.first.document
         editions << create("archived_#{document_type}",
                            change_note: "Second attempt.",
                            document: document,
-                           published_at: 2.months.ago,
+                           major_change_published_at: 2.months.ago,
                            first_published_at: 3.months.ago)
         editions << create("archived_#{document_type}",
                            change_note: "First effort.",
                            document: document,
-                           published_at: 3.months.ago,
+                           major_change_published_at: 3.months.ago,
                            first_published_at: 3.months.ago)
 
         instance_exec(editions.first, &block)
@@ -320,7 +320,7 @@ module DocumentControllerTestHelpers
             if index == ( list_items.length-1 )
               assert_select list_item, ".published-at[title='#{editions[index].first_published_date.iso8601}']"
             else
-              assert_select list_item, ".published-at[title='#{editions[index].published_at.iso8601}']"
+              assert_select list_item, ".published-at[title='#{editions[index].major_change_published_at.iso8601}']"
             end
           end
         end

@@ -50,8 +50,8 @@ class Speech < Announcement
     role_appointment && role_appointment.role && role_appointment.role.organisations || []
   end
 
-  def set_timestamp_for_sorting
-    self.timestamp_for_sorting = delivered_on
+  def set_public_timestamp
+    self.public_timestamp = delivered_on
   end
 
   def role_appointment_has_associated_organisation

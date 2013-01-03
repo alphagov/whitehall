@@ -24,8 +24,8 @@ class Edition::ValidationTest < ActiveSupport::TestCase
     refute edition.valid?
   end
 
-  test "should be invalid when published without published_at" do
-    edition = build(:published_edition, published_at: nil)
+  test "should be invalid when published without major_change_published_at" do
+    edition = build(:published_edition, major_change_published_at: nil)
     refute edition.valid?
   end
 
