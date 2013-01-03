@@ -3,11 +3,8 @@ module ImportHelpers
     Import.last.perform
   end
 
-  def with_import_csv_file(table)
+  def with_import_csv_file(data)
     tf = Tempfile.new('csv_import')
-    data = CSV.generate do |csv|
-      table.raw.each { |r| csv << r }
-    end
     tf << data
     tf.close
     yield tf.path

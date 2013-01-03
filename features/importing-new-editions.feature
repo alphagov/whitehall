@@ -57,6 +57,7 @@ Feature: Importing new editions
   Speeches:
   - speech_type: required, ideally default blank to ImportedAwaitingType, reject anything non-blank that can't be found
   - delivered_by: required, ideally default blank, reject anything non-black that can't be found
+  - delivered_on: required
   - event_and_location: optional
   - country_1..4: 1 column required, data optional
 
@@ -71,21 +72,27 @@ Feature: Importing new editions
 
   Scenario: Importing publications with unrecognised types will be rejected
     When I import the following data as CSV as "Publication" for "Department for Transport":
-      |old_url|title|summary|body|organisation|policy_1|publication_type|document_series|publication_date|order_url|price|isbn|urn|command_paper_number|ignore_1|attachment_1_url|attachment_1_title|country_1|
-      |http://example.com/1|title|summary|body|weird organisation||weird type||14-Dec-2011||||||||||
+      """
+      old_url,title,summary,body,organisation,policy_1,publication_type,document_series,publication_date,order_url,price,isbn,urn,command_paper_number,ignore_1,attachment_1_url,attachment_1_title,country_1
+      http://example.com/1,title,summary,body,weird organisation,,weird type,,14-Dec-2011,,,,,,,,,
+      """
     Then the import should fail with errors about organisation and sub type and no editions are created
 
   Scenario: Importing publication with organisation already set in the data
     Given the organisation "Foreign Commonwealth Office" exists
     When I import the following data as CSV as "Publication" for "Department for Transport":
-      |old_url|title|summary|body|organisation|policy_1|publication_type|document_series|publication_date|order_url|price|isbn|urn|command_paper_number|ignore_1|attachment_1_url|attachment_1_title|country_1|
-      |http://example.com/1|title|summary|body|foreign-commonwealth-office||||14-Dec-2011||||||||||
+      """
+      old_url,title,summary,body,organisation,policy_1,publication_type,document_series,publication_date,order_url,price,isbn,urn,command_paper_number,ignore_1,attachment_1_url,attachment_1_title,country_1
+      http://example.com/1,title,summary,body,foreign-commonwealth-office,,,,14-Dec-2011,,,,,,,,,
+      """
     Then the import succeeds, creating 1 imported publication for "Foreign Commonwealth Office" with "imported-awaiting-type" publication type
 
   Scenario: Importing publications sets imported state, ImportedAwaitingType type and default organisation, to be filled in later
     When I import the following data as CSV as "Publication" for "Department for Transport":
-      |old_url|title|summary|body|organisation|policy_1|publication_type|document_series|publication_date|order_url|price|isbn|urn|command_paper_number|ignore_1|attachment_1_url|attachment_1_title|country_1|
-      |http://example.com/1|title|summary|body|||||14-Dec-2011||||||||||
+      """
+      old_url,title,summary,body,organisation,policy_1,publication_type,document_series,publication_date,order_url,price,isbn,urn,command_paper_number,ignore_1,attachment_1_url,attachment_1_title,country_1
+      http://example.com/1,title,summary,body,,,,,14-Dec-2011,,,,,,,,,
+      """
     Then the import succeeds, creating 1 imported publication for "Department for Transport" with "imported-awaiting-type" publication type
     And I can't make the imported publication into a draft edition yet
     When I set the imported publication's type to "Policy paper"
@@ -93,8 +100,10 @@ Feature: Importing new editions
 
   Scenario: Importing speeches sets ImportedAwaitingType speech type and blank "delivered by", to be filled in later
     When I import the following data as CSV as "Speech" for "Department for Transport":
-      |old_url|title|summary|body|organisation|policy_1|type|delivered_by|delivered_on|event_and_location|country_1|
-      |http://example.com/1|title|summary|body|||||14-Dec-2011|location||
+      """
+      old_url,title,summary,body,organisation,policy_1,type,delivered_by,delivered_on,event_and_location,country_1
+      http://example.com/1,title,summary,body,,,,,14-Dec-2011,location,
+      """
     Then the import succeeds, creating 1 imported speech with "imported-awaiting-type" speech type and with no deliverer set
     And the imported speech's organisation is set to "Department for Transport"
     Then I can't make the imported speech into a draft edition yet
@@ -106,6 +115,8 @@ Feature: Importing new editions
 
   Scenario: Importing edition and then deleting it
     When I import the following data as CSV as "Speech" for "Department for Transport":
-      |old_url|title|summary|body|organisation|policy_1|type|delivered_by|delivered_on|event_and_location|country_1|
-      |http://example.com/1|title|summary|body|||||14-Dec-2011|location||
+      """
+      old_url,title,summary,body,organisation,policy_1,type,delivered_by,delivered_on,event_and_location,country_1
+      http://example.com/1,title,summary,body,,,,,14-Dec-2011,location,
+      """
     Then I can delete the imported edition if I choose to

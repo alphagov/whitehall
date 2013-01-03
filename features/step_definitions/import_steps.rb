@@ -1,10 +1,10 @@
 
-When /^I import the following data as CSV as "([^"]*)" for "([^"]*)":$/ do |document_type, organisation_name, table|
+When /^I import the following data as CSV as "([^"]*)" for "([^"]*)":$/ do |document_type, organisation_name, data|
   create(:user, name: 'Automatic Data Importer')
   organisation = create(:organisation, name: organisation_name)
   Import.use_separate_connection
 
-  with_import_csv_file(table) do |path|
+  with_import_csv_file(data) do |path|
     visit new_admin_import_path
     select document_type, from: 'Type'
     attach_file 'CSV File', path
