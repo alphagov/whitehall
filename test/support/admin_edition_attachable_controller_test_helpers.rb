@@ -16,7 +16,7 @@ module AdminEditionAttachableControllerTestHelpers
           }
         )
 
-        assert_select ".errors li", "Alternative format provider can't be blank"
+        assert_select ".errors li", "Alternative format provider can&#x27;t be blank"
       end
 
       test "updating an edition with an attachment but no alternative_format_provider will get a validation error" do
@@ -29,7 +29,7 @@ module AdminEditionAttachableControllerTestHelpers
           }
         )
 
-        assert_select ".errors li", "Alternative format provider can't be blank"
+        assert_select ".errors li", "Alternative format provider can&#x27;t be blank"
       end
     end
 
