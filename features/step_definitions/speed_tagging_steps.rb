@@ -1,6 +1,6 @@
 When /^I go to speed tag a newly imported (publication|speech)(?: for "(.*?)")?$/ do |edition_type, organisation_name|
   organisations = organisation_name ? [find_or_create_organisation(organisation_name)] : []
-  @edition = create(edition_type, organisations: organisations)
+  @edition = create("imported_#{edition_type}", organisations: organisations)
   visit admin_edition_path(@edition)
 end
 
