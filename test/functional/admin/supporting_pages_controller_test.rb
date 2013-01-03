@@ -89,7 +89,7 @@ class Admin::SupportingPagesControllerTest < ActionController::TestCase
     get :show, edition_id: edition, id: supporting_page
 
     assert_select ".title", supporting_page.title
-    assert_select "a[href='#{admin_policy_path(edition)}']", text: "Back to '#{edition.title}'"
+    assert_select "a[href='#{admin_policy_path(edition)}']", text: "Back to &#x27;#{edition.title}&#x27;"
   end
 
   test "shows the body using govspeak markup" do
