@@ -10,8 +10,8 @@
 
 
   <%= form_for [:admin, @edition], as: :edition, builder: Admin::EditionsHelper::EditionFormBuilder do |form| %>
-  <%= form.label :organisation_ids, 'Organisations:' %>
-  <%= form.select :organisation_ids, options_from_collection_for_select(Organisation.all, 'id', 'name', @edition.organisation_ids), {}, multiple: true, class: 'chzn-select', data: { placeholder: "Choose organisations which produced this document..." } %>
+    <%= form.label :organisation_ids, 'Organisations:' %>
+    <%= form.select :organisation_ids, options_from_collection_for_select(Organisation.all, 'id', 'name', @edition.organisation_ids), {}, multiple: true, class: 'chzn-select', data: { placeholder: "Choose organisations which produced this document..." } %>
     <%= render partial: 'required_fields_for_imported_editions', locals: { form: form, edition: form.object } %>
     <% if @edition.can_be_associated_with_ministers? %>
       <div class="row-fluid">
