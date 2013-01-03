@@ -51,4 +51,8 @@ class TopicalEvent < Classification
   def recently_changed_documents
     (published_announcements + published_publications).sort_by(&:timestamp_for_sorting).reverse
   end
+
+  def search_link
+    topical_event_path(slug)
+  end
 end
