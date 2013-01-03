@@ -31,7 +31,3 @@ Feature: Speed tagging editions
     When I go to speed tag a newly imported speech
     Then I should have to select the speech type
     And I should have to select the deliverer of the speech
-
-  Scenario: Viewing extra options for imported editions
-    When I go to speed tag a newly imported news article
-    Then I should be able to specify anyone by expanding the minister option
