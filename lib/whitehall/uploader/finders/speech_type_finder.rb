@@ -4,6 +4,7 @@ class Whitehall::Uploader::Finders::SpeechTypeFinder
   }
 
   def self.find(slug, logger, line_number)
+    slug ||= ''
     type = SpeechType.find_by_slug(slug) || SPECIAL_CASES[slug]
     logger.error "Unable to find Speech type with slug '#{slug}'" unless type
     type

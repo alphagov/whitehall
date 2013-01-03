@@ -7,20 +7,28 @@ class Whitehall::Uploader::Finders::PublicationTypeFinderTest < ActiveSupport::T
     @line_number = 1
   end
 
+  def find(slug)
+    Whitehall::Uploader::Finders::PublicationTypeFinder.find(slug, @log, @line_number)
+  end
+
   test "returns the publication type found by the slug" do
-    assert_equal PublicationType::CircularLetterOrBulletin, Whitehall::Uploader::Finders::PublicationTypeFinder.find('circulars-letters-and-bulletins', @log, @line_number)
+    assert_equal PublicationType::CircularLetterOrBulletin, find('circulars-letters-and-bulletins')
   end
 
   test "returns nil if the publication type can't be determined" do
-    assert_nil Whitehall::Uploader::Finders::PublicationTypeFinder.find('made-up-publication-type', @log, @line_number)
+    assert_nil find('made-up-publication-type')
   end
 
   test "logs a warning if the publication type can't be determined" do
-    Whitehall::Uploader::Finders::PublicationTypeFinder.find('made-up-publication-type-slug', @log, @line_number)
+    find('made-up-publication-type-slug')
     assert_match /Unable to find Publication type with slug 'made-up-publication-type-slug'/, @log_buffer.string
   end
 
   test 'uses the ImportedAwaitingType type for a blank slug' do
-    assert_equal PublicationType::ImportedAwaitingType, Whitehall::Uploader::Finders::PublicationTypeFinder.find('', @log, @line_number)
+    assert_equal PublicationType::ImportedAwaitingType, find('')
+  end
+
+  test 'uses the ImportedAwaitingType type for a nil slug' do
+    assert_equal PublicationType::ImportedAwaitingType, find(nil)
   end
 end
