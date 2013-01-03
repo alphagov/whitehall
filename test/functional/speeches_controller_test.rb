@@ -60,7 +60,7 @@ class SpeechesControllerTest < ActionController::TestCase
     published_speech = create(:published_speech, speech_type: speech_type)
 
     get :show, id: published_speech.document
-    assert_select ".explanation", "These are the speaker's notes, not a transcript of the speech as it was delivered."
+    assert_select ".explanation", "These are the speaker&#x27;s notes, not a transcript of the speech as it was delivered."
     assert_select ".label", "Speech"
   end
 
