@@ -1,0 +1,2 @@
+<%= form.label :speech_type_id, "Type" %>
+<%= form.select :speech_type_id, options_from_collection_for_select(SpeechType.all, :id, :name, edition.speech_type_id) %>

@@ -20,10 +20,10 @@
   <% end %>
 
   <% if edition.published? %>
-    <%= link_to "View on public website", public_document_url(edition), class: 'btn public_version' %>
+    <%= link_to "View", public_document_url(edition), class: 'btn btn-primary public_version' %>
   <% end %>
   <% if edition.previewable? %>
-    <%= link_to "Preview", preview_document_path(edition), class: 'btn preview_version' %>
+    <%= link_to "Preview", preview_document_path(edition), class: 'btn btn-primary preview_version', target: '_new' %>
   <% end %>
 
   <% if !edition.is_latest_edition? %>
@@ -37,21 +37,25 @@
   <% if @edition.ready_to_convert_to_draft? %>
     <%= convert_to_draft_edition_form(@edition) %>
   <% end %>
+
   <% if @edition.unschedulable_by?(current_user) %>
     <%= unschedule_edition_button(@edition) %>
   <% end %>
+
   <% if @edition.schedulable_by?(current_user) %>
     <%= schedule_edition_form(@edition) %>
   <% elsif @edition.schedulable_by?(current_user, force: true) %>
     <%= schedule_edition_form(@edition, force: true) %>
   <% end %>
+
+  <%= submit_edition_button(edition) if edition.submittable? %>
+
   <% if @edition.publishable_by?(current_user, assuming_presence_of_change_note: true) %>
     <%= publish_edition_form(@edition) %>
   <% elsif @edition.publishable_by?(current_user, force: true, assuming_presence_of_change_note: true) %>
     <%= publish_edition_form(@edition, force: true) %>
   <% end %>
 
-  <%= submit_edition_button(edition) if edition.submittable? %>
   <%= reject_edition_button(edition) if edition.rejectable_by?(current_user) %>
   <%= delete_edition_button(edition) if edition.deletable? %>
   <%= unpublish_edition_button(edition) if edition.unpublishable_by?(current_user) %>
