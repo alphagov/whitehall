@@ -109,7 +109,7 @@ end
 
 When /^I submit (#{THE_DOCUMENT})$/ do |edition|
   visit_document_preview edition.title
-  click_button "Submit to 2nd pair of eyes"
+  click_button "Submit"
 end
 
 When /^I publish (#{THE_DOCUMENT})$/ do |edition|

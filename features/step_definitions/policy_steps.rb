@@ -8,7 +8,7 @@ Given /^"([^"]*)" submitted "([^"]*)" with body "([^"]*)"$/ do |author, title, b
   begin_drafting_policy title: title, body: body
   click_button 'Save'
 
-  click_button 'Submit to 2nd pair of eyes'
+  click_button 'Submit'
 end
 
 Given /^a published policy "([^"]*)" that appears in the "([^"]*)" and "([^"]*)" topics$/ do |policy_title, topic_1, topic_2|
@@ -181,7 +181,7 @@ end
 When /^I resubmit the policy titled "([^"]*)"$/ do |policy_title|
   policy = Policy.find_by_title!(policy_title)
   visit admin_edition_path(policy)
-  click_button "Submit to 2nd pair of eyes"
+  click_button "Submit"
 end
 
 When /^I publish a new edition of the policy "([^"]*)" with the new title "([^"]*)"$/ do |policy_title, new_title|
@@ -264,13 +264,13 @@ end
 Then /^I should see a link to the public version of the policy "([^"]*)"$/ do |policy_title|
   policy = Policy.published.find_by_title!(policy_title)
   visit admin_edition_path(policy)
-  assert has_css?(".actions .public_version a", href: public_document_path(policy)), "Link to public version of policy not found"
+  assert has_css?(".actions a.public_version", href: public_document_path(policy)), "Link to public version of policy not found"
 end
 
 Then /^I should see a link to the preview version of the policy "([^"]*)"$/ do |policy_title|
   policy = Policy.find_by_title!(policy_title)
   visit admin_edition_path(policy)
-  assert has_css?(".actions .preview_version a", href: preview_document_path(policy)), "Link to preview version of policy not found"
+  assert has_css?(".actions a.preview_version", href: preview_document_path(policy)), "Link to preview version of policy not found"
 end
 
 Then /^I should see the policy titled "([^"]*)" in the list of documents that need work$/ do |policy_title|
