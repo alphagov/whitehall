@@ -27,7 +27,7 @@
           <%= images_fields.text_field :alt_text, label_text: 'Alt text' %>
           <%= images_fields.text_area :caption, rows: 2 %>
           <% checkbox_args = nested_attribute_destroy_checkbox_options(images_fields) %>
-          <% checkbox_args[0].merge!(label_text: "(uncheck to remove)") %>
+          <% checkbox_args[0].merge!(label_text: "(uncheck to delete)") %>
           <%= images_fields.check_box :_destroy, *checkbox_args  %>
         </div>
           <% if edition.image_disallowed_in_body_text?(i) %>
