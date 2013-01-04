@@ -7,11 +7,11 @@ Given /^ministers exist:$/ do |table|
 end
 
 Given /^"([^"]*)" used to be the "([^"]*)" for the "([^"]*)"$/ do |person_name, ministerial_role, organisation_name|
-  create_role_appointment(person_name, ministerial_role, organisation_name, 2.years.ago => 1.year.ago)
+  create_role_appointment(person_name, ministerial_role, organisation_name, 3.years.ago => 2.years.ago)
 end
 
 Given /^"([^"]*)" is the "([^"]*)" for the "([^"]*)"$/ do |person_name, ministerial_role, organisation_name|
-  create_role_appointment(person_name, ministerial_role, organisation_name, 1.year.ago)
+  create_role_appointment(person_name, ministerial_role, organisation_name, 2.years.ago)
 end
 
 Given /^the role "([^"]*)" has the responsibilities "([^"]*)"$/ do |role_name, responsibilities|
