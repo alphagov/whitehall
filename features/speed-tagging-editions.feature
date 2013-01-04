@@ -11,7 +11,7 @@ Feature: Speed tagging editions
     Given I am a writer
 
   Scenario: Speed tagging a newly imported publication
-    When I go to speed tag a newly imported publication
+    When I go to speed tag a newly imported publication "Beard length statistics 2012"
     Then I should have to select the publication sub-type
 
   Scenario: Speed tagging only shows relevant ministers
@@ -29,6 +29,11 @@ Feature: Speed tagging editions
     And I should not be able to tag the publication with "Beard taxes"
 
   Scenario: Speed tagging shows speech required fields
-    When I go to speed tag a newly imported speech
+    When I go to speed tag a newly imported speech "Written statement on Beards"
     Then I should have to select the speech type
     And I should have to select the deliverer of the speech
+
+  Scenario: Speed tagging shows world locations when relevant
+    Given a country "Uganda" exists
+    When I go to speed tag a newly imported speech "Speech about Uganda"
+    Then I should be able to select the world location "Uganda"

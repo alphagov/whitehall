@@ -1,6 +1,6 @@
-When /^I go to speed tag a newly imported (publication|speech)(?: for "(.*?)")?$/ do |edition_type, organisation_name|
+When /^I go to speed tag a newly imported (publication|speech)(?: "(.*?)")?(?: for "(.*?)")?$/ do |edition_type, title, organisation_name|
   organisations = organisation_name ? [find_or_create_organisation(organisation_name)] : []
-  @edition = create("imported_#{edition_type}", organisations: organisations)
+  @edition = create("imported_#{edition_type}", organisations: organisations, title: title || 'default title')
   visit admin_edition_path(@edition)
 end
 
@@ -24,4 +24,6 @@ When /^I should not be able to tag the publication with "([^"]*)"$/ do |label|
   refute page.has_css?("label.checkbox", text: /#{label}/)
 end
 
-After { |scenario| save_and_open_page if scenario.failed? }
+Then /^I should be able to select the world location "([^"]*)"$/ do |name|
+  select name, from: 'edition_world_location_ids'
+end

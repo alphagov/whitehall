@@ -37,6 +37,11 @@
       </div>
     <% end %>
 
+    <% if @edition.can_be_associated_with_world_locations? %>
+      <h3>World Locations</h3>
+      <%= render partial: 'world_location_fields', locals: { form: form, edition: @edition } %>
+    <% end %>
+
     <%= submit_tag "Save", class: 'btn btn-primary' %>
   <% end %>
 </div>
