@@ -27,7 +27,7 @@ module Admin::EditionActionsHelper
   end
 
   def submit_edition_button(edition)
-    button_to "Submit to 2nd pair of eyes", submit_admin_edition_path(edition, lock_version: edition.lock_version), class: "btn btn-success"
+    button_to "Submit", submit_admin_edition_path(edition, lock_version: edition.lock_version), class: "btn btn-success"
   end
 
   def reject_edition_button(edition)

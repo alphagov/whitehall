@@ -8,7 +8,7 @@ Given /^"([^"]*)" submitted a speech "([^"]*)" with body "([^"]*)"$/ do |author,
   visit new_admin_speech_path
   begin_drafting_speech title: title, body: body
   click_button 'Save'
-  click_button 'Submit to 2nd pair of eyes'
+  click_button 'Submit'
 end
 
 Given /^a published speech "([^"]*)" by "([^"]*)" on "([^"]*)" at "([^"]*)"$/ do |title, ministerial_role, delivered_on, location|
