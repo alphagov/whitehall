@@ -217,13 +217,6 @@ module DocumentControllerTestHelpers
       end
     end
 
-
-    def should_show_change_notes(document_type)
-      should_show_change_notes_on_action(document_type, :show) do |edition|
-        get :show, id: edition.document
-      end
-    end
-
     def should_set_expiry_headers(document_type)
       test "#{document_type} should set an expiry of 30 minutes" do
         edition = create("published_#{document_type}")
@@ -258,77 +251,6 @@ module DocumentControllerTestHelpers
 
         get :show, id: document.id, preview: draft_edition.id
         assert_response 404
-      end
-    end
-
-    def should_show_change_notes_on_action(document_type, action, &block)
-      test "#{action} displays default change note for first edition of #{document_type}" do
-        first_edition = create("published_#{document_type}",
-                               change_note: nil,
-                               major_change_published_at: 1.month.ago)
-
-        instance_exec(first_edition, &block)
-
-        assert_select ".change-notes" do
-          assert_select ".published-at[title='#{first_edition.first_published_date.iso8601}']"
-        end
-      end
-
-      test "#{action} does not display blank change notes in change history for #{document_type}" do
-        second_edition = create("published_#{document_type}",
-                                change_note: nil,
-                                minor_change: true,
-                                major_change_published_at: 1.months.ago,
-                                first_published_at: 2.months.ago)
-        document = second_edition.document
-        first_edition = create("archived_#{document_type}",
-                               change_note: "First effort.",
-                               document: document,
-                               major_change_published_at: 2.months.ago,
-                               first_published_at: 2.months.ago)
-
-        instance_exec(second_edition, &block)
-
-        assert_select ".change-notes" do
-          refute_select ".published-at[title='#{second_edition.major_change_published_at.iso8601}']"
-          refute_select "dt", text: ""
-        end
-      end
-
-      test "#{action} displays change history in reverse chronological order for #{document_type}" do
-        editions = []
-        editions << create("published_#{document_type}",
-                           change_note: "Third go.",
-                           major_change_published_at: 1.month.ago,
-                           first_published_at: 3.months.ago)
-        document = editions.first.document
-        editions << create("archived_#{document_type}",
-                           change_note: "Second attempt.",
-                           document: document,
-                           major_change_published_at: 2.months.ago,
-                           first_published_at: 3.months.ago)
-        editions << create("archived_#{document_type}",
-                           change_note: "First effort.",
-                           document: document,
-                           major_change_published_at: 3.months.ago,
-                           first_published_at: 3.months.ago)
-
-        instance_exec(editions.first, &block)
-
-        assert_select ".change-notes dd" do |list_items|
-          list_items.each_with_index do |list_item, index|
-            if index == ( list_items.length-1 )
-              assert_select list_item, ".published-at[title='#{editions[index].first_published_date.iso8601}']"
-            else
-              assert_select list_item, ".published-at[title='#{editions[index].major_change_published_at.iso8601}']"
-            end
-          end
-        end
-        assert_select ".change-notes dt" do |list_items|
-          list_items.each_with_index do |list_item, index|
-            assert_select list_item, 'dt', text: editions[index].change_note
-          end
-        end
       end
     end
 

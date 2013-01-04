@@ -376,12 +376,12 @@ class TopicsControllerTest < ActionController::TestCase
     get :show, id: topic, format: :atom
 
     assert_select_atom_feed do
-      assert_select 'feed > updated', text: newer_edition.timestamp_for_update.iso8601
+      assert_select 'feed > updated', text: newer_edition.public_timestamp.iso8601
 
       assert_select 'feed > entry' do |entries|
         entries.zip(recent_documents) do |entry, document|
-          assert_select entry, 'entry > published', text: document.public_timestamp.iso8601
-          assert_select entry, 'entry > updated', text: document.timestamp_for_update.iso8601
+          assert_select entry, 'entry > published', text: document.first_public_at.iso8601
+          assert_select entry, 'entry > updated', text: document.public_timestamp.iso8601
           assert_select entry, 'entry > link[rel=?][type=?][href=?]', 'alternate', 'text/html', public_document_url(document)
           assert_select entry, 'entry > title', text: document.title
           assert_select entry, 'entry > summary', text: document.summary
@@ -405,12 +405,12 @@ class TopicsControllerTest < ActionController::TestCase
     get :show, id: topic, format: :atom, govdelivery_version: 'yes'
 
     assert_select_atom_feed do
-      assert_select 'feed > updated', text: newer_edition.timestamp_for_update.iso8601
+      assert_select 'feed > updated', text: newer_edition.public_timestamp.iso8601
 
       assert_select 'feed > entry' do |entries|
         entries.zip(recent_documents) do |entry, document|
-          assert_select entry, 'entry > published', text: document.public_timestamp.iso8601
-          assert_select entry, 'entry > updated', text: document.timestamp_for_update.iso8601
+          assert_select entry, 'entry > published', text: document.first_public_at.iso8601
+          assert_select entry, 'entry > updated', text: document.public_timestamp.iso8601
           assert_select entry, 'entry > link[rel=?][type=?][href=?]', 'alternate', 'text/html', public_document_url(document)
           assert_select entry, 'entry > title', text: "#{document.display_type}: #{document.title}"
           assert_select entry, 'entry > summary', text: document.summary

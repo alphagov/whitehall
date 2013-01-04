@@ -31,7 +31,7 @@ class Speech < Announcement
   end
 
   def first_public_at
-    delivered_on
+    delivered_on.to_datetime
   end
 
   def make_public_at(date)

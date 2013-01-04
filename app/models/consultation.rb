@@ -68,7 +68,7 @@ class Consultation < Publicationesque
   end
 
   def first_public_at
-    opening_on
+    opening_on.to_datetime
   end
 
   def make_public_at(date)

@@ -62,18 +62,18 @@ class AnnouncementsControllerTest < ActionController::TestCase
     get :index
 
     assert_select_object(speech) do
-     assert_select "abbr.delivered_on[title=?]", delivered_on.iso8601
+     assert_select "abbr.public_timestamp[title=?]", delivered_on.to_datetime.iso8601
     end
   end
 
   test "index shows the time when a news article was first published" do
     first_published_at = Time.zone.parse("2001-01-01 01:01")
-    news_article = create(:published_news_article, major_change_published_at: first_published_at)
+    news_article = create(:published_news_article, first_published_at: first_published_at)
 
     get :index
 
     assert_select_object(news_article) do
-     assert_select "abbr.first_published_at[title=?]", first_published_at.iso8601
+     assert_select "abbr.public_timestamp[title=?]", first_published_at.iso8601
     end
   end
 
@@ -136,10 +136,10 @@ class AnnouncementsControllerTest < ActionController::TestCase
   end
 
   test "index shows only the first page of news articles or speeches" do
-    news = (1..3).map { |n| create(:published_news_article, major_change_published_at: n.days.ago) }
-    speeches = (4..6).map { |n| create(:published_speech, delivered_on: n.days.ago) }
+    news = (1..2).map { |n| create(:published_news_article, first_published_at: n.days.ago) }
+    speeches = (3..4).map { |n| create(:published_speech, delivered_on: n.days.ago) }
 
-    with_number_of_documents_per_page(4) do
+    with_number_of_documents_per_page(3) do
       get :index
     end
 
@@ -205,8 +205,8 @@ class AnnouncementsControllerTest < ActionController::TestCase
       assert_select 'feed > entry', count: 1 do |entries|
         entries.zip([news]).each do |entry, document|
           assert_select entry, 'entry > id', 1
-          assert_select entry, 'entry > published', count: 1, text: document.public_timestamp.iso8601
-          assert_select entry, 'entry > updated', count: 1, text: document.timestamp_for_update.iso8601
+          assert_select entry, 'entry > published', count: 1, text: document.first_public_at.iso8601
+          assert_select entry, 'entry > updated', count: 1, text: document.public_timestamp.iso8601
           assert_select entry, 'entry > link[rel=?][type=?][href=?]', 'alternate', 'text/html', public_document_url(document)
           assert_select entry, 'entry > title', count: 1, text: document.title
           assert_select entry, 'entry > summary', count: 1, text: document.summary
@@ -229,8 +229,8 @@ class AnnouncementsControllerTest < ActionController::TestCase
       assert_select 'feed > entry', count: 1 do |entries|
         entries.zip([news]).each do |entry, document|
           assert_select entry, 'entry > id', 1
-          assert_select entry, 'entry > published', count: 1, text: document.public_timestamp.iso8601
-          assert_select entry, 'entry > updated', count: 1, text: document.timestamp_for_update.iso8601
+          assert_select entry, 'entry > published', count: 1, text: document.first_public_at.iso8601
+          assert_select entry, 'entry > updated', count: 1, text: document.public_timestamp.iso8601
           assert_select entry, 'entry > link[rel=?][type=?][href=?]', 'alternate', 'text/html', public_document_url(document)
           assert_select entry, 'entry > title', count: 1, text: "#{document.display_type}: #{document.title}"
           assert_select entry, 'entry > summary', count: 1, text: document.summary

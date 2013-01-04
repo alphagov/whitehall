@@ -4,7 +4,4 @@ class CaseStudyPresenter < Draper::Base
 
   decorates :case_study
 
-  def display_date_attribute_name
-    :public_timestamp
-  end
 end

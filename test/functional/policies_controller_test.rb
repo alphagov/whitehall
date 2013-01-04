@@ -9,9 +9,6 @@ class PoliciesControllerTest < ActionController::TestCase
   should_display_inline_images_for :policy
   should_show_inapplicable_nations :policy
   should_be_previewable :policy
-  should_show_change_notes_on_action :policy, :show do |policy|
-    get :show, id: policy.document
-  end
   should_return_json_suitable_for_the_document_filter :policy
 
   test "index should handle badly formatted params for topics and departments" do
@@ -23,7 +20,7 @@ class PoliciesControllerTest < ActionController::TestCase
 
     get :show, id: policy.document
 
-    assert_select ".published-at[title=#{policy.major_change_published_at.iso8601}]"
+    assert_select ".published-at[title=#{policy.public_timestamp.iso8601}]"
   end
 
   test "should not explicitly say that policy applies to the whole of the UK" do
@@ -192,7 +189,7 @@ That's all
 
     get :activity, id: policy.document
 
-    assert_select ".published-at[title=#{policy.major_change_published_at.iso8601}]"
+    assert_select ".published-at[title=#{policy.public_timestamp.iso8601}]"
   end
 
   test "activity includes the main policy navigation" do
@@ -313,10 +310,10 @@ That's all
 
   test "activity orders recently changed documents in reverse chronological order" do
     policy = create(:published_policy)
-    publication = create(:published_publication, major_change_published_at: 1.day.ago, publication_date: 4.weeks.ago, related_policies: [policy])
-    consultation = create(:published_consultation, major_change_published_at: 1.weeks.ago, related_policies: [policy])
-    news_article = create(:published_news_article, major_change_published_at: 3.weeks.ago, related_policies: [policy])
-    speech = create(:published_speech, major_change_published_at: 2.weeks.ago, delivered_on: 2.weeks.ago, related_policies: [policy])
+    publication = create(:published_publication, publication_date: 4.weeks.ago, related_policies: [policy])
+    consultation = create(:published_consultation, first_published_at: 1.weeks.ago, related_policies: [policy])
+    news_article = create(:published_news_article, first_published_at: 3.weeks.ago, related_policies: [policy])
+    speech = create(:published_speech, delivered_on: 2.weeks.ago, related_policies: [policy])
 
     get :activity, id: policy.document
 
@@ -426,27 +423,27 @@ That's all
 
   test 'activity atom feed shows activity documents' do
     policy = create(:published_policy)
-    publication = create(:published_publication, publication_date: 4.weeks.ago, related_policies: [policy])
-    consultation = create(:published_consultation, opening_on: 1.weeks.ago, related_policies: [policy])
-    news_article = create(:published_news_article, major_change_published_at: 3.weeks.ago, related_policies: [policy])
-    speech = create(:published_speech, delivered_on: 2.weeks.ago, related_policies: [policy])
+    publication = create(:published_publication, publication_date: 4.weeks.ago.to_date, related_policies: [policy])
+    consultation = create(:published_consultation, opening_on: 1.weeks.ago.to_date, related_policies: [policy])
+    news_article = create(:published_news_article, first_published_at: 3.weeks.ago, related_policies: [policy])
+    speech = create(:published_speech, delivered_on: 2.weeks.ago.to_date, related_policies: [policy])
 
     get :activity, id: policy.document, format: "atom"
 
     assert_select_atom_feed do
       assert_select 'feed > id', 1
       assert_select 'feed > title', 1
-      assert_select 'feed > updated', consultation.timestamp_for_update.iso8601
+      assert_select 'feed > updated', consultation.public_timestamp.iso8601
       assert_select 'feed > link[rel=?][type=?][href=?]', 'alternate', 'text/html', activity_policy_url(policy.document), 1
 
       assert_select 'feed > entry' do |entries|
         entries.zip([consultation, speech, news_article, publication]).each do |entry, document|
-          assert_select entry, 'entry > published', text: document.public_timestamp.iso8601
-          assert_select entry, 'entry > updated', text: document.timestamp_for_update.iso8601
+          assert_select entry, 'entry > published', text: document.first_public_at.iso8601
+          assert_select entry, 'entry > updated', text: document.public_timestamp.iso8601
           assert_select entry, 'entry > title', text: document.title
           assert_select entry, 'entry > summary', text: document.summary
           assert_select entry, 'entry > category', text: document.display_type
-          assert_select entry, 'entry > published', text: document.public_timestamp.iso8601
+          assert_select entry, 'entry > published', text: document.first_public_at.iso8601
           assert_select entry, 'entry > content', text: Builder::XChar.encode(@controller.view_context.govspeak_edition_to_html(document))
         end
       end
@@ -455,27 +452,27 @@ That's all
 
   test 'activity atom feed shows activity documents with summaries and prefixed titles instead of full content when requested' do
     policy = create(:published_policy)
-    publication = create(:published_publication, publication_date: 4.weeks.ago, related_policies: [policy])
-    consultation = create(:published_consultation, opening_on: 1.weeks.ago, related_policies: [policy])
-    news_article = create(:published_news_article, major_change_published_at: 3.weeks.ago, related_policies: [policy])
-    speech = create(:published_speech, delivered_on: 2.weeks.ago, related_policies: [policy])
+    publication = create(:published_publication, publication_date: 4.weeks.ago.to_date, related_policies: [policy])
+    consultation = create(:published_consultation, opening_on: 1.weeks.ago.to_date, related_policies: [policy])
+    news_article = create(:published_news_article, first_published_at: 3.weeks.ago, related_policies: [policy])
+    speech = create(:published_speech, delivered_on: 2.weeks.ago.to_date, related_policies: [policy])
 
     get :activity, id: policy.document, format: "atom", govdelivery_version: '1'
 
     assert_select_atom_feed do
       assert_select 'feed > id', 1
       assert_select 'feed > title', 1
-      assert_select 'feed > updated', consultation.timestamp_for_update.iso8601
+      assert_select 'feed > updated', consultation.public_timestamp.iso8601
       assert_select 'feed > link[rel=?][type=?][href=?]', 'alternate', 'text/html', activity_policy_url(policy.document), 1
 
       assert_select 'feed > entry' do |entries|
         entries.zip([consultation, speech, news_article, publication]).each do |entry, document|
-          assert_select entry, 'entry > published', text: document.public_timestamp.iso8601
-          assert_select entry, 'entry > updated', text: document.timestamp_for_update.iso8601
+          assert_select entry, 'entry > published', text: document.first_public_at.iso8601
+          assert_select entry, 'entry > updated', text: document.public_timestamp.iso8601
           assert_select entry, 'entry > title', text: "#{document.display_type}: #{document.title}"
           assert_select entry, 'entry > summary', text: document.summary
           assert_select entry, 'entry > category', text: document.display_type
-          assert_select entry, 'entry > published', text: document.public_timestamp.iso8601
+          assert_select entry, 'entry > published', text: document.first_public_at.iso8601
           assert_select entry, 'entry > content', text: document.summary
         end
       end

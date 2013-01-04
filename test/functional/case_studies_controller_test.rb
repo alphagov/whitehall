@@ -5,7 +5,6 @@ class CaseStudiesControllerTest < ActionController::TestCase
   should_render_a_list_of :case_studies
   should_show_related_policies_for :case_study
   should_display_inline_images_for :case_study
-  should_show_change_notes :case_study
   should_be_previewable :case_study
 
   test "shows published case study" do

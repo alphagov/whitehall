@@ -3,7 +3,6 @@ require "test_helper"
 class StatisticalDataSetsControllerTest < ActionController::TestCase
   should_be_a_public_facing_controller
   should_display_attachments_for :statistical_data_set
-  should_show_change_notes :statistical_data_set
   should_be_previewable :statistical_data_set
 
   test 'show displays published statistical data set' do

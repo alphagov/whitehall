@@ -4,7 +4,6 @@ class ConsultationsControllerTest < ActionController::TestCase
   should_be_a_public_facing_controller
   should_display_attachments_for :consultation
   should_display_inline_images_for :consultation
-  should_show_change_notes :consultation
   should_show_inapplicable_nations :consultation
 
   test 'index redirects to the publications index filtering consultations' do

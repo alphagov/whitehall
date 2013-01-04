@@ -18,7 +18,7 @@ class AnnouncementFilterJsonPresenterTest < PresenterTestCase
     operational_field = stub_record(:operational_field, name: "Name")
     fatality_notice = stub_record(:fatality_notice,
       document: document,
-      first_published_at: Time.zone.now,
+      public_timestamp: Time.zone.now,
       organisations: [organisation],
       operational_field: operational_field)
     # TODO: perhaps rethink edition factory, so this apparent duplication 

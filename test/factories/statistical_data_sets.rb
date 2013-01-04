@@ -9,8 +9,12 @@ FactoryGirl.define do
   factory :draft_statistical_data_set, parent: :statistical_data_set, traits: [:draft]
   factory :submitted_statistical_data_set, parent: :statistical_data_set, traits: [:submitted]
   factory :rejected_statistical_data_set, parent: :statistical_data_set, traits: [:rejected]
-  factory :published_statistical_data_set, parent: :statistical_data_set, traits: [:published]
+  factory :published_statistical_data_set, parent: :statistical_data_set, traits: [:published] do
+    first_published_at 2.days.ago
+  end
   factory :deleted_statistical_data_set, parent: :statistical_data_set, traits: [:deleted]
-  factory :archived_statistical_data_set, parent: :statistical_data_set, traits: [:archived]
+  factory :archived_statistical_data_set, parent: :statistical_data_set, traits: [:archived] do
+    first_published_at 2.days.ago
+  end
   factory :scheduled_statistical_data_set, parent: :statistical_data_set, traits: [:scheduled]
 end

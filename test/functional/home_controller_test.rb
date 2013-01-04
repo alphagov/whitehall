@@ -46,12 +46,12 @@ class HomeControllerTest < ActionController::TestCase
     older_documents = documents[10..-1]
 
     assert_select_atom_feed do
-      assert_select 'feed > updated', text: recent_documents.first.timestamp_for_update.iso8601
+      assert_select 'feed > updated', text: recent_documents.first.public_timestamp.iso8601
 
       assert_select 'feed > entry' do |entries|
         entries.zip(recent_documents) do |entry, document|
-          assert_select entry, 'entry > published', count: 1, text: document.public_timestamp.iso8601
-          assert_select entry, 'entry > updated', count: 1, text: document.timestamp_for_update.iso8601
+          assert_select entry, 'entry > published', count: 1, text: document.first_public_at.iso8601
+          assert_select entry, 'entry > updated', count: 1, text: document.public_timestamp.iso8601
           assert_select entry, 'entry > link[rel=?][type=?][href=?]', 'alternate', 'text/html', public_document_url(document)
           assert_select entry, 'entry > title', count: 1, text: document.title
           assert_select entry, 'entry > summary', count: 1, text: document.summary
@@ -73,12 +73,12 @@ class HomeControllerTest < ActionController::TestCase
     older_documents = documents[10..-1]
 
     assert_select_atom_feed do
-      assert_select 'feed > updated', text: recent_documents.first.timestamp_for_update.iso8601
+      assert_select 'feed > updated', text: recent_documents.first.public_timestamp.iso8601
 
       assert_select 'feed > entry' do |entries|
         entries.zip(recent_documents) do |entry, document|
-          assert_select entry, 'entry > published', count: 1, text: document.public_timestamp.iso8601
-          assert_select entry, 'entry > updated', count: 1, text: document.timestamp_for_update.iso8601
+          assert_select entry, 'entry > published', count: 1, text: document.first_public_at.iso8601
+          assert_select entry, 'entry > updated', count: 1, text: document.public_timestamp.iso8601
           assert_select entry, 'entry > link[rel=?][type=?][href=?]', 'alternate', 'text/html', public_document_url(document)
           assert_select entry, 'entry > title', count: 1, text: "#{document.display_type}: #{document.title}"
           assert_select entry, 'entry > summary', count: 1, text: document.summary
@@ -186,7 +186,7 @@ class HomeControllerTest < ActionController::TestCase
   private
 
   def create_published_documents
-    5.downto(1) do |x|
+    2.downto(1) do |x|
       create(:published_policy, first_published_at: x.days.ago + 1.hour)
       create(:published_news_article, first_published_at: x.days.ago + 2.hours)
       create(:published_speech, delivered_on: x.days.ago + 3.hours)

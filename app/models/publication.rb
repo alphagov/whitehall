@@ -40,7 +40,7 @@ class Publication < Publicationesque
   end
 
   def first_public_at
-    publication_date
+    publication_date.to_datetime
   end
 
   def make_public_at(date)
