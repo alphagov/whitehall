@@ -99,6 +99,11 @@ class Organisation < ActiveRecord::Base
             through: :organisation_roles,
             source: :role
 
+  has_many :ministerial_role_appointments,
+            class_name: 'RoleAppointment',
+            through: :ministerial_roles,
+            source: :role_appointments
+
   has_many :people, through: :roles
 
   has_many :organisation_classifications, dependent: :destroy, order: 'organisation_classifications.ordering'

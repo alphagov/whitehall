@@ -16,7 +16,7 @@
     <% if @edition.can_be_associated_with_role_appointments? %>
       <div class="row-fluid">
         <h3>Ministers</h3>
-        <% @edition.organisations.map(&:ministerial_roles).flatten.map(&:role_appointments).flatten.each do |role_appointment| %>
+        <% @edition.organisations.map(&:ministerial_role_appointments).flatten.each do |role_appointment| %>
           <% if role_appointment.current_at(@edition.first_published_at) %>
             <label class='checkbox'>
               <%= check_box_tag 'edition[role_appointment_ids][]', role_appointment.id, @edition.role_appointments.include?(role_appointment) %>
