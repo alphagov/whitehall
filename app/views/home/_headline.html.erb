@@ -1,9 +1,0 @@
-<%= content_tag_for :li, headline, class: ('a'..'z').to_a[headline_counter] do %>
-  <a href='<%= public_document_path(headline) %>' class='headline-box <%= 'org-' + headline.organisations.first.slug if headline.organisations.first %>'>
-    <h1><%= headline.title %></h1>
-    <div class="meta">
-      <span class="type"><%= headline.format_name.titleize %></span>
-      <%= published_or_updated(headline) %> <%= relative_time(headline.major_change_published_at) %>
-    </div>
-  </a>
-<% end %>
