@@ -21,7 +21,7 @@
             <label class='checkbox'>
               <%= check_box_tag 'edition[role_appointment_ids][]', role_appointment.id, @edition.role_appointments.include?(role_appointment) %>
               <%= RoleAppointmentPresenter.new(role_appointment).person.name %>
-              <p class='muted'><%= role_appointment(role_appointment) %></p>
+              <span class='muted'><%= role_appointment(role_appointment) %></span>
             </label>
           <% end %>
         <% end %>
@@ -34,7 +34,7 @@
           <label class='checkbox'>
             <%= check_box_tag 'edition[ministerial_role_ids][]', role.id, @edition.ministerial_roles.include?(role) %>
             <%= RolePresenter.new(role).current_person.name %>
-            <p class='muted'><%= RolePresenter.new(role).name %></p>
+            <span class='muted'><%= RolePresenter.new(role).name %></span>
           </label>
         <% end %>
       </div>
