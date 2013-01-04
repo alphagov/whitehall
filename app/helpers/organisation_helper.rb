@@ -15,15 +15,18 @@ module OrganisationHelper
   def organisation_display_name_and_parental_relationship(organisation)
     name = organisation_display_name(organisation)
     relationship = add_indefinite_article(organisation_type_name(organisation))
-    parent = organisation.parent_organisations.first
+    parents = organisation.parent_organisations
     params = [ERB::Util.h(name), ERB::Util.h(relationship)]
-    if parent
-      prefix = needs_definite_article?(parent.name) ? "the " : ""
-      params << prefix + link_to(parent.name, organisation_path(parent))
-      "%s is %s of %s" % params
+    if parents.any?
+      "%s is %s of %s" % (params << parents.map {|parent| organisation_relationship_html(parent) }.to_sentence)
     else
       "%s is %s" % params
     end.html_safe
+  end
+
+  def organisation_relationship_html(organisation)
+    prefix = needs_definite_article?(organisation.name) ? "the " : ""
+    (prefix + link_to(organisation.name, organisation_path(organisation)))
   end
 
   def needs_definite_article?(phrase)

@@ -113,6 +113,15 @@ class OrganisationHelperDisplayNameWithParentalRelationshipTest < ActionView::Te
   test 'definite article skipped if name starts with "The"' do
     assert_definite_article_skipped 'The National Archives'
   end
+
+  test 'multiple parent organisations reflected as in copy' do
+    parent = create(:organisation)
+    parent2 = create(:organisation)
+    child = create(:organisation, parent_organisations: [parent, parent2])
+    result = organisation_display_name_and_parental_relationship(child)
+    assert_match parent.name, result
+    assert_match parent2.name, result
+  end
 end
 
 class OrganisationSiteThumbnailPathTest < ActionView::TestCase
