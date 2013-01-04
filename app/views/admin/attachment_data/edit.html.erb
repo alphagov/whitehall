@@ -6,6 +6,7 @@
       <pre><%= @attachment_data.carrierwave_file %></pre>
     </p>
     <%= form_for([:admin, @attachment_data]) do |form| %>
+      <%= form.errors %>
       <%= form.label :file %>
       <%= form.file_field :file %>
       <%= form.submit "Update", class: "btn" %>
