@@ -356,4 +356,18 @@ class RoleAppointmentTest < ActiveSupport::TestCase
 
     assert_same_elements [first_pm_appt, deputy_pm_appt, second_pm_appt], RoleAppointment.for_ministerial_roles
   end
+
+  test "current_at is only true if the appointment is current at the given date" do
+    role_appointment = build(:role_appointment, started_at: 2.years.ago, ended_at: 1.year.ago)
+    refute role_appointment.current_at(3.years.ago)
+    assert role_appointment.current_at(18.months.ago)
+    refute role_appointment.current_at(6.months.ago)
+  end
+
+  test "current_at is true for current appointments if the given date is newer than started_at" do
+    role_appointment = build(:role_appointment, started_at: 2.years.ago, ended_at: nil)
+    refute role_appointment.current_at(3.years.ago)
+    assert role_appointment.current_at(18.months.ago)
+    assert role_appointment.current_at(1.second.ago)
+  end
 end

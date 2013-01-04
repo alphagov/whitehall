@@ -5,6 +5,7 @@ FactoryGirl.define do
     body  "news-body"
   end
 
+  factory :imported_news_article, parent: :news_article, traits: [:imported]
   factory :draft_news_article, parent: :news_article, traits: [:draft]
   factory :submitted_news_article, parent: :news_article, traits: [:submitted]
   factory :rejected_news_article, parent: :news_article, traits: [:rejected]

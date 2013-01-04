@@ -102,6 +102,11 @@ class RoleAppointment < ActiveRecord::Base
     end
   end
 
+  def current_at(date)
+    return false if date < started_at
+    ended_at.nil? || date <= ended_at
+  end
+
   private
 
   def make_other_current_appointments_non_current

@@ -38,7 +38,10 @@ FactoryGirl.define do
       edition.organisations = FactoryGirl.build_list(:organisation, 1) unless evaluator.organisations.any?
     end
 
-    trait(:imported) { state "imported" }
+    trait(:imported) do
+      state "imported"
+      first_published_at { 1.year.ago }
+    end
     trait(:draft) { state "draft" }
     trait(:submitted) { state "submitted" }
     trait(:rejected) { state "rejected" }

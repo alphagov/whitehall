@@ -6,12 +6,12 @@ Given /^ministers exist:$/ do |table|
   end
 end
 
+Given /^"([^"]*)" used to be the "([^"]*)" for the "([^"]*)"$/ do |person_name, ministerial_role, organisation_name|
+  create_role_appointment(person_name, ministerial_role, organisation_name, 2.years.ago => 1.year.ago)
+end
+
 Given /^"([^"]*)" is the "([^"]*)" for the "([^"]*)"$/ do |person_name, ministerial_role, organisation_name|
-  person = find_or_create_person(person_name)
-  organisation = Organisation.find_by_name(organisation_name) || create(:organisation, name: organisation_name)
-  role = MinisterialRole.create!(name: ministerial_role)
-  organisation.ministerial_roles << role
-  create(:role_appointment, role: role, person: person, started_at: 1.year.ago, ended_at: nil)
+  create_role_appointment(person_name, ministerial_role, organisation_name, 1.year.ago)
 end
 
 Given /^the role "([^"]*)" has the responsibilities "([^"]*)"$/ do |role_name, responsibilities|

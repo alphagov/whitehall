@@ -37,3 +37,10 @@ Feature: Speed tagging editions
     Given a country "Uganda" exists
     When I go to speed tag a newly imported speech "Speech about Uganda"
     Then I should be able to select the world location "Uganda"
+
+  Scenario: Speed tagging news articles allows relevant appointments to be set
+    Given "Jane Smith" is the "Chancellor" for the "HM Treasury"
+    And "Joe Bloggs" used to be the "Chancellor" for the "HM Treasury"
+    When I go to speed tag a newly imported news article "Beards are more costly this year" for "HM Treasury"
+    Then I should be able to tag the news article with "Jane Smith"
+    And I should not be able to tag the news article with "Joe Bloggs"
