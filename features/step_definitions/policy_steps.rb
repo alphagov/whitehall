@@ -351,9 +351,9 @@ Given /^a published policy "([^"]*)" with a link "([^"]*)" in the body$/ do |tit
   create(:published_policy, title: title, body: body)
 end
 
-Given /^a published policy "([^"]*)" for the organisation "([^"]*)"$/ do |title, organisation|
+Given /^a (.*?) policy "([^"]*)" for the organisation "([^"]*)"$/ do |state, title, organisation|
   org = create(:organisation, name: organisation)
-  create(:published_policy, title: title, organisations: [org])
+  create("#{state}_policy", title: title, organisations: [org])
 end
 
 Then /^I should see that the policy "([^"]*)" includes an embedded media player$/ do |arg1|

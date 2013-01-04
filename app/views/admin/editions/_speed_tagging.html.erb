@@ -54,7 +54,7 @@
     <% if @edition.can_be_related_to_policies? %>
       <div class="row-fluid">
         <h3>Related policies</h3>
-        <% @edition.organisations.map(&:published_policies).flatten.each do |policy| %>
+        <% @edition.organisations.map(&:policies).flatten.each do |policy| %>
           <label class='checkbox'>
             <%= check_box_tag 'edition[related_document_ids][]', policy.document_id, @edition.related_documents.include?(policy.document) %>
             <%= policy.title %><br/>

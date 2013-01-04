@@ -61,6 +61,10 @@ class Organisation < ActiveRecord::Base
             class_name: "Announcement",
             conditions: { "editions.state" => "published"},
             source: :edition
+  has_many :policies,
+            through: :edition_organisations,
+            class_name: "Policy",
+            source: :edition
   has_many :published_policies,
             through: :edition_organisations,
             class_name: "Policy",
