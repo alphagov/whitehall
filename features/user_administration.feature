@@ -1,4 +1,4 @@
-Feature:
+Feature: User administration
   As a user
   I want to be able to administer my details in application
   So that I can ensure I am in the right department, etc

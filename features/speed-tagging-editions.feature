@@ -2,6 +2,7 @@ Feature: Speed tagging editions
   I want to be able to tag new editions (especially but not exclusively imported editions) using a slimmed down version of the edit screen.
 
   Specifically, the page:
+
   - should only present policies which are associated with the org of the doc being imported
   - should only present ministers which are associated with the org of the doc being imported
   - should present mandatory data elements for that document type. (i.e. speech type, publication subtype)

@@ -1,6 +1,7 @@
-Feature: As an editor
-I want to be able to create and publish topical events
-So that I can communicate about them
+Feature: Creating and publishing topical events
+  As an editor
+  I want to be able to create and publish topical events
+  So that I can communicate about them
 
 Background:
   Given I am an editor

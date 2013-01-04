@@ -1,6 +1,8 @@
-Feature: As an editor
-I want to be able to edit the description text of a topic
-So that it best represents the policies that it gathers
+Feature: Editing topics
+
+  As an editor
+  I want to be able to edit the description text of a topic
+  So that it best represents the policies that it gathers
 
 Background:
   Given I am an editor

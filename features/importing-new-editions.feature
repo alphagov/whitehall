@@ -19,6 +19,7 @@ Feature: Importing new editions
   ---
 
   Terms:
+
   - column required: should fail csv upload without the column
   - required: should fail row import without it, implies column required
   - unique: should fail csv upload if any duplicates of this field in the file, implies required
@@ -26,6 +27,7 @@ Feature: Importing new editions
   - default: import if available, set to a default if not
 
   All types:
+
   - old_url: column required + data unique
   - title: required
   - summary: optional
@@ -33,6 +35,7 @@ Feature: Importing new editions
   - organisation: required, ideally default blank to SELECTED, reject anything that is non-blank that can't be found
 
   Publications:
+
   - publication_date: required
   - publication_type: required, ideally default blank to ImportedAwaitingType, reject anything non-blank that can't be found
   - policy_1..4: 1 column required, data optional
@@ -42,6 +45,7 @@ Feature: Importing new editions
   - country_1..4: 1 column required, data optional
 
   Consultations:
+
   - opening_on: required
   - closing_on: required
   - response_date: optional
@@ -49,12 +53,14 @@ Feature: Importing new editions
   - response_attachments_1..n_*: 1 column required, optional (should stay as is)
 
   News:
+
   - first_published_at: required
   - policy_1..4: 1 column required, data optional
   - minister_1..2: optional
   - country_1..4: 1 column required, data optional
 
   Speeches:
+
   - speech_type: required, ideally default blank to ImportedAwaitingType, reject anything non-blank that can't be found
   - delivered_by: required, ideally default blank, reject anything non-black that can't be found
   - delivered_on: required
@@ -62,9 +68,11 @@ Feature: Importing new editions
   - country_1..4: 1 column required, data optional
 
   StatisticalDataSets:
+
   - document_series: column required, data optional
 
   FatalityNotices:
+
   - field_of_operation: required
 
   Background:
