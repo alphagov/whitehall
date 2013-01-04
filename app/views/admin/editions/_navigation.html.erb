@@ -34,7 +34,7 @@
     <%= redraft_edition_button(edition) %>
   <% end %>
 
-  <% if @edition.ready_to_convert_to_draft? %>
+  <% if @edition.imported? %>
     <%= convert_to_draft_edition_form(@edition) %>
   <% end %>
 

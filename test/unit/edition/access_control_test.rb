@@ -75,25 +75,6 @@ class Edition::AccessControlTest < ActiveSupport::TestCase
     end
   end
 
-  test 'is ready to convert to draft if it is imported and valid as a draft' do
-    document = build(:imported_edition)
-    document.stubs(:valid_as_draft?).returns(true)
-    assert document.ready_to_convert_to_draft?
-  end
-
-  test 'is not ready to convert to draft if it is imported but not valid as a draft' do
-    document = build(:imported_edition)
-    document.stubs(:valid_as_draft?).returns(false)
-    refute document.ready_to_convert_to_draft?
-  end
-
-  [:draft, :scheduled, :published, :archived, :submitted, :rejected].each do |state|
-    test "is not ready to convert to draft if it is #{state}" do
-      document = build("#{state}_edition")
-      refute document.ready_to_convert_to_draft?
-    end
-  end
-
   test "should not be deletable if deleted" do
     document = create("draft_edition")
     document.delete!

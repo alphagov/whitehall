@@ -36,7 +36,9 @@ module Admin::EditionActionsHelper
 
   def convert_to_draft_edition_form(edition)
     url = convert_to_draft_admin_edition_path(edition, lock_version: edition.lock_version)
-    button_to 'Convert to draft', url, title: "Convert to draft #{edition.title}", class: 'btn btn-success'
+    options = { title: "Convert to draft #{edition.title}", class: 'btn btn-success'}
+    options.merge!(disabled: 'disabled') unless edition.valid_as_draft?
+    button_to 'Convert to draft', url, options
   end
 
   def publish_edition_form(edition, options = {})

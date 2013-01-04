@@ -53,7 +53,7 @@ end
 Then /^I can't make the imported (?:publication|speech) into a draft edition yet$/ do
   visit_document_preview Edition.imported.last.title
 
-  assert page.has_no_button?('Convert to draft')
+  assert page.has_css?('input[type=submit][disabled=disabled][value="Convert to draft"]')
 end
 
 When /^I set the imported publication's type to "([^"]*)"$/ do |publication_sub_type|

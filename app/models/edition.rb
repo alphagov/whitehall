@@ -369,15 +369,19 @@ class Edition < ActiveRecord::Base
   end
 
   def valid_as_draft?
+    errors_as_draft.empty?
+  end
+
+  def errors_as_draft
     if imported?
       begin
         self.try_draft
-        return valid?
+        return valid? ? [] : errors
       ensure
         self.back_to_imported
       end
     else
-      valid?
+      valid? ? [] : errors
     end
   end
 
