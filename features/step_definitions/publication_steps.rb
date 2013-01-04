@@ -90,7 +90,7 @@ end
 Then /^I should see in the preview that "([^"]*)" is taken from the live data in "([^"]*)"$/ do |title, data_set_name|
   click_on "Force Publish"
   click_on title
-  click_on title
+  click_on "View"
   assert has_css?(".live-data a", text: data_set_name)
 end
 
@@ -160,7 +160,7 @@ When /^I update the attachment metadata from a new draft of the publication$/ do
 end
 
 Then /^the metadata changes should not be public until the draft is published$/ do
-  click_link(Edition.last.title)
+  click_link("Preview")
   page.should have_css(".attachment-details .title", text: @attachment_title)
 end
 

@@ -4,7 +4,7 @@ module ConsultationHelper
   end
 
   def view_visible_consultation_on_website
-    click_link(Consultation.last.title)
+    click_link("View")
   end
 
   def should_have_consultation_response_attachment
