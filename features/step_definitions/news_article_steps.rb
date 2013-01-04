@@ -4,10 +4,6 @@ Given /^a published news article "([^"]*)" with related published policies "([^"
   create(:published_news_article, title: news_article_title, related_policies: [policy_1, policy_2])
 end
 
-Given /^a published news article "([^"]*)" with notes to editors "([^"]*)"$/ do |title, notes_to_editors|
-  create(:published_news_article, title: title, notes_to_editors: notes_to_editors)
-end
-
 Given /^a published news article "([^"]*)" for the organisation "([^"]*)"$/ do |title, organisation|
   organisation = create(:organisation, name: organisation)
   create(:published_news_article, title: title, organisations: [organisation])
@@ -40,10 +36,6 @@ When /^I draft a new news article "([^"]*)" relating it to "([^"]*)" and "([^"]*
   select first_policy, from: "Related policies"
   select second_policy, from: "Related policies"
   click_button "Save"
-end
-
-Then /^I should see the notes to editors "([^"]*)" for the news article$/ do |notes_to_editors|
-  assert has_css?("#{notes_to_editors_selector}", text: notes_to_editors)
 end
 
 When /^I publish a news article "([^"]*)" associated with "([^"]*)"$/ do |title, person_name|

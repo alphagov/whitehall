@@ -5,9 +5,6 @@
     <ul class="nav nav-tabs">
       <li><p class="guidance">Please review all content:</p></li>
       <li class="active"><a href="#document" data-toggle="tab">Document</a></li>
-      <% if @edition.notes_to_editors.present? %>
-        <li><a href="#notes_to_editors" data-toggle="tab">Notes to editors</a></li>
-      <% end %>
       <% if @edition.allows_supporting_pages? && @edition.supporting_pages.any? %>
         <li><a href="#supporting_pages" data-toggle="tab">Supporting pages</a></li>
       <% end %>
@@ -16,12 +13,6 @@
       <section class="document_page tab-pane active" id="document">
         <%= render partial: 'admin/editions/edition', locals: { edition: @edition } %>
       </section>
-      <% if @edition.notes_to_editors.present? %>
-        <section class="tab-pane" id="notes_to_editors">
-          <h1>Notes to editors</h1>
-          <%= govspeak_to_html @edition.notes_to_editors %>
-        </section>
-      <% end %>
       <% if @edition.allows_supporting_pages? && @edition.supporting_pages.any? %>
         <section class="tab-pane supporting_pages" id="supporting_pages">
           <h1>Supporting pages</h1>

@@ -8,9 +8,6 @@
       <% if @edition.change_note_required? %>
         <li><a href="#change-note" data-toggle="tab">Change note</a></li>
       <% end %>
-      <% if @edition.notes_to_editors.present? %>
-        <li><a href="#notes_to_editors" data-toggle="tab">Notes to editors</a></li>
-      <% end %>
       <% if @edition.allows_supporting_pages? %>
         <li><a href="#supporting_pages" data-toggle="tab">Supporting pages <span class="badge"><%= @edition.supporting_pages.count %></span></a></li>
       <% end %>
@@ -54,12 +51,6 @@
           <% else %>
               <%= @edition.change_note %>
           <% end %></p>
-        </section>
-      <% end %>
-      <% if @edition.notes_to_editors.present? %>
-        <section class="tab-pane" id="notes_to_editors">
-          <h1>Notes to editors</h1>
-          <%= govspeak_to_html @edition.notes_to_editors %>
         </section>
       <% end %>
       <% if @edition.allows_supporting_pages? %>

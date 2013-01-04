@@ -30,7 +30,6 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
   should_prevent_modification_of_unmodifiable :news_article
   should_allow_overriding_of_first_published_at_for :news_article
   should_have_summary :news_article
-  should_have_notes_to_editors :news_article
   should_allow_scheduled_publication_of :news_article
 
   test "new displays news article fields" do
@@ -47,18 +46,4 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
     assert_select ".summary", text: "a-simple-summary"
   end
 
-  test "should render the notes to editors using govspeak markup" do
-    news_article = create(:news_article, notes_to_editors: "notes-to-editors-in-govspeak")
-    govspeak_transformation_fixture default: "\n", "notes-to-editors-in-govspeak" => "notes-to-editors-in-html" do
-      get :show, id: news_article
-    end
-
-    assert_select "#{notes_to_editors_selector}", text: /notes-to-editors-in-html/
-  end
-
-  test "should exclude the notes to editors section if there are not any" do
-    news_article = create(:news_article, notes_to_editors: "")
-    get :show, id: news_article
-    refute_select "#{notes_to_editors_selector}"
-  end
 end
