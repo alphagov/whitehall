@@ -11,21 +11,6 @@
     </div>
   </div>
 
-  <% if @featured_world_location %>
-  <div class="block-2">
-    <div class="inner-block">
-      <%= content_tag_for(:div, @featured_world_location, class: 'featured') do %>
-        <%= image_tag 'spain.png', alt: 'World location image - Spain' %>
-        <h2><%= link_to @featured_world_location.name, world_location_path(@featured_world_location), class: "name" %></h2>
-        <p class="summary description">
-          <%= @featured_world_location.description %>
-        </p>
-      <% end %>
-    </div>
-  </div>
-  <% end %>
-
-
   <div class="block-3">
     <div class="inner-block">
       <section class="simple-alphabetical-list" id="world-locations">

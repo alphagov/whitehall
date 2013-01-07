@@ -3,7 +3,6 @@ class WorldLocationsController < PublicFacingController
 
   def index
     @world_locations = WorldLocation.all
-    @featured_world_location = WorldLocation.featured.first
   end
 
   def show

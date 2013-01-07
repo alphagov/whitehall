@@ -1,10 +1,4 @@
 class WorldLocation < ActiveRecord::Base
-  FEATURED_WORLD_LOCATION_NAMES = ["Spain"]
-
-  FEATURED_WORLD_LOCATION_URLS = {
-    "Spain"  => ["http://ukinspain.fco.gov.uk"]
-  }
-
   has_many :edition_world_locations
   has_many :editions,
             through: :edition_world_locations
@@ -37,16 +31,4 @@ class WorldLocation < ActiveRecord::Base
 
   extend FriendlyId
   friendly_id
-
-  def featured?
-    FEATURED_WORLD_LOCATION_NAMES.include?(name)
-  end
-
-  def self.featured
-    where(name: FEATURED_WORLD_LOCATION_NAMES)
-  end
-
-  def urls
-    FEATURED_WORLD_LOCATION_URLS[name] || []
-  end
 end

@@ -36,34 +36,6 @@ class WorldLocationTest < ActiveSupport::TestCase
     assert_equal "The Moon", world_location.display_type
   end
 
-  test 'should not be featured' do
-    world_location = create(:world_location, name: 'Cascadia')
-    refute world_location.featured?
-  end
-
-  test 'should be featured if name matches hard-coded list' do
-    %w[ Spain ].each do |name|
-      assert create(:world_location, name: name).featured?
-    end
-  end
-
-  test 'should return featured world locations' do
-    %w[ Spain Cascadia Virginia ].each do |name|
-      create(:world_location, name: name)
-    end
-    assert_equal 1, WorldLocation.featured.length
-  end
-
-  test 'should return hard-coded urls for featured world locations' do
-    spain = create(:world_location, name: 'Spain')
-    assert_equal %w[ http://ukinspain.fco.gov.uk ], spain.urls
-  end
-
-  test 'should return no urls for world locations that are not featured.' do
-    world_location = create(:world_location)
-    assert_equal [], world_location.urls
-  end
-
   test '#featured_news_articles should return news articles featured against this world_location' do
     world_location = create(:world_location)
     other_world_location = create(:world_location)
