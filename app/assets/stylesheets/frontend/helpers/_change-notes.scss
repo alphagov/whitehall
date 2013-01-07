@@ -70,7 +70,7 @@
     position: absolute;
     top: 130%;
     left: 0;
-    @include media(tablet){
+    @include media(desktop){
       left: -$gutter*3;
     }
     width: 30em;

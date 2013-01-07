@@ -64,7 +64,7 @@
     }
     .arrow {
       left: 20%;
-      @include media(tablet){
+      @include media(desktop){
         left: 70%;
       }
     }
