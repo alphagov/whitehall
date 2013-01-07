@@ -73,7 +73,7 @@ class EditionTest < ActiveSupport::TestCase
     refute Edition.latest_edition.include?(new_draft)
   end
 
-  test ".latest_published_edition" do
+  test ".latest_published_edition includes only published editions" do
     original_edition = create(:published_edition)
     new_draft = original_edition.create_draft(create(:policy_writer))
     new_draft.delete!
