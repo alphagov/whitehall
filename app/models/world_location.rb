@@ -26,6 +26,10 @@ class WorldLocation < ActiveRecord::Base
     world_location_type.name
   end
 
+  def self.all_by_type
+    all.group_by(&:world_location_type).sort_by { |type, location| type.sort_order }
+  end
+
   validates_with SafeHtmlValidator
   validates :name, :world_location_type_id, presence: true
 
