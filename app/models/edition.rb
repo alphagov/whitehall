@@ -282,6 +282,10 @@ class Edition < ActiveRecord::Base
     end
   end
 
+  def other_draft_editions
+    other_editions.draft
+  end
+
   def latest_edition
     document.editions.latest_edition.first
   end
@@ -360,11 +364,21 @@ class Edition < ActiveRecord::Base
     end
 
     def latest_edition
-      where("NOT EXISTS (SELECT 1 FROM editions e2 WHERE e2.document_id = editions.document_id AND e2.id > editions.id AND e2.state <> 'deleted')")
+      where("NOT EXISTS (
+        SELECT 1
+          FROM editions e2
+         WHERE e2.document_id = editions.document_id
+           AND e2.id > editions.id
+           AND e2.state <> 'deleted')")
     end
 
     def latest_published_edition
-      published.where("NOT EXISTS (SELECT 1 FROM editions e2 WHERE e2.document_id = editions.document_id AND e2.id > editions.id AND e2.state = 'published')")
+      published.where("NOT EXISTS (
+        SELECT 1
+          FROM editions e2
+         WHERE e2.document_id = editions.document_id
+           AND e2.id > editions.id
+           AND e2.state = 'published')")
     end
   end
 

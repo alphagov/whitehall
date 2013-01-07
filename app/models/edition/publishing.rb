@@ -92,6 +92,9 @@ module Edition::Publishing
     errors = []
     errors << "Only GDS editors can unpublish" unless user.gds_editor?
     errors << "This edition has not been published" unless published?
+    unless other_draft_editions.empty?
+      errors << "There is already a draft edition of this document. You must remove it before you can unpublish this edition."
+    end
     errors
   end
 

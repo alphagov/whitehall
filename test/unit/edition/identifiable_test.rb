@@ -64,13 +64,7 @@ class Edition::IdentifiableTest < ActiveSupport::TestCase
     assert policy.linkable?
   end
 
-  test "latest preview edition shouldn't be current published edition" do
-    policy = create(:published_policy)
-    new_edition = policy.create_draft(create(:policy_writer))
-    assert policy.previewable?
-  end
-
-  test "unpublished editions should be previewable" do
+  test "published editions with drafts waiting should be previewable" do
     policy = create(:published_policy)
     new_edition = policy.create_draft(create(:policy_writer))
     assert policy.previewable?
