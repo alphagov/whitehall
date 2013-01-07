@@ -63,7 +63,10 @@
       }
     }
     .arrow {
-      left: 70%;
+      left: 20%;
+      @include media(tablet){
+        left: 70%;
+      }
     }
   }
 

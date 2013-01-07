@@ -69,9 +69,9 @@
   &.toggleable .overlay {
     position: absolute;
     top: 130%;
-    left: -$gutter*3;
-    @include media(desktop){
-      left: 0;
+    left: 0;
+    @include media(tablet){
+      left: -$gutter*3;
     }
     width: 30em;
     z-index: 10;
