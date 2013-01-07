@@ -113,6 +113,14 @@ That's all
     assert_equal "detailed_guidance", response.headers["X-Slimmer-Format"]
   end
 
+  test "guides have their mainstream categories added as classes" do
+    category = create(:mainstream_category)
+    guide = create(:published_detailed_guide, primary_mainstream_category: category)
+    get :show, id: guide.document
+
+    assert_select ".category-#{category.slug}"
+  end
+
   private
 
   def given_two_detailed_guides_in_two_organisations
