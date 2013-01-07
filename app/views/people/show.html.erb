@@ -58,11 +58,7 @@
         <% @person.current_role_appointments.each do |appointment| %>
           <%= content_tag_for :section, appointment, class: "role" do %>
             <%= render  partial: 'organisations/organisations_logo_list',
-                        locals: {
-                          organisations: appointment.role.organisations,
-                          external_links: false,
-                          remove_line_breaks: false
-                        } %>
+                        locals: { organisations: appointment.role.organisations } %>
             
             <h1 id="<%= appointment.role.name.parameterize%>"><%= appointment.role.name %></h1>
 

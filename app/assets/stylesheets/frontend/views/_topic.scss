@@ -49,7 +49,7 @@
         @include bold;
       }
     }
-    .meta {      
+    .meta {
       margin-top: $gutter;
 
       @include media(tablet) {
@@ -59,9 +59,6 @@
 
         .organisations-icon-list {
           margin-left: $gutter-half;
-        }
-        .show-other-content {
-          margin-left: $gutter-two-thirds;
         }
       }
     }

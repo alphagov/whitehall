@@ -102,17 +102,17 @@ class PoliciesControllerTest < ActionController::TestCase
   end
 
   test "should link to organisations related to the policy" do
-    first_org = create(:organisation, logo_formatted_name: "first")
-    second_org = create(:organisation, logo_formatted_name: "second")
+    first_org = create(:organisation)
+    second_org = create(:organisation)
     edition = create(:published_policy, organisations: [first_org, second_org])
 
     get :show, id: edition.document
 
     assert_select_object first_org do
-      assert_select "a[href='#{organisation_path(first_org)}']", first_org.logo_formatted_name
+      assert_select "a[href='#{organisation_path(first_org)}']"
     end
     assert_select_object second_org do
-      assert_select "a[href='#{organisation_path(second_org)}']", second_org.logo_formatted_name
+      assert_select "a[href='#{organisation_path(second_org)}']"
     end
   end
 

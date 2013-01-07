@@ -69,10 +69,6 @@
         li {
           margin-left: 0;
 
-          @include media(tablet) {
-            margin-left: 7px;
-          }
-
           &.hm-government {
             margin-bottom: $gutter-one-sixth;
           }
@@ -82,11 +78,6 @@
           padding-bottom: ($gutter*0.25);
           @include media(tablet){
             margin-left: $gutter-half;
-          }
-        }
-        .show-other-content {
-          @include media(tablet) {
-            margin-left: $gutter-two-thirds;
           }
         }
       }
