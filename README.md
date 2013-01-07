@@ -48,6 +48,9 @@ Alternatively run
 
     $ govuk_setenv whitehall env RAILS_ENV=test bundle exec rake
 
+Note that using `bowler` or `foreman` will automatically use the
+`govuk_setenv` method for you.
+
 ### Getting a copy of live data
 
 There's a capistrano task which will download a dump of the mysql
