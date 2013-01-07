@@ -189,7 +189,6 @@
     h1 {
       border-bottom-width: 5px;
       border-bottom-style: solid;
-      @include department-colours("h1", border-color);
       margin-bottom: 20px;
     }
     h2 {
