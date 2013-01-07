@@ -1,5 +1,8 @@
 #!/bin/bash -x
 export DISPLAY=:99
+export GOVUK_APP_DOMAIN=test.gov.uk
+export GOUK_ASSET_HOST=http://static.test.gov.uk
+
 env
 time bundle install --path "${HOME}/bundles/${JOB_NAME}" --deployment
 # bundle exec rake stats
