@@ -155,6 +155,13 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
     end
   end
 
+  test 'prevents unpublishing if there is a draft in place already' do
+    edition = create(:published_edition)
+    draft = edition.create_draft(edition.creator)
+    edition.unpublish! rescue nil
+    refute edition.draft?
+  end
+
   test "should prevent a submitted edition from being published if it has a scheduled date" do
     edition = create("submitted_edition", published_at: 1.day.ago, first_published_at: 1.day.ago, scheduled_publication: 1.day.from_now)
     edition.publish!

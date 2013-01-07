@@ -103,26 +103,35 @@ end
 
 class Edition::UnpublishingControlsTest < ActiveSupport::TestCase
   test "is unpublishable if the edition is published and the user is a GDS editor" do
-    edition = build(:published_edition)
+    edition = build(:published_edition, :with_document)
     gds_editor = build(:gds_editor)
     assert edition.unpublishable_by?(gds_editor)
   end
 
   test "is not unpublishable if the edition is not published" do
-    non_published_edition = build(:edition)
+    non_published_edition = build(:edition, :with_document)
     gds_editor = build(:gds_editor)
     refute non_published_edition.unpublishable_by?(gds_editor)
   end
 
   test "is not unpublishable if the user is not a GDS editor" do
-    edition = build(:published_edition)
+    edition = build(:published_edition, :with_document)
     departmental_editor = build(:departmental_editor)
     refute edition.unpublishable_by?(departmental_editor)
   end
 
+  test 'is not unpublishable if the document has a draft' do
+    edition = build(:published_edition, :with_document)
+    draft_edition = build(:draft_edition)
+    edition.stubs(:other_draft_editions).returns([draft_edition])
+    gds_editor = build(:gds_editor)
+
+    refute edition.unpublishable_by?(gds_editor)
+  end
+
   test "sets the state back to draft if the edition is unpublishable by the user" do
     user = build(:user)
-    edition = build(:published_edition)
+    edition = build(:published_edition, :with_document)
     edition.stubs(:unpublishable_by?).with(user).returns(true)
     edition.unpublish_as(user)
     assert edition.draft?
@@ -130,7 +139,7 @@ class Edition::UnpublishingControlsTest < ActiveSupport::TestCase
 
   test "adds an editorial remark stating that this edition has been set back to draft if the edition is unpublishable by the user" do
     user = build(:user)
-    edition = build(:published_edition)
+    edition = build(:published_edition, :with_document)
     edition.stubs(:unpublishable_by?).with(user).returns(true)
 
     edition.unpublish_as(user)
@@ -141,14 +150,14 @@ class Edition::UnpublishingControlsTest < ActiveSupport::TestCase
 
   test "returns true if the edition is unpublishable by the user" do
     user = build(:user)
-    edition = build(:published_edition)
+    edition = build(:published_edition, :with_document)
     edition.stubs(:unpublishable_by?).with(user).returns(true)
     assert edition.unpublish_as(user)
   end
 
   test "does not set the state back to draft if the edition is not unpublishable by the user" do
     user = build(:user)
-    edition = build(:published_edition)
+    edition = build(:published_edition, :with_document)
     edition.stubs(:unpublishable_by?).with(user).returns(false)
     edition.unpublish_as(user)
     refute edition.draft?
@@ -156,20 +165,20 @@ class Edition::UnpublishingControlsTest < ActiveSupport::TestCase
 
   test "returns false if the edition is not unpublishable by the user" do
     user = build(:user)
-    edition = build(:published_edition)
+    edition = build(:published_edition, :with_document)
     edition.stubs(:unpublishable_by?).with(user).returns(false)
     refute edition.unpublish_as(user)
   end
 
   test "adds a suitable error message if the edition is not published" do
-    edition = build(:edition)
+    edition = build(:edition, :with_document)
     edition.unpublish_as(build(:user))
     assert edition.errors[:base].include?("This edition has not been published")
   end
 
   test "adds a suitable error message if the user is not a GDS editor" do
     non_gds_editor = build(:user)
-    edition = build(:edition)
+    edition = build(:edition, :with_document)
     edition.unpublish_as(non_gds_editor)
     assert edition.errors[:base].include?("Only GDS editors can unpublish")
   end

@@ -80,7 +80,8 @@ module Edition::Workflow
       end
 
       event :unpublish, success: -> edition { edition.run_callbacks(:unpublish) } do
-        transitions from: :published, to: :draft
+        transitions from: :published, to: :draft,
+          guard: ->(edition){ edition.other_draft_editions.empty? }
       end
 
       event :archive, success: -> edition { edition.run_callbacks(:archive) } do
