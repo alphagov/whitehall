@@ -299,7 +299,7 @@ class PublicationsControllerTest < ActionController::TestCase
     assert_equal publication.id, json["id"]
     assert_equal publication_path(publication.document), json["url"]
     assert_equal "org-name and other-org", json["organisations"]
-    assert_equal %{<abbr class="public_timestamp" title="2012-03-14T00:00:00+00:00">14 March 2012</abbr>}, json["public_timestamp"]
+    assert_equal %{<abbr class="public_timestamp" title="2012-03-14T00:00:00+00:00">14 March 2012</abbr>}, json["display_date_microformat"]
     assert_equal "Corporate report", json["publication_type"]
   end
 
@@ -321,7 +321,7 @@ class PublicationsControllerTest < ActionController::TestCase
     assert_equal consultation.id, json["id"]
     assert_equal consultation_path(consultation.document), json["url"]
     assert_equal "org-name and other-org", json["organisations"]
-    assert_equal %{<abbr class="public_timestamp" title="2012-03-14T00:00:00+00:00">14 March 2012</abbr>}, json["public_timestamp"]
+    assert_equal %{<abbr class="public_timestamp" title="2012-03-14T00:00:00+00:00">14 March 2012</abbr>}, json["display_date_microformat"]
     assert_equal "Consultation", json["publication_type"]
   end
 

@@ -9,7 +9,7 @@ class AnnouncementFilterJsonPresenter < DocumentFilterJsonPresenter
       hash.merge!(field_of_operation: "Field of operation: " + h.link_to(document.operational_field.name, document.operational_field))
     end
     hash.merge(
-      public_timestamp: document.display_date_microformat,
+      display_date_microformat: document.display_date_microformat,
       announcement_type: document.display_type
     )
   end

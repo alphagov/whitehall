@@ -5,7 +5,7 @@ class PublicationFilterJsonPresenter < DocumentFilterJsonPresenter
 
   def document_hash(document)
     to_merge = {
-      public_timestamp: document.display_date_microformat,
+      display_date_microformat: document.display_date_microformat,
       organisations: "",
       publication_type: document.display_publication_type,
       type: "",

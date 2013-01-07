@@ -48,7 +48,7 @@ class DocumentFilterJsonPresenterTest < PresenterTestCase
     document = stub_record(:document)
     document.stubs(:to_param).returns('some-doc')
     organisation = stub_record(:organisation, name: "Ministry of Silly", organisation_type: stub_record(:organisation_type))
-    publication = stub_record("publication", document: document, organisations: [organisation])
+    publication = stub_record("publication", document: document, organisations: [organisation], public_timestamp: 3.days.ago)
     # TODO: perhaps rethink edition factory, so this apparent duplication
     # isn't neccessary
     publication.stubs(:organisations).returns([organisation])
@@ -61,7 +61,7 @@ class DocumentFilterJsonPresenterTest < PresenterTestCase
       "title" => publication.title,
       "url" => "/government/publications/some-doc",
       "organisations" => "Ministry of Silly",
-      "updated_at" => "2011-11-11T11:11:11+00:00"
+      "public_timestamp" => 3.days.ago.iso8601
       }, json['results'].first)
   end
 end
