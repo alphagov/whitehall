@@ -95,4 +95,8 @@ module OrganisationHelper
       @organisation.military_roles.any? ||
       @traffic_commissioner_roles.any?
   end
+
+  def organisations_grouped_by_type(organisations)
+    organisations.group_by(&:organisation_type).sort_by { |type,department| type.listing_order }
+  end
 end

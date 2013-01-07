@@ -5,10 +5,10 @@ end
 Given /^"([^"]*)" is a minister with a history$/ do |name|
   person = create_person(name)
   role = create(:ministerial_role)
-  create(:organisation, ministerial_roles: [role])
+  create(:ministerial_department, ministerial_roles: [role])
   create(:role_appointment, role: role, person: person, started_at: 2.years.ago, ended_at: 1.year.ago)
   role = create(:ministerial_role)
-  create(:organisation, ministerial_roles: [role])
+  create(:ministerial_department, ministerial_roles: [role])
   create(:role_appointment, role: role, person: person, started_at: 1.year.ago, ended_at: nil)
 end
 

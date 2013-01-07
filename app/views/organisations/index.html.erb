@@ -26,7 +26,7 @@
                 </h2>
                 <% if ministerial_department.agencies_and_public_bodies.any? %>
                   <p class="works-with">Works with <%= ministerial_department.agencies_and_public_bodies.count %> agencies &amp; public bodies</p>
-                  <div class="child-organisations js-hidden"><div class="child-inner">
+                  <div class="organisations-box js-hidden"><div class="organisations-box-inner">
                     <p><%= link_to "#{ministerial_department.name} homepage", organisation_path(ministerial_department) %></p>
                     <% ministerial_department.agencies_and_public_bodies_by_type.each do |type,departments| %>
                       <h3><%= type.name %></h3>

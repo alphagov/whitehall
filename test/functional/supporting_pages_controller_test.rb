@@ -136,18 +136,18 @@ class SupportingPagesControllerTest < ActionController::TestCase
   end
 
   test "should link to organisations from within the metadata navigation" do
-    first_org = create(:organisation, logo_formatted_name: "first")
-    second_org = create(:organisation, logo_formatted_name: "second")
+    first_org = create(:organisation)
+    second_org = create(:organisation)
     policy = create(:published_policy, organisations: [first_org, second_org])
     supporting_page = create(:supporting_page, edition: policy)
 
     get :show, policy_id: policy.document, id: supporting_page
 
     assert_select_object first_org do
-      assert_select "a[href='#{organisation_path(first_org)}']", first_org.logo_formatted_name
+      assert_select "a[href='#{organisation_path(first_org)}']"
     end
     assert_select_object second_org do
-      assert_select "a[href='#{organisation_path(second_org)}']", second_org.logo_formatted_name
+      assert_select "a[href='#{organisation_path(second_org)}']"
     end
   end
 

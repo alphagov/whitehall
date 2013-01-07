@@ -11,7 +11,7 @@
 
       $departments.each(function(i, el){
         var $department = $(el),
-            $childOrganisations = $department.find('.child-organisations'),
+            $childOrganisations = $department.find('.organisations-box'),
             $viewAll = $('<a href="#" class="view-all">view all</a>');
 
         if($department.find(windowHash).length === 0){

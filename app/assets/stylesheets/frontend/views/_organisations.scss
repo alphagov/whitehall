@@ -92,48 +92,15 @@
           content: " \25BC";
         }
 
-        .child-organisations {
+        .organisations-box {
           display: none;
 
         }
       }
     }
-    .child-organisations {
+    .organisations-box {
       clear: both;
       margin: 0 (-15px);
-      background: $panel-colour;
-      p{
-        padding-bottom:$gutter-half;
-
-      }
-      .child-inner {
-        padding: $gutter-half;
-      }
-      h3 {
-        @include ig-core-14;
-        border-bottom: 1px solid $border-colour;
-      }
-      ol {
-        overflow: hidden;
-        margin: 0 (-$gutter-one-third) $gutter-one-third;
-        li {
-          @include ig-core-16;
-          display: block;
-          @include media(desktop){
-            width: 33.33%;
-            float: left;
-          }
-
-          &:nth-child(3n+1) {
-            clear: left;
-          }
-
-          a {
-            display: block;
-            padding: 0 $gutter-one-third;
-          }
-        }
-      }
     }
     .index-list {
       li {
