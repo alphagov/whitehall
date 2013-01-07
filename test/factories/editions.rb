@@ -93,6 +93,10 @@ FactoryGirl.define do
       association :alternative_format_provider, factory: :organisation_with_alternative_format_contact_email
       attachments { FactoryGirl.build_list :attachment, 1 }
     end
+
+    trait(:with_document) do
+      document
+    end
   end
 
   factory :imported_edition, parent: :edition, traits: [:imported]
