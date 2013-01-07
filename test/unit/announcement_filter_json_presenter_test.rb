@@ -21,6 +21,9 @@ class AnnouncementFilterJsonPresenterTest < PresenterTestCase
       first_published_at: Time.zone.now,
       organisations: [organisation],
       operational_field: operational_field)
+    # TODO: perhaps rethink edition factory, so this apparent duplication 
+    # isn't neccessary
+    fatality_notice.stubs(:organisations).returns([organisation])
     hash = AnnouncementFilterJsonPresenter.new(@filter).document_hash(AnnouncementPresenter.new(fatality_notice))
     assert hash[:field_of_operation]
   end

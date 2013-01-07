@@ -96,7 +96,7 @@ class Edition::ImagesTest < ActiveSupport::TestCase
       title:   'edition-title',
       body:    'edition-body',
       creator: build(:user),
-      organisations:      [build(:organisation)]
+      lead_edition_organisations: [build(:edition_organisation, lead: true, lead_ordering: 1)]
     }
   end
 end

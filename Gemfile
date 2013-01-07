@@ -54,6 +54,8 @@ group :development, :staging, :test do
 end
 
 group :test do
+  # NOTE: keep until https://github.com/brynary/rack-test/pull/69 is merged
+  gem 'rack-test', git: 'https://github.com/alphagov/rack-test.git'
   gem 'factory_girl'
   gem 'hash_syntax'
   gem 'mocha', '0.10.0', require: false
@@ -74,6 +76,7 @@ group :cucumber do
   gem 'cucumber', '~> 1.0.6'
   gem 'cucumber-rails', '~> 1.0.5', require: false
   gem 'launchy', '~> 2.0.5'
+  gem 'capybara', '1.1.4'
   gem 'capybara-webkit'
 end
 

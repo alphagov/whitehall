@@ -8,6 +8,12 @@ module DocumentHelper
     type.gsub(" ", "_").classify.constantize
   end
 
+  def set_lead_organisation_on_document(organisation, order = 1)
+    if has_css?("select#edition_edition_organisations_attributes_organisation_id_lead_#{order}")
+      select organisation.name, from: "edition_edition_organisations_attributes_organisation_id_lead_#{order}"
+    end
+  end
+
   def begin_drafting_document(options)
     if Organisation.count == 0
       create(:organisation)
@@ -17,9 +23,7 @@ module DocumentHelper
     fill_in "Title", with: options[:title]
     fill_in "Body", with: options[:body] || "Any old iron"
     fill_in_change_note_if_required
-    if has_css?("select[name='edition[organisation_ids][]']")
-      select Organisation.first.name, from: "edition[organisation_ids][]"
-    end
+    set_lead_organisation_on_document(Organisation.first)
     if options[:alternative_format_provider]
       select options[:alternative_format_provider].name, from: "edition_alternative_format_provider_id"
     end

@@ -238,6 +238,6 @@ class Admin::SupportingPagesControllerTest < ActionController::TestCase
   end
 
   def controller_attributes_for(edition_type, attributes = {})
-    super.reject { |k,_| k == :organisation_ids }
+    super.reject { |k,_| k == :edition_organisations_attributes }
   end
 end

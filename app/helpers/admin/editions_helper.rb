@@ -46,6 +46,54 @@ module Admin::EditionsHelper
         end
       end
     end
+
+    def lead_organisations_fields
+      edition_organisations =
+        if object.errors.any?
+          object.edition_organisations.
+            select {|eo| eo.lead? }.
+            sort_by {|eo| eo.lead_ordering }
+        else
+          object.lead_edition_organisations
+        end
+
+      edition_organisations_fields(edition_organisations, true)
+    end
+
+    def supporting_organisations_fields
+      edition_organisations =
+        if object.errors.any?
+          object.edition_organisations.
+            reject {|eo| eo.lead? }
+        else
+          object.supporting_edition_organisations
+        end
+
+      edition_organisations_fields(edition_organisations, false)
+    end
+
+    protected
+    def edition_organisations_fields(edition_organisations, lead = true)
+      field_identifier = lead ? 'lead' : 'supporting'
+      edition_organisations.map.with_index do |eo, idx|
+        select_options = @template.options_from_collection_for_select(Organisation.all, 'id', 'name', eo.organisation_id)
+        @template.label_tag "edition_edition_organisations_attributes_organisation_id_#{field_identifier}_#{idx}" do
+          [
+            "Organisation #{idx + 1}",
+            @template.select_tag("edition[edition_organisations_attributes][][organisation_id]",
+                                 select_options,
+                                 include_blank: true,
+                                 multiple: false,
+                                 class: 'chzn-select',
+                                 data: { placeholder: "Choose a #{field_identifier} organisation which produced this document..."},
+                                 id: "edition_edition_organisations_attributes_organisation_id_#{field_identifier}_#{idx + 1}"),
+            @template.hidden_field_tag("edition[edition_organisations_attributes][][lead_ordering]", lead ? idx : ''),
+            @template.hidden_field_tag("edition[edition_organisations_attributes][][id]", eo.id),
+            @template.hidden_field_tag("edition[edition_organisations_attributes][][lead]", lead ? '1' : '0')
+          ].join.html_safe
+        end
+      end.join.html_safe
+    end
   end
 
   def standard_edition_form(edition, &blk)

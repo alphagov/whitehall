@@ -38,9 +38,11 @@ class Speech < Announcement
 
   def populate_organisations_based_on_role_appointment
     unless deleted? or organisations_via_role_appointment.empty?
-      self.edition_organisations = []
-      self.organisations = []
-      organisations_via_role_appointment.each { |o| self.organisations << o }
+      self.edition_organisations.clear
+      organisations_via_role_appointment.each.with_index do |o, idx|
+        self.edition_organisations.create!(organisation: o, lead: true, lead_ordering: idx)
+      end
+      reset_edition_organisations
     end
   end
 

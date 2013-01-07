@@ -284,6 +284,8 @@ ActiveRecord::Schema.define(:version => 20130102171246) do
     t.integer  "ordering"
     t.integer  "edition_organisation_image_data_id"
     t.string   "alt_text"
+    t.boolean  "lead",                               :default => false, :null => false
+    t.integer  "lead_ordering"
   end
 
   add_index "edition_organisations", ["edition_id", "organisation_id"], :name => "index_edition_organisations_on_edition_id_and_organisation_id", :unique => true

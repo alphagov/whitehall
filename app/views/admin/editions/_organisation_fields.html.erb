@@ -1,3 +1,18 @@
-<%= form.label :organisation_ids, 'Producing organisations' %>
-<%= form.select :organisation_ids, options_from_collection_for_select(Organisation.all, 'id', 'name', edition.organisation_ids), {}, multiple: true, class: 'chzn-select', data: { placeholder: "Choose organisations which produced this document..." } %>
+<fieldset class="named">
+  <legend>Producing organisations</legend>
+
+  <div class="row-fluid">
+    <fieldset class="named span4">
+      <legend>Lead organisations</legend>
+
+      <%= form.lead_organisations_fields %>
+    </fieldset>
+
+    <fieldset class="named span4">
+      <legend>Supporting organisations</legend>
+
+      <%= form.supporting_organisations_fields %>
+    </fieldset>
+  </div>
+</fieldset>
 <%= form.alternative_format_provider_select %>
