@@ -1,7 +1,7 @@
 #!/bin/bash -x
 export DISPLAY=:99
 export GOVUK_APP_DOMAIN=test.gov.uk
-export GOUK_ASSET_HOST=http://static.test.gov.uk
+export GOVUK_ASSET_ROOT=http://static.test.gov.uk
 
 env
 
