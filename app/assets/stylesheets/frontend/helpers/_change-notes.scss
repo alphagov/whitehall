@@ -70,10 +70,7 @@
     position: absolute;
     top: 130%;
     left: 0;
-    @include media(desktop){
-      left: -$gutter*3;
-    }
-    width: 30em;
+    width: 180%;
     z-index: 10;
     opacity: 0;
     display: block;
@@ -81,6 +78,12 @@
     &.visuallyhidden {
       left: -9999em!important;
       position: absolute;
+    }
+    @include media(tablet) {
+      width: 30em;
+    }
+    @include media(desktop){
+      left: -$gutter*3;
     }
   }
   @include ie(6){

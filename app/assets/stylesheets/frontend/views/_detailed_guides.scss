@@ -57,7 +57,7 @@
         text-decoration: underline;
       }
     }
-    @include media(tablet) {
+    @include media(desktop) {
       &.toggleable .overlay {
         left: -100%;
       }
