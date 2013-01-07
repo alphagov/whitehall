@@ -3,7 +3,7 @@ module("Hide department children", {
     this.$departments = $(
       '<div class="js-hide-department-children">'
     +   '<div class="department">'
-    +     '<div class="child-organisations">'
+    +     '<div class="organisations-box">'
     +       '<p>child content</p>'
     +     '</div>'
     +   '</div>'
@@ -32,7 +32,7 @@ test("should toggle class when clicking view all link", function() {
 });
 
 test("should not toggle class of department with id in window hash", function(){
-  this.$departments.find('.child-organisations').append('<span id="department-name"></span>');
+  this.$departments.find('.organisations-box').append('<span id="department-name"></span>');
 
   GOVUK.hideDepartmentChildren.init();
 
