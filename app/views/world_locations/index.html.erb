@@ -1,32 +1,48 @@
 <% page_title "UK and the world" %>
 <% page_class "world-locations-index" %>
 
-<div>
-  <div class="block">
-    <div class="inner-block">
-      <header class="page-header">
-        <hgroup>
-          <h1>Worldwide</h1>
-          <h2>See what the UK is doing overseas</h2>
-        <hgroup>
-        <p>What place or international organisation are you looking for?</p>
-      </header>
-    </div>
-  </div>
-
-  <div class="block">
-    <div class="inner-block">
-      <section class="simple-alphabetical-list" id="world-locations">
-        <h1 class="label">All countries, territories &amp; delegations</h1>
-        <% @world_locations.group_by {|wl| wl.name.first.upcase }.sort.in_groups_of(3, false) do |row| %>
-          <% row.each do |letter, world_locations_group| %>
-            <div class="alphabetical-row" id="world_locations_<%= letter.downcase %>">
-              <h2 class="alphabetical-list-letter"><%= letter %></h2>
-              <%= render partial: "list", locals: { world_locations: world_locations_group } %>
-            </div>
-          <% end %>
-        <% end %>
-      </section>
-    </div>
+<div class="block">
+  <div class="inner-block">
+    <header class="page-title">
+      <hgroup>
+        <h1>Worldwide</h1>
+        <h2>See what the UK is doing&nbsp;overseas</h2>
+      </hgroup>
+      <p>What place or international organisation are you looking for?</p>
+    </header>
   </div>
 </div>
+
+<div class="block world-locations">
+  <div class="inner-block">
+    <% @world_locations.each do |type, locations| %>
+      <section id="<%= type.name.pluralize.parameterize %>" class="world-location-type">
+        <header class="type-heading">
+          <h1><%= type.name %></h1>
+          <p><%= locations.length %> <span class="visuallyhidden">locations</span></p>
+        </header>
+        <div class="content">
+          <% if type === WorldLocationType::Country %>
+            <% locations.group_by {|location| location.name.first.upcase }.sort.each do |letter, locations| %>
+              <h2 class="letter"><%= letter %></h2>
+              <ol class="location-list">
+                <% locations.each do |location| %>
+                  <%= render partial: 'world_location',
+                            locals: { world_location: location } %>
+                <% end %>
+              </ol>
+            <% end %>
+          <% else %>
+            <ol class="location-list">
+              <% locations.each do |location| %>
+                <%= render partial: 'world_location',
+                          locals: { world_location: location } %>
+              <% end %>
+            </ol>
+          <% end %>
+        </div>
+      </section>
+    <% end %>
+  </div>
+</div>
+

@@ -1,3 +1,81 @@
+.world-locations-index {
+  .page-title {
+    @include media(desktop){
+      padding: $gutter*2 0 $gutter;
+    }
+
+    hgroup {
+      @include heading-48;
+      @include media(desktop){
+        width: 66.66%;
+      }
+
+      h2 {
+        color: $secondary-text-colour;
+      }
+    }
+  }
+
+  .world-locations {
+    h1 {
+      @include heading-27;
+    }
+
+    .world-location-type {
+      @extend %contain-floats;
+      margin-bottom: $gutter;
+
+      .type-heading {
+        @include media(desktop){
+          width: 33.33%;
+          float: left
+        }
+      }
+
+      .content {
+        @include media(desktop){
+          width: 66.66%;
+          float: left;
+        }
+
+        .letter {
+          @include heading-24;
+        }
+
+        .location-list {
+          @extend %contain-floats;
+
+          @include media(desktop){
+            margin: 0 (-$gutter-half) $gutter;
+          }
+
+          li {
+            list-style: none;
+
+            @include media(desktop){
+              width: 50%;
+              float: left;
+            }
+
+            .location-link {
+              @include core-19;
+              padding: 5px 0;
+              display: block;
+              border-bottom: 1px solid $border-colour;
+
+              @include media(desktop){
+                margin: 0 $gutter-half;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+
+
 .world-locations-show {
   .img {
     img {
