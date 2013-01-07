@@ -3,7 +3,7 @@
 %>
 <section class="corporate-information" id="corporate-info">
   <h1>Corporate information</h1>
-  <div class="corporate-information-block access-our-info">
+  <div class="corporate-information-block">
     <h2>Access our information</h2>
     <nav class="group sub_navigation" role="navigation">
       <ul>
@@ -22,9 +22,9 @@
       </ul>
     </nav>
   </div>
-  <div class="corporate-information-block jobs-contracts">
+  <div class="corporate-information-block">
     <h2>Jobs and contracts</h2>
-    <nav class="group sub_navigation corporate-information" role="navigation">
+    <nav class="group sub_navigation" role="navigation">
       <ul>
         <% organisation.corporate_information_pages.by_menu_heading(:jobs_and_contracts).each do |corporate_information_page| %>
           <li><%= link_to corporate_information_page.title, organisation_corporate_information_page_path(organisation, corporate_information_page) %></li>
