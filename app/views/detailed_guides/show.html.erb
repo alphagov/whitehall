@@ -3,7 +3,7 @@
 
 <%= api_link_tag api_detailed_guide_url(@document.document) %>
 
-<div class="document_page <%= @document.type.downcase %>">
+<div class="document_page <%= @document.type.downcase %><% @document.mainstream_categories.each do |cat| %> category-<%= cat.slug %><% end %>">
   <div class="block-1">
     <div class="inner-block">
       <div class="meta">
