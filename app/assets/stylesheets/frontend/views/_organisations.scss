@@ -741,6 +741,8 @@
   }
 
   .page-header {
+    @extend %contain-floats;
+
     @include media(tablet) {
       padding: $gutter-half 0 $gutter 0;
     }
