@@ -152,7 +152,7 @@
 .progress-bar {
   margin: $gutter-one-third $gutter-half;
   padding: $gutter-one-third $gutter-one-third $gutter-one-sixth;
-  background: lighten($black, 95%);
+  background: $panel-colour;
 
   @include media(tablet){
     margin: $gutter-one-third $gutter;
