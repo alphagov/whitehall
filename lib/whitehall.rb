@@ -55,7 +55,7 @@ module Whitehall
     end
 
     def asset_host
-      ENV['GOVUK_ASSET_HOST'] || raise(NoConfigurationError, 'Expected GOVUK_ASSET_HOST to be set. Perhaps you should run your task through govuk_setenv <appname>?')
+      ENV['GOVUK_ASSET_ROOT'] || raise(NoConfigurationError, 'Expected GOVUK_ASSET_ROOT to be set. Perhaps you should run your task through govuk_setenv <appname>?')
     end
 
     def router_prefix

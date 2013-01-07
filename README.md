@@ -37,7 +37,7 @@ database.yml.
 Three environment variables must be set up, typically:
 
     GOVUK_APP_DOMAIN=dev.gov.uk
-    GOVUK_ASSET_HOST=http://static.dev.gov.uk
+    GOVUK_ASSET_ROOT=http://static.dev.gov.uk
     RAILS_ENV=test
 
 Then run
