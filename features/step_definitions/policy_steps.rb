@@ -114,8 +114,8 @@ end
 
 When /^I draft a new policy "([^"]*)" produced by the "([^"]*)" and "([^"]*)" organisations$/ do |title, first_org, second_org|
   begin_drafting_policy title: title
-  select first_org, from: "Producing organisations"
-  select second_org, from: "Producing organisations"
+  select first_org, from: "edition_edition_organisations_attributes_organisation_id_lead_1"
+  select second_org, from: "edition_edition_organisations_attributes_organisation_id_lead_2"
   click_button "Save"
 end
 

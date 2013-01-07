@@ -320,12 +320,6 @@ class EditionTest < ActiveSupport::TestCase
     assert article.valid?
   end
 
-  test "should be invalid if has no organisation" do
-    edition = build(:edition)
-    edition.organisations = []
-    refute edition.valid?
-  end
-
   test "should still be archivable if alt text validation would normally fail" do
     article = create(:published_news_article, images: [build(:image)])
     article.images.first.update_attribute(:alt_text, nil)

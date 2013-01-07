@@ -31,7 +31,7 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
 
   test "when access is not limited, edition is accessible by anyone" do
     org1, org2 = build(:organisation), build(:organisation)
-    e = build(:limited_access_edition, organisations: [org1], access_limited: false)
+    e = create(:limited_access_edition, organisations: [org1], access_limited: false)
 
     user1 = build(:user, organisation: org1)
     user2 = build(:user, organisation: org2)
@@ -48,7 +48,7 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
     user_in_org2 = build(:user, organisation: org2)
     author = build(:user, organisation: org3)
 
-    e = build(:limited_access_edition, organisations: [org1], access_limited: true, authors: [author])
+    e = create(:limited_access_edition, organisations: [org1], access_limited: true, authors: [author])
 
     assert e.accessible_by?(author)
     assert e.accessible_by?(user_in_org1)

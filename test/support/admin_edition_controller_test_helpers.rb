@@ -1041,7 +1041,7 @@ module AdminEditionControllerTestHelpers
         get :new
 
         assert_select "form#edition_new" do
-          assert_select "select[name*='edition[organisation_ids]']"
+          assert_select "select[name*='edition[edition_organisations_attributes][][organisation_id]']"
         end
       end
 
@@ -1051,11 +1051,14 @@ module AdminEditionControllerTestHelpers
         attributes = controller_attributes_for(edition_type)
 
         post :create, edition: attributes.merge(
-          organisation_ids: [first_organisation.id, second_organisation.id]
+          edition_organisations_attributes: [
+            {id: '', lead: '1', lead_ordering: '2', organisation_id: first_organisation.id},
+            {id: '', lead: '1', lead_ordering: '1', organisation_id: second_organisation.id}
+          ]
         )
 
         edition = edition_class.last
-        assert_equal [first_organisation, second_organisation], edition.organisations.sort
+        assert_equal [second_organisation, first_organisation], edition.lead_organisations
       end
 
       test "edit should display edition organisations field" do
@@ -1064,7 +1067,7 @@ module AdminEditionControllerTestHelpers
         get :edit, id: edition
 
         assert_select "form#edition_edit" do
-          assert_select "select[name*='edition[organisation_ids]']"
+          assert_select "select[name*='edition[edition_organisations_attributes][][organisation_id]']"
         end
       end
 
@@ -1075,22 +1078,29 @@ module AdminEditionControllerTestHelpers
         edition = create(edition_type, organisations: [first_organisation])
 
         put :update, id: edition, edition: controller_attributes_for_instance(edition,
-          organisation_ids: [second_organisation.id]
+          edition_organisations_attributes: [
+            {id: edition.lead_edition_organisations.first.id, lead: '1', lead_ordering: '1', organisation_id: second_organisation.id}
+          ]
         )
 
         edition.reload
-        assert_equal [second_organisation], edition.organisations
+        assert_equal [second_organisation], edition.lead_organisations
       end
 
-      test "update should remove all organisations if none specified" do
-        organisation = create(:organisation)
+      test "update should allow removal of an organisation" do
+        organisation_1 = create(:organisation)
+        organisation_2 = create(:organisation)
 
-        edition = create(edition_type, organisations: [organisation])
+        edition = create(edition_type, organisations: [organisation_1, organisation_2])
 
-        put :update, id: edition, edition: controller_attributes_for_instance(edition, organisation_ids: [])
+        put :update, id: edition, edition: controller_attributes_for_instance(edition,
+          edition_organisations_attributes: [
+            {id: edition.lead_edition_organisations.first.id, organisation_id: ''},
+          ]
+        )
 
         edition.reload
-        assert_equal [], edition.organisations
+        assert_equal [organisation_2], edition.lead_organisations
       end
     end
 

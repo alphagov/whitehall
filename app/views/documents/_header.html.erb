@@ -13,7 +13,8 @@
       <dt class="organisations visuallyhidden">Organisations:</dt>
       <dd class="organisations">
         <%= render  partial: 'organisations/organisations_logo_list',
-                    locals: { organisations: document.organisations } %>
+                    locals: { organisations: document.organisations,
+                              lead_organisations: document.lead_organisations } %>
       </dd>
       <%= render  partial: 'document_extra_metadata',
                   locals: { document: document } %>

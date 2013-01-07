@@ -41,6 +41,12 @@ module Whitehall::Uploader
       [Organisation.find_by_slug("ministry-of-defence")]
     end
 
+    def lead_edition_organisations
+      organisations.map.with_index do |o, idx|
+        Builders::EditionOrganisationBuilder.build_lead(o, idx+1)
+      end
+    end
+
     def images
       1.upto(4).map do |image_number|
         field_names = "image_#{image_number}_imgalt image_#{image_number}_imgcap image_#{image_number}_imgcapmd image_#{image_number}_imgurl".split(" ")
@@ -62,7 +68,7 @@ module Whitehall::Uploader
     end
 
     def attributes
-      [:title, :summary, :body, :organisations, :images, :operational_field, :first_published_at].map.with_object({}) do |name, result|
+      [:title, :summary, :body, :lead_edition_organisations, :images, :operational_field, :first_published_at].map.with_object({}) do |name, result|
         result[name] = __send__(name)
       end
     end
