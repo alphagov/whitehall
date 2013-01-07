@@ -368,6 +368,9 @@
         }
       }
     }
+    &.items-2 {
+      @extend %contain-floats;
+    }
 
     .secondary {
       clear: both;
