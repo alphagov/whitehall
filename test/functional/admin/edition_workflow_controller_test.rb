@@ -392,10 +392,10 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
     assert_equal "The imported document #{@edition.title} has been converted into a draft", flash[:notice]
   end
 
-  test 'convert_to_draft redirects back to the draft edition index' do
+  test 'convert_to_draft redirects back to the imported edition index' do
     @edition.stubs(:convert_to_draft!)
     post :convert_to_draft, id: @edition, lock_version: 1
-    assert_redirected_to admin_editions_path(state: :draft)
+    assert_redirected_to admin_editions_path(state: :imported)
   end
 
   test 'convert_to_draft redirects back to the edition with an error message on validation error' do
