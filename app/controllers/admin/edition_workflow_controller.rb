@@ -85,7 +85,7 @@ class Admin::EditionWorkflowController < Admin::BaseController
 
   def convert_to_draft
     @edition.convert_to_draft!
-    redirect_to admin_editions_path(state: :draft),
+    redirect_to admin_editions_path(state: :imported),
       notice: "The imported document #{@edition.title} has been converted into a draft"
   end
 
