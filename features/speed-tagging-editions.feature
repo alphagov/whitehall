@@ -4,6 +4,7 @@ Feature: Speed tagging editions
   Specifically, the page:
 
   - should only present policies which are associated with the org of the doc being imported
+    - and only present them once, even if they are associated with multiple orgs associated with the doc
   - should only present ministers which are associated with the org of the doc being imported
   - should present mandatory data elements for that document type. (i.e. speech type, publication subtype)
 
@@ -27,6 +28,11 @@ Feature: Speed tagging editions
     When I go to speed tag a newly imported publication for "DCLG"
     And I should be able to tag the publication with "Local beards"
     And I should not be able to tag the publication with "Beard taxes"
+
+  Scenario: Speed tagging only shows a policy once
+    Given a draft policy "Local beards" for the organisations "DCLG" and "Treasury"
+    When I go to speed tag a newly imported publication for "DCLG" and "Treasury"
+    Then I can only tag the publication with "Local beards" once
 
   Scenario: Speed tagging shows speech required fields
     When I go to speed tag a newly imported speech "Written statement on Beards"
