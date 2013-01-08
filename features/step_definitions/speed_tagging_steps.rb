@@ -1,5 +1,7 @@
-When /^I go to speed tag a newly imported (publication|speech|news article)(?: "(.*?)")?(?: for "(.*?)")?$/ do |edition_type, title, organisation_name|
-  organisations = organisation_name ? [find_or_create_organisation(organisation_name)] : []
+When /^I go to speed tag a newly imported (publication|speech|news article)(?: "(.*?)")?(?: for "(.*?)"(?: and "(.*?)")?)?$/ do |edition_type, title, organisation1_name, organisation2_name|
+  organisations = []
+  organisations << find_or_create_organisation(organisation1_name) if organisation1_name
+  organisations << find_or_create_organisation(organisation2_name) if organisation2_name
   @edition = create("imported_#{edition_type.sub(' ', '_')}", organisations: organisations, title: title || "default title")
   visit admin_edition_path(@edition)
 end
@@ -26,4 +28,8 @@ end
 
 Then /^I should be able to select the world location "([^"]*)"$/ do |name|
   select name, from: 'edition_world_location_ids'
+end
+
+When /^I can only tag the (?:publication|news article) with "([^"]*)" once$/ do |label|
+  assert page.has_css?("label.checkbox", text: /#{label}/, count: 1)
 end
