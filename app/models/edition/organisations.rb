@@ -29,7 +29,9 @@ module Edition::Organisations
     def supporting_organisations
       organisations.where(edition_organisations: { lead: false })
     end
-    accepts_nested_attributes_for :edition_organisations, reject_if: -> attributes { attributes['organisation_id'].blank? }, allow_destroy: true
+    accepts_nested_attributes_for :edition_organisations,
+      reject_if: ->(attributes) { attributes['organisation_id'].blank? && attributes['id'].blank? },
+      allow_destroy: true
 
     before_validation :make_all_edition_organisations_mine
     after_save :reset_edition_organisations
@@ -77,9 +79,16 @@ private
     # something on the edition itself.
     new_eos = []
     existing_eos = []
-    __get_edition_organisations_for_validation(edition_organisations, new_eos, existing_eos)
-    __get_edition_organisations_for_validation(lead_edition_organisations, new_eos, existing_eos)
-    __get_edition_organisations_for_validation(supporting_edition_organisations, new_eos, existing_eos)
+    to_die = []
+    __get_edition_organisations_for_validation(edition_organisations, new_eos, existing_eos, to_die)
+    __get_edition_organisations_for_validation(lead_edition_organisations, new_eos, existing_eos, to_die)
+    __get_edition_organisations_for_validation(supporting_edition_organisations, new_eos, existing_eos, to_die)
+    # strip out any that have been marked for deletion becaue the same
+    # object will appear from two associations, but it's likely only one
+    # is marked for deletion. If we don't strip both instances out then
+    # we run the risk of adding an error because things aren't unique when
+    # they will be because we're deleting one of them
+    existing_eos = existing_eos.reject { |(eo_id, _)| to_die.include?(eo_id) }
 
     # adding the same org twice
     if new_eos.map { |(eo_id, org_id)| org_id }.uniq.size != new_eos.size
@@ -95,14 +104,16 @@ private
       errors.add(:organisations, 'must be unique') if existing_dupes.any?
     end
   end
-  def __get_edition_organisations_for_validation(edition_organisation_association, new_eos, existing_eos)
-    all_eos = edition_organisation_association.
-      reject { |eo| eo.destroyed? }.
+  def __get_edition_organisations_for_validation(edition_organisation_association, new_eos, existing_eos, to_die)
+    all_eos = edition_organisation_association
+    grouped = all_eos.
+      reject { |eo| eo.destroyed? || eo.marked_for_destruction? }.
       # for orgs that are to be created when we do this, grab the object id
-      map { |eo| [eo.id, eo.organisation_id || eo.object_id] }.
+      map { |eo| [eo.id, eo.organisation_id || eo.organisation.object_id] }.
       group_by { |(eo_id, org_id)| eo_id.nil? }
-    new_eos.push(*all_eos[true]) if all_eos[true].present?
-    existing_eos.push(*all_eos[false]) if all_eos[false].present?
+    new_eos.push(*grouped[true]) if grouped[true].present?
+    existing_eos.push(*grouped[false]) if grouped[false].present?
+    to_die.push(*all_eos.select { |eo| eo.destroyed? || eo.marked_for_destruction? }.map(&:id))
     nil
   end
 

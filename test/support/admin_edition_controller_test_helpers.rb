@@ -1102,6 +1102,28 @@ module AdminEditionControllerTestHelpers
         edition.reload
         assert_equal [organisation_2], edition.lead_organisations
       end
+
+      test "update should allow swapping of an organisation from lead to supporting" do
+        organisation_1 = create(:organisation)
+        organisation_2 = create(:organisation)
+        organisation_3 = create(:organisation)
+
+        edition = create(edition_type, organisations: [organisation_1, organisation_2])
+        edition.organisations << organisation_3
+
+        put :update, id: edition, edition: controller_attributes_for_instance(edition,
+          edition_organisations_attributes: [
+            {id: edition.lead_edition_organisations.first.id, organisation_id: ''},
+            {id: '', organisation_id: organisation_1.id, lead: '0', lead_ordering: ''},
+            {id: edition.supporting_edition_organisations.first.id, organisation_id: ''},
+            {id: '', organisation_id: organisation_3.id, lead: '1', lead_ordering: '2'}
+          ]
+        )
+
+        edition.reload
+        assert_equal [organisation_2, organisation_3], edition.lead_organisations
+        assert_equal [organisation_1], edition.supporting_organisations
+      end
     end
 
     def should_allow_association_with_topics(edition_type)
