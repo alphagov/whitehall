@@ -76,20 +76,59 @@ class AttachmentUploader < WhitehallUploader
         end
       end.compact
     end
+
+    class Examiner < Struct.new(:zip_file); end
+
+    class UTF8FilenamesExaminer < Examiner
+      def valid?
+        zip_file.filenames
+        true
+      rescue NonUTF8ContentsError
+        false
+      end
+
+      def failure_message
+        "Your zipfile must not contain filenames that aren't encoded in UTF-8"
+      end
+    end
+
+    class WhitelistedExtensionsExaminer < Examiner
+      def initialize(zip_file, whitelist)
+        super(zip_file)
+        @whitelist = whitelist
+      end
+
+      def extensions_in_file
+        @extensions_in_file ||= zip_file.extensions.uniq
+      end
+
+      def illegal_extensions
+        @illegal_extensions ||= extensions_in_file - @whitelist
+      end
+
+      def valid?
+        illegal_extensions.empty?
+      end
+
+      def failure_message
+        "You are not allowed to upload a zip file containing #{illegal_extensions.join(", ")} files, allowed types: #{@white_list.inspect}"
+      end
+    end
   end
 
   def validate_zipfile_contents!(new_file)
     extension = new_file.extension.to_s
     return unless extension == 'zip'
-    present_extensions = ZipFile.new(new_file.path).extensions.uniq
-    whitelist = extension_white_list - ['zip']
-    illegal_extensions = present_extensions - whitelist
-    if illegal_extensions.any?
-      raise CarrierWave::IntegrityError, "You are not allowed to upload a zip file containing #{illegal_extensions.join(", ")} files, allowed types: #{extension_white_list.inspect}"
-    end
-  rescue AttachmentUploader::ZipFile::NonUTF8ContentsError
-    raise CarrierWave::IntegrityError, "Your zipfile must not contain filenames that aren't encoded in UTF-8"
-  end
 
+    zip_file = ZipFile.new(new_file.path)
+    examiners = [
+      ZipFile::UTF8FilenamesExaminer.new(zip_file),
+      ZipFile::WhitelistedExtensionsExaminer.new(zip_file, extension_white_list - ['zip'])
+    ]
+    problem = examiners.detect { |examiner| !examiner.valid? }
+    if problem
+      raise CarrierWave::IntegrityError, problem.failure_message
+    end
+  end
 
 end
