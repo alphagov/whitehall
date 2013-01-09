@@ -114,6 +114,74 @@ class AttachmentUploader < WhitehallUploader
         "You are not allowed to upload a zip file containing #{illegal_extensions.join(", ")} files, allowed types: #{@white_list.inspect}"
       end
     end
+
+    class ArcGISShapefileExaminer < Examiner
+      REQUIRED_EXTS = ['shp', 'shx', 'dbf']
+      OPTIONAL_EXTS = ['prj', 'sbn', 'sbx', 'fbn', 'fbx', 'ain', 'aih',
+                       'ixs', 'mxs', 'atx', 'shp.xml', 'cpg']
+      ALLOWED_EXTS = REQUIRED_EXTS + OPTIONAL_EXTS
+      EXT_MATCHER = /\.(#{ALLOWED_EXTS.map {|e| Regexp.escape(e)}.join('|')})\Z/
+
+      def files_with_extensions
+        @files_with_extensions ||=
+          zip_file.filenames.map { |f|
+            if (match = f.match(EXT_MATCHER))
+              [f, match[1]]
+            else
+              [f, nil]
+            end
+          }
+      end
+
+      def files_by_allowed_extension
+        @files_by_allowed_extension ||=
+          files_with_extensions.
+            reject { |file, ext| ext.nil? }.
+            group_by { |file, ext| ext }
+      end
+
+      def has_no_extra_files?
+        files_with_extensions.select { |(f, e)| e.nil? }.empty?
+      end
+
+      def has_only_one_of_each_allowed_file?
+        files_by_allowed_extension.
+          select { |ext, files| files.size > 1 }.
+          empty?
+      end
+
+      def has_required_files?
+        files_by_allowed_extension.
+          select { |ext, files| REQUIRED_EXTS.include? ext }.
+          reject { |ext, files| files.size > 1 }.
+          keys.sort == REQUIRED_EXTS.sort
+      end
+
+      def valid?
+        has_no_extra_files? &&
+          has_only_one_of_each_allowed_file? &&
+          has_required_files?
+      end
+
+      def failure_message
+        "Your zip file doesn\'t look like an ArcGIS shapefile.  To be an ArcGIS shapefile: It must contain one file of each of these types: #{REQUIRED_EXTS.inspect}. It can contain one file of each of these types: #{OPTIONAL_EXTS.inspect}. It may not contain any other file types, or more than one of any allowed file type."
+      end
+    end
+
+    class AnyValidExaminer < Examiner
+      def initialize(zip_file, others)
+        super(zip_file)
+        @others = others
+      end
+
+      def valid?
+        @others.any? { |other| other.valid? }
+      end
+
+      def failure_message
+        "The contents of your zip file did not meet any of our constraints: #{@others.map {|o| o.failure_message}.join(' or: ')}"
+      end
+    end
   end
 
   def validate_zipfile_contents!(new_file)
@@ -123,7 +191,10 @@ class AttachmentUploader < WhitehallUploader
     zip_file = ZipFile.new(new_file.path)
     examiners = [
       ZipFile::UTF8FilenamesExaminer.new(zip_file),
-      ZipFile::WhitelistedExtensionsExaminer.new(zip_file, extension_white_list - ['zip'])
+      ZipFile::AnyValidExaminer.new(zip_file, [
+        ZipFile::WhitelistedExtensionsExaminer.new(zip_file, extension_white_list - ['zip']),
+        ZipFile::ArcGISShapefileExaminer.new(zip_file)
+      ])
     ]
     problem = examiners.detect { |examiner| !examiner.valid? }
     if problem
