@@ -15,6 +15,10 @@ class FatalityNoticeTest < EditionTestCase
     assert build(:fatality_notice, operational_field: operational_field).valid?
   end
 
+  test 'is not valid without a roll call introduction' do
+    refute build(:fatality_notice, roll_call_introduction: nil).valid?
+  end
+
   test "has operational field" do
     assert build(:fatality_notice).has_operational_field?
   end
