@@ -51,6 +51,13 @@ Then /^I can view the field of operations information from a link in the metadat
   assert page.has_content?(notice.operational_field.description)
 end
 
+Then /^I can see the roll call introduction of the fatality notice titled "([^"]*)"$/ do |title|
+  notice = FatalityNotice.find_by_title(title)
+
+  assert page.has_content?(notice.roll_call_introduction)
+  assert !page.has_content?(notice.summary)
+end
+
 Then /^I can create a fatality notice$/ do
   draft_fatality_notice("Fatality Notice", "Iraq")
 end

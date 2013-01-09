@@ -28,6 +28,7 @@ Feature: Handling Fatalities
   - We'll create a new FieldOfOperation model in the schema, which can only be associated with Fatality Notices.
   - Fatalities should show on the announcements index, with a filter
   - Link ministers too
+  - Introduction text for the fatality notice to be displayed on the Field of Operation page is separate to the Summary
 
   Background:
     Given an organisation "MOD" has been assigned to handle fatalities
@@ -52,6 +53,7 @@ Feature: Handling Fatalities
     Given there is a fatality notice titled "Death of Joe and Jim" in the field "Iraq"
     When I look at the fatality notice titled "Death of Joe and Jim"
     Then I can view the field of operations information from a link in the metadata
+    And I can see the roll call introduction of the fatality notice titled "Death of Joe and Jim"
 
   Scenario: Citizen sees all fatalities in a filtered list
     Given there is a fatality notice titled "Death of Joe and Jim" in the field "Iraq"
