@@ -12,7 +12,7 @@
       var $filterList = $('.js-filter-list');
 
       if($filterList.length === 1){
-        filter.$form = $('<form class="filter-list-form"><label for="who-are-you-looking-for">Which organisation are you looking for?</label> <input name="who-are-you-looking-for"></form>');
+        filter.$form = $('.js-filter-form').show();
         filter.$filterItems = $('.js-filter-item');
         filter.$filterBlock = $('.js-filter-block');
 
@@ -39,12 +39,18 @@
       } else {
         $('.js-filter-no-results').removeClass('reveal');
 
+        filter.$filterBlock.show();
         filter.$filterBlock.each(function(i, el){
-          var $el = $(el);
+          var $el = $(el),
+              $elFilterCount = $el.find('.js-filter-count'),
+              $filterItems = $el.find('.js-filter-item:visible');
 
-          $el.show();
-          if($el.find('.js-filter-item:visible').length === 0){
+          if($filterItems.length === 0){
             $el.hide();
+          } else {
+            if($elFilterCount.length > 0){
+              $elFilterCount.text($filterItems.length);
+            }
           }
         });
       }

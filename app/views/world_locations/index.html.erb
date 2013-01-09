@@ -3,12 +3,12 @@
 
 <div class="block">
   <div class="inner-block">
-    <header class="page-title">
+    <header class="page-title js-filter-list">
       <hgroup>
         <h1>Worldwide</h1>
-        <h2>See what the UK is doing&nbsp;overseas</h2>
+        <h2>What is the UK is doing&nbsp;overseas</h2>
       </hgroup>
-      <p>What place or international organisation are you looking for?</p>
+      <form class="js-filter-form"><label for="who-are-you-looking-for">What place or international organisation are you looking for?</label> <input name="who-are-you-looking-for"></form>
     </header>
   </div>
 </div>
@@ -16,33 +16,42 @@
 <div class="block world-locations">
   <div class="inner-block">
     <% @world_locations.each do |type, locations| %>
-      <section id="<%= type.name.pluralize.parameterize %>" class="world-location-type">
+      <section id="<%= type.name.pluralize.parameterize %>" class="world-location-type js-filter-block">
         <header class="type-heading">
           <h1><%= type.name %></h1>
-          <p><%= locations.length %> <span class="visuallyhidden">locations</span></p>
+          <p><span class="js-filter-count"><%= locations.length %></span> <span class="visuallyhidden">locations</span></p>
         </header>
         <div class="content">
           <% if type === WorldLocationType::Country %>
             <% locations.group_by {|location| location.name.first.upcase }.sort.each do |letter, locations| %>
-              <h2 class="letter"><%= letter %></h2>
-              <ol class="location-list">
-                <% locations.each do |location| %>
-                  <%= render partial: 'world_location',
-                            locals: { world_location: location } %>
-                <% end %>
-              </ol>
+              <div class="js-filter-block">
+                <h2 class="letter"><%= letter %></h2>
+                <ol class="location-list">
+                  <% locations.each do |location| %>
+                    <%= render partial: 'world_location',
+                          locals: { world_location: location,
+                                    options: { class: 'js-filter-item',
+                                      "data-filter-terms" => "#{location.name} #{location.slug}" } } %>
+                  <% end %>
+                </ol>
+              </div>
             <% end %>
           <% else %>
             <ol class="location-list">
               <% locations.each do |location| %>
                 <%= render partial: 'world_location',
-                          locals: { world_location: location } %>
+                          locals: { world_location: location,
+                                    options: { class: 'js-filter-item',
+                                      "data-filter-terms" => "#{location.name} #{location.slug}" } } %>
               <% end %>
             </ol>
           <% end %>
         </div>
       </section>
     <% end %>
+    <div class="js-filter-no-results">
+      <p>No world locations match that filter.</p>
+    </div>
   </div>
 </div>
 

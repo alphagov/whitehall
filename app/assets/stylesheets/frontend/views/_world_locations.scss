@@ -10,9 +10,13 @@
         width: 66.66%;
       }
 
-      h2 {
+      h1 {
         color: $secondary-text-colour;
       }
+    }
+
+    label {
+      margin-right: $gutter-one-third;
     }
   }
 
@@ -30,42 +34,34 @@
           width: 33.33%;
           float: left
         }
+
+        p {
+          @include heading-24;
+          color: $secondary-text-colour;
+        }
       }
 
       .content {
         @include media(desktop){
           width: 66.66%;
           float: left;
-        }
+        };
 
         .letter {
           @include heading-24;
         }
 
         .location-list {
-          @extend %contain-floats;
-
-          @include media(desktop){
-            margin: 0 (-$gutter-half) $gutter;
-          }
+          margin: 0 0 $gutter;
 
           li {
             list-style: none;
-
-            @include media(desktop){
-              width: 50%;
-              float: left;
-            }
 
             .location-link {
               @include core-19;
               padding: 5px 0;
               display: block;
               border-bottom: 1px solid $border-colour;
-
-              @include media(desktop){
-                margin: 0 $gutter-half;
-              }
             }
           }
         }

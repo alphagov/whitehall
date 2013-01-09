@@ -1,4 +1,5 @@
-<%= content_tag_for(:li, world_location) do %>
+<% options ||= {} %>
+<%= content_tag_for(:li, world_location, options) do %>
   <% if world_location.active? %>
     <%= link_to world_location.name, world_location_path(world_location), class: 'location-link' %>
   <% else %>
