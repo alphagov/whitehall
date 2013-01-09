@@ -686,7 +686,7 @@ module AdminEditionControllerTestHelpers
 
         get :show, id: edition
 
-        assert_select 'article .body figure.image.embedded img[src=?]', %r{#{image2.url}}
+        assert_select 'article .body figure.image.embedded img[src=?]', Whitehall.asset_host + image2.url
       end
     end
 
