@@ -18,7 +18,7 @@ module Whitehall::Uploader
         .required(%w{old_url title summary body})
         .multiple(%w{image_#_imgalt image_#_imgcap image_#_imgcapmd image_#_imgurl}, 0..4)
         .ignored("ignore_*")
-        .required(%w{first_published field_of_operation})
+        .required(%w{first_published field_of_operation roll_call_introduction})
     end
 
     def title
@@ -67,8 +67,12 @@ module Whitehall::Uploader
       Parsers::DateParser.parse(row['first_published'], @logger, @line_number)
     end
 
+    def roll_call_introduction
+      row['roll_call_introduction']
+    end
+
     def attributes
-      [:title, :summary, :body, :lead_edition_organisations, :images, :operational_field, :first_published_at].map.with_object({}) do |name, result|
+      [:title, :summary, :body, :lead_edition_organisations, :images, :operational_field, :first_published_at, :roll_call_introduction].map.with_object({}) do |name, result|
         result[name] = __send__(name)
       end
     end

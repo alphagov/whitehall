@@ -51,6 +51,11 @@ class Whitehall::Uploader::FatalityNoticeRowTest < ActiveSupport::TestCase
     assert_equal "http://example.com/old-url", row.legacy_url
   end
 
+  test "takes roll_call_introduction from the roll_call_introduction column" do
+    row = Whitehall::Uploader::FatalityNoticeRow.new({"roll_call_introduction" => "An introduction to the roll call of casualties."}, 1, @attachment_cache)
+    assert_equal "An introduction to the roll call of casualties.", row.attributes[:roll_call_introduction]
+  end
+
   test "takes organisation by finding the org with slug 'ministry-of-defence'" do
     o = stub(:ministry_of_defence)
     Organisation.stubs(:find_by_slug).with("ministry-of-defence").returns(o)
@@ -102,6 +107,7 @@ class Whitehall::Uploader::FatalityNoticeRowTest < ActiveSupport::TestCase
       "body" => "Aged 33, he was married and lived in Portsmouth. His death is believed to have been from natural causes. Our thoughts are very much with his family at this difficult time. ",
       "first_published" => "2009-05-28",
       "field_of_operation" => "Iraq",
+      "roll_call_introduction" => "Acting Chief Petty Officer Joe Bloggs died of natural causes while serving in HMS Illustrious on 3 March 2008.",
       "image_1_imgalt" => "MOD Announcement",
       "image_1_imgcap" => "Acting Chief Petty Officer Joseph Bloggs <br>[Picture: via MOD]",
       "image_1_imgcapmd" => "Acting Chief Petty Officer Joseph Bloggs

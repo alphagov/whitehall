@@ -16,7 +16,7 @@ class FatalityNotice < Announcement
 
   accepts_nested_attributes_for :fatality_notice_casualties, allow_destroy: true, reject_if: :all_blank
 
-  validates :operational_field, presence: true
+  validates :operational_field, :roll_call_introduction, presence: true
 
   add_trait CasualtiesTrait
 
