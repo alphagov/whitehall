@@ -59,7 +59,7 @@
             <% @fatality_notices.each do |fatality_notice| %>
               <%= content_tag_for :li, fatality_notice, class: 'fatality-notice' do %>
                 <h3 class="summary">
-                  <%= fatality_notice.summary %>
+                  <%= fatality_notice.roll_call_introduction %>
                 </h3>
                 <ul class="casualties">
                 <% if fatality_notice.fatality_notice_casualties.any? %>
