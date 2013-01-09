@@ -8,10 +8,6 @@
       <%= form.select :world_location_type_id, options_from_collection_for_select(WorldLocationType.all, :id, :name, form.object.world_location_type_id) %>
       <%= form.text_area :description %>
 
-      <fieldset>
-        <%= form.text_area :about, class: 'previewable' %>
-      </fieldset>
-
       <%= form.check_box :active,
                 label_text: "Active (can visitors click through from the world location list?)" %>
 

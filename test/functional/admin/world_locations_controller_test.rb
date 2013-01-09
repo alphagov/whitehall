@@ -14,7 +14,6 @@ class Admin::WorldLocationsControllerTest < ActionController::TestCase
 
     assert_template 'world_locations/edit'
     assert_select "textarea[name='world_location[description]']"
-    assert_select "textarea[name='world_location[about]'].previewable"
     assert_select '#govspeak_help'
   end
 
