@@ -32,6 +32,25 @@ database.yml.
     $ bundle exec rake db:create:all
     $ bundle exec rake db:schema:load
 
+### Running tests locally
+
+Three environment variables must be set up, typically:
+
+    GOVUK_APP_DOMAIN=dev.gov.uk
+    GOVUK_ASSET_ROOT=http://static.dev.gov.uk
+    RAILS_ENV=test
+
+Then run
+
+    $ bundle exec rake
+
+Alternatively run
+
+    $ govuk_setenv whitehall env RAILS_ENV=test bundle exec rake
+
+Note that using `bowler` or `foreman` will automatically use the
+`govuk_setenv` method for you.
+
 ### Getting a copy of live data
 
 There's a capistrano task which will download a dump of the mysql
@@ -39,7 +58,7 @@ database and load it on your local machine:
 
     cap db:import
 
-To use it, go to the `whitehall-admin` directory in
+To use it, go to the `whitehall` directory in
 `alphagov-deployment` and then do:
 
     $ SSH_USER=$USER DEPLOY_TO=production bundle exec cap db:import
