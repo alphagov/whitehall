@@ -5,7 +5,8 @@ class AttachmentUploaderTest < ActiveSupport::TestCase
 
   test 'should only allow PDF, CSV, RTF, PNG, JPG, DOC, DOCX, XLS, XLSX, PPT, PPTX, ZIP, RDF, TXT, KML attachments' do
     uploader = AttachmentUploader.new
-    assert_equal %w(pdf csv rtf png jpg doc docx xls xlsx ppt pptx zip rdf txt kml), uploader.extension_white_list
+    allowed = %w(pdf csv rtf png jpg doc docx xls xlsx ppt pptx zip rdf txt kml)
+    assert_equal allowed.sort, uploader.extension_white_list.sort
   end
 
   test "should store uploads in a directory that persists across deploys" do
