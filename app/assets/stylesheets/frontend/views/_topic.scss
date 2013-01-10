@@ -72,10 +72,8 @@
         @include ig-core-27;
         float: left;
       }
-      .feed {
-        float: left;
-        margin-left: $gutter-half;
-        padding-top: 8px;
+      .feeds {
+        margin-top: $gutter-half;
       }
     }
     .document-list {

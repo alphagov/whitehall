@@ -35,4 +35,20 @@ class TopicalEventsControllerTest < ActionController::TestCase
     end
     refute_select_object editions.last.edition
   end
+
+  test 'show has a link to the atom feed' do
+    event = create(:topical_event)
+
+    get :show, id: event
+
+    feed_url = ERB::Util.html_escape(topic_url(event, format: "atom"))
+    assert_select "a.feed[href=?]", feed_url
+  end
+  test 'show has a link to govdelivery if one exists' do
+    event = create(:topical_event, govdelivery_url: 'http://my-govdelivery-url.com')
+
+    get :show, id: event
+
+    assert_select ".govdelivery[href='http://my-govdelivery-url.com']"
+  end
 end
