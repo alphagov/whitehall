@@ -294,13 +294,15 @@ class TopicsControllerTest < ActionController::TestCase
   test "show should list organisation's working in the topic" do
     first_organisation = create(:organisation)
     second_organisation = create(:organisation)
-    topic = create(:topic, organisations: [first_organisation, second_organisation])
+    topic = create(:topic)
+    create(:organisation_classification, topic: topic, organisation: first_organisation, lead: true)
+    create(:organisation_classification, topic: topic, organisation: second_organisation, lead: false)
 
     get :show, id: topic
 
     assert_select ".meta" do
       assert_select_object first_organisation
-      assert_select_object second_organisation
+      assert_select_prefix_object second_organisation, 'by-type'
     end
   end
 
