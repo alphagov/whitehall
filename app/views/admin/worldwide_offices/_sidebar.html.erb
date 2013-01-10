@@ -1,0 +1,18 @@
+<% if @worldwide_office.persisted? %>
+  <div class="sidebar">
+    <section class="display_heading">
+      <h1>Delete worldwide office</h1>
+      <% unless @worldwide_office.new_record? %>
+        <%= button_to('delete',
+                      admin_worldwide_office_path(@worldwide_office),
+                      method: :delete,
+                      confirm: "Are you sure you want to delete #{@worldwide_office.name}?",
+                      class: 'btn btn-danger') %>
+      <% else %>
+        <p>Cannot delete</p>
+      <% end %>
+    </section>
+  </div>
+<% end %>
+
+<%= simple_formatting_sidebar %>

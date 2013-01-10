@@ -795,4 +795,17 @@ ActiveRecord::Schema.define(:version => 20130204133738) do
   add_index "world_locations", ["slug"], :name => "index_world_locations_on_slug"
   add_index "world_locations", ["world_location_type_id"], :name => "index_world_locations_on_world_location_type_id"
 
+  create_table "worldwide_offices", :force => true do |t|
+    t.string   "name"
+    t.string   "summary"
+    t.text     "description"
+    t.string   "url"
+    t.string   "slug"
+    t.string   "logo_formatted_name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "worldwide_offices", ["slug"], :name => "index_worldwide_offices_on_slug", :unique => true
+
 end

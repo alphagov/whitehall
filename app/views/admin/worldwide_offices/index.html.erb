@@ -1,0 +1,32 @@
+<% page_title "Worldwide office" %>
+
+<nav class="actions">
+  <%= link_to "Create Worldwide office", new_admin_worldwide_office_path, class: "btn new_resource", title: "Create a Worldwide Office" %>
+</nav>
+
+<h1>Worldwide offices</h1>
+
+<table class="worldwide_office table table-striped">
+  <thead>
+    <tr>
+      <th width="40%">Name</th>
+      <th width="35%">Summary</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @worldwide_offices.each do |worldwide_office| %>
+      <%= content_tag_for(:tr, worldwide_office) do %>
+        <td class="name">
+          <%= link_to worldwide_office.name, edit_admin_worldwide_office_path(worldwide_office), title: "Edit #{worldwide_office.name}" %><br/>
+          <%= link_to "View", worldwide_office_path(worldwide_office) %>
+        </td>
+        <td><%= worldwide_office.summary %></td>
+      <% end %>
+    <% end %>
+    <% if @worldwide_offices.empty? %>
+      <tr>
+        <td colspan="3">No worldwide offices have been created.</td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

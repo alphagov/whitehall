@@ -1,0 +1,415 @@
+.worldwide-offices-show {
+  .block-1,
+  .block-2,
+  .block-3,
+  .block-6,
+  .block-7,
+  .block-8,
+  .block-9,
+  .block-10 {
+    display: block;
+    clear: both;
+    overflow: hidden;
+    padding-bottom: $gutter-half;
+
+    @include media(tablet) {
+      padding-bottom: $gutter*2;
+    }
+
+    img {
+      width: 100%;
+      height: auto;
+    }
+  }
+
+  .block-1 {
+    padding-top: $gutter-one-third;
+    @include media(tablet) {
+      padding-bottom: $gutter-one-sixth;
+    }
+  }
+
+  .block-2 {
+    padding-bottom: $gutter;
+  }
+
+  .block-10 {
+    .inner-block {
+      padding: 0 $gutter-half;
+    }
+    h1 {
+      border-bottom-width: 5px;
+      border-bottom-style: solid;
+      margin-bottom: 20px;
+    }
+    h2 {
+      @include ig-core-24;
+    }
+
+  }
+
+  .filter-feed .subscribe {
+    margin-top: $gutter-one-third;
+  }
+
+  h1.label,
+  .topic h2 {
+    @include ig-core-27;
+    margin-bottom: $gutter-two-thirds;
+  }
+
+  p a {
+    text-decoration: underline;
+  }
+
+  .page-header {
+    padding: $gutter-two-thirds 0 $gutter*2;
+    overflow: hidden;
+
+    h1 {
+      padding: 0;
+
+      @include media(tablet){
+        float: left;
+        width: 66.66%;
+      }
+    }
+
+    .organisation-mainstream-links {
+      padding-top: $gutter;
+
+      @include media(tablet){
+        float: left;
+        width: 33.33%;
+        padding-top: 0;
+        margin-top: ($gutter-one-third * -1);
+      }
+
+      h4 {
+        @include ig-core-19;
+
+        @include media(tablet){
+          position: absolute;
+          left: -9999em;
+        }
+      }
+
+      ul {
+        list-style: none;
+
+        @include media(tablet){
+          padding-left: $gutter-two-thirds;
+        }
+
+        li {
+          @include ig-core-16;
+          @include media(tablet){
+            padding-bottom: 0;
+          }
+        }
+      }
+    }
+  }
+
+  .has-social {
+    .organisation-news.items-0 .latest-documents {
+      @include media(desktop){
+        width: 66.66%;
+      }
+    }
+    .what-we-do {
+      clear: both;
+    }
+  }
+
+  .summary {
+    @include ig-core-24;
+    padding-bottom: $gutter-half;
+  }
+
+  .description {
+    @include ig-core-19;
+  }
+
+  .document-list {
+    margin: 0;
+
+    .document-row {
+      @include ig-core-14;
+      border-bottom: none;
+
+      th {
+        @include ig-core-14;
+        margin: $gutter-one-third 0 0 0;
+        padding: 0;
+      }
+
+      td {
+        margin: 0;
+        padding: 0 $gutter-one-third 0 0;
+      }
+    }
+  }
+
+  .about-us {
+    @include media(tablet){
+      float: left;
+      width: 100%;
+      .content {
+        width: 66.6%;
+        h1, h2, h3, h4, h5, h6 {
+          border-bottom-width: 0px !important;
+        }
+      }
+    }
+  }
+
+  .social-media {
+    @include media(tablet){
+      float: left;
+      width: 33.33%;
+    }
+    .content {
+      padding: $gutter-half;
+    }
+    h2 {
+      @include ig-core-24;
+    }
+  }
+
+  .what-we-do {
+    p {
+      @include ig-core-19;
+    }
+
+    .parent_worldwide-offices {
+      margin-bottom: $gutter-one-third;
+    }
+
+    .body {
+      h2 {
+        border-bottom: 1px solid $border-colour;
+
+        &:first-child {
+          margin-top: $gutter;
+        }
+      }
+    }
+  }
+
+  #who {
+    #ministers,
+    #management,
+    #military,
+    #traffic_commissioners,
+    #special_representatives {
+      display: block;
+      clear: both;
+      overflow: hidden;
+    }
+
+    #management,
+    #military,
+    #traffic_commissioners,
+    #special_representatives {
+      padding-top: $gutter-half;
+      @include media(tablet) {
+        padding-top: $gutter*2;
+      }
+    }
+
+    ul {
+      position: relative;
+      overflow: hidden;
+      margin: 0 ($gutter-half*-1);
+    }
+
+    #management {
+      @include media(tablet) {
+        // some minus margin juggling here to align the columns
+        margin: 0 ($gutter-half*-1);
+
+        h1,
+        .show-other-content {
+          margin-left: $gutter-half;
+        }
+
+        ul {
+          position: relative;
+          float: left;
+          width: 25%;
+          margin: 0;
+          li {
+            width: 100%;
+          }
+        }
+        ul.management-secondary {
+          position: relative;
+          float: left;
+          width: 75%;
+          li {
+            width: 33.33%;
+          }
+        }
+      }
+    }
+
+    .show-other-content {
+      float: left;
+      clear: both;
+      margin-right: -100%;
+      margin-left: 0;
+    }
+
+  } // end #who
+
+  .contact-wrapper, .corporate-information {
+    float: left;
+    display: inline;
+    width: 100%;
+    nav {
+      padding: 0 $gutter-half;
+    }
+    @include media(desktop) {
+      width: 66.66%;
+    }
+    @include media(tablet) {
+      margin-bottom: $gutter;
+      h1 {
+        margin: 0 $gutter-half $gutter-two-thirds;
+      }
+    }
+  }
+
+  .corporate-information {
+    width: 100%;
+    h2, nav, p {
+      padding: 0 $gutter-half;
+    }
+    nav {
+      margin-bottom: $gutter;
+    }
+    @include media(desktop) {
+      width: 33.33%;
+    }
+  }
+
+  #org-contacts {
+    margin-bottom: $gutter;
+    h2 {
+      @include ig-core-24;
+    }
+
+    .organisation_contact h2 {
+      margin-bottom: $gutter-half;
+    }
+
+    .addresses {
+      p {
+        margin: 0 0 $gutter-one-third;
+        .type {
+          display: block;
+        }
+      }
+
+      .adr {
+        margin: 0 0 $gutter-one-third;
+        p {
+          margin: 0;
+        }
+      }
+    }
+
+    @include media(tablet) {
+      position: relative;
+      overflow: hidden;
+      padding: 0 $gutter-half;
+
+      .addresses {
+        float: left;
+        clear: both;
+        width: 100%;
+
+        .organisation_contact {
+          padding-bottom: $gutter-two-thirds;
+        }
+
+        .complex {
+          padding: 0 0 $gutter;
+
+          .contact-inner {
+            position: relative;
+            overflow: hidden;
+            float: none;
+            display: block;
+          }
+
+          h2 {
+            border-bottom: 1px solid $border-colour;
+          }
+
+          p {
+            padding-left: $gutter-half;
+          }
+
+          .adr, .email-url-number {
+            display: inline;
+            float: left;
+            width: 40%;
+
+            p {
+              padding-left: 0;
+            }
+          }
+
+          .email-url-number {
+            width: 60%;
+          }
+        }
+
+        .simple {
+          float: left;
+          display: inline;
+          width: 50%;
+          h2 {
+            border-bottom: 1px solid $border-colour;
+          }
+        }
+
+        .js-hidden {
+          display: none;
+        }
+
+        .email {
+          word-break: break-word;
+
+          @include ie(6) {
+            word-break: break-all;
+          }
+        }
+      }
+
+      .show-other-content {
+        position: absolute;
+        bottom: 0;
+        left: $gutter-one-third;
+      }
+
+    }
+  }
+
+
+
+
+  // org color bands
+
+  .social-media h2,
+  #about-us h1 {
+    border-bottom-width: 5px;
+    border-bottom-style: solid;
+  }
+  @include department-colours("h1", border-color);
+  @include department-colours("h2", border-color);
+  @include websafe-department-colours(".social-media-link .connect", background-color);
+  @include websafe-department-colours("a", color);
+}
