@@ -16,7 +16,14 @@
   </div>
   <div class="block-2">
     <div class="inner-block">
-      <%= link_to_feed activity_policy_url(@policy.document, format: "atom") %>
+      <div class="feeds">
+        <%= link_to_feed activity_policy_url(@policy.document, format: "atom") %>
+        <% unless @document.govdelivery_url.blank? %>
+          <%= link_to @document.govdelivery_url, class: 'govdelivery' do %>
+            <span class="visuallyhidden">Email</span> newsletter
+          <% end %>
+        <% end %>
+      </div>
       <%= render partial: "recently_changed_documents",
                 object: @recently_changed_documents,
                 locals: { title: "Latest on this policy" } %>
