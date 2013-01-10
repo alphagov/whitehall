@@ -73,7 +73,11 @@ module Searchable
 
     module ClassMethods
       def search_index
-        searchable_options[:only].call(self).all.map(&:search_index)
+        Enumerator.new do |y|
+          searchable_options[:only].call(self).find_each do |edition|
+            y << edition.search_index
+          end
+        end
       end
     end
   end

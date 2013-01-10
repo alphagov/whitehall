@@ -129,11 +129,18 @@ module Whitehall
     end
 
     def government_search_index
-      (government_edition_classes + [MinisterialRole, Organisation, SupportingPage, Topic, TopicalEvent]).map(&:search_index).sum([])
+      searchable_classes = government_edition_classes + [MinisterialRole, Organisation, SupportingPage, Topic, TopicalEvent]
+      Enumerator.new do |y|
+        searchable_classes.each do |klass|
+          klass.search_index.each do |search_index_entry|
+            y << search_index_entry
+          end
+        end
+      end
     end
 
     def detailed_guidance_search_index
-      [DetailedGuide].map(&:search_index).sum([])
+      DetailedGuide.search_index
     end
 
     def edition_classes
