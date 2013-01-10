@@ -7,4 +7,10 @@ class WorldwideOfficeTest < ActiveSupport::TestCase
     office = create(:worldwide_office, name: 'Office Name')
     assert_equal 'office-name', office.slug
   end
+
+  %w{name summary description}.each do |param|
+    test "should not be valid without a #{param}" do
+      refute build(:worldwide_office, param.to_sym => '').valid?
+    end
+  end
 end
