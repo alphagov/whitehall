@@ -104,16 +104,29 @@ class PoliciesControllerTest < ActionController::TestCase
   test "should link to organisations related to the policy" do
     first_org = create(:organisation)
     second_org = create(:organisation)
-    edition = create(:published_policy, organisations: [first_org, second_org])
+    edition = create(:published_policy, lead_organisations: [first_org], supporting_organisations: [second_org])
 
     get :show, id: edition.document
 
     assert_select_object first_org do
       assert_select "a[href='#{organisation_path(first_org)}']"
     end
-    assert_select_object second_org do
+    assert_select_prefix_object first_org, 'by-type' do
+      assert_select "a[href='#{organisation_path(first_org)}']"
+    end
+    assert_select_prefix_object second_org, 'by-type' do
       assert_select "a[href='#{organisation_path(second_org)}']"
     end
+  end
+
+  test "should only link to organisations once if there are only lead organisations" do
+    first_org = create(:organisation)
+    edition = create(:published_policy, lead_organisations: [first_org])
+
+    get :show, id: edition.document
+
+    assert_select_object first_org
+    refute_select_prefix_object first_org, 'by-type'
   end
 
   test "should link to ministers related to the policy" do

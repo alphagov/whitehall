@@ -1,11 +1,10 @@
 <%
   lead_organisations ||= []
   organisations ||= []
-  all_organisations = lead_organisations + organisations
   show_hm_government = lead_organisations.length == 0
 %>
 <div class="organisations-icon-list js-toggle-org-list">
-  <% if all_organisations.length > 1 %>
+  <% if organisations.length > 1 %>
     <% if show_hm_government %>
       <h3 class="organisation hm-government">
         <span class="organisation-logo organisation-logo-stacked-single-identity">
@@ -23,21 +22,23 @@
         <% end %>
       <% end %>
     </ul>
-    <span class="toggle show-other-content">+ others</span>
-    <div class="organisations-box overlay js-hidden"><div class="organisations-box-inner">
-      <% organisations_grouped_by_type(organisations).each do |type, organisations| %>
-        <h3><%= type.name.pluralize %></h3>
-        <ol>
-          <% organisations.each do |organisation| %>
-            <%= content_tag_for :li, organisation, prefix: 'by-type' do %>
-              <%= link_to organisation.name, organisation_path(organisation) %>
+    <% if (organisations - lead_organisations).any? %>
+      <span class="toggle show-other-content">+ others</span>
+      <div class="organisations-box overlay js-hidden"><div class="organisations-box-inner">
+        <% organisations_grouped_by_type(organisations).each do |type, organisations| %>
+          <h3><%= type.name.pluralize %></h3>
+          <ol>
+            <% organisations.each do |organisation| %>
+              <%= content_tag_for :li, organisation, 'by-type' do %>
+                <%= link_to organisation.name, organisation_path(organisation) %>
+              <% end %>
             <% end %>
-          <% end %>
-        </ol>
-      <% end %>
-    </div></div>
+          </ol>
+        <% end %>
+      </div></div>
+    <% end %>
   <% else %>
-    <% all_organisations.each do |organisation| %>
+    <% organisations.each do |organisation| %>
       <%= content_tag_for(:div, organisation, class: organisation.slug) do %>
         <%= link_to organisation_path(organisation),
               class: organisation_logo_classes(organisation, {stacked: true, use_identity: true}) do %>
