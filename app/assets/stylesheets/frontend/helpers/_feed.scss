@@ -1,6 +1,16 @@
 .feed {
-  padding-top: 4px;
-  padding-left: 20px;
-  height: 12px;
-  background: image-url('feed-icon-black.png') center left no-repeat;
+  display: inline-block;
+  padding: 0 5px 0 20px;
+  height: 16px;
+  background: image-url('feed-icon-black.png') 0 100% no-repeat;
+}
+.govdelivery {
+  display: inline-block;
+  padding: 0 5px 0 25px;
+  height: 16px;
+  background: image-url('mail-icon.png') 0 100% no-repeat;
+  @include hidpi {
+    background-image: image-url('mail-icon-2x.png');
+    background-size: 20px 14px;
+  }
 }

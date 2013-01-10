@@ -469,6 +469,15 @@ That's all
     end
   end
 
+  test 'activity shows a link to govdelivery if one exists' do
+    policy = create(:published_policy, govdelivery_url: 'http://my-govdelivery-url.com')
+    publication = create(:published_publication, published_at: 4.weeks.ago, related_policies: [policy])
+
+    get :activity, id: policy.document
+
+    assert_select ".govdelivery[href='http://my-govdelivery-url.com']"
+  end
+
   test "the format name is being set to policy" do
     policy = create(:published_policy)
 
