@@ -60,12 +60,10 @@ module Edition::ScheduledPublishing
     end
 
     def create_scheduled_publishing_robot
-      permissions = {
-        GDS::SSO::Config.default_scope => [
-          User::Permissions::SIGNIN,
-          User::Permissions::PUBLISH_SCHEDULED_EDITIONS
-        ]
-      }
+      permissions = [
+        User::Permissions::SIGNIN,
+        User::Permissions::PUBLISH_SCHEDULED_EDITIONS
+      ]
       User.create!(name: "Scheduled Publishing Robot", uid: nil) do |user|
         user.permissions = permissions
       end

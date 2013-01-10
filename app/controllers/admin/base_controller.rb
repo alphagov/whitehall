@@ -15,7 +15,7 @@ class Admin::BaseController < ApplicationController
   end
 
   def require_import_permission!
-    authorise_user!(GDS::SSO::Config.default_scope, User::Permissions::IMPORT)
+    authorise_user!(User::Permissions::IMPORT)
   end
 
   private
