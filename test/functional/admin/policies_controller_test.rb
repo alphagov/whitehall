@@ -119,6 +119,20 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
     refute_select "article.document .image img"
   end
 
+  test "should show govdelivery field for gds editors" do
+    login_as :gds_editor
+
+    get :new
+
+    assert_select 'input#edition_govdelivery_url'
+  end
+
+  test "should not show govdelivery field for non gds admins" do
+    get :new
+
+    refute_select 'input#edition_govdelivery_url'
+  end
+
   private
 
   def controller_attributes_for(edition_type, attributes = {})
