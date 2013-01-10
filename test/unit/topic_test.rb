@@ -226,7 +226,7 @@ class TopicTest < ActiveSupport::TestCase
     create(:topic)
     create(:topic)
 
-    results = Topic.search_index
+    results = Topic.search_index.to_a
 
     assert_equal 4, results.length
   end

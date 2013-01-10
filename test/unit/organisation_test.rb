@@ -328,7 +328,7 @@ class OrganisationTest < ActiveSupport::TestCase
     create(:organisation, name: 'HMRC', description: 'Taxing.', acronym: 'hmrc')
     create(:organisation, name: 'Ministry of Defence', description: 'Defensive.', acronym: 'mod')
 
-    results = Organisation.search_index
+    results = Organisation.search_index.to_a
 
     assert_equal 4, results.length
     assert_equal({'title' => 'Department for Culture and Sports',

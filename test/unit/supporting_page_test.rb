@@ -118,7 +118,7 @@ class SupportingPageTest < ActiveSupport::TestCase
     create(:supporting_page, edition: policy, title: 'Arizona Bay', body: 'Marketing and advertising.')
     create(:supporting_page, edition: draft_policy, title: 'Rant in E-Minor', body: 'I\'m talking to the women here.')
 
-    results = SupportingPage.search_index
+    results = SupportingPage.search_index.to_a
 
     assert_equal 4, results.length
     assert_equal({'title' => 'Love all the people',

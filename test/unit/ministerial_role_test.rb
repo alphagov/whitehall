@@ -144,7 +144,7 @@ class MinisterialRoleTest < ActiveSupport::TestCase
     create(:ministerial_role_appointment, role: solicitor_general, person: edward_garnier)
     create(:ministerial_role_appointment, role: prime_minister, person: david_cameron)
 
-    results = MinisterialRole.search_index
+    results = MinisterialRole.search_index.to_a
 
     assert_equal 4, results.length
     assert_equal({'title' => 'Nick Clegg (Deputy Prime Minister)',

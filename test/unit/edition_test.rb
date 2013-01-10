@@ -401,7 +401,7 @@ class EditionTest < ActiveSupport::TestCase
            body: "stuff and things", summary: "publication-summary")
     create(:draft_publication, title: "draft-publication-title", body: "bits and bobs")
 
-    results = Edition.search_index
+    results = Edition.search_index.to_a
 
     assert_equal 2, results.length
     assert_equal({"title"=>"policy-title", "link"=>"/government/policies/policy-title",
