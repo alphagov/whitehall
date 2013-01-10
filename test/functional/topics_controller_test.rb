@@ -312,6 +312,15 @@ class TopicsControllerTest < ActionController::TestCase
     assert_select "#organisations", count: 0
   end
 
+  test 'show hass a link to govdelivery if one exists' do
+    topic = create(:topic, govdelivery_url: 'http://my-govdelivery-url.com')
+
+    get :show, id: topic
+
+    assert_select ".govdelivery[href='http://my-govdelivery-url.com']"
+  end
+
+
   test 'show has Atom feed autodiscovery link' do
     topic = build(:topic, id: 1)
     Topic.stubs(:find).returns(topic)

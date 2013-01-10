@@ -54,5 +54,6 @@
       </div>
     </fieldset>
   </div>
+  <%= render partial: 'admin/shared/govdelivery_fields', locals: { form: classification_form } %>
   <%= classification_form.save_or_cancel cancel: [:admin, model_class] %>
 <% end %>
