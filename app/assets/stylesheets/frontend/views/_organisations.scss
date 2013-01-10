@@ -24,7 +24,9 @@
       @include bold;
     }
 
-    .filter-list-form {
+    .js-filter-form {
+      display: none;
+
       label {
         @include ig-core-19;
         color: $secondary-text-colour;

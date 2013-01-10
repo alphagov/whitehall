@@ -2,8 +2,7 @@ class WorldLocationsController < PublicFacingController
   before_filter :load_world_location, only: [:show, :about]
 
   def index
-    @world_locations = WorldLocation.all
-    @featured_world_location = WorldLocation.featured.first
+    @world_locations = WorldLocation.all_by_type
   end
 
   def show
