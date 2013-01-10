@@ -3,9 +3,10 @@ require 'test_helper'
 class AttachmentUploaderTest < ActiveSupport::TestCase
   include ActionDispatch::TestProcess
 
-  test 'should only allow PDF, CSV, RTF, PNG, JPG, DOC, DOCX, XLS, XLSX, PPT, PPTX, ZIP, RDF, TXT attachments' do
+  test 'should only allow PDF, CSV, RTF, PNG, JPG, DOC, DOCX, XLS, XLSX, PPT, PPTX, ZIP, RDF, TXT, KML attachments' do
     uploader = AttachmentUploader.new
-    assert_equal %w(pdf csv rtf png jpg doc docx xls xlsx ppt pptx zip rdf txt), uploader.extension_white_list
+    allowed = %w(pdf csv rtf png jpg doc docx xls xlsx ppt pptx zip rdf txt kml)
+    assert_equal allowed.sort, uploader.extension_white_list.sort
   end
 
   test "should store uploads in a directory that persists across deploys" do
@@ -52,6 +53,86 @@ class AttachmentUploaderTest < ActiveSupport::TestCase
     assert_raises CarrierWave::IntegrityError do
       uploader.store!(fixture_file_upload('sample_attachment.zip'))
     end
+  end
+
+  test 'zip file that looks like a minimal ArcGIS file should be allowed' do
+    uploader = AttachmentUploader.new(stub("AR Model", id: 1), 'mounted-as')
+    AttachmentUploader::ZipFile.any_instance.stubs(:filenames).returns(required_arcgis_file_list)
+    assert_nothing_raised CarrierWave::IntegrityError do
+      uploader.store!(fixture_file_upload('sample_attachment.zip'))
+    end
+    assert uploader.file.present?
+  end
+
+  test 'zip file that looks like a comprehensive ArcGIS file should be allowed' do
+    uploader = AttachmentUploader.new(stub("AR Model", id: 1), 'mounted-as')
+    AttachmentUploader::ZipFile.any_instance.stubs(:filenames).returns(comprehensive_arcgis_file_list)
+    assert_nothing_raised CarrierWave::IntegrityError do
+      uploader.store!(fixture_file_upload('sample_attachment.zip'))
+    end
+    assert uploader.file.present?
+  end
+
+  test 'zip file that is missing all the required ArcGIS files is not allowed' do
+    uploader = AttachmentUploader.new(stub("AR Model", id: 1), 'mounted-as')
+    AttachmentUploader::ZipFile.any_instance.stubs(:filenames).returns(broken_arcgis_file_list)
+    assert_raises CarrierWave::IntegrityError do
+      uploader.store!(fixture_file_upload('sample_attachment.zip'))
+    end
+  end
+
+  test 'zip file that looks like an ArcGIS file, but has extra files in it is not allowed' do
+    uploader = AttachmentUploader.new(stub("AR Model", id: 1), 'mounted-as')
+    AttachmentUploader::ZipFile.any_instance.stubs(:filenames).returns(comprehensive_arcgis_file_list + ['readme.txt', 'london.jpg', 'map-printout.pdf'])
+    assert_raises CarrierWave::IntegrityError do
+      uploader.store!(fixture_file_upload('sample_attachment.zip'))
+    end
+  end
+
+  test 'zip file that looks like an ArcGIS file, but has multiple copies of allowed files in it is not allowed' do
+    uploader = AttachmentUploader.new(stub("AR Model", id: 1), 'mounted-as')
+    AttachmentUploader::ZipFile.any_instance.stubs(:filenames).returns(duplicate_arcgis_file_list)
+    assert_raises CarrierWave::IntegrityError do
+      uploader.store!(fixture_file_upload('sample_attachment.zip'))
+    end
+  end
+
+  def required_arcgis_file_list
+    [
+      'london.shp',
+      'london.shx',
+      'london.dbf'
+    ]
+  end
+
+  def optional_argis_file_list
+    [
+      'london.prj',
+      'london.sbn',
+      'london.sbx',
+      'london.fbn',
+      'london.fbx',
+      'london.ain',
+      'london.aih',
+      'london.ixs',
+      'london.mxs',
+      'london.atx',
+      'london.shp.xml',
+      'london.cpg'
+    ]
+  end
+
+  def comprehensive_arcgis_file_list
+    required_arcgis_file_list + optional_argis_file_list
+  end
+
+  def broken_arcgis_file_list
+    required_arcgis_file_list.shuffle[1..-1]
+  end
+
+  def duplicate_arcgis_file_list
+    comprehensive_arcgis_file_list +
+      comprehensive_arcgis_file_list.map {|f| f.gsub('london', 'paris')}
   end
 end
 
