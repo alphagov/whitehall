@@ -1,44 +1,57 @@
 <% page_title "UK and the world" %>
 <% page_class "world-locations-index" %>
 
-<div>
-  <div class="block-1">
-    <div class="inner-block">
-      <header class="page-header world-locations">
-        <h1 class="page_title">UK and the world</h1>
-        <p class="explanation">The UK government&rsquo;s priorities and interests overseas</p>
-      </header>
-    </div>
+<div class="block">
+  <div class="inner-block">
+    <header class="page-title js-filter-list">
+      <hgroup>
+        <h1>Worldwide</h1>
+        <h2>What is the UK is doing&nbsp;overseas</h2>
+      </hgroup>
+      <form class="js-filter-form"><label for="who-are-you-looking-for">What place or international organisation are you looking for?</label> <input name="who-are-you-looking-for"></form>
+    </header>
   </div>
+</div>
 
-  <% if @featured_world_location %>
-  <div class="block-2">
-    <div class="inner-block">
-      <%= content_tag_for(:div, @featured_world_location, class: 'featured') do %>
-        <%= image_tag 'spain.png', alt: 'World location image - Spain' %>
-        <h2><%= link_to @featured_world_location.name, world_location_path(@featured_world_location), class: "name" %></h2>
-        <p class="summary description">
-          <%= @featured_world_location.description %>
-        </p>
-      <% end %>
-    </div>
-  </div>
-  <% end %>
-
-
-  <div class="block-3">
-    <div class="inner-block">
-      <section class="simple-alphabetical-list" id="world-locations">
-        <h1 class="label">All countries, territories &amp; delegations</h1>
-        <% @world_locations.group_by {|wl| wl.name.first.upcase }.sort.in_groups_of(3, false) do |row| %>
-          <% row.each do |letter, world_locations_group| %>
-            <div class="alphabetical-row" id="world_locations_<%= letter.downcase %>">
-              <h2 class="alphabetical-list-letter"><%= letter %></h2>
-              <%= render partial: "list", locals: { world_locations: world_locations_group } %>
-            </div>
+<div class="block world-locations">
+  <div class="inner-block">
+    <% @world_locations.each do |type, locations| %>
+      <section id="<%= type.name.pluralize.parameterize %>" class="world-location-type js-filter-block">
+        <header class="type-heading">
+          <h1><%= type.name %></h1>
+          <p><span class="js-filter-count"><%= locations.length %></span> <span class="visuallyhidden">locations</span></p>
+        </header>
+        <div class="content">
+          <% if type === WorldLocationType::Country %>
+            <% locations.group_by {|location| location.name.first.upcase }.sort.each do |letter, locations| %>
+              <div class="js-filter-block">
+                <h2 class="letter"><%= letter %></h2>
+                <ol class="location-list">
+                  <% locations.each do |location| %>
+                    <%= render partial: 'world_location',
+                          locals: { world_location: location,
+                                    options: { class: 'js-filter-item',
+                                      "data-filter-terms" => "#{location.name} #{location.slug}" } } %>
+                  <% end %>
+                </ol>
+              </div>
+            <% end %>
+          <% else %>
+            <ol class="location-list">
+              <% locations.each do |location| %>
+                <%= render partial: 'world_location',
+                          locals: { world_location: location,
+                                    options: { class: 'js-filter-item',
+                                      "data-filter-terms" => "#{location.name} #{location.slug}" } } %>
+              <% end %>
+            </ol>
           <% end %>
-        <% end %>
+        </div>
       </section>
+    <% end %>
+    <div class="js-filter-no-results">
+      <p>No world locations match that filter.</p>
     </div>
   </div>
 </div>
+
