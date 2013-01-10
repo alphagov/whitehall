@@ -13,8 +13,7 @@
     <div class="inner-block">
       <section id="recently-updated" class="latest-documents">
         <header>
-          <h1 class="label">Latest</h1>
-          <%= link_to_feed topic_url(@topic, format: 'atom') %>
+          <h1 class="label">Latest feed</h1>
         </header>
         <% if @recently_changed_documents.any? %>
           <%= render partial: "shared/recently_updated",
@@ -22,6 +21,9 @@
         <% else %>
           <p>There are no updates yet.</p>
         <% end %>
+        <%= render partial: 'shared/feeds',
+              locals: { atom_url: topic_url(@topic, format: "atom"),
+                        govdelivery_url: @topic.govdelivery_url } %>
       </section>
     </div>
   </div>

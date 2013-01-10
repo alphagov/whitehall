@@ -1,0 +1,8 @@
+<div class="feeds">
+  <%= link_to "feed", atom_url, class: "feed" %>
+  <% unless govdelivery_url.blank? %>
+    <%= link_to govdelivery_url, class: 'govdelivery' do %>
+      <span class="visuallyhidden">Email</span> newsletter
+    <% end %>
+  <% end %>
+</div>
