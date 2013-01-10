@@ -19,7 +19,7 @@ jQuery(function($) {
 
   $('.js-hide-extra-logos .organisations-icon-list').hideExtraRows({
     appendToParent: true,
-    showWrapper: $('<li class="show-other-content" />')
+    showWrapper: $('<li/>')
   });
   $('.js-hide-extra-rows').hideExtraRows();
   $('.js-hide-extra-rows-2').hideExtraRows({ rows: 2 });

@@ -16,14 +16,14 @@ class DetailedGuidesControllerTest < ActionController::TestCase
     assert_select "title", text: /${guide.document.title} | Detailed guidance/
   end
 
-  test "organisation links are to their external site" do
-    organisation = create(:organisation, url: 'http://google.com', logo_formatted_name: 'The Organisation')
+  test "shows related organisations" do
+    organisation = create(:organisation, logo_formatted_name: 'The Organisation')
     guide = create(:published_detailed_guide, organisations: [organisation])
 
     get :show, id: guide.document
 
     assert_select_object organisation do
-      assert_select 'a[rel=external][href=http://google.com]', text: 'The Organisation'
+      assert_select "a[href=#{organisation_path(organisation)}]", text: 'The Organisation'
     end
   end
 
