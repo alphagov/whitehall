@@ -40,11 +40,6 @@ Scenario: Inactive world locations are listed but not linked
   Then I should see a country called "Democratic People's Republic of South London"
   But I should not see a link to the country called "Democratic People's Republic of South London"
 
-Scenario: Hard-coded featured countries are featured
-  Given a country "Spain" exists
-  When I visit the world locations page
-  Then the country called "Spain" should be featured
-
 Scenario: World locations tell me what type they are
   Given a country "Spain" exists
   And an overseas territory "British Antarctic Territory" exists
