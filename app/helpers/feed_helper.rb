@@ -1,4 +1,8 @@
 module FeedHelper
+  def link_to_feed(feed_url)
+    link_to "feed", feed_url, class: "feed"
+  end
+
   def documents_as_feed_entries(documents, builder, govdelivery_version = false, feed_updated_timestamp = Time.current)
     feed_updated_timestamp =
       if documents.any?
