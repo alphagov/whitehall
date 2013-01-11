@@ -160,6 +160,8 @@ ActiveRecord::Schema.define(:version => 20130204133738) do
     t.decimal "longitude",        :precision => 15, :scale => 10
     t.string  "email"
     t.string  "contact_form_url"
+    t.integer "contactable_id"
+    t.string  "contactable_type"
   end
 
   add_index "contacts", ["organisation_id"], :name => "index_contacts_on_organisation_id"

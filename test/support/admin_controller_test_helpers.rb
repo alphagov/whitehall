@@ -108,5 +108,69 @@ module AdminControllerTestHelpers
         assert_select "input[type=text][name='#{type}[social_media_accounts_attributes][0][url]']"
       end
     end
+
+    def should_allow_contact_management_for(type)
+      target_class = class_for(type)
+
+      test "creates contact information" do
+        attributes = attributes_for(type)
+
+        topic = create(:topic)
+
+        post :create, type => attributes.merge(
+          contacts_attributes: [{description: "Enquiries", contact_numbers_attributes: [{label: "Fax", number: "020712435678"}]}],
+        )
+
+        assert object = target_class.last
+        assert_equal 1, object.contacts.count
+        assert_equal "Enquiries", object.contacts[0].description
+        assert_equal 1, object.contacts[0].contact_numbers.count
+        assert_equal "Fax", object.contacts[0].contact_numbers[0].label
+        assert_equal "020712435678", object.contacts[0].contact_numbers[0].number
+      end
+
+      test "creating with blank numbers ignores blank numbers" do
+        post :create, type => attributes_for(type).merge(
+          contacts_attributes: {"0" => {
+          description: "Enquiries",
+          contact_numbers_attributes: {
+            "0" => { label: " ", number: " " },
+            "1" => { label: " ", number: " " }
+          }
+        }}
+        )
+
+        created_object = target_class.last
+        assert_not_nil created_object
+        assert_equal 0, created_object.contacts.first.contact_numbers.size
+      end
+
+      test "updating with an empty contact should not create that contact" do
+        object = create(type)
+        attributes = {
+          contacts_attributes: [{description: "", number: ""}]
+        }
+
+        put :update, id: object, type => attributes
+
+        assert_equal 0, object.contacts.count
+      end
+
+      test "updating with blank numbers destroys those blank numbers" do
+        object = create(type)
+        contact = create(:contact, contactable: object)
+        contact_number = create(:contact_number, contact: contact)
+
+        put :update, id: object, type => { contacts_attributes: { 0 => {
+          id: contact,
+          contact_numbers_attributes: {
+          0 => { label: " ", number: " ", id: contact_number }
+        }
+        }}}
+
+        contact.reload
+        assert_equal 0, contact.contact_numbers.count
+      end
+    end
   end
 end

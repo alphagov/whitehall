@@ -3,6 +3,7 @@ require 'test_helper'
 class OrganisationTest < ActiveSupport::TestCase
   should_protect_against_xss_and_content_attacks_on :name, :about_us, :description
   should_have_social_media
+  should_have_contacts
 
   test 'should be invalid without a name' do
     organisation = build(:organisation, name: nil)
@@ -182,41 +183,6 @@ class OrganisationTest < ActiveSupport::TestCase
     representative = create(:special_representative_role)
     organisation = create(:organisation, roles:  [representative])
     assert_equal [representative], organisation.special_representative_roles
-  end
-
-  test 'should be creatable with contact data' do
-    params = {
-      contacts_attributes: [
-        {description: "Office address",
-         email: "someone@gov.uk", address: "Aviation House, London",
-         postcode: "WC2A 1BE", latitude: -0.112311, longitude: 51.215125},
-        {description: "Helpline", contact_numbers_attributes: [
-          {label: "Telephone", number: "020712345678"},
-          {label: "Fax", number: "020712345679"}
-        ]}
-      ]
-    }
-    organisation = create(:organisation, params)
-
-    assert_equal 2, organisation.contacts.count
-    assert_equal "someone@gov.uk", organisation.contacts[0].email
-    assert_equal "Aviation House, London", organisation.contacts[0].address
-    assert_equal "WC2A 1BE", organisation.contacts[0].postcode
-    assert_equal -0.112311, organisation.contacts[0].latitude
-    assert_equal 51.215125, organisation.contacts[0].longitude
-    assert_equal "Helpline", organisation.contacts[1].description
-    assert_equal 2, organisation.contacts[1].contact_numbers.count
-    assert_equal "Telephone", organisation.contacts[1].contact_numbers[0].label
-    assert_equal "020712345678", organisation.contacts[1].contact_numbers[0].number
-    assert_equal "Fax", organisation.contacts[1].contact_numbers[1].label
-    assert_equal "020712345679", organisation.contacts[1].contact_numbers[1].number
-  end
-
-  test "should be creatable when both contacts and contact numbers are blank" do
-    organisation = build(:organisation, contacts_attributes: [
-      {description: "", contact_numbers_attributes: [{label: "", number: ""}]}
-    ])
-    assert organisation.valid?
   end
 
   test 'should be creatable with mainstream link data' do
@@ -420,13 +386,6 @@ class OrganisationTest < ActiveSupport::TestCase
     child.destroy
     assert_equal 0, OrganisationalRelationship.count
     assert parent.reload.child_organisations.empty?
-  end
-
-  test 'destroy deletes related contacts' do
-    organisation = create(:organisation)
-    contact = create(:contact, organisation: organisation)
-    organisation.destroy
-    assert_nil Contact.find_by_id(contact.id)
   end
 
   test 'destroy removes edition relationships' do

@@ -7,6 +7,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
 
   should_be_an_admin_controller
   should_allow_social_media_management_for :organisation
+  should_allow_contact_management_for :organisation
 
   test "index should list all the organisations in alphabetical order" do
     organisations = [create(:organisation, name: "org 1"), create(:organisation, name: "org 2")]
@@ -25,13 +26,6 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert_select organisation_type_list_selector
     assert_select organisation_topics_list_selector
     assert_select organisation_govuk_status_selector
-    assert_select "input[type=text][name='organisation[contacts_attributes][0][description]']"
-    assert_select "textarea[name='organisation[contacts_attributes][0][address]']"
-    assert_select "input[type=text][name='organisation[contacts_attributes][0][postcode]']"
-    assert_select "input[type=text][name='organisation[contacts_attributes][0][email]']"
-    assert_select "input[type=text][name='organisation[contacts_attributes][0][contact_form_url]']"
-    assert_select "input[type=text][name='organisation[contacts_attributes][0][contact_numbers_attributes][0][label]']"
-    assert_select "input[type=text][name='organisation[contacts_attributes][0][contact_numbers_attributes][0][number]']"
     assert_select "select[name='organisation[organisation_logo_type_id]']"
   end
 
@@ -62,44 +56,12 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     post :create, organisation: {
       name: "Anything",
       logo_formatted_name: "Anything",
-      organisation_type_id: organisation_type.id,
-      contacts_attributes: [{description: "", contact_numbers_attributes: [{label: "", number: ""}]}]
+      organisation_type_id: organisation_type.id
     }
 
     organisation = Organisation.last
     assert_kind_of Organisation, organisation
     assert_equal "Anything", organisation.name
-  end
-
-  test "creating should create a new Organisation" do
-    attributes = attributes_for(:organisation,
-      description: "organisation-description",
-      about_us: "organisation-about-us",
-      alternative_format_contact_email: "alternative@example.com"
-    )
-
-    organisation_type = create(:organisation_type)
-    topic = create(:topic)
-
-    post :create, organisation: attributes.merge(
-      organisation_type_id: organisation_type.id,
-      classification_ids: [topic.id],
-      contacts_attributes: [{description: "Enquiries", contact_numbers_attributes: [{label: "Fax", number: "020712435678"}]}],
-      organisation_logo_type_id: OrganisationLogoType::BusinessInnovationSkills.id
-    )
-
-    assert organisation = Organisation.last
-    assert_equal attributes[:name], organisation.name
-    assert_equal attributes[:description], organisation.description
-    assert_equal attributes[:about_us], organisation.about_us
-    assert_equal attributes[:alternative_format_contact_email], organisation.alternative_format_contact_email
-    assert_equal 1, organisation.contacts.count
-    assert_equal "Enquiries", organisation.contacts[0].description
-    assert_equal 1, organisation.contacts[0].contact_numbers.count
-    assert_equal "Fax", organisation.contacts[0].contact_numbers[0].label
-    assert_equal "020712435678", organisation.contacts[0].contact_numbers[0].number
-    assert_equal topic, organisation.topics.first
-    assert_equal OrganisationLogoType::BusinessInnovationSkills, organisation.organisation_logo_type
   end
 
   test "creating correctly set ordering of topics" do
@@ -204,32 +166,6 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
       organisation_type_id: create(:organisation_type).id
     )
     assert_equal 'exempt', Organisation.last.govuk_status
-  end
-
-  test "creating with blank numbers ignores blank numbers" do
-    attributes = attributes_for(:organisation,
-      description: "organisation-description",
-      about_us: "organisation-about-us"
-    )
-
-    organisation_type = create(:organisation_type)
-    topic = create(:topic)
-
-    post :create, organisation: attributes.merge(
-      organisation_type_id: organisation_type.id,
-      classification_ids: [topic.id],
-      contacts_attributes: {"0" => {
-        description: "Enquiries",
-        contact_numbers_attributes: {
-          "0" => { label: " ", number: " " },
-          "1" => { label: " ", number: " " }
-        }
-      }}
-    )
-
-    created_organisation = Organisation.last
-    assert_not_nil created_organisation
-    assert_equal 0, created_organisation.contacts.first.contact_numbers.size
   end
 
   test "showing should load the requested organisation" do
@@ -481,18 +417,6 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert_template "organisations/edit"
   end
 
-  test "updating with an empty contact should not create that contact" do
-    organisation = create(:organisation, name: "Ministry of Sound")
-    organisation_attributes = {
-      name: "Ministry of Sound",
-      contacts_attributes: [{description: "", number: ""}]
-    }
-
-    put :update, id: organisation, organisation: organisation_attributes
-
-    assert_equal 0, organisation.contacts.count
-  end
-
   test "update should remove all related topics if none specified" do
     organisation_attributes = {name: "Ministry of Sound"}
     organisation = create(:organisation,
@@ -515,22 +439,6 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
 
     organisation.reload
     assert_equal [], organisation.parent_organisations
-  end
-
-  test "updating with blank numbers destroys those blank numbers" do
-    organisation = create(:organisation)
-    contact = create(:contact, organisation: organisation)
-    contact_number = create(:contact_number, contact: contact)
-
-    put :update, id: organisation, organisation: { contacts_attributes: { 0 => {
-      id: contact,
-      contact_numbers_attributes: {
-        0 => { label: " ", number: " ", id: contact_number }
-      }
-    }}}
-
-    contact.reload
-    assert_equal 0, contact.contact_numbers.count
   end
 
   test "updating should allow ordering of featured editions" do

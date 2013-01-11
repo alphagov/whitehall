@@ -1,7 +1,7 @@
 require 'validators/url_validator.rb'
 
 class Contact < ActiveRecord::Base
-  belongs_to :organisation
+  belongs_to :contactable, polymorphic: true
   has_many :contact_numbers, dependent: :destroy
   validates :description, presence: true
   validates :contact_form_url, url: true, allow_blank: true

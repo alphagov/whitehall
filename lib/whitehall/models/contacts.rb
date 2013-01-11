@@ -2,7 +2,7 @@ module Whitehall::Models::Contacts
   extend ActiveSupport::Concern
 
   included do
-    has_many :contacts, dependent: :destroy
+    has_many :contacts, as: :contactable, dependent: :destroy
     accepts_nested_attributes_for :contacts, reject_if: :contact_and_contact_numbers_are_blank
   end
 

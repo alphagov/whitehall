@@ -3,6 +3,7 @@ require 'test_helper'
 class WorldwideOfficeTest < ActiveSupport::TestCase
   should_protect_against_xss_and_content_attacks_on :name, :summary, :description
   should_have_social_media
+  should_have_contacts
 
   test 'should set a slug from the field name' do
     office = create(:worldwide_office, name: 'Office Name')
