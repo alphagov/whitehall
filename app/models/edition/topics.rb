@@ -15,4 +15,19 @@ module Edition::Topics
     topics.each(&:update_counts)
     true
   end
+
+  module ClassMethods
+    def in_topic(topic)
+      joins(:topics).where('classifications.id' => topic)
+    end
+
+    def published_in_topic(topic)
+      published.in_topic(topic)
+    end
+
+    def scheduled_in_topic(topic)
+      scheduled.in_topic(topic)
+    end
+  end
+
 end

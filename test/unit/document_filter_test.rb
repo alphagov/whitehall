@@ -259,6 +259,22 @@ class DocumentFilterTest < ActiveSupport::TestCase
     assert_equal [topic], filter.selected_topics
   end
 
+  test "avoids loading the wrong document when combining topic and department filter" do
+    organisation = create(:organisation)
+    policy = create(:published_policy)
+    topic = create(:topic, policies: [policy])
+    news_article = create(:published_news_article, related_policies: [policy], organisations: [organisation])
+
+    document_scope = Announcement.published.includes(:document, :organisations)
+    filter = Whitehall::DocumentFilter.new(document_scope,
+      departments: [organisation.slug],
+      topics: [topic.slug],
+      page: 1)
+    results = filter.documents
+
+    assert_equal news_article.document_id, filter.documents.first.document.id
+  end
+
   test 'does not use n+1 selects when filtering by topics' do
     policy = create(:published_policy)
     topic = create(:topic, policies: [policy])
