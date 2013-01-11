@@ -2,6 +2,7 @@ require 'test_helper'
 
 class OrganisationTest < ActiveSupport::TestCase
   should_protect_against_xss_and_content_attacks_on :name, :about_us, :description
+  should_have_social_media
 
   test 'should be invalid without a name' do
     organisation = build(:organisation, name: nil)
@@ -426,13 +427,6 @@ class OrganisationTest < ActiveSupport::TestCase
     contact = create(:contact, organisation: organisation)
     organisation.destroy
     assert_nil Contact.find_by_id(contact.id)
-  end
-
-  test 'destroy deletes related social media accounts' do
-    organisation = create(:organisation)
-    social_media_account = create(:social_media_account, socialable: organisation)
-    organisation.destroy
-    assert_nil SocialMediaAccount.find_by_id(social_media_account.id)
   end
 
   test 'destroy removes edition relationships' do

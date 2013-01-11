@@ -1,4 +1,4 @@
-module DocumentBehaviour
+module ModelHelpers
   extend ActiveSupport::Concern
 
   module ClassMethods
@@ -6,7 +6,7 @@ module DocumentBehaviour
       test "should include the Images behaviour module" do
         # *NOTE*. The Edition::Images module is tested separately so it
         # should be enough to just test its inclusion here.
-        assert edition_class_from_test_name.ancestors.include?(Edition::Images)
+        assert class_from_test_name.ancestors.include?(Edition::Images)
       end
     end
 
@@ -14,7 +14,7 @@ module DocumentBehaviour
       test "should include the StatisticalDataSets module" do
         # *NOTE*. The Edition::StatisticalDataSet module is tested separately so it
         # should be enough to just test its inclusion here.
-        assert edition_class_from_test_name.ancestors.include?(Edition::StatisticalDataSets)
+        assert class_from_test_name.ancestors.include?(Edition::StatisticalDataSets)
       end
     end
 
@@ -22,7 +22,7 @@ module DocumentBehaviour
       test "should include the RoleAppointment module" do
         # *NOTE*. The Edition::Appointment module is tested separately so it
         # should be enough to just test its inclusion here.
-        assert edition_class_from_test_name.ancestors.include?(Edition::Appointment)
+        assert class_from_test_name.ancestors.include?(Edition::Appointment)
       end
     end
 
@@ -30,7 +30,7 @@ module DocumentBehaviour
       test "should include the RoleAppointments module" do
         # *NOTE*. The Edition::RoleAppointments module is tested separately so it
         # should be enough to just test its inclusion here.
-        assert edition_class_from_test_name.ancestors.include?(Edition::RoleAppointments)
+        assert class_from_test_name.ancestors.include?(Edition::RoleAppointments)
       end
     end
 
@@ -38,7 +38,7 @@ module DocumentBehaviour
       test "should include the FirstImagePulledOut module" do
         # *NOTE*. The Edition::FirstImagePulledOut module is tested separately so it
         # should be enough to just test its inclusion here.
-        assert edition_class_from_test_name.ancestors.include?(Edition::FirstImagePulledOut)
+        assert class_from_test_name.ancestors.include?(Edition::FirstImagePulledOut)
       end
     end
 
@@ -46,7 +46,15 @@ module DocumentBehaviour
       test "should include the Attachable behaviour module" do
         # *NOTE*. The ::Attachable module is tested separately so it
         # should be enough to just test its inclusion here.
-        assert edition_class_from_test_name.ancestors.include?(::Attachable)
+        assert class_from_test_name.ancestors.include?(::Attachable)
+      end
+    end
+
+    def should_have_social_media
+      test "should include the SocialMedia module" do
+        # *NOTE*. The ::Attachable module is tested separately so it
+        # should be enough to just test its inclusion here.
+        assert class_from_test_name.ancestors.include?(Whitehall::Models::SocialMedia)
       end
     end
 
@@ -61,15 +69,26 @@ module DocumentBehaviour
 
     def should_allow_inline_attachments
       test "should allow inline attachments" do
-        assert edition_class_from_test_name.new.allows_inline_attachments?
+        assert class_from_test_name.new.allows_inline_attachments?
       end
     end
 
     def should_not_allow_inline_attachments
       test "should not allow inline attachments" do
-        refute edition_class_from_test_name.new.allows_inline_attachments?
+        refute class_from_test_name.new.allows_inline_attachments?
       end
     end
 
+    def should_allow_a_summary_to_be_written
+      test "should allow a summary to be written" do
+        assert class_from_test_name.new.can_have_summary?
+      end
+    end
+
+    def should_not_allow_a_summary_to_be_written
+      test "should not allow a summary to be written" do
+        refute class_from_test_name.new.can_have_summary?
+      end
+    end
   end
 end

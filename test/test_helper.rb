@@ -20,6 +20,7 @@ Mocha::Configuration.prevent(:stubbing_non_existent_method)
 
 class ActiveSupport::TestCase
   include FactoryGirl::Syntax::Methods
+  include ModelHelpers
   include ModelStubbingHelpers
   include HtmlAssertions
   extend GovspeakValidationTestHelper
@@ -87,7 +88,7 @@ class ActiveSupport::TestCase
       document_type.to_s.classify.constantize
     end
 
-    def edition_class_from_test_name
+    def class_from_test_name
       name.sub(/Test$/, '').constantize
     end
 
@@ -96,8 +97,8 @@ class ActiveSupport::TestCase
     end
   end
 
-  def edition_class_from_test_name
-    self.class.edition_class_from_test_name
+  def class_from_test_name
+    self.class.class_from_test_name
   end
 
   def factory_name_from_test
@@ -185,8 +186,4 @@ class PresenterTestCase < ActionView::TestCase
   def assert_select_from(text, *args, &block)
     assert_select HTML::Document.new(text).root, *args, &block
   end
-end
-
-class EditionTestCase < ActiveSupport::TestCase
-  include DocumentBehaviour
 end
