@@ -4,6 +4,7 @@ class Organisation < ActiveRecord::Base
   include Searchable
   include Rails.application.routes.url_helpers
   include Whitehall::Models::SocialMedia
+  include Whitehall::Models::Contacts
 
   belongs_to :organisation_type
 
@@ -134,12 +135,10 @@ class Organisation < ActiveRecord::Base
 
   has_many :users, dependent: :nullify
 
-  has_many :contacts, dependent: :destroy
   has_many :organisation_mainstream_links, dependent: :destroy
 
   has_many :corporate_information_pages, dependent: :destroy
 
-  accepts_nested_attributes_for :contacts, reject_if: :contact_and_contact_numbers_are_blank
   accepts_nested_attributes_for :organisation_mainstream_links, allow_destroy: true, reject_if: :all_blank
   accepts_nested_attributes_for :organisation_roles
   accepts_nested_attributes_for :edition_organisations
@@ -275,21 +274,6 @@ class Organisation < ActiveRecord::Base
   end
 
   private
-
-  def contact_and_contact_numbers_are_blank(attributes)
-    attributes.all? { |key, value|
-      key == '_destroy' ||
-      value.blank? || (
-        (key == "contact_numbers_attributes") &&
-        value.all? { |contact_number_attributes|
-          contact_number_attributes.all? { |contact_number_key, contact_number_value|
-            contact_number_key == '_destroy' ||
-            contact_number_value.blank?
-          }
-        }
-      )
-    }
-  end
 
   def sub_organisations_must_have_a_parent
     if organisation_type && organisation_type.sub_organisation?
