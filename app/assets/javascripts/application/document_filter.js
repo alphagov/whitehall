@@ -190,7 +190,7 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
           if (j > 0) {
             if (formStatus.selected[i].id == "publication_filter_option") {
               if (formStatus.selected[i].value != "all") {
-                $title.append('<span>: '+formStatus.selected[i].title[0]+'</span>');
+                $title.html($title.text().trim() + '<span>: '+formStatus.selected[i].title[0]+'</span>');
               }
             } else if (formStatus.selected[i].id != 'sub_orgs' && formStatus.selected[i].id != 'date') {
               if (formStatus.selected[i].id == 'topics') {
