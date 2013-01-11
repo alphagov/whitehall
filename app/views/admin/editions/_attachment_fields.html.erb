@@ -39,12 +39,32 @@
           <%= attachment_fields.text_field :price, label_text: "Price in £s" %>
         <% end %>
         <%= attachment_fields.check_box :accessible, label_text: "Attachment is accessible" %>
+
+        <div class="attachment">
+          <p>Current data: <%= link_to_attachment(edition_attachments_fields.object.attachment) %></p>
+
+          <% keep_destroy_or_replace =
+               if attachment_fields.object[:_destroy].present? && attachment_fields.object[:_destroy] == '1'
+                 'destroy'
+               elsif attachment_fields.object.attachment_data.file_cache.present?
+                 'replace'
+               else
+                 'keep'
+               end %>
+          <%= label_tag nil, class: 'radio' do %><%= attachment_fields.radio_button :attachment_action, 'keep', checked: keep_destroy_or_replace == 'keep' %>Keep<% end %>
+          <%= label_tag nil, class: 'radio' do %><%= attachment_fields.radio_button :attachment_action, 'remove', checked: keep_destroy_or_replace == 'destroy' %>Remove<% end %>
+          <%= label_tag nil, class: 'radio' do %><%= attachment_fields.radio_button :attachment_action, 'replace', checked: keep_destroy_or_replace == 'replace' %>Replace<% end %>
+          <%= attachment_fields.fields_for :attachment_data do |attachment_data_fields| %>
+            <%= attachment_data_fields.label :file, 'Replacement' %>
+            <%= attachment_data_fields.file_field :file %>
+
+            <% if attachment_data_fields.object.file_cache.present? %>
+              <span class="already_uploaded"><%= File.basename(attachment_data_fields.object.file_cache) %> already uploaded as replacement</span>
+            <% end %>
+            <%= attachment_data_fields.hidden_field :file_cache %>
+          <% end %>
+        </div>
       <% end %>
-      <p class="attachment">
-        <% label_text = link_to_attachment(edition_attachments_fields.object.attachment) + " (uncheck to remove)" %>
-        <% checkbox_args = nested_attribute_destroy_checkbox_options(edition_attachments_fields, label_text: label_text) %>
-        <%= edition_attachments_fields.check_box :_destroy, *checkbox_args  %>
-      </p>
       <% if show_inline_attachment_help %>
         <p>Markdown to use:
           <input type="text" readonly="readonly" value="!@<%= i += 1 %>" />

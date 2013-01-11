@@ -96,13 +96,13 @@ end
 
 When /^I remove the attachment from the publication "([^"]*)"$/ do |title|
   begin_editing_document title
-  uncheck "edition_edition_attachments_attributes_0__destroy"
+  choose "Remove"
   click_button "Save"
 end
 
 When /^I remove the attachment from a new draft of the publication "([^"]*)"$/ do |title|
   begin_new_draft_document title
-  uncheck "edition_edition_attachments_attributes_0__destroy"
+  choose "Remove"
   click_button "Save"
 end
 
@@ -165,7 +165,18 @@ Then /^the metadata changes should not be public until the draft is published$/ 
 end
 
 When /^I replace the data file of the attachment in a new draft of the publication$/ do
-  pending
+  pub = Publication.last
+  visit edit_admin_publication_path(pub)
+  @old_attachment_data = pub.attachments.first.attachment_data
+  new_file = pdf_attachment
+  @new_attachment_filename = File.basename(new_file)
+  click_button "Create new edition"
+  within "#edition_attachment_fields" do
+    choose 'Replace'
+    attach_file 'Replacement', new_file.path
+  end
+  fill_in_change_note_if_required
+  click_button "Save"
 end
 
 Then /^the new data file should not be public until the draft is published$/ do
