@@ -72,8 +72,9 @@ module Admin::EditionsHelper
 
     def replacement_attachment_data_fields
       return if object.new_record?
-      fields_for(:attachment_data) do |attachment_data_fields|
+      fields_for(:attachment_data, include_id: false) do |attachment_data_fields|
         contents = [
+          attachment_data_fields.hidden_field(:to_replace_id, value: attachment_data_fields.object.id),
           attachment_data_fields.label(:file, 'Replacement'),
           attachment_data_fields.file_field(:file)
         ]
