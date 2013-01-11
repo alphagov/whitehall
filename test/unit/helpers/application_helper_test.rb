@@ -136,12 +136,18 @@ class ApplicationHelperTest < ActionView::TestCase
     assert_equal publications_path, current_main_navigation_path(controller: "publications", action: "show")
   end
 
+  test "statistics-related publication filter should be related to statistics main navigation" do
+    assert_equal publications_path(publication_filter_option: 'statistics'), current_main_navigation_path(controller: "publications", action: "index", publication_filter_option: 'statistics')
+  end
+
   test "consultation-related pages should be related to consulatations main navigation" do
-    assert_equal consultations_path, current_main_navigation_path(controller: "consultations", action: "index")
-    assert_equal consultations_path, current_main_navigation_path(controller: "consultations", action: "open")
-    assert_equal consultations_path, current_main_navigation_path(controller: "consultations", action: "closed")
-    assert_equal consultations_path, current_main_navigation_path(controller: "consultations", action: "show")
-    assert_equal consultations_path, current_main_navigation_path(controller: "consultation_responses", action: "show")
+    expected = publications_path(publication_filter_option: 'consultations')
+    assert_equal expected, current_main_navigation_path(controller: "consultations", action: "index")
+    assert_equal expected, current_main_navigation_path(controller: "consultations", action: "open")
+    assert_equal expected, current_main_navigation_path(controller: "consultations", action: "closed")
+    assert_equal expected, current_main_navigation_path(controller: "consultations", action: "show")
+    assert_equal expected, current_main_navigation_path(controller: "consultation_responses", action: "show")
+    assert_equal expected, current_main_navigation_path(controller: "publications", action: "index", publication_filter_option: 'consultations')
   end
 
   test "minister-related pages should be related to ministers main navigation" do

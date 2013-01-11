@@ -196,15 +196,21 @@ module ApplicationHelper
         how_government_works_path
       end
     when "site"
-        root_path
+      root_path
     when "announcements", "news_articles", "speeches"
       announcements_path
     when "topics"
       topics_path
     when "publications"
-      publications_path
+      if parameters[:publication_filter_option] == 'consultations'
+        publications_path(publication_filter_option: 'consultations')
+      elsif parameters[:publication_filter_option] == 'statistics'
+        publications_path(publication_filter_option: 'statistics')
+      else
+        publications_path
+      end
     when "consultations", "consultation_responses"
-      consultations_path
+      publications_path(publication_filter_option: 'consultations')
     when "ministerial_roles"
       ministerial_roles_path
     when "organisations", "corporate_information_pages"

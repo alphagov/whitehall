@@ -35,8 +35,10 @@
                 <li><%= main_navigation_link_to "Policies", policies_path %></li>
                 <li><span class="toggler <%= main_navigation_documents_class %>">Documents</span>
                   <ul class="subtype content js-hidden">
-                    <li><%= main_navigation_link_to "Publications", publications_path %></li>
                     <li><%= main_navigation_link_to "Announcements", announcements_path %></li>
+                    <li><%= main_navigation_link_to "Consultations", publications_filter_path(publication_filter_option: 'consultations') %></li>
+                    <li><%= main_navigation_link_to "Publications", publications_path %></li>
+                    <li><%= main_navigation_link_to "Statistics", publications_filter_path(publication_filter_option: 'statistics') %></li>
                   </ul>
                 </li>
               </ul>
