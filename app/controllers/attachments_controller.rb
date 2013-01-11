@@ -6,7 +6,12 @@ class AttachmentsController < ApplicationController
     full_path = File.expand_path(clean_path)
 
     if attachment_visible?(params[:id])
-      send_upload full_path, public: current_user.nil?
+      replacement = AttachmentData.find(params[:id]).replaced_by
+      if replacement
+        redirect_to replacement.url
+      else
+        send_upload full_path, public: current_user.nil?
+      end
     else
       redirect_to_placeholder full_path
     end
