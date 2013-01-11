@@ -36,4 +36,18 @@ Then /^the worldwide office should not be visible from the public website$/ do
   end
 end
 
-After { |s| save_and_open_page if s.failed? }
+Given /^a worldwide office "([^"]*)"$/ do |name|
+  create(:worldwide_office, name: name)
+end
+
+When /^I add a "([^"]*)" social media link "([^"]*)"$/ do |social_service, url|
+  visit edit_admin_worldwide_office_path(WorldwideOffice.last)
+  select social_service, from: "Service"
+  fill_in "Url", with: url
+  click_on "Save"
+end
+
+Then /^the social link should be shown on the public website$/ do
+  visit worldwide_office_path(WorldwideOffice.last)
+  assert page.has_css?(".social-media .social-media-link")
+end

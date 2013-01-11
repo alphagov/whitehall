@@ -11,9 +11,12 @@ Feature: Worldwide offices
     * a logo formatted name (always using the standard HMG crest for now)
   * Each world office can be associated with 1+ world locations, and shows on the world locations page to which they are associated (see mock up on the [ticket](https://www.pivotaltracker.com/story/show/41026113))
   * Each can have corporate information pages (like orgs)
+  * Only GDS editors can manage them
+
+  Background:
+    Given I am a GDS editor
 
   Scenario: Creating worldwide office
-    Given I am a GDS editor
     When I create a worldwide office "Department of Beards in France" with a summary and description
     Then I should see the worldwide office information on the public website
     And the "Department of Beards in France" logo should show correctly with the HMG crest
@@ -23,7 +26,13 @@ Feature: Worldwide offices
     Then the worldwide office should not be visible from the public website
 
   Scenario: Managing social media links
+    Given a worldwide office "Beards in France"
+    Given a social media service "Twooter"
+    When I add a "Twooter" social media link "http://twooter.com/beards-in-france"
+    Then the social link should be shown on the public website
+
   Scenario: Managing contact information
   Scenario: Associating world locations with offices
   Scenario: Adding corporate information pages to offices
+  Scenario: Writers/Editors cannot manage worldwide offices
 

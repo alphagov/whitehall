@@ -6,6 +6,7 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
   end
 
   should_be_an_admin_controller
+  should_allow_social_media_management_for :worldwide_office
 
   test "shows a list of worldwide offices" do
     office = create(:worldwide_office)
