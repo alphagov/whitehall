@@ -41,7 +41,7 @@ class TopicalEventsControllerTest < ActionController::TestCase
 
     get :show, id: event
 
-    feed_url = ERB::Util.html_escape(topic_url(event, format: "atom"))
+    feed_url = ERB::Util.html_escape(topical_event_url(event, format: "atom"))
     assert_select "a.feed[href=?]", feed_url
   end
   test 'show has a link to govdelivery if one exists' do
