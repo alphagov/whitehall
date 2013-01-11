@@ -83,7 +83,7 @@ class ActiveSupport::TestCase
       end
     end
 
-    def edition_class_for(document_type)
+    def class_for(document_type)
       document_type.to_s.classify.constantize
     end
 
@@ -107,6 +107,7 @@ end
 
 class ActionController::TestCase
   include HtmlAssertions
+  include AdminControllerTestHelpers
   include AdminEditionControllerTestHelpers
   include AdminEditionAttachableControllerTestHelpers
   include AdminEditionControllerScheduledPublishingTestHelpers

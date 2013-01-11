@@ -28,7 +28,7 @@ module AdminEditionControllerTestHelpers
     end
 
     def should_have_summary(edition_type)
-      edition_class = edition_class_for(edition_type)
+      edition_class = class_for(edition_type)
 
       test "create should create a new #{edition_type} with summary" do
         attributes = controller_attributes_for(edition_type)
@@ -54,7 +54,7 @@ module AdminEditionControllerTestHelpers
     end
 
     def should_allow_unpublishing_for(edition_type)
-      edition_class = edition_class_for(edition_type)
+      edition_class = class_for(edition_type)
 
       test "should display unpublish button" do
         edition = create(edition_type)
@@ -78,7 +78,7 @@ module AdminEditionControllerTestHelpers
     end
 
     def should_allow_creating_of(edition_type)
-      edition_class = edition_class_for(edition_type)
+      edition_class = class_for(edition_type)
 
       test "new displays edition form" do
         get :new
@@ -283,7 +283,7 @@ module AdminEditionControllerTestHelpers
     end
 
     def should_allow_attachment_references_for(edition_type)
-      edition_class = edition_class_for(edition_type)
+      edition_class = class_for(edition_type)
 
       test 'new should allow users to add reference metadata to an attachment' do
         get :new
@@ -333,7 +333,7 @@ module AdminEditionControllerTestHelpers
 
 
     def should_show_inline_attachment_help_for(edition_type)
-      edition_class = edition_class_for(edition_type)
+      edition_class = class_for(edition_type)
 
       test 'edit shows markdown hint for first attachment' do
         draft_edition = create("draft_#{edition_type}", :with_attachment)
@@ -359,7 +359,7 @@ module AdminEditionControllerTestHelpers
     end
 
     def should_not_show_inline_attachment_help_for(edition_type)
-      edition_class = edition_class_for(edition_type)
+      edition_class = class_for(edition_type)
 
       test 'edit does not show markdown hint for first attachment' do
         draft_edition = create("draft_#{edition_type}", :with_attachment)
@@ -372,7 +372,7 @@ module AdminEditionControllerTestHelpers
     end
 
     def should_allow_attached_images_for(edition_type)
-      edition_class = edition_class_for(edition_type)
+      edition_class = class_for(edition_type)
 
       test "new displays edition image fields" do
         get :new
@@ -895,7 +895,7 @@ module AdminEditionControllerTestHelpers
     end
 
     def should_allow_related_policies_for(document_type)
-      edition_class = edition_class_for(document_type)
+      edition_class = class_for(document_type)
 
       test "new displays document form with related policies field" do
         draft_policy = create(:draft_policy)
@@ -992,7 +992,7 @@ module AdminEditionControllerTestHelpers
     end
 
     def should_allow_references_to_statistical_data_sets_for(edition_type)
-      edition_class = edition_class_for(edition_type)
+      edition_class = class_for(edition_type)
 
       test "new should display statistical data sets field" do
         get :new
@@ -1051,7 +1051,7 @@ module AdminEditionControllerTestHelpers
     end
 
     def should_allow_organisations_for(edition_type)
-      edition_class = edition_class_for(edition_type)
+      edition_class = class_for(edition_type)
 
       test "new should display edition organisations field" do
         get :new
@@ -1143,7 +1143,7 @@ module AdminEditionControllerTestHelpers
     end
 
     def should_allow_association_with_topics(edition_type)
-      edition_class = edition_class_for(edition_type)
+      edition_class = class_for(edition_type)
 
       test "new should display topics field" do
         get :new
@@ -1221,7 +1221,7 @@ module AdminEditionControllerTestHelpers
     end
 
     def should_allow_role_appointments_for(edition_type)
-      edition_class = edition_class_for(edition_type)
+      edition_class = class_for(edition_type)
 
       test "new should display edition role appointments field" do
         get :new
@@ -1284,7 +1284,7 @@ module AdminEditionControllerTestHelpers
 
 
     def should_allow_ministerial_roles_for(edition_type)
-      edition_class = edition_class_for(edition_type)
+      edition_class = class_for(edition_type)
 
       test "new should display edition ministerial roles field" do
         get :new
@@ -1368,7 +1368,7 @@ module AdminEditionControllerTestHelpers
     end
 
     def should_allow_overriding_of_first_published_at_for(edition_type)
-      edition_class = edition_class_for(edition_type)
+      edition_class = class_for(edition_type)
 
       test "new should display first_published_at fields" do
         get :new
@@ -1452,7 +1452,7 @@ module AdminEditionControllerTestHelpers
     end
 
     def should_allow_association_with_related_mainstream_content(edition_type)
-      edition_class = edition_class_for(edition_type)
+      edition_class = class_for(edition_type)
 
       test "new should display fields for related mainstream content" do
         get :new
