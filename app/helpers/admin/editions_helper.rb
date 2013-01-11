@@ -47,46 +47,6 @@ module Admin::EditionsHelper
       end
     end
 
-    def attachment_action_fields
-      return if object.new_record?
-      keep_destroy_or_replace =
-        if object[:_destroy].present? && object[:_destroy] == '1'
-          'destroy'
-        elsif object.attachment_data.file_cache.present?
-          'replace'
-        else
-          'keep'
-        end
-      [
-        @template.label_tag(nil, class: 'radio inline') do
-          radio_button(:attachment_action, 'keep', checked: keep_destroy_or_replace == 'keep')+ ' Keep'
-        end,
-        @template.label_tag(nil, class: 'radio inline') do
-          radio_button(:attachment_action, 'remove', checked: keep_destroy_or_replace == 'destroy')+' Remove'
-        end,
-        @template.label_tag(nil, class: 'radio inline') do
-          radio_button(:attachment_action, 'replace', checked: keep_destroy_or_replace == 'replace')+' Replace'
-        end
-      ].join.html_safe
-    end
-
-    def replacement_attachment_data_fields
-      return if object.new_record?
-      fields_for(:attachment_data, include_id: false) do |attachment_data_fields|
-        contents = [
-          attachment_data_fields.hidden_field(:to_replace_id, value: attachment_data_fields.object.id),
-          attachment_data_fields.label(:file, 'Replacement'),
-          attachment_data_fields.file_field(:file)
-        ]
-        if attachment_data_fields.object.file_cache.present?
-          text = "#{File.basename(attachment_data_fields.object.file_cache)} already uploaded as replacement"
-          contents << @template.content_tag(:span, text, class: 'already_uploaded')
-        end
-        contents << attachment_data_fields.hidden_field(:file_cache)
-        contents.join.html_safe
-      end
-    end
-
     def lead_organisations_fields
       edition_organisations =
         if object.errors.any?

@@ -42,8 +42,8 @@
 
         <div class="attachment">
           <p>Current data: <%= link_to_attachment(edition_attachments_fields.object.attachment) %></p>
-          <p>Actions: <%= attachment_fields.attachment_action_fields %></p>
-          <%= attachment_fields.replacement_attachment_data_fields %>
+          <p>Actions: <%= attachment_action_fields(attachment_fields) %></p>
+          <%= replacement_attachment_data_fields(attachment_fields) %>
         </div>
       <% end %>
       <% if show_inline_attachment_help %>
