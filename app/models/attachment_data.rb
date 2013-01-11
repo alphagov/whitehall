@@ -7,6 +7,12 @@ class AttachmentData < ActiveRecord::Base
 
   validates :file, presence: true
 
+  attr_accessor :to_replace_id
+
+  def replaced_by
+    nil
+  end
+
   def filename
     url && File.basename(url)
   end
