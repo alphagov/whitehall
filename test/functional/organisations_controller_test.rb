@@ -753,7 +753,6 @@ class OrganisationsControllerTest < ActionController::TestCase
     organisation = create(:organisation, editions: editions)
     get :show, id: organisation
 
-    assert_select ".latest-documents h1", "Latest"
     editions[0,3].each do |edition|
       assert_select_prefix_object edition, :recent
     end
@@ -808,6 +807,15 @@ class OrganisationsControllerTest < ActionController::TestCase
 
     refute_select "a[href='#{link.url}']", text: link.title
   end
+
+  test 'show hass a link to govdelivery if one exists' do
+    organisation = create(:organisation, govdelivery_url: 'http://my-govdelivery-url.com')
+
+    get :show, id: organisation
+
+    assert_select ".govdelivery[href='http://my-govdelivery-url.com']"
+  end
+
 
   private
 
