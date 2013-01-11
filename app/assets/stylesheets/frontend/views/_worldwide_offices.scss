@@ -151,7 +151,7 @@
     }
   }
 
-  .about-us {
+  .about-us, .contact-us {
     @include media(tablet){
       float: left;
       width: 100%;
@@ -263,7 +263,7 @@
 
   } // end #who
 
-  .contact-wrapper, .corporate-information {
+  .corporate-information {
     float: left;
     display: inline;
     width: 100%;
@@ -404,6 +404,7 @@
   // org color bands
 
   .social-media h2,
+  .contact-us h1,
   #about-us h1 {
     border-bottom-width: 5px;
     border-bottom-style: solid;

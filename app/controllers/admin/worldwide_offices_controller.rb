@@ -1,8 +1,9 @@
 class Admin::WorldwideOfficesController < Admin::BaseController
   respond_to :html
 
-  before_filter :social_media, only: [:new, :create, :edit, :update]
-  attr :social
+  before_filter :social_helper, only: [:new, :create, :edit, :update]
+  before_filter :contact_helper, only: [:create, :update]
+  attr :social, :contact
 
   def index
     respond_with @worldwide_offices = WorldwideOffice.all
@@ -15,6 +16,7 @@ class Admin::WorldwideOfficesController < Admin::BaseController
   end
 
   def create
+    contact.destroy_blank_phone_numbers(params[:worldwide_office])
     social.destroy_blank_social_media_accounts(params[:worldwide_office])
     @worldwide_office = WorldwideOffice.new(params[:worldwide_office])
 
@@ -32,6 +34,7 @@ class Admin::WorldwideOfficesController < Admin::BaseController
   end
 
   def update
+    contact.destroy_blank_phone_numbers(params[:worldwide_office])
     social.destroy_blank_social_media_accounts(params[:worldwide_office])
     @worldwide_office = WorldwideOffice.find(params[:id])
 
@@ -50,7 +53,11 @@ class Admin::WorldwideOfficesController < Admin::BaseController
 
   private
 
-  def social_media
+  def social_helper
     @social = Whitehall::Controllers::SocialMedia.new
+  end
+
+  def contact_helper
+    @contact = Whitehall::Controllers::Contacts.new
   end
 end

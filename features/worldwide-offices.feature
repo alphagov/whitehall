@@ -31,7 +31,11 @@ Feature: Worldwide offices
     Then the social link should be shown on the public website
 
   Scenario: Managing contact information
+    Given a worldwide office "Beards in France"
+    When I add an "Hair division" contact with address and phone number
+    Then the "Hair division" details should be shown on the public website
+
+  Scenario: Adding office hours to a worldwide office
   Scenario: Associating world locations with offices
   Scenario: Adding corporate information pages to offices
-  Scenario: Writers/Editors cannot manage worldwide offices
 
