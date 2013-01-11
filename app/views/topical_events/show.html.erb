@@ -1,14 +1,14 @@
-<% page_title @topical_event.name %>
+<% page_title @classification.name %>
 <% page_class "topical-events-show" %>
-<% atom_discovery_link_tag topic_url(@topical_event, format: 'atom'), "Latest activity on #{@topical_event.name}" %>
+<% atom_discovery_link_tag topical_event_url(@classification, format: 'atom'), "Latest activity on #{@classification.name}" %>
 
-<%= content_tag_for(:div, @topical_event, class: "classification #{@topical_event.class.name.underscore}") do %>
+<%= content_tag_for(:div, @classification, class: "classification #{@classification.class.name.underscore}") do %>
 
   <div class="block">
     <div class="inner-block">
       <header class="page-title">
-        <h1><span><%= image_tag(@topical_event.logo_url, alt: @topical_event.logo_alt_text) if @topical_event.logo_url %></span></h1>
-        <h2><span><%= @topical_event.name %></span></h2>
+        <h1><span><%= image_tag(@classification.logo_url, alt: @classification.logo_alt_text) if @classification.logo_url %></span></h1>
+        <h2><span><%= @classification.name %></span></h2>
       </header>
 
       <div class="page-description">
@@ -23,15 +23,15 @@
             <p class="no-updates">There are no updates yet.</p>
           <% end %>
           <%= render partial: 'shared/feeds',
-                locals: { atom_url: topic_url(@topical_event, format: "atom"),
-                          govdelivery_url: @topical_event.govdelivery_url } %>
+                locals: { atom_url: topical_event_url(@classification, format: "atom"),
+                          govdelivery_url: @classification.govdelivery_url } %>
         </section>
         <section class="description">
-          <%= govspeak_to_html @topical_event.description %>
+          <%= govspeak_to_html @classification.description %>
 
-          <% if @topical_event.social_media_accounts.any? %>
+          <% if @classification.social_media_accounts.any? %>
             <%= render partial: 'shared/social_media_accounts',
-                      locals: { socialable: @topical_event, followus: true } %>
+                      locals: { socialable: @classification, followus: true } %>
           <% end %>
         </section>
       </div>
@@ -69,7 +69,7 @@
           <div class="content">
             <%= render partial: "publications/list_description", locals: {publications: @publications} %>
             <p class="see-all">
-              <%#= link_to 'See all publications', publications_filter_path(@topical_event) %>
+              <%#= link_to 'See all publications', publications_filter_path(@classification) %>
             </p>
           </div>
         </section>
@@ -80,7 +80,7 @@
           <div class="content">
             <%= render partial: "announcements/list_description", locals: {announcements: @announcements} %>
             <p class="see-all">
-              <%#= link_to "See all announcements", announcements_filter_path(@topical_event) %>
+              <%#= link_to "See all announcements", announcements_filter_path(@classification) %>
             </p>
           </div>
         </section>
@@ -117,7 +117,7 @@
         <h1 class="label">Departments</h1>
         <div class="content">
           <ul>
-            <% @topical_event.lead_organisations.each do |organisation| %>
+            <% @classification.lead_organisations.each do |organisation| %>
               <%= content_tag_for(:li, organisation, class: organisation.slug) do %>
                 <%= link_to organisation_path(organisation),
                       title: organisation.logo_formatted_name,

@@ -4,15 +4,15 @@ class TopicalEventsController < ClassificationsController
   end
 
   def show
-    @topical_event = TopicalEvent.find(params[:id])
-    @policies = @topical_event.published_policies
-    @publications = PublicationesquePresenter.decorate(@topical_event.published_publications.in_reverse_chronological_order.limit(6))
-    @announcements = AnnouncementPresenter.decorate(@topical_event.published_announcements.in_reverse_chronological_order.limit(6))
-    @detailed_guides = @topical_event.detailed_guides.published.limit(5)
-    @related_classifications = @topical_event.related_classifications
-    @recently_changed_documents = @topical_event.recently_changed_documents
-    @featured_editions = FeaturedEditionPresenter.decorate(@topical_event.classification_featurings.limit(6))
-    set_slimmer_organisations_header(@topical_event.organisations)
+    @classification = TopicalEvent.find(params[:id])
+    @policies = @classification.published_policies
+    @publications = PublicationesquePresenter.decorate(@classification.published_publications.in_reverse_chronological_order.limit(6))
+    @announcements = AnnouncementPresenter.decorate(@classification.published_announcements.in_reverse_chronological_order.limit(6))
+    @detailed_guides = @classification.detailed_guides.published.limit(5)
+    @related_classifications = @classification.related_classifications
+    @recently_changed_documents = @classification.recently_changed_documents
+    @featured_editions = FeaturedEditionPresenter.decorate(@classification.classification_featurings.limit(6))
+    set_slimmer_organisations_header(@classification.organisations)
 
     respond_to do |format|
       format.html {

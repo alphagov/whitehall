@@ -1,11 +1,18 @@
-<% page_title @topic.name, "Topics" %>
+<% page_title @classification.name, "Topics" %>
 <% page_class "topics-show" %>
-<% atom_discovery_link_tag topic_url(@topic, format: 'atom'), "Latest activity on #{@topic.name}" %>
+<% atom_discovery_link_tag topic_url(@classification, format: 'atom'), "Latest activity on #{@classification.name}" %>
 
-<%= content_tag_for(:div, @topic, class: "classification #{@topic.class.name.underscore}") do %>
+<%= content_tag_for(:div, @classification, class: "classification #{@classification.class.name.underscore}") do %>
   <div class="block block-1">
     <div class="inner-block">
-      <%= render partial: "header" %>
+      <header class="page-header">
+        <h1><span class="label">Topic</span> <span class="topic"><%= @classification.name %></span></h1>
+        <div class="meta">
+          <%= render partial: 'organisations/organisations_logo_list',
+                    locals: { organisations: @classification.organisations,
+                              lead_organisations: @classification.lead_organisations } %>
+        </div>
+      </header>
     </div>
   </div>
 
@@ -22,8 +29,8 @@
           <p>There are no updates yet.</p>
         <% end %>
         <%= render partial: 'shared/feeds',
-              locals: { atom_url: topic_url(@topic, format: "atom"),
-                        govdelivery_url: @topic.govdelivery_url } %>
+              locals: { atom_url: topic_url(@classification, format: "atom"),
+                        govdelivery_url: @classification.govdelivery_url } %>
       </section>
     </div>
   </div>
@@ -31,7 +38,7 @@
   <div class="block block-3">
     <div class="inner-block">
        <section class="what">
-          <%= govspeak_to_html @topic.description %>
+          <%= govspeak_to_html @classification.description %>
         </section>
     </div>
   </div>
@@ -52,7 +59,7 @@
           <div class="content">
             <%= render partial: "publications/list_description", locals: {publications: @publications} %>
             <p class="see-all">
-              <%= link_to 'See all publications', publications_filter_path(@topic) %>
+              <%= link_to 'See all publications', publications_filter_path(@classification) %>
             </p>
           </div>
         </section>
@@ -63,7 +70,7 @@
           <div class="content">
             <%= render partial: "announcements/list_description", locals: {announcements: @announcements} %>
             <p class="see-all">
-              <%= link_to "See all announcements", announcements_filter_path(@topic) %>
+              <%= link_to "See all announcements", announcements_filter_path(@classification) %>
             </p>
           </div>
         </section>
