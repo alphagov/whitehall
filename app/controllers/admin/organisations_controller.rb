@@ -5,11 +5,11 @@ class Admin::OrganisationsController < Admin::BaseController
   before_filter :build_organisation_classifications, only: [:new, :edit]
   before_filter :delete_absent_organisation_classifications, only: [:update]
   before_filter :build_organisation_mainstream_links, only: [:new, :edit]
-  before_filter :destroy_blank_phone_numbers, only: [:create, :update]
   before_filter :destroy_blank_mainstream_links, only: [:create, :update]
 
-  before_filter :social_media, only: [:new, :create, :edit, :update]
-  attr :social
+  before_filter :social_media_helper, only: [:new, :create, :edit, :update]
+  before_filter :contact_helper, only: [:create, :update]
+  attr :social, :contact
 
   def index
     @organisations = Organisation.all
@@ -21,6 +21,7 @@ class Admin::OrganisationsController < Admin::BaseController
   end
 
   def create
+    contact.destroy_blank_phone_numbers(params[:organisation])
     social.destroy_blank_social_media_accounts(params[:organisation])
     @organisation = Organisation.new(params[:organisation])
     if @organisation.save
@@ -42,6 +43,7 @@ class Admin::OrganisationsController < Admin::BaseController
   end
 
   def update
+    contact.destroy_blank_phone_numbers(params[:organisation])
     social.destroy_blank_social_media_accounts(params[:organisation])
     if @organisation.update_attributes(params[:organisation])
       redirect_to admin_organisation_path(@organisation)
@@ -108,20 +110,6 @@ class Admin::OrganisationsController < Admin::BaseController
     @special_representative_organisation_roles = @organisation.organisation_roles.joins(:role).merge(Role.special_representative).order(:ordering)
   end
 
-  def destroy_blank_phone_numbers
-    if params[:organisation][:contacts_attributes]
-      params[:organisation][:contacts_attributes].each do |index, contact|
-        if contact && contact[:contact_numbers_attributes]
-          contact[:contact_numbers_attributes].each do |key, number|
-            if number[:label].blank? && number[:number].blank?
-              number[:_destroy] = "1"
-            end
-          end
-        end
-      end
-    end
-  end
-
   def destroy_blank_mainstream_links
     if params[:organisation][:organisation_mainstream_links_attributes]
       params[:organisation][:organisation_mainstream_links_attributes].each do |index, link|
@@ -132,7 +120,11 @@ class Admin::OrganisationsController < Admin::BaseController
     end
   end
 
-  def social_media
+  def social_media_helper
     @social = Whitehall::Controllers::SocialMedia.new
+  end
+
+  def contact_helper
+    @contact = Whitehall::Controllers::Contacts.new
   end
 end

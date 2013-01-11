@@ -7,6 +7,7 @@
     <%= form.text_area :description %>
   </fieldset>
 
+  <%= render partial: 'admin/shared/contacts', locals: { form: form } %>
   <%= render partial: 'admin/shared/social_media_accounts', locals: { form: form } %>
 
   <%= form.save_or_cancel(cancel: (worldwide_office.persisted? ? admin_worldwide_office_path(worldwide_office) : admin_worldwide_offices_path)) %>
