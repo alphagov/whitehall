@@ -48,6 +48,7 @@ module Admin::EditionsHelper
     end
 
     def attachment_action_fields
+      return if object.new_record?
       keep_destroy_or_replace =
         if object[:_destroy].present? && object[:_destroy] == '1'
           'destroy'
@@ -70,6 +71,7 @@ module Admin::EditionsHelper
     end
 
     def replacement_attachment_data_fields
+      return if object.new_record?
       fields_for(:attachment_data) do |attachment_data_fields|
         contents = [
           attachment_data_fields.label(:file, 'Replacement'),
