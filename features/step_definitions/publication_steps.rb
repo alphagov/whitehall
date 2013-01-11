@@ -164,6 +164,33 @@ Then /^the metadata changes should not be public until the draft is published$/ 
   page.should have_css(".attachment-details .title", text: @attachment_title)
 end
 
+When /^I replace the data file of the attachment in a new draft of the publication$/ do
+  pending
+end
+
+Then /^the new data file should not be public until the draft is published$/ do
+  pub = Publication.last
+  @new_attachment_data = pub.attachments.first.attachment_data
+  assert_not_equal @old_attachment_data, @new_attachment_data
+  assert_equal @new_attachment_filename, @new_attachment_data.filename
+
+  visit public_document_path(pub)
+  assert page.has_css?(".attachment a[href*='#{@old_attachment_data.url}']", text: @attachment_title)
+  assert page.has_no_css?(".attachment a[href*='#{@new_attachment_data.url}']")
+
+  visit admin_publication_path(pub)
+  click_on 'Force Publish'
+
+  visit public_document_path(pub)
+
+  assert page.has_no_css?(".attachment a[href*='#{@old_attachment_data.url}']")
+  assert page.has_css?(".attachment a[href*='#{@new_attachment_data.url}']", text: @attachment_title)
+end
+
+Then /^the old data file should redirect to the new data file$/ do
+  assert_final_path(@old_attachment_data.url, @new_attachment_data.url)
+end
+
 Given /^a published publication "([^"]*)" with type "([^"]*)"$/ do |publication_title, publication_type|
   type_id = PublicationType.all.select{|pt| pt.singular_name == publication_type }.first.id
   create(:published_publication, title: publication_title, publication_type_id: type_id)
