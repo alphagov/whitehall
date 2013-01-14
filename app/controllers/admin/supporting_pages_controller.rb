@@ -4,6 +4,7 @@ class Admin::SupportingPagesController < Admin::BaseController
   before_filter :find_edition
   before_filter :limit_edition_access!
   before_filter :find_supporting_page, only: [:show, :edit, :update, :destroy]
+  before_filter :cope_with_attachment_action_params, only: [:update]
 
   def new
     @supporting_page = @edition.supporting_pages.build(params[:supporting_page])
@@ -67,4 +68,12 @@ class Admin::SupportingPagesController < Admin::BaseController
   def build_attachment
     @supporting_page.build_empty_attachment
   end
+
+  def cope_with_attachment_action_params
+    return unless params[:supporting_page] && params[:supporting_page][:supporting_page_attachments_attributes]
+    params[:supporting_page][:supporting_page_attachments_attributes].each do |_, supporting_page_attachment_params|
+      Admin::AttachmentActionParamHandler.handle!(supporting_page_attachment_params)
+    end
+  end
+
 end

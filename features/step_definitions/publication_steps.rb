@@ -96,13 +96,13 @@ end
 
 When /^I remove the attachment from the publication "([^"]*)"$/ do |title|
   begin_editing_document title
-  uncheck "edition_edition_attachments_attributes_0__destroy"
+  choose "Remove"
   click_button "Save"
 end
 
 When /^I remove the attachment from a new draft of the publication "([^"]*)"$/ do |title|
   begin_new_draft_document title
-  uncheck "edition_edition_attachments_attributes_0__destroy"
+  choose "Remove"
   click_button "Save"
 end
 
@@ -162,6 +162,44 @@ end
 Then /^the metadata changes should not be public until the draft is published$/ do
   click_link("Preview")
   page.should have_css(".attachment-details .title", text: @attachment_title)
+end
+
+When /^I replace the data file of the attachment in a new draft of the publication$/ do
+  pub = Publication.last
+  visit edit_admin_publication_path(pub)
+  @old_attachment_data = pub.attachments.first.attachment_data
+  new_file = pdf_attachment
+  @new_attachment_filename = File.basename(new_file)
+  click_button "Create new edition"
+  within "#edition_attachment_fields" do
+    choose 'Replace'
+    attach_file 'Replacement', new_file.path
+  end
+  fill_in_change_note_if_required
+  click_button "Save"
+end
+
+Then /^the new data file should not be public until the draft is published$/ do
+  pub = Publication.last
+  @new_attachment_data = pub.attachments.first.attachment_data
+  assert_not_equal @old_attachment_data, @new_attachment_data
+  assert_equal @new_attachment_filename, @new_attachment_data.filename
+
+  visit public_document_path(pub)
+  assert page.has_css?(".attachment a[href*='#{@old_attachment_data.url}']", text: @attachment_title)
+  assert page.has_no_css?(".attachment a[href*='#{@new_attachment_data.url}']")
+
+  visit admin_publication_path(pub)
+  click_on 'Force Publish'
+
+  visit public_document_path(pub)
+
+  assert page.has_no_css?(".attachment a[href*='#{@old_attachment_data.url}']")
+  assert page.has_css?(".attachment a[href*='#{@new_attachment_data.url}']", text: @attachment_title)
+end
+
+Then /^the old data file should redirect to the new data file$/ do
+  assert_final_path(@old_attachment_data.url, @new_attachment_data.url)
 end
 
 Given /^a published publication "([^"]*)" with type "([^"]*)"$/ do |publication_title, publication_type|
