@@ -6,6 +6,7 @@ FactoryGirl.define do
     closing_on { 6.weeks.from_now }
   end
 
+  factory :imported_consultation, parent: :consultation, traits: [:imported]
   factory :draft_consultation, parent: :consultation, traits: [:draft]
   factory :submitted_consultation, parent: :consultation, traits: [:submitted]
   factory :rejected_consultation, parent: :consultation, traits: [:rejected]

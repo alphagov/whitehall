@@ -47,8 +47,17 @@ class Admin::EditionsController < Admin::BaseController
 
   def update
     if @edition.edit_as(current_user, params[:edition])
-      redirect_to admin_edition_path(@edition),
-        notice: "The document has been saved"
+      if params[:speed_save_convert]
+        @edition.convert_to_draft!
+        next_edition = EditionFilter.new(edition_class, current_user, session_filters.merge(state: :imported)).editions.first
+        if next_edition
+          redirect_to admin_edition_path(next_edition)
+        else
+          redirect_to admin_editions_path(session_filters.merge(state: :imported))
+        end
+      else
+        redirect_to admin_edition_path(@edition), notice: "The document has been saved"
+      end
     else
       flash.now[:alert] = "There are some problems with the document"
       build_edition_dependencies
@@ -210,7 +219,7 @@ class Admin::EditionsController < Admin::BaseController
   end
 
   def clear_scheduled_publication_if_not_activated
-    if params[:scheduled_publication_active].to_i == 0
+    if params[:scheduled_publication_active] && params[:scheduled_publication_active].to_i == 0
       params[:edition].keys.each do |key|
         if key =~ /^scheduled_publication(\([0-9]i\))?/
           params[:edition].delete(key)
