@@ -29,7 +29,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
       description: "country-description"
     )
     get :show, id: world_location
-    assert_select ".world-location.name", text: "country-name"
+    assert_select ".world-location.name", text: "UK and country-name"
     assert_select ".description", text: "country-description"
   end
 
@@ -44,7 +44,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
   test "should display a link to the about page for the country" do
     world_location = create(:world_location)
     get :show, id: world_location
-    assert_select ".about a[href='#{about_world_location_path(world_location)}']"
+    assert_select ".our-mission a[href='#{about_world_location_path(world_location)}']"
   end
 
   test 'show has atom feed autodiscovery link' do
