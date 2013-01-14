@@ -35,8 +35,14 @@ class AttachmentData < ActiveRecord::Base
   end
 
   def replace_with!(replacement)
+    # NOTE: we're doing this manually because carrierwave is setup such
+    # that production instances aren't valid because the storage location
+    # for files is not where carrierwave thinks they are (because of
+    # virus-checking).
     self.replaced_by = replacement
-    save!
+    cant_be_replaced_by_self
+    raise ActiveRecord::RecordInvalid, self if self.errors.any?
+    self.update_column(:replaced_by_id, replacement.id)
     AttachmentData.where(replaced_by_id: self.id).each do |ad|
       ad.replace_with!(replacement)
     end
