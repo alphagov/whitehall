@@ -29,7 +29,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
       description: "country-description"
     )
     get :show, id: world_location
-    assert_select ".world-location.name", text: "UK and country-name"
+    assert_select ".name", text: "UK and country-name"
     assert_select ".description", text: "country-description"
   end
 

@@ -7,8 +7,8 @@
     <div class="inner-block">
       <header class="page-header world-locations <% if @featured_news_articles.any? %>with_featured<% end %>">
         <hgroup>
-          <h2 class="world-location type"><%= @world_location.display_type %></h2>
-          <h1 class="world-location name page_title">UK and <%= @world_location.name %></h1>
+          <h2 class="type"><%= @world_location.display_type %></h2>
+          <h1 class="name">UK and <%= @world_location.name %></h1>
         </hgroup>
       </header>
       <div class="filter-feed">
@@ -27,8 +27,8 @@
 
   <div class="block-3">
     <div class="inner-block">
-      <section id="about_us" class="article_section">
-        <h1 class="label">Our mission</h1>
+      <section class="article_section">
+        <h1>Our mission</h1>
         <p class="our-mission">
           <span class="description"><%= format_with_html_line_breaks(@world_location.description) %></span>
           <a href="<%= about_world_location_path(@world_location) %>" title='<%= "Further information about #{@world_location.name}" %>'>Read more<span class="visuallyhidden"> about <%= @world_location.name %></span>.</a>
