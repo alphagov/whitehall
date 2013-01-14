@@ -70,6 +70,9 @@
       <%= render partial: 'world_location_fields', locals: { form: form, edition: @edition } %>
     <% end %>
 
-    <%= submit_tag "Save", class: 'btn btn-primary' %>
+    <%= submit_tag "Save", class: 'btn' %>
+    <%= hidden_field_tag 'speed_save_convert', '' %>
+    <%= submit_tag "Save & Convert to Draft", class: 'btn btn-primary',
+        onclick: "javascript:$('#speed_save_convert')[0].value=1;" %>
   <% end %>
 </div>

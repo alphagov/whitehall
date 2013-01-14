@@ -240,6 +240,22 @@ module AdminEditionControllerTestHelpers
       end
     end
 
+    def should_allow_speed_tagging_of(edition_type)
+      test "update should convert to draft and go to the next #{edition_type} when speed tagging" do
+        edition = create("imported_#{edition_type}")
+        edition2 = create("imported_#{edition_type}")
+
+        put :update, id: edition, edition: controller_attributes_for_instance(edition,
+          title: "new-title",
+          body: "new-body"
+        ), speed_save_convert: 1
+
+        edition.reload
+        assert_equal "draft", edition.state
+        assert_redirected_to send("admin_#{edition_type}_path", edition2)
+      end
+    end
+
     def should_allow_revision_of(edition_type)
       test "should be possible to revise a published edition" do
         published_edition = create("published_#{edition_type}")

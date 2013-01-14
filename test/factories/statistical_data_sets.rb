@@ -6,6 +6,7 @@ FactoryGirl.define do
     publication_date 10.days.ago
   end
 
+  factory :imported_statistical_data_set, parent: :statistical_data_set, traits: [:imported]
   factory :draft_statistical_data_set, parent: :statistical_data_set, traits: [:draft]
   factory :submitted_statistical_data_set, parent: :statistical_data_set, traits: [:submitted]
   factory :rejected_statistical_data_set, parent: :statistical_data_set, traits: [:rejected]

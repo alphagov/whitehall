@@ -16,6 +16,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
   should_show_document_audit_trail_for :consultation, :show
   should_show_document_audit_trail_for :consultation, :edit
 
+  should_allow_speed_tagging_of :consultation
   should_allow_related_policies_for :consultation
   should_allow_organisations_for :consultation
   should_allow_ministerial_roles_for :consultation
