@@ -61,6 +61,13 @@ module Whitehall::Uploader
       assert_equal "Some body goes here", row.body
     end
 
+    test "access_limited is always false" do
+      row = statistica_data_set_row({})
+      row.stubs(:organisations).returns([])
+      assert_includes row.attributes.keys, :access_limited
+      assert_equal false, row.attributes[:access_limited]
+    end
+
     test "generates a body linking to all attachments where the body is empty" do
       attachments, attributes = attachments_and_attributes_for(10)
 
