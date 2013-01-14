@@ -109,5 +109,6 @@
     <% end %>
   </div>
 
+  <%= render partial: 'admin/shared/govdelivery_fields', locals: { form: organisation_form } %>
   <%= organisation_form.save_or_cancel(cancel: (@organisation.persisted? ? admin_organisation_path(@organisation) : admin_organisations_path)) %>
 <% end %>
