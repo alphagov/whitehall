@@ -18,7 +18,7 @@ module Admin::EditionsController::Attachments
   def cope_with_attachment_action_params
     return unless params[:edition] && params[:edition][:edition_attachments_attributes]
     params[:edition][:edition_attachments_attributes].each do |_, edition_attachment_params|
-      Admin::AttachmentActionParamHandler.handle!(edition_attachment_params)
+      Admin::AttachmentActionParamHandler.manipulate_params!(edition_attachment_params)
     end
   end
 end

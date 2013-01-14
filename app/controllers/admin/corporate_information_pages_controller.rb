@@ -74,7 +74,7 @@ private
   def cope_with_attachment_action_params
     return unless params[:corporate_information_page] && params[:corporate_information_page][:corporate_information_page_attachments_attributes]
     params[:corporate_information_page][:corporate_information_page_attachments_attributes].each do |_, corporate_information_page_attachment_params|
-      Admin::AttachmentActionParamHandler.handle!(corporate_information_page_attachment_params)
+      Admin::AttachmentActionParamHandler.manipulate_params!(corporate_information_page_attachment_params)
     end
   end
 
