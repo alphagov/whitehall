@@ -114,6 +114,20 @@ class AnnouncementsControllerTest < ActionController::TestCase
     assert_select "#{record_css_selector(oldest)} + #{record_css_selector(newest)}"
   end
 
+  test "index shows selected announcement type filter option in the title" do
+    get :index, announcement_type_option: 'news-article'
+
+    assert_select 'h1 span', ': News article'
+  end
+
+  test "index indicates selected announcement type filter option in the filter selector" do
+    get :index, announcement_type_option: 'news-article'
+
+    assert_select "select[name='announcement_type_option']" do
+      assert_select "option[selected='selected']", text: Whitehall::AnnouncementFilterOption::NewsArticle.label
+    end
+  end
+
   def assert_documents_appear_in_order_within(containing_selector, expected_documents)
     articles = css_select "#{containing_selector} tr.document-row"
     expected_document_ids = expected_documents.map { |doc| dom_id(doc) }
@@ -162,6 +176,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
 
     assert_select_autodiscovery_link announcements_url(format: "atom", topics: [topic], departments: [organisation])
   end
+
   test "index generates an atom feed for the current filter" do
     org = create(:organisation, name: "org-name")
 

@@ -236,10 +236,10 @@ class DocumentFilterTest < ActiveSupport::TestCase
     transcript = create(:published_speech, speech_type: SpeechType::Transcript)
     statement = create(:published_speech, speech_type: SpeechType::WrittenStatement)
 
-    assert_equal [news_article.id], Whitehall::DocumentFilter.new(Announcement.published, announcement_type: "news-article").documents.map(&:id)
-    assert_equal [fatality_notice.id], Whitehall::DocumentFilter.new(Announcement.published, announcement_type: "fatality-notice").documents.map(&:id)
-    assert_equal [transcript.id], Whitehall::DocumentFilter.new(Announcement.published, announcement_type: "speech").documents.map(&:id)
-    assert_equal [statement.id], Whitehall::DocumentFilter.new(Announcement.published, announcement_type: "statement").documents.map(&:id)
+    assert_equal [news_article.id], Whitehall::DocumentFilter.new(Announcement.published, announcement_type_option: "news-article").documents.map(&:id)
+    assert_equal [fatality_notice.id], Whitehall::DocumentFilter.new(Announcement.published, announcement_type_option: "fatality-notice").documents.map(&:id)
+    assert_equal [transcript.id], Whitehall::DocumentFilter.new(Announcement.published, announcement_type_option: "speech").documents.map(&:id)
+    assert_equal [statement.id], Whitehall::DocumentFilter.new(Announcement.published, announcement_type_option: "statement").documents.map(&:id)
   end
 
   test "publication_filter_option overwrites older publication_type param" do

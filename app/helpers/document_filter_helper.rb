@@ -15,7 +15,7 @@ module DocumentFilterHelper
   end
 
   def announcement_type_filter_options(announcement_filter_options, selected_announcement_filter_options = nil)
-    selected_value = selected_announcement_filter_options ? selected_announcement_filter_options : "all"
-    options_for_select([["All announcement types", "all"]] + announcement_filter_options.map{ |a| [a.label, a.slug] }, [selected_value])
+    selected_value = selected_announcement_filter_options ? selected_announcement_filter_options.slug : "all"
+    options_for_select([["All announcement types", "all"]] + announcement_filter_options.map { |a| [a.label, a.slug] }, [selected_value])
   end
 end
