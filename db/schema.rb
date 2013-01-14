@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130111115838) do
+ActiveRecord::Schema.define(:version => 20130111144356) do
 
   create_table "attachment_data", :force => true do |t|
     t.string   "carrierwave_file"
@@ -20,7 +20,10 @@ ActiveRecord::Schema.define(:version => 20130111115838) do
     t.integer  "number_of_pages"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "replaced_by_id"
   end
+
+  add_index "attachment_data", ["replaced_by_id"], :name => "index_attachment_data_on_replaced_by_id"
 
   create_table "attachment_sources", :force => true do |t|
     t.integer "attachment_id"

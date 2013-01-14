@@ -145,4 +145,29 @@ class AttachmentDataTest < ActiveSupport::TestCase
     attachment = build(:attachment_data, file: greenpaper_pdf)
     assert_equal "pdf", attachment.file_extension
   end
+
+  test 'if to_replace_id is set on an instance during save find the attachment_data with that id and set its replaced_by_id to the original instances id' do
+    to_be_replaced = create(:attachment_data)
+    replace_with = build(:attachment_data)
+    replace_with.to_replace_id = to_be_replaced.id
+    replace_with.save
+    assert_equal replace_with, to_be_replaced.reload.replaced_by
+  end
+
+  test 'replace_with! won\'t let you replace an instance with itself' do
+    self_referential = create(:attachment_data)
+    assert_raises(ActiveRecord::RecordInvalid) do
+      self_referential.replace_with!(self_referential)
+    end
+  end
+
+  test 'replace_with! will walk the chain and set our replacees to be replaced_by our replacer' do
+    to_be_replaced = create(:attachment_data)
+    replaced = create(:attachment_data, replaced_by: to_be_replaced)
+    replacer = create(:attachment_data)
+
+    to_be_replaced.replace_with!(replacer)
+    assert_equal replacer, to_be_replaced.replaced_by
+    assert_equal replacer, replaced.reload.replaced_by
+  end
 end
