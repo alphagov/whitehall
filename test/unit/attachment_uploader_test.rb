@@ -89,9 +89,18 @@ class AttachmentUploaderTest < ActiveSupport::TestCase
     end
   end
 
-  test 'zip file that looks like an ArcGIS file, but has multiple copies of allowed files in it is not allowed' do
+  test 'zip file that looks like an ArcGIS file with multiple sets of shapes is allowed' do
     uploader = AttachmentUploader.new(stub("AR Model", id: 1), 'mounted-as')
-    AttachmentUploader::ZipFile.any_instance.stubs(:filenames).returns(duplicate_arcgis_file_list)
+    AttachmentUploader::ZipFile.any_instance.stubs(:filenames).returns(multiple_shape_arcgis_file_list)
+    assert_nothing_raised CarrierWave::IntegrityError do
+      uploader.store!(fixture_file_upload('sample_attachment.zip'))
+    end
+    assert uploader.file.present?
+  end
+
+  test 'zip file that looks like an ArcGIS file with multiple sets of shapes is not allowed if one set of shapes is incomplete' do
+    uploader = AttachmentUploader.new(stub("AR Model", id: 1), 'mounted-as')
+    AttachmentUploader::ZipFile.any_instance.stubs(:filenames).returns(complete_and_broken_shape_arcgis_file_list)
     assert_raises CarrierWave::IntegrityError do
       uploader.store!(fixture_file_upload('sample_attachment.zip'))
     end
@@ -130,8 +139,13 @@ class AttachmentUploaderTest < ActiveSupport::TestCase
     required_arcgis_file_list.shuffle[1..-1]
   end
 
-  def duplicate_arcgis_file_list
+  def multiple_shape_arcgis_file_list
     comprehensive_arcgis_file_list +
+      comprehensive_arcgis_file_list.map {|f| f.gsub('london', 'paris')}
+  end
+
+  def complete_and_broken_shape_arcgis_file_list
+    broken_arcgis_file_list +
       comprehensive_arcgis_file_list.map {|f| f.gsub('london', 'paris')}
   end
 end
