@@ -94,11 +94,18 @@ module GovspeakHelper
   end
 
   def govspeak_with_attachments_and_alt_format_information(govspeak, attachments = [], alternative_format_contact_email = nil)
-    govspeak.gsub(/\n{0,2}^!@([0-9]+)\s*/) do
+    govspeak = govspeak.gsub(/\n{0,2}^!@([0-9]+)\s*/) do
       if attachment = attachments[$1.to_i - 1]
         "\n\n" + render(partial: "documents/attachment.html.erb", object: attachment, locals: {alternative_format_contact_email: alternative_format_contact_email}) + "\n\n"
       else
         "\n\n"
+      end
+    end
+    govspeak.gsub(/\[InlineAttachment:([0-9]+)\]/) do
+      if attachment = attachments[$1.to_i - 1]
+        render(partial: "documents/inline_attachment.html.erb", object: attachment)
+      else
+        ""
       end
     end
   end
