@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
 
   belongs_to :organisation
 
-  serialize :permissions, Hash
+  serialize :permissions, Array
   attr_protected :permissions
 
   validates :name, presence: true
@@ -24,19 +24,19 @@ class User < ActiveRecord::Base
   end
 
   def departmental_editor?
-    has_permission?(GDS::SSO::Config.default_scope, Permissions::DEPARTMENTAL_EDITOR)
+    has_permission?(Permissions::DEPARTMENTAL_EDITOR)
   end
 
   def gds_editor?
-    has_permission?(GDS::SSO::Config.default_scope, Permissions::GDS_EDITOR)
+    has_permission?(Permissions::GDS_EDITOR)
   end
 
   def can_publish_scheduled_editions?
-    has_permission?(GDS::SSO::Config.default_scope, Permissions::PUBLISH_SCHEDULED_EDITIONS)
+    has_permission?(Permissions::PUBLISH_SCHEDULED_EDITIONS)
   end
 
   def can_import?
-    has_permission?(GDS::SSO::Config.default_scope, Permissions::IMPORT)
+    has_permission?(Permissions::IMPORT)
   end
 
   def organisation_name

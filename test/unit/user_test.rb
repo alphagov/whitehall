@@ -17,35 +17,35 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test 'should be a departmental editor if has whitehall Editor role' do
-    user = build(:user, permissions: {'Whitehall' => [User::Permissions::DEPARTMENTAL_EDITOR]})
+    user = build(:user, permissions: [User::Permissions::DEPARTMENTAL_EDITOR])
     assert user.departmental_editor?
   end
 
   test 'should not be a departmental editor if does not have has whitehall Editor role' do
-    user = build(:user, permissions: {'Whitehall' => []})
+    user = build(:user, permissions: [])
     refute user.departmental_editor?
   end
 
   test 'should be a GDS editor if has whitehall GDS Editor role' do
-    user = build(:user, permissions: {'Whitehall' => [User::Permissions::GDS_EDITOR]})
+    user = build(:user, permissions: [User::Permissions::GDS_EDITOR])
     assert user.gds_editor?
   end
 
   test 'should not be a GDS editor if does not have has whitehall GDS Editor role' do
-    user = build(:user, permissions: {'Whitehall' => []})
+    user = build(:user, permissions: [])
     refute user.gds_editor?
   end
 
   test 'should not normally allow mass assignment of permissions' do
-    user = build(:user, permissions: {'Whitehall' => []})
-    user.assign_attributes(permissions: {'Whitehall' => ['Superuser']})
-    assert_equal [], user.permissions['Whitehall']
+    user = build(:user, permissions: [])
+    user.assign_attributes(permissions: ['Superuser'])
+    assert_equal [], user.permissions
   end
 
   test 'should allow gds-sso to mass assign permissions' do
-    user = build(:user, permissions: {'Whitehall' => []})
-    user.assign_attributes({permissions: {'Whitehall' => ['Superuser']}}, as: :oauth)
-    assert_equal ['Superuser'], user.permissions['Whitehall']
+    user = build(:user, permissions: [])
+    user.assign_attributes({permissions: ['Superuser']}, as: :oauth)
+    assert_equal ['Superuser'], user.permissions
   end
 
   test 'should not allow editing to just anyone' do
