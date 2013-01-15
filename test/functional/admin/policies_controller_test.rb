@@ -74,7 +74,7 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
 
   test "show displays the policy team responsible for this policy" do
     policy_team = create(:policy_team, name: 'policy-team', email: 'policy-team@example.com')
-    draft_policy = create(:draft_policy, policy_team: policy_team)
+    draft_policy = create(:draft_policy, policy_teams: [policy_team])
 
     get :show, id: draft_policy
 
@@ -96,7 +96,7 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
     get :new
 
     assert_select "form#edition_new" do
-      assert_select "select[name='edition[policy_team_id]']"
+      assert_select "select[name='edition[policy_team_ids]']"
     end
   end
 

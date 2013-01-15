@@ -80,6 +80,7 @@ Whitehall::Application.routes.draw do
     end
 
     resources :policy_teams, path: 'policy-teams', only: [:index, :show]
+    resources :policy_advisory_groups, path: 'policy-advisory-groups', only: [:index, :show]
     resources :operational_fields, path: 'fields-of-operation', only: [:index, :show]
 
     constraints(AdminRequest) do
@@ -95,6 +96,7 @@ Whitehall::Application.routes.draw do
           resources :corporate_information_pages
         end
         resources :policy_teams, except: [:show]
+        resources :policy_advisory_groups, except: [:show]
         resources :operational_fields, except: [:show]
         resources :edition_organisations, only: [:edit, :update]
         resources :edition_world_locations, only: [:update]

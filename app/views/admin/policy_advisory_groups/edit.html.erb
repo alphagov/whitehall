@@ -1,0 +1,16 @@
+<% page_title "Edit " + @policy_advisory_group.email %>
+
+<div class="span8">
+  <section>
+    <h1>Edit policy advisory group</h1>
+    <%= render partial: "form", locals: {policy_advisory_group: @policy_advisory_group} %>
+  </section>
+</div>
+
+<div class="span4">
+  <%= sidebar_tabs govspeak_help: "Formatting Help" do |tabs| %>
+    <%= tabs.pane id: "govspeak_help" do %>
+      <%= render partial: "admin/editions/govspeak_help" %>
+    <% end %>
+  <% end %>
+</div>

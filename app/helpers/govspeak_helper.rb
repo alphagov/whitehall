@@ -10,10 +10,19 @@ module GovspeakHelper
     wrapped_in_govspeak_div(bare_govspeak_edition_to_html(edition))
   end
 
+  def govspeak_with_attachments_to_html(body, attachments = [])
+    wrapped_in_govspeak_div(bare_govspeak_with_attachments_to_html(body, attachments))
+  end
+
   def bare_govspeak_edition_to_html(edition)
     images = edition.respond_to?(:images) ? edition.images : []
     partially_processed_govspeak = edition_body_with_attachments_and_alt_format_information(edition)
     bare_govspeak_to_html(partially_processed_govspeak, images)
+  end
+
+  def bare_govspeak_with_attachments_to_html(body, attachments = [])
+    partially_processed_govspeak = govspeak_with_attachments_and_alt_format_information(body, attachments)
+    bare_govspeak_to_html(partially_processed_govspeak, [])
   end
 
   def govspeak_headers(govspeak, level = 2)
