@@ -1,5 +1,5 @@
 <% page_title @policy_team.name, "Policy teams" %>
-<%= content_tag_for(:div, @policy_team, :class => "policy-teams") do %>
+<%= content_tag_for(:div, @policy_team, :class => "policy-groups policy-teams") do %>
   <div class="block-1">
     <div class="inner-block">
       <section class="page-header">
@@ -7,7 +7,7 @@
       </section>
     </div>
   </div>
-  <div class="block-2">
+  <div class="block-2 sidebar">
     <div class="inner-block">
       <section class="contextual-info js-stick-at-top-when-scrolling">
         <% if govspeak_headers(@policy_team.description).any? || @policies.any? || @policy_team.email %>
@@ -29,7 +29,7 @@
       </section>
     </div>
   </div>
-  <div class="block-3">
+  <div class="block-3 content">
     <div class="inner-block">
       <% if @policy_team.description.present? %>
         <div class="description">
