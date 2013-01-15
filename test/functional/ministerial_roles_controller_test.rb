@@ -112,8 +112,8 @@ class MinisterialRolesControllerTest < ActionController::TestCase
     ministerial_role = create(:ministerial_role)
     role_appointment = create(:role_appointment, role: ministerial_role)
     expected_entries = [
-      create(:published_news_article, role_appointments: [role_appointment]),
-      create(:published_speech, role_appointment: role_appointment, delivered_on: 1.day.ago.to_date)
+      create(:published_news_article, role_appointments: [role_appointment], first_published_at: 1.day.ago),
+      create(:published_speech, role_appointment: role_appointment, delivered_on: 2.days.ago.to_date)
     ]
 
     get :show, format: :atom, id: ministerial_role
@@ -138,8 +138,8 @@ class MinisterialRolesControllerTest < ActionController::TestCase
     ministerial_role = create(:ministerial_role)
     role_appointment = create(:role_appointment, role: ministerial_role)
     expected_entries = [
-      create(:published_news_article, role_appointments: [role_appointment]),
-      create(:published_speech, role_appointment: role_appointment, delivered_on: 1.day.ago.to_date)
+      create(:published_news_article, role_appointments: [role_appointment], first_published_at: 1.day.ago),
+      create(:published_speech, role_appointment: role_appointment, delivered_on: 2.days.ago.to_date)
     ]
 
     get :show, format: :atom, id: ministerial_role, govdelivery_version: 'true'

@@ -151,8 +151,8 @@ class PeopleControllerAtomFeedTest < ActionController::TestCase
     person = create(:person)
     role_appointment = create(:role_appointment, person: person)
     expected_entries = [
-      create(:published_news_article, role_appointments: [role_appointment]),
-      create(:published_speech, role_appointment: role_appointment, delivered_on: 1.day.ago.to_date)
+      create(:published_news_article, role_appointments: [role_appointment], first_published_at: 1.day.ago),
+      create(:published_speech, role_appointment: role_appointment, delivered_on: 2.day.ago.to_date)
     ]
 
     get :show, format: :atom, id: person
@@ -177,8 +177,8 @@ class PeopleControllerAtomFeedTest < ActionController::TestCase
     person = create(:person)
     role_appointment = create(:role_appointment, person: person)
     expected_entries = [
-      create(:published_news_article, role_appointments: [role_appointment]),
-      create(:published_speech, role_appointment: role_appointment, delivered_on: 1.day.ago.to_date)
+      create(:published_news_article, role_appointments: [role_appointment], first_published_at: 1.day.ago),
+      create(:published_speech, role_appointment: role_appointment, delivered_on: 2.days.ago.to_date)
     ]
 
     get :show, format: :atom, id: person, govdelivery_version: '1'
