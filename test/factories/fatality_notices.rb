@@ -10,7 +10,9 @@ FactoryGirl.define do
   factory :draft_fatality_notice, parent: :fatality_notice, traits: [:draft]
   factory :submitted_fatality_notice, parent: :fatality_notice, traits: [:submitted]
   factory :rejected_fatality_notice, parent: :fatality_notice, traits: [:rejected]
-  factory :published_fatality_notice, parent: :fatality_notice, traits: [:published]
+  factory :published_fatality_notice, parent: :fatality_notice, traits: [:published] do
+    first_published_at { 2.days.ago }
+  end
   factory :deleted_fatality_notice, parent: :fatality_notice, traits: [:deleted]
   factory :archived_fatality_notice, parent: :fatality_notice, traits: [:archived]
   factory :scheduled_fatality_notice, parent: :fatality_notice, traits: [:scheduled]

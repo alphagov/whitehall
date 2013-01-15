@@ -39,6 +39,13 @@ class Publication < Publicationesque
     publication_type == PublicationType::NationalStatistics
   end
 
+  def first_public_at
+    publication_date.to_datetime
+  end
+
+  def make_public_at(date)
+  end
+
   def first_published_date
     publication_date.to_date
   end
@@ -61,9 +68,5 @@ class Publication < Publicationesque
     unless self.can_have_some_invalid_data?
       errors.add(:publication_type, 'must be changed') if PublicationType::ImportedAwaitingType == self.publication_type
     end
-  end
-
-  def set_timestamp_for_sorting
-    self.timestamp_for_sorting = publication_date
   end
 end

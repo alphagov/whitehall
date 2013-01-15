@@ -151,8 +151,8 @@ class PeopleControllerAtomFeedTest < ActionController::TestCase
     person = create(:person)
     role_appointment = create(:role_appointment, person: person)
     expected_entries = [
-      create(:published_news_article, role_appointments: [role_appointment]),
-      create(:published_speech, role_appointment: role_appointment, delivered_on: 1.day.ago)
+      create(:published_news_article, role_appointments: [role_appointment], first_published_at: 1.day.ago),
+      create(:published_speech, role_appointment: role_appointment, delivered_on: 2.day.ago.to_date)
     ]
 
     get :show, format: :atom, id: person
@@ -161,8 +161,8 @@ class PeopleControllerAtomFeedTest < ActionController::TestCase
       assert_select 'feed > entry', count: 2 do |actual_entries|
         expected_entries.zip(actual_entries).each do |expected, actual_entry|
           assert_select actual_entry, 'entry > id', 1
-          assert_select actual_entry, 'entry > published', count: 1, text: expected.timestamp_for_sorting.iso8601
-          assert_select actual_entry, 'entry > updated', count: 1, text: expected.timestamp_for_update.iso8601
+          assert_select actual_entry, 'entry > published', count: 1, text: expected.first_public_at.iso8601
+          assert_select actual_entry, 'entry > updated', count: 1, text: expected.public_timestamp.iso8601
           assert_select actual_entry, 'entry > link[rel=?][type=?][href=?]', 'alternate', 'text/html', public_document_url(expected)
           assert_select actual_entry, 'entry > title', count: 1, text: expected.title
           assert_select actual_entry, 'entry > summary', count: 1, text: expected.summary
@@ -177,8 +177,8 @@ class PeopleControllerAtomFeedTest < ActionController::TestCase
     person = create(:person)
     role_appointment = create(:role_appointment, person: person)
     expected_entries = [
-      create(:published_news_article, role_appointments: [role_appointment]),
-      create(:published_speech, role_appointment: role_appointment, delivered_on: 1.day.ago)
+      create(:published_news_article, role_appointments: [role_appointment], first_published_at: 1.day.ago),
+      create(:published_speech, role_appointment: role_appointment, delivered_on: 2.days.ago.to_date)
     ]
 
     get :show, format: :atom, id: person, govdelivery_version: '1'
@@ -187,8 +187,8 @@ class PeopleControllerAtomFeedTest < ActionController::TestCase
       assert_select 'feed > entry', count: 2 do |actual_entries|
         expected_entries.zip(actual_entries).each do |expected, actual_entry|
           assert_select actual_entry, 'entry > id', 1
-          assert_select actual_entry, 'entry > published', count: 1, text: expected.timestamp_for_sorting.iso8601
-          assert_select actual_entry, 'entry > updated', count: 1, text: expected.timestamp_for_update.iso8601
+          assert_select actual_entry, 'entry > published', count: 1, text: expected.first_public_at.iso8601
+          assert_select actual_entry, 'entry > updated', count: 1, text: expected.public_timestamp.iso8601
           assert_select actual_entry, 'entry > link[rel=?][type=?][href=?]', 'alternate', 'text/html', public_document_url(expected)
           assert_select actual_entry, 'entry > title', count: 1, text: "#{expected.display_type}: #{expected.title}"
           assert_select actual_entry, 'entry > summary', count: 1, text: expected.summary

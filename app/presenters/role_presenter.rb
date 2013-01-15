@@ -14,7 +14,7 @@ class RolePresenter < Draper::Base
     announcements =
       AnnouncementPresenter.decorate(model.published_speeches.limit(10)).to_a +
       AnnouncementPresenter.decorate(model.published_news_articles.limit(10)).to_a
-    announcements.sort_by { |a| a.display_date.to_datetime }.reverse[0..9]
+    announcements.sort_by { |a| a.public_timestamp.to_datetime }.reverse[0..9]
   end
   
   def path

@@ -42,17 +42,17 @@ class Edition < ActiveRecord::Base
   }
 
   def self.published_before(date)
-    where(arel_table[:timestamp_for_sorting].lteq(date))
+    where(arel_table[:public_timestamp].lteq(date))
   end
   def self.published_after(date)
-    where(arel_table[:timestamp_for_sorting].gteq(date))
+    where(arel_table[:public_timestamp].gteq(date))
   end
 
   def self.in_chronological_order
-    order(arel_table[:timestamp_for_sorting].asc)
+    order(arel_table[:public_timestamp].asc)
   end
   def self.in_reverse_chronological_order
-    order(arel_table[:timestamp_for_sorting].desc)
+    order(arel_table[:public_timestamp].desc)
   end
 
   class UnmodifiableValidator < ActiveModel::Validator
@@ -69,7 +69,7 @@ class Edition < ActiveRecord::Base
     def modifiable_attributes(previous_state)
       modifiable = %w{state updated_at force_published}
       if previous_state == 'scheduled'
-        modifiable += %w{published_at first_published_at access_limited}
+        modifiable += %w{major_change_published_at first_published_at access_limited}
       end
       if PRE_PUBLICATION_STATES.include?(previous_state)
         modifiable += %w{published_major_version published_minor_version}
@@ -80,7 +80,7 @@ class Edition < ActiveRecord::Base
 
   validates_with UnmodifiableValidator, if: :unmodifiable?
 
-  before_save :set_timestamp_for_sorting
+  before_save :set_public_timestamp
 
   after_unpublish :reset_force_published_flag
 
@@ -310,12 +310,16 @@ class Edition < ActiveRecord::Base
     format_name.capitalize
   end
 
-  def first_published_date
+  def first_public_at
     first_published_at
   end
 
-  def timestamp_for_update
-    published_at
+  def make_public_at(date)
+    self.first_published_at ||= date
+  end
+
+  def first_published_date
+    first_published_at
   end
 
   def alternative_format_contact_email
@@ -399,17 +403,18 @@ class Edition < ActiveRecord::Base
     end
   end
 
+  def set_public_timestamp
+    if first_published_version?
+      self.public_timestamp = first_public_at
+    else
+      self.public_timestamp = major_change_published_at
+    end
+  end
+
   private
 
   def body_required?
     true
   end
 
-  def set_timestamp_for_sorting
-    if first_published_version?
-      self.timestamp_for_sorting = first_published_at
-    else
-      self.timestamp_for_sorting = published_at
-    end
-  end
 end

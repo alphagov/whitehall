@@ -3,7 +3,6 @@ require 'test_helper'
 class FatalityNoticesControllerTest < ActionController::TestCase
   should_be_a_public_facing_controller
   should_display_inline_images_for :fatality_notice
-  should_show_change_notes :fatality_notice
 
   test "shows published fatality notices" do
     fatality_notice = create(:published_fatality_notice)
@@ -28,7 +27,7 @@ class FatalityNoticesControllerTest < ActionController::TestCase
   end
 
   test "shows when updated fatality notice was first published and last updated" do
-    fatality_notice = create(:published_fatality_notice, published_at: 10.days.ago)
+    fatality_notice = create(:published_fatality_notice, first_published_at: 10.days.ago)
 
     editor = create(:departmental_editor)
     updated_fatality_notice = fatality_notice.create_draft(editor)
@@ -39,7 +38,7 @@ class FatalityNoticesControllerTest < ActionController::TestCase
 
     assert_select ".meta" do
       assert_select ".published-at[title='#{fatality_notice.first_published_at.iso8601}']"
-      assert_select ".published-at[title='#{updated_fatality_notice.published_at.iso8601}']"
+      assert_select ".published-at[title='#{updated_fatality_notice.public_timestamp.iso8601}']"
     end
   end
 

@@ -94,3 +94,23 @@ Then /^the detailed guide "([^"]*)" should be visible to the public in the mains
   visit "/browse/#{category.parent_tag}/#{category.slug}"
   assert page.has_css?(record_css_selector(detailed_guide))
 end
+
+When /^I publish a new edition of the detailed guide "([^"]*)" with a change note "([^"]*)"$/ do |guide_title, change_note|
+  guide = DetailedGuide.latest_edition.find_by_title!(guide_title)
+  visit admin_edition_path(guide)
+  click_button "Create new edition"
+  fill_in "edition_change_note", with: change_note
+  click_button "Save"
+  publish(force: true)
+end
+
+Then /^the change notes should appear in the history for the detailed guide "([^"]*)" in reverse chronological order$/ do |title|
+  detailed_guide = DetailedGuide.find_by_title!(title)
+  visit detailed_guide_path(detailed_guide.document)
+  document_history = detailed_guide.document.change_history
+  change_notes = find('.change-notes').all('.note')
+  assert_equal document_history.length, change_notes.length
+  document_history.zip(change_notes).each do |history, note|
+    assert_equal history.note, note.text.strip
+  end
+end

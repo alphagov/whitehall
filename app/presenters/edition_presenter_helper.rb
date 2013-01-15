@@ -3,16 +3,8 @@ module EditionPresenterHelper
     h.link_to model.title, public_document_path(model)
   end
 
-  def published_at
-    date_microformat(:published_at)
-  end
-
   def display_date_microformat
-    date_microformat(display_date_attribute_name)
-  end
-
-  def display_date
-    model.send(display_date_attribute_name)
+    date_microformat(:public_timestamp)
   end
 
   def date_microformat(attribute_name)

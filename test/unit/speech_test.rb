@@ -192,4 +192,10 @@ class SpeechTest < EditionTestCase
     assert speech.can_be_associated_with_topical_events?
     assert_equal 1, speech.topical_events.size
   end
+
+  test "make_public_at should not set first_published_at" do
+    speech = build(:speech, first_published_at: nil)
+    speech.make_public_at(2.days.ago)
+    refute speech.first_published_at
+  end
 end
