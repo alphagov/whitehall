@@ -3,7 +3,7 @@ FactoryGirl.define do
     title "speech-title"
     body  "speech-body"
     association :role_appointment, factory: :ministerial_role_appointment
-    delivered_on Date.today
+    delivered_on { Date.today }
     location "speech-location"
     speech_type SpeechType::Transcript
   end
