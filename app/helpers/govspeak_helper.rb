@@ -103,7 +103,7 @@ module GovspeakHelper
     end
     govspeak.gsub(/\[InlineAttachment:([0-9]+)\]/) do
       if attachment = attachments[$1.to_i - 1]
-        render(partial: "documents/inline_attachment.html.erb", object: attachment)
+        render(partial: "documents/inline_attachment.html.erb", locals: { attachment: attachment })
       else
         ""
       end
