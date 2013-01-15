@@ -7,7 +7,7 @@ class ChangeUserPermissionsToArray < ActiveRecord::Migration
     User.all.each do |user|
       if user.permissions.is_a?(Hash)
         user.permissions = user.permissions["Whitehall"]
-        user.save!
+        user.save(validate: false)
       end
     end
   end
@@ -16,7 +16,7 @@ class ChangeUserPermissionsToArray < ActiveRecord::Migration
     User.all.each do |user|
       unless user.permissions.nil?
         user.permissions = { "Whitehall" => user.permissions }
-        user.save!
+        user.save(validate: false)
       end
     end
   end
