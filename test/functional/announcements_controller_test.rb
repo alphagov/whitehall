@@ -80,7 +80,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
   test "index shows related organisations for each type of article" do
     first_org = create(:organisation, name: 'first-org', acronym: "FO")
     second_org = create(:organisation, name: 'second-org', acronym: "SO")
-    news_article = create(:published_news_article, major_change_published_at: 4.days.ago, organisations: [first_org, second_org])
+    news_article = create(:published_news_article, first_published_at: 4.days.ago, organisations: [first_org, second_org])
     role = create(:ministerial_role, organisations: [second_org])
     role_appointment = create(:ministerial_role_appointment, role: role)
     speech = create(:published_speech, delivered_on: 5.days.ago, role_appointment: role_appointment)
@@ -98,7 +98,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
 
   test "index shows articles in reverse chronological order" do
     oldest = create(:published_speech, delivered_on: 5.days.ago)
-    newest = create(:published_news_article, major_change_published_at: 4.days.ago)
+    newest = create(:published_news_article, first_published_at: 4.days.ago)
 
     get :index
 
@@ -107,7 +107,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
 
   test "index shows articles in chronological order if date filter is 'after' a given date" do
     oldest = create(:published_speech, delivered_on: 5.days.ago)
-    newest = create(:published_news_article, major_change_published_at: 4.days.ago)
+    newest = create(:published_news_article, first_published_at: 4.days.ago)
 
     get :index, direction: 'after', date: 6.days.ago.to_s
 
@@ -150,7 +150,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
   end
 
   test "index shows the requested page" do
-    news = (1..3).map { |n| create(:published_news_article, major_change_published_at: n.days.ago) }
+    news = (1..3).map { |n| create(:published_news_article, first_published_at: n.days.ago) }
     speeches = (4..6).map { |n| create(:published_speech, delivered_on: n.days.ago) }
 
     with_number_of_documents_per_page(4) do
@@ -196,8 +196,8 @@ class AnnouncementsControllerTest < ActionController::TestCase
   test "index generates an atom feed with entries for announcements matching the current filter" do
     org = create(:organisation, name: "org-name")
     other_org = create(:organisation, name: "other-org")
-    news = create(:published_news_article, organisations: [org], major_change_published_at: 1.week.ago)
-    speech = create(:published_speech, organisations: [other_org], major_change_published_at: 3.days.ago)
+    news = create(:published_news_article, organisations: [org], first_published_at: 1.week.ago)
+    speech = create(:published_speech, organisations: [other_org], delivered_on: 3.days.ago)
 
     get :index, format: :atom, departments: [org.to_param]
 
@@ -220,8 +220,8 @@ class AnnouncementsControllerTest < ActionController::TestCase
   test "index generates an atom feed with summary content and prefixed title entries for announcements matching the current filter when requested" do
     org = create(:organisation, name: "org-name")
     other_org = create(:organisation, name: "other-org")
-    news = create(:published_news_article, organisations: [org], major_change_published_at: 1.week.ago)
-    speech = create(:published_speech, organisations: [other_org], major_change_published_at: 3.days.ago)
+    news = create(:published_news_article, organisations: [org], first_published_at: 1.week.ago)
+    speech = create(:published_speech, organisations: [other_org], delivered_on: 3.days.ago)
 
     get :index, format: :atom, departments: [org.to_param], govdelivery_version: 'on'
 

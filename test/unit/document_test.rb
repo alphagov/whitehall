@@ -71,7 +71,7 @@ class DocumentTest < ActiveSupport::TestCase
   end
 
   test "should list change history when only one edition with a minor change exists" do
-    edition = create(:published_policy, major_change_published_at: 1.day.ago, minor_change: true)
+    edition = create(:published_policy, minor_change: true)
 
     history = edition.change_history
     assert_equal 1, history.length

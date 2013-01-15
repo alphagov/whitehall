@@ -476,9 +476,9 @@ class PublicationsControllerTest < ActionController::TestCase
   end
 
   test 'index atom feed orders publications according to publication_date (newest first)' do
-    oldest = create(:published_publication, major_change_published_at: 1.days.ago, publication_date: 5.days.ago, title: "oldest")
-    newest = create(:published_publication, major_change_published_at: 5.days.ago, publication_date: 1.days.ago, title: "newest")
-    middle = create(:published_publication, major_change_published_at: 8.days.ago, publication_date: 3.days.ago, title: "middle")
+    oldest = create(:published_publication, publication_date: 5.days.ago, title: "oldest")
+    newest = create(:published_publication, publication_date: 1.days.ago, title: "newest")
+    middle = create(:published_publication, publication_date: 3.days.ago, title: "middle")
 
     get :index, format: :atom
 
@@ -492,9 +492,9 @@ class PublicationsControllerTest < ActionController::TestCase
   end
 
   test 'index atom feed orders consultations according to opening_on (newest first)' do
-    oldest = create(:published_consultation, major_change_published_at: 1.days.ago, opening_on: 5.days.ago.to_date, title: "oldest")
-    newest = create(:published_consultation, major_change_published_at: 5.days.ago, opening_on: 1.days.ago.to_date, title: "newest")
-    middle = create(:published_consultation, major_change_published_at: 8.days.ago, opening_on: 3.days.ago.to_date, title: "middle")
+    oldest = create(:published_consultation, opening_on: 5.days.ago.to_date, title: "oldest")
+    newest = create(:published_consultation, opening_on: 1.days.ago.to_date, title: "newest")
+    middle = create(:published_consultation, opening_on: 3.days.ago.to_date, title: "middle")
 
     get :index, format: :atom
 
@@ -510,9 +510,9 @@ class PublicationsControllerTest < ActionController::TestCase
   end
 
   test 'index atom feed orders mixed publications and consultations according to publication_date or opening_on (newest first)' do
-    oldest = create(:published_publication, major_change_published_at: 1.days.ago, publication_date: 5.days.ago, title: "oldest")
-    newest = create(:published_consultation, major_change_published_at: 5.days.ago, opening_on: 1.days.ago, title: "newest")
-    middle = create(:published_publication, major_change_published_at: 8.days.ago, publication_date: 3.days.ago, title: "middle")
+    oldest = create(:published_publication,  publication_date: 5.days.ago, title: "oldest")
+    newest = create(:published_consultation, opening_on: 1.days.ago, title: "newest")
+    middle = create(:published_publication,  publication_date: 3.days.ago, title: "middle")
 
     get :index, format: :atom
 

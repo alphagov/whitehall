@@ -243,16 +243,16 @@ That's all
   end
 
   test "activity displays metadata about the recently changed documents" do
-    major_change_published_at = Time.zone.now
+    first_delivered_on = Time.zone.now
     policy = create(:published_policy)
-    speech = create(:published_speech, major_change_published_at: major_change_published_at, delivered_on: major_change_published_at, related_policies: [policy])
+    speech = create(:published_speech, delivered_on: first_delivered_on, related_policies: [policy])
 
     get :activity, id: policy.document
 
     assert_select "#recently-changed" do
       assert_select_object speech do
         assert_select ".document-row .type", text: "Speech"
-        assert_select ".document-row .published-at[title='#{major_change_published_at.iso8601}']"
+        assert_select ".document-row .published-at[title='#{speech.public_timestamp.iso8601}']"
       end
     end
   end
@@ -260,7 +260,7 @@ That's all
   test "activity sets Cache-Control: max-age to the time of the next scheduled publication" do
     policy = create(:published_policy)
     user = login_as(:departmental_editor)
-    p1 = create(:published_publication, major_change_published_at: Time.zone.now, related_policies: [policy])
+    p1 = create(:published_publication, publication_date: Time.zone.now, related_policies: [policy])
     p2 = create(:draft_publication,
       scheduled_publication: Time.zone.now + Whitehall.default_cache_max_age * 2,
       related_policies: [policy])
@@ -385,10 +385,7 @@ That's all
 
   test 'activity has an atom feed autodiscovery link' do
     policy = create(:published_policy)
-    publication = create(:published_publication, major_change_published_at: 4.weeks.ago, related_policies: [policy])
-    consultation = create(:published_consultation, major_change_published_at: 1.weeks.ago, related_policies: [policy])
-    news_article = create(:published_news_article, major_change_published_at: 3.weeks.ago, related_policies: [policy])
-    speech = create(:published_speech, major_change_published_at: 2.weeks.ago, related_policies: [policy])
+    publication = create(:published_publication, related_policies: [policy])
 
     get :activity, id: policy.document
 
@@ -396,12 +393,8 @@ That's all
   end
 
   test 'activity shows a link to the atom feed' do
-
     policy = create(:published_policy)
-    publication = create(:published_publication, major_change_published_at: 4.weeks.ago, related_policies: [policy])
-    consultation = create(:published_consultation, major_change_published_at: 1.weeks.ago, related_policies: [policy])
-    news_article = create(:published_news_article, major_change_published_at: 3.weeks.ago, related_policies: [policy])
-    speech = create(:published_speech, major_change_published_at: 2.weeks.ago, related_policies: [policy])
+    publication = create(:published_publication, related_policies: [policy])
 
     get :activity, id: policy.document
 

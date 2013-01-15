@@ -170,7 +170,7 @@ module DocumentControllerTestHelpers
       end
     end
 
-    def should_show_published_documents_associated_with(model_name, has_many_association, timestamp_key = :major_change_published_at)
+    def should_show_published_documents_associated_with(model_name, has_many_association, timestamp_key = :first_published_at)
       singular = has_many_association.to_s.singularize
       test "shows only published #{has_many_association.to_s.humanize.downcase}" do
         published_edition = create("published_#{singular}")
@@ -227,9 +227,7 @@ module DocumentControllerTestHelpers
 
     def should_be_previewable(document_type)
       test "#{document_type} preview should be visible for logged in users" do
-        first_edition = create("published_#{document_type}",
-                               major_change_published_at: 1.months.ago,
-                               first_published_at: 2.months.ago)
+        first_edition = create("published_#{document_type}")
         document = first_edition.document
         draft_edition = create("draft_#{document_type}",
                                document: document,
@@ -241,9 +239,7 @@ module DocumentControllerTestHelpers
       end
 
       test "#{document_type} preview should be hidden from public" do
-        first_edition = create("published_#{document_type}",
-                               major_change_published_at: 1.months.ago,
-                               first_published_at: 2.months.ago)
+        first_edition = create("published_#{document_type}")
         document = first_edition.document
         draft_edition = create("draft_#{document_type}",
                                document: document,

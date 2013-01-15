@@ -266,22 +266,6 @@ class EditionTest < ActiveSupport::TestCase
     assert_equal [article, policy, publication], Edition.by_major_change_published_at
   end
 
-  test ".latest_major_change_published_at returns the most recent major_change_published_at from published editions" do
-    policy = create(:published_policy, major_change_published_at: 2.hours.ago)
-    publication = create(:published_publication, major_change_published_at: 4.hours.ago)
-    assert_equal policy.major_change_published_at, Edition.latest_major_change_published_at
-  end
-
-  test ".latest_major_change_published_at ignores unpublished editions" do
-    policy = create(:draft_policy, major_change_published_at: 2.hours.ago)
-    publication = create(:published_publication, major_change_published_at: 4.hours.ago)
-    assert_equal publication.major_change_published_at, Edition.latest_major_change_published_at
-  end
-
-  test ".latest_major_change_published_at returns nil if no published editions exist" do
-    assert_nil Edition.latest_major_change_published_at
-  end
-
   test "should only return the submitted editions" do
     draft_edition = create(:draft_edition)
     submitted_edition = create(:submitted_edition)

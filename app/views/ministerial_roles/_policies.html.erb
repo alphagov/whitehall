@@ -9,7 +9,7 @@
     <% role.published_policies.each do |policy| %>
       <%= content_tag_for :tr, policy, class: "document-row" do %>
         <th scope="row" class="title attribute"><%= policy.link %></th>
-        <td class="date attribute"><%= policy.major_change_published_at %></td>
+        <td class="date attribute"><%= policy.public_timestamp %></td>
       <% end %>
     <% end %>
   </tbody>

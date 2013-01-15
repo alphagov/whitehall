@@ -12,10 +12,6 @@ module Edition::Publishing
     def by_major_change_published_at
       order(arel_table[:major_change_published_at].desc)
     end
-
-    def latest_major_change_published_at
-      published.maximum(:major_change_published_at)
-    end
   end
 
   def first_published_version?

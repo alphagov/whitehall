@@ -29,7 +29,7 @@ class NewsArticlesControllerTest < ActionController::TestCase
   end
 
   test "shows when updated news article was first published and last updated" do
-    news_article = create(:published_news_article, major_change_published_at: 10.days.ago)
+    news_article = create(:published_news_article, first_published_at: 10.days.ago)
 
     editor = create(:departmental_editor)
     updated_news_article = news_article.create_draft(editor)
@@ -40,7 +40,7 @@ class NewsArticlesControllerTest < ActionController::TestCase
 
     assert_select ".meta" do
       assert_select ".published-at[title='#{news_article.first_published_at.iso8601}']"
-      assert_select ".published-at[title='#{updated_news_article.major_change_published_at.iso8601}']"
+      assert_select ".published-at[title='#{updated_news_article.public_timestamp.iso8601}']"
     end
   end
 

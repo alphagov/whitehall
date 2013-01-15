@@ -5,7 +5,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
   include PublicDocumentRoutesHelper
 
   should_be_a_public_facing_controller
-  should_show_published_documents_associated_with :world_location, :news_articles, :first_published_at
+  should_show_published_documents_associated_with :world_location, :news_articles
   should_show_published_documents_associated_with :world_location, :policies
   should_show_published_documents_associated_with :world_location, :speeches, :delivered_on
   should_show_published_documents_associated_with :world_location, :publications, :publication_date
@@ -65,8 +65,8 @@ class WorldLocationsControllerTest < ActionController::TestCase
 
   test "show generates an atom feed with entries for latest activity" do
     world_location = create(:world_location)
-    pub = create(:published_publication, world_locations: [world_location], major_change_published_at: 1.week.ago)
-    pol = create(:published_policy, world_locations: [world_location], major_change_published_at: 1.day.ago)
+    pub = create(:published_publication, world_locations: [world_location], publication_date: 1.week.ago.to_date)
+    pol = create(:published_policy, world_locations: [world_location], first_published_at: 1.day.ago)
 
     get :show, id: world_location, format: :atom
 
@@ -88,8 +88,8 @@ class WorldLocationsControllerTest < ActionController::TestCase
 
   test "show generates an atom feed with summary content and prefixed title entries for latest activity when requested" do
     world_location = create(:world_location)
-    pub = create(:published_publication, world_locations: [world_location], major_change_published_at: 1.week.ago)
-    pol = create(:published_policy, world_locations: [world_location], major_change_published_at: 1.day.ago)
+    pub = create(:published_publication, world_locations: [world_location], publication_date: 1.week.ago.to_date)
+    pol = create(:published_policy, world_locations: [world_location], first_published_at: 1.day.ago)
 
     get :show, id: world_location, format: :atom, govdelivery_version: 'on'
 

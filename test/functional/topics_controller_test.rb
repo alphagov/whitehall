@@ -103,7 +103,7 @@ class TopicsControllerTest < ActionController::TestCase
     topic = create(:topic, policies: [policy])
     published = []
     4.times do |i|
-      published << create(:published_news_article, title: "title-#{i}", related_policies: [policy], major_change_published_at: i.days.ago)
+      published << create(:published_news_article, title: "title-#{i}", related_policies: [policy], first_published_at: i.days.ago)
     end
 
     get :show, id: topic
@@ -366,8 +366,8 @@ class TopicsControllerTest < ActionController::TestCase
   test 'atom feed shows a list of recently published documents' do
     document = create(:document)
     recent_documents = [
-      newer_edition = create(:published_policy, document: document, first_published_at: 1.month.ago, major_change_published_at: 1.day.ago),
-      older_edition = create(:archived_policy, document: document, first_published_at: 1.month.ago, major_change_published_at: 1.month.ago)
+      newer_edition = create(:published_policy, document: document, first_published_at: 1.month.ago),
+      older_edition = create(:archived_policy, document: document, first_published_at: 1.month.ago)
     ]
     topic = build(:topic, id: 1)
     topic.stubs(:recently_changed_documents).returns(recent_documents)
@@ -395,8 +395,8 @@ class TopicsControllerTest < ActionController::TestCase
   test 'atom feed shows a list of summarised and title prefixed documents when asked' do
     document = create(:document)
     recent_documents = [
-      newer_edition = create(:published_policy, document: document, first_published_at: 1.month.ago, major_change_published_at: 1.day.ago),
-      older_edition = create(:archived_policy, document: document, first_published_at: 1.month.ago, major_change_published_at: 1.month.ago)
+      newer_edition = create(:published_policy, document: document, first_published_at: 1.month.ago),
+      older_edition = create(:archived_policy, document: document, first_published_at: 1.month.ago)
     ]
     topic = build(:topic, id: 1)
     topic.stubs(:recently_changed_documents).returns(recent_documents)

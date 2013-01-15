@@ -3,10 +3,6 @@ module EditionPresenterHelper
     h.link_to model.title, public_document_path(model)
   end
 
-  def major_change_published_at
-    date_microformat(:major_change_published_at)
-  end
-
   def display_date_microformat
     date_microformat(:public_timestamp)
   end
