@@ -14,6 +14,7 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
   should_show_document_audit_trail_for :news_article, :show
   should_show_document_audit_trail_for :news_article, :edit
 
+  should_allow_speed_tagging_of :news_article
   should_allow_related_policies_for :news_article
   should_allow_organisations_for :news_article
   should_allow_role_appointments_for :news_article

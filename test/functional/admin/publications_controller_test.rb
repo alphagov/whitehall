@@ -15,6 +15,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
   should_show_document_audit_trail_for :publication, :show
   should_show_document_audit_trail_for :publication, :edit
 
+  should_allow_speed_tagging_of :publication
   should_allow_related_policies_for :publication
   should_allow_organisations_for :publication
   should_allow_ministerial_roles_for :publication

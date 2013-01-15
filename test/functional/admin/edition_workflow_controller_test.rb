@@ -384,11 +384,6 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
   test 'convert_to_draft turns the given edition into a draft' do
     @edition.expects(:convert_to_draft!)
     post :convert_to_draft, id: @edition, lock_version: 1
-  end
-
-  test 'convert_to_draft reports that the document has been published' do
-    @edition.stubs(:convert_to_draft!)
-    post :convert_to_draft, id: @edition, lock_version: 1
     assert_equal "The imported document #{@edition.title} has been converted into a draft", flash[:notice]
   end
 
