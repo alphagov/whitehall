@@ -322,10 +322,6 @@ class Edition < ActiveRecord::Base
     first_published_at
   end
 
-  def timestamp_for_update
-    major_change_published_at
-  end
-
   def alternative_format_contact_email
     nil
   end

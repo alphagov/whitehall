@@ -65,7 +65,7 @@ class FeedHelperTest < ActionView::TestCase
     documents_as_feed_entries([], builder, false, 'it is time')
   end
 
-  test 'documents_as_feed_entries sets the updated of the builder to the timestamp_for_update of the first supplied document' do
+  test 'documents_as_feed_entries sets the updated of the builder to the public_timestamp of the first supplied document' do
     d = Publication.new
     d.stubs(:id).returns(12)
     d.stubs(:public_timestamp).returns(3.days.ago)

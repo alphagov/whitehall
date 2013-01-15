@@ -588,15 +588,6 @@ class EditionTest < ActiveSupport::TestCase
     assert_equal 4.days.ago, e.public_timestamp
   end
 
-  test 'exposes major_change_published_at as timestamp_for_update' do
-    e = build(:edition, major_change_published_at: 1.week.ago,
-                        first_published_at: 2.weeks.ago,
-                        created_at: 3.weeks.ago,
-                        updated_at: 4.weeks.ago,
-                        public_timestamp: 5.weeks.ago)
-    assert_equal 1.week.ago, e.timestamp_for_update
-  end
-
   [:draft, :scheduled, :published, :archived, :submitted, :rejected].each do |state|
     test "valid_as_draft? is true for valid #{state} editions" do
       edition = build("#{state}_edition")
