@@ -67,12 +67,15 @@ class Consultation < Publicationesque
     response.published_on_or_default
   end
 
-  def first_published_date
-    opening_on.to_date
+  def first_public_at
+    opening_on.to_datetime
   end
 
-  def last_significantly_changed_on
-    ((response_published? && response_published_on) || (closed? && closing_on) || (open? && opening_on) || first_published_at).to_date
+  def make_public_at(date)
+  end
+
+  def first_published_date
+    opening_on.to_date
   end
 
   def allows_attachment_references?
@@ -104,14 +107,6 @@ class Consultation < Publicationesque
   def hash_with_blank_values?(hash)
     hash.values.inject(true) do |result, value|
       result && (value.is_a?(Hash) ? hash_with_blank_values?(value) : value.blank?)
-    end
-  end
-
-  def set_timestamp_for_sorting
-    if first_published_version?
-      self.timestamp_for_sorting = opening_on
-    else
-      self.timestamp_for_sorting = published_at
     end
   end
 

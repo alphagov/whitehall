@@ -234,24 +234,24 @@ class Edition::PublishingTest < ActiveSupport::TestCase
     assert edition.reload.published?
   end
 
-  test "publication records time of publication" do
+  test "publication records time of major change publication" do
     edition = create(:submitted_edition)
     edition.publish_as(create(:departmental_editor))
-    assert_equal Time.zone.now, edition.reload.published_at
+    assert_equal Time.zone.now, edition.reload.major_change_published_at
   end
 
-  test "publication records time of first publication if none is provided" do
+  test "publication records time of publication" do
     edition = create(:submitted_edition)
+    edition.expects(:make_public_at).with(Time.zone.now)
     edition.publish_as(create(:departmental_editor))
-    assert_equal Time.zone.now, edition.reload.first_published_at
   end
 
   test "publication does not update time of publication if minor change" do
     original_publishing_time = 1.day.ago
-    edition = create(:submitted_edition, published_at: original_publishing_time, change_note: nil, minor_change: true)
+    edition = create(:submitted_edition, major_change_published_at: original_publishing_time, change_note: nil, minor_change: true)
     Timecop.travel 1.day.from_now
     edition.publish_as(create(:departmental_editor))
-    assert_equal original_publishing_time, edition.published_at
+    assert_equal original_publishing_time, edition.major_change_published_at
   end
 
   test "publication preserves time of first publication if provided" do

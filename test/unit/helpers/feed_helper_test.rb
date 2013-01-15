@@ -38,12 +38,12 @@ class FeedHelperTest < ActionView::TestCase
   test 'documents_as_feed_entries exposes each document as an entry and calls document_as_feed_entry on it' do
     d1 = Publication.new
     d1.stubs(:id).returns(12)
-    d1.stubs(:timestamp_for_sorting).returns(1.week.ago)
-    d1.stubs(:timestamp_for_update).returns(3.days.ago)
+    d1.stubs(:first_public_at).returns(1.week.ago)
+    d1.stubs(:public_timestamp).returns(3.days.ago)
     d2 = Policy.new
     d2.stubs(:id).returns(14)
-    d2.stubs(:timestamp_for_sorting).returns(2.weeks.ago)
-    d2.stubs(:timestamp_for_update).returns(13.days.ago)
+    d2.stubs(:first_public_at).returns(2.weeks.ago)
+    d2.stubs(:public_timestamp).returns(13.days.ago)
     builder = mock('builder')
     entries = sequence('entries')
     builder.stubs(:updated)
@@ -65,11 +65,11 @@ class FeedHelperTest < ActionView::TestCase
     documents_as_feed_entries([], builder, false, 'it is time')
   end
 
-  test 'documents_as_feed_entries sets the updated of the builder to the timestamp_for_update of the first supplied document' do
+  test 'documents_as_feed_entries sets the updated of the builder to the public_timestamp of the first supplied document' do
     d = Publication.new
     d.stubs(:id).returns(12)
-    d.stubs(:timestamp_for_sorting).returns(1.week.ago)
-    d.stubs(:timestamp_for_update).returns(3.days.ago)
+    d.stubs(:public_timestamp).returns(3.days.ago)
+    d.stubs(:first_public_at).returns(1.week.ago)
 
     builder = mock('builder')
     builder.expects(:updated).with(3.days.ago)

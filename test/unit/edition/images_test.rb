@@ -28,10 +28,10 @@ class Edition::ImagesTest < ActiveSupport::TestCase
   test "#create_draft should include copies of image attributes" do
     image = create(:image)
     published_edition = EditionWithImages.create!(valid_edition_attributes.merge(
-      state:              'published',
-      published_at:       Time.zone.now,
+      state: 'published',
+      major_change_published_at: Time.zone.now,
       first_published_at: Time.zone.now,
-      images:             [image]
+      images: [image]
     ))
     draft_edition = published_edition.create_draft(build(:user))
     draft_edition.change_note = 'change-note'
@@ -47,10 +47,10 @@ class Edition::ImagesTest < ActiveSupport::TestCase
   test "#create_draft should not duplicate the actual image data" do
     image = create(:image)
     published_edition = EditionWithImages.create!(valid_edition_attributes.merge(
-      state:              'published',
-      published_at:       Time.zone.now,
+      state: 'published',
+      major_change_published_at: Time.zone.now,
       first_published_at: Time.zone.now,
-      images:             [image]
+      images: [image]
     ))
     draft_edition = published_edition.create_draft(build(:user))
     new_image = draft_edition.images.last
@@ -60,8 +60,8 @@ class Edition::ImagesTest < ActiveSupport::TestCase
 
   test "captions for images can be changed between versions" do
     published_edition = EditionWithImages.create!(valid_edition_attributes.merge(
-      state:              'published',
-      published_at:       Time.zone.now,
+      state: 'published',
+      major_change_published_at: Time.zone.now,
       first_published_at: Time.zone.now,
       images_attributes:  [{
         alt_text: "alt-text",

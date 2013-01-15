@@ -3,12 +3,15 @@ FactoryGirl.define do
     title "international-priority-title"
     body  "international-priority-body"
     summary nil
+
   end
 
   factory :draft_international_priority, parent: :international_priority, traits: [:draft]
   factory :submitted_international_priority, parent: :international_priority, traits: [:submitted]
   factory :rejected_international_priority, parent: :international_priority, traits: [:rejected]
-  factory :published_international_priority, parent: :international_priority, traits: [:published]
+  factory :published_international_priority, parent: :international_priority, traits: [:published] do
+    first_published_at { 2.days.ago }
+  end
   factory :deleted_international_priority, parent: :international_priority, traits: [:deleted]
   factory :archived_international_priority, parent: :international_priority, traits: [:archived]
   factory :scheduled_international_priority, parent: :international_priority, traits: [:scheduled]

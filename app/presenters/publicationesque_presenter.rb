@@ -4,19 +4,6 @@ class PublicationesquePresenter < Draper::Base
 
   decorates :publicationesque
 
-  def display_date_attribute_name
-    case publicationesque
-    when Publication
-      :publication_date
-    when Consultation
-      :timestamp_for_sorting
-    when StatisticalDataSet
-      :first_published_at
-    else
-      raise "Unexpected type: #{publicationesque.type}"
-    end
-  end
-
   def display_publication_type
     case publicationesque
     when Publication

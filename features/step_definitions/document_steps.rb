@@ -3,7 +3,7 @@ Given /^a draft (document|publication|policy|news article|consultation|speech) "
   create("draft_#{document_class(document_type).name.underscore}".to_sym, title: title)
 end
 
-Given /^a published (publication|policy|news article|consultation|speech) "([^"]*)" exists$/ do |document_type, title|
+Given /^a published (publication|policy|news article|consultation|speech|detailed guide) "([^"]*)" exists$/ do |document_type, title|
   create("published_#{document_class(document_type).name.underscore}".to_sym, title: title)
 end
 

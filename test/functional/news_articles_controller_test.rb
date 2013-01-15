@@ -5,7 +5,6 @@ class NewsArticlesControllerTest < ActionController::TestCase
   # should_render_a_list_of :news_articles, :first_published_at
   should_show_the_world_locations_associated_with :news_article
   should_display_inline_images_for :news_article
-  should_show_change_notes :news_article
 
   test "shows published news article" do
     news_article = create(:published_news_article)
@@ -30,7 +29,7 @@ class NewsArticlesControllerTest < ActionController::TestCase
   end
 
   test "shows when updated news article was first published and last updated" do
-    news_article = create(:published_news_article, published_at: 10.days.ago)
+    news_article = create(:published_news_article, first_published_at: 10.days.ago)
 
     editor = create(:departmental_editor)
     updated_news_article = news_article.create_draft(editor)
@@ -41,7 +40,7 @@ class NewsArticlesControllerTest < ActionController::TestCase
 
     assert_select ".meta" do
       assert_select ".published-at[title='#{news_article.first_published_at.iso8601}']"
-      assert_select ".published-at[title='#{updated_news_article.published_at.iso8601}']"
+      assert_select ".published-at[title='#{updated_news_article.public_timestamp.iso8601}']"
     end
   end
 
