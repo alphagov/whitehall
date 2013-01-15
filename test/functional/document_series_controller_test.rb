@@ -14,8 +14,8 @@ class DocumentSeriesControllerTest < ActionController::TestCase
   test 'show should display published publications within the series' do
     organisation = create(:organisation)
     series = create(:document_series, organisation: organisation)
-    publication = create(:published_publication, document_series: series)
-    draft_publication = create(:draft_publication, document_series: series)
+    publication = create(:published_publication, document_series: [series])
+    draft_publication = create(:draft_publication, document_series: [series])
 
     get :show, organisation_id: organisation, id: series
 
@@ -42,8 +42,8 @@ class DocumentSeriesControllerTest < ActionController::TestCase
   test 'show should display published statistical data sets within the series' do
     organisation = create(:organisation)
     series = create(:document_series, organisation: organisation)
-    statistical_data_set = create(:published_statistical_data_set, document_series: series)
-    draft_statistical_data_set = create(:draft_statistical_data_set, document_series: series)
+    statistical_data_set = create(:published_statistical_data_set, document_series: [series])
+    draft_statistical_data_set = create(:draft_statistical_data_set, document_series: [series])
 
     get :show, organisation_id: organisation, id: series
 
@@ -87,7 +87,7 @@ class DocumentSeriesControllerTest < ActionController::TestCase
     user = login_as(:departmental_editor)
     organisation = create(:organisation)
     series = create(:document_series, organisation: organisation)
-    publication = create(:draft_publication, document_series: series, scheduled_publication: Time.zone.now + Whitehall.default_cache_max_age * 2)
+    publication = create(:draft_publication, document_series: [series], scheduled_publication: Time.zone.now + Whitehall.default_cache_max_age * 2)
     publication.schedule_as(user, force: true)
 
     Timecop.freeze(Time.zone.now + Whitehall.default_cache_max_age * 1.5) do

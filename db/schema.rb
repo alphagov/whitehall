@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130110162911) do
+ActiveRecord::Schema.define(:version => 20130116105121) do
 
   create_table "attachment_data", :force => true do |t|
     t.string   "carrierwave_file"
@@ -253,6 +253,13 @@ ActiveRecord::Schema.define(:version => 20130110162911) do
   add_index "edition_authors", ["edition_id"], :name => "index_edition_authors_on_edition_id"
   add_index "edition_authors", ["user_id"], :name => "index_edition_authors_on_user_id"
 
+  create_table "edition_document_series", :force => true do |t|
+    t.integer "edition_id",         :null => false
+    t.integer "document_series_id", :null => false
+  end
+
+  add_index "edition_document_series", ["edition_id", "document_series_id"], :name => "index_edition_document_series", :unique => true
+
   create_table "edition_mainstream_categories", :force => true do |t|
     t.integer  "edition_id"
     t.integer  "mainstream_category_id"
@@ -363,7 +370,6 @@ ActiveRecord::Schema.define(:version => 20130110162911) do
     t.string   "additional_related_mainstream_content_url"
     t.string   "additional_related_mainstream_content_title"
     t.integer  "alternative_format_provider_id"
-    t.integer  "document_series_id"
     t.integer  "published_related_publication_count",                             :default => 0,       :null => false
     t.datetime "public_timestamp"
     t.integer  "primary_mainstream_category_id"
@@ -379,7 +385,6 @@ ActiveRecord::Schema.define(:version => 20130110162911) do
 
   add_index "editions", ["alternative_format_provider_id"], :name => "index_editions_on_alternative_format_provider_id"
   add_index "editions", ["document_id"], :name => "index_editions_on_document_id"
-  add_index "editions", ["document_series_id"], :name => "index_editions_on_document_series_id"
   add_index "editions", ["first_published_at"], :name => "index_editions_on_first_published_at"
   add_index "editions", ["operational_field_id"], :name => "index_editions_on_operational_field_id"
   add_index "editions", ["policy_team_id"], :name => "index_editions_on_policy_team_id"
