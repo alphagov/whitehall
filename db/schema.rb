@@ -799,7 +799,7 @@ ActiveRecord::Schema.define(:version => 20130204133738) do
 
   create_table "worldwide_offices", :force => true do |t|
     t.string   "name"
-    t.string   "summary"
+    t.text     "summary"
     t.text     "description"
     t.string   "url"
     t.string   "slug"

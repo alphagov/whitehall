@@ -2,7 +2,7 @@ class CreateWorldwideOffices < ActiveRecord::Migration
   def change
     create_table :worldwide_offices do |t|
       t.string :name
-      t.string :summary
+      t.text :summary
       t.text :description
       t.string :url
       t.string :slug
