@@ -449,6 +449,106 @@ module AdminEditionAttachableControllerTestHelpers
         assert_equal "greenpaper.pdf", attachment_4.attachment_data.carrierwave_file
       end
     end
+
+    def should_allow_bulk_upload_attachments_for(edition_type)
+      edition_class = edition_class_for(edition_type)
+      edition_base_class_name = edition_class.base_class.name.underscore
+      attachment_join_table = edition_class.reflect_on_association(:attachments).through_reflection.table_name
+      attachment_join_attributes = "#{attachment_join_table}_attributes".to_sym
+
+      test 'new provides an empty BulkUpload::ZipFile instance' do
+        get :new
+
+        assert assigns('bulk_upload_zip_file')
+        refute assigns('bulk_upload_zip_file').zip_file
+      end
+
+      test 'create will create a BulkUpload::ZipFile from the bulk_upload_zip_file params if attachment_mode is set to "bulk"' do
+        attrs = controller_attributes_for(edition_type)
+        post :create, edition_base_class_name => attrs,
+                      attachment_mode: 'bulk',
+                      bulk_upload_zip_file: {
+                        zip_file: fixture_file_upload('two-pages-and-greenpaper.zip')
+                      }
+
+        assert assigns('bulk_upload_zip_file')
+        assert_equal 'two-pages-and-greenpaper.zip', assigns('bulk_upload_zip_file').zip_file.original_filename
+      end
+
+      test 'create won\'t create a BulkUpload::ZipFile from the bulk_upload_zip_file params if attachment_mode is not set to "bulk"' do
+        attrs = controller_attributes_for(edition_type)
+        post :create, edition_base_class_name => attrs,
+                      attachment_mode: 'individual',
+                      bulk_upload_zip_file: {
+                        zip_file: fixture_file_upload('two-pages-and-greenpaper.zip')
+                      }
+
+        refute assigns('bulk_upload_zip_file')
+      end
+
+      test 'create will render the new form again and not create an instance if the bulk_upload_zip_file params are invalid' do
+        attrs = controller_attributes_for(edition_type)
+        post :create, edition_base_class_name => attrs,
+                      attachment_mode: 'bulk',
+                      bulk_upload_zip_file: {
+                        zip_file: fixture_file_upload('greenpaper.pdf')
+                      }
+
+        assert_template :new
+        refute edition_class.find_by_title(attrs['title'])
+      end
+
+      test 'editing provides an empty BulkUpload::ZipFile instance' do
+        edition = create(edition_type)
+
+        get :edit, id: edition
+
+        assert assigns('bulk_upload_zip_file')
+        refute assigns('bulk_upload_zip_file').zip_file
+      end
+
+      test 'update will create a BulkUpload::ZipFile from the bulk_upload_zip_file params if attachment_mode is set to "bulk"' do
+        edition = create(edition_type)
+
+        put :update, id: edition, edition_base_class_name => controller_attributes_for_instance(edition),
+                     attachment_mode: 'bulk',
+                     bulk_upload_zip_file: {
+                       zip_file: fixture_file_upload('two-pages-and-greenpaper.zip')
+                     }
+
+        assert assigns('bulk_upload_zip_file')
+        assert_equal 'two-pages-and-greenpaper.zip', assigns('bulk_upload_zip_file').zip_file.original_filename
+      end
+
+      test 'update won\'t create a BulkUpload::ZipFile from the bulk_upload_zip_file params if attachment_mode is not set to "bulk"' do
+        edition = create(edition_type)
+
+        put :update, id: edition, edition_base_class_name => controller_attributes_for_instance(edition),
+                     attachment_mode: 'individual',
+                     bulk_upload_zip_file: {
+                       zip_file: fixture_file_upload('two-pages-and-greenpaper.zip')
+                     }
+
+        refute assigns('bulk_upload_zip_file')
+      end
+
+      test 'update will render the edit form and not update the edition if the bulk_upload_zip_file params are invalid' do
+        edition = create(edition_type)
+        new_title = edition.title.reverse + 'woo!'
+
+        put :update, id: edition,
+                     edition_base_class_name => controller_attributes_for_instance(edition,
+                       title: new_title
+                     ),
+                     attachment_mode: 'bulk',
+                     bulk_upload_zip_file: {
+                       zip_file: fixture_file_upload('greenpaper.pdf')
+                     }
+
+        assert_template :edit
+        refute edition_class.find_by_title(new_title)
+      end
+    end
   end
 
   def create_draft(edition_type)

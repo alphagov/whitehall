@@ -20,6 +20,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
   should_allow_organisations_for :publication
   should_allow_ministerial_roles_for :publication
   should_allow_attachments_for :publication
+  should_allow_bulk_upload_attachments_for :publication
   should_allow_references_to_statistical_data_sets_for :publication
   should_require_alternative_format_provider_for :publication
   show_should_display_attachments_for :publication

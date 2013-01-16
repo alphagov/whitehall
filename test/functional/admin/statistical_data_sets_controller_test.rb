@@ -18,6 +18,7 @@ class Admin::StatisticalDataSetsControllerTest < ActionController::TestCase
 
   should_allow_organisations_for :statistical_data_set
   should_allow_attachments_for :statistical_data_set
+  should_allow_bulk_upload_attachments_for :statistical_data_set
   should_require_alternative_format_provider_for :statistical_data_set
   show_should_display_attachments_for :statistical_data_set
   should_allow_attachment_references_for :statistical_data_set
