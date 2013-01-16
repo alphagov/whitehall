@@ -797,6 +797,16 @@ ActiveRecord::Schema.define(:version => 20130204133738) do
   add_index "world_locations", ["slug"], :name => "index_world_locations_on_slug"
   add_index "world_locations", ["world_location_type_id"], :name => "index_world_locations_on_world_location_type_id"
 
+  create_table "worldwide_office_world_locations", :force => true do |t|
+    t.integer  "worldwide_office_id"
+    t.integer  "world_location_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "worldwide_office_world_locations", ["world_location_id"], :name => "index_worldwide_office_world_locations_on_world_location_id"
+  add_index "worldwide_office_world_locations", ["worldwide_office_id"], :name => "index_worldwide_office_world_locations_on_worldwide_office_id"
+
   create_table "worldwide_offices", :force => true do |t|
     t.string   "name"
     t.text     "summary"
