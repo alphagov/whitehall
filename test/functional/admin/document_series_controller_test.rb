@@ -22,9 +22,9 @@ class Admin::DocumentSeriesControllerTest < ActionController::TestCase
     organisation = create(:organisation)
 
     post :create, organisation_id: organisation, document_series: {
-      name: "series-name",
-      description: "series-description"
-    }
+          name: "series-name",
+          description: "series-description"
+        }
 
     assert_equal 1, organisation.document_series.count
     document_series = organisation.document_series.first
@@ -64,7 +64,7 @@ class Admin::DocumentSeriesControllerTest < ActionController::TestCase
   test "show lists all associated editions" do
     document_series = create(:document_series)
     organisation = document_series.organisation
-    edition = create(:published_publication, document_series: document_series)
+    edition = create(:published_publication, document_series: [document_series])
 
     get :show, organisation_id: organisation, id: document_series
 

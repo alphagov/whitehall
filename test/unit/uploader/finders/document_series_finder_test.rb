@@ -9,11 +9,11 @@ class Whitehall::Uploader::Finders::DocumentSeriesFinderTest < ActiveSupport::Te
 
   test "returns the document series identified by slug" do
     document_series = create(:document_series)
-    assert_equal document_series, Whitehall::Uploader::Finders::DocumentSeriesFinder.find(document_series.slug, @log, @line_number)
+    assert_equal [document_series], Whitehall::Uploader::Finders::DocumentSeriesFinder.find(document_series.slug, @log, @line_number)
   end
 
-  test "returns nil if the slug is blank" do
-    assert_equal nil, Whitehall::Uploader::Finders::DocumentSeriesFinder.find('', @log, @line_number)
+  test "returns empty array if the slug is blank" do
+    assert_equal [], Whitehall::Uploader::Finders::DocumentSeriesFinder.find('', @log, @line_number)
   end
 
   test "does not add an error if the slug is blank" do
@@ -21,8 +21,8 @@ class Whitehall::Uploader::Finders::DocumentSeriesFinderTest < ActiveSupport::Te
     assert_equal '', @log_buffer.string
   end
 
-  test "returns nil if the document series can't be found" do
-    assert_equal nil, Whitehall::Uploader::Finders::DocumentSeriesFinder.find('made-up-document-series-slug', @log, @line_number)
+  test "returns empty array if the document series can't be found" do
+    assert_equal [], Whitehall::Uploader::Finders::DocumentSeriesFinder.find('made-up-document-series-slug', @log, @line_number)
   end
 
   test "logs a warning if the document series can't be found" do

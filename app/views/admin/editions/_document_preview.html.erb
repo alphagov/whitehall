@@ -135,9 +135,11 @@
       <% if @edition.can_be_grouped_in_series? %>
         <section>
           <h1>Document series</h1>
-          <% if document_series = @edition.document_series %>
-            <%= content_tag_for :p, document_series do %>
-              <%= link_to document_series.name, admin_organisation_document_series_path(document_series.organisation, document_series) %>
+          <% if @edition.document_series.any? %>
+          <% @edition.document_series.each do |document_series| %>
+              <%= content_tag_for :p, document_series do %>
+                <%= link_to document_series.name, admin_organisation_document_series_path(document_series.organisation, document_series) %>
+              <% end %>
             <% end %>
           <% else %>
             <p>This document is not associated with any series.</p>
@@ -157,7 +159,7 @@
         <ul>
           <% @edition.document.document_sources.map(&:url).each do |url| %>
             <li><%= url %></li>
-          <% end %>  
+          <% end %>
         </ul>
       <% end %>
     </section>
