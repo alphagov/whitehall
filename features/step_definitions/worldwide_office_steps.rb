@@ -70,3 +70,27 @@ Then /^the "([^"]*)" details should be shown on the public website$/ do |descrip
   visit worldwide_office_path(WorldwideOffice.last)
   assert page.has_css?(".worldwide-office-contact h2", text: description)
 end
+
+Given /^that the world location "([^"]*)" exists$/ do |country_name|
+  create(:country, name: country_name)
+end
+
+When /^I begin editing a new worldwide office "([^"]*)"$/ do |office_name|
+  visit new_admin_worldwide_office_path
+  fill_in "Name", with: office_name
+  fill_in "Summary", with: "Worldwide office summary"
+  fill_in "Description", with: "Worldwide **office** description"
+end
+
+When /^I select world location "([^"]*)"$/ do |world_location_name|
+  select world_location_name, from: "World location"
+end
+
+When /^I click save$/ do
+  click_on "Save"
+end
+
+Then /^I should see the associated world location is "([^"]*)"$/ do |arg1|
+  pending # express the regexp above with the code you wish you had
+end
+

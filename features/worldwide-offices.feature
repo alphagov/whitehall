@@ -35,7 +35,15 @@ Feature: Worldwide offices
     When I add an "Hair division" contact with address and phone number
     Then the "Hair division" details should be shown on the public website
 
-  Scenario: Adding office hours to a worldwide office
+  @wip
   Scenario: Associating world locations with offices
+    Given that the world location "France" exists
+    When I begin editing a new worldwide office "Department of Beards in France"
+    And I select world location "France"
+    And I click save
+    Then I should see the worldwide office information on the public website
+    And I should see the associated world location is "France"
+
+  Scenario: Adding office hours to a worldwide office
   Scenario: Adding corporate information pages to offices
 
