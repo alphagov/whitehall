@@ -69,5 +69,5 @@ end
 
 Then /^the "([^"]*)" details should be shown on the public website$/ do |description|
   visit worldwide_office_path(WorldwideOffice.last)
-  assert page.has_css?(".worldwide-office-contact")
+  assert page.has_css?(".worldwide-office-contact h2", text: description)
 end
