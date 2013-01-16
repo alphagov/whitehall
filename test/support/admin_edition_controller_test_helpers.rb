@@ -1581,6 +1581,8 @@ module AdminEditionControllerTestHelpers
     end
 
     def should_allow_assignment_to_document_series(edition_type)
+      edition_class = edition_class_for(edition_type)
+
       test "when creating allows assignment to document series" do
         get :new
 
