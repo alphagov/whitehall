@@ -556,13 +556,39 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_select ".body", text: "body-in-html"
   end
 
-  test "should display corporate publications on about-us page" do
+  test "should display published corporate publications on about-us page" do
     published_corporate_publication = create(:published_corporate_publication)
+    draft_corporate_publication = create(:draft_corporate_publication)
+
     organisation = create(:organisation, editions: [
       published_corporate_publication,
+      draft_corporate_publication
     ])
+
     get :about, id: organisation
+
     assert_select_object(published_corporate_publication)
+    refute_select_object(draft_corporate_publication)
+  end
+
+  test "should display published corporate publications on about-us page in order published" do
+    old_published_corporate_publication = create(:published_corporate_publication, publication_date: Date.parse('2012-01-01'))
+    new_published_corporate_publication = create(:published_corporate_publication, publication_date: Date.parse('2012-01-03'))
+    middle_published_corporate_publication = create(:published_corporate_publication, publication_date: Date.parse('2012-01-02'))
+
+    organisation = create(:organisation, editions: [
+      old_published_corporate_publication,
+      new_published_corporate_publication,
+      middle_published_corporate_publication,
+    ])
+
+    get :about, id: organisation
+
+    assert_equal [
+      new_published_corporate_publication,
+      middle_published_corporate_publication,
+      old_published_corporate_publication
+    ], assigns(:corporate_publications)
   end
 
   test "should display link to corporate information pages on about-us page" do
