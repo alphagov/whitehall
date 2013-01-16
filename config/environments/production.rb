@@ -8,6 +8,15 @@ Whitehall::Application.configure do
   config.consider_all_requests_local       = false
   config.action_controller.perform_caching = false
 
+  # Disable even limited exception/debug pages in production for two reasons:
+  #  1) our backend rails apps get X-Forwarded-For & Client-IP for all requests
+  #     as 10.x.x.x, which is a trusted proxy. This means they render the
+  #     limited exception/debug pages.
+  #  2) our backend rails apps receive requests from other apps that might
+  #     appear to be on trusted proxy IPs, so we might render exception/debug
+  #     page, which could then be exposed in a frontend app to the world.
+  config.action_dispatch.show_exceptions = false
+
   # Disable Rails's static asset server (Apache or nginx will already do this)
   config.serve_static_assets = true
 
