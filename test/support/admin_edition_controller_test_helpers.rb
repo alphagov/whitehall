@@ -1622,7 +1622,7 @@ module AdminEditionControllerTestHelpers
         )
 
         assert document = edition_class.last
-        assert_include [series1, series2], document.document_series
+        assert_equal [series1, series2], document.document_series
       end
     end
   end
