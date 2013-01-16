@@ -25,13 +25,13 @@ Feature: Worldwide offices
     Then the worldwide office should not be visible from the public website
 
   Scenario: Managing social media links
-    Given a worldwide office "Beards in France"
+    Given a worldwide office "Department of Beards in France"
     Given a social media service "Twooter"
     When I add a "Twooter" social media link "http://twooter.com/beards-in-france"
     Then the social link should be shown on the public website
 
   Scenario: Managing contact information
-    Given a worldwide office "Beards in France"
+    Given a worldwide office "Department of Beards in France"
     When I add an "Hair division" contact with address and phone number
     Then the "Hair division" details should be shown on the public website
 

@@ -52,7 +52,6 @@ Then /^the social link should be shown on the public website$/ do
   assert page.has_css?(".social-media .social-media-link")
 end
 
-
 When /^I add an "([^"]*)" contact with address and phone number$/ do |description|
   visit edit_admin_worldwide_office_path(WorldwideOffice.last)
   within '.contact' do
