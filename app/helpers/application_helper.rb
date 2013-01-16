@@ -104,6 +104,18 @@ module ApplicationHelper
     ]
   end
 
+  def news_article_type_options
+    [
+      ["", [""]],
+      ["Common types", NewsArticleType.primary.map { |type|
+        [type.singular_name, type.id]
+      }],
+      ["Legacy (need migration)", NewsArticleType.migration.map { |type|
+        [type.singular_name, type.id]
+      }]
+    ]
+  end
+
   def role_type_options
     RoleTypePresenter.options
   end

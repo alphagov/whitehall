@@ -40,4 +40,14 @@ class NewsArticleTest < EditionTestCase
     assert topical_event = news_article.topical_events.create(name: "Test", description: "Test")
     assert_equal [news_article], topical_event.news_articles
   end
+
+  test "should allow setting of news article type" do
+    news_article = build(:news_article, news_article_type_id: NewsArticleType::PressRelease)
+    assert news_article.valid?
+  end
+
+  test "should be invalid without a news article type" do
+    news_article = build(:news_article, news_article_type_id: nil)
+    refute news_article.valid?
+  end
 end

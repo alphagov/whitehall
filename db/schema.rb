@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130116105121) do
+ActiveRecord::Schema.define(:version => 20130116161136) do
 
   create_table "attachment_data", :force => true do |t|
     t.string   "carrierwave_file"
@@ -385,6 +385,7 @@ ActiveRecord::Schema.define(:version => 20130116105121) do
     t.integer  "operational_field_id"
     t.text     "roll_call_introduction"
     t.text     "govdelivery_url"
+    t.integer  "news_article_type_id"
   end
 
   add_index "editions", ["alternative_format_provider_id"], :name => "index_editions_on_alternative_format_provider_id"

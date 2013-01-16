@@ -3,6 +3,7 @@ FactoryGirl.define do
     title "news-title"
     summary "news-summary"
     body  "news-body"
+    news_article_type_id { NewsArticleType::PressRelease.id }
   end
 
   factory :imported_news_article, parent: :news_article, traits: [:imported]
