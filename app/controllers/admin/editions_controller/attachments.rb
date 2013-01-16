@@ -31,7 +31,10 @@ module Admin::EditionsController::Attachments
   def extract_attachments_from_zip_file
     return unless params[:attachment_mode] == 'bulk'
     @bulk_upload_zip_file = BulkUpload::ZipFile.new((params[:bulk_upload_zip_file] || {} )[:zip_file])
-    unless @bulk_upload_zip_file.valid?
+    if @bulk_upload_zip_file.valid?
+      zip_file_to_attachments = BulkUpload::ZipFileToAttachments.new(@bulk_upload_zip_file, @edition, params[:edition])
+      zip_file_to_attachments.manipulate_params!
+    else
       @edition.attributes = params[:edition]
       @edition.errors.add(:bulk_upload_zip_file, 'is invalid')
       render @edition.new_record? ? :new : :edit

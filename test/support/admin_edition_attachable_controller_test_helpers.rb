@@ -498,6 +498,20 @@ module AdminEditionAttachableControllerTestHelpers
         refute edition_class.find_by_title(attrs['title'])
       end
 
+      test 'create will manipulate the params based and commit the action on the contents of the zip if the bulk_upload_zip_file params are valid' do
+        attrs = controller_attributes_for(edition_type)
+
+        BulkUpload::ZipFileToAttachments.any_instance.expects(:manipulate_params!)
+
+        post :create, edition_base_class_name => attrs,
+                      attachment_mode: 'bulk',
+                      bulk_upload_zip_file: {
+                        zip_file: fixture_file_upload('two-pages-and-greenpaper.zip')
+                      }
+
+        assert edition_class.find_by_title(attrs[:title])
+      end
+
       test 'editing provides an empty BulkUpload::ZipFile instance' do
         edition = create(edition_type)
 
@@ -547,6 +561,25 @@ module AdminEditionAttachableControllerTestHelpers
 
         assert_template :edit
         refute edition_class.find_by_title(new_title)
+      end
+
+      test 'update will manipulate the params and commit the action based on the contents of the zip if the bulk_upload_zip_file params are valid' do
+        edition = create(edition_type)
+        new_title = edition.title.reverse + 'woo!'
+
+        BulkUpload::ZipFileToAttachments.any_instance.expects(:manipulate_params!)
+
+
+        put :update, id: edition,
+                     edition_base_class_name => controller_attributes_for_instance(edition,
+                       title: new_title
+                     ),
+                     attachment_mode: 'bulk',
+                     bulk_upload_zip_file: {
+                       zip_file: fixture_file_upload('two-pages-and-greenpaper.zip')
+                     }
+
+        assert_equal new_title, edition.reload.title
       end
     end
   end
