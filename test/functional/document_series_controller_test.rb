@@ -26,9 +26,9 @@ class DocumentSeriesControllerTest < ActionController::TestCase
   test 'show should display publications in order of published date' do
     organisation = create(:organisation)
     series = create(:document_series, organisation: organisation)
-    publication_middle = create(:published_publication, document_series: series, publication_date: Date.parse('2011-05-01'))
-    publication_old = create(:published_publication, document_series: series, publication_date: Date.parse('2011-01-01'))
-    publication_new = create(:published_publication, document_series: series, publication_date: Date.parse('2012-01-01'))
+    publication_middle = create(:published_publication, document_series: [series], publication_date: Date.parse('2011-05-01'))
+    publication_old = create(:published_publication, document_series: [series], publication_date: Date.parse('2011-01-01'))
+    publication_new = create(:published_publication, document_series: [series], publication_date: Date.parse('2012-01-01'))
 
     get :show, organisation_id: organisation, id: series
 
@@ -54,9 +54,9 @@ class DocumentSeriesControllerTest < ActionController::TestCase
   test 'show should display statistical data sets in order of publication' do
     organisation = create(:organisation)
     series = create(:document_series, organisation: organisation)
-    old_statistical_data_set = create(:published_statistical_data_set, document_series: series, first_published_at: 3.days.ago)
-    new_statistical_data_set = create(:published_statistical_data_set, document_series: series, first_published_at: 1.days.ago)
-    middle_statistical_data_set = create(:published_statistical_data_set, document_series: series, first_published_at: 2.days.ago)
+    old_statistical_data_set = create(:published_statistical_data_set, document_series: [series], first_published_at: 3.days.ago)
+    new_statistical_data_set = create(:published_statistical_data_set, document_series: [series], first_published_at: 1.days.ago)
+    middle_statistical_data_set = create(:published_statistical_data_set, document_series: [series], first_published_at: 2.days.ago)
 
     get :show, organisation_id: organisation, id: series
 
