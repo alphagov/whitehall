@@ -387,6 +387,67 @@ module AdminEditionAttachableControllerTestHelpers
         edition.reload
         assert_equal [attachment_2], edition.attachments
       end
+
+      test 'updating should respect the attachment_action attribute to keep, remove, or replace attachments' do
+        two_pages_pdf = fixture_file_upload('two-pages.pdf')
+        greenpaper_pdf = fixture_file_upload('greenpaper.pdf')
+
+        attachment_1 = create(:attachment, file: File.open(File.join(Rails.root, 'test', 'fixtures', 'whitepaper.pdf')))
+        attachment_1_data = attachment_1.attachment_data
+        attachment_2 = create(:attachment, file: File.open(File.join(Rails.root, 'test', 'fixtures', 'greenpaper.pdf')))
+        attachment_3 = create(:attachment, file: File.open(File.join(Rails.root, 'test', 'fixtures', 'three-pages.pdf')))
+        attachment_3_data = attachment_3.attachment_data
+
+        edition = create(edition_type, :with_alternative_format_provider)
+        edition_attachment_1 = create("#{edition_base_class_name}_attachment", edition_base_class_name => edition, attachment: attachment_1)
+        edition_attachment_2 = create("#{edition_base_class_name}_attachment", edition_base_class_name => edition, attachment: attachment_2)
+        edition_attachment_3 = create("#{edition_base_class_name}_attachment", edition_base_class_name => edition, attachment: attachment_3)
+
+        put :update, id: edition, edition_base_class_name => controller_attributes_for_instance(edition,
+          attachment_join_attributes => {
+            "0" => { id: edition_attachment_1.id.to_s, attachment_attributes: {
+              id: attachment_1.id,
+              attachment_action: 'keep'
+            }},
+            "1" => { id: edition_attachment_2.id.to_s, attachment_attributes: {
+              id: attachment_2.id,
+              attachment_action: 'remove'
+            }},
+            "2" => { id: edition_attachment_3.id.to_s, attachment_attributes: {
+              id: attachment_3.id,
+              attachment_action: 'replace',
+              attachment_data_attributes: {
+                file: two_pages_pdf,
+                to_replace_id: attachment_3.attachment_data.id
+              }
+            }},
+            "3" => { attachment_attributes: attributes_for(:attachment).merge(
+              attachment_data_attributes: { file: greenpaper_pdf }
+            )}
+          }
+        )
+
+        refute_select ".errors"
+        edition.reload
+        assert_equal 3, edition.attachments.size
+        assert edition.attachments.include?(attachment_1)
+        assert !edition.attachments.include?(attachment_2)
+        assert edition.attachments.include?(attachment_3)
+
+        assert_raises(ActiveRecord::RecordNotFound) do
+          attachment_2.reload
+        end
+
+        assert_equal attachment_1_data, attachment_1.reload.attachment_data
+
+        new_attachment_3_data = attachment_3.reload.attachment_data
+        assert_not_equal attachment_3_data, new_attachment_3_data
+        assert_equal "two-pages.pdf", new_attachment_3_data.carrierwave_file
+        assert_equal new_attachment_3_data, attachment_3_data.reload.replaced_by
+
+        attachment_4 = edition.attachments.last
+        assert_equal "greenpaper.pdf", attachment_4.attachment_data.carrierwave_file
+      end
     end
   end
 

@@ -31,7 +31,7 @@ class DocumentFilterJsonPresenter < Draper::Base
       organisations: document.organisations.map { |o|
         h.organisation_display_name(o)
       }.to_sentence.html_safe,
-      updated_at: document.updated_at
+      public_timestamp: document.public_timestamp
     }
   end
 end

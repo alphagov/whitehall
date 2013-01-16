@@ -2,6 +2,7 @@ class Admin::CorporateInformationPagesController < Admin::BaseController
   before_filter :find_organisation
   before_filter :build_corporate_information_page, only: [:new, :create]
   before_filter :find_corporate_information_page, only: [:edit, :update, :destroy]
+  before_filter :cope_with_attachment_action_params, only: [:update]
 
   def new
     build_corporate_information_page
@@ -69,4 +70,12 @@ private
   def build_attachment
     @corporate_information_page.build_empty_attachment
   end
+
+  def cope_with_attachment_action_params
+    return unless params[:corporate_information_page] && params[:corporate_information_page][:corporate_information_page_attachments_attributes]
+    params[:corporate_information_page][:corporate_information_page_attachments_attributes].each do |_, corporate_information_page_attachment_params|
+      Admin::AttachmentActionParamHandler.manipulate_params!(corporate_information_page_attachment_params)
+    end
+  end
+
 end

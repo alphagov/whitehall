@@ -133,34 +133,43 @@ class AttachmentUploader < WhitehallUploader
           }
       end
 
-      def files_by_allowed_extension
-        @files_by_allowed_extension ||=
-          files_with_extensions.
-            reject { |file, ext| ext.nil? }.
-            group_by { |file, ext| ext }
+      def files_by_shape_and_allowed_extension
+        @files_by_shape_and_allowed_extension ||=
+          Hash[
+            files_with_extensions.
+              reject { |file, ext| ext.nil? }.
+              group_by { |file, ext| file.gsub(/\.#{Regexp.escape(ext)}\Z/,'')}.
+              map { |shape, files|
+                [ shape, files.group_by { |file, ext| ext } ]
+              }
+          ]
       end
 
       def has_no_extra_files?
         files_with_extensions.select { |(f, e)| e.nil? }.empty?
       end
 
-      def has_only_one_of_each_allowed_file?
-        files_by_allowed_extension.
-          select { |ext, files| files.size > 1 }.
-          empty?
+      def each_shape_has_only_one_of_each_allowed_file?
+        files_by_shape_and_allowed_extension.all? do |shape, files|
+          files.
+            select { |ext, files| files.size > 1 }.
+            empty?
+        end
       end
 
-      def has_required_files?
-        files_by_allowed_extension.
-          select { |ext, files| REQUIRED_EXTS.include? ext }.
-          reject { |ext, files| files.size > 1 }.
-          keys.sort == REQUIRED_EXTS.sort
+      def each_shape_has_required_files?
+        files_by_shape_and_allowed_extension.all? do |shape, files|
+          files.
+            select { |ext, files| REQUIRED_EXTS.include? ext }.
+            reject { |ext, files| files.size > 1 }.
+            keys.sort == REQUIRED_EXTS.sort
+        end
       end
 
       def valid?
         has_no_extra_files? &&
-          has_only_one_of_each_allowed_file? &&
-          has_required_files?
+          each_shape_has_only_one_of_each_allowed_file? &&
+          each_shape_has_required_files?
       end
 
       def failure_message

@@ -18,7 +18,7 @@ class PublicationsController < DocumentsController
         render json: PublicationFilterJsonPresenter.new(@filter)
       end
       format.atom do
-        @publications = @filter.documents.sort_by(&:timestamp_for_sorting).reverse
+        @publications = @filter.documents.sort_by(&:public_timestamp).reverse
       end
     end
   end

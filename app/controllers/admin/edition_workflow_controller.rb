@@ -85,7 +85,7 @@ class Admin::EditionWorkflowController < Admin::BaseController
 
   def convert_to_draft
     @edition.convert_to_draft!
-    redirect_to admin_editions_path(state: :imported),
+    redirect_to admin_editions_path(session_filters.merge(state: :imported)),
       notice: "The imported document #{@edition.title} has been converted into a draft"
   end
 
@@ -127,4 +127,9 @@ class Admin::EditionWorkflowController < Admin::BaseController
       "#{action_name} this edition"
     end
   end
+
+  def session_filters
+    session[:document_filters] || {}
+  end
+
 end

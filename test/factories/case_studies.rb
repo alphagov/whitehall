@@ -8,7 +8,9 @@ FactoryGirl.define do
   factory :draft_case_study, parent: :case_study, traits: [:draft]
   factory :submitted_case_study, parent: :case_study, traits: [:submitted]
   factory :rejected_case_study, parent: :case_study, traits: [:rejected]
-  factory :published_case_study, parent: :case_study, traits: [:published]
+  factory :published_case_study, parent: :case_study, traits: [:published] do
+    first_published_at { 2.days.ago }
+  end
   factory :deleted_case_study, parent: :case_study, traits: [:deleted]
   factory :archived_case_study, parent: :case_study, traits: [:archived]
   factory :scheduled_case_study, parent: :case_study, traits: [:scheduled]

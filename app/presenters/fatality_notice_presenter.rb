@@ -3,7 +3,4 @@ class FatalityNoticePresenter < Draper::Base
 
   decorates :fatality_notice
 
-  def display_date_attribute_name
-    :published_at
-  end
 end

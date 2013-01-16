@@ -62,9 +62,13 @@ module Whitehall::Uploader
       organisations.first
     end
 
+    def access_limited
+      false
+    end
+
     def attributes
       [:title, :summary, :body, :lead_edition_organisations, :document_series,
-       :attachments, :alternative_format_provider].map.with_object({}) do |name, result|
+       :attachments, :alternative_format_provider, :access_limited].map.with_object({}) do |name, result|
         result[name] = __send__(name)
       end
     end

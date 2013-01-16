@@ -4,10 +4,6 @@ class NewsArticlePresenter < Draper::Base
 
   decorates :news_article
 
-  def display_date_attribute_name
-    :published_at
-  end
-
   def lead_image_path
     image = super
     if image =~ /placeholder/ && news_article.organisations.any? && find_asset("organisation_default_news/#{news_article.organisations.first.slug}.jpg")

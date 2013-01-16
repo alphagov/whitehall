@@ -24,6 +24,6 @@ class Admin::WorldLocationsController < Admin::BaseController
   end
 
   def load_news_articles
-    @news_articles = NewsArticle.accessible_to(current_user).published.in_world_location(@world_location).by_first_published_at
+    @news_articles = NewsArticle.accessible_to(current_user).published.in_world_location(@world_location).in_reverse_chronological_order
   end
 end

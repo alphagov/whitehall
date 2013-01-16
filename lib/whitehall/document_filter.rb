@@ -65,8 +65,7 @@ class Whitehall::DocumentFilter
   end
 
   def selected_announcement_type_option
-    filter_option = @params[:announcement_type_option] || @params[:announcement_type]
-    Whitehall::AnnouncementFilterOption.find_by_slug(filter_option)
+    Whitehall::AnnouncementFilterOption.find_by_slug(@params[:announcement_type_option])
   end
 
   def keywords

@@ -49,7 +49,7 @@
                   <%= content_tag_for :li, publication, class: 'item' do %>
                     <h3 class="title"><%= link_to publication.title, public_document_path(publication) %></h3>
                     <span class="metadata">
-                      Updated <%= relative_time(publication.updated_at, class: 'updated-at') %>
+                      <%= absolute_date(publication.public_timestamp) %>
                     </span>
                   <% end %>
                 <% end %>

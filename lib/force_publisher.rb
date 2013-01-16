@@ -4,33 +4,12 @@ class ForcePublisher
   include Rails.application.routes.url_helpers
   include PublicDocumentRoutesHelper
 
-  attr_reader :failures, :successes
+  attr_reader :failures, :successes, :editions_to_publish
 
-  def initialize(acronym, options = {})
-    @acronym = acronym
-    @organisation = Organisation.find_by_acronym!(acronym)
+  def initialize(editions_to_publish)
     @failures = []
     @successes = []
-    @excluded_types = options[:excluded_types] ? [*options[:excluded_types]] : []
-  end
-
-  def excluded_types
-    @excluded_types.map do |type_name|
-      Object.const_get(type_name)
-    end
-  end
-
-  def editions_to_publish(limit = nil)
-    editions = @organisation.editions
-      .draft
-      .latest_edition
-      .where("exists (select * from document_sources ds where ds.document_id=editions.document_id)")
-      .limit(limit)
-    if excluded_types.any?
-      editions.where("type not in (?)", excluded_types.map(&:name))
-    else
-      editions
-    end
+    @editions_to_publish = editions_to_publish
   end
 
   def user
@@ -49,7 +28,8 @@ class ForcePublisher
 
   def force_publish!(limit = nil)
     suppress_logging!
-    editions_to_publish(limit).each do |edition|
+    editions = limit ? @editions_to_publish.take(limit) : @editions_to_publish
+    editions.each do |edition|
       reason = edition.reason_to_prevent_publication_by(user, force: true)
       if reason
         failure(edition, reason)
@@ -75,4 +55,28 @@ class ForcePublisher
     puts "ERR: #{edition.id}: #{reason.to_s}"
     @failures << [edition, reason]
   end
+
+  def self.for_import(import_instance_or_id)
+    import = import_instance_or_id.is_a?(Import) ? import_instance_or_id : Import.find(import_instance_or_id)
+    raise "import #{import.id} status is #{import.status}, but only successful imports can be published" unless import.status == :succeeded
+    editions_to_publish = import.document_sources.map do |ds|
+      ds.document.latest_edition
+    end
+    ForcePublisher.new(editions_to_publish)
+  end
+
+  def self.for_organisation(acronym, options = {})
+    organisation = Organisation.find_by_acronym!(acronym)
+    excluded_types = (options[:excluded_types] ? [*options[:excluded_types]] : []).map do |type_name|
+      Object.const_get(type_name)
+    end
+    editions_to_publish = organisation.editions
+      .draft
+      .latest_edition
+      .where("exists (select * from document_sources ds where ds.document_id=editions.document_id)")
+    if excluded_types.any?
+      editions_to_publish = editions_to_publish.where("type not in (?)", excluded_types.map(&:name))
+    end
+    ForcePublisher.new(editions_to_publish)
+   end
 end

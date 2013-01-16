@@ -259,27 +259,11 @@ class EditionTest < ActiveSupport::TestCase
     end
   end
 
-  test ".by_published_at orders by published_at descending" do
-    policy = create(:policy, published_at: 2.hours.ago)
-    publication = create(:publication, published_at: 4.hours.ago)
-    article = create(:news_article, published_at: 1.hour.ago)
-    assert_equal [article, policy, publication], Edition.by_published_at
-  end
-
-  test ".latest_published_at returns the most recent published_at from published editions" do
-    policy = create(:published_policy, published_at: 2.hours.ago)
-    publication = create(:published_publication, published_at: 4.hours.ago)
-    assert_equal policy.published_at, Edition.latest_published_at
-  end
-
-  test ".latest_published_at ignores unpublished editions" do
-    policy = create(:draft_policy, published_at: 2.hours.ago)
-    publication = create(:published_publication, published_at: 4.hours.ago)
-    assert_equal publication.published_at, Edition.latest_published_at
-  end
-
-  test ".latest_published_at returns nil if no published editions exist" do
-    assert_nil Edition.latest_published_at
+  test ".by_major_change_published_at orders by major_change_published_at descending" do
+    policy = create(:policy, major_change_published_at: 2.hours.ago)
+    publication = create(:publication, major_change_published_at: 4.hours.ago)
+    article = create(:news_article, major_change_published_at: 1.hour.ago)
+    assert_equal [article, policy, publication], Edition.by_major_change_published_at
   end
 
   test "should only return the submitted editions" do
@@ -560,13 +544,32 @@ class EditionTest < ActiveSupport::TestCase
     assert build(:edition).accessible_by?(nil)
   end
 
-  test 'exposes published_at as timestamp_for_update' do
-    e = build(:edition, published_at: 1.week.ago,
-                        first_published_at: 2.weeks.ago,
-                        created_at: 3.weeks.ago,
-                        updated_at: 4.weeks.ago,
-                        timestamp_for_sorting: 5.weeks.ago)
-    assert_equal 1.week.ago, e.timestamp_for_update
+  test "make_public_at should set first_published_at if its empty" do
+    e = build(:edition, first_published_at: nil)
+    e.make_public_at(2.days.ago)
+    assert_equal 2.days.ago, e.first_published_at
+  end
+
+  test "make_public_at should no update first_published_at if its not empty" do
+    e = build(:edition, first_published_at: 4.days.ago)
+    e.make_public_at(2.days.ago)
+    assert_equal 4.days.ago, e.first_published_at
+  end
+
+  test "set_public_timestamp should use first_public_at if first_published_version" do
+    e = build(:edition, public_timestamp: nil)
+    e.stubs(:first_public_at).returns(3.days.ago)
+    e.set_public_timestamp
+    assert_equal 3.days.ago, e.public_timestamp
+  end
+
+  test "set_public_timestamp should use major_change_published_at if not first_published_version" do
+    e = build(:edition,
+              public_timestamp: nil,
+              published_major_version: 2,
+              major_change_published_at: 4.days.ago)
+    e.set_public_timestamp
+    assert_equal 4.days.ago, e.public_timestamp
   end
 
   [:draft, :scheduled, :published, :archived, :submitted, :rejected].each do |state|

@@ -26,9 +26,7 @@
       <% unless published_on.blank? %>
         <span class="changed">Published: <%= absolute_date(published_on) %></span>
       <% end %>
-      <span class="type"><%= humanized_content_type(attachment.file_extension) %></span>,
-      <span class="file-size"><%= number_to_human_size(attachment.file_size) %></span><% if attachment.number_of_pages.present? %>,
-        <span class="page-length"><%= pluralize(attachment.number_of_pages, "page") %></span><% end %>
+      <%= attachment_attributes(attachment) %>
     </p>
     <% if attachment.order_url.present? %>
       <p>

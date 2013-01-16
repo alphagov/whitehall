@@ -66,8 +66,8 @@ class Edition::AuditTrailTest < ActiveSupport::TestCase
 
   test "publishing records a published event" do
     doc = create(:submitted_edition)
-    doc.published_at = Time.zone.now
     doc.first_published_at = Time.zone.now
+    doc.major_change_published_at = Time.zone.now
     PaperTrail.whodunnit = @user2
     doc.publish!
     assert_equal "publish", doc.audit_trail.last.event

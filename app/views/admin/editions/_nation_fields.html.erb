@@ -3,8 +3,7 @@
   <%= form.fields_for :nation_inapplicabilities do |ni_form| %>
     <div class="control-group">
       <div class="control">
-        <% checkbox_args = nested_attribute_destroy_checkbox_options(ni_form) %>
-        <% checkbox_args[0].merge!(label_text: ni_form.object.nation.name) %>
+        <% checkbox_args = nested_attribute_destroy_checkbox_options(ni_form, label_text: ni_form.object.nation.name) %>
         <%= ni_form.check_box :_destroy, *checkbox_args %>
       </div>
       <div class="control">

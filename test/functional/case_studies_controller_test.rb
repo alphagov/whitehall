@@ -5,7 +5,6 @@ class CaseStudiesControllerTest < ActionController::TestCase
   should_render_a_list_of :case_studies
   should_show_related_policies_for :case_study
   should_display_inline_images_for :case_study
-  should_show_change_notes :case_study
   should_be_previewable :case_study
 
   test "shows published case study" do
@@ -31,7 +30,7 @@ class CaseStudiesControllerTest < ActionController::TestCase
   end
 
   test "shows when it was last updated" do
-    case_study = create(:published_case_study, published_at: 10.days.ago)
+    case_study = create(:published_case_study, first_published_at: 10.days.ago)
 
     editor = create(:departmental_editor)
     updated_case_study = case_study.create_draft(editor)
@@ -41,7 +40,7 @@ class CaseStudiesControllerTest < ActionController::TestCase
     get :show, id: updated_case_study.document
 
     assert_select ".meta" do
-      assert_select ".published-at[title='#{updated_case_study.published_at.iso8601}']"
+      assert_select ".published-at[title='#{updated_case_study.first_published_at.iso8601}']"
     end
   end
 end

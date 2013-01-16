@@ -165,7 +165,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     organisation = create(:organisation)
     editions = []
     7.times do |i|
-      edition = create(:published_news_article, published_at: i.days.ago)
+      edition = create(:published_news_article, first_published_at: i.days.ago)
       editions << create(:featured_edition_organisation, edition: edition, organisation: organisation)
     end
 
@@ -341,18 +341,18 @@ class OrganisationsControllerTest < ActionController::TestCase
 
   test "should display the organisation's publications with content" do
     organisation = create(:organisation)
-    publication = create(:published_publication, organisations: [organisation], publication_type: PublicationType::PolicyPaper, publication_date: Date.parse("2012-01-01"))
-    consultation = create(:published_consultation, organisations: [organisation], opening_on: 3.days.ago)
+    publication = create(:published_publication, organisations: [organisation], publication_type: PublicationType::PolicyPaper, publication_date: 4.days.ago.to_date)
+    consultation = create(:published_consultation, organisations: [organisation], opening_on: 3.days.ago.to_date)
 
     get :show, id: organisation
 
     assert_select "#publications" do
       assert_select_object publication do
-        assert_select '.publication-date abbr[title=?]', Date.parse("2012-01-01").iso8601
+        assert_select '.publication-date abbr[title=?]', publication.public_timestamp.iso8601
         assert_select '.document-type', "Policy paper"
       end
       assert_select_object consultation do
-        assert_select '.publication-date abbr[title=?]', 3.days.ago.iso8601
+        assert_select '.publication-date abbr[title=?]', consultation.public_timestamp.iso8601
         assert_select '.document-type', "Open consultation"
       end
     end
@@ -372,10 +372,10 @@ class OrganisationsControllerTest < ActionController::TestCase
     organisation = create(:organisation)
     role = create(:ministerial_role, organisations: [organisation])
     role_appointment = create(:ministerial_role_appointment, role: role)
-    announcement_1 = create(:published_news_article, organisations: [organisation], published_at: 2.days.ago)
+    announcement_1 = create(:published_news_article, organisations: [organisation], first_published_at: 2.days.ago)
     announcement_2 = create(:published_speech, role_appointment: role_appointment, delivered_on: 3.days.ago)
-    announcement_3 = create(:published_news_article, organisations: [organisation], published_at: 4.days.ago)
-    announcement_4 = create(:published_news_article, organisations: [organisation], published_at: 1.days.ago)
+    announcement_3 = create(:published_news_article, organisations: [organisation], first_published_at: 4.days.ago)
+    announcement_4 = create(:published_news_article, organisations: [organisation], first_published_at: 1.days.ago)
 
     get :show, id: organisation
 
@@ -386,10 +386,10 @@ class OrganisationsControllerTest < ActionController::TestCase
     organisation = create(:organisation)
     role = create(:ministerial_role, organisations: [organisation])
     role_appointment = create(:ministerial_role_appointment, role: role)
-    announcement_1 = create(:published_news_article, organisations: [organisation], published_at: 1.days.ago)
+    announcement_1 = create(:published_news_article, organisations: [organisation], first_published_at: 1.days.ago)
     announcement_2 = create(:published_speech, role_appointment: role_appointment, delivered_on: 2.days.ago)
-    announcement_3 = create(:published_news_article, organisations: [organisation], published_at: 3.days.ago)
-    announcement_4 = create(:published_news_article, organisations: [organisation], published_at: 4.days.ago)
+    announcement_3 = create(:published_news_article, organisations: [organisation], first_published_at: 3.days.ago)
+    announcement_4 = create(:published_news_article, organisations: [organisation], first_published_at: 4.days.ago)
 
     get :show, id: organisation
 
@@ -406,13 +406,13 @@ class OrganisationsControllerTest < ActionController::TestCase
     organisation = create(:organisation)
     role = create(:ministerial_role, organisations: [organisation])
     role_appointment = create(:ministerial_role_appointment, role: role)
-    delivered_on = Date.parse("1999-12-31")
+    delivered_on = Date.parse("1999-12-31").to_datetime
     speech = create(:published_speech, role_appointment: role_appointment, delivered_on: delivered_on, speech_type: SpeechType::WrittenStatement)
 
     get :show, id: organisation
 
     assert_select_object(speech) do
-      assert_select "abbr.delivered_on[title=?]", delivered_on.iso8601
+      assert_select "abbr.public_timestamp[title=?]", delivered_on.iso8601
       assert_select ".announcement-type", "Statement to parliament"
     end
   end
@@ -420,12 +420,12 @@ class OrganisationsControllerTest < ActionController::TestCase
   test "should display when a news article was first published and its announcement type" do
     first_published_at = Time.zone.parse("2001-01-01 01:01")
     organisation = create(:organisation)
-    news_article = create(:published_news_article, organisations: [organisation], published_at: first_published_at)
+    news_article = create(:published_news_article, organisations: [organisation], first_published_at: first_published_at)
 
     get :show, id: organisation
 
     assert_select_object(news_article) do
-      assert_select "abbr.first_published_at[title=?]", first_published_at.iso8601
+      assert_select "abbr.public_timestamp[title=?]", first_published_at.iso8601
       assert_select ".announcement-type", "News article"
     end
   end
@@ -493,8 +493,8 @@ class OrganisationsControllerTest < ActionController::TestCase
 
   test "show generates an atom feed with entries for latest activity" do
     organisation = create(:organisation, name: "org-name")
-    pub = create(:published_publication, organisations: [organisation], publication_date: 4.weeks.ago)
-    pol = create(:published_policy, organisations: [organisation], publication_date: 2.weeks.ago)
+    pub = create(:published_publication, organisations: [organisation], publication_date: 4.weeks.ago.to_date)
+    pol = create(:published_policy, organisations: [organisation], first_published_at: 2.weeks.ago)
 
     get :show, id: organisation, format: :atom
 
@@ -502,8 +502,8 @@ class OrganisationsControllerTest < ActionController::TestCase
       assert_select 'feed > entry', count: 2 do |entries|
         entries.zip([pol, pub]).each do |entry, document|
           assert_select entry, 'entry > id', 1
-          assert_select entry, 'entry > published', count: 1, text: document.timestamp_for_sorting.iso8601
-          assert_select entry, 'entry > updated', count: 1, text: document.timestamp_for_update.iso8601
+          assert_select entry, 'entry > published', count: 1, text: document.first_public_at.iso8601
+          assert_select entry, 'entry > updated', count: 1, text: document.public_timestamp.iso8601
           assert_select entry, 'entry > link[rel=?][type=?][href=?]', 'alternate', 'text/html', public_document_url(document)
           assert_select entry, 'entry > title', count: 1, text: document.title
           assert_select entry, 'entry > summary', count: 1, text: document.summary
@@ -516,8 +516,8 @@ class OrganisationsControllerTest < ActionController::TestCase
 
   test "show generates an atom feed with summary and prefixed titles in entries for latest activity when govdelivery version is requested" do
     organisation = create(:organisation, name: "org-name")
-    pub = create(:published_publication, organisations: [organisation], publication_date: 4.weeks.ago)
-    pol = create(:published_policy, organisations: [organisation], publication_date: 2.weeks.ago)
+    pub = create(:published_publication, organisations: [organisation], publication_date: 4.weeks.ago.to_date)
+    pol = create(:published_policy, organisations: [organisation], first_published_at: 2.weeks.ago)
 
     get :show, id: organisation, format: :atom, govdelivery_version: 'true'
 
@@ -525,8 +525,8 @@ class OrganisationsControllerTest < ActionController::TestCase
       assert_select 'feed > entry', count: 2 do |entries|
         entries.zip([pol, pub]).each do |entry, document|
           assert_select entry, 'entry > id', 1
-          assert_select entry, 'entry > published', count: 1, text: document.timestamp_for_sorting.iso8601
-          assert_select entry, 'entry > updated', count: 1, text: document.timestamp_for_update.iso8601
+          assert_select entry, 'entry > published', count: 1, text: document.first_public_at.iso8601
+          assert_select entry, 'entry > updated', count: 1, text: document.public_timestamp.iso8601
           assert_select entry, 'entry > link[rel=?][type=?][href=?]', 'alternate', 'text/html', public_document_url(document)
           assert_select entry, 'entry > title', count: 1, text: "#{document.display_type}: #{document.title}"
           assert_select entry, 'entry > summary', count: 1, text: document.summary
@@ -556,13 +556,39 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_select ".body", text: "body-in-html"
   end
 
-  test "should display corporate publications on about-us page" do
+  test "should display published corporate publications on about-us page" do
     published_corporate_publication = create(:published_corporate_publication)
+    draft_corporate_publication = create(:draft_corporate_publication)
+
     organisation = create(:organisation, editions: [
       published_corporate_publication,
+      draft_corporate_publication
     ])
+
     get :about, id: organisation
+
     assert_select_object(published_corporate_publication)
+    refute_select_object(draft_corporate_publication)
+  end
+
+  test "should display published corporate publications on about-us page in order published" do
+    old_published_corporate_publication = create(:published_corporate_publication, publication_date: Date.parse('2012-01-01'))
+    new_published_corporate_publication = create(:published_corporate_publication, publication_date: Date.parse('2012-01-03'))
+    middle_published_corporate_publication = create(:published_corporate_publication, publication_date: Date.parse('2012-01-02'))
+
+    organisation = create(:organisation, editions: [
+      old_published_corporate_publication,
+      new_published_corporate_publication,
+      middle_published_corporate_publication,
+    ])
+
+    get :about, id: organisation
+
+    assert_equal [
+      new_published_corporate_publication,
+      middle_published_corporate_publication,
+      old_published_corporate_publication
+    ], assigns(:corporate_publications)
   end
 
   test "should display link to corporate information pages on about-us page" do
@@ -753,7 +779,6 @@ class OrganisationsControllerTest < ActionController::TestCase
     organisation = create(:organisation, editions: editions)
     get :show, id: organisation
 
-    assert_select ".latest-documents h1", "Latest"
     editions[0,3].each do |edition|
       assert_select_prefix_object edition, :recent
     end
@@ -808,6 +833,15 @@ class OrganisationsControllerTest < ActionController::TestCase
 
     refute_select "a[href='#{link.url}']", text: link.title
   end
+
+  test 'show hass a link to govdelivery if one exists' do
+    organisation = create(:organisation, govdelivery_url: 'http://my-govdelivery-url.com')
+
+    get :show, id: organisation
+
+    assert_select ".govdelivery[href='http://my-govdelivery-url.com']"
+  end
+
 
   private
 

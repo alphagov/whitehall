@@ -23,6 +23,22 @@ class DocumentSeriesControllerTest < ActionController::TestCase
     refute_select_object(draft_publication)
   end
 
+  test 'show should display publications in order of published date' do
+    organisation = create(:organisation)
+    series = create(:document_series, organisation: organisation)
+    publication_middle = create(:published_publication, document_series: series, publication_date: Date.parse('2011-05-01'))
+    publication_old = create(:published_publication, document_series: series, publication_date: Date.parse('2011-01-01'))
+    publication_new = create(:published_publication, document_series: series, publication_date: Date.parse('2012-01-01'))
+
+    get :show, organisation_id: organisation, id: series
+
+    assert_equal [
+      publication_new,
+      publication_middle,
+      publication_old
+    ], assigns(:published_publications)
+  end
+
   test 'show should display published statistical data sets within the series' do
     organisation = create(:organisation)
     series = create(:document_series, organisation: organisation)
@@ -33,6 +49,22 @@ class DocumentSeriesControllerTest < ActionController::TestCase
 
     assert_select_object(statistical_data_set)
     refute_select_object(draft_statistical_data_set)
+  end
+
+  test 'show should display statistical data sets in order of publication' do
+    organisation = create(:organisation)
+    series = create(:document_series, organisation: organisation)
+    old_statistical_data_set = create(:published_statistical_data_set, document_series: series, first_published_at: 3.days.ago)
+    new_statistical_data_set = create(:published_statistical_data_set, document_series: series, first_published_at: 1.days.ago)
+    middle_statistical_data_set = create(:published_statistical_data_set, document_series: series, first_published_at: 2.days.ago)
+
+    get :show, organisation_id: organisation, id: series
+
+    assert_equal [
+      new_statistical_data_set,
+      middle_statistical_data_set,
+      old_statistical_data_set
+    ], assigns(:published_statistical_data_sets)
   end
 
   test 'show should display document series attributes' do

@@ -51,7 +51,7 @@ class OrganisationsController < PublicFacingController
   end
 
   def about
-    @corporate_publications = @organisation.corporate_publications.published
+    @corporate_publications = @organisation.corporate_publications.in_reverse_chronological_order.published
   end
 
   private

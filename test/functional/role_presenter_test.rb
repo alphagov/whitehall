@@ -49,16 +49,16 @@ class RolePresenterTest < PresenterTestCase
     @presenter = RolePresenter.decorate(@role)
 
     speech_1 = Speech.new
-    speech_1.stubs(:delivered_on).returns(1.days.ago)
+    speech_1.stubs(:public_timestamp).returns(1.days.ago)
 
     speech_2 = Speech.new
-    speech_2.stubs(:delivered_on).returns(30.days.ago)
+    speech_2.stubs(:public_timestamp).returns(30.days.ago)
 
     two_published_speeches = [ speech_1, speech_2 ]
 
     ten_published_news_articles = 10.times.map do |i|
       article = NewsArticle.new
-      article.stubs(:first_published_at).returns(i.days.ago - 3.days)
+      article.stubs(:public_timestamp).returns(i.days.ago - 3.days)
       article
     end
 
