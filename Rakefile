@@ -6,6 +6,8 @@
 # decreased the time taken to run all tests by around 20 seconds on my machine.
 ENV["DISABLE_LOGGING_IN_TEST"] = "true"
 
+ENV['GOVUK_APP_DOMAIN'] = 'dev.gov.uk' unless ENV['GOVUK_APP_DOMAIN']
+
 require File.expand_path('../config/application', __FILE__)
 require 'ci/reporter/rake/minitest' if Rails.env.development? or Rails.env.test?
 
