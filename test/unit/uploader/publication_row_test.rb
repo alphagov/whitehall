@@ -17,7 +17,8 @@ class Whitehall::Uploader::PublicationRowTest < ActiveSupport::TestCase
   def basic_headings
     %w{old_url  title summary body  publication_type
       policy_1  policy_2  policy_3  policy_4
-      organisation  document_series publication_date
+      organisation  document_series_1 document_series_2
+      document_series_3 document_series_4 publication_date
       order_url price ISBN  URN command_paper_number
       country_1 country_2 country_3 country_4}
   end
@@ -70,8 +71,8 @@ class Whitehall::Uploader::PublicationRowTest < ActiveSupport::TestCase
 
   test "finds document series by slug in doc_series column" do
     document_series = create(:document_series)
-    row = new_publication_row({"document_series" => document_series.slug})
-    assert_equal document_series, row.document_series
+    row = new_publication_row({"document_series_1" => document_series.slug})
+    assert_equal [document_series], row.document_series
   end
 
   test "finds publication type by slug in the pub type column" do
@@ -131,7 +132,7 @@ class Whitehall::Uploader::PublicationRowTest < ActiveSupport::TestCase
 
     row = new_publication_row({
       "attachment_1_title" => "first title",
-      "attachment_1_url" => "http://example.com/attachment.pdf" 
+      "attachment_1_url" => "http://example.com/attachment.pdf"
     }, Logger.new(StringIO.new))
 
     attachment = Attachment.new(title: "first title")

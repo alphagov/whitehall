@@ -1,7 +1,8 @@
 class DocumentSeries < ActiveRecord::Base
   belongs_to :organisation
 
-  has_many :editions, order: 'publication_date desc'
+  has_many :editions, through: :edition_document_series, order: 'publication_date desc'
+  has_many :edition_document_series
 
   validates_with SafeHtmlValidator
   validates :name, presence: true

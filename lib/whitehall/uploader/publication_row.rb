@@ -19,7 +19,8 @@ module Whitehall::Uploader
       HeadingValidator.new
         .required(%w{old_url title summary body organisation})
         .multiple("policy_#", 1..4)
-        .required(%w{publication_type document_series publication_date})
+        .multiple("document_series_#", 1..4)
+        .required(%w{publication_type publication_date})
         .optional(%w{order_url price isbn urn command_paper_number}) # First attachment
         .ignored("ignore_*")
         .multiple(%w{attachment_#_url attachment_#_title}, 0..Row::ATTACHMENT_LIMIT)
@@ -66,7 +67,7 @@ module Whitehall::Uploader
     end
 
     def document_series
-      Finders::DocumentSeriesFinder.find(row['document_series'], @logger, @line_number)
+      Finders::DocumentSeriesFinder.find(row['document_series_1'], row['document_series_2'], row['document_series_3'], row['document_series_4'], @logger, @line_number)
     end
 
     def ministerial_roles
@@ -91,7 +92,7 @@ module Whitehall::Uploader
 
     def attributes
       [:title, :summary, :body, :publication_date, :publication_type,
-       :related_policies, :lead_edition_organisations, :document_series,
+       :related_policies, :lead_edition_organisations,
        :ministerial_roles, :attachments, :alternative_format_provider,
        :world_locations].map.with_object({}) do |name, result|
         result[name] = __send__(name)

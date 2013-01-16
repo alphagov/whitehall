@@ -8,7 +8,8 @@ module Edition::DocumentSeries
   end
 
   included do
-    belongs_to :document_series
+    has_many :edition_document_series, foreign_key: :edition_id
+    has_many :document_series, through: :edition_document_series
 
     add_trait Trait
   end
@@ -18,6 +19,6 @@ module Edition::DocumentSeries
   end
 
   def part_of_series?
-    document_series.present?
+    document_series.any?
   end
 end

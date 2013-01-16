@@ -13,6 +13,7 @@ class DftPublicationWithJsonImportTest < ActiveSupport::TestCase
     import = Import.create_from_file(creator, file, "publication", organisation.id)
     assert import.valid?, import.errors.full_messages.join(", ")
     import.perform
+
     assert_equal [], import.import_errors
 
     publication = Publication.first
