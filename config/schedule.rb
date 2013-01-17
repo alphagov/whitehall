@@ -1,5 +1,7 @@
 $: << '.'
 require File.dirname(__FILE__) + "/initializers/scheduled_publishing"
+# default cron env is "/usr/bin:/bin" which is not sufficient as govuk_env is in /usr/local/bin
+env :PATH, '/usr/local/bin:/usr/bin:/bin'
 
 # We need Rake to use our own environment
 job_type :rake, "cd :path && govuk_setenv whitehall bundle exec rake :task --silent :output"
