@@ -12,3 +12,7 @@ en:
   date:
     formats:
       default: "%d %B %Y"
+  number:
+    human:
+      storage_units:
+        format: ! '%n%u'

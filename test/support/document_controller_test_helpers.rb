@@ -63,7 +63,7 @@ module DocumentControllerTestHelpers
         assert_select_object(attachment) do
           assert_select ".type", /PDF/
           assert_select ".page-length", "1 page"
-          assert_select ".file-size", "3.39 KB"
+          assert_select ".file-size", "3.39KB"
         end
       end
 
@@ -77,7 +77,7 @@ module DocumentControllerTestHelpers
         assert_select_object(attachment) do
           assert_select ".type", /CSV/
           refute_select ".page-length"
-          assert_select ".file-size", "121 Bytes"
+          assert_select ".file-size", "121Bytes"
         end
       end
     end
