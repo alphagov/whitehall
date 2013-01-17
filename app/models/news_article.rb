@@ -4,6 +4,7 @@ class NewsArticle < Announcement
   include Edition::FirstImagePulledOut
 
   validates :news_article_type_id, presence: true
+  validate :only_news_article_allowed_invalid_data_can_be_awaiting_type
 
   def news_article_type
     NewsArticleType.find_by_id(news_article_type_id)
@@ -13,7 +14,9 @@ class NewsArticle < Announcement
     self.news_article_type_id = news_article_type && news_article_type.id
   end
 
-  def only_publications_allowed_invalid_data_can_be_awaiting_type
+  private
+
+  def only_news_article_allowed_invalid_data_can_be_awaiting_type
     unless self.can_have_some_invalid_data?
       errors.add(:news_article_type, 'must be changed') if NewsArticleType::ImportedAwaitingType == self.news_article_type
     end
