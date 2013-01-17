@@ -10,4 +10,8 @@ class NewsArticleTypeTest < ActiveSupport::TestCase
     news_article_type = NewsArticleType.find_by_id(1)
     assert_equal news_article_type, NewsArticleType.find_by_slug(news_article_type.slug)
   end
+
+  test "should list all slugs" do
+    assert_equal "news-stories, press-releases, rebuttals, news-articles and imported-awaiting-type", NewsArticleType.all_slugs
+  end
 end

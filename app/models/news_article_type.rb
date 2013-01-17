@@ -15,6 +15,10 @@ class NewsArticleType
     all.find { |pt| pt.slug == slug }
   end
 
+  def self.all_slugs
+    all.map(&:slug).to_sentence
+  end
+
   def self.by_prevalence
     all.group_by { |pt| pt.prevalence }
   end
