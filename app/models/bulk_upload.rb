@@ -34,12 +34,14 @@ class BulkUpload
     end
 
     def extracted_files
-      extracted_files ||=
+      @extracted_files ||=
         extract_contents.
           split(/[\r\n]+/).
-          reject { |l| l =~ /\AArchive:/ }.
-          map { |f| f.gsub(/\A\s+inflating:\s+/,'').strip }.
-          map { |f| [File.basename(f), File.join(self.temp_dir, 'extracted', File.basename(f))] }
+          map { |l| l.strip }.
+          reject { |l| l =~ /\A(Archive|creating):/ }.
+          map { |f| f.gsub(/\Ainflating:\s+/,'') }.
+          reject { |f| f =~ /\/__MACOSX\// }.
+          map { |f| [File.basename(f), File.expand_path(f)] }
     end
 
     def extract_contents

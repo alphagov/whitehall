@@ -43,6 +43,13 @@ class BulkUploadZipFileTest < ActiveSupport::TestCase
     assert extracted.include?(['greenpaper.pdf', Rails.root.join('test-bulk-upload-zip-files', 'extracted', 'greenpaper.pdf').to_s])
   end
 
+  test 'extracted_files ignores OS X resource fork files' do
+    zf = BulkUpload::ZipFile.new(zip_file_with_os_x_resource_fork)
+    extracted = zf.extracted_files
+    assert_equal 1, extracted.size
+    assert extracted.include?(['greenpaper.pdf', Rails.root.join('test-bulk-upload-zip-files', 'extracted', 'greenpaper.pdf').to_s])
+  end
+
   def not_a_zip_file
     ActionDispatch::Http::UploadedFile.new(filename: 'greenpaper.pdf', tempfile: File.open(Rails.root.join('test','fixtures','greenpaper.pdf')))
   end
@@ -53,6 +60,10 @@ class BulkUploadZipFileTest < ActiveSupport::TestCase
 
   def a_zip_file
     ActionDispatch::Http::UploadedFile.new(filename: 'two-pages-and-greenpaper.zip', tempfile: File.open(Rails.root.join('test','fixtures','two-pages-and-greenpaper.zip')))
+  end
+
+  def zip_file_with_os_x_resource_fork
+    ActionDispatch::Http::UploadedFile.new(filename: 'greenpaper-with-osx-resource-fork.zip', tempfile: File.open(Rails.root.join('test', 'fixtures', 'greenpaper-with-osx-resource-fork.zip')))
   end
 
   def with_bulk_upload_zip_limit(new_size, &block)
