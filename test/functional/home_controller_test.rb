@@ -173,14 +173,13 @@ class HomeControllerTest < ActionController::TestCase
     refute_select '.agencies .coming-soon p', text: /#{department.name}/
   end
 
-  test "home page lists topics with policies" do
-    topics = [0, 1, 2].map { |n| create(:topic, published_policies_count: n) }
+  test "home page lists topics with policies and topical events sorted alphabetically" do
+    topics = [[0, 'alpha'], [1, 'juliet'], [2, 'echo']].map { |n, name| create(:topic, published_policies_count: n, name: name) }
+    topical_event = create(:topical_event, name: 'foxtrot')
 
     get :home
 
-    refute_select_object(topics[0])
-    assert_select_object(topics[1])
-    assert_select_object(topics[2])
+    assert_equal [ topics[2], topical_event, topics[1]], assigns(:classifications)
   end
 
   private
