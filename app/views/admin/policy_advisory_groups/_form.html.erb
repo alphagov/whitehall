@@ -1,0 +1,14 @@
+<%= form_for [:admin, policy_advisory_group] do |policy_advisory_group_form| %>
+  <%= policy_advisory_group_form.errors %>
+
+  <fieldset>
+    <%= policy_advisory_group_form.text_field :name %>
+    <%= policy_advisory_group_form.text_field :email %>
+    <%= policy_advisory_group_form.text_area :summary %>
+    <%= policy_advisory_group_form.text_area :description, "class" => "previewable" %>
+  </fieldset>
+
+  <%= render partial: "admin/editions/attachment_fields", locals: { form: policy_advisory_group_form, edition: policy_advisory_group, parent_type: :policy_group, show_inline_attachment_help: true } %>
+
+  <%= policy_advisory_group_form.save_or_cancel cancel: admin_policy_advisory_groups_path %>
+<% end %>

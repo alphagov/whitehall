@@ -1,4 +1,4 @@
-.policy-teams {
+.policy-groups {
   .page-header {
     padding: $gutter-half 0;
     @include media(tablet){
@@ -9,23 +9,29 @@
       @include bold;
     }
   }
-  
+
+  .summary {
+    width: 100%;
+    @include ig-core-24;
+    margin-bottom: $gutter*2;
+  }
+
   @include media(desktop) {
-    .block-2, .block-3 {
+    .sidebar, .content {
       width: 33%;
       float: left;
       display: inline;
     }
-    
-    .block-2 {  
+
+    .block-2 {
       padding-top: $gutter-one-sixth;
-      
+
       h1 {
         margin-top: $gutter-one-third;
       }
     }
 
-    .block-3 {
+    .content {
       width: 66%;
       .policies {
         list-style: none;
@@ -40,7 +46,7 @@
       margin-top: $gutter-half;
     }
   }
-  
+
   .description {
     padding-bottom: $gutter-half;
     .govspeak p:first-child {

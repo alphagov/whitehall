@@ -204,7 +204,7 @@ class SupportingPagesControllerTest < ActionController::TestCase
 
   test "show displays the policy team responsible for this policy" do
     policy_team = create(:policy_team, email: 'policy-team@example.com')
-    policy = create(:published_policy, policy_team: policy_team)
+    policy = create(:published_policy, policy_teams: [policy_team])
     supporting_page = create(:supporting_page, edition: policy)
 
     get :show, policy_id: policy.document, id: supporting_page

@@ -1,26 +1,35 @@
-<% page_title @policy_team.name, "Policy teams" %>
-<%= content_tag_for(:div, @policy_team, :class => "policy-groups policy-teams") do %>
+<% page_title @policy_advisory_group.name, "Policy advisory groups" %>
+<%= content_tag_for(:div, @policy_advisory_group, :class => "policy-groups policy-advisory-groups") do %>
   <div class="block-1">
     <div class="inner-block">
       <section class="page-header">
-        <h1><%= @policy_team.name %></h1>
+        <h1><%= @policy_advisory_group.name %></h1>
       </section>
     </div>
   </div>
-  <div class="block-2 sidebar">
+  <div class="block-2">
+    <div class="inner-block">
+      <% if @policy_advisory_group.summary.present? %>
+        <section class="summary">
+          <%= @policy_advisory_group.summary %>
+        </section>
+      <% end %>
+    </div>
+  </div>
+  <div class="block-3 sidebar">
     <div class="inner-block">
       <section class="contextual-info js-stick-at-top-when-scrolling">
-        <% if govspeak_headers(@policy_team.description).any? || @policies.any? || @policy_team.email %>
+        <% if govspeak_headers(@policy_advisory_group.description).any? || @policies.any? || @policy_advisory_group.email %>
           <h1>Contents</h1>
           <nav class="policy-parts" role="navigation">
               <ol id="document_sections">
-                <% govspeak_headers(@policy_team.description).each do |header| %>
+                <% govspeak_headers(@policy_advisory_group.description).each do |header| %>
                   <li><%= link_to header.text, "##{header.id}" %></li>
                 <% end %>
                 <% if @policies.any? %>
                   <li><%= link_to 'Policies', '#policies' %></li>
                 <% end %>
-                <% if @policy_team.email %>
+                <% if @policy_advisory_group.email %>
                   <li><%= link_to 'Contact Details', '#contact-details' %></li>
                 <% end %>
               </ol>
@@ -29,11 +38,11 @@
       </section>
     </div>
   </div>
-  <div class="block-3 content">
+  <div class="block-4 content">
     <div class="inner-block">
-      <% if @policy_team.description.present? %>
+      <% if @policy_advisory_group.description.present? %>
         <div class="description">
-          <%= govspeak_to_html @policy_team.description %>
+          <%= govspeak_with_attachments_to_html @policy_advisory_group.description, @policy_advisory_group.attachments %>
         </div>
       <% end %>
       <% if @policies.any? %>
@@ -47,7 +56,7 @@
         </ul>
       <% end %>
       <h2 class="label" id="contact-details">Contact details</h2>
-      <p class="email"><%= mail_to @policy_team.email, @policy_team.email %></p>
+      <p class="email"><%= mail_to @policy_advisory_group.email, @policy_advisory_group.email %></p>
     </div>
   </div>
 <% end %>
