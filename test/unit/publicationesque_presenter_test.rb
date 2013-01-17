@@ -21,7 +21,7 @@ class PublicationesquePresenterTest < ActiveSupport::TestCase
   end
 
   test "should indicate when publication is part of a series" do
-    publication = build(:publication, document_series: build(:document_series))
+    publication = build(:publication, document_series: [build(:document_series)])
     presenter = PublicationesquePresenter.decorate(publication)
     assert presenter.part_of_series?
   end
@@ -33,7 +33,7 @@ class PublicationesquePresenterTest < ActiveSupport::TestCase
   end
 
   test "should indicate when publication is not part of a series" do
-    publication = build(:publication, document_series: nil)
+    publication = build(:publication)
     presenter = PublicationesquePresenter.decorate(publication)
     refute presenter.part_of_series?
   end

@@ -19,13 +19,13 @@
 <div class="block-4">
   <div class="inner-block">
     <%= render partial: "documents/filter_results" %>
-    
+
     <div class="filter-feed">
       <%= link_to_feed filter_atom_feed_url %>
     </div>
-    
+
     <div class="filter-results" id="publications-container" aria-live="polite"><%# this class used by Javascript %>
-      
+
       <% if @filter.documents.any? %>
         <table class="document-list emphasise-recent" id="document-list"><%# this class used by Javascript %>
           <thead class="visuallyhidden">
@@ -56,7 +56,8 @@
               </td>
               <td class="publication_series attribute">
                 <% if document.part_of_series? %>
-                  Part of a series: <%= link_to document.document_series.name, organisation_document_series_path(document.document_series.organisation, document.document_series) %>
+                  Part of a series:
+                  <%= list_of_links_to_document_series(document) %>
                 <% end %>
               </td>
             <% end %>

@@ -12,8 +12,10 @@ class PublicationFilterJsonPresenter < DocumentFilterJsonPresenter
       publication_series: ""
     }
     if document.part_of_series?
-      link = h.link_to(document.document_series.name, h.organisation_document_series_path(document.document_series.organisation, document.document_series))
-      to_merge[:publication_series] = "Part of a series: #{link}".html_safe
+      links = document.document_series.map do |ds|
+        h.link_to(ds.name, h.organisation_document_series_path(ds.organisation, ds))
+      end
+      to_merge[:publication_series] = "Part of a series: #{links.to_sentence}".html_safe
     end
 
     super.reverse_merge(to_merge)

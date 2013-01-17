@@ -132,12 +132,6 @@ class PublicationsControllerTest < ActionController::TestCase
     refute_select_object(draft_consultation)
   end
 
-  test 'index should not use n+1 selects for publications' do
-    15.times { create(:published_publication) }
-    number_of_queries = count_queries { get :index }
-    assert number_of_queries < 15
-  end
-
   test "index sets Cache-Control: max-age to the time of the next scheduled publication" do
     user = login_as(:departmental_editor)
     publication = create(:draft_publication, scheduled_publication: Time.zone.now + Whitehall.default_cache_max_age * 2)
@@ -552,7 +546,7 @@ class PublicationsControllerTest < ActionController::TestCase
   test 'index should show relevant document series information' do
     organisation = create(:organisation)
     series = create(:document_series, organisation: organisation)
-    publication = create(:published_publication, document_series: series)
+    publication = create(:published_publication, document_series: [series])
 
     get :index
 
@@ -564,7 +558,7 @@ class PublicationsControllerTest < ActionController::TestCase
   test 'index requested as JSON includes document series information' do
     organisation = create(:organisation)
     series = create(:document_series, organisation: organisation)
-    publication = create(:published_publication, document_series: series)
+    publication = create(:published_publication, document_series: [series])
 
     get :index, format: :json
 

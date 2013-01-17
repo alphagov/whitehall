@@ -64,7 +64,7 @@
       <% end %>
       <% if document.respond_to?(:part_of_series?) && document.part_of_series? %>
         <dt>Series:</dt>
-        <dd><%= link_to document.document_series.name, organisation_document_series_path(document.document_series.organisation, document.document_series) %></dd>
+        <dd><%= list_of_links_to_document_series(document) %></dd>
       <% end %>
       <% if document.respond_to?(:statistical_data_sets) && document.statistical_data_sets.any? %>
         <dt>Live data:</dt>

@@ -49,7 +49,7 @@ end
 
 Given /^a published publication "([^"]*)" in the series "([^"]*)"$/ do |publication_name, series_name|
   series = DocumentSeries.find_by_name(series_name)
-  publication = create(:published_publication, title: publication_name, document_series: series, organisations: [series.organisation])
+  publication = create(:published_publication, title: publication_name, document_series: [series], organisations: [series.organisation])
 end
 
 Then /^I should see the publication "([^"]*)" belongs to the "([^"]*)" series$/ do |publication_name, series_name|

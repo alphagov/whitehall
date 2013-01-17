@@ -39,7 +39,7 @@ Feature: Importing new editions
   - publication_date: required
   - publication_type: required, ideally default blank to ImportedAwaitingType, reject anything non-blank that can't be found
   - policy_1..4: 1 column required, data optional
-  - document_series: column required, data optional
+  - document_series_1: column required, data optional
   - attachment_1..n_*: 1 column required, data required (should stay as is)
   - json_attachments: optional, leave as is
   - country_1..4: 1 column required, data optional
@@ -69,7 +69,7 @@ Feature: Importing new editions
 
   StatisticalDataSets:
 
-  - document_series: column required, data optional
+  - document_series_1: column required, data optional
 
   FatalityNotices:
 
@@ -81,7 +81,7 @@ Feature: Importing new editions
   Scenario: Importing publications with unrecognised types will be rejected
     When I import the following data as CSV as "Publication" for "Department for Transport":
       """
-      old_url,title,summary,body,organisation,policy_1,publication_type,document_series,publication_date,order_url,price,isbn,urn,command_paper_number,ignore_1,attachment_1_url,attachment_1_title,country_1
+      old_url,title,summary,body,organisation,policy_1,publication_type,document_series_1,publication_date,order_url,price,isbn,urn,command_paper_number,ignore_1,attachment_1_url,attachment_1_title,country_1
       http://example.com/1,title,summary,body,weird organisation,,weird type,,14-Dec-2011,,,,,,,,,
       """
     Then the import should fail with errors about organisation and sub type and no editions are created
@@ -90,7 +90,7 @@ Feature: Importing new editions
     Given the organisation "Foreign Commonwealth Office" exists
     When I import the following data as CSV as "Publication" for "Department for Transport":
       """
-      old_url,title,summary,body,organisation,policy_1,publication_type,document_series,publication_date,order_url,price,isbn,urn,command_paper_number,ignore_1,attachment_1_url,attachment_1_title,country_1
+      old_url,title,summary,body,organisation,policy_1,publication_type,document_series_1,publication_date,order_url,price,isbn,urn,command_paper_number,ignore_1,attachment_1_url,attachment_1_title,country_1
       http://example.com/1,title,summary,body,foreign-commonwealth-office,,,,14-Dec-2011,,,,,,,,,
       """
     Then the import succeeds, creating 1 imported publication for "Foreign Commonwealth Office" with "imported-awaiting-type" publication type
@@ -98,7 +98,7 @@ Feature: Importing new editions
   Scenario: Importing publications sets imported state, ImportedAwaitingType type and default organisation, to be filled in later
     When I import the following data as CSV as "Publication" for "Department for Transport":
       """
-      old_url,title,summary,body,organisation,policy_1,publication_type,document_series,publication_date,order_url,price,isbn,urn,command_paper_number,ignore_1,attachment_1_url,attachment_1_title,country_1
+      old_url,title,summary,body,organisation,policy_1,publication_type,document_series_1,publication_date,order_url,price,isbn,urn,command_paper_number,ignore_1,attachment_1_url,attachment_1_title,country_1
       http://example.com/1,title,summary,body,,,,,14-Dec-2011,,,,,,,,,
       """
     Then the import succeeds, creating 1 imported publication for "Department for Transport" with "imported-awaiting-type" publication type

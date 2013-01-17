@@ -24,6 +24,7 @@ class PublicationFilterJsonPresenterTest < PresenterTestCase
     # TODO: perhaps rethink edition factory, so this apparent duplication
     # isn't neccessary
     publication.stubs(:organisations).returns([organisation])
+    publication.stubs(:document_series).returns([stub_record(:document_series, name: "test-series", organisation: organisation)])
     @filter.stubs(:documents).returns(PublicationesquePresenter.decorate([publication]))
     json = JSON.parse(PublicationFilterJsonPresenter.new(@filter).to_json)
     assert_equal 1, json['results'].size

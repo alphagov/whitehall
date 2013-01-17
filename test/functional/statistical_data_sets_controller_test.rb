@@ -29,7 +29,7 @@ class StatisticalDataSetsControllerTest < ActionController::TestCase
 
   test "show links to the document series that the statistical data set belongs to" do
     document_series = create(:document_series)
-    statistical_data_set = create(:published_statistical_data_set, document_series: document_series)
+    statistical_data_set = create(:published_statistical_data_set, document_series: [document_series])
     get :show, id: statistical_data_set.document
     assert_select "a[href=?]", organisation_document_series_path(document_series.organisation, document_series)
   end
