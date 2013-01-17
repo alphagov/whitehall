@@ -27,6 +27,10 @@ module Admin::UrlHelper
     admin_header_link "Policy teams", admin_policy_teams_path
   end
 
+  def admin_policy_advisory_groups_header_link
+    admin_header_link "Policy advisory groups", admin_policy_advisory_groups_path
+  end
+
   def admin_imports_header_link
     if current_user && current_user.can_import?
       admin_header_link "Import", admin_imports_path

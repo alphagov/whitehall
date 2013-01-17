@@ -15,7 +15,10 @@ class Policy < Edition
   has_many :published_related_announcements, through: :edition_relations, source: :edition, conditions: {document: {editions: {type: Announcement.sti_names, state: 'published'}}}
   has_many :case_studies, through: :edition_relations, source: :edition, conditions: {editions: {type: 'CaseStudy', state: 'published'}}
 
-  belongs_to :policy_team
+
+  has_many :edition_policy_groups, foreign_key: :edition_id
+  has_many :policy_teams, through: :edition_policy_groups, class_name: 'PolicyTeam', source: :policy_group
+  has_many :policy_advisory_groups, through: :edition_policy_groups, class_name: 'PolicyAdvisoryGroup', source: :policy_group
 
   validates :summary, presence: true
 
@@ -51,6 +54,10 @@ class Policy < Edition
 
   def update_published_related_publication_count
     update_attribute(:published_related_publication_count, published_related_publications.count)
+  end
+
+  def policy_team
+    policy_teams.first
   end
 
   private

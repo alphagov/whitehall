@@ -1,0 +1,31 @@
+<% page_title "Policy advisory groups" %>
+<% page_class "policy-advisory-groups-index" %>
+
+<div class="block-1">
+  <div class="inner-block">
+    <header class="page-header">
+      <h1>Policy advisory groups</h1>
+    </header>
+  </div>
+</div>
+
+<div class="block-2">
+  <div class="inner-block">
+    <section class="simple-alphabetical-list">
+    <% if @policy_advisory_groups.any? %>
+      <% @policy_advisory_groups.group_by { |team| (team.name || '-').first.upcase }.each do |letter, entries| %>
+        <div class="alphabetical-row">
+          <h2 class="alphabetical-list-letter"><%= letter %></h2>
+          <ul>
+            <% entries.each do |team| %>
+              <%= content_tag_for :li, team do %>
+                <% link_to team.name, team %>
+              <% end %>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+    <% end %>
+    </section>
+  </div>
+</div>

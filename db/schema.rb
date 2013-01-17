@@ -303,6 +303,11 @@ ActiveRecord::Schema.define(:version => 20130116105121) do
   add_index "edition_organisations", ["edition_organisation_image_data_id"], :name => "index_edition_orgs_on_edition_org_image_data_id"
   add_index "edition_organisations", ["organisation_id"], :name => "index_edition_organisations_on_organisation_id"
 
+  create_table "edition_policy_groups", :force => true do |t|
+    t.integer "edition_id"
+    t.integer "policy_group_id"
+  end
+
   create_table "edition_relations", :force => true do |t|
     t.integer  "edition_id",  :null => false
     t.datetime "created_at"
@@ -363,7 +368,6 @@ ActiveRecord::Schema.define(:version => 20130116105121) do
     t.text     "change_note"
     t.boolean  "force_published"
     t.boolean  "minor_change",                                                    :default => false
-    t.integer  "policy_team_id"
     t.integer  "publication_type_id"
     t.string   "related_mainstream_content_url"
     t.string   "related_mainstream_content_title"
@@ -387,7 +391,6 @@ ActiveRecord::Schema.define(:version => 20130116105121) do
   add_index "editions", ["document_id"], :name => "index_editions_on_document_id"
   add_index "editions", ["first_published_at"], :name => "index_editions_on_first_published_at"
   add_index "editions", ["operational_field_id"], :name => "index_editions_on_operational_field_id"
-  add_index "editions", ["policy_team_id"], :name => "index_editions_on_policy_team_id"
   add_index "editions", ["primary_mainstream_category_id"], :name => "index_editions_on_primary_mainstream_category_id"
   add_index "editions", ["public_timestamp"], :name => "index_editions_on_public_timestamp"
   add_index "editions", ["publication_date"], :name => "index_editions_on_publication_date"
@@ -616,12 +619,21 @@ ActiveRecord::Schema.define(:version => 20130116105121) do
 
   add_index "people", ["slug"], :name => "index_people_on_slug", :unique => true
 
-  create_table "policy_teams", :force => true do |t|
+  create_table "policy_group_attachments", :force => true do |t|
+    t.integer  "policy_group_id"
+    t.integer  "attachment_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "policy_groups", :force => true do |t|
     t.string   "email"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "name"
     t.text     "description"
+    t.string   "type"
+    t.text     "summary"
   end
 
   create_table "recent_edition_openings", :force => true do |t|

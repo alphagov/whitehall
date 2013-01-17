@@ -34,8 +34,8 @@ class PolicyTeamsControllerTest < ActionController::TestCase
 
   test "show policies being worked on by the team" do
     policy_team = create(:policy_team)
-    published_policy = create(:published_policy, policy_team: policy_team)
-    unpublished_policy = create(:draft_policy, policy_team: policy_team)
+    published_policy = create(:published_policy, policy_teams: [policy_team])
+    unpublished_policy = create(:draft_policy, policy_teams: [policy_team])
 
     get :show, id: policy_team
 
