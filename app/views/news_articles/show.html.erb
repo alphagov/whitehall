@@ -1,3 +1,3 @@
-<% page_title @document.title, 'News' %>
-<%= render  template: 'documents/show',
-            locals: { header_title: 'News' } %>
+<% page_title @document.title, @document.news_article_type.singular_name %>
+<%= render  template: "documents/show",
+            locals: { header_title: @document.news_article_type.singular_name } %>
