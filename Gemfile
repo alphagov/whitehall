@@ -62,6 +62,7 @@ group :test do
   gem 'test_track'
   gem 'timecop'
   gem 'webmock', require: false
+  gem 'crack', '~> 0.3.2'
   gem 'minitest', '2.5.1'
   gem 'ci_reporter'
   gem 'database_cleaner', '~> 0.8.0'
