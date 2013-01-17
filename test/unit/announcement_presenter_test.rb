@@ -16,6 +16,6 @@ class AnnouncementPresenterTest < ActiveSupport::TestCase
     end
 
     news_article = AnnouncementPresenter.decorate(build(:published_news_article))
-    assert_equal "News article", news_article.display_type
+    assert_equal "Press release", news_article.display_type
   end
 end

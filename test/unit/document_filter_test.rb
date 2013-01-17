@@ -43,7 +43,8 @@ class DocumentFilterTest < ActiveSupport::TestCase
   end
 
   test "#announcement_types_for_filter returns all announcement filter option types" do
-    assert_equal ["News article", "Speech", "Statement", "Fatality notice"], Whitehall::DocumentFilter.new([]).announcement_types_for_filter.map(&:label)
+    announcement_type_options = ["Press releases","News stories","Fatality notice","Speechs","Statements", "Rebuttals"]
+    assert_equal announcement_type_options, Whitehall::DocumentFilter.new([]).announcement_types_for_filter.map(&:label)
   end
 
   test "#selected_topics returns an empty set by default" do
@@ -231,15 +232,15 @@ class DocumentFilterTest < ActiveSupport::TestCase
   end
 
   test "can filter announcements by type" do
-    news_article = create(:published_news_article)
+    news_article = create(:published_news_article, news_article_type: NewsArticleType::NewsStory)
     fatality_notice = create(:published_fatality_notice)
     transcript = create(:published_speech, speech_type: SpeechType::Transcript)
     statement = create(:published_speech, speech_type: SpeechType::WrittenStatement)
 
-    assert_equal [news_article.id], Whitehall::DocumentFilter.new(Announcement.published, announcement_type_option: "news-article").documents.map(&:id)
+    assert_equal [news_article.id], Whitehall::DocumentFilter.new(Announcement.published, announcement_type_option: "news-stories").documents.map(&:id)
     assert_equal [fatality_notice.id], Whitehall::DocumentFilter.new(Announcement.published, announcement_type_option: "fatality-notice").documents.map(&:id)
-    assert_equal [transcript.id], Whitehall::DocumentFilter.new(Announcement.published, announcement_type_option: "speech").documents.map(&:id)
-    assert_equal [statement.id], Whitehall::DocumentFilter.new(Announcement.published, announcement_type_option: "statement").documents.map(&:id)
+    assert_equal [transcript.id], Whitehall::DocumentFilter.new(Announcement.published, announcement_type_option: "speechs").documents.map(&:id)
+    assert_equal [statement.id], Whitehall::DocumentFilter.new(Announcement.published, announcement_type_option: "statements").documents.map(&:id)
   end
 
   test "publication_filter_option overwrites older publication_type param" do

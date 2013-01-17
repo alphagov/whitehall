@@ -14,6 +14,10 @@ class NewsArticle < Announcement
     self.news_article_type_id = news_article_type && news_article_type.id
   end
 
+  def display_type
+    news_article_type.singular_name
+  end
+
   private
 
   def only_news_article_allowed_invalid_data_can_be_awaiting_type
@@ -21,5 +25,4 @@ class NewsArticle < Announcement
       errors.add(:news_article_type, 'must be changed') if NewsArticleType::ImportedAwaitingType == self.news_article_type
     end
   end
-
 end

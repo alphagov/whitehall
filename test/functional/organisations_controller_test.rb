@@ -426,7 +426,7 @@ class OrganisationsControllerTest < ActionController::TestCase
 
     assert_select_object(news_article) do
       assert_select "abbr.public_timestamp[title=?]", first_published_at.iso8601
-      assert_select ".announcement-type", "News article"
+      assert_select ".announcement-type", "Press release"
     end
   end
 

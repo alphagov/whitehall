@@ -37,7 +37,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
 
   test "index shows which type a record is" do
     announced_today = [
-      create(:published_news_article),
+      create(:published_news_article, news_article_type: NewsArticleType::NewsStory),
       create(:published_speech),
       create(:published_speech, speech_type: SpeechType::WrittenStatement),
     ]
@@ -45,7 +45,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
     get :index
 
     assert_select_object announced_today[0] do
-      assert_select ".announcement_type", text: "News article"
+      assert_select ".announcement_type", text: "News story"
     end
     assert_select_object announced_today[1] do
       assert_select ".announcement_type", text: "Speech"
@@ -115,16 +115,16 @@ class AnnouncementsControllerTest < ActionController::TestCase
   end
 
   test "index shows selected announcement type filter option in the title" do
-    get :index, announcement_type_option: 'news-article'
+    get :index, announcement_type_option: 'news-stories'
 
-    assert_select 'h1 span', ': News article'
+    assert_select 'h1 span', ': News stories'
   end
 
   test "index indicates selected announcement type filter option in the filter selector" do
-    get :index, announcement_type_option: 'news-article'
+    get :index, announcement_type_option: 'news-stories'
 
     assert_select "select[name='announcement_type_option']" do
-      assert_select "option[selected='selected']", text: Whitehall::AnnouncementFilterOption::NewsArticle.label
+      assert_select "option[selected='selected']", text: Whitehall::AnnouncementFilterOption::NewsStory.label
     end
   end
 
