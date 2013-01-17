@@ -90,6 +90,13 @@ class BulkUploadZipFileToAttachmentsTest < ActiveSupport::TestCase
     refute @params.has_key?('edition_attachments_attributes')
   end
 
+  test '#manipulate_params! will add a attachments_were_bulk_uploaded flag (even if zip is empty)' do
+    @zip_file.stubs(:extracted_files).returns []
+    zfta = BulkUpload::ZipFileToAttachments.new(@zip_file, mock, @params)
+    zfta.manipulate_params!
+    assert @params.has_key?('attachments_were_bulk_uploaded')
+  end
+
   test '#new_attachments is all of the files if the supplied edition doesn\'t have any attachments' do
     @zip_file.stubs(:extracted_files).returns [
       ['dave.pdf', Rails.root.join('dave.pdf').to_s],

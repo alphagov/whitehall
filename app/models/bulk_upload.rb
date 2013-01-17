@@ -80,6 +80,7 @@ class BulkUpload
       remove_attachments_params
       add_params_for_new_attachments
       add_params_to_replace_existing_attachments
+      add_bulk_upload_flag
     end
 
     def new_attachments
@@ -124,6 +125,10 @@ class BulkUpload
           }
         })
       end
+    end
+
+    def add_bulk_upload_flag
+      @edition_params['attachments_were_bulk_uploaded'] = 'true'
     end
 
     def add_edition_attachment_params(params)
