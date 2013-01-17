@@ -94,12 +94,12 @@
   .article-section {
     margin-bottom: $gutter*2;
     h1 {
-      @include ig-core-27;
+      @include heading-27;
       border-bottom: 5px solid $inside-gov-nav;
       margin-bottom: $gutter-two-thirds;
     }
     .our-mission {
-      @include ig-core-36;
+      @include heading-36;
       @include bold;
     }
   }
@@ -108,7 +108,7 @@
     .group {
       div {
         .article-title {
-          @include ig-core-27;
+          @include heading-27;
           @include bold;
         }
         @include media(tablet) {
