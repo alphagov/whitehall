@@ -27,6 +27,7 @@ Given /^I attempt to create an invalid publication with an attachment$/ do
   @attachment_title = "Attachment Title"
   @attachment_file = File.basename(file.path)
   within ".attachments" do
+    choose "Individual upload"
     fill_in "Title", with: @attachment_title
     attach_file "File", file.path
   end
@@ -153,6 +154,7 @@ When /^I update the attachment metadata from a new draft of the publication$/ do
   visit edit_admin_publication_path(Publication.last)
   click_button "Create new edition"
   within "#edition_attachment_fields" do
+    choose "Individual upload"
     fill_in "Title", with: "changed title not to be published yet"
   end
   fill_in_change_note_if_required
@@ -172,6 +174,7 @@ When /^I replace the data file of the attachment in a new draft of the publicati
   @new_attachment_filename = File.basename(new_file)
   click_button "Create new edition"
   within "#edition_attachment_fields" do
+    choose "Individual upload"
     choose 'Replace'
     attach_file 'Replacement', new_file.path
   end

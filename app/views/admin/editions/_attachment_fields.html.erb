@@ -4,10 +4,10 @@
   <% if @bulk_upload_zip_file.present? %>
   <ul class="nav nav-tabs attachment-mode-select">
     <li class="active">
-      <a href="#bulk_upload_attachments"><%= label_tag nil, class: 'radio inline', data: {target: '#bulk_upload_attachments'} do %><%= radio_button_tag :attachment_mode, 'bulk', @bulk_upload_zip_file.errors.any? || @bulk_upload_zip_file.zip_file.nil? %> Bulk upload<% end %></a>
+      <a href="#bulk_upload_attachments"><%= label_tag nil, class: 'radio inline', data: {target: '#bulk_upload_attachments'} do %><%= radio_button_tag :attachment_mode, 'bulk', @bulk_upload_zip_file.errors.any? %> Bulk upload<% end %></a>
     </li>
     <li>
-      <a href="#individual_upload_attachments"><%= label_tag nil, class: 'radio inline', data: {target: '#individual_upload_attachments'} do %><%= radio_button_tag :attachment_mode, 'individual', @bulk_upload_zip_file.errors.empty? && @bulk_upload_zip_file.zip_file.present? %> Individual upload<% end %></a>
+      <a href="#individual_upload_attachments"><%= label_tag nil, class: 'radio inline', data: {target: '#individual_upload_attachments'} do %><%= radio_button_tag :attachment_mode, 'individual', @bulk_upload_zip_file.errors.empty? %> Individual upload<% end %></a>
     </li>
   </ul>
 

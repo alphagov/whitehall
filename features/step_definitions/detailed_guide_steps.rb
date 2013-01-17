@@ -66,12 +66,13 @@ end
 When /^I select an attachment for the detailed guide$/ do
   @attachment_filename = "attachment.pdf"
   within ".attachments" do
+    choose "Individual upload"
     attach_file "File", Rails.root.join("features/fixtures", @attachment_filename)
   end
 end
 
 Then /^I should be able to select another attachment for the detailed guide$/ do
-  assert_equal 2, page.all(".attachments input[type=file]").length
+  assert_equal 2, page.all(".attachments #individual_upload_attachments input[type=file]").length
 end
 
 Then /^I should see in the preview that "([^"]*)" is related to the detailed guide "([^"]*)"$/ do |title, related_title|
