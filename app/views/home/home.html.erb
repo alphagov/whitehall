@@ -81,13 +81,13 @@
     </div>
   </div>
 
-  <% @topics.in_groups(2, false) do |topics| %>
+  <% @classifications.in_groups(2, false) do |classifications| %>
     <div class="topics-column">
       <div class="inner-block">
         <ul class="topics index-list">
-          <% topics.each do |topic| %>
-            <%= content_tag_for(:li, topic) do %>
-              <%= link_to topic.name, topic_path(topic) %>
+          <% classifications.each do |classification| %>
+            <%= content_tag_for(:li, classification) do %>
+              <%= link_to classification.name, classification_path(classification) %>
             <% end %>
           <% end %>
         </ul>
