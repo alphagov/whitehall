@@ -68,6 +68,10 @@ module DocumentHelper
     fill_in "Summary", with: "Some summary of the content"
   end
 
+  def new_and_replacement_zip_file
+    File.open(Rails.root.join('test', 'fixtures', 'two-pages-and-greenpaper.zip'))
+  end
+
   def pdf_attachment
     File.open(Rails.root.join("features/fixtures/attachment.pdf"))
   end
