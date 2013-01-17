@@ -24,16 +24,6 @@ Scenario: View priorities for an international delegation
   When I view the international delegation "United Nations"
   Then I should see the international priority "Oil field exploitation"
 
-Scenario: Navigating between pages for an international delegation
-  Given an international delegation "United Nations" exists
-  When I view the international delegation "United Nations"
-  Then I should see the world location navigation
-  When I navigate to the "United Nations" international delegation's about page
-  Then I should see the "United Nations" international delegation's about page
-  And I should see the world location navigation
-  When I navigate to the "United Nations" international delegation's home page
-  Then I should see the "United Nations" international delegation's home page
-
 Scenario: Inactive world locations are listed but not linked
   Given the country "Democratic People's Republic of South London" is inactive
   When I visit the world locations page

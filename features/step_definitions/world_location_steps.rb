@@ -63,10 +63,6 @@ Then /^I should see contact details for the embassy in "([^"]*)"$/ do |name|
   assert page.has_css?(".embassy_email", world_location.embassy_email)
 end
 
-Then /^I should see the world location navigation$/ do
-  assert page.has_css?('.world_location nav')
-end
-
 Then /^I should see the "([^"]*)" (?:country|overseas territory|international delegation)'s (about|home) page$/ do |world_location_name, page_name|
   title =
     case page_name
@@ -86,5 +82,5 @@ Then /^I should not see a link to the (?:country|overseas territory|internationa
 end
 
 Then /^I should see that it is an? (country|overseas territory|international delegation)$/ do |world_location_type|
-  assert has_css?('.world-location.type', text: world_location_type.capitalize)
+  assert has_css?('.type', text: world_location_type.capitalize)
 end

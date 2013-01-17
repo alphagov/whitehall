@@ -91,30 +91,29 @@
     }
   }
 
-  .article_section h1 {
-    @include ig-core-27;
-    border-bottom: 5px solid $inside-gov-nav;
-    margin-bottom: $gutter-two-thirds;
-  }
-
-  .article_section {
+  .article-section {
     margin-bottom: $gutter*2;
-    .our-mission {
+    h1 {
       @include ig-core-27;
+      border-bottom: 5px solid $inside-gov-nav;
+      margin-bottom: $gutter-two-thirds;
+    }
+    .our-mission {
+      @include ig-core-36;
       @include bold;
     }
   }
 
-  #international_priorities {
+  #international-priorities {
     .group {
       div {
-        .article_title {
+        .article-title {
           @include ig-core-27;
           @include bold;
         }
         @include media(tablet) {
-        float: left;
-        display: inline;
+          float: left;
+          display: inline;
           width: 50%;
         }
       }

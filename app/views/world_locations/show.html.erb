@@ -27,11 +27,10 @@
 
   <div class="block-3">
     <div class="inner-block">
-      <section class="article_section">
+      <section class="article-section">
         <h1>Our mission</h1>
         <p class="our-mission">
           <span class="description"><%= format_with_html_line_breaks(@world_location.description) %></span>
-          <a href="<%= about_world_location_path(@world_location) %>" title='<%= "Further information about #{@world_location.name}" %>'>Read more<span class="visuallyhidden"> about <%= @world_location.name %></span>.</a>
         </p>
       </section>
     </div>
@@ -40,12 +39,8 @@
   <div class="block-4">
     <div class="inner-block">
       <% if @international_priorities.any? %>
-        <%= article_section("Priorities", @international_priorities, {id: 'international_priorities', class: 'latest_documents', article_wrapper_class: ''}) do |international_priorities| %>
-          <h2 class="article_title"><%= link_to international_priorities.title, public_document_path(international_priorities), title: "View #{international_priorities.title}", class: "title" %></h2>
-          <p></p>
-          <span class="metadata">
-            Updated <%= relative_time(international_priorities.updated_at, class: 'updated_at') %>
-          </span>
+        <%= article_section("Priorities", @international_priorities, {id: 'international-priorities', class: 'latest-documents', article_wrapper_class: ''}) do |international_priorities| %>
+          <h2 class="article-title"><%= link_to international_priorities.title, public_document_path(international_priorities), title: "View #{international_priorities.title}", class: "title" %></h2>
         <% end %>
       <% end %>
     </div>
@@ -55,7 +50,7 @@
   <div class="block-4">
     <div class="inner-block">
       <% if @news_articles.any? %>
-        <%= article_section("News", @news_articles, {id: 'news_articles', class: 'latest_documents'}) do |news_article| %>
+        <%= article_section("News", @news_articles, {id: 'news-articles', class: 'latest_documents'}) do |news_article| %>
           <h2 class="article_title"><%= link_to news_article.title, public_document_path(news_article), title: "View #{news_article.title}", class: "title" %></h2>
           <span class="metadata">
             Updated <%= relative_time(news_article.updated_at, class: 'updated_at') %>
