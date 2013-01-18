@@ -5,6 +5,14 @@ class FeedHelperTest < ActionView::TestCase
   # include this just so public_document_url can be stubbed later
   include PublicDocumentRoutesHelper
 
+  def host
+    "test.dev.gov.uk"
+  end
+
+  def schema_date(_)
+    '2005'
+  end
+
   test 'feed_wants_govdelivery_version? is false when there is no govdelivery_version param' do
     stubs(:params).returns({})
     refute feed_wants_govdelivery_version?
@@ -47,8 +55,8 @@ class FeedHelperTest < ActionView::TestCase
     builder = mock('builder')
     entries = sequence('entries')
     builder.stubs(:updated)
-    builder.expects(:entry).with(d2, url: '/policy_url', published: 2.weeks.ago, updated: 13.days.ago).yields(builder).in_sequence(entries)
-    builder.expects(:entry).with(d1, url: '/publication_url', published: 1.week.ago, updated: 3.days.ago).yields(builder).in_sequence(entries)
+    builder.expects(:entry).with(d2, id: 'tag:test.dev.gov.uk,2005:Policy/14', url: '/policy_url', published: 2.weeks.ago, updated: 13.days.ago).yields(builder).in_sequence(entries)
+    builder.expects(:entry).with(d1, id: 'tag:test.dev.gov.uk,2005:Publication/12', url: '/publication_url', published: 1.week.ago, updated: 3.days.ago).yields(builder).in_sequence(entries)
     feed_entry = sequence('feed_entry')
     expects(:document_as_feed_entry).with(d2, builder, false).in_sequence(feed_entry)
     expects(:document_as_feed_entry).with(d1, builder, false).in_sequence(feed_entry)
@@ -108,5 +116,15 @@ class FeedHelperTest < ActionView::TestCase
     builder.stubs(:summary)
     builder.stubs(:content)
     document_as_feed_entry(document, builder, true)
+  end
+
+  test 'document_id sets ID as the original document ID when available' do
+    d = Publication.new
+    d.stubs(:id).returns('4')
+    doc = Document.new
+    doc.stubs(:id).returns('33')
+    d.stubs(:document).returns(doc)
+
+    assert_equal document_id(d, nil), 'tag:test.dev.gov.uk,2005:Publication/33'
   end
 end
