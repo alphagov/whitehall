@@ -10,7 +10,7 @@ class Admin::PolicyTeamsController < Admin::BaseController
   def create
     @policy_team = PolicyTeam.new(params[:policy_team])
     if @policy_team.save
-      redirect_to admin_policy_teams_path, notice: %{"#{@policy_team.email}" created.}
+      redirect_to admin_policy_teams_path, notice: %{"#{@policy_team.name}" created.}
     else
       render action: "new"
     end
@@ -23,7 +23,7 @@ class Admin::PolicyTeamsController < Admin::BaseController
   def update
     @policy_team = PolicyTeam.find(params[:id])
     if @policy_team.update_attributes(params[:policy_team])
-      redirect_to admin_policy_teams_path, notice: %{"#{@policy_team.email}" saved.}
+      redirect_to admin_policy_teams_path, notice: %{"#{@policy_team.name}" saved.}
     else
       render action: "edit"
     end
