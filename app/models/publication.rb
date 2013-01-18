@@ -35,10 +35,6 @@ class Publication < Publicationesque
     self.publication_type_id = publication_type && publication_type.id
   end
 
-  def can_have_summary?
-    true
-  end
-
   def national_statistic?
     publication_type == PublicationType::NationalStatistics
   end

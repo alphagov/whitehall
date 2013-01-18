@@ -5,7 +5,6 @@ class DetailedGuideTest < EditionTestCase
   should_be_attachable
   should_force_review_of_bulk_uploaded_attachments
   should_allow_inline_attachments
-  should_allow_a_summary_to_be_written
   should_protect_against_xss_and_content_attacks_on :title, :body, :summary, :change_note
 
   test "should be able to relate to topics" do

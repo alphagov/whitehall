@@ -4,7 +4,6 @@ class CaseStudyTest < EditionTestCase
   include ActionDispatch::TestProcess
 
   should_allow_image_attachments
-  should_allow_a_summary_to_be_written
   should_have_first_image_pulled_out
   should_protect_against_xss_and_content_attacks_on :body
 

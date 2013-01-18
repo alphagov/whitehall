@@ -195,10 +195,6 @@ class Edition < ActiveRecord::Base
     false
   end
 
-  def can_have_summary?
-    false
-  end
-
   def can_be_grouped_in_series?
     false
   end
