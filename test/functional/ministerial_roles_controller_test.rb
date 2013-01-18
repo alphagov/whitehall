@@ -121,13 +121,7 @@ class MinisterialRolesControllerTest < ActionController::TestCase
     assert_select_atom_feed do
       assert_select 'feed > entry', count: 2 do |actual_entries|
         expected_entries.zip(actual_entries).each do |expected, actual_entry|
-          assert_select actual_entry, 'entry > id', 1
-          assert_select actual_entry, 'entry > published', count: 1, text: expected.first_public_at.iso8601
-          assert_select actual_entry, 'entry > updated', count: 1, text: expected.public_timestamp.iso8601
-          assert_select actual_entry, 'entry > link[rel=?][type=?][href=?]', 'alternate', 'text/html', public_document_url(expected)
-          assert_select actual_entry, 'entry > title', count: 1, text: expected.title
-          assert_select actual_entry, 'entry > summary', count: 1, text: expected.summary
-          assert_select actual_entry, 'entry > category', count: 1, text: expected.display_type
+          assert_select_atom_entry actual_entry, expected
           assert_select actual_entry, 'entry > content[type=?]', 'html', count: 1, text: /#{expected.body}/
         end
       end
@@ -147,13 +141,7 @@ class MinisterialRolesControllerTest < ActionController::TestCase
     assert_select_atom_feed do
       assert_select 'feed > entry', count: 2 do |actual_entries|
         expected_entries.zip(actual_entries).each do |expected, actual_entry|
-          assert_select actual_entry, 'entry > id', 1
-          assert_select actual_entry, 'entry > published', count: 1, text: expected.first_public_at.iso8601
-          assert_select actual_entry, 'entry > updated', count: 1, text: expected.public_timestamp.iso8601
-          assert_select actual_entry, 'entry > link[rel=?][type=?][href=?]', 'alternate', 'text/html', public_document_url(expected)
-          assert_select actual_entry, 'entry > title', count: 1, text: "#{expected.display_type}: #{expected.title}"
-          assert_select actual_entry, 'entry > summary', count: 1, text: expected.summary
-          assert_select actual_entry, 'entry > category', count: 1, text: expected.display_type
+          assert_select_atom_entry actual_entry, expected
           assert_select actual_entry, 'entry > content[type=?]', 'text', count: 1, text: expected.summary
         end
       end

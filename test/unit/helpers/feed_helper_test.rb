@@ -86,10 +86,10 @@ class FeedHelperTest < ActionView::TestCase
     documents_as_feed_entries([d], builder, false, 'it is time')
   end
 
-  test 'document_as_feed_entry sets the title, category, summary, and content on the builder, using the govspoken version of the document as the content when govdelivery_version is false' do
+  test 'document_as_feed_entry sets the title, category, summary, and content on the builder prefixing the title with the format_name of the document, using the govspoken version of the document as the content when govdelivery_version is false' do
     document = Edition.new(title: 'A thing!', summary: 'A thing has happened')
     builder = mock('builder')
-    builder.expects(:title).with document.title
+    builder.expects(:title).with "#{document.display_type}: #{document.title}"
     builder.expects(:category).with document.display_type
     builder.expects(:summary).with document.summary
     expects(:govspeak_edition_to_html).with(document).returns('govspoken content')
