@@ -56,6 +56,12 @@ module Whitehall::Uploader
       assert_equal "a-summary", row.summary
     end
 
+    test 'if summary column is blank, generates summary from body' do
+      row = statistica_data_set_row("summary" => '', "body" => 'woo')
+      Parsers::SummariseBody.stubs(:parse).with('woo').returns('w')
+      assert_equal 'w', row.summary
+    end
+
     test "takes body from the body column" do
       row = statistica_data_set_row("body" => "Some body goes here")
       assert_equal "Some body goes here", row.body

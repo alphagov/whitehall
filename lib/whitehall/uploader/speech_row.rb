@@ -35,7 +35,12 @@ module Whitehall::Uploader
     end
 
     def summary
-      row['summary']
+      summary_text = row['summary']
+      if summary_text.blank?
+        Parsers::SummariseBody.parse(body)
+      else
+        summary_text
+      end
     end
 
     def organisations
