@@ -179,7 +179,7 @@ module DocumentControllerTestHelpers
 
         get :show, id: model
 
-        assert_select "##{has_many_association}" do
+        assert_select "##{has_many_association.to_s.gsub('_', '-')}" do
           assert_select_object(published_edition)
           refute_select_object(draft_edition)
         end
@@ -192,7 +192,7 @@ module DocumentControllerTestHelpers
 
         get :show, id: model
 
-        assert_select "##{has_many_association}" do
+        assert_select "##{has_many_association.to_s.gsub('_', '-')}" do
           assert_select_object(published_edition)
           refute_select_object(another_published_edition)
         end
@@ -213,7 +213,7 @@ module DocumentControllerTestHelpers
 
         get :show, id: model
 
-        refute_select "##{has_many_association}"
+        refute_select "##{has_many_association.to_s.gsub('_', '-')}"
       end
     end
 

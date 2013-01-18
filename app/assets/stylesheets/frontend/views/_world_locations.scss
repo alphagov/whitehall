@@ -73,43 +73,53 @@
 
 
 .world-locations-show {
-  .img {
-    img {
-      height: 576px;
-      width: 100%;
-      @media (max-width: 768px) {
-        height: auto;
+  
+  hgroup {
+    @include heading-48;
+    @include media(desktop){
+      width: 66.66%;
+    }
+
+    h1 {
+      @include bold;
+      padding-top: 0;
+    }
+    h2 {
+      @include heading-36;
+      color: $secondary-text-colour;
+      padding-bottom: 0;
+    }
+  }
+
+  .article-section {
+    margin-bottom: $gutter*2;
+    h1 {
+      @include heading-27;
+      border-bottom: 5px solid $inside-gov-nav;
+      margin-bottom: $gutter-two-thirds;
+    }
+    .our-mission {
+      @include heading-36;
+      @include bold;
+    }
+  }
+
+  #international-priorities {
+    .group {
+      div {
+        .article-title {
+          @include heading-27;
+          @include bold;
+        }
+        @include media(tablet) {
+          float: left;
+          display: inline;
+          width: 50%;
+        }
       }
     }
-  }
-  .block-4, .block-5, .block-6, .block-7 {
-    float: left;
-    display: inline;
-    width: 25%;
-    li {
-      list-style: none;
-    }
-    section {
-      padding-top: $gutter;
-    }
-  }
-  .sub_navigation_container {
-    li {
-      list-style: none;
-    }
-  }
-  .article_section {
-    h1 {
-      @include ig-core-16;
-    }
-  }
-  @media (max-width: 768px) {
-    .block-4, .block-5, .block-6, .block-7 {
-      float: none;
-      display: block;
-      width: auto;
-    }
-  }
+  } 
+
 }
 
 .world-locations-about {
