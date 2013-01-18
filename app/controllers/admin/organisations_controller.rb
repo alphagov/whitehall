@@ -8,8 +8,7 @@ class Admin::OrganisationsController < Admin::BaseController
   before_filter :destroy_blank_mainstream_links, only: [:create, :update]
 
   before_filter :social_media_helper, only: [:new, :create, :edit, :update]
-  before_filter :contact_helper, only: [:create, :update]
-  attr :social, :contact
+  attr :social
 
   def index
     @organisations = Organisation.all
@@ -21,7 +20,6 @@ class Admin::OrganisationsController < Admin::BaseController
   end
 
   def create
-    contact.destroy_blank_phone_numbers(params[:organisation])
     social.destroy_blank_social_media_accounts(params[:organisation])
     @organisation = Organisation.new(params[:organisation])
     if @organisation.save
@@ -43,7 +41,6 @@ class Admin::OrganisationsController < Admin::BaseController
   end
 
   def update
-    contact.destroy_blank_phone_numbers(params[:organisation])
     social.destroy_blank_social_media_accounts(params[:organisation])
     if @organisation.update_attributes(params[:organisation])
       redirect_to admin_organisation_path(@organisation)
@@ -122,9 +119,5 @@ class Admin::OrganisationsController < Admin::BaseController
 
   def social_media_helper
     @social = Whitehall::Controllers::SocialMedia.new
-  end
-
-  def contact_helper
-    @contact = Whitehall::Controllers::Contacts.new
   end
 end

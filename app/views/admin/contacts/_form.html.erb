@@ -1,0 +1,21 @@
+<%= form_for [:admin, contact], html: {class: "form-horizontal"} do |contact_form| %>
+  <%= contact_form.errors %>
+  <fieldset class="contact">
+    <%= contact_form.text_field :description, horizontal: true %>
+    <%= contact_form.text_area :address, rows: 3, class: "address", horizontal: true %>
+    <%= contact_form.text_field :postcode, horizontal: true %>
+    <%= contact_form.text_field :email, horizontal: true %>
+    <%= contact_form.text_field :contact_form_url, horizontal: true %>
+    <fieldset class="contact_numbers">
+      <legend>Phone numbers</legend>
+      <%= contact_form.fields_for :contact_numbers, contact_form.object.contact_numbers + [ContactNumber.new] do |contact_number_form| %>
+      <fieldset class="contact_number well">
+        <%= contact_number_form.text_field :label, horizontal: true %>
+        <%= contact_number_form.text_field :number, horizontal: true %>
+      </fieldset>
+      <% end %>
+    </fieldset>
+  </fieldset>
+
+  <%= contact_form.save_or_cancel(cancel: url_for([:admin, @contact.contactable])) %>
+<% end %>

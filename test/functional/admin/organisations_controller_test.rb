@@ -7,7 +7,6 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
 
   should_be_an_admin_controller
   should_allow_social_media_management_for :organisation
-  should_allow_contact_management_for :organisation
 
   test "index should list all the organisations in alphabetical order" do
     organisations = [create(:organisation, name: "org 1"), create(:organisation, name: "org 2")]

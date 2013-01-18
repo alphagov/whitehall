@@ -1,0 +1,4 @@
+<h1>Contact for: <%= @contact.contactable.name %></h1>
+<p><%= link_to "Back to #{@contact.contactable.name}", url_for([:admin, @contact.contactable]) %></p>
+
+<%= render partial: "form", locals: {contact: @contact} %>

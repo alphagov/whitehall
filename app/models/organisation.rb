@@ -4,7 +4,6 @@ class Organisation < ActiveRecord::Base
   include Searchable
   include Rails.application.routes.url_helpers
   include Whitehall::Models::SocialMedia
-  include Whitehall::Models::Contacts
 
   belongs_to :organisation_type
 
@@ -138,6 +137,8 @@ class Organisation < ActiveRecord::Base
   has_many :organisation_mainstream_links, dependent: :destroy
 
   has_many :corporate_information_pages, dependent: :destroy
+
+  has_many :contacts, as: :contactable, dependent: :destroy
 
   accepts_nested_attributes_for :organisation_mainstream_links, allow_destroy: true, reject_if: :all_blank
   accepts_nested_attributes_for :organisation_roles
