@@ -47,7 +47,9 @@
         </ul>
       <% end %>
       <h2 class="label" id="contact-details">Contact details</h2>
-      <p class="email"><%= mail_to @policy_team.email, @policy_team.email %></p>
+      <% if @policy_team.email.present? %>
+        <p class="email"><%= mail_to @policy_team.email, @policy_team.email %></p>
+      <% end %>
     </div>
   </div>
 <% end %>
