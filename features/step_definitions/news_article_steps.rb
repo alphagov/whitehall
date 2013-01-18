@@ -22,8 +22,7 @@ Given /^a published news article "([^"]*)" associated with "([^"]*)"$/ do |title
 end
 
 When /^I draft a new news article "([^"]*)"$/ do |title|
-  begin_drafting_news_article title: title
-  fill_in "Summary", with: "here's a simple summary"
+  begin_drafting_news_article title: title, summary: "here's a simple summary"
   within ".images" do
     attach_file "File", Rails.root.join("test/fixtures/minister-of-funk.960x640.jpg")
     fill_in "Alt text", with: 'An alternative description'
