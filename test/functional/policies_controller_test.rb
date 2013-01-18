@@ -431,12 +431,7 @@ That's all
 
       assert_select 'feed > entry' do |entries|
         entries.zip([consultation, speech, news_article, publication]).each do |entry, document|
-          assert_select entry, 'entry > published', text: document.first_public_at.iso8601
-          assert_select entry, 'entry > updated', text: document.public_timestamp.iso8601
-          assert_select entry, 'entry > title', text: document.title
-          assert_select entry, 'entry > summary', text: document.summary
-          assert_select entry, 'entry > category', text: document.display_type
-          assert_select entry, 'entry > published', text: document.first_public_at.iso8601
+          assert_select_atom_entry entry, document
           assert_select entry, 'entry > content', text: Builder::XChar.encode(@controller.view_context.govspeak_edition_to_html(document))
         end
       end
@@ -460,12 +455,7 @@ That's all
 
       assert_select 'feed > entry' do |entries|
         entries.zip([consultation, speech, news_article, publication]).each do |entry, document|
-          assert_select entry, 'entry > published', text: document.first_public_at.iso8601
-          assert_select entry, 'entry > updated', text: document.public_timestamp.iso8601
-          assert_select entry, 'entry > title', text: "#{document.display_type}: #{document.title}"
-          assert_select entry, 'entry > summary', text: document.summary
-          assert_select entry, 'entry > category', text: document.display_type
-          assert_select entry, 'entry > published', text: document.first_public_at.iso8601
+          assert_select_atom_entry entry, document
           assert_select entry, 'entry > content', text: document.summary
         end
       end
