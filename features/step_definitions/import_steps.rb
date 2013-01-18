@@ -42,6 +42,17 @@ Then /^the import succeeds, creating (\d+) imported speech(?:es)? with "([^"]*)"
   assert_equal speech_type, edition.speech_type
 end
 
+Then /^the import succeeds, creating (\d+) imported news article for "([^"]*)" with "([^"]*)" news article type$/ do |edition_count, organisation_name, news_article_type_slug|
+  organisation = Organisation.find_by_name(organisation_name)
+  news_article_type  = NewsArticleType.find_by_slug(news_article_type_slug)
+  assert_equal edition_count.to_i, Edition.imported.count
+
+  edition = Edition.imported.first
+  assert_kind_of NewsArticle, edition
+  assert_equal organisation, edition.organisations.first
+  assert_equal news_article_type, edition.news_article_type
+end
+
 Then /^the import should fail with errors about organisation and sub type and no editions are created$/ do
   assert page.has_content?("Import failed")
   assert page.has_content?("Unable to find Organisation named 'weird organisation'")
@@ -50,7 +61,7 @@ Then /^the import should fail with errors about organisation and sub type and no
   assert_equal 0, Edition.count
 end
 
-Then /^I can't make the imported (?:publication|speech) into a draft edition yet$/ do
+Then /^I can't make the imported (?:publication|speech|news article) into a draft edition yet$/ do
   visit_document_preview Edition.imported.last.title
 
   assert page.has_css?('input[type=submit][disabled=disabled][value="Convert to draft"]')
@@ -62,7 +73,13 @@ When /^I set the imported publication's type to "([^"]*)"$/ do |publication_sub_
   click_on 'Save'
 end
 
-Then /^I can make the imported (?:publication|speech) into a draft edition$/ do
+When /^I set the imported news article's type to "([^"]*)"$/ do |news_article_type|
+  begin_editing_document Edition.imported.last.title
+  select news_article_type, from: 'News article type'
+  click_on 'Save'
+end
+
+Then /^I can make the imported (?:publication|speech|news article) into a draft edition$/ do
   edition = Edition.imported.last
   visit_document_preview edition.title
 

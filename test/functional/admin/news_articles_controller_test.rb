@@ -36,7 +36,9 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
   test "new displays news article fields" do
     get :new
 
-
+    assert_select "form#edition_new" do
+      assert_select "select[name*='edition[news_article_type_id']"
+    end
   end
 
   test "show renders the summary" do
@@ -47,4 +49,11 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
     assert_select ".summary", text: "a-simple-summary"
   end
 
+  private
+
+  def controller_attributes_for(edition_type, attributes = {})
+    super.except(:news_article_type).reverse_merge(
+      news_article_type_id: NewsArticleType::Rebuttal
+    )
+  end
 end

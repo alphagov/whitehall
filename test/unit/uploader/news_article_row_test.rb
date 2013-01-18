@@ -1,9 +1,8 @@
 # encoding: UTF-8
-# *NOTE* this file deliberately does not include test_helper
-# in order to attempt to speed up the tests
 
 require File.expand_path("../../../fast_test_helper", __FILE__)
 require 'whitehall/uploader/news_article_row'
+require 'test_helper'
 
 module Whitehall::Uploader
   class NewsArticleRowTest < ActiveSupport::TestCase
@@ -16,7 +15,7 @@ module Whitehall::Uploader
     end
 
     def basic_headings
-      %w{old_url title summary body first_published policy_1 policy_2 policy_3 policy_4 minister_1 minister_2 organisation country_1 country_2 country_3 country_4}
+      %w{old_url news_article_type title summary body first_published policy_1 policy_2 policy_3 policy_4 minister_1 minister_2 organisation country_1 country_2 country_3 country_4}
     end
 
     test "validates row headings" do
@@ -56,6 +55,11 @@ module Whitehall::Uploader
       row.stubs(:organisation).returns(stub("organisation", url: "url"))
       assert_equal "absolute links", row.body
     end
+
+    test "finds news article type by slug in the news_article_type column" do
+    row = news_article_row("news_article_type" => "rebuttals")
+    assert_equal ::NewsArticleType::Rebuttal, row.news_article_type
+  end
 
     test "finds an organisation using the organisation finder" do
       organisation = stub("Organisation")
@@ -97,7 +101,7 @@ module Whitehall::Uploader
 
     test "supplies an attribute list for the new news article record" do
       row = news_article_row({})
-      attribute_keys = [:title, :summary, :body, :lead_edition_organisations, :first_published_at, :related_policies, :role_appointments, :world_locations]
+      attribute_keys = [:title, :summary, :body, :news_article_type, :lead_edition_organisations, :first_published_at, :related_policies, :role_appointments, :world_locations]
       attribute_keys.each do |key|
         row.stubs(key).returns(key.to_s)
       end

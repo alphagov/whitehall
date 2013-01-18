@@ -2,7 +2,7 @@ module Whitehall
   class AnnouncementFilterOption
     include ActiveRecordLikeInterface
 
-    attr_accessor :id, :label, :speech_types, :edition_types
+    attr_accessor :id, :label, :speech_types, :edition_types, :news_article_types
 
     def slug
       label.downcase.gsub(/[^a-z]+/, "-")
@@ -16,9 +16,11 @@ module Whitehall
       all.find { |pt| pt.slug == slug }
     end
 
-    NewsArticle = create(id: 1, label: "News article", edition_types: ["NewsArticle"])
-    Speech = create(id: 2, label: "Speech", edition_types: ["Speech"], speech_types: SpeechType.non_statements)
-    Statement = create(id: 3, label: "Statement", edition_types: ["Speech"], speech_types: SpeechType.statements)
-    FatalityNotice = create(id: 4, label: "Fatality notice", edition_types: ["FatalityNotice"])
+    PressRelease = create(id: 1, label: "Press releases", edition_types: ["NewsArticle"], news_article_types: [NewsArticleType::PressRelease])
+    NewsStory = create(id: 2, label: "News stories", edition_types: ["NewsArticle"], news_article_types: [NewsArticleType::NewsStory])
+    FatalityNotice = create(id: 3, label: "Fatality notice", edition_types: ["FatalityNotice"])
+    Speech = create(id: 4, label: "Speechs", edition_types: ["Speech"], speech_types: SpeechType.non_statements)
+    Statement = create(id: 5, label: "Statements", edition_types: ["Speech"], speech_types: SpeechType.statements)
+    Rebuttal = create(id: 6, label: "Rebuttals", edition_types: ["NewsArticle"], news_article_types: [NewsArticleType::Rebuttal])
   end
 end
