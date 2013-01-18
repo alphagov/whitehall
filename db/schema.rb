@@ -792,8 +792,11 @@ ActiveRecord::Schema.define(:version => 20130204133738) do
     t.text     "description"
     t.boolean  "active",                 :default => false, :null => false
     t.integer  "world_location_type_id",                    :null => false
+    t.text     "about"
+    t.string   "iso2",                   :limit => 2
   end
 
+  add_index "world_locations", ["iso2"], :name => "index_world_locations_on_iso2", :unique => true
   add_index "world_locations", ["slug"], :name => "index_world_locations_on_slug"
   add_index "world_locations", ["world_location_type_id"], :name => "index_world_locations_on_world_location_type_id"
 
