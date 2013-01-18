@@ -16,7 +16,7 @@ class GroupsControllerTest < ActionController::TestCase
     end
 
     assert_select "h1.main", "Defence Council"
-    assert_select "p.description", "description-in-html"
+    assert_select ".description", "description-in-html"
   end
 
   test "should display a list of group members" do
