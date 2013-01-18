@@ -63,7 +63,7 @@
         <% end %>
       <% end %>
       <% if document.respond_to?(:policy_advisory_groups) && document.policy_advisory_groups.any? %>
-        <dt>Policy advisory groups:</dt>
+        <dt>Advisory groups:</dt>
         <dd class="document-policy-advisory-groups js-hide-other-links"><%= list_of_links_to_policy_advisory_groups(document.policy_advisory_groups) %></dd>
       <% end %>
       <% if document.respond_to?(:part_of_series?) && document.part_of_series? %>
