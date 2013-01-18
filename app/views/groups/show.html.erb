@@ -14,16 +14,26 @@
     <div class="block-2">
       <div class="inner-block">
         <h1 class="main"><%= @group.name %></h1>
-        <p class="description">
+        <div class="description">
           <%= govspeak_to_html @group.description %>
-        </p>
+        </div>
+      </div>
+    </div>
+    <div class="block-3">
+      <div class="inner-block">
         <div class="body">
           <% if @group_members.any? %>
+            <h1 class="label">Members</h1>
             <ul class="group-members">
-              <% @group_members.each do |person| %>
-                <%= content_tag_for(:li, person) do %>
-                  <%= person.link %>
-                <% end %>
+              <% @group_members.each_with_index do |(member, roles), i| %>
+                <%= render partial: "people/person",
+                            locals: {
+                              person: member,
+                              roles: roles,
+                              hlevel: "h1",
+                              hide_image: false,
+                              extra_class: (i % 4 == 0) ? 'clear-person' : ''
+                            } %>
               <% end %>
             </ul>
           <% else %>
