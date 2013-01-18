@@ -1,5 +1,5 @@
 class PolicyGroup < ActiveRecord::Base
-  validates :email, presence: true, uniqueness: true, email_format: true
+  validates :email, email_format: true, allow_blank: true
   validates :name, presence: true
 
 
