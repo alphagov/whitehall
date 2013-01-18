@@ -409,13 +409,7 @@ class PublicationsControllerTest < ActionController::TestCase
     assert_select_atom_feed do
       assert_select 'feed > entry', count: 2 do |entries|
         entries.zip([c1, p1]).each do |entry, document|
-          assert_select entry, 'entry > id', 1
-          assert_select entry, 'entry > published', count: 1, text: document.first_public_at.iso8601
-          assert_select entry, 'entry > updated', count: 1, text: document.public_timestamp.iso8601
-          assert_select entry, 'entry > link[rel=?][type=?][href=?]', 'alternate', 'text/html', public_document_url(document)
-          assert_select entry, 'entry > title', count: 1, text: document.title
-          assert_select entry, 'entry > summary', count: 1, text: document.summary
-          assert_select entry, 'entry > category', count: 1, text: document.display_type
+          assert_select_atom_entry entry, document
           assert_select entry, 'entry > content[type=?]', 'html', count: 1, text: /#{document.body}/
         end
       end
@@ -434,13 +428,7 @@ class PublicationsControllerTest < ActionController::TestCase
     assert_select_atom_feed do
       assert_select 'feed > entry', count: 2 do |entries|
         entries.zip([c1, p1]).each do |entry, document|
-          assert_select entry, 'entry > id', 1
-          assert_select entry, 'entry > published', count: 1, text: document.first_public_at.iso8601
-          assert_select entry, 'entry > updated', count: 1, text: document.public_timestamp.iso8601
-          assert_select entry, 'entry > link[rel=?][type=?][href=?]', 'alternate', 'text/html', public_document_url(document)
-          assert_select entry, 'entry > title', count: 1, text: "#{document.display_type}: #{document.title}"
-          assert_select entry, 'entry > summary', count: 1, text: document.summary
-          assert_select entry, 'entry > category', count: 1, text: document.display_type
+          assert_select_atom_entry entry, document
           assert_select entry, 'entry > content[type=?]', 'text', count: 1, text: document.summary
         end
       end
@@ -450,7 +438,7 @@ class PublicationsControllerTest < ActionController::TestCase
   test "index generates an atom feed entries for consultations matching the current filter" do
     org = create(:organisation, name: "org-name")
     other_org = create(:organisation, name: "other-org")
-    create(:published_consultation, organisations: [org])
+    document = create(:published_consultation, organisations: [org], opening_on: Date.parse('2001-12-12'))
     create(:published_consultation, organisations: [other_org])
 
     get :index, format: :atom, departments: [org.to_param]
@@ -458,11 +446,7 @@ class PublicationsControllerTest < ActionController::TestCase
     assert_select_atom_feed do
       assert_select 'feed > entry', count: 1 do |entries|
         entries.each do |entry|
-          assert_select entry, 'entry > id', 1
-          assert_select entry, 'entry > published', 1
-          assert_select entry, 'entry > updated', 1
-          assert_select entry, 'entry > link[rel=?][type=?]', 'alternate', 'text/html', 1
-          assert_select entry, 'entry > title', 1
+          assert_select_atom_entry entry, document
           assert_select entry, 'entry > content[type=?]', 'html', 1
         end
       end
@@ -476,13 +460,7 @@ class PublicationsControllerTest < ActionController::TestCase
 
     get :index, format: :atom
 
-    assert_select_atom_feed do
-      assert_select 'feed > entry' do |entries|
-        entries.zip([newest, middle, oldest]).each do |entry, document|
-          assert_select entry, 'entry > title', text: document.title
-        end
-      end
-    end
+    assert_equal [ newest, middle, oldest ], assigns(:publications).map(&:model)
   end
 
   test 'index atom feed orders consultations according to opening_on (newest first)' do
@@ -492,15 +470,7 @@ class PublicationsControllerTest < ActionController::TestCase
 
     get :index, format: :atom
 
-    assert_select_atom_feed do
-      assert_select 'feed > updated', newest.public_timestamp.iso8601
-      assert_select 'feed > entry' do |entries|
-        entries.zip([newest, middle, oldest]).each do |entry, document|
-          assert_select entry, 'entry > title', text: document.title
-          assert_select entry, 'entry > published', text: document.first_public_at.iso8601
-        end
-      end
-    end
+    assert_equal [ newest, middle, oldest ], assigns(:publications).map(&:model)
   end
 
   test 'index atom feed orders mixed publications and consultations according to publication_date or opening_on (newest first)' do
@@ -510,13 +480,7 @@ class PublicationsControllerTest < ActionController::TestCase
 
     get :index, format: :atom
 
-    assert_select_atom_feed do
-      assert_select 'feed > entry' do |entries|
-        entries.zip([newest, middle, oldest]).each do |entry, document|
-          assert_select entry, 'entry > title', text: document.title
-        end
-      end
-    end
+    assert_equal [ newest, middle, oldest ], assigns(:publications).map(&:model)
   end
 
   test 'index atom feed should return a valid feed if there are no matching documents' do

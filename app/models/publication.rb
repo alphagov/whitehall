@@ -23,6 +23,10 @@ class Publication < Publicationesque
     true
   end
 
+  def display_type
+    publication_type.singular_name
+  end
+
   def publication_type
     PublicationType.find_by_id(publication_type_id)
   end

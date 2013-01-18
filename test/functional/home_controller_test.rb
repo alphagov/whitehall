@@ -8,7 +8,7 @@ class HomeControllerTest < ActionController::TestCase
   should_be_a_public_facing_controller
 
   test 'Atom feed has the right elements' do
-    create_published_documents
+    document = create(:published_news_article)
 
     get :feed, format: :atom
 
@@ -22,13 +22,7 @@ class HomeControllerTest < ActionController::TestCase
 
       assert_select 'feed > entry' do |entries|
         entries.each do |entry|
-          assert_select entry, 'entry > id', 1
-          assert_select entry, 'entry > published', 1
-          assert_select entry, 'entry > updated', 1
-          assert_select entry, 'entry > link[rel=?][type=?]', 'alternate', 'text/html', 1
-          assert_select entry, 'entry > title', 1
-          assert_select entry, 'entry > summary', 1
-          assert_select entry, 'entry > category', 1
+          assert_select_atom_entry entry, document
           assert_select entry, 'entry > content[type=?]', 'html', 1
         end
       end
@@ -50,12 +44,7 @@ class HomeControllerTest < ActionController::TestCase
 
       assert_select 'feed > entry' do |entries|
         entries.zip(recent_documents) do |entry, document|
-          assert_select entry, 'entry > published', count: 1, text: document.first_public_at.iso8601
-          assert_select entry, 'entry > updated', count: 1, text: document.public_timestamp.iso8601
-          assert_select entry, 'entry > link[rel=?][type=?][href=?]', 'alternate', 'text/html', public_document_url(document)
-          assert_select entry, 'entry > title', count: 1, text: document.title
-          assert_select entry, 'entry > summary', count: 1, text: document.summary
-          assert_select entry, 'entry > category', count: 1, text: document.display_type
+          assert_select_atom_entry entry, document
           assert_select entry, 'entry > content[type=?]', 'html', count: 1, text: /#{document.body}/
         end
       end
@@ -77,12 +66,7 @@ class HomeControllerTest < ActionController::TestCase
 
       assert_select 'feed > entry' do |entries|
         entries.zip(recent_documents) do |entry, document|
-          assert_select entry, 'entry > published', count: 1, text: document.first_public_at.iso8601
-          assert_select entry, 'entry > updated', count: 1, text: document.public_timestamp.iso8601
-          assert_select entry, 'entry > link[rel=?][type=?][href=?]', 'alternate', 'text/html', public_document_url(document)
-          assert_select entry, 'entry > title', count: 1, text: "#{document.display_type}: #{document.title}"
-          assert_select entry, 'entry > summary', count: 1, text: document.summary
-          assert_select entry, 'entry > category', count: 1, text: document.display_type
+          assert_select_atom_entry entry, document
           assert_select entry, 'entry > content[type=?]', 'text', count: 1, text: document.summary
         end
       end

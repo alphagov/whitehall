@@ -4,8 +4,7 @@ class PublicationesquePresenterTest < ActiveSupport::TestCase
   test "should use header title for display publication type on consultation" do
     consultation = build(:consultation)
     presenter = PublicationesquePresenter.decorate(consultation)
-    presenter.stubs(:consultation_header_title).returns("header-title")
-    assert_equal "header-title", presenter.display_publication_type
+    assert_equal "Open consultation", presenter.display_type
   end
 
   test "should indicate that a consultation is never part of a series" do
@@ -17,7 +16,7 @@ class PublicationesquePresenterTest < ActiveSupport::TestCase
   test "should return display publication type on publication" do
     publication = build(:publication, publication_type: PublicationType::ImpactAssessment)
     presenter = PublicationesquePresenter.decorate(publication)
-    assert_equal "Impact assessment", presenter.display_publication_type
+    assert_equal "Impact assessment", presenter.display_type
   end
 
   test "should indicate when publication is part of a series" do
@@ -29,7 +28,7 @@ class PublicationesquePresenterTest < ActiveSupport::TestCase
   test "should return display publication type on statistical data set" do
     publication = build(:statistical_data_set)
     presenter = PublicationesquePresenter.decorate(publication)
-    assert_equal "Statistical data set", presenter.display_publication_type
+    assert_equal "Statistical data set", presenter.display_type
   end
 
   test "should indicate when publication is not part of a series" do

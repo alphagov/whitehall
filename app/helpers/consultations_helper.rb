@@ -26,16 +26,4 @@ module ConsultationsHelper
     end
     "consultation #{consultation_class}"
   end
-
-  def consultation_header_title(consultation)
-    if consultation.response_published?
-      "Consultation outcome"
-    elsif consultation.closed?
-      "Closed consultation"
-    elsif consultation.open?
-      "Open consultation"
-    else
-      "Consultation"
-    end
-  end
 end

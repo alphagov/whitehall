@@ -39,13 +39,8 @@ module FeedHelper
   end
 
   def document_as_feed_entry(document, builder, govdelivery_version = false)
-    document_category = document.display_type
-    if govdelivery_version
-      builder.title "#{document_category}: #{document.title}"
-    else
-      builder.title document.title
-    end
-    builder.category document_category
+    builder.title "#{document.display_type}: #{document.title}"
+    builder.category document.display_type
     builder.summary document.summary
     if govdelivery_version
       builder.content document.summary, type: 'text'
