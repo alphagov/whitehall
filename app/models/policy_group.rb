@@ -1,4 +1,5 @@
 class PolicyGroup < ActiveRecord::Base
+  validates :email, presence: true, uniqueness: true, unless: -> pg { pg.is_a?(PolicyAdvisoryGroup) }
   validates :email, email_format: true, allow_blank: true
   validates :name, presence: true
 
