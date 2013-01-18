@@ -68,7 +68,7 @@
       <% end %>
       <% if document.respond_to?(:part_of_series?) && document.part_of_series? %>
         <dt>Series:</dt>
-        <dd><%= list_of_links_to_document_series(document) %></dd>
+        <dd class="js-hide-other-links"><%= list_of_links_to_document_series(document) %></dd>
       <% end %>
       <% if document.respond_to?(:statistical_data_sets) && document.statistical_data_sets.any? %>
         <dt>Live data:</dt>
