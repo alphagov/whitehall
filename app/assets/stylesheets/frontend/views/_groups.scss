@@ -3,7 +3,7 @@
   .block-3 {
     clear: both;
     padding-top: $gutter;
-    h1 {
+    .label {
       @include heading-27;
       border-bottom-width: 5px;
       border-bottom-style: solid;
