@@ -3,6 +3,10 @@ require 'open3'
 
 class BulkUpload
   class ZipFile
+    class << self
+      attr_accessor :default_root_directory
+    end
+
     FILE_LIMIT = 100.megabytes
     extend  ActiveModel::Naming
     include ActiveModel::Validations
@@ -18,13 +22,15 @@ class BulkUpload
       false
     end
 
-    def initialize(zip_file)
+    def initialize(zip_file, root_dir = BulkUpload::ZipFile.default_root_directory)
       @zip_file = zip_file
+      @root_dir = root_dir
+      FileUtils.mkdir_p(@root_dir)
       store_temporarily
     end
 
     def temp_dir
-      @temp_dir ||= Dir.mktmpdir
+      @temp_dir ||= Dir.mktmpdir(nil, @root_dir)
     end
 
     def store_temporarily
