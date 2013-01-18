@@ -1,6 +1,6 @@
 class PolicyAdvisoryGroupsController < PublicFacingController
   def index
-    @policy_advisory_groups = PolicyAdvisoryGroup.all.order(:name)
+    @policy_advisory_groups = PolicyAdvisoryGroup.order(:name)
   end
 
   def show
