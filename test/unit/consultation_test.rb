@@ -247,4 +247,27 @@ class ConsultationTest < EditionTestCase
     consultation.make_public_at(2.days.ago)
     refute consultation.first_published_at
   end
+
+  test "display_type when not yet open" do
+    consultation = build(:consultation, opening_on: Date.new(2011, 11, 25), closing_on: Date.new(2012, 2, 1))
+    assert_equal "Consultation", consultation.display_type
+  end
+
+  test "display_type when open" do
+    consultation = build(:consultation, opening_on: Date.new(2011, 11, 1), closing_on: Date.new(2011, 12, 1))
+    assert_equal "Open consultation", consultation.display_type
+  end
+
+  test "display_type when closed" do
+    consultation = build(:consultation, opening_on: Date.new(2011, 7, 1), closing_on: Date.new(2011, 9, 1))
+    assert_equal "Closed consultation", consultation.display_type
+  end
+
+  test "display_type when response published" do
+    consultation = build(:consultation, opening_on: Date.new(2011, 5, 1), closing_on: Date.new(2011, 7, 1))
+    response = consultation.create_response!
+    response.attachments << build(:attachment)
+    consultation.stubs(:published_consultation_response).returns(response)
+    assert_equal "Consultation outcome", consultation.display_type
+  end
 end

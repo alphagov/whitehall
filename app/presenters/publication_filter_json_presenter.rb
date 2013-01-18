@@ -7,7 +7,7 @@ class PublicationFilterJsonPresenter < DocumentFilterJsonPresenter
     to_merge = {
       display_date_microformat: document.display_date_microformat,
       organisations: "",
-      publication_type: document.display_publication_type,
+      publication_type: document.display_type,
       type: "",
       publication_series: ""
     }

@@ -6,7 +6,7 @@
     <div class="inner-block">
       <%= render  partial: "documents/header", locals: {
                     document: @document,
-                    header_title: consultation_header_title(@document),
+                    header_title: @document.display_type,
                     policies: @related_policies
                   } %>
     </div>
