@@ -24,6 +24,7 @@ class Edition < ActiveRecord::Base
   validates_with SafeHtmlValidator
   validates :title, :creator, presence: true
   validates :body, presence: true, if: :body_required?
+  validates :summary, presence: true
 
   scope :alphabetical, order("title ASC")
   scope :with_content_containing, -> *keywords {

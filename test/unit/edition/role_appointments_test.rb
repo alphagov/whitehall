@@ -11,6 +11,7 @@ class Edition::RoleAppointmentsTest < ActiveSupport::TestCase
     {
       title:   'edition-title',
       body:    'edition-body',
+      summary: 'edition-summary',
       creator: build(:user),
       lead_edition_organisations: [build(:edition_organisation, lead: true, lead_ordering: 1)]
     }
