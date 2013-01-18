@@ -143,7 +143,7 @@ private
       if selected_announcement_type_option.speech_types.present?
         @documents = @documents.where(@documents.arel_table[:speech_type_id].in(selected_announcement_type_option.speech_types.map(&:id)))
       elsif selected_announcement_type_option.news_article_types.present?
-        @documents = @documents.where(@documents.arel_table[:news_article_type_id].in(selected_announcement_type_option.news_article_types.id))
+        @documents = @documents.where(@documents.arel_table[:news_article_type_id].in(selected_announcement_type_option.news_article_types.map(&:id)))
       end
     end
   end
