@@ -202,12 +202,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
     get :index, format: :atom, departments: [org.to_param]
 
     assert_select_atom_feed do
-      assert_select 'feed > entry', count: 1 do |entries|
-        entries.zip([news]).each do |entry, document|
-          assert_select_atom_entry entry, document
-          assert_select entry, 'entry > content[type=?]', 'html', count: 1, text: /#{document.body}/
-        end
-      end
+      assert_select_atom_entries([news])
     end
   end
 
@@ -220,12 +215,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
     get :index, format: :atom, departments: [org.to_param], govdelivery_version: 'on'
 
     assert_select_atom_feed do
-      assert_select 'feed > entry', count: 1 do |entries|
-        entries.zip([news]).each do |entry, document|
-          assert_select_atom_entry entry, document
-          assert_select entry, 'entry > content[type=?]', 'text', count: 1, text: document.summary
-        end
-      end
+      assert_select_atom_entries([news], :summary)
     end
   end
 

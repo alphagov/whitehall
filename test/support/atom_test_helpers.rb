@@ -7,14 +7,19 @@ module AtomTestHelpers
     assert_select 'head > link[rel=?][type=?][href=?]', 'alternate', 'application/atom+xml', ERB::Util.html_escape(url)
   end
 
-  def assert_select_atom_entry(entry, document)
-    assert_select entry, 'entry > id', 1
-    assert_select entry, 'entry > published', count: 1, text: document.first_public_at.iso8601
-    assert_select entry, 'entry > updated', count: 1, text: document.public_timestamp.iso8601
-    assert_select entry, 'entry > link[rel=?][type=?][href=?]', 'alternate', 'text/html', public_document_url(document)
-    assert_select entry, 'entry > title', count: 1, text: "#{document.display_type}: #{document.title}"
-    assert_select entry, 'entry > summary', count: 1, text: document.summary
-    assert_select entry, 'entry > category', count: 1, text: document.display_type
+  def assert_select_atom_entries(documents, content_attribute = :body)
+    assert_select 'feed > entry', count: documents.length do |entries|
+      entries.zip(documents).each do |entry, document|
+        assert_select entry, 'entry > id', 1
+        assert_select entry, 'entry > published', count: 1, text: document.first_public_at.iso8601
+        assert_select entry, 'entry > updated', count: 1, text: document.public_timestamp.iso8601
+        assert_select entry, 'entry > link[rel=?][type=?][href=?]', 'alternate', 'text/html', public_document_url(document)
+        assert_select entry, 'entry > title', count: 1, text: "#{document.display_type}: #{document.title}"
+        assert_select entry, 'entry > summary', count: 1, text: document.summary
+        assert_select entry, 'entry > category', count: 1, label: document.display_type, term: document.display_type
+        assert_select entry, 'entry > content[type=?]', 'html', count: 1, text: /#{document.send(content_attribute)}/
+      end
+    end
   end
 
 end

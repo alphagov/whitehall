@@ -40,12 +40,31 @@ module FeedHelper
 
   def document_as_feed_entry(document, builder, govdelivery_version = false)
     builder.title "#{document.display_type}: #{document.title}"
-    builder.category document.display_type
+    builder.category label: document.display_type, term: document.display_type
     builder.summary document.summary
+    builder.content entry_content(document, govdelivery_version), type: 'html'
+  end
+
+  def entry_content(document, govdelivery_version = false)
+    # First published versions don't have change notes
+    unless document.first_published_version?
+      # Change notes are only on major published versions
+      if document.minor_change?
+        previous_major_version = Edition.unscoped.where( 'document_id=? and published_major_version=? and published_minor_version=0', document.document_id, document.published_major_version )
+        change_note = previous_major_version.first.change_note
+      else
+        change_note = document.change_note
+      end
+
+      if change_note
+        change_note = "<p><em>Change note:</em> #{change_note}</p>"
+      end
+    end
+
     if govdelivery_version
-      builder.content document.summary, type: 'text'
+      "<p>#{document.summary}</p>#{change_note}"
     else
-      builder.content govspeak_edition_to_html(document), type: 'html'
+      "#{govspeak_edition_to_html(document)}#{change_note}"
     end
   end
 

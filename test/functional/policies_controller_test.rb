@@ -429,12 +429,7 @@ That's all
       assert_select 'feed > updated', consultation.public_timestamp.iso8601
       assert_select 'feed > link[rel=?][type=?][href=?]', 'alternate', 'text/html', activity_policy_url(policy.document), 1
 
-      assert_select 'feed > entry' do |entries|
-        entries.zip([consultation, speech, news_article, publication]).each do |entry, document|
-          assert_select_atom_entry entry, document
-          assert_select entry, 'entry > content', text: Builder::XChar.encode(@controller.view_context.govspeak_edition_to_html(document))
-        end
-      end
+      assert_select_atom_entries([consultation, speech, news_article, publication])
     end
   end
 
@@ -453,12 +448,7 @@ That's all
       assert_select 'feed > updated', consultation.public_timestamp.iso8601
       assert_select 'feed > link[rel=?][type=?][href=?]', 'alternate', 'text/html', activity_policy_url(policy.document), 1
 
-      assert_select 'feed > entry' do |entries|
-        entries.zip([consultation, speech, news_article, publication]).each do |entry, document|
-          assert_select_atom_entry entry, document
-          assert_select entry, 'entry > content', text: document.summary
-        end
-      end
+      assert_select_atom_entries([consultation, speech, news_article, publication], :summary)
     end
   end
 
