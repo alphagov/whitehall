@@ -20,8 +20,6 @@ class Policy < Edition
   has_many :policy_teams, through: :edition_policy_groups, class_name: 'PolicyTeam', source: :policy_group
   has_many :policy_advisory_groups, through: :edition_policy_groups, class_name: 'PolicyAdvisoryGroup', source: :policy_group
 
-  validates :summary, presence: true
-
   def self.having_announcements
     where("EXISTS (
       SELECT * FROM edition_relations er_check
@@ -45,10 +43,6 @@ class Policy < Edition
   after_destroy :remove_edition_relations
 
   def alternative_format_provider_required?
-    true
-  end
-
-  def can_have_summary?
     true
   end
 

@@ -316,6 +316,10 @@ class EditionTest < ActiveSupport::TestCase
     NewsArticle.find(article.id).delete!
   end
 
+  test "should be invalid without a summary" do
+    refute build(:edition, summary: nil).valid?
+  end
+
   test "generate title for a draft edition" do
     draft_edition = create(:draft_edition, title: "Holding back")
     assert_equal "Holding back (draft)", draft_edition.title_with_state

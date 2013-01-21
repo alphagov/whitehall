@@ -32,7 +32,12 @@ module Whitehall::Uploader
     end
 
     def summary
-      Parsers::RelativeToAbsoluteLinks.parse(row['summary'], organisation.url)
+      summary_text = Parsers::RelativeToAbsoluteLinks.parse(row['summary'], organisation.url)
+      if summary_text.blank?
+        Parsers::SummariseBody.parse(body)
+      else
+        summary_text
+      end
     end
 
     def legacy_url

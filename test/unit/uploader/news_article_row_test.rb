@@ -49,6 +49,13 @@ module Whitehall::Uploader
       assert_equal "absolute links", row.summary
     end
 
+    test 'if summary column is blank, generates summary from body' do
+      row = news_article_row("summary" => '', "body" => 'woo')
+      row.stubs(:organisation).returns(stub("organisation", url: "url"))
+      Parsers::SummariseBody.stubs(:parse).with('woo').returns('w')
+      assert_equal 'w', row.summary
+    end
+
     test "takes body from the 'body' column, converting relative links to absolute" do
       Parsers::RelativeToAbsoluteLinks.stubs(:parse).with("relative links", "url").returns("absolute links")
       row = news_article_row("body" => "relative links")

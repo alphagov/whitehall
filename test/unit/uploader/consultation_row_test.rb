@@ -84,6 +84,13 @@ module Whitehall::Uploader
       assert_equal "absolute links", row.summary
     end
 
+    test 'if summary column is blank, generates summary from body' do
+      row = consultation_row("summary" => '', "body" => 'woo')
+      row.stubs(:organisation).returns(stub("organisation", url: "url"))
+      Parsers::SummariseBody.stubs(:parse).with('woo').returns('w')
+      assert_equal 'w', row.summary
+    end
+
     test "takes legacy url from the old_url column" do
       row = consultation_row("old_url" => "http://example.com/old-url")
       assert_equal "http://example.com/old-url", row.legacy_url

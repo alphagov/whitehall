@@ -1,7 +1,6 @@
 When /^I draft a new consultation "([^"]*)"$/ do |title|
   policy = create(:policy)
-  begin_drafting_document type: 'consultation', title: title, alternative_format_provider: create(:alternative_format_provider)
-  fill_in "Summary", with: "consultation-summary"
+  begin_drafting_document type: 'consultation', title: title, summary: 'consultation-summary', alternative_format_provider: create(:alternative_format_provider)
   fill_in "Link URL", with: "http://participate.com"
   fill_in "Email", with: "participate@gov.uk"
   select_date "Opening Date", with: 1.day.ago.to_s

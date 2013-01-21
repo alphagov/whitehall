@@ -55,10 +55,6 @@ class DetailedGuide < Edition
     (published_outbound_related_detailed_guides + published_inbound_related_detailed_guides).uniq
   end
 
-  def can_have_summary?
-    true
-  end
-
   def can_be_related_to_mainstream_content?
     true
   end
