@@ -30,6 +30,7 @@ class Admin::FatalityNoticesControllerTest < ActionController::TestCase
   should_allow_overriding_of_first_published_at_for :fatality_notice
   should_have_summary :fatality_notice
   should_allow_scheduled_publication_of :fatality_notice
+  should_allow_access_limiting_of :fatality_notice
 
   test "show renders the summary" do
     draft_fatality_notice = create(:draft_fatality_notice, summary: "a-simple-summary")

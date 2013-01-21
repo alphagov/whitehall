@@ -30,6 +30,7 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
   should_prevent_modification_of_unmodifiable :policy
   should_allow_alternative_format_provider_for :policy
   should_allow_scheduled_publication_of :policy
+  should_allow_access_limiting_of :policy
 
   test "show the 'add supporting page' button for an unpublished edition" do
     draft_policy = create(:draft_policy)

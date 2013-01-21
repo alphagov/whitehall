@@ -36,6 +36,7 @@ class Admin::DetailedGuidesControllerTest < ActionController::TestCase
   should_allow_alternative_format_provider_for :detailed_guide
   should_allow_scheduled_publication_of :detailed_guide
   should_allow_overriding_of_first_published_at_for :detailed_guide
+  should_allow_access_limiting_of :detailed_guide
 
   test "new allows selection of mainstream categories" do
     funk = create(:mainstream_category,
