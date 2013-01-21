@@ -26,6 +26,23 @@ module Attachable
         end
       end
     end
+    def force_review_of_bulk_attachments
+      include Attachable::ForceReviewOfBulkAttachments
+    end
+  end
+
+  module ForceReviewOfBulkAttachments
+    extend ActiveSupport::Concern
+
+    included do
+      attr_accessor :attachments_were_bulk_uploaded
+
+      validate :force_review_if_attachments_were_bulk_uploaded
+    end
+
+    def force_review_if_attachments_were_bulk_uploaded
+      errors.add(:base, 'You must review the bulk uploaded attachments before saving.') unless self.attachments_were_bulk_uploaded.nil?
+    end
   end
 
   included do

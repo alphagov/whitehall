@@ -14,11 +14,28 @@ jQuery(document).ready(function($) {
   if (url.match('#')) {
     $('.nav-tabs a[href=#'+url.split('#')[1]+']').tab('show') ;
   }
-  $('.nav-tabs a').on('shown', function (e) {
+  $(':not(.attachment-mode-select).nav-tabs a').on('shown', function (e) {
+    var before_shown_scroll_y = window.pageYOffset;
+    var before_shown_scroll_x = window.pageXOffset;
     window.location.hash = e.target.hash;
-    window.scrollTo(0, 0);
+    window.scrollTo(before_shown_scroll_y, before_shown_scroll_y);
   })
   $('.js-toggle-nav').toggler({header: ".toggler", content: ".content", showArrow: false, actLikeLightbox: true})
 
   GOVUK.duplicateFields.init();
+
+  $('.attachment-mode-select label[data-target]').click(function (e) {
+    $(this).tab('show');
+  });
+  $('.attachment-mode-select label[data-target]').on('shown', function(e) {
+    $(this).parents('li').addClass('active');
+    $(this).parents('li').siblings().removeClass('active');
+  });
+  $('.attachment-mode-select label[data-target] input:checked').parent().tab('show');
+  $('.attachment-mode-select label[data-target]').on('shown', function(e) {
+    var before_shown_scroll_y = window.pageYOffset;
+    var before_shown_scroll_x = window.pageXOffset;
+    window.location.hash = $(this).data('target');
+    window.scrollTo(before_shown_scroll_y, before_shown_scroll_y);
+  });
 })

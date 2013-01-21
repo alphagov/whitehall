@@ -50,7 +50,8 @@ module Whitehall
 
     def system_binaries
       {
-        zipinfo: "/usr/bin/zipinfo"
+        zipinfo: "/usr/bin/zipinfo",
+        unzip: "/usr/bin/unzip"
       }
     end
 

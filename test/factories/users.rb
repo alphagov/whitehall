@@ -7,9 +7,14 @@ FactoryGirl.define do
     "user-#{n}@example.com"
   end
 
+  sequence :uid do |n|
+    "uid-#{n}"
+  end
+
   factory :user do
     name
     email
+    uid
     permissions { [User::Permissions::SIGNIN] }
   end
 

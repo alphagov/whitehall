@@ -9,7 +9,7 @@ Then /^clicking on the attachment redirects me to an explanatory page$/ do
   page.current_path.should match(/placeholder/)
 end
 
-When /^the (?:attachment|image) has been virus\-checked$/ do
+When /^the (?:attachment|image)s? (?:has|have) been virus\-checked$/ do
   incoming_path = CarrierWave::Uploader::Base.incoming_root
   clean_path = Whitehall.clean_upload_path
   FileUtils.cp_r(incoming_path.to_s + '/.', clean_path.to_s + "/")
