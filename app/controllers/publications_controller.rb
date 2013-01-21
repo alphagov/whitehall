@@ -8,6 +8,8 @@ class PublicationsController < DocumentsController
   def index
     params[:page] ||= 1
     params[:direction] ||= "before"
+    clean_malformed_params_array(:topics)
+    clean_malformed_params_array(:departments)
     document_filter = Whitehall::DocumentFilter.new(all_publications, params)
     expire_on_next_scheduled_publication(scheduled_publications)
     @filter = PublicationesqueDecorator.new(document_filter)

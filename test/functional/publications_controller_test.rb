@@ -19,6 +19,12 @@ class PublicationsControllerTest < ActionController::TestCase
   should_return_json_suitable_for_the_document_filter :publication
   should_return_json_suitable_for_the_document_filter :consultation
 
+  test "index should handle badly formatted params for topics and departments" do
+    assert_nothing_raised {
+      get :index, departments: {"0" => "all"}, topics: {"0" => "all"}
+    }
+  end
+
   test 'show displays published publications' do
     published_publication = create(:published_publication)
     get :show, id: published_publication.document
