@@ -1,11 +1,4 @@
 GIT
-  remote: https://github.com/alphagov/kramdown.git
-  revision: cd933891d9ed9cdfec1692a085ca2cd694ee5c12
-  branch: add-gemspec
-  specs:
-    kramdown (0.13.7)
-
-GIT
   remote: https://github.com/alphagov/rack-test.git
   revision: c98433f5f6a45842520913c31968cde5cd782d55
   specs:
@@ -181,6 +174,7 @@ GEM
       activesupport (>= 3.0.0)
       railties (>= 3.0.0)
     kgio (2.7.4)
+    kramdown (0.13.8)
     launchy (2.0.5)
       addressable (~> 2.2.6)
     libwebsocket (0.1.7.1)
@@ -400,7 +394,7 @@ DEPENDENCIES
   isbn_validation
   jquery-rails
   kaminari
-  kramdown!
+  kramdown (~> 0.13.8)
   launchy (~> 2.0.5)
   lograge
   mini_magick

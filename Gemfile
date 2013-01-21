@@ -9,7 +9,7 @@ gem 'jquery-rails'
 gem 'transitions', require: ['transitions', 'active_record/transitions']
 gem 'carrierwave'
 gem 'govspeak', '~> 1.2.3'
-gem 'kramdown', git: 'https://github.com/alphagov/kramdown.git', branch: "add-gemspec"
+gem 'kramdown', '~> 0.13.8'
 gem 'validates_email_format_of'
 gem 'friendly_id', '4.0.0.beta14'
 gem 'nokogiri'
