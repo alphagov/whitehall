@@ -40,4 +40,31 @@ class NewsArticleTest < EditionTestCase
     assert topical_event = news_article.topical_events.create(name: "Test", description: "Test")
     assert_equal [news_article], topical_event.news_articles
   end
+
+  test "should allow setting of news article type" do
+    news_article = build(:news_article, news_article_type: NewsArticleType::PressRelease)
+    assert news_article.valid?
+  end
+
+  test "should be invalid without a news article type" do
+    news_article = build(:news_article, news_article_type: nil)
+    refute news_article.valid?
+  end
+
+  test 'imported news article are valid when the news_article_type is \'imported-awaiting-type\'' do
+    news_article = build(:news_article, state: 'imported', news_article_type: NewsArticleType.find_by_slug('imported-awaiting-type'))
+    assert news_article.valid?
+  end
+
+  test 'imported news article are not valid_as_draft? when the news_article_type is \'imported-awaiting-type\'' do
+    news_article = build(:news_article, state: 'imported', news_article_type: NewsArticleType.find_by_slug('imported-awaiting-type'))
+    refute news_article.valid_as_draft?
+  end
+
+  [:draft, :scheduled, :published, :archived, :submitted, :rejected].each do |state|
+    test "#{state} news article is not valid when the news article type is 'imported-awaiting-type'" do
+      news_article = build(:news_article, state: state, news_article_type: NewsArticleType.find_by_slug('imported-awaiting-type'))
+      refute news_article.valid?
+    end
+  end
 end

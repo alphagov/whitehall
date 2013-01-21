@@ -21,7 +21,7 @@ When /^I draft a new speech "([^"]*)" relating it to topical event "([^"]*)"$/ d
 end
 
 When /^I draft a new news article "([^"]*)" relating it to topical event "([^"]*)"$/ do |news_article_title, topical_event_name|
-  begin_drafting_document type: "news_article", title: news_article_title
+  begin_drafting_news_article title: news_article_title
   select topical_event_name, from: "Topical events"
   click_button "Save"
 end

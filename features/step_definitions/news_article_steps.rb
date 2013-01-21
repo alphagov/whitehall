@@ -22,7 +22,7 @@ Given /^a published news article "([^"]*)" associated with "([^"]*)"$/ do |title
 end
 
 When /^I draft a new news article "([^"]*)"$/ do |title|
-  begin_drafting_document type: "news_article", title: title
+  begin_drafting_news_article title: title
   fill_in "Summary", with: "here's a simple summary"
   within ".images" do
     attach_file "File", Rails.root.join("test/fixtures/minister-of-funk.960x640.jpg")
@@ -32,14 +32,14 @@ When /^I draft a new news article "([^"]*)"$/ do |title|
 end
 
 When /^I draft a new news article "([^"]*)" relating it to "([^"]*)" and "([^"]*)"$/ do |title, first_policy, second_policy|
-  begin_drafting_document type: "News Article", title: title
+  begin_drafting_news_article title: title
   select first_policy, from: "Related policies"
   select second_policy, from: "Related policies"
   click_button "Save"
 end
 
 When /^I publish a news article "([^"]*)" associated with "([^"]*)"$/ do |title, person_name|
-  begin_drafting_document type: "News Article", title: title
+  begin_drafting_news_article title: title
   select person_name, from: "Ministers"
   click_button "Save"
   click_button "Force Publish"

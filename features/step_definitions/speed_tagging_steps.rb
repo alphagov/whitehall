@@ -10,6 +10,10 @@ Then /^I should have to select the publication sub\-type$/ do
   assert page.has_css?("select[id*=edition_publication_type_id]")
 end
 
+Then /^I should have to select the news article sub\-type$/ do
+  assert page.has_css?("select[id*=edition_news_article_type_id]")
+end
+
 Then /^I should have to select the speech type$/ do
   assert page.has_css?("select[id*=edition_speech_type_id]")
 end

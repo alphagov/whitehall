@@ -18,7 +18,7 @@ module Whitehall::Uploader
       HeadingValidator.new
         .required(%w{old_url title summary body organisation})
         .ignored("ignore_*")
-        .required('first_published')
+        .required(%w{news_article_type first_published})
         .multiple("policy_#", 1..4)
         .multiple("minister_#", 1..2)
         .multiple("country_#", 0..4)
@@ -38,6 +38,10 @@ module Whitehall::Uploader
 
     def body
       Parsers::RelativeToAbsoluteLinks.parse(row['body'], organisation.url)
+    end
+
+    def news_article_type
+      Finders::NewsArticleTypeFinder.find(row['news_article_type'], @logger, @line_number)
     end
 
     def organisation
@@ -73,7 +77,7 @@ module Whitehall::Uploader
     def attributes
       [:title, :summary, :body, :lead_edition_organisations,
        :first_published_at, :related_policies, :role_appointments,
-       :world_locations].map.with_object({}) do |name, result|
+       :world_locations, :news_article_type].map.with_object({}) do |name, result|
         result[name] = __send__(name)
       end
     end

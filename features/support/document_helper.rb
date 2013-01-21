@@ -47,6 +47,11 @@ module DocumentHelper
     click_button "Create new edition"
   end
 
+  def begin_drafting_news_article(options)
+    begin_drafting_document(options.merge(type: "news_article"))
+    fill_in_news_article_fields
+  end
+
   def begin_drafting_publication(title)
     policy = create(:policy)
     begin_drafting_document type: 'publication', title: title, alternative_format_provider: create(:alternative_format_provider)
@@ -74,6 +79,10 @@ module DocumentHelper
 
   def jpg_image
     File.open(Rails.root.join("test/fixtures/minister-of-funk.960x640.jpg"))
+  end
+
+  def fill_in_news_article_fields
+    select "News story", from: "News article type"
   end
 
   def fill_in_publication_fields
