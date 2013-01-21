@@ -40,7 +40,7 @@ class NewsArticleType
   Rebuttal = create(id: 3, singular_name: "Rebuttal", plural_name: "Rebuttals", prevalence: :primary)
 
   # Temporary to allow migration
-  Unknown                = create(id: 999, singular_name: "News article", plural_name: "News articles", prevalence: :migration)
+  Unknown                = create(id: 999, singular_name: "Announcement", plural_name: "Announcements", prevalence: :migration)
   # For imported news with a blank news_article_type field
   ImportedAwaitingType   = create(id: 1000, singular_name: "Imported - awaiting type", plural_name: "Imported - awaiting type", prevalence: :migration)
 

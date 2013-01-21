@@ -12,6 +12,6 @@ class NewsArticleTypeTest < ActiveSupport::TestCase
   end
 
   test "should list all slugs" do
-    assert_equal "news-stories, press-releases, rebuttals, news-articles and imported-awaiting-type", NewsArticleType.all_slugs
+    assert_equal "news-stories, press-releases, rebuttals, announcements and imported-awaiting-type", NewsArticleType.all_slugs
   end
 end
