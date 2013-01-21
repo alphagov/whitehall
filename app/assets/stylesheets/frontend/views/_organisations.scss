@@ -173,8 +173,12 @@
   h1.label,
   .topic h2 {
     @include ig-core-27;
-    margin-bottom: $gutter-two-thirds;
+    margin-bottom: $gutter-one-third;
   }
+  .topic h2 {
+    margin-bottom: 0;
+  }
+
 
   p a {
     text-decoration: underline;
@@ -406,7 +410,9 @@
         }
 
         table {
-          margin-top: $gutter-one-third;
+          @include media(tablet) {
+            margin-top: $gutter-one-third;
+          }
         }
         .subscribe {
           float: none;
@@ -560,7 +566,9 @@
     display: inline;
     width: 100%;
     nav {
-      padding: 0 $gutter-half;
+      @include media(tablet) {
+        padding: 0 $gutter-half;
+      }
     }
     @include media(desktop) {
       width: 66.66%;
@@ -576,7 +584,9 @@
   .corporate-information {
     width: 100%;
     h2, nav, p {
-      padding: 0 $gutter-half;
+      @include media(tablet) {
+        padding: 0 $gutter-half;
+      }
     }
     nav {
       margin-bottom: $gutter;

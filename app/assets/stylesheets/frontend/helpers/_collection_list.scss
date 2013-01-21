@@ -4,6 +4,10 @@
   .collection-item {
     @include ig-core-19;
     list-style: none;
+    margin-bottom: $gutter-one-third;
+    @include media(tablet) {
+      margin-bottom: 0;
+    }
 
     .summary a {
       white-space: nowrap;
