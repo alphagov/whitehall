@@ -86,7 +86,7 @@
     </div>
 
     <div class="collection span10">
-      <h1><%= @filter.page_title %></h1>
+      <h1><%= "#{@filter.page_title} (#{@filter.editions.total_count})" %></h1>
 
       <%= paginate @filter.editions, theme: 'twitter-bootstrap' %>
       <table class="table table-striped">
