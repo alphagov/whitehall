@@ -43,7 +43,7 @@ class DocumentFilterTest < ActiveSupport::TestCase
   end
 
   test "#announcement_types_for_filter returns all announcement filter option types" do
-    announcement_type_options = ["Press releases","News stories","Fatality notice","Speechs","Statements", "Rebuttals"]
+    announcement_type_options = ["Press releases","News stories","Fatality notices","Speeches","Statements", "Rebuttals"]
     assert_equal announcement_type_options, Whitehall::DocumentFilter.new([]).announcement_types_for_filter.map(&:label)
   end
 
@@ -238,8 +238,8 @@ class DocumentFilterTest < ActiveSupport::TestCase
     statement = create(:published_speech, speech_type: SpeechType::WrittenStatement)
 
     assert_equal [news_article.id], Whitehall::DocumentFilter.new(Announcement.published, announcement_type_option: "news-stories").documents.map(&:id)
-    assert_equal [fatality_notice.id], Whitehall::DocumentFilter.new(Announcement.published, announcement_type_option: "fatality-notice").documents.map(&:id)
-    assert_equal [transcript.id], Whitehall::DocumentFilter.new(Announcement.published, announcement_type_option: "speechs").documents.map(&:id)
+    assert_equal [fatality_notice.id], Whitehall::DocumentFilter.new(Announcement.published, announcement_type_option: "fatality-notices").documents.map(&:id)
+    assert_equal [transcript.id], Whitehall::DocumentFilter.new(Announcement.published, announcement_type_option: "speeches").documents.map(&:id)
     assert_equal [statement.id], Whitehall::DocumentFilter.new(Announcement.published, announcement_type_option: "statements").documents.map(&:id)
   end
 
