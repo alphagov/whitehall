@@ -65,12 +65,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
     get :show, id: world_location, format: :atom
 
     assert_select_atom_feed do
-      assert_select 'feed > entry', count: 2 do |entries|
-        entries.zip([pol, pub]).each do |entry, document|
-          assert_select_atom_entry entry, document
-          assert_select entry, 'entry > content[type=?]', 'html', count: 1, text: /#{document.body}/
-        end
-      end
+      assert_select_atom_entries([pol, pub])
     end
   end
 
@@ -82,12 +77,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
     get :show, id: world_location, format: :atom, govdelivery_version: 'on'
 
     assert_select_atom_feed do
-      assert_select 'feed > entry', count: 2 do |entries|
-        entries.zip([pol, pub]).each do |entry, document|
-          assert_select_atom_entry entry, document
-          assert_select entry, 'entry > content[type=?]', 'text', count: 1, text: document.summary
-        end
-      end
+      assert_select_atom_entries([pol, pub], :summary)
     end
   end
 

@@ -119,12 +119,7 @@ class MinisterialRolesControllerTest < ActionController::TestCase
     get :show, format: :atom, id: ministerial_role
 
     assert_select_atom_feed do
-      assert_select 'feed > entry', count: 2 do |actual_entries|
-        expected_entries.zip(actual_entries).each do |expected, actual_entry|
-          assert_select_atom_entry actual_entry, expected
-          assert_select actual_entry, 'entry > content[type=?]', 'html', count: 1, text: /#{expected.body}/
-        end
-      end
+      assert_select_atom_entries(expected_entries)
     end
   end
 
@@ -139,12 +134,7 @@ class MinisterialRolesControllerTest < ActionController::TestCase
     get :show, format: :atom, id: ministerial_role, govdelivery_version: 'true'
 
     assert_select_atom_feed do
-      assert_select 'feed > entry', count: 2 do |actual_entries|
-        expected_entries.zip(actual_entries).each do |expected, actual_entry|
-          assert_select_atom_entry actual_entry, expected
-          assert_select actual_entry, 'entry > content[type=?]', 'text', count: 1, text: expected.summary
-        end
-      end
+      assert_select_atom_entries(expected_entries, :summary)
     end
   end
 
