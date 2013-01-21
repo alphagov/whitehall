@@ -212,3 +212,32 @@ end
 Given /^an organisation "([^"]*)" has been assigned to handle fatalities$/ do |organisation_name|
   create(:organisation, name: organisation_name, handles_fatalities: true)
 end
+
+When /^I visit the organisation admin page for "([^"]*)"$/ do |organisation_name|
+  organisation = Organisation.find_by_name!(organisation_name)
+  visit admin_organisation_path(organisation)
+end
+
+When /^I add a new contact "([^"]*)" with address "([^"]*)"$/ do |contact_description, address|
+  click_link "Contacts"
+  click_link "Add"
+  fill_in "Description", with: contact_description
+  fill_in "Address", with: address
+  click_button "Save"
+end
+
+When /^I edit the contact to have address "([^"]*)"$/ do |address|
+  click_link "Contacts"
+  within ".contact" do
+    click_link "Edit"
+  end
+  fill_in "Address", with: address
+  click_button "Save"
+end
+
+Then /^I should see the "([^"]*)" contact in the admin interface with address "([^"]*)"$/ do |contact_description, address|
+  within ".contact" do
+    assert page.has_css?("h3", text: contact_description)
+    assert page.has_css?("dd", text: address)
+  end
+end

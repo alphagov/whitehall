@@ -1,3 +1,6 @@
 <div class="tab-pane" id="contacts">
   <%= render partial: "admin/contacts/contact_list", locals: {contactable: @organisation} %>
+  <div class="form-actions">
+    <%= link_to "Add", new_admin_contact_path(worldwide_office: @worldwide_office, contactable_type: @organisation.class.name, contactable_id: @organisation), class: "btn btn-large btn-primary"%>
+  </div>
 </div>

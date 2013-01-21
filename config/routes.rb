@@ -101,6 +101,11 @@ Whitehall::Application.routes.draw do
           resources :classification_featurings, path: "featurings"
         end
 
+        resources :worldwide_offices do
+          member do
+            get :contacts
+          end
+        end
         resources :contacts
 
         resources :editions, only: [:index] do

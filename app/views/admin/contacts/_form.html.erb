@@ -1,6 +1,8 @@
 <%= form_for [:admin, contact], html: {class: "form-horizontal"} do |contact_form| %>
   <%= contact_form.errors %>
   <fieldset class="contact">
+    <%= hidden_field_tag :contactable_type, contactable.class.name %>
+    <%= hidden_field_tag :contactable_id, contactable.to_param %>
     <%= contact_form.text_field :description, horizontal: true %>
     <%= contact_form.text_area :address, rows: 3, class: "address", horizontal: true %>
     <%= contact_form.text_field :postcode, horizontal: true %>
@@ -17,5 +19,5 @@
     </fieldset>
   </fieldset>
 
-  <%= contact_form.save_or_cancel(cancel: url_for([:admin, @contact.contactable])) %>
+  <%= contact_form.save_or_cancel(cancel: url_for([:admin, contact.contactable])) %>
 <% end %>
