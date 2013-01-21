@@ -51,10 +51,6 @@ class Consultation < Publicationesque
     closing_on < Date.today
   end
 
-  def can_have_summary?
-    true
-  end
-
   def published_consultation_response
     response if response && response.published?
   end

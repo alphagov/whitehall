@@ -6,7 +6,6 @@ class PublicationTest < EditionTestCase
   should_force_review_of_bulk_uploaded_attachments
   should_not_allow_inline_attachments
   should_allow_referencing_of_statistical_data_sets
-  should_allow_a_summary_to_be_written
   should_protect_against_xss_and_content_attacks_on :title, :body, :summary, :change_note
 
   test 'should be invalid without a publication date' do

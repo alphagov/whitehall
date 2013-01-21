@@ -22,6 +22,7 @@ module DocumentHelper
     click_link "Create #{options[:type].titleize}"
     fill_in "Title", with: options[:title]
     fill_in "Body", with: options[:body] || "Any old iron"
+    fill_in "Summary", with: options[:summary] || 'one plus one euals two!'
     fill_in_change_note_if_required
     set_lead_organisation_on_document(Organisation.first)
     if options[:alternative_format_provider]
@@ -33,8 +34,7 @@ module DocumentHelper
   end
 
   def begin_drafting_policy(options)
-    begin_drafting_document(options.merge(type: "policy", alternative_format_provider: create(:alternative_format_provider)))
-    fill_in "Summary", with: options[:summary] || "Policy summary"
+    begin_drafting_document(options.merge(type: "policy", summary: options[:summary] || "Policy summary", alternative_format_provider: create(:alternative_format_provider)))
   end
 
   def begin_editing_document(title)
@@ -54,7 +54,7 @@ module DocumentHelper
 
   def begin_drafting_publication(title)
     policy = create(:policy)
-    begin_drafting_document type: 'publication', title: title, alternative_format_provider: create(:alternative_format_provider)
+    begin_drafting_document type: 'publication', title: title, summary: "Some summary of the content", alternative_format_provider: create(:alternative_format_provider)
     fill_in_publication_fields
     select policy.title, from: "Related policies"
   end
@@ -65,12 +65,11 @@ module DocumentHelper
     role = create(:ministerial_role, name: "Attorney General", organisations: [organisation])
     role_appointment = create(:role_appointment, person: person, role: role, started_at: Date.parse('2010-01-01'))
     speech_type = SpeechType::Transcript
-    begin_drafting_document options.merge(type: 'speech')
+    begin_drafting_document options.merge(type: 'speech', summary: "Some summary of the content")
     select speech_type.name, from: "Type"
     select "Colonel Mustard, Attorney General", from: "Delivered by"
     select_date "Delivered on", with: 1.day.ago.to_s
     fill_in "Location", with: "The Drawing Room"
-    fill_in "Summary", with: "Some summary of the content"
   end
 
   def new_and_replacement_zip_file
@@ -92,7 +91,6 @@ module DocumentHelper
   def fill_in_publication_fields
     select_date "Publication date", with: "2010-01-01"
     select "Research and analysis", from: "Publication type"
-    fill_in "Summary", with: "Some summary of the content"
   end
 
   def visit_document_preview(title, scope = :scoped)

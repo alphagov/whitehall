@@ -8,10 +8,6 @@ class StatisticalDataSet < Publicationesque
     true
   end
 
-  def can_have_summary?
-    true
-  end
-
   def can_limit_access?
     true
   end
