@@ -50,6 +50,15 @@ module DocumentBehaviour
       end
     end
 
+    def should_force_review_of_bulk_uploaded_attachments
+      test 'should include the Attachable::ForceReviewOfBulkAttachments behaviour module' do
+        # *NOTE*. The ::Attachable::ForceReviewOfBulkAttachments module
+        # is tested separately so it should be enough to just test its
+        # inclusion here.
+        assert edition_class_from_test_name.ancestors.include?(::Attachable::ForceReviewOfBulkAttachments)
+      end
+    end
+
     def should_allow_inline_attachments
       test "should allow inline attachments" do
         assert edition_class_from_test_name.new.allows_inline_attachments?
