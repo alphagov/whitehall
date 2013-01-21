@@ -81,6 +81,32 @@ class PublicationTest < EditionTestCase
     feb = create(:publication, publication_date: Date.parse("2011-02-01"))
     assert_equal [feb], Publication.published_after("2011-01-29").all
   end
+
+  test "new instances are access_limited based on their publication_type" do
+    limit_by_default, dont_limit_by_default = PublicationType.all.partition {|pt| pt.access_limited_by_default? }.map {|pts| pts.first }
+    e = build(:draft_publication, publication_type: limit_by_default)
+    assert e.access_limited?
+    e = build(:draft_publication, publication_type: dont_limit_by_default)
+    refute e.access_limited?
+  end
+
+  test "new instances respect local access_limited over their publication_type" do
+    limit_by_default, dont_limit_by_default = PublicationType.all.partition {|pt| pt.access_limited_by_default? }.map {|pts| pts.first }
+    e = build(:draft_publication, publication_type: limit_by_default, access_limited: false)
+    refute e.access_limited?
+    e = build(:draft_publication, publication_type: dont_limit_by_default, access_limited: true)
+    assert e.access_limited?
+  end
+
+  test 'existing instances don\'t change access_limit when their publication_type does' do
+    limit_by_default, dont_limit_by_default = PublicationType.all.partition {|pt| pt.access_limited_by_default? }.map {|pts| pts.first }
+    e = create(:draft_publication, access_limited: false)
+    e.publication_type = limit_by_default
+    refute e.access_limited?
+    e = create(:draft_publication, access_limited: true)
+    e.publication_type = dont_limit_by_default
+    assert e.access_limited?
+  end
 end
 
 class PublicationsInTopicsTest < ActiveSupport::TestCase

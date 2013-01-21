@@ -36,6 +36,10 @@ module Edition::LimitedAccess
       read_attribute(:access_limited)
     end
 
+    def access_limited_by_default?
+      self.class.access_limited_by_default?
+    end
+
     def accessible_by?(user)
       if access_limited?
         organisations.include?(user.organisation) || authors.include?(user)
@@ -46,7 +50,7 @@ module Edition::LimitedAccess
 
     def set_access_limited
       if new_record? && access_limited.nil?
-        self.access_limited = self.class.access_limited_by_default?
+        self.access_limited = self.access_limited_by_default?
       end
     end
   end
