@@ -337,7 +337,8 @@ class TopicsControllerTest < ActionController::TestCase
 
   test 'atom feed has the right elements' do
     topic = build(:topic, id: 1)
-    topic.stubs(:recently_changed_documents).returns([create(:published_policy)])
+    policy = create(:published_policy)
+    topic.stubs(:recently_changed_documents).returns([policy])
     Topic.stubs(:find).returns(topic)
 
     get :show, id: topic, format: :atom
@@ -350,16 +351,7 @@ class TopicsControllerTest < ActionController::TestCase
       assert_select 'feed > link[rel=?][type=?][href=?]', 'self', 'application/atom+xml', topic_url(topic, format: 'atom'), 1
       assert_select 'feed > link[rel=?][type=?][href=?]', 'alternate', 'text/html', topic_url(topic), 1
 
-      assert_select 'feed > entry' do |entries|
-        entries.each do |entry|
-          assert_select entry, 'entry > id', 1
-          assert_select entry, 'entry > published', 1
-          assert_select entry, 'entry > updated', 1
-          assert_select entry, 'entry > link[rel=?][type=?]', 'alternate', 'text/html', 1
-          assert_select entry, 'entry > title', 1
-          assert_select entry, 'entry > content[type=?]', 'html', 1
-        end
-      end
+      assert_select_atom_entries([policy])
     end
   end
 
@@ -377,13 +369,7 @@ class TopicsControllerTest < ActionController::TestCase
 
     assert_select_atom_feed do
       assert_select 'feed > updated', text: newer_edition.public_timestamp.iso8601
-
-      assert_select 'feed > entry' do |entries|
-        entries.zip(recent_documents) do |entry, document|
-          assert_select_atom_entry entry, document
-          assert_select entry, 'entry > content', text: /#{document.body}/
-        end
-      end
+      assert_select_atom_entries(recent_documents)
     end
   end
 
@@ -401,19 +387,13 @@ class TopicsControllerTest < ActionController::TestCase
 
     assert_select_atom_feed do
       assert_select 'feed > updated', text: newer_edition.public_timestamp.iso8601
-
-      assert_select 'feed > entry' do |entries|
-        entries.zip(recent_documents) do |entry, document|
-          assert_select_atom_entry entry, document
-          assert_select entry, 'entry > content', text: document.summary
-        end
-      end
+      assert_select_atom_entries(recent_documents, :summary)
     end
   end
 
 
   test 'atom feed only shows the last 10 recently changed documents' do
-    recent_documents = Array.new(20) { create(:published_policy) }
+    recent_documents = Array.new(11) { create(:published_policy) }
     topic = build(:topic, id: 1)
     topic.stubs(:recently_changed_documents).returns(recent_documents)
     Topic.stubs(:find).returns(topic)

@@ -413,12 +413,7 @@ class PublicationsControllerTest < ActionController::TestCase
     get :index, format: :atom, departments: [org.to_param]
 
     assert_select_atom_feed do
-      assert_select 'feed > entry', count: 2 do |entries|
-        entries.zip([c1, p1]).each do |entry, document|
-          assert_select_atom_entry entry, document
-          assert_select entry, 'entry > content[type=?]', 'html', count: 1, text: /#{document.body}/
-        end
-      end
+      assert_select_atom_entries([c1, p1])
     end
   end
 
@@ -432,12 +427,7 @@ class PublicationsControllerTest < ActionController::TestCase
     get :index, format: :atom, departments: [org.to_param], govdelivery_version: 'yes'
 
     assert_select_atom_feed do
-      assert_select 'feed > entry', count: 2 do |entries|
-        entries.zip([c1, p1]).each do |entry, document|
-          assert_select_atom_entry entry, document
-          assert_select entry, 'entry > content[type=?]', 'text', count: 1, text: document.summary
-        end
-      end
+      assert_select_atom_entries([c1, p1], :summary)
     end
   end
 
@@ -450,12 +440,7 @@ class PublicationsControllerTest < ActionController::TestCase
     get :index, format: :atom, departments: [org.to_param]
 
     assert_select_atom_feed do
-      assert_select 'feed > entry', count: 1 do |entries|
-        entries.each do |entry|
-          assert_select_atom_entry entry, document
-          assert_select entry, 'entry > content[type=?]', 'html', 1
-        end
-      end
+      assert_select_atom_entries([document])
     end
   end
 

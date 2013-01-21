@@ -90,7 +90,7 @@ class FeedHelperTest < ActionView::TestCase
     document = Edition.new(title: 'A thing!', summary: 'A thing has happened')
     builder = mock('builder')
     builder.expects(:title).with "#{document.display_type}: #{document.title}"
-    builder.expects(:category).with document.display_type
+    builder.expects(:category).with( label:  document.display_type, term: document.display_type )
     builder.expects(:summary).with document.summary
     expects(:govspeak_edition_to_html).with(document).returns('govspoken content')
     builder.expects(:content).with('govspoken content', type: 'html')
@@ -101,10 +101,10 @@ class FeedHelperTest < ActionView::TestCase
     document = Edition.new(title: 'A thing!', summary: 'A thing has happened')
     builder = mock('builder')
     builder.stubs(:title)
-    builder.expects(:category).with document.display_type
+    builder.expects(:category).with( label:  document.display_type, term: document.display_type )
     builder.expects(:summary).with document.summary
     expects(:govspeak_edition_to_html).never
-    builder.expects(:content).with(document.summary, type: 'text')
+    builder.expects(:content).with("<p>#{document.summary}</p>", type: 'html')
     document_as_feed_entry(document, builder, true)
   end
 
@@ -116,6 +116,36 @@ class FeedHelperTest < ActionView::TestCase
     builder.stubs(:summary)
     builder.stubs(:content)
     document_as_feed_entry(document, builder, true)
+  end
+
+  test 'entry_content returns govspoken version of document when govdelivery_version is false' do
+    document = Edition.new(title: 'A thing!', summary: 'A thing has happened')
+    expects(:govspeak_edition_to_html).with(document).returns('govspoken content')
+    assert_equal 'govspoken content', entry_content(document)
+  end
+
+  test 'entry_content returns summary wrapped in a paragraph when govdelivery_version is true' do
+    document = Edition.new(title: 'A thing!', summary: 'A thing has happened')
+    expects(:govspeak_edition_to_html).never
+    assert_equal '<p>A thing has happened</p>', entry_content(document, true)
+  end
+
+  test 'entry_content appends a change_note to govspoken version of a document when govdelivery_version is false' do
+    document = Edition.new(title: 'A thing!', summary: 'A thing has happened')
+    document.expects(:first_published_version?).returns(false)
+    document.expects(:minor_change?).returns(false)
+    document.expects(:change_note).returns('A change note')
+    expects(:govspeak_edition_to_html).with(document).returns('govspoken content')
+    assert_equal 'govspoken content<p><em>Change note:</em> A change note</p>', entry_content(document)
+  end
+
+  test 'entry_content appends a change_note to govspoken version of a document when govdelivery_version is true' do
+    document = Edition.new(title: 'A thing!', summary: 'A thing has happened')
+    document.expects(:first_published_version?).returns(false)
+    document.expects(:minor_change?).returns(false)
+    document.expects(:change_note).returns('A change note')
+    expects(:govspeak_edition_to_html).never
+    assert_equal '<p>A thing has happened</p><p><em>Change note:</em> A change note</p>', entry_content(document, true)
   end
 
   test 'document_id sets ID as the original document ID when available' do

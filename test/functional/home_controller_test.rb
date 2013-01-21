@@ -20,12 +20,7 @@ class HomeControllerTest < ActionController::TestCase
       assert_select 'feed > link[rel=?][type=?][href=?]', 'self', 'application/atom+xml', atom_feed_url(format: :atom), 1
       assert_select 'feed > link[rel=?][type=?][href=?]', 'alternate', 'text/html', root_url, 1
 
-      assert_select 'feed > entry' do |entries|
-        entries.each do |entry|
-          assert_select_atom_entry entry, document
-          assert_select entry, 'entry > content[type=?]', 'html', 1
-        end
-      end
+      assert_select_atom_entries([document])
     end
   end
 
@@ -42,12 +37,7 @@ class HomeControllerTest < ActionController::TestCase
     assert_select_atom_feed do
       assert_select 'feed > updated', text: recent_documents.first.public_timestamp.iso8601
 
-      assert_select 'feed > entry' do |entries|
-        entries.zip(recent_documents) do |entry, document|
-          assert_select_atom_entry entry, document
-          assert_select entry, 'entry > content[type=?]', 'html', count: 1, text: /#{document.body}/
-        end
-      end
+      assert_select_atom_entries(recent_documents)
     end
   end
 
@@ -64,12 +54,7 @@ class HomeControllerTest < ActionController::TestCase
     assert_select_atom_feed do
       assert_select 'feed > updated', text: recent_documents.first.public_timestamp.iso8601
 
-      assert_select 'feed > entry' do |entries|
-        entries.zip(recent_documents) do |entry, document|
-          assert_select_atom_entry entry, document
-          assert_select entry, 'entry > content[type=?]', 'text', count: 1, text: document.summary
-        end
-      end
+      assert_select_atom_entries(recent_documents, :summary)
     end
   end
 

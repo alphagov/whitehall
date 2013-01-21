@@ -158,12 +158,7 @@ class PeopleControllerAtomFeedTest < ActionController::TestCase
     get :show, format: :atom, id: person
 
     assert_select_atom_feed do
-      assert_select 'feed > entry', count: 2 do |actual_entries|
-        expected_entries.zip(actual_entries).each do |expected, entry|
-          assert_select_atom_entry entry, expected
-          assert_select entry, 'entry > content[type=?]', 'html', count: 1, text: /#{expected.body}/
-        end
-      end
+      assert_select_atom_entries(expected_entries)
     end
   end
 
@@ -178,12 +173,7 @@ class PeopleControllerAtomFeedTest < ActionController::TestCase
     get :show, format: :atom, id: person, govdelivery_version: '1'
 
     assert_select_atom_feed do
-      assert_select 'feed > entry', count: 2 do |actual_entries|
-        expected_entries.zip(actual_entries).each do |expected, entry|
-          assert_select_atom_entry entry, expected
-          assert_select entry, 'entry > content[type=?]', 'text', count: 1, text: expected.summary
-        end
-      end
+      assert_select_atom_entries(expected_entries, :summary)
     end
   end
 end
