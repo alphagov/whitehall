@@ -5,18 +5,10 @@ require 'active_support/core_ext/string/inflections.rb'
 class PublicationType
   include ActiveRecordLikeInterface
 
-  attr_accessor :id, :singular_name, :plural_name, :prevalence, :can_limit_access
+  attr_accessor :id, :singular_name, :plural_name, :prevalence
 
   def slug
     plural_name.downcase.gsub(/[^a-z]+/, "-")
-  end
-
-  def can_limit_access?
-    !! self.can_limit_access
-  end
-
-  def self.access_limitable
-    all.select(&:can_limit_access?)
   end
 
   def self.by_prevalence
@@ -54,8 +46,8 @@ class PublicationType
   ImpactAssessment       = create(id: 2, singular_name: "Impact assessment", plural_name: "Impact assessments", prevalence: :primary)
   Guidance               = create(id: 3, singular_name: "Guidance", plural_name: "Guidance", prevalence: :primary)
   Form                   = create(id: 4, singular_name: "Form", plural_name: "Forms", prevalence: :primary)
-  Statistics             = create(id: 5, singular_name: "Statistics", plural_name: "Statistics", prevalence: :primary, can_limit_access: true)
-  NationalStatistics     = create(id: 15, singular_name: "Statistics - national statistics", plural_name: "Statistics - national statistics", prevalence: :primary, can_limit_access: true)
+  Statistics             = create(id: 5, singular_name: "Statistics", plural_name: "Statistics", prevalence: :primary)
+  NationalStatistics     = create(id: 15, singular_name: "Statistics - national statistics", plural_name: "Statistics - national statistics", prevalence: :primary)
   ResearchAndAnalysis    = create(id: 6, singular_name: "Research and analysis", plural_name: "Research and analysis", prevalence: :primary)
   CorporateReport        = create(id: 7, singular_name: "Corporate report", plural_name: "Corporate reports", prevalence: :primary)
 

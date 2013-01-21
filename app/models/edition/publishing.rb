@@ -92,7 +92,7 @@ module Edition::Publishing
     if publishable_by?(user, options)
       self.major_change_published_at = Time.zone.now unless self.minor_change?
       make_public_at(major_change_published_at)
-      self.access_limited = nil
+      self.access_limited = false
       if ! scheduled?
         self.force_published = options[:force]
       end

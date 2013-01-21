@@ -13,7 +13,6 @@ class Publication < Publicationesque
   validate :only_publications_allowed_invalid_data_can_be_awaiting_type
 
   after_update { |p| p.published_related_policies.each(&:update_published_related_publication_count) }
-  before_save ->(record) { record.access_limited = nil unless record.publication_type.can_limit_access? }
 
   def allows_inline_attachments?
     false
@@ -52,14 +51,6 @@ class Publication < Publicationesque
 
   def statistics?
     [PublicationType::Statistics, PublicationType::NationalStatistics].include?(publication_type)
-  end
-
-  def can_limit_access?
-    true
-  end
-
-  def access_limited?
-    statistics? && super
   end
 
   private

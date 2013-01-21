@@ -25,15 +25,4 @@ class PublicationTypeTest < ActiveSupport::TestCase
     assert_equal [primary, less_common, use_discouraged, migration],
                  PublicationType.ordered_by_prevalence
   end
-
-  test "should be able to limit access to statistics or national statistics, but not other types" do
-    PublicationType.all.each do |type|
-      case type
-      when PublicationType::NationalStatistics, PublicationType::Statistics
-        assert type.can_limit_access?
-      else
-        refute type.can_limit_access?
-      end
-    end
-  end
 end
