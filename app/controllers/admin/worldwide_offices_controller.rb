@@ -21,11 +21,11 @@ class Admin::WorldwideOfficesController < Admin::BaseController
     social.destroy_blank_social_media_accounts(params[:worldwide_office])
     @worldwide_office = WorldwideOffice.new(params[:worldwide_office])
 
-    unless @worldwide_office.save
+    if @worldwide_office.save
       social.build_social_media_account(@worldwide_office)
     end
 
-    respond_with @worldwide_office, location: admin_worldwide_offices_path
+    respond_with @worldwide_office, location: admin_worldwide_office_path(@worldwide_office)
   end
 
   def edit
@@ -42,7 +42,7 @@ class Admin::WorldwideOfficesController < Admin::BaseController
       social.build_social_media_account(@worldwide_office)
     end
 
-    respond_with @worldwide_office, location: admin_worldwide_offices_path
+    respond_with @worldwide_office, location: admin_worldwide_office_path
   end
 
   def destroy
