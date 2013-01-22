@@ -136,7 +136,7 @@ class FeedHelperTest < ActionView::TestCase
     document.expects(:minor_change?).returns(false)
     document.expects(:change_note).returns('A change note')
     expects(:govspeak_edition_to_html).with(document).returns('govspoken content')
-    assert_equal 'govspoken content<p><em>Change note:</em> A change note</p>', entry_content(document)
+    assert_equal '<p><em>Updated:</em> A change note</p>govspoken content', entry_content(document)
   end
 
   test 'entry_content appends a change_note to govspoken version of a document when govdelivery_version is true' do
@@ -145,7 +145,7 @@ class FeedHelperTest < ActionView::TestCase
     document.expects(:minor_change?).returns(false)
     document.expects(:change_note).returns('A change note')
     expects(:govspeak_edition_to_html).never
-    assert_equal '<p>A thing has happened</p><p><em>Change note:</em> A change note</p>', entry_content(document, true)
+    assert_equal '<p><em>Updated:</em> A change note</p><p>A thing has happened</p>', entry_content(document, true)
   end
 
   test 'document_id sets ID as the original document ID when available' do

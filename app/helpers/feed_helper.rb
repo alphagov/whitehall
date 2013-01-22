@@ -57,14 +57,14 @@ module FeedHelper
       end
 
       if change_note
-        change_note = "<p><em>Change note:</em> #{change_note}</p>"
+        change_note = "<p><em>Updated:</em> #{change_note}</p>"
       end
     end
 
     if govdelivery_version
-      "<p>#{document.summary}</p>#{change_note}"
+      "#{change_note}<p>#{document.summary}</p>"
     else
-      "#{govspeak_edition_to_html(document)}#{change_note}"
+      "#{change_note}#{govspeak_edition_to_html(document)}"
     end
   end
 
