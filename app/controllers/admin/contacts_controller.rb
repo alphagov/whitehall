@@ -5,15 +5,18 @@ class Admin::ContactsController < Admin::BaseController
 
   before_filter :find_contactable, only: [:new, :create]
   before_filter :find_contact, only: [:edit, :update, :destroy]
+  before_filter :destroy_blank_contact_numbers, only: [:create, :update]
 
   def index
   end
 
   def new
     @contact = @contactable.contacts.build
+    @contact.contact_numbers.build
   end
 
   def edit
+    @contact.contact_numbers.build unless @contact.contact_numbers.any?
   end
 
   def update
@@ -57,6 +60,14 @@ private
   def find_contact
     @contact = Contact.find(params[:id])
     @contactable = @contact.contactable
+  end
+
+  def destroy_blank_contact_numbers
+    (params[:contact][:contact_numbers_attributes] || []).each do |index, attributes|
+      if attributes.except(:id).values.all?(&:blank?)
+        attributes[:_destroy] = "1"
+      end
+    end
   end
 
 end
