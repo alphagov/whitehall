@@ -15,6 +15,6 @@ every '13,28,43,58 * * * *', roles: [:backend] do
   rake "publishing:due:publish"
 end
 
-every :day, roles: [:frontend] do
+every :day, at: '12am', roles: [:frontend] do
   runner 'script/document_dump.rb'
 end
