@@ -4,6 +4,8 @@ class Import < ActiveRecord::Base
   serialize :already_imported
   serialize :successful_rows
   has_many :document_sources
+  has_many :documents, through: :document_sources
+  has_many :editions, through: :documents
   has_many :import_errors, dependent: :destroy
 
   belongs_to :creator, class_name: "User"
@@ -66,6 +68,10 @@ class Import < ActiveRecord::Base
     else
       :succeeded
     end
+  end
+
+  def imported_editions
+    editions.where('not exists ( select 1 from editions e2 where e2.document_id = editions.document_id and e2.id < editions.id )')
   end
 
   def import_errors_for_row(row_number)

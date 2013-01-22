@@ -239,6 +239,22 @@ class ImportTest < ActiveSupport::TestCase
     end
   end
 
+  test 'once run, it has access to the editions that it created via imported_editions' do
+    import = perform_import
+    assert_equal [Consultation.find_by_title('title')], import.imported_editions.all
+  end
+
+  test 'if an imported edition is published and re-drafted, imported_editions only contains the original, not the re-draft' do
+    import = perform_import
+    edition = Consultation.find_by_title('title')
+    editor = create(:departmental_editor)
+    edition.convert_to_draft!
+    edition.publish_as(editor, force: true)
+    puts edition.errors.full_messages
+    new_draft = edition.create_draft(editor)
+    refute import.imported_editions.include?(new_draft)
+  end
+
 private
   def stub_document_source
     DocumentSource.stubs(:find_by_url).returns(nil)
