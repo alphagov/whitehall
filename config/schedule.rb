@@ -18,3 +18,7 @@ end
 every :day, at: '12am', roles: [:frontend] do
   runner 'script/document_dump.rb'
 end
+
+every :day, at: '2am', roles: [:admin] do
+  runner 'script/dump_all_documents.rb'
+end
