@@ -29,7 +29,7 @@
                 <% if @policies.any? %>
                   <li><%= link_to 'Policies', '#policies' %></li>
                 <% end %>
-                <% if @policy_advisory_group.email %>
+                <% if @policy_advisory_group.email.present? %>
                   <li><%= link_to 'Contact details', '#contact-details' %></li>
                 <% end %>
               </ol>
@@ -55,8 +55,10 @@
           <% end %>
         </ul>
       <% end %>
-      <h2 class="label" id="contact-details">Contact details</h2>
-      <p class="email"><%= mail_to @policy_advisory_group.email, @policy_advisory_group.email %></p>
+      <% if @policy_advisory_group.email.present? %>
+        <h2 class="label" id="contact-details">Contact details</h2>
+        <p class="email"><%= mail_to @policy_advisory_group.email, @policy_advisory_group.email %></p>
+      <% end %>
     </div>
   </div>
 <% end %>
