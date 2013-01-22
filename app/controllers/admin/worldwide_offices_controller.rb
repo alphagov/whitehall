@@ -1,6 +1,7 @@
 class Admin::WorldwideOfficesController < Admin::BaseController
   respond_to :html
 
+  before_filter :find_worldwide_office, only: [:edit, :update, :show, :contacts]
   before_filter :social_helper, only: [:new, :create, :edit, :update]
   before_filter :contact_helper, only: [:create, :update]
   attr :social, :contact
@@ -28,7 +29,6 @@ class Admin::WorldwideOfficesController < Admin::BaseController
   end
 
   def edit
-    @worldwide_office = WorldwideOffice.find(params[:id])
     social.build_social_media_account(@worldwide_office)
     respond_with @worldwide_office
   end
@@ -59,5 +59,9 @@ class Admin::WorldwideOfficesController < Admin::BaseController
 
   def contact_helper
     @contact = Whitehall::Controllers::Contacts.new
+  end
+
+  def find_worldwide_office
+    @worldwide_office = WorldwideOffice.find(params[:id])
   end
 end

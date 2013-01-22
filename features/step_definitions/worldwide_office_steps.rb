@@ -53,16 +53,14 @@ Then /^the social link should be shown on the public website$/ do
 end
 
 When /^I add an "([^"]*)" contact with address and phone number$/ do |description|
-  visit edit_admin_worldwide_office_path(WorldwideOffice.last)
-  within '.contact' do
-    fill_in "Description", with: description
-    fill_in "Address", with: "address1\naddress2"
-    fill_in "Postcode", with: "12345-123"
-    fill_in "Email", with: "foo@bar.com"
-
-    fill_in "Label", with: "Main phone number"
-    fill_in "Number", with: "+22 (0) 111 111-111"
-  end
+  visit contacts_admin_worldwide_office_path(WorldwideOffice.last)
+  click_link "Add"
+  fill_in "Description", with: description
+  fill_in "Address", with: "address1\naddress2"
+  fill_in "Postcode", with: "12345-123"
+  fill_in "Email", with: "foo@bar.com"
+  fill_in "Label", with: "Main phone number"
+  fill_in "Number", with: "+22 (0) 111 111-111"
   click_on "Save"
 end
 

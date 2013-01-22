@@ -1,8 +1,10 @@
 class Admin::ContactsController < Admin::BaseController
+  include Admin::ContactsHelper
+
   respond_to :html
 
   before_filter :find_contactable, only: [:new, :create]
-  before_filter :find_contact, only: [:edit, :update]
+  before_filter :find_contact, only: [:edit, :update, :destroy]
 
   def index
   end
@@ -17,7 +19,7 @@ class Admin::ContactsController < Admin::BaseController
   def update
     @contact.update_attributes(params[:contact])
     if @contact.save
-      redirect_to([:admin, @contact.contactable])
+      redirect_to(contacts_list_url_for(@contact.contactable))
     else
       render :edit
     end
@@ -26,7 +28,15 @@ class Admin::ContactsController < Admin::BaseController
   def create
     @contact = @contactable.contacts.build(params[:contact])
     if @contact.save
-      redirect_to([:admin, @contact.contactable])
+      redirect_to(contacts_list_url_for(@contact.contactable))
+    else
+      render :edit
+    end
+  end
+
+  def destroy
+    if @contact.destroy
+      redirect_to(contacts_list_url_for(@contact.contactable))
     else
       render :edit
     end
@@ -40,7 +50,7 @@ private
     when "WorldwideOffice"
       WorldwideOffice.find(params[:contactable_id])
     else
-      raise ActiveRecord::NotFound
+      raise ActiveRecord::RecordNotFound
     end
   end
 
@@ -48,4 +58,5 @@ private
     @contact = Contact.find(params[:id])
     @contactable = @contact.contactable
   end
+
 end

@@ -19,5 +19,5 @@
     </fieldset>
   </fieldset>
 
-  <%= contact_form.save_or_cancel(cancel: url_for([:admin, contact.contactable])) %>
+  <%= contact_form.save_or_cancel(cancel: contacts_list_url_for(contact.contactable)) %>
 <% end %>

@@ -17,8 +17,7 @@
     <% @worldwide_offices.each do |worldwide_office| %>
       <%= content_tag_for(:tr, worldwide_office) do %>
         <td class="name">
-          <%= link_to worldwide_office.name, edit_admin_worldwide_office_path(worldwide_office), title: "Edit #{worldwide_office.name}" %><br/>
-          <%= link_to "View", worldwide_office_path(worldwide_office) %>
+          <%= link_to worldwide_office.name, admin_worldwide_office_path(worldwide_office), title: "View #{worldwide_office.name}" %><br/>
         </td>
         <td><%= worldwide_office.summary %></td>
       <% end %>
