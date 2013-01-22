@@ -272,7 +272,11 @@ module ApplicationHelper
   end
 
   def linked_author(author)
-    link_to(author.name, admin_author_path(author))
+    if author
+      link_to(author.name, admin_author_path(author))
+    else
+      '-'
+    end
   end
 
   def recent_month_filter_options(number_of_months, selected_date)
