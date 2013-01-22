@@ -70,6 +70,14 @@ class Import < ActiveRecord::Base
     end
   end
 
+  def force_publishable?
+    if status == :succeeded
+      (imported_editions.count > 0) && (imported_editions.imported.count == 0) && (imported_editions.draft.count > 0)
+    else
+      false
+    end
+  end
+
   def imported_editions
     editions.where('not exists ( select 1 from editions e2 where e2.document_id = editions.document_id and e2.id < editions.id )')
   end

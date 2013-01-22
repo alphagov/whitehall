@@ -19,6 +19,7 @@
         <th># already imported</th>
         <th># errors</th>
         <th>Finished</th>
+        <th>Force publish</th>
       </tr>
     </thead>
     <tbody>
@@ -42,6 +43,11 @@
             <td class="error_count"><%= link_to import.number_of_rows_with_errors, admin_import_path(import, anchor: "errors") %></td>
             <td class="finished_at">
               <%= import.import_finished_at && render_datetime_microformat(import, :import_finished_at) { import.import_finished_at.to_s(:long)} %>
+            </td>
+            <td class="force_publish">
+              <% if import.status == :succeeded %>
+                <%= button_to "Force publish", force_publish_admin_import_path(import), class: "btn btn-large btn-primary", disabled: !import.force_publishable? %>
+              <% end %>
             </td>
           <% end %>
         <% end %>

@@ -23,6 +23,7 @@ class ImportTest < ActiveSupport::TestCase
     new_import(params).tap do |import|
       import.save!
       yield(import) if block_given?
+      import.update_column(:import_enqueued_at, Time.current)
       import.perform
     end
   end
@@ -253,6 +254,28 @@ class ImportTest < ActiveSupport::TestCase
     puts edition.errors.full_messages
     new_draft = edition.create_draft(editor)
     refute import.imported_editions.include?(new_draft)
+  end
+
+  test 'it is not force_publishable? if it succeeded but imported no editions' do
+    blank_row = Hash[minimally_valid_consultation_row.map {|k,v| [k,'']}]
+    import = perform_import(csv_data: consultation_csv_sample(blank_row))
+    refute import.force_publishable?
+  end
+
+  test 'it is not force_publishable? if it didn\'t succeed' do
+    import = perform_import(csv_data: consultation_csv_sample('title' => ''))
+    refute import.force_publishable?
+  end
+
+  test 'it is considered force_publishable? if it has succeeded, imported some editions, none of them are imported, and some of them are draft' do
+    import = perform_import
+    puts import.import_errors
+    refute import.force_publishable?
+    import.imported_editions.map { |e| e.convert_to_draft! }
+    assert import.force_publishable?
+    editor = create(:departmental_editor)
+    import.imported_editions.map { |e| e.publish_as(editor, force: true) }
+    refute import.force_publishable?
   end
 
 private
