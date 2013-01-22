@@ -163,7 +163,13 @@
     h2 {
       @include ig-core-24;
     }
+  }
 
+  #topics {
+    margin-bottom: $gutter-half;
+    @include media(tablet) {
+      margin-bottom: 0;
+    }
   }
 
   .feeds {
@@ -224,9 +230,10 @@
         }
 
         li {
-          @include ig-core-16;
+          @include core-16;
+          padding: 3px 0;
           @include media(tablet){
-            padding-bottom: 0;
+            padding: $gutter-one-sixth 0 0;
           }
         }
       }
@@ -468,7 +475,10 @@
       width: 33.33%;
     }
     .content {
-      padding: $gutter-half;
+      padding: $gutter-half $gutter-half 0;
+      @include media(tablet) {
+        padding: $gutter-half;
+      }
     }
     h2 {
       @include ig-core-24;
@@ -622,6 +632,10 @@
       }
     }
 
+    .complex h2 {
+      border-bottom: 1px solid $border-colour;
+    }
+
     @include media(tablet) {
       position: relative;
       overflow: hidden;
@@ -644,10 +658,6 @@
             overflow: hidden;
             float: none;
             display: block;
-          }
-
-          h2 {
-            border-bottom: 1px solid $border-colour;
           }
 
           p {
