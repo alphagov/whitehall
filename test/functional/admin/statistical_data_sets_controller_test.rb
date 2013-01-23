@@ -34,6 +34,7 @@ class Admin::StatisticalDataSetsControllerTest < ActionController::TestCase
   should_prevent_modification_of_unmodifiable :statistical_data_set
   should_allow_alternative_format_provider_for :statistical_data_set
   should_allow_assignment_to_document_series :statistical_data_set
+  should_allow_overriding_of_first_published_at_for :statistical_data_set
   should_allow_scheduled_publication_of :statistical_data_set
 
   test "new shows checked limited access checkbox by default" do
