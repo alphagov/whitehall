@@ -10,9 +10,9 @@ module Whitehall::Uploader::Parsers
       SummariseBody.parse('my-body-text')
     end
 
-    test 'removes tags from the html version of the body' do
-      SummariseBody::Govspeaker.stubs(:htmlize).returns('<h1>Woo</h1>')
-      assert_equal 'Woo', SummariseBody.parse('whatevs')
+    test 'removes tags and entities from the html version of the body' do
+      SummariseBody::Govspeaker.stubs(:htmlize).returns('<h1>&ldquo;Woo&rdquo;&#33;</h1>')
+      assert_equal '“Woo”!', SummariseBody.parse('whatevs')
     end
 
     test 'if the de-tagged version of the body is > the supplied size it is truncated with elipsis' do
@@ -43,12 +43,22 @@ module Whitehall::Uploader::Parsers
         ::Govspeak::Document.expects(:new).with('the body text').returns(govspoken)
         assert_equal 'the body text as html', Govspeaker.htmlize('the body text')
       end
+
+      test 'will remove any attachment references from the govspeak' do
+        assert_equal "<p>the body text without attachments </p>\n", Govspeaker.htmlize('!@1 !@2 the body text !@4without attachments [InlineAttachment:3]')
+      end
     end
 
     class SanitizerTest < ActiveSupport::TestCase
-      test 'uses actionview/base.full_sanitizer to sanitize the html' do
+      test 'uses actionview/base.full_sanitizer to strip out the html tags' do
         ::ActionView::Base.full_sanitizer.expects(:sanitize).with('the body text as html').returns('the de-htmlified body text')
         assert_equal 'the de-htmlified body text', Sanitizer.sanitize('the body text as html')
+      end
+
+      test 'uses htmlentities to remove html entities from the html-tag stripped text' do
+        ::ActionView::Base.full_sanitizer.stubs(:sanitize).returns('the de-htmlified body text')
+        ::HTMLEntities.any_instance.expects(:decode).with('the de-htmlified body text').returns('the de-html-entityified body text')
+        assert_equal 'the de-html-entityified body text', Sanitizer.sanitize('the body text as html')
       end
     end
   end
