@@ -38,7 +38,7 @@ gem 'whenever', '0.7.3', require: false
 gem 'mini_magick'
 
 group :assets do
-  gem 'govuk_frontend_toolkit', '0.9.0'
+  gem 'govuk_frontend_toolkit', '0.10.1'
   gem 'sass', '3.2.5'
   gem 'sass-rails', '3.1.4'
   gem 'uglifier'

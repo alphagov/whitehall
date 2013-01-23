@@ -24,7 +24,7 @@ $department-for-transport-websafe: #398373;
 $department-of-health-websafe: #39836e;
 $department-for-communities-and-local-government-websafe: #37836e;
 $department-for-work-and-pensions-websafe: #37807b;
-$department-for-energy-and-climate-change-websafe: #2b7cac;
+$department-of-energy-climate-change-websafe: #2b7cac;
 $department-for-business-innovation-and-skills-websafe: #347da4;
 $cabinet-office-websafe: #347da4;
 $hm-government-websafe: #347da4;
@@ -68,7 +68,7 @@ $treasury-websafe: #832322;
   .department-of-health #{$selector} { #{$property}: $department-of-health; }
   .department-for-communities-and-local-government #{$selector} { #{$property}: $department-for-communities-and-local-government; }
   .department-for-work-and-pensions #{$selector} { #{$property}: $department-for-work-and-pensions; }
-  .department-for-energy-and-climate-change #{$selector} { #{$property}: $department-for-energy-and-climate-change; }
+  .department-of-energy-climate-change #{$selector} { #{$property}: $department-of-energy-climate-change; }
   .department-for-business-innovation-skills #{$selector} { #{$property}: $department-for-business-innovation-and-skills; }
   .cabinet-office #{$selector} { #{$property}: $cabinet-office; }
   .hm-government #{$selector} { #{$property}: $hm-government; }
@@ -95,7 +95,7 @@ $treasury-websafe: #832322;
   .department-of-health #{$selector} { #{$property}: $department-of-health-websafe; }
   .department-for-communities-and-local-government #{$selector} { #{$property}: $department-for-communities-and-local-government-websafe; }
   .department-for-work-and-pensions #{$selector} { #{$property}: $department-for-work-and-pensions-websafe; }
-  .department-for-energy-and-climate-change #{$selector} { #{$property}: $department-for-energy-and-climate-change-websafe; }
+  .department-of-energy-climate-change #{$selector} { #{$property}: $department-of-energy-climate-change-websafe; }
   .department-for-business-innovation-skills #{$selector} { #{$property}: $department-for-business-innovation-and-skills-websafe; }
   .cabinet-office #{$selector} { #{$property}: $cabinet-office-websafe; }
   .hm-government #{$selector} { #{$property}: $hm-government-websafe; }
