@@ -7,7 +7,12 @@ require 'strscan'
 class Whitehall::Uploader::Parsers::SummariseBody
   class Govspeaker
     def self.htmlize(text)
-      ::Govspeak::Document.new(text).to_html
+      ::Govspeak::Document.new(text.gsub(attachment_matcher, '')).to_html
+    end
+    def self.attachment_matcher
+      # NOTE: our govspeeak helper uses /\n{0,2}^!@([0-9]+)\s*/ to match
+      # !@n style attachments, but /!@([0-9+]\s*)/ seems to catch more
+      /!@([0-9]+)\s*|\[InlineAttachment:([0-9]+)\]/
     end
   end
 

@@ -43,6 +43,10 @@ module Whitehall::Uploader::Parsers
         ::Govspeak::Document.expects(:new).with('the body text').returns(govspoken)
         assert_equal 'the body text as html', Govspeaker.htmlize('the body text')
       end
+
+      test 'will remove any attachment references from the govspeak' do
+        assert_equal "<p>the body text without attachments </p>\n", Govspeaker.htmlize('!@1 !@2 the body text !@4without attachments [InlineAttachment:3]')
+      end
     end
 
     class SanitizerTest < ActiveSupport::TestCase
