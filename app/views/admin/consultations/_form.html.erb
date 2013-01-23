@@ -2,7 +2,8 @@
   <%= render partial: 'attachment_fields', locals: {
               form: form, edition: edition, parent_type: :edition,
               show_inline_attachment_help: edition.allows_inline_attachments?,
-              legend: 'Attachments - Consultation documents' } %>
+              legend: 'Attachments - Consultation documents',
+              bulk_upload_zip_file: @bulk_upload_zip_file } %>
 
   <fieldset>
     <legend>Associations</legend>
