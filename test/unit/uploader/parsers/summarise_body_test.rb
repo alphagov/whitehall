@@ -5,6 +5,12 @@ require "whitehall/uploader/parsers/summarise_body"
 
 module Whitehall::Uploader::Parsers
   class SummariseBodyTest < ActiveSupport::TestCase
+    test 'can cope with being provided a nil body' do
+      assert_nothing_raised do
+        SummariseBody.parse(nil)
+      end
+    end
+
     test 'converts the body text from govspeak to html' do
       SummariseBody::Govspeaker.expects(:htmlize).with('my-body-text').returns('my body text')
       SummariseBody.parse('my-body-text')

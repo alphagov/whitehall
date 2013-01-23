@@ -26,7 +26,7 @@ class Whitehall::Uploader::Parsers::SummariseBody
   end
 
   def initialize(body_text_as_govspeak, govspeaker = Govspeaker, sanitizer = Sanitizer)
-    @original_text = body_text_as_govspeak
+    @original_text = body_text_as_govspeak || ''
     @govspeaker = govspeaker
     @sanitizer = sanitizer
   end
