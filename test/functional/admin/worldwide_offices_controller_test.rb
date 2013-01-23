@@ -6,8 +6,6 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
   end
 
   should_be_an_admin_controller
-  should_allow_social_media_management_for :worldwide_office
-  should_allow_contact_management_for :worldwide_office
 
   test "shows a list of worldwide offices" do
     office = create(:worldwide_office)
@@ -35,7 +33,15 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
     assert_equal "Summary", worldwide_office.summary
     assert_equal "Description", worldwide_office.description
 
-    assert_redirected_to admin_worldwide_offices_path
+    assert_redirected_to admin_worldwide_office_path(worldwide_office)
+  end
+
+  test "shows validation errors on invalid worldwide office" do
+    post :create, worldwide_office: {
+      name: "Office",
+    }
+
+    assert_select 'form#worldwide_office_new .errors'
   end
 
   test "shows an edit page for an existing worldwide office" do
