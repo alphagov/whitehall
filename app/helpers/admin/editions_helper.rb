@@ -76,7 +76,7 @@ module Admin::EditionsHelper
     def edition_organisations_fields(edition_organisations, lead = true)
       field_identifier = lead ? 'lead' : 'supporting'
       edition_organisations.map.with_index do |eo, idx|
-        select_options = @template.options_from_collection_for_select(Organisation.all, 'id', 'name', eo.organisation_id)
+        select_options = @template.options_from_collection_for_select(Organisation.all, 'id', 'select_name', eo.organisation_id)
         @template.label_tag "edition_edition_organisations_attributes_organisation_id_#{field_identifier}_#{idx}" do
           [
             "Organisation #{idx + 1}",
