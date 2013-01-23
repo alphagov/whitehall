@@ -2,6 +2,10 @@ class Version < ActiveRecord::Base
   attr_accessible :state
 
   def user
-    User.find(whodunnit)
+    if whodunnit
+      User.find(whodunnit)
+    else
+      nil
+    end
   end
 end
