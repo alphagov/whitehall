@@ -53,8 +53,27 @@ class Organisation < ActiveRecord::Base
             source: :edition
   has_many :published_publications,
             through: :edition_organisations,
-            class_name: "Publicationesque",
+            class_name: "Publication",
             conditions: { "editions.state" => "published" },
+            source: :edition
+  has_many :published_consultations,
+            through: :edition_organisations,
+            class_name: "Consultation",
+            conditions: { "editions.state" => "published" },
+            source: :edition
+  has_many :published_non_statistics_publications,
+            through: :edition_organisations,
+            class_name: "Publication",
+            conditions: [ "editions.state='published' AND editions.publication_type_id NOT IN (?, ?)",
+              PublicationType::Statistics.id,
+              PublicationType::NationalStatistics.id ],
+            source: :edition
+  has_many :published_statistics_publications,
+            through: :edition_organisations,
+            class_name: "Publication",
+            conditions: [ "editions.state='published' AND editions.publication_type_id IN (?, ?)",
+              PublicationType::Statistics.id,
+              PublicationType::NationalStatistics.id ],
             source: :edition
   has_many :published_announcements,
             through: :edition_organisations,

@@ -33,7 +33,9 @@ class OrganisationsController < PublicFacingController
           @featured_editions = FeaturedEditionPresenter.decorate(@organisation.featured_edition_organisations.limit(6))
           @policies = PolicyPresenter.decorate(@organisation.published_policies.in_reverse_chronological_order.limit(3))
           @topics = @organisation.topics_with_content
-          @publications = PublicationesquePresenter.decorate(@organisation.published_publications.in_reverse_chronological_order.limit(3))
+          @non_statistics_publications = PublicationesquePresenter.decorate(@organisation.published_non_statistics_publications.in_reverse_chronological_order.limit(3))
+          @statistics_publications = PublicationesquePresenter.decorate(@organisation.published_statistics_publications.in_reverse_chronological_order.limit(3))
+          @consultations = PublicationesquePresenter.decorate(@organisation.published_consultations.in_reverse_chronological_order.limit(3))
           @announcements = AnnouncementPresenter.decorate(@organisation.published_announcements.in_reverse_chronological_order.limit(3))
           @ministers = ministers
           @civil_servants = civil_servants
