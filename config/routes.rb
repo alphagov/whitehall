@@ -117,11 +117,14 @@ Whitehall::Application.routes.draw do
             post :unschedule, to: 'edition_workflow#unschedule'
             post :convert_to_draft, to: 'edition_workflow#convert_to_draft'
           end
-          resources :supporting_pages, path: "supporting-pages", except: [:index]
+          resources :supporting_pages, path: "supporting-pages", except: [:index, :show]
           resources :editorial_remarks, only: [:new, :create], shallow: true
           resources :fact_check_requests, only: [:show, :create, :edit, :update], shallow: true
           resource :document_sources, path: "document-sources", except: [:show]
         end
+
+        # Ensure that supporting page routes are just ids in admin
+        match "/editions/:edition_id/supporting-pages/:id" => "supporting_pages#show", constraints: {id: /[0-9]+/}, via: :get
 
         match "/editions/:id" => "editions#show", via: :get
 

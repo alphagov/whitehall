@@ -152,7 +152,7 @@ module GovspeakHelper
       edition_id = $1
     end
     edition = edition_id && Edition.send(:with_exclusive_scope) { Edition.where(id: edition_id).first }
-    supporting_page = supporting_page_id && edition && edition.supporting_pages.where(slug: supporting_page_id).first
+    supporting_page = supporting_page_id && edition && edition.supporting_pages.find(supporting_page_id)
     [edition, supporting_page]
   end
 

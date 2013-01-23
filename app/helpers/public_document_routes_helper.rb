@@ -45,19 +45,19 @@ module PublicDocumentRoutesHelper
   end
 
   def edit_admin_supporting_page_path(supporting_page, options={})
-    edit_admin_edition_supporting_page_path(supporting_page.edition, supporting_page, options)
+    edit_admin_edition_supporting_page_path(supporting_page.edition, supporting_page.id, options)
   end
 
   def edit_admin_supporting_page_url(supporting_page, options={})
-    edit_admin_edition_supporting_page_url(supporting_page.edition, supporting_page, options)
+    edit_admin_edition_supporting_page_url(supporting_page.edition, supporting_page.id, options)
   end
 
   def admin_supporting_page_path(supporting_page, options={})
-    admin_edition_supporting_page_path(supporting_page.edition, supporting_page, options)
+    admin_edition_supporting_page_path(supporting_page.edition, supporting_page.id, options)
   end
 
   def admin_supporting_page_url(supporting_page, options={})
-    admin_edition_supporting_page_url(supporting_page.edition, supporting_page, options)
+    admin_edition_supporting_page_url(supporting_page.edition, supporting_page.id, options)
   end
 
   private
