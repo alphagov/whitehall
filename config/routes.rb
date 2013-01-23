@@ -107,6 +107,7 @@ Whitehall::Application.routes.draw do
           end
         end
         resources :contacts
+        resources :social_media_accounts
 
         resources :editions, only: [:index] do
           member do

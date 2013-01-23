@@ -1,0 +1,4 @@
+<h1>Social media account for: <%= @social_media_account.socialable.name %></h1>
+<p><%= link_to "Back to #{@social_media_account.socialable.name}", social_media_accounts_list_url_for(@socialable) %></p>
+
+<%= render partial: "form", locals: {social_media_account: @social_media_account, socialable: @socialable} %>
