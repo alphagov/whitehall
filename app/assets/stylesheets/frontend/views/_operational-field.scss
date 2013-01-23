@@ -62,9 +62,14 @@
         ul {
           list-style: disc;
           padding-left: 1.2em;
+          margin-top: $gutter-half;
 
           .casualty {
             margin-bottom: $gutter-one-sixth;
+          }
+          .public_timestamp {
+            margin-left: $gutter-half;
+            color: $grey-1;
           }
         }
       }
