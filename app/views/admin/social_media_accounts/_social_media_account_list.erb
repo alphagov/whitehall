@@ -1,17 +1,11 @@
 <% if socialable.social_media_accounts.any? %>
   <% socialable.social_media_accounts.each do |social_media_account| %>
-    <%= content_tag_for(:div, social_media_account) do %>
-      <h3><%= social_media_account.service_name %></h3>
-      <dl class="dl-horizontal">
-        <%= definition("Address", social_media_account.address) %>
-        <%= definition("Postcode", social_media_account.postcode) %>
-        <%= definition("Email", social_media_account.email) { |email| mail_to(email) } %>
-        <% social_media_account.social_media_account_numbers.each do |cn| %>
-          <%= definition(cn.label, cn.number) %>
-        <% end %>
-      </dl>
-      <%= button_to "Delete", admin_social_media_account_path(social_media_account, socialable_type: socialable.class.name, socialable_id: socialable), method: "delete", class: "btn btn-small btn-danger", confirm: "Delete social_media_account '#{social_media_account.description}' from #{socialable.class.name.underscore.humanize.downcase} '#{socialable.name}'?" %>
-      <%= link_to icon("Edit"), edit_admin_social_media_account_path(social_media_account, socialable_type: socialable.class.name, socialable_id: socialable), class: "btn" %>
+    <%= content_tag_for(:dl, social_media_account, class: "dl-horizontal") do %>
+      <%= definition(social_media_account.service_name, social_media_account.url) do |url| %>
+        <%= url %><br />
+        <%= button_to "Delete", admin_social_media_account_path(social_media_account, socialable_type: socialable.class.name, socialable_id: socialable), method: "delete", class: "btn btn-small btn-danger", confirm: "Delete '#{social_media_account.service_name}' social media account from #{socialable.class.name.underscore.humanize.downcase} '#{socialable.name}'?" %>
+        <%= link_to icon("Edit"), edit_admin_social_media_account_path(social_media_account, socialable_type: socialable.class.name, socialable_id: socialable), class: "btn" %>
+      <% end %>
     <% end %>
   <% end %>
 <% else %>

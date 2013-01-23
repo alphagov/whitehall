@@ -29,8 +29,6 @@
     <% end %>
   </fieldset>
 
-  <%= render partial: 'admin/shared/social_media_accounts', locals: { form: organisation_form } %>
-
   <fieldset class="named organisation-mainstream-links form-horizontal">
     <legend>Mainstream links</legend>
     <%= organisation_form.fields_for :organisation_mainstream_links do |mainstream_link_form| %>

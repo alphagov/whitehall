@@ -2,7 +2,9 @@ module Admin::DefinitionListHelper
   def dd(value, default=nil, &block)
     value = if value.present?
       if block_given?
-        yield(value)
+        capture do
+          yield(value)
+        end
       else
         value
       end
