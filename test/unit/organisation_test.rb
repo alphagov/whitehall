@@ -446,6 +446,11 @@ class OrganisationTest < ActiveSupport::TestCase
     assert_equal 'Blah blah', build(:organisation, acronym: '', name: 'Blah blah').display_name
   end
 
+  test 'select_name should use full name and acronym if present or not if not' do
+    assert_equal 'Name (Blah)', build(:organisation, acronym: 'Blah', name: 'Name').select_name
+    assert_equal 'Name', build(:organisation, acronym: '', name: 'Name').select_name
+  end
+
   test "should be destroyable when there are no associated people/child orgs/roles" do
     organisation = create(:organisation)
     assert organisation.destroyable?

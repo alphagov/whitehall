@@ -213,6 +213,10 @@ class Organisation < ActiveRecord::Base
     [acronym, name].find { |s| s.present? }
   end
 
+  def select_name
+    [name, ("(#{acronym})" if acronym.present?)].compact.join(' ')
+  end
+
   def search_link
     # This should be organisation_path(self), but we can't use that because friendly_id's #to_param returns
     # the old value of the slug (e.g. nil for a new record) if the record is dirty, and apparently the record

@@ -41,7 +41,7 @@
 
           <li class="organisation-filter <%= (params[:organisation] && params[:organisation] != current_user.organisation_id) ? 'active' : nil %>">
             <%= form_tag("", method: :get) do %>
-              <%= select_tag :organisation, options_from_collection_for_select(Organisation.all - [current_user.organisation], 'id', 'name', params[:organisation]), class: 'chzn-select', include_blank: true, data: { placeholder: "Other organisations..." } %>
+              <%= select_tag :organisation, options_from_collection_for_select(Organisation.all - [current_user.organisation], 'id', 'select_name', params[:organisation]), class: 'chzn-select', include_blank: true, data: { placeholder: "Other organisations..." } %>
               <%= hidden_field_tag :type, params[:type] if params[:type] %>
               <%= hidden_field_tag :state, params[:state] if params[:state] %>
               <%= submit_tag "Go", class: "btn" %>
