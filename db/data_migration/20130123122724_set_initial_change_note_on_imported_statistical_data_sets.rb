@@ -14,6 +14,8 @@ Import.where(data_type: 'statistical_data_set').find_each do |stats_import|
       and e2.document_id = editions.document_id
     )')
 
-  StatisticalDataSet.where(id: imported_editions.map(&:id)).update_all(change_note: 'Data updated')
+  StatisticalDataSet.
+    where(id: imported_editions.map(&:id)).
+    update_all(change_note: Whitehall::Uploader::StatisticalDataSetRow::DEFAULT_CHANGE_NOTE)
   puts "Updated #{imported_editions.count} Statistical Data Sets for import #{stats_import.id}"
 end
