@@ -13,7 +13,10 @@ class Whitehall::Uploader::Parsers::SummariseBody
 
   class Sanitizer
     def self.sanitize(text)
-      ::ActionView::Base.full_sanitizer.sanitize(text)
+      entity_decoder.decode(::ActionView::Base.full_sanitizer.sanitize(text))
+    end
+    def self.entity_decoder
+      @entity_decoder ||= HTMLEntities.new
     end
   end
 
