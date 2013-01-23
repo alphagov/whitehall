@@ -94,7 +94,7 @@
           <tr>
             <th class="type">Type</th>
             <th>Title</th>
-            <th>Creator</th>
+            <th>Updated by</th>
             <th>Updated</th>
             <% if viewing_all_active_editions? %>
               <th>State</th>
@@ -129,7 +129,7 @@
                   </div>
                 <% end %>
               </td>
-              <td class="author"><%= linked_author(edition.creator) %></td>
+              <td class="author"><%= linked_author(edition.last_author) %></td>
               <td class="updated"><%= time_ago_in_words edition.updated_at %> ago</td>
               <% if viewing_all_active_editions? %>
                 <td class="state"><%= edition.state.humanize %></td>

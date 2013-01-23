@@ -163,6 +163,21 @@ class EditionTest < ActiveSupport::TestCase
     end
   end
 
+  test "last_author returns user who last edited the edition" do
+    user1 = create(:departmental_editor)
+    user2 = create(:user)
+    edition = nil
+    acting_as(user2) do
+      edition = create(:draft_news_article)
+    end
+    assert_equal user2, edition.last_author, 'creating'
+
+    acting_as(user1) do
+      edition.publish_as(user1, force: true)
+    end
+    assert_equal user1, edition.last_author, 'publishing'
+  end
+
   test ".related_to includes editions related to edition" do
     policy = create(:policy)
     publication = create(:publication, related_policies: [policy])
