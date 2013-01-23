@@ -6,7 +6,6 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
   end
 
   should_be_an_admin_controller
-  should_allow_social_media_management_for :organisation
 
   test "index should list all the organisations in alphabetical order" do
     organisations = [create(:organisation, name: "org 1"), create(:organisation, name: "org 2")]
@@ -145,7 +144,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
       parent_organisation_ids: [parent_org_1.id, parent_org_2.id]
     )
     created_organisation = Organisation.find_by_name("new-organisation")
-    assert_equal [parent_org_1, parent_org_2], created_organisation.parent_organisations
+    assert_same_elements [parent_org_1, parent_org_2], created_organisation.parent_organisations
   end
 
   test "creating with an organisation type" do

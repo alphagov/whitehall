@@ -1,9 +1,8 @@
 class WorldwideOffice < ActiveRecord::Base
-  include Whitehall::Models::SocialMedia
-
   has_many :worldwide_office_world_locations, dependent: :destroy
   has_many :world_locations, through: :worldwide_office_world_locations
   has_many :contacts, as: :contactable, dependent: :destroy
+  has_many :social_media_accounts, as: :socialable, dependent: :destroy
 
   validates_with SafeHtmlValidator
   validates :name, :summary, :description, presence: true

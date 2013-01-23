@@ -104,6 +104,7 @@ Whitehall::Application.routes.draw do
         resources :worldwide_offices do
           member do
             get :contacts
+            get :social_media_accounts
           end
         end
         resources :contacts
