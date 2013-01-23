@@ -20,5 +20,5 @@ every :day, at: '12am', roles: [:frontend] do
 end
 
 every :day, at: '2am', roles: [:admin] do
-  runner 'script/dump_all_documents.rb'
+  runner 'script/dump_all_admin_to_public_documents_and_non_documents.rb'
 end
