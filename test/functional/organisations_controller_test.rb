@@ -418,13 +418,18 @@ class OrganisationsControllerTest < ActionController::TestCase
     end
   end
 
-  test "should display organisation's latest three non-statistics publications in reverse chronological order" do
+  test "should display organisation's latest three non-statistics and non-consultation publications in reverse chronological order" do
     organisation = create(:organisation)
     publication_2 = create(:published_publication, organisations: [organisation], publication_date: 2.days.ago)
     publication_4 = create(:published_publication, organisations: [organisation], publication_date: 4.days.ago)
     publication_3 = create(:published_publication, organisations: [organisation], publication_date: 3.days.ago)
     publication_1 = create(:published_publication, organisations: [organisation], publication_date: 1.day.ago)
+
+    consultation = create(:published_consultation, organisations: [organisation], opening_on: 1.days.ago)
+    statistics_publication = create(:published_publication, organisations: [organisation], publication_date: 1.day.ago, publication_type: PublicationType::Statistics)
+
     get :show, id: organisation
+
     assert_equal [publication_1, publication_2, publication_3], assigns[:non_statistics_publications]
   end
 
