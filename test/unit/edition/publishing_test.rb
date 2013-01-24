@@ -275,20 +275,20 @@ class Edition::PublishingTest < ActiveSupport::TestCase
     assert first_edition.reload.archived?
   end
 
-  test "publication clears the access_limited flag from a submitted statistics publication if it was set" do
-    edition = create(:submitted_publication, access_limited: true, publication_type: PublicationType::NationalStatistics)
+  test "publication clears the access_limited flag from a submitted edition if it was set" do
+    edition = create(:submitted_edition, access_limited: true)
     assert edition.access_limited
     edition.publish_as(create(:departmental_editor))
-    assert edition.reload.access_limited.nil?
+    refute edition.reload.access_limited?
   end
 
-  test "publication clears the access_limited flag from a scheduled statistics publication if it was set" do
+  test "publication clears the access_limited flag from a scheduled edition if it was set" do
     robot = create(:scheduled_publishing_robot)
-    edition = create(:scheduled_publication, access_limited: true, publication_type: PublicationType::NationalStatistics)
+    edition = create(:scheduled_edition, access_limited: true)
     assert edition.access_limited
     Timecop.freeze(edition.scheduled_publication) do
       assert edition.publish_as(robot), edition.reason_to_prevent_publication_by(robot)
-      assert edition.reload.access_limited.nil?
+      refute edition.reload.access_limited?
     end
   end
 

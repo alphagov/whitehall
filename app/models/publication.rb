@@ -13,7 +13,6 @@ class Publication < Publicationesque
   validate :only_publications_allowed_invalid_data_can_be_awaiting_type
 
   after_update { |p| p.published_related_policies.each(&:update_published_related_publication_count) }
-  before_save ->(record) { record.access_limited = nil unless record.publication_type.can_limit_access? }
 
   def allows_inline_attachments?
     false
@@ -32,7 +31,15 @@ class Publication < Publicationesque
   end
 
   def publication_type=(publication_type)
-    self.publication_type_id = publication_type && publication_type.id
+    self.publication_type_id = (publication_type && publication_type.id)
+    set_access_limited
+    self.publication_type
+  end
+
+  def publication_type_id=(publication_type_id)
+    super
+    set_access_limited
+    self.publication_type_id
   end
 
   def national_statistic?
@@ -54,12 +61,16 @@ class Publication < Publicationesque
     [PublicationType::Statistics, PublicationType::NationalStatistics].include?(publication_type)
   end
 
-  def can_limit_access?
-    true
-  end
-
-  def access_limited?
-    statistics? && super
+  def access_limited_by_default?
+    # Without a publication_type we can't correctly work out if we should
+    # be access_limited or not.  When we get a publication_type, we'll 
+    # sort this out.  Happily, abesence of a publication_type invalidates
+    # us, so returning nil is ok even though it would break the SQL insert
+    if self.publication_type.present?
+      self.publication_type.access_limited_by_default?
+    else
+      nil
+    end
   end
 
   private

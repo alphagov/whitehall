@@ -1,6 +1,4 @@
 <%= standard_edition_form(edition) do |form| %>
-  <%= form.check_box :access_limited, label_text: "Limit access to producing organisations prior to publication" %>
-
   <%= render partial: 'attachment_fields', locals: { form: form, edition: edition, parent_type: :edition, show_inline_attachment_help: edition.allows_inline_attachments?, bulk_upload_zip_file: @bulk_upload_zip_file } %>
   <fieldset>
     <legend>Associations</legend>

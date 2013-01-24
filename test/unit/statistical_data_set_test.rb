@@ -7,11 +7,6 @@ class StatisticalDataSetTest < EditionTestCase
     assert StatisticalDataSet.ancestors.include?(Edition::DocumentSeries)
   end
 
-  test "access to it can be limited" do
-    data_set = build(:statistical_data_set)
-    assert data_set.can_limit_access?
-  end
-
   test "specifically limit access" do
     data_set = build(:statistical_data_set, access_limited: true)
     assert data_set.access_limited?
@@ -25,12 +20,5 @@ class StatisticalDataSetTest < EditionTestCase
   test "limit access by default" do
     data_set = build(:statistical_data_set)
     assert data_set.access_limited?
-  end
-
-  test "do not limit access to existing data set which did not have access limited set" do
-    data_set = create(:statistical_data_set)
-    data_set.update_column(:access_limited, nil)
-    data_set.reload
-    refute data_set.access_limited?
   end
 end

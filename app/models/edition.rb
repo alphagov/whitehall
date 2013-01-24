@@ -205,10 +205,6 @@ class Edition < ActiveRecord::Base
     false
   end
 
-  def can_limit_access?
-    false
-  end
-
   def has_operational_field?
     false
   end

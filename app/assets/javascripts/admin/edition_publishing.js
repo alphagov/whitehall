@@ -48,24 +48,22 @@ jQuery(function($) {
 })(jQuery);
 
 (function($) {
-  var publicationTypeChooser = $('.js-toggle-access-limited-checkbox');
-  var hideAccessLimited = function() {
-    var chosenId = parseInt(publicationTypeChooser.val(), 10);
-    var accessLimitedIds = publicationTypeChooser.data('access-limitable-type-ids');
-    if ((""+accessLimitedIds).indexOf(chosenId) >= 0) {
-      $('#access-limited-checkbox').find('input[type=checkox]').attr('checked', 'checked');
-      $('#access-limited-checkbox').fadeIn();
-    } else {
-      $('#access-limited-checkbox').fadeOut();
+  var publicationTypeChooser = $('.js-access-limited-by-default-checkbox');
+  if (publicationTypeChooser.length > 0) {
+    var accessLimitedByDefaultIds = publicationTypeChooser.data('access-limited-by-default-type-ids');
+    var accessLimitedByDefault = function() {
+      var chosenId = parseInt(publicationTypeChooser.val(), 10);
+      if ((""+accessLimitedByDefaultIds).indexOf(chosenId) >= 0) {
+        $("input[name$='[access_limited]'][type=checkbox]").attr('checked', 'checked');
+      }
+    }
+
+    if (accessLimitedByDefaultIds.length > 0) {
+      publicationTypeChooser.change(accessLimitedByDefault)
+      accessLimitedByDefault();
     }
   }
-
-  if (publicationTypeChooser.length > 0) {
-    publicationTypeChooser.change(hideAccessLimited)
-    hideAccessLimited();
-  }
 })(jQuery);
-
 
 (function($){
   var $input = $('#edition_summary'),

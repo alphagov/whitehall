@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130116161136) do
+ActiveRecord::Schema.define(:version => 20130121114645) do
 
   create_table "attachment_data", :force => true do |t|
     t.string   "carrierwave_file"
@@ -379,7 +379,7 @@ ActiveRecord::Schema.define(:version => 20130116161136) do
     t.integer  "primary_mainstream_category_id"
     t.datetime "scheduled_publication"
     t.boolean  "replaces_businesslink",                                           :default => false
-    t.boolean  "access_limited"
+    t.boolean  "access_limited",                                                                       :null => false
     t.integer  "published_major_version"
     t.integer  "published_minor_version"
     t.integer  "operational_field_id"

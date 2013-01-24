@@ -29,4 +29,5 @@ class Admin::InternationalPrioritiesControllerTest < ActionController::TestCase
   should_not_link_to_public_version_when_not_published :international_priority
   should_link_to_preview_version_when_not_published :international_priority
   should_prevent_modification_of_unmodifiable :international_priority
+  should_allow_access_limiting_of :international_priority
 end
