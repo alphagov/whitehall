@@ -47,4 +47,22 @@ class AttachmentsControllerTest < ActionController::TestCase
       FileUtils.rmtree(Whitehall.clean_upload_path)
     end
   end
+
+  test 'attachments on policy groups are always visible' do
+    Whitehall.stubs(:clean_upload_path).returns(Rails.root.join('test','clean-uploads'))
+    begin
+      ad = create(:policy_group_attachment)
+
+      ad_param = ad.attachment.attachment_data.to_param
+
+      FileUtils.mkdir_p(Whitehall.clean_upload_path + "system/uploads/attachment_data/file/#{ad_param}/")
+      FileUtils.cp(Rails.root.join('test','fixtures','whitepaper.pdf'), Whitehall.clean_upload_path + "system/uploads/attachment_data/file/#{ad_param}/uk-cheese-consumption-figures-2011.pdf")
+
+      get :show, id: ad_param, file: 'uk-cheese-consumption-figures-2011', extension: 'pdf'
+
+      assert_response :success
+    ensure
+      FileUtils.rmtree(Whitehall.clean_upload_path)
+    end
+  end
 end

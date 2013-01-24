@@ -20,7 +20,7 @@ class AttachmentsController < ApplicationController
   private
 
   def attachment_visible?(attachment_data_id)
-    visible_edition?(attachment_data_id) || visible_consultation_response?(attachment_data_id) || visible_corporate_information_page?(attachment_data_id) || visible_supporting_page?(attachment_data_id)
+    visible_edition?(attachment_data_id) || visible_consultation_response?(attachment_data_id) || visible_corporate_information_page?(attachment_data_id) || visible_supporting_page?(attachment_data_id) || visible_policy_group?(attachment_data_id)
   end
 
   def visible_edition?(attachment_data_id)
@@ -43,6 +43,11 @@ class AttachmentsController < ApplicationController
     if edition_ids = SupportingPage.joins(:attachments).where(attachments: {attachment_data_id: attachment_data_id}).collect(&:edition_id)
       any_edition_visible?(edition_ids)
     end
+  end
+
+  def visible_policy_group?(attachment_data_id)
+    # Policy groups don't have workflows, so they're always live
+    PolicyAdvisoryGroup.joins(:attachments).where(attachments: {attachment_data_id: attachment_data_id}).exists?
   end
 
   def any_edition_visible?(ids)
