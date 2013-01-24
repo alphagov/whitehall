@@ -1625,5 +1625,39 @@ module AdminEditionControllerTestHelpers
         assert_equal [series1, series2], document.document_series
       end
     end
+
+    def should_allow_access_limiting_of(edition_type)
+      edition_class = edition_class_for(edition_type)
+
+      test "create should record the access_limited flag" do
+        post :create, edition: controller_attributes_for(edition_type,
+          publication_date: Date.parse("1805-10-21"),
+          access_limited: '1'
+        )
+
+        assert created_publication = edition_class.last
+        assert created_publication.access_limited?
+      end
+
+      test "edit displays persisted access_limited flag" do
+        publication = create(edition_type, access_limited: false)
+
+        get :edit, id: publication
+
+        assert_select "form#edition_edit" do
+          assert_select "input[name='edition[access_limited]'][type=checkbox]"
+          assert_select "input[name='edition[access_limited]'][type=checkbox][checked=checked]", count: 0
+        end
+      end
+
+      test "update records new value of access_limited flag" do
+        publication = create(edition_type, access_limited: false)
+
+        new_attrs = controller_attributes_for_instance(publication, access_limited: '1')
+        put :update, id: publication, edition: new_attrs
+
+        assert publication.reload.access_limited?
+      end
+    end
   end
 end

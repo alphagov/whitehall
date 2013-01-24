@@ -4,8 +4,11 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
 
   class LimitedAccessEdition < Edition
     include Edition::LimitedAccess
+  end
 
-    def can_limit_access?
+  class LimitedByDefaultEdition < Edition
+    include Edition::LimitedAccess
+    def self.access_limited_by_default?
       true
     end
   end
@@ -13,14 +16,17 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
   FactoryGirl.define do
     factory :limited_access_edition, class: LimitedAccessEdition, parent: :edition do
     end
+    factory :limited_by_default_edition, class: LimitedByDefaultEdition, parent: :edition do
+    end
   end
 
-  test "can limit access" do
-    assert build(:limited_access_edition).can_limit_access?
+  test "sets access_limit on new instances according to class.access_limited_by_default?" do
+    refute build(:limited_access_edition).access_limited?
+    assert build(:limited_by_default_edition).access_limited?
   end
 
-  test "can persist limited access flag" do
-    e = build(:limited_access_edition)
+  test "can persist limited access flag (regardless of <class>.access_limited_by_default?)" do
+    e = build(:limited_by_default_edition)
     e.access_limited = true
     e.save!
     assert e.reload.access_limited?

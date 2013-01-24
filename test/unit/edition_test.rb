@@ -557,12 +557,6 @@ class EditionTest < ActiveSupport::TestCase
     assert_equal [edition_with_nasty_characters], Edition.with_title_containing("[stuff")
   end
 
-  test "cannot limit access to an ordinary edition" do
-    refute build(:edition).can_limit_access?
-    refute build(:edition).access_limited?
-    assert build(:edition).accessible_by?(nil)
-  end
-
   test "make_public_at should set first_published_at if its empty" do
     e = build(:edition, first_published_at: nil)
     e.make_public_at(2.days.ago)

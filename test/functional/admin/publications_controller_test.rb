@@ -40,6 +40,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
   should_allow_alternative_format_provider_for :publication
   should_allow_assignment_to_document_series :publication
   should_allow_scheduled_publication_of :publication
+  should_allow_access_limiting_of :publication
 
   test "new displays publication fields" do
     get :new
@@ -95,38 +96,6 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     created_publication = Publication.last
     assert_equal 'http://example.com/publication', created_publication.attachments.first.order_url
     assert_equal 1.23, created_publication.attachments.first.price
-  end
-
-  test "create should record the access_limited flag for a National Statistic publications" do
-    post :create, edition: controller_attributes_for(:publication,
-      publication_date: Date.parse("1805-10-21"),
-      publication_type_id: PublicationType::NationalStatistics.id,
-      access_limited: true
-    )
-
-    assert created_publication = Publication.last
-    assert created_publication.access_limited?
-  end
-
-  test "edit displays persisted access_limited flag for National Statistic publications" do
-    publication = create(:publication, publication_type_id: PublicationType::NationalStatistics.id, access_limited: false)
-
-    get :edit, id: publication
-
-    assert_select "form#edition_edit" do
-      assert_select "input[name='edition[access_limited]'][type=checkbox]"
-      assert_select "input[name='edition[access_limited]'][type=checkbox][checked=checked]", count: 0
-    end
-  end
-
-  test "edit will always check access_limited flag ignoring the persisted value for non-statistic publications" do
-    publication = create(:publication, publication_type_id: PublicationType::PolicyPaper.id, access_limited: false)
-
-    get :edit, id: publication
-
-    assert_select "form#edition_edit" do
-      assert_select "input[name='edition[access_limited]'][type=checkbox][checked=checked]"
-    end
   end
 
   test "edit displays publication fields" do

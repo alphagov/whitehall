@@ -2,12 +2,12 @@ module Edition::LimitedAccess
   extend ActiveSupport::Concern
 
   included do
-    before_save ->(record) { record.access_limited = nil unless record.can_limit_access? }
+    after_initialize :set_access_limited
   end
 
   module ClassMethods
     def accessible_to(user)
-      clauses = ['access_limited IS NULL OR access_limited = false']
+      clauses = ['access_limited = false']
       binds = {}
       if user && user.organisation
         clauses << "EXISTS (
@@ -25,11 +25,19 @@ module Edition::LimitedAccess
       end
       where("(#{clauses.join(' OR ')})", binds)
     end
+
+    def access_limited_by_default?
+      false
+    end
   end
 
   module InstanceMethods
     def access_limited?
-      self.can_limit_access? && read_attribute(:access_limited)
+      read_attribute(:access_limited)
+    end
+
+    def access_limited_by_default?
+      self.class.access_limited_by_default?
     end
 
     def accessible_by?(user)
@@ -37,6 +45,12 @@ module Edition::LimitedAccess
         organisations.include?(user.organisation) || authors.include?(user)
       else
         true
+      end
+    end
+
+    def set_access_limited
+      if new_record? && access_limited.nil?
+        self.access_limited = self.access_limited_by_default?
       end
     end
   end
