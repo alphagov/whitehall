@@ -12,7 +12,7 @@ class Whitehall::Uploader::Finders::PublicationTypeFinderTest < ActiveSupport::T
   end
 
   test "returns the publication type found by the slug" do
-    assert_equal PublicationType::CircularLetterOrBulletin, find('circulars-letters-and-bulletins')
+    assert_equal PublicationType::Correspondence, find('correspondence')
   end
 
   test "returns nil if the publication type can't be determined" do

@@ -29,7 +29,7 @@ module Whitehall
     Treaty = create(id: 10, label: "Treaties", publication_types: [PublicationType::Treaty])
     FoiRelease = create(id: 11, label: "FOI releases", publication_types: [PublicationType::FoiRelease])
     IndependentReport = create(id: 12, label: "Independent reports", publication_types: [PublicationType::IndependentReport])
-    CircularLetterOrBulletin = create(id: 13, label: "Circulars, letters and bulletins", publication_types: [PublicationType::CircularLetterOrBulletin])
+    Correspondence = create(id: 13, label: "Correspondence", publication_types: [PublicationType::Correspondence])
     PromotionalMaterial = create(id: 14, label: "Promotional material", publication_types: [PublicationType::PromotionalMaterial])
   end
 end
