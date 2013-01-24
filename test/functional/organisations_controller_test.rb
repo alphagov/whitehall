@@ -261,16 +261,13 @@ class OrganisationsControllerTest < ActionController::TestCase
     refute_select "#policies"
   end
 
-  test "should not display an empty published publications section" do
+  test "should not display an empty published document sections" do
     organisation = create(:organisation)
     get :show, id: organisation
     refute_select "#publications"
-  end
-
-  test "should not display an empty consultations section" do
-    organisation = create(:organisation)
-    get :show, id: organisation
     refute_select "#consultations"
+    refute_select "#announcements"
+    refute_select "#statistics"
   end
 
   test "should not display the child organisations section" do
@@ -339,36 +336,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_equal [policy_1, policy_2, policy_3], assigns[:policies]
   end
 
-  test "should display the organisation's publications with content" do
-    organisation = create(:organisation)
-    publication = create(:published_publication, organisations: [organisation], publication_type: PublicationType::PolicyPaper, publication_date: 4.days.ago.to_date)
-    consultation = create(:published_consultation, organisations: [organisation], opening_on: 3.days.ago.to_date)
-
-    get :show, id: organisation
-
-    assert_select "#publications" do
-      assert_select_object publication do
-        assert_select '.publication-date abbr[title=?]', publication.public_timestamp.iso8601
-        assert_select '.document-type', "Policy paper"
-      end
-      assert_select_object consultation do
-        assert_select '.publication-date abbr[title=?]', consultation.public_timestamp.iso8601
-        assert_select '.document-type', "Open consultation"
-      end
-    end
-  end
-
-  test "should display organisation's latest three publications" do
-    organisation = create(:organisation)
-    publication_2 = create(:published_publication, organisations: [organisation], publication_date: 2.days.ago)
-    publication_4 = create(:published_publication, organisations: [organisation], publication_date: 4.days.ago)
-    publication_3 = create(:published_publication, organisations: [organisation], publication_date: 3.days.ago)
-    publication_1 = create(:published_publication, organisations: [organisation], publication_date: 1.day.ago)
-    get :show, id: organisation
-    assert_equal [publication_1, publication_2, publication_3], assigns[:publications]
-  end
-
-  test "should display announcements in reverse chronological order" do
+  test "should display 3 announcements in reverse chronological order" do
     organisation = create(:organisation)
     role = create(:ministerial_role, organisations: [organisation])
     role_appointment = create(:ministerial_role_appointment, role: role)
@@ -382,53 +350,142 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_equal [announcement_4, announcement_1, announcement_2], assigns[:announcements]
   end
 
-  test "should display 3 announcements with a link to announcements filter if there are many announcements" do
+  test "should display 3 announcements with details and a link to announcements filter if there are many announcements" do
     organisation = create(:organisation)
     role = create(:ministerial_role, organisations: [organisation])
     role_appointment = create(:ministerial_role_appointment, role: role)
     announcement_1 = create(:published_news_article, organisations: [organisation], first_published_at: 1.days.ago)
-    announcement_2 = create(:published_speech, role_appointment: role_appointment, delivered_on: 2.days.ago)
+    announcement_2 = create(:published_speech, role_appointment: role_appointment, delivered_on: 2.days.ago.to_date, speech_type: SpeechType::WrittenStatement)
     announcement_3 = create(:published_news_article, organisations: [organisation], first_published_at: 3.days.ago)
     announcement_4 = create(:published_news_article, organisations: [organisation], first_published_at: 4.days.ago)
 
     get :show, id: organisation
 
     assert_select '#announcements' do
-      assert_select_object(announcement_1)
-      assert_select_object(announcement_2)
+      assert_select_object(announcement_1) do
+        assert_select "abbr.public_timestamp[title=?]", 1.days.ago.iso8601
+        assert_select ".announcement-type", "Press release"
+      end
+      assert_select_object(announcement_2) do
+        assert_select "abbr.public_timestamp[title=?]", 2.days.ago.to_date.to_datetime.iso8601
+        assert_select ".announcement-type", "Statement to parliament"
+      end
       assert_select_object(announcement_3)
       refute_select_object(announcement_4)
       assert_select "a[href='#{announcements_filter_path(organisation)}']"
     end
   end
 
-  test "should display the date on which a speech was delivered and its announcement type" do
+  test "should display 3 consultations in reverse chronological order" do
     organisation = create(:organisation)
-    role = create(:ministerial_role, organisations: [organisation])
-    role_appointment = create(:ministerial_role_appointment, role: role)
-    delivered_on = Date.parse("1999-12-31").to_datetime
-    speech = create(:published_speech, role_appointment: role_appointment, delivered_on: delivered_on, speech_type: SpeechType::WrittenStatement)
+    consultation_2 = create(:published_consultation, organisations: [organisation], opening_on: 2.days.ago)
+    consultation_4 = create(:published_consultation, organisations: [organisation], opening_on: 4.days.ago)
+    consultation_3 = create(:published_consultation, organisations: [organisation], opening_on: 3.days.ago)
+    consultation_1 = create(:published_consultation, organisations: [organisation], opening_on: 1.day.ago)
 
     get :show, id: organisation
 
-    assert_select_object(speech) do
-      assert_select "abbr.public_timestamp[title=?]", delivered_on.iso8601
-      assert_select ".announcement-type", "Statement to parliament"
-    end
+    assert_equal [consultation_1, consultation_2, consultation_3], assigns[:consultations]
   end
 
-  test "should display when a news article was first published and its announcement type" do
-    first_published_at = Time.zone.parse("2001-01-01 01:01")
+  test "should display 3 consultations with details and a link to publications filter if there are many consultations" do
     organisation = create(:organisation)
-    news_article = create(:published_news_article, organisations: [organisation], first_published_at: first_published_at)
+    consultation_4 = create(:published_consultation, organisations: [organisation], opening_on: 6.days.ago.to_date)
+    consultation_3 = create(:published_consultation, organisations: [organisation], opening_on: 5.days.ago.to_date, closing_on: 1.days.ago.to_date)
+    consultation_2 = create(:published_consultation, organisations: [organisation], opening_on: 4.days.ago.to_date, closing_on: 1.days.ago.to_date)
+    consultation_1 = create(:published_consultation, organisations: [organisation], opening_on: 3.days.ago.to_date)
+    response_attachment = create(:attachment)
+    response = consultation_3.create_response!(summary: 'response-summary')
+    response.attachments << response_attachment
 
     get :show, id: organisation
 
-    assert_select_object(news_article) do
-      assert_select "abbr.public_timestamp[title=?]", first_published_at.iso8601
-      assert_select ".announcement-type", "Press release"
+    assert_select "#consultations" do
+      assert_select_object consultation_1 do
+        assert_select '.publication-date abbr[title=?]', 3.days.ago.to_date.to_datetime.iso8601
+        assert_select '.document-type', "Open consultation"
+      end
+      assert_select_object consultation_2 do
+        assert_select '.publication-date abbr[title=?]', 4.days.ago.to_date.to_datetime.iso8601
+        assert_select '.document-type', "Closed consultation"
+      end
+      assert_select_object consultation_3 do
+        assert_select '.publication-date abbr[title=?]', 5.days.ago.to_date.to_datetime.iso8601
+        assert_select '.document-type', "Consultation outcome"
+      end
+      refute_select_object consultation_4
+      assert_select "a[href='#{publications_filter_path(organisation, publication_filter_option: 'consultations').gsub('&', '&amp;')}']"
     end
   end
+
+  test "should display organisation's latest three non-statistics and non-consultation publications in reverse chronological order" do
+    organisation = create(:organisation)
+    publication_2 = create(:published_publication, organisations: [organisation], publication_date: 2.days.ago)
+    publication_4 = create(:published_publication, organisations: [organisation], publication_date: 4.days.ago)
+    publication_3 = create(:published_publication, organisations: [organisation], publication_date: 3.days.ago)
+    publication_1 = create(:published_publication, organisations: [organisation], publication_date: 1.day.ago)
+
+    consultation = create(:published_consultation, organisations: [organisation], opening_on: 1.days.ago)
+    statistics_publication = create(:published_publication, organisations: [organisation], publication_date: 1.day.ago, publication_type: PublicationType::Statistics)
+
+    get :show, id: organisation
+
+    assert_equal [publication_1, publication_2, publication_3], assigns[:non_statistics_publications]
+  end
+
+  test "should display 3 non-statistics publications with details and a link to publications filter if there are many publications" do
+    organisation = create(:organisation)
+    publication_2 = create(:published_publication, organisations: [organisation], publication_date: 2.days.ago.to_date, publication_type: PublicationType::PolicyPaper)
+    publication_4 = create(:published_publication, organisations: [organisation], publication_date: 4.days.ago.to_date, publication_type: PublicationType::PolicyPaper)
+    publication_3 = create(:published_publication, organisations: [organisation], publication_date: 3.days.ago.to_date, publication_type: PublicationType::PolicyPaper)
+    publication_1 = create(:published_publication, organisations: [organisation], publication_date: 1.day.ago.to_date, publication_type: PublicationType::Statistics)
+
+    get :show, id: organisation
+
+    assert_select "#publications" do
+      assert_select_object publication_2 do
+        assert_select '.publication-date abbr[title=?]', 2.days.ago.to_date.to_datetime.iso8601
+        assert_select '.document-type', "Policy paper"
+      end
+      assert_select_object publication_3
+      assert_select_object publication_4
+      refute_select_object publication_1
+      assert_select "a[href='#{publications_filter_path(organisation)}']"
+    end
+  end
+
+  test "should display organisation's latest three statistics publications in reverse chronological order" do
+    organisation = create(:organisation)
+    publication_2 = create(:published_publication, organisations: [organisation], publication_date: 2.days.ago, publication_type: PublicationType::Statistics)
+    publication_4 = create(:published_publication, organisations: [organisation], publication_date: 4.days.ago, publication_type: PublicationType::Statistics)
+    publication_3 = create(:published_publication, organisations: [organisation], publication_date: 3.days.ago, publication_type: PublicationType::Statistics)
+    publication_1 = create(:published_publication, organisations: [organisation], publication_date: 1.day.ago, publication_type: PublicationType::NationalStatistics)
+    get :show, id: organisation
+    assert_equal [publication_1, publication_2, publication_3], assigns[:statistics_publications]
+  end
+
+  test "should display 3 statistics publications with details and a link to publications filter if there are many publications" do
+    organisation = create(:organisation)
+    publication_2 = create(:published_publication, organisations: [organisation], publication_date: 2.days.ago.to_date, publication_type: PublicationType::Statistics)
+    publication_4 = create(:published_publication, organisations: [organisation], publication_date: 4.days.ago.to_date, publication_type: PublicationType::Statistics)
+    publication_3 = create(:published_publication, organisations: [organisation], publication_date: 3.days.ago.to_date, publication_type: PublicationType::Statistics)
+    publication_1 = create(:published_publication, organisations: [organisation], publication_date: 1.day.ago.to_date, publication_type: PublicationType::NationalStatistics)
+
+    get :show, id: organisation
+
+    assert_select "#statistics-publications" do
+      assert_select_object publication_1 do
+        assert_select '.publication-date abbr[title=?]', 1.days.ago.to_date.to_datetime.iso8601
+        assert_select '.document-type', "Statistics - national statistics"
+      end
+      assert_select_object publication_2
+      assert_select_object publication_3
+      refute_select_object publication_4
+      assert_select "a[href='#{publications_filter_path(organisation, publication_filter_option: 'statistics').gsub('&', '&amp;')}']"
+    end
+  end
+
+
 
   test "presents the contact details of the organisation using hcard" do
     ministerial_department = create(:organisation_type, name: "Ministerial Department")
