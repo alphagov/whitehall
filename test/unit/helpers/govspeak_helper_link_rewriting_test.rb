@@ -171,6 +171,14 @@ class GovspeakHelperLinkRewritingTest < ActionView::TestCase
     refute_select_within_html html, "a"
   end
 
+  test "should not raise exception when the supporting page does not exist" do
+    policy = create(:draft_policy)
+    supporting_page = create(:supporting_page, edition: policy)
+    url = admin_supporting_page_url(supporting_page)
+    added_trailing_one_digit = govspeak_to_html("this and [that](#{url}1) yeah?")
+    refute_select_within_html added_trailing_one_digit, "a"
+  end
+
   private
 
   def internal_preview_host
