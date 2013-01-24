@@ -68,10 +68,8 @@
                     <% fatality_notice.fatality_notice_casualties.each do |casualty| %>
                       <%= content_tag_for :li, casualty, class: 'casualty' do %>
                         <%= link_to casualty.personal_details, public_document_url(fatality_notice) %>
-                        <%= fatality_notice.display_date_microformat %>
                       <% end %>
                     <% end %>
-
                 <% else %>
                   <li class="casualty"><%= link_to fatality_notice.title, public_document_url(fatality_notice) %></li>
                 <% end %>
