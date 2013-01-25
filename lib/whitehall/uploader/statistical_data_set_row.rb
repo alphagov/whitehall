@@ -5,6 +5,7 @@ require 'whitehall/uploader/row'
 
 module Whitehall::Uploader
   class StatisticalDataSetRow < Row
+    DEFAULT_CHANGE_NOTE = 'Data set updated.'
     attr_reader :row
 
     def initialize(row, line_number, attachment_cache, default_organisation, logger = Logger.new($stdout))
@@ -18,7 +19,8 @@ module Whitehall::Uploader
     def self.validator
       HeadingValidator.new
         .required(%w{old_url title summary body organisation})
-        .required(%w{data_series})
+        .required(%w{data_series first_published})
+        .optional(%W{change_note})
         .multiple(%w{attachment_#_url attachment_#_title attachment_#_URN attachment_#_published_date}, 0..100)
         .ignored("ignore_*")
     end
@@ -59,6 +61,18 @@ module Whitehall::Uploader
       Finders::DocumentSeriesFinder.find(row['data_series'], @logger, @line_number)
     end
 
+    def first_published_at
+      Parsers::DateParser.parse(row['first_published'], @logger, @line_number)
+    end
+
+    def change_note
+      if row['change_note'].blank?
+        StatisticalDataSetRow::DEFAULT_CHANGE_NOTE
+      else
+        row['change_note']
+      end
+    end
+
     def attachments
       @attachments ||= attachments_from_columns
     end
@@ -73,7 +87,8 @@ module Whitehall::Uploader
 
     def attributes
       [:title, :summary, :body, :lead_edition_organisations, :document_series,
-       :attachments, :alternative_format_provider, :access_limited].map.with_object({}) do |name, result|
+       :attachments, :alternative_format_provider, :access_limited,
+       :first_published_at, :change_note].map.with_object({}) do |name, result|
         result[name] = __send__(name)
       end
     end

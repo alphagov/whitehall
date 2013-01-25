@@ -12,12 +12,12 @@ module Whitehall::Uploader
       @default_organisation = stub('Organisation')
     end
 
-    def statistica_data_set_row(data)
+    def statistical_data_set_row(data)
       StatisticalDataSetRow.new(data, 1, @attachment_cache, @default_organisation)
     end
 
     def basic_headings
-      %w{old_url title summary body organisation data_series}
+      %w{old_url title summary body organisation data_series first_published}
     end
 
     test "validates row headings" do
@@ -46,29 +46,50 @@ module Whitehall::Uploader
         ], StatisticalDataSetRow.heading_validation_errors(keys)
     end
 
+    test 'validation accepts a change_note heading' do
+      assert_equal [], StatisticalDataSetRow.heading_validation_errors(basic_headings + ['change_note'])
+    end
+
     test "takes title from the title column" do
-      row = statistica_data_set_row("title" => "a-title")
+      row = statistical_data_set_row("title" => "a-title")
       assert_equal "a-title", row.title
     end
 
     test "takes summary from the summary column" do
-      row = statistica_data_set_row("summary" => "a-summary")
+      row = statistical_data_set_row("summary" => "a-summary")
       assert_equal "a-summary", row.summary
     end
 
     test 'if summary column is blank, generates summary from body' do
-      row = statistica_data_set_row("summary" => '', "body" => 'woo')
+      row = statistical_data_set_row("summary" => '', "body" => 'woo')
       Parsers::SummariseBody.stubs(:parse).with('woo').returns('w')
       assert_equal 'w', row.summary
     end
 
     test "takes body from the body column" do
-      row = statistica_data_set_row("body" => "Some body goes here")
+      row = statistical_data_set_row("body" => "Some body goes here")
       assert_equal "Some body goes here", row.body
     end
 
+    test "takes first_published_at from the 'first_published' column" do
+      Parsers::DateParser.stubs(:parse).with("first-published-date", anything, anything).returns("date-object")
+      row = statistical_data_set_row("first_published" => "first-published-date")
+      assert_equal "date-object", row.first_published_at
+    end
+
+    test "takes change_note from the change_note column" do
+      row = statistical_data_set_row("change_note" => "a-change-note")
+      assert_equal "a-change-note", row.change_note
+    end
+
+    test 'if change_note column is blank, uses default change_note for imported statistical data sets' do
+      row = statistical_data_set_row("change_note" => '')
+      Parsers::SummariseBody.stubs(:parse).with('woo').returns('w')
+      assert_equal StatisticalDataSetRow::DEFAULT_CHANGE_NOTE, row.change_note
+    end
+
     test "access_limited is always false" do
-      row = statistica_data_set_row({})
+      row = statistical_data_set_row({})
       row.stubs(:organisations).returns([])
       assert_includes row.attributes.keys, :access_limited
       assert_equal false, row.attributes[:access_limited]
@@ -77,33 +98,33 @@ module Whitehall::Uploader
     test "generates a body linking to all attachments where the body is empty" do
       attachments, attributes = attachments_and_attributes_for(10)
 
-      row = statistica_data_set_row(attributes.merge("body" => " "))
+      row = statistical_data_set_row(attributes.merge("body" => " "))
       body_referencing_attachments = (1..10).map { |i| "!@#{i}" }.join("\n\n")
       assert_equal body_referencing_attachments, row.body
     end
 
     test "should have a legacy url from the old_url column" do
-      row = statistica_data_set_row("old_url" => "http://example.com/legacy-url")
+      row = statistical_data_set_row("old_url" => "http://example.com/legacy-url")
       assert_equal "http://example.com/legacy-url", row.legacy_url
     end
 
     test "finds document series by slug in data_series column" do
       document_series = stub("document series")
       Finders::DocumentSeriesFinder.stubs(:find).with("name or slug", anything, anything).returns([document_series])
-      row = statistica_data_set_row("data_series" => "name or slug")
+      row = statistical_data_set_row("data_series" => "name or slug")
       assert_equal [document_series], row.document_series
     end
 
     test "finds organisation by slug in org column" do
       organisation = stub("organisation")
       Finders::OrganisationFinder.stubs(:find).with("name or slug", anything, anything, @default_organisation).returns([organisation])
-      row = statistica_data_set_row("organisation" => "name or slug")
+      row = statistical_data_set_row("organisation" => "name or slug")
       assert_equal [organisation], row.organisations
     end
 
     test "generates lead_edition_organisations by asking the edition organisation builder to build a lead with each found organisation" do
       o = stub(:organisation)
-      row = statistica_data_set_row({})
+      row = statistical_data_set_row({})
       row.stubs(:organisations).returns([o])
       leo = stub(:lead_edition_organisation)
       Whitehall::Uploader::Builders::EditionOrganisationBuilder.stubs(:build_lead).with(o, 1).returns(leo)
@@ -113,14 +134,14 @@ module Whitehall::Uploader
     test "uses the organisation as the alternative format provider" do
       organisation = stub("organisation")
       Finders::OrganisationFinder.stubs(:find).with("name or slug", anything, anything, @default_organisation).returns([organisation])
-      row = statistica_data_set_row("organisation" => "name or slug")
+      row = statistical_data_set_row("organisation" => "name or slug")
       assert_equal organisation, row.alternative_format_provider
     end
 
     test "finds up to 100 attachments in columns attachment 1 title, attachement 1 url..." do
       attachments, attributes = attachments_and_attributes_for(100)
 
-      row = statistica_data_set_row(attributes)
+      row = statistical_data_set_row(attributes)
 
       assert_equal attachments.first, row.attachments.first
       assert_equal attachments.last, row.attachments.last
