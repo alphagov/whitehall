@@ -50,7 +50,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
       assert_select "input[type='text'][name='edition[consultation_participation_attributes][link_url]']"
       assert_select "input[type='text'][name='edition[consultation_participation_attributes][email]']"
       assert_select "input[type='text'][name='edition[consultation_participation_attributes][consultation_response_form_attributes][title]']"
-      assert_select "input[type='file'][name='edition[consultation_participation_attributes][consultation_response_form_attributes][file]']"
+      assert_select "input[type='file'][name='edition[consultation_participation_attributes][consultation_response_form_attributes][consultation_response_form_data_attributes][file]']"
     end
   end
 
@@ -92,7 +92,9 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
         email: "countmein@participation.com",
         consultation_response_form_attributes: {
           title: "the title of the response form",
-          file: fixture_file_upload('two-pages.pdf')
+          consultation_response_form_data_attributes: {
+            file: fixture_file_upload('two-pages.pdf')
+          }
         }
       }
     )
@@ -106,7 +108,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     assert_equal "http://participation.com", consultation.consultation_participation.link_url
     assert_equal "countmein@participation.com", consultation.consultation_participation.email
     assert_equal "the title of the response form", consultation.consultation_participation.consultation_response_form.title
-    assert consultation.consultation_participation.consultation_response_form.file.present?
+    assert consultation.consultation_participation.consultation_response_form.consultation_response_form_data.file.present?
   end
 
   test "create should create a new consultation and a response with attachments" do
@@ -210,7 +212,9 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
         email: nil,
         consultation_response_form_attributes: {
           title: nil,
-          file: nil,
+          consultation_response_form_data_attributes: {
+            file: nil
+          }
         }
       }
     )
@@ -228,7 +232,9 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
         email: nil,
         consultation_response_form_attributes: {
           title: nil,
-          file: fixture_file_upload('two-pages.pdf')
+          consultation_response_form_data_attributes: {
+            file: fixture_file_upload('two-pages.pdf')
+          }
         }
       }
     )
@@ -236,7 +242,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     post :create, edition: attributes
 
     assert_select "form#edition_new" do
-      assert_select "input[name='edition[consultation_participation_attributes][consultation_response_form_attributes][file_cache]'][value$='two-pages.pdf']"
+      assert_select "input[name='edition[consultation_participation_attributes][consultation_response_form_attributes][consultation_response_form_data_attributes][file_cache]'][value$='two-pages.pdf']"
       assert_select ".already_uploaded", text: "two-pages.pdf already uploaded"
     end
   end
@@ -313,8 +319,8 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
       assert_select "textarea[name='edition[consultation_participation_attributes][postal_address]']"
       assert_select "input[type='hidden'][name='edition[consultation_participation_attributes][consultation_response_form_attributes][id]'][value=?]", response_form.id
       assert_select "input[type='text'][name='edition[consultation_participation_attributes][consultation_response_form_attributes][title]']"
-      assert_select "input[type='file'][name='edition[consultation_participation_attributes][consultation_response_form_attributes][file]']"
-      assert_select "input[type='checkbox'][name='edition[consultation_participation_attributes][consultation_response_form_attributes][_destroy]']"
+      assert_select "input[type='hidden'][name='edition[consultation_participation_attributes][consultation_response_form_attributes][consultation_response_form_data_attributes][id]'][value=?]", response_form.consultation_response_form_data.id
+      assert_select "input[type='file'][name='edition[consultation_participation_attributes][consultation_response_form_attributes][consultation_response_form_data_attributes][file]']"
     end
   end
 
@@ -326,7 +332,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     get :edit, id: consultation
 
     assert_select "form#edition_edit" do
-      assert_select "a[href='#{response_form.file.url}']", File.basename(response_form.file.path)
+      assert_select "a[href='#{response_form.consultation_response_form_data.file.url}']", File.basename(response_form.consultation_response_form_data.file.path)
     end
   end
 
@@ -493,26 +499,6 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     assert_nil consultation.consultation_participation
   end
 
-  test 'updating should allow removal of consultation response forms' do
-    response_form = create(:consultation_response_form)
-    participation = create(:consultation_participation, consultation_response_form: response_form)
-    consultation = create(:consultation, consultation_participation: participation)
-
-    attributes = controller_attributes_for_instance(consultation,
-      consultation_participation_attributes: {
-        id: participation.id,
-        consultation_response_form_attributes: {
-          id: response_form.id, _destroy: "1"
-        }
-      }
-    )
-    put :update, id: consultation, edition: attributes
-
-    refute_select ".errors"
-    participation.reload
-    assert_nil participation.consultation_response_form
-  end
-
   test 'updating should respect the attachment_action attribute to keep, remove, or replace consultation response form attachments' do
     two_pages_pdf = fixture_file_upload('two-pages.pdf')
     greenpaper_pdf = fixture_file_upload('greenpaper.pdf')
@@ -576,6 +562,110 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
 
     attachment_4 = response.attachments.last
     assert_equal "greenpaper.pdf", attachment_4.attachment_data.carrierwave_file
+  end
+
+  test 'updating should not allow removal of response form without explicit action' do
+    response_form = create(:consultation_response_form)
+    participation = create(:consultation_participation, consultation_response_form: response_form)
+    consultation = create(:consultation, consultation_participation: participation)
+
+    put :update, id: consultation, edition: controller_attributes_for_instance(consultation,
+      consultation_participation_attributes: {
+        id: participation.id,
+        consultation_response_form_attributes: {
+          id: response_form.id,
+          _destroy: '1'
+        }
+      }
+    )
+
+    refute_select ".errors"
+    consultation.reload
+    assert_not_nil consultation.consultation_participation.consultation_response_form
+  end
+
+  test 'updating should respect the attachment_action for response forms to keep it' do
+    two_pages_pdf = fixture_file_upload('two-pages.pdf')
+    greenpaper_pdf = fixture_file_upload('greenpaper.pdf')
+
+    response_form = create(:consultation_response_form, file: two_pages_pdf)
+    participation = create(:consultation_participation, consultation_response_form: response_form)
+    consultation = create(:consultation, consultation_participation: participation)
+
+    put :update, id: consultation, edition: controller_attributes_for_instance(consultation,
+      consultation_participation_attributes: {
+        id: participation.id,
+        consultation_response_form_attributes: {
+          id: response_form.id,
+          attachment_action: 'keep',
+          _destroy: '1',
+          consultation_response_form_data_attributes: {
+            id: response_form.consultation_response_form_data.id,
+            file: greenpaper_pdf
+          }
+        }
+      }
+    )
+
+    refute_select ".errors"
+    consultation.reload
+    assert_not_nil consultation.consultation_participation.consultation_response_form
+    assert_equal 'two-pages.pdf', consultation.consultation_participation.consultation_response_form.consultation_response_form_data.carrierwave_file
+  end
+
+  test 'updating should respect the attachment_action for response forms to remove it' do
+    response_form = create(:consultation_response_form)
+    participation = create(:consultation_participation, consultation_response_form: response_form)
+    consultation = create(:consultation, consultation_participation: participation)
+
+    put :update, id: consultation, edition: controller_attributes_for_instance(consultation,
+      consultation_participation_attributes: {
+        id: participation.id,
+        consultation_response_form_attributes: {
+          id: response_form.id,
+          attachment_action: 'remove',
+        }
+      }
+    )
+
+    refute_select ".errors"
+    consultation.reload
+    assert_nil consultation.consultation_participation.consultation_response_form
+    assert_raises(ActiveRecord::RecordNotFound) do
+      response_form.consultation_response_form_data.reload
+    end
+    assert_raises(ActiveRecord::RecordNotFound) do
+      response_form.reload
+    end
+  end
+
+  test 'updating should respect the attachment_action for response forms to replace it' do
+    two_pages_pdf = fixture_file_upload('two-pages.pdf')
+    greenpaper_pdf = fixture_file_upload('greenpaper.pdf')
+
+    response_form = create(:consultation_response_form, file: two_pages_pdf)
+    participation = create(:consultation_participation, consultation_response_form: response_form)
+    consultation = create(:consultation, consultation_participation: participation)
+
+    put :update, id: consultation, edition: controller_attributes_for_instance(consultation,
+      consultation_participation_attributes: {
+        id: participation.id,
+        consultation_response_form_attributes: {
+          id: response_form.id,
+          attachment_action: 'replace',
+          _destroy: '1',
+          consultation_response_form_data_attributes: {
+            id: response_form.consultation_response_form_data.id,
+            file: greenpaper_pdf
+          }
+        }
+      }
+    )
+
+    refute_select ".errors"
+    consultation.reload
+    assert_not_nil consultation.consultation_participation.consultation_response_form
+    assert_equal 'greenpaper.pdf', consultation.consultation_participation.consultation_response_form.consultation_response_form_data.carrierwave_file
   end
 
   private

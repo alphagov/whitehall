@@ -2,7 +2,7 @@ class ConsultationParticipation < ActiveRecord::Base
   belongs_to :consultation, foreign_key: 'edition_id'
   belongs_to :consultation_response_form
   accepts_nested_attributes_for :consultation_response_form,
-                                reject_if: :all_blank,
+                                reject_if: :no_substantive_form_attributes?,
                                 allow_destroy: true
 
   validates :link_url, format: URI::regexp(%w(http https)), allow_blank: true
@@ -29,9 +29,15 @@ class ConsultationParticipation < ActiveRecord::Base
   private
 
   def destroy_form_if_required
-    if consultation_response_form.present? &&
-      self.class.where(consultation_response_form_id: consultation_response_form.id).empty?
+    if has_response_form? &&
+      ConsultationParticipation.where(consultation_response_form_id: consultation_response_form.id).empty?
       consultation_response_form.destroy
     end
   end
+
+  def no_substantive_form_attributes?(attrs)
+    attrs.except(:consultation_response_form_data_attributes, :_destroy).values.all?(&:blank?) &&
+      (attrs[:consultation_response_form_data_attributes] || {}).values.all?(&:blank?)
+  end
+
 end

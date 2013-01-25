@@ -1,10 +1,10 @@
 module Admin::AttachableHelper
-  def attachment_action_fields(fields)
+  def attachment_action_fields(fields, data_object_name = :attachment_data)
     return if fields.object.new_record?
     keep_destroy_or_replace =
       if fields.object[:_destroy].present? && fields.object[:_destroy] == '1'
         'destroy'
-      elsif fields.object.attachment_data.file_cache.present?
+      elsif fields.object.send(data_object_name).file_cache.present?
         'replace'
       else
         'keep'
@@ -35,6 +35,26 @@ module Admin::AttachableHelper
         contents << content_tag(:span, text, class: 'already_uploaded')
       end
       contents << attachment_data_fields.hidden_field(:file_cache)
+      contents.join.html_safe
+    end
+  end
+
+  def consultation_response_form_data_fields(response_form_fields)
+    object = response_form_fields.object.consultation_response_form_data
+    if object.nil? && !response_form_fields.object.persisted?
+      object = response_form_fields.object.build_consultation_response_form_data
+    end
+
+    response_form_fields.fields_for(:consultation_response_form_data, object) do |data_fields|
+      contents = []
+      contents << data_fields.label(:file, 'Replacement') if response_form_fields.object.persisted?
+      contents << data_fields.file_field(:file)
+      if data_fields.object.file_cache.present?
+        text = "#{File.basename(data_fields.object.file_cache)} already uploaded"
+        text << " as replacement" if response_form_fields.object.persisted?
+        contents << content_tag(:span, text, class: 'already_uploaded')
+      end
+      contents << data_fields.hidden_field(:file_cache)
       contents.join.html_safe
     end
   end
