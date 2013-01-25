@@ -7,7 +7,6 @@ class BulkUpload
       attr_accessor :default_root_directory
     end
 
-    FILE_LIMIT = 100.megabytes
     extend  ActiveModel::Naming
     include ActiveModel::Validations
     include ActiveModel::Conversion
@@ -16,7 +15,6 @@ class BulkUpload
 
     validates :zip_file, presence: true
     validate :is_a_zip_file
-    validate :is_not_too_big
 
     def persisted?
       false
@@ -67,13 +65,6 @@ class BulkUpload
     def is_a_zip?
       _,_,errs = Open3.popen3("#{Whitehall.system_binaries[:zipinfo]} -1 #{self.temp_location} > /dev/null")
       errs.read.empty?
-    end
-
-    def is_not_too_big
-      unless @zip_file.nil?
-        size = File.size(self.temp_location)
-        errors.add(:zip_file, "is too big at #{size} bytes (maximum is #{FILE_LIMIT} bytes)") if size >= ZipFile::FILE_LIMIT
-      end
     end
   end
 
