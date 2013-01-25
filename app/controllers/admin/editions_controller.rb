@@ -60,6 +60,7 @@ class Admin::EditionsController < Admin::BaseController
       end
     else
       flash.now[:alert] = "There are some problems with the document"
+      extract_edition_information_from_errors
       build_edition_dependencies
       render action: "edit"
     end
@@ -102,6 +103,11 @@ class Admin::EditionsController < Admin::BaseController
 
   def find_edition
     @edition = edition_class.find(params[:id])
+  end
+
+  def extract_edition_information_from_errors
+    information = @edition.errors.delete(:information)
+    @information = information ? information.first : nil
   end
 
   def prevent_modification_of_unmodifiable_edition

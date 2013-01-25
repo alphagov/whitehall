@@ -41,7 +41,7 @@ module Attachable
     end
 
     def force_review_if_attachments_were_bulk_uploaded
-      errors.add(:base, 'You must review the bulk uploaded attachments before saving.') unless self.attachments_were_bulk_uploaded.nil?
+      errors.add(:information, 'Bulk upload successful: Make sure you check all the metadata is correct before saving') unless self.attachments_were_bulk_uploaded.nil?
     end
   end
 

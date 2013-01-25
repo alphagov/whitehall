@@ -17,7 +17,7 @@ end
 Then /^I should see that I'm replacing the existing attachment, and adding a new one$/ do
   pub = Publication.last
 
-  assert page.has_content?('You must review the bulk uploaded attachments before saving.')
+  assert page.has_css?('.alert-info', text: 'check all the metadata is correct')
 
   existing_attachment = pub.attachments.first
   @bulk_upload_replaced_attachment_data = existing_attachment.attachment_data
