@@ -174,6 +174,7 @@ Whitehall::Application.routes.draw do
 
   mount TestTrack::Engine => "test" if Rails.env.test?
 
+  match '/government/uploads/system/uploads/consultation_response_form/*path.:extension' => LongLifeRedirect.new('/government/uploads/system/uploads/consultation_response_form_data/')
   match '/government/uploads/system/uploads/attachment_data/file/:id/*file.:extension' => "attachments#show"
   match '/government/uploads/*path.:extension' => "public_uploads#show"
 end
