@@ -1,6 +1,8 @@
 class ConsultationResponseForm < ActiveRecord::Base
-  belongs_to :consultation_participation
+  has_one :consultation_participation
   belongs_to :consultation_response_form_data
+
+  delegate :url, :file, to: :consultation_response_form_data
 
   validates :title, presence: true
 
