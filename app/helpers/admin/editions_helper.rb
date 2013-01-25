@@ -98,7 +98,7 @@ module Admin::EditionsHelper
 
   def standard_edition_form(edition, &blk)
     form_for [:admin, edition], as: :edition, builder: EditionFormBuilder do |form|
-      concat edition_information(edition) if @information
+      concat edition_information(@information) if @information
       concat form.errors
       concat render(partial: "standard_fields",
                     locals: {form: form, edition: edition})
@@ -109,9 +109,9 @@ module Admin::EditionsHelper
     end
   end
 
-  def edition_information(edition)
+  def edition_information(information)
     content_tag(:div, class: "alert alert-info") do
-      @information
+      information
     end
   end
 
