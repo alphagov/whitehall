@@ -5,7 +5,12 @@ module Admin::EditionsController::Attachments
     before_filter :build_edition_attachment, only: [:new, :edit]
     before_filter :cope_with_attachment_action_params, only: [:update]
     before_filter :build_bulk_uploader, only: [:new, :edit]
-    before_filter :extract_attachments_from_zip_file, only: [:create, :update]
+    before_filter :extract_attachments_from_zip_file, only: [:update]
+  end
+
+  def build_edition
+    extract_attachments_from_zip_file
+    super
   end
 
   def build_edition_dependencies
