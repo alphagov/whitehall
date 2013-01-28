@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130121114645) do
+ActiveRecord::Schema.define(:version => 20130124132251) do
 
   create_table "attachment_data", :force => true do |t|
     t.string   "carrierwave_file"
@@ -128,11 +128,17 @@ ActiveRecord::Schema.define(:version => 20130121114645) do
   add_index "consultation_response_attachments", ["attachment_id"], :name => "index_consultation_response_attachments_on_attachment_id"
   add_index "consultation_response_attachments", ["response_id"], :name => "index_consultation_response_attachments_on_response_id"
 
-  create_table "consultation_response_forms", :force => true do |t|
+  create_table "consultation_response_form_data", :force => true do |t|
     t.string   "carrierwave_file"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "consultation_response_forms", :force => true do |t|
     t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "consultation_response_form_data_id"
   end
 
   create_table "contact_numbers", :force => true do |t|
