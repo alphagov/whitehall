@@ -1,5 +1,5 @@
 <ul class="publications documents-list">
-  <% publications.take(2).each do |publication| %>
+  <% publications.each do |publication| %>
     <%= content_tag_for(:li, publication, class: 'document') do %>
       <h2><%= link_to publication.title, public_document_path(publication), title: "View #{publication.title}", class: "title" %></h2>
       <ul class="metadata">
