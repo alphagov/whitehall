@@ -40,9 +40,7 @@ module Admin::EditionsController::Attachments
       zip_file_to_attachments = BulkUpload::ZipFileToAttachments.new(@bulk_upload_zip_file, @edition, params[:edition])
       zip_file_to_attachments.manipulate_params!
     else
-      @edition.attributes = params[:edition]
-      @edition.errors.add(:bulk_upload_zip_file, 'is invalid')
-      render @edition.new_record? ? :new : :edit
+      params[:edition]['bulk_upload_zip_file_invalid'] = true
     end
   end
 end
