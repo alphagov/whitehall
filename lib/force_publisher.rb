@@ -30,17 +30,21 @@ class ForcePublisher
     suppress_logging!
     editions = limit ? @editions_to_publish.take(limit) : @editions_to_publish
     editions.each do |edition|
-      reason = edition.reason_to_prevent_publication_by(user, force: true)
-      if reason
-        failure(edition, reason)
+      if edition.nil?
+        failure(edition, 'Edition is nil')
       else
-        begin
-          acting_as(user) do
-            edition.publish_as(user, force: true)
+        reason = edition.reason_to_prevent_publication_by(user, force: true)
+        if reason
+          failure(edition, reason)
+        else
+          begin
+            acting_as(user) do
+              edition.publish_as(user, force: true)
+            end
+            success(edition)
+          rescue => e
+            failure(edition, e)
           end
-          success(edition)
-        rescue => e
-          failure(edition, e)
         end
       end
     end
@@ -52,7 +56,7 @@ class ForcePublisher
   end
 
   def failure(edition, reason)
-    puts "ERR: #{edition.id}: #{reason.to_s}"
+    puts "ERR: #{edition.id unless edition.nil?}: #{reason.to_s}"
     @failures << [edition, reason]
   end
 
