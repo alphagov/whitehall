@@ -44,8 +44,7 @@
             <h1 class="label">What we do</h1>
             <p class="description"><%= @organisation.description %></p>
             <p class="parent_organisations">
-              <%= organisation_display_name_and_parental_relationship(@organisation) %>
-              <% if @organisation.department? %>,
+              <%= organisation_display_name_and_parental_relationship(@organisation) %><% if @organisation.department? %>,
                 supported by <%= link_to "#{@organisation.agencies_and_public_bodies.count} agencies and public bodies", organisations_path(anchor: @organisation.slug) %>.
               <% end %>
             </p>
