@@ -54,4 +54,32 @@ module DocumentFilterHelper
   def announcement_types_for_filter
     Whitehall::AnnouncementFilterOption.all
   end
+
+  def remove_filter_from_params(key, value=nil)
+    if value
+      params.merge({ key => (params[key] - [value]) })
+    else
+      params.merge({ key => nil })
+    end
+  end
+
+  def filter_results_selections(objects, type)
+    objects.map do |obj|
+      {
+        name: obj.name,
+        url: url_for(remove_filter_from_params(type, obj.slug)),
+        value: obj.slug
+      }
+    end
+  end
+
+  def filter_results_keywords(keywords)
+    keywords.map.with_index do |word, index|
+      content_tag :span do
+        new_keywords = keywords.reject.with_index { |w,i| i==index }.join(' ')
+        new_url = url_for(remove_filter_from_params('keywords').merge({ 'keywords' => new_keywords }))
+        "#{word} #{link_to "remove #{word} from filters", new_url, 'data-val' => word}".html_safe
+      end
+    end
+  end
 end

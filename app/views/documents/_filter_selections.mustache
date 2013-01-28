@@ -1,0 +1,18 @@
+Showing {{result_count}} results published
+about
+<span class="topics-selections chosen">
+  {{#topics}} <span>{{name}} <a href="{{url}}" data-val="{{value}}">Remove {{name}} filter</a></span> {{/topics}}
+  {{^topics}} <span>All topics</span> {{/topics}}
+</span>
+by
+<span class="departments-selections chosen">
+  {{#departments}} <span>{{name}} <a href="{{url}}" data-val="{{value}}">Remove {{name}} filter</a></span> {{/departments}}
+  {{^departments}} <span>All organisations</span> {{/departments}}
+</span>
+
+{{#keywords_any?}}
+  containing
+  <span class="keyword-selections chosen">
+    {{#keywords}} {{{.}}} {{/keywords}}
+  </span>
+{{/keywords_any?}}
