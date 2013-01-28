@@ -1,9 +1,9 @@
 <nav class="actions">
   <% if !edition.is_latest_edition? && !edition.latest_edition.accessible_by?(current_user) %>
     <div class="alert alert-info access-limited-latest-edition">
-      <p>This is not the most recent edition of this document, and you
-        do not have access to it because it has been limited to members
-        of the producing organisations.</p>
+      <p>This isn't the most recent edition of this document - you are
+         unable to view the most recent edition because it can only be
+         accessed by members of the producing organisation.</p>
     </div>
   <% end %>
   <% if edition.force_published? %>
