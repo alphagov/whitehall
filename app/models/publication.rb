@@ -26,6 +26,10 @@ class Publication < Publicationesque
     publication_type.singular_name
   end
 
+  def search_index
+    super.merge({"publication_type" => publication_type_id})
+  end
+
   def publication_type
     PublicationType.find_by_id(publication_type_id)
   end

@@ -96,4 +96,10 @@ class PolicyTest < EditionTestCase
     edition_relation.reload.destroy
     assert_equal 0, policy.reload.published_related_publication_count
   end
+
+  test "search_index contains topics" do
+    policy = build(:published_policy, title: "my title", topics: [create(:topic)])
+    policy.stubs(:public_document_path)
+    assert_equal policy.topics.map(&:id), policy.search_index['topics']
+  end
 end

@@ -9,3 +9,11 @@ Whitehall.mainstream_search_client = GdsApi::Rummager.new(Rummageable.rummager_h
 unless Rails.env.production? || ENV["RUMMAGER_HOST"]
   Rummageable.implementation = Rummageable::Fake.new
 end
+
+module Rummageable
+  class Implementation
+    def validate_structure(whatever)
+      true
+    end
+  end
+end

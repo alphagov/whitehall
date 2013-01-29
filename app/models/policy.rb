@@ -42,6 +42,10 @@ class Policy < Edition
 
   after_destroy :remove_edition_relations
 
+  def search_index
+    super.merge("topics" => topics.map(&:id))
+  end
+
   def alternative_format_provider_required?
     true
   end
