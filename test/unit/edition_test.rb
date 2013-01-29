@@ -406,17 +406,13 @@ class EditionTest < ActiveSupport::TestCase
 
     results = Edition.search_index.to_a
 
-    assert_equal 2, results.length
-    assert_equal({"title"=>"policy-title", "link"=>"/government/policies/policy-title",
-                  "indexable_content"=>"this and that", "format" => "policy",
-                  "description" => "policy-summary"}, results[0])
-    assert_equal({"title"=>"publication-title", "link"=>"/government/publications/publication-title",
-                  "indexable_content"=>"stuff and things", "format" => "publication",
-                  "description" => "publication-summary"}, results[1])
+    assert_equal ['policy-title', 'publication-title'], results.map {|r| r['title']}
   end
 
   test "should add edition to search index on publishing" do
     policy = create(:submitted_policy)
+    policy.stubs(:search_index).returns('id' => 123, 'title' => 'policy-title')
+    policy.document.editions.stubs(:published).returns([policy])
 
     Rummageable.expects(:index).with(policy.search_index, Whitehall.government_search_index_path)
 
