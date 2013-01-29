@@ -32,8 +32,18 @@ module ImportHelpers
 
   def make_sure_data_importer_user_exists
     unless User.find_by_name('Automatic Data Importer')
-      create(:user, name: 'Automatic Data Importer')
+      create(:importer, name: 'Automatic Data Importer')
     end
+  end
+
+  def make_sure_gds_team_user_exists
+    unless User.find_by_name('GDS Inside Government Team')
+      create(:departmental_editor, name: 'GDS Inside Government Team')
+    end
+  end
+
+  def run_last_force_publishing_attempt(for_import)
+    for_import.most_recent_force_publication_attempt.perform
   end
 end
 
