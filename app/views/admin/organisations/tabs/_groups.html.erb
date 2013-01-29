@@ -1,8 +1,8 @@
 <div class="tab-pane" id="groups">
-  <%= link_to "New group", new_admin_organisation_group_path(@organisation), class: "btn pull-right" %>
+  <%= link_to "New Governance group", new_admin_organisation_group_path(@organisation), class: "btn pull-right" %>
 
   <% if @organisation.groups.any? %>
-    <h2>Groups</h2>
+    <h2>Governance groups</h2>
     <table class="groups table table-striped">
       <thead>
         <tr>
