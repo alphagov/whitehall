@@ -2,10 +2,12 @@ require 'csv'
 require 'ostruct'
 include Rails.application.routes.url_helpers, PublicDocumentRoutesHelper, Admin::EditionRoutesHelper
 
-mysql_slave_config = ActiveRecord::Base.configurations['production'].merge('host' => 'slave.mysql')
-ActiveRecord::Base.establish_connection(mysql_slave_config)
-
 ENV['FACTER_govuk_platform'] ||= "production"
+
+if ENV['FACTER_govuk_platform'] == 'production'
+  mysql_slave_config = ActiveRecord::Base.configurations['production'].merge('host' => 'slave.mysql')
+  ActiveRecord::Base.establish_connection(mysql_slave_config)
+end
 
 admin_host = "whitehall-admin.#{ENV['FACTER_govuk_platform']}.alphagov.co.uk"
 host_name = (ENV['FACTER_govuk_platform'] == 'production' ? 'www.gov.uk' : 'www.preview.alphagov.co.uk')
