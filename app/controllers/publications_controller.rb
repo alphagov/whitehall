@@ -1,5 +1,5 @@
 class PublicationsController < DocumentsController
-  class PublicationesqueDecorator < SimpleDelegator
+  class MysqlPublicationesqueDecorator < SimpleDelegator
     def documents
       PublicationesquePresenter.decorate(__getobj__.documents)
     end
@@ -8,11 +8,14 @@ class PublicationsController < DocumentsController
   def index
     params[:page] ||= 1
     params[:direction] ||= "before"
+
     clean_malformed_params_array(:topics)
     clean_malformed_params_array(:departments)
-    document_filter = Whitehall::DocumentFilter.new(all_publications, params)
+
     expire_on_next_scheduled_publication(scheduled_publications)
-    @filter = PublicationesqueDecorator.new(document_filter)
+
+    document_filter = Whitehall::DocumentFilter::Mysql.new(all_publications, params)
+    @filter = MysqlPublicationesqueDecorator.new(document_filter)
 
     respond_to do |format|
       format.html
@@ -38,7 +41,7 @@ private
 
   def scheduled_publications
     unfiltered = Publicationesque.scheduled.order("scheduled_publication asc")
-    Whitehall::DocumentFilter.new(unfiltered, params.except(:direction)).documents
+    Whitehall::DocumentFilter::Mysql.new(unfiltered, params.except(:direction)).documents
   end
 
   def document_class

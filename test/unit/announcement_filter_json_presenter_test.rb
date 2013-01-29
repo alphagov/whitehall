@@ -2,7 +2,7 @@ require 'test_helper'
 
 class AnnouncementFilterJsonPresenterTest < PresenterTestCase
   setup do
-    @filter = stub_everything("Whitehall::DocumentFilter",
+    @filter = stub_everything("Whitehall::DocumentFilter::Mysql",
       count: 1,
       current_page: 1,
       num_pages: 1,
@@ -21,7 +21,7 @@ class AnnouncementFilterJsonPresenterTest < PresenterTestCase
       public_timestamp: Time.zone.now,
       organisations: [organisation],
       operational_field: operational_field)
-    # TODO: perhaps rethink edition factory, so this apparent duplication 
+    # TODO: perhaps rethink edition factory, so this apparent duplication
     # isn't neccessary
     fatality_notice.stubs(:organisations).returns([organisation])
     hash = AnnouncementFilterJsonPresenter.new(@filter).document_hash(AnnouncementPresenter.new(fatality_notice))
