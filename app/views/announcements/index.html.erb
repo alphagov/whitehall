@@ -18,16 +18,7 @@
 
 <div class="block-4">
   <div class="inner-block">
-    <%= render partial: "documents/filter_results",
-              locals: {
-                context: {
-                  result_count: @filter.count,
-                  departments: filter_results_selections(@filter.selected_organisations, 'departments'),
-                  topics: filter_results_selections(@filter.selected_topics, 'topics'),
-                  keywords_any?: @filter.keywords.any?,
-                  keywords: filter_results_keywords(@filter.keywords)
-                }
-              } %>
+    <%= render partial: "documents/filter_results", locals: { filter: @filter } %>
 
     <div class="filter-feed">
       <%= link_to_feed filter_atom_feed_url %>

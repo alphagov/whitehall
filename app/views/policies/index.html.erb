@@ -18,7 +18,7 @@
 
 <div class="block-3">
   <div class="inner-block">
-    <%= render partial: "documents/filter_results" %>
+    <%= render partial: "documents/filter_results", locals: { filter: @filter } %>
     
     <div class="filter-results" aria-live="polite">
       <% if @filter.documents.any? %>

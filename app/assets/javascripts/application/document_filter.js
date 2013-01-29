@@ -171,33 +171,42 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
 
       return url.replace(reg, '&')
     },
+    urlWithoutKeyword: function(words, index){
+      var url = window.location.search,
+          reg = new RegExp('keywords=[^&]+'),
+          newKeywords = [],
+          i, _i;
+
+      for(i=0,_i=words.length; i<_i; i++){
+        if(i !== index){
+          newKeywords.push(words[i]);
+        }
+      }
+      return url.replace(reg, 'keywords='+ newKeywords.join('+'));
+    },
     liveResultSummary: function(data){
       var $selections = $('.selections'),
           $title = $('.page_title'),
           summary = '',
           formStatus = documentFilter.currentPageState(),
-          context = {};
+          context = {},
+          i, _i, j, _j;
 
 
       $selections.html('');
       $title.find('span').remove();
 
       if (data.total_count > 0) {
-        summary = 'Showing <span class="count">' + data.total_count +' result';
-        if (data.total_count != 1) summary += 's';
-        summary += '</span> ';
+        context.result_count = 'Showing ' + data.total_count +' result' + ( data.total_count != 1 ? 's' : '');
       } else {
-        summary = 'No results ';
+        context.result_count = 'No results ';
       }
 
       if(formStatus.selected) {
-        var i = formStatus.selected.length;
-
-        while(i--) {
+        for(i=0,_i=formStatus.selected.length; i<_i; i++) {
           var field = formStatus.selected[i];
-          var j = field.title.length;
 
-          if (j > 0) {
+          if (field.title.length > 0) {
             if (field.id == "publication_filter_option" || field.id == "announcement_type_option") {
               if (field.value != "all") {
                 $title.html($title.text().trim() + '<span>: '+field.title[0]+'</span>');
@@ -205,12 +214,13 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
             } else if (field.id != 'sub_orgs' && field.id != 'date') {
               context[field.id] = [];
 
-              while(j--) {
+              for(j=0, _j=field.title.length; j<_j; j++){
                 if(field.value[j] !== 'all'){
                   context[field.id].push({
                     name: field.title[j],
                     url: documentFilter.urlWithout(field.id, field.value[j]),
-                    value: field.value[j]
+                    value: field.value[j],
+                    joining: (j < _j-1 ? 'and' : '')
                   });
                 }
               }
@@ -218,16 +228,52 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
           }
         }
       }
+      if(formStatus.text) {
+        for(i=0,_i=formStatus.text.length; i<_i; i++) {
+          var field = formStatus.text[i];
+
+          if(field.value.length){
+            if(field.id === 'keywords'){
+              context['keywords_any?'] = true;
+              context.keywords = [];
+
+              var words = field.value.trim().split(/\s+/);
+              for(j=0, _j=words.length; j<_j; j++){
+                context.keywords.push({
+                  name: words[j],
+                  url: documentFilter.urlWithoutKeyword(words, j-1),
+                  joining: (j < _j-1 ? 'or' : '')
+                });
+              }
+            }
+          }
+        }
+      }
       $selections.mustache('documents/_filter_selections', context);
     },
-    removeFilters: function(removed){
-      var $options = $("select option[value='"+removed+"']");
-      $options.removeAttr("selected");
-      var $select = $options.parent("select");
-      if($select.find(':selected').length === 0){
-        $select.find(">:first-child").prop("selected", true);
-      };
-      $select.change();
+    removeFilters: function(field, removed){
+      var selects = ['topics', 'departments'],
+          inputs = ['keywords'];
+
+      if($.inArray(field, selects) > -1){
+        var $options = $("select option[value='"+removed+"']");
+        if($options.length){
+          $options.removeAttr("selected");
+          var $select = $options.parent("select");
+          if($select.find(':selected').length === 0){
+            $select.find(">:first-child").prop("selected", true);
+          };
+          $select.change();
+        }
+      } else if ($.inArray(field, inputs) > -1){
+        var $input = $("input#"+field);
+        if($input.length){
+          var value = $input.val(),
+              reg = new RegExp(removed);
+          $input.val(value.replace(reg, '').trim())
+        }
+        $input.parents('form').submit();
+      }
     },
     currentPageState: function() {
       return {
@@ -361,7 +407,7 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
 
         $('.filter-results-summary').delegate('a', 'click', function(e){
           e.preventDefault();
-          documentFilter.removeFilters($(this).data("val"));
+          documentFilter.removeFilters($(this).data('field'), $(this).data("val"));
         });
 
         $(".submit").addClass("js-hidden");

@@ -64,22 +64,32 @@ module DocumentFilterHelper
   end
 
   def filter_results_selections(objects, type)
-    objects.map do |obj|
+    results = objects.map do |obj|
       {
         name: obj.name,
         url: url_for(remove_filter_from_params(type, obj.slug)),
         value: obj.slug
       }
     end
+    results.map.with_index { |obj, i| obj.merge({ joining: (results.length-1 == i ? '' : 'and') }) }
   end
 
   def filter_results_keywords(keywords)
-    keywords.map.with_index do |word, index|
-      content_tag :span do
-        new_keywords = keywords.reject.with_index { |w,i| i==index }.join(' ')
-        new_url = url_for(remove_filter_from_params('keywords').merge({ 'keywords' => new_keywords }))
-        "#{word} #{link_to "remove #{word} from filters", new_url, 'data-val' => word}".html_safe
-      end
+    results = keywords.map.with_index do |word, index|
+      new_keywords = keywords.reject.with_index { |w,i| i==index }.join(' ')
+      {
+        name: word,
+        url: url_for(remove_filter_from_params('keywords').merge({ 'keywords' => new_keywords }))
+      }
+    end
+    results.map.with_index { |obj, i| obj.merge({ joining: (results.length-1 == i ? '' : 'or') }) }
+  end
+
+  def result_count(count)
+    if count > 0
+      "Showing #{pluralize(count, 'result')}"
+    else
+      "No results"
     end
   end
 end

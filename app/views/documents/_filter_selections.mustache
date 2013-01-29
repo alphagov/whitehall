@@ -1,18 +1,23 @@
-Showing {{result_count}} results published
-about
+{{result_count}} about
 <span class="topics-selections chosen">
-  {{#topics}} <span>{{name}} <a href="{{url}}" data-val="{{value}}">Remove {{name}} filter</a></span> {{/topics}}
-  {{^topics}} <span>All topics</span> {{/topics}}
+  {{#topics}}
+    <strong>{{name}} <a href="{{url}}" data-field="topics" data-val="{{value}}" title="Remove {{name}} filter">&times;</a></strong> {{joining}}
+  {{/topics}}
+  {{^topics}} <strong>All topics</strong> {{/topics}}
 </span>
 by
 <span class="departments-selections chosen">
-  {{#departments}} <span>{{name}} <a href="{{url}}" data-val="{{value}}">Remove {{name}} filter</a></span> {{/departments}}
-  {{^departments}} <span>All organisations</span> {{/departments}}
+  {{#departments}}
+    <strong>{{name}} <a href="{{url}}" data-field="departments" data-val="{{value}}" title="Remove {{name}} filter">&times;</a></strong> {{joining}}
+  {{/departments}}
+  {{^departments}} <strong>All organisations</strong> {{/departments}}
 </span>
 
 {{#keywords_any?}}
   containing
   <span class="keyword-selections chosen">
-    {{#keywords}} {{{.}}} {{/keywords}}
+    {{#keywords}}
+      <strong>{{name}} <a href="{{url}}" data-field="keywords" data-val="{{name}}" title="Remove {{name}} filter">&times;</a></strong> {{joining}}
+    {{/keywords}}
   </span>
 {{/keywords_any?}}
