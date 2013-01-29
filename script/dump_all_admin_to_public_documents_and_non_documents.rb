@@ -54,8 +54,8 @@ CSV.open(Rails.root.join('public/government/all_document_attachment_and_non_docu
   AttachmentSource.all.each do |attachment_source|
     attachment_url = attachment_source.attachment ? host_name + attachment_source.attachment.url : ""
     status = (attachment_url.blank? ? '' : '301')
-    whole_tag = (attachment_url.blank? ? 'Open' : 'Closed')
-    csv_out << [attachment_source.url, attachment_url, status, whole_tag]
+    state = (attachment_url.blank? ? 'Open' : 'Closed')
+    csv_out << [attachment_source.url, attachment_url, status, '', '', '', state]
   end
 
   SupportingPage.find_each do |page|
