@@ -12,42 +12,48 @@ class ForcePublisher
     @editions_to_publish = editions_to_publish
   end
 
-  def user
-    @user ||= User.find_by_name!("GDS Inside Government Team")
-  end
+  class Worker
+    def user
+      @user ||= User.find_by_name!("GDS Inside Government Team")
+    end
 
-  def acting_as(user)
-    old_user, PaperTrail.whodunnit = PaperTrail.whodunnit, user
-    yield
-    PaperTrail.whodunnit = old_user
-  end
+    def acting_as(user)
+      old_user, PaperTrail.whodunnit = PaperTrail.whodunnit, user
+      yield
+      PaperTrail.whodunnit = old_user
+    end
 
-  def suppress_logging!
-    ActiveRecord::Base.logger = Logger.new(Rails.root.join("log/force_publish.log"))
+    def force_publish!(editions, reporter)
+      editions.each do |edition|
+        if edition.nil?
+          reporter.failure(edition, 'Edition is nil')
+        else        
+          reason = edition.reason_to_prevent_publication_by(user, force: true)
+          if reason
+            reporter.failure(edition, reason)
+          else
+            begin
+              acting_as(user) do
+                edition.publish_as(user, force: true)
+              end
+              reporter.success(edition)
+            rescue => e
+              reporter.failure(edition, e)
+            end
+          end
+        end
+      end
+    end
   end
 
   def force_publish!(limit = nil)
     suppress_logging!
     editions = limit ? @editions_to_publish.take(limit) : @editions_to_publish
-    editions.each do |edition|
-      if edition.nil?
-        failure(edition, 'Edition is nil')
-      else
-        reason = edition.reason_to_prevent_publication_by(user, force: true)
-        if reason
-          failure(edition, reason)
-        else
-          begin
-            acting_as(user) do
-              edition.publish_as(user, force: true)
-            end
-            success(edition)
-          rescue => e
-            failure(edition, e)
-          end
-        end
-      end
-    end
+    Worker.new.force_publish!(editions, self)
+  end
+
+  def suppress_logging!
+    ActiveRecord::Base.logger = Logger.new(Rails.root.join("log/force_publish.log"))
   end
 
   def success(edition)

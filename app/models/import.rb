@@ -7,6 +7,7 @@ class Import < ActiveRecord::Base
   has_many :documents, through: :document_sources
   has_many :editions, through: :documents
   has_many :import_errors, dependent: :destroy
+  has_many :force_publication_attempts, dependent: :destroy
 
   belongs_to :creator, class_name: "User"
   belongs_to :organisation
@@ -70,17 +71,30 @@ class Import < ActiveRecord::Base
     end
   end
 
+  def most_recent_force_publication_attempt
+    force_publication_attempts.last
+  end
+
   def force_publishable?
-    if status == :succeeded
-      (imported_editions.count > 0) && (imported_editions.imported.count == 0) && (imported_editions.draft.count > 0)
+    if (status == :succeeded)
+      most_recent = most_recent_force_publication_attempt
+      if most_recent.nil? || (most_recent.present? && most_recent.repeatable?)
+        (imported_editions.count > 0) && (imported_editions.imported.count == 0) && (force_publishable_editions.count > 0)
+      else
+        false
+      end
     else
       false
     end
   end
 
   def force_publish!
+    force_publication_attempts.create!.enqueue!
   end
 
+  def force_publishable_editions
+    imported_editions.where(state: ['draft', 'submitted'])
+  end
   def imported_editions
     editions.where('not exists ( select 1 from editions e2 where e2.document_id = editions.document_id and e2.id < editions.id )')
   end
