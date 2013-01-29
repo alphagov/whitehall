@@ -27,31 +27,6 @@ module Whitehall::DocumentFilter
       Topic.with_content.order(:name)
     end
 
-    def all_topics_with(type)
-      case type
-      when :publication
-        Topic.with_related_publications.sort_by(&:name)
-      when :detailed_guide
-        Topic.with_related_detailed_guides.order(:name)
-      when :announcement
-        Topic.with_related_announcements.order(:name)
-      when :policy
-        Topic.with_related_policies.order(:name)
-      end
-    end
-
-    def all_organisations_with(type)
-      Organisation.joins(:"published_#{type.to_s.pluralize}").group(:name).ordered_by_name_ignoring_prefix
-    end
-
-    def publication_types_for_filter
-      Whitehall::PublicationFilterOption.all
-    end
-
-    def announcement_types_for_filter
-      Whitehall::AnnouncementFilterOption.all
-    end
-
     def selected_topics
       find_by_slug(Topic, @params[:topics])
     end

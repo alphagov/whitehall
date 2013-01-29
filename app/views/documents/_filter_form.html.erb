@@ -16,7 +16,7 @@
           <% if defined?(filter_by_publication_type) && filter_by_publication_type %>
             <div class="publication-type">
               <%= label_tag "publication_filter_option", "Publication type", class: "title" %>
-              <%= select_tag :publication_filter_option, publication_type_filter_options(@filter.publication_types_for_filter, @filter.selected_publication_filter_option), class: "single-row-select" %>
+              <%= select_tag :publication_filter_option, publication_type_filter_options(publication_types_for_filter, @filter.selected_publication_filter_option), class: "single-row-select" %>
             </div>
           <% end %>
         </div>
@@ -27,7 +27,7 @@
           <% if defined?(filter_by_announcement_type) && filter_by_announcement_type %>
             <div class="announcement-type">
               <%= label_tag "announcement_type_option", "Announcement type", class: "title" %>
-              <%= select_tag :announcement_type_option, announcement_type_filter_options(@filter.announcement_types_for_filter, @filter.selected_announcement_type_option), class: "single-row-select" %>
+              <%= select_tag :announcement_type_option, announcement_type_filter_options(announcement_types_for_filter, @filter.selected_announcement_type_option), class: "single-row-select" %>
             </div>
           <% end %>
         </div>
@@ -36,13 +36,13 @@
       <div class="filter">
         <div class="filter-inner">
           <%= label_tag "topics", "Topic" %>
-          <%= select_tag :topics, topic_filter_options(@filter.all_topics_with(document_type), @filter.selected_topics), size: 5, multiple: true, class: "multi-row-select" %>
+          <%= select_tag :topics, topic_filter_options(all_topics_with(document_type), @filter.selected_topics), size: 5, multiple: true, class: "multi-row-select" %>
         </div>
       </div>
       <div class="filter">
         <div class="filter-inner">
           <%= label_tag "departments", "Department" %>
-          <%= select_tag :departments, organisation_filter_options(@filter.all_organisations_with(document_type), @filter.selected_organisations), size: 5, multiple: true, class: "multi-row-select" %>
+          <%= select_tag :departments, organisation_filter_options(all_organisations_with(document_type), @filter.selected_organisations), size: 5, multiple: true, class: "multi-row-select" %>
         </div>
       </div>
 
