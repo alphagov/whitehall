@@ -78,6 +78,9 @@ class Import < ActiveRecord::Base
     end
   end
 
+  def force_publish!
+  end
+
   def imported_editions
     editions.where('not exists ( select 1 from editions e2 where e2.document_id = editions.document_id and e2.id < editions.id )')
   end

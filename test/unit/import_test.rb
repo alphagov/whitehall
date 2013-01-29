@@ -269,7 +269,6 @@ class ImportTest < ActiveSupport::TestCase
 
   test 'it is considered force_publishable? if it has succeeded, imported some editions, none of them are imported, and some of them are draft' do
     import = perform_import
-    puts import.import_errors
     refute import.force_publishable?
     import.imported_editions.map { |e| e.convert_to_draft! }
     assert import.force_publishable?

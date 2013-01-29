@@ -114,6 +114,37 @@ class Admin::ImportsControllerTest < ActionController::TestCase
     assert_equal ["Policy &#x27;blah&#x27; does not exist"] + original_upload[1], parsed_response[1]
   end
 
+  test 'asks the import to force_publish! if it is force_publishable?, and sends the user on their way with a message' do
+    import = create(:import)
+    import.stubs(:force_publishable?).returns true
+    stub_controller_import_fetching(import)
+
+    import.expects(:force_publish!)
+
+    post :force_publish, id: import
+
+    assert_redirected_to admin_imports_path
+    assert_equal "Import #{import.id} queued for force publishing!", flash[:notice]
+  end
+
+  test 'does not ask the import to force_publish! if it is not force_publishable?, and sends the user on their way with a message' do
+    import = create(:import)
+    import.stubs(:force_publishable?).returns false
+    stub_controller_import_fetching(import)
+
+    import.expects(:force_publish!).never
+
+    post :force_publish, id: import
+
+    assert_redirected_to admin_imports_path
+    assert_equal "Import #{import.id} is not force publishable!", flash[:alert]
+  end
+
+  def stub_controller_import_fetching(with_import)
+    @controller.stubs(:find_import)
+    @controller.instance_eval { @import = with_import }
+  end
+
   def new_import
     @new_import ||= stub("new import", id: 1, to_param: "1", enqueue!: nil, valid?: true, document_sources: [], already_imported: [])
   end

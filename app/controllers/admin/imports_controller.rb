@@ -1,6 +1,6 @@
 class Admin::ImportsController < Admin::BaseController
   before_filter :require_import_permission!
-  before_filter :find_import, only: [:show, :annotated, :run]
+  before_filter :find_import, only: [:show, :annotated, :run, :force_publish]
 
   def index
     @imports = Import.order("id desc")
@@ -43,6 +43,15 @@ class Admin::ImportsController < Admin::BaseController
         errors = @import.import_errors_for_row(row_number).join(", ")
         yielder << ([errors] + row.fields).to_csv
       end
+    end
+  end
+
+  def force_publish
+    if @import.force_publishable?
+      @import.force_publish!
+      redirect_to admin_imports_path, notice: "Import #{@import.id} queued for force publishing!"
+    else
+      redirect_to admin_imports_path, alert: "Import #{@import.id} is not force publishable!"
     end
   end
 
