@@ -1,6 +1,7 @@
 <div class="filter-block">
   <h2>You can use the filters to show only results that match your interests</h2>
   <form method="get" action="<%= send(:"#{document_type.to_s.pluralize}_path") %>" id="document-filter" class="js-document-filter">
+    <%= hidden_field_tag :use_elastic_search, params[:use_elastic_search] %>
     <fieldset>
       <legend class="visuallyhidden">Filter <%= document_type.to_s.pluralize %></legend>
 
