@@ -76,15 +76,30 @@ class Import < ActiveRecord::Base
   end
 
   def force_publishable?
-    if (status == :succeeded)
+    reason_for_not_being_force_publishable.nil?
+  end
+
+  def reason_for_not_being_force_publishable
+    case status
+    when :succeeded
       most_recent = most_recent_force_publication_attempt
-      if most_recent.nil? || (most_recent.present? && most_recent.repeatable?)
-        (imported_editions.count > 0) && (imported_editions.imported.count == 0) && (force_publishable_editions.count > 0)
+      if most_recent.nil? || (most_recent.present?) && most_recent.repeatable?
+        if imported_editions.count == 0
+          'Import created no documents'
+        elsif imported_editions.imported.count > 0
+          'Documents are still in the "imported" state'
+        elsif force_publishable_editions.count == 0
+          'No documents are in "draft" or "submitted" state'
+        else
+          nil
+        end
       else
-        false
+        'Attempt to force publish is already in progress'
       end
+    when :new, :queued, :running
+      'Import still running'
     else
-      false
+      'Import failed'
     end
   end
 
