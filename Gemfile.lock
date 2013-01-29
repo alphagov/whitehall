@@ -320,6 +320,9 @@ GEM
       multi_json (~> 1.0)
       rubyzip
     sexp_processor (3.2.0)
+    shared_mustache (0.0.1)
+      execjs (~> 1.2.4)
+      mustache (~> 0.99.4)
     simplecov (0.6.4)
       multi_json (~> 1.0)
       simplecov-html (~> 0.5.3)
@@ -432,6 +435,7 @@ DEPENDENCIES
   rummageable (= 0.6.2)
   sass (= 3.2.5)
   sass-rails (= 3.1.4)
+  shared_mustache (~> 0.0.1)
   simplecov
   simplecov-rcov
   slimmer (= 3.10.1)
