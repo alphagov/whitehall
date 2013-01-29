@@ -418,7 +418,7 @@ class EditionTest < ActiveSupport::TestCase
   test "should add edition to search index on publishing" do
     policy = create(:submitted_policy)
 
-    Rummageable.expects(:index).with(policy.search_index, Whitehall.government_search_index_name)
+    Rummageable.expects(:index).with(policy.search_index, Whitehall.government_search_index_path)
 
     policy.publish_as(create(:departmental_editor))
   end
@@ -427,7 +427,7 @@ class EditionTest < ActiveSupport::TestCase
     policy = create(:published_policy)
     slug = policy.document.slug
 
-    Rummageable.expects(:delete).with("/government/policies/#{slug}", Whitehall.government_search_index_name).never
+    Rummageable.expects(:delete).with("/government/policies/#{slug}", Whitehall.government_search_index_path).never
 
     new_edition = policy.create_draft(create(:policy_writer))
     new_edition.change_note = "change-note"
@@ -439,7 +439,7 @@ class EditionTest < ActiveSupport::TestCase
     new_draft_policy = policy.create_draft(create(:policy_writer))
     slug = policy.document.slug
 
-    Rummageable.expects(:delete).with("/government/policies/#{slug}", Whitehall.government_search_index_name).never
+    Rummageable.expects(:delete).with("/government/policies/#{slug}", Whitehall.government_search_index_path).never
 
     new_draft_policy.delete!
   end
@@ -448,7 +448,7 @@ class EditionTest < ActiveSupport::TestCase
     policy = create(:published_policy)
     slug = policy.document.slug
 
-    Rummageable.expects(:delete).with("/government/policies/#{slug}", Whitehall.government_search_index_name)
+    Rummageable.expects(:delete).with("/government/policies/#{slug}", Whitehall.government_search_index_path)
 
     policy.unpublish_as(create(:gds_editor))
   end
@@ -457,7 +457,7 @@ class EditionTest < ActiveSupport::TestCase
     policy = create(:published_policy)
     slug = policy.document.slug
 
-    Rummageable.expects(:delete).with("/government/policies/#{slug}", Whitehall.government_search_index_name)
+    Rummageable.expects(:delete).with("/government/policies/#{slug}", Whitehall.government_search_index_path)
 
     policy.archive!
   end

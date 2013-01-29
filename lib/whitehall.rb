@@ -118,14 +118,18 @@ module Whitehall
     end
 
     def government_search_index_name
-      '/government'
+      "government"
     end
 
-    def detailed_guidance_search_index_name
+    def government_search_index_path
+      "/#{government_search_index_name}"
+    end
+
+    def detailed_guidance_search_index_path
       '/detailed'
     end
 
-    def mainstream_search_index_name
+    def mainstream_search_index_path
       '/mainstream'
     end
 
