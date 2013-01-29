@@ -20,7 +20,7 @@ class SpeechType
   end
 
   def self.non_statements
-    all - statements
+    [Transcript, DraftText, SpeakingNotes]
   end
 
   def self.statements
