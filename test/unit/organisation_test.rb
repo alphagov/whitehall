@@ -365,6 +365,20 @@ class OrganisationTest < ActiveSupport::TestCase
     assert_equal [gamma.edition, beta.edition, delta.edition], organisation.featured_editions
   end
 
+  test '#featured_editions includes the newly published version of a featured edition, but not the original' do
+    organisation = create(:organisation)
+    old_version = create(:featured_edition_organisation, organisation: organisation, edition: create(:published_edition, title: "Gamma"), ordering: 0).edition
+
+    editor = create(:departmental_editor)
+    new_version = old_version.create_draft(editor)
+    new_version.change_note = 'New stuffs!'
+    new_version.save
+    new_version.publish_as(editor, force: true)
+
+    refute organisation.featured_editions.include?(old_version)
+    assert organisation.featured_editions.include?(new_version)
+  end
+
   test '#published_detailed_guides returns published detailed guides' do
     organisation = create(:organisation)
     alpha = create(:draft_detailed_guide, organisations: [organisation], title: "Alpha")

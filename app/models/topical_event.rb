@@ -23,7 +23,16 @@ class TopicalEvent < Classification
             conditions: { "editions.state" => "published" },
             source: :publication
 
-  has_many :classification_featurings, foreign_key: :classification_id, order: "classification_featurings.ordering asc"
+  has_many :classification_featurings,
+            foreign_key: :classification_id,
+            order: "classification_featurings.ordering asc",
+            include: :edition,
+            conditions: { editions: { state: "published" } }
+
+  has_many :featured_editions,
+            through: :classification_featurings,
+            source: :edition,
+            order: "classification_featurings.ordering ASC"
 
   accepts_nested_attributes_for :social_media_accounts, allow_destroy: true
   accepts_nested_attributes_for :classification_featurings
