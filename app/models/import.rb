@@ -4,7 +4,10 @@ class Import < ActiveRecord::Base
   serialize :already_imported
   serialize :successful_rows
   has_many :document_sources
+  has_many :documents, through: :document_sources
+  has_many :editions, through: :documents
   has_many :import_errors, dependent: :destroy
+  has_many :force_publication_attempts, dependent: :destroy
 
   belongs_to :creator, class_name: "User"
   belongs_to :organisation
@@ -66,6 +69,49 @@ class Import < ActiveRecord::Base
     else
       :succeeded
     end
+  end
+
+  def most_recent_force_publication_attempt
+    force_publication_attempts.last
+  end
+
+  def force_publishable?
+    reason_for_not_being_force_publishable.nil?
+  end
+
+  def reason_for_not_being_force_publishable
+    case status
+    when :succeeded
+      most_recent = most_recent_force_publication_attempt
+      if most_recent.nil? || (most_recent.present?) && most_recent.repeatable?
+        if imported_editions.count == 0
+          'Import created no documents'
+        elsif imported_editions.imported.count > 0
+          'Documents are still in the "imported" state'
+        elsif force_publishable_editions.count == 0
+          'No documents are in "draft" or "submitted" state'
+        else
+          nil
+        end
+      else
+        'Attempt to force publish is already in progress'
+      end
+    when :new, :queued, :running
+      'Import still running'
+    else
+      'Import failed'
+    end
+  end
+
+  def force_publish!
+    force_publication_attempts.create!.enqueue!
+  end
+
+  def force_publishable_editions
+    imported_editions.where(state: ['draft', 'submitted'])
+  end
+  def imported_editions
+    editions.where('not exists ( select 1 from editions e2 where e2.document_id = editions.document_id and e2.id < editions.id )')
   end
 
   def import_errors_for_row(row_number)

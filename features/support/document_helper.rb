@@ -124,6 +124,26 @@ module DocumentHelper
       attach_file "File", Rails.root.join("features/fixtures", filename)
     end
   end
+
+  def speed_tag_publication(title)
+    edition = Edition.find_by_title(title)
+    visit admin_edition_path(edition)
+
+    assert page.has_css?('.speed-tag')
+    within '.speed-tag' do
+      select 'Research and analysis', from: 'Publication type'
+      click_on 'Save'
+      assert page.has_no_css?('.speed-tag .alert')
+    end
+  end
+
+  def convert_to_draft(title)
+    edition = Edition.find_by_title(title)
+    visit admin_edition_path(edition)
+
+    click_on 'Convert to draft'
+    assert page.has_no_css?('.speed-tag')
+  end
 end
 
 World(DocumentHelper)

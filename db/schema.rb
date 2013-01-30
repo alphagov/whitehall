@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130124132251) do
+ActiveRecord::Schema.define(:version => 20130128155925) do
 
   create_table "attachment_data", :force => true do |t|
     t.string   "carrierwave_file"
@@ -437,6 +437,20 @@ ActiveRecord::Schema.define(:version => 20130124132251) do
     t.integer "fatality_notice_id"
     t.text    "personal_details"
   end
+
+  create_table "force_publication_attempts", :force => true do |t|
+    t.integer  "import_id"
+    t.integer  "total_documents"
+    t.integer  "successful_documents"
+    t.datetime "enqueued_at"
+    t.datetime "started_at"
+    t.datetime "finished_at"
+    t.text     "log",                  :limit => 2147483647
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "force_publication_attempts", ["import_id"], :name => "index_force_publication_attempts_on_import_id"
 
   create_table "group_memberships", :force => true do |t|
     t.integer  "group_id"
