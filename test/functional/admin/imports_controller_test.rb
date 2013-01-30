@@ -114,6 +114,61 @@ class Admin::ImportsControllerTest < ActionController::TestCase
     assert_equal ["Policy &#x27;blah&#x27; does not exist"] + original_upload[1], parsed_response[1]
   end
 
+  test 'asks the import to force_publish! if it is force_publishable?, and sends the user on their way with a message' do
+    import = build(:import); import.stubs(:id).returns(1)
+    import.stubs(:force_publishable?).returns true
+    stub_controller_import_fetching(import)
+
+    import.expects(:force_publish!)
+
+    post :force_publish, id: import
+
+    assert_redirected_to admin_imports_path
+    assert_equal "Import #{import.id} queued for force publishing!", flash[:notice]
+  end
+
+  test 'does not ask the import to force_publish! if it is not force_publishable?, and sends the user on their way with a message' do
+    import = build(:import); import.stubs(:id).returns(1)
+    import.stubs(:force_publishable?).returns false
+    stub_controller_import_fetching(import)
+
+    import.expects(:force_publish!).never
+
+    post :force_publish, id: import
+
+    assert_redirected_to admin_imports_path
+    assert_equal "Import #{import.id} is not force publishable!", flash[:alert]
+  end
+
+  test 'shows some detail about the most recent force publication attempt if it exists' do
+    import = build(:import, created_at: Time.zone.now); import.stubs(:id).returns(1)
+    import.stubs(:most_recent_force_publication_attempt).returns(
+      ForcePublicationAttempt.new(enqueued_at: Time.zone.now, started_at: Time.zone.now, finished_at: Time.zone.now, total_documents: 10, successful_documents: 8)
+    )
+    stub_controller_import_fetching(import)
+
+    get :force_publish_log, id: import
+
+    assert_response :success
+    assert_template :force_publish_log
+  end
+
+  test 'sends the user away with a message if the import has no force publication attempt' do
+    import = build(:import); import.stubs(:id).returns(1)
+    import.stubs(:most_recent_force_publication_attempt).returns nil
+    stub_controller_import_fetching(import)
+
+    get :force_publish_log, id: import
+
+    assert_redirected_to admin_imports_path
+    assert_equal "Import #{import.id} has not been force published yet!", flash[:notice]
+  end
+
+  def stub_controller_import_fetching(with_import)
+    @controller.stubs(:find_import)
+    @controller.instance_eval { @import = with_import }
+  end
+
   def new_import
     @new_import ||= stub("new import", id: 1, to_param: "1", enqueue!: nil, valid?: true, document_sources: [], already_imported: [])
   end

@@ -149,6 +149,8 @@ Whitehall::Application.routes.draw do
           member do
             get :annotated
             post :run
+            post :force_publish
+            get :force_publish_log
           end
         end
 

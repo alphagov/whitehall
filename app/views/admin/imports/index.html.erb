@@ -19,6 +19,7 @@
         <th># already imported</th>
         <th># errors</th>
         <th>Finished</th>
+        <th>Force publish</th>
       </tr>
     </thead>
     <tbody>
@@ -42,6 +43,16 @@
             <td class="error_count"><%= link_to import.number_of_rows_with_errors, admin_import_path(import, anchor: "errors") %></td>
             <td class="finished_at">
               <%= import.import_finished_at && render_datetime_microformat(import, :import_finished_at) { import.import_finished_at.to_s(:long)} %>
+            </td>
+            <td class="force_publish">
+              <% if import.most_recent_force_publication_attempt.present? %>
+                <%= link_to 'Force publication log', force_publish_log_admin_import_path(import), class: 'btn btn-small', title: 'View the log result from the last attempt to force publish this import' %>
+              <% end %>
+              <% if import.force_publishable? %>
+                <%= button_to "Force publish #{pluralize(import.force_publishable_editions.count, 'document')}", force_publish_admin_import_path(import), class: "btn btn-small btn-primary" %>
+              <% else %>
+                <p class="alert alert-info"><%= import.reason_for_not_being_force_publishable %></p>
+              <% end %>
             </td>
           <% end %>
         <% end %>

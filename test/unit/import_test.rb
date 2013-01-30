@@ -23,6 +23,7 @@ class ImportTest < ActiveSupport::TestCase
     new_import(params).tap do |import|
       import.save!
       yield(import) if block_given?
+      import.update_column(:import_enqueued_at, Time.current)
       import.perform
     end
   end
@@ -239,7 +240,126 @@ class ImportTest < ActiveSupport::TestCase
     end
   end
 
-private
+  test 'once run, it has access to the editions that it created via imported_editions' do
+    import = perform_import
+    assert_equal [Consultation.find_by_title('title')], import.imported_editions.all
+  end
+
+  test 'if an imported edition is published and re-drafted, imported_editions only contains the original, not the re-draft' do
+    import = perform_import
+    edition = Consultation.find_by_title('title')
+    editor = create(:departmental_editor)
+    edition.convert_to_draft!
+    edition.publish_as(editor, force: true)
+    new_draft = edition.create_draft(editor)
+    refute import.imported_editions.include?(new_draft)
+  end
+
+  test 'force_publishable editions contains only editions from imported_editions that are draft or submitted' do
+    import = perform_import
+    edition = Consultation.find_by_title('title')
+    refute import.force_publishable_editions.include?(edition)
+
+    edition.convert_to_draft!
+    assert import.force_publishable_editions.include?(edition)
+
+    writer = create(:policy_writer)
+    edition.publish_as(writer, force: false)
+    assert import.force_publishable_editions.include?(edition)
+
+    editor = create(:departmental_editor)
+    edition.publish_as(editor, force: true)
+    refute import.force_publishable_editions.include?(edition)
+
+    new_draft = edition.create_draft(editor)
+    refute import.force_publishable_editions.include?(edition)
+  end
+
+  test 'it is not force_publishable? if it succeeded but imported no editions' do
+    blank_row = Hash[minimally_valid_consultation_row.map {|k,v| [k,'']}]
+    import = perform_import(csv_data: consultation_csv_sample(blank_row))
+    refute import.force_publishable?
+  end
+
+  test 'it is not force_publishable? if it didn\'t succeed' do
+    import = perform_import(csv_data: consultation_csv_sample('title' => ''))
+    refute import.force_publishable?
+  end
+
+  test 'it is considered force_publishable? if it has succeeded, imported some editions, none of them are imported, and some of them are draft or submitted' do
+    import = perform_import
+    refute import.force_publishable?
+    import.imported_editions.map { |e| e.convert_to_draft! }
+    assert import.force_publishable?
+    writer = create(:policy_writer)
+    import.imported_editions.map { |e| e.publish_as(writer, force: false) }
+    assert import.force_publishable?
+    editor = create(:departmental_editor)
+    import.imported_editions.map { |e| e.publish_as(editor, force: true) }
+    refute import.force_publishable?
+  end
+
+  test 'it is considered force_publishable? if it has succeeded, and has not already attempted a force publish' do
+    import = perform_import
+    refute import.force_publishable?
+    import.imported_editions.map { |e| e.convert_to_draft! }
+    import.force_publication_attempts.clear
+    assert import.force_publishable?
+  end
+
+  test 'it is considered force_publishable? if it has succeeded, and the most recent force publication attempt is not in play' do
+    import = perform_import
+    refute import.force_publishable?
+    import.imported_editions.map { |e| e.convert_to_draft! }
+
+    # not "in play" if it's new...
+    fpa = import.force_publication_attempts.create
+    refute import.force_publishable?
+
+    # ... or enqueued ...
+    fpa.update_column(:enqueued_at, 1.day.ago)
+    refute import.force_publishable?
+
+    # ... or started ...
+    fpa.update_column(:started_at, 1.day.ago)
+    refute import.force_publishable?
+
+    # ... but it is if it's finished successfully...
+    fpa.update_column(:finished_at, 1.day.ago)
+    fpa.update_column(:total_documents, 1)
+    fpa.update_column(:successful_documents, 1)
+    assert import.force_publishable?
+
+    # ... or with failures.
+    fpa.update_column(:successful_documents, 0)
+    assert import.force_publishable?
+  end
+
+  test 'force_publish! will create and enqueue a new ForcePublicationAttempt' do
+    import = perform_import
+    import.imported_editions.map { |e| e.convert_to_draft! }
+
+    import.force_publish!
+    attempt = import.force_publication_attempts.first
+    assert_not_nil attempt
+    assert_equal Time.zone.now, attempt.enqueued_at
+  end
+
+  test 'most_recent_force_publication_attempt is the last created ForcePublicationAttempt' do
+    import = perform_import
+    import.imported_editions.map { |e| e.convert_to_draft! }
+
+    import.force_publish!
+    attempt1 = import.force_publication_attempts.first
+    import.force_publish!
+    attempt2 = import.force_publication_attempts.last
+    import.force_publish!
+    attempt3 = import.force_publication_attempts.last
+
+    assert_equal attempt3, import.most_recent_force_publication_attempt
+  end
+
+  private
   def stub_document_source
     DocumentSource.stubs(:find_by_url).returns(nil)
     DocumentSource.stubs(:create!)
