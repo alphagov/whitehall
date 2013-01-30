@@ -6,17 +6,18 @@ class WorldLocationsController < PublicFacingController
   end
 
   def show
+    recently_updated_source = @world_location.published_editions.in_reverse_chronological_order
     respond_to do |format|
       format.atom do
-        @documents = EditionCollectionPresenter.new(@world_location.published_editions.in_reverse_chronological_order.limit(10))
+        @documents = EditionCollectionPresenter.new(recently_updated_source.limit(10))
       end
       format.html do
+        @recently_updated = recently_updated_source.limit(3)
         @international_priorities = InternationalPriority.published.in_world_location(@world_location).in_reverse_chronological_order
-        @news_articles = NewsArticle.published.in_world_location(@world_location).in_reverse_chronological_order
-        @policies = Policy.published.in_world_location(@world_location).in_reverse_chronological_order
-        @speeches = Speech.published.in_world_location(@world_location).in_reverse_chronological_order
-        @publications = Publication.published.in_world_location(@world_location).in_reverse_chronological_order
-
+        @policies = PolicyPresenter.decorate(Policy.published.in_world_location(@world_location).in_reverse_chronological_order.limit(3))
+        @non_statistics_publications = PublicationesquePresenter.decorate(Publication.published.not_statistics.in_world_location(@world_location).in_reverse_chronological_order.limit(2))
+        @statistics_publications = PublicationesquePresenter.decorate(Publication.published.statistics.in_world_location(@world_location).in_reverse_chronological_order.limit(2))
+        @announcements = AnnouncementPresenter.decorate(Announcement.published.in_world_location(@world_location).in_reverse_chronological_order.limit(2))
         @featured_news_articles = @world_location.featured_news_articles.in_reverse_chronological_order.limit(3)
       end
     end

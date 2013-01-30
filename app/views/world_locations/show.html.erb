@@ -11,19 +11,19 @@
           <h1 class="name">UK and <%= @world_location.name %></h1>
         </hgroup>
       </header>
-      <div class="filter-feed">
-        <%= link_to_feed world_location_url(@world_location, format: :atom) %>
-      </div>
     </div>
   </div>
 
-  <% if @featured_news_articles.any? %>
   <div class="block-2">
     <div class="inner-block">
-      <%= render 'shared/hero_rotator', editions: @featured_news_articles %>
+      <%= render 'shared/hero_rotator', editions: @featured_news_articles if @featured_news_articles.any? %>
+
+      <%= render partial: 'shared/recently_updated',
+                locals: { recently_updated: @recently_updated,
+                          atom_url: world_location_url(@world_location, format: :atom),
+                          govdelivery_url: '' } %>
     </div>
   </div>
-  <% end %>
 
   <div class="block-3">
     <div class="inner-block">
@@ -46,52 +46,64 @@
     </div>
   </div>
 
-
-  <div class="block-4">
-    <div class="inner-block">
-      <% if @news_articles.any? %>
-        <%= article_section("News", @news_articles, {id: 'news-articles', class: 'latest_documents'}) do |news_article| %>
-          <h2 class="article_title"><%= link_to news_article.title, public_document_path(news_article), title: "View #{news_article.title}", class: "title" %></h2>
-          <span class="metadata">
-            Updated <%= relative_time(news_article.updated_at, class: 'updated_at') %>
-          </span>
-        <% end %>
-      <% end %>
+  <% if @policies.any? %>
+    <div class="block-5">
+      <div class="inner-block">
+        <section id="policies" class="heading-block">
+          <h1 class="label"><%= link_to 'Related policies', policies_filter_path(@world_location) %></h1>
+          <div class="content">
+            <%= render partial: "policies/list_description", locals: {policies: @policies} %>
+            <p class="see-all">
+              <%= link_to 'See all of our policies', policies_filter_path(@world_location) %>
+            </p>
+          </div>
+        </section>
+      </div>
     </div>
-  </div>
-
-  <div class="block-5">
-    <div class="inner-block">
-      <% if @speeches.any? %>
-        <%= article_section("Speeches", @speeches, {id: 'speeches', class: 'latest_documents'}) do |speech| %>
-          <h2 class="article_title"><%= link_to speech.title, public_document_path(speech), title: "View #{speech.title}", class: "title" %></h2>
-          <span class="metadata">
-            Updated <%= relative_time(speech.updated_at, class: 'updated_at') %>
-          </span>
+  <% end %>
+  <% if (@non_statistics_publications + @announcements + @statistics_publications).any? %>
+    <% document_block_count = 0 %>
+    <div class="block documents">
+      <div class="inner-block">
+        <h1 class="block-title">Documents</h1>
+        <% if @announcements.any? %>
+          <section id="announcements" class="document-block documents-<%= document_block_count+=1 %>">
+            <h1>Our announcements</h1>
+            <div class="content">
+              <%= render partial: "announcements/list_description", locals: {announcements: @announcements} %>
+              <p class="see-all">
+                <%= link_to "See all of our announcements", announcements_filter_path(@world_location) %>
+              </p>
+            </div>
+          </section>
         <% end %>
-      <% end %>
-
-      <% if @policies.any? %>
-        <%= article_section("Policies", @policies, {id: 'policies', class: 'latest_documents'}) do |policy| %>
-          <h2 class="article_title"><%= link_to policy.title, public_document_path(policy), title: "View #{policy.title}", class: "title" %></h2>
-          <span class="metadata">
-            Updated <%= relative_time(policy.updated_at, class: 'updated_at') %>
-          </span>
+        <% if @non_statistics_publications.any? %>
+          <section id="publications" class="document-block documents-<%= document_block_count+=1 %>">
+            <h1>Our publications</h1>
+            <div class="content">
+              <%= render partial: "publications/list_description", locals: {publications: @non_statistics_publications} %>
+              <p class="see-all">
+                <%= link_to 'See all of our publications', publications_filter_path(@world_location) %>
+              </p>
+            </div>
+          </section>
         <% end %>
-      <% end %>
-
-      <% if @publications.any? %>
-        <%= article_section("Publications", @publications, {id: 'publications', class: 'latest_documents'}) do |publication| %>
-          <h2 class="article_title"><%= link_to publication.title, public_document_path(publication), title: "View #{publication.title}", class: "title" %></h2>
-          <span class="metadata">
-            Updated <%= relative_time(publication.updated_at, class: 'updated_at') %>
-          </span>
+        <% if @statistics_publications.any? %>
+          <section id="statistics-publications" class="document-block documents-<%= document_block_count+=1 %>">
+            <h1>Our statistics</h1>
+            <div class="content">
+              <%= render partial: "publications/list_description", locals: {publications: @statistics_publications} %>
+              <p class="see-all">
+                <%= link_to 'See all of our statistics', publications_filter_path(@world_location, publication_filter_option: 'statistics') %>
+              </p>
+            </div>
+          </section>
         <% end %>
-      <% end %>
+      </div>
     </div>
-  </div>
+  <% end %>
 
-  <div class="block-6">
+  <div class="block-7">
     <div class="inner-block">
       <% if @world_location.embassy_address.present? %>
         <section class="vcard info embassy_contact_details">

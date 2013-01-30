@@ -3,12 +3,10 @@ require "test_helper"
 class WorldLocationsControllerTest < ActionController::TestCase
   include ActionDispatch::Routing::UrlFor
   include PublicDocumentRoutesHelper
+  include FilterRoutesHelper
 
   should_be_a_public_facing_controller
-  should_show_published_documents_associated_with :world_location, :news_articles
   should_show_published_documents_associated_with :world_location, :policies
-  should_show_published_documents_associated_with :world_location, :speeches, :delivered_on
-  should_show_published_documents_associated_with :world_location, :publications, :publication_date
   should_show_published_documents_associated_with :world_location, :international_priorities
 
   test "index should display a list of world locations" do
@@ -129,4 +127,95 @@ class WorldLocationsControllerTest < ActionController::TestCase
 
     assert_equal 3, assigns(:featured_news_articles).length
   end
+
+  test "should display world_location's latest two announcements in reverse chronological order" do
+    world_location = create(:world_location)
+    announcement_2 = create(:published_news_article, world_locations: [world_location], first_published_at: 2.days.ago)
+    announcement_3 = create(:published_speech, world_locations: [world_location], delivered_on: 3.days.ago)
+    announcement_1 = create(:published_news_article, world_locations: [world_location], first_published_at: 1.day.ago)
+
+    get :show, id: world_location
+
+    assert_equal [announcement_1, announcement_2], assigns[:announcements]
+  end
+
+  test "should display 2 announcements with details and a link to announcements filter if there are many announcements" do
+    world_location = create(:world_location)
+    announcement_2 = create(:published_news_article, world_locations: [world_location], first_published_at: 2.days.ago)
+    announcement_3 = create(:published_speech, world_locations: [world_location], delivered_on: 3.days.ago)
+    announcement_1 = create(:published_news_article, world_locations: [world_location], first_published_at: 1.day.ago)
+
+    get :show, id: world_location
+
+    assert_select "#announcements" do
+      assert_select_object announcement_1 do
+        assert_select '.first-published-at abbr[title=?]', 1.days.ago.iso8601
+        assert_select '.announcement-type', "Press release"
+      end
+      assert_select_object announcement_2
+      refute_select_object announcement_3
+      assert_select "a[href='#{announcements_filter_path(world_location)}']"
+    end
+  end
+
+  test "should display world_location's latest two non-statistics publications in reverse chronological order" do
+    world_location = create(:world_location)
+    publication_2 = create(:published_publication, world_locations: [world_location], publication_date: 2.days.ago)
+    publication_3 = create(:published_publication, world_locations: [world_location], publication_date: 3.days.ago)
+    publication_1 = create(:published_publication, world_locations: [world_location], publication_date: 1.day.ago)
+
+    statistics_publication = create(:published_publication, world_locations: [world_location], publication_date: 1.day.ago, publication_type: PublicationType::Statistics)
+
+    get :show, id: world_location
+
+    assert_equal [publication_1, publication_2], assigns[:non_statistics_publications]
+  end
+
+  test "should display 2 non-statistics publications with details and a link to publications filter if there are many publications" do
+    world_location = create(:world_location)
+    publication_2 = create(:published_publication, world_locations: [world_location], publication_date: 2.days.ago.to_date, publication_type: PublicationType::PolicyPaper)
+    publication_3 = create(:published_publication, world_locations: [world_location], publication_date: 3.days.ago.to_date, publication_type: PublicationType::PolicyPaper)
+    publication_1 = create(:published_publication, world_locations: [world_location], publication_date: 1.day.ago.to_date, publication_type: PublicationType::Statistics)
+
+    get :show, id: world_location
+
+    assert_select "#publications" do
+      assert_select_object publication_2 do
+        assert_select '.publication-date abbr[title=?]', 2.days.ago.to_date.to_datetime.iso8601
+        assert_select '.document-type', "Policy paper"
+      end
+      assert_select_object publication_3
+      refute_select_object publication_1
+      assert_select "a[href='#{publications_filter_path(world_location)}']"
+    end
+  end
+
+  test "should display world location's latest two statistics publications in reverse chronological order" do
+    world_location = create(:world_location)
+    publication_2 = create(:published_publication, world_locations: [world_location], publication_date: 2.days.ago, publication_type: PublicationType::Statistics)
+    publication_3 = create(:published_publication, world_locations: [world_location], publication_date: 3.days.ago, publication_type: PublicationType::Statistics)
+    publication_1 = create(:published_publication, world_locations: [world_location], publication_date: 1.day.ago, publication_type: PublicationType::NationalStatistics)
+    get :show, id: world_location
+    assert_equal [publication_1, publication_2], assigns[:statistics_publications]
+  end
+
+  test "should display 2 statistics publications with details and a link to publications filter if there are many publications" do
+    world_location = create(:world_location)
+    publication_2 = create(:published_publication, world_locations: [world_location], publication_date: 2.days.ago.to_date, publication_type: PublicationType::Statistics)
+    publication_3 = create(:published_publication, world_locations: [world_location], publication_date: 3.days.ago.to_date, publication_type: PublicationType::Statistics)
+    publication_1 = create(:published_publication, world_locations: [world_location], publication_date: 1.day.ago.to_date, publication_type: PublicationType::NationalStatistics)
+
+    get :show, id: world_location
+
+    assert_select "#statistics-publications" do
+      assert_select_object publication_1 do
+        assert_select '.publication-date abbr[title=?]', 1.days.ago.to_date.to_datetime.iso8601
+        assert_select '.document-type', "Statistics - national statistics"
+      end
+      assert_select_object publication_2
+      refute_select_object publication_3
+      assert_select "a[href='#{publications_filter_path(world_location, publication_filter_option: 'statistics').gsub('&', '&amp;')}']"
+    end
+  end
+
 end
