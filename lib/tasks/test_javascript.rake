@@ -22,9 +22,6 @@ namespace :test do
       exit 1
     end
 
-    puts "Compiling the mustache templates"
-    Rake::Task["shared_mustache:compile"].invoke
-
     puts "Starting the test server on port #{test_port}"
     `cd #{Rails.root} && script/rails server -p #{test_port} --daemon --environment=test --pid=#{pid_file}`
 
@@ -60,9 +57,6 @@ namespace :test do
       `kill -KILL #{File.read(pid_file)}`
       `rm #{pid_file}`
     end
-
-    puts "Removing compiled mustache templates"
-    Rake::Task["shared_mustache:clean"].invoke
 
     exit test_result
   end

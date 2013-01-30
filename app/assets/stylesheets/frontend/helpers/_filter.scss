@@ -148,12 +148,15 @@
 
   .chosen {
     margin-bottom: $gutter-one-third;
-    line-height: $gutter;
 
-    strong {
+    span {
+    //  @include ig-core-24;
       @include bold;
+      color: $link-colour;
+
       background-color: $panel-colour;
-      padding: 0 $gutter-one-sixth;
+      padding:0 $gutter-one-sixth;
+      margin-bottom: ($gutter-one-third/2);
       @include border-radius(3px);
       
       @include media (tablet) {
@@ -163,7 +166,13 @@
       a {
         position: relative;
         top: 2px;
-        color: $link-colour;
+        @include ig-core-19;
+        line-height: 0;
+        text-decoration: none;
+      }
+
+      &:hover a {
+        display: inline;
       }
     }
   }

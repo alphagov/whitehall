@@ -10,5 +10,3 @@
 //= require govuk_toolkit
 //= require_tree ./application
 //= require_tree ./vendor
-//= require shared_mustache
-//= require templates

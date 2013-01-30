@@ -149,131 +149,101 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
         },
         success: function(data) {
           documentFilter.updateAtomFeed(data);
+          if (data.results) {
+            documentFilter.drawTable(data);
+            documentFilter.liveResultSummary(data, documentFilter.currentPageState());
+          }
           var newUrl = url + "?" + $form.serialize();
           history.pushState(documentFilter.currentPageState(), null, newUrl);
           window._gaq && _gaq.push(['_trackPageview', newUrl]);
           // undo double-click protection
           //$submitButton.removeAttr('disabled').removeClass('disabled');
 
-          if (data.results) {
-            documentFilter.drawTable(data);
-            documentFilter.liveResultSummary(data);
-          }
         },
         error: function() {
           $submitButton.removeAttr('disabled');
         }
       });
     },
-    urlWithout: function(object, value){
-      var url = window.location.search,
-          reg = new RegExp('&?'+object+'%5B%5D='+value+'&?');
-
-      return url.replace(reg, '&')
-    },
-    urlWithoutKeyword: function(words, index){
-      var url = window.location.search,
-          reg = new RegExp('keywords=[^&]+'),
-          newKeywords = [],
-          i, _i;
-
-      for(i=0,_i=words.length; i<_i; i++){
-        if(i !== index){
-          newKeywords.push(words[i]);
-        }
-      }
-      return url.replace(reg, 'keywords='+ newKeywords.join('+'));
-    },
-    liveResultSummary: function(data){
+    liveResultSummary: function(data, formStatus){
       var $selections = $('.selections'),
           $title = $('.page_title'),
-          summary = '',
-          formStatus = documentFilter.currentPageState(),
-          context = {},
-          i, _i, j, _j;
-
+          summary = '';
 
       $selections.html('');
       $title.find('span').remove();
 
       if (data.total_count > 0) {
-        context.result_count = 'Showing ' + data.total_count +' result' + ( data.total_count != 1 ? 's' : '');
+        summary = 'Showing <span class="count">' + data.total_count +' result';
+        if (data.total_count != 1) summary += 's';
+        summary += '</span> ';
       } else {
-        context.result_count = 'No results ';
+        summary = 'No results ';
       }
 
       if(formStatus.selected) {
-        for(i=0,_i=formStatus.selected.length; i<_i; i++) {
-          var field = formStatus.selected[i];
+        var i = formStatus.selected.length;
 
-          if (field.title.length > 0) {
-            if (field.id == "publication_filter_option" || field.id == "announcement_type_option") {
-              if (field.value != "all") {
-                $title.html($title.text().trim() + '<span>: '+field.title[0]+'</span>');
+        while(i--) {
+          var j = formStatus.selected[i].title.length;
+
+          if (j > 0) {
+            if (formStatus.selected[i].id == "publication_filter_option" || formStatus.selected[i].id == "announcement_type_option") {
+              if (formStatus.selected[i].value != "all") {
+                $title.html($title.text().trim() + '<span>: '+formStatus.selected[i].title[0]+'</span>');
               }
-            } else if (field.id != 'sub_orgs' && field.id != 'date') {
-              context[field.id] = [];
+            } else if (formStatus.selected[i].id != 'sub_orgs' && formStatus.selected[i].id != 'date') {
+              if (formStatus.selected[i].id == 'topics') {
+                summary += 'about ';
+              } else if (formStatus.selected[i].id == 'departments') {
+                summary += 'published by ';
+              }
 
-              for(j=0, _j=field.title.length; j<_j; j++){
-                if(field.value[j] !== 'all'){
-                  context[field.id].push({
-                    name: field.title[j],
-                    url: documentFilter.urlWithout(field.id, field.value[j]),
-                    value: field.value[j],
-                    joining: (j < _j-1 ? 'and' : '')
-                  });
+              summary += '<span class="'+formStatus.selected[i].id+'-selections chosen"> ';
+
+              while(j--) {
+                var selection = "<span>"+formStatus.selected[i].title[j]+" <a href='' data-val='"+formStatus.selected[i].value[j]+"' title='Remove this filter'>&times;</a></span> ";
+                if (j > 1) {
+                  selection += ", ";
+                } else if (j == 1 && formStatus.selected[i].title.length > 1) {
+                  selection += " and ";
                 }
+
+                summary += selection;
               }
+
+              summary += '</span> ';
             }
+
+
           }
         }
-      }
-      if(formStatus.text) {
-        for(i=0,_i=formStatus.text.length; i<_i; i++) {
-          var field = formStatus.text[i];
 
-          if(field.value.length){
-            if(field.id === 'keywords'){
-              context['keywords_any?'] = true;
-              context.keywords = [];
-
-              var words = field.value.trim().split(/\s+/);
-              for(j=0, _j=words.length; j<_j; j++){
-                context.keywords.push({
-                  name: words[j],
-                  url: documentFilter.urlWithoutKeyword(words, j-1),
-                  joining: (j < _j-1 ? 'or' : '')
-                });
-              }
-            }
-          }
-        }
       }
-      $selections.mustache('documents/_filter_selections', context);
+
+      $selections.html(summary);
+
+      documentFilter.filterEvents();
     },
-    removeFilters: function(field, removed){
-      var selects = ['topics', 'departments'],
-          inputs = ['keywords'];
-
-      if($.inArray(field, selects) > -1){
-        var $options = $("select option[value='"+removed+"']");
-        if($options.length){
-          $options.removeAttr("selected");
-          var $select = $options.parent("select");
-          if($select.find(':selected').length === 0){
+    filterEvents: function(){
+      $(".selections .chosen span a").on("click", function(){
+        documentFilter.removeFilters($(this).attr("data-val"));
+        $(this).parent().remove();
+        return false;
+      });
+    },
+    removeFilters: function(removed){
+      var options = $("select option");
+      $(options).each(function(){
+        if($(this).attr("value") == removed){
+          $(this).removeAttr("selected");
+          var $select = $(this).parent("select");
+          if($select.children("option:selected").length == 0){
             $select.find(">:first-child").prop("selected", true);
           };
-          $select.change();
+          $(this).parent("select").change();
         }
-      } else if ($.inArray(field, inputs) > -1){
-        var $input = $("input#"+field);
-        if($input.length){
-          var value = $input.val(),
-              reg = new RegExp(removed);
-          $input.val(value.replace(reg, '').trim())
-        }
-        $input.parents('form').submit();
-      }
+      });
     },
     currentPageState: function() {
       return {
@@ -399,15 +369,11 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
           }
         })();
 
-        $('#keyword-filter').find('input[name=keywords]').keyup(function () {
+        $('#keyword-filter')
+        .find('input[name=keywords]').keyup(function () {
           delay(function () {
             $form.submit();
           }, 600);
-        });
-
-        $('.filter-results-summary').delegate('a', 'click', function(e){
-          e.preventDefault();
-          documentFilter.removeFilters($(this).data('field'), $(this).data("val"));
         });
 
         $(".submit").addClass("js-hidden");
