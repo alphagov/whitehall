@@ -1,3 +1,12 @@
+<%
+  context = {
+    result_count: result_count(filter.total_count),
+    departments: filter_results_selections(filter.selected_organisations, 'departments'),
+    topics: filter_results_selections(filter.selected_topics, 'topics'),
+    keywords_any?: filter.keywords.any?,
+    keywords: filter_results_keywords(filter.keywords)
+  }
+%>
 <div class="filter-results-summary">
-  <h3 class="selections"></h3>
+  <h3 class="selections"><%= render_mustache('documents/filter_selections', context) %></h3>
 </div>

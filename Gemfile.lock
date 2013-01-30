@@ -121,7 +121,7 @@ GEM
     eventmachine (1.0.0)
     exception_notification (2.4.0)
     excon (0.7.6)
-    execjs (1.2.4)
+    execjs (1.2.13)
       multi_json (~> 1.0)
     factory_girl (4.1.0)
       activesupport (>= 3.0.0)
@@ -213,6 +213,7 @@ GEM
       metaclass (~> 0.0.1)
     multi_json (1.0.4)
     multipart-post (1.1.5)
+    mustache (0.99.4)
     mysql2 (0.3.11)
     net-scp (1.0.4)
       net-ssh (>= 1.99.1)
@@ -320,6 +321,9 @@ GEM
       multi_json (~> 1.0)
       rubyzip
     sexp_processor (3.2.0)
+    shared_mustache (0.0.2)
+      execjs (~> 1.2.4)
+      mustache (~> 0.99.4)
     simplecov (0.6.4)
       multi_json (~> 1.0)
       simplecov-html (~> 0.5.3)
@@ -432,6 +436,7 @@ DEPENDENCIES
   rummageable (= 0.6.2)
   sass (= 3.2.5)
   sass-rails (= 3.1.4)
+  shared_mustache (~> 0.0.2)
   simplecov
   simplecov-rcov
   slimmer (= 3.10.1)
