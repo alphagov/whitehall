@@ -15,7 +15,7 @@ class PoliciesController < DocumentsController
     clean_malformed_params_array(:topics)
     clean_malformed_params_array(:departments)
 
-    @filter = Whitehall::DocumentFilter.new(policies, params)
+    @filter = Whitehall::DocumentFilter::Mysql.new(policies, params)
     respond_with PolicyFilterJsonPresenter.new(@filter)
   end
 

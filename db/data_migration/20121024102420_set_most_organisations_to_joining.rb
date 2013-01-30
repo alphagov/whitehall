@@ -12,5 +12,5 @@ MinisterialRoleSearchIndexObserver.while_disabled do
 end
 
 $stderr.print "Re-indexing ministerial roles..."
-Rummageable.index(MinisterialRole.search_index, Whitehall.government_search_index_name)
+Rummageable.index(MinisterialRole.search_index, Whitehall.government_search_index_path)
 $stderr.puts "[done]"

@@ -197,4 +197,21 @@ class SpeechTest < EditionTestCase
     speech.make_public_at(2.days.ago)
     refute speech.first_published_at
   end
+
+  test "search_index contains speech_type" do
+    speech = build(:published_speech, title: "my title", speech_type: SpeechType::Transcript)
+    speech.stubs(:public_document_path).returns("/my/speech")
+    assert_equal SpeechType::Transcript.id, speech.search_index['speech_type']
+  end
+
+  test "search_index contains person and organisation via role appointment" do
+    organisation = create(:organisation)
+    ministerial_role = create(:ministerial_role, organisations: [organisation])
+    person = create(:person)
+    role_appointment = create(:role_appointment, role: ministerial_role, person: person)
+    speech = create(:published_speech, title: "my title", speech_type: SpeechType::Transcript, role_appointment: role_appointment)
+    speech.stubs(:public_document_path).returns("/my/speech")
+    assert_equal [person.id], speech.search_index['people']
+    assert_equal [organisation.id], speech.search_index['organisations']
+  end
 end

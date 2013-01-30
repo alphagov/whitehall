@@ -98,14 +98,23 @@ class Edition < ActiveRecord::Base
   end
 
   searchable(
+    id: :id,
     title: :title,
     link: -> d { d.public_document_path(d) },
     format: -> d { d.format_name.gsub(" ", "_") },
     content: :indexable_content,
     description: :summary,
-    section: -> d { d.section },
-    subsection: -> d { d.subsection },
-    subsubsection: -> d { d.subsubsection },
+    section: :section,
+    subsection: :subsection,
+    subsubsection: :subsubsection,
+    organisations: -> d { d.organisations.map(&:id) },
+    people: nil,
+    publication_type: nil,
+    speech_type: nil,
+    news_article_type: nil,
+    display_type: -> d { d.display_type },
+    public_timestamp: :public_timestamp,
+    topics: nil,
     only: :published,
     index_after: [],
     unindex_after: []

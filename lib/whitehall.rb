@@ -117,15 +117,23 @@ module Whitehall
       Rails.root.join('clean-uploads').realpath
     end
 
-    def government_search_index_name
-      '/government'
+    def elastic_search_url
+      Plek.current.find("search")
     end
 
-    def detailed_guidance_search_index_name
+    def government_search_index_name
+      "government"
+    end
+
+    def government_search_index_path
+      "/#{government_search_index_name}"
+    end
+
+    def detailed_guidance_search_index_path
       '/detailed'
     end
 
-    def mainstream_search_index_name
+    def mainstream_search_index_path
       '/mainstream'
     end
 

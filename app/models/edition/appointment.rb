@@ -13,4 +13,10 @@ module Edition::Appointment
   def person
     role_appointment.person
   end
+
+  module InstanceMethods
+    def search_index
+      super.merge("people" => [role_appointment.try(:person_id)])
+    end
+  end
 end

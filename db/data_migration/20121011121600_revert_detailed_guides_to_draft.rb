@@ -35,4 +35,4 @@ data.each do |row|
   puts "#{latest_edition.title} reset to draft"
 end
 
-Rummageable.commit(Whitehall.detailed_guidance_search_index_name)
+Rummageable.commit(Whitehall.detailed_guidance_search_index_path)

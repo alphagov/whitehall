@@ -20,6 +20,6 @@ data.each do |row|
   else
     # The guide might have been in the old CSV - just remove it anyway
     puts "Guide #{row[0]} not in DB; attempting to remove anyway"
-    Rummageable.delete("/#{row[0]}", Whitehall.detailed_guidance_search_index_name)
+    Rummageable.delete("/#{row[0]}", Whitehall.detailed_guidance_search_index_path)
   end
 end
