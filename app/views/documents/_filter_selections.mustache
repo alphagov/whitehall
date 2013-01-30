@@ -1,0 +1,23 @@
+{{result_count}} about
+<span class="topics-selections chosen">
+  {{#topics}}
+    <strong>{{name}} <a href="{{url}}" data-field="topics" data-val="{{value}}" title="Remove {{name}} filter">&times;</a></strong> {{joining}}
+  {{/topics}}
+  {{^topics}} <strong>All topics</strong> {{/topics}}
+</span>
+by
+<span class="departments-selections chosen">
+  {{#departments}}
+    <strong>{{name}} <a href="{{url}}" data-field="departments" data-val="{{value}}" title="Remove {{name}} filter">&times;</a></strong> {{joining}}
+  {{/departments}}
+  {{^departments}} <strong>All organisations</strong> {{/departments}}
+</span>
+
+{{#keywords_any?}}
+  containing
+  <span class="keyword-selections chosen">
+    {{#keywords}}
+      <strong>{{name}} <a href="{{url}}" data-field="keywords" data-val="{{name}}" title="Remove {{name}} filter">&times;</a></strong> {{joining}}
+    {{/keywords}}
+  </span>
+{{/keywords_any?}}

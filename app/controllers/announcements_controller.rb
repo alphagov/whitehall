@@ -11,11 +11,10 @@ class AnnouncementsController < PublicFacingController
   end
 
   def index
-    params[:page] ||= 1
-    params[:direction] ||= "before"
+    default_params = { page: 1, direction: 'before' }
     clean_malformed_params_array(:topics)
     clean_malformed_params_array(:departments)
-    document_filter = Whitehall::DocumentFilter::Mysql.new(all_announcements, params)
+    document_filter = Whitehall::DocumentFilter::Mysql.new(all_announcements, params.reverse_merge(default_params))
     expire_on_next_scheduled_publication(scheduled_announcements)
     @filter = AnnouncementDecorator.new(document_filter)
 

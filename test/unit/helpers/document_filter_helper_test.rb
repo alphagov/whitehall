@@ -38,4 +38,28 @@ class DocumentFilterHelperTest < ActionView::TestCase
     announcement_type_options = ["Press releases","News stories","Fatality notices","Speeches","Statements", "Rebuttals"]
     assert_equal announcement_type_options, announcement_types_for_filter.map(&:label)
   end
+
+  test "remove_filter_from_params removes filter from params" do
+    stubs(:params).returns({ first: 'one', second: ['two', 'three'] })
+
+    assert_equal ({ first: nil, second: ['two', 'three'] }), remove_filter_from_params(:first)
+    assert_equal ({ first: 'one', second: ['three'] }), remove_filter_from_params(:second, 'two')
+  end
+
+  test "filter_results_selections gets objects ready for mustache" do
+    topic = build(:topic, slug: 'my-slug')
+    stubs(:params).returns({ controller: 'announcements', action: 'index', "topics" => ['my-slug', 'three'] })
+
+    assert_equal [{ name: topic.name, value: topic.slug, url: announcements_path(topics: ['three']), joining: '' }], filter_results_selections([topic], 'topics')
+  end
+
+  test "filter_results_keywords gets objects ready for mustache" do
+    keywords = %w{one two}
+    stubs(:params).returns({ controller: 'announcements', action: 'index', "keywords" => 'one two' })
+
+    assert_equal [
+      { name: 'one', url: announcements_path({ keywords: 'two' }), joining: 'or'},
+      { name: 'two', url: announcements_path({ keywords: 'one' }), joining: ''},
+    ], filter_results_keywords(keywords)
+  end
 end
