@@ -5,6 +5,17 @@ GIT
     rack-test (0.6.2)
       rack (>= 1.0)
 
+GIT
+  remote: https://github.com/alphagov/tire.git
+  revision: 18578e1954f9d35547f49f2a9c21d97c288a7d78
+  specs:
+    tire (0.5.4)
+      activemodel (>= 3.0)
+      hashr (~> 0.0.19)
+      multi_json (~> 1.0)
+      rake
+      rest-client (~> 1.6)
+
 GEM
   remote: http://rubygems.org/
   remote: https://gems.gemfury.com/vo6ZrmjBQu5szyywDszE/
@@ -155,6 +166,7 @@ GEM
       object_regex (~> 1.0.1)
       trollop (~> 1.16.2)
     hashie (1.2.0)
+    hashr (0.0.22)
     highline (1.6.13)
     hike (1.2.1)
     htmlentities (4.3.1)
@@ -424,6 +436,7 @@ DEPENDENCIES
   test_track
   thin (= 1.5.0)
   timecop
+  tire!
   transitions
   uglifier
   unicorn

@@ -299,7 +299,7 @@ class OrganisationTest < ActiveSupport::TestCase
     search_index_data = stub('search index data')
     organisation.stubs(:search_index).returns(search_index_data)
     Rummageable.stubs(:index) # ignore the update to the ministerial role index
-    Rummageable.expects(:index).with(search_index_data, Whitehall.government_search_index_name)
+    Rummageable.expects(:index).with(search_index_data, Whitehall.government_search_index_path)
 
     organisation.save
   end
@@ -310,7 +310,7 @@ class OrganisationTest < ActiveSupport::TestCase
     search_index_data = stub('search index data')
     organisation.stubs(:search_index).returns(search_index_data)
     Rummageable.stubs(:index) # ignore the update to the ministerial role index
-    Rummageable.expects(:index).with(search_index_data, Whitehall.government_search_index_name)
+    Rummageable.expects(:index).with(search_index_data, Whitehall.government_search_index_path)
 
     organisation.name = 'Ministry of Junk'
     organisation.save
@@ -318,7 +318,7 @@ class OrganisationTest < ActiveSupport::TestCase
 
   test 'should remove organisation from search index on destroying' do
     organisation = create(:organisation)
-    Rummageable.expects(:delete).with("/government/organisations/#{organisation.slug}", Whitehall.government_search_index_name)
+    Rummageable.expects(:delete).with("/government/organisations/#{organisation.slug}", Whitehall.government_search_index_path)
     organisation.destroy
   end
 

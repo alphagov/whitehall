@@ -187,4 +187,10 @@ class PublicationsInTopicsTest < ActiveSupport::TestCase
     publication.make_public_at(2.days.ago)
     refute publication.first_published_at
   end
+
+  test "search_index contains publication_type" do
+    publication = build(:published_publication, title: "my title", publication_type: PublicationType::TransparencyData)
+    publication.stubs(:public_document_path).returns("/my/publication")
+    assert_equal PublicationType::TransparencyData.id, publication.search_index['publication_type']
+  end
 end

@@ -11,5 +11,5 @@ DocumentSeries.where(slug: ["please-delete-local-authority-capital-expenditure-a
 end
 
 puts "Removing ministerial role: 'DELETE PLEASE' from search index..."
-p Rummageable.delete("/government/ministers/parliamentary-under-secretary-of-state-employment-relations-consumer-and-postal-affairs", Whitehall.government_search_index_name)
+p Rummageable.delete("/government/ministers/parliamentary-under-secretary-of-state-employment-relations-consumer-and-postal-affairs", Whitehall.government_search_index_path)
 puts "[Done]"

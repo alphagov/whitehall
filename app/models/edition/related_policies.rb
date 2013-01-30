@@ -59,4 +59,10 @@ module Edition::RelatedPolicies
       scheduled.in_topic(topics)
     end
   end
+
+  module InstanceMethods
+    def search_index
+      super.merge("topics" => topics.map(&:id))
+    end
+  end
 end

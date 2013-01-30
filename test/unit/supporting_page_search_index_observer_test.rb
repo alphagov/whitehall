@@ -10,7 +10,7 @@ class SupportingPageSearchIndexObserverTest < ActiveSupport::TestCase
     supporting_page.stubs(:search_index).returns(search_index_data)
     ignore_addition_of_policy_to_search_index(policy)
 
-    Rummageable.expects(:index).with(search_index_data, Whitehall.government_search_index_name)
+    Rummageable.expects(:index).with(search_index_data, Whitehall.government_search_index_path)
 
     policy.publish_as(create(:departmental_editor))
   end
@@ -21,7 +21,7 @@ class SupportingPageSearchIndexObserverTest < ActiveSupport::TestCase
     supporting_page_path = "/government/policies/#{policy.document.to_param}/supporting-pages/#{supporting_page.to_param}"
     ignore_removal_of_policy_from_search_index(policy)
 
-    Rummageable.expects(:delete).with(supporting_page_path, Whitehall.government_search_index_name)
+    Rummageable.expects(:delete).with(supporting_page_path, Whitehall.government_search_index_path)
 
     policy.unpublish_as(create(:gds_editor))
   end
@@ -32,7 +32,7 @@ class SupportingPageSearchIndexObserverTest < ActiveSupport::TestCase
     supporting_page_path = "/government/policies/#{policy.document.to_param}/supporting-pages/#{supporting_page.to_param}"
     ignore_removal_of_policy_from_search_index(policy)
 
-    Rummageable.expects(:delete).with(supporting_page_path, Whitehall.government_search_index_name)
+    Rummageable.expects(:delete).with(supporting_page_path, Whitehall.government_search_index_path)
 
     new_edition = policy.create_draft(create(:policy_writer))
     new_edition.reload # because each supporting page touches the new edition as it's copied over
@@ -43,7 +43,7 @@ class SupportingPageSearchIndexObserverTest < ActiveSupport::TestCase
   private
 
   def ignore_addition_of_policy_to_search_index(policy)
-    Rummageable.stubs(:index).with(policy.search_index, anything)
+    Rummageable.stubs(:index).with(anything, anything)
   end
 
   def ignore_removal_of_policy_from_search_index(policy)

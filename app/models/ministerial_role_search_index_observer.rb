@@ -27,7 +27,7 @@ class MinisterialRoleSearchIndexObserver < ActiveRecord::Observer
 
   def reindex_ministerial_roles
     unless self.class.disabled
-      Rummageable.index(MinisterialRole.search_index, Whitehall.government_search_index_name)
+      Rummageable.index(MinisterialRole.search_index, Whitehall.government_search_index_path)
     end
   end
 end

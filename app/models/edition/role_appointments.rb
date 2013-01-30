@@ -17,4 +17,10 @@ module Edition::RoleAppointments
   def can_be_associated_with_role_appointments?
     true
   end
+
+  module InstanceMethods
+    def search_index
+      super.merge("people" => role_appointments.map(&:person_id))
+    end
+  end
 end

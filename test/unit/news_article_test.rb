@@ -66,4 +66,9 @@ class NewsArticleTest < EditionTestCase
       refute news_article.valid?
     end
   end
+
+  test "search_index should include people" do
+    news_article = create(:news_article, role_appointments: [create(:role_appointment), create(:role_appointment)])
+    assert_equal news_article.role_appointments.map(&:person_id), news_article.search_index["people"]
+  end
 end
