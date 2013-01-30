@@ -14,6 +14,9 @@ class Publication < Publicationesque
 
   after_update { |p| p.published_related_policies.each(&:update_published_related_publication_count) }
 
+  scope :not_statistics, where("publication_type_id NOT IN (?)", PublicationType.statistical.map(&:id))
+  scope :statistics, where(publication_type_id: PublicationType.statistical.map(&:id))
+
   def allows_inline_attachments?
     false
   end
@@ -62,7 +65,7 @@ class Publication < Publicationesque
   end
 
   def statistics?
-    [PublicationType::Statistics, PublicationType::NationalStatistics].include?(publication_type)
+    PublicationType.statistical.include?(publication_type)
   end
 
   def access_limited_by_default?
