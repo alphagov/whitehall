@@ -1,3 +1,3 @@
 Tire.configure do
-  url Whitehall.elastic_search_url
+  url Plek.current.find("search")
 end
