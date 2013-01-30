@@ -43,7 +43,7 @@ group :assets do
   gem 'sass', '3.2.5'
   gem 'sass-rails', '3.1.4'
   gem 'uglifier'
-  gem 'shared_mustache', '~> 0.0.1'
+  gem 'shared_mustache', '~> 0.0.2'
 end
 
 group :development, :staging, :test do
