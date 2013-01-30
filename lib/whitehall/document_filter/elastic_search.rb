@@ -14,8 +14,18 @@ module Whitehall::DocumentFilter
 
     def keyword_search(search)
       if @keywords.present?
-        search.query do |query|
-          query.string @keywords
+        search.query do |q|
+        # q.string @keywords
+          q.boolean do |it|
+            it.should do |q|
+              q.text 'title', @keywords, { type: 'phrase_prefix',
+                                           operator: 'and',
+                                           analyzer: 'query_default',
+                                           boost: 100,
+                                           fuzziness: 0.3 }
+            end
+            it.should { |q| q.string @keywords, default_operator: 'and', analyzer: 'query_default' }
+          end
         end
       else
         search.query { all }

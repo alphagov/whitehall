@@ -1,6 +1,8 @@
 require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
+require 'tire/rails/logger'
+
 
 if defined?(Bundler)
   # If you precompile assets before deploying to production, use this line
