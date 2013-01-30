@@ -1,6 +1,7 @@
 
 When /^I import the following data as CSV as "([^"]*)" for "([^"]*)":$/ do |document_type, organisation_name, data|
   organisation = create(:organisation, name: organisation_name)
+  import_data_as_document_type_for_organisation(data, document_type, organisation)
 end
 
 Then /^the import should fail and no editions are created$/ do
