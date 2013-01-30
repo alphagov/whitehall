@@ -28,8 +28,7 @@ module("Document filter", {
     this.resultsCount = $('<div class="filter-results-summary"><h3 class="selections"></h3></div>');
     $('#qunit-fixture').append(this.resultsCount);
 
-    this.selections = $('<div class="selections"></div>');
-    $('#qunit-fixture').append(this.selections);
+    this.selections = this.resultsCount.find('.selections');
 
     this.ajaxData = {
       "next_page_url": '/next-page-url',
@@ -321,6 +320,7 @@ test("should update browser location on successful ajax response", function() {
 });
 
 test("should not enable ajax filtering if browser does not support HTML5 History API", function() {
+  var oldHistory = window.GOVUK.support.history;
   window.GOVUK.support.history = function() {return false;}
 
   this.filterForm.enableDocumentFilter();
@@ -333,16 +333,21 @@ test("should not enable ajax filtering if browser does not support HTML5 History
   server.respond();
 
   sinon.assert.callCount(ajax, 0);
+  window.GOVUK.support.history = oldHistory;
 });
 
 test("should create live count value", function(){
+  window.GOVUK.documentFilter.$form = this.filterForm;
+
   var data = { total_count: 1337 };
 
-  window.GOVUK.documentFilter.liveResultSummary(data, {});
-  equals(this.resultsCount.find('span.count').text(), '1337 results');
+  window.GOVUK.documentFilter.liveResultSummary(data);
+  ok(this.resultsCount.text().indexOf('1337 results') > -1, 'should display 1337 results');
 });
 
 test("should update selections to match filters", function(){
+  window.GOVUK.documentFilter.$form = this.filterForm;
+
   var data = { total_count: 1337 },
       formStatus = {
         selected: [
@@ -354,22 +359,31 @@ test("should update selections to match filters", function(){
         ]
       };
 
+  var stub = sinon.stub(GOVUK.documentFilter, "currentPageState");
+  stub.returns(formStatus);
+
   window.GOVUK.documentFilter.liveResultSummary(data, formStatus);
 
-  equals(this.selections.find('.topics-selections span').text(), 'my-title ×');
-  equals(this.selections.find('.topics-selections span a').attr('data-val'), 'my-value');
+  ok(this.selections.find('.topics-selections strong').text().indexOf('my-title') > -1);
+  equals(this.selections.find('.topics-selections strong a').attr('data-val'), 'my-value');
+  stub.restore();
 });
 
-test("should remove item from chosen list and request removal from document filters", function(){
-  this.selections.append('<div class="chosen"><span><a data-val="something">hello</a></span></div>');
+test("should request removal from document filters", function(){
+  this.selections.append('<a href="#" data-field="topics" data-val="something">hello</a>');
 
   var stub = sinon.stub(GOVUK.documentFilter, "removeFilters");
 
-  GOVUK.documentFilter.filterEvents();
+  this.filterForm.enableDocumentFilter();
+
   this.selections.find('a').click();
 
-  equal(stub.getCall(0).args[0], 'something')
-  equal(this.selections.find('span').length, 0);
+  if(stub.getCall(0)){
+    equal(stub.getCall(0).args[0], 'topics')
+    equal(stub.getCall(0).args[1], 'something')
+  } else {
+    ok(stub.getCall(0), "stub not called");
+  }
   stub.restore();
 });
 
@@ -377,7 +391,7 @@ test("should remove selection from apropriate filter", function(){
   this.filterForm.find('option[value="dept1"]').attr('selected', 'selected');
 
   equal(this.filterForm.find('select option[value="dept1"]:selected').length, 1, 'selected to start');
-  GOVUK.documentFilter.removeFilters('dept1');
+  GOVUK.documentFilter.removeFilters('departments', 'dept1');
   equal(this.filterForm.find('select option[value="dept1"]:selected').length, 0, 'selection removed');
 });
 
@@ -386,6 +400,6 @@ test("should select first item in filter if no item would be selected", function
   this.filterForm.find('option[value="dept1"]').attr('selected', 'selected');
 
   equal(this.filterForm.find('select option:selected').length, 1);
-  GOVUK.documentFilter.removeFilters('dept1');
+  GOVUK.documentFilter.removeFilters('departments', 'dept1');
   equal(this.filterForm.find('select option:first-child:selected').length, 1);
 });
