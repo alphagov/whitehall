@@ -104,28 +104,28 @@ class WorldLocationsControllerTest < ActionController::TestCase
     assert_select ".body", text: "body-in-html"
   end
 
-  test "shows featured news articles in order of first publication date with most recent first" do
+  test "shows featured items in defined order" do
     world_location = create(:world_location)
     less_recent_news_article = create(:published_news_article, first_published_at: 2.days.ago)
-    more_recent_news_article = create(:published_news_article, first_published_at: 1.day.ago)
-    create(:edition_world_location, edition: less_recent_news_article, world_location: world_location, featured: true)
-    create(:edition_world_location, edition: more_recent_news_article, world_location: world_location, featured: true)
+    more_recent_news_article = create(:published_publication, first_published_at: 1.day.ago)
+    create(:featured_edition_world_location, ordering: 1, edition: less_recent_news_article, world_location: world_location)
+    create(:featured_edition_world_location, ordering: 2, edition: more_recent_news_article, world_location: world_location)
 
     get :show, id: world_location
 
-    assert_equal [more_recent_news_article, less_recent_news_article], assigns(:featured_news_articles)
+    assert_equal [less_recent_news_article, more_recent_news_article], assigns(:featured_editions).map(&:edition)
   end
 
-  test "shows a maximum of 3 featured news articles" do
+  test "shows a maximum of 5 featured news articles" do
     world_location = create(:world_location)
-    4.times do
+    6.times do
       news_article = create(:published_news_article)
-      create(:edition_world_location, edition: news_article, world_location: world_location, featured: true)
+      create(:featured_edition_world_location, edition: news_article, world_location: world_location)
     end
 
     get :show, id: world_location
 
-    assert_equal 3, assigns(:featured_news_articles).length
+    assert_equal 5, assigns(:featured_editions).length
   end
 
   test "should display world_location's latest two announcements in reverse chronological order" do

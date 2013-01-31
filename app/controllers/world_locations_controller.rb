@@ -18,7 +18,7 @@ class WorldLocationsController < PublicFacingController
         @non_statistics_publications = PublicationesquePresenter.decorate(Publication.published.not_statistics.in_world_location(@world_location).in_reverse_chronological_order.limit(2))
         @statistics_publications = PublicationesquePresenter.decorate(Publication.published.statistics.in_world_location(@world_location).in_reverse_chronological_order.limit(2))
         @announcements = AnnouncementPresenter.decorate(Announcement.published.in_world_location(@world_location).in_reverse_chronological_order.limit(2))
-        @featured_news_articles = @world_location.featured_news_articles.in_reverse_chronological_order.limit(3)
+        @featured_editions = FeaturedEditionPresenter.decorate(@world_location.featured_edition_world_locations.limit(5))
       end
     end
   end

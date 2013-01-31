@@ -5,7 +5,7 @@
 
   <div class="block-1">
     <div class="inner-block">
-      <header class="page-header world-locations <% if @featured_news_articles.any? %>with_featured<% end %>">
+      <header class="page-header world-locations <% if @featured_editions.any? %>with_featured<% end %>">
         <hgroup>
           <h2 class="type"><%= @world_location.display_type %></h2>
           <h1 class="name">UK and <%= @world_location.name %></h1>
@@ -16,12 +16,25 @@
 
   <div class="block-2">
     <div class="inner-block">
-      <%= render 'shared/hero_rotator', editions: @featured_news_articles if @featured_news_articles.any? %>
+      <section class="world-location-news items-<%= @featured_editions.length %>" id="featured-documents">
+        <% if @featured_editions.any? %>
+          <%= render partial: 'shared/featured_news',
+                    locals: { edition: @featured_editions.first,
+                              extra_class: 'first',
+                              show_meta: true,
+                              image_size: :s630 } %>
+          <%= render partial: 'shared/featured_news',
+                     collection: @featured_editions.to_a.from(1),
+                     as: :edition,
+                     locals: { show_meta: true,
+                               extra_class: "secondary" } %>
+        <% end %>
 
-      <%= render partial: 'shared/recently_updated',
-                locals: { recently_updated: @recently_updated,
-                          atom_url: world_location_url(@world_location, format: :atom),
-                          govdelivery_url: '' } %>
+        <%= render partial: 'shared/recently_updated',
+                  locals: { recently_updated: @recently_updated,
+                            atom_url: world_location_url(@world_location, format: :atom),
+                            govdelivery_url: '' } %>
+      </section>
     </div>
   </div>
 
