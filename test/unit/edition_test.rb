@@ -81,6 +81,25 @@ class EditionTest < ActiveSupport::TestCase
     refute Edition.latest_published_edition.include?(new_draft)
   end
 
+  test '.most_recent_cahnge_note returns the most recent change note' do
+    editor = create(:departmental_editor)
+    edition = create(:published_edition)
+
+    refute edition.most_recent_change_note
+
+    version_2 = edition.create_draft(editor)
+    version_2.change_note = 'My new version'
+    version_2.publish_as(editor, force: true)
+
+    assert_equal 'My new version', version_2.most_recent_change_note
+
+    version_3 = version_2.create_draft(editor)
+    version_3.minor_change = true
+    version_3.publish_as(editor, force: true)
+
+    assert_equal 'My new version', version_3.most_recent_change_note
+  end
+
   test "should return a list of editions in a topic" do
     topic_1 = create(:topic)
     topic_2 = create(:topic)
