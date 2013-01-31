@@ -15,14 +15,14 @@ module Whitehall::DocumentFilter
     def keyword_search(search)
       if @keywords.present?
         search.query do |q|
-        # q.string @keywords
+          # q.string @keywords
           q.boolean do |it|
             it.should do |q|
               q.text 'title', @keywords, { type: 'phrase_prefix',
                                            operator: 'and',
                                            analyzer: 'query_default',
-                                           boost: 100,
-                                           fuzziness: 0.3 }
+                                           boost: 10,
+                                           fuzziness: 0.5 }
             end
             it.should { |q| q.string @keywords, default_operator: 'and', analyzer: 'query_default' }
           end
@@ -93,10 +93,11 @@ module Whitehall::DocumentFilter
         case @direction
         when "before"
           search.filter :range, public_timestamp: {to: @date - 1.day}
-          search.sort { by :public_timestamp, :desc }
+          # Sort ordering is messing with the scores
+          search.sort { by :public_timestamp, :desc } unless @keywords.present?
         when "after"
           search.filter :range, public_timestamp: {from: @date }
-          search.sort { by :public_timestamp}
+          search.sort { by :public_timestamp} unless @keywords.present?
         end
       end
     end
