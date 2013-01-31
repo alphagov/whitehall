@@ -3,7 +3,9 @@ module Edition::WorldLocations
 
   class Trait < Edition::Traits::Trait
     def process_associations_before_save(edition)
-      edition.world_locations = @edition.world_locations
+      @edition.edition_world_locations.each do |association|
+        edition.edition_world_locations.build(association.attributes.except("id"))
+      end
     end
   end
 
