@@ -150,6 +150,11 @@
       margin: 0;
       padding: 0;
     }
+    ol {
+      @include media(desktop) {
+        list-style-position: inside;
+      }
+    }
   }
 
   .information-block:after {
