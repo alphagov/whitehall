@@ -36,22 +36,39 @@ When /^I visit the world locations page$/ do
   visit world_locations_path
 end
 
-When /^I set the featured news articles of the (?:country|overseas territory|international delegation) "([^"]*)" to:$/ do |name, table|
-  world_location = WorldLocation.find_by_name!(name)
-  visit edit_admin_world_location_path(world_location)
-  table.rows.each do |title|
-    news_article = NewsArticle.find_by_title(title)
-    within record_css_selector(news_article) do
-      click_button "Feature"
-    end
+When /^I feature the news article "([^"]*)" for (?:country|overseas territory|international delegation) "([^"]*)"(?: with image "([^"]*)")?$/ do |news_article_title, organisation_name, image_filename|
+  image_filename ||= 'minister-of-funk.960x640.jpg'
+  organisation = WorldLocation.find_by_name!(organisation_name)
+  visit admin_world_location_featurings_path(organisation)
+  news_article = NewsArticle.find_by_title(news_article_title)
+  within record_css_selector(news_article) do
+    click_link "Feature"
   end
+  attach_file "Select an image to be shown when featuring", Rails.root.join("test/fixtures/#{image_filename}")
+  fill_in :alt_text, with: "An accessible description of the image"
+  click_button "Save"
 end
 
-Then /^I should see the featured news articles of the (?:country|overseas territory|international delegation) "([^"]*)" are:$/ do |name, expected_table|
+When /^I order the featured items of the (?:country|overseas territory|international delegation) "([^"]*)" to:$/ do |name, table|
+  world_location = WorldLocation.find_by_name!(name)
+  visit admin_world_location_featurings_path(world_location)
+  table.rows.each_with_index do |(title), index|
+    fill_in title, with: index
+  end
+  click_on "Save"
+end
+
+Then /^I should see the featured items of the (?:country|overseas territory|international delegation) "([^"]*)" are:$/ do |name, expected_table|
   world_location = WorldLocation.find_by_name!(name)
   visit world_location_path(world_location)
   rows = find(featured_documents_selector).all('.news_article')
-  table = rows.map { |r| r.all('a.title').map { |c| c.text.strip } }
+  table = rows.collect do |row|
+    [
+      row.find('h2').text.strip,
+      File.basename(row.find('.featured-image')['src'])
+    ]
+  end
+  expected_table.diff!(table)
   expected_table.diff!(table)
 end
 
