@@ -19,12 +19,11 @@
                               extra_class: 'first',
                               show_meta: true,
                               image_size: :s630 } %>
-          <% @featured_editions.to_a.from(1).each_with_index do |edition, i| %>
-            <%= render partial: 'shared/featured_news',
-                      locals: { edition: edition,
-                                show_meta: true,
-                                extra_class: "secondary item-#{i}" } %>
-          <% end %>
+          <%= render partial: 'shared/featured_news',
+                     collection: @featured_editions.to_a.from(1),
+                     as: :edition,
+                     locals: { show_meta: true,
+                               extra_class: "secondary" } %>
         <% end %>
 
         <%= render partial: 'shared/recently_updated',

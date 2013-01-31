@@ -1,9 +1,10 @@
 <%
   extra_class ||= ""
+  extra_class << " item-#{edition_counter}" if defined?(edition_counter)
   image_size ||= :s300
   show_meta ||= false
 %>
-<%= content_tag_for(:article, edition, nil, class: "#{edition_organisation_class(edition)} #{extra_class}") do %>
+<%= content_tag_for(:article, edition, nil, class: "#{edition_organisation_class(edition)} #{extra_class.strip}") do %>
   <div class="content">
     <span class="img-holder">
       <%= link_to edition.image_tag(image_size), public_document_path(edition), title: "Read the #{edition.title} article", class: 'img'%>

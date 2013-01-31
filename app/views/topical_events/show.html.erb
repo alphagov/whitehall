@@ -32,12 +32,10 @@
     <div class="inner-block">
       <% if @featured_editions.any? %>
         <section class="featured-news items-<%= @featured_editions.length %>">
-          <% @featured_editions.each_with_index do |edition, i| %>
-            <%= render partial: 'shared/featured_news',
-                      locals: { edition: edition,
-                                image_size: :s465,
-                                extra_class: "item-#{i}"} %>
-          <% end %>
+          <%= render partial: 'shared/featured_news',
+                     collection: @featured_editions,
+                     as: :edition,
+                     locals: { image_size: :s465 } %>
         </section>
       <% end %>
     </div>
