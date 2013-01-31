@@ -99,7 +99,6 @@ Whitehall::Application.routes.draw do
         resources :policy_advisory_groups, except: [:show]
         resources :operational_fields, except: [:show]
         resources :edition_organisations, only: [:edit, :update]
-        resources :edition_world_locations, only: [:update]
         resources :topics, path: "topics", except: [:show]
         resources :topical_events, path: "topical-events", except: [:show] do
           resources :classification_featurings, path: "featurings"
@@ -142,7 +141,9 @@ Whitehall::Application.routes.draw do
         resources :roles, except: [:show] do
           resources :role_appointments, only: [:new, :create, :edit, :update, :destroy], shallow: true
         end
-        resources :world_locations, only: [:index, :edit, :update]
+        resources :world_locations, only: [:index, :edit, :update] do
+          resources :edition_world_locations, path: "featurings", as: "featurings", only: [:index, :edit, :update]
+        end
         resources :case_studies, path: "case-studies", except: [:index]
 
         resources :imports do
