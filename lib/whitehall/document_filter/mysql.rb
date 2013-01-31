@@ -11,9 +11,12 @@ module Whitehall::DocumentFilter
     end
     self.number_of_documents_per_page = 20
 
-    def initialize(documents, params = {})
-      @documents = documents
+    def initialize(params = {})
       @params = params
+    end
+
+    def publication_search
+      @documents = Publicationesque.published.includes(:document, :organisations, :attachments, response: :attachments)
       filter_by_topics!
       filter_by_departments!
       filter_by_keywords!
@@ -24,6 +27,7 @@ module Whitehall::DocumentFilter
       filter_by_location!
       paginate!
       apply_sort_direction!
+      self
     end
 
     def all_topics

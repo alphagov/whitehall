@@ -1,7 +1,28 @@
 class PublicationsController < DocumentsController
   class MysqlPublicationesqueDecorator < SimpleDelegator
+    def search
+      __getobj__.publication_search.documents
+    end
     def documents
-      PublicationesquePresenter.decorate(__getobj__.documents)
+      PublicationesquePresenter.decorate(__getobj__.publication_search.documents)
+    end
+    def count
+      search.count
+    end
+    def current_page
+      search.current_page
+    end
+    def num_pages
+      search.num_pages
+    end
+    def total_count
+      search.total_count
+    end
+    def last_page?
+      search.last_page?
+    end
+    def first_page?
+      search.first_page?
     end
   end
 
@@ -13,7 +34,7 @@ class PublicationsController < DocumentsController
       PublicationesquePresenter.decorate(__getobj__.publication_search.results)
     end
     def count
-      search.results.count
+      search.count
     end
     def current_page
       search.current_page
@@ -39,7 +60,7 @@ class PublicationsController < DocumentsController
     clean_malformed_params_array(:topics)
     clean_malformed_params_array(:departments)
 
-    expire_on_next_scheduled_publication(scheduled_publications)
+    # expire_on_next_scheduled_publication(scheduled_publications)
 
     @filter = build_filter
 
@@ -66,7 +87,7 @@ private
       document_filter = Whitehall::DocumentFilter::ElasticSearch.new(params)
       ElasticSearchPublicationesqueDecorator.new(document_filter)
     else
-      document_filter = Whitehall::DocumentFilter::Mysql.new(all_publications, params)
+      document_filter = Whitehall::DocumentFilter::Mysql.new(params)
       MysqlPublicationesqueDecorator.new(document_filter)
     end
   end
@@ -76,8 +97,8 @@ private
   end
 
   def scheduled_publications
-    unfiltered = Publicationesque.scheduled.order("scheduled_publication asc")
-    Whitehall::DocumentFilter::Mysql.new(unfiltered, params.except(:direction)).documents
+    # unfiltered = Publicationesque.scheduled.order("scheduled_publication asc")
+    # Whitehall::DocumentFilter::Mysql.new(unfiltered, params.except(:direction)).documents
   end
 
   def document_class
