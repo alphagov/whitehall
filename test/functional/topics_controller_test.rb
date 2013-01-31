@@ -373,25 +373,6 @@ class TopicsControllerTest < ActionController::TestCase
     end
   end
 
-  test 'atom feed shows a list of summarised and title prefixed documents when asked' do
-    document = create(:document)
-    recent_documents = [
-      newer_edition = create(:published_policy, document: document, first_published_at: 1.month.ago),
-      older_edition = create(:archived_policy, document: document, first_published_at: 1.month.ago)
-    ]
-    topic = build(:topic, id: 1)
-    topic.stubs(:recently_changed_documents).returns(recent_documents)
-    Topic.stubs(:find).returns(topic)
-
-    get :show, id: topic, format: :atom, govdelivery_version: 'yes'
-
-    assert_select_atom_feed do
-      assert_select 'feed > updated', text: newer_edition.public_timestamp.iso8601
-      assert_select_atom_entries(recent_documents, :summary)
-    end
-  end
-
-
   test 'atom feed only shows the last 10 recently changed documents' do
     recent_documents = Array.new(11) { create(:published_policy) }
     topic = build(:topic, id: 1)

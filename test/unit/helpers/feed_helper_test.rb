@@ -64,13 +64,13 @@ class FeedHelperTest < ActionView::TestCase
     stubs(:public_document_url).with(d2).returns '/policy_url'
     stubs(:public_document_url).with(d1).returns '/publication_url'
 
-    documents_as_feed_entries([d2,d1], builder, false)
+    documents_as_feed_entries([d2,d1], builder)
   end
 
   test 'documents_as_feed_entries sets the updated of the builder to the supplied feed_updated_timestamp if no documents are present' do
     builder = mock('builder')
     builder.expects(:updated).with('it is time')
-    documents_as_feed_entries([], builder, false, 'it is time')
+    documents_as_feed_entries([], builder, 'it is time')
   end
 
   test 'documents_as_feed_entries sets the updated of the builder to the public_timestamp of the first supplied document' do
@@ -83,7 +83,24 @@ class FeedHelperTest < ActionView::TestCase
     builder.expects(:updated).with(3.days.ago)
     builder.stubs(:entry)
     stubs(:public_document_url)
-    documents_as_feed_entries([d], builder, false, 'it is time')
+    documents_as_feed_entries([d], builder, 'it is time')
+  end
+
+  test 'documents_as_feed_entries calls document_as_feed_entry with govdelivery set to true if its true' do
+    expects(:feed_wants_govdelivery_version?).returns(true)
+    d = Publication.new
+    d.stubs(:id).returns(12)
+    d.stubs(:public_timestamp).returns(3.days.ago)
+    d.stubs(:first_public_at).returns(1.week.ago)
+
+    builder = mock('builder')
+    entries = sequence('entries')
+
+    builder.expects(:updated).with(3.days.ago)
+    stubs(:public_document_url).with(d).returns '/publication_url'
+    builder.expects(:entry).with(d, id: 'tag:test.dev.gov.uk,2005:Publication/12', url: '/publication_url', published: 1.week.ago, updated: 3.days.ago).yields(builder).in_sequence(entries)
+    expects(:document_as_feed_entry).with(d, builder, true).returns('govspoken content')
+    documents_as_feed_entries([d], builder)
   end
 
   test 'document_as_feed_entry sets the title, category, summary, and content on the builder prefixing the title with the format_name of the document, using the govspoken version of the document as the content when govdelivery_version is false' do

@@ -41,20 +41,17 @@ class HomeControllerTest < ActionController::TestCase
     end
   end
 
-  test 'Atom feed shows a list of recently published documents with summary content and prefixe titles when requested' do
-    create_published_documents
-    draft_documents = create_draft_documents
+  test 'Atom feed shows a list of recently published documents with govdelivery attributes when requested' do
+    editor = create(:departmental_editor)
+    edition = create(:published_speech)
+    version_2 = edition.create_draft(editor)
+    version_2.change_note = 'My new version'
+    version_2.publish_as(editor, force: true)
 
     get :feed, format: :atom, govdelivery_version: 'yes'
 
-    documents = Edition.published.in_reverse_chronological_order
-    recent_documents = documents[0...10]
-    older_documents = documents[10..-1]
-
     assert_select_atom_feed do
-      assert_select 'feed > updated', text: recent_documents.first.public_timestamp.iso8601
-
-      assert_select_atom_entries(recent_documents, :summary)
+      assert_select_atom_entries([version_2], true)
     end
   end
 

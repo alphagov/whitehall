@@ -417,20 +417,6 @@ class PublicationsControllerTest < ActionController::TestCase
     end
   end
 
-  test "index generates an atom feed with sumamry content and prefixed title entries for publications matching the current filter when requested" do
-    org = create(:organisation, name: "org-name")
-    other_org = create(:organisation, name: "other-org")
-    p1 = create(:published_publication, organisations: [org], publication_date: 2.days.ago.to_date)
-    c1 = create(:published_consultation, organisations: [org], opening_on: 1.day.ago.to_date)
-    p2 = create(:published_publication, organisations: [other_org])
-
-    get :index, format: :atom, departments: [org.to_param], govdelivery_version: 'yes'
-
-    assert_select_atom_feed do
-      assert_select_atom_entries([c1, p1], :summary)
-    end
-  end
-
   test "index generates an atom feed entries for consultations matching the current filter" do
     org = create(:organisation, name: "org-name")
     other_org = create(:organisation, name: "other-org")

@@ -3,7 +3,8 @@ module FeedHelper
     link_to "feed", feed_url, class: "feed"
   end
 
-  def documents_as_feed_entries(documents, builder, govdelivery_version = false, feed_updated_timestamp = Time.current)
+  def documents_as_feed_entries(documents, builder, feed_updated_timestamp = Time.current)
+    govdelivery_version = feed_wants_govdelivery_version?
     feed_updated_timestamp =
       if documents.any?
         documents.first.public_timestamp
