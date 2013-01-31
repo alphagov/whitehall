@@ -12,6 +12,7 @@ class Admin::OrganisationsController < Admin::BaseController
 
   def index
     @organisations = Organisation.all
+    @user_organisation = current_user.organisation
   end
 
   def new

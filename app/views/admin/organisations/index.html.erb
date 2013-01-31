@@ -8,24 +8,21 @@
 <table class="organisations table table-striped">
   <thead>
     <tr>
-      <th width="15%">Acronym</th>
-      <th width="40%">Name</th>
-      <th width="10%">Status</th>
-      <th width="35%">URL</th>
+      <th width="10%">Acronym</th>
+      <th width="30%">Name</th>
+      <th width="30%">Type</th>
+      <th width="15%">Status</th>
+      <th width="15%">Link</th>
     </tr>
   </thead>
   <tbody>
+    <% if @user_organisation %>
+      <%= render partial: 'organisation_row',
+                locals: { organisation: @user_organisation, prefix: 'user' } %>
+    <% end %>
     <% @organisations.each do |organisation| %>
-      <%= content_tag_for(:tr, organisation) do %>
-        <td class="acronym">
-          <% if organisation.acronym.present? %>
-            <%= link_to organisation.acronym, admin_organisation_path(organisation), title: "View #{organisation.acronym}" %>
-          <% end %>
-        </td>
-        <td class="name"><%= link_to organisation.name, admin_organisation_path(organisation), title: "View #{organisation.name}" %></td>
-        <td><%= organisation.govuk_status %></td>
-        <td><%= link_to organisation.url %></td>
-      <% end %>
+      <%= render partial: 'organisation_row',
+                locals: { organisation: organisation } %>
     <% end %>
     <% if @organisations.empty? %>
       <tr>
