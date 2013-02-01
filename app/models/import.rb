@@ -87,9 +87,9 @@ class Import < ActiveRecord::Base
         if imported_editions.count == 0
           'Import created no documents'
         elsif imported_editions.imported.count > 0
-          'Documents are still in the "imported" state'
+          'Some still imported'
         elsif force_publishable_editions.count == 0
-          'No documents are in "draft" or "submitted" state'
+          'None to publish'
         else
           nil
         end
