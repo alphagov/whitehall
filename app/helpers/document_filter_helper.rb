@@ -56,7 +56,7 @@ module DocumentFilterHelper
   end
 
   def remove_filter_from_params(key, value=nil)
-    if value
+    if value and params[key].is_a? Array
       params.merge({ key => (params[key] - [value]) })
     else
       params.merge({ key => nil })

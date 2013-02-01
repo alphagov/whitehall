@@ -53,6 +53,13 @@ class DocumentFilterHelperTest < ActionView::TestCase
     assert_equal [{ name: topic.name, value: topic.slug, url: announcements_path(topics: ['three']), joining: '' }], filter_results_selections([topic], 'topics')
   end
 
+  test "filter_results_selections handles when params aren't in the expected format" do
+    topic = build(:topic, slug: 'my-slug')
+    stubs(:params).returns({ controller: 'announcements', action: 'index', "topics" => 'my-slug' })
+
+    assert_equal [{ name: topic.name, value: topic.slug, url: announcements_path, joining: '' }], filter_results_selections([topic], 'topics')
+  end
+
   test "filter_results_keywords gets objects ready for mustache" do
     keywords = %w{one two}
     stubs(:params).returns({ controller: 'announcements', action: 'index', "keywords" => 'one two' })
