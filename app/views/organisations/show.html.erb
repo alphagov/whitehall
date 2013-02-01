@@ -45,7 +45,13 @@
             <p class="description"><%= @organisation.description %></p>
             <p class="parent_organisations">
               <%= organisation_display_name_and_parental_relationship(@organisation) %><% if @organisation.agencies_and_public_bodies.any? %>,
-                supported by <%= link_to "#{@organisation.agencies_and_public_bodies.count} agencies and public bodies", organisations_path(anchor: @organisation.slug) %><% end %>.
+                supported by
+                <% agencies_and_public_bodies_count = @organisation.agencies_and_public_bodies.count %>
+                <% if agencies_and_public_bodies_count == 1 %>
+                  <%= link_to "#{agencies_and_public_bodies_count} public body", organisations_path(anchor: @organisation.slug) %>
+                <% else %>
+                  <%= link_to "#{agencies_and_public_bodies_count} agencies and public bodies", organisations_path(anchor: @organisation.slug) %>
+                <% end %><% end %>.
             </p>
             <p><%= link_to "Read more about what we do", about_organisation_path(@organisation) %></p>
           <% end %>
