@@ -1,7 +1,7 @@
 
 module Whitehall::DocumentFilter
   class Mysql
-    attr_reader :documents
+    attr_accessor :documents
     class << self
       attr_accessor :number_of_documents_per_page
     end
@@ -11,8 +11,7 @@ module Whitehall::DocumentFilter
       @params = params
     end
 
-    def publications_search
-      @documents = Publicationesque.published.includes(:document, :organisations, :attachments, response: :attachments)
+    def apply_filters
       filter_by_topics!
       filter_by_departments!
       filter_by_keywords!
@@ -25,32 +24,19 @@ module Whitehall::DocumentFilter
       apply_sort_direction!
     end
 
+    def publications_search
+      @documents = Publicationesque.published.includes(:document, :organisations, :attachments, response: :attachments)
+      apply_filters
+    end
+
     def announcements_search
       @documents = Announcement.published.includes(:document, :organisations)
-      filter_by_topics!
-      filter_by_departments!
-      filter_by_keywords!
-      filter_by_date!
-      filter_by_publication_filter_option!
-      filter_by_announcement_filter_option!
-      paginate!
-      apply_sort_direction!
+      apply_filters
     end
 
     def policies_search
       @documents = Policy.published.includes(:document)
-      filter_by_topics!
-      filter_by_departments!
-      filter_by_keywords!
-      filter_by_date!
-      filter_by_publication_filter_option!
-      filter_by_announcement_filter_option!
-      paginate!
-      apply_sort_direction!
-    end
-
-    def all_topics
-      Topic.with_content.order(:name)
+      apply_filters
     end
 
     def selected_topics
