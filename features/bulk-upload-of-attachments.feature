@@ -9,7 +9,7 @@ Feature: bulk uploading attachments
     - if the name of a file in my zip is not the same as an existing attachment I am prompted to fill in the metadata (title, isbn, &c)
 
   @quarantine-files
-  Scenario: Uploading a zip file
+  Scenario: Uploading a zip file to an existing document
     Given I am an editor
     And a draft publication "Legalise beards" with a PDF attachment
     When I upload a zip file with a new attachment and a replacement attachment to the publication "Legalise beards"
@@ -21,4 +21,15 @@ Feature: bulk uploading attachments
     But I should see a link to the new attachment
     And I should see a link to the replacement attachment
     And the replaced data file should redirect to the replacement data file
+
+  @quarantine-files
+  Scenario: Uploading a zip file to a new document
+    Given I am an editor
+    When I begin drafting a new publication "Ban beards"
+    And I upload a zip file of new attachments to my new document
+    Then I should see that I'm adding two new attachments
+    When I complete my draft by filling in the metadata for the new attachments
+    And the attachments have been virus-checked
+    And I preview the publication "Ban beards"
+    Then I should see links to the new attachments
 

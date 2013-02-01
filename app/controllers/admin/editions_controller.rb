@@ -35,6 +35,7 @@ class Admin::EditionsController < Admin::BaseController
       redirect_to admin_edition_path(@edition), notice: "The document has been saved"
     else
       flash.now[:alert] = "There are some problems with the document"
+      extract_edition_information_from_errors
       build_edition_dependencies
       render action: "new"
     end

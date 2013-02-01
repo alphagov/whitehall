@@ -83,11 +83,16 @@ class BulkUpload
     end
 
     def new_attachments
-      new_attachments ||=
-        @zip_file.extracted_files.
-          reject { |(filename, location)|
-            @edition.attachments.any? { |a| filename == a.filename }
-          }
+      if @new_attachments.nil?
+        @new_attachments = @zip_file.extracted_files
+        unless @edition.nil?
+          @new_attachments = @new_attachments.
+            reject { |(filename, location)|
+              @edition.attachments.any? { |a| filename == a.filename }
+            }
+        end
+      end
+      @new_attachments
     end
 
     def add_params_for_new_attachments
@@ -103,12 +108,18 @@ class BulkUpload
     end
 
     def replacement_attachments
-      replacement_attachments ||=
-        @zip_file.extracted_files.
-          map { |(filename, location)|
-            [filename, location, @edition.edition_attachments.detect { |a| filename == a.attachment.filename }]
-          }.
-          reject { |(filename, location, edition_attachment)| edition_attachment.nil? }
+      if @replacement_attachments.nil?
+        if @edition.nil?
+          @replacement_attachments = []
+        else
+          @replacement_attachments = @zip_file.extracted_files.
+            map { |(filename, location)|
+              [filename, location, @edition.edition_attachments.detect { |a| filename == a.attachment.filename }]
+            }.
+            reject { |(filename, location, edition_attachment)| edition_attachment.nil? }
+        end
+      end
+      @replacement_attachments
     end
 
     def add_params_to_replace_existing_attachments

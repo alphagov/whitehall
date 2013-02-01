@@ -65,6 +65,17 @@ class BulkUploadZipFileToAttachmentsTest < ActiveSupport::TestCase
     @params = HashWithIndifferentAccess.new
   end
 
+  test '#manipulate_params! is fine when the edition is not present' do
+    @zip_file.stubs(:extracted_files).returns [
+      ['greenpaper.pdf', Rails.root.join('test','fixtures','greenpaper.pdf').to_s],
+      ['two-pages.pdf', Rails.root.join('test','fixtures','two-pages.pdf').to_s]
+    ]
+    zfta = BulkUpload::ZipFileToAttachments.new(@zip_file, nil, @params)
+    assert_nothing_raised do
+      zfta.manipulate_params!
+    end
+  end
+
   test '#manipulate_params! adds no edition_attachments_attributes to params when the zip file is empty' do
     @zip_file.stubs(:extracted_files).returns []
     zfta = BulkUpload::ZipFileToAttachments.new(@zip_file, mock, @params)
@@ -85,6 +96,16 @@ class BulkUploadZipFileToAttachmentsTest < ActiveSupport::TestCase
     zfta = BulkUpload::ZipFileToAttachments.new(@zip_file, mock, @params)
     zfta.manipulate_params!
     assert @params.has_key?('attachments_were_bulk_uploaded')
+  end
+
+  test '#new_attachments is all of the files if the edition is not present' do
+    @zip_file.stubs(:extracted_files).returns [
+      ['dave.pdf', Rails.root.join('dave.pdf').to_s],
+      ['brian.txt', Rails.root.join('brian.txt').to_s]
+    ]
+    zfta = BulkUpload::ZipFileToAttachments.new(@zip_file, nil, @params)
+    new_attachments = zfta.new_attachments
+    assert_equal ['dave.pdf', 'brian.txt'], new_attachments.map {|f,l| f}
   end
 
   test '#new_attachments is all of the files if the supplied edition doesn\'t have any attachments' do
@@ -123,6 +144,15 @@ class BulkUploadZipFileToAttachmentsTest < ActiveSupport::TestCase
     ])
     zfta = BulkUpload::ZipFileToAttachments.new(@zip_file, edition, @params)
     assert zfta.new_attachments.empty?
+  end
+
+  test '#replacement_attachments is empty if the edition is not present' do
+    @zip_file.stubs(:extracted_files).returns [
+      ['dave.pdf', Rails.root.join('dave.pdf').to_s],
+      ['brian.txt', Rails.root.join('brian.txt').to_s]
+    ]
+    zfta = BulkUpload::ZipFileToAttachments.new(@zip_file, nil, @params)
+    assert zfta.replacement_attachments.empty?
   end
 
   test '#replacement_attachments is empty if the supplied edition doesn\'t have any attachments' do
