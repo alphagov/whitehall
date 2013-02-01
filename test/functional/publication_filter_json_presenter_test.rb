@@ -2,11 +2,7 @@ require 'test_helper'
 
 class PublicationFilterJsonPresenterTest < PresenterTestCase
   setup do
-    @filter = stub_everything("Whitehall::DocumentFilter::Mysql",
-      count: 1,
-      current_page: 1,
-      num_pages: 1,
-      documents: [])
+    @filter = Whitehall::DocumentFilter::FakeSearch.new
     self.params[:action] = :index
     self.params[:controller] = :publications
   end
@@ -25,7 +21,7 @@ class PublicationFilterJsonPresenterTest < PresenterTestCase
     # isn't neccessary
     publication.stubs(:organisations).returns([organisation])
     publication.stubs(:document_series).returns([stub_record(:document_series, name: "test-series", organisation: organisation)])
-    @filter.stubs(:documents).returns(PublicationesquePresenter.decorate([publication]))
+    @filter.stubs(:documents).returns(PublicationesquePresenter.decorate(Kaminari.paginate_array([publication]).page(1)))
     json = JSON.parse(PublicationFilterJsonPresenter.new(@filter).to_json)
     assert_equal 1, json['results'].size
     assert_equal %{<abbr class="public_timestamp" title="2012-12-12T00:00:00+00:00">12 December 2012</abbr>}, json['results'].first["display_date_microformat"]

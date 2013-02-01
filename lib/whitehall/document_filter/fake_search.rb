@@ -13,19 +13,19 @@ module Whitehall::DocumentFilter
     end
 
     def announcements_search
-
+      # Announcement.all
     end
 
     def publications_search
-
+      # Publication.all
     end
 
     def policies_search
-
+      # Policy.all
     end
 
     def documents
-      Kaminari.paginate_array([]).page(@page).per(@per_page)
+      @documents ||= Kaminari.paginate_array([]).page(@page).per(@per_page)
     end
 
     def selected_topics
