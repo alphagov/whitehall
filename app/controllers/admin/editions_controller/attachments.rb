@@ -5,7 +5,12 @@ module Admin::EditionsController::Attachments
     before_filter :build_edition_attachment, only: [:new, :edit]
     before_filter :cope_with_attachment_action_params, only: [:update]
     before_filter :build_bulk_uploader, only: [:new, :edit]
-    before_filter :extract_attachments_from_zip_file, only: [:create, :update]
+    before_filter :extract_attachments_from_zip_file, only: [:update]
+  end
+
+  def build_edition
+    extract_attachments_from_zip_file
+    super
   end
 
   def build_edition_dependencies
@@ -35,9 +40,7 @@ module Admin::EditionsController::Attachments
       zip_file_to_attachments = BulkUpload::ZipFileToAttachments.new(@bulk_upload_zip_file, @edition, params[:edition])
       zip_file_to_attachments.manipulate_params!
     else
-      @edition.attributes = params[:edition]
-      @edition.errors.add(:bulk_upload_zip_file, 'is invalid')
-      render @edition.new_record? ? :new : :edit
+      params[:edition]['bulk_upload_zip_file_invalid'] = true
     end
   end
 end

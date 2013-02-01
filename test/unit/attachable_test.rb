@@ -137,4 +137,20 @@ class AttachableForceReviewTest < ActiveSupport::TestCase
     t.attachments_were_bulk_uploaded = true
     refute t.valid?
   end
+
+  test 'it adds an bulk_upload_zip_file_invalid attribute' do
+    assert TestObject.new.respond_to?(:bulk_upload_zip_file_invalid)
+  end
+
+  test 'it is valid if the bulk_upload_zip_file_invalid attribute is nil' do
+    t = TestObject.new
+    assert t.valid?
+  end
+
+  test 'it is invalid if the bulk_upload_zip_file_invalid attribute is not nil' do
+    t = TestObject.new
+    t.bulk_upload_zip_file_invalid = true
+    refute t.valid?
+  end
+
 end
