@@ -1,11 +1,7 @@
 
 module Whitehall::DocumentFilter
   class Mysql
-    extend Forwardable
     attr_reader :documents
-
-    delegate [:count, :current_page, :num_pages, :last_page?, :first_page?, :total_count] => :documents
-
     class << self
       attr_accessor :number_of_documents_per_page
     end
