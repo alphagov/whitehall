@@ -8,6 +8,12 @@ class PoliciesController < DocumentsController
   respond_to :atom, only: :activity
   respond_to :json, only: :index
 
+  class SearchPoliciesDecorator < SimpleDelegator
+    def documents
+      PolicyPresenter.decorate(__getobj__.documents)
+    end
+  end
+
   def index
     clean_malformed_params_array(:topics)
     clean_malformed_params_array(:departments)
@@ -15,6 +21,7 @@ class PoliciesController < DocumentsController
     @filter = build_filter(params.reverse_merge({ page: 1, direction: 'alphabetical' }))
 
     respond_with PolicyFilterJsonPresenter.new(@filter)
+
   end
 
   def show
@@ -42,9 +49,9 @@ class PoliciesController < DocumentsController
 
   def build_filter(params)
     document_filter = Whitehall.search_backend.new(params)
-    # search = SearchPoliciesDecorator.new(document_filter)
-    document_filter.policies_search
-    document_filter
+    search = SearchPoliciesDecorator.new(document_filter)
+    search.policies_search
+    search
   end
 
   def analytics_format
