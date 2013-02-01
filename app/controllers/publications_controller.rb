@@ -35,17 +35,10 @@ class PublicationsController < DocumentsController
 private
 
   def build_filter
-    if params[:use_elastic_search].present?
-      document_filter = Whitehall::DocumentFilter::ElasticSearch.new(params)
-      search = SearchPublicationesqueDecorator.new(document_filter)
-      search.publication_search
-      search
-    else
-      document_filter = Whitehall::DocumentFilter::Mysql.new(params)
-      search = SearchPublicationesqueDecorator.new(document_filter)
-      search.publication_search
-      search
-    end
+    document_filter = Whitehall.search_backend.new(params)
+    search = SearchPublicationesqueDecorator.new(document_filter)
+    search.publication_search
+    search
   end
 
   def all_publications
