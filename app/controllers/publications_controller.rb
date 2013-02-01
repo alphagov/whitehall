@@ -1,55 +1,7 @@
 class PublicationsController < DocumentsController
-  class MysqlPublicationesqueDecorator < SimpleDelegator
-    def search
-      __getobj__.publication_search.documents
-    end
+  class SearchPublicationesqueDecorator < SimpleDelegator
     def documents
-      PublicationesquePresenter.decorate(__getobj__.publication_search.documents)
-    end
-    def count
-      search.count
-    end
-    def current_page
-      search.current_page
-    end
-    def num_pages
-      search.num_pages
-    end
-    def total_count
-      search.total_count
-    end
-    def last_page?
-      search.last_page?
-    end
-    def first_page?
-      search.first_page?
-    end
-  end
-
-  class ElasticSearchPublicationesqueDecorator < SimpleDelegator
-    def search
-      __getobj__.publication_search.results
-    end
-    def documents
-      PublicationesquePresenter.decorate(__getobj__.publication_search.results)
-    end
-    def count
-      search.count
-    end
-    def current_page
-      search.current_page
-    end
-    def num_pages
-      search.total_pages
-    end
-    def total_count
-      search.total_entries
-    end
-    def last_page?
-      search.last_page?
-    end
-    def first_page?
-      search.first_page?
+      PublicationesquePresenter.decorate(__getobj__.documents)
     end
   end
 
@@ -85,10 +37,14 @@ private
   def build_filter
     if params[:use_elastic_search].present?
       document_filter = Whitehall::DocumentFilter::ElasticSearch.new(params)
-      ElasticSearchPublicationesqueDecorator.new(document_filter)
+      search = SearchPublicationesqueDecorator.new(document_filter)
+      search.publication_search
+      search
     else
       document_filter = Whitehall::DocumentFilter::Mysql.new(params)
-      MysqlPublicationesqueDecorator.new(document_filter)
+      search = SearchPublicationesqueDecorator.new(document_filter)
+      search.publication_search
+      search
     end
   end
 

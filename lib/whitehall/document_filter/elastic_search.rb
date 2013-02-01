@@ -108,7 +108,7 @@ module Whitehall::DocumentFilter
     end
 
     def announcement_search
-      @results ||= Tire.search Whitehall.government_search_index_name, load: {include: [:document, :organisations]} do |search|
+      @query ||= Tire.search Whitehall.government_search_index_name, load: {include: [:document, :organisations]} do |search|
         filter_by_announcement_type(search)
         keyword_search(search)
         filter_topics(search)
@@ -120,7 +120,7 @@ module Whitehall::DocumentFilter
     end
 
     def publication_search
-      @results ||= Tire.search Whitehall.government_search_index_name, load: {include: [:document, :organisations, :attachments, response: :attachments]} do |search|
+      @query ||= Tire.search Whitehall.government_search_index_name, load: {include: [:document, :organisations, :attachments, response: :attachments]} do |search|
         filter_by_publication_type(search)
         keyword_search(search)
         filter_topics(search)
@@ -131,7 +131,7 @@ module Whitehall::DocumentFilter
     end
 
     def policy_search
-      @results ||= Tire.search Whitehall.government_search_index_name, load: {include: [:document, :organisations]} do |search|
+      @query ||= Tire.search Whitehall.government_search_index_name, load: {include: [:document, :organisations]} do |search|
         search.filter :term, format: "policy"
         keyword_search(search)
         filter_topics(search)
@@ -139,6 +139,10 @@ module Whitehall::DocumentFilter
         filter_date_and_sort(search)
         paginate(search)
       end
+    end
+
+    def documents
+      @query.results
     end
 
     def selected_topics

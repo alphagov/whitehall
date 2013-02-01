@@ -27,7 +27,6 @@ module Whitehall::DocumentFilter
       filter_by_location!
       paginate!
       apply_sort_direction!
-      self
     end
 
     def all_topics
