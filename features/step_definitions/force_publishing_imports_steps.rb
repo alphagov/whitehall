@@ -54,7 +54,7 @@ end
 Then /^I can see the log output of the force publish for my import$/ do
   visit admin_imports_path
   within("tr#import_#{@force_publish_import.id}") do
-    click_on 'Force publication log'
+    click_on 'View log for most recent force publication attempt'
   end
 
   within '.log' do

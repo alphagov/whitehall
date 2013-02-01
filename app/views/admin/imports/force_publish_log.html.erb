@@ -8,7 +8,7 @@
   <% if @most_recent_attempt.status == :new %>
     <h2 class="summary">New attempt</h2>
     <p><%= @most_recent_attempt.total_documents %> documents</p>
-  <% elsif @most_recent_attempt.status == :enqueued %>
+  <% elsif @most_recent_attempt.status == :queued %>
     <h2 class="summary">Queued</h2>
     <p>Queued: <%= render_datetime_microformat(@most_recent_attempt, :enqueued_at) { @most_recent_attempt.enqueued_at.to_s(:long)} %></p>
 

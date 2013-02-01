@@ -31,7 +31,7 @@ class ForcePublicationAttempt < ActiveRecord::Base
     if enqueued_at.nil?
       :new
     elsif started_at.nil?
-      :enqueued
+      :queued
     elsif finished_at.nil?
       :running
     elsif total_documents == successful_documents
@@ -39,6 +39,22 @@ class ForcePublicationAttempt < ActiveRecord::Base
     else
       :failures
     end
+  end
+
+  def status_timestamp_method
+    case status
+    when :new
+      :created_at
+    when :queued
+      :enqueued_at
+    when :running
+      :started_at
+    else
+      :finished_at
+    end
+  end
+  def status_timestamp
+    __send__(status_timestamp_method)
   end
 
   def repeatable?

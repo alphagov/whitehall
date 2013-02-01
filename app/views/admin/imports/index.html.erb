@@ -45,13 +45,17 @@
               <%= import.import_finished_at && render_datetime_microformat(import, :import_finished_at) { import.import_finished_at.to_s(:long)} %>
             </td>
             <td class="force_publish">
-              <% if import.most_recent_force_publication_attempt.present? %>
-                <%= link_to 'Force publication log', force_publish_log_admin_import_path(import), class: 'btn btn-small', title: 'View the log result from the last attempt to force publish this import' %>
-              <% end %>
-              <% if import.force_publishable? %>
-                <%= button_to "Force publish #{pluralize(import.force_publishable_editions.count, 'document')}", force_publish_admin_import_path(import), class: "btn btn-small btn-primary" %>
-              <% else %>
-                <p class="alert alert-info"><%= import.reason_for_not_being_force_publishable %></p>
+              <% unless import.status == :failed %>
+                <% if import.most_recent_force_publication_attempt.present? %>
+                  <%= link_to force_publication_attempt_state_and_time(import.most_recent_force_publication_attempt), force_publish_log_admin_import_path(import), title: 'View log for most recent force publication attempt' %>
+                <% end %>
+                <% if import.force_publishable? %>
+                  <%= button_to "Force publish #{pluralize(import.force_publishable_editions.count, 'document')}", force_publish_admin_import_path(import), class: "btn btn-small btn-primary" %>
+                <% else %>
+                  <% if import.most_recent_force_publication_attempt.nil? || (import.most_recent_force_publication_attempt.present? && import.most_recent_force_publication_attempt.status == :failure) %>
+                    <p class="alert alert-warn"><%= import.reason_for_not_being_force_publishable %></p>
+                  <% end %>
+                <% end %>
               <% end %>
             </td>
           <% end %>
