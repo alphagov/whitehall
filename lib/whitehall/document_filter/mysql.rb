@@ -25,7 +25,7 @@ module Whitehall::DocumentFilter
       apply_sort_direction!
     end
 
-    def announcments_search
+    def announcements_search
       @documents = Announcement.published.includes(:document, :organisations)
       filter_by_topics!
       filter_by_departments!
