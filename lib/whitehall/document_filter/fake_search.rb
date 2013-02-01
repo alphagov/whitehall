@@ -12,15 +12,15 @@ module Whitehall::DocumentFilter
       @people_ids = @params[:people_id]
     end
 
-    def announcement_search
+    def announcements_search
 
     end
 
-    def publication_search
+    def publications_search
 
     end
 
-    def policy_search
+    def policies_search
 
     end
 

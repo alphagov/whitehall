@@ -6,15 +6,11 @@ class PublicationsController < DocumentsController
   end
 
   def index
-    params[:page] ||= 1
-    params[:direction] ||= "before"
-
     clean_malformed_params_array(:topics)
     clean_malformed_params_array(:departments)
 
     # expire_on_next_scheduled_publication(scheduled_publications)
-
-    @filter = build_filter
+    @filter = build_filter(params.reverse_merge({ page: 1, direction: 'before' }))
 
     respond_to do |format|
       format.html
@@ -34,10 +30,10 @@ class PublicationsController < DocumentsController
 
 private
 
-  def build_filter
+  def build_filter(params)
     document_filter = Whitehall.search_backend.new(params)
     search = SearchPublicationesqueDecorator.new(document_filter)
-    search.publication_search
+    search.publications_search
     search
   end
 

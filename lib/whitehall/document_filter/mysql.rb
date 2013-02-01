@@ -11,7 +11,7 @@ module Whitehall::DocumentFilter
       @params = params
     end
 
-    def publication_search
+    def publications_search
       @documents = Publicationesque.published.includes(:document, :organisations, :attachments, response: :attachments)
       filter_by_topics!
       filter_by_departments!
@@ -21,6 +21,30 @@ module Whitehall::DocumentFilter
       filter_by_announcement_filter_option!
       filter_by_relevant_to_local_government_option!
       filter_by_location!
+      paginate!
+      apply_sort_direction!
+    end
+
+    def announcments_search
+      @documents = Announcement.published.includes(:document, :organisations)
+      filter_by_topics!
+      filter_by_departments!
+      filter_by_keywords!
+      filter_by_date!
+      filter_by_publication_filter_option!
+      filter_by_announcement_filter_option!
+      paginate!
+      apply_sort_direction!
+    end
+
+    def policies_search
+      @documents = Policy.published.includes(:document)
+      filter_by_topics!
+      filter_by_departments!
+      filter_by_keywords!
+      filter_by_date!
+      filter_by_publication_filter_option!
+      filter_by_announcement_filter_option!
       paginate!
       apply_sort_direction!
     end

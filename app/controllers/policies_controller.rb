@@ -9,13 +9,11 @@ class PoliciesController < DocumentsController
   respond_to :json, only: :index
 
   def index
-    params[:page] ||= 1
-    params[:direction] ||= "alphabetical"
-
     clean_malformed_params_array(:topics)
     clean_malformed_params_array(:departments)
 
-    @filter = Whitehall::DocumentFilter::Mysql.new(policies, params)
+    @filter = build_filter(params.reverse_merge({ page: 1, direction: 'alphabetical' }))
+
     respond_with PolicyFilterJsonPresenter.new(@filter)
   end
 
@@ -42,8 +40,11 @@ class PoliciesController < DocumentsController
     Policy
   end
 
-  def policies
-    Policy.published.includes(:document)
+  def build_filter(params)
+    document_filter = Whitehall.search_backend.new(params)
+    # search = SearchPoliciesDecorator.new(document_filter)
+    document_filter.policies_search
+    document_filter
   end
 
   def analytics_format

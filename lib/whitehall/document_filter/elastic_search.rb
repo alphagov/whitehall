@@ -107,7 +107,7 @@ module Whitehall::DocumentFilter
       search.from( @page.to_i <= 1 ? 0 : (@per_page.to_i * (@page.to_i-1)) )
     end
 
-    def announcement_search
+    def announcements_search
       @query ||= Tire.search Whitehall.government_search_index_name, load: {include: [:document, :organisations]} do |search|
         filter_by_announcement_type(search)
         keyword_search(search)
@@ -119,7 +119,7 @@ module Whitehall::DocumentFilter
       end
     end
 
-    def publication_search
+    def publications_search
       @query ||= Tire.search Whitehall.government_search_index_name, load: {include: [:document, :organisations, :attachments, response: :attachments]} do |search|
         filter_by_publication_type(search)
         keyword_search(search)
@@ -130,7 +130,7 @@ module Whitehall::DocumentFilter
       end
     end
 
-    def policy_search
+    def policies_search
       @query ||= Tire.search Whitehall.government_search_index_name, load: {include: [:document, :organisations]} do |search|
         search.filter :term, format: "policy"
         keyword_search(search)
