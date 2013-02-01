@@ -144,6 +144,9 @@ class Admin::EditionsController < Admin::BaseController
     if @edition.can_be_associated_with_mainstream_categories?
       params[:edition][:other_mainstream_category_ids] ||= []
     end
+    if @edition.can_be_associated_with_topical_events?
+      params[:edition][:topical_event_ids] ||= []
+    end
   end
 
   def build_edition_dependencies

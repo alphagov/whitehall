@@ -1659,5 +1659,79 @@ module AdminEditionControllerTestHelpers
         assert publication.reload.access_limited?
       end
     end
+
+    def should_allow_association_with_topical_events(edition_type)
+      edition_class = edition_class_for(edition_type)
+
+      test "new should display topical events field" do
+        get :new
+
+        assert_select "form#edition_new" do
+          assert_select "select[name*='edition[topical_event_ids]']"
+        end
+      end
+
+      test "create should associate topical events with the edition" do
+        first_topical_event = create(:topical_event)
+        second_topical_event = create(:topical_event)
+        attributes = controller_attributes_for(edition_type)
+
+        post :create, edition: attributes.merge(
+          topical_event_ids: [first_topical_event.id, second_topical_event.id]
+        )
+
+        assert edition = edition_class.last
+        assert_equal [first_topical_event, second_topical_event], edition.topical_events
+      end
+
+      test "edit should display topical events field" do
+        edition = create("draft_#{edition_type}")
+
+        get :edit, id: edition
+
+        assert_select "form#edition_edit" do
+          assert_select "select[name*='edition[topical_event_ids]']"
+        end
+      end
+
+      test "update should associate topical events with the edition" do
+        first_topical_event = create(:topical_event)
+        second_topical_event = create(:topical_event)
+
+        edition = create("draft_#{edition_type}", topical_events: [first_topical_event])
+
+        put :update, id: edition, edition: controller_attributes_for_instance(edition,
+          topical_event_ids: [second_topical_event.id]
+        )
+
+        edition.reload
+        assert_equal [second_topical_event], edition.topical_events
+      end
+
+      test "update should remove all topical_events if none specified explicitly" do
+        topical_event = create(:topical_event)
+
+        edition = create("draft_#{edition_type}", topical_events: [topical_event])
+
+        put :update, id: edition, edition: controller_attributes_for_instance(edition,
+          topical_event_ids: []
+        )
+
+        edition.reload
+        assert_equal [], edition.topical_events
+      end
+
+      test "update should remove all topical_events if none specified implicitly" do
+        topical_event = create(:topical_event)
+
+        edition = create("draft_#{edition_type}", topical_events: [topical_event])
+
+        put :update, id: edition, edition: controller_attributes_for_instance(edition).except(:topical_event_ids)
+
+        edition.reload
+        assert_equal [], edition.topical_events
+      end
+    end
+
   end
 end
