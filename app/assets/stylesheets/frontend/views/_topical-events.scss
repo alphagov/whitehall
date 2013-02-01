@@ -52,47 +52,6 @@
     @extend %contain-floats;
     padding-bottom: $gutter*2;
 
-    .latest-documents {
-      padding-bottom: $gutter;
-
-      @include media(tablet){
-        width: 33.33%;
-        float: left;
-      }
-
-      h1 {
-        @include heading-27;
-        float: left;
-      }
-      .feeds {
-        margin-top: $gutter-half;
-      }
-      .no-updates {
-        clear: both;
-        @include copy-19;
-      }
-      .document-list {
-        margin-top: 0;
-        clear:  both;
-        @include media(tablet){
-          padding-right: $gutter-half;
-        }
-
-        .document-row {
-          border-bottom: none;
-          
-          th {
-            @include core-14;
-            margin: $gutter-one-third 0 0 0;
-            padding: 0;
-          }
-          td {
-            margin: 0;
-            padding: 0 $gutter-one-third 0 0;
-          }
-        }
-      }
-    }
     .description {
       @include media(tablet){
         width: 66.66%;

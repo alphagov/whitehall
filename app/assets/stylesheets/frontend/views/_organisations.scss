@@ -172,10 +172,6 @@
     }
   }
 
-  .feeds {
-    margin-top: $gutter-one-third;
-  }
-
   h1.label,
   .topic h2 {
     @include ig-core-27;
@@ -341,7 +337,7 @@
     }
     &.items-1,
     &.items-4 {
-      .latest-documents {
+      .recently-updated {
         @include media(tablet){
           clear: both;
           width: 66.66%;
@@ -392,44 +388,10 @@
         @include ig-core-16;
       }
     }
-
-    .latest-documents {
-      clear: both;
-      padding-top: $gutter-half;
-
-      @include media(tablet){
-        clear: none;
-        float: left;
-        width: 33.33%;
-        padding: 0;
-      }
-
-      .content {
-        margin: $gutter-half;
-        padding: $gutter-one-sixth $gutter-half $gutter-one-third;
-        @include media(tablet){
-          padding-top: $gutter-half;
-        }
-        background: $panel-colour;
-
-        h1 {
-          margin-bottom: 0;
-        }
-
-        table {
-          @include media(tablet) {
-            margin-top: $gutter-one-third;
-          }
-        }
-        .subscribe {
-          float: none;
-        }
-      }
-    }
   }
 
   .has-social {
-    .organisation-news.items-0 .latest-documents {
+    .organisation-news.items-0 .recently-updated {
       @include media(desktop){
         width: 66.66%;
       }
@@ -504,69 +466,6 @@
       }
     }
   }
-
-  .documents {
-    .inner-block {
-      @extend %contain-floats;
-      padding: 0 0 $gutter*2;
-
-      @include media(tablet){
-        padding: 0 $gutter-half $gutter*2;
-      }
-    }
-
-    .block-title {
-      border-bottom-width: 5px;
-      border-bottom-style: solid;
-      @include heading-27;
-      margin: 0 $gutter-half;
-    }
-
-    .document-block {
-      margin: $gutter-two-thirds 0 $gutter-one-third;
-
-      &.documents-3 {
-        clear: both;
-      }
-
-      @include media(desktop){
-        width: 50%;
-        float: left;
-      }
-
-      h1 {
-        @include heading-24;
-        @include bold;
-        margin: 0 $gutter-half;
-      }
-      .content {
-        margin: 0 $gutter-half;
-        .document {
-          border-bottom: 1px solid $border-colour;
-          padding: $gutter-one-third 0;
-          list-style: none;
-
-          h2 {
-            @include core-19;
-          }
-          .metadata {
-            @include copy-14;
-
-            li {
-              display: inline;
-            }
-          }
-        }
-        .see-all {
-          padding-top: $gutter-one-third;
-          @include core-19;
-          @include bold;
-        }
-      }
-    }
-  }
-
-
 
   #who {
     #ministers,
