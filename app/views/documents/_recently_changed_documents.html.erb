@@ -11,6 +11,7 @@
           <th scope="col">Title</th>
           <th scope="col">Date</th>
           <th scope="col">Document Type</th>
+          <th scope="col">Organisations</th>
         </tr>
       </thead>
       <tbody>
@@ -26,6 +27,12 @@
           <td class="type attribute">
             <%= document.display_type %>
           </td>
+          <% if @policy.organisations.map.any? %>
+            <td class="attribute organisations">
+              <%= @policy.organisations.map { |o|
+                    organisation_display_name(o) }.to_sentence.html_safe %>
+            </td>
+          <% end %>
         <% end %>
       <% end %>
       </tbody>
