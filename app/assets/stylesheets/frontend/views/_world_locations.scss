@@ -149,31 +149,11 @@
         display: inline;
         width: 50%;
       }
-      
+
       h2 {
         @include heading-27;
         @include bold;
       }
-    }
-  }
-}
-
-.world-locations-about {
-  .block-3, .block-4 {
-    float: left;
-    display: inline;
-    width: 25%;
-  }
-
-  .block-4 {
-    width: 75%;
-  }
-
-  .sub_navigation_container {
-    top: 0;
-    margin-bottom: 0;
-    li {
-      list-style: none;
     }
   }
 }
