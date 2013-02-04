@@ -1,0 +1,59 @@
+.recently-updated {
+  clear: both;
+  padding-top: $gutter-half;
+
+  @include media(tablet){
+    clear: none;
+    float: left;
+    width: 33.33%;
+    padding: 0;
+  }
+
+  &.panel {
+    .content {
+      margin: $gutter-half;
+      padding: $gutter-one-sixth $gutter-half $gutter-one-third;
+      @include media(tablet){
+        padding-top: $gutter-half;
+      }
+      background: $panel-colour;
+    }
+  }
+  .content {
+    h1 {
+      @include heading-27;
+    }
+
+    .document-list {
+      margin-top: 0;
+      clear: both;
+
+      .document-row {
+        @include ig-core-14;
+        border-bottom: none;
+
+        th {
+          @include ig-core-14;
+          margin: $gutter-one-third 0 0 0;
+          padding: 0;
+        }
+
+        td {
+          margin: 0;
+          padding: 0 $gutter-one-third 0 0;
+        }
+      }
+    }
+    .feeds {
+      margin-top: $gutter-half;
+
+      .subscribe {
+        float: none;
+      }
+    }
+  }
+  .no-updates {
+    clear: both;
+    @include copy-19;
+  }
+}

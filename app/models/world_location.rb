@@ -2,17 +2,21 @@ class WorldLocation < ActiveRecord::Base
   has_many :edition_world_locations
   has_many :editions,
             through: :edition_world_locations
+  has_many :published_edition_world_locations,
+            class_name: "EditionWorldLocation",
+            include: :edition,
+            conditions: { editions: { state: "published" } }
   has_many :published_editions,
-            through: :edition_world_locations,
-            class_name: "Edition",
-            conditions: { state: "published" },
+            through: :published_edition_world_locations,
             source: :edition
-  has_many :featured_news_articles,
-            through: :edition_world_locations,
-            class_name: "NewsArticle",
-            source: :edition,
-            conditions: { "edition_world_locations.featured" => true,
-                          "editions.state" => "published" }
+  has_many :featured_edition_world_locations,
+            class_name: "EditionWorldLocation",
+            include: :edition,
+            conditions: { edition_world_locations: { featured: true },
+                          editions: { state: "published" } },
+            order: "edition_world_locations.ordering ASC"
+
+  accepts_nested_attributes_for :edition_world_locations
 
   def world_location_type
     WorldLocationType.find_by_id(world_location_type_id)

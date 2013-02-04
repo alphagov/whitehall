@@ -47,6 +47,10 @@ class PublicationType
     by_prevalence[:migration]
   end
 
+  def self.statistical
+    [Statistics, NationalStatistics]
+  end
+
   PolicyPaper            = create(id: 1, singular_name: "Policy paper", plural_name: "Policy papers", prevalence: :primary)
 
   Consultation           = create(id: 16, singular_name: "Consultation", plural_name: "Consultations", prevalence: :primary)

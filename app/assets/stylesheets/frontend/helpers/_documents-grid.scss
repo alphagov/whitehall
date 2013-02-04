@@ -1,0 +1,60 @@
+.documents-grid {
+  .inner-block {
+    @extend %contain-floats;
+    padding: 0 0 $gutter*2;
+
+    @include media(tablet){
+      padding: 0 $gutter-half $gutter*2;
+    }
+  }
+
+  .block-title {
+    border-bottom-width: 5px;
+    border-bottom-style: solid;
+    @include heading-27;
+    margin: 0 $gutter-half;
+  }
+
+  .document-block {
+    margin: $gutter-two-thirds 0 $gutter-one-third;
+
+    &.documents-3 {
+      clear: both;
+    }
+
+    @include media(desktop){
+      width: 50%;
+      float: left;
+    }
+
+    h1 {
+      @include heading-24;
+      @include bold;
+      margin: 0 $gutter-half;
+    }
+    .content {
+      margin: 0 $gutter-half;
+      .document {
+        border-bottom: 1px solid $border-colour;
+        padding: $gutter-one-third 0;
+        list-style: none;
+
+        h2 {
+          @include core-19;
+        }
+        .metadata {
+          @include copy-14;
+
+          li {
+            display: inline;
+          }
+        }
+      }
+      .see-all {
+        padding-top: $gutter-one-third;
+        @include core-19;
+        @include bold;
+      }
+    }
+  }
+}

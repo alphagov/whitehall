@@ -172,10 +172,6 @@
     }
   }
 
-  .feeds {
-    margin-top: $gutter-one-third;
-  }
-
   h1.label,
   .topic h2 {
     @include ig-core-27;
@@ -271,32 +267,6 @@
   .organisation-news {
 
     article {
-      @include media(tablet) {
-        float: left;
-        display: inline;
-        overflow: hidden;
-      }
-
-      .content {
-        padding: $gutter-half $gutter-half $gutter-one-third;
-
-        .img {
-          display: block;
-        }
-        .meta {
-          @include ig-core-14;
-          color: $secondary-text-colour;
-          padding-bottom: 0;
-        }
-        h2 {
-          @include ig-core-19;
-          padding-top: 0;
-        }
-        .summary {
-          @include ig-core-16;
-        }
-      }
-
       &.first {
         width: 100%;
         .content {
@@ -341,7 +311,7 @@
     }
     &.items-1,
     &.items-4 {
-      .latest-documents {
+      .recently-updated {
         @include media(tablet){
           clear: both;
           width: 66.66%;
@@ -351,85 +321,10 @@
     &.items-2 {
       @extend %contain-floats;
     }
-
-    .secondary {
-      clear: both;
-
-      @include media(tablet){
-        width: 33.33%;
-        clear: none;
-      }
-
-      .img-holder {
-        width: 25%;
-        float: left;
-        @include media(tablet){
-          width: 100%;
-          float: none;
-        }
-
-        .img {
-          display: block;
-          padding: $gutter-one-third $gutter-half 0 0;
-          @include media(tablet){
-            padding: 0;
-          }
-        }
-      }
-
-      .text {
-        float: left;
-        width: 75%;
-        @include media(tablet){
-          float: none;
-          width: 100%;
-        }
-      }
-      h2 {
-        @include ig-core-19;
-      }
-      .summary {
-        @include ig-core-16;
-      }
-    }
-
-    .latest-documents {
-      clear: both;
-      padding-top: $gutter-half;
-
-      @include media(tablet){
-        clear: none;
-        float: left;
-        width: 33.33%;
-        padding: 0;
-      }
-
-      .content {
-        margin: $gutter-half;
-        padding: $gutter-one-sixth $gutter-half $gutter-one-third;
-        @include media(tablet){
-          padding-top: $gutter-half;
-        }
-        background: $panel-colour;
-
-        h1 {
-          margin-bottom: 0;
-        }
-
-        table {
-          @include media(tablet) {
-            margin-top: $gutter-one-third;
-          }
-        }
-        .subscribe {
-          float: none;
-        }
-      }
-    }
   }
 
   .has-social {
-    .organisation-news.items-0 .latest-documents {
+    .organisation-news.items-0 .recently-updated {
       @include media(desktop){
         width: 66.66%;
       }
@@ -504,69 +399,6 @@
       }
     }
   }
-
-  .documents {
-    .inner-block {
-      @extend %contain-floats;
-      padding: 0 0 $gutter*2;
-
-      @include media(tablet){
-        padding: 0 $gutter-half $gutter*2;
-      }
-    }
-
-    .block-title {
-      border-bottom-width: 5px;
-      border-bottom-style: solid;
-      @include heading-27;
-      margin: 0 $gutter-half;
-    }
-
-    .document-block {
-      margin: $gutter-two-thirds 0 $gutter-one-third;
-
-      &.documents-3 {
-        clear: both;
-      }
-
-      @include media(desktop){
-        width: 50%;
-        float: left;
-      }
-
-      h1 {
-        @include heading-24;
-        @include bold;
-        margin: 0 $gutter-half;
-      }
-      .content {
-        margin: 0 $gutter-half;
-        .document {
-          border-bottom: 1px solid $border-colour;
-          padding: $gutter-one-third 0;
-          list-style: none;
-
-          h2 {
-            @include core-19;
-          }
-          .metadata {
-            @include copy-14;
-
-            li {
-              display: inline;
-            }
-          }
-        }
-        .see-all {
-          padding-top: $gutter-one-third;
-          @include core-19;
-          @include bold;
-        }
-      }
-    }
-  }
-
-
 
   #who {
     #ministers,
