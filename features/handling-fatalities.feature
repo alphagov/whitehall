@@ -38,6 +38,7 @@ Feature: Handling Fatalities
     When I create a new field of operation called "New Field" with description "Description"
     Then I am able to associate fatality notices with "New Field"
 
+  @not-quite-as-fake-search
   Scenario: Writer creates a fatality notice
     When I create a fatality notice titled "Death of Joe" in the field "Iraq"
     Then the fatality notice should be visible on the public site
@@ -55,6 +56,7 @@ Feature: Handling Fatalities
     Then I can view the field of operations information from a link in the metadata
     And I can see the roll call introduction of the fatality notice titled "Death of Joe and Jim"
 
+  @not-quite-as-fake-search
   Scenario: Citizen sees all fatalities in a filtered list
     Given there is a fatality notice titled "Death of Joe and Jim" in the field "Iraq"
     When I visit the list of announcements

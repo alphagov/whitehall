@@ -3,6 +3,7 @@ Feature: Publishing publications
   A writer and editor
   Should be able to draft and publish publications
 
+@not-quite-as-fake-search
 Scenario: Publishing a submitted publication
   Given I am an editor
   Given a submitted publication "Standard Beard Lengths" exists
