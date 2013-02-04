@@ -68,7 +68,9 @@ module DocumentHelper
       "xls" => MS_EXCEL_SPREADSHEET_HUMANIZED_CONTENT_TYPE,
       "xlsx" => MS_EXCEL_SPREADSHEET_HUMANIZED_CONTENT_TYPE,
       "ppt" => MS_POWERPOINT_PRESENTATION_HUMANIZED_CONTENT_TYPE,
-      "pptx" => MS_POWERPOINT_PRESENTATION_HUMANIZED_CONTENT_TYPE
+      "pptx" => MS_POWERPOINT_PRESENTATION_HUMANIZED_CONTENT_TYPE,
+      "odt" => content_tag(:abbr, 'ODT', title: 'OpenDocument Text document'),
+      "ods" => content_tag(:abbr, 'ODS', title: 'OpenDocument Spreadsheet'),
     }
     file_extension_vs_humanized_content_type[file_extension.downcase] if file_extension.present?
   end

@@ -47,7 +47,7 @@ class AttachmentUploader < WhitehallUploader
   end
 
   def extension_white_list
-    %w(pdf csv rtf png jpg doc docx xls xlsx ppt pptx zip rdf txt kml)
+    %w(pdf csv rtf png jpg doc docx xls xlsx ppt pptx zip rdf txt kml odt ods)
   end
 
   class ZipFile
