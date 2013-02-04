@@ -20,4 +20,7 @@ Mime::Type.register "application/vnd.openxmlformats-officedocument.spreadsheetml
 Mime::Type.register "application/vnd.ms-powerpoint", :ppt
 Mime::Type.register "application/vnd.openxmlformats-officedocument.presentationml.presentation", :pptx
 
+Mime::Type.register "application/vnd.oasis.opendocument.text", :odt
+Mime::Type.register "application/vnd.oasis.opendocument.spreadsheet", :ods
+
 Mime::Type.register "application/rdf+xml", :rdf
