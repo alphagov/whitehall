@@ -5,5 +5,5 @@ atom_feed language: 'en-GB', root_url: activity_policy_url(@policy.document) do 
     author.name 'HM Government'
   end
 
-  documents_as_feed_entries(@recently_changed_documents.limit(10))
+  documents_as_feed_entries(@recently_changed_documents.limit(10), feed)
 end
