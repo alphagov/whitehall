@@ -14,7 +14,7 @@ Feature: Administering world location information
     And a published news article "You must buy the X-Factor single, says Queen" exists relating to the overseas territory "Jamestopia" produced 4 days ago
     When I feature the news article "You must buy the X-Factor single, says Queen" for overseas territory "Jamestopia" with image "minister-of-funk.960x640.jpg"
     Then I should see the featured items of the overseas territory "Jamestopia" are:
-      | You must buy the X-Factor single, says Queen | s630_minister-of-funk.960x640.jpg |
+      | You must buy the X-Factor single, says Queen | s300_minister-of-funk.960x640.jpg |
 
   Scenario: Defining the order of featured news on an organisation page
     Given an overseas territory "Jamestopia" exists
