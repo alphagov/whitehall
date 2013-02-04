@@ -1,28 +1,8 @@
+require 'whitehall/document_filter/filterer'
 
 module Whitehall::DocumentFilter
-  class Mysql
+  class Mysql < Filterer
     attr_accessor :documents
-    class << self
-      attr_accessor :number_of_documents_per_page
-    end
-    self.number_of_documents_per_page = 20
-
-    def initialize(params = {})
-      @params = params
-    end
-
-    def apply_filters
-      filter_by_topics!
-      filter_by_departments!
-      filter_by_keywords!
-      filter_by_date!
-      filter_by_publication_filter_option!
-      filter_by_announcement_filter_option!
-      filter_by_relevant_to_local_government_option!
-      filter_by_location!
-      paginate!
-      apply_sort_direction!
-    end
 
     def publications_search
       @documents = Publicationesque.published.includes(:document, :organisations, :attachments, response: :attachments)
@@ -39,68 +19,20 @@ module Whitehall::DocumentFilter
       apply_filters
     end
 
-    def selected_topics
-      find_by_slug(Topic, @params[:topics])
+    def apply_filters
+      filter_by_topics!
+      filter_by_departments!
+      filter_by_keywords!
+      filter_by_date!
+      filter_by_publication_filter_option!
+      filter_by_announcement_filter_option!
+      filter_by_relevant_to_local_government_option!
+      filter_by_location!
+      paginate!
+      apply_sort_direction!
     end
 
-    def selected_organisations
-      find_by_slug(Organisation, @params[:departments])
-    end
-
-    def selected_publication_filter_option
-      filter_option = @params[:publication_filter_option] || @params[:publication_type]
-      Whitehall::PublicationFilterOption.find_by_slug(filter_option)
-    end
-
-    def selected_announcement_type_option
-      Whitehall::AnnouncementFilterOption.find_by_slug(@params[:announcement_type_option])
-    end
-
-    def selected_locations
-      if @params[:locations].present? && @params[:locations] != ["all"]
-        @params[:locations].reject! {|l| l == "all"}
-        WorldLocation.find_all_by_slug(@params[:locations])
-      else
-        []
-      end
-    end
-
-    def keywords
-      if @params[:keywords].present?
-        @params[:keywords].strip.split(/\s+/)
-      else
-        []
-      end
-    end
-
-    def direction
-      @params[:direction]
-    end
-
-    def date
-      Date.parse(@params[:date]) if @params[:date].present?
-    rescue ArgumentError => e
-      if e.message[/invalid date/]
-        return nil
-      else
-        raise e
-      end
-    end
-
-    def relevant_to_local_government
-      @params[:relevant_to_local_government].present? && @params[:relevant_to_local_government].to_s == '1'
-    end
-
-  private
-
-    def find_by_slug(klass, slugs)
-      @selected ||= {}
-      @selected[klass] ||= if slugs.present? && !slugs.include?("all")
-        klass.where(slug: slugs)
-      else
-        []
-      end
-    end
+    private
 
     def filter_by_topics!
       @documents = @documents.published_in_topic(selected_topics) if selected_topics.any?
@@ -162,8 +94,8 @@ module Whitehall::DocumentFilter
     end
 
     def paginate!
-      if @params[:page].present?
-        @documents = @documents.page(@params[:page]).per(self.class.number_of_documents_per_page)
+      if page.present?
+        @documents = @documents.page(page).per(per_page)
       end
     end
 

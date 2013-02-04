@@ -1,16 +1,35 @@
-module Whitehall::DocumentFilter
-  class ElasticSearch
-    attr_reader :page, :direction, :date
+require 'whitehall/document_filter/filterer'
 
-    def initialize(params = {})
-      @params = params
-      @per_page = params[:per_page] || 20
-      @page = params[:page]
-      @direction = params[:direction]
-      @date = parse_date(@params[:date]) if @params[:date].present?
-      @keywords = params[:keywords]
-      @people_ids = @params[:people_id]
+module Whitehall::DocumentFilter
+  class ElasticSearch < Filterer
+
+    def announcements_search
+      @query ||= Tire.search Whitehall.government_search_index_name, load: {include: [:document, :organisations]} do |search|
+        filter_by_announcement_type(search)
+        filter_by_people(search)
+        apply_filters(search)
+      end
     end
+
+    def publications_search
+      @query ||= Tire.search Whitehall.government_search_index_name, load: {include: [:document, :organisations, :attachments, response: :attachments]} do |search|
+        filter_by_publication_type(search)
+        apply_filters(search)
+      end
+    end
+
+    def policies_search
+      @query ||= Tire.search Whitehall.government_search_index_name, load: {include: [:document, :organisations]} do |search|
+        search.filter :term, format: "policy"
+        apply_filters(search)
+      end
+    end
+
+    def documents
+      @query.results
+    end
+
+    private
 
     def keyword_search(search)
       if @keywords.present?
@@ -43,7 +62,6 @@ module Whitehall::DocumentFilter
         search.filter :term, organisations: selected_organisations.map(&:id)
       end
     end
-
 
     def filter_by_announcement_type(search)
       if selected_announcement_type_option
@@ -107,98 +125,12 @@ module Whitehall::DocumentFilter
       search.from( @page.to_i <= 1 ? 0 : (@per_page.to_i * (@page.to_i-1)) )
     end
 
-    def announcements_search
-      @query ||= Tire.search Whitehall.government_search_index_name, load: {include: [:document, :organisations]} do |search|
-        filter_by_announcement_type(search)
-        keyword_search(search)
-        filter_topics(search)
-        filter_organisations(search)
-        filter_by_people(search)
-        filter_date_and_sort(search)
-        paginate(search)
-      end
+    def apply_filters(search)
+      keyword_search(search)
+      filter_topics(search)
+      filter_organisations(search)
+      filter_date_and_sort(search)
+      paginate(search)
     end
-
-    def publications_search
-      @query ||= Tire.search Whitehall.government_search_index_name, load: {include: [:document, :organisations, :attachments, response: :attachments]} do |search|
-        filter_by_publication_type(search)
-        keyword_search(search)
-        filter_topics(search)
-        filter_organisations(search)
-        filter_date_and_sort(search)
-        paginate(search)
-      end
-    end
-
-    def policies_search
-      @query ||= Tire.search Whitehall.government_search_index_name, load: {include: [:document, :organisations]} do |search|
-        search.filter :term, format: "policy"
-        keyword_search(search)
-        filter_topics(search)
-        filter_organisations(search)
-        filter_date_and_sort(search)
-        paginate(search)
-      end
-    end
-
-    def documents
-      @query.results
-    end
-
-    def selected_topics
-      find_by_slug(Topic, @params[:topics])
-    end
-
-    def selected_organisations
-      find_by_slug(Organisation, @params[:departments])
-    end
-
-    def selected_publication_filter_option
-      filter_option = @params[:publication_filter_option] || @params[:publication_type]
-      Whitehall::PublicationFilterOption.find_by_slug(filter_option)
-    end
-
-    def selected_announcement_type_option
-      filter_option = @params[:announcement_type_option] || @params[:announcement_type]
-      Whitehall::AnnouncementFilterOption.find_by_slug(filter_option)
-    end
-
-    def selected_consultation_type_option
-      @params[:consultation_type_option] unless @params[:consultation_type_option] == "all"
-    end
-
-    def selected_people_option
-      @people_ids
-    end
-
-    def keywords
-      if @keywords.present?
-        @keywords.strip.split(/\s+/)
-      else
-        []
-      end
-    end
-
-    def parse_date(date)
-      Date.parse(date)
-      rescue ArgumentError => e
-        if e.message[/invalid date/]
-          return nil
-        else
-          raise e
-      end
-    end
-
-    private
-
-    def find_by_slug(klass, slugs)
-      @selected ||= {}
-      @selected[klass] ||= if slugs.present? && !slugs.include?("all")
-        klass.where(slug: slugs)
-      else
-        []
-      end
-    end
-
   end
 end
