@@ -37,12 +37,34 @@
     
   }
 
-  .block-3 {
+  .ministers-by-organisation {
     padding-top: ($gutter*2);
+
+    h1 {
+      @include heading-48;
+    }
+
+    section {
+      @extend %contain-floats;
+      margin-bottom: $gutter;
+      padding-bottom: $gutter-half;
+      border-bottom: 1px solid $border-colour;
   
-    h1.label {
-      @include ig-core-48;
-      @include bold;
+      h2 {
+        margin: $gutter-half 0;
+        float: left;
+        width: 25%;
+      }
+
+      .minister-list {
+        margin: 40px (-$gutter-half) 0;
+        float: right;
+        width: 75%;
+
+        .person-excerpt {
+          width: 33.33%;
+        }
+      }
     }
     
   }

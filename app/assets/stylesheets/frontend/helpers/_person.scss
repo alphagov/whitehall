@@ -75,13 +75,13 @@
 
   span {
     display: block;
-    @include ig-core-14;
-    padding-bottom: 0;
+    @include core-14;
+    padding-top: $gutter-one-sixth;
     color: $secondary-text-colour;
   }
   strong {
     display: block;
-    @include ig-core-19;
+    @include core-19;
   }
   &.privy_counsellor strong {
     padding-top: 0;
