@@ -245,7 +245,8 @@ That's all
   test "activity displays metadata about the recently changed documents" do
     first_delivered_on = Time.zone.now
     policy = create(:published_policy)
-    speech = create(:published_speech, delivered_on: first_delivered_on, related_policies: [policy])
+    organisation = create(:organisation)
+    speech = create(:published_speech, delivered_on: first_delivered_on, related_policies: [policy], organisations: [organisation])
 
     get :activity, id: policy.document
 
@@ -253,6 +254,7 @@ That's all
       assert_select_object speech do
         assert_select ".document-row .type", text: "Speech"
         assert_select ".document-row .published-at[title='#{speech.public_timestamp.iso8601}']"
+        assert_select ".document-row .organisations", text: organisation.acronym
       end
     end
   end
