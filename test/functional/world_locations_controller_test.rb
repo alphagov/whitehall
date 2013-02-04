@@ -70,26 +70,13 @@ class WorldLocationsControllerTest < ActionController::TestCase
   test "should display an about page for the world location" do
     world_location = create(:world_location,
       name: "country-name",
-      about: "country-about"
+      description: "country-about"
     )
 
     get :about, id: world_location
 
     assert_select ".page_title", text: "country-name"
-    assert_select ".body", text: "country-about"
-  end
-
-  test "should render the about content using govspeak markup" do
-    world_location = create(:world_location,
-      name: "country-name",
-      about: "body-in-govspeak"
-    )
-
-    govspeak_transformation_fixture "body-in-govspeak" => "body-in-html" do
-      get :about, id: world_location
-    end
-
-    assert_select ".body", text: "body-in-html"
+    assert_select ".description", text: "country-about"
   end
 
   test "shows featured items in defined order" do

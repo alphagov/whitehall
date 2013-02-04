@@ -20,10 +20,9 @@ class Admin::WorldLocationsControllerTest < ActionController::TestCase
   test 'updating should modify the world location' do
     world_location = create(:world_location)
 
-    put :update, id: world_location, world_location: { description: 'country-description', about: 'country-about' }
+    put :update, id: world_location, world_location: { description: 'country-description' }
 
     world_location.reload
     assert_equal 'country-description', world_location.description
-    assert_equal 'country-about', world_location.about
   end
 end
