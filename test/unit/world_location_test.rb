@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class WorldLocationTest < ActiveSupport::TestCase
-  should_protect_against_xss_and_content_attacks_on :name, :about
+  should_protect_against_xss_and_content_attacks_on :name
 
   test 'should be invalid without a name' do
     world_location = build(:world_location, name: nil)
