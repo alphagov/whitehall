@@ -40,7 +40,7 @@ class SpeechType
     id: 3, name: "Speaking notes", genus: "Speech",
     explanation: "These are the speaker's notes, not a transcript of the speech as it was delivered."
   )
-  WrittenStatement = create(id: 4, name: "Written statement")
-  OralStatement = create(id: 5, name: "Oral statement")
+  WrittenStatement = create(id: 4, name: "Written statement to parliament")
+  OralStatement = create(id: 5, name: "Oral statement to parliament")
   ImportedAwaitingType = create(id: 1000, name: "Imported - Awaiting Type")
 end
