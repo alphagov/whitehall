@@ -39,6 +39,10 @@ class Consultation < Publicationesque
     self.publication_type_id = PublicationType::Consultation.id
   end
 
+  def search_index
+    super.merge({"publication_type" => publication_type_id})
+  end
+
   def not_yet_open?
     opening_on.nil? || (opening_on > Date.today)
   end
