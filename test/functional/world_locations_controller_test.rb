@@ -67,18 +67,6 @@ class WorldLocationsControllerTest < ActionController::TestCase
     end
   end
 
-  test "show generates an atom feed with summary content and prefixed title entries for latest activity when requested" do
-    world_location = create(:world_location)
-    pub = create(:published_publication, world_locations: [world_location], publication_date: 1.week.ago.to_date)
-    pol = create(:published_policy, world_locations: [world_location], first_published_at: 1.day.ago)
-
-    get :show, id: world_location, format: :atom, govdelivery_version: 'on'
-
-    assert_select_atom_feed do
-      assert_select_atom_entries([pol, pub], :summary)
-    end
-  end
-
   test "should display an about page for the world location" do
     world_location = create(:world_location,
       name: "country-name",

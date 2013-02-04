@@ -435,25 +435,6 @@ That's all
     end
   end
 
-  test 'activity atom feed shows activity documents with summaries and prefixed titles instead of full content when requested' do
-    policy = create(:published_policy)
-    publication = create(:published_publication, publication_date: 4.weeks.ago.to_date, related_policies: [policy])
-    consultation = create(:published_consultation, opening_on: 1.weeks.ago.to_date, related_policies: [policy])
-    news_article = create(:published_news_article, first_published_at: 3.weeks.ago, related_policies: [policy])
-    speech = create(:published_speech, delivered_on: 2.weeks.ago.to_date, related_policies: [policy])
-
-    get :activity, id: policy.document, format: "atom", govdelivery_version: '1'
-
-    assert_select_atom_feed do
-      assert_select 'feed > id', 1
-      assert_select 'feed > title', 1
-      assert_select 'feed > updated', consultation.public_timestamp.iso8601
-      assert_select 'feed > link[rel=?][type=?][href=?]', 'alternate', 'text/html', activity_policy_url(policy.document), 1
-
-      assert_select_atom_entries([consultation, speech, news_article, publication], :summary)
-    end
-  end
-
   test 'activity shows a link to govdelivery if one exists' do
     policy = create(:published_policy, govdelivery_url: 'http://my-govdelivery-url.com')
     publication = create(:published_publication, publication_date: 4.weeks.ago, related_policies: [policy])

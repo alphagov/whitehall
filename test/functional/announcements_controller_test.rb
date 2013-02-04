@@ -206,19 +206,6 @@ class AnnouncementsControllerTest < ActionController::TestCase
     end
   end
 
-  test "index generates an atom feed with summary content and prefixed title entries for announcements matching the current filter when requested" do
-    org = create(:organisation, name: "org-name")
-    other_org = create(:organisation, name: "other-org")
-    news = create(:published_news_article, organisations: [org], first_published_at: 1.week.ago)
-    speech = create(:published_speech, organisations: [other_org], delivered_on: 3.days.ago)
-
-    get :index, format: :atom, departments: [org.to_param], govdelivery_version: 'on'
-
-    assert_select_atom_feed do
-      assert_select_atom_entries([news], :summary)
-    end
-  end
-
   test 'index atom feed should return a valid feed if there are no matching documents' do
     get :index, format: :atom
 

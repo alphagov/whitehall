@@ -5,6 +5,5 @@ atom_feed language: 'en-GB', url: atom_feed_url(format: :atom), root_url: root_u
     author.name 'HM Government'
   end
 
-  govdelivery_version = feed_wants_govdelivery_version?
-  documents_as_feed_entries(@recently_updated, feed, govdelivery_version)
+  documents_as_feed_entries(@recently_updated, feed)
 end

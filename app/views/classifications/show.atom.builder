@@ -4,6 +4,5 @@ atom_feed language: 'en-GB', root_url: classification_url(@classification) do |f
     author.name 'HM Government'
   end
 
-  govdelivery_version = feed_wants_govdelivery_version?
-  documents_as_feed_entries(@recently_changed_documents, feed, govdelivery_version, @classification.created_at)
+  documents_as_feed_entries(@recently_changed_documents, feed, @classification.created_at)
 end
