@@ -107,6 +107,31 @@
     }
   }
 
+  .news-block {
+    .inner-block {
+      padding: 0;
+
+      @include media(tablet){
+        padding: 0 $gutter-half;
+      }
+    }
+  }
+
+  .featured-news {
+    &.items-0,
+    &.items-3 {
+      .recently-updated {
+        @include media(tablet) {
+          width: 66.66%;
+          clear: both;
+        }
+      }
+    }
+    .item-3 {
+      clear: both;
+    }
+  }
+
   .our-mission {
     margin-bottom: $gutter*2;
     p {

@@ -12,7 +12,7 @@
 
   <div class="block-2 <%= "has-social" if @organisation.social_media_accounts.any? %>">
     <div class="inner-block">
-      <section class="organisation-news items-<%= @featured_editions.length %>" id="featured-documents">
+      <section class="organisation-news featured-news items-<%= @featured_editions.length %>" id="featured-documents">
         <% if @featured_editions.any? %>
           <%= render partial: 'shared/featured_news',
                     locals: { edition: @featured_editions.first,

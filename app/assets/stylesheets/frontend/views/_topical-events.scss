@@ -82,48 +82,8 @@
     padding-bottom: $gutter*2;
 
     article {
-      float: left;
       width: 100%;
       
-      .content {
-        padding: $gutter-half;
-      }
-      .img {
-        display: block;
-        width: 25%;
-        float: left;
-        padding-top: $gutter-one-sixth;
-
-        @include media(tablet){
-          width: 100%;
-          float: none;
-          padding: 0 0 5px;
-        }
-
-        img {
-          width: 90%;
-
-          @include media(tablet){
-            width: 100%;
-          }
-        }
-      }
-      .text {
-        float: left;
-        width: 75%;
-
-        @include media(tablet){
-          width: 100%;
-          float: none;
-        }
-
-        h2 {
-          @include copy-19;
-        }
-        p {
-          @include copy-16;
-        }
-      }
     }
 
     &.items-1 {
@@ -143,7 +103,6 @@
               padding-left: $gutter-half;
             }
           }
-
         }
       }
     }

@@ -267,32 +267,6 @@
   .organisation-news {
 
     article {
-      @include media(tablet) {
-        float: left;
-        display: inline;
-        overflow: hidden;
-      }
-
-      .content {
-        padding: $gutter-half $gutter-half $gutter-one-third;
-
-        .img {
-          display: block;
-        }
-        .meta {
-          @include ig-core-14;
-          color: $secondary-text-colour;
-          padding-bottom: 0;
-        }
-        h2 {
-          @include ig-core-19;
-          padding-top: 0;
-        }
-        .summary {
-          @include ig-core-16;
-        }
-      }
-
       &.first {
         width: 100%;
         .content {
@@ -346,47 +320,6 @@
     }
     &.items-2 {
       @extend %contain-floats;
-    }
-
-    .secondary {
-      clear: both;
-
-      @include media(tablet){
-        width: 33.33%;
-        clear: none;
-      }
-
-      .img-holder {
-        width: 25%;
-        float: left;
-        @include media(tablet){
-          width: 100%;
-          float: none;
-        }
-
-        .img {
-          display: block;
-          padding: $gutter-one-third $gutter-half 0 0;
-          @include media(tablet){
-            padding: 0;
-          }
-        }
-      }
-
-      .text {
-        float: left;
-        width: 75%;
-        @include media(tablet){
-          float: none;
-          width: 100%;
-        }
-      }
-      h2 {
-        @include ig-core-19;
-      }
-      .summary {
-        @include ig-core-16;
-      }
     }
   }
 

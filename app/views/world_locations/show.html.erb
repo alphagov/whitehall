@@ -14,17 +14,12 @@
     </div>
   </div>
 
-  <div class="block">
+  <div class="block news-block">
     <div class="inner-block">
-      <section class="world-location-news items-<%= @featured_editions.length %>" id="featured-documents">
+      <section class="featured-news items-<%= @featured_editions.length %>" id="featured-documents">
         <% if @featured_editions.any? %>
           <%= render partial: 'shared/featured_news',
-                    locals: { edition: @featured_editions.first,
-                              extra_class: 'first',
-                              show_meta: true,
-                              image_size: :s630 } %>
-          <%= render partial: 'shared/featured_news',
-                     collection: @featured_editions.to_a.from(1),
+                     collection: @featured_editions,
                      as: :edition,
                      locals: { show_meta: true,
                                extra_class: "secondary" } %>
