@@ -18,10 +18,9 @@ class PoliciesController < DocumentsController
     clean_malformed_params_array(:topics)
     clean_malformed_params_array(:departments)
 
-    @filter = build_filter(params.reverse_merge({ page: 1, direction: 'alphabetical' }))
+    @filter = build_document_filter(params.reverse_merge({ page: 1, direction: 'alphabetical' }))
 
     respond_with PolicyFilterJsonPresenter.new(@filter)
-
   end
 
   def show
@@ -47,11 +46,10 @@ class PoliciesController < DocumentsController
     Policy
   end
 
-  def build_filter(params)
+  def build_document_filter(params)
     document_filter = Whitehall.search_backend.new(params)
-    search = SearchPoliciesDecorator.new(document_filter)
-    search.policies_search
-    search
+    document_filter.policies_search
+    SearchPoliciesDecorator.new(document_filter)
   end
 
   def analytics_format

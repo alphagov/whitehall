@@ -15,7 +15,7 @@ class AnnouncementsController < PublicFacingController
     clean_malformed_params_array(:departments)
     # document_filter = Whitehall::DocumentFilter::Mysql.new(all_announcements, params.reverse_merge(default_params))
     # expire_on_next_scheduled_publication(scheduled_announcements)
-    @filter = build_filter(params.reverse_merge({ page: 1, direction: 'before' }))
+    @filter = build_document_filter(params.reverse_merge({ page: 1, direction: 'before' }))
 
     respond_to do |format|
       format.html
@@ -30,11 +30,10 @@ class AnnouncementsController < PublicFacingController
 
 private
 
-  def build_filter(params)
+  def build_document_filter(params)
     document_filter = Whitehall.search_backend.new(params)
-    search = SearchAnnouncementsDecorator.new(document_filter)
-    search.announcements_search
-    search
+    document_filter.announcements_search
+    SearchAnnouncementsDecorator.new(document_filter)
   end
 
   # def all_announcements
