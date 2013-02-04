@@ -13,6 +13,7 @@ require 'mocha/setup'
 require 'slimmer/test'
 require 'factories'
 require 'webmock/test_unit'
+require 'whitehall/not_quite_as_fake_search'
 
 Dir[Rails.root.join('test/support/*.rb')].each { |f| require f }
 
@@ -28,6 +29,7 @@ class ActiveSupport::TestCase
 
   setup do
     Timecop.freeze(2011, 11, 11, 11, 11, 11)
+    Whitehall.stubs(:search_backend).returns(Whitehall::DocumentFilter::FakeSearch)
   end
 
   teardown do
@@ -95,6 +97,14 @@ class ActiveSupport::TestCase
 
     def factory_name_from_test
       name.sub(/Test$/, '').underscore.to_sym
+    end
+
+    def with_not_quite_as_fake_search
+      setup do
+        Rummageable.stubs(:implementation).returns Whitehall::NotQuiteAsFakeSearch::Rummageable.new
+        Whitehall.stubs(:search_backend).returns Whitehall::NotQuiteAsFakeSearch::DocumentFilter
+        Whitehall::NotQuiteAsFakeSearch::Store.instance.initialize_indexes
+      end
     end
   end
 

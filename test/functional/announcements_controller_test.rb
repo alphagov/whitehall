@@ -6,6 +6,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
   include PublicDocumentRoutesHelper
   include DocumentFilterHelpers
 
+  with_not_quite_as_fake_search
   should_be_a_public_facing_controller
   should_return_json_suitable_for_the_document_filter :news_article
   should_return_json_suitable_for_the_document_filter :speech
@@ -26,6 +27,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
   end
 
   test "index sets Cache-Control: max-age to the time of the next scheduled publication" do
+    pending 'cache-control disabled for now while we switch to different search backend'
     user = login_as(:departmental_editor)
     news = create(:draft_news_article, scheduled_publication: Time.zone.now + Whitehall.default_cache_max_age * 2)
     news.schedule_as(user, force: true)

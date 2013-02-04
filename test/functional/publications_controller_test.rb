@@ -7,6 +7,7 @@ class PublicationsControllerTest < ActionController::TestCase
   include PublicDocumentRoutesHelper
   default_url_options[:host] = 'test.host'
 
+  with_not_quite_as_fake_search
   should_be_a_public_facing_controller
   should_display_attachments_for :publication
   should_show_the_world_locations_associated_with :publication
@@ -141,6 +142,7 @@ class PublicationsControllerTest < ActionController::TestCase
   end
 
   test "index sets Cache-Control: max-age to the time of the next scheduled publication" do
+    pending 'cache-control disabled for now while we switch to different search backend'
     user = login_as(:departmental_editor)
     publication = create(:draft_publication, scheduled_publication: Time.zone.now + Whitehall.default_cache_max_age * 2)
     publication.schedule_as(user, force: true)
@@ -153,6 +155,7 @@ class PublicationsControllerTest < ActionController::TestCase
   end
 
   test 'index should not use n+1 selects for consultations with outcomes' do
+    pending 'N+1 query test is meaningless right now, were testing a fake backend'
     15.times do
       consultation = create(:published_consultation, opening_on: Date.new(2011, 5, 1), closing_on: Date.new(2011, 7, 1))
       response = consultation.create_response!
