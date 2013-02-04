@@ -37,8 +37,13 @@ CSV.open(Rails.root.join('public/government/all_document_attachment_and_non_docu
   csv_out << ['Old Url','New Url','Status','Whole Tag','Slug','Admin Url','State']
   Document.find_each do |document|
     document.editions.each do |edition|
-      status = (edition.state == 'published' ? '301' : '')
-      whole_tag = (edition.state == 'published' ? 'Closed' : 'Open')
+      status, whole_tag = if edition.state == 'published'
+                            ['301', 'Closed']
+                          elsif edition.state == 'draft'
+                            ['418', 'Open']
+                          else
+                            ['', 'Open']
+                          end
       csv_out << [
         document.document_sources.any? ? document.document_sources.first.url : '',
         public_document_url(document.published_edition || document.latest_edition, protocol: 'https'),
