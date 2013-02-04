@@ -305,6 +305,19 @@ class Edition < ActiveRecord::Base
     latest_edition == self
   end
 
+  def most_recent_change_note
+    unless first_published_version?
+      # Change notes are only on major published versions
+      if minor_change?
+        previous_major_version = Edition.unscoped.where( 'document_id=? and published_major_version=? and published_minor_version=0', document_id, published_major_version )
+        recent_change_note = previous_major_version.first.change_note if previous_major_version.any?
+      else
+        recent_change_note = change_note
+      end
+    end
+    recent_change_note
+  end
+
   def national_statistic?
     false
   end

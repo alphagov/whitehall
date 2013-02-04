@@ -545,18 +545,6 @@ class OrganisationsControllerTest < ActionController::TestCase
     end
   end
 
-  test "show generates an atom feed with summary and prefixed titles in entries for latest activity when govdelivery version is requested" do
-    organisation = create(:organisation, name: "org-name")
-    pub = create(:published_publication, organisations: [organisation], publication_date: 4.weeks.ago.to_date)
-    pol = create(:published_policy, organisations: [organisation], first_published_at: 2.weeks.ago)
-
-    get :show, id: organisation, format: :atom, govdelivery_version: 'true'
-
-    assert_select_atom_feed do
-      assert_select_atom_entries([pol, pub], :summary)
-    end
-  end
-
   test "should show description on organisation about subpage" do
     organisation = create(:organisation, description: "organisation-description")
     get :about, id: organisation
