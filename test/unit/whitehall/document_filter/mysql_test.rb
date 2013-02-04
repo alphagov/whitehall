@@ -198,6 +198,20 @@ module Whitehall::DocumentFilter
       assert_equal publication_filter_option, filter.selected_publication_filter_option
     end
 
+    test "can filter announcements by location" do
+      world_location = create(:world_location)
+      other_world_location = create(:world_location)
+
+      news_article = create(:published_news_article, news_article_type: NewsArticleType::NewsStory, world_locations: [world_location])
+      fatality_notice = create(:published_fatality_notice, world_locations: [world_location])
+      transcript = create(:published_speech, speech_type: SpeechType::Transcript, world_locations: [world_location])
+      statement = create(:published_speech, speech_type: SpeechType::WrittenStatement, world_locations: [other_world_location])
+
+      assert_equal 4, Whitehall::DocumentFilter::Mysql.new(Announcement.published, locations: [world_location.slug, other_world_location.slug]).documents.count
+      assert_equal 3, Whitehall::DocumentFilter::Mysql.new(Announcement.published, locations: [world_location.slug]).documents.count
+      assert_equal 1, Whitehall::DocumentFilter::Mysql.new(Announcement.published, locations: [other_world_location.slug]).documents.count
+    end
+
     test "can filter announcements by type" do
       news_article = create(:published_news_article, news_article_type: NewsArticleType::NewsStory)
       fatality_notice = create(:published_fatality_notice)

@@ -267,7 +267,7 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
       $selections.mustache('documents/_filter_selections', context);
     },
     removeFilters: function(field, removed){
-      var selects = ['topics', 'departments'],
+      var selects = ['topics', 'departments', 'locations'],
           inputs = ['keywords'],
           checkboxes = ['relevant_to_local_government'];
 

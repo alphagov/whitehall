@@ -42,6 +42,7 @@
           <%= select_tag :topics, topic_filter_options(all_topics_with(document_type), @filter.selected_topics), size: 5, multiple: true, class: "multi-row-select" %>
         </div>
       </div>
+
       <div class="filter">
         <div class="filter-inner">
           <%= label_tag "departments", "Department" %>
@@ -59,6 +60,17 @@
           </div>
         <% end %>
       <% end %>
+
+      <div class="filter">
+        <div class="filter-inner">
+          <% if defined?(filter_by_locations) %>
+            <div class="publication-type">
+              <%= label_tag "locations", "World Locations", class: "title" %>
+              <%= select_tag :locations, locations_options(all_locations_with(document_type), @filter.selected_locations), size: 5, multiple: true,  class: "multi-row-select" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
 
       <div class="filter">
         <div class="filter-inner">

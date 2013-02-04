@@ -21,6 +21,7 @@ module Whitehall::DocumentFilter
       filter_by_publication_filter_option!
       filter_by_announcement_filter_option!
       filter_by_relevant_to_local_government_option!
+      filter_by_location!
       paginate!
       apply_sort_direction!
     end
@@ -44,6 +45,15 @@ module Whitehall::DocumentFilter
 
     def selected_announcement_type_option
       Whitehall::AnnouncementFilterOption.find_by_slug(@params[:announcement_type_option])
+    end
+
+    def selected_locations
+      if @params[:locations].present? && @params[:locations] != ["all"]
+        @params[:locations].reject! {|l| l == "all"}
+        WorldLocation.find_all_by_slug(@params[:locations])
+      else
+        []
+      end
     end
 
     def keywords
@@ -133,6 +143,13 @@ module Whitehall::DocumentFilter
     def filter_by_relevant_to_local_government_option!
       # By default we don't want to surface these results
       @documents = @documents.where(relevant_to_local_government: relevant_to_local_government)
+    end
+
+    def filter_by_location!
+      if selected_locations.any?
+        @documents = @documents.joins(:world_locations)
+        @documents = @documents.where(world_locations: {id: selected_locations.map(&:id)})
+      end
     end
 
     def paginate!
