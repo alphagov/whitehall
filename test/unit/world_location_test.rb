@@ -47,42 +47,42 @@ class WorldLocationTest < ActiveSupport::TestCase
     assert_equal [ [country_type, [location_2, location_3]] , [territory_type, [location_1]] ], WorldLocation.all_by_type
   end
 
-  test '#featured_news_articles should return news articles featured against this world_location' do
+  test '#featured_edition_world_locations should return editions featured against this world_location' do
     world_location = create(:world_location)
     other_world_location = create(:world_location)
 
-    news_a = create(:published_news_article)
-    news_b = create(:published_news_article)
-    news_c = create(:published_news_article)
+    item_a = create(:published_news_article)
+    item_b = create(:published_speech)
+    item_c = create(:published_policy)
 
-    create(:edition_world_location, world_location: world_location, edition: news_a, featured: true)
-    create(:edition_world_location, world_location: world_location, edition: news_b, featured: true)
-    create(:edition_world_location, world_location: other_world_location, edition: news_c, featured: true)
+    create(:featured_edition_world_location, world_location: world_location, edition: item_a)
+    create(:featured_edition_world_location, world_location: world_location, edition: item_b)
+    create(:featured_edition_world_location, world_location: other_world_location, edition: item_c)
 
-    assert_equal [news_a, news_b], world_location.featured_news_articles
+    assert_equal [item_a, item_b], world_location.featured_edition_world_locations.map(&:edition)
   end
 
-  test '#featured_news_articles should only return published articles' do
+  test '#featured_edition_world_locations should only return published editions' do
     world_location = create(:world_location)
 
-    news_a = create(:published_news_article)
-    news_b = create(:draft_news_article)
+    item_a = create(:published_news_article)
+    item_b = create(:draft_news_article)
 
-    create(:edition_world_location, world_location: world_location, edition: news_a, featured: true)
-    create(:edition_world_location, world_location: world_location, edition: news_b, featured: true)
+    create(:featured_edition_world_location, world_location: world_location, edition: item_a)
+    create(:featured_edition_world_location, world_location: world_location, edition: item_b)
 
-    assert_equal [news_a], world_location.featured_news_articles
+    assert_equal [item_a], world_location.featured_edition_world_locations.map(&:edition)
   end
 
-  test '#featured_news_articles should only return featured articles' do
+  test '#featured_edition_world_locations should only return featured editions' do
     world_location = create(:world_location)
 
-    news_a = create(:published_news_article)
-    news_b = create(:published_news_article)
+    item_a = create(:published_news_article)
+    item_b = create(:published_news_article)
 
-    create(:edition_world_location, world_location: world_location, edition: news_a, featured: false)
-    create(:edition_world_location, world_location: world_location, edition: news_b, featured: true)
+    create(:edition_world_location, world_location: world_location, edition: item_a)
+    create(:featured_edition_world_location, world_location: world_location, edition: item_b)
 
-    assert_equal [news_b], world_location.featured_news_articles
+    assert_equal [item_b], world_location.featured_edition_world_locations.map(&:edition)
   end
 end

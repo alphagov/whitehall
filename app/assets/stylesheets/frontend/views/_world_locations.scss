@@ -73,8 +73,24 @@
 
 
 .world-locations-show {
-  
-  hgroup {
+  .block {
+    display: block;
+    clear: both;
+    overflow: hidden;
+    padding-bottom: $gutter-half;
+
+    @include media(tablet) {
+      padding-bottom: $gutter*2;
+    }
+  }
+
+  .keyline-header {
+    @include heading-27;
+    border-bottom: 5px solid $inside-gov-nav;
+    margin-bottom: $gutter-two-thirds;
+  }
+
+  .page-header {
     @include heading-48;
     @include media(desktop){
       width: 66.66%;
@@ -91,35 +107,55 @@
     }
   }
 
-  .article-section {
-    margin-bottom: $gutter*2;
-    h1 {
-      @include heading-27;
-      border-bottom: 5px solid $inside-gov-nav;
-      margin-bottom: $gutter-two-thirds;
+  .news-block {
+    .inner-block {
+      padding: 0;
+
+      @include media(tablet){
+        padding: 0 $gutter-half;
+      }
     }
-    .our-mission {
+  }
+
+  .featured-news {
+    &.items-0,
+    &.items-3 {
+      .recently-updated {
+        @include media(tablet) {
+          width: 66.66%;
+          clear: both;
+        }
+      }
+    }
+    .item-3 {
+      clear: both;
+    }
+  }
+
+  .our-mission {
+    margin-bottom: $gutter*2;
+    p {
       @include heading-36;
       @include bold;
     }
   }
 
   #international-priorities {
-    .group {
-      div {
-        .article-title {
-          @include heading-27;
-          @include bold;
-        }
-        @include media(tablet) {
-          float: left;
-          display: inline;
-          width: 50%;
-        }
+    @extend %contain-floats;
+
+    article {
+      @include media(tablet) {
+        float: left;
+        display: inline;
+        width: 50%;
+      }
+      
+      h2 {
+        @include heading-27;
+        @include bold;
       }
     }
-  } 
-
+  }
 }
 
 .world-locations-about {

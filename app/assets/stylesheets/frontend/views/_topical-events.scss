@@ -52,47 +52,6 @@
     @extend %contain-floats;
     padding-bottom: $gutter*2;
 
-    .latest-documents {
-      padding-bottom: $gutter;
-
-      @include media(tablet){
-        width: 33.33%;
-        float: left;
-      }
-
-      h1 {
-        @include heading-27;
-        float: left;
-      }
-      .feeds {
-        margin-top: $gutter-half;
-      }
-      .no-updates {
-        clear: both;
-        @include copy-19;
-      }
-      .document-list {
-        margin-top: 0;
-        clear:  both;
-        @include media(tablet){
-          padding-right: $gutter-half;
-        }
-
-        .document-row {
-          border-bottom: none;
-          
-          th {
-            @include core-14;
-            margin: $gutter-one-third 0 0 0;
-            padding: 0;
-          }
-          td {
-            margin: 0;
-            padding: 0 $gutter-one-third 0 0;
-          }
-        }
-      }
-    }
     .description {
       @include media(tablet){
         width: 66.66%;
@@ -123,48 +82,8 @@
     padding-bottom: $gutter*2;
 
     article {
-      float: left;
       width: 100%;
       
-      .content {
-        padding: $gutter-half;
-      }
-      .img {
-        display: block;
-        width: 25%;
-        float: left;
-        padding-top: $gutter-one-sixth;
-
-        @include media(tablet){
-          width: 100%;
-          float: none;
-          padding: 0 0 5px;
-        }
-
-        img {
-          width: 90%;
-
-          @include media(tablet){
-            width: 100%;
-          }
-        }
-      }
-      .text {
-        float: left;
-        width: 75%;
-
-        @include media(tablet){
-          width: 100%;
-          float: none;
-        }
-
-        h2 {
-          @include copy-19;
-        }
-        p {
-          @include copy-16;
-        }
-      }
     }
 
     &.items-1 {
@@ -184,7 +103,6 @@
               padding-left: $gutter-half;
             }
           }
-
         }
       }
     }
