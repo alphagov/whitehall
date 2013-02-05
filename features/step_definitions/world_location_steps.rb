@@ -22,11 +22,10 @@ When /^I add contact details for the embassy in "([^"]*)"$/ do |name|
   click_button "Save"
 end
 
-When /^I navigate to the "([^"]*)" (?:country|overseas territory|international delegation)'s (about|home) page$/ do |world_location_name, page_name|
+When /^I navigate to the "([^"]*)" (?:country|overseas territory|international delegation)'s (home) page$/ do |world_location_name, page_name|
   within('.world_location nav') do
     click_link \
       case page_name
-      when 'about'  then 'About'
       when 'home'   then 'Home'
       end
   end
@@ -80,10 +79,9 @@ Then /^I should see contact details for the embassy in "([^"]*)"$/ do |name|
   assert page.has_css?(".embassy_email", world_location.embassy_email)
 end
 
-Then /^I should see the "([^"]*)" (?:country|overseas territory|international delegation)'s (about|home) page$/ do |world_location_name, page_name|
+Then /^I should see the "([^"]*)" (?:country|overseas territory|international delegation)'s (home) page$/ do |world_location_name, page_name|
   title =
     case page_name
-    when 'about'  then "About #{world_location_name}"
     when 'home'   then world_location_name
     end
 
