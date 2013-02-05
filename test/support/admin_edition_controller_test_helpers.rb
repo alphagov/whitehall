@@ -3,7 +3,7 @@ module AdminEditionControllerTestHelpers
 
   module ClassMethods
     def should_allow_showing_of(edition_type)
-      test "should render the content using govspeak markup" do
+      view_test "should render the content using govspeak markup" do
         draft_edition = create("draft_#{edition_type}", body: "body-in-govspeak")
         govspeak_transformation_fixture default: "\n", "body-in-govspeak" => "body-in-html" do
           get :show, id: draft_edition
@@ -14,7 +14,7 @@ module AdminEditionControllerTestHelpers
     end
 
     def should_show_document_audit_trail_for(edition_type, action)
-      test "should show who created the document and when on #{action}" do
+      view_test "should show who created the document and when on #{action}" do
         tom = login_as(create(:gds_editor, name: "Tom", email: "tom@example.com"))
         draft_edition = create("draft_#{edition_type}")
 
@@ -56,7 +56,7 @@ module AdminEditionControllerTestHelpers
     def should_allow_unpublishing_for(edition_type)
       edition_class = class_for(edition_type)
 
-      test "should display unpublish button" do
+      view_test "should display unpublish button" do
         edition = create(edition_type)
         edition.stubs(:unpublishable_by?).returns(true)
         edition_class.stubs(:find).returns(edition)
@@ -66,7 +66,7 @@ module AdminEditionControllerTestHelpers
         assert_select "form[action=?]", unpublish_admin_edition_path(edition, lock_version: edition.lock_version)
       end
 
-      test "should not display unpublish button if edition is not unpublishable" do
+      view_test "should not display unpublish button if edition is not unpublishable" do
         edition = create(edition_type)
         edition.stubs(:unpublishable_by?).returns(false)
         edition_class.stubs(:find).returns(edition)
@@ -80,7 +80,7 @@ module AdminEditionControllerTestHelpers
     def should_allow_creating_of(edition_type)
       edition_class = class_for(edition_type)
 
-      test "new displays edition form" do
+      view_test "new displays edition form" do
         get :new
 
         admin_editions_path = send("admin_#{edition_type.to_s.tableize}_path")
@@ -92,12 +92,12 @@ module AdminEditionControllerTestHelpers
         end
       end
 
-      test "new form has previewable body" do
+      view_test "new form has previewable body" do
         get :new
         assert_select "textarea[name='edition[body]'].previewable"
       end
 
-      test "new form has cancel link which takes the user to the list of drafts" do
+      view_test "new form has cancel link which takes the user to the list of drafts" do
         get :new
         assert_select "a[href=#{admin_editions_path}]", text: /cancel/i
       end
@@ -128,7 +128,7 @@ module AdminEditionControllerTestHelpers
         assert_template "editions/new"
       end
 
-      test "create with invalid data should indicate there was an error" do
+      view_test "create with invalid data should indicate there was an error" do
         attributes = controller_attributes_for(edition_type)
         post :create, edition: attributes.merge(title: '')
 
@@ -141,7 +141,7 @@ module AdminEditionControllerTestHelpers
     def should_allow_editing_of(edition_type)
       should_report_editing_conflicts_of(edition_type)
 
-      test "edit displays edition form" do
+      view_test "edit displays edition form" do
         edition = create(edition_type)
 
         get :edit, id: edition
@@ -154,7 +154,7 @@ module AdminEditionControllerTestHelpers
         end
       end
 
-      test "edit form has previewable body" do
+      view_test "edit form has previewable body" do
         edition = create(edition_type)
 
         get :edit, id: edition
@@ -162,7 +162,7 @@ module AdminEditionControllerTestHelpers
         assert_select "textarea[name='edition[body]'].previewable"
       end
 
-      test "edit form has cancel link which takes the user back to edition" do
+      view_test "edit form has cancel link which takes the user back to edition" do
         draft_edition = create("draft_#{edition_type}")
 
         get :edit, id: draft_edition
@@ -245,7 +245,7 @@ module AdminEditionControllerTestHelpers
     end
 
     def should_allow_revision_of(edition_type)
-      test "should be possible to revise a published edition" do
+      view_test "should be possible to revise a published edition" do
         published_edition = create("published_#{edition_type}")
 
         get :show, id: published_edition
@@ -253,7 +253,7 @@ module AdminEditionControllerTestHelpers
         assert_select "form[action='#{revise_admin_edition_path(published_edition)}']"
       end
 
-      test "should not be possible to revise a draft edition" do
+      view_test "should not be possible to revise a draft edition" do
         draft_edition = create("draft_#{edition_type}")
 
         get :show, id: draft_edition
@@ -261,7 +261,7 @@ module AdminEditionControllerTestHelpers
         refute_select "form[action='#{revise_admin_edition_path(draft_edition)}']"
       end
 
-      test "should not be possible to revise an archived edition" do
+      view_test "should not be possible to revise an archived edition" do
         archived_edition = create("archived_#{edition_type}")
 
         get :show, id: archived_edition
@@ -273,7 +273,7 @@ module AdminEditionControllerTestHelpers
     def should_allow_attachment_references_for(edition_type)
       edition_class = class_for(edition_type)
 
-      test 'new should allow users to add reference metadata to an attachment' do
+      view_test 'new should allow users to add reference metadata to an attachment' do
         get :new
 
         assert_select "form#edition_new" do
@@ -304,7 +304,7 @@ module AdminEditionControllerTestHelpers
         assert_equal 'Cm. 1234', created_edition.attachments.first.command_paper_number
       end
 
-      test "edit should allow users to assign edition metadata to an attachment" do
+      view_test "edit should allow users to assign edition metadata to an attachment" do
         edition = create(edition_type)
         attachment = create(:attachment)
         edition.attachments << attachment
@@ -323,7 +323,7 @@ module AdminEditionControllerTestHelpers
     def should_show_inline_attachment_help_for(edition_type)
       edition_class = class_for(edition_type)
 
-      test 'edit shows markdown hint for first attachment' do
+      view_test 'edit shows markdown hint for first attachment' do
         draft_edition = create("draft_#{edition_type}", :with_attachment)
         get :edit, id: draft_edition
 
@@ -332,13 +332,13 @@ module AdminEditionControllerTestHelpers
         end
       end
 
-      test 'new shows markdown help for inline attachments' do
+      view_test 'new shows markdown help for inline attachments' do
         get :new
 
         assert_select "#govspeak_help", text: /Attachments/
       end
 
-      test 'edit shows markdown help for inline attachments' do
+      view_test 'edit shows markdown help for inline attachments' do
         draft_edition = create("draft_#{edition_type}")
         get :edit, id: draft_edition
 
@@ -349,7 +349,7 @@ module AdminEditionControllerTestHelpers
     def should_not_show_inline_attachment_help_for(edition_type)
       edition_class = class_for(edition_type)
 
-      test 'edit does not show markdown hint for first attachment' do
+      view_test 'edit does not show markdown hint for first attachment' do
         draft_edition = create("draft_#{edition_type}", :with_attachment)
         get :edit, id: draft_edition
 
@@ -362,7 +362,7 @@ module AdminEditionControllerTestHelpers
     def should_allow_attached_images_for(edition_type)
       edition_class = class_for(edition_type)
 
-      test "new displays edition image fields" do
+      view_test "new displays edition image fields" do
         get :new
 
         assert_select "form#edition_new" do
@@ -402,7 +402,7 @@ module AdminEditionControllerTestHelpers
         post :create, edition: attributes
       end
 
-      test "creating an edition with invalid data should still show image fields" do
+      view_test "creating an edition with invalid data should still show image fields" do
         post :create, edition: controller_attributes_for(edition_type, title: "")
 
         assert_select "form#edition_new" do
@@ -412,7 +412,7 @@ module AdminEditionControllerTestHelpers
         end
       end
 
-      test "creating an edition with invalid data should only allow a single image to be selected for upload" do
+      view_test "creating an edition with invalid data should only allow a single image to be selected for upload" do
         image = fixture_file_upload('minister-of-funk.960x640.jpg')
         attributes = controller_attributes_for(edition_type, title: "")
         attributes[:images_attributes] = {
@@ -427,7 +427,7 @@ module AdminEditionControllerTestHelpers
         end
       end
 
-      test "creating an edition with invalid data but valid image data should still display the image data" do
+      view_test "creating an edition with invalid data but valid image data should still display the image data" do
         image = fixture_file_upload('minister-of-funk.960x640.jpg')
         attributes = controller_attributes_for(edition_type, title: "")
         attributes[:images_attributes] = {
@@ -444,7 +444,7 @@ module AdminEditionControllerTestHelpers
         end
       end
 
-      test 'creating an edition with invalid data should not show any existing image info' do
+      view_test 'creating an edition with invalid data should not show any existing image info' do
         image = fixture_file_upload('minister-of-funk.960x640.jpg')
         attributes = controller_attributes_for(edition_type, title: "")
         attributes[:images_attributes] = {
@@ -477,7 +477,7 @@ module AdminEditionControllerTestHelpers
         assert_equal "more-alt-text", image_2.alt_text
       end
 
-      test 'creating an edition with an invalid image should show an error' do
+      view_test 'creating an edition with an invalid image should show an error' do
         attributes = controller_attributes_for(edition_type)
         invalid_image = fixture_file_upload('horrible-image.64x96.jpg')
 
@@ -490,7 +490,7 @@ module AdminEditionControllerTestHelpers
         assert_select ".errors", text: "Images image data file must be 960px wide and 640px tall"
       end
 
-      test 'edit displays edition image fields' do
+      view_test 'edit displays edition image fields' do
         image = fixture_file_upload('minister-of-funk.960x640.jpg')
         edition = create(edition_type)
         image = create(:image, alt_text: "blah", edition: edition,
@@ -525,7 +525,7 @@ module AdminEditionControllerTestHelpers
         assert_equal "alt-text", image.alt_text
       end
 
-      test 'updating an edition with image alt text but no file attachment should show a validation error' do
+      view_test 'updating an edition with image alt text but no file attachment should show a validation error' do
         edition = create(edition_type)
 
         put :update, id: edition, edition: controller_attributes_for_instance(edition,
@@ -578,7 +578,7 @@ module AdminEditionControllerTestHelpers
         assert_equal "more-alt-text", image_2.alt_text
       end
 
-      test "updating an edition with invalid data should still allow image to be selected for upload" do
+      view_test "updating an edition with invalid data should still allow image to be selected for upload" do
         edition = create(edition_type)
         put :update, id: edition, edition: controller_attributes_for_instance(edition, title: "")
 
@@ -587,7 +587,7 @@ module AdminEditionControllerTestHelpers
         end
       end
 
-      test "updating an edition with invalid data should only allow a single image to be selected for upload" do
+      view_test "updating an edition with invalid data should only allow a single image to be selected for upload" do
         edition = create(edition_type)
         image = fixture_file_upload('minister-of-funk.960x640.jpg')
         attributes = controller_attributes_for_instance(edition, title: "")
@@ -603,7 +603,7 @@ module AdminEditionControllerTestHelpers
         end
       end
 
-      test "updating an edition with invalid data and valid image data should display the image data" do
+      view_test "updating an edition with invalid data and valid image data should display the image data" do
         edition = create(edition_type)
         image = fixture_file_upload('minister-of-funk.960x640.jpg')
         attributes = controller_attributes_for_instance(edition, title: "")
@@ -621,7 +621,7 @@ module AdminEditionControllerTestHelpers
         end
       end
 
-      test "updating a stale edition should still display image fields" do
+      view_test "updating a stale edition should still display image fields" do
         edition = create("draft_#{edition_type}")
         lock_version = edition.lock_version
         edition.touch
@@ -635,7 +635,7 @@ module AdminEditionControllerTestHelpers
         end
       end
 
-      test "updating a stale edition should only allow a single image to be selected for upload" do
+      view_test "updating a stale edition should only allow a single image to be selected for upload" do
         edition = create(edition_type)
         image = fixture_file_upload('minister-of-funk.960x640.jpg')
         lock_version = edition.lock_version
@@ -653,7 +653,7 @@ module AdminEditionControllerTestHelpers
         end
       end
 
-      test 'updating should allow removal of images' do
+      view_test 'updating should allow removal of images' do
         edition = create(edition_type)
         image_1 = create(:image, edition: edition, alt_text: "the first image")
         image_2 = create(:image, edition: edition, alt_text: "the second image")
@@ -672,7 +672,7 @@ module AdminEditionControllerTestHelpers
         assert_equal [image_2], edition.images
       end
 
-      test "shows the image" do
+      view_test "shows the image" do
         edition = create(edition_type)
         image = create(:image, edition: edition)
 
@@ -683,7 +683,7 @@ module AdminEditionControllerTestHelpers
         end
       end
 
-      test "can embed image inline and see it in preview" do
+      view_test "can embed image inline and see it in preview" do
         edition = create(edition_type, body: "!!2")
         image1 = create(:image, edition: edition)
         image2 = create(:image, edition: edition)
@@ -695,7 +695,7 @@ module AdminEditionControllerTestHelpers
     end
 
     def should_be_able_to_delete_an_edition(edition_type)
-      test "show displays the delete button for draft editions" do
+      view_test "show displays the delete button for draft editions" do
         draft_edition = create("draft_#{edition_type}")
 
         get :show, id: draft_edition
@@ -707,7 +707,7 @@ module AdminEditionControllerTestHelpers
         end
       end
 
-      test "show displays the delete button for submitted editions" do
+      view_test "show displays the delete button for submitted editions" do
         submitted_edition = create("submitted_#{edition_type}")
 
         get :show, id: submitted_edition
@@ -716,7 +716,7 @@ module AdminEditionControllerTestHelpers
         assert_select "input[type='submit'][value='Delete']"
       end
 
-      test "show does not display the delete button for published editions" do
+      view_test "show does not display the delete button for published editions" do
         published_edition = create("published_#{edition_type}")
 
         get :show, id: published_edition
@@ -725,7 +725,7 @@ module AdminEditionControllerTestHelpers
         refute_select "input[type='submit'][value='Delete']"
       end
 
-      test "show does not display the delete button for archived editions" do
+      view_test "show does not display the delete button for archived editions" do
         archived_edition = create("archived_#{edition_type}")
 
         get :show, id: archived_edition
@@ -755,7 +755,7 @@ module AdminEditionControllerTestHelpers
     end
 
     def should_link_to_public_version_when_published(edition_type)
-      test "should link to public version when published" do
+      view_test "should link to public version when published" do
         published_edition = create("published_#{edition_type}")
         get :show, id: published_edition
         assert_select link_to_public_version_selector, count: 1
@@ -763,7 +763,7 @@ module AdminEditionControllerTestHelpers
     end
 
     def should_not_link_to_public_version_when_not_published(edition_type)
-      test "should not link to public version when not published" do
+      view_test "should not link to public version when not published" do
         draft_edition = create("draft_#{edition_type}")
         get :show, id: draft_edition
         refute_select link_to_public_version_selector
@@ -771,7 +771,7 @@ module AdminEditionControllerTestHelpers
     end
 
     def should_link_to_preview_version_when_not_published(edition_type)
-      test "should link to preview version when not published" do
+      view_test "should link to preview version when not published" do
         draft_edition = create("draft_#{edition_type}")
         get :show, id: draft_edition
         assert_select link_to_preview_version_selector
@@ -781,7 +781,7 @@ module AdminEditionControllerTestHelpers
     def should_be_rejectable(edition_type)
       document_type_class = edition_type.to_s.classify.constantize
 
-      test "should display the 'Reject' button" do
+      view_test "should display the 'Reject' button" do
         edition = create(edition_type)
         edition.stubs(:rejectable_by?).returns(true)
         document_type_class.stubs(:find).with(edition.to_param).returns(edition)
@@ -789,7 +789,7 @@ module AdminEditionControllerTestHelpers
         assert_select reject_button_selector(edition), count: 1
       end
 
-      test "shouldn't display the 'Reject' button" do
+      view_test "shouldn't display the 'Reject' button" do
         edition = create(edition_type)
         edition.stubs(:rejectable_by?).returns(false)
         document_type_class.stubs(:find).with(edition.to_param).returns(edition)
@@ -797,20 +797,20 @@ module AdminEditionControllerTestHelpers
         refute_select reject_button_selector(edition)
       end
 
-      test "should show who rejected the edition" do
+      view_test "should show who rejected the edition" do
         edition = create("rejected_#{edition_type}")
         edition.editorial_remarks.create!(body: "editorial-remark-body", author: current_user)
         get :show, id: edition
         assert_select ".rejected_by", text: current_user.name
       end
 
-      test "should not show the editorial remarks section" do
+      view_test "should not show the editorial remarks section" do
         edition = create("submitted_#{edition_type}")
         get :show, id: edition
         refute_select "#editorial_remarks .editorial_remark"
       end
 
-      test "should show the list of editorial remarks" do
+      view_test "should show the list of editorial remarks" do
         edition = create("rejected_#{edition_type}")
         remark = edition.editorial_remarks.create!(body: "editorial-remark-body", author: current_user)
         get :show, id: edition
@@ -823,14 +823,14 @@ module AdminEditionControllerTestHelpers
     end
 
     def should_be_publishable(edition_type)
-      test "should display the publish form if edition is publishable" do
+      view_test "should display the publish form if edition is publishable" do
         login_as :departmental_editor
         edition = create("submitted_#{edition_type}")
         get :show, id: edition
         assert_select publish_form_selector(edition), count: 1
       end
 
-      test "should not display the publish form if edition is not publishable" do
+      view_test "should not display the publish form if edition is not publishable" do
         edition = create("draft_#{edition_type}")
         get :show, id: edition
         refute_select publish_form_selector(edition)
@@ -838,33 +838,33 @@ module AdminEditionControllerTestHelpers
     end
 
     def should_be_force_publishable(edition_type)
-      test "should not display the force publish form if edition is publishable" do
+      view_test "should not display the force publish form if edition is publishable" do
         login_as :departmental_editor
         edition = create("submitted_#{edition_type}")
         get :show, id: edition
         refute_select force_publish_form_selector(edition)
       end
 
-      test "should display the force publish form if edition is not publishable but is force-publishable" do
+      view_test "should display the force publish form if edition is not publishable but is force-publishable" do
         login_as :departmental_editor
         edition = create("draft_#{edition_type}")
         get :show, id: edition
         assert_select force_publish_form_selector(edition), count: 1
       end
 
-      test "should not display the force publish form if edition is neither publishable nor force-publishable" do
+      view_test "should not display the force publish form if edition is neither publishable nor force-publishable" do
         edition = create("draft_#{edition_type}")
         get :show, id: edition
         refute_select force_publish_form_selector(edition)
       end
 
-      test "show should indicate a force-published document" do
+      view_test "show should indicate a force-published document" do
         edition = create("published_#{edition_type}", force_published: true)
         get :show, id: edition
         assert_select ".force_published"
       end
 
-      test "show should not display the approve_retrospectively form for the creator" do
+      view_test "show should not display the approve_retrospectively form for the creator" do
         creator = create(:departmental_editor, name: "Fred")
         login_as(creator)
         edition = create("published_#{edition_type}", force_published: true, creator: creator)
@@ -872,7 +872,7 @@ module AdminEditionControllerTestHelpers
         refute_select ".force_published form input"
       end
 
-      test "show should display the approve_retrospectively form for a departmental editor who wasn't the creator" do
+      view_test "show should display the approve_retrospectively form for a departmental editor who wasn't the creator" do
         creator = create(:departmental_editor, name: "Fred")
         login_as(creator)
         edition = create("published_#{edition_type}", force_published: true, creator: creator)
@@ -885,7 +885,7 @@ module AdminEditionControllerTestHelpers
     def should_allow_related_policies_for(document_type)
       edition_class = class_for(document_type)
 
-      test "new displays document form with related policies field" do
+      view_test "new displays document form with related policies field" do
         draft_policy = create(:draft_policy)
         submitted_policy = create(:submitted_policy)
         rejected_policy = create(:rejected_policy)
@@ -920,7 +920,7 @@ module AdminEditionControllerTestHelpers
         assert_equal [first_policy, second_policy], document.related_policies
       end
 
-      test "edit displays document form with related policies field" do
+      view_test "edit displays document form with related policies field" do
         policy = create(:policy)
         document = create(document_type, related_policies: [policy])
 
@@ -954,7 +954,7 @@ module AdminEditionControllerTestHelpers
         assert_equal [], document.related_policies
       end
 
-      test "updating a stale document should render edit page with conflicting document and its related policies" do
+      view_test "updating a stale document should render edit page with conflicting document and its related policies" do
         policy = create(:policy)
         document = create(document_type, related_policies: [policy])
         lock_version = document.lock_version
@@ -969,7 +969,7 @@ module AdminEditionControllerTestHelpers
         end
       end
 
-      test "show displays related policies" do
+      view_test "show displays related policies" do
         policy = create(:policy)
         document = create(document_type, related_policies: [policy])
 
@@ -982,7 +982,7 @@ module AdminEditionControllerTestHelpers
     def should_allow_references_to_statistical_data_sets_for(edition_type)
       edition_class = class_for(edition_type)
 
-      test "new should display statistical data sets field" do
+      view_test "new should display statistical data sets field" do
         get :new
 
         assert_select "form#edition_new" do
@@ -1003,7 +1003,7 @@ module AdminEditionControllerTestHelpers
         assert_equal [first_data_set, second_data_set], edition.statistical_data_sets
       end
 
-      test "edit should display edition statistical data sets field" do
+      view_test "edit should display edition statistical data sets field" do
         edition = create(edition_type)
 
         get :edit, id: edition
@@ -1041,7 +1041,7 @@ module AdminEditionControllerTestHelpers
     def should_allow_organisations_for(edition_type)
       edition_class = class_for(edition_type)
 
-      test "new should display edition organisations field" do
+      view_test "new should display edition organisations field" do
         get :new
 
         assert_select "form#edition_new" do
@@ -1065,7 +1065,7 @@ module AdminEditionControllerTestHelpers
         assert_equal [second_organisation, first_organisation], edition.lead_organisations
       end
 
-      test "edit should display edition organisations field" do
+      view_test "edit should display edition organisations field" do
         edition = create(edition_type)
 
         get :edit, id: edition
@@ -1133,7 +1133,7 @@ module AdminEditionControllerTestHelpers
     def should_allow_association_with_topics(edition_type)
       edition_class = class_for(edition_type)
 
-      test "new should display topics field" do
+      view_test "new should display topics field" do
         get :new
 
         assert_select "form#edition_new" do
@@ -1154,7 +1154,7 @@ module AdminEditionControllerTestHelpers
         assert_equal [first_topic, second_topic], edition.topics
       end
 
-      test "edit should display topics field" do
+      view_test "edit should display topics field" do
         edition = create("draft_#{edition_type}")
 
         get :edit, id: edition
@@ -1191,7 +1191,7 @@ module AdminEditionControllerTestHelpers
         assert_equal [], edition.topics
       end
 
-      test "updating a stale document should render edit page with conflicting document and its related topics" do
+      view_test "updating a stale document should render edit page with conflicting document and its related topics" do
         topic = create(:topic)
         edition = create(edition_type, topics: [topic])
         lock_version = edition.lock_version
@@ -1211,7 +1211,7 @@ module AdminEditionControllerTestHelpers
     def should_allow_role_appointments_for(edition_type)
       edition_class = class_for(edition_type)
 
-      test "new should display edition role appointments field" do
+      view_test "new should display edition role appointments field" do
         get :new
 
         assert_select "form#edition_new" do
@@ -1232,7 +1232,7 @@ module AdminEditionControllerTestHelpers
         assert_equal [first_appointment, second_appointment], edition.role_appointments
       end
 
-      test "edit should display edition role appointments field" do
+      view_test "edit should display edition role appointments field" do
         edition = create(edition_type)
 
         get :edit, id: edition
@@ -1274,7 +1274,7 @@ module AdminEditionControllerTestHelpers
     def should_allow_ministerial_roles_for(edition_type)
       edition_class = class_for(edition_type)
 
-      test "new should display edition ministerial roles field" do
+      view_test "new should display edition ministerial roles field" do
         get :new
 
         assert_select "form#edition_new" do
@@ -1295,7 +1295,7 @@ module AdminEditionControllerTestHelpers
         assert_equal [first_minister, second_minister], edition.ministerial_roles
       end
 
-      test "edit should display edition ministerial roles field" do
+      view_test "edit should display edition ministerial roles field" do
         edition = create(edition_type)
 
         get :edit, id: edition
@@ -1358,7 +1358,7 @@ module AdminEditionControllerTestHelpers
     def should_allow_overriding_of_first_published_at_for(edition_type)
       edition_class = class_for(edition_type)
 
-      test "new should display first_published_at fields" do
+      view_test "new should display first_published_at fields" do
         get :new
 
         admin_editions_path = send("admin_#{edition_type.to_s.tableize}_path")
@@ -1367,7 +1367,7 @@ module AdminEditionControllerTestHelpers
         end
       end
 
-      test "edit should display first_published_at fields" do
+      view_test "edit should display first_published_at fields" do
         edition = create(edition_type)
 
         get :edit, id: edition
@@ -1407,14 +1407,14 @@ module AdminEditionControllerTestHelpers
         assert_equal [current_user], edition.reload.recent_edition_openings.map(&:editor)
       end
 
-      test "should not see a warning when editing an edition that nobody has recently edited" do
+      view_test "should not see a warning when editing an edition that nobody has recently edited" do
         edition = create(edition_type)
         get :edit, id: edition
 
         refute_select ".editing_conflict"
       end
 
-      test "should see a warning when editing an edition that someone else has recently edited" do
+      view_test "should see a warning when editing an edition that someone else has recently edited" do
         edition = create(edition_type)
         other_user = create(:author, name: "Joe Bloggs", email: "joe@example.com")
         edition.open_for_editing_as(other_user)
@@ -1442,7 +1442,7 @@ module AdminEditionControllerTestHelpers
     def should_allow_association_with_related_mainstream_content(edition_type)
       edition_class = class_for(edition_type)
 
-      test "new should display fields for related mainstream content" do
+      view_test "new should display fields for related mainstream content" do
         get :new
 
         admin_editions_path = send("admin_#{edition_type}s_path")
@@ -1454,7 +1454,7 @@ module AdminEditionControllerTestHelpers
         end
       end
 
-      test "edit should display fields for related mainstream content" do
+      view_test "edit should display fields for related mainstream content" do
         edition = create(edition_type)
         get :edit, id: edition
 
@@ -1504,7 +1504,7 @@ module AdminEditionControllerTestHelpers
         assert_equal "Some Updated Additional Mainstream Content", edition.additional_related_mainstream_content_title
       end
 
-      test "show should list the links to mainstream content" do
+      view_test "show should list the links to mainstream content" do
         edition = create(edition_type,
           related_mainstream_content_url: "http://mainstream/content",
           related_mainstream_content_title: "Some Mainstream Content",
@@ -1520,7 +1520,7 @@ module AdminEditionControllerTestHelpers
         end
       end
 
-      test "show should indicate a lack of links to mainstream content" do
+      view_test "show should indicate a lack of links to mainstream content" do
         edition = create(edition_type)
         get :show, id: edition
         assert_select '.related_mainstream_content', text: %r{doesn't have any related mainstream content}
@@ -1528,7 +1528,7 @@ module AdminEditionControllerTestHelpers
     end
 
     def should_allow_alternative_format_provider_for(edition_type)
-      test "shows alternative format provider for #{edition_type}" do
+      view_test "shows alternative format provider for #{edition_type}" do
         organisation = create(:organisation_with_alternative_format_contact_email, name: "Ministry of Pop")
         draft = create(:"draft_#{edition_type}", alternative_format_provider: organisation)
 
@@ -1537,7 +1537,7 @@ module AdminEditionControllerTestHelpers
         assert_select "#associations a", organisation.name
       end
 
-      test "when creating allow selection of alternative format provider for #{edition_type}" do
+      view_test "when creating allow selection of alternative format provider for #{edition_type}" do
         get :new
 
         assert_select "form#edition_new" do
@@ -1545,7 +1545,7 @@ module AdminEditionControllerTestHelpers
         end
       end
 
-      test "when editing allow selection of alternative format provider for #{edition_type}" do
+      view_test "when editing allow selection of alternative format provider for #{edition_type}" do
         draft = create("draft_#{edition_type}")
 
         get :edit, id: draft
@@ -1571,7 +1571,7 @@ module AdminEditionControllerTestHelpers
     def should_allow_assignment_to_document_series(edition_type)
       edition_class = class_for(edition_type)
 
-      test "when creating allows assignment to document series" do
+      view_test "when creating allows assignment to document series" do
         get :new
 
         assert_select "form#edition_new" do
@@ -1579,7 +1579,7 @@ module AdminEditionControllerTestHelpers
         end
       end
 
-      test "when editing allows assignment to document series" do
+      view_test "when editing allows assignment to document series" do
         series = create(:document_series)
         edition = create(edition_type, document_series: [series])
 
@@ -1590,7 +1590,7 @@ module AdminEditionControllerTestHelpers
         end
       end
 
-      test "shows assigned document series" do
+      view_test "shows assigned document series" do
         series = create(:document_series)
         edition = create(edition_type, document_series: [series])
 
@@ -1627,7 +1627,7 @@ module AdminEditionControllerTestHelpers
         assert created_publication.access_limited?
       end
 
-      test "edit displays persisted access_limited flag" do
+      view_test "edit displays persisted access_limited flag" do
         publication = create(edition_type, access_limited: false)
 
         get :edit, id: publication
@@ -1685,7 +1685,7 @@ module AdminEditionControllerTestHelpers
     def should_allow_association_with_topical_events(edition_type)
       edition_class = class_for(edition_type)
 
-      test "new should display topical events field" do
+      view_test "new should display topical events field" do
         get :new
 
         assert_select "form#edition_new" do
@@ -1706,7 +1706,7 @@ module AdminEditionControllerTestHelpers
         assert_equal [first_topical_event, second_topical_event], edition.topical_events
       end
 
-      test "edit should display topical events field" do
+      view_test "edit should display topical events field" do
         edition = create("draft_#{edition_type}")
 
         get :edit, id: edition

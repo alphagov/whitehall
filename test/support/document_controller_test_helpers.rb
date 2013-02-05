@@ -3,7 +3,7 @@ module DocumentControllerTestHelpers
 
   module ClassMethods
     def should_display_attachments_for(document_type)
-      test "show displays document attachments" do
+      view_test "show displays document attachments" do
         attachment_1 = create(:attachment, file: fixture_file_upload('greenpaper.pdf', 'application/pdf'))
         attachment_2 = create(:attachment, file: fixture_file_upload('sample-from-excel.csv', 'text/csv'))
         edition = create("published_#{document_type}", :with_alternative_format_provider, body: "!@1\n\n!@2", attachments: [attachment_1, attachment_2])
@@ -20,7 +20,7 @@ module DocumentControllerTestHelpers
         end
       end
 
-      test "show information about accessibility" do
+      view_test "show information about accessibility" do
         attachment_1 = create(:attachment, file: fixture_file_upload('greenpaper.pdf', 'application/pdf'), accessible: true)
         attachment_2 = create(:attachment, file: fixture_file_upload('sample-from-excel.csv', 'text/csv'))
 
@@ -38,7 +38,7 @@ module DocumentControllerTestHelpers
         end
       end
 
-      test "show alternative format contact email if given" do
+      view_test "show alternative format contact email if given" do
         attachment_1 = create(:attachment, file: fixture_file_upload('greenpaper.pdf', 'application/pdf'), accessible: false)
 
         organisation = create(:organisation, alternative_format_contact_email: "alternative@example.com")
@@ -53,7 +53,7 @@ module DocumentControllerTestHelpers
         end
       end
 
-      test "show displays PDF attachment metadata" do
+      view_test "show displays PDF attachment metadata" do
         greenpaper_pdf = fixture_file_upload('greenpaper.pdf', 'application/pdf')
         attachment = create(:attachment, file: greenpaper_pdf)
         edition = create("published_#{document_type}", :with_alternative_format_provider, body: "!@1", attachments: [attachment])
@@ -67,7 +67,7 @@ module DocumentControllerTestHelpers
         end
       end
 
-      test "show displays non-PDF attachment metadata" do
+      view_test "show displays non-PDF attachment metadata" do
         csv = fixture_file_upload('sample-from-excel.csv', 'text/csv')
         attachment = create(:attachment, file: csv)
         edition = create("published_#{document_type}", :with_alternative_format_provider, body: "!@1", attachments: [attachment])
@@ -83,7 +83,7 @@ module DocumentControllerTestHelpers
     end
 
     def should_display_inline_images_for(document_type)
-      test "show displays #{document_type} with inline images" do
+      view_test "show displays #{document_type} with inline images" do
         images = [create(:image), create(:image)]
         edition = create("published_#{document_type}", body: "!!2", images: images)
 
@@ -94,28 +94,28 @@ module DocumentControllerTestHelpers
     end
 
     def should_show_related_policies_for(document_type)
-      test "show displays related published policies for #{document_type}" do
+      view_test "show displays related published policies for #{document_type}" do
         published_policy = create(:published_policy)
         edition = create("published_#{document_type}", related_policies: [published_policy])
         get :show, id: edition.document
         assert_select_object published_policy
       end
 
-      test "show doesn't display related unpublished policies for #{document_type}" do
+      view_test "show doesn't display related unpublished policies for #{document_type}" do
         draft_policy = create(:draft_policy)
         edition = create("published_#{document_type}", related_policies: [draft_policy])
         get :show, id: edition.document
         refute_select_object draft_policy
       end
 
-      test "should not display policies unless they are related for #{document_type}" do
+      view_test "should not display policies unless they are related for #{document_type}" do
         unrelated_policy = create(:published_policy)
         edition = create("published_#{document_type}", related_policies: [])
         get :show, id: edition.document
         refute_select_object unrelated_policy
       end
 
-      test "should not display an empty list of related policies for #{document_type}" do
+      view_test "should not display an empty list of related policies for #{document_type}" do
         edition = create("published_#{document_type}")
         get :show, id: edition.document
         refute_select "#related-policies"
@@ -125,7 +125,7 @@ module DocumentControllerTestHelpers
     def should_show_related_policies_and_topics_for(document_type)
       should_show_related_policies_for document_type
 
-      test "show infers topics from published policies for #{document_type}" do
+      view_test "show infers topics from published policies for #{document_type}" do
         topic = create(:topic)
         published_policy = create(:published_policy, topics: [topic])
         edition = create("published_#{document_type}", related_policies: [published_policy])
@@ -133,7 +133,7 @@ module DocumentControllerTestHelpers
         assert_select_object topic
       end
 
-      test "show doesn't display duplicate inferred topics for #{document_type}" do
+      view_test "show doesn't display duplicate inferred topics for #{document_type}" do
         topic = create(:topic)
         published_policy_1 = create(:published_policy, topics: [topic])
         published_policy_2 = create(:published_policy, topics: [topic])
@@ -144,7 +144,7 @@ module DocumentControllerTestHelpers
     end
 
     def should_show_the_world_locations_associated_with(document_type)
-      test "should display the world locations associated with this #{document_type}" do
+      view_test "should display the world locations associated with this #{document_type}" do
         first_location = create(:country)
         second_location = create(:overseas_territory)
         third_location = create(:international_delegation)
@@ -159,7 +159,7 @@ module DocumentControllerTestHelpers
         end
       end
 
-      test "should not display an empty list of world locations for #{document_type}" do
+      view_test "should not display an empty list of world locations for #{document_type}" do
         edition = create("published_#{document_type}", world_locations: [])
 
         get :show, id: edition.document
@@ -172,7 +172,7 @@ module DocumentControllerTestHelpers
 
     def should_show_published_documents_associated_with(model_name, has_many_association, timestamp_key = :first_published_at)
       singular = has_many_association.to_s.singularize
-      test "shows only published #{has_many_association.to_s.humanize.downcase}" do
+      view_test "shows only published #{has_many_association.to_s.humanize.downcase}" do
         published_edition = create("published_#{singular}")
         draft_edition = create("draft_#{singular}")
         model = create(model_name, editions: [published_edition, draft_edition])
@@ -185,7 +185,7 @@ module DocumentControllerTestHelpers
         end
       end
 
-      test "shows only #{has_many_association.to_s.humanize.downcase} associated with #{model_name}" do
+      view_test "shows only #{has_many_association.to_s.humanize.downcase} associated with #{model_name}" do
         published_edition = create("published_#{singular}")
         another_published_edition = create("published_#{singular}")
         model = create(model_name, editions: [published_edition])
@@ -208,7 +208,7 @@ module DocumentControllerTestHelpers
         assert_equal [later_edition, earlier_edition], assigns(has_many_association)
       end
 
-      test "should not display an empty published #{has_many_association.to_s.humanize.downcase} section" do
+      view_test "should not display an empty published #{has_many_association.to_s.humanize.downcase} section" do
         model = create(model_name, editions: [])
 
         get :show, id: model
@@ -251,7 +251,7 @@ module DocumentControllerTestHelpers
     end
 
     def should_show_inapplicable_nations(document_type)
-      test "show displays inapplicable nations for #{document_type}" do
+      view_test "show displays inapplicable nations for #{document_type}" do
         published_document = create("published_#{document_type}")
         northern_ireland_inapplicability = published_document.nation_inapplicabilities.create!(nation: Nation.northern_ireland, alternative_url: "http://northern-ireland.com/")
         scotland_inapplicability = published_document.nation_inapplicabilities.create!(nation: Nation.scotland)
@@ -271,7 +271,7 @@ module DocumentControllerTestHelpers
       include DocumentFilterHelpers
       options.reverse_merge!(timestamp_key: :first_published_at)
 
-      test "index should only show a certain number of #{edition_type.to_s.pluralize} by default" do
+      view_test "index should only show a certain number of #{edition_type.to_s.pluralize} by default" do
         documents = (1..6).to_a.map { |i| create("published_#{edition_type}", title: "keyword-#{i}-index-default", options[:timestamp_key] => i.days.ago) }
         documents.sort_by!(&options[:sort_by]) if options[:sort_by]
 
@@ -283,7 +283,7 @@ module DocumentControllerTestHelpers
         (3..5).to_a.each { |i| refute_select_object(documents[i]) }
       end
 
-      test "index should show window of pagination for #{edition_type}" do
+      view_test "index should show window of pagination for #{edition_type}" do
         documents = (1..6).to_a.map { |i| create("published_#{edition_type}", title:   "keyword-#{i}-window-pagination", options[:timestamp_key] => i.days.ago) }
         documents.sort_by!(&options[:sort_by]) if options[:sort_by]
 
@@ -295,7 +295,7 @@ module DocumentControllerTestHelpers
         (3..5).to_a.each { |i| assert_select_object(documents[i]) }
       end
 
-      test "show more button should not appear by default for #{edition_type}" do
+      view_test "show more button should not appear by default for #{edition_type}" do
         documents = (1..3).to_a.map { |i| create("published_#{edition_type}", title: "keyword-#{i}") }
 
         with_number_of_documents_per_page(3) do
@@ -305,7 +305,7 @@ module DocumentControllerTestHelpers
         refute_select "#show-more-documents"
       end
 
-      test "show more button should appear when there are more records for #{edition_type}" do
+      view_test "show more button should appear when there are more records for #{edition_type}" do
         documents = (1..4).to_a.map { |i| create("published_#{edition_type}", title: "keyword-#{i}") }
 
         with_number_of_documents_per_page(3) do
@@ -315,7 +315,7 @@ module DocumentControllerTestHelpers
         assert_select "#show-more-documents"
       end
 
-      test "infinite pagination link should appear when there are more records for #{edition_type}" do
+      view_test "infinite pagination link should appear when there are more records for #{edition_type}" do
         documents = (1..4).to_a.map { |i| create("published_#{edition_type}", title: "keyword-#{i}") }
 
         with_number_of_documents_per_page(3) do
@@ -325,7 +325,7 @@ module DocumentControllerTestHelpers
         assert_select "link[rel='next'][type='application/json']"
       end
 
-      test "should show previous page link when not on the first page for #{edition_type}" do
+      view_test "should show previous page link when not on the first page for #{edition_type}" do
         documents = (1..4).to_a.map { |i| create("published_#{edition_type}", title: "keyword-#{i}") }
 
         with_number_of_documents_per_page(3) do
@@ -338,7 +338,7 @@ module DocumentControllerTestHelpers
         end
       end
 
-      test "should show progress helpers in pagination links for #{edition_type}" do
+      view_test "should show progress helpers in pagination links for #{edition_type}" do
         documents = (1..7).to_a.map { |i| create("published_#{edition_type}", title: "keyword-#{i}") }
 
         with_number_of_documents_per_page(3) do
@@ -351,7 +351,7 @@ module DocumentControllerTestHelpers
         end
       end
 
-      test "should preserve query params in next pagination link for #{edition_type}" do
+      view_test "should preserve query params in next pagination link for #{edition_type}" do
         documents = (1..4).to_a.map { |i| create("published_#{edition_type}", title: "keyword-#{i}") }
 
         with_number_of_documents_per_page(3) do
@@ -365,7 +365,7 @@ module DocumentControllerTestHelpers
     def should_return_json_suitable_for_the_document_filter(document_type)
       include DocumentFilterHelpers
 
-      test "index requested as JSON includes a count of #{document_type}" do
+      view_test "index requested as JSON includes a count of #{document_type}" do
         create(:"published_#{document_type}")
 
         get :index, format: :json
@@ -373,7 +373,7 @@ module DocumentControllerTestHelpers
         assert_equal 1, ActiveSupport::JSON.decode(response.body)["count"]
       end
 
-      test "index requested as JSON includes the total pages of #{document_type}" do
+      view_test "index requested as JSON includes the total pages of #{document_type}" do
         4.times { create(:"published_#{document_type}") }
 
         with_number_of_documents_per_page(3) do
@@ -383,7 +383,7 @@ module DocumentControllerTestHelpers
         assert_equal 2, ActiveSupport::JSON.decode(response.body)["total_pages"]
       end
 
-      test "index requested as JSON includes the current page of #{document_type}" do
+      view_test "index requested as JSON includes the current page of #{document_type}" do
         create(:"published_#{document_type}")
 
         get :index, format: :json

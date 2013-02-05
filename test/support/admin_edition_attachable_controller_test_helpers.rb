@@ -8,7 +8,7 @@ module AdminEditionAttachableControllerTestHelpers
       attachment_join_table = edition_class.reflect_on_association(:attachments).through_reflection.table_name
       attachment_join_attributes = "#{attachment_join_table}_attributes".to_sym
 
-      test "creating an edition with an attachment but no alternative_format_provider will get a validation error" do
+      view_test "creating an edition with an attachment but no alternative_format_provider will get a validation error" do
         post :create, edition_base_class_name => controller_attributes_for(edition_type,
           alternative_format_provider_id: "",
           attachment_join_attributes => {
@@ -19,7 +19,7 @@ module AdminEditionAttachableControllerTestHelpers
         assert_select ".errors li", "Alternative format provider can&#x27;t be blank"
       end
 
-      test "updating an edition with an attachment but no alternative_format_provider will get a validation error" do
+      view_test "updating an edition with an attachment but no alternative_format_provider will get a validation error" do
         edition = create(edition_type)
 
         put :update, id: edition, edition_base_class_name => controller_attributes_for_instance(edition,
@@ -39,7 +39,7 @@ module AdminEditionAttachableControllerTestHelpers
       attachment_join_table = edition_class.reflect_on_association(:attachments).through_reflection.table_name
       attachment_join_attributes = "#{attachment_join_table}_attributes".to_sym
 
-      test 'show displays edition attachments' do
+      view_test 'show displays edition attachments' do
         two_page_pdf = fixture_file_upload('two-pages.pdf', 'application/pdf')
         attachment = create(:attachment, title: "attachment-title", file: two_page_pdf)
         edition = create(edition_type, :with_alternative_format_provider, attachments: [attachment])
@@ -62,7 +62,7 @@ module AdminEditionAttachableControllerTestHelpers
       attachment_join_table = edition_class.reflect_on_association(:attachments).through_reflection.table_name
       attachment_join_attributes = "#{attachment_join_table}_attributes".to_sym
 
-      test "new displays edition attachment fields" do
+      view_test "new displays edition attachment fields" do
         get :new
 
         assert_select "form##{edition_base_class_name}_new" do
@@ -71,7 +71,7 @@ module AdminEditionAttachableControllerTestHelpers
         end
       end
 
-      test 'creating an edition should attach file' do
+      view_test 'creating an edition should attach file' do
         greenpaper_pdf = fixture_file_upload('greenpaper.pdf', 'application/pdf')
         attributes = controller_attributes_for(edition_type)
         attributes[attachment_join_attributes] = {
@@ -110,7 +110,7 @@ module AdminEditionAttachableControllerTestHelpers
         post :create, edition_base_class_name => attributes
       end
 
-      test "creating an edition with invalid data should still show attachment fields" do
+      view_test "creating an edition with invalid data should still show attachment fields" do
         post :create, edition_base_class_name => make_invalid(controller_attributes_for(edition_type))
 
         assert_select "form##{edition_base_class_name}_new" do
@@ -119,7 +119,7 @@ module AdminEditionAttachableControllerTestHelpers
         end
       end
 
-      test "creating an edition with invalid data should only allow a single attachment to be selected for upload" do
+      view_test "creating an edition with invalid data should only allow a single attachment to be selected for upload" do
         greenpaper_pdf = fixture_file_upload('greenpaper.pdf')
 
         post :create, edition_base_class_name => make_invalid(controller_attributes_for(edition_type,
@@ -137,7 +137,7 @@ module AdminEditionAttachableControllerTestHelpers
         end
       end
 
-      test "creating an edition with invalid data but valid attachment data should still display the attachment data" do
+      view_test "creating an edition with invalid data but valid attachment data should still display the attachment data" do
         greenpaper_pdf = fixture_file_upload('greenpaper.pdf')
 
         post :create, edition_base_class_name => make_invalid(controller_attributes_for(edition_type,
@@ -157,7 +157,7 @@ module AdminEditionAttachableControllerTestHelpers
         end
       end
 
-      test 'creating an edition with invalid data should not show any existing attachment info' do
+      view_test 'creating an edition with invalid data should not show any existing attachment info' do
         attributes = controller_attributes_for(edition_type)
         greenpaper_pdf = fixture_file_upload('greenpaper.pdf')
         attributes[attachment_join_attributes] = {
@@ -206,7 +206,7 @@ module AdminEditionAttachableControllerTestHelpers
         assert_equal csv_file.size, attachment_2.file_size
       end
 
-      test 'edit displays edition attachment fields' do
+      view_test 'edit displays edition attachment fields' do
         two_page_pdf = fixture_file_upload('two-pages.pdf', 'application/pdf')
         attachment = create(:attachment, title: "attachment-title", file: two_page_pdf)
         edition = create(edition_type, :with_alternative_format_provider, attachments: [attachment])
@@ -280,7 +280,7 @@ module AdminEditionAttachableControllerTestHelpers
         assert_equal csv_file.size, attachment_2.file_size
       end
 
-      test "updating an edition with invalid data should still allow attachment to be selected for upload" do
+      view_test "updating an edition with invalid data should still allow attachment to be selected for upload" do
         edition = create(edition_type)
         put :update, id: edition, edition_base_class_name => make_invalid(controller_attributes_for_instance(edition))
 
@@ -289,7 +289,7 @@ module AdminEditionAttachableControllerTestHelpers
         end
       end
 
-      test "updating an edition with invalid data should only allow a single attachment to be selected for upload" do
+      view_test "updating an edition with invalid data should only allow a single attachment to be selected for upload" do
         edition = create(edition_type)
         greenpaper_pdf = fixture_file_upload('greenpaper.pdf')
 
@@ -308,7 +308,7 @@ module AdminEditionAttachableControllerTestHelpers
         end
       end
 
-      test "updating an edition with invalid data and valid attachment data should display the attachment data" do
+      view_test "updating an edition with invalid data and valid attachment data should display the attachment data" do
         edition = create(edition_type)
         greenpaper_pdf = fixture_file_upload('greenpaper.pdf')
 
@@ -329,7 +329,7 @@ module AdminEditionAttachableControllerTestHelpers
         end
       end
 
-      test "updating a stale edition should still display attachment fields" do
+      view_test "updating a stale edition should still display attachment fields" do
         edition = create_draft(edition_type)
         lock_version = edition.lock_version
         edition.touch
@@ -342,7 +342,7 @@ module AdminEditionAttachableControllerTestHelpers
         end
       end
 
-      test "updating a stale edition should only allow a single attachment to be selected for upload" do
+      view_test "updating a stale edition should only allow a single attachment to be selected for upload" do
         greenpaper_pdf = fixture_file_upload('greenpaper.pdf')
         edition = create_draft(edition_type)
         lock_version = edition.lock_version
@@ -364,7 +364,7 @@ module AdminEditionAttachableControllerTestHelpers
         end
       end
 
-      test 'updating should allow removal of attachments' do
+      view_test 'updating should allow removal of attachments' do
         attachment_1 = create(:attachment)
         attachment_2 = create(:attachment)
         edition = create(edition_type, :with_alternative_format_provider)
@@ -388,7 +388,7 @@ module AdminEditionAttachableControllerTestHelpers
         assert_equal [attachment_2], edition.attachments
       end
 
-      test 'updating should respect the attachment_action attribute to keep, remove, or replace attachments' do
+      view_test 'updating should respect the attachment_action attribute to keep, remove, or replace attachments' do
         two_pages_pdf = fixture_file_upload('two-pages.pdf')
         greenpaper_pdf = fixture_file_upload('greenpaper.pdf')
 
