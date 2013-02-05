@@ -224,6 +224,11 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
                   });
                 }
               }
+            } else if (field.id === 'date'){
+              context[field.id] = {
+                date: field.title[0],
+                direction: formStatus.checked[0].value
+              }
             }
           }
         }
@@ -292,7 +297,8 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
           return {id: $n.attr('id'), value: $n.val()};
         }),
         checked: $.map(documentFilter.$form.find('input[type=radio]:checked'), function(n) {
-          return $(n).attr('id');
+          var $n = $(n);
+          return {id: $n.attr('id'), value: $n.val()};
         })
       };
     },
@@ -306,7 +312,7 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
           $("#" + text.id).val(text.value);
         });
         $.each(event.state.checked, function(i, checked) {
-          $("#" + checked).attr('checked', true);
+          $("#" + checked.id).attr('checked', true);
         });
       }
     },
