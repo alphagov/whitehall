@@ -64,4 +64,21 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
     delete :destroy, id: office.id
     assert_equal count - 1, WorldwideOffice.count
   end
+
+  test "shows the name summary and description of the worldwide office" do
+    office = create(:worldwide_office, name: "Ministry of Silly Walks in Madrid",
+      summary: "We have a nice office in madrid",
+      description: "# Office\nOur office is on the main road\n")
+
+    get :show, id: office
+
+    assert_select_object office do
+      assert_select "h1", office.name
+      assert_select ".summary", office.summary
+      assert_select ".description" do
+        assert_select "h1", "Office"
+        assert_select "p", "Our office is on the main road"
+      end
+    end
+  end
 end
