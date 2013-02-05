@@ -70,6 +70,17 @@ Then /^the import succeeds, creating (\d+) imported news articles? for "([^"]*)"
   assert_nil edition.first_published_at
 end
 
+Then /^the import succeeds, creating (\d+) imported consultations? for "([^"]*)" with no opening or closing date$/ do |edition_count, organisation_name|
+  organisation = Organisation.find_by_name(organisation_name)
+  assert_equal edition_count.to_i, Edition.imported.count
+
+  edition = Edition.imported.first
+  assert_kind_of Consultation, edition
+  assert_equal organisation, edition.organisations.first
+  assert_nil edition.opening_on
+  assert_nil edition.closing_on
+end
+
 Then /^the import should fail with errors about organisation and sub type and no editions are created$/ do
   assert page.has_content?("Import failed")
   assert page.has_content?("Unable to find Organisation named 'weird organisation'")
@@ -78,7 +89,7 @@ Then /^the import should fail with errors about organisation and sub type and no
   assert_equal 0, Edition.count
 end
 
-Then /^I can't make the imported (?:publication|speech|news article) into a draft edition yet$/ do
+Then /^I can't make the imported (?:publication|speech|news article|consultation) into a draft edition yet$/ do
   visit_document_preview Edition.imported.last.title
 
   assert page.has_css?('input[type=submit][disabled=disabled][value="Convert to draft"]')
@@ -108,7 +119,7 @@ When /^I set the imported news article's first published date to "([^"]*)"$/ do 
   click_on 'Save'
 end
 
-Then /^I can make the imported (?:publication|speech|news article) into a draft edition$/ do
+Then /^I can make the imported (?:publication|speech|news article|consultation) into a draft edition$/ do
   edition = Edition.imported.last
   visit_document_preview edition.title
 
@@ -147,6 +158,18 @@ end
 
 Then /^the speech's organisation is set to "([^"]*)"$/ do |organisation_name|
   assert_equal Edition.last.organisations, [Organisation.find_by_name(organisation_name)]
+end
+
+When /^I set the imported consultation's opening date to "([^"]*)"$/ do |new_opening_date|
+  begin_editing_document Edition.imported.last.title
+  select_date "Opening Date", with: new_opening_date
+  click_on 'Save'
+end
+
+When /^I set the imported consultation's closing date to "([^"]*)"$/ do |new_closing_date|
+  begin_editing_document Edition.imported.last.title
+  select_date "Closing Date", with: new_closing_date
+  click_on 'Save'
 end
 
 Then /^I can delete the imported edition if I choose to$/ do

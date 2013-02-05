@@ -5,8 +5,8 @@ class Consultation < Publicationesque
   include Edition::FactCheckable
   include Edition::AlternativeFormatProvider
 
-  validates :opening_on, presence: true
-  validates :closing_on, presence: true
+  validates :opening_on, presence: true, unless: ->(consultation) { consultation.can_have_some_invalid_data? }
+  validates :closing_on, presence: true, unless: ->(consultation) { consultation.can_have_some_invalid_data? }
   validate :closing_on_must_be_after_opening_on
   validate :must_have_consultation_as_publication_type
 
@@ -40,15 +40,15 @@ class Consultation < Publicationesque
   end
 
   def not_yet_open?
-    opening_on > Date.today
+    opening_on.nil? || (opening_on > Date.today)
   end
 
   def open?
-    !closed? && opening_on <= Date.today
+    opening_on.present? && !closed? && opening_on <= Date.today
   end
 
   def closed?
-    closing_on < Date.today
+    closing_on.nil? || (closing_on < Date.today)
   end
 
   def published_consultation_response
@@ -64,14 +64,14 @@ class Consultation < Publicationesque
   end
 
   def first_public_at
-    opening_on.to_datetime
+    opening_on.to_datetime unless opening_on.nil?
   end
 
   def make_public_at(date)
   end
 
   def first_published_date
-    opening_on.to_date
+    opening_on.to_date unless opening_on.nil?
   end
 
   def allows_attachment_references?

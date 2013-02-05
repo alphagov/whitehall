@@ -8,14 +8,49 @@ class ConsultationTest < EditionTestCase
   should_allow_inline_attachments
   should_protect_against_xss_and_content_attacks_on :title, :body, :summary, :change_note
 
-  test "should be invalid without an opening on date" do
-    consultation = build(:consultation, opening_on: nil)
-    refute consultation.valid?
+  [:imported, :deleted].each do |state|
+    test "#{state} editions are valid without an opening on date" do
+      edition = build(:consultation, state: state, opening_on: nil)
+      assert edition.valid?
+    end
+
+    test "#{state} editions are valid without a closing on date" do
+      edition = build(:consultation, state: state, closing_on: nil)
+      assert edition.valid?
+    end
+
+    test "#{state} consultations with a blank opening on date have no first_public_at" do
+      edition = build(:consultation, state: state, opening_on: nil)
+      assert_nil edition.first_public_at
+    end
+
+    test "#{state} consultations with a blank opening on date have no first_published_date" do
+      edition = build(:consultation, state: state, opening_on: nil)
+      assert_nil edition.first_published_date
+    end
+
+    test "#{state} consultations with a blank opening on date are not open?, they are not_yet_open?" do
+      edition = build(:consultation, state: state, opening_on: nil)
+      refute edition.open?
+      assert edition.not_yet_open?
+    end
+
+    test "#{state} consultations with a blank closing on date are closed?" do
+      edition = build(:consultation, state: state, closing_on: nil)
+      assert edition.closed?
+    end
   end
 
-  test "should be invalid without a closing on date" do
-    consultation = build(:consultation, closing_on: nil)
-    refute consultation.valid?
+  [:draft, :scheduled, :published, :archived, :submitted, :rejected].each do |state|
+    test "#{state} editions are not valid without an opening on date" do
+      edition = build(:consultation, state: state, opening_on: nil)
+      refute edition.valid?
+    end
+
+    test "#{state} editions are not valid without a closing on date" do
+      edition = build(:consultation, state: state, closing_on: nil)
+      refute edition.valid?
+    end
   end
 
   test "should be invalid if the opening date is after the closing date" do

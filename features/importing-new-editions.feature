@@ -170,6 +170,19 @@ Feature: Importing new editions
     When I set the deliverer of the speech to "Joe Bloggs" from the "Depertment for Transport"
     Then I can make the imported speech into a draft edition
 
+  Scenario: Importing consultations with blank dates allows them to be filled in later
+    When I import the following data as CSV as "Consultation" for "Department for Transport":
+      """
+      old_url,title,summary,body,organisation,policy_1,opening_date,closing_date,response_date,response_summary
+      http://example.com/1,title,summary,body,department-for-transport,,,,,,
+      """
+    Then the import succeeds, creating 1 imported consultation for "Department for Transport" with no opening or closing date
+    And I can't make the imported publication into a draft edition yet
+    When I set the imported consultation's opening date to "14-Dec-2011"
+    Then I can't make the imported publication into a draft edition yet
+    When I set the imported consultation's closing date to "20-Dec-2011"
+    Then I can make the imported consultation into a draft edition
+
   Scenario: Importing edition and then deleting it
     When I import the following data as CSV as "Speech" for "Department for Transport":
       """
