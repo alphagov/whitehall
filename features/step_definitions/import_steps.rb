@@ -38,7 +38,7 @@ Then /^the import succeeds, creating (\d+) imported speech(?:es)? with "([^"]*)"
   assert_equal speech_type, edition.speech_type
 end
 
-Then /^the import succeeds, creating (\d+) imported news article for "([^"]*)" with "([^"]*)" news article type$/ do |edition_count, organisation_name, news_article_type_slug|
+Then /^the import succeeds, creating (\d+) imported news articles? for "([^"]*)" with "([^"]*)" news article type$/ do |edition_count, organisation_name, news_article_type_slug|
   organisation = Organisation.find_by_name(organisation_name)
   news_article_type  = NewsArticleType.find_by_slug(news_article_type_slug)
   assert_equal edition_count.to_i, Edition.imported.count
@@ -47,6 +47,16 @@ Then /^the import succeeds, creating (\d+) imported news article for "([^"]*)" w
   assert_kind_of NewsArticle, edition
   assert_equal organisation, edition.organisations.first
   assert_equal news_article_type, edition.news_article_type
+end
+
+Then /^the import succeeds, creating (\d+) imported news articles? for "([^"]*)" with no first published date$/ do |edition_count, organisation_name|
+  organisation = Organisation.find_by_name(organisation_name)
+  assert_equal edition_count.to_i, Edition.imported.count
+
+  edition = Edition.imported.first
+  assert_kind_of NewsArticle, edition
+  assert_equal organisation, edition.organisations.first
+  assert_nil edition.first_published_at
 end
 
 Then /^the import should fail with errors about organisation and sub type and no editions are created$/ do
@@ -78,6 +88,12 @@ end
 When /^I set the imported news article's type to "([^"]*)"$/ do |news_article_type|
   begin_editing_document Edition.imported.last.title
   select news_article_type, from: 'News article type'
+  click_on 'Save'
+end
+
+When /^I set the imported news article's first published date to "([^"]*)"$/ do |new_first_published_date|
+  begin_editing_document Edition.imported.last.title
+  select_date "First published at", with: new_first_published_date
   click_on 'Save'
 end
 

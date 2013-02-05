@@ -54,7 +54,7 @@ Feature: Importing new editions
 
   News:
 
-  - first_published: required
+  - first_published: column required, data optional (required before draft)
   - news_article_type: required, ideally default blank to ImportedAwaitingType, reject anything non-blank that can't be found
   - policy_1..4: 1 column required, data optional
   - minister_1..2: optional
@@ -129,6 +129,16 @@ Feature: Importing new editions
     When I set the imported news article's type to "Rebuttal"
     Then I can make the imported news article into a draft edition
 
+  Scenario: Importing news article with blank first published allows them to be filled in later
+    When I import the following data as CSV as "News article" for "Department for Transport":
+      """
+      old_url,title,summary,body,organisation,policy_1,minister_1,first_published,country_1,news_article_type
+      http://example.com/1,title,summary,body,department-for-transport,,,,,news-stories,
+      """
+    Then the import succeeds, creating 1 imported news article for "Department for Transport" with no first published date
+    And I can't make the imported news article into a draft edition yet
+    When I set the imported news article's first published date to "14-Dec-2011"
+    Then I can make the imported news article into a draft edition
 
   Scenario: Importing speeches sets ImportedAwaitingType speech type and blank "delivered by", to be filled in later
     When I import the following data as CSV as "Speech" for "Department for Transport":

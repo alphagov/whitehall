@@ -90,6 +90,11 @@ module Whitehall::Uploader
       assert_equal "date-object", row.first_published_at
     end
 
+    test "leaves the first_published_at blank if the 'first_published' column is blank" do
+      row = news_article_row("first_published" => '')
+      assert_nil row.first_published_at
+    end
+
     test "finds related policies using the policy finder" do
       policies = 5.times.map { stub('policy') }
       Finders::PoliciesFinder.stubs(:find).with("first", "second", "third", "fourth", anything, anything).returns(policies)
