@@ -475,21 +475,24 @@ class OrganisationsControllerTest < ActionController::TestCase
   test "presents the contact details of the organisation using hcard" do
     ministerial_department = create(:organisation_type, name: "Ministerial Department")
     organisation = create(:organisation, organisation_type: ministerial_department,
-      name: "Ministry of Pomp", contacts_attributes: [{
-        description: "Main",
-        email: "pomp@gov.uk",
-        contact_form_url: "http://pomp.gov.uk/contact",
-        address: "1 Smashing Place, London", postcode: "LO1 8DN",
-        contact_numbers_attributes: [
-          { label: "Helpline", number: "02079460000" },
-          { label: "Fax", number: "02079460001" }
-        ]
-      }]
+      name: "Ministry of Pomp"
+    )
+    organisation.contacts.create!(
+      title: "Main",
+      recipient: "Ministry of Pomp",
+      email: "pomp@gov.uk",
+      contact_form_url: "http://pomp.gov.uk/contact",
+      street_address: "1 Smashing Place, London", postal_code: "LO1 8DN",
+      contact_numbers_attributes: [
+        { label: "Helpline", number: "02079460000" },
+        { label: "Fax", number: "02079460001" }
+      ],
+      country_id: create(:country)
     )
     get :show, id: organisation
 
     assert_select ".vcard" do
-      assert_select ".fn.org", "Ministry of Pomp"
+      assert_select ".fn", "Ministry of Pomp"
       assert_select ".adr" do
         assert_select ".street-address", "1 Smashing Place, London"
         assert_select ".postal-code", "LO1 8DN"

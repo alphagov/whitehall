@@ -2,8 +2,6 @@ require 'test_helper'
 
 class OrganisationTest < ActiveSupport::TestCase
   should_protect_against_xss_and_content_attacks_on :name, :about_us, :description
-  should_have_social_media
-  should_have_contacts
 
   test 'should be invalid without a name' do
     organisation = build(:organisation, name: nil)
@@ -497,5 +495,30 @@ class OrganisationTest < ActiveSupport::TestCase
     organisation.organisation_classifications.create(classification_id: topics[1].id, ordering: 1)
     assert_match /order by/i, organisation.topics.to_sql
     assert_equal [topics[1], topics[0]], organisation.topics
+  end
+
+  test "can have associated contacts" do
+    organisation = create(:organisation)
+    contact = organisation.contacts.create(title: "Main office")
+  end
+
+  test 'destroy deletes related contacts' do
+    organisation = create(:organisation)
+    contact = create(:contact, contactable: organisation)
+    organisation.destroy
+    assert_nil Contact.find_by_id(contact.id)
+  end
+
+  test "can have associated social media accounts" do
+    service = create(:social_media_service)
+    organisation = create(:organisation)
+    contact = organisation.social_media_accounts.create(social_media_service_id: service.id, url: "http://example.com")
+  end
+
+  test 'destroy deletes related social media accounts' do
+    organisation = create(:organisation)
+    social_media_account = create(:social_media_account, socialable: organisation)
+    organisation.destroy
+    assert_nil SocialMediaAccount.find_by_id(social_media_account.id)
   end
 end

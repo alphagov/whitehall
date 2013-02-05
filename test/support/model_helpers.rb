@@ -50,28 +50,12 @@ module ModelHelpers
       end
     end
 
-    def should_have_social_media
-      test "should include the SocialMedia module" do
-        # *NOTE*. The ::Attachable module is tested separately so it
-        # should be enough to just test its inclusion here.
-        assert class_from_test_name.ancestors.include?(Whitehall::Models::SocialMedia)
-      end
-    end
-
     def should_force_review_of_bulk_uploaded_attachments
       test 'should include the Attachable::ForceReviewOfBulkAttachments behaviour module' do
         # *NOTE*. The ::Attachable::ForceReviewOfBulkAttachments module
         # is tested separately so it should be enough to just test its
         # inclusion here.
-        assert edition_class_from_test_name.ancestors.include?(::Attachable::ForceReviewOfBulkAttachments)
-      end
-    end
-
-    def should_have_contacts
-      test "should include the Contacts module" do
-        # *NOTE*. The ::Attachable module is tested separately so it
-        # should be enough to just test its inclusion here.
-        assert class_from_test_name.ancestors.include?(Whitehall::Models::Contacts)
+        assert class_from_test_name.ancestors.include?(::Attachable::ForceReviewOfBulkAttachments)
       end
     end
 
