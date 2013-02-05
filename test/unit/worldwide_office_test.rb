@@ -23,4 +23,19 @@ class WorldwideOfficeTest < ActiveSupport::TestCase
 
     assert_equal countries.sort_by(&:name), office.world_locations.sort_by(&:name)
   end
+
+  test "can be associated with one or more sponsoring organisations" do
+    organisation = create(:organisation)
+    office = create(:worldwide_office)
+    office.sponsoring_organisations << organisation
+
+    assert_equal [organisation], office.reload.sponsoring_organisations
+  end
+
+  test "destroy deletes sponsorships" do
+    office = create(:worldwide_office, sponsoring_organisations: [create(:organisation)])
+    office.destroy
+    assert_equal 0, office.sponsorships.count
+  end
+
 end

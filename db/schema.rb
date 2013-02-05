@@ -742,6 +742,16 @@ ActiveRecord::Schema.define(:version => 20130207115522) do
     t.datetime "updated_at"
   end
 
+  create_table "sponsorships", :force => true do |t|
+    t.integer  "organisation_id"
+    t.integer  "worldwide_office_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sponsorships", ["organisation_id", "worldwide_office_id"], :name => "unique_sponsorships", :unique => true
+  add_index "sponsorships", ["worldwide_office_id"], :name => "index_sponsorships_on_worldwide_office_id"
+
   create_table "supporting_page_attachments", :force => true do |t|
     t.integer  "supporting_page_id"
     t.integer  "attachment_id"
