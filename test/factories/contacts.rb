@@ -1,5 +1,5 @@
 FactoryGirl.define do
   factory :contact do
-    description "Contact description"
+    title "Contact description"
   end
 end

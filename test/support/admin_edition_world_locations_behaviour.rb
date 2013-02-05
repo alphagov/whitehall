@@ -3,7 +3,7 @@ module AdminEditionWorldLocationsBehaviour
 
   module ClassMethods
     def should_allow_association_between_world_locations_and(document_type)
-      edition_class = edition_class_for(document_type)
+      edition_class = class_for(document_type)
 
       test "new displays document form with world locations field" do
         get :new

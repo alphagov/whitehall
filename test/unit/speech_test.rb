@@ -1,6 +1,6 @@
 require "test_helper"
 
-class SpeechTest < EditionTestCase
+class SpeechTest < ActiveSupport::TestCase
   should_allow_image_attachments
   should_allow_a_role_appointment
   should_protect_against_xss_and_content_attacks_on :title, :body, :summary, :change_note

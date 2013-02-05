@@ -2,13 +2,62 @@ require "test_helper"
 
 class ContactTest < ActiveSupport::TestCase
   test "should be invalid without a description" do
-    contact = build(:contact, description: nil)
+    contact = build(:contact, title: nil)
     refute contact.valid?
   end
 
   test "should be invalid if contact_form_url is invalid" do
     contact = build(:contact, contact_form_url: "not.a.url")
     refute contact.valid?
+  end
+
+  test "should be valid with no postal address fields" do
+    contact = build(:contact,
+      recipient: "",
+      street_address: "",
+      locality: "",
+      region: "",
+      postal_code: "",
+      country_id: ""
+    )
+    assert contact.valid?
+  end
+
+  test "should be invalid with only country but no street address" do
+    country = create(:country)
+    contact = build(:contact,
+      recipient: "",
+      street_address: "",
+      locality: "",
+      region: "",
+      postal_code: "",
+      country_id: country.id)
+    refute contact.valid?
+    assert_equal ["can't be blank"], contact.errors[:street_address]
+  end
+
+  test "should be invalid with only street address but no country" do
+    contact = build(:contact,
+      recipient: "",
+      street_address: "123 Acacia Avenue",
+      locality: "",
+      region: "",
+      postal_code: "",
+      country_id: "")
+    refute contact.valid?
+    assert_equal ["can't be blank"], contact.errors[:country_id]
+  end
+
+  test "should be valid with only street address and country" do
+    country = create(:country)
+    contact = build(:contact,
+      recipient: "",
+      street_address: "123 Acacia avenue",
+      locality: "",
+      region: "",
+      postal_code: "",
+      country_id: country.id)
+    assert contact.valid?
   end
 
   test "should allow creation of nested contact numbers" do

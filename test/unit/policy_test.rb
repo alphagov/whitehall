@@ -1,6 +1,6 @@
 require "test_helper"
 
-class PolicyTest < EditionTestCase
+class PolicyTest < ActiveSupport::TestCase
   should_allow_image_attachments
   should_protect_against_xss_and_content_attacks_on :body
 

@@ -1,6 +1,6 @@
 require "test_helper"
 
-class FatalityNoticeTest < EditionTestCase
+class FatalityNoticeTest < ActiveSupport::TestCase
   include ActionDispatch::TestProcess
 
   should_allow_role_appointments

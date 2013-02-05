@@ -1,5 +1,14 @@
 Feature: Administering Organisations
 
+Scenario: Administering organisation contact details
+  Given I am an admin called "Jane"
+  And the organisation "Ministry of Pop" exists
+  When I visit the organisation admin page for "Ministry of Pop"
+  And I add a new contact "Main office" with address "1 Acacia Avenue"
+  Then I should see the "Main office" contact in the admin interface with address "1 Acacia Avenue"
+  When I edit the contact to have address "1 Acacia Road"
+  Then I should see the "Main office" contact in the admin interface with address "1 Acacia Road"
+
 Scenario: Featuring news on an organisation page
   Given the organisation "Ministry of Pop" exists
   And a published news article "You must buy the X-Factor single, says Queen" was produced by the "Ministry of Pop" organisation
