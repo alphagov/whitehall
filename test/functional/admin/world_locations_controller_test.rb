@@ -7,6 +7,16 @@ class Admin::WorldLocationsControllerTest < ActionController::TestCase
 
   should_be_an_admin_controller
 
+  test 'should return world locations in alphabetical order' do
+    world_location_2 = create(:world_location, name: 'zzz')
+    world_location_1 = create(:world_location, name: 'aaa')
+
+    get :index
+
+    assert_equal [world_location_1, world_location_2], assigns(:world_locations)
+
+  end
+
   test 'should allow modification of existing world location data' do
     world_location = create(:world_location)
 
