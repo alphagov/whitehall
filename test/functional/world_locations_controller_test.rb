@@ -67,18 +67,6 @@ class WorldLocationsControllerTest < ActionController::TestCase
     end
   end
 
-  test "should display an about page for the world location" do
-    world_location = create(:world_location,
-      name: "country-name",
-      description: "country-about"
-    )
-
-    get :about, id: world_location
-
-    assert_select ".page_title", text: "country-name"
-    assert_select ".description", text: "country-about"
-  end
-
   test "shows featured items in defined order" do
     world_location = create(:world_location)
     less_recent_news_article = create(:published_news_article, first_published_at: 2.days.ago)
