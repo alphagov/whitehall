@@ -36,14 +36,10 @@
         <div id="org-contacts">
           <% @worldwide_office.contacts.each do |contact| %>
             <div class="worldwide-office-contact complex">
-              <h2><%= contact.description %></h2>
+              <h2><%= contact.title %></h2>
               <div class="contact-inner">
-                <% if contact.address.present? %>
-                  <div class="adr">
-                    <p class="fn org name visuallyhidden"><%= @worldwide_office.name %></p>
-                    <p class="street-address"><%= format_with_html_line_breaks(contact.address) %></p>
-                    <p class="postal-code"><%= contact.postcode %></p>
-                  </div>
+                <% if contact.has_postal_address? %>
+                  <%= render_hcard(contact) %>
                 <% end %>
               </div>
               <div class="email-url-number">

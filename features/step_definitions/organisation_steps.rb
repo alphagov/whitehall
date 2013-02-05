@@ -221,8 +221,9 @@ end
 When /^I add a new contact "([^"]*)" with address "([^"]*)"$/ do |contact_description, address|
   click_link "Contacts"
   click_link "Add"
-  fill_in "Description", with: contact_description
-  fill_in "Address", with: address
+  fill_in "Title", with: contact_description
+  fill_in "Street address", with: address
+  select "United Kingdom", from: "Country"
   click_button "Save"
 end
 
@@ -231,13 +232,13 @@ When /^I edit the contact to have address "([^"]*)"$/ do |address|
   within ".contact" do
     click_link "Edit"
   end
-  fill_in "Address", with: address
+  fill_in "Street address", with: address
   click_button "Save"
 end
 
 Then /^I should see the "([^"]*)" contact in the admin interface with address "([^"]*)"$/ do |contact_description, address|
   within ".contact" do
     assert page.has_css?("h3", text: contact_description)
-    assert page.has_css?("dd", text: address)
+    assert page.has_css?(".adr .street-address", text: address)
   end
 end

@@ -1,17 +1,17 @@
 <% if contactable.contacts.any? %>
   <% contactable.contacts.each do |contact| %>
     <%= content_tag_for(:div, contact) do %>
-      <h3><%= contact.description %></h3>
-      <dl class="dl-horizontal">
-        <%= definition("Address", contact.address) %>
-        <%= definition("Postcode", contact.postcode) %>
-        <%= definition("Email", contact.email) { |email| puts mail_to(email) } %>
-        <%= definition("Contact form url", contact.contact_form_url) { |url| puts link_to(url) } %>
-        <% contact.contact_numbers.each do |cn| %>
-          <%= definition(cn.label, cn.number) %>
+      <h3><%= contact.title %></h3>
+      <%= render_hcard(contact) %>
+      <% if contact.contact_numbers.any? %>
+        <%= content_tag(:dl, class: "dl-horizontal") do %>
+          <% contact.contact_numbers.each do |cn| %>
+            <%= definition(cn.label, cn.number) %>
+          <% end %>
         <% end %>
-      </dl>
-      <%= button_to "Delete", admin_contact_path(contact, contactable_type: contactable.class.name, contactable_id: contactable), method: "delete", class: "btn btn-small btn-danger", confirm: "Delete contact '#{contact.description}' from #{contactable.class.name.underscore.humanize.downcase} '#{contactable.name}'?" %>
+      <% end %>
+
+      <%= button_to "Delete", admin_contact_path(contact, contactable_type: contactable.class.name, contactable_id: contactable), method: "delete", class: "btn btn-small btn-danger", confirm: "Delete contact '#{contact.title}' from #{contactable.class.name.underscore.humanize.downcase} '#{contactable.name}'?" %>
       <%= link_to icon("Edit"), edit_admin_contact_path(contact, contactable_type: contactable.class.name, contactable_id: contactable), class: "btn" %>
     <% end %>
   <% end %>

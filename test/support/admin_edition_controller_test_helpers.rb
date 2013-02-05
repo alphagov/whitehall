@@ -1581,7 +1581,7 @@ module AdminEditionControllerTestHelpers
     end
 
     def should_allow_assignment_to_document_series(edition_type)
-      edition_class = edition_class_for(edition_type)
+      edition_class = class_for(edition_type)
 
       test "when creating allows assignment to document series" do
         get :new
@@ -1627,7 +1627,7 @@ module AdminEditionControllerTestHelpers
     end
 
     def should_allow_access_limiting_of(edition_type)
-      edition_class = edition_class_for(edition_type)
+      edition_class = class_for(edition_type)
 
       test "create should record the access_limited flag" do
         post :create, edition: controller_attributes_for(edition_type,
@@ -1661,7 +1661,7 @@ module AdminEditionControllerTestHelpers
     end
 
     def should_allow_association_with_topical_events(edition_type)
-      edition_class = edition_class_for(edition_type)
+      edition_class = class_for(edition_type)
 
       test "new should display topical events field" do
         get :new

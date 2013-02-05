@@ -162,8 +162,17 @@ ActiveRecord::Schema.define(:version => 20130204133738) do
     t.string  "contact_form_url"
     t.integer "contactable_id"
     t.string  "contactable_type"
+    t.string  "title"
+    t.text    "comments"
+    t.string  "recipient"
+    t.text    "street_address"
+    t.string  "locality"
+    t.string  "region"
+    t.string  "postal_code"
+    t.integer "country_id"
   end
 
+  add_index "contacts", ["contactable_id", "contactable_type"], :name => "index_contacts_on_contactable_id_and_contactable_type"
   add_index "contacts", ["organisation_id"], :name => "index_contacts_on_organisation_id"
 
   create_table "corporate_information_page_attachments", :force => true do |t|

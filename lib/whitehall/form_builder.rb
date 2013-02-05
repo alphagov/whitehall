@@ -27,7 +27,7 @@ module Whitehall
       label_text = options.delete(:label_text)
       horizontal = options.delete(:horizontal)
       if horizontal
-        horizontal_group(label(method, label_text, class: "control-label"), super(method, options))
+        horizontal_group(label(method, label_text, class: "control-label"), super(method, options), options)
       else
         label(method, label_text) + super(method, options)
       end
@@ -38,7 +38,7 @@ module Whitehall
       label_text = options.delete(:label_text)
       horizontal = options.delete(:horizontal)
       if horizontal
-        horizontal_group(label(method, label_text, class: "control-label"), super)
+        horizontal_group(label(method, label_text, class: "control-label"), super, options)
       else
         label(method, label_text) + super
       end
@@ -53,11 +53,13 @@ module Whitehall
 
     private
 
-    def horizontal_group(label_tag, content_tag)
+    def horizontal_group(label_tag, content_tag, options = {})
       @template.content_tag(:div, class: "control-group") do
         label_tag +
         @template.content_tag(:div, class: "controls") do
-          content_tag
+          content_tag +
+            (options[:help_block] ? @template.content_tag(:span, options[:help_block], class: "help-block") : "") +
+            (options[:help_inline] ? @template.content_tag(:span, options[:help_inline], class: "help-inline") : "")
         end
       end
     end

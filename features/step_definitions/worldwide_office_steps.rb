@@ -41,7 +41,9 @@ Given /^a worldwide office "([^"]*)"$/ do |name|
 end
 
 When /^I add a "([^"]*)" social media link "([^"]*)"$/ do |social_service, url|
-  visit edit_admin_worldwide_office_path(WorldwideOffice.last)
+  visit admin_worldwide_office_path(WorldwideOffice.last)
+  click_link "Social Media Accounts"
+  click_link "Add"
   select social_service, from: "Service"
   fill_in "Url", with: url
   click_on "Save"
@@ -55,12 +57,13 @@ end
 When /^I add an "([^"]*)" contact with address and phone number$/ do |description|
   visit contacts_admin_worldwide_office_path(WorldwideOffice.last)
   click_link "Add"
-  fill_in "Description", with: description
-  fill_in "Address", with: "address1\naddress2"
-  fill_in "Postcode", with: "12345-123"
+  fill_in "Title", with: description
+  fill_in "Street address", with: "address1\naddress2"
+  fill_in "Postal code", with: "12345-123"
   fill_in "Email", with: "foo@bar.com"
   fill_in "Label", with: "Main phone number"
   fill_in "Number", with: "+22 (0) 111 111-111"
+  select "United Kingdom", from: "Country"
   click_on "Save"
 end
 

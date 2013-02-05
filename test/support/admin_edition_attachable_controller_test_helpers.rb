@@ -451,7 +451,7 @@ module AdminEditionAttachableControllerTestHelpers
     end
 
     def should_allow_bulk_upload_attachments_for(edition_type)
-      edition_class = edition_class_for(edition_type)
+      edition_class = class_for(edition_type)
       edition_base_class_name = edition_class.base_class.name.underscore
       attachment_join_table = edition_class.reflect_on_association(:attachments).through_reflection.table_name
       attachment_join_attributes = "#{attachment_join_table}_attributes".to_sym

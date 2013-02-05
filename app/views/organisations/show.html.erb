@@ -255,36 +255,31 @@
     </div>
   <% end %>
 
-  <div class="block-10 vcard">
+  <div class="block-10">
     <div class="inner-block">
       <div class="contact-wrapper">
         <h1 class="label">Contact <%= @organisation.display_name %></h1>
         <div id="org-contacts">
-          <% addresses = @organisation.contacts.select { |c| c.address.present? } %>
+          <% addresses = @organisation.contacts.select { |c| c.has_postal_address? } %>
           <% others = @organisation.contacts - addresses %>
           <div class="addresses js-hide-extra-rows-2">
             <% addresses.each do |contact| %>
               <div class="organisation_contact complex">
-                <h2><%= contact.description %></h2>
+                <h2><%= contact.title %></h2>
                 <div class="contact-inner">
-                  <% if contact.address.present? %>
-                    <div class="adr">
-                      <p class="fn org name visuallyhidden"><%= @organisation.name %></p>
-                      <p class="street-address"><%= format_with_html_line_breaks(contact.address) %></p>
-                      <p class="postal-code"><%= contact.postcode %></p>
+                  <%= render_hcard(contact) do %>
+                    <div class="email-url-number">
+                      <% if contact.email.present? %>
+                        <p class="email"><span class="type">Email</span> <%= mail_to contact.email, contact.email, class: 'email' %></p>
+                      <% end %>
+                      <% if contact.contact_form_url.present? %>
+                        <p class="contact_form_url"><span class="type">Contact form</span><%= link_to contact.contact_form_url.truncate(25), contact.contact_form_url %></p>
+                      <% end %>
+                      <% contact.contact_numbers.each do |number| %>
+                        <p class="tel"><span class="type"><%= number.label %></span> <%= number.number %></p>
+                      <% end %>
                     </div>
                   <% end %>
-                  <div class="email-url-number">
-                    <% if contact.email.present? %>
-                        <p class="email"><span class="type">Email</span> <%= mail_to contact.email, contact.email, class: 'email' %></p>
-                    <% end %>
-                    <% if contact.contact_form_url.present? %>
-                      <p class="contact_form_url"><span class="type">Contact form</span><%= link_to contact.contact_form_url.truncate(25), contact.contact_form_url %></p>
-                    <% end %>
-                    <% contact.contact_numbers.each do |number| %>
-                      <p class="tel"><span class="type"><%= number.label %></span> <%= number.number %></p>
-                    <% end %>
-                  </div>
                 </div>
               </div>
             <% end %>

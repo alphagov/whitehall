@@ -8,5 +8,6 @@ class MakeContactsPolymorphic < ActiveRecord::Migration
     add_column :contacts, :contactable_type, :string
 
     execute "UPDATE contacts SET contactable_id = organisation_id, contactable_type = 'Organisation'"
+    add_index :contacts, [:contactable_id, :contactable_type]
   end
 end
