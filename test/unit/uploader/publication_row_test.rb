@@ -87,6 +87,16 @@ module Whitehall::Uploader
       assert_equal PublicationType::Guidance, row.publication_type
     end
 
+    test "parses the publication date from the publication_date column" do
+      row = new_publication_row({"publication_date" => "16-May-12"})
+      assert_equal Date.parse("2012-05-16"), row.publication_date
+    end
+
+    test "leaves the publication date blank if the publication_date column is blank" do
+      row = new_publication_row({"publication_date" => ""})
+      assert_nil row.publication_date
+    end
+
     test "finds ministers specified by slug in minister 1 and minister 2 columns" do
       minister_1 = create(:person)
       minister_2 = create(:person)

@@ -19,6 +19,16 @@ Then /^the import succeeds, creating (\d+) imported publications? for "([^"]*)" 
   assert_equal publication_sub_type, edition.publication_type
 end
 
+Then /^the import succeeds, creating (\d+) imported publications? for "([^"]*)" with no publication date$/ do |edition_count, organisation_name|
+  organisation = Organisation.find_by_name(organisation_name)
+  assert_equal edition_count.to_i, Edition.imported.count
+
+  edition = Edition.imported.first
+  assert_kind_of Publication, edition
+  assert_equal organisation, edition.organisations.first
+  assert_nil edition.publication_date
+end
+
 Then /^the import succeeds, creating (\d+) imported speech(?:es)? with "([^"]*)" speech type and with no deliverer set$/ do |edition_count, speech_type_slug|
   speech_type = SpeechType.find_by_slug(speech_type_slug)
   assert_equal edition_count.to_i, Edition.imported.count
@@ -56,6 +66,12 @@ end
 When /^I set the imported publication's type to "([^"]*)"$/ do |publication_sub_type|
   begin_editing_document Edition.imported.last.title
   select publication_sub_type, from: 'Publication type'
+  click_on 'Save'
+end
+
+When /^I set the imported publication's publication date to "([^"]*)"$/ do |new_publication_date|
+  begin_editing_document Edition.imported.last.title
+  select_date "Publication date", with: new_publication_date
   click_on 'Save'
 end
 

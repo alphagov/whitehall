@@ -1,4 +1,12 @@
 module Admin::EditionsHelper
+  def render_publication_date(edition)
+    if edition.publication_date.nil?
+      'to be set'
+    else
+      edition.publication_date.to_s(:long_ordinal)
+    end
+  end
+
   def nested_attribute_destroy_checkbox_options(form, html_args = {})
     checked_value, unchecked_value = '0', '1'
     checked = form.object[:_destroy].present? ? (form.object[:_destroy] == checked_value) : form.object.persisted?

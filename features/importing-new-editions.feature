@@ -23,7 +23,7 @@ Feature: Importing new editions
   - column required: should fail csv upload without the column
   - required: should fail row import without it, implies column required
   - unique: should fail csv upload if any duplicates of this field in the file, implies required
-  - optional: import if avaialable, leave blank if not
+  - optional: import if available, leave blank if not
   - default: import if available, set to a default if not
 
   All types:
@@ -36,7 +36,7 @@ Feature: Importing new editions
 
   Publications:
 
-  - publication_date: required
+  - publication_date: column required, data optional (required before draft)
   - publication_type: required, ideally default blank to ImportedAwaitingType, reject anything non-blank that can't be found
   - policy_1..4: 1 column required, data optional
   - document_series_1: column required, data optional
@@ -107,7 +107,16 @@ Feature: Importing new editions
     When I set the imported publication's type to "Policy paper"
     Then I can make the imported publication into a draft edition
 
-
+  Scenario: Importing publications with blank publication dates allows them to be filled in later
+    When I import the following data as CSV as "Publication" for "Department for Transport":
+      """
+      old_url,title,summary,body,organisation,policy_1,publication_type,document_series_1,publication_date,order_url,price,isbn,urn,command_paper_number,ignore_1,attachment_1_url,attachment_1_title,country_1
+      http://example.com/1,title,summary,body,department-for-transport,,policy-papers,,,,,,,,,,,
+      """
+    Then the import succeeds, creating 1 imported publication for "Department for Transport" with no publication date
+    And I can't make the imported publication into a draft edition yet
+    When I set the imported publication's publication date to "14-Dec-2011"
+    Then I can make the imported publication into a draft edition
 
   Scenario: Importing news article sets imported state, ImportedAwaitingType type and default organisation, to be filled in later
     When I import the following data as CSV as "News article" for "Department for Transport":
