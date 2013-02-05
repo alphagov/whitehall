@@ -34,6 +34,23 @@ class MinisterialRolesControllerTest < ActionController::TestCase
     assert_equal [prime_minister, deputy_prime_minister, first_sec_of_state, defence_minister, culture_minister], assigns(:cabinet_ministerial_roles).map { |person, role| role.first.model }
   end
 
+  test "shows roles by organisation in the correct order" do
+    organisation = create(:ministerial_department)
+    person_2 = create(:person, forename: 'Jeremy', surname: 'Hunt')
+    person_1 = create(:person, forename: 'Nick', surname: 'Clegg')
+
+    role_2 = create(:ministerial_role, name: 'Non-Executive Director', cabinet_member: false, organisations: [organisation])
+    role_1 = create(:ministerial_role, name: 'Prime Minister', cabinet_member: true, organisations: [organisation])
+
+    appointment_2 = create(:ministerial_role_appointment, role: role_2, person: person_2)
+    appointment_1 = create(:ministerial_role_appointment, role: role_1, person: person_1)
+
+    get :index
+
+    assert_equal [[organisation, [appointment_1, appointment_2]]], assigns(:ministerial_roles_by_organisation).map { |org, role_appointments| [org, role_appointments.map(&:model)] }
+  end
+
+
   test "should avoid n+1 queries" do
     MinisterialRole.expects(:includes).with(:current_people).returns([])
     get :index

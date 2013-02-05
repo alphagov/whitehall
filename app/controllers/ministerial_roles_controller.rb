@@ -6,11 +6,14 @@ class MinisterialRolesController < PublicFacingController
     }
     ministerial_department_type = OrganisationType.find_by_name('Ministerial department')
 
-    @ministerial_roles_by_organisation = Organisation.includes(ministerial_role_appointments: [:role, :person]).where(organisation_type_id: ministerial_department_type).map { |org|
-      [org, org.ministerial_role_appointments.map { |appointment|
-        RoleAppointmentPresenter.decorate(appointment)
-      }]
-    }
+    @ministerial_roles_by_organisation = Organisation.includes(ministerial_role_appointments: [:role, :person]).where(organisation_type_id: ministerial_department_type).map do |organisation|
+      [
+        organisation,
+        organisation.ministerial_role_appointments.map { |appointment|
+          RoleAppointmentPresenter.decorate(appointment)
+        }.sort_by {|role_appointment| role_appointment.role.seniority }
+      ]
+    end
   end
 
   def show
