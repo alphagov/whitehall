@@ -1660,6 +1660,40 @@ module AdminEditionControllerTestHelpers
       end
     end
 
+    def should_allow_relevance_to_local_government_of(edition_type)
+      edition_class = edition_class_for(edition_type)
+
+      test "create should record the relevant_to_local_government flag" do
+        post :create, edition: controller_attributes_for(edition_type,
+          publication_date: Date.parse("1805-10-21"),
+          relevant_to_local_government: '1'
+        )
+
+        assert created_publication = edition_class.last
+        assert created_publication.relevant_to_local_government?
+      end
+
+      test "edit displays persisted relevant_to_local_government flag" do
+        publication = create(edition_type, relevant_to_local_government: false)
+
+        get :edit, id: publication
+
+        assert_select "form#edition_edit" do
+          assert_select "input[name='edition[relevant_to_local_government]'][type=checkbox]"
+          assert_select "input[name='edition[relevant_to_local_government]'][type=checkbox][checked=checked]", count: 0
+        end
+      end
+
+      test "update records new value of relevant_to_local_government flag" do
+        publication = create(edition_type, relevant_to_local_government: false)
+
+        new_attrs = controller_attributes_for_instance(publication, relevant_to_local_government: '1')
+        put :update, id: publication, edition: new_attrs
+
+        assert publication.reload.relevant_to_local_government?
+      end
+    end
+
     def should_allow_association_with_topical_events(edition_type)
       edition_class = class_for(edition_type)
 
