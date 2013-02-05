@@ -14,7 +14,7 @@
 <div class="block-2">
   <div class="inner-block">
     <% if @topics.any? %>
-      <div class="heading-block all-topics">
+      <div class="heading-block">
           <div class="content">
             <%= render partial: "list", locals: { topics: @topics } %>
           </div>
@@ -23,7 +23,7 @@
       </div>
     <% end %>
     <% if @topical_events.any? %>
-      <div class="heading-block all-topical_events">
+      <div class="heading-block">
           <h1 class="label">Topical events</h1>
           <div class="content">
             <%= render partial: "list", locals: { topics: @topical_events } %>
