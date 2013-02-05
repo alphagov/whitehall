@@ -1,6 +1,6 @@
 
 When /^I import the following data as CSV as "([^"]*)" for "([^"]*)":$/ do |document_type, organisation_name, data|
-  organisation = create(:organisation, name: organisation_name)
+  organisation = Organisation.find_by_name(organisation_name) || create(:organisation, name: organisation_name)
   import_data_as_document_type_for_organisation(data, document_type, organisation)
 end
 
@@ -36,6 +36,17 @@ Then /^the import succeeds, creating (\d+) imported speech(?:es)? with "([^"]*)"
   edition = Edition.imported.first
   assert_kind_of Speech, edition
   assert_equal speech_type, edition.speech_type
+  assert_nil edition.role_appointment
+end
+
+Then /^the import succeeds, creating (\d+) imported speech(?:es)? for "([^"]*)" with no delivered on date$/ do |edition_count, organisation_name|
+  organisation = Organisation.find_by_name(organisation_name)
+  assert_equal edition_count.to_i, Edition.imported.count
+
+  edition = Edition.imported.first
+  assert_kind_of Speech, edition
+  assert_equal organisation, edition.organisations.first
+  assert_nil edition.delivered_on
 end
 
 Then /^the import succeeds, creating (\d+) imported news articles? for "([^"]*)" with "([^"]*)" news article type$/ do |edition_count, organisation_name, news_article_type_slug|
@@ -114,6 +125,12 @@ end
 When /^I set the imported speech's type to "([^"]*)"$/ do |speech_type|
   begin_editing_document Edition.imported.last.title
   select speech_type, from: 'Type'
+  click_on 'Save'
+end
+
+When /^I set the imported speech's delivered on date to "([^"]*)"$/ do |new_delivered_on_date|
+  begin_editing_document Edition.imported.last.title
+  select_date "Delivered on", with: new_delivered_on_date
   click_on 'Save'
 end
 

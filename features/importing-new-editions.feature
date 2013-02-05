@@ -64,7 +64,7 @@ Feature: Importing new editions
 
   - speech_type: required, ideally default blank to ImportedAwaitingType, reject anything non-blank that can't be found
   - delivered_by: required, ideally default blank, reject anything non-black that can't be found
-  - delivered_on: required
+  - delivered_on: column required, data optional (required before draft)
   - event_and_location: optional
   - country_1..4: 1 column required, data optional
 
@@ -154,6 +154,21 @@ Feature: Importing new editions
     When I set the imported speech's type to "Transcript"
     Then I can make the imported speech into a draft edition
     And the speech's organisation is set to "Foreign Commonwealth Office"
+
+  Scenario: Importing speeches with blank delivered on means it must be filled in later, along with the deliverer
+    Given a person called "Joe Bloggs"
+    And "Joe Bloggs" is the "Summer Intern" for the "Department for Transport"
+    When I import the following data as CSV as "Speech" for "Department for Transport":
+      """
+      old_url,title,summary,body,organisation,policy_1,type,delivered_by,delivered_on,event_and_location,country_1
+      http://example.com/1,title,summary,body,department-for-transport,,transcript,joe-bloggs,,location,
+      """
+    Then the import succeeds, creating 1 imported speech for "Department for Transport" with no delivered on date
+    Then I can't make the imported speech into a draft edition yet
+    When I set the imported speech's delivered on date to "14-Dec-2011"
+    Then I can't make the imported speech into a draft edition yet
+    When I set the deliverer of the speech to "Joe Bloggs" from the "Depertment for Transport"
+    Then I can make the imported speech into a draft edition
 
   Scenario: Importing edition and then deleting it
     When I import the following data as CSV as "Speech" for "Department for Transport":
