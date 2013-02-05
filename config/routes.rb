@@ -73,11 +73,7 @@ Whitehall::Application.routes.draw do
 
     resources :ministerial_roles, path: 'ministers', only: [:index, :show]
     resources :people, only: [:index, :show]
-    resources :world_locations, path: 'world', only: [:index, :show] do
-      member do
-        get :about
-      end
-    end
+    resources :world_locations, path: 'world', only: [:index, :show]
 
     resources :policy_teams, path: 'policy-teams', only: [:index, :show]
     resources :policy_advisory_groups, path: 'policy-advisory-groups', only: [:index, :show]

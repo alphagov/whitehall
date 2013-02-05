@@ -1,5 +1,5 @@
 class WorldLocationsController < PublicFacingController
-  before_filter :load_world_location, only: [:show, :about]
+  before_filter :load_world_location, only: :show
 
   def index
     @world_locations = WorldLocation.all_by_type
@@ -21,9 +21,6 @@ class WorldLocationsController < PublicFacingController
         @featured_editions = FeaturedEditionPresenter.decorate(@world_location.featured_edition_world_locations.limit(5))
       end
     end
-  end
-
-  def about
   end
 
   private
