@@ -14,7 +14,7 @@
           <% @document.organisations.each do |organisation| %>
             <%= content_tag_for(:li, organisation, class: organisation.slug) do %>
               <%= link_to organisation_path(organisation),
-                          class: organisation_logo_classes(organisation, {size: 'medium'}) do %>
+                          class: logo_classes(class_name: organisation.organisation_logo_type.class_name, size: 'medium') do %>
                 <span><%= organisation.logo_formatted_name %></span>
               <% end %>
             <% end %>

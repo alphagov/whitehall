@@ -1,0 +1,63 @@
+<% page_title @worldwide_office.name %>
+<% page_class "worldwide-offices-show" %>
+
+<div class='worldwide-office'>
+  <div class="block-1">
+    <div class="inner-block">
+      <%= render 'header', worldwide_office: @worldwide_office, show_mainstream_links: true %>
+    </div>
+  </div>
+
+  <div class="block-1">
+    <div class="inner-block">
+      <section id="about-us" class="about-us">
+        <h1 class="label">About us</h1>
+
+        <div class="summary">
+          <div class="content">
+            <%= @worldwide_office.summary %>
+          </div>
+        </div>
+
+        <div class="description">
+          <div class="content">
+            <%= govspeak_to_html @worldwide_office.description %>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+
+  <div class="block-10 vcard">
+    <div class="inner-block">
+      <section class="contact-wrapper contact-us">
+        <h1 class="label">Contact us</h1>
+        <div id="org-contacts">
+          <% @worldwide_office.contacts.each do |contact| %>
+            <div class="worldwide-office-contact complex">
+              <h2><%= contact.title %></h2>
+              <div class="contact-inner">
+                <% if contact.has_postal_address? %>
+                  <%= render_hcard(contact) %>
+                <% end %>
+              </div>
+              <div class="email-url-number">
+                <% if contact.email.present? %>
+                  <p class="email"><span class="type">Email</span> <%= mail_to contact.email, contact.email, class: 'email' %></p>
+                <% end %>
+                <% if contact.contact_form_url.present? %>
+                  <p class="contact_form_url"><span class="type">Contact form</span><%= link_to contact.contact_form_url.truncate(25), contact.contact_form_url %></p>
+                <% end %>
+                <% contact.contact_numbers.each do |number| %>
+                  <p class="tel"><span class="type"><%= number.label %></span> <%= number.number %></p>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
+

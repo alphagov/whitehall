@@ -19,6 +19,10 @@ module Admin::UrlHelper
     admin_header_link "People", admin_people_path
   end
 
+  def admin_worldwide_offices_header_link
+    admin_header_link "Worldwide offices", admin_worldwide_offices_path
+  end
+
   def admin_world_locations_header_link
     admin_header_link "World locations", admin_world_locations_path
   end

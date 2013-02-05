@@ -1,6 +1,6 @@
 require "test_helper"
 
-class StatisticalDataSetTest < EditionTestCase
+class StatisticalDataSetTest < ActiveSupport::TestCase
   should_allow_inline_attachments
 
   test "should include the Edition::DocumentSeries behaviour" do

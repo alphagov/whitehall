@@ -4,9 +4,6 @@
     <h1><%= @organisation.name %></h1>
     <%= link_to "View on website", organisation_path(@organisation) %>
   </div>
-  <div class="span4">
-    <%= link_to "Edit", edit_admin_organisation_path(@organisation), class: "btn btn-large btn-primary pull-right"%>
-  </div>
 </div>
 
 <div class="row-fluid">
@@ -16,6 +13,7 @@
         <ul class="nav nav-tabs">
           <li class="active"><a href="#details" data-toggle="tab">Details</a></li>
           <li><a href="#contacts" data-toggle="tab">Contacts</a></li>
+          <li><a href="#social_media_accounts" data-toggle="tab">Social Media Accounts</a></li>
           <li><a href="#about-us" data-toggle="tab">About Us</a></li>
           <li><a href="#groups" data-toggle="tab">Governance groups</a></li>
           <li><a href="#people" data-toggle="tab">People</a></li>
@@ -26,6 +24,7 @@
         <div class="tab-content">
           <%= render partial: "admin/organisations/tabs/details" %>
           <%= render partial: "admin/organisations/tabs/contacts" %>
+          <%= render partial: "admin/organisations/tabs/social_media_accounts" %>
           <%= render partial: "admin/organisations/tabs/about_us" %>
           <%= render partial: "admin/organisations/tabs/groups" %>
           <%= render partial: "admin/organisations/tabs/people" %>

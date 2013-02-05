@@ -1,6 +1,6 @@
 require "test_helper"
 
-class NewsArticleTest < EditionTestCase
+class NewsArticleTest < ActiveSupport::TestCase
   include ActionDispatch::TestProcess
 
   should_allow_image_attachments

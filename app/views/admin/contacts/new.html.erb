@@ -1,0 +1,5 @@
+<% page_title "New contact for: #{@contactable.name}" %>
+
+<h1>New contact for: <%= @contactable.name %></h1>
+
+<%= render partial: "form", locals: {contact: @contact, contactable: @contactable} %>

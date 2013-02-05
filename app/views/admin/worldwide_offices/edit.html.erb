@@ -1,0 +1,11 @@
+<% page_title "Edit " + @worldwide_office.name %>
+<div class="span8">
+  <section>
+    <h1>Edit Worldwide office</h1>
+    <%= render partial: "form", locals: {worldwide_office: @worldwide_office} %>
+  </section>
+</div>
+
+<div class="span4">
+  <%= render partial: "sidebar" %>
+</div>

@@ -1,6 +1,6 @@
 require "test_helper"
 
-class DetailedGuideTest < EditionTestCase
+class DetailedGuideTest < ActiveSupport::TestCase
   should_allow_image_attachments
   should_be_attachable
   should_force_review_of_bulk_uploaded_attachments

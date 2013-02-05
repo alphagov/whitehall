@@ -160,8 +160,19 @@ ActiveRecord::Schema.define(:version => 20130204133738) do
     t.decimal "longitude",        :precision => 15, :scale => 10
     t.string  "email"
     t.string  "contact_form_url"
+    t.integer "contactable_id"
+    t.string  "contactable_type"
+    t.string  "title"
+    t.text    "comments"
+    t.string  "recipient"
+    t.text    "street_address"
+    t.string  "locality"
+    t.string  "region"
+    t.string  "postal_code"
+    t.integer "country_id"
   end
 
+  add_index "contacts", ["contactable_id", "contactable_type"], :name => "index_contacts_on_contactable_id_and_contactable_type"
   add_index "contacts", ["organisation_id"], :name => "index_contacts_on_organisation_id"
 
   create_table "corporate_information_page_attachments", :force => true do |t|
@@ -788,11 +799,36 @@ ActiveRecord::Schema.define(:version => 20130204133738) do
     t.string   "embassy_email"
     t.string   "slug"
     t.text     "description"
-    t.boolean  "active",                 :default => false, :null => false
-    t.integer  "world_location_type_id",                    :null => false
+    t.boolean  "active",                              :default => false, :null => false
+    t.integer  "world_location_type_id",                                 :null => false
+    t.string   "iso2",                   :limit => 2
   end
 
+  add_index "world_locations", ["iso2"], :name => "index_world_locations_on_iso2", :unique => true
   add_index "world_locations", ["slug"], :name => "index_world_locations_on_slug"
   add_index "world_locations", ["world_location_type_id"], :name => "index_world_locations_on_world_location_type_id"
+
+  create_table "worldwide_office_world_locations", :force => true do |t|
+    t.integer  "worldwide_office_id"
+    t.integer  "world_location_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "worldwide_office_world_locations", ["world_location_id"], :name => "index_worldwide_office_world_locations_on_world_location_id"
+  add_index "worldwide_office_world_locations", ["worldwide_office_id"], :name => "index_worldwide_office_world_locations_on_worldwide_office_id"
+
+  create_table "worldwide_offices", :force => true do |t|
+    t.string   "name"
+    t.text     "summary"
+    t.text     "description"
+    t.string   "url"
+    t.string   "slug"
+    t.string   "logo_formatted_name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "worldwide_offices", ["slug"], :name => "index_worldwide_offices_on_slug", :unique => true
 
 end
