@@ -41,7 +41,7 @@
         @include bold;
         float: left;
         clear: left;
-        width: 33%;
+        width: 40%;
         @include media(tablet) {
           width: auto;
           min-width: ($gutter * 3 - $gutter-one-third);
