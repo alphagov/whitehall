@@ -7,7 +7,7 @@ class Admin::DocumentSeriesControllerTest < ActionController::TestCase
 
   should_be_an_admin_controller
 
-  test "new should show fields for creating a series" do
+  view_test "new should show fields for creating a series" do
     organisation = create(:organisation)
 
     get :new, organisation_id: organisation
@@ -33,7 +33,7 @@ class Admin::DocumentSeriesControllerTest < ActionController::TestCase
     assert_redirected_to admin_organisation_document_series_path(organisation, document_series)
   end
 
-  test "create should allow errors to be corrected" do
+  view_test "create should allow errors to be corrected" do
     organisation = create(:organisation)
 
     post :create, organisation_id: organisation, document_series: {name: ""}
@@ -45,7 +45,7 @@ class Admin::DocumentSeriesControllerTest < ActionController::TestCase
     end
   end
 
-  test 'show should display document series attributes' do
+  view_test 'show should display document series attributes' do
     organisation = create(:organisation, name: "organisation-name")
     series = create(:document_series,
       organisation: organisation,
@@ -61,7 +61,7 @@ class Admin::DocumentSeriesControllerTest < ActionController::TestCase
     assert_select ".description", "description-in-html"
   end
 
-  test "show lists all associated editions" do
+  view_test "show lists all associated editions" do
     document_series = create(:document_series)
     organisation = document_series.organisation
     edition = create(:published_publication, document_series: [document_series])
@@ -71,7 +71,7 @@ class Admin::DocumentSeriesControllerTest < ActionController::TestCase
     assert_select_object(edition)
   end
 
-  test "edit should show a form for editing the series" do
+  view_test "edit should show a form for editing the series" do
     document_series = create(:document_series)
     organisation = document_series.organisation
 
@@ -99,7 +99,7 @@ class Admin::DocumentSeriesControllerTest < ActionController::TestCase
     assert_redirected_to admin_organisation_document_series_path(organisation, document_series)
   end
 
-  test "update should show errors updating a series" do
+  view_test "update should show errors updating a series" do
     document_series = create(:document_series, name: "old-name")
     organisation = document_series.organisation
 

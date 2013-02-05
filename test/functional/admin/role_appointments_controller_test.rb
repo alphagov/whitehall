@@ -7,13 +7,13 @@ class Admin::RoleAppointmentsControllerTest < ActionController::TestCase
 
   should_be_an_admin_controller
 
-  test "new should display a form for creating an appointment" do
+  view_test "new should display a form for creating an appointment" do
     role = create(:role)
     get :new, role_id: role.id
     assert_select 'form[action=?]', admin_role_role_appointments_path(role)
   end
 
-  test "new should display a form for creating an appointment that will curtail the previous appointment if make_current is set" do
+  view_test "new should display a form for creating an appointment that will curtail the previous appointment if make_current is set" do
     role = create(:role)
     get :new, role_id: role.id, make_current: true
     assert_select 'form[action=?]', admin_role_role_appointments_path(role) do
@@ -21,7 +21,7 @@ class Admin::RoleAppointmentsControllerTest < ActionController::TestCase
     end
   end
 
-  test "new should display a form for creating a historical appointment if make_current is not set" do
+  view_test "new should display a form for creating a historical appointment if make_current is not set" do
     role = create(:role)
     get :new, role_id: role.id
     assert_select 'form[action=?]', admin_role_role_appointments_path(role) do
@@ -46,7 +46,7 @@ class Admin::RoleAppointmentsControllerTest < ActionController::TestCase
     assert_equal "Appointment created", flash[:notice]
   end
 
-  test "create should show any errors when creating the appointment" do
+  view_test "create should show any errors when creating the appointment" do
     role = create(:role)
     person = create(:person)
     post :create, role_id: role.id, role_appointment: {started_at: 3.days.ago}
@@ -62,32 +62,32 @@ class Admin::RoleAppointmentsControllerTest < ActionController::TestCase
     assert_equal person, role.current_person
   end
 
-  test "edit should display an editing form for an existing appointment" do
+  view_test "edit should display an editing form for an existing appointment" do
     appointment = create(:role_appointment)
     get :edit, id: appointment.id
     assert_select 'form[action=?]', admin_role_appointment_path(appointment)
   end
 
-  test "edit should show a button to delete an appointment" do
+  view_test "edit should show a button to delete an appointment" do
     appointment = create(:role_appointment)
     get :edit, id: appointment.id
     assert_select 'form[action=?]', admin_role_appointment_path(appointment)
   end
 
-  test "edit should not show a button to delete an undeleteable appointment" do
+  view_test "edit should not show a button to delete an undeleteable appointment" do
     appointment = create(:role_appointment)
     get :edit, id: appointment.id
     assert_select 'form[action=?]', admin_role_appointment_path(appointment)
   end
 
-  test "edit should show speeches associated with this appointment" do
+  view_test "edit should show speeches associated with this appointment" do
     appointment = create(:role_appointment)
     create(:speech, title: "Some Speech", role_appointment: appointment)
     get :edit, id: appointment.id
     assert_select '.speeches', text: /Some Speech/
   end
 
-  test "edit should not allow the person to be changed" do
+  view_test "edit should not allow the person to be changed" do
     appointment = create(:role_appointment)
     get :edit, id: appointment.id
     assert_select 'select#role_appointment_person_id[disabled=disabled]'
@@ -106,7 +106,7 @@ class Admin::RoleAppointmentsControllerTest < ActionController::TestCase
     assert_equal "Appointment has been updated", flash[:notice]
   end
 
-  test "update shows errors if validation failed" do
+  view_test "update shows errors if validation failed" do
     appointment = create(:role_appointment, started_at: 3.days.ago, ended_at: 2.days.ago)
     put :update, id: appointment.id, role_appointment: {started_at: 1.day.from_now}
     assert_select ".field_with_errors", text: "Started at"

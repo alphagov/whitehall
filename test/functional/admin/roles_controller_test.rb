@@ -7,7 +7,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
 
   should_be_an_admin_controller
 
-  test "index should display a list of roles" do
+  view_test "index should display a list of roles" do
     org_one = create(:organisation, name: "org-one")
     org_two = create(:organisation, name: "org-two")
     person = create(:person, forename: "person-name")
@@ -110,7 +110,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
     assert_equal [role_A, role_B, role_C], assigns(:roles)
   end
 
-  test "index should display a link to create a new role" do
+  view_test "index should display a link to create a new role" do
     get :index
 
     assert_select ".actions" do
@@ -118,7 +118,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
     end
   end
 
-  test "index should display links to edit an existing role" do
+  view_test "index should display links to edit an existing role" do
     role_one = create(:role)
     role_two = create(:role)
 
@@ -132,7 +132,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
     end
   end
 
-  test "provides delete buttons for destroyable roles" do
+  view_test "provides delete buttons for destroyable roles" do
     destroyable_role = create(:role_without_organisations)
     edition = create(:edition)
     indestructable_role = create(:ministerial_role, editions: [edition])
@@ -150,7 +150,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
     end
   end
 
-  test "new should display form for creating a new role" do
+  view_test "new should display form for creating a new role" do
     get :new
 
     assert_select "form[action='#{admin_roles_path}']" do
@@ -211,13 +211,13 @@ class Admin::RolesControllerTest < ActionController::TestCase
     assert_equal %{"role-name" created.}, flash[:notice]
   end
 
-  test "create with invalid data should display errors" do
+  view_test "create with invalid data should display errors" do
     post :create, role: attributes_for(:role, name: nil)
 
     assert_select ".form-errors"
   end
 
-  test "edit should display form for updating an existing role" do
+  view_test "edit should display form for updating an existing role" do
     org = create(:organisation, name: "org-name")
     role = create(:board_member_role, name: "role-name", permanent_secretary: true, organisations: [org])
 
@@ -278,7 +278,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
     assert_equal %{"role-name" updated.}, flash[:notice]
   end
 
-  test "update with invalid data should display errors" do
+  view_test "update with invalid data should display errors" do
     role = create(:role)
 
     put :update, id: role, role: attributes_for(:role, name: nil)

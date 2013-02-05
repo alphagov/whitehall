@@ -51,7 +51,7 @@ class Admin::ImportsControllerTest < ActionController::TestCase
     assert_redirected_to admin_import_path(new_import)
   end
 
-  test "show declares queued if queued" do
+  view_test "show declares queued if queued" do
     import = stub_record(:import, creator: current_user, import_enqueued_at: Time.zone.now)
     import.stubs(:status).returns(:queued)
     Import.stubs(:find).with(import.id.to_s).returns(import)
@@ -63,7 +63,7 @@ class Admin::ImportsControllerTest < ActionController::TestCase
     end
   end
 
-  test "show shows declares success on success" do
+  view_test "show shows declares success on success" do
     import = stub_record(:import, creator: current_user, document_sources: [], already_imported: [],
       import_enqueued_at: Time.zone.now, import_started_at: Time.zone.now, import_finished_at: Time.zone.now)
     import.stubs(:status).returns(:success)
@@ -76,7 +76,7 @@ class Admin::ImportsControllerTest < ActionController::TestCase
     end
   end
 
-  test "show shows errors if any" do
+  view_test "show shows errors if any" do
     import = create(:import, creator: current_user,
       import_enqueued_at: Time.zone.now,
       import_started_at: Time.zone.now,

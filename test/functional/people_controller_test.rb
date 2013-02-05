@@ -28,7 +28,7 @@ class PeopleControllerTest < ActionController::TestCase
     @controller.instance_variable_set(:@joined_ministerial_department_count, 2)
   end
 
-  test "show displays name and biography" do
+  view_test "show displays name and biography" do
     @person.stubs(:name).returns("Alan Clark MP")
     @person.stubs(:biography).returns("Conservative diarist and philanderer")
 
@@ -38,7 +38,7 @@ class PeopleControllerTest < ActionController::TestCase
     assert_select ".biography", text: /Conservative diarist and philanderer/
   end
 
-  test "show displays image of the person" do
+  view_test "show displays image of the person" do
     @person.stubs(:image_url).returns("/path/to/person-image.png")
 
     get :show, id: @person
@@ -46,7 +46,7 @@ class PeopleControllerTest < ActionController::TestCase
     assert_select "figure img[src='/path/to/person-image.png']"
   end
 
-  test "show lists current roles held by person" do
+  view_test "show lists current roles held by person" do
     first_appointment = stub_role_appointment(:ministerial_role)
     second_appointment = stub_role_appointment(:ministerial_role)
     @person.stubs(:current_role_appointments).returns([first_appointment, second_appointment])
@@ -63,7 +63,7 @@ class PeopleControllerTest < ActionController::TestCase
     end
   end
 
-  test "show lists previous roles held by person" do
+  view_test "show lists previous roles held by person" do
     first_appointment = stub_role_appointment(:ministerial_role)
     second_appointment = stub_role_appointment(:ministerial_role)
     @person.stubs(:previous_role_appointments).returns([first_appointment, second_appointment])
@@ -80,7 +80,7 @@ class PeopleControllerTest < ActionController::TestCase
     end
   end
 
-  test "policy link hidden from in-page navigation if person has no policy" do
+  view_test "policy link hidden from in-page navigation if person has no policy" do
     get :show, id: @person
 
     refute_select ".in-page-navigation", text: "Policy"
@@ -94,7 +94,7 @@ class PeopleControllerTest < ActionController::TestCase
     @person.stubs(:current_ministerial_roles).returns([@role])
   end
 
-  test "policy link shown if person has policy associated with ministerial role" do
+  view_test "policy link shown if person has policy associated with ministerial role" do
     person_has_published_policy!
 
     get :show, id: @person
@@ -102,7 +102,7 @@ class PeopleControllerTest < ActionController::TestCase
     assert_select ".in-page-navigation li a", text: "Policy"
   end
 
-  test "policy shown if person has policy associated with ministerial role" do
+  view_test "policy shown if person has policy associated with ministerial role" do
     person_has_published_policy!
 
     get :show, id: @person
@@ -112,7 +112,7 @@ class PeopleControllerTest < ActionController::TestCase
     end
   end
 
-  test "show doesn't include previous roles section if no roles currently held" do
+  view_test "show doesn't include previous roles section if no roles currently held" do
     @person.stubs(:previous_role_appointments).returns([])
 
     get :show, id: @person
@@ -120,7 +120,7 @@ class PeopleControllerTest < ActionController::TestCase
     assert_select ".previous-roles", count: 0
   end
 
-  test "index displays a rudimentary index of people (for url hackers)" do
+  view_test "index displays a rudimentary index of people (for url hackers)" do
     people = [@person, stub_record(:person), stub_record(:person)]
     Person.stubs(:all).returns(people)
 
@@ -135,7 +135,7 @@ class PeopleControllerTest < ActionController::TestCase
     end
   end
 
-  test 'show has atom feed autodiscovery link' do
+  view_test 'show has atom feed autodiscovery link' do
     get :show, id: @person
     assert_select_autodiscovery_link person_url(@person, format: "atom")
   end
@@ -147,7 +147,7 @@ class PeopleControllerAtomFeedTest < ActionController::TestCase
 
   tests PeopleController
 
-  test "show generates an atom feed of news and speeches associated with the person" do
+  view_test "show generates an atom feed of news and speeches associated with the person" do
     person = create(:person)
     role_appointment = create(:role_appointment, person: person)
     expected_entries = [

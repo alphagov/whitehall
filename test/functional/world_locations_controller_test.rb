@@ -10,7 +10,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
   should_show_published_documents_associated_with :world_location, :policies
   should_show_published_documents_associated_with :world_location, :international_priorities
 
-  test "index should display a list of world locations" do
+  view_test "index should display a list of world locations" do
     bat = create(:overseas_territory, name: "British Antarctic Territory")
     png = create(:country, name: "Papua New Guinea")
 
@@ -22,7 +22,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
     end
   end
 
-  test "should display world location name and mission-statement" do
+  view_test "should display world location name and mission-statement" do
     world_location = create(:world_location,
       name: "country-name",
       mission_statement: "country-mission-statement"
@@ -32,7 +32,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
     assert_select ".mission_statement", text: "country-mission-statement"
   end
 
-  test "should use html line breaks when displaying the mission_statement" do
+  view_test "should use html line breaks when displaying the mission_statement" do
     world_location = create(:world_location, mission_statement: "Line 1\nLine 2")
     get :show, id: world_location
     assert_select ".mission_statement", /Line 1/
@@ -40,7 +40,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
     assert_select ".mission_statement br", count: 1
   end
 
-  test 'show has atom feed autodiscovery link' do
+  view_test 'show has atom feed autodiscovery link' do
     world_location = create(:world_location)
 
     get :show, id: world_location
@@ -48,7 +48,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
     assert_select_autodiscovery_link world_location_url(world_location, format: "atom")
   end
 
-  test 'show includes a link to the atom feed' do
+  view_test 'show includes a link to the atom feed' do
     world_location = create(:world_location)
 
     get :show, id: world_location
@@ -56,7 +56,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
     assert_select "a.feed[href=?]", world_location_url(world_location, format: :atom)
   end
 
-  test "show generates an atom feed with entries for latest activity" do
+  view_test "show generates an atom feed with entries for latest activity" do
     world_location = create(:world_location)
     pub = create(:published_publication, world_locations: [world_location], publication_date: 1.week.ago.to_date)
     pol = create(:published_policy, world_locations: [world_location], first_published_at: 1.day.ago)
@@ -103,7 +103,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
     assert_equal [announcement_1, announcement_2], assigns[:announcements]
   end
 
-  test "should display 2 announcements with details and a link to announcements filter if there are many announcements" do
+  view_test "should display 2 announcements with details and a link to announcements filter if there are many announcements" do
     world_location = create(:world_location)
     announcement_2 = create(:published_news_article, world_locations: [world_location], first_published_at: 2.days.ago)
     announcement_3 = create(:published_speech, world_locations: [world_location], delivered_on: 3.days.ago)
@@ -135,7 +135,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
     assert_equal [publication_1, publication_2], assigns[:non_statistics_publications]
   end
 
-  test "should display 2 non-statistics publications with details and a link to publications filter if there are many publications" do
+  view_test "should display 2 non-statistics publications with details and a link to publications filter if there are many publications" do
     world_location = create(:world_location)
     publication_2 = create(:published_publication, world_locations: [world_location], publication_date: 2.days.ago.to_date, publication_type: PublicationType::PolicyPaper)
     publication_3 = create(:published_publication, world_locations: [world_location], publication_date: 3.days.ago.to_date, publication_type: PublicationType::PolicyPaper)
@@ -163,7 +163,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
     assert_equal [publication_1, publication_2], assigns[:statistics_publications]
   end
 
-  test "should display 2 statistics publications with details and a link to publications filter if there are many publications" do
+  view_test "should display 2 statistics publications with details and a link to publications filter if there are many publications" do
     world_location = create(:world_location)
     publication_2 = create(:published_publication, world_locations: [world_location], publication_date: 2.days.ago.to_date, publication_type: PublicationType::Statistics)
     publication_3 = create(:published_publication, world_locations: [world_location], publication_date: 3.days.ago.to_date, publication_type: PublicationType::Statistics)
@@ -182,7 +182,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
     end
   end
 
-  test "should display translated page labels when requested in a different locale" do
+  view_test "should display translated page labels when requested in a different locale" do
     world_location = create(:country)
     create(:published_international_priority, world_locations: [world_location])
     create(:published_publication, world_locations: [world_location])

@@ -7,12 +7,12 @@ class Admin::PreviewControllerTest < ActionController::TestCase
 
   should_be_an_admin_controller
 
-  test "renders the body param using govspeak into a document body template" do
+  view_test "renders the body param using govspeak into a document body template" do
     post :preview, body: "# gov speak"
     assert_select ".document .body h1", "gov speak"
   end
 
-  test "renders attached images if image_ids provided" do
+  view_test "renders attached images if image_ids provided" do
     edition = create(:policy, body: '!!1')
     image = create(:image, edition: edition)
 
@@ -20,7 +20,7 @@ class Admin::PreviewControllerTest < ActionController::TestCase
     assert_select ".document .body figure.image.embedded img[src=?]", Whitehall.asset_host + image.url
   end
 
-  test "renders attached files if attachment_ids provided" do
+  view_test "renders attached files if attachment_ids provided" do
     edition = create(:published_detailed_guide, :with_attachment, body: '!@1')
 
     post :preview, body: edition.body, attachment_ids: edition.attachments.map(&:id)
@@ -29,7 +29,7 @@ class Admin::PreviewControllerTest < ActionController::TestCase
     end
   end
 
-  test "shows alternative_format_contact_email in attachment block if alternative_format_provider_id given" do
+  view_test "shows alternative_format_contact_email in attachment block if alternative_format_provider_id given" do
     edition = create(:published_detailed_guide, :with_attachment, body: '!@1')
     alternative_format_provider = create(:organisation, alternative_format_contact_email: "alternative@example.com")
 

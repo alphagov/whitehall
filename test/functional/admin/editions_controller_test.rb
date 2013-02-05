@@ -184,7 +184,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     get :index, state: :haxxor_method, type: :policy
   end
 
-  test 'should distinguish between edition types when viewing the list of editions' do
+  view_test 'should distinguish between edition types when viewing the list of editions' do
     policy = create(:draft_policy)
     publication = create(:draft_publication)
     stub_filter = stub_edition_filter(editions: [policy, publication])
@@ -304,7 +304,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     assert_redirected_to admin_editions_path(state: :draft)
   end
 
-  test "should not show published editions as force published" do
+  view_test "should not show published editions as force published" do
     policy = create(:published_policy)
     get :index, state: :published, type: :policy
 
@@ -312,7 +312,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     refute_select "tr.force_published"
   end
 
-  test "should show force published editions as force published" do
+  view_test "should show force published editions as force published" do
     policy = create(:published_policy, force_published: true)
     get :index, state: :published, type: :policy
 
@@ -320,7 +320,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     assert_select "tr.force_published"
   end
 
-  test "should link to all active editions" do
+  view_test "should link to all active editions" do
     get :index, state: :draft
 
     assert_select "a[href='#{admin_editions_path(state: :active)}']"
@@ -335,7 +335,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     refute_select "td.featured"
   end
 
-  test "should display state information when viewing all active editions" do
+  view_test "should display state information when viewing all active editions" do
     draft_edition = create(:draft_policy)
     imported_edition = create(:imported_edition)
     submitted_edition = create(:submitted_publication)
@@ -351,7 +351,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     assert_select_object(published_edition) { assert_select ".state", "Published" }
   end
 
-  test "should not display state information when viewing editions of a particular state" do
+  view_test "should not display state information when viewing editions of a particular state" do
     draft_edition = create(:draft_policy)
 
     get :index, state: :draft
@@ -359,7 +359,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     assert_select_object(draft_edition) { refute_select ".state" }
   end
 
-  test "index should not display limited access editions which I don't have access to" do
+  view_test "index should not display limited access editions which I don't have access to" do
     my_organisation, other_organisation = create(:organisation), create(:organisation)
     login_as(create(:user, organisation: my_organisation))
     accessible = [
@@ -377,7 +377,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     refute_select_object(inaccessible)
   end
 
-  test "index should indicate the protected status of limited access editions which I do have access to" do
+  view_test "index should indicate the protected status of limited access editions which I do have access to" do
     my_organisation = create(:organisation)
     login_as(create(:user, organisation: my_organisation))
     publication = create(:draft_publication, publication_type: PublicationType::NationalStatistics, access_limited: true, organisations: [my_organisation])

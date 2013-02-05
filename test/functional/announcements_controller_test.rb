@@ -16,7 +16,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
     get :index, departments: {"0" => "all"}, topics: {"0" => "all"}
   end
 
-  test "index shows a mix of news and speeches" do
+  view_test "index shows a mix of news and speeches" do
     announced_today = [create(:published_news_article), create(:published_speech)]
 
     get :index
@@ -37,7 +37,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
     assert_cache_control("max-age=#{Whitehall.default_cache_max_age/2}")
   end
 
-  test "index shows which type a record is" do
+  view_test "index shows which type a record is" do
     announced_today = [
       create(:published_news_article, news_article_type: NewsArticleType::NewsStory),
       create(:published_speech),
@@ -57,7 +57,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
     end
   end
 
-  test "index shows the date on which a speech was delivered" do
+  view_test "index shows the date on which a speech was delivered" do
     delivered_on = Date.parse("1999-12-31")
     speech = create(:published_speech, delivered_on: delivered_on)
 
@@ -68,7 +68,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
     end
   end
 
-  test "index shows the time when a news article was first published" do
+  view_test "index shows the time when a news article was first published" do
     first_published_at = Time.zone.parse("2001-01-01 01:01")
     news_article = create(:published_news_article, first_published_at: first_published_at)
 
@@ -79,7 +79,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
     end
   end
 
-  test "index shows related organisations for each type of article" do
+  view_test "index shows related organisations for each type of article" do
     first_org = create(:organisation, name: 'first-org', acronym: "FO")
     second_org = create(:organisation, name: 'second-org', acronym: "SO")
     news_article = create(:published_news_article, first_published_at: 4.days.ago, organisations: [first_org, second_org])
@@ -98,7 +98,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
     end
   end
 
-  test "index shows articles in reverse chronological order" do
+  view_test "index shows articles in reverse chronological order" do
     oldest = create(:published_speech, delivered_on: 5.days.ago)
     newest = create(:published_news_article, first_published_at: 4.days.ago)
 
@@ -107,7 +107,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
     assert_select "#{record_css_selector(newest)} + #{record_css_selector(oldest)}"
   end
 
-  test "index shows articles in chronological order if date filter is 'after' a given date" do
+  view_test "index shows articles in chronological order if date filter is 'after' a given date" do
     oldest = create(:published_speech, delivered_on: 5.days.ago)
     newest = create(:published_news_article, first_published_at: 4.days.ago)
 
@@ -116,13 +116,13 @@ class AnnouncementsControllerTest < ActionController::TestCase
     assert_select "#{record_css_selector(oldest)} + #{record_css_selector(newest)}"
   end
 
-  test "index shows selected announcement type filter option in the title" do
+  view_test "index shows selected announcement type filter option in the title" do
     get :index, announcement_type_option: 'news-stories'
 
     assert_select 'h1 span', ': News stories'
   end
 
-  test "index indicates selected announcement type filter option in the filter selector" do
+  view_test "index indicates selected announcement type filter option in the filter selector" do
     get :index, announcement_type_option: 'news-stories'
 
     assert_select "select[name='announcement_type_option']" do
@@ -130,7 +130,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
     end
   end
 
-  test "index indicates selected world location in the filter selector" do
+  view_test "index indicates selected world location in the filter selector" do
     wl1 = create(:world_location, name: "Afghanistan")
     wl2 = create(:world_location, name: "Albania")
     wl3 = create(:world_location, name: "Algeria")
@@ -151,7 +151,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
     assert_equal expected_document_ids, actual_document_ids
   end
 
-  test "index shows only the first page of news articles or speeches" do
+  view_test "index shows only the first page of news articles or speeches" do
     news = (1..2).map { |n| create(:published_news_article, first_published_at: n.days.ago) }
     speeches = (3..4).map { |n| create(:published_speech, delivered_on: n.days.ago) }
 
@@ -165,7 +165,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
     end
   end
 
-  test "index shows the requested page" do
+  view_test "index shows the requested page" do
     news = (1..3).map { |n| create(:published_news_article, first_published_at: n.days.ago) }
     speeches = (4..6).map { |n| create(:published_speech, delivered_on: n.days.ago) }
 
@@ -179,12 +179,12 @@ class AnnouncementsControllerTest < ActionController::TestCase
     end
   end
 
-  test 'index has atom feed autodiscovery link' do
+  view_test 'index has atom feed autodiscovery link' do
     get :index
     assert_select_autodiscovery_link announcements_url(format: "atom")
   end
 
-  test 'index atom feed autodiscovery link includes any present filters' do
+  view_test 'index atom feed autodiscovery link includes any present filters' do
     topic = create(:topic)
     organisation = create(:organisation)
 
@@ -193,7 +193,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
     assert_select_autodiscovery_link announcements_url(format: "atom", topics: [topic], departments: [organisation])
   end
 
-  test "index generates an atom feed for the current filter" do
+  view_test "index generates an atom feed for the current filter" do
     org = create(:organisation, name: "org-name")
 
     get :index, format: :atom, departments: [org.to_param]
@@ -209,7 +209,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
     end
   end
 
-  test "index generates an atom feed with entries for announcements matching the current filter" do
+  view_test "index generates an atom feed with entries for announcements matching the current filter" do
     org = create(:organisation, name: "org-name")
     other_org = create(:organisation, name: "other-org")
     news = create(:published_news_article, organisations: [org], first_published_at: 1.week.ago)
@@ -222,7 +222,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
     end
   end
 
-  test 'index atom feed should return a valid feed if there are no matching documents' do
+  view_test 'index atom feed should return a valid feed if there are no matching documents' do
     get :index, format: :atom
 
     assert_select_atom_feed do

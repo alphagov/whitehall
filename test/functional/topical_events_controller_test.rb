@@ -20,7 +20,7 @@ class TopicalEventsControllerTest < ActionController::TestCase
     assert_equal [news_article, policy], assigns(:featured_editions).collect(&:model)
   end
 
-  test "#show displays a maximum of 6 featured editions" do
+  view_test "#show displays a maximum of 6 featured editions" do
     topical_event = create(:topical_event)
     editions = []
     7.times do |i|
@@ -36,7 +36,7 @@ class TopicalEventsControllerTest < ActionController::TestCase
     refute_select_object editions.last.edition
   end
 
-  test 'show has a link to the atom feed' do
+  view_test 'show has a link to the atom feed' do
     event = create(:topical_event)
 
     get :show, id: event
@@ -44,7 +44,8 @@ class TopicalEventsControllerTest < ActionController::TestCase
     feed_url = ERB::Util.html_escape(topical_event_url(event, format: "atom"))
     assert_select "a.feed[href=?]", feed_url
   end
-  test 'show has a link to govdelivery if one exists' do
+
+  view_test 'show has a link to govdelivery if one exists' do
     event = create(:topical_event, govdelivery_url: 'http://my-govdelivery-url.com')
 
     get :show, id: event

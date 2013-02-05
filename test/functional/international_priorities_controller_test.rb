@@ -6,7 +6,7 @@ class InternationalPrioritiesControllerTest < ActionController::TestCase
   should_show_the_world_locations_associated_with :international_priority
   should_display_inline_images_for :international_priority
 
-  test "show displays international priority details" do
+  view_test "show displays international priority details" do
     priority = create(:published_international_priority,
       title: "priority-title",
       body: "priority-body",
@@ -18,7 +18,7 @@ class InternationalPrioritiesControllerTest < ActionController::TestCase
     assert_select ".body", "priority-body"
   end
 
-  test "should display the associated organisations" do
+  view_test "should display the associated organisations" do
     first_organisation = create(:organisation)
     second_organisation = create(:organisation)
     third_organisation = create(:organisation)
@@ -31,7 +31,7 @@ class InternationalPrioritiesControllerTest < ActionController::TestCase
     refute_select_object third_organisation
   end
 
-  test "should not display an empty list of organisations" do
+  view_test "should not display an empty list of organisations" do
     edition = create(:published_international_priority, organisations: [])
 
     get :show, id: edition.document

@@ -6,14 +6,14 @@ class TopicsControllerTest < ActionController::TestCase
 
   should_be_a_public_facing_controller
 
-  test "shows topic title and description" do
+  view_test "shows topic title and description" do
     topic = create(:topic)
     get :show, id: topic
     assert_select "span.topic", text: topic.name
     assert_select ".govspeak", text: topic.description
   end
 
-  test "shows published policies and their summaries" do
+  view_test "shows published policies and their summaries" do
     published_policy = create(:published_policy, title: "policy-title", summary: "policy-summary")
     topic = create(:topic, policies: [published_policy])
 
@@ -68,7 +68,7 @@ class TopicsControllerTest < ActionController::TestCase
     assert_cache_control("max-age=#{Whitehall.default_cache_max_age/2}")
   end
 
-  test "shows 3 published publications and links to more" do
+  view_test "shows 3 published publications and links to more" do
     policy = create(:published_policy, title: "policy-title", summary: "policy-summary")
     topic = create(:topic, policies: [policy])
     published = []
@@ -88,7 +88,7 @@ class TopicsControllerTest < ActionController::TestCase
     end
   end
 
-  test "doesn't show unpublished publications" do
+  view_test "doesn't show unpublished publications" do
     policy = create(:published_policy, title: "policy-title", summary: "policy-summary")
     topic = create(:topic, policies: [policy])
     draft_publication = create(:draft_publication, related_policies: [policy])
@@ -98,7 +98,7 @@ class TopicsControllerTest < ActionController::TestCase
     refute_select_object(draft_publication)
   end
 
-  test "shows 3 published announcement and links to more" do
+  view_test "shows 3 published announcement and links to more" do
     policy = create(:published_policy, title: "policy-title", summary: "policy-summary")
     topic = create(:topic, policies: [policy])
     published = []
@@ -118,7 +118,7 @@ class TopicsControllerTest < ActionController::TestCase
     end
   end
 
-  test "doesn't show unpublished announcements" do
+  view_test "doesn't show unpublished announcements" do
     policy = create(:published_policy, title: "policy-title", summary: "policy-summary")
     topic = create(:topic, policies: [policy])
     draft_article = create(:draft_news_article, related_policies: [policy])
@@ -128,7 +128,7 @@ class TopicsControllerTest < ActionController::TestCase
     refute_select_object(draft_article)
   end
 
-  test "shows 5 published detailed guides and links to more" do
+  view_test "shows 5 published detailed guides and links to more" do
     published_detailed_guides = []
     6.times do |i|
       published_detailed_guides << create(:published_detailed_guide, title: "detailed-guide-title-#{i}")
@@ -147,7 +147,7 @@ class TopicsControllerTest < ActionController::TestCase
     end
   end
 
-  test "doesn't show unpublished policies" do
+  view_test "doesn't show unpublished policies" do
     draft_policy = create(:draft_policy)
     topic = create(:topic, policies: [draft_policy])
 
@@ -156,7 +156,7 @@ class TopicsControllerTest < ActionController::TestCase
     refute_select_object(draft_policy)
   end
 
-  test "doesn't show unpublished detailed guides" do
+  view_test "doesn't show unpublished detailed guides" do
     draft_detailed_guide = create(:draft_detailed_guide)
     topic = create(:topic, detailed_guides: [draft_detailed_guide])
 
@@ -165,21 +165,21 @@ class TopicsControllerTest < ActionController::TestCase
     refute_select_object(draft_detailed_guide)
   end
 
-  test "should not display an empty detailed guides section" do
+  view_test "should not display an empty detailed guides section" do
     topic = create(:topic)
     get :show, id: topic
     refute_select "#detailed-guides"
     refute_select "a[href=?]", "#detailed-guidance"
   end
 
-  test "should not display an empty published policies section" do
+  view_test "should not display an empty published policies section" do
     topic = create(:topic)
     get :show, id: topic
     refute_select "#policies"
     refute_select "a[href=?]", "#policies"
   end
 
-  test "show displays links to related topics" do
+  view_test "show displays links to related topics" do
     related_topic_1 = create(:topic)
     related_topic_2 = create(:topic)
     unrelated_topic = create(:topic)
@@ -198,7 +198,7 @@ class TopicsControllerTest < ActionController::TestCase
     end
   end
 
-  test "show does not display empty related topics section" do
+  view_test "show does not display empty related topics section" do
     topic = create(:topic, related_classifications: [])
 
     get :show, id: topic
@@ -206,7 +206,7 @@ class TopicsControllerTest < ActionController::TestCase
     assert_select "#related-topics ul", count: 0
   end
 
-  test "show displays recently changed documents relating to policies in the topic" do
+  view_test "show displays recently changed documents relating to policies in the topic" do
     policy_1 = create(:published_policy)
     news_article = create(:published_news_article, related_policies: [policy_1])
 
@@ -223,7 +223,7 @@ class TopicsControllerTest < ActionController::TestCase
     end
   end
 
-  test "show displays a maximum of 3 recently changed documents" do
+  view_test "show displays a maximum of 3 recently changed documents" do
     policy = create(:published_policy)
     4.times { create(:published_news_article, related_policies: [policy]) }
     topic = create(:topic, policies: [policy])
@@ -233,13 +233,13 @@ class TopicsControllerTest < ActionController::TestCase
     assert_select "#recently-updated tbody tr", count: 3
   end
 
-  test "show does not display empty recently changed section" do
+  view_test "show does not display empty recently changed section" do
     topic = create(:topic)
     get :show, id: topic
     refute_select "#recently-updated .document-list"
   end
 
-  test "show displays metadata about the recently changed documents" do
+  view_test "show displays metadata about the recently changed documents" do
     policy = create(:published_policy)
     speech = create(:published_speech, related_policies: [policy])
 
@@ -269,7 +269,7 @@ class TopicsControllerTest < ActionController::TestCase
     assert_equal expected, actual
   end
 
-  test "show distinguishes between published and updated documents" do
+  view_test "show distinguishes between published and updated documents" do
     first_major_edition = create(:published_policy, published_major_version: 1)
     first_minor_edition = create(:published_policy, published_major_version: 1, published_minor_version: 1)
     second_major_edition = create(:published_policy, published_major_version: 2)
@@ -291,7 +291,7 @@ class TopicsControllerTest < ActionController::TestCase
     end
   end
 
-  test "show should list organisation's working in the topic" do
+  view_test "show should list organisation's working in the topic" do
     first_organisation = create(:organisation)
     second_organisation = create(:organisation)
     topic = create(:topic)
@@ -306,13 +306,13 @@ class TopicsControllerTest < ActionController::TestCase
     end
   end
 
-  test "should not display an empty organisation section" do
+  view_test "should not display an empty organisation section" do
     topic = create(:topic)
     get :show, id: topic
     assert_select "#organisations", count: 0
   end
 
-  test 'show hass a link to govdelivery if one exists' do
+  view_test 'show hass a link to govdelivery if one exists' do
     topic = create(:topic, govdelivery_url: 'http://my-govdelivery-url.com')
 
     get :show, id: topic
@@ -321,21 +321,21 @@ class TopicsControllerTest < ActionController::TestCase
   end
 
 
-  test 'show has Atom feed autodiscovery link' do
+  view_test 'show has Atom feed autodiscovery link' do
     topic = build(:topic, id: 1)
     Topic.stubs(:find).returns(topic)
     get :show, id: topic
     assert_select_autodiscovery_link topic_url(topic, format: 'atom')
   end
 
-  test 'show links to the atom feed' do
+  view_test 'show links to the atom feed' do
     topic = build(:topic, id: 1)
     Topic.stubs(:find).returns(topic)
     get :show, id: topic
     assert_select "a.feed[href=?]", topic_url(topic, format: 'atom')
   end
 
-  test 'atom feed has the right elements' do
+  view_test 'atom feed has the right elements' do
     topic = build(:topic, id: 1)
     policy = create(:published_policy)
     topic.stubs(:recently_changed_documents).returns([policy])
@@ -355,7 +355,7 @@ class TopicsControllerTest < ActionController::TestCase
     end
   end
 
-  test 'atom feed shows a list of recently published documents' do
+  view_test 'atom feed shows a list of recently published documents' do
     document = create(:document)
     recent_documents = [
       newer_edition = create(:published_policy, document: document, first_published_at: 1.month.ago),
@@ -373,7 +373,7 @@ class TopicsControllerTest < ActionController::TestCase
     end
   end
 
-  test 'atom feed only shows the last 10 recently changed documents' do
+  view_test 'atom feed only shows the last 10 recently changed documents' do
     recent_documents = Array.new(11) { create(:published_policy) }
     topic = build(:topic, id: 1)
     topic.stubs(:recently_changed_documents).returns(recent_documents)
@@ -386,7 +386,7 @@ class TopicsControllerTest < ActionController::TestCase
     end
   end
 
-  test 'atom feed shows topic creation time if no recent publications' do
+  view_test 'atom feed shows topic creation time if no recent publications' do
     topic = build(:topic, id: 1, created_at: 1.day.ago)
     topic.stubs(:recently_changed_documents).returns([])
     Topic.stubs(:find).returns(topic)
@@ -397,7 +397,7 @@ class TopicsControllerTest < ActionController::TestCase
     end
   end
 
-  test "should show list of topics with published policies" do
+  view_test "should show list of topics with published policies" do
     topics = [0, 1, 2].map { |n| create(:topic, published_policies_count: n) }
 
     get :index
@@ -407,7 +407,7 @@ class TopicsControllerTest < ActionController::TestCase
     assert_select_object(topics[2])
   end
 
-  test "should not display an empty list of topics" do
+  view_test "should not display an empty list of topics" do
     get :index
 
     refute_select ".topics"

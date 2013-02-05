@@ -7,7 +7,7 @@ class HomeControllerTest < ActionController::TestCase
 
   should_be_a_public_facing_controller
 
-  test 'Atom feed has the right elements' do
+  view_test 'Atom feed has the right elements' do
     document = create(:published_news_article)
 
     get :feed, format: :atom
@@ -24,7 +24,7 @@ class HomeControllerTest < ActionController::TestCase
     end
   end
 
-  test 'Atom feed shows a list of recently published documents' do
+  view_test 'Atom feed shows a list of recently published documents' do
     create_published_documents
     draft_documents = create_draft_documents
 
@@ -41,7 +41,7 @@ class HomeControllerTest < ActionController::TestCase
     end
   end
 
-  test 'Atom feed shows a list of recently published documents with govdelivery attributes when requested' do
+  view_test 'Atom feed shows a list of recently published documents with govdelivery attributes when requested' do
     editor = create(:departmental_editor)
     edition = create(:published_speech)
     version_2 = edition.create_draft(editor)
@@ -55,19 +55,19 @@ class HomeControllerTest < ActionController::TestCase
     end
   end
 
-  test "home page doesn't link to itself in the progress bar" do
+  view_test "home page doesn't link to itself in the progress bar" do
     get :home
 
     refute_select ".progress-bar a[href=#{root_path}]"
   end
 
-  test "non home page doesn't link to itself in the progress bar" do
+  view_test "non home page doesn't link to itself in the progress bar" do
     get :how_government_works
 
     assert_select ".progress-bar a[href=#{root_path}]"
   end
 
-  test "progress bar has current number of live departments" do
+  view_test "progress bar has current number of live departments" do
     org = create(:ministerial_department, govuk_status: 'live')
     org = create(:ministerial_department, govuk_status: 'transitioning')
 
@@ -76,7 +76,7 @@ class HomeControllerTest < ActionController::TestCase
     assert_select '.progress-bar', /1 of 2/
   end
 
-  test "how government works page shows a count of published policies" do
+  view_test "how government works page shows a count of published policies" do
     create(:published_policy)
     create(:draft_policy)
 
@@ -86,7 +86,7 @@ class HomeControllerTest < ActionController::TestCase
     assert_select ".policy-count .count", "1"
   end
 
-  test "home page shows a count of live ministerial departmernts" do
+  view_test "home page shows a count of live ministerial departmernts" do
     create(:ministerial_department, govuk_status: 'live')
 
     get :home
@@ -94,7 +94,7 @@ class HomeControllerTest < ActionController::TestCase
     assert_select '.live-ministerial-departments', '1'
   end
 
-  test "home page shows a count of live non-ministerial departmernts" do
+  view_test "home page shows a count of live non-ministerial departmernts" do
     # need to have the ministerial and suborg type so we can select non-ministerial
     create(:ministerial_organisation_type)
     create(:sub_organisation_type)
@@ -108,7 +108,7 @@ class HomeControllerTest < ActionController::TestCase
     assert_select '.live-other-departments', '1'
   end
 
-  test "home page lists coming soon ministerial departments" do
+  view_test "home page lists coming soon ministerial departments" do
     department = create(:ministerial_department, govuk_status: 'transitioning')
 
     get :home
@@ -116,7 +116,7 @@ class HomeControllerTest < ActionController::TestCase
     assert_select '.departments .coming-soon p', /#{department.name}/
   end
 
-  test "home page lists coming soon non-ministerial departments" do
+  view_test "home page lists coming soon non-ministerial departments" do
     create(:ministerial_organisation_type)
     create(:sub_organisation_type)
 
@@ -128,7 +128,7 @@ class HomeControllerTest < ActionController::TestCase
     assert_select '.agencies .coming-soon p', /#{department.name}/
   end
 
-  test "home page does not list transitioning sub-orgs" do
+  view_test "home page does not list transitioning sub-orgs" do
     create(:ministerial_organisation_type)
     create(:sub_organisation_type)
 

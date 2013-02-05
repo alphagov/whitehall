@@ -33,14 +33,14 @@ class PublicationsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "renders the publication summary from plain text" do
+  view_test "renders the publication summary from plain text" do
     publication = create(:published_publication, summary: 'plain text & so on')
     get :show, id: publication.document
 
     assert_select ".extra-description", text: "plain text &amp; so on"
   end
 
-  test "show renders the publication body using govspeak" do
+  view_test "show renders the publication body using govspeak" do
     publication = create(:published_publication, body: "body-in-govspeak")
     govspeak_transformation_fixture "body-in-govspeak" => "body-in-html" do
       get :show, id: publication.document
@@ -49,7 +49,7 @@ class PublicationsControllerTest < ActionController::TestCase
     assert_select ".body", text: "body-in-html"
   end
 
-  test "show should not explicitly say that publication applies to the whole of the UK" do
+  view_test "show should not explicitly say that publication applies to the whole of the UK" do
     published_publication = create(:published_publication)
 
     get :show, id: published_publication.document
@@ -57,7 +57,7 @@ class PublicationsControllerTest < ActionController::TestCase
     refute_select inapplicable_nations_selector
   end
 
-  test "show should display publication metadata" do
+  view_test "show should display publication metadata" do
     publication = create(:published_publication,
       publication_date: Date.parse("1916-05-31"),
       publication_type_id: PublicationType::Form.id
@@ -73,28 +73,28 @@ class PublicationsControllerTest < ActionController::TestCase
     assert_select "#{record_css_selector(doc)}.featured"
   end
 
-  test "show should display a National Statistic badge on the appropriate documents" do
+  view_test "show should display a National Statistic badge on the appropriate documents" do
     publication = create(:published_publication, publication_type_id: PublicationType::NationalStatistics.id)
     get :show, id: publication.document
 
     assert_match /National Statistic/, response.body
   end
 
-  test "show not link policies to national statistics publications" do
+  view_test "show not link policies to national statistics publications" do
     publication = create(:published_publication, publication_type_id: PublicationType::NationalStatistics.id, related_policies: [create(:published_policy)])
     get :show, id: publication.document
 
     refute_select ".policies"
   end
 
-  test "show not link policies to general statistics publications" do
+  view_test "show not link policies to general statistics publications" do
     publication = create(:published_publication, publication_type_id: PublicationType::Statistics.id, related_policies: [create(:published_policy)])
     get :show, id: publication.document
 
     refute_select ".policies"
   end
 
-  test "show should show ministers linked to publications" do
+  view_test "show should show ministers linked to publications" do
     minister = create(:ministerial_role)
     publication = create(:published_publication, ministerial_roles: [minister])
     get :show, id: publication.document
@@ -102,7 +102,7 @@ class PublicationsControllerTest < ActionController::TestCase
     assert_select_object minister
   end
 
-  test "show not link ministers to national statistics publications" do
+  view_test "show not link ministers to national statistics publications" do
     minister = create(:ministerial_role)
     publication = create(:published_publication, publication_type_id: PublicationType::NationalStatistics.id, ministerial_roles: [minister])
     get :show, id: publication.document
@@ -110,7 +110,7 @@ class PublicationsControllerTest < ActionController::TestCase
     refute_select_object minister
   end
 
-  test "show not link ministers to general statistics publications" do
+  view_test "show not link ministers to general statistics publications" do
     minister = create(:ministerial_role)
     publication = create(:published_publication, publication_type_id: PublicationType::Statistics.id, ministerial_roles: [minister])
     get :show, id: publication.document
@@ -118,7 +118,7 @@ class PublicationsControllerTest < ActionController::TestCase
     refute_select_object minister
   end
 
-  test "index only displays *published* publications" do
+  view_test "index only displays *published* publications" do
     archived_publication = create(:archived_publication)
     published_publication = create(:published_publication)
     draft_publication = create(:draft_publication)
@@ -129,7 +129,7 @@ class PublicationsControllerTest < ActionController::TestCase
     refute_select_object(draft_publication)
   end
 
-  test "index only displays *published* consultations" do
+  view_test "index only displays *published* consultations" do
     archived_consultation = create(:archived_consultation)
     published_consultation = create(:published_consultation)
     draft_consultation = create(:draft_consultation)
@@ -162,7 +162,7 @@ class PublicationsControllerTest < ActionController::TestCase
     assert number_of_queries < 17
   end
 
-  test "index highlights selected topic filter options" do
+  view_test "index highlights selected topic filter options" do
     given_two_documents_in_two_topics
 
     get :index, topics: [@topic_1, @topic_2]
@@ -173,7 +173,7 @@ class PublicationsControllerTest < ActionController::TestCase
     end
   end
 
-  test "index highlights selected organisation filter options" do
+  view_test "index highlights selected organisation filter options" do
     given_two_documents_in_two_organisations
 
     get :index, departments: [@organisation_1, @organisation_2]
@@ -184,13 +184,13 @@ class PublicationsControllerTest < ActionController::TestCase
     end
   end
 
-  test "index shows selected publication_filter_option in the title " do
+  view_test "index shows selected publication_filter_option in the title " do
     get :index, publication_filter_option: 'consultations'
 
     assert_select 'h1 span', ': Consultations'
   end
 
-  test "index highlights selected publication type filter options" do
+  view_test "index highlights selected publication type filter options" do
     get :index, publication_filter_option: "forms"
 
     assert_select "select[name='publication_filter_option']" do
@@ -198,13 +198,13 @@ class PublicationsControllerTest < ActionController::TestCase
     end
   end
 
-  test "index displays filter keywords" do
+  view_test "index displays filter keywords" do
     get :index, keywords: "olympics 2012"
 
     assert_select "input[name='keywords'][value=?]", "olympics 2012"
   end
 
-  test "index displays selected date filter" do
+  view_test "index displays selected date filter" do
     get :index, direction: "before", date: "2010-01-01"
 
     assert_select "input#direction_before[name='direction'][checked=checked]"
@@ -213,7 +213,7 @@ class PublicationsControllerTest < ActionController::TestCase
     end
   end
 
-  test "index orders publications by publication date by default" do
+  view_test "index orders publications by publication date by default" do
     publications = 5.times.map {|i| create(:published_publication, publication_date: (10 - i).days.ago) }
 
     get :index
@@ -222,7 +222,7 @@ class PublicationsControllerTest < ActionController::TestCase
     assert_equal "publication_#{publications.first.id}", css_select(".filter-results .document-row").last['id']
   end
 
-  test "index orders consultations by first_published_at date by default" do
+  view_test "index orders consultations by first_published_at date by default" do
     consultations = 5.times.map {|i| create(:published_consultation, opening_on: (10 - i).days.ago) }
 
     get :index
@@ -231,7 +231,7 @@ class PublicationsControllerTest < ActionController::TestCase
     assert_equal "consultation_#{consultations.first.id}", css_select(".filter-results .document-row").last['id']
   end
 
-  test "index orders documents by appropriate timestamp by default" do
+  view_test "index orders documents by appropriate timestamp by default" do
     documents = [
       consultation = create(:published_consultation, opening_on: 5.days.ago),
       publication = create(:published_publication, publication_date: 4.days.ago)
@@ -243,7 +243,7 @@ class PublicationsControllerTest < ActionController::TestCase
     assert_equal "consultation_#{consultation.id}", css_select(".filter-results .document-row").last['id']
   end
 
-  test "index highlights all topics filter option by default" do
+  view_test "index highlights all topics filter option by default" do
     given_two_documents_in_two_topics
 
     get :index
@@ -253,7 +253,7 @@ class PublicationsControllerTest < ActionController::TestCase
     end
   end
 
-  test "index highlights all organisations filter options by default" do
+  view_test "index highlights all organisations filter options by default" do
     given_two_documents_in_two_organisations
 
     get :index
@@ -263,13 +263,13 @@ class PublicationsControllerTest < ActionController::TestCase
     end
   end
 
-  test "index shows filter keywords placeholder by default" do
+  view_test "index shows filter keywords placeholder by default" do
     get :index
 
     assert_select "input[name='keywords'][placeholder=?]", "keywords"
   end
 
-  test "index does not select a date filter by default" do
+  view_test "index does not select a date filter by default" do
     get :index
 
     assert_select "select[name='date']" do
@@ -277,13 +277,13 @@ class PublicationsControllerTest < ActionController::TestCase
     end
   end
 
-  test "index should show a helpful message if there are no matching publications" do
+  view_test "index should show a helpful message if there are no matching publications" do
     get :index
 
     assert_select "h2", text: "There are no matching publications."
   end
 
-  test "index requested as JSON includes data for publications" do
+  view_test "index requested as JSON includes data for publications" do
     org = create(:organisation, name: "org-name")
     org2 = create(:organisation, name: "other-org")
     publication = create(:published_publication, title: "publication-title",
@@ -305,7 +305,7 @@ class PublicationsControllerTest < ActionController::TestCase
     assert_equal "Corporate report", json["publication_type"]
   end
 
-  test "index requested as JSON includes data for consultations" do
+  view_test "index requested as JSON includes data for consultations" do
     org = create(:organisation, name: "org-name")
     org2 = create(:organisation, name: "other-org")
     consultation = create(:published_consultation, title: "consultation-title",
@@ -327,7 +327,7 @@ class PublicationsControllerTest < ActionController::TestCase
     assert_equal "Consultation", json["publication_type"]
   end
 
-  test "index requested as JSON includes URL to the atom feed including any filters" do
+  view_test "index requested as JSON includes URL to the atom feed including any filters" do
     create(:topic, name: "topic-1")
     create(:organisation, name: "organisation-1")
 
@@ -338,7 +338,7 @@ class PublicationsControllerTest < ActionController::TestCase
     assert_equal json["atom_feed_url"], publications_url(format: "atom", topics: ["topic-1"], departments: ["organisation-1"])
   end
 
-  test "index requested as JSON includes atom feed URL without date parameters" do
+  view_test "index requested as JSON includes atom feed URL without date parameters" do
     create(:topic, name: "topic-1")
 
     get :index, format: :json, date: "2012-01-01", direction: "before", topics: ["topic-1"]
@@ -348,12 +348,12 @@ class PublicationsControllerTest < ActionController::TestCase
     assert_equal json["atom_feed_url"], publications_url(format: "atom", topics: ["topic-1"])
   end
 
-  test 'index has atom feed autodiscovery link' do
+  view_test 'index has atom feed autodiscovery link' do
     get :index
     assert_select_autodiscovery_link publications_url(format: "atom")
   end
 
-  test 'index atom feed autodiscovery link includes any present filters' do
+  view_test 'index atom feed autodiscovery link includes any present filters' do
     topic = create(:topic)
     organisation = create(:organisation)
 
@@ -362,7 +362,7 @@ class PublicationsControllerTest < ActionController::TestCase
     assert_select_autodiscovery_link publications_url(format: "atom", topics: [topic], departments: [organisation])
   end
 
-  test 'index atom feed autodiscovery link does not include date filter' do
+  view_test 'index atom feed autodiscovery link does not include date filter' do
     topic = create(:topic)
 
     get :index, topics: [topic], date: "2012-01-01", direction: "after"
@@ -370,7 +370,7 @@ class PublicationsControllerTest < ActionController::TestCase
     assert_select_autodiscovery_link publications_url(format: "atom", topics: [topic])
   end
 
-  test 'index shows a link to the atom feed including any present filters' do
+  view_test 'index shows a link to the atom feed including any present filters' do
     topic = create(:topic)
     organisation = create(:organisation)
 
@@ -380,7 +380,7 @@ class PublicationsControllerTest < ActionController::TestCase
     assert_select "a.feed[href=?]", feed_url
   end
 
-  test 'index shows a link to the atom feed without any date filters' do
+  view_test 'index shows a link to the atom feed without any date filters' do
     organisation = create(:organisation)
 
     get :index, date: "2012-01-01", direction: "before", departments: [organisation]
@@ -389,7 +389,7 @@ class PublicationsControllerTest < ActionController::TestCase
     assert_select "a.feed[href=?]", feed_url
   end
 
-  test "index generates an atom feed for the current filter" do
+  view_test "index generates an atom feed for the current filter" do
     org = create(:organisation, name: "org-name")
 
     get :index, format: :atom, departments: [org.to_param]
@@ -405,7 +405,7 @@ class PublicationsControllerTest < ActionController::TestCase
     end
   end
 
-  test "index generates an atom feed entries for publications matching the current filter" do
+  view_test "index generates an atom feed entries for publications matching the current filter" do
     org = create(:organisation, name: "org-name")
     other_org = create(:organisation, name: "other-org")
     p1 = create(:published_publication, organisations: [org], publication_date: 2.days.ago.to_date)
@@ -419,7 +419,7 @@ class PublicationsControllerTest < ActionController::TestCase
     end
   end
 
-  test "index generates an atom feed entries for consultations matching the current filter" do
+  view_test "index generates an atom feed entries for consultations matching the current filter" do
     org = create(:organisation, name: "org-name")
     other_org = create(:organisation, name: "other-org")
     document = create(:published_consultation, organisations: [org], opening_on: Date.parse('2001-12-12'))
@@ -462,7 +462,7 @@ class PublicationsControllerTest < ActionController::TestCase
     assert_equal [ newest, middle, oldest ], assigns(:publications).map(&:model)
   end
 
-  test 'index atom feed should return a valid feed if there are no matching documents' do
+  view_test 'index atom feed should return a valid feed if there are no matching documents' do
     get :index, format: :atom
 
     assert_select_atom_feed do
@@ -471,7 +471,7 @@ class PublicationsControllerTest < ActionController::TestCase
     end
   end
 
-  test 'index atom feed should include links to download attachments' do
+  view_test 'index atom feed should include links to download attachments' do
     publication = create(:published_publication, :with_attachment, title: "publication-title",
                          body: "include the attachment:\n\n!@1")
 
@@ -486,7 +486,7 @@ class PublicationsControllerTest < ActionController::TestCase
     end
   end
 
-  test 'index should show relevant document series information' do
+  view_test 'index should show relevant document series information' do
     organisation = create(:organisation)
     series = create(:document_series, organisation: organisation)
     publication = create(:published_publication, document_series: [series])
@@ -498,7 +498,7 @@ class PublicationsControllerTest < ActionController::TestCase
     end
   end
 
-  test 'index requested as JSON includes document series information' do
+  view_test 'index requested as JSON includes document series information' do
     organisation = create(:organisation)
     series = create(:document_series, organisation: organisation)
     publication = create(:published_publication, document_series: [series])
@@ -512,7 +512,7 @@ class PublicationsControllerTest < ActionController::TestCase
     assert_equal "Part of a series: <a href=\"#{organisation_document_series_path(organisation, series)}\">#{series.name}</a>", result['publication_series']
   end
 
-  test "show displays the ISBN of the attached document" do
+  view_test "show displays the ISBN of the attached document" do
     attachment = create(:attachment, isbn: '0099532816')
     edition = create("published_publication", :with_attachment, body: "!@1", attachments: [attachment])
 
@@ -523,7 +523,7 @@ class PublicationsControllerTest < ActionController::TestCase
     end
   end
 
-  test "show doesn't display an empty ISBN if none exists for the attachment" do
+  view_test "show doesn't display an empty ISBN if none exists for the attachment" do
     [nil, ""].each do |isbn|
       attachment = create(:attachment, isbn: isbn)
       edition = create("published_publication", :with_attachment, body: "!@1", attachments: [attachment])
@@ -536,7 +536,7 @@ class PublicationsControllerTest < ActionController::TestCase
     end
   end
 
-  test "show displays the Unique Reference Number of the attached document" do
+  view_test "show displays the Unique Reference Number of the attached document" do
     attachment = create(:attachment, unique_reference: 'unique-reference')
     edition = create("published_publication", :with_attachment, body: "!@1", attachments: [attachment])
 
@@ -547,7 +547,7 @@ class PublicationsControllerTest < ActionController::TestCase
     end
   end
 
-  test "show doesn't display an empty Unique Reference Number if none exists for the attachment" do
+  view_test "show doesn't display an empty Unique Reference Number if none exists for the attachment" do
     [nil, ""].each do |unique_reference|
       attachment = create(:attachment, unique_reference: unique_reference)
       edition = create("published_publication", :with_attachment, body: "!@1", attachments: [attachment])
@@ -560,7 +560,7 @@ class PublicationsControllerTest < ActionController::TestCase
     end
   end
 
-  test "show displays the Command Paper number of the attached document" do
+  view_test "show displays the Command Paper number of the attached document" do
     attachment = create(:attachment, command_paper_number: 'Cm. 1234')
     edition = create("published_publication", :with_attachment, body: "!@1", attachments: [attachment])
 
@@ -571,7 +571,7 @@ class PublicationsControllerTest < ActionController::TestCase
     end
   end
 
-  test "show doesn't display an empty Command Paper number if none exists for the attachment" do
+  view_test "show doesn't display an empty Command Paper number if none exists for the attachment" do
     [nil, ""].each do |command_paper_number|
       attachment = create(:attachment, command_paper_number: command_paper_number)
       edition = create("published_publication", :with_attachment, body: "!@1", attachments: [attachment])
@@ -584,7 +584,7 @@ class PublicationsControllerTest < ActionController::TestCase
     end
   end
 
-  test "show links to the url that the attachment can be ordered from" do
+  view_test "show links to the url that the attachment can be ordered from" do
     attachment = create(:attachment, order_url: 'http://example.com/order-path')
     edition = create("published_publication", :with_attachment, body: "!@1", attachments: [attachment])
 
@@ -595,7 +595,7 @@ class PublicationsControllerTest < ActionController::TestCase
     end
   end
 
-  test "show doesn't display an empty order url if none exists for the attachment" do
+  view_test "show doesn't display an empty order url if none exists for the attachment" do
     [nil, ""].each do |order_url|
       attachment = create(:attachment, order_url: order_url)
       edition = create("published_publication", :with_attachment, body: "!@1", attachments: [attachment])
@@ -608,7 +608,7 @@ class PublicationsControllerTest < ActionController::TestCase
     end
   end
 
-  test "show displays the price of the purchasable attachment" do
+  view_test "show displays the price of the purchasable attachment" do
     attachment = create(:attachment, price: "1.23", order_url: 'http://example.com')
     edition = create("published_publication", :with_attachment, body: "!@1", attachments: [attachment])
 
@@ -619,7 +619,7 @@ class PublicationsControllerTest < ActionController::TestCase
     end
   end
 
-  test "show doesn't display an empty price if none exists for the attachment" do
+  view_test "show doesn't display an empty price if none exists for the attachment" do
     [nil, ""].each do |price|
       attachment = create(:attachment, price_in_pence: price)
       edition = create("published_publication", :with_attachment, body: "!@1", attachments: [attachment])

@@ -9,13 +9,13 @@ class Admin::UsersControllerTest < ActionController::TestCase
 
   should_be_an_admin_controller
 
-  test "index shows list of users" do
+  view_test "index shows list of users" do
     get :index
 
     assert_select("tr:last-child td.name", text: %r{#{@user.name}})
   end
 
-  test "show displays user name and email address" do
+  view_test "show displays user name and email address" do
     get :show, id: @user.id
 
     assert_select ".user .settings" do
@@ -24,7 +24,7 @@ class Admin::UsersControllerTest < ActionController::TestCase
     end
   end
 
-  test "show displays edit if you are able to edit the record" do
+  view_test "show displays edit if you are able to edit the record" do
     get :show, id: @user.id
     assert_select ".actions" do
       refute_select "a[href='#{edit_admin_user_path(@user)}']"
@@ -43,7 +43,7 @@ class Admin::UsersControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
-  test "edit displays form" do
+  view_test "edit displays form" do
     login_as create(:gds_editor)
     get :edit, id: @user.id
 
@@ -53,7 +53,7 @@ class Admin::UsersControllerTest < ActionController::TestCase
     end
   end
 
-  test "edit displays cancel link" do
+  view_test "edit displays cancel link" do
     login_as create(:gds_editor)
     get :edit, id: @user.id
 
@@ -82,7 +82,7 @@ class Admin::UsersControllerTest < ActionController::TestCase
     assert_equal "Your settings have been saved", flash[:notice]
   end
 
-  test "update redisplays form on failure" do
+  view_test "update redisplays form on failure" do
     login_as create(:gds_editor)
     put :update, id: @user.id, user: { email: "invalid-email-address" }
 
@@ -92,7 +92,7 @@ class Admin::UsersControllerTest < ActionController::TestCase
     end
   end
 
-  test "update displays error message on failure" do
+  view_test "update displays error message on failure" do
     login_as create(:gds_editor)
     put :update, id: @user.id, user: { email: "invalid-email-address" }
 

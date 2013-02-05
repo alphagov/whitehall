@@ -7,7 +7,7 @@ class SpeechesControllerTest < ActionController::TestCase
   should_show_the_world_locations_associated_with :speech
   should_display_inline_images_for :speech
 
-  test "should display generic details about the speech" do
+  view_test "should display generic details about the speech" do
     home_office = create(:organisation, name: "Home Office")
     home_secretary = create(:ministerial_role, name: "Secretary of State", organisations: [home_office])
     theresa_may = create(:person, forename: "Theresa", surname: "May", image: fixture_file_upload('minister-of-funk.960x640.jpg'))
@@ -22,7 +22,7 @@ class SpeechesControllerTest < ActionController::TestCase
     assert_select ".location", /The Guidhall/
   end
 
-  test "should display who gave the speech even if they are not appointed to the same position anymore" do
+  view_test "should display who gave the speech even if they are not appointed to the same position anymore" do
     home_office = create(:organisation, name: "Home Office")
     home_secretary = create(:ministerial_role, name: "Secretary of State", organisations: [home_office])
     theresa_may = create(:person, forename: "Theresa", surname: "May", image: fixture_file_upload('minister-of-funk.960x640.jpg'))
@@ -36,7 +36,7 @@ class SpeechesControllerTest < ActionController::TestCase
     assert_select ".person", "Theresa May"
   end
 
-  test "should display details about a transcript" do
+  view_test "should display details about a transcript" do
     speech_type = SpeechType::Transcript
     published_speech = create(:published_speech, speech_type: speech_type)
 
@@ -45,7 +45,7 @@ class SpeechesControllerTest < ActionController::TestCase
     assert_select ".label", "Speech"
   end
 
-  test "should display details about a draft text" do
+  view_test "should display details about a draft text" do
     speech_type = SpeechType::DraftText
     published_speech = create(:published_speech, speech_type: speech_type)
 
@@ -54,7 +54,7 @@ class SpeechesControllerTest < ActionController::TestCase
     assert_select ".label", "Speech"
   end
 
-  test "should display details about speaking notes" do
+  view_test "should display details about speaking notes" do
     speech_type = SpeechType::SpeakingNotes
     published_speech = create(:published_speech, speech_type: speech_type)
 
@@ -63,7 +63,7 @@ class SpeechesControllerTest < ActionController::TestCase
     assert_select ".label", "Speech"
   end
 
-  test "should display details about a written statement" do
+  view_test "should display details about a written statement" do
     speech_type = SpeechType::WrittenStatement
     published_speech = create(:published_speech, speech_type: speech_type)
 
@@ -72,7 +72,7 @@ class SpeechesControllerTest < ActionController::TestCase
     assert_select ".label", "Written statement to parliament"
   end
 
-  test "should display details about an oral statement" do
+  view_test "should display details about an oral statement" do
     speech_type = SpeechType::OralStatement
     published_speech = create(:published_speech, speech_type: speech_type)
 
@@ -81,7 +81,7 @@ class SpeechesControllerTest < ActionController::TestCase
     assert_select ".label", "Oral statement to parliament"
   end
 
-  test "should omit location if not given" do
+  view_test "should omit location if not given" do
     published_speech = create(:published_speech, location: '')
 
     get :show, id: published_speech.document

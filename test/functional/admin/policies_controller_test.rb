@@ -32,7 +32,7 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
   should_allow_scheduled_publication_of :policy
   should_allow_access_limiting_of :policy
 
-  test "show the 'add supporting page' button for an unpublished edition" do
+  view_test "show the 'add supporting page' button for an unpublished edition" do
     draft_policy = create(:draft_policy)
 
     get :show, id: draft_policy
@@ -40,7 +40,7 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
     assert_select "a[href='#{new_admin_edition_supporting_page_path(draft_policy)}']"
   end
 
-  test "do not show the 'add supporting page' button for a published policy" do
+  view_test "do not show the 'add supporting page' button for a published policy" do
     published_policy = create(:published_policy)
 
     get :show, id: published_policy
@@ -48,7 +48,7 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
     refute_select "a[href='#{new_admin_edition_supporting_page_path(published_policy)}']"
   end
 
-  test "show lists supporting pages when there are some" do
+  view_test "show lists supporting pages when there are some" do
     draft_policy = create(:draft_policy)
     first_supporting_page = create(:supporting_page, edition: draft_policy)
     second_supporting_page = create(:supporting_page, edition: draft_policy)
@@ -65,7 +65,7 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
     end
   end
 
-  test "does not show supporting pages list when empty" do
+  view_test "does not show supporting pages list when empty" do
     draft_policy = create(:draft_policy)
 
     get :show, id: draft_policy
@@ -73,7 +73,7 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
     refute_select ".supporting_pages .supporting_page"
   end
 
-  test "show displays the policy team responsible for this policy" do
+  view_test "show displays the policy team responsible for this policy" do
     policy_team = create(:policy_team, name: 'policy-team', email: 'policy-team@example.com')
     draft_policy = create(:draft_policy, policy_teams: [policy_team])
 
@@ -85,7 +85,7 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
     end
   end
 
-  test "show does not display the policy team section if no policy team is associated with the policy" do
+  view_test "show does not display the policy team section if no policy team is associated with the policy" do
     draft_policy = create(:draft_policy)
 
     get :show, id: draft_policy
@@ -93,7 +93,7 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
     refute_select policy_team_selector
   end
 
-  test "new should display policy team field" do
+  view_test "new should display policy team field" do
     get :new
 
     assert_select "form#edition_new" do
@@ -112,7 +112,7 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
     assert policy.related_editions.include?(publication), "polcy and publication should still be related"
   end
 
-  test "show does not display image for edition types that do not allow one" do
+  view_test "show does not display image for edition types that do not allow one" do
     policy = create(:policy)
 
     get :show, id: policy
@@ -120,7 +120,7 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
     refute_select "article.document .image img"
   end
 
-  test "should show govdelivery field for gds editors" do
+  view_test "should show govdelivery field for gds editors" do
     login_as :gds_editor
 
     get :new
@@ -128,7 +128,7 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
     assert_select 'input#edition_govdelivery_url'
   end
 
-  test "should not show govdelivery field for non gds admins" do
+  view_test "should not show govdelivery field for non gds admins" do
     get :new
 
     refute_select 'input#edition_govdelivery_url'

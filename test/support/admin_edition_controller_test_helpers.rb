@@ -1661,7 +1661,7 @@ module AdminEditionControllerTestHelpers
         assert created_publication.relevant_to_local_government?
       end
 
-      test "edit displays persisted relevant_to_local_government flag" do
+      view_test "edit displays persisted relevant_to_local_government flag" do
         publication = create(edition_type, relevant_to_local_government: false)
 
         get :edit, id: publication

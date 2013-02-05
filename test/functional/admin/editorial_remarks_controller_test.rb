@@ -7,7 +7,7 @@ class Admin::EditorialRemarksControllerTest < ActionController::TestCase
 
   should_be_an_admin_controller
 
-  test "should render the edition title and body to give context to the person rejecting" do
+  view_test "should render the edition title and body to give context to the person rejecting" do
     edition = create(:submitted_policy, title: "edition-title", body: "edition-body")
     get :new, edition_id: edition
 
@@ -15,7 +15,7 @@ class Admin::EditorialRemarksControllerTest < ActionController::TestCase
     assert_select "#{record_css_selector(edition)} .body", text: "edition-body"
   end
 
-  test "should render the editorial remark form for a statistical data set" do
+  view_test "should render the editorial remark form for a statistical data set" do
     StatisticalDataSet.stubs(access_limited_by_default?: false)
     edition = create(:draft_statistical_data_set, title: "edition-title", body: "edition-body")
     get :new, edition_id: edition
@@ -38,7 +38,7 @@ class Admin::EditorialRemarksControllerTest < ActionController::TestCase
     assert_equal "editorial-remark-body", edition.editorial_remarks.first.body
   end
 
-  test "should explain why the editorial remark could not be saved" do
+  view_test "should explain why the editorial remark could not be saved" do
     edition = create(:submitted_consultation)
     post :create, edition_id: edition, editorial_remark: { body: "" }
     assert_template "new"

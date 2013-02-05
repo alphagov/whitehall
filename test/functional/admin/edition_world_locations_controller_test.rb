@@ -51,7 +51,7 @@ class Admin::EditionWorldLocationsControllerTest < ActionController::TestCase
     assert assigns(:edition_world_location).featured?
   end
 
-  test "edit displays edition world_location fields" do
+  view_test "edit displays edition world_location fields" do
     edition_world_location = create(:edition_world_location)
 
     get :edit, world_location_id: edition_world_location.world_location, id: edition_world_location
@@ -80,7 +80,7 @@ class Admin::EditionWorldLocationsControllerTest < ActionController::TestCase
     assert_match /minister-of-funk/, edition_world_location.image.file.url
   end
 
-  test "should display the form with errors if the edition world_location couldn't be saved" do
+  view_test "should display the form with errors if the edition world_location couldn't be saved" do
     edition_world_location = create(:edition_world_location)
 
     post :update, world_location_id: edition_world_location.world_location, id: edition_world_location, edition_world_location: {
@@ -95,7 +95,7 @@ class Admin::EditionWorldLocationsControllerTest < ActionController::TestCase
     assert_select '.form-errors'
   end
 
-  test "should display the form with errors if the image couldn't be saved" do
+  view_test "should display the form with errors if the image couldn't be saved" do
     edition_world_location = create(:edition_world_location)
 
     post :update, world_location_id: edition_world_location.world_location, id: edition_world_location, edition_world_location: {
@@ -108,7 +108,7 @@ class Admin::EditionWorldLocationsControllerTest < ActionController::TestCase
     assert_select '.form-errors'
   end
 
-  test "should show the cached image file that was uploaded if the update fails" do
+  view_test "should show the cached image file that was uploaded if the update fails" do
     edition_world_location = create(:edition_world_location)
 
     post :update, world_location_id: edition_world_location.world_location, id: edition_world_location, edition_world_location: {
