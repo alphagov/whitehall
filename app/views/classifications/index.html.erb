@@ -13,22 +13,22 @@
 
 <div class="block-2">
   <div class="inner-block">
-    <div class="heading-block all-topics">
-      <% if @topics.any? %>
-        <div class="content">
-          <%= render partial: "list", locals: { topics: @topics } %>
-        </div>
-      <% else %>
-        <p>We don't have any topics with published documents at present.</p>
-      <% end %>
-    </div>
-    <div class="heading-block all-topical_events">
-      <% if @topical_events.any? %>
-        <h1 class="label">Topical events</h1>
-        <div class="content">
-          <%= render partial: "list", locals: { topics: @topical_events } %>
-        </div>
-      <% end %>
-    </div>
+    <% if @topics.any? %>
+      <div class="heading-block all-topics">
+          <div class="content">
+            <%= render partial: "list", locals: { topics: @topics } %>
+          </div>
+        <% else %>
+          <p>We don't have any topics with published documents at present.</p>
+      </div>
+    <% end %>
+    <% if @topical_events.any? %>
+      <div class="heading-block all-topical_events">
+          <h1 class="label">Topical events</h1>
+          <div class="content">
+            <%= render partial: "list", locals: { topics: @topical_events } %>
+          </div>
+      </div>
+    <% end %>
   </div>
 </div>
