@@ -799,9 +799,8 @@ ActiveRecord::Schema.define(:version => 20130204133738) do
     t.string   "embassy_email"
     t.string   "slug"
     t.text     "description"
-    t.boolean  "active",                 :default => false, :null => false
-    t.integer  "world_location_type_id",                    :null => false
-    t.text     "about"
+    t.boolean  "active",                              :default => false, :null => false
+    t.integer  "world_location_type_id",                                 :null => false
     t.string   "iso2",                   :limit => 2
   end
 
