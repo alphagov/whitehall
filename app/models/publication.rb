@@ -14,8 +14,13 @@ class Publication < Publicationesque
 
   after_update { |p| p.published_related_policies.each(&:update_published_related_publication_count) }
 
-  scope :not_statistics, where("publication_type_id NOT IN (?)", PublicationType.statistical.map(&:id))
-  scope :statistics, where(publication_type_id: PublicationType.statistical.map(&:id))
+  def self.not_statistics
+    where("publication_type_id NOT IN (?)", PublicationType.statistical.map(&:id))
+  end
+
+  def self.statistics
+    where(publication_type_id: PublicationType.statistical.map(&:id))
+  end
 
   def allows_inline_attachments?
     false
@@ -70,7 +75,7 @@ class Publication < Publicationesque
 
   def access_limited_by_default?
     # Without a publication_type we can't correctly work out if we should
-    # be access_limited or not.  When we get a publication_type, we'll 
+    # be access_limited or not.  When we get a publication_type, we'll
     # sort this out.  Happily, abesence of a publication_type invalidates
     # us, so returning nil is ok even though it would break the SQL insert
     if self.publication_type.present?
