@@ -46,6 +46,17 @@
         }
       }
     }
+    .label, .title {
+      @include core-36;
+      float: none;
+      display: block;
+      span {
+        padding-left: 0;
+      }
+    }
+    .label {
+      color: $grey-1;
+    }
   }
 
   .page-description {
