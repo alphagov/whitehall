@@ -44,8 +44,18 @@ When /^I publish a news article "([^"]*)" associated with "([^"]*)"$/ do |title,
   click_button "Force Publish"
 end
 
+When /^I create a world location news story "([^"]*)"$/ do |title|
+  begin_drafting_news_article title: title
+  select 'World location news story', from: 'News article type'
+  click_button "Save"
+end
+
 When /^I attempt to add the article image into the markdown$/ do
   fill_in "Body", with: "body copy\n!!1\nmore body"
+end
+
+Then /^the news story "([^"]*)" should have been created$/ do |title|
+  NewsArticle.find_by_title(title).should_not be_nil
 end
 
 Then /^the article mentions "([^"]*)" and links to their bio page$/ do |person_name|

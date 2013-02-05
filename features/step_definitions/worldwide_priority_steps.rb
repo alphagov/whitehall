@@ -5,6 +5,10 @@ When /^I draft a new worldwide priority "([^"]*)"$/ do |title|
   click_button "Save"
 end
 
+Given /^a published worldwide priority "([^"]*)" exists$/ do |title|
+  create(:published_worldwide_priority, title: title)
+end
+
 Given /^a published worldwide priority "([^"]*)" exists relating to the (?:country|overseas territory|international delegation) "([^"]*)"$/ do |title, world_location_name|
   world_location = WorldLocation.find_by_name!(world_location_name)
   create(:published_worldwide_priority, title: title, world_locations: [world_location])
@@ -36,4 +40,9 @@ end
 Then /^I should be able to navigate to the english translation "([^"]*)"$/ do |english_title|
   click_link "English"
   assert page.has_css?('.title', text: english_title)
+end
+
+Then /^I should be able to associate "([^"]*)" with the worldwide priority "([^"]*)"$/ do |title, priority|
+  begin_editing_document title
+  select priority, from: "Worldwide priorities"
 end
