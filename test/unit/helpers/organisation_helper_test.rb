@@ -23,15 +23,6 @@ class OrganisationHelperTest < ActionView::TestCase
     assert_match /organisation-slug-yeah/, div.attr('class').value
   end
 
-  test 'given an organisation should return suitable org-identifying logo class names' do
-    organisation_type = build(:organisation_type, name: "Ministerial department")
-
-    organisation =  build(:organisation, slug: "organisation-slug-hmm", organisation_type: organisation_type)
-    assert_equal 'organisation-logo organisation-logo-single-identity', organisation_logo_classes(organisation)
-
-    organisation =  build(:organisation, slug: "organisation-slug-yeah", organisation_type: organisation_type, organisation_logo_type: OrganisationLogoType::NoIdentity)
-    assert_equal 'organisation-logo organisation-logo-no-identity', organisation_logo_classes(organisation)
-  end
 end
 
 class OrganisationHelperDisplayNameWithParentalRelationshipTest < ActionView::TestCase

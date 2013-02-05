@@ -1,0 +1,11 @@
+<%= form_for [:admin, worldwide_office], as: :worldwide_office do |form| %>
+  <%= form.errors %>
+  <fieldset>
+    <%= form.text_field :name %>
+    <%= form.text_area :logo_formatted_name, rows: "4", style: "width: auto" %>
+    <%= form.text_area :summary, rows: "4" %>
+    <%= form.text_area :description %>
+  </fieldset>
+
+  <%= form.save_or_cancel(cancel: (worldwide_office.persisted? ? admin_worldwide_office_path(worldwide_office) : admin_worldwide_offices_path)) %>
+<% end %>

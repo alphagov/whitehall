@@ -21,7 +21,7 @@
                                   class: 'department js-filter-item',
                                     "data-filter-terms" => filter_terms(ministerial_department) do %>
                 <h2 id="<%= ministerial_department.slug %>" class="<%= ministerial_department.slug %>">
-                  <%= link_to organisation_path(ministerial_department), class: organisation_logo_classes(ministerial_department, size: 'medium') do %>
+                  <%= link_to organisation_path(ministerial_department), class: logo_classes(class_name: ministerial_department.organisation_logo_type.class_name, size: 'medium') do %>
                     <span><%= ministerial_department.logo_formatted_name %></span>
                   <% end %>
                 </h2>

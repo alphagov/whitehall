@@ -1,0 +1,16 @@
+<%= form_for [:admin, social_media_account], html: {class: "form-horizontal"} do |social_media_account_form| %>
+  <%= social_media_account_form.errors %>
+  <fieldset class="social_media_account">
+    <%= hidden_field_tag :socialable_type, socialable.class.name %>
+    <%= hidden_field_tag :socialable_id, socialable.to_param %>
+    <div class="control-group">
+      <%= social_media_account_form.label :social_media_service_id, 'Service', class: "control-label" %>
+      <div class="controls">
+        <%= social_media_account_form.select :social_media_service_id, options_from_collection_for_select(SocialMediaService.all, :id, :name, social_media_account_form.object.social_media_service_id), {include_blank: true}, class: 'chzn-select', data: { placeholder: "Choose the social media service..." } %>
+      </div>
+    </div>
+    <%= social_media_account_form.text_field :url, horizontal: true %>
+  </fieldset>
+
+  <%= social_media_account_form.save_or_cancel(cancel: social_media_accounts_list_url_for(social_media_account.socialable)) %>
+<% end %>

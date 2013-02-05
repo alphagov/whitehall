@@ -87,6 +87,8 @@ class ApplicationHelperTest < ActionView::TestCase
     assert_equal "", format_with_html_line_breaks(nil)
     assert_equal "", format_with_html_line_breaks("")
     assert_equal "line 1", format_with_html_line_breaks("line 1")
+    assert_equal "line 1", format_with_html_line_breaks("line 1\n")
+    assert_equal "line 1", format_with_html_line_breaks("line 1\r\n")
     assert_equal "line 1<br/>line 2", format_with_html_line_breaks("line 1\nline 2")
     assert_equal "line 1<br/>line 2", format_with_html_line_breaks("line 1\r\nline 2")
     assert_equal "line 1<br/><br/>line 2", format_with_html_line_breaks("line 1\n\nline 2")

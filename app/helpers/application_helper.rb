@@ -37,7 +37,7 @@ module ApplicationHelper
   end
 
   def format_with_html_line_breaks(string)
-    (h(string)||"").gsub(/(?:\r?\n)/, "<br/>").html_safe
+    h(string.to_s.strip).gsub(/(?:\r?\n)/, "<br/>").html_safe
   end
 
   def link_to_attachment(attachment)

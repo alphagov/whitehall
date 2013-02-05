@@ -4,11 +4,11 @@ class Admin::OrganisationsController < Admin::BaseController
   before_filter :load_organisation, only: [:show, :edit, :update, :destroy]
   before_filter :build_organisation_classifications, only: [:new, :edit]
   before_filter :delete_absent_organisation_classifications, only: [:update]
-  before_filter :build_social_media_account, only: [:new, :edit]
   before_filter :build_organisation_mainstream_links, only: [:new, :edit]
-  before_filter :destroy_blank_phone_numbers, only: [:create, :update]
-  before_filter :destroy_blank_social_media_accounts, only: [:create, :update]
   before_filter :destroy_blank_mainstream_links, only: [:create, :update]
+
+  before_filter :social_media_helper, only: [:new, :create, :edit, :update]
+  attr :social
 
   def index
     @organisations = Organisation.all
@@ -16,15 +16,17 @@ class Admin::OrganisationsController < Admin::BaseController
   end
 
   def new
+    social.build_social_media_account(@organisation)
   end
 
   def create
+    social.destroy_blank_social_media_accounts(params[:organisation])
     @organisation = Organisation.new(params[:organisation])
     if @organisation.save
       redirect_to admin_organisations_path
     else
       build_organisation_roles
-      build_social_media_account
+      social.build_social_media_account(@organisation)
       render action: "new"
     end
   end
@@ -34,15 +36,17 @@ class Admin::OrganisationsController < Admin::BaseController
   end
 
   def edit
+    social.build_social_media_account(@organisation)
     load_organisation_roles
   end
 
   def update
+    social.destroy_blank_social_media_accounts(params[:organisation])
     if @organisation.update_attributes(params[:organisation])
       redirect_to admin_organisation_path(@organisation)
     else
       load_organisation_roles
-      build_social_media_account
+      social.build_social_media_account(@organisation)
       render action: "edit"
     end
   end
@@ -89,12 +93,6 @@ class Admin::OrganisationsController < Admin::BaseController
     @organisation = Organisation.find(params[:id])
   end
 
-  def build_social_media_account
-    unless @organisation.social_media_accounts.any?(&:new_record?)
-      @organisation.social_media_accounts.build
-    end
-  end
-
   def build_organisation_mainstream_links
     unless @organisation.organisation_mainstream_links.any?(&:new_record?)
       @organisation.organisation_mainstream_links.build
@@ -109,30 +107,6 @@ class Admin::OrganisationsController < Admin::BaseController
     @special_representative_organisation_roles = @organisation.organisation_roles.joins(:role).merge(Role.special_representative).order(:ordering)
   end
 
-  def destroy_blank_phone_numbers
-    if params[:organisation][:contacts_attributes]
-      params[:organisation][:contacts_attributes].each do |index, contact|
-        if contact && contact[:contact_numbers_attributes]
-          contact[:contact_numbers_attributes].each do |key, number|
-            if number[:label].blank? && number[:number].blank?
-              number[:_destroy] = "1"
-            end
-          end
-        end
-      end
-    end
-  end
-
-  def destroy_blank_social_media_accounts
-    if params[:organisation][:social_media_accounts_attributes]
-      params[:organisation][:social_media_accounts_attributes].each do |index, account|
-        if account[:social_media_service_id].blank? && account[:url].blank?
-          account[:_destroy] = "1"
-        end
-      end
-    end
-  end
-
   def destroy_blank_mainstream_links
     if params[:organisation][:organisation_mainstream_links_attributes]
       params[:organisation][:organisation_mainstream_links_attributes].each do |index, link|
@@ -141,5 +115,9 @@ class Admin::OrganisationsController < Admin::BaseController
         end
       end
     end
+  end
+
+  def social_media_helper
+    @social = Whitehall::Controllers::SocialMedia.new
   end
 end

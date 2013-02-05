@@ -47,26 +47,31 @@
       $(this).parent().find('input').val('');
     }
 
+    var makeNewPhoneInput = function(contactNumbersFieldset) {
+      var newId = contactNumbersFieldset.find('.contact_number').size();
+      var newPhoneInput = contactNumbersFieldset.find('fieldset.contact_number').filter(':visible').first().clone()
+      newPhoneInput.find('input').val('');
+      newPhoneInput.find("label").each(function(i, el) {
+        updateId(el, "contact_numbers_attributes", "for", 0, newId);
+      });
+      newPhoneInput.find("input").each(function(i, el) {
+        updateId(el, "contact_numbers_attributes", "id", 0, newId);
+        updateId(el, "contact_numbers_attributes", "name", 0, newId);
+      });
+      newPhoneInput.find('a').click(handleRemoveNumber);
+      return newPhoneInput;
+    };
+
     var addLinkToAddNewNumber = function() {
-      legend = $(this)
+      var contactNumbersFieldset = $(this);
       var link = $.a('Add number', {'class': 'btn add_new'});
       link.click(function() {
-        fieldset = $(this).parent().parent();
-        newId = fieldset.find('.contact_number').size();
-        var clone = fieldset.find('fieldset.contact_number').filter(':visible').first().clone();
-        $(clone).find('input').val('')
-        $(clone).children("label").each(function(i, el) {
-          updateId(el, "contact_numbers_attributes", "for", 0, newId);
-        });
-        $(clone).children("input").each(function(i, el) {
-          updateId(el, "contact_numbers_attributes", "id", 0, newId);
-          updateId(el, "contact_numbers_attributes", "name", 0, newId);
-        });
-        fieldset.append(clone);
-        $(clone).find('a').click(handleRemoveNumber);
+        var newPhoneInput = makeNewPhoneInput(contactNumbersFieldset);
+        contactNumbersFieldset.find('fieldset.contact_number').last().after(newPhoneInput);
+
         return false;
       })
-      legend.append(link);
+      $(this).append(link);
     };
 
     var addRemoveNumberLink = function() {
@@ -77,7 +82,7 @@
     }
 
     addLinkToCloneEmptyFields();
-    $('.contact_numbers legend').each(addLinkToAddNewNumber);
+    $('.contact_numbers').each(addLinkToAddNewNumber);
     $('.contact_numbers .contact_number').each(addRemoveNumberLink);
     emptyFieldSet.hide();
   }
