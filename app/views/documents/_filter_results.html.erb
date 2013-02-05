@@ -4,7 +4,11 @@
     departments: filter_results_selections(filter.selected_organisations, 'departments'),
     topics: filter_results_selections(filter.selected_topics, 'topics'),
     keywords_any?: filter.keywords.any?,
-    keywords: filter_results_keywords(filter.keywords)
+    keywords: filter_results_keywords(filter.keywords),
+    date: ({
+      direction: filter.direction,
+      date: filter.date.to_s(:short_ordinal)
+    } if filter.date)
   }
 %>
 <div class="filter-results-summary">

@@ -251,7 +251,7 @@ module ApplicationHelper
   def recent_month_filter_options(number_of_months, selected_date)
     baseline = (Date.today + 1.month).beginning_of_month
     months = (0...number_of_months).map { |i| baseline - i.months }
-    options_for_select(months.map { |m| [m.strftime("%B %Y"), m.to_s] }, selected_date.to_s)
+    options_for_select(months.map { |m| [m.to_s(:short_ordinal), m.to_s] }, selected_date.to_s)
   end
 
   def corporate_information_page_types(organisation)

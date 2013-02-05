@@ -14,7 +14,7 @@ module("Document filter", {
       '<option value="dept2">Dept2</option>' +
       '</select>' +
       '<input type="radio" id="direction_before">' +
-      '<input type="radio" id="direction_after" checked="checked"> ' +
+      '<input type="radio" id="direction_after" value="after" checked="checked"> ' +
       '<input type="text" id="keywords" value=""> ' +
       '</form>');
     $('#qunit-fixture').append(this.filterForm);
@@ -258,7 +258,7 @@ test("currentPageState should include the state of any select boxes", function()
 
 test("currentPageState should include the state of any radio buttons", function() {
   this.filterForm.enableDocumentFilter();
-  deepEqual(GOVUK.documentFilter.currentPageState().checked, ["direction_after"]);
+  deepEqual(GOVUK.documentFilter.currentPageState().checked, [{ id: "direction_after", value: 'after' }]);
 });
 
 test("currentPageState should include the state of any text inputs", function() {
@@ -355,6 +355,17 @@ test("should update selections to match filters", function(){
             title: ['my-title'],
             id: 'topics',
             value: ['my-value']
+          },
+          {
+            title: ['my-date'],
+            id: 'date',
+            value: ['my-value']
+          }
+        ],
+        checked: [
+          {
+            id: 'direction_before',
+            value: 'before'
           }
         ]
       };
@@ -366,6 +377,7 @@ test("should update selections to match filters", function(){
 
   ok(this.selections.find('.topics-selections strong').text().indexOf('my-title') > -1);
   equals(this.selections.find('.topics-selections strong a').attr('data-val'), 'my-value');
+  equals(this.selections.text().match(/before my-date/).length, 1, 'not before my-date');
   stub.restore();
 });
 
