@@ -16,9 +16,11 @@ Feature: Worldwide offices
     Given I am a GDS editor
 
   Scenario: Creating worldwide office
-    When I create a worldwide office "Department of Beards in France" with a summary and description
+    Given the organisation "Department of Beards" exists
+    When I create a worldwide office "Department of Beards in France" sponsored by the "Department of Beards" with a summary and description
     Then I should see the worldwide office information on the public website
     And the "Department of Beards in France" logo should show correctly with the HMG crest
+    And I should see that it is part of the "Department of Beards"
     When I update the worldwide office to set the name to "Department of Beards and Moustaches in France"
     Then I should see the updated worldwide office information on the public website
     When I delete the worldwide office

@@ -10,20 +10,24 @@
 
   <div class="block-1">
     <div class="inner-block">
-      <section id="about-us" class="about-us">
-        <h1 class="label">About us</h1>
+      <section>
+        <article class="document">
+          <p class="sponsoring-organisations">
+            Part of <%= @worldwide_office.sponsoring_organisations.map {|o| link_to(o.name, o, class: "sponsoring-organisation") }.to_sentence.html_safe %>
+          </p>
 
-        <div class="summary">
-          <div class="content">
-            <%= @worldwide_office.summary %>
+          <div class="summary">
+            <div class="content">
+              <%= @worldwide_office.summary %>
+            </div>
           </div>
-        </div>
 
-        <div class="description">
-          <div class="content">
-            <%= govspeak_to_html @worldwide_office.description %>
+          <div class="description">
+            <div class="content">
+              <%= govspeak_to_html @worldwide_office.description %>
+            </div>
           </div>
-        </div>
+        </article>
       </section>
     </div>
   </div>

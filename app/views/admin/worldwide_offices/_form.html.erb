@@ -2,6 +2,9 @@
   <%= form.errors %>
   <fieldset>
     <%= form.text_field :name %>
+    <%= form.label :sponsoring_organisation_ids, 'Sponsoring organisations' %>
+    <%= form.select :sponsoring_organisation_ids, Organisation.all.collect {|org| [org.name, org.id]}, {}, multiple: true, class: 'chzn-select', data: { placeholder: "Choose sponsoring organisations..."} %>
+
     <%= form.text_area :logo_formatted_name, rows: "4", style: "width: auto" %>
     <%= form.text_area :summary, rows: "4" %>
     <%= form.text_area :description, "class" => "previewable" %>

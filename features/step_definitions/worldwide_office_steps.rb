@@ -1,8 +1,9 @@
-When /^I create a worldwide office "([^"]*)" with a summary and description$/ do |name|
+When /^I create a worldwide office "([^"]*)" sponsored by the "([^"]*)" with a summary and description$/ do |name, sponsoring_organisation|
   visit new_admin_worldwide_office_path
   fill_in "Name", with: name
   fill_in "Summary", with: "Worldwide office summary"
   fill_in "Description", with: "Worldwide **office** description"
+  select sponsoring_organisation, from: "Sponsoring organisations"
   click_on "Save"
 end
 
@@ -16,6 +17,10 @@ end
 Then /^the "([^"]*)" logo should show correctly with the HMG crest$/ do |name|
   office = WorldwideOffice.find_by_name(name)
   assert page.has_css?(".organisation-logo-stacked-single-identity", text: office.logo_formatted_name)
+end
+
+Then /^I should see that it is part of the "([^"]*)"$/ do |sponsoring_organisation|
+  assert page.has_css?(".sponsoring-organisation", sponsoring_organisation)
 end
 
 When /^I update the worldwide office to set the name to "([^"]*)"$/ do |new_title|

@@ -13,6 +13,9 @@
       <section>
         <%= worldwide_office_tab_navigation do %>
           <article class="document">
+            <p class="sponsoring-organisations">
+              Part of <%= @worldwide_office.sponsoring_organisations.map {|o| link_to(o.name, [:admin, o]) }.to_sentence.html_safe %>
+            </p>
 
             <div class="summary">
               <div class="content">
