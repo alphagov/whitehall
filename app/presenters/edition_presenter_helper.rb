@@ -9,7 +9,7 @@ module EditionPresenterHelper
 
   def date_microformat(attribute_name)
     h.render_datetime_microformat(model, attribute_name) {
-      model.send(attribute_name).to_date.to_s(:long_ordinal)
+      l(model.send(attribute_name).to_date, format: :long_ordinal)
     }
   end
 end

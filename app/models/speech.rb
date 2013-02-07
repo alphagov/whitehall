@@ -31,6 +31,14 @@ class Speech < Announcement
     end
   end
 
+  def display_type_key
+    if [SpeechType::WrittenStatement, SpeechType::OralStatement].include?(speech_type)
+      "statement_to_parliament"
+    else
+      super
+    end
+  end
+
   def delivery_title
     role_appointment.role.ministerial? ? "Minister" : "Speaker"
   end

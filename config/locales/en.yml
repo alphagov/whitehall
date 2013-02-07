@@ -12,7 +12,73 @@ en:
   date:
     formats:
       default: "%d %B %Y"
+      long_ordinal: "%e %B %Y"
+      short_ordinal: "%B %Y"
+  time:
+    formats:
+      long_ordinal: "%e %B %Y %H:%M"
   number:
     human:
       storage_units:
         format: ! '%n%u'
+
+  latest_feed:
+    title: Latest feed
+    no_updates: There are no updates yet.
+  feeds:
+    atom: atom
+    email_alerts: email alerts
+    latest_activity: Latest activity
+  document:
+    view: View '%{title}'
+    published: published
+    updated: updated
+    type:
+      announcement: announcement
+      policy: policy
+      news_article: news article
+      news_story: news story
+      press_release: press release
+      speech: speech
+      rebuttal: rebuttal
+      import: imported - awaiting type
+      statement_to_parliament: Statement to parliament
+      publication: publication
+      policy_paper: policy paper
+      impact_assessment: impact assessment
+      consultation: consultation
+      consultation_outcome: consultation outcome
+      closed_consultation: closed consultation
+      open_consultation: open consultation
+      guidance: guidance
+      form: form
+      statistics: statistics
+      national_statistics: Statistics - national statistics
+      research: research and analysis
+      corporate_report: corporate report
+      transparency: transparency data
+      treaty: treaty
+      foi_release: FOI release
+      correspondence: correspondence
+      promotional: promotional material
+      independent_report: independent report
+      international_priority: international priority
+  world_location:
+    country:
+      Spain: Spain
+    type:
+      country: Country
+      overseas_territory: Overseas territory
+      international_delegation: International delegation
+    headings:
+      mission: Our mission
+      country: Country
+      announcements: Our announcements
+      publications: Our publications
+      statistics: Our statistics
+      see_all: See all our %{type}
+      organisations: Organisations
+      related_policies: Related policies
+      priorities: Priorities
+      documents: Documents
+    see_all: See all our %{type}

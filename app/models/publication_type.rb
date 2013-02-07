@@ -5,7 +5,7 @@ require 'active_support/core_ext/string/inflections.rb'
 class PublicationType
   include ActiveRecordLikeInterface
 
-  attr_accessor :id, :singular_name, :plural_name, :prevalence, :access_limited_by_default
+  attr_accessor :id, :singular_name, :plural_name, :prevalence, :access_limited_by_default, :key
 
   def slug
     plural_name.downcase.gsub(/[^a-z]+/, "-")
@@ -51,31 +51,31 @@ class PublicationType
     [Statistics, NationalStatistics]
   end
 
-  PolicyPaper            = create(id: 1, singular_name: "Policy paper", plural_name: "Policy papers", prevalence: :primary)
+  PolicyPaper            = create(id: 1, key: "policy_paper", singular_name: "Policy paper", plural_name: "Policy papers", prevalence: :primary)
 
-  Consultation           = create(id: 16, singular_name: "Consultation", plural_name: "Consultations", prevalence: :primary)
+  Consultation           = create(id: 16, key: "consultation", singular_name: "Consultation", plural_name: "Consultations", prevalence: :primary)
 
-  ImpactAssessment       = create(id: 2, singular_name: "Impact assessment", plural_name: "Impact assessments", prevalence: :primary)
-  Guidance               = create(id: 3, singular_name: "Guidance", plural_name: "Guidance", prevalence: :primary)
-  Form                   = create(id: 4, singular_name: "Form", plural_name: "Forms", prevalence: :primary)
-  Statistics             = create(id: 5, singular_name: "Statistics", plural_name: "Statistics", prevalence: :primary, access_limited_by_default: true)
-  NationalStatistics     = create(id: 15, singular_name: "Statistics - national statistics", plural_name: "Statistics - national statistics", prevalence: :primary, access_limited_by_default: true)
-  ResearchAndAnalysis    = create(id: 6, singular_name: "Research and analysis", plural_name: "Research and analysis", prevalence: :primary)
-  CorporateReport        = create(id: 7, singular_name: "Corporate report", plural_name: "Corporate reports", prevalence: :primary)
+  ImpactAssessment       = create(id: 2, key: "impact_assessment", singular_name: "Impact assessment", plural_name: "Impact assessments", prevalence: :primary)
+  Guidance               = create(id: 3, key: "guidance", singular_name: "Guidance", plural_name: "Guidance", prevalence: :primary)
+  Form                   = create(id: 4, key: "form", singular_name: "Form", plural_name: "Forms", prevalence: :primary)
+  Statistics             = create(id: 5, key: "statistics", singular_name: "Statistics", plural_name: "Statistics", prevalence: :primary, access_limited_by_default: true)
+  NationalStatistics     = create(id: 15, key: "national_statistics", singular_name: "Statistics - national statistics", plural_name: "Statistics - national statistics", prevalence: :primary, access_limited_by_default: true)
+  ResearchAndAnalysis    = create(id: 6, key: "research", singular_name: "Research and analysis", plural_name: "Research and analysis", prevalence: :primary)
+  CorporateReport        = create(id: 7, key: "corporate_report", singular_name: "Corporate report", plural_name: "Corporate reports", prevalence: :primary)
 
   # Less common
-  TransparencyData       = create(id: 10, singular_name: "Transparency data", plural_name: "Transparency data", prevalence: :less_common)
-  Treaty                 = create(id: 11, singular_name: "Treaty", plural_name: "Treaties", prevalence: :less_common)
-  FoiRelease             = create(id: 12, singular_name: "FOI release", plural_name: "FOI releases", prevalence: :less_common)
-  IndependentReport      = create(id: 14, singular_name: "Independent report", plural_name: "Independent reports", prevalence: :less_common)
+  TransparencyData       = create(id: 10, key: "transparency", singular_name: "Transparency data", plural_name: "Transparency data", prevalence: :less_common)
+  Treaty                 = create(id: 11, key: "treaty", singular_name: "Treaty", plural_name: "Treaties", prevalence: :less_common)
+  FoiRelease             = create(id: 12, key: "foi_release", singular_name: "FOI release", plural_name: "FOI releases", prevalence: :less_common)
+  IndependentReport      = create(id: 14, key: "indepdendent_report", singular_name: "Independent report", plural_name: "Independent reports", prevalence: :less_common)
 
   # Use is discouraged
-  Correspondence         = create(id: 8 , singular_name: "Correspondence", plural_name: "Correspondence", prevalence: :discouraged)
-  PromotionalMaterial    = create(id: 13, singular_name: "Promotional material", plural_name: "Promotional material", prevalence: :discouraged)
+  Correspondence         = create(id: 8 , key: "correspondence", singular_name: "Correspondence", plural_name: "Correspondence", prevalence: :discouraged)
+  PromotionalMaterial    = create(id: 13, key: "promotional", singular_name: "Promotional material", plural_name: "Promotional material", prevalence: :discouraged)
 
   # Temporary to allow migration
-  Unknown                = create(id: 999, singular_name: "Publication", plural_name: "Publication", prevalence: :migration)
+  Unknown                = create(id: 999, key: "publication", singular_name: "Publication", plural_name: "Publication", prevalence: :migration)
 
   # For imported publications with a blank publication_type field
-  ImportedAwaitingType   = create(id: 1000, singular_name: "Imported - awaiting type", plural_name: "Imported - awaiting type", prevalence: :migration)
+  ImportedAwaitingType   = create(id: 1000, key: "import", singular_name: "Imported - awaiting type", plural_name: "Imported - awaiting type", prevalence: :migration)
 end

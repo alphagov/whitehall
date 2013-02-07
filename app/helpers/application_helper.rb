@@ -293,7 +293,7 @@ module ApplicationHelper
   end
 
   def joined_ministerial_department_percent
-    number_to_percentage(100*joined_ministerial_department_count.to_f/ministerial_department_count)
+    number_to_percentage(100*joined_ministerial_department_count.to_f/ministerial_department_count, precision: 0)
   end
 
   def is_external?(href)

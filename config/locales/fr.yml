@@ -1,0 +1,83 @@
+fr:
+  activerecord:
+    attributes:
+      detailed_guide:
+        primary_mainstream_category: "Primary detailed guidance category"
+  errors:
+    messages:
+      carrierwave_integrity_error: is not an allowed file type
+  support:
+    array:
+      last_word_connector: " and "
+  date:
+    formats:
+      default: "%d %B %Y"
+      long_ordinal: "%B %d, %Y"
+  time:
+    formats:
+      long_ordinal: "%B %d, %Y %H:%M"
+  number:
+    human:
+      storage_units:
+        format: ! '%n%u'
+
+  latest_feed:
+    title: Documents les plus récents
+    no_updates: Il n'y a pas mises à jour.
+  feeds:
+    atom: atom
+    email_alerts: alertes emails
+    latest_activity: Activité la plus récente
+  document:
+    view: Voir '%{title}'
+    published: publié
+    updated: mis à jour
+    type:
+      announcement: annonce
+      policy: politique
+      news_article: article de nouvelles
+      news_story: nouvelles rapport
+      press_release: communiqué de presse
+      speech: discours
+      rebuttal: réfutation
+      import: importés - type attente
+      statement_to_parliament: déclaration au parlement
+      publication: publication
+      policy_paper: document de politique
+      impact_assessment: évaluation de l'impact
+      consultation: consultation
+      consultation_outcome: résultat des consultations
+      closed_consultation: consultation fermé
+      open_consultation: consultation ouvert
+      guidance: guidage
+      form: formulaire
+      statistics: statistiques
+      national_statistics: Statistiques - statistiques nationales
+      research: la recherche et l'analyse
+      corporate_report: rapport d'entreprise
+      transparency: la transparence des données
+      treaty: traité
+      foi_release: communiqué d'FOI
+      correspondence: correspondance
+      promotional: matériel promotionnel
+      independent_report: rapport indépendant
+      international_priority: priorité internationale
+  world_location:
+    country:
+      Spain: Espagne
+    type:
+      country: Pays
+      overseas_territory: Territoire d'outre-mer
+      international_delegation: Délégation internationale
+    headings:
+      mission: Notre mission
+      country: Pays
+      announcements: Nos annonces
+      publications: Nos publications
+      statistics: Nos statistiques
+      see_all: Voir toutes nos %{type}
+      organisations: Organisations
+      related_policies: Les politiques connexes
+      priorities: Priorités
+      documents: Documents
+    see_all: Voir toutes nos %{type}

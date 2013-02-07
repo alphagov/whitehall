@@ -334,6 +334,10 @@ class Edition < ActiveRecord::Base
     format_name.capitalize
   end
 
+  def display_type_key
+    format_name.underscore
+  end
+
   def first_public_at
     first_published_at
   end
