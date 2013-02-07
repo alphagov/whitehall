@@ -7,10 +7,15 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   before_filter :set_proposition
+  before_filter :set_audit_trail_whodunnit
 
   layout 'frontend'
 
   private
+
+  def set_audit_trail_whodunnit
+    Edition::AuditTrail.whodunnit = current_user
+  end
 
   def skip_slimmer
     response.headers[Slimmer::Headers::SKIP_HEADER] = "true"
