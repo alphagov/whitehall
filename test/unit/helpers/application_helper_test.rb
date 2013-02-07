@@ -275,6 +275,13 @@ class ApplicationHelperTest < ActionView::TestCase
     assert_equal ra.role.name, role_appointment(ra, true)
   end
 
+  test "correctly identifies external links" do
+    assert is_external?('http://www.facebook.com/something'), 'wrong host'
+    refute is_external?('/something'), 'no host'
+    refute is_external?('https://www.gov.uk'), 'good host'
+    refute is_external?('http://www.preview.alphagov.co.uk/something'), 'good host with path'
+  end
+
   private
 
   def appoint_minister(attributes = {})
