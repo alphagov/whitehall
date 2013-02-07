@@ -34,11 +34,11 @@ class ActiveSupport::TestCase
   end
 
   def acting_as(user)
-    original_user = PaperTrail.whodunnit
-    PaperTrail.whodunnit = user
+    original_user = Edition::AuditTrail.whodunnit
+    Edition::AuditTrail.whodunnit = user
     yield
   ensure
-    PaperTrail.whodunnit = original_user
+    Edition::AuditTrail.whodunnit = original_user
   end
 
   def assert_same_elements(array1, array2)
@@ -128,8 +128,8 @@ class ActionController::TestCase
   def login_as(role_or_user)
     @current_user = role_or_user.is_a?(Symbol) ? create(role_or_user) : role_or_user
     request.env['warden'] = stub(authenticate!: true, authenticated?: true, user: @current_user)
-    @previous_papertrail_whodunnit ||= PaperTrail.whodunnit
-    PaperTrail.whodunnit = @current_user
+    @previous_papertrail_whodunnit ||= Edition::AuditTrail.whodunnit
+    Edition::AuditTrail.whodunnit = @current_user
     @current_user
   end
 

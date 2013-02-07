@@ -18,9 +18,9 @@ class ForcePublisher
     end
 
     def acting_as(user)
-      old_user, PaperTrail.whodunnit = PaperTrail.whodunnit, user
+      old_user, Edition::AuditTrail.whodunnit = Edition::AuditTrail.whodunnit, user
       yield
-      PaperTrail.whodunnit = old_user
+      Edition::AuditTrail.whodunnit = old_user
     end
 
     def force_publish!(editions, reporter)

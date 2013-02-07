@@ -90,11 +90,11 @@ module Edition::ScheduledPublishing
     end
 
     def acting_as(user)
-      original_user = PaperTrail.whodunnit
-      PaperTrail.whodunnit = user
+      original_user = Edition::AuditTrail.whodunnit
+      Edition::AuditTrail.whodunnit = user
       yield
     ensure
-      PaperTrail.whodunnit = original_user
+      Edition::AuditTrail.whodunnit = original_user
     end
   end
 
