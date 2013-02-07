@@ -27,7 +27,6 @@ gem 'tire-contrib'
 gem 'addressable'
 gem 'exception_notification', require: 'exception_notifier'
 gem 'rabl'
-gem "paper_trail"
 gem 'aws-ses', require: 'aws/ses'
 gem 'draper'
 gem 'newrelic_rpm', '3.5.3.25'

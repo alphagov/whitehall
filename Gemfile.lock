@@ -236,8 +236,6 @@ GEM
     omniauth-oauth2 (1.1.1)
       oauth2 (~> 0.8.0)
       omniauth (~> 1.0)
-    paper_trail (2.6.2)
-      rails (~> 3)
     parallel (0.5.19)
     parallel_tests (0.8.14)
       parallel
@@ -424,7 +422,6 @@ DEPENDENCIES
   mysql2
   newrelic_rpm (= 3.5.3.25)
   nokogiri
-  paper_trail
   parallel_tests
   pdf-reader
   plek (= 1.1.0)
