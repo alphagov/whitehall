@@ -1661,7 +1661,7 @@ module AdminEditionControllerTestHelpers
     end
 
     def should_allow_relevance_to_local_government_of(edition_type)
-      edition_class = edition_class_for(edition_type)
+      edition_class = class_for(edition_type)
 
       test "create should record the relevant_to_local_government flag" do
         post :create, edition: controller_attributes_for(edition_type,
