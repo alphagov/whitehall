@@ -118,6 +118,7 @@ class Edition < ActiveRecord::Base
     news_article_type: nil,
     display_type: -> d { d.display_type },
     public_timestamp: :public_timestamp,
+    relevant_to_local_government: :relevant_to_local_government,
     topics: nil,
     only: :published,
     index_after: [],

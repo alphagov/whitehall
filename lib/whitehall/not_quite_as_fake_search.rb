@@ -52,15 +52,21 @@ module Whitehall
       end
 
       def apply_filters(document_hashes)
-        filter_by_keywords(
-          filter_by_date(
-            filter_by_topics(
-              filter_by_organisations(
-                document_hashes
+        filter_by_relevant_to_local_government(
+          filter_by_keywords(
+            filter_by_date(
+              filter_by_topics(
+                filter_by_organisations(
+                  document_hashes
+                )
               )
             )
           )
         )
+      end
+
+      def filter_by_relevant_to_local_government(document_hashes)
+        document_hashes.select { |document_hash| document_hash['relevant_to_local_government'] == relevant_to_local_government }
       end
 
       def filter_by_policy(document_hashes)

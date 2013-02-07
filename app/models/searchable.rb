@@ -7,7 +7,8 @@ module Searchable
     :format, :boost_phrases, :description,
     :organisations, :public_timestamp,
     :people, :publication_type, :speech_type,
-    :topics, :news_article_type, :display_type
+    :topics, :news_article_type, :display_type,
+    :relevant_to_local_government
   ]
 
   included do
