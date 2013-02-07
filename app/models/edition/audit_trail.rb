@@ -75,9 +75,9 @@ module Edition::AuditTrail
       previous_state = version.previous && version.previous.state
       case version.event
       when "create"
-        first_edition? ? "create" : "edition"
+        first_edition? ? "created" : "editioned"
       else
-        previous_state != version.state ? make_present_tense(version.state) : "update"
+        previous_state != version.state ? version.state : "updated"
       end
     end
 
@@ -86,19 +86,6 @@ module Edition::AuditTrail
         User.find(version.whodunnit)
       else
         nil # for deleted users
-      end
-    end
-
-    private
-
-    def make_present_tense(event)
-      case event.downcase
-      when 'published' then 'publish'
-      when 'rejected' then 'reject'
-      when 'submitted' then 'submit'
-      when 'deleted' then 'delete'
-      else
-        event
       end
     end
   end

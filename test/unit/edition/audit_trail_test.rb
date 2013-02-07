@@ -16,7 +16,7 @@ class Edition::AuditTrailTest < ActiveSupport::TestCase
   test "creation appears as a creation action" do
     doc = create(:draft_edition)
     assert_equal 1, doc.audit_trail.size
-    assert_equal "create", doc.audit_trail.first.action
+    assert_equal "created", doc.audit_trail.first.action
     assert_equal @user, doc.audit_trail.first.actor
   end
 
@@ -24,7 +24,7 @@ class Edition::AuditTrailTest < ActiveSupport::TestCase
     edition = create(:draft_edition)
     edition.delete!
     edition.update_attributes!(state: 'draft')
-    assert_equal "delete", edition.audit_trail.second.action
+    assert_equal "deleted", edition.audit_trail.second.action
   end
 
   test "saving without any changes does not get recorded as an action" do
@@ -38,7 +38,7 @@ class Edition::AuditTrailTest < ActiveSupport::TestCase
     doc.title = "foo"
     doc.save!
     assert_equal 2, doc.audit_trail.size
-    assert_equal "update", doc.audit_trail.last.action
+    assert_equal "updated", doc.audit_trail.last.action
     assert_equal @user, doc.audit_trail.last.actor
   end
 
@@ -46,7 +46,7 @@ class Edition::AuditTrailTest < ActiveSupport::TestCase
     doc = create(:draft_edition)
     doc.submit!
     assert_equal 2, doc.audit_trail.size
-    assert_equal "submit", doc.audit_trail.last.action
+    assert_equal "submitted", doc.audit_trail.last.action
   end
 
   test "submitting for review records the person who submitted it" do
@@ -60,7 +60,7 @@ class Edition::AuditTrailTest < ActiveSupport::TestCase
     doc = create(:submitted_edition)
     PaperTrail.whodunnit = @user2
     doc.reject!
-    assert_equal "reject", doc.audit_trail.last.action
+    assert_equal "rejected", doc.audit_trail.last.action
     assert_equal @user2, doc.audit_trail.last.actor
   end
 
@@ -70,7 +70,7 @@ class Edition::AuditTrailTest < ActiveSupport::TestCase
     doc.major_change_published_at = Time.zone.now
     PaperTrail.whodunnit = @user2
     doc.publish!
-    assert_equal "publish", doc.audit_trail.last.action
+    assert_equal "published", doc.audit_trail.last.action
     assert_equal @user2, doc.audit_trail.last.actor
   end
 
@@ -79,7 +79,7 @@ class Edition::AuditTrailTest < ActiveSupport::TestCase
     policy_writer = create(:policy_writer)
     PaperTrail.whodunnit = policy_writer
     edition = doc.create_draft(policy_writer)
-    assert_equal "edition", edition.audit_trail.last.action
+    assert_equal "editioned", edition.audit_trail.last.action
     assert_equal policy_writer, edition.audit_trail.last.actor
   end
 
@@ -96,7 +96,7 @@ class Edition::AuditTrailTest < ActiveSupport::TestCase
     PaperTrail.whodunnit = policy_writer
     edition = doc.create_draft(policy_writer)
     assert_equal 1, doc.edition_audit_trail.size
-    assert_equal "edition", edition.audit_trail.last.action
+    assert_equal "editioned", edition.audit_trail.last.action
     assert_equal policy_writer, edition.audit_trail.last.actor
   end
 
@@ -107,7 +107,7 @@ class Edition::AuditTrailTest < ActiveSupport::TestCase
     editorial_remark_body = "blah"
     Timecop.freeze(Time.zone.now + 1.day)
     doc.editorial_remarks.create!(body: editorial_remark_body, author: policy_writer)
-    assert_equal %w{create editorial_remark}, doc.audit_trail.map(&:action)
+    assert_equal %w{created editorial_remark}, doc.audit_trail.map(&:action)
     assert_equal editorial_remark_body, doc.audit_trail.last.message
   end
 end

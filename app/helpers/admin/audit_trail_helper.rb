@@ -6,8 +6,7 @@ module Admin::AuditTrailHelper
         "&ldquo;".html_safe + entry.message + "&rdquo;".html_safe
       end
     else
-      verb = make_past_tense(entry.action).capitalize
-      content_tag(:span, verb, class: "action") + " by"
+      content_tag(:span, entry.action.capitalize, class: "action") + " by"
     end
     html << " ".html_safe
     if actor
@@ -17,14 +16,5 @@ module Admin::AuditTrailHelper
     end
     html << " ".html_safe
     html << relative_time(entry.created_at, class: "created_at")
-  end
-
-  def make_past_tense(verb_in_present_tense)
-    suffix = case verb_in_present_tense
-    when /[aeiou]t$/ then 'ted'
-    when /e$/ then 'd'
-    else 'ed'
-    end
-    verb_in_present_tense + suffix
   end
 end

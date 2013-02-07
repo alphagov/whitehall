@@ -271,7 +271,7 @@ class Edition::PublishAllDueEditionsTest < ActiveSupport::TestCase
     robot_user = create(:scheduled_publishing_robot)
     Edition.publish_all_due_editions_as(robot_user)
     publishing_event = edition.reload.edition_audit_trail.last
-    assert_equal "publish", publishing_event.action
+    assert_equal "published", publishing_event.action
     assert_equal robot_user, publishing_event.actor
   end
 
