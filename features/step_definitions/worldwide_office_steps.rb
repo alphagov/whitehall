@@ -1,8 +1,10 @@
-When /^I create a worldwide office "([^"]*)" sponsored by the "([^"]*)" with a summary and description$/ do |name, sponsoring_organisation|
+When /^I create a worldwide office "([^"]*)" sponsored by the "([^"]*)" with a summary, description and services$/ do |name, sponsoring_organisation|
   visit new_admin_worldwide_office_path
   fill_in "Name", with: name
+  fill_in "Logo formatted name", with: name
   fill_in "Summary", with: "Worldwide office summary"
   fill_in "Description", with: "Worldwide **office** description"
+  fill_in "Services", with: "## Passport renewals\n\nYou can renew your passport"
   select sponsoring_organisation, from: "Sponsoring organisations"
   click_on "Save"
 end
@@ -10,6 +12,7 @@ end
 When /^I create a new worldwide office "([^"]*)" in "([^"]*)"$/ do |name, location|
   visit new_admin_worldwide_office_path
   fill_in "Name", with: name
+  fill_in "Logo formatted name", with: name
   fill_in "Summary", with: "Worldwide office summary"
   fill_in "Description", with: "Worldwide **office** description"
   select location, from: "World location"
@@ -19,8 +22,11 @@ end
 Then /^I should see the(?: updated)? worldwide office information on the public website$/ do
   office = WorldwideOffice.last
   visit worldwide_office_path(office)
-  assert page.has_content?(office.name)
-  assert page.has_css?("strong", text: "office")
+  within record_css_selector(office) do
+    assert page.has_content?(office.logo_formatted_name)
+    assert page.has_css?(".description strong", text: "office")
+    assert page.has_css?(".services h2", text: 'Passport renewals')
+  end
 end
 
 Then /^the "([^"]*)" logo should show correctly with the HMG crest$/ do |name|

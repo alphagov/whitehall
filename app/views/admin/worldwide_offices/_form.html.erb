@@ -12,6 +12,7 @@
     <%= form.text_area :logo_formatted_name, rows: "4", style: "width: auto" %>
     <%= form.text_area :summary, rows: "4" %>
     <%= form.text_area :description, "class" => "previewable" %>
+    <%= form.text_area :services, "class" => "previewable" %>
   </fieldset>
 
   <%= form.save_or_cancel(cancel: (worldwide_office.persisted? ? admin_worldwide_office_path(worldwide_office) : admin_worldwide_offices_path)) %>

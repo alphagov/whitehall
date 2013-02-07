@@ -17,7 +17,7 @@ Feature: Worldwide offices
 
   Scenario: Creating worldwide office
     Given the organisation "Department of Beards" exists
-    When I create a worldwide office "Department of Beards in France" sponsored by the "Department of Beards" with a summary and description
+    When I create a worldwide office "Department of Beards in France" sponsored by the "Department of Beards" with a summary, description and services
     Then I should see the worldwide office information on the public website
     And the "Department of Beards in France" logo should show correctly with the HMG crest
     And I should see that it is part of the "Department of Beards"
