@@ -3,22 +3,25 @@
   padding-bottom: ($gutter-two-thirds + $gutter-one-sixth);
 
   h1 {
-    @include ig-core-36;
     margin-top: ($gutter-two-thirds);
     @include media(tablet){
-      margin-bottom: ($gutter + $gutter-one-third - 3px);
+      margin-bottom: ($gutter + $gutter-one-third);
       width: 75%;
       float: left;
     }
     
     .label {
+      @include core-27;
       display: block;
-      @include light;
+      color: $grey-1;
+      padding-top: 8px;
+      padding-bottom: 3px;
     }
     
     .title {
+      @include core-36;
       display: block;
-      @include bold;
+      font-weight: bold;
     }
 
     .inner {

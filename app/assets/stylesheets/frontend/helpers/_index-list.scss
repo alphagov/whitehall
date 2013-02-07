@@ -1,18 +1,20 @@
 .index-list-page {
 
   .page-header {
-    @include ig-core-48;
     padding: $gutter-half 0;
 
     .title {
       display: block;
-      @include light;
-      padding-bottom: 0;
+      @include core-36;
+      color: $grey-1;
+      padding-top: 5px;
+      padding-bottom: 2px;
     }
 
     .label {
       display: block;
-      @include bold;
+      @include core-48;
+      font-weight: bold;
     }
 
     @include media(tablet){
