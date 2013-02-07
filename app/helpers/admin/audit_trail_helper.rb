@@ -27,8 +27,4 @@ module Admin::AuditTrailHelper
     end
     verb_in_present_tense + suffix
   end
-
-  def ends_in_t?(word)
-    word[-1] == 't'
-  end
 end
