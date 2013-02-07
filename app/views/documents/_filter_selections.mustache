@@ -12,6 +12,15 @@ by
   {{/departments}}
   {{^departments}} <strong>All organisations</strong> {{/departments}}
 </span>
+{{#locations_any?}}
+from
+<span class="locations-selections chosen">
+  {{#locations}}
+    <strong>{{name}} <a href="{{url}}" data-field="locations" data-val="{{value}}" title="Remove {{name}} filter">&times;</a></strong> {{joining}}
+  {{/locations}}
+  {{^locations}} <strong>All locations</strong> {{/locations}}
+</span>
+{{/locations_any?}}
 
 {{#keywords_any?}}
   containing

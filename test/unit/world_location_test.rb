@@ -36,6 +36,15 @@ class WorldLocationTest < ActiveSupport::TestCase
     assert_equal "The Moon", world_location.display_type
   end
 
+  test "#with_related_announcements should return the world locations with announcements" do
+    world_location = create(:world_location)
+    other_world_location = create(:world_location)
+
+    item_a = create(:published_news_article, world_locations: [world_location])
+
+    assert_equal 1, WorldLocation.with_announcements.count
+  end
+
   test "should group world locations by type sorted by order" do
     territory_type = WorldLocationType::OverseasTerritory
     country_type = WorldLocationType::Country

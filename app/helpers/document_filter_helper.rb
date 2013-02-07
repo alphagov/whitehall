@@ -30,6 +30,11 @@ module DocumentFilterHelper
     options_for_select([["All consultation types", "all"]] + types.map{|a|[a,a]}, [selected_value])
   end
 
+  def locations_options(locations, selected_locations)
+    selected_value = selected_locations.any? ? selected_locations.map(&:slug) : ["all"]
+    options_for_select([["All locations", "all"]] + locations.map{|a|[a.name,a.slug]}, selected_value)
+  end
+
   def all_topics_with(type)
     case type
     when :publication
@@ -40,6 +45,13 @@ module DocumentFilterHelper
       Topic.with_related_announcements.order(:name)
     when :policy
       Topic.with_related_policies.order(:name)
+    end
+  end
+
+  def all_locations_with(type)
+    case type
+    when :announcement
+      WorldLocation.with_announcements
     end
   end
 
