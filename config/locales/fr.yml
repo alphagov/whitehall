@@ -2,82 +2,267 @@ fr:
   activerecord:
     attributes:
       detailed_guide:
-        primary_mainstream_category: "Primary detailed guidance category"
-  errors:
-    messages:
-      carrierwave_integrity_error: is not an allowed file type
-  support:
-    array:
-      last_word_connector: " and "
+        primary_mainstream_category: Primary detailed guidance category
   date:
+    abbr_day_names:
+    - dim
+    - lun
+    - mar
+    - mer
+    - jeu
+    - ven
+    - sam
+    abbr_month_names:
+    -
+    - jan.
+    - fév.
+    - mar.
+    - avr.
+    - mai
+    - juin
+    - juil.
+    - août
+    - sept.
+    - oct.
+    - nov.
+    - déc.
+    day_names:
+    - dimanche
+    - lundi
+    - mardi
+    - mercredi
+    - jeudi
+    - vendredi
+    - samedi
     formats:
-      default: "%d %B %Y"
-      long_ordinal: "%B %d, %Y"
-  time:
-    formats:
-      long_ordinal: "%B %d, %Y %H:%M"
-  number:
-    human:
-      storage_units:
-        format: ! '%n%u'
-
-  latest_feed:
-    title: Documents les plus récents
-    no_updates: Il n'y a pas mises à jour.
+      default: ! '%d %B %Y'
+      long: ! '%e %B %Y'
+      long_ordinal: ! '%B %d, %Y'
+      short: ! '%e %b'
+      short_ordinal:
+    month_names:
+    -
+    - janvier
+    - février
+    - mars
+    - avril
+    - mai
+    - juin
+    - juillet
+    - août
+    - septembre
+    - octobre
+    - novembre
+    - décembre
+    order:
+    - :day
+    - :month
+    - :year
+  datetime:
+    distance_in_words:
+      about_x_hours:
+        one: environ une heure
+        other: environ %{count} heures
+      about_x_months:
+        one: environ un mois
+        other: environ %{count} mois
+      about_x_years:
+        one: environ un an
+        other: environ %{count} ans
+      almost_x_years:
+        one: presqu'un an
+        other: presque %{count} ans
+      half_a_minute: une demi-minute
+      less_than_x_minutes:
+        one: moins d'une minute
+        other: moins de %{count} minutes
+        zero: moins d'une minute
+      less_than_x_seconds:
+        one: moins d'une seconde
+        other: moins de %{count} secondes
+        zero: moins d'une seconde
+      over_x_years:
+        one: plus d'un an
+        other: plus de %{count} ans
+      x_days:
+        one: ! '%{count} jour'
+        other: ! '%{count} jours'
+      x_minutes:
+        one: ! '%{count} minute'
+        other: ! '%{count} minutes'
+      x_months:
+        one: ! '%{count} mois'
+        other: ! '%{count} mois'
+      x_seconds:
+        one: ! '%{count} seconde'
+        other: ! '%{count} secondes'
+    prompts:
+      day: Jour
+      hour: Heure
+      minute: Minute
+      month: Mois
+      second: Seconde
+      year: Année
+  document:
+    published: publié
+    type:
+      announcement: annonce
+      closed_consultation: consultation fermé
+      consultation: consultation
+      consultation_outcome: résultat des consultations
+      corporate_report: rapport d'entreprise
+      correspondence: correspondance
+      foi_release: communiqué d'FOI
+      form: formulaire
+      guidance: guidage
+      impact_assessment: évaluation de l'impact
+      import: importés - type attente
+      independent_report: rapport indépendant
+      international_priority: priorité internationale
+      national_statistics: Statistiques - statistiques nationales
+      news_article: article de nouvelles
+      news_story: nouvelles rapport
+      open_consultation: consultation ouvert
+      policy: politique
+      policy_paper: document de politique
+      press_release: communiqué de presse
+      promotional: matériel promotionnel
+      publication: publication
+      rebuttal: réfutation
+      research: la recherche et l'analyse
+      speech: discours
+      statement_to_parliament: déclaration au parlement
+      statistics: statistiques
+      transparency: la transparence des données
+      treaty: traité
+    updated: mis à jour
+    view: Voir '%{title}'
+  errors:
+    format: ! '%{attribute} %{message}'
+    messages:
+      accepted: doit être accepté(e)
+      blank: doit être rempli(e)
+      carrierwave_integrity_error: is not an allowed file type
+      confirmation: ne concorde pas avec la confirmation
+      empty: doit être rempli(e)
+      equal_to: doit être égal à %{count}
+      even: doit être pair
+      exclusion: n'est pas disponible
+      greater_than: doit être supérieur à %{count}
+      greater_than_or_equal_to: doit être supérieur ou égal à %{count}
+      inclusion: n'est pas inclus(e) dans la liste
+      invalid: n'est pas valide
+      less_than: doit être inférieur à %{count}
+      less_than_or_equal_to: doit être inférieur ou égal à %{count}
+      not_a_number: n'est pas un nombre
+      not_an_integer: doit être un nombre entier
+      odd: doit être impair
+      record_invalid: ! 'La validation a échoué : %{errors}'
+      taken: n'est pas disponible
+      too_long:
+        one: est trop long (pas plus d'un caractère)
+        other: est trop long (pas plus de %{count} caractères)
+      too_short:
+        one: est trop court (au moins un caractère)
+        other: est trop court (au moins %{count} caractères)
+      wrong_length:
+        one: ne fait pas la bonne longueur (doit comporter un seul caractère)
+        other: ne fait pas la bonne longueur (doit comporter %{count} caractères)
+    template:
+      body: ! 'Veuillez vérifier les champs suivants : '
+      header:
+        one: ! 'Impossible d''enregistrer ce(tte) %{model} : %{count} erreur'
+        other: ! 'Impossible d''enregistrer ce(tte) %{model} : %{count} erreurs'
   feeds:
     atom: atom
     email_alerts: alertes emails
     latest_activity: Activité la plus récente
-  document:
-    view: Voir '%{title}'
-    published: publié
-    updated: mis à jour
-    type:
-      announcement: annonce
-      policy: politique
-      news_article: article de nouvelles
-      news_story: nouvelles rapport
-      press_release: communiqué de presse
-      speech: discours
-      rebuttal: réfutation
-      import: importés - type attente
-      statement_to_parliament: déclaration au parlement
-      publication: publication
-      policy_paper: document de politique
-      impact_assessment: évaluation de l'impact
-      consultation: consultation
-      consultation_outcome: résultat des consultations
-      closed_consultation: consultation fermé
-      open_consultation: consultation ouvert
-      guidance: guidage
-      form: formulaire
-      statistics: statistiques
-      national_statistics: Statistiques - statistiques nationales
-      research: la recherche et l'analyse
-      corporate_report: rapport d'entreprise
-      transparency: la transparence des données
-      treaty: traité
-      foi_release: communiqué d'FOI
-      correspondence: correspondance
-      promotional: matériel promotionnel
-      independent_report: rapport indépendant
-      international_priority: priorité internationale
+  helpers:
+    select:
+      prompt: Veuillez sélectionner
+    submit:
+      create: Créer un(e) %{model}
+      submit: Enregistrer ce(tte) %{model}
+      update: Modifier ce(tte) %{model}
+  latest_feed:
+    no_updates: Il n'y a pas mises à jour.
+    title: Documents les plus récents
+  number:
+    currency:
+      format:
+        delimiter: ! ' '
+        format: ! '%n %u'
+        precision: 2
+        separator: ! ','
+        significant: false
+        strip_insignificant_zeros: false
+        unit: €
+    format:
+      delimiter: ! ' '
+      precision: 3
+      separator: ! ','
+      significant: false
+      strip_insignificant_zeros: false
+    human:
+      decimal_units:
+        format: ! '%n %u'
+        units:
+          billion: milliard
+          million: million
+          quadrillion: million de milliards
+          thousand: millier
+          trillion: billion
+          unit: ''
+      format:
+        delimiter: ''
+        precision: 2
+        significant: true
+        strip_insignificant_zeros: true
+      storage_units:
+        format: ! '%n%u'
+        units:
+          byte:
+            one: octet
+            other: octets
+          gb: Go
+          kb: ko
+          mb: Mo
+          tb: To
+    percentage:
+      format:
+        delimiter: ''
+    precision:
+      format:
+        delimiter: ''
+  support:
+    array:
+      last_word_connector: ! ' and '
+      two_words_connector: ! ' et '
+      words_connector: ! ', '
+  time:
+    am: am
+    formats:
+      default: ! '%d %B %Y %H:%M:%S'
+      long: ! '%A %d %B %Y %H:%M'
+      long_ordinal: ! '%B %d, %Y %H:%M'
+      short: ! '%d %b %H:%M'
+    pm: pm
   world_location:
     country:
       Spain: Espagne
+    headings:
+      announcements: Nos annonces
+      country: Pays
+      documents: Documents
+      mission: Notre mission
+      organisations: Organisations
+      priorities: Priorités
+      publications: Nos publications
+      related_policies: Les politiques connexes
+      see_all: Voir toutes nos %{type}
+      statistics: Nos statistiques
+    see_all: Voir toutes nos %{type}
     type:
       country: Pays
-      overseas_territory: Territoire d'outre-mer
       international_delegation: Délégation internationale
-    headings:
-      mission: Notre mission
-      country: Pays
-      announcements: Nos annonces
-      publications: Nos publications
-      statistics: Nos statistiques
-      see_all: Voir toutes nos %{type}
-      organisations: Organisations
-      related_policies: Les politiques connexes
-      priorities: Priorités
-      documents: Documents
-    see_all: Voir toutes nos %{type}
+      overseas_territory: Territoire d'outre-mer
