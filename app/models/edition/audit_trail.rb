@@ -76,8 +76,6 @@ module Edition::AuditTrail
       case version.event
       when "create"
         first_edition? ? "create" : "edition"
-      when "delete"
-        version.event
       else
         previous_state != version.state ? make_present_tense(version.state) : "update"
       end
