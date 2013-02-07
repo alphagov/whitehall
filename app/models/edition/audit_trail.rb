@@ -1,6 +1,13 @@
 module Edition::AuditTrail
   extend ActiveSupport::Concern
 
+  class << self
+    attr_writer :whodunnit
+    def whodunnit
+      @whodunnit ||= PaperTrail.whodunnit
+    end
+  end
+
   included do
     has_many :versions, as: :item, order: "created_at ASC, id ASC"
 
@@ -9,13 +16,13 @@ module Edition::AuditTrail
   end
 
   def record_create
-    versions.create event: 'create', whodunnit: PaperTrail.whodunnit, state: state
+    versions.create event: 'create', whodunnit: Edition::AuditTrail.whodunnit, state: state
   end
   private :record_create
 
   def record_update
     if changed.any?
-      versions.build event: 'update', whodunnit: PaperTrail.whodunnit, state: state
+      versions.build event: 'update', whodunnit: Edition::AuditTrail.whodunnit, state: state
     end
   end
   private :record_update
