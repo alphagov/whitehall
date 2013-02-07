@@ -20,6 +20,16 @@ class SpeechTest < ActiveSupport::TestCase
       speech = build(:speech, state: state, speech_type: SpeechType.find_by_slug('imported-awaiting-type'))
       assert speech.valid?
     end
+
+    test "#{state} editions are valid without a delivered on date" do
+      speech = build(:speech, state: state, delivered_on: nil)
+      assert speech.valid?
+    end
+
+    test "#{state} editions with a blank delivered_on date have no first_public_at" do
+      speech = build(:speech, state: state, delivered_on: nil)
+      assert_nil speech.first_public_at
+    end
   end
 
   [:draft, :scheduled, :published, :archived, :submitted, :rejected].each do |state|
@@ -27,12 +37,11 @@ class SpeechTest < ActiveSupport::TestCase
       edition = build(:speech, state: state, speech_type: SpeechType.find_by_slug('imported-awaiting-type'))
       refute edition.valid?
     end
-  end
 
-
-  test "should be invalid without a delivered_on" do
-    speech = build(:speech, delivered_on: nil)
-    refute speech.valid?
+    test "#{state} editions are not valid without a delivered on date" do
+      edition = build(:speech, state: state, delivered_on: nil)
+      refute edition.valid?
+    end
   end
 
   test "should be valid without a location" do

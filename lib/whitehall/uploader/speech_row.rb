@@ -52,7 +52,12 @@ module Whitehall::Uploader
     end
 
     def role_appointment
-      Finders::RoleAppointmentsFinder.find(delivered_on, row['delivered_by'], @logger, @line_number).first
+      if delivered_on.blank?
+        @logger.warn(%{Discarding delivered_by information "#{row['delivered_by']}" because delivered_on is missing})
+        nil
+      else
+        Finders::RoleAppointmentsFinder.find(delivered_on, row['delivered_by'], @logger, @line_number).first
+      end
     end
 
     def related_policies
