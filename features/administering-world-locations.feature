@@ -23,3 +23,13 @@ Feature: Administering world location information
     Then I should see the featured items of the overseas territory "Jamestopia" are:
       |Bringing back the Charleston|
       |You must buy the X-Factor single, says Queen|
+
+  Scenario: Adding a new translation
+    Given a country "Afrolasia" exists with the mission statement "The UK has a long-standing relationship with Afrolasia"
+    When I add a new translation to the country "Afrolasia" with:
+      | locale            | fr                                                          |
+      | name              | Afrolasie                                                   |
+      | mission_statement | Le Royaume-Uni a une relation de longue date avec Afrolasie |
+    Then when viewing the country "Afrolasia" with the locale "fr" I should see:
+      | name              | Afrolasie                                                   |
+      | mission_statement | Le Royaume-Uni a une relation de longue date avec Afrolasie |

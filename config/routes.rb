@@ -150,6 +150,7 @@ Whitehall::Application.routes.draw do
         end
         resources :world_locations, only: [:index, :edit, :update] do
           resources :edition_world_locations, path: "featurings", as: "featurings", only: [:index, :edit, :update]
+          resources :translations, controller: 'world_location_translations'
         end
         resources :case_studies, path: "case-studies", except: [:index]
 

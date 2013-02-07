@@ -1,0 +1,5 @@
+<% page_title "New translation for: #{@world_location.name}" %>
+
+<h1>New translation for: <%= @world_location.name %></h1>
+
+<%= render partial: "form", locals: {world_location: @world_location, locale: params[:id]} %>

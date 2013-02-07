@@ -1,0 +1,11 @@
+<%= form_for @world_location, url: admin_world_location_translations_path(@world_location), method: :post do |form| %>
+  <%= form.errors %>
+
+  <%= label_tag "translation_locale", "Locale" %>
+  <%= select_tag :translation_locale, options_for_select(I18n.available_locales - [:en], @translation_locale) %>
+
+  <%= form.text_field :name %>
+  <%= form.text_area :mission_statement %>
+
+  <%= form.save_or_cancel %>
+<% end %>
