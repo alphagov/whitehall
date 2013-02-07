@@ -190,7 +190,7 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
           summary = '',
           formStatus = documentFilter.currentPageState(),
           context = {},
-          i, _i, j, _j;
+          i, _i, j, _j, field;
 
 
       $selections.html('');
@@ -204,7 +204,7 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
 
       if(formStatus.selected) {
         for(i=0,_i=formStatus.selected.length; i<_i; i++) {
-          var field = formStatus.selected[i];
+          field = formStatus.selected[i];
 
           if (field.title.length > 0) {
             if (field.id == "publication_filter_option" || field.id == "announcement_type_option") {
@@ -235,7 +235,7 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
       }
       if(formStatus.text) {
         for(i=0,_i=formStatus.text.length; i<_i; i++) {
-          var field = formStatus.text[i];
+          field = formStatus.text[i];
 
           if(field.value.length){
             if(field.id === 'keywords'){
