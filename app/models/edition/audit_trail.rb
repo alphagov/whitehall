@@ -2,10 +2,7 @@ module Edition::AuditTrail
   extend ActiveSupport::Concern
 
   class << self
-    attr_writer :whodunnit
-    def whodunnit
-      @whodunnit ||= PaperTrail.whodunnit
-    end
+    attr_accessor :whodunnit
   end
 
   included do
