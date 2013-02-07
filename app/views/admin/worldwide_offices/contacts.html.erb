@@ -10,7 +10,7 @@
   <div class="span12 organisation-details">
     <section>
       <%= worldwide_office_tab_navigation do %>
-        <%= render partial: "admin/contacts/contact_list", locals: {contactable: @worldwide_office} %>
+        <%= render(@worldwide_office.contacts, contactable: @worldwide_office) || content_tag(:p, 'No contacts') %>
       <% end %>
 
       <div class="form-actions">

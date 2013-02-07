@@ -1,0 +1,19 @@
+<%= content_tag_for(:div, contact) do %>
+  <h3><%= contact.title %> <%= '(Main contact)' if contactable.respond_to?(:main_contact) && contactable.is_main_contact?(contact) %></h3>
+
+  <%= render_hcard(contact) %>
+  <% if contact.contact_numbers.any? %>
+    <%= content_tag(:dl, class: "dl-horizontal") do %>
+      <% contact.contact_numbers.each do |cn| %>
+        <%= definition(cn.label, cn.number) %>
+      <% end %>
+    <% end %>
+  <% end %>
+
+  <%= button_to "Delete", admin_contact_path(contact, contactable_type: contactable.class.name, contactable_id: contactable), method: "delete", class: "btn btn-small btn-danger", confirm: "Delete contact '#{contact.title}' from #{contactable.class.name.underscore.humanize.downcase} '#{contactable.name}'?" %>
+  <%= link_to icon("Edit"), edit_admin_contact_path(contact, contactable_type: contactable.class.name, contactable_id: contactable), class: "btn" %>
+
+  <% if contactable.respond_to?(:main_contact=) && !contactable.is_main_contact?(contact) %>
+    <%= button_to "Set as main contact", polymorphic_url([:set_main_contact, :admin, contactable], contactable.class.name.underscore => {main_contact_id: contact.id}), method: :put, class: "btn btn-info" %>
+  <% end %>
+<% end %>
