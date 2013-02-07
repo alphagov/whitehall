@@ -9,6 +9,8 @@ class AnnouncementsControllerTest < ActionController::TestCase
   should_be_a_public_facing_controller
   should_return_json_suitable_for_the_document_filter :news_article
   should_return_json_suitable_for_the_document_filter :speech
+  should_show_local_government_items_for :speech
+  should_show_local_government_items_for :news_article
 
   test "index should handle badly formatted params for topics and departments" do
     get :index, departments: {"0" => "all"}, topics: {"0" => "all"}
@@ -215,28 +217,4 @@ class AnnouncementsControllerTest < ActionController::TestCase
     end
   end
 
-  test 'index excludes local government items by default' do
-    announced_today = [create(:published_news_article, relevant_to_local_government: true), create(:published_speech)]
-
-    get :index
-
-    refute_select_object announced_today[0]
-    assert_select_object announced_today[1]
-  end
-
-  test 'index includes only local government items only when asked for' do
-    announced_today = [create(:published_news_article, relevant_to_local_government: true), create(:published_speech)]
-
-    get :index, relevant_to_local_government: 1
-
-    assert_select_object announced_today[0]
-    refute_select_object announced_today[1]
-  end
-
-  test "index doesn't show local government checkbox if turned off" do
-    Whitehall.stubs('local_government_features?').returns(false)
-    get :index, relevant_to_local_government: 1
-
-    refute_select "input[name='relevant_to_local_government']"
-  end
 end

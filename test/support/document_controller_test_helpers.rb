@@ -391,6 +391,33 @@ module DocumentControllerTestHelpers
         assert_equal 1, ActiveSupport::JSON.decode(response.body)["current_page"]
       end
     end
+
+    def should_show_local_government_items_for(document_type)
+      test "index excludes local government #{document_type} by default" do
+        announced_today = [create(:"published_#{document_type}", relevant_to_local_government: true), create(:"published_#{document_type}")]
+
+        get :index
+
+        refute_select_object announced_today[0]
+        assert_select_object announced_today[1]
+      end
+
+      test "index includes only local government #{document_type} only when asked for" do
+        announced_today = [create(:"published_#{document_type}", relevant_to_local_government: true), create(:"published_#{document_type}")]
+
+        get :index, relevant_to_local_government: 1
+
+        assert_select_object announced_today[0]
+        refute_select_object announced_today[1]
+      end
+
+      test "index doesn't show local government checkbox if turned off for #{document_type}" do
+        Whitehall.stubs('local_government_features?').returns(false)
+        get :index, relevant_to_local_government: 1
+
+        refute_select "input[name='relevant_to_local_government']"
+      end
+    end
   end
 
   private
