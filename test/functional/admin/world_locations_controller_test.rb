@@ -23,16 +23,16 @@ class Admin::WorldLocationsControllerTest < ActionController::TestCase
     get :edit, id: world_location
 
     assert_template 'world_locations/edit'
-    assert_select "textarea[name='world_location[description]']"
+    assert_select "textarea[name='world_location[mission_statement]']"
     assert_select '#govspeak_help'
   end
 
   test 'updating should modify the world location' do
     world_location = create(:world_location)
 
-    put :update, id: world_location, world_location: { description: 'country-description' }
+    put :update, id: world_location, world_location: { mission_statement: 'country-mission-statement' }
 
     world_location.reload
-    assert_equal 'country-description', world_location.description
+    assert_equal 'country-mission-statement', world_location.mission_statement
   end
 end

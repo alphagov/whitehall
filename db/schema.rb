@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130204133738) do
+ActiveRecord::Schema.define(:version => 20130207090657) do
 
   create_table "attachment_data", :force => true do |t|
     t.string   "carrierwave_file"
@@ -798,7 +798,7 @@ ActiveRecord::Schema.define(:version => 20130204133738) do
     t.string   "embassy_telephone"
     t.string   "embassy_email"
     t.string   "slug"
-    t.text     "description"
+    t.text     "mission_statement"
     t.boolean  "active",                              :default => false, :null => false
     t.integer  "world_location_type_id",                                 :null => false
     t.string   "iso2",                   :limit => 2
