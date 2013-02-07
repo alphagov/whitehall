@@ -519,6 +519,10 @@
         }
       }
 
+      .comment {
+        margin-bottom: $gutter-half;
+      }
+
       .adr {
         margin: 0 0 $gutter-one-third;
         p {
@@ -555,10 +559,6 @@
             display: block;
           }
 
-          p {
-            padding-left: $gutter-half;
-          }
-
           .adr, .email-url-number {
             display: inline;
             float: left;
@@ -575,8 +575,6 @@
         }
 
         .simple {
-          float: left;
-          display: inline;
           width: 50%;
           h2 {
             border-bottom: 1px solid $border-colour;
