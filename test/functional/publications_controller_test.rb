@@ -18,6 +18,8 @@ class PublicationsControllerTest < ActionController::TestCase
   should_paginate :consultation, timestamp_key: :opening_on
   should_return_json_suitable_for_the_document_filter :publication
   should_return_json_suitable_for_the_document_filter :consultation
+  should_show_local_government_items_for :publication
+  should_show_local_government_items_for :consultation
 
   test "index should handle badly formatted params for topics and departments" do
     assert_nothing_raised {

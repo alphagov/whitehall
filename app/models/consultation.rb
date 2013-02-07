@@ -94,6 +94,10 @@ class Consultation < Publicationesque
     end
   end
 
+  def can_apply_to_local_government?
+    true
+  end
+
   private
 
   def closing_on_must_be_after_opening_on
