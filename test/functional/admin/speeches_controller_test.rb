@@ -32,6 +32,7 @@ class Admin::SpeechesControllerTest < ActionController::TestCase
   should_allow_scheduled_publication_of :speech
   should_allow_access_limiting_of :speech
   should_allow_association_with_topical_events :speech
+  should_allow_relevance_to_local_government_of :speech
 
   test "new displays speech fields" do
     get :new

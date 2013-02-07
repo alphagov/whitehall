@@ -34,6 +34,7 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
   should_allow_scheduled_publication_of :news_article
   should_allow_access_limiting_of :news_article
   should_allow_association_with_topical_events :news_article
+  should_allow_relevance_to_local_government_of :news_article
 
   test "new displays news article fields" do
     get :new

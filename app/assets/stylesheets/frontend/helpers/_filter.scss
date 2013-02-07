@@ -5,7 +5,7 @@
 
   form {
     padding: 0;
-    
+
     fieldset {
       position: relative;
 
@@ -89,6 +89,13 @@
     }
   }
 
+  .checkbox {
+    label {
+      @include ig-core-14;
+      padding-right: $gutter-one-third;
+    }
+  }
+
   .submit {
     padding: $gutter-two-thirds 0 $gutter-one-third;
     margin: $gutter-one-sixth 0 0;
@@ -155,7 +162,7 @@
       background-color: $panel-colour;
       padding: 0 $gutter-one-sixth;
       @include border-radius(3px);
-      
+
       @include media (tablet) {
         white-space: nowrap;
       }
@@ -168,4 +175,3 @@
     }
   }
 }
-

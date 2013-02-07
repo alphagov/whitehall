@@ -111,6 +111,7 @@ module Admin::EditionsHelper
       concat render(partial: "standard_fields",
                     locals: {form: form, edition: edition})
       yield(form)
+      concat render('local_government_fields', form: form, edition: edition)
       concat render('access_limiting_fields', form: form, edition: edition)
       concat render(partial: "scheduled_publication_fields",
                     locals: {form: form, edition: edition})
