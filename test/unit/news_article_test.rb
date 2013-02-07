@@ -60,9 +60,19 @@ class NewsArticleTest < ActiveSupport::TestCase
     refute news_article.valid_as_draft?
   end
 
+  test 'imported news article are valid when the first_published_at is blank' do
+    news_article = build(:news_article, state: 'imported', first_published_at: nil)
+    assert news_article.valid?
+  end
+
   [:draft, :scheduled, :published, :archived, :submitted, :rejected].each do |state|
     test "#{state} news article is not valid when the news article type is 'imported-awaiting-type'" do
       news_article = build(:news_article, state: state, news_article_type: NewsArticleType.find_by_slug('imported-awaiting-type'))
+      refute news_article.valid?
+    end
+
+    test "#{state} news article is not valid when the first_published_at is blank" do
+      news_article = build(:news_article, state: state, first_published_at: nil)
       refute news_article.valid?
     end
   end

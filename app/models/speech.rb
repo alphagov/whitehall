@@ -3,7 +3,8 @@ class Speech < Announcement
 
   after_save :populate_organisations_based_on_role_appointment
 
-  validates :speech_type_id, :delivered_on, presence: true
+  validates :speech_type_id, presence: true
+  validates :delivered_on, presence: true, unless: ->(speech) { speech.can_have_some_invalid_data? }
 
   validate :role_appointment_has_associated_organisation, unless: ->(speech) { speech.can_have_some_invalid_data? }
 
@@ -35,7 +36,7 @@ class Speech < Announcement
   end
 
   def first_public_at
-    delivered_on.to_datetime
+    delivered_on.to_datetime unless delivered_on.nil?
   end
 
   def make_public_at(date)

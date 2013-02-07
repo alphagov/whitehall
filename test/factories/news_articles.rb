@@ -4,6 +4,7 @@ FactoryGirl.define do
     summary "news-summary"
     body  "news-body"
     news_article_type {NewsArticleType::PressRelease}
+    first_published_at { 1.day.ago }
   end
 
   factory :imported_news_article, parent: :news_article, traits: [:imported]

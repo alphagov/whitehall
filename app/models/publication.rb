@@ -8,7 +8,7 @@ class Publication < Publicationesque
   include Edition::DocumentSeries
   include Edition::StatisticalDataSets
 
-  validates :publication_date, presence: true
+  validates :publication_date, presence: true, unless: ->(edition) { edition.can_have_some_invalid_data? }
   validates :publication_type_id, presence: true
   validate :only_publications_allowed_invalid_data_can_be_awaiting_type
 
@@ -59,7 +59,7 @@ class Publication < Publicationesque
   end
 
   def first_public_at
-    publication_date.to_datetime
+    publication_date.to_datetime unless publication_date.nil?
   end
 
   def make_public_at(date)

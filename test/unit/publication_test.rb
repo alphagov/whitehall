@@ -8,11 +8,6 @@ class PublicationTest < ActiveSupport::TestCase
   should_allow_referencing_of_statistical_data_sets
   should_protect_against_xss_and_content_attacks_on :title, :body, :summary, :change_note
 
-  test 'should be invalid without a publication date' do
-    publication = build(:publication, publication_date: nil)
-    refute publication.valid?
-  end
-
   test 'imported publications are valid when the publication_type is \'imported-awaiting-type\'' do
     publication = build(:publication, state: 'imported', publication_type: PublicationType.find_by_slug('imported-awaiting-type'))
     assert publication.valid?
@@ -23,9 +18,24 @@ class PublicationTest < ActiveSupport::TestCase
     refute publication.valid_as_draft?
   end
 
+  test 'imported publications are valid with a blank publication_date' do
+    publication = build(:publication, state: 'imported', publication_date: nil)
+    assert publication.valid?
+  end
+
+  test 'imported publications with a blank publication_date have no first_public_at' do
+    publication = build(:publication, state: 'imported', publication_date: nil)
+    assert_nil publication.first_public_at
+  end
+
   [:draft, :scheduled, :published, :archived, :submitted, :rejected].each do |state|
     test "#{state} editions are not valid when the publication type is 'imported-awaiting-type'" do
       edition = build(:publication, state: state, publication_type: PublicationType.find_by_slug('imported-awaiting-type'))
+      refute edition.valid?
+    end
+
+    test "#{state} editions are not valid with a blank publication date" do
+      edition = build(:publication, state: state, publication_date: nil)
       refute edition.valid?
     end
   end

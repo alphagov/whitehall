@@ -23,7 +23,7 @@ Feature: Importing new editions
   - column required: should fail csv upload without the column
   - required: should fail row import without it, implies column required
   - unique: should fail csv upload if any duplicates of this field in the file, implies required
-  - optional: import if avaialable, leave blank if not
+  - optional: import if available, leave blank if not
   - default: import if available, set to a default if not
 
   All types:
@@ -36,7 +36,7 @@ Feature: Importing new editions
 
   Publications:
 
-  - publication_date: required
+  - publication_date: column required, data optional (required before draft)
   - publication_type: required, ideally default blank to ImportedAwaitingType, reject anything non-blank that can't be found
   - policy_1..4: 1 column required, data optional
   - document_series_1: column required, data optional
@@ -54,7 +54,7 @@ Feature: Importing new editions
 
   News:
 
-  - first_published: required
+  - first_published: column required, data optional (required before draft)
   - news_article_type: required, ideally default blank to ImportedAwaitingType, reject anything non-blank that can't be found
   - policy_1..4: 1 column required, data optional
   - minister_1..2: optional
@@ -64,7 +64,7 @@ Feature: Importing new editions
 
   - speech_type: required, ideally default blank to ImportedAwaitingType, reject anything non-blank that can't be found
   - delivered_by: required, ideally default blank, reject anything non-black that can't be found
-  - delivered_on: required
+  - delivered_on: column required, data optional (required before draft)
   - event_and_location: optional
   - country_1..4: 1 column required, data optional
 
@@ -107,7 +107,16 @@ Feature: Importing new editions
     When I set the imported publication's type to "Policy paper"
     Then I can make the imported publication into a draft edition
 
-
+  Scenario: Importing publications with blank publication dates allows them to be filled in later
+    When I import the following data as CSV as "Publication" for "Department for Transport":
+      """
+      old_url,title,summary,body,organisation,policy_1,publication_type,document_series_1,publication_date,order_url,price,isbn,urn,command_paper_number,ignore_1,attachment_1_url,attachment_1_title,country_1
+      http://example.com/1,title,summary,body,department-for-transport,,policy-papers,,,,,,,,,,,
+      """
+    Then the import succeeds, creating 1 imported publication for "Department for Transport" with no publication date
+    And I can't make the imported publication into a draft edition yet
+    When I set the imported publication's publication date to "14-Dec-2011"
+    Then I can make the imported publication into a draft edition
 
   Scenario: Importing news article sets imported state, ImportedAwaitingType type and default organisation, to be filled in later
     When I import the following data as CSV as "News article" for "Department for Transport":
@@ -120,6 +129,16 @@ Feature: Importing new editions
     When I set the imported news article's type to "Rebuttal"
     Then I can make the imported news article into a draft edition
 
+  Scenario: Importing news article with blank first published allows them to be filled in later
+    When I import the following data as CSV as "News article" for "Department for Transport":
+      """
+      old_url,title,summary,body,organisation,policy_1,minister_1,first_published,country_1,news_article_type
+      http://example.com/1,title,summary,body,department-for-transport,,,,,news-stories,
+      """
+    Then the import succeeds, creating 1 imported news article for "Department for Transport" with no first published date
+    And I can't make the imported news article into a draft edition yet
+    When I set the imported news article's first published date to "14-Dec-2011"
+    Then I can make the imported news article into a draft edition
 
   Scenario: Importing speeches sets ImportedAwaitingType speech type and blank "delivered by", to be filled in later
     When I import the following data as CSV as "Speech" for "Department for Transport":
@@ -135,6 +154,34 @@ Feature: Importing new editions
     When I set the imported speech's type to "Transcript"
     Then I can make the imported speech into a draft edition
     And the speech's organisation is set to "Foreign Commonwealth Office"
+
+  Scenario: Importing speeches with blank delivered on means it must be filled in later, along with the deliverer
+    Given a person called "Joe Bloggs"
+    And "Joe Bloggs" is the "Summer Intern" for the "Department for Transport"
+    When I import the following data as CSV as "Speech" for "Department for Transport":
+      """
+      old_url,title,summary,body,organisation,policy_1,type,delivered_by,delivered_on,event_and_location,country_1
+      http://example.com/1,title,summary,body,department-for-transport,,transcript,joe-bloggs,,location,
+      """
+    Then the import succeeds, creating 1 imported speech for "Department for Transport" with no delivered on date
+    Then I can't make the imported speech into a draft edition yet
+    When I set the imported speech's delivered on date to "14-Dec-2011"
+    Then I can't make the imported speech into a draft edition yet
+    When I set the deliverer of the speech to "Joe Bloggs" from the "Depertment for Transport"
+    Then I can make the imported speech into a draft edition
+
+  Scenario: Importing consultations with blank dates allows them to be filled in later
+    When I import the following data as CSV as "Consultation" for "Department for Transport":
+      """
+      old_url,title,summary,body,organisation,policy_1,opening_date,closing_date,response_date,response_summary
+      http://example.com/1,title,summary,body,department-for-transport,,,,,,
+      """
+    Then the import succeeds, creating 1 imported consultation for "Department for Transport" with no opening or closing date
+    And I can't make the imported publication into a draft edition yet
+    When I set the imported consultation's opening date to "14-Dec-2011"
+    Then I can't make the imported publication into a draft edition yet
+    When I set the imported consultation's closing date to "20-Dec-2011"
+    Then I can make the imported consultation into a draft edition
 
   Scenario: Importing edition and then deleting it
     When I import the following data as CSV as "Speech" for "Department for Transport":

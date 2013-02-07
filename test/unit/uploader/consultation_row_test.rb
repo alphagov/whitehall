@@ -108,11 +108,19 @@ module Whitehall::Uploader
       row = consultation_row("opening_date" => "opening-on-date")
       assert_equal "date-object", row.opening_on
     end
+    test "leaves opening on blank if the 'opening_date' column is blank" do
+      row = consultation_row("opening_date" => '')
+      assert_nil row.opening_on
+    end
 
     test "takes closing on from the 'closing_date' column" do
       Parsers::DateParser.stubs(:parse).with("closing-on-date", anything, anything).returns("date-object")
       row = consultation_row("closing_date" => "closing-on-date")
       assert_equal "date-object", row.closing_on
+    end
+    test "leaves closing on blank if the 'closing_date' column is blank" do
+      row = consultation_row("closing_date" => '')
+      assert_nil row.closing_on
     end
 
     test "finds an organisation using the organisation finder" do
