@@ -118,21 +118,14 @@
     </div>
   <% end %>
 
-  <div class="block contacts">
+  <div class="block documents-grid">
     <div class="inner-block">
-      <% if @world_location.embassy_address.present? %>
-        <section class="vcard info embassy_contact_details">
-          <h1 class="fn org name label keyline-header">UK contacts in <%= @world_location.name %></h1>
-          <div class="adr">
-            <p class="embassy_address street-address"><%= safe_join(@world_location.embassy_address.split("\n"), "<br/>".html_safe) %></p>
-          </div>
-          <p class="embassy_telephone tel">
-            <span class="type">Telephone</span>:
-            <span class="value"><%= @world_location.embassy_telephone %></span>
-          </p>
-          <p class="embassy_email email"><%= mail_to @world_location.embassy_email %></p>
-        </section>
-      <% end %>
+      <h1 class="block-title">Organisations</h1>
+      <section id="organisations" class="document-block">
+        <div class="content">
+          <%= render @worldwide_offices %>
+        </div>
+      </section>
     </div>
   </div>
 <% end %>

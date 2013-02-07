@@ -7,6 +7,15 @@ When /^I create a worldwide office "([^"]*)" sponsored by the "([^"]*)" with a s
   click_on "Save"
 end
 
+When /^I create a new worldwide office "([^"]*)" in "([^"]*)"$/ do |name, location|
+  visit new_admin_worldwide_office_path
+  fill_in "Name", with: name
+  fill_in "Summary", with: "Worldwide office summary"
+  fill_in "Description", with: "Worldwide **office** description"
+  select location, from: "World location"
+  click_on "Save"
+end
+
 Then /^I should see the(?: updated)? worldwide office information on the public website$/ do
   office = WorldwideOffice.last
   visit worldwide_office_path(office)
@@ -21,6 +30,15 @@ end
 
 Then /^I should see that it is part of the "([^"]*)"$/ do |sponsoring_organisation|
   assert page.has_css?(".sponsoring-organisation", sponsoring_organisation)
+end
+
+Then /^I should see the worldwide office "([^"]*)" on the "([^"]*)" world location page$/ do |office_name, location_name|
+  location = WorldLocation.find_by_name(location_name)
+  office = WorldwideOffice.find_by_name(office_name)
+  visit world_location_path(location)
+  within record_css_selector(office) do
+    assert page.has_content?(office_name)
+  end
 end
 
 When /^I update the worldwide office to set the name to "([^"]*)"$/ do |new_title|
