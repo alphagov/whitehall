@@ -38,12 +38,15 @@ class MinisterialRolesControllerTest < ActionController::TestCase
     organisation = create(:ministerial_department)
     person_2 = create(:person, forename: 'Jeremy', surname: 'Hunt')
     person_1 = create(:person, forename: 'Nick', surname: 'Clegg')
+    person_3 = create(:person, forename: 'Geroge', surname: 'Foreman')
 
     role_2 = create(:ministerial_role, name: 'Non-Executive Director', cabinet_member: false, organisations: [organisation])
     role_1 = create(:ministerial_role, name: 'Prime Minister', cabinet_member: true, organisations: [organisation])
+    role_3 = create(:board_member_role, name: 'Chief Griller', organisations: [organisation])
 
     appointment_2 = create(:ministerial_role_appointment, role: role_2, person: person_2)
     appointment_1 = create(:ministerial_role_appointment, role: role_1, person: person_1)
+    appointment_3 = create(:board_member_role_appointment, role: role_3, person: person_3)
 
     get :index
 

@@ -9,7 +9,12 @@ class MinisterialRolesController < PublicFacingController
     @ministerial_roles_by_organisation = Organisation.includes(ministerial_role_appointments: [:role, :person]).where(organisation_type_id: ministerial_department_type).map do |organisation|
       [
         organisation,
-        organisation.ministerial_role_appointments.map { |appointment|
+        organisation.ministerial_role_appointments.select { |appointment|
+          # This select is needed due to ActiveRecord not adding a `where type`
+          # to the role query. Rejecting the extra objects seems nicer than
+          # suffereing from n+1 queries to load in the people and roles.
+          appointment.role.is_a? MinisterialRole
+        }.map { |appointment|
           RoleAppointmentPresenter.decorate(appointment)
         }.sort_by {|role_appointment| role_appointment.role.seniority }
       ]
