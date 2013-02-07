@@ -232,4 +232,11 @@ class AnnouncementsControllerTest < ActionController::TestCase
     assert_select_object announced_today[0]
     refute_select_object announced_today[1]
   end
+
+  test "index doesn't show local government checkbox if turned off" do
+    Whitehall.stubs('local_government_features?').returns(false)
+    get :index, relevant_to_local_government: 1
+
+    refute_select "input[name='relevant_to_local_government']"
+  end
 end
