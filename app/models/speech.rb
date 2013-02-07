@@ -42,6 +42,10 @@ class Speech < Announcement
   def make_public_at(date)
   end
 
+  def can_apply_to_local_government?
+    true
+  end
+
   private
 
   def skip_organisation_validation?

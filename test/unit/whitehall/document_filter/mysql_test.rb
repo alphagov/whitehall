@@ -5,11 +5,13 @@ module Whitehall::DocumentFilter
     include DocumentFilterHelpers
 
     test "#all_topics returns all topics with content, alphabetically" do
+      filtered_scope = stub_document_scope('all documents')
+
       scope = stub('topic scope')
       scope.expects(:order).with(:name)
       Topic.expects(:with_content).returns(scope)
 
-      Whitehall::DocumentFilter::Mysql.new([]).all_topics
+      Whitehall::DocumentFilter::Mysql.new(filtered_scope).all_topics
     end
 
     test "#selected_topics returns an empty set by default" do
@@ -326,6 +328,7 @@ module Whitehall::DocumentFilter
       document_scope.stubs(:published_in_topic).returns(document_scope)
       document_scope.stubs(:in_organisation).returns(document_scope)
       document_scope.stubs(:where).with(has_entry(:publication_type_id, anything)).returns(document_scope)
+      document_scope.stubs(:where).with(has_entry(:relevant_to_local_government, anything)).returns(document_scope)
       document_scope.stubs(:per).returns(document_scope)
       document_scope.stubs(:page).returns(document_scope)
       document_scope
