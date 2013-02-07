@@ -2,8 +2,23 @@ module Edition::AuditTrail
   extend ActiveSupport::Concern
 
   included do
-    has_paper_trail meta: {state: :state}
+    has_many :versions, as: :item, order: "created_at ASC, id ASC"
+
+    after_create  :record_create
+    before_update :record_update
   end
+
+  def record_create
+    versions.create event: 'create', whodunnit: PaperTrail.whodunnit, state: state
+  end
+  private :record_create
+
+  def record_update
+    if changed.any?
+      versions.build event: 'update', whodunnit: PaperTrail.whodunnit, state: state
+    end
+  end
+  private :record_update
 
   def edition_audit_trail(edition_serial_number = 1)
     versions = self.versions.map { |v|
