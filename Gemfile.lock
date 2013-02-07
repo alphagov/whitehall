@@ -156,7 +156,6 @@ GEM
       warden (~> 1.2)
     gherkin (2.4.21)
       json (>= 1.4.6)
-    gli (2.5.4)
     govspeak (1.2.3)
       htmlentities (~> 4)
       kramdown (~> 0.13.3)
@@ -196,12 +195,6 @@ GEM
       addressable
       websocket
     link_header (0.0.5)
-    localeapp (0.6.9)
-      gli
-      i18n
-      json
-      rest-client
-      ya2yaml
     lograge (0.0.6)
       actionpack
       activesupport
@@ -389,7 +382,6 @@ GEM
     xml-simple (1.1.1)
     xpath (0.1.4)
       nokogiri (~> 1.3)
-    ya2yaml (0.31)
 
 PLATFORMS
   ruby
@@ -425,7 +417,6 @@ DEPENDENCIES
   kaminari
   kramdown (~> 0.13.8)
   launchy (~> 2.0.5)
-  localeapp
   lograge
   mini_magick
   minitest (= 2.5.1)
