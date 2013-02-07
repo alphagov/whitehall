@@ -521,4 +521,19 @@ class OrganisationTest < ActiveSupport::TestCase
     organisation.destroy
     assert_nil SocialMediaAccount.find_by_id(social_media_account.id)
   end
+
+  test "can sponsor worldwide offices" do
+    organisation = create(:organisation)
+    office = create(:worldwide_office)
+    organisation.sponsored_worldwide_offices << office
+
+    assert_equal [office], organisation.reload.sponsored_worldwide_offices
+  end
+
+  test "destroy deletes sponsorships" do
+    organisation = create(:organisation, sponsored_worldwide_offices: [create(:worldwide_office)])
+    organisation.destroy
+
+    assert_equal 0, organisation.sponsorships.count
+  end
 end

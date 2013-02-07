@@ -16,9 +16,11 @@ Feature: Worldwide offices
     Given I am a GDS editor
 
   Scenario: Creating worldwide office
-    When I create a worldwide office "Department of Beards in France" with a summary and description
+    Given the organisation "Department of Beards" exists
+    When I create a worldwide office "Department of Beards in France" sponsored by the "Department of Beards" with a summary, description and services
     Then I should see the worldwide office information on the public website
     And the "Department of Beards in France" logo should show correctly with the HMG crest
+    And I should see that it is part of the "Department of Beards"
     When I update the worldwide office to set the name to "Department of Beards and Moustaches in France"
     Then I should see the updated worldwide office information on the public website
     When I delete the worldwide office
@@ -35,14 +37,17 @@ Feature: Worldwide offices
     When I add an "Hair division" contact with address and phone number
     Then the "Hair division" details should be shown on the public website
 
-#  Scenario: Associating world locations with offices
-#    Given that the world location "France" exists
-#    When I begin editing a new worldwide office "Department of Beards in France"
-#    And I select world location "France"
-#    And I click save
-#    Then I should see the worldwide office information on the public website
-#    And I should see the associated world location is "France"
+  Scenario: Creating a worldwide office in a particular world location
+    Given that the world location "France" exists
+    When I create a new worldwide office "Department of Beards in France" in "France"
+    Then I should see the worldwide office "Department of Beards in France" on the "France" world location page
+
+  Scenario: Choosing the main contact for a worldwide office with multiple contacts
+    Given a worldwide office "Department of Beards in France" with contacts "Head office" and "Branch office"
+    When I choose "Branch office" to be the main contact
+    Then the "Branch office" should be shown as the main contact on the public website
+    When I choose "Head office" to be the main contact
+    Then the "Head office" should be shown as the main contact on the public website
 
   Scenario: Adding office hours to a worldwide office
   Scenario: Adding corporate information pages to offices
-

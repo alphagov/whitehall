@@ -1,21 +1,50 @@
-When /^I create a worldwide office "([^"]*)" with a summary and description$/ do |name|
+When /^I create a worldwide office "([^"]*)" sponsored by the "([^"]*)" with a summary, description and services$/ do |name, sponsoring_organisation|
   visit new_admin_worldwide_office_path
   fill_in "Name", with: name
+  fill_in "Logo formatted name", with: name
   fill_in "Summary", with: "Worldwide office summary"
   fill_in "Description", with: "Worldwide **office** description"
+  fill_in "Services", with: "## Passport renewals\n\nYou can renew your passport"
+  select sponsoring_organisation, from: "Sponsoring organisations"
+  click_on "Save"
+end
+
+When /^I create a new worldwide office "([^"]*)" in "([^"]*)"$/ do |name, location|
+  visit new_admin_worldwide_office_path
+  fill_in "Name", with: name
+  fill_in "Logo formatted name", with: name
+  fill_in "Summary", with: "Worldwide office summary"
+  fill_in "Description", with: "Worldwide **office** description"
+  select location, from: "World location"
   click_on "Save"
 end
 
 Then /^I should see the(?: updated)? worldwide office information on the public website$/ do
   office = WorldwideOffice.last
   visit worldwide_office_path(office)
-  assert page.has_content?(office.name)
-  assert page.has_css?("strong", text: "office")
+  within record_css_selector(office) do
+    assert page.has_content?(office.logo_formatted_name)
+    assert page.has_css?(".description strong", text: "office")
+    assert page.has_css?(".services h2", text: 'Passport renewals')
+  end
 end
 
 Then /^the "([^"]*)" logo should show correctly with the HMG crest$/ do |name|
   office = WorldwideOffice.find_by_name(name)
   assert page.has_css?(".organisation-logo-stacked-single-identity", text: office.logo_formatted_name)
+end
+
+Then /^I should see that it is part of the "([^"]*)"$/ do |sponsoring_organisation|
+  assert page.has_css?(".sponsoring-organisation", sponsoring_organisation)
+end
+
+Then /^I should see the worldwide office "([^"]*)" on the "([^"]*)" world location page$/ do |office_name, location_name|
+  location = WorldLocation.find_by_name(location_name)
+  office = WorldwideOffice.find_by_name(office_name)
+  visit world_location_path(location)
+  within record_css_selector(office) do
+    assert page.has_content?(office_name)
+  end
 end
 
 When /^I update the worldwide office to set the name to "([^"]*)"$/ do |new_title|
@@ -95,3 +124,26 @@ Then /^I should see the associated world location is "([^"]*)"$/ do |arg1|
   pending # express the regexp above with the code you wish you had
 end
 
+Given /^a worldwide office "([^"]*)" with contacts "([^"]*)" and "([^"]*)"$/ do |office_name, contact1_title, contact2_title|
+  office = create(:worldwide_office, name: office_name)
+  create(:contact, title: contact1_title, contactable: office)
+  create(:contact, title: contact2_title, contactable: office)
+end
+
+When /^I choose "([^"]*)" to be the main contact$/ do |contact_title|
+  contact = Contact.find_by_title(contact_title)
+  visit admin_worldwide_office_path(WorldwideOffice.last)
+  click_link "Contacts"
+  within record_css_selector(contact) do
+    click_button 'Set as main contact'
+  end
+end
+
+Then /^the "([^"]*)" should be shown as the main contact on the public website$/ do |contact_title|
+  office = WorldwideOffice.last
+  contact = Contact.find_by_title(contact_title)
+  visit worldwide_office_path(office)
+  within "#{record_css_selector(contact)}.main" do
+    assert page.has_content?(contact.title)
+  end
+end

@@ -103,6 +103,7 @@ Whitehall::Application.routes.draw do
 
         resources :worldwide_offices do
           member do
+            put :set_main_contact
             get :contacts
             get :social_media_accounts
           end
