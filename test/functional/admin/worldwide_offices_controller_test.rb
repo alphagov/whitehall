@@ -56,6 +56,17 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
     }
     worldwide_office = WorldwideOffice.last
     assert_equal "New name", worldwide_office.name
+    assert_redirected_to admin_worldwide_office_path(worldwide_office)
+  end
+
+  test "setting the main contact" do
+    contacts = [create(:contact), create(:contact)]
+    worldwide_office = create(:worldwide_office, contacts: contacts)
+    put :set_main_contact, id: worldwide_office.id, worldwide_office: { main_contact_id: contacts.last.id }
+
+    assert_equal contacts.last, worldwide_office.reload.main_contact
+    assert_equal "Main contact updated successfully", flash[:notice]
+    assert_redirected_to contacts_admin_worldwide_office_path(worldwide_office)
   end
 
   test "destroys an existing object" do

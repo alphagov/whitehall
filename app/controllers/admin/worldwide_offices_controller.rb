@@ -1,7 +1,7 @@
 class Admin::WorldwideOfficesController < Admin::BaseController
   respond_to :html
 
-  before_filter :find_worldwide_office, only: [:edit, :update, :destroy, :show, :contacts, :social_media_accounts]
+  before_filter :find_worldwide_office, only: [:edit, :update, :destroy, :show, :contacts, :set_main_contact, :social_media_accounts]
 
   def index
     respond_with @worldwide_offices = WorldwideOffice.all
@@ -24,6 +24,13 @@ class Admin::WorldwideOfficesController < Admin::BaseController
   def update
     @worldwide_office.update_attributes(params[:worldwide_office])
     respond_with :admin, @worldwide_office
+  end
+
+  def set_main_contact
+    if @worldwide_office.update_attributes(params[:worldwide_office])
+      flash[:notice] = "Main contact updated successfully"
+    end
+    respond_with :contacts, :admin, @worldwide_office
   end
 
   def destroy
