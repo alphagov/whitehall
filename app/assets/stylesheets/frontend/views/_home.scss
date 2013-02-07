@@ -127,15 +127,17 @@
 
     .organisation-count {
       @include ig-core-80;
-      @include bold;
+      font-weight: bold;
       display: block;
 
       @include media(tablet) {
         @include ig-core-48;
+        font-weight: bold;
       }
 
       @include media(desktop) {
         @include ig-core-80;
+        font-weight: bold;
       }
     }
 

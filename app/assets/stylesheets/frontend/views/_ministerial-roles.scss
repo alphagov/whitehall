@@ -16,7 +16,9 @@
         width: 75%;
         float: left;
         display: block;
-        @include light;
+        @include core-36;
+        color: $grey-1;
+        font-weight: normal;
         padding-bottom: 0;
       }
     }
@@ -24,8 +26,8 @@
   
   .block-2 {
     h1.label {
-      @include ig-core-48;
-      @include bold;
+      @include core-48;
+      font-weight: bold;
       padding-top: 0;
     }
     
@@ -42,6 +44,7 @@
 
     h1 {
       @include heading-48;
+      font-weight: bold;
     }
 
     section {

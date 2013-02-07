@@ -6,6 +6,7 @@
 
   h1 {
     @include ig-core-48;
+    font-weight: bold;
     .label {
       display: block;
     }

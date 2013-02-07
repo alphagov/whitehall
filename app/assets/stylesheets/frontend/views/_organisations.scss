@@ -815,6 +815,7 @@
   }
   .main {
     @include ig-core-48;
+    font-weight: bold;
 
     @include media(desktop){
       margin: ($gutter*3 + $gutter-half) 0 $gutter-half;

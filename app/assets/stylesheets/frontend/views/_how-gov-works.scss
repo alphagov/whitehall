@@ -154,7 +154,7 @@
     padding-bottom:0;
     margin:0 0 ($gutter-one-third * -1);
     color:$inside-gov-brand;
-    @include bold;
+    font-weight: bold;
     display:block;
     line-height:1em;
     a {
@@ -200,7 +200,7 @@
         margin: 0;
 
         font-size: 1.9em;
-        @include bold;
+        font-weight: bold;
         display: block;
         line-height: 1em;
         a {
@@ -281,7 +281,7 @@
         padding-top:0.4em;
         padding-bottom:0;
         margin:0;
-        @include bold;
+        font-weight: bold;
         display:block;
         line-height:1em;
       }
@@ -290,7 +290,7 @@
   
   h1 {
     @include ig-core-48;
-    @include bold;
+    font-weight: bold;
     margin: 0 0 $gutter;
     @include media(desktop) {
       margin-top: 0;
@@ -310,7 +310,6 @@
 
   h3 {
     @include ig-core-27;
-    @include bold;
     margin: 0 0 $gutter-half;
     width:100%;
     &.with-gutter {
