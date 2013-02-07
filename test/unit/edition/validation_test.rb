@@ -168,7 +168,6 @@ class Edition::ValidationTest < ActiveSupport::TestCase
                                lead_organisations: [o1, o2],
                                supporting_organisations: [],
                                organisations: [])
-    puts "meh"
     edition.edition_organisations_attributes = [
       {id: edition.lead_edition_organisations.first.id, organisation_id: o2.id, _destroy: '0'},
       {id: edition.lead_edition_organisations.last.id, _destroy: '1'},
