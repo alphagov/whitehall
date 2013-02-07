@@ -243,17 +243,17 @@ class Edition < ActiveRecord::Base
   end
 
   def rejected_by
-    rejected_event = last_audit_trail_version_event('rejected')
+    rejected_event = latest_version_audit_entry_for('rejected')
     rejected_event && rejected_event.actor
   end
 
   def published_by
-    published_event = last_audit_trail_version_event('published')
+    published_event = latest_version_audit_entry_for('published')
     published_event && published_event.actor
   end
 
   def scheduled_by
-    scheduled_event = last_audit_trail_version_event('scheduled')
+    scheduled_event = latest_version_audit_entry_for('scheduled')
     scheduled_event && scheduled_event.actor
   end
 

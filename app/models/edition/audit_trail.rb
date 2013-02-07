@@ -21,8 +21,8 @@ module Edition::AuditTrail
     end.flatten
   end
 
-  def last_audit_trail_version_event(state)
-    edition_audit_trail.reverse.find { |at| at.respond_to?(:version) && at.version.state == state }
+  def latest_version_audit_entry_for(state)
+    edition_audit_trail.reverse.find { |audit_entry| audit_entry.is_a?(VersionAuditEntry) && audit_entry.version.state == state }
   end
 
   class AuditEntry
