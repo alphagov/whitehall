@@ -32,17 +32,18 @@
     </div>
   </div>
 
-
-  <div class="block-10 vcard">
-    <div class="inner-block">
-      <section class="contact-wrapper contact-us">
-        <h1 class="label">Contact us</h1>
-        <div id="org-contacts">
-          <%= render @main_contact, is_main: true %>
-          <%= render @other_contacts %>
-        </div>
-      </section>
+  <% if @main_contact %>
+    <div class="block-10 vcard">
+      <div class="inner-block">
+        <section class="contact-wrapper contact-us">
+          <h1 class="label">Contact us</h1>
+          <div id="org-contacts">
+            <%= render @main_contact, is_main: true %>
+            <%= render @other_contacts %>
+          </div>
+        </section>
+      </div>
     </div>
-  </div>
+  <% end %>
 </div>
 
