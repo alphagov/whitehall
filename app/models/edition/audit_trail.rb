@@ -15,7 +15,7 @@ module Edition::AuditTrail
     (versions + editorial_remarks).sort
   end
 
-  def audit_trail
+  def document_audit_trail
     document.editions.order("created_at asc").map.with_index do |edition, i|
       edition.edition_audit_trail(i)
     end.flatten

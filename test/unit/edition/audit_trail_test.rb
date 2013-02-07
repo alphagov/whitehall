@@ -14,100 +14,100 @@ class Edition::AuditTrailTest < ActiveSupport::TestCase
   end
 
   test "creation appears as a creation action" do
-    doc = create(:draft_edition)
-    assert_equal 1, doc.audit_trail.size
-    assert_equal "created", doc.audit_trail.first.action
-    assert_equal @user, doc.audit_trail.first.actor
+    edition = create(:draft_edition)
+    assert_equal 1, edition.document_audit_trail.size
+    assert_equal "created", edition.document_audit_trail.first.action
+    assert_equal @user, edition.document_audit_trail.first.actor
   end
 
   test "deletion appears as a deletion action" do
     edition = create(:draft_edition)
     edition.delete!
     edition.update_attributes!(state: 'draft')
-    assert_equal "deleted", edition.audit_trail.second.action
+    assert_equal "deleted", edition.document_audit_trail.second.action
   end
 
   test "saving without any changes does not get recorded as an action" do
-    doc = create(:draft_edition)
-    doc.save!
-    assert_equal 1, doc.audit_trail.size
+    edition = create(:draft_edition)
+    edition.save!
+    assert_equal 1, edition.document_audit_trail.size
   end
 
   test "saving after changing an attribute records an update action" do
-    doc = create(:draft_edition)
-    doc.title = "foo"
-    doc.save!
-    assert_equal 2, doc.audit_trail.size
-    assert_equal "updated", doc.audit_trail.last.action
-    assert_equal @user, doc.audit_trail.last.actor
+    edition = create(:draft_edition)
+    edition.title = "foo"
+    edition.save!
+    assert_equal 2, edition.document_audit_trail.size
+    assert_equal "updated", edition.document_audit_trail.last.action
+    assert_equal @user, edition.document_audit_trail.last.actor
   end
 
   test "submitting for review records a submitted action" do
-    doc = create(:draft_edition)
-    doc.submit!
-    assert_equal 2, doc.audit_trail.size
-    assert_equal "submitted", doc.audit_trail.last.action
+    edition = create(:draft_edition)
+    edition.submit!
+    assert_equal 2, edition.document_audit_trail.size
+    assert_equal "submitted", edition.document_audit_trail.last.action
   end
 
   test "submitting for review records the person who submitted it" do
-    doc = create(:draft_edition)
+    edition = create(:draft_edition)
     PaperTrail.whodunnit = @user2
-    doc.submit!
-    assert_equal @user2, doc.audit_trail.last.actor
+    edition.submit!
+    assert_equal @user2, edition.document_audit_trail.last.actor
   end
 
   test "rejecting records a rejected action" do
-    doc = create(:submitted_edition)
+    edition = create(:submitted_edition)
     PaperTrail.whodunnit = @user2
-    doc.reject!
-    assert_equal "rejected", doc.audit_trail.last.action
-    assert_equal @user2, doc.audit_trail.last.actor
+    edition.reject!
+    assert_equal "rejected", edition.document_audit_trail.last.action
+    assert_equal @user2, edition.document_audit_trail.last.actor
   end
 
   test "publishing records a published action" do
-    doc = create(:submitted_edition)
-    doc.first_published_at = Time.zone.now
-    doc.major_change_published_at = Time.zone.now
+    edition = create(:submitted_edition)
+    edition.first_published_at = Time.zone.now
+    edition.major_change_published_at = Time.zone.now
     PaperTrail.whodunnit = @user2
-    doc.publish!
-    assert_equal "published", doc.audit_trail.last.action
-    assert_equal @user2, doc.audit_trail.last.actor
+    edition.publish!
+    assert_equal "published", edition.document_audit_trail.last.action
+    assert_equal @user2, edition.document_audit_trail.last.actor
   end
 
   test "creating a new draft of a published edition records an edition action" do
-    doc = create(:published_edition)
+    published_edition = create(:published_edition)
     policy_writer = create(:policy_writer)
     PaperTrail.whodunnit = policy_writer
-    edition = doc.create_draft(policy_writer)
-    assert_equal "editioned", edition.audit_trail.last.action
-    assert_equal policy_writer, edition.audit_trail.last.actor
+    draft_edition = published_edition.create_draft(policy_writer)
+    assert_equal "editioned", draft_edition.document_audit_trail.last.action
+    assert_equal policy_writer, draft_edition.document_audit_trail.last.actor
   end
 
   test "after creating a new draft, audit events from previous editions still available" do
-    doc = create(:published_edition)
-    previous_events = doc.audit_trail
-    edition = doc.create_draft(@user)
-    assert_equal previous_events, doc.audit_trail[0..-2]
+    published_edition = create(:published_edition)
+    previous_events = published_edition.document_audit_trail
+    draft_edition = published_edition.create_draft(@user)
+    assert_equal previous_events, draft_edition.document_audit_trail[0..-2]
   end
 
   test "can request audit trail for one edition" do
-    doc = create(:published_edition)
+    published_edition = create(:published_edition)
     policy_writer = create(:policy_writer)
     PaperTrail.whodunnit = policy_writer
-    edition = doc.create_draft(policy_writer)
-    assert_equal 1, doc.edition_audit_trail.size
-    assert_equal "editioned", edition.audit_trail.last.action
-    assert_equal policy_writer, edition.audit_trail.last.actor
+    draft_edition = published_edition.create_draft(policy_writer)
+    assert_equal 1, published_edition.edition_audit_trail.size
+    assert_equal "editioned", draft_edition.document_audit_trail.last.action
+    assert_equal policy_writer, draft_edition.document_audit_trail.last.actor
   end
 
   test "editorial remark appears as an audit action" do
     Timecop.freeze(Time.zone.now - 2.days)
-    doc = create(:draft_edition)
+    edition = create(:draft_edition)
     policy_writer = create(:policy_writer)
     editorial_remark_body = "blah"
     Timecop.freeze(Time.zone.now + 1.day)
-    doc.editorial_remarks.create!(body: editorial_remark_body, author: policy_writer)
-    assert_equal %w{created editorial_remark}, doc.audit_trail.map(&:action)
-    assert_equal editorial_remark_body, doc.audit_trail.last.message
+    edition.editorial_remarks.create!(body: editorial_remark_body, author: policy_writer)
+    assert_equal %w{created editorial_remark}, edition.document_audit_trail.map(&:action)
+    assert_equal editorial_remark_body, edition.document_audit_trail.last.message
   end
 end
