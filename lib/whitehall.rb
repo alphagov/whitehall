@@ -164,6 +164,10 @@ module Whitehall
       ANALYTICS_FORMAT[format]
     end
 
+    def local_government_features?
+      true
+    end
+
     private
 
     def load_secrets
