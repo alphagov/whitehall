@@ -287,7 +287,10 @@
             <% others.each do |contact| %>
               <div class="organisation_contact simple">
                 <div class="contact-inner">
-                  <h2><%= contact.description %></h2>
+                  <h2><%= contact.title %></h2>
+                  <% if contact.comments.present? %>
+                    <p class="comment"><%= contact.comments %></p>
+                  <% end %>
                   <% if contact.email.present? %>
                     <p class="email"><span class="type">Email</span> <%= mail_to contact.email, contact.email, :class => "email" %></p>
                   <% end %>
