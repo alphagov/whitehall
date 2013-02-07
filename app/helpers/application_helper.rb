@@ -295,4 +295,13 @@ module ApplicationHelper
   def joined_ministerial_department_percent
     number_to_percentage(100*joined_ministerial_department_count.to_f/ministerial_department_count)
   end
+
+  def is_external?(href)
+    host = URI.parse(href).host
+    if host.nil?
+      false
+    else
+      !Whitehall.public_hosts.include?(host)
+    end
+  end
 end
