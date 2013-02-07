@@ -1,3 +1,4 @@
+
 module Whitehall::DocumentFilter
   class Mysql
     extend Forwardable
@@ -19,6 +20,7 @@ module Whitehall::DocumentFilter
       filter_by_date!
       filter_by_publication_filter_option!
       filter_by_announcement_filter_option!
+      filter_by_relevant_to_local_government_option!
       paginate!
       apply_sort_direction!
     end
@@ -64,6 +66,10 @@ module Whitehall::DocumentFilter
       else
         raise e
       end
+    end
+
+    def relevant_to_local_government
+      @params[:relevant_to_local_government].present? && @params[:relevant_to_local_government].to_s == '1'
     end
 
   private
@@ -122,6 +128,11 @@ module Whitehall::DocumentFilter
           @documents = @documents.where(@documents.arel_table[:news_article_type_id].in(selected_announcement_type_option.news_article_types.map(&:id)))
         end
       end
+    end
+
+    def filter_by_relevant_to_local_government_option!
+      # By default we don't want to surface these results
+      @documents = @documents.where(relevant_to_local_government: relevant_to_local_government)
     end
 
     def paginate!

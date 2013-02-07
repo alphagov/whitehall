@@ -49,6 +49,15 @@
         </div>
       </div>
 
+      <% if defined?(filter_by_relevant_to_local_government) && filter_by_relevant_to_local_government %>
+        <div class="filter">
+          <div class="filter-inner checkbox">
+            <%= label_tag "relevant_to_local_government", "Relevant to local government" %>
+            <%= check_box_tag :relevant_to_local_government, '1', @filter.relevant_to_local_government %>
+          </div>
+        </div>
+      <% end %>
+
       <div class="filter">
         <div class="filter-inner">
           <% if defined?(filter_by_date) and filter_by_date %>

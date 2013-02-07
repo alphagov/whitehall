@@ -8,7 +8,8 @@
     date: ({
       direction: filter.direction,
       date: filter.date.to_s(:short_ordinal)
-    } if filter.date)
+    } if filter.date),
+    relevant_to_local_government: filter.relevant_to_local_government
   }
 %>
 <div class="filter-results-summary">

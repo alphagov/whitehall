@@ -254,11 +254,22 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
           }
         }
       }
+
+      if (formStatus.checked) {
+        for (i=0, _i=formStatus.checked.length; i<_i; i++) {
+          field = formStatus.checked[i];
+          if (field.id === 'relevant_to_local_government' && field.value === '1') {
+            context.relevant_to_local_government = true;
+          }
+        }
+      }
+
       $selections.mustache('documents/_filter_selections', context);
     },
     removeFilters: function(field, removed){
       var selects = ['topics', 'departments'],
-          inputs = ['keywords'];
+          inputs = ['keywords'],
+          checkboxes = ['relevant_to_local_government'];
 
       if($.inArray(field, selects) > -1){
         var $options = $("select option[value='"+removed+"']");
@@ -278,6 +289,12 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
           $input.val(value.replace(reg, '').trim())
         }
         $input.parents('form').submit();
+      } else if ($.inArray(field, checkboxes)) {
+        var $checkbox = $('input#' + field);
+        if ($checkbox.length) {
+          $checkbox.attr('checked', false);
+        }
+        $checkbox.parents('form').submit();
       }
     },
     currentPageState: function() {
@@ -296,7 +313,7 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
           var $n = $(n);
           return {id: $n.attr('id'), value: $n.val()};
         }),
-        checked: $.map(documentFilter.$form.find('input[type=radio]:checked'), function(n) {
+        checked: $.map(documentFilter.$form.find('input[type=radio]:checked, input[type=checkbox]:checked'), function(n) {
           var $n = $(n);
           return {id: $n.attr('id'), value: $n.val()};
         })
@@ -393,7 +410,7 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
 
         history.replaceState(documentFilter.currentPageState(), null);
         $form.submit(documentFilter.submitFilters);
-        $form.find('select, input[name=direction]:radio').change(function(e){
+        $form.find('select, input[name=direction]:radio, input:checkbox').change(function(e){
           $form.submit();
         });
 

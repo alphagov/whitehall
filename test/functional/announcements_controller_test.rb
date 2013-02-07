@@ -214,4 +214,22 @@ class AnnouncementsControllerTest < ActionController::TestCase
       assert_select 'feed > entry', count: 0
     end
   end
+
+  test 'index excludes local government items by default' do
+    announced_today = [create(:published_news_article, relevant_to_local_government: true), create(:published_speech)]
+
+    get :index
+
+    refute_select_object announced_today[0]
+    assert_select_object announced_today[1]
+  end
+
+  test 'index includes only local government items only when asked for' do
+    announced_today = [create(:published_news_article, relevant_to_local_government: true), create(:published_speech)]
+
+    get :index, relevant_to_local_government: 1
+
+    assert_select_object announced_today[0]
+    refute_select_object announced_today[1]
+  end
 end
