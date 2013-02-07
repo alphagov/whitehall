@@ -85,6 +85,10 @@ class Publication < Publicationesque
     end
   end
 
+  def can_apply_to_local_government?
+    true
+  end
+
   private
 
   def only_publications_allowed_invalid_data_can_be_awaiting_type
