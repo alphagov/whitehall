@@ -1,12 +1,13 @@
 <% page_title "Topics" %>
-<% page_class "topics-index index-list-page" %>
+<% page_class "classifications-index index-list-page" %>
 
 
 <div class="block-1">
   <div class="inner-block">
-    <header class="page-header">
+    <header class="page-header js-filter-list">
         <h1 class="title">Topics</h1>
         <h2 class="label">What&nbsp;is the&nbsp;government doing&nbsp;about&hellip;</h2>
+        <form class="js-filter-form"><label for="who-are-you-looking-for">Which topic are you looking for?</label> <input name="who-are-you-looking-for"></form>
     </header>
   </div>
 </div>
@@ -14,7 +15,7 @@
 <div class="block-2">
   <div class="inner-block">
     <% if @topics.any? %>
-      <div class="heading-block">
+      <div class="heading-block js-filter-block">
         <div class="content">
           <%= render partial: "list", locals: { topics: @topics } %>
         </div>
@@ -23,12 +24,15 @@
       <p>We don't have any topics with published documents at present.</p>
     <% end %>
     <% if @topical_events.any? %>
-      <div class="heading-block">
+      <div class="heading-block js-filter-block">
           <h1 class="label">Topical events</h1>
           <div class="content">
             <%= render partial: "list", locals: { topics: @topical_events } %>
           </div>
       </div>
     <% end %>
+    <div class="js-filter-no-results">
+      <p>No topics match that filter.</p>
+    </div>
   </div>
 </div>
