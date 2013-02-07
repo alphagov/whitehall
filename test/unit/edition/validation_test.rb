@@ -161,4 +161,20 @@ class Edition::ValidationTest < ActiveSupport::TestCase
     assert edition.valid?
   end
 
+  test 'should be valid when it removes a lead to make it supporting, and swaps the other lead\'s position on save' do
+    o1 = create(:organisation)
+    o2 = create(:organisation)
+    edition = create(:edition, create_default_organisation: false,
+                               lead_organisations: [o1, o2],
+                               supporting_organisations: [],
+                               organisations: [])
+    puts "meh"
+    edition.edition_organisations_attributes = [
+      {id: edition.lead_edition_organisations.first.id, organisation_id: o2.id, _destroy: '0'},
+      {id: edition.lead_edition_organisations.last.id, _destroy: '1'},
+      {id: '', organisation_id: o1.id, lead: '0', lead_ordering: '0'}
+    ]
+    assert edition.valid?
+  end
+
 end

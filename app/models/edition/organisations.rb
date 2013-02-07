@@ -10,6 +10,10 @@ module Edition::Organisations
   end
 
   included do
+    # NOTE: we have 3 associations that point to the same underlying
+    # table (EditionOrganisation). So we have to do our uniqueness
+    # validation manually in case the data is manipulated via multiple
+    # associations at once
     has_many :edition_organisations, foreign_key: :edition_id, dependent: :destroy
     has_many :organisations, through: :edition_organisations
 
@@ -102,18 +106,32 @@ private
     # is marked for deletion. If we don't strip both instances out then
     # we run the risk of adding an error because things aren't unique when
     # they will be because we're deleting one of them
-    existing_eos = existing_eos.reject { |(eo_id, _)| to_die.include?(eo_id) }
+    existing_eos = existing_eos.reject { |(eo_id, _, _)| to_die.include?(eo_id) }
+
+    # get rid of existing ones where the change flag is false and there's
+    # another existing entry for the same edition_organisation id with a
+    # change flag that is true.
+    # Because we don't want to detect internal dupes when we're updating
+    # an instance in place via one association but we get the instance
+    # from the other association
+    existing_eos = existing_eos.reject do |(eo_id, org_id, change_flag)|
+      if change_flag
+        false
+      else
+        existing_eos.any? { |(o_eo_id, _, o_change_flag)| eo_id == o_eo_id && o_change_flag }
+      end
+    end
 
     # adding the same org twice
-    if new_eos.map { |(eo_id, org_id)| org_id }.uniq.size != new_eos.size
+    if new_eos.map { |(eo_id, org_id, _)| org_id }.uniq.size != new_eos.size
       errors.add(:organisations, 'must be unique')
     # adding an org that we've already got
-    elsif (new_eos.map { |(eo_id, org_id)| org_id } & existing_eos.map { |(eo_id, org_id)| org_id }).any?
+    elsif (new_eos.map { |(eo_id, org_id, _)| org_id } & existing_eos.map { |(eo_id, org_id)| org_id }).any?
       errors.add(:organisations, 'must be unique')
     else
       # existing org somehow added on more than one eo
-      existing_dupes = existing_eos.map do |(eo_id, org_id)|
-        existing_eos.any? { |(o_eo_id, o_org_id)| (eo_id != o_eo_id) && (org_id == o_org_id) }
+      existing_dupes = existing_eos.map do |(eo_id, org_id, _)|
+        existing_eos.any? { |(o_eo_id, o_org_id, _)| (eo_id != o_eo_id) && (org_id == o_org_id) }
       end
       errors.add(:organisations, 'must be unique') if existing_dupes.any?
     end
@@ -123,7 +141,7 @@ private
     grouped = all_eos.
       reject { |eo| eo.destroyed? || eo.marked_for_destruction? }.
       # for orgs that are to be created when we do this, grab the object id
-      map { |eo| [eo.id, eo.organisation_id || eo.organisation.object_id] }.
+      map { |eo| [eo.id, eo.organisation_id || eo.organisation.object_id, eo.changed?] }.
       group_by { |(eo_id, org_id)| eo_id.nil? }
     new_eos.push(*grouped[true]) if grouped[true].present?
     existing_eos.push(*grouped[false]) if grouped[false].present?
