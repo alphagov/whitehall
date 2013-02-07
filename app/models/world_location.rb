@@ -20,6 +20,12 @@ class WorldLocation < ActiveRecord::Base
 
   accepts_nested_attributes_for :edition_world_locations
 
+  def self.with_announcements
+    joins(:editions).where("editions.type" => Announcement.sti_names,
+                           "editions.state" => "published"
+                          ).select("world_locations.*").all
+  end
+
   def world_location_type
     WorldLocationType.find_by_id(world_location_type_id)
   end

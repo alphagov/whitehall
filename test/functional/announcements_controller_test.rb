@@ -130,6 +130,20 @@ class AnnouncementsControllerTest < ActionController::TestCase
     end
   end
 
+  test "index indicates selected world location in the filter selector" do
+    wl1 = create(:world_location, name: "Afghanistan")
+    wl2 = create(:world_location, name: "Albania")
+    wl3 = create(:world_location, name: "Algeria")
+
+    create(:published_news_article, world_locations: [wl1,wl2,wl3])
+
+    get :index, {locations: [wl1.slug,wl3.slug]}
+
+    assert_select "select[name='locations[]']" do
+      assert_select "option[selected='selected']", count: 2
+    end
+  end
+
   def assert_documents_appear_in_order_within(containing_selector, expected_documents)
     articles = css_select "#{containing_selector} tr.document-row"
     expected_document_ids = expected_documents.map { |doc| dom_id(doc) }
