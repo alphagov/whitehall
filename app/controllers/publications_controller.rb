@@ -72,7 +72,7 @@ private
   end
 
   def all_publications
-    Publicationesque.published.includes(:document, :organisations, :attachments, response: :attachments)
+    Publicationesque.published.includes(:document, :organisations, :attachments, :translations, response: :attachments)
   end
 
   def scheduled_publications

@@ -601,4 +601,47 @@ class EditionTest < ActiveSupport::TestCase
     edition = build_imported_edition_not_yet_valid_as_draft
     assert_equal ["no drafts allowed"], edition.errors_as_draft.to_a
   end
+
+  test "should store title in multiple languages" do
+    edition = build(:edition)
+    with_locale(:en) { edition.title = 'english-title' }
+    with_locale(:es) { edition.title = 'spanish-title' }
+    edition.save!
+    edition.reload
+    assert_equal "english-title", edition.title(:en)
+    assert_equal "spanish-title", edition.title(:es)
+  end
+
+  test "should only consider english titles when sorting editions alphabetically" do
+    edition = build(:edition)
+    with_locale(:en) { edition.title = "english-title-b" }
+    with_locale(:es) { edition.title = "spanish-title-b" }
+    edition.save!
+    with_locale(:es) { create(:edition, title: "spanish-title-a") }
+    with_locale(:en) { create(:edition, title: "english-title-a") }
+
+    assert_equal %w(english-title-a english-title-b), Edition.alphabetical.map(&:title)
+  end
+
+  test "should only consider english titles for Edition.with_title_or_summary_containing" do
+    edition = build(:edition)
+    with_locale(:en) { edition.title = "english-title-b" }
+    with_locale(:es) { edition.title = "spanish-title-b" }
+    edition.save!
+    with_locale(:es) { create(:edition, title: "spanish-title-a") }
+    with_locale(:en) { create(:edition, title: "english-title-a") }
+
+    assert_same_elements %w(english-title-a english-title-b), Edition.with_title_or_summary_containing("title").map(&:title)
+  end
+
+  test "should only consider english titles for Edition.with_title_containing" do
+    edition = build(:edition)
+    with_locale(:en) { edition.title = "english-title-b" }
+    with_locale(:es) { edition.title = "spanish-title-b" }
+    edition.save!
+    with_locale(:es) { create(:edition, title: "spanish-title-a") }
+    with_locale(:en) { create(:edition, title: "english-title-a") }
+
+    assert_same_elements %w(english-title-a english-title-b), Edition.with_title_containing("title").map(&:title)
+  end
 end

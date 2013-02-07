@@ -75,23 +75,30 @@ class Edition::IdentifiableTest < ActiveSupport::TestCase
     refute policy.previewable?
   end
 
-  test "slug of an associated draft policy doesn't increment unexpectedly" do
-    policy1 = create(:draft_policy, title: "This is my policy")
-    policy2 = create(:draft_policy, title: "This is my policy")
-    policy1.body = "foo"
-    policy1.save
+  test "update slug if title changes on draft edition" do
+    policy = create(:draft_policy, title: "This is my policy")
+    policy.update_attributes!(title: "Another thing")
 
-    slug = policy2.document.slug
-    policy2.save
-    assert_equal slug, policy2.document.reload.slug
+    assert_equal "another-thing", policy.document.reload.slug
   end
 
-  test "slug changes of draft if title changes" do
+  test "do not update slug if non-english title changes on draft edition" do
     policy = create(:draft_policy, title: "This is my policy")
-    old_slug = policy.document.slug
-    policy.title = "Another thing"
-    policy.save
+    with_locale(:es) do
+      policy.update_attributes!(title: "Spanish thing", summary: "Avoid validation error", body: "Avoid validation error")
+    end
 
-    refute_equal old_slug, policy.document.reload.slug
+    assert_equal "this-is-my-policy", policy.document.reload.slug
+  end
+
+  test "should not update the slug of an existing edition when saved in the presence of a new edition with the same title" do
+    existing_edition = create(:draft_policy, title: "This is my policy")
+    assert_equal 'this-is-my-policy', existing_edition.document.reload.slug
+
+    new_edition_with_same_title = create(:draft_policy, title: "This is my policy")
+    assert_equal 'this-is-my-policy--2', new_edition_with_same_title.document.reload.slug
+
+    existing_edition.save!
+    assert_equal 'this-is-my-policy', existing_edition.document.reload.slug
   end
 end

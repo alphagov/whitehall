@@ -24,7 +24,7 @@ module Edition::Identifiable
   end
 
   def update_document_slug
-    document.update_slug_if_possible(title) if title_changed?
+    document.update_slug_if_possible(title(I18n.default_locale))
   end
 
   def propagate_type_to_document

@@ -1,4 +1,6 @@
 class Edition < ActiveRecord::Base
+  translates :title, :summary, :body
+
   include Edition::Traits
 
   include Edition::NullImages
@@ -26,16 +28,18 @@ class Edition < ActiveRecord::Base
   validates :body, presence: true, if: :body_required?
   validates :summary, presence: true
 
-  scope :alphabetical, order("title ASC")
+  scope :in_default_locale, joins(:translations).where("edition_translations.locale" => I18n.default_locale)
+
+  scope :alphabetical, in_default_locale.order("edition_translations.title ASC")
 
   scope :with_title_or_summary_containing, -> *keywords {
     pattern = "(#{keywords.map { |k| Regexp.escape(k) }.join('|')})"
-    where("editions.title REGEXP :pattern OR editions.summary REGEXP :pattern", pattern: pattern)
+    in_default_locale.where("edition_translations.title REGEXP :pattern OR edition_translations.summary REGEXP :pattern", pattern: pattern)
   }
 
   scope :with_title_containing, -> *keywords {
     pattern = "(#{keywords.map { |k| Regexp.escape(k) }.join('|')})"
-    where("editions.title REGEXP :pattern", pattern: pattern)
+    in_default_locale.where("edition_translations.title REGEXP :pattern", pattern: pattern)
   }
 
   def self.published_before(date)

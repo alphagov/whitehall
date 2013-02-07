@@ -23,6 +23,7 @@ class ActiveSupport::TestCase
   include ModelHelpers
   include ModelStubbingHelpers
   include HtmlAssertions
+  include I18nHelpers
   extend GovspeakValidationTestHelper
 
   setup do

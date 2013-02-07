@@ -156,6 +156,10 @@ GEM
       warden (~> 1.2)
     gherkin (2.4.21)
       json (>= 1.4.6)
+    globalize3 (0.3.0)
+      activemodel (>= 3.0.0)
+      activerecord (>= 3.0.0)
+      paper_trail (~> 2)
     govspeak (1.2.3)
       htmlentities (~> 4)
       kramdown (~> 0.13.3)
@@ -409,6 +413,7 @@ DEPENDENCIES
   friendly_id (= 4.0.0.beta14)
   gds-api-adapters (= 4.3.0)
   gds-sso (= 3.0.0)
+  globalize3
   govspeak (~> 1.2.3)
   govuk_frontend_toolkit (= 0.12.1)
   hash_syntax
