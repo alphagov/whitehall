@@ -71,15 +71,13 @@ module Edition::AuditTrail
 
     def sort_priority; 3; end
 
-    def event
+    def action
       previous_state = version.previous && version.previous.state
       case version.event
       when "create"
-        first_edition? ? "create" : "edition"
-      when "delete"
-        version.event
+        first_edition? ? "created" : "editioned"
       else
-        previous_state != version.state ? make_present_tense(version.state) : "update"
+        previous_state != version.state ? version.state : "updated"
       end
     end
 
@@ -88,19 +86,6 @@ module Edition::AuditTrail
         User.find(version.whodunnit)
       else
         nil # for deleted users
-      end
-    end
-
-    private
-
-    def make_present_tense(event)
-      case event.downcase
-      when 'published' then 'publish'
-      when 'rejected' then 'reject'
-      when 'submitted' then 'submit'
-      when 'deleted' then 'delete'
-      else
-        event
       end
     end
   end
@@ -114,7 +99,7 @@ module Edition::AuditTrail
 
     alias_method :editorial_remark, :object
 
-    def event
+    def action
       "editorial_remark"
     end
 
