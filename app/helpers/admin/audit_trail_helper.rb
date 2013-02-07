@@ -6,7 +6,7 @@ module Admin::AuditTrailHelper
         "&ldquo;".html_safe + entry.message + "&rdquo;".html_safe
       end
     else
-      verb = make_past_tense(entry.event).capitalize
+      verb = make_past_tense(entry.action).capitalize
       content_tag(:span, verb, class: "action") + " by"
     end
     html << " ".html_safe

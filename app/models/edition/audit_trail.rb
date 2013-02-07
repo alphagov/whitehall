@@ -71,7 +71,7 @@ module Edition::AuditTrail
 
     def sort_priority; 3; end
 
-    def event
+    def action
       previous_state = version.previous && version.previous.state
       case version.event
       when "create"
@@ -114,7 +114,7 @@ module Edition::AuditTrail
 
     alias_method :editorial_remark, :object
 
-    def event
+    def action
       "editorial_remark"
     end
 
