@@ -21,22 +21,22 @@ class WorldLocationsControllerTest < ActionController::TestCase
     end
   end
 
-  test "should display world location name and description" do
+  test "should display world location name and mission-statement" do
     world_location = create(:world_location,
       name: "country-name",
-      description: "country-description"
+      mission_statement: "country-mission-statement"
     )
     get :show, id: world_location
     assert_select ".name", text: "UK and country-name"
-    assert_select ".description", text: "country-description"
+    assert_select ".mission_statement", text: "country-mission-statement"
   end
 
-  test "should use html line breaks when displaying the description" do
-    world_location = create(:world_location, description: "Line 1\nLine 2")
+  test "should use html line breaks when displaying the mission_statement" do
+    world_location = create(:world_location, mission_statement: "Line 1\nLine 2")
     get :show, id: world_location
-    assert_select ".description", /Line 1/
-    assert_select ".description", /Line 2/
-    assert_select ".description br", count: 1
+    assert_select ".mission_statement", /Line 1/
+    assert_select ".mission_statement", /Line 2/
+    assert_select ".mission_statement br", count: 1
   end
 
   test 'show has atom feed autodiscovery link' do
