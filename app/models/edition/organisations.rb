@@ -37,6 +37,7 @@ module Edition::Organisations
     after_save :reset_edition_organisations
     validate :at_least_one_lead_organisation
     validate :no_duplication_of_organisations
+    before_update :destroy_marked_for_destruction_edition_organisations
 
     add_trait Trait
   end
@@ -63,6 +64,19 @@ module Edition::Organisations
   end
 
 private
+  def destroy_marked_for_destruction_edition_organisations
+    # AR will destroy things in order as it finds them. this can mean that
+    # we have duplicates in the db during the transaction.  e.g. if we
+    # have lead org 1 = MOD, lead org 2 = BIS and we want to update to
+    # lead org 1 = BIS, lead org 2 = destroy, the update to lead org 1
+    # happens before the destruction of lead org 2, and so, we have a dup
+    # If we destroy them all first, this should be ok.
+    to_die = edition_organisations.select { |eo| eo.marked_for_destruction? } +
+              lead_edition_organisations.select { |leo| leo.marked_for_destruction? } +
+              supporting_edition_organisations.select { |seo| seo.marked_for_destruction? }
+    to_die.map { |eo| eo.destroy }
+  end
+
   def at_least_one_lead_organisation
     unless skip_organisation_validation?
       unless lead_edition_organisations.any? || edition_organisations.detect {|eo| eo.lead? }
