@@ -8,6 +8,7 @@ class Import < ActiveRecord::Base
   has_many :editions, through: :documents
   has_many :import_errors, dependent: :destroy
   has_many :force_publication_attempts, dependent: :destroy
+  has_many :import_logs, dependent: :destroy
 
   belongs_to :creator, class_name: "User"
   belongs_to :organisation
@@ -47,8 +48,7 @@ class Import < ActiveRecord::Base
       creator_id: current_user.id,
       original_filename: csv_file && csv_file.original_filename,
       already_imported: [],
-      successful_rows: [],
-      log: ""
+      successful_rows: []
     )
   end
 
@@ -162,6 +162,10 @@ class Import < ActiveRecord::Base
 
   def progress_logger
     @progress_logger ||= ProgressLogger.new(self)
+  end
+
+  def log
+    import_logs.map(&:to_s).join("\n")
   end
 
   def automatic_data_importer
@@ -316,9 +320,7 @@ class Import < ActiveRecord::Base
     end
 
     def write_log(level, data)
-      log = @import.log || ""
-      log << "Row #{@current_row || '-'} - #{level}: #{data}\n"
-      @import.update_column(:log, log)
+      @import.import_logs.create(row_number: @current_row, level: level, message: data)
     end
   end
 

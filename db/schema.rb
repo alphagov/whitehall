@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130207164113) do
+ActiveRecord::Schema.define(:version => 20130208111623) do
 
   create_table "attachment_data", :force => true do |t|
     t.string   "carrierwave_file"
@@ -524,6 +524,14 @@ ActiveRecord::Schema.define(:version => 20130207164113) do
 
   add_index "import_errors", ["import_id"], :name => "index_import_errors_on_import_id"
 
+  create_table "import_logs", :force => true do |t|
+    t.integer  "import_id"
+    t.integer  "row_number"
+    t.string   "level"
+    t.text     "message"
+    t.datetime "created_at"
+  end
+
   create_table "imports", :force => true do |t|
     t.string   "original_filename"
     t.string   "data_type"
@@ -535,7 +543,6 @@ ActiveRecord::Schema.define(:version => 20130207164113) do
     t.datetime "import_finished_at"
     t.integer  "total_rows"
     t.integer  "current_row"
-    t.text     "log",                :limit => 2147483647
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "import_enqueued_at"
