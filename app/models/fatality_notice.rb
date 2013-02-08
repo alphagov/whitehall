@@ -23,4 +23,8 @@ class FatalityNotice < Announcement
   def has_operational_field?
     true
   end
+
+  def display_type_key
+    "fatality_notice"
+  end
 end
