@@ -87,6 +87,38 @@ class TranslationImporterTest < ActiveSupport::TestCase
     assert_equal expected, yaml_translation_data
   end
 
+  test 'interprets integer strings as integers' do
+    given_csv(:fr,
+      [:key, :source, :translation],
+      ["price", "123", "123"]
+    )
+
+    Whitehall::Translation::Importer.new(:fr, csv_path(:fr), import_directory).import
+
+    yaml_translation_data = YAML.load_file(File.join(import_directory, "fr.yml"))
+    expected = {"fr" => {
+      "price" => 123
+    }}
+    assert_equal expected, yaml_translation_data
+  end
+
+  test 'interprets boolean values as booleans, not strings' do
+    given_csv(:fr,
+      [:key, :source, :translation],
+      ["key1", "is true", "true"],
+      ["key2", "is false", "false"]
+    )
+
+    Whitehall::Translation::Importer.new(:fr, csv_path(:fr), import_directory).import
+
+    yaml_translation_data = YAML.load_file(File.join(import_directory, "fr.yml"))
+    expected = {"fr" => {
+      "key1" => true,
+      "key2" => false
+    }}
+    assert_equal expected, yaml_translation_data
+  end
+
   private
 
   def csv_path(locale)

@@ -43,6 +43,12 @@ class Whitehall::Translation::Importer
       values.map { |v| parse_translation(v) }
     elsif translation =~ /^:/
       translation.gsub(/^:/, '').to_sym
+    elsif translation =~ /^true$/
+      true
+    elsif translation =~ /^false$/
+      false
+    elsif translation =~ /^\d+$/
+      translation.to_i
     elsif translation == "nil"
       nil
     else
