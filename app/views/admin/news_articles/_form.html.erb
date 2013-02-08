@@ -8,8 +8,5 @@
     <%= render partial: 'topical_event_fields', locals: { form: form, edition: edition } %>
   </fieldset>
 
-  <fieldset>
-    <%= form.label :first_published_at, 'First published at' %>
-    <%= form.datetime_select :first_published_at, news_article_first_published_at_options(edition), { class: 'date' } %>
-  </fieldset>
+  <%= render partial: 'first_published_at', locals: { form: form, edition: edition } %>
 <% end %>
