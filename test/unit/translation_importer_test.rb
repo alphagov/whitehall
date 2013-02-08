@@ -42,6 +42,17 @@ class TranslationImporterTest < ActiveSupport::TestCase
     assert_equal "fr:", File.readlines(File.join(import_directory, "fr.yml")).first.strip
   end
 
+  test 'outputs a newline at the end of the YAML for consistency with code editors' do
+    given_csv(:fr,
+      [:key, :source, :translation],
+      ["key", "value", "le value"],
+    )
+
+    Whitehall::Translation::Importer.new(:fr, csv_path(:fr), import_directory).import
+
+    assert_match /\n$/, File.readlines(File.join(import_directory, "fr.yml")).last
+  end
+
   test 'imports arrays from CSV as arrays' do
     given_csv(:fr,
       [:key, :source, :translation],
