@@ -123,7 +123,7 @@ class Edition < ActiveRecord::Base
     only: :published,
     index_after: [],
     unindex_after: [],
-    format_types: -> d { d.search_format_types }
+    search_format_types: -> d { d.search_format_types }
   )
 
   def search_format_types
