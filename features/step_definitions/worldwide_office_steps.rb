@@ -19,6 +19,18 @@ When /^I create a new worldwide office "([^"]*)" in "([^"]*)"$/ do |name, locati
   click_on "Save"
 end
 
+When /^I create a new worldwide office "([^"]*)" in  "([^"]*)" sponsored by the "([^"]*)"$/ do |name, location, sponsoring_organisation|
+  visit new_admin_worldwide_office_path
+  fill_in "Name", with: name
+  fill_in "Logo formatted name", with: name
+  fill_in "Summary", with: "Worldwide office summary"
+  fill_in "Description", with: "Worldwide **office** description"
+  select location, from: "World location"
+  select sponsoring_organisation, from: "Sponsoring organisations"
+  click_on "Save"
+end
+
+
 Then /^I should see the(?: updated)? worldwide office information on the public website$/ do
   office = WorldwideOffice.last
   visit worldwide_office_path(office)
