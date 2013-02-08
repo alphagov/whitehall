@@ -27,10 +27,6 @@ class Edition < ActiveRecord::Base
   validates :summary, presence: true
 
   scope :alphabetical, order("title ASC")
-  scope :with_content_containing, -> *keywords {
-    pattern = "(#{keywords.map { |k| Regexp.escape(k) }.join('|')})"
-    where("#{table_name}.title REGEXP :pattern OR #{table_name}.body REGEXP :pattern", pattern: pattern)
-  }
 
   scope :with_summary_containing, -> *keywords {
     pattern = "(#{keywords.map { |k| Regexp.escape(k) }.join('|')})"

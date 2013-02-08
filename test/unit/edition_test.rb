@@ -517,39 +517,6 @@ class EditionTest < ActiveSupport::TestCase
     assert_equal [feb], Edition.published_after("2011-01-29").all
   end
 
-  test "should find editions with title content containing keyword" do
-    edition_without_keyword = create(:edition, title: "title that should not be found")
-    edition_with_keyword = create(:edition, title: "title containing keyword in the middle")
-    assert_equal [edition_with_keyword], Edition.with_content_containing("keyword")
-  end
-
-  test "should find editions with body content containing keyword" do
-    edition_without_keyword = create(:edition, body: "body that should not be found")
-    edition_with_keyword = create(:edition, body: "body containing keyword in the middle")
-    assert_equal [edition_with_keyword], Edition.with_content_containing("keyword")
-  end
-
-  test "should find editions with body content containing any of the keywords" do
-    edition_with_first_keyword = create(:edition, body: "this document is about muppets")
-    edition_with_second_keyword = create(:edition, body: "this document is about klingons")
-    assert_equal [edition_with_first_keyword, edition_with_second_keyword], Edition.with_content_containing("klingons", "muppets")
-  end
-
-  test "should find editions with body content containing keyword regardless of case" do
-    edition_with_keyword = create(:edition, body: "body containing Keyword in the middle")
-    assert_equal [edition_with_keyword], Edition.with_content_containing("keyword")
-  end
-
-  test "should find editions with body content containing keyword as part of a word" do
-    edition_with_keyword = create(:edition, body: "body containing keyword in the middle")
-    assert_equal [edition_with_keyword], Edition.with_content_containing("key")
-  end
-
-  test "should find editions with body content containing regular expression characters" do
-    edition_with_nasty_characters = create(:edition, body: "content with [stuff in brackets]")
-    assert_equal [edition_with_nasty_characters], Edition.with_content_containing("[stuff")
-  end
-
   test "should find editions with summary containing keyword" do
     edition_with_first_keyword = create(:edition, summary: "klingons")
     edition_without_first_keyword = create(:edition, summary: "this document is about muppets")
