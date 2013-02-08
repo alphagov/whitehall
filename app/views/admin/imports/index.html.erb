@@ -7,6 +7,8 @@
 
   <h1>Imports</h1>
 
+  <%= paginate @imports, theme: 'twitter-bootstrap' %>
+
   <table class="table table-striped">
     <thead>
       <tr>
@@ -63,4 +65,6 @@
       <% end %>
     </tbody>
   </table>
+
+  <%= paginate @imports, theme: 'twitter-bootstrap' %>
 </section>

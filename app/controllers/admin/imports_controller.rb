@@ -3,7 +3,7 @@ class Admin::ImportsController < Admin::BaseController
   before_filter :find_import, only: [:show, :annotated, :run, :force_publish, :force_publish_log]
 
   def index
-    @imports = Import.order("id desc")
+    @imports = Import.order("id desc").includes(:force_publication_attempts, :creator).page(params[:page]).per(10)
   end
 
   def new
