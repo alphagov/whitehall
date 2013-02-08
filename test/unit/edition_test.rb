@@ -252,7 +252,7 @@ class EditionTest < ActiveSupport::TestCase
   test "#rejected_by uses information from the audit trail" do
     publication = create(:submitted_publication)
     user = create(:policy_writer)
-    PaperTrail.whodunnit = user
+    Edition::AuditTrail.whodunnit = user
     publication.reject!
     assert_equal user, publication.rejected_by
   end
@@ -260,7 +260,7 @@ class EditionTest < ActiveSupport::TestCase
   test "#rejected_by should not be confused by editorial remarks" do
     publication = create(:submitted_publication)
     user = create(:policy_writer)
-    PaperTrail.whodunnit = user
+    Edition::AuditTrail.whodunnit = user
     create(:editorial_remark, edition: publication)
     assert_nil publication.reload.rejected_by
   end

@@ -202,18 +202,6 @@ module AdminEditionControllerTestHelpers
         assert_equal current_user, edition.edition_authors(true).last.user
       end
 
-      test "update records the previous version of the document in the edition version history" do
-        edition = create(edition_type, title: 'old-title', body: 'old-body')
-
-        assert_difference "edition.versions.size" do
-          put :update, id: edition, edition: controller_attributes_for_instance(edition, title: 'new-title', body: 'new-body')
-        end
-
-        old_edition = edition.versions.last.reify
-        assert_equal 'old-title', old_edition.title
-        assert_equal 'old-body', old_edition.body
-      end
-
       test "update with invalid data should not save the edition" do
         edition = create(edition_type)
         attributes = controller_attributes_for_instance(edition)

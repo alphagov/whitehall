@@ -2,14 +2,14 @@ require 'test_helper'
 
 class Edition::AuditTrailTest < ActiveSupport::TestCase
   def setup
-    @previous_whodunnit = PaperTrail.whodunnit
+    @previous_whodunnit = Edition::AuditTrail.whodunnit
     @user = create(:user)
     @user2 = create(:user)
-    PaperTrail.whodunnit = @user
+    Edition::AuditTrail.whodunnit = @user
   end
 
   def teardown
-    PaperTrail.whodunnit = @previous_whodunnit
+    Edition::AuditTrail.whodunnit = @previous_whodunnit
     Timecop.return
   end
 
@@ -51,14 +51,14 @@ class Edition::AuditTrailTest < ActiveSupport::TestCase
 
   test "submitting for review records the person who submitted it" do
     edition = create(:draft_edition)
-    PaperTrail.whodunnit = @user2
+    Edition::AuditTrail.whodunnit = @user2
     edition.submit!
     assert_equal @user2, edition.document_audit_trail.last.actor
   end
 
   test "rejecting records a rejected action" do
     edition = create(:submitted_edition)
-    PaperTrail.whodunnit = @user2
+    Edition::AuditTrail.whodunnit = @user2
     edition.reject!
     assert_equal "rejected", edition.document_audit_trail.last.action
     assert_equal @user2, edition.document_audit_trail.last.actor
@@ -68,7 +68,7 @@ class Edition::AuditTrailTest < ActiveSupport::TestCase
     edition = create(:submitted_edition)
     edition.first_published_at = Time.zone.now
     edition.major_change_published_at = Time.zone.now
-    PaperTrail.whodunnit = @user2
+    Edition::AuditTrail.whodunnit = @user2
     edition.publish!
     assert_equal "published", edition.document_audit_trail.last.action
     assert_equal @user2, edition.document_audit_trail.last.actor
@@ -77,7 +77,7 @@ class Edition::AuditTrailTest < ActiveSupport::TestCase
   test "creating a new draft of a published edition records an edition action" do
     published_edition = create(:published_edition)
     policy_writer = create(:policy_writer)
-    PaperTrail.whodunnit = policy_writer
+    Edition::AuditTrail.whodunnit = policy_writer
     draft_edition = published_edition.create_draft(policy_writer)
     assert_equal "editioned", draft_edition.document_audit_trail.last.action
     assert_equal policy_writer, draft_edition.document_audit_trail.last.actor
@@ -93,7 +93,7 @@ class Edition::AuditTrailTest < ActiveSupport::TestCase
   test "can request audit trail for one edition" do
     published_edition = create(:published_edition)
     policy_writer = create(:policy_writer)
-    PaperTrail.whodunnit = policy_writer
+    Edition::AuditTrail.whodunnit = policy_writer
     draft_edition = published_edition.create_draft(policy_writer)
     assert_equal 1, published_edition.edition_audit_trail.size
     assert_equal "editioned", draft_edition.document_audit_trail.last.action

@@ -48,7 +48,7 @@ namespace :guidance do
       # strip bold/strong markdown
       body = body.gsub(/\*\*([^\*]+)\*\*/, "\\1")
 
-      PaperTrail.whodunnit = creator
+      Edition::AuditTrail.whodunnit = creator
 
       guide = DetailedGuide.where(title: title).last
 
@@ -102,7 +102,7 @@ namespace :guidance do
       parts = CGI::parse(URI(business_link_url).query)
       topic_id = parts['topicId'][0]
 
-      PaperTrail.whodunnit = creator
+      Edition::AuditTrail.whodunnit = creator
 
       new_record = DetailedGuide.where(title: old_title).first
 
