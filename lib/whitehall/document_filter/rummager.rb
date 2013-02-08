@@ -4,22 +4,25 @@ module Whitehall::DocumentFilter
   class Rummager < Filterer
 
     def announcements_search
-      filter_args = standard_filter_args
-      filter_args.merge(filter_by_announcement_type)
+      filter_args =
+        standard_filter_args
+          .merge(filter_by_announcement_type)
 
       @results = Whitehall.government_search_client.filter(filter_args)
     end
 
     def publications_search
-      filter_args = standard_filter_args
-      filter_args.merge(filter_by_publication_type)
+      filter_args =
+        standard_filter_args
+          .merge(filter_by_publication_type)
 
       @results = Whitehall.government_search_client.filter(filter_args)
     end
 
     def policies_search
-      filter_args = standard_filter_args
-      filter_args.merge(search_format_types: [Policy.search_format_type])
+      filter_args =
+        standard_filter_args
+          .merge(search_format_types: [Policy.search_format_type])
 
       @results = Whitehall.government_search_client.filter(filter_args)
     end
@@ -49,7 +52,7 @@ module Whitehall::DocumentFilter
         {}
       end
     end
-    
+
     def filter_by_relevance_to_local_government
       {relevant_to_local_government: relevant_to_local_government}
     end
@@ -62,7 +65,7 @@ module Whitehall::DocumentFilter
       end
     end
 
-    def filter_by_topics(search)
+    def filter_by_topics
       if selected_topics.any?
         {topics: selected_topics.map(&:id)}
       else
@@ -70,7 +73,7 @@ module Whitehall::DocumentFilter
       end
     end
 
-    def filter_by_organisations(search)
+    def filter_by_organisations
       if selected_organisations.any?
         {organisations: selected_organisations.map(&:id)}
       else
@@ -85,7 +88,11 @@ module Whitehall::DocumentFilter
           {public_timestamp: {before: @date - 1.day}}
         when "after"
           {public_timestamp: {after: @date }}
+        else
+          {}
         end
+      else
+        {}
       end
     end
 
@@ -96,7 +103,11 @@ module Whitehall::DocumentFilter
           {sort: { public_timestamp: :desc } }
         when "after"
           {sort: { public_timestamp: :asc } }
+        else
+          {}
         end
+      else
+        {}
       end
     end
 
@@ -106,7 +117,7 @@ module Whitehall::DocumentFilter
         if selected_announcement_type_option.speech_types.present?
           announcement_types += selected_announcement_type_option.speech_types.map(&:search_format_types).flatten.uniq
         elsif selected_announcement_type_option.news_article_types.present?
-          announcement_types += selected_announcement_type_option.news_article_types.map(&:search_format_types).flatten.uniq      
+          announcement_types += selected_announcement_type_option.news_article_types.map(&:search_format_types).flatten.uniq
         end
         {search_format_types: announcement_types.uniq}
       else
@@ -114,7 +125,7 @@ module Whitehall::DocumentFilter
       end
     end
 
-    def filter_by_publication_type(search)
+    def filter_by_publication_type
       if selected_publication_filter_option
         publication_types = selected_publication_filter_option.publication_types.map(&:search_format_types).flatten.uniq
         if selected_publication_filter_option.edition_types.any?
@@ -133,7 +144,7 @@ module Whitehall::DocumentFilter
     end
 
     def documents
-      objects = Edition.find(@results.map({ |h| h["id"] }))
+      objects = Edition.find(@results.map{ |h| h["id"] })
       sorted = @results.map do |doc|
         objects.detect { |obj| obj.id == doc['id'] }
       end
