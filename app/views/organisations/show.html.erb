@@ -266,6 +266,9 @@
             <% addresses.each do |contact| %>
               <div class="organisation_contact complex">
                 <h2><%= contact.title %></h2>
+                <% if contact.comments.present? %>
+                  <p class="comment"><%= contact.comments %></p>
+                <% end %>
                 <div class="contact-inner">
                   <%= render_hcard(contact) do %>
                     <div class="email-url-number">

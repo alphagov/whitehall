@@ -4,7 +4,6 @@ module ContactsHelper
     content_tag(:div, class: "vcard") do
       content_tag(:div, class: "adr") do
         hcard_lines(
-          ["note", contact.comments],
           ["fn", contact.recipient],
           ["street-address", format_with_html_line_breaks(contact.street_address)],
           ["locality", contact.locality],
