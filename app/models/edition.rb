@@ -28,7 +28,7 @@ class Edition < ActiveRecord::Base
 
   scope :alphabetical, order("title ASC")
 
-  scope :with_summary_containing, -> *keywords {
+  scope :with_title_or_summary_containing, -> *keywords {
     pattern = "(#{keywords.map { |k| Regexp.escape(k) }.join('|')})"
     where("#{table_name}.title REGEXP :pattern OR #{table_name}.summary REGEXP :pattern", pattern: pattern)
   }

@@ -104,7 +104,7 @@ module Whitehall::DocumentFilter
 
     test "keywords param filters by content containing each keyword" do
       filtered_scope = stub_document_scope('filtered scope')
-      document_scope.expects(:with_summary_containing).with("alpha", "beta").returns(filtered_scope)
+      document_scope.expects(:with_title_or_summary_containing).with("alpha", "beta").returns(filtered_scope)
 
       filter = Whitehall::DocumentFilter::Mysql.new(document_scope, keywords: "alpha beta")
 
@@ -117,13 +117,13 @@ module Whitehall::DocumentFilter
     end
 
     test "keywords param does not filter if no keywords were given" do
-      document_scope.expects(:with_summary_containing).never
+      document_scope.expects(:with_title_or_summary_containing).never
       Whitehall::DocumentFilter::Mysql.new(document_scope, keywords: '')
     end
 
     test "strips leading and trailing spaces from keywords" do
       filtered_scope = stub_document_scope('filtered scope')
-      document_scope.expects(:with_summary_containing).with("alpha", "beta").returns(filtered_scope)
+      document_scope.expects(:with_title_or_summary_containing).with("alpha", "beta").returns(filtered_scope)
 
       filter = Whitehall::DocumentFilter::Mysql.new(document_scope, keywords: " alpha   beta ")
 
@@ -335,7 +335,7 @@ module Whitehall::DocumentFilter
       document_scope.stubs(:arel_table).returns(Edition.arel_table)
       document_scope.stubs(:in_reverse_chronological_order).returns(document_scope)
       document_scope.stubs(:in_chronological_order).returns(document_scope)
-      document_scope.stubs(:with_summary_containing).returns(document_scope)
+      document_scope.stubs(:with_title_or_summary_containing).returns(document_scope)
       document_scope.stubs(:published_before).returns(document_scope)
       document_scope.stubs(:published_after).returns(document_scope)
       document_scope.stubs(:alphabetical).returns(document_scope)

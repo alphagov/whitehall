@@ -520,12 +520,12 @@ class EditionTest < ActiveSupport::TestCase
   test "should find editions with summary containing keyword" do
     edition_with_first_keyword = create(:edition, summary: "klingons")
     edition_without_first_keyword = create(:edition, summary: "this document is about muppets")
-    assert_equal [edition_with_first_keyword], Edition.with_summary_containing("klingons")
+    assert_equal [edition_with_first_keyword], Edition.with_title_or_summary_containing("klingons")
   end
 
   test "should find editions with summary containing regular expression characters" do
     edition_with_nasty_characters = create(:edition, summary: "summary with [stuff in brackets]")
-    assert_equal [edition_with_nasty_characters], Edition.with_summary_containing("[stuff")
+    assert_equal [edition_with_nasty_characters], Edition.with_title_or_summary_containing("[stuff")
   end
 
   test "should find editions with title containing keyword" do

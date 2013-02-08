@@ -102,7 +102,7 @@ module Whitehall::DocumentFilter
     end
 
     def filter_by_keywords!
-      @documents = @documents.with_summary_containing(*keywords) if keywords.any?
+      @documents = @documents.with_title_or_summary_containing(*keywords) if keywords.any?
     end
 
     def filter_by_date!
