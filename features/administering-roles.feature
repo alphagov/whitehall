@@ -17,3 +17,10 @@ Scenario: Adding a chief scientist
   When I add a new "Chief scientific advisor" role named "Chief Scientific Advisor to the FCO" to the "Foreign Office"
   Then I should be able to appoint "Susan Scientist" to the new role
   And I should see "Susan Scientist" listed on the "Foreign Office" organisation page
+
+Scenario: Adding an ambassador role to a worldwide office
+  Given the worldwide office "British embassy in Spain" exists
+  And a person called "Giles Paxman"
+  When I add a new "Ambassador" role named "Her Majesty's Ambassador to Spain" to the "British embassy in Spain" office
+  Then I should be able to appoint "Giles Paxman" to the new role
+  And I should see "Giles Paxman" listed as "Her Majesty's Ambassador to Spain" on the "British embassy in Spain" office page

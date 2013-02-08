@@ -115,6 +115,10 @@ Given /^that the world location "([^"]*)" exists$/ do |country_name|
   create(:country, name: country_name)
 end
 
+Given /^the worldwide office "([^"]*)" exists$/ do |office_name|
+  create(:worldwide_office, name: office_name)
+end
+
 When /^I begin editing a new worldwide office "([^"]*)"$/ do |office_name|
   visit new_admin_worldwide_office_path
   fill_in "Name", with: office_name
