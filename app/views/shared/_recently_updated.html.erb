@@ -3,13 +3,13 @@
 <section id="recently-updated" class="recently-updated <%= extra_class %>">
   <div class="content">
     <header>
-      <h1 class="label">Latest feed</h1>
+      <h1 class="label"><%= t('latest_feed.title') %></h1>
     </header>
     <% if recently_updated.any? %>
       <%= render partial: "shared/recently_updated_documents",
                 locals: { recently_updated: recently_updated } %>
     <% else %>
-      <p>There are no updates yet.</p>
+      <p><%= t('latest_feed.no_updates') %></p>
     <% end %>
     <%= render partial: 'shared/feeds',
           locals: { atom_url: atom_url,

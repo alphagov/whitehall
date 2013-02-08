@@ -1,13 +1,13 @@
-<% page_title @world_location.name, "UK and the world" %>
+<% page_title t("world_location.country.#{@world_location.name}"), "UK and the world" %>
 <% page_class "world-locations-show" %>
-<% atom_discovery_link_tag world_location_url(@world_location, format: :atom), "Latest activity" %>
+<% atom_discovery_link_tag world_location_url(@world_location, format: :atom), t("feeds.latest_activity") %>
 <%= content_tag_for(:div, @world_location) do %>
 
   <div class="block">
     <div class="inner-block">
       <header class="page-header world-locations <% if @featured_editions.any? %>with_featured<% end %>">
         <hgroup>
-          <h2 class="type"><%= @world_location.display_type %></h2>
+          <h2 class="type"><%= t_world_location @world_location %></h2>
           <h1 class="name">UK and <%= @world_location.name %></h1>
         </hgroup>
       </header>
@@ -37,7 +37,7 @@
   <div class="block our-mission">
     <div class="inner-block">
       <section class="article-section">
-        <h1 class="keyline-header">Our mission</h1>
+        <h1 class="keyline-header"><%= t('world_location.headings.mission') %></h1>
         <p>
           <span class="mission_statement"><%= format_with_html_line_breaks(@world_location.mission_statement) %></span>
         </p>
@@ -49,7 +49,7 @@
     <div class="inner-block">
       <% if @international_priorities.any? %>
         <section id="international-priorities">
-          <h1 class="keyline-header">Priorities</h1>
+          <h1 class="keyline-header"><%= t('world_location.headings.priorities') %></h1>
           <% @international_priorities.each do |priority| %>
             <%= content_tag_for(:article, priority) do %>
               <h2><%= link_to priority.title, public_document_path(priority) %></h2>
@@ -65,11 +65,11 @@
     <div class="block-5">
       <div class="inner-block">
         <section id="policies" class="heading-block">
-          <h1 class="label"><%= link_to 'Related policies', policies_filter_path(@world_location) %></h1>
+          <h1 class="label"><%= link_to t('world_location.headings.related_policies'), policies_filter_path(@world_location) %></h1>
           <div class="content">
             <%= render partial: "policies/list_description", locals: {policies: @policies} %>
             <p class="see-all">
-              <%= link_to 'See all of our policies', policies_filter_path(@world_location) %>
+              <%= link_to t_world_location_see_all_our(:policy), policies_filter_path(@world_location) %>
             </p>
           </div>
         </section>
@@ -80,36 +80,36 @@
     <% document_block_count = 0 %>
     <div class="block documents-grid">
       <div class="inner-block">
-        <h1 class="block-title">Documents</h1>
+        <h1 class="block-title"><%= t('world_location.headings.documents') %></h1>
         <% if @announcements.any? %>
           <section id="announcements" class="document-block documents-<%= document_block_count+=1 %>">
-            <h1>Our announcements</h1>
+            <h1><%= t('world_location.headings.announcements') %></h1>
             <div class="content">
               <%= render partial: "announcements/list_description", locals: {announcements: @announcements} %>
               <p class="see-all">
-                <%= link_to "See all of our announcements", announcements_filter_path(@world_location) %>
+                <%= link_to t_world_location_see_all_our(:announcement), announcements_filter_path(@world_location) %>
               </p>
             </div>
           </section>
         <% end %>
         <% if @non_statistics_publications.any? %>
           <section id="publications" class="document-block documents-<%= document_block_count+=1 %>">
-            <h1>Our publications</h1>
+            <h1><%= t('world_location.headings.publications') %></h1>
             <div class="content">
               <%= render partial: "publications/list_description", locals: {publications: @non_statistics_publications} %>
               <p class="see-all">
-                <%= link_to 'See all of our publications', publications_filter_path(@world_location) %>
+                <%= link_to t_world_location_see_all_our(:publication), publications_filter_path(@world_location) %>
               </p>
             </div>
           </section>
         <% end %>
         <% if @statistics_publications.any? %>
           <section id="statistics-publications" class="document-block documents-<%= document_block_count+=1 %>">
-            <h1>Our statistics</h1>
+            <h1><%= t('world_location.headings.statistics') %></h1>
             <div class="content">
               <%= render partial: "publications/list_description", locals: {publications: @statistics_publications} %>
               <p class="see-all">
-                <%= link_to 'See all of our statistics', publications_filter_path(@world_location, publication_filter_option: 'statistics') %>
+                <%= link_to t_world_location_see_all_our(:statistics), publications_filter_path(@world_location, publication_filter_option: 'statistics') %>
               </p>
             </div>
           </section>
@@ -120,7 +120,7 @@
 
   <div class="block documents-grid">
     <div class="inner-block">
-      <h1 class="block-title">Organisations</h1>
+      <h1 class="block-title"><%= t('world_location.headings.organisations') %></h1>
       <section id="organisations" class="document-block">
         <div class="content">
           <%= render @worldwide_offices %>
