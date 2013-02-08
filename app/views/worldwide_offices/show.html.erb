@@ -46,8 +46,8 @@
         <section class="contact-wrapper contact-us">
           <h1 class="label">Contact us</h1>
           <div id="org-contacts">
-            <%= render @main_contact, is_main: true %>
-            <%= render @other_contacts %>
+            <%= render partial: 'contacts/contact', :locals => {contact: @main_contact, is_main: true} %>
+            <%= render partial: 'contacts/contact', collection: @other_contacts %>
           </div>
         </section>
       </div>
