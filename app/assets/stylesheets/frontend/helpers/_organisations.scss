@@ -352,6 +352,34 @@
   }
 }
 
+// UK Hydrographic Office
+.organisation-logo-ukho {
+  @extend .organisation-logo-identity;
+
+  padding: 5px 0 5px 30px;
+  background-image: image-url("crests/ukho_13px.png");
+  background-position: 5px center;
+  background-size: auto 25px;
+}
+.organisation-logo-stacked-ukho {
+  @extend .organisation-logo-identity;
+
+  padding: 25px 0 0 6px;
+  background-image: image-url("crests/ukho_13px.png");
+  background-position: 5px top;
+  background-size: auto 25px;
+}
+.organisation-logo-stacked-ukho span {
+  display: block;
+  position: relative;
+  top: 3px;
+}
+@media all and (-webkit-min-device-pixel-ratio: 2) {
+  .organisation-logo-ukho,
+  .organisation-logo-stacked-ukho {
+    background-image: image-url("crests/ukho_13px_x2.png");
+  }
+}
 
 
 // Non-cornforming Medium
@@ -600,7 +628,7 @@
   }
 }
 
-// Parliment Portcullis
+// Parliment Portcullis Medium
 .organisation-logo-portcullis-medium {
   @extend .organisation-logo-identity-medium;
   @include media(tablet){
@@ -633,9 +661,41 @@
   }
 }
 
+// UK Hydrographic Office Medium
+.organisation-logo-ukho-medium {
+  @extend .organisation-logo-identity-medium;
+  @include media(tablet){
+    padding: 3px 0 2px 38px;
+    background-image: image-url("crests/ukho_18px.png");
+    background-position: 6px center;
+    background-size: auto 25px;
+  }
+}
+.organisation-logo-stacked-ukho-medium {
+  @extend .organisation-logo-identity-medium;
+  @include media(tablet){
+    padding: 25px 0 0 7px;
+    background-image: image-url("crests/ukho_18px.png");
+    background-position: 6px top;
+    background-size: auto 25px;
+  }
+}
+@include media(tablet){
+  .organisation-logo-stacked-ukho-medium span {
+    display: block;
+    position: relative;
+    top: 3px;
+  }
+  @media all and (-webkit-min-device-pixel-ratio: 2) {
+    .organisation-logo-ukho-medium,
+    .organisation-logo-stacked-ukho-medium {
+      background-image: image-url("crests/ukho_18px_x2.png");
+    }
+  }
+}
 
 
-// Non-conforming Largr
+// Non-conforming Large
 .organisation-logo-no-identity-large,
 .organisation-logo-stacked-no-identity-large {
   @include media(tablet){
@@ -882,7 +942,7 @@
   }
 }
 
-// Parliment Portcullis
+// Parliment Portcullis Large
 .organisation-logo-portcullis-large {
   @extend .organisation-logo-identity-large;
   @include media(tablet){
@@ -915,5 +975,37 @@
   }
 }
 
+// UK Hydrographic Office Large
+.organisation-logo-ukho-large {
+  @extend .organisation-logo-identity-large;
+  @include media(tablet){
+    padding: 10px 0 10px 53px;
+    background-image: image-url("crests/ukho_27px.png");
+    background-position: 9px center;
+    background-size: auto 50px;
+  }
+}
+.organisation-logo-stacked-ukho-large {
+  @extend .organisation-logo-identity-large;
+  @include media(tablet){
+    padding: 50px 0 0 10px;
+    background-image: image-url("crests/ukho_27px.png");
+    background-position: 9px top;
+    background-size: auto 50px;
+  }
+}
+@include media(tablet){
+  .organisation-logo-stacked-ukho-large span {
+    display: block;
+    position: relative;
+    top: 5px;
+  }
+  @media all and (-webkit-min-device-pixel-ratio: 2) {
+    .organisation-logo-ukho-large,
+    .organisation-logo-stacked-ukho-large {
+      background-image: image-url("crests/ukho_27px_x2.png");
+    }
+  }
+}
 
 @include department-colours('.organisation-logo', border-color);
