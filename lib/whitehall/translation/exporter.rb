@@ -25,10 +25,8 @@ class Whitehall::Translation::Exporter
   private
 
   def translation_file_to_keyed_data(path)
-    p path
     if File.exist?(path)
       hash = YAML.load_file(path).values[0]
-      p hash
       hash_to_keyed_data("", hash)
     else
       {}
