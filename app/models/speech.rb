@@ -16,7 +16,7 @@ class Speech < Announcement
   end
 
   def search_format_types
-    super + ['speech'] + speech_type.search_format_types
+    super + [Speech.search_format_type] + speech_type.search_format_types
   end
 
   def speech_type

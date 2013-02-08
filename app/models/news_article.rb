@@ -27,7 +27,7 @@ class NewsArticle < Announcement
   end
 
   def search_format_types
-    super + ['news-article'] + self.news_article_type.search_format_types
+    super + [NewsArticle.search_format_type] + self.news_article_type.search_format_types
   end
 
   def can_apply_to_local_government?

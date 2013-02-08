@@ -72,7 +72,10 @@ class DetailedGuide < Edition
   end
 
   def search_format_types
-    super + ['detailed-guidance']
+    super + [DetailedGuide.search_format_type]
+  end
+  def self.search_format_type
+    'detailed-guidance'
   end
 
   private

@@ -8,6 +8,6 @@ class InternationalPriority < Edition
   end
 
   def search_format_types
-    super + ['international-priority']
+    super + [InternationalPriority.search_format_type]
   end
 end

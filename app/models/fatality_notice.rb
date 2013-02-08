@@ -29,6 +29,6 @@ class FatalityNotice < Announcement
   end
 
   def search_format_types
-    super + ['fatality-notice']
+    super + [FatalityNotice.search_format_type]
   end
 end

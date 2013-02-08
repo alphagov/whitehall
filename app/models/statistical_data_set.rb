@@ -15,6 +15,6 @@ class StatisticalDataSet < Publicationesque
   end
 
   def search_format_types
-    super + ['publicationesque-statistics', 'statistical-data-set']
+    super + ['publicationesque-statistics', StatisticalDataSet.search_format_type]
   end
 end

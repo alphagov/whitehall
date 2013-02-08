@@ -9,7 +9,7 @@ class Announcement < Edition
   end
 
   def search_format_types
-    super + ['announcement']
+    super + [Announcement.search_format_type]
   end
 end
 

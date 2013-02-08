@@ -9,6 +9,6 @@ class CaseStudy < Edition
   end
 
   def search_format_types
-    super + ['case-study']
+    super + [CaseStudy.search_format_type]
   end
 end

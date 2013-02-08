@@ -127,7 +127,10 @@ class Edition < ActiveRecord::Base
   )
 
   def search_format_types
-    ['edition']
+    [Edition.search_format_type]
+  end
+  def self.search_format_type
+    self.name.underscore.gsub('_', '-')
   end
 
   [:publish, :unpublish, :archive, :delete].each do |event|

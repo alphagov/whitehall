@@ -117,14 +117,14 @@ class Consultation < Publicationesque
   def search_format_types
     consultation_type =
       if response_published?
-      "consultation-outcome"
-    elsif closed?
-      "consultation-closed"
-    elsif open?
-      "consultation-open"
-    end
+        'consultation-outcome'
+      elsif closed?
+        'consultation-closed'
+      elsif open?
+        'consultation-open'
+      end
 
-    types = super + ['publicationesque-consultation', 'consultation']
+    types = super + ['publicationesque-consultation', Consultation.search_format_type]
     types << consultation_type if consultation_type
     types
   end
