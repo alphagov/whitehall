@@ -9,4 +9,8 @@ class StatisticalDataSet < Publicationesque
   def self.access_limited_by_default?
     true
   end
+
+  def display_type_key
+    "statistical_data_set"
+  end
 end
