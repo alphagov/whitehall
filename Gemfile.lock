@@ -1,4 +1,16 @@
 GIT
+  remote: https://github.com/alphagov/gds-api-adapters.git
+  revision: 2e48f148cc1959e586989c30e445be4fdf390956
+  branch: advanced-search-for-whitehall
+  specs:
+    gds-api-adapters (4.4.0)
+      link_header
+      lrucache (~> 0.1.1)
+      null_logger
+      plek
+      rest-client (~> 1.6.3)
+
+GIT
   remote: https://github.com/alphagov/rack-test.git
   revision: c98433f5f6a45842520913c31968cde5cd782d55
   specs:
@@ -142,12 +154,6 @@ GEM
       ruby-hmac
     formatador (0.2.1)
     friendly_id (4.0.0.beta14)
-    gds-api-adapters (4.3.0)
-      link_header
-      lrucache (~> 0.1.1)
-      null_logger
-      plek
-      rest-client (~> 1.6.3)
     gds-sso (3.0.0)
       omniauth-gds (= 0.0.3)
       rack-accept (~> 0.4.4)
@@ -411,7 +417,7 @@ DEPENDENCIES
   faker
   fog
   friendly_id (= 4.0.0.beta14)
-  gds-api-adapters (= 4.3.0)
+  gds-api-adapters!
   gds-sso (= 3.0.0)
   globalize3
   govspeak (~> 1.2.3)

@@ -134,7 +134,7 @@ module Whitehall
     end
 
     def search_backend
-      Whitehall::DocumentFilter::ElasticSearch
+      Whitehall::DocumentFilter::Rummager
     end
 
     def government_search_index

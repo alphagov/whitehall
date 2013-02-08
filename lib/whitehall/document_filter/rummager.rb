@@ -8,7 +8,7 @@ module Whitehall::DocumentFilter
         standard_filter_args
           .merge(filter_by_announcement_type)
 
-      @results = Whitehall.government_search_client.filter(filter_args)
+      @results = Whitehall.government_search_client.advanced_search(filter_args)
     end
 
     def publications_search
@@ -16,7 +16,7 @@ module Whitehall::DocumentFilter
         standard_filter_args
           .merge(filter_by_publication_type)
 
-      @results = Whitehall.government_search_client.filter(filter_args)
+      @results = Whitehall.government_search_client.advanced_search(filter_args)
     end
 
     def policies_search
@@ -24,13 +24,13 @@ module Whitehall::DocumentFilter
         standard_filter_args
           .merge(search_format_types: [Policy.search_format_type])
 
-      @results = Whitehall.government_search_client.filter(filter_args)
+      @results = Whitehall.government_search_client.advanced_search(filter_args)
     end
 
     def default_filter_args
       @default = {
-        page: @page,
-        per_page: @per_page
+        page: @page.to_s,
+        per_page: @per_page.to_s
       }
     end
 
@@ -47,19 +47,19 @@ module Whitehall::DocumentFilter
 
     def filter_by_keywords
       if @keywords.present?
-        {keywords: @keywords}
+        {keywords: @keywords.to_s}
       else
         {}
       end
     end
 
     def filter_by_relevance_to_local_government
-      {relevant_to_local_government: relevant_to_local_government}
+      {relevant_to_local_government: relevant_to_local_government.to_s}
     end
 
     def filter_by_people
       if @people_ids.present? && @people_ids != ["all"]
-        {people: @people_ids}
+        {people: @people_ids.map(&:to_s)}
       else
         {}
       end
@@ -67,7 +67,7 @@ module Whitehall::DocumentFilter
 
     def filter_by_topics
       if selected_topics.any?
-        {topics: selected_topics.map(&:id)}
+        {topics: selected_topics.map(&:id).map(&:to_s)}
       else
         {}
       end
@@ -75,7 +75,7 @@ module Whitehall::DocumentFilter
 
     def filter_by_organisations
       if selected_organisations.any?
-        {organisations: selected_organisations.map(&:id)}
+        {organisations: selected_organisations.map(&:id).map(&:to_s)}
       else
         {}
       end
@@ -85,9 +85,9 @@ module Whitehall::DocumentFilter
       if @date.present? && @direction.present?
         case @direction
         when "before"
-          {public_timestamp: {before: @date - 1.day}}
+          {public_timestamp: {before: (@date - 1.day).to_s(:short)}}
         when "after"
-          {public_timestamp: {after: @date }}
+          {public_timestamp: {after: @date.to_s(:short) }}
         else
           {}
         end
@@ -100,9 +100,9 @@ module Whitehall::DocumentFilter
       if @direction.present? && @keywords.blank?
         case @direction
         when "before"
-          {sort: { public_timestamp: :desc } }
+          {order: { public_timestamp: "desc" } }
         when "after"
-          {sort: { public_timestamp: :asc } }
+          {order: { public_timestamp: "asc" } }
         else
           {}
         end
