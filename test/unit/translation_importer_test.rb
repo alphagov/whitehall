@@ -86,6 +86,7 @@ class TranslationImporterTest < ActiveSupport::TestCase
     }}
     assert_equal expected, yaml_translation_data
   end
+
   private
 
   def csv_path(locale)
