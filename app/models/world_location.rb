@@ -38,6 +38,10 @@ class WorldLocation < ActiveRecord::Base
     world_location_type.name
   end
 
+  def display_type_key
+    world_location_type.key
+  end
+
   def self.all_by_type
     all.group_by(&:world_location_type).sort_by { |type, location| type.sort_order }
   end

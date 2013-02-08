@@ -1,3 +1,4 @@
+#encoding: utf-8
 require "test_helper"
 
 class WorldLocationsControllerTest < ActionController::TestCase
@@ -181,4 +182,17 @@ class WorldLocationsControllerTest < ActionController::TestCase
     end
   end
 
+  test "should display translated page labels when requested in a different locale" do
+    world_location = create(:country)
+    create(:published_international_priority, world_locations: [world_location])
+    create(:published_publication, world_locations: [world_location])
+    create(:published_policy, world_locations: [world_location])
+
+    get :show, id: world_location, locale: 'fr'
+
+    assert_select ".type", "Pays"
+    assert_select "#international-priorities", /Priorités/
+    assert_select "#policies", /Les politiques connexes/
+    assert_select "#publications a", /Voir toutes nos publications/
+  end
 end

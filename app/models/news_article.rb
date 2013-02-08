@@ -19,6 +19,10 @@ class NewsArticle < Announcement
     news_article_type.singular_name
   end
 
+  def display_type_key
+    news_article_type.key
+  end
+
   def search_index
     super.merge({"news_article_type" => news_article_type_id})
   end

@@ -94,6 +94,18 @@ class Consultation < Publicationesque
     end
   end
 
+  def display_type_key
+    if response_published?
+      "consultation_outcome"
+    elsif closed?
+      "closed_consultation"
+    elsif open?
+      "open_consultation"
+    else
+      "consultation"
+    end
+  end
+
   def can_apply_to_local_government?
     true
   end

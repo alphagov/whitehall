@@ -1,13 +1,13 @@
 <ul class="announcements documents-list">
   <% announcements.each do |announcement| %>
     <%= content_tag_for(:li, announcement, class: 'document') do %>
-      <h2><%= link_to announcement.title, public_document_path(announcement), title: "View #{announcement.title}", class: "title" %></h2>
+      <h2><%= link_to announcement.title, public_document_path(announcement), title: t("document.view", title: announcement.title), class: "title" %></h2>
       <ul class="metadata">
         <li class="attribute first-published-at">
           <%= announcement.display_date_microformat %>
         </li>
         <li class="announcement-type attribute">
-          <%= announcement.display_type %>
+          <%= t_display_type(announcement) %>
         </li>
       </ul>
     <% end %>
