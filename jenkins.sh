@@ -4,6 +4,11 @@ export GOVUK_APP_DOMAIN=test.gov.uk
 export GOVUK_ASSET_ROOT=http://static.test.gov.uk
 env
 
+# Generate directories for upload tests
+mkdir -p ./incoming-uploads
+mkdir -p ./clean-uploads
+mkdir -p ./attachment-cache
+
 time bundle install --path "${HOME}/bundles/${JOB_NAME}" --deployment
 
 time bundle exec rake db:create db:migrate db:test:prepare --trace
