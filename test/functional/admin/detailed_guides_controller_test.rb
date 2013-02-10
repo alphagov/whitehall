@@ -38,7 +38,7 @@ class Admin::DetailedGuidesControllerTest < ActionController::TestCase
   should_allow_overriding_of_first_published_at_for :detailed_guide
   should_allow_access_limiting_of :detailed_guide
 
-  test "new allows selection of mainstream categories" do
+  view_test "new allows selection of mainstream categories" do
     funk = create(:mainstream_category,
       title: "Funk",
       slug: "funk",
@@ -101,7 +101,7 @@ class Admin::DetailedGuidesControllerTest < ActionController::TestCase
     assert_equal [], existing_edition.reload.other_mainstream_categories
   end
 
-  test "show displays association with mainstream categories" do
+  view_test "show displays association with mainstream categories" do
     funk = create(:mainstream_category, title: "Funk")
     soul = create(:mainstream_category, title: "Soul")
 

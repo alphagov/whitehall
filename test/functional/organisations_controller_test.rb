@@ -7,7 +7,7 @@ class OrganisationsControllerTest < ActionController::TestCase
 
   should_be_a_public_facing_controller
 
-  test "should display a list of organisations" do
+  view_test "should display a list of organisations" do
     ministerial_org_type = create(:ministerial_organisation_type)
 
     organisation_1 = create(:organisation, organisation_type_id: ministerial_org_type.id)
@@ -17,7 +17,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_select_object(organisation_1)
   end
 
-  test "should display a list of non-ministerial departments" do
+  view_test "should display a list of non-ministerial departments" do
     non_ministerial_org_type = create(:non_ministerial_organisation_type)
     organisation = create(:organisation, organisation_type_id: non_ministerial_org_type.id)
 
@@ -29,7 +29,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     end
   end
 
-  test "should display a list of public corporation organisations" do
+  view_test "should display a list of public corporation organisations" do
     public_corporation_org_type = create(:public_corporation_organisation_type)
     organisation = create(:organisation, organisation_type_id: public_corporation_org_type.id)
 
@@ -41,7 +41,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     end
   end
 
-  test "index shouldn't include sub-organisations" do
+  view_test "index shouldn't include sub-organisations" do
     sub_organisation = create(:sub_organisation)
 
     get :index
@@ -61,7 +61,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert 18 > queries_used, "Expected less than 18 queries, #{queries_used} were counted"
   end
 
-  test "shows organisation name and description" do
+  view_test "shows organisation name and description" do
     organisation = create(:organisation,
       logo_formatted_name: "unformatted name",
       description: "organisation-description"
@@ -104,7 +104,7 @@ class OrganisationsControllerTest < ActionController::TestCase
   end
   sets_cache_control_max_age_to_time_of_next_scheduled(:news_article)
 
-  test "#show links to the chief of the defence staff" do
+  view_test "#show links to the chief of the defence staff" do
     chief_of_the_defence_staff = create(:military_role, chief_of_the_defence_staff: true)
     person = create(:person)
     create(:role_appointment, role: chief_of_the_defence_staff, person: person)
@@ -117,7 +117,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     end
   end
 
-  test "#show doesn't present expanded navigation for non-department organisations" do
+  view_test "#show doesn't present expanded navigation for non-department organisations" do
     organisation = create(:organisation, organisation_type: create(:organisation_type, name: "Other"))
     get :show, id: organisation
     assert_select "nav" do
@@ -127,19 +127,19 @@ class OrganisationsControllerTest < ActionController::TestCase
     end
   end
 
-  test "#show uses the correct logo type branding" do
+  view_test "#show uses the correct logo type branding" do
     organisation = create(:organisation)
     get :show, id: organisation
     assert_select ".organisation-logo-stacked-single-identity"
   end
 
-  test "#show indicates when an organisation is not part of the single identity branding" do
+  view_test "#show indicates when an organisation is not part of the single identity branding" do
     organisation = create(:organisation, organisation_logo_type_id: OrganisationLogoType::NoIdentity.id)
     get :show, id: organisation
     assert_select ".organisation-logo-stacked-no-identity"
   end
 
-  test "#show includes the parent organisation branding on a sub-organisation" do
+  view_test "#show includes the parent organisation branding on a sub-organisation" do
     organisation = create(:organisation, logo_formatted_name: "Ministry of Jam")
     sub_organisation = create(:sub_organisation, name: "Marmalade Inspection Board", parent_organisations: [organisation])
 
@@ -161,7 +161,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_equal [policy, news_article], assigns(:featured_editions).collect(&:model)
   end
 
-  test "shows a maximum of 6 featured editions" do
+  view_test "shows a maximum of 6 featured editions" do
     organisation = create(:organisation)
     editions = []
     7.times do |i|
@@ -182,7 +182,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     refute_select_object editions.last.edition
   end
 
-  test "should not display an empty featured editions section" do
+  view_test "should not display an empty featured editions section" do
     organisation = create(:organisation)
     get :show, id: organisation
     refute_select "#featured-documents article"
@@ -220,7 +220,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_template 'external'
   end
 
-  test "shows a link and thumbnail link of the organisation site when joining" do
+  view_test "shows a link and thumbnail link of the organisation site when joining" do
     organisation = create(:organisation, govuk_status: 'joining', url: 'http://example.com')
 
     get :show, id: organisation
@@ -233,7 +233,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     end
   end
 
-  test "shows a link and thumbnail link of the organisation site when exempt" do
+  view_test "shows a link and thumbnail link of the organisation site when exempt" do
     organisation = create(:organisation, govuk_status: 'exempt', url: 'http://example.com')
 
     get :show, id: organisation
@@ -246,7 +246,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     end
   end
 
-  test "doesn't show a thumbnail if the organisation has no url" do
+  view_test "doesn't show a thumbnail if the organisation has no url" do
     organisation = create(:organisation, govuk_status: 'exempt', url: '')
 
     get :show, id: organisation
@@ -255,13 +255,13 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_select ".thumbnail", false
   end
 
-  test "should not display an empty published policies section" do
+  view_test "should not display an empty published policies section" do
     organisation = create(:organisation)
     get :show, id: organisation
     refute_select "#policies"
   end
 
-  test "should not display an empty published document sections" do
+  view_test "should not display an empty published document sections" do
     organisation = create(:organisation)
     get :show, id: organisation
     refute_select "#publications"
@@ -270,19 +270,19 @@ class OrganisationsControllerTest < ActionController::TestCase
     refute_select "#statistics"
   end
 
-  test "should not display the child organisations section" do
+  view_test "should not display the child organisations section" do
     organisation = create(:organisation)
     get :show, id: organisation
     refute_select "#child_organisations"
   end
 
-  test "should not display the parent organisations section" do
+  view_test "should not display the parent organisations section" do
     organisation = create(:organisation)
     get :show, id: organisation
     refute_select "#parent_organisations"
   end
 
-  test "should display the organisation's topics with content" do
+  view_test "should display the organisation's topics with content" do
     topics = [0, 1, 2].map { |n| create(:topic, published_edition_count: n) }
     organisation = create(:organisation, topics: topics)
     get :show, id: organisation
@@ -293,7 +293,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     end
   end
 
-  test "should display link to policies filter if there are many policies" do
+  view_test "should display link to policies filter if there are many policies" do
     topic_1 = create(:topic)
     topic_2 = create(:topic)
     organisation = create(:organisation, topics: [topic_1, topic_2])
@@ -309,13 +309,13 @@ class OrganisationsControllerTest < ActionController::TestCase
     end
   end
 
-  test "should not display an empty topics section" do
+  view_test "should not display an empty topics section" do
     organisation = create(:organisation)
     get :show, id: organisation
     assert_select "#topics", count: 0
   end
 
-  test "should display the organisation's policies with content" do
+  view_test "should display the organisation's policies with content" do
     organisation = create(:organisation)
     policy = create(:published_policy, organisations: [organisation], summary: "policy-summary")
     get :show, id: organisation
@@ -349,7 +349,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_equal [announcement_3, announcement_1], assigns[:announcements]
   end
 
-  test "should display 2 announcements with details and a link to announcements filter if there are many announcements" do
+  view_test "should display 2 announcements with details and a link to announcements filter if there are many announcements" do
     organisation = create(:organisation)
     role = create(:ministerial_role, organisations: [organisation])
     role_appointment = create(:ministerial_role_appointment, role: role)
@@ -384,7 +384,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_equal [consultation_1, consultation_2], assigns[:consultations]
   end
 
-  test "should display 2 consultations with details and a link to publications filter if there are many consultations" do
+  view_test "should display 2 consultations with details and a link to publications filter if there are many consultations" do
     organisation = create(:organisation)
     consultation_3 = create(:published_consultation, organisations: [organisation], opening_on: 5.days.ago.to_date, closing_on: 1.days.ago.to_date)
     consultation_2 = create(:published_consultation, organisations: [organisation], opening_on: 4.days.ago.to_date, closing_on: 1.days.ago.to_date)
@@ -423,7 +423,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_equal [publication_1, publication_2], assigns[:non_statistics_publications]
   end
 
-  test "should display 2 non-statistics publications with details and a link to publications filter if there are many publications" do
+  view_test "should display 2 non-statistics publications with details and a link to publications filter if there are many publications" do
     organisation = create(:organisation)
     publication_2 = create(:published_publication, organisations: [organisation], publication_date: 2.days.ago.to_date, publication_type: PublicationType::PolicyPaper)
     publication_3 = create(:published_publication, organisations: [organisation], publication_date: 3.days.ago.to_date, publication_type: PublicationType::PolicyPaper)
@@ -451,7 +451,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_equal [publication_1, publication_2], assigns[:statistics_publications]
   end
 
-  test "should display 2 statistics publications with details and a link to publications filter if there are many publications" do
+  view_test "should display 2 statistics publications with details and a link to publications filter if there are many publications" do
     organisation = create(:organisation)
     publication_2 = create(:published_publication, organisations: [organisation], publication_date: 2.days.ago.to_date, publication_type: PublicationType::Statistics)
     publication_3 = create(:published_publication, organisations: [organisation], publication_date: 3.days.ago.to_date, publication_type: PublicationType::Statistics)
@@ -470,9 +470,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     end
   end
 
-
-
-  test "presents the contact details of the organisation using hcard" do
+  view_test "presents the contact details of the organisation using hcard" do
     ministerial_department = create(:organisation_type, name: "Ministerial Department")
     organisation = create(:organisation, organisation_type: ministerial_department,
       name: "Ministry of Pomp"
@@ -509,7 +507,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     end
   end
 
-  test "should display sub-organisations" do
+  view_test "should display sub-organisations" do
     organisation = create(:organisation)
     sub_organisation = create(:sub_organisation, parent_organisations: [organisation])
 
@@ -520,7 +518,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     end
   end
 
-  test 'show has atom feed autodiscovery link' do
+  view_test 'show has atom feed autodiscovery link' do
     organisation = create(:organisation)
 
     get :show, id: organisation
@@ -528,7 +526,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_select_autodiscovery_link organisation_url(organisation, format: "atom")
   end
 
-  test 'show includes a link to the atom feed' do
+  view_test 'show includes a link to the atom feed' do
     organisation = create(:organisation)
 
     get :show, id: organisation
@@ -536,7 +534,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_select "a.feed[href=?]", organisation_url(organisation, format: :atom)
   end
 
-  test "show generates an atom feed with entries for latest activity" do
+  view_test "show generates an atom feed with entries for latest activity" do
     organisation = create(:organisation, name: "org-name")
     pub = create(:published_publication, organisations: [organisation], publication_date: 4.weeks.ago.to_date)
     pol = create(:published_policy, organisations: [organisation], first_published_at: 2.weeks.ago)
@@ -548,13 +546,13 @@ class OrganisationsControllerTest < ActionController::TestCase
     end
   end
 
-  test "should show description on organisation about subpage" do
+  view_test "should show description on organisation about subpage" do
     organisation = create(:organisation, description: "organisation-description")
     get :about, id: organisation
     assert_select ".description", text: "organisation-description"
   end
 
-  test "should render the about-us content using govspeak markup" do
+  view_test "should render the about-us content using govspeak markup" do
     organisation = create(:organisation,
       name: "organisation-name",
       about_us: "body-in-govspeak"
@@ -567,7 +565,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_select ".body", text: "body-in-html"
   end
 
-  test "should display published corporate publications on about-us page" do
+  view_test "should display published corporate publications on about-us page" do
     published_corporate_publication = create(:published_corporate_publication)
     draft_corporate_publication = create(:draft_corporate_publication)
 
@@ -602,14 +600,14 @@ class OrganisationsControllerTest < ActionController::TestCase
     ], assigns(:corporate_publications)
   end
 
-  test "should display link to corporate information pages on about-us page" do
+  view_test "should display link to corporate information pages on about-us page" do
     organisation = create(:organisation)
     corporate_information_page = create(:corporate_information_page, organisation: organisation)
     get :about, id: organisation
     assert_select "a[href='#{organisation_corporate_information_page_path(organisation, corporate_information_page)}']"
   end
 
-  test "should not display corporate information section on about-us page if there are no corporate publications" do
+  view_test "should not display corporate information section on about-us page if there are no corporate publications" do
     organisation = create(:organisation)
     get :about, id: organisation
     refute_select "#corporate-information"
@@ -663,7 +661,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_equal [senior_role, junior_role], assigns(:military_roles).collect(&:model)
   end
 
-  test "shows links to ministers people pages" do
+  view_test "shows links to ministers people pages" do
     minister = create(:ministerial_role)
     person = create(:person)
     create(:role_appointment, role: minister, person: person)
@@ -676,7 +674,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     end
   end
 
-  test "shows names and roles of those ministers associated with organisation" do
+  view_test "shows names and roles of those ministers associated with organisation" do
     person_1 = create(:person, forename: "Fred")
     person_2 = create(:person, forename: "Bob")
     ministerial_role_1 = create(:ministerial_role, name: "Secretary of State")
@@ -699,7 +697,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     refute_select_object(minister_in_another_organisation)
   end
 
-  test "should display the minister's picture if available" do
+  view_test "should display the minister's picture if available" do
     ministerial_role = create(:ministerial_role)
     person = create(:person, image: File.open(File.join(Rails.root, 'test', 'fixtures', 'minister-of-funk.960x640.jpg')))
     create(:role_appointment, person: person, role: ministerial_role)
@@ -708,7 +706,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_select "img[src*=minister-of-funk.960x640.jpg]"
   end
 
-  test "should display a generic image if the minister doesn't have their own picture" do
+  view_test "should display a generic image if the minister doesn't have their own picture" do
     ministerial_role = create(:ministerial_role)
     person = create(:person)
     create(:role_appointment, person: person, role: ministerial_role)
@@ -717,7 +715,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_select "img[src*=blank-person.png]"
   end
 
-  test "shows management team members with links to person pages" do
+  view_test "shows management team members with links to person pages" do
     permanent_secretary = create(:board_member_role, permanent_secretary: true)
     senior_person = create(:person)
     create(:role_appointment, role: permanent_secretary, person: senior_person)
@@ -738,7 +736,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     end
   end
 
-  test "should not display an empty management team section" do
+  view_test "should not display an empty management team section" do
     organisation = create(:organisation, management_roles: [])
 
     get :show, id: organisation
@@ -746,7 +744,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     refute_select management_selector
   end
 
-  test "shows special representatives with links to person pages" do
+  view_test "shows special representatives with links to person pages" do
     representative = create(:person)
     special_representative_role = create(:special_representative_role)
     create(:role_appointment, role: special_representative_role, person: representative)
@@ -762,7 +760,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     end
   end
 
-  test "should not display an empty special representatives section" do
+  view_test "should not display an empty special representatives section" do
     organisation = create(:organisation, special_representative_roles: [])
 
     get :show, id: organisation
@@ -770,7 +768,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     refute_select special_representative_selector
   end
 
-  test "should place organisation specific css class on every organisation sub page" do
+  view_test "should place organisation specific css class on every organisation sub page" do
     ministerial_department = create(:organisation_type, name: "Ministerial Department")
     organisation = create(:organisation, organisation_type: ministerial_department)
 
@@ -780,7 +778,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     end
   end
 
-  test "shows 3 most recently published editions associated with organisation" do
+  view_test "shows 3 most recently published editions associated with organisation" do
     # different edition types sort on different attributes
     editions = [create(:published_policy, first_published_at: 1.days.ago),
                create(:published_publication, publication_date: 2.days.ago),
@@ -796,14 +794,14 @@ class OrganisationsControllerTest < ActionController::TestCase
     refute_select_prefix_object editions[3], :recent
   end
 
-  test "should not show most recently published editions when there are none" do
+  view_test "should not show most recently published editions when there are none" do
     organisation = create(:organisation, editions: [])
     get :show, id: organisation
 
     refute_select "h1", text: "Recently updated"
   end
 
-  test "should show list of links to social media accounts" do
+  view_test "should show list of links to social media accounts" do
     twitter = create(:social_media_service, name: "Twitter")
     flickr = create(:social_media_service, name: "Flickr")
     twitter_account = create(:social_media_account, social_media_service: twitter, url: "https://twitter.com/#!/bisgovuk")
@@ -816,7 +814,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_select_object flickr_account
   end
 
-  test "should not show list of links to social media accounts if there are none" do
+  view_test "should not show list of links to social media accounts if there are none" do
     organisation = create(:organisation, social_media_accounts: [])
 
     get :show, id: organisation
@@ -824,7 +822,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     refute_select ".social-media-accounts"
   end
 
-  test "should show mainstream category links if there are some" do
+  view_test "should show mainstream category links if there are some" do
     organisation = create(:organisation)
     link = create(:organisation_mainstream_link, organisation: organisation)
 
@@ -835,7 +833,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     end
   end
 
-  test "should not show mainstream categories on suborg pages" do
+  view_test "should not show mainstream categories on suborg pages" do
     organisation = create(:organisation)
     link = create(:organisation_mainstream_link, organisation: organisation)
     sub_organisation = create(:sub_organisation, parent_organisations: [organisation])
@@ -845,7 +843,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     refute_select "a[href='#{link.url}']", text: link.title
   end
 
-  test 'show hass a link to govdelivery if one exists' do
+  view_test 'show hass a link to govdelivery if one exists' do
     organisation = create(:organisation, govdelivery_url: 'http://my-govdelivery-url.com')
 
     get :show, id: organisation

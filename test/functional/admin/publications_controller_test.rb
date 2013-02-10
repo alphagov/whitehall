@@ -43,7 +43,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
   should_allow_access_limiting_of :publication
   should_allow_relevance_to_local_government_of :publication
 
-  test "new displays publication fields" do
+  view_test "new displays publication fields" do
     get :new
 
     assert_select "form#edition_new" do
@@ -52,7 +52,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     end
   end
 
-  test "new doesn't allow consultation to be chosen as the type" do
+  view_test "new doesn't allow consultation to be chosen as the type" do
     get :new
 
     assert_select "select[name='edition[publication_type_id]']" do
@@ -60,7 +60,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     end
   end
 
-  test "new should allow users to add publication metadata to an attachment" do
+  view_test "new should allow users to add publication metadata to an attachment" do
     get :new
 
     assert_select "form#edition_new" do
@@ -99,7 +99,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     assert_equal 1.23, created_publication.attachments.first.price
   end
 
-  test "edit displays publication fields" do
+  view_test "edit displays publication fields" do
     publication = create(:publication)
 
     get :edit, id: publication
@@ -110,7 +110,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     end
   end
 
-  test "edit should allow users to assign publication metadata to an attachment" do
+  view_test "edit should allow users to assign publication metadata to an attachment" do
     publication = create(:publication, :with_attachment)
     attachment = publication.attachments.first
 
@@ -133,7 +133,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     assert_equal Date.parse("1815-06-18"), saved_publication.publication_date
   end
 
-  test "should display publication attributes" do
+  view_test "should display publication attributes" do
     publication = create(:publication,
       publication_date: Date.parse("1916-05-31"),
       publication_type_id: PublicationType::ResearchAndAnalysis.id

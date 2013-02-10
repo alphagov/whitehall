@@ -24,7 +24,7 @@ class Admin::EditionOrganisationsControllerTest < ActionController::TestCase
     assert assigns(:edition_organisation).featured?
   end
 
-  test "edit displays edition organisation fields" do
+  view_test "edit displays edition organisation fields" do
     edition_organisation = create(:edition_organisation)
 
     get :edit, id: edition_organisation
@@ -53,7 +53,7 @@ class Admin::EditionOrganisationsControllerTest < ActionController::TestCase
     assert_match /minister-of-funk/, edition_organisation.image.file.url
   end
 
-  test "should display the form with errors if the edition organisation couldn't be saved" do
+  view_test "should display the form with errors if the edition organisation couldn't be saved" do
     edition_organisation = create(:edition_organisation)
 
     post :update, id: edition_organisation, edition_organisation: {
@@ -68,7 +68,7 @@ class Admin::EditionOrganisationsControllerTest < ActionController::TestCase
     assert_select '.form-errors'
   end
 
-  test "should display the form with errors if the image couldn't be saved" do
+  view_test "should display the form with errors if the image couldn't be saved" do
     edition_organisation = create(:edition_organisation)
 
     post :update, id: edition_organisation, edition_organisation: {
@@ -81,7 +81,7 @@ class Admin::EditionOrganisationsControllerTest < ActionController::TestCase
     assert_select '.form-errors'
   end
 
-  test "should show the cached image file that was uploaded if the update fails" do
+  view_test "should show the cached image file that was uploaded if the update fails" do
     edition_organisation = create(:edition_organisation)
 
     post :update, id: edition_organisation, edition_organisation: {

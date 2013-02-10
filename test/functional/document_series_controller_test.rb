@@ -11,7 +11,7 @@ class DocumentSeriesControllerTest < ActionController::TestCase
     assert_redirected_to publications_path(departments: [organisation])
   end
 
-  test 'show should display published publications within the series' do
+  view_test 'show should display published publications within the series' do
     organisation = create(:organisation)
     series = create(:document_series, organisation: organisation)
     publication = create(:published_publication, document_series: [series])
@@ -39,7 +39,7 @@ class DocumentSeriesControllerTest < ActionController::TestCase
     ], assigns(:published_publications)
   end
 
-  test 'show should display published statistical data sets within the series' do
+  view_test 'show should display published statistical data sets within the series' do
     organisation = create(:organisation)
     series = create(:document_series, organisation: organisation)
     statistical_data_set = create(:published_statistical_data_set, document_series: [series])
@@ -67,7 +67,7 @@ class DocumentSeriesControllerTest < ActionController::TestCase
     ], assigns(:published_statistical_data_sets)
   end
 
-  test 'show should display document series attributes' do
+  view_test 'show should display document series attributes' do
     organisation = create(:organisation)
     series = create(:document_series,
       organisation: organisation,

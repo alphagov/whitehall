@@ -36,7 +36,7 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
     assert_redirected_to admin_worldwide_office_path(worldwide_office)
   end
 
-  test "shows validation errors on invalid worldwide office" do
+  view_test "shows validation errors on invalid worldwide office" do
     post :create, worldwide_office: {
       name: "Office",
     }
@@ -76,7 +76,7 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
     assert_equal count - 1, WorldwideOffice.count
   end
 
-  test "shows the name summary and description of the worldwide office" do
+  view_test "shows the name summary and description of the worldwide office" do
     office = create(:worldwide_office, name: "Ministry of Silly Walks in Madrid",
       summary: "We have a nice office in madrid",
       description: "# Office\nOur office is on the main road\n")

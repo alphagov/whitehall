@@ -32,7 +32,7 @@ class Admin::FatalityNoticesControllerTest < ActionController::TestCase
   should_allow_scheduled_publication_of :fatality_notice
   should_allow_access_limiting_of :fatality_notice
 
-  test "show renders the summary" do
+  view_test "show renders the summary" do
     draft_fatality_notice = create(:draft_fatality_notice, summary: "a-simple-summary")
 
     get :show, id: draft_fatality_notice
@@ -40,7 +40,7 @@ class Admin::FatalityNoticesControllerTest < ActionController::TestCase
     assert_select ".summary", text: "a-simple-summary"
   end
 
-  test "when creating allows assignment to operational field" do
+  view_test "when creating allows assignment to operational field" do
     get :new
 
     assert_select "form#edition_new" do
@@ -48,7 +48,7 @@ class Admin::FatalityNoticesControllerTest < ActionController::TestCase
     end
   end
 
-  test "when editing allows assignment to operational field" do
+  view_test "when editing allows assignment to operational field" do
     field = create(:operational_field)
     edition = create(:fatality_notice, operational_field: field)
 
@@ -59,7 +59,7 @@ class Admin::FatalityNoticesControllerTest < ActionController::TestCase
     end
   end
 
-  test "shows assigned operational field" do
+  view_test "shows assigned operational field" do
     field = create(:operational_field)
     edition = create(:fatality_notice, operational_field: field)
 
@@ -68,7 +68,7 @@ class Admin::FatalityNoticesControllerTest < ActionController::TestCase
     assert_select "section", text: %r{#{field.name}}
   end
 
-  test "should display fields for new fatality notice casualties" do
+  view_test "should display fields for new fatality notice casualties" do
     get :new
 
     assert_select "textarea[name='edition[fatality_notice_casualties_attributes][0][personal_details]']"

@@ -14,7 +14,7 @@ class MainstreamCategoriesControllerTest < ActionController::TestCase
     assert_equal [detailed_guide_a, detailed_guide_b, detailed_guide_c], assigns(:detailed_guides)
   end
 
-  test "show category lists all published detailed guides in that category" do
+  view_test "show category lists all published detailed guides in that category" do
     category = create(:mainstream_category)
     detailed_guide = create(:published_detailed_guide, primary_mainstream_category: category)
     other_guide = create(:published_detailed_guide, other_mainstream_categories: [category])
@@ -39,7 +39,7 @@ class MainstreamCategoriesControllerTest < ActionController::TestCase
     assert_equal 404, response.status
   end
 
-  test "show category does not list any draft detailed guides in that category" do
+  view_test "show category does not list any draft detailed guides in that category" do
     category = create(:mainstream_category)
     detailed_guide = create(:draft_detailed_guide, primary_mainstream_category: category)
 
@@ -60,7 +60,7 @@ class MainstreamCategoriesControllerTest < ActionController::TestCase
     assert_equal sentinel.to_hash, artefact_headers
   end
 
-  test "show displays category description" do
+  view_test "show displays category description" do
     category = create(:mainstream_category)
 
     get :show, parent_tag: category.parent_tag, id: category

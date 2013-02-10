@@ -34,7 +34,7 @@ class Admin::CorporateInformationPagesControllerTest < ActionController::TestCas
     create(edition_type)
   end
 
-  test "GET :new should display form" do
+  view_test "GET :new should display form" do
     get :new, organisation_id: @organisation
 
     assert_select "form[action='#{admin_organisation_corporate_information_pages_path(@organisation)}']" do
@@ -63,14 +63,14 @@ class Admin::CorporateInformationPagesControllerTest < ActionController::TestCas
     assert_equal "#{page.title} created successfully", flash[:notice]
   end
 
-  test "POST :create should redisplay form with error message on fail" do
+  view_test "POST :create should redisplay form with error message on fail" do
     post :create, organisation_id: @organisation, corporate_information_page: corporate_information_page_attributes(body: nil)
     @organisation.reload
     assert_select "form[action='#{admin_organisation_corporate_information_pages_path(@organisation)}']"
     assert_match /^There was a problem:/, flash[:alert]
   end
 
-  test "GET :edit should display form without type selector for existing corporate information page" do
+  view_test "GET :edit should display form without type selector for existing corporate information page" do
     corporate_information_page = create(:corporate_information_page, organisation: @organisation)
     get :edit, organisation_id: @organisation, id: corporate_information_page
 
@@ -93,7 +93,7 @@ class Admin::CorporateInformationPagesControllerTest < ActionController::TestCas
     assert_redirected_to admin_organisation_path(@organisation)
   end
 
-  test "PUT :update should redisplay form on failure" do
+  view_test "PUT :update should redisplay form on failure" do
     corporate_information_page = create(:corporate_information_page, organisation: @organisation)
     new_attributes = {body: "", summary: "New summary"}
     put :update, organisation_id: @organisation, id: corporate_information_page, corporate_information_page: new_attributes

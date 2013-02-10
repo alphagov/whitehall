@@ -5,7 +5,7 @@ module AdminEditionWorldLocationsBehaviour
     def should_allow_association_between_world_locations_and(document_type)
       edition_class = class_for(document_type)
 
-      test "new displays document form with world locations field" do
+      view_test "new displays document form with world locations field" do
         get :new
 
         assert_select "form#edition_new" do
@@ -50,7 +50,7 @@ module AdminEditionWorldLocationsBehaviour
         assert_equal [], document.world_locations
       end
 
-      test "updating a stale document should render edit page with conflicting document and its world locations" do
+      view_test "updating a stale document should render edit page with conflicting document and its world locations" do
         document = create(document_type)
         lock_version = document.lock_version
         document.touch
@@ -62,7 +62,7 @@ module AdminEditionWorldLocationsBehaviour
         end
       end
 
-      test "should display the world locations to which the document relates" do
+      view_test "should display the world locations to which the document relates" do
         country = create(:country)
         overseas_territory = create(:overseas_territory)
         document = create(document_type, world_locations: [overseas_territory, country])
@@ -73,7 +73,7 @@ module AdminEditionWorldLocationsBehaviour
         assert_select_object(overseas_territory)
       end
 
-      test "should indicate that the document does not relate to any world location" do
+      view_test "should indicate that the document does not relate to any world location" do
         document = create(document_type, world_locations: [])
 
         get :show, id: document

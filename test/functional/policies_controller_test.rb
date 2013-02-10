@@ -15,7 +15,7 @@ class PoliciesControllerTest < ActionController::TestCase
     get :index, departments: {'0' => "all"}, topics: {'0' => "all"}
   end
 
-  test "show displays the date that the policy was updated" do
+  view_test "show displays the date that the policy was updated" do
     policy = create(:published_policy)
 
     get :show, id: policy.document
@@ -23,7 +23,7 @@ class PoliciesControllerTest < ActionController::TestCase
     assert_select ".published-at[title=#{policy.public_timestamp.iso8601}]"
   end
 
-  test "should not explicitly say that policy applies to the whole of the UK" do
+  view_test "should not explicitly say that policy applies to the whole of the UK" do
     published_policy = create(:published_policy)
 
     get :show, id: published_policy.document
@@ -31,7 +31,7 @@ class PoliciesControllerTest < ActionController::TestCase
     refute_select inapplicable_nations_selector
   end
 
-  test "show includes the main policy navigation" do
+  view_test "show includes the main policy navigation" do
     policy = create(:published_policy)
     supporting_page = create(:supporting_page, edition: policy)
 
@@ -43,7 +43,7 @@ class PoliciesControllerTest < ActionController::TestCase
     end
   end
 
-  test "show adds the current class to the policy link in the policy navigation" do
+  view_test "show adds the current class to the policy link in the policy navigation" do
     policy = create(:published_policy)
     supporting_page = create(:supporting_page, edition: policy)
 
@@ -52,7 +52,7 @@ class PoliciesControllerTest < ActionController::TestCase
     assert_select ".policy-navigation a.current[href='#{policy_path(policy.document)}']"
   end
 
-  test "should render the content using govspeak markup" do
+  view_test "should render the content using govspeak markup" do
     published_policy = create(:published_policy, body: "body-in-govspeak")
     govspeak_transformation_fixture "body-in-govspeak" => "body-in-html" do
       get :show, id: published_policy.document
@@ -79,7 +79,7 @@ class PoliciesControllerTest < ActionController::TestCase
     assert_equal published_edition, assigns(:document)
   end
 
-  test "should link to topics related to the policy" do
+  view_test "should link to topics related to the policy" do
     first_topic = create(:topic)
     second_topic = create(:topic)
     edition = create(:published_policy, topics: [first_topic, second_topic])
@@ -90,7 +90,7 @@ class PoliciesControllerTest < ActionController::TestCase
     assert_select "a.topic", text: second_topic.name
   end
 
-  test "should not show topics where none exist" do
+  view_test "should not show topics where none exist" do
     edition = create(:published_policy, topics: [])
 
     get :show, id: edition.document
@@ -98,7 +98,7 @@ class PoliciesControllerTest < ActionController::TestCase
     assert_select ".topics", count: 0
   end
 
-  test "should link to organisations related to the policy" do
+  view_test "should link to organisations related to the policy" do
     first_org = create(:organisation)
     second_org = create(:organisation)
     edition = create(:published_policy, lead_organisations: [first_org], supporting_organisations: [second_org])
@@ -116,7 +116,7 @@ class PoliciesControllerTest < ActionController::TestCase
     end
   end
 
-  test "should only link to organisations once if there are only lead organisations" do
+  view_test "should only link to organisations once if there are only lead organisations" do
     first_org = create(:organisation)
     edition = create(:published_policy, lead_organisations: [first_org])
 
@@ -126,7 +126,7 @@ class PoliciesControllerTest < ActionController::TestCase
     refute_select_prefix_object first_org, 'by-type'
   end
 
-  test "should link to ministers related to the policy" do
+  view_test "should link to ministers related to the policy" do
     role = create(:ministerial_role)
     appointment = create(:role_appointment, person: create(:person, forename: "minister-name"), role: role)
     edition = create(:published_policy, ministerial_roles: [appointment.role])
@@ -136,7 +136,7 @@ class PoliciesControllerTest < ActionController::TestCase
     assert_select "a.minister", text: "minister-name"
   end
 
-  test "should use role name if no minister is in role related to the policy" do
+  view_test "should use role name if no minister is in role related to the policy" do
     role = create(:ministerial_role)
     edition = create(:published_policy, ministerial_roles: [role])
 
@@ -145,7 +145,7 @@ class PoliciesControllerTest < ActionController::TestCase
     assert_select "a.minister", text: role.name
   end
 
-  test "shows link to each policy section in the markdown" do
+  view_test "shows link to each policy section in the markdown" do
     policy = create(:published_policy, body: %{
 ## First Section
 
@@ -168,7 +168,7 @@ That's all
     end
   end
 
-  test "show displays the policy team responsible for this policy" do
+  view_test "show displays the policy team responsible for this policy" do
     policy_team = create(:policy_team, name: 'policy-team', email: 'policy-team@example.com')
     policy = create(:published_policy, policy_teams: [policy_team])
     get :show, id: policy.document
@@ -177,13 +177,13 @@ That's all
     end
   end
 
-  test "show doesn't display the policy team section if the policy isn't associated with a policy team" do
+  view_test "show doesn't display the policy team section if the policy isn't associated with a policy team" do
     policy = create(:published_policy)
     get :show, id: policy.document
     refute_select '#policy_team'
   end
 
-  test "activity displays the date that the policy was updated" do
+  view_test "activity displays the date that the policy was updated" do
     policy = create(:published_policy)
     publication = create(:published_publication, related_policies: [policy])
 
@@ -192,7 +192,7 @@ That's all
     assert_select ".published-at[title=#{policy.public_timestamp.iso8601}]"
   end
 
-  test "activity includes the main policy navigation" do
+  view_test "activity includes the main policy navigation" do
     policy = create(:published_policy)
     supporting_page = create(:supporting_page, edition: policy)
     publication = create(:published_publication, related_policies: [policy])
@@ -206,7 +206,7 @@ That's all
     end
   end
 
-  test "activity displays the policy's topics" do
+  view_test "activity displays the policy's topics" do
     topic = create(:topic)
     policy = create(:published_policy, topics: [topic])
     publication = create(:published_publication, related_policies: [policy])
@@ -216,7 +216,7 @@ That's all
     assert_select_object topic
   end
 
-  test "activity adds the current class to the activity link in the policy navigation" do
+  view_test "activity adds the current class to the activity link in the policy navigation" do
     policy = create(:published_policy)
     publication = create(:published_publication, related_policies: [policy])
 
@@ -225,7 +225,7 @@ That's all
     assert_select ".policy-navigation a.current[href='#{activity_policy_path(policy.document)}']"
   end
 
-  test "activity displays recently changed documents relating to the policy" do
+  view_test "activity displays recently changed documents relating to the policy" do
     policy = create(:published_policy)
     publication = create(:published_publication, related_policies: [policy])
     consultation = create(:published_consultation, related_policies: [policy])
@@ -242,7 +242,7 @@ That's all
     end
   end
 
-  test "activity displays metadata about the recently changed documents" do
+  view_test "activity displays metadata about the recently changed documents" do
     first_delivered_on = Time.zone.now
     policy = create(:published_policy)
     organisation = create(:organisation)
@@ -275,7 +275,7 @@ That's all
     assert_cache_control("max-age=#{Whitehall.default_cache_max_age/2}")
   end
 
-  test "activity uses publication_date to indicate when a publication was changed" do
+  view_test "activity uses publication_date to indicate when a publication was changed" do
     policy = create(:published_policy)
     edition = create(:published_publication,
       related_policies: [policy],
@@ -288,7 +288,7 @@ That's all
     end
   end
 
-  test "activity distinguishes between published and updated documents" do
+  view_test "activity distinguishes between published and updated documents" do
     policy = create(:published_policy)
 
     first_major_edition = create(:published_news_article, related_policies: [policy], published_major_version: 1)
@@ -322,7 +322,7 @@ That's all
     assert_equal [consultation, speech, news_article, publication], assigns(:recently_changed_documents)
   end
 
-  test "activity shows the display type of speeches" do
+  view_test "activity shows the display type of speeches" do
     policy = create(:published_policy)
     speech = create(:published_speech, speech_type: SpeechType::WrittenStatement, related_policies: [policy])
 
@@ -331,7 +331,7 @@ That's all
     assert_select ".speech .type", text: "Statement to parliament"
   end
 
-  test "supporting case studies are included in page" do
+  view_test "supporting case studies are included in page" do
     policy = create(:published_policy)
     case_study = create(:published_case_study, related_policies: [policy])
 
@@ -341,7 +341,7 @@ That's all
     assert_select_object case_study
   end
 
-  test "link to case studies are included in policy navigation" do
+  view_test "link to case studies are included in policy navigation" do
     policy = create(:published_policy)
     case_study = create(:published_case_study, related_policies: [policy])
 
@@ -352,21 +352,21 @@ That's all
     end
   end
 
-  test "activity link isn't shown on policies with no extra documents" do
+  view_test "activity link isn't shown on policies with no extra documents" do
     policy = create(:published_policy)
 
     get :show, id: policy.document
     refute_select '.policy-navigation'
   end
 
-  test "class is applied to policies page when navigation isn't shown" do
+  view_test "class is applied to policies page when navigation isn't shown" do
     policy = create(:published_policy)
 
     get :show, id: policy.document
     assert_select ".no-navigation"
   end
 
-  test "navigation is shown on pages with some supporting pages" do
+  view_test "navigation is shown on pages with some supporting pages" do
     policy = create(:published_policy)
     supporting_page = create(:supporting_page, edition: policy)
 
@@ -385,7 +385,7 @@ That's all
     assert_response :not_found
   end
 
-  test 'activity has an atom feed autodiscovery link' do
+  view_test 'activity has an atom feed autodiscovery link' do
     policy = create(:published_policy)
     publication = create(:published_publication, related_policies: [policy])
 
@@ -394,7 +394,7 @@ That's all
     assert_select_autodiscovery_link activity_policy_url(policy.document, format: "atom")
   end
 
-  test 'activity shows a link to the atom feed' do
+  view_test 'activity shows a link to the atom feed' do
     policy = create(:published_policy)
     publication = create(:published_publication, related_policies: [policy])
 
@@ -404,7 +404,7 @@ That's all
     assert_select "a.feed[href=?]", feed_url
   end
 
-  test 'activity atom feed shows latest 10 documents' do
+  view_test 'activity atom feed shows latest 10 documents' do
     policy = create(:published_policy)
     11.times do
       create(:published_publication, related_policies: [policy])
@@ -416,7 +416,7 @@ That's all
     end
   end
 
-  test 'activity atom feed shows activity documents' do
+  view_test 'activity atom feed shows activity documents' do
     policy = create(:published_policy)
     publication = create(:published_publication, publication_date: 4.weeks.ago.to_date, related_policies: [policy])
     consultation = create(:published_consultation, opening_on: 1.weeks.ago.to_date, related_policies: [policy])
@@ -435,7 +435,7 @@ That's all
     end
   end
 
-  test 'activity shows a link to govdelivery if one exists' do
+  view_test 'activity shows a link to govdelivery if one exists' do
     policy = create(:published_policy, govdelivery_url: 'http://my-govdelivery-url.com')
     publication = create(:published_publication, publication_date: 4.weeks.ago, related_policies: [policy])
 

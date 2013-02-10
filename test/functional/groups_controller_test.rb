@@ -3,7 +3,7 @@ require "test_helper"
 class GroupsControllerTest < ActionController::TestCase
   should_be_a_public_facing_controller
 
-  test "should display name and govspeak-ified description of group" do
+  view_test "should display name and govspeak-ified description of group" do
     organisation = create(:organisation)
     group = create(:group,
       name: "Defence Council",
@@ -19,7 +19,7 @@ class GroupsControllerTest < ActionController::TestCase
     assert_select ".description", "description-in-html"
   end
 
-  test "should display a list of group members" do
+  view_test "should display a list of group members" do
     person_one, person_two = create(:person), create(:person)
     organisation = create(:organisation)
     group = create(:group, organisation: organisation, members: [person_one, person_two])
@@ -32,7 +32,7 @@ class GroupsControllerTest < ActionController::TestCase
     end
   end
 
-  test "should not display an empty list of group members" do
+  view_test "should not display an empty list of group members" do
     organisation = create(:organisation)
     group = create(:group, organisation: organisation, members: [])
 

@@ -7,7 +7,7 @@ class Admin::TopicsControllerTest < ActionController::TestCase
 
   should_be_an_admin_controller
 
-  test "new displays topic form" do
+  view_test "new displays topic form" do
     get :new
 
     assert_select "form#new_topic[action='#{admin_topics_path}']" do
@@ -17,7 +17,7 @@ class Admin::TopicsControllerTest < ActionController::TestCase
     end
   end
 
-  test "new displays related topics field" do
+  view_test "new displays related topics field" do
     get :new
 
     assert_select "form#new_topic" do
@@ -25,7 +25,7 @@ class Admin::TopicsControllerTest < ActionController::TestCase
     end
   end
 
-  test "should show govdelivery field for gds editors" do
+  view_test "should show govdelivery field for gds editors" do
     login_as :gds_editor
 
     get :new
@@ -33,7 +33,7 @@ class Admin::TopicsControllerTest < ActionController::TestCase
     assert_select 'input#topic_govdelivery_url'
   end
 
-  test "should not show govdelivery field for non gds admins" do
+  view_test "should not show govdelivery field for non gds admins" do
     get :new
 
     refute_select 'input#topic_govdelivery_url'
@@ -62,17 +62,17 @@ class Admin::TopicsControllerTest < ActionController::TestCase
     assert_equal [first_topic, second_topic].to_set, topic.related_classifications.to_set
   end
 
-  test "creating a topic without a name shows errors" do
+  view_test "creating a topic without a name shows errors" do
     post :create, topic: { name: "", description: "description" }
     assert_select ".form-errors"
   end
 
-  test "creating a topic without a description shows errors" do
+  view_test "creating a topic without a description shows errors" do
     post :create, topic: { name: "name", description: "" }
     assert_select ".form-errors"
   end
 
-  test "index lists topics in alphabetical order" do
+  view_test "index lists topics in alphabetical order" do
     topic_c = create(:topic, name: "Topic C")
     topic_a = create(:topic, name: "Topic A")
     topic_b = create(:topic, name: "Topic B")
@@ -82,7 +82,7 @@ class Admin::TopicsControllerTest < ActionController::TestCase
     assert_select "#{record_css_selector(topic_a)} + #{record_css_selector(topic_b)} + #{record_css_selector(topic_c)}"
   end
 
-  test "index should show related topics" do
+  view_test "index should show related topics" do
     topic_1 = create(:topic)
     topic_2 = create(:topic)
     topic = create(:topic, related_classifications: [topic_1, topic_2])
@@ -97,7 +97,7 @@ class Admin::TopicsControllerTest < ActionController::TestCase
     end
   end
 
-  test "edit should display topic fields" do
+  view_test "edit should display topic fields" do
     topic = create(:topic)
 
     get :edit, id: topic
@@ -110,7 +110,7 @@ class Admin::TopicsControllerTest < ActionController::TestCase
     end
   end
 
-  test "edit should display related topics field with selections" do
+  view_test "edit should display related topics field with selections" do
     topic_1 = create(:topic, name: "related-topic-1")
     topic_2 = create(:topic, name: "related-topic-2")
     topic = create(:topic, related_classifications: [topic_1, topic_2])
@@ -126,7 +126,7 @@ class Admin::TopicsControllerTest < ActionController::TestCase
     end
   end
 
-  test "edit should include all topics except edited topic in related topic options" do
+  view_test "edit should include all topics except edited topic in related topic options" do
     topic_1 = create(:topic, name: "topic-1")
     topic_2 = create(:topic, name: "topic-2")
     topic = create(:topic, name: "topic-for-editing")
@@ -184,14 +184,14 @@ class Admin::TopicsControllerTest < ActionController::TestCase
     assert_equal [], topic.related_classifications
   end
 
-  test "updating without a description shows errors" do
+  view_test "updating without a description shows errors" do
     topic = create(:topic)
     put :update, id: topic.id, topic: {name: "Blah", description: ""}
 
     assert_select ".form-errors"
   end
 
-  test "editing only shows published editions for ordering" do
+  view_test "editing only shows published editions for ordering" do
     topic = create(:topic)
     policy = create(:published_policy, topics: [topic])
     draft_policy = create(:draft_policy, topics: [topic])
@@ -225,7 +225,7 @@ class Admin::TopicsControllerTest < ActionController::TestCase
     assert topic.reload.deleted?
   end
 
-  test "should indicate that a topic is not destroyable when editing" do
+  view_test "should indicate that a topic is not destroyable when editing" do
     topic_with_published_policy = create(:topic, policies: [build(:published_policy, title: "thingies")])
 
     get :edit, id: topic_with_published_policy.id

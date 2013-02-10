@@ -9,7 +9,7 @@ class OperationalFieldsControllerTest < ActionController::TestCase
     @organisation = create(:organisation, handles_fatalities: true)
   end
 
-  test "show displays name" do
+  view_test "show displays name" do
     operational_field = create(:operational_field)
 
     get :show, id: operational_field
@@ -17,7 +17,7 @@ class OperationalFieldsControllerTest < ActionController::TestCase
     assert_select ".page-header h1", text: %r{#{operational_field.name}}
   end
 
-  test "shows description using govspeak" do
+  view_test "shows description using govspeak" do
     operational_field = create(:operational_field, description: "description [with link](http://example.com).")
 
     get :show, id: operational_field
@@ -60,7 +60,7 @@ class OperationalFieldsControllerTest < ActionController::TestCase
     ], assigns(:fatality_notices)
   end
 
-  test "shows recent casualties" do
+  view_test "shows recent casualties" do
     iraq = create(:operational_field)
     fatality_notice = create(:published_fatality_notice, operational_field: iraq)
     casualty = create(:fatality_notice_casualty, fatality_notice: fatality_notice)
@@ -70,7 +70,7 @@ class OperationalFieldsControllerTest < ActionController::TestCase
     assert_select_object casualty
   end
 
-  test "index displays a rudimentary index of fields (for url hackers)" do
+  view_test "index displays a rudimentary index of fields (for url hackers)" do
     fields = [
       stub_record(:operational_field),
       stub_record(:operational_field),

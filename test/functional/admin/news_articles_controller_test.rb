@@ -36,7 +36,7 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
   should_allow_association_with_topical_events :news_article
   should_allow_relevance_to_local_government_of :news_article
 
-  test "new displays news article fields" do
+  view_test "new displays news article fields" do
     get :new
 
     assert_select "form#edition_new" do
@@ -44,7 +44,7 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
     end
   end
 
-  test "show renders the summary" do
+  view_test "show renders the summary" do
     draft_news_article = create(:draft_news_article, summary: "a-simple-summary")
 
     get :show, id: draft_news_article

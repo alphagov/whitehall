@@ -13,7 +13,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert_equal organisations, assigns(:organisations)
   end
 
-  test "should allow entry of new organisation data" do
+  view_test "should allow entry of new organisation data" do
     get :new
     assert_template "organisations/new"
     assert_select "input[type=text][name='organisation[alternative_format_contact_email]']"
@@ -27,14 +27,14 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert_select "select[name='organisation[organisation_logo_type_id]']"
   end
 
-  test "should display fields for new organisation mainstream links" do
+  view_test "should display fields for new organisation mainstream links" do
     get :new
 
     assert_select "input[type=text][name='organisation[organisation_mainstream_links_attributes][0][url]']"
     assert_select "input[type=text][name='organisation[organisation_mainstream_links_attributes][0][title]']"
   end
 
-  test "should show govdelivery field for gds editors" do
+  view_test "should show govdelivery field for gds editors" do
     login_as :gds_editor
 
     get :new
@@ -42,7 +42,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert_select 'input#organisation_govdelivery_url'
   end
 
-  test "should not show govdelivery field for non gds admins" do
+  view_test "should not show govdelivery field for non gds admins" do
     get :new
 
     refute_select 'input#organisation_govdelivery_url'
@@ -172,13 +172,13 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert_equal organisation, assigns(:organisation)
   end
 
-  test "showing displays the govuk status" do
+  view_test "showing displays the govuk status" do
     organisation = create(:organisation, govuk_status: 'exempt')
     get :show, id: organisation
     assert_select 'td', text: 'Exempt'
   end
 
-  test "showing should allow featured published news articles to be unfeatured" do
+  view_test "showing should allow featured published news articles to be unfeatured" do
     published_news_article = create(:published_news_article)
     organisation = create(:organisation)
     edition_organisation = create(:featured_edition_organisation, organisation: organisation, edition: published_news_article)
@@ -200,7 +200,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert_equal [later_policy, earlier_news_article], assigns(:editions)
   end
 
-  test "showing should display published editions related to the organisation" do
+  view_test "showing should display published editions related to the organisation" do
     published_news_article = create(:published_news_article)
     published_policy = create(:published_policy)
     draft_news_article = create(:draft_news_article)
@@ -215,7 +215,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     refute_select_object(another_policy)
   end
 
-  test "editing should allow non-featured published news articles to be featured" do
+  view_test "editing should allow non-featured published news articles to be featured" do
     published_news_article = create(:published_news_article)
     organisation = create(:organisation)
     edition_organisation = create(:edition_organisation, organisation: organisation, edition: published_news_article)
@@ -231,13 +231,13 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert_equal organisation, assigns(:organisation)
   end
 
-  test "editing should not show the current organisation in the list of parent organisations" do
+  view_test "editing should not show the current organisation in the list of parent organisations" do
     organisation = create(:organisation)
     get :edit, id: organisation
     refute_select "#{parent_organisations_list_selector} option[value='#{organisation.id}']"
   end
 
-  test "edit should show only departments in the list of parent organisations" do
+  view_test "edit should show only departments in the list of parent organisations" do
     org1 = create(:organisation)
     org2 = create(:organisation)
     dept = create(:ministerial_department)
@@ -246,13 +246,13 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert_select "#{parent_organisations_list_selector} option[value='#{dept.id}']"
   end
 
-  test "editing should display a cancel link back to the list of organisations" do
+  view_test "editing should display a cancel link back to the list of organisations" do
     organisation = create(:organisation)
     get :edit, id: organisation
     assert_select ".or_cancel a[href='#{admin_organisation_path(organisation)}']"
   end
 
-  test "editing shows roles for ordering in separate lists" do
+  view_test "editing shows roles for ordering in separate lists" do
     ministerial_role = create(:ministerial_role)
     board_member_role = create(:board_member_role)
     chief_scientific_advisor_role = create(:chief_scientific_advisor_role)
@@ -290,7 +290,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     refute_select "#military_ordering input[name^='organisation[organisation_roles_attributes]'][value=#{organisation_scientific_role.id}]"
   end
 
-  test "editing shows ministerial role and current person's name" do
+  view_test "editing shows ministerial role and current person's name" do
     person = create(:person, forename: "John", surname: "Doe")
     ministerial_role = create(:ministerial_role, name: "Prime Minister")
     create(:role_appointment, person: person, role: ministerial_role, started_at: 1.day.ago)
@@ -357,13 +357,13 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert_equal [organisation_senior_representative_role, organisation_junior_representative_role], assigns(:special_representative_organisation_roles)
   end
 
-  test "editing does not display an empty ministerial roles section" do
+  view_test "editing does not display an empty ministerial roles section" do
     organisation = create(:organisation)
     get :edit, id: organisation
     refute_select "#minister_ordering"
   end
 
-  test "editing contains the relevant dom classes to facilitate the javascript ordering functionality" do
+  view_test "editing contains the relevant dom classes to facilitate the javascript ordering functionality" do
     organisation = create(:organisation, roles: [create(:ministerial_role)])
     get :edit, id: organisation
     assert_select "fieldset#minister_ordering.sortable input.ordering[name^='organisation[organisation_roles_attributes]']"
@@ -469,7 +469,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert_equal [parent_organisation], organisation.reload.parent_organisations
   end
 
-  test "shows a list of corporate information pages" do
+  view_test "shows a list of corporate information pages" do
     corporate_information_page = create(:corporate_information_page)
     organisation = create(:organisation, corporate_information_pages: [corporate_information_page])
 
@@ -480,7 +480,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     end
   end
 
-  test "link to create a new corporate_information_page" do
+  view_test "link to create a new corporate_information_page" do
     organisation = create(:organisation)
 
     get :show, id: organisation
@@ -490,7 +490,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     end
   end
 
-  test "no link to create corporate_information_page if all types already exist" do
+  view_test "no link to create corporate_information_page if all types already exist" do
     organisation = create(:organisation)
     CorporateInformationPageType.all.each do |type|
       organisation.corporate_information_pages << create(:corporate_information_page, type: type, body: "The body")
@@ -504,7 +504,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     end
   end
 
-  test "show should display a list of groups" do
+  view_test "show should display a list of groups" do
     organisation = create(:organisation, name: "organisation-name")
     group_one = create(:group, name: "group-one", organisation: organisation)
     group_two = create(:group, name: "group-two", organisation: organisation)
@@ -532,7 +532,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert_equal [group_A, group_B, group_C], assigns(:organisation).groups
   end
 
-  test "show should display a link to create a new group" do
+  view_test "show should display a link to create a new group" do
     organisation = create(:organisation)
     get :show, id: organisation
 
@@ -541,7 +541,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     end
   end
 
-  test "show should display links to edit an existing group" do
+  view_test "show should display links to edit an existing group" do
     organisation = create(:organisation)
     group_one = create(:group, organisation: organisation)
     group_two = create(:group, organisation: organisation)
@@ -556,7 +556,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     end
   end
 
-  test "show should display links to members of an existing group" do
+  view_test "show should display links to members of an existing group" do
     organisation = create(:organisation)
     person_one, person_two = create(:person), create(:person)
     group = create(:group, organisation: organisation, members: [person_one, person_two])
@@ -569,7 +569,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     end
   end
 
-  test "show provides delete buttons for destroyable groups" do
+  view_test "show provides delete buttons for destroyable groups" do
     organisation = create(:organisation)
     destroyable_group = create(:group, organisation: organisation, members: [])
     undestroyable_group = create(:group, organisation: organisation, members: [create(:person)])

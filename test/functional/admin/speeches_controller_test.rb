@@ -34,7 +34,7 @@ class Admin::SpeechesControllerTest < ActionController::TestCase
   should_allow_association_with_topical_events :speech
   should_allow_relevance_to_local_government_of :speech
 
-  test "new displays speech fields" do
+  view_test "new displays speech fields" do
     get :new
 
     assert_select "form#edition_new" do
@@ -79,7 +79,7 @@ class Admin::SpeechesControllerTest < ActionController::TestCase
     assert_equal "new-location", speech.location
   end
 
-  test "should display details about the speech" do
+  view_test "should display details about the speech" do
     home_office = create(:organisation, name: "Home Office")
     home_secretary = create(:ministerial_role, name: "Secretary of State", organisations: [home_office])
     theresa_may = create(:person, forename: "Theresa", surname: "May")
