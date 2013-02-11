@@ -23,7 +23,7 @@ class Admin::SupportingPagesControllerTest < ActionController::TestCase
     super(action, parameters, session, flash, method)
   end
 
-  test "new form has title and body inputs" do
+  view_test "new form has title and body inputs" do
     edition = create(:draft_policy)
 
     get :new, edition_id: edition
@@ -35,7 +35,7 @@ class Admin::SupportingPagesControllerTest < ActionController::TestCase
     end
   end
 
-  test "new form has previewable body" do
+  view_test "new form has previewable body" do
     edition = create(:draft_policy)
 
     get :new, edition_id: edition
@@ -82,7 +82,7 @@ class Admin::SupportingPagesControllerTest < ActionController::TestCase
     assert_equal supporting_page, assigns(:supporting_page)
   end
 
-  test "shows the title and a link back to the parent" do
+  view_test "shows the title and a link back to the parent" do
     edition = create(:draft_policy)
     supporting_page = create(:supporting_page, edition: edition)
 
@@ -92,7 +92,7 @@ class Admin::SupportingPagesControllerTest < ActionController::TestCase
     assert_select "a[href='#{admin_policy_path(edition)}']", text: "Back to &#x27;#{edition.title}&#x27;"
   end
 
-  test "shows the body using govspeak markup" do
+  view_test "shows the body using govspeak markup" do
     supporting_page = create(:supporting_page, body: "body-in-govspeak")
     govspeak_transformation_fixture "body-in-govspeak" => "body-in-html" do
       get :show, edition_id: supporting_page.edition, id: supporting_page
@@ -101,7 +101,7 @@ class Admin::SupportingPagesControllerTest < ActionController::TestCase
     assert_select ".body", text: "body-in-html"
   end
 
-  test "shows edit link if parent edition is not published" do
+  view_test "shows edit link if parent edition is not published" do
     edition = create(:draft_policy)
     supporting_page = create(:supporting_page, edition: edition)
 
@@ -110,7 +110,7 @@ class Admin::SupportingPagesControllerTest < ActionController::TestCase
     assert_select "a[href='#{edit_admin_supporting_page_path(supporting_page)}']", text: 'Edit'
   end
 
-  test "does not show edit link if parent edition is published" do
+  view_test "does not show edit link if parent edition is published" do
     edition = create(:published_policy)
     supporting_page = create(:supporting_page, edition: edition)
 
@@ -119,7 +119,7 @@ class Admin::SupportingPagesControllerTest < ActionController::TestCase
     refute_select "a[href='#{edit_admin_supporting_page_path(supporting_page)}']"
   end
 
-  test "edit form has title and body inputs" do
+  view_test "edit form has title and body inputs" do
     edition = create(:draft_policy)
     supporting_page = create(:supporting_page, edition: edition)
 
@@ -132,7 +132,7 @@ class Admin::SupportingPagesControllerTest < ActionController::TestCase
     end
   end
 
-  test "edit form has previewable body" do
+  view_test "edit form has previewable body" do
     edition = create(:draft_policy)
     supporting_page = create(:supporting_page, edition: edition)
 
@@ -141,7 +141,7 @@ class Admin::SupportingPagesControllerTest < ActionController::TestCase
     assert_select "textarea[name='supporting_page[body]'].previewable"
   end
 
-  test "edit form include lock version to prevent conflicting changes overwriting each other" do
+  view_test "edit form include lock version to prevent conflicting changes overwriting each other" do
     edition = create(:draft_policy)
     supporting_page = create(:supporting_page, edition: edition)
 

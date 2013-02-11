@@ -12,14 +12,14 @@ class NewsArticlesControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "renders the news article summary from plain text" do
+  view_test "renders the news article summary from plain text" do
     news_article = create(:published_news_article, summary: 'plain text & so on')
     get :show, id: news_article.document
 
     assert_select ".summary", text: "plain text &amp; so on"
   end
 
-  test "renders the news article body using govspeak" do
+  view_test "renders the news article body using govspeak" do
     news_article = create(:published_news_article, body: "body-in-govspeak")
     govspeak_transformation_fixture "body-in-govspeak" => "body-in-html" do
       get :show, id: news_article.document
@@ -28,7 +28,7 @@ class NewsArticlesControllerTest < ActionController::TestCase
     assert_select ".body", text: "body-in-html"
   end
 
-  test "shows when updated news article was first published and last updated" do
+  view_test "shows when updated news article was first published and last updated" do
     news_article = create(:published_news_article, first_published_at: 10.days.ago)
 
     editor = create(:departmental_editor)

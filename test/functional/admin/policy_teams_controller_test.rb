@@ -16,7 +16,7 @@ class Admin::PolicyTeamsControllerTest < ActionController::TestCase
     assert_equal [team_a, team_b], assigns(:policy_teams)
   end
 
-  test "index should provide link to edit existing policy team" do
+  view_test "index should provide link to edit existing policy team" do
     policy_team = create(:policy_team)
 
     get :index
@@ -33,7 +33,7 @@ class Admin::PolicyTeamsControllerTest < ActionController::TestCase
     assert_instance_of(PolicyTeam, policy_team)
   end
 
-  test "new should display policy team form" do
+  view_test "new should display policy team form" do
     get :new
 
     assert_select "form[action=#{admin_policy_teams_path}]" do
@@ -58,7 +58,7 @@ class Admin::PolicyTeamsControllerTest < ActionController::TestCase
     assert_redirected_to admin_policy_teams_path
   end
 
-  test "create should re-render form with errors on failure" do
+  view_test "create should re-render form with errors on failure" do
     create(:policy_team, email: "duplicate@example.com")
 
     post :create, policy_team: { email: "duplicate@example.com" }
@@ -67,7 +67,7 @@ class Admin::PolicyTeamsControllerTest < ActionController::TestCase
     assert_select ".errors"
   end
 
-  test "edit should display policy team form" do
+  view_test "edit should display policy team form" do
     policy_team = create(:policy_team, name: "a-team", email: "a-team@example.com", description: "guns for hire")
 
     get :edit, id: policy_team

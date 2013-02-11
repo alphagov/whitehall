@@ -7,7 +7,7 @@ class Admin::PeopleControllerTest < ActionController::TestCase
 
   should_be_an_admin_controller
 
-  test "new shows form for creating a person" do
+  view_test "new shows form for creating a person" do
     get :new
 
     assert_select "form[action='#{admin_people_path}']" do
@@ -21,7 +21,7 @@ class Admin::PeopleControllerTest < ActionController::TestCase
     end
   end
 
-  test "creating with invalid data shows errors" do
+  view_test "creating with invalid data shows errors" do
     post :create, person: {title: "", forename: "", surname: "", letters: ""}
 
     assert_select ".form-errors"
@@ -54,7 +54,7 @@ class Admin::PeopleControllerTest < ActionController::TestCase
     refute_nil Person.last.image
   end
 
-  test "editing shows form for editing a person" do
+  view_test "editing shows form for editing a person" do
     person = create(:person, image: fixture_file_upload('minister-of-funk.960x640.jpg'))
     get :edit, id: person
 
@@ -68,14 +68,14 @@ class Admin::PeopleControllerTest < ActionController::TestCase
     end
   end
 
-  test "editing shows existing image" do
+  view_test "editing shows existing image" do
     person = create(:person, image: fixture_file_upload('minister-of-funk.960x640.jpg'))
     get :edit, id: person
 
     assert_select "img[src='#{person.image_url}']"
   end
 
-  test "updating with invalid data shows errors" do
+  view_test "updating with invalid data shows errors" do
     person = create(:person)
 
     put :update, id: person.id, person: {title: "", forename: "", surname: "", letters: ""}
@@ -107,7 +107,7 @@ class Admin::PeopleControllerTest < ActionController::TestCase
     assert_equal "Cannot destroy a person with appointments", flash[:alert]
   end
 
-  test "lists people by ordered name" do
+  view_test "lists people by ordered name" do
     person_b = create(:person, forename: "B")
     person_a = create(:person, forename: "A")
     person_c = create(:person, forename: "C")
@@ -119,7 +119,7 @@ class Admin::PeopleControllerTest < ActionController::TestCase
     assert_select ".people tr.person:nth-of-type(3)", text: "C"
   end
 
-  test "lists people displaying the first bit of their biography" do
+  view_test "lists people displaying the first bit of their biography" do
     person = create(:person, title: "Colonel", surname: "Hathi", biography: %{Hathi is head of the elephant troop. He is one of the oldest animals of the jungle and represents order, dignity and obedience to the Law of the Jungle. In "How Fear Came", he tells the jungle animals' creation myth and describes Tha, the Creator.})
 
     get :index
@@ -127,7 +127,7 @@ class Admin::PeopleControllerTest < ActionController::TestCase
     assert_select ".people .person .biography", text: %r{^Hathi is head of the elephant troop}
   end
 
-  test "provides delete buttons for destroyable people" do
+  view_test "provides delete buttons for destroyable people" do
     destroyable_person = create(:person)
     indestructable_person = create(:person)
     create(:role_appointment, person: indestructable_person)

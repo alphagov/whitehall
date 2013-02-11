@@ -41,7 +41,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
   should_allow_access_limiting_of :consultation
   should_allow_relevance_to_local_government_of :consultation
 
-  test 'new displays consultation fields' do
+  view_test 'new displays consultation fields' do
     get :new
 
     assert_select "form#edition_new" do
@@ -55,7 +55,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     end
   end
 
-  test 'new displays consultation response fields' do
+  view_test 'new displays consultation response fields' do
     get :new
 
     assert_select "form#edition_new" do
@@ -77,7 +77,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     assert_not_nil consultation.response.consultation_response_attachments.first.attachment
   end
 
-  test "new should allow users to add consultation metadata to an attachment" do
+  view_test "new should allow users to add consultation metadata to an attachment" do
     get :new
 
     assert_select "form#edition_new" do
@@ -138,7 +138,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     assert consultation.response.attachments.first.file.present?
   end
 
-  test "create should show the cached response attachment that's been uploaded if the consultation creation fails" do
+  view_test "create should show the cached response attachment that's been uploaded if the consultation creation fails" do
     post :create, edition: {
       title: '',
       response_attributes: {
@@ -226,7 +226,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     assert_nil consultation.consultation_participation
   end
 
-  test "creating a consultation with invalid data but valid form file should still display the cached form file" do
+  view_test "creating a consultation with invalid data but valid form file should still display the cached form file" do
     attributes = controller_attributes_for(:consultation,
       consultation_participation_attributes: {
         link_url: nil,
@@ -248,25 +248,25 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     end
   end
 
-  test "show renders the summary" do
+  view_test "show renders the summary" do
     draft_consultation = create(:draft_consultation, summary: "a-simple-summary")
     get :show, id: draft_consultation
     assert_select ".summary", text: "a-simple-summary"
   end
 
-  test "show displays consultation opening date" do
+  view_test "show displays consultation opening date" do
     consultation = create(:consultation, opening_on: Date.new(2011, 10, 10))
     get :show, id: consultation
     assert_select '.opening_on', text: 'Opened on 10 October 2011'
   end
 
-  test "show displays consultation closing date" do
+  view_test "show displays consultation closing date" do
     consultation = create(:consultation, opening_on: Date.new(2010, 01, 01), closing_on: Date.new(2011, 01, 01))
     get :show, id: consultation
     assert_select '.closing_on', text: 'Closed on 1 January 2011'
   end
 
-  test "show displays consultation participation link" do
+  view_test "show displays consultation participation link" do
     consultation_participation = create(:consultation_participation,
       link_url: "http://participation.com",
       email: "respond@consultations-r-us.com"
@@ -279,7 +279,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     end
   end
 
-  test "show displays consultation postal address" do
+  view_test "show displays consultation postal address" do
     consultation_participation = create(:consultation_participation,
       postal_address: "Test street"
     )
@@ -290,7 +290,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     end
   end
 
-  test "show displays the response details and links to attachments" do
+  view_test "show displays the response details and links to attachments" do
     consultation = create(:consultation)
     response = consultation.create_response!(summary: 'response-summary')
     attachment = response.attachments.create!(title: 'attachment-title', attachment_data: create(:attachment_data,  file: fixture_file_upload('greenpaper.pdf')))
@@ -304,7 +304,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     end
   end
 
-  test "edit displays consultation fields" do
+  view_test "edit displays consultation fields" do
     response_form = create(:consultation_response_form)
     participation = create(:consultation_participation, consultation_response_form: response_form)
     consultation = create(:consultation, consultation_participation: participation)
@@ -325,7 +325,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     end
   end
 
-  test "edit shows any existing consultation response form" do
+  view_test "edit shows any existing consultation response form" do
     response_form = create(:consultation_response_form, title: "response-form-title", file: fixture_file_upload('two-pages.pdf'))
     participation = create(:consultation_participation, consultation_response_form: response_form)
     consultation = create(:consultation, consultation_participation: participation)
@@ -374,7 +374,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     assert consultation.response.consultation_response_attachments.last.attachment.new_record?
   end
 
-  test "edit shows the details of the response and response attachments" do
+  view_test "edit shows the details of the response and response attachments" do
     consultation = create(:consultation)
     consultation_response = consultation.create_response!(summary: 'response-summary')
     attachment = consultation_response.attachments.create!(title: 'attachment-title', attachment_data: create(:attachment_data, file: fixture_file_upload('greenpaper.pdf')))
@@ -461,7 +461,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     assert consultation.response.consultation_response_attachments.first.attachment.new_record?
   end
 
-  test "update should show the cached response attachment that's been uploaded if the consultation update fails" do
+  view_test "update should show the cached response attachment that's been uploaded if the consultation update fails" do
     consultation = create(:consultation)
 
     put :update, id: consultation, edition: controller_attributes_for_instance(consultation,
@@ -500,7 +500,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     assert_nil consultation.consultation_participation
   end
 
-  test 'updating should respect the attachment_action attribute to keep, remove, or replace consultation response form attachments' do
+  view_test 'updating should respect the attachment_action attribute to keep, remove, or replace consultation response form attachments' do
     two_pages_pdf = fixture_file_upload('two-pages.pdf')
     greenpaper_pdf = fixture_file_upload('greenpaper.pdf')
 
@@ -565,7 +565,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     assert_equal "greenpaper.pdf", attachment_4.attachment_data.carrierwave_file
   end
 
-  test 'updating should not allow removal of response form without explicit action' do
+  view_test 'updating should not allow removal of response form without explicit action' do
     response_form = create(:consultation_response_form)
     participation = create(:consultation_participation, consultation_response_form: response_form)
     consultation = create(:consultation, consultation_participation: participation)
@@ -585,7 +585,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     assert_not_nil consultation.consultation_participation.consultation_response_form
   end
 
-  test 'updating should respect the attachment_action for response forms to keep it' do
+  view_test 'updating should respect the attachment_action for response forms to keep it' do
     two_pages_pdf = fixture_file_upload('two-pages.pdf')
     greenpaper_pdf = fixture_file_upload('greenpaper.pdf')
 
@@ -614,7 +614,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     assert_equal 'two-pages.pdf', consultation.consultation_participation.consultation_response_form.consultation_response_form_data.carrierwave_file
   end
 
-  test 'updating should respect the attachment_action for response forms to remove it' do
+  view_test 'updating should respect the attachment_action for response forms to remove it' do
     response_form = create(:consultation_response_form)
     participation = create(:consultation_participation, consultation_response_form: response_form)
     consultation = create(:consultation, consultation_participation: participation)
@@ -640,7 +640,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     end
   end
 
-  test 'updating should respect the attachment_action for response forms to replace it' do
+  view_test 'updating should respect the attachment_action for response forms to replace it' do
     two_pages_pdf = fixture_file_upload('two-pages.pdf')
     greenpaper_pdf = fixture_file_upload('greenpaper.pdf')
 

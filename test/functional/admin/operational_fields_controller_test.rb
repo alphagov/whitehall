@@ -17,7 +17,7 @@ class Admin::OperationalFieldsControllerTest < ActionController::TestCase
     assert_equal [team_a, team_b], assigns(:operational_fields)
   end
 
-  test "index should provide link to edit existing operational field" do
+  view_test "index should provide link to edit existing operational field" do
     operational_field = create(:operational_field)
 
     get :index
@@ -34,7 +34,7 @@ class Admin::OperationalFieldsControllerTest < ActionController::TestCase
     assert_instance_of(OperationalField, operational_field)
   end
 
-  test "new should display operational field form" do
+  view_test "new should display operational field form" do
     get :new
 
     assert_select "form[action=#{admin_operational_fields_path}]" do
@@ -57,7 +57,7 @@ class Admin::OperationalFieldsControllerTest < ActionController::TestCase
     assert_redirected_to admin_operational_fields_path
   end
 
-  test "create should re-render form with errors on failure" do
+  view_test "create should re-render form with errors on failure" do
     create(:operational_field, name: "field-a")
 
     post :create, operational_field: { name: "field-a" }
@@ -66,7 +66,7 @@ class Admin::OperationalFieldsControllerTest < ActionController::TestCase
     assert_select ".errors"
   end
 
-  test "edit should display operational field form" do
+  view_test "edit should display operational field form" do
     operational_field = create(:operational_field, name: "field-a", description: "description of field")
 
     get :edit, id: operational_field

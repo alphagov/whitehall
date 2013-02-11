@@ -8,7 +8,7 @@ class DetailedGuidesControllerTest < ActionController::TestCase
   should_show_inapplicable_nations :detailed_guide
   should_be_previewable :detailed_guide
 
-  test "guide <title> contains Detailed guidance" do
+  view_test "guide <title> contains Detailed guidance" do
     guide = create(:published_detailed_guide)
 
     get :show, id: guide.document
@@ -16,7 +16,7 @@ class DetailedGuidesControllerTest < ActionController::TestCase
     assert_select "title", text: /${guide.document.title} | Detailed guidance/
   end
 
-  test "shows related organisations" do
+  view_test "shows related organisations" do
     organisation = create(:organisation, logo_formatted_name: 'The Organisation')
     guide = create(:published_detailed_guide, organisations: [organisation])
 
@@ -32,7 +32,7 @@ class DetailedGuidesControllerTest < ActionController::TestCase
     assert_equal 'detailed', response.headers[Slimmer::Headers::SEARCH_INDEX_HEADER]
   end
 
-  test "shows link to each section in the document navigation" do
+  view_test "shows link to each section in the document navigation" do
     guide = create(:published_detailed_guide, body: %{
 ## First Section
 
@@ -56,7 +56,7 @@ That's all
     end
   end
 
-  test "show includes any links to related mainstream content" do
+  view_test "show includes any links to related mainstream content" do
     guide = create(:published_detailed_guide,
       related_mainstream_content_url: "http://mainstream/content",
       related_mainstream_content_title: "Some related mainstream content",
@@ -70,7 +70,7 @@ That's all
     assert_select "a[href='http://mainstream/additional-content']", "Some additional related mainstream content"
   end
 
-  test "show indicates when a guide replaced businesslink content" do
+  view_test "show indicates when a guide replaced businesslink content" do
     guide = create(:published_detailed_guide, replaces_businesslink: true)
 
     get :show, id: guide.document
@@ -78,7 +78,7 @@ That's all
     assert_select ".replaces-businesslink"
   end
 
-  test "show mainstream categories for a detailed guide" do
+  view_test "show mainstream categories for a detailed guide" do
     category = create(:mainstream_category)
     guide = create(:published_detailed_guide, primary_mainstream_category: category)
     get :show, id: guide.document
@@ -86,7 +86,7 @@ That's all
     assert_select_object category
   end
 
-  test "show sets breadcrumb trail" do
+  view_test "show sets breadcrumb trail" do
     category = create(:mainstream_category)
     detailed_guide = create(:published_detailed_guide, primary_mainstream_category: category)
 
@@ -97,7 +97,7 @@ That's all
     assert_equal category.title, artefact_headers['tags'].first['title']
   end
 
-  test "show includes link to API representation" do
+  view_test "show includes link to API representation" do
     detailed_guide = create(:published_detailed_guide)
 
     get :show, id: detailed_guide.document
@@ -113,7 +113,7 @@ That's all
     assert_equal "detailed_guidance", response.headers["X-Slimmer-Format"]
   end
 
-  test "guides have their mainstream categories added as classes" do
+  view_test "guides have their mainstream categories added as classes" do
     category = create(:mainstream_category)
     guide = create(:published_detailed_guide, primary_mainstream_category: category)
     get :show, id: guide.document

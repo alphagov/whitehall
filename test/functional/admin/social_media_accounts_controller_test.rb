@@ -19,8 +19,6 @@ class Admin::SocialMediaAccountsControllerTest < ActionController::TestCase
       socialable_type: "WorldwideOffice",
       socialable_id: worldwide_office.to_param
 
-    puts css_select(".errors")
-
     assert_equal 1, worldwide_office.social_media_accounts.count
     assert_equal @social_media_service, worldwide_office.social_media_accounts.first.social_media_service
   end

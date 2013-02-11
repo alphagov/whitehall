@@ -59,7 +59,7 @@ class MinisterialRolesControllerTest < ActionController::TestCase
     get :index
   end
 
-  test "shows the cabinet minister's name and role" do
+  view_test "shows the cabinet minister's name and role" do
     person = create(:person, forename: "John", surname: "Doe", image: File.open(Rails.root.join("test/fixtures/minister-of-funk.960x640.jpg")))
     ministerial_role = create(:ministerial_role, name: "Prime Minister", cabinet_member: true)
     create(:role_appointment, person: person, role: ministerial_role)
@@ -72,7 +72,7 @@ class MinisterialRolesControllerTest < ActionController::TestCase
     end
   end
 
-  test "shows the non-cabinet minister's name and role" do
+  view_test "shows the non-cabinet minister's name and role" do
     person = create(:person, forename: "John", surname: "Doe")
     ministerial_role = create(:ministerial_role, name: "Prime Minister", cabinet_member: false)
     create(:role_appointment, person: person, role: ministerial_role)
@@ -85,7 +85,7 @@ class MinisterialRolesControllerTest < ActionController::TestCase
     end
   end
 
-  test "shows only published news and speeches associated with ministerial role" do
+  view_test "shows only published news and speeches associated with ministerial role" do
     ministerial_role = create(:ministerial_role)
     role_appointment = create(:role_appointment, role: ministerial_role)
     published_speech = create(:published_speech, role_appointment: role_appointment)
@@ -101,7 +101,7 @@ class MinisterialRolesControllerTest < ActionController::TestCase
     refute_select_object(draft_news_article)
   end
 
-  test "shows only news and speeches associated with ministerial role" do
+  view_test "shows only news and speeches associated with ministerial role" do
     ministerial_role = create(:ministerial_role)
     role_appointment = create(:role_appointment, role: ministerial_role)
     published_speech = create(:published_speech, role_appointment: role_appointment)
@@ -122,13 +122,13 @@ class MinisterialRolesControllerTest < ActionController::TestCase
     end
   end
 
-  test 'show has atom feed autodiscovery link' do
+  view_test 'show has atom feed autodiscovery link' do
     ministerial_role = create(:ministerial_role)
     get :show, id: ministerial_role
     assert_select_autodiscovery_link ministerial_role_url(ministerial_role, format: "atom")
   end
 
-  test "show generates an atom feed of news and speeches associated with the ministerial role" do
+  view_test "show generates an atom feed of news and speeches associated with the ministerial role" do
     ministerial_role = create(:ministerial_role)
     role_appointment = create(:role_appointment, role: ministerial_role)
     expected_entries = [
@@ -143,7 +143,7 @@ class MinisterialRolesControllerTest < ActionController::TestCase
     end
   end
 
-  test "should not display an empty published speeches section" do
+  view_test "should not display an empty published speeches section" do
     ministerial_role = create(:ministerial_role)
 
     get :show, id: ministerial_role

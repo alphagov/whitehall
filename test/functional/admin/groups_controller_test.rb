@@ -8,7 +8,7 @@ class Admin::GroupsControllerTest < ActionController::TestCase
 
   should_be_an_admin_controller
 
-  test "new should display form for creating a new group" do
+  view_test "new should display form for creating a new group" do
     get :new, organisation_id: @organisation.id
 
     assert_select "form[action='#{admin_organisation_groups_path(@organisation)}']" do
@@ -18,7 +18,7 @@ class Admin::GroupsControllerTest < ActionController::TestCase
     end
   end
 
-  test "new should display 5 sets of fields for adding a new member of the group" do
+  view_test "new should display 5 sets of fields for adding a new member of the group" do
     get :new, organisation_id: @organisation.id
 
     assert_select "form#new_group" do
@@ -62,7 +62,7 @@ class Admin::GroupsControllerTest < ActionController::TestCase
     assert_equal %{"group-name" created.}, flash[:notice]
   end
 
-  test "create with invalid data should display errors" do
+  view_test "create with invalid data should display errors" do
     post :create, organisation_id: @organisation.id, group: attributes_for(:group,
       name: nil
     )
@@ -70,7 +70,7 @@ class Admin::GroupsControllerTest < ActionController::TestCase
     assert_select ".form-errors"
   end
 
-  test "create should not allow the same person to be added to the same group" do
+  view_test "create should not allow the same person to be added to the same group" do
     person = create(:person)
 
     post :create, organisation_id: @organisation.id, group: attributes_for(:group,
@@ -84,7 +84,7 @@ class Admin::GroupsControllerTest < ActionController::TestCase
     assert_select ".form-errors", /The same person has been added more than once/
   end
 
-  test "edit should display form for updating an existing group" do
+  view_test "edit should display form for updating an existing group" do
     group = create(:group, name: "group-name", description: "group-description", organisation: @organisation)
 
     get :edit, organisation_id: @organisation.id, id: group
@@ -96,7 +96,7 @@ class Admin::GroupsControllerTest < ActionController::TestCase
     end
   end
 
-  test "edit should display fields for editing or deleting an existing member of an existing group" do
+  view_test "edit should display fields for editing or deleting an existing member of an existing group" do
     person = create(:person)
     group = create(:group, name: "group-name", organisation: @organisation, members: [person])
 
@@ -111,7 +111,7 @@ class Admin::GroupsControllerTest < ActionController::TestCase
     end
   end
 
-  test "edit should display 5 sets of fields for adding a new member of an existing group" do
+  view_test "edit should display 5 sets of fields for adding a new member of an existing group" do
     group = create(:group, name: "group-name", organisation: @organisation)
 
     get :edit, organisation_id: @organisation.id, id: group
@@ -206,7 +206,7 @@ class Admin::GroupsControllerTest < ActionController::TestCase
     assert_equal %{"group-name" updated.}, flash[:notice]
   end
 
-  test "update with invalid data should display errors" do
+  view_test "update with invalid data should display errors" do
     group = create(:group)
 
     put :update, organisation_id: @organisation.id, id: group, group: attributes_for(:group,
@@ -216,7 +216,7 @@ class Admin::GroupsControllerTest < ActionController::TestCase
     assert_select ".form-errors"
   end
 
-  test "update should not allow the same person to be added to the same group" do
+  view_test "update should not allow the same person to be added to the same group" do
     group, person = create(:group), create(:person)
     membership = create(:group_membership, group: group, person: person)
 

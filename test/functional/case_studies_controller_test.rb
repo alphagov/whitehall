@@ -13,14 +13,14 @@ class CaseStudiesControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "renders the summary from plain text" do
+  view_test "renders the summary from plain text" do
     case_study = create(:published_case_study, summary: 'plain text & so on')
     get :show, id: case_study.document
 
     assert_select ".summary", text: "plain text &amp; so on"
   end
 
-  test "renders the body using govspeak" do
+  view_test "renders the body using govspeak" do
     case_study = create(:published_case_study, body: "body-in-govspeak")
     govspeak_transformation_fixture "body-in-govspeak" => "body-in-html" do
       get :show, id: case_study.document
@@ -29,7 +29,7 @@ class CaseStudiesControllerTest < ActionController::TestCase
     assert_select ".document", text: "body-in-html"
   end
 
-  test "shows when it was last updated" do
+  view_test "shows when it was last updated" do
     case_study = create(:published_case_study, first_published_at: 10.days.ago)
 
     editor = create(:departmental_editor)

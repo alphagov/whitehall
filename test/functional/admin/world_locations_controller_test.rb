@@ -17,7 +17,7 @@ class Admin::WorldLocationsControllerTest < ActionController::TestCase
 
   end
 
-  test 'should allow modification of existing world location data' do
+  view_test 'should allow modification of existing world location data' do
     world_location = create(:world_location)
 
     get :edit, id: world_location

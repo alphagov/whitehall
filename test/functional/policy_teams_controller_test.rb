@@ -3,7 +3,7 @@ require 'test_helper'
 class PolicyTeamsControllerTest < ActionController::TestCase
   should_be_a_public_facing_controller
 
-  test "shows index" do
+  view_test "shows index" do
     policy_team1 = create(:policy_team, name: "Team 1")
     policy_team2 = create(:policy_team, name: "Team 2")
 
@@ -13,7 +13,7 @@ class PolicyTeamsControllerTest < ActionController::TestCase
     assert_select_object policy_team2
   end
 
-  test "show displays name and email" do
+  view_test "show displays name and email" do
     policy_team = create(:policy_team)
 
     get :show, id: policy_team
@@ -22,7 +22,7 @@ class PolicyTeamsControllerTest < ActionController::TestCase
     assert_select ".email a", text: policy_team.email
   end
 
-  test "shows description using govspeak" do
+  view_test "shows description using govspeak" do
     policy_team = create(:policy_team, description: "description [with link](http://example.com).")
 
     get :show, id: policy_team
@@ -32,7 +32,7 @@ class PolicyTeamsControllerTest < ActionController::TestCase
     end
   end
 
-  test "show policies being worked on by the team" do
+  view_test "show policies being worked on by the team" do
     policy_team = create(:policy_team)
     published_policy = create(:published_policy, policy_teams: [policy_team])
     unpublished_policy = create(:draft_policy, policy_teams: [policy_team])

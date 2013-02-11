@@ -21,7 +21,7 @@ class SupportingPagesControllerTest < ActionController::TestCase
     assert_response 404
   end
 
-  test "show displays the date that the policy was updated" do
+  view_test "show displays the date that the policy was updated" do
     policy = create(:published_policy)
     supporting_page = create(:supporting_page, edition: policy)
 
@@ -30,7 +30,7 @@ class SupportingPagesControllerTest < ActionController::TestCase
     assert_select ".published-at[title=#{policy.public_timestamp.iso8601}]"
   end
 
-  test "show includes the main policy navigation" do
+  view_test "show includes the main policy navigation" do
     policy = create(:published_policy)
     supporting_page = create(:supporting_page, edition: policy)
 
@@ -42,7 +42,7 @@ class SupportingPagesControllerTest < ActionController::TestCase
     end
   end
 
-  test "show adds the current class to the supporting pages link in the policy navigation" do
+  view_test "show adds the current class to the supporting pages link in the policy navigation" do
     policy = create(:published_policy)
     supporting_page = create(:supporting_page, edition: policy)
 
@@ -51,7 +51,7 @@ class SupportingPagesControllerTest < ActionController::TestCase
     assert_select ".policy-navigation a.current[href='#{policy_supporting_pages_path(policy.document)}']"
   end
 
-  test "shows the body using govspeak markup" do
+  view_test "shows the body using govspeak markup" do
     policy = create(:published_policy)
     supporting_page = create(:supporting_page, edition: policy, body: "body-in-govspeak")
     govspeak_transformation_fixture "body-in-govspeak" => "body-in-html" do
@@ -70,7 +70,7 @@ class SupportingPagesControllerTest < ActionController::TestCase
     assert_response :not_found
   end
 
-  test "should show inapplicable nations" do
+  view_test "should show inapplicable nations" do
     policy = create(:published_policy)
     northern_ireland_inapplicability = policy.nation_inapplicabilities.create!(nation: Nation.northern_ireland, alternative_url: "http://northern-ireland.com/")
     scotland_inapplicability = policy.nation_inapplicabilities.create!(nation: Nation.scotland, alternative_url: "http://scotland.com")
@@ -83,7 +83,7 @@ class SupportingPagesControllerTest < ActionController::TestCase
     end
   end
 
-  test "should not explicitly say that policy applies to the whole of the UK" do
+  view_test "should not explicitly say that policy applies to the whole of the UK" do
     policy = create(:published_policy)
     supporting_page = create(:supporting_page, edition: policy)
 
@@ -92,7 +92,7 @@ class SupportingPagesControllerTest < ActionController::TestCase
     refute_select inapplicable_nations_selector
   end
 
-  test "show lists supporting pages when there are some" do
+  view_test "show lists supporting pages when there are some" do
     policy = create(:published_policy)
     first_supporting_page = create(:supporting_page, edition: policy)
     second_supporting_page = create(:supporting_page, edition: policy)
@@ -119,7 +119,7 @@ class SupportingPagesControllerTest < ActionController::TestCase
     assert_equal policy, assigns(:policy)
   end
 
-  test "should link to topics" do
+  view_test "should link to topics" do
     first_topic = create(:topic)
     second_topic = create(:topic)
     policy = create(:published_policy, topics: [first_topic, second_topic])
@@ -131,7 +131,7 @@ class SupportingPagesControllerTest < ActionController::TestCase
     assert_select "a.topic", text: second_topic.name
   end
 
-  test "should link to organisations from within the metadata navigation" do
+  view_test "should link to organisations from within the metadata navigation" do
     first_org = create(:organisation)
     second_org = create(:organisation)
     policy = create(:published_policy, organisations: [first_org, second_org])
@@ -147,7 +147,7 @@ class SupportingPagesControllerTest < ActionController::TestCase
     end
   end
 
-  test "should link to ministers from within the metadata navigation" do
+  view_test "should link to ministers from within the metadata navigation" do
     role = create(:ministerial_role)
     appointment = create(:role_appointment, person: create(:person, forename: "minister-name"), role: role)
     policy = create(:published_policy, ministerial_roles: [appointment.role])
@@ -158,7 +158,7 @@ class SupportingPagesControllerTest < ActionController::TestCase
     assert_select "a.minister", text: "minister-name"
   end
 
-  test "should not apply active class to the parent policy page navigation heading" do
+  view_test "should not apply active class to the parent policy page navigation heading" do
     policy = create(:published_policy)
     supporting_page = create(:supporting_page, edition: policy)
 
@@ -169,7 +169,7 @@ class SupportingPagesControllerTest < ActionController::TestCase
       count: 0
   end
 
-  test "should apply active class to the current supporting page navigation heading" do
+  view_test "should apply active class to the current supporting page navigation heading" do
     policy = create(:published_policy)
     supporting_page = create(:supporting_page, edition: policy, title: "This is the active one")
     other_supporting_page = create(:supporting_page, edition: policy, title: "This is an inactive one")
@@ -184,7 +184,7 @@ class SupportingPagesControllerTest < ActionController::TestCase
       count: 0
   end
 
-  test "should use supporting page title as page title" do
+  view_test "should use supporting page title as page title" do
     policy = create(:published_policy)
     supporting_page = create(:supporting_page, edition: policy)
 
@@ -193,7 +193,7 @@ class SupportingPagesControllerTest < ActionController::TestCase
     assert_select "title", text: Regexp.new(supporting_page.title)
   end
 
-  test "should use supporting page title as h1" do
+  view_test "should use supporting page title as h1" do
     policy = create(:published_policy)
     supporting_page = create(:supporting_page, edition: policy)
 
@@ -202,7 +202,7 @@ class SupportingPagesControllerTest < ActionController::TestCase
     assert_select "h1", text: supporting_page.title
   end
 
-  test "show displays the policy team responsible for this policy" do
+  view_test "show displays the policy team responsible for this policy" do
     policy_team = create(:policy_team, email: 'policy-team@example.com')
     policy = create(:published_policy, policy_teams: [policy_team])
     supporting_page = create(:supporting_page, edition: policy)
@@ -215,7 +215,7 @@ class SupportingPagesControllerTest < ActionController::TestCase
 
   end
 
-  test "show doesn't display the policy team section if the policy isn't associated with a policy team" do
+  view_test "show doesn't display the policy team section if the policy isn't associated with a policy team" do
     policy = create(:published_policy)
     supporting_page = create(:supporting_page, edition: policy)
 
@@ -224,7 +224,7 @@ class SupportingPagesControllerTest < ActionController::TestCase
     refute_select policy_team_selector
   end
 
-  test "shows correct sub navigation when viewing supporting details" do
+  view_test "shows correct sub navigation when viewing supporting details" do
     policy = create(:published_policy)
     supporting_page = create(:supporting_page, edition: policy)
 
@@ -236,7 +236,7 @@ class SupportingPagesControllerTest < ActionController::TestCase
     end
   end
 
-  test "shows activity link when viewing supporting details" do
+  view_test "shows activity link when viewing supporting details" do
     policy = create(:published_policy)
     supporting_page = create(:supporting_page, edition: policy)
     speech = create(:published_speech, related_policies: [policy])
@@ -250,7 +250,7 @@ class SupportingPagesControllerTest < ActionController::TestCase
     end
   end
 
-  test "shows inline attachments when viewing supporting details" do
+  view_test "shows inline attachments when viewing supporting details" do
     policy = create(:published_policy)
     attachment = create(:attachment)
     supporting_page = create(:supporting_page, edition: policy, body: "!@1", attachments: [attachment])

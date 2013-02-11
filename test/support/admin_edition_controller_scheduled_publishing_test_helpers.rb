@@ -15,7 +15,7 @@ module AdminEditionControllerScheduledPublishingTestHelpers
     def should_allow_scheduled_publication_of(edition_type)
       document_type_class = edition_type.to_s.classify.constantize
 
-      test "new displays scheduled_publication date and time fields" do
+      view_test "new displays scheduled_publication date and time fields" do
         get :new
 
         assert_select "form#edition_new" do
@@ -24,7 +24,7 @@ module AdminEditionControllerScheduledPublishingTestHelpers
         end
       end
 
-      test "should display the 'Schedule' button for a submitted edition with schedule" do
+      view_test "should display the 'Schedule' button for a submitted edition with schedule" do
         edition = create(edition_type, :submitted, scheduled_publication: 1.day.from_now)
         edition.stubs(:schedulable_by?).returns(true)
         document_type_class.stubs(:find).with(edition.to_param).returns(edition)
@@ -33,7 +33,7 @@ module AdminEditionControllerScheduledPublishingTestHelpers
         assert_select '.scheduled-publication', /Scheduled publication proposed for/
       end
 
-      test "should display the 'Force Schedule' button for a submitted edition with schedule" do
+      view_test "should display the 'Force Schedule' button for a submitted edition with schedule" do
         edition = create(edition_type, :submitted, scheduled_publication: 1.day.from_now)
         edition.stubs(:schedulable_by?).returns(false)
         edition.stubs(:schedulable_by?).with(anything, has_entry(force:true)).returns(true)
@@ -43,7 +43,7 @@ module AdminEditionControllerScheduledPublishingTestHelpers
         assert_select '.scheduled-publication', "Scheduled publication proposed for #{I18n.localize edition.scheduled_publication, format: :long}."
       end
 
-      test "should not display the 'Schedule' button if not schedulable" do
+      view_test "should not display the 'Schedule' button if not schedulable" do
         edition = create(edition_type, :published)
         edition.stubs(:schedulable_by?).returns(false)
         document_type_class.stubs(:find).with(edition.to_param).returns(edition)
@@ -52,19 +52,19 @@ module AdminEditionControllerScheduledPublishingTestHelpers
         refute_select force_schedule_button_selector(edition)
       end
 
-      test "should display the 'Unschedule' button for a scheduled publication" do
+      view_test "should display the 'Unschedule' button for a scheduled publication" do
         edition = create(edition_type, :scheduled)
         get :show, id: edition
         assert_select unschedule_button_selector(edition)
       end
 
-      test "should indicate publishing schedule if scheduled" do
+      view_test "should indicate publishing schedule if scheduled" do
         edition = create(edition_type, :scheduled)
         get :show, id: edition
         assert_select '.scheduled-publication', "Scheduled for publication on #{I18n.localize edition.scheduled_publication, format: :long}."
       end
 
-      test "should not indicate publishing schedule if published" do
+      view_test "should not indicate publishing schedule if published" do
         edition = create(edition_type, :published, scheduled_publication: 1.day.ago)
         get :show, id: edition
         assert_select '.scheduled-publication', count: 0
@@ -95,7 +95,7 @@ module AdminEditionControllerScheduledPublishingTestHelpers
         assert_equal selected_time, created_edition.scheduled_publication
       end
 
-      test "edit displays scheduled_publication date and time fields" do
+      view_test "edit displays scheduled_publication date and time fields" do
         edition = create(edition_type, scheduled_publication: Time.zone.parse('2060-06-03 10:30'))
 
         get :edit, id: edition
@@ -110,7 +110,7 @@ module AdminEditionControllerScheduledPublishingTestHelpers
         end
       end
 
-      test "edit displays scheduled_publication date and time fields when scheduled_publication is nil, defaulting to 09:30 today" do
+      view_test "edit displays scheduled_publication date and time fields when scheduled_publication is nil, defaulting to 09:30 today" do
         edition = create(edition_type, scheduled_publication: nil)
 
         Timecop.freeze(Time.zone.parse('2012-03-01 11:00')) do

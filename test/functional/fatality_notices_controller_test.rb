@@ -10,14 +10,14 @@ class FatalityNoticesControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "renders the fatality notice summary from plain text" do
+  view_test "renders the fatality notice summary from plain text" do
     fatality_notice = create(:published_fatality_notice, summary: 'plain text & so on')
     get :show, id: fatality_notice.document
 
     assert_select ".summary", text: "plain text &amp; so on"
   end
 
-  test "renders the fatality notice body using govspeak" do
+  view_test "renders the fatality notice body using govspeak" do
     fatality_notice = create(:published_fatality_notice, body: "body-in-govspeak")
     govspeak_transformation_fixture "body-in-govspeak" => "body-in-html" do
       get :show, id: fatality_notice.document
@@ -26,7 +26,7 @@ class FatalityNoticesControllerTest < ActionController::TestCase
     assert_select ".body", text: "body-in-html"
   end
 
-  test "shows when updated fatality notice was first published and last updated" do
+  view_test "shows when updated fatality notice was first published and last updated" do
     fatality_notice = create(:published_fatality_notice, first_published_at: 10.days.ago)
 
     editor = create(:departmental_editor)
