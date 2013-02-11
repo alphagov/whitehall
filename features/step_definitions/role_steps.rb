@@ -19,7 +19,8 @@ When /^I add a new "([^"]*)" role named "([^"]*)" to the "([^"]*)" office$/ do |
 end
 
 Then /^I should be able to appoint "([^"]*)" to the new role$/ do |person_name|
-  click_on @role_name
+  role = Role.last
+  click_on role.name
   click_on "New appointment"
   select person_name, from: "Person"
   select_date "Started at", with: 1.day.ago.to_s
