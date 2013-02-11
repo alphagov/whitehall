@@ -43,3 +43,21 @@ Then /^I should see "([^"]*)" listed as "([^"]*)" on the "([^"]*)" office page$/
     assert page.has_content?(role.name)
   end
 end
+
+Then /^I should see a picture of "([^"]*)" on the "([^"]*)" office page$/ do |person_name, office_name|
+  visit_worldwide_office_page office_name
+  person = find_person(person_name)
+
+  within record_css_selector(person) do
+    assert page.has_css?('img')
+  end
+end
+
+Then /^I should not see a picture of "([^"]*)" on the "([^"]*)" office page$/ do |person_name, office_name|
+  visit_worldwide_office_page office_name
+  person = find_person(person_name)
+
+  within record_css_selector(person) do
+    refute page.has_css?('img')
+  end
+end

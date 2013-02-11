@@ -9,7 +9,19 @@ class WorldwideOfficesController < PublicFacingController
     @world_locations = @worldwide_office.world_locations
     @main_contact = @worldwide_office.main_contact
     @other_contacts = @worldwide_office.other_contacts
-    @primary_role = RolePresenter.new(@worldwide_office.primary_role)
+    @primary_role = primary_role
+    @secondary_role = secondary_role
+
     respond_with @worldwide_office
+  end
+
+  private
+
+  def primary_role
+    RolePresenter.new(@worldwide_office.primary_role) if @worldwide_office.primary_role
+  end
+
+  def secondary_role
+    RolePresenter.new(@worldwide_office.secondary_role) if @worldwide_office.secondary_role
   end
 end
