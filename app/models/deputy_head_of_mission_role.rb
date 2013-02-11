@@ -1,0 +1,2 @@
+class DeputyHeadOfMissionRole < Role
+end

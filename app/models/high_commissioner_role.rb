@@ -1,0 +1,2 @@
+class HighCommissionerRole < Role
+end

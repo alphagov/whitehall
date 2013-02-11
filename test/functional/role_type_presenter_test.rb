@@ -19,6 +19,12 @@ class RoleTypePresenterTest < ActiveSupport::TestCase
       ]],
       ["FCO", [
         ["Special representative", "special_representative"]
+      ]],
+      ["Worldwide", [
+        ["Ambassador", "ambassador"],
+        ["High commissioner", "high_commissioner"],
+        ["Governor", "governor"],
+        ["Deputy head of mission", "deputy_head_of_mission"]
       ]]
     ]
     assert_equal expected, RoleTypePresenter.options
@@ -52,6 +58,22 @@ class RoleTypePresenterTest < ActiveSupport::TestCase
   test "should select chief of staff" do
     role = build(:role, chief_of_the_defence_staff: false)
     assert_equal "chief_of_staff", RoleTypePresenter.option_value_for(role, "MilitaryRole")
+  end
+
+  test "should select ambassador" do
+    assert_equal "ambassador", RoleTypePresenter.option_value_for(build(:role), "AmbassadorRole")
+  end
+
+  test "should select governor" do
+    assert_equal "governor", RoleTypePresenter.option_value_for(build(:role), "GovernorRole")
+  end
+
+  test "should select high commissioner" do
+    assert_equal "high_commissioner", RoleTypePresenter.option_value_for(build(:role), "HighCommissionerRole")
+  end
+
+  test "should select deputy head of state" do
+    assert_equal "deputy_head_of_mission", RoleTypePresenter.option_value_for(build(:role), "DeputyHeadOfMissionRole")
   end
 
   test "should select cabinet minister by default" do

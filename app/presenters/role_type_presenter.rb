@@ -26,6 +26,12 @@ class RoleTypePresenter
     },
     "FCO" => {
       "special_representative" => RoleType.new(SpecialRepresentativeRole.name, false, false, false)
+    },
+    "Worldwide" => {
+      "ambassador" => RoleType.new(AmbassadorRole.name, false, false, false),
+      "high_commissioner" => RoleType.new(HighCommissionerRole.name, false, false, false),
+      "governor" => RoleType.new(GovernorRole.name, false, false, false),
+      "deputy_head_of_mission" => RoleType.new(DeputyHeadOfMissionRole.name, false, false, false)
     }
   }.freeze
 
