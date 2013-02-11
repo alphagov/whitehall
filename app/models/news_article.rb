@@ -3,6 +3,7 @@ class NewsArticle < Announcement
   include Edition::FactCheckable
   include Edition::FirstImagePulledOut
   include Edition::DocumentSeries
+  include Edition::WorldwidePriorities
   include ::Attachable
   include Edition::AlternativeFormatProvider
 

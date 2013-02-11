@@ -180,6 +180,10 @@ class Edition < ActiveRecord::Base
     false
   end
 
+  def can_be_associated_with_worldwide_priorities?
+    false
+  end
+
   def can_be_associated_with_statistical_data_sets?
     false
   end
