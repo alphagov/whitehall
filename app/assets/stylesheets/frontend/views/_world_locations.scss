@@ -156,4 +156,61 @@
       }
     }
   }
+
+  .world-offices-block {
+    margin-top: $gutter;
+    padding: 0 $gutter-half;
+
+      .worldwide-office {
+        clear: both;
+        border-bottom: 1px solid $grey-2;
+        padding-bottom: $gutter;
+        margin-bottom: $gutter;
+        @extend %contain-floats;
+
+        .worldwide-office-detail, .worldwide-office-contact  {  
+          @include media(tablet) {
+            float: left;
+            display: inline;
+            width: 66.66%;
+          }
+
+          h2 {
+            font-weight: bold;
+            a {
+              @include heading-27;
+              font-weight: bold;
+            }
+          }
+
+          p {
+            margin: $gutter-one-third 0;
+          }
+
+          .content {
+            padding-right: $gutter-half;
+            .sponsoring-organisation {
+              padding-bottom: $gutter-two-thirds;
+            }
+          }
+        }
+
+        .worldwide-office-contact {
+          margin-top: $gutter;
+
+          @include media(tablet) {
+            margin-top: 0;
+            min-width: auto;
+            width: 33.33%;
+            h2, .contact-comments, .contact-inner, .email-url-number {
+              padding-left: $gutter-half;
+            }
+          }
+        }
+      }
+
+  }
+
 }
+
+
