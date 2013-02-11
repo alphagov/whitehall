@@ -134,15 +134,15 @@ module Whitehall::DocumentFilter
     end
 
     def documents
-      if @results.empty?
+      if @results.empty? || @results['results'].empty?
         @documents ||= Kaminari.paginate_array([]).page(@page).per(@per_page)
       else
-        objects = Edition.find(@results.map{ |h| h["id"] })
-        sorted = @results.map do |doc|
+        objects = Edition.find(@results['results'].map{ |h| h["id"] })
+        sorted = @results['results'].map do |doc|
           objects.detect { |obj| obj.id == doc['id'] }
         end
 
-        @documents ||= Kaminari.paginate_array(sorted).page(@page).per(@per_page)
+        @documents ||= Kaminari.paginate_array(sorted, total_count: @results['total']).page(@page).per(@per_page)
       end
     end
 
