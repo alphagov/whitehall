@@ -34,11 +34,9 @@ end
 Then /^I should see the(?: updated)? worldwide office information on the public website$/ do
   office = WorldwideOffice.last
   visit worldwide_office_path(office)
-  within record_css_selector(office) do
-    assert page.has_content?(office.logo_formatted_name)
-    assert page.has_css?(".description strong", text: "office")
-    assert page.has_css?(".services h2", text: 'Passport renewals')
-  end
+  assert page.has_content?(office.logo_formatted_name)
+  assert page.has_css?(".description strong", text: "office")
+  assert page.has_css?("#our-services h2", text: 'Passport renewals')
 end
 
 Then /^the "([^"]*)" logo should show correctly with the HMG crest$/ do |name|
@@ -92,7 +90,7 @@ end
 
 Then /^the social link should be shown on the public website$/ do
   visit worldwide_office_path(WorldwideOffice.last)
-  assert page.has_css?(".social-media .social-media-link")
+  assert page.has_css?(".social-media-accounts")
 end
 
 When /^I add an "([^"]*)" contact with address and phone number$/ do |description|
@@ -110,7 +108,7 @@ end
 
 Then /^the "([^"]*)" details should be shown on the public website$/ do |description|
   visit worldwide_office_path(WorldwideOffice.last)
-  assert page.has_css?(".worldwide-office-contact h2", text: description)
+  assert page.has_css?(".contact h2", text: description)
 end
 
 Given /^that the world location "([^"]*)" exists$/ do |country_name|

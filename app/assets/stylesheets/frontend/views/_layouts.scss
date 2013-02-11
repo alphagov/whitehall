@@ -3,7 +3,18 @@
 
 .inner-block {
   padding: 0 $gutter-half;
+
   @include media(tablet){
     padding: 0 $gutter;
+  }
+
+  &.floated-children {
+    @extend %contain-floats;
+
+    padding: 0;
+
+    @include media(tablet){
+      padding: 0 $gutter-half;
+    }
   }
 }
