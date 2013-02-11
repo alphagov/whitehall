@@ -98,17 +98,17 @@
       }
     }
     .contact.main {
-      margin: 0 $gutter-half;
 
       @include media(desktop){
         width: 100%;
-        margin: 0 $gutter-half $gutter;
-        border-bottom: 1px solid $border-colour;
+        margin: 0 0 $gutter;
       }
 
       .content {
+        margin: 0 $gutter-half;
         @extend %contain-floats;
         padding: $gutter 0;
+        border-bottom: 1px solid $border-colour;
 
         .comments {
           @include media(desktop){
