@@ -46,6 +46,7 @@ module Whitehall::DocumentFilter
         .merge(filter_by_people)
         .merge(filter_by_topics)
         .merge(filter_by_organisations)
+        .merge(filter_by_locations)
         .merge(filter_by_date)
         .merge(sort)
     end
@@ -81,6 +82,14 @@ module Whitehall::DocumentFilter
     def filter_by_organisations
       if selected_organisations.any?
         {organisations: selected_organisations.map(&:id).map(&:to_s)}
+      else
+        {}
+      end
+    end
+
+    def filter_by_locations
+      if selected_locations.any?
+        {world_locations: selected_locations.map(&:slug)}
       else
         {}
       end

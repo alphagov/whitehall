@@ -20,6 +20,12 @@ module Edition::WorldLocations
     true
   end
 
+  module InstanceMethods
+    def search_index
+      super.merge("world_locations" => world_locations.map(&:slug))
+    end
+  end
+
   module ClassMethods
     def in_world_location(world_location)
       joins(:world_locations).where('world_locations.id' => world_location)

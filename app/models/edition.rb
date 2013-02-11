@@ -119,6 +119,7 @@ class Edition < ActiveRecord::Base
     display_type: -> d { d.display_type },
     public_timestamp: :public_timestamp,
     relevant_to_local_government: :relevant_to_local_government,
+    world_locations: nil,
     topics: nil,
     only: :published,
     index_after: [],
