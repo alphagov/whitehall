@@ -198,12 +198,6 @@ class PublicationsInTopicsTest < ActiveSupport::TestCase
     refute publication.first_published_at
   end
 
-  test "search_index contains publication_type" do
-    publication = build(:published_publication, title: "my title", publication_type: PublicationType::TransparencyData)
-    publication.stubs(:public_document_path).returns("/my/publication")
-    assert_equal PublicationType::TransparencyData.id, publication.search_index['publication_type']
-  end
-
   test 'search_format_types tags the publication as a publication' do
     publication = build(:publication)
     assert publication.search_format_types.include?('publication')

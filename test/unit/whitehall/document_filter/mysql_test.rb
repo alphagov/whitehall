@@ -191,9 +191,9 @@ module Whitehall::DocumentFilter
       transcript = create(:published_speech, speech_type: SpeechType::Transcript, world_locations: [world_location])
       statement = create(:published_speech, speech_type: SpeechType::WrittenStatement, world_locations: [other_world_location])
 
-      assert_equal 4, Whitehall::DocumentFilter::Mysql.new(Announcement.published, locations: [world_location.slug, other_world_location.slug]).documents.count
-      assert_equal 3, Whitehall::DocumentFilter::Mysql.new(Announcement.published, locations: [world_location.slug]).documents.count
-      assert_equal 1, Whitehall::DocumentFilter::Mysql.new(Announcement.published, locations: [other_world_location.slug]).documents.count
+      assert_equal 4, create_filter(Announcement.published, locations: [world_location.slug, other_world_location.slug]).documents.count
+      assert_equal 3, create_filter(Announcement.published, locations: [world_location.slug]).documents.count
+      assert_equal 1, create_filter(Announcement.published, locations: [other_world_location.slug]).documents.count
     end
 
     test "can filter announcements by type" do
@@ -204,13 +204,13 @@ module Whitehall::DocumentFilter
 
       filter = create_filter(Announcement.published, announcement_type_option: "news-stories")
       assert_equal [news_article.id], filter.documents.map(&:id)
-      
+
       filter = create_filter(Announcement.published, announcement_type_option: "fatality-notices")
       assert_equal [fatality_notice.id], filter.documents.map(&:id)
 
       filter = create_filter(Announcement.published, announcement_type_option: "speeches")
       assert_equal [transcript.id], filter.documents.map(&:id)
-      
+
       filter = create_filter(Announcement.published, announcement_type_option: "statements")
       assert_equal [statement.id], filter.documents.map(&:id)
     end
@@ -254,7 +254,7 @@ module Whitehall::DocumentFilter
       news_article = create(:published_news_article, related_policies: [policy], organisations: [organisation])
 
       document_scope = Announcement.published.includes(:document, :organisations)
-      filter = create_filter(document_scope, 
+      filter = create_filter(document_scope,
         departments: [organisation.slug],
         topics: [topic.slug],
         page: 1)
@@ -266,7 +266,7 @@ module Whitehall::DocumentFilter
       policy = create(:published_policy)
       topic = create(:topic, policies: [policy])
       3.times { create(:published_publication, related_policies: [policy]) }
-      queries = count_queries { 
+      queries = count_queries {
         create_filter(Publication.published, topics: [topic.slug]).documents
       }
       assert 3 > queries
@@ -283,7 +283,7 @@ module Whitehall::DocumentFilter
 
     test 'does not use n+1 selects when filtering by keywords' do
       3.times { |i| create(:published_publication, title: "keyword-#{i}") }
-      queries = count_queries { 
+      queries = count_queries {
         create_filter(Publication.published, keywords: "keyword").documents
       }
       assert 3 > queries
@@ -316,7 +316,7 @@ module Whitehall::DocumentFilter
     #     Whitehall::DocumentFilter::Mysql.new(document_scope).send(method)
     #   end
     # end
-    # 
+    #
     # test_delegates_to_documents(:count)
     # test_delegates_to_documents(:num_pages)
     # test_delegates_to_documents(:current_page)

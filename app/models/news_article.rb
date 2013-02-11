@@ -23,7 +23,7 @@ class NewsArticle < Announcement
   end
 
   def search_index
-    super.merge({"news_article_type" => news_article_type_id})
+    super.merge({"news_article_type" => news_article_type.slug})
   end
 
   def search_format_types

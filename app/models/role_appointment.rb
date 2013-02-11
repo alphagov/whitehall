@@ -9,6 +9,8 @@ class RoleAppointment < ActiveRecord::Base
   belongs_to :role
   belongs_to :person
 
+  delegate :slug, to: :person
+
   class Validator < ActiveModel::Validator
     def validate(record)
       if record.make_current

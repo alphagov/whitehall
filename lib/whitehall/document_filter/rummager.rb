@@ -65,7 +65,7 @@ module Whitehall::DocumentFilter
 
     def filter_by_people
       if @people_ids.present? && @people_ids != ["all"]
-        {people: @people_ids.map(&:to_s)}
+        {people: @people.map(&:slug)}
       else
         {}
       end
@@ -73,7 +73,7 @@ module Whitehall::DocumentFilter
 
     def filter_by_topics
       if selected_topics.any?
-        {topics: selected_topics.map(&:id).map(&:to_s)}
+        {topics: selected_topics.map(&:slug)}
       else
         {}
       end
@@ -81,7 +81,7 @@ module Whitehall::DocumentFilter
 
     def filter_by_organisations
       if selected_organisations.any?
-        {organisations: selected_organisations.map(&:id).map(&:to_s)}
+        {organisations: selected_organisations.map(&:slug)}
       else
         {}
       end

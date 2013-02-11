@@ -100,7 +100,7 @@ class PolicyTest < ActiveSupport::TestCase
   test "search_index contains topics" do
     policy = build(:published_policy, title: "my title", topics: [create(:topic)])
     policy.stubs(:public_document_path)
-    assert_equal policy.topics.map(&:id), policy.search_index['topics']
+    assert_equal policy.topics.map(&:slug), policy.search_index['topics']
   end
 
   test 'search_format_types tags the policy as a policy' do

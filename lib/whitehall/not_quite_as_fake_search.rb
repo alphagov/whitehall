@@ -75,38 +75,34 @@ module Whitehall
 
       def filter_by_publication_type(document_hashes)
         if selected_publication_filter_option
-          publication_type_ids = selected_publication_filter_option.publication_types.map(&:id)
-          pre_filtered =
-            if selected_publication_filter_option.edition_types.any?
-              edition_types = selected_publication_filter_option.edition_types
-              format = edition_types.first.underscore
-              document_hashes.select { |document_hash| (document_hash['format'] == format) || (publication_type_ids.include? document_hash['publication_type']) }
-            else
-              document_hashes.select { |document_hash| publication_type_ids.include? document_hash['publication_type'] }
+          publication_types = selected_publication_filter_option.search_format_types
+          document_hashes.select {|document_hash|
+            if document_hash['search_format_types']
+              publication_types.any? {|type| document_hash['search_format_types'].include?(type)}
             end
-          if selected_consultation_type_option
-            pre_filtered.select { |document_hash| document_hash['display_type'] == selected_consultation_type_option }
-          else
-            pre_filtered
-          end
+           }
         else
-          document_hashes.select { |document_hash| ['publication', 'statistical_data_set', 'consultation'].include? document_hash['format'] }
+          document_hashes.select { |document_hash|
+            if document_hash['search_format_types']
+              [Publication.search_format_type, StatisticalDataSet.search_format_type, Consultation.search_format_type].any?{|type| document_hash['search_format_types'].include?(type)}
+            end
+          }
         end
       end
 
       def filter_by_announcement_type(document_hashes)
         if selected_announcement_type_option
-          pre_filtered =
-            if selected_announcement_type_option.speech_types.present?
-              document_hashes.select { |document_hash| selected_announcement_type_option.speech_types.map(&:id).include? document_hash['speech_type'] }
-            elsif selected_announcement_type_option.news_article_types.present?
-              document_hashes.select { |document_hash| selected_announcement_type_option.news_article_types.map(&:id).include? document_hash['news_article_type'] }
-            else
-              document_hashes
+          document_hashes.select { |document_hash|
+            if document_hash['search_format_types']
+              selected_announcement_type_option.search_format_types.any?{|type| document_hash['search_format_types'].include?(type)}
             end
-          pre_filtered.select { |document_hash| formats_from_model_names(selected_announcement_type_option.edition_types).include? document_hash['format'] }
+          }
         else
-          document_hashes.select { |document_hash| ["speech", "news_article", "fatality_notice"].include? document_hash['format'] }
+          document_hashes.select { |document_hash|
+            if document_hash['search_format_types']
+              [Announcement.search_format_type].any?{|type| document_hash['search_format_types'].include?(type)}
+            end
+          }
         end
       end
 
@@ -121,7 +117,7 @@ module Whitehall
 
       def filter_by_topics(document_hashes)
         if selected_topics.any?
-          document_hashes.select { |document_hash| (selected_topics.map(&:id) & document_hash['topics']).any? }
+          document_hashes.select { |document_hash| (selected_topics.map(&:slug) & document_hash['topics']).any? }
         else
           document_hashes
         end
@@ -129,7 +125,7 @@ module Whitehall
 
       def filter_by_organisations(document_hashes)
         if selected_organisations.any?
-          document_hashes.select { |document_hash| (selected_organisations.map(&:id) & document_hash['organisations']).any? }
+          document_hashes.select { |document_hash| (selected_organisations.map(&:slug) & document_hash['organisations']).any? }
         else
           document_hashes
         end

@@ -12,7 +12,7 @@ class Speech < Announcement
   validate :only_speeches_allowed_invalid_data_can_be_awaiting_type
 
   def search_index
-    super.merge("speech_type" => speech_type_id)
+    super.merge("speech_type" => speech_type.slug)
   end
 
   def search_format_types

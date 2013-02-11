@@ -20,7 +20,7 @@ module Edition::RoleAppointments
 
   module InstanceMethods
     def search_index
-      super.merge("people" => role_appointments.map(&:person_id))
+      super.merge("people" => role_appointments.map(&:slug))
     end
   end
 end

@@ -13,7 +13,6 @@ module Whitehall::DocumentFilter
       @direction = params[:direction]
       @date = parse_date(@params[:date]) if @params[:date].present?
       @keywords = params[:keywords]
-      @people_ids = @params[:people_id]
     end
 
     def selected_topics
@@ -39,7 +38,12 @@ module Whitehall::DocumentFilter
     end
 
     def selected_people_option
-      @people_ids
+      if @params[:people_id].present? && @params[:people_id] != ["all"]
+        @params[:people_id].reject! {|l| l == "all"}
+        People.find(@params[:people_id])
+      else
+        []
+      end
     end
 
     def selected_locations

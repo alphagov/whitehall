@@ -20,7 +20,7 @@ class Edition::RelatedPoliciesTest < ActiveSupport::TestCase
     edition = create(:edition_with_related_policies, related_policies: [create(:published_policy, topics: [create(:topic)])])
 
     edition.stubs(:public_document_path)
-    assert_equal edition.topics.map(&:id), edition.search_index['topics']
+    assert_equal edition.topics.map(&:slug), edition.search_index['topics']
 
   end
 end
