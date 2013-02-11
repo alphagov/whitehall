@@ -1,11 +1,13 @@
 <%
-  clear_class = if local_assigns.include?(:contact_counter) and contact_counter % 3 == 0
-    " clear-contact"
-  else
-    ""
+  contact_class = []
+  if local_assigns.include?(:contact_counter) and contact_counter % 3 == 0
+    contact_class << "clear-contact"
+  end
+  if local_assigns[:is_main]
+    contact_class << 'main'
   end
 %>
-<%= content_tag_for(:div, contact, class: "#{'main' if local_assigns[:is_main]}#{clear_class}") do %>
+<%= content_tag_for(:div, contact, class: contact_class.join(' ')) do %>
   <div class="content">
     <h2><%= contact.title %></h2>
 
