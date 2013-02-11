@@ -1,3 +1,4 @@
+# encoding: utf-8
 require 'test_helper'
 
 class Admin::PeopleControllerTest < ActionController::TestCase
@@ -19,6 +20,14 @@ class Admin::PeopleControllerTest < ActionController::TestCase
       assert_select "input[name='person[image]'][type=file]"
       assert_select "textarea[name='person[biography]']"
     end
+  end
+
+  test "new assigns a worldwide office apointment if a worldwide office is specified" do
+    office = create(:worldwide_office)
+    get :new, worldwide_office_id: office.to_param
+
+    assert assigns(:person).worldwide_office_appointment.is_a?(WorldwideOfficeAppointment)
+    assert_equal office, assigns(:person).worldwide_office_appointment.worldwide_office
   end
 
   view_test "creating with invalid data shows errors" do
@@ -44,6 +53,19 @@ class Admin::PeopleControllerTest < ActionController::TestCase
     post :create, person: attributes_for(:person)
 
     assert_redirected_to admin_people_path
+  end
+
+  test "creating with a worldwide office appointment redirects to the office people tab" do
+    office = create(:worldwide_office)
+    attributes = attributes_for(:person, worldwide_office_appointment_attributes: { worldwide_office_id: office.id, job_title: "Defence Attaché"})
+
+    post :create, person: attributes
+
+    refute_nil appointment = office.worldwide_office_appointments.first
+    refute_nil person = Person.last
+    assert_equal "Defence Attaché", appointment.job_title
+    assert_equal person, appointment.person
+    assert_redirected_to people_admin_worldwide_office_path(office)
   end
 
   test "creating allows attachment of an image" do

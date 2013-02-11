@@ -106,6 +106,7 @@ Whitehall::Application.routes.draw do
             put :set_main_contact
             get :contacts
             get :social_media_accounts
+            get :people
           end
         end
         resources :contacts

@@ -1,7 +1,7 @@
 class Admin::WorldwideOfficesController < Admin::BaseController
   respond_to :html
 
-  before_filter :find_worldwide_office, only: [:edit, :update, :destroy, :show, :contacts, :set_main_contact, :social_media_accounts]
+  before_filter :find_worldwide_office, only: [:edit, :update, :destroy, :show, :contacts, :people, :set_main_contact, :social_media_accounts]
 
   def index
     respond_with @worldwide_offices = WorldwideOffice.all

@@ -8,6 +8,12 @@
     <%= person_form.text_field :surname %>
     <%= person_form.text_field :letters %>
   </fieldset>
+  <fieldset>
+    <%= person_form.fields_for(:worldwide_office_appointment) do |appointment| %>
+      <%= appointment.hidden_field :worldwide_office_id %>
+      <%= appointment.text_field :job_title, label_text: 'Worldwide office job title' %>
+    <% end %>
+  </fieldset>
   <fieldset class="image">
     <%= person_form.label :image, 'Image' %>
     <%= image_tag person.image_url || 'blank-person.png' %>

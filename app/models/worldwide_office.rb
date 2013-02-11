@@ -11,6 +11,7 @@ class WorldwideOffice < ActiveRecord::Base
   has_many :worldwide_office_roles, dependent: :destroy
   has_many :roles, through: :worldwide_office_roles
   has_many :people, through: :roles
+  has_many :worldwide_office_appointments
 
   alias :original_main_contact :main_contact
 

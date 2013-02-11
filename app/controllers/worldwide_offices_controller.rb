@@ -11,6 +11,7 @@ class WorldwideOfficesController < PublicFacingController
     @other_contacts = @worldwide_office.other_contacts
     @primary_role = primary_role
     @secondary_role = secondary_role
+    @supporting_roles = supporting_roles
 
     respond_with @worldwide_office
   end
@@ -23,5 +24,11 @@ class WorldwideOfficesController < PublicFacingController
 
   def secondary_role
     RolePresenter.new(@worldwide_office.secondary_role) if @worldwide_office.secondary_role
+  end
+
+  def supporting_roles
+    @worldwide_office.worldwide_office_appointments.collect do |appointment|
+      RolePresenter.new(appointment)
+    end
   end
 end

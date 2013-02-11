@@ -3,6 +3,7 @@ module Admin::WorldwideOfficesHelper
     tabs = {
       "Details" => admin_worldwide_office_path(@worldwide_office),
       "Contacts" => contacts_admin_worldwide_office_path(@worldwide_office),
+      "People" => people_admin_worldwide_office_path(@worldwide_office),
       "Social Media Accounts" => social_media_accounts_admin_worldwide_office_path(@worldwide_office)
     }
 

@@ -54,16 +54,24 @@
                     locals: {
                       person: @primary_role.current_person,
                       roles: [@primary_role],
-                      hlevel: "h3" }
-                    ) if @primary_role %>
+                      hlevel: 'h3' }) if @primary_role %>
 
         <%= render( partial: 'people/person',
                     locals: {
                       person: @secondary_role.current_person,
                       roles: [@secondary_role],
-                      hlevel: "h3",
-                      hide_image: true }
-                    ) if @secondary_role %>
+                      hlevel: 'h3',
+                      hide_image: true }) if @secondary_role %>
+
+        <% @supporting_roles.each do |supporting_role| %>
+          <%= render( partial: 'people/person',
+                      locals: {
+                        person: supporting_role.current_person,
+                        roles: [supporting_role],
+                        hlevel: 'h3',
+                        hide_image: true
+                        }) %>
+        <% end %>
       </ul>
     </div>
   </div>
