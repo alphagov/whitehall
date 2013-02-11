@@ -164,6 +164,6 @@ Then /^he is listed as the supporting position of "([^"]*)" on the worldwide off
   visit worldwide_office_path(office)
   within record_css_selector(person) do
     assert page.has_content?(person.name)
-    assert page.has_css?('p.role', :text => position_name)
+    assert page.has_css?('p.role', text: position_name)
   end
 end
