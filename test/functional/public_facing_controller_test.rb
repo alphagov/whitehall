@@ -5,9 +5,17 @@ class PublicFacingControllerTest < ActionController::TestCase
     def test
       render text: 'ok'
     end
+
+    def locale
+      render text: I18n.locale.to_s
+    end
   end
 
   tests TestController
+
+  teardown do
+    I18n.default_locale = :en
+  end
 
   test "all public facing requests are publically cacheable" do
     with_routing_to_test_action do
@@ -58,11 +66,36 @@ class PublicFacingControllerTest < ActionController::TestCase
     end
   end
 
+  test "all public facing requests without a locale should use the default locale" do
+    with_routing_to_test_action do
+      I18n.default_locale = :default
+      get :locale
+      assert_equal 'default', response.body
+    end
+  end
+
+  test "all public facing requests with a locale should use the given locale" do
+    with_routing_to_test_action do
+      I18n.default_locale = :default
+      get :locale, locale: 'fr'
+      assert_equal 'fr', response.body
+    end
+  end
+
+  test "all public facing requests with a locale should reset the locale back to the default after completion" do
+    with_routing_to_test_action do
+      I18n.default_locale = :original
+      get :locale, locale: 'fr'
+      assert_equal :original, I18n.locale
+    end
+  end
+
   def with_routing_to_test_action(&block)
     with_routing do |map|
       map.draw do
         match '/search' => 'search#index'
         match '/test', to: 'public_facing_controller_test/test#test'
+        match '/locale', to: 'public_facing_controller_test/test#locale'
       end
       yield
     end

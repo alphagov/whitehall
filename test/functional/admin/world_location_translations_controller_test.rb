@@ -15,6 +15,14 @@ class Admin::WorldLocationTranslationsControllerTest < ActionController::TestCas
     assert_select "a[href=#{CGI::escapeHTML(new_translation_path)}]", text: "Create Translation"
   end
 
+
+  test 'index lists existing translations' do
+    @location.translations.create!(name: 'Afrolasie', locale: 'fr', mission_statement: 'Enseigner aux gens comment infuser le thé')
+    get :index, world_location_id: @location
+    edit_translation_path = edit_admin_world_location_translation_path(@location, 'fr')
+    assert_select "a[href=#{CGI::escapeHTML(edit_translation_path)}]", text: 'fr'
+  end
+
   test 'new presents a form to create a new translation' do
     I18n.stubs(:available_locales).returns([:en, :es, :fr, :ar])
 
@@ -91,6 +99,49 @@ class Admin::WorldLocationTranslationsControllerTest < ActionController::TestCas
         assert_select "option[value=ar]"
       end
 
+      assert_select "textarea[name='world_location[mission_statement]']", text: 'Enseigner aux gens comment infuser le thé'
+    end
+  end
+
+  test 'edit presents a form to update an existing translation' do
+    @location.translations.create!(name: 'Afrolasie', locale: 'fr', mission_statement: 'Enseigner aux gens comment infuser le thé')
+
+    get :edit, world_location_id: @location, id: 'fr'
+
+    translation_path = admin_world_location_translation_path(@location, 'fr')
+
+    assert_select "form[action=#{CGI::escapeHTML(translation_path)}]" do
+      assert_select "select[name='translation_locale'][disabled=disabled]"
+      assert_select "input[type=text][name='world_location[name]'][value='Afrolasie']"
+      assert_select "textarea[name='world_location[mission_statement]']", text: 'Enseigner aux gens comment infuser le thé'
+      assert_select "input[type=submit][value=Save]"
+    end
+  end
+
+  test 'update updates translation and redirects back to the index' do
+    put :update, world_location_id: @location, id: 'fr', world_location: {
+      name: 'Afrolasie',
+      mission_statement: 'Enseigner aux gens comment infuser le thé'
+    }
+
+    @location.reload
+
+    I18n.with_locale :fr do
+      assert_equal 'Afrolasie', @location.name
+      assert_equal 'Enseigner aux gens comment infuser le thé', @location.mission_statement
+    end
+
+    assert_redirected_to admin_world_location_translations_path(@location)
+  end
+
+  test 'update re-renders form if translation is invalid' do
+    put :update, world_location_id: @location, id: 'fr', world_location: {
+      mission_statement: 'Enseigner aux gens comment infuser le thé'
+    }
+
+    translation_path = admin_world_location_translation_path(@location, 'fr')
+
+    assert_select "form[action=#{CGI::escapeHTML(translation_path)}]" do
       assert_select "textarea[name='world_location[mission_statement]']", text: 'Enseigner aux gens comment infuser le thé'
     end
   end

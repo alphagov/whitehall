@@ -1,7 +1,7 @@
 <%= form.errors %>
 
 <%= label_tag "translation_locale", "Locale" %>
-<%= select_tag :translation_locale, options_for_select(I18n.available_locales - [:en], translation_locale) %>
+<%= select_tag :translation_locale, options_for_select(I18n.available_locales - [:en], translation_locale), disabled: editing_translation %>
 
 <%= form.text_field :name %>
 <%= form.text_area :mission_statement %>

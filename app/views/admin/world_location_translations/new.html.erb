@@ -2,4 +2,6 @@
 
 <h1>New translation for: <%= @world_location.name %></h1>
 
-<%= render partial: "form", locals: {world_location: @world_location, locale: params[:id]} %>
+<%= form_for @world_location, url: admin_world_location_translations_path(@world_location), method: :post do |form| %>
+  <%= render partial: "fields", locals: {form: form, editing_translation: false} %>
+<% end %>

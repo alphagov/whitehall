@@ -4,3 +4,21 @@
     <%= link_to "Create Translation", new_admin_world_location_translation_path(@world_location), class: "btn new_resource", title: "Create Translation" %>
   </nav>
 </section>
+
+<h1>Translations for <%= @world_location.name %></h1>
+<table id="world-location-translations" class="table table-striped">
+  <thead>
+    <tr>
+      <th width="15%">Locale</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @translations.each do |translation| %>
+      <%= content_tag_for(:tr, translation) do %>
+        <td class="locale">
+          <%= link_to translation.locale, edit_admin_world_location_translation_path(@world_location, translation.locale) %>
+        </td>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>

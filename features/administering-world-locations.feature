@@ -33,3 +33,13 @@ Feature: Administering world location information
     Then when viewing the country "Afrolasia" with the locale "fr" I should see:
       | name              | Afrolasie                                                   |
       | mission_statement | Le Royaume-Uni a une relation de longue date avec Afrolasie |
+
+  Scenario: Editing an existing translation
+    Given a country "Afrolasia" exists with a translation for the locale "fr"
+    When I edit the "fr" translation for "Afrolasia" setting:
+      | locale            | fr                                                          |
+      | name              | Afrolandie                                                  |
+      | mission_statement | Enseigner aux gens comment infuser le thé                   |
+    Then when viewing the country "Afrolasia" with the locale "fr" I should see:
+      | name              | Afrolandie                                                  |
+      | mission_statement | Enseigner aux gens comment infuser le thé                   |
