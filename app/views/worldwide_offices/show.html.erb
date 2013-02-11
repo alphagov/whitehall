@@ -1,56 +1,56 @@
 <% page_title @worldwide_office.name %>
 <% page_class "worldwide-offices-show" %>
 
-<%= content_tag_for(:div, @worldwide_office) do %>
-  <div class="block-1">
-    <div class="inner-block">
-      <%= render 'header', worldwide_office: @worldwide_office, show_mainstream_links: true %>
-    </div>
+<div class="block office-header">
+  <div class="inner-block floated-children">
+    <header>
+      <div class="content">
+        <% if @world_locations.any? %>
+          <h2 class="world-location">UK and <%= @world_locations.map {|l| link_to(l.name, l) }.to_sentence %></h2>
+        <% end %>
+        <h1 class="<%= logo_classes(class_name: 'single-identity', size: 'large', stacked: true) %>">
+          <span><%= format_with_html_line_breaks(h(@worldwide_office.logo_formatted_name)) %></span>
+        </h1>
+        <p class="sponsoring-organisations">
+          Part of <%= @worldwide_office.sponsoring_organisations.map {|o| link_to(o.name, o, class: "sponsoring-organisation") }.to_sentence.html_safe %>
+        </p>
+      </div>
+    </header>
+    <aside class="office-social-media-links">
+      <div class="content">
+        <%= render 'shared/social_media_accounts', socialable: @worldwide_office, followus: true %>
+      </div>
+    </aside>
   </div>
+</div>
 
-  <div class="block-1">
-    <div class="inner-block">
-      <section>
-        <article class="document">
-          <p class="sponsoring-organisations">
-            Part of <%= @worldwide_office.sponsoring_organisations.map {|o| link_to(o.name, o, class: "sponsoring-organisation") }.to_sentence.html_safe %>
-          </p>
-
-          <h1 class="label">About us</h1>
-          <div class="summary">
-            <div class="content">
-              <%= @worldwide_office.summary %>
-            </div>
-          </div>
-
-          <div class="description">
-            <div class="content">
-              <%= govspeak_to_html @worldwide_office.description %>
-            </div>
-          </div>
-
-          <h1 class="label">Our services</h1>
-          <div class="services">
-            <div class="content">
-              <%= govspeak_to_html @worldwide_office.services %>
-            </div>
-          </div>
-        </article>
-      </section>
-    </div>
-  </div>
-
-  <% if @main_contact %>
-    <div class="block-10 vcard">
-      <div class="inner-block">
-        <section class="contact-wrapper contact-us">
-          <h1 class="label">Contact us</h1>
-          <div id="org-contacts">
-            <%= render partial: 'contacts/contact', :locals => {contact: @main_contact, is_main: true} %>
-            <%= render partial: 'contacts/contact', collection: @other_contacts %>
-          </div>
-        </section>
+<section class="block about-block" id="about-us">
+  <div class="inner-block">
+    <h1 class="keyline-header">About us</h1>
+    <div class="content">
+      <p class="summary"><%= @worldwide_office.summary %></p>
+      <div class="description">
+        <%= govspeak_to_html @worldwide_office.description %>
       </div>
     </div>
-  <% end %>
+  </div>
+</section>
+
+<section class="block about-block" id="our-services">
+  <div class="inner-block">
+    <h1 class="keyline-header">Our services</h1>
+    <div class="content">
+      <%= govspeak_to_html @worldwide_office.services %>
+    </div>
+  </div>
+</section>
+
+<% if @main_contact %>
+  <section class="block contact-us" id="contact-us">
+    <div class="inner-block floated-children">
+      <h1 class="keyline-header">Contact us</h1>
+      <%= render partial: 'contacts/contact', :locals => {contact: @main_contact, is_main: true} %>
+      <%= render partial: 'contacts/contact', collection: @other_contacts %>
+    </div>
+  </section>
 <% end %>
