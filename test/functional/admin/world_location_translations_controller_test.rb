@@ -9,21 +9,21 @@ class Admin::WorldLocationTranslationsControllerTest < ActionController::TestCas
 
   should_be_an_admin_controller
 
-  test 'index shows a link to add a new translation' do
+  view_test 'index shows a link to add a new translation' do
     get :index, world_location_id: @location
     new_translation_path = new_admin_world_location_translation_path(@location)
     assert_select "a[href=#{CGI::escapeHTML(new_translation_path)}]", text: "Create Translation"
   end
 
 
-  test 'index lists existing translations' do
+  view_test 'index lists existing translations' do
     @location.translations.create!(name: 'Afrolasie', locale: 'fr', mission_statement: 'Enseigner aux gens comment infuser le thé')
     get :index, world_location_id: @location
     edit_translation_path = edit_admin_world_location_translation_path(@location, 'fr')
     assert_select "a[href=#{CGI::escapeHTML(edit_translation_path)}]", text: 'fr'
   end
 
-  test 'new presents a form to create a new translation' do
+  view_test 'new presents a form to create a new translation' do
     I18n.stubs(:available_locales).returns([:en, :es, :fr, :ar])
 
     get :new, world_location_id: @location
@@ -42,7 +42,7 @@ class Admin::WorldLocationTranslationsControllerTest < ActionController::TestCas
     end
   end
 
-  test 'new does not provide en as a choice of locale' do
+  view_test 'new does not provide en as a choice of locale' do
     I18n.stubs(:available_locales).returns([:en, :es, :fr, :ar])
 
     get :new, world_location_id: @location
@@ -52,7 +52,7 @@ class Admin::WorldLocationTranslationsControllerTest < ActionController::TestCas
     end
   end
 
-  test 'create adds a new translation and redirects back to the index' do
+  view_test 'create adds a new translation and redirects back to the index' do
     post :create, world_location_id: @location, translation_locale: 'fr', world_location: {
       name: 'Afrolasie',
       mission_statement: 'Enseigner aux gens comment infuser le thé'
@@ -82,7 +82,7 @@ class Admin::WorldLocationTranslationsControllerTest < ActionController::TestCas
     end
   end
 
-  test 'create renders the form again if the translation is invalid' do
+  view_test 'create renders the form again if the translation is invalid' do
     I18n.stubs(:available_locales).returns([:en, :es, :fr, :ar])
 
     post :create, world_location_id: @location, translation_locale: 'fr', world_location: {
@@ -103,7 +103,7 @@ class Admin::WorldLocationTranslationsControllerTest < ActionController::TestCas
     end
   end
 
-  test 'edit presents a form to update an existing translation' do
+  view_test 'edit presents a form to update an existing translation' do
     @location.translations.create!(name: 'Afrolasie', locale: 'fr', mission_statement: 'Enseigner aux gens comment infuser le thé')
 
     get :edit, world_location_id: @location, id: 'fr'
@@ -118,7 +118,7 @@ class Admin::WorldLocationTranslationsControllerTest < ActionController::TestCas
     end
   end
 
-  test 'update updates translation and redirects back to the index' do
+  view_test 'update updates translation and redirects back to the index' do
     put :update, world_location_id: @location, id: 'fr', world_location: {
       name: 'Afrolasie',
       mission_statement: 'Enseigner aux gens comment infuser le thé'
@@ -134,7 +134,7 @@ class Admin::WorldLocationTranslationsControllerTest < ActionController::TestCas
     assert_redirected_to admin_world_location_translations_path(@location)
   end
 
-  test 'update re-renders form if translation is invalid' do
+  view_test 'update re-renders form if translation is invalid' do
     put :update, world_location_id: @location, id: 'fr', world_location: {
       mission_statement: 'Enseigner aux gens comment infuser le thé'
     }
