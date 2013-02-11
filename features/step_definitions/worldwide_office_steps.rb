@@ -134,10 +134,6 @@ When /^I click save$/ do
   click_on "Save"
 end
 
-Then /^I should see the associated world location is "([^"]*)"$/ do |arg1|
-  pending # express the regexp above with the code you wish you had
-end
-
 Given /^a worldwide office "([^"]*)" with contacts "([^"]*)" and "([^"]*)"$/ do |office_name, contact1_title, contact2_title|
   office = create(:worldwide_office, name: office_name)
   create(:contact, title: contact1_title, contactable: office)
@@ -159,5 +155,15 @@ Then /^the "([^"]*)" should be shown as the main contact on the public website$/
   visit worldwide_office_path(office)
   within "#{record_css_selector(contact)}.main" do
     assert page.has_content?(contact.title)
+  end
+end
+
+Then /^he is listed as the supporting position of "([^"]*)" on the worldwide office page$/ do |position_name|
+  office = WorldwideOffice.last
+  person = Person.last
+  visit worldwide_office_path(office)
+  within record_css_selector(person) do
+    assert page.has_content?(person.name)
+    assert page.has_css?('p.role', :text => position_name)
   end
 end
