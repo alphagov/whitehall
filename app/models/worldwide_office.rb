@@ -8,7 +8,7 @@ class WorldwideOffice < ActiveRecord::Base
   has_many :sponsorships, dependent: :destroy
   has_many :sponsoring_organisations, through: :sponsorships, source: :organisation
   belongs_to :main_contact, class_name: 'Contact'
-  has_many :worldwide_office_roles
+  has_many :worldwide_office_roles, dependent: :destroy
   has_many :roles, through: :worldwide_office_roles
   has_many :people, through: :roles
 

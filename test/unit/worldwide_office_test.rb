@@ -32,10 +32,16 @@ class WorldwideOfficeTest < ActiveSupport::TestCase
     assert_equal [organisation], office.reload.sponsoring_organisations
   end
 
-  test "destroy deletes sponsorships" do
+  test "destroy destroys sponsorships" do
     office = create(:worldwide_office, sponsoring_organisations: [create(:organisation)])
     office.destroy
     assert_equal 0, office.sponsorships.count
+  end
+
+  test "destroy destroys role appointments" do
+    office = create(:worldwide_office, worldwide_office_roles: [build(:worldwide_office_role)])
+    office.destroy
+    assert_equal 0, office.worldwide_office_roles.count
   end
 
   test "has an overridable default main contact" do
