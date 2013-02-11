@@ -2,17 +2,19 @@
 <% page_class "worldwide-offices-show" %>
 
 <div class="block office-header">
-  <div class="inner-block">
+  <div class="inner-block floated-children">
     <header>
-      <% if @world_locations.any? %>
-        <h2 class="world-location">UK and <%= @world_locations.map(&:name).to_sentence %></h2>
-      <% end %>
-      <h1 class="<%= logo_classes(class_name: 'single-identity', size: 'large', stacked: true) %>">
-        <span><%= format_with_html_line_breaks(h(@worldwide_office.logo_formatted_name)) %></span>
-      </h1>
-      <p class="sponsoring-organisations">
-        Part of <%= @worldwide_office.sponsoring_organisations.map {|o| link_to(o.name, o, class: "sponsoring-organisation") }.to_sentence.html_safe %>
-      </p>
+      <div class="content">
+        <% if @world_locations.any? %>
+          <h2 class="world-location">UK and <%= @world_locations.map {|l| link_to(l.name, l) }.to_sentence %></h2>
+        <% end %>
+        <h1 class="<%= logo_classes(class_name: 'single-identity', size: 'large', stacked: true) %>">
+          <span><%= format_with_html_line_breaks(h(@worldwide_office.logo_formatted_name)) %></span>
+        </h1>
+        <p class="sponsoring-organisations">
+          Part of <%= @worldwide_office.sponsoring_organisations.map {|o| link_to(o.name, o, class: "sponsoring-organisation") }.to_sentence.html_safe %>
+        </p>
+      </div>
     </header>
     <aside class="office-social-media-links">
       <div class="content">
@@ -22,28 +24,30 @@
   </div>
 </div>
 
-<section class="block about-us" id="about-us">
+<section class="block about-block" id="about-us">
   <div class="inner-block">
     <h1 class="keyline-header">About us</h1>
-    <div class="summary">
-      <p><%= @worldwide_office.summary %></p>
-    </div>
-    <div class="description">
-      <%= govspeak_to_html @worldwide_office.description %>
+    <div class="content">
+      <p class="summary"><%= @worldwide_office.summary %></p>
+      <div class="description">
+        <%= govspeak_to_html @worldwide_office.description %>
+      </div>
     </div>
   </div>
 </section>
 
-<section class="block our-services" id="our-services">
+<section class="block about-block" id="our-services">
   <div class="inner-block">
     <h1 class="keyline-header">Our services</h1>
-    <%= govspeak_to_html @worldwide_office.services %>
+    <div class="content">
+      <%= govspeak_to_html @worldwide_office.services %>
+    </div>
   </div>
 </section>
 
 <% if @main_contact %>
   <section class="block contact-us" id="contact-us">
-    <div class="inner-block">
+    <div class="inner-block floated-children">
       <h1 class="keyline-header">Contact us</h1>
       <%= render partial: 'contacts/contact', :locals => {contact: @main_contact, is_main: true} %>
       <%= render partial: 'contacts/contact', collection: @other_contacts %>

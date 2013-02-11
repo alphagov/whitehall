@@ -1,27 +1,45 @@
-<%= content_tag_for(:div, contact, class: "worldwide-office-contact complex#{ ' main' if local_assigns[:is_main] }") do %>
-  <h2><%= contact.title %></h2>
+<%
+  clear_class = if local_assigns.include?(:contact_counter) and contact_counter % 3 == 0
+    " clear-contact"
+  else
+    ""
+  end
+%>
+<%= content_tag_for(:div, contact, class: "#{'main' if local_assigns[:is_main]}#{clear_class}") do %>
+  <div class="content">
+    <h2><%= contact.title %></h2>
 
-  <div class="contact-comments">
     <% if contact.comments.present? %>
-      <p><%= contact.comments %></p>
+      <p class="comments"><%= format_with_html_line_breaks(h(contact.comments)) %></p>
     <% end %>
-  </div>
 
-  <div class="contact-inner">
     <% if contact.has_postal_address? %>
-      <%= render_hcard(contact) %>
+      <div class="contact-inner">
+        <%= render_hcard(contact) %>
+      </div>
     <% end %>
-  </div>
 
-  <div class="email-url-number">
-    <% if contact.email.present? %>
-      <p class="email"><span class="type">Email</span> <%= mail_to contact.email, contact.email, class: 'email' %></p>
-    <% end %>
-    <% if contact.contact_form_url.present? %>
-      <p class="contact_form_url"><span class="type">Contact form</span><%= link_to contact.contact_form_url.truncate(25), contact.contact_form_url %></p>
-    <% end %>
-    <% contact.contact_numbers.each do |number| %>
-      <p class="tel"><span class="type"><%= number.label %></span> <%= number.number %></p>
+    <% if contact.email.present? || contact.contact_form_url.present? || contact.contact_numbers.any? %>
+      <div class="email-url-number">
+        <% if contact.email.present? %>
+          <p class="email">
+            <span class="type">Email</span>
+            <%= mail_to contact.email, contact.email, class: 'email' %>
+          </p>
+        <% end %>
+        <% if contact.contact_form_url.present? %>
+          <p class="contact_form_url">
+            <span class="type">Contact form</span>
+            <%= link_to contact.contact_form_url.truncate(25), contact.contact_form_url %>
+          </p>
+        <% end %>
+        <% contact.contact_numbers.each do |number| %>
+          <p class="tel">
+            <span class="type"><%= number.label %></span>
+            <%= number.number %>
+          </p>
+        <% end %>
+      </div>
     <% end %>
   </div>
 <% end %>
