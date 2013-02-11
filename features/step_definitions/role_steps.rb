@@ -33,9 +33,9 @@ Then /^I should see "([^"]*)" listed on the "([^"]*)" organisation page$/ do |pe
   assert page.has_css?(record_css_selector(role.current_person))
 end
 
-Then /^I should see "([^"]*)" listed as "([^"]*)" on the "([^"]*)" office page$/ do |person_name, role_name, office_name|
-  visit_worldwide_office_page office_name
-  person = find_person(person_name)
+Then /^I should see him listed as "([^"]*)" on the worldwide office page$/ do |role_name|
+  visit worldwide_office_path(WorldwideOffice.last)
+  person = Person.last
   role = Role.find_by_name!(role_name)
 
   within record_css_selector(person) do
@@ -44,18 +44,18 @@ Then /^I should see "([^"]*)" listed as "([^"]*)" on the "([^"]*)" office page$/
   end
 end
 
-Then /^I should see a picture of "([^"]*)" on the "([^"]*)" office page$/ do |person_name, office_name|
-  visit_worldwide_office_page office_name
-  person = find_person(person_name)
+Then /^I should see his picture on the worldwide office page$/ do
+  visit worldwide_office_path(WorldwideOffice.last)
+  person = Person.last
 
   within record_css_selector(person) do
     assert page.has_css?('img')
   end
 end
 
-Then /^I should not see a picture of "([^"]*)" on the "([^"]*)" office page$/ do |person_name, office_name|
-  visit_worldwide_office_page office_name
-  person = find_person(person_name)
+Then /^I should not see his picture on the worldwide office page$/ do
+  visit worldwide_office_path(WorldwideOffice.last)
+  person = Person.last
 
   within record_css_selector(person) do
     refute page.has_css?('img')

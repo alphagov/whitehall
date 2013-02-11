@@ -23,13 +23,13 @@ Scenario: Adding a primary role to a worldwide office
   And a person called "Giles Paxman"
   When I add a new "Ambassador" role named "Her Majesty's Ambassador to Spain" to the "British embassy in Spain" office
   Then I should be able to appoint "Giles Paxman" to the new role
-  And I should see "Giles Paxman" listed as "Her Majesty's Ambassador to Spain" on the "British embassy in Spain" office page
-  And I should see a picture of "Giles Paxman" on the "British embassy in Spain" office page
+  And I should see him listed as "Her Majesty's Ambassador to Spain" on the worldwide office page
+  And I should see his picture on the worldwide office page
 
 Scenario: Adding a deputy role to a worldwide office
   Given the worldwide office "British embassy in Spain" exists
   And a person called "Andrew Tomkins"
   When I add a new "Deputy head of mission" role named "Deputy Head of Mission" to the "British embassy in Spain" office
   Then I should be able to appoint "Andrew Tomkins" to the new role
-  And I should see "Andrew Tomkins" listed as "Deputy Head of Mission" on the "British embassy in Spain" office page
-  And I should not see a picture of "Andrew Tomkins" on the "British embassy in Spain" office page
+  And I should see him listed as "Deputy Head of Mission" on the worldwide office page
+  And I should not see his picture on the worldwide office page
