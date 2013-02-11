@@ -85,9 +85,9 @@ module Whitehall::DocumentFilter
       if @date.present? && @direction.present?
         case @direction
         when "before"
-          {public_timestamp: {before: (@date - 1.day).to_s(:short)}}
+          {public_timestamp: {before: (@date - 1.day).to_s(:db)}}
         when "after"
-          {public_timestamp: {after: @date.to_s(:short) }}
+          {public_timestamp: {after: @date.to_s(:db) }}
         else
           {}
         end
