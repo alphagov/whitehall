@@ -113,13 +113,7 @@ module Whitehall::DocumentFilter
 
     def filter_by_announcement_type
       if selected_announcement_type_option
-        announcement_types = search_format_types_from_model_names(selected_announcement_type_option.edition_types)
-        if selected_announcement_type_option.speech_types.present?
-          announcement_types += selected_announcement_type_option.speech_types.map(&:search_format_types).flatten.uniq
-        elsif selected_announcement_type_option.news_article_types.present?
-          announcement_types += selected_announcement_type_option.news_article_types.map(&:search_format_types).flatten.uniq
-        end
-        {search_format_types: announcement_types.uniq}
+        {search_format_types: selected_announcement_type_option.search_format_types}
       else
         {search_format_types: [Announcement.search_format_type]}
       end
@@ -127,11 +121,7 @@ module Whitehall::DocumentFilter
 
     def filter_by_publication_type
       if selected_publication_filter_option
-        publication_types = selected_publication_filter_option.publication_types.map(&:search_format_types).flatten.uniq
-        if selected_publication_filter_option.edition_types.any?
-          publication_types += search_format_types_from_model_names(selected_publication_filter_option.edition_types)
-        end
-        {search_format_types: publication_types.uniq}
+        {search_format_types: selected_publication_filter_option.search_format_types}
       else
         {search_format_types: [Publication.search_format_type, StatisticalDataSet.search_format_type, Consultation.search_format_type]}
       end
