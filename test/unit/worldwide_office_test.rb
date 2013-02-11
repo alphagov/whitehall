@@ -71,4 +71,47 @@ class WorldwideOfficeTest < ActiveSupport::TestCase
     assert_equal [contacts.last], build(:worldwide_office, contacts: contacts, main_contact: contacts.first).other_contacts
   end
 
+  test "an ambassadorial role is a primary role and not a secondary one" do
+    office = create(:worldwide_office)
+
+    assert_nil office.primary_role
+
+    ambassador_role = create(:ambassador_role, worldwide_offices: [office])
+
+    assert_equal ambassador_role, office.primary_role
+    assert_nil office.secondary_role
+  end
+
+  test "a high commissioner role is a primary role and not a secondary one" do
+    office = create(:worldwide_office)
+
+    assert_nil office.primary_role
+
+    high_commissioner_role = create(:high_commissioner_role, worldwide_offices: [office])
+
+    assert_equal high_commissioner_role, office.primary_role
+    assert_nil office.secondary_role
+  end
+
+  test "a governor role is a primary role and not a secondary one" do
+    office = create(:worldwide_office)
+
+    assert_nil office.primary_role
+
+    governor_role = create(:governor_role, worldwide_offices: [office])
+
+    assert_equal governor_role, office.primary_role
+    assert_nil office.secondary_role
+  end
+
+  test "a deputy head of mission is second in charge and not a primary one" do
+    office = create(:worldwide_office)
+
+    assert_nil office.secondary_role
+
+    deputy_role = create(:deputy_head_of_mission_role, worldwide_offices: [office])
+
+    assert_equal deputy_role, office.secondary_role
+    assert_nil office.primary_role
+  end
 end

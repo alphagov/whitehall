@@ -45,6 +45,21 @@
   </div>
 </section>
 
+<section class="block about-block" id="our-people">
+  <div class="inner-block">
+    <h1 class="keyline-header">Our people</h1>
+    <div id="org-people">
+      <%= render( partial: 'people/person',
+                  locals: {
+                    person: @primary_role.current_person,
+                    roles: [@primary_role],
+                    hlevel: "h3",
+                   }
+                  ) if @primary_role %>
+    </div>
+  </div>
+</section>
+
 <% if @main_contact %>
   <section class="block contact-us" id="contact-us">
     <div class="inner-block floated-children">
