@@ -32,19 +32,19 @@ class WorldwideOfficeTest < ActiveSupport::TestCase
     assert_equal [organisation], office.reload.sponsoring_organisations
   end
 
-  test "destroy destroys sponsorships" do
+  test "destroys associated sponsorships" do
     office = create(:worldwide_office, sponsoring_organisations: [create(:organisation)])
     office.destroy
     assert_equal 0, office.sponsorships.count
   end
 
-  test "destroy destroys role appointments" do
+  test "destroys associated role appointments" do
     office = create(:worldwide_office, worldwide_office_roles: [create(:worldwide_office_role)])
     office.destroy
     assert_equal 0, office.worldwide_office_roles.count
   end
 
-  test "destroy destroys worldwide office appointments" do
+  test "destroys associated worldwide office appointments" do
     office = create(:worldwide_office, worldwide_office_appointments: [create(:worldwide_office_appointment)])
     office.destroy
     assert_equal 0, office.worldwide_office_appointments.count
