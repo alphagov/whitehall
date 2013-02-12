@@ -4,11 +4,19 @@
       float: left;
       width: 33%;
       min-height: 100px;
+
+      @include right-to-left {
+        float: right;
+      }
     }
     .block-4 {
       float: left;
       width: 66%;
       min-height: 100px;
+
+      @include right-to-left {
+        float: right;
+      }
     }
   }
 

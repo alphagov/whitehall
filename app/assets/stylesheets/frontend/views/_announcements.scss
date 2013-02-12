@@ -15,11 +15,17 @@
     .block-2 {
       float: left;
       width: 33.333%;
+      @include right-to-left {
+        float: right;
+      }
     }
 
     .block-4 {
       float: left;
       width: 66.666%;
+      @include right-to-left {
+        float: right;
+      }
     }
   }
 }

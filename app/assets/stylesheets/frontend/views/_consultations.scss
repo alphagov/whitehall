@@ -202,9 +202,16 @@ nav.consultations_scope {
     }
     @include media(desktop){
       padding-left: 33.333%;
+      @include right-to-left {
+        padding-left: 0;
+        padding-right: 33.33%;
+      }
 
       .content {
         margin: $gutter-one-third 0 $gutter-half $gutter-half;
+        @include right-to-left {
+          margin: $gutter-one-third $gutter-half $gutter-half 0;
+        }
       }
       h2 {
         margin: 0 0 $gutter-half;

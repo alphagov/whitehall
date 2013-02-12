@@ -1,0 +1,25 @@
+// The base css you write should be for left to right text. You can add right
+// to left styles on top.
+//
+// Usage:
+//
+//   div {
+//     float: left;
+//
+//     @include right-to-left {
+//       float: right;
+//     }
+//   }
+
+$right-to-left: false !default;
+
+@mixin right-to-left {
+  @if $right-to-left {
+    @content;
+  }
+}
+@mixin left-to-right {
+  @if $right-to-left == false {
+    @content;
+  }
+}

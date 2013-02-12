@@ -38,6 +38,9 @@
 
 .organisations-icon-list {
   position: relative;
+  @include right-to-left {
+    direction: ltr;
+  }
 
   .show-other-content {
     padding: 0;
@@ -76,6 +79,16 @@
       width: 200%;
       right: 0;
       z-index: 10;
+      @include right-to-left {
+        right: auto;
+        left: 0;
+      }
+    }
+
+    &.visuallyhidden {
+      @include right-to-left {
+        left: -9999em;
+      }
     }
 
     ol {
@@ -110,6 +123,10 @@
   &:link,
   &:visited {
     color: #000;
+  }
+
+  @include right-to-left {
+    direction: ltr;
   }
 }
 

@@ -55,6 +55,10 @@ Whitehall::Application.configure do
     frontend/base-ie8.css
     frontend/base-ie7.css
     frontend/base-ie6.css
+    frontend/right-to-left.css
+    frontend/right-to-left-ie8.css
+    frontend/right-to-left-ie7.css
+    frontend/right-to-left-ie6.css
     frontend/print.css
     admin.js
   )
