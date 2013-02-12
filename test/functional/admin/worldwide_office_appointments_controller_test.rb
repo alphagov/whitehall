@@ -28,7 +28,6 @@ class Admin::WorldwideOfficeAppointmentsControllerTest < ActionController::TestC
     assert_redirected_to [:appointments, :admin, @office]
   end
 
-
   test "get edit" do
     appointment = create(:worldwide_office_appointment, worldwide_office: @office)
     get :edit, id: appointment.to_param, worldwide_office_id: @office.to_param

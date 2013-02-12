@@ -16,7 +16,7 @@ class WorldwideOfficeAppointmentPresenterTest < PresenterTestCase
     assert_equal @appointment.job_title, @presenter.link
   end
 
-  test 'current_person returns a PersonPresenter for the current appointee' do
+  test 'current_person returns a PersonPresenter for the appointee' do
     assert_equal @presenter.current_person, PersonPresenter.new(@appointment.person)
   end
 end
