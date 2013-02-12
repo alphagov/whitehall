@@ -1,0 +1,24 @@
+<% page_title @world_location.name + " translations" %>
+<section>
+  <nav class="actions">
+    <%= link_to "Create Translation", new_admin_world_location_translation_path(@world_location), class: "btn new_resource", title: "Create Translation" %>
+  </nav>
+</section>
+
+<h1>Translations for <%= @world_location.name %></h1>
+<table id="world-location-translations" class="table table-striped">
+  <thead>
+    <tr>
+      <th width="15%">Locale</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @locales.each do |locale| %>
+      <tr>
+        <td class="locale">
+          <%= link_to locale.to_s, edit_admin_world_location_translation_path(@world_location, locale) %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

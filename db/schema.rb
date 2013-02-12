@@ -818,15 +818,25 @@ ActiveRecord::Schema.define(:version => 20130211090000) do
 
   add_index "versions", ["item_type", "item_id"], :name => "index_versions_on_item_type_and_item_id"
 
-  create_table "world_locations", :force => true do |t|
+  create_table "world_location_translations", :force => true do |t|
+    t.integer  "world_location_id"
+    t.string   "locale"
     t.string   "name"
+    t.text     "mission_statement"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "world_location_translations", ["locale"], :name => "index_world_location_translations_on_locale"
+  add_index "world_location_translations", ["world_location_id"], :name => "index_world_location_translations_on_world_location_id"
+
+  create_table "world_locations", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "embassy_address"
     t.string   "embassy_telephone"
     t.string   "embassy_email"
     t.string   "slug"
-    t.text     "mission_statement"
     t.boolean  "active",                              :default => false, :null => false
     t.integer  "world_location_type_id",                                 :null => false
     t.string   "iso2",                   :limit => 2
