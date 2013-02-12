@@ -25,13 +25,13 @@
       <div class="email-url-number">
         <% if contact.email.present? %>
           <p class="email">
-            <span class="type">Email</span>
+            <span class="type"><%= t('contact.email') %></span>
             <%= mail_to contact.email, contact.email, class: 'email' %>
           </p>
         <% end %>
         <% if contact.contact_form_url.present? %>
           <p class="contact_form_url">
-            <span class="type">Contact form</span>
+            <span class="type"><%= t('contact.contact_form') %></span>
             <%= link_to contact.contact_form_url.truncate(25), contact.contact_form_url %>
           </p>
         <% end %>
