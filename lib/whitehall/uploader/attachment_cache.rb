@@ -79,7 +79,7 @@ class Whitehall::Uploader::AttachmentCache
       raise RetrievalError, "url not understood to be HTTP" unless uri.is_a?(URI::HTTP)
       http = Net::HTTP.new(uri.host, uri.port)
       http.use_ssl = (uri.is_a?(URI::HTTPS))
-      http.request_get(uri.path)
+      http.request_get(uri.request_uri)
     end
 
     def filename(url, response)

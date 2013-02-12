@@ -65,6 +65,13 @@ class Whitehall::Uploader::AttachmentCacheTest < ActiveSupport::TestCase
     assert_equal File.read(@pdf_path), result.read
   end
 
+  test "allows attachments to be downloaded from urls with query strings" do
+    url = "https://example.com/attachment.pdf?woo=hoo&oh=yeah"
+    stub_request(:get, url).to_return(body: File.open(@pdf_path), status: 200)
+    result = @cache.fetch(url)
+    assert_equal File.read(@pdf_path), result.read
+  end
+
   test "raises an error if the download didn't return a 200" do
     url = "http://example.com/attachment.pdf"
     stub_request(:get, url).to_return(body: "", status: 404)
