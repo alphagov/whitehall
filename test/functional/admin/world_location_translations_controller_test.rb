@@ -15,12 +15,17 @@ class Admin::WorldLocationTranslationsControllerTest < ActionController::TestCas
     assert_select "a[href=#{CGI::escapeHTML(new_translation_path)}]", text: "Create Translation"
   end
 
-
   view_test 'index lists existing translations' do
     @location.translations.create!(name: 'Afrolasie', locale: 'fr', mission_statement: 'Enseigner aux gens comment infuser le thé')
     get :index, world_location_id: @location
     edit_translation_path = edit_admin_world_location_translation_path(@location, 'fr')
     assert_select "a[href=#{CGI::escapeHTML(edit_translation_path)}]", text: 'fr'
+  end
+
+  view_test 'index does not list english' do
+    get :index, world_location_id: @location
+    edit_translation_path = edit_admin_world_location_translation_path(@location, 'en')
+    assert_select "a[href=#{CGI::escapeHTML(edit_translation_path)}]", text: 'en', count: 0
   end
 
   view_test 'new presents a form to create a new translation' do
