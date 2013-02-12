@@ -165,19 +165,19 @@ module ApplicationHelper
   end
 
   def relative_time(time, options = {})
-    content_tag(:abbr, time.to_s(:long_ordinal),
+    content_tag(:abbr, l(time, format: :long_ordinal),
                 class: [options[:class], "datetime", "time_ago"].compact.join(" "),
                 title: time.iso8601)
   end
 
   def absolute_time(time, options = {})
-    content_tag(:abbr, time.to_s(:long_ordinal),
+    content_tag(:abbr, l(time, format: :long_ordinal),
                 class: [options[:class], "datetime"].compact.join(" "),
                 title: time.iso8601)
   end
 
   def absolute_date(time, options = {})
-    content_tag(:abbr, time.to_date.to_s(:long_ordinal),
+    content_tag(:abbr, l(time.to_date, format: :long_ordinal),
                 class: [options[:class], "date"].compact.join(" "),
                 title: time.iso8601)
   end

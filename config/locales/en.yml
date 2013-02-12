@@ -144,6 +144,7 @@ en:
       written_statement: written statement
     updated: updated
     view: View '%{title}'
+    read: Read the %{title} article
   errors:
     format: ! '%{attribute} %{message}'
     messages:

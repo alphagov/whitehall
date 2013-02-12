@@ -136,7 +136,8 @@ fr:
       transparency: la transparence des données
       treaty: traité
     updated: mis à jour
-    view: Voir '%{title}'
+    view: Voir «%{title}»
+    read: Lire l'article intitulé «%{title}»
   errors:
     format: ! '%{attribute} %{message}'
     messages:
