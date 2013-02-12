@@ -5,7 +5,7 @@
   <% if @document.available_in_multiple_languages? %>
     <div class="translations">
       <% @document.translated_locales.each do |locale| %>
-        <%= link_to locale, public_document_path(@document, locale: locale) %>
+        <%= link_to native_language_name_for(locale), public_document_path(@document, locale: locale) %>
       <% end %>
     </div>
   <% end %>

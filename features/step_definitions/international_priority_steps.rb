@@ -24,11 +24,11 @@ When /^I view the international priority "([^"]*)"$/ do |title|
 end
 
 Then /^I should be able to navigate to the spanish translation "([^"]*)"$/ do |spanish_title|
-  click_link "es"
+  click_link "Español"
   assert page.has_css?('.title', text: spanish_title)
 end
 
 Then /^I should be able to navigate to the english translation "([^"]*)"$/ do |english_title|
-  click_link "en"
+  click_link "English"
   assert page.has_css?('.title', text: english_title)
 end
