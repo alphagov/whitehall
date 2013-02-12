@@ -27,7 +27,7 @@ Feature: Administering world location information
   Scenario: Adding a new translation
     Given a country "Afrolasia" exists with the mission statement "The UK has a long-standing relationship with Afrolasia"
     When I add a new translation to the country "Afrolasia" with:
-      | locale            | fr                                                          |
+      | locale            | Français                                                    |
       | name              | Afrolasie                                                   |
       | mission_statement | Le Royaume-Uni a une relation de longue date avec Afrolasie |
     Then when viewing the country "Afrolasia" with the locale "fr" I should see:
@@ -35,9 +35,9 @@ Feature: Administering world location information
       | mission_statement | Le Royaume-Uni a une relation de longue date avec Afrolasie |
 
   Scenario: Editing an existing translation
-    Given a country "Afrolasia" exists with a translation for the locale "fr"
-    When I edit the "fr" translation for "Afrolasia" setting:
-      | locale            | fr                                                          |
+    Given a country "Afrolasia" exists with a translation for the locale "Français"
+    When I edit the "Français" translation for "Afrolasia" setting:
+      | locale            | Français                                                    |
       | name              | Afrolandie                                                  |
       | mission_statement | Enseigner aux gens comment infuser le thé                   |
     Then when viewing the country "Afrolasia" with the locale "fr" I should see:

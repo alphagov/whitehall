@@ -5,6 +5,11 @@ class Admin::WorldLocationTranslationsControllerTest < ActionController::TestCas
   setup do
     login_as :policy_writer
     @location = create(:country, name: 'Afrolasia', mission_statement: 'Teaching the people how to brew tea')
+
+    Locale.stubs(:non_english).returns([
+      stub('fr', code: :fr, native_language_name: 'Français'),
+      stub('es', code: :es, native_language_name: 'Español')
+    ])
   end
 
   should_be_an_admin_controller
@@ -19,7 +24,7 @@ class Admin::WorldLocationTranslationsControllerTest < ActionController::TestCas
     @location.translations.create!(name: 'Afrolasie', locale: 'fr', mission_statement: 'Enseigner aux gens comment infuser le thé')
     get :index, world_location_id: @location
     edit_translation_path = edit_admin_world_location_translation_path(@location, 'fr')
-    assert_select "a[href=#{CGI::escapeHTML(edit_translation_path)}]", text: 'fr'
+    assert_select "a[href=#{CGI::escapeHTML(edit_translation_path)}]", text: 'Français'
   end
 
   view_test 'index does not list english' do
@@ -29,16 +34,13 @@ class Admin::WorldLocationTranslationsControllerTest < ActionController::TestCas
   end
 
   view_test 'new presents a form to create a new translation' do
-    I18n.stubs(:available_locales).returns([:en, :es, :fr, :ar])
-
     get :new, world_location_id: @location
     translations_path = admin_world_location_translations_path(@location)
 
     assert_select "form[action=#{CGI::escapeHTML(translations_path)}]" do
       assert_select "select[name='translation_locale']" do
-        assert_select "option[value=es]"
-        assert_select "option[value=fr]"
-        assert_select "option[value=ar]"
+        assert_select "option[value=fr]", text: 'Français'
+        assert_select "option[value=es]", text: 'Español'
       end
 
       assert_select "fieldset" do
@@ -55,9 +57,7 @@ class Admin::WorldLocationTranslationsControllerTest < ActionController::TestCas
     end
   end
 
-  view_test 'new does not provide en as a choice of locale' do
-    I18n.stubs(:available_locales).returns([:en, :es, :fr, :ar])
-
+  view_test 'new does not provide English as a choice of locale' do
     get :new, world_location_id: @location
 
     assert_select "select[name='translation_locale']" do
@@ -96,8 +96,6 @@ class Admin::WorldLocationTranslationsControllerTest < ActionController::TestCas
   end
 
   view_test 'create renders the form again if the translation is invalid' do
-    I18n.stubs(:available_locales).returns([:en, :es, :fr, :ar])
-
     post :create, world_location_id: @location, translation_locale: 'fr', world_location: {
       name: nil,
       mission_statement: 'Enseigner aux gens comment infuser le thé'
@@ -107,9 +105,8 @@ class Admin::WorldLocationTranslationsControllerTest < ActionController::TestCas
 
     assert_select "form[action=#{CGI::escapeHTML(translations_path)}]" do
       assert_select "select[name='translation_locale']" do
-        assert_select "option[value=es]"
-        assert_select "option[value=fr][selected=selected]"
-        assert_select "option[value=ar]"
+        assert_select "option[value=fr][selected=selected]", text: 'Français'
+        assert_select "option[value=es]", text: 'Español'
       end
 
       assert_select "textarea[name='world_location[mission_statement]']", text: 'Enseigner aux gens comment infuser le thé'

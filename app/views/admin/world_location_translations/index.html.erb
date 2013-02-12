@@ -16,7 +16,7 @@
     <% @locales.each do |locale| %>
       <tr>
         <td class="locale">
-          <%= link_to locale.to_s, edit_admin_world_location_translation_path(@world_location, locale) %>
+          <%= link_to locale.native_language_name, edit_admin_world_location_translation_path(@world_location, locale.code) %>
         </td>
       </tr>
     <% end %>

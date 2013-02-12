@@ -92,7 +92,7 @@ When /^I edit the "([^"]*)" translation for "([^"]*)" setting:$/ do |locale, nam
   within record_css_selector(location) do
     click_link "manage translations"
   end
-  click_link "fr"
+  click_link locale
   select translation["locale"], from: "Locale"
   fill_in "Name", with: translation["name"]
   fill_in "Mission statement", with: translation["mission_statement"]

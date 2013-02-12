@@ -3,7 +3,7 @@ class Admin::WorldLocationTranslationsController < Admin::BaseController
   helper_method :translation_locale
 
   def index
-    @locales = world_location.translated_locales - [:en]
+    @locales = (world_location.translated_locales - [:en]).map {|l| Locale.new(l)}
   end
 
   def new

@@ -195,6 +195,8 @@ fr:
       create: Créer un(e) %{model}
       submit: Enregistrer ce(tte) %{model}
       update: Modifier ce(tte) %{model}
+  language_names:
+    fr: Français
   latest_feed:
     no_updates: Il n'y a pas mises à jour.
     title: Documents les plus récents
