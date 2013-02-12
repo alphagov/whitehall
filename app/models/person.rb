@@ -21,8 +21,6 @@ class Person < ActiveRecord::Base
   has_one :worldwide_office_appointment, dependent: :nullify
   has_one :worldwide_office, through: :worldwide_office_appointment
 
-  accepts_nested_attributes_for :worldwide_office_appointment
-
   validates :name, presence: true
   validates_with SafeHtmlValidator
 
