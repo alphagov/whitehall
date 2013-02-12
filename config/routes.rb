@@ -108,7 +108,7 @@ Whitehall::Application.routes.draw do
             get :social_media_accounts
             get :appointments
           end
-          resources :worldwide_office_appointments
+          resources :worldwide_office_appointments, except: [:index, :show]
         end
         resources :contacts
         resources :social_media_accounts
