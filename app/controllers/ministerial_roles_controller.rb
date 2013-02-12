@@ -13,7 +13,7 @@ class MinisterialRolesController < PublicFacingController
           # This select is needed due to ActiveRecord not adding a `where type`
           # to the role query. Rejecting the extra objects seems nicer than
           # suffereing from n+1 queries to load in the people and roles.
-          appointment.role.is_a? MinisterialRole
+          appointment.role.is_a?(MinisterialRole) && appointment.current?
         }.map { |appointment|
           RoleAppointmentPresenter.decorate(appointment)
         }.sort_by {|role_appointment| role_appointment.role.seniority }

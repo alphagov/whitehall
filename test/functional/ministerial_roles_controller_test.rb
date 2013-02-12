@@ -151,6 +151,19 @@ class MinisterialRolesControllerTest < ActionController::TestCase
     refute_select ".news_and_speeches"
   end
 
+  test "shows only latest role appointments" do
+    person = create(:person, forename: "John", surname: "Doe")
+    organisation = create(:ministerial_department)
+    ministerial_role = create(:ministerial_role, name: "Prime Minister", cabinet_member: true, organisations: [organisation])
+    old_role = create(:ministerial_role, name: "Pharoah", cabinet_member: true, organisations: [organisation])
+    appointment_1 = create(:role_appointment, person: person, role: ministerial_role)
+    appointment_2 = create(:role_appointment, person: person, role: old_role, started_at: 10.days.ago, ended_at: 5.days.ago)
+
+    get :index
+
+    assert_equal [[organisation, [appointment_1]]], assigns(:ministerial_roles_by_organisation).map { |org, role_appointments| [org, role_appointments.map(&:model)] }
+  end
+
   private
 
   def assert_minister_photo_links_to_the_person(person)
