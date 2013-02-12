@@ -1,14 +1,16 @@
 class PublicFacingController < ApplicationController
   helper :all
+
   before_filter :set_cache_control_headers
   before_filter :set_search_index
   before_filter :restrict_request_formats
-  before_filter :set_locale
+
+  around_filter :set_locale
 
   private
 
-  def set_locale
-    I18n.locale = params[:locale] || I18n.default_locale
+  def set_locale(&block)
+    I18n.with_locale(params[:locale] || I18n.default_locale, &block)
   end
 
   def set_cache_control_headers

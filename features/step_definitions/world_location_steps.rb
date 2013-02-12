@@ -1,10 +1,33 @@
+def add_translation_to_world_location(location, translation)
+  translation = translation.stringify_keys
+  visit admin_world_locations_path
+  within record_css_selector(location) do
+    click_link "manage translations"
+  end
+
+  click_link "Create Translation"
+  select translation["locale"], from: "Locale"
+  fill_in "Name", with: translation["name"]
+  fill_in "Mission statement", with: translation["mission_statement"]
+  click_on "Save"
+end
+
 Given /^an? (country|overseas territory|international delegation) "([^"]*)" exists$/ do |world_location_type, name|
   create(world_location_type.gsub(' ','_').to_sym, name: name)
+end
+
+Given /^an? (country|overseas territory|international delegation) "([^"]*)" exists with the mission statement "([^"]*)"$/ do |world_location_type, name, mission_statement|
+  create(world_location_type.gsub(' ','_').to_sym, name: name, mission_statement: mission_statement)
 end
 
 Given /^the (country|overseas territory|international delegation) "([^"]*)" is inactive/ do |world_location_type, name|
   world_location = WorldLocation.find_by_name(name) || create(world_location_type.gsub(' ','_').to_sym, name: name)
   world_location.update_column(:active, false)
+end
+
+Given /^an? (country|overseas territory|international delegation) "([^"]*)" exists with a translation for the locale "([^"]*)"$/ do |world_location_type, name, locale|
+  location = create(world_location_type.gsub(' ','_').to_sym, name: name)
+  add_translation_to_world_location(location, locale: locale, name: 'Unimportant', mission_statement: 'Unimportant')
 end
 
 When /^I view the (?:country|overseas territory|international delegation) "([^"]*)"$/ do |name|
@@ -57,6 +80,26 @@ When /^I order the featured items of the (?:country|overseas territory|internati
   click_on "Save"
 end
 
+When /^I add a new translation to the country "([^"]*)" with:$/ do |name, table|
+  world_location = WorldLocation.find_by_name!(name)
+  add_translation_to_world_location(world_location, table.rows_hash)
+end
+
+When /^I edit the "([^"]*)" translation for "([^"]*)" setting:$/ do |locale, name, table|
+  location = WorldLocation.find_by_name!(name)
+  translation = table.rows_hash
+  visit admin_world_locations_path
+  within record_css_selector(location) do
+    click_link "manage translations"
+  end
+  click_link "fr"
+  select translation["locale"], from: "Locale"
+  fill_in "Name", with: translation["name"]
+  fill_in "Mission statement", with: translation["mission_statement"]
+  click_on "Save"
+end
+
+
 Then /^I should see the featured items of the (?:country|overseas territory|international delegation) "([^"]*)" are:$/ do |name, expected_table|
   world_location = WorldLocation.find_by_name!(name)
   visit world_location_path(world_location)
@@ -98,4 +141,12 @@ end
 
 Then /^I should see that it is an? (country|overseas territory|international delegation)$/ do |world_location_type|
   assert has_css?('.type', text: world_location_type.capitalize)
+end
+
+Then /^when viewing the (?:country|overseas territory|international delegation) "([^"]*)" with the locale "([^"]*)" I should see:$/ do |name, locale, table|
+  world_location = WorldLocation.find_by_name!(name)
+  translation = table.rows_hash
+  visit world_location_path(world_location, locale: locale)
+  assert page.has_css?('.name', text: "UK and #{translation["name"]}")
+  assert page.has_css?('.mission_statement', text: translation["mission_statement"])
 end

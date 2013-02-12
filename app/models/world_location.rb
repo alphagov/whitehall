@@ -20,6 +20,8 @@ class WorldLocation < ActiveRecord::Base
 
   accepts_nested_attributes_for :edition_world_locations
 
+  translates :name, :mission_statement
+
   def self.with_announcements
     joins(:editions).where("editions.type" => Announcement.sti_names,
                            "editions.state" => "published"
@@ -47,7 +49,7 @@ class WorldLocation < ActiveRecord::Base
   end
 
   def self.countries
-    where(world_location_type_id: WorldLocationType::Country.id).order(:name)
+    where(world_location_type_id: WorldLocationType::Country.id).sort_by(&:name)
   end
 
   validates_with SafeHtmlValidator
