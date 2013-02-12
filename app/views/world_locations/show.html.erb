@@ -118,10 +118,10 @@
     </div>
   <% end %>
 
-  <div class="block documents-grid">
+  <div class="block world-offices">
     <div class="inner-block">
-      <h1 class="block-title"><%= t('world_location.headings.organisations') %></h1>
-      <section id="organisations" class="world-offices-block">
+      <section id="offices" class="world-offices-block">
+        <h1 class="keyline-header"><%= t('world_location.headings.offices') %></h1>
         <%= render partial: 'worldwide_offices/worldwide_office', collection: @worldwide_offices %>
       </section>
     </div>
