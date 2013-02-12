@@ -3,7 +3,13 @@
 <%= label_tag "translation_locale", "Locale" %>
 <%= select_tag :translation_locale, options_for_select(I18n.available_locales - [:en], translation_locale), disabled: editing_translation %>
 
+<fieldset>
 <%= form.text_field :name %>
-<%= form.text_area :mission_statement %>
+<p class="english-name original-translation">English: <%= @english_world_location.name %></p>
+</fieldset>
 
+<fieldset>
+<%= form.text_area :mission_statement %>
+<p class="english-mission-statement original-translation">English: <%= @english_world_location.mission_statement %></p>
+</fieldset>
 <%= form.save_or_cancel %>

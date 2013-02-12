@@ -41,8 +41,15 @@ class Admin::WorldLocationTranslationsControllerTest < ActionController::TestCas
         assert_select "option[value=ar]"
       end
 
-      assert_select "input[type=text][name='world_location[name]']"
-      assert_select "textarea[name='world_location[mission_statement]']"
+      assert_select "fieldset" do
+        assert_select "input[type=text][name='world_location[name]']"
+        assert_select ".original-translation", text: "English: Afrolasia"
+      end
+
+      assert_select "fieldset" do
+        assert_select "textarea[name='world_location[mission_statement]']"
+        assert_select ".original-translation", text: "English: Teaching the people how to brew tea"
+      end
       assert_select "input[type=submit][value=Save]"
     end
   end
@@ -65,7 +72,7 @@ class Admin::WorldLocationTranslationsControllerTest < ActionController::TestCas
 
     @location.reload
 
-    I18n.with_locale :fr do
+    with_locale :fr do
       assert_equal 'Afrolasie', @location.name
       assert_equal 'Enseigner aux gens comment infuser le thé', @location.mission_statement
     end
@@ -81,7 +88,7 @@ class Admin::WorldLocationTranslationsControllerTest < ActionController::TestCas
 
     @location.reload
 
-    I18n.with_locale :en do
+    with_locale :en do
       assert_equal 'Afrolasia', @location.name
       assert_equal 'Teaching the people how to brew tea', @location.mission_statement
     end
@@ -131,7 +138,7 @@ class Admin::WorldLocationTranslationsControllerTest < ActionController::TestCas
 
     @location.reload
 
-    I18n.with_locale :fr do
+    with_locale :fr do
       assert_equal 'Afrolasie', @location.name
       assert_equal 'Enseigner aux gens comment infuser le thé', @location.mission_statement
     end

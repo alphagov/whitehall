@@ -1,7 +1,7 @@
-<% page_title "New translation for: #{@world_location.name}" %>
+<% page_title "New translation for: #{@english_world_location.name}" %>
 
-<h1>New translation for: <%= @world_location.name %></h1>
+<h1>New translation for: <%= @english_world_location.name %></h1>
 
-<%= form_for @world_location, url: admin_world_location_translations_path(@world_location), method: :post do |form| %>
+<%= form_for @translated_world_location, url: admin_world_location_translations_path(@translated_world_location), method: :post do |form| %>
   <%= render partial: "fields", locals: {form: form, editing_translation: false} %>
 <% end %>
