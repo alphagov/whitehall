@@ -644,4 +644,17 @@ class EditionTest < ActiveSupport::TestCase
 
     assert_same_elements %w(english-title-a english-title-b), Edition.with_title_containing("title").map(&:title)
   end
+
+  test "is available in multiple languages if more than one translation exist" do
+    edition = build(:edition)
+    with_locale(:es) { edition.title = "spanish-title" }
+    edition.save!
+    assert edition.available_in_multiple_languages?
+  end
+
+  test "is not available in multiple languages if only one translation exists" do
+    edition = build(:edition)
+    edition.save!
+    refute edition.available_in_multiple_languages?
+  end
 end

@@ -1,6 +1,10 @@
 require "test_helper"
 
 class DocumentsControllerTest < ActionController::TestCase
+  include Rails.application.routes.url_helpers
+  include PublicDocumentRoutesHelper
+  default_url_options[:host] = 'test.host'
+
   setup do
     DocumentsController.any_instance.stubs(document_class: GenericEdition)
   end
@@ -41,5 +45,30 @@ class DocumentsControllerTest < ActionController::TestCase
     assert_select "h1", "Coming soon"
     assert_response :ok
     assert_cache_control("max-age=#{Whitehall.default_cache_max_age}")
+  end
+
+  view_test "should show links to available translations of the edition" do
+    edition = build(:draft_edition)
+    with_locale(:es) do
+      edition.assign_attributes(attributes_for(:draft_edition, title: 'spanish-title'))
+    end
+    edition.save!
+    edition.publish_as(create(:departmental_editor), force: true)
+
+    get :show, id: edition.document
+
+    assert_select ".document-page-header .translations" do
+      assert_select "a[href=?]", public_document_path(edition, locale: :en)
+      assert_select "a[href=?]", public_document_path(edition, locale: :es)
+    end
+  end
+
+  view_test "should not show any links to translations when the edition is only available in one language" do
+    edition = create(:draft_edition)
+    edition.publish_as(create(:departmental_editor), force: true)
+
+    get :show, id: edition.document
+
+    refute_select ".document-page-header .translations"
   end
 end
