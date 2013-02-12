@@ -84,9 +84,9 @@ class PublicFacingControllerTest < ActionController::TestCase
     end
   end
 
-  test "all public facing requests with a locale should reset the locale back to the default after completion" do
+  test "all public facing requests with a locale should reset locale back to its original value after completion" do
     with_routing_to_test_action do
-      I18n.default_locale = :original
+      I18n.locale = :original
       get :locale, locale: 'fr'
       assert_equal :original, I18n.locale
     end

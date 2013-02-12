@@ -9,11 +9,8 @@ class PublicFacingController < ApplicationController
 
   private
 
-  def set_locale
-    I18n.locale = params[:locale] || I18n.default_locale
-    yield
-  ensure
-    I18n.locale = I18n.default_locale
+  def set_locale(&block)
+    I18n.with_locale(params[:locale] || I18n.default_locale, &block)
   end
 
   def set_cache_control_headers
