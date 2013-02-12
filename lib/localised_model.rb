@@ -7,10 +7,8 @@ class LocalisedModel < BasicObject
   end
 
   def method_missing(method, *args, &block)
-    original_locale = ::I18n.locale
-    ::I18n.locale = fixed_locale
-    @model.__send__ method, *args, &block
-  ensure
-    ::I18n.locale = original_locale
+    ::I18n.with_locale @fixed_locale do
+      @model.__send__ method, *args, &block
+    end
   end
 end
