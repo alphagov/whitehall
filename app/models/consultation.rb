@@ -56,7 +56,7 @@ class Consultation < Publicationesque
   end
 
   def response_published?
-    closed? && published_consultation_response
+    closed? && published_consultation_response.present?
   end
 
   def response_published_on

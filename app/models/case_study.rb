@@ -3,4 +3,8 @@ class CaseStudy < Edition
   include Edition::RelatedPolicies
   include Edition::FactCheckable
   include Edition::FirstImagePulledOut
+
+  def display_type_key
+    "case_study"
+  end
 end

@@ -14,4 +14,27 @@ FactoryGirl.define do
   factory :deleted_consultation, parent: :consultation, traits: [:deleted]
   factory :archived_consultation, parent: :consultation, traits: [:archived]
   factory :scheduled_consultation, parent: :consultation, traits: [:scheduled]
+
+  factory :open_consultation, parent: :published_consultation do
+    opening_on { 1.day.ago }
+    closing_on { 1.day.from_now }
+  end
+
+  factory :closed_consultation, parent: :published_consultation do
+    opening_on { 2.days.ago }
+    closing_on { 1.day.ago }
+  end
+
+  factory :consultation_with_response, parent: :closed_consultation do
+    response_attributes do
+      {
+        consultation_response_attachments_attributes: {
+          '0' => {
+            attachment_attributes: attributes_for(:attachment,
+              attachment_data_attributes: attributes_for(:attachment_data))
+          }
+        }
+      }
+    end
+  end
 end

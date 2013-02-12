@@ -105,24 +105,27 @@ en:
     published: published
     type:
       announcement: announcement
+      case_study: case study
       closed_consultation: closed consultation
       consultation: consultation
       consultation_outcome: consultation outcome
       corporate_report: corporate report
       correspondence: correspondence
       detailed_guidance: detailed guidance
+      draft_text: draft_text
       fatality_notice: fatality notice
       foi_release: FOI release
       form: form
       guidance: guidance
       impact_assessment: impact assessment
-      import: imported - awaiting type
+      imported: imported - awaiting type
       independent_report: independent report
       international_priority: international priority
       national_statistics: Statistics - national statistics
       news_article: news article
       news_story: news story
       open_consultation: open consultation
+      oral_statement: oral statement
       policy: policy
       policy_paper: policy paper
       press_release: press release
@@ -130,12 +133,15 @@ en:
       publication: publication
       rebuttal: rebuttal
       research: research and analysis
+      speaking_notes: speaking notes
       speech: speech
       statement_to_parliament: Statement to parliament
       statistical_data_set: Statistical data set
       statistics: statistics
+      transcript: transcript
       transparency: transparency data
       treaty: treaty
+      written_statement: written statement
     updated: updated
     view: View '%{title}'
   errors:

@@ -1,7 +1,7 @@
 class SpeechType
   include ActiveRecordLikeInterface
 
-  attr_accessor :id, :name, :genus, :explanation
+  attr_accessor :id, :name, :genus, :explanation, :key
 
   def slug
     name.downcase.gsub(/[^a-z]+/, "-")
@@ -29,18 +29,18 @@ class SpeechType
 
 
   Transcript = create(
-    id: 1, name: "Transcript", genus: "Speech",
+    id: 1, name: "Transcript", genus: "Speech", key: "transcript",
     explanation: "This is a transcript of the speech, exactly as it was delivered."
   )
   DraftText = create(
-    id: 2, name: "Draft text", genus: "Speech",
+    id: 2, name: "Draft text", genus: "Speech", key: "draft_text",
     explanation: "This is the text of the speech as drafted, which may differ slightly from the delivered version."
   )
   SpeakingNotes = create(
-    id: 3, name: "Speaking notes", genus: "Speech",
+    id: 3, name: "Speaking notes", genus: "Speech", key: "speaking_notes",
     explanation: "These are the speaker's notes, not a transcript of the speech as it was delivered."
   )
-  WrittenStatement = create(id: 4, name: "Written statement to parliament")
-  OralStatement = create(id: 5, name: "Oral statement to parliament")
-  ImportedAwaitingType = create(id: 1000, name: "Imported - Awaiting Type")
+  WrittenStatement = create(id: 4, key: "written_statement", name: "Written statement to parliament")
+  OralStatement = create(id: 5, key: "oral_statement", name: "Oral statement to parliament")
+  ImportedAwaitingType = create(id: 1000, key: "imported", name: "Imported - Awaiting Type")
 end

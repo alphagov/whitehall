@@ -67,7 +67,7 @@ class PublicationType
   TransparencyData       = create(id: 10, key: "transparency", singular_name: "Transparency data", plural_name: "Transparency data", prevalence: :less_common)
   Treaty                 = create(id: 11, key: "treaty", singular_name: "Treaty", plural_name: "Treaties", prevalence: :less_common)
   FoiRelease             = create(id: 12, key: "foi_release", singular_name: "FOI release", plural_name: "FOI releases", prevalence: :less_common)
-  IndependentReport      = create(id: 14, key: "indepdendent_report", singular_name: "Independent report", plural_name: "Independent reports", prevalence: :less_common)
+  IndependentReport      = create(id: 14, key: "independent_report", singular_name: "Independent report", plural_name: "Independent reports", prevalence: :less_common)
 
   # Use is discouraged
   Correspondence         = create(id: 8 , key: "correspondence", singular_name: "Correspondence", plural_name: "Correspondence", prevalence: :discouraged)
@@ -77,5 +77,5 @@ class PublicationType
   Unknown                = create(id: 999, key: "publication", singular_name: "Publication", plural_name: "Publication", prevalence: :migration)
 
   # For imported publications with a blank publication_type field
-  ImportedAwaitingType   = create(id: 1000, key: "import", singular_name: "Imported - awaiting type", plural_name: "Imported - awaiting type", prevalence: :migration)
+  ImportedAwaitingType   = create(id: 1000, key: "imported", singular_name: "Imported - awaiting type", plural_name: "Imported - awaiting type", prevalence: :migration)
 end
