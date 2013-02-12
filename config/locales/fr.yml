@@ -1,27 +1,36 @@
 fr:
+  contact:
+    contact_form: Forme de contact
+    email: E-mail
   date:
     formats:
       long_ordinal: ! '%B %d, %Y'
   document:
     published: publié
+    read: Lire l'article intitulé «%{title}»
     type:
       announcement: annonce
+      case_study: étude de cas
       closed_consultation: consultation fermé
       consultation: consultation
       consultation_outcome: résultat des consultations
       corporate_report: rapport d'entreprise
       correspondence: correspondance
+      detailed_guidance: des directives détaillées
+      draft_text: projet de texte
+      fatality_notice: avis de décès
       foi_release: communiqué d'FOI
       form: formulaire
       guidance: guidage
       impact_assessment: évaluation de l'impact
-      import: importés - type attente
+      imported: importé
       independent_report: rapport indépendant
       international_priority: priorité internationale
       national_statistics: Statistiques - statistiques nationales
       news_article: article de nouvelles
       news_story: nouvelles rapport
       open_consultation: consultation ouvert
+      oral_statement: déclaration orale
       policy: politique
       policy_paper: document de politique
       press_release: communiqué de presse
@@ -29,14 +38,17 @@ fr:
       publication: publication
       rebuttal: réfutation
       research: la recherche et l'analyse
+      speaking_notes: notes d'allocution
       speech: discours
       statement_to_parliament: déclaration au parlement
+      statistical_data_set:
       statistics: statistiques
+      transcript: transcription
       transparency: la transparence des données
       treaty: traité
+      written_statement: déclaration écrite
     updated: mis à jour
     view: Voir «%{title}»
-    read: Lire l'article intitulé «%{title}»
   feeds:
     atom: atom
     email_alerts: alertes emails
@@ -68,6 +80,3 @@ fr:
       overseas_territory: Territoire d'outre-mer
   worldwide_office:
     find_out_more: En savoir plus
-  contact:
-    email: E-mail
-    contact_form: Forme de contact
