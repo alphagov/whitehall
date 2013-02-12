@@ -3,7 +3,7 @@ source 'https://gems.gemfury.com/vo6ZrmjBQu5szyywDszE/'
 
 gem 'delayed_job_active_record'
 gem 'statsd-ruby', '1.0.0', require: "statsd"
-gem 'rails', '3.1.10'
+gem 'rails', '3.1.11'
 gem 'mysql2'
 gem 'jquery-rails'
 gem 'transitions', require: ['transitions', 'active_record/transitions']
@@ -61,7 +61,7 @@ group :test do
   gem 'rack-test', git: 'https://github.com/alphagov/rack-test.git'
   gem 'factory_girl'
   gem 'hash_syntax'
-  gem 'mocha', '0.10.0', require: false
+  gem 'mocha', '0.13.2', require: false
   gem 'test_track'
   gem 'timecop'
   gem 'webmock', require: false

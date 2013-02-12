@@ -9,7 +9,7 @@ if ENV["TEST_COVERAGE"]
 end
 
 require 'rails/test_help'
-require 'mocha'
+require 'mocha/setup'
 require 'slimmer/test'
 require 'factories'
 require 'webmock/test_unit'
