@@ -25,18 +25,6 @@ When /^I add a new person called "([^"]*)"$/ do |name|
   click_button "Save"
 end
 
-When /^I add a new person called "([^"]*)" as the "([^"]*)" at the "([^"]*)" office$/ do |person_name, position_name, office_name|
-  office = WorldwideOffice.find_by_name(office_name)
-  visit admin_worldwide_office_path(office)
-  within(record_css_selector(office)) { click_link "People" }
-  click_link "Add"
-  fill_in_person_name person_name
-  fill_in "Biography", with: "Lorem biography ipsum"
-  fill_in "Worldwide office job title", with: position_name
-  attach_file "Image", Rails.root.join("test/fixtures/minister-of-funk.960x640.jpg")
-  click_button "Save"
-end
-
 When /^I update the person called "([^"]*)" to have the name "([^"]*)"$/ do |old_name, new_name|
   visit_people_admin
   click_link old_name

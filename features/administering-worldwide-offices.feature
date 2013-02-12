@@ -9,7 +9,7 @@ Feature: Administering worldwide offices
     * multiple social media links (like orgs)
     * multiple sets of contact information (like orgs)
     * a logo formatted name (always using the standard HMG crest for now)
-    * multiple people, including a head role (Ambassador, Govenor or High Commissioner), a deputy and other subordinate people.
+    * multiple people, including a head role (Ambassador, Govenor or High Commissioner), a deputy and other supporting appointments
   * Each world office can be associated with 1+ world locations, and shows on the world locations page to which they are associated (see mock up on the [ticket](https://www.pivotaltracker.com/story/show/41026113))
   * Each can have corporate information pages (like orgs)
 
@@ -57,9 +57,10 @@ Feature: Administering worldwide offices
     Then I should see the worldwide office "Department of Beards in France" on the "France" world location page
     And I should see that it is part of the "Department of Beards"
 
-  Scenario: Managing people at a worldwide office
+  Scenario: Managing appoitments at a worldwide office
     Given a worldwide office "British embassy in Spain"
-    When I add a new person called "Pete Blake" as the "Defence Attaché" at the "British embassy in Spain" office
+    Given a person called "Pete Blake"
+    When I create a new "Defence Attaché" worldwide office appointment and assign it to "Pete Blake"
     Then he is listed as the supporting position of "Defence Attaché" on the worldwide office page
     And I should not see his picture on the worldwide office page
 

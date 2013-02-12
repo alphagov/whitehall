@@ -1,7 +1,7 @@
 class Admin::WorldwideOfficesController < Admin::BaseController
   respond_to :html
 
-  before_filter :find_worldwide_office, only: [:edit, :update, :destroy, :show, :contacts, :people, :set_main_contact, :social_media_accounts]
+  before_filter :find_worldwide_office, except: [:index, :new, :create]
 
   def index
     respond_with @worldwide_offices = WorldwideOffice.all
@@ -36,6 +36,10 @@ class Admin::WorldwideOfficesController < Admin::BaseController
   def destroy
     @worldwide_office.destroy
     respond_with :admin, @worldwide_office
+  end
+
+  def appointments
+    @appointments = @worldwide_office.worldwide_office_appointments
   end
 
   private

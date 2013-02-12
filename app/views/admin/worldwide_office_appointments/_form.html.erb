@@ -1,0 +1,19 @@
+<%= form_for [:admin, worldwide_office, worldwide_office_appointment], html: {class: "form-horizontal"} do |form| %>
+  <%= form.errors %>
+  <fieldset class="worldwide_office_appointment">
+    <%= form.text_field :job_title, horizontal: true %>
+
+    <div class="control-group">
+      <%= form.label :person_id, 'Person', class: "control-label" %>
+      <div class="controls">
+        <%= form.select :person_id,
+                        options_from_collection_for_select(Person.all, 'id', 'name', worldwide_office_appointment.person_id),
+                        { include_blank: true },
+                        class: 'chzn-select',
+                        data: { placeholder: "Choose person..." } %>
+      </div>
+    </div>
+  </fieldset>
+
+  <%= form.save_or_cancel(cancel: appointments_admin_worldwide_office_path(worldwide_office)) %>
+<% end %>
