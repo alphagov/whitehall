@@ -40,6 +40,11 @@
       margin-top: -60px;
     }
   }
+  #page {
+    @include right-to-left {
+      direction: rtl;
+    }
+  }
 }
 
 .detailed-guidance #whitehall-wrapper,
