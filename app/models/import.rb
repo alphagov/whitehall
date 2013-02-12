@@ -276,6 +276,7 @@ class Import < ActiveRecord::Base
     # rollbacks for the actual import process.
     Import.establish_connection Rails.configuration.database_configuration[Rails.env]
     ImportError.establish_connection Rails.configuration.database_configuration[Rails.env]
+    ImportLog.establish_connection Rails.configuration.database_configuration[Rails.env]
   end
 
   class ProgressLogger
