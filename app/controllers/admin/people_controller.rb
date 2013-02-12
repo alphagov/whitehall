@@ -10,7 +10,7 @@ class Admin::PeopleController < Admin::BaseController
   def create
     @person = Person.new(params[:person])
     if @person.save
-      redirect_to admin_people_url, notice: %{"#{@person.name}" created.}
+      redirect_to admin_people_path, notice: %{"#{@person.name}" created.}
     else
       render action: "new"
     end
