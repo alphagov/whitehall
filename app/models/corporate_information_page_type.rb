@@ -48,4 +48,13 @@ class CorporateInformationPageType
   WelshLanguageScheme = create(
     id: 11, title_template: "Welsh language scheme", slug: "welsh-language-scheme", menu_heading: :other,
   )
+  EqualityAndDiversity = create(
+    id: 12, title_template: "Equality and diversity", slug: "equality-and-diversity", menu_heading: :our_information,
+  )
+  PetitionsAndCampaigns = create(
+    id: 13, title_template: "Petitions and campaigns", slug: "petitions-and-campaigns", menu_heading: :our_information,
+  )
+  Research = create(
+    id: 14, title_template: "Research at %s", slug: "research", menu_heading: :our_information
+  )
 end
