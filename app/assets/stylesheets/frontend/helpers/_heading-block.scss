@@ -10,23 +10,39 @@
       float: left;
       clear: both;
       width: 33.3%;
+      @include right-to-left {
+        float: right;
+      }
     }
   }
   .content {
     @include media(tablet){
       float: right;
       width: 66.6%;
+      @include right-to-left {
+        float: left;
+      }
     }
 
     article {
       @include media(tablet){
         padding-left: $gutter-half;
+
+        @include right-to-left {
+          padding-left: 0;
+          padding-right: $gutter-half;
+        }
       }
     }
 
     .documents-list {
       @include media(tablet){
         padding-left: $gutter-half;
+
+        @include right-to-left {
+          padding-left: 0;
+          padding-right: $gutter-half;
+        }
       }
 
       .document {
@@ -48,6 +64,11 @@
         .metadata li {
           display: inline;
           padding-right: $gutter;
+
+          @include right-to-left {
+            padding-right: 0;
+            padding-left: $gutter;
+          }
         }
       }
     }
@@ -56,6 +77,11 @@
 
       @include media(desktop) {
         padding-left: $gutter-half;
+
+        @include right-to-left {
+          padding-left: $gutter-half;
+          padding-right: $gutter-half;
+        }
       }
     }
   }

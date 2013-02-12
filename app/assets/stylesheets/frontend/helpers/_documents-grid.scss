@@ -25,6 +25,9 @@
     @include media(desktop){
       width: 50%;
       float: left;
+      @include right-to-left {
+        float: right;
+      }
     }
 
     h1 {

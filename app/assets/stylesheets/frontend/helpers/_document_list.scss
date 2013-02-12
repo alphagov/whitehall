@@ -23,6 +23,10 @@
     @include bold;
     vertical-align: top;
 
+    @include right-to-left {
+      text-align: right;
+      float: right;
+    }
     @include ie(6) {
       width: 85%;
     }
@@ -36,6 +40,13 @@
     padding-top: 0;
     padding-right: $gutter;
     margin-bottom: $gutter-one-sixth;
+
+    @include right-to-left {
+      text-align: right;
+      float: right;
+      padding-right: 0;
+      padding-left: $gutter;
+    }
   }
   
   .document-row:first-child {

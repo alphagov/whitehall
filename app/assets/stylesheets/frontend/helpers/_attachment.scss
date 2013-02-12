@@ -6,11 +6,14 @@ $thumbnail-width: 99px;
   padding: $gutter-half 0 0 ($thumbnail-width + $gutter);
   background: $panel-colour;
   @extend %contain-floats;
+  @include right-to-left {
+    padding: $gutter-half ($thumbnail-width + $gutter) 0 0;
+  }
   
   @include media(tablet){
     margin: $gutter 0;
-    padding: $gutter-half 0 0 ($thumbnail-width + $gutter);
   }
+
   
   &.inline {
     background: transparent;
@@ -25,10 +28,12 @@ $thumbnail-width: 99px;
     margin-top: $gutter-one-sixth;
     margin-left: ($thumbnail-width*-1 - $gutter-half);
     padding-bottom: $gutter-half;
-    @include media(tablet){
-      margin-left: ($thumbnail-width*-1 - $gutter-half);
+    @include right-to-left {
+      float: right;
+      margin-left: 0;
+      margin-right: ($thumbnail-width*-1 - $gutter-half);
     }
-  
+
     img {
       display: block;
       width: $thumbnail-width;
@@ -111,11 +116,25 @@ $thumbnail-width: 99px;
   @include media(tablet){
     margin: $gutter 0;
     padding: $gutter-two-thirds $gutter-half  $gutter-half 34.8%;
+
+    @include right-to-left {
+      padding: $gutter-two-thirds 34.8% $gutter-half $gutter-half;
+    }
     .attachment {
-      padding-left: 0;
+      @include left-to-right {
+        padding-left: 0;
+      }
+      @include right-to-left {
+        padding-right: 0;
+      }
       
       .attachment-thumb {
-        margin-left: ($thumbnail-width*-1 - $gutter);
+        @include left-to-right {
+          margin-left: ($thumbnail-width*-1 - $gutter);
+        }
+        @include right-to-left {
+          margin-left: ($thumbnail-width*-1 - $gutter);
+        }
       }
     }
   }
