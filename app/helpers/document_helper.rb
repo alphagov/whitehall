@@ -128,4 +128,8 @@ Details of document required:
   def native_language_name_for(locale)
     Locale.new(locale).native_language_name
   end
+
+  def link_to_translated_edition(edition, locale)
+    link_to native_language_name_for(locale), public_document_path(edition, locale: locale)
+  end
 end

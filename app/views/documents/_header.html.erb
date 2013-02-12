@@ -5,7 +5,13 @@
   <% if @document.available_in_multiple_languages? %>
     <div class="translations">
       <% @document.translated_locales.each do |locale| %>
-        <%= link_to native_language_name_for(locale), public_document_path(@document, locale: locale) %>
+        <span class="translation">
+          <% if locale == I18n.locale %>
+            <%= native_language_name_for(locale) %>
+          <% else %>
+            <%= link_to_translated_edition(@document, locale) %>
+          <% end %>
+        </span>
       <% end %>
     </div>
   <% end %>

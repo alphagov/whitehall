@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 require "test_helper"
 
 class DocumentsControllerTest < ActionController::TestCase
@@ -47,7 +49,7 @@ class DocumentsControllerTest < ActionController::TestCase
     assert_cache_control("max-age=#{Whitehall.default_cache_max_age}")
   end
 
-  view_test "should show links to available translations of the edition" do
+  view_test "should show links to other available translations of the edition" do
     edition = build(:draft_edition)
     with_locale(:es) do
       edition.assign_attributes(attributes_for(:draft_edition, title: 'spanish-title'))
@@ -58,8 +60,9 @@ class DocumentsControllerTest < ActionController::TestCase
     get :show, id: edition.document
 
     assert_select ".document-page-header .translations" do
-      assert_select "a[href=?]", public_document_path(edition, locale: :en)
-      assert_select "a[href=?]", public_document_path(edition, locale: :es)
+      assert_select ".translation", text: "English"
+      refute_select "a[href=?]", public_document_path(edition, locale: :en), text: 'English'
+      assert_select "a[href=?]", public_document_path(edition, locale: :es), text: 'Español'
     end
   end
 
