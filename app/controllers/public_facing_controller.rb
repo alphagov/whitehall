@@ -5,25 +5,19 @@ class PublicFacingController < ApplicationController
   before_filter :set_search_index
   before_filter :restrict_request_formats
 
-  before_filter :set_locale
-  after_filter :unset_locale
+  around_filter :set_locale
 
   private
 
   def set_locale
     I18n.locale = params[:locale] || I18n.default_locale
-  end
-
-  def unset_locale
+    yield
+  ensure
     I18n.locale = I18n.default_locale
   end
 
   def set_cache_control_headers
     expires_in Whitehall.default_cache_max_age, public: true
-  end
-
-  def set_locale
-    I18n.locale = params[:locale] || I18n.default_locale
   end
 
   def set_search_index
