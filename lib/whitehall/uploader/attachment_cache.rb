@@ -1,4 +1,5 @@
 require 'net/https'
+require 'mime/types'
 
 class Whitehall::Uploader::AttachmentCache
   class RetrievalError < RuntimeError; end
@@ -17,7 +18,7 @@ class Whitehall::Uploader::AttachmentCache
   end
 
   class FileTypeDetector
-    def self.detected_type(local_path)
+    def self.detected_file_type(local_path)
       file_type = `file "#{local_path}"`.strip
       if file_type =~ /PDF document/
         :pdf
@@ -25,9 +26,20 @@ class Whitehall::Uploader::AttachmentCache
         :xls
       elsif file_type =~ /Microsoft (Office )?Word/
         :doc
+      elsif file_type =~ /Microsoft PowerPoint/
+        :ppt
       else
         nil
       end
+    end
+
+    IGNORED_CONTENT_TYPES = ['application/octet-stream']
+    def self.detected_content_type(response)
+      if response['Content-Type'] && !IGNORED_CONTENT_TYPES.include?(response['Content-Type'])
+        type = MIME::Types[response['Content-Type']]
+        return type.first.extensions.first if type
+      end
+      nil
     end
   end
 
@@ -109,12 +121,12 @@ class Whitehall::Uploader::AttachmentCache
       File.open(local_path, 'w', encoding: 'ASCII-8BIT') do |file|
         file.write(response.body)
       end
-      ensure_file_has_extension(local_path)
+      ensure_file_has_extension(local_path, response)
     end
 
-    def ensure_file_has_extension(local_path)
+    def ensure_file_has_extension(local_path, response)
       if File.extname(local_path).blank?
-        detected_type = FileTypeDetector.detected_type(local_path)
+        detected_type = extension_from_content_type(response) || extension_from_file(local_path)
         if detected_type
           FileUtils.mv(local_path, local_path + ".#{detected_type}")
           local_path = local_path + ".#{detected_type}"
@@ -125,6 +137,15 @@ class Whitehall::Uploader::AttachmentCache
       end
       local_path
     end
+
+    def extension_from_file(local_path)
+      FileTypeDetector.detected_file_type(local_path)
+    end
+
+    def extension_from_content_type(response)
+      FileTypeDetector.detected_content_type(response)
+    end
+
   end
 end
 
