@@ -71,6 +71,10 @@ class DetailedGuide < Edition
     "detailed_guidance"
   end
 
+  def search_format_types
+    super + ['detailed-guidance']
+  end
+
   private
 
   def related_mainstream_content_valid?

@@ -122,8 +122,13 @@ class Edition < ActiveRecord::Base
     topics: nil,
     only: :published,
     index_after: [],
-    unindex_after: []
+    unindex_after: [],
+    format_types: -> d { d.search_format_types }
   )
+
+  def search_format_types
+    ['edition']
+  end
 
   [:publish, :unpublish, :archive, :delete].each do |event|
     set_callback(event, :after) { refresh_index_if_required }

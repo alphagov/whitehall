@@ -203,4 +203,19 @@ class PublicationsInTopicsTest < ActiveSupport::TestCase
     publication.stubs(:public_document_path).returns("/my/publication")
     assert_equal PublicationType::TransparencyData.id, publication.search_index['publication_type']
   end
+
+  test 'search_format_types tags the publication as a publication' do
+    publication = build(:publication)
+    assert publication.search_format_types.include?('publication')
+  end
+
+  test 'search_format_types includes search_format_types of the publication_type' do
+    publication_type = mock
+    publication_type.responds_like(SpeechType.new)
+    publication_type.stubs(:search_format_types).returns (['stuff-innit', 'other-thing'])
+    publication = build(:publication)
+    publication.stubs(:publication_type).returns(publication_type)
+    assert publication.search_format_types.include?('stuff-innit')
+    assert publication.search_format_types.include?('other-thing')
+  end
 end

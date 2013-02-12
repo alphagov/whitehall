@@ -46,6 +46,10 @@ class Policy < Edition
     super.merge("topics" => topics.map(&:id))
   end
 
+  def search_format_types
+    super + ['policy']
+  end
+
   def alternative_format_provider_required?
     true
   end

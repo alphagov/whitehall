@@ -223,4 +223,20 @@ class SpeechTest < ActiveSupport::TestCase
     assert_equal [person.id], speech.search_index['people']
     assert_equal [organisation.id], speech.search_index['organisations']
   end
+
+  test 'search_format_types tags the speech as a speech and announcement' do
+    speech = build(:speech)
+    assert speech.search_format_types.include?('speech')
+    assert speech.search_format_types.include?('announcement')
+  end
+
+  test 'search_format_types includes search_format_types of the speech_type' do
+    speech_type = mock
+    speech_type.responds_like(SpeechType.new)
+    speech_type.stubs(:search_format_types).returns (['stuff-innit', 'other-thing'])
+    speech = build(:speech)
+    speech.stubs(:speech_type).returns(speech_type)
+    assert speech.search_format_types.include?('stuff-innit')
+    assert speech.search_format_types.include?('other-thing')
+  end
 end

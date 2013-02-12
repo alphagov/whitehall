@@ -15,6 +15,10 @@ class Speech < Announcement
     super.merge("speech_type" => speech_type_id)
   end
 
+  def search_format_types
+    super + ['speech'] + speech_type.search_format_types
+  end
+
   def speech_type
     SpeechType.find_by_id(speech_type_id)
   end

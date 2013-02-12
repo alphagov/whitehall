@@ -304,4 +304,29 @@ class ConsultationTest < ActiveSupport::TestCase
     consultation.stubs(:published_consultation_response).returns(response)
     assert_equal "Consultation outcome", consultation.display_type
   end
+
+  test 'search_format_types tags the consultation as a consultation and publicationesque-consultation' do
+    consultation = build(:consultation)
+    assert consultation.search_format_types.include?('consultation')
+    assert consultation.search_format_types.include?('publicationesque-consultation')
+  end
+
+  test "when the consultation is still open search_format_types tags the consultation as consultation-open" do
+    consultation = build(:consultation, opening_on: Date.new(2011, 11, 1), closing_on: Date.new(2011, 12, 1))
+    assert consultation.search_format_types.include?('consultation-open')
+  end
+
+  test "when the consultation is closed search_format_types tags the consultation as consultation-closed" do
+    consultation = build(:consultation, opening_on: Date.new(2011, 7, 1), closing_on: Date.new(2011, 9, 1))
+    assert consultation.search_format_types.include?('consultation-closed')
+  end
+
+  test "when the consultation has published the response search_format_types tags the consultation as consultation-outcome" do
+    consultation = build(:consultation, opening_on: Date.new(2011, 5, 1), closing_on: Date.new(2011, 7, 1))
+    response = consultation.create_response!
+    response.attachments << build(:attachment)
+    consultation.stubs(:published_consultation_response).returns(response)
+    assert consultation.search_format_types.include?('consultation-outcome')
+  end
+
 end

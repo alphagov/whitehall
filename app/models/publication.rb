@@ -42,6 +42,10 @@ class Publication < Publicationesque
     super.merge({"publication_type" => publication_type_id})
   end
 
+  def search_format_types
+    super + ['publication'] + self.publication_type.search_format_types
+  end
+
   def publication_type
     PublicationType.find_by_id(publication_type_id)
   end

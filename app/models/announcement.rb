@@ -7,6 +7,10 @@ class Announcement < Edition
   def self.sti_names
     ([self] + descendants).map { |model| model.sti_name }
   end
+
+  def search_format_types
+    super + ['announcement']
+  end
 end
 
 require_relative 'news_article'

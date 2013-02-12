@@ -27,4 +27,8 @@ class FatalityNotice < Announcement
   def display_type_key
     "fatality_notice"
   end
+
+  def search_format_types
+    super + ['fatality-notice']
+  end
 end

@@ -29,4 +29,10 @@ class FatalityNoticeTest < ActiveSupport::TestCase
     new_notice = notice.create_draft(build(:user))
     assert_equal 1, new_notice.fatality_notice_casualties.length
   end
+
+  test 'search_format_types tags the fatality notice as a fatality-notice and announcement' do
+    fatality_notice = build(:fatality_notice)
+    assert fatality_notice.search_format_types.include?('fatality-notice')
+    assert fatality_notice.search_format_types.include?('announcement')
+  end
 end

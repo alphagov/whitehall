@@ -114,6 +114,21 @@ class Consultation < Publicationesque
     true
   end
 
+  def search_format_types
+    consultation_type =
+      if response_published?
+      "consultation-outcome"
+    elsif closed?
+      "consultation-closed"
+    elsif open?
+      "consultation-open"
+    end
+
+    types = super + ['publicationesque-consultation', 'consultation']
+    types << consultation_type if consultation_type
+    types
+  end
+
   private
 
   def closing_on_must_be_after_opening_on

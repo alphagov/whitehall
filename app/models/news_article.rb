@@ -26,6 +26,10 @@ class NewsArticle < Announcement
     super.merge({"news_article_type" => news_article_type_id})
   end
 
+  def search_format_types
+    super + ['news-article'] + self.news_article_type.search_format_types
+  end
+
   def can_apply_to_local_government?
     true
   end

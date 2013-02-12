@@ -8,7 +8,8 @@ module Searchable
     :organisations, :public_timestamp,
     :people, :publication_type, :speech_type,
     :topics, :news_article_type, :display_type,
-    :relevant_to_local_government
+    :relevant_to_local_government,
+    :format_types
   ]
 
   included do

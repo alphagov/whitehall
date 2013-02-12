@@ -11,4 +11,9 @@ class CaseStudyTest < ActiveSupport::TestCase
     article = build(:case_study)
     assert article.can_be_related_to_policies?
   end
+
+  test 'search_format_types tags the case study as a case-study' do
+    case_study = build(:case_study)
+    assert case_study.search_format_types.include?('case-study')
+  end
 end
