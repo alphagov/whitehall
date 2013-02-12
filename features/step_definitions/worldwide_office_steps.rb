@@ -167,3 +167,21 @@ Then /^he is listed as the supporting position of "([^"]*)" on the worldwide off
     assert page.has_css?('p.role', text: position_name)
   end
 end
+
+Then /^I should see his picture on the worldwide office page$/ do
+  visit worldwide_office_path(WorldwideOffice.last)
+  person = Person.last
+
+  within record_css_selector(person) do
+    assert page.has_css?('img')
+  end
+end
+
+Then /^I should not see his picture on the worldwide office page$/ do
+  visit worldwide_office_path(WorldwideOffice.last)
+  person = Person.last
+
+  within record_css_selector(person) do
+    refute page.has_css?('img')
+  end
+end

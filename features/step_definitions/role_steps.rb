@@ -43,21 +43,3 @@ Then /^I should see him listed as "([^"]*)" on the worldwide office page$/ do |r
     assert page.has_content?(role.name)
   end
 end
-
-Then /^I should see his picture on the worldwide office page$/ do
-  visit worldwide_office_path(WorldwideOffice.last)
-  person = Person.last
-
-  within record_css_selector(person) do
-    assert page.has_css?('img')
-  end
-end
-
-Then /^I should not see his picture on the worldwide office page$/ do
-  visit worldwide_office_path(WorldwideOffice.last)
-  person = Person.last
-
-  within record_css_selector(person) do
-    refute page.has_css?('img')
-  end
-end
