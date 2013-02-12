@@ -99,7 +99,7 @@ class RoleTest < ActiveSupport::TestCase
   end
 
   test "should not be destroyable when it has organisations" do
-    role = create(:role, organisations: [create(:organisation)], worldwide_offices: [])
+    role = create(:role, organisations: [create(:organisation)])
     refute role.destroyable?
     assert_equal false, role.destroy
   end
