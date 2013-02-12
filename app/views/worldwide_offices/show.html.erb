@@ -63,11 +63,11 @@
                       hlevel: 'h3',
                       hide_image: true }) if @secondary_role %>
 
-        <% @supporting_roles.each do |supporting_role| %>
+        <% @supporting_appointments.each do |appointment| %>
           <%= render( partial: 'people/person',
                       locals: {
-                        person: supporting_role.current_person,
-                        roles: [supporting_role],
+                        person: appointment.current_person,
+                        roles: [appointment],
                         hlevel: 'h3',
                         hide_image: true
                         }) %>
