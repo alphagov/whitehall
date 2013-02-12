@@ -31,25 +31,10 @@ class Admin::WorldLocationTranslationsController < Admin::BaseController
   private
 
   def load_world_location
-    @world_location = LocaleWrapper.new(WorldLocation.find(params[:world_location_id]), translation_locale)
+    @world_location = LocalisedModel.new(WorldLocation.find(params[:world_location_id]), translation_locale)
   end
 
   def translation_locale
     @translation_locale ||= params[:translation_locale] || params[:id]
-  end
-
-  class LocaleWrapper < BasicObject
-    def initialize(model, locale)
-      @model = model
-      @locale = locale
-    end
-
-    def method_missing(method, *args, &block)
-      original_locale = ::I18n.locale
-      ::I18n.locale = @locale
-      @model.__send__ method, *args, &block
-    ensure
-      ::I18n.locale = original_locale
-    end
   end
 end
