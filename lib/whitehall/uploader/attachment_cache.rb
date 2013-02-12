@@ -23,7 +23,7 @@ class Whitehall::Uploader::AttachmentCache
         :pdf
       elsif file_type =~ /Microsoft Excel/
         :xls
-      elsif file_type =~ /Microsoft Office Word/
+      elsif file_type =~ /Microsoft (Office )?Word/
         :doc
       else
         nil
