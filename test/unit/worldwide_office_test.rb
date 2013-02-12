@@ -39,9 +39,15 @@ class WorldwideOfficeTest < ActiveSupport::TestCase
   end
 
   test "destroy destroys role appointments" do
-    office = create(:worldwide_office, worldwide_office_roles: [build(:worldwide_office_role)])
+    office = create(:worldwide_office, worldwide_office_roles: [create(:worldwide_office_role)])
     office.destroy
     assert_equal 0, office.worldwide_office_roles.count
+  end
+
+  test "destroy destroys worldwide office appointments" do
+    office = create(:worldwide_office, worldwide_office_appointments: [create(:worldwide_office_appointment)])
+    office.destroy
+    assert_equal 0, office.worldwide_office_appointments.count
   end
 
   test "has an overridable default main contact" do
