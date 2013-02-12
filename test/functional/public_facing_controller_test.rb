@@ -1,5 +1,6 @@
 require "test_helper"
 
+
 class PublicFacingControllerTest < ActionController::TestCase
   class TestController < PublicFacingController
     def test
@@ -14,6 +15,7 @@ class PublicFacingControllerTest < ActionController::TestCase
   tests TestController
 
   teardown do
+    I18n.locale = :en
     I18n.default_locale = :en
   end
 
@@ -101,3 +103,5 @@ class PublicFacingControllerTest < ActionController::TestCase
     end
   end
 end
+
+require 'functional/publication_filter_json_presenter_test'
