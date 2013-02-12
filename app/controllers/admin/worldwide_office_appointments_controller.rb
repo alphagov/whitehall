@@ -7,8 +7,8 @@ class Admin::WorldwideOfficeAppointmentsController < Admin::BaseController
   end
 
   def create
-    @worldwide_office_appointment = @worldwide_office.worldwide_office_appointments.create(params[:worldwide_office_appointment])
-    if @worldwide_office_appointment.persisted?
+    @worldwide_office_appointment = @worldwide_office.worldwide_office_appointments.new(params[:worldwide_office_appointment])
+    if @worldwide_office_appointment.save
       redirect_to [:appointments, :admin, @worldwide_office], notice: "Appointment created"
    else
       render :new
