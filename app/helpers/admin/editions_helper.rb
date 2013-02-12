@@ -92,7 +92,7 @@ module Admin::EditionsHelper
                                  select_options,
                                  include_blank: true,
                                  multiple: false,
-                                 class: 'chzn-select',
+                                 class: 'chzn-select-non-ie',
                                  data: { placeholder: "Choose a #{field_identifier} organisation which produced this document..."},
                                  id: "edition_edition_organisations_attributes_organisation_id_#{field_identifier}_#{idx + 1}"),
             @template.hidden_field_tag("edition[edition_organisations_attributes][][lead_ordering]", lead ? idx : ''),
