@@ -1,4 +1,6 @@
 en:
+  language_names:
+    en: English
   activerecord:
     attributes:
       detailed_guide:
