@@ -12,4 +12,4 @@
 <%= form.text_area :mission_statement %>
 <p class="english-mission-statement original-translation">English: <%= @english_world_location.mission_statement %></p>
 </fieldset>
-<%= form.save_or_cancel %>
+<%= form.save_or_cancel cancel: admin_world_location_translations_path(@english_world_location) %>

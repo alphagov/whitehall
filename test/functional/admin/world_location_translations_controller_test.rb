@@ -51,6 +51,7 @@ class Admin::WorldLocationTranslationsControllerTest < ActionController::TestCas
         assert_select ".original-translation", text: "English: Teaching the people how to brew tea"
       end
       assert_select "input[type=submit][value=Save]"
+      assert_select "a[href=#{CGI::escapeHTML(translations_path)}]", text: 'cancel'
     end
   end
 
