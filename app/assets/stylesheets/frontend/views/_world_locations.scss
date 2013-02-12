@@ -136,21 +136,28 @@
   }
 
   #international-priorities {
-    @extend %contain-floats;
+    margin-bottom: $gutter;
 
+    h1 {
+      margin: 0 $gutter-half $gutter-half;
+    }
     article {
       @include media(tablet) {
         float: left;
-        display: inline;
         width: 50%;
+
         @include right-to-left {
           float: right;
         }
       }
 
-      h2 {
-        @include heading-27;
-        @include bold;
+      .content {
+        padding: 0 $gutter-half;
+
+        h2 {
+          @include heading-27;
+          font-weight: bold;
+        }
       }
     }
   }

@@ -45,21 +45,24 @@
     </div>
   </div>
 
-  <div class="block">
-    <div class="inner-block">
-      <% if @international_priorities.any? %>
-        <section id="international-priorities">
-          <h1 class="keyline-header"><%= t('world_location.headings.priorities') %></h1>
-          <% @international_priorities.each do |priority| %>
-            <%= content_tag_for(:article, priority) do %>
+  <% if @international_priorities.any? %>
+    <section id="international-priorities" class="block">
+      <div class="inner-block floated-children">
+        <h1 class="keyline-header"><%= t('world_location.headings.priorities') %></h1>
+        <% @international_priorities.each do |priority| %>
+          <%= content_tag_for(:article, priority) do %>
+            <div class="content">
               <h2><%= link_to priority.title, public_document_path(priority) %></h2>
-              <p><%= priority.summary %></p>
-            <% end %>
+              <p>
+                <%= priority.summary %>
+                <%= link_to 'Read more', public_document_path(priority) %>.
+              </p>
+            </div>
           <% end %>
-        </section>
-      <% end %>
-    </div>
-  </div>
+        <% end %>
+      </div>
+    </section>
+  <% end %>
 
   <% if @policies.any? %>
     <div class="block-5">
