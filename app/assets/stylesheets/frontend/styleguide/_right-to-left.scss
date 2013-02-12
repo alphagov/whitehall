@@ -18,3 +18,8 @@ $right-to-left: false !default;
     @content;
   }
 }
+@mixin left-to-right {
+  @if $right-to-left == false {
+    @content;
+  }
+}

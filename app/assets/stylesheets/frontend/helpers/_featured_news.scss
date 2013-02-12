@@ -8,6 +8,9 @@
       overflow: hidden;
       width: 33.33%;
       clear: none;
+      @include right-to-left {
+        float: right;
+      }
     }
 
     .content {
@@ -16,6 +19,9 @@
       .img-holder {
         width: 25%;
         float: left;
+        @include right-to-left {
+          float: right;
+        }
         @include media(tablet){
           width: 100%;
           float: none;
@@ -24,6 +30,9 @@
         .img {
           display: block;
           padding: $gutter-one-third $gutter-half 0 0;
+          @include right-to-left {
+            padding: $gutter-one-third 0 0 $gutter-half;
+          }
           @include media(tablet){
             padding: 0;
           }
@@ -36,6 +45,9 @@
       .text {
         float: left;
         width: 75%;
+        @include right-to-left {
+          float: right;
+        }
         @include media(tablet){
           float: none;
           width: 100%;

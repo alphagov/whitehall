@@ -10,10 +10,17 @@
         float: left;
         display: inline;
         width: 33%;
+        @include right-to-left {
+          float: right;
+        }
       }
       .block-3 {
         float: right;
         width: 66%;
+
+        @include right-to-left {
+          float: left;
+        }
       }
     }
   }
