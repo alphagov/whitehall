@@ -103,5 +103,3 @@ class PublicFacingControllerTest < ActionController::TestCase
     end
   end
 end
-
-require 'functional/publication_filter_json_presenter_test'
