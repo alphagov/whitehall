@@ -1,4 +1,4 @@
-<% page_title t("world_location.country.#{@world_location.name}"), "UK and the world" %>
+<% page_title t("world_location.country.#{@world_location.name}", default: @world_location.name), "UK and the world" %>
 <% page_class "world-locations-show" %>
 <% atom_discovery_link_tag world_location_url(@world_location, format: :atom), t("feeds.latest_activity") %>
 <%= content_tag_for(:div, @world_location) do %>
@@ -8,7 +8,7 @@
       <header class="page-header world-locations <% if @featured_editions.any? %>with_featured<% end %>">
         <hgroup>
           <h2 class="type"><%= t_world_location @world_location %></h2>
-          <h1 class="name">UK and <%= @world_location.name %></h1>
+          <h1 class="name">UK and <%= t("world_location.country.#{@world_location.name}", default: @world_location.name) %></h1>
         </hgroup>
       </header>
     </div>
