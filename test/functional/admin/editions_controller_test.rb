@@ -410,6 +410,15 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     assert_response 403
   end
 
+  test "confirm_unpublish loads the edition and renders the confirm page" do
+    policy = create(:published_policy)
+    get :confirm_unpublish, id: policy.to_param
+
+    assert_response :success
+    assert_template :confirm_unpublish
+    assert_equal policy, assigns(:edition)
+  end
+
   def stub_edition_filter(attributes = {})
     default_attributes = {
       editions: Kaminari.paginate_array(attributes[:editions] || []).page(1),
