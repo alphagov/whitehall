@@ -395,19 +395,19 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     inaccessible = create(:draft_publication, publication_type: PublicationType::NationalStatistics, access_limited: true, organisations: [other_organisation])
 
     get :show, id: inaccessible
-    assert_response 403
+    assert_response :forbidden
 
     get :edit, id: inaccessible
-    assert_response 403
+    assert_response :forbidden
 
     put :update, id: inaccessible, edition: {summary: "new-summary"}
-    assert_response 403
+    assert_response :forbidden
 
     post :revise, id: inaccessible
-    assert_response 403
+    assert_response :forbidden
 
     delete :destroy, id: inaccessible
-    assert_response 403
+    assert_response :forbidden
   end
 
   test "confirm_unpublish loads the edition and renders the confirm page" do
