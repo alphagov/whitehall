@@ -10,7 +10,9 @@
     <%= render partial: 'appointment_fields', locals: { form: form, edition: edition } %>
     <%= render partial: 'world_location_fields', locals: { form: form, edition: edition } %>
     <%= render partial: 'topical_event_fields', locals: { form: form, edition: edition } %>
-    <%= render partial: 'worldwide_priority_fields', locals: { form: form, edition: edition } %>
+    <% if edition.can_be_associated_with_worldwide_priorities? %>
+      <%= render partial: 'worldwide_priority_fields', locals: { form: form, edition: edition } %>
+    <% end %>
   </fieldset>
 
   <%= render partial: 'first_published_at', locals: { form: form, edition: edition } %>
