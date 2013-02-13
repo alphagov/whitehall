@@ -1,6 +1,14 @@
 en:
   language_names:
+    de: German
     en: English
+    es: Spanish
+    fr: French
+    it: Italian
+    ja: Japanese
+    pt: Portuguese
+    ru: Russian
+    tr: Turkish
   activerecord:
     attributes:
       detailed_guide:
