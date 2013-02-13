@@ -72,9 +72,9 @@ class AttachmentDataTest < ActiveSupport::TestCase
     assert_equal 3, attachment.number_of_pages
   end
 
-  test "should save attachment even if parsing the PDF raises an exception" do
+  test "should save attachment even if unable to count the number of pages" do
     greenpaper_pdf = fixture_file_upload('greenpaper.pdf')
-    PDF::Reader.stubs(:new).raises
+    PDFINFO_SERVICE.stubs(:count_pages).returns(nil)
     assert_nothing_raised { create(:attachment_data, file: greenpaper_pdf) }
   end
 

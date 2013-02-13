@@ -58,17 +58,8 @@ class AttachmentData < ActiveRecord::Base
     AttachmentData.find(to_replace_id).replace_with!(self)
   end
 
-  class PageReceiver
-    attr_reader :number_of_pages
-    def page_count(count)
-      @number_of_pages = count
-    end
-  end
-
   def calculate_number_of_pages
-    receiver = PageReceiver.new
-    PDF::Reader.file(file.path, receiver, pages: false)
-    receiver.number_of_pages
+    PDFINFO_SERVICE.count_pages(file.path)
   rescue
     nil
   end

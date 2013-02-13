@@ -20,7 +20,6 @@ GEM
   remote: http://rubygems.org/
   remote: https://gems.gemfury.com/vo6ZrmjBQu5szyywDszE/
   specs:
-    Ascii85 (1.0.1)
     PriorityQueue (0.1.2)
     actionmailer (3.1.11)
       actionpack (= 3.1.11)
@@ -240,11 +239,12 @@ GEM
     omniauth-oauth2 (1.1.1)
       oauth2 (~> 0.8.0)
       omniauth (~> 1.0)
+    paper_trail (2.6.4)
+      activerecord (~> 3.0)
+      railties (~> 3.0)
     parallel (0.5.19)
     parallel_tests (0.8.14)
       parallel
-    pdf-reader (0.10.1)
-      Ascii85 (~> 1.0.0)
     plek (1.1.0)
       builder
     polyglot (0.3.3)
@@ -430,7 +430,6 @@ DEPENDENCIES
   newrelic_rpm (= 3.5.3.25)
   nokogiri
   parallel_tests
-  pdf-reader
   plek (= 1.1.0)
   quiet_assets
   rabl
