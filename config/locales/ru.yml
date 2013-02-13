@@ -1,0 +1,6 @@
+ru:
+  language_names:
+    ru: Русский
+  date:
+    formats:
+      long_ordinal: ! '%e %B %Y'

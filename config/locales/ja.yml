@@ -1,0 +1,6 @@
+ja:
+  language_names:
+    ja: 日本語
+  date:
+    formats:
+      long_ordinal: ! '%e %B %Y'

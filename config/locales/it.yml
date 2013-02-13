@@ -1,0 +1,6 @@
+it:
+  language_names:
+    it: Italiano
+  date:
+    formats:
+      long_ordinal: ! '%e %B %Y'

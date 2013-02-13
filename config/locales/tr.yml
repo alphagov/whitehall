@@ -1,0 +1,6 @@
+tr:
+  language_names:
+    tr: Türkçe
+  date:
+    formats:
+      long_ordinal: ! '%e %B %Y'

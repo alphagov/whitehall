@@ -1,0 +1,6 @@
+pt:
+  language_names:
+    pt: Português
+  date:
+    formats:
+      long_ordinal: ! '%e %B %Y'
