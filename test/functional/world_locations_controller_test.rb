@@ -40,6 +40,13 @@ class WorldLocationsControllerTest < ActionController::TestCase
     assert_select ".mission_statement br", count: 1
   end
 
+  test "show responds with not found if appropriate translation doesn't exist" do
+    world_location = create(:world_location)
+    assert_raises(ActiveRecord::RecordNotFound) do
+      get :show, id: world_location, locale: 'fr'
+    end
+  end
+
   view_test 'show has atom feed autodiscovery link' do
     world_location = create(:world_location)
 
@@ -184,6 +191,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
 
   view_test "should display translated page labels when requested in a different locale" do
     world_location = create(:country)
+    world_location.translations.create!(name: 'Afrolasie', locale: 'fr', mission_statement: 'Enseigner aux gens comment infuser le thé')
     create(:published_international_priority, world_locations: [world_location])
     create(:published_publication, world_locations: [world_location])
     create(:published_policy, world_locations: [world_location])
