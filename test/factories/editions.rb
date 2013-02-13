@@ -42,18 +42,21 @@ FactoryGirl.define do
 
     after :build do |edition, evaluator|
       if evaluator.lead_organisations.empty? && evaluator.create_default_organisation
-        edition.lead_edition_organisations.build(edition: edition,
-                                                 organisation: FactoryGirl.build(:organisation),
-                                                 lead_ordering: 1)
+        edition.edition_organisations.build(edition: edition,
+                                            organisation: FactoryGirl.build(:organisation),
+                                            lead_ordering: 1,
+                                            lead: true)
       end
       Array.wrap(evaluator.lead_organisations).each.with_index do |org, idx|
-        edition.lead_edition_organisations.build(edition: edition,
-                                                 organisation: org,
-                                                 lead_ordering: idx+1)
+        edition.edition_organisations.build(edition: edition,
+                                            organisation: org,
+                                            lead_ordering: idx+1,
+                                            lead: true)
       end
       Array.wrap(evaluator.supporting_organisations).each do |org|
-        edition.supporting_edition_organisations.build(edition: edition,
-                                                       organisation: org)
+        edition.edition_organisations.build(edition: edition,
+                                            organisation: org,
+                                            lead: false)
       end
     end
 

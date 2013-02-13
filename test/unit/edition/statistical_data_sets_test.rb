@@ -8,12 +8,13 @@ class Edition::StatisticalDataSetsTest < ActiveSupport::TestCase
   include ActionDispatch::TestProcess
 
   def valid_edition_attributes
+    o = create(:organisation)
     {
       title:   'edition-title',
       body:    'edition-body',
       summary: 'edition-summary',
       creator: create(:user),
-      lead_edition_organisations: [build(:edition_organisation, lead: true, lead_ordering: 1)]
+      lead_organisations: [o]
     }
   end
 
