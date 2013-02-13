@@ -64,13 +64,6 @@ en:
     atom: atom
     email_alerts: email alerts
     latest_activity: Latest activity
-  helpers:
-    select:
-      prompt: Please select
-    submit:
-      create: Create %{model}
-      submit: Save %{model}
-      update: Update %{model}
   latest_feed:
     no_updates: There are no updates yet.
     title: Latest feed

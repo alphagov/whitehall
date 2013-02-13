@@ -58,13 +58,6 @@ fr:
     atom: atom
     email_alerts: alertes emails
     latest_activity: Activité la plus récente
-  helpers:
-    select:
-      prompt: Veuillez sélectionner
-    submit:
-      create: Créer un(e) %{model}
-      submit: Enregistrer ce(tte) %{model}
-      update: Modifier ce(tte) %{model}
   language_names:
     fr: Français
   latest_feed:
@@ -76,7 +69,7 @@ fr:
         format: ! '%n%u'
   support:
     array:
-      last_word_connector: ! ' and '
+      last_word_connector: ! ' et '
   time:
     formats:
       long_ordinal: ! '%B %d, %Y %H:%M'
