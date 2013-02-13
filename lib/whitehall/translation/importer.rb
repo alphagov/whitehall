@@ -26,7 +26,7 @@ class Whitehall::Translation::Importer
 
     File.open(import_yml_path, "w") do |f|
       yaml = {@locale.to_s => data}.to_yaml(separator: "")
-      yaml_without_header = yaml.split("\n")[1..-1].join("\n")
+      yaml_without_header = yaml.split("\n").map { |l| l.gsub(/\s+$/, '') }[1..-1].join("\n")
       f.write(yaml_without_header)
       f.puts
     end

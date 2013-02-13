@@ -53,6 +53,18 @@ class TranslationImporterTest < ActiveSupport::TestCase
     assert_match /\n$/, File.readlines(File.join(import_directory, "fr.yml")).last
   end
 
+  test 'strips whitespace from the end of lines for consistency with code editors' do
+    given_csv(:fr,
+      [:key, :source, :translation],
+      ["key", "value", nil],
+    )
+
+    Whitehall::Translation::Importer.new(:fr, csv_path(:fr), import_directory).import
+
+    lines = File.readlines(File.join(import_directory, "fr.yml"))
+    refute lines.any? { |line| line =~ /\s\n$/ }
+  end
+
   test 'imports arrays from CSV as arrays' do
     given_csv(:fr,
       [:key, :source, :translation],

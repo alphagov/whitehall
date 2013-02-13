@@ -62,6 +62,24 @@ class TranslationExporterTest < ActiveSupport::TestCase
     assert_equal ["Offices", nil], data["world_location.headings.offices"]
   end
 
+  test 'should not include any language names that are not English or the native in the output file' do
+    given_locale(:en, {
+      language_names: {
+        en: "English",
+        es: "Spanish",
+        fr: "French"
+      }
+    })
+
+    Whitehall::Translation::Exporter.new(export_directory, locale_path(:en), locale_path(:fr)).export
+
+    assert File.file?(exported_file("fr.csv")), "should write a file"
+
+    data = read_csv_data(exported_file("fr.csv"))
+    assert_equal ["French", nil], data["language_names.fr"]
+    assert_equal nil, data["language_names.es"], "language key for spanish should not be present"
+  end
+
   private
 
   def read_csv_data(file)

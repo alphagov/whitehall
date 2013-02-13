@@ -6,7 +6,8 @@ class Whitehall::Translation::Exporter
   def initialize(directory, source_locale_path, target_locale_path)
     @source_locale_path = source_locale_path
     @target_locale_path = target_locale_path
-    @output_path = File.join(directory, File.basename(target_locale_path).split(".")[0] + ".csv")
+    @locale = File.basename(target_locale_path).split(".")[0]
+    @output_path = File.join(directory, @locale + ".csv")
 
     @keyed_source_data = translation_file_to_keyed_data(source_locale_path)
     @keyed_target_data = translation_file_to_keyed_data(target_locale_path)
@@ -16,6 +17,9 @@ class Whitehall::Translation::Exporter
     csv = CSV.generate do |csv|
       csv << CSV::Row.new(["key", "source", "translation"], ["key", "source", "translation"], true)
       @keyed_source_data.keys.sort.each do |key|
+        if key =~ /^language_names\./
+          next unless key =~ /#{@locale}$/
+        end
         csv << CSV::Row.new(["key", "source", "translation"], [key, @keyed_source_data[key], @keyed_target_data[key]])
       end
     end

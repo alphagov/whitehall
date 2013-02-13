@@ -157,15 +157,7 @@ fr:
     email_alerts: alertes emails
     latest_activity: Activité la plus récente
   language_names:
-    de:
-    en:
-    es:
     fr: Français
-    it:
-    ja:
-    pt:
-    ru:
-    tr:
   latest_feed:
     no_updates: Il n'y a pas mises à jour.
     title: Documents les plus récents
