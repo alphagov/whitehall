@@ -340,11 +340,6 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
     assert_equal 'All workflow actions require a lock version', response.body
   end
 
-  test 'unpublish unpublishes the edition' do
-    @edition.expects(:unpublish_as).with(@user)
-    post :unpublish, id: @edition, lock_version: 1
-  end
-
   test 'unpublish redirects back to the edition with a message' do
     @edition.stubs(:unpublish_as).returns(true)
     post :unpublish, id: @edition, lock_version: 1
@@ -447,5 +442,23 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
     assert_response 403
     post :unschedule, id: protected_edition.id
     assert_response 403
+  end
+end
+
+class Admin::UnstubbedEditionWorkflowControllerTest < ActionController::TestCase
+  tests EditionWorkflowController
+
+  setup { login_as :gds_editor }
+
+  test 'unpublishing an edition creates an associated unpublishing' do
+    edition = create(:published_policy)
+    params = { unpublishing_reason_id: 1, explanation: 'Was classified', alternative_url: 'http://website.com/alt' }
+    post :unpublish, id: edition.to_param, lock_version: edition.lock_version, unpublishing: params
+
+    assert unpublishing = edition.reload.unpublishing
+    assert_equal edition.id, unpublishing.edition_id
+    assert_equal params[:unpublishing_reason_id], unpublishing.unpublishing_reason.id
+    assert_equal params[:explanation], unpublishing.explanation
+    assert_equal params[:alternative_url], unpublishing.alternative_url
   end
 end

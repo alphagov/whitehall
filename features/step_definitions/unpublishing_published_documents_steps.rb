@@ -3,7 +3,7 @@ When /^I unpublish the document because it was published in error$/ do
   visit admin_edition_path(edition)
   click_button 'Unpublish'
   select 'Published in error', from: 'Reason for unpublishing'
-  fill_in 'Additional explanation', with: 'This page should never have existed'
+  fill_in 'Further explanation', with: 'This page should never have existed'
   fill_in 'Alternative URL', with: 'https://www.gov.uk/some/alternative/page'
   click_button 'Unpublish'
 end
