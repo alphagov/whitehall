@@ -9,7 +9,7 @@ class PublicationsController < DocumentsController
     clean_malformed_params_array(:topics)
     clean_malformed_params_array(:departments)
 
-    # expire_on_next_scheduled_publication(scheduled_publications)
+    expire_on_next_scheduled_publication(scheduled_publications)
     @filter = build_document_filter(params.reverse_merge({ page: 1, direction: 'before' }))
 
     respond_to do |format|
@@ -36,13 +36,8 @@ private
     SearchPublicationesqueDecorator.new(document_filter)
   end
 
-  def all_publications
-    Publicationesque.published.includes(:document, :organisations, :attachments, :translations, response: :attachments)
-  end
-
   def scheduled_publications
-    # unfiltered = Publicationesque.scheduled.order("scheduled_publication asc")
-    # Whitehall::DocumentFilter::Mysql.new(unfiltered, params.except(:direction)).documents
+    Publicationesque.scheduled.order("scheduled_publication asc")
   end
 
   def document_class

@@ -27,7 +27,6 @@ class AnnouncementsControllerTest < ActionController::TestCase
   end
 
   test "index sets Cache-Control: max-age to the time of the next scheduled publication" do
-    pending 'cache-control disabled for now while we switch to different search backend'
     user = login_as(:departmental_editor)
     news = create(:draft_news_article, scheduled_publication: Time.zone.now + Whitehall.default_cache_max_age * 2)
     news.schedule_as(user, force: true)

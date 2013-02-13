@@ -261,7 +261,6 @@ That's all
   end
 
   test "activity sets Cache-Control: max-age to the time of the next scheduled publication" do
-    pending 'cache-control disabled for now while we switch to different search backend'
     policy = create(:published_policy)
     user = login_as(:departmental_editor)
     p1 = create(:published_publication, publication_date: Time.zone.now, related_policies: [policy])
