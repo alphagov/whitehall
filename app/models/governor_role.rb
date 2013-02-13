@@ -1,0 +1,2 @@
+class GovernorRole < Role
+end

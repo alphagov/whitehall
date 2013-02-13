@@ -1,0 +1,4 @@
+<% page_title "New appointment for the #{@worldwide_office.name}" %>
+<h1>New <%= @worldwide_office.name %> Appointment</h1>
+
+<%= render "form", worldwide_office: @worldwide_office, worldwide_office_appointment: @worldwide_office_appointment %>

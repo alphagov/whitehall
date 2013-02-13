@@ -132,6 +132,13 @@ class PersonTest < ActiveSupport::TestCase
     assert person.destroy
   end
 
+  test 'destroying clears any associated worldwide office appointments' do
+    person = create(:person)
+    appointment = create(:worldwide_office_appointment, person: person )
+    assert person.destroy
+    assert_nil appointment.reload.person_id
+  end
+
   test 'uses only forename and surname as slug if person has forename' do
     person = create(:person, title: 'Sir', forename: 'Hercule', surname: 'Poirot')
     assert_equal 'hercule-poirot', person.slug

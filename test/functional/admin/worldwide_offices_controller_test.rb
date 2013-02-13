@@ -92,4 +92,14 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
       end
     end
   end
+
+  test "showing appointments" do
+    office = create(:worldwide_office)
+    appointments = [ create(:worldwide_office_appointment, worldwide_office: office),
+                     create(:worldwide_office_appointment, worldwide_office: office) ]
+    get :appointments, id: office
+
+    assert_template :appointments
+    assert_equal appointments, office.worldwide_office_appointments
+  end
 end
