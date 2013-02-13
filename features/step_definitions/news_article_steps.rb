@@ -98,3 +98,12 @@ Then /^if no image is uploaded a default image is shown$/ do
   visit document_path(article)
   assert page.has_css?("aside.sidebar img[src*='placeholder']")
 end
+
+When /^I browse to the announcements index$/ do
+  visit announcements_path
+end
+
+Then /^I should not be able to see a world location news story "([^"]+)"$/ do |title|
+  article = NewsArticle.find_by_title(title)
+  refute record_css_selector(article), "Can see \"#{article.title}\" when I shouldn't be able to"
+end

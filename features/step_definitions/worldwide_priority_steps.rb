@@ -46,3 +46,8 @@ Then /^I should be able to associate "([^"]*)" with the worldwide priority "([^"
   begin_editing_document title
   select priority, from: "Worldwide priorities"
 end
+
+Then /^I cannot associate "([^"]*)" with worldwide priorities$/ do |title|
+  begin_editing_document title
+  refute page.has_css?("input[name='edition[worldwide_priority_ids][]']")
+end

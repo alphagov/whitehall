@@ -56,12 +56,13 @@ Feature: World location news for people local to countries
     And see the worldwide organisation "Spanish Department" listed as a producing org on the world location news article "Spanish News"
 
   Scenario: Associate a world location news article with a worldwide location
-    Given a worldwide location "Indonesia" exists
+    Given a country "Indonesia" exists
     When I create a world location news article "Indonesian Beer"
     Then I should be able to associate "Indonesian Beer" with the worldwide location "Indonesia"
-    And see the world location news article "Indonesian Beer" appear on the worldwide location "Indonesia"
+    When I visit the worldwide location "Indonesia"
+    Then I should see the world location news article "Indonesian Beer"
 
   Scenario: World location news shouldn't appear on announcements index
-    Given a world location news article "French things" exists
+    Given I create a world location news article "French things"
     When I browse to the announcements index
     Then I should not be able to see a world location news article "French things"
