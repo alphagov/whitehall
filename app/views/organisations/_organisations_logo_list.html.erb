@@ -26,7 +26,7 @@
       <span class="toggle show-other-content">+ others</span>
       <div class="organisations-box overlay js-hidden"><div class="organisations-box-inner">
         <% organisations_grouped_by_type(organisations).each do |type, organisations| %>
-          <h3><%= type.name.pluralize %></h3>
+          <h3 class="organisation-group-type"><%= t("organisation.headings.#{type.name}", count: organisations.length) %></h3>
           <ol>
             <% organisations.each do |organisation| %>
               <%= content_tag_for :li, organisation, 'by-type' do %>

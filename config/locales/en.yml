@@ -18,7 +18,29 @@ en:
          format: ! '%n%u'
   document:
     published: published
+    headings:
+      field_of_operation: Field of operation
+      applies_to_nations: Applies to
+      policy_team: Policy team
+      advisory_groups: Advisory groups
+      document_series: Series
+      live_data: Live data
+      world_locations:
+        one: World location
+        other: World locations
+      policies:
+        one: Policy
+        other: Policies
+      topics:
+        one: Topic
+        other: Topics
+      ministers:
+        one: Minister
+        other: Minsters
     type:
+      test_type:
+        one: Test type
+        other: Test types
       announcement: announcement
       case_study: case study
       closed_consultation: closed consultation
@@ -95,3 +117,41 @@ en:
     email: Email
     contact_form: Contact form
   read_more: Read more
+  change_notes:
+    published: Published
+    updated: Updated
+  organisation:
+    headings:
+      Ministerial department:
+        one: Ministerial department
+        other: Ministerial departments
+      Non-ministerial department:
+        one: Non-ministerial department
+        other: Non-ministerial departments
+      Executive agency:
+        one: Executive agency
+        other: Executive agencies
+      Executive non-departmental public body:
+        one: Executive non-departmental public body
+        other: Executive non-departmental public bodies
+      Advisory non-departmental public body:
+        one: Advisory non-departmental public body
+        other: Advisory non-departmental public bodies
+      Tribunal non-departmental public body:
+        one: Tribunal non-departmental public body
+        other: Tribunal non-departmental public bodies
+      Public corporation:
+        one: Public corporation
+        other: Public corporations
+      Independent monitoring body:
+        one: Independent monitoring body
+        other: Independent monitoring bodies
+      Ad-hoc advisory group:
+        one: Ad-hoc advisory group
+        other: Ad-hoc advisory groups
+      Sub-organisation:
+        one: Sub-organisation
+        other: Sub-organisations
+      Other:
+        one: Other
+        other: Others

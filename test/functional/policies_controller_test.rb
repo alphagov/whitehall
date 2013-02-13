@@ -99,8 +99,8 @@ class PoliciesControllerTest < ActionController::TestCase
   end
 
   view_test "should link to organisations related to the policy" do
-    first_org = create(:organisation)
-    second_org = create(:organisation)
+    first_org = create(:ministerial_department)
+    second_org = create(:sub_organisation)
     edition = create(:published_policy, lead_organisations: [first_org], supporting_organisations: [second_org])
 
     get :show, id: edition.document

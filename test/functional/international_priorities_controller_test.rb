@@ -1,3 +1,4 @@
+# encoding: utf-8
 require "test_helper"
 
 class InternationalPrioritiesControllerTest < ActionController::TestCase
@@ -37,5 +38,14 @@ class InternationalPrioritiesControllerTest < ActionController::TestCase
     get :show, id: edition.document
 
     refute_select "#organisations"
+  end
+
+  view_test "should display translated page labels when requested in a different locale" do
+    edition = create(:published_international_priority)
+
+    get :show, id: edition.document, locale: 'fr'
+
+    assert_select ".page_title", /Priorité internationale/
+    assert_select ".change-notes-title", /Publié/
   end
 end

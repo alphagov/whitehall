@@ -13,6 +13,10 @@ fr:
   document:
     published: publié
     read: Lire l'article intitulé «%{title}»
+    headings:
+      world_locations:
+        one: Où dans le monde
+        other: Endroits du monde
     type:
       announcement: annonce
       case_study: étude de cas
@@ -95,3 +99,41 @@ fr:
   worldwide_office:
     find_out_more: En savoir plus
   read_more: En savoir plus
+  change_notes:
+    published: Publié
+    updated: Mis à jour
+  organisation:
+    headings:
+      Ministerial department:
+        one: Département ministériel
+        other: Départements ministériels
+      Non-ministerial department:
+        one: Non département ministériel
+        other: Non départements ministériels
+      Executive agency:
+        one: Agence exécutive
+        other: Agences exécutive
+      Executive non-departmental public body:
+        one: Exécutif non ministériel organisme public
+        other: Exécutifs non ministériels organismes publics
+      Advisory non-departmental public body:
+        one: Consultatif non ministériel organisme public
+        other: Consultatifs non ministériels organismes publics
+      Tribunal non-departmental public body:
+        one: Tribunal non ministériel organisme public
+        other: Tribunal organismes non ministériels publics
+      Public corporation:
+        one: Entreprise nationale
+        other: Les sociétés publiques
+      Independent monitoring body:
+        one: Organe de surveillance indépendant
+        other: Organes de contrôle indépendants
+      Ad-hoc advisory group:
+        one: Ad-hoc groupe consultatif
+        other: Groupes ad hoc consultatifs
+      Sub-organisation:
+        one: Sous-organisation
+        other: Sous-organisations
+      Other:
+        one: Autre
+        other: Autres

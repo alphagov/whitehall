@@ -292,8 +292,8 @@ class TopicsControllerTest < ActionController::TestCase
   end
 
   view_test "show should list organisation's working in the topic" do
-    first_organisation = create(:organisation)
-    second_organisation = create(:organisation)
+    first_organisation = create(:ministerial_department)
+    second_organisation = create(:sub_organisation)
     topic = create(:topic)
     create(:organisation_classification, topic: topic, organisation: first_organisation, lead: true)
     create(:organisation_classification, topic: topic, organisation: second_organisation, lead: false)

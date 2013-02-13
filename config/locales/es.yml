@@ -4,3 +4,8 @@ es:
   date:
     formats:
       long_ordinal: ! '%e %B %Y'
+  document:
+    type:
+      international_priority: Prioridad internacional
+  change_notes:
+    published: Publicado

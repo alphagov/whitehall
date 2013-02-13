@@ -1,5 +1,5 @@
 <% if document.state != 'published' %>
-  <dt class="change-notes-title">Published:</dt>
+  <dt class="change-notes-title"><%= t('change_notes.published') %>:</dt>
   <dd>Preview</dd>
 <% else %>
   <%-
@@ -7,10 +7,10 @@
     most_recent_change = history.first.public_timestamp
   -%>
   <% if history.length == 1 %>
-    <dt class="change-notes-title">Published:</dt>
+    <dt class="change-notes-title"><%= t('change_notes.published') %>:</dt>
     <dd class="change-notes"><%= absolute_date(most_recent_change, class: 'published-at') %></dd>
   <% else %>
-    <dt class="change-notes-title">Updated:</dt>
+    <dt class="change-notes-title"><%= t('change_notes.updated') %>:</dt>
     <dd class="js-toggle-change-notes change-notes">
       <%= absolute_date(most_recent_change, class: 'published-at toggle') %>
       <div class="overlay js-hidden" id="change-notes">
