@@ -1,4 +1,8 @@
 class AddTranslationsForWorldLocations < ActiveRecord::Migration
+  class WorldLocation < ActiveRecord::Base
+    translates :name, :mission_statement
+  end
+
   def up
     WorldLocation.create_translation_table!({
       name: :string, mission_statement: :text
