@@ -8,6 +8,7 @@ def add_translation_to_world_location(location, translation)
   click_link "Create Translation"
   select translation["locale"], from: "Locale"
   fill_in "Name", with: translation["name"]
+  fill_in "Title", with: translation["title"]
   fill_in "Mission statement", with: translation["mission_statement"]
   click_on "Save"
 end
@@ -95,6 +96,7 @@ When /^I edit the "([^"]*)" translation for "([^"]*)" setting:$/ do |locale, nam
   click_link locale
   select translation["locale"], from: "Locale"
   fill_in "Name", with: translation["name"]
+  fill_in "Title", with: translation["title"]
   fill_in "Mission statement", with: translation["mission_statement"]
   click_on "Save"
 end
@@ -147,6 +149,6 @@ Then /^when viewing the (?:country|overseas territory|international delegation) 
   world_location = WorldLocation.find_by_name!(name)
   translation = table.rows_hash
   visit world_location_path(world_location, locale: locale)
-  assert page.has_css?('.name', text: "UK and #{translation["name"]}")
-  assert page.has_css?('.mission_statement', text: translation["mission_statement"])
+  assert page.has_css?('.title', text: translation["title"]), "Title wasn't present"
+  assert page.has_css?('.mission_statement', text: translation["mission_statement"]), "Mission statement wasn't present"
 end

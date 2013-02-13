@@ -20,7 +20,7 @@ class WorldLocation < ActiveRecord::Base
 
   accepts_nested_attributes_for :edition_world_locations
 
-  translates :name, :mission_statement
+  translates :name, :title, :mission_statement
 
   def self.with_announcements
     joins(:editions).where("editions.type" => Announcement.sti_names,

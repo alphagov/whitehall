@@ -29,9 +29,11 @@ Feature: Administering world location information
     When I add a new translation to the country "Afrolasia" with:
       | locale            | Français                                                    |
       | name              | Afrolasie                                                   |
+      | title             | UK en Afrolasia                                             |
       | mission_statement | Le Royaume-Uni a une relation de longue date avec Afrolasie |
     Then when viewing the country "Afrolasia" with the locale "fr" I should see:
       | name              | Afrolasie                                                   |
+      | title             | UK en Afrolasia                                             |
       | mission_statement | Le Royaume-Uni a une relation de longue date avec Afrolasie |
 
   Scenario: Editing an existing translation
@@ -39,7 +41,9 @@ Feature: Administering world location information
     When I edit the "Français" translation for "Afrolasia" setting:
       | locale            | Français                                                    |
       | name              | Afrolandie                                                  |
+      | title             | UK en Afrolandie                                            |
       | mission_statement | Enseigner aux gens comment infuser le thé                   |
     Then when viewing the country "Afrolasia" with the locale "fr" I should see:
       | name              | Afrolandie                                                  |
+      | title             | UK en Afrolandie                                            |
       | mission_statement | Enseigner aux gens comment infuser le thé                   |

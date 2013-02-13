@@ -22,13 +22,13 @@ class WorldLocationsControllerTest < ActionController::TestCase
     end
   end
 
-  view_test "should display world location name and mission-statement" do
+  view_test "should display world location title and mission-statement" do
     world_location = create(:world_location,
-      name: "country-name",
+      title: "UK in country-name",
       mission_statement: "country-mission-statement"
     )
     get :show, id: world_location
-    assert_select ".name", text: "UK and country-name"
+    assert_select ".title", text: "UK in country-name"
     assert_select ".mission_statement", text: "country-mission-statement"
   end
 

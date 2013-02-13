@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130211153510) do
+ActiveRecord::Schema.define(:version => 20130213164347) do
 
   create_table "attachment_data", :force => true do |t|
     t.string   "carrierwave_file"
@@ -825,6 +825,7 @@ ActiveRecord::Schema.define(:version => 20130211153510) do
     t.text     "mission_statement"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "title"
   end
 
   add_index "world_location_translations", ["locale"], :name => "index_world_location_translations_on_locale"
