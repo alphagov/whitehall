@@ -24,7 +24,9 @@ class Admin::WorldLocationTranslationsControllerTest < ActionController::TestCas
     @location.translations.create!(name: 'Afrolasie', locale: 'fr', mission_statement: 'Enseigner aux gens comment infuser le thé')
     get :index, world_location_id: @location
     edit_translation_path = edit_admin_world_location_translation_path(@location, 'fr')
+    view_location_path = world_location_path(@location, locale: 'fr')
     assert_select "a[href=#{CGI::escapeHTML(edit_translation_path)}]", text: 'Français'
+    assert_select "a[href=#{CGI::escapeHTML(view_location_path)}]", text: 'view'
   end
 
   view_test 'index does not list english' do

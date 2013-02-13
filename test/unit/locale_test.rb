@@ -17,4 +17,8 @@ class LocaleTest < ActiveSupport::TestCase
     assert_equal "English", Locale.new(:en).native_language_name
     assert_equal "Español", Locale.new(:es).native_language_name
   end
+
+  test "returns locale code for parameter form" do
+    assert_equal "en", Locale.new(:en).to_param
+  end
 end

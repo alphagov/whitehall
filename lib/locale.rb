@@ -14,5 +14,9 @@ class Locale < Struct.new(:code)
   def native_language_name
     I18n.t("language_names.#{code}", locale: code)
   end
+
+  def to_param
+    code.to_s
+  end
 end
 
