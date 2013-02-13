@@ -1,0 +1,6 @@
+zh:
+  language_names:
+    zh: 中文
+  date:
+    formats:
+      long_ordinal: ! '%e %B %Y'
