@@ -8,6 +8,9 @@ class Role < ActiveRecord::Base
   has_many :organisation_roles
   has_many :organisations, through: :organisation_roles
 
+  has_many :worldwide_office_roles
+  has_many :worldwide_offices, through: :worldwide_office_roles
+
   scope :alphabetical_by_person, includes(:current_people, :organisations).order('people.surname', 'people.forename')
 
   scope :ministerial, where(type: 'MinisterialRole')
@@ -80,7 +83,7 @@ class Role < ActiveRecord::Base
   end
 
   def destroyable?
-    role_appointments.empty? && organisations.empty?
+    role_appointments.empty? && organisations.empty? && worldwide_offices.empty?
   end
 
   def seniority

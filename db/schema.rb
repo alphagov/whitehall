@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130211090000) do
+ActiveRecord::Schema.define(:version => 20130211153510) do
 
   create_table "attachment_data", :force => true do |t|
     t.string   "carrierwave_file"
@@ -845,6 +845,27 @@ ActiveRecord::Schema.define(:version => 20130211090000) do
   add_index "world_locations", ["iso2"], :name => "index_world_locations_on_iso2", :unique => true
   add_index "world_locations", ["slug"], :name => "index_world_locations_on_slug"
   add_index "world_locations", ["world_location_type_id"], :name => "index_world_locations_on_world_location_type_id"
+
+  create_table "worldwide_office_appointments", :force => true do |t|
+    t.integer  "worldwide_office_id"
+    t.integer  "person_id"
+    t.string   "job_title"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "worldwide_office_appointments", ["person_id"], :name => "index_worldwide_office_appointments_on_person_id"
+  add_index "worldwide_office_appointments", ["worldwide_office_id"], :name => "index_worldwide_office_appointments_on_worldwide_office_id"
+
+  create_table "worldwide_office_roles", :force => true do |t|
+    t.integer  "worldwide_office_id"
+    t.integer  "role_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "worldwide_office_roles", ["role_id"], :name => "index_worldwide_office_roles_on_role_id"
+  add_index "worldwide_office_roles", ["worldwide_office_id"], :name => "index_worldwide_office_roles_on_worldwide_office_id"
 
   create_table "worldwide_office_world_locations", :force => true do |t|
     t.integer  "worldwide_office_id"

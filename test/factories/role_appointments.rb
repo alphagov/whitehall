@@ -12,4 +12,20 @@ FactoryGirl.define do
   factory :board_member_role_appointment, parent: :role_appointment do
     association :role, factory: :board_member_role
   end
+
+  factory :ambassador_role_appointment, parent: :role_appointment do
+    association :role, factory: :ambassador_role
+  end
+
+  factory :high_commissioner_role_appointment, parent: :role_appointment do
+    association :role, factory: :high_commissioner_role
+  end
+
+  factory :governor_role_appointment, parent: :role_appointment do
+    association :role, factory: :governor_role
+  end
+
+  factory :deputy_head_of_mission_role_appointment, parent: :role_appointment do
+    association :role, factory: :deputy_head_of_mission_role
+  end
 end
