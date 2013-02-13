@@ -64,10 +64,8 @@ module Whitehall::Uploader
       [organisation]
     end
 
-    def lead_edition_organisations
-      organisations.map.with_index do |o, idx|
-        Builders::EditionOrganisationBuilder.build_lead(o, idx+1)
-      end
+    def lead_organisations
+      organisations
     end
 
     def related_policies
@@ -93,7 +91,7 @@ module Whitehall::Uploader
         body: body,
         opening_on: opening_on,
         closing_on: closing_on,
-        lead_edition_organisations: lead_edition_organisations,
+        lead_organisations: lead_organisations,
         related_policies: related_policies,
         attachments: attachments,
         alternative_format_provider: alternative_format_provider,

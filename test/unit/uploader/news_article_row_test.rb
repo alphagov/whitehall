@@ -75,13 +75,11 @@ module Whitehall::Uploader
       assert_equal organisation, row.organisation
     end
 
-    test "generates lead_edition_organisations by asking the edition organisation builder to build a lead with each found organisation" do
+    test "takes lead_organisations from the found organisations" do
       o = stub(:organisation)
       row = news_article_row({})
       row.stubs(:organisations).returns([o])
-      leo = stub(:lead_edition_organisation)
-      Whitehall::Uploader::Builders::EditionOrganisationBuilder.stubs(:build_lead).with(o, 1).returns(leo)
-      assert_equal [leo], row.lead_edition_organisations
+      assert_equal [o], row.lead_organisations
     end
 
     test "takes first_published_at from the 'first_published' column" do
@@ -113,7 +111,7 @@ module Whitehall::Uploader
 
     test "supplies an attribute list for the new news article record" do
       row = news_article_row({})
-      attribute_keys = [:title, :summary, :body, :news_article_type, :lead_edition_organisations, :first_published_at, :related_policies, :role_appointments, :world_locations]
+      attribute_keys = [:title, :summary, :body, :news_article_type, :lead_organisations, :first_published_at, :related_policies, :role_appointments, :world_locations]
       attribute_keys.each do |key|
         row.stubs(key).returns(key.to_s)
       end

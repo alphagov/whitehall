@@ -136,13 +136,11 @@ module Whitehall::Uploader
       assert_equal [:organisation], row.organisations
     end
 
-    test "generates lead_edition_organisations by asking the edition organisation builder to build a lead with each found organisation" do
-      row = consultation_row({})
+    test "takes lead_organisations from the found organisations" do
       o = stub(:organisation)
+      row = consultation_row({})
       row.stubs(:organisations).returns([o])
-      leo = stub(:lead_edition_organisation)
-      Builders::EditionOrganisationBuilder.stubs(:build_lead).with(o, 1).returns(leo)
-      assert_equal [leo], row.lead_edition_organisations
+      assert_equal [o], row.lead_organisations
     end
 
     test "finds related policies using the policy finder" do
@@ -192,7 +190,7 @@ module Whitehall::Uploader
 
     test "supplies an attribute list for the new consultation record" do
       row = consultation_row({})
-      attribute_keys = [:title, :summary, :body, :opening_on, :closing_on, :lead_edition_organisations, :related_policies, :attachments, :alternative_format_provider, :response]
+      attribute_keys = [:title, :summary, :body, :opening_on, :closing_on, :lead_organisations, :related_policies, :attachments, :alternative_format_provider, :response]
       attribute_keys.each do |key|
         row.stubs(key).returns(key.to_s)
       end
