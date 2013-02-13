@@ -9,8 +9,8 @@ module DocumentHelper
   end
 
   def set_lead_organisation_on_document(organisation, order = 1)
-    if has_css?("select#edition_edition_organisations_attributes_organisation_id_lead_#{order}")
-      select organisation.name, from: "edition_edition_organisations_attributes_organisation_id_lead_#{order}"
+    if has_css?("select#edition_lead_organisation_ids_#{order}")
+      select organisation.name, from: "edition_lead_organisation_ids_#{order}"
     end
   end
 
