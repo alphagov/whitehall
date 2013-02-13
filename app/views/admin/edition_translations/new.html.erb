@@ -1,0 +1,22 @@
+<% page_title "New translation for " + @edition.title %>
+
+<h1>Add new translation to <%= link_to @edition.title, admin_edition_path(@edition) %></h1>
+
+<div class="row-fluid">
+  <div class="span8">
+    <section>
+      <%= form_for @translated_edition, as: :edition, url: admin_edition_translations_path(@translated_edition), method: :post do |form| %>
+        <%= form.errors %>
+
+        <%= label_tag "translation_locale", "Locale" %>
+        <%= select_tag :translation_locale, options_for_select(options_for_non_english_locales, translation_locale) %>
+
+        <%= form.text_field :title %>
+        <%= form.text_area :summary, rows: 2, cols: 40 %>
+        <%= form.text_area :body %>
+
+        <%= form.save_or_cancel %>
+      <% end %>
+    </section>
+  </div>
+</div>

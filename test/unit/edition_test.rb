@@ -682,4 +682,16 @@ class EditionTest < ActiveSupport::TestCase
     assert_equal [translated_edition], Edition.with_translations("fr")
     assert_equal [], Edition.with_translations("ja")
   end
+
+  test "is not translatable by default" do
+    refute build(:edition).translatable?
+  end
+
+  test "returns non-english translations" do
+    edition = build(:edition)
+    with_locale(:es) { edition.title = "spanish-title" }
+    edition.save!
+    assert_equal 1, edition.non_english_translations.length
+    assert_equal :es, edition.non_english_translations.first.locale
+  end
 end

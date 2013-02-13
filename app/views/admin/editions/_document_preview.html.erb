@@ -7,6 +7,9 @@
       <% if @edition.allows_supporting_pages? %>
         <li><a href="#supporting_pages" data-toggle="tab">Supporting pages <span class="badge"><%= @edition.supporting_pages.count %></span></a></li>
       <% end %>
+      <% if @edition.translatable? %>
+        <li><a href="#translations" data-toggle="tab">Translations</a></li>
+      <% end %>
       <% if @edition.allows_attachments? %>
         <li><a href="#attachments" data-toggle="tab">Attachments <span class="badge"><%= @edition.attachments.count %></span></a></li>
       <% end %>
@@ -64,6 +67,25 @@
           <%= content_tag_for :section, supporting_page do %>
             <p><%= link_to supporting_page.title, admin_supporting_page_path(supporting_page) %></p>
             <%= render partial: "admin/supporting_pages/supporting_page", object: supporting_page %>
+          <% end %>
+        <% end %>
+      </section>
+    <% end %>
+    <% if @edition.translatable? %>
+      <section class="tab-pane translations" id="translations">
+        <h1>Translations
+          <span class="add_translation pull-right"> <%= link_to new_admin_edition_translation_path(@edition), title: "Add translation to #{@edition.title}", class: "btn btn-primary" do %>
+            <i class="icon-plus-sign icon-white"></i> Add
+          <% end %>
+          </span>
+        </h1>
+        <% @edition.non_english_translations.each do |translation| %>
+          <%= content_tag_for :section, translation, class: 'document_page' do %>
+            <article class="document">
+              <h2 class="title"><%= translation.title %></h2>
+              <p class="summary"><%= translation.summary %></p>
+              <p class="body"><%= translation.body %></p>
+            </article>
           <% end %>
         <% end %>
       </section>

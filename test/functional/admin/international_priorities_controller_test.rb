@@ -31,4 +31,28 @@ class Admin::InternationalPrioritiesControllerTest < ActionController::TestCase
   should_link_to_preview_version_when_not_published :international_priority
   should_prevent_modification_of_unmodifiable :international_priority
   should_allow_access_limiting_of :international_priority
+
+  view_test 'show displays a link to add a new translation' do
+    edition = create(:draft_international_priority)
+
+    get :show, id: edition
+
+    assert_select "a[href=#{new_admin_edition_translation_path(edition)}]", text: "Add"
+  end
+
+  view_test "show displays all non-english translations" do
+    edition = create(:draft_international_priority, title: 'english-title', summary: 'english-summary', body: 'english-body')
+    with_locale(:fr) { edition.update_attributes!(title: 'french-title', summary: 'french-summary', body: 'french-body') }
+
+    get :show, id: edition
+
+    assert_select "#translations" do
+      refute_select '.title', text: 'english-title'
+      refute_select '.summary', text: 'english-summary'
+      refute_select '.body', text: 'english-body'
+      assert_select '.title', text: 'french-title'
+      assert_select '.summary', text: 'french-summary'
+      assert_select '.body', text: 'french-body'
+    end
+  end
 end

@@ -93,6 +93,10 @@ class Edition < ActiveRecord::Base
   FROZEN_STATES = %w(archived deleted).freeze
   PRE_PUBLICATION_STATES = %w(imported draft submitted rejected scheduled).freeze
 
+  def non_english_translations
+    translations.where(["locale != ?", I18n.default_locale])
+  end
+
   def skip_main_validation?
     FROZEN_STATES.include?(state)
   end
@@ -242,6 +246,10 @@ class Edition < ActiveRecord::Base
   end
 
   def can_apply_to_local_government?
+    false
+  end
+
+  def translatable?
     false
   end
 
