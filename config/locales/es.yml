@@ -6,6 +6,8 @@ es:
       long_ordinal: ! '%e %B %Y'
   document:
     type:
-      international_priority: Prioridad internacional
+      international_priority:
+        one: Prioridad internacional
+        other: Prioridades internacionales
   change_notes:
     published: Publicado

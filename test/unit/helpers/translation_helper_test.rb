@@ -5,13 +5,8 @@ class TranslationHelperTest < ActionView::TestCase
     @document = stub('document', display_type_key: 'stub')
   end
 
-  test "#t_display_type capitalizes translated document display type" do
-    stubs(:t).with('document.type.stub').returns('stub')
+  test "#t_display_type translates document display type" do
+    I18n.backend.store_translations :en, {document: {type: {stub: {one: 'Stub'}}}}
     assert_equal "Stub", t_display_type(@document)
-  end
-
-  test "#t_display_type does not break existing capitalization" do
-    stubs(:t).with('document.type.stub').returns('ACRONYM stub')
-    assert_equal "ACRONYM stub", t_display_type(@document)
   end
 end

@@ -18,44 +18,120 @@ fr:
         one: Où dans le monde
         other: Endroits du monde
     type:
-      announcement: annonce
-      case_study: étude de cas
-      closed_consultation: consultation fermé
-      consultation: consultation
-      consultation_outcome: résultat des consultations
-      corporate_report: rapport d'entreprise
-      correspondence: correspondance
-      detailed_guidance: des directives détaillées
-      draft_text: projet de texte
-      fatality_notice: avis de décès
-      foi_release: communiqué d'FOI
-      form: formulaire
-      guidance: guidage
-      impact_assessment: évaluation de l'impact
-      imported: importé
-      independent_report: rapport indépendant
-      international_priority: priorité internationale
-      national_statistics: Statistiques - statistiques nationales
-      news_article: article de nouvelles
-      news_story: nouvelles rapport
-      open_consultation: consultation ouvert
-      oral_statement: déclaration orale
-      policy: politique
-      policy_paper: document de politique
-      press_release: communiqué de presse
-      promotional: matériel promotionnel
-      publication: publication
-      rebuttal: réfutation
-      research: la recherche et l'analyse
-      speaking_notes: notes d'allocution
-      speech: discours
-      statement_to_parliament: déclaration au parlement
-      statistical_data_set: données statistiques que
-      statistics: statistiques
-      transcript: transcription
-      transparency: la transparence des données
-      treaty: traité
-      written_statement: déclaration écrite
+      announcement:
+        one: Annonce
+        other: Annonces
+      case_study:
+        one: Étude de cas
+        other: Études de cas
+      closed_consultation:
+        one: Consultation fermé
+        other: Consultations fermées
+      consultation:
+        one: Consultation
+        other: Consultations
+      consultation_outcome:
+        one: Résultat des consultations
+        other: Les résultats des consultations
+      corporate_report:
+        one: Rapport d'entreprise
+        other: Rapports d'entreprise
+      correspondence:
+        one: Correspondance
+        other: Correspondances
+      detailed_guidance:
+        one: Des directives détaillées
+        other: Des directives détaillées
+      draft_text:
+        one: projet de texte
+        other: Projets de textes
+      fatality_notice:
+        one: Avis de décès
+        other: Avis de décès
+      foi_release:
+        one: Communiqué d'FOI
+        other: Communiqués FOI
+      form:
+        one: Formulaire
+        other: Formulaires
+      guidance:
+        one: Guidage
+        other: Guidage
+      impact_assessment:
+        one: Évaluation de l'impact
+        other: Des évaluations d'impact
+      imported:
+        one: Importé
+        other: Importé
+      independent_report:
+        one: Rapport indépendant
+        other: Rapports indépendants
+      international_priority:
+        one: Priorité internationale
+        other: Priorités internationales
+      national_statistics:
+        one: Statistiques - statistiques nationales
+        other: Statistiques - statistiques nationales
+      news_article:
+        one: Article de nouvelles
+        other: Articles
+      news_story:
+        one: Reportage
+        other: Reportages
+      open_consultation:
+        one: Consultation ouvert
+        other: Des consultations ouvertes
+      oral_statement:
+        one: Déclaration orale
+        other: Déclarations orales
+      policy:
+        one: Politique
+        other: Politiques
+      policy_paper:
+        one: Document de politique
+        other: Les documents de politique
+      press_release:
+        one: Communiqué de presse
+        other: Communiqués de presse
+      promotional:
+        one: Matériel promotionnel
+        other: Le matériel promotionnel
+      publication:
+        one: Publication
+        other: Publications
+      rebuttal:
+        one: Réfutation
+        other: Réfutations
+      research:
+        one: La recherche et l'analyse
+        other: La recherche et l'analyse
+      speaking_notes:
+        one: Notes d'allocution
+        other: Notes d'allocution
+      speech:
+        one: Discours
+        other: Discours
+      statement_to_parliament:
+        one: Déclaration au parlement
+        other: Comptes au Parlement
+      statistical_data_set:
+        one: Données statistiques que
+        other: Les ensembles de données statistiques
+      statistics:
+        one: Statistiques
+        other: Statistiques
+      transcript:
+        one: Transcription
+        other: Transcriptions
+      transparency:
+        one: La transparence des données
+        other: La transparence des données
+      treaty:
+        one: Traité
+        other: Traités
+      written_statement:
+        one: Déclaration écrite
+        other: Déclarations écrites
     updated: mis à jour
     view: Voir «%{title}»
   feeds:
@@ -93,9 +169,15 @@ fr:
       statistics: Nos statistiques
     see_all: Voir toutes nos %{type}
     type:
-      country: Pays
-      international_delegation: Délégation internationale
-      overseas_territory: Territoire d'outre-mer
+      country:
+        one: Pays
+        other: Pays
+      international_delegation:
+        one: Délégation internationale
+        other: Délégations internationales
+      overseas_territory:
+        one: Territoire d'outre-mer
+        other: Territoires d'outre-mer
   worldwide_office:
     find_out_more: En savoir plus
   read_more: En savoir plus

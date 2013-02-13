@@ -38,47 +38,120 @@ en:
         one: Minister
         other: Minsters
     type:
-      test_type:
-        one: Test type
-        other: Test types
-      announcement: announcement
-      case_study: case study
-      closed_consultation: closed consultation
-      consultation: consultation
-      consultation_outcome: consultation outcome
-      corporate_report: corporate report
-      correspondence: correspondence
-      detailed_guidance: detailed guidance
-      draft_text: draft_text
-      fatality_notice: fatality notice
-      foi_release: FOI release
-      form: form
-      guidance: guidance
-      impact_assessment: impact assessment
-      imported: imported - awaiting type
-      independent_report: independent report
-      international_priority: international priority
-      national_statistics: Statistics - national statistics
-      news_article: news article
-      news_story: news story
-      open_consultation: open consultation
-      oral_statement: oral statement
-      policy: policy
-      policy_paper: policy paper
-      press_release: press release
-      promotional: promotional material
-      publication: publication
-      rebuttal: rebuttal
-      research: research and analysis
-      speaking_notes: speaking notes
-      speech: speech
-      statement_to_parliament: Statement to parliament
-      statistical_data_set: Statistical data set
-      statistics: statistics
-      transcript: transcript
-      transparency: transparency data
-      treaty: treaty
-      written_statement: written statement
+      announcement:
+        one: Announcement
+        other: Announcements
+      case_study:
+        one: Case study
+        other: Case studies
+      closed_consultation:
+        one: Closed consultation
+        other: Closed consultations
+      consultation:
+        one: Consultation
+        other: Consultations
+      consultation_outcome:
+        one: Consultation outcome
+        other: Consultation outcomes
+      corporate_report:
+        one: Corporate report
+        other: Corporate reports
+      correspondence:
+        one: Correspondence
+        other: Correspondences
+      detailed_guidance:
+        one: Detailed guidance
+        other: Detailed guidance
+      draft_text:
+        one: Draft text
+        other: Draft texts
+      fatality_notice:
+        one: Fatality notice
+        other: Fatality notices
+      foi_release:
+        one: FOI release
+        other: FOI releases
+      form:
+        one: Form
+        other: Forms
+      guidance:
+        one: Guidance
+        other: Guidance
+      impact_assessment:
+        one: Impact assessment
+        other: Impact assessments
+      imported:
+        one: imported - awaiting type
+        other: imported - awaiting type
+      independent_report:
+        one: Independent report
+        other: Independent reports
+      international_priority:
+        one: International priority
+        other: International priorities
+      national_statistics:
+        one: Statistics - national statistics
+        other: Statistics - national statistics
+      news_article:
+        one: News article
+        other: News articles
+      news_story:
+        one: News story
+        other: News stories
+      open_consultation:
+        one: Open consultation
+        other: Open consultations
+      oral_statement:
+        one: Oral statement
+        other: Oral statements
+      policy:
+        one: Policy
+        other: Policies
+      policy_paper:
+        one: Policy paper
+        other: Policy papers
+      press_release:
+        one: Press release
+        other: Press releases
+      promotional:
+        one: Promotional material
+        other: Promotional material
+      publication:
+        one: Publication
+        other: Publications
+      rebuttal:
+        one: Rebuttal
+        other: Rebuttals
+      research:
+        one: Research and analysis
+        other: Research and analysis
+      speaking_notes:
+        one: Speaking notes
+        other: Speaking notes
+      speech:
+        one: Speech
+        other: Speeches
+      statement_to_parliament:
+        one: Statement to parliament
+        other: Statements to parliament
+      statistical_data_set:
+        one: Statistical data set
+        other: Statistical data sets
+      statistics:
+        one: Statistics
+        other: Statistics
+      transcript:
+        one: Transcript
+        other: Transcripts
+      transparency:
+        one: Transparency data
+        other: Transparency data
+      treaty:
+        one: Treaty
+        other: Treaties
+      written_statement:
+        one: Written statement
+        other: Written statements
     updated: updated
     view: View '%{title}'
     read: Read the %{title} article
@@ -108,9 +181,15 @@ en:
       statistics: Our statistics
     see_all: See all our %{type}
     type:
-      country: Country
-      international_delegation: International delegation
-      overseas_territory: Overseas territory
+      country:
+        one: Country
+        other: Countries
+      international_delegation:
+        one: International delegation
+        other: International delegations
+      overseas_territory:
+        one: Overseas territory
+        other: Overseas territories
   worldwide_office:
     find_out_more: See full profile and all contact details
   contact:
@@ -121,7 +200,7 @@ en:
     published: Published
     updated: Updated
   organisation:
-    headings:
+    type:
       Ministerial department:
         one: Ministerial department
         other: Ministerial departments

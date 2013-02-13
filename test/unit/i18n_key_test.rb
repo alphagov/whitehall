@@ -37,7 +37,8 @@ class I18nKeyTest < ActiveSupport::TestCase
   test "translations for organisation types are present" do
     OrganisationType::LISTING_ORDER.each do |organisation_type_name|
       assert_nothing_raised("No translation for #{organisation_type_name})") do
-        I18n.t("organisation.headings.#{organisation_type_name}")
+        I18n.t("organisation.type.#{organisation_type_name}", count: 1)
+        I18n.t("organisation.type.#{organisation_type_name}", count: 2)
       end
     end
   end
@@ -48,7 +49,8 @@ class I18nKeyTest < ActiveSupport::TestCase
     failed_types = []
     type_class.all.each do |type|
       begin
-        I18n.t("#{translation_prefix}.#{type.key}")
+        I18n.t("#{translation_prefix}.#{type.key}", count: 1)
+        I18n.t("#{translation_prefix}.#{type.key}", count: 2)
       rescue => e
         failed_types << type
       end
@@ -61,7 +63,8 @@ class I18nKeyTest < ActiveSupport::TestCase
   def assert_translation(instance, translation_prefix, specific_key=nil)
     key = specific_key || instance.display_type_key
     assert_nothing_raised("No translation for #{instance} (#{translation_prefix}.#{key})") do
-      I18n.t("#{translation_prefix}.#{key}")
+      I18n.t("#{translation_prefix}.#{key}", count: 1)
+      I18n.t("#{translation_prefix}.#{key}", count: 2)
     end
   end
 end
