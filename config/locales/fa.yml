@@ -1,0 +1,8 @@
+fa:
+  i18n:
+    direction: rtl
+  language_names:
+    fa: فارسی
+  date:
+    formats:
+      long_ordinal: ! '%e %B %Y'

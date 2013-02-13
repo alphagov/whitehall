@@ -1,0 +1,8 @@
+ar:
+  i18n:
+    direction: rtl
+  language_names:
+    ar: العربية
+  date:
+    formats:
+      long_ordinal: ! '%e %B %Y'

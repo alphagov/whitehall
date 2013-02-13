@@ -21,4 +21,10 @@ class LocaleTest < ActiveSupport::TestCase
   test "returns locale code for parameter form" do
     assert_equal "en", Locale.new(:en).to_param
   end
+
+  test "knows if languages are left-to-right or right-to-left" do
+    right_to_left = [Locale.new(:ar), Locale.new(:ur), Locale.new(:fa)]
+    assert right_to_left.all?(&:rtl?)
+    assert (Locale.all - right_to_left).none?(&:rtl?)
+  end
 end
