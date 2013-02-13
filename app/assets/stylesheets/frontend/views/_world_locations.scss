@@ -173,6 +173,12 @@
       margin-bottom: $gutter;
       @extend %contain-floats;
 
+      .worldwide-office-detail {x
+        p {
+          @include core-19;
+        }
+      }
+
       .worldwide-office-detail, .contact  {
         @include media(tablet) {
           float: left;
@@ -201,6 +207,7 @@
       }
 
       .contact {
+        @include core-14;
         margin-top: $gutter;
 
         @include media(tablet) {

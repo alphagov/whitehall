@@ -11,10 +11,6 @@
   <div class="content">
     <h2><%= contact.title %></h2>
 
-    <% if contact.comments.present? %>
-      <p class="comments"><%= format_with_html_line_breaks(h(contact.comments)) %></p>
-    <% end %>
-
     <% if contact.has_postal_address? %>
       <div class="contact-inner">
         <%= render_hcard(contact) %>
@@ -42,6 +38,10 @@
           </p>
         <% end %>
       </div>
+    <% end %>
+
+    <% if contact.comments.present? %>
+      <p class="comments"><%= format_with_html_line_breaks(h(contact.comments)) %></p>
     <% end %>
   </div>
 <% end %>
