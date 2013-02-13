@@ -155,20 +155,6 @@ class Edition::UnpublishingControlsTest < ActiveSupport::TestCase
     assert edition.unpublish_as(user)
   end
 
-  test "saves additional unpublishing information if provided" do
-    user = build(:user)
-    edition = build(:published_edition, :with_document)
-    edition.stubs(:unpublishable_by?).with(user).returns(true)
-    unpublishing_details = {  reason_id: 1,
-                              explanation: 'Top secret document!',
-                              alt_url: 'http://website.com/alternative/url'}
-
-    assert edition.unpublish_as(user, unpublishing_details)
-    assert_equal unpublishing_details[:reason_id], edition.unpublish_reason_id
-    assert_equal unpublishing_details[:explanation], edition.unpublish_explanation
-    assert_equal unpublishing_details[:alt_url], edition.unpublish_alt_url
-  end
-
   test "does not set the state back to draft if the edition is not unpublishable by the user" do
     user = build(:user)
     edition = build(:published_edition, :with_document)
