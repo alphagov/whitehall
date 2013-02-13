@@ -49,6 +49,16 @@ class DocumentsControllerTest < ActionController::TestCase
     assert_cache_control("max-age=#{Whitehall.default_cache_max_age}")
   end
 
+  test "requests for documents in the default locale should redirect to the canonical URL that excludes the locale to avoid serving duplicate content on multiple URLs" do
+    edition = build(:draft_edition)
+    edition.save!
+    edition.publish_as(create(:departmental_editor), force: true)
+
+    get :show, id: edition.document, locale: 'en'
+
+    assert_redirected_to public_document_path(edition)
+  end
+
   view_test "should show links to other available translations of the edition" do
     edition = build(:draft_edition)
     with_locale(:es) do

@@ -1,7 +1,9 @@
 class DocumentsController < PublicFacingController
   include CacheControlHelper
+  include PublicDocumentRoutesHelper
 
   before_filter :find_document, only: [:show]
+  before_filter :redirect_to_canonical_url
 
   private
 
@@ -34,5 +36,9 @@ class DocumentsController < PublicFacingController
 
   def document_class
     Edition
+  end
+
+  def redirect_to_canonical_url
+    redirect_to public_document_path(@document) if params[:locale] && params[:locale] == 'en'
   end
 end
