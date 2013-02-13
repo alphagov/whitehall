@@ -15,8 +15,10 @@ class PdfInfoTest < MiniTest::Unit::TestCase
   end
 
   def test_invokes_pdfinfo_with_the_given_pdf_file
-    pdf_info = PdfInfo.new("/usr/bin/true")
-    pdf_info.expects(:`).with('/usr/bin/true /path/to/my\\ pdf\\ file.pdf').returns("Pages: 1")
+    File.stubs(:exist?).with('/usr/bin/nonsense').returns(true)
+    File.stubs(:executable?).with('/usr/bin/nonsense').returns(true)
+    pdf_info = PdfInfo.new("/usr/bin/nonsense")
+    pdf_info.expects(:`).with('/usr/bin/nonsense /path/to/my\\ pdf\\ file.pdf').returns("Pages: 1")
     pdf_info.count_pages("/path/to/my pdf file.pdf")
   end
 
