@@ -45,35 +45,34 @@
   </div>
 </section>
 
-<section class="block about-block" id="our-people">
-  <div class="inner-block">
+<section class="block people" id="people">
+  <div class="inner-block floated-children">
     <h1 class="keyline-header">Our people</h1>
-    <div id="org-people">
-      <ul>
+    <%= render( partial: 'people/person',
+                locals: {
+                  person: @primary_role.current_person,
+                  roles: [@primary_role],
+                  hlevel: 'h2',
+                  wrapping_element: :div }) if @primary_role %>
+    <ul class="people-list">
+      <% clear_person = 0 %>
+      <%= render( partial: 'people/person',
+                  locals: {
+                    person: @secondary_role.current_person,
+                    roles: [@secondary_role],
+                    hlevel: 'h2',
+                    hide_image: true,
+                    extra_class: ((clear_person += 1) % 3 == 1 ? 'clear-person' : '')}) if @secondary_role %>
+      <% @supporting_appointments.each do |appointment| %>
         <%= render( partial: 'people/person',
                     locals: {
-                      person: @primary_role.current_person,
-                      roles: [@primary_role],
-                      hlevel: 'h3' }) if @primary_role %>
-
-        <%= render( partial: 'people/person',
-                    locals: {
-                      person: @secondary_role.current_person,
-                      roles: [@secondary_role],
-                      hlevel: 'h3',
-                      hide_image: true }) if @secondary_role %>
-
-        <% @supporting_appointments.each do |appointment| %>
-          <%= render( partial: 'people/person',
-                      locals: {
-                        person: appointment.current_person,
-                        roles: [appointment],
-                        hlevel: 'h3',
-                        hide_image: true
-                        }) %>
-        <% end %>
-      </ul>
-    </div>
+                      person: appointment.current_person,
+                      roles: [appointment],
+                      hlevel: 'h2',
+                      hide_image: true,
+                      extra_class: ((clear_person += 1) % 3 == 1 ? 'clear-person' : '')}) %>
+      <% end %>
+    </ul>
   </div>
 </section>
 
