@@ -2,6 +2,8 @@ module Edition::Publishing
   extend ActiveSupport::Concern
 
   included do
+    has_one :unpublishing, dependent: :destroy
+
     validates :major_change_published_at, presence: true, if: -> edition { edition.published? }
     validate :change_note_present!, if: :change_note_required?
 
@@ -111,7 +113,7 @@ module Edition::Publishing
     end
   end
 
-  def unpublish_as(user)
+  def unpublish_as(user, unpublish_details={})
     if unpublishable_by?(user)
       if minor_change?
         self.published_minor_version = self.published_minor_version - 1
@@ -122,6 +124,9 @@ module Edition::Publishing
         self.published_major_version = self.published_major_version - 1
         self.published_minor_version = (Edition.unscoped.where(document_id: document_id).where(published_major_version: self.published_major_version).maximum(:published_minor_version) || 0)
       end
+      self.unpublish_reason_id = unpublish_details[:reason_id]
+      self.unpublish_explanation = unpublish_details[:explanation]
+      self.unpublish_alt_url = unpublish_details[:alt_url]
       unpublish!
       editorial_remarks.create!(author: user, body: "Reset to draft")
     else

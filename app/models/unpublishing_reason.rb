@@ -1,4 +1,4 @@
-class UnpublishReason
+class UnpublishingReason
   include ActiveRecordLikeInterface
 
   attr_accessor :id, :name
