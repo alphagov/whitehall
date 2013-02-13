@@ -3,5 +3,5 @@
 <h1>Edit translation for: <%= @english_world_location.name %></h1>
 
 <%= form_for @translated_world_location, url: admin_world_location_translation_path(@translated_world_location, translation_locale), method: :put do |form| %>
-  <%= render partial: "fields", locals: {form: form, editing_translation: true} %>
+  <%= render partial: "fields", locals: {form: form, editing_translation: true, english_location: @english_world_location} %>
 <% end %>
