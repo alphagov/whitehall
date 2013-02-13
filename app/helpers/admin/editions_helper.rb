@@ -33,6 +33,13 @@ module Admin::EditionsHelper
     params[:state] == 'active'
   end
 
+  def unpublish_reason_select_options
+    options_for_select( [ ['Published in error',1],
+                          ['No longer current ', 2],
+                          ['Duplicate of another page', 3],
+                          ['Superseded by another page',4] ])
+  end
+
   class EditionFormBuilder < Whitehall::FormBuilder
     def alternative_format_provider_select
       if object.respond_to?(:alternative_format_provider)

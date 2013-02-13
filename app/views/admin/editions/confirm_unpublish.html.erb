@@ -1,0 +1,11 @@
+
+<%= form_tag unpublish_admin_edition_path(@edition, lock_version: @edition.lock_version) do %>
+  <%= label_tag :unpublish_reason_id, "Reason for unpublishing" %>
+  <%= select_tag :unpublish_reason_id, unpublish_reason_select_options %>
+  <%= label_tag :unpublish_explanation, 'Additional explanation' %>
+  <%= text_area_tag :unpublish_explanation  %>
+
+  <%= label_tag :unpublish_alt_url, 'Alternative URL' %>
+  <%= text_field_tag :unpublish_alt_url %>
+  <%= submit_tag 'Unpublish', class: "btn btn-danger" %>
+<% end %>
