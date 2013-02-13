@@ -10,7 +10,7 @@
     <meta content='width=device-width, initial-scale=1' name='viewport'>
 
     <title><%= page_title %></title>
-    <% if params[:rtl] %>
+    <% if right_to_left? %>
       <!--[if gt IE 8]><!--><%= stylesheet_link_tag "frontend/right-to-left.css" %><!--<![endif]-->
       <!--[if IE 6]><%= stylesheet_link_tag "frontend/right-to-left-ie6.css" %><script>var ieVersion = 6;</script><![endif]-->
       <!--[if IE 7]><%= stylesheet_link_tag "frontend/right-to-left-ie7.css" %><script>var ieVersion = 7;</script><![endif]-->

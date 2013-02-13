@@ -304,4 +304,8 @@ module ApplicationHelper
       !Whitehall.public_hosts.include?(host)
     end
   end
+
+  def right_to_left?
+    Locale.new(I18n.locale).rtl?
+  end
 end
