@@ -4,7 +4,8 @@ module TranslationHelper
   end
 
   def t_display_type(document)
-    t("document.type.#{document.display_type_key}").capitalize
+    translation = t("document.type.#{document.display_type_key}")
+    translation =~ /\A[A-Z]/ ? translation : translation.capitalize
   end
 
   def t_world_location_see_all_our(type)
