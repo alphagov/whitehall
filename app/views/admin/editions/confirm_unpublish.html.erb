@@ -1,7 +1,7 @@
 
 <%= form_tag unpublish_admin_edition_path(@edition, lock_version: @edition.lock_version) do %>
   <%= label_tag :unpublish_reason_id, "Reason for unpublishing" %>
-  <%= select_tag :unpublish_reason_id, unpublish_reason_select_options %>
+  <%= select_tag :unpublish_reason_id, options_from_collection_for_select(UnpublishReason.all, :id, :name, @edition.unpublish_reason_id) %>
   <%= label_tag :unpublish_explanation, 'Additional explanation' %>
   <%= text_area_tag :unpublish_explanation  %>
 
