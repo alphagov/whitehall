@@ -2,6 +2,19 @@
   header_title ||= ""
 %>
 <section class="document-page-header">
+  <% if @document.available_in_multiple_languages? %>
+    <div class="translations">
+      <% @document.translated_locales.each do |locale| %>
+        <span class="translation">
+          <% if locale == I18n.locale %>
+            <%= native_language_name_for(locale) %>
+          <% else %>
+            <%= link_to_translated_edition(@document, locale) %>
+          <% end %>
+        </span>
+      <% end %>
+    </div>
+  <% end %>
   <h1 class="page_title">
     <span class="inner">
       <span class="label"><%= header_title %></span>

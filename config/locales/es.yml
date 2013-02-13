@@ -1,3 +1,6 @@
 es:
   language_names:
     es: Español
+  date:
+    formats:
+      long_ordinal: ! '%e %B %Y'

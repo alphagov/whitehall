@@ -124,4 +124,12 @@ Details of document required:
     attributes << content_tag(:span, pluralize(attachment.number_of_pages, "page") , class: 'page-length') if attachment.number_of_pages.present?
     attributes.join(', ').html_safe
   end
+
+  def native_language_name_for(locale)
+    Locale.new(locale).native_language_name
+  end
+
+  def link_to_translated_edition(edition, locale)
+    link_to native_language_name_for(locale), public_document_path(edition, locale: locale)
+  end
 end

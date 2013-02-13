@@ -150,6 +150,10 @@ class Edition < ActiveRecord::Base
     last_version && last_version.user
   end
 
+  def available_in_multiple_languages?
+    translated_locales.length > 1
+  end
+
   def can_be_associated_with_topics?
     false
   end
