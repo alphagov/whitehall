@@ -1,4 +1,6 @@
 en:
+  i18n:
+    direction: ltr
   language_names:
     ar: Arabic
     de: German

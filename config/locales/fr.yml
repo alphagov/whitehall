@@ -156,6 +156,8 @@ fr:
     atom: atom
     email_alerts: alertes emails
     latest_activity: Activité la plus récente
+  i18n:
+    direction:
   language_names:
     fr: Français
   latest_feed:

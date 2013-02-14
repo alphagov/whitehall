@@ -156,6 +156,8 @@ ja:
     atom:
     email_alerts:
     latest_activity:
+  i18n:
+    direction:
   language_names:
     ja: 日本語
   latest_feed:
