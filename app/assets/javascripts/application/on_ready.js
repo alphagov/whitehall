@@ -1,6 +1,4 @@
 jQuery(function($) {
-  $("abbr.time_ago").timeago();
-
   $('.js-hide-other-links').hideOtherLinks();
 
   $('.govspeak').enhanceYoutubeVideoLinks();

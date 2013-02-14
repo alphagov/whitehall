@@ -164,12 +164,6 @@ module ApplicationHelper
     content_tag(:abbr, class: method, title: object.send(method).iso8601, &block)
   end
 
-  def relative_time(time, options = {})
-    content_tag(:abbr, l(time, format: :long_ordinal),
-                class: [options[:class], "datetime", "time_ago"].compact.join(" "),
-                title: time.iso8601)
-  end
-
   def absolute_time(time, options = {})
     content_tag(:abbr, l(time, format: :long_ordinal),
                 class: [options[:class], "datetime"].compact.join(" "),
