@@ -1,0 +1,9 @@
+---
+:ka:
+  :i18n:
+    :direction: ltr
+  :language_names:
+    :ka: ქართული
+  :date:
+    :formats:
+      :long_ordinal: ! '%e %B %Y'

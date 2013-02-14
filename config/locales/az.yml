@@ -1,0 +1,9 @@
+---
+:az:
+  :i18n:
+    :direction: ltr
+  :language_names:
+    :az: Azərbaycanca
+  :date:
+    :formats:
+      :long_ordinal: ! '%e %B %Y'

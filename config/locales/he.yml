@@ -1,0 +1,9 @@
+---
+:he:
+  :i18n:
+    :direction: ltr
+  :language_names:
+    :he: עברית
+  :date:
+    :formats:
+      :long_ordinal: ! '%e %B %Y'

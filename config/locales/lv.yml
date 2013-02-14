@@ -1,0 +1,9 @@
+---
+:lv:
+  :i18n:
+    :direction: ltr
+  :language_names:
+    :lv: Latviešu
+  :date:
+    :formats:
+      :long_ordinal: ! '%e %B %Y'

@@ -1,0 +1,9 @@
+---
+:hu:
+  :i18n:
+    :direction: ltr
+  :language_names:
+    :hu: Magyar
+  :date:
+    :formats:
+      :long_ordinal: ! '%e %B %Y'

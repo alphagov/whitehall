@@ -1,0 +1,9 @@
+---
+:bg:
+  :i18n:
+    :direction: ltr
+  :language_names:
+    :bg: Български
+  :date:
+    :formats:
+      :long_ordinal: ! '%e %B %Y'

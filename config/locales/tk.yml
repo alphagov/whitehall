@@ -1,0 +1,9 @@
+---
+:tk:
+  :i18n:
+    :direction: ltr
+  :language_names:
+    :tk: Türkmençe
+  :date:
+    :formats:
+      :long_ordinal: ! '%e %B %Y'

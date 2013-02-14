@@ -1,0 +1,9 @@
+---
+:be:
+  :i18n:
+    :direction: ltr
+  :language_names:
+    :be: Беларуская
+  :date:
+    :formats:
+      :long_ordinal: ! '%e %B %Y'

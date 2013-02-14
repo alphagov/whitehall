@@ -1,0 +1,9 @@
+---
+:bn:
+  :i18n:
+    :direction: ltr
+  :language_names:
+    :bn: বাংলা
+  :date:
+    :formats:
+      :long_ordinal: ! '%e %B %Y'

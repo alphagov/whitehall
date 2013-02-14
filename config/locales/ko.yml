@@ -1,0 +1,9 @@
+---
+:ko:
+  :i18n:
+    :direction: ltr
+  :language_names:
+    :ko: 한국어
+  :date:
+    :formats:
+      :long_ordinal: ! '%e %B %Y'

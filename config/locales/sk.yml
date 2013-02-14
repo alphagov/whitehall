@@ -1,0 +1,9 @@
+---
+:sk:
+  :i18n:
+    :direction: ltr
+  :language_names:
+    :sk: Slovenčina
+  :date:
+    :formats:
+      :long_ordinal: ! '%e %B %Y'

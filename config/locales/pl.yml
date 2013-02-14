@@ -1,0 +1,9 @@
+---
+:pl:
+  :i18n:
+    :direction: ltr
+  :language_names:
+    :pl: Polski
+  :date:
+    :formats:
+      :long_ordinal: ! '%e %B %Y'

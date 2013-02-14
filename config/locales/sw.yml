@@ -1,0 +1,9 @@
+---
+:sw:
+  :i18n:
+    :direction: ltr
+  :language_names:
+    :sw: Kiswahili
+  :date:
+    :formats:
+      :long_ordinal: ! '%e %B %Y'

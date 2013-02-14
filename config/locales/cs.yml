@@ -1,0 +1,9 @@
+---
+:cs:
+  :i18n:
+    :direction: ltr
+  :language_names:
+    :cs: Česky
+  :date:
+    :formats:
+      :long_ordinal: ! '%e %B %Y'

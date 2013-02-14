@@ -1,0 +1,9 @@
+---
+:ro:
+  :i18n:
+    :direction: ltr
+  :language_names:
+    :ro: Română
+  :date:
+    :formats:
+      :long_ordinal: ! '%e %B %Y'

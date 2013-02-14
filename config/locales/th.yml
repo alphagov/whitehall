@@ -1,0 +1,9 @@
+---
+:th:
+  :i18n:
+    :direction: ltr
+  :language_names:
+    :th: ไทย
+  :date:
+    :formats:
+      :long_ordinal: ! '%e %B %Y'

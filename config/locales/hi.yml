@@ -1,0 +1,9 @@
+---
+:hi:
+  :i18n:
+    :direction: ltr
+  :language_names:
+    :hi: हिन्दी
+  :date:
+    :formats:
+      :long_ordinal: ! '%e %B %Y'

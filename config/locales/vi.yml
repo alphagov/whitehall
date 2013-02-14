@@ -1,0 +1,9 @@
+---
+:vi:
+  :i18n:
+    :direction: ltr
+  :language_names:
+    :vi: Tiếng Việt
+  :date:
+    :formats:
+      :long_ordinal: ! '%e %B %Y'

@@ -1,0 +1,9 @@
+---
+:sq:
+  :i18n:
+    :direction: ltr
+  :language_names:
+    :sq: Shqip
+  :date:
+    :formats:
+      :long_ordinal: ! '%e %B %Y'

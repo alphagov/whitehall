@@ -1,0 +1,9 @@
+---
+:so:
+  :i18n:
+    :direction: ltr
+  :language_names:
+    :so: Soomaaliga
+  :date:
+    :formats:
+      :long_ordinal: ! '%e %B %Y'

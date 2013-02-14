@@ -1,0 +1,9 @@
+---
+:uz:
+  :i18n:
+    :direction: ltr
+  :language_names:
+    :uz: Oʻzbekcha
+  :date:
+    :formats:
+      :long_ordinal: ! '%e %B %Y'

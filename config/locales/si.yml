@@ -1,0 +1,9 @@
+---
+:si:
+  :i18n:
+    :direction: ltr
+  :language_names:
+    :si: සිංහල
+  :date:
+    :formats:
+      :long_ordinal: ! '%e %B %Y'

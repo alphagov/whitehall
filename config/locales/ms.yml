@@ -1,0 +1,9 @@
+---
+:ms:
+  :i18n:
+    :direction: ltr
+  :language_names:
+    :ms: Bahasa Melayu
+  :date:
+    :formats:
+      :long_ordinal: ! '%e %B %Y'

@@ -1,0 +1,9 @@
+---
+:hy:
+  :i18n:
+    :direction: ltr
+  :language_names:
+    :hy: Հայերեն
+  :date:
+    :formats:
+      :long_ordinal: ! '%e %B %Y'
