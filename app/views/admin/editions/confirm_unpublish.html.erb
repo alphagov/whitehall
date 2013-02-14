@@ -1,10 +1,18 @@
+<% page_title "Unpublish: #{@edition.title}"  %>
 
-<%= form_tag unpublish_admin_edition_path(@edition, lock_version: @edition.lock_version) do %>
-  <%= fields_for Unpublishing.new do |unpublish| %>
-    <%= unpublish.label :unpublishing_reason_id, "Reason for unpublishing" %>
-    <%= unpublish.select :unpublishing_reason_id, options_from_collection_for_select(UnpublishingReason.all, :id, :name) %>
-    <%= unpublish.text_area :explanation, label_text: 'Further explanation'  %>
-    <%= unpublish.text_field :alternative_url, label_text: 'Alternative URL' %>
-    <%= submit_tag 'Unpublish', class: "btn btn-danger" %>
-  <% end %>
-<% end %>
+  <div class="span8">
+    <section>
+      <h1>Unpublish <%= @edition.type.titleize %></h1>
+
+      <%= form_tag unpublish_admin_edition_path(@edition, lock_version: @edition.lock_version) do %>
+        <%= fields_for :unpublishing do |unpublish| %>
+          <%= unpublish.label :unpublishing_reason_id, "Reason for unpublishing" %>
+          <%= unpublish.select :unpublishing_reason_id, options_from_collection_for_select(UnpublishingReason.all, :id, :name) %>
+          <%= unpublish.text_area :explanation, label_text: 'Further explanation', rows: 5  %>
+          <%= unpublish.text_field :alternative_url, label_text: 'Alternative URL' %>
+          <%= submit_tag 'Unpublish', class: "btn btn-danger" %>
+          <span class="or_cancel"> or <%= link_to 'cancel', [:admin, @edition] %></span>
+        <% end %>
+      <% end %>
+    </section>
+  </div>
