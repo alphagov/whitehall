@@ -39,6 +39,7 @@ FactoryGirl.define do
   factory :deleted_publication, parent: :publication, traits: [:deleted]
   factory :archived_publication, parent: :publication, traits: [:archived]
   factory :scheduled_publication, parent: :publication, traits: [:scheduled]
+  factory :unpublished_publication, parent: :publication, traits: [:draft, :unpublished]
 
   factory :draft_corporate_publication, parent: :publication, traits: [:draft, :corporate]
   factory :submitted_corporate_publication, parent: :publication, traits: [:submitted, :corporate]
@@ -55,6 +56,4 @@ FactoryGirl.define do
   factory :draft_national_statistics, parent: :publication, traits: [:draft, :national_statistics]
   factory :submitted_national_statistics, parent: :publication, traits: [:submitted, :national_statistics]
   factory :published_national_statistics, parent: :publication, traits: [:published, :national_statistics]
-
-  factory :unpublished_publication, parent: :publication, traits: [:draft, :unpublished]
 end
