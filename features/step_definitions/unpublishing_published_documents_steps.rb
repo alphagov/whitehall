@@ -8,9 +8,11 @@ When /^I unpublish the document because it was published in error$/ do
   click_button 'Unpublish'
 end
 
-Then /^the document should not be visible to the public, with the reason why given$/ do
+Then /^I should see that the document was published in error on the public site$/ do
   edition = Edition.last
   visit public_document_path(edition)
   refute page.has_content?(edition.title)
   assert page.has_content?('The information on this page has been removed because it was published in error')
+  assert page.has_content?('This page should never have existed')
+  assert page.has_content?('https://www.gov.uk/some/alternative/page')
 end
