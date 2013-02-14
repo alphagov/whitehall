@@ -55,4 +55,6 @@ FactoryGirl.define do
   factory :draft_national_statistics, parent: :publication, traits: [:draft, :national_statistics]
   factory :submitted_national_statistics, parent: :publication, traits: [:submitted, :national_statistics]
   factory :published_national_statistics, parent: :publication, traits: [:published, :national_statistics]
+
+  factory :unpublished_publication, parent: :publication, traits: [:draft, :unpublished]
 end

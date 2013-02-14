@@ -102,6 +102,18 @@ class Edition::PublishingControlsTest < ActiveSupport::TestCase
 end
 
 class Edition::UnpublishingControlsTest < ActiveSupport::TestCase
+
+  test ".unpublished_as returns the unpublishing if the edition has been unpublished" do
+    publication = create(:unpublished_publication)
+    unpublishing = publication.unpublishing
+    assert_equal unpublishing, Publication.unpublished_as(publication.document.to_param)
+  end
+
+  test ".unpublished_as returns nil if the edition does not have an unpublishing" do
+    publication = create(:draft_publication)
+    assert_nil Publication.unpublished_as(publication.document.to_param)
+  end
+
   test "is unpublishable if the edition is published and the user is a GDS editor" do
     edition = build(:published_edition, :with_document)
     gds_editor = build(:gds_editor)

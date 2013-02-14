@@ -14,6 +14,11 @@ module Edition::Publishing
     def by_major_change_published_at
       order(arel_table[:major_change_published_at].desc)
     end
+
+    def unpublished_as(slug)
+      document = Document.at_slug(document_type, slug)
+      document && document.latest_edition.unpublishing
+    end
   end
 
   def first_published_version?
