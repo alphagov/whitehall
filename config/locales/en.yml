@@ -12,7 +12,7 @@ en:
     ru: Russian
     tr: Turkish
     ur: Urdu
-    zh: Written Chinese
+    zh: Chinese
   activerecord:
     attributes:
       detailed_guide:
