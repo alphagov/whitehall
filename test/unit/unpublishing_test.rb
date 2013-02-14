@@ -12,11 +12,15 @@ class UnpublishingTest < ActiveSupport::TestCase
   end
 
   test 'returns an unpublishing reason' do
-    unpublishing = build(:unpublishing, unpublishing_reason_id: 1)
-    assert_equal UnpublishingReason::PublishedInError, unpublishing.unpublishing_reason
+    unpublishing = build(:unpublishing, unpublishing_reason_id: reason.id)
+    assert_equal reason, unpublishing.unpublishing_reason
   end
 
   test 'returns the unpublishing reason as a sentence' do
-    assert_equal 'it was published in error', build(:unpublishing, unpublishing_reason_id: 1).reason_as_sentence
+    assert_equal reason.as_sentence, build(:unpublishing, unpublishing_reason_id: reason.id).reason_as_sentence
+  end
+
+  def reason
+    UnpublishingReason::PublishedInError
   end
 end
