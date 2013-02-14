@@ -1,14 +1,18 @@
 en:
   language_names:
+    ar: Arabic
     de: German
     en: English
     es: Spanish
+    fa: Persian
     fr: French
     it: Italian
     ja: Japanese
     pt: Portuguese
     ru: Russian
     tr: Turkish
+    ur: Urdu
+    zh: Written Chinese
   activerecord:
     attributes:
       detailed_guide:
