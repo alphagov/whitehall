@@ -18,6 +18,7 @@ latin_tables=(
     consultation_participations
     consultation_response_attachments
     consultation_response_forms
+    consultation_response_form_data
     corporate_information_page_attachments
     corporate_information_pages
     data_migration_records
@@ -25,20 +26,29 @@ latin_tables=(
     document_series
     document_sources
     edition_authors
+    edition_document_series
     edition_mainstream_categories
     edition_organisation_image_data
+    edition_policy_groups
     edition_role_appointments
     edition_statistical_data_sets
+    edition_world_location_image_data
     fatality_notice_casualties
+    force_publication_attempts
     group_memberships
     groups
     import_errors
     imports
+    import_logs
     mainstream_categories
     operational_fields
     organisation_mainstream_links
     organisational_relationships
+    policy_group_attachments
     responses
+    sponsorships
+    worldwide_office_world_locations
+    worldwide_offices
 )
 
 
