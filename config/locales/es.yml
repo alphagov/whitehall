@@ -5,7 +5,7 @@ es:
         primary_mainstream_category:
   change_notes:
     published: Publicado
-    updated:
+    updated: Actualizado
   contact:
     contact_form:
     email:
@@ -205,10 +205,10 @@ es:
   read_more:
   support:
     array:
-      last_word_connector:
+      last_word_connector: ' y '
   time:
     formats:
-      long_ordinal:
+      long_ordinal: ! '%e %B %Y %H:%M'
   world_location:
     country:
       Spain: Espagñe
