@@ -64,18 +64,22 @@ class Edition < ActiveRecord::Base
     end
 
     def significant_changed_attributes(record)
-      record.changed - modifiable_attributes(record.state_was)
+      record.changed - modifiable_attributes(record.state_was, record.state)
     end
 
-    def modifiable_attributes(previous_state)
+    def modifiable_attributes(previous_state, current_state)
       modifiable = %w{state updated_at force_published}
       if previous_state == 'scheduled'
         modifiable += %w{major_change_published_at first_published_at access_limited}
       end
-      if PRE_PUBLICATION_STATES.include?(previous_state)
+      if PRE_PUBLICATION_STATES.include?(previous_state) || being_unpublished?(previous_state, current_state)
         modifiable += %w{published_major_version published_minor_version}
       end
       modifiable
+    end
+
+    def being_unpublished?(previous_state, current_state)
+      previous_state == 'published' && current_state == 'draft'
     end
   end
 

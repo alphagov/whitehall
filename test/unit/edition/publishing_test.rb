@@ -349,6 +349,46 @@ class Edition::PublishingTest < ActiveSupport::TestCase
     assert_equal '2.0', new_draft.reload.published_version
   end
 
+  test "unpublishing first edition sets published version to nil" do
+    edition = create(:submitted_edition)
+    edition.publish_as(create(:departmental_editor))
+    edition.unpublish_as(create(:gds_editor))
+    assert_nil edition.reload.published_version
+  end
+
+  test "unpublishing a minor change to an edition decrements the minor version" do
+    editor = create(:departmental_editor)
+    edition = create(:published_edition)
+    new_draft = edition.create_draft(editor)
+    new_draft.minor_change = true
+    new_draft.publish_as(editor, force: true)
+    new_draft.unpublish_as(create(:gds_editor))
+    assert_equal '1.0', new_draft.reload.published_version
+  end
+
+  test "unpublishing a major change to an edition decrements the major version" do
+    editor = create(:departmental_editor)
+    edition = create(:published_edition)
+    new_draft = edition.create_draft(editor)
+    new_draft.change_note = 'My new version'
+    new_draft.publish_as(editor, force: true)
+    new_draft.unpublish_as(create(:gds_editor))
+    assert_equal '1.0', new_draft.reload.published_version
+  end
+
+  test "unpublishing a major change to an edition that has previous minor changes decrements the major version and picks the highest minor version" do
+    editor = create(:departmental_editor)
+    edition = create(:published_edition)
+    minor_change_edition = edition.create_draft(editor)
+    minor_change_edition.minor_change = true
+    minor_change_edition.publish_as(editor, force: true)
+    new_draft = minor_change_edition.create_draft(editor)
+    new_draft.change_note = 'My new version'
+    new_draft.publish_as(editor, force: true)
+    new_draft.unpublish_as(create(:gds_editor))
+    assert_equal '1.1', new_draft.reload.published_version
+  end
+
   test "#approve_retrospectively_as should clear the force_published flag, and return true on success" do
     editor, other_editor = create(:departmental_editor), create(:departmental_editor)
     edition = create(:submitted_policy)

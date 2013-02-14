@@ -113,6 +113,15 @@ module Edition::Publishing
 
   def unpublish_as(user)
     if unpublishable_by?(user)
+      if minor_change?
+        self.published_minor_version = self.published_minor_version - 1
+      elsif first_published_version?
+        self.published_major_version = nil
+        self.published_minor_version = nil
+      else
+        self.published_major_version = self.published_major_version - 1
+        self.published_minor_version = (Edition.unscoped.where(document_id: document_id).where(published_major_version: self.published_major_version).maximum(:published_minor_version) || 0)
+      end
       unpublish!
       editorial_remarks.create!(author: user, body: "Reset to draft")
     else
