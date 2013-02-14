@@ -10,6 +10,11 @@ Given /^a published international priority "([^"]*)" exists relating to the (?:c
   create(:published_international_priority, title: title, world_locations: [world_location])
 end
 
+Given /^a published international priority "([^"]*)" exists relating to the worldwide office "([^"]*)"$/ do |title, office_name|
+  worldwide_office = WorldwideOffice.find_by_name!(office_name)
+  create(:published_international_priority, title: title, worldwide_offices: [worldwide_office])
+end
+
 Given /^an international priority which is available in english as "([^"]*)" and in spanish as "([^"]*)"$/ do |english_title, spanish_title|
   priority = create(:draft_international_priority, title: english_title)
   with_locale(:es) do

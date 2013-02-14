@@ -130,6 +130,11 @@ When /^I select world location "([^"]*)"$/ do |world_location_name|
   select world_location_name, from: "World location"
 end
 
+When /^I view the worldwide office page$/ do
+  office = WorldwideOffice.last
+  visit worldwide_office_path(office)
+end
+
 When /^I click save$/ do
   click_on "Save"
 end
