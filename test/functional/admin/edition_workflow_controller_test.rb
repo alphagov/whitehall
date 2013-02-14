@@ -447,7 +447,7 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
 end
 
 class Admin::UnstubbedEditionWorkflowControllerTest < ActionController::TestCase
-  tests EditionWorkflowController
+  tests Admin::EditionWorkflowController
 
   setup { login_as :gds_editor }
 
