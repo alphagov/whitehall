@@ -22,7 +22,7 @@
           </th>
           <td class="date attribute">
             <%= published_or_updated(document).titleize %>
-            <%= relative_time((document.public_timestamp).to_datetime, class: 'published-at') %>
+            <%= absolute_date((document.public_timestamp).to_datetime, class: 'published-at') %>
           </td>
           <td class="type attribute">
             <%= document.display_type %>
