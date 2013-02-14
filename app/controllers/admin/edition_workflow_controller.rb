@@ -51,7 +51,7 @@ class Admin::EditionWorkflowController < Admin::BaseController
 
   def unpublish
     if @edition.unpublish_as(current_user)
-      @edition.create_unpublishing(params[:unpublishing])
+      @edition.create_unpublishing!(params[:unpublishing])
       redirect_options = {notice: "This document has been unpublished and will no longer appear on the public website"}
     else
       redirect_options = {alert: @edition.errors.full_messages.to_sentence}

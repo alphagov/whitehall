@@ -342,6 +342,7 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
 
   test 'unpublish redirects back to the edition with a message' do
     @edition.stubs(:unpublish_as).returns(true)
+    @edition.stubs(:create_unpublishing!)
     post :unpublish, id: @edition, lock_version: 1
 
     assert_redirected_to admin_policy_path(@edition)
