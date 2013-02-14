@@ -6,4 +6,8 @@ class Unpublishing < ActiveRecord::Base
   def unpublishing_reason
     UnpublishingReason.find_by_id unpublishing_reason_id
   end
+
+  def reason_as_sentence
+    unpublishing_reason.as_sentence
+  end
 end
