@@ -9,18 +9,21 @@ module OrganisationHelper
 
   def organisation_type_name(organisation)
     type_name = ActiveSupport::Inflector.singularize(organisation.organisation_type.name.downcase)
-    type_name == 'other' ? 'body' : type_name
   end
 
   def organisation_display_name_and_parental_relationship(organisation)
-    name = organisation_display_name(organisation)
-    relationship = add_indefinite_article(organisation_type_name(organisation))
-    parents = organisation.parent_organisations
-    params = [ERB::Util.h(name), ERB::Util.h(relationship)]
+    name = ERB::Util.h(organisation_display_name(organisation))
+    type_name = organisation_type_name(organisation)
+    relationship = ERB::Util.h(add_indefinite_article(type_name))
+    parents = organisation.parent_organisations.map {|parent| organisation_relationship_html(parent) }
     if parents.any?
-      "%s is %s of %s" % (params << parents.map {|parent| organisation_relationship_html(parent) }.to_sentence)
+      if type_name == 'other'
+        "%s works with %s" % [name, parents.to_sentence]
+      else
+        "%s is %s of %s" % ([name, relationship, parents.to_sentence])
+      end
     else
-      "%s is %s" % params
+      "%s is %s" % [name, relationship]
     end.html_safe
   end
 
