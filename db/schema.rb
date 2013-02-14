@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130213164347) do
+ActiveRecord::Schema.define(:version => 20130214110816) do
 
   create_table "attachment_data", :force => true do |t|
     t.string   "carrierwave_file"
@@ -389,9 +389,9 @@ ActiveRecord::Schema.define(:version => 20130213164347) do
   create_table "editions", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "lock_version",                                :default => 0
+    t.integer  "lock_version",                                                    :default => 0
     t.integer  "document_id"
-    t.string   "state",                                       :default => "draft", :null => false
+    t.string   "state",                                                           :default => "draft", :null => false
     t.string   "type"
     t.integer  "role_appointment_id"
     t.string   "location"
@@ -402,29 +402,32 @@ ActiveRecord::Schema.define(:version => 20130213164347) do
     t.datetime "first_published_at"
     t.date     "publication_date"
     t.integer  "speech_type_id"
-    t.boolean  "stub",                                        :default => false
+    t.boolean  "stub",                                                            :default => false
     t.text     "change_note"
     t.boolean  "force_published"
-    t.boolean  "minor_change",                                :default => false
+    t.boolean  "minor_change",                                                    :default => false
     t.integer  "publication_type_id"
     t.string   "related_mainstream_content_url"
     t.string   "related_mainstream_content_title"
     t.string   "additional_related_mainstream_content_url"
     t.string   "additional_related_mainstream_content_title"
     t.integer  "alternative_format_provider_id"
-    t.integer  "published_related_publication_count",         :default => 0,       :null => false
+    t.integer  "published_related_publication_count",                             :default => 0,       :null => false
     t.datetime "public_timestamp"
     t.integer  "primary_mainstream_category_id"
     t.datetime "scheduled_publication"
-    t.boolean  "replaces_businesslink",                       :default => false
-    t.boolean  "access_limited",                                                   :null => false
+    t.boolean  "replaces_businesslink",                                           :default => false
+    t.boolean  "access_limited",                                                                       :null => false
     t.integer  "published_major_version"
     t.integer  "published_minor_version"
     t.integer  "operational_field_id"
     t.text     "roll_call_introduction"
     t.text     "govdelivery_url"
     t.integer  "news_article_type_id"
-    t.boolean  "relevant_to_local_government",                :default => false
+    t.boolean  "relevant_to_local_government",                                    :default => false
+    t.string   "title"
+    t.text     "summary"
+    t.text     "body",                                        :limit => 16777215
   end
 
   add_index "editions", ["alternative_format_provider_id"], :name => "index_editions_on_alternative_format_provider_id"
