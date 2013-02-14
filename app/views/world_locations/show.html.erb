@@ -3,7 +3,7 @@
 <% atom_discovery_link_tag world_location_url(@world_location, format: :atom), t("feeds.latest_activity") %>
 <%= content_tag_for(:div, @world_location) do %>
 
-  <div class="block">
+  <div class="header-block">
     <div class="inner-block">
       <header class="page-header world-locations <% if @featured_editions.any? %>with_featured<% end %>">
         <hgroup>
