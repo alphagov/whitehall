@@ -1,7 +1,13 @@
 <% page_title @world_location.name + " translations" %>
 <section>
   <nav class="actions">
-    <%= link_to "Create Translation", new_admin_world_location_translation_path(@world_location), class: "btn new_resource", title: "Create Translation" %>
+    <% if @missing_locales.any? %>
+      <%= form_tag admin_world_location_translations_path(@world_location) do %>
+        <%= label_tag :translation_locale, 'Locale' %>
+        <%= select_locale :translation_locale, @missing_locales %>
+        <%= submit_tag "Create translation" %>
+      <% end %>
+    <% end %>
   </nav>
 </section>
 
@@ -13,7 +19,7 @@
     </tr>
   </thead>
   <tbody>
-    <% @locales.each do |locale| %>
+    <% @translated_locales.each do |locale| %>
       <tr>
         <td class="locale">
           <%= link_to locale.native_language_name, edit_admin_world_location_translation_path(@world_location, locale.code) %> (<%= link_to "view", world_location_path(@world_location, locale: locale) %>)

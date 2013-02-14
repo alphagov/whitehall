@@ -5,8 +5,8 @@ def add_translation_to_world_location(location, translation)
     click_link "manage translations"
   end
 
-  click_link "Create Translation"
   select translation["locale"], from: "Locale"
+  click_on "Create translation"
   fill_in "Name", with: translation["name"]
   fill_in "Title", with: translation["title"]
   fill_in "Mission statement", with: translation["mission_statement"]
@@ -94,13 +94,11 @@ When /^I edit the "([^"]*)" translation for "([^"]*)" setting:$/ do |locale, nam
     click_link "manage translations"
   end
   click_link locale
-  select translation["locale"], from: "Locale"
   fill_in "Name", with: translation["name"]
   fill_in "Title", with: translation["title"]
   fill_in "Mission statement", with: translation["mission_statement"]
   click_on "Save"
 end
-
 
 Then /^I should see the featured items of the (?:country|overseas territory|international delegation) "([^"]*)" are:$/ do |name, expected_table|
   world_location = WorldLocation.find_by_name!(name)
