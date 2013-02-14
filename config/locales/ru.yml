@@ -156,6 +156,8 @@ ru:
     atom:
     email_alerts:
     latest_activity:
+  i18n:
+    direction:
   language_names:
     ru: Pусский
   latest_feed:

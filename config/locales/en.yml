@@ -1,4 +1,6 @@
 en:
+  i18n:
+    direction: ltr
   language_names:
     ar: Arabic
     de: German
@@ -13,6 +15,36 @@ en:
     tr: Turkish
     ur: Urdu
     zh: Chinese
+    bg: Bulgarian
+    cs: Czech
+    he: Hebrew
+    ko: Korean
+    pl: Polish
+    ro: Romanian
+    sr: Serbian
+    th: Thai
+    uk: Ukrainian
+    vi: Vietnamese
+    sq: Albanian
+    hy: Armenian
+    az: Azeri
+    bn: Bangla
+    be: Belarussian
+    ka: Georgian
+    el: Greek
+    hu: Hungarian
+    hi: Hindi
+    lv: Latvian
+    lt: Lithuanian
+    ms: Malay
+    ps: Pashto
+    si: Sinhala
+    sk: Slovakian
+    so: Somali
+    sw: Swahili
+    ta: Tamil
+    tk: Turkmen
+    uz: Uzbeki
   activerecord:
     attributes:
       detailed_guide:
