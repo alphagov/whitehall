@@ -76,7 +76,12 @@
   .block {
     display: block;
     clear: both;
+    margin-bottom: $gutter*2;
     overflow: hidden;
+  }
+
+  .block-1 {
+    margin: $gutter-half 0 $gutter;
   }
 
   .keyline-header {
@@ -136,7 +141,6 @@
   }
 
   #international-priorities {
-    margin-bottom: $gutter;
 
     h1 {
       margin: 0 $gutter-half $gutter-half;

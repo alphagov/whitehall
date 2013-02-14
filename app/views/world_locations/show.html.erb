@@ -3,7 +3,7 @@
 <% atom_discovery_link_tag world_location_url(@world_location, format: :atom), t("feeds.latest_activity") %>
 <%= content_tag_for(:div, @world_location) do %>
 
-  <div class="block">
+  <div class="block-1">
     <div class="inner-block">
       <header class="page-header world-locations <% if @featured_editions.any? %>with_featured<% end %>">
         <hgroup>
@@ -46,7 +46,7 @@
   </div>
 
   <% if @international_priorities.any? %>
-    <section id="international-priorities" class="block">
+    <div id="international-priorities" class="block">
       <div class="inner-block floated-children">
         <h1 class="keyline-header"><%= t('world_location.headings.priorities') %></h1>
         <% @international_priorities.each do |priority| %>
@@ -61,7 +61,7 @@
           <% end %>
         <% end %>
       </div>
-    </section>
+    </div>
   <% end %>
 
   <% if @policies.any? %>
