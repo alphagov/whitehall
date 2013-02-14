@@ -90,7 +90,6 @@ module DocumentHelper
 
   def fill_in_news_article_fields
     select "News story", from: "News article type"
-    select_date "First published at", with: '2010-01-01'
   end
 
   def fill_in_publication_fields
