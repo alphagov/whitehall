@@ -7,8 +7,8 @@ class Admin::WorldLocationTranslationsControllerTest < ActionController::TestCas
     @location = create(:country, name: 'Afrolasia', mission_statement: 'Teaching the people how to brew tea')
 
     Locale.stubs(:non_english).returns([
-      stub('fr', code: :fr, native_language_name: 'Français'),
-      stub('es', code: :es, native_language_name: 'Español')
+      stub('fr', code: :fr, native_language_name: 'Français', english_language_name: 'French'),
+      stub('es', code: :es, native_language_name: 'Español', english_language_name: 'Spanish')
     ])
   end
 
@@ -41,8 +41,8 @@ class Admin::WorldLocationTranslationsControllerTest < ActionController::TestCas
 
     assert_select "form[action=#{CGI::escapeHTML(translations_path)}]" do
       assert_select "select[name='translation_locale']" do
-        assert_select "option[value=fr]", text: 'Français'
-        assert_select "option[value=es]", text: 'Español'
+        assert_select "option[value=fr]", text: /Français/
+        assert_select "option[value=es]", text: /Español/
       end
 
       assert_select "fieldset" do
@@ -107,8 +107,8 @@ class Admin::WorldLocationTranslationsControllerTest < ActionController::TestCas
 
     assert_select "form[action=#{CGI::escapeHTML(translations_path)}]" do
       assert_select "select[name='translation_locale']" do
-        assert_select "option[value=fr][selected=selected]", text: 'Français'
-        assert_select "option[value=es]", text: 'Español'
+        assert_select "option[value=fr][selected=selected]", text: /Français/
+        assert_select "option[value=es]", text: /Español/
       end
 
       assert_select "textarea[name='world_location[mission_statement]']", text: 'Enseigner aux gens comment infuser le thé'
