@@ -36,7 +36,7 @@ class OrganisationHelperDisplayNameWithParentalRelationshipTest < ActionView::Te
     parent = create(:organisation)
     child = create(:organisation, parent_organisations: [parent],
       organisation_type: create(:organisation_type, name: type_name))
-    expected_text = %Q{#{child.name} is #{expected_description} of the #{parent.name}}
+    expected_text = %Q{#{child.name} #{expected_description} the #{parent.name}}
     actual_html = organisation_display_name_and_parental_relationship(child)
     assert_equal expected_text, strip_html_tags(actual_html)
   end
@@ -85,15 +85,15 @@ class OrganisationHelperDisplayNameWithParentalRelationshipTest < ActionView::Te
   end
 
   test 'relationship types are described correctly' do
-    assert_relationship_type_is_described_as('Ministerial departments', 'a ministerial department')
-    assert_relationship_type_is_described_as('Non-ministerial departments', 'a non-ministerial department')
-    assert_relationship_type_is_described_as('Executive agencies', 'an executive agency')
-    assert_relationship_type_is_described_as('Executive non-departmental public bodies', 'an executive non-departmental public body')
-    assert_relationship_type_is_described_as('Advisory non-departmental public bodies', 'an advisory non-departmental public body')
-    assert_relationship_type_is_described_as('Tribunal non-departmental public bodies', 'a tribunal non-departmental public body')
-    assert_relationship_type_is_described_as('Public corporations', 'a public corporation')
-    assert_relationship_type_is_described_as('Independent monitoring bodies', 'an independent monitoring body')
-    assert_relationship_type_is_described_as('Others', 'a body')
+    assert_relationship_type_is_described_as('Ministerial departments', 'is a ministerial department of')
+    assert_relationship_type_is_described_as('Non-ministerial departments', 'is a non-ministerial department of')
+    assert_relationship_type_is_described_as('Executive agencies', 'is an executive agency of')
+    assert_relationship_type_is_described_as('Executive non-departmental public bodies', 'is an executive non-departmental public body of')
+    assert_relationship_type_is_described_as('Advisory non-departmental public bodies', 'is an advisory non-departmental public body of')
+    assert_relationship_type_is_described_as('Tribunal non-departmental public bodies', 'is a tribunal non-departmental public body of')
+    assert_relationship_type_is_described_as('Public corporations', 'is a public corporation of')
+    assert_relationship_type_is_described_as('Independent monitoring bodies', 'is an independent monitoring body of')
+    assert_relationship_type_is_described_as('Others', 'works with')
   end
 
   test 'definite article skipped for certain parent organisations' do
