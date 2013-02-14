@@ -3,7 +3,6 @@ class NewsArticle < Announcement
   include Edition::FactCheckable
   include Edition::FirstImagePulledOut
 
-  validates :first_published_at, presence: true, unless: ->(edition) { edition.can_have_some_invalid_data? }
   validates :news_article_type_id, presence: true
   validate :only_news_article_allowed_invalid_data_can_be_awaiting_type
 
@@ -29,6 +28,12 @@ class NewsArticle < Announcement
 
   def can_apply_to_local_government?
     true
+  end
+
+  def apply_any_extra_validations_when_converting_from_imported_to_draft
+    class << self
+      validates :first_published_at, presence: true
+    end
   end
 
   private
