@@ -27,7 +27,7 @@ class LocaleTest < ActiveSupport::TestCase
   end
 
   test "knows if languages are left-to-right or right-to-left" do
-    right_to_left = [Locale.new(:ar), Locale.new(:ur), Locale.new(:fa), Locale.new(:dr)]
+    right_to_left = [Locale.new(:ar), Locale.new(:ur), Locale.new(:fa), Locale.new(:dr), Locale.new(:he)]
     assert right_to_left.all?(&:rtl?)
     assert (Locale.all - right_to_left).none?(&:rtl?)
   end

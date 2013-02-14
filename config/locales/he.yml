@@ -157,7 +157,7 @@ he:
     email_alerts:
     latest_activity:
   i18n:
-    direction: ltr
+    direction: rtl
   language_names:
     he: עברית
   latest_feed:
