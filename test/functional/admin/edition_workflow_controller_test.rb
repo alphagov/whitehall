@@ -340,6 +340,12 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
     assert_equal 'All workflow actions require a lock version', response.body
   end
 
+  test 'unpublish unpublishes the edition' do
+    @edition.expects(:unpublish_as).with(@user)
+    @edition.stubs(:create_unpublishing!)
+    post :unpublish, id: @edition, lock_version: 1
+  end
+
   test 'unpublish redirects back to the edition with a message' do
     @edition.stubs(:unpublish_as).returns(true)
     @edition.stubs(:create_unpublishing!)
