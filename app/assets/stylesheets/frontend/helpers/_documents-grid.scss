@@ -1,10 +1,11 @@
 .documents-grid {
+  margin-bottom: $gutter*2;
   .inner-block {
     @extend %contain-floats;
-    padding: 0 0 $gutter*2;
+    padding: 0;
 
     @include media(tablet){
-      padding: 0 $gutter-half $gutter*2;
+      padding: 0 $gutter-half 0;
     }
   }
 
