@@ -20,6 +20,8 @@ class DocumentsController < PublicFacingController
       if @document = document_class.scheduled_for_publication_as(params[:id])
         expire_on_next_scheduled_publication([@document])
         render :coming_soon
+      elsif @unpublishing = document_class.unpublished_as(params[:id])
+        render :unpublished
       else
         render text: "Not found", status: :not_found
       end
