@@ -156,6 +156,8 @@ it:
     atom:
     email_alerts:
     latest_activity:
+  i18n:
+    direction:
   language_names:
     it: Italiano
   latest_feed:

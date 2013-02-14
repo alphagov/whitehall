@@ -1,4 +1,4 @@
-ja:
+si:
   activerecord:
     attributes:
       detailed_guide:
@@ -157,9 +157,9 @@ ja:
     email_alerts:
     latest_activity:
   i18n:
-    direction:
+    direction: ltr
   language_names:
-    ja: 日本語
+    si: සිංහල
   latest_feed:
     no_updates:
     title:
