@@ -15,6 +15,6 @@ module Admin::AuditTrailHelper
       html << "User (removed)"
     end
     html << " ".html_safe
-    html << relative_time(entry.created_at, class: "created_at")
+    html << absolute_time(entry.created_at, class: "created_at")
   end
 end

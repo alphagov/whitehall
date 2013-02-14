@@ -5,7 +5,7 @@
       <% edition.editorial_remarks.each do |editorial_remark| %>
         <li class="editorial_remark">
           <span class="author"><%= editorial_remark.author.name %></span>
-          wrote <%= relative_time(editorial_remark.created_at, class: 'created_at') %>:
+          wrote <%= absolute_time(editorial_remark.created_at, class: 'created_at') %>:
           <div class="body"><%= editorial_remark.body %></div>
         </li>
       <% end %>
