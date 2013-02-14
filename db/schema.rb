@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130214110816) do
+ActiveRecord::Schema.define(:version => 20130214163019) do
 
   create_table "attachment_data", :force => true do |t|
     t.string   "carrierwave_file"
@@ -385,6 +385,16 @@ ActiveRecord::Schema.define(:version => 20130214110816) do
   add_index "edition_world_locations", ["edition_id"], :name => "index_edition_world_locations_on_edition_id"
   add_index "edition_world_locations", ["edition_world_location_image_data_id"], :name => "idx_edition_world_locs_on_edition_world_location_image_data_id"
   add_index "edition_world_locations", ["world_location_id"], :name => "index_edition_world_locations_on_world_location_id"
+
+  create_table "edition_worldwide_offices", :force => true do |t|
+    t.integer  "edition_id"
+    t.integer  "worldwide_office_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "edition_worldwide_offices", ["edition_id"], :name => "index_edition_worldwide_offices_on_edition_id"
+  add_index "edition_worldwide_offices", ["worldwide_office_id"], :name => "index_edition_worldwide_offices_on_worldwide_office_id"
 
   create_table "editions", :force => true do |t|
     t.datetime "created_at"
