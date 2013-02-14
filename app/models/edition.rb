@@ -425,6 +425,7 @@ class Edition < ActiveRecord::Base
   def errors_as_draft
     if imported?
       begin
+        self.apply_any_extra_validations_when_converting_from_imported_to_draft
         self.try_draft
         return valid? ? [] : errors
       ensure
@@ -433,6 +434,9 @@ class Edition < ActiveRecord::Base
     else
       valid? ? [] : errors
     end
+  end
+
+  def apply_any_extra_validations_when_converting_from_imported_to_draft
   end
 
   def set_public_timestamp
