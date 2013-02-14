@@ -10,6 +10,8 @@ class Edition::OrganisationsTest < ActiveSupport::TestCase
     association.alt_text = "alt-text"
     association.featured = true
     association.save!
+    # reset the association so it picks up the db changes above
+    news_article.edition_organisations(true)
 
     new_edition = news_article.create_draft(create(:policy_writer))
     new_edition.change_note = 'change-note'
@@ -83,10 +85,7 @@ class Edition::OrganisationsTest < ActiveSupport::TestCase
     edition = create(:edition, create_default_organisation: false,
                                lead_organisations: [o1, o2],
                                supporting_organisations: [])
-    edition.edition_organisations_attributes = [
-      {id: edition.lead_edition_organisations.first.id, organisation_id: o2.id, _destroy: '0'},
-      {id: edition.lead_edition_organisations.last.id, _destroy: '1'}
-    ]
+    edition.lead_organisations = [o2]
     assert_nothing_raised do
       edition.save!
     end

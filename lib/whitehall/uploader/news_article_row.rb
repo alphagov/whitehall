@@ -57,10 +57,8 @@ module Whitehall::Uploader
       [organisation]
     end
 
-    def lead_edition_organisations
-      organisations.map.with_index do |o, idx|
-        Builders::EditionOrganisationBuilder.build_lead(o, idx+1)
-      end
+    def lead_organisations
+      organisations
     end
 
     def first_published_at
@@ -80,7 +78,7 @@ module Whitehall::Uploader
     end
 
     def attributes
-      [:title, :summary, :body, :lead_edition_organisations,
+      [:title, :summary, :body, :lead_organisations,
        :first_published_at, :related_policies, :role_appointments,
        :world_locations, :news_article_type].map.with_object({}) do |name, result|
         result[name] = __send__(name)

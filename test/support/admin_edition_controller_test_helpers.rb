@@ -1045,7 +1045,8 @@ module AdminEditionControllerTestHelpers
         get :new
 
         assert_select "form#edition_new" do
-          assert_select "select[name*='edition[edition_organisations_attributes][][organisation_id]']"
+          assert_select "select[name*='edition[lead_organisation_ids][]']"
+          assert_select "select[name*='edition[supporting_organisation_ids][]']"
         end
       end
 
@@ -1055,10 +1056,7 @@ module AdminEditionControllerTestHelpers
         attributes = controller_attributes_for(edition_type)
 
         post :create, edition: attributes.merge(
-          edition_organisations_attributes: [
-            {id: '', lead: '1', lead_ordering: '2', organisation_id: first_organisation.id},
-            {id: '', lead: '1', lead_ordering: '1', organisation_id: second_organisation.id}
-          ]
+          lead_organisation_ids: [second_organisation.id, first_organisation.id]
         )
 
         edition = edition_class.last
@@ -1071,7 +1069,8 @@ module AdminEditionControllerTestHelpers
         get :edit, id: edition
 
         assert_select "form#edition_edit" do
-          assert_select "select[name*='edition[edition_organisations_attributes][][organisation_id]']"
+          assert_select "select[name*='edition[lead_organisation_ids][]']"
+          assert_select "select[name*='edition[supporting_organisation_ids][]']"
         end
       end
 
@@ -1082,9 +1081,7 @@ module AdminEditionControllerTestHelpers
         edition = create(edition_type, organisations: [first_organisation])
 
         put :update, id: edition, edition: controller_attributes_for_instance(edition,
-          edition_organisations_attributes: [
-            {id: edition.lead_edition_organisations.first.id, lead: '1', lead_ordering: '1', organisation_id: second_organisation.id}
-          ]
+          lead_organisation_ids: [second_organisation.id]
         )
 
         edition.reload
@@ -1098,9 +1095,7 @@ module AdminEditionControllerTestHelpers
         edition = create(edition_type, organisations: [organisation_1, organisation_2])
 
         put :update, id: edition, edition: controller_attributes_for_instance(edition,
-          edition_organisations_attributes: [
-            {id: edition.lead_edition_organisations.first.id, organisation_id: ''},
-          ]
+          lead_organisation_ids: [organisation_2.id]
         )
 
         edition.reload
@@ -1116,12 +1111,8 @@ module AdminEditionControllerTestHelpers
         edition.organisations << organisation_3
 
         put :update, id: edition, edition: controller_attributes_for_instance(edition,
-          edition_organisations_attributes: [
-            {id: edition.lead_edition_organisations.first.id, organisation_id: ''},
-            {id: '', organisation_id: organisation_1.id, lead: '0', lead_ordering: ''},
-            {id: edition.supporting_edition_organisations.first.id, organisation_id: ''},
-            {id: '', organisation_id: organisation_3.id, lead: '1', lead_ordering: '2'}
-          ]
+          lead_organisation_ids: [organisation_2.id, organisation_3.id],
+          supporting_organisation_ids: [organisation_1.id]
         )
 
         edition.reload

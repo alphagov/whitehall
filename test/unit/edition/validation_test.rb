@@ -79,7 +79,7 @@ class Edition::ValidationTest < ActiveSupport::TestCase
     o1 = create(:organisation)
     edition = create(:edition, create_default_organisation: false,
                                lead_organisations: [o1])
-    edition.lead_edition_organisations.build(organisation: o1)
+    edition.lead_organisations = [o1, o1]
     refute edition.valid?
   end
 
@@ -90,11 +90,13 @@ class Edition::ValidationTest < ActiveSupport::TestCase
                               supporting_organisations: [o1])
     refute edition.valid?
   end
+
   test 'should be invalid when it duplicates organisations via lead and supporting on save' do
     o1 = create(:organisation)
     edition = create(:edition, create_default_organisation: false,
                                lead_organisations: [o1])
-    edition.supporting_edition_organisations.build(organisation: o1)
+    edition.lead_organisations = [o1]
+    edition.supporting_organisations = [o1]
     refute edition.valid?
   end
 
@@ -129,7 +131,7 @@ class Edition::ValidationTest < ActiveSupport::TestCase
     edition = create(:edition, create_default_organisation: false,
                                lead_organisations: [o1],
                                supporting_organisations: [o2])
-    edition.supporting_edition_organisations.build(organisation: o2)
+    edition.supporting_organisations = [o2, o2]
     refute edition.valid?
   end
 
@@ -139,12 +141,8 @@ class Edition::ValidationTest < ActiveSupport::TestCase
     edition = create(:edition, create_default_organisation: false,
                                lead_organisations: [o1],
                                supporting_organisations: [o2])
-    edition.edition_organisations_attributes = [
-      {id: edition.lead_edition_organisations.first.id, _destroy: '1'},
-      {id: edition.supporting_edition_organisations.first.id, _destroy: '1'},
-      {id: '', organisation_id: o1.id, lead: '0'},
-      {id: '', organisation_id: o2.id, lead: '1', lead_ordering: '1'}
-    ]
+    edition.lead_organisations = [o2]
+    edition.supporting_organisations = [o1]
     assert edition.valid?
   end
 
@@ -154,10 +152,7 @@ class Edition::ValidationTest < ActiveSupport::TestCase
     edition = create(:edition, create_default_organisation: false,
                                lead_organisations: [o1, o2],
                                supporting_organisations: [])
-    edition.edition_organisations_attributes = [
-      {id: edition.lead_edition_organisations.first.id, organisation_id: o2.id, _destroy: '0'},
-      {id: edition.lead_edition_organisations.last.id, _destroy: '1'}
-    ]
+    edition.lead_organisations = [o2]
     assert edition.valid?
   end
 
@@ -168,11 +163,8 @@ class Edition::ValidationTest < ActiveSupport::TestCase
                                lead_organisations: [o1, o2],
                                supporting_organisations: [],
                                organisations: [])
-    edition.edition_organisations_attributes = [
-      {id: edition.lead_edition_organisations.first.id, organisation_id: o2.id, _destroy: '0'},
-      {id: edition.lead_edition_organisations.last.id, _destroy: '1'},
-      {id: '', organisation_id: o1.id, lead: '0', lead_ordering: '0'}
-    ]
+    edition.lead_organisations = [o2]
+    edition.supporting_organisations = [o1]
     assert edition.valid?
   end
 
