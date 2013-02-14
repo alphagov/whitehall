@@ -332,7 +332,10 @@ class OrganisationTest < ActiveSupport::TestCase
 
   test '#featured_editions includes the newly published version of a featured edition, but not the original' do
     organisation = create(:organisation)
-    old_version = create(:featured_edition_organisation, organisation: organisation, edition: create(:published_edition, title: "Gamma"), ordering: 0).edition
+    old_version = create(:published_edition, title: "Gamma")
+    create(:featured_edition_organisation, organisation: organisation, edition: old_version, ordering: 0)
+    # reload the edition_organisations on old_version to pick up this new one
+    old_version.edition_organisations.reload
 
     editor = create(:departmental_editor)
     new_version = old_version.create_draft(editor)

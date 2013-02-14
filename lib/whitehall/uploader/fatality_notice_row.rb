@@ -46,10 +46,8 @@ module Whitehall::Uploader
       [Organisation.find_by_slug("ministry-of-defence")]
     end
 
-    def lead_edition_organisations
-      organisations.map.with_index do |o, idx|
-        Builders::EditionOrganisationBuilder.build_lead(o, idx+1)
-      end
+    def lead_organisations
+      organisations
     end
 
     def images
@@ -77,7 +75,7 @@ module Whitehall::Uploader
     end
 
     def attributes
-      [:title, :summary, :body, :lead_edition_organisations, :images, :operational_field, :first_published_at, :roll_call_introduction].map.with_object({}) do |name, result|
+      [:title, :summary, :body, :lead_organisations, :images, :operational_field, :first_published_at, :roll_call_introduction].map.with_object({}) do |name, result|
         result[name] = __send__(name)
       end
     end

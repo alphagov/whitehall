@@ -66,7 +66,6 @@ class Speech < Announcement
       organisations_via_role_appointment.each.with_index do |o, idx|
         self.edition_organisations.create!(organisation: o, lead: true, lead_ordering: idx)
       end
-      reset_edition_organisations
     end
   end
 

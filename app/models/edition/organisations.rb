@@ -10,38 +10,14 @@ module Edition::Organisations
   end
 
   included do
-    # NOTE: we have 3 associations that point to the same underlying
-    # table (EditionOrganisation). So we have to do our uniqueness
-    # validation manually in case the data is manipulated via multiple
-    # associations at once
-    has_many :edition_organisations, foreign_key: :edition_id, dependent: :destroy
+    has_many :edition_organisations, foreign_key: :edition_id, dependent: :destroy, autosave: true
     has_many :organisations, through: :edition_organisations
 
-    has_many :lead_edition_organisations, foreign_key: :edition_id,
-                                          class_name: 'EditionOrganisation',
-                                          conditions: {lead: true},
-                                          order: 'edition_organisations.lead_ordering'
+    before_save :mark_for_destruction_all_edition_organisations_for_destruction
+    after_save :clear_edition_organisations_touched_or_destroyed_by_lead_or_supporting_organisations_setters
 
-    has_many :supporting_edition_organisations, foreign_key: :edition_id,
-                                                class_name: 'EditionOrganisation',
-                                                conditions: {lead: false}
-
-    def lead_organisations
-      organisations.where(edition_organisations: { lead: true }).reorder('edition_organisations.lead_ordering')
-    end
-
-    def supporting_organisations
-      organisations.where(edition_organisations: { lead: false })
-    end
-    accepts_nested_attributes_for :edition_organisations,
-      reject_if: ->(attributes) { attributes['organisation_id'].blank? && attributes['id'].blank? },
-      allow_destroy: true
-
-    before_validation :make_all_edition_organisations_mine
-    after_save :reset_edition_organisations
     validate :at_least_one_lead_organisation
     validate :no_duplication_of_organisations
-    before_update :destroy_marked_for_destruction_edition_organisations
 
     add_trait Trait
   end
@@ -59,6 +35,34 @@ module Edition::Organisations
     end
   end
 
+  def lead_edition_organisations
+    edition_organisations.where(lead: true).order('edition_organisations.lead_ordering')
+  end
+
+  def supporting_edition_organisations
+    edition_organisations.where(lead: false)
+  end
+
+  def lead_organisations
+    organisations.where(edition_organisations: { lead: true }).reorder('edition_organisations.lead_ordering')
+  end
+  def lead_organisations=(new_lead_organisations)
+    self.lead_organisation_ids= new_lead_organisations.map(&:id)
+  end
+  def lead_organisation_ids=(new_lead_organisation_ids)
+    __mange_edition_organisations(new_lead_organisation_ids, for_lead: true)
+  end
+
+  def supporting_organisations
+    organisations.where(edition_organisations: { lead: false })
+  end
+  def supporting_organisations=(new_supporting_organisations)
+    self.supporting_organisation_ids = new_supporting_organisations.map(&:id)
+  end
+  def supporting_organisation_ids=(new_supporting_organisation_ids)
+    __mange_edition_organisations(new_supporting_organisation_ids, for_lead: false)
+  end
+
   def association_with_organisation(organisation)
     edition_organisations.where(organisation_id: organisation.id).first
   end
@@ -67,23 +71,11 @@ module Edition::Organisations
     false
   end
 
-private
-  def destroy_marked_for_destruction_edition_organisations
-    # AR will destroy things in order as it finds them. this can mean that
-    # we have duplicates in the db during the transaction.  e.g. if we
-    # have lead org 1 = MOD, lead org 2 = BIS and we want to update to
-    # lead org 1 = BIS, lead org 2 = destroy, the update to lead org 1
-    # happens before the destruction of lead org 2, and so, we have a dup
-    # If we destroy them all first, this should be ok.
-    to_die = edition_organisations.select { |eo| eo.marked_for_destruction? } +
-              lead_edition_organisations.select { |leo| leo.marked_for_destruction? } +
-              supporting_edition_organisations.select { |seo| seo.marked_for_destruction? }
-    to_die.map { |eo| eo.destroy }
-  end
+  private
 
   def at_least_one_lead_organisation
     unless skip_organisation_validation?
-      unless lead_edition_organisations.any? || edition_organisations.detect {|eo| eo.lead? }
+      unless edition_organisations.detect {|eo| eo.lead? }
         errors[:lead_organisations] = "at least one required"
       end
     end
@@ -95,73 +87,72 @@ private
     # validates_uniqueness_of on the EditionOrganisation wouldn't really
     # give us a nice error (edition_organisations is invalid), so lets try
     # something on the edition itself.
-    new_eos = []
-    existing_eos = []
-    to_die = []
-    __get_edition_organisations_for_validation(edition_organisations, new_eos, existing_eos, to_die)
-    __get_edition_organisations_for_validation(lead_edition_organisations, new_eos, existing_eos, to_die)
-    __get_edition_organisations_for_validation(supporting_edition_organisations, new_eos, existing_eos, to_die)
-    # strip out any that have been marked for deletion becaue the same
-    # object will appear from two associations, but it's likely only one
-    # is marked for deletion. If we don't strip both instances out then
-    # we run the risk of adding an error because things aren't unique when
-    # they will be because we're deleting one of them
-    existing_eos = existing_eos.reject { |(eo_id, _, _)| to_die.include?(eo_id) }
+    all_organisations = edition_organisations
+      .reject { |eo| eo.marked_for_destruction? || __edition_organisations_for_destruction_on_save.include?(eo) }
+      .map {|eo| eo.organisation_id }
 
-    # get rid of existing ones where the change flag is false and there's
-    # another existing entry for the same edition_organisation id with a
-    # change flag that is true.
-    # Because we don't want to detect internal dupes when we're updating
-    # an instance in place via one association but we get the instance
-    # from the other association
-    existing_eos = existing_eos.reject do |(eo_id, org_id, change_flag)|
-      if change_flag
-        false
+    if all_organisations.uniq.size != all_organisations.size
+      errors.add(:organisations, 'must be unique')
+    end
+  end
+
+  def __mange_edition_organisations(new_organisation_ids, args = {})
+    # try to avoid common AR pitfalls by reusing objects instead of
+    # destroying & creating new.
+    args = {for_lead: true}.merge(args)
+    for_lead = args[:for_lead]
+    existing_edition_organisations = edition_organisations.to_a.dup
+
+    new_organisation_ids.each.with_index do |new_organisation_id, idx|
+      # find an existing instance
+      existing = existing_edition_organisations
+        .reject { |eo| __edition_organisations_touched_by_lead_or_supporting_organisations_setters.include?(eo) }
+        .detect { |eo| eo.organisation_id.to_s == new_organisation_id.to_s }
+
+      if existing
+        # and remove it from the things to look at now...
+        existing_edition_organisations.delete(existing)
+        # ...or globally
+        # if it's already been touched we assume lead_orgs or
+        # supporting_orgs has already touched it so someone is trying to set
+        # a duplicate, we should allow this so they get an error
+        __edition_organisations_touched_by_lead_or_supporting_organisations_setters << existing
+        if for_lead
+          existing.lead = true
+          existing.lead_ordering = idx + 1
+        else
+          existing.lead = false
+          existing.lead_ordering = nil
+        end
+        __edition_organisations_for_destruction_on_save.delete(existing)
       else
-        existing_eos.any? { |(o_eo_id, _, o_change_flag)| eo_id == o_eo_id && o_change_flag }
+        eo = edition_organisations.build(lead: for_lead,
+                                         organisation_id: new_organisation_id,
+                                         edition: self)
+        eo.lead_ordering = idx + 1 if for_lead
+        __edition_organisations_touched_by_lead_or_supporting_organisations_setters << eo
       end
     end
-
-    # adding the same org twice
-    if new_eos.map { |(eo_id, org_id, _)| org_id }.uniq.size != new_eos.size
-      errors.add(:organisations, 'must be unique')
-    # adding an org that we've already got
-    elsif (new_eos.map { |(eo_id, org_id, _)| org_id } & existing_eos.map { |(eo_id, org_id)| org_id }).any?
-      errors.add(:organisations, 'must be unique')
-    else
-      # existing org somehow added on more than one eo
-      existing_dupes = existing_eos.map do |(eo_id, org_id, _)|
-        existing_eos.any? { |(o_eo_id, o_org_id, _)| (eo_id != o_eo_id) && (org_id == o_org_id) }
+    # look at the remaining ones and destroy them if they are
+    # lead == for_lead 'cos they weren't consumed above
+    existing_edition_organisations.each do |eo|
+      if eo.lead == for_lead
+        __edition_organisations_for_destruction_on_save << eo
       end
-      errors.add(:organisations, 'must be unique') if existing_dupes.any?
     end
   end
-  def __get_edition_organisations_for_validation(edition_organisation_association, new_eos, existing_eos, to_die)
-    all_eos = edition_organisation_association
-    grouped = all_eos.
-      reject { |eo| eo.destroyed? || eo.marked_for_destruction? }.
-      # for orgs that are to be created when we do this, grab the object id
-      map { |eo| [eo.id, eo.organisation_id || eo.organisation.object_id, eo.changed?] }.
-      group_by { |(eo_id, org_id)| eo_id.nil? }
-    new_eos.push(*grouped[true]) if grouped[true].present?
-    existing_eos.push(*grouped[false]) if grouped[false].present?
-    to_die.push(*all_eos.select { |eo| eo.destroyed? || eo.marked_for_destruction? }.map(&:id))
-    nil
-  end
 
-  def make_all_edition_organisations_mine
-    edition_organisations.each { |eo| eo.edition = self unless eo.edition == self }
-    lead_edition_organisations.each { |eo| eo.edition = self unless eo.edition == self }
-    supporting_edition_organisations.each { |eo| eo.edition = self unless eo.edition == self }
+  def __edition_organisations_touched_by_lead_or_supporting_organisations_setters
+    @edition_organisations_touched_by_lead_or_supporting_organisations_setters ||= []
   end
-
-  def reset_edition_organisations
-    # we have 3 ways into the underlying data structure for EditionOrganisations
-    # safest to reset all the assocations after saving so they all pick up
-    # any changes made via the other endpoints.
-    self.association(:edition_organisations).reset
-    self.association(:organisations).reset
-    self.association(:lead_edition_organisations).reset
-    self.association(:supporting_edition_organisations).reset
+  def __edition_organisations_for_destruction_on_save
+    @edition_organisations_for_destruction_on_save ||= []
+  end
+  def mark_for_destruction_all_edition_organisations_for_destruction
+    __edition_organisations_for_destruction_on_save.each { |eo| eo.mark_for_destruction }
+  end
+  def clear_edition_organisations_touched_or_destroyed_by_lead_or_supporting_organisations_setters
+    __edition_organisations_for_destruction_on_save.clear
+    __edition_organisations_touched_by_lead_or_supporting_organisations_setters.clear
   end
 end

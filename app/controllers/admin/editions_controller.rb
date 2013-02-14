@@ -5,11 +5,11 @@ class Admin::EditionsController < Admin::BaseController
   before_filter :limit_edition_access!, only: [:show, :edit, :update, :submit, :revise, :reject, :destroy]
   before_filter :prevent_modification_of_unmodifiable_edition, only: [:edit, :update]
   before_filter :default_arrays_of_ids_to_empty, only: [:update]
+  before_filter :delete_absent_edition_organisations, only: [:create, :update]
   before_filter :build_edition, only: [:new, :create]
+  before_filter :build_edition_organisations, only: [:new, :edit]
   before_filter :detect_other_active_editors, only: [:edit]
   before_filter :redirect_to_controller_for_type, only: [:show]
-  before_filter :build_edition_organisations, only: [:new, :edit]
-  before_filter :delete_absent_edition_organisations, only: [:create, :update]
 
   def index
     if filter && filter.valid?
@@ -119,7 +119,10 @@ class Admin::EditionsController < Admin::BaseController
   end
 
   def default_arrays_of_ids_to_empty
-    # params[:edition][:organisation_ids] ||= []
+    unless params[:edition][:organisation_ids]
+      params[:edition][:lead_organisation_ids] ||= []
+      params[:edition][:supporting_organisation_ids] ||= []
+    end
     if @edition.can_be_associated_with_topics?
       params[:edition][:topic_ids] ||= []
     end
@@ -155,34 +158,20 @@ class Admin::EditionsController < Admin::BaseController
   end
 
   def build_edition_organisations
-    if @edition.errors.any?
-      n = @edition.edition_organisations.select { |eo| eo.lead? }.count
-      (n...4).each do |i|
-        @edition.edition_organisations.build(lead_ordering: i, lead: true)
-      end
-      n = @edition.edition_organisations.reject { |eo| eo.lead? }.count
-      (n...6).each do |i|
-        @edition.edition_organisations.build(lead: false)
-      end
-    else
-      n = @edition.lead_edition_organisations.count
-      (n...4).each do |i|
-        @edition.lead_edition_organisations.build(lead_ordering: i)
-      end
-      n = @edition.supporting_edition_organisations.count
-      (n...6).each do |i|
-        @edition.supporting_edition_organisations.build
-      end
+    n = @edition.edition_organisations.select { |eo| eo.lead? }.count
+    (n...4).each do |i|
+      @edition.edition_organisations.build(lead_ordering: i, lead: true)
+    end
+    n = @edition.edition_organisations.reject { |eo| eo.lead? }.count
+    (n...6).each do |i|
+      @edition.edition_organisations.build(lead: false)
     end
   end
 
   def delete_absent_edition_organisations
-    return unless params[:edition] && params[:edition][:edition_organisations_attributes]
-    params[:edition][:edition_organisations_attributes].each do |p|
-      if p[:organisation_id].blank?
-        p["_destroy"] = true
-      end
-    end
+    return unless params[:edition]
+    params[:edition][:lead_organisation_ids].delete_if {|org_id| org_id.blank?} if params[:edition][:lead_organisation_ids]
+    params[:edition][:supporting_organisation_ids].delete_if {|org_id| org_id.blank?} if params[:edition][:supporting_organisation_ids]
   end
 
   def build_image

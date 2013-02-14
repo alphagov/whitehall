@@ -424,13 +424,13 @@ module DocumentControllerTestHelpers
 
   def controller_attributes_for_instance(edition, attribute_overrides = {})
     attributes = edition.attributes
-    attributes['edition_organisations_attributes'] = edition.lead_edition_organisations.map(&:attributes) if edition.respond_to?(:lead_organisation_editions)
+    attributes['lead_organisation_ids'] = edition.lead_organisations.map(&:id).map(&:to_s) if edition.respond_to?(:lead_organisations)
     attributes.deep_merge(attribute_overrides)
   end
 
   def controller_attributes_for(edition_type, attributes = {})
     attributes = attributes.merge(
-      edition_organisations_attributes: [{id: '', lead: '1', lead_ordering: '1', organisation_id: (Organisation.first || create(:organisation)).id}]
+      lead_organisation_ids: [(Organisation.first || create(:organisation)).id]
     )
     attributes_for(edition_type, attributes)
   end

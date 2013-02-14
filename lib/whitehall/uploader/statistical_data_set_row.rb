@@ -51,10 +51,8 @@ module Whitehall::Uploader
       Finders::OrganisationFinder.find(row['organisation'], @logger, @line_number, @default_organisation)
     end
 
-    def lead_edition_organisations
-      organisations.map.with_index do |o, idx|
-        Builders::EditionOrganisationBuilder.build_lead(o, idx + 1)
-      end
+    def lead_organisations
+      organisations
     end
 
     def document_series
@@ -86,7 +84,7 @@ module Whitehall::Uploader
     end
 
     def attributes
-      [:title, :summary, :body, :lead_edition_organisations, :document_series,
+      [:title, :summary, :body, :lead_organisations, :document_series,
        :attachments, :alternative_format_provider, :access_limited,
        :first_published_at, :change_note].map.with_object({}) do |name, result|
         result[name] = __send__(name)

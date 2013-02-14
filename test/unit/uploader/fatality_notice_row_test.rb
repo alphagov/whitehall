@@ -70,13 +70,11 @@ module Whitehall::Uploader
       assert_equal [o], row.organisations
     end
 
-    test "generates lead_edition_organisations by asking the edition organisation builder to build a lead with each found organisation" do
+    test "takes lead_organisations from the found organisations" do
       o = stub(:organisation)
       row = fatality_notice_row
       row.stubs(:organisations).returns([o])
-      leo = stub(:lead_edition_organisation)
-      Whitehall::Uploader::Builders::EditionOrganisationBuilder.stubs(:build_lead).with(o, 1).returns(leo)
-      assert_equal [leo], row.lead_edition_organisations
+      assert_equal [o], row.lead_organisations
     end
 
     test "finds operational field by name" do
