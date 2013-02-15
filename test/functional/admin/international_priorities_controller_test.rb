@@ -54,10 +54,19 @@ class Admin::InternationalPrioritiesControllerTest < ActionController::TestCase
     end
   end
 
-  view_test 'index omits create form if no missing translations' do
+  view_test 'show omits create form if no missing translations' do
     edition = create(:draft_international_priority)
     with_locale(:es) { edition.update_attributes!(attributes_for(:draft_international_priority)) }
     Locale.stubs(:non_english).returns([Locale.new(:es)])
+
+    get :show, id: edition
+
+    assert_select "select[name=translation_locale]", count: 0
+  end
+
+  view_test 'show omits create form unless the edition is editable' do
+    edition = create(:published_international_priority)
+    refute edition.editable?
 
     get :show, id: edition
 
@@ -72,6 +81,18 @@ class Admin::InternationalPrioritiesControllerTest < ActionController::TestCase
 
     assert_select "#translations" do
       assert_select "a[href='#{edit_admin_edition_translation_path(edition, 'fr')}']", text: 'Edit the French translation'
+    end
+  end
+
+  view_test "show omits the link to edit an existing translation unless the edition is editable" do
+    edition = create(:draft_international_priority, title: 'english-title', summary: 'english-summary', body: 'english-body')
+    with_locale(:fr) { edition.update_attributes!(title: 'french-title', summary: 'french-summary', body: 'french-body') }
+    edition.publish_as(create(:departmental_editor), force: true)
+
+    get :show, id: edition
+
+    assert_select "#translations" do
+      assert_select "a[href='#{edit_admin_edition_translation_path(edition, 'fr')}']", count: 0
     end
   end
 

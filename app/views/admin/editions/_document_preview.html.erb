@@ -74,20 +74,24 @@
     <% if @edition.translatable? %>
       <section class="tab-pane translations" id="translations">
         <h1>Translations</h1>
-        <section>
-          <nav class="actions">
-            <% if @missing_translations.any? %>
-              <%= form_tag admin_edition_translations_path(@edition) do %>
-                <%= label_tag :translation_locale, 'Locale' %>
-                <%= select_locale :translation_locale, @missing_translations %>
-                <%= submit_tag "Add translation" %>
+        <% if @edition.editable? %>
+          <section>
+            <nav class="actions">
+              <% if @missing_translations.any? %>
+                <%= form_tag admin_edition_translations_path(@edition) do %>
+                  <%= label_tag :translation_locale, 'Locale' %>
+                  <%= select_locale :translation_locale, @missing_translations %>
+                  <%= submit_tag "Add translation" %>
+                <% end %>
               <% end %>
-            <% end %>
-          </nav>
-        </section>
+            </nav>
+          </section>
+        <% end %>
         <% @edition.non_english_translations.each do |translation| %>
           <%= content_tag_for :section, translation, class: 'document_page' do %>
-            <p><%= link_to "Edit the #{Locale.new(translation.locale).english_language_name} translation", edit_admin_edition_translation_path(@edition, translation.locale) %></p>
+            <% if @edition.editable? %>
+              <p><%= link_to "Edit the #{Locale.new(translation.locale).english_language_name} translation", edit_admin_edition_translation_path(@edition, translation.locale) %></p>
+            <% end %>
             <article class="document">
               <h2 class="title"><%= translation.title %></h2>
               <p class="summary"><%= translation.summary %></p>
