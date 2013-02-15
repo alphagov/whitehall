@@ -24,7 +24,8 @@ class RoleTypePresenterTest < ActiveSupport::TestCase
         ["Ambassador", "ambassador"],
         ["High commissioner", "high_commissioner"],
         ["Governor", "governor"],
-        ["Deputy head of mission", "deputy_head_of_mission"]
+        ["Deputy head of mission", "deputy_head_of_mission"],
+        ["Office staff", "office_staff"]
       ]]
     ]
     assert_equal expected, RoleTypePresenter.options
@@ -74,6 +75,10 @@ class RoleTypePresenterTest < ActiveSupport::TestCase
 
   test "should select deputy head of state" do
     assert_equal "deputy_head_of_mission", RoleTypePresenter.option_value_for(build(:role), "DeputyHeadOfMissionRole")
+  end
+
+  test "should select worldwide office staff" do
+    assert_equal "office_staff", RoleTypePresenter.option_value_for(build(:role), "WorldwideOfficeStaffRole")
   end
 
   test "should select cabinet minister by default" do
