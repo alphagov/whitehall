@@ -56,12 +56,5 @@ Feature: Administering worldwide offices
     Then I should see the worldwide office "Department of Beards in France" on the "France" world location page
     And I should see that it is part of the "Department of Beards"
 
-  Scenario: Managing appoitments at a worldwide office
-    Given a worldwide office "British embassy in Spain"
-    Given a person called "Pete Blake"
-    When I create a new "Defence Attaché" worldwide office appointment and assign it to "Pete Blake"
-    Then he is listed as the supporting position of "Defence Attaché" on the worldwide office page
-    And I should not see his picture on the worldwide office page
-
   Scenario: Adding office hours to a worldwide office
   Scenario: Adding corporate information pages to offices

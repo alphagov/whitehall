@@ -38,10 +38,6 @@ class Admin::WorldwideOfficesController < Admin::BaseController
     respond_with :admin, @worldwide_office
   end
 
-  def appointments
-    @appointments = @worldwide_office.worldwide_office_appointments
-  end
-
   private
 
   def find_worldwide_office

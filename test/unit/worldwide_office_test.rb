@@ -44,12 +44,6 @@ class WorldwideOfficeTest < ActiveSupport::TestCase
     assert_equal 0, office.worldwide_office_roles.count
   end
 
-  test "destroys associated worldwide office appointments" do
-    office = create(:worldwide_office, worldwide_office_appointments: [create(:worldwide_office_appointment)])
-    office.destroy
-    assert_equal 0, office.worldwide_office_appointments.count
-  end
-
   test "has an overridable default main contact" do
     office = create(:worldwide_office)
 
@@ -125,5 +119,18 @@ class WorldwideOfficeTest < ActiveSupport::TestCase
 
     assert_equal deputy_role, office.secondary_role
     assert_nil office.primary_role
+  end
+
+  test "office_staff_roles returns worldwide office staff roles" do
+    office = create(:worldwide_office)
+
+    assert_equal [], office.office_staff_roles
+
+    staff_role1 = create(:worldwide_office_staff_role, worldwide_offices: [office])
+    staff_role2 = create(:worldwide_office_staff_role, worldwide_offices: [office])
+
+    assert_equal [staff_role1, staff_role2], office.office_staff_roles
+    assert_nil office.primary_role
+    assert_nil office.secondary_role
   end
 end
