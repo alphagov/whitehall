@@ -1,5 +1,5 @@
 class Admin::EditionTranslationsController < Admin::BaseController
-  before_filter :load_translated_edition, only: [:edit, :update]
+  before_filter :load_translated_and_english_edition, only: [:edit, :update]
   helper_method :translation_locale
 
   def create
@@ -20,8 +20,9 @@ class Admin::EditionTranslationsController < Admin::BaseController
 
   private
 
-  def load_translated_edition
+  def load_translated_and_english_edition
     @translated_edition = LocalisedModel.new(edition, translation_locale.code)
+    @english_edition = LocalisedModel.new(edition, :en)
   end
 
   def translation_locale

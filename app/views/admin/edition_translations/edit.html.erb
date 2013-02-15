@@ -9,8 +9,22 @@
         <%= form.errors %>
 
         <%= form.text_field :title %>
+        <p class="original-translation">
+          English:
+          <span class="english-title"><%= @english_edition.title %></span>
+        </p>
+
         <%= form.text_area :summary, rows: 2, cols: 40 %>
+        <p class="original-translation">
+          English:
+          <span class="english-summary"><%= @english_edition.summary %></span>
+        </p>
+
         <%= form.text_area :body %>
+        <p class="original-translation">
+          English:
+          <span class="english-body"><%= @english_edition.body %></span>
+        </p>
 
         <%= form.save_or_cancel %>
       <% end %>

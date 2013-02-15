@@ -42,6 +42,16 @@ class Admin::EditionTranslationsControllerTest < ActionController::TestCase
     end
   end
 
+  view_test 'edit shows the english values underneath the associated form fields' do
+    edition = create(:edition)
+
+    get :edit, edition_id: edition, id: 'fr'
+
+    assert_select '.english-title', text: edition.title
+    assert_select '.english-summary', text: edition.summary
+    assert_select '.english-body', text: edition.body
+  end
+
   test "update creates a translation for an edition that's yet to be published, and redirect back to the edition admin page" do
     edition = create(:draft_edition)
 
