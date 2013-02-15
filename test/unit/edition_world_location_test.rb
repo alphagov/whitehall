@@ -48,4 +48,14 @@ class EditionWorldLocationTest < ActiveSupport::TestCase
 
     assert_nil edition_world_location.image
   end
+
+  test "should be filterable by translations of associated editions" do
+    world_location = create(:world_location)
+    translated_edition = create(:draft_policy, translated_into: [:es])
+    untranslated_edition = create(:draft_policy)
+    association_for_translated_edition = create(:edition_world_location, edition: translated_edition, world_location: world_location)
+    association_for_untranslated_edition = create(:edition_world_location, edition: untranslated_edition, world_location: world_location)
+
+    assert_equal [association_for_translated_edition], EditionWorldLocation.with_translations(:es)
+  end
 end
