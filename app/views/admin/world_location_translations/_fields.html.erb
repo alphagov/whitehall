@@ -1,8 +1,5 @@
 <%= form.errors %>
 
-<%= label_tag "translation_locale", "Locale" %>
-<%= select_tag :translation_locale, options_for_select(options_for_non_english_locales, translation_locale), disabled: editing_translation %>
-
 <fieldset>
 <%= form.text_field :name %>
 <p class="english-name original-translation">English: <%= english_location.name %></p>
