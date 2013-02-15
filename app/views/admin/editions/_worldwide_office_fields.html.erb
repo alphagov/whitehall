@@ -1,0 +1,7 @@
+<%= form.label :worldwide_office_ids, "Select the worldwide offices associated with this #{edition.format_name.titleize.downcase}" %>
+<%= form.select :worldwide_office_ids,
+                options_from_collection_for_select(WorldwideOffice.all, 'id', 'name', edition.worldwide_office_ids),
+                { include_blank: true },
+                multiple: true,
+                class: 'chzn-select',
+                data: { placeholder: "Worldwide offices..."} %>

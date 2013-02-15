@@ -1734,7 +1734,7 @@ module AdminEditionControllerTestHelpers
         assert_equal [], edition.topical_events
       end
 
-      test "update should remove all topical_events if none specified implicitly" do
+      test "update should remove all topical_events if none specified explicitly" do
         topical_event = create(:topical_event)
 
         edition = create("draft_#{edition_type}", topical_events: [topical_event])
@@ -1746,5 +1746,37 @@ module AdminEditionControllerTestHelpers
       end
     end
 
+    def should_allow_association_with_worldwide_offices(edition_type)
+      edition_class = class_for(edition_type)
+
+      view_test "new should display worldwide offices field" do
+        get :new
+
+        assert_select "form#edition_new" do
+          assert_select "select[name*='edition[worldwide_office_ids]']"
+        end
+      end
+
+      test "create should associate worldwide offices with the edition" do
+        first_office = create(:worldwide_office)
+        second_office = create(:worldwide_office)
+        attributes = controller_attributes_for(edition_type)
+
+        post :create, edition: attributes.merge(
+          worldwide_office_ids: [first_office.id, second_office.id]
+        )
+
+        assert edition = edition_class.last
+        assert_equal [first_office, second_office], edition.worldwide_offices
+      end
+
+      test "update should remove all worldwide offices if none specified explicitly" do
+        office = create(:worldwide_office)
+        edition = create("draft_#{edition_type}", worldwide_offices: [office])
+        put :update, id: edition, edition: controller_attributes_for_instance(edition).except(:worldwide_office_ids)
+
+        assert_equal [], edition.reload.worldwide_offices
+      end
+    end
   end
 end
