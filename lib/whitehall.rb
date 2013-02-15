@@ -134,7 +134,7 @@ module Whitehall
     end
 
     def search_backend
-      Whitehall::DocumentFilter::Rummager
+      Whitehall::DocumentFilter::Mysql
     end
 
     def government_search_index
