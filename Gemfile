@@ -21,8 +21,6 @@ gem 'fog'
 gem 'isbn_validation'
 gem 'gds-sso', '3.0.0'
 gem 'rummageable', '0.6.2'
-gem 'tire', git: "https://github.com/alphagov/tire.git"
-gem 'tire-contrib'
 gem 'addressable'
 gem 'exception_notification', require: 'exception_notifier'
 gem 'rabl'
