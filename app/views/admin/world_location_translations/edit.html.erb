@@ -6,18 +6,15 @@
   <%= form.errors %>
 
   <fieldset>
-  <%= form.text_field :name %>
-  <p class="english-name original-translation">English: <%= @english_world_location.name %></p>
+  <%= form.translated_text_field :name %>
   </fieldset>
 
   <fieldset>
-  <%= form.text_field :title %>
-  <p class="english-title original-translation">English: <%= @english_world_location.title %></p>
+  <%= form.translated_text_field :title %>
   </fieldset>
 
   <fieldset>
-  <%= form.text_area :mission_statement %>
-  <p class="english-mission-statement original-translation">English: <%= @english_world_location.mission_statement %></p>
+  <%= form.translated_text_area :mission_statement %>
   </fieldset>
-  <%= form.save_or_cancel cancel: admin_world_location_translations_path(@english_world_location) %>
+  <%= form.save_or_cancel cancel: admin_world_location_translations_path(@translated_world_location) %>
 <% end %>
