@@ -46,6 +46,7 @@ en:
     ta: Tamil
     tk: Turkmen
     uz: Uzbeki
+    id: Indonesian
   activerecord:
     attributes:
       detailed_guide:
