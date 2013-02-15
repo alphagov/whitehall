@@ -1721,7 +1721,7 @@ module AdminEditionControllerTestHelpers
         assert_equal [second_topical_event], edition.topical_events
       end
 
-      test "update should remove all topical_events if none specified explicitly" do
+      test "update should remove all topical_events if empty param specified" do
         topical_event = create(:topical_event)
 
         edition = create("draft_#{edition_type}", topical_events: [topical_event])
@@ -1734,7 +1734,7 @@ module AdminEditionControllerTestHelpers
         assert_equal [], edition.topical_events
       end
 
-      test "update should remove all topical_events if none specified explicitly" do
+      test "update should remove all topical_events if none specified at all" do
         topical_event = create(:topical_event)
 
         edition = create("draft_#{edition_type}", topical_events: [topical_event])
@@ -1770,7 +1770,7 @@ module AdminEditionControllerTestHelpers
         assert_equal [first_office, second_office], edition.worldwide_offices
       end
 
-      test "update should remove all worldwide offices if none specified explicitly" do
+      test "update should remove all worldwide offices if none specified at all" do
         office = create(:worldwide_office)
         edition = create("draft_#{edition_type}", worldwide_offices: [office])
         put :update, id: edition, edition: controller_attributes_for_instance(edition).except(:worldwide_office_ids)
