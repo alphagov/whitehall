@@ -22,6 +22,8 @@ class WorldLocation < ActiveRecord::Base
 
   translates :name, :title, :mission_statement
 
+  scope :ordered_by_name, ->() { with_translations(I18n.default_locale).order(:name) }
+
   def self.with_announcements
     joins(:editions).where("editions.type" => Announcement.sti_names,
                            "editions.state" => "published"
@@ -49,7 +51,7 @@ class WorldLocation < ActiveRecord::Base
   end
 
   def self.countries
-    where(world_location_type_id: WorldLocationType::Country.id).sort_by(&:name)
+    where(world_location_type_id: WorldLocationType::Country.id).ordered_by_name
   end
 
   validates_with SafeHtmlValidator

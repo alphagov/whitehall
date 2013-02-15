@@ -46,6 +46,29 @@ class WorldLocationTest < ActiveSupport::TestCase
     assert_equal 1, WorldLocation.with_announcements.count
   end
 
+  test 'ordered_by_name sorts by the I18n.default_locale translation for name' do
+    world_location_1 = create(:world_location, name: 'Neverland')
+    world_location_2 = create(:world_location, name: 'Middle Earth')
+    world_location_3 = create(:world_location, name: 'Narnia')
+
+    I18n.with_locale(I18n.default_locale) do
+      assert_equal [world_location_2, world_location_3, world_location_1], WorldLocation.ordered_by_name
+    end
+  end
+
+  test 'ordered_by_name uses the I18n.default_locale ordering even if the current locale is not I18n.default_locale' do
+    world_location_1 = create(:world_location, name: 'Neverland')
+    world_location_2 = create(:world_location, name: 'Middle Earth')
+    world_location_3 = create(:world_location, name: 'Narnia')
+
+    I18n.with_locale(:fr) do
+      world_location_1.name = 'Pays imaginaire'; world_location_1.save
+      world_location_2.name = 'Terre du Milieu'; world_location_2.save
+
+      assert_equal [world_location_2, world_location_3, world_location_1], WorldLocation.ordered_by_name
+    end
+  end
+
   test "should group world locations by type sorted by order" do
     territory_type = WorldLocationType::OverseasTerritory
     country_type = WorldLocationType::Country
