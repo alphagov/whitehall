@@ -23,6 +23,7 @@ class Admin::WorldLocationsControllerTest < ActionController::TestCase
     get :edit, id: world_location
 
     assert_template 'world_locations/edit'
+    assert_select "input[name='world_location[title]']"
     assert_select "textarea[name='world_location[mission_statement]']"
     assert_select '#govspeak_help'
   end

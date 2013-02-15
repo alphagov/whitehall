@@ -6,6 +6,9 @@
     <%= form_for([:admin, @world_location]) do |form| %>
       <%= form.label :world_location_type_id, 'Type' %>
       <%= form.select :world_location_type_id, options_from_collection_for_select(WorldLocationType.all, :id, :name, form.object.world_location_type_id) %>
+
+      <%= form.text_field :title %>
+
       <%= form.text_area :mission_statement %>
 
       <%= form.check_box :active,
