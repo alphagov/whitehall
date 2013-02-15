@@ -27,7 +27,13 @@ class WorldLocation < ActiveRecord::Base
   def self.with_announcements
     joins(:editions).where("editions.type" => Announcement.sti_names,
                            "editions.state" => "published"
-                          ).select("DISTINCT world_locations.*").all
+                          ).select("DISTINCT world_locations.*")
+  end
+
+  def self.with_publications
+    joins(:editions).where("editions.type" => Publicationesque.sti_names,
+                           "editions.state" => "published"
+                          ).select("DISTINCT world_locations.*")
   end
 
   def world_location_type

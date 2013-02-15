@@ -43,7 +43,17 @@ class WorldLocationTest < ActiveSupport::TestCase
     item_a = create(:published_news_article, world_locations: [world_location])
     item_b = create(:published_news_article, world_locations: [world_location])
 
-    assert_equal 1, WorldLocation.with_announcements.count
+    assert_equal [world_location], WorldLocation.with_announcements
+  end
+
+  test "#with_publications should return the world locations with publications" do
+    world_location = create(:world_location)
+    other_world_location = create(:world_location)
+
+    item_a = create(:published_publication, world_locations: [world_location])
+    item_b = create(:published_publication, world_locations: [world_location])
+
+    assert_same_elements [world_location], WorldLocation.with_publications
   end
 
   test 'ordered_by_name sorts by the I18n.default_locale translation for name' do
