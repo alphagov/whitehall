@@ -35,8 +35,8 @@ end
 
 When /^I add a french translation "([^"]*)" to the "([^"]*)" international priority$/ do |french_title, english_title|
   visit admin_edition_path(Edition.find_by_title!(english_title))
-  click_link "Add translation"
   select "Français", from: "Locale"
+  click_button "Add translation"
   fill_in "Title", with: french_title
   fill_in "Summary", with: "French summary"
   fill_in "Body", with: "French body"

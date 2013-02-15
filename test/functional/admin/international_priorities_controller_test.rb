@@ -32,12 +32,47 @@ class Admin::InternationalPrioritiesControllerTest < ActionController::TestCase
   should_prevent_modification_of_unmodifiable :international_priority
   should_allow_access_limiting_of :international_priority
 
-  view_test 'show displays a link to add a new translation' do
+  view_test 'show displays a form to create missing translations' do
     edition = create(:draft_international_priority)
 
     get :show, id: edition
 
-    assert_select "a[href=#{new_admin_edition_translation_path(edition)}]", text: "Add"
+    assert_select "form[action=#{admin_edition_translations_path(edition)}]" do
+      assert_select "select[name=translation_locale]"
+      assert_select "input[type=submit]"
+    end
+  end
+
+  view_test 'show omits existing edition translations from create select' do
+    edition = create(:draft_international_priority)
+    with_locale(:es) { edition.update_attributes!(attributes_for(:draft_international_priority)) }
+
+    get :show, id: edition
+
+    assert_select "select[name=translation_locale]" do
+      assert_select "option[value=es]", count: 0
+    end
+  end
+
+  view_test 'index omits create form if no missing translations' do
+    edition = create(:draft_international_priority)
+    with_locale(:es) { edition.update_attributes!(attributes_for(:draft_international_priority)) }
+    Locale.stubs(:non_english).returns([Locale.new(:es)])
+
+    get :show, id: edition
+
+    assert_select "select[name=translation_locale]", count: 0
+  end
+
+  view_test "show displays a link to edit an existing translation" do
+    edition = create(:draft_international_priority, title: 'english-title', summary: 'english-summary', body: 'english-body')
+    with_locale(:fr) { edition.update_attributes!(title: 'french-title', summary: 'french-summary', body: 'french-body') }
+
+    get :show, id: edition
+
+    assert_select "#translations" do
+      assert_select "a[href='#{edit_admin_edition_translation_path(edition, 'fr')}']", text: 'Edit the French translation'
+    end
   end
 
   view_test "show displays all non-english translations" do

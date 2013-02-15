@@ -12,37 +12,40 @@ class Admin::EditionTranslationsControllerTest < ActionController::TestCase
 
   should_be_an_admin_controller
 
-  view_test 'new presents a form to create a new translation' do
+  test 'create redirects to edit for the chosen language' do
     edition = create(:edition)
+    post :create, edition_id: edition, translation_locale: 'fr'
+    assert_redirected_to edit_admin_edition_translation_path(edition, id: 'fr')
+  end
 
-    get :new, edition_id: edition
+  view_test 'edit indicates which language we are adding a translation for' do
+    edition = create(:edition, title: 'english-title')
 
-    assert_select "form[action=#{admin_edition_translations_path(edition)}]" do
-      assert_select "select[name='translation_locale']"
+    get :edit, edition_id: edition, id: 'fr'
 
-      assert_select "input[type=text][name='edition[title]']"
-      assert_select "textarea[name='edition[summary]'][rows=2][cols=40]"
-      assert_select "textarea[name='edition[body]'][rows=20][cols=40]"
+    assert_select "h1", text: "Edit 'Français (French)' translation for: english-title"
+  end
+
+  view_test 'edit presents a form to update an existing translation' do
+    edition = create(:edition)
+    with_locale(:fr) { edition.update_attributes!(title: 'french-title', summary: 'french-summary', body: 'french-body') }
+
+    get :edit, edition_id: edition, id: 'fr'
+
+    assert_select "form[action=#{admin_edition_translation_path(edition, 'fr')}]" do
+      assert_select "input[type=text][name='edition[title]'][value='french-title']"
+      assert_select "textarea[name='edition[summary]'][rows=2][cols=40]", text: 'french-summary'
+      assert_select "textarea[name='edition[body]'][rows=20][cols=40]", 'french-body'
 
       assert_select "input[type=submit][value=Save]"
       assert_select "a[href=#{admin_edition_path(edition)}]", text: 'cancel'
     end
   end
 
-  view_test 'new does not provide English as a choice of locale' do
-    edition = create(:edition)
-
-    get :new, edition_id: edition
-
-    assert_select "select[name='translation_locale']" do
-      assert_select "option[value=en]", count: 0
-    end
-  end
-
-  test "should create a translation for an edition that's yet to be published, and redirect back to the edition admin page" do
+  test "update creates a translation for an edition that's yet to be published, and redirect back to the edition admin page" do
     edition = create(:draft_edition)
 
-    post :create, edition_id: edition, translation_locale: 'fr', edition: {
+    put :update, edition_id: edition, id: 'fr', edition: {
       title: 'translated-title',
       summary: 'translated-summary',
       body: 'translated-body'
@@ -59,11 +62,11 @@ class Admin::EditionTranslationsControllerTest < ActionController::TestCase
     assert_redirected_to admin_edition_path(edition)
   end
 
-  test "should create a translation for a new draft of a previously published edition" do
+  test "update creates a translation for a new draft of a previously published edition" do
     published_edition = create(:published_edition)
     draft_edition = published_edition.create_draft(@policy_writer)
 
-    post :create, edition_id: draft_edition, translation_locale: 'fr', edition: {
+    put :update, edition_id: draft_edition, id: 'fr', edition: {
       title: 'translated-title',
       summary: 'translated-summary',
       body: 'translated-body'
@@ -78,10 +81,10 @@ class Admin::EditionTranslationsControllerTest < ActionController::TestCase
     end
   end
 
-  test "should not overwrite an existing manually added change note when adding a new translation" do
+  test "update does not overwrite an existing manually added change note when adding a new translation" do
     edition = create(:draft_edition, change_note: 'manually-added-change-note')
 
-    post :create, edition_id: edition, translation_locale: 'fr', edition: {
+    put :update, edition_id: edition, id: 'fr', edition: {
       title: 'translated-title',
       summary: 'translated-summary',
       body: 'translated-body'
@@ -92,10 +95,10 @@ class Admin::EditionTranslationsControllerTest < ActionController::TestCase
     assert_equal 'manually-added-change-note', edition.change_note
   end
 
-  view_test 'create renders the form again if the translation is invalid' do
+  view_test 'update renders the form again, with errors, if the translation is invalid' do
     edition = create(:draft_edition)
 
-    post :create, edition_id: edition, translation_locale: 'fr', edition: {
+    put :update, edition_id: edition, id: 'fr', edition: {
       title: ''
     }
 
