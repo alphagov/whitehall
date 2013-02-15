@@ -5,16 +5,9 @@
 <%= form_for @translated_world_location, url: admin_world_location_translation_path(@translated_world_location, translation_locale), method: :put do |form| %>
   <%= form.errors %>
 
-  <fieldset>
   <%= form.translated_text_field :name %>
-  </fieldset>
-
-  <fieldset>
   <%= form.translated_text_field :title %>
-  </fieldset>
-
-  <fieldset>
   <%= form.translated_text_area :mission_statement %>
-  </fieldset>
+
   <%= form.save_or_cancel cancel: admin_world_location_translations_path(@translated_world_location) %>
 <% end %>
