@@ -13,7 +13,7 @@ class WorldLocationsController < PublicFacingController
       end
       format.html do
         @recently_updated = recently_updated_source.limit(3)
-        @international_priorities = InternationalPriority.published.in_world_location(@world_location).in_reverse_chronological_order
+        @international_priorities = InternationalPriority.with_translations(I18n.locale).published.in_world_location(@world_location).in_reverse_chronological_order
         @policies = PolicyPresenter.decorate(Policy.published.in_world_location(@world_location).in_reverse_chronological_order.limit(3))
         @non_statistics_publications = PublicationesquePresenter.decorate(Publication.published.not_statistics.in_world_location(@world_location).in_reverse_chronological_order.limit(2))
         @statistics_publications = PublicationesquePresenter.decorate(Publication.published.statistics.in_world_location(@world_location).in_reverse_chronological_order.limit(2))

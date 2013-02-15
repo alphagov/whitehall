@@ -5,7 +5,7 @@ es:
         primary_mainstream_category:
   change_notes:
     published: Publicado
-    updated:
+    updated: Actualizado
   contact:
     contact_form:
     email:
@@ -33,12 +33,12 @@ es:
       world_locations:
         one:
         other:
-    published:
-    read:
+    published: Publicado
+    read: Lea el artículo de la '%{title}'
     type:
       announcement:
-        one:
-        other:
+        one: Anuncio
+        other: Anuncios
       case_study:
         one:
         other:
@@ -103,8 +103,8 @@ es:
         one:
         other:
       policy:
-        one:
-        other:
+        one: Política
+        other: Políticas
       policy_paper:
         one:
         other:
@@ -115,8 +115,8 @@ es:
         one:
         other:
       publication:
-        one:
-        other:
+        one: Publicaciones
+        other: Publicacion
       rebuttal:
         one:
         other:
@@ -136,8 +136,8 @@ es:
         one:
         other:
       statistics:
-        one:
-        other:
+        one: Estadística
+        other: Estadística
       transcript:
         one:
         other:
@@ -150,19 +150,19 @@ es:
       written_statement:
         one:
         other:
-    updated:
-    view:
+    updated: Actualizado
+    view: Mirar '%{title}'
   feeds:
-    atom:
+    atom: atom
     email_alerts:
-    latest_activity:
+    latest_activity: Última actividad
   i18n:
     direction:
   language_names:
     es: Español
   latest_feed:
     no_updates:
-    title:
+    title: Actualizaciones más recientes
   number:
     human:
       storage_units:
@@ -202,28 +202,28 @@ es:
       Tribunal non-departmental public body:
         one:
         other:
-  read_more:
+  read_more: Leer más
   support:
     array:
-      last_word_connector:
+      last_word_connector: ' y '
   time:
     formats:
-      long_ordinal:
+      long_ordinal: ! '%e %B %Y %H:%M'
   world_location:
     country:
       Spain: Espagñe
     headings:
-      announcements:
-      country:
-      documents:
-      mission:
-      offices:
-      priorities:
-      publications:
-      related_policies:
-      see_all:
-      statistics:
-    see_all:
+      announcements: Anuncios
+      country: Paìs
+      documents: Documentos
+      mission: Nuestra misión
+      offices: Oficinas
+      priorities: Prioridades
+      publications: Publicaciones
+      related_policies: Las políticas relacionadas
+      see_all: Ver toda nuestra %{type}
+      statistics: Estadística
+    see_all: Ver toda nuestra %{type}
     type:
       country:
         one:
@@ -235,4 +235,4 @@ es:
         one:
         other:
   worldwide_office:
-    find_out_more:
+    find_out_more: Ver el perfil completo y todos los datos de contacto

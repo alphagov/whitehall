@@ -657,4 +657,24 @@ class EditionTest < ActiveSupport::TestCase
     edition.save!
     refute edition.available_in_multiple_languages?
   end
+
+  test ".with_translations should only return editions in the given locale" do
+    untranslated_edition = create(:edition, title: "english-title-a")
+    translated_edition = build(:edition)
+    with_locale(:en) do
+      translated_edition.title = "english-title-b"
+      translated_edition.summary = "english-summary-b"
+      translated_edition.body = "english-body-b"
+    end
+    with_locale(:fr) do
+      translated_edition.title = "french-title-b"
+      translated_edition.summary = "french-summary-b"
+      translated_edition.body = "french-body-b"
+    end
+    translated_edition.save!
+
+    assert_same_elements [untranslated_edition, translated_edition], Edition.with_translations("en")
+    assert_equal [translated_edition], Edition.with_translations("fr")
+    assert_equal [], Edition.with_translations("ja")
+  end
 end
