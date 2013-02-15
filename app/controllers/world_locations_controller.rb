@@ -6,7 +6,7 @@ class WorldLocationsController < PublicFacingController
   end
 
   def show
-    recently_updated_source = @world_location.published_editions.in_reverse_chronological_order
+    recently_updated_source = @world_location.published_editions.with_translations(I18n.locale).in_reverse_chronological_order
     respond_to do |format|
       format.atom do
         @documents = EditionCollectionPresenter.new(recently_updated_source.limit(10))
