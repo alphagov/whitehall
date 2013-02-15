@@ -33,6 +33,9 @@ es:
       world_locations:
         one:
         other:
+      worldwide_offices:
+        one:
+        other:
     published: Publicado
     read: Lea el artículo de la '%{title}'
     type:
