@@ -80,6 +80,9 @@
   }
 
   .what {
+    .label {
+      margin-bottom: $gutter-one-third;
+    }
     .govspeak {
       p {
         @include ig-core-24;
