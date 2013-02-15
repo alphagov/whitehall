@@ -33,6 +33,9 @@ fr:
       world_locations:
         one: Où dans le monde
         other: Endroits du monde
+      worldwide_offices:
+        one:
+        other:
     published: publié
     read: Lire l'article intitulé «%{title}»
     type:

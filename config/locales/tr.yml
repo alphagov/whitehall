@@ -33,6 +33,9 @@ tr:
       world_locations:
         one:
         other:
+      worldwide_offices:
+        one:
+        other:
     published:
     read:
     type:

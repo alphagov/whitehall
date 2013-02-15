@@ -48,6 +48,13 @@ Then /^I should see that it is part of the "([^"]*)"$/ do |sponsoring_organisati
   assert page.has_css?(".sponsoring-organisation", sponsoring_organisation)
 end
 
+Then /^I should see the worldwide office listed on the page$/ do
+  office = WorldwideOffice.last
+  within record_css_selector(office) do
+    assert page.has_content?(office.name)
+  end
+end
+
 Then /^I should see the worldwide office "([^"]*)" on the "([^"]*)" world location page$/ do |office_name, location_name|
   location = WorldLocation.find_by_name(location_name)
   office = WorldwideOffice.find_by_name(office_name)
