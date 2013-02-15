@@ -27,25 +27,24 @@ class Admin::WorldLocationTranslationsControllerTest < ActionController::TestCas
   end
 
   view_test 'index omits existing translations from create select' do
-    @location.translations.create!(name: 'Afrolasie', locale: 'fr', mission_statement: 'Enseigner aux gens comment infuser le thé')
-    get :index, world_location_id: @location
+    location = create(:world_location, translated_into: [:fr])
+    get :index, world_location_id: location
     assert_select "select[name=translation_locale]" do
       assert_select "option[value=fr]", count: 0
     end
   end
 
   view_test 'index omits create form if no missing translations' do
-    @location.translations.create!(name: 'Afrolasie', locale: 'fr', mission_statement: 'Enseigner aux gens comment infuser le thé')
-    @location.translations.create!(name: 'Afrolasie', locale: 'es', mission_statement: 'Enseigner aux gens comment infuser le thé')
-    get :index, world_location_id: @location
+    location = create(:world_location, translated_into: [:fr, :es])
+    get :index, world_location_id: location
     assert_select "select[name=translation_locale]", count: 0
   end
 
   view_test 'index lists existing translations' do
-    @location.translations.create!(name: 'Afrolasie', locale: 'fr', mission_statement: 'Enseigner aux gens comment infuser le thé')
-    get :index, world_location_id: @location
-    edit_translation_path = edit_admin_world_location_translation_path(@location, 'fr')
-    view_location_path = world_location_path(@location, locale: 'fr')
+    location = create(:world_location, translated_into: [:fr])
+    get :index, world_location_id: location
+    edit_translation_path = edit_admin_world_location_translation_path(location, 'fr')
+    view_location_path = world_location_path(location, locale: 'fr')
     assert_select "a[href=#{CGI::escapeHTML(edit_translation_path)}]", text: 'Français'
     assert_select "a[href=#{CGI::escapeHTML(view_location_path)}]", text: 'view'
   end
@@ -62,18 +61,17 @@ class Admin::WorldLocationTranslationsControllerTest < ActionController::TestCas
   end
 
   view_test 'edit indicates which language is being translated to' do
-    @location.translations.create!(name: 'Afrolasie', locale: 'fr', mission_statement: 'Enseigner aux gens comment infuser le thé')
-
+    location = create(:world_location, translated_into: [:fr])
     get :edit, world_location_id: @location, id: 'fr'
-    assert_select "h1", text: "Edit 'Français (French)' translation for: Afrolasia"
+    assert_select "h1", text: /Edit 'Français (French)' translation/
   end
 
   view_test 'edit presents a form to update an existing translation' do
-    @location.translations.create!(name: 'Afrolasie', locale: 'fr', mission_statement: 'Enseigner aux gens comment infuser le thé')
+    location = create(:world_location, translated_into: {fr: {name: 'Afrolasie', mission_statement: 'Enseigner aux gens comment infuser le thé'}})
 
-    get :edit, world_location_id: @location, id: 'fr'
+    get :edit, world_location_id: location, id: 'fr'
 
-    translation_path = admin_world_location_translation_path(@location, 'fr')
+    translation_path = admin_world_location_translation_path(location, 'fr')
 
     assert_select "form[action=#{CGI::escapeHTML(translation_path)}]" do
       assert_select "input[type=text][name='world_location[name]'][value='Afrolasie']"

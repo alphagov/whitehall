@@ -135,7 +135,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
     publication_3 = create(:published_publication, world_locations: [world_location], publication_date: 3.days.ago)
     publication_1 = create(:published_publication, world_locations: [world_location], publication_date: 1.day.ago)
 
-    statistics_publication = create(:published_publication, world_locations: [world_location], publication_date: 1.day.ago, publication_type: PublicationType::Statistics)
+    statistics_publication = create(:published_statistics, world_locations: [world_location], publication_date: 1.day.ago)
 
     get :show, id: world_location
 
@@ -144,9 +144,9 @@ class WorldLocationsControllerTest < ActionController::TestCase
 
   view_test "should display 2 non-statistics publications with details and a link to publications filter if there are many publications" do
     world_location = create(:world_location)
-    publication_2 = create(:published_publication, world_locations: [world_location], publication_date: 2.days.ago.to_date, publication_type: PublicationType::PolicyPaper)
-    publication_3 = create(:published_publication, world_locations: [world_location], publication_date: 3.days.ago.to_date, publication_type: PublicationType::PolicyPaper)
-    publication_1 = create(:published_publication, world_locations: [world_location], publication_date: 1.day.ago.to_date, publication_type: PublicationType::Statistics)
+    publication_2 = create(:published_policy_paper, world_locations: [world_location], publication_date: 2.days.ago.to_date)
+    publication_3 = create(:published_policy_paper, world_locations: [world_location], publication_date: 3.days.ago.to_date)
+    publication_1 = create(:published_statistics, world_locations: [world_location], publication_date: 1.day.ago.to_date)
 
     get :show, id: world_location
 
@@ -163,18 +163,18 @@ class WorldLocationsControllerTest < ActionController::TestCase
 
   test "should display world location's latest two statistics publications in reverse chronological order" do
     world_location = create(:world_location)
-    publication_2 = create(:published_publication, world_locations: [world_location], publication_date: 2.days.ago, publication_type: PublicationType::Statistics)
-    publication_3 = create(:published_publication, world_locations: [world_location], publication_date: 3.days.ago, publication_type: PublicationType::Statistics)
-    publication_1 = create(:published_publication, world_locations: [world_location], publication_date: 1.day.ago, publication_type: PublicationType::NationalStatistics)
+    publication_2 = create(:published_statistics, world_locations: [world_location], publication_date: 2.days.ago)
+    publication_3 = create(:published_statistics, world_locations: [world_location], publication_date: 3.days.ago)
+    publication_1 = create(:published_national_statistics, world_locations: [world_location], publication_date: 1.day.ago)
     get :show, id: world_location
     assert_equal [publication_1, publication_2], assigns[:statistics_publications]
   end
 
   view_test "should display 2 statistics publications with details and a link to publications filter if there are many publications" do
     world_location = create(:world_location)
-    publication_2 = create(:published_publication, world_locations: [world_location], publication_date: 2.days.ago.to_date, publication_type: PublicationType::Statistics)
-    publication_3 = create(:published_publication, world_locations: [world_location], publication_date: 3.days.ago.to_date, publication_type: PublicationType::Statistics)
-    publication_1 = create(:published_publication, world_locations: [world_location], publication_date: 1.day.ago.to_date, publication_type: PublicationType::NationalStatistics)
+    publication_2 = create(:published_statistics, world_locations: [world_location], publication_date: 2.days.ago.to_date)
+    publication_3 = create(:published_statistics, world_locations: [world_location], publication_date: 3.days.ago.to_date)
+    publication_1 = create(:published_national_statistics, world_locations: [world_location], publication_date: 1.day.ago.to_date)
 
     get :show, id: world_location
 
@@ -190,11 +190,11 @@ class WorldLocationsControllerTest < ActionController::TestCase
   end
 
   view_test "should display translated page labels when requested in a different locale" do
-    world_location = create(:country)
-    world_location.translations.create!(name: 'Afrolasie', locale: 'fr', mission_statement: 'Enseigner aux gens comment infuser le thé')
+    world_location = create(:country, translated_into: [:fr])
+
     create(:published_international_priority, world_locations: [world_location], translated_into: [:fr])
-    create(:published_publication, world_locations: [world_location])
-    create(:published_policy, world_locations: [world_location])
+    create(:published_publication, world_locations: [world_location], translated_into: [:fr])
+    create(:published_policy, world_locations: [world_location], translated_into: [:fr])
 
     get :show, id: world_location, locale: 'fr'
 
@@ -205,8 +205,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
   end
 
   test "should only display translated priorities when requested for a locale" do
-    world_location = create(:country)
-    world_location.translations.create!(name: 'Afrolasie', locale: 'fr', mission_statement: 'Enseigner aux gens comment infuser le thé')
+    world_location = create(:country, translated_into: [:fr])
 
     translated_priority = create(:published_international_priority, world_locations: [world_location], translated_into: [:fr])
     untranslated_priority = create(:published_international_priority, world_locations: [world_location])
@@ -214,5 +213,49 @@ class WorldLocationsControllerTest < ActionController::TestCase
     get :show, id: world_location, locale: 'fr'
 
     assert_equal [translated_priority], assigns(:international_priorities)
+  end
+
+  test "should only display translated announcements when requested for a locale" do
+    world_location = create(:country, translated_into: [:fr])
+
+    translated_speech = create(:published_speech, world_locations: [world_location], translated_into: [:fr])
+    untranslated_speech = create(:published_speech, world_locations: [world_location])
+
+    get :show, id: world_location, locale: 'fr'
+
+    assert_equal AnnouncementPresenter.decorate([translated_speech]), assigns(:announcements)
+  end
+
+  test "should only display translated publications when requested for a locale" do
+    world_location = create(:country, translated_into: [:fr])
+
+    translated_publication = create(:published_publication, world_locations: [world_location], translated_into: [:fr])
+    untranslated_publication = create(:published_publication, world_locations: [world_location])
+
+    get :show, id: world_location, locale: 'fr'
+
+    assert_equal PublicationesquePresenter.decorate([translated_publication]), assigns(:non_statistics_publications)
+  end
+
+  test "should only display translated statistics when requested for a locale" do
+    world_location = create(:country, translated_into: [:fr])
+
+    translated_statistics = create(:published_statistics, world_locations: [world_location], translated_into: [:fr])
+    untranslated_statistics = create(:published_statistics, world_locations: [world_location])
+
+    get :show, id: world_location, locale: 'fr'
+
+    assert_equal PublicationesquePresenter.decorate([translated_statistics]), assigns(:statistics_publications)
+  end
+
+  test "should only display translated policies when requested for a locale" do
+    world_location = create(:country, translated_into: [:fr])
+
+    translated_policy = create(:published_policy, world_locations: [world_location], translated_into: [:fr])
+    untranslated_policy = create(:published_policy, world_locations: [world_location])
+
+    get :show, id: world_location, locale: 'fr'
+
+    assert_equal PolicyPresenter.decorate([translated_policy]), assigns(:policies)
   end
 end
