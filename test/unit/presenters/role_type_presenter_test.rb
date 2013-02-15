@@ -62,19 +62,23 @@ class RoleTypePresenterTest < PresenterTestCase
   end
 
   test "should select ambassador" do
-    assert_equal "ambassador", RoleTypePresenter.option_value_for(build(:role), "AmbassadorRole")
+    role = Role.new
+    assert_equal "ambassador", RoleTypePresenter.option_value_for(role, "AmbassadorRole")
   end
 
   test "should select governor" do
-    assert_equal "governor", RoleTypePresenter.option_value_for(build(:role), "GovernorRole")
+    role = Role.new
+    assert_equal "governor", RoleTypePresenter.option_value_for(role, "GovernorRole")
   end
 
   test "should select high commissioner" do
-    assert_equal "high_commissioner", RoleTypePresenter.option_value_for(build(:role), "HighCommissionerRole")
+    role = Role.new
+    assert_equal "high_commissioner", RoleTypePresenter.option_value_for(role, "HighCommissionerRole")
   end
 
   test "should select deputy head of state" do
-    assert_equal "deputy_head_of_mission", RoleTypePresenter.option_value_for(build(:role), "DeputyHeadOfMissionRole")
+    role = Role.new
+    assert_equal "deputy_head_of_mission", RoleTypePresenter.option_value_for(role, "DeputyHeadOfMissionRole")
   end
 
   test "should select worldwide office staff" do
