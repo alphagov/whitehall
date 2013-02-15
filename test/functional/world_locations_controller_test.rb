@@ -192,7 +192,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
   view_test "should display translated page labels when requested in a different locale" do
     world_location = create(:country)
     world_location.translations.create!(name: 'Afrolasie', locale: 'fr', mission_statement: 'Enseigner aux gens comment infuser le thé')
-    create(:published_international_priority, world_locations: [world_location])
+    create(:published_international_priority, world_locations: [world_location], translated_into: [:fr])
     create(:published_publication, world_locations: [world_location])
     create(:published_policy, world_locations: [world_location])
 
@@ -202,5 +202,17 @@ class WorldLocationsControllerTest < ActionController::TestCase
     assert_select "#international-priorities", /Priorités/
     assert_select "#policies", /Les politiques connexes/
     assert_select "#publications a", /Voir toutes nos publications/
+  end
+
+  test "should only display translated priorities when requested for a locale" do
+    world_location = create(:country)
+    world_location.translations.create!(name: 'Afrolasie', locale: 'fr', mission_statement: 'Enseigner aux gens comment infuser le thé')
+
+    translated_priority = create(:published_international_priority, world_locations: [world_location], translated_into: [:fr])
+    untranslated_priority = create(:published_international_priority, world_locations: [world_location])
+
+    get :show, id: world_location, locale: 'fr'
+
+    assert_equal [translated_priority], assigns(:international_priorities)
   end
 end
