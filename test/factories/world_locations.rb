@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :world_location do
+  factory :world_location, traits: [:translated] do
     name 'British Antarctic Territory'
     world_location_type WorldLocationType::OverseasTerritory
   end

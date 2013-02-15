@@ -27,13 +27,12 @@ Rails.application.routes.url_helpers.module_eval do
 end
 
 FactoryGirl.define do
-  factory :edition, class: GenericEdition do
+  factory :edition, class: GenericEdition, traits: [:translated] do
     ignore do
       organisations { [] }
       create_default_organisation { true }
       supporting_organisations { [] }
       lead_organisations { organisations }
-      translated_into { }
     end
     creator
     title "edition-title"
@@ -58,13 +57,6 @@ FactoryGirl.define do
         edition.edition_organisations.build(edition: edition,
                                             organisation: org,
                                             lead: false)
-      end
-      if evaluator.translated_into
-        evaluator.translated_into.each do |locale|
-          edition.class.required_translated_attributes.each do |attribute|
-            edition.write_attribute(attribute, "#{locale}-#{edition.read_attribute(attribute)}", locale: locale)
-          end
-        end
       end
     end
 
