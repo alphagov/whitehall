@@ -2,6 +2,8 @@ module Edition::Publishing
   extend ActiveSupport::Concern
 
   included do
+    has_one :unpublishing, dependent: :destroy
+
     validates :major_change_published_at, presence: true, if: -> edition { edition.published? }
     validate :change_note_present!, if: :change_note_required?
 
@@ -11,6 +13,11 @@ module Edition::Publishing
   module ClassMethods
     def by_major_change_published_at
       order(arel_table[:major_change_published_at].desc)
+    end
+
+    def unpublished_as(slug)
+      document = Document.at_slug(document_type, slug)
+      document && document.latest_edition.unpublishing
     end
   end
 

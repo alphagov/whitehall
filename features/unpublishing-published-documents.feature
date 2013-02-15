@@ -6,5 +6,5 @@ Feature: Unpublishing published documents
   Scenario: Unpublishing a published document
     Given I am a GDS editor
     And a published document "Published by accident" exists
-    When I unpublish the document "Published by accident"
-    Then the document "Published by accident" should not be visible to the public
+    When I unpublish the document because it was published in error
+    Then I should see that the document was published in error on the public site
