@@ -7,4 +7,9 @@ class FactoriesTest < ActiveSupport::TestCase
       assert model_instance.valid?, model_instance.errors.full_messages.to_sentence
     end
   end
+
+  test "should allow building editions with translations" do
+    priority = create(:published_international_priority, translated_into: [:fr, :es])
+    assert_equal 3, priority.translations.length
+  end
 end
