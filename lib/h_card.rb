@@ -15,17 +15,17 @@ class HCard
   end
 
   def render
-    "<div class=\"vcard\">\n<div class=\"adr\">\n#{address_tags}\n</div>\n</div>".html_safe
+    "<div class=\"vcard\">\n<div class=\"adr\">\n#{address_tags}\n</div>\n</div>\n".html_safe
   end
 
   private
 
   def address_tags
-    format_string = format_string_from_country_code
+    address = format_string_from_country_code
     property_keys.each do |key|
-      format_string.gsub!(/\{\{#{key}\}\}/, hcard_property_tag(key))
+      address.gsub!(/\{\{#{key}\}\}/, hcard_property_tag(key))
     end
-    replace_newlines_with_break_tags(format_string)
+    replace_newlines_with_break_tags(address)
   end
 
   def property_keys
@@ -40,8 +40,9 @@ class HCard
     HCard.address_formats[country_code.downcase].dup
   end
 
-
   def replace_newlines_with_break_tags(string)
-    string.gsub(/\n/, "<br />\n")
+    string.
+    gsub(/^\n/,''). # get  rid of blank lines
+    gsub(/\n/, "<br />\n") # add break tags where appropriate
   end
 end
