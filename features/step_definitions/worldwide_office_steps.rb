@@ -86,6 +86,11 @@ Given /^a worldwide office "([^"]*)"$/ do |name|
   create(:worldwide_office, name: name)
 end
 
+Given /^a worldwide office "([^"]*)" exists for the country "([^"]*)" with translations into "([^"]*)"$/ do |name, country_name, translation|
+  country = create(:country, translated_into: [translation])
+  create(:worldwide_office, name: name, world_locations: [country])
+end
+
 When /^I add a "([^"]*)" social media link "([^"]*)"$/ do |social_service, url|
   visit admin_worldwide_office_path(WorldwideOffice.last)
   click_link "Social Media Accounts"
@@ -191,4 +196,69 @@ Then /^I should not see his picture on the worldwide office page$/ do
   within record_css_selector(person) do
     refute page.has_css?('img')
   end
+end
+
+def add_translation_to_worldwide_office(worldwide_office, translation)
+  translation = translation.stringify_keys
+  visit admin_worldwide_offices_path
+  within record_css_selector(worldwide_office) do
+    click_link "Manage translations"
+  end
+
+  select translation["locale"], from: "Locale"
+  click_on "Create translation"
+  fill_in "Name", with: translation["name"]
+  fill_in "Summary", with: translation["summary"]
+  fill_in "Description", with: translation["description"]
+  fill_in "Services", with: translation["services"]
+  click_on "Save"
+end
+
+def edit_translation_for_worldwide_office(locale, name, translation)
+  location = WorldwideOffice.find_by_name!(name)
+  visit admin_worldwide_offices_path
+  within record_css_selector(location) do
+    click_link "Manage translations"
+  end
+  click_link locale
+  fill_in "Name", with: translation["name"]
+  fill_in "Summary", with: translation["summary"]
+  fill_in "Description", with: translation["description"]
+  fill_in "Services", with: translation["services"]
+  click_on "Save"
+end
+
+When /^I add a new translation to the worldwide office "([^"]*)" with:$/ do |name, table|
+  worldwide_office = WorldwideOffice.find_by_name!(name)
+  add_translation_to_worldwide_office(worldwide_office, table.rows_hash)
+end
+
+Then /^when viewing the worldwide office "([^"]*)" with the locale "([^"]*)" I should see:$/ do |name, locale, table|
+  worldwide_office = WorldwideOffice.find_by_name!(name)
+  translation = table.rows_hash
+
+  visit world_location_path(worldwide_office.world_locations.first, locale: locale)
+  within record_css_selector(worldwide_office) do
+    assert page.has_css?('.name', text: translation["name"]), "Name wasn't present on associated world location page"
+  end
+
+  # until links preserve locale, we cannot do this:
+  #     click_link translation["name"]
+  # so instead, we check the link is at least present with the right text, and then visit it with the right locale
+  assert page.has_link?(translation["name"], href: worldwide_office_path(worldwide_office))
+  visit worldwide_office_path(worldwide_office, locale: locale)
+
+  assert page.has_css?('.summary', text: translation["summary"]), "Summary wasn't present"
+  assert page.has_css?('.description', text: translation["description"]), "Description wasn't present"
+  assert page.has_css?('.content', text: translation["services"]), "Services wasn't present"
+end
+
+Given /^a worldwide office "([^"]*)" exists with a translation for the locale "([^"]*)"$/ do |name, native_locale_name|
+  locale_code = Locale.find(native_locale_name).code
+  country = create(:world_location, world_location_type: WorldLocationType::Country, translated_into: [locale_code])
+  create(:worldwide_office, name: name, world_locations: [country], translated_into: [locale_code])
+end
+
+When /^I edit the "([^"]*)" translation for the worldwide office "([^"]*)" setting:$/ do |locale, name, table|
+  edit_translation_for_worldwide_office(locale, name, table.rows_hash)
 end

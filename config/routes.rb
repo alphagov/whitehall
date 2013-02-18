@@ -107,6 +107,7 @@ Whitehall::Application.routes.draw do
             get :contacts
             get :social_media_accounts
           end
+          resources :translations, controller: 'worldwide_offices_translations'
         end
         resources :contacts
         resources :social_media_accounts

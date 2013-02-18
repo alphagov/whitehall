@@ -9,6 +9,10 @@ class Locale < Struct.new(:code)
     def non_english
       all - [Locale.new(:en)]
     end
+
+    def find(native_language_name)
+      all.find { |l| l.native_language_name == native_language_name }
+    end
   end
 
   def native_language_name
