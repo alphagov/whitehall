@@ -36,16 +36,6 @@ When /^I view the (?:country|overseas territory|international delegation) "([^"]
   visit world_location_path(world_location)
 end
 
-When /^I add contact details for the embassy in "([^"]*)"$/ do |name|
-  visit admin_root_path
-  click_link "World locations"
-  click_link name
-  fill_in "Embassy address", with: "1 Rue du la Vache"
-  fill_in "Embassy telephone", with: "08 71 23 45 67"
-  fill_in "Embassy email", with: "hubert.bonniseur-de-la-bath@oss.fr"
-  click_button "Save"
-end
-
 When /^I navigate to the "([^"]*)" (?:country|overseas territory|international delegation)'s (home) page$/ do |world_location_name, page_name|
   within('.world_location nav') do
     click_link \
@@ -112,14 +102,6 @@ Then /^I should see the featured items of the (?:country|overseas territory|inte
   end
   expected_table.diff!(table)
   expected_table.diff!(table)
-end
-
-Then /^I should see contact details for the embassy in "([^"]*)"$/ do |name|
-  world_location = WorldLocation.find_by_name!(name)
-  visit world_location_path(world_location)
-  assert page.has_css?(".embassy_address", world_location.embassy_address)
-  assert page.has_css?(".embassy_telephone", world_location.embassy_telephone)
-  assert page.has_css?(".embassy_email", world_location.embassy_email)
 end
 
 Then /^I should see the "([^"]*)" (?:country|overseas territory|international delegation)'s (home) page$/ do |world_location_name, page_name|
