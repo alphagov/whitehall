@@ -28,6 +28,10 @@ class HCardAddressTest < ActiveSupport::TestCase
     assert_equal gb_addr_without_region, HCardAddress.new(fields_without_region, 'GB').render
   end
 
+  test "it defaults to UK format" do
+    assert_equal gb_addr, HCardAddress.new(addr_fields, 'FUBAR').render
+  end
+
   def addr_fields
     { 'fn' => 'Recipient',
       'street-address' => 'Street',

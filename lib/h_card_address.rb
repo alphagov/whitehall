@@ -37,7 +37,11 @@ class HCardAddress
   end
 
   def format_string_from_country_code
-    HCardAddress.address_formats[country_code.downcase].dup
+    (HCardAddress.address_formats[country_code.downcase] || default_format_string).dup
+  end
+
+  def default_format_string
+    HCardAddress.address_formats['gb']
   end
 
   def replace_newlines_with_break_tags(string)
