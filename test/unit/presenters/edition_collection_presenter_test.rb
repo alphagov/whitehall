@@ -28,9 +28,9 @@ class EditionCollectionPresenterTest < PresenterTestCase
     assert_kind_of DetailedGuidePresenter, collection.first
   end
 
-  test "should wrap international priority in an international priority presenter" do
-    collection = EditionCollectionPresenter.new([InternationalPriority.new])
-    assert_kind_of InternationalPriorityPresenter, collection.first
+  test "should wrap worldwide priority in a worldwide priority presenter" do
+    collection = EditionCollectionPresenter.new([WorldwidePriority.new])
+    assert_kind_of WorldwidePriorityPresenter, collection.first
   end
 
   test "should wrap case studies in a case study presenter" do

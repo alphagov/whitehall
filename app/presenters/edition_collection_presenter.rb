@@ -39,8 +39,8 @@ class EditionCollectionPresenter
       NewsArticlePresenter
     when DetailedGuide
       DetailedGuidePresenter
-    when InternationalPriority
-      InternationalPriorityPresenter
+    when WorldwidePriority
+      WorldwidePriorityPresenter
     when CaseStudy
       CaseStudyPresenter
     when FatalityNotice

@@ -1,14 +1,14 @@
 # encoding: utf-8
 require "test_helper"
 
-class InternationalPrioritiesControllerTest < ActionController::TestCase
+class WorldwidePrioritiesControllerTest < ActionController::TestCase
   should_be_a_public_facing_controller
-  should_render_a_list_of :international_priorities
-  should_show_the_world_locations_associated_with :international_priority
-  should_display_inline_images_for :international_priority
+  should_render_a_list_of :worldwide_priorities
+  should_show_the_world_locations_associated_with :worldwide_priority
+  should_display_inline_images_for :worldwide_priority
 
-  view_test "show displays international priority details" do
-    priority = create(:published_international_priority,
+  view_test "show displays worldwide priority details" do
+    priority = create(:published_worldwide_priority,
       title: "priority-title",
       body: "priority-body",
     )
@@ -23,7 +23,7 @@ class InternationalPrioritiesControllerTest < ActionController::TestCase
     first_organisation = create(:organisation)
     second_organisation = create(:organisation)
     third_organisation = create(:organisation)
-    edition = create(:published_international_priority, organisations: [first_organisation, second_organisation])
+    edition = create(:published_worldwide_priority, organisations: [first_organisation, second_organisation])
 
     get :show, id: edition.document
 
@@ -33,7 +33,7 @@ class InternationalPrioritiesControllerTest < ActionController::TestCase
   end
 
   view_test "should not display an empty list of organisations" do
-    edition = create(:published_international_priority, organisations: [])
+    edition = create(:published_worldwide_priority, organisations: [])
 
     get :show, id: edition.document
 
@@ -41,7 +41,7 @@ class InternationalPrioritiesControllerTest < ActionController::TestCase
   end
 
   view_test "should display translated page labels when requested in a different locale" do
-    edition = create(:published_international_priority)
+    edition = create(:published_worldwide_priority)
 
     get :show, id: edition.document, locale: 'fr'
 
