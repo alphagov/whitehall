@@ -21,6 +21,7 @@
         width: 25%;
         h4 {
           @include core-16;
+          padding-top: $gutter-one-third;
         }
         ul li {
           @include core-16;
@@ -317,7 +318,7 @@
   }
   
   h1 {
-    @include ig-core-48;
+    @include heading-48;
     font-weight: bold;
     margin: 0 0 $gutter;
     @include media(desktop) {
