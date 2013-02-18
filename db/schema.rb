@@ -397,6 +397,8 @@ ActiveRecord::Schema.define(:version => 20130215164855) do
   add_index "edition_worldwide_offices", ["worldwide_office_id"], :name => "index_edition_worldwide_offices_on_worldwide_office_id"
 
   create_table "editions", :force => true do |t|
+    t.string   "title"
+    t.text     "body",                                        :limit => 16777215
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "lock_version",                                                    :default => 0
@@ -411,6 +413,7 @@ ActiveRecord::Schema.define(:version => 20130215164855) do
     t.datetime "major_change_published_at"
     t.datetime "first_published_at"
     t.date     "publication_date"
+    t.text     "summary"
     t.integer  "speech_type_id"
     t.boolean  "stub",                                                            :default => false
     t.text     "change_note"
@@ -435,9 +438,6 @@ ActiveRecord::Schema.define(:version => 20130215164855) do
     t.text     "govdelivery_url"
     t.integer  "news_article_type_id"
     t.boolean  "relevant_to_local_government",                                    :default => false
-    t.string   "title"
-    t.text     "summary"
-    t.text     "body",                                        :limit => 16777215
   end
 
   add_index "editions", ["alternative_format_provider_id"], :name => "index_editions_on_alternative_format_provider_id"
@@ -672,6 +672,7 @@ ActiveRecord::Schema.define(:version => 20130215164855) do
     t.string   "analytics_identifier"
     t.boolean  "handles_fatalities",               :default => false
     t.text     "govdelivery_url"
+    t.integer  "important_board_members",          :default => 1
   end
 
   add_index "organisations", ["organisation_logo_type_id"], :name => "index_organisations_on_organisation_logo_type_id"

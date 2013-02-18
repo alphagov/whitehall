@@ -23,6 +23,22 @@ class OrganisationHelperTest < ActionView::TestCase
     assert_match /organisation-slug-yeah/, div.attr('class').value
   end
 
+  test 'extra_board_member_class returns clear_person at correct interval when many important board members' do
+    organisation = stub('organistion', important_board_members: 2)
+    assert_equal 'clear-person', extra_board_member_class(organisation, 0)
+    assert_equal '', extra_board_member_class(organisation, 1)
+    assert_equal '', extra_board_member_class(organisation, 2)
+    assert_equal '', extra_board_member_class(organisation, 3)
+    assert_equal 'clear-person', extra_board_member_class(organisation, 4)
+  end
+
+  test 'extra_board_member_class returns clear_person at correct interval when one important board member' do
+    organisation = stub('organistion', important_board_members: 1)
+    assert_equal 'clear-person', extra_board_member_class(organisation, 0)
+    assert_equal '', extra_board_member_class(organisation, 1)
+    assert_equal '', extra_board_member_class(organisation, 2)
+    assert_equal 'clear-person', extra_board_member_class(organisation, 3)
+  end
 end
 
 class OrganisationHelperDisplayNameWithParentalRelationshipTest < ActionView::TestCase

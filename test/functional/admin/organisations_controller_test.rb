@@ -34,7 +34,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert_select "input[type=text][name='organisation[organisation_mainstream_links_attributes][0][title]']"
   end
 
-  view_test "should show govdelivery field for gds editors" do
+  view_test "should show allow entry of gds editor only data" do
     login_as :gds_editor
 
     get :new
@@ -42,7 +42,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert_select 'input#organisation_govdelivery_url'
   end
 
-  view_test "should not show govdelivery field for non gds admins" do
+  view_test "should not show gds admin only fields to non gds admins" do
     get :new
 
     refute_select 'input#organisation_govdelivery_url'
@@ -367,6 +367,20 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     organisation = create(:organisation, roles: [create(:ministerial_role)])
     get :edit, id: organisation
     assert_select "fieldset#minister_ordering.sortable input.ordering[name^='organisation[organisation_roles_attributes]']"
+  end
+
+  view_test "editing allows entry of important board members only data to gds editors" do
+    login_as :gds_editor
+    junior_board_member_role = create(:board_member_role)
+    senior_board_member_role = create(:board_member_role)
+
+    organisation = create(:organisation)
+    organisation_senior_board_member_role = create(:organisation_role, organisation: organisation, role: senior_board_member_role)
+    organisation_junior_board_member_role = create(:organisation_role, organisation: organisation, role: junior_board_member_role)
+
+    get :edit, id: organisation
+
+    assert_select 'select#organisation_important_board_members option', count: 2
   end
 
   test "allows updating of organisation role ordering" do
