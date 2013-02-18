@@ -51,7 +51,9 @@ module DocumentFilterHelper
   def all_locations_with(type)
     case type
     when :announcement
-      WorldLocation.with_announcements
+      WorldLocation.with_announcements.ordered_by_name
+    when :publication
+      WorldLocation.with_publications.ordered_by_name
     end
   end
 

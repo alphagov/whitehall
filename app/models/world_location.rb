@@ -22,10 +22,18 @@ class WorldLocation < ActiveRecord::Base
 
   translates :name, :title, :mission_statement
 
+  scope :ordered_by_name, ->() { with_translations(I18n.default_locale).order(:name) }
+
   def self.with_announcements
     joins(:editions).where("editions.type" => Announcement.sti_names,
                            "editions.state" => "published"
-                          ).select("DISTINCT world_locations.*").all
+                          ).select("DISTINCT world_locations.*")
+  end
+
+  def self.with_publications
+    joins(:editions).where("editions.type" => Publicationesque.sti_names,
+                           "editions.state" => "published"
+                          ).select("DISTINCT world_locations.*")
   end
 
   def world_location_type
@@ -45,11 +53,11 @@ class WorldLocation < ActiveRecord::Base
   end
 
   def self.all_by_type
-    all.group_by(&:world_location_type).sort_by { |type, location| type.sort_order }
+    ordered_by_name.group_by(&:world_location_type).sort_by { |type, location| type.sort_order }
   end
 
   def self.countries
-    where(world_location_type_id: WorldLocationType::Country.id).sort_by(&:name)
+    where(world_location_type_id: WorldLocationType::Country.id).ordered_by_name
   end
 
   validates_with SafeHtmlValidator

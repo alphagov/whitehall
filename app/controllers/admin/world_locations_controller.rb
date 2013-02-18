@@ -3,7 +3,7 @@ class Admin::WorldLocationsController < Admin::BaseController
   before_filter :load_news_articles, only: [:edit, :update]
 
   def index
-    @world_locations = WorldLocation.all.sort_by(&:name)
+    @world_locations = WorldLocation.ordered_by_name
   end
 
   def edit
