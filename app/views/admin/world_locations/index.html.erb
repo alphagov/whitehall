@@ -5,7 +5,6 @@
   <thead>
     <tr>
       <th width="15%">Name</th>
-      <th>Embassy</th>
     </tr>
   </thead>
   <tbody>
@@ -16,9 +15,6 @@
           - <%= link_to "view", world_location, title: "View #{world_location.name} on the public website" %><br />
           - <%= link_to "manage translations", admin_world_location_translations_path(world_location), title: "Manage translations of #{world_location.name}" %><br />
           - <%= link_to "featured items", [:admin, world_location, :featurings], title: "Manage featurings on #{world_location.name}" %><br />
-        </td>
-        <td class="description">
-          <%= safe_join([world_location.embassy_address, world_location.embassy_telephone, mail_to(world_location.embassy_email)], "<br/>".html_safe) %>
         </td>
       <% end %>
     <% end %>
