@@ -58,3 +58,30 @@ Feature: Administering worldwide offices
 
   Scenario: Adding office hours to a worldwide office
   Scenario: Adding corporate information pages to offices
+
+  Scenario: Adding a new translation
+    Given a worldwide office "Department of Beards in France" exists for the country "France" with translations into "fr"
+    When I add a new translation to the worldwide office "Department of Beards in France" with:
+      | locale      | Français                                          |
+      | name        | Département des barbes en France                  |
+      | summary     | Nous nous occupons de la pilosité faciale du pays |
+      | description | Barbes, moustaches, même rouflaquettes            |
+      | services    | Montante, pommades, humide rase                   |
+    Then when viewing the worldwide office "Department of Beards in France" with the locale "fr" I should see:
+      | name        | Département des barbes en France                  |
+      | summary     | Nous nous occupons de la pilosité faciale du pays |
+      | description | Barbes, moustaches, même rouflaquettes            |
+      | services    | Montante, pommades, humide rase                   |
+
+  Scenario: Editing an existing translation
+    Given a worldwide office "Department of Beards in France" exists with a translation for the locale "Français"
+    When I edit the "Français" translation for the worldwide office "Department of Beards in France" setting:
+      | name        | Le super département des barbes en France         |
+      | summary     | Nous nous occupons de la pilosité faciale du pays |
+      | description | Barbes, moustaches, même rouflaquettes            |
+      | services    | Montante, pommades, humide rase                   |
+    Then when viewing the worldwide office "Department of Beards in France" with the locale "fr" I should see:
+      | name        | Le super département des barbes en France         |
+      | summary     | Nous nous occupons de la pilosité faciale du pays |
+      | description | Barbes, moustaches, même rouflaquettes            |
+      | services    | Montante, pommades, humide rase                   |

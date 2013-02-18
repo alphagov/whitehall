@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130218095644) do
+ActiveRecord::Schema.define(:version => 20130218120402) do
 
   create_table "attachment_data", :force => true do |t|
     t.string   "carrierwave_file"
@@ -397,8 +397,6 @@ ActiveRecord::Schema.define(:version => 20130218095644) do
   add_index "edition_worldwide_offices", ["worldwide_office_id"], :name => "index_edition_worldwide_offices_on_worldwide_office_id"
 
   create_table "editions", :force => true do |t|
-    t.string   "title"
-    t.text     "body",                                        :limit => 16777215
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "lock_version",                                                    :default => 0
@@ -413,7 +411,6 @@ ActiveRecord::Schema.define(:version => 20130218095644) do
     t.datetime "major_change_published_at"
     t.datetime "first_published_at"
     t.date     "publication_date"
-    t.text     "summary"
     t.integer  "speech_type_id"
     t.boolean  "stub",                                                            :default => false
     t.text     "change_note"
@@ -438,6 +435,9 @@ ActiveRecord::Schema.define(:version => 20130218095644) do
     t.text     "govdelivery_url"
     t.integer  "news_article_type_id"
     t.boolean  "relevant_to_local_government",                                    :default => false
+    t.string   "title"
+    t.text     "summary"
+    t.text     "body",                                        :limit => 16777215
   end
 
   add_index "editions", ["alternative_format_provider_id"], :name => "index_editions_on_alternative_format_provider_id"
@@ -879,6 +879,20 @@ ActiveRecord::Schema.define(:version => 20130218095644) do
 
   add_index "worldwide_office_roles", ["role_id"], :name => "index_worldwide_office_roles_on_role_id"
   add_index "worldwide_office_roles", ["worldwide_office_id"], :name => "index_worldwide_office_roles_on_worldwide_office_id"
+
+  create_table "worldwide_office_translations", :force => true do |t|
+    t.integer  "worldwide_office_id"
+    t.string   "locale"
+    t.string   "name"
+    t.text     "summary"
+    t.text     "description"
+    t.text     "services"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "worldwide_office_translations", ["locale"], :name => "index_worldwide_office_translations_on_locale"
+  add_index "worldwide_office_translations", ["worldwide_office_id"], :name => "index_worldwide_office_translations_on_worldwide_office_id"
 
   create_table "worldwide_office_world_locations", :force => true do |t|
     t.integer  "worldwide_office_id"

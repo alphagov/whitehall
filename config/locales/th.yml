@@ -33,6 +33,9 @@ th:
       world_locations:
         one:
         other:
+      worldwide_offices:
+        one:
+        other:
     published:
     read:
     type:
@@ -235,4 +238,9 @@ th:
         one:
         other:
   worldwide_office:
+    about_us:
+    contact_us:
     find_out_more:
+    our_people:
+    our_services:
+    part_of:

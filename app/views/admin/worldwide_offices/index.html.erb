@@ -10,6 +10,7 @@
   <thead>
     <tr>
       <th width="40%">Name</th>
+      <th width="15%">Translations</th>
       <th width="35%">Summary</th>
     </tr>
   </thead>
@@ -19,6 +20,7 @@
         <td class="name">
           <%= link_to worldwide_office.name, admin_worldwide_office_path(worldwide_office), title: "View #{worldwide_office.name}" %><br/>
         </td>
+        <td><%= link_to "Manage translations", admin_worldwide_office_translations_path(worldwide_office), title: "Manage translations of #{worldwide_office.name}" %></td>
         <td><%= worldwide_office.summary %></td>
       <% end %>
     <% end %>
