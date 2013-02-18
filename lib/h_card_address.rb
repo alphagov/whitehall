@@ -9,6 +9,16 @@ class HCardAddress
     @address_formats
   end
 
+  def self.from_contact(contact)
+    properties =  { 'fn' => contact.recipient,
+                    'street-address' => contact.street_address,
+                    'postal-code' => contact.postal_code,
+                    'locality' => contact.locality,
+                    'region' => contact.region,
+                    'country-name' => contact.country_name }
+    new(properties, contact.country_code)
+  end
+
   def initialize(properties, country_code)
     @properties = properties
     @country_code = country_code

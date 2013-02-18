@@ -60,6 +60,16 @@ class ContactTest < ActiveSupport::TestCase
     assert contact.valid?
   end
 
+  test "should return a country code" do
+    contact = build(:contact, country: create(:country, :iso2 => 'GB'))
+    assert_equal 'GB', contact.country_code
+  end
+
+  test "should return a country name" do
+    contact = build(:contact, country: create(:country, :name => 'United Kingdom'))
+    assert_equal 'United Kingdom', contact.country_name
+  end
+
   test "should allow creation of nested contact numbers" do
     contact = create(:contact, contact_numbers_attributes: [{label: "Telephone", number: "123"}])
     assert_equal 1, contact.contact_numbers.count

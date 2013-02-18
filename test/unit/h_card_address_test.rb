@@ -32,6 +32,18 @@ class HCardAddressTest < ActiveSupport::TestCase
     assert_equal gb_addr, HCardAddress.new(addr_fields, 'FUBAR').render
   end
 
+  test "it builds from a Contact" do
+    contact = build( :contact,
+                      recipient: 'Recipient',
+                      street_address: 'Street',
+                      locality: 'Locality',
+                      region: 'Region',
+                      postal_code: 'Postcode',
+                      country: create(:country, name: 'Country', iso2: 'GB') )
+    hcard = HCardAddress.from_contact(contact)
+    assert_equal gb_addr, hcard.render
+  end
+
   def addr_fields
     { 'fn' => 'Recipient',
       'street-address' => 'Street',
