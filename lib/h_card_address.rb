@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 class HCardAddress
   attr_reader :properties, :country_code
 
