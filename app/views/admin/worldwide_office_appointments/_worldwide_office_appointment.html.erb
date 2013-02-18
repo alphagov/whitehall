@@ -1,6 +1,0 @@
-<%= content_tag_for(:dl, worldwide_office_appointment, class: "dl-horizontal") do %>
-  <%= definition('Job title', worldwide_office_appointment.job_title) %>
-  <%= definition('Currently held by', worldwide_office_appointment.person.try(:name)) %>
-  <%= button_to "Delete", admin_worldwide_office_worldwide_office_appointment_path(worldwide_office, worldwide_office_appointment), method: "delete", class: "btn btn-small btn-danger", confirm: "Delete '#{worldwide_office_appointment.job_title}' appointment from #{worldwide_office.name}?" %>
-  <%= link_to icon("Edit"), edit_admin_worldwide_office_worldwide_office_appointment_path(worldwide_office, worldwide_office_appointment), class: "btn" %>
-<% end %>

@@ -1,0 +1,2 @@
+class WorldwideOfficeStaffRole < Role
+end

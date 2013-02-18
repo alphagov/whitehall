@@ -11,7 +11,6 @@ class WorldwideOffice < ActiveRecord::Base
   has_many :worldwide_office_roles, dependent: :destroy
   has_many :roles, through: :worldwide_office_roles
   has_many :people, through: :roles
-  has_many :worldwide_office_appointments, dependent: :destroy
 
   alias :original_main_contact :main_contact
 
@@ -43,5 +42,9 @@ class WorldwideOffice < ActiveRecord::Base
 
   def secondary_role
     roles.where(type: DeputyHeadOfMissionRole.name).first
+  end
+
+  def office_staff_roles
+    roles.where(type: WorldwideOfficeStaffRole.name)
   end
 end
