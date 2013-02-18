@@ -3,6 +3,34 @@
     clear:both;
   }
 
+  .header-block {
+    .inner-block {
+      padding: $gutter*1.5 $gutter-half 0;
+
+      .how-gov-works, .jump-links {
+        float: left;
+        display: inline;
+        width: 66.66%;
+        .content {
+          padding: 0 $gutter-half;
+        }
+      }
+
+      .jump-links {
+        float: right;
+        width: 25%;
+        h4 {
+          @include core-16;
+        }
+        ul li {
+          @include core-16;
+          list-style: none;
+          margin-left: 0;
+        }
+      }
+    }
+  }
+
   p, li{
     @include ig-core-19;
     a {
@@ -348,7 +376,7 @@
       margin-top: $gutter-half;
     }
   }
-  .block-1, .block-2 {
+  .block {
     float: none;
     display: block;
     width: 100%;
