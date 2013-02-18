@@ -3,7 +3,7 @@ class Admin::WorldwideOfficesTranslationsController < Admin::BaseController
   helper_method :translation_locale
 
   def index
-    @translated_locales = (worldwide_office.translated_locales - [:en]).map {|l| Locale.new(l)}
+    @translated_locales = (worldwide_office.translated_locales - [I18n.default_locale]).map {|l| Locale.new(l)}
     @missing_locales = Locale.non_english - @translated_locales
   end
 
