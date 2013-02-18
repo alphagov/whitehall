@@ -283,7 +283,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
     assert_equal [translated_publication], assigns(:recently_updated)
   end
 
-  view_test "retrictis atom feed entries to those with the current locale" do
+  view_test "restricts atom feed entries to those with the current locale" do
     world_location = create(:world_location, translated_into: [:fr])
 
     translated_edition = create(:published_publication, world_locations: [world_location], translated_into: [:fr])
