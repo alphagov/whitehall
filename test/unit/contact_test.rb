@@ -61,12 +61,12 @@ class ContactTest < ActiveSupport::TestCase
   end
 
   test "should return a country code" do
-    contact = build(:contact, country: create(:country, :iso2 => 'GB'))
+    contact = build(:contact, country: create(:country, iso2: 'GB'))
     assert_equal 'GB', contact.country_code
   end
 
   test "should return a country name" do
-    contact = build(:contact, country: create(:country, :name => 'United Kingdom'))
+    contact = build(:contact, country: create(:country, name: 'United Kingdom'))
     assert_equal 'United Kingdom', contact.country_name
   end
 
