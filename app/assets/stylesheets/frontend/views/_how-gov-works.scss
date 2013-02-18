@@ -5,20 +5,23 @@
 
   .header-block {
     .inner-block {
-      padding: $gutter*1.5 $gutter-half 0;
+      padding: $gutter*1.5 0 0;
+      @include media(tablet) {
+        padding: $gutter*1.5 $gutter-half 0;
+      }
 
       .how-gov-works, .jump-links {
-        float: left;
-        display: inline;
-        width: 66.66%;
         .content {
           padding: 0 $gutter-half;
+        }
+        @include media(tablet) {
+          float: left;
+          display: inline;
+          width: 66.66%;
         }
       }
 
       .jump-links {
-        float: right;
-        width: 25%;
         h4 {
           @include core-16;
           padding-top: $gutter-one-third;
@@ -27,6 +30,10 @@
           @include core-16;
           list-style: none;
           margin-left: 0;
+        }
+        @include media(tablet) {
+          float: right;
+          width: 25%;
         }
       }
     }
@@ -386,7 +393,10 @@
    
   p.intro {
     @include core-27;
-    margin-bottom:$gutter*2;
+    margin-bottom:$gutter;
+    @include media(tablet) {
+      margin-bottom:$gutter*2;      
+    }
   }
   p.small-print {
     @include ig-core-14;
