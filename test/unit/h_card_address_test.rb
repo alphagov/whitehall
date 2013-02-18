@@ -44,6 +44,18 @@ class HCardAddressTest < ActiveSupport::TestCase
     assert_equal es_addr, hcard.render
   end
 
+  test "it ignores the country name when building a GB contact" do
+    contact = build( :contact,
+                      recipient: 'Recipient',
+                      street_address: 'Street',
+                      locality: 'Locality',
+                      region: 'Region',
+                      postal_code: 'Postcode',
+                      country: create(:country, name: 'Country', iso2: 'GB') )
+    hcard = HCardAddress.from_contact(contact)
+    assert_equal addr_without_country, hcard.render
+  end
+
   def addr_fields
     { 'fn' => 'Recipient',
       'street-address' => 'Street',
@@ -97,6 +109,19 @@ class HCardAddressTest < ActiveSupport::TestCase
     <span class="locality">Locality</span><br />
     <span class="postal-code">Postcode</span><br />
     <span class="country-name">Country</span>
+    </div>
+    EOF
+  end
+
+  def addr_without_country
+    <<-EOF.strip_heredoc
+    <div class="adr">
+    <span class="fn">Recipient</span><br />
+    <span class="street-address">Street</span><br />
+    <span class="locality">Locality</span><br />
+    <span class="region">Region</span><br />
+    <span class="postal-code">Postcode</span><br />
+
     </div>
     EOF
   end

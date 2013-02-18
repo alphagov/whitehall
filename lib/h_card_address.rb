@@ -14,12 +14,13 @@ class HCardAddress
   end
 
   def self.contact_properties(contact)
-    { 'fn' => contact.recipient,
-      'street-address' => contact.street_address,
-      'postal-code' => contact.postal_code,
-      'locality' => contact.locality,
-      'region' => contact.region,
-      'country-name' => contact.country_name }
+    properties =  { 'fn' => contact.recipient,
+                    'street-address' => contact.street_address,
+                    'postal-code' => contact.postal_code,
+                    'locality' => contact.locality,
+                    'region' => contact.region }
+    properties['country-name'] = contact.country_name unless contact.country_code == 'GB'
+    properties
   end
 
   def initialize(properties, country_code)
