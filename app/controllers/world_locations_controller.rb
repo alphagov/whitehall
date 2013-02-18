@@ -6,7 +6,7 @@ class WorldLocationsController < PublicFacingController
   end
 
   def show
-    recently_updated_source = @world_location.published_editions.in_reverse_chronological_order
+    recently_updated_source = @world_location.published_editions.with_translations(I18n.locale).in_reverse_chronological_order
     respond_to do |format|
       format.atom do
         @documents = EditionCollectionPresenter.new(recently_updated_source.limit(10))
@@ -19,7 +19,7 @@ class WorldLocationsController < PublicFacingController
         @non_statistics_publications = PublicationesquePresenter.decorate(publications.not_statistics.limit(2))
         @statistics_publications = PublicationesquePresenter.decorate(publications.statistics.limit(2))
         @announcements = AnnouncementPresenter.decorate(Announcement.with_translations(I18n.locale).published.in_world_location(@world_location).in_reverse_chronological_order.limit(2))
-        @featured_editions = FeaturedEditionPresenter.decorate(@world_location.featured_edition_world_locations.limit(5))
+        @featured_editions = FeaturedEditionPresenter.decorate(@world_location.featured_edition_world_locations.with_translations(I18n.locale).limit(5))
         @worldwide_offices = @world_location.worldwide_offices
       end
     end

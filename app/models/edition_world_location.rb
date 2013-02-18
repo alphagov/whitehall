@@ -8,4 +8,6 @@ class EditionWorldLocation < ActiveRecord::Base
 
   validates :edition, :world_location, presence: true
   validates :image, :alt_text, presence: true, if: :featured?
+
+  scope :with_translations, lambda { |*locales| joins(edition: :translations).merge(Edition.with_locales(*locales)).merge(Edition.with_required_attributes) }
 end

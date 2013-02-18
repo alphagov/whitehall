@@ -258,4 +258,43 @@ class WorldLocationsControllerTest < ActionController::TestCase
 
     assert_equal PolicyPresenter.decorate([translated_policy]), assigns(:policies)
   end
+
+  test "should only display translated featured editions when requested for a locale" do
+    world_location = create(:country, translated_into: [:fr])
+
+    translated_edition = create(:published_news_article, translated_into: [:fr])
+    untranslated_edition = create(:published_publication)
+    create(:featured_edition_world_location, ordering: 1, edition: untranslated_edition, world_location: world_location)
+    create(:featured_edition_world_location, ordering: 2, edition: translated_edition, world_location: world_location)
+
+    get :show, id: world_location, locale: 'fr'
+
+    assert_equal [translated_edition], assigns(:featured_editions).map(&:edition)
+  end
+
+  test "should only display translated recently updated editions when requested for a locale" do
+    world_location = create(:country, translated_into: [:fr])
+
+    translated_publication = create(:published_publication, world_locations: [world_location], translated_into: [:fr])
+    untranslated_publication = create(:published_publication, world_locations: [world_location])
+
+    get :show, id: world_location, locale: 'fr'
+
+    assert_equal [translated_publication], assigns(:recently_updated)
+  end
+
+  view_test "restricts atom feed entries to those with the current locale" do
+    world_location = create(:world_location, translated_into: [:fr])
+
+    translated_edition = create(:published_publication, world_locations: [world_location], translated_into: [:fr])
+    untranslated_edition = create(:published_publication, world_locations: [world_location])
+
+    get :show, id: world_location, format: :atom, locale: 'fr'
+
+    french_translation_of_edition = LocalisedModel.new(translated_edition, :fr)
+
+    assert_select_atom_feed do
+      assert_select_atom_entries([french_translation_of_edition])
+    end
+  end
 end
