@@ -133,7 +133,11 @@ class Organisation < ActiveRecord::Base
 
   has_many :users, dependent: :nullify
 
-  has_many :organisation_mainstream_links, dependent: :destroy
+  has_many :organisation_mainstream_links,
+            dependent: :destroy
+  has_many :mainstream_links,
+            through: :organisation_mainstream_links,
+            dependent: :destroy
 
   has_many :corporate_information_pages, dependent: :destroy
 
@@ -143,7 +147,7 @@ class Organisation < ActiveRecord::Base
   has_many :sponsorships, dependent: :destroy
   has_many :sponsored_worldwide_offices, through: :sponsorships, source: :worldwide_office
 
-  accepts_nested_attributes_for :organisation_mainstream_links, allow_destroy: true, reject_if: :all_blank
+  accepts_nested_attributes_for :mainstream_links, allow_destroy: true, reject_if: :all_blank
   accepts_nested_attributes_for :organisation_roles
   accepts_nested_attributes_for :edition_organisations
   accepts_nested_attributes_for :organisation_classifications, reject_if: -> attributes { attributes['classification_id'].blank? }, allow_destroy: true

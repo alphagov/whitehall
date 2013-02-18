@@ -829,7 +829,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     get :show, id: organisation
 
     assert_select '.organisation-mainstream-links' do
-      assert_select "a[href='#{link.url}']", text: link.title
+      assert_select "a[href='#{link.mainstream_link.url}']", text: link.mainstream_link.title
     end
   end
 
@@ -840,7 +840,7 @@ class OrganisationsControllerTest < ActionController::TestCase
 
     get :show, id: sub_organisation
 
-    refute_select "a[href='#{link.url}']", text: link.title
+    refute_select "a[href='#{link.mainstream_link.url}']", text: link.mainstream_link.title
   end
 
   view_test 'show hass a link to govdelivery if one exists' do
