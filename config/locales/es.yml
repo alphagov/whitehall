@@ -88,8 +88,8 @@ es:
         one:
         other:
       worldwide_priority:
-        one: Prioridad internacional
-        other: Prioridades internacionales
+        one:
+        other:
       national_statistics:
         one:
         other:
