@@ -1,19 +1,19 @@
 class DocumentFilterJsonPresenter < Draper::Base
   def as_json(options = nil)
     data = {
-      count: model.count,
-      current_page: model.current_page,
-      total_pages: model.num_pages,
-      total_count: model.total_count,
+      count: model.documents.count,
+      current_page: model.documents.current_page,
+      total_pages: model.documents.num_pages,
+      total_count: model.documents.total_count,
       results: model.documents.map { |d| document_hash(d) }
     }
-    unless model.last_page?
-      data[:next_page] = model.current_page + 1
-      data[:next_page_url] = url(page: model.current_page + 1)
+    unless model.documents.last_page?
+      data[:next_page] = model.documents.current_page + 1
+      data[:next_page_url] = url(page: model.documents.current_page + 1)
     end
-    unless model.first_page?
-      data[:prev_page] = model.current_page - 1
-      data[:prev_page_url] = url(page: model.current_page - 1)
+    unless model.documents.first_page?
+      data[:prev_page] = model.documents.current_page - 1
+      data[:prev_page_url] = url(page: model.documents.current_page - 1)
     end
     data
   end

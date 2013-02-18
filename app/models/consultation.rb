@@ -39,6 +39,10 @@ class Consultation < Publicationesque
     self.publication_type_id = PublicationType::Consultation.id
   end
 
+  def search_index
+    super.merge({"publication_type" => publication_type_id})
+  end
+
   def not_yet_open?
     opening_on.nil? || (opening_on > Date.today)
   end
@@ -108,6 +112,21 @@ class Consultation < Publicationesque
 
   def can_apply_to_local_government?
     true
+  end
+
+  def search_format_types
+    consultation_type =
+      if response_published?
+        'consultation-outcome'
+      elsif closed?
+        'consultation-closed'
+      elsif open?
+        'consultation-open'
+      end
+
+    types = super + ['publicationesque-consultation', Consultation.search_format_type]
+    types << consultation_type if consultation_type
+    types
   end
 
   private

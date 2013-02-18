@@ -405,6 +405,11 @@ class EditionTest < ActiveSupport::TestCase
     assert_equal summary, policy.search_index["description"]
   end
 
+  test 'search_format_types tags the edtion as an edition' do
+    edition = build(:edition)
+    assert edition.search_format_types.include?('edition')
+  end
+
   test "#indexable_content should return the body without markup by default" do
     policy = create(:published_policy, body: "# header\n\nsome text")
     assert_equal "header some text", policy.indexable_content

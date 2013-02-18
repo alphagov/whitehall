@@ -39,7 +39,11 @@ class Publication < Publicationesque
   end
 
   def search_index
-    super.merge({"publication_type" => publication_type_id})
+    super.merge({"publication_type" => publication_type.slug})
+  end
+
+  def search_format_types
+    super + [Publication.search_format_type] + self.publication_type.search_format_types
   end
 
   def publication_type

@@ -133,6 +133,10 @@ module Whitehall
       '/mainstream'
     end
 
+    def search_backend
+      Whitehall::DocumentFilter::Mysql
+    end
+
     def government_search_index
       searchable_classes = government_edition_classes + [MinisterialRole, Organisation, SupportingPage, Topic, TopicalEvent]
       Enumerator.new do |y|

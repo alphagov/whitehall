@@ -1,5 +1,6 @@
 Feature: Viewing published publications
 
+@not-quite-as-fake-search
 Scenario: Viewing published publications
   Given a published publication "Lamb chops on baker's faces" with a PDF attachment
   When I visit the list of publications

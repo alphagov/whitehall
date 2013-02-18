@@ -1,6 +1,6 @@
 <%
   context = {
-    result_count: result_count(filter.total_count),
+    result_count: result_count(filter.documents.total_count),
     departments: filter_results_selections(filter.selected_organisations, 'departments'),
     topics: filter_results_selections(filter.selected_topics, 'topics'),
     locations_any?: filter.selected_locations.any?,

@@ -11,6 +11,7 @@ Feature: Browsing publications
 
   - "Statistics" and "National statistics" publication types should be merged together into a "Statistics" type for filtering purposes
 
+  @not-quite-as-fake-search
   Scenario: User filters by "Statistics" which returns statistics and national statistics
     Given a published publication "Road accidents" with type "Statistics"
     And a published publication "National road accidents" with type "Statistics - national statistics"

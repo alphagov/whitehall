@@ -2,11 +2,7 @@ require 'test_helper'
 
 class AnnouncementFilterJsonPresenterTest < PresenterTestCase
   setup do
-    @filter = stub_everything("Whitehall::DocumentFilter::Mysql",
-      count: 1,
-      current_page: 1,
-      num_pages: 1,
-      documents: [])
+    @filter = Whitehall::DocumentFilter::FakeSearch.new
     self.params[:action] = :index
     self.params[:controller] = :announcements
   end

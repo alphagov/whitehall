@@ -62,7 +62,7 @@ module Edition::RelatedPolicies
 
   module InstanceMethods
     def search_index
-      super.merge("topics" => topics.map(&:id))
+      super.merge("topics" => topics.map(&:slug))
     end
   end
 end

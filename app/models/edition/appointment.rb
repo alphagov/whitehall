@@ -16,7 +16,7 @@ module Edition::Appointment
 
   module InstanceMethods
     def search_index
-      super.merge("people" => [role_appointment.try(:person_id)])
+      super.merge("people" => [person.slug])
     end
   end
 end
