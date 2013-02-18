@@ -8,4 +8,8 @@ class InternationalPriorityTest < ActiveSupport::TestCase
     international_priority = build(:international_priority)
     assert international_priority.search_format_types.include?('international-priority')
   end
+
+  test "should be translatable" do
+    assert build(:international_priority).translatable?
+  end
 end

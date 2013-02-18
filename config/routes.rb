@@ -125,6 +125,7 @@ Whitehall::Application.routes.draw do
             post :convert_to_draft, to: 'edition_workflow#convert_to_draft'
           end
           resources :supporting_pages, path: "supporting-pages", except: [:index, :show]
+          resources :translations, controller: "edition_translations", only: [:create, :edit, :update]
           resources :editorial_remarks, only: [:new, :create], shallow: true
           resources :fact_check_requests, only: [:show, :create, :edit, :update], shallow: true
           resource :document_sources, path: "document-sources", except: [:show]
