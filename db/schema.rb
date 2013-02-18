@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130215164855) do
+ActiveRecord::Schema.define(:version => 20130218095644) do
 
   create_table "attachment_data", :force => true do |t|
     t.string   "carrierwave_file"
@@ -860,9 +860,6 @@ ActiveRecord::Schema.define(:version => 20130215164855) do
   create_table "world_locations", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.text     "embassy_address"
-    t.string   "embassy_telephone"
-    t.string   "embassy_email"
     t.string   "slug"
     t.boolean  "active",                              :default => false, :null => false
     t.integer  "world_location_type_id",                                 :null => false
