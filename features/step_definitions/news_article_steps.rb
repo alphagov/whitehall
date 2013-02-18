@@ -107,3 +107,8 @@ Then /^I should not be able to see a world location news story "([^"]+)"$/ do |t
   article = NewsArticle.find_by_title(title)
   refute record_css_selector(article), "Can see \"#{article.title}\" when I shouldn't be able to"
 end
+
+Then /^I should see the world location news story "([^"]*)"$/ do |title|
+  article = NewsArticle.find_by_title(title)
+  assert record_css_selector(article), "Can't see \"#{article.title}\" when I should be able to"
+end

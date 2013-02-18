@@ -49,8 +49,7 @@ Feature: World location news for people local to countries
     Then I cannot associate "Normal News" with worldwide priorities
 
   Scenario: Associate a world location news article with a worldwide organisation
-    Given I am an editor
-    And a worldwide organisation "Spanish Department" exists
+    Given the worldwide organisation "Spanish Department" exists
     When I create a world location news article "Spanish News"
     Then I should be able to associate "Spanish News" with the worldwide organisation "Spanish Department"
     And see the worldwide organisation "Spanish Department" listed as a producing org on the world location news article "Spanish News"
