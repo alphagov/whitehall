@@ -427,7 +427,7 @@
       margin: 0 ($gutter-half*-1);
     }
 
-    #management {
+    #management.important-board-members-1 {
       @include media(tablet) {
         // some minus margin juggling here to align the columns
         margin: 0 ($gutter-half*-1);

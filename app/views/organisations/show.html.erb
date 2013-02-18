@@ -187,28 +187,28 @@
             </section>
           <% end %>
 
-          <% if @civil_servants.any? %>
-            <section id="management">
+          <% if @important_board_members.any? || @board_members.any? %>
+            <section id="management" class="important-board-members-<%= @organisation.important_board_members %>">
               <h1 class="label">Our management</h1>
-              <ul>
-                <%= render partial: "people/person",
-                locals: {
-                  person: @civil_servants.first.current_person,
-                  roles: [@civil_servants.first],
-                  hlevel: "h3",
-                  hide_image: false
-                } %>
-              </ul>
-
-              <ul class="management-secondary js-hide-extra-rows-2">
-                <% @civil_servants.to_a.from(1).each_with_index do |civil_servant, i| %>
+              <ul class="managment-primary">
+                <% @important_board_members.each_with_index do |board_member_role, i| %>
                   <%= render partial: "people/person",
                   locals: {
-                    person: civil_servant.current_person,
-                    roles: [civil_servant],
-                    hlevel: "h3",
+                    person: board_member_role.current_person,
+                    roles: [board_member_role],
+                    hlevel: "h2"
+                  } %>
+                <% end %>
+              </ul>
+              <ul class="management-secondary js-hide-extra-rows-2">
+                <% @board_members.each_with_index do |board_member_role, i| %>
+                  <%= render partial: "people/person",
+                  locals: {
+                    person: board_member_role.current_person,
+                    roles: [board_member_role],
+                    hlevel: "h2",
                     hide_image: true,
-                    extra_class: (i % 3 == 0) ? 'clear-person' : ''
+                    extra_class: extra_board_member_class(@organisation, i)
                   } %>
                 <% end %>
               </ul>

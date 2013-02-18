@@ -78,12 +78,21 @@ module OrganisationHelper
   def people_to_show?
     @ministers.any? ||
       @special_representatives.any? ||
-      @civil_servants.any? ||
+      @board_members.any? ||
+      @important_board_members.any? ||
       @organisation.military_roles.any? ||
       @traffic_commissioner_roles.any?
   end
 
   def organisations_grouped_by_type(organisations)
     organisations.group_by(&:organisation_type).sort_by { |type,department| type.listing_order }
+  end
+
+  def extra_board_member_class(organisation, i)
+    clear_number = 3
+    if organisation.important_board_members > 1
+      clear_number = 4
+    end
+    (i % clear_number == 0) ? 'clear-person' : ''
   end
 end
