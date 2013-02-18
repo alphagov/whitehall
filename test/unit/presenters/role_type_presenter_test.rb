@@ -82,7 +82,8 @@ class RoleTypePresenterTest < PresenterTestCase
   end
 
   test "should select worldwide office staff" do
-    assert_equal "worldwide_office_staff", RoleTypePresenter.option_value_for(build(:role), "WorldwideOfficeStaffRole")
+    role = Role.new
+    assert_equal "worldwide_office_staff", RoleTypePresenter.option_value_for(role, "WorldwideOfficeStaffRole")
   end
 
   test "should select cabinet minister by default" do
