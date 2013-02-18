@@ -5,6 +5,8 @@ class HCardTest < ActiveSupport::TestCase
 
   test "renders address in UK format" do
     assert_equal gb_hcard, HCard.new(hcard_fields, 'GB').render
+
+    puts HCard.address_formats['gb']
   end
 
   test "renders address in Spanish format" do
