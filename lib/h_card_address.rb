@@ -30,8 +30,6 @@ class HCardAddress
     "<div class=\"adr\">\n#{address_tags}\n</div>\n".html_safe
   end
 
-  private
-
   def address_tags
     address = format_string_from_country_code
     property_keys.each do |key|
@@ -47,6 +45,8 @@ class HCardAddress
   def hcard_property_tag(name)
     properties[name] ? "<span class=\"#{name}\">#{properties[name]}</span>" : ""
   end
+
+  private
 
   def format_string_from_country_code
     (HCardAddress.address_formats[country_code.downcase] || default_format_string).dup
