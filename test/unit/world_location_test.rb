@@ -69,7 +69,7 @@ class WorldLocationTest < ActiveSupport::TestCase
     end
   end
 
-  test "should group world locations by type sorted by order" do
+  test "all_by_type should group world locations by type sorting the types by their sort order" do
     territory_type = WorldLocationType::OverseasTerritory
     country_type = WorldLocationType::Country
 
@@ -78,6 +78,17 @@ class WorldLocationTest < ActiveSupport::TestCase
     location_3 = create(:world_location, world_location_type: country_type)
 
     assert_equal [ [country_type, [location_2, location_3]] , [territory_type, [location_1]] ], WorldLocation.all_by_type
+  end
+
+  test "all_by_type should group world locations by type sorting the locations by their name" do
+    territory_type = WorldLocationType::OverseasTerritory
+    country_type = WorldLocationType::Country
+
+    location_1 = create(:world_location, world_location_type: territory_type, name: 'Neverland')
+    location_2 = create(:world_location, world_location_type: country_type, name: 'Narnia')
+    location_3 = create(:world_location, world_location_type: country_type, name: 'Middle Earth')
+
+    assert_equal [ [country_type, [location_3, location_2]] , [territory_type, [location_1]] ], WorldLocation.all_by_type
   end
 
   test '#featured_edition_world_locations should return editions featured against this world_location' do

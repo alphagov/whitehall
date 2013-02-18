@@ -47,7 +47,7 @@ class WorldLocation < ActiveRecord::Base
   end
 
   def self.all_by_type
-    all.group_by(&:world_location_type).sort_by { |type, location| type.sort_order }
+    ordered_by_name.group_by(&:world_location_type).sort_by { |type, location| type.sort_order }
   end
 
   def self.countries
