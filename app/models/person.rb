@@ -18,9 +18,6 @@ class Person < ActiveRecord::Base
   has_many :organisation_roles, through: :current_roles
   has_many :organisations, through: :organisation_roles
 
-  has_one :worldwide_office_appointment, dependent: :nullify
-  has_one :worldwide_office, through: :worldwide_office_appointment
-
   validates :name, presence: true
   validates_with SafeHtmlValidator
 
