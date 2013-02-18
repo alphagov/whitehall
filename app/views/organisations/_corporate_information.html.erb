@@ -1,9 +1,13 @@
 <%
   show_corporate_reports ||= false
+  show_access_our_information_header ||= false
 %>
 <section class="corporate-information" id="corporate-info">
   <h1>Corporate information</h1>
   <div class="corporate-information-block">
+    <% if show_access_our_information_header %>
+      <h2>Access our information</h2>
+    <% end %>
     <nav class="group sub_navigation" role="navigation">
       <ul>
         <% organisation.corporate_information_pages.by_menu_heading(:our_information).each do |corporate_information_page| %>

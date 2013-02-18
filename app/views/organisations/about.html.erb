@@ -39,7 +39,7 @@
           </div>
           <% if has_any_transparency_pages?(@organisation) %>
             <%= render partial: 'corporate_information',
-                       locals: { organisation: @organisation } %>
+                       locals: { organisation: @organisation, show_access_our_information_header: true } %>
           <% end %>
           <% if @corporate_publications.any? %>
             <section class="corporate-publications" id="corporate-reports">
