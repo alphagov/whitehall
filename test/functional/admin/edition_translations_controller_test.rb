@@ -114,4 +114,19 @@ class Admin::EditionTranslationsControllerTest < ActionController::TestCase
 
     assert_select '.form-errors'
   end
+
+  test "should limit access to translations of editions that aren't accessible to the current user" do
+    protected_edition = stub("protected edition", id: "1")
+    protected_edition.stubs(:accessible_by?).with(@current_user).returns(false)
+    Edition.stubs(:find).with(protected_edition.id).returns(protected_edition)
+
+    post :create, edition_id: protected_edition.id, id: "en"
+    assert_response 403
+
+    get :edit, edition_id: protected_edition.id, id: "en"
+    assert_response 403
+
+    put :update, edition_id: protected_edition.id, id: "en"
+    assert_response 403
+  end
 end
