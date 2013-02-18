@@ -7,7 +7,6 @@ FactoryGirl.define do
   factory :country, parent: :world_location do
     name "France"
     world_location_type WorldLocationType::Country
-    iso2 "FR"
   end
 
   factory :overseas_territory, parent: :world_location
