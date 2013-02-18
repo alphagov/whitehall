@@ -3,6 +3,42 @@
     clear:both;
   }
 
+  .header-block {
+    .inner-block {
+      padding: $gutter*1.5 0 0;
+      @include media(tablet) {
+        padding: $gutter*1.5 $gutter-half 0;
+      }
+
+      .how-gov-works, .jump-links {
+        .content {
+          padding: 0 $gutter-half;
+        }
+        @include media(tablet) {
+          float: left;
+          display: inline;
+          width: 66.66%;
+        }
+      }
+
+      .jump-links {
+        h4 {
+          @include core-16;
+          padding-top: $gutter-one-third;
+        }
+        ul li {
+          @include core-16;
+          list-style: none;
+          margin-left: 0;
+        }
+        @include media(tablet) {
+          float: right;
+          width: 25%;
+        }
+      }
+    }
+  }
+
   p, li{
     @include ig-core-19;
     a {
@@ -289,7 +325,7 @@
   }
   
   h1 {
-    @include ig-core-48;
+    @include heading-48;
     font-weight: bold;
     margin: 0 0 $gutter;
     @include media(desktop) {
@@ -348,7 +384,7 @@
       margin-top: $gutter-half;
     }
   }
-  .block-1, .block-2 {
+  .block {
     float: none;
     display: block;
     width: 100%;
@@ -356,9 +392,11 @@
   }
    
   p.intro {
-    @include ig-core-27;
-    margin-bottom:$gutter*2;
-    max-width: 26em;
+    @include core-27;
+    margin-bottom:$gutter;
+    @include media(tablet) {
+      margin-bottom:$gutter*2;      
+    }
   }
   p.small-print {
     @include ig-core-14;

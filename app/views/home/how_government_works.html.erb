@@ -2,17 +2,35 @@
   <% page_title "" %>
   <% page_class "inside_gov_how-gov-works" %>
 
-  <div class="block-1">
+  <div class="header-block">
     <div class="inner-block">
-      <div class="full-width-section">
-        <h1>How government works</h1>
-        <p class="intro">The UK is a parliamentary democracy with The Queen as the Head
-        of State. The Prime Minister leads the government and people vote
-        in elections for MPs who will represent them in Parliament.</p>
-      </div>
+      <header>
+        <div class="how-gov-works">
+          <div class="content">
+            <h1>How government works</h1>
+            <p class="intro">The UK is a parliamentary democracy with The Queen as the Head
+            of State. The Prime Minister leads the government and people vote
+            in elections for MPs who will represent them in Parliament.</p>
+          </div>
+        </div>
 
+        <aside class="jump-links">
+          <div class="content">
+            <h4>Sections:</h4>
+            <ul>
+              <li><a href="#who-runs-government">Who runs government</a></li>
+              <li><a href="#how-governement-is-run">How government is run</a></li>
+              <li><a href="#history-uk-government">History of the UK government</a></li>
+            </ul>
+          </div>
+        </aside>
+      </header>
+    </div>
+  </div>
 
-      <h2 class="coalition">Who runs government</h2>
+  <div class="block">
+    <div class="inner-block">
+      <h2 class="coalition" id="who-runs-government">Who runs government</h2>
       <div class="halves-width-section prime-minister">
         <div class="one-half">
           <div class="inner-block">
@@ -88,7 +106,7 @@
           <p class="caption">Ministers are chosen by the Prime Minister from the members of the House of Commons and House of Lords. They are responsible for the actions, successes and failures of their departments.</p>
           <p><%= link_to "See full list of ministers", ministerial_roles_path %></p>
       </div>
-     <h2>How government is run</h2>
+     <h2 id="how-governement-is-run">How government is run</h2>
       <div class="thirds-width-section depts">
         <div class="one-third">
           <div class="inner-block">
@@ -375,7 +393,7 @@
       </div>
 
 
-      <h2>History of government</h2>
+      <h2 id="history-uk-government">History of government</h2>
       <div class="halves-width-section history">
         <div class="one-half">
           <div class="inner-block">
