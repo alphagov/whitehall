@@ -39,19 +39,19 @@ class HCardAddressTest < ActiveSupport::TestCase
                       locality: 'Locality',
                       region: 'Region',
                       postal_code: 'Postcode',
-                      country: create(:country, name: 'Country', iso2: 'ES') )
+                      country: build(:country, name: 'Country', iso2: 'ES') )
     hcard = HCardAddress.from_contact(contact)
     assert_equal es_addr, hcard.render
   end
 
-  test "it ignores the country name when building a GB contact" do
+  test "it leaves out the country name when building a GB contact" do
     contact = build( :contact,
                       recipient: 'Recipient',
                       street_address: 'Street',
                       locality: 'Locality',
                       region: 'Region',
                       postal_code: 'Postcode',
-                      country: create(:country, name: 'Country', iso2: 'GB') )
+                      country: build(:country, name: 'Country', iso2: 'GB') )
     hcard = HCardAddress.from_contact(contact)
     assert_equal addr_without_country, hcard.render
   end
