@@ -10,4 +10,8 @@ class InternationalPriority < Edition
   def search_format_types
     super + [InternationalPriority.search_format_type]
   end
+
+  def translatable?
+    true
+  end
 end
