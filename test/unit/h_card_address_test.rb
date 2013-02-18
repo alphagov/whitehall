@@ -25,7 +25,7 @@ class HCardAddressTest < ActiveSupport::TestCase
   test "blank properties do not render extra line breaks" do
     fields_without_region = addr_fields
     fields_without_region.delete('region')
-    assert_equal gb_addr_without_region, HCardAddress.new(fields_without_region, 'GB').render
+    assert_equal addr_without_region, HCardAddress.new(fields_without_region, 'GB').render
   end
 
   test "it defaults to UK format" do
@@ -39,9 +39,9 @@ class HCardAddressTest < ActiveSupport::TestCase
                       locality: 'Locality',
                       region: 'Region',
                       postal_code: 'Postcode',
-                      country: create(:country, name: 'Country', iso2: 'GB') )
+                      country: create(:country, name: 'Country', iso2: 'ES') )
     hcard = HCardAddress.from_contact(contact)
-    assert_equal gb_addr, hcard.render
+    assert_equal es_addr, hcard.render
   end
 
   def addr_fields
@@ -89,7 +89,7 @@ class HCardAddressTest < ActiveSupport::TestCase
     EOF
   end
 
-  def gb_addr_without_region
+  def addr_without_region
     <<-EOF.strip_heredoc
     <div class="adr">
     <span class="fn">Recipient</span><br />
