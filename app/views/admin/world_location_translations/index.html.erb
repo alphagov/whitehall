@@ -5,7 +5,7 @@
       <%= form_tag admin_world_location_translations_path(@world_location) do %>
         <%= label_tag :translation_locale, 'Locale' %>
         <%= select_locale :translation_locale, @missing_locales %>
-        <%= submit_tag "Create translation" %>
+        <%= submit_tag "Create translation", class: "btn btn-primary" %>
       <% end %>
     <% end %>
   </nav>
