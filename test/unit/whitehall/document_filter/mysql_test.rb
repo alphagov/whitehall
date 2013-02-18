@@ -182,6 +182,28 @@ module Whitehall::DocumentFilter
       assert_equal publication_filter_option, filter.selected_publication_filter_option
     end
 
+    test "can filter publications by location" do
+      world_location = create(:world_location)
+      other_world_location = create(:world_location)
+
+      item_1 = create(:published_publication, world_locations: [world_location])
+      item_2 = create(:published_statistical_data_set)
+      item_3 = create(:published_publication, world_locations: [other_world_location])
+      item_4 = create(:published_consultation)
+
+      filter = Whitehall::DocumentFilter::Mysql.new(locations: [world_location.slug, other_world_location.slug])
+      filter.publications_search
+      assert_same_elements [item_1, item_3], filter.documents
+
+      filter = Whitehall::DocumentFilter::Mysql.new(locations: [world_location.slug])
+      filter.publications_search
+      assert_same_elements [item_1], filter.documents
+
+      filter = Whitehall::DocumentFilter::Mysql.new(locations: [])
+      filter.publications_search
+      assert_same_elements [item_1, item_2, item_3, item_4], filter.documents
+    end
+
     test "can filter announcements by location" do
       world_location = create(:world_location)
       other_world_location = create(:world_location)
