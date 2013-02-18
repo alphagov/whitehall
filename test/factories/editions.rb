@@ -99,6 +99,10 @@ FactoryGirl.define do
     trait(:with_document) do
       document
     end
+
+    trait(:unpublished) do
+      unpublishing
+    end
   end
 
   factory :imported_edition, parent: :edition, traits: [:imported]
@@ -109,4 +113,5 @@ FactoryGirl.define do
   factory :deleted_edition, parent: :edition, traits: [:deleted]
   factory :archived_edition, parent: :edition, traits: [:archived]
   factory :scheduled_edition, parent: :edition, traits: [:scheduled]
+  factory :unpublished_edition, parent: :edition, traits: [:draft, :unpublished]
 end

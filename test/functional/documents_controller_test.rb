@@ -21,6 +21,17 @@ class DocumentsControllerTest < ActionController::TestCase
     assert_cache_control("max-age=#{Whitehall.default_cache_max_age}")
   end
 
+  test "show responds with 'unpublished' and default cache control 'max-age' if document has been unpublished" do
+    user = login_as(:departmental_editor)
+    edition = create(:unpublished_edition)
+
+    get :show, id: edition.document.to_param
+
+    assert_response :success
+    assert_template :unpublished
+    assert_cache_control("max-age=#{Whitehall.default_cache_max_age}")
+  end
+
   view_test "show responds with 'Coming soon' page and shorter cache control 'max-age' if document is scheduled for publication" do
     user = login_as(:departmental_editor)
     edition = create(:draft_edition, scheduled_publication: Time.zone.now + Whitehall.default_cache_max_age * 2)

@@ -342,11 +342,24 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
 
   test 'unpublish unpublishes the edition' do
     @edition.expects(:unpublish_as).with(@user)
+    @edition.stubs(:create_unpublishing!)
     post :unpublish, id: @edition, lock_version: 1
+  end
+
+  test 'unpublish records the unpublishing reasons' do
+    @edition.stubs(:unpublish_as).returns(true)
+    unpublish_params = {
+      'unpublishing_reason_id' => '1',
+      'explanation' => 'Was classified',
+      'alternative_url' => 'http://website.com/alt'
+    }
+    @edition.expects(:create_unpublishing!).with(unpublish_params)
+    post :unpublish, id: @edition.to_param, lock_version: 1, unpublishing: unpublish_params
   end
 
   test 'unpublish redirects back to the edition with a message' do
     @edition.stubs(:unpublish_as).returns(true)
+    @edition.stubs(:create_unpublishing!)
     post :unpublish, id: @edition, lock_version: 1
 
     assert_redirected_to admin_policy_path(@edition)

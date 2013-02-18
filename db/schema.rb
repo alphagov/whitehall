@@ -805,6 +805,18 @@ ActiveRecord::Schema.define(:version => 20130214163019) do
   add_index "supporting_pages", ["edition_id"], :name => "index_supporting_pages_on_edition_id"
   add_index "supporting_pages", ["slug"], :name => "index_supporting_documents_on_slug"
 
+  create_table "unpublishings", :force => true do |t|
+    t.integer  "edition_id"
+    t.integer  "unpublishing_reason_id"
+    t.text     "explanation"
+    t.text     "alternative_url"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "unpublishings", ["edition_id"], :name => "index_unpublishings_on_edition_id"
+  add_index "unpublishings", ["unpublishing_reason_id"], :name => "index_unpublishings_on_unpublishing_reason_id"
+
   create_table "users", :force => true do |t|
     t.string   "name"
     t.datetime "created_at"

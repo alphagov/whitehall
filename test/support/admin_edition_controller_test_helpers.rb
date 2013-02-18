@@ -63,7 +63,7 @@ module AdminEditionControllerTestHelpers
 
         get :show, id: edition
 
-        assert_select "form[action=?]", unpublish_admin_edition_path(edition, lock_version: edition.lock_version)
+        assert_select "form[action=?]", confirm_unpublish_admin_edition_path(edition)
       end
 
       view_test "should not display unpublish button if edition is not unpublishable" do
@@ -73,7 +73,7 @@ module AdminEditionControllerTestHelpers
 
         get :show, id: edition
 
-        refute_select "form[action=?]", unpublish_admin_edition_path(edition)
+        refute_select "form[action=?]", confirm_unpublish_admin_edition_path(edition)
       end
     end
 

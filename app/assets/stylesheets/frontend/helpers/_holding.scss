@@ -9,5 +9,6 @@
   }
   p {
     @include ig-core-24;
+    margin-bottom: $gutter-half;
   }
 }

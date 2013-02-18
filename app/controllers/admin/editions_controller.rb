@@ -1,8 +1,8 @@
 class Admin::EditionsController < Admin::BaseController
   before_filter :remove_blank_parameters
   before_filter :clear_scheduled_publication_if_not_activated, only: [:create, :update]
-  before_filter :find_edition, only: [:show, :edit, :update, :submit, :revise, :reject, :destroy]
-  before_filter :limit_edition_access!, only: [:show, :edit, :update, :submit, :revise, :reject, :destroy]
+  before_filter :find_edition, only: [:show, :edit, :update, :submit, :revise, :reject, :destroy, :confirm_unpublish]
+  before_filter :limit_edition_access!, only: [:show, :edit, :update, :submit, :revise, :reject, :destroy, :confirm_unpublish]
   before_filter :prevent_modification_of_unmodifiable_edition, only: [:edit, :update]
   before_filter :default_arrays_of_ids_to_empty, only: [:update]
   before_filter :delete_absent_edition_organisations, only: [:create, :update]
@@ -81,6 +81,9 @@ class Admin::EditionsController < Admin::BaseController
       redirect_to edit_admin_edition_path(@edition.document.unpublished_edition),
         alert: edition.errors.full_messages.to_sentence
     end
+  end
+
+  def confirm_unpublish
   end
 
   def destroy
