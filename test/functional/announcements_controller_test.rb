@@ -6,6 +6,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
   include PublicDocumentRoutesHelper
   include DocumentFilterHelpers
 
+  with_not_quite_as_fake_search
   should_be_a_public_facing_controller
   should_return_json_suitable_for_the_document_filter :news_article
   should_return_json_suitable_for_the_document_filter :speech

@@ -27,6 +27,7 @@ Scenario: Viewing a policy that is applicable to certain nations
     | England | Scotland |
 
 @javascript
+@not-quite-as-fake-search
 Scenario: Viewing a policy with a video link
   Given a published policy "Policy" with a link "http://www.youtube.com/watch?v=OXHPWmnycno" in the body
   When I visit the policy "Policy"

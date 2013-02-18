@@ -1,5 +1,6 @@
 Feature: Publishing consultations
 
+@not-quite-as-fake-search
 Scenario: Publishing a submitted consultation
   Given I am an editor
   And a submitted consultation "Beard Length Review" exists

@@ -14,4 +14,10 @@ class NewsArticleTypeTest < ActiveSupport::TestCase
   test "should list all slugs" do
     assert_equal "news-stories, press-releases, rebuttals, announcements and imported-awaiting-type", NewsArticleType.all_slugs
   end
+
+  test 'search_format_types tags the type with the name, prefixed with news-article-' do
+    NewsArticleType.all.each do |news_article_type|
+      assert news_article_type.search_format_types.include?('news-article-'+news_article_type.singular_name.parameterize)
+    end
+  end
 end

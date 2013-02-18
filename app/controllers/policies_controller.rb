@@ -8,14 +8,18 @@ class PoliciesController < DocumentsController
   respond_to :atom, only: :activity
   respond_to :json, only: :index
 
-  def index
-    params[:page] ||= 1
-    params[:direction] ||= "alphabetical"
+  class SearchPoliciesDecorator < SimpleDelegator
+    def documents
+      PolicyPresenter.decorate(__getobj__.documents)
+    end
+  end
 
+  def index
     clean_malformed_params_array(:topics)
     clean_malformed_params_array(:departments)
 
-    @filter = Whitehall::DocumentFilter::Mysql.new(policies, params)
+    @filter = build_document_filter(params.reverse_merge({ page: 1, direction: 'alphabetical' }))
+
     respond_with PolicyFilterJsonPresenter.new(@filter)
   end
 
@@ -42,8 +46,10 @@ class PoliciesController < DocumentsController
     Policy
   end
 
-  def policies
-    Policy.published.includes(:document)
+  def build_document_filter(params)
+    document_filter = Whitehall.search_backend.new(params)
+    document_filter.policies_search
+    SearchPoliciesDecorator.new(document_filter)
   end
 
   def analytics_format

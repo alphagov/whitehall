@@ -111,18 +111,25 @@ class Edition < ActiveRecord::Base
     section: :section,
     subsection: :subsection,
     subsubsection: :subsubsection,
-    organisations: -> d { d.organisations.map(&:id) },
+    organisations: -> d { d.organisations.map(&:slug) },
     people: nil,
-    publication_type: nil,
-    speech_type: nil,
-    news_article_type: nil,
     display_type: -> d { d.display_type },
     public_timestamp: :public_timestamp,
+    relevant_to_local_government: :relevant_to_local_government,
+    world_locations: nil,
     topics: nil,
     only: :published,
     index_after: [],
-    unindex_after: []
+    unindex_after: [],
+    search_format_types: -> d { d.search_format_types }
   )
+
+  def search_format_types
+    [Edition.search_format_type]
+  end
+  def self.search_format_type
+    self.name.underscore.gsub('_', '-')
+  end
 
   [:publish, :unpublish, :archive, :delete].each do |event|
     set_callback(event, :after) { refresh_index_if_required }

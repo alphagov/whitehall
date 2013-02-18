@@ -13,4 +13,8 @@ class StatisticalDataSet < Publicationesque
   def display_type_key
     "statistical_data_set"
   end
+
+  def search_format_types
+    super + ['publicationesque-statistics', StatisticalDataSet.search_format_type]
+  end
 end

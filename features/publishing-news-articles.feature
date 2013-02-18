@@ -1,5 +1,6 @@
 Feature: Publishing news articles
 
+@not-quite-as-fake-search
 Scenario: Publishing a submitted news article
   Given I am an editor
   And a submitted news article "Stubble to be Outlawed" exists

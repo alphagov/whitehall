@@ -7,4 +7,8 @@ class CaseStudy < Edition
   def display_type_key
     "case_study"
   end
+
+  def search_format_types
+    super + [CaseStudy.search_format_type]
+  end
 end

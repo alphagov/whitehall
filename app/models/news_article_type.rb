@@ -35,6 +35,10 @@ class NewsArticleType
     by_prevalence[:migration]
   end
 
+  def search_format_types
+    ['news-article-'+self.singular_name.parameterize]
+  end
+
   NewsStory = create(id: 1, key: "news_story", singular_name: "News story", plural_name: "News stories", prevalence: :primary)
   PressRelease = create(id: 2, key: "press_release", singular_name: "Press release", plural_name: "Press releases", prevalence: :primary)
   Rebuttal = create(id: 3, key: "rebuttal", singular_name: "Rebuttal", plural_name: "Rebuttals", prevalence: :primary)

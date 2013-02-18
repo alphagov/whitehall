@@ -1,5 +1,6 @@
 Feature: Viewing published statistical data sets
 
+  @not-quite-as-fake-search
   Scenario: The Statistical data set has been associated with a document series
     Given a document series "Free flow speeds"
     And a published publication that's part of the "Free flow speeds" document series

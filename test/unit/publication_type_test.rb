@@ -36,4 +36,27 @@ class PublicationTypeTest < ActiveSupport::TestCase
       end
     end
   end
+
+  test 'search_format_types tags the type with the singular name, prefixed with publication-' do
+    PublicationType.all.each do |publication_type|
+      assert publication_type.search_format_types.include?('publication-'+publication_type.singular_name.parameterize)
+    end
+  end
+
+  test 'search_format_types tags the type with the publicationesque-statistics if the type is statistical' do
+    PublicationType.statistical.each do |publication_type|
+      assert publication_type.search_format_types.include?('publicationesque-statistics')
+    end
+    (PublicationType.all - PublicationType.statistical).each do |publication_type|
+      refute publication_type.search_format_types.include?('publicationesque-statistics')
+    end
+  end
+
+  test 'search_format_types tags the type with the publicationesque-consultation for the Consultation type' do
+    assert PublicationType::Consultation.search_format_types.include?('publicationesque-consultation')
+    (PublicationType.all - [PublicationType::Consultation]).each do |publication_type|
+      refute publication_type.search_format_types.include?('publicationesque-consultation')
+    end
+  end
+
 end

@@ -73,6 +73,9 @@ FactoryGirl.define do
       force_published { false }
       published_major_version 1
       published_minor_version 0
+      after :create do |edition|
+        edition.refresh_index_if_required
+      end
     end
     trait(:deleted) {
       state "draft"
@@ -80,7 +83,12 @@ FactoryGirl.define do
         edition.delete!
       end
     }
-    trait(:archived) { state "archived" }
+    trait(:archived) {
+      state "archived"
+      after :create do |edition|
+        edition.refresh_index_if_required
+      end
+    }
     trait(:featured) { featured true }
     trait(:scheduled) {
       state "scheduled"

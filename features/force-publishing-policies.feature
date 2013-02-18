@@ -3,6 +3,7 @@ Feature: Force Publishing Policies
 Background:
   Given I am an editor
 
+@not-quite-as-fake-search
 Scenario: Force-publishing a submitted publication
   Given I draft a new policy "Ban Beards"
   When I force publish the policy "Ban Beards"

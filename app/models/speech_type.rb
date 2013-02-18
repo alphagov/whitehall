@@ -23,10 +23,19 @@ class SpeechType
     [Transcript, DraftText, SpeakingNotes]
   end
 
+  def statement_to_parliament?
+    SpeechType.statements.include? self
+  end
+
   def self.statements
     [WrittenStatement, OralStatement]
   end
 
+  def search_format_types
+    types = ['speech-'+self.name.parameterize]
+    types << 'speech-statement-to-parliament' if statement_to_parliament?
+    types
+  end
 
   Transcript = create(
     id: 1, name: "Transcript", genus: "Speech", key: "transcript",

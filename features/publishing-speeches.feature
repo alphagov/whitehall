@@ -1,5 +1,6 @@
 Feature: Publishing speeches
 
+@not-quite-as-fake-search
 Scenario: Publishing a submitted speech
   Given I am an editor
   And a submitted speech "Stubble to be Outlawed" exists

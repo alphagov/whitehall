@@ -6,6 +6,7 @@ Feature: Publishing policies
 Background:
   Given I am an editor
 
+@not-quite-as-fake-search
 Scenario: Publishing a submitted publication
   Given a submitted policy "Ban Beards" exists
   When I publish the policy "Ban Beards"
@@ -25,6 +26,7 @@ Scenario: Maintain existing relationships
   And I visit the news article "Government to reduce hirsuteness"
   Then I can see links to the related published policies "Ban Facial Hair" and "Unimportant"
 
+@not-quite-as-fake-search
 Scenario: Publishing a first edition without a change note
   Given a submitted policy "Ban Beards" exists
   When I publish the policy "Ban Beards" without a change note
@@ -42,6 +44,7 @@ Scenario: Publishing a subsequent edition as a minor edit
   When I publish a new edition of the policy "Ban Beards" as a minor change
   Then my attempt to publish "Ban Beards" should succeed
 
+@not-quite-as-fake-search
 Scenario: Publishing a subsequent edition with a change note
   Given a published policy "Ban Beards" exists
   When I publish a new edition of the policy "Ban Beards" with a change note "Exempted Santa Claus"
@@ -50,6 +53,7 @@ Scenario: Publishing a subsequent edition with a change note
   And the policy "Ban Beards" should be visible to the public
   And the change notes should appear in the history for the policy "Ban Beards" in reverse chronological order
 
+@not-quite-as-fake-search
 Scenario: Viewing policy publishing history
   Given a published policy "Ban Beards" exists
   When I publish a new edition of the policy "Ban Beards" with a change note "Exempted Santa Claus"

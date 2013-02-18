@@ -2,11 +2,7 @@ require 'test_helper'
 
 class DocumentFilterJsonPresenterTest < PresenterTestCase
   setup do
-    @filter = stub_everything("Whitehall::DocumentFilter::Mysql",
-      count: 1,
-      current_page: 1,
-      num_pages: 1,
-      documents: [])
+    @filter = Whitehall::DocumentFilter::FakeSearch.new
     self.params[:action] = :index
     self.params[:controller] = :publications
   end
@@ -17,9 +13,9 @@ class DocumentFilterJsonPresenterTest < PresenterTestCase
   end
 
   test 'json provides pagination info' do
-    @filter.stubs(:current_page).returns(2)
-    @filter.stubs(:count).returns(45)
-    @filter.stubs(:num_pages).returns(3)
+    @filter.documents.stubs(:current_page).returns(2)
+    @filter.documents.stubs(:count).returns(45)
+    @filter.documents.stubs(:num_pages).returns(3)
     json = JSON.parse(DocumentFilterJsonPresenter.new(@filter).to_json)
     assert_equal 45, json['count']
     assert_equal 2, json['current_page']
@@ -31,14 +27,14 @@ class DocumentFilterJsonPresenterTest < PresenterTestCase
   end
 
   test 'next_page omitted if last page' do
-    @filter.stubs(:last_page?).returns(true)
+    @filter.documents.stubs(:last_page?).returns(true)
     json = JSON.parse(DocumentFilterJsonPresenter.new(@filter).to_json)
     refute json.has_key?("next_page")
     refute json.has_key?("next_page_url")
   end
 
   test 'prev_page omitted if first page' do
-    @filter.stubs(:first_page?).returns(true)
+    @filter.documents.stubs(:first_page?).returns(true)
     json = JSON.parse(DocumentFilterJsonPresenter.new(@filter).to_json)
     refute json.has_key?("prev_page")
     refute json.has_key?("prev_page_url")
@@ -52,7 +48,7 @@ class DocumentFilterJsonPresenterTest < PresenterTestCase
     # TODO: perhaps rethink edition factory, so this apparent duplication
     # isn't neccessary
     publication.stubs(:organisations).returns([organisation])
-    @filter.stubs(:documents).returns([publication])
+    @filter.stubs(:documents).returns(Kaminari.paginate_array([publication]).page(1))
     json = JSON.parse(DocumentFilterJsonPresenter.new(@filter).to_json)
     assert_equal 1, json['results'].size
     assert_equal({

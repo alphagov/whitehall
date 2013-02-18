@@ -115,4 +115,9 @@ class DetailedGuideTest < ActiveSupport::TestCase
     assert_equal "international-trade", index["subsection"]
     assert_equal "manufactured-goods-trade-compliance", index["subsubsection"]
   end
+
+  test 'search_format_types tags the detailed guide as detailed-guidance' do
+    detailed_guide = build(:detailed_guide)
+    assert detailed_guide.search_format_types.include?('detailed-guidance')
+  end
 end

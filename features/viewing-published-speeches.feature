@@ -14,6 +14,7 @@ Scenario: Viewing a published speech with related policies
   Then I can see links to the related published policies "Policy 1" and "Policy 2"
 
 @javascript
+@not-quite-as-fake-search
 Scenario: Viewing a published speech shows a video player
   Given a published video speech "Speech with video"
   When I visit the speech "Speech with video"

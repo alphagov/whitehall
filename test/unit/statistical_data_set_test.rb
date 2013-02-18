@@ -21,4 +21,10 @@ class StatisticalDataSetTest < ActiveSupport::TestCase
     data_set = build(:statistical_data_set)
     assert data_set.access_limited?
   end
+  
+  test 'search_format_types tags the data set as a statistical-data-set and publicationesque-statistics' do
+    statistical_data_set = build(:statistical_data_set)
+    assert statistical_data_set.search_format_types.include?('statistical-data-set')
+    assert statistical_data_set.search_format_types.include?('publicationesque-statistics')
+  end
 end
