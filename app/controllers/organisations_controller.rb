@@ -38,7 +38,8 @@ class OrganisationsController < PublicFacingController
           @consultations = PublicationesquePresenter.decorate(@organisation.published_consultations.in_reverse_chronological_order.limit(2))
           @announcements = AnnouncementPresenter.decorate(@organisation.published_announcements.in_reverse_chronological_order.limit(2))
           @ministers = ministers
-          @civil_servants = civil_servants
+          @important_board_members = board_members.take(@organisation.important_board_members)
+          @board_members = board_members.from(@organisation.important_board_members)
           @military_roles = military_roles
           @traffic_commissioners = traffic_commissioners
           @special_representatives = special_representatives
@@ -64,8 +65,8 @@ class OrganisationsController < PublicFacingController
     end.compact
   end
 
-  def civil_servants
-    @civil_servant_roles = @organisation.management_roles.order("organisation_roles.ordering").map do |role|
+  def board_members
+    @board_member_roles ||= @organisation.management_roles.order("organisation_roles.ordering").map do |role|
       RolePresenter.new(role)
     end
   end
