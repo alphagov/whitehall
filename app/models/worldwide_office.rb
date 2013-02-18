@@ -12,6 +12,7 @@ class WorldwideOffice < ActiveRecord::Base
   has_many :roles, through: :worldwide_office_roles
   has_many :people, through: :roles
 
+  translates :name, :summary, :description, :services
   alias :original_main_contact :main_contact
 
   validates_with SafeHtmlValidator

@@ -1,0 +1,30 @@
+<% page_title @worldwide_office.name + " translations" %>
+<section>
+  <nav class="actions">
+    <% if @missing_locales.any? %>
+      <%= form_tag admin_worldwide_office_translations_path(@worldwide_office) do %>
+        <%= label_tag :translation_locale, 'Locale' %>
+        <%= select_locale :translation_locale, @missing_locales %>
+        <%= submit_tag "Create translation", class: "btn btn-primary" %>
+      <% end %>
+    <% end %>
+  </nav>
+</section>
+
+<h1>Translations for <%= @worldwide_office.name %></h1>
+<table id="worldwide-offices-translations" class="table table-striped">
+  <thead>
+    <tr>
+      <th>Locale</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @translated_locales.each do |locale| %>
+      <tr>
+        <td class="locale">
+          <%= link_to locale.native_language_name, edit_admin_worldwide_office_translation_path(@worldwide_office, locale.code) %> (<%= link_to "view", worldwide_office_path(@worldwide_office, locale: locale) %>)
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
