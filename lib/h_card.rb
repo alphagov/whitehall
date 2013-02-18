@@ -37,7 +37,7 @@ class HCard
   end
 
   def format_string_from_country_code
-    HCard.address_formats[country_code.downcase]
+    HCard.address_formats[country_code.downcase].dup
   end
 
 

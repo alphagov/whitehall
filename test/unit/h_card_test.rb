@@ -5,8 +5,6 @@ class HCardTest < ActiveSupport::TestCase
 
   test "renders address in UK format" do
     assert_equal gb_hcard, HCard.new(hcard_fields, 'GB').render
-
-    puts HCard.address_formats['gb']
   end
 
   test "renders address in Spanish format" do
@@ -15,6 +13,13 @@ class HCardTest < ActiveSupport::TestCase
 
   test "renders address in Japanese format" do
     assert_equal jp_hcard, HCard.new(hcard_fields, 'JP').render
+  end
+
+  test "doesn't overwrite address formats" do
+    gb_format_before = HCard.address_formats['gb'].dup
+
+    HCard.new(hcard_fields, 'GB').render
+    assert_equal gb_format_before, HCard.address_formats['gb']
   end
 
   def hcard_fields
