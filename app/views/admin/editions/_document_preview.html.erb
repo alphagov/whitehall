@@ -8,7 +8,7 @@
         <li><a href="#supporting_pages" data-toggle="tab">Supporting pages <span class="badge"><%= @edition.supporting_pages.count %></span></a></li>
       <% end %>
       <% if @edition.translatable? %>
-        <li><a href="#translations" data-toggle="tab">Translations</a></li>
+        <li><a href="#translations" data-toggle="tab">Translations <span class="badge"><%= @edition.translations.count - 1 %></span></a></li>
       <% end %>
       <% if @edition.allows_attachments? %>
         <li><a href="#attachments" data-toggle="tab">Attachments <span class="badge"><%= @edition.attachments.count %></span></a></li>

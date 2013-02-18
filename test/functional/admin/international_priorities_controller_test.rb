@@ -32,6 +32,15 @@ class Admin::InternationalPrioritiesControllerTest < ActionController::TestCase
   should_prevent_modification_of_unmodifiable :international_priority
   should_allow_access_limiting_of :international_priority
 
+  view_test "show displays the number of translations excluding the default English translation" do
+    edition = create(:draft_international_priority)
+    with_locale(:es) { edition.update_attributes!(attributes_for(:draft_international_priority)) }
+
+    get :show, id: edition
+
+    assert_select "a[href='#translations'] .badge", text: '1'
+  end
+
   view_test 'show displays a form to create missing translations' do
     edition = create(:draft_international_priority)
 
