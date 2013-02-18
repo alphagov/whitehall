@@ -49,7 +49,7 @@ class HCardAddress
   private
 
   def format_string_from_country_code
-    (HCardAddress.address_formats[country_code.downcase] || default_format_string).dup
+    (HCardAddress.address_formats[country_code.to_s.downcase] || default_format_string).dup
   end
 
   def default_format_string
