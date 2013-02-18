@@ -211,6 +211,26 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
               if (field.value != "all") {
                 $title.html($title.text().trim() + '<span>: '+field.title[0]+'</span>');
               }
+            } else if (field.id === 'date'){
+              context[field.id] = {
+                date: field.title[0],
+                direction: formStatus.checked[0].value
+              }
+            } else if (field.id === 'locations'){
+              context.locations = [];
+              for(j=0, _j=field.title.length; j<_j; j++){
+                if(field.value[j] !== 'all'){
+                  context['locations'].push({
+                    name: field.title[j],
+                    url: documentFilter.urlWithout(field.id, field.value[j]),
+                    value: field.value[j],
+                    joining: (j < _j-1 ? 'and' : '')
+                  });
+                }
+              }
+              if (context.locations.length > 0) {
+                context['locations_any?'] = true;
+              }
             } else if (field.id != 'sub_orgs' && field.id != 'date') {
               context[field.id] = [];
 
@@ -221,13 +241,8 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
                     url: documentFilter.urlWithout(field.id, field.value[j]),
                     value: field.value[j],
                     joining: (j < _j-1 ? 'and' : '')
-                  });
+                });
                 }
-              }
-            } else if (field.id === 'date'){
-              context[field.id] = {
-                date: field.title[0],
-                direction: formStatus.checked[0].value
               }
             }
           }
