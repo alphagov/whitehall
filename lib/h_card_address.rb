@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-class HCard
+class HCardAddress
   attr_reader :properties, :country_code
 
   @address_formats = YAML.load_file(Rails.root.join('config/address_formats.yml'))
@@ -15,7 +15,7 @@ class HCard
   end
 
   def render
-    "<div class=\"vcard\">\n<div class=\"adr\">\n#{address_tags}\n</div>\n</div>\n".html_safe
+    "<div class=\"adr\">\n#{address_tags}\n</div>\n".html_safe
   end
 
   private
@@ -37,12 +37,12 @@ class HCard
   end
 
   def format_string_from_country_code
-    HCard.address_formats[country_code.downcase].dup
+    HCardAddress.address_formats[country_code.downcase].dup
   end
 
   def replace_newlines_with_break_tags(string)
     string.
-    gsub(/^\n/,''). # get  rid of blank lines
-    gsub(/\n/, "<br />\n") # add break tags where appropriate
+    gsub(/^\n/,'').         # get  rid of blank lines
+    gsub(/\n/, "<br />\n")  # add break tags where appropriate
   end
 end
