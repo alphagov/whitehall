@@ -1,0 +1,1 @@
+Whitehall.search_backend = Whitehall::DocumentFilter::Mysql

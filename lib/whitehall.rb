@@ -4,6 +4,7 @@ module Whitehall
   autoload :FormBuilder, 'whitehall/form_builder'
   autoload :Uploader, 'whitehall/uploader'
 
+  mattr_accessor :search_backend
   mattr_accessor :government_search_client
   mattr_accessor :mainstream_search_client
   mattr_accessor :detailed_guidance_search_client
@@ -131,10 +132,6 @@ module Whitehall
 
     def mainstream_search_index_path
       '/mainstream'
-    end
-
-    def search_backend
-      Whitehall::DocumentFilter::Mysql
     end
 
     def government_search_index
