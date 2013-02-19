@@ -34,7 +34,7 @@ class HCardAddress
   end
 
   def address_tags
-    address = format_string_from_country_code
+    address = address_template
     property_keys.each do |key|
       address.gsub!(/\{\{#{key}\}\}/, hcard_property_tag(key))
     end
@@ -51,7 +51,7 @@ class HCardAddress
 
   private
 
-  def format_string_from_country_code
+  def address_template
     (HCardAddress.address_formats[country_code.to_s.downcase] || default_format_string).dup
   end
 
