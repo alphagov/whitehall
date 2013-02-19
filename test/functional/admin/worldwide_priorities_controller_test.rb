@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class Admin::InternationalPrioritiesControllerTest < ActionController::TestCase
+class Admin::WorldwidePrioritiesControllerTest < ActionController::TestCase
 
   setup do
     @user = login_as :policy_writer
@@ -8,33 +8,33 @@ class Admin::InternationalPrioritiesControllerTest < ActionController::TestCase
 
   should_be_an_admin_controller
 
-  should_allow_showing_of :international_priority
-  should_allow_creating_of :international_priority
-  should_allow_editing_of :international_priority
-  should_allow_revision_of :international_priority
+  should_allow_showing_of :worldwide_priority
+  should_allow_creating_of :worldwide_priority
+  should_allow_editing_of :worldwide_priority
+  should_allow_revision_of :worldwide_priority
 
-  should_show_document_audit_trail_for :international_priority, :show
-  should_show_document_audit_trail_for :international_priority, :edit
+  should_show_document_audit_trail_for :worldwide_priority, :show
+  should_show_document_audit_trail_for :worldwide_priority, :edit
 
-  should_allow_association_between_world_locations_and :international_priority
-  should_allow_association_with_worldwide_offices :international_priority
-  should_allow_attached_images_for :international_priority
-  should_allow_organisations_for :international_priority
+  should_allow_association_between_world_locations_and :worldwide_priority
+  should_allow_association_with_worldwide_offices :worldwide_priority
+  should_allow_attached_images_for :worldwide_priority
+  should_allow_organisations_for :worldwide_priority
 
-  should_be_rejectable :international_priority
-  should_be_publishable :international_priority
-  should_allow_unpublishing_for :international_priority
-  should_be_force_publishable :international_priority
-  should_be_able_to_delete_an_edition :international_priority
-  should_link_to_public_version_when_published :international_priority
-  should_not_link_to_public_version_when_not_published :international_priority
-  should_link_to_preview_version_when_not_published :international_priority
-  should_prevent_modification_of_unmodifiable :international_priority
-  should_allow_access_limiting_of :international_priority
+  should_be_rejectable :worldwide_priority
+  should_be_publishable :worldwide_priority
+  should_allow_unpublishing_for :worldwide_priority
+  should_be_force_publishable :worldwide_priority
+  should_be_able_to_delete_an_edition :worldwide_priority
+  should_link_to_public_version_when_published :worldwide_priority
+  should_not_link_to_public_version_when_not_published :worldwide_priority
+  should_link_to_preview_version_when_not_published :worldwide_priority
+  should_prevent_modification_of_unmodifiable :worldwide_priority
+  should_allow_access_limiting_of :worldwide_priority
 
   view_test "show displays the number of translations excluding the default English translation" do
-    edition = create(:draft_international_priority)
-    with_locale(:es) { edition.update_attributes!(attributes_for(:draft_international_priority)) }
+    edition = create(:draft_worldwide_priority)
+    with_locale(:es) { edition.update_attributes!(attributes_for(:draft_worldwide_priority)) }
 
     get :show, id: edition
 
@@ -42,7 +42,7 @@ class Admin::InternationalPrioritiesControllerTest < ActionController::TestCase
   end
 
   view_test 'show displays a form to create missing translations' do
-    edition = create(:draft_international_priority)
+    edition = create(:draft_worldwide_priority)
 
     get :show, id: edition
 
@@ -53,8 +53,8 @@ class Admin::InternationalPrioritiesControllerTest < ActionController::TestCase
   end
 
   view_test 'show omits existing edition translations from create select' do
-    edition = create(:draft_international_priority)
-    with_locale(:es) { edition.update_attributes!(attributes_for(:draft_international_priority)) }
+    edition = create(:draft_worldwide_priority)
+    with_locale(:es) { edition.update_attributes!(attributes_for(:draft_worldwide_priority)) }
 
     get :show, id: edition
 
@@ -64,8 +64,8 @@ class Admin::InternationalPrioritiesControllerTest < ActionController::TestCase
   end
 
   view_test 'show omits create form if no missing translations' do
-    edition = create(:draft_international_priority)
-    with_locale(:es) { edition.update_attributes!(attributes_for(:draft_international_priority)) }
+    edition = create(:draft_worldwide_priority)
+    with_locale(:es) { edition.update_attributes!(attributes_for(:draft_worldwide_priority)) }
     Locale.stubs(:non_english).returns([Locale.new(:es)])
 
     get :show, id: edition
@@ -74,7 +74,7 @@ class Admin::InternationalPrioritiesControllerTest < ActionController::TestCase
   end
 
   view_test 'show omits create form unless the edition is editable' do
-    edition = create(:published_international_priority)
+    edition = create(:published_worldwide_priority)
     refute edition.editable?
 
     get :show, id: edition
@@ -83,7 +83,7 @@ class Admin::InternationalPrioritiesControllerTest < ActionController::TestCase
   end
 
   view_test "show displays a link to edit an existing translation" do
-    edition = create(:draft_international_priority, title: 'english-title', summary: 'english-summary', body: 'english-body')
+    edition = create(:draft_worldwide_priority, title: 'english-title', summary: 'english-summary', body: 'english-body')
     with_locale(:fr) { edition.update_attributes!(title: 'french-title', summary: 'french-summary', body: 'french-body') }
 
     get :show, id: edition
@@ -94,7 +94,7 @@ class Admin::InternationalPrioritiesControllerTest < ActionController::TestCase
   end
 
   view_test "show omits the link to edit an existing translation unless the edition is editable" do
-    edition = create(:draft_international_priority, title: 'english-title', summary: 'english-summary', body: 'english-body')
+    edition = create(:draft_worldwide_priority, title: 'english-title', summary: 'english-summary', body: 'english-body')
     with_locale(:fr) { edition.update_attributes!(title: 'french-title', summary: 'french-summary', body: 'french-body') }
     edition.publish_as(create(:departmental_editor), force: true)
 
@@ -106,7 +106,7 @@ class Admin::InternationalPrioritiesControllerTest < ActionController::TestCase
   end
 
   view_test "show displays all non-english translations" do
-    edition = create(:draft_international_priority, title: 'english-title', summary: 'english-summary', body: 'english-body')
+    edition = create(:draft_worldwide_priority, title: 'english-title', summary: 'english-summary', body: 'english-body')
     with_locale(:fr) { edition.update_attributes!(title: 'french-title', summary: 'french-summary', body: 'french-body') }
 
     get :show, id: edition

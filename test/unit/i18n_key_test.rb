@@ -29,7 +29,7 @@ class I18nKeyTest < ActiveSupport::TestCase
     assert_translation DetailedGuide.new, "document.type"
     assert_translation FatalityNotice.new, "document.type"
     assert_translation StatisticalDataSet.new, "document.type"
-    assert_translation InternationalPriority.new, "document.type"
+    assert_translation WorldwidePriority.new, "document.type"
     assert_translation Policy.new, "document.type"
     assert_translation CaseStudy.new, "document.type"
   end

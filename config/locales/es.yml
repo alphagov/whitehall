@@ -87,9 +87,9 @@ es:
       independent_report:
         one:
         other:
-      international_priority:
-        one: Prioridad internacional
-        other: Prioridades internacionales
+      worldwide_priority:
+        one:
+        other:
       national_statistics:
         one:
         other:

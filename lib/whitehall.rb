@@ -150,11 +150,11 @@ module Whitehall
     end
 
     def edition_classes
-      [NewsArticle, Speech, Policy, Publication, Consultation, InternationalPriority, DetailedGuide, CaseStudy, StatisticalDataSet, FatalityNotice]
+      [NewsArticle, Speech, Policy, Publication, Consultation, WorldwidePriority, DetailedGuide, CaseStudy, StatisticalDataSet, FatalityNotice]
     end
 
     def edition_route_path_segments
-      %w(news speeches policies publications consultations international-priorities detailed-guides case-studies statistical-data-sets fatalities)
+      %w(news speeches policies publications consultations priority detailed-guides case-studies statistical-data-sets fatalities)
     end
 
     def government_edition_classes

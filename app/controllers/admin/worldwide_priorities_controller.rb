@@ -1,4 +1,4 @@
-class Admin::InternationalPrioritiesController < Admin::EditionsController
+class Admin::WorldwidePrioritiesController < Admin::EditionsController
   before_filter :build_image, only: [:new, :edit]
 
   def show
@@ -9,6 +9,6 @@ class Admin::InternationalPrioritiesController < Admin::EditionsController
   private
 
   def edition_class
-    InternationalPriority
+    WorldwidePriority
   end
 end
