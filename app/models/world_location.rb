@@ -15,8 +15,8 @@ class WorldLocation < ActiveRecord::Base
             conditions: { edition_world_locations: { featured: true },
                           editions: { state: "published" } },
             order: "edition_world_locations.ordering ASC"
-  has_many :worldwide_office_world_locations, dependent: :destroy
-  has_many :worldwide_offices, through: :worldwide_office_world_locations
+  has_many :worldwide_organisation_world_locations, dependent: :destroy
+  has_many :worldwide_organisations, through: :worldwide_organisation_world_locations
 
   has_many :world_location_mainstream_links,
             dependent: :destroy

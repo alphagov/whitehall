@@ -104,14 +104,14 @@ class RoleTest < ActiveSupport::TestCase
     assert_equal false, role.destroy
   end
 
-  test "should not be destroyable when it has worldwide offices" do
-    role = create(:role_without_organisations, worldwide_offices: [create(:worldwide_office)])
+  test "should not be destroyable when it has worldwide organisations" do
+    role = create(:role_without_organisations, worldwide_organisations: [create(:worldwide_organisation)])
     refute role.destroyable?
     assert_equal false, role.destroy
   end
 
-  test "should be destroyable when it has no appointments, organisations or woridwide offices" do
-    role = create(:role_without_organisations, role_appointments: [], organisations: [], worldwide_offices: [])
+  test "should be destroyable when it has no appointments, organisations or woridwide organisations" do
+    role = create(:role_without_organisations, role_appointments: [], organisations: [], worldwide_organisations: [])
     assert role.destroyable?
     assert role.destroy
   end

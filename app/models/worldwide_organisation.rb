@@ -1,15 +1,15 @@
-class WorldwideOffice < ActiveRecord::Base
+class WorldwideOrganisation < ActiveRecord::Base
   PRIMARY_ROLES = [AmbassadorRole, HighCommissionerRole, GovernorRole]
 
-  has_many :worldwide_office_world_locations, dependent: :destroy
-  has_many :world_locations, through: :worldwide_office_world_locations
+  has_many :worldwide_organisation_world_locations, dependent: :destroy
+  has_many :world_locations, through: :worldwide_organisation_world_locations
   has_many :contacts, as: :contactable, dependent: :destroy
   has_many :social_media_accounts, as: :socialable, dependent: :destroy
   has_many :sponsorships, dependent: :destroy
   has_many :sponsoring_organisations, through: :sponsorships, source: :organisation
   belongs_to :main_contact, class_name: 'Contact'
-  has_many :worldwide_office_roles, dependent: :destroy
-  has_many :roles, through: :worldwide_office_roles
+  has_many :worldwide_organisation_roles, dependent: :destroy
+  has_many :roles, through: :worldwide_organisation_roles
   has_many :people, through: :roles
 
   translates :name, :summary, :description, :services
