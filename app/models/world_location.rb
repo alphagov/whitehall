@@ -18,7 +18,14 @@ class WorldLocation < ActiveRecord::Base
   has_many :worldwide_office_world_locations, dependent: :destroy
   has_many :worldwide_offices, through: :worldwide_office_world_locations
 
+  has_many :world_location_mainstream_links,
+            dependent: :destroy
+  has_many :mainstream_links,
+            through: :world_location_mainstream_links,
+            dependent: :destroy
+
   accepts_nested_attributes_for :edition_world_locations
+  accepts_nested_attributes_for :mainstream_links, allow_destroy: true, reject_if: :all_blank
 
   translates :name, :title, :mission_statement
 

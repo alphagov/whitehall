@@ -576,6 +576,13 @@ ActiveRecord::Schema.define(:version => 20130218175954) do
 
   add_index "mainstream_categories", ["slug"], :name => "index_mainstream_categories_on_slug", :unique => true
 
+  create_table "mainstream_links", :force => true do |t|
+    t.string   "url"
+    t.string   "title"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "nation_inapplicabilities", :force => true do |t|
     t.integer  "nation_id"
     t.integer  "edition_id"
@@ -612,11 +619,8 @@ ActiveRecord::Schema.define(:version => 20130218175954) do
   add_index "organisation_classifications", ["organisation_id"], :name => "index_org_classifications_on_organisation_id"
 
   create_table "organisation_mainstream_links", :force => true do |t|
-    t.integer  "organisation_id"
-    t.string   "url"
-    t.string   "title"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.integer "organisation_id"
+    t.integer "mainstream_link_id"
   end
 
   create_table "organisation_roles", :force => true do |t|
@@ -835,6 +839,11 @@ ActiveRecord::Schema.define(:version => 20130218175954) do
   end
 
   add_index "versions", ["item_type", "item_id"], :name => "index_versions_on_item_type_and_item_id"
+
+  create_table "world_location_mainstream_links", :force => true do |t|
+    t.integer "world_location_id"
+    t.integer "mainstream_link_id"
+  end
 
   create_table "world_location_translations", :force => true do |t|
     t.integer  "world_location_id"

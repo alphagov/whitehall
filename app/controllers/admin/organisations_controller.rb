@@ -4,7 +4,7 @@ class Admin::OrganisationsController < Admin::BaseController
   before_filter :load_organisation, only: [:show, :edit, :update, :destroy]
   before_filter :build_organisation_classifications, only: [:new, :edit]
   before_filter :delete_absent_organisation_classifications, only: [:update]
-  before_filter :build_organisation_mainstream_links, only: [:new, :edit]
+  before_filter :build_mainstream_links, only: [:new, :edit]
   before_filter :destroy_blank_mainstream_links, only: [:create, :update]
 
   before_filter :social_media_helper, only: [:new, :create, :edit, :update]
@@ -93,9 +93,9 @@ class Admin::OrganisationsController < Admin::BaseController
     @organisation = Organisation.find(params[:id])
   end
 
-  def build_organisation_mainstream_links
-    unless @organisation.organisation_mainstream_links.any?(&:new_record?)
-      @organisation.organisation_mainstream_links.build
+  def build_mainstream_links
+    unless @organisation.mainstream_links.any?(&:new_record?)
+      @organisation.mainstream_links.build
     end
   end
 
@@ -108,8 +108,8 @@ class Admin::OrganisationsController < Admin::BaseController
   end
 
   def destroy_blank_mainstream_links
-    if params[:organisation][:organisation_mainstream_links_attributes]
-      params[:organisation][:organisation_mainstream_links_attributes].each do |index, link|
+    if params[:organisation][:mainstream_links_attributes]
+      params[:organisation][:mainstream_links_attributes].each do |index, link|
         if link[:title].blank? && link[:url].blank?
           link[:_destroy] = "1"
         end

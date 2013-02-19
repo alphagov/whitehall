@@ -5,12 +5,20 @@
 
   <div class="header-block">
     <div class="inner-block">
-      <header class="page-header world-locations <% if @featured_editions.any? %>with_featured<% end %>">
+      <header class="page-header world-locations">
         <hgroup>
           <h2 class="type"><%= t_world_location @world_location %></h2>
           <h1 class="title"><%= @world_location.title %></h1>
         </hgroup>
       </header>
+      <aside class="mainstream-links">
+      <h4><%= t('world_location.headings.quick_links') %></h4>
+        <ul>
+          <% @world_location.mainstream_links.each do |link| %>
+            <li><%= link_to link.title, link.url, ({rel: 'external'} if is_external?(link.url)) %></li>
+          <% end %>
+        </ul>
+      </aside>
     </div>
   </div>
 
