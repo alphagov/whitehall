@@ -30,8 +30,8 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
   view_test "should display fields for new organisation mainstream links" do
     get :new
 
-    assert_select "input[type=text][name='organisation[organisation_mainstream_links_attributes][0][url]']"
-    assert_select "input[type=text][name='organisation[organisation_mainstream_links_attributes][0][title]']"
+    assert_select "input[type=text][name='organisation[mainstream_links_attributes][0][url]']"
+    assert_select "input[type=text][name='organisation[mainstream_links_attributes][0][title]']"
   end
 
   view_test "should show allow entry of gds editor only data" do
@@ -88,14 +88,14 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
 
     post :create, organisation: attributes.merge(
       organisation_type_id: organisation_type.id,
-      organisation_mainstream_links_attributes: {"0" =>{
+      mainstream_links_attributes: {"0" =>{
         url: "http://www.gov.uk/mainstream/something",
         title: "Something on mainstream"
       }}
     )
 
     assert organisation = Organisation.last
-    assert organisation_mainstream_link = organisation.organisation_mainstream_links.last
+    assert organisation_mainstream_link = organisation.mainstream_links.last
     assert_equal "http://www.gov.uk/mainstream/something", organisation_mainstream_link.url
     assert_equal "Something on mainstream", organisation_mainstream_link.title
   end
@@ -106,14 +106,14 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     link = create(:organisation_mainstream_link, organisation: organisation)
 
     put :update, id: organisation, organisation: attributes.merge(
-      organisation_mainstream_links_attributes: {"0" =>{
-          id: link.id,
+      mainstream_links_attributes: {"0" =>{
+          id: link.mainstream_link.id,
           url: "",
           title: ""
       }}
     )
 
-    assert_equal 0, organisation.organisation_mainstream_links.length
+    assert_equal 0, organisation.mainstream_links.length
   end
 
   test "creating should redirect back to the index" do

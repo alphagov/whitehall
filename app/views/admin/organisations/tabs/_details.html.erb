@@ -27,9 +27,9 @@
     <tr><th>Analytics Identifier</th><td><%= @organisation.analytics_identifier %></td></tr>
     <tr><th>Mainstream links</th>
       <td>
-        <% if @organisation.organisation_mainstream_links.any? %>
+        <% if @organisation.mainstream_links.any? %>
           <ul>
-            <% @organisation.organisation_mainstream_links.each do |link| %>
+            <% @organisation.mainstream_links.each do |link| %>
               <li><%= link_to link.title, link.url %></li>
             <% end %>
           </ul>

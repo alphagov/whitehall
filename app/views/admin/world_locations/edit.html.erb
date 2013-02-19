@@ -14,6 +14,8 @@
       <%= form.check_box :active,
                 label_text: "Active (can visitors click through from the world location list?)" %>
 
+      <%= render partial: 'admin/shared/mainstream_link_fields', locals: { form: form } %>
+
       <%= form.save_or_cancel cancel: admin_world_locations_path %>
     <% end %>
   </section>
