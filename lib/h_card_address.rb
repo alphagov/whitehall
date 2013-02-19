@@ -46,7 +46,7 @@ class HCardAddress
   end
 
   def hcard_property_tag(name)
-    properties[name] ? "<span class=\"#{name}\">#{properties[name]}</span>" : ""
+    properties[name].present? ? "<span class=\"#{name}\">#{properties[name]}</span>" : ""
   end
 
   private

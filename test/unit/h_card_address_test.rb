@@ -29,6 +29,16 @@ class HCardAddressTest < ActiveSupport::TestCase
     assert_equal addr_without_region, HCardAddress.new(fields_without_region, 'GB').render
   end
 
+  test "doesn't render a property when it's a blank string" do
+    fields = addr_fields
+
+    fields['region'] = ''
+    assert_equal addr_without_region, HCardAddress.new(fields, 'GB').render
+
+    fields['region'] = '   '
+    assert_equal addr_without_region, HCardAddress.new(fields, 'GB').render
+  end
+
   test "it defaults to UK format" do
     assert_equal gb_addr, HCardAddress.new(addr_fields, 'FUBAR').render
   end
