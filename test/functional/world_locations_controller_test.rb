@@ -297,4 +297,15 @@ class WorldLocationsControllerTest < ActionController::TestCase
       assert_select_atom_entries([french_translation_of_edition])
     end
   end
+
+  view_test "should show mainstream category links if there are some" do
+    world_location = create(:world_location)
+    link = create(:world_location_mainstream_link, world_location: world_location)
+
+    get :show, id: world_location
+
+    assert_select '.mainstream-links' do
+      assert_select "a[href='#{link.mainstream_link.url}']", text: link.mainstream_link.title
+    end
+  end
 end

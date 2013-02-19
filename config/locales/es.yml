@@ -223,6 +223,7 @@ es:
       offices: Oficinas
       priorities: Prioridades
       publications: Publicaciones
+      quick_links:
       related_policies: Las políticas relacionadas
       see_all: Ver toda nuestra %{type}
       statistics: Estadística

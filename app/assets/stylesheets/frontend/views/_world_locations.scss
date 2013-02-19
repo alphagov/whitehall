@@ -80,31 +80,59 @@
     overflow: hidden;
   }
 
-  .header-block {
-    margin: $gutter-half 0 $gutter;
-  }
-
   .keyline-header {
     @include heading-27;
     border-bottom: 5px solid $inside-gov-nav;
     margin-bottom: $gutter-two-thirds;
   }
 
-  .page-header {
-    @include heading-48;
-    @include media(desktop){
-      width: 66.66%;
+  .header-block {
+    @extend %contain-floats;
+    margin: $gutter-half 0 $gutter;
+
+    .page-header {
+      @include heading-48;
+      @include media(desktop){
+        width: 66.66%;
+        float: left;
+      }
+
+      h1 {
+        @include bold;
+        padding-top: 0;
+      }
+      h2 {
+        @include heading-36;
+        color: $secondary-text-colour;
+        padding-bottom: 0;
+      }
+    }
+    .mainstream-links {
+      @include core-16;
+
+      @include media(desktop){
+        margin: $gutter 0;
+        width: 33.33%;
+        float: right;
+      }
+      h4 {
+        @include core-19;
+        @include media(desktop){
+          position: absolute;
+          left: -999em;
+        }
+      }
+      ul {
+        @include media(desktop){
+          margin: 0 $gutter-half;
+        }
+        li {
+          list-style: none;
+          margin-bottom: $gutter-one-sixth;
+        }
+      }
     }
 
-    h1 {
-      @include bold;
-      padding-top: 0;
-    }
-    h2 {
-      @include heading-36;
-      color: $secondary-text-colour;
-      padding-bottom: 0;
-    }
   }
 
   .news-block {
