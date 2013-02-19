@@ -270,7 +270,9 @@
                   <p class="comment"><%= contact.comments %></p>
                 <% end %>
                 <div class="contact-inner">
-                  <%= render_hcard(contact) do %>
+                  <div class="vcard">
+                    <%= render_hcard_address(contact) %>
+
                     <div class="email-url-number">
                       <% if contact.email.present? %>
                         <p class="email"><span class="type">Email</span> <%= mail_to contact.email, contact.email, class: 'email' %></p>
@@ -282,7 +284,7 @@
                         <p class="tel"><span class="type"><%= number.label %></span> <%= number.number %></p>
                       <% end %>
                     </div>
-                  <% end %>
+                  </div>
                 </div>
               </div>
             <% end %>
