@@ -80,7 +80,7 @@ end
 
 When /^I feature the news article "([^"]*)" for "([^"]*)" with image "([^"]*)"$/ do |news_article_title, organisation_name, image_filename|
   organisation = Organisation.find_by_name!(organisation_name)
-  visit admin_organisation_path(organisation)
+  visit documents_admin_organisation_path(organisation)
   news_article = NewsArticle.find_by_title(news_article_title)
   within record_css_selector(news_article) do
     click_link "Feature"
@@ -92,7 +92,7 @@ end
 
 When /^I order the featured items in the "([^"]*)" organisation as:$/ do |name, table|
   organisation = Organisation.find_by_name!(name)
-  visit admin_organisation_path(organisation)
+  visit documents_admin_organisation_path(organisation)
   table.rows.each_with_index do |(title), index|
     fill_in title, with: index
   end
