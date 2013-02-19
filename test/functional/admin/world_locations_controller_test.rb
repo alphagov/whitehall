@@ -36,4 +36,44 @@ class Admin::WorldLocationsControllerTest < ActionController::TestCase
     world_location.reload
     assert_equal 'country-mission-statement', world_location.mission_statement
   end
+
+  view_test "should display fields for new mainstream links" do
+    world_location = create(:world_location)
+
+    get :edit, id: world_location
+
+    assert_select "input[type=text][name='world_location[mainstream_links_attributes][0][url]']"
+    assert_select "input[type=text][name='world_location[mainstream_links_attributes][0][title]']"
+  end
+
+  test "updating should be able to create a new mainstream links" do
+    world_location = create(:world_location)
+
+    post :update, id: world_location, world_location: {
+      mainstream_links_attributes: {"0" =>{
+        url: "http://www.gov.uk/mainstream/something",
+        title: "Something on mainstream"
+      }}
+    }
+
+    assert world_location = WorldLocation.last
+    assert mainstream_link = world_location.mainstream_links.last
+    assert_equal "http://www.gov.uk/mainstream/something", mainstream_link.url
+    assert_equal "Something on mainstream", mainstream_link.title
+  end
+
+  test "updating should destroy existing mainstream links if all its field are blank" do
+    world_location = create(:world_location)
+    link = create(:world_location_mainstream_link, world_location: world_location)
+
+    put :update, id: world_location, world_location: {
+      mainstream_links_attributes: {"0" =>{
+          id: link.mainstream_link.id,
+          url: "",
+          title: ""
+      }}
+    }
+
+    assert_equal 0, world_location.mainstream_links.length
+  end
 end

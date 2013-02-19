@@ -29,13 +29,8 @@
     <% end %>
   </fieldset>
 
-  <fieldset class="named organisation-mainstream-links form-horizontal">
-    <legend>Mainstream links</legend>
-    <%= organisation_form.fields_for :mainstream_links do |mainstream_link_form| %>
-      <%= mainstream_link_form.text_field :title, horizontal: true %>
-      <%= mainstream_link_form.text_field :url, horizontal: true %>
-    <% end %>
-  </fieldset>
+  <%= render partial: 'admin/shared/mainstream_link_fields', locals: { form: organisation_form } %>
+
   <fieldset>
     <%= organisation_form.text_area :about_us, class: "previewable" %>
   </fieldset>
