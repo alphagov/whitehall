@@ -139,4 +139,35 @@ class WorldLocationTest < ActiveSupport::TestCase
 
     assert_equal [item_b], world_location.featured_edition_world_locations.map(&:edition)
   end
+
+  test "should be creatable with mainstream link data" do
+    params = {
+      mainstream_links_attributes: [
+        {url: "https://www.gov.uk/blah/blah",
+         title: "Blah blah"},
+        {url: "https://www.gov.uk/wah/wah",
+         title: "Wah wah"},
+      ]
+    }
+
+    world_location = create(:world_location, params)
+
+    links = world_location.mainstream_links
+    assert_equal 2, links.count
+    assert_equal "https://www.gov.uk/blah/blah", links[0].url
+    assert_equal "Blah blah", links[0].title
+    assert_equal "https://www.gov.uk/wah/wah", links[1].url
+    assert_equal "Wah wah", links[1].title
+  end
+
+  test 'should ignore blank mainstream link attributes' do
+    params = {
+      mainstream_links_attributes: [
+        {url: "",
+         title: ""}
+      ]
+    }
+    world_location = build(:world_location, params)
+    assert world_location.valid?
+  end
 end

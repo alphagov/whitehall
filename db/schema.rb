@@ -840,6 +840,11 @@ ActiveRecord::Schema.define(:version => 20130218175954) do
 
   add_index "versions", ["item_type", "item_id"], :name => "index_versions_on_item_type_and_item_id"
 
+  create_table "world_location_mainstream_links", :force => true do |t|
+    t.integer "world_location_id"
+    t.integer "mainstream_link_id"
+  end
+
   create_table "world_location_translations", :force => true do |t|
     t.integer  "world_location_id"
     t.string   "locale"
