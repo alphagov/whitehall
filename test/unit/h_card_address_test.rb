@@ -17,14 +17,15 @@ class HCardAddressTest < ActiveSupport::TestCase
 
   test "doesn't clobber address formats" do
     gb_format_before = HCardAddress.address_formats['gb'].dup
-
     HCardAddress.new(addr_fields, 'GB').render
+
     assert_equal gb_format_before, HCardAddress.address_formats['gb']
   end
 
   test "blank properties do not render extra line breaks" do
     fields_without_region = addr_fields
     fields_without_region.delete('region')
+
     assert_equal addr_without_region, HCardAddress.new(fields_without_region, 'GB').render
   end
 
@@ -41,6 +42,7 @@ class HCardAddressTest < ActiveSupport::TestCase
                       postal_code: 'Postcode',
                       country: build(:country, name: 'Country', iso2: 'ES') )
     hcard = HCardAddress.from_contact(contact)
+
     assert_equal es_addr, hcard.render
   end
 
@@ -53,6 +55,7 @@ class HCardAddressTest < ActiveSupport::TestCase
                       postal_code: 'Postcode',
                       country: build(:country, name: 'Country', iso2: 'GB') )
     hcard = HCardAddress.from_contact(contact)
+
     assert_equal addr_without_country, hcard.render
   end
 
