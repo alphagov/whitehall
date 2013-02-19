@@ -54,6 +54,12 @@
         </ul>
       <% end %>
     <% end %>
+  </div>
+</div>
+
+<div class="block-3 ministers-by-organisation whips">
+  <div class="inner-block">
+    <h1>Whips</h1>
 
     <% @whips_by_organisation.each do |whip_organisation, whips| %>
       <%= content_tag_for :section, whip_organisation do %>
