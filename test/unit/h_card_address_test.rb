@@ -123,8 +123,7 @@ class HCardAddressTest < ActiveSupport::TestCase
     <span class="street-address">Street</span><br />
     <span class="locality">Locality</span><br />
     <span class="region">Region</span><br />
-    <span class="postal-code">Postcode</span><br />
-
+    <span class="postal-code">Postcode</span>
     </div>
     EOF
   end

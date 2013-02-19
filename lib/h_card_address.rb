@@ -62,6 +62,7 @@ class HCardAddress
   def replace_newlines_with_break_tags(string)
     string.
     gsub(/^\n/,'').         # get  rid of blank lines
+    strip.                  # get rid of any trailing whitespace
     gsub(/\n/, "<br />\n")  # add break tags where appropriate
   end
 end
