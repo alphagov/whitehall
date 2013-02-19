@@ -8,7 +8,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
 
   should_be_a_public_facing_controller
   should_show_published_documents_associated_with :world_location, :policies
-  should_show_published_documents_associated_with :world_location, :international_priorities
+  should_show_published_documents_associated_with :world_location, :worldwide_priorities
 
   view_test "index should display a list of world locations" do
     bat = create(:overseas_territory, name: "British Antarctic Territory")
@@ -192,14 +192,14 @@ class WorldLocationsControllerTest < ActionController::TestCase
   view_test "should display translated page labels when requested in a different locale" do
     world_location = create(:country, translated_into: [:fr])
 
-    create(:published_international_priority, world_locations: [world_location], translated_into: [:fr])
+    create(:published_worldwide_priority, world_locations: [world_location], translated_into: [:fr])
     create(:published_publication, world_locations: [world_location], translated_into: [:fr])
     create(:published_policy, world_locations: [world_location], translated_into: [:fr])
 
     get :show, id: world_location, locale: 'fr'
 
     assert_select ".type", "Pays"
-    assert_select "#international-priorities", /Priorités/
+    assert_select "#worldwide-priorities", /Priorités/
     assert_select "#policies", /Les politiques connexes/
     assert_select "#publications a", /Voir toutes nos publications/
   end
@@ -207,12 +207,12 @@ class WorldLocationsControllerTest < ActionController::TestCase
   test "should only display translated priorities when requested for a locale" do
     world_location = create(:country, translated_into: [:fr])
 
-    translated_priority = create(:published_international_priority, world_locations: [world_location], translated_into: [:fr])
-    untranslated_priority = create(:published_international_priority, world_locations: [world_location])
+    translated_priority = create(:published_worldwide_priority, world_locations: [world_location], translated_into: [:fr])
+    untranslated_priority = create(:published_worldwide_priority, world_locations: [world_location])
 
     get :show, id: world_location, locale: 'fr'
 
-    assert_equal [translated_priority], assigns(:international_priorities)
+    assert_equal [translated_priority], assigns(:worldwide_priorities)
   end
 
   test "should only display translated announcements when requested for a locale" do

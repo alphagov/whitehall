@@ -135,9 +135,9 @@ en:
       independent_report:
         one: Independent report
         other: Independent reports
-      international_priority:
-        one: International priority
-        other: International priorities
+      worldwide_priority:
+        one: Worldwide priority
+        other: Worldwide priorities
       national_statistics:
         one: Statistics - national statistics
         other: Statistics - national statistics

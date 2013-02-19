@@ -17,7 +17,7 @@
           <li><%= link_to "Consultation", new_admin_consultation_path, title: "Create Consultation" %></li>
           <li><%= link_to "Speech", new_admin_speech_path, title: "Create Speech" %></li>
           <li><%= link_to "Detailed Guide", new_admin_detailed_guide_path, title: "Create Detailed Guide" %></li>
-          <li><%= link_to "International Priority", new_admin_international_priority_path, title: "Create International Priority" %></li>
+          <li><%= link_to "Worldwide priority", new_admin_worldwide_priority_path, title: "Create Worldwide Priority" %></li>
           <li><%= link_to "Case Study", new_admin_case_study_path, title: "Create Case Study" %></li>
           <li><%= link_to "Statistical Data Set", new_admin_statistical_data_set_path, title: "Create Statistical Data Set" %></li>
         </ul>
@@ -65,7 +65,7 @@
           <%= link_to_filter 'Consultations', {type: 'consultation'}, title: "Show only consultations" %>
           <%= link_to_filter 'Speeches', {type: 'speech'}, title: "Show only speeches" %>
           <%= link_to_filter 'Detailed guide', {type: 'detailed_guide'}, title: "Show only detailed guides" %>
-          <%= link_to_filter 'International priorities', {type: 'international_priorities'}, title: "Show only international priorities" %>
+          <%= link_to_filter 'Worldwide priorities', {type: 'worldwide_priorities'}, title: "Show only worldwide priorities" %>
           <%= link_to_filter 'Case studies', {type: 'case_studies'}, title: "Show only case studies" %>
           <%= link_to_filter 'Statistical data sets', {type: 'statistical_data_sets'}, title: "Show only statistical data sets" %>
           <% if current_user.can_handle_fatalities? %>

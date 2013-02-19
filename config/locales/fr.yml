@@ -87,9 +87,9 @@ fr:
       independent_report:
         one: Rapport indépendant
         other: Rapports indépendants
-      international_priority:
-        one: Priorité internationale
-        other: Priorités internationales
+      worldwide_priority:
+        one: Priorité mondiale
+        other: Priorité mondiales
       national_statistics:
         one: Statistiques - statistiques nationales
         other: Statistiques - statistiques nationales

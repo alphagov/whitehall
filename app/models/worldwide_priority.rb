@@ -1,14 +1,14 @@
-class InternationalPriority < Edition
+class WorldwidePriority < Edition
   include Edition::Images
   include Edition::WorldLocations
   include Edition::WorldwideOffices
 
   def display_type_key
-    "international_priority"
+    "worldwide_priority"
   end
 
   def search_format_types
-    super + [InternationalPriority.search_format_type]
+    super + [WorldwidePriority.search_format_type]
   end
 
   def translatable?

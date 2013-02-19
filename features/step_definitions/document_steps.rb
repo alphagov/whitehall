@@ -53,7 +53,7 @@ Given /^a published (publication|policy|news article|consultation) "([^"]*)" exi
   create("published_#{document_class(document_type).name.underscore}".to_sym, title: title, first_published_at: days_ago.to_i.days.ago, world_locations: [world_location])
 end
 
-Given /^a submitted (publication|policy|news article|consultation|speech|international priority|detailed guide) "([^"]*)" exists$/ do |document_type, title|
+Given /^a submitted (publication|policy|news article|consultation|speech|worldwide priority|detailed guide) "([^"]*)" exists$/ do |document_type, title|
   create("submitted_#{document_class(document_type).name.underscore}".to_sym, title: title)
 end
 
@@ -202,8 +202,8 @@ Then /^(#{THE_DOCUMENT}) should be visible to the public$/ do |edition|
   when DetailedGuide
     visit detailed_guide_path(edition.document)
     css_selector = 'h1.page_title'
-  when InternationalPriority
-    visit international_priorities_path
+  when WorldwidePriority
+    visit worldwide_priorities_path
   else
     raise "Don't know what to click on for #{edition.class.name}s"
   end

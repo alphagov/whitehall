@@ -20,9 +20,9 @@ Scenario: The publication is about an overseas territory
 
 Scenario: View priorities for an international delegation
   Given an international delegation "United Nations" exists
-  And a published international priority "Oil field exploitation" exists relating to the international delegation "United Nations"
+  And a published worldwide priority "Oil field exploitation" exists relating to the international delegation "United Nations"
   When I view the international delegation "United Nations"
-  Then I should see the international priority "Oil field exploitation"
+  Then I should see the worldwide priority "Oil field exploitation"
 
 Scenario: Inactive world locations are listed but not linked
   Given the country "Democratic People's Republic of South London" is inactive
