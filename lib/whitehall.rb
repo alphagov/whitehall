@@ -154,7 +154,7 @@ module Whitehall
     end
 
     def edition_route_path_segments
-      %w(news speeches policies publications consultations worldwide-priorities detailed-guides case-studies statistical-data-sets fatalities)
+      %w(news speeches policies publications consultations priority detailed-guides case-studies statistical-data-sets fatalities)
     end
 
     def government_edition_classes
