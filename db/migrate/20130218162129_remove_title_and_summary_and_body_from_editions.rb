@@ -1,13 +1,12 @@
 class RemoveTitleAndSummaryAndBodyFromEditions < ActiveRecord::Migration
   def up
-    remove_column :editions, :title
-    remove_column :editions, :summary
-    remove_column :editions, :body
+    # No-op.
+    # This migration previously removed the title, summary and body fields from the editions table
+    # but that caused us problems with stale Rails processes expecting the fields to exist after
+    # deployment.
   end
 
   def self.down
-    add_column :editions, :body, :text, limit: 16.megabytes - 1
-    add_column :editions, :summary, :text
-    add_column :editions, :title, :string
+    # No-op. See the comment above.
   end
 end
