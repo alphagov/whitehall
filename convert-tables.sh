@@ -60,4 +60,5 @@ done
 for table in "${latin_tables[@]}"; do
     LATIN1FILE="/tmp/${DB}.${table}.latin1.sql"
     mysql -h$DBHOST -u$DBUSER -p$DBPASS $DB < $LATIN1FILE
+    rm $LATIN1FILE
 done
