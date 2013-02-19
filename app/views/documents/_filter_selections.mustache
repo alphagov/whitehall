@@ -12,15 +12,14 @@ by
   {{/departments}}
   {{^departments}} <strong>All organisations</strong> {{/departments}}
 </span>
-{{#locations_any?}}
+{{#world_locations_any?}}
 from
 <span class="locations-selections chosen">
-  {{#locations}}
-    <strong>{{name}} <a href="{{url}}" data-field="locations" data-val="{{value}}" title="Remove {{name}} filter">&times;</a></strong> {{joining}}
-  {{/locations}}
-  {{^locations}} <strong>All locations</strong> {{/locations}}
+  {{#world_locations}}
+    <strong>{{name}} <a href="{{url}}" data-field="world_locations" data-val="{{value}}" title="Remove {{name}} filter">&times;</a></strong> {{joining}}
+  {{/world_locations}}
 </span>
-{{/locations_any?}}
+{{/world_locations_any?}}
 
 {{#keywords_any?}}
   containing

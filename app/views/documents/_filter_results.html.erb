@@ -3,8 +3,8 @@
     result_count: result_count(filter.documents.total_count),
     departments: filter_results_selections(filter.selected_organisations, 'departments'),
     topics: filter_results_selections(filter.selected_topics, 'topics'),
-    locations_any?: filter.selected_locations.any?,
-    locations: filter_results_selections(filter.selected_locations, 'locations'),
+    world_locations_any?: filter.selected_locations.any?,
+    world_locations: filter_results_selections(filter.selected_locations, 'world_locations'),
     keywords_any?: filter.keywords.any?,
     keywords: filter_results_keywords(filter.keywords),
     date: ({

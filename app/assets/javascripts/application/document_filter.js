@@ -216,11 +216,11 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
                 date: field.title[0],
                 direction: formStatus.checked[0].value
               }
-            } else if (field.id === 'locations'){
-              context.locations = [];
+            } else if (field.id === 'world_locations'){
+              context.world_locations = [];
               for(j=0, _j=field.title.length; j<_j; j++){
                 if(field.value[j] !== 'all'){
-                  context['locations'].push({
+                  context['world_locations'].push({
                     name: field.title[j],
                     url: documentFilter.urlWithout(field.id, field.value[j]),
                     value: field.value[j],
@@ -228,8 +228,8 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
                   });
                 }
               }
-              if (context.locations.length > 0) {
-                context['locations_any?'] = true;
+              if (context.world_locations.length > 0) {
+                context['world_locations_any?'] = true;
               }
             } else if (field.id != 'sub_orgs' && field.id != 'date') {
               context[field.id] = [];
@@ -282,7 +282,7 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
       $selections.mustache('documents/_filter_selections', context);
     },
     removeFilters: function(field, removed){
-      var selects = ['topics', 'departments', 'locations'],
+      var selects = ['topics', 'departments', 'world_locations'],
           inputs = ['keywords'],
           checkboxes = ['relevant_to_local_government'];
 
