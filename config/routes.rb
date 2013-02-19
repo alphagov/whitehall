@@ -140,7 +140,7 @@ Whitehall::Application.routes.draw do
         resources :publications, except: [:index]
 
         resources :policies, except: [:index]
-        resources :worldwide_priorities, path: "worldwide-priorities", except: [:index]
+        resources :worldwide_priorities, path: "priority", except: [:index]
         resources :news_articles, path: 'news', except: [:index]
         resources :fatality_notices, path: 'fatalities', except: [:index]
         resources :consultations, except: [:index]
