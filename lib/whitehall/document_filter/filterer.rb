@@ -47,9 +47,9 @@ module Whitehall::DocumentFilter
     end
 
     def selected_locations
-      if @params[:locations].present? && @params[:locations] != ["all"]
-        @params[:locations].reject! {|l| l == "all"}
-        WorldLocation.find_all_by_slug(@params[:locations])
+      if @params[:world_locations].present? && @params[:world_locations] != ["all"]
+        @params[:world_locations].reject! {|l| l == "all"}
+        WorldLocation.find_all_by_slug(@params[:world_locations])
       else
         []
       end

@@ -138,9 +138,9 @@ class AnnouncementsControllerTest < ActionController::TestCase
 
     create(:published_news_article, world_locations: [wl1,wl2,wl3])
 
-    get :index, {locations: [wl1.slug,wl3.slug]}
+    get :index, {world_locations: [wl1.slug,wl3.slug]}
 
-    assert_select "select[name='locations[]']" do
+    assert_select "select[name='world_locations[]']" do
       assert_select "option[selected='selected']", count: 2
     end
   end

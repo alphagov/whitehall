@@ -191,15 +191,15 @@ module Whitehall::DocumentFilter
       item_3 = create(:published_publication, world_locations: [other_world_location])
       item_4 = create(:published_consultation)
 
-      filter = Whitehall::DocumentFilter::Mysql.new(locations: [world_location.slug, other_world_location.slug])
+      filter = Whitehall::DocumentFilter::Mysql.new(world_locations: [world_location.slug, other_world_location.slug])
       filter.publications_search
       assert_same_elements [item_1, item_3], filter.documents
 
-      filter = Whitehall::DocumentFilter::Mysql.new(locations: [world_location.slug])
+      filter = Whitehall::DocumentFilter::Mysql.new(world_locations: [world_location.slug])
       filter.publications_search
       assert_same_elements [item_1], filter.documents
 
-      filter = Whitehall::DocumentFilter::Mysql.new(locations: [])
+      filter = Whitehall::DocumentFilter::Mysql.new(world_locations: [])
       filter.publications_search
       assert_same_elements [item_1, item_2, item_3, item_4], filter.documents
     end
@@ -213,9 +213,9 @@ module Whitehall::DocumentFilter
       transcript = create(:published_speech, speech_type: SpeechType::Transcript, world_locations: [world_location])
       statement = create(:published_speech, speech_type: SpeechType::WrittenStatement, world_locations: [other_world_location])
 
-      assert_equal 4, create_filter(Announcement.published, locations: [world_location.slug, other_world_location.slug]).documents.count
-      assert_equal 3, create_filter(Announcement.published, locations: [world_location.slug]).documents.count
-      assert_equal 1, create_filter(Announcement.published, locations: [other_world_location.slug]).documents.count
+      assert_equal 4, create_filter(Announcement.published, world_locations: [world_location.slug, other_world_location.slug]).documents.count
+      assert_equal 3, create_filter(Announcement.published, world_locations: [world_location.slug]).documents.count
+      assert_equal 1, create_filter(Announcement.published, world_locations: [other_world_location.slug]).documents.count
     end
 
     test "can filter announcements by type" do

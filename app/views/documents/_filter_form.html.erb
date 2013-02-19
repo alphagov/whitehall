@@ -65,8 +65,8 @@
         <div class="filter-inner">
           <% if defined?(filter_by_locations) && filter_by_locations %>
             <div class="publication-type">
-              <%= label_tag "locations", "World Locations", class: "title" %>
-              <%= select_tag :locations, locations_options(all_locations_with(document_type), @filter.selected_locations), size: 5, multiple: true,  class: "multi-row-select" %>
+              <%= label_tag "world_locations", "World Locations", class: "title" %>
+              <%= select_tag :world_locations, locations_options(all_locations_with(document_type), @filter.selected_locations), size: 5, multiple: true,  class: "multi-row-select" %>
             </div>
           <% end %>
         </div>
