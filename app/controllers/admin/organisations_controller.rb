@@ -1,7 +1,7 @@
 class Admin::OrganisationsController < Admin::BaseController
   before_filter :build_organisation, only: [:new]
   before_filter :build_organisation_roles, only: [:new]
-  before_filter :load_organisation, only: [:show, :edit, :update, :destroy]
+  before_filter :load_organisation, only: [:show, :edit, :update, :destroy, :documents]
   before_filter :build_organisation_classifications, only: [:new, :edit]
   before_filter :delete_absent_organisation_classifications, only: [:update]
   before_filter :build_mainstream_links, only: [:new, :edit]
@@ -32,7 +32,15 @@ class Admin::OrganisationsController < Admin::BaseController
   end
 
   def show
+  end
+
+  def documents
+    @featured_editions = @organisation.featured_edition_organisations.collect { |e| e.edition }
     @editions = Edition.accessible_to(current_user).published.in_organisation(@organisation).in_reverse_chronological_order
+    if @featured_editions.any?
+      @editions = @editions.where(Edition.arel_table[:id].not_in @featured_editions.map(&:id))
+    end
+    @editions = @editions.page(params[:page]).per(20)
   end
 
   def edit
