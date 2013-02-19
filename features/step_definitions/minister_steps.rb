@@ -25,6 +25,17 @@ When /^I visit the minister page for "([^"]*)"$/ do |name|
   click_link name
 end
 
+When /^I visit the ministers page$/ do
+  visit ministers_page
+end
+
+Then /^I should see that "([^"]*)" is a minister in the "([^"]*)"$/ do |minister_name, organisation_name|
+  organisation = Organisation.find_by_name!(organisation_name)
+  within record_css_selector(organisation) do
+    assert page.has_css?('.current-appointee', text: minister_name)
+  end
+end
+
 Then /^I should see that the minister is associated with the "([^"]*)"$/ do |organisation_name|
   organisation = Organisation.find_by_name!(organisation_name)
   assert page.has_css?(record_css_selector(organisation)), "organisation was missing"
@@ -38,4 +49,16 @@ When /^there is a reshuffle and "([^"]*)" is now "([^"]*)"$/ do |person_name, mi
   person = find_or_create_person(person_name)
   role = MinisterialRole.find_by_name(ministerial_role)
   create(:role_appointment, role: role, person: person, make_current: true)
+end
+
+Given /^"([^"]*)" is a commons whip "([^"]*)" for the "([^"]*)"$/ do |person_name, ministerial_role, organisation_name|
+  create_role_appointment(person_name, ministerial_role, organisation_name, 2.years.ago,
+    role_options: {whip_organisation_id: Whitehall::WhipOrganisation::WhipsHouseOfCommons.id})
+end
+
+Then /^I should see that "([^"]*)" is a commons whip "([^"]*)"$/ do |minister_name, role_title|
+  within record_css_selector(Whitehall::WhipOrganisation::WhipsHouseOfCommons) do
+    assert page.has_css?('.current-appointee', text: minister_name)
+    assert page.has_css?('.role', text: role_title)
+  end
 end

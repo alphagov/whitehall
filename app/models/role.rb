@@ -28,6 +28,10 @@ class Role < ActiveRecord::Base
   extend FriendlyId
   friendly_id
 
+  def self.whip
+    where(arel_table[:whip_organisation_id].not_eq(nil))
+  end
+
   def occupied?
     current_role_appointments.any?
   end

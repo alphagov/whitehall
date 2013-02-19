@@ -750,6 +750,7 @@ ActiveRecord::Schema.define(:version => 20130219135606) do
     t.string   "slug"
     t.text     "responsibilities"
     t.boolean  "chief_of_the_defence_staff"
+    t.integer  "whip_organisation_id"
   end
 
   add_index "roles", ["slug"], :name => "index_roles_on_slug"
