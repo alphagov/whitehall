@@ -23,3 +23,18 @@ Scenario: Announcements by current and former ministers appear on the page
   And a published news article "News from Harriet, Deputy PM" associated with "Harriet Home"
   When I visit the minister page for "Deputy Prime Minister"
   Then I should see both the news articles for the Deputy Prime Minister role
+
+Scenario: Viewing all ministers
+  Given "Johnny Macaroon" is the "Minister of Crazy" for the "Department of Woah"
+  And "Fred Bloggs" is the "Minister of Sane" for the "Department of Foo"
+  When I visit the ministers page
+  Then I should see that "Johnny Macaroon" is a minister in the "Department of Woah"
+  And I should see that "Fred Bloggs" is a minister in the "Department of Foo"
+
+Scenario: Viewing ministers and whips
+  Given "Johnny Macaroon" is the "Minister of Crazy" for the "Department of Woah"
+  And "Fred Bloggs" is a commons whip "Deputy Chief Whip, Comptroller of HM Household" for the "Department of Foo"
+  When I visit the ministers page
+  Then I should see that "Johnny Macaroon" is a minister in the "Department of Woah"
+  And I should see that "Fred Bloggs" is a commons whip "Deputy Chief Whip, Comptroller of HM Household"
+

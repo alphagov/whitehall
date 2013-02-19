@@ -32,7 +32,7 @@
 <div class="block-3 ministers-by-organisation">
   <div class="inner-block">
     <h1>Ministers by organisation</h1>
-    <% @ministerial_roles_by_organisation.each do |organisation, ministers| %>
+    <% @ministers_by_organisation.each do |organisation, ministers| %>
       <%= content_tag_for :section, organisation do %>
         <h2>
           <%= link_to organisation_path(organisation), class: logo_classes(class_name: organisation.organisation_logo_type.class_name,  size: 'medium', stacked: true) do %>
@@ -41,6 +41,33 @@
         </h2>
         <ul class="minister-list">
           <% ministers.each.with_index do |role_appointment, i| %>
+            <%= render partial: "people/person",
+                locals: {
+                  person: role_appointment.person,
+                  roles: [role_appointment.role],
+                  hlevel: "h3",
+                  prefix: 'by-organisation',
+                  hide_image: true,
+                  extra_class: (i % 3 == 0) ? 'clear-person' : ''
+                } %>
+          <% end %>
+        </ul>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+
+<div class="block-3 ministers-by-organisation whips">
+  <div class="inner-block">
+    <h1>Whips</h1>
+
+    <% @whips_by_organisation.each do |whip_organisation, whips| %>
+      <%= content_tag_for :section, whip_organisation do %>
+        <h2>
+          <span><%= format_with_html_line_breaks(whip_organisation.name) %></span>
+        </h2>
+        <ul class="minister-list">
+          <% whips.each.with_index do |role_appointment, i| %>
             <%= render partial: "people/person",
                 locals: {
                   person: role_appointment.person,

@@ -50,9 +50,33 @@ class MinisterialRolesControllerTest < ActionController::TestCase
 
     get :index
 
-    assert_equal [[organisation, [appointment_1, appointment_2]]], assigns(:ministerial_roles_by_organisation).map { |org, role_appointments| [org, role_appointments.map(&:model)] }
+    expected_results = [[organisation, [appointment_1, appointment_2]]]
+    assert_equal expected_results, assigns(:ministers_by_organisation).map { |org, role_appointments| [org, role_appointments.map(&:model)] }
   end
 
+  test "shows whips separately" do
+    organisation = create(:ministerial_department)
+    person_1 = create(:person, forename: 'Nick', surname: 'Clegg')
+    person_2 = create(:person, forename: 'Jeremy', surname: 'Hunt')
+    person_3 = create(:person, forename: 'Geroge', surname: 'Foreman')
+
+    role_1 = create(:ministerial_role, name: 'Prime Minister', cabinet_member: true, organisations: [organisation])
+    role_2 = create(:ministerial_role, name: 'Non-Executive Director', cabinet_member: false, organisations: [organisation])
+    role_3 = create(:ministerial_role, name: 'Chief Whip and Parliamentary Secretary to the Treasury', organisations: [organisation], whip_organisation_id: 1)
+
+    appointment_1 = create(:ministerial_role_appointment, role: role_1, person: person_1)
+    appointment_2 = create(:ministerial_role_appointment, role: role_2, person: person_2)
+    appointment_3 = create(:ministerial_role_appointment, role: role_3, person: person_3)
+
+    get :index
+
+    whips = [[Whitehall::WhipOrganisation.find_by_id(1), []]]
+    whips[0][1] = [appointment_3]
+
+    expected_results = [[organisation, [appointment_1, appointment_2]]]
+    assert_equal expected_results, assigns(:ministers_by_organisation).map { |org, role_appointments| [org, role_appointments.map(&:model)] }
+    assert_equal whips, assigns(:whips_by_organisation).map { |org, role_appointments| [org, role_appointments.map(&:model)] }
+  end
 
   test "should avoid n+1 queries" do
     MinisterialRole.expects(:includes).with(:current_people).returns([])
@@ -161,7 +185,8 @@ class MinisterialRolesControllerTest < ActionController::TestCase
 
     get :index
 
-    assert_equal [[organisation, [appointment_1]]], assigns(:ministerial_roles_by_organisation).map { |org, role_appointments| [org, role_appointments.map(&:model)] }
+    expected_results = [[organisation, [appointment_1]]]
+    assert_equal expected_results, assigns(:ministers_by_organisation).map { |org, role_appointments| [org, role_appointments.map(&:model)] }
   end
 
   private
