@@ -50,7 +50,7 @@ class MinisterialRolesControllerTest < ActionController::TestCase
 
     get :index
 
-    expected_results = [[organisation, [appointment_1, appointment_2]]] + Whitehall::WhipOrganisation.all.map{|wo| [wo,[]]}
+    expected_results = [[organisation, [appointment_1, appointment_2]]]
     assert_equal expected_results, assigns(:ministerial_roles_by_organisation).map { |org, role_appointments| [org, role_appointments.map(&:model)] }
   end
 
@@ -70,7 +70,7 @@ class MinisterialRolesControllerTest < ActionController::TestCase
 
     get :index
 
-    whips = Whitehall::WhipOrganisation.all.map{|wo| [wo,[]]}
+    whips = [[Whitehall::WhipOrganisation.find_by_id(1), []]]
     whips[0][1] = [appointment_3]
 
     expected_results = [[organisation, [appointment_1, appointment_2]]] + whips
@@ -184,7 +184,7 @@ class MinisterialRolesControllerTest < ActionController::TestCase
 
     get :index
 
-    expected_results = [[organisation, [appointment_1]]] + Whitehall::WhipOrganisation.all.map{|wo| [wo,[]]}
+    expected_results = [[organisation, [appointment_1]]]
     assert_equal expected_results, assigns(:ministerial_roles_by_organisation).map { |org, role_appointments| [org, role_appointments.map(&:model)] }
   end
 

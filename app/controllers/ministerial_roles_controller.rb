@@ -20,19 +20,13 @@ class MinisterialRolesController < PublicFacingController
       ]
     end
 
-    @whip_organisations = Whitehall::WhipOrganisation.all.map{|wo| [ wo, [] ]}
-    Organisation.includes(ministerial_role_appointments: [:role, :person]).merge(RoleAppointment.current).where(organisation_type_id: ministerial_department_type).each do |organisation|
-      organisation.ministerial_whip_role_appointments.each do |appointment|
-        if appointment.role.is_a?(MinisterialRole)
-          @whip_organisations.each_with_index do |wo, i|
-            if wo[0].id == appointment.role.whip_organisation_id
-              @whip_organisations[i][1] << RoleAppointmentPresenter.decorate(appointment)
-            end
-          end
-
-        end
-      end
-    end
+    @whip_organisations = Organisation.includes(ministerial_role_appointments: [:role, :person]).merge(RoleAppointment.current).where(organisation_type_id: ministerial_department_type).map do |organisation|
+      organisation.ministerial_whip_role_appointments.select do |appointment|
+        appointment.role.is_a?(MinisterialRole)
+      end.map { |appointment|
+          RoleAppointmentPresenter.decorate(appointment)
+        }
+    end.flatten.group_by {|appointment| Whitehall::WhipOrganisation.find_by_id(appointment.role.whip_organisation_id) }
 
     @ministerial_roles_by_whip_organisations = @whip_organisations.map {|wo| [wo[0], wo[1].sort_by {|role_appointment| role_appointment.role.seniority }]}
     @ministerial_roles_by_organisation += @ministerial_roles_by_whip_organisations
