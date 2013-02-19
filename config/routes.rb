@@ -91,6 +91,9 @@ Whitehall::Application.routes.draw do
           resources :groups, except: [:show]
           resources :document_series
           resources :corporate_information_pages
+          member do
+            get :documents
+          end
         end
         resources :policy_teams, except: [:show]
         resources :policy_advisory_groups, except: [:show]

@@ -1,4 +1,5 @@
-<div class="tab-pane" id="documents">
+<% show ||= false %>
+<div class="tab-pane<% if show %> active<% end %>" id="documents">
   <% if @organisation.featured_edition_organisations.any? %>
     <h2>Featured documents</h2>
     <%= form_for [:admin, @organisation], as: :organisation do |form| %>
@@ -13,37 +14,16 @@
     <% end %>
   <% end %>
 
-  <h2>Published documents (<%= link_to "View all", admin_editions_path(organisation: @organisation.slug, state: :active)%>)</h2>
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Title</th>
-        <th>Published</th>
-        <th></th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @editions.each do |edition| %>
-        <%= content_tag_for :tr, edition do %>
-          <td class="type"><%= edition.type.titleize %></td>
-          <td><%= link_to edition.title, admin_edition_path(edition) %></td>
-          <td><%=l edition.major_change_published_at.to_date %></td>
-          <% association = edition.association_with_organisation(@organisation) %>
-          <td><%= "Featured" if association.featured? %></td>
-          <td>
-            <% if association.featured? %>
-              <%= form_for([:admin, association], html: {class: "button_to"}) do |f| %>
-                <%= f.hidden_field :featured, value: false %>
-                <%= f.submit "Unfeature", class: "btn btn-danger" %>
-              <% end %>
-            <% else %>
-              <%= link_to "Feature", edit_admin_edition_organisation_path(association), class: "btn" %>
-            <% end %>
-          </td>
-        <% end %>
-      <% end %>
-    </tbody>
-  </table>
+  <% if @featured_editions.any? %>
+    <h2>Featured documents</h2>
+    <%= render partial: 'organisation_editions',
+               locals: { editions: @featured_editions, organisation: @organisation } %>
+  <% end %>
+  <% if @editions.any? %>
+    <h2>Published documents (<%= link_to "View all", admin_editions_path(organisation: @organisation.slug, state: :active)%>)</h2>
+    <%= paginate @editions, theme: 'twitter-bootstrap' %>
+    <%= render partial: 'organisation_editions',
+               locals: { editions: @editions, organisation: @organisation  } %>
+    <%= paginate @editions, theme: 'twitter-bootstrap' %>
+  <% end %>
 </div>
