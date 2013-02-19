@@ -152,10 +152,6 @@ ActiveRecord::Schema.define(:version => 20130218120402) do
   add_index "contact_numbers", ["contact_id"], :name => "index_contact_numbers_on_contact_id"
 
   create_table "contacts", :force => true do |t|
-    t.integer "organisation_id"
-    t.string  "description"
-    t.text    "address"
-    t.string  "postcode"
     t.decimal "latitude",         :precision => 15, :scale => 10
     t.decimal "longitude",        :precision => 15, :scale => 10
     t.string  "email"
@@ -173,7 +169,6 @@ ActiveRecord::Schema.define(:version => 20130218120402) do
   end
 
   add_index "contacts", ["contactable_id", "contactable_type"], :name => "index_contacts_on_contactable_id_and_contactable_type"
-  add_index "contacts", ["organisation_id"], :name => "index_contacts_on_organisation_id"
 
   create_table "corporate_information_page_attachments", :force => true do |t|
     t.integer  "corporate_information_page_id"
