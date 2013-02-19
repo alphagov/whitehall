@@ -1,6 +1,5 @@
 class AddSlugsToCountries < ActiveRecord::Migration
-  Country.class_eval do
-    # temporarily generate slugs for existing objects
+  class Country < ActiveRecord::Base
     def should_generate_new_friendly_id?
       super
     end
