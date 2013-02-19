@@ -226,6 +226,7 @@
       text-align: center;
       padding: 0;
       vertical-align: middle;
+      width: 17%;
       a {
         text-decoration: none;
         &:hover,
@@ -235,12 +236,12 @@
       }
 
       .count {
+        @include core-48;
         position: relative;
         top: $gutter-one-third;
-        padding-bottom: 0;
-        margin: 0;
+        padding: 0;
+        margin: 0 0 $gutter-one-sixth 0;
 
-        font-size: 1.9em;
         font-weight: bold;
         display: block;
         line-height: 1em;
@@ -260,6 +261,8 @@
 
         .count{
           padding-top: 0.4em;
+          font-size: 1.9em;
+          font-weight: bold;
         }
       }
 
@@ -379,6 +382,15 @@
     h3{
       border-top:1px solid $border-colour;
       padding-top:$gutter;
+    }
+  }
+
+  .ministers {
+    h3 {
+      margin-bottom: 0;
+      @include media(tablet) {
+        margin-bottom: $gutter-half;
+      }
     }
   }
 
