@@ -102,7 +102,13 @@ class Organisation < ActiveRecord::Base
   has_many :ministerial_roles,
             class_name: 'MinisterialRole',
             through: :organisation_roles,
-            source: :role
+            source: :role,
+            conditions: "roles.whip_organisation_id IS null"
+  has_many :ministerial_whip_roles,
+            class_name: 'MinisterialRole',
+            through: :organisation_roles,
+            source: :role,
+            conditions: "roles.whip_organisation_id IS NOT null"
   has_many :management_roles,
             through: :organisation_roles,
             source: :role,
@@ -119,10 +125,13 @@ class Organisation < ActiveRecord::Base
             class_name: 'SpecialRepresentativeRole',
             through: :organisation_roles,
             source: :role
-
   has_many :ministerial_role_appointments,
             class_name: 'RoleAppointment',
             through: :ministerial_roles,
+            source: :role_appointments
+  has_many :ministerial_whip_role_appointments,
+            class_name: 'RoleAppointment',
+            through: :ministerial_whip_roles,
             source: :role_appointments
 
   has_many :people, through: :roles

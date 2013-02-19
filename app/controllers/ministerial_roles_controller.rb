@@ -13,12 +13,31 @@ class MinisterialRolesController < PublicFacingController
           # This select is needed due to ActiveRecord not adding a `where type`
           # to the role query. Rejecting the extra objects seems nicer than
           # suffereing from n+1 queries to load in the people and roles.
-          appointment.role.is_a? MinisterialRole
+          if appointment.role.is_a?(MinisterialRole)
+            appointment
+          end
         }.map { |appointment|
           RoleAppointmentPresenter.decorate(appointment)
         }.sort_by {|role_appointment| role_appointment.role.seniority }
       ]
     end
+
+    @whip_organisations = Whitehall::WhipOrganisation.all.map{|wo| [ wo, [] ]}
+    Organisation.includes(ministerial_role_appointments: [:role, :person]).merge(RoleAppointment.current).where(organisation_type_id: ministerial_department_type).map do |organisation|
+      organisation.ministerial_whip_role_appointments.select do |appointment|
+        if appointment.role.is_a?(MinisterialRole)
+          @whip_organisations.each_with_index do |wo, i|
+            if wo[0].id == appointment.role.whip_organisation_id
+              @whip_organisations[i][1] << RoleAppointmentPresenter.decorate(appointment)
+            end
+          end
+
+        end
+      end
+    end
+
+    @ministerial_roles_by_whip_organisations = @whip_organisations.map {|wo| [wo[0], wo[1].sort_by {|role_appointment| role_appointment.role.seniority }]}
+    @ministerial_roles_by_organisation += @ministerial_roles_by_whip_organisations
   end
 
   def show

@@ -1,4 +1,5 @@
 module ActiveRecordLikeInterface
+  include ActiveModel::Conversion
   module ClassMethods
     def primary_key
       :id
@@ -19,6 +20,10 @@ module ActiveRecordLikeInterface
     def create(*args)
       new(*args).save
     end
+
+    def model_name
+      ActiveModel::Name.new self
+    end
   end
 
   def initialize(options={})
@@ -37,6 +42,10 @@ module ActiveRecordLikeInterface
 
   def save
     self.class.repository[id] = self
+  end
+
+  def persisted?
+    true
   end
 
   def destroyed?
