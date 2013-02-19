@@ -42,4 +42,11 @@ jQuery(document).ready(function($) {
     window.location.hash = $(this).data('target');
     window.scrollTo(before_shown_scroll_y, before_shown_scroll_y);
   });
+
+  if (window.location.hash && $('.tab-content').length > 0) {
+    // we may need to preload the tabs
+    var hash = window.location.hash.substring(1);
+    // ... if it's not already selected.
+    $('a[href$=#' + hash + '][data-toggle=tab]:not(.active)').tab('show');
+  }
 })
