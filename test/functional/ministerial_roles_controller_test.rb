@@ -51,10 +51,10 @@ class MinisterialRolesControllerTest < ActionController::TestCase
     get :index
 
     expected_results = [[organisation, [appointment_1, appointment_2]]]
-    assert_equal expected_results, assigns(:ministerial_roles_by_organisation).map { |org, role_appointments| [org, role_appointments.map(&:model)] }
+    assert_equal expected_results, assigns(:ministers_by_organisation).map { |org, role_appointments| [org, role_appointments.map(&:model)] }
   end
 
-  test "shows whips seperatly" do
+  test "shows whips separately" do
     organisation = create(:ministerial_department)
     person_1 = create(:person, forename: 'Nick', surname: 'Clegg')
     person_2 = create(:person, forename: 'Jeremy', surname: 'Hunt')
@@ -73,8 +73,9 @@ class MinisterialRolesControllerTest < ActionController::TestCase
     whips = [[Whitehall::WhipOrganisation.find_by_id(1), []]]
     whips[0][1] = [appointment_3]
 
-    expected_results = [[organisation, [appointment_1, appointment_2]]] + whips
-    assert_equal expected_results, assigns(:ministerial_roles_by_organisation).map { |org, role_appointments| [org, role_appointments.map(&:model)] }
+    expected_results = [[organisation, [appointment_1, appointment_2]]]
+    assert_equal expected_results, assigns(:ministers_by_organisation).map { |org, role_appointments| [org, role_appointments.map(&:model)] }
+    assert_equal whips, assigns(:whips_by_organisation).map { |org, role_appointments| [org, role_appointments.map(&:model)] }
   end
 
   test "should avoid n+1 queries" do
@@ -185,7 +186,7 @@ class MinisterialRolesControllerTest < ActionController::TestCase
     get :index
 
     expected_results = [[organisation, [appointment_1]]]
-    assert_equal expected_results, assigns(:ministerial_roles_by_organisation).map { |org, role_appointments| [org, role_appointments.map(&:model)] }
+    assert_equal expected_results, assigns(:ministers_by_organisation).map { |org, role_appointments| [org, role_appointments.map(&:model)] }
   end
 
   private
