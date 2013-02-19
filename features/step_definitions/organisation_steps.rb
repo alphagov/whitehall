@@ -195,7 +195,7 @@ When /^I add some mainstream links to "([^"]*)" via the admin$/ do |organisation
   organisation = Organisation.find_by_name!(organisation_name)
   visit admin_organisation_path(organisation)
   click_link "Edit"
-  within ".organisation-mainstream-links" do
+  within ".mainstream-links" do
     fill_in "Url", with: "https://www.gov.uk/mainstream/tool-alpha"
     fill_in "Title", with: "Tool Alpha"
   end
