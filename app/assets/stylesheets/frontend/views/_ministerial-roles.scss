@@ -56,16 +56,21 @@
       h2 {
         margin: $gutter-half 0;
         float: left;
-        width: 25%;
+        @include media(tablet) {
+          width: 25%;
+        }
       }
 
       .minister-list {
         margin: 40px (-$gutter-half) 0;
-        float: right;
-        width: 75%;
 
-        .person-excerpt {
-          width: 33.33%;
+        @include media(tablet) {
+          float: right;
+          width: 75%;
+
+          .person-excerpt {
+            width: 33.33%;
+          }
         }
       }
     }
