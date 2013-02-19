@@ -16,7 +16,7 @@ class Admin::DocumentSeriesController < Admin::BaseController
   end
 
   def index
-    @document_series = DocumentSeries.includes(:organisation).order(:organisation_id)
+    @document_series = DocumentSeries.includes(:organisation).order("organisations.name")
   end
 
   def show
