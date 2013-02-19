@@ -21,6 +21,14 @@ class Contact < ActiveRecord::Base
       region.present? || postal_code.present? || country_id.present?
   end
 
+  def country_code
+    country.try(:iso2)
+  end
+
+  def country_name
+    country.try(:name)
+  end
+
   DEPRECATED_ATTRIBUTES = %w{description address postcode}
 
   DEPRECATED_ATTRIBUTES.each do |attribute_name|

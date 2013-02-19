@@ -13,7 +13,9 @@
 
     <% if contact.has_postal_address? %>
       <div class="contact-inner">
-        <%= render_hcard(contact) %>
+        <div class="vcard">
+          <%= render_hcard_address(contact) %>
+        </div>
       </div>
     <% end %>
 

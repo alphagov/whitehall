@@ -1,7 +1,9 @@
 <%= content_tag_for(:div, contact) do %>
   <h3><%= contact.title %> <%= '(Main contact)' if contactable.respond_to?(:main_contact) && contactable.is_main_contact?(contact) %></h3>
 
-  <%= render_hcard(contact) %>
+  <div class="vcard">
+    <%= render_hcard_address(contact) %>
+  </div>
   <% if contact.contact_numbers.any? %>
     <%= content_tag(:dl, class: "dl-horizontal") do %>
       <% contact.contact_numbers.each do |cn| %>

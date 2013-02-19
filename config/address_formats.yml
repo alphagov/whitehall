@@ -1,0 +1,366 @@
+# Adapted from https://github.com/yolk/biggs
+# LICENCE: https://raw.github.com/yolk/biggs/master/LICENSE
+#
+# Avaible placeholders:
+#   * fn
+#   * street-address
+#   * postal-code
+#   * locality
+#   * region
+#   * country-name
+#
+---
+ae: |-
+    {{fn}}
+    {{street-address}}
+    {{postal-code}} {{locality}}
+    {{country-name}}
+ar: |-
+    {{fn}}
+    {{street-address}}
+    {{postal-code}} {{locality}}
+    {{region}}
+    {{country-name}}
+at: |-
+    {{fn}}
+    {{street-address}}
+    {{postal-code}} {{locality}}
+    {{country-name}}
+au: |-
+    {{fn}}
+    {{street-address}}
+    {{locality}} {{region}} {{postal-code}}
+    {{country-name}}
+ba: |-
+    {{fn}}
+    {{street-address}}
+    {{postal-code}} {{locality}}
+    {{country-name}}
+be: |-
+    {{fn}}
+    {{street-address}}
+    {{postal-code}} {{locality}}
+    {{country-name}}
+bg: |-
+    {{fn}}
+    {{street-address}}
+    {{postal-code}} {{locality}}
+    {{country-name}}
+bh: |-
+    {{fn}}
+    {{street-address}}
+    {{postal-code}} {{locality}}
+    {{country-name}}
+br: |-
+    {{fn}}
+    {{street-address}}
+    {{postal-code}} {{locality}} {{region}}
+    {{country-name}}
+ca: |-
+    {{fn}}
+    {{street-address}}
+    {{locality}} {{region}} {{postal-code}}
+    {{country-name}}
+ch: |-
+    {{fn}}
+    {{street-address}}
+    {{postal-code}} {{locality}}
+    {{country-name}}
+cn: |-
+    {{fn}}
+    {{street-address}}
+    {{postal-code}} {{locality}} {{region}}
+    {{country-name}}
+cz: |-
+    {{fn}}
+    {{street-address}}
+    {{postal-code}} {{locality}}
+    {{country-name}}
+de: |-
+    {{fn}}
+    {{street-address}}
+    {{postal-code}} {{locality}}
+    {{country-name}}
+dk: |-
+    {{fn}}
+    {{street-address}}
+    {{postal-code}} {{locality}}
+    {{region}}
+    {{country-name}}
+eg: |-
+    {{fn}}
+    {{street-address}}
+    {{postal-code}} {{locality}}
+    {{country-name}}
+es: |-
+    {{fn}}
+    {{street-address}}
+    {{postal-code}} {{locality}} {{region}}
+    {{country-name}}
+fi: |-
+    {{fn}}
+    {{street-address}}
+    {{postal-code}} {{locality}}
+    {{country-name}}
+fr: |-
+    {{fn}}
+    {{street-address}}
+    {{postal-code}} {{locality}}
+    {{country-name}}
+gb: |-
+    {{fn}}
+    {{street-address}}
+    {{locality}}
+    {{region}}
+    {{postal-code}}
+    {{country-name}}
+gl: |-
+    {{fn}}
+    {{street-address}}
+    {{postal-code}} {{locality}}
+    {{country-name}}
+gr: |-
+    {{fn}}
+    {{street-address}}
+    {{postal-code}} {{locality}}
+    {{country-name}}
+hk: |-
+    {{fn}}
+    {{street-address}}
+    {{postal-code}} {{locality}} {{region}}
+    {{country-name}}
+hr: |-
+    {{fn}}
+    {{street-address}}
+    {{postal-code}} {{locality}}
+    {{country-name}}
+hu: |-
+    {{fn}}
+    {{locality}}
+    {{street-address}}
+    {{postal-code}}
+    {{country-name}}
+id: |-
+    {{fn}}
+    {{street-address}}
+    {{locality}}
+    {{region}} {{postal-code}}
+    {{country-name}}
+ie: |-
+    {{fn}}
+    {{street-address}}
+    {{locality}} {{region}} {{postal-code}}
+    {{country-name}}
+il: |-
+    {{fn}}
+    {{street-address}}
+    {{postal-code}} {{locality}}
+    {{country-name}}
+in: |-
+    {{fn}}
+    {{street-address}}
+    {{region}}
+    {{locality}} {{postal-code}}
+    {{country-name}}
+is: |-
+    {{fn}}
+    {{street-address}}
+    {{postal-code}} {{locality}}
+    {{country-name}}
+it: |-
+    {{fn}}
+    {{street-address}}
+    {{postal-code}} {{locality}} {{region}}
+    {{country-name}}
+jo: |-
+    {{fn}}
+    {{street-address}}
+    {{postal-code}} {{locality}}
+    {{country-name}}
+# Here is a sample of Japanese formatted addresses (Apple Japan HQ).
+# Usually they have "Postal-mark" before postal-code (postal- code,
+# and parts of an address are not separated with space.
+#  Biggs::Formatter.new(:blank_country-name_on => "jp").format(
+#    "jp",
+#    :fn => "アップルジャパン株式会社 本社",
+#    :street-address => "西新宿3-20-2",
+#    :locality => "新宿区",
+#    :region => "東京都",
+#    :postal-code => "163-1480")
+#  〒163-1480
+#  東京都新宿区西新宿3-20-2
+#  アップルジャパン株式会社 本社
+jp: |-
+    〒{{postal-code}}
+    {{region}}{{locality}}{{street-address}}
+    {{fn}}
+    {{country-name}}
+kr: |-
+    {{fn}}
+    {{street-address}}
+    {{locality}} {{region}}
+    {{postal-code}}
+    {{country-name}}
+kw: |-
+    {{fn}}
+    {{street-address}}
+    {{postal-code}} {{locality}}
+    {{region}}
+    {{country-name}}
+lb: |-
+    {{fn}}
+    {{street-address}}
+    {{postal-code}} {{locality}}
+    {{country-name}}
+li: |-
+    {{fn}}
+    {{street-address}}
+    {{postal-code}} {{locality}}
+    {{country-name}}
+lu: |-
+    {{fn}}
+    {{street-address}}
+    {{postal-code}} {{locality}}
+    {{country-name}}
+mk: |-
+    {{fn}}
+    {{street-address}}
+    {{locality}} {{postal-code}}
+    {{country-name}}
+mx: |-
+    {{fn}}
+    {{street-address}}
+    {{postal-code}} {{locality}} {{region}}
+    {{country-name}}
+nc: |-
+    {{fn}}
+    {{street-address}}
+    {{postal-code}} {{locality}}
+    {{country-name}}
+nl: |-
+    {{fn}}
+    {{street-address}}
+    {{postal-code}} {{locality}}
+    {{country-name}}
+no: |-
+    {{fn}}
+    {{street-address}}
+    {{postal-code}} {{locality}}
+    {{country-name}}
+nz: |-
+    {{fn}}
+    {{street-address}}
+    {{region}}
+    {{locality}} {{postal-code}}
+    {{country-name}}
+om: |-
+    {{fn}}
+    {{street-address}}
+    {{postal-code}} {{locality}}
+    {{region}}
+    {{country-name}}
+ph: |-
+    {{fn}}
+    {{street-address}} {{region}}
+    {{postal-code}} {{locality}}
+    {{country-name}}
+pl: |-
+    {{fn}}
+    {{street-address}}
+    {{postal-code}} {{locality}}
+    {{region}}
+    {{country-name}}
+pt: |-
+    {{fn}}
+    {{street-address}}
+    {{postal-code}} {{locality}} {{region}}
+    {{country-name}}
+qa: |-
+    {{fn}}
+    {{street-address}}
+    {{postal-code}} {{locality}}
+    {{country-name}}
+ro: |-
+    {{fn}}
+    {{street-address}}
+    {{postal-code}} {{locality}}
+    {{country-name}}
+ru: |-
+    {{fn}}
+    {{postal-code}} {{locality}}
+    {{street-address}}
+    {{country-name}}
+sa: |-
+    {{fn}}
+    {{street-address}}
+    {{postal-code}} {{locality}}
+    {{country-name}}
+se: |-
+    {{fn}}
+    {{street-address}}
+    {{postal-code}} {{locality}}
+    {{country-name}}
+sg: |-
+    {{fn}}
+    {{street-address}}
+    {{locality}} {{postal-code}}
+    {{country-name}}
+si: |-
+    {{fn}}
+    {{street-address}}
+    {{postal-code}} {{locality}}
+    {{country-name}}
+sk: |-
+    {{fn}}
+    {{street-address}}
+    {{postal-code}} {{locality}}
+    {{country-name}}
+sy: |-
+    {{fn}}
+    {{street-address}}
+    {{postal-code}} {{locality}}
+    {{country-name}}
+th: |-
+    {{fn}}
+    {{street-address}}
+    {{locality}} {{region}} {{postal-code}}
+    {{country-name}}
+tr: |-
+    {{fn}}
+    {{street-address}}
+    {{postal-code}} {{locality}}
+    {{country-name}}
+tw: |-
+    {{fn}}
+    {{street-address}}
+    {{locality}} {{region}} {{postal-code}}
+    {{country-name}}
+ua: |-
+    {{fn}}
+    {{street-address}}
+    {{locality}} {{region}}
+    {{postal-code}}
+    {{country-name}}
+us: |-
+    {{fn}}
+    {{street-address}}
+    {{locality}} {{region}} {{postal-code}}
+    {{country-name}}
+ye: |-
+    {{fn}}
+    {{street-address}}
+    {{postal-code}} {{locality}}
+    {{country-name}}
+yu: |-
+    {{fn}}
+    {{street-address}}
+    {{postal-code}} {{locality}}
+    {{region}}
+    {{country-name}}
+za: |-
+    {{fn}}
+    {{street-address}}
+    {{locality}}
+    {{region}}
+    {{postal-code}}
+    {{country-name}}

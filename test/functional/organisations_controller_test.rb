@@ -485,7 +485,7 @@ class OrganisationsControllerTest < ActionController::TestCase
         { label: "Helpline", number: "02079460000" },
         { label: "Fax", number: "02079460001" }
       ],
-      country_id: create(:country)
+      country: create(:country, iso2: 'GB')
     )
     get :show, id: organisation
 
