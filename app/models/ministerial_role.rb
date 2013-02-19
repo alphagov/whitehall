@@ -38,14 +38,6 @@ class MinisterialRole < Role
     where(cabinet_member: true).alphabetical_by_person
   end
 
-  def not_whip?
-    whip_organisation_id == nil
-  end
-
-  def whip?
-    !not_whip?
-  end
-
   def permanent_secretary
     false
   end
