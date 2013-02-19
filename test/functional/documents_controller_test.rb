@@ -60,6 +60,14 @@ class DocumentsControllerTest < ActionController::TestCase
     assert_cache_control("max-age=#{Whitehall.default_cache_max_age}")
   end
 
+  test "show responds with 'not found' if document is deleted" do
+    edition = create(:deleted_edition)
+
+    get :show, id: edition.document
+
+    assert_response :not_found
+  end
+
   test "requests for documents in the default locale should redirect to the canonical URL that excludes the locale to avoid serving duplicate content on multiple URLs" do
     edition = build(:draft_edition)
     edition.save!

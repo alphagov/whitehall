@@ -17,7 +17,7 @@ module Edition::Publishing
 
     def unpublished_as(slug)
       document = Document.at_slug(document_type, slug)
-      document && document.latest_edition.unpublishing
+      document && document.latest_edition && document.latest_edition.unpublishing
     end
   end
 
