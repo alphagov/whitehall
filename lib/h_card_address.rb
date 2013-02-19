@@ -3,6 +3,11 @@ class HCardAddress
 
   @address_formats = YAML.load_file(Rails.root.join('config/address_formats.yml'))
 
+  def initialize(properties, country_code)
+    @properties = properties
+    @country_code = country_code
+  end
+
   def self.address_formats
     @address_formats
   end
@@ -22,11 +27,6 @@ class HCardAddress
 
   def self.country_name(contact)
     contact.country_name unless contact.country_code == 'GB'
-  end
-
-  def initialize(properties, country_code)
-    @properties = properties
-    @country_code = country_code
   end
 
   def render
@@ -61,8 +61,8 @@ class HCardAddress
 
   def replace_newlines_with_break_tags(string)
     string.
-    gsub(/^\n/,'').         # get  rid of blank lines
-    strip.                  # get rid of any trailing whitespace
-    gsub(/\n/, "<br />\n")  # add break tags where appropriate
+      gsub(/^\n/,'').         # get  rid of blank lines
+      strip.                  # get rid of any trailing whitespace
+      gsub(/\n/, "<br />\n")  # add break tags where appropriate
   end
 end
