@@ -3,8 +3,8 @@ module Admin::SocialMediaAccountsHelper
     case socialable
     when Organisation
       url_for(controller: :organisations, action: :show, id: socialable, anchor: 'social_media_accounts')
-    when WorldwideOffice
-      url_for(controller: :worldwide_offices, action: :social_media_accounts, id: socialable)
+    when WorldwideOrganisation
+      url_for(controller: :worldwide_organisations, action: :social_media_accounts, id: socialable)
     else
       url_for([:admin, socialable])
     end

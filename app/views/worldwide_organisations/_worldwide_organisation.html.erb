@@ -1,0 +1,18 @@
+<%= content_tag_for(:div, worldwide_organisation, :class => 'worldwide-organisation') do %>
+  <div class="worldwide-organisation-detail">
+    <div class="content">
+      <% worldwide_organisation.sponsoring_organisations.each do |organisation| %>
+        <%= content_tag_for(:div, organisation, :class => 'sponsoring-organisation') do %>
+          <span class="<%= logo_classes(class_name: 'single-identity', size: 'medium', stacked: false) %>">
+            <%= organisation.name %>
+          </span>
+        <% end %>
+      <% end %>
+      <h2 class="name"><%= link_to worldwide_organisation.name, worldwide_organisation %></h2>
+      <p><%= worldwide_organisation.summary %></p>
+      <p><%= link_to t('worldwide_office.find_out_more'), worldwide_organisation %></p>
+    </div>
+  </div>
+
+  <%= render('contacts/contact', contact: worldwide_organisation.main_contact) if worldwide_organisation.main_contact.present? %>
+<% end %>

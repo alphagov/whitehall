@@ -1,7 +1,7 @@
-<% page_title @worldwide_office.name %>
-<% page_class "worldwide-offices-show" %>
+<% page_title @worldwide_organisation.name %>
+<% page_class "worldwide-organisations-show" %>
 
-<div class="block office-header">
+<div class="block organisation-header">
   <div class="inner-block floated-children">
     <header>
       <div class="content">
@@ -9,16 +9,16 @@
           <h2 class="world-location"><%= @world_locations.map {|l| link_to(l.title, l) }.to_sentence %></h2>
         <% end %>
         <h1 class="<%= logo_classes(class_name: 'single-identity', size: 'large', stacked: true) %>">
-          <span><%= format_with_html_line_breaks(h(@worldwide_office.logo_formatted_name)) %></span>
+          <span><%= format_with_html_line_breaks(h(@worldwide_organisation.logo_formatted_name)) %></span>
         </h1>
         <p class="sponsoring-organisations">
-          <%= t('worldwide_office.part_of') %> <%= @worldwide_office.sponsoring_organisations.map {|o| link_to(o.name, o, class: "sponsoring-organisation") }.to_sentence.html_safe %>
+          <%= t('worldwide_office.part_of') %> <%= @worldwide_organisation.sponsoring_organisations.map {|o| link_to(o.name, o, class: "sponsoring-organisation") }.to_sentence.html_safe %>
         </p>
       </div>
     </header>
-    <aside class="office-social-media-links">
+    <aside class="organisation-social-media-links">
       <div class="content">
-        <%= render 'shared/social_media_accounts', socialable: @worldwide_office, followus: true %>
+        <%= render 'shared/social_media_accounts', socialable: @worldwide_organisation, followus: true %>
       </div>
     </aside>
   </div>
@@ -28,9 +28,9 @@
   <div class="inner-block">
     <h1 class="keyline-header"><%= t('worldwide_office.about_us' ) %></h1>
     <div class="content">
-      <p class="summary"><%= @worldwide_office.summary %></p>
+      <p class="summary"><%= @worldwide_organisation.summary %></p>
       <div class="description">
-        <%= govspeak_to_html @worldwide_office.description %>
+        <%= govspeak_to_html @worldwide_organisation.description %>
       </div>
     </div>
   </div>
@@ -40,7 +40,7 @@
   <div class="inner-block">
     <h1 class="keyline-header"><%= t('worldwide_office.our_services' ) %></h1>
     <div class="content">
-      <%= govspeak_to_html @worldwide_office.services %>
+      <%= govspeak_to_html @worldwide_organisation.services %>
     </div>
   </div>
 </section>

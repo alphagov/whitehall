@@ -1,4 +1,4 @@
-.worldwide-offices-show {
+.worldwide-organisations-show {
   .keyline-header {
     @include heading-27;
     border-bottom: 5px solid $inside-gov-nav;
@@ -9,7 +9,7 @@
     margin-bottom: $gutter;
   }
 
-  .office-header {
+  .organisation-header {
     margin-bottom: $gutter;
 
     .content {

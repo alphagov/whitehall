@@ -1,11 +1,11 @@
-<% page_title @worldwide_office.name %>
+<% page_title @worldwide_organisation.name %>
 <div class="row-fluid organisation-header">
   <div class="span8">
-    <h1><%= @worldwide_office.name %></h1>
-    <%= link_to "View on website", url_for(@worldwide_office) %>
+    <h1><%= @worldwide_organisation.name %></h1>
+    <%= link_to "View on website", url_for(@worldwide_organisation) %>
   </div>
   <div class="span4">
-    <%= link_to "Edit", edit_admin_worldwide_office_path(@worldwide_office), class: "btn btn-large btn-primary pull-right"%>
+    <%= link_to "Edit", edit_admin_worldwide_organisation_path(@worldwide_organisation), class: "btn btn-large btn-primary pull-right"%>
   </div>
 </div>
 
@@ -14,8 +14,8 @@
     <section>
       <div class="tabbable">
         <ul class="nav nav-tabs">
-          <li><%= link_to "Details", admin_worldwide_office_path(@worldwide_office) %></li>
-          <li class="active"><%= link_to "Contacts", admin_worldwide_office_contacts_path(@worldwide_office) %></li>
+          <li><%= link_to "Details", admin_worldwide_organisation_path(@worldwide_organisation) %></li>
+          <li class="active"><%= link_to "Contacts", admin_worldwide_organisation_contacts_path(@worldwide_organisation) %></li>
         </ul>
         <div class="tab-content">
         </div>
