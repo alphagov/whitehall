@@ -48,16 +48,6 @@ When /^I add a french translation "([^"]*)" to the "([^"]*)" worldwide priority$
   click_button "Save"
 end
 
-Then /^I should be able to navigate to the spanish translation "([^"]*)"$/ do |spanish_title|
-  click_link "Español"
-  assert page.has_css?('.title', text: spanish_title)
-end
-
-Then /^I should be able to navigate to the english translation "([^"]*)"$/ do |english_title|
-  click_link "English"
-  assert page.has_css?('.title', text: english_title)
-end
-
 Then /^I should see in the preview that "([^"]*)" has a french translation "([^"]*)"$/ do |english_title, french_title|
   visit admin_edition_path(Edition.find_by_title!(english_title))
   assert page.has_css?('.translations .title', text: french_title)
