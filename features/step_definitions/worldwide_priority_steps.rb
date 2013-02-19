@@ -1,4 +1,8 @@
 # encoding: utf-8
+Given /^I have drafted a worldwide priority "([^"]*)"$/ do |title|
+  begin_drafting_document type: "worldwide_priority", title: title
+  click_button "Save"
+end
 
 When /^I draft a new worldwide priority "([^"]*)"$/ do |title|
   begin_drafting_document type: "worldwide_priority", title: title
