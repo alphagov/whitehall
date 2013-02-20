@@ -11,7 +11,7 @@ Given /^I am (?:a|an) (writer|editor|admin|GDS editor|importer|super user)(?: ca
   when 'importer'
     create(:importer)
   when 'super user'
-    create(:user, permissions: [User::Permissions::SIGNIN, User::Permissions::GDS_EDITOR, User::Permissions::DEPARTMENTAL_EDITOR])
+    create(:super_user)
   end
   login_as @user
 end
