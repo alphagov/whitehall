@@ -89,6 +89,19 @@ class Edition < ActiveRecord::Base
     end
   end
 
+  class Trait < Edition::Traits::Trait
+    def process_associations_before_save(edition)
+      @edition.translations.each do |translation|
+        I18n.with_locale(translation.locale) do
+          edition.title = @edition.title
+          edition.summary = @edition.summary
+          edition.body = @edition.body
+        end
+      end
+    end
+  end
+  add_trait Trait
+
   validates_with UnmodifiableValidator, if: :unmodifiable?
 
   before_save :set_public_timestamp
