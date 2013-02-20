@@ -8,3 +8,15 @@ Feature: Unpublishing published documents
     And a published document "Published by accident" exists
     When I unpublish the document because it was published in error
     Then I should see that the document was published in error on the public site
+
+  Scenario: Unpublishing a document that has had a title change
+    Given I am a super user
+    And a published policy "Published by accident" exists
+    When I visit the public url "/government/policies/published-by-accident"
+    Then I should see the document
+    When I republish it with the new title "This document no longer exists"
+    And  I visit the public url "/government/policies/published-by-accident"
+    Then I should still see the document
+    When I unpublish the document because it was published in error
+    And  I visit the public url "/government/policies/published-by-accident"
+    Then I should see that the document was published in error
