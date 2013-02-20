@@ -371,7 +371,9 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
     unpublish_params = {
       'unpublishing_reason_id' => '1',
       'explanation' => 'Was classified',
-      'alternative_url' => 'http://website.com/alt'
+      'alternative_url' => 'http://website.com/alt',
+      'document_type' => 'Policy',
+      'document_slug' => 'some-slug'
     }
     @edition.expects(:create_unpublishing!).with(unpublish_params)
     post :unpublish, id: @edition.to_param, lock_version: 1, unpublishing: unpublish_params
