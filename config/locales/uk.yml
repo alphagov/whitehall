@@ -87,7 +87,7 @@ uk:
       independent_report:
         one:
         other:
-      worldwide_priority:
+      map:
         one:
         other:
       national_statistics:
@@ -148,6 +148,9 @@ uk:
         one:
         other:
       treaty:
+        one:
+        other:
+      worldwide_priority:
         one:
         other:
       written_statement:
@@ -223,6 +226,7 @@ uk:
       offices:
       priorities:
       publications:
+      quick_links:
       related_policies:
       see_all:
       statistics:
