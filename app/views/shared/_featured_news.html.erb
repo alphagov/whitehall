@@ -9,7 +9,7 @@
   image_size ||= :s300
   show_meta ||= false
 %>
-<%= content_tag_for(:article, edition, nil, class: "#{edition_organisation_class(edition)} #{extra_classes.strip}") do %>
+<%= content_tag_for(:article, edition, nil, class: extra_classes.strip) do %>
   <div class="content">
     <span class="img-holder">
       <%= link_to edition.image_tag(image_size), public_document_path(edition), title: t("document.read", title: edition.title), class: 'img'%>
