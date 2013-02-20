@@ -51,12 +51,4 @@ class PersonPresenterTest < PresenterTestCase
       stub("all news_articles", limit: ten_published_news_articles))
     assert_equal two_published_speeches[0..0] + ten_published_news_articles[0..8], @presenter.announcements.map(&:model)
   end
-
-  test 'decorates current roles' do
-    role1 = stub_record(:role_without_organisations)
-    role2 = stub_record(:role_without_organisations)
-    @person.stubs(:current_roles).returns([role1, role2])
-
-    assert_equal [RolePresenter.new(role1), RolePresenter.new(role2)], @person.current_roles
-  end
 end
