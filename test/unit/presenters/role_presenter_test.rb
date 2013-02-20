@@ -68,4 +68,29 @@ class RolePresenterTest < PresenterTestCase
       stub("all news_articles", limit: ten_published_news_articles))
     assert_equal two_published_speeches[0..0] + ten_published_news_articles[0..8], @presenter.announcements.map(&:model)
   end
+
+  test "RolePresenter.unique_people removes roles where a person is already present in the set under another role" do
+    person1 = stub_record(:person)
+    person2 = stub_record(:person)
+
+    role1 = stub_record(:role_without_organisations)
+    role1.stubs(:current_person).returns(person1)
+
+    role2 = stub_record(:role_without_organisations)
+    role2.stubs(:current_person).returns(person1)
+
+    role3 = stub_record(:role_without_organisations)
+    role3.stubs(:current_person).returns(person2)
+
+    presenters = RolePresenter.unique_people([role1, role2, role3])
+
+    assert_equal 2, presenters.length
+    presenters.each {|p| p.is_a?(RolePresenter) }
+
+    assert_equal role1, presenters[0].model
+    assert_equal person1, presenters[0].current_person.model
+
+    assert_equal role3, presenters[1].model
+    assert_equal person2, presenters[1].current_person.model
+  end
 end

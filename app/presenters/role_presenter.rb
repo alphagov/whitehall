@@ -1,6 +1,13 @@
 class RolePresenter < Draper::Base
   delegate :image, :name, :link, to: :current_person, prefix: :current_person
 
+  def self.unique_people(roles)
+    unique_people = roles.to_a.collect { |role| role.current_person }.compact.uniq
+    roles
+      .reject  { |role| unique_people.delete(role.current_person).nil? }
+      .collect { |role| RolePresenter.new(role) }
+  end
+
   def current_person
     if model.current_person
       PersonPresenter.decorate(model.current_person)
@@ -16,7 +23,7 @@ class RolePresenter < Draper::Base
       AnnouncementPresenter.decorate(model.published_news_articles.limit(10)).to_a
     announcements.sort_by { |a| a.public_timestamp.to_datetime }.reverse[0..9]
   end
-  
+
   def path
     if ministerial?
       h.ministerial_role_path model
@@ -42,7 +49,7 @@ class RolePresenter < Draper::Base
   def previous_appointments
     RoleAppointmentPresenter.decorate model.previous_appointments
   end
-  
+
   def responsibilities
     h.govspeak_to_html model.responsibilities
   end
