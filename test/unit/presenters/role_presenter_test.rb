@@ -84,13 +84,6 @@ class RolePresenterTest < PresenterTestCase
 
     presenters = RolePresenter.unique_people([role1, role2, role3])
 
-    assert_equal 2, presenters.length
-    presenters.each {|p| p.is_a?(RolePresenter) }
-
-    assert_equal role1, presenters[0].model
-    assert_equal person1, presenters[0].current_person.model
-
-    assert_equal role3, presenters[1].model
-    assert_equal person2, presenters[1].current_person.model
+    assert_equal [RolePresenter.new(role1), RolePresenter.new(role3)], presenters
   end
 end
