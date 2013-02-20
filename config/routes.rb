@@ -161,6 +161,7 @@ Whitehall::Application.routes.draw do
         resources :policies, except: [:index]
         resources :worldwide_priorities, path: "priority", except: [:index]
         resources :news_articles, path: 'news', except: [:index]
+        resources :world_location_news_articles, path: 'world-location-news', except: [:index]
         resources :fatality_notices, path: 'fatalities', except: [:index]
         resources :consultations, except: [:index]
         resources :speeches, except: [:index]
