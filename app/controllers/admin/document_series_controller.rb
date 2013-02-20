@@ -1,6 +1,6 @@
 class Admin::DocumentSeriesController < Admin::BaseController
-  before_filter :find_organisation
-  before_filter :find_document_series, except: [:new, :create]
+  before_filter :find_organisation, except: [:index]
+  before_filter :find_document_series, except: [:new, :create, :index]
 
   def new
     @document_series = @organisation.document_series.build
@@ -13,6 +13,10 @@ class Admin::DocumentSeriesController < Admin::BaseController
     else
       render action: :new
     end
+  end
+
+  def index
+    @document_series = DocumentSeries.includes(:organisation).order("organisations.name, document_series.name")
   end
 
   def show
