@@ -93,6 +93,20 @@ class Admin::WorldwidePrioritiesControllerTest < ActionController::TestCase
     end
   end
 
+  view_test "show displays the language of the translation on published editions" do
+    edition = build(:published_worldwide_priority, title: 'english-title', summary: 'english-summary', body: 'english-body')
+    with_locale(:fr) do
+      edition.attributes = {title: 'french-title', summary: 'french-summary', body: 'french-body'}
+    end
+    edition.save!
+
+    get :show, id: edition
+
+    assert_select "#translations" do
+      assert_select "p", text: 'French translation'
+    end
+  end
+
   view_test "show omits the link to edit an existing translation unless the edition is editable" do
     edition = create(:draft_worldwide_priority, title: 'english-title', summary: 'english-summary', body: 'english-body')
     with_locale(:fr) { edition.update_attributes!(title: 'french-title', summary: 'french-summary', body: 'french-body') }

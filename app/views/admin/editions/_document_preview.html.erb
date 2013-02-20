@@ -88,10 +88,13 @@
           </section>
         <% end %>
         <% @edition.non_english_translations.each do |translation| %>
+          <% english_name_of_locale = Locale.new(translation.locale).english_language_name %>
+          <% if @edition.editable? %>
+            <p><%= link_to "Edit the #{english_name_of_locale} translation", edit_admin_edition_translation_path(@edition, translation.locale) %></p>
+          <% else %>
+            <p><%= english_name_of_locale %> translation</p>
+          <% end %>
           <%= content_tag_for :section, translation, class: 'document_page' do %>
-            <% if @edition.editable? %>
-              <p><%= link_to "Edit the #{Locale.new(translation.locale).english_language_name} translation", edit_admin_edition_translation_path(@edition, translation.locale) %></p>
-            <% end %>
             <article class="document">
               <h2 class="title"><%= translation.title %></h2>
               <p class="summary"><%= translation.summary %></p>
