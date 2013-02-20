@@ -195,7 +195,7 @@
                   <%= render partial: "people/person",
                   locals: {
                     person: board_member_role.current_person,
-                    roles: [board_member_role],
+                    roles: board_member_role.current_person.current_roles,
                     hlevel: "h2"
                   } %>
                 <% end %>
@@ -205,7 +205,7 @@
                   <%= render partial: "people/person",
                   locals: {
                     person: board_member_role.current_person,
-                    roles: [board_member_role],
+                    roles: board_member_role.current_person.current_roles,
                     hlevel: "h2",
                     hide_image: true,
                     extra_class: extra_board_member_class(@organisation, i)
