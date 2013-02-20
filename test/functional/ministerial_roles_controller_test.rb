@@ -78,6 +78,39 @@ class MinisterialRolesControllerTest < ActionController::TestCase
     assert_equal whips, assigns(:whips_by_organisation).map { |org, role_appointments| [org, role_appointments.map(&:model)] }
   end
 
+  test 'orders whips by organisation sort order' do
+    organisation = create(:ministerial_department)
+
+    person_1 = create(:person)
+    person_2 = create(:person)
+    person_3 = create(:person)
+    person_4 = create(:person)
+    person_5 = create(:person)
+
+    role_1 = create(:ministerial_role, organisations: [organisation], whip_organisation_id: 1)
+    role_2 = create(:ministerial_role, organisations: [organisation], whip_organisation_id: 2)
+    role_3 = create(:ministerial_role, organisations: [organisation], whip_organisation_id: 3)
+    role_4 = create(:ministerial_role, organisations: [organisation], whip_organisation_id: 4)
+    role_5 = create(:ministerial_role, organisations: [organisation], whip_organisation_id: 5)
+
+    appointment_1 = create(:ministerial_role_appointment, role: role_1, person: person_1)
+    appointment_2 = create(:ministerial_role_appointment, role: role_2, person: person_2)
+    appointment_3 = create(:ministerial_role_appointment, role: role_3, person: person_3)
+    appointment_4 = create(:ministerial_role_appointment, role: role_4, person: person_4)
+    appointment_5 = create(:ministerial_role_appointment, role: role_5, person: person_5)
+
+    get :index
+
+    whips = [
+      [Whitehall::WhipOrganisation.find_by_id(1), [appointment_1]],
+      [Whitehall::WhipOrganisation.find_by_id(3), [appointment_3]],
+      [Whitehall::WhipOrganisation.find_by_id(4), [appointment_4]],
+      [Whitehall::WhipOrganisation.find_by_id(2), [appointment_2]],
+      [Whitehall::WhipOrganisation.find_by_id(5), [appointment_5]]
+    ]
+    assert_equal whips, assigns(:whips_by_organisation).map { |org, role_appointments| [org, role_appointments.map(&:model)] }
+  end
+
   test "should avoid n+1 queries" do
     MinisterialRole.expects(:includes).with(:current_people).returns([])
     get :index

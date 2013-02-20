@@ -2,7 +2,7 @@ module Whitehall
   class WhipOrganisation
     include ActiveRecordLikeInterface
 
-    attr_accessor :id, :label
+    attr_accessor :id, :label, :sort_order
 
     def slug
       label.downcase.gsub(/[^a-z]+/, "-")
@@ -14,10 +14,10 @@ module Whitehall
       all.find { |wo| wo.slug == slug }
     end
 
-    WhipsHouseOfCommons = create(id: 1, label: "House of Commons")
-    WhipsHouseofLords = create(id: 2, label: "House of Lords")
-    JuniorLordsoftheTreasury = create(id: 3, label: "Junior Lords of the Treasury")
-    AssistantWhips = create(id: 4, label: "Assistant Whips")
-    BaronessAndLordsInWaiting = create(id: 5, label: "Baroness and Lords in Waiting")
+    WhipsHouseOfCommons = create(id: 1, label: "House of Commons", sort_order: 1)
+    WhipsHouseofLords = create(id: 2, label: "House of Lords", sort_order: 4 )
+    JuniorLordsoftheTreasury = create(id: 3, label: "Junior Lords of the Treasury", sort_order: 2)
+    AssistantWhips = create(id: 4, label: "Assistant Whips", sort_order: 3)
+    BaronessAndLordsInWaiting = create(id: 5, label: "Baronesses and Lords in Waiting", sort_order: 5)
   end
 end
