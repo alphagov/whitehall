@@ -30,6 +30,7 @@ class ActiveSupport::TestCase
   setup do
     Timecop.freeze(2011, 11, 11, 11, 11, 11)
     Whitehall.stubs(:search_backend).returns(Whitehall::DocumentFilter::FakeSearch)
+    ImageSizeChecker.any_instance.stubs(:size_is?).returns true
   end
 
   teardown do
