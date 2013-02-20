@@ -5,8 +5,6 @@ class Edition < ActiveRecord::Base
     super.reject { |column| ['title', 'summary', 'body'].include?(column.name) }
   end
 
-  translates :title, :summary, :body
-
   include Edition::Traits
 
   include Edition::NullImages
@@ -20,6 +18,7 @@ class Edition < ActiveRecord::Base
   include Edition::ScheduledPublishing
   include Edition::AuditTrail
   include Edition::ActiveEditors
+  include Edition::Translatable
 
   include Rails.application.routes.url_helpers
   include PublicDocumentRoutesHelper
@@ -33,8 +32,6 @@ class Edition < ActiveRecord::Base
   validates :title, :creator, presence: true
   validates :body, presence: true, if: :body_required?
   validates :summary, presence: true
-
-  scope :in_default_locale, joins(:translations).where("edition_translations.locale" => I18n.default_locale)
 
   scope :alphabetical, in_default_locale.order("edition_translations.title ASC")
 
@@ -89,19 +86,6 @@ class Edition < ActiveRecord::Base
     end
   end
 
-  class Trait < Edition::Traits::Trait
-    def process_associations_before_save(edition)
-      @edition.translations.each do |translation|
-        I18n.with_locale(translation.locale) do
-          edition.title = @edition.title
-          edition.summary = @edition.summary
-          edition.body = @edition.body
-        end
-      end
-    end
-  end
-  add_trait Trait
-
   validates_with UnmodifiableValidator, if: :unmodifiable?
 
   before_save :set_public_timestamp
@@ -111,10 +95,6 @@ class Edition < ActiveRecord::Base
   UNMODIFIABLE_STATES = %w(scheduled published archived deleted).freeze
   FROZEN_STATES = %w(archived deleted).freeze
   PRE_PUBLICATION_STATES = %w(imported draft submitted rejected scheduled).freeze
-
-  def non_english_translations
-    translations.where(["locale != ?", I18n.default_locale])
-  end
 
   def skip_main_validation?
     FROZEN_STATES.include?(state)
@@ -182,10 +162,6 @@ class Edition < ActiveRecord::Base
   def last_author
     last_version = versions.last
     last_version && last_version.user
-  end
-
-  def available_in_multiple_languages?
-    translated_locales.length > 1
   end
 
   def can_be_associated_with_topics?
@@ -265,10 +241,6 @@ class Edition < ActiveRecord::Base
   end
 
   def can_apply_to_local_government?
-    false
-  end
-
-  def translatable?
     false
   end
 
