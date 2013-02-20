@@ -66,7 +66,7 @@ class OrganisationsController < PublicFacingController
   end
 
   def board_members
-    @board_member_roles = RolesPresenter.new(@organisation.management_roles.order("organisation_roles.ordering"))
+    @board_member_roles ||= RolesPresenter.new(@organisation.management_roles.order("organisation_roles.ordering"))
   end
 
   def traffic_commissioners
