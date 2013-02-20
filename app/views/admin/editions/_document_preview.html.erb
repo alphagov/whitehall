@@ -81,7 +81,7 @@
                 <%= form_tag admin_edition_translations_path(@edition) do %>
                   <%= label_tag :translation_locale, 'Locale' %>
                   <%= select_locale :translation_locale, @missing_translations %>
-                  <%= submit_tag "Add translation" %>
+                  <%= submit_tag "Add translation", class: "btn btn-primary" %>
                 <% end %>
               <% end %>
             </nav>
