@@ -60,14 +60,14 @@ class UploadAccessTest < ActionDispatch::IntegrationTest
     assert_equal content_type, response.content_type
     assert_equal nginx_path_to_clean_upload(upload), response.headers['X-Accel-Redirect']
     assert_equal "max-age=1800, public", response.header['Cache-Control']
-    assert_match /inline;/, response.header['Content-Disposition']
+    assert_match /attachment;/, response.header['Content-Disposition']
   end
 
   def assert_sent_private_upload(upload, content_type)
     assert_equal 200, response.status
     assert_equal content_type, response.content_type
     assert_equal "no-cache, max-age=0, private", response.header['Cache-Control']
-    assert_match /inline;/, response.header['Content-Disposition']
+    assert_match /attachment;/, response.header['Content-Disposition']
   end
 
   test 'allows everyone access to general uploads' do
