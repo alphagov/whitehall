@@ -93,7 +93,7 @@ class Admin::EditionWorkflowController < Admin::BaseController
   private
 
   def users_to_notify(edition)
-    edition.authors.select(&:has_email?).reject { |a| a == current_user}
+    edition.authors.uniq.select(&:has_email?).reject { |a| a == current_user}
   end
 
   def find_edition
