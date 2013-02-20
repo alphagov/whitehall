@@ -54,7 +54,7 @@ module Whitehall
 
     def untranslated_text(method, options = {})
       english_translation = @object.__send__ method, :en
-      @template.content_tag(:p, "English: #{english_translation}", class: 'original-translation')
+      @template.content_tag(:p, "English: #{english_translation}", class: "original-translation", id: "english_#{method}")
     end
 
     def check_box(method, options = {}, *args)
