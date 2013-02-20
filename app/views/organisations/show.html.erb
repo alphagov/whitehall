@@ -191,21 +191,21 @@
             <section id="management" class="important-board-members-<%= @organisation.important_board_members %>">
               <h1 class="label">Our management</h1>
               <ul class="managment-primary">
-                <% @important_board_members.each_with_index do |board_member_role, i| %>
+                <% @important_board_members.each_with_index do |role, i| %>
                   <%= render partial: "people/person",
                   locals: {
-                    person: board_member_role.current_person,
-                    roles: [board_member_role],
+                    person: role.current_person,
+                    roles: @board_member_roles.roles_for(role.current_person),
                     hlevel: "h2"
                   } %>
                 <% end %>
               </ul>
               <ul class="management-secondary js-hide-extra-rows-2">
-                <% @board_members.each_with_index do |board_member_role, i| %>
+                <% @board_members.each_with_index do |role, i| %>
                   <%= render partial: "people/person",
                   locals: {
-                    person: board_member_role.current_person,
-                    roles: [board_member_role],
+                    person: role.current_person,
+                    roles: @board_member_roles.roles_for(role.current_person),
                     hlevel: "h2",
                     hide_image: true,
                     extra_class: extra_board_member_class(@organisation, i)

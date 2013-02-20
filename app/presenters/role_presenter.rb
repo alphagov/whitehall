@@ -16,7 +16,7 @@ class RolePresenter < Draper::Base
       AnnouncementPresenter.decorate(model.published_news_articles.limit(10)).to_a
     announcements.sort_by { |a| a.public_timestamp.to_datetime }.reverse[0..9]
   end
-  
+
   def path
     if ministerial?
       h.ministerial_role_path model
@@ -42,7 +42,7 @@ class RolePresenter < Draper::Base
   def previous_appointments
     RoleAppointmentPresenter.decorate model.previous_appointments
   end
-  
+
   def responsibilities
     h.govspeak_to_html model.responsibilities
   end
