@@ -1,13 +1,6 @@
 class RolePresenter < Draper::Base
   delegate :image, :name, :link, to: :current_person, prefix: :current_person
 
-  def self.unique_people(roles)
-    unique_people = roles.to_a.collect { |role| role.current_person }.compact.uniq
-    roles
-      .reject  { |role| unique_people.delete(role.current_person).nil? }
-      .collect { |role| RolePresenter.new(role) }
-  end
-
   def current_person
     if model.current_person
       PersonPresenter.decorate(model.current_person)
