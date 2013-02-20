@@ -7,8 +7,8 @@ class WorldwideOrganisationsController < PublicFacingController
   def show
     expires_in 5.minutes, public: true
     @world_locations = @worldwide_organisation.world_locations
-    @main_contact = @worldwide_organisation.main_contact
-    @other_contacts = @worldwide_organisation.other_contacts
+    @main_office = @worldwide_organisation.main_office
+    @other_offices = @worldwide_organisation.other_offices
     @primary_role = primary_role
     @other_roles = ([secondary_role] + office_roles).compact
 
