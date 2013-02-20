@@ -87,7 +87,7 @@ ur:
       independent_report:
         one:
         other:
-      worldwide_priority:
+      map:
         one:
         other:
       national_statistics:
@@ -148,6 +148,9 @@ ur:
         one:
         other:
       treaty:
+        one:
+        other:
+      worldwide_priority:
         one:
         other:
       written_statement:

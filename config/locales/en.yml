@@ -135,6 +135,9 @@ en:
       independent_report:
         one: Independent report
         other: Independent reports
+      map:
+        one: Map
+        other: Maps
       worldwide_priority:
         one: Worldwide priority
         other: Worldwide priorities
