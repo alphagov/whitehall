@@ -15,7 +15,8 @@ class RolesPresenter
   end
 
   def with_unique_people
-    @with_unique_people ||= decorated_collection.select  { |role| unique_people.delete(role.model.current_person) }
+    people = unique_people.dup
+    @with_unique_people ||= decorated_collection.select  { |role| people.delete(role.model.current_person) }
   end
 
   def unique_people

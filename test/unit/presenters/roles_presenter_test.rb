@@ -40,6 +40,11 @@ class RolesPresenterTest < PresenterTestCase
     assert_equal [RolePresenter.new(@role1), RolePresenter.new(@role3)], @presenter.with_unique_people
   end
 
+  test "#with_unique_people doesn't clober #unique_people" do
+    @presenter.with_unique_people
+    assert_equal [@person1, @person2], @presenter.unique_people
+  end
+
   test "it returns the roles for a given person" do
     assert_equal [RolePresenter.new(@role1), RolePresenter.new(@role2)], @presenter.roles_for(@role1.current_person)
   end
