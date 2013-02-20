@@ -20,7 +20,6 @@ Then /^I should (?:see|still see) the document$/ do
 end
 
 Then /^I should see that the document was published in error$/ do
-  save_and_open_page
   edition = Edition.last
   refute page.has_content?(edition.title)
   assert page.has_content?('The information on this page has been removed because it was published in error')
