@@ -17,6 +17,10 @@ module Admin::EditionsHelper
     admin_header_link "Documents", admin_editions_path, /^#{Whitehall.router_prefix}\/admin\/(editions|publications|policies|news_articles|consultations|speeches)/
   end
 
+  def admin_document_series_header_link
+    admin_header_link "Document Series", admin_document_series_index_path, /^#{Whitehall.router_prefix}\/admin\/document_series/
+  end
+
   def link_to_filter(link, options, html_options={})
     content_tag(:li, link_to(link, url_for(params.slice('state', 'type', 'author', 'organisation', 'title').merge(options)), html_options), class: filter_class(options))
   end
