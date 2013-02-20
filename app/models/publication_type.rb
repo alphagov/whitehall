@@ -68,6 +68,7 @@ class PublicationType
   NationalStatistics     = create(id: 15, key: "national_statistics", singular_name: "Statistics - national statistics", plural_name: "Statistics - national statistics", prevalence: :primary, access_limited_by_default: true)
   ResearchAndAnalysis    = create(id: 6, key: "research", singular_name: "Research and analysis", plural_name: "Research and analysis", prevalence: :primary)
   CorporateReport        = create(id: 7, key: "corporate_report", singular_name: "Corporate report", plural_name: "Corporate reports", prevalence: :primary)
+  Map                    = create(id: 17, key: "map", singular_name: "Map", plural_name: "Maps", prevalence: :primary)
 
   # Less common
   TransparencyData       = create(id: 10, key: "transparency", singular_name: "Transparency data", plural_name: "Transparency data", prevalence: :less_common)
