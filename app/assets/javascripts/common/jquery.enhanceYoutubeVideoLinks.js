@@ -1,53 +1,38 @@
-/**
-*    The Nomensa accessible media player is a flexible multimedia solution for websites and intranets.  
-*    The core player consists of JavaScript wrapper responsible for generating an accessible HTML toolbar 
-*    for interacting with a media player of your choice. We currently provide support for YouTube (default),
-*    Vimeo and JWPlayer although it should be possible to integrate the player with almost any media player on
-*    the web (provided a JavaScript api for the player in question is available).
-*    
-*    Copyright (C) 2012  Nomensa Ltd
-*
-*    This program is free software: you can redistribute it and/or modify
-*    it under the terms of the GNU General Public License as published by
-*    the Free Software Foundation, either version 3 of the License, or
-*    (at your option) any later version.
-*
-*    This program is distributed in the hope that it will be useful,
-*    but WITHOUT ANY WARRANTY; without even the implied warranty of
-*    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-*    GNU General Public License for more details.
-*
-*    You should have received a copy of the GNU General Public License
-*    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-**/
-
 (function ($) {
-  var _enhanceYoutubeVideoLinks = function() {
-    $(this).find("a[href*='http://www.youtube.com/watch']").each(function(i) {
-      var $holder = $('<span />');
-      $(this).parent().replaceWith($holder);
-      // Find the captions file if it exists
-      var $mycaptions = $(this).siblings('.captions');
-      // Work out if we have captions or not
-      var captionsf = $($mycaptions).length > 0 ? $($mycaptions).attr('href') : null;
-      // Ensure that we extract the last part of the youtube link (the video id)
-      // and pass it to the player() method
-      var link = $(this).attr('href').split("=")[1];
-      // make the API URL:
+  function parseYoutubeVideoId(string){
+    if(string.indexOf('youtube.com') > -1){
+      var i, _i, part, parts, params = {};
+      parts = string.split('?')[1].split('&');
+      for(i=0,_i=parts.length; i<_i; i++){
+        part = parts[i].split('=');
+        params[part[0]] = part[1];
+      }
+      return params.v;
+    }
+    if(string.indexOf('youtu.be') > -1){
+      var parts = string.split('/');
+      return parts.pop();
+    }
+  }
+  var enhanceYoutubeVideoLinks = function(){
+    this.find("a[href*='youtube.com'], a[href*='youtu.be']").each(function(i){
+      var $link = $(this),
+          videoId = parseYoutubeVideoId($link.attr('href')),
+          $holder = $('<span />'),
+          $captions = $link.siblings('.captions');
 
-      var youTubeURL = (document.location.protocol + '//www.youtube.com/apiplayer?enablejsapi=1&version=3&playerapiid=');
+      $link.parent().replaceWith($holder);
 
-      // Initialise the player
       $holder.player({
-        id:'yt'+i,
-        media:link,
-        captions:captionsf,
-        url: youTubeURL
+        id: 'youtube-'+i,
+        media: videoId,
+        captions: $captions.length > 0 ? $captions.attr('href') : null,
+        url: (document.location.protocol + '//www.youtube.com/apiplayer?enablejsapi=1&version=3&playerapiid=')
       });
     })
   }
 
   $.fn.extend({
-    enhanceYoutubeVideoLinks: _enhanceYoutubeVideoLinks
+    enhanceYoutubeVideoLinks: enhanceYoutubeVideoLinks
   });
 })(jQuery);
