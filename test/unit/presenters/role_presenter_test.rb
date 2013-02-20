@@ -69,7 +69,7 @@ class RolePresenterTest < PresenterTestCase
     assert_equal two_published_speeches[0..0] + ten_published_news_articles[0..8], @presenter.announcements.map(&:model)
   end
 
-  test "RolePresenter.unique_people removes roles where a person is already present in the set under another role" do
+  test "RolePresenter.unique_people returns decorated roles where the role is filled by a unique person" do
     person1 = stub_record(:person)
     person2 = stub_record(:person)
 
@@ -82,7 +82,10 @@ class RolePresenterTest < PresenterTestCase
     role3 = stub_record(:role_without_organisations)
     role3.stubs(:current_person).returns(person2)
 
-    presenters = RolePresenter.unique_people([role1, role2, role3])
+    empty_role = stub_record(:role_without_organisations)
+    empty_role.stubs(:current_person).returns(nil)
+
+    presenters = RolePresenter.unique_people([role1, role2, role3, empty_role])
 
     assert_equal [RolePresenter.new(role1), RolePresenter.new(role3)], presenters
   end
