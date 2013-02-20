@@ -11,10 +11,6 @@ class Speech < Announcement
   delegate :genus, :explanation, to: :speech_type
   validate :only_speeches_allowed_invalid_data_can_be_awaiting_type
 
-  def search_index
-    super.merge("speech_type" => speech_type.slug)
-  end
-
   def search_format_types
     super + [Speech.search_format_type] + speech_type.search_format_types
   end
