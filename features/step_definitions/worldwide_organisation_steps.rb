@@ -105,8 +105,8 @@ Then /^the social link should be shown on the public website$/ do
   assert page.has_css?(".social-media-accounts")
 end
 
-When /^I add an "([^"]*)" contact with address and phone number$/ do |description|
-  visit contacts_admin_worldwide_organisation_path(WorldwideOrganisation.last)
+When /^I add an "([^"]*)" office with address and phone number$/ do |description|
+  visit offices_admin_worldwide_organisation_path(WorldwideOrganisation.last)
   click_link "Add"
   fill_in "Title", with: description
   fill_in "Street address", with: "address1\naddress2"
@@ -146,27 +146,27 @@ When /^I click save$/ do
   click_on "Save"
 end
 
-Given /^a worldwide organisation "([^"]*)" with contacts "([^"]*)" and "([^"]*)"$/ do |worldwide_organisation_name, contact1_title, contact2_title|
+Given /^a worldwide organisation "([^"]*)" with offices "([^"]*)" and "([^"]*)"$/ do |worldwide_organisation_name, contact1_title, contact2_title|
   worldwide_organisation = create(:worldwide_organisation, name: worldwide_organisation_name)
-  create(:contact, title: contact1_title, contactable: worldwide_organisation)
-  create(:contact, title: contact2_title, contactable: worldwide_organisation)
+  create(:worldwide_office, worldwide_organisation: worldwide_organisation, contact: create(:contact, title: contact1_title))
+  create(:worldwide_office, worldwide_organisation: worldwide_organisation, contact: create(:contact, title: contact2_title))
 end
 
-When /^I choose "([^"]*)" to be the main contact$/ do |contact_title|
-  contact = Contact.find_by_title(contact_title)
+When /^I choose "([^"]*)" to be the main office$/ do |contact_title|
+  worldwide_office = WorldwideOffice.includes(:contact).where(contacts: {title: contact_title}).first
   visit admin_worldwide_organisation_path(WorldwideOrganisation.last)
-  click_link "Contacts"
-  within record_css_selector(contact) do
-    click_button 'Set as main contact'
+  click_link "Offices"
+  within record_css_selector(worldwide_office) do
+    click_button 'Set as main office'
   end
 end
 
-Then /^the "([^"]*)" should be shown as the main contact on the public website$/ do |contact_title|
+Then /^the "([^"]*)" should be shown as the main office on the public website$/ do |contact_title|
   worldwide_organisation = WorldwideOrganisation.last
-  contact = Contact.find_by_title(contact_title)
+  worldwide_office = WorldwideOffice.includes(:contact).where(contacts: {title: contact_title}).first
   visit worldwide_organisation_path(worldwide_organisation)
-  within "#{record_css_selector(contact)}.main" do
-    assert page.has_content?(contact.title)
+  within "#{record_css_selector(worldwide_office.contact)}.main" do
+    assert page.has_content?(contact_title)
   end
 end
 

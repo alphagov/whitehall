@@ -7,7 +7,7 @@ Feature: Administering worldwide organisation
     * a unique name e.g. "British Embassy in Madrid" and a URL "/world/offices/british-embassy-in-madrid" which is generated from the name
     * a text short summary and markdown long description.
     * multiple social media links (like orgs)
-    * multiple sets of contact information (like orgs)
+    * multiple sets of office information (like orgs)
     * a logo formatted name (always using the standard HMG crest for now)
   * Each world organisation can be associated with 1+ world locations, and shows on the world locations page to which they are associated (see mock up on the [ticket](https://www.pivotaltracker.com/story/show/41026113))
   * Each can have corporate information pages (like orgs)
@@ -32,9 +32,9 @@ Feature: Administering worldwide organisation
     When I add a "Twooter" social media link "http://twooter.com/beards-in-france"
     Then the social link should be shown on the public website
 
-  Scenario: Managing contact information
+  Scenario: Managing office information
     Given a worldwide organisation "Department of Beards in France"
-    When I add an "Hair division" contact with address and phone number
+    When I add an "Hair division" office with address and phone number
     Then the "Hair division" details should be shown on the public website
 
   Scenario: Creating a worldwide organisation in a particular world location
@@ -42,12 +42,12 @@ Feature: Administering worldwide organisation
     When I create a new worldwide organisation "Department of Beards in France" in "France"
     Then I should see the worldwide organisation "Department of Beards in France" on the "France" world location page
 
-  Scenario: Choosing the main contact for a worldwide organisation with multiple contacts
-    Given a worldwide organisation "Department of Beards in France" with contacts "Head office" and "Branch office"
-    When I choose "Branch office" to be the main contact
-    Then the "Branch office" should be shown as the main contact on the public website
-    When I choose "Head office" to be the main contact
-    Then the "Head office" should be shown as the main contact on the public website
+  Scenario: Choosing the main office for a worldwide organisation with multiple offices
+    Given a worldwide organisation "Department of Beards in France" with offices "Head office" and "Branch office"
+    When I choose "Branch office" to be the main office
+    Then the "Branch office" should be shown as the main office on the public website
+    When I choose "Head office" to be the main office
+    Then the "Head office" should be shown as the main office on the public website
 
   Scenario: Creating a worldwide organisation in particular world location with a sponsor
     Given the organisation "Department of Beards" exists
