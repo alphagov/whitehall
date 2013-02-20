@@ -44,7 +44,7 @@ class PersonPresenterTest < PresenterTestCase
       article.stubs(:public_timestamp).returns(i.days.ago - 3.days)
       article
     end
-    
+
     @person.stubs(:published_speeches).returns(
       stub("all speeches", limit: two_published_speeches))
     @person.stubs(:published_news_articles).returns(
