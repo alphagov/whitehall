@@ -813,6 +813,8 @@ ActiveRecord::Schema.define(:version => 20130221140402) do
     t.text     "alternative_url"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "document_type"
+    t.string   "slug"
   end
 
   add_index "unpublishings", ["edition_id"], :name => "index_unpublishings_on_edition_id"
