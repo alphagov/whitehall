@@ -147,4 +147,27 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
     draft_policy = published_policy.create_draft(create(:policy_writer))
     assert draft_policy.persisted?
   end
+
+  test "should build a draft copy with copies of translations" do
+    editor = create(:departmental_editor)
+    spanish_translation_attributes = {
+      title: 'spanish-title',
+      summary: 'spanish-summary',
+      body: 'spanish-body'
+    }
+    priority = create(:draft_worldwide_priority)
+    with_locale(:es) { priority.update_attributes!(spanish_translation_attributes) }
+    priority.publish_as(editor, force: true)
+
+    assert_equal 2, priority.translations.length
+
+    draft_priority = priority.create_draft(editor)
+
+    assert_equal 2, draft_priority.translations.length
+    with_locale(:es) do
+      assert_equal 'spanish-title', draft_priority.title
+      assert_equal 'spanish-summary', draft_priority.summary
+      assert_equal 'spanish-body', draft_priority.body
+    end
+  end
 end
