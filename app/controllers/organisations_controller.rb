@@ -66,9 +66,7 @@ class OrganisationsController < PublicFacingController
   end
 
   def board_members
-    @board_member_roles ||= @organisation.management_roles.order("organisation_roles.ordering").map do |role|
-      RolePresenter.new(role)
-    end
+    @board_member_roles = RolePresenter.unique_people(@organisation.management_roles.order("organisation_roles.ordering"))
   end
 
   def traffic_commissioners

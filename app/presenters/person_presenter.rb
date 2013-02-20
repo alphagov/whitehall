@@ -9,6 +9,10 @@ class PersonPresenter < Draper::Base
     RoleAppointmentPresenter.decorate person.previous_role_appointments
   end
 
+  def current_roles
+    RolePresenter.decorate person.current_roles
+  end
+
   def current_ministerial_roles
     RolePresenter.decorate person.current_ministerial_roles
   end
