@@ -71,6 +71,18 @@ class Admin::DocumentSeriesControllerTest < ActionController::TestCase
     assert_select_object(edition)
   end
 
+  view_test "lists all document series" do
+    document_series1 = create(:document_series)
+    document_series2 = create(:document_series)
+    document_series3 = create(:document_series)
+
+    get :index
+
+    assert_select_object(document_series1)
+    assert_select_object(document_series2)
+    assert_select_object(document_series3)
+  end
+
   view_test "edit should show a form for editing the series" do
     document_series = create(:document_series)
     organisation = document_series.organisation
