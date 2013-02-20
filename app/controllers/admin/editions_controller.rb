@@ -84,7 +84,7 @@ class Admin::EditionsController < Admin::BaseController
   end
 
   def confirm_unpublish
-    @unpublishing = Unpublishing.new(:document_type => @edition.type, :slug => @edition.slug)
+    @unpublishing = Unpublishing.new(document_type: @edition.type, slug: @edition.slug)
   end
 
   def destroy
