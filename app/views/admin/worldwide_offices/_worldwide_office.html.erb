@@ -1,0 +1,22 @@
+<% contact = worldwide_office.contact %>
+<%= content_tag_for(:div, worldwide_office) do %>
+  <h3><%= contact.title %> <%= '(Main office)' if worldwide_organisation.is_main_office?(worldwide_office) %></h3>
+
+  <div class="vcard">
+    <%= render_hcard_address(contact) %>
+  </div>
+  <% if contact.contact_numbers.any? %>
+    <%= content_tag(:dl, class: "dl-horizontal") do %>
+      <% contact.contact_numbers.each do |cn| %>
+        <%= definition(cn.label, cn.number) %>
+      <% end %>
+    <% end %>
+  <% end %>
+
+  <%= button_to "Delete", admin_worldwide_organisation_office_path(worldwide_organisation, worldwide_office), method: "delete", class: "btn btn-small btn-danger", confirm: "Delete office '#{contact.title}' from worldwide organisation '#{worldwide_organisation.name}'?" %>
+  <%= link_to icon("Edit"), edit_admin_worldwide_organisation_office_path(worldwide_organisation, worldwide_office), class: "btn" %>
+
+  <% unless worldwide_organisation.is_main_office?(worldwide_office) %>
+    <%= button_to "Set as main office", set_main_office_admin_worldwide_organisation_path(worldwide_organisation, worldwide_organisation: {main_office_id: worldwide_office.id}), method: :put, class: "btn btn-info" %>
+  <% end %>
+<% end %>

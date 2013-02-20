@@ -107,11 +107,12 @@ Whitehall::Application.routes.draw do
 
         resources :worldwide_organisations do
           member do
-            put :set_main_contact
-            get :contacts
+            put :set_main_office
+            get :offices
             get :social_media_accounts
           end
           resources :translations, controller: 'worldwide_organisations_translations'
+          resources :offices, controller: 'worldwide_offices', except: [:index, :show]
         end
         resources :contacts
         resources :social_media_accounts

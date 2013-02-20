@@ -2,7 +2,7 @@ module Admin::WorldwideOrganisationsHelper
   def worldwide_organisation_tab_navigation(&block)
     tabs = {
       "Details" => admin_worldwide_organisation_path(@worldwide_organisation),
-      "Contacts" => contacts_admin_worldwide_organisation_path(@worldwide_organisation),
+      "Offices" => offices_admin_worldwide_organisation_path(@worldwide_organisation),
       "Social Media Accounts" => social_media_accounts_admin_worldwide_organisation_path(@worldwide_organisation)
     }
 

@@ -59,14 +59,14 @@ class Admin::WorldwideOrganisationsControllerTest < ActionController::TestCase
     assert_redirected_to admin_worldwide_organisation_path(worldwide_organisation)
   end
 
-  test "setting the main contact" do
-    contacts = [create(:contact), create(:contact)]
-    worldwide_organisation = create(:worldwide_organisation, contacts: contacts)
-    put :set_main_contact, id: worldwide_organisation.id, worldwide_organisation: { main_contact_id: contacts.last.id }
+  test "setting the main office" do
+    offices = [create(:worldwide_office), create(:worldwide_office)]
+    worldwide_organisation = create(:worldwide_organisation, offices: offices)
+    put :set_main_office, id: worldwide_organisation.id, worldwide_organisation: { main_office_id: offices.last.id }
 
-    assert_equal contacts.last, worldwide_organisation.reload.main_contact
-    assert_equal "Main contact updated successfully", flash[:notice]
-    assert_redirected_to contacts_admin_worldwide_organisation_path(worldwide_organisation)
+    assert_equal offices.last, worldwide_organisation.reload.main_office
+    assert_equal "Main office updated successfully", flash[:notice]
+    assert_redirected_to offices_admin_worldwide_organisation_path(worldwide_organisation)
   end
 
   test "destroys an existing object" do

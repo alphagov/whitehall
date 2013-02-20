@@ -26,11 +26,11 @@ class Admin::WorldwideOrganisationsController < Admin::BaseController
     respond_with :admin, @worldwide_organisation
   end
 
-  def set_main_contact
+  def set_main_office
     if @worldwide_organisation.update_attributes(params[:worldwide_organisation])
-      flash[:notice] = "Main contact updated successfully"
+      flash[:notice] = "Main office updated successfully"
     end
-    respond_with :contacts, :admin, @worldwide_organisation
+    respond_with :offices, :admin, @worldwide_organisation
   end
 
   def destroy
