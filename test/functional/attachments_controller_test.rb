@@ -41,7 +41,7 @@ class AttachmentsControllerTest < ActionController::TestCase
       get :show, id: ad.to_param, file: 'uk-cheese-consumption-figures-2011', extension: 'pdf'
 
       assert_response :success
-      assert_equal 'inline; filename="uk-cheese-consumption-figures-2011.pdf"', response.headers['Content-Disposition']
+      assert_equal 'attachment; filename="uk-cheese-consumption-figures-2011.pdf"', response.headers['Content-Disposition']
       assert_equal 'binary', response.headers['Content-Transfer-Encoding']
     ensure
       FileUtils.rmtree(Whitehall.clean_upload_path)
@@ -61,6 +61,42 @@ class AttachmentsControllerTest < ActionController::TestCase
       get :show, id: ad_param, file: 'uk-cheese-consumption-figures-2011', extension: 'pdf'
 
       assert_response :success
+    ensure
+      FileUtils.rmtree(Whitehall.clean_upload_path)
+    end
+  end
+
+  test 'attachments that are images are sent inline' do
+    Whitehall.stubs(:clean_upload_path).returns(Rails.root.join('test','clean-uploads'))
+    begin
+      ad = create(:attachment_data)
+      @controller.stubs(:attachment_visible?).with(ad.to_param).returns true
+
+      FileUtils.mkdir_p(Whitehall.clean_upload_path + "system/uploads/attachment_data/file/#{ad.to_param}/")
+      FileUtils.cp(Rails.root.join('test','fixtures','minister-of-funk.960x640.jpg'), Whitehall.clean_upload_path + "system/uploads/attachment_data/file/#{ad.to_param}/minister-of-funk.960x640.jpg")
+
+      get :show, id: ad.to_param, file: 'minister-of-funk.960x640', extension: 'jpg'
+
+      assert_response :success
+      assert_match /^inline;/, response.headers['Content-Disposition']
+    ensure
+      FileUtils.rmtree(Whitehall.clean_upload_path)
+    end
+  end
+
+  test 'attachments that are documents are sent as attachments' do
+    Whitehall.stubs(:clean_upload_path).returns(Rails.root.join('test','clean-uploads'))
+    begin
+      ad = create(:attachment_data)
+      @controller.stubs(:attachment_visible?).with(ad.to_param).returns true
+
+      FileUtils.mkdir_p(Whitehall.clean_upload_path + "system/uploads/attachment_data/file/#{ad.to_param}/")
+      FileUtils.cp(Rails.root.join('test','fixtures','whitepaper.pdf'), Whitehall.clean_upload_path + "system/uploads/attachment_data/file/#{ad.to_param}/uk-cheese-consumption-figures-2011.pdf")
+
+      get :show, id: ad.to_param, file: 'uk-cheese-consumption-figures-2011', extension: 'pdf'
+
+      assert_response :success
+      assert_match /^attachment;/, response.headers['Content-Disposition']
     ensure
       FileUtils.rmtree(Whitehall.clean_upload_path)
     end
