@@ -1,7 +1,7 @@
 class RolesPresenter
   include Enumerable
 
-  attr_reader :source, :unique_people
+  attr_reader :source
 
   array_methods = Array.instance_methods - Object.instance_methods
   delegate *array_methods, to: :decorated_collection
