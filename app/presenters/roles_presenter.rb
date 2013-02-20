@@ -15,7 +15,7 @@ class RolesPresenter
   end
 
   def with_unique_people
-    decorated_collection.reject  { |role| unique_people.delete(role.model.current_person).nil? }
+    @with_unique_people ||= decorated_collection.select  { |role| unique_people.delete(role.model.current_person) }
   end
 
   def unique_people
