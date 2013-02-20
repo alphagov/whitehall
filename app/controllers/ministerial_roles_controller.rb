@@ -48,6 +48,6 @@ private
           Whitehall::WhipOrganisation.find_by_id(whip_organisation_id),
           role_appointments.sort_by { |ra| ra.role.seniority }
         ]
-    end
+    end.sort_by { |org, whips| org.sort_order }
   end
 end
