@@ -44,37 +44,37 @@ class WorldwideOrganisationTest < ActiveSupport::TestCase
     assert_equal 0, worldwide_organisation.worldwide_organisation_roles.count
   end
 
-  test "has an overridable default main contact" do
+  test "has an overridable default main office" do
     worldwide_organisation = create(:worldwide_organisation)
 
-    assert_nil worldwide_organisation.main_contact
+    assert_nil worldwide_organisation.main_office
 
-    contact1 = create(:contact, title: 'Office 1')
-    worldwide_organisation.contacts << contact1
-    assert_equal contact1, worldwide_organisation.main_contact
+    office1 = create(:worldwide_office)
+    worldwide_organisation.offices << office1
+    assert_equal office1, worldwide_organisation.main_office
 
-    contact2 = create(:contact, title: 'Office 2')
-    worldwide_organisation.contacts << contact2
-    assert_equal contact1, worldwide_organisation.main_contact
+    office2 = create(:worldwide_office)
+    worldwide_organisation.offices << office2
+    assert_equal office1, worldwide_organisation.main_office
 
-    worldwide_organisation.main_contact = contact2
-    assert_equal contact2, worldwide_organisation.main_contact
+    worldwide_organisation.main_office = office2
+    assert_equal office2, worldwide_organisation.main_office
   end
 
-  test "distinguishes between the main contact and other contacts" do
-    contacts = [build(:contact), build(:contact)]
-    worldwide_organisation = build(:worldwide_organisation, contacts: contacts, main_contact: contacts.last)
+  test "distinguishes between the main office and other offices" do
+    offices = [build(:worldwide_office), build(:worldwide_office)]
+    worldwide_organisation = build(:worldwide_organisation, offices: offices, main_office: offices.last)
 
-    assert worldwide_organisation.is_main_contact?(contacts.last)
-    refute worldwide_organisation.is_main_contact?(contacts.first)
+    assert worldwide_organisation.is_main_office?(offices.last)
+    refute worldwide_organisation.is_main_office?(offices.first)
   end
 
-  test "can list other contacts" do
-    contacts = [build(:contact), build(:contact)]
+  test "can list other offices" do
+    offices = [build(:worldwide_office), build(:worldwide_office)]
 
-    assert_equal [], build(:worldwide_organisation, contacts: []).other_contacts
-    assert_equal [], build(:worldwide_organisation, contacts: contacts.take(1)).other_contacts
-    assert_equal [contacts.last], build(:worldwide_organisation, contacts: contacts, main_contact: contacts.first).other_contacts
+    assert_equal [], build(:worldwide_organisation, offices: []).other_offices
+    assert_equal [], build(:worldwide_organisation, offices: offices.take(1)).other_offices
+    assert_equal [offices.last], build(:worldwide_organisation, offices: offices, main_office: offices.first).other_offices
   end
 
   test "an ambassadorial role is a primary role and not a secondary one" do
