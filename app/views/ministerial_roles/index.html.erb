@@ -29,7 +29,7 @@
   </div>
 </div>
 
-<div class="block-3 ministers-by-organisation">
+<div class="ministers-by-organisation">
   <div class="inner-block">
     <h1>Ministers by organisation</h1>
     <% @ministers_by_organisation.each do |organisation, ministers| %>
@@ -57,15 +57,13 @@
   </div>
 </div>
 
-<div class="block-3 ministers-by-organisation whips">
+<div class="ministers-by-organisation whips">
   <div class="inner-block">
     <h1>Whips</h1>
 
     <% @whips_by_organisation.each do |whip_organisation, whips| %>
       <%= content_tag_for :section, whip_organisation do %>
-        <h2>
-          <span><%= format_with_html_line_breaks(whip_organisation.name) %></span>
-        </h2>
+        <h2><%= whip_organisation.name %></h2>
         <ul class="minister-list">
           <% whips.each.with_index do |role_appointment, i| %>
             <%= render partial: "people/person",

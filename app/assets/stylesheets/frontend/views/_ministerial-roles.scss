@@ -77,8 +77,13 @@
   }
 
   .whips {
-    section h2 {
-      @include heading-27;
+    section {
+      h2 {
+        @include heading-24;
+      }
+      .minister-list {
+        margin-top: 25px;
+      }
     }
   }
 
