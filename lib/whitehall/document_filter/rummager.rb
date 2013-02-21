@@ -60,7 +60,11 @@ module Whitehall::DocumentFilter
     end
 
     def filter_by_relevance_to_local_government
-      {relevant_to_local_government: relevant_to_local_government.to_s}
+      if relevant_to_local_government
+        {relevant_to_local_government: "1"}
+      else
+        {}
+      end
     end
 
     def filter_by_people

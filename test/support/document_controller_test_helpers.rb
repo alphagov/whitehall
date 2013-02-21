@@ -393,12 +393,12 @@ module DocumentControllerTestHelpers
     end
 
     def should_show_local_government_items_for(document_type)
-      view_test "index excludes local government #{document_type} by default" do
+      view_test "index includes #{document_type} items irrespective of relevance to local goverment by default" do
         announced_today = [create(:"published_#{document_type}", relevant_to_local_government: true), create(:"published_#{document_type}")]
 
         get :index
 
-        refute_select_object announced_today[0]
+        assert_select_object announced_today[0]
         assert_select_object announced_today[1]
       end
 
