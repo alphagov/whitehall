@@ -37,7 +37,6 @@ Old Url,New Url,Status,Whole Tag,Slug,Admin Url,State
 Old Url,New Url,Status,Whole Tag,Slug,Admin Url,State
 "",https://www.preview.alphagov.co.uk/government/organisations/#{organisation.slug},"","","",https://whitehall-admin.test.alphagov.co.uk/government/admin/organisations/#{organisation.slug},""
 "",https://www.preview.alphagov.co.uk/government/organisations/#{organisation.slug},"","","",https://whitehall-admin.test.alphagov.co.uk/government/admin/organisations/#{organisation.slug}/edit,""
-"",https://www.preview.alphagov.co.uk/government/organisations/#{organisation.slug}/about/publication-scheme,"","","",https://whitehall-admin.test.alphagov.co.uk/government/admin/organisations/#{organisation.slug}/corporate_information_pages/publication-scheme,""
 "",https://www.preview.alphagov.co.uk/government/organisations/#{organisation.slug}/about/publication-scheme,"","","",https://whitehall-admin.test.alphagov.co.uk/government/admin/organisations/#{organisation.slug}/corporate_information_pages/publication-scheme/edit,""
       EOT
     end
