@@ -4,6 +4,7 @@ module Whitehall
   class DocumentMappingsTest < ActiveSupport::TestCase
     setup do
       @exporter = Whitehall::Exporters::DocumentMappings.new('test')
+      ENV['FACTER_govuk_platform'] = 'preview'
     end
 
     def arrays_to_csv(arrays)
