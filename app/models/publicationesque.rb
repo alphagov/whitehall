@@ -1,5 +1,6 @@
 class Publicationesque < Edition
   include Edition::RelatedPolicies
+  include Edition::DocumentSeries
   include ::Attachable
 
   attachable :edition
@@ -9,10 +10,6 @@ class Publicationesque < Edition
 
   def self.sti_names
     ([self] + descendants).map { |model| model.sti_name }
-  end
-
-  def part_of_series?
-    false
   end
 end
 

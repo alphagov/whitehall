@@ -2,6 +2,7 @@ class NewsArticle < Announcement
   include Edition::RoleAppointments
   include Edition::FactCheckable
   include Edition::FirstImagePulledOut
+  include Edition::DocumentSeries
 
   validates :news_article_type_id, presence: true
   validate :only_news_article_allowed_invalid_data_can_be_awaiting_type

@@ -63,6 +63,11 @@
                 Field of operation: <%= link_to announcement.operational_field.name, announcement.operational_field %>
               </td>
             <% end %>
+            <% if announcement.respond_to?(:part_of_series?) && announcement.part_of_series? %>
+              <td class="document_series attribute">
+                Part of a series: <%= list_of_links_to_document_series(announcement) %>
+              </td>
+            <% end %>
           <% end %>
         <% end %>
         </tbody>

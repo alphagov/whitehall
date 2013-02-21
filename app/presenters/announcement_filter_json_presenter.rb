@@ -8,6 +8,12 @@ class AnnouncementFilterJsonPresenter < DocumentFilterJsonPresenter
     if (document.has_operational_field?)
       hash.merge!(field_of_operation: "Field of operation: " + h.link_to(document.operational_field.name, document.operational_field))
     end
+    if document.respond_to?(:part_of_series?) && document.part_of_series?
+      links = document.document_series.map do |ds|
+        h.link_to(ds.name, h.organisation_document_series_path(ds.organisation, ds))
+      end
+      hash.merge!(publication_series:  "Part of a series: #{links.to_sentence}")
+    end
     hash.merge(
       display_date_microformat: document.display_date_microformat,
       announcement_type: document.display_type

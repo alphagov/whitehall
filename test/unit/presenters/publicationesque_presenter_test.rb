@@ -7,12 +7,6 @@ class PublicationesquePresenterTest < PresenterTestCase
     assert_equal "Open consultation", presenter.display_type
   end
 
-  test "should indicate that a consultation is never part of a series" do
-    consultation = Consultation.new
-    presenter = PublicationesquePresenter.decorate(consultation)
-    refute presenter.part_of_series?
-  end
-
   test "should return display publication type on publication" do
     publication = Publication.new(publication_type: PublicationType::ImpactAssessment)
     presenter = PublicationesquePresenter.decorate(publication)
