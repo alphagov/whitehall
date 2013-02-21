@@ -77,6 +77,15 @@ class UploadAccessTest < ActionDispatch::IntegrationTest
     assert_sent_public_upload upload, Mime::JPG
   end
 
+  test 'recognises files with uppercase names (as well as lowercase)' do
+    upload = '/government/uploads/GENERAL-UPLOAD.JPG'
+    create_uploaded_file(path_to_clean_upload(upload))
+
+    get_via_nginx upload
+
+    assert_sent_public_upload upload, Mime::JPG
+  end
+
   test 'redirects requests for unknown uploaded images to the placeholder image' do
     get_via_nginx '/government/uploads/any-missing-image.jpg'
     assert_redirected_to_placeholder_image

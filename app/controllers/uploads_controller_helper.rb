@@ -28,7 +28,7 @@ module UploadsControllerHelper
   end
 
   def mime_type_for(path)
-    Mime::Type.lookup_by_extension(File.extname(path).from(1))
+    Mime::Type.lookup_by_extension(File.extname(path).from(1).downcase)
   end
 
   def content_disposition_for(path)
