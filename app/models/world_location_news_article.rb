@@ -6,4 +6,8 @@ class WorldLocationNewsArticle < Newsesque
   def can_be_related_to_policies?
     false
   end
+
+  def display_type_key
+    'world_location_news_article'
+  end
 end
