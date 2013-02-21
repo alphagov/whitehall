@@ -12,11 +12,27 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
     worldwide_organisation = create(:worldwide_organisation)
 
     post :create,
-      worldwide_office: {contact_attributes: {title: "Main office"}},
+      worldwide_office: { contact_attributes: {title: "Main office"} },
       worldwide_organisation_id: worldwide_organisation.id
 
     assert_equal 1, worldwide_organisation.offices.count
-    assert_equal "Main office", worldwide_organisation.offices.first.contact.title
+    assert_equal 'Main office', worldwide_organisation.offices.first.contact.title
+  end
+
+  test "post create creates worldwide office with services" do
+    service1 = create(:worldwide_service)
+    service2 = create(:worldwide_service)
+    worldwide_organisation = create(:worldwide_organisation)
+
+    post :create,
+      worldwide_office: {
+        contact_attributes: {title: "Main office"},
+        service_ids: [service2.id, service1.id]
+      },
+      worldwide_organisation_id: worldwide_organisation.id
+
+    assert_equal 1, worldwide_organisation.offices.count
+    assert_equal [service1, service2], worldwide_organisation.offices.first.services.sort_by {|s| s.id}
   end
 
   test "post create creates associated phone numbers" do
@@ -52,6 +68,23 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
       worldwide_organisation_id: worldwide_organisation
 
     assert_equal "Head office", worldwide_organisation.offices.first.contact.title
+  end
+
+  test "put update updates an offices services" do
+    service1 = create(:worldwide_service)
+    service2 = create(:worldwide_service)
+    service3 = create(:worldwide_service)
+    worldwide_organisation = create(:worldwide_organisation)
+    office = worldwide_organisation.offices.create(contact_attributes: {title: "Main office"}, services: [service1, service2])
+
+    put :update,
+      worldwide_office: {
+        service_ids: [service3.id, service2.id]
+      },
+      id: office,
+      worldwide_organisation_id: worldwide_organisation
+
+    assert_equal [service2, service3], worldwide_organisation.offices.first.services.sort_by {|s| s.id}
   end
 
   test "put update updates associated phone numbers" do
