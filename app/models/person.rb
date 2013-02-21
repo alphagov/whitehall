@@ -1,4 +1,7 @@
 class Person < ActiveRecord::Base
+  include Rails.application.routes.url_helpers
+  include Searchable
+
   mount_uploader :image, ImageUploader, mount_on: :carrierwave_image
 
   has_many :role_appointments
@@ -23,12 +26,20 @@ class Person < ActiveRecord::Base
 
   validate :image_must_be_960px_by_640px, if: :image_changed?
 
+  searchable title: :name,
+             link: :search_link,
+             content: :biography
+
   extend FriendlyId
   friendly_id :slug_name
 
   delegate :url, to: :image, prefix: :image
 
   before_destroy :prevent_destruction_if_appointed
+
+  def search_link
+    person_path(slug)
+  end
 
   def ministerial_roles_at(date)
     role_appointments_at(date).map(&:role).select { |role| role.is_a?(MinisterialRole) }
