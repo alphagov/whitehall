@@ -11,7 +11,7 @@ module DocumentFilterHelper
 
   def publication_type_filter_options(publication_filter_options, selected_publication_filter_options = nil)
     selected_value = selected_publication_filter_options ? selected_publication_filter_options.slug : "all"
-    options_for_select([["All publication types", "all"]] + publication_filter_options.map{ |pt| [pt.label, pt.slug] }, [selected_value])
+    options_for_select([["All publication types", "all"]] + publication_filter_options.sort_by{ |a| a.label }.map{ |pt| [pt.label, pt.slug] }, [selected_value])
   end
 
   def announcement_type_filter_options(announcement_filter_options, selected_announcement_filter_options = nil)
