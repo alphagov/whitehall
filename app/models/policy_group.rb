@@ -14,9 +14,13 @@ class PolicyGroup < ActiveRecord::Base
 
   searchable title: :name,
              link: :search_link,
-             content: :name
+             content: :summary_or_name
 
   extend FriendlyId
   friendly_id
+
+  def summary_or_name
+    summary.present? ? summary : name
+  end
 
 end
