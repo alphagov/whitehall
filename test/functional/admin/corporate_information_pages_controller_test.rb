@@ -17,7 +17,7 @@ class Admin::CorporateInformationPagesControllerTest < ActionController::TestCas
       else
         create(:organisation_with_alternative_format_contact_email)
       end
-      parameters = parameters.merge(organisation_id: organisation)
+      parameters = parameters.merge(organisation_id: organisation, organisation_type: organisation.class.to_s)
     end
     super(action, parameters, session, flash, method)
   end
@@ -35,7 +35,7 @@ class Admin::CorporateInformationPagesControllerTest < ActionController::TestCas
   end
 
   view_test "GET :new should display form" do
-    get :new, organisation_id: @organisation
+    get :new, organisation_id: @organisation, organisation_type: @organisation.class.to_s
 
     assert_select "form[action='#{admin_organisation_corporate_information_pages_path(@organisation)}']" do
       assert_select "textarea[name='corporate_information_page[body]']"
@@ -46,7 +46,7 @@ class Admin::CorporateInformationPagesControllerTest < ActionController::TestCas
   end
 
   test "POST :create should create a new corporate information page" do
-    post :create, organisation_id: @organisation, corporate_information_page: corporate_information_page_attributes
+    post :create, organisation_id: @organisation, organisation_type: @organisation.class.to_s, corporate_information_page: corporate_information_page_attributes
     @organisation.reload
 
     assert_equal 1, @organisation.corporate_information_pages.count
@@ -56,7 +56,7 @@ class Admin::CorporateInformationPagesControllerTest < ActionController::TestCas
   end
 
   test "POST :create should redirect to organisation with flash on success" do
-    post :create, organisation_id: @organisation, corporate_information_page: corporate_information_page_attributes
+    post :create, organisation_id: @organisation, organisation_type: @organisation.class.to_s, corporate_information_page: corporate_information_page_attributes
     @organisation.reload
     assert_redirected_to admin_organisation_path(@organisation)
     page = @organisation.corporate_information_pages.last
@@ -64,7 +64,7 @@ class Admin::CorporateInformationPagesControllerTest < ActionController::TestCas
   end
 
   view_test "POST :create should redisplay form with error message on fail" do
-    post :create, organisation_id: @organisation, corporate_information_page: corporate_information_page_attributes(body: nil)
+    post :create, organisation_id: @organisation, organisation_type: @organisation.class.to_s, corporate_information_page: corporate_information_page_attributes(body: nil)
     @organisation.reload
     assert_select "form[action='#{admin_organisation_corporate_information_pages_path(@organisation)}']"
     assert_match /^There was a problem:/, flash[:alert]
@@ -72,7 +72,7 @@ class Admin::CorporateInformationPagesControllerTest < ActionController::TestCas
 
   view_test "GET :edit should display form without type selector for existing corporate information page" do
     corporate_information_page = create(:corporate_information_page, organisation: @organisation)
-    get :edit, organisation_id: @organisation, id: corporate_information_page
+    get :edit, organisation_id: @organisation, organisation_type: @organisation.class.to_s, id: corporate_information_page
 
     assert_select "form[action='#{admin_organisation_corporate_information_page_path(@organisation, corporate_information_page)}']" do
       assert_select "textarea[name='corporate_information_page[body]']", corporate_information_page.body
@@ -85,7 +85,7 @@ class Admin::CorporateInformationPagesControllerTest < ActionController::TestCas
   test "PUT :update should update an existing corporate information page and redirect to the organisation on success" do
     corporate_information_page = create(:corporate_information_page, organisation: @organisation)
     new_attributes = {body: "New body", summary: "New summary"}
-    put :update, organisation_id: @organisation, id: corporate_information_page, corporate_information_page: new_attributes
+    put :update, organisation_id: @organisation, organisation_type: @organisation.class.to_s, id: corporate_information_page, corporate_information_page: new_attributes
     corporate_information_page.reload
     assert_equal new_attributes[:body], corporate_information_page.body
     assert_equal new_attributes[:summary], corporate_information_page.summary
@@ -96,7 +96,7 @@ class Admin::CorporateInformationPagesControllerTest < ActionController::TestCas
   view_test "PUT :update should redisplay form on failure" do
     corporate_information_page = create(:corporate_information_page, organisation: @organisation)
     new_attributes = {body: "", summary: "New summary"}
-    put :update, organisation_id: @organisation, id: corporate_information_page, corporate_information_page: new_attributes
+    put :update, organisation_id: @organisation, organisation_type: @organisation.class.to_s, id: corporate_information_page, corporate_information_page: new_attributes
     assert_match /^There was a problem:/, flash[:alert]
 
     assert_select "form[action='#{admin_organisation_corporate_information_page_path(@organisation, corporate_information_page)}']" do
@@ -109,7 +109,7 @@ class Admin::CorporateInformationPagesControllerTest < ActionController::TestCas
 
   test "PUT :delete should delete the page and redirect to the organisation" do
     corporate_information_page = create(:corporate_information_page, organisation: @organisation)
-    put :destroy, organisation_id: @organisation, id: corporate_information_page
+    put :destroy, organisation_id: @organisation, organisation_type: @organisation.class.to_s, id: corporate_information_page
     assert_equal "#{corporate_information_page.title} deleted successfully", flash[:notice]
     assert_redirected_to admin_organisation_path(@organisation)
   end
@@ -121,5 +121,4 @@ class Admin::CorporateInformationPagesControllerTest < ActionController::TestCas
       summary: "This is the summary"
     }.merge(overrides)
   end
-
 end

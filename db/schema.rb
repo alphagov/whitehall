@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130221140402) do
+ActiveRecord::Schema.define(:version => 20130221151634) do
 
   create_table "attachment_data", :force => true do |t|
     t.string   "carrierwave_file"
@@ -188,9 +188,10 @@ ActiveRecord::Schema.define(:version => 20130221140402) do
     t.text     "body"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "organisation_type"
   end
 
-  add_index "corporate_information_pages", ["organisation_id", "type_id"], :name => "index_corporate_information_pages_on_organisation_id_and_type_id", :unique => true
+  add_index "corporate_information_pages", ["organisation_id", "organisation_type", "type_id"], :name => "index_corporate_information_pages_on_polymorphic_columns"
 
   create_table "data_migration_records", :force => true do |t|
     t.string "version"

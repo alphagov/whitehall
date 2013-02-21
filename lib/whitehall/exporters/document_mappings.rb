@@ -119,7 +119,7 @@ class Whitehall::Exporters::DocumentMappings < Struct.new(:platform)
     end
 
     CorporateInformationPage.find_each do |page|
-      organisation = page.organisation
+      organisation = page.institution
       target << row(
         organisation_corporate_information_page_url(page, organisation_id: organisation, host: host_name, protocol: 'https'),
         edit_admin_organisation_corporate_information_page_url(page, organisation_id: organisation, host: admin_host, protocol: 'https')

@@ -64,7 +64,12 @@ private
   end
 
   def find_organisation
-    @organisation = Organisation.find(params[:organisation_id])
+    @organisation = case params[:organisation_type]
+    when "Organisation"
+      Organisation.find(params[:organisation_id])
+    else
+      raise ActiveRecord::RecordNotFound
+    end
   end
 
   def build_attachment

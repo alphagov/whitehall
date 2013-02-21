@@ -148,7 +148,7 @@ class Organisation < ActiveRecord::Base
             through: :organisation_mainstream_links,
             dependent: :destroy
 
-  has_many :corporate_information_pages, dependent: :destroy
+  has_many :corporate_information_pages, as: :organisation, dependent: :destroy
 
   has_many :contacts, as: :contactable, dependent: :destroy
   has_many :social_media_accounts, as: :socialable, dependent: :destroy

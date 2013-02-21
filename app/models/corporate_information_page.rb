@@ -5,12 +5,12 @@ class CorporateInformationPage < ActiveRecord::Base
   delegate [:slug] => :type
   delegate [:alternative_format_contact_email] => :organisation
 
-  belongs_to :organisation
+  belongs_to :organisation, polymorphic: true
 
   attachable :corporate_information_page
 
   validates :organisation, :body, :type, presence: true
-  validates :type_id, uniqueness: {scope: :organisation_id, message: "already exists for this organisation"}
+  validates :type_id, uniqueness: { scope: [:organisation_id, :organisation_type], message: "already exists for this organisation" }
 
   def self.for_slug(slug)
     type = CorporateInformationPageType.find(slug)
