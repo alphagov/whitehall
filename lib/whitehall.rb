@@ -129,7 +129,18 @@ module Whitehall
     end
 
     def government_search_index
-      searchable_classes = government_edition_classes + [MinisterialRole, Organisation, SupportingPage, Topic, TopicalEvent]
+      additional_classes = [ MinisterialRole,
+                             Organisation,
+                             SupportingPage,
+                             Topic,
+                             TopicalEvent,
+                             DocumentSeries,
+                             OperationalField,
+                             PolicyTeam,
+                             PolicyAdvisoryGroup,
+                             Person
+                           ]
+      searchable_classes = government_edition_classes + additional_classes
       Enumerator.new do |y|
         searchable_classes.each do |klass|
           klass.search_index.each do |search_index_entry|
