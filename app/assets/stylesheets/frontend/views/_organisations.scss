@@ -357,6 +357,7 @@
   .what-we-do {
     @include media(tablet){
       float: left;
+      clear: both;
       width: 66.66%;
     }
     .content {
