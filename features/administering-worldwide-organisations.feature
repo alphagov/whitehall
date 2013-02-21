@@ -8,6 +8,7 @@ Feature: Administering worldwide organisation
     * a text short summary and markdown long description.
     * multiple social media links (like orgs)
     * multiple sets of office information (like orgs)
+      * with the addition of a list of services (chosen from a set) that the office provides
     * a logo formatted name (always using the standard HMG crest for now)
   * Each world organisation can be associated with 1+ world locations, and shows on the world locations page to which they are associated (see mock up on the [ticket](https://www.pivotaltracker.com/story/show/41026113))
   * Each can have corporate information pages (like orgs)
@@ -34,7 +35,7 @@ Feature: Administering worldwide organisation
 
   Scenario: Managing office information
     Given a worldwide organisation "Department of Beards in France"
-    When I add an "Hair division" office with address and phone number
+    When I add an "Hair division" office with address, phone number, and some services
     Then the "Hair division" details should be shown on the public website
 
   Scenario: Creating a worldwide organisation in a particular world location

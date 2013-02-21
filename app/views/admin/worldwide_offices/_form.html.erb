@@ -5,6 +5,23 @@
       <%= contact_form.text_field :title, horizontal: true %>
       <%= contact_form.text_area :comments, rows: 2, horizontal: true, placeholder: "Optional instructions for this contact e.g. opening hours, rules of use…" %>
 
+      <fieldset class="services">
+        <legend>Services</legend>
+        <% WorldwideService.all.group_by{|ws| ws.service_type}.each do |service_type, services| %>
+          <div class="control-group">
+            <p class="control-label"><%= service_type.name %></p>
+            <div class="controls">
+              <% services.each do |service| %>
+                <label class='checkbox'>
+                  <%= check_box_tag 'worldwide_office[service_ids][]', service.id, office_form.object.services.include?(service) %>
+                  <%= service.name %>
+                </label>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </fieldset>
+
       <fieldset class="contact">
         <legend>Address</legend>
         <%= contact_form.text_field :recipient, horizontal: true, placeholder: "Organisation, division, team, unit or person name" %>

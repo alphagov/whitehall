@@ -105,10 +105,18 @@ Then /^the social link should be shown on the public website$/ do
   assert page.has_css?(".social-media-accounts")
 end
 
-When /^I add an "([^"]*)" office with address and phone number$/ do |description|
+When /^I add an "([^"]*)" office with address, phone number, and some services$/ do |description|
+  service1 = create(:worldwide_service, name: 'Dance lessons')
+  service2 = create(:worldwide_service, name: 'Courses in advanced sword fighting')
+  service3 = create(:worldwide_service, name: 'Beard grooming')
+
   visit offices_admin_worldwide_organisation_path(WorldwideOrganisation.last)
   click_link "Add"
   fill_in "Title", with: description
+
+  check service1.name
+  check service3.name
+
   fill_in "Street address", with: "address1\naddress2"
   fill_in "Postal code", with: "12345-123"
   fill_in "Email", with: "foo@bar.com"
