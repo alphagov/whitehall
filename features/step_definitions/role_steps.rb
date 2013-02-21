@@ -1,3 +1,10 @@
+
+Given /^a person called "([^"]*)" is assigned as its ambassador "([^"]*)"$/ do |person_name, role_name|
+  person = create_person(person_name)
+  role = create(:ambassador_role, name: role_name)
+  role_appointment = create(:ambassador_role_appointment, role: role, person: person)
+end
+
 When /^I add a new "([^"]*)" role named "([^"]*)" to the "([^"]*)"$/ do |role_type, role_name, organisation_name|
   @role_name = role_name
 

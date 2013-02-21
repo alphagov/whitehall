@@ -14,3 +14,8 @@ Scenario: Announcements by that person over their career are shown
   And a published news article "News from Harriet, Deputy PM" associated with "Harriet Home"
   When I visit the person page for "Harriet Home"
   Then I should see both the news articles for Harriet Home
+
+Scenario: Viewing the person page for a worldwide role
+  Given the worldwide office "British Embassy, Drexciya" exists
+  And a person called "Gerald Stinson" is assigned as its ambassador "Ambassador to Drexciya"
+  Then I should see the worldwide office listed on his public page
