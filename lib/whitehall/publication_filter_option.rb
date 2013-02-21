@@ -31,6 +31,6 @@ module Whitehall
     IndependentReport = create(id: 12, label: "Independent reports", search_format_types: PublicationType::IndependentReport.search_format_types, publication_types: [PublicationType::IndependentReport])
     Correspondence = create(id: 13, label: "Correspondence", search_format_types: PublicationType::Correspondence.search_format_types, publication_types: [PublicationType::Correspondence])
     PromotionalMaterial = create(id: 14, label: "Promotional material", search_format_types: PublicationType::PromotionalMaterial.search_format_types, publication_types: [PublicationType::PromotionalMaterial])
-    Map = create(id: 15, label: "Map", search_format_types: PublicationType::Map.search_format_types, publication_types: [PublicationType::Map])
+    Map = create(id: 15, label: "Maps", search_format_types: PublicationType::Map.search_format_types, publication_types: [PublicationType::Map])
   end
 end
