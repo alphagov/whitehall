@@ -38,7 +38,7 @@
         margin-bottom: 0;
       }
     }
-    ul.organisations-icon-list {
+    ul.logo-icon-list {
       margin: 0;
     }
     figure.img {
@@ -80,13 +80,14 @@
       }
     }
 
-    .organisations-icon-list {
+    .logo-icon-list {
       margin: 12px 0 $gutter $gutter-half;
       float: right;
       min-width: 33.333333%;
 
       li {
         margin-left: $gutter-half;
+        list-style: none;
       }
     }
   }
