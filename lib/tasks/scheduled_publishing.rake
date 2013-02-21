@@ -28,11 +28,11 @@ namespace :publishing do
     task :check => :environment do
       num_overdue = Edition.due_for_publication.count
       if num_overdue > 0
-        puts "CRITICAL: There are %s overdue Whitehall publications" % num_overdue
+        puts "CRITICAL: There are #{num_overdue} overdue Whitehall publications"
         # Nagios expects an exit code of 2 for CRITICAL
         exit 2
       else
-        puts "OK: There are %s overdue Whitehall publications" % num_overdue
+        puts "OK: There are 0 overdue Whitehall publications"
         # Nagios expects an exit code of 0 for OK
         exit 0
       end
