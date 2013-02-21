@@ -82,9 +82,8 @@ class Person < ActiveRecord::Base
   end
 
   def image_must_be_960px_by_640px
-    image_file = image && image.path && MiniMagick::Image.open(image.path)
-    unless image_file.nil? || (image_file[:width] == 960 && image_file[:height] == 640)
-      errors.add(:image, "must be 960px wide and 640px tall")
+    if image.path
+      errors.add(:file, 'must be 960px wide and 640px tall') unless ImageSizeChecker.new(image.path).size_is?(960, 640)
     end
   end
 

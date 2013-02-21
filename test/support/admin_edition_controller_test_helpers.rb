@@ -478,6 +478,7 @@ module AdminEditionControllerTestHelpers
       end
 
       view_test 'creating an edition with an invalid image should show an error' do
+        ImageSizeChecker.any_instance.stubs(:size_is?).returns false
         attributes = controller_attributes_for(edition_type)
         invalid_image = fixture_file_upload('horrible-image.64x96.jpg')
 
