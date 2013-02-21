@@ -36,11 +36,11 @@ Feature: World location news for people local to countries
 
   Scenario: Create a world location news article
     When I create a world location news article "Beirut News"
-    Then the news article "Beirut News" should have been created
+    Then the world location news article "Beirut News" should have been created
 
   Scenario: Associate a world location news article with an worldwide priority
     Given a published worldwide priority "Helping local people" exists
-    When I create a world location news article "Beirut News"
+    When I create a valid world location news article "Beirut News"
     Then I should be able to associate "Beirut News" with the worldwide priority "Helping local people"
     And see the world location news article "Beirut News" appear on the worldwide priority "Helping local people"
 
@@ -50,18 +50,18 @@ Feature: World location news for people local to countries
 
   Scenario: Associate a world location news article with a worldwide organisation
     Given the worldwide organisation "Spanish Department" exists
-    When I create a world location news article "Spanish News"
+    When I create a valid world location news article "Spanish News"
     Then I should be able to associate "Spanish News" with the worldwide organisation "Spanish Department"
     And see the worldwide organisation "Spanish Department" listed as a producing org on the world location news article "Spanish News"
 
   Scenario: Associate a world location news article with a worldwide location
     Given a country "Indonesia" exists
-    When I create a world location news article "Indonesian Beer"
+    When I create a valid world location news article "Indonesian Beer"
     Then I should be able to associate "Indonesian Beer" with the worldwide location "Indonesia"
     When I visit the worldwide location "Indonesia"
     Then I should see the world location news article "Indonesian Beer"
 
   Scenario: World location news shouldn't appear on announcements index
-    Given I create a world location news article "French things"
+    Given I create a valid world location news article "French things"
     When I browse to the announcements index
     Then I should not be able to see a world location news article "French things"

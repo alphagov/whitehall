@@ -52,6 +52,10 @@ module DocumentHelper
     fill_in_news_article_fields
   end
 
+  def begin_drafting_world_location_news_article(options)
+    begin_drafting_document(options.merge(type: "world_location_news_article"))
+  end
+
   def begin_drafting_publication(title)
     policy = create(:policy)
     begin_drafting_document type: 'publication', title: title, summary: "Some summary of the content", alternative_format_provider: create(:alternative_format_provider)

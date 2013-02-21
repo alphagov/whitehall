@@ -14,7 +14,6 @@ Given /^a published news article "([^"]*)" for the policy "([^"]*)"$/ do |title,
   create(:published_news_article, title: title, related_policies: [policy])
 end
 
-
 Given /^a published news article "([^"]*)" associated with "([^"]*)"$/ do |title, appointee|
   person = find_person(appointee)
   appointment = find_person(appointee).current_role_appointments.last
@@ -42,12 +41,6 @@ When /^I publish a news article "([^"]*)" associated with "([^"]*)"$/ do |title,
   select person_name, from: "Ministers"
   click_button "Save"
   click_button "Force Publish"
-end
-
-When /^I create a world location news story "([^"]*)"$/ do |title|
-  begin_drafting_news_article title: title
-  select 'World location news story', from: 'News article type'
-  click_button "Save"
 end
 
 When /^I attempt to add the article image into the markdown$/ do
@@ -101,14 +94,4 @@ end
 
 When /^I browse to the announcements index$/ do
   visit announcements_path
-end
-
-Then /^I should not be able to see a world location news story "([^"]+)"$/ do |title|
-  article = NewsArticle.find_by_title(title)
-  refute record_css_selector(article), "Can see \"#{article.title}\" when I shouldn't be able to"
-end
-
-Then /^I should see the world location news story "([^"]*)"$/ do |title|
-  article = NewsArticle.find_by_title(title)
-  assert record_css_selector(article), "Can't see \"#{article.title}\" when I should be able to"
 end

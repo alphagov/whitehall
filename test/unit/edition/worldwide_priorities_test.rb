@@ -40,7 +40,7 @@ class Edition::WorldwidePrioritiesTest < ActiveSupport::TestCase
   end
 
   test "copies the role appointments over to a new draft" do
-    published = build :published_news_article, worldwide_priorities: priorities
+    published = build :published_world_location_news_article, worldwide_priorities: priorities
     assert_equal priorities, published.create_draft(build(:user)).worldwide_priorities
   end
 
