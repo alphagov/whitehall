@@ -6,8 +6,6 @@ module Whitehall
 
   mattr_accessor :search_backend
   mattr_accessor :government_search_client
-  mattr_accessor :mainstream_search_client
-  mattr_accessor :detailed_guidance_search_client
   mattr_accessor :mainstream_content_api
   mattr_accessor :stats_collector
   mattr_accessor :skip_safe_html_validation
@@ -128,10 +126,6 @@ module Whitehall
 
     def detailed_guidance_search_index_path
       '/detailed'
-    end
-
-    def mainstream_search_index_path
-      '/mainstream'
     end
 
     def government_search_index
