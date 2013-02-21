@@ -44,6 +44,6 @@ class DocumentsController < PublicFacingController
   end
 
   def redirect_to_canonical_url
-    redirect_to public_document_path(@document) if params[:locale] && params[:locale] == 'en'
+    redirect_to public_document_path(@document) if request.query_parameters[:locale] == 'en'
   end
 end
