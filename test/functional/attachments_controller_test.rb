@@ -41,8 +41,6 @@ class AttachmentsControllerTest < ActionController::TestCase
       get :show, id: ad.to_param, file: 'uk-cheese-consumption-figures-2011', extension: 'pdf'
 
       assert_response :success
-      assert_equal 'attachment; filename="uk-cheese-consumption-figures-2011.pdf"', response.headers['Content-Disposition']
-      assert_equal 'binary', response.headers['Content-Transfer-Encoding']
     ensure
       FileUtils.rmtree(Whitehall.clean_upload_path)
     end
@@ -84,7 +82,7 @@ class AttachmentsControllerTest < ActionController::TestCase
     end
   end
 
-  test 'attachments that are documents are sent as attachments' do
+  test 'attachments that are documents are sent inline' do
     Whitehall.stubs(:clean_upload_path).returns(Rails.root.join('test','clean-uploads'))
     begin
       ad = create(:attachment_data)
@@ -96,7 +94,7 @@ class AttachmentsControllerTest < ActionController::TestCase
       get :show, id: ad.to_param, file: 'uk-cheese-consumption-figures-2011', extension: 'pdf'
 
       assert_response :success
-      assert_match /^attachment;/, response.headers['Content-Disposition']
+      assert_match /^inline;/, response.headers['Content-Disposition']
     ensure
       FileUtils.rmtree(Whitehall.clean_upload_path)
     end

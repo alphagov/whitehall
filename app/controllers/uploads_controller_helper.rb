@@ -32,11 +32,7 @@ module UploadsControllerHelper
   end
 
   def content_disposition_for(path)
-    if image?(path)
-      'inline'
-    else
-      'attachment'
-    end
+    'inline'
   end
 
   def image?(path)
