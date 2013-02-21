@@ -56,6 +56,17 @@ Then /^I should see information about the person "([^"]*)"$/ do |name|
   assert page.has_css?(".biography", text: person.biography)
 end
 
+Then /^I should see the worldwide office listed on his public page$/ do
+  person = Person.last
+  office = WorldwideOffice.last
+  visit person_url(person)
+
+  within record_css_selector(person) do
+    assert page.has_content?(person.name)
+    assert page.has_css?("#current-roles a", text: office.name)
+  end
+end
+
 def visit_people_admin
   visit admin_root_path
   click_link "People"

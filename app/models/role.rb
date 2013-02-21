@@ -78,6 +78,10 @@ class Role < ActiveRecord::Base
     false
   end
 
+  def worldwide?
+    false
+  end
+
   def to_s
     if organisations.any?
       "#{name}, #{organisation_names}"
