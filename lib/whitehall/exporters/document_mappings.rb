@@ -1,4 +1,22 @@
 class Whitehall::Exporters::DocumentMappings < Struct.new(:platform)
+  include Rails.application.routes.url_helpers, PublicDocumentRoutesHelper, Admin::EditionRoutesHelper
+
+  def request
+    OpenStruct.new(host: "whitehall.#{ENV['FACTER_govuk_platform']}.alphagov.co.uk")
+  end
+
+  def row(public_url, admin_url)
+    [
+      '',
+      public_url,
+      '',
+      '',
+      '',
+      admin_url,
+      ''
+    ]
+  end
+
   def admin_host
     "whitehall-admin.#{platform}.alphagov.co.uk"
   end
