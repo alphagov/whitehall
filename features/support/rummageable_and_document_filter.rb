@@ -19,13 +19,11 @@ end
 
 # For everything we don't explicitly want a "real" search for, use FakeSearch
 Before("~@not-quite-as-fake-search") do
-  Whitehall.stubs(:search_backend).returns Whitehall::DocumentFilter::FakeSearch
+  Whitehall.search_backend = Whitehall::DocumentFilter::FakeSearch
 end
 
 require 'whitehall/not_quite_as_fake_search'
 # Otherwise, because we asked for it, use NotQuiteAsFakeSearch
 Before("@not-quite-as-fake-search") do
-  Rummageable.stubs(:implementation).returns Whitehall::NotQuiteAsFakeSearch::Rummageable.new
-  Whitehall.stubs(:search_backend).returns Whitehall::NotQuiteAsFakeSearch::DocumentFilter
-  Whitehall::NotQuiteAsFakeSearch::Store.instance.initialize_indexes
+  Whitehall::NotQuiteAsFakeSearch.stop_faking_it_quite_so_much!
 end

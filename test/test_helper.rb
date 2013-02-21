@@ -49,7 +49,7 @@ class ActiveSupport::TestCase
   setup do
     begin_gc_deferment
     Timecop.freeze(2011, 11, 11, 11, 11, 11)
-    Whitehall.stubs(:search_backend).returns(Whitehall::DocumentFilter::FakeSearch)
+    Whitehall.search_backend = Whitehall::DocumentFilter::FakeSearch
     ImageSizeChecker.any_instance.stubs(:size_is?).returns true
   end
 
@@ -123,9 +123,7 @@ class ActiveSupport::TestCase
 
     def with_not_quite_as_fake_search
       setup do
-        Rummageable.stubs(:implementation).returns Whitehall::NotQuiteAsFakeSearch::Rummageable.new
-        Whitehall.stubs(:search_backend).returns Whitehall::NotQuiteAsFakeSearch::DocumentFilter
-        Whitehall::NotQuiteAsFakeSearch::Store.instance.initialize_indexes
+        Whitehall::NotQuiteAsFakeSearch.stop_faking_it_quite_so_much!
       end
     end
   end
