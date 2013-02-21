@@ -53,7 +53,7 @@ module Whitehall
     end
 
     def untranslated_text(method, options = {})
-      english_translation = @object.__send__ method, :en
+      english_translation = object.__send__ method, :en
       @template.content_tag(:p, "English: #{english_translation}", class: "original-translation", id: "english_#{method}")
     end
 
@@ -67,7 +67,7 @@ module Whitehall
     private
 
     def translated_input(method, input, options = {})
-      options = Locale.new(@object.fixed_locale).rtl? ? {class: 'right-to-left'} : {}
+      options = Locale.new(object.fixed_locale).rtl? ? {class: 'right-to-left'} : {}
       @template.content_tag :fieldset, options do
         input + untranslated_text(method)
       end
