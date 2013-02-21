@@ -36,7 +36,7 @@ Feature: Administering worldwide organisation
   Scenario: Managing office information
     Given a worldwide organisation "Department of Beards in France"
     When I add an "Hair division" office with address, phone number, and some services
-    Then the "Hair division" details should be shown on the public website
+    Then the "Hair division" office details and services should be shown on the public website
 
   Scenario: Creating a worldwide organisation in a particular world location
     Given that the world location "France" exists

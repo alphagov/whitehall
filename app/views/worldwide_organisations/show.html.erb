@@ -73,8 +73,8 @@
   <section class="block contact-us" id="contact-us">
     <div class="inner-block floated-children">
       <h1 class="keyline-header"><%= t('worldwide_organisation.contact_us' ) %></h1>
-      <%= render partial: 'contacts/contact', :locals => {contact: @main_office.contact, is_main: true} %>
-      <%= render partial: 'contacts/contact', collection: @other_offices.map(&:contact) %>
+      <%= render partial: 'contacts/contact', locals: {contact: @main_office, is_main: true} %>
+      <%= render partial: 'contacts/contact', collection: @other_offices %>
     </div>
   </section>
 <% end %>

@@ -126,9 +126,17 @@ When /^I add an "([^"]*)" office with address, phone number, and some services$/
   click_on "Save"
 end
 
-Then /^the "([^"]*)" details should be shown on the public website$/ do |description|
-  visit worldwide_organisation_path(WorldwideOrganisation.last)
-  assert page.has_css?(".contact h2", text: description)
+Then /^the "([^"]*)" office details and services should be shown on the public website$/ do |description|
+  worldwide_org = WorldwideOrganisation.last
+  visit worldwide_organisation_path(worldwide_org)
+  worldwide_office = worldwide_org.offices.includes(:contact).where(contacts: {title: description}).first
+
+  within '.contact' do
+    assert page.has_css?("h2", text: worldwide_office.contact.title)
+    assert page.has_css?('.vcard', text: worldwide_office.contact.street_address)
+    assert page.has_css?('.tel', text: worldwide_office.contact.contact_numbers.first.number)
+    assert page.has_css?('.services', test: worldwide_office.services.first.name)
+  end
 end
 
 Given /^that the world location "([^"]*)" exists$/ do |country_name|
@@ -173,7 +181,7 @@ Then /^the "([^"]*)" should be shown as the main office on the public website$/ 
   worldwide_organisation = WorldwideOrganisation.last
   worldwide_office = WorldwideOffice.includes(:contact).where(contacts: {title: contact_title}).first
   visit worldwide_organisation_path(worldwide_organisation)
-  within "#{record_css_selector(worldwide_office.contact)}.main" do
+  within "#{record_css_selector(worldwide_office)}.main" do
     assert page.has_content?(contact_title)
   end
 end
