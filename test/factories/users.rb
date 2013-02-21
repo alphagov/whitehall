@@ -36,8 +36,4 @@ FactoryGirl.define do
   factory :importer, parent: :user do
     permissions { [User::Permissions::SIGNIN, User::Permissions::IMPORT] }
   end
-
-  factory :super_user, parent: :user do
-    permissions { [User::Permissions::SIGNIN, User::Permissions::GDS_EDITOR, User::Permissions::DEPARTMENTAL_EDITOR] }
-  end
 end
