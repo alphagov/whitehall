@@ -58,6 +58,13 @@ module Whitehall
         assert_search_returns_documents %w{Bar}, topics: "Bar-topic1"
       end
 
+      test "advanced search for a field which is not present in a document does not return the document" do
+        documents = build_documents(*%w{Foo Bar})
+        documents[0]['world_locations'] = ["Hawaii"]
+        Rummageable.new(@store).index(documents, "government")
+        assert_search_returns_documents %w{Foo}, world_locations: "Hawaii"
+      end
+
       test "advanced search can select documents using a boolean filter" do
         documents = build_documents(*%w{Foo Bar})
         documents[0]['relevant_to_local_government'] = true

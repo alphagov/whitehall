@@ -173,7 +173,7 @@ module Whitehall
       end
 
       def filter_by_simple_field(field, desired_field_values, document_hashes)
-        document_hashes.select { |document_hash| ([*desired_field_values] & document_hash[field]).any? }
+        document_hashes.select { |document_hash| ([*desired_field_values] & document_hash.fetch(field, [])).any? }
       end
 
       def filter_by_date_field(field, date_filter_hash, document_hashes)
@@ -181,14 +181,15 @@ module Whitehall
         document_hashes = date_filter_hash.inject(document_hashes) do |document_hashes, (direction, date_filter_value)|
           raise GdsApi::Rummager::SearchServiceError, "Invalid date #{date_filter_value}" unless valid_date?(date_filter_value)
           date = Date.parse(date_filter_value)
-          case direction
+          predicate = case direction
           when "before"
-            document_hashes.select { |document_hash| document_hash['public_timestamp'] <= date }
+            ->(document_hash) { document_hash[field] && document_hash[field] <= date }
           when "after"
-            document_hashes.select { |document_hash| document_hash['public_timestamp'] >= date }
+            ->(document_hash) { document_hash[field] && document_hash[field] >= date }
           else
-            document_hashes
+            ->(_) {true}
           end
+          document_hashes.select(&predicate)
         end
       end
 
