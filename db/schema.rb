@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130220120524) do
+ActiveRecord::Schema.define(:version => 20130221095854) do
 
   create_table "attachment_data", :force => true do |t|
     t.string   "carrierwave_file"
@@ -930,5 +930,12 @@ ActiveRecord::Schema.define(:version => 20130220120524) do
   end
 
   add_index "worldwide_organisations", ["slug"], :name => "index_worldwide_organisations_on_slug", :unique => true
+
+  create_table "worldwide_services", :force => true do |t|
+    t.string   "name",            :null => false
+    t.integer  "service_type_id", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
 end
