@@ -27,7 +27,27 @@ class ActiveSupport::TestCase
   include I18nHelpers
   extend GovspeakValidationTestHelper
 
+  # scrub ivars and defer GC to help with memory usage and test speed
+  # see: http://37signals.com/svn/posts/2742-the-road-to-faster-tests
+  DEFERRED_GC_THRESHOLD = (ENV['DEFER_GC'] || 1.0).to_f
+  @@last_gc_run = Time.zone.now
+
+  def begin_gc_deferment
+    GC.disable if DEFERRED_GC_THRESHOLD > 0
+  end
+
+  def reconsider_gc_deferment
+    if DEFERRED_GC_THRESHOLD > 0 && Time.zone.now - @@last_gc_run >= DEFERRED_GC_THRESHOLD
+      GC.enable
+      GC.start
+      GC.disable
+
+      @@last_gc_run = Time.zone.now
+    end
+  end
+
   setup do
+    begin_gc_deferment
     Timecop.freeze(2011, 11, 11, 11, 11, 11)
     Whitehall.stubs(:search_backend).returns(Whitehall::DocumentFilter::FakeSearch)
     ImageSizeChecker.any_instance.stubs(:size_is?).returns true
@@ -35,6 +55,7 @@ class ActiveSupport::TestCase
 
   teardown do
     Timecop.return
+    reconsider_gc_deferment
   end
 
   def acting_as(user)
