@@ -348,10 +348,6 @@ When /^I draft a new policy "([^"]*)" with a link "([^"]*)" in the body$/ do |ti
   click_button "Save"
 end
 
-Then /^I should see in the preview that "([^"]*)" includes an embedded media player$/ do |title|
-  assert_video_player_exists
-end
-
 Given /^a published policy "([^"]*)" with a link "([^"]*)" in the body$/ do |title, url|
   body = "A sentence with a [link](#{url}) in the middle."
   create(:published_policy, title: title, body: body)
@@ -366,10 +362,6 @@ Given /^a (.*?) policy "([^"]*)" for the organisations "([^"]*)" and "([^"]*)"$/
   org1 = create(:organisation, name: organisation1)
   org2 = create(:organisation, name: organisation2)
   create("#{state}_policy", title: title, organisations: [org1, org2])
-end
-
-Then /^I should see that the policy "([^"]*)" includes an embedded media player$/ do |arg1|
-  assert_video_player_exists
 end
 
 When /^I visit the list of policies$/ do
