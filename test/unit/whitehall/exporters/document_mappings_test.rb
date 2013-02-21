@@ -23,11 +23,12 @@ module Whitehall
 
     test "extract published publication to csv" do
       publication = create(:published_publication)
+      organisation = publication.organisations.first
       assert_extraction <<-EOT
 Old Url,New Url,Status,Whole Tag,Slug,Admin Url,State
 "",https://www.preview.alphagov.co.uk/government/publications/publication-title,301,Closed,publication-title,https://whitehall-admin.test.alphagov.co.uk/government/admin/publications/#{publication.id},published
-"",https://www.preview.alphagov.co.uk/government/organisations/organisation-1,"","","",https://whitehall-admin.test.alphagov.co.uk/government/admin/organisations/organisation-1,""
-"",https://www.preview.alphagov.co.uk/government/organisations/organisation-1,"","","",https://whitehall-admin.test.alphagov.co.uk/government/admin/organisations/organisation-1/edit,""
+"",https://www.preview.alphagov.co.uk/government/organisations/#{organisation.slug},"","","",https://whitehall-admin.test.alphagov.co.uk/government/admin/organisations/#{organisation.slug},""
+"",https://www.preview.alphagov.co.uk/government/organisations/#{organisation.slug},"","","",https://whitehall-admin.test.alphagov.co.uk/government/admin/organisations/#{organisation.slug}/edit,""
       EOT
     end
 
