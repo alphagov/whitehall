@@ -10,6 +10,20 @@
     list-style: none;
     @include ie-lte(7) {
       position: static;
+      th.title, td {
+        @include core-14;
+        padding: $gutter-one-third $gutter-one-third $gutter-one-third 0;
+        border-bottom: 1px solid $border-colour;
+      }
+    }
+  }
+
+  thead {
+    tr th {
+      @include ie-lte(7) {
+        @include core-14;
+        padding-right: $gutter-one-third;
+      }
     }
   }
 
@@ -47,12 +61,19 @@
       padding-right: 0;
       padding-left: $gutter;
     }
+    @include ie-lte(7) {
+      vertical-align: top;
+    }
   }
   
   .document-row:first-child {
     th {
       @include ig-core-27;
       @include bold;
+      @include ie-lte(7) {
+        @include core-14;
+        padding: $gutter-one-third $gutter-one-third $gutter-one-third 0;
+      }
     }
   }
   .document-row:nth-child(2) {
