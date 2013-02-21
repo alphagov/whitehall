@@ -47,7 +47,7 @@ Whitehall::Application.routes.draw do
     resources :statistical_data_sets, path: 'statistical-data-sets', only: [:index, :show]
     match "/speeches" => redirect("/announcements")
 
-    resources :worldwide_priorities, path: "priority", only: [:index, :show]
+    resources :worldwide_priorities, path: "priority", only: [:index, :show], localised: true
     resources :consultations, only: [:index, :show] do
       collection do
         get :open
@@ -73,7 +73,7 @@ Whitehall::Application.routes.draw do
 
     resources :ministerial_roles, path: 'ministers', only: [:index, :show]
     resources :people, only: [:index, :show]
-    resources :world_locations, path: 'world', only: [:index, :show]
+    resources :world_locations, path: 'world', only: [:index, :show], localised: true
 
     resources :policy_teams, path: 'policy-teams', only: [:index, :show]
     resources :policy_advisory_groups, path: 'policy-advisory-groups', only: [:index, :show]
