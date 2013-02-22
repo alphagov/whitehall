@@ -7,7 +7,7 @@ GIT
 
 GEM
   remote: http://rubygems.org/
-  remote: https://gems.gemfury.com/vo6ZrmjBQu5szyywDszE/
+  remote: https://BnrJb6FZyzspBboNJzYZ@gem.fury.io/govuk/
   specs:
     PriorityQueue (0.1.2)
     actionmailer (3.1.11)
