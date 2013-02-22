@@ -15,6 +15,7 @@ class Edition::SearchableTest < ActiveSupport::TestCase
     assert_equal nil, edition.search_index["people"]
     assert_equal nil, edition.search_index["publication_type"]
     assert_equal nil, edition.search_index["speech_type"]
+
     assert_equal edition.public_timestamp, edition.search_index["public_timestamp"]
     assert_equal nil, edition.search_index["topics"]
   end
@@ -36,6 +37,21 @@ class Edition::SearchableTest < ActiveSupport::TestCase
     Rummageable.expects(:index).with(has_entry("id", edition.id), Whitehall.government_search_index_path)
 
     edition.publish_as(create(:departmental_editor))
+  end
+
+  test "should should remove person from index when added as a minister" do
+    Rummageable.stubs(:index)
+    person = create(:person)
+    Rummageable.expects(:delete).with(person.search_link, Whitehall.government_search_index_path)
+    create(:ministerial_role_appointment, person: person)
+  end
+
+  test "should should add person to index when removed as a minister" do
+    Rummageable.stubs(:index)
+    person = create(:person)
+    role = create(:ministerial_role_appointment, person: person)
+    Rummageable.expects(:index).with(person.search_index, Whitehall.government_search_index_path)
+    role.destroy
   end
 
   test "should not remove edition from search index when a new edition is published" do

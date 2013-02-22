@@ -55,6 +55,22 @@ class RoleAppointment < ActiveRecord::Base
   after_create :make_other_current_appointments_non_current
   before_destroy :prevent_destruction_unless_destroyable
 
+  after_create :update_indexes_for_create
+  before_destroy :update_indexes_for_destroy
+
+  #This is to prevent duplication by ministerial roles indexing
+  def update_indexes_for_create
+    if role.ministerial?
+      person.remove_from_search_index
+    end
+  end
+
+  def update_indexes_for_destroy
+    if role.ministerial?
+      person.update_in_search_index
+    end
+  end
+
   attr_accessor :make_current
 
   def current?
