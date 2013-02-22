@@ -113,6 +113,7 @@ Whitehall::Application.routes.draw do
           end
           resources :translations, controller: 'worldwide_organisations_translations'
           resources :offices, controller: 'worldwide_offices', except: [:index, :show]
+          resources :corporate_information_pages
         end
         resources :contacts
         resources :social_media_accounts

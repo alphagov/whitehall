@@ -45,22 +45,33 @@ class Admin::CorporateInformationPagesControllerTest < ActionController::TestCas
     end
   end
 
-  test "POST :create should create a new corporate information page" do
+  test "POST :create for an Organisation corporate page" do
     post :create, organisation_id: @organisation, organisation_type: @organisation.class.to_s, corporate_information_page: corporate_information_page_attributes
-    @organisation.reload
 
-    assert_equal 1, @organisation.corporate_information_pages.count
-    assert_equal corporate_information_page_attributes[:body], @organisation.corporate_information_pages.first.body
-    assert_equal corporate_information_page_attributes[:type_id], @organisation.corporate_information_pages.first.type_id
-    assert_equal corporate_information_page_attributes[:summary], @organisation.corporate_information_pages.first.summary
+    assert_redirected_to admin_organisation_path(@organisation)
+    assert_equal 1, @organisation.reload.corporate_information_pages.count
+
+    page = @organisation.corporate_information_pages.last
+
+    assert_equal "#{page.title} created successfully", flash[:notice]
+    assert_equal corporate_information_page_attributes[:body], page.body
+    assert_equal corporate_information_page_attributes[:type_id], page.type_id
+    assert_equal corporate_information_page_attributes[:summary], page.summary
   end
 
-  test "POST :create should redirect to organisation with flash on success" do
-    post :create, organisation_id: @organisation, organisation_type: @organisation.class.to_s, corporate_information_page: corporate_information_page_attributes
-    @organisation.reload
-    assert_redirected_to admin_organisation_path(@organisation)
-    page = @organisation.corporate_information_pages.last
+  test "POST :create for WorldwideOrganisation corporation page" do
+    organisation = create(:worldwide_organisation)
+    post :create, worldwide_organisation_id: organisation, organisation_type: organisation.class.to_s, corporate_information_page: corporate_information_page_attributes
+
+    assert_redirected_to admin_worldwide_organisation_path(organisation)
+    assert_equal 1, organisation.reload.corporate_information_pages.count
+
+    page = organisation.corporate_information_pages.last
+
     assert_equal "#{page.title} created successfully", flash[:notice]
+    assert_equal corporate_information_page_attributes[:body], page.body
+    assert_equal corporate_information_page_attributes[:type_id], page.type_id
+    assert_equal corporate_information_page_attributes[:summary], page.summary
   end
 
   view_test "POST :create should redisplay form with error message on fail" do

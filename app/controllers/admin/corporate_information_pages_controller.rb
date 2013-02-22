@@ -61,12 +61,12 @@ private
   end
 
   def find_organisation
-    @organisation = case params[:organisation_type]
-    when "Organisation"
-      Organisation.find(params[:organisation_id])
-    else
-      raise ActiveRecord::RecordNotFound
+    params.each do |name, value|
+      if name =~ /(.+)_id$/
+        return @organisation = $1.classify.constantize.find(value)
+      end
     end
+    nil
   end
 
   def build_attachment
