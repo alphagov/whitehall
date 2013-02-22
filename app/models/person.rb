@@ -28,7 +28,8 @@ class Person < ActiveRecord::Base
 
   searchable title: :name,
              link: :search_link,
-             content: :biography
+             content: :biography,
+             only: :non_current_ministerial_roles #Already covered by MinisterialRole
 
   extend FriendlyId
   friendly_id :slug_name
@@ -39,6 +40,10 @@ class Person < ActiveRecord::Base
 
   def search_link
     person_path(slug)
+  end
+
+  def self.non_current_ministerial_roles
+    joins(:current_roles).where(Role.arel_table[:type].not_eq("MinisterialRole"))
   end
 
   def ministerial_roles_at(date)
