@@ -132,12 +132,12 @@ class Admin::WorldwidePrioritiesControllerTest < ActionController::TestCase
     end
 
     assert_select "#translations" do
-      refute_select '.title', text: 'english-title'
-      refute_select '.summary', text: 'english-summary'
-      refute_select '.body', text: 'english-body-in-html'
-      assert_select '.title', text: 'french-title'
-      assert_select '.summary', text: 'french-summary'
-      assert_select '.body', text: 'french-body-in-html'
+      refute_select ".edition_translation.locale-en"
+      assert_select ".edition_translation.locale-fr" do
+        assert_select '.title', text: 'french-title'
+        assert_select '.summary', text: 'french-summary'
+        assert_select '.body', text: 'french-body-in-html'
+      end
     end
   end
 end

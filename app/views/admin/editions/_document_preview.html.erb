@@ -94,7 +94,7 @@
           <% else %>
             <p><%= english_name_of_locale %> translation</p>
           <% end %>
-          <%= content_tag_for :section, translation, class: 'document_page' do %>
+          <%= content_tag_for :section, translation, class: "document_page locale-#{translation.locale}" do %>
             <article class="document">
               <h2 class="title"><%= translation.title %></h2>
               <p class="summary"><%= translation.summary %></p>
