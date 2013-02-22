@@ -33,7 +33,7 @@ ja:
       world_locations:
         one:
         other:
-      worldwide_offices:
+      worldwide_organisations:
         one:
         other:
     published:
@@ -223,7 +223,7 @@ ja:
       country:
       documents:
       mission:
-      offices:
+      organisations:
       priorities:
       publications:
       quick_links:
@@ -241,7 +241,7 @@ ja:
       overseas_territory:
         one:
         other:
-  worldwide_office:
+  worldwide_organisation:
     about_us:
     contact_us:
     find_out_more:

@@ -58,9 +58,9 @@ module NavigationHelpers
     visit about_organisation_path(organisation)
   end
 
-  def visit_worldwide_office_page(name)
-    worldwide_office = WorldwideOffice.find_by_name!(name)
-    visit worldwide_office_path(worldwide_office)
+  def visit_worldwide_organisation_page(name)
+    worldwide_organisation = WorldwideOrganisation.find_by_name!(name)
+    visit worldwide_organisation_path(worldwide_organisation)
   end
 end
 

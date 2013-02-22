@@ -1,12 +1,5 @@
-<% page_title "New Worldwide office" %>
+<% page_title "New office for: #{@worldwide_organisation.name}" %>
 
-<div class="span8">
-  <section>
-    <h1>New worldwide office</h1>
-    <%= render partial: "form", locals: { worldwide_office: @worldwide_office } %>
-  </section>
-</div>
+<h1>New office for: <%= @worldwide_organisation.name %></h1>
 
-<div class="span4">
-  <%= render partial: "sidebar" %>
-</div>
+<%= render partial: "form", locals: {worldwide_office: @worldwide_office, worldwide_organisation: @worldwide_organisation} %>

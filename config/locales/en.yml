@@ -74,9 +74,9 @@ en:
       world_locations:
         one: World location
         other: World locations
-      worldwide_offices:
-        one: Worldwide office
-        other: Worldwide offices
+      worldwide_organisations:
+        one: Worldwide organisation
+        other: Worldwide organisations
       policies:
         one: Policy
         other: Policies
@@ -225,7 +225,7 @@ en:
       country: Country
       documents: Documents
       mission: Our mission
-      offices: Offices
+      organisations: Organisations
       priorities: Priorities
       publications: Our publications
       quick_links: Quick links
@@ -243,7 +243,7 @@ en:
       overseas_territory:
         one: Overseas territory
         other: Overseas territories
-  worldwide_office:
+  worldwide_organisation:
     find_out_more: See full profile and all contact details
     part_of: Part of
     about_us: About us

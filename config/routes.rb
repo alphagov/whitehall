@@ -78,7 +78,7 @@ Whitehall::Application.routes.draw do
     resources :policy_teams, path: 'policy-teams', only: [:index, :show]
     resources :policy_advisory_groups, path: 'policy-advisory-groups', only: [:index, :show]
     resources :operational_fields, path: 'fields-of-operation', only: [:index, :show]
-    resources :worldwide_offices, path: 'world/offices', only: [:show], localised: true
+    resources :worldwide_organisations, path: 'world/organisations', only: [:show], localised: true
 
     constraints(AdminRequest) do
       namespace :admin do
@@ -105,13 +105,14 @@ Whitehall::Application.routes.draw do
           resources :classification_featurings, path: "featurings"
         end
 
-        resources :worldwide_offices do
+        resources :worldwide_organisations do
           member do
-            put :set_main_contact
-            get :contacts
+            put :set_main_office
+            get :offices
             get :social_media_accounts
           end
-          resources :translations, controller: 'worldwide_offices_translations'
+          resources :translations, controller: 'worldwide_organisations_translations'
+          resources :offices, controller: 'worldwide_offices', except: [:index, :show]
         end
         resources :contacts
         resources :social_media_accounts

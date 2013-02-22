@@ -1,0 +1,33 @@
+<% page_title "Worldwide organisation" %>
+
+<nav class="actions">
+  <%= link_to "Create Worldwide organisation", new_admin_worldwide_organisation_path, class: "btn new_resource", title: "Create a Worldwide Office" %>
+</nav>
+
+<h1>Worldwide organisations</h1>
+
+<table class="worldwide_organisation table table-striped">
+  <thead>
+    <tr>
+      <th width="40%">Name</th>
+      <th width="15%">Translations</th>
+      <th width="35%">Summary</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @worldwide_organisations.each do |worldwide_organisation| %>
+      <%= content_tag_for(:tr, worldwide_organisation) do %>
+        <td class="name">
+          <%= link_to worldwide_organisation.name, admin_worldwide_organisation_path(worldwide_organisation), title: "View #{worldwide_organisation.name}" %><br/>
+        </td>
+        <td><%= link_to "Manage translations", admin_worldwide_organisation_translations_path(worldwide_organisation), title: "Manage translations of #{worldwide_organisation.name}" %></td>
+        <td><%= worldwide_organisation.summary %></td>
+      <% end %>
+    <% end %>
+    <% if @worldwide_organisations.empty? %>
+      <tr>
+        <td colspan="3">No worldwide organisations have been created.</td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

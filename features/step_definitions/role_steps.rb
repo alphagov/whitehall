@@ -1,7 +1,7 @@
 
 Given /^a person called "([^"]*)" is assigned as its ambassador "([^"]*)"$/ do |person_name, role_name|
   person = create_person(person_name)
-  role = create(:ambassador_role, name: role_name, worldwide_offices: [WorldwideOffice.last])
+  role = create(:ambassador_role, name: role_name, worldwide_organisations: [WorldwideOrganisation.last])
   role_appointment = create(:ambassador_role_appointment, role: role, person: person)
 end
 
@@ -16,12 +16,12 @@ When /^I add a new "([^"]*)" role named "([^"]*)" to the "([^"]*)"$/ do |role_ty
   click_on "Save"
 end
 
-When /^I add a new "([^"]*)" role named "([^"]*)" to the "([^"]*)" office$/ do |role_type, role_name, office_name|
+When /^I add a new "([^"]*)" role named "([^"]*)" to the "([^"]*)" worldwide organisation$/ do |role_type, role_name, worldwide_organisation_name|
   visit admin_roles_path
   click_on "Create Role"
   fill_in "Name", with: role_name
   select role_type, from: "Type"
-  select office_name, from: "Worldwide offices"
+  select worldwide_organisation_name, from: "Worldwide organisations"
   click_on "Save"
 end
 
@@ -40,8 +40,8 @@ Then /^I should see "([^"]*)" listed on the "([^"]*)" organisation page$/ do |pe
   assert page.has_css?(record_css_selector(role.current_person))
 end
 
-Then /^I should see him listed as "([^"]*)" on the worldwide office page$/ do |role_name|
-  visit worldwide_office_path(WorldwideOffice.last)
+Then /^I should see him listed as "([^"]*)" on the worldwide organisation page$/ do |role_name|
+  visit worldwide_organisation_path(WorldwideOrganisation.last)
   person = Person.last
   role = Role.find_by_name!(role_name)
 

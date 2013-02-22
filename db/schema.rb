@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130219135606) do
+ActiveRecord::Schema.define(:version => 20130221140402) do
 
   create_table "attachment_data", :force => true do |t|
     t.string   "carrierwave_file"
@@ -381,17 +381,19 @@ ActiveRecord::Schema.define(:version => 20130219135606) do
   add_index "edition_world_locations", ["edition_world_location_image_data_id"], :name => "idx_edition_world_locs_on_edition_world_location_image_data_id"
   add_index "edition_world_locations", ["world_location_id"], :name => "index_edition_world_locations_on_world_location_id"
 
-  create_table "edition_worldwide_offices", :force => true do |t|
+  create_table "edition_worldwide_organisations", :force => true do |t|
     t.integer  "edition_id"
-    t.integer  "worldwide_office_id"
+    t.integer  "worldwide_organisation_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "edition_worldwide_offices", ["edition_id"], :name => "index_edition_worldwide_offices_on_edition_id"
-  add_index "edition_worldwide_offices", ["worldwide_office_id"], :name => "index_edition_worldwide_offices_on_worldwide_office_id"
+  add_index "edition_worldwide_organisations", ["edition_id"], :name => "index_edition_worldwide_orgs_on_edition_id"
+  add_index "edition_worldwide_organisations", ["worldwide_organisation_id"], :name => "index_edition_worldwide_orgs_on_worldwide_organisation_id"
 
   create_table "editions", :force => true do |t|
+    t.string   "title"
+    t.text     "body",                                        :limit => 16777215
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "lock_version",                                                    :default => 0
@@ -406,6 +408,7 @@ ActiveRecord::Schema.define(:version => 20130219135606) do
     t.datetime "major_change_published_at"
     t.datetime "first_published_at"
     t.date     "publication_date"
+    t.text     "summary"
     t.integer  "speech_type_id"
     t.boolean  "stub",                                                            :default => false
     t.text     "change_note"
@@ -430,9 +433,6 @@ ActiveRecord::Schema.define(:version => 20130219135606) do
     t.text     "govdelivery_url"
     t.integer  "news_article_type_id"
     t.boolean  "relevant_to_local_government",                                    :default => false
-    t.string   "title"
-    t.text     "summary"
-    t.text     "body",                                        :limit => 16777215
   end
 
   add_index "editions", ["alternative_format_provider_id"], :name => "index_editions_on_alternative_format_provider_id"
@@ -775,13 +775,13 @@ ActiveRecord::Schema.define(:version => 20130219135606) do
 
   create_table "sponsorships", :force => true do |t|
     t.integer  "organisation_id"
-    t.integer  "worldwide_office_id"
+    t.integer  "worldwide_organisation_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "sponsorships", ["organisation_id", "worldwide_office_id"], :name => "unique_sponsorships", :unique => true
-  add_index "sponsorships", ["worldwide_office_id"], :name => "index_sponsorships_on_worldwide_office_id"
+  add_index "sponsorships", ["organisation_id", "worldwide_organisation_id"], :name => "unique_sponsorships", :unique => true
+  add_index "sponsorships", ["worldwide_organisation_id"], :name => "index_sponsorships_on_worldwide_organisation_id"
 
   create_table "supporting_page_attachments", :force => true do |t|
     t.integer  "supporting_page_id"
@@ -875,18 +875,33 @@ ActiveRecord::Schema.define(:version => 20130219135606) do
   add_index "world_locations", ["slug"], :name => "index_world_locations_on_slug"
   add_index "world_locations", ["world_location_type_id"], :name => "index_world_locations_on_world_location_type_id"
 
-  create_table "worldwide_office_roles", :force => true do |t|
-    t.integer  "worldwide_office_id"
+  create_table "worldwide_office_worldwide_services", :force => true do |t|
+    t.integer  "worldwide_office_id",  :null => false
+    t.integer  "worldwide_service_id", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "worldwide_offices", :force => true do |t|
+    t.integer  "worldwide_organisation_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "worldwide_offices", ["worldwide_organisation_id"], :name => "index_worldwide_offices_on_worldwide_organisation_id"
+
+  create_table "worldwide_organisation_roles", :force => true do |t|
+    t.integer  "worldwide_organisation_id"
     t.integer  "role_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "worldwide_office_roles", ["role_id"], :name => "index_worldwide_office_roles_on_role_id"
-  add_index "worldwide_office_roles", ["worldwide_office_id"], :name => "index_worldwide_office_roles_on_worldwide_office_id"
+  add_index "worldwide_organisation_roles", ["role_id"], :name => "index_worldwide_org_roles_on_role_id"
+  add_index "worldwide_organisation_roles", ["worldwide_organisation_id"], :name => "index_worldwide_org_roles_on_worldwide_organisation_id"
 
-  create_table "worldwide_office_translations", :force => true do |t|
-    t.integer  "worldwide_office_id"
+  create_table "worldwide_organisation_translations", :force => true do |t|
+    t.integer  "worldwide_organisation_id"
     t.string   "locale"
     t.string   "name"
     t.text     "summary"
@@ -896,20 +911,20 @@ ActiveRecord::Schema.define(:version => 20130219135606) do
     t.datetime "updated_at"
   end
 
-  add_index "worldwide_office_translations", ["locale"], :name => "index_worldwide_office_translations_on_locale"
-  add_index "worldwide_office_translations", ["worldwide_office_id"], :name => "index_worldwide_office_translations_on_worldwide_office_id"
+  add_index "worldwide_organisation_translations", ["locale"], :name => "index_worldwide_org_translations_on_locale"
+  add_index "worldwide_organisation_translations", ["worldwide_organisation_id"], :name => "index_worldwide_org_translations_on_worldwide_organisation_id"
 
-  create_table "worldwide_office_world_locations", :force => true do |t|
-    t.integer  "worldwide_office_id"
+  create_table "worldwide_organisation_world_locations", :force => true do |t|
+    t.integer  "worldwide_organisation_id"
     t.integer  "world_location_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "worldwide_office_world_locations", ["world_location_id"], :name => "index_worldwide_office_world_locations_on_world_location_id"
-  add_index "worldwide_office_world_locations", ["worldwide_office_id"], :name => "index_worldwide_office_world_locations_on_worldwide_office_id"
+  add_index "worldwide_organisation_world_locations", ["world_location_id"], :name => "index_worldwide_org_world_locations_on_world_location_id"
+  add_index "worldwide_organisation_world_locations", ["worldwide_organisation_id"], :name => "index_worldwide_org_world_locations_on_worldwide_organisation_id"
 
-  create_table "worldwide_offices", :force => true do |t|
+  create_table "worldwide_organisations", :force => true do |t|
     t.string   "name"
     t.text     "summary"
     t.text     "description"
@@ -918,10 +933,17 @@ ActiveRecord::Schema.define(:version => 20130219135606) do
     t.string   "logo_formatted_name"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "main_contact_id"
+    t.integer  "main_office_id"
     t.text     "services"
   end
 
-  add_index "worldwide_offices", ["slug"], :name => "index_worldwide_offices_on_slug", :unique => true
+  add_index "worldwide_organisations", ["slug"], :name => "index_worldwide_organisations_on_slug", :unique => true
+
+  create_table "worldwide_services", :force => true do |t|
+    t.string   "name",            :null => false
+    t.integer  "service_type_id", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
 end

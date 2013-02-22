@@ -188,7 +188,7 @@ class Edition < ActiveRecord::Base
     false
   end
 
-  def can_be_associated_with_worldwide_offices?
+  def can_be_associated_with_worldwide_organisations?
     false
   end
 

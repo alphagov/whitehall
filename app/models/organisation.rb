@@ -154,7 +154,7 @@ class Organisation < ActiveRecord::Base
   has_many :social_media_accounts, as: :socialable, dependent: :destroy
 
   has_many :sponsorships, dependent: :destroy
-  has_many :sponsored_worldwide_offices, through: :sponsorships, source: :worldwide_office
+  has_many :sponsored_worldwide_organisations, through: :sponsorships, source: :worldwide_organisation
 
   accepts_nested_attributes_for :mainstream_links, allow_destroy: true, reject_if: :all_blank
   accepts_nested_attributes_for :organisation_roles

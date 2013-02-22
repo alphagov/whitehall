@@ -50,8 +50,8 @@ private
     @contactable = case params[:contactable_type]
     when "Organisation"
       Organisation.find(params[:contactable_id])
-    when "WorldwideOffice"
-      WorldwideOffice.find(params[:contactable_id])
+    when "WorldwideOrganisation"
+      WorldwideOrganisation.find(params[:contactable_id])
     else
       raise ActiveRecord::RecordNotFound
     end

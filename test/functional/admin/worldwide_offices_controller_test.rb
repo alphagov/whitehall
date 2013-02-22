@@ -1,95 +1,112 @@
-require "test_helper"
+require 'test_helper'
 
 class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
+
   setup do
-    login_as :gds_editor
+    login_as :departmental_editor
   end
 
   should_be_an_admin_controller
 
-  test "shows a list of worldwide offices" do
-    office = create(:worldwide_office)
-    WorldwideOffice.stubs(all: [office])
-    get :index
-    assert_equal [office], assigns(:worldwide_offices)
+  test "post create creates worldwide office" do
+    worldwide_organisation = create(:worldwide_organisation)
+
+    post :create,
+      worldwide_office: { contact_attributes: {title: "Main office"} },
+      worldwide_organisation_id: worldwide_organisation.id
+
+    assert_equal 1, worldwide_organisation.offices.count
+    assert_equal 'Main office', worldwide_organisation.offices.first.contact.title
   end
 
-  test "presents a form to create a new worldwide office" do
-    get :new
-    assert_template "worldwide_offices/new"
-    assert_kind_of WorldwideOffice, assigns(:worldwide_office)
+  test "post create creates worldwide office with services" do
+    service1 = create(:worldwide_service)
+    service2 = create(:worldwide_service)
+    worldwide_organisation = create(:worldwide_organisation)
+
+    post :create,
+      worldwide_office: {
+        contact_attributes: {title: "Main office"},
+        service_ids: [service2.id, service1.id]
+      },
+      worldwide_organisation_id: worldwide_organisation.id
+
+    assert_equal 1, worldwide_organisation.offices.count
+    assert_equal [service1, service2], worldwide_organisation.offices.first.services.sort_by {|s| s.id}
   end
 
-  test "creates a worldwide office" do
-    post :create, worldwide_office: {
-      name: "Office",
-      summary: "Summary",
-      description: "Description"
-    }
+  test "post create creates associated phone numbers" do
+    worldwide_organisation = create(:worldwide_organisation)
 
-    worldwide_office = WorldwideOffice.last
-    assert_kind_of WorldwideOffice, worldwide_office
-    assert_equal "Office", worldwide_office.name
-    assert_equal "Summary", worldwide_office.summary
-    assert_equal "Description", worldwide_office.description
+    post :create,
+      worldwide_office: {
+        contact_attributes: {
+          title: "Head office",
+          contact_numbers_attributes: {
+            "0" => {label: "Main phone", number: "1234"}
+          }
+        }
+      },
+      worldwide_organisation_id: worldwide_organisation.id
 
-    assert_redirected_to admin_worldwide_office_path(worldwide_office)
+    assert_equal 1, worldwide_organisation.offices.count
+    assert office = worldwide_organisation.offices.first
+    assert_equal ["Main phone: 1234"], office.contact.contact_numbers.map { |cn| "#{cn.label}: #{cn.number}" }
   end
 
-  view_test "shows validation errors on invalid worldwide office" do
-    post :create, worldwide_office: {
-      name: "Office",
-    }
+  test "put update updates an office" do
+    worldwide_organisation = create(:worldwide_organisation)
+    office = worldwide_organisation.offices.create(contact_attributes: {title: "Main office"})
 
-    assert_select 'form#worldwide_office_new .errors'
+    put :update,
+      worldwide_office: {
+        contact_attributes: {
+          title: "Head office"
+        }
+      },
+      id: office,
+      worldwide_organisation_id: worldwide_organisation
+
+    assert_equal "Head office", worldwide_organisation.offices.first.contact.title
   end
 
-  test "shows an edit page for an existing worldwide office" do
-    office = create(:worldwide_office)
-    get :edit, id: office.id
+  test "put update updates an offices services" do
+    service1 = create(:worldwide_service)
+    service2 = create(:worldwide_service)
+    service3 = create(:worldwide_service)
+    worldwide_organisation = create(:worldwide_organisation)
+    office = worldwide_organisation.offices.create(contact_attributes: {title: "Main office"}, services: [service1, service2])
+
+    put :update,
+      worldwide_office: {
+        service_ids: [service3.id, service2.id]
+      },
+      id: office,
+      worldwide_organisation_id: worldwide_organisation
+
+    assert_equal [service2, service3], worldwide_organisation.offices.first.services.sort_by {|s| s.id}
   end
 
-  test "updates an existing objects with new values" do
-    office = create(:worldwide_office)
-    put :update, id: office.id, worldwide_office: {
-      name: "New name"
-    }
-    worldwide_office = WorldwideOffice.last
-    assert_equal "New name", worldwide_office.name
-    assert_redirected_to admin_worldwide_office_path(worldwide_office)
-  end
+  test "put update updates associated phone numbers" do
+    worldwide_organisation = create(:worldwide_organisation)
+    office = worldwide_organisation.offices.create(contact_attributes: {title: "Main office"})
+    contact_number = office.contact.contact_numbers.create(label: "Main phone", number: "1234")
 
-  test "setting the main contact" do
-    contacts = [create(:contact), create(:contact)]
-    worldwide_office = create(:worldwide_office, contacts: contacts)
-    put :set_main_contact, id: worldwide_office.id, worldwide_office: { main_contact_id: contacts.last.id }
+    put :update,
+      worldwide_office: {
+        contact_attributes: {
+          id: office.contact.id,
+          title: "Head office",
+          contact_numbers_attributes: {
+            "0" => {id: contact_number.id, label: "Main phone", number: "5678"}
+          }
+        },
+      },
+      id: office,
+      worldwide_organisation_id: worldwide_organisation
 
-    assert_equal contacts.last, worldwide_office.reload.main_contact
-    assert_equal "Main contact updated successfully", flash[:notice]
-    assert_redirected_to contacts_admin_worldwide_office_path(worldwide_office)
-  end
-
-  test "destroys an existing object" do
-    office = create(:worldwide_office)
-    count = WorldwideOffice.count
-    delete :destroy, id: office.id
-    assert_equal count - 1, WorldwideOffice.count
-  end
-
-  view_test "shows the name summary and description of the worldwide office" do
-    office = create(:worldwide_office, name: "Ministry of Silly Walks in Madrid",
-      summary: "We have a nice office in madrid",
-      description: "# Office\nOur office is on the main road\n")
-
-    get :show, id: office
-
-    assert_select_object office do
-      assert_select "h1", office.name
-      assert_select ".summary", office.summary
-      assert_select ".description" do
-        assert_select "h1", "Office"
-        assert_select "p", "Our office is on the main road"
-      end
-    end
+    assert_equal 1, worldwide_organisation.offices.count
+    assert office = worldwide_organisation.offices.first
+    assert_equal ["Main phone: 5678"], office.contact.reload.contact_numbers.reload.map { |cn| "#{cn.label}: #{cn.number}" }
   end
 end

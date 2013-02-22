@@ -263,48 +263,8 @@
           <% addresses = @organisation.contacts.select { |c| c.has_postal_address? } %>
           <% others = @organisation.contacts - addresses %>
           <div class="addresses js-hide-extra-rows-2">
-            <% addresses.each do |contact| %>
-              <div class="organisation_contact complex">
-                <h2><%= contact.title %></h2>
-                <% if contact.comments.present? %>
-                  <p class="comment"><%= contact.comments %></p>
-                <% end %>
-                <div class="contact-inner">
-                  <div class="vcard">
-                    <%= render_hcard_address(contact) %>
-
-                    <div class="email-url-number">
-                      <% if contact.email.present? %>
-                        <p class="email"><span class="type">Email</span> <%= mail_to contact.email, contact.email, class: 'email' %></p>
-                      <% end %>
-                      <% if contact.contact_form_url.present? %>
-                        <p class="contact_form_url"><span class="type">Contact form</span><%= link_to contact.contact_form_url.truncate(25), contact.contact_form_url %></p>
-                      <% end %>
-                      <% contact.contact_numbers.each do |number| %>
-                        <p class="tel"><span class="type"><%= number.label %></span> <%= number.number %></p>
-                      <% end %>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            <% end %>
-
-            <% others.each do |contact| %>
-              <div class="organisation_contact simple">
-                <div class="contact-inner">
-                  <h2><%= contact.title %></h2>
-                  <% if contact.comments.present? %>
-                    <p class="comment"><%= contact.comments %></p>
-                  <% end %>
-                  <% if contact.email.present? %>
-                    <p class="email"><span class="type">Email</span> <%= mail_to contact.email, contact.email, :class => "email" %></p>
-                  <% end %>
-                  <% contact.contact_numbers.each do |number| %>
-                    <p class="tel"><%= number.number %><span class="type"> <%= number.label %> </span></p>
-                  <% end %>
-                </div>
-              </div>
-            <% end %>
+            <%= render partial: 'contacts/contact', collection: addresses, locals: { contact_class: %w(organisation_contact complex) } %>
+            <%= render partial: 'contacts/contact', collection: others, locals: { contact_class: %w(organisation_contact simple) } %>
           </div>
         </div>
 

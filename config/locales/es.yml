@@ -33,7 +33,7 @@ es:
       world_locations:
         one:
         other:
-      worldwide_offices:
+      worldwide_organisations:
         one:
         other:
     published: Publicado
@@ -223,7 +223,7 @@ es:
       country: Paìs
       documents: Documentos
       mission: Nuestra misión
-      offices: Oficinas
+      organisations: Organizaciones
       priorities: Prioridades
       publications: Publicaciones
       quick_links:
@@ -241,7 +241,7 @@ es:
       overseas_territory:
         one:
         other:
-  worldwide_office:
+  worldwide_organisation:
     about_us:
     contact_us:
     find_out_more: Ver el perfil completo y todos los datos de contacto
