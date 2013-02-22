@@ -55,6 +55,16 @@ class Admin::WorldwideOrganisationsTranslationsControllerTest < ActionController
     assert_select "a[href=#{CGI::escapeHTML(edit_translation_path)}]", text: 'en', count: 0
   end
 
+  view_test 'index displays delete button for a translation' do
+    worldwide_organisation = create(:worldwide_organisation, translated_into: [:fr])
+
+    get :index, worldwide_organisation_id: worldwide_organisation
+
+    assert_select "form[action=?]", admin_worldwide_organisation_translation_path(worldwide_organisation, 'fr') do
+      assert_select "input[type='submit'][value=?]", "Delete"
+    end
+  end
+
   test 'create redirects to edit for the chosen language' do
     post :create, worldwide_organisation_id: @worldwide_organisation, translation_locale: 'fr'
     assert_redirected_to edit_admin_worldwide_organisation_translation_path(@worldwide_organisation, id: 'fr')
@@ -119,5 +129,15 @@ class Admin::WorldwideOrganisationsTranslationsControllerTest < ActionController
     assert_select "form[action=#{CGI::escapeHTML(translation_path)}]" do
       assert_select "textarea[name='worldwide_organisation[description]']", text: 'Barbes, moustaches, même rouflaquettes'
     end
+  end
+
+  test 'destroy removes translation and redirects to list of translations' do
+    worldwide_organisation = create(:worldwide_organisation, translated_into: [:fr])
+
+    delete :destroy, worldwide_organisation_id: worldwide_organisation, id: 'fr'
+
+    worldwide_organisation.reload
+    refute worldwide_organisation.translated_locales.include?(:fr)
+    assert_redirected_to admin_worldwide_organisation_translations_path(worldwide_organisation)
   end
 end

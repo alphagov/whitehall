@@ -48,4 +48,8 @@ class WorldwideOrganisation < ActiveRecord::Base
   def office_staff_roles
     roles.where(type: WorldwideOfficeStaffRole.name)
   end
+
+  def remove_translations_for(locale)
+    translations.where(locale: locale).each { |t| t.destroy }
+  end
 end
