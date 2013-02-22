@@ -120,18 +120,24 @@ class Admin::WorldwidePrioritiesControllerTest < ActionController::TestCase
   end
 
   view_test "show displays all non-english translations" do
-    edition = create(:draft_worldwide_priority, title: 'english-title', summary: 'english-summary', body: 'english-body')
-    with_locale(:fr) { edition.update_attributes!(title: 'french-title', summary: 'french-summary', body: 'french-body') }
+    edition = create(:draft_worldwide_priority, title: 'english-title', summary: 'english-summary', body: 'english-body-in-govspeak')
+    with_locale(:fr) { edition.update_attributes!(title: 'french-title', summary: 'french-summary', body: 'french-body-in-govspeak') }
 
-    get :show, id: edition
+    transformation = {
+      "english-body-in-govspeak" => "english-body-in-html",
+      "french-body-in-govspeak" => "french-body-in-html"
+    }
+    govspeak_transformation_fixture(transformation) do
+      get :show, id: edition
+    end
 
     assert_select "#translations" do
       refute_select '.title', text: 'english-title'
       refute_select '.summary', text: 'english-summary'
-      refute_select '.body', text: 'english-body'
+      refute_select '.body', text: 'english-body-in-html'
       assert_select '.title', text: 'french-title'
       assert_select '.summary', text: 'french-summary'
-      assert_select '.body', text: 'french-body'
+      assert_select '.body', text: 'french-body-in-html'
     end
   end
 end
