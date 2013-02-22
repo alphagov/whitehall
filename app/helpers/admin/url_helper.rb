@@ -20,7 +20,7 @@ module Admin::UrlHelper
   end
 
   def admin_worldwide_organisations_header_link
-    admin_header_link "World organisations", admin_worldwide_organisations_path
+    admin_header_link "Worldwide organisations", admin_worldwide_organisations_path
   end
 
   def admin_world_locations_header_link
