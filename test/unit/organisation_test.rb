@@ -527,14 +527,14 @@ class OrganisationTest < ActiveSupport::TestCase
 
   test "can sponsor worldwide offices" do
     organisation = create(:organisation)
-    office = create(:worldwide_office)
-    organisation.sponsored_worldwide_offices << office
+    world_organisation = create(:worldwide_organisation)
+    organisation.sponsored_worldwide_organisations << world_organisation
 
-    assert_equal [office], organisation.reload.sponsored_worldwide_offices
+    assert_equal [world_organisation], organisation.reload.sponsored_worldwide_organisations
   end
 
   test "destroy deletes sponsorships" do
-    organisation = create(:organisation, sponsored_worldwide_offices: [create(:worldwide_office)])
+    organisation = create(:organisation, sponsored_worldwide_organisations: [create(:worldwide_organisation)])
     organisation.destroy
 
     assert_equal 0, organisation.sponsorships.count

@@ -47,8 +47,8 @@ private
     @socialable = case params[:socialable_type]
     when "Organisation"
       Organisation.find(params[:socialable_id])
-    when "WorldwideOffice"
-      WorldwideOffice.find(params[:socialable_id])
+    when "WorldwideOrganisation"
+      WorldwideOrganisation.find(params[:socialable_id])
     else
       raise ActiveRecord::RecordNotFound
     end

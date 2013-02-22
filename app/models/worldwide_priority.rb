@@ -1,7 +1,7 @@
 class WorldwidePriority < Edition
   include Edition::Images
   include Edition::WorldLocations
-  include Edition::WorldwideOffices
+  include Edition::WorldwideOrganisations
 
   def display_type_key
     "worldwide_priority"

@@ -33,7 +33,7 @@ fr:
       world_locations:
         one: Où dans le monde
         other: Endroits du monde
-      worldwide_offices:
+      worldwide_organisations:
         one:
         other:
     published: publié
@@ -223,7 +223,7 @@ fr:
       country: Pays
       documents: Documents
       mission: Notre mission
-      offices: Bureaux
+      organisations: Organisations
       priorities: Priorités
       publications: Nos publications
       quick_links: Liens rapides
@@ -241,7 +241,7 @@ fr:
       overseas_territory:
         one: Territoire d'outre-mer
         other: Territoires d'outre-mer
-  worldwide_office:
+  worldwide_organisation:
     about_us: À propos de nous
     contact_us: Contactez-nous
     find_out_more: En savoir plus

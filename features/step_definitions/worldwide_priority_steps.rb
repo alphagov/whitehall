@@ -14,9 +14,9 @@ Given /^a published worldwide priority "([^"]*)" exists relating to the (?:count
   create(:published_worldwide_priority, title: title, world_locations: [world_location])
 end
 
-Given /^a published worldwide priority "([^"]*)" exists relating to the worldwide office "([^"]*)"$/ do |title, office_name|
-  worldwide_office = WorldwideOffice.find_by_name!(office_name)
-  create(:published_worldwide_priority, title: title, worldwide_offices: [worldwide_office])
+Given /^a published worldwide priority "([^"]*)" exists relating to the worldwide organisation "([^"]*)"$/ do |title, worldwide_organisation_name|
+  worldwide_organisation = WorldwideOrganisation.find_by_name!(worldwide_organisation_name)
+  create(:published_worldwide_priority, title: title, worldwide_organisations: [worldwide_organisation])
 end
 
 Given /^a worldwide priority which is available in english as "([^"]*)" and in spanish as "([^"]*)"$/ do |english_title, spanish_title|

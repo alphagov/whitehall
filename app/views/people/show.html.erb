@@ -58,7 +58,7 @@
         <% @person.current_role_appointments.each do |appointment| %>
           <%= content_tag_for :section, appointment, class: "role" do %>
             <% if appointment.role.worldwide? %>
-              <%= render partial: 'worldwide_offices/logo_list', locals: { worldwide_offices: appointment.role.worldwide_offices } %>
+              <%= render partial: 'worldwide_organisations/logo_list', locals: { worldwide_organisations: appointment.role.worldwide_organisations } %>
             <% else %>
               <%= render  partial: 'organisations/organisations_logo_list', locals: { organisations: appointment.role.organisations } %>
             <% end %>

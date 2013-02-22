@@ -1,19 +1,30 @@
-<%= form_for [:admin, worldwide_office], as: :worldwide_office do |form| %>
-  <%= form.errors %>
-  <fieldset>
-    <%= form.text_field :name %>
+<%= form_for worldwide_office, url: worldwide_office.persisted? ? admin_worldwide_organisation_office_path(worldwide_organisation, worldwide_office) : admin_worldwide_organisation_offices_path(worldwide_organisation), html: {class: "form-horizontal"} do |office_form| %>
+  <%= office_form.errors %>
+  <fieldset class="contact">
+    <%= office_form.fields_for(:contact) do |contact_form| %>
+      <%= contact_form.text_field :title, horizontal: true %>
+      <%= contact_form.text_area :comments, rows: 2, horizontal: true, placeholder: "Optional instructions for this contact e.g. opening hours, rules of use…" %>
 
-    <%= form.label :world_location_ids, 'World location' %>
-    <%= form.select :world_location_ids, WorldLocation.ordered_by_name.collect {|org| [org.name, org.id]}, {}, multiple: true, class: 'chzn-select', data: { placeholder: "Choose world locations..."} %>
+      <fieldset class="services">
+        <legend>Services</legend>
+        <% WorldwideService.all.group_by{|ws| ws.service_type}.each do |service_type, services| %>
+          <div class="control-group">
+            <p class="control-label"><%= service_type.name %></p>
+            <div class="controls">
+              <% services.each do |service| %>
+                <label class='checkbox'>
+                  <%= check_box_tag 'worldwide_office[service_ids][]', service.id, office_form.object.services.include?(service) %>
+                  <%= service.name %>
+                </label>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </fieldset>
 
-    <%= form.label :sponsoring_organisation_ids, 'Sponsoring organisations' %>
-    <%= form.select :sponsoring_organisation_ids, Organisation.all.collect {|org| [org.name, org.id]}, {}, multiple: true, class: 'chzn-select', data: { placeholder: "Choose sponsoring organisations..."} %>
-
-    <%= form.text_area :logo_formatted_name, rows: "4", style: "width: auto" %>
-    <%= form.text_area :summary, rows: "4" %>
-    <%= form.text_area :description, "class" => "previewable" %>
-    <%= form.text_area :services, "class" => "previewable" %>
+      <%= render partial: 'admin/contacts/form_fields', locals: { contact_form: contact_form } %>
+    <% end %>
   </fieldset>
 
-  <%= form.save_or_cancel(cancel: (worldwide_office.persisted? ? admin_worldwide_office_path(worldwide_office) : admin_worldwide_offices_path)) %>
+  <%= office_form.save_or_cancel(cancel: admin_worldwide_organisation_path(worldwide_organisation)) %>
 <% end %>

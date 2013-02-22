@@ -1747,36 +1747,36 @@ module AdminEditionControllerTestHelpers
       end
     end
 
-    def should_allow_association_with_worldwide_offices(edition_type)
+    def should_allow_association_with_worldwide_organisations(edition_type)
       edition_class = class_for(edition_type)
 
-      view_test "new should display worldwide offices field" do
+      view_test "new should display worldwide organisations field" do
         get :new
 
         assert_select "form#edition_new" do
-          assert_select "select[name*='edition[worldwide_office_ids]']"
+          assert_select "select[name*='edition[worldwide_organisation_ids]']"
         end
       end
 
-      test "create should associate worldwide offices with the edition" do
-        first_office = create(:worldwide_office)
-        second_office = create(:worldwide_office)
+      test "create should associate worldwide organisations with the edition" do
+        first_world_organisation = create(:worldwide_organisation)
+        second_world_organisation = create(:worldwide_organisation)
         attributes = controller_attributes_for(edition_type)
 
         post :create, edition: attributes.merge(
-          worldwide_office_ids: [first_office.id, second_office.id]
+          worldwide_organisation_ids: [first_world_organisation.id, second_world_organisation.id]
         )
 
         assert edition = edition_class.last
-        assert_equal [first_office, second_office], edition.worldwide_offices
+        assert_equal [first_world_organisation, second_world_organisation], edition.worldwide_organisations
       end
 
-      test "update should remove all worldwide offices if none specified at all" do
-        office = create(:worldwide_office)
-        edition = create("draft_#{edition_type}", worldwide_offices: [office])
-        put :update, id: edition, edition: controller_attributes_for_instance(edition).except(:worldwide_office_ids)
+      test "update should remove all worldwide organisations if none specified at all" do
+        world_organisation = create(:worldwide_organisation)
+        edition = create("draft_#{edition_type}", worldwide_organisations: [world_organisation])
+        put :update, id: edition, edition: controller_attributes_for_instance(edition).except(:worldwide_organisation_ids)
 
-        assert_equal [], edition.reload.worldwide_offices
+        assert_equal [], edition.reload.worldwide_organisations
       end
     end
   end

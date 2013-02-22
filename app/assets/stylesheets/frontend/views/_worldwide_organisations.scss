@@ -1,0 +1,152 @@
+.worldwide-organisations-show {
+  .keyline-header {
+    @include heading-27;
+    border-bottom: 5px solid $inside-gov-nav;
+    margin-bottom: $gutter-two-thirds;
+  }
+
+  .block {
+    margin-bottom: $gutter;
+  }
+
+  .organisation-header {
+    margin-bottom: $gutter;
+
+    .content {
+      padding: 0 $gutter-half;
+    }
+
+    header {
+      display: block;
+
+      @include media(tablet){
+        float: left;
+        width: 66.66%;
+      }
+
+      .world-location {
+        @include core-19;
+        font-weight: bold;
+        padding: $gutter-half 0 $gutter;
+      }
+      .sponsoring-organisations {
+        @include core-16;
+        color: $secondary-text-colour;
+        padding: $gutter 0 $gutter-half;
+      }
+    }
+    aside {
+      display: block;
+
+      @include media(tablet){
+        float: left;
+        width: 33.33%;
+        margin-top: $gutter;
+      }
+    }
+  }
+
+  .about-block {
+    .content {
+      @include media(tablet){
+        max-width: 66%;
+      }
+    }
+    .summary {
+      @include heading-24;
+      margin-bottom: $gutter;
+    }
+  }
+
+  .people {
+    h1 {
+      margin-left: $gutter-half;
+      margin-right: $gutter-half;
+    }
+    .people-list {
+      @include media(tablet){
+        float: left;
+        width: 66.66%
+      }
+
+      .person-excerpt {
+        @include media(tablet){
+          width: 33.33%;
+        }
+      }
+    }
+  }
+
+  .contact-us {
+    h1 {
+      margin: 0 $gutter-half;
+    }
+    .contact {
+      min-width: auto; // to overide something from static
+      @include core-16;
+      margin-bottom: $gutter;
+
+      @include media(desktop){
+        float: left;
+        width: 33%;
+      }
+      &.clear-contact {
+        clear: both;
+      }
+
+      .content {
+        padding: 0 $gutter-half;
+      }
+
+      h2 {
+        @include core-19;
+        font-weight: bold;
+      }
+
+      .comments {
+        margin: $gutter-one-third 0;
+      }
+
+      .adr {
+        margin: $gutter-one-third 0;
+      }
+
+      .email-url-number {
+        p {
+          margin: $gutter-one-third 0;
+        }
+        .type {
+          display: block;
+        }
+      }
+    }
+    .contact.main {
+
+      @include media(desktop){
+        width: 100%;
+        margin: 0 0 $gutter;
+      }
+
+      .content {
+        margin: 0 $gutter-half;
+        @extend %contain-floats;
+        padding: $gutter 0;
+        border-bottom: 1px solid $border-colour;
+
+        .comments {
+          @include media(desktop){
+            float: right;
+            width: 33.33%;
+          }
+        }
+        .adr,
+        .email-url-number {
+          @include media(desktop){
+            float: left;
+            width: 33.33%;
+          }
+        }
+      }
+    }
+  }
+}

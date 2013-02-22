@@ -194,24 +194,24 @@
     }
   }
 
-  .world-offices {
+  .world-organisations {
     h1 {
       margin-bottom: $gutter;
     }
-    .worldwide-office {
+    .worldwide-organisation {
       clear: both;
       border-bottom: 1px solid $border-colour;
       padding-bottom: $gutter;
       margin-bottom: $gutter;
       @extend %contain-floats;
 
-      .worldwide-office-detail {
+      .worldwide-organisation-detail {
         p {
           @include core-19;
         }
       }
 
-      .worldwide-office-detail, .contact  {
+      .worldwide-organisation-detail, .contact  {
         @include media(tablet) {
           float: left;
           display: inline;

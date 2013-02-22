@@ -153,8 +153,8 @@ class Admin::EditionsController < Admin::BaseController
     if @edition.can_be_associated_with_topical_events?
       params[:edition][:topical_event_ids] ||= []
     end
-    if @edition.can_be_associated_with_worldwide_offices?
-      params[:edition][:worldwide_office_ids] ||= []
+    if @edition.can_be_associated_with_worldwide_organisations?
+      params[:edition][:worldwide_organisation_ids] ||= []
     end
   end
 

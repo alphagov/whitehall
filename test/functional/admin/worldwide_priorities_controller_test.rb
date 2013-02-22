@@ -17,7 +17,7 @@ class Admin::WorldwidePrioritiesControllerTest < ActionController::TestCase
   should_show_document_audit_trail_for :worldwide_priority, :edit
 
   should_allow_association_between_world_locations_and :worldwide_priority
-  should_allow_association_with_worldwide_offices :worldwide_priority
+  should_allow_association_with_worldwide_organisations :worldwide_priority
   should_allow_attached_images_for :worldwide_priority
   should_allow_organisations_for :worldwide_priority
 

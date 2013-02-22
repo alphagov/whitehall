@@ -1,0 +1,21 @@
+<% page_title @worldwide_organisation.name %>
+<div class="row-fluid organisation-header">
+  <div class="span8">
+    <h1><%= @worldwide_organisation.name %></h1>
+    <%= link_to "View on website", url_for(@worldwide_organisation) %>
+  </div>
+</div>
+
+<div class="row-fluid">
+  <div class="span12 organisation-details">
+    <section>
+      <%= worldwide_organisation_tab_navigation do %>
+        <%= render(@worldwide_organisation.offices, worldwide_organisation: @worldwide_organisation) || content_tag(:p, 'No offices') %>
+      <% end %>
+
+      <div class="form-actions">
+        <%= link_to "Add", new_admin_worldwide_organisation_office_path(@worldwide_organisation), class: "btn btn-large btn-primary"%>
+      </div>
+    </section>
+  </div>
+</div>

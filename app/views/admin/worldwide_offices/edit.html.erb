@@ -1,11 +1,5 @@
-<% page_title "Edit " + @worldwide_office.name %>
-<div class="span8">
-  <section>
-    <h1>Edit Worldwide office</h1>
-    <%= render partial: "form", locals: {worldwide_office: @worldwide_office} %>
-  </section>
-</div>
+<% page_title "Office for: #{@worldwide_organisation.name}" %>
+<h1>Office for: <%= @worldwide_organisation.name %></h1>
+<p><%= link_to "Back to #{@worldwide_organisation.name}", url_for([:admin, @worldwide_organisation]) %></p>
 
-<div class="span4">
-  <%= render partial: "sidebar" %>
-</div>
+<%= render partial: "form", locals: {worldwide_office: @worldwide_office, worldwide_organisation: @worldwide_organisation} %>
