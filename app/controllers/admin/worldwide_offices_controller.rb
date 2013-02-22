@@ -48,11 +48,14 @@ private
   end
 
   def destroy_blank_contact_numbers
-    (((params[:worldwide_office] || {})[:contact_attributes] || {})[:contact_numbers_attributes] || []).each do |index, attributes|
+    contact_number_params.each do |index, attributes|
       if attributes.except(:id).values.all?(&:blank?)
         attributes[:_destroy] = "1"
       end
     end
   end
 
+  def contact_number_params
+    (((params[:worldwide_office] || {})[:contact_attributes] || {})[:contact_numbers_attributes] || [])
+  end
 end
