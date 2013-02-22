@@ -78,7 +78,7 @@ Whitehall::Application.routes.draw do
     resources :policy_teams, path: 'policy-teams', only: [:index, :show]
     resources :policy_advisory_groups, path: 'policy-advisory-groups', only: [:index, :show]
     resources :operational_fields, path: 'fields-of-operation', only: [:index, :show]
-    resources :worldwide_offices, path: 'world/offices', only: [:show]
+    resources :worldwide_offices, path: 'world/offices', only: [:show], localised: true
 
     constraints(AdminRequest) do
       namespace :admin do
