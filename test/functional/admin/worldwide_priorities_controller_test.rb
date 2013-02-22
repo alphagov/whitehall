@@ -88,8 +88,8 @@ class Admin::WorldwidePrioritiesControllerTest < ActionController::TestCase
 
     get :show, id: edition
 
-    assert_select "#translations" do
-      assert_select "a[href='#{edit_admin_edition_translation_path(edition, 'fr')}']", text: 'Edit the French translation'
+    assert_select "#translations .edition_translation.locale-fr" do
+      assert_select "a[href='#{edit_admin_edition_translation_path(edition, 'fr')}']", text: 'Edit'
     end
   end
 
