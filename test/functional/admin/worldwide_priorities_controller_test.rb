@@ -93,6 +93,19 @@ class Admin::WorldwidePrioritiesControllerTest < ActionController::TestCase
     end
   end
 
+  view_test "show displays a link to delete an existing translation" do
+    edition = create(:draft_worldwide_priority, title: 'english-title', summary: 'english-summary', body: 'english-body')
+    with_locale(:fr) { edition.update_attributes!(title: 'french-title', summary: 'french-summary', body: 'french-body') }
+
+    get :show, id: edition
+
+    assert_select "#translations .edition_translation.locale-fr" do
+      assert_select "form[action=?]", admin_edition_translation_path(edition, 'fr') do
+        assert_select "input[type='submit'][value=?]", "Delete"
+      end
+    end
+  end
+
   view_test "show displays the language of the translation on published editions" do
     edition = build(:published_worldwide_priority, title: 'english-title', summary: 'english-summary', body: 'english-body')
     with_locale(:fr) do
@@ -116,6 +129,18 @@ class Admin::WorldwidePrioritiesControllerTest < ActionController::TestCase
 
     assert_select "#translations" do
       assert_select "a[href='#{edit_admin_edition_translation_path(edition, 'fr')}']", count: 0
+    end
+  end
+
+  view_test "show omits the link to delete an existing translation unless the edition is deletable" do
+    edition = create(:draft_worldwide_priority, title: 'english-title', summary: 'english-summary', body: 'english-body')
+    with_locale(:fr) { edition.update_attributes!(title: 'french-title', summary: 'french-summary', body: 'french-body') }
+    edition.publish_as(create(:departmental_editor), force: true)
+
+    get :show, id: edition
+
+    assert_select "#translations .edition_translation.locale-fr" do
+      assert_select "form[action=?]", admin_edition_translation_path(edition, 'fr'), count: 0
     end
   end
 

@@ -1,7 +1,7 @@
 class Admin::EditionTranslationsController < Admin::BaseController
   before_filter :find_edition
   before_filter :limit_edition_access!
-  before_filter :load_translated_and_english_edition, only: [:edit, :update]
+  before_filter :load_translated_and_english_edition, only: [:edit, :update, :destroy]
   helper_method :translation_locale
 
   def create
@@ -18,6 +18,11 @@ class Admin::EditionTranslationsController < Admin::BaseController
     else
       render :edit
     end
+  end
+
+  def destroy
+    @translated_edition.remove_translations_for(translation_locale.code)
+    redirect_to admin_edition_path(@translated_edition)
   end
 
   private
