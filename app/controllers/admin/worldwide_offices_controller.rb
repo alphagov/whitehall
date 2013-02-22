@@ -1,6 +1,4 @@
 class Admin::WorldwideOfficesController < Admin::BaseController
-  respond_to :html
-
   before_filter :find_worldwide_office, only: [:edit, :update, :destroy]
   before_filter :destroy_blank_contact_numbers, only: [:create, :update]
 
