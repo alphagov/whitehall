@@ -27,7 +27,7 @@ class AddWorldwideOffices < ActiveRecord::Migration
     WorldwideOrganisation.all.each do |worg|
       if worg.main_office_id
         contact = Contact.find(worg.main_office_id)
-        worg.update_column(main_office_id: contact.contactable_id)
+        worg.update_column(:main_office_id, contact.contactable_id)
       end
     end
   end
@@ -38,7 +38,7 @@ class AddWorldwideOffices < ActiveRecord::Migration
     WorldwideOrganisation.all.each do |worg|
       if worg.main_contact_id
         woff = WorldwideOffice.find(worg.main_contact_id)
-        worg.update_column(main_contact_id: woff.contact.id)
+        worg.update_column(:main_contact_id, woff.contact.id)
       end
     end
 
