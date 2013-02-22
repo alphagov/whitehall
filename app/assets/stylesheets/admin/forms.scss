@@ -38,6 +38,12 @@ form {
     padding-top: 0.5em;
   }
 
+  fieldset.right-to-left {
+    input, textarea {
+      direction: rtl;
+    }
+  }
+
   textarea, input {
     width: 97%;
   }

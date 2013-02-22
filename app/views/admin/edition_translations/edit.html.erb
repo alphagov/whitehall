@@ -8,23 +8,9 @@
       <%= form_for @translated_edition, as: :edition, url: admin_edition_translation_path(@translated_edition), method: :put do |form| %>
         <%= form.errors %>
 
-        <%= form.text_field :title %>
-        <p class="original-translation">
-          English:
-          <span class="english-title"><%= @english_edition.title %></span>
-        </p>
-
-        <%= form.text_area :summary, rows: 2, cols: 40 %>
-        <p class="original-translation">
-          English:
-          <span class="english-summary"><%= @english_edition.summary %></span>
-        </p>
-
-        <%= form.text_area :body %>
-        <p class="original-translation">
-          English:
-          <span class="english-body"><%= @english_edition.body %></span>
-        </p>
+        <%= form.translated_text_field :title %>
+        <%= form.translated_text_area :summary, rows: 2, cols: 40 %>
+        <%= form.translated_text_area :body %>
 
         <%= form.save_or_cancel %>
       <% end %>

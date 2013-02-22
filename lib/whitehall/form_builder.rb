@@ -44,6 +44,19 @@ module Whitehall
       end
     end
 
+    def translated_text_field(method, options = {})
+      translated_input method, text_field(method, translated_input_options(options))
+    end
+
+    def translated_text_area(method, options = {})
+      translated_input method, text_area(method, translated_input_options(options))
+    end
+
+    def untranslated_text(method, options = {})
+      english_translation = object.__send__ method, :en
+      @template.content_tag(:p, "English: #{english_translation}", class: "original-translation", id: "english_#{method}")
+    end
+
     def check_box(method, options = {}, *args)
       label_text = options.delete(:label_text)
       label(method, label_text, class: "checkbox") do
@@ -52,6 +65,25 @@ module Whitehall
     end
 
     private
+
+    def right_to_left?
+      Locale.new(object.fixed_locale).rtl?
+    end
+
+    def translated_input(method, input, options = {})
+      options = right_to_left? ? {class: 'right-to-left'} : {}
+      @template.content_tag :fieldset, options do
+        input + untranslated_text(method)
+      end
+    end
+
+    def translated_input_options(options)
+      if right_to_left?
+        options.merge(dir: 'rtl')
+      else
+        options
+      end
+    end
 
     def horizontal_group(label_tag, content_tag, options = {})
       @template.content_tag(:div, class: "control-group") do
