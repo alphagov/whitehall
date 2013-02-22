@@ -28,6 +28,7 @@ class WorldLocation < ActiveRecord::Base
   accepts_nested_attributes_for :mainstream_links, allow_destroy: true, reject_if: :all_blank
 
   translates :name, :title, :mission_statement
+  include Translatable
 
   scope :ordered_by_name, ->() { with_translations(I18n.default_locale).order(:name) }
 
@@ -72,8 +73,4 @@ class WorldLocation < ActiveRecord::Base
 
   extend FriendlyId
   friendly_id
-
-  def remove_translations_for(locale)
-    translations.where(locale: locale).each { |t| t.destroy }
-  end
 end

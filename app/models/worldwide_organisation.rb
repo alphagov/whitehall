@@ -13,6 +13,8 @@ class WorldwideOrganisation < ActiveRecord::Base
   has_many :people, through: :roles
 
   translates :name, :summary, :description, :services
+  include Translatable
+
   alias :original_main_office :main_office
 
   validates_with SafeHtmlValidator
@@ -47,9 +49,5 @@ class WorldwideOrganisation < ActiveRecord::Base
 
   def office_staff_roles
     roles.where(type: WorldwideOfficeStaffRole.name)
-  end
-
-  def remove_translations_for(locale)
-    translations.where(locale: locale).each { |t| t.destroy }
   end
 end
