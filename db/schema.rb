@@ -921,6 +921,7 @@ ActiveRecord::Schema.define(:version => 20130221140402) do
     t.datetime "updated_at"
   end
 
+  add_index "worldwide_organisation_world_locations", ["world_location_id"], :name => "index_worldwide_org_world_locations_on_world_location_id"
   add_index "worldwide_organisation_world_locations", ["worldwide_organisation_id"], :name => "index_worldwide_org_world_locations_on_worldwide_organisation_id"
 
   create_table "worldwide_organisations", :force => true do |t|
