@@ -47,9 +47,9 @@ class Admin::EditionTranslationsControllerTest < ActionController::TestCase
 
     get :edit, edition_id: edition, id: 'fr'
 
-    assert_select '.english-title', text: edition.title
-    assert_select '.english-summary', text: edition.summary
-    assert_select '.english-body', text: edition.body
+    assert_select '#english_title', text: "English: #{edition.title}"
+    assert_select '#english_summary', text: "English: #{edition.summary}"
+    assert_select '#english_body', text: "English: #{edition.body}"
   end
 
   view_test "edit shows the govspeak helper" do
