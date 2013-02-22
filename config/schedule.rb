@@ -15,10 +15,8 @@ every '13,28,43,58 * * * *', roles: [:backend] do
   rake "publishing:due:publish"
 end
 
-every :day, at: '12am', roles: [:frontend] do
-  runner 'script/document_dump.rb'
-end
-
-every :day, at: '2am', roles: [:admin] do
+## 14:45 is during our regular release slot, this may have to change
+## post-April. 2am is our regular time for this.
+every :day, at: ['2am', '2:45pm'], roles: [:admin] do
   runner 'script/dump_all_admin_to_public_documents_and_non_documents.rb'
 end
