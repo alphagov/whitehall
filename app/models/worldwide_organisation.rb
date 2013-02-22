@@ -11,6 +11,7 @@ class WorldwideOrganisation < ActiveRecord::Base
   has_many :worldwide_organisation_roles, dependent: :destroy
   has_many :roles, through: :worldwide_organisation_roles
   has_many :people, through: :roles
+  has_many :corporate_information_pages, as: :organisation, dependent: :destroy
 
   include TranslatableModel
   translates :name, :summary, :description, :services
@@ -49,5 +50,9 @@ class WorldwideOrganisation < ActiveRecord::Base
 
   def office_staff_roles
     roles.where(type: WorldwideOfficeStaffRole.name)
+  end
+
+  def unused_corporate_information_page_types
+    CorporateInformationPageType.all - corporate_information_pages.map(&:type)
   end
 end

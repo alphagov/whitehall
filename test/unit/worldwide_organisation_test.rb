@@ -140,4 +140,12 @@ class WorldwideOrganisationTest < ActiveSupport::TestCase
     refute worldwide_organisation.translated_locales.include?(:fr)
     assert worldwide_organisation.translated_locales.include?(:es)
   end
+
+  test "can list unused corporate information types" do
+    organisation = create(:worldwide_organisation)
+    types = CorporateInformationPageType.all
+    t = create(:corporate_information_page, type: types.pop, organisation: organisation)
+
+    assert_equal types, organisation.reload.unused_corporate_information_page_types
+  end
 end
