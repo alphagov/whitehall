@@ -46,12 +46,5 @@
     <% if contact.comments.present? %>
       <p class="comments"><%= format_with_html_line_breaks(h(contact.comments)) %></p>
     <% end %>
-    <% if contact.respond_to?(:services) && contact.services.present? %>
-      <div class="services">
-        <% contact.services.each do |service| %>
-          <p class="service"><%= service.service_type.name %>: <%= service.name %></p>
-        <% end %>
-      </div>
-    <% end %>
   </div>
 <% end %>

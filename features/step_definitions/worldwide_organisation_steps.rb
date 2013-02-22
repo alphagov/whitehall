@@ -126,7 +126,7 @@ When /^I add an "([^"]*)" office with address, phone number, and some services$/
   click_on "Save"
 end
 
-Then /^the "([^"]*)" office details and services should be shown on the public website$/ do |description|
+Then /^the "([^"]*)" office details should be shown on the public website$/ do |description|
   worldwide_org = WorldwideOrganisation.last
   visit worldwide_organisation_path(worldwide_org)
   worldwide_office = worldwide_org.offices.includes(:contact).where(contacts: {title: description}).first
@@ -135,7 +135,6 @@ Then /^the "([^"]*)" office details and services should be shown on the public w
     assert page.has_css?("h2", text: worldwide_office.contact.title)
     assert page.has_css?('.vcard', text: worldwide_office.contact.street_address)
     assert page.has_css?('.tel', text: worldwide_office.contact.contact_numbers.first.number)
-    assert page.has_css?('.services', test: worldwide_office.services.first.name)
   end
 end
 
