@@ -45,11 +45,11 @@ module Whitehall
     end
 
     def translated_text_field(method, options = {})
-      translated_input method, text_field(method, options)
+      translated_input method, text_field(method, translated_input_options(options))
     end
 
     def translated_text_area(method, options = {})
-      translated_input method, text_area(method, options)
+      translated_input method, text_area(method, translated_input_options(options))
     end
 
     def untranslated_text(method, options = {})
@@ -66,10 +66,22 @@ module Whitehall
 
     private
 
+    def right_to_left?
+      Locale.new(object.fixed_locale).rtl?
+    end
+
     def translated_input(method, input, options = {})
-      options = Locale.new(object.fixed_locale).rtl? ? {class: 'right-to-left'} : {}
+      options = right_to_left? ? {class: 'right-to-left'} : {}
       @template.content_tag :fieldset, options do
         input + untranslated_text(method)
+      end
+    end
+
+    def translated_input_options(options)
+      if right_to_left?
+        options.merge(dir: 'rtl')
+      else
+        options
       end
     end
 

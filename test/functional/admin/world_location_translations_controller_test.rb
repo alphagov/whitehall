@@ -80,7 +80,7 @@ class Admin::WorldLocationTranslationsControllerTest < ActionController::TestCas
     end
   end
 
-  view_test 'edit form includes right-to-left class for text field and areas in right-to-left languages' do
+  view_test 'edit form adds right-to-left class and dir attribute for text field and areas in right-to-left languages' do
     location = create(:world_location, translated_into: {ar: {name: 'الناس', mission_statement: 'تعليم الناس كيفية تحضير الشاي'}})
 
     get :edit, world_location_id: location, id: 'ar'
@@ -89,10 +89,10 @@ class Admin::WorldLocationTranslationsControllerTest < ActionController::TestCas
 
     assert_select "form[action=#{CGI::escapeHTML(translation_path)}]" do
       assert_select "fieldset[class='right-to-left']" do
-        assert_select "input[type=text][name='world_location[name]'][value='الناس']"
+        assert_select "input[type=text][name='world_location[name]'][dir='rtl'][value='الناس']"
       end
       assert_select "fieldset[class='right-to-left']" do
-        assert_select "textarea[name='world_location[mission_statement]']", text: 'تعليم الناس كيفية تحضير الشاي'
+        assert_select "textarea[name='world_location[mission_statement]'][dir='rtl']", text: 'تعليم الناس كيفية تحضير الشاي'
       end
       assert_select "input[type=submit][value=Save]"
     end
