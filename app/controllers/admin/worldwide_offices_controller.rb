@@ -56,6 +56,6 @@ private
   end
 
   def contact_number_params
-    (((params[:worldwide_office] || {})[:contact_attributes] || {})[:contact_numbers_attributes] || [])
+    (params[:worldwide_office][:contact_attributes] || {})[:contact_numbers_attributes] || []
   end
 end
