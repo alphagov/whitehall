@@ -72,4 +72,8 @@ class WorldLocation < ActiveRecord::Base
 
   extend FriendlyId
   friendly_id
+
+  def available_in_multiple_languages?
+    translated_locales.length > 1
+  end
 end

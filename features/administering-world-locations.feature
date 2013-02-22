@@ -31,7 +31,7 @@ Feature: Administering world location information
       | name              | Afrolasie                                                   |
       | title             | UK en Afrolasia                                             |
       | mission_statement | Le Royaume-Uni a une relation de longue date avec Afrolasie |
-    Then when viewing the country "Afrolasia" with the locale "fr" I should see:
+    Then when viewing the country "Afrolasia" with the locale "Français" I should see:
       | name              | Afrolasie                                                   |
       | title             | UK en Afrolasia                                             |
       | mission_statement | Le Royaume-Uni a une relation de longue date avec Afrolasie |
@@ -43,7 +43,7 @@ Feature: Administering world location information
       | name              | Afrolandie                                                  |
       | title             | UK en Afrolandie                                            |
       | mission_statement | Enseigner aux gens comment infuser le thé                   |
-    Then when viewing the country "Afrolasia" with the locale "fr" I should see:
+    Then when viewing the country "Afrolasia" with the locale "Français" I should see:
       | name              | Afrolandie                                                  |
       | title             | UK en Afrolandie                                            |
       | mission_statement | Enseigner aux gens comment infuser le thé                   |

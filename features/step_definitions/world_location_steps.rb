@@ -128,7 +128,8 @@ end
 Then /^when viewing the (?:country|overseas territory|international delegation) "([^"]*)" with the locale "([^"]*)" I should see:$/ do |name, locale, table|
   world_location = WorldLocation.find_by_name!(name)
   translation = table.rows_hash
-  visit world_location_path(world_location, locale: locale)
+  visit world_location_path(world_location)
+  click_link locale
   assert page.has_css?('.title', text: translation["title"]), "Title wasn't present"
   assert page.has_css?('.mission_statement', text: translation["mission_statement"]), "Mission statement wasn't present"
 end

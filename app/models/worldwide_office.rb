@@ -7,4 +7,8 @@ class WorldwideOffice < ActiveRecord::Base
   validates :worldwide_organisation, :contact, presence: true
 
   accepts_nested_attributes_for :contact
+
+  def available_in_multiple_languages?
+    translated_locales.length > 1
+  end
 end

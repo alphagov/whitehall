@@ -48,4 +48,8 @@ class WorldwideOrganisation < ActiveRecord::Base
   def office_staff_roles
     roles.where(type: WorldwideOfficeStaffRole.name)
   end
+
+  def available_in_multiple_languages?
+    translated_locales.length > 1
+  end
 end
