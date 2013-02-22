@@ -25,10 +25,10 @@ module Whitehall
       publication = create(:published_publication)
       organisation = publication.organisations.first
       assert_extraction <<-EOT
-Old Url,New Url,Status,Whole Tag,Slug,Admin Url,State
-"",https://www.preview.alphagov.co.uk/government/publications/publication-title,301,Closed,publication-title,https://whitehall-admin.test.alphagov.co.uk/government/admin/publications/#{publication.id},published
-"",https://www.preview.alphagov.co.uk/government/organisations/#{organisation.slug},"","","",https://whitehall-admin.test.alphagov.co.uk/government/admin/organisations/#{organisation.slug},""
-"",https://www.preview.alphagov.co.uk/government/organisations/#{organisation.slug},"","","",https://whitehall-admin.test.alphagov.co.uk/government/admin/organisations/#{organisation.slug}/edit,""
+Old Url,New Url,Status,Slug,Admin Url,State
+"",https://www.preview.alphagov.co.uk/government/publications/publication-title,301,publication-title,https://whitehall-admin.test.alphagov.co.uk/government/admin/publications/#{publication.id},published
+"",https://www.preview.alphagov.co.uk/government/organisations/#{organisation.slug},"","",https://whitehall-admin.test.alphagov.co.uk/government/admin/organisations/#{organisation.slug},""
+"",https://www.preview.alphagov.co.uk/government/organisations/#{organisation.slug},"","",https://whitehall-admin.test.alphagov.co.uk/government/admin/organisations/#{organisation.slug}/edit,""
       EOT
     end
 
@@ -36,10 +36,10 @@ Old Url,New Url,Status,Whole Tag,Slug,Admin Url,State
       corporate_information_page = create(:corporate_information_page)
       organisation = Organisation.last
       assert_extraction <<-EOT
-Old Url,New Url,Status,Whole Tag,Slug,Admin Url,State
-"",https://www.preview.alphagov.co.uk/government/organisations/#{organisation.slug},"","","",https://whitehall-admin.test.alphagov.co.uk/government/admin/organisations/#{organisation.slug},""
-"",https://www.preview.alphagov.co.uk/government/organisations/#{organisation.slug},"","","",https://whitehall-admin.test.alphagov.co.uk/government/admin/organisations/#{organisation.slug}/edit,""
-"",https://www.preview.alphagov.co.uk/government/organisations/#{organisation.slug}/about/publication-scheme,"","","",https://whitehall-admin.test.alphagov.co.uk/government/admin/organisations/#{organisation.slug}/corporate_information_pages/publication-scheme/edit,""
+Old Url,New Url,Status,Slug,Admin Url,State
+"",https://www.preview.alphagov.co.uk/government/organisations/#{organisation.slug},"","",https://whitehall-admin.test.alphagov.co.uk/government/admin/organisations/#{organisation.slug},""
+"",https://www.preview.alphagov.co.uk/government/organisations/#{organisation.slug},"","",https://whitehall-admin.test.alphagov.co.uk/government/admin/organisations/#{organisation.slug}/edit,""
+"",https://www.preview.alphagov.co.uk/government/organisations/#{organisation.slug}/about/publication-scheme,"","",https://whitehall-admin.test.alphagov.co.uk/government/admin/organisations/#{organisation.slug}/corporate_information_pages/publication-scheme/edit,""
       EOT
     end
   end
