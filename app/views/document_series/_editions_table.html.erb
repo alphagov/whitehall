@@ -1,0 +1,23 @@
+<% show_type ||= false %>
+<table class="document-list">
+  <thead class="visuallyhidden">
+    <tr>
+      <th scope="col">Title</th>
+      <th scope="col">Date</th>
+      <% if show_type %>
+        <th scope="col">Type</th>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <% editions.each do |edition| %>
+      <%= content_tag_for :tr, edition, class: "document-row" do %>
+        <th scope="row" class="title attribute"><%= edition.link %></th>
+        <td class="date attribute"><%= edition.display_date_microformat %></td>
+        <% if show_type %>
+          <td class="date attribute"><%= edition.display_type %></td>
+        <% end %>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>

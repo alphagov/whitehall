@@ -75,159 +75,53 @@
     <% end %>
 
     <% if @published_publications.any? %>
-      <div class="publications">
+      <div class="editions">
         <h2 id="publications">Publications</h2>
-        <table class="document-list">
-          <thead class="visuallyhidden">
-            <tr>
-              <th scope="col">Title</th>
-              <th scope="col">Date</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% @published_publications.each do |publication| %>
-              <%= content_tag_for :tr, publication, class: "document-row" do %>
-                <th scope="row" class="title attribute"><%= publication.link %></th>
-                <td class="date attribute"><%= publication.display_date_microformat %></td>
-              <% end %>
-            <% end %>
-          </tbody>
-        </table>
+        <%= render partial: "editions_table", locals: {editions: @published_publications} %>
       </div>
     <% end %>
 
     <% if @published_consultations.any? %>
-      <div class="consultations">
+      <div class="editions">
         <h2 id="consultations">Consultations</h2>
-        <table class="document-list">
-          <thead class="visuallyhidden">
-            <tr>
-              <th scope="col">Title</th>
-              <th scope="col">Date</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% @published_consultations.each do |consultation| %>
-              <%= content_tag_for :tr, consultation, class: "document-row" do %>
-                <th scope="row" class="title attribute"><%= consultation.link %></th>
-                <td class="date attribute"><%= consultation.display_date_microformat %></td>
-              <% end %>
-            <% end %>
-          </tbody>
-        </table>
+        <%= render partial: "editions_table", locals: {editions: @published_consultations, show_type: true} %>
       </div>
     <% end %>
 
     <% if @published_speeches.any? %>
-      <div class="speeches">
+      <div class="editions">
         <h2 id="speeches">Speeches</h2>
-        <table class="document-list">
-          <thead class="visuallyhidden">
-            <tr>
-              <th scope="col">Title</th>
-              <th scope="col">Date</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% @published_speeches.each do |speech| %>
-              <%= content_tag_for :tr, speech, class: "document-row" do %>
-                <th scope="row" class="title attribute"><%= speech.link %></th>
-                <td class="date attribute"><%= speech.display_date_microformat %></td>
-              <% end %>
-            <% end %>
-          </tbody>
-        </table>
+        <%= render partial: "editions_table", locals: {editions: @published_speeches, show_type: true} %>
       </div>
     <% end %>
 
     <% if @published_case_studies.any? %>
-      <div class="case-studies">
+      <div class="editions">
         <h2 id="case-studies">Case studies</h2>
-        <table class="document-list">
-          <thead class="visuallyhidden">
-            <tr>
-              <th scope="col">Title</th>
-              <th scope="col">Date</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% @published_case_studies.each do |case_study| %>
-              <%= content_tag_for :tr, case_study, class: "document-row" do %>
-                <th scope="row" class="title attribute"><%= case_study.link %></th>
-                <td class="date attribute"><%= case_study.display_date_microformat %></td>
-              <% end %>
-            <% end %>
-          </tbody>
-        </table>
+        <%= render partial: "editions_table", locals: {editions: @published_case_studies} %>
       </div>
     <% end %>
 
     <% if @published_detailed_guides.any? %>
-      <div class="detailed-guides">
+      <div class="editions">
         <h2 id="detailed-guides">Detailed guides</h2>
-        <table class="document-list">
-          <thead class="visuallyhidden">
-            <tr>
-              <th scope="col">Title</th>
-              <th scope="col">Date</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% @published_detailed_guides.each do |detailed_guide| %>
-              <%= content_tag_for :tr, detailed_guide, class: "document-row" do %>
-                <th scope="row" class="title attribute"><%= detailed_guide.link %></th>
-                <td class="date attribute"><%= detailed_guide.display_date_microformat %></td>
-              <% end %>
-            <% end %>
-          </tbody>
-        </table>
+        <%= render partial: "editions_table", locals: {editions: @published_detailed_guides} %>
       </div>
     <% end %>
 
     <% if @published_statistical_data_sets.any? %>
-      <div class="statistical-data-sets">
-          <h2 id="statistical-data-sets">Statistical data sets</h2>
-          <table class="document-list statistical-data-sets">
-            <thead class="visuallyhidden">
-              <tr>
-                <th scope="col">Title</th>
-                <th scope="col">Date</th>
-              </tr>
-            </thead>
-            <tbody>
-              <% @published_statistical_data_sets.each do |statistical_data_set| %>
-                <%= content_tag_for :tr, statistical_data_set, class: "document-row" do %>
-                  <th scope="row" class="title attribute"><%= statistical_data_set.link %></th>
-                  <td class="date attribute"><%= statistical_data_set.display_date_microformat %></td>
-                <% end %>
-              <% end %>
-            </tbody>
-          </table>
+      <div class="editions">
+        <h2 id="statistical-data-sets">Statistical data sets</h2>
+        <%= render partial: "editions_table", locals: {editions: @published_statistical_data_sets} %>
       </div>
     <% end %>
 
     <% if @published_news_articles.any? %>
-      <div class="news-articles">
-          <h2 id="news-articles">News articles</h2>
-          <table class="document-list statistical-data-sets">
-            <thead class="visuallyhidden">
-              <tr>
-                <th scope="col">Title</th>
-                <th scope="col">Date</th>
-              </tr>
-            </thead>
-            <tbody>
-              <% @published_news_articles.each do |news_article| %>
-                <%= content_tag_for :tr, news_article, class: "document-row" do %>
-                  <th scope="row" class="title attribute"><%= news_article.link %></th>
-                  <td class="date attribute"><%= news_article.display_date_microformat %></td>
-                <% end %>
-              <% end %>
-            </tbody>
-          </table>
+      <div class="editions">
+        <h2 id="news-articles">News articles</h2>
+        <%= render partial: "editions_table", locals: {editions: @published_news_articles, show_type: true} %>
       </div>
     <% end %>
-
     </section>
   </div>
 </div>
