@@ -1,0 +1,33 @@
+<fieldset class="contact">
+  <legend>Address</legend>
+  <%= contact_form.text_field :recipient, horizontal: true, placeholder: "Organisation, division, team, unit or person name" %>
+  <%= contact_form.text_area :street_address, rows: 3, class: "address", horizontal: true %>
+  <%= contact_form.text_field :locality, horizontal: true, placeholder: "Town or city" %>
+  <%= contact_form.text_field :region, horizontal: true, placeholder: "State or county" %>
+  <%= contact_form.text_field :postal_code, horizontal: true %>
+
+  <div class="control-group">
+    <%= contact_form.label :country_id, 'Country', class: "control-label" %>
+    <div class="controls">
+      <%= contact_form.select :country_id,
+                              options_from_collection_for_select(WorldLocation.countries, :id, :name, contact_form.object.country_id),
+                              { include_blank: true },
+                              class: 'chzn-select', 
+                              data: { placeholder: "Choose the country..." } %>
+    </div>
+  </div>
+
+</fieldset>
+
+<%= contact_form.text_field :email, horizontal: true %>
+<%= contact_form.text_field :contact_form_url, horizontal: true %>
+
+<fieldset class="contact_numbers">
+  <legend>Phone numbers</legend>
+  <%= contact_form.fields_for :contact_numbers, contact_form.object.contact_numbers do |contact_number_form| %>
+    <fieldset class="contact_number well">
+      <%= contact_number_form.text_field :label, horizontal: true %>
+       <%= contact_number_form.text_field :number, horizontal: true %>
+    </fieldset>
+  <% end %>
+</fieldset>
