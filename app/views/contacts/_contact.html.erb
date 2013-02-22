@@ -1,5 +1,5 @@
 <%
-  contact_class = []
+  contact_class ||= []
   if local_assigns.include?(:contact_counter) and contact_counter % 3 == 0
     contact_class << "clear-contact"
   end
