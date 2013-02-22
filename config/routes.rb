@@ -37,13 +37,13 @@ Whitehall::Application.routes.draw do
       end
       resources :supporting_pages, path: "supporting-pages", only: [:index, :show]
     end
-    resources :news_articles, path: 'news', only: [:show]
+    resources :news_articles, path: 'news', only: [:show], localised: true
     resources :fatality_notices, path: 'fatalities', only: [:show]
     match "/news" => redirect("/announcements")
     match "/fatalities" => redirect("/announcements")
     resources :publications, only: [:index, :show]
-    resources :case_studies, path: 'case-studies', only: [:show, :index]
-    resources :speeches, only: [:show]
+    resources :case_studies, path: 'case-studies', only: [:show, :index], localised: true
+    resources :speeches, only: [:show], localised: true
     resources :statistical_data_sets, path: 'statistical-data-sets', only: [:index, :show]
     match "/speeches" => redirect("/announcements")
 
