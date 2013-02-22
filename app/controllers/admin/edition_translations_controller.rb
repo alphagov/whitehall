@@ -14,7 +14,8 @@ class Admin::EditionTranslationsController < Admin::BaseController
   def update
     @translated_edition.change_note = 'Added translation' unless @translated_edition.change_note.present?
     if @translated_edition.update_attributes(params[:edition])
-      redirect_to admin_edition_path(@edition)
+      redirect_to admin_edition_path(@edition),
+        notice: notice_message("saved")
     else
       render :edit
     end
@@ -22,10 +23,15 @@ class Admin::EditionTranslationsController < Admin::BaseController
 
   def destroy
     @translated_edition.remove_translations_for(translation_locale.code)
-    redirect_to admin_edition_path(@translated_edition)
+    redirect_to admin_edition_path(@translated_edition),
+      notice: notice_message("deleted")
   end
 
   private
+
+  def notice_message(action)
+    %{#{translation_locale.english_language_name} translation for "#{@edition.title}" #{action}.}
+  end
 
   def load_translated_and_english_edition
     @translated_edition = LocalisedModel.new(@edition, translation_locale.code)

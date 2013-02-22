@@ -16,7 +16,8 @@ class Admin::WorldwideOrganisationsTranslationsController < Admin::BaseControlle
 
   def update
     if @translated_worldwide_organisation.update_attributes(params[:worldwide_organisation])
-      redirect_to admin_worldwide_organisation_translations_path(@translated_worldwide_organisation)
+      redirect_to admin_worldwide_organisation_translations_path(@translated_worldwide_organisation),
+        notice: notice_message("saved")
     else
       render action: 'edit'
     end
@@ -24,10 +25,15 @@ class Admin::WorldwideOrganisationsTranslationsController < Admin::BaseControlle
 
   def destroy
     @translated_worldwide_organisation.remove_translations_for(translation_locale.code)
-    redirect_to admin_worldwide_organisation_translations_path(@translated_worldwide_organisation)
+    redirect_to admin_worldwide_organisation_translations_path(@translated_worldwide_organisation),
+      notice: notice_message("deleted")
   end
 
   private
+
+  def notice_message(action)
+    %{#{translation_locale.english_language_name} translation for "#{worldwide_organisation.name}" #{action}.}
+  end
 
   def load_translated_and_english_worldwide_organisations
     @translated_worldwide_organisation = LocalisedModel.new(worldwide_organisation, translation_locale.code)
