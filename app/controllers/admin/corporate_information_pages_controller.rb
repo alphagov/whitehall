@@ -12,8 +12,7 @@ class Admin::CorporateInformationPagesController < Admin::BaseController
   def create
     build_corporate_information_page
     if @corporate_information_page.save
-      flash[:notice] = "#{@corporate_information_page.title} created successfully"
-      redirect_to [:admin, @organisation]
+      redirect_to [:admin, @organisation], notice: "#{@corporate_information_page.title} created successfully"
     else
       flash[:alert] = "There was a problem: #{@corporate_information_page.errors.full_messages.to_sentence}"
       build_attachment
@@ -27,8 +26,7 @@ class Admin::CorporateInformationPagesController < Admin::BaseController
 
   def update
     if @corporate_information_page.update_attributes(params[:corporate_information_page])
-      flash[:notice] = "#{@corporate_information_page.title} updated successfully"
-      redirect_to [:admin, @organisation]
+      redirect_to [:admin, @organisation], notice: "#{@corporate_information_page.title} updated successfully"
     else
       flash[:alert] = "There was a problem: #{@corporate_information_page.errors.full_messages.to_sentence}"
       build_attachment
@@ -44,8 +42,7 @@ class Admin::CorporateInformationPagesController < Admin::BaseController
 
   def destroy
     if @corporate_information_page.destroy
-      flash[:notice] = "#{@corporate_information_page.title} deleted successfully"
-      redirect_to [:admin, @organisation]
+      redirect_to [:admin, @organisation], notice: "#{@corporate_information_page.title} deleted successfully"
     else
       flash[:alert] = "There was a problem: #{@corporate_information_page.errors.full_messages.to_sentence}"
       build_attachment
@@ -82,5 +79,4 @@ private
       Admin::AttachmentActionParamHandler.manipulate_params!(corporate_information_page_attachment_params)
     end
   end
-
 end
