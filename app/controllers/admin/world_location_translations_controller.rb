@@ -22,6 +22,11 @@ class Admin::WorldLocationTranslationsController < Admin::BaseController
     end
   end
 
+  def destroy
+    @translated_world_location.remove_translations_for(translation_locale.code)
+    redirect_to admin_world_location_translations_path(@translated_world_location)
+  end
+
   private
 
   def load_translated_and_english_world_locations
