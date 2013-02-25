@@ -61,12 +61,14 @@ private
   end
 
   def find_organisation
-    params.each do |name, value|
-      if name =~ /(.+)_id$/
-        return @organisation = $1.classify.constantize.find(value)
-      end
+    @organisation  = case params.keys.grep(/(.+)_id$/).first.to_sym
+    when :organisation_id
+      Organisation.find(params[:organisation_id])
+    when :worldwide_organisation_id
+      WorldwideOrganisation.find(params[:worldwide_organisation_id])
+    else
+      raise ActiveRecord::RecordNotFound
     end
-    nil
   end
 
   def build_attachment
