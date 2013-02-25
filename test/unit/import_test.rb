@@ -359,6 +359,38 @@ class ImportTest < ActiveSupport::TestCase
     assert_equal attempt3, import.most_recent_force_publication_attempt
   end
 
+  test "#destroy also destroys all imported documents" do
+    import = perform_import
+    documents = import.documents
+    import.destroy
+    documents.each do |imported_doc|
+      assert_equal nil, Document.find_by_id(imported_doc.id)
+    end
+  end
+
+  test "#destroy also destroys the import logs" do
+    import = perform_import
+    logs = import.import_logs
+    import.destroy
+    logs.each do |import_log|
+      assert_equal nil, ImportLog.find_by_id(import_log.id)
+    end
+  end
+
+  test "#destroy also destroys the import errors" do
+    import = perform_import
+    import_error = import.import_errors.create!(row_number: 1, message: 'uh oh')
+    import.destroy
+    assert_equal nil, ImportError.find_by_id(import_error.id)
+  end
+
+  test "#destroy also destroys force publication attempts" do
+    import = perform_import
+    force_attempt = import.force_publication_attempts.create!
+    import.destroy
+    assert_equal nil, ForcePublicationAttempt.find_by_id(force_attempt.id)
+  end
+
   private
   def stub_document_source
     DocumentSource.stubs(:find_by_url).returns(nil)
