@@ -7,6 +7,10 @@ class WorldLocationNewsArticle < Newsesque
     false
   end
 
+  def can_be_related_to_organisations?
+    false
+  end
+
   def skip_organisation_validation?
     true
   end
