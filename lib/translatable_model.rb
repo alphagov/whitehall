@@ -14,4 +14,9 @@ module TranslatableModel
   def remove_translations_for(locale)
     translations.where(locale: locale).each { |t| t.destroy }
   end
+
+  def missing_translations
+    non_english_translated_locales = (self.translated_locales - [:en]).map { |l| Locale.new(l) }
+    Locale.non_english - non_english_translated_locales
+  end
 end
