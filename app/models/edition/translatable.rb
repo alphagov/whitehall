@@ -17,7 +17,6 @@ module Edition::Translatable
     include TranslatableModel
 
     translates :title, :summary, :body
-    include ::Translatable
 
     add_trait Trait
 

@@ -14,7 +14,6 @@ class WorldwideOrganisation < ActiveRecord::Base
 
   include TranslatableModel
   translates :name, :summary, :description, :services
-  include Translatable
 
   alias :original_main_office :main_office
 

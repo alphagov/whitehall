@@ -29,7 +29,6 @@ class WorldLocation < ActiveRecord::Base
 
   include TranslatableModel
   translates :name, :title, :mission_statement
-  include Translatable
 
   scope :ordered_by_name, ->() { with_translations(I18n.default_locale).order(:name) }
 

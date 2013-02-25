@@ -10,4 +10,8 @@ module TranslatableModel
   def available_in_multiple_languages?
     translated_locales.length > 1
   end
+
+  def remove_translations_for(locale)
+    translations.where(locale: locale).each { |t| t.destroy }
+  end
 end
