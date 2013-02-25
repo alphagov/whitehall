@@ -22,6 +22,8 @@ class Import < ActiveRecord::Base
     fatality_notice: [Whitehall::Uploader::FatalityNoticeRow, FatalityNotice]
   }
 
+  after_destroy :destroy_all_imported_documents
+
   validate :csv_data_supplied
   validates :organisation_id, presence: true
   validate :valid_csv_data_encoding!
@@ -342,4 +344,10 @@ class Import < ActiveRecord::Base
                   end
     end
   end
+
+  private
+  def destroy_all_imported_documents
+    Document.destroy_all(id: self.document_ids)
+  end
+
 end
