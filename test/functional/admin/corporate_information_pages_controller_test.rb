@@ -36,7 +36,7 @@ class Admin::CorporateInformationPagesControllerTest < ActionController::TestCas
 
   test "GET :index" do
     corporate_information_page = create(:corporate_information_page, organisation: @organisation)
-    get :index, organisation_id: @organisation.to_param
+    get :index, organisation_id: @organisation
 
     assert_response :success
     assert_template :index

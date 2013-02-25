@@ -9,7 +9,7 @@
 <div class="row-fluid">
   <div class="span12 organisation-details">
     <section>
-      <%= worldwide_organisation_tab_navigation(@socialable) do %>
+      <%= tab_navigation_for(@socialable) do %>
         <%= render(@social_media_accounts, { socialable: @socialable }) || content_tag(:p, 'No social media accounts') %>
       <% end %>
 

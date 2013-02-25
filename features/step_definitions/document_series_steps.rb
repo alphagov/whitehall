@@ -2,6 +2,7 @@ Given /^I create a series called "([^"]*)" in the "([^"]*)" organisation$/ do |n
   visit admin_root_path
   click_link "Departments & agencies"
   click_link organisation
+  click_link "Document series"
   click_link "New series"
   fill_in "Name", with: name
   click_button "Save"

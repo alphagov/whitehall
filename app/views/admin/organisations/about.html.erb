@@ -1,0 +1,17 @@
+<% page_title @organisation.name %>
+<div class="row-fluid organisation-header">
+  <div class="span8">
+    <h1><%= @organisation.name %></h1>
+    <%= link_to "View on website", organisation_path(@organisation) %>
+  </div>
+</div>
+
+<div class="row-fluid">
+  <div class="span12 organisation-details">
+    <section>
+      <%= organisation_tab_navigation(@organisation) do %>
+        <%= govspeak_to_html @organisation.about_us %>
+      <% end %>
+    </section>
+  </div>
+</div>

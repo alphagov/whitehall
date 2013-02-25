@@ -39,7 +39,7 @@ class Admin::ContactsControllerTest < ActionController::TestCase
     organisation = create(:organisation)
     contact = organisation.contacts.create(title: "Main office")
 
-    put :update, contact: {title: "Head office"}, organisation_id: organisation.to_param, id: contact.to_param
+    put :update, contact: {title: "Head office"}, organisation_id: organisation, id: contact
 
     assert_redirected_to admin_organisation_contacts_url(organisation)
     assert_equal ["Head office"], organisation.contacts.map(&:title)
@@ -57,7 +57,7 @@ class Admin::ContactsControllerTest < ActionController::TestCase
           "0" => {id: contact_number.id, label: "Main phone", number: "5678"}
         }
       },
-      organisation_id: organisation.to_param, id: contact.to_param
+      organisation_id: organisation, id: contact
 
     assert_redirected_to admin_organisation_contacts_url(organisation)
     assert_equal 1, organisation.contacts.count
@@ -69,7 +69,7 @@ class Admin::ContactsControllerTest < ActionController::TestCase
     organisation = create(:organisation)
     contact = organisation.contacts.create(title: "Main office")
 
-    delete :destroy, organisation_id: organisation.to_param, id: contact.to_param
+    delete :destroy, organisation_id: organisation, id: contact
 
     assert_redirected_to admin_organisation_contacts_url(organisation)
     refute Contact.exists?(contact)

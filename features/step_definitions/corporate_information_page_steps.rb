@@ -1,6 +1,7 @@
 Given /^I add a "([^"]*)" corporate information page to "([^"]*)" with body "([^"]*)"$/ do |page_type, org_name, body|
   organisation = Organisation.find_by_name(org_name)
   visit admin_organisation_path(organisation)
+  click_link "Corporate information pages"
   click_link "New corporate information page"
   fill_in "Body", with: body
   select page_type, from: "Type"

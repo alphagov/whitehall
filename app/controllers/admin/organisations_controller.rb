@@ -1,5 +1,5 @@
 class Admin::OrganisationsController < Admin::BaseController
-  before_filter :load_organisation, only: [:show, :edit, :update, :destroy, :documents]
+  before_filter :load_organisation, except: [:index, :new, :create]
 
   def index
     @organisations = Organisation.all
@@ -28,6 +28,17 @@ class Admin::OrganisationsController < Admin::BaseController
   end
 
   def show
+  end
+
+  def about
+  end
+
+  def people
+    @roles = @organisation.roles
+  end
+
+  def document_series
+    @document_series = @organisation.document_series
   end
 
   def documents

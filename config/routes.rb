@@ -90,12 +90,15 @@ Whitehall::Application.routes.draw do
         resources :document_series, only: [:index]
         resources :organisations do
           resources :groups, except: [:show]
-          resources :document_series
+          resources :document_series, except: [:index]
           resources :corporate_information_pages
           resources :contacts
           resources :social_media_accounts
           member do
             get :documents
+            get :document_series
+            get :about
+            get :people
           end
         end
         resources :policy_teams, except: [:show]
@@ -117,8 +120,6 @@ Whitehall::Application.routes.draw do
           resources :corporate_information_pages
           resources :social_media_accounts
         end
-        resources :contacts
-        resources :social_media_accounts
 
         resources :editions, only: [:index] do
           member do

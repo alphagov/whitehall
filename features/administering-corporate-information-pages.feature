@@ -1,6 +1,6 @@
 Feature: Administering Corporate Information Pages
 
-Scenario: Adding a corporate information page
+Scenario: Adding a corporate information page to an organisation
   Given I am an admin
   And the organisation "Ministry of Pop" exists
   And I add a "Terms of reference" corporate information page to "Ministry of Pop" with body "To support the UK pop music industry"

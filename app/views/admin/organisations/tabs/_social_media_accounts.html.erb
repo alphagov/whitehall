@@ -1,8 +1,0 @@
-<div class="tab-pane" id="social_media_accounts">
-
-  <%= render(@organisation.social_media_accounts, { socialable: @organisation }) || content_tag(:p, 'No social media accounts') %>
-
-  <div class="form-actions">
-    <%= link_to icon("Add"), new_polymorphic_path([:admin, @organisation, SocialMediaAccount]), class: "btn btn-large btn-primary"%>
-  </div>
-</div>
