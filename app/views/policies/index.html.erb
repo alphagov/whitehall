@@ -19,42 +19,9 @@
 <div class="block-3">
   <div class="inner-block">
     <%= render partial: "documents/filter_results", locals: { filter: @filter } %>
-    
-    <div class="filter-results" aria-live="polite">
-      <% if @filter.documents.any? %>
-        <table class="document-list emphasise-recent" id="document-list">
-          <thead class="visuallyhidden">
-            <tr>
-              <th scope="col">Title</th>
-              <th scope="col">Organisations</th>
-              <th scope="col">Topic</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% @filter.documents.each_with_index do |policy, i| %>
-              <%= content_tag_for(:tr, policy, class: "document-row#{i < 3 ? ' recent' : ''}") do %>
-                <th scope="row" class="title attribute">
-                  <%= link_to policy.title, public_document_path(policy),
-                      title: "View #{policy.title}" %>
-                </th>
-                <td class="attribute organisations">
-                  <%= policy.organisations.map { |o|
-                        organisation_display_name(o) }.to_sentence.html_safe %>
-                </td>
-                <td class="attribute topics">
-                  <%= policy.topics.map(&:name).join(", ").html_safe %>
-                </td>
-              <% end %>
-            <% end %>
-          </tbody>
-        </table>
-        <%= paginate @filter.documents %>
-      <% else %>
-        <div class="no-results">
-          <h2>There are no matching policies.</h2>
-          <p>Try making your search broader and try again.</p>
-        </div>
-      <% end %>
+
+    <div class="filter-results js-filter-results" aria-live="polite">
+      <%= render_mustache('documents/filter_table', @filter.as_hash) %>
     </div>
   </div>
 </div>

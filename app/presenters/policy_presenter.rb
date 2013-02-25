@@ -3,4 +3,9 @@ class PolicyPresenter < Draper::Base
 
   decorates :policy
 
+  def as_hash
+    super.merge({
+      topics: model.topics.map(&:name).join(", ").html_safe
+    })
+  end
 end

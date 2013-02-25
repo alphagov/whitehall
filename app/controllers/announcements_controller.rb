@@ -8,6 +8,10 @@ class AnnouncementsController < PublicFacingController
     def documents
       AnnouncementPresenter.decorate(__getobj__.documents)
     end
+
+    def as_hash
+      documents.map { |d| d.as_hash }
+    end
   end
 
   def index
@@ -17,7 +21,9 @@ class AnnouncementsController < PublicFacingController
     @filter = build_document_filter(params.reverse_merge({ page: 1, direction: 'before' }))
 
     respond_to do |format|
-      format.html
+      format.html do
+        @filter = DocumentFilterPresenter.new(@filter)
+      end
       format.json do
         render json: AnnouncementFilterJsonPresenter.new(@filter)
       end

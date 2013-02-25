@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class DocumentFilterJsonPresenterTest < PresenterTestCase
+class DocumentFilterPresenterTest < PresenterTestCase
   setup do
     @filter = Whitehall::DocumentFilter::FakeSearch.new
     self.params[:action] = :index
@@ -8,7 +8,7 @@ class DocumentFilterJsonPresenterTest < PresenterTestCase
   end
 
   test "#to_json returns a serialized json representation" do
-    presenter = DocumentFilterJsonPresenter.new(@filter)
+    presenter = DocumentFilterPresenter.new(@filter)
     assert JSON.parse(presenter.to_json)
   end
 
@@ -16,7 +16,7 @@ class DocumentFilterJsonPresenterTest < PresenterTestCase
     @filter.documents.stubs(:current_page).returns(2)
     @filter.documents.stubs(:count).returns(45)
     @filter.documents.stubs(:num_pages).returns(3)
-    json = JSON.parse(DocumentFilterJsonPresenter.new(@filter).to_json)
+    json = JSON.parse(DocumentFilterPresenter.new(@filter).to_json)
     assert_equal 45, json['count']
     assert_equal 2, json['current_page']
     assert_equal 3, json['total_pages']
@@ -28,14 +28,14 @@ class DocumentFilterJsonPresenterTest < PresenterTestCase
 
   test 'next_page omitted if last page' do
     @filter.documents.stubs(:last_page?).returns(true)
-    json = JSON.parse(DocumentFilterJsonPresenter.new(@filter).to_json)
+    json = JSON.parse(DocumentFilterPresenter.new(@filter).to_json)
     refute json.has_key?("next_page")
     refute json.has_key?("next_page_url")
   end
 
   test 'prev_page omitted if first page' do
     @filter.documents.stubs(:first_page?).returns(true)
-    json = JSON.parse(DocumentFilterJsonPresenter.new(@filter).to_json)
+    json = JSON.parse(DocumentFilterPresenter.new(@filter).to_json)
     refute json.has_key?("prev_page")
     refute json.has_key?("prev_page_url")
   end
@@ -48,16 +48,20 @@ class DocumentFilterJsonPresenterTest < PresenterTestCase
     # TODO: perhaps rethink edition factory, so this apparent duplication
     # isn't neccessary
     publication.stubs(:organisations).returns([organisation])
-    @filter.stubs(:documents).returns(Kaminari.paginate_array([publication]).page(1))
-    json = JSON.parse(DocumentFilterJsonPresenter.new(@filter).to_json)
+    publication.stubs(:document_series).returns([])
+    @filter.stubs(:documents).returns(Kaminari.paginate_array([PublicationesquePresenter.new(publication)]).page(1))
+    json = JSON.parse(DocumentFilterPresenter.new(@filter).to_json)
     assert_equal 1, json['results'].size
     assert_equal({
       "id" => publication.id,
       "type" => "publication",
+      "display_type" => "Policy paper",
       "title" => publication.title,
       "url" => "/government/publications/some-doc",
       "organisations" => "Ministry of Silly",
-      "public_timestamp" => 3.days.ago.iso8601
+      "display_date_microformat" => "<abbr class=\"public_timestamp\" title=\"2011-11-08T11:11:11+00:00\"> 8 November 2011</abbr>",
+      "public_timestamp" => 3.days.ago.iso8601,
+      "publication_series" => nil
       }, json['results'].first)
   end
 end

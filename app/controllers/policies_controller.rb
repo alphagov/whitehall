@@ -6,7 +6,6 @@ class PoliciesController < DocumentsController
 
   respond_to :html
   respond_to :atom, only: :activity
-  respond_to :json, only: :index
 
   class SearchPoliciesDecorator < SimpleDelegator
     def documents
@@ -20,7 +19,14 @@ class PoliciesController < DocumentsController
 
     @filter = build_document_filter(params.reverse_merge({ page: 1, direction: 'alphabetical' }))
 
-    respond_with PolicyFilterJsonPresenter.new(@filter)
+    respond_to do |format|
+      format.html do
+        @filter = DocumentFilterPresenter.new(@filter)
+      end
+      format.json do
+        render json: PolicyFilterJsonPresenter.new(@filter)
+      end
+    end
   end
 
   def show

@@ -128,7 +128,7 @@ end
 
 Then /^I should see the summary of the publication "([^"]*)"$/ do |publication_title|
   publication = Publication.published.find_by_title!(publication_title)
-  assert has_css?("#{record_css_selector(publication)} .title", publication.title)
+  assert has_css?("#{record_css_selector(publication)} h3", publication.title)
 end
 
 Then /^I should see the summary of the draft publication "([^"]*)"$/ do |publication_title|
@@ -221,5 +221,5 @@ When /^I filter the publications list by "([^"]*)"$/ do |publication_filter|
 end
 
 Then /^I should see "([^"]*)" in the result list$/ do |title|
-  assert page.has_css?("table.document-list .title", text: %r{#{title}})
+  assert page.has_css?(".filter-results h3", text: %r{#{title}})
 end
