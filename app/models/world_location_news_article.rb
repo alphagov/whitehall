@@ -7,6 +7,10 @@ class WorldLocationNewsArticle < Newsesque
     false
   end
 
+  def skip_organisation_validation?
+    true
+  end
+
   def display_type_key
     'world_location_news_article'
   end
