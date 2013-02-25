@@ -45,16 +45,10 @@ class Admin::ContactsController < Admin::BaseController
     end
   end
 
-private
+  private
+
   def find_contactable
-    @contactable = case params[:contactable_type]
-    when "Organisation"
-      Organisation.find(params[:contactable_id])
-    when "WorldwideOrganisation"
-      WorldwideOrganisation.find(params[:contactable_id])
-    else
-      raise ActiveRecord::RecordNotFound
-    end
+    @contactable = Organisation.find(params[:contactable_id])
   end
 
   def find_contact
@@ -69,5 +63,4 @@ private
       end
     end
   end
-
 end
