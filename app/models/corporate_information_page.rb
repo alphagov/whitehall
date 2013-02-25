@@ -28,7 +28,7 @@ class CorporateInformationPage < ActiveRecord::Base
   end
 
   def search_link
-    about_organisation_path(organisation, slug)
+    organisation_corporate_information_page_path(organisation, slug)
   end
 
   def self.for_slug(slug)
