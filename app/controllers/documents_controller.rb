@@ -20,7 +20,7 @@ class DocumentsController < PublicFacingController
       if @document = document_class.scheduled_for_publication_as(params[:id])
         expire_on_next_scheduled_publication([@document])
         render :coming_soon
-      elsif @unpublishing = document_class.unpublished_as(params[:id])
+      elsif @unpublishing = Unpublishing.from_slug(params[:id], document_class)
         # NOTE: We should be returning a 410 here, but because 4XX statuses get clobbered upstream,
         # we are forced to return 200 for now. There may also be the potential to automatically redirect
         # when the reason for unpublishing is UnpublishingReason::Duplicate or UnpublishingReason::Superseded.

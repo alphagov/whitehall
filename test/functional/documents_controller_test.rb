@@ -25,7 +25,7 @@ class DocumentsControllerTest < ActionController::TestCase
     user = login_as(:departmental_editor)
     edition = create(:unpublished_edition)
 
-    get :show, id: edition.document.to_param
+    get :show, id: edition.unpublishing.slug
 
     assert_response :success
     assert_template :unpublished

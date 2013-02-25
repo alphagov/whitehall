@@ -8,3 +8,9 @@ Feature: Unpublishing published documents
     And a published document "Published by accident" exists
     When I unpublish the document because it was published in error
     Then I should see that the document was published in error on the public site
+
+  Scenario: Unpublishing a document that has had a title change
+    Given I am a GDS editor
+    And a published document exists with a slug that does not match the title
+    When I unpublish the document because it was published in error
+    Then I should see that the document was published in error at the original url
