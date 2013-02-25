@@ -129,7 +129,13 @@ Details of document required:
     Locale.new(locale).native_language_name
   end
 
-  def link_to_translated_edition(edition, locale)
-    link_to native_language_name_for(locale), public_document_path(edition, locale: locale)
+  def link_to_translated_object(object, locale)
+    path = case object
+    when Edition
+      public_document_path(object, locale: locale)
+    else
+      polymorphic_path(object, locale: locale)
+    end
+    link_to native_language_name_for(locale), path
   end
 end

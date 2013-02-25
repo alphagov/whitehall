@@ -1,4 +1,8 @@
 .worldwide-organisations-show {
+  .translations {
+    text-align: right;
+  }
+
   .keyline-header {
     @include heading-27;
     border-bottom: 5px solid $inside-gov-nav;

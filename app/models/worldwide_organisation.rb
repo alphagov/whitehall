@@ -12,6 +12,7 @@ class WorldwideOrganisation < ActiveRecord::Base
   has_many :roles, through: :worldwide_organisation_roles
   has_many :people, through: :roles
 
+  include TranslatableModel
   translates :name, :summary, :description, :services
   include Translatable
 

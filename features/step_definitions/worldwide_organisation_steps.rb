@@ -252,16 +252,14 @@ Then /^when viewing the worldwide organisation "([^"]*)" with the locale "([^"]*
   worldwide_organisation = WorldwideOrganisation.find_by_name!(name)
   translation = table.rows_hash
 
-  visit world_location_path(worldwide_organisation.world_locations.first, locale: locale)
+  visit world_location_path(worldwide_organisation.world_locations.first)
+  click_link locale
+
   within record_css_selector(worldwide_organisation) do
     assert page.has_css?('.name', text: translation["name"]), "Name wasn't present on associated world location page"
   end
 
-  # until links preserve locale, we cannot do this:
-  #     click_link translation["name"]
-  # so instead, we check the link is at least present with the right text, and then visit it with the right locale
-  assert page.has_link?(translation["name"], href: worldwide_organisation_path(worldwide_organisation))
-  visit worldwide_organisation_path(worldwide_organisation, locale: locale)
+  click_link translation["name"]
 
   assert page.has_css?('.summary', text: translation["summary"]), "Summary wasn't present"
   assert page.has_css?('.description', text: translation["description"]), "Description wasn't present"
@@ -269,7 +267,7 @@ Then /^when viewing the worldwide organisation "([^"]*)" with the locale "([^"]*
 end
 
 Given /^a worldwide organisation "([^"]*)" exists with a translation for the locale "([^"]*)"$/ do |name, native_locale_name|
-  locale_code = Locale.find(native_locale_name).code
+  locale_code = Locale.find_by_language_name(native_locale_name).code
   country = create(:world_location, world_location_type: WorldLocationType::Country, translated_into: [locale_code])
   create(:worldwide_organisation, name: name, world_locations: [country], translated_into: [locale_code])
 end
