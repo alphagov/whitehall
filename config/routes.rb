@@ -184,6 +184,7 @@ Whitehall::Application.routes.draw do
   end
 
   get 'healthcheck' => 'healthcheck#check'
+  get 'healthcheck/overdue' => 'healthcheck#overdue'
 
   # XXX: we use a blank prefix here because redirect has been
   # overridden further up in the routes
