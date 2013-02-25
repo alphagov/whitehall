@@ -11,7 +11,7 @@
   <div class="row-fluid">
     <div class="span12 organisation-details">
       <section>
-        <%= worldwide_organisation_tab_navigation do %>
+        <%= worldwide_organisation_tab_navigation(@worldwide_organisation) do %>
           <article class="document">
             <p class="sponsoring-organisations">
               Part of <%= @worldwide_organisation.sponsoring_organisations.map {|o| link_to(o.name, [:admin, o]) }.to_sentence.html_safe %>
