@@ -9,7 +9,7 @@
 <div class="row-fluid">
   <div class="span12 organisation-details">
     <section>
-      <%= worldwide_organisation_tab_navigation(@worldwide_organisation) do %>
+      <%= tab_navigation_for(@worldwide_organisation) do %>
         <%= render partial: "admin/social_media_accounts/social_media_account_list", locals: {socialable: @worldwide_organisation} %>
       <% end %>
 

@@ -9,7 +9,7 @@
 <div class="row-fluid">
   <div class="span12 organisation-details">
     <section>
-      <%= organisation_tab_navigation(@organisation) do %>
+      <%= tab_navigation_for(@organisation) do %>
         <% if @organisation.featured_edition_organisations.any? %>
           <h2>Featured documents</h2>
           <%= form_for [:admin, @organisation], as: :organisation do |form| %>

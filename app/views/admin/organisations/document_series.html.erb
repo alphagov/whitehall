@@ -9,7 +9,7 @@
 <div class="row-fluid">
   <div class="span12 organisation-details">
     <section>
-      <%= organisation_tab_navigation(@organisation) do %>
+      <%= tab_navigation_for(@organisation) do %>
 
         <%= link_to "New series", new_admin_organisation_document_series_path(@organisation), class: "btn pull-right" %>
 

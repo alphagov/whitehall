@@ -2,9 +2,9 @@ module Admin::TabbedNavHelper
   def tab_navigation_for(organisation, &block)
     case organisation
     when Organisation
-      organisation_tab_navigation(organisation, &block)
+      tab_navigation(organisation_tabs(organisation), &block)
     when WorldwideOrganisation
-      worldwide_organisation_tab_navigation(organisation, &block)
+      tab_navigation(worldwide_organisation_tabs(organisation), &block)
     end
   end
 

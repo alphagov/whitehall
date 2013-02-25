@@ -9,7 +9,7 @@
 <div class="row-fluid">
   <div class="span12 organisation-details">
     <section>
-        <%= organisation_tab_navigation(@organisation) do %>
+        <%= tab_navigation_for(@organisation) do %>
           <div class="tab-pane active" id="details">
             <table class="table">
               <tr><th>Type</th><td><%= @organisation.organisation_type.name %></td></tr>

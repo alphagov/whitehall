@@ -9,7 +9,7 @@
 <div class="row-fluid">
   <div class="span12 organisation-details">
     <section>
-      <%= worldwide_organisation_tab_navigation(@worldwide_organisation) do %>
+      <%= tab_navigation_for(@worldwide_organisation) do %>
         <%= render(@worldwide_organisation.offices, worldwide_organisation: @worldwide_organisation) || content_tag(:p, 'No offices') %>
       <% end %>
 

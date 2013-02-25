@@ -9,8 +9,8 @@ module Admin::OrganisationHelper
     end
   end
 
-  def organisation_tab_navigation(organisation, &block)
-    tabs = {
+  def organisation_tabs(organisation)
+    {
       "Details" => admin_organisation_path(organisation),
       "Contacts" => admin_organisation_contacts_path(organisation),
       "Social media accounts" => admin_organisation_social_media_accounts_path(organisation),
@@ -21,6 +21,5 @@ module Admin::OrganisationHelper
       "Document series" => document_series_admin_organisation_path(organisation),
       "Corporate information pages" => admin_organisation_corporate_information_pages_path(organisation),
     }
-    tab_navigation(tabs, &block)
   end
 end
