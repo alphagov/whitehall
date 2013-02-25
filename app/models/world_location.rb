@@ -27,6 +27,7 @@ class WorldLocation < ActiveRecord::Base
   accepts_nested_attributes_for :edition_world_locations
   accepts_nested_attributes_for :mainstream_links, allow_destroy: true, reject_if: :all_blank
 
+  include TranslatableModel
   translates :name, :title, :mission_statement
 
   scope :ordered_by_name, ->() { with_translations(I18n.default_locale).order(:name) }
@@ -72,8 +73,4 @@ class WorldLocation < ActiveRecord::Base
 
   extend FriendlyId
   friendly_id
-
-  def available_in_multiple_languages?
-    translated_locales.length > 1
-  end
 end

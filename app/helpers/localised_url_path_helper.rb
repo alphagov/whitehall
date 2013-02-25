@@ -5,9 +5,13 @@ module LocalisedUrlPathHelper
   localised_routes.map(&:name).each do |type|
     define_method(:"#{type}_path") do |*args|
       options = args.last.is_a?(Hash) ? args.pop : {}
+      object = args.first.respond_to?(:available_in_locale?) ? args.shift : nil
       options[:locale] ||= params[:locale]
-      options.delete(:locale) if options[:locale].to_s == "en"
+      if options[:locale].to_s == "en" || (object && !object.available_in_locale?(options[:locale]))
+        options.delete(:locale)
+      end
       args.push(options)
+      args.unshift(object) if object
       super(*args)
     end
   end

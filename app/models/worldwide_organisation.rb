@@ -12,6 +12,7 @@ class WorldwideOrganisation < ActiveRecord::Base
   has_many :roles, through: :worldwide_organisation_roles
   has_many :people, through: :roles
 
+  include TranslatableModel
   translates :name, :summary, :description, :services
   alias :original_main_office :main_office
 
@@ -47,9 +48,5 @@ class WorldwideOrganisation < ActiveRecord::Base
 
   def office_staff_roles
     roles.where(type: WorldwideOfficeStaffRole.name)
-  end
-
-  def available_in_multiple_languages?
-    translated_locales.length > 1
   end
 end
