@@ -2,7 +2,11 @@
   function parseYoutubeVideoId(string){
     if(string.indexOf('youtube.com') > -1){
       var i, _i, part, parts, params = {};
-      parts = string.split('?')[1].split('&');
+      parts = string.split('?')
+      if (parts.length === 1){
+        return;
+      }
+      parts = parts[1].split('&');
       for(i=0,_i=parts.length; i<_i; i++){
         part = parts[i].split('=');
         params[part[0]] = part[1];
@@ -21,14 +25,16 @@
           $holder = $('<span />'),
           $captions = $link.siblings('.captions');
 
-      $link.parent().replaceWith($holder);
+      if(typeof videoId !== 'undefined'){
+        $link.parent().replaceWith($holder);
 
-      $holder.player({
-        id: 'youtube-'+i,
-        media: videoId,
-        captions: $captions.length > 0 ? $captions.attr('href') : null,
-        url: (document.location.protocol + '//www.youtube.com/apiplayer?enablejsapi=1&version=3&playerapiid=')
-      });
+        $holder.player({
+          id: 'youtube-'+i,
+          media: videoId,
+          captions: $captions.length > 0 ? $captions.attr('href') : null,
+          url: (document.location.protocol + '//www.youtube.com/apiplayer?enablejsapi=1&version=3&playerapiid=')
+        });
+      }
     })
   }
 

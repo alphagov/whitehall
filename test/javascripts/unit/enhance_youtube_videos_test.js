@@ -42,3 +42,16 @@ test("should replace medium youtube links", function() {
   equal('mediumVideo', playerArgs.media);
   stub.restore();
 });
+test("should do nothing if no video id found", function() {
+  var stub = sinon.stub($.fn, "player");
+  stub.returns(true);
+
+  this.container.find('a').attr('href', 'http://youtube.com/watch?wrong=parameter');
+  $('#wrap').enhanceYoutubeVideoLinks();
+
+  this.container.find('a').attr('href', 'http://youtube.com/channel_name');
+  $('#wrap').enhanceYoutubeVideoLinks();
+
+  equal(0, stub.callCount);
+  stub.restore();
+});
