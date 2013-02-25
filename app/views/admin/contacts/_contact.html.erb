@@ -19,6 +19,6 @@
     <p class="comments"><%= format_with_html_line_breaks(h(contact.comments)) %></p>
   <% end %>
 
-  <%= button_to "Delete", admin_contact_path(contact, contactable_type: contactable.class.name, contactable_id: contactable), method: "delete", class: "btn btn-small btn-danger", confirm: "Delete contact '#{contact.title}' from #{contactable.class.name.underscore.humanize.downcase} '#{contactable.name}'?" %>
-  <%= link_to icon("Edit"), edit_admin_contact_path(contact, contactable_type: contactable.class.name, contactable_id: contactable), class: "btn" %>
+  <%= button_to "Delete", [:admin, contactable, contact], method: "delete", class: "btn btn-small btn-danger", confirm: "Delete contact '#{contact.title}' from #{contactable.class.name.underscore.humanize.downcase} '#{contactable.name}'?" %>
+  <%= link_to icon("Edit"), edit_polymorphic_path([:admin, contactable, contact]), class: "btn" %>
 <% end %>

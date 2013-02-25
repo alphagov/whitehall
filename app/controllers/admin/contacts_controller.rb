@@ -1,9 +1,5 @@
 class Admin::ContactsController < Admin::BaseController
-  include Admin::ContactsHelper
-
-  respond_to :html
-
-  before_filter :find_contactable, only: [:new, :create]
+  before_filter :find_contactable
   before_filter :find_contact, only: [:edit, :update, :destroy]
   before_filter :destroy_blank_contact_numbers, only: [:create, :update]
 
@@ -22,7 +18,7 @@ class Admin::ContactsController < Admin::BaseController
   def update
     @contact.update_attributes(params[:contact])
     if @contact.save
-      redirect_to(contacts_list_url_for(@contact.contactable))
+      redirect_to [:admin, @contact.contactable, Contact]
     else
       render :edit
     end
@@ -31,7 +27,7 @@ class Admin::ContactsController < Admin::BaseController
   def create
     @contact = @contactable.contacts.build(params[:contact])
     if @contact.save
-      redirect_to(contacts_list_url_for(@contact.contactable))
+      redirect_to [:admin, @contact.contactable, Contact]
     else
       render :edit
     end
@@ -39,7 +35,7 @@ class Admin::ContactsController < Admin::BaseController
 
   def destroy
     if @contact.destroy
-      redirect_to(contacts_list_url_for(@contact.contactable))
+      redirect_to [:admin, @contact.contactable, Contact]
     else
       render :edit
     end
@@ -48,12 +44,16 @@ class Admin::ContactsController < Admin::BaseController
   private
 
   def find_contactable
-    @contactable = Organisation.find(params[:contactable_id])
+    @contactable  = case params.keys.grep(/(.+)_id$/).first.to_sym
+    when :organisation_id
+      Organisation.find(params[:organisation_id])
+    else
+      raise ActiveRecord::RecordNotFound
+    end
   end
 
   def find_contact
-    @contact = Contact.find(params[:id])
-    @contactable = @contact.contactable
+    @contact = @contactable.contacts.find(params[:id])
   end
 
   def destroy_blank_contact_numbers

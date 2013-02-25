@@ -92,6 +92,7 @@ Whitehall::Application.routes.draw do
           resources :groups, except: [:show]
           resources :document_series
           resources :corporate_information_pages
+          resources :contacts
           member do
             get :documents
           end
