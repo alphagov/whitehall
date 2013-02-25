@@ -68,7 +68,7 @@ Feature: Administering worldwide organisation
       | summary     | Nous nous occupons de la pilosité faciale du pays |
       | description | Barbes, moustaches, même rouflaquettes            |
       | services    | Montante, pommades, humide rase                   |
-    Then when viewing the worldwide organisation "Department of Beards in France" with the locale "fr" I should see:
+    Then when viewing the worldwide organisation "Department of Beards in France" with the locale "Français" I should see:
       | name        | Département des barbes en France                  |
       | summary     | Nous nous occupons de la pilosité faciale du pays |
       | description | Barbes, moustaches, même rouflaquettes            |
@@ -81,7 +81,7 @@ Feature: Administering worldwide organisation
       | summary     | Nous nous occupons de la pilosité faciale du pays |
       | description | Barbes, moustaches, même rouflaquettes            |
       | services    | Montante, pommades, humide rase                   |
-    Then when viewing the worldwide organisation "Department of Beards in France" with the locale "fr" I should see:
+    Then when viewing the worldwide organisation "Department of Beards in France" with the locale "Français" I should see:
       | name        | Le super département des barbes en France         |
       | summary     | Nous nous occupons de la pilosité faciale du pays |
       | description | Barbes, moustaches, même rouflaquettes            |

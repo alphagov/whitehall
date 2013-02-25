@@ -7,6 +7,8 @@ class PublicFacingController < ApplicationController
 
   around_filter :set_locale
 
+  include LocalisedUrlPathHelper
+
   private
 
   def set_locale(&block)

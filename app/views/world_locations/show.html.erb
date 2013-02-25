@@ -5,6 +5,7 @@
 
   <div class="header-block">
     <div class="inner-block">
+      <%= render partial: 'shared/available_languages', locals: {object: @world_location} %>
       <header class="page-header world-locations">
         <hgroup>
           <h2 class="type"><%= t_world_location @world_location %></h2>

@@ -1,0 +1,13 @@
+<% if object.available_in_multiple_languages? %>
+  <div class="translations">
+    <% object.translated_locales.each do |locale| %>
+      <span class="translation">
+        <% if locale == I18n.locale %>
+          <%= native_language_name_for(locale) %>
+        <% else %>
+          <%= link_to_translated_object(object, locale) %>
+        <% end %>
+      </span>
+    <% end %>
+  </div>
+<% end %>
