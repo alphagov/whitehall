@@ -1,11 +1,5 @@
 class Admin::OrganisationsController < Admin::BaseController
-  before_filter :build_organisation, only: [:new]
-  before_filter :build_organisation_roles, only: [:new]
   before_filter :load_organisation, only: [:show, :edit, :update, :destroy, :documents]
-  before_filter :build_organisation_classifications, only: [:new, :edit]
-  before_filter :delete_absent_organisation_classifications, only: [:update]
-  before_filter :build_mainstream_links, only: [:new, :edit]
-  before_filter :destroy_blank_mainstream_links, only: [:create, :update]
 
   def index
     @organisations = Organisation.all
@@ -13,10 +7,15 @@ class Admin::OrganisationsController < Admin::BaseController
   end
 
   def new
+    @organisation = Organisation.new
+    build_organisation_roles
+    build_organisation_classifications
+    build_mainstream_links
     social.build_social_media_account(@organisation)
   end
 
   def create
+    destroy_blank_mainstream_links
     social.destroy_blank_social_media_accounts(params[:organisation])
     @organisation = Organisation.new(params[:organisation])
     if @organisation.save
@@ -41,11 +40,15 @@ class Admin::OrganisationsController < Admin::BaseController
   end
 
   def edit
+    build_organisation_classifications
+    build_mainstream_links
     social.build_social_media_account(@organisation)
     load_organisation_roles
   end
 
   def update
+    destroy_blank_mainstream_links
+    delete_absent_organisation_classifications
     social.destroy_blank_social_media_accounts(params[:organisation])
     if @organisation.update_attributes(params[:organisation])
       redirect_to admin_organisation_path(@organisation)
@@ -62,10 +65,6 @@ class Admin::OrganisationsController < Admin::BaseController
   end
 
   private
-
-  def build_organisation
-    @organisation = Organisation.new
-  end
 
   def build_organisation_roles
     @ministerial_organisation_roles = []
