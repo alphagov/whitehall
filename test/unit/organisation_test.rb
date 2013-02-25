@@ -254,7 +254,7 @@ class OrganisationTest < ActiveSupport::TestCase
 
     assert_equal 'Ministry of Funk', organisation.search_index['title']
     assert_equal "/government/organisations/#{organisation.slug}", organisation.search_index['link']
-    assert_equal organisation.description, organisation.search_index['indexable_content']
+    assert_equal organisation.indexable_content, organisation.search_index['indexable_content']
     assert_equal 'organisation', organisation.search_index['format']
   end
 
@@ -298,23 +298,23 @@ class OrganisationTest < ActiveSupport::TestCase
     assert_equal 4, results.length
     assert_equal({'title' => 'Department for Culture and Sports',
                   'link' => '/government/organisations/department-for-culture-and-sports',
-                  'indexable_content' => 'Sporty.',
+                  'indexable_content' => 'Sporty. ',
                   'format' => 'organisation',
                   'description' => ''}, results[0])
     assert_equal({'title' => 'Department of Education',
                   'link' => '/government/organisations/department-of-education',
-                  'indexable_content' => 'Bookish.',
+                  'indexable_content' => 'Bookish. ',
                   'format' => 'organisation',
                   'description' => ''}, results[1])
     assert_equal({'title' => 'HMRC',
                   'link' => '/government/organisations/hmrc',
-                  'indexable_content' => 'Taxing.',
+                  'indexable_content' => 'Taxing. ',
                   'format' => 'organisation',
                   'boost_phrases' => 'hmrc',
                   'description' => ''}, results[2])
     assert_equal({'title' => 'Ministry of Defence',
                   'link' => '/government/organisations/ministry-of-defence',
-                  'indexable_content' => 'Defensive.',
+                  'indexable_content' => 'Defensive. ',
                   'format' => 'organisation',
                   'boost_phrases' => 'mod',
                   'description' => ''}, results[3])

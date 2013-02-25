@@ -1,11 +1,10 @@
 class CorporateInformationPage < ActiveRecord::Base
-  extend Forwardable
   include ::Attachable
   include Searchable
   include Rails.application.routes.url_helpers
 
-  delegate [:slug] => :type
-  delegate [:alternative_format_contact_email, :acronym], to: :organisation
+  delegate :slug, to: :type
+  delegate :alternative_format_contact_email, :acronym, to: :organisation
 
   belongs_to :organisation, polymorphic: true
 

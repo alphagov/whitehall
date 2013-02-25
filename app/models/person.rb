@@ -39,7 +39,7 @@ class Person < ActiveRecord::Base
   before_destroy :prevent_destruction_if_appointed
 
   def search_link
-    person_path(slug)
+    person_path(slug_name)
   end
 
   def self.non_current_ministerial_roles

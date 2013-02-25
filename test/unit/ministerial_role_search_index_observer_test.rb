@@ -5,6 +5,7 @@ class MinisterialRoleSearchIndexObserverTest < ActiveSupport::TestCase
     person = create(:person)
 
     search_index_data = stub('search index data')
+    Rummageable.stubs(:index)
     MinisterialRole.stubs(:search_index).returns(search_index_data)
     Rummageable.expects(:index).with(search_index_data, Whitehall.government_search_index_path)
 
@@ -29,7 +30,7 @@ class MinisterialRoleSearchIndexObserverTest < ActiveSupport::TestCase
 
     search_index_data = stub('search index data')
     MinisterialRole.stubs(:search_index).returns(search_index_data)
-    Rummageable.stubs(:index).with(has_entry("format" => "organisation"), anything) # ignore the update to the organisation index
+    Rummageable.stubs(:index)
     Rummageable.expects(:index).with(search_index_data, Whitehall.government_search_index_path).never
 
     organisation.name = 'Ministry of Funk'
@@ -42,6 +43,7 @@ class MinisterialRoleSearchIndexObserverTest < ActiveSupport::TestCase
     role_appointment = build(:ministerial_role_appointment)
 
     search_index_data = stub('search index data')
+    Rummageable.stubs(:index)
     MinisterialRole.stubs(:search_index).returns(search_index_data)
     Rummageable.expects(:index).with(search_index_data, Whitehall.government_search_index_path)
 
@@ -53,6 +55,7 @@ class MinisterialRoleSearchIndexObserverTest < ActiveSupport::TestCase
     person = create(:person)
 
     search_index_data = stub('search index data')
+    Rummageable.stubs(:index)
     MinisterialRole.stubs(:search_index).returns(search_index_data)
     Rummageable.expects(:index).with(search_index_data, Whitehall.government_search_index_path)
 
@@ -64,6 +67,7 @@ class MinisterialRoleSearchIndexObserverTest < ActiveSupport::TestCase
     role_appointment = create(:ministerial_role_appointment)
 
     search_index_data = stub('search index data')
+    Rummageable.stubs(:index)
     MinisterialRole.stubs(:search_index).returns(search_index_data)
     Rummageable.expects(:index).with(search_index_data, Whitehall.government_search_index_path)
 
@@ -74,6 +78,7 @@ class MinisterialRoleSearchIndexObserverTest < ActiveSupport::TestCase
     organisation_role = build(:organisation_role)
 
     search_index_data = stub('search index data')
+    Rummageable.stubs(:index)
     MinisterialRole.stubs(:search_index).returns(search_index_data)
     Rummageable.expects(:index).with(search_index_data, Whitehall.government_search_index_path)
 
@@ -85,6 +90,7 @@ class MinisterialRoleSearchIndexObserverTest < ActiveSupport::TestCase
     organisation = create(:organisation)
 
     search_index_data = stub('search index data')
+    Rummageable.stubs(:index)
     MinisterialRole.stubs(:search_index).returns(search_index_data)
     Rummageable.expects(:index).with(search_index_data, Whitehall.government_search_index_path)
 
@@ -96,6 +102,7 @@ class MinisterialRoleSearchIndexObserverTest < ActiveSupport::TestCase
     organisation_role = create(:organisation_role)
 
     search_index_data = stub('search index data')
+    Rummageable.stubs(:index)
     MinisterialRole.stubs(:search_index).returns(search_index_data)
     Rummageable.expects(:index).with(search_index_data, Whitehall.government_search_index_path)
 
