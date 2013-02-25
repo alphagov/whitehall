@@ -31,5 +31,4 @@ class Admin::WorldwidePrioritiesControllerTest < ActionController::TestCase
   should_link_to_preview_version_when_not_published :worldwide_priority
   should_prevent_modification_of_unmodifiable :worldwide_priority
   should_allow_access_limiting_of :worldwide_priority
-  should_be_translatable :worldwide_priority
 end

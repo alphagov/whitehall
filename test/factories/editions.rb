@@ -1,4 +1,11 @@
-GenericEdition = Class.new(Edition)
+class GenericEdition < Edition
+  class << self
+    attr_accessor :translatable
+  end
+  def translatable?
+    self.class.translatable
+  end
+end
 
 Rails.application.routes.url_helpers.module_eval do
   def generic_edition_path(options = {})
