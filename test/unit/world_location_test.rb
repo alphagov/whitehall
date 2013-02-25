@@ -170,4 +170,11 @@ class WorldLocationTest < ActiveSupport::TestCase
     world_location = build(:world_location, params)
     assert world_location.valid?
   end
+
+  test "has removeable translations" do
+    world_location = create(:world_location, translated_into: [:fr, :es])
+    world_location.remove_translations_for(:fr)
+    refute world_location.translated_locales.include?(:fr)
+    assert world_location.translated_locales.include?(:es)
+  end
 end

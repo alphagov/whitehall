@@ -133,4 +133,11 @@ class WorldwideOrganisationTest < ActiveSupport::TestCase
     assert_nil worldwide_organisation.primary_role
     assert_nil worldwide_organisation.secondary_role
   end
+
+  test "has removeable translations" do
+    worldwide_organisation = create(:worldwide_organisation, translated_into: [:fr, :es])
+    worldwide_organisation.remove_translations_for(:fr)
+    refute worldwide_organisation.translated_locales.include?(:fr)
+    assert worldwide_organisation.translated_locales.include?(:es)
+  end
 end

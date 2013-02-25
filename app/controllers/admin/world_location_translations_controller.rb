@@ -16,13 +16,24 @@ class Admin::WorldLocationTranslationsController < Admin::BaseController
 
   def update
     if @translated_world_location.update_attributes(params[:world_location])
-      redirect_to admin_world_location_translations_path(@translated_world_location)
+      redirect_to admin_world_location_translations_path(@translated_world_location),
+        notice: notice_message("saved")
     else
       render action: 'edit'
     end
   end
 
+  def destroy
+    @translated_world_location.remove_translations_for(translation_locale.code)
+    redirect_to admin_world_location_translations_path(@translated_world_location),
+      notice: notice_message("deleted")
+  end
+
   private
+
+  def notice_message(action)
+    %{#{translation_locale.english_language_name} translation for "#{world_location.name}" #{action}.}
+  end
 
   def load_translated_and_english_world_locations
     @translated_world_location = LocalisedModel.new(world_location, translation_locale.code)
