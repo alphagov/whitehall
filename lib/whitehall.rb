@@ -138,7 +138,8 @@ module Whitehall
                              OperationalField,
                              PolicyTeam,
                              PolicyAdvisoryGroup,
-                             Person
+                             Person,
+                             CorporateInformationPage
                            ]
       searchable_classes = government_edition_classes + additional_classes
       Enumerator.new do |y|

@@ -1,9 +1,11 @@
 class CorporateInformationPage < ActiveRecord::Base
   extend Forwardable
   include ::Attachable
+  include Searchable
+  include Rails.application.routes.url_helpers
 
   delegate [:slug] => :type
-  delegate [:alternative_format_contact_email] => :organisation
+  delegate [:alternative_format_contact_email, :acronym], to: :organisation
 
   belongs_to :organisation, polymorphic: true
 
@@ -11,6 +13,24 @@ class CorporateInformationPage < ActiveRecord::Base
 
   validates :organisation, :body, :type, presence: true
   validates :type_id, uniqueness: { scope: [:organisation_id, :organisation_type], message: "already exists for this organisation" }
+
+  searchable title: :summary,
+             link: :search_link,
+             content: :indexable_content,
+             boost_phrases: :acronym
+
+
+  def body_without_markup
+    Govspeak::Document.new(body).to_text
+  end
+
+  def indexable_content
+    body_without_markup
+  end
+
+  def search_link
+    about_organisation_path(organisation, slug)
+  end
 
   def self.for_slug(slug)
     type = CorporateInformationPageType.find(slug)

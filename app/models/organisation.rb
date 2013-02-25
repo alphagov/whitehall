@@ -178,7 +178,7 @@ class Organisation < ActiveRecord::Base
 
   searchable title: :name,
              link: :search_link,
-             content: :description,
+             content: :indexable_content,
              boost_phrases: :acronym
 
   extend FriendlyId
@@ -247,6 +247,14 @@ class Organisation < ActiveRecord::Base
 
   def select_name
     [name, ("(#{acronym})" if acronym.present?)].compact.join(' ')
+  end
+
+  def indexable_content
+    "#{description} #{about_us_without_markup}"
+  end
+
+  def about_us_without_markup
+    Govspeak::Document.new(about_us).to_text
   end
 
   def search_link
