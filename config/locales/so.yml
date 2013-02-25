@@ -174,6 +174,8 @@ so:
       storage_units:
         format:
   organisation:
+    headings:
+      plus_others:
     type:
       Ad-hoc advisory group:
         one:

@@ -292,3 +292,5 @@ en:
       Other:
         one: Other
         other: Others
+    headings:
+      plus_others: + others

@@ -23,7 +23,7 @@
       <% end %>
     </ul>
     <% if (organisations - lead_organisations).any? %>
-      <span class="toggle show-other-content">+ others</span>
+      <span class="toggle show-other-content"><%= t("organisation.headings.plus_others") %></span>
       <div class="organisations-box overlay js-hidden"><div class="organisations-box-inner">
         <% organisations_grouped_by_type(organisations).each do |type, organisations| %>
           <h3 class="organisation-group-type"><%= t("organisation.type.#{type.name}", count: organisations.length) %></h3>
