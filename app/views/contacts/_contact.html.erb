@@ -1,14 +1,13 @@
 <%
-  contact_class ||= []
+  extra_class = []
   if local_assigns.include?(:contact_counter) and contact_counter % 3 == 0
-    contact_class << "clear-contact"
+    extra_class << "clear-contact"
   end
-  if local_assigns[:is_main]
-    contact_class << 'main'
-  end
-  contact_class << 'contact' unless contact.is_a? Contact
+  extra_class << 'main' if local_assigns[:is_main]
+  extra_class << 'contact' unless contact.is_a? Contact
+  extra_class << 'postal-address' if contact.has_postal_address?
 %>
-<%= content_tag_for(:div, contact, class: contact_class.join(' ')) do %>
+<%= content_tag_for(:div, contact, class: extra_class.join(' ')) do %>
   <div class="content">
     <h2><%= contact.title %></h2>
 

@@ -260,11 +260,8 @@
       <div class="contact-wrapper">
         <h1 class="label">Contact <%= @organisation.display_name %></h1>
         <div id="org-contacts">
-          <% addresses = @organisation.contacts.select { |c| c.has_postal_address? } %>
-          <% others = @organisation.contacts - addresses %>
           <div class="addresses js-hide-extra-rows-2">
-            <%= render partial: 'contacts/contact', collection: addresses, locals: { contact_class: %w(organisation_contact complex) } %>
-            <%= render partial: 'contacts/contact', collection: others, locals: { contact_class: %w(organisation_contact simple) } %>
+            <%= render partial: 'contacts/contact', collection: @organisation.contacts %>
           </div>
         </div>
 

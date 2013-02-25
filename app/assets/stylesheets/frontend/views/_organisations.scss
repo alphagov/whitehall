@@ -504,107 +504,63 @@
 
   #org-contacts {
     margin-bottom: $gutter;
-    h2 {
-      @include ig-core-24;
-    }
-
-    .organisation_contact h2 {
-      margin-bottom: $gutter-half;
-    }
-
-    .addresses {
-      p {
-        margin: 0 0 $gutter-one-third;
-        .type {
-          display: block;
-        }
-      }
-
-      .comment {
-        margin-bottom: $gutter-half;
-      }
-
-      .adr {
-        margin: 0 0 $gutter-one-third;
-        p {
-          margin: 0;
-        }
-      }
-    }
-
-    .complex h2 {
-      border-bottom: 1px solid $border-colour;
-    }
 
     @include media(tablet) {
       position: relative;
       overflow: hidden;
       padding: 0 $gutter-half;
+    }
 
-      .addresses {
-        float: left;
-        clear: both;
-        width: 100%;
+    .contact {
+      clear: both;
+      @extend %contain-floats;
+      @include media(tablet){
+        margin-bottom: $gutter;
+      }
+      h2 {
+        @include ig-core-24;
+        margin-bottom: $gutter-half;
+        border-bottom: 1px solid $border-colour;
+      }
+      p {
+        margin: 0 0 $gutter-one-third;
 
-        .organisation_contact {
-          padding-bottom: $gutter-two-thirds;
+        .type {
+          display: block;
         }
+      }
+      .comment {
+        margin-bottom: $gutter-half;
+      }
+      .adr, .email-url-number {
+        @include media(tablet){
+          float: left;
+          width: 40%;
+        }
+      }
+      .adr {
+        margin: 0 0 $gutter-one-third;
 
-        .complex {
-          padding: 0 0 $gutter;
+        p {
+          margin: 0;
+        }
+      }
+      .email {
+        word-break: break-word;
 
-          .contact-inner {
-            position: relative;
-            overflow: hidden;
-            float: none;
-            display: block;
-          }
-
-          .adr, .email-url-number {
-            display: inline;
-            float: left;
-            width: 40%;
-
-            p {
-              padding-left: 0;
-            }
-
-          }
-
-          .email-url-number {
+        @include ie(6) {
+          word-break: break-all;
+        }
+      }
+      &.postal-address {
+        .email-url-number {
+          @include media(tablet){
             width: 60%;
           }
         }
-
-        .simple {
-          width: 50%;
-          h2 {
-            border-bottom: 1px solid $border-colour;
-          }
-        }
-
-        .js-hidden {
-          display: none;
-        }
-
-        .email {
-          word-break: break-word;
-
-          @include ie(6) {
-            word-break: break-all;
-          }
-        }
       }
-
-      .show-other-content {
-        position: absolute;
-        bottom: 0;
-        left: $gutter-one-third;
-      }
-
     }
   }
-
 
 
 
