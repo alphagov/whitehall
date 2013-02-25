@@ -110,8 +110,18 @@ class Whitehall::Uploader::AttachmentCache
       nil
     end
 
+    # Some CMSs use a common endpoint like `/download.php` to serve
+    # files - we should ignore these as they're not the actual
+    # extension of the file.
+    IGNORED_COMMON_WEB_EXTENSIONS = ['.do', '.php', '.aspx', '.asp', '.pl', '.jsp', '.cgi', '.dll']
     def filename_from_url(url)
-      File.basename(URI.parse(url).path)
+      filename = File.basename(URI.parse(url).path)
+      extension = File.extname(filename)
+      if IGNORED_COMMON_WEB_EXTENSIONS.include? extension
+        File.basename(filename, extension)
+      else
+        filename
+      end
     end
 
     def store(url, response)
@@ -148,5 +158,3 @@ class Whitehall::Uploader::AttachmentCache
 
   end
 end
-
-
