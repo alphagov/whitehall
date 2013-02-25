@@ -7,9 +7,6 @@ class Admin::OrganisationsController < Admin::BaseController
   before_filter :build_mainstream_links, only: [:new, :edit]
   before_filter :destroy_blank_mainstream_links, only: [:create, :update]
 
-  before_filter :social_media_helper, only: [:new, :create, :edit, :update]
-  attr :social
-
   def index
     @organisations = Organisation.all
     @user_organisation = current_user.organisation
@@ -125,7 +122,7 @@ class Admin::OrganisationsController < Admin::BaseController
     end
   end
 
-  def social_media_helper
-    @social = Whitehall::Controllers::SocialMedia.new
+  def social
+    @social ||= Whitehall::Controllers::SocialMedia.new
   end
 end
