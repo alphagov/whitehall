@@ -70,6 +70,13 @@ class DocumentTest < ActiveSupport::TestCase
     assert_equal nil, EditionRelation.find_by_id(relationship.id)
   end
 
+  test "#destroy also destroys document sources" do
+    document = create(:document)
+    document_source = create(:document_source, document: document)
+    document.destroy
+    assert_equal nil, DocumentSource.find_by_id(document_source.id)
+  end
+
   test "should list change history when only one edition with a minor change exists" do
     edition = create(:published_policy, minor_change: true)
 

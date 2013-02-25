@@ -31,7 +31,7 @@ class Document < ActiveRecord::Base
                AND e2.id > editions.id
                AND e2.state <> 'deleted')}
 
-  has_many :document_sources
+  has_many :document_sources, dependent: :destroy
 
   attr_accessor :sluggable_string
 
