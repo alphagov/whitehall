@@ -3,7 +3,8 @@ module Admin::WorldwideOrganisationsHelper
     tabs = {
       "Details" => admin_worldwide_organisation_path(worldwide_organisation),
       "Offices" => offices_admin_worldwide_organisation_path(worldwide_organisation),
-      "Social Media Accounts" => social_media_accounts_admin_worldwide_organisation_path(worldwide_organisation)
+      "Social Media Accounts" => social_media_accounts_admin_worldwide_organisation_path(worldwide_organisation),
+      "Corporate Information Pages" => admin_worldwide_organisation_corporate_information_pages_path(worldwide_organisation)
     }
 
     tab_navigation(tabs, &block)

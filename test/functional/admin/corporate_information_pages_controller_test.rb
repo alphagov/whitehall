@@ -34,6 +34,16 @@ class Admin::CorporateInformationPagesControllerTest < ActionController::TestCas
     create(edition_type)
   end
 
+  test "GET :index" do
+    corporate_information_page = create(:corporate_information_page, organisation: @organisation)
+    get :index, organisation_id: @organisation.to_param
+
+    assert_response :success
+    assert_template :index
+    assert_equal @organisation, assigns(:organisation)
+    assert_equal [corporate_information_page], assigns(:corporate_information_pages)
+  end
+
   view_test "GET :new should display form" do
     get :new, organisation_id: @organisation, organisation_type: @organisation.class.to_s
 

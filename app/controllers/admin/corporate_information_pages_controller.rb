@@ -4,6 +4,10 @@ class Admin::CorporateInformationPagesController < Admin::BaseController
   before_filter :find_corporate_information_page, only: [:edit, :update, :destroy]
   before_filter :cope_with_attachment_action_params, only: [:update]
 
+  def index
+    @corporate_information_pages = @organisation.corporate_information_pages
+  end
+
   def new
     build_corporate_information_page
     build_attachment
