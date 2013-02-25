@@ -64,4 +64,14 @@ class Admin::ContactsControllerTest < ActionController::TestCase
     assert contact = organisation.contacts.first
     assert_equal ["Main phone: 5678"], contact.contact_numbers.map { |cn| "#{cn.label}: #{cn.number}" }
   end
+
+  test "DELETE on :destroy destroys the contact" do
+    organisation = create(:organisation)
+    contact = organisation.contacts.create(title: "Main office")
+
+    delete :destroy, organisation_id: organisation.to_param, id: contact.to_param
+
+    assert_redirected_to admin_organisation_contacts_url(organisation)
+    refute Contact.exists?(contact)
+  end
 end
