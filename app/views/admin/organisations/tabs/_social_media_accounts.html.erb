@@ -1,6 +1,8 @@
 <div class="tab-pane" id="social_media_accounts">
-  <%= render partial: "admin/social_media_accounts/social_media_account_list", locals: {socialable: @organisation} %>
+
+  <%= render(@organisation.social_media_accounts, { socialable: @organisation }) || content_tag(:p, 'No social media accounts') %>
+
   <div class="form-actions">
-    <%= link_to icon("Add"), new_admin_social_media_account_path(socialable_type: @organisation.class.name, socialable_id: @organisation), class: "btn btn-large btn-primary"%>
+    <%= link_to icon("Add"), new_polymorphic_path([:admin, @organisation, SocialMediaAccount]), class: "btn btn-large btn-primary"%>
   </div>
 </div>
