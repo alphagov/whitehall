@@ -703,4 +703,14 @@ class EditionTest < ActiveSupport::TestCase
     assert_equal 1, edition.non_english_translations.length
     assert_equal :es, edition.non_english_translations.first.locale
   end
+
+  test "has removeable translations" do
+    edition = create(:edition)
+    with_locale(:fr) { edition.update_attributes!(title: 'french-title', summary: 'french-summary', body: 'french-body') }
+    with_locale(:es) { edition.update_attributes!(title: 'spanish-title', summary: 'spanish-summary', body: 'spanish-body') }
+
+    edition.remove_translations_for(:fr)
+    refute edition.translated_locales.include?(:fr)
+    assert edition.translated_locales.include?(:es)
+  end
 end

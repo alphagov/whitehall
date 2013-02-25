@@ -15,6 +15,7 @@ module Edition::Translatable
 
   included do
     translates :title, :summary, :body
+    include ::Translatable
 
     add_trait Trait
 

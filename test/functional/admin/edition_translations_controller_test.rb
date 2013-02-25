@@ -137,4 +137,15 @@ class Admin::EditionTranslationsControllerTest < ActionController::TestCase
     put :update, edition_id: protected_edition.id, id: "en"
     assert_response 403
   end
+
+  test "destroy removes translation and redirects to admin edition page" do
+    edition = create(:edition)
+    with_locale(:fr) { edition.update_attributes!(title: 'french-title', summary: 'french-summary', body: 'french-body') }
+
+    delete :destroy, edition_id: edition, id: 'fr'
+
+    edition.reload
+    refute edition.translated_locales.include?(:fr)
+    assert_redirected_to admin_edition_path(edition)
+  end
 end

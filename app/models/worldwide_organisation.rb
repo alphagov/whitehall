@@ -13,6 +13,8 @@ class WorldwideOrganisation < ActiveRecord::Base
   has_many :people, through: :roles
 
   translates :name, :summary, :description, :services
+  include Translatable
+
   alias :original_main_office :main_office
 
   validates_with SafeHtmlValidator
