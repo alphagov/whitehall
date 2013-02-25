@@ -154,7 +154,6 @@ class PublicationsControllerTest < ActionController::TestCase
   end
 
   test 'index should not use n+1 selects for consultations with outcomes' do
-    pending 'N+1 query test is meaningless right now, were testing a fake backend'
     15.times do
       consultation = create(:published_consultation, opening_on: Date.new(2011, 5, 1), closing_on: Date.new(2011, 7, 1))
       response = consultation.create_response!
