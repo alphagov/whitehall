@@ -2,7 +2,7 @@
   function parseYoutubeVideoId(string){
     if(string.indexOf('youtube.com') > -1){
       var i, _i, part, parts, params = {};
-      parts = string.split('?')
+      parts = string.split('?');
       if (parts.length === 1){
         return;
       }
