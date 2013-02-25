@@ -102,7 +102,11 @@ class Whitehall::Uploader::AttachmentCache
       if response['Content-Disposition']
         parts = response['Content-Disposition'].split(/; */)
         parts.each do |part|
-          if match = part.match(/filename *= *"(.*)"/)
+          # The spec tells us that the filename part of
+          # Content-disposition should be quoted, but certain
+          # misconfigured web servers don't do that. In the spirit of
+          # being generous in what we accept, quotes are optional.
+          if match = part.match(/filename *= *"?([^"]+)"?/)
             return match[1]
           end
         end

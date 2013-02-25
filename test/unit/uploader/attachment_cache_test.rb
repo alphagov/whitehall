@@ -110,6 +110,14 @@ class Whitehall::Uploader::AttachmentCacheTest < ActiveSupport::TestCase
     assert_equal "my-file.docx", File.basename(@cache.fetch(url).path)
   end
 
+  test "accepts badly formed content-disposition headers" do
+    url = "http://example.com/attachment"
+    stub_request(:get, url).to_return(body: "",
+      status: 200,
+      headers: {"Content-Disposition" => 'attachment; filename=my-file.docx'})
+    assert_equal "my-file.docx", File.basename(@cache.fetch(url).path)
+  end
+
   test "ignores common dynamic content extensions" do
     url = "http://example.com/download.php"
     stub_request(:get, url).to_return(body: "",
