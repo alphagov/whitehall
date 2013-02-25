@@ -66,7 +66,7 @@ Whitehall::Application.routes.draw do
         get :consultations
         get :chiefs_of_staff, path: 'chiefs-of-staff'
       end
-      resources :corporate_information_pages, only: [:show], path: 'about', defaults: { organisation_type: 'Organisation' }
+      resources :corporate_information_pages, only: [:show], path: 'about'
       resources :groups, only: [:show]
     end
     match "/organisations/:organisation_id/groups" => redirect("/organisations/%{organisation_id}")
@@ -78,7 +78,9 @@ Whitehall::Application.routes.draw do
     resources :policy_teams, path: 'policy-teams', only: [:index, :show]
     resources :policy_advisory_groups, path: 'policy-advisory-groups', only: [:index, :show]
     resources :operational_fields, path: 'fields-of-operation', only: [:index, :show]
-    resources :worldwide_organisations, path: 'world/organisations', only: [:show], localised: true
+    resources :worldwide_organisations, path: 'world/organisations', only: [:show], localised: true do
+      resources :corporate_information_pages, only: [:show], path: 'about'
+    end
 
     constraints(AdminRequest) do
       namespace :admin do

@@ -15,3 +15,22 @@ end
 Then /^I should see the text "([^"]*)"$/ do |text|
   assert has_css?("body", text: Regexp.new(Regexp.escape(text)))
 end
+
+When /^I add a "([^"]*)" corporate information page to the worldwide organisation$/ do |page_type|
+  worldwide_organisation = WorldwideOrganisation.last
+  visit admin_worldwide_organisation_path(worldwide_organisation)
+  click_link "Corporate information pages"
+  click_link "New corporate information page"
+  fill_in "Body", with: "This is a new #{page_type} page"
+  select page_type, from: "Type"
+  click_button "Save"
+end
+
+Then /^I should see the corporate information on the public worldwide organisation page$/ do
+  worldwide_organisation = WorldwideOrganisation.last
+  info_page = worldwide_organisation.corporate_information_pages.last
+  visit worldwide_organisation_path(worldwide_organisation)
+  assert page.has_content?(info_page.title)
+  click_link info_page.title
+  assert page.has_content?(info_page.body)
+end

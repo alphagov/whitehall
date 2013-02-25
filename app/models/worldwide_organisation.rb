@@ -24,6 +24,11 @@ class WorldwideOrganisation < ActiveRecord::Base
   extend FriendlyId
   friendly_id
 
+  delegate :analytics_identifier, :alternative_format_contact_email, to: :sponsoring_organisation, allow_nil: true
+  def sponsoring_organisation
+    sponsoring_organisations.first
+  end
+
   def display_name
     self.name
   end
