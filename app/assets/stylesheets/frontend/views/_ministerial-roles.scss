@@ -1,40 +1,61 @@
 
 .ministers-index {
 
-  .block-1 {
-    padding-top: $gutter-one-sixth;
-
-    .page-header {
-      @extend %contain-floats;
-      padding: $gutter-half 0 0;
-
-      @include media(tablet){
-        padding: $gutter*1.5 0 0;
+  .header-block {
+    .inner-block {
+      padding: $gutter*1.5 0 0;
+      @include media(tablet) {
+        padding: $gutter*1.5 $gutter-half 0;
       }
 
-      h1 {
-        width: 75%;
-        float: left;
-        display: block;
-        @include core-36;
-        color: $grey-1;
-        font-weight: normal;
-        padding-bottom: 0;
+      .header-title, .jump-links {
+        .content {
+          padding: 0 $gutter-half;
+        }
+        @include media(tablet) {
+          float: left;
+          display: inline;
+          width: 66.66%;
+        }
+      }
+
+      .jump-links {
+        h4 {
+          @include core-16;
+          padding-top: $gutter-one-third;
+        }
+        ul li {
+          @include core-16;
+          list-style: none;
+          padding: $gutter-one-sixth 0 0 0;
+          margin-left: 0;
+          a {
+            text-decoration: none;
+          }
+        }
+        @include media(tablet) {
+          float: right;
+          width: 25%;
+        }
       }
     }
   }
 
-  .block-2 {
-    h1.label {
-      @include core-48;
-      font-weight: bold;
-      padding-top: 0;
-    }
+  h2 {
+    @include heading-36;
+    border-bottom: 5px solid $inside-gov-brand;
+  }
 
+  .block-2 {
+    clear: both;
+    padding-top: $gutter;
     #cabinet {
       margin: 0 ($gutter-half*-1);
-      padding-top: ($gutter+$gutter-one-sixth);
       overflow: hidden;
+      padding-top: $gutter-half;
+      @include media(tablet) {
+        padding-top: $gutter;
+      }
     }
 
   }
@@ -47,22 +68,35 @@
       font-weight: bold;
     }
 
+      h2 {
+      margin-bottom: $gutter;
+      @include media(tablet) {
+        margin-bottom: $gutter-two-thirds;
+      }
+    }
+
     section {
       @extend %contain-floats;
       margin-bottom: $gutter;
       padding-bottom: $gutter-half;
       border-bottom: 1px solid $border-colour;
 
-      h2 {
+      h3 {
         margin: $gutter-half 0;
-        float: left;
         @include media(tablet) {
+          float: left;
           width: 25%;
+        }
+        &.current-appointee {
+          border: 0;
+          float: none;
+          width: 100%;
+          margin: 0;
         }
       }
 
       .minister-list {
-        margin: 40px (-$gutter-half) 0;
+        margin: $gutter-two-thirds (-$gutter-half) 0;
 
         @include media(tablet) {
           float: right;
@@ -77,12 +111,22 @@
   }
 
   .whips {
+    h2 {
+      margin-bottom: 0;
+    }
     section {
-      h2 {
+      h3 {
         @include heading-24;
+        margin-bottom: 0;
+        @include media {
+          margin-top: $gutter-two-thirds;
+        }
       }
       .minister-list {
-        margin-top: 25px;
+        margin-top: 0;
+        @include media(tablet) {
+          margin-top: $gutter-two-thirds+$gutter-one-sixth;
+        }
       }
     }
   }
@@ -93,8 +137,8 @@
       width: auto;
     }
   }
-  .simple-alphabetical-list {
 
+  .simple-alphabetical-list {
     strong {
       @include bold;
     }
