@@ -1,6 +1,6 @@
 <% if object.available_in_multiple_languages? %>
   <div class="translations">
-    <% object.translated_locales.each do |locale| %>
+    <% sorted_locales(object.translated_locales).each do |locale| %>
       <span class="translation">
         <% if locale == I18n.locale %>
           <%= native_language_name_for(locale) %>
