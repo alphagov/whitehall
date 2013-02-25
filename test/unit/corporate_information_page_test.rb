@@ -96,7 +96,8 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
         CorporateInformationPageType::ComplaintsProcedure,
         CorporateInformationPageType::TermsOfReference,
         CorporateInformationPageType::OurGovernance,
-        CorporateInformationPageType::Membership
+        CorporateInformationPageType::Membership,
+        CorporateInformationPageType::OfficeAccessAndOpeningTimes
       ],
       jobs_and_contracts: [
         CorporateInformationPageType::Procurement,

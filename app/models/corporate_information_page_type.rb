@@ -57,4 +57,7 @@ class CorporateInformationPageType
   Research = create(
     id: 14, title_template: "Research at %s", slug: "research", menu_heading: :our_information
   )
+  OfficeAccessAndOpeningTimes = create(
+    id: 15, title_template: "Office access and opening times", slug: "access-and-opening", menu_heading: :our_information
+  )
 end
