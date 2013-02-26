@@ -71,6 +71,30 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_select ".organisation .description", text: "organisation-description"
   end
 
+  view_test "provides ids for links with fragment identifiers to jump to relevent sections" do
+    topic = create(:topic, published_edition_count: 1)
+    management_role = create(:board_member_role)
+    management = create(:role_appointment, role: management_role, person: create(:person))
+    organisation = create(:organisation, topics: [topic], management_roles: [management_role])
+    create(:sub_organisation, parent_organisations: [organisation])
+    create(:published_policy, organisations: [organisation], topics: [topic])
+    role = create(:ministerial_role, role_appointments: [create(:role_appointment)])
+    create(:organisation_role, organisation: organisation, role: role)
+    create(:corporate_information_page, organisation: organisation)
+
+    get :show, id: organisation
+
+    assert_select '#corporate-info'
+    assert_select '#high-profile-units'
+    assert_select '#management'
+    assert_select '#ministers'
+    assert_select '#org-contacts'
+    assert_select '#people'
+    assert_select '#policies'
+    assert_select '#topics'
+    assert_select '#what-we-do'
+  end
+
   def self.sets_cache_control_max_age_to_time_of_next_scheduled(edition_type)
     test "#show sets Cache-Control: max-age to the time of the next scheduled #{edition_type}" do
       user = login_as(:departmental_editor)

@@ -190,7 +190,7 @@
           <% if @important_board_members.any? || @board_members.any? %>
             <section id="management" class="important-board-members-<%= @organisation.important_board_members %>">
               <h1 class="label">Our management</h1>
-              <ul class="managment-primary">
+              <ul class="management-primary">
                 <% @important_board_members.each_with_index do |role, i| %>
                   <%= render partial: "people/person",
                   locals: {
@@ -258,8 +258,8 @@
   <div class="block-10">
     <div class="inner-block">
       <div class="contact-wrapper">
-        <h1 class="label">Contact <%= @organisation.display_name %></h1>
-        <div id="org-contacts">
+        <h1 id="org-contacts" class="label">Contact <%= @organisation.display_name %></h1>
+        <div class="org-contacts">
           <div class="addresses js-hide-extra-rows-2">
             <%= render partial: 'contacts/contact', collection: @organisation.contacts %>
           </div>
