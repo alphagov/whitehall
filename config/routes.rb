@@ -168,6 +168,9 @@ Whitehall::Application.routes.draw do
           resources :translations, controller: 'world_location_translations'
         end
         resources :case_studies, path: "case-studies", except: [:index]
+        if Rails.env.test?
+          resources :generic_editions, path: "generic-editions"
+        end
 
         resources :imports do
           member do

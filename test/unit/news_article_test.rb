@@ -98,4 +98,7 @@ class NewsArticleTest < ActiveSupport::TestCase
     assert news_article.search_format_types.include?('other-thing')
   end
 
+  test "should be translatable" do
+    assert build(:news_article).translatable?
+  end
 end
