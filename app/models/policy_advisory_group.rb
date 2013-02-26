@@ -10,6 +10,6 @@ class PolicyAdvisoryGroup < PolicyGroup
   end
 
   def search_link
-    policy_advisory_groups_path(slug)
+    policy_advisory_group_path(slug)
   end
 end
