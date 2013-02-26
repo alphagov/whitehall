@@ -24,38 +24,42 @@
   </div>
 </section>
 
-<section class="block about-block" id="our-services">
-  <div class="inner-block">
-    <h1 class="keyline-header"><%= t('worldwide_organisation.our_services' ) %></h1>
-    <div class="content">
-      <%= govspeak_to_html @worldwide_organisation.services %>
+<% if @worldwide_organisation.services.present? %>
+  <section class="block about-block" id="our-services">
+    <div class="inner-block">
+      <h1 class="keyline-header"><%= t('worldwide_organisation.our_services' ) %></h1>
+      <div class="content">
+        <%= govspeak_to_html @worldwide_organisation.services %>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
+<% end %>
 
-<section class="block people" id="people">
-  <div class="inner-block floated-children">
-    <h1 class="keyline-header"><%= t('worldwide_organisation.our_people' ) %></h1>
-    <%= render( partial: 'people/person',
-                locals: {
-                  person: @primary_role.current_person,
-                  roles: [@primary_role],
-                  hlevel: 'h2',
-                  wrapping_element: :div }) if @primary_role %>
-    <ul class="people-list">
-      <% clear_person = 0 %>
-      <% @other_roles.each do |role| %>
-        <%= render( partial: 'people/person',
-                    locals: {
-                      person: role.current_person,
-                      roles: [role],
-                      hlevel: 'h2',
-                      hide_image: true,
-                      extra_class: ((clear_person += 1) % 3 == 1 ? 'clear-person' : '')}) %>
-      <% end %>
-    </ul>
-  </div>
-</section>
+<% if @primary_role.present? || @other_roles.present? %>
+  <section class="block people" id="people">
+    <div class="inner-block floated-children">
+      <h1 class="keyline-header"><%= t('worldwide_organisation.our_people' ) %></h1>
+      <%= render( partial: 'people/person',
+                  locals: {
+                    person: @primary_role.current_person,
+                    roles: [@primary_role],
+                    hlevel: 'h2',
+                    wrapping_element: :div }) if @primary_role %>
+      <ul class="people-list">
+        <% clear_person = 0 %>
+        <% @other_roles.each do |role| %>
+          <%= render( partial: 'people/person',
+                      locals: {
+                        person: role.current_person,
+                        roles: [role],
+                        hlevel: 'h2',
+                        hide_image: true,
+                        extra_class: ((clear_person += 1) % 3 == 1 ? 'clear-person' : '')}) %>
+        <% end %>
+      </ul>
+    </div>
+  </section>
+<% end %>
 
 <% if @main_office %>
   <section class="block contact-us" id="contact-us">
