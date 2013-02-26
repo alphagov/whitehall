@@ -20,7 +20,7 @@ gem 'plek', '1.1.0'
 gem 'fog'
 gem 'isbn_validation'
 gem 'gds-sso', '3.0.0'
-gem 'rummageable', '0.6.2'
+gem 'rummageable', '0.7.0', github: "alphagov/rummageable", branch: "crack-to-use-yajl-ruby"
 gem 'addressable'
 gem 'exception_notification', require: 'exception_notifier'
 gem 'rabl'

@@ -176,7 +176,7 @@ class Organisation < ActiveRecord::Base
 
   default_scope order(arel_table[:name])
 
-  searchable title: :name,
+  searchable title: :select_name,
              link: :search_link,
              content: :indexable_content,
              boost_phrases: :acronym
