@@ -18,7 +18,7 @@ class Admin::ContactsController < Admin::BaseController
   def update
     @contact.update_attributes(params[:contact])
     if @contact.save
-      redirect_to [:admin, @contact.contactable, Contact]
+      redirect_to [:admin, @contact.contactable, Contact], notice: "\"#{@contact.title}\" updated successfully"
     else
       render :edit
     end
@@ -27,7 +27,7 @@ class Admin::ContactsController < Admin::BaseController
   def create
     @contact = @contactable.contacts.build(params[:contact])
     if @contact.save
-      redirect_to [:admin, @contact.contactable, Contact]
+      redirect_to [:admin, @contact.contactable, Contact], notice: "\"#{@contact.title}\" created successfully"
     else
       render :edit
     end
@@ -35,7 +35,7 @@ class Admin::ContactsController < Admin::BaseController
 
   def destroy
     if @contact.destroy
-      redirect_to [:admin, @contact.contactable, Contact]
+      redirect_to [:admin, @contact.contactable, Contact], notice: "\"#{@contact.title}\" deleted successfully"
     else
       render :edit
     end
