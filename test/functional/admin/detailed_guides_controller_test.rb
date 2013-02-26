@@ -11,9 +11,6 @@ class Admin::DetailedGuidesControllerTest < ActionController::TestCase
   should_allow_editing_of :detailed_guide
   should_allow_revision_of :detailed_guide
 
-  should_show_document_audit_trail_for :detailed_guide, :show
-  should_show_document_audit_trail_for :detailed_guide, :edit
-
   should_allow_organisations_for :detailed_guide
   should_allow_association_with_topics :detailed_guide
   should_allow_attachments_for :detailed_guide

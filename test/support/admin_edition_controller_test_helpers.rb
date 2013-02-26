@@ -2,20 +2,6 @@ module AdminEditionControllerTestHelpers
   extend ActiveSupport::Concern
 
   module ClassMethods
-    def should_show_document_audit_trail_for(edition_type, action)
-      view_test "should show who created the document and when on #{action}" do
-        tom = login_as(create(:gds_editor, name: "Tom", email: "tom@example.com"))
-        draft_edition = create("draft_#{edition_type}")
-
-        request.env['HTTPS'] = 'on'
-        get action, id: draft_edition
-
-        assert_select ".audit-trail", text: /Created by Tom/ do
-          assert_select "img[src^='https']"
-        end
-      end
-    end
-
     def should_have_summary(edition_type)
       edition_class = class_for(edition_type)
 
