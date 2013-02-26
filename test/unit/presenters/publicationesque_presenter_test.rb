@@ -30,4 +30,22 @@ class PublicationesquePresenterTest < PresenterTestCase
     presenter = PublicationesquePresenter.decorate(publication)
     refute presenter.part_of_series?
   end
+
+  test 'should add publication series link to hash' do
+    document = stub_record(:document)
+    document.stubs(:to_param).returns('some-doc')
+    organisation = stub_record(:organisation, name: "Ministry of Defence", organisation_type: stub_record(:organisation_type))
+    operational_field = stub_record(:operational_field, name: "Name")
+    series = stub_record(:document_series, name: 'SeriesName', organisation: organisation)
+    publication = stub_record(:publication,
+      document: document,
+      public_timestamp: Time.zone.now,
+      organisations: [organisation],
+      document_series: [series])
+    # TODO: perhaps rethink edition factory, so this apparent duplication
+    # isn't neccessary
+    publication.stubs(:organisations).returns([organisation])
+    hash = PublicationesquePresenter.new(publication).as_hash
+    assert hash[:publication_series] =~ /#{series.name}/
+  end
 end

@@ -79,25 +79,16 @@
         <section class="previous-roles" id="previous-roles">
           <h1>Previous roles in government</h1>
 
-          <table class="document-list">
-            <thead class="visuallyhidden">
-              <tr>
-                <th scope="col">Title</th>
-                <th scope="col">Date</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              <% @person.previous_role_appointments.each do |appointment| %>
-                <%= content_tag_for :tr, appointment, class: "document-row" do %>
-                  <th scope="row" class="title attribute"><%= appointment.role_link %></th>
-                  <td class="date attribute">
-                    <%= appointment.date_range %>
-                  </td>
-                <% end %>
+          <ol class="document-list">
+            <% @person.previous_role_appointments.each do |appointment| %>
+              <%= content_tag_for :li, appointment, class: "document-row" do %>
+                <h3><%= appointment.role_link %></h3>
+                <ul class="attributes">
+                  <li class="date"><%= appointment.date_range %></li>
+                </ul>
               <% end %>
-            </tbody>
-          </table>
+            <% end %>
+          </ol>
         </section>
       <% end %>
 

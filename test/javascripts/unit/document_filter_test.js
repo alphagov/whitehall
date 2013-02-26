@@ -19,7 +19,7 @@ module("Document filter", {
       '</form>');
     $('#qunit-fixture').append(this.filterForm);
 
-    this.filterResults = $('<div class="filter-results" />');
+    this.filterResults = $('<div class="js-filter-results" />');
     $('#qunit-fixture').append(this.filterResults);
 
     this.atomLink = $('<div class="subscribe"><a class="feed">feed</a></div>');
@@ -31,11 +31,17 @@ module("Document filter", {
     this.selections = this.resultsCount.find('.selections');
 
     this.ajaxData = {
-      "next_page_url": '/next-page-url',
-      "prev_page_url": '/prev-page-url',
+      "next_page?": true,
       "next_page": 2,
+      "next_page_url": '/next-page-url',
+      "next_page_json": '/next-page-url.json',
+
+      "prev_page_url": '/prev-page-url',
+      "more_pages?": true,
       "total_pages": 5,
+
       "atom_feed_url": '/atom-feed',
+      "results_any?": true,
       "results": [
         {
           "id": 1,
@@ -62,56 +68,20 @@ module("Document filter", {
   }
 });
 
-test("should create pagination from ajax data", function() {
-  var data = this.ajaxData;
+test("should render mustache template from ajax data", function() {
+  var stub = sinon.stub($.fn, "mustache");
+  stub.returns(true);
 
-  var $pagination = GOVUK.documentFilter.drawPagination(data);
-  ok($pagination.find('a[href="/next-page-url"]').length > 0);
-  equal($pagination.find('a[href="/next-page-url"] span').text(), '2 of 5');
+  GOVUK.documentFilter.renderTable(this.ajaxData);
 
-  delete data.next_page_url;
-  var $pagination = GOVUK.documentFilter.drawPagination(data);
-  equals($pagination.find('a[href="/next-page-url"]').length, 0);
-
-});
-
-test("should identify important attributes", function(){
-  var importantAttributes = ['id', 'title', 'url', 'type'],
-      attr;
-
-  for(attr in importantAttributes){
-    ok(GOVUK.documentFilter.importantAttribute(attr));
-  }
-});
-
-test("should create table rows from ajax data", function() {
-  var $tbody = GOVUK.documentFilter.drawTableRows(this.ajaxData.results);
-
-  equals($tbody.find('#document-type_1').length, 1, "document row exists");
-  equals($tbody.find('a[href="/document-path"]').length, 1, "links to document");
-  equals($tbody.find('td:contains("topic-name-1, topic-name-2")').length, 2, "topics are visible");
-
-  equals($tbody.find('#document-type-2_2').length, 1, "document row exists");
-  equals($tbody.find('a[href="/document-path-2"]').length, 1, "links to document");
-  equals($tbody.find('td:contains("organisation-name-2, organisation-name-3")').length, 1, "organisations are visible");
-});
-
-test("should create table from ajax data", function() {
-  GOVUK.documentFilter.drawTable(this.ajaxData);
-
-  equals(this.filterResults.find('thead th:contains("Title")').length, 1);
-  equals(this.filterResults.find('thead th:contains("Topic")').length, 1);
-  equals(this.filterResults.find('thead th:contains("Organisation")').length, 1);
-
-  equals(this.filterResults.find('tbody tr').length, 2);
-
-  equals(this.filterResults.find('#show-more-documents').length, 1);
+  equal(stub.getCall(0).args[1], this.ajaxData);
+  stub.restore();
 });
 
 test("should show message when ajax data is empty", function() {
-  GOVUK.documentFilter.drawTable({ results: [] });
+  GOVUK.documentFilter.renderTable({ 'results_any?': false });
 
-  equals(this.filterResults.find('table').length, 0);
+  equals(this.filterResults.find('js-document-list').length, 0);
   equals(this.filterResults.find('.no-results').length, 1);
 });
 
@@ -159,7 +129,7 @@ test("should make an ajax request on form submission to obtain filtered results"
 
 test("should make an ajax request to load more results inline", function() {
   this.filterForm.enableDocumentFilter();
-  this.filterResults.append(GOVUK.documentFilter.drawPagination(this.ajaxData));
+  GOVUK.documentFilter.renderTable(this.ajaxData);
 
   var ajax = this.spy(jQuery, "ajax");
   var server = this.sandbox.useFakeServer();
@@ -201,7 +171,9 @@ test("should send filter form parameters in ajax request", function() {
   equals(settings["data"][0]["value"], "bar");
 });
 
-test("should generate table of results based on successful ajax response", function() {
+test("should render results based on successful ajax response", function() {
+  var stub = sinon.stub($.fn, "mustache");
+  stub.returns(true);
   this.filterForm.enableDocumentFilter();
 
   var server = this.sandbox.useFakeServer();
@@ -210,7 +182,8 @@ test("should generate table of results based on successful ajax response", funct
   this.filterForm.submit();
   server.respond();
 
-  equals(this.filterResults.find("table tbody tr").length, 2);
+  deepEqual(stub.getCall(0).args[1], this.ajaxData);
+  stub.restore();
 });
 
 test("should add extra results to table results", function() {
@@ -222,12 +195,12 @@ test("should add extra results to table results", function() {
   this.filterForm.submit();
   server.respond();
 
-  equals(this.filterResults.find("table tbody tr").length, 2);
+  equals(this.filterResults.find(".document-row").length, 2);
 
   GOVUK.documentFilter.loadMoreInline();
   server.respond();
 
-  equals(this.filterResults.find("table tbody tr").length, 4);
+  equals(this.filterResults.find(".document-row").length, 4);
 });
 
 test("should fire analytics on successful ajax response", function() {

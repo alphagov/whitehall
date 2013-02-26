@@ -30,55 +30,8 @@
       <%= link_to_feed filter_atom_feed_url %>
     </div>
 
-    <div class="filter-results" id="announcements-container" aria-live="polite"><%# this class used by Javascript %>
-    <% if @filter.documents.any? %>
-      <table class="document-list emphasise-recent" id="document-list"><%# this class used by Javascript %>
-        <thead class="visuallyhidden">
-          <tr>
-            <th scope="col">Title</th>
-            <th scope="col">Publication Date</th>
-            <th scope="col">Publication Organisations</th>
-            <th scope="col">Announcement Type</th>
-          </tr>
-        </thead>
-        <tbody>
-        <% @filter.documents.each_with_index do |announcement, i| %>
-          <%= content_tag_for(:tr, announcement, class: "document-row#{i < 3 ? ' recent' : ''}") do %>
-            <th scope="row" class="title attribute">
-              <%= link_to announcement.title, public_document_path(announcement),
-                  title: "View #{announcement.title}" %>
-            </th>
-            <td class="attribute first_published_at">
-              <%= announcement.display_date_microformat %>
-            </td>
-            <td class="attribute organisations">
-              <%= announcement.organisations.map { |o|
-                organisation_display_name(o) }.to_sentence.html_safe %>
-            </td>
-            <td class="announcement_type attribute">
-              <%= announcement.display_type %>
-            </td>
-            <% if announcement.has_operational_field? %>
-              <td class="attribute field_of_operation">
-                Field of operation: <%= link_to announcement.operational_field.name, announcement.operational_field %>
-              </td>
-            <% end %>
-            <% if announcement.respond_to?(:part_of_series?) && announcement.part_of_series? %>
-              <td class="document_series attribute">
-                Part of a series: <%= list_of_links_to_document_series(announcement) %>
-              </td>
-            <% end %>
-          <% end %>
-        <% end %>
-        </tbody>
-      </table>
-      <%= paginate @filter.documents %>
-    <% else %>
-      <div class="no-results">
-        <h2>There are no matching announcements.</h2>
-        <p>Try making your search broader and try again.</p>
-      </div>
-    <% end %>
+    <div class="filter-results js-filter-results" id="announcements-container" aria-live="polite">
+      <%= render_mustache('documents/filter_table', @filter.as_hash) %>
     </div>
   </div>
 </div>

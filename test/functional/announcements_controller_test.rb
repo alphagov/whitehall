@@ -48,13 +48,13 @@ class AnnouncementsControllerTest < ActionController::TestCase
     get :index
 
     assert_select_object announced_today[0] do
-      assert_select ".announcement_type", text: "News story"
+      assert_select ".display-type", text: "News story"
     end
     assert_select_object announced_today[1] do
-      assert_select ".announcement_type", text: "Speech"
+      assert_select ".display-type", text: "Speech"
     end
     assert_select_object announced_today[2] do
-      assert_select ".announcement_type", text: "Statement to parliament"
+      assert_select ".display-type", text: "Statement to parliament"
     end
   end
 
@@ -146,7 +146,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
   end
 
   def assert_documents_appear_in_order_within(containing_selector, expected_documents)
-    articles = css_select "#{containing_selector} tr.document-row"
+    articles = css_select "#{containing_selector} li.document-row"
     expected_document_ids = expected_documents.map { |doc| dom_id(doc) }
     actual_document_ids = articles.map { |a| a["id"] }
     assert_equal expected_document_ids, actual_document_ids

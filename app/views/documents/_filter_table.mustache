@@ -1,0 +1,46 @@
+{{#results_any?}}
+  <ol class="js-document-list document-list lead-in">
+    {{#results}}
+      <li id="{{type}}_{{id}}" class="document-row">
+        <h3><a href="{{url}}">{{title}}</a></h3>
+        <ul class="attributes">
+          <li>{{{display_date_microformat}}}</li>
+          <li class="organisations">{{{organisations}}}</li>
+          <li class="display-type">{{display_type}}</li>
+          {{#field_of_operation}}
+            <li class="field-of-operation">{{{.}}}</li>
+          {{/field_of_operation}}
+          {{#topics}}
+            <li class="topics">{{{.}}}</li>
+          {{/topics}}
+          {{#publication_series}}
+            <li class="document-series">{{{.}}}</li>
+          {{/publication_series}}
+        </ul>
+      </li>
+    {{/results}}
+  </ol>
+  {{#more_pages?}}
+    <nav id="show-more-documents" role="navigation">
+      <ul class="previous-next-navigation">
+        {{#prev_page?}}
+          <li class="previous">
+            <a href="{{prev_page_url}}">Previous page <span>{{prev_page}} of {{total_pages}}</span></a>
+          </li>
+        {{/prev_page?}}
+        {{#next_page?}}
+          <li class="next">
+            <a href="{{next_page_url}}">Next page <span>{{next_page}} of {{total_pages}}</span></a>
+          </li>
+          <link rel="next" type="application/json" href="{{next_page_json}}">
+        {{/next_page?}}
+      </ul>
+    </nav>
+  {{/more_pages?}}
+{{/results_any?}}
+{{^results_any?}}
+  <div class="no-results">
+    <h2>There are no matching documents.</h2>
+    <p>Try making your search broader and try again.</p>
+  </div>
+{{/results_any?}}

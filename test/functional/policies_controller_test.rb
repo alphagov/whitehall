@@ -253,9 +253,9 @@ That's all
 
     assert_select "#recently-changed" do
       assert_select_object speech do
-        assert_select ".document-row .type", text: "Speech"
-        assert_select ".document-row .published-at[title='#{speech.public_timestamp.iso8601}']"
-        assert_select ".document-row .organisations", text: organisation.acronym
+        assert_select ".display-type", text: "Speech"
+        assert_select ".published-at[title='#{speech.public_timestamp.iso8601}']"
+        assert_select ".organisations", text: organisation.acronym
       end
     end
   end
@@ -285,7 +285,7 @@ That's all
     get :activity, id: policy.document
 
     assert_select_object edition do
-      assert_select '.document-row .date', text: %r{#{edition.publication_date.to_s(:long_ordinal)}}
+      assert_select '.date', text: %r{#{edition.publication_date.to_s(:long_ordinal)}}
     end
   end
 
@@ -329,7 +329,7 @@ That's all
 
     get :activity, id: policy.document
 
-    assert_select ".speech .type", text: "Statement to parliament"
+    assert_select ".speech .display-type", text: "Statement to parliament"
   end
 
   view_test "supporting case studies are included in page" do
