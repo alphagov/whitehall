@@ -2,17 +2,6 @@ module AdminEditionControllerTestHelpers
   extend ActiveSupport::Concern
 
   module ClassMethods
-    def should_allow_showing_of(edition_type)
-      view_test "should render the content using govspeak markup" do
-        draft_edition = create("draft_#{edition_type}", body: "body-in-govspeak")
-        govspeak_transformation_fixture default: "\n", "body-in-govspeak" => "body-in-html" do
-          get :show, id: draft_edition
-        end
-
-        assert_select ".body", text: "body-in-html"
-      end
-    end
-
     def should_show_document_audit_trail_for(edition_type, action)
       view_test "should show who created the document and when on #{action}" do
         tom = login_as(create(:gds_editor, name: "Tom", email: "tom@example.com"))

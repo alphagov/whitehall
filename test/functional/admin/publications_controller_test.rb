@@ -7,7 +7,6 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
 
   should_be_an_admin_controller
 
-  should_allow_showing_of :publication
   should_allow_creating_of :publication
   should_allow_editing_of :publication
   should_allow_revision_of :publication

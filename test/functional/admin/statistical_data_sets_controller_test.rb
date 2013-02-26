@@ -8,7 +8,6 @@ class Admin::StatisticalDataSetsControllerTest < ActionController::TestCase
 
   should_be_an_admin_controller
 
-  should_allow_showing_of :statistical_data_set
   should_allow_creating_of :statistical_data_set
   should_allow_editing_of :statistical_data_set
   should_allow_revision_of :statistical_data_set

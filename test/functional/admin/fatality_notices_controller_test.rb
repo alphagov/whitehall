@@ -8,7 +8,6 @@ class Admin::FatalityNoticesControllerTest < ActionController::TestCase
   should_be_an_admin_controller
   should_require_fatality_handling_permission_to_access :fatality_notice, :new, :edit
 
-  should_allow_showing_of :fatality_notice
   should_allow_creating_of :fatality_notice
   should_allow_editing_of :fatality_notice
 

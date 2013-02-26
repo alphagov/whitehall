@@ -8,7 +8,6 @@ class Admin::WorldwidePrioritiesControllerTest < ActionController::TestCase
 
   should_be_an_admin_controller
 
-  should_allow_showing_of :worldwide_priority
   should_allow_creating_of :worldwide_priority
   should_allow_editing_of :worldwide_priority
   should_allow_revision_of :worldwide_priority

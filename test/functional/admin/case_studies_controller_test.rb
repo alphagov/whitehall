@@ -7,7 +7,6 @@ class Admin::CaseStudiesControllerTest < ActionController::TestCase
 
   should_be_an_admin_controller
 
-  should_allow_showing_of :case_study
   should_allow_creating_of :case_study
   should_allow_editing_of :case_study
 

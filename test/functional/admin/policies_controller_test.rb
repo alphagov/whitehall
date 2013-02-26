@@ -9,7 +9,6 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
 
   should_be_an_admin_controller
 
-  should_allow_showing_of :policy
   should_allow_creating_of :policy
   should_allow_editing_of :policy
   should_allow_revision_of :policy

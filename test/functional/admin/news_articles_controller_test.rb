@@ -7,7 +7,6 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
 
   should_be_an_admin_controller
 
-  should_allow_showing_of :news_article
   should_allow_creating_of :news_article
   should_allow_editing_of :news_article
 
