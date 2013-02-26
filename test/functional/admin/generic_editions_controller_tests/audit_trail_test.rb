@@ -16,6 +16,4 @@ class Admin::GenericEditionsController::AuditTrailTest < ActionController::TestC
       end
     end
   end
-
-  should_be_an_admin_controller
 end

@@ -15,6 +15,4 @@ class Admin::GenericEditionsController::GovspeakTest < ActionController::TestCas
 
     assert_select ".body", text: "body-in-html"
   end
-
-  should_be_an_admin_controller
 end
