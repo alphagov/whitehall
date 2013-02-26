@@ -233,4 +233,8 @@ class SpeechTest < ActiveSupport::TestCase
     assert speech.search_format_types.include?('stuff-innit')
     assert speech.search_format_types.include?('other-thing')
   end
+
+  test "should be translatable" do
+    assert build(:speech).translatable?
+  end
 end
