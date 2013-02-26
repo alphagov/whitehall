@@ -39,7 +39,7 @@ class Admin::SocialMediaAccountsController < Admin::BaseController
     end
   end
 
-  private
+private
 
   def find_socialable
     @socialable =

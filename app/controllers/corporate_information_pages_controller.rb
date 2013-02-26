@@ -6,7 +6,7 @@ class CorporateInformationPagesController < PublicFacingController
     set_slimmer_organisations_header([@corporate_information_page.organisation])
   end
 
-  private
+private
 
   def find_organisation
     @organisation =

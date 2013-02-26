@@ -41,7 +41,7 @@ class Admin::ContactsController < Admin::BaseController
     end
   end
 
-  private
+private
 
   def find_contactable
     @contactable  =
