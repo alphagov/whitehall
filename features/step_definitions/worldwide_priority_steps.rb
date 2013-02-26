@@ -1,8 +1,4 @@
 # encoding: utf-8
-Given /^I have drafted a worldwide priority "([^"]*)"$/ do |title|
-  begin_drafting_document type: "worldwide_priority", title: title
-  click_button "Save"
-end
 
 When /^I draft a new worldwide priority "([^"]*)"$/ do |title|
   begin_drafting_document type: "worldwide_priority", title: title
@@ -40,19 +36,4 @@ end
 Then /^I should be able to navigate to the english translation "([^"]*)"$/ do |english_title|
   click_link "English"
   assert page.has_css?('.title', text: english_title)
-end
-
-When /^I add a french translation "([^"]*)" to the "([^"]*)" worldwide priority$/ do |french_title, english_title|
-  visit admin_edition_path(Edition.find_by_title!(english_title))
-  select "Français", from: "Locale"
-  click_button "Add translation"
-  fill_in "Title", with: french_title
-  fill_in "Summary", with: "French summary"
-  fill_in "Body", with: "French body"
-  click_button "Save"
-end
-
-Then /^I should see in the preview that "([^"]*)" has a french translation "([^"]*)"$/ do |english_title, french_title|
-  visit admin_edition_path(Edition.find_by_title!(english_title))
-  assert page.has_css?('.translations .title', text: french_title)
 end
