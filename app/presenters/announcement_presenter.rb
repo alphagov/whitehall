@@ -17,7 +17,7 @@ class AnnouncementPresenter < Draper::Base
   end
 
   def publication_series
-    if model.part_of_series?
+    if model.respond_to?(:part_of_series?) && model.part_of_series?
       links = model.document_series.map do |ds|
         h.link_to(ds.name, h.organisation_document_series_path(ds.organisation, ds))
       end
