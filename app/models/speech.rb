@@ -40,6 +40,10 @@ class Speech < Announcement
     end
   end
 
+  def translatable?
+    true
+  end
+
   def delivery_title
     role_appointment.role.ministerial? ? "Minister" : "Speaker"
   end

@@ -12,4 +12,8 @@ class CaseStudy < Edition
   def search_format_types
     super + [CaseStudy.search_format_type]
   end
+
+  def translatable?
+    true
+  end
 end

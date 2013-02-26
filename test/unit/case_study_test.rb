@@ -16,4 +16,8 @@ class CaseStudyTest < ActiveSupport::TestCase
     case_study = build(:case_study)
     assert case_study.search_format_types.include?('case-study')
   end
+
+  test "should be translatable" do
+    assert build(:case_study).translatable?
+  end
 end
