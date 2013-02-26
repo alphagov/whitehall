@@ -14,7 +14,7 @@ class Admin::ContactsControllerTest < ActionController::TestCase
 
     assert_redirected_to admin_organisation_contacts_url(organisation)
     assert contact = organisation.contacts.last
-    assert_equal "\"#{contact.title}\" created successfully", flash[:notice]
+    assert_equal %{"#{contact.title}" created successfully}, flash[:notice]
     assert_equal "Main office", organisation.contacts.first.title
   end
 
@@ -32,7 +32,7 @@ class Admin::ContactsControllerTest < ActionController::TestCase
 
     assert_redirected_to admin_organisation_contacts_url(organisation)
     assert contact = organisation.contacts.last
-    assert_equal "\"#{contact.title}\" created successfully", flash[:notice]
+    assert_equal %{"#{contact.title}" created successfully}, flash[:notice]
     assert_equal ["Main phone: 1234"], contact.contact_numbers.map { |cn| "#{cn.label}: #{cn.number}" }
   end
 
@@ -43,7 +43,7 @@ class Admin::ContactsControllerTest < ActionController::TestCase
     put :update, contact: {title: "Head office"}, organisation_id: organisation, id: contact
 
     assert_redirected_to admin_organisation_contacts_url(organisation)
-    assert_equal "\"#{contact.reload.title}\" updated successfully", flash[:notice]
+    assert_equal %{"#{contact.reload.title}" updated successfully}, flash[:notice]
     assert_equal ["Head office"], organisation.contacts.map(&:title)
   end
 
@@ -62,7 +62,7 @@ class Admin::ContactsControllerTest < ActionController::TestCase
       organisation_id: organisation, id: contact
 
     assert_redirected_to admin_organisation_contacts_url(organisation)
-    assert_equal "\"#{contact.reload.title}\" updated successfully", flash[:notice]
+    assert_equal %{"#{contact.reload.title}" updated successfully}, flash[:notice]
     assert_equal ["Main phone: 5678"], contact.reload.contact_numbers.map { |cn| "#{cn.label}: #{cn.number}" }
   end
 
@@ -73,7 +73,7 @@ class Admin::ContactsControllerTest < ActionController::TestCase
     delete :destroy, organisation_id: organisation, id: contact
 
     assert_redirected_to admin_organisation_contacts_url(organisation)
-    assert_equal "\"#{contact.title}\" deleted successfully", flash[:notice]
+    assert_equal %{"#{contact.title}" deleted successfully}, flash[:notice]
     refute Contact.exists?(contact)
   end
 end
