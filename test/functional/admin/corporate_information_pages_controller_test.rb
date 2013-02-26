@@ -17,7 +17,7 @@ class Admin::CorporateInformationPagesControllerTest < ActionController::TestCas
       else
         create(:organisation_with_alternative_format_contact_email)
       end
-      parameters = parameters.merge(organisation_id: organisation, organisation_type: organisation.class.to_s)
+      parameters = parameters.merge(organisation_id: organisation)
     end
     super(action, parameters, session, flash, method)
   end
