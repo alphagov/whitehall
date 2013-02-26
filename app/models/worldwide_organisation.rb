@@ -11,6 +11,7 @@ class WorldwideOrganisation < ActiveRecord::Base
   has_many :worldwide_organisation_roles, dependent: :destroy
   has_many :roles, through: :worldwide_organisation_roles
   has_many :people, through: :roles
+  has_many :corporate_information_pages, as: :organisation, dependent: :destroy
 
   include TranslatableModel
   translates :name, :summary, :description, :services
@@ -22,6 +23,11 @@ class WorldwideOrganisation < ActiveRecord::Base
 
   extend FriendlyId
   friendly_id
+
+  delegate :analytics_identifier, :alternative_format_contact_email, to: :sponsoring_organisation, allow_nil: true
+  def sponsoring_organisation
+    sponsoring_organisations.first
+  end
 
   def display_name
     self.name
@@ -49,5 +55,9 @@ class WorldwideOrganisation < ActiveRecord::Base
 
   def office_staff_roles
     roles.where(type: WorldwideOfficeStaffRole.name)
+  end
+
+  def unused_corporate_information_page_types
+    CorporateInformationPageType.all - corporate_information_pages.map(&:type)
   end
 end

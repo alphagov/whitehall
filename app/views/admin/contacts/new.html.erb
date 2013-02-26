@@ -1,5 +1,5 @@
-<% page_title "New contact for: #{@contactable.name}" %>
-
+<% page_title "Contact for: #{@contact.contactable.name}" %>
 <h1>New contact for: <%= @contactable.name %></h1>
+<p><%= link_to "Back to #{@contact.contactable.name}", [:admin, @contactable, Contact] %></p>
 
 <%= render partial: "form", locals: {contact: @contact, contactable: @contactable} %>

@@ -1,0 +1,22 @@
+<%
+  world_locations ||= organisation.world_locations
+  link_to_organisation ||= false
+%>
+<header>
+  <%= render partial: 'shared/available_languages', locals: {object: organisation } %>
+  <div class="content">
+    <% if world_locations.any? %>
+      <h2 class="world-location"><%= world_locations.map {|l| link_to(l.title, l) }.to_sentence %></h2>
+    <% end %>
+    <%= content_tag :h1, class: logo_classes(class_name: 'single-identity', size: 'large', stacked: true) do %>
+      <% if link_to_organisation %>
+        <% link_to content_tag(:span, format_with_html_line_breaks(h(organisation.logo_formatted_name))), organisation %>
+      <% else %>
+          <%= content_tag :span, format_with_html_line_breaks(h(organisation.logo_formatted_name)) %>
+      <% end %>
+    <% end %>
+    <p class="sponsoring-organisations">
+      <%= t('worldwide_organisation.part_of') %> <%= organisation.sponsoring_organisations.map {|o| link_to(o.name, o, class: "sponsoring-organisation") }.to_sentence.html_safe %>
+    </p>
+  </div>
+</header>

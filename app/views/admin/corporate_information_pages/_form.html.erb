@@ -13,5 +13,5 @@
 
   <%= render partial: "admin/editions/attachment_fields", locals: { form: form, edition: corporate_information_page, parent_type: :corporate_information_page, show_inline_attachment_help: true } %>
   
-  <%= form.save_or_cancel cancel: admin_organisation_path(@organisation) %>
+  <%= form.save_or_cancel cancel: [:admin, @organisation] %>
 <% end %>

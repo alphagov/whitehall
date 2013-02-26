@@ -93,7 +93,7 @@ end
 
 When /^I add a "([^"]*)" social media link "([^"]*)"$/ do |social_service, url|
   visit admin_worldwide_organisation_path(WorldwideOrganisation.last)
-  click_link "Social Media Accounts"
+  click_link "Social media accounts"
   click_link "Add"
   select social_service, from: "Service"
   fill_in "Url", with: url

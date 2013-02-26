@@ -496,121 +496,30 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert_equal [parent_organisation], organisation.reload.parent_organisations
   end
 
-  view_test "shows a list of corporate information pages" do
-    corporate_information_page = create(:corporate_information_page)
-    organisation = create(:organisation, corporate_information_pages: [corporate_information_page])
-
-    get :show, id: organisation
-
-    assert_select "#corporate_information_pages" do
-      assert_select "tr td a[href='#{edit_admin_organisation_corporate_information_page_path(organisation, corporate_information_page)}']", corporate_information_page.title
-    end
-  end
-
-  view_test "link to create a new corporate_information_page" do
+  test "GET on :about" do
     organisation = create(:organisation)
+    get :about, id: organisation
 
-    get :show, id: organisation
-
-    assert_select "#corporate_information_pages" do
-      assert_select "a[href='#{new_admin_organisation_corporate_information_page_path(organisation)}']"
-    end
+    assert_response :success
+    assert_template :about
+    assert_equal organisation, assigns(:organisation)
   end
 
-  view_test "no link to create corporate_information_page if all types already exist" do
+  test "GET on :people" do
     organisation = create(:organisation)
-    CorporateInformationPageType.all.each do |type|
-      organisation.corporate_information_pages << create(:corporate_information_page, type: type, body: "The body")
-    end
-    organisation.save
+    get :people, id: organisation
 
-    get :show, id: organisation
-
-    assert_select "#corporate_information_pages" do
-      refute_select "a[href='#{new_admin_organisation_corporate_information_page_path(organisation)}']"
-    end
+    assert_response :success
+    assert_template :people
+    assert_equal organisation.roles, assigns(:roles)
   end
 
-  view_test "show should display a list of groups" do
-    organisation = create(:organisation, name: "organisation-name")
-    group_one = create(:group, name: "group-one", organisation: organisation)
-    group_two = create(:group, name: "group-two", organisation: organisation)
-
-    get :show, id: organisation
-
-    assert_select ".groups" do
-      assert_select_object group_one do
-        assert_select ".name", "group-one"
-      end
-      assert_select_object group_two do
-        assert_select ".name", "group-two"
-      end
-    end
-  end
-
-  test "show should display groups in alphabetical order" do
+  test "GET on :document_series" do
     organisation = create(:organisation)
-    group_A = create(:group, name: "A", organisation: organisation)
-    group_C = create(:group, name: "C", organisation: organisation)
-    group_B = create(:group, name: "B", organisation: organisation)
+    get :document_series, id: organisation
 
-    get :show, id: organisation
-
-    assert_equal [group_A, group_B, group_C], assigns(:organisation).groups
-  end
-
-  view_test "show should display a link to create a new group" do
-    organisation = create(:organisation)
-    get :show, id: organisation
-
-    assert_select "#groups" do
-      assert_select "a[href='#{new_admin_organisation_group_path(organisation)}']"
-    end
-  end
-
-  view_test "show should display links to edit an existing group" do
-    organisation = create(:organisation)
-    group_one = create(:group, organisation: organisation)
-    group_two = create(:group, organisation: organisation)
-
-    get :show, id: organisation
-
-    assert_select_object group_one do
-      assert_select "a[href='#{edit_admin_organisation_group_path(organisation, group_one)}']"
-    end
-    assert_select_object group_two do
-      assert_select "a[href='#{edit_admin_organisation_group_path(organisation, group_two)}']"
-    end
-  end
-
-  view_test "show should display links to members of an existing group" do
-    organisation = create(:organisation)
-    person_one, person_two = create(:person), create(:person)
-    group = create(:group, organisation: organisation, members: [person_one, person_two])
-
-    get :show, id: organisation
-
-    assert_select_object group do
-      assert_select "a[href='#{edit_admin_person_path(person_one)}']"
-      assert_select "a[href='#{edit_admin_person_path(person_two)}']"
-    end
-  end
-
-  view_test "show provides delete buttons for destroyable groups" do
-    organisation = create(:organisation)
-    destroyable_group = create(:group, organisation: organisation, members: [])
-    undestroyable_group = create(:group, organisation: organisation, members: [create(:person)])
-
-    get :show, id: organisation
-
-    assert_select_object destroyable_group do
-      assert_select ".delete form[action='#{admin_organisation_group_path(organisation, destroyable_group)}']" do
-        assert_select "input[name='_method'][value='delete']"
-        assert_select "input[type='submit']"
-      end
-    end
-    assert_select_object undestroyable_group do
-      refute_select ".delete form"
-    end
+    assert_response :success
+    assert_template :document_series
+    assert_equal organisation.document_series, assigns(:document_series)
   end
 end

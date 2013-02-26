@@ -51,7 +51,8 @@ module OrganisationHelper
   end
 
   def organisation_wrapper(organisation, options = {}, &block)
-    classes = [organisation.slug, organisation.organisation_type.name.parameterize]
+    classes = [organisation.slug]
+    classes << organisation.organisation_type.name.parameterize if organisation.respond_to?(:organisation_type)
     content_tag_for :div, organisation, class: classes.join(" ") do
       block.call
     end

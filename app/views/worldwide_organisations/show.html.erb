@@ -3,20 +3,7 @@
 
 <div class="block organisation-header">
   <div class="inner-block floated-children">
-    <header>
-      <%= render partial: 'shared/available_languages', locals: {object: @worldwide_organisation} %>
-      <div class="content">
-        <% if @world_locations.any? %>
-          <h2 class="world-location"><%= @world_locations.map {|l| link_to(l.title, l) }.to_sentence %></h2>
-        <% end %>
-        <h1 class="<%= logo_classes(class_name: 'single-identity', size: 'large', stacked: true) %>">
-          <span><%= format_with_html_line_breaks(h(@worldwide_organisation.logo_formatted_name)) %></span>
-        </h1>
-        <p class="sponsoring-organisations">
-          <%= t('worldwide_organisation.part_of') %> <%= @worldwide_organisation.sponsoring_organisations.map {|o| link_to(o.name, o, class: "sponsoring-organisation") }.to_sentence.html_safe %>
-        </p>
-      </div>
-    </header>
+    <%= render partial: 'header', locals: { organisation: @worldwide_organisation, world_locations: @world_locations } %>
     <aside class="organisation-social-media-links">
       <div class="content">
         <%= render 'shared/social_media_accounts', socialable: @worldwide_organisation, followus: true %>
@@ -78,4 +65,8 @@
       <%= render partial: 'contacts/contact', collection: @other_offices %>
     </div>
   </section>
+<% end %>
+
+<% if @worldwide_organisation.corporate_information_pages.any? %>
+  <%= render partial: 'corporate_information', locals: { organisation: @worldwide_organisation } %>
 <% end %>
