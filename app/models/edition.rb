@@ -1,10 +1,4 @@
 class Edition < ActiveRecord::Base
-  def self.columns
-    # This is here to enable us to gracefully remove the title, summary and body columns
-    # in a future commit, *after* this change has been deployed
-    super.reject { |column| ['title', 'summary', 'body'].include?(column.name) }
-  end
-
   include Edition::Traits
 
   include Edition::NullImages
