@@ -8,18 +8,10 @@
           <% organisation.corporate_information_pages.by_menu_heading(:our_information).each do |corporate_information_page| %>
             <li><%= link_to corporate_information_page.title, [organisation, corporate_information_page] %></li>
           <% end %>
-          <li><a href="https://www.gov.uk/make-a-freedom-of-information-request/the-freedom-of-information-act">How to make an FOI request</a></li>
-        </ul>
-      </nav>
-    </div>
-    <div class="corporate-information-block">
-      <h2>Jobs and contracts</h2>
-      <nav class="group sub_navigation" role="navigation">
-        <ul>
+
           <% organisation.corporate_information_pages.by_menu_heading(:jobs_and_contracts).each do |corporate_information_page| %>
             <li><%= link_to corporate_information_page.title, [organisation, corporate_information_page]%></li>
           <% end %>
-          <li><a href="https://jobsstatic.civilservice.gov.uk/csjobs.html" rel="external">Jobs</a></li>
         </ul>
       </nav>
     </div>
@@ -30,7 +22,7 @@
       <% end %>
       <% if organisation.corporate_information_pages.for_slug("welsh-language-scheme").present? %>
         Find out about our commitment to publishing in the
-        <%= link_to "Welsh language", [organisation, corporate_information_pages.for_slug("welsh-language-scheme")] %>.
+        <%= link_to "Welsh language", [organisation, organisation.corporate_information_pages.for_slug("welsh-language-scheme")] %>.
       <% end %>
       <% if organisation.corporate_information_pages.for_slug("personal-information-charter").present? %>
         Our <%= link_to "Personal information charter ", [organisation, organisation.corporate_information_pages.for_slug("personal-information-charter")] %>
