@@ -24,12 +24,28 @@ class DocumentSeries < ActiveRecord::Base
     published_editions.where(type: StatisticalDataSet.name)
   end
 
-  def scheduled_publications
-    editions.scheduled.where(type: Publication.name)
+  def published_consultations
+    published_editions.where(type: Consultation.name)
   end
 
-  def scheduled_statistical_data_sets
-    editions.scheduled.where(type: StatisticalDataSet.name)
+  def published_speeches
+    published_editions.where(type: Speech.name)
+  end
+
+  def published_detailed_guides
+    published_editions.where(type: DetailedGuide.name)
+  end
+
+  def published_case_studies
+    published_editions.where(type: CaseStudy.name)
+  end
+
+  def published_news_articles
+    published_editions.where(type: NewsArticle.name)
+  end
+
+  def scheduled_editions
+    editions.scheduled
   end
 
   protected

@@ -5,7 +5,6 @@ class Publication < Publicationesque
   include Edition::FactCheckable
   include Edition::AlternativeFormatProvider
   include Edition::WorldLocations
-  include Edition::DocumentSeries
   include Edition::StatisticalDataSets
 
   validates :publication_date, presence: true, unless: ->(edition) { edition.can_have_some_invalid_data? }

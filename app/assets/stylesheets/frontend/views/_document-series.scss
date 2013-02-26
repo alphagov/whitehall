@@ -12,20 +12,16 @@
     margin-top: 0;
   }
 
-  .publications {
+  .editions {
     clear: both;
     overflow: hidden;
-    padding: 0 0 $gutter*2 0;
+    padding: $gutter/2 0 $gutter/2 0;
   }
 
   section#document_series {
     .document-list {
       margin-top: 0;
     }
-  }
-
-  .govspeak {
-    padding-bottom: $gutter;
   }
 
   @include media(desktop) {

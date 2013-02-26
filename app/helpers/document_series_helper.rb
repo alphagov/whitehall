@@ -11,4 +11,10 @@ module DocumentSeriesHelper
       link_to ds.name, organisation_document_series_path(ds.organisation, ds)
     end.to_sentence.html_safe
   end
+
+  def list_of_li_links_to_document_series(edition)
+    edition.document_series.map do |ds|
+      content_tag(:li, link_to(ds.name, organisation_document_series_path(ds.organisation, ds)))
+    end.join("").html_safe
+  end
 end
