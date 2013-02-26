@@ -191,7 +191,7 @@ ActiveRecord::Schema.define(:version => 20130221151634) do
     t.string   "organisation_type"
   end
 
-  add_index "corporate_information_pages", ["organisation_id", "organisation_type", "type_id"], :name => "index_corporate_information_pages_on_polymorphic_columns"
+  add_index "corporate_information_pages", ["organisation_id", "organisation_type", "type_id"], :name => "index_corporate_information_pages_on_polymorphic_columns", :unique => true
 
   create_table "data_migration_records", :force => true do |t|
     t.string "version"
