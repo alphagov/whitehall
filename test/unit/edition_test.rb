@@ -3,15 +3,6 @@ require "test_helper"
 class EditionTest < ActiveSupport::TestCase
   include ActionDispatch::TestProcess
 
-  ['title', 'summary', 'body'].each do |column_name|
-    # These tests ensure that we're excluding the title, summary and body columns from Edition.columns.
-    # You can safely remove it, and Edition.columns, once it's been deployed and we've subsequently removed
-    # these columns for real.
-    test "#columns excludes #{column_name} so that we can safely it from editions in a future migration" do
-      refute Edition.columns.map(&:name).include?(column_name)
-    end
-  end
-
   test "returns downcased humanized class name as format name" do
     assert_equal 'case study', CaseStudy.format_name
     assert_equal 'publication', Publication.format_name
