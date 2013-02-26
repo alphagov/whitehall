@@ -18,6 +18,7 @@ class Admin::SocialMediaAccountsControllerTest < ActionController::TestCase
       worldwide_organisation_id: worldwide_organisation
 
     assert_redirected_to admin_worldwide_organisation_social_media_accounts_url(worldwide_organisation)
+    assert_equal "#{@social_media_service.name} account created successfully", flash[:notice]
     assert_equal 1, worldwide_organisation.social_media_accounts.count
     assert_equal @social_media_service, worldwide_organisation.social_media_accounts.first.social_media_service
   end
@@ -35,6 +36,7 @@ class Admin::SocialMediaAccountsControllerTest < ActionController::TestCase
         }
 
     assert_redirected_to admin_worldwide_organisation_social_media_accounts_url(worldwide_organisation)
+    assert_equal "#{social_media_account.service_name} account updated successfully", flash[:notice]
     assert_equal ["http://bar"], worldwide_organisation.social_media_accounts.map(&:url)
   end
 
@@ -45,6 +47,7 @@ class Admin::SocialMediaAccountsControllerTest < ActionController::TestCase
     delete :destroy, worldwide_organisation_id: organisation, id: social_media_account
 
     assert_redirected_to admin_worldwide_organisation_social_media_accounts_url(organisation)
+    assert_equal "#{social_media_account.service_name} account deleted successfully", flash[:notice]
     refute SocialMediaAccount.exists?(social_media_account)
   end
 end

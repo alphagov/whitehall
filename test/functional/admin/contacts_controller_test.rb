@@ -13,7 +13,8 @@ class Admin::ContactsControllerTest < ActionController::TestCase
     post :create, contact: {title: "Main office"}, organisation_id: organisation.id
 
     assert_redirected_to admin_organisation_contacts_url(organisation)
-    assert_equal 1, organisation.contacts.count
+    assert contact = organisation.contacts.last
+    assert_equal "\"#{contact.title}\" created successfully", flash[:notice]
     assert_equal "Main office", organisation.contacts.first.title
   end
 
@@ -30,8 +31,8 @@ class Admin::ContactsControllerTest < ActionController::TestCase
       organisation_id: organisation.id
 
     assert_redirected_to admin_organisation_contacts_url(organisation)
-    assert_equal 1, organisation.contacts.count
-    assert contact = organisation.contacts.first
+    assert contact = organisation.contacts.last
+    assert_equal "\"#{contact.title}\" created successfully", flash[:notice]
     assert_equal ["Main phone: 1234"], contact.contact_numbers.map { |cn| "#{cn.label}: #{cn.number}" }
   end
 
@@ -42,6 +43,7 @@ class Admin::ContactsControllerTest < ActionController::TestCase
     put :update, contact: {title: "Head office"}, organisation_id: organisation, id: contact
 
     assert_redirected_to admin_organisation_contacts_url(organisation)
+    assert_equal "\"#{contact.reload.title}\" updated successfully", flash[:notice]
     assert_equal ["Head office"], organisation.contacts.map(&:title)
   end
 
@@ -60,9 +62,8 @@ class Admin::ContactsControllerTest < ActionController::TestCase
       organisation_id: organisation, id: contact
 
     assert_redirected_to admin_organisation_contacts_url(organisation)
-    assert_equal 1, organisation.contacts.count
-    assert contact = organisation.contacts.first
-    assert_equal ["Main phone: 5678"], contact.contact_numbers.map { |cn| "#{cn.label}: #{cn.number}" }
+    assert_equal "\"#{contact.reload.title}\" updated successfully", flash[:notice]
+    assert_equal ["Main phone: 5678"], contact.reload.contact_numbers.map { |cn| "#{cn.label}: #{cn.number}" }
   end
 
   test "DELETE on :destroy destroys the contact" do
@@ -72,6 +73,7 @@ class Admin::ContactsControllerTest < ActionController::TestCase
     delete :destroy, organisation_id: organisation, id: contact
 
     assert_redirected_to admin_organisation_contacts_url(organisation)
+    assert_equal "\"#{contact.title}\" deleted successfully", flash[:notice]
     refute Contact.exists?(contact)
   end
 end

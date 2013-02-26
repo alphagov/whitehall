@@ -6,10 +6,9 @@
   </div>
 </div>
 
+<%= tab_navigation_for(@contactable) %>
 
-<%= tab_navigation_for(@contactable) do %>
-  <%= render(@contactable.contacts, contactable: @contactable) || content_tag(:p, 'No contacts') %>
-  <div class="form-actions">
-    <%= link_to icon("Add"), new_polymorphic_path([:admin, @contactable, Contact.new]), class: "btn btn-large btn-primary"%>
-  </div>
-<% end %>
+<%= render(@contactable.contacts, contactable: @contactable) || content_tag(:p, 'No contacts') %>
+<div class="form-actions">
+  <%= link_to icon("Add"), new_polymorphic_path([:admin, @contactable, Contact.new]), class: "btn btn-large btn-primary"%>
+</div>

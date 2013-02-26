@@ -11,31 +11,31 @@
   <div class="row-fluid">
     <div class="span12 organisation-details">
       <section>
-        <%= tab_navigation_for(@worldwide_organisation) do %>
-          <article class="document">
-            <p class="sponsoring-organisations">
-              Part of <%= @worldwide_organisation.sponsoring_organisations.map {|o| link_to(o.name, [:admin, o]) }.to_sentence.html_safe %>
-            </p>
+        <%= tab_navigation_for(@worldwide_organisation) %>
 
-            <div class="summary">
-              <div class="content">
-                <%= @worldwide_organisation.summary %>
-              </div>
-            </div>
+        <article class="document">
+          <p class="sponsoring-organisations">
+            Part of <%= @worldwide_organisation.sponsoring_organisations.map {|o| link_to(o.name, [:admin, o]) }.to_sentence.html_safe %>
+          </p>
 
-            <div class="body description">
-              <div class="content govspeak">
-                <%= govspeak_to_html @worldwide_organisation.description %>
-              </div>
+          <div class="summary">
+            <div class="content">
+              <%= @worldwide_organisation.summary %>
             </div>
+          </div>
 
-            <div class="body services">
-              <div class="content govspeak">
-                <%= govspeak_to_html @worldwide_organisation.services %>
-              </div>
+          <div class="body description">
+            <div class="content govspeak">
+              <%= govspeak_to_html @worldwide_organisation.description %>
             </div>
-          </article>
-        <% end %>
+          </div>
+
+          <div class="body services">
+            <div class="content govspeak">
+              <%= govspeak_to_html @worldwide_organisation.services %>
+            </div>
+          </div>
+        </article>
 
         <div class="form-actions">
           <%= link_to "Edit", edit_admin_worldwide_organisation_path(@worldwide_organisation), class: "btn btn-large btn-primary"%>

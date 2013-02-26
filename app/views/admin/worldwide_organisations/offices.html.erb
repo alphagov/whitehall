@@ -9,9 +9,8 @@
 <div class="row-fluid">
   <div class="span12 organisation-details">
     <section>
-      <%= tab_navigation_for(@worldwide_organisation) do %>
-        <%= render(@worldwide_organisation.offices, worldwide_organisation: @worldwide_organisation) || content_tag(:p, 'No offices') %>
-      <% end %>
+      <%= tab_navigation_for(@worldwide_organisation) %>
+      <%= render(@worldwide_organisation.offices, worldwide_organisation: @worldwide_organisation) || content_tag(:p, 'No offices') %>
 
       <div class="form-actions">
         <%= link_to "Add", new_admin_worldwide_organisation_office_path(@worldwide_organisation), class: "btn btn-large btn-primary"%>

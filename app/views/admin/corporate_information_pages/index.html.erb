@@ -10,28 +10,27 @@
 <div class="row-fluid">
   <div class="span12 organisation-details">
     <section>
-      <%= tab_navigation_for(@organisation) do %>
+      <%= tab_navigation_for(@organisation) %>
 
-        <% if @corporate_information_pages.any? %>
-          <table class="table">
-            <thead>
-              <tr>
-                <th>Type</th>
-              </tr>
-            </thead>
-            <% @corporate_information_pages.each do |corporate_information_page| %>
+      <% if @corporate_information_pages.any? %>
+        <table class="table">
+          <thead>
             <tr>
-              <td><%= link_to corporate_information_page.title, edit_polymorphic_path([:admin, @organisation, corporate_information_page]) %></td>
-              <td><%= button_to "delete", [:admin, @organisation, corporate_information_page], method: :delete, class: "btn btn-danger", confirm: "Really delete #{corporate_information_page.title} from #{@organisation.name}? This cannot be undone." %></td>
+              <th>Type</th>
             </tr>
-            <% end %>
-          </table>
-        <% else %>
-          <p>No corporate information pages exist yet.</p>
-        <% end %>
-        <% if @organisation.unused_corporate_information_page_types.any? %>
-          <%= link_to "New corporate information page", new_polymorphic_path([:admin, @organisation, CorporateInformationPage.new]), class: "btn"%>
-        <% end %>
+          </thead>
+          <% @corporate_information_pages.each do |corporate_information_page| %>
+          <tr>
+            <td><%= link_to corporate_information_page.title, edit_polymorphic_path([:admin, @organisation, corporate_information_page]) %></td>
+            <td><%= button_to "delete", [:admin, @organisation, corporate_information_page], method: :delete, class: "btn btn-danger", confirm: "Really delete #{corporate_information_page.title} from #{@organisation.name}? This cannot be undone." %></td>
+          </tr>
+          <% end %>
+        </table>
+      <% else %>
+        <p>No corporate information pages exist yet.</p>
+      <% end %>
+      <% if @organisation.unused_corporate_information_page_types.any? %>
+        <%= link_to "New corporate information page", new_polymorphic_path([:admin, @organisation, CorporateInformationPage.new]), class: "btn"%>
       <% end %>
     </section>
   </div>

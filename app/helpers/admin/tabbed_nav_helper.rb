@@ -9,8 +9,12 @@ module Admin::TabbedNavHelper
   end
 
   def tab_navigation(tabs, &block)
-    content_tag(:div, class: :tabbable) do
-      tab_navigation_header(tabs) + content_tag(:div, class: "tab-content") { yield }
+    tab_navigation_header(tabs).tap do |tabs|
+      if block_given?
+        content_tag(:div, class: :tabbable) do
+          tabs + content_tag(:div, class: "tab-content") { yield }
+        end
+      end
     end
   end
 

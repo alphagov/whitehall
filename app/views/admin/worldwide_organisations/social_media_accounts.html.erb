@@ -9,14 +9,12 @@
 <div class="row-fluid">
   <div class="span12 organisation-details">
     <section>
-      <%= tab_navigation_for(@worldwide_organisation) do %>
-        <%= render partial: "admin/social_media_accounts/social_media_account_list", locals: {socialable: @worldwide_organisation} %>
-      <% end %>
+      <%= tab_navigation_for(@worldwide_organisation) %>
+      <%= render partial: "admin/social_media_accounts/social_media_account_list", locals: {socialable: @worldwide_organisation} %>
 
       <div class="form-actions">
         <%= link_to "Add", new_admin_social_media_account_path(socialable_type: @worldwide_organisation.class.name, socialable_id: @worldwide_organisation), class: "btn btn-large btn-primary"%>
       </div>
-
     </section>
   </div>
 </div>
