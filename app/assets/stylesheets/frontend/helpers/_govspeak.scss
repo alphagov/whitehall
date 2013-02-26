@@ -8,37 +8,36 @@
 
   h2 {
     @include ig-core-27;
-    color: lighten($text-colour, 20%);
-    margin-top: $gutter;
+    font-weight: bold;
+    margin-top: $gutter*1.5;
     @media (max-width: 640px) {
       margin-top: $gutter-half;
     }
   }
   h3 {
-    @include ig-core-24;
-    color: lighten($text-colour, 20%);
-    margin-top: $gutter;
+    @include ig-core-19;
+    font-weight: bold;
+    margin-top: $gutter + $gutter-one-sixth;
     @media (max-width: 640px) {
-      margin-top: $gutter-half;
+//      margin-top: $gutter-half;
     }
   }
   h4,
   h5,
   h6 {
     @include ig-core-19;
-    color: lighten($text-colour, 20%);
-    margin-top: $gutter;
+//    margin-top: $gutter;
     @media (max-width: 640px) {
-      margin-top: $gutter-half;
+//      margin-top: $gutter-half;
     }
   }
   h5, h6 {
-    margin: 0;
+//    margin: 0;
   }
 
   p {
     @include ig-core-19;
-    margin: $gutter-half 0;
+    margin: $gutter-one-third 0;
     @media (max-width: 640px) {
       margin: $gutter-one-sixth 0;
     }
@@ -51,30 +50,22 @@
   ol {
     list-style: decimal;
     list-style-position: outside;
+    padding: 0;
+    margin: 0 0 $gutter-half $gutter;
   }
 
   ul {
     list-style: disc;
     list-style-position: outside;
     padding: 0;
-    margin: 0 0 $gutter-half 1.25em;
+    margin: 0 0 $gutter-half $gutter;
   }
 
   li {
     @include ig-core-19;
-    margin-left: $gutter*1.2;
-
-    li {
-      margin-left: $gutter;
-    }
-
-    @media (min-width: 768px) {
-      margin-left: 0;
-      width: 90%;
-
-      li {
-        margin-left: $gutter*2;
-      }
+    margin: $gutter-one-third 0;
+    @media (max-width: 640px) {
+      margin: $gutter-one-sixth 0;
     }
   }
 

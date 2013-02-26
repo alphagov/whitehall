@@ -37,7 +37,7 @@
     @extend %contain-floats;
 
     @include media(tablet){
-      padding: ($gutter + $gutter-one-third - 2px) 0 ($gutter*1.5);
+      padding: ($gutter + $gutter-one-third - 2px) 0 ($gutter);
     }
   }
 
@@ -73,10 +73,10 @@
     }
   }
 
-
   .supporting-page-title {
     @include ig-core-27;
-    margin-bottom: $gutter;
+    font-weight: bold;
+    margin-bottom: $gutter + $gutter-one-third;
   }
 
   .contextual-info {

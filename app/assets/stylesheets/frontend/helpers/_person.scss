@@ -15,7 +15,7 @@
   }
 
   .inner {
-    padding: 0 $gutter-half $gutter-half;
+    padding: $gutter-half;
     @extend %contain-floats;
   }
 
@@ -37,7 +37,7 @@
 
     img {
       display: block;
-
+      margin: $gutter-one-sixth 0 $gutter-one-third;
       width: 100%;
       height: auto;
 
@@ -76,23 +76,19 @@
   span {
     display: block;
     @include core-14;
-    padding-top: $gutter-one-sixth;
     color: $secondary-text-colour;
   }
   strong {
     display: block;
     @include core-19;
+    font-weight: bold;
   }
   &.privy_counsellor strong {
     padding-top: 0;
   }
 
   .role {
-    @include ig-core-14;
-    padding-top: 2px;
-    padding-top: 0.2rem;
-    a {
-      color: $text-colour;
-    }
+    @include core-14;
+    padding-top: $gutter-one-sixth;
   }
 }
