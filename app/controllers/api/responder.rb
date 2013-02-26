@@ -25,10 +25,13 @@ class Api::Responder < ActionController::Responder
   end
 
   def link_header
-    @link_hedaer ||= extract_link_header_from_options
+    @link_hedaer ||= extract_link_header_from_options_and_resource
   end
-  def extract_link_header_from_options
-    links = @options[:links] || []
+
+  def extract_link_header_from_options_and_resource
+    links = resource.links if resource.respond_to?(:links)
+    links ||= []
+    links |= (@options[:links] || [])
     links_for_link_header = links.map {|(url, attrs)| [url, attrs.to_a]}
     LinkHeader.new(links_for_link_header)
   end

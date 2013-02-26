@@ -50,7 +50,7 @@ class Api::ResponderTest < ActiveSupport::TestCase
     refute response_info.has_key?(:links)
   end
 
-  test 'the _response_info in the json includes an array of links' do
+  test 'providing links in the options will include them in the _response_info json' do
     resource = {}
     responder = make_responder_for_resource(resource, links: [['http://example.com/woo', {'rel' => 'self'}]])
 
@@ -63,8 +63,98 @@ class Api::ResponderTest < ActiveSupport::TestCase
     assert_equal 'self', response_info[:links].first[:rel]
   end
 
-  test 'providing links in the options, sets the Link http header' do
+  test 'providing links in the options sets the Link http header with them' do
     resource = {}
+    responder = make_responder_for_resource(resource, links: [['http://example.com/woo', {'rel' => 'self'}]])
+    headers = {}
+    responder.controller.expects(:headers).returns(headers)
+    responder.to_json
+
+    assert headers.has_key?('Link')
+    assert_equal '<http://example.com/woo>; rel="self"', headers['Link']
+  end
+
+  test 'providing links via the resource will include them in the _response_info json' do
+    resource = stub
+    resource.stubs(:as_json).returns({})
+    resource.stubs(:links).returns([['http://example.com/woo', {'rel' => 'self'}]])
+    responder = make_responder_for_resource(resource)
+
+    responder.to_json
+    response_info = responder.displayed_json[:_response_info]
+    assert response_info.has_key?(:links)
+    assert_equal 1, response_info[:links].size
+    assert_equal [:href, :rel], response_info[:links].first.keys.sort
+    assert_equal 'http://example.com/woo', response_info[:links].first[:href]
+    assert_equal 'self', response_info[:links].first[:rel]
+  end
+
+  test 'providing links via the resource sets the Link http header with them' do
+    resource = stub
+    resource.stubs(:as_json).returns({})
+    resource.stubs(:links).returns([['http://example.com/woo', {'rel' => 'self'}]])
+    responder = make_responder_for_resource(resource)
+    headers = {}
+    responder.controller.expects(:headers).returns(headers)
+    responder.to_json
+
+    assert headers.has_key?('Link')
+    assert_equal '<http://example.com/woo>; rel="self"', headers['Link']
+  end
+
+  test 'providing links via the resource and options will include them both in the _response_info json' do
+    resource = stub
+    resource.stubs(:as_json).returns({})
+    resource.stubs(:links).returns([['http://example.com/woo', {'rel' => 'self'}]])
+    responder = make_responder_for_resource(resource, links: [['http://example.com/foo', {'rel' => 'next'}]])
+
+    responder.to_json
+    response_info = responder.displayed_json[:_response_info]
+    assert response_info.has_key?(:links)
+    assert_equal 2, response_info[:links].size
+
+    assert_equal [:href, :rel], response_info[:links][0].keys.sort
+    assert_equal 'http://example.com/woo', response_info[:links][0][:href]
+    assert_equal 'self', response_info[:links][0][:rel]
+
+    assert_equal [:href, :rel], response_info[:links][1].keys.sort
+    assert_equal 'http://example.com/foo', response_info[:links][1][:href]
+    assert_equal 'next', response_info[:links][1][:rel]
+  end
+
+  test 'providing links via the resource and options sets the Link http header with them all' do
+    resource = stub
+    resource.stubs(:as_json).returns({})
+    resource.stubs(:links).returns([['http://example.com/woo', {'rel' => 'self'}]])
+    responder = make_responder_for_resource(resource, links: [['http://example.com/foo', {'rel' => 'next'}]])
+    headers = {}
+    responder.controller.expects(:headers).returns(headers)
+    responder.to_json
+
+    assert headers.has_key?('Link')
+    assert_equal '<http://example.com/woo>; rel="self", <http://example.com/foo>; rel="next"', headers['Link']
+  end
+
+  test 'providing the same links via the resource and options will not create duplicates in the json' do
+    resource = stub
+    resource.stubs(:as_json).returns({})
+    resource.stubs(:links).returns([['http://example.com/woo', {'rel' => 'self'}]])
+    responder = make_responder_for_resource(resource, links: [['http://example.com/woo', {'rel' => 'self'}]])
+
+    responder.to_json
+    response_info = responder.displayed_json[:_response_info]
+    assert response_info.has_key?(:links)
+    assert_equal 1, response_info[:links].size
+
+    assert_equal [:href, :rel], response_info[:links][0].keys.sort
+    assert_equal 'http://example.com/woo', response_info[:links][0][:href]
+    assert_equal 'self', response_info[:links][0][:rel]
+  end
+
+  test 'providing the same links via the resource and options will not create duplicates in the Link header' do
+    resource = stub
+    resource.stubs(:as_json).returns({})
+    resource.stubs(:links).returns([['http://example.com/woo', {'rel' => 'self'}]])
     responder = make_responder_for_resource(resource, links: [['http://example.com/woo', {'rel' => 'self'}]])
     headers = {}
     responder.controller.expects(:headers).returns(headers)
