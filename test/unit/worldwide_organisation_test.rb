@@ -32,6 +32,27 @@ class WorldwideOrganisationTest < ActiveSupport::TestCase
     assert_equal [organisation], worldwide_organisation.reload.sponsoring_organisations
   end
 
+  test "has a main sponsoring organisation" do
+    organisation = create(:organisation)
+    worldwide_organisation = create(:worldwide_organisation)
+    worldwide_organisation.sponsoring_organisations << organisation
+    worldwide_organisation.sponsoring_organisations << create(:organisation)
+
+    assert_equal organisation, worldwide_organisation.reload.sponsoring_organisation
+  end
+
+  test "defers to the main sponsoring organisation for its analytics_identifier" do
+    organisation = create(:organisation)
+    worldwide_organisation = create(:worldwide_organisation)
+    worldwide_organisation.sponsoring_organisations << organisation
+
+    assert_equal organisation.analytics_identifier, worldwide_organisation.analytics_identifier
+  end
+
+  test "#analytics_identifier doesn't blow up if the organisation has no sponsor" do
+    assert_nil create(:worldwide_organisation).analytics_identifier
+  end
+
   test "destroys associated sponsorships" do
     worldwide_organisation = create(:worldwide_organisation, sponsoring_organisations: [create(:organisation)])
     worldwide_organisation.destroy
@@ -139,5 +160,13 @@ class WorldwideOrganisationTest < ActiveSupport::TestCase
     worldwide_organisation.remove_translations_for(:fr)
     refute worldwide_organisation.translated_locales.include?(:fr)
     assert worldwide_organisation.translated_locales.include?(:es)
+  end
+
+  test "can list unused corporate information types" do
+    organisation = create(:worldwide_organisation)
+    types = CorporateInformationPageType.all
+    t = create(:corporate_information_page, type: types.pop, organisation: organisation)
+
+    assert_equal types, organisation.reload.unused_corporate_information_page_types
   end
 end

@@ -78,7 +78,10 @@ Whitehall::Application.routes.draw do
     resources :policy_teams, path: 'policy-teams', only: [:index, :show]
     resources :policy_advisory_groups, path: 'policy-advisory-groups', only: [:index, :show]
     resources :operational_fields, path: 'fields-of-operation', only: [:index, :show]
-    resources :worldwide_organisations, path: 'world/organisations', only: [:show], localised: true
+    resources :worldwide_organisations, path: 'world/organisations', only: [:show], localised: true do
+      resources :corporate_information_pages, only: [:show], path: 'about'
+    end
+    match 'world/organisations/:organisation_id/about' => redirect('/world/organisations/%{organisation_id}')
 
     constraints(AdminRequest) do
       namespace :admin do
@@ -90,10 +93,15 @@ Whitehall::Application.routes.draw do
         resources :document_series, only: [:index]
         resources :organisations do
           resources :groups, except: [:show]
-          resources :document_series
+          resources :document_series, except: [:index]
           resources :corporate_information_pages
+          resources :contacts
+          resources :social_media_accounts
           member do
             get :documents
+            get :document_series
+            get :about
+            get :people
           end
         end
         resources :policy_teams, except: [:show]
@@ -109,13 +117,12 @@ Whitehall::Application.routes.draw do
           member do
             put :set_main_office
             get :offices
-            get :social_media_accounts
           end
           resources :translations, controller: 'worldwide_organisations_translations'
           resources :offices, controller: 'worldwide_offices', except: [:index, :show]
+          resources :corporate_information_pages
+          resources :social_media_accounts
         end
-        resources :contacts
-        resources :social_media_accounts
 
         resources :editions, only: [:index] do
           member do

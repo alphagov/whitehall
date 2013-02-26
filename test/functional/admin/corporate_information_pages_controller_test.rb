@@ -11,7 +11,7 @@ class Admin::CorporateInformationPagesControllerTest < ActionController::TestCas
 
   def process(action, parameters, session, flash, method)
     parameters ||= {}
-    if !parameters.has_key?(:organisation_id)
+    if !parameters.has_key?(:organisation_id) && !parameters.has_key?(:worldwide_organisation_id)
       organisation = if parameters[:id]
         parameters[:id].organisation
       else
@@ -34,6 +34,16 @@ class Admin::CorporateInformationPagesControllerTest < ActionController::TestCas
     create(edition_type)
   end
 
+  test "GET :index" do
+    corporate_information_page = create(:corporate_information_page, organisation: @organisation)
+    get :index, organisation_id: @organisation
+
+    assert_response :success
+    assert_template :index
+    assert_equal @organisation, assigns(:organisation)
+    assert_equal [corporate_information_page], assigns(:corporate_information_pages)
+  end
+
   view_test "GET :new should display form" do
     get :new, organisation_id: @organisation
 
@@ -45,22 +55,29 @@ class Admin::CorporateInformationPagesControllerTest < ActionController::TestCas
     end
   end
 
-  test "POST :create should create a new corporate information page" do
+  test "POST :create can create a corporate information page for an Organisation" do
     post :create, organisation_id: @organisation, corporate_information_page: corporate_information_page_attributes
-    @organisation.reload
 
-    assert_equal 1, @organisation.corporate_information_pages.count
-    assert_equal corporate_information_page_attributes[:body], @organisation.corporate_information_pages.first.body
-    assert_equal corporate_information_page_attributes[:type_id], @organisation.corporate_information_pages.first.type_id
-    assert_equal corporate_information_page_attributes[:summary], @organisation.corporate_information_pages.first.summary
+    assert_redirected_to admin_organisation_path(@organisation)
+
+    assert page = @organisation.corporate_information_pages.last
+    assert_equal "#{page.title} created successfully", flash[:notice]
+    assert_equal corporate_information_page_attributes[:body], page.body
+    assert_equal corporate_information_page_attributes[:type_id], page.type_id
+    assert_equal corporate_information_page_attributes[:summary], page.summary
   end
 
-  test "POST :create should redirect to organisation with flash on success" do
-    post :create, organisation_id: @organisation, corporate_information_page: corporate_information_page_attributes
-    @organisation.reload
-    assert_redirected_to admin_organisation_path(@organisation)
-    page = @organisation.corporate_information_pages.last
+  test "POST :create can create a corporation information page for a WorldwideOrganisation" do
+    organisation = create(:worldwide_organisation)
+    post :create, worldwide_organisation_id: organisation, corporate_information_page: corporate_information_page_attributes
+
+    assert_redirected_to admin_worldwide_organisation_path(organisation)
+
+    assert page = organisation.corporate_information_pages.last
     assert_equal "#{page.title} created successfully", flash[:notice]
+    assert_equal corporate_information_page_attributes[:body], page.body
+    assert_equal corporate_information_page_attributes[:type_id], page.type_id
+    assert_equal corporate_information_page_attributes[:summary], page.summary
   end
 
   view_test "POST :create should redisplay form with error message on fail" do
@@ -121,5 +138,4 @@ class Admin::CorporateInformationPagesControllerTest < ActionController::TestCas
       summary: "This is the summary"
     }.merge(overrides)
   end
-
 end

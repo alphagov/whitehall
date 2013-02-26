@@ -58,7 +58,11 @@ Feature: Administering worldwide organisation
     And I should see that it is part of the "Department of Beards"
 
   Scenario: Adding office hours to a worldwide organisation
-  Scenario: Adding corporate information pages to worldwide organisations
+
+  Scenario: Adding a corporate information page to a worldwide organisation
+    Given a worldwide organisation "Department of Beards in France"
+    When I add a "Terms of reference" corporate information page to the worldwide organisation
+    Then I should see the corporate information on the public worldwide organisation page
 
   Scenario: Adding a new translation
     Given a worldwide organisation "Department of Beards in France" exists for the country "France" with translations into "fr"

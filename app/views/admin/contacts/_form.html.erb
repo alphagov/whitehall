@@ -1,13 +1,11 @@
-<%= form_for [:admin, contact], html: {class: "form-horizontal"} do |contact_form| %>
+<%= form_for [:admin, contactable, contact], html: {class: "form-horizontal"} do |contact_form| %>
   <%= contact_form.errors %>
   <fieldset class="contact">
-    <%= hidden_field_tag :contactable_type, contactable.class.name %>
-    <%= hidden_field_tag :contactable_id, contactable.to_param %>
     <%= contact_form.text_field :title, horizontal: true %>
     <%= contact_form.text_area :comments, rows: 2, horizontal: true, placeholder: "Optional instructions for this contact e.g. opening hours, rules of use…" %>
 
     <%= render partial: 'admin/contacts/form_fields', locals: { contact_form: contact_form } %>
   </fieldset>
 
-  <%= contact_form.save_or_cancel(cancel: contacts_list_url_for(contact.contactable)) %>
+  <%= contact_form.save_or_cancel(cancel: polymorphic_url([:admin, contact.contactable, Contact])) %>
 <% end %>

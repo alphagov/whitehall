@@ -4,6 +4,10 @@ class Admin::CorporateInformationPagesController < Admin::BaseController
   before_filter :find_corporate_information_page, only: [:edit, :update, :destroy]
   before_filter :cope_with_attachment_action_params, only: [:update]
 
+  def index
+    @corporate_information_pages = @organisation.corporate_information_pages
+  end
+
   def new
     build_corporate_information_page
     build_attachment
@@ -12,8 +16,7 @@ class Admin::CorporateInformationPagesController < Admin::BaseController
   def create
     build_corporate_information_page
     if @corporate_information_page.save
-      flash[:notice] = "#{@corporate_information_page.title} created successfully"
-      redirect_to [:admin, @organisation]
+      redirect_to [:admin, @organisation], notice: "#{@corporate_information_page.title} created successfully"
     else
       flash[:alert] = "There was a problem: #{@corporate_information_page.errors.full_messages.to_sentence}"
       build_attachment
@@ -27,8 +30,7 @@ class Admin::CorporateInformationPagesController < Admin::BaseController
 
   def update
     if @corporate_information_page.update_attributes(params[:corporate_information_page])
-      flash[:notice] = "#{@corporate_information_page.title} updated successfully"
-      redirect_to [:admin, @organisation]
+      redirect_to [:admin, @organisation], notice: "#{@corporate_information_page.title} updated successfully"
     else
       flash[:alert] = "There was a problem: #{@corporate_information_page.errors.full_messages.to_sentence}"
       build_attachment
@@ -44,8 +46,7 @@ class Admin::CorporateInformationPagesController < Admin::BaseController
 
   def destroy
     if @corporate_information_page.destroy
-      flash[:notice] = "#{@corporate_information_page.title} deleted successfully"
-      redirect_to [:admin, @organisation]
+      redirect_to [:admin, @organisation], notice: "#{@corporate_information_page.title} deleted successfully"
     else
       flash[:alert] = "There was a problem: #{@corporate_information_page.errors.full_messages.to_sentence}"
       build_attachment
@@ -64,7 +65,14 @@ private
   end
 
   def find_organisation
-    @organisation = Organisation.find(params[:organisation_id])
+    @organisation =
+      if params.has_key?(:organisation_id)
+        Organisation.find(params[:organisation_id])
+      elsif params.has_key?(:worldwide_organisation_id)
+        WorldwideOrganisation.find(params[:worldwide_organisation_id])
+      else
+        raise ActiveRecord::RecordNotFound
+      end
   end
 
   def build_attachment
@@ -77,5 +85,4 @@ private
       Admin::AttachmentActionParamHandler.manipulate_params!(corporate_information_page_attachment_params)
     end
   end
-
 end

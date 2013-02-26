@@ -9,17 +9,52 @@
 <div class="row-fluid">
   <div class="span12 organisation-details">
     <section>
-      <div class="tabbable">
-        <%= render partial: "admin/organisations/tabs/navigation", locals: {organisation: @organisation}  %>
-        <div class="tab-content">
-          <%= render partial: "admin/organisations/tabs/details" %>
-          <%= render partial: "admin/organisations/tabs/contacts" %>
-          <%= render partial: "admin/organisations/tabs/social_media_accounts" %>
-          <%= render partial: "admin/organisations/tabs/about_us" %>
-          <%= render partial: "admin/organisations/tabs/groups" %>
-          <%= render partial: "admin/organisations/tabs/people" %>
-          <%= render partial: "admin/organisations/tabs/document_series" %>
-          <%= render partial: "admin/organisations/tabs/corporate_information_pages" %>
+      <%= tab_navigation_for(@organisation) %>
+
+      <div class="tab-pane active" id="details">
+        <table class="table">
+          <tr><th>Type</th><td><%= @organisation.organisation_type.name %></td></tr>
+          <tr><th>Acronym</th><td><%= @organisation.acronym %></td></tr>
+          <tr><th>URL</th><td><%= link_to @organisation.url, @organisation.url %></td></tr>
+          <tr><th>gov.uk status</th><td><%= @organisation.govuk_status.titleize %></td></tr>
+          <tr><th>Description</th><td><%= govspeak_to_html @organisation.description %></td></tr>
+          <tr><th>Email address for ordering publications or consultations in alternative formats</th><td><%= @organisation.alternative_format_contact_email %></td></tr>
+          <tr><th>Sponsoring departments</th><td>
+            <% if @organisation.parent_organisations.any? %>
+              <%= @organisation.parent_organisations.map {|o| link_to(o.name, [:admin, o]) }.to_sentence.html_safe %>
+            <% else %>
+              None
+            <% end %>
+          </td></tr>
+          <tr><th>Topics and Topical Events</th><td>
+            <% if @organisation.classifications.any? %>
+              <%= @organisation.classifications.map {|t| link_to(t.name, [:edit, :admin, t]) }.to_sentence.html_safe %>
+            <% else %>
+              None
+            <% end %>
+          </td></tr>
+          <% @organisation.social_media_accounts.each do |sma| %>
+            <tr><th><%= sma.social_media_service.name %></th><td><%= link_to sma.url, sma.url %></td></tr>
+          <% end %>
+          <tr><th>Crest</th><td><%= @organisation.organisation_logo_type.title %></td></tr>
+          <tr><th>Analytics Identifier</th><td><%= @organisation.analytics_identifier %></td></tr>
+          <tr><th>Mainstream links</th>
+            <td>
+              <% if @organisation.mainstream_links.any? %>
+                <ul>
+                  <% @organisation.mainstream_links.each do |link| %>
+                    <li><%= link_to link.title, link.url %></li>
+                  <% end %>
+                </ul>
+              <% else %>
+                None
+              <% end %>
+            </td>
+          </tr>
+        </table>
+
+        <div class="form-actions">
+          <%= link_to "Edit", edit_admin_organisation_path(@organisation), class: "btn btn-large btn-primary"%>
         </div>
       </div>
     </section>

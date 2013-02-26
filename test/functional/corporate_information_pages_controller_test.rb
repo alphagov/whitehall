@@ -21,5 +21,4 @@ class CorporateInformationPagesControllerTest < ActionController::TestCase
       assert_select "p", "para1"
     end
   end
-
 end

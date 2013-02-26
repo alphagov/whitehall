@@ -1,0 +1,7 @@
+<%= content_tag_for(:dl, social_media_account, class: "dl-horizontal") do %>
+  <%= definition(social_media_account.service_name, social_media_account.url) do |url| %>
+    <%= url %><br />
+    <%= button_to "Delete", [:admin, socialable, social_media_account], method: "delete", class: "btn btn-small btn-danger", confirm: "Delete '#{social_media_account.service_name}' social media account from #{socialable.class.name.underscore.humanize.downcase} '#{socialable.name}'?" %>
+    <%= link_to icon("Edit"), edit_polymorphic_path([:admin, socialable, social_media_account]), class: "btn" %>
+  <% end %>
+<% end %>

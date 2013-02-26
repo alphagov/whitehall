@@ -16,5 +16,5 @@
     <% end %>
   </fieldset>
 
-  <%= form.save_or_cancel cancel: admin_organisation_path(@group.organisation, anchor: "groups") %>
+  <%= form.save_or_cancel cancel: [:admin, @group.organisation, :groups] %>
 <% end %>
