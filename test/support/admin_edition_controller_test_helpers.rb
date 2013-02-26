@@ -195,32 +195,6 @@ module AdminEditionControllerTestHelpers
       end
     end
 
-    def should_allow_revision_of(edition_type)
-      view_test "should be possible to revise a published edition" do
-        published_edition = create("published_#{edition_type}")
-
-        get :show, id: published_edition
-
-        assert_select "form[action='#{revise_admin_edition_path(published_edition)}']"
-      end
-
-      view_test "should not be possible to revise a draft edition" do
-        draft_edition = create("draft_#{edition_type}")
-
-        get :show, id: draft_edition
-
-        refute_select "form[action='#{revise_admin_edition_path(draft_edition)}']"
-      end
-
-      view_test "should not be possible to revise an archived edition" do
-        archived_edition = create("archived_#{edition_type}")
-
-        get :show, id: archived_edition
-
-        refute_select "form[action='#{revise_admin_edition_path(archived_edition)}']"
-      end
-    end
-
     def should_allow_attachment_references_for(edition_type)
       edition_class = class_for(edition_type)
 

@@ -9,7 +9,6 @@ class Admin::SpeechesControllerTest < ActionController::TestCase
 
   should_allow_creating_of :speech
   should_allow_editing_of :speech
-  should_allow_revision_of :speech
 
   should_allow_speed_tagging_of :speech
   should_allow_related_policies_for :speech

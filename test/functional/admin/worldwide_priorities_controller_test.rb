@@ -10,7 +10,6 @@ class Admin::WorldwidePrioritiesControllerTest < ActionController::TestCase
 
   should_allow_creating_of :worldwide_priority
   should_allow_editing_of :worldwide_priority
-  should_allow_revision_of :worldwide_priority
 
   should_allow_association_between_world_locations_and :worldwide_priority
   should_allow_association_with_worldwide_organisations :worldwide_priority

@@ -10,7 +10,6 @@ class Admin::StatisticalDataSetsControllerTest < ActionController::TestCase
 
   should_allow_creating_of :statistical_data_set
   should_allow_editing_of :statistical_data_set
-  should_allow_revision_of :statistical_data_set
 
   should_allow_organisations_for :statistical_data_set
   should_allow_attachments_for :statistical_data_set
