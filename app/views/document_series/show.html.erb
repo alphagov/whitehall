@@ -39,8 +39,23 @@
           <% if @published_publications.any? %>
             <li><a href="#publications">Publications</a></li>
           <% end %>
+          <% if @published_consultations.any? %>
+            <li><a href="#consultations">Consultations</a></li>
+          <% end %>
+          <% if @published_speeches.any? %>
+            <li><a href="#speeches">Speeches</a></li>
+          <% end %>
+          <% if @published_case_studies.any? %>
+            <li><a href="#case-studies">Case studies</a></li>
+          <% end %>
+          <% if @published_detailed_guides.any? %>
+            <li><a href="#detailed-guides">Detailed guides</a></li>
+          <% end %>
           <% if @published_statistical_data_sets.any? %>
             <li><a href="#statistical-data-sets">Statistical data sets</a></li>
+          <% end %>
+          <% if @published_news_articles.any? %>
+            <li><a href="#news-articles">News articles</a></li>
           <% end %>
         </ol>
       </nav>
@@ -59,52 +74,54 @@
       </div>
     <% end %>
 
-      <div class="publications">
-        <% if @published_publications.any? %>
-            <h2 id="publications">Publications</h2>
-            <table class="document-list">
-              <thead class="visuallyhidden">
-                <tr>
-                  <th scope="col">Title</th>
-                  <th scope="col">Date</th>
-                </tr>
-              </thead>
-              <tbody>
-                <% @published_publications.each do |publication| %>
-                  <%= content_tag_for :tr, publication, class: "document-row" do %>
-                    <th scope="row" class="title attribute"><%= publication.link %></th>
-                    <td class="date attribute"><%= publication.display_date_microformat %></td>
-                  <% end %>
-                <% end %>
-              </tbody>
-            </table>
-        <% else %>
-          <p>There are no publications in this series at the moment.</p>
-        <% end %>
+    <% if @published_publications.any? %>
+      <div class="editions">
+        <h2 id="publications">Publications</h2>
+        <%= render partial: "editions_table", locals: {editions: @published_publications} %>
       </div>
+    <% end %>
 
-      <div class="statistical-data-sets">
-        <% if @published_statistical_data_sets.any? %>
-            <h2 id="statistical-data-sets">Statistical data sets</h2>
-            <table class="document-list statistical-data-sets">
-              <thead class="visuallyhidden">
-                <tr>
-                  <th scope="col">Title</th>
-                  <th scope="col">Date</th>
-                </tr>
-              </thead>
-              <tbody>
-                <% @published_statistical_data_sets.each do |statistical_data_set| %>
-                  <%= content_tag_for :tr, statistical_data_set, class: "document-row" do %>
-                    <th scope="row" class="title attribute"><%= statistical_data_set.link %></th>
-                    <td class="date attribute"><%= statistical_data_set.display_date_microformat %></td>
-                  <% end %>
-                <% end %>
-              </tbody>
-            </table>
-        <% end %>
+    <% if @published_consultations.any? %>
+      <div class="editions">
+        <h2 id="consultations">Consultations</h2>
+        <%= render partial: "editions_table", locals: {editions: @published_consultations, show_type: true} %>
       </div>
+    <% end %>
 
+    <% if @published_speeches.any? %>
+      <div class="editions">
+        <h2 id="speeches">Speeches</h2>
+        <%= render partial: "editions_table", locals: {editions: @published_speeches, show_type: true} %>
+      </div>
+    <% end %>
+
+    <% if @published_case_studies.any? %>
+      <div class="editions">
+        <h2 id="case-studies">Case studies</h2>
+        <%= render partial: "editions_table", locals: {editions: @published_case_studies} %>
+      </div>
+    <% end %>
+
+    <% if @published_detailed_guides.any? %>
+      <div class="editions">
+        <h2 id="detailed-guides">Detailed guides</h2>
+        <%= render partial: "editions_table", locals: {editions: @published_detailed_guides} %>
+      </div>
+    <% end %>
+
+    <% if @published_statistical_data_sets.any? %>
+      <div class="editions">
+        <h2 id="statistical-data-sets">Statistical data sets</h2>
+        <%= render partial: "editions_table", locals: {editions: @published_statistical_data_sets} %>
+      </div>
+    <% end %>
+
+    <% if @published_news_articles.any? %>
+      <div class="editions">
+        <h2 id="news-articles">News articles</h2>
+        <%= render partial: "editions_table", locals: {editions: @published_news_articles, show_type: true} %>
+      </div>
+    <% end %>
     </section>
   </div>
 </div>
