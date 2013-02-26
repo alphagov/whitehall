@@ -35,4 +35,27 @@ class Api::PagePresenterTest < PresenterTestCase
     @page.stubs(:first_page?).returns(true)
     assert_nil @presenter.as_json[:previous_page_url]
   end
+
+  test 'json includes total_count from collection as total' do
+    assert_equal @page.total_count, @presenter.as_json[:total]
+  end
+
+  test 'json includes num_pages from collection as pages' do
+    assert_equal @page.num_pages, @presenter.as_json[:pages]
+  end
+
+  test 'json includes limit_value form collection as page_size' do
+    assert_equal @page.limit_value, @presenter.as_json[:page_size]
+  end
+
+  test 'json includes current_page from collection as current_page' do
+    assert_equal @page.current_page, @presenter.as_json[:current_page]
+  end
+
+  test 'json includes start_index by calculating offset from the collection\'s current_page and limit_value' do
+    @page.stubs(:current_page).returns 4
+    @page.stubs(:limit_value).returns 7
+    assert_equal 28, @presenter.as_json[:start_index]
+  end
+
 end

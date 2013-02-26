@@ -7,7 +7,12 @@ class Api::PagePresenter < Draper::Base
     {
       results: model.map(&:as_json),
       previous_page_url: previous_page_url,
-      next_page_url: next_page_url
+      next_page_url: next_page_url,
+      current_page: model.current_page,
+      total: model.total_count,
+      pages: model.num_pages,
+      page_size: model.limit_value,
+      start_index: start_index
     }.reject {|k, v| v.nil? }
   end
 
@@ -23,6 +28,9 @@ class Api::PagePresenter < Draper::Base
     end
   end
 
+  def start_index
+    model.current_page * model.limit_value
+  end
   private
 
   def url(override_params)
