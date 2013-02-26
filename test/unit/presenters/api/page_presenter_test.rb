@@ -58,4 +58,39 @@ class Api::PagePresenterTest < PresenterTestCase
     assert_equal 28, @presenter.as_json[:start_index]
   end
 
+  test 'links include a rel=self url pointing to the current page' do
+    self_link = @presenter.links.detect {|(url, attrs)| attrs['rel'] == 'self' }
+    assert self_link
+    self_url, _ = *self_link
+    assert_equal api_detailed_guides_url(page: 2), self_url
+  end
+
+  test 'links include a rel=next url pointing to the next page if it has a next page' do
+    @page.stubs(:last_page?).returns false
+    next_link = @presenter.links.detect {|(url, attrs)| attrs['rel'] == 'next'}
+    assert next_link
+    next_url, _ = *next_link
+    assert_equal api_detailed_guides_url(page: 3), next_url
+  end
+
+  test 'links do not include a rel=next url if it is the last page' do
+    @page.stubs(:last_page?).returns true
+    next_link = @presenter.links.detect {|(url, attrs)| attrs['rel'] == 'next'}
+    refute next_link
+  end
+
+  test 'links include a rel=previous url pointing to the previous page if it has a previous page' do
+    @page.stubs(:first_page?).returns false
+    previous_link = @presenter.links.detect {|(url, attrs)| attrs['rel'] == 'previous'}
+    assert previous_link
+    previous_url, _ = *previous_link
+    assert_equal api_detailed_guides_url(page: 1), previous_url
+  end
+
+  test 'links do not include a rel=previous url if it is the first page' do
+    @page.stubs(:first_page?).returns true
+    previous_link = @presenter.links.detect {|(url, attrs)| attrs['rel'] == 'previous'}
+    refute previous_link
+  end
+
 end

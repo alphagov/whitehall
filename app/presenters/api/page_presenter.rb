@@ -16,6 +16,14 @@ class Api::PagePresenter < Draper::Base
     }.reject {|k, v| v.nil? }
   end
 
+  def links
+    links = []
+    links << [previous_page_url, {'rel' => 'previous'}] if previous_page_url
+    links << [next_page_url, {'rel' => 'next'}] if next_page_url
+    links << [url(page: model.current_page), {'rel' => 'self'}]
+    links
+  end
+
   def previous_page_url
     unless model.first_page?
       url(page: model.current_page - 1)
