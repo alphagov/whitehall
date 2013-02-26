@@ -13,7 +13,9 @@ class PublicationsController < DocumentsController
     @filter = build_document_filter(params.reverse_merge({ page: 1, direction: 'before' }))
 
     respond_to do |format|
-      format.html
+      format.html do
+        @filter = DocumentFilterPresenter.new(@filter)
+      end
       format.json do
         render json: PublicationFilterJsonPresenter.new(@filter)
       end

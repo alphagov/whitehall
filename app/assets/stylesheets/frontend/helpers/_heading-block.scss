@@ -35,43 +35,13 @@
       }
     }
 
-    .documents-list {
+    .document-list {
       @include media(tablet){
         padding-left: $gutter-half;
-
-        @include right-to-left {
-          padding-left: 0;
-          padding-right: $gutter-half;
-        }
-      }
-
-      .document {
-        list-style: none;
-        padding: 0 0 $gutter-one-sixth;
-        border-bottom: 1px solid $border-colour;
-
-        h2 a {
-          display: block;
-          @include ig-core-19;
-          @include bold;
-        }
-
-        p, .metadata {
-          @include ig-core-14;
-          padding-top: 1px;
-        }
-
-        .metadata li {
-          display: inline;
-          padding-right: $gutter;
-
-          @include right-to-left {
-            padding-right: 0;
-            padding-left: $gutter;
-          }
-        }
+        margin-top: -$gutter-one-third;
       }
     }
+
     .see-all {
       @include ig-core-19;
 

@@ -28,4 +28,21 @@ class AnnouncementPresenterTest < PresenterTestCase
       assert_equal expected, news_article.display_type
     end
   end
+
+  test "adds field of operations to the as_hash if exists" do
+    document = stub_record(:document)
+    document.stubs(:to_param).returns('some-doc')
+    organisation = stub_record(:organisation, name: "Ministry of Defence", organisation_type: stub_record(:organisation_type))
+    operational_field = stub_record(:operational_field, name: "Name")
+    fatality_notice = stub_record(:fatality_notice,
+      document: document,
+      public_timestamp: Time.zone.now,
+      organisations: [organisation],
+      operational_field: operational_field)
+    # TODO: perhaps rethink edition factory, so this apparent duplication
+    # isn't neccessary
+    fatality_notice.stubs(:organisations).returns([organisation])
+    hash = AnnouncementPresenter.new(fatality_notice).as_hash
+    assert hash[:field_of_operation]
+  end
 end

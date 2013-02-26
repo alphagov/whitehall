@@ -281,7 +281,7 @@ class PublicationsControllerTest < ActionController::TestCase
   view_test "index should show a helpful message if there are no matching publications" do
     get :index
 
-    assert_select "h2", text: "There are no matching publications."
+    assert_select "h2", text: "There are no matching documents."
   end
 
   view_test "index requested as JSON includes data for publications" do
@@ -303,7 +303,7 @@ class PublicationsControllerTest < ActionController::TestCase
     assert_equal publication_path(publication.document), json["url"]
     assert_equal "org-name and other-org", json["organisations"]
     assert_equal %{<abbr class="public_timestamp" title="2012-03-14T00:00:00+00:00">14 March 2012</abbr>}, json["display_date_microformat"]
-    assert_equal "Corporate report", json["publication_type"]
+    assert_equal "Corporate report", json["display_type"]
   end
 
   view_test "index requested as JSON includes data for consultations" do
@@ -325,7 +325,7 @@ class PublicationsControllerTest < ActionController::TestCase
     assert_equal consultation_path(consultation.document), json["url"]
     assert_equal "org-name and other-org", json["organisations"]
     assert_equal %{<abbr class="public_timestamp" title="2012-03-14T00:00:00+00:00">14 March 2012</abbr>}, json["display_date_microformat"]
-    assert_equal "Consultation", json["publication_type"]
+    assert_equal "Consultation", json["display_type"]
   end
 
   view_test "index requested as JSON includes URL to the atom feed including any filters" do
@@ -495,7 +495,7 @@ class PublicationsControllerTest < ActionController::TestCase
     get :index
 
     assert_select_object(publication) do
-      assert_select ".publication_series a[href=?]", organisation_document_series_path(organisation, series)
+      assert_select ".document-series a[href=?]", organisation_document_series_path(organisation, series)
     end
   end
 
