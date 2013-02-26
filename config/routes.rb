@@ -81,6 +81,7 @@ Whitehall::Application.routes.draw do
     resources :worldwide_organisations, path: 'world/organisations', only: [:show], localised: true do
       resources :corporate_information_pages, only: [:show], path: 'about'
     end
+    match 'world/organisations/:organisation_id/about' => redirect('/world/organisations/%{organisation_id}')
 
     constraints(AdminRequest) do
       namespace :admin do
