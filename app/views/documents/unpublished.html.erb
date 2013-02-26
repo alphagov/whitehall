@@ -15,7 +15,7 @@
       <% end %>
 
       <% if @unpublishing.alternative_url.present? %>
-        <p>Visit: <%= link_to @unpublishing.alternative_url %></p>
+        <p>Visit: <%= link_to @unpublishing.alternative_url, @unpublishing.alternative_url %></p>
       <% end %>
     </div>
   </div>
