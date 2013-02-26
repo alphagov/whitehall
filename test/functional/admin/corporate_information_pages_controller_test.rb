@@ -55,7 +55,7 @@ class Admin::CorporateInformationPagesControllerTest < ActionController::TestCas
     end
   end
 
-  test "POST :create for an Organisation corporate page" do
+  test "POST :create can create a corporate information page for an Organisation" do
     post :create, organisation_id: @organisation, corporate_information_page: corporate_information_page_attributes
 
     assert_redirected_to admin_organisation_path(@organisation)
@@ -67,7 +67,7 @@ class Admin::CorporateInformationPagesControllerTest < ActionController::TestCas
     assert_equal corporate_information_page_attributes[:summary], page.summary
   end
 
-  test "POST :create for WorldwideOrganisation corporation page" do
+  test "POST :create can create a corporation information page for a WorldwideOrganisation" do
     organisation = create(:worldwide_organisation)
     post :create, worldwide_organisation_id: organisation, corporate_information_page: corporate_information_page_attributes
 
