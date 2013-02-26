@@ -13,11 +13,9 @@ class CorporateInformationPage < ActiveRecord::Base
   validates :organisation, :body, :type, presence: true
   validates :type_id, uniqueness: { scope: [:organisation_id, :organisation_type], message: "already exists for this organisation" }
 
-  searchable title: :summary,
+  searchable title: :title_prefix_organisation_name,
              link: :search_link,
-             content: :indexable_content,
-             boost_phrases: :acronym
-
+             content: :indexable_content
 
   def body_without_markup
     Govspeak::Document.new(body).to_text
@@ -51,6 +49,10 @@ class CorporateInformationPage < ActiveRecord::Base
 
   def to_param
     slug
+  end
+
+  def title_prefix_organisation_name
+    [organisation.name, title].join(' - ')
   end
 
   def title

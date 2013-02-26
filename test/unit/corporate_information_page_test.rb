@@ -13,6 +13,16 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
   should_be_invalid_without(:corporate_information_page, :body)
   should_be_invalid_without(:corporate_information_page, :organisation)
 
+  test 'should return search index data suitable for Rummageable' do
+    organisation = create(:organisation)
+    corporate_information_page = create(:corporate_information_page,
+      type: CorporateInformationPageType::TermsOfReference,
+      organisation: organisation)
+
+    assert_equal "#{organisation.name} - #{corporate_information_page.title}", corporate_information_page.search_index['title']
+    assert_equal "/government/organisations/#{organisation.slug}/about/#{corporate_information_page.slug}", corporate_information_page.search_index['link']
+  end
+
   test "should be invalid if same type already exists for this organisation" do
     organisation = create(:organisation)
     first = create(:corporate_information_page,

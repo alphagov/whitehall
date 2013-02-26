@@ -306,13 +306,13 @@ class OrganisationTest < ActiveSupport::TestCase
                   'indexable_content' => 'Bookish. ',
                   'format' => 'organisation',
                   'description' => ''}, results[1])
-    assert_equal({'title' => 'HMRC',
+    assert_equal({'title' => 'HMRC (hmrc)',
                   'link' => '/government/organisations/hmrc',
                   'indexable_content' => 'Taxing. ',
                   'format' => 'organisation',
                   'boost_phrases' => 'hmrc',
                   'description' => ''}, results[2])
-    assert_equal({'title' => 'Ministry of Defence',
+    assert_equal({'title' => 'Ministry of Defence (mod)',
                   'link' => '/government/organisations/ministry-of-defence',
                   'indexable_content' => 'Defensive. ',
                   'format' => 'organisation',
