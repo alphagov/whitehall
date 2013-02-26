@@ -42,14 +42,14 @@ class Admin::SocialMediaAccountsController < Admin::BaseController
   private
 
   def find_socialable
-    @socialable = case params.keys.grep(/(.+)_id$/).first.to_sym
-    when :organisation_id
-      Organisation.find(params[:organisation_id])
-    when :worldwide_organisation_id
-      WorldwideOrganisation.find(params[:worldwide_organisation_id])
-    else
-      raise ActiveRecord::RecordNotFound
-    end
+    @socialable =
+      if params.has_key?(:organisation_id)
+        Organisation.find(params[:organisation_id])
+      elsif params.has_key?(:worldwide_organisation_id)
+        WorldwideOrganisation.find(params[:worldwide_organisation_id])
+      else
+        raise ActiveRecord::RecordNotFound
+      end
   end
 
   def find_social_media_account

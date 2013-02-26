@@ -44,12 +44,12 @@ class Admin::ContactsController < Admin::BaseController
   private
 
   def find_contactable
-    @contactable  = case params.keys.grep(/(.+)_id$/).first.to_sym
-    when :organisation_id
-      Organisation.find(params[:organisation_id])
-    else
-      raise ActiveRecord::RecordNotFound
-    end
+    @contactable  =
+      if params.has_key?(:organisation_id)
+        Organisation.find(params[:organisation_id])
+      else
+        raise ActiveRecord::RecordNotFound
+      end
   end
 
   def find_contact

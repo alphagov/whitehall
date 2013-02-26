@@ -9,13 +9,13 @@ class CorporateInformationPagesController < PublicFacingController
   private
 
   def find_organisation
-    @organisation  = case params.keys.grep(/(.+)_id$/).first.to_sym
-    when :organisation_id
-      Organisation.find(params[:organisation_id])
-    when :worldwide_organisation_id
-      WorldwideOrganisation.find(params[:worldwide_organisation_id])
-    else
-      raise ActiveRecord::RecordNotFound
-    end
+    @organisation =
+      if params.has_key?(:organisation_id)
+        Organisation.find(params[:organisation_id])
+      elsif params.has_key?(:worldwide_organisation_id)
+        WorldwideOrganisation.find(params[:worldwide_organisation_id])
+      else
+        raise ActiveRecord::RecordNotFound
+      end
   end
 end

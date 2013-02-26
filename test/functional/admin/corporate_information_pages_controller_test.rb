@@ -11,7 +11,7 @@ class Admin::CorporateInformationPagesControllerTest < ActionController::TestCas
 
   def process(action, parameters, session, flash, method)
     parameters ||= {}
-    if !parameters.has_key?(:organisation_id)
+    if !parameters.has_key?(:organisation_id) && !parameters.has_key?(:worldwide_organisation_id)
       organisation = if parameters[:id]
         parameters[:id].organisation
       else
@@ -59,10 +59,8 @@ class Admin::CorporateInformationPagesControllerTest < ActionController::TestCas
     post :create, organisation_id: @organisation, corporate_information_page: corporate_information_page_attributes
 
     assert_redirected_to admin_organisation_path(@organisation)
-    assert_equal 1, @organisation.reload.corporate_information_pages.count
 
-    page = @organisation.corporate_information_pages.last
-
+    assert page = @organisation.corporate_information_pages.last
     assert_equal "#{page.title} created successfully", flash[:notice]
     assert_equal corporate_information_page_attributes[:body], page.body
     assert_equal corporate_information_page_attributes[:type_id], page.type_id
@@ -74,10 +72,8 @@ class Admin::CorporateInformationPagesControllerTest < ActionController::TestCas
     post :create, worldwide_organisation_id: organisation, corporate_information_page: corporate_information_page_attributes
 
     assert_redirected_to admin_worldwide_organisation_path(organisation)
-    assert_equal 1, organisation.reload.corporate_information_pages.count
 
-    page = organisation.corporate_information_pages.last
-
+    assert page = organisation.corporate_information_pages.last
     assert_equal "#{page.title} created successfully", flash[:notice]
     assert_equal corporate_information_page_attributes[:body], page.body
     assert_equal corporate_information_page_attributes[:type_id], page.type_id
