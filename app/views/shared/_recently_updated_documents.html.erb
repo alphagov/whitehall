@@ -1,21 +1,14 @@
-<table class="document-list">
-  <thead class="visuallyhidden">
-    <tr>
-      <th scope="col">Title</th>
-      <th scope="col">Published date</th>
-      <th scope="col">Meta data</th>
-    </tr>
-  </thead>
-  <tbody>
+<ol class="document-list">
   <% recently_updated.each do |document| %>
-    <%= content_tag_for :tr, document, :recent, class: [edition_organisation_class(document), 'document-row'].join(" ") do %>
-      <th scope="row" class="Title"><%= link_to document.title, public_document_path(document), class: "title" %></th>
-      <td class="published-date">
-        <%= published_or_updated(document) %>
-        <%= absolute_date(document.public_timestamp, class: 'published-at') %>
-      </td>
-      <td class="metadata"><span class="document_type type"><%= t_display_type(document) %></span></td>
+    <%= content_tag_for :li, document, :recent, class: 'document-row' do %>
+      <h3><%= link_to document.title, public_document_path(document) %></h3>
+      <ul class="attributes">
+        <li class="published-date">
+          <%= published_or_updated(document) %>
+          <%= absolute_date(document.public_timestamp, class: 'published-at') %>
+        </li>
+        <li class="display-type"><%= t_display_type(document) %></li>
+      </ul>
     <% end %>
   <% end %>
-  </tbody>
-</table>
+</ol>

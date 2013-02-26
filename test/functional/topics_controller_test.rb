@@ -81,7 +81,7 @@ class TopicsControllerTest < ActionController::TestCase
     assert_select "#publications" do
       published.take(3).each do |edition|
         assert_select_object(edition) do
-          assert_select ".title", text: edition.title
+          assert_select "h2", text: edition.title
         end
       end
       refute_select_object(published[3])
@@ -111,7 +111,7 @@ class TopicsControllerTest < ActionController::TestCase
     assert_select "#announcements" do
       published.take(3).each do |edition|
         assert_select_object(edition) do
-          assert_select ".title", text: edition.title
+          assert_select "h2", text: edition.title
         end
       end
       refute_select_object(published[3])
@@ -230,13 +230,13 @@ class TopicsControllerTest < ActionController::TestCase
 
     get :show, id: topic
 
-    assert_select "#recently-updated tbody tr", count: 3
+    assert_select "#recently-updated .document-row", count: 3
   end
 
   view_test "show does not display empty recently changed section" do
     topic = create(:topic)
     get :show, id: topic
-    refute_select "#recently-updated .document-table"
+    refute_select "#recently-updated .document-list"
   end
 
   view_test "show displays metadata about the recently changed documents" do
@@ -249,7 +249,7 @@ class TopicsControllerTest < ActionController::TestCase
 
     assert_select "#recently-updated" do
       assert_select_prefix_object speech, prefix="recent" do
-        assert_select '.type', text: "Speech"
+        assert_select '.display-type', text: "Speech"
         assert_select ".published-at[title='#{speech.public_timestamp.iso8601}']"
       end
     end

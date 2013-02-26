@@ -1,12 +1,10 @@
-<ul class="policies documents-list">
+<ol class="policies document-list">
   <% policies.each do |policy| %>
-    <%= content_tag_for(:li, policy, class: "document collection-item") do %>
-      <div class="container">
-        <h2><%= link_to policy.title, public_document_path(policy), title: t('document.view', title: policy.title), class: "title" %></h2>
-        <% unless policy.summary.blank? %>
-          <p class="summary"><%= policy.summary %></p>
-        <% end %>
-      </div>
+    <%= content_tag_for(:li, policy, class: "document-row") do %>
+      <h2><%= link_to policy.title, public_document_path(policy) %></h2>
+      <% unless policy.summary.blank? %>
+        <p class="summary"><%= policy.summary %></p>
+      <% end %>
     <% end %>
   <% end %>
-</ul>
+</ol>

@@ -24,22 +24,16 @@
       @include heading-27;
     }
 
-    .document-table {
-      margin-top: 0;
-      clear: both;
-
+    .document-list {
       .document-row {
-        @include ig-core-14;
-        border-bottom: none;
+        @include core-14;
+        border-bottom: 0;
+        padding-top: 0;
 
-        th {
-          @include ig-core-14;
-          margin: $gutter-one-third 0 0 0;
-          padding: 0;
+        h3 {
+          @include core-14;
         }
-
-        td {
-          margin: 0;
+        li {
           padding: 0 $gutter-one-third 0 0;
         }
       }

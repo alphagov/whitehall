@@ -82,9 +82,9 @@
         <section id="detailed-guidance" class="heading-block">
           <h1 class="label">Detailed guidance</h1>
           <div class="content">
-            <ul class="documents-list">
+            <ol class="document-list">
               <% @detailed_guides.each do |detailed_guide| %>
-                <%= content_tag_for :li, detailed_guide, class: 'document' do %>
+                <%= content_tag_for :li, detailed_guide, class: 'document-row' do %>
                   <h2><%= link_to detailed_guide.title, public_document_path(detailed_guide) %></h2>
                 <% end %>
               <% end %>
@@ -96,13 +96,13 @@
         <section id="related-topics" class="heading-block">
           <h1 class="label">Related topics</h1>
           <div class="content">
-            <ul class="documents-list">
+            <ol class="document-list">
               <% @related_classifications.each do |topic| %>
-                <%= content_tag_for :li, topic do %>
-                  <%= link_to topic.name, topic_path(topic) %>
+                <%= content_tag_for :li, topic, class: 'document-row' do %>
+                  <h2><%= link_to topic.name, topic_path(topic) %></h2>
                 <% end %>
               <% end %>
-            </ul>
+            </ol>
           </div>
         </section>
       <% end %>

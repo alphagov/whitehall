@@ -334,26 +334,6 @@
     }
   }
 
-  .document-table {
-    margin: 0;
-
-    .document-row {
-      @include ig-core-14;
-      border-bottom: none;
-
-      th {
-        @include ig-core-14;
-        margin: $gutter-one-third 0 0 0;
-        padding: 0;
-      }
-
-      td {
-        margin: 0;
-        padding: 0 $gutter-one-third 0 0;
-      }
-    }
-  }
-
   .what-we-do {
     @include media(tablet){
       float: left;

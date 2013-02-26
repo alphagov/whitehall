@@ -18,10 +18,8 @@
     padding: $gutter/2 0 $gutter/2 0;
   }
 
-  section#document_series {
-    .document-table {
-      margin-top: 0;
-    }
+  .govspeak {
+    padding-bottom: $gutter;
   }
 
   @include media(desktop) {

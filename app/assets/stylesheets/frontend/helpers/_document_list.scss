@@ -9,7 +9,7 @@
     border-bottom: 1px solid $border-colour;
     padding: $gutter-one-third 0;
 
-    h3 {
+    h2, h3 {
       @include core-19;
       margin-top: $gutter-one-sixth;
     }
@@ -31,103 +31,19 @@
     }
   }
 
-  .document-row:first-child {
-    h3 {
-      @include ig-core-27;
-    }
-  }
+  &.lead-in {
+    .document-row {
+      &:first-child {
+        h2, h3 {
+          @include ig-core-27;
+        }
+      }
 
-  .document-row:nth-child(2) {
-    th {
-      @include ig-core-24;
-    }
-  }
-}
-
-.document-table {
-  width: 100%;
-  clear: both;
-  margin-top: $gutter-half;
-
-  .document-row {
-    border-bottom: 1px solid $border-colour;
-    overflow: hidden;
-    position: relative;
-    list-style: none;
-    @include ie-lte(7) {
-      position: static;
-      th.title, td {
-        @include core-14;
-        padding: $gutter-one-third $gutter-one-third $gutter-one-third 0;
-        border-bottom: 1px solid $border-colour;
+      &:nth-child(2) {
+        h2, h3 {
+          @include ig-core-24;
+        }
       }
     }
   }
-
-  thead {
-    tr th {
-      @include ie-lte(7) {
-        @include core-14;
-        padding-right: $gutter-one-third;
-      }
-    }
-  }
-
-  th {
-    @include ig-core-19;
-    text-align: left;
-    float: left;
-    display: inline;
-    width: 100%;
-    margin-top: $gutter-one-sixth;
-    @include bold;
-    vertical-align: top;
-
-    @include right-to-left {
-      text-align: right;
-      float: right;
-    }
-    @include ie(6) {
-      width: 85%;
-    }
-  }
-
-  td {
-    @include ig-core-14;
-    text-align: left;
-    float: left;
-    display: inline;
-    padding-top: 0;
-    padding-right: $gutter;
-    margin-bottom: $gutter-one-sixth;
-
-    @include right-to-left {
-      text-align: right;
-      float: right;
-      padding-right: 0;
-      padding-left: $gutter;
-    }
-    @include ie-lte(7) {
-      vertical-align: top;
-    }
-  }
-  
-  .document-row:first-child {
-    th {
-      @include ig-core-27;
-      @include bold;
-      @include ie-lte(7) {
-        @include core-14;
-        padding: $gutter-one-third $gutter-one-third $gutter-one-third 0;
-      }
-    }
-  }
-  .document-row:nth-child(2) {
-    th {
-      @include ig-core-24;
-      @include bold;
-    }
-  }
-
-
 }

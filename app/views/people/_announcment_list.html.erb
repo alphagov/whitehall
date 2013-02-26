@@ -8,31 +8,17 @@
     <h1>Announcements</h1>
     <p>by <%= person.name %></p>
 
-    <table class="document-table">
-      <thead class="visuallyhidden">
-        <tr>
-          <th scope="col">Title</th>
-          <th scope="col">Date</th>
-          <th scope="col">Announcement Type</th>
-        </tr>
-      </thead>
-
-      <tbody>
-        <% person.announcements.each do |announcement| %>
-          <%= content_tag_for :tr, announcement, class: "document-row" do %>
-            <th scope="row" class="title attribute">
-              <%= announcement.link %>
-            </th>
-            <td class="date attribute">
-              <%= announcement.display_date_microformat %>
-            </td>
-            <td class="announcement_type attribute">
-              <%= announcement.display_type %>
-            </td>
-          <% end %>
+    <ol class="document-list">
+      <% person.announcements.each do |announcement| %>
+        <%= content_tag_for :li, announcement, class: "document-row" do %>
+          <h3><%= announcement.link %></h3>
+          <ul class="attributes">
+            <li class="date"><%= announcement.display_date_microformat %></li>
+            <li class="display-type"><%= announcement.display_type %></li>
+          </ul>
         <% end %>
-      </tbody>
-    </table>
+      <% end %>
+    </ol>
 
     <div class="read-more">
       <%= link_to "View all announcements", :announcements %>
