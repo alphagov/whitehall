@@ -530,14 +530,18 @@
 
     .contact {
       clear: both;
+      margin-top: $gutter-one-third;
       @extend %contain-floats;
       @include media(tablet){
-        margin-bottom: $gutter;
+        margin-bottom: $gutter-two-thirds;
       }
       h2 {
-        @include ig-core-24;
-        margin-bottom: $gutter-half;
-        border-bottom: 1px solid $border-colour;
+        @include core-19;
+        font-weight: bold;
+        margin-bottom: $gutter-one-third;
+        padding-top: $gutter-half;
+        border-top: 1px solid $border-colour;
+        border-bottom: none;
       }
       p {
         margin: 0 0 $gutter-one-third;
@@ -576,6 +580,10 @@
           }
         }
       }
+    }
+    .show-other-content {
+      @include core-19;
+      font-weight: bold;
     }
   }
 
