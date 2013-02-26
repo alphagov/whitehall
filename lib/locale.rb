@@ -1,5 +1,11 @@
 class Locale < Struct.new(:code)
+  ENGLISH_LOCALE_CODE = :en
+
   class << self
+    def current
+      new(I18n.locale)
+    end
+
     def all
       I18n.available_locales.map do |l|
         new(l)
@@ -7,7 +13,7 @@ class Locale < Struct.new(:code)
     end
 
     def non_english
-      all - [Locale.new(:en)]
+      all.reject(&:english?)
     end
 
     def find_by_language_name(native_language_name)
@@ -19,12 +25,16 @@ class Locale < Struct.new(:code)
     end
   end
 
+  def english?
+    code.to_sym == ENGLISH_LOCALE_CODE
+  end
+
   def native_language_name
     I18n.t("language_names.#{code}", locale: code)
   end
 
   def english_language_name
-    I18n.t("language_names.#{code}", locale: :en)
+    I18n.t("language_names.#{code}", locale: ENGLISH_LOCALE_CODE)
   end
 
   def rtl?
