@@ -236,7 +236,7 @@ class TopicsControllerTest < ActionController::TestCase
   view_test "show does not display empty recently changed section" do
     topic = create(:topic)
     get :show, id: topic
-    refute_select "#recently-updated .document-list"
+    refute_select "#recently-updated .document-table"
   end
 
   view_test "show displays metadata about the recently changed documents" do

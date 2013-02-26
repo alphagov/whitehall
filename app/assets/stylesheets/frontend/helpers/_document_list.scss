@@ -1,6 +1,52 @@
 .document-list {
   width: 100%;
   clear: both;
+
+  .document-row {
+    display: block;
+    overflow: hidden;
+    list-style: none;
+    border-bottom: 1px solid $border-colour;
+    padding: $gutter-one-third 0;
+
+    h3 {
+      @include core-19;
+      margin-top: $gutter-one-sixth;
+    }
+
+    ul {
+      li {
+        @include core-14;
+        float: left;
+        display: block;
+        list-style: none;
+        padding: 0 $gutter 0 0;
+
+        @include right-to-left {
+          text-align: right;
+          float: right;
+          padding: 0 0 0 $gutter;
+        }
+      }
+    }
+  }
+
+  .document-row:first-child {
+    h3 {
+      @include ig-core-27;
+    }
+  }
+
+  .document-row:nth-child(2) {
+    th {
+      @include ig-core-24;
+    }
+  }
+}
+
+.document-table {
+  width: 100%;
+  clear: both;
   margin-top: $gutter-half;
 
   .document-row {
