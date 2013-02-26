@@ -23,7 +23,7 @@ When /^I follow the link to the "([^"]*)" document series$/ do |document_series_
 end
 
 When /^I follow the link to the "([^"]*)" statistical data set$/ do |data_set_title|
-  within('.statistical-data-sets') do
+  within('.statistical_data_set.document-row') do
     click_link data_set_title
   end
 end
