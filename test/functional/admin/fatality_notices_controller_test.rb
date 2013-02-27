@@ -14,7 +14,6 @@ class Admin::FatalityNoticesControllerTest < ActionController::TestCase
   should_allow_organisations_for :fatality_notice
   should_allow_attached_images_for :fatality_notice
   should_allow_role_appointments_for :fatality_notice
-  should_be_force_publishable :fatality_notice
   should_prevent_modification_of_unmodifiable :fatality_notice
   should_allow_overriding_of_first_published_at_for :fatality_notice
   should_have_summary :fatality_notice
