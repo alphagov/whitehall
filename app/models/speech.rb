@@ -9,7 +9,7 @@ class Speech < Announcement
 
   validate :role_appointment_has_associated_organisation, unless: ->(speech) { speech.can_have_some_invalid_data? }
 
-  delegate :genus, :explanation, to: :speech_type
+  delegate :display_type_key, :explanation, to: :speech_type
   validate :only_speeches_allowed_invalid_data_can_be_awaiting_type
 
   def search_format_types
@@ -25,16 +25,8 @@ class Speech < Announcement
   end
 
   def display_type
-    if [SpeechType::WrittenStatement, SpeechType::OralStatement].include?(speech_type)
+    if statement_to_parliament?
       "Statement to parliament"
-    else
-      super
-    end
-  end
-
-  def display_type_key
-    if [SpeechType::WrittenStatement, SpeechType::OralStatement].include?(speech_type)
-      "statement_to_parliament"
     else
       super
     end
@@ -60,6 +52,10 @@ class Speech < Announcement
   end
 
   private
+
+  def statement_to_parliament?
+    [SpeechType::WrittenStatement, SpeechType::OralStatement].include?(speech_type)
+  end
 
   def skip_organisation_validation?
     true

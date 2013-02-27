@@ -2,7 +2,7 @@
   <p>
     <%= document.summary %>
     <% if document.location && !document.location.empty? %>
-      Originally given at <span class="location"><%= document.location %></span>.
+      <span class="location"><%= t('document.speech.originally_given_at', location: document.location) %></span>
     <% end %>
     <% if document.explanation %>
       <span class="explanation"><%= document.explanation %></span>
