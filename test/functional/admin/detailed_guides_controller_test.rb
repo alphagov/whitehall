@@ -21,7 +21,6 @@ class Admin::DetailedGuidesControllerTest < ActionController::TestCase
   should_be_rejectable :detailed_guide
   should_be_publishable :detailed_guide
   should_be_force_publishable :detailed_guide
-  should_link_to_preview_version_when_not_published :detailed_guide
   should_prevent_modification_of_unmodifiable :detailed_guide
   should_allow_association_with_related_mainstream_content :detailed_guide
   should_allow_alternative_format_provider_for :detailed_guide

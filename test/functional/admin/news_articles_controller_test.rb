@@ -19,7 +19,6 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
   should_be_rejectable :news_article
   should_be_publishable :news_article
   should_be_force_publishable :news_article
-  should_link_to_preview_version_when_not_published :news_article
   should_prevent_modification_of_unmodifiable :news_article
   should_allow_overriding_of_first_published_at_for :news_article
   should_have_summary :news_article

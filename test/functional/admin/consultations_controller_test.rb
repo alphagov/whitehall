@@ -25,7 +25,6 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
   should_be_rejectable :consultation
   should_be_publishable :consultation
   should_be_force_publishable :consultation
-  should_link_to_preview_version_when_not_published :consultation
   should_prevent_modification_of_unmodifiable :consultation
   should_allow_alternative_format_provider_for :consultation
   should_allow_assignment_to_document_series :consultation

@@ -21,7 +21,6 @@ class Admin::StatisticalDataSetsControllerTest < ActionController::TestCase
   should_be_rejectable :statistical_data_set
   should_be_publishable :statistical_data_set
   should_be_force_publishable :statistical_data_set
-  should_link_to_preview_version_when_not_published :statistical_data_set
   should_prevent_modification_of_unmodifiable :statistical_data_set
   should_allow_alternative_format_provider_for :statistical_data_set
   should_allow_assignment_to_document_series :statistical_data_set

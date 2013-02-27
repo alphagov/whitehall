@@ -26,7 +26,6 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
   should_be_rejectable :publication
   should_be_publishable :publication
   should_be_force_publishable :publication
-  should_link_to_preview_version_when_not_published :publication
   should_prevent_modification_of_unmodifiable :publication
   should_allow_alternative_format_provider_for :publication
   should_allow_assignment_to_document_series :publication
