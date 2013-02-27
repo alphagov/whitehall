@@ -134,6 +134,12 @@ class Whitehall::Uploader::AttachmentCacheTest < ActiveSupport::TestCase
     assert_equal "attachment.pdf", File.basename(@cache.fetch(url).path)
   end
 
+  test 'adds an extension if the current extension is invalid and we can detect one' do
+    url = "http://example.com/attachment.random"
+    stub_request(:get, url).to_return(body: "", status: 200, headers: {'Content-type' => 'application/pdf'})
+    assert_equal "attachment.random.pdf", File.basename(@cache.fetch(url).path)
+  end
+
   test 'doesn\'t look at the file type if there is a content-type header and the file has no extension' do
     url = "http://example.com/attachment"
     stub_request(:get, url).to_return(body: "", status: 200, headers: {'Content-type' => 'application/pdf'})

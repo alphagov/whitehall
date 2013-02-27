@@ -7,6 +7,7 @@ class AttachmentUploader < WhitehallUploader
 
   PDF_CONTENT_TYPE = 'application/pdf'
   FALLBACK_THUMBNAIL_PDF = File.expand_path("../../assets/images/pub-cover.png", __FILE__)
+  EXTENSION_WHITE_LIST = %w(pdf csv rtf png jpg doc docx xls xlsx ppt pptx zip rdf txt kml odt ods)
 
   process :set_content_type
   after :retrieve_from_cache, :set_content_type
@@ -47,7 +48,7 @@ class AttachmentUploader < WhitehallUploader
   end
 
   def extension_white_list
-    %w(pdf csv rtf png jpg doc docx xls xlsx ppt pptx zip rdf txt kml odt ods)
+    EXTENSION_WHITE_LIST
   end
 
   class ZipFile
