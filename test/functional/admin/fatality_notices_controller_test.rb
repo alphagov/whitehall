@@ -17,7 +17,6 @@ class Admin::FatalityNoticesControllerTest < ActionController::TestCase
   should_be_rejectable :fatality_notice
   should_be_publishable :fatality_notice
   should_be_force_publishable :fatality_notice
-  should_be_able_to_delete_an_edition :fatality_notice
   should_link_to_public_version_when_published :fatality_notice
   should_not_link_to_public_version_when_not_published :fatality_notice
   should_link_to_preview_version_when_not_published :fatality_notice

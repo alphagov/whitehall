@@ -17,7 +17,6 @@ class Admin::SpeechesControllerTest < ActionController::TestCase
   should_be_rejectable :speech
   should_be_publishable :speech
   should_be_force_publishable :speech
-  should_be_able_to_delete_an_edition :speech
   should_link_to_public_version_when_published :speech
   should_not_link_to_public_version_when_not_published :speech
   should_link_to_preview_version_when_not_published :speech

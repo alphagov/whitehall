@@ -25,7 +25,6 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
   should_be_rejectable :consultation
   should_be_publishable :consultation
   should_be_force_publishable :consultation
-  should_be_able_to_delete_an_edition :consultation
   should_link_to_public_version_when_published :consultation
   should_link_to_preview_version_when_not_published :consultation
   should_not_link_to_public_version_when_not_published :consultation

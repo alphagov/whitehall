@@ -19,7 +19,6 @@ class Admin::WorldwidePrioritiesControllerTest < ActionController::TestCase
   should_be_rejectable :worldwide_priority
   should_be_publishable :worldwide_priority
   should_be_force_publishable :worldwide_priority
-  should_be_able_to_delete_an_edition :worldwide_priority
   should_link_to_public_version_when_published :worldwide_priority
   should_not_link_to_public_version_when_not_published :worldwide_priority
   should_link_to_preview_version_when_not_published :worldwide_priority

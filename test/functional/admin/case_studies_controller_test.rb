@@ -15,7 +15,6 @@ class Admin::CaseStudiesControllerTest < ActionController::TestCase
   should_be_rejectable :case_study
   should_be_publishable :case_study
   should_be_force_publishable :case_study
-  should_be_able_to_delete_an_edition :case_study
   should_link_to_public_version_when_published :case_study
   should_link_to_preview_version_when_not_published :case_study
   should_not_link_to_public_version_when_not_published :case_study

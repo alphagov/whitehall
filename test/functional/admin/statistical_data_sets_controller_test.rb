@@ -21,7 +21,6 @@ class Admin::StatisticalDataSetsControllerTest < ActionController::TestCase
   should_be_rejectable :statistical_data_set
   should_be_publishable :statistical_data_set
   should_be_force_publishable :statistical_data_set
-  should_be_able_to_delete_an_edition :statistical_data_set
   should_link_to_public_version_when_published :statistical_data_set
   should_not_link_to_public_version_when_not_published :statistical_data_set
   should_link_to_preview_version_when_not_published :statistical_data_set
