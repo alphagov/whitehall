@@ -47,10 +47,10 @@ class Edition < ActiveRecord::Base
   end
 
   def self.in_chronological_order
-    order(arel_table[:public_timestamp].asc)
+    order(arel_table[:public_timestamp].asc, arel_table[:document_id].asc)
   end
   def self.in_reverse_chronological_order
-    order(arel_table[:public_timestamp].desc)
+    order(arel_table[:public_timestamp].desc, arel_table[:document_id].desc)
   end
 
   class UnmodifiableValidator < ActiveModel::Validator
