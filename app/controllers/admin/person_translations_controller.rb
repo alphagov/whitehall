@@ -16,7 +16,8 @@ class Admin::PersonTranslationsController < Admin::BaseController
 
   def update
     if @translated_person.update_attributes(params[:person])
-      redirect_to admin_person_translations_path(@translated_person)
+      redirect_to admin_person_translations_path(@translated_person),
+        notice: notice_message("saved")
     else
       render action: 'edit'
     end
@@ -24,10 +25,15 @@ class Admin::PersonTranslationsController < Admin::BaseController
 
   def destroy
     @translated_person.remove_translations_for(translation_locale.code)
-    redirect_to admin_person_translations_path(@translated_person)
+    redirect_to admin_person_translations_path(@translated_person),
+      notice: notice_message("deleted")
   end
 
   private
+
+  def notice_message(action)
+    %{#{translation_locale.english_language_name} translation for "#{person.name}" #{action}.}
+  end
 
   def load_translated_and_english_people
     @translated_person = LocalisedModel.new(person, translation_locale.code)
