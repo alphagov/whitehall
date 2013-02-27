@@ -38,6 +38,9 @@ es:
         other:
     published: Publicado
     read: Lea el artículo de la '%{title}'
+    speech:
+      delivered_on:
+      originally_given_at:
     type:
       announcement:
         one: Anuncio
@@ -244,9 +247,10 @@ es:
         one:
         other:
   worldwide_organisation:
-    about_us:
-    contact_us:
     find_out_more: Ver el perfil completo y todos los datos de contacto
-    our_people:
-    our_services:
+    headings:
+      about_us:
+      contact_us:
+      our_people:
+      our_services:
     part_of:

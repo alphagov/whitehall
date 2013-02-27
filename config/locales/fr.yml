@@ -21,15 +21,15 @@ fr:
       field_of_operation:
       live_data:
       ministers:
-        one:
-        other:
+        one: Ministre
+        other: Ministres
       policies:
-        one:
-        other:
+        one: Politique
+        other: Politiques
       policy_team:
       topics:
-        one:
-        other:
+        one: Thème
+        other: Thèmes
       world_locations:
         one: Où dans le monde
         other: Endroits du monde
@@ -38,6 +38,9 @@ fr:
         other:
     published: publié
     read: Lire l'article intitulé «%{title}»
+    speech:
+      delivered_on:
+      originally_given_at:
     type:
       announcement:
         one: Annonce
@@ -244,9 +247,10 @@ fr:
         one: Territoire d'outre-mer
         other: Territoires d'outre-mer
   worldwide_organisation:
-    about_us: À propos de nous
-    contact_us: Contactez-nous
     find_out_more: En savoir plus
-    our_people: Notre peuple
-    our_services: Nos services
+    headings:
+      about_us: À propos de nous
+      contact_us: Contactez-nous
+      our_people: Notre peuple
+      our_services: Nos services
     part_of: Une partie de

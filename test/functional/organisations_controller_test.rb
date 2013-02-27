@@ -390,7 +390,7 @@ class OrganisationsControllerTest < ActionController::TestCase
       end
       assert_select_object(announcement_2) do
         assert_select "abbr.public_timestamp[title=?]", 2.days.ago.to_date.to_datetime.iso8601
-        assert_select ".announcement-type", "Statement to parliament"
+        assert_select ".announcement-type", "Written statement to parliament"
       end
       refute_select_object(announcement_3)
       assert_select "a[href='#{announcements_filter_path(organisation)}']"

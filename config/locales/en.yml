@@ -154,8 +154,8 @@ en:
         one: Open consultation
         other: Open consultations
       oral_statement:
-        one: Oral statement
-        other: Oral statements
+        one: Oral statement to parliament
+        other: Oral statements to parliament
       policy:
         one: Policy
         other: Policies
@@ -202,11 +202,14 @@ en:
         one: Treaty
         other: Treaties
       written_statement:
-        one: Written statement
-        other: Written statements
+        one: Written statement to parliament
+        other: Written statements to parliament
     updated: updated
     view: View '%{title}'
     read: Read the %{title} article
+    speech:
+      delivered_on: "Delivered on:"
+      originally_given_at: "Originally given at %{location}."
   feeds:
     atom: atom
     email_alerts: email alerts
@@ -246,10 +249,11 @@ en:
   worldwide_organisation:
     find_out_more: See full profile and all contact details
     part_of: Part of
-    about_us: About us
-    our_services: Our services
-    our_people: Our people
-    contact_us: Contact us
+    headings:
+      about_us: About us
+      our_services: Our services
+      our_people: Our people
+      contact_us: Contact us
   contact:
     email: Email
     contact_form: Contact form
