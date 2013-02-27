@@ -37,45 +37,15 @@ header {
   overflow: hidden;
 
   .toggler {
-    display: block;
-    cursor: pointer;
-    padding: $gutter-one-third 8px;
-    text-decoration: none;
-    width: 50px;
-
-    @include media(desktop){
-      display: inline-block;
-    }
-
-    &:hover,
-    &:focus {
-      text-decoration: underline;
-      outline: none;
-    }
     &:after {
-      display: inline-block;
-      font-size: 8px;
-      height: 20px;
-      padding-left: 5px;
-      vertical-align: middle;
       content: " \25BC";
     }
   }
-
   &.open {
     .toggler {
       &:after {
         content: " \25B2";
       }
-    }
-  }
-
-  .jump-link {
-    float: right;
-
-    @include media(tablet){
-      position: absolute;
-      left: -99999em;
     }
   }
 
@@ -96,39 +66,16 @@ header {
       @include media(tablet){
         display: inline;
       }
-
-      .subtype {
-        @include media(tablet){
-          width: 14em;
-          text-align: left;
-          background: $inside-gov-secondary;
-          position: absolute;
-          right: 0;
-          z-index: 1;
-          @include box-shadow(0 2px 6px rgba(0, 0, 0, 0.2));
-          @include ie(7){
-            top: 40px;
-          }
-
-          li {
-            width: 100%;
-            display: block;
-            a {
-              display: block;
-            }
-          }
-        }
-      }
       .toggler {
-        position: absolute;
         &:focus {
           text-decoration: none;
+          outline: none;
         }
-
+      }
+      &.user-org {
+        display: none;
         @include media(tablet){
-          position: relative;
-          left: auto;
-          z-index: 10;
+          display: block;
         }
       }
     }
@@ -136,10 +83,8 @@ header {
 }
 
 .navbar .visuallyhidden {
-  display: none;
-  @include media(tablet) {
-    display: block;
-  }
+  position: absolute;
+  left: -9999em;
 }
 
 .navbar-fixed-top,
@@ -252,4 +197,8 @@ header {
       display: block;
     }
   }
+}
+
+.js-enabled .navbar .nav .js-hidden {
+  display: none;
 }
