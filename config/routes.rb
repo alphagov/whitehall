@@ -30,7 +30,7 @@ Whitehall::Application.routes.draw do
     match '/feed' => 'home#feed', defaults: { format: :atom }, constraints: { format: :atom }, as: :atom_feed
     match '/tour' => redirect("/tour", prefix: "")
 
-    resources :announcements, only: [:index], path: 'announcements'
+    resources :announcements, only: [:index], path: 'announcements', localised: true
     resources :policies, only: [:index, :show] do
       member do
         get :activity

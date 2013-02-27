@@ -232,4 +232,20 @@ class AnnouncementsControllerTest < ActionController::TestCase
     end
   end
 
+  view_test 'index only lists documents in the given locale' do
+    english_article = create(:published_news_article)
+    spanish_article = create(:published_news_article, translated_into: [:es])
+    get :index, locale: 'es'
+
+    assert_select_object spanish_article
+    refute_select_object english_article
+  end
+
+  view_test 'index for a non-english locale only allows filtering by world location' do
+    get :index, locale: 'es'
+
+    assert_select '.filter', count: 2
+    assert_select '#location-filter'
+    assert_select '#filter-submit'
+  end
 end

@@ -36,12 +36,20 @@ class AnnouncementsController < PublicFacingController
 private
 
   def build_document_filter(params)
-    document_filter = Whitehall.search_backend.new(params)
+    document_filter = search_backend.new(params)
     document_filter.announcements_search
     SearchAnnouncementsDecorator.new(document_filter)
   end
 
   def scheduled_announcements
     Announcement.scheduled.order("scheduled_publication asc")
+  end
+
+  def search_backend
+    if Locale.current.english?
+      Whitehall.search_backend
+    else
+      Whitehall::DocumentFilter::Mysql
+    end
   end
 end

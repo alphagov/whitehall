@@ -12,7 +12,8 @@
 
 <div class="block-2">
   <div class="inner-block">
-    <%= render partial: "documents/filter_form", locals: {
+    <% if Locale.current.english? %>
+      <%= render partial: "documents/filter_form", locals: {
                                                   document_type: :announcement,
                                                   filter_by_keyword: true,
                                                   filter_by_date: true,
@@ -22,6 +23,11 @@
                                                   filter_by_topic: true,
                                                   filter_by_relevant_to_local_government: true
                                                 } %>
+    <% else %>
+      <%= render partial: "documents/filter_form", locals: {
+        document_type: :announcement, filter_by_locations: true
+      } %>
+    <% end %>
   </div>
 </div>
 
