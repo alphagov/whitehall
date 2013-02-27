@@ -203,4 +203,14 @@ class PersonTest < ActiveSupport::TestCase
     assert_equal [overlapping_role_appointment_1, overlapping_role_appointment_2], person.role_appointments_at(6.months.ago)
     assert_equal [current_role_appointment], person.role_appointments_at(1.month.ago)
   end
+
+  test "has removeable translations" do
+    person = create(:person, translated_into: {
+      fr: { biography: "french-biography" },
+      es: { biography: "spanish-biography" }
+    })
+    person.remove_translations_for(:fr)
+    refute person.translated_locales.include?(:fr)
+    assert person.translated_locales.include?(:es)
+  end
 end
