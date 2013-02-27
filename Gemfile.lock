@@ -5,13 +5,6 @@ GIT
     rack-test (0.6.2)
       rack (>= 1.0)
 
-PATH
-  remote: ../govuk_frontend_toolkit
-  specs:
-    govuk_frontend_toolkit (0.12.3)
-      rails (>= 3.1.0)
-      sass (>= 3.2.0)
-
 GEM
   remote: http://rubygems.org/
   remote: https://BnrJb6FZyzspBboNJzYZ@gem.fury.io/govuk/
@@ -159,6 +152,9 @@ GEM
       htmlentities (~> 4)
       kramdown (~> 0.13.3)
       sanitize (= 2.0.3)
+    govuk_frontend_toolkit (0.12.4)
+      rails (>= 3.1.0)
+      sass (>= 3.2.0)
     haml (3.1.6)
     hash_syntax (1.0.0)
       object_regex (~> 1.0.1)
@@ -405,7 +401,7 @@ DEPENDENCIES
   gds-sso (= 3.0.0)
   globalize3
   govspeak (~> 1.2.3)
-  govuk_frontend_toolkit!
+  govuk_frontend_toolkit (= 0.12.4)
   hash_syntax
   isbn_validation
   jquery-rails
