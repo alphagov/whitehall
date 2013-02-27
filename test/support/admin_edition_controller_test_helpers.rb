@@ -620,21 +620,6 @@ module AdminEditionControllerTestHelpers
       end
     end
 
-    def should_be_publishable(edition_type)
-      view_test "should display the publish form if edition is publishable" do
-        login_as :departmental_editor
-        edition = create("submitted_#{edition_type}")
-        get :show, id: edition
-        assert_select publish_form_selector(edition), count: 1
-      end
-
-      view_test "should not display the publish form if edition is not publishable" do
-        edition = create("draft_#{edition_type}")
-        get :show, id: edition
-        refute_select publish_form_selector(edition)
-      end
-    end
-
     def should_be_force_publishable(edition_type)
       view_test "should not display the force publish form if edition is publishable" do
         login_as :departmental_editor
