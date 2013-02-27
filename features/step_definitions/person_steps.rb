@@ -2,6 +2,15 @@ Given /^a person called "([^"]*)"$/ do |name|
   create_person(name)
 end
 
+Given /^a person called "([^"]*)" exists with the biography "([^"]*)"$/ do |name, biography|
+  create_person(name, biography: biography)
+end
+
+Given /^a person called "([^"]*)" exists with a translation for the locale "([^"]*)"$/ do |name, locale|
+  person = create_person(name, biography: "Unimportant")
+  add_translation_to_person(person, locale: locale, biography: 'Unimportant')
+end
+
 Given /^"([^"]*)" is a minister with a history$/ do |name|
   person = create_person(name)
   role = create(:ministerial_role)
@@ -41,6 +50,23 @@ When /^I remove the person "([^"]*)"$/ do |name|
   end
 end
 
+When /^I add a new "([^"]*)" translation to the person "([^"]*)" with:$/ do |locale, name, table|
+  person = find_person(name)
+  add_translation_to_person(person, table.rows_hash.merge(locale: locale))
+end
+
+When /^I edit the "([^"]*)" translation for the person called "([^"]*)" setting:$/ do |locale, name, table|
+  person = find_person(name)
+  translation = table.rows_hash.stringify_keys
+  visit admin_people_path
+  within record_css_selector(person) do
+    click_link "Manage translations"
+  end
+  click_link locale
+  fill_in "Biography", with: translation["biography"]
+  click_on "Save"
+end
+
 Then /^I should be able to see "([^"]*)" in the list of people$/ do |name|
   visit_people_admin
   assert page.has_css?(".person .name", text: name)
@@ -67,7 +93,28 @@ Then /^I should see the worldwide organisation listed on his public page$/ do
   end
 end
 
+Then /^when viewing the person "([^"]*)" with the locale "([^"]*)" I should see:$/ do |name, locale, table|
+  person = find_person(name)
+  translation = table.rows_hash
+  visit person_path(person)
+  click_link locale
+  assert page.has_css?('.biography', text: translation["biography"]), "Biography wasn't present"
+end
+
 def visit_people_admin
   visit admin_root_path
   click_link "People"
+end
+
+def add_translation_to_person(person, translation)
+  translation = translation.stringify_keys
+  visit admin_people_path
+  within record_css_selector(person) do
+    click_link "Manage translations"
+  end
+
+  select translation["locale"], from: "Locale"
+  click_on "Create translation"
+  fill_in "Biography", with: translation["biography"]
+  click_on "Save"
 end

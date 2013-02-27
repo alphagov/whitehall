@@ -1,6 +1,6 @@
 module PersonHelper
-  def create_person(name)
-    create(:person, split_person_name(name))
+  def create_person(name, attributes = {})
+    create(:person, split_person_name(name).merge(attributes))
   end
 
   def find_person(name)
