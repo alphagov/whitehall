@@ -99,6 +99,19 @@ class Admin::WorldwideOrganisationsTranslationsControllerTest < ActionController
     end
   end
 
+  view_test 'edit presents a form respecting the RTL value of the language' do
+    worldwide_organisation = create(:worldwide_organisation)
+
+    get :edit, worldwide_organisation_id: worldwide_organisation, id: 'ar'
+
+    assert_select "form" do
+      assert_select "fieldset.right-to-left input[type=text][name='worldwide_organisation[name]']"
+      assert_select "fieldset.right-to-left textarea[name='worldwide_organisation[summary]']"
+      assert_select "fieldset.right-to-left textarea[name='worldwide_organisation[description]']"
+      assert_select "fieldset.right-to-left textarea[name='worldwide_organisation[services]']"
+    end
+  end
+
   view_test 'update updates translation and redirects back to the index' do
     put :update, worldwide_organisation_id: @worldwide_organisation, id: 'fr', worldwide_organisation: {
       name: 'Département des barbes en France',

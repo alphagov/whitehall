@@ -5,25 +5,13 @@
 <%= form_for @translated_worldwide_organisation, url: admin_worldwide_organisation_translation_path(@translated_worldwide_organisation, translation_locale), method: :put do |form| %>
   <%= form.errors %>
 
-  <fieldset>
-  <%= form.text_field :name %>
-  <p class="english-name original-translation">English: <%= @english_worldwide_organisation.name %></p>
-  </fieldset>
+  <%= form.translated_text_field :name %>
 
-  <fieldset>
-  <%= form.text_area :summary %>
-  <p class="english-summary original-translation">English: <%= @english_worldwide_organisation.summary %></p>
-  </fieldset>
+  <%= form.translated_text_area :summary %>
 
-  <fieldset>
-  <%= form.text_area :description %>
-  <p class="english-description original-translation">English: <%= @english_worldwide_organisation.description %></p>
-  </fieldset>
+  <%= form.translated_text_area :description %>
 
-  <fieldset>
-  <%= form.text_area :services %>
-  <p class="english-services original-translation">English: <%= @english_worldwide_organisation.services %></p>
-  </fieldset>
+  <%= form.translated_text_area :services %>
 
   <%= form.save_or_cancel cancel: admin_worldwide_organisation_translations_path(@english_worldwide_organisation) %>
 <% end %>
