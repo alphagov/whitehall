@@ -17,8 +17,6 @@ class Admin::SpeechesControllerTest < ActionController::TestCase
   should_be_rejectable :speech
   should_be_publishable :speech
   should_be_force_publishable :speech
-  should_link_to_public_version_when_published :speech
-  should_not_link_to_public_version_when_not_published :speech
   should_link_to_preview_version_when_not_published :speech
   should_prevent_modification_of_unmodifiable :speech
   should_allow_overriding_of_first_published_at_for :speech

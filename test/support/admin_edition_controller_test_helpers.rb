@@ -620,22 +620,6 @@ module AdminEditionControllerTestHelpers
       end
     end
 
-    def should_link_to_public_version_when_published(edition_type)
-      view_test "should link to public version when published" do
-        published_edition = create("published_#{edition_type}")
-        get :show, id: published_edition
-        assert_select link_to_public_version_selector, count: 1
-      end
-    end
-
-    def should_not_link_to_public_version_when_not_published(edition_type)
-      view_test "should not link to public version when not published" do
-        draft_edition = create("draft_#{edition_type}")
-        get :show, id: draft_edition
-        refute_select link_to_public_version_selector
-      end
-    end
-
     def should_link_to_preview_version_when_not_published(edition_type)
       view_test "should link to preview version when not published" do
         draft_edition = create("draft_#{edition_type}")
