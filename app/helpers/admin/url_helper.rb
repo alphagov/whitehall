@@ -1,4 +1,11 @@
 module Admin::UrlHelper
+  def admin_user_organisation_header_link
+    if user_signed_in?
+      organisation = current_user.organisation
+      admin_header_link organisation.name, admin_organisation_path(organisation), nil, class: 'user-org'
+    end
+  end
+
   def admin_topics_header_link
     admin_header_link "Topics", admin_topics_path
   end
@@ -51,10 +58,14 @@ module Admin::UrlHelper
     end
   end
 
-  def admin_header_link(name, path, path_matcher = nil)
+  def admin_header_link(name, path, path_matcher = nil, options = {})
     path_matcher ||= Regexp.new("^#{Regexp.escape(path)}")
     if user_signed_in?
-      content_tag(:li, link_to(name, path), class: active_link_class(path_matcher))
+      li_class = active_link_class(path_matcher)
+      if options[:class]
+        li_class = [li_class, options[:class]].join(' ')
+      end
+      content_tag(:li, link_to(name, path), class: li_class)
     end
   end
 

@@ -25,6 +25,7 @@
   </head>
 
   <body>
+    <script type="text/javascript">document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');</script>
     <header class="navbar navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container-fluid">
@@ -55,13 +56,14 @@
         </div>
 
          <div class="js-toggle-nav" id="global-nav">
-            <div class="inner">
             <nav class="nav-collapse">
               <ul class="nav">
                 <%= admin_documents_header_link %>
-                <%= admin_organisations_header_link %>
-                <li><span class="jump-link"><a href="#navigation" class="toggler">more</a></span></li>
-                <ul class="nav content">
+                <%= admin_document_series_header_link %>
+                <%= admin_user_organisation_header_link %>
+                <li><a href="#navigation" class="toggler">More&hellip;</a></li>
+                <ul class="nav content js-hidden">
+                  <%= admin_organisations_header_link %>
                   <%= admin_policy_teams_header_link %>
                   <%= admin_policy_advisory_groups_header_link %>
                   <%= admin_roles_header_link %>
@@ -71,11 +73,9 @@
                   <%= admin_worldwide_organisations_header_link %>
                   <%= admin_world_locations_header_link %>
                   <%= admin_fields_of_operation_header_link %>
-                  <%= admin_document_series_header_link %>
                 </ul>
               </ul>
             </nav><!--/.nav-collapse -->
-            </div>
           </div>
 
       </div>
