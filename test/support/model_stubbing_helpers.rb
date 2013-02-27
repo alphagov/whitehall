@@ -14,6 +14,19 @@ module ModelStubbingHelpers
     stub_record(type, options.merge(document: document))
   end
 
+  def stub_translatable_record(type, options = {})
+    translations = []
+    Mocha::Configuration.allow(:stubbing_non_existent_method) do
+      translations.stubs(
+        loaded?: true,
+        translated_locales: [:en]
+      )
+    end
+    record = stub_record(type, options)
+    record.stubs(:translations).returns(translations)
+    record
+  end
+
   def next_record_id
     @next_id ||= 0
     @next_id += 1
