@@ -20,6 +20,7 @@ module Whitehall::DocumentFilter
     end
 
     def apply_filters
+      filter_by_locale!
       filter_by_topics!
       filter_by_departments!
       filter_by_keywords!
@@ -33,6 +34,10 @@ module Whitehall::DocumentFilter
     end
 
     private
+
+    def filter_by_locale!
+      @documents = @documents.with_translations(locale) if locale
+    end
 
     def filter_by_topics!
       @documents = @documents.published_in_topic(selected_topics) if selected_topics.any?

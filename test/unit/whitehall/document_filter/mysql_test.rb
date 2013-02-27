@@ -107,6 +107,17 @@ module Whitehall::DocumentFilter
       create_filter(document_scope, keywords: '')
     end
 
+    test "locale param filters content by locale" do
+      filtered_scope = stub_document_scope('filtered scope')
+      document_scope.expects(:with_translations).with("fr").returns(filtered_scope)
+      filter = create_filter(document_scope, locale: "fr")
+    end
+
+    test "locale param does not filter if no locale given" do
+      document_scope.expects(:with_translations).never
+      create_filter(document_scope, {})
+    end
+
     test "strips leading and trailing spaces from keywords" do
       filtered_scope = stub_document_scope('filtered scope')
       document_scope.expects(:with_title_or_summary_containing).with("alpha", "beta").returns(filtered_scope)
