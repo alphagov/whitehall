@@ -20,7 +20,7 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
       $('.previous-next-navigation').addClass('infinite');
     },
     extendTable: function(data){
-      var $container = $('.filter-results'),
+      var $container = $('.js-filter-results'),
           $results;
 
       if (data.results.length > 0) {
@@ -30,6 +30,7 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
         $('.js-document-list').append($results.filter('.js-document-list').children());
 
         $container.find('nav').remove();
+        $('link[rel=next][type=application/json]').remove();
         $container.append($results.filter('nav'));
         $('.previous-next-navigation').addClass('infinite');
       }

@@ -200,6 +200,8 @@ test("should add extra results to table results", function() {
   GOVUK.documentFilter.loadMoreInline();
   server.respond();
 
+  equals($('link[rel=next][type=application/json]').length, 1);
+  equals($('link[rel=next][type=application/json]').attr('href'), this.ajaxData.next_page_json);
   equals(this.filterResults.find(".document-row").length, 4);
 });
 
