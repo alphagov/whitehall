@@ -1,3 +1,5 @@
+require 'erb'
+
 class HCardAddress
   attr_reader :properties, :country_code
 
@@ -46,7 +48,7 @@ class HCardAddress
   end
 
   def hcard_property_tag(name)
-    properties[name].present? ? "<span class=\"#{name}\">#{properties[name]}</span>" : ""
+    properties[name].present? ? "<span class=\"#{name}\">#{ERB::Util.html_escape(properties[name])}</span>" : ""
   end
 
   private

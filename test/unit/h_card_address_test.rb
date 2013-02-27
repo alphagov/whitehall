@@ -1,5 +1,6 @@
 # encoding: utf-8
 require 'test_helper'
+# TODO fast test helper
 
 class HCardAddressTest < ActiveSupport::TestCase
 
@@ -37,6 +38,13 @@ class HCardAddressTest < ActiveSupport::TestCase
 
     fields['region'] = '   '
     assert_equal addr_without_region, HCardAddress.new(fields, 'GB').render
+  end
+
+  test 'uses html escaping on property values' do
+    fields = addr_fields
+
+    fields['region'] = 'UK & Channel Islands'
+    assert_includes HCardAddress.new(fields, 'GB').render, "UK &amp; Channel Islands"
   end
 
   test "it defaults to UK format" do
@@ -137,4 +145,5 @@ class HCardAddressTest < ActiveSupport::TestCase
     </div>
     EOF
   end
+
 end
