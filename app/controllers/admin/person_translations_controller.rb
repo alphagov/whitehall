@@ -22,6 +22,11 @@ class Admin::PersonTranslationsController < Admin::BaseController
     end
   end
 
+  def destroy
+    @translated_person.remove_translations_for(translation_locale.code)
+    redirect_to admin_person_translations_path(@translated_person)
+  end
+
   private
 
   def load_translated_and_english_people

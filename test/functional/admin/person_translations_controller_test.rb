@@ -4,7 +4,7 @@ require "test_helper"
 class Admin::PersonTranslationsControllerTest < ActionController::TestCase
   setup do
     login_as :policy_writer
-    @person = create(:person)
+    @person = create(:person, biography: "She was born. She lived. She died.")
 
     Locale.stubs(:non_english).returns([
       Locale.new(:fr), Locale.new(:es)
@@ -79,6 +79,21 @@ class Admin::PersonTranslationsControllerTest < ActionController::TestCase
     assert_select "a[href=#{CGI::escapeHTML(edit_translation_path)}]", text: 'en', count: 0
   end
 
+  view_test 'index displays delete button for a translation' do
+    person = create(:person,
+      biography: "She was born. She lived. She died.",
+      translated_into: {
+        fr: { biography: "Elle est née. Elle a vécu. Elle est morte." }
+      }
+    )
+
+    get :index, person_id: person
+
+    assert_select "form[action=?]", admin_person_translation_path(person, :fr) do
+      assert_select "input[type='submit'][value=?]", "Delete"
+    end
+  end
+
   test 'create redirects to edit for the chosen language' do
     post :create, person_id: @person, translation_locale: 'fr'
 
@@ -143,5 +158,17 @@ class Admin::PersonTranslationsControllerTest < ActionController::TestCase
     assert_select "form[action=#{CGI::escapeHTML(translation_path)}]" do
       assert_select "textarea[name='person[biography]']", text: 'Elle est née. Elle a vécu. Elle est morte.'
     end
+  end
+
+  test 'destroy removes translation and redirects to list of translations' do
+    person = create(:person, translated_into: {
+      fr: { biography: 'Elle est née. Elle a vécu. Elle est morte.' }
+    })
+
+    delete :destroy, person_id: person, id: 'fr'
+
+    person.reload
+    refute person.translated_locales.include?(:fr)
+    assert_redirected_to admin_person_translations_path(person)
   end
 end
