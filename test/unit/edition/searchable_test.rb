@@ -39,21 +39,6 @@ class Edition::SearchableTest < ActiveSupport::TestCase
     edition.publish_as(create(:departmental_editor))
   end
 
-  test "should should remove person from index when added as a minister" do
-    Rummageable.stubs(:index)
-    person = create(:person)
-    Rummageable.expects(:delete).with(person.search_link, Whitehall.government_search_index_path)
-    create(:ministerial_role_appointment, person: person)
-  end
-
-  test "should should add person to index when removed as a minister" do
-    Rummageable.stubs(:index)
-    person = create(:person)
-    role = create(:ministerial_role_appointment, person: person)
-    Rummageable.expects(:index).with(person.search_index, Whitehall.government_search_index_path)
-    role.destroy
-  end
-
   test "should not remove edition from search index when a new edition is published" do
     edition = create(:published_edition)
     slug = edition.document.slug

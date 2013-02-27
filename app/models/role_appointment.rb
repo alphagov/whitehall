@@ -55,18 +55,14 @@ class RoleAppointment < ActiveRecord::Base
   after_create :make_other_current_appointments_non_current
   before_destroy :prevent_destruction_unless_destroyable
 
-  after_create :update_indexes_for_create
-  before_destroy :update_indexes_for_destroy
+  after_save :update_indexes
+  after_destroy :update_indexes
 
-  #This is to prevent duplication by ministerial roles indexing
-  def update_indexes_for_create
-    if role.ministerial?
+  #This is to prevent duplication of people by ministerial roles indexing
+  def update_indexes
+    if person.current_ministerial_roles.any?
       person.remove_from_search_index
-    end
-  end
-
-  def update_indexes_for_destroy
-    if role.ministerial?
+    else
       person.update_in_search_index
     end
   end
@@ -131,7 +127,10 @@ class RoleAppointment < ActiveRecord::Base
   def make_other_current_appointments_non_current
     return unless make_current
     other_appointments = other_appointments_for_same_role.current
-    other_appointments.update_all({ended_at: started_at})
+    other_appointments.each do |oa|
+      oa.ended_at = started_at
+      oa.save
+    end
   end
 
   def prevent_destruction_unless_destroyable
