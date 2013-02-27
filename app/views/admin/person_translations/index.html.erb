@@ -1,0 +1,30 @@
+<% page_title @person.name + " translations" %>
+<section>
+  <nav class="actions">
+    <% if @missing_locales.any? %>
+      <%= form_tag admin_person_translations_path(@person) do %>
+        <%= label_tag :translation_locale, 'Locale' %>
+        <%= select_locale :translation_locale, @missing_locales %>
+        <%= submit_tag "Create translation", class: "btn btn-primary" %>
+      <% end %>
+    <% end %>
+  </nav>
+</section>
+
+<h1>Translations for <%= @person.name %></h1>
+<table id="person-translations" class="table table-striped">
+  <thead>
+    <tr>
+      <th>Locale</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @translated_locales.each do |locale| %>
+      <tr>
+        <td class="locale">
+          <%= link_to locale.native_language_name, edit_admin_person_translation_path(@person, locale.code) %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

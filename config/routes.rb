@@ -162,7 +162,9 @@ Whitehall::Application.routes.draw do
         resources :speeches, except: [:index]
         resources :statistical_data_sets, path: 'statistical-data-sets', except: [:index]
         resources :detailed_guides, path: "detailed-guides", except: [:index]
-        resources :people, except: [:show]
+        resources :people, except: [:show] do
+          resources :translations, controller: 'person_translations'
+        end
         resources :roles, except: [:show] do
           resources :role_appointments, only: [:new, :create, :edit, :update, :destroy], shallow: true
         end

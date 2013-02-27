@@ -108,16 +108,14 @@ class Admin::PeopleControllerTest < ActionController::TestCase
     assert_equal "Cannot destroy a person with appointments", flash[:alert]
   end
 
-  view_test "lists people by ordered name" do
+  test "lists people in alphabetical name order" do
     person_b = create(:person, forename: "B")
     person_a = create(:person, forename: "A")
     person_c = create(:person, forename: "C")
 
     get :index
 
-    assert_select ".people tr.person:nth-of-type(1)", text: "A"
-    assert_select ".people tr.person:nth-of-type(2)", text: "B"
-    assert_select ".people tr.person:nth-of-type(3)", text: "C"
+    assert_equal %w(A B C), assigns(:people).map(&:name)
   end
 
   view_test "lists people displaying the first bit of their biography" do
@@ -126,6 +124,16 @@ class Admin::PeopleControllerTest < ActionController::TestCase
     get :index
 
     assert_select ".people .person .biography", text: %r{^Hathi is head of the elephant troop}
+  end
+
+  view_test "provides link to manage translations for a person" do
+    person = create(:person)
+
+    get :index
+
+    assert_select_object(person) do
+      assert_select "a[href=?]", admin_person_translations_path(person), text: "Manage translations"
+    end
   end
 
   view_test "provides delete buttons for destroyable people" do

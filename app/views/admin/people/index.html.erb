@@ -11,6 +11,7 @@
       <tr>
         <th width="25%">Name</th>
         <th width="30%">Biography</th>
+        <th>Translations</th>
         <th>Actions</th>
       </tr>
     </thead>
@@ -19,6 +20,7 @@
         <%= content_tag_for(:tr, person) do %>
           <td class="name"><%= link_to person.name, edit_admin_person_path(person), title: "Edit person #{person.name}" %></td>
           <td class="biography"><%= truncate(person.biography, length: 50) %></td>
+          <td><%= link_to "Manage translations", admin_person_translations_path(person), title: "Manage translations of #{person.name}" %></td>
           <td class="delete">
             <% if person.destroyable? %>
               <%= button_to 'delete', admin_person_path(person), method: :delete, class: "btn btn-danger" %>
