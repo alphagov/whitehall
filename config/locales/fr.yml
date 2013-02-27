@@ -38,6 +38,9 @@ fr:
         other:
     published: publié
     read: Lire l'article intitulé «%{title}»
+    speech:
+      delivered_on:
+      originally_given_at:
     type:
       announcement:
         one: Annonce

@@ -38,6 +38,9 @@ es:
         other:
     published: Publicado
     read: Lea el artículo de la '%{title}'
+    speech:
+      delivered_on:
+      originally_given_at:
     type:
       announcement:
         one: Anuncio

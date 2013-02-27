@@ -38,6 +38,9 @@ cs:
         other:
     published:
     read:
+    speech:
+      delivered_on:
+      originally_given_at:
     type:
       announcement:
         one:
