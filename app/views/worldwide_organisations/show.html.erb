@@ -14,7 +14,7 @@
 
 <section class="block about-block" id="about-us">
   <div class="inner-block">
-    <h1 class="keyline-header"><%= t('worldwide_organisation.about_us' ) %></h1>
+    <h1 class="keyline-header"><%= t('worldwide_organisation.headings.about_us' ) %></h1>
     <div class="content">
       <p class="summary"><%= @worldwide_organisation.summary %></p>
       <div class="description">
@@ -27,7 +27,7 @@
 <% if @worldwide_organisation.services.present? %>
   <section class="block about-block" id="our-services">
     <div class="inner-block">
-      <h1 class="keyline-header"><%= t('worldwide_organisation.our_services' ) %></h1>
+      <h1 class="keyline-header"><%= t('worldwide_organisation.headings.our_services' ) %></h1>
       <div class="content">
         <%= govspeak_to_html @worldwide_organisation.services %>
       </div>
@@ -38,7 +38,7 @@
 <% if @primary_role.present? || @other_roles.present? %>
   <section class="block people" id="people">
     <div class="inner-block floated-children">
-      <h1 class="keyline-header"><%= t('worldwide_organisation.our_people' ) %></h1>
+      <h1 class="keyline-header"><%= t('worldwide_organisation.headings.our_people' ) %></h1>
       <%= render( partial: 'people/person',
                   locals: {
                     person: @primary_role.current_person,
@@ -64,7 +64,7 @@
 <% if @main_office %>
   <section class="block contact-us" id="contact-us">
     <div class="inner-block floated-children">
-      <h1 class="keyline-header"><%= t('worldwide_organisation.contact_us' ) %></h1>
+      <h1 class="keyline-header"><%= t('worldwide_organisation.headings.contact_us' ) %></h1>
       <%= render partial: 'contacts/contact', locals: {contact: @main_office, is_main: true} %>
       <%= render partial: 'contacts/contact', collection: @other_offices %>
     </div>

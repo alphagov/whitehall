@@ -244,9 +244,10 @@ it:
         one:
         other:
   worldwide_organisation:
-    about_us:
-    contact_us:
     find_out_more:
-    our_people:
-    our_services:
+    headings:
+      about_us:
+      contact_us:
+      our_people:
+      our_services:
     part_of:
