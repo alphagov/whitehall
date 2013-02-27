@@ -1,8 +1,31 @@
 # encoding: utf-8
-require 'test_helper'
-# TODO fast test helper
+require 'fast_test_helper'
+require 'h_card_address'
+require 'ostruct'
 
 class HCardAddressTest < ActiveSupport::TestCase
+
+  setup do
+    HCardAddress.address_formats = YAML.load(%{
+      es: |-
+          {{fn}}
+          {{street-address}}
+          {{postal-code}} {{locality}} {{region}}
+          {{country-name}}
+      gb: |-
+          {{fn}}
+          {{street-address}}
+          {{locality}}
+          {{region}}
+          {{postal-code}}
+          {{country-name}}
+      jp: |-
+          〒{{postal-code}}
+          {{region}}{{locality}}{{street-address}}
+          {{fn}}
+          {{country-name}}
+    })
+  end
 
   test "renders address in UK format" do
     assert_equal gb_addr, HCardAddress.new(addr_fields, 'GB').render
@@ -52,26 +75,26 @@ class HCardAddressTest < ActiveSupport::TestCase
   end
 
   test "it builds from a Contact" do
-    contact = build( :contact,
-                      recipient: 'Recipient',
-                      street_address: 'Street',
-                      locality: 'Locality',
-                      region: 'Region',
-                      postal_code: 'Postcode',
-                      country: build(:country, name: 'Country', iso2: 'ES') )
+    contact = OpenStruct.new(recipient: 'Recipient',
+                             street_address: 'Street',
+                             locality: 'Locality',
+                             region: 'Region',
+                             postal_code: 'Postcode',
+                             country_name: 'Country',
+                             country_code: 'ES')
     hcard = HCardAddress.from_contact(contact)
 
     assert_equal es_addr, hcard.render
   end
 
   test "it leaves out the country name when building a GB contact" do
-    contact = build( :contact,
-                      recipient: 'Recipient',
-                      street_address: 'Street',
-                      locality: 'Locality',
-                      region: 'Region',
-                      postal_code: 'Postcode',
-                      country: build(:country, name: 'Country', iso2: 'GB') )
+    contact = OpenStruct.new(recipient: 'Recipient',
+                             street_address: 'Street',
+                             locality: 'Locality',
+                             region: 'Region',
+                             postal_code: 'Postcode',
+                             country_name: 'Country',
+                             country_code: 'GB')
     hcard = HCardAddress.from_contact(contact)
 
     assert_equal addr_without_country, hcard.render

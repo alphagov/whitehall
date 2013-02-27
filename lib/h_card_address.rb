@@ -1,9 +1,15 @@
 require 'erb'
+require 'active_support/core_ext/string'
 
 class HCardAddress
   attr_reader :properties, :country_code
 
-  @address_formats = YAML.load_file(Rails.root.join('config/address_formats.yml'))
+  def self.address_formats
+    @address_formats
+  end
+  def self.address_formats=(new_address_formats)
+    @address_formats = new_address_formats
+  end
 
   def initialize(properties, country_code)
     @properties = properties
