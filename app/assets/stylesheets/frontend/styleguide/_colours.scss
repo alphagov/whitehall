@@ -36,7 +36,7 @@ $home-office-websafe: #9440b2;
 $government-equalities-office-websafe: #9440b2;
 $attorney-generals-office-websafe: #a03a88;
 $ministry-of-defence-websafe: #5A5C92;
-$department-for-culture-media-and-sport-websafe: #a03155;
+$department-for-culture-media-sport-websafe: #a03155;
 $wales-office-websafe: #7a242a;
 $ministry-of-justice-websafe: #5A5C92;
 $treasury-websafe: #832322;
@@ -80,7 +80,7 @@ $treasury-websafe: #832322;
   .government-equalities-office #{$selector} { #{$property}: $government-equalities-office; }
   .attorney-generals-office #{$selector} { #{$property}: $attorney-generals-office; }
   .ministry-of-defence #{$selector} { #{$property}: $ministry-of-defence; }
-  .department-for-culture-media-and-sport #{$selector} { #{$property}: $department-for-culture-media-and-sport; }
+  .department-for-culture-media-sport #{$selector} { #{$property}: $department-for-culture-media-sport; }
   .wales-office #{$selector} { #{$property}: $wales-office; }
   .ministry-of-justice #{$selector} { #{$property}: $ministry-of-justice; }
   .treasury #{$selector} { #{$property}: $treasury; }
@@ -107,7 +107,7 @@ $treasury-websafe: #832322;
   .government-equalities-office #{$selector} { #{$property}: $government-equalities-office-websafe; }
   .attorney-generals-office #{$selector} { #{$property}: $attorney-generals-office-websafe; }
   .ministry-of-defence #{$selector} { #{$property}: $ministry-of-defence-websafe; }
-  .department-for-culture-media-and-sport #{$selector} { #{$property}: $department-for-culture-media-and-sport-websafe; }
+  .department-for-culture-media-sport #{$selector} { #{$property}: $department-for-culture-media-sport-websafe; }
   .wales-office #{$selector} { #{$property}: $wales-office-websafe; }
   .ministry-of-justice #{$selector} { #{$property}: $ministry-of-justice-websafe; }
   .treasury #{$selector} { #{$property}: $treasury-websafe; }

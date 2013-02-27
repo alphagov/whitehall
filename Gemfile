@@ -39,7 +39,7 @@ gem 'rails-i18n'
 gem 'globalize3'
 
 group :assets do
-  gem 'govuk_frontend_toolkit', '0.12.1'
+  gem 'govuk_frontend_toolkit', '0.12.3'
   gem 'sass', '3.2.5'
   gem 'sass-rails', '3.1.4'
   gem 'uglifier'
