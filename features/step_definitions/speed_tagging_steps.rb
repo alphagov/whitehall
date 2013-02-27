@@ -1,8 +1,8 @@
-When /^I go to speed tag a newly imported (publication|speech|news article)(?: "(.*?)")?(?: for "(.*?)"(?: and "(.*?)")?)?$/ do |edition_type, title, organisation1_name, organisation2_name|
+When /^I go to speed tag a newly imported (publication|speech|news article|consultation|statistical data set)(?: "(.*?)")?(?: for "(.*?)"(?: and "(.*?)")?)?$/ do |edition_type, title, organisation1_name, organisation2_name|
   organisations = []
   organisations << find_or_create_organisation(organisation1_name) if organisation1_name
   organisations << find_or_create_organisation(organisation2_name) if organisation2_name
-  @edition = create("imported_#{edition_type.sub(' ', '_')}", organisations: organisations, title: title || "default title")
+  @edition = create("imported_#{edition_type.gsub(' ', '_')}", organisations: organisations, title: title || "default title")
   visit admin_edition_path(@edition)
 end
 
@@ -40,4 +40,24 @@ end
 
 Then /^I should be able to select the document series "([^"]*)"$/ do |name|
   select name, from: 'Document series'
+end
+
+Then /^I should be able to set the first published date$/ do
+  assert page.has_css?("select[id*=edition_first_published_at_1i]")
+  select_datetime "First published at", with: '14-Dec-2011 10:30'
+end
+
+Then /^I should be able to set the delivered date of the speech$/ do
+  assert page.has_css?("select[id*=edition_delivered_on_1i]")
+  select_date "Delivered on", with: '02-May-2013'
+end
+
+Then /^I should be able to set the consultation dates$/ do
+  assert page.has_css?('select[id*=edition_opening_on]')
+  assert page.has_css?('select[id*=edition_closing_on]')
+end
+
+Then /^I should be able to set the publication date$/ do
+  assert page.has_css?('select[id*=edition_publication_date]')
+  select_date "Publication date", with: '02-May-2013'
 end
