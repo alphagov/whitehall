@@ -1,0 +1,290 @@
+.get-involved {
+
+  h2 {
+    @include heading-36;
+    border-bottom: 5px solid $inside-gov-brand;
+    margin-bottom: $gutter-half;
+    @include media(tablet) {
+      margin-bottom: $gutter;
+    }
+    &#take-part {
+      margin-bottom: 0;
+      @include media(tablet) {
+        margin-bottom: $gutter-half;
+      }
+    }
+    &#elsewhere-on-the-web, &#related-polices {
+      margin-top: $gutter*1.5;
+    }
+  }
+
+  .content {
+    padding: 0 $gutter-half;
+  }
+
+  .header-block {
+    .inner-block {
+      padding-top: $gutter*1.5;
+      @include media(tablet) {
+        padding: $gutter*1.5 $gutter-half $gutter*2;
+      }
+
+      .header-title, .jump-links {
+        h1 {
+          @include heading-48;
+          font-weight: bold;
+        }
+        .intro {
+          @include core-27;
+          margin: $gutter-half 0;
+          @include media(tablet) {
+            margin: 0;
+          }
+        }
+        @include media(tablet) {
+          float: left;
+          display: inline;
+          width: 66.66%;
+        }
+      }
+
+      .jump-links {
+        margin: $gutter-half 0 $gutter;
+        h4 {
+          @include core-16;
+          padding-top: $gutter-one-third;
+        }
+        ul li {
+          @include core-16;
+          list-style: none;
+          padding: $gutter-one-sixth 0 0 0;
+          margin-left: 0;
+          a {
+            text-decoration: none;
+          }
+        }
+        @include media(tablet) {
+          float: right;
+          margin: 0;
+          width: 25%;
+        }
+      }
+    }
+  }
+
+  .block {
+    clear: both;
+  }
+
+  .floated-children {
+    h2 {
+      margin-left: $gutter-half;
+      margin-right: $gutter-half;
+    }
+
+    section {
+      @include core-19;
+      @extend %contain-floats;
+      clear: both;
+      margin-bottom: $gutter;
+
+      h3 {
+        font-weight: bold;
+      }
+
+      .head-section {
+        @include media(tablet) {
+          float: left;
+          width: 33.33%;
+        }
+        h3 {
+          @include heading-27;
+          font-weight: bold;
+          padding-left: $gutter-half;
+          padding-right: $gutter-half;
+        }
+      }
+
+      .feature-value, .feature-caption {
+        @include core-16;
+        display: block;
+      }
+      .feature-value {
+        @include heading-80;
+        font-weight: bold;
+        margin: 0 0 (-$gutter-one-sixth) 0;
+        @include media(tablet) {
+          padding: 0;
+        }
+      }
+
+      .value {
+        margin: $gutter 0 $gutter;
+      }
+
+      .values {
+        padding-top: $gutter-one-third;
+        .feature-value, .feature-caption {
+          padding: 0 $gutter-half;
+          @include media(tablet) {
+            width: 50%;
+          }
+        }
+        .feature-value {
+          padding: 0 $gutter-half;
+          margin-top: $gutter-half;
+          @include media(tablet) {
+            margin: $gutter-half 0 (-$gutter-one-third);
+          }
+        }
+      }
+
+      .column {
+        @include media(tablet) {
+          float: left;
+          width: 33.33%;
+        }
+      }
+
+      .consultation-lists {
+        @include media(tablet) {
+          float: left;
+          width: 66.66%;
+        }
+        .consultation-closing-soon {
+          border: 3px solid $inside-gov-brand;
+          margin: $gutter $gutter-half;
+          padding: $gutter-half $gutter-half $gutter-one-sixth;
+          .document-list {
+            margin-top: -$gutter-one-third;
+          }
+          @include media(tablet) {
+            margin: $gutter-half $gutter-half $gutter;
+          }
+        }
+        .column {
+          @include media(tablet) {
+            float: left;
+            width: 50%;
+          }       
+        }
+        .document-row {
+          border: 0;
+        }
+      }
+
+      &.comment-follow, &.respond-to-consultations {
+        .column {
+          @include media(tablet) {
+            width: 66.66%;
+          }
+        }
+      }
+      &.respond-to-consultations {
+        margin-bottom: 0;
+      }
+
+      .document-list {
+        .document-row {
+          border: 0;
+          h3 {
+            font-weight: normal;
+          }
+          .attributes {
+            margin-top: $gutter-one-sixth;
+            li {
+              padding-right: $gutter-one-third;
+              a {
+                font-weight: bold;
+                color: $fuschia;
+              }
+            }
+          }
+        }
+      }
+
+      .see-all {
+        font-weight: bold;
+        margin: $gutter-one-third 0 $gutter*1.5;
+        @include media(tablet) {
+          margin: $gutter-one-third 0 $gutter;
+        }
+      }
+    }
+
+    article {
+      clear: both;
+      @include media(tablet) {
+        clear: none;
+        float: left;
+        width: 33.33%;
+      }
+      &.article-clear {
+        clear: both;
+      }
+      .content {
+        padding: $gutter-half;
+        .text {
+          float: left;
+          width: 75%;
+          h3 {
+            @include core-19;
+            font-weight: bold;
+            padding: $gutter-one-sixth 0 $gutter-one-third ;
+          }
+          @include media(tablet) {
+            float: none;
+            width: 100%;
+          }
+        }
+        .img-holder {
+          float: left;
+          width: 25%;
+          a {
+            display: block;
+            padding: $gutter-one-sixth $gutter-half 0 0;
+            @include media(tablet) {
+              padding: 0;
+            }
+            img {
+              width: 100%;
+            }
+          }    
+          @include media(tablet) {
+            float: none;
+            width: 100%;
+          }
+        }
+      }
+    }
+
+    .description, .list {
+      @include media(tablet) {
+        float: left;
+        display: inline;
+        width: 33.33%;
+      }
+    }
+
+    .list {
+      @include media(tablet) {
+        width: 66.66%;
+      }
+    }
+
+    .description {
+      margin-bottom: $gutter-half;
+      @include core-19;
+      padding-top: $gutter-one-sixth;
+    }
+
+    .keyline {
+      clear: both;
+      margin: 0 $gutter-half $gutter;
+      border: solid $border-colour;
+      border-width: 0 0 1px;
+    }
+
+  }
+
+}

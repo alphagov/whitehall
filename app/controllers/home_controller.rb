@@ -29,6 +29,8 @@ class HomeController < PublicFacingController
   end
 
   def history
+
+  def get_involved
   end
 
 end
