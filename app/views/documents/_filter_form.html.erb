@@ -6,8 +6,10 @@
 
       <div class="filter" id="keyword-filter">
         <div class="filter-inner">
-          <%= label_tag "keywords", "Contains", class: 'title' %>
-          <%= text_field_tag :keywords, @filter.keywords, placeholder: "keywords" %>
+          <% if defined?(filter_by_keyword) && filter_by_keyword %>
+            <%= label_tag "keywords", "Contains", class: 'title' %>
+            <%= text_field_tag :keywords, @filter.keywords, placeholder: "keywords" %>
+          <% end %>
         </div>
       </div>
 
@@ -35,15 +37,19 @@
 
       <div class="filter">
         <div class="filter-inner">
-          <%= label_tag "topics", "Topic" %>
-          <%= select_tag :topics, topic_filter_options(all_topics_with(document_type), @filter.selected_topics), size: 5, multiple: true, class: "multi-row-select" %>
+          <% if defined?(filter_by_topic) && filter_by_topic %>
+            <%= label_tag "topics", "Topic" %>
+            <%= select_tag :topics, topic_filter_options(all_topics_with(document_type), @filter.selected_topics), size: 5, multiple: true, class: "multi-row-select" %>
+          <% end %>
         </div>
       </div>
 
       <div class="filter">
         <div class="filter-inner">
-          <%= label_tag "departments", "Department" %>
-          <%= select_tag :departments, organisation_filter_options(all_organisations_with(document_type), @filter.selected_organisations), size: 5, multiple: true, class: "multi-row-select" %>
+          <% if defined?(filter_by_department) && filter_by_department %>
+            <%= label_tag "departments", "Department" %>
+            <%= select_tag :departments, organisation_filter_options(all_organisations_with(document_type), @filter.selected_organisations), size: 5, multiple: true, class: "multi-row-select" %>
+          <% end %>
         </div>
       </div>
 

@@ -14,10 +14,13 @@
   <div class="inner-block">
     <%= render partial: "documents/filter_form", locals: {
                                                    document_type: :publication,
+                                                   filter_by_keyword: true,
                                                    filter_by_date: true,
                                                    filter_by_publication_type: true,
                                                    filter_by_relevant_to_local_government: true,
-                                                   filter_by_locations: true
+                                                   filter_by_locations: true,
+                                                   filter_by_department: true,
+                                                   filter_by_topic: true
                                                  } %>
   </div>
 </div>
