@@ -1,7 +1,6 @@
 module Admin::UrlHelper
   def admin_user_organisation_header_link
-    if user_signed_in?
-      organisation = current_user.organisation
+    if user_signed_in? && organisation = current_user.organisation
       admin_header_link organisation.name, admin_organisation_path(organisation), nil, class: 'user-org'
     end
   end
