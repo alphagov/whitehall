@@ -1,0 +1,11 @@
+<% page_title "Edit translation for: #{@english_person.name}" %>
+
+<h1>Edit '<%= @translation_locale.native_language_name %> (<%= @translation_locale.english_language_name %>)' translation for: <%= @english_person.name %></h1>
+
+<%= form_for @translated_person, url: admin_person_translation_path(@translated_person, translation_locale), method: :put do |form| %>
+  <%= form.errors %>
+
+  <%= form.translated_text_area :biography %>
+
+  <%= form.save_or_cancel cancel: admin_person_translations_path(@translated_person) %>
+<% end %>

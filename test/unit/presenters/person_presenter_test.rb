@@ -3,6 +3,11 @@ require 'test_helper'
 class PersonPresenterTest < PresenterTestCase
   setup do
     @person = stub_record(:person)
+    translations = []
+    Mocha::Configuration.allow(:stubbing_non_existent_method) do
+      translations.stubs(:loaded?).returns(true)
+    end
+    @person.stubs(:translations).returns(translations)
     @presenter = PersonPresenter.decorate(@person)
   end
 

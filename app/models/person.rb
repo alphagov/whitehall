@@ -34,6 +34,8 @@ class Person < ActiveRecord::Base
   extend FriendlyId
   friendly_id :slug_name
 
+  translates :biography
+
   delegate :url, to: :image, prefix: :image
 
   before_destroy :prevent_destruction_if_appointed

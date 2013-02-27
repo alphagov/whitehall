@@ -703,6 +703,17 @@ ActiveRecord::Schema.define(:version => 20130228155806) do
 
   add_index "people", ["slug"], :name => "index_people_on_slug", :unique => true
 
+  create_table "person_translations", :force => true do |t|
+    t.integer  "person_id"
+    t.string   "locale"
+    t.text     "biography"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "person_translations", ["locale"], :name => "index_person_translations_on_locale"
+  add_index "person_translations", ["person_id"], :name => "index_person_translations_on_person_id"
+
   create_table "policy_group_attachments", :force => true do |t|
     t.integer  "policy_group_id"
     t.integer  "attachment_id"
