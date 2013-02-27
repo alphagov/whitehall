@@ -10,13 +10,13 @@ class PeopleControllerTest < ActionController::TestCase
     stub_record(:role_appointment,
       {
         role: stub_record(role_type, organisations: [organisation]),
-        person: stub_record(:person, organisations: [organisation])
+        person: stub_translatable_record(:person, organisations: [organisation])
       }.merge(options)
     )
   end
 
   setup do
-    @person = stub_record(:person)
+    @person = stub_translatable_record(:person)
     @person.stubs(:current_role_appointments).returns([])
     @person.stubs(:organisations).returns([])
     @person.stubs(:previous_role_appointments).returns([])
@@ -121,7 +121,7 @@ class PeopleControllerTest < ActionController::TestCase
   end
 
   view_test "index displays a rudimentary index of people (for url hackers)" do
-    people = [@person, stub_record(:person), stub_record(:person)]
+    people = [@person, stub_translatable_record(:person), stub_translatable_record(:person)]
     Person.stubs(:all).returns(people)
 
     get :index

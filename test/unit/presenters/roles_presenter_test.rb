@@ -2,8 +2,8 @@ require 'test_helper'
 
 class RolesPresenterTest < PresenterTestCase
   setup do
-    @person1 = stub_record(:person)
-    @person2 = stub_record(:person)
+    @person1 = stub_translatable_record(:person)
+    @person2 = stub_translatable_record(:person)
 
     @role1 = stub_record(:role_without_organisations)
     @role1.stubs(:current_person).returns(@person1)
