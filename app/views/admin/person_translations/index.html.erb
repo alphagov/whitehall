@@ -22,7 +22,7 @@
     <% @translated_locales.each do |locale| %>
       <tr>
         <td class="locale">
-          <%= link_to locale.native_language_name, edit_admin_person_translation_path(@person, locale.code) %>
+          <%= link_to locale.native_language_name, edit_admin_person_translation_path(@person, locale.code) %> (<%= link_to "view", person_path(@person, locale: locale) %>)
         </td>
       </tr>
     <% end %>

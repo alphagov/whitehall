@@ -34,6 +34,7 @@ class Person < ActiveRecord::Base
   extend FriendlyId
   friendly_id :slug_name
 
+  include TranslatableModel
   translates :biography
 
   delegate :url, to: :image, prefix: :image
