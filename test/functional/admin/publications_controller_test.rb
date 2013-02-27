@@ -23,7 +23,6 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
   should_not_show_inline_attachment_help_for :publication
   should_allow_attached_images_for :publication
   should_allow_association_between_world_locations_and :publication
-  should_be_rejectable :publication
   should_be_publishable :publication
   should_be_force_publishable :publication
   should_prevent_modification_of_unmodifiable :publication

@@ -16,7 +16,6 @@ class Admin::WorldwidePrioritiesControllerTest < ActionController::TestCase
   should_allow_attached_images_for :worldwide_priority
   should_allow_organisations_for :worldwide_priority
 
-  should_be_rejectable :worldwide_priority
   should_be_publishable :worldwide_priority
   should_be_force_publishable :worldwide_priority
   should_prevent_modification_of_unmodifiable :worldwide_priority

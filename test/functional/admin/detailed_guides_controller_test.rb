@@ -18,7 +18,6 @@ class Admin::DetailedGuidesControllerTest < ActionController::TestCase
   show_should_display_attachments_for :detailed_guide
   should_show_inline_attachment_help_for :detailed_guide
   should_allow_attached_images_for :detailed_guide
-  should_be_rejectable :detailed_guide
   should_be_publishable :detailed_guide
   should_be_force_publishable :detailed_guide
   should_prevent_modification_of_unmodifiable :detailed_guide

@@ -18,7 +18,6 @@ class Admin::StatisticalDataSetsControllerTest < ActionController::TestCase
   show_should_display_attachments_for :statistical_data_set
   should_allow_attachment_references_for :statistical_data_set
   should_show_inline_attachment_help_for :statistical_data_set
-  should_be_rejectable :statistical_data_set
   should_be_publishable :statistical_data_set
   should_be_force_publishable :statistical_data_set
   should_prevent_modification_of_unmodifiable :statistical_data_set

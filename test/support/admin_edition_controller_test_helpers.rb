@@ -620,50 +620,6 @@ module AdminEditionControllerTestHelpers
       end
     end
 
-    def should_be_rejectable(edition_type)
-      document_type_class = edition_type.to_s.classify.constantize
-
-      view_test "should display the 'Reject' button" do
-        edition = create(edition_type)
-        edition.stubs(:rejectable_by?).returns(true)
-        document_type_class.stubs(:find).with(edition.to_param).returns(edition)
-        get :show, id: edition
-        assert_select reject_button_selector(edition), count: 1
-      end
-
-      view_test "shouldn't display the 'Reject' button" do
-        edition = create(edition_type)
-        edition.stubs(:rejectable_by?).returns(false)
-        document_type_class.stubs(:find).with(edition.to_param).returns(edition)
-        get :show, id: edition
-        refute_select reject_button_selector(edition)
-      end
-
-      view_test "should show who rejected the edition" do
-        edition = create("rejected_#{edition_type}")
-        edition.editorial_remarks.create!(body: "editorial-remark-body", author: current_user)
-        get :show, id: edition
-        assert_select ".rejected_by", text: current_user.name
-      end
-
-      view_test "should not show the editorial remarks section" do
-        edition = create("submitted_#{edition_type}")
-        get :show, id: edition
-        refute_select "#editorial_remarks .editorial_remark"
-      end
-
-      view_test "should show the list of editorial remarks" do
-        edition = create("rejected_#{edition_type}")
-        remark = edition.editorial_remarks.create!(body: "editorial-remark-body", author: current_user)
-        get :show, id: edition
-        assert_select ".editorial_remark" do
-          assert_select ".body", text: /editorial-remark-body/
-          assert_select ".actor", text: current_user.name
-          assert_select "abbr.created_at[title=#{remark.created_at.iso8601}]"
-        end
-      end
-    end
-
     def should_be_publishable(edition_type)
       view_test "should display the publish form if edition is publishable" do
         login_as :departmental_editor
