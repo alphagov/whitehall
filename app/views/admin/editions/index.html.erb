@@ -57,6 +57,19 @@
             <% end %>
           </li>
 
+          <%= link_to_filter('World location', {world_location_ids: nil}, title: "Show documents by all locations") %>
+          <li class="world-location-filter">
+            <%= form_tag("", method: :get) do  %>
+            <%= select_tag :world_location_ids,
+                            options_from_collection_for_select(WorldLocation.ordered_by_name, 'id', 'name', params[:world_location_ids]),
+                            multiple: true,
+                            class: 'chzn-select',
+                            data: { placeholder: "International locations..."} %>
+
+              <%= submit_tag "Go", class: "btn" %>
+            <% end %>
+          </li>
+
           <li class="nav-header">Filter by Kind</li>
           <%= link_to_filter 'All', {type: nil}, title: "Show all kinds of document" %>
           <%= link_to_filter 'Policies', {type: 'policy'}, title: "Show only policies" %>

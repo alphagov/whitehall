@@ -10,9 +10,6 @@ module Edition::WorldLocations
   end
 
   included do
-    has_many :edition_world_locations, foreign_key: :edition_id, dependent: :destroy
-    has_many :world_locations, through: :edition_world_locations
-
     add_trait Trait
   end
 
@@ -23,12 +20,6 @@ module Edition::WorldLocations
   module InstanceMethods
     def search_index
       super.merge("world_locations" => world_locations.map(&:slug))
-    end
-  end
-
-  module ClassMethods
-    def in_world_location(world_location)
-      joins(:world_locations).where('world_locations.id' => world_location)
     end
   end
 end
