@@ -9,37 +9,27 @@
   h2 {
     @include ig-core-27;
     font-weight: bold;
-    margin-top: $gutter*1.5;
-    @media (max-width: 640px) {
-      margin-top: $gutter-half;
+    margin-top: $gutter-half;
+    @include media(desktop) {
+      margin-top: $gutter*1.5;
     }
   }
   h3 {
     @include ig-core-19;
     font-weight: bold;
     margin-top: $gutter + $gutter-one-sixth;
-    @media (max-width: 640px) {
-//      margin-top: $gutter-half;
-    }
   }
   h4,
   h5,
   h6 {
     @include ig-core-19;
-//    margin-top: $gutter;
-    @media (max-width: 640px) {
-//      margin-top: $gutter-half;
-    }
-  }
-  h5, h6 {
-//    margin: 0;
   }
 
   p {
     @include ig-core-19;
-    margin: $gutter-one-third 0;
-    @media (max-width: 640px) {
-      margin: $gutter-one-sixth 0;
+    margin: $gutter-one-sixth 0;
+    @include media(tablet){
+      margin: $gutter-one-third 0;
     }
   }
 
@@ -63,9 +53,9 @@
 
   li {
     @include ig-core-19;
-    margin: $gutter-one-third 0;
-    @media (max-width: 640px) {
-      margin: $gutter-one-sixth 0;
+    margin: $gutter-one-sixth 0;
+    @include media (tablet) {
+      margin: $gutter-one-third 0;
     }
   }
 
