@@ -37,7 +37,7 @@ class Whitehall::Uploader::AttachmentCache
     def self.detected_content_type(response)
       if response['Content-Type'] && !IGNORED_CONTENT_TYPES.include?(response['Content-Type'])
         type = MIME::Types[response['Content-Type']]
-        return type.first.extensions.first if type
+        return type.first.extensions.first if type && type.any?
       end
       nil
     end
