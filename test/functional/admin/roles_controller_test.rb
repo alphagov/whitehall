@@ -132,13 +132,17 @@ class Admin::RolesControllerTest < ActionController::TestCase
     end
   end
 
-  view_test "index should display link to manage translations for a role" do
+  view_test "index should display link to manage translations for worldwide roles" do
     role = create(:role)
+    worldwide_role = create(:ambassador_role)
 
     get :index
 
     assert_select_object role do
-      assert_select "a[href=?]", admin_role_translations_path(role), text: "Manage translations"
+      refute_select "a[href=?]", admin_role_translations_path(role), text: "Manage translations"
+    end
+    assert_select_object worldwide_role do
+      assert_select "a[href=?]", admin_role_translations_path(worldwide_role), text: "Manage translations"
     end
   end
 
