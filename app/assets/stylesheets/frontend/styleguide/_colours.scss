@@ -40,7 +40,9 @@ $department-for-culture-media-sport-websafe: #a03155;
 $wales-office-websafe: #7a242a;
 $ministry-of-justice-websafe: #5A5C92;
 $treasury-websafe: #832322;
-
+$northern-ireland-office-websafe: #3e598c;
+$office-of-the-leader-of-the-house-of-lords-websafe: #c2395d;
+$the-office-of-the-leader-of-the-house-of-commons-websafe: #005f8f;
 
 
 
@@ -84,6 +86,9 @@ $treasury-websafe: #832322;
   .wales-office #{$selector} { #{$property}: $wales-office; }
   .ministry-of-justice #{$selector} { #{$property}: $ministry-of-justice; }
   .treasury #{$selector} { #{$property}: $treasury; }
+  .northern-ireland-office #{$selector} { #{$property}: $northern-ireland-office; }
+  .office-of-the-leader-of-the-house-of-lords #{$selector} { #{$property}: $office-of-the-leader-of-the-house-of-lords; }
+  .the-office-of-the-leader-of-the-house-of-commons #{$selector} { #{$property}: $the-office-of-the-leader-of-the-house-of-commons; }
 }
 
 @mixin websafe-department-colours($selector, $property) {
@@ -111,4 +116,7 @@ $treasury-websafe: #832322;
   .wales-office #{$selector} { #{$property}: $wales-office-websafe; }
   .ministry-of-justice #{$selector} { #{$property}: $ministry-of-justice-websafe; }
   .treasury #{$selector} { #{$property}: $treasury-websafe; }
+  .northern-ireland-office #{$selector} { #{$property}: $northern-ireland-office-websafe; }
+  .office-of-the-leader-of-the-house-of-lords #{$selector} { #{$property}: $office-of-the-leader-of-the-house-of-lords-websafe; }
+  .the-office-of-the-leader-of-the-house-of-commons #{$selector} { #{$property}: $the-office-of-the-leader-of-the-house-of-commons-websafe; }
 }
