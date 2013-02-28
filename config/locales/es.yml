@@ -41,8 +41,8 @@ es:
     speech:
       delivered_on: Emitido el
       delivery_title:
-        minister:
-        speaker:
+        minister: Ministro
+        speaker: Orador
       originally_given_at: Dado originalmente a
     type:
       announcement:
