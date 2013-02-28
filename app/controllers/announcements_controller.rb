@@ -44,12 +44,4 @@ private
   def scheduled_announcements
     Announcement.scheduled.order("scheduled_publication asc")
   end
-
-  def search_backend
-    if Locale.current.english?
-      Whitehall.search_backend
-    else
-      Whitehall::DocumentFilter::Mysql
-    end
-  end
 end

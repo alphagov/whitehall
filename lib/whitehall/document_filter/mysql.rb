@@ -116,7 +116,7 @@ INNER JOIN `world_locations` ON `world_locations`.`id` = `edition_world_location
         when "after"
           @documents = @documents.in_chronological_order
         when "alphabetical"
-          @documents = @documents.alphabetical
+          @documents = @documents.alphabetical(locale || I18n.default_locale)
         end
       end
     end

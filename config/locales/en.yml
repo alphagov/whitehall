@@ -311,6 +311,8 @@ en:
       plus_others: + others
   announcements:
     heading: Announcements
+  policies:
+    heading: Policies
   document_filters:
     description: You can use the filters to show only results that match your interests
     world_locations:

@@ -16,6 +16,16 @@ class PoliciesControllerTest < ActionController::TestCase
     get :index, departments: {'0' => "all"}, topics: {'0' => "all"}
   end
 
+  view_test "index only lists documents in the given locale" do
+    english_policy = create(:published_policy)
+    french_policy = create(:published_policy, translated_into: [:fr])
+
+    get :index, locale: 'fr'
+
+    assert_select_object french_policy
+    refute_select_object english_policy
+  end
+
   view_test "show displays the date that the policy was updated" do
     policy = create(:published_policy)
 

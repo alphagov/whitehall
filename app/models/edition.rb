@@ -27,7 +27,6 @@ class Edition < ActiveRecord::Base
   validates :body, presence: true, if: :body_required?
   validates :summary, presence: true
 
-  scope :alphabetical, in_default_locale.order("edition_translations.title ASC")
 
   scope :with_title_or_summary_containing, -> *keywords {
     pattern = "(#{keywords.map { |k| Regexp.escape(k) }.join('|')})"
@@ -38,6 +37,10 @@ class Edition < ActiveRecord::Base
     pattern = "(#{keywords.map { |k| Regexp.escape(k) }.join('|')})"
     in_default_locale.where("edition_translations.title REGEXP :pattern", pattern: pattern)
   }
+
+  def self.alphabetical(locale = I18n.locale)
+    with_translations(locale).order("edition_translations.title ASC")
+  end
 
   def self.published_before(date)
     where(arel_table[:public_timestamp].lteq(date))
