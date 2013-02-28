@@ -22,9 +22,10 @@ Whitehall::Application.routes.draw do
         get :tags
       end
     end
-    resources :world_locations, path: 'world-locations', only: [:index], defaults: { format: :json } do
+    resources :world_locations, path: 'world-locations', only: [:index, :show], defaults: { format: :json } do
       resources :worldwide_organisations, path: 'organisations', only: [:index], defaults: { format: :json }
     end
+    resources :worldwide_organisations, path: 'worldwide-organisations', only: [:show], defaults: { format: :json }
   end
 
   scope Whitehall.router_prefix, shallow_path: Whitehall.router_prefix do
