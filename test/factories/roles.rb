@@ -5,7 +5,7 @@ FactoryGirl.define do
     end
   end
 
-  factory :role_without_organisations, class: Role do
+  factory :role_without_organisations, class: Role, traits: [:translated] do
     name "role-name"
     type ""
   end

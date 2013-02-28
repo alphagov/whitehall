@@ -764,6 +764,18 @@ ActiveRecord::Schema.define(:version => 20130228155806) do
   add_index "role_appointments", ["person_id"], :name => "index_role_appointments_on_person_id"
   add_index "role_appointments", ["role_id"], :name => "index_role_appointments_on_role_id"
 
+  create_table "role_translations", :force => true do |t|
+    t.integer  "role_id"
+    t.string   "locale"
+    t.string   "name"
+    t.text     "responsibilities"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "role_translations", ["locale"], :name => "index_role_translations_on_locale"
+  add_index "role_translations", ["role_id"], :name => "index_role_translations_on_role_id"
+
   create_table "roles", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"

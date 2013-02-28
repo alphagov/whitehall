@@ -132,6 +132,16 @@ class Admin::RolesControllerTest < ActionController::TestCase
     end
   end
 
+  view_test "index should display link to manage translations for a role" do
+    role = create(:role)
+
+    get :index
+
+    assert_select_object role do
+      assert_select "a[href=?]", admin_role_translations_path(role), text: "Manage translations"
+    end
+  end
+
   view_test "provides delete buttons for destroyable roles" do
     destroyable_role = create(:role_without_organisations)
     edition = create(:edition)

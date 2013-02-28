@@ -166,6 +166,7 @@ Whitehall::Application.routes.draw do
         end
         resources :roles, except: [:show] do
           resources :role_appointments, only: [:new, :create, :edit, :update, :destroy], shallow: true
+          resources :translations, controller: 'role_translations'
         end
         resources :world_locations, only: [:index, :edit, :update] do
           resources :edition_world_locations, path: "featurings", as: "featurings", only: [:index, :edit, :update]

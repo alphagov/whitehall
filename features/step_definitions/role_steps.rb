@@ -1,8 +1,24 @@
+# encoding: utf-8
 
 Given /^a person called "([^"]*)" is assigned as its ambassador "([^"]*)"$/ do |person_name, role_name|
   person = create_person(person_name)
   role = create(:ambassador_role, name: role_name, worldwide_organisations: [WorldwideOrganisation.last])
   role_appointment = create(:ambassador_role_appointment, role: role, person: person)
+end
+
+Given /^an ambassador role named "([^"]*)" in the "([^"]*)" worldwide organisation$/ do |role_name, worldwide_organisation_name|
+  worldwide_organisation = WorldwideOrganisation.find_by_name!(worldwide_organisation_name)
+  create(:ambassador_role, name: role_name, worldwide_organisations: [worldwide_organisation])
+end
+
+Given /^a person called "([^"]*)" appointed as "([^"]*)" with a biography in "([^"]*)"$/ do |person_name, role_name, language_name|
+  locale = Locale.find_by_language_name(language_name)
+  person = create_person(person_name, translated_into: {
+    en: { biography: "english-biography" },
+    locale.code => { biography: "#{locale}-biography" }
+  })
+  role = Role.find_by_name!(role_name)
+  create(:ambassador_role_appointment, role: role, person: person)
 end
 
 When /^I add a new "([^"]*)" role named "([^"]*)" to the "([^"]*)"$/ do |role_type, role_name, organisation_name|
@@ -22,6 +38,21 @@ When /^I add a new "([^"]*)" role named "([^"]*)" to the "([^"]*)" worldwide org
   fill_in "Name", with: role_name
   select role_type, from: "Type"
   select worldwide_organisation_name, from: "Worldwide organisations"
+  click_on "Save"
+end
+
+When /^I add a new "([^"]*)" translation to the role "([^"]*)" with:$/ do |locale, role_name, table|
+  role = Role.find_by_name!(role_name)
+  translation = table.rows_hash.stringify_keys
+  visit admin_roles_path
+  within record_css_selector(role) do
+    click_link "Manage translations"
+  end
+
+  select locale, from: "Locale"
+  click_on "Create translation"
+  fill_in "Name", with: translation["name"]
+  fill_in "Responsibilities", with: translation["responsibilities"]
   click_on "Save"
 end
 

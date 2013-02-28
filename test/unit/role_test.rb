@@ -120,4 +120,11 @@ class RoleTest < ActiveSupport::TestCase
     role = build(:role)
     assert_equal 100, role.seniority
   end
+
+  test "has removeable translations" do
+    role = create(:role, translated_into: [:fr, :es])
+    role.remove_translations_for(:fr)
+    refute role.translated_locales.include?(:fr)
+    assert role.translated_locales.include?(:es)
+  end
 end

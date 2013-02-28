@@ -33,3 +33,14 @@ Scenario: Adding a deputy role to a worldwide organisation
   Then I should be able to appoint "Andrew Tomkins" to the new role
   And I should see him listed as "Deputy Head of Mission" on the worldwide organisation page
   And I should not see his picture on the worldwide organisation page
+
+Scenario: Adding a new translation
+  Given the worldwide organisation "British embassy in Spain" exists
+  And an ambassador role named "Her Majesty's Ambassador to Spain" in the "British embassy in Spain" worldwide organisation
+  And a person called "Giles Paxman" appointed as "Her Majesty's Ambassador to Spain" with a biography in "Español"
+  When I add a new "Español" translation to the role "Her Majesty's Ambassador to Spain" with:
+    | name              | Su Majestad Embajador en España                |
+    | responsibilities  | Retrato del Reino Unido en una buena luz.      |
+  Then when viewing the person "Giles Paxman" with the locale "Español" I should see:
+    | name              | Su Majestad Embajador en España                |
+    | responsibilities  | Retrato del Reino Unido en una buena luz.      |

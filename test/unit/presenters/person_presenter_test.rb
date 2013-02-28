@@ -51,4 +51,46 @@ class PersonPresenterTest < PresenterTestCase
       stub("all news_articles", limit: ten_published_news_articles))
     assert_equal two_published_speeches[0..0] + ten_published_news_articles[0..8], @presenter.announcements.map(&:model)
   end
+
+  test "is not available in multiple languages if person is not available in multiple languages" do
+    role = stub_translatable_record(:role)
+    role.stubs(:translated_locales).returns([:en, :fr])
+    role_appointment = stub_record(:role_appointment, role: role)
+
+    @person.stubs(:current_role_appointments).returns([role_appointment])
+    @person.stubs(:translated_locales).returns([:en])
+
+    assert_equal [:en], @presenter.translated_locales
+    refute @presenter.available_in_multiple_languages?
+  end
+
+  test "is not available in multiple languages if any current role is not available in multiple languages" do
+    role_1 = stub_translatable_record(:role)
+    role_1.stubs(:translated_locales).returns([:en])
+    role_2 = stub_translatable_record(:role)
+    role_2.stubs(:translated_locales).returns([:en, :es])
+    role_appointment_1 = stub_record(:role_appointment, role: role_1)
+    role_appointment_2 = stub_record(:role_appointment, role: role_2)
+
+    @person.stubs(:current_role_appointments).returns([role_appointment_1, role_appointment_2])
+    @person.stubs(:translated_locales).returns([:en, :es])
+
+    assert_equal [:en], @presenter.translated_locales
+    refute @presenter.available_in_multiple_languages?
+  end
+
+  test "is available in multiple languages if person and all current roles are available in the same multiple languages" do
+    role_1 = stub_translatable_record(:role)
+    role_1.stubs(:translated_locales).returns([:en, :es, :de, :it])
+    role_2 = stub_translatable_record(:role)
+    role_2.stubs(:translated_locales).returns([:en, :fr, :de, :it])
+    role_appointment_1 = stub_record(:role_appointment, role: role_1)
+    role_appointment_2 = stub_record(:role_appointment, role: role_2)
+
+    @person.stubs(:current_role_appointments).returns([role_appointment_1, role_appointment_2])
+    @person.stubs(:translated_locales).returns([:en, :fr, :es, :it])
+
+    assert_equal [:en, :it], @presenter.translated_locales
+    assert @presenter.available_in_multiple_languages?
+  end
 end
