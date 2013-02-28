@@ -21,6 +21,11 @@ class Api::WorldwideOrganisationPresenterTest < PresenterTestCase
     assert_equal Api::WorldwideOrganisationPresenter.paginate([@office]), Api::PagePresenter.new(decorated_results)
   end
 
+  test "json includes api worldwide organisations url as id" do
+    Whitehall.stubs(:public_host_for).returns('govuk.example.com')
+    assert_equal api_worldwide_organisation_url(@world_org, host: 'govuk.example.com'), @presenter.as_json[:id]
+  end
+
   test "json includes world org name as title" do
     @world_org.stubs(:name).returns('world-org-name')
     assert_equal 'world-org-name', @presenter.as_json[:title]

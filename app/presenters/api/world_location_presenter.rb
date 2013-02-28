@@ -8,6 +8,7 @@ class Api::WorldLocationPresenter < Draper::Base
 
   def as_json(options = {})
     {
+      id: h.api_world_location_url(model, host: h.public_host),
       title: model.name,
       format: model.display_type,
       updated_at: model.updated_at,

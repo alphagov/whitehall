@@ -8,6 +8,7 @@ class Api::WorldwideOrganisationPresenter < Draper::Base
 
   def as_json(options = {})
     {
+      id: h.api_worldwide_organisation_url(model, host: h.public_host),
       title: model.name,
       format: 'Worldwide Organisation',
       updated_at: model.updated_at,

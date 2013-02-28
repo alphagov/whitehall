@@ -16,6 +16,11 @@ class Api::WorldLocationPresenterTest < PresenterTestCase
     assert_equal Api::WorldLocationPresenter.paginate([@location]), Api::PagePresenter.new(decorated_results)
   end
 
+  test "json includes public api location url as id" do
+    Whitehall.stubs(:public_host_for).returns('govuk.example.com')
+    assert_equal api_world_location_url(@location, host: 'govuk.example.com'), @presenter.as_json[:id]
+  end
+
   test "json includes location name as title" do
     @location.stubs(:name).returns('location-name')
     assert_equal 'location-name', @presenter.as_json[:title]
