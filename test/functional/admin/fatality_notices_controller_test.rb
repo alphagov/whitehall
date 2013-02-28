@@ -8,24 +8,12 @@ class Admin::FatalityNoticesControllerTest < ActionController::TestCase
   should_be_an_admin_controller
   should_require_fatality_handling_permission_to_access :fatality_notice, :new, :edit
 
-  should_allow_showing_of :fatality_notice
   should_allow_creating_of :fatality_notice
   should_allow_editing_of :fatality_notice
-
-  should_show_document_audit_trail_for :fatality_notice, :show
-  should_show_document_audit_trail_for :fatality_notice, :edit
 
   should_allow_organisations_for :fatality_notice
   should_allow_attached_images_for :fatality_notice
   should_allow_role_appointments_for :fatality_notice
-  should_be_rejectable :fatality_notice
-  should_be_publishable :fatality_notice
-  should_allow_unpublishing_for :fatality_notice
-  should_be_force_publishable :fatality_notice
-  should_be_able_to_delete_an_edition :fatality_notice
-  should_link_to_public_version_when_published :fatality_notice
-  should_not_link_to_public_version_when_not_published :fatality_notice
-  should_link_to_preview_version_when_not_published :fatality_notice
   should_prevent_modification_of_unmodifiable :fatality_notice
   should_allow_overriding_of_first_published_at_for :fatality_notice
   should_have_summary :fatality_notice

@@ -7,12 +7,8 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
 
   should_be_an_admin_controller
 
-  should_allow_showing_of :news_article
   should_allow_creating_of :news_article
   should_allow_editing_of :news_article
-
-  should_show_document_audit_trail_for :news_article, :show
-  should_show_document_audit_trail_for :news_article, :edit
 
   should_allow_speed_tagging_of :news_article
   should_allow_related_policies_for :news_article
@@ -20,14 +16,6 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
   should_allow_role_appointments_for :news_article
   should_allow_association_between_world_locations_and :news_article
   should_allow_attached_images_for :news_article
-  should_be_rejectable :news_article
-  should_be_publishable :news_article
-  should_allow_unpublishing_for :news_article
-  should_be_force_publishable :news_article
-  should_be_able_to_delete_an_edition :news_article
-  should_link_to_public_version_when_published :news_article
-  should_not_link_to_public_version_when_not_published :news_article
-  should_link_to_preview_version_when_not_published :news_article
   should_prevent_modification_of_unmodifiable :news_article
   should_allow_overriding_of_first_published_at_for :news_article
   should_have_summary :news_article
