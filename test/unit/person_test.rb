@@ -3,6 +3,15 @@ require 'test_helper'
 class PersonTest < ActiveSupport::TestCase
   should_protect_against_xss_and_content_attacks_on :biography
 
+  test 'should return search index data suitable for Rummageable' do
+    person = create(:person, forename: 'David', surname: 'Cameron', biography: 'David Cameron became Prime Minister in May 2010.')
+
+    assert_equal 'David Cameron', person.search_index['title']
+    assert_equal "/government/people/#{person.slug}", person.search_index['link']
+    assert_equal 'David Cameron became Prime Minister in May 2010.', person.search_index['indexable_content']
+    assert_equal 'person', person.search_index['format']
+  end
+
   test "should be invalid without a name" do
     person = build(:person, title: nil, forename: nil, surname: nil, letters: nil)
     refute person.valid?
@@ -17,6 +26,7 @@ class PersonTest < ActiveSupport::TestCase
   test "should be valid if legacy image isn't 960x640px" do
     ImageSizeChecker.any_instance.unstub(:size_is?)
     person = build(:person, image: File.open(Rails.root.join('test/fixtures/horrible-image.64x96.jpg')))
+    person.stubs(:search_link)
     person.save(validate: false)
     assert person.reload.valid?
   end
