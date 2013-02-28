@@ -50,9 +50,9 @@
 
       .jump-links {
         margin: $gutter-half 0 $gutter;
-        h4 {
+        h1 {
           @include core-16;
-          padding-top: $gutter-one-third;
+          padding: $gutter-one-third 0 0 0;
         }
         ul li {
           @include core-16;
@@ -88,7 +88,7 @@
       clear: both;
       margin-bottom: $gutter;
 
-      h3 {
+      h3, h4 {
         font-weight: bold;
       }
 
@@ -105,11 +105,11 @@
         }
       }
 
-      .feature-value, .feature-caption {
+      dt, dd {
         @include core-16;
         display: block;
       }
-      .feature-value {
+      dt{
         @include heading-80;
         font-weight: bold;
         margin: 0 0 (-$gutter-one-sixth) 0;
@@ -119,18 +119,18 @@
       }
 
       .value {
-        margin: $gutter 0 $gutter;
+        margin-bottom: $gutter;
       }
 
       .values {
-        padding-top: $gutter-one-third;
-        .feature-value, .feature-caption {
+        padding-top: $gutter-half;
+        dt, dd {
           padding: 0 $gutter-half;
           @include media(tablet) {
             width: 50%;
           }
         }
-        .feature-value {
+        dt {
           padding: 0 $gutter-half;
           margin-top: $gutter-half;
           @include media(tablet) {
