@@ -34,8 +34,8 @@
           <dt><%= t('document.headings.ministers', count: document.ministerial_roles) %>:</dt>
           <dd class="js-hide-other-links"><%= list_of_links_to_ministers(document.ministerial_roles) %></dd>
         <% end %>
-        <% if document.respond_to?(:delivery_title) %>
-          <dt><%= document.delivery_title %>:</dt>
+        <% if document.respond_to?(:delivered_by_minister?) %>
+          <dt><%= t_delivery_title(document) %>:</dt>
           <dd class="person"><%= link_to_person document.role_appointment.person %></dd>
         <% end %>
       <% end %>

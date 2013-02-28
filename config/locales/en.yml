@@ -210,6 +210,9 @@ en:
     speech:
       delivered_on: "Delivered on:"
       originally_given_at: "Originally given at %{location}."
+      delivery_title:
+        minister: Minister
+        speaker: Speaker
   feeds:
     atom: atom
     email_alerts: email alerts

@@ -36,8 +36,8 @@ class Speech < Announcement
     true
   end
 
-  def delivery_title
-    role_appointment.role.ministerial? ? "Minister" : "Speaker"
+  def delivered_by_minister?
+    role_appointment.role.ministerial?
   end
 
   def first_public_at

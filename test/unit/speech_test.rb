@@ -186,12 +186,12 @@ class SpeechTest < ActiveSupport::TestCase
     assert_equal [mar, feb, jan], Speech.in_reverse_chronological_order.all
   end
 
-  test "delivery title should show 'Minister:' for ministerial role appointments" do
-    assert_equal "Minister", build(:speech, role_appointment: build(:ministerial_role_appointment)).delivery_title
+  test "delivered_by_minister? returns true for ministerial role appointments" do
+    assert build(:speech, role_appointment: build(:ministerial_role_appointment)).delivered_by_minister?
   end
 
-  test "delivery title should show 'Speaker:' for all other appointments" do
-    assert_equal "Speaker", build(:speech, role_appointment: build(:board_member_role_appointment)).delivery_title
+  test "delivered_by_minister? returns false for all other appointments" do
+    refute build(:speech, role_appointment: build(:board_member_role_appointment)).delivered_by_minister?
   end
 
   test "can associate a speech with a topical event" do

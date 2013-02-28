@@ -15,4 +15,12 @@ module TranslationHelper
   def t_world_location_see_all_our(type)
     t("world_location.see_all", type: t("document.type.#{type}", count: 2).downcase)
   end
+
+  def t_delivery_title(document)
+    if document.delivered_by_minister?
+      t("document.speech.delivery_title.minister")
+    else
+      t("document.speech.delivery_title.speaker")
+    end
+  end
 end
