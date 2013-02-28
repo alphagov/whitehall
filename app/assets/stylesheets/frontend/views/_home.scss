@@ -70,6 +70,7 @@
 
     border-bottom: 5px solid $black;
     margin-bottom: $gutter;
+    padding-bottom: 3px;
   }
 
   h3 {
@@ -85,11 +86,11 @@
   // section specific styles
 
   .intro-section {
-    margin-top: $gutter*1.5;;
+    margin-top: $gutter*1 + $gutter-one-third;
 
     h1 {
       @include bold;
-      margin-bottom: $gutter;
+      margin-bottom: $gutter + $gutter-one-sixth;
     }
 
     p.intro {
@@ -118,41 +119,35 @@
   }
 
   .organisations-section {
-    margin-top: ($gutter*2);
+    margin-top: ($gutter*1.5);
 
     .live-count {
       @include ig-core-27;
-      margin-bottom: $gutter;
+      margin-bottom: $gutter + $gutter-one-third;
     }
 
     .organisation-count {
       @include ig-core-80;
       font-weight: bold;
       display: block;
+      margin-bottom: $gutter-one-third*-1;
 
       @include media(tablet) {
         @include ig-core-48;
         font-weight: bold;
+        margin-bottom: $gutter-one-sixth*-1;
       }
 
       @include media(desktop) {
         @include ig-core-80;
         font-weight: bold;
+        margin-bottom: $gutter-one-third*-1;
       }
     }
 
     h2 {
       @include media(tablet) {
         padding-right: 33%;
-        min-height: (30/27)*3em;
-      }
-
-      @include media($min-width: '753px') {
-        min-height: (30/27)*2em;
-      }
-
-      @include media(desktop) {
-        min-height: auto;
       }
 
       @include media($min-width: '900px') {

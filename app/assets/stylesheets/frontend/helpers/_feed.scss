@@ -2,12 +2,16 @@
   display: inline-block;
   padding: 0 5px 0 20px;
   height: 16px;
+  margin-right: $gutter-one-third;
+  font-weight: bold;
   background: image-url('feed-icon-black.png') 0 100% no-repeat;
 }
 .govdelivery {
   display: inline-block;
   padding: 0 5px 0 25px;
   height: 16px;
+  margin-right: $gutter-one-third;
+  font-weight: bold;
   background: image-url('mail-icon.png') 0 100% no-repeat;
   @include hidpi {
     background-image: image-url('mail-icon-2x.png');

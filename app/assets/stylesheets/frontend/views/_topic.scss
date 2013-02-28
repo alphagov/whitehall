@@ -1,11 +1,11 @@
 .topics-show {
   @include media(desktop){
     .block-2 {
-      width: 33%;
+      width: 66%;
       float: left;
     }
     .block-3 {
-      width: 66%;
+      width: 33%;
       float: left;
       clear: right;
     }
@@ -64,29 +64,48 @@
       }
     }
   }
+  
+  .heading-block {
+    margin-bottom: $gutter*2;
+  }
 
-  .latest-block {
-    .recently-updated {
-      width: 100%;
+  @include media(desktop) {
+    .latest-block {
+      .inner-block {
+        padding-left: 0;
+      }
+      .recently-updated {
+        width: 100%;
+        
+        .content {
+          margin-top: $gutter-one-third;
+        }
+      }
     }
   }
 
-  .what,
-  .policies,
-  .elsewhere {
+  .policies {
     h1 {
       @include ig-core-27;
+      font-weight: bold;
     }
   }
 
   .what {
-    .label {
-      margin-bottom: $gutter-one-third;
+    h1 {
+      @include core-36;
+      margin-bottom: $gutter;
+      padding-bottom: $gutter-one-third;
+      border-bottom-width: 5px;
+      border-bottom-style: solid;
     }
     .govspeak {
       p {
-        @include ig-core-24;
+        @include core-27;
         margin: 0;
+        &:first-child {
+          padding-top: 0;
+        }
       }
     }
   }
@@ -105,7 +124,7 @@
 
     h1 {
       padding-left: $gutter-half;
-      margin-bottom: $gutter-half;
+      margin-bottom: $gutter-one-third;
     }
 
     .title-block {
@@ -116,7 +135,8 @@
 
       h1 {
         padding-left: 0;
-        border-bottom: 1px solid $border-colour;
+        @include core-27;
+        font-weight: bold;
       }
 
       .content {
@@ -124,7 +144,7 @@
 
         li {
           list-style: none;
-          @include ig-core-16;
+          @include ig-core-19;
         }
       }
     }

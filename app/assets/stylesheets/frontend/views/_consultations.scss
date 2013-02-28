@@ -91,6 +91,7 @@ nav.consultations_scope {
       abbr {
         display: block;
         @include ig-core-48;
+        font-weight: bold;
         padding: 0;
         margin: 0;
       }
@@ -187,10 +188,10 @@ nav.consultations_scope {
       text-decoration: underline;
     }
     h2, .online {
-      @include ig-core-24;
+      @include ig-core-27;
     }
     h2 {
-      @include bold;
+      font-weight: bold;
     }
     dl {
       dt {
