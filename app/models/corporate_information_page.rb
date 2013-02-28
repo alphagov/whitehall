@@ -42,4 +42,8 @@ class CorporateInformationPage < ActiveRecord::Base
     type_ids = CorporateInformationPageType.by_menu_heading(menu_heading).map(&:id)
     where(type_id: type_ids)
   end
+
+  def available_in_multiple_languages?
+    false
+  end
 end

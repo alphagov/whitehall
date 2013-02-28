@@ -1,8 +1,9 @@
 <%
   world_locations ||= organisation.world_locations
   link_to_organisation ||= false
+  object_for_translation ||= organisation
 %>
-<%= render partial: 'shared/available_languages', locals: {object: organisation } %>
+<%= render partial: 'shared/available_languages', locals: {object: object_for_translation } %>
 <header>
   <div class="content">
     <% if world_locations.any? %>
