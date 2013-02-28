@@ -4,7 +4,7 @@ namespace :test do
     puts "Removing temporary uploaded files."
     FileUtils.rm_rf Rails.root.join('public/system')
     FileUtils.rm_rf Rails.root.join('public/uploads')
-    FileUtils.rm_rf Rails.root.join('test-bulk-upload-zip-file-tmp')
+    FileUtils.rm_rf Rails.root.join('tmp/test-bulk-upload-zip-file-tmp')
   end
 end
 
