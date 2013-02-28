@@ -3,6 +3,10 @@ class NewsArticle < Announcement
   include Edition::FactCheckable
   include Edition::FirstImagePulledOut
   include Edition::DocumentSeries
+  include ::Attachable
+
+  attachable :edition
+  force_review_of_bulk_attachments
 
   validates :news_article_type_id, presence: true
   validate :only_news_article_allowed_invalid_data_can_be_awaiting_type

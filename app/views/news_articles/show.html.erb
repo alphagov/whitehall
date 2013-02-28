@@ -1,3 +1,33 @@
 <% page_title @document.title, t_display_type(@document, 10) %>
-<%= render  template: "documents/show",
-            locals: { header_title: t_display_type(@document) } %>
+
+<article class="document-page <%= @document.type.downcase %>">
+  <div class="block-1">
+    <div class="inner-block">
+      <%= render  partial: 'header',
+                  locals: {
+                    header_title: t_display_type(@document),
+                    document: @document,
+                    policies: @related_policies
+                  } %>
+    </div>
+  </div>
+
+  <div class="block-2 ">
+    <div class="inner-block">
+      <%= render partial: "document_summary", locals: { document: @document } %>
+    </div>
+  </div>
+
+  <div class="block-3">
+    <div class="inner-block">
+      <%= render partial: "document_sidebar", locals: { document: @document } %>
+    </div>
+  </div>
+  <div class="block-4">
+    <div class="inner-block">
+      <div class="document body">
+        <%= govspeak_edition_to_html @document %>
+      </div>
+    </div>
+  </div>
+</article>
