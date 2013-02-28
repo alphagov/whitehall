@@ -266,3 +266,13 @@ fr:
       publication_scheme: Régime de publication
       personal_information_charter: Charte de renseignements personnels
       welsh_language_scheme: Système de la langue galloise
+  announcements:
+    heading: Nos annonces
+  document_filters:
+    description: Vous pouvez utiliser les filtres pour afficher uniquement les résultats qui correspondent à vos intérêts
+    world_locations:
+      label: Endroits du monde
+      all: Tous les endroits
+    no_results:
+      title: Il n'existe aucun document correspondant.
+      description: Essayez de faire votre recherche plus large et essayez à nouveau.

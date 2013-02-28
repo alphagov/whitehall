@@ -1,5 +1,5 @@
 <div class="filter-block">
-  <h2>You can use the filters to show only results that match your interests</h2>
+  <h2><%= t 'document_filters.description' %></h2>
   <form method="get" action="<%= send(:"#{document_type.to_s.pluralize}_path") %>" id="document-filter" class="js-document-filter">
     <fieldset>
       <legend class="visuallyhidden">Filter <%= document_type.to_s.pluralize %></legend>
@@ -68,7 +68,7 @@
         <div class="filter" id="location-filter">
           <div class="filter-inner">
             <div class="publication-type">
-              <%= label_tag "world_locations", "World Locations", class: "title" %>
+              <%= label_tag "world_locations", t('document_filters.world_locations.label'), class: "title" %>
               <%= select_tag :world_locations, locations_options(all_locations_with(document_type), @filter.selected_locations), size: 5, multiple: true,  class: "multi-row-select" %>
             </div>
           </div>

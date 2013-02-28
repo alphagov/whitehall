@@ -10,7 +10,9 @@ class DocumentFilterPresenter < Draper::Base
       total_pages: model.documents.num_pages,
       total_count: model.documents.total_count,
       results: model.documents.map { |d| d.as_hash },
-      results_any?: model.documents.any?
+      results_any?: model.documents.any?,
+      no_results_title: h.t('document_filters.no_results.title'),
+      no_results_description: h.t('document_filters.no_results.description')
     }
     if !model.documents.last_page? || !model.documents.first_page?
       data[:more_pages?] = true
