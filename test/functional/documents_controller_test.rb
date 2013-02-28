@@ -88,11 +88,9 @@ class DocumentsControllerTest < ActionController::TestCase
 
     get :show, id: edition.document
 
-    assert_select ".document-page-header .translations" do
-      assert_select ".translation", text: "English"
-      refute_select "a[href=?]", public_document_path(edition, locale: :en), text: 'English'
-      assert_select "a[href=?]", public_document_path(edition, locale: :es), text: 'Español'
-    end
+    assert_select ".translation", text: "English"
+    refute_select "a[href=?]", public_document_path(edition, locale: :en), text: 'English'
+    assert_select "a[href=?]", public_document_path(edition, locale: :es), text: 'Español'
   end
 
   view_test "should not show any links to translations when the edition is only available in one language" do

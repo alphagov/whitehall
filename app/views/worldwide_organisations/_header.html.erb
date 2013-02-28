@@ -2,8 +2,8 @@
   world_locations ||= organisation.world_locations
   link_to_organisation ||= false
 %>
+<%= render partial: 'shared/available_languages', locals: {object: organisation } %>
 <header>
-  <%= render partial: 'shared/available_languages', locals: {object: organisation } %>
   <div class="content">
     <% if world_locations.any? %>
       <h2 class="world-location"><%= world_locations.map {|l| link_to(l.title, l) }.to_sentence %></h2>

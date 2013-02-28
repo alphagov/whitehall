@@ -1,8 +1,4 @@
 .worldwide-organisations-show {
-  .translations {
-    text-align: right;
-  }
-
   .keyline-header {
     @include heading-27;
     border-bottom: 5px solid $inside-gov-nav;
@@ -15,6 +11,12 @@
 
   .organisation-header {
     margin-bottom: $gutter;
+
+    .available-languages {
+      ul {
+        margin-right: $gutter-half;
+      }
+    }
 
     .content {
       padding: 0 $gutter-half;
