@@ -1,1 +1,1 @@
-BulkUpload::ZipFile.default_root_directory = Rails.root.join('test-bulk-upload-zip-file-tmp')
+BulkUpload::ZipFile.default_root_directory = Rails.root.join('tmp/test-bulk-upload-zip-file-tmp')
