@@ -38,9 +38,9 @@ class OrganisationsController < PublicFacingController
           @consultations = PublicationesquePresenter.decorate(@organisation.published_consultations.in_reverse_chronological_order.limit(2))
           @announcements = AnnouncementPresenter.decorate(@organisation.published_announcements.in_reverse_chronological_order.limit(2))
           @ministers = ministers
-          @important_board_members = board_members.with_unique_people.take(@organisation.important_board_members)
-          @board_members = board_members.with_unique_people.from(@organisation.important_board_members)
-          @military_roles = military_roles
+          @important_board_members = board_members.take(@organisation.important_board_members)
+          @board_members = board_members.from(@organisation.important_board_members)
+          @military_personnel = military_personnel
           @traffic_commissioners = traffic_commissioners
           @special_representatives = special_representatives
           @sub_organisations = @organisation.sub_organisations
@@ -60,31 +60,38 @@ class OrganisationsController < PublicFacingController
   private
 
   def ministers
-    @ministerial_roles = @organisation.ministerial_roles.order("organisation_roles.ordering").map do |role|
-      RolePresenter.new(role) if role.current_person
-    end.compact
+    @ministerial_roles ||= filled_roles_presenter_for(:ministerial)
+    @ministerial_roles.with_unique_people
   end
 
   def board_members
-    @board_member_roles ||= RolesPresenter.new(@organisation.management_roles.order("organisation_roles.ordering"))
+    @board_member_roles ||= roles_presenter_for(:management)
+    @board_member_roles.with_unique_people
   end
 
   def traffic_commissioners
-    @traffic_commissioner_roles = @organisation.traffic_commissioner_roles.order("organisation_roles.ordering").map do |role|
-      RolePresenter.new(role)
-    end
+    @traffic_commissioner_roles ||= roles_presenter_for(:traffic_commissioner)
+    @traffic_commissioner_roles.with_unique_people
   end
 
-  def military_roles
-    @military_roles = @organisation.military_roles.order("organisation_roles.ordering").map do |role|
-      RolePresenter.new(role)
-    end
+  def military_personnel
+    @military_roles ||= roles_presenter_for(:military)
+    @military_roles.with_unique_people
   end
 
   def special_representatives
-    @organisation.special_representative_roles.order("organisation_roles.ordering").map do |role|
-      RolePresenter.new(role)
-    end
+    @special_representative_roles ||= roles_presenter_for(:special_representative)
+    @special_representative_roles.with_unique_people
+  end
+
+  def filled_roles_presenter_for(association)
+    roles_presenter = roles_presenter_for(association)
+    roles_presenter.remove_unfilled_roles!
+    roles_presenter
+  end
+
+  def roles_presenter_for(association)
+    RolesPresenter.new(@organisation.send("#{association}_roles").order("organisation_roles.ordering"))
   end
 
   def load_organisation
