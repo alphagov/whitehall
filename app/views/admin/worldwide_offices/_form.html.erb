@@ -12,7 +12,7 @@
             <p class="control-label"><%= service_type.name %></p>
             <div class="controls">
               <% services.each do |service| %>
-                <label class='checkbox'>
+                <label class="checkbox">
                   <%= check_box_tag 'worldwide_office[service_ids][]', service.id, office_form.object.services.include?(service) %>
                   <%= service.name %>
                 </label>

@@ -7,7 +7,7 @@
   </div>
 
   <div class="span6">
-    <h2 class='pull-right'><%= @edition.state.capitalize %> <%= @edition.type.underscore.titlecase %></h2>
+    <h2 class="pull-right"><%= @edition.state.capitalize %> <%= @edition.type.underscore.titlecase %></h2>
 
     <%= render partial: 'navigation', locals: { edition: @edition } %>
     <%= render partial: "rejected_by", locals: { edition: @edition } %>
@@ -22,7 +22,7 @@
   </div>
 
   <div class="span4">
-    <h2 class='pull-right'><%= @edition.state.capitalize %> <%= @edition.type.underscore.titlecase %></h2>
+    <h2 class="pull-right"><%= @edition.state.capitalize %> <%= @edition.type.underscore.titlecase %></h2>
 
     <%= render partial: 'navigation', locals: { edition: @edition } %>
     <%= render partial: "rejected_by", locals: { edition: @edition } %>

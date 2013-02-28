@@ -1,6 +1,6 @@
-<div class='speed-tag'>
+<div class="speed-tag">
   <% unless @edition.valid_as_draft? %>
-    <div class='alert'>
+    <div class="alert">
       <strong>This edition cannot be converted to draft yet</strong>
 
       <ul>
@@ -36,10 +36,10 @@
         <h3>Ministers</h3>
         <% @edition.organisations.map(&:ministerial_role_appointments).flatten.each do |role_appointment| %>
           <% if role_appointment.current_at(@edition.first_published_at) %>
-            <label class='checkbox'>
+            <label class="checkbox">
               <%= check_box_tag 'edition[role_appointment_ids][]', role_appointment.id, @edition.role_appointments.include?(role_appointment) %>
               <%= RoleAppointmentPresenter.new(role_appointment).person.name %>
-              <span class='muted'><%= role_appointment(role_appointment) %></span>
+              <span class="muted"><%= role_appointment(role_appointment) %></span>
             </label>
           <% end %>
         <% end %>
@@ -50,10 +50,10 @@
       <div class="row-fluid">
         <h3>Ministers</h3>
         <% @edition.organisations.map(&:ministerial_roles).flatten.each do |role| %>
-          <label class='checkbox'>
+          <label class="checkbox">
             <%= check_box_tag 'edition[ministerial_role_ids][]', role.id, @edition.ministerial_roles.include?(role) %>
             <%= RolePresenter.new(role).current_person.name %>
-            <span class='muted'><%= RolePresenter.new(role).name %></span>
+            <span class="muted"><%= RolePresenter.new(role).name %></span>
           </label>
         <% end %>
       </div>
@@ -63,7 +63,7 @@
       <div class="row-fluid">
         <h3>Related policies</h3>
         <% Policy.in_organisation(@edition.organisations).latest_edition.active.map do |policy| %>
-          <label class='checkbox'>
+          <label class="checkbox">
             <%= check_box_tag 'edition[related_document_ids][]', policy.document_id, @edition.related_documents.include?(policy.document) %>
             <%= policy.title %><% if policy.topics.any? %>
             <span class="muted"><%= policy.topics.map(&:name).to_sentence%></span>
