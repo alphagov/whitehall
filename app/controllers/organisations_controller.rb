@@ -40,7 +40,7 @@ class OrganisationsController < PublicFacingController
           @ministers = ministers
           @important_board_members = board_members.with_unique_people.take(@organisation.important_board_members)
           @board_members = board_members.with_unique_people.from(@organisation.important_board_members)
-          @military_roles = military_roles
+          @military_personnel = military_personnel
           @traffic_commissioners = traffic_commissioners
           @special_representatives = special_representatives
           @sub_organisations = @organisation.sub_organisations
@@ -75,7 +75,7 @@ class OrganisationsController < PublicFacingController
     end
   end
 
-  def military_roles
+  def military_personnel
     @military_roles = @organisation.military_roles.order("organisation_roles.ordering").map do |role|
       RolePresenter.new(role)
     end
