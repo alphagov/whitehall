@@ -40,6 +40,9 @@ es:
     read: Lea el artículo de la '%{title}'
     speech:
       delivered_on: Emitido el
+      delivery_title:
+        minister:
+        speaker:
       originally_given_at: Dado originalmente a
     type:
       announcement:

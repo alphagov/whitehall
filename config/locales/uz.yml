@@ -40,6 +40,9 @@ uz:
     read:
     speech:
       delivered_on:
+      delivery_title:
+        minister:
+        speaker:
       originally_given_at:
     type:
       announcement:
