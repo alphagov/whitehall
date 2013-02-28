@@ -12,8 +12,6 @@ class Admin::GenericEditionsController::TranslationTest < ActionController::Test
     GenericEdition.translatable = false
   end
 
-  should_be_an_admin_controller
-
   view_test "show displays the number of translations excluding the default English translation" do
     edition = create(:draft_edition)
     with_locale(:es) { edition.update_attributes!(attributes_for("draft_edition")) }

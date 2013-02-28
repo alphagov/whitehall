@@ -7,26 +7,13 @@ class Admin::SpeechesControllerTest < ActionController::TestCase
 
   should_be_an_admin_controller
 
-  should_allow_showing_of :speech
   should_allow_creating_of :speech
   should_allow_editing_of :speech
-  should_allow_revision_of :speech
-
-  should_show_document_audit_trail_for :speech, :show
-  should_show_document_audit_trail_for :speech, :edit
 
   should_allow_speed_tagging_of :speech
   should_allow_related_policies_for :speech
   should_allow_association_between_world_locations_and :speech
   should_allow_attached_images_for :speech
-  should_be_rejectable :speech
-  should_be_publishable :speech
-  should_allow_unpublishing_for :speech
-  should_be_force_publishable :speech
-  should_be_able_to_delete_an_edition :speech
-  should_link_to_public_version_when_published :speech
-  should_not_link_to_public_version_when_not_published :speech
-  should_link_to_preview_version_when_not_published :speech
   should_prevent_modification_of_unmodifiable :speech
   should_allow_overriding_of_first_published_at_for :speech
   should_allow_assignment_to_document_series :speech

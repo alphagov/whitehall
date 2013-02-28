@@ -7,13 +7,8 @@ class Admin::DetailedGuidesControllerTest < ActionController::TestCase
 
   should_be_an_admin_controller
 
-  should_allow_showing_of :detailed_guide
   should_allow_creating_of :detailed_guide
   should_allow_editing_of :detailed_guide
-  should_allow_revision_of :detailed_guide
-
-  should_show_document_audit_trail_for :detailed_guide, :show
-  should_show_document_audit_trail_for :detailed_guide, :edit
 
   should_allow_organisations_for :detailed_guide
   should_allow_association_with_topics :detailed_guide
@@ -23,14 +18,6 @@ class Admin::DetailedGuidesControllerTest < ActionController::TestCase
   show_should_display_attachments_for :detailed_guide
   should_show_inline_attachment_help_for :detailed_guide
   should_allow_attached_images_for :detailed_guide
-  should_be_rejectable :detailed_guide
-  should_be_publishable :detailed_guide
-  should_allow_unpublishing_for :detailed_guide
-  should_be_force_publishable :detailed_guide
-  should_be_able_to_delete_an_edition :detailed_guide
-  should_link_to_public_version_when_published :detailed_guide
-  should_not_link_to_public_version_when_not_published :detailed_guide
-  should_link_to_preview_version_when_not_published :detailed_guide
   should_prevent_modification_of_unmodifiable :detailed_guide
   should_allow_association_with_related_mainstream_content :detailed_guide
   should_allow_alternative_format_provider_for :detailed_guide

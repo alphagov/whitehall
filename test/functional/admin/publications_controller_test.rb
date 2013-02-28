@@ -7,13 +7,8 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
 
   should_be_an_admin_controller
 
-  should_allow_showing_of :publication
   should_allow_creating_of :publication
   should_allow_editing_of :publication
-  should_allow_revision_of :publication
-
-  should_show_document_audit_trail_for :publication, :show
-  should_show_document_audit_trail_for :publication, :edit
 
   should_allow_speed_tagging_of :publication
   should_allow_related_policies_for :publication
@@ -28,14 +23,6 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
   should_not_show_inline_attachment_help_for :publication
   should_allow_attached_images_for :publication
   should_allow_association_between_world_locations_and :publication
-  should_be_rejectable :publication
-  should_be_publishable :publication
-  should_allow_unpublishing_for :publication
-  should_be_force_publishable :publication
-  should_be_able_to_delete_an_edition :publication
-  should_link_to_public_version_when_published :publication
-  should_not_link_to_public_version_when_not_published :publication
-  should_link_to_preview_version_when_not_published :publication
   should_prevent_modification_of_unmodifiable :publication
   should_allow_alternative_format_provider_for :publication
   should_allow_assignment_to_document_series :publication
