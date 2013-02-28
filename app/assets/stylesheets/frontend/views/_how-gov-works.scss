@@ -10,7 +10,7 @@
         padding: $gutter*1.5 $gutter-half 0;
       }
 
-      .how-gov-works, .jump-links {
+      .header-title, .jump-links {
         .content {
           padding: 0 $gutter-half;
         }
@@ -29,6 +29,7 @@
         ul li {
           @include core-16;
           list-style: none;
+          padding: $gutter-one-sixth 0 0 0;
           margin-left: 0;
           a {
             text-decoration: none;
