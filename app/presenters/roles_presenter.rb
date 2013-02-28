@@ -10,6 +10,11 @@ class RolesPresenter
     @source = source
   end
 
+  def remove_unfilled_roles!
+    @decorated_collection = nil
+    @source = source.to_a.reject { |role| role.current_person.nil? }
+  end
+
   def decorated_collection
     @decorated_collection ||= source.to_a.collect {|role| RolePresenter.new(role) }
   end
