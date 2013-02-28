@@ -25,42 +25,21 @@
                     <span><%= ministerial_department.logo_formatted_name %></span>
                   <% end %>
                 </h2>
-                <% if ministerial_department.agencies_and_public_bodies.any? %>
-                  <p class="works-with">Works with <%= ministerial_department.agencies_and_public_bodies.count %>
-
-                <% agencies_and_public_bodies_count = ministerial_department.agencies_and_public_bodies.count %>
-                <% if agencies_and_public_bodies_count == 1 %>
-                  public body
-                <% else %>
-                  agencies and public bodies
-                <% end %></p>
-                  <div class="organisations-box js-hidden"><div class="organisations-box-inner">
-                    <p><%= link_to "#{ministerial_department.name} homepage", organisation_path(ministerial_department) %></p>
-                    <% ministerial_department.agencies_and_public_bodies_by_type.each do |type,departments| %>
-                      <h3><%= type.name %></h3>
-                      <ol>
-                        <% departments.each do |department| %>
-                          <%= content_tag_for :li, department do %>
-                            <%= link_to department.name, organisation_path(department) %>
-                          <% end %>
-                        <% end %>
-                      </ol>
-                    <% end %>
-                  </div></div>
-                <% end %>
+                <%= render partial: 'works_with', locals: { organisation: ministerial_department, link_to_homepage: true } %>
               <% end %>
             <% end %>
           </ol>
         </div>
       </div>
-      <div class="heading-block other-departments js-filter-block">
+      <div class="heading-block other-departments js-filter-block js-hide-department-children">
         <h1 id="non-ministerial-departments">Non ministerial departments</h1>
         <div class="content">
           <ol class="index-list">
             <% @non_ministerial_departments.each do |organisation| %>
-              <%= content_tag_for :li, organisation, class: 'js-filter-item',
+              <%= content_tag_for :li, organisation, class: 'js-filter-item department',
                             "data-filter-terms" => filter_terms(organisation) do %>
-                <%= link_to organisation.name, organisation_path(organisation) %>
+                <%= link_to organisation.name, organisation_path(organisation), id: organisation.slug, class: 'department-link' %>
+                <%= render partial: 'works_with', locals: { organisation: organisation } %>
               <% end %>
             <% end %>
           </ol>

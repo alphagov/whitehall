@@ -51,65 +51,81 @@
         padding-top: 1.7rem;
       }
     }
+  }
 
+  .other-departments {
     .department {
-      @extend %contain-floats;
+      .department-link {
+        display: block;
+      }
+      .view-all {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .department {
+    @extend %contain-floats;
+    padding: $gutter-one-third 0;
+    list-style: none;
+    border-bottom: 1px solid $border-colour;
+
+    h2 {
       padding: $gutter-one-third 0;
+      overflow: hidden;
+    }
+    .works-with,
+    .view-all {
+      display: block;
+      float: left;
+      @include ig-core-16;
+    }
+    .works-with {
+      @include media(desktop){
+        clear: both;
+        min-width: 18em;
+      }
+    }
+    .view-all {
+      background: $panel-colour;
+      @include border-radius(3px);
+      padding: 2px $gutter-one-sixth;
+      margin: 3px $gutter-half 10px;
+
+      &:after {
+        display: inline-block;
+        font-size: 8px;
+        height: 8px;
+        padding-left: 5px;
+        vertical-align: middle;
+        content: " \25B2";
+      }
+    }
+
+    &.js-hiding-children {
+      .view-all:after {
+        content: " \25BC";
+      }
+
+      .organisations-box {
+        display: none;
+      }
+    }
+  }
+  .organisations-box {
+    clear: both;
+    margin: 0 (-15px);
+
+    li.organisation {
+      border-bottom: 0;
+      @include core-16;
+    }
+  }
+  .index-list {
+    li {
       list-style: none;
       border-bottom: 1px solid $border-colour;
-
-      h2 {
-        padding: $gutter-one-third 0;
-        overflow: hidden;
-      }
-      .works-with,
-      .view-all {
-        display: block;
-        float: left;
-        @include ig-core-16;
-      }
-      .works-with {
-        @include media(desktop){
-          min-width: 18em;
-        }
-      }
-      .view-all {
-        background: $panel-colour;
-        @include border-radius(3px);
-        padding: 2px $gutter-one-sixth;
-        margin: 3px $gutter-half 10px;
-
-        &:after {
-          display: inline-block;
-          font-size: 8px;
-          height: 8px;
-          padding-left: 5px;
-          vertical-align: middle;
-          content: " \25B2";
-        }
-      }
-
-      &.js-hiding-children {
-        .view-all:after {
-          content: " \25BC";
-        }
-
-        .organisations-box {
-          display: none;
-
-        }
-      }
-    }
-    .organisations-box {
-      clear: both;
-      margin: 0 (-15px);
-    }
-    .index-list {
-      li {
-        list-style: none;
-        border-bottom: 1px solid $border-colour;
-        @include ig-core-19;
-      }
+      @include ig-core-19;
     }
   }
 }

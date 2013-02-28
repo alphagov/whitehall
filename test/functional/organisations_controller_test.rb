@@ -9,7 +9,6 @@ class OrganisationsControllerTest < ActionController::TestCase
 
   view_test "should display a list of organisations" do
     ministerial_org_type = create(:ministerial_organisation_type)
-
     organisation_1 = create(:organisation, organisation_type_id: ministerial_org_type.id)
 
     get :index
@@ -47,6 +46,24 @@ class OrganisationsControllerTest < ActionController::TestCase
     get :index
 
     refute_select_object(sub_organisation)
+  end
+
+  view_test 'should show sub-organisations nested under parent' do
+    ministerial_org_type = create(:ministerial_organisation_type)
+    non_ministerial_org_type = create(:non_ministerial_organisation_type)
+    organisation_1 = create(:organisation, organisation_type_id: ministerial_org_type.id)
+    organisation_2 = create(:organisation, organisation_type_id: non_ministerial_org_type.id)
+    child_organisation_1 = create(:organisation, parent_organisations: [organisation_1])
+    child_organisation_2 = create(:organisation, parent_organisations: [organisation_2])
+
+    get :index
+
+    assert_select_object(organisation_1) do
+      assert_select_object(child_organisation_1)
+    end
+    assert_select_object(organisation_2) do
+      assert_select_object(child_organisation_2)
+    end
   end
 
   test "index avoids n+1 selects" do
