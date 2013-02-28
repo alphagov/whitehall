@@ -57,7 +57,7 @@
   .halves-width-section {
     overflow:visible;
     clear:both;
-    margin-top:$gutter;
+    margin-top:$gutter - $gutter-one-sixth;
     margin-bottom:$gutter-two-thirds;
     @extend %contain-floats;
     img {
@@ -141,7 +141,7 @@
       }
       strong {
         @include bold;
-        border-left: 1em solid #eee;
+        border-left: 1.3em solid #eee;
         padding-left: $gutter-one-third;
       }
       .dwp strong {
@@ -242,6 +242,7 @@
         padding: 0;
         margin: 0 0 $gutter-one-sixth 0;
 
+        font-size: 1.9em;
         font-weight: bold;
         display: block;
         line-height: 1em;
@@ -335,7 +336,7 @@
   h1 {
     @include heading-48;
     font-weight: bold;
-    margin: 0 0 $gutter;
+    margin: 0 0 $gutter +5px;
     @include media(desktop) {
       margin-top: 0;
     }
@@ -343,6 +344,7 @@
 
   h2 {
     @include ig-core-36;
+    padding-bottom: 1px;
     border-bottom: 5px solid $inside-gov-brand;
     margin: $gutter 0 $gutter;
     clear:both;
@@ -354,7 +356,8 @@
 
   h3 {
     @include ig-core-27;
-    margin: 0 0 $gutter-half;
+    font-weight: bold;
+    margin: 0 0 $gutter-two-thirds;
     width:100%;
     &.with-gutter {
       margin-top: $gutter-half;
@@ -362,18 +365,18 @@
   }
 
   .prime-minister,
-  .dep-prime-minister,
-  .depts-cont,
-  .gov-types {
+  .dep-prime-minister {
     h3 {
-      @include ig-core-24;
-      @include bold;
-      margin-bottom: 0;
+      @include ig-core-27;
+      font-weight: bold;
     }
   }
 
-  .policy {
+  .depts-cont,
+  .gov-types {
     h3 {
+      @include ig-core-19;
+      font-weight: bold;
       margin-bottom: 0;
     }
   }
@@ -381,7 +384,7 @@
   .gov-types, .ministers, .cabinet, .coalition, .civil-service{
     h3{
       border-top:1px solid $border-colour;
-      padding-top:$gutter;
+      padding-top:$gutter - $gutter-one-sixth;
     }
   }
 
@@ -395,8 +398,8 @@
   }
 
   h4 {
-    @include ig-core-24;
-    @include bold;
+    @include ig-core-19;
+    font-weight: bold;
     &.with-gutter {
       margin-top: $gutter-half;
     }
@@ -405,7 +408,7 @@
     float: none;
     display: block;
     width: 100%;
-    margin-top: $gutter*1.5;
+    margin-top: $gutter + $gutter-one-third;
   }
    
   p.intro {
@@ -424,7 +427,7 @@
   .coalition h3 {
     border-color: $coalition-green;
     border-width: 5px;
-    padding-top: $gutter - 4px;
+    padding-top: $gutter - 9px;
   }
   
   hr.keyline {

@@ -5,6 +5,7 @@
 
   h1 {
     @include ig-core-27;
+    font-weight: bold;
 
     @include media(tablet){
       float: left;
@@ -43,7 +44,9 @@
     }
 
     .see-all {
-      @include ig-core-19;
+      @include core-19;
+      font-weight: bold;
+      padding-top: $gutter-one-third;
 
       @include media(desktop) {
         padding-left: $gutter-half;
@@ -52,6 +55,10 @@
           padding-left: $gutter-half;
           padding-right: $gutter-half;
         }
+      }
+      
+      a {
+        text-decoration: underline;
       }
     }
   }

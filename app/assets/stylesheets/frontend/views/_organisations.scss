@@ -139,6 +139,12 @@
       height: auto;
     }
   }
+  
+  @include media(tablet) {
+    .block-7 {
+      padding-bottom: $gutter;
+    }
+  }
 
   .block-1 {
     padding-top: $gutter-one-third;
@@ -155,14 +161,6 @@
     .inner-block {
       padding: 0 $gutter-half;
     }
-    h1 {
-      border-bottom-width: 5px;
-      border-bottom-style: solid;
-      margin-bottom: 20px;
-    }
-    h2 {
-      @include ig-core-24;
-    }
   }
 
   #topics {
@@ -172,13 +170,26 @@
     }
   }
 
-  h1.label,
-  .topic h2 {
-    @include ig-core-27;
-    margin-bottom: $gutter-one-third;
+  .what-we-do h1 {
+    @include core-36;
+    padding-bottom: 1px;
+    margin-bottom: $gutter-two-thirds;
   }
+  
+  #topics h1 {
+    @include ig-core-27;
+    font-weight: bold;
+    margin: $gutter 0 $gutter-one-third;
+  }
+  
+  .social-media h2 {
+    @include ig-core-19;
+    font-weight: bold;
+  }
+  
   .topic h2 {
-    margin-bottom: 0;
+    @include core-19;
+    font-weight: bold;
   }
 
 
@@ -227,6 +238,7 @@
 
         li {
           @include core-16;
+          font-weight: bold;
           padding: 3px 0;
           @include media(tablet){
             padding: $gutter-one-sixth 0 0;
@@ -265,7 +277,6 @@
   }
 
   .organisation-news {
-
     article {
       &.first {
         width: 100%;
@@ -335,39 +346,44 @@
   }
 
   .what-we-do {
-    @include media(tablet){
-      float: left;
-      clear: both;
-      width: 66.66%;
+    .overview {
+      @include media(tablet){
+        display: inline;
+        float: left;
+        width: 66.66%;
+        
+        p {
+          padding-right: $gutter-half;
+        }
+      }
     }
     .content {
-      padding: $gutter-half;
+      padding: $gutter-half $gutter-half 0;
+      @include media(tablet){
+        padding-top: $gutter*1.5;
+      }
     }
   }
 
   .social-media {
     @include media(tablet){
       float: left;
+      display: inline;
       width: 33.33%;
     }
     .content {
-      padding: $gutter-half $gutter-half 0;
+      padding: 0 $gutter-half;
       @include media(tablet) {
-        padding: $gutter-half;
+        padding: 0 $gutter-half $gutter-half;
       }
-    }
-    h2 {
-      @include ig-core-24;
     }
   }
 
   .what-we-do {
+    clear: both;
+    
     p {
       @include ig-core-19;
-    }
-
-    .parent_organisations {
-      margin-bottom: $gutter-one-third;
     }
 
     .body {
@@ -382,6 +398,8 @@
   }
 
   #who {
+    padding-top: $gutter-two-thirds;
+  
     #ministers,
     #management,
     #military,
@@ -398,8 +416,14 @@
     #special_representatives {
       padding-top: $gutter-half;
       @include media(tablet) {
-        padding-top: $gutter*2;
+        padding-top: $gutter + $gutter-one-third;
       }
+    }
+    
+    h1 {
+      @include core-36;
+      padding-bottom: 1px;
+      margin-bottom: $gutter-two-thirds;
     }
 
     ul {
@@ -461,9 +485,23 @@
     }
     @include media(tablet) {
       margin-bottom: $gutter;
-      h1 {
-        margin: 0 $gutter-half $gutter-two-thirds;
+    }
+    
+    h1 {
+      @include core-27;
+      font-weight: bold;
+      border-top-width: 5px;
+      border-top-style: solid;
+      padding-top: $gutter-two-thirds;
+
+      @include media(tablet) {
+        margin: 0 $gutter-half $gutter-one-third;
       }
+    }
+    
+    h2 {
+      @include core-19;
+      font-weight: bold;
     }
   }
 
@@ -484,7 +522,6 @@
 
   .org-contacts {
     margin-bottom: $gutter;
-
     @include media(tablet) {
       position: relative;
       overflow: hidden;
@@ -493,14 +530,18 @@
 
     .contact {
       clear: both;
+      margin-top: $gutter-one-third;
       @extend %contain-floats;
       @include media(tablet){
-        margin-bottom: $gutter;
+        margin-bottom: $gutter-two-thirds;
       }
       h2 {
-        @include ig-core-24;
-        margin-bottom: $gutter-half;
-        border-bottom: 1px solid $border-colour;
+        @include core-19;
+        font-weight: bold;
+        margin-bottom: $gutter-one-third;
+        padding-top: $gutter-half;
+        border-top: 1px solid $border-colour;
+        border-bottom: none;
       }
       p {
         margin: 0 0 $gutter-one-third;
@@ -540,13 +581,16 @@
         }
       }
     }
+    .show-other-content {
+      @include core-19;
+      font-weight: bold;
+    }
   }
 
 
 
   // org color bands
 
-  #topics h1,
   #ministers h1,
   #management h1,
   #military h1,
@@ -554,7 +598,6 @@
   #special_representatives h1,
   #org-contacts h2,
   #recently_updated h1,
-  .social-media h2,
   #what-we-do h1 {
     border-bottom-width: 5px;
     border-bottom-style: solid;
@@ -563,6 +606,8 @@
   @include department-colours("h2", border-color);
   @include websafe-department-colours(".social-media-link .connect", background-color);
   @include websafe-department-colours("a", color);
+  @include department-colours('.recently-updated .content', border-color);
+  @include department-colours('.recently-updated .feeds', border-color);
 }
 .organisations-external {
   @include media(desktop){

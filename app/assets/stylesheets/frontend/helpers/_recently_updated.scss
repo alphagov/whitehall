@@ -2,7 +2,7 @@
   clear: both;
   padding-top: $gutter-half;
 
-  @include media(tablet){
+  @include media(desktop){
     clear: none;
     float: left;
     width: 33.33%;
@@ -12,23 +12,29 @@
   &.panel {
     .content {
       margin: $gutter-half;
-      padding: $gutter-one-sixth $gutter-half $gutter-one-third;
-      @include media(tablet){
-        padding-top: $gutter-half;
-      }
-      background: $panel-colour;
+      padding: $gutter-half $gutter-half $gutter-one-third;
+      border: 5px solid;
     }
   }
   .content {
     h1 {
-      @include heading-27;
+      @include core-19;
+      font-weight: bold;
     }
 
     .document-list {
+      margin-top: 0;
+      clear: both;
+      
+      a {
+        font-weight: bold;
+      }
+
       .document-row {
         @include core-14;
         border-bottom: 0;
         padding-top: 0;
+        padding-bottom: 5px;
 
         h3 {
           @include core-14;
@@ -39,10 +45,17 @@
       }
     }
     .feeds {
-      margin-top: $gutter-half;
+      margin-top: $gutter-one-sixth;
+      padding-top: $gutter-one-third;
+      border-top: 1px solid $grey-2;
 
       .subscribe {
         float: none;
+      }
+      
+      a {
+        font-weight: bold;
+        margin-right: $gutter-one-third;
       }
     }
   }
@@ -50,4 +63,5 @@
     clear: both;
     @include copy-19;
   }
+  
 }

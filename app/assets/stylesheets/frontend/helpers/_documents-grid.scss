@@ -12,8 +12,9 @@
   .block-title {
     border-bottom-width: 5px;
     border-bottom-style: solid;
-    @include heading-27;
-    margin: 0 $gutter-half;
+    @include core-36;
+    padding-bottom: 1px;
+    margin: 0 $gutter-half $gutter-one-sixth;
   }
 
   .document-block {
@@ -32,9 +33,9 @@
     }
 
     h1 {
-      @include heading-24;
-      @include bold;
-      margin: 0 $gutter-half;
+      @include core-24;
+      font-weight: bold;
+      margin: 0 $gutter-half $gutter-one-sixth;
     }
     .content {
       margin: 0 $gutter-half;
@@ -44,20 +45,22 @@
         list-style: none;
 
         h2 {
-          @include core-19;
+          @include core-16;
         }
         .metadata {
-          @include copy-14;
+          @include core-14;
+          padding-top: $gutter-one-sixth;
 
           li {
             display: inline;
+            padding-right: $gutter-one-third;
           }
         }
       }
       .see-all {
         padding-top: $gutter-one-third;
-        @include core-19;
-        @include bold;
+        @include core-16;
+        font-weight: bold;
       }
     }
   }

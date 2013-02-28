@@ -61,11 +61,15 @@
         h2 {
           @include ig-core-19;
           padding-top: 0;
+          a {
+            font-weight: bold;
+          }
         }
         .summary {
-          @include ig-core-16;
+          @include ig-core-14;
         }
       }
     }
   }
 }
+
