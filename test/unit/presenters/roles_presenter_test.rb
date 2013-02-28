@@ -48,4 +48,21 @@ class RolesPresenterTest < PresenterTestCase
   test "it returns the roles for a given person" do
     assert_equal [RolePresenter.new(@role1), RolePresenter.new(@role2)], @presenter.roles_for(@role1.current_person)
   end
+
+  test 'it can strip out roles that are not filled' do
+    @presenter.remove_unfilled_roles!
+
+    assert_equal [ RolePresenter.new(@role1),
+                   RolePresenter.new(@role2),
+                   RolePresenter.new(@role3) ], @presenter.decorated_collection
+  end
+
+  test 'it can strip out roles that are not filled (even after looking at the collection)' do
+    @presenter.decorated_collection
+    @presenter.remove_unfilled_roles!
+
+    assert_equal [ RolePresenter.new(@role1),
+                   RolePresenter.new(@role2),
+                   RolePresenter.new(@role3) ], @presenter.decorated_collection
+  end
 end
