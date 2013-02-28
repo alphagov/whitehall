@@ -57,7 +57,11 @@
             <% end %>
           </li>
 
-          <%= link_to_filter('World location', {world_location_ids: nil}, title: "Show documents by all locations") %>
+          <li class="nav-header">Filter by World locations</li>
+          <% if current_user.world_locations.any? %>
+            <%= link_to_filter('My Locations', {world_location_ids: current_user.world_locations.map(&:id)}, title: "Show documents for your locations") %>
+          <% end %>
+          <%= link_to_filter('Everywhere', {world_location_ids: "all"}, title: "Show documents for all locations") %>
           <li class="world-location-filter">
             <%= form_tag("", method: :get) do  %>
             <%= select_tag :world_location_ids,

@@ -81,4 +81,11 @@ class UserTest < ActiveSupport::TestCase
     user = build(:user, organisation: build(:organisation, handles_fatalities: true))
     assert user.can_handle_fatalities?
   end
+
+  test 'can be associated to world locations' do
+    location = build(:world_location)
+    location2 = build(:world_location)
+    user = build(:user, world_locations: [location, location2])
+    assert_equal [location, location2], user.world_locations
+  end
 end

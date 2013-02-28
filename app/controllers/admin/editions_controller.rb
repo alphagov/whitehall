@@ -10,6 +10,7 @@ class Admin::EditionsController < Admin::BaseController
   before_filter :build_edition_organisations, only: [:new, :edit]
   before_filter :detect_other_active_editors, only: [:edit]
   before_filter :redirect_to_controller_for_type, only: [:show]
+  before_filter :set_default_world_locations, only: :index
 
   def index
     if filter && filter.valid?
@@ -198,6 +199,12 @@ class Admin::EditionsController < Admin::BaseController
     end
   end
 
+  def set_default_world_locations
+    if current_user.world_locations.any?
+      params[:world_location_ids] ||= current_user.world_locations.map(&:id)
+    end
+  end
+
   def session_filters
     sanitized_filters(session[:document_filters] || {})
   end
@@ -260,7 +267,7 @@ class Admin::EditionsController < Admin::BaseController
         editions = editions.authored_by(author) if options[:author]
         editions = editions.in_organisation(organisation) if options[:organisation]
         editions = editions.with_title_containing(options[:title]) if options[:title]
-        editions = editions.in_world_location(options[:world_location_ids]) if options[:world_location_ids]
+        editions = editions.in_world_location(selected_world_locations) if selected_world_locations.any?
         editions.includes(:authors).order("editions.updated_at DESC")
       ).page(options[:page]).per(page_size)
     end
@@ -282,6 +289,14 @@ class Admin::EditionsController < Admin::BaseController
     end
 
     private
+
+    def selected_world_locations
+      if options[:world_location_ids] == "all" || options[:world_location_ids].blank?
+        []
+      else
+        options[:world_location_ids]
+      end
+    end
 
     def ownership
       if author && author == @current_user
