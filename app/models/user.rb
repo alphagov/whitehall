@@ -15,6 +15,7 @@ class User < ActiveRecord::Base
     GDS_EDITOR = 'GDS Editor'
     PUBLISH_SCHEDULED_EDITIONS = 'Publish scheduled editions'
     IMPORT = 'Import CSVs'
+    UPLOAD_EXECUTABLE_ATTACHMENTS = 'Upload Executable File Attachments'
   end
 
   def role
@@ -37,6 +38,10 @@ class User < ActiveRecord::Base
 
   def can_import?
     has_permission?(Permissions::IMPORT)
+  end
+
+  def can_upload_executable_attachments?
+    has_permission?(Permissions::UPLOAD_EXECUTABLE_ATTACHMENTS)
   end
 
   def organisation_name

@@ -36,4 +36,8 @@ FactoryGirl.define do
   factory :importer, parent: :user do
     permissions { [User::Permissions::SIGNIN, User::Permissions::IMPORT] }
   end
+
+  factory :gds_tech_lead, parent: :user do
+    permissions { [User::Permissions::GDS_EDITOR, User::Permissions::SIGNIN, User::Permissions::UPLOAD_EXECUTABLE_ATTACHMENTS] }
+  end
 end
