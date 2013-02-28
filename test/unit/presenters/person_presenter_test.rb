@@ -53,9 +53,9 @@ class PersonPresenterTest < PresenterTestCase
   end
 
   test "is not available in multiple languages if person is not available in multiple languages" do
-    role = stub_translatable_record(:role)
+    role = stub_translatable_record(:role_without_organisations)
     role.stubs(:translated_locales).returns([:en, :fr])
-    role_appointment = stub_record(:role_appointment, role: role)
+    role_appointment = stub_record(:role_appointment, role: role, person: @person)
 
     @person.stubs(:current_role_appointments).returns([role_appointment])
     @person.stubs(:translated_locales).returns([:en])
@@ -65,12 +65,12 @@ class PersonPresenterTest < PresenterTestCase
   end
 
   test "is not available in multiple languages if any current role is not available in multiple languages" do
-    role_1 = stub_translatable_record(:role)
+    role_1 = stub_translatable_record(:role_without_organisations)
     role_1.stubs(:translated_locales).returns([:en])
-    role_2 = stub_translatable_record(:role)
+    role_2 = stub_translatable_record(:role_without_organisations)
     role_2.stubs(:translated_locales).returns([:en, :es])
-    role_appointment_1 = stub_record(:role_appointment, role: role_1)
-    role_appointment_2 = stub_record(:role_appointment, role: role_2)
+    role_appointment_1 = stub_record(:role_appointment, role: role_1, person: @person)
+    role_appointment_2 = stub_record(:role_appointment, role: role_2, person: @person)
 
     @person.stubs(:current_role_appointments).returns([role_appointment_1, role_appointment_2])
     @person.stubs(:translated_locales).returns([:en, :es])
@@ -80,12 +80,12 @@ class PersonPresenterTest < PresenterTestCase
   end
 
   test "is available in multiple languages if person and all current roles are available in the same multiple languages" do
-    role_1 = stub_translatable_record(:role)
+    role_1 = stub_translatable_record(:role_without_organisations)
     role_1.stubs(:translated_locales).returns([:en, :es, :de, :it])
-    role_2 = stub_translatable_record(:role)
+    role_2 = stub_translatable_record(:role_without_organisations)
     role_2.stubs(:translated_locales).returns([:en, :fr, :de, :it])
-    role_appointment_1 = stub_record(:role_appointment, role: role_1)
-    role_appointment_2 = stub_record(:role_appointment, role: role_2)
+    role_appointment_1 = stub_record(:role_appointment, role: role_1, person: @person)
+    role_appointment_2 = stub_record(:role_appointment, role: role_2, person: @person)
 
     @person.stubs(:current_role_appointments).returns([role_appointment_1, role_appointment_2])
     @person.stubs(:translated_locales).returns([:en, :fr, :es, :it])
