@@ -20,6 +20,12 @@ class Api::DetailedGuidePresenter < Draper::Base
     }
   end
 
+  def links
+    [
+      [detailed_guide_url(model), {'rel' => 'self'}]
+    ]
+  end
+
   private
 
   def organisation_tags(model)

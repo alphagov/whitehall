@@ -24,6 +24,12 @@ class Api::WorldwideOrganisationPresenter < Draper::Base
     }
   end
 
+  def links
+    [
+      [h.api_worldwide_organisation_url(model, host: h.public_host), {'rel' => 'self'}]
+    ]
+  end
+
   def sponsors_as_json
     model.sponsoring_organisations.map { |sponsor| sponsor_as_json(sponsor) }
   end

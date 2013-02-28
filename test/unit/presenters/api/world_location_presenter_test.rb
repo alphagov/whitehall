@@ -16,6 +16,14 @@ class Api::WorldLocationPresenterTest < PresenterTestCase
     assert_equal Api::WorldLocationPresenter.paginate([@location]), Api::PagePresenter.new(decorated_results)
   end
 
+  test 'links has a self link, pointing to the public api location url' do
+    Whitehall.stubs(:public_host_for).returns('govuk.example.com')
+    self_link = @presenter.links.detect { |(url, attrs)| attrs['rel'] == 'self'}
+    assert self_link
+    url, attrs = *self_link
+    assert_equal api_world_location_url(@location, host: 'govuk.example.com'), url
+  end
+
   test "json includes public api location url as id" do
     Whitehall.stubs(:public_host_for).returns('govuk.example.com')
     assert_equal api_world_location_url(@location, host: 'govuk.example.com'), @presenter.as_json[:id]

@@ -24,4 +24,9 @@ class Api::WorldLocationPresenter < Draper::Base
     }
   end
 
+  def links
+    [
+      [h.api_world_location_url(model, host: h.public_host), {'rel' => 'self'}]
+    ]
+  end
 end

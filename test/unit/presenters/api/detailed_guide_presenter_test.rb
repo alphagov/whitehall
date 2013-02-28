@@ -20,6 +20,14 @@ class Api::DetailedGuidePresenterTest < PresenterTestCase
     assert_equal Api::DetailedGuidePresenter.paginate([@guide]), Api::PagePresenter.new(decorated_results)
   end
 
+  test 'links has a self link, pointing to the public API url' do
+    Whitehall.stubs(:public_host_for).returns('govuk.example.com')
+    self_link = @presenter.links.detect { |(url, attrs)| attrs['rel'] == 'self'}
+    assert self_link
+    url, attrs = *self_link
+    assert_equal api_detailed_guide_url(@guide.document, host: 'govuk.example.com'), url
+  end
+
   test "json includes document title" do
     @guide.stubs(:title).returns('guide-title')
     assert_equal 'guide-title', @presenter.as_json[:title]
