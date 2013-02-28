@@ -2,7 +2,7 @@ require 'test_helper'
 
 class RolePresenterTest < PresenterTestCase
   setup do
-    @role = stub_record(:role_without_organisations)
+    @role = stub_translatable_record(:role_without_organisations)
     @presenter = RolePresenter.decorate(@role)
   end
 

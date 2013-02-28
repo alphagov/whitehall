@@ -28,6 +28,9 @@ class Role < ActiveRecord::Base
   extend FriendlyId
   friendly_id
 
+  include TranslatableModel
+  translates :name, :responsibilities
+
   def self.whip
     where(arel_table[:whip_organisation_id].not_eq(nil))
   end

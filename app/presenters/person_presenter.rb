@@ -1,6 +1,18 @@
 class PersonPresenter < Draper::Base
   decorates :person
 
+  def available_in_multiple_languages?
+    translated_locales.length > 1
+  end
+
+  def translated_locales
+    initial_locales = person.translated_locales
+    roles = person.current_role_appointments.map(&:role)
+    roles.reduce(initial_locales) do |locales, role|
+      locales & role.translated_locales
+    end
+  end
+
   def current_role_appointments
     RoleAppointmentPresenter.decorate person.current_role_appointments
   end

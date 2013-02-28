@@ -5,16 +5,16 @@ class RolesPresenterTest < PresenterTestCase
     @person1 = stub_translatable_record(:person)
     @person2 = stub_translatable_record(:person)
 
-    @role1 = stub_record(:role_without_organisations)
+    @role1 = stub_translatable_record(:role_without_organisations)
     @role1.stubs(:current_person).returns(@person1)
 
-    @role2 = stub_record(:role_without_organisations)
+    @role2 = stub_translatable_record(:role_without_organisations)
     @role2.stubs(:current_person).returns(@person1)
 
-    @role3 = stub_record(:role_without_organisations)
+    @role3 = stub_translatable_record(:role_without_organisations)
     @role3.stubs(:current_person).returns(@person2)
 
-    @empty_role = stub_record(:role_without_organisations)
+    @empty_role = stub_translatable_record(:role_without_organisations)
     @empty_role.stubs(:current_person).returns(nil)
 
     @presenter = RolesPresenter.new([@role1, @role2, @role3, @empty_role])
