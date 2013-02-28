@@ -1,13 +1,15 @@
 <% if object.available_in_multiple_languages? %>
-  <div class="translations">
-    <% sorted_locales(object.translated_locales).each do |locale| %>
-      <span class="translation">
-        <% if locale == I18n.locale %>
-          <%= native_language_name_for(locale) %>
-        <% else %>
-          <%= link_to_translated_object(object, locale) %>
-        <% end %>
-      </span>
-    <% end %>
+  <div class="available-languages">
+    <ul>
+      <% sorted_locales(object.translated_locales).each.with_index do |locale, i| %>
+        <li class="translation<%= ' first' if i == 0 %>">
+          <% if locale == I18n.locale %>
+            <span><%= native_language_name_for(locale) %></span>
+          <% else %>
+            <%= link_to_translated_object(object, locale) %>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
   </div>
 <% end %>

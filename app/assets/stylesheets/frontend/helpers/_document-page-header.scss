@@ -2,6 +2,11 @@
   @extend %contain-floats;
   padding-bottom: ($gutter-two-thirds + $gutter-one-sixth);
 
+  .available-languages {
+    @include media(tablet){
+      width: 25%;
+    }
+  }
   h1 {
     margin-top: ($gutter-two-thirds);
     @include media(tablet){
@@ -40,9 +45,6 @@
         }
       }
     }
-  }
-  .translations {
-    text-align: right;
   }
   .meta {
     display: inline;
