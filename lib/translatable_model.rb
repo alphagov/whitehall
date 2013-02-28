@@ -8,7 +8,7 @@ module TranslatableModel
   end
 
   def available_in_multiple_languages?
-    translated_locales.length > 1
+    non_english_translated_locale_codes.any?
   end
 
   def remove_translations_for(locale)
@@ -16,7 +16,13 @@ module TranslatableModel
   end
 
   def missing_translations
-    non_english_translated_locales = (self.translated_locales - [:en]).map { |l| Locale.new(l) }
+    non_english_translated_locales = non_english_translated_locale_codes.map { |l| Locale.new(l) }
     Locale.non_english - non_english_translated_locales
+  end
+
+  private
+
+  def non_english_translated_locale_codes
+    translated_locales - [:en]
   end
 end
