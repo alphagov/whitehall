@@ -18,6 +18,8 @@ class Admin::UsersController < Admin::BaseController
       return
     end
 
+    params[:user][:world_location_ids] = [] unless params[:user][:world_location_ids]
+
     if @user.update_attributes(params[:user])
       redirect_to admin_user_path(@user), notice: "Your settings have been saved"
     else
