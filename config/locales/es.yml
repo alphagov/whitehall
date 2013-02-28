@@ -178,7 +178,7 @@ es:
         format: ! '%n%u'
   organisation:
     headings:
-      plus_others: '+ otros'
+      plus_others: + otros
     type:
       Ad-hoc advisory group:
         one: Grupo consultivo especial
@@ -221,8 +221,6 @@ es:
     formats:
       long_ordinal: ! '%e %B %Y %H:%M'
   world_location:
-    country:
-      Spain: Espagñe
     headings:
       announcements: Anuncios
       country: Paìs

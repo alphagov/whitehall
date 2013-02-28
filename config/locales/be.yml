@@ -221,8 +221,6 @@ be:
     formats:
       long_ordinal:
   world_location:
-    country:
-      Spain:
     headings:
       announcements:
       country:

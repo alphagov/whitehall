@@ -221,8 +221,6 @@ en:
     formats:
       long_ordinal: ! '%e %B %Y %H:%M'
   world_location:
-    country:
-      Spain: Spain
     headings:
       announcements: Our announcements
       country: Country
