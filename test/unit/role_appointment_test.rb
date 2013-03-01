@@ -2,6 +2,42 @@ require "test_helper"
 
 class RoleAppointmentTest < ActiveSupport::TestCase
 
+  test "should should remove person from index when added as a minister" do
+    Rummageable.stubs(:index)
+    person = create(:person)
+    Rummageable.expects(:delete).with(person.search_link, Whitehall.government_search_index_path)
+    create(:ministerial_role_appointment, person: person)
+  end
+
+  test "should should add person to index when removed as a minister" do
+    Rummageable.stubs(:index)
+    person = create(:person)
+    role = create(:ministerial_role_appointment, person: person)
+    Rummageable.expects(:index).with(person.search_index, Whitehall.government_search_index_path)
+    role.destroy
+  end
+
+  test "should add the person to the index when a they no longer hold a ministerial role" do
+    Rummageable.stubs(:index)
+
+    role = create(:ministerial_role)
+    alice = create(:person, forename: "Alice")
+    bob = create(:person, forename: "Bob")
+
+    create(:role_appointment, role: role, person: alice, started_at: 3.days.ago, ended_at: nil)
+
+    Rummageable.expects(:index).with(alice.search_index, Whitehall.government_search_index_path)
+
+    role.reload
+    alice.reload
+    bob.reload
+
+    create(:role_appointment, role: role, person: bob, started_at: 1.day.ago, ended_at: nil, make_current: true)
+
+    assert_equal bob, role.current_person
+    assert_equal alice.current_ministerial_roles.any?, false
+  end
+
   test "should be invalid with no started_at" do
     role_appointment = build(:role_appointment, started_at: nil)
     refute role_appointment.valid?

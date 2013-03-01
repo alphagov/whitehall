@@ -706,7 +706,10 @@ ActiveRecord::Schema.define(:version => 20130228153947) do
     t.text     "description"
     t.string   "type"
     t.text     "summary"
+    t.string   "slug"
   end
+
+  add_index "policy_groups", ["slug"], :name => "index_policy_groups_on_slug"
 
   create_table "recent_edition_openings", :force => true do |t|
     t.integer  "edition_id", :null => false
