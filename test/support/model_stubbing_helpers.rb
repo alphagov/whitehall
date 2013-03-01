@@ -19,7 +19,8 @@ module ModelStubbingHelpers
     Mocha::Configuration.allow(:stubbing_non_existent_method) do
       translations.stubs(
         loaded?: true,
-        translated_locales: [:en]
+        translated_locales: [:en],
+        where: stub(exists?: false)
       )
     end
     record = stub_record(type, options)

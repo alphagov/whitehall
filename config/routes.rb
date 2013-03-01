@@ -72,7 +72,7 @@ Whitehall::Application.routes.draw do
     match "/organisations/:organisation_id/groups" => redirect("/organisations/%{organisation_id}")
 
     resources :ministerial_roles, path: 'ministers', only: [:index, :show]
-    resources :people, only: [:index, :show]
+    resources :people, only: [:index, :show], localised: true
     resources :world_locations, path: 'world', only: [:index, :show], localised: true
 
     resources :policy_teams, path: 'policy-teams', only: [:index, :show]
