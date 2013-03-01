@@ -333,7 +333,6 @@ module AdminEditionAttachableControllerTestHelpers
           }
         )
 
-        assert_template :edit
         assert edition.reload.attachments.none?
       end
 

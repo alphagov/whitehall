@@ -5,6 +5,7 @@ class Admin::SupportingPagesController < Admin::BaseController
   before_filter :limit_edition_access!
   before_filter :find_supporting_page, only: [:show, :edit, :update, :destroy]
   before_filter :cope_with_attachment_action_params, only: [:update]
+  prepend_before_filter :skip_file_content_examination_for_privileged_users, only: [:create, :update]
 
   def new
     @supporting_page = @edition.supporting_pages.build(params[:supporting_page])
@@ -76,4 +77,19 @@ class Admin::SupportingPagesController < Admin::BaseController
     end
   end
 
+  def skip_file_content_examination_for_privileged_users
+    return unless params[:supporting_page] && params[:supporting_page][:supporting_page_attachments_attributes]
+
+    params[:supporting_page][:supporting_page_attachments_attributes].each do |_, supporting_page_attachment_join_params|
+      if supporting_page_attachment_join_params &&
+         supporting_page_attachment_join_params[:attachment_attributes] &&
+         supporting_page_attachment_join_params[:attachment_attributes][:attachment_data_attributes]
+        if current_user.can_upload_executable_attachments?
+          supporting_page_attachment_join_params[:attachment_attributes][:attachment_data_attributes][:skip_file_content_examination] = true
+        else
+          supporting_page_attachment_join_params[:attachment_attributes][:attachment_data_attributes][:skip_file_content_examination] = false
+        end
+      end
+    end
+  end
 end
