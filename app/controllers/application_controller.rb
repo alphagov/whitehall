@@ -3,6 +3,7 @@ require "slimmer/headers"
 class ApplicationController < ActionController::Base
   include GDS::SSO::ControllerMethods
   include Slimmer::Headers
+  include Slimmer::Template
 
   protect_from_forgery
 
@@ -10,6 +11,7 @@ class ApplicationController < ActionController::Base
   before_filter :set_audit_trail_whodunnit
 
   layout 'frontend'
+  slimmer_template 'header_footer_only'
 
   private
 
