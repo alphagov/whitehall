@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130228153947) do
+ActiveRecord::Schema.define(:version => 20130228155806) do
 
   create_table "attachment_data", :force => true do |t|
     t.string   "carrierwave_file"
@@ -179,6 +179,18 @@ ActiveRecord::Schema.define(:version => 20130228153947) do
 
   add_index "corporate_information_page_attachments", ["attachment_id"], :name => "corporate_information_page_attachments_a_id"
   add_index "corporate_information_page_attachments", ["corporate_information_page_id"], :name => "corporate_information_page_attachments_ci_id"
+
+  create_table "corporate_information_page_translations", :force => true do |t|
+    t.integer  "corporate_information_page_id"
+    t.string   "locale"
+    t.text     "summary"
+    t.text     "body"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "corporate_information_page_translations", ["corporate_information_page_id"], :name => "index_f7e11e733407448d5e73391b45406ba2c3a87a54"
+  add_index "corporate_information_page_translations", ["locale"], :name => "index_corporate_information_page_translations_on_locale"
 
   create_table "corporate_information_pages", :force => true do |t|
     t.integer  "lock_version"

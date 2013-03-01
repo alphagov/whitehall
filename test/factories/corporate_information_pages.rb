@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :corporate_information_page do
+  factory :corporate_information_page, traits: [:translated] do
     type_id CorporateInformationPageType::PublicationScheme.id
     body "Some stuff"
     association :organisation, factory: :organisation

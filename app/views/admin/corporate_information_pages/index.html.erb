@@ -17,13 +17,16 @@
           <thead>
             <tr>
               <th>Type</th>
+              <th></th>
+              <th></th>
             </tr>
           </thead>
           <% @corporate_information_pages.each do |corporate_information_page| %>
-          <tr>
-            <td><%= link_to corporate_information_page.title, edit_polymorphic_path([:admin, @organisation, corporate_information_page]) %></td>
-            <td><%= button_to "delete", [:admin, @organisation, corporate_information_page], method: :delete, class: "btn btn-danger", confirm: "Really delete #{corporate_information_page.title} from #{@organisation.name}? This cannot be undone." %></td>
-          </tr>
+            <%= content_tag_for(:tr, corporate_information_page) do %>
+              <td><%= link_to corporate_information_page.title, edit_polymorphic_path([:admin, @organisation, corporate_information_page]) %></td>
+              <td><%= link_to "Manage translations", admin_worldwide_organisation_corporate_information_page_translations_path(@organisation, corporate_information_page) %></td>
+              <td><%= button_to "delete", [:admin, @organisation, corporate_information_page], method: :delete, class: "btn btn-danger", confirm: "Really delete #{corporate_information_page.title} from #{@organisation.name}? This cannot be undone." %></td>
+            <% end %>
           <% end %>
         </table>
       <% else %>

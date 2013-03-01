@@ -7,12 +7,20 @@ class CorporateInformationPageType
     all.find {|type| type.slug == slug} or raise ActiveRecord::RecordNotFound
   end
 
+  def self.find_by_title(title)
+    all.find {|type| type.title_template == title} or raise ActiveRecord::RecordNotFound
+  end
+
   def title(organisation)
     title_template % (organisation.respond_to?(:acronym) && organisation.acronym || "the #{organisation.name}")
   end
 
   def self.by_menu_heading(menu_heading)
     all.select {|t| t.menu_heading == menu_heading}
+  end
+
+  def display_type_key
+    slug.gsub("-", "_")
   end
 
   PersonalInformationCharter = create(
