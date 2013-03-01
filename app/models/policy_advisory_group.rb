@@ -8,4 +8,8 @@ class PolicyAdvisoryGroup < PolicyGroup
   def has_summary?
     true
   end
+
+  def search_link
+    policy_advisory_group_path(slug)
+  end
 end

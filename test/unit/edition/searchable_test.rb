@@ -15,6 +15,7 @@ class Edition::SearchableTest < ActiveSupport::TestCase
     assert_equal nil, edition.search_index["people"]
     assert_equal nil, edition.search_index["publication_type"]
     assert_equal nil, edition.search_index["speech_type"]
+
     assert_equal edition.public_timestamp, edition.search_index["public_timestamp"]
     assert_equal nil, edition.search_index["topics"]
   end

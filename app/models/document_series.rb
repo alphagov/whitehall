@@ -1,4 +1,7 @@
 class DocumentSeries < ActiveRecord::Base
+  include Rails.application.routes.url_helpers
+  include Searchable
+
   belongs_to :organisation
 
   has_many :editions, through: :edition_document_series, order: 'publication_date desc'
@@ -9,8 +12,16 @@ class DocumentSeries < ActiveRecord::Base
 
   before_destroy { |dc| dc.destroyable? }
 
+  searchable title: :name,
+             link: :search_link,
+             content: :description
+
   extend FriendlyId
   friendly_id
+
+  def search_link
+    organisation_document_series_path(organisation, slug)
+  end
 
   def published_editions
     editions.published
