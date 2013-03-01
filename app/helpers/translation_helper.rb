@@ -23,4 +23,13 @@ module TranslationHelper
       t("document.speech.delivery_title.speaker")
     end
   end
+
+  def t_corporate_information_page_type(page)
+    t("corporate_information_page.type.#{page.display_type_key}")
+  end
+
+  def t_corporate_information_page_link(organisation, slug)
+    page = organisation.corporate_information_pages.for_slug(slug)
+    link_to(t_corporate_information_page_type(page), [organisation, page])
+  end
 end

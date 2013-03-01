@@ -3,7 +3,7 @@ class CorporateInformationPage < ActiveRecord::Base
   include Searchable
   include Rails.application.routes.url_helpers
 
-  delegate :slug, to: :type
+  delegate :slug, :display_type_key, to: :type
   delegate :alternative_format_contact_email, :acronym, to: :organisation
 
   belongs_to :organisation, polymorphic: true
@@ -12,6 +12,9 @@ class CorporateInformationPage < ActiveRecord::Base
 
   validates :organisation, :body, :type, presence: true
   validates :type_id, uniqueness: { scope: [:organisation_id, :organisation_type], message: "already exists for this organisation" }
+
+  include TranslatableModel
+  translates :summary, :body
 
   searchable title: :title_prefix_organisation_name,
              link: :search_link,
@@ -59,12 +62,12 @@ class CorporateInformationPage < ActiveRecord::Base
     type.title(organisation)
   end
 
+  def self.by_type(*types)
+    where(type_id: types.map(&:id))
+  end
+
   def self.by_menu_heading(menu_heading)
     type_ids = CorporateInformationPageType.by_menu_heading(menu_heading).map(&:id)
     where(type_id: type_ids)
-  end
-
-  def available_in_multiple_languages?
-    false
   end
 end

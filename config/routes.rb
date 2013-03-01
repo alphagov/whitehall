@@ -79,7 +79,7 @@ Whitehall::Application.routes.draw do
     resources :policy_advisory_groups, path: 'policy-advisory-groups', only: [:index, :show]
     resources :operational_fields, path: 'fields-of-operation', only: [:index, :show]
     resources :worldwide_organisations, path: 'world/organisations', only: [:show], localised: true do
-      resources :corporate_information_pages, only: [:show], path: 'about'
+      resources :corporate_information_pages, only: [:show], path: 'about', localised: true
     end
     match 'world/organisations/:organisation_id/about' => redirect('/world/organisations/%{organisation_id}')
 
@@ -120,7 +120,9 @@ Whitehall::Application.routes.draw do
           end
           resources :translations, controller: 'worldwide_organisations_translations'
           resources :offices, controller: 'worldwide_offices', except: [:index, :show]
-          resources :corporate_information_pages
+          resources :corporate_information_pages do
+            resources :translations, controller: 'corporate_information_pages_translations'
+          end
           resources :social_media_accounts
         end
 
