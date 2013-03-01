@@ -2,40 +2,40 @@ es:
   activerecord:
     attributes:
       detailed_guide:
-        primary_mainstream_category:
+        primary_mainstream_category: Categoría de orientación principal en detalle
   change_notes:
     published: Publicado
     updated: Actualizado
   contact:
     contact_form: Formulario de contacto
-    email: email
+    email: Email
   date:
     formats:
-      default:
+      default: ! '%e %B %Y'
       long_ordinal: ! '%e %B %Y'
   document:
     headings:
-      advisory_groups: Los grupos asesores
-      applies_to_nations: Se aplica a las naciones
-      document_series: Documento serie
-      field_of_operation: Campo de operaciones
-      live_data: Datos en tiempo real
+      advisory_groups: Grupos de consulta
+      applies_to_nations: Se aplica a /Sirve para
+      document_series: Series
+      field_of_operation: Ámbito de actuación/Terreno de operaciones
+      live_data: Datos activos
       ministers:
         one: Ministro
         other: Ministros
       policies:
         one: Política
         other: Políticas
-      policy_team: Política equipo
+      policy_team: Equipo de política
       topics:
         one: Tema
         other: Temas
       world_locations:
-        one: Location mundo
-        other: Location mundos
-      worldwide_organisations:
-        one: Organización en todo el mundo
-        other: Organizaciones en todo el mundo
+        one: Destino central
+        other: Destinos en el mundo
+      worldwide_offices:
+        one: Sede central
+        other: Sedes en el mundo
     published: Publicado
     read: Lea el artículo de la '%{title}'
     speech:
@@ -49,46 +49,46 @@ es:
         one: Anuncio
         other: Anuncios
       case_study:
-        one: Estudio de caso
-        other: Estudios de caso
+        one: Caso de estudio práctico
+        other: Casos de estudio práctico
       closed_consultation:
         one: Consulta cerrada
-        other: Consultas a puerta cerrada
+        other: Consultas cerradas
       consultation:
         one: Consulta
         other: Consultas
       consultation_outcome:
-        one: Consulta resultado
+        one: Resultado de la consulta
         other: Resultados de la consulta
       corporate_report:
         one: Informe corporativo
-        other: Informes de las empresas
+        other: Informes corporativos
       correspondence:
         one: Correspondencia
         other: Correspondencias
       detailed_guidance:
         one: Orientación detallada
-        other: Guidances detalladas
+        other: Orientación detallada
       draft_text:
-        one: Proyecto de texto
-        other: Proyectos de textos
+        one: Borrador
+        other: Borradores
       fatality_notice:
-        one: Fatalidad aviso
-        other: Avisos de mortalidad
+        one: Aviso de defunción
+        other: Avisos de defunción
       foi_release:
-        one: Liberación FOI
+        one: ! 'Nota de prensa de Freedom of Information '
         other: Boletines de FOI
       form:
         one: Formulario
-        other: Formas
+        other: Formularios
       guidance:
-        one: Dirección
-        other: Dirección
+        one: Instrucciones
+        other: Instrucciones
       impact_assessment:
-        one: De evaluación de impacto
-        other: Evaluaciones de impacto
+        one: Evaluación del impacto
+        other: Evaluaciones del impacto
       imported:
-        one: Importado
+        one: Importado - esperando prototipo
         other: Importado
       independent_report:
         one: Informe independiente
@@ -97,62 +97,62 @@ es:
         one: Mapa
         other: Mapas
       national_statistics:
-        one: Nacional de estadísticas
-        other: Nacional de estadísticas
+        one: Estadísticas - cifras nacionales
+        other: Estadísticas - cifras nacionales
       news_article:
-        one: Reportaje
-        other: Noticias
+        one: Artículo periodístico
+        other: Artículos periodísticos
       news_story:
-        one: Noticias historia
+        one: Noticia
         other: Noticias
       open_consultation:
         one: Consulta abierta
         other: Consultas abiertas
       oral_statement:
-        one: Declaración oral
-        other: Declaraciones orales
+        one: Declaración formulada oralmente
+        other: Declaraciones formuladas oralmente
       policy:
         one: Política
         other: Políticas
       policy_paper:
-        one: Documento de política
-        other: Documentos de política
+        one: Informe sobre políticas gubernamentales
+        other: Informes sobre políticas gubernamentales
       press_release:
-        one: El comunicado de prensa
+        one: Nota de prensa
         other: Notas de prensa
       promotional:
-        one: Promocional
-        other: Promocional
+        one: Material de promoción
+        other: Material de promoción
       publication:
         one: Publicaciones
         other: Publicacion
       rebuttal:
-        one: Refutación
-        other: Las réplicas
+        one: Rebote
+        other: Rebotes
       research:
-        one: Investigación
-        other: Investigación
+        one: Investigación y análisis
+        other: Investigación y análisis
       speaking_notes:
-        one: Notas del discurso
-        other: Notas del discurso
+        one: Speaking notes
+        other: Speaking notes
       speech:
         one: Discurso
         other: Discursos
       statement_to_parliament:
-        one: Declaración ante el Parlamento
-        other: Declaraciones al parlamento
+        one: Declaración ante el parlamento
+        other: Declaraciones ante el parlamento
       statistical_data_set:
-        one: Datos estadísticos establecido
-        other: Los conjuntos de datos estadísticos
+        one: Conjunto de datos estadísticos
+        other: Conjuntos de datos estadísticos
       statistics:
-        one: Estadística
-        other: Estadística
+        one: Estadísticas
+        other: Estadísticas
       transcript:
         one: Transcripción
         other: Transcripciones
       transparency:
-        one: Datos de transparencia
-        other: Datos de transparencia
+        one: Datos sobre transparencia
+        other: Datos sobre transparencia
       treaty:
         one: Tratado
         other: Tratados
@@ -160,20 +160,20 @@ es:
         one: Prioridad en todo el mundo
         other: Prioridades en todo el mundo
       written_statement:
-        one: Declaración por escrito
+        one: Declaración escrita
         other: Declaraciones escritas
     updated: Actualizado
     view: Mirar '%{title}'
   feeds:
-    atom: atom
-    email_alerts:
+    atom: Átomo
+    email_alerts: alertas de email
     latest_activity: Última actividad
   i18n:
     direction: ltr
   language_names:
     es: Español
   latest_feed:
-    no_updates: No actualizado
+    no_updates: No hay actualizaciones
     title: Actualizaciones más recientes
   number:
     human:
@@ -184,38 +184,38 @@ es:
       plus_others: + otros
     type:
       Ad-hoc advisory group:
-        one: Grupo consultivo especial
-        other: Grupos especiales de asesoramiento
+        one: Grupo de consulta ad-hoc
+        other: Grupos de consulta ad-hoc
       Advisory non-departmental public body:
-        one: Asesor no departamental organismo público
-        other: Asesores no departamentales organismos públicos
+        one: ! 'Organismo público consultivo no ministerial '
+        other: ! 'Organismos públicos consultivos no ministeriales '
       Executive agency:
-        one: Ejecutivo de una agencia
+        one: Agencia ejecutiva
         other: Agencias ejecutivas
       Executive non-departmental public body:
-        one: Ejecutivo no departamental organismo público
-        other: Ejecutivo no departamentales organismos públicos
+        one: Organismo ejecutivo público no ministerial
+        other: Organismos ejecutivos públicos no ministeriales
       Independent monitoring body:
-        one: Órgano de supervisión independiente
-        other: Órganos de vigilancia independientes
+        one: Organismo independiente de supervisión
+        other: Organismos independientes de supervisión
       Ministerial department:
-        one: Departamento ministerial
-        other: Departamentos ministeriales
+        one: Ministerio
+        other: Ministerios
       Non-ministerial department:
-        one: No ministerial departamento
-        other: No los departamentos ministeriales
+        one: Organismo no dependiente de un Ministerio
+        other: Organismos no dependiente de un Ministerio
       Other:
         one: Otro
         other: Otros
       Public corporation:
-        one: Corporación pública
-        other: Las corporaciones públicas
+        one: Empresa pública
+        other: Empresas públicas
       Sub-organisation:
         one: Sub-organización
-        other: Suborganizaciones
+        other: Sub-organizacioneds
       Tribunal non-departmental public body:
-        one: Tribunal no departamental organismo público
-        other: Tribunal no departamentales organismos públicos
+        one: ! 'Tribunal del NHS no dependiente del Ministerio '
+        other: ! 'Tribunales del NHS no dependientes del Ministerio '
   read_more: Leer más
   support:
     array:
@@ -226,16 +226,16 @@ es:
   world_location:
     headings:
       announcements: Anuncios
-      country: Paìs
+      country: País
       documents: Documentos
-      mission: Nuestra misión
-      organisations: Organizaciones
+      mission: Nuestra Misión
+      offices: Oficinas
       priorities: Prioridades
       publications: Publicaciones
       quick_links:
-      related_policies: Las políticas relacionadas
+      related_policies: Políticas relacionadas
       see_all: Ver toda nuestra %{type}
-      statistics: Estadística
+      statistics: Nuestras estadísticas
     see_all: Ver toda nuestra %{type}
     type:
       country:
@@ -245,13 +245,13 @@ es:
         one: Delegación internacional
         other: Delegaciones internacionales
       overseas_territory:
-        one: Territorio de ultramar
-        other: Territorios de ultramar
-  worldwide_organisation:
-    find_out_more: Ver el perfil completo y todos los datos de contacto
+        one: Territorio en el exterior
+        other: Territorios en el exterior
+  worldwide_office:
     headings:
-      about_us: Sobre nosotros
-      contact_us: Contáctenos
-      our_people: Nuestra gente
+      about_us: Quiénes somos/Conócenos
+      contact_us: Contacto
+      our_people: Nuestros emisarios/Nuestra comunidad/Equipo profesional
       our_services: Nuestros servicios
+    find_out_more: Ver el perfil completo y todos los datos de contacto
     part_of: Parte de
