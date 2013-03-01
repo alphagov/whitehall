@@ -1,3 +1,5 @@
+require 'validators/attachment_upload_validator'
+
 class AttachmentData < ActiveRecord::Base
   mount_uploader :file, AttachmentUploader, mount_on: :carrierwave_file
 
@@ -6,6 +8,7 @@ class AttachmentData < ActiveRecord::Base
   before_save :update_file_attributes
 
   validates :file, presence: true
+  validates_with AttachmentUploadValidator
 
   attr_accessor :to_replace_id
   belongs_to :replaced_by, class_name: 'AttachmentData'

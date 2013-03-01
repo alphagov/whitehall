@@ -1,4 +1,5 @@
 require 'test_helper'
+require 'validators/attachment_upload_validator'
 
 class AttachmentDataTest < ActiveSupport::TestCase
   include ActionDispatch::TestProcess
@@ -175,12 +176,6 @@ end
 class AttachmentDataZipTest < ActiveSupport::TestCase
   include ActionDispatch::TestProcess
 
-  test "should be able to attach a zip file" do
-    uploader = AttachmentUploader.new(stub("AR Model", id: 1), "mounted-as")
-    uploader.store!(fixture_file_upload('sample_attachment.zip'))
-    assert uploader.file.present?
-  end
-
   test "is valid with a zip file" do
     attachment = build(:attachment_data, file: fixture_file_upload('sample_attachment.zip'))
 
@@ -192,7 +187,7 @@ class AttachmentDataZipTest < ActiveSupport::TestCase
     attachment = build(:attachment_data, file: fixture_file_upload('sample_attachment_containing_exe.zip'))
 
     refute attachment.valid?
-    # TODO: There should only be one error here
+    # TODO: Improve the error messages
     assert_equal ["is not an allowed file type", "can't be blank"], attachment.errors[:file]
   end
 
@@ -200,16 +195,16 @@ class AttachmentDataZipTest < ActiveSupport::TestCase
     attachment = build(:attachment_data, file: fixture_file_upload('sample_attachment_containing_zip.zip'))
 
     refute attachment.valid?
-    # TODO: There should only be one error here
+    # TODO: Improve the error messages
     assert_equal ["is not an allowed file type", "can't be blank"], attachment.errors[:file]
   end
 
   test "is not valid with zip file containing files with non-UTF-8 filenames" do
-    AttachmentUploader::ZipFile.any_instance.stubs(:filenames).raises(AttachmentUploader::ZipFile::NonUTF8ContentsError)
+    AttachmentUploadValidator::ZipFile.any_instance.stubs(:filenames).raises(AttachmentUploadValidator::ZipFile::NonUTF8ContentsError)
     attachment = build(:attachment_data, file: fixture_file_upload('sample_attachment.zip'))
 
     refute attachment.valid?
-    # TODO: There should only be one error here
+    # TODO: Improve the error messages
     assert_equal ["is not an allowed file type", "can't be blank"], attachment.errors[:file]
   end
 end
@@ -218,7 +213,7 @@ class AttachmentDataArcGISTest < ActiveSupport::TestCase
   include ActionDispatch::TestProcess
 
   test "is valid with a zip containing a minimal ArcGIS file" do
-    AttachmentUploader::ZipFile.any_instance.stubs(:filenames).returns(required_arcgis_file_list)
+    AttachmentUploadValidator::ZipFile.any_instance.stubs(:filenames).returns(required_arcgis_file_list)
     attachment = build(:attachment_data, file: fixture_file_upload('sample_attachment.zip'))
 
     assert attachment.save
@@ -226,43 +221,43 @@ class AttachmentDataArcGISTest < ActiveSupport::TestCase
   end
 
   test "is valid with a comprehensive ArcGIS file" do
-    AttachmentUploader::ZipFile.any_instance.stubs(:filenames).returns(comprehensive_arcgis_file_list)
+    AttachmentUploadValidator::ZipFile.any_instance.stubs(:filenames).returns(comprehensive_arcgis_file_list)
     attachment = build(:attachment_data, file: fixture_file_upload('sample_attachment.zip'))
 
     assert attachment.valid?
   end
 
   test "is not valid with an ArcGIS file that is missing required files" do
-    AttachmentUploader::ZipFile.any_instance.stubs(:filenames).returns(broken_arcgis_file_list)
+    AttachmentUploadValidator::ZipFile.any_instance.stubs(:filenames).returns(broken_arcgis_file_list)
     attachment = build(:attachment_data, file: fixture_file_upload('sample_attachment.zip'))
 
     refute attachment.valid?
-    # TODO: There should only be one error here
+    # TODO: Improve the error messages
     assert_equal ["is not an allowed file type", "can't be blank"], attachment.errors[:file]
   end
 
   test "is not valid with an ArcGIS file containing files that are not allowed" do
-    AttachmentUploader::ZipFile.any_instance.stubs(:filenames).returns(arcgis_with_extras)
+    AttachmentUploadValidator::ZipFile.any_instance.stubs(:filenames).returns(arcgis_with_extras)
     attachment = build(:attachment_data, file: fixture_file_upload('sample_attachment.zip'))
 
     refute attachment.valid?
-    # TODO: There should only be one error here
+    # TODO: Improve the error messages
     assert_equal ["is not an allowed file type", "can't be blank"], attachment.errors[:file]
   end
 
   test "is valid with an ArcGIS file that has multiple sets of shapes" do
-    AttachmentUploader::ZipFile.any_instance.stubs(:filenames).returns(multiple_shape_arcgis_file_list)
+    AttachmentUploadValidator::ZipFile.any_instance.stubs(:filenames).returns(multiple_shape_arcgis_file_list)
     attachment = build(:attachment_data, file: fixture_file_upload('sample_attachment.zip'))
 
     assert attachment.valid?
   end
 
   test "is not valid with an ArcGIS file that has multiple sets of shapes where one set of shapes is incomplete" do
-    AttachmentUploader::ZipFile.any_instance.stubs(:filenames).returns(complete_and_broken_shape_arcgis_file_list)
+    AttachmentUploadValidator::ZipFile.any_instance.stubs(:filenames).returns(complete_and_broken_shape_arcgis_file_list)
     attachment = build(:attachment_data, file: fixture_file_upload('sample_attachment.zip'))
 
     refute attachment.valid?
-    # TODO: There should only be one error here
+    # TODO: Improve the error messages
     assert_equal ["is not an allowed file type", "can't be blank"], attachment.errors[:file]
   end
 
