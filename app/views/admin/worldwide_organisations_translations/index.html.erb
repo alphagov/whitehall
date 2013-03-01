@@ -1,10 +1,10 @@
 <% page_title @worldwide_organisation.name + " translations" %>
 <section>
   <nav class="actions">
-    <% if @missing_locales.any? %>
+    <% if @worldwide_organisation.missing_translations.any? %>
       <%= form_tag admin_worldwide_organisation_translations_path(@worldwide_organisation) do %>
         <%= label_tag :translation_locale, 'Locale' %>
-        <%= select_locale :translation_locale, @missing_locales %>
+        <%= select_locale :translation_locale, @worldwide_organisation.missing_translations %>
         <%= submit_tag "Create translation", class: "btn btn-primary" %>
       <% end %>
     <% end %>
@@ -20,7 +20,7 @@
     </tr>
   </thead>
   <tbody>
-    <% @translated_locales.each do |locale| %>
+    <% @worldwide_organisation.non_english_translated_locales.each do |locale| %>
       <tr>
         <td class="locale">
           <%= link_to locale.native_language_name, edit_admin_worldwide_organisation_translation_path(@worldwide_organisation, locale.code) %> (<%= link_to "view", worldwide_organisation_path(@worldwide_organisation, locale: locale) %>)

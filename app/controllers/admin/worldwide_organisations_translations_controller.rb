@@ -1,14 +1,13 @@
 class Admin::WorldwideOrganisationsTranslationsController < Admin::BaseController
+  before_filter :load_worldwide_organisation
   before_filter :load_translated_and_english_worldwide_organisations, except: [:index]
   helper_method :translation_locale
 
   def index
-    @translated_locales = (worldwide_organisation.translated_locales - [I18n.default_locale]).map {|l| Locale.new(l)}
-    @missing_locales = Locale.non_english - @translated_locales
   end
 
   def create
-    redirect_to edit_admin_worldwide_organisation_translation_path(worldwide_organisation, id: translation_locale)
+    redirect_to edit_admin_worldwide_organisation_translation_path(@worldwide_organisation, id: translation_locale)
   end
 
   def edit
@@ -32,19 +31,19 @@ class Admin::WorldwideOrganisationsTranslationsController < Admin::BaseControlle
   private
 
   def notice_message(action)
-    %{#{translation_locale.english_language_name} translation for "#{worldwide_organisation.name}" #{action}.}
+    %{#{translation_locale.english_language_name} translation for "#{@worldwide_organisation.name}" #{action}.}
   end
 
   def load_translated_and_english_worldwide_organisations
-    @translated_worldwide_organisation = LocalisedModel.new(worldwide_organisation, translation_locale.code)
-    @english_worldwide_organisation = LocalisedModel.new(worldwide_organisation, :en)
+    @translated_worldwide_organisation = LocalisedModel.new(@worldwide_organisation, translation_locale.code)
+    @english_worldwide_organisation = LocalisedModel.new(@worldwide_organisation, :en)
   end
 
   def translation_locale
     @translation_locale ||= Locale.new(params[:translation_locale] || params[:id])
   end
 
-  def worldwide_organisation
+  def load_worldwide_organisation
     @worldwide_organisation ||= WorldwideOrganisation.find(params[:worldwide_organisation_id])
   end
 end
