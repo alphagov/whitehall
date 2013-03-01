@@ -1,4 +1,11 @@
 class Person < ActiveRecord::Base
+
+  def self.columns
+    # This is here to enable us to gracefully remove the biography column
+    # in a future commit, *after* this change has been deployed
+    super.reject { |column| ['biography'].include?(column.name) }
+  end
+
   include Rails.application.routes.url_helpers
   include Searchable
 
