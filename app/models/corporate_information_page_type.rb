@@ -7,6 +7,10 @@ class CorporateInformationPageType
     all.find {|type| type.slug == slug} or raise ActiveRecord::RecordNotFound
   end
 
+  def self.find_by_title(title)
+    all.find {|type| type.title_template == title} or raise ActiveRecord::RecordNotFound
+  end
+
   def title(organisation)
     title_template % (organisation.respond_to?(:acronym) && organisation.acronym || "the #{organisation.name}")
   end
