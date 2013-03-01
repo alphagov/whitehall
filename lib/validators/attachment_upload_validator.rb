@@ -1,8 +1,7 @@
 class AttachmentUploadValidator < ActiveModel::Validator
   def validate(record)
-    if record.file.present? && problem_with_zipfile_contents(record.file.file)
-      record.errors.add(:file, "is not an allowed file type")
-      record.errors.add(:file, "can't be blank")
+    if record.file.present? && error = problem_with_zipfile_contents(record.file.file)
+      record.errors.add(:file, error.failure_message)
     end
   end
 
@@ -60,7 +59,7 @@ class AttachmentUploadValidator < ActiveModel::Validator
       end
 
       def failure_message
-        "Your zipfile must not contain filenames that aren't encoded in UTF-8"
+        "contains filenames that aren't encoded in UTF-8"
       end
     end
 
@@ -83,7 +82,7 @@ class AttachmentUploadValidator < ActiveModel::Validator
       end
 
       def failure_message
-        "You are not allowed to upload a zip file containing #{illegal_extensions.join(", ")} files, allowed types: #{@white_list.inspect}"
+        "contains illegal file types"
       end
     end
 
@@ -145,7 +144,7 @@ class AttachmentUploadValidator < ActiveModel::Validator
       end
 
       def failure_message
-        "Your zip file doesn\'t look like an ArcGIS shapefile.  To be an ArcGIS shapefile: It must contain one file of each of these types: #{REQUIRED_EXTS.inspect}. It can contain one file of each of these types: #{OPTIONAL_EXTS.inspect}. It may not contain any other file types, or more than one of any allowed file type."
+        "is not a valid ArcGIS file"
       end
     end
 
@@ -160,7 +159,7 @@ class AttachmentUploadValidator < ActiveModel::Validator
       end
 
       def failure_message
-        "The contents of your zip file did not meet any of our constraints: #{@others.map {|o| o.failure_message}.join(' or: ')}"
+        "#{@others.map {|o| o.failure_message}.join(' or ')}"
       end
     end
   end

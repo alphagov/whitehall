@@ -187,16 +187,14 @@ class AttachmentDataZipTest < ActiveSupport::TestCase
     attachment = build(:attachment_data, file: fixture_file_upload('sample_attachment_containing_exe.zip'))
 
     refute attachment.valid?
-    # TODO: Improve the error messages
-    assert_equal ["is not an allowed file type", "can't be blank"], attachment.errors[:file]
+    assert_equal ["contains illegal file types or is not a valid ArcGIS file"], attachment.errors[:file]
   end
 
   test "is not valid with zip file containing a zip file" do
     attachment = build(:attachment_data, file: fixture_file_upload('sample_attachment_containing_zip.zip'))
 
     refute attachment.valid?
-    # TODO: Improve the error messages
-    assert_equal ["is not an allowed file type", "can't be blank"], attachment.errors[:file]
+    assert_equal ["contains illegal file types or is not a valid ArcGIS file"], attachment.errors[:file]
   end
 
   test "is not valid with zip file containing files with non-UTF-8 filenames" do
@@ -204,8 +202,7 @@ class AttachmentDataZipTest < ActiveSupport::TestCase
     attachment = build(:attachment_data, file: fixture_file_upload('sample_attachment.zip'))
 
     refute attachment.valid?
-    # TODO: Improve the error messages
-    assert_equal ["is not an allowed file type", "can't be blank"], attachment.errors[:file]
+    assert_equal ["contains filenames that aren't encoded in UTF-8"], attachment.errors[:file]
   end
 end
 
@@ -232,8 +229,7 @@ class AttachmentDataArcGISTest < ActiveSupport::TestCase
     attachment = build(:attachment_data, file: fixture_file_upload('sample_attachment.zip'))
 
     refute attachment.valid?
-    # TODO: Improve the error messages
-    assert_equal ["is not an allowed file type", "can't be blank"], attachment.errors[:file]
+    assert_equal ["contains illegal file types or is not a valid ArcGIS file"], attachment.errors[:file]
   end
 
   test "is not valid with an ArcGIS file containing files that are not allowed" do
@@ -241,8 +237,7 @@ class AttachmentDataArcGISTest < ActiveSupport::TestCase
     attachment = build(:attachment_data, file: fixture_file_upload('sample_attachment.zip'))
 
     refute attachment.valid?
-    # TODO: Improve the error messages
-    assert_equal ["is not an allowed file type", "can't be blank"], attachment.errors[:file]
+    assert_equal ["contains illegal file types or is not a valid ArcGIS file"], attachment.errors[:file]
   end
 
   test "is valid with an ArcGIS file that has multiple sets of shapes" do
@@ -257,8 +252,7 @@ class AttachmentDataArcGISTest < ActiveSupport::TestCase
     attachment = build(:attachment_data, file: fixture_file_upload('sample_attachment.zip'))
 
     refute attachment.valid?
-    # TODO: Improve the error messages
-    assert_equal ["is not an allowed file type", "can't be blank"], attachment.errors[:file]
+    assert_equal ["contains illegal file types or is not a valid ArcGIS file"], attachment.errors[:file]
   end
 
   def required_arcgis_file_list
