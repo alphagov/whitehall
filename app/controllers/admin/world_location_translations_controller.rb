@@ -1,14 +1,13 @@
 class Admin::WorldLocationTranslationsController < Admin::BaseController
+  before_filter :load_world_location
   before_filter :load_translated_and_english_world_locations, except: [:index]
   helper_method :translation_locale
 
   def index
-    @translated_locales = (world_location.translated_locales - [:en]).map {|l| Locale.new(l)}
-    @missing_locales = Locale.non_english - @translated_locales
   end
 
   def create
-    redirect_to edit_admin_world_location_translation_path(world_location, id: translation_locale)
+    redirect_to edit_admin_world_location_translation_path(@world_location, id: translation_locale)
   end
 
   def edit
@@ -32,19 +31,19 @@ class Admin::WorldLocationTranslationsController < Admin::BaseController
   private
 
   def notice_message(action)
-    %{#{translation_locale.english_language_name} translation for "#{world_location.name}" #{action}.}
+    %{#{translation_locale.english_language_name} translation for "#{@world_location.name}" #{action}.}
   end
 
   def load_translated_and_english_world_locations
-    @translated_world_location = LocalisedModel.new(world_location, translation_locale.code)
-    @english_world_location = LocalisedModel.new(world_location, :en)
+    @translated_world_location = LocalisedModel.new(@world_location, translation_locale.code)
+    @english_world_location = LocalisedModel.new(@world_location, :en)
   end
 
   def translation_locale
     @translation_locale ||= Locale.new(params[:translation_locale] || params[:id])
   end
 
-  def world_location
+  def load_world_location
     @world_location ||= WorldLocation.find(params[:world_location_id])
   end
 end
