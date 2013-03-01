@@ -28,8 +28,6 @@
       display: none;
 
       label {
-        @include ig-core-19;
-        color: $secondary-text-colour;
         display: inline-block;
       }
       input {
