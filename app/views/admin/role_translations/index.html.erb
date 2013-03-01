@@ -1,10 +1,10 @@
 <% page_title @role.name + " translations" %>
 <section>
   <nav class="actions">
-    <% if @missing_locales.any? %>
+    <% if @role.missing_translations.any? %>
       <%= form_tag admin_role_translations_path(@role) do %>
         <%= label_tag :translation_locale, 'Locale' %>
-        <%= select_locale :translation_locale, @missing_locales %>
+        <%= select_locale :translation_locale, @role.missing_translations %>
         <%= submit_tag "Create translation", class: "btn btn-primary" %>
       <% end %>
     <% end %>
@@ -20,7 +20,7 @@
     </tr>
   </thead>
   <tbody>
-    <% @translated_locales.each do |locale| %>
+    <% @role.non_english_translated_locales.each do |locale| %>
       <tr>
         <td class="locale">
           <%= link_to locale.native_language_name, edit_admin_role_translation_path(@role, locale.code) %>
