@@ -15,8 +15,11 @@ module TranslatableModel
     translations.where(locale: locale).each { |t| t.destroy }
   end
 
+  def non_english_translated_locales
+    non_english_translated_locale_codes.map { |l| Locale.new(l) }
+  end
+
   def missing_translations
-    non_english_translated_locales = non_english_translated_locale_codes.map { |l| Locale.new(l) }
     Locale.non_english - non_english_translated_locales
   end
 
