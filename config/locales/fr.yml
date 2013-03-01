@@ -2,42 +2,42 @@ fr:
   activerecord:
     attributes:
       detailed_guide:
-        primary_mainstream_category: Primary detailed guidance category
+        primary_mainstream_category: Catégorie d'instructions détaillées
   change_notes:
     published: Publié
-    updated: Mis à jour
+    updated: Mise à jour
   contact:
-    contact_form: Forme de contact
-    email: E-mail
+    contact_form: Formulaire de contact
+    email: Email
   date:
     formats:
       default: ! '%d %B %Y'
       long_ordinal: ! '%B %d, %Y'
   document:
     headings:
-      advisory_groups:
-      applies_to_nations:
-      document_series:
-      field_of_operation:
-      live_data:
+      advisory_groups: Groupes d'experts
+      applies_to_nations: s'appliquant à
+      document_series: Série
+      field_of_operation: Domaine d'activité
+      live_data: ! 'Données '
       ministers:
         one: Ministre
         other: Ministres
       policies:
-        one: Politique
-        other: Politiques
-      policy_team:
+        one: Priorité politique
+        other: ! 'Priorités politiques '
+      policy_team: Equipe d'experts
       topics:
-        one: Thème
-        other: Thèmes
+        one: Sujet
+        other: Sujets
       world_locations:
-        one: Où dans le monde
-        other: Endroits du monde
+        one: Localisation
+        other: Localisations
       worldwide_organisations:
-        one:
-        other:
+        one: Représentation à l'étranger
+        other: Représentations à l'étranger
     published: publié
-    read: Lire l'article intitulé «%{title}»
+    read: ! 'Lire l'article intitulé «%{title}»'
     speech:
       delivered_on:
       delivery_title:
@@ -49,44 +49,44 @@ fr:
         one: Annonce
         other: Annonces
       case_study:
-        one: Étude de cas
-        other: Études de cas
+        one: Etude de cas
+        other: Etudes de cas
       closed_consultation:
-        one: Consultation fermé
-        other: Consultations fermées
+        one: Consultation closes
+        other: Consultations closes
       consultation:
         one: Consultation
         other: Consultations
       consultation_outcome:
-        one: Résultat des consultations
-        other: Les résultats des consultations
+        one: Résultat de la consultation
+        other: Résultats de la consultation
       corporate_report:
-        one: Rapport d'entreprise
-        other: Rapports d'entreprise
+        one: Rapport d'activité
+        other: Rapports d'activité
       correspondence:
         one: Correspondance
         other: Correspondances
       detailed_guidance:
-        one: Des directives détaillées
-        other: Des directives détaillées
+        one: Instructions détaillées
+        other: Instructions détaillées
       draft_text:
-        one: projet de texte
+        one: Projet de texte
         other: Projets de textes
       fatality_notice:
         one: Avis de décès
         other: Avis de décès
       foi_release:
-        one: Communiqué d'FOI
-        other: Communiqués FOI
+        one: Communiqué Freedom of Information
+        other: Communiqués Freedom of Information
       form:
         one: Formulaire
         other: Formulaires
       guidance:
-        one: Guidage
-        other: Guidage
+        one: Instructions
+        other: Instructions
       impact_assessment:
-        one: Évaluation de l'impact
-        other: Des évaluations d'impact
+        one: Evaluation des impacts
+        other: Evaluations des impacts
       imported:
         one: Importé
         other: Importé
@@ -100,29 +100,29 @@ fr:
         one: Statistiques - statistiques nationales
         other: Statistiques - statistiques nationales
       news_article:
-        one: Article de nouvelles
-        other: Articles
+        one: Actualités
+        other: Actualités
       news_story:
-        one: Reportage
-        other: Reportages
+        one: Actualités
+        other: Actualités
       open_consultation:
-        one: Consultation ouvert
-        other: Des consultations ouvertes
+        one: Consultation ouverte
+        other: Consultations ouvertes
       oral_statement:
-        one: Déclaration orale
-        other: Déclarations orales
+        one: ! 'Déclaration '
+        other: Déclarations
       policy:
-        one: Politique
-        other: Politiques
+        one: Priorité politique
+        other: ! 'Priorités politiques '
       policy_paper:
-        one: Document de politique
-        other: Les documents de politique
+        one: document d'orientation
+        other: documents d'orientation
       press_release:
         one: Communiqué de presse
         other: Communiqués de presse
       promotional:
         one: Matériel promotionnel
-        other: Le matériel promotionnel
+        other: Matériel promotionnel
       publication:
         one: Publication
         other: Publications
@@ -130,8 +130,8 @@ fr:
         one: Réfutation
         other: Réfutations
       research:
-        one: La recherche et l'analyse
-        other: La recherche et l'analyse
+        one: Recherche et analyse
+        other: Recherche et analyse
       speaking_notes:
         one: Notes d'allocution
         other: Notes d'allocution
@@ -139,11 +139,11 @@ fr:
         one: Discours
         other: Discours
       statement_to_parliament:
-        one: Déclaration au parlement
-        other: Comptes au Parlement
+        one: Déclaration au Parlement
+        other: Déclarations au Parlement
       statistical_data_set:
-        one: Données statistiques que
-        other: Les ensembles de données statistiques
+        one: Ensemble de données statistiques
+        other: Ensembles de données statistiques
       statistics:
         one: Statistiques
         other: Statistiques
@@ -151,29 +151,29 @@ fr:
         one: Transcription
         other: Transcriptions
       transparency:
-        one: La transparence des données
-        other: La transparence des données
+        one: Données de transparence
+        other: Données de transparence
       treaty:
         one: Traité
         other: Traités
       worldwide_priority:
-        one: Priorité mondiale
-        other: Priorité mondiales
+        one: Priorité internationale
+        other: Priorités internationales
       written_statement:
-        one: Déclaration écrite
-        other: Déclarations écrites
-    updated: mis à jour
-    view: Voir «%{title}»
+        one: Communiqué
+        other: Communiqués
+    updated: mise à  jour
+    view: Voir Â«%{title}Â»
   feeds:
-    atom: atom
+    atom: atome
     email_alerts: alertes emails
-    latest_activity: Activité la plus récente
+    latest_activity: Dernière mise à jour
   i18n:
     direction:
   language_names:
     fr: Français
   latest_feed:
-    no_updates: Il n'y a pas mises à jour.
+    no_updates: Il n'y a pas de mise à jour.
     title: Documents les plus récents
   number:
     human:
@@ -184,38 +184,38 @@ fr:
       plus_others: + autre
     type:
       Ad-hoc advisory group:
-        one:
-        other:
+        one: Groupe d'experts
+        other: Groupes d'experts
       Advisory non-departmental public body:
-        one:
-        other:
+        one: Organisme public de conseil non-ministériel
+        other: Organismes publics de conseil non-ministériels
       Executive agency:
-        one:
-        other:
+        one: Agence exécutive
+        other: Agences exécutives
       Executive non-departmental public body:
-        one:
-        other:
+        one: Organisme exécutif public non-ministériel
+        other: Organismes exécutifs publics non-ministériels
       Independent monitoring body:
-        one:
-        other:
+        one: Organisme de surveillance indépendant
+        other: Organismes de surveillance indépendants
       Ministerial department:
-        one:
-        other:
+        one: Organisme ministériel
+        other: Organismes ministériels
       Non-ministerial department:
-        one:
-        other:
+        one: Organisme non-ministériel
+        other: Organismes non-ministériels
       Other:
-        one:
-        other:
+        one: Autre
+        other: Autres
       Public corporation:
-        one:
-        other:
+        one: Organisme public
+        other: Organismes publics
       Sub-organisation:
-        one:
-        other:
+        one: Sous-division
+        other: Sous-division
       Tribunal non-departmental public body:
-        one:
-        other:
+        one: Tribunal public non-ministériel
+        other: Tribunaux publics non-ministériels
   read_more: En savoir plus
   support:
     array:
@@ -229,14 +229,14 @@ fr:
       country: Pays
       documents: Documents
       mission: Notre mission
-      organisations: Organisations
+      offices: Bureaux
       priorities: Priorités
       publications: Nos publications
       quick_links: Liens rapides
-      related_policies: Les politiques connexes
-      see_all: Voir toutes nos %{type}
+      related_policies: Priorités politiques connexes
+      see_all: Voir tous nos %{type}
       statistics: Nos statistiques
-    see_all: Voir toutes nos %{type}
+    see_all: Voir tous nos %{type}
     type:
       country:
         one: Pays
@@ -249,17 +249,17 @@ fr:
         other: Territoires d'outre-mer
   worldwide_organisation:
     find_out_more: En savoir plus
+    part_of: Une partie de
     headings:
-      about_us: À propos de nous
+      about_us: L'ambassade
       contact_us: Contactez-nous
-      our_people: Notre peuple
+      our_people: Nos responsables
       our_services: Nos services
       corporate_information: Informations sur la société
     corporate_information:
       publication_scheme_html: Découvrez les types d'informations que nous publions régulièrement dans notre %{link}
       personal_information_charter_html: Notre %{link} explique comment nous traitons vos renseignements personnels.
       welsh_language_scheme_html: Renseignez-vous sur notre engagement à l'édition en %{link}
-    part_of: Une partie de
   corporate_information_page:
     type:
       publication_scheme: Régime de publication
