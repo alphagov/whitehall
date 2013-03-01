@@ -255,6 +255,16 @@ en:
       our_services: Our services
       our_people: Our people
       contact_us: Contact us
+      corporate_information: Corporate information
+    corporate_information:
+      publication_scheme_html: Read about the types of information we routinely publish in our %{link}.
+      personal_information_charter: Our %{link} explains how we treat your personal information.
+      welsh_language_scheme_html: Find out about our commitment to publishing in the %{link}.
+  corporate_information:
+    type:
+      publication_scheme: Publication scheme
+      personal_information_charter: Personal information charter
+      welsh_language_scheme: Welsh language scheme
   contact:
     email: Email
     contact_form: Contact form

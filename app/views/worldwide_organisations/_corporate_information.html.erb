@@ -1,6 +1,6 @@
 <section class="corporate-information" id="corporate-info">
   <div class="inner-block">
-    <h1 class="keyline-header">Corporate information</h1>
+    <h1 class="keyline-header"><%= t('worldwide_organisation.headings.corporate_information') %></h1>
 
     <div class="corporate-information-block">
       <nav class="group sub_navigation" role="navigation">
@@ -17,16 +17,16 @@
     </div>
     <p class="information">
       <% if organisation.corporate_information_pages.for_slug("publication-scheme").present? %>
-        Read about the types of information we routinely publish in our
-        <%= link_to "Publication Scheme", [organisation, organisation.corporate_information_pages.for_slug("publication-scheme")] %>.
+        <%= t('worldwide_organisation.corporate_information.publication_scheme_html',
+              link: t_corporate_information_page_link(organisation, "publication-scheme")) %>
       <% end %>
       <% if organisation.corporate_information_pages.for_slug("welsh-language-scheme").present? %>
-        Find out about our commitment to publishing in the
-        <%= link_to "Welsh language", [organisation, organisation.corporate_information_pages.for_slug("welsh-language-scheme")] %>.
+        <%= t('worldwide_organisation.corporate_information.welsh_language_scheme_html',
+              link: t_corporate_information_page_link(organisation, "welsh-language-scheme")) %>
       <% end %>
       <% if organisation.corporate_information_pages.for_slug("personal-information-charter").present? %>
-        Our <%= link_to "Personal information charter ", [organisation, organisation.corporate_information_pages.for_slug("personal-information-charter")] %>
-        explains how we treat your personal information.
+        <%= t('worldwide_organisation.corporate_information.personal_information_charter_html',
+              link: t_corporate_information_page_link(organisation, "personal-information-charter")) %>
       <% end %>
     </p>
   </div>

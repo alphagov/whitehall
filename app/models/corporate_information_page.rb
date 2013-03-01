@@ -3,7 +3,7 @@ class CorporateInformationPage < ActiveRecord::Base
   include Searchable
   include Rails.application.routes.url_helpers
 
-  delegate :slug, to: :type
+  delegate :slug, :display_type_key, to: :type
   delegate :alternative_format_contact_email, :acronym, to: :organisation
 
   belongs_to :organisation, polymorphic: true

@@ -19,6 +19,10 @@ class CorporateInformationPageType
     all.select {|t| t.menu_heading == menu_heading}
   end
 
+  def display_type_key
+    slug.gsub("-", "_")
+  end
+
   PersonalInformationCharter = create(
     id: 1, title_template: "Personal information charter", slug: "personal-information-charter", menu_heading: :other,
   )

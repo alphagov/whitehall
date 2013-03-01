@@ -27,4 +27,9 @@ class TranslationHelperTest < ActionView::TestCase
     I18n.backend.store_translations :en, {document: {speech: {delivery_title: {speaker: 'speaker-value'}}}}
     assert_equal "speaker-value", t_delivery_title(stub('document', delivered_by_minister?: false))
   end
+
+  test "t_corporate_information_page_type uses display_type_key from the page" do
+    I18n.backend.store_translations :en, {corporate_information_page: {type: {page_type: "the-page-type"}}}
+    assert_equal "the-page-type", t_corporate_information_page_type(stub('corp info page', display_type_key: "page_type"))
+  end
 end
