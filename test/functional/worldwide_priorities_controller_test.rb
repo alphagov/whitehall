@@ -45,7 +45,7 @@ class WorldwidePrioritiesControllerTest < ActionController::TestCase
 
     get :show, id: edition.document, locale: 'fr'
 
-    assert_select ".page_title", /Priorité mondiale/
+    assert_select ".page_title", /Priorité internationale/
     assert_select ".change-notes-title", /Publié/
   end
 end
