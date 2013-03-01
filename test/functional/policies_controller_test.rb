@@ -26,6 +26,18 @@ class PoliciesControllerTest < ActionController::TestCase
     refute_select_object english_policy
   end
 
+  view_test "index for non-english locales does not yet allow any filtering" do
+    get :index, locale: 'fr'
+
+    assert_select '.filter', count: 1
+    assert_select '#filter-submit'
+  end
+
+  view_test "index for non-english locales skips results summary" do
+    get :index, locale: 'fr'
+    refute_select '#filter-results-summary'
+  end
+
   view_test "show displays the date that the policy was updated" do
     policy = create(:published_policy)
 

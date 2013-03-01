@@ -12,13 +12,19 @@
 
 <div class="block-2">
   <div class="inner-block">
-    <%= render partial: "documents/filter_form", locals: {document_type: :policy, filter_by_keyword: true, filter_by_department: true, filter_by_topic: true} %>
+    <% if Locale.current.english? %>
+      <%= render partial: "documents/filter_form", locals: {document_type: :policy, filter_by_keyword: true, filter_by_department: true, filter_by_topic: true} %>
+    <% else %>
+      <%= render partial: "documents/filter_form", locals: {document_type: :policy } %>
+    <% end %>
   </div>
 </div>
 
 <div class="block-3">
   <div class="inner-block">
-    <%= render partial: "documents/filter_results", locals: { filter: @filter } %>
+    <% if Locale.current.english? %>
+      <%= render partial: "documents/filter_results", locals: { filter: @filter } %>
+    <% end %>
 
     <div class="filter-results js-filter-results" aria-live="polite">
       <%= render_mustache('documents/filter_table', @filter.as_hash) %>

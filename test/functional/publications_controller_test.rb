@@ -294,6 +294,19 @@ class PublicationsControllerTest < ActionController::TestCase
     refute_select_object english_publication
   end
 
+  view_test 'index for non-english locales only allows filtering by world location' do
+    get :index, locale: 'fr'
+
+    assert_select '.filter', count: 2
+    assert_select '#location-filter'
+    assert_select '#filter-submit'
+  end
+
+  view_test 'index for non-english locales skips results summary' do
+    get :index, locale: 'fr'
+    refute_select '#filter-results-summary'
+  end
+
   view_test "index requested as JSON includes data for publications" do
     org = create(:organisation, name: "org-name")
     org2 = create(:organisation, name: "other-org")
