@@ -94,6 +94,29 @@ class HomeControllerTest < ActionController::TestCase
     assert_select '.live-ministerial-departments', '1'
   end
 
+  view_test "how government works page shows a count of cabinet ministers, other ministers and total ministers" do
+    david_cameron = create(:person, forename: 'David', surname: 'Cameron')
+    philip_hammond = create(:person, forename: 'Philip', surname: 'Hammond')
+    mark_prisk = create(:person, forename: 'Mark', surname: 'Prisk')
+    michael_gove = create(:person, forename: 'Michael', surname: 'Gove')
+
+    prime_minister = create(:ministerial_role, name: 'Prime Minister', cabinet_member: true)
+    defence_minister = create(:ministerial_role, name: 'Secretary of State for Defence', cabinet_member: true)
+    state_for_housing_minister = create(:ministerial_role, name: 'Minister of State for Housing', cabinet_member: false)
+    education_minister = create(:ministerial_role, name: 'Secretary of State for Education', cabinet_member: true)
+
+    create(:ministerial_role_appointment, role: prime_minister, person: david_cameron)
+    create(:ministerial_role_appointment, role: defence_minister, person: philip_hammond)
+    create(:ministerial_role_appointment, role: state_for_housing_minister, person: mark_prisk)
+    create(:ministerial_role_appointment, role: education_minister, person: michael_gove)
+
+    get :how_government_works
+
+    assert_select '.cabinet-ministers .count', '2'
+    assert_select '.other-ministers .count', '1'
+    assert_select '.all-ministers .count', '4'
+  end
+
   view_test "home page shows a count of live non-ministerial departmernts" do
     # need to have the ministerial and suborg type so we can select non-ministerial
     create(:ministerial_organisation_type)
