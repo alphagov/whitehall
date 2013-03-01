@@ -89,11 +89,8 @@ private
 
   def skip_file_content_examination_for_privileged_users
     return unless params[:corporate_information_page] && params[:corporate_information_page][:corporate_information_page_attachments_attributes]
-
     params[:corporate_information_page][:corporate_information_page_attachments_attributes].each  do |_, join_params|
-      if join_params && join_params[:attachment_attributes] && join_params[:attachment_attributes][:attachment_data_attributes]
-        join_params[:attachment_attributes][:attachment_data_attributes][:skip_file_content_examination] = current_user.can_upload_executable_attachments?
-      end
+      Admin::AttachmentActionParamHandler.set_file_content_examination_param!(join_params, current_user.can_upload_executable_attachments?)
     end
   end
 end

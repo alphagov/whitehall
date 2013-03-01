@@ -149,6 +149,33 @@ module AdminEditionAttachableControllerTestHelpers
         assert_equal zipped_exe.size, attachment.file_size
       end
 
+      test "creating an edition as a tech lead with blank attachment still scrubs blank attachments" do
+                login_as :gds_tech_lead
+        zipped_exe = fixture_file_upload('sample_attachment_containing_exe.zip')
+        attributes = controller_attributes_for(edition_type)
+        attributes[attachment_join_attributes] = {
+          "0" => {
+            attachment_attributes: attributes_for(:attachment, title: "attachment-title").merge(attachment_data_attributes: {
+             file: zipped_exe
+            })
+          },
+          "1" => {
+            attachment_attributes: { title: "", accessible: "0", attachment_data_attributes: {file_cache: ""}}
+          }
+        }
+
+        assert_difference "#{edition_class}.count", 1 do
+          post :create, edition_base_class_name => attributes
+        end
+        edition = edition_class.last
+        assert_equal 1, edition.attachments.length
+        attachment = edition.attachments.first
+        assert_equal "attachment-title", attachment.title
+        assert_equal "sample_attachment_containing_exe.zip", attachment.attachment_data.carrierwave_file
+        assert_equal zipped_exe.size, attachment.file_size
+      end
+
+
       view_test "creating an edition with invalid data should still show attachment fields" do
         post :create, edition_base_class_name => make_invalid(controller_attributes_for(edition_type))
 
