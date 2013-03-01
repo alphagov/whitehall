@@ -48,13 +48,9 @@ module Admin::EditionsController::Attachments
   def skip_file_content_examination_for_privileged_users
     return unless params[:edition] && params[:edition][:edition_attachments_attributes]
 
-    params[:edition][:edition_attachments_attributes].each do |_, edition_attachment_join_params|
-      if edition_attachment_join_params && edition_attachment_join_params[:attachment_attributes] && edition_attachment_join_params[:attachment_attributes][:attachment_data_attributes]
-        if current_user.can_upload_executable_attachments?
-          edition_attachment_join_params[:attachment_attributes][:attachment_data_attributes][:skip_file_content_examination] = true
-        else
-          edition_attachment_join_params[:attachment_attributes][:attachment_data_attributes][:skip_file_content_examination] = false
-        end
+    params[:edition][:edition_attachments_attributes].each  do |_, join_params|
+      if join_params && join_params[:attachment_attributes] && join_params[:attachment_attributes][:attachment_data_attributes]
+        join_params[:attachment_attributes][:attachment_data_attributes][:skip_file_content_examination] = current_user.can_upload_executable_attachments?
       end
     end
   end
