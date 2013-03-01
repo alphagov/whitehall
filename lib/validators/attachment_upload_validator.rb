@@ -1,24 +1,30 @@
 class AttachmentUploadValidator < ActiveModel::Validator
   def validate(record)
-    if record.file.present? && error = problem_with_zipfile_contents(record.file.file)
-      record.errors.add(:file, error.failure_message)
+    if record.file.present? && failed_examiner = zip_file_error(record)
+      record.errors.add(:file, failed_examiner.failure_message)
     end
   end
 
-
-  def problem_with_zipfile_contents(new_file)
-    extension = new_file.extension.to_s
+  def zip_file_error(record)
+    extension = record.file.file.extension.to_s
     return unless extension == 'zip'
 
-    zip_file = ZipFile.new(new_file.path)
-    examiners = [
-      ZipFile::UTF8FilenamesExaminer.new(zip_file),
-      ZipFile::AnyValidExaminer.new(zip_file, [
-        ZipFile::WhitelistedExtensionsExaminer.new(zip_file, AttachmentUploader::EXTENSION_WHITE_LIST - ['zip']),
-        ZipFile::ArcGISShapefileExaminer.new(zip_file)
-      ])
-    ]
-    examiners.detect { |examiner| !examiner.valid? }
+    examiners_for(record).detect { |examiner| !examiner.valid? }
+  end
+
+  def examiners_for(record)
+    zip_file = ZipFile.new(record.file.path)
+
+    if record.skip_file_content_examination?
+      [ ZipFile::UTF8FilenamesExaminer.new(zip_file) ]
+    else
+      [ ZipFile::UTF8FilenamesExaminer.new(zip_file),
+        ZipFile::AnyValidExaminer.new(zip_file, [
+          ZipFile::WhitelistedExtensionsExaminer.new(zip_file, AttachmentUploader::EXTENSION_WHITE_LIST - ['zip']),
+          ZipFile::ArcGISShapefileExaminer.new(zip_file)
+        ])
+      ]
+    end
   end
 
   class ZipFile

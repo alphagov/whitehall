@@ -190,6 +190,12 @@ class AttachmentDataZipTest < ActiveSupport::TestCase
     assert_equal ["contains illegal file types or is not a valid ArcGIS file"], attachment.errors[:file]
   end
 
+  test "is valid with a zip containing an exe if skip_file_content_examination is true" do
+    attachment = build(:attachment_data, skip_file_content_examination: true, file: fixture_file_upload('sample_attachment_containing_exe.zip'))
+
+    assert attachment.valid?, attachment.errors.full_messages.to_s
+  end
+
   test "is not valid with zip file containing a zip file" do
     attachment = build(:attachment_data, file: fixture_file_upload('sample_attachment_containing_zip.zip'))
 

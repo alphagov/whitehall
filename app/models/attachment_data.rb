@@ -10,10 +10,14 @@ class AttachmentData < ActiveRecord::Base
   validates :file, presence: true
   validates_with AttachmentUploadValidator
 
-  attr_accessor :to_replace_id
+  attr_accessor :to_replace_id, :skip_file_content_examination
   belongs_to :replaced_by, class_name: 'AttachmentData'
   validate :cant_be_replaced_by_self
   after_save :handle_to_replace_id
+
+  def skip_file_content_examination?
+    skip_file_content_examination
+  end
 
   def filename
     url && File.basename(url)
