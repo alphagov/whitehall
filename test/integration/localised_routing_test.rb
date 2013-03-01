@@ -11,6 +11,11 @@ class RoutingLocaleTest < ActionDispatch::IntegrationTest
       name:            'world priorities',
       expected_url:    '/government/priority/a-world-priority',
       routing_options: {controller: 'worldwide_priorities', action: 'show', id: 'a-world-priority', locale: 'en'}
+    },
+    {
+      name:            'people',
+      expected_url:    '/government/people/lord-ahmad-of-wimbledon',
+      routing_options: {controller: 'people', action: 'show', id: 'lord-ahmad-of-wimbledon', locale: 'en'}
     }
   ].each do |test|
     test "matches #{test[:name]} without locale or format" do
