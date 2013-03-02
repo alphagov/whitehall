@@ -41,4 +41,12 @@ class PublicFacingController < ApplicationController
   def set_analytics_format
     set_slimmer_format_header(Whitehall.analytics_format(analytics_format))
   end
+
+  def search_backend
+    if Locale.current.english?
+      Whitehall.search_backend
+    else
+      Whitehall::DocumentFilter::Mysql
+    end
+  end
 end

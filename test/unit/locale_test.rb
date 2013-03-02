@@ -31,4 +31,19 @@ class LocaleTest < ActiveSupport::TestCase
     assert right_to_left.all?(&:rtl?)
     assert (Locale.all - right_to_left).none?(&:rtl?)
   end
+
+  test "knows which locale is english" do
+    assert Locale.new(:en).english?
+    assert !Locale.new(:fr).english?
+  end
+
+  test "gives access to the current locale" do
+    with_locale :es do
+      assert_equal Locale.new(:es), Locale.current
+    end
+
+    with_locale :fr do
+      assert_equal Locale.new(:fr), Locale.current
+    end
+  end
 end

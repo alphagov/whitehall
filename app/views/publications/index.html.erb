@@ -5,27 +5,38 @@
 <div class="block-1">
   <div class="inner-block">
     <header class="page-header publication">
-      <h1 class="page_title">Publications<% if @filter.selected_publication_filter_option %><span>: <%= @filter.selected_publication_filter_option.label %></span><% end %></h1>
+      <h1 class="page_title"><%= t('publications.heading') %><% if @filter.selected_publication_filter_option %><span>: <%= @filter.selected_publication_filter_option.label %></span><% end %></h1>
     </header>
   </div>
 </div>
 
 <div class="block-2">
   <div class="inner-block">
-    <%= render partial: "documents/filter_form", locals: {
+    <% if Locale.current.english? %>
+      <%= render partial: "documents/filter_form", locals: {
                                                    document_type: :publication,
+                                                   filter_by_keyword: true,
                                                    filter_by_date: true,
                                                    filter_by_publication_type: true,
                                                    filter_by_relevant_to_local_government: true,
+                                                   filter_by_locations: true,
+                                                   filter_by_department: true,
+                                                   filter_by_topic: true
+                                                 } %>
+    <% else %>
+      <%= render partial: "documents/filter_form", locals: {
+                                                   document_type: :publication,
                                                    filter_by_locations: true
                                                  } %>
+    <% end %>
   </div>
 </div>
 
 <div class="block-4">
   <div class="inner-block">
-    <%= render partial: "documents/filter_results", locals: { filter: @filter } %>
-
+    <% if Locale.current.english? %>
+      <%= render partial: "documents/filter_results", locals: { filter: @filter } %>
+    <% end %>
     <div class="filter-feed">
       <%= link_to_feed filter_atom_feed_url %>
     </div>

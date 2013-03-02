@@ -32,7 +32,7 @@ module DocumentFilterHelper
 
   def locations_options(locations, selected_locations)
     selected_value = selected_locations.any? ? selected_locations.map(&:slug) : ["all"]
-    options_for_select([["All locations", "all"]] + locations.map{|a|[a.name,a.slug]}, selected_value)
+    options_for_select([[t("document_filters.world_locations.all"), "all"]] + locations.map{|a|[a.name,a.slug]}, selected_value)
   end
 
   def all_topics_with(type)

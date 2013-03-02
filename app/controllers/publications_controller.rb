@@ -33,7 +33,7 @@ class PublicationsController < DocumentsController
 private
 
   def build_document_filter(params)
-    document_filter = Whitehall.search_backend.new(params)
+    document_filter = search_backend.new(params)
     document_filter.publications_search
     SearchPublicationesqueDecorator.new(document_filter)
   end

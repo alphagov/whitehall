@@ -53,7 +53,7 @@ class PoliciesController < DocumentsController
   end
 
   def build_document_filter(params)
-    document_filter = Whitehall.search_backend.new(params)
+    document_filter = search_backend.new(params)
     document_filter.policies_search
     SearchPoliciesDecorator.new(document_filter)
   end

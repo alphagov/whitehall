@@ -16,6 +16,28 @@ class PoliciesControllerTest < ActionController::TestCase
     get :index, departments: {'0' => "all"}, topics: {'0' => "all"}
   end
 
+  view_test "index only lists documents in the given locale" do
+    english_policy = create(:published_policy)
+    french_policy = create(:published_policy, translated_into: [:fr])
+
+    get :index, locale: 'fr'
+
+    assert_select_object french_policy
+    refute_select_object english_policy
+  end
+
+  view_test "index for non-english locales does not yet allow any filtering" do
+    get :index, locale: 'fr'
+
+    assert_select '.filter', count: 1
+    assert_select '#filter-submit'
+  end
+
+  view_test "index for non-english locales skips results summary" do
+    get :index, locale: 'fr'
+    refute_select '#filter-results-summary'
+  end
+
   view_test "show displays the date that the policy was updated" do
     policy = create(:published_policy)
 

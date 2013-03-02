@@ -30,8 +30,9 @@ Whitehall::Application.routes.draw do
     match '/feed' => 'home#feed', defaults: { format: :atom }, constraints: { format: :atom }, as: :atom_feed
     match '/tour' => redirect("/tour", prefix: "")
 
-    resources :announcements, only: [:index], path: 'announcements'
-    resources :policies, only: [:index, :show] do
+    resources :announcements, only: [:index], path: 'announcements', localised: true
+    resources :policies, only: [:index], localised: true
+    resources :policies, only: [:show] do
       member do
         get :activity
       end
@@ -41,7 +42,7 @@ Whitehall::Application.routes.draw do
     resources :fatality_notices, path: 'fatalities', only: [:show]
     match "/news" => redirect("/announcements")
     match "/fatalities" => redirect("/announcements")
-    resources :publications, only: [:index, :show]
+    resources :publications, only: [:index, :show], localised: true
     resources :case_studies, path: 'case-studies', only: [:show, :index], localised: true
     resources :speeches, only: [:show], localised: true
     resources :statistical_data_sets, path: 'statistical-data-sets', only: [:index, :show]

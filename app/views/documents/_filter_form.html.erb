@@ -1,58 +1,61 @@
 <div class="filter-block">
-  <h2>You can use the filters to show only results that match your interests</h2>
+  <h2><%= t 'document_filters.description' %></h2>
   <form method="get" action="<%= send(:"#{document_type.to_s.pluralize}_path") %>" id="document-filter" class="js-document-filter">
-    <% if params[:use_elastic_search].present? %>
-      <%= hidden_field_tag :use_elastic_search, params[:use_elastic_search] %>
-    <% end %>
     <fieldset>
       <legend class="visuallyhidden">Filter <%= document_type.to_s.pluralize %></legend>
 
-      <div class="filter" id="keyword-filter">
-        <div class="filter-inner">
-          <%= label_tag "keywords", "Contains", class: 'title' %>
-          <%= text_field_tag :keywords, @filter.keywords, placeholder: "keywords" %>
+      <% if defined?(filter_by_keyword) && filter_by_keyword %>
+        <div class="filter" id="keyword-filter">
+          <div class="filter-inner">
+            <%= label_tag "keywords", "Contains", class: 'title' %>
+            <%= text_field_tag :keywords, @filter.keywords, placeholder: "keywords" %>
+          </div>
         </div>
-      </div>
+      <% end %>
 
-      <div class="filter">
-        <div class="filter-inner">
-          <% if defined?(filter_by_publication_type) && filter_by_publication_type %>
+      <% if defined?(filter_by_publication_type) && filter_by_publication_type %>
+        <div class="filter" id="publication-type-filter">
+          <div class="filter-inner">
             <div class="publication-type">
               <%= label_tag "publication_filter_option", "Publication type", class: "title" %>
               <%= select_tag :publication_filter_option, publication_type_filter_options(publication_types_for_filter, @filter.selected_publication_filter_option), class: "single-row-select" %>
             </div>
-          <% end %>
+          </div>
         </div>
-      </div>
+      <% end %>
 
-      <div class="filter">
-        <div class="filter-inner">
-          <% if defined?(filter_by_announcement_type) && filter_by_announcement_type %>
+      <% if defined?(filter_by_announcement_type) && filter_by_announcement_type %>
+        <div class="filter" id="announcement-type-filter">
+          <div class="filter-inner">
             <div class="announcement-type">
               <%= label_tag "announcement_type_option", "Announcement type", class: "title" %>
               <%= select_tag :announcement_type_option, announcement_type_filter_options(announcement_types_for_filter, @filter.selected_announcement_type_option), class: "single-row-select" %>
             </div>
-          <% end %>
+          </div>
         </div>
-      </div>
+      <% end %>
 
-      <div class="filter">
-        <div class="filter-inner">
-          <%= label_tag "topics", "Topic" %>
-          <%= select_tag :topics, topic_filter_options(all_topics_with(document_type), @filter.selected_topics), size: 5, multiple: true, class: "multi-row-select" %>
+      <% if defined?(filter_by_topic) && filter_by_topic %>
+        <div class="filter" id="topic-filter">
+          <div class="filter-inner">
+            <%= label_tag "topics", "Topic" %>
+            <%= select_tag :topics, topic_filter_options(all_topics_with(document_type), @filter.selected_topics), size: 5, multiple: true, class: "multi-row-select" %>
+          </div>
         </div>
-      </div>
+      <% end %>
 
-      <div class="filter">
-        <div class="filter-inner">
-          <%= label_tag "departments", "Department" %>
-          <%= select_tag :departments, organisation_filter_options(all_organisations_with(document_type), @filter.selected_organisations), size: 5, multiple: true, class: "multi-row-select" %>
+      <% if defined?(filter_by_department) && filter_by_department %>
+        <div class="filter" id="department-filter">
+          <div class="filter-inner">
+            <%= label_tag "departments", "Department" %>
+            <%= select_tag :departments, organisation_filter_options(all_organisations_with(document_type), @filter.selected_organisations), size: 5, multiple: true, class: "multi-row-select" %>
+          </div>
         </div>
-      </div>
+      <% end %>
 
       <% if Whitehall.local_government_features? %>
         <% if defined?(filter_by_relevant_to_local_government) && filter_by_relevant_to_local_government %>
-          <div class="filter">
+          <div class="filter" id="local-government-relevance-filter">
             <div class="filter-inner checkbox">
               <%= label_tag "relevant_to_local_government", "Local government content" %>
               <%= check_box_tag :relevant_to_local_government, '1', @filter.relevant_to_local_government %>
@@ -61,20 +64,20 @@
         <% end %>
       <% end %>
 
-      <div class="filter">
-        <div class="filter-inner">
-          <% if defined?(filter_by_locations) && filter_by_locations %>
+      <% if defined?(filter_by_locations) && filter_by_locations %>
+        <div class="filter" id="location-filter">
+          <div class="filter-inner">
             <div class="publication-type">
-              <%= label_tag "world_locations", "World Locations", class: "title" %>
+              <%= label_tag "world_locations", t('document_filters.world_locations.label'), class: "title" %>
               <%= select_tag :world_locations, locations_options(all_locations_with(document_type), @filter.selected_locations), size: 5, multiple: true,  class: "multi-row-select" %>
             </div>
-          <% end %>
+          </div>
         </div>
-      </div>
+      <% end %>
 
-      <div class="filter">
-        <div class="filter-inner">
-          <% if defined?(filter_by_date) and filter_by_date %>
+      <% if defined?(filter_by_date) and filter_by_date %>
+        <div class="filter" id="date-range-filter">
+          <div class="filter-inner">
             <div class="date-range">
               <h3>Published</h3>
               <% ['before', 'after'].each do |direction| %>
@@ -86,13 +89,16 @@
               <%= label_tag "date", "Date", class: "visuallyhidden" %>
               <%= select_tag :date, options_for_select(recent_month_filter_options(24, @filter.date)), include_blank: false, class: "single-row-select" %>
             </div>
-          <% end %>
+          </div>
+        </div>
+      <% end %>
+      <div class="filter" id="filter-submit">
+        <div class="filter-inner">
           <div class="submit">
             <%= submit_tag "Refresh results", class: "button" %>
           </div>
         </div>
       </div>
-
     </fieldset>
   </form>
 </div>
