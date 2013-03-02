@@ -40,7 +40,11 @@
     <% if @import.document_sources.any? %>
       <ul class="added">
         <% @import.document_sources.each do |document_source| %>
-          <li><%= link_to document_source.document.latest_edition.title, admin_edition_path(document_source.document.latest_edition) %> imported from <%= link_to document_source.url, document_source.url %></li>
+          <% if document_source.document.latest_edition %>
+            <li><%= link_to document_source.document.latest_edition.title, admin_edition_path(document_source.document.latest_edition) %> imported from <%= link_to document_source.url, document_source.url %></li>
+          <% else %>
+            <li>DELETED - &ldquo;<%=  Edition.unscoped.where(:document_id => document_source.document.id).first.title %>&rdquo; imported from <%= link_to document_source.url, document_source.url %></li>
+          <% end %>
         <% end %>
       </ul>
     <% else %>

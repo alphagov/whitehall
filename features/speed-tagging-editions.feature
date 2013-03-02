@@ -7,6 +7,10 @@ Feature: Speed tagging editions
     - and only present them once, even if they are associated with multiple orgs associated with the doc
   - should only present ministers which are associated with the org of the doc being imported
   - should present mandatory data elements for that document type. (i.e. speech type, publication subtype)
+  - should include first published at fields for news articles and statistical data sets
+  - should include opening and closing dates for consulations
+  - should include delivered on date for speeches
+  - should include publication date for publications
 
   Background:
     Given I am a writer
@@ -14,6 +18,7 @@ Feature: Speed tagging editions
   Scenario: Speed tagging a newly imported publication
     When I go to speed tag a newly imported publication "Beard length statistics 2012"
     Then I should have to select the publication sub-type
+    And I should be able to set the publication date
 
   Scenario: Speed tagging only shows relevant ministers
     Given "Joe Bloggs" is the "Minister" for the "DCLG"
@@ -38,6 +43,7 @@ Feature: Speed tagging editions
     When I go to speed tag a newly imported speech "Written statement on Beards"
     Then I should have to select the speech type
     And I should have to select the deliverer of the speech
+    And I should be able to set the delivered date of the speech
 
   Scenario: Speed tagging shows world locations when relevant
     Given a country "Uganda" exists
@@ -55,3 +61,15 @@ Feature: Speed tagging editions
     Given a document series "Beard statistics"
     When I go to speed tag a newly imported publication "Beard length statistics 2012"
     Then I should be able to select the document series "Beard statistics"
+
+  Scenario: Speed tagging news articles allows first published at to be set
+    When I go to speed tag a newly imported news article "Beards are more costly this year"
+    Then I should be able to set the first published date
+
+  Scenario: Speed tagging a consulation shows the required fields
+    When I go to speed tag a newly imported consultation "Review of the Ministry of Beards 2012"
+    Then I should be able to set the consultation dates
+
+  Scenario: Speed tagging statistical data sets allows first published at to be set
+    When I go to speed tag a newly imported statistical data set "Beard density survey 2012"
+    Then I should be able to set the first published date
