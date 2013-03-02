@@ -1,6 +1,6 @@
 module Whitehall::DocumentFilter
   class Filterer
-    attr_reader :page, :per_page, :direction, :date, :keywords, :people_ids
+    attr_reader :page, :per_page, :direction, :date, :keywords, :people_ids, :locale
     class << self
       attr_accessor :number_of_documents_per_page
     end
@@ -13,6 +13,7 @@ module Whitehall::DocumentFilter
       @direction = params[:direction]
       @date = parse_date(@params[:date]) if @params[:date].present?
       @keywords = params[:keywords]
+      @locale = params[:locale]
     end
 
     def selected_topics

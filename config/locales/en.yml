@@ -309,3 +309,18 @@ en:
         other: Others
     headings:
       plus_others: + others
+  announcements:
+    heading: Announcements
+  policies:
+    heading: Policies
+  publications:
+    heading: Publications
+  document_filters:
+    description: You can use the filters to show only results that match your interests
+    world_locations:
+      label: World locations
+      all: All locations
+    no_results:
+      title: There are no matching documents.
+      description: Try making your search broader and try again.
+
