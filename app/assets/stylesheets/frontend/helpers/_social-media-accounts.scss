@@ -20,6 +20,12 @@
     background-color: $inside-gov-brand;
     background-image: image-url("social-icons-white.png");
     background-repeat: no-repeat;
+
+    @include right-to-left {
+      float: right;
+      margin-right: 0;
+      margin-left: $gutter-one-third;
+    }
   }
 
   .facebook .connect {

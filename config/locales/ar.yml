@@ -13,7 +13,7 @@ ar:
     email: بريد إلكتروني
   corporate_information_page:
     type:
-      personal_information_charter:
+      personal_information_charter: المعلومات الشخصية الميثاق
       publication_scheme:
       welsh_language_scheme:
   date:
@@ -268,16 +268,16 @@ ar:
         other: أقاليم في الخارج
   worldwide_organisation:
     corporate_information:
-      personal_information_charter_html:
-      publication_scheme_html:
-      welsh_language_scheme_html:
+      personal_information_charter_html: لدينا %{link} الرابط يشرح كيفية التعامل مع المعلومات الشخصية الخاصة بك
+      publication_scheme_html: قرأت عن أنواع المعلومات التي ننشرها بشكل روتيني في موقعنا %{link} الرابط.
+      welsh_language_scheme_html: معرفة التزامنا النشر في%{link} الرابط.
     find_out_more: اطلع على النبذة بالكامل وكافة تفاصيل الاتصال
     headings:
       about_us: معلومات عنا
       contact_us: اتصل بنا
-      corporate_information:
-      follow_us:
+      corporate_information: معلومات عن الشركة
+      follow_us: تابعنا
       our_people: مسؤولينا
       our_services: خدماتنا
-    location:
+    location: موقع
     part_of: جزء من

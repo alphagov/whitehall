@@ -16,12 +16,18 @@
       @include media(tablet){
         float: left;
         width: 66.66%;
+        @include right-to-left {
+          float: right;
+        }
       }
     }
     .social-media-links {
       @include media(tablet){
         float: left;
         width: 33.33%;
+        @include right-to-left {
+          float: right;
+        }
       }
 
       h1 {

@@ -9,6 +9,9 @@
       margin-top: $gutter-half;
       float: left;
       width: 66.66%;
+      @include right-to-left {
+        float: right;
+      }
     }
     h1 {
       margin: 0 $gutter-half;
@@ -25,6 +28,9 @@
     @include media(tablet){
       float: right;
       width: 33.33%;
+      @include right-to-left {
+        float: left;
+      }
     }
     dl {
       @extend %contain-floats;
@@ -35,9 +41,15 @@
         float: left;
         clear: both;
         width: 5em;
+        @include right-to-left {
+          float: right;
+        }
       }
       dd {
         float: left;
+        @include right-to-left {
+          float: right;
+        }
       }
     }
   }
