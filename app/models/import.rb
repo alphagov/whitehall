@@ -4,7 +4,7 @@ class Import < ActiveRecord::Base
   serialize :already_imported
   serialize :successful_rows
   has_many :document_sources
-  has_many :documents, through: :document_sources
+  has_many :documents, through: :document_sources, uniq: true
   has_many :editions, through: :documents
   has_many :import_errors, dependent: :destroy
   has_many :force_publication_attempts, dependent: :destroy
@@ -19,7 +19,8 @@ class Import < ActiveRecord::Base
     publication: [Whitehall::Uploader::PublicationRow, Publication],
     speech: [Whitehall::Uploader::SpeechRow, Speech],
     statistical_data_set: [Whitehall::Uploader::StatisticalDataSetRow, StatisticalDataSet],
-    fatality_notice: [Whitehall::Uploader::FatalityNoticeRow, FatalityNotice]
+    fatality_notice: [Whitehall::Uploader::FatalityNoticeRow, FatalityNotice],
+    detailed_guide: [Whitehall::Uploader::DetailedGuideRow, DetailedGuide]
   }
 
   after_destroy :destroy_all_imported_documents

@@ -98,6 +98,14 @@ class ImportTest < ActiveSupport::TestCase
     end
   end
 
+  test "can have multiple document sources for a given document" do
+    import = create(:import)
+    document = create(:document)
+    document.document_sources.create(import: import, url: "http://example.com/1", row_number: 1)
+    document.document_sources.create(import: import, url: "http://example.com/2", row_number: 2)
+    assert_equal [document], import.documents
+  end
+
   test "records the start time and total number of rows in the csv" do
     stub_document_source
     stub_row_class

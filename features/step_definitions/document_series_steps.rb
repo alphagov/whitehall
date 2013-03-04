@@ -8,6 +8,10 @@ Given /^I create a series called "([^"]*)" in the "([^"]*)" organisation$/ do |n
   click_button "Save"
 end
 
+Given /^a document series "([^"]*)" exists$/ do |name|
+  create(:document_series, name: name)
+end
+
 Given /^series from several other organisations exist$/ do
   create(:document_series)
   create(:document_series)

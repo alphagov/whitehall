@@ -7,7 +7,7 @@ class Whitehall::Uploader::Finders::SluggedModelFinder
     slugs = slugs.reject { |slug| slug.blank? }.uniq
     slugs.collect do |slug|
       @klass.find_by_slug(slug) || begin
-        logger.error "Unable to find Topic with slug '#{slug}'"
+        logger.error "Unable to find #{@klass.name} with slug '#{slug}'"
         nil
       end
     end.compact
