@@ -74,6 +74,10 @@ class Import < ActiveRecord::Base
     end
   end
 
+  def success_count
+    status == :succeeded ? documents.count(distinct: true) : 0
+  end
+
   def most_recent_force_publication_attempt
     force_publication_attempts.last
   end
