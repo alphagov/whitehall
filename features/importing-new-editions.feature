@@ -96,6 +96,15 @@ Feature: Importing new editions
       """
     Then the import succeeds, creating 1 imported publication for "Foreign Commonwealth Office" with "imported-awaiting-type" publication type
 
+  Scenario: Attempt to import a publication with unrecognised policy slug is rejected
+    Given the organisation "Foreign Commonwealth Office" exists
+    When I import the following data as CSV as "Publication" for "Department for Transport":
+      """
+      old_url,title,summary,body,organisation,policy_1,publication_type,document_series_1,publication_date,order_url,price,isbn,urn,command_paper_number,ignore_1,attachment_1_url,attachment_1_title,country_1
+      http://example.com/1,title,summary,body,foreign-commonwealth-office,non-existent-policy,,,14-Dec-2011,,,,,,,,,
+      """
+    Then the import should fail with errors about an unrecognised policy
+
   Scenario: Importing publications sets imported state, ImportedAwaitingType type and default organisation, to be filled in later
     When I import the following data as CSV as "Publication" for "Department for Transport":
       """
