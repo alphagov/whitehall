@@ -9,7 +9,7 @@ class SearchIndexTest < ActiveSupport::TestCase
   end
 
   test "Whitehall.government_search_index does not include WorldwidePriorities just yet, as we have yet to go live with it" do
-    WorldwidePriority.stubs(:search_index => ['worldwide_priorities_index'])
+    WorldwidePriority.stubs(search_index: ['worldwide_priorities_index'])
     refute Whitehall.government_search_index.include?('worldwide_priorities_index')
   end
 
