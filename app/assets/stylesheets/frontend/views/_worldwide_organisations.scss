@@ -9,58 +9,41 @@
     margin-bottom: $gutter;
   }
 
-  .organisation-header {
-    margin-bottom: $gutter;
+  .about-block {
+    @extend %contain-floats;
 
-    .available-languages {
-      ul {
-        margin-right: $gutter-half;
-      }
-    }
-
-    .content {
-      padding: 0 $gutter-half;
-    }
-
-    header {
-      display: block;
-
+    .about-us {
       @include media(tablet){
         float: left;
         width: 66.66%;
       }
-
-      .world-location {
-        @include core-19;
-        font-weight: bold;
-        padding: $gutter-half 0 $gutter;
-      }
-      .sponsoring-organisations {
-        @include core-16;
-        color: $secondary-text-colour;
-        padding: $gutter 0 $gutter-half;
-      }
     }
-    aside {
-      display: block;
-
+    .social-media-links {
       @include media(tablet){
         float: left;
         width: 33.33%;
-        margin-top: $gutter;
       }
+
+      h1 {
+        @include copy-19;
+        font-weight: bold;
+      }
+    }
+    .content {
+      margin: 0 $gutter-half;
+    }
+    .summary {
+      @include copy-19;
+      font-weight: bold;
+      margin-bottom: $gutter-half;
     }
   }
 
-  .about-block {
+  .our-services {
     .content {
       @include media(tablet){
-        max-width: 66%;
+        width: 66.66%;
       }
-    }
-    .summary {
-      @include heading-24;
-      margin-bottom: $gutter;
     }
   }
 

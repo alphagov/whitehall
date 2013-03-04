@@ -42,11 +42,11 @@
 @import "helpers/_global.scss";
 #whitehall-wrapper {
   @import "helpers/_attachment.scss";
+  @import "helpers/_available-languages.scss";
   @import "helpers/_browse.scss";
   @import "helpers/_change-notes.scss";
   @import "helpers/_collection_list.scss";
   @import "helpers/_contextual-info.scss";
-  @import "helpers/_available-languages.scss";
   @import "helpers/_corporate-information.scss";
   @import "helpers/_document-page-header.scss";
   @import "helpers/_document-series.scss";
@@ -72,6 +72,7 @@
   @import "helpers/_social-media-accounts.scss";
   @import "helpers/_stick_at_top_when_scrolling.scss";
   @import "helpers/_sub-navigation.scss";
+  @import "helpers/_worldwide-organisation-header.scss";
   @import "../vendor/media-player/player-core.scss";
   @import "../vendor/media-player/player-theme.scss";
   @import "../vendor/media-player/player-fix.scss";
