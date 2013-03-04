@@ -1,31 +1,29 @@
 <% page_title @worldwide_organisation.name %>
 <% page_class "worldwide-organisations-show" %>
 
-<div class="block organisation-header">
+<%= render partial: 'header', locals: { organisation: @worldwide_organisation, world_locations: @world_locations } %>
+
+<section class="block about-block" id="about-us">
   <div class="inner-block floated-children">
-    <%= render partial: 'header', locals: { organisation: @worldwide_organisation, world_locations: @world_locations } %>
-    <aside class="organisation-social-media-links">
+    <div class="about-us">
       <div class="content">
+        <p class="summary"><%= @worldwide_organisation.summary %></p>
+        <div class="description">
+          <%= govspeak_to_html @worldwide_organisation.description %>
+        </div>
+      </div>
+    </div>
+    <aside class="social-media-links">
+      <div class="content">
+        <h1><%= t('worldwide_organisation.headings.follow_us') %></h1>
         <%= render 'shared/social_media_accounts', socialable: @worldwide_organisation, followus: true %>
       </div>
     </aside>
   </div>
-</div>
-
-<section class="block about-block" id="about-us">
-  <div class="inner-block">
-    <h1 class="keyline-header"><%= t('worldwide_organisation.headings.about_us' ) %></h1>
-    <div class="content">
-      <p class="summary"><%= @worldwide_organisation.summary %></p>
-      <div class="description">
-        <%= govspeak_to_html @worldwide_organisation.description %>
-      </div>
-    </div>
-  </div>
 </section>
 
 <% if @worldwide_organisation.services.present? %>
-  <section class="block about-block" id="our-services">
+  <section class="block our-services" id="our-services">
     <div class="inner-block">
       <h1 class="keyline-header"><%= t('worldwide_organisation.headings.our_services' ) %></h1>
       <div class="content">

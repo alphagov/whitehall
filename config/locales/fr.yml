@@ -251,9 +251,11 @@ fr:
   worldwide_organisation:
     find_out_more: En savoir plus
     part_of: Une partie de
+    location: Emplacement
     headings:
       about_us: L'ambassade
       contact_us: Contactez-nous
+      follow_us: Suivez-nous
       our_people: Nos responsables
       our_services: Nos services
       corporate_information: Informations sur la société
