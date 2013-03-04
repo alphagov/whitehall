@@ -6,6 +6,7 @@ class Api::DetailedGuidePresenterTest < PresenterTestCase
     @guide = stub_edition(:detailed_guide, organisations: [@organisation])
     @guide.stubs(:images).returns([])
     @guide.stubs(:published_related_detailed_guides).returns([])
+    @guide.stubs(:organisations).returns([])
     @presenter = Api::DetailedGuidePresenter.decorate(@guide)
     stubs_helper_method(:params).returns(format: :json)
   end
