@@ -3,12 +3,19 @@ ar:
     attributes:
       detailed_guide:
         primary_mainstream_category:
+  announcements:
+    heading:
   change_notes:
     published: نشر
     updated: تحديث
   contact:
     contact_form: نموذج اتصال
     email: بريد إلكتروني
+  corporate_information_page:
+    type:
+      personal_information_charter:
+      publication_scheme:
+      welsh_language_scheme:
   date:
     formats:
       default: ! '%d %B %Y'
@@ -38,6 +45,12 @@ ar:
         other: مكاتب عالمية
     published: نشر
     read: اقرأ %{title} المقال
+    speech:
+      delivered_on:
+      delivery_title:
+        minister:
+        speaker:
+      originally_given_at:
     type:
       announcement:
         one: إعلان
@@ -158,6 +171,14 @@ ar:
         other: تصريحات خطية
     updated: محدث
     view: اطلع على ’%{title}‘
+  document_filters:
+    description:
+    no_results:
+      description:
+      title:
+    world_locations:
+      all:
+      label:
   feeds:
     atom: آتوم
     email_alerts: إشعار بالبريد الإلكتروني
@@ -174,6 +195,8 @@ ar:
       storage_units:
         format: ! '%n%u'
   organisation:
+    headings:
+      plus_others:
     type:
       Ad-hoc advisory group:
         one: فريق استشاري مخصص
@@ -208,6 +231,10 @@ ar:
       Tribunal non-departmental public body:
         one: هيئة قضائية عامة غير حكومية
         other: هيئات قضائية عامة غير حكومية
+  policies:
+    heading:
+  publications:
+    heading:
   read_more: اقرأ المزيد
   support:
     array:
@@ -216,16 +243,15 @@ ar:
     formats:
       long_ordinal: ! '%e %B %Y %H:%M'
   world_location:
-    country:
-      Spain: اسبانيا
     headings:
       announcements: إعلاناتنا
       country: البلد
       documents: وثائق
       mission: مهمتنا
-      offices: مكاتب
+      organisations:
       priorities: أولويات
       publications: مطبوعاتنا
+      quick_links:
       related_policies: سياسات ذات صلة
       see_all: اطلع على كافة %{type}
       statistics: إحصائياتنا
@@ -241,10 +267,17 @@ ar:
         one: إقليم في الخارج
         other: أقاليم في الخارج
   worldwide_organisation:
+    corporate_information:
+      personal_information_charter_html:
+      publication_scheme_html:
+      welsh_language_scheme_html:
+    find_out_more: اطلع على النبذة بالكامل وكافة تفاصيل الاتصال
     headings:
       about_us: معلومات عنا
       contact_us: اتصل بنا
+      corporate_information:
+      follow_us:
       our_people: مسؤولينا
       our_services: خدماتنا
-    find_out_more: اطلع على النبذة بالكامل وكافة تفاصيل الاتصال
+    location:
     part_of: جزء من
