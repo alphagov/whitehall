@@ -1,0 +1,31 @@
+<% page_title @corporate_information_page.title %>
+<% page_class "corporate-information-pages-show-worldwide-organisation" %>
+
+<%= render partial: 'worldwide_organisations/header', locals: { organisation: @organisation, link_to_organisation: true, object_for_translation: @corporate_information_page } %>
+<article class="block article">
+  <div class="inner-block floated-children">
+    <% if govspeak_headers(@corporate_information_page.body).any? %>
+      <nav>
+        <div class="content js-stick-at-top-when-scrolling">
+          <h1>Contents</h1>
+          <ol>
+            <% govspeak_headers(@corporate_information_page.body).each do |header| %>
+              <li><%= link_to header.text, "##{header.id}" %></li>
+            <% end %>
+          </ol>
+        </div>
+      </nav>
+    <% end %>
+    <div class="main-body">
+      <div class="content">
+        <h1 class="main"><%= @corporate_information_page.title %></h1>
+        <p class="description">
+          <%= @corporate_information_page.summary %>
+        </p>
+        <div class="body">
+          <%= govspeak_edition_to_html @corporate_information_page %>
+        </div>
+      </div>
+    </div>
+  </div>
+</article>

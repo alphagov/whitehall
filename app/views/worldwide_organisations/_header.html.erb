@@ -6,13 +6,13 @@
 <header class="block worldwide-organisation-header">
   <div class="inner-block floated-children">
     <div class="logo">
-      <%= content_tag :h1, class: logo_classes(class_name: 'single-identity', size: 'large', stacked: true) do %>
+      <h1>
         <% if link_to_organisation %>
-          <% link_to content_tag(:span, format_with_html_line_breaks(h(organisation.logo_formatted_name))), organisation %>
+          <%= link_to content_tag(:span, format_with_html_line_breaks(h(organisation.logo_formatted_name))), organisation, class: logo_classes(class_name: 'single-identity', size: 'large', stacked: true) %>
         <% else %>
-            <%= content_tag :span, format_with_html_line_breaks(h(organisation.logo_formatted_name)) %>
+          <%= content_tag :span, content_tag(:span, format_with_html_line_breaks(h(organisation.logo_formatted_name))), class: logo_classes(class_name: 'single-identity', size: 'large', stacked: true) %>
         <% end %>
-      <% end %>
+      </h1>
     </div>
     <%= render partial: 'shared/available_languages', locals: {object: object_for_translation } %>
     <div class="metadata">
