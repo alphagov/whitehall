@@ -1,0 +1,60 @@
+#whitehall-wrapper {
+  font-family: $NTA-Light;
+  position: relative;
+  overflow: visible;
+  margin: 0 auto;
+  padding-top: 0;
+  padding-bottom: $gutter;
+  background: transparent;
+  color: $text-colour;
+  border-top: 50px solid #f4f4f4;
+  border-bottom: $gutter-one-third solid $inside-gov-secondary;
+
+  @include ie(7){
+    border-top: 1px solid #fff !important;
+    // I don't like this, I am not proud of this, but this is how it has to be.
+    // IE7 can't manage -ve margins over borders. It also won't let me redefine
+    // the border without the important, I probably could manage it using a
+    // better selector but that wouldn't be inline in this IE block.
+  }
+
+  @include media(desktop) {
+    padding-bottom: $gutter*2;
+  }
+
+  #whitehall-inner {
+    position: relative;
+    margin: -50px auto 0;
+    width: auto;
+    max-width: $max-site-width + $gutter*2;
+
+    @extend %contain-floats;
+  }
+
+  @include media(tablet){
+    border-top: 60px solid #f8f8f8;
+    #whitehall-inner {
+      margin-top: -60px;
+    }
+  }
+  #page {
+    @include right-to-left {
+      direction: rtl;
+    }
+  }
+}
+
+.detailed-guidance #whitehall-wrapper,
+.sunset #whitehall-wrapper {
+  border: 0;
+
+  #whitehall-inner {
+    position: static;
+    margin-top: 0;
+
+    @include media(tablet){
+      margin-top: 0;
+    }
+  }
+}
+
