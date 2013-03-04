@@ -3,12 +3,19 @@ ja:
     attributes:
       detailed_guide:
         primary_mainstream_category:
+  announcements:
+    heading:
   change_notes:
     published:
     updated:
   contact:
     contact_form:
     email:
+  corporate_information_page:
+    type:
+      personal_information_charter:
+      publication_scheme:
+      welsh_language_scheme:
   date:
     formats:
       default:
@@ -164,6 +171,14 @@ ja:
         other:
     updated:
     view:
+  document_filters:
+    description:
+    no_results:
+      description:
+      title:
+    world_locations:
+      all:
+      label:
   feeds:
     atom:
     email_alerts:
@@ -216,6 +231,10 @@ ja:
       Tribunal non-departmental public body:
         one:
         other:
+  policies:
+    heading:
+  publications:
+    heading:
   read_more:
   support:
     array:
@@ -248,10 +267,17 @@ ja:
         one:
         other:
   worldwide_organisation:
+    corporate_information:
+      personal_information_charter_html:
+      publication_scheme_html:
+      welsh_language_scheme_html:
     find_out_more:
     headings:
       about_us:
       contact_us:
+      corporate_information:
+      follow_us:
       our_people:
       our_services:
+    location:
     part_of:

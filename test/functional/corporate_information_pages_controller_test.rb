@@ -21,4 +21,15 @@ class CorporateInformationPagesControllerTest < ActionController::TestCase
       assert_select "p", "para1"
     end
   end
+
+  view_test "should link to world location organisation belongs to" do
+    world_location = create(:world_location)
+    worldwide_organisation = create(:worldwide_organisation, world_locations: [world_location])
+    corporate_information_page = create(:corporate_information_page, organisation: worldwide_organisation)
+
+    get :show, worldwide_organisation_id: worldwide_organisation, id: corporate_information_page
+
+    assert_select "a[href=#{worldwide_organisation_path(worldwide_organisation)}]"
+    assert_select "a[href=#{world_location_path(world_location)}]"
+  end
 end

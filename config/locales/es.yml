@@ -3,12 +3,19 @@ es:
     attributes:
       detailed_guide:
         primary_mainstream_category: Categoría de orientación principal en detalle
+  announcements:
+    heading:
   change_notes:
     published: Publicado
     updated: Actualizado
   contact:
     contact_form: Formulario de contacto
     email: Email
+  corporate_information_page:
+    type:
+      personal_information_charter:
+      publication_scheme:
+      welsh_language_scheme:
   date:
     formats:
       default: ! '%e %B %Y'
@@ -33,9 +40,9 @@ es:
       world_locations:
         one: Destino central
         other: Destinos en el mundo
-      worldwide_offices:
-        one: Sede central
-        other: Sedes en el mundo
+      worldwide_organisations:
+        one:
+        other:
     published: Publicado
     read: Lea el artículo de la '%{title}'
     speech:
@@ -164,6 +171,14 @@ es:
         other: Declaraciones escritas
     updated: Actualizado
     view: Mirar '%{title}'
+  document_filters:
+    description:
+    no_results:
+      description:
+      title:
+    world_locations:
+      all:
+      label:
   feeds:
     atom: Átomo
     email_alerts: alertas de email
@@ -216,6 +231,10 @@ es:
       Tribunal non-departmental public body:
         one: ! 'Tribunal del NHS no dependiente del Ministerio '
         other: ! 'Tribunales del NHS no dependientes del Ministerio '
+  policies:
+    heading:
+  publications:
+    heading:
   read_more: Leer más
   support:
     array:
@@ -229,7 +248,7 @@ es:
       country: País
       documents: Documentos
       mission: Nuestra Misión
-      offices: Oficinas
+      organisations:
       priorities: Prioridades
       publications: Publicaciones
       quick_links:
@@ -247,11 +266,18 @@ es:
       overseas_territory:
         one: Territorio en el exterior
         other: Territorios en el exterior
-  worldwide_office:
+  worldwide_organisation:
+    corporate_information:
+      personal_information_charter_html:
+      publication_scheme_html:
+      welsh_language_scheme_html:
+    find_out_more:
     headings:
-      about_us: Quiénes somos/Conócenos
-      contact_us: Contacto
-      our_people: Nuestros emisarios/Nuestra comunidad/Equipo profesional
-      our_services: Nuestros servicios
-    find_out_more: Ver el perfil completo y todos los datos de contacto
-    part_of: Parte de
+      about_us:
+      contact_us:
+      corporate_information:
+      follow_us:
+      our_people:
+      our_services:
+    location:
+    part_of:

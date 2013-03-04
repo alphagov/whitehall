@@ -260,9 +260,9 @@ en:
       corporate_information: Corporate information
     corporate_information:
       publication_scheme_html: Read about the types of information we routinely publish in our %{link}.
-      personal_information_charter: Our %{link} explains how we treat your personal information.
+      personal_information_charter_html: Our %{link} explains how we treat your personal information.
       welsh_language_scheme_html: Find out about our commitment to publishing in the %{link}.
-  corporate_information:
+  corporate_information_page:
     type:
       publication_scheme: Publication scheme
       personal_information_charter: Personal information charter
