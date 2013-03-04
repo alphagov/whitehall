@@ -22,8 +22,8 @@ module Whitehall::Uploader
         .multiple("country_#", 0..4)
     end
 
-    def legacy_url
-      row['old_url']
+    def legacy_urls
+      Parsers::OldUrlParser.parse(row['old_url'], @logger, @line_number)
     end
 
     def title

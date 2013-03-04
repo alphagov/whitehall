@@ -105,7 +105,7 @@ module Whitehall::Uploader
 
     test "should have a legacy url from the old_url column" do
       row = statistical_data_set_row("old_url" => "http://example.com/legacy-url")
-      assert_equal "http://example.com/legacy-url", row.legacy_url
+      assert_equal ["http://example.com/legacy-url"], row.legacy_urls
     end
 
     test "finds document series by slug in data_series column" do
