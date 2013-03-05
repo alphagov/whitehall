@@ -31,9 +31,9 @@ module Whitehall::Uploader
       assert_equal ["unexpected fields: 'extra_stuff'"], Whitehall::Uploader::SpeechRow.heading_validation_errors(keys)
     end
 
-    test "takes legacy url from the old_url column" do
+    test "takes legacy urls from the old_url column" do
       row = new_speech_row({"old_url" => "http://example.com/old-url"})
-      assert_equal "http://example.com/old-url", row.legacy_url
+      assert_equal ["http://example.com/old-url"], row.legacy_urls
     end
 
     test "takes title from the title column" do

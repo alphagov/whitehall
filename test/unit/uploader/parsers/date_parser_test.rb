@@ -4,8 +4,7 @@ require "whitehall/uploader/parsers/date_parser"
 
 class Whitehall::Uploader::Parsers::DateParserTest < ActiveSupport::TestCase
   def setup
-    @log_buffer = StringIO.new
-    @log = Logger.new(@log_buffer)
+    @log = stub_everything
     @line_number = 1
   end
 
@@ -29,8 +28,8 @@ class Whitehall::Uploader::Parsers::DateParserTest < ActiveSupport::TestCase
     assert_nil Whitehall::Uploader::Parsers::DateParser.parse('11/012012', @log, @line_number)
   end
 
-  test "logs a warning if the date cannot be parsed" do
+  test "logs an error if the date cannot be parsed" do
+    @log.expects(:error).with(includes(%q{Unable to parse the date '11/012012'}))
     Whitehall::Uploader::Parsers::DateParser.parse('11/012012', @log, @line_number)
-    assert_match /Unable to parse the date '11\/012012'/, @log_buffer.string
   end
 end

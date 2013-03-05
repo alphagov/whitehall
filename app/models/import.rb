@@ -4,7 +4,7 @@ class Import < ActiveRecord::Base
   serialize :already_imported
   serialize :successful_rows
   has_many :document_sources
-  has_many :documents, through: :document_sources
+  has_many :documents, through: :document_sources, uniq: true
   has_many :editions, through: :documents
   has_many :import_errors, dependent: :destroy
   has_many :force_publication_attempts, dependent: :destroy
@@ -19,7 +19,8 @@ class Import < ActiveRecord::Base
     publication: [Whitehall::Uploader::PublicationRow, Publication],
     speech: [Whitehall::Uploader::SpeechRow, Speech],
     statistical_data_set: [Whitehall::Uploader::StatisticalDataSetRow, StatisticalDataSet],
-    fatality_notice: [Whitehall::Uploader::FatalityNoticeRow, FatalityNotice]
+    fatality_notice: [Whitehall::Uploader::FatalityNoticeRow, FatalityNotice],
+    detailed_guide: [Whitehall::Uploader::DetailedGuideRow, DetailedGuide]
   }
 
   after_destroy :destroy_all_imported_documents
@@ -71,6 +72,10 @@ class Import < ActiveRecord::Base
     else
       :succeeded
     end
+  end
+
+  def success_count
+    status == :succeeded ? documents.count(distinct: true) : 0
   end
 
   def most_recent_force_publication_attempt
@@ -147,8 +152,11 @@ class Import < ActiveRecord::Base
             next
           end
           row = row_class.new(data_row.to_hash, row_number, attachment_cache, organisation, progress_logger)
-          if document_source = DocumentSource.find_by_url(row.legacy_url)
-            progress_logger.already_imported(row.legacy_url, document_source)
+          document_sources = DocumentSource.where(url: row.legacy_urls)
+          if document_sources.any?
+            document_sources.each do |document_source|
+              progress_logger.already_imported(document_source)
+            end
           else
             acting_as(automatic_data_importer) do
               import_row(row, row_number, automatic_data_importer, progress_logger)
@@ -178,7 +186,9 @@ class Import < ActiveRecord::Base
     attributes = row.attributes.merge(creator: creator, state: 'imported')
     model = model_class.new(attributes)
     if model.save
-      ds = DocumentSource.create!(document: model.document, url: row.legacy_url, import: self, row_number: row_number)
+      row.legacy_urls.each do |legacy_url|
+        DocumentSource.create!(document: model.document, url: legacy_url, import: self, row_number: row_number)
+      end
       progress_logger.success(model)
       true
     else
@@ -318,8 +328,8 @@ class Import < ActiveRecord::Base
       @import.update_column(:current_row, @current_row)
     end
 
-    def already_imported(url, document_source)
-      error("#{url} already imported by import '#{document_source.import_id}' row '#{document_source.row_number}'")
+    def already_imported(document_source)
+      error("#{document_source.url} already imported by import '#{document_source.import_id}' row '#{document_source.row_number}'")
     end
 
     def write_log(level, data)

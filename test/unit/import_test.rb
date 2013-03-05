@@ -98,6 +98,14 @@ class ImportTest < ActiveSupport::TestCase
     end
   end
 
+  test "can have multiple document sources for a given document" do
+    import = create(:import)
+    document = create(:document)
+    document.document_sources.create(import: import, url: "http://example.com/1", row_number: 1)
+    document.document_sources.create(import: import, url: "http://example.com/2", row_number: 2)
+    assert_equal [document], import.documents
+  end
+
   test "records the start time and total number of rows in the csv" do
     stub_document_source
     stub_row_class
@@ -117,7 +125,19 @@ class ImportTest < ActiveSupport::TestCase
     i = perform_import do |import|
       import.stubs(:row_class).returns(@row_class)
       import.stubs(:model_class).returns(@model_class)
-      DocumentSource.expects(:create!).with(document: @document, url: @row.legacy_url, import: import, row_number: 2)
+      DocumentSource.expects(:create!).with(document: @document, url: @row.legacy_urls.first, import: import, row_number: 2)
+    end
+  end
+
+  test "#perform records multiple document sources if an imported record has multiple legacy_urls" do
+    stub_document_source
+    stub_row_class(legacy_urls: ["http://example.com/1", "http://example.com/2"])
+    stub_model_class
+    i = perform_import do |import|
+      import.stubs(:row_class).returns(@row_class)
+      import.stubs(:model_class).returns(@model_class)
+      DocumentSource.expects(:create!).with(document: @document, url: "http://example.com/1", import: import, row_number: 2)
+      DocumentSource.expects(:create!).with(document: @document, url: "http://example.com/2", import: import, row_number: 2)
     end
   end
 
@@ -134,13 +154,27 @@ class ImportTest < ActiveSupport::TestCase
   end
 
   test "#perform records an error if a document has already been imported" do
-    DocumentSource.stubs(:find_by_url).with("http://example.com").returns(stub("document source", row_number: 2, import_id: 3))
+    DocumentSource.stubs(:where).with(url: ["http://example.com"]).returns([stub("document source", row_number: 2, import_id: 3, url: "http://example.com")])
     Import.use_separate_connection
     Import.delete_all
     ImportError.delete_all
     i = perform_import(csv_data: consultation_csv_sample("old_url" => "http://example.com"))
     assert_equal 1, i.import_errors.count
     assert_match /already imported/, i.import_errors.map(&:message).first
+    i.destroy
+  end
+
+  test "#perform records an error if any old url of a row has already been imported" do
+    DocumentSource.stubs(:where)
+      .with(url: ["http://example.com/1", "http://example.com/2"])
+      .returns([stub("document source", row_number: 2, import_id: 3, url: "http://example.com/2")])
+    Import.use_separate_connection
+    Import.delete_all
+    ImportError.delete_all
+    i = perform_import(csv_data: consultation_csv_sample("old_url" => ["http://example.com/1", "http://example.com/2"].to_json))
+    assert_equal 1, i.import_errors.count
+    assert_match /already imported/, i.import_errors.map(&:message).first
+    assert_match %r{http://example\.com/2}, i.import_errors.map(&:message).first
     i.destroy
   end
 
@@ -397,8 +431,8 @@ class ImportTest < ActiveSupport::TestCase
     DocumentSource.stubs(:create!)
   end
 
-  def stub_row_class
-    @row = stub('row', attributes: {row: :one}, legacy_url: 'row-legacy-url', valid?: true)
+  def stub_row_class(row_attribute_overrides = {})
+    @row = stub('row', {attributes: {row: :one}, legacy_urls: ['row-legacy-url'], valid?: true}.merge(row_attribute_overrides))
     @row_class = stub('row-class', new: @row, heading_validation_errors: [])
   end
 

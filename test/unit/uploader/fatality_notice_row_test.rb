@@ -53,9 +53,9 @@ module Whitehall::Uploader
       assert_equal "Some body goes here", row.attributes[:body]
     end
 
-    test "takes legacy url from the old_url column" do
+    test "takes legacy urls from the old_url column" do
       row = fatality_notice_row("old_url" => "http://example.com/old-url")
-      assert_equal "http://example.com/old-url", row.legacy_url
+      assert_equal ["http://example.com/old-url"], row.legacy_urls
     end
 
     test "takes roll_call_introduction from the roll_call_introduction column" do

@@ -7,13 +7,13 @@ class Whitehall::Uploader::Finders::PoliciesFinderTest < ActiveSupport::TestCase
     @line_number = 1
   end
 
-  test "returns the published edition of all documents found by the supplied slugs" do
+  test "returns the published edition of all policies found by the supplied slugs" do
     policy_1 = create(:published_policy, title: "Policy 1")
     policy_2 = create(:published_policy, title: "Policy 2")
     assert_equal [policy_1, policy_2], Whitehall::Uploader::Finders::PoliciesFinder.find(policy_1.slug, policy_2.slug, @log, @line_number)
   end
 
-  test "returns the draft edition of any documents found by the supplied slugs which have no published editions" do
+  test "returns the draft edition of any policies found by the supplied slugs which have no published editions" do
     policy_1 = create(:published_policy, title: "Policy 1")
     policy_2 = create(:draft_policy, title: "Policy 2")
     assert_equal [policy_1, policy_2], Whitehall::Uploader::Finders::PoliciesFinder.find(policy_1.slug, policy_2.slug, @log, @line_number)
@@ -25,20 +25,26 @@ class Whitehall::Uploader::Finders::PoliciesFinderTest < ActiveSupport::TestCase
     assert_equal [policy_1], Whitehall::Uploader::Finders::PoliciesFinder.find(policy_1.slug, @log, @line_number)
   end
 
+  test "does not find other edition types which have the same slug" do
+    news_article = create(:published_news_article, title: "Policy 1")
+    assert_equal [], Whitehall::Uploader::Finders::PoliciesFinder.find(news_article.slug, @log, @line_number)
+    assert_match %r{Unable to find Policy with slug '#{news_article.slug}'}, @log_buffer.string
+  end
+
   test "ignores blank slugs" do
     assert_equal [], Whitehall::Uploader::Finders::PoliciesFinder.find('', '', @log, @line_number)
   end
 
-  test "returns an empty array if a document can't be found for the given slug" do
+  test "returns an empty array if a policy can't be found for the given slug" do
     assert_equal [], Whitehall::Uploader::Finders::PoliciesFinder.find('made-up-policy-slug', @log, @line_number)
   end
 
-  test "logs a warning if a document can't be found for the given slug" do
+  test "logs a warning if a policy can't be found for the given slug" do
     Whitehall::Uploader::Finders::PoliciesFinder.find('made-up-policy-slug', @log, @line_number)
-    assert_match /Unable to find Document with slug 'made-up-policy-slug'/, @log_buffer.string
+    assert_match /Unable to find Policy with slug 'made-up-policy-slug'/, @log_buffer.string
   end
 
-  test "returns an empty array if the document for the given slug that cannot be found" do
+  test "returns an empty array if the policy for the given slug that cannot be found" do
     assert_equal [], Whitehall::Uploader::Finders::PoliciesFinder.find('made-up-policy-slug', @log, @line_number)
   end
 

@@ -1,3 +1,7 @@
+Given /^a (topic|document series|mainstream category) with the slug "([^"]*)" exists$/ do |type, slug|
+  o = create(type.parameterize.underscore)
+  o.update_attributes!(slug: slug)
+end
 
 When /^I import the following data as CSV as "([^"]*)" for "([^"]*)":$/ do |document_type, organisation_name, data|
   organisation = Organisation.find_by_name(organisation_name) || create(:organisation, name: organisation_name)
@@ -85,6 +89,13 @@ Then /^the import should fail with errors about organisation and sub type and no
   assert page.has_content?("Import failed")
   assert page.has_content?("Unable to find Organisation named 'weird organisation'")
   assert page.has_content?("Unable to find Publication type with slug 'weird type'")
+
+  assert_equal 0, Edition.count
+end
+
+Then /^the import should fail with errors about an unrecognised policy$/ do
+  assert page.has_content?("Import failed")
+  assert page.has_content?("Unable to find Policy with slug 'non-existent-policy'")
 
   assert_equal 0, Edition.count
 end
@@ -179,4 +190,18 @@ Then /^I can delete the imported edition if I choose to$/ do
   click_on 'Delete'
 
   assert edition.reload.deleted?
+end
+
+Then /^the import succeeds creating (\d+) detailed guidance document$/ do |n|
+  assert_equal [], Import.last.import_errors
+  assert_equal :succeeded, Import.last.status
+  assert_equal 1, Import.last.documents.where(document_type: DetailedGuide.name).to_a.size
+end
+
+Then /^the imported detailed guidance document has the following associations:$/ do |expected_table|
+  detailed_guide_document = Import.last.documents.where(document_type: DetailedGuide.name).first
+  edition = detailed_guide_document.editions.first
+  expected_table.hashes.each do |row|
+    assert_equal edition.send(row["Name"].to_sym).map(&:slug), row["Slugs"].split(/, +/)
+  end
 end
