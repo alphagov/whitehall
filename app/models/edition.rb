@@ -133,6 +133,9 @@ class Edition < ActiveRecord::Base
   def self.search_format_type
     self.name.underscore.gsub('_', '-')
   end
+  def self.concrete_descendant_search_format_types
+    descendants.reject { |model| model.descendants.any? }.map { |model| model.search_format_type }
+  end
 
   [:publish, :unpublish, :archive, :delete].each do |event|
     set_callback(event, :after) { refresh_index_if_required }

@@ -410,6 +410,27 @@ class EditionTest < ActiveSupport::TestCase
     assert edition.search_format_types.include?('edition')
   end
 
+  test 'concrete_descendant_search_format_types does not include Edition subclasses that themselves have subclasses' do
+    concrete_formats = Edition.concrete_descendant_search_format_types
+
+    refute concrete_formats.include? Announcement.search_format_type
+    refute concrete_formats.include? Newsesque.search_format_type
+    refute concrete_formats.include? Publicationesque.search_format_type
+    refute concrete_formats.include? Edition.search_format_type
+
+    assert concrete_formats.include? NewsArticle.search_format_type
+    assert concrete_formats.include? WorldLocationNewsArticle.search_format_type
+    assert concrete_formats.include? Speech.search_format_type
+    assert concrete_formats.include? FatalityNotice.search_format_type
+    assert concrete_formats.include? Publication.search_format_type
+    assert concrete_formats.include? StatisticalDataSet.search_format_type
+    assert concrete_formats.include? Consultation.search_format_type
+    assert concrete_formats.include? DetailedGuide.search_format_type
+    assert concrete_formats.include? CaseStudy.search_format_type
+    assert concrete_formats.include? Policy.search_format_type
+    assert concrete_formats.include? WorldwidePriority.search_format_type
+  end
+
   test "#indexable_content should return the body without markup by default" do
     policy = create(:published_policy, body: "# header\n\nsome text")
     assert_equal "header some text", policy.indexable_content
