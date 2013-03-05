@@ -2,7 +2,7 @@
   clear: both;
   padding-top: $gutter-half;
 
-  @include media(desktop){
+  @include media(tablet){
     clear: none;
     float: left;
     width: 33.33%;
@@ -12,8 +12,8 @@
   &.panel {
     .content {
       margin: $gutter-half;
-      padding: $gutter-half $gutter-half $gutter-one-third;
-      border: 5px solid;
+      padding-top: $gutter-half;
+      border-top: 1px solid $border-colour;
     }
   }
   .content {
@@ -45,6 +45,7 @@
       }
     }
     .feeds {
+      @include core-16;
       margin-top: $gutter-one-sixth;
       padding-top: $gutter-one-third;
       border-top: 1px solid $grey-2;

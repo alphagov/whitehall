@@ -613,7 +613,6 @@
   #traffic_commissioners h1,
   #special_representatives h1,
   #org-contacts h2,
-  #recently_updated h1,
   #what-we-do h1 {
     border-bottom-width: 5px;
     border-bottom-style: solid;
@@ -622,8 +621,6 @@
   @include department-colours("h2", border-color);
   @include websafe-department-colours(".social-media-link .connect", background-color);
   @include websafe-department-colours("a", color);
-  @include department-colours('.recently-updated .content', border-color);
-  @include department-colours('.recently-updated .feeds', border-color);
 }
 .organisations-external {
   @include media(desktop){
