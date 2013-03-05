@@ -69,7 +69,7 @@ class SpeechesControllerTest < ActionController::TestCase
 
     get :show, id: published_speech.document
     refute_select ".explanation"
-    assert_select ".label", "Written statement to parliament"
+    assert_select ".label", "Written statement to Parliament"
   end
 
   view_test "should display details about an oral statement" do
@@ -78,7 +78,7 @@ class SpeechesControllerTest < ActionController::TestCase
 
     get :show, id: published_speech.document
     refute_select ".explanation"
-    assert_select ".label", "Oral statement to parliament"
+    assert_select ".label", "Oral statement to Parliament"
   end
 
   view_test "should omit location if not given" do

@@ -155,8 +155,8 @@ en:
         one: Open consultation
         other: Open consultations
       oral_statement:
-        one: Oral statement to parliament
-        other: Oral statements to parliament
+        one: Oral statement to Parliament
+        other: Oral statements to Parliament
       policy:
         one: Policy
         other: Policies
@@ -185,8 +185,8 @@ en:
         one: Speech
         other: Speeches
       statement_to_parliament:
-        one: Statement to parliament
-        other: Statements to parliament
+        one: Statement to Parliament
+        other: Statements to Parliament
       statistical_data_set:
         one: Statistical data set
         other: Statistical data sets
@@ -200,8 +200,8 @@ en:
         one: Transparency data
         other: Transparency data
       written_statement:
-        one: Written statement to parliament
-        other: Written statements to parliament
+        one: Written statement to Parliament
+        other: Written statements to Parliament
     updated: updated
     view: View '%{title}'
     read: Read the %{title} article
