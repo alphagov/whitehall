@@ -59,6 +59,10 @@ class Edition < ActiveRecord::Base
     order(arel_table[:public_timestamp].desc, arel_table[:document_id].desc)
   end
 
+  def self.without_editions_of_type(*edition_classes)
+    where(arel_table[:type].not_in(edition_classes.map(&:name)))
+  end
+
   class UnmodifiableValidator < ActiveModel::Validator
     def validate(record)
       significant_changed_attributes(record).each do |attribute|

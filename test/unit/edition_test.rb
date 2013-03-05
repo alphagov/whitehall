@@ -723,4 +723,33 @@ class EditionTest < ActiveSupport::TestCase
     refute edition.translated_locales.include?(:fr)
     assert edition.translated_locales.include?(:es)
   end
+
+  test 'without_editions_of_type allows us to exclude certain subclasses from a result set' do
+    edition_1 = create(:case_study)
+    edition_2 = create(:fatality_notice)
+
+    no_case_studies = Edition.without_editions_of_type(CaseStudy)
+    assert no_case_studies.include?(edition_2)
+    refute no_case_studies.include?(edition_1)
+  end
+
+  test 'without_editions_of_type takes multiple classes to exclude' do
+    edition_1 = create(:case_study)
+    edition_2 = create(:fatality_notice)
+    edition_3 = create(:detailed_guide)
+
+    no_fatalities_or_guides = Edition.without_editions_of_type(FatalityNotice, DetailedGuide)
+    assert no_fatalities_or_guides.include?(edition_1)
+    refute no_fatalities_or_guides.include?(edition_2)
+    refute no_fatalities_or_guides.include?(edition_3)
+  end
+
+  test 'without_editions_of_type doesn\'t exclude subclasses of the supplied classes' do
+    edition_1 = create(:edition, type: 'Announcement')
+    edition_2 = create(:fatality_notice)
+
+    no_editions = Edition.without_editions_of_type(Announcement)
+    assert no_editions.include?(edition_2)
+    refute no_editions.include?(edition_1)
+  end
 end
