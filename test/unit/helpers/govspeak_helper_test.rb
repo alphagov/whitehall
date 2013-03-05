@@ -223,6 +223,13 @@ class GovspeakHelperTest < ActionView::TestCase
     assert_match /remover return value/, govspeak_edition_to_html(edition)
   end
 
+  test "should add class to last paragraph of blockquote" do
+    input = "\n> firstline\n>\n> lastline\n"
+    output = '<div class="govspeak"> <blockquote> <p>firstline</p> <p class="last-child">lastline</p> </blockquote></div>'
+    assert_equal output, govspeak_to_html(input).gsub(/\s+/, ' ')
+  end
+
+
   private
 
   def internal_preview_host
