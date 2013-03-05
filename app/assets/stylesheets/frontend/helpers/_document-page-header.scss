@@ -76,6 +76,9 @@
       dd {
         float: left;
         width: 60%;
+        &.document-worldwide-organisations {
+          width: 55%;
+        }
         @include right-to-left {
           float: right;
         }
