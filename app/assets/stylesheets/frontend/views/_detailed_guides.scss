@@ -366,8 +366,18 @@
         float: left;
       }
     }
-    .document_page .block-3 {
-      width: 75%;
+    .document_page {
+      .page-header {
+        float: none;
+        width: auto;
+      }
+      .block-3 {
+        width: 75%;
+      }
+      .block-4 {
+        margin-left: 0;
+        width: 100%;
+      }
     }
   }
 }
