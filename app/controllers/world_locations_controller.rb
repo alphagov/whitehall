@@ -2,12 +2,18 @@ class WorldLocationsController < PublicFacingController
   before_filter :load_world_location, only: :show
 
   def index
-    @world_locations = WorldLocation.all_by_type
+    respond_to do |format|
+      format.json { redirect_to api_world_locations_path(format: :json) }
+      format.any { @world_locations = WorldLocation.all_by_type }
+    end
   end
 
   def show
     recently_updated_source = @world_location.published_editions.with_translations(I18n.locale).in_reverse_chronological_order
     respond_to do |format|
+      format.json do
+        redirect_to api_world_location_path(@world_location, format: :json)
+      end
       format.atom do
         @documents = EditionCollectionPresenter.new(recently_updated_source.limit(10))
       end

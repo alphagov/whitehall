@@ -22,6 +22,11 @@ class WorldLocationsControllerTest < ActionController::TestCase
     end
   end
 
+  test "index when asked for json should redirect to the api controller" do
+    get :index, format: :json
+    assert_redirected_to api_world_locations_path(format: :json)
+  end
+
   view_test "should display world location title and mission-statement" do
     world_location = create(:world_location,
       title: "UK in country-name",
@@ -45,6 +50,12 @@ class WorldLocationsControllerTest < ActionController::TestCase
     assert_raises(ActiveRecord::RecordNotFound) do
       get :show, id: world_location, locale: 'fr'
     end
+  end
+
+  test "show when asked for json should redirect to the api controller" do
+    world_location = create(:world_location)
+    get :show, id: world_location, format: :json
+    assert_redirected_to api_world_location_path(world_location, format: :json)
   end
 
   view_test 'show has atom feed autodiscovery link' do
