@@ -93,6 +93,11 @@ echo "Anonymising email addresses and comments in fact checks..."
 run_mysql_command "UPDATE fact_check_requests SET email_address = concat('fact-email-', id, '@example.com'), comments = '', instructions = ''"
 echo "Done"
 
-echo "Anonymising attachment data for latest access limited drafts.."
-
+echo "Anonymising attachment data for latest access limited drafts..."
+run_mysql_command "UPDATE attachments SET title='${lorem_ipsum_line}' WHERE id IN (SELECT attachment_id FROM edition_attachments WHERE edition_id IN (SELECT document_id FROM editions WHERE state IN ('draft', 'scheduled') AND access_limited = 1 AND NOT EXISTS (
+  SELECT 1
+    FROM editions e2
+   WHERE e2.document_id = editions.document_id
+     AND e2.id > editions.id
+     AND e2.state <> 'deleted')))" 1> /dev/null
 echo "Done"
