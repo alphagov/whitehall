@@ -33,3 +33,11 @@ Then /^see the worldwide organisation "([^"]+)" listed as a producing org on the
     assert page.has_content?(world_org.title)
   end
 end
+
+Then /^see the world location news article "([^"]+)" appear on the worldwide priority "([^"]+)"$/ do |world_news_title, world_priority_title|
+  visit worldwide_priority_path(WorldwidePriority.find_by_title(world_priority_title))
+  world_news_article = WorldLocationNewsArticle.find_by_title(world_news_title)
+  assert record_css_selector(world_news_article) do
+    assert page.has_content?(world_news_article.title)
+  end
+end
