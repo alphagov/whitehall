@@ -101,3 +101,12 @@ run_mysql_command "UPDATE attachments SET title='${lorem_ipsum_line}' WHERE id I
      AND e2.id > editions.id
      AND e2.state <> 'deleted')))" 1> /dev/null
 echo "Done"
+
+echo "Anonymising file names for attachments on latest access limited drafts..."
+run_mysql_command "UPDATE attachment_data SET carrierwave_file='redacted.pdf' WHERE id IN (SELECT attachment_data_id FROM attachments WHERE attachments.id IN (SELECT attachment_id FROM edition_attachments WHERE edition_id IN (SELECT document_id FROM editions WHERE state IN ('draft', 'scheduled') AND access_limited = 1 AND NOT EXISTS (
+  SELECT 1
+    FROM editions e2
+   WHERE e2.document_id = editions.document_id
+     AND e2.id > editions.id
+     AND e2.state <> 'deleted'))))" 1> /dev/null
+echo "Done"
