@@ -151,12 +151,6 @@ module Whitehall::DocumentFilter
       {search_format_types: publication_types}
     end
 
-    def search_format_types_from_model_names(model_names)
-      model_names.map do |model_name|
-        Object.const_get(model_name).search_format_type
-      end
-    end
-
     def documents
       if @results.empty? || @results['results'].empty?
         @documents ||= Kaminari.paginate_array([]).page(@page).per(@per_page)
