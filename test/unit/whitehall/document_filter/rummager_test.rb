@@ -7,8 +7,15 @@ module Whitehall::DocumentFilter
       Whitehall.government_search_client.stubs(:advanced_search).returns []
     end
 
-    test 'announcements_search looks for all Announcements' do
+    test 'announcements_search looks for NewsArticles, FatalityNotices and Speeches by default' do
       r = Rummager.new({})
+      expected_search_formats = [NewsArticle.search_format_type, Speech.search_format_type, FatalityNotice.search_format_type]
+      Whitehall.government_search_client.expects(:advanced_search).with(has_entry(search_format_types: expected_search_formats))
+      r.announcements_search
+    end
+
+    test 'announcements_search looks for all Announcements if we need to include world location news' do
+      r = Rummager.new({include_world_location_news: '1'})
       expected_search_formats = [Announcement.search_format_type]
       Whitehall.government_search_client.expects(:advanced_search).with(has_entry(search_format_types: expected_search_formats))
       r.announcements_search

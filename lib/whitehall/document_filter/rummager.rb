@@ -133,8 +133,10 @@ module Whitehall::DocumentFilter
       announcement_types =
         if selected_announcement_type_option
           selected_announcement_type_option.search_format_types
-        else
+        elsif include_world_location_news
           [Announcement.search_format_type]
+        else
+          Announcement.concrete_descendant_search_format_types - [WorldLocationNewsArticle.search_format_type]
         end
       {search_format_types: announcement_types}
     end
