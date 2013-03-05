@@ -160,12 +160,6 @@ ar:
       transparency:
         one: بيانات تتعلق بالشفافية
         other: بيانات تتعلق بالشفافية
-      treaty:
-        one: اتفاقية
-        other: اتفاقيات
-      worldwide_priority:
-        one: أولوية دولية
-        other: أولويات دولية
       written_statement:
         one: تصريح خطي
         other: تصريحات خطية

@@ -72,7 +72,6 @@ class PublicationType
 
   # Less common
   TransparencyData       = create(id: 10, key: "transparency", singular_name: "Transparency data", plural_name: "Transparency data", prevalence: :less_common)
-  Treaty                 = create(id: 11, key: "treaty", singular_name: "Treaty", plural_name: "Treaties", prevalence: :less_common)
   FoiRelease             = create(id: 12, key: "foi_release", singular_name: "FOI release", plural_name: "FOI releases", prevalence: :less_common)
   IndependentReport      = create(id: 14, key: "independent_report", singular_name: "Independent report", plural_name: "Independent reports", prevalence: :less_common)
 
