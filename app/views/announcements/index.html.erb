@@ -13,20 +13,21 @@
 <div class="block-2">
   <div class="inner-block">
     <% if Locale.current.english? %>
-      <%= render partial: "documents/filter_form", locals: {
-                                                  document_type: :announcement,
-                                                  filter_by_keyword: true,
-                                                  filter_by_date: true,
-                                                  filter_by_announcement_type: true,
-                                                  filter_by_locations: true,
-                                                  filter_by_department: true,
-                                                  filter_by_topic: true,
-                                                  filter_by_relevant_to_local_government: true
-                                                } %>
+      <%= render partial: "documents/filter_form",
+                 locals: {
+                   document_type: :announcement,
+                   filters: [
+                     :keyword, :date, :announcement_type,
+                     :locations, :department, :topic,
+                     :relevant_to_local_government
+                   ]
+                 } %>
     <% else %>
-      <%= render partial: "documents/filter_form", locals: {
-        document_type: :announcement, filter_by_locations: true
-      } %>
+      <%= render partial: "documents/filter_form",
+                 locals: {
+                   document_type: :announcement,
+                   filters: [ :locations ]
+                 } %>
     <% end %>
   </div>
 </div>
