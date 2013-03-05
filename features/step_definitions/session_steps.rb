@@ -3,7 +3,7 @@ Given /^I am (?:a|an) (writer|editor|admin|GDS editor|importer)(?: called "([^"]
   when "writer"
     create(:policy_writer, name: (name || "Wally Writer"))
   when "editor"
-    create(:departmental_editor, name: (name || "Eddie Editor"))
+    create(:departmental_editor, name: (name || "Eddie Depteditor"))
   when "admin"
     create(:user)
   when "GDS editor"
@@ -20,7 +20,7 @@ Given /^I am (?:an?) (writer|editor) in the organisation "([^"]*)"$/ do |role, o
   when "writer"
     create(:policy_writer, name: "Wally Writer", organisation: organisation)
   when "editor"
-    create(:departmental_editor, name: "Eddie Editor", organisation: organisation)
+    create(:departmental_editor, name: "Eddie Depteditor", organisation: organisation)
   end
   login_as @user
 end
