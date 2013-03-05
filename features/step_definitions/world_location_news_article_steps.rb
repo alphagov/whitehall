@@ -25,3 +25,11 @@ end
 Then /^the world location news article "([^"]*)" should have been created$/ do |title|
   WorldLocationNewsArticle.find_by_title(title).should_not be_nil
 end
+
+Then /^see the worldwide organisation "([^"]+)" listed as a producing org on the world location news story "([^"]+)"$/ do |world_org_name, world_news_title|
+  visit world_location_news_article_path(WorldLocationNewsArticle.find_by_title(world_news_title))
+  world_org = WorldwideOrganisation.find_by_name(world_org_name)
+  assert record_css_selector(world_org) do
+    assert page.has_content?(world_org.title)
+  end
+end
