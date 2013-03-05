@@ -90,7 +90,7 @@ run_mysql_command "UPDATE documents SET slug=concat('${lorem_ipsum_slug}-', id) 
 echo "Done"
 
 echo "Anonymising email addresses and comments in fact checks..."
-run_mysql_command "UPDATE fact_check_requests SET email_address = concat('fact-email-', id, '@example.com'), comments = '', instructions = ''"
+run_mysql_command "UPDATE fact_check_requests SET email_address = concat('fact-email-', id, '@example.com'), comments = '', instructions = '', \`key\` = concat('redacted-', id)"
 echo "Done"
 
 echo "Anonymising attachment data for latest access limited drafts..."
