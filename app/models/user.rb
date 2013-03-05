@@ -3,6 +3,9 @@ class User < ActiveRecord::Base
 
   belongs_to :organisation
 
+  has_many :user_world_locations
+  has_many :world_locations, through: :user_world_locations
+
   serialize :permissions, Array
   attr_protected :permissions
 

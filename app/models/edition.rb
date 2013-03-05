@@ -22,6 +22,9 @@ class Edition < ActiveRecord::Base
   has_many :edition_authors, dependent: :destroy
   has_many :authors, through: :edition_authors, source: :user
 
+  has_many :edition_world_locations, foreign_key: :edition_id, dependent: :destroy
+  has_many :world_locations, through: :edition_world_locations
+
   validates_with SafeHtmlValidator
   validates :title, :creator, presence: true
   validates :body, presence: true, if: :body_required?
@@ -395,6 +398,10 @@ class Edition < ActiveRecord::Base
 
     def by_type(type)
       where(type: type)
+    end
+
+    def in_world_location(world_location)
+      joins(:world_locations).where('world_locations.id' => world_location)
     end
 
     def related_to(edition)

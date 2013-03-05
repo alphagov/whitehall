@@ -856,6 +856,13 @@ ActiveRecord::Schema.define(:version => 20130228155806) do
   add_index "unpublishings", ["edition_id"], :name => "index_unpublishings_on_edition_id"
   add_index "unpublishings", ["unpublishing_reason_id"], :name => "index_unpublishings_on_unpublishing_reason_id"
 
+  create_table "user_world_locations", :force => true do |t|
+    t.integer "user_id"
+    t.integer "world_location_id"
+  end
+
+  add_index "user_world_locations", ["user_id", "world_location_id"], :name => "index_user_world_locations_on_user_id_and_world_location_id", :unique => true
+
   create_table "users", :force => true do |t|
     t.string   "name"
     t.datetime "created_at"

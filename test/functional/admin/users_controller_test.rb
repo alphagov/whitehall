@@ -106,10 +106,24 @@ class Admin::UsersControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
+  test "update does not allow world locations changes by just anyone" do
+    login_as create(:user, name: "Another user")
+    world_location = create(:world_location)
+    put :update, id: @user.id, user: { world_location_ids: [world_location.id] }
+    assert_response :forbidden
+  end
+
   test "update does allow organisation changes by gds editors" do
     login_as create(:gds_editor)
     organisation = create(:organisation, name: "new org")
     put :update, id: @user.id, user: { organisation_id: organisation.id }
     assert_equal organisation, @user.reload.organisation
+  end
+
+  test "update does allow world locations changes by gds editors" do
+    login_as create(:gds_editor)
+    world_location = create(:world_location)
+    put :update, id: @user.id, user: { world_location_ids: [world_location.id] }
+    assert_equal world_location, @user.reload.world_locations.first
   end
 end
