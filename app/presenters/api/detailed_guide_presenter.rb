@@ -69,11 +69,26 @@ class Api::DetailedGuidePresenter < Draper::Base
         body: h.bare_govspeak_edition_to_html(model)
       },
       format: model.format_name,
-      related: related_json
+      related: related_json,
+      tags: organisation_tags(model)
     }
   end
 
   private
+
+  def organisation_tags(model)
+    model.organisations.collect do |org|
+      {
+        title: org.name,
+        id: h.organisation_url(org, format: :json),
+        web_url: h.organisation_url(org),
+        details: {
+          type: "organisation",
+          short_description: org.acronym
+        }
+      }
+    end
+  end
 
   def detailed_guide_url(guide)
     h.api_detailed_guide_url guide.document, host: h.public_host

@@ -6,6 +6,7 @@ class Api::DetailedGuidePresenterTest < PresenterTestCase
     @guide = stub_edition(:detailed_guide, organisations: [@organisation])
     @guide.stubs(:images).returns([])
     @guide.stubs(:published_related_detailed_guides).returns([])
+    @guide.stubs(:organisations).returns([@organisation])
     @presenter = Api::DetailedGuidePresenter.decorate(@guide)
     stubs_helper_method(:params).returns(format: :json)
   end
@@ -49,6 +50,20 @@ class Api::DetailedGuidePresenterTest < PresenterTestCase
       web_url: detailed_guide_url(related_guide.document, host: 'govuk.example.com')
     }
     assert_equal [guide_json], @presenter.as_json[:related]
+  end
+
+  test "json includes organisations as tags" do
+    Whitehall.stubs(:public_host_for).returns('govuk.example.com')
+    guide_json = {
+      title: @organisation.name,
+      id: organisation_url(@organisation, format: :json),
+      web_url: organisation_url(@organisation),
+      details: {
+        type: 'organisation',
+        short_description: @organisation.acronym
+      }
+    }
+    assert_equal [guide_json], @presenter.as_json[:tags]
   end
 
   test "json includes format name" do
