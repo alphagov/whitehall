@@ -53,6 +53,14 @@ class Admin::EditionsController
       assert_equal [policy], EditionFilter.new(Edition, @current_user, type: 'policy', state: 'draft', organisation: organisation.to_param).editions
     end
 
+    test "should filter by edition type, state and world location" do
+      location = create(:world_location)
+      policy = create(:draft_policy, world_locations: [location])
+      another_edition = create(:published_policy, world_locations: [location])
+
+      assert_equal [policy], EditionFilter.new(Edition, @current_user, type: 'policy', state: 'draft', world_locations: [location.id]).editions
+    end
+
     test "should filter by title" do
       detailed = create(:policy, title: "Test mcTest")
       policy = create(:policy, title: "A policy")

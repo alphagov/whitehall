@@ -22,7 +22,7 @@ module Admin::EditionsHelper
   end
 
   def link_to_filter(link, options, html_options={})
-    content_tag(:li, link_to(link, url_for(params.slice('state', 'type', 'author', 'organisation', 'title').merge(options)), html_options), class: filter_class(options))
+    content_tag(:li, link_to(link, url_for(params.slice('state', 'type', 'author', 'organisation', 'title', 'world_location_ids').merge(options)), html_options), class: filter_class(options))
   end
 
   def filter_class(options)
