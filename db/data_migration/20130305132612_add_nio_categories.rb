@@ -15,8 +15,12 @@ categories = [
 
 categories.each do |category_data|
   category_data[:slug] = category_data[:title].parameterize
-  category = MainstreamCategory.create(category_data)
-  if category
-    puts "Mainstream category '#{category.title}' created"
+  unless category = MainstreamCategory.where(slug: category_data[:slug]).first
+    category = MainstreamCategory.create(category_data)
+    if category
+      puts "Mainstream category '#{category.title}' created"
+    end
+  else
+    puts "Mainstream category '#{category.title}' already exists"
   end
 end
