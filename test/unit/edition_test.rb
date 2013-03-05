@@ -435,10 +435,8 @@ class EditionTest < ActiveSupport::TestCase
 
   test "should add edition to search index on publishing" do
     policy = create(:submitted_policy)
-    policy.stubs(:search_index).returns('id' => 123, 'title' => 'policy-title')
-    policy.document.editions.stubs(:published).returns([policy])
 
-    Rummageable.expects(:index).with(policy.search_index, Whitehall.government_search_index_path)
+    Rummageable.expects(:index).with(has_entry("id", policy.id), Whitehall.government_search_index_path)
 
     policy.publish_as(create(:departmental_editor))
   end
