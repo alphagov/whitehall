@@ -23,6 +23,24 @@ module PersonHelper
     page.find("fieldset.image img")[:src]
   end
 
+  def visit_people_admin
+    visit admin_root_path
+    click_link "People"
+  end
+
+  def add_translation_to_person(person, translation)
+    translation = translation.stringify_keys
+    visit admin_people_path
+    within record_css_selector(person) do
+      click_link "Manage translations"
+    end
+
+    select translation["locale"], from: "Locale"
+    click_on "Create translation"
+    fill_in "Biography", with: translation["biography"]
+    click_on "Save"
+  end
+
   private
 
   def split_person_name(name)
