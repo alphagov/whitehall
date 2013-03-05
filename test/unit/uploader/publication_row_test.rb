@@ -71,12 +71,12 @@ module Whitehall::Uploader
       assert_equal "Some body goes here", row.body
     end
 
-    test "takes legacy url from the old_url column" do
+    test "takes legacy urls from the old_url column" do
       row = new_publication_row({"old_url" => "http://example.com/old-url"})
-      assert_equal "http://example.com/old-url", row.legacy_url
+      assert_equal ["http://example.com/old-url"], row.legacy_urls
     end
 
-    test "finds document series by slug in doc_series column" do
+    test "finds document series by slug in document_series_n column" do
       document_series = create(:document_series)
       row = new_publication_row({"document_series_1" => document_series.slug})
       assert_equal [document_series], row.document_series
@@ -123,7 +123,7 @@ module Whitehall::Uploader
       assert_equal [policy_1, policy_2, policy_3, policy_4], row.related_policies
     end
 
-    test "finds organisation by name in org column" do
+    test "finds organisation by name in organisation column" do
       organisation = create(:organisation)
       row = new_publication_row({"organisation" => organisation.name})
       assert_equal [organisation], row.organisations

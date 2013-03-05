@@ -43,8 +43,8 @@ module Whitehall::Uploader
       body.blank? ? generated_attachment_body : body
     end
 
-    def legacy_url
-      row["old_url"]
+    def legacy_urls
+      [row["old_url"]]
     end
 
     def organisations

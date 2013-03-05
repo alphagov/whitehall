@@ -1,3 +1,7 @@
+Given /^a topic called "([^"]*)" exists$/ do |name|
+  create_topic(name: name)
+end
+
 Given /^a topic called "([^"]*)" with description "([^"]*)"$/ do |name, description|
   create_topic(name: name, description: description)
 end

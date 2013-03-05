@@ -91,9 +91,9 @@ module Whitehall::Uploader
       assert_equal 'w', row.summary
     end
 
-    test "takes legacy url from the old_url column" do
+    test "takes legacys url from the old_url column" do
       row = consultation_row("old_url" => "http://example.com/old-url")
-      assert_equal "http://example.com/old-url", row.legacy_url
+      assert_equal ["http://example.com/old-url"], row.legacy_urls
     end
 
     test "takes body from the 'body' column, converting relative links to absolute" do
