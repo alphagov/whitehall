@@ -2,17 +2,20 @@ class WorldwideOrganisationsController < PublicFacingController
   include CacheControlHelper
   before_filter :load_worldwide_organisation, only: :show
 
-  respond_to :html
+  respond_to :html, :json
 
   def show
-    expires_in 5.minutes, public: true
-    @world_locations = @worldwide_organisation.world_locations
-    @main_office = main_office
-    @other_offices = other_offices
-    @primary_role = primary_role
-    @other_roles = ([secondary_role] + office_roles).compact
-
-    respond_with @worldwide_organisation
+    respond_to do |format|
+      format.json { redirect_to api_worldwide_organisation_path(@worldwide_organisation, format: :json) }
+      format.html do
+        expires_in 5.minutes, public: true
+        @world_locations = @worldwide_organisation.world_locations
+        @main_office = main_office
+        @other_offices = other_offices
+        @primary_role = primary_role
+        @other_roles = ([secondary_role] + office_roles).compact
+      end
+    end
   end
 
   private

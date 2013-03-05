@@ -25,18 +25,18 @@ class Api::DetailedGuidesControllerTest < ActionController::TestCase
     Api::DetailedGuidePresenter.stubs(:new).with(detailed_guide).returns(presenter)
 
     get :show, id: detailed_guide.slug, format: 'json'
-    assert_equal({'status' => 'ok'}, json_response['_response_info'])
+    assert_equal 'ok', json_response['_response_info']['status']
   end
 
   view_test "show responds with 404 if published guide not found" do
     DetailedGuide.stubs(:published_as).returns(nil)
     get :show, id: 'unknown', format: 'json'
     assert_response :not_found
-    assert_equal({'status' => 'not found'}, json_response['_response_info'])
+    assert_equal 'not found', json_response['_response_info']['status']
   end
 
   view_test "index paginates published detailed guides" do
-    presenter = Api::DetailedGuidePresenter::PagePresenter.new([])
+    presenter = Api::PagePresenter.new(Kaminari.paginate_array([]).page(1).per(1))
     presenter.stubs(:as_json).returns(paged: :representation)
     Api::DetailedGuidePresenter.stubs(:paginate).with(DetailedGuide.published.alphabetical).returns(presenter)
 
@@ -46,13 +46,13 @@ class Api::DetailedGuidesControllerTest < ActionController::TestCase
   end
 
   view_test "index includes _response_info in response" do
-    presenter = Api::DetailedGuidePresenter::PagePresenter.new([])
+    presenter = Api::PagePresenter.new(Kaminari.paginate_array([]).page(1).per(1))
     presenter.stubs(:as_json).returns(paged: :representation)
     Api::DetailedGuidePresenter.stubs(:paginate).with(DetailedGuide.published.alphabetical).returns(presenter)
 
     get :index, format: 'json'
 
-    assert_equal({'status' => 'ok'}, json_response['_response_info'])
+    assert_equal 'ok', json_response['_response_info']['status']
   end
 
   view_test "tags responds with JSON representation of found categories" do
@@ -72,14 +72,14 @@ class Api::DetailedGuidesControllerTest < ActionController::TestCase
     presenter = Api::MainstreamCategoryTagPresenter.new(categories)
 
     get :tags, { parent_id: 'test1/test2', format: 'json' }
-    assert_equal({'status' => 'ok'}, json_response['_response_info'])
+    assert_equal 'ok', json_response['_response_info']['status']
   end
 
   view_test "tags responds with 404 if there aren't any valid children" do
     MainstreamCategory.stubs(:with_published_content).returns(stub('scope', where: []))
     get :tags, { parent_id: 'test1/test2', format: 'json' }
     assert_response :not_found
-    assert_equal({'status' => 'not found'}, json_response['_response_info'])
+    assert_equal 'not found', json_response['_response_info']['status']
   end
 
   private

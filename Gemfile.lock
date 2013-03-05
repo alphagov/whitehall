@@ -408,6 +408,7 @@ DEPENDENCIES
   kaminari
   kramdown (~> 0.13.8)
   launchy (~> 2.0.5)
+  link_header
   lograge
   mini_magick
   minitest (= 2.5.1)
