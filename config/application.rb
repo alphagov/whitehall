@@ -38,7 +38,7 @@ module Whitehall
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
 
     config.i18n.default_locale = :en
-    config.i18n.available_locales = [:en, :ar, :az, :be, :bg, :bn, :cs, :de, :dr, :el, :es, :fa, :fr, :he, :hi, :hu, :hy, :id, :it, :ja, :ka, :ko, :lt, :lv, :ms, :pl, :ps, :pt, :ro, :ru, :si, :sk, :so, :sq, :sr, :sw, :ta, :th, :tk, :tr, :uk, :ur, :uz, :vi, :zh]
+    config.i18n.available_locales = [:en, :ar, :az, :be, :bg, :bn, :cs, :cy, :de, :dr, :el, :es, :fa, :fr, :he, :hi, :hu, :hy, :id, :it, :ja, :ka, :ko, :lt, :lv, :ms, :pl, :ps, :pt, :ro, :ru, :si, :sk, :so, :sq, :sr, :sw, :ta, :th, :tk, :tr, :uk, :ur, :uz, :vi, :zh]
 
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"
