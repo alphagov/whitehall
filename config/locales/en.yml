@@ -198,9 +198,6 @@ en:
       transparency:
         one: Transparency data
         other: Transparency data
-      treaty:
-        one: Treaty
-        other: Treaties
       written_statement:
         one: Written statement to parliament
         other: Written statements to parliament

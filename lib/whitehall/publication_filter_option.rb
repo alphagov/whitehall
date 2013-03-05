@@ -26,7 +26,6 @@ module Whitehall
     ResearchAndAnalysis = create(id: 7, label: "Research and analysis", search_format_types: PublicationType::ResearchAndAnalysis.search_format_types, publication_types: [PublicationType::ResearchAndAnalysis])
     CorporateReport = create(id: 8, label: "Corporate reports", search_format_types: PublicationType::CorporateReport.search_format_types, publication_types: [PublicationType::CorporateReport])
     TransparencyData = create(id: 9, label: "Transparency data", search_format_types: PublicationType::TransparencyData.search_format_types, publication_types: [PublicationType::TransparencyData])
-    Treaty = create(id: 10, label: "Treaties", search_format_types: PublicationType::Treaty.search_format_types, publication_types: [PublicationType::Treaty])
     FoiRelease = create(id: 11, label: "FOI releases", search_format_types: PublicationType::FoiRelease.search_format_types, publication_types: [PublicationType::FoiRelease])
     IndependentReport = create(id: 12, label: "Independent reports", search_format_types: PublicationType::IndependentReport.search_format_types, publication_types: [PublicationType::IndependentReport])
     Correspondence = create(id: 13, label: "Correspondence", search_format_types: PublicationType::Correspondence.search_format_types, publication_types: [PublicationType::Correspondence])
