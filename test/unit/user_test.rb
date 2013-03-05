@@ -81,4 +81,12 @@ class UserTest < ActiveSupport::TestCase
     user = build(:user, organisation: build(:organisation, handles_fatalities: true))
     assert user.can_handle_fatalities?
   end
+
+  test 'can upload executables if it has the required permissions' do
+    user = build(:user)
+    refute user.can_upload_executable_attachments?
+
+    user.permissions << User::Permissions::UPLOAD_EXECUTABLE_ATTACHMENTS
+    assert user.can_upload_executable_attachments?
+  end
 end

@@ -1,4 +1,5 @@
 require 'test_helper'
+require 'validators/attachment_upload_validator'
 
 class AttachmentDataTest < ActiveSupport::TestCase
   include ActionDispatch::TestProcess
@@ -169,5 +170,137 @@ class AttachmentDataTest < ActiveSupport::TestCase
     to_be_replaced.replace_with!(replacer)
     assert_equal replacer, to_be_replaced.replaced_by
     assert_equal replacer, replaced.reload.replaced_by
+  end
+end
+
+class AttachmentDataZipTest < ActiveSupport::TestCase
+  include ActionDispatch::TestProcess
+
+  test "is valid with a zip file" do
+    attachment = build(:attachment_data, file: fixture_file_upload('sample_attachment.zip'))
+
+    assert attachment.save
+    assert attachment.file.present?
+  end
+
+  test "is not valid with zip file containing non-whitelisted file types" do
+    attachment = build(:attachment_data, file: fixture_file_upload('sample_attachment_containing_exe.zip'))
+
+    refute attachment.valid?
+    assert_equal ["contains illegal file types or is not a valid ArcGIS file"], attachment.errors[:file]
+  end
+
+  test "is valid with a zip containing an exe if skip_file_content_examination is true" do
+    attachment = build(:attachment_data, skip_file_content_examination: true, file: fixture_file_upload('sample_attachment_containing_exe.zip'))
+
+    assert attachment.valid?, attachment.errors.full_messages.to_s
+  end
+
+  test "is not valid with zip file containing a zip file" do
+    attachment = build(:attachment_data, file: fixture_file_upload('sample_attachment_containing_zip.zip'))
+
+    refute attachment.valid?
+    assert_equal ["contains illegal file types or is not a valid ArcGIS file"], attachment.errors[:file]
+  end
+
+  test "is not valid with zip file containing files with non-UTF-8 filenames" do
+    AttachmentUploadValidator::ZipFile.any_instance.stubs(:filenames).raises(AttachmentUploadValidator::ZipFile::NonUTF8ContentsError)
+    attachment = build(:attachment_data, file: fixture_file_upload('sample_attachment.zip'))
+
+    refute attachment.valid?
+    assert_equal ["contains filenames that aren't encoded in UTF-8"], attachment.errors[:file]
+  end
+end
+
+class AttachmentDataArcGISTest < ActiveSupport::TestCase
+  include ActionDispatch::TestProcess
+
+  test "is valid with a zip containing a minimal ArcGIS file" do
+    AttachmentUploadValidator::ZipFile.any_instance.stubs(:filenames).returns(required_arcgis_file_list)
+    attachment = build(:attachment_data, file: fixture_file_upload('sample_attachment.zip'))
+
+    assert attachment.save
+    assert attachment.file.present?
+  end
+
+  test "is valid with a comprehensive ArcGIS file" do
+    AttachmentUploadValidator::ZipFile.any_instance.stubs(:filenames).returns(comprehensive_arcgis_file_list)
+    attachment = build(:attachment_data, file: fixture_file_upload('sample_attachment.zip'))
+
+    assert attachment.valid?
+  end
+
+  test "is not valid with an ArcGIS file that is missing required files" do
+    AttachmentUploadValidator::ZipFile.any_instance.stubs(:filenames).returns(broken_arcgis_file_list)
+    attachment = build(:attachment_data, file: fixture_file_upload('sample_attachment.zip'))
+
+    refute attachment.valid?
+    assert_equal ["contains illegal file types or is not a valid ArcGIS file"], attachment.errors[:file]
+  end
+
+  test "is not valid with an ArcGIS file containing files that are not allowed" do
+    AttachmentUploadValidator::ZipFile.any_instance.stubs(:filenames).returns(arcgis_with_extras)
+    attachment = build(:attachment_data, file: fixture_file_upload('sample_attachment.zip'))
+
+    refute attachment.valid?
+    assert_equal ["contains illegal file types or is not a valid ArcGIS file"], attachment.errors[:file]
+  end
+
+  test "is valid with an ArcGIS file that has multiple sets of shapes" do
+    AttachmentUploadValidator::ZipFile.any_instance.stubs(:filenames).returns(multiple_shape_arcgis_file_list)
+    attachment = build(:attachment_data, file: fixture_file_upload('sample_attachment.zip'))
+
+    assert attachment.valid?
+  end
+
+  test "is not valid with an ArcGIS file that has multiple sets of shapes where one set of shapes is incomplete" do
+    AttachmentUploadValidator::ZipFile.any_instance.stubs(:filenames).returns(complete_and_broken_shape_arcgis_file_list)
+    attachment = build(:attachment_data, file: fixture_file_upload('sample_attachment.zip'))
+
+    refute attachment.valid?
+    assert_equal ["contains illegal file types or is not a valid ArcGIS file"], attachment.errors[:file]
+  end
+
+  def required_arcgis_file_list
+    [ 'london.shp',
+      'london.shx',
+      'london.dbf' ]
+  end
+
+  def optional_argis_file_list
+    [ 'london.prj',
+      'london.sbn',
+      'london.sbx',
+      'london.fbn',
+      'london.fbx',
+      'london.ain',
+      'london.aih',
+      'london.ixs',
+      'london.mxs',
+      'london.atx',
+      'london.shp.xml',
+      'london.cpg' ]
+  end
+
+  def comprehensive_arcgis_file_list
+    required_arcgis_file_list + optional_argis_file_list
+  end
+
+  def broken_arcgis_file_list
+    required_arcgis_file_list.shuffle[1..-1]
+  end
+
+  def arcgis_with_extras
+    comprehensive_arcgis_file_list + ['readme.txt', 'london.jpg', 'map-printout.pdf']
+  end
+
+  def multiple_shape_arcgis_file_list
+    comprehensive_arcgis_file_list +
+      comprehensive_arcgis_file_list.map {|f| f.gsub('london', 'paris')}
+  end
+
+  def complete_and_broken_shape_arcgis_file_list
+    broken_arcgis_file_list +
+      comprehensive_arcgis_file_list.map {|f| f.gsub('london', 'paris')}
   end
 end

@@ -25,4 +25,10 @@ module Admin::AttachmentActionParamHandler
       end
     end
   end
+
+  def self.set_file_content_examination_param!(join_params, value)
+    if join_params && join_params[:attachment_attributes] && join_params[:attachment_attributes][:attachment_data_attributes] && !join_params[:attachment_attributes][:attachment_data_attributes].values.all?(&:blank?)
+      join_params[:attachment_attributes][:attachment_data_attributes][:skip_file_content_examination] = value
+    end
+  end
 end

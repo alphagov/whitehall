@@ -110,6 +110,72 @@ module AdminEditionAttachableControllerTestHelpers
         post :create, edition_base_class_name => attributes
       end
 
+      test "creating an edition with non-whitelisted file does not create the edition or attach the file" do
+        zipped_exe = fixture_file_upload('sample_attachment_containing_exe.zip')
+        attributes = controller_attributes_for(edition_type)
+        attributes[attachment_join_attributes] = {
+          "0" => {
+            attachment_attributes: attributes_for(:attachment).merge(attachment_data_attributes: {
+              file: zipped_exe
+            })
+          }
+        }
+        assert_no_difference "#{edition_class}.count" do
+          post :create, edition_base_class_name => attributes
+        end
+        assert_template :new
+      end
+
+      test "creating an edition with non-whitelisted file as a tech lead creates the edition and attaches the file" do
+        login_as :gds_tech_lead
+        zipped_exe = fixture_file_upload('sample_attachment_containing_exe.zip')
+        attributes = controller_attributes_for(edition_type)
+        attributes[attachment_join_attributes] = {
+          "0" => {
+            attachment_attributes: attributes_for(:attachment, title: "attachment-title").merge(attachment_data_attributes: {
+              file: zipped_exe
+            })
+          }
+        }
+
+        assert_difference "#{edition_class}.count", 1 do
+          post :create, edition_base_class_name => attributes
+        end
+        edition = edition_class.last
+        assert_equal 1, edition.attachments.length
+        attachment = edition.attachments.first
+        assert_equal "attachment-title", attachment.title
+        assert_equal "sample_attachment_containing_exe.zip", attachment.attachment_data.carrierwave_file
+        assert_equal zipped_exe.size, attachment.file_size
+      end
+
+      test "creating an edition as a tech lead with blank attachment still scrubs blank attachments" do
+                login_as :gds_tech_lead
+        zipped_exe = fixture_file_upload('sample_attachment_containing_exe.zip')
+        attributes = controller_attributes_for(edition_type)
+        attributes[attachment_join_attributes] = {
+          "0" => {
+            attachment_attributes: attributes_for(:attachment, title: "attachment-title").merge(attachment_data_attributes: {
+             file: zipped_exe
+            })
+          },
+          "1" => {
+            attachment_attributes: { title: "", accessible: "0", attachment_data_attributes: {file_cache: ""}}
+          }
+        }
+
+        assert_difference "#{edition_class}.count", 1 do
+          post :create, edition_base_class_name => attributes
+        end
+        edition = edition_class.last
+        assert_equal 1, edition.attachments.length
+        attachment = edition.attachments.first
+        assert_equal "attachment-title", attachment.title
+        assert_equal "sample_attachment_containing_exe.zip", attachment.attachment_data.carrierwave_file
+        assert_equal zipped_exe.size, attachment.file_size
+      end
+
+
       view_test "creating an edition with invalid data should still show attachment fields" do
         post :create, edition_base_class_name => make_invalid(controller_attributes_for(edition_type))
 
@@ -278,6 +344,44 @@ module AdminEditionAttachableControllerTestHelpers
         assert_equal "sample-from-excel.csv", attachment_2.attachment_data.carrierwave_file
         assert_equal "text/csv", attachment_2.content_type
         assert_equal csv_file.size, attachment_2.file_size
+      end
+
+      test "updating an edition with a non-whitelisted file does not update the edition" do
+        zipped_exe = fixture_file_upload('sample_attachment_containing_exe.zip')
+        edition = create(edition_type, :with_alternative_format_provider)
+
+        put :update, id: edition, edition_base_class_name => controller_attributes_for_instance(edition,
+          attachment_join_attributes => {
+            "0" => {
+              attachment_attributes: attributes_for(:attachment).merge(attachment_data_attributes: {
+                file: zipped_exe
+              })
+            }
+          }
+        )
+
+        assert edition.reload.attachments.none?
+      end
+
+      test "updating an edition with a non-whitelisted file as a tech lead updates the edition" do
+        login_as :gds_tech_lead
+        zipped_exe = fixture_file_upload('sample_attachment_containing_exe.zip')
+        edition = create(edition_type, :with_alternative_format_provider)
+
+        put :update, id: edition, edition_base_class_name => controller_attributes_for_instance(edition,
+          attachment_join_attributes => {
+            "0" => {
+              attachment_attributes: attributes_for(:attachment, title: "attachment-title").merge(attachment_data_attributes: {
+                file: zipped_exe
+              })
+            }
+          }
+        )
+
+        assert attachment = edition.reload.attachments.first
+        assert_equal "attachment-title", attachment.title
+        assert_equal "sample_attachment_containing_exe.zip", attachment.attachment_data.carrierwave_file
+        assert_equal zipped_exe.size, attachment.file_size
       end
 
       view_test "updating an edition with invalid data should still allow attachment to be selected for upload" do

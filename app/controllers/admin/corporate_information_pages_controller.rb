@@ -3,6 +3,7 @@ class Admin::CorporateInformationPagesController < Admin::BaseController
   before_filter :build_corporate_information_page, only: [:new, :create]
   before_filter :find_corporate_information_page, only: [:edit, :update, :destroy]
   before_filter :cope_with_attachment_action_params, only: [:update]
+  prepend_before_filter :skip_file_content_examination_for_privileged_users, only: [:create, :update]
 
   def index
     @corporate_information_pages = @organisation.corporate_information_pages
@@ -83,6 +84,13 @@ private
     return unless params[:corporate_information_page] && params[:corporate_information_page][:corporate_information_page_attachments_attributes]
     params[:corporate_information_page][:corporate_information_page_attachments_attributes].each do |_, corporate_information_page_attachment_params|
       Admin::AttachmentActionParamHandler.manipulate_params!(corporate_information_page_attachment_params)
+    end
+  end
+
+  def skip_file_content_examination_for_privileged_users
+    return unless params[:corporate_information_page] && params[:corporate_information_page][:corporate_information_page_attachments_attributes]
+    params[:corporate_information_page][:corporate_information_page_attachments_attributes].each  do |_, join_params|
+      Admin::AttachmentActionParamHandler.set_file_content_examination_param!(join_params, current_user.can_upload_executable_attachments?)
     end
   end
 end

@@ -6,6 +6,7 @@ module Admin::EditionsController::Attachments
     before_filter :cope_with_attachment_action_params, only: [:update]
     before_filter :build_bulk_uploader, only: [:new, :edit]
     before_filter :extract_attachments_from_zip_file, only: [:update]
+    prepend_before_filter :skip_file_content_examination_for_privileged_users, only: [:create, :update]
   end
 
   def build_edition
@@ -41,6 +42,13 @@ module Admin::EditionsController::Attachments
       zip_file_to_attachments.manipulate_params!
     else
       params[:edition]['bulk_upload_zip_file_invalid'] = true
+    end
+  end
+
+  def skip_file_content_examination_for_privileged_users
+    return unless params[:edition] && params[:edition][:edition_attachments_attributes]
+    params[:edition][:edition_attachments_attributes].each  do |_, join_params|
+      Admin::AttachmentActionParamHandler.set_file_content_examination_param!(join_params, current_user.can_upload_executable_attachments?)
     end
   end
 end
