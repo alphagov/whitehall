@@ -188,6 +188,8 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
           field = formStatus.checked[i];
           if (field.id === 'relevant_to_local_government' && field.value === '1') {
             context.relevant_to_local_government = true;
+          } else if (field.id === 'include_world_location_news' && field.value === '1') {
+            context.include_world_location_news = true;
           }
         }
       }
