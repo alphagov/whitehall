@@ -77,7 +77,7 @@
       margin: 0 $gutter-half;
     }
     .contact {
-      min-width: auto; // to overide something from static
+      min-width: 0; // to overide something from static
       @include core-16;
       margin-bottom: $gutter;
 
