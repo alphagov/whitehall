@@ -13,7 +13,7 @@ namespace :translation do
   desc "Export a specific locale to CSV."
   task :export, [:directory, :base_locale, :target_locale] do |t, args|
     FileUtils.mkdir_p(args[:directory]) unless File.exist?(args[:directory])
-    base_locale = Rails.root.join("config", "locales", args[:source_locale] + ".yml")
+    base_locale = Rails.root.join("config", "locales", args[:base_locale] + ".yml")
     target_locale_path = Rails.root.join("config", "locales", args[:target_locale] + ".yml")
     exporter = Whitehall::Translation::Exporter.new(args[:directory], base_locale, target_locale_path)
     exporter.export
