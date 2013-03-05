@@ -61,7 +61,10 @@ Feature: World location news for people local to countries
     When I visit the worldwide location "Indonesia"
     Then I should see the world location news article "Indonesian Beer"
 
-  Scenario: World location news shouldn't appear on announcements index
-    Given I create a valid world location news article "French things"
+  @not-quite-as-fake-search
+  Scenario: World location news on the announcements index
+    Given there is a world location news article
     When I browse to the announcements index
-    Then I should not be able to see a world location news article "French things"
+    Then I should not be able to see the world location news article
+    When I explicitly ask for world location news to be included
+    Then I should be able to see the world location news article

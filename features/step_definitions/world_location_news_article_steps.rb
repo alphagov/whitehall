@@ -41,3 +41,21 @@ Then /^see the world location news article "([^"]+)" appear on the worldwide pri
     assert page.has_content?(world_news_article.title)
   end
 end
+
+Given /^there is a world location news article$/ do
+  @world_location_news = create(:published_world_location_news_article)
+end
+
+Then /^I should not be able to see the world location news article$/ do
+  refute page.has_css?(record_css_selector(@world_location_news))
+end
+
+When /^I explicitly ask for world location news to be included$/ do
+  visit announcements_path
+  check 'Include location-specific news'
+  click_on "Refresh results"
+end
+
+Then /^I should be able to see the world location news article$/ do
+  assert page.has_css?(record_css_selector(@world_location_news))
+end

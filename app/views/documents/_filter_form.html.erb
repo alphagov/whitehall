@@ -65,6 +65,17 @@
         <% end %>
       <% end %>
 
+      <% if Whitehall.world_location_news_feature? %>
+        <% if filters.include? :include_world_location_news %>
+          <div class="filter" id="include-world-location-news-articles-filter">
+            <div class="filter-inner checkbox">
+              <%= label_tag "include_world_location_news", "Include location-specific news" %>
+              <%= check_box_tag :include_world_location_news, '1', @filter.include_world_location_news %>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+
       <% if filters.include? :locations %>
         <div class="filter" id="location-filter">
           <div class="filter-inner">
