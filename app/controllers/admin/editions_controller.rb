@@ -158,6 +158,9 @@ class Admin::EditionsController < Admin::BaseController
     if @edition.can_be_associated_with_worldwide_organisations?
       params[:edition][:worldwide_organisation_ids] ||= []
     end
+    if @edition.can_be_associated_with_worldwide_priorities?
+      params[:edition][:worldwide_priority_ids] ||= []
+    end
   end
 
   def build_edition_dependencies
