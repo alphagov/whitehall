@@ -136,7 +136,9 @@ class WorldLocationsControllerTest < ActionController::TestCase
       end
       assert_select_object announcement_2
       refute_select_object announcement_3
-      assert_select "a[href='#{announcements_filter_path(world_location)}']"
+      # there mey be other args and we can't guarantee the order
+      # so just specifiy the bits we care about
+      assert_select "a[href^='#{announcements_path}'][href*='world_locations%5B%5D=#{world_location.to_param}']"
     end
   end
 

@@ -55,11 +55,14 @@ Feature: World location news for people local to countries
     When I force publish the world location news article "Spanish News"
     Then the worldwide organisation "Spanish Department" is listed as a producing org on the world location news article "Spanish News"
 
-  Scenario: Associate a world location news article with a worldwide location
+  @not-quite-as-fake-search
+  Scenario: Associate a world location news article with a world location
     Given a country "Indonesia" exists
-    When I create a valid world location news article "Indonesian Beer"
-    Then I should be able to associate "Indonesian Beer" with the worldwide location "Indonesia"
-    When I visit the worldwide location "Indonesia"
+    When I draft a valid world location news article "Indonesian Beer"
+    Then I should be able to associate "Indonesian Beer" with the world location "Indonesia"
+    When I force publish the world location news article "Indonesian Beer"
+    Then the world location news article "Indonesian Beer" appears on the world location "Indonesia"
+    When I click through to see all the announcements for world location "Indonesia"
     Then I should see the world location news article "Indonesian Beer"
 
   @not-quite-as-fake-search

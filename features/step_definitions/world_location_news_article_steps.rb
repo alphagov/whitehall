@@ -42,6 +42,14 @@ Then /^see the world location news article "([^"]+)" appear on the worldwide pri
   end
 end
 
+Then /^the world location news article "([^"]+)" appears on the world location "([^"]+)"$/ do |world_news_title, world_location_name|
+  visit world_location_path(WorldLocation.find_by_name(world_location_name))
+  world_news_article = WorldLocationNewsArticle.find_by_title(world_news_title)
+  within record_css_selector(world_news_article) do
+    assert page.has_content?(world_news_article.title)
+  end
+end
+
 Given /^there is a world location news article$/ do
   @world_location_news = create(:published_world_location_news_article)
 end
