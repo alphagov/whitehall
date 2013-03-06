@@ -61,6 +61,10 @@ class Whitehall::Exporters::DocumentMappings < Struct.new(:platform)
         policy_supporting_page_url(page.edition.document, page, host: host_name, protocol: 'https'),
         admin_supporting_page_url(page, host: admin_host, protocol: 'https')
       )
+      target << row(
+        policy_supporting_page_url(page.edition.document, page, host: host_name, protocol: 'https'),
+        edit_admin_supporting_page_url(page, host: admin_host, protocol: 'https')
+      )
     end
 
     Person.find_each do |person|

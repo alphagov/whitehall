@@ -56,6 +56,7 @@ Old Url,New Url,Status,Slug,Admin Url,State
       assert_extraction_contains <<-EOT
 "",https://www.preview.alphagov.co.uk/government/policies/#{edition.slug},418,#{edition.slug},https://whitehall-admin.test.alphagov.co.uk/government/admin/policies/#{edition.id},draft
 "",https://www.preview.alphagov.co.uk/government/policies/#{edition.slug}/supporting-pages/#{supporting_page.slug},"","",https://whitehall-admin.test.alphagov.co.uk/government/admin/editions/#{supporting_page.edition_id}/supporting-pages/#{supporting_page.id},""
+"",https://www.preview.alphagov.co.uk/government/policies/#{edition.slug}/supporting-pages/#{supporting_page.slug},"","",https://whitehall-admin.test.alphagov.co.uk/government/admin/editions/#{supporting_page.edition_id}/supporting-pages/#{supporting_page.id}/edit,""
       EOT
     end
   end
