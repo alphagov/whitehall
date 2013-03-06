@@ -30,6 +30,9 @@ module("Document filter", {
 
     this.selections = this.resultsCount.find('.selections');
 
+    this.jsonNextPageLink = $('<link rel="next" type="application/json" />');
+    $('#qunit-fixture').append(this.jsonNextPageLink);
+
     this.ajaxData = {
       "next_page?": true,
       "next_page": 2,
@@ -172,8 +175,6 @@ test("should send filter form parameters in ajax request", function() {
 });
 
 test("should render results based on successful ajax response", function() {
-  var stub = sinon.stub($.fn, "mustache");
-  stub.returns(true);
   this.filterForm.enableDocumentFilter();
 
   var server = this.sandbox.useFakeServer();
@@ -182,8 +183,9 @@ test("should render results based on successful ajax response", function() {
   this.filterForm.submit();
   server.respond();
 
-  deepEqual(stub.getCall(0).args[1], this.ajaxData);
-  stub.restore();
+  equals($('link[rel=next][type=application/json]').length, 1);
+  equals($('link[rel=next][type=application/json]').attr('href'), this.ajaxData.next_page_json);
+  equals(this.filterResults.find(".document-row").length, 2);
 });
 
 test("should add extra results to table results", function() {

@@ -16,6 +16,7 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
     $form: null,
 
     renderTable: function(data) {
+      $('link[rel=next][type=application/json]').remove();
       $('.js-filter-results').mustache('documents-_filter_table', data);
       $('.previous-next-navigation').addClass('infinite');
     },
