@@ -1,39 +1,12 @@
 es:
-  activerecord:
-    attributes:
-      detailed_guide:
-        primary_mainstream_category: Categoría de orientación principal en detalle
-  announcements:
-    heading:
-  change_notes:
-    published: Publicado
-    updated: Actualizado
-  contact:
-    contact_form: Formulario de contacto
-    email: Email
-  corporate_information_page:
-    type:
-      personal_information_charter:
-      publication_scheme:
-      welsh_language_scheme:
-  date:
-    formats:
-      default: ! '%e %B %Y'
-      long_ordinal: ! '%e %B %Y'
   document:
     headings:
-      advisory_groups: Grupos de consulta
-      applies_to_nations: Se aplica a /Sirve para
-      document_series: Series
-      field_of_operation: Ámbito de actuación/Terreno de operaciones
-      live_data: Datos activos
       ministers:
         one: Ministro
         other: Ministros
       policies:
         one: Política
         other: Políticas
-      policy_team: Equipo de política
       topics:
         one: Tema
         other: Temas
@@ -43,14 +16,12 @@ es:
       worldwide_organisations:
         one:
         other:
-    published: Publicado
-    read: Lea el artículo de la '%{title}'
-    speech:
-      delivered_on: Emitido el
-      delivery_title:
-        minister: Ministro
-        speaker: Orador
-      originally_given_at: Dado originalmente a
+      advisory_groups: Grupos de consulta
+      applies_to_nations: Se aplica a /Sirve para
+      document_series: Series
+      field_of_operation: Ámbito de actuación/Terreno de operaciones
+      live_data: Datos activos
+      policy_team: Equipo de política
     type:
       announcement:
         one: Anuncio
@@ -166,34 +137,17 @@ es:
       written_statement:
         one: Declaración escrita
         other: Declaraciones escritas
+    published: Publicado
+    read: Lea el artículo de la '%{title}'
+    speech:
+      delivered_on: Emitido el
+      delivery_title:
+        minister: Ministro
+        speaker: Orador
+      originally_given_at: Dado originalmente a
     updated: Actualizado
     view: Mirar '%{title}'
-  document_filters:
-    description:
-    no_results:
-      description:
-      title:
-    world_locations:
-      all:
-      label:
-  feeds:
-    atom: Átomo
-    email_alerts: alertas de email
-    latest_activity: Última actividad
-  i18n:
-    direction: ltr
-  language_names:
-    es: Español
-  latest_feed:
-    no_updates: No hay actualizaciones
-    title: Actualizaciones más recientes
-  number:
-    human:
-      storage_units:
-        format: ! '%n%u'
   organisation:
-    headings:
-      plus_others: + otros
     type:
       Ad-hoc advisory group:
         one: Grupo de consulta ad-hoc
@@ -228,18 +182,19 @@ es:
       Tribunal non-departmental public body:
         one: ! 'Tribunal del NHS no dependiente del Ministerio '
         other: ! 'Tribunales del NHS no dependientes del Ministerio '
-  policies:
-    heading:
-  publications:
-    heading:
-  read_more: Leer más
-  support:
-    array:
-      last_word_connector: ! ' y '
-  time:
-    formats:
-      long_ordinal: ! '%e %B %Y %H:%M'
+    headings:
+      plus_others: + otros
   world_location:
+    type:
+      country:
+        one: País
+        other: Países
+      international_delegation:
+        one: Delegación internacional
+        other: Delegaciones internacionales
+      overseas_territory:
+        one: Territorio en el exterior
+        other: Territorios en el exterior
     headings:
       announcements: Anuncios
       country: País
@@ -253,16 +208,61 @@ es:
       see_all: Ver toda nuestra %{type}
       statistics: Nuestras estadísticas
     see_all: Ver toda nuestra %{type}
+  activerecord:
+    attributes:
+      detailed_guide:
+        primary_mainstream_category: Categoría de orientación principal en detalle
+  announcements:
+    heading:
+  change_notes:
+    published: Publicado
+    updated: Actualizado
+  contact:
+    contact_form: Formulario de contacto
+    email: Email
+  corporate_information_page:
     type:
-      country:
-        one: País
-        other: Países
-      international_delegation:
-        one: Delegación internacional
-        other: Delegaciones internacionales
-      overseas_territory:
-        one: Territorio en el exterior
-        other: Territorios en el exterior
+      personal_information_charter:
+      publication_scheme:
+      welsh_language_scheme:
+  date:
+    formats:
+      default: ! '%e %B %Y'
+      long_ordinal: ! '%e %B %Y'
+  document_filters:
+    description:
+    no_results:
+      description:
+      title:
+    world_locations:
+      all:
+      label:
+  feeds:
+    atom: Átomo
+    email_alerts: alertas de email
+    latest_activity: Última actividad
+  i18n:
+    direction: ltr
+  language_names:
+    es: Español
+  latest_feed:
+    no_updates: No hay actualizaciones
+    title: Actualizaciones más recientes
+  number:
+    human:
+      storage_units:
+        format: ! '%n%u'
+  policies:
+    heading:
+  publications:
+    heading:
+  read_more: Leer más
+  support:
+    array:
+      last_word_connector: ! ' y '
+  time:
+    formats:
+      long_ordinal: ! '%e %B %Y %H:%M'
   worldwide_organisation:
     corporate_information:
       personal_information_charter_html:
