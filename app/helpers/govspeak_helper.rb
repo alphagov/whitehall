@@ -126,7 +126,7 @@ module GovspeakHelper
   end
 
   def edition_body_with_attachments_and_alt_format_information(edition)
-    attachments = edition.respond_to?(:attachments) ? edition.attachments : []
+    attachments = edition.allows_attachments? ? edition.attachments : []
     govspeak_with_attachments_and_alt_format_information(edition.body, attachments, edition.alternative_format_contact_email)
   end
 
