@@ -1,4 +1,11 @@
+<%
+  if edition.imported?
+    label_text = 'date required'
+  else
+    label_text = 'leave blank to use the publication time of this edition'
+  end
+%>
 <fieldset>
-  <%= form.label :first_published_at, 'First published at (leave blank to use the publication time of this edition)' %>
+  <%= form.label :first_published_at, "First published at (#{label_text})" %>
   <%= form.datetime_select :first_published_at, { include_blank: true }, { class: 'date' } %>
 </fieldset>

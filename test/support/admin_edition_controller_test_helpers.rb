@@ -1092,6 +1092,7 @@ module AdminEditionControllerTestHelpers
 
         admin_editions_path = send("admin_#{edition_type.to_s.tableize}_path")
         assert_select "form#edition_new[action='#{admin_editions_path}']" do
+          assert_select "label[for=edition_first_published_at]", text: "First published at (leave blank to use the publication time of this edition)"
           assert_select "select[name*='edition[first_published_at']", count: 5
         end
       end
@@ -1103,6 +1104,7 @@ module AdminEditionControllerTestHelpers
 
         admin_edition_path = send("admin_#{edition_type}_path", edition)
         assert_select "form#edition_edit[action='#{admin_edition_path}']" do
+          assert_select "label[for=edition_first_published_at]", text: "First published at (leave blank to use the publication time of this edition)"
           assert_select "select[name*='edition[first_published_at']", count: 5
         end
       end
@@ -1125,6 +1127,17 @@ module AdminEditionControllerTestHelpers
 
         edition.reload
         assert_equal first_published_at, edition.first_published_at
+      end
+    end
+
+    def should_allow_setting_first_published_at_during_speed_tagging(edition_type)
+      view_test "show should display first_published_at fields when speed tagging" do
+        edition = create("imported_#{edition_type}")
+
+        get :show, id: edition
+
+        assert_select "label[for=edition_first_published_at]", text: "First published at (date required)"
+        assert_select "select[name*='edition[first_published_at']", count: 5
       end
     end
 
