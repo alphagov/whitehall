@@ -50,9 +50,10 @@ Feature: World location news for people local to countries
 
   Scenario: Associate a world location news article with a worldwide organisation
     Given the worldwide organisation "Spanish Department" exists
-    When I create a valid world location news article "Spanish News"
+    When I draft a valid world location news article "Spanish News"
     Then I should be able to associate "Spanish News" with the worldwide organisation "Spanish Department"
-    And see the worldwide organisation "Spanish Department" listed as a producing org on the world location news article "Spanish News"
+    When I force publish the world location news article "Spanish News"
+    Then the worldwide organisation "Spanish Department" is listed as a producing org on the world location news article "Spanish News"
 
   Scenario: Associate a world location news article with a worldwide location
     Given a country "Indonesia" exists

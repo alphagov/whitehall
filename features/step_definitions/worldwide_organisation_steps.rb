@@ -279,4 +279,5 @@ end
 Then /^I should be able to associate "([^"]*)" with the worldwide organisation "([^"]*)"$/ do |edition_title, world_org_title|
   begin_editing_document edition_title
   select world_org_title, from: "edition_worldwide_organisation_ids"
+  click_on "Save"
 end

@@ -15,7 +15,7 @@
     <ul>
       <% lead_organisations.each do |organisation| %>
         <%= content_tag_for :li, organisation, class:  organisation.slug do %>
-          <%= link_to organisation_path(organisation),
+          <%= link_to organisation,
                       class: logo_classes(class_name: organisation.organisation_logo_type.class_name, stacked: !show_hm_government, use_identity: !show_hm_government) do %>
             <span><%= format_with_html_line_breaks(h(organisation.logo_formatted_name)) %></span>
           <% end %>
@@ -30,7 +30,7 @@
           <ol>
             <% organisations.each do |organisation| %>
               <%= content_tag_for :li, organisation, 'by-type' do %>
-                <%= link_to organisation.name, organisation_path(organisation) %>
+                <%= link_to organisation.name, organisation %>
               <% end %>
             <% end %>
           </ol>
@@ -40,8 +40,8 @@
   <% else %>
     <% organisations.each do |organisation| %>
       <%= content_tag_for(:div, organisation, class: organisation.slug) do %>
-        <%= link_to organisation_path(organisation),
-              class: logo_classes(class_name: organisation.organisation_logo_type.class_name, stacked: true, use_identity: true) do %>
+        <%= link_to organisation,
+                    class: logo_classes(class_name: organisation.organisation_logo_type.class_name, stacked: true, use_identity: true) do %>
           <span><%= format_with_html_line_breaks(h(organisation.logo_formatted_name)) %></span>
         <% end %>
       <% end %>
