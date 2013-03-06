@@ -3,6 +3,11 @@ class NewsArticle < Announcement
   include Edition::FactCheckable
   include Edition::FirstImagePulledOut
   include Edition::DocumentSeries
+  include ::Attachable
+  include Edition::AlternativeFormatProvider
+
+  attachable :edition
+  force_review_of_bulk_attachments
 
   validates :news_article_type_id, presence: true
   validate :only_news_article_allowed_invalid_data_can_be_awaiting_type
@@ -25,6 +30,10 @@ class NewsArticle < Announcement
 
   def search_format_types
     super + [NewsArticle.search_format_type] + self.news_article_type.search_format_types
+  end
+
+  def alternative_format_provider_required?
+    false
   end
 
   def can_apply_to_local_government?
