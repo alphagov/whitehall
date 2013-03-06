@@ -58,18 +58,18 @@ module GovspeakHelper
     Whitehall::ExtraQuoteRemover.new.remove(govspeak)
   end
 
-  def bare_govspeak_to_html(govspeak, images = [])
-    govspeak = remove_extra_quotes_from_blockquotes(govspeak)
-    govspeak_to_html_with_replaced_admin_links(govspeak, images)
-  end
-
   def wrapped_in_govspeak_div(html_string)
     content_tag(:div, html_string.html_safe, class: 'govspeak')
   end
 
-  def govspeak_to_html_with_replaced_admin_links(govspeak, images = [], &block)
+  def bare_govspeak_to_html(govspeak, images = [], &block)
+    # pre-processors
+    govspeak = remove_extra_quotes_from_blockquotes(govspeak)
+
     markup_to_nokogiri_doc(govspeak, images).tap do |nokogiri_doc|
-      replace_internal_admin_links_in nokogiri_doc, &block
+      # post-processors
+      replace_internal_admin_links_in(nokogiri_doc, &block)
+      add_class_to_last_blockquote_paragraph(nokogiri_doc)
     end.to_html.html_safe
   end
 
@@ -92,6 +92,12 @@ module GovspeakHelper
       end.to_html.html_safe
     else
       anchor.inner_text
+    end
+  end
+
+  def add_class_to_last_blockquote_paragraph(nokogiri_doc)
+    nokogiri_doc.css('blockquote p:last-child').map do |el|
+      el[:class] = 'last-child'
     end
   end
 
