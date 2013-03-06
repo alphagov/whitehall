@@ -45,6 +45,7 @@ end
 Then /^I should be able to associate "([^"]*)" with the worldwide priority "([^"]*)"$/ do |title, priority|
   begin_editing_document title
   select priority, from: "Worldwide priorities"
+  click_on 'Save'
 end
 
 Then /^I cannot associate "([^"]*)" with worldwide priorities$/ do |title|

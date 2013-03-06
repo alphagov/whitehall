@@ -24,10 +24,10 @@ Then /^the worldwide organisation "([^"]+)" is listed as a producing org on the 
   end
 end
 
-Then /^see the world location news article "([^"]+)" appear on the worldwide priority "([^"]+)"$/ do |world_news_title, world_priority_title|
-  visit worldwide_priority_path(WorldwidePriority.find_by_title(world_priority_title))
+Then /^the world location news article "([^"]+)" appears on the worldwide priority "([^"]+)"$/ do |world_news_title, world_priority_title|
+  visit document_path(WorldwidePriority.find_by_title(world_priority_title))
   world_news_article = WorldLocationNewsArticle.find_by_title(world_news_title)
-  assert record_css_selector(world_news_article) do
+  within record_css_selector(world_news_article, 'recent') do
     assert page.has_content?(world_news_article.title)
   end
 end

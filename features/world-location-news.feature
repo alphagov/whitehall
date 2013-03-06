@@ -42,7 +42,8 @@ Feature: World location news for people local to countries
     Given a published worldwide priority "Helping local people" exists
     When I draft a valid world location news article "Beirut News"
     Then I should be able to associate "Beirut News" with the worldwide priority "Helping local people"
-    And see the world location news article "Beirut News" appear on the worldwide priority "Helping local people"
+    When I force publish the world location news article "Beirut News"
+    Then the world location news article "Beirut News" appears on the worldwide priority "Helping local people"
 
   Scenario: Cannot associate normal articles with a worldwide priority
     When I draft a new news article "Normal news"
