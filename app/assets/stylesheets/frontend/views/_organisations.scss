@@ -11,6 +11,11 @@
   }
 
   .page-header {
+
+    h1.title {
+      @include heading-27;
+    }
+
     padding: $gutter-half 0;
     @extend %contain-floats;
 
@@ -29,6 +34,9 @@
 
       label {
         display: inline-block;
+        input {
+          width: auto;
+        }
       }
       input {
         display: inline-block;

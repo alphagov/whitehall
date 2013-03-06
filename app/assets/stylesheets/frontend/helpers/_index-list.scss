@@ -15,6 +15,12 @@
       display: block;
       @include core-48;
       font-weight: bold;
+      input {
+        @include core-16;
+        position: relative;
+        padding: $gutter-one-sixth;
+        top: -$gutter-one-third;
+      }
     }
 
     @include media(tablet){
