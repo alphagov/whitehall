@@ -161,6 +161,12 @@ class Admin::EditionsController
       filter = EditionFilter.new(Edition, build(:user), title: 'test')
       assert_equal "Everyone's documents that match 'test'", filter.page_title
     end
+
+    test "should generate page title when filtering by world location" do
+      location = create(:world_location, name: 'Spain')
+      filter = EditionFilter.new(Edition, build(:user), world_location_ids: [location.to_param])
+      assert_equal "Everyone's documents about Spain", filter.page_title
+    end
   end
 end
 

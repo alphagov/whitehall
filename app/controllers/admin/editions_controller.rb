@@ -273,7 +273,7 @@ class Admin::EditionsController < Admin::BaseController
     end
 
     def page_title
-      "#{ownership} #{edition_state} #{document_type.humanize.pluralize.downcase}#{title_matches}".squeeze(' ')
+      "#{ownership} #{edition_state} #{document_type.humanize.pluralize.downcase}#{title_matches}#{location_matches}".squeeze(' ')
     end
 
     def page_size
@@ -332,5 +332,10 @@ class Admin::EditionsController < Admin::BaseController
       User.find(options[:author]) if options[:author]
     end
 
+    def location_matches
+      if selected_world_locations.any?
+        " about #{selected_world_locations.map { |location| WorldLocation.find(location).name }.to_sentence}"
+      end
+    end
   end
 end
