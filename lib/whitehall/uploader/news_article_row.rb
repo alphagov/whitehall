@@ -1,22 +1,7 @@
-require 'whitehall/uploader/finders'
-require 'whitehall/uploader/parsers'
-require 'whitehall/uploader/builders'
-require 'whitehall/uploader/row'
-
 module Whitehall::Uploader
   class NewsArticleRow < Row
-    attr_reader :row
-
-    def initialize(row, line_number, attachment_cache, default_organisation, logger = Logger.new($stdout))
-      @row = row
-      @line_number = line_number
-      @logger = logger
-      @default_organisation = default_organisation
-    end
-
     def self.validator
-      HeadingValidator.new
-        .required(%w{old_url title summary body organisation})
+      super
         .ignored("ignore_*")
         .required(%w{news_article_type first_published})
         .multiple("policy_#", 1..4)
@@ -24,41 +9,8 @@ module Whitehall::Uploader
         .multiple("country_#", 0..4)
     end
 
-    def legacy_urls
-      Parsers::OldUrlParser.parse(row['old_url'], @logger, @line_number)
-    end
-
-    def title
-      row['title']
-    end
-
-    def summary
-      summary_text = Parsers::RelativeToAbsoluteLinks.parse(row['summary'], organisation.url)
-      if summary_text.blank?
-        Parsers::SummariseBody.parse(body)
-      else
-        summary_text
-      end
-    end
-
-    def body
-      Parsers::RelativeToAbsoluteLinks.parse(row['body'], organisation.url)
-    end
-
     def news_article_type
       Finders::NewsArticleTypeFinder.find(row['news_article_type'], @logger, @line_number)
-    end
-
-    def organisation
-      @organisation ||= Finders::OrganisationFinder.find(row['organisation'], @logger, @line_number, @default_organisation).first
-    end
-
-    def organisations
-      [organisation]
-    end
-
-    def lead_organisations
-      organisations
     end
 
     def first_published_at

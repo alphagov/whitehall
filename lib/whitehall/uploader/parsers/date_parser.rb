@@ -1,5 +1,3 @@
-require "whitehall/uploader/parsers"
-
 class Whitehall::Uploader::Parsers::DateParser
   def self.parse(date, logger, line_number)
     return nil if date.blank?

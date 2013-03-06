@@ -1,5 +1,3 @@
-require 'whitehall/uploader/finders'
-
 class Whitehall::Uploader::Finders::OperationalFieldFinder
   def self.find(name_or_slug, logger, line_number)
     return nil if name_or_slug.blank?

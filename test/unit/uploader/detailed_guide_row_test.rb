@@ -1,14 +1,11 @@
 # encoding: UTF-8
-
-require File.expand_path("../../../fast_test_helper", __FILE__)
-require 'whitehall/uploader/detailed_guide_row'
 require 'test_helper'
 
 module Whitehall::Uploader
   class DetailedGuideRowTest < ActiveSupport::TestCase
     setup do
       @attachment_cache = stub('attachment cache')
-      @default_organisation = stub('Organisation')
+      @default_organisation = stub('Organisation', url: 'url')
     end
 
     def new_detailed_guide_row(csv_data, logger = Logger.new($stdout))
@@ -34,16 +31,6 @@ module Whitehall::Uploader
       assert_equal [], Whitehall::Uploader::DetailedGuideRow.heading_validation_errors(basic_headings)
     end
 
-    test "validation reports missing row headings" do
-      keys = basic_headings - ['title']
-      assert_equal ["missing fields: 'title'"], Whitehall::Uploader::DetailedGuideRow.heading_validation_errors(keys)
-    end
-
-    test "validation reports extra row headings" do
-      keys = basic_headings + ['extra_stuff']
-      assert_equal ["unexpected fields: 'extra_stuff'"], Whitehall::Uploader::DetailedGuideRow.heading_validation_errors(keys)
-    end
-
     test "validation accepts a complete set of attachment headings" do
       keys = basic_headings + %w{attachment_1_url attachment_1_title}
       assert_equal [], Whitehall::Uploader::DetailedGuideRow.heading_validation_errors(keys)
@@ -54,40 +41,6 @@ module Whitehall::Uploader
       assert_equal [
         "missing fields: 'attachment_1_url'",
         ], Whitehall::Uploader::DetailedGuideRow.heading_validation_errors(keys)
-    end
-
-    test "takes title from the title column" do
-      row = new_detailed_guide_row({"title" => "a-title"})
-      assert_equal "a-title", row.attributes[:title]
-    end
-
-    test "takes summary from the summary column" do
-      row = new_detailed_guide_row({"summary" => "a-summary"})
-      assert_equal "a-summary", row.attributes[:summary]
-    end
-
-    test 'if summary column is blank, generates summary from body' do
-      row = new_detailed_guide_row("summary" => '', "body" => 'woo')
-      Parsers::SummariseBody.stubs(:parse).with('woo').returns('w')
-      assert_equal 'w', row.attributes[:summary]
-    end
-
-    test "takes body from the body column" do
-      row = new_detailed_guide_row({"body" => "Some body goes here"})
-      assert_equal "Some body goes here", row.attributes[:body]
-    end
-
-    test "takes legacy urls from the old_url column" do
-      row = new_detailed_guide_row({"old_url" => "http://example.com/old-url"})
-      assert_equal ["http://example.com/old-url"], row.legacy_urls
-    end
-
-    test "parses legacy url using OldUrlParser" do
-      old_url_json = stub("old url json")
-      parsed_old_urls = stub("parsed urls")
-      Parsers::OldUrlParser.stubs(:parse).with(old_url_json, anything, anything).returns(parsed_old_urls)
-      row = new_detailed_guide_row({"old_url" => old_url_json})
-      assert_equal parsed_old_urls, row.legacy_urls
     end
 
     test "finds document series by slug in document_series_n column" do
@@ -130,6 +83,13 @@ module Whitehall::Uploader
       assert_equal [detailed_guide.document], row.attributes[:outbound_related_documents]
     end
 
+    test "returns lead_organisations as an attribute" do
+      organisation = stub("organisation", url: "url")
+      row = new_detailed_guide_row({})
+      row.stubs(:organisations).returns([organisation])
+      assert_equal [organisation], row.lead_organisations
+    end
+
     test "related mainstream content url and title set from appropriate fields in CSV input" do
       row = new_detailed_guide_row(
         "related_mainstream_content_url_1" => "http://example.com/1",
@@ -137,28 +97,15 @@ module Whitehall::Uploader
         "related_mainstream_content_url_2" => "http://example.com/2",
         "related_mainstream_content_title_2" => "Example 2"
         )
+
       assert_equal "http://example.com/1", row.attributes[:related_mainstream_content_url]
       assert_equal "Example 1", row.attributes[:related_mainstream_content_title]
       assert_equal "http://example.com/2", row.attributes[:additional_related_mainstream_content_url]
       assert_equal "Example 2", row.attributes[:additional_related_mainstream_content_title]
     end
 
-    test "takes lead_organisations from the found organisations" do
-      o = stub(:organisation)
-      row = new_detailed_guide_row({})
-      row.stubs(:organisations).returns([o])
-      assert_equal [o], row.attributes[:lead_organisations]
-    end
-
-    test "uses the organisation as the alternative format provider" do
-      organisation = create(:organisation)
-      row = new_detailed_guide_row({"organisation" => organisation.name})
-      assert_equal organisation, row.attributes[:alternative_format_provider]
-    end
-
     test "finds up to 42 attachments in columns attachment 1 title, attachement 1 url..." do
       @attachment_cache.stubs(:fetch).with("http://example.com/attachment.pdf").returns(File.open(Rails.root.join("test", "fixtures", "two-pages.pdf")))
-
       row = new_detailed_guide_row({
         "attachment_1_title" => "first title",
         "attachment_1_url" => "http://example.com/attachment.pdf"

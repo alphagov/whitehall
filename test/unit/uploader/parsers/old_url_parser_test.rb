@@ -1,6 +1,5 @@
 require "fast_test_helper"
-
-require "whitehall/uploader/parsers/old_url_parser"
+require "whitehall/uploader"
 
 class Whitehall::Uploader::Parsers::OldUrlParserTest < ActiveSupport::TestCase
   def setup
@@ -19,6 +18,7 @@ class Whitehall::Uploader::Parsers::OldUrlParserTest < ActiveSupport::TestCase
 
   test "returns empty array if passed string is empty" do
     assert_equal [], Whitehall::Uploader::Parsers::OldUrlParser.parse('', @log, @line_number)
+    assert_equal [], Whitehall::Uploader::Parsers::OldUrlParser.parse(' ', @log, @line_number)
   end
 
   test "returns empty array if old url json cannot be parsed" do

@@ -1,23 +1,7 @@
-require 'whitehall/uploader/finders'
-require 'whitehall/uploader/parsers'
-require 'whitehall/uploader/builders'
-require 'whitehall/uploader/row'
-
 module Whitehall::Uploader
   class PublicationRow < Row
-    attr_reader :row
-
-    def initialize(row, line_number, attachment_cache, default_organisation, logger = Logger.new($stdout))
-      @row = row
-      @line_number = line_number
-      @logger = logger
-      @attachment_cache = attachment_cache
-      @default_organisation = default_organisation
-    end
-
     def self.validator
-      HeadingValidator.new
-        .required(%w{old_url title summary body organisation})
+      super
         .multiple("policy_#", 1..4)
         .multiple("document_series_#", 1..4)
         .required(%w{publication_type publication_date})
@@ -26,27 +10,6 @@ module Whitehall::Uploader
         .multiple(%w{attachment_#_url attachment_#_title}, 0..Row::ATTACHMENT_LIMIT)
         .optional('json_attachments')
         .multiple("country_#", 0..4)
-    end
-
-    def title
-      row['title']
-    end
-
-    def summary
-      summary_text = row['summary']
-      if summary_text.blank?
-        Parsers::SummariseBody.parse(body)
-      else
-        summary_text
-      end
-    end
-
-    def body
-      row['body']
-    end
-
-    def legacy_urls
-      Parsers::OldUrlParser.parse(row['old_url'], @logger, @line_number)
     end
 
     def publication_date
@@ -59,14 +22,6 @@ module Whitehall::Uploader
 
     def related_policies
       Finders::PoliciesFinder.find(row['policy_1'], row['policy_2'], row['policy_3'], row["policy_4"], @logger, @line_number)
-    end
-
-    def organisations
-      Finders::OrganisationFinder.find(row['organisation'], @logger, @line_number, @default_organisation)
-    end
-
-    def lead_organisations
-      organisations
     end
 
     def document_series

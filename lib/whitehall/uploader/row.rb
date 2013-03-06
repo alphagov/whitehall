@@ -1,16 +1,63 @@
-require 'whitehall/uploader/heading_validator'
-
 module Whitehall::Uploader
   class Row
     ATTACHMENT_LIMIT = 100
+    attr_reader :row
+
+    def initialize(row, line_number, attachment_cache, default_organisation, logger = Logger.new($stdout))
+      @row = row
+      @line_number = line_number
+      @logger = logger
+      @attachment_cache = attachment_cache
+      @default_organisation = default_organisation
+    end
 
     def self.heading_validation_errors(headings)
       validator.errors(headings)
     end
 
-  protected
     def self.validator
-      HeadingValidator.new
+      HeadingValidator.new.required(%w{old_url title summary body organisation})
+    end
+
+    def title
+      row['title']
+    end
+
+    def summary
+      summary_text = Parsers::RelativeToAbsoluteLinks.parse(row['summary'], organisation.try(:url))
+      if summary_text.blank?
+        Parsers::SummariseBody.parse(body)
+      else
+        summary_text
+      end
+    end
+
+    def body
+      Parsers::RelativeToAbsoluteLinks.parse(row['body'], organisation.try(:url))
+    end
+
+    def legacy_urls
+      Parsers::OldUrlParser.parse(row['old_url'], @logger, @line_number)
+    end
+
+    def organisation
+      @organisation ||= Finders::OrganisationFinder.find(row['organisation'], @logger, @line_number, @default_organisation).first
+    end
+
+    def organisations
+      [organisation]
+    end
+
+    def lead_organisations
+      organisations
+    end
+
+    protected
+
+    def fields(range, pattern)
+      range.map do |n|
+        row[pattern.gsub('#', n.to_s)]
+      end
     end
 
     def self.provided_response_ids(headings)
@@ -28,6 +75,5 @@ module Whitehall::Uploader
         end
       end.compact.uniq
     end
-
   end
 end

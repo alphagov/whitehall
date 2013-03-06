@@ -1,9 +1,4 @@
 # encoding=utf-8
-require 'whitehall/uploader/parsers'
-require 'govspeak'
-require 'action_view'
-require 'strscan'
-
 class Whitehall::Uploader::Parsers::SummariseBody
   class Govspeaker
     def self.htmlize(text)

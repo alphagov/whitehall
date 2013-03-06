@@ -76,6 +76,25 @@ Feature: Importing new editions
 
   - field_of_operation: required
 
+  DetailedGuides:
+
+  - topic_1..4: 1 column required, data optional
+  - document_series_1..4: 1 column required, data optional
+  - detailed_guidance_category_1..4: 1 column required, data optional
+  - related_detailed_guidance_1..4: 1 column required, data optional
+  - related_mainstream_content_url_1..2: 1 column required, data optional
+  - related_mainstream_content_title_1..2: 1 column required, data optional
+  - first_published: optional
+  - attachment_url_0..Row::ATTACHMENT_LIMIT: optional
+  - attachment_title_0..Row::ATTACHMENT_LIMIT: optional
+  - json_attachments: optional (allows attachments to be supplied as a json array)
+
+  CaseStudies:
+
+  - policy_1..4: 1 column required, data optional
+  - document_series_1..4: 1 column required, data optional
+  - first_published: column required, data optional (required before draft)
+
   Background:
     Given I am an importer
 
@@ -217,3 +236,17 @@ Feature: Importing new editions
       | document_series                  | my-document-series            |
       | mainstream_categories            | my-detailed-guidance-category |
       | outbound_related_documents       | my-related-detailed-guide     |
+
+  Scenario: Importing case study with related policies and document series
+    Given a document series with the slug "my-document-series" exists
+    And a published policy "policy-one"
+    When I import the following data as CSV as "Case study" for "Department for Beards":
+      """
+      old_url,title,summary,body,organisation,policy_1,document_series_1,first_published
+      http://example.com/1,title,summary,body,,policy-one,my-document-series,14-Dec-2011
+      """
+    Then the import succeeds creating 1 case study
+    And the imported case study has the following associations:
+      | Name                             | Slugs                         |
+      | related_policies                 | policy-one                    |
+      | document_series                  | my-document-series            |
