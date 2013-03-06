@@ -11,8 +11,7 @@ module Whitehall::Uploader
     end
 
     def self.validator
-      HeadingValidator.new
-        .required(%w{old_url title summary body organisation})
+      super
         .multiple("policy_#", 1..4)
         .required(%w{opening_date closing_date})
         .optional(%w{consultation_ISBN consultation_URN})
@@ -22,45 +21,12 @@ module Whitehall::Uploader
         .multiple(%w{attachment_#_url attachment_#_title}, 0..Row::ATTACHMENT_LIMIT)
     end
 
-    def title
-      row['title']
-    end
-
-    def summary
-      summary_text = Parsers::RelativeToAbsoluteLinks.parse(row['summary'], organisation.url)
-      if summary_text.blank?
-        Parsers::SummariseBody.parse(body)
-      else
-        summary_text
-      end
-    end
-
-    def legacy_urls
-      Parsers::OldUrlParser.parse(row['old_url'], @logger, @line_number)
-    end
-
     def opening_on
       Parsers::DateParser.parse(row['opening_date'], @logger, @line_number)
     end
 
     def closing_on
       Parsers::DateParser.parse(row['closing_date'], @logger, @line_number)
-    end
-
-    def body
-      Parsers::RelativeToAbsoluteLinks.parse(row['body'], organisation.url)
-    end
-
-    def organisation
-      @organisation ||= Finders::OrganisationFinder.find(row['organisation'], @logger, @line_number, @default_organisation).first
-    end
-
-    def organisations
-      [organisation]
-    end
-
-    def lead_organisations
-      organisations
     end
 
     def related_policies

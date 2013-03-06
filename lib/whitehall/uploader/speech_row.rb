@@ -1,48 +1,12 @@
 module Whitehall::Uploader
   class SpeechRow < Row
-    attr_reader :row
-
-    def initialize(row, line_number, attachment_cache, default_organisation, logger = Logger.new($stdout))
-      @row = row
-      @line_number = line_number
-      @logger = logger
-      @attachment_cache = attachment_cache
-      @default_organisation = default_organisation
-    end
-
     def self.validator
-      HeadingValidator.new
-        .required(%w{old_url title summary body organisation})
+      super
         .ignored("ignore_*")
         .required("type")
         .multiple("policy_#", 1..4)
         .required(%w{delivered_by delivered_on event_and_location})
         .multiple("country_#", 0..4)
-    end
-
-    def legacy_urls
-      Parsers::OldUrlParser.parse(row['old_url'], @logger, @line_number)
-    end
-
-    def title
-      row['title']
-    end
-
-    def body
-      row['body']
-    end
-
-    def summary
-      summary_text = row['summary']
-      if summary_text.blank?
-        Parsers::SummariseBody.parse(body)
-      else
-        summary_text
-      end
-    end
-
-    def organisations
-      Finders::OrganisationFinder.find(row['organisation'], @logger, @line_number, @default_organisation)
     end
 
     def speech_type
@@ -86,6 +50,5 @@ module Whitehall::Uploader
     def world_locations
       Finders::WorldLocationsFinder.find(row['country_1'], row['country_2'], row['country_3'], row['country_4'], @logger, @line_number)
     end
-
   end
 end
