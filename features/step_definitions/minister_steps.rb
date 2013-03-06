@@ -36,6 +36,14 @@ Then /^I should see that "([^"]*)" is a minister in the "([^"]*)"$/ do |minister
   end
 end
 
+Then /^I should see that "([^"]*)" is a minister in the "([^"]*)" with role "([^"]*)"$/ do |minister_name, organisation_name, role|
+  organisation = Organisation.find_by_name!(organisation_name)
+  within record_css_selector(organisation) do
+    assert page.has_css?('.current-appointee', text: minister_name)
+    assert page.has_css?('.role', text: role)
+  end
+end
+
 Then /^I should see that the minister is associated with the "([^"]*)"$/ do |organisation_name|
   organisation = Organisation.find_by_name!(organisation_name)
   assert page.has_css?(record_css_selector(organisation)), "organisation was missing"

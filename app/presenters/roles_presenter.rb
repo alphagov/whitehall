@@ -37,4 +37,8 @@ class RolesPresenter
       yield presenter
     end
   end
+
+  def ==(other)
+    @source == other.source
+  end
 end
