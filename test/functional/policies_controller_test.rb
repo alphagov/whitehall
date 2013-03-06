@@ -351,7 +351,7 @@ That's all
 
     get :activity, id: policy.document
 
-    assert_select ".speech .display-type", text: "Statement to parliament"
+    assert_select ".speech .display-type", text: "Statement to Parliament"
   end
 
   view_test "supporting case studies are included in page" do

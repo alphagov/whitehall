@@ -6,8 +6,8 @@ class AnnouncementPresenterTest < PresenterTestCase
       SpeechType::Transcript => "Speech",
       SpeechType::DraftText => "Speech",
       SpeechType::SpeakingNotes => "Speech",
-      SpeechType::WrittenStatement => "Statement to parliament",
-      SpeechType::OralStatement => "Statement to parliament"
+      SpeechType::WrittenStatement => "Statement to Parliament",
+      SpeechType::OralStatement => "Statement to Parliament"
     }
 
     speech_types.each do |type, expected|

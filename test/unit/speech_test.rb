@@ -72,12 +72,12 @@ class SpeechTest < ActiveSupport::TestCase
 
   test "has statement to parliament display type if written statement" do
     speech = build(:speech, speech_type: SpeechType::WrittenStatement)
-    assert_equal "Statement to parliament", speech.display_type
+    assert_equal "Statement to Parliament", speech.display_type
   end
 
   test "has statement to parliament display type if oral statement" do
     speech = build(:speech, speech_type: SpeechType::OralStatement)
-    assert_equal "Statement to parliament", speech.display_type
+    assert_equal "Statement to Parliament", speech.display_type
   end
 
   test "has speech display type if not oral statement or written statement" do
