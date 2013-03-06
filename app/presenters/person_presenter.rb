@@ -31,8 +31,8 @@ class PersonPresenter < Draper::Base
 
   def announcements
     announcements =
-      AnnouncementPresenter.decorate(person.published_speeches.limit(10)).to_a +
-      AnnouncementPresenter.decorate(person.published_news_articles.limit(10)).to_a
+      SpeechPresenter.decorate(person.published_speeches.limit(10)).to_a +
+      NewsArticlePresenter.decorate(person.published_news_articles.limit(10)).to_a
     announcements.sort_by { |a| a.public_timestamp.to_datetime }.reverse[0..9]
   end
 
