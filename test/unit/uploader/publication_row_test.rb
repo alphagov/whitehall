@@ -1,7 +1,3 @@
-# encoding: UTF-8
-
-require File.expand_path("../../../fast_test_helper", __FILE__)
-require 'whitehall/uploader/publication_row'
 require 'test_helper'
 
 module Whitehall::Uploader
@@ -28,16 +24,6 @@ module Whitehall::Uploader
       assert_equal [], Whitehall::Uploader::PublicationRow.heading_validation_errors(basic_headings)
     end
 
-    test "validation reports missing row headings" do
-      keys = basic_headings - ['title']
-      assert_equal ["missing fields: 'title'"], Whitehall::Uploader::PublicationRow.heading_validation_errors(keys)
-    end
-
-    test "validation reports extra row headings" do
-      keys = basic_headings + ['extra_stuff']
-      assert_equal ["unexpected fields: 'extra_stuff'"], Whitehall::Uploader::PublicationRow.heading_validation_errors(keys)
-    end
-
     test "validation accepts a complete set of attachment headings" do
       keys = basic_headings + %w{attachment_1_url attachment_1_title}
       assert_equal [], Whitehall::Uploader::PublicationRow.heading_validation_errors(keys)
@@ -48,32 +34,6 @@ module Whitehall::Uploader
       assert_equal [
         "missing fields: 'attachment_1_url'",
         ], Whitehall::Uploader::PublicationRow.heading_validation_errors(keys)
-    end
-
-    test "takes title from the title column" do
-      row = new_publication_row({"title" => "a-title"})
-      assert_equal "a-title", row.title
-    end
-
-    test "takes summary from the summary column" do
-      row = new_publication_row({"summary" => "a-summary"})
-      assert_equal "a-summary", row.summary
-    end
-
-    test 'if summary column is blank, generates summary from body' do
-      row = new_publication_row("summary" => '', "body" => 'woo')
-      Parsers::SummariseBody.stubs(:parse).with('woo').returns('w')
-      assert_equal 'w', row.summary
-    end
-
-    test "takes body from the body column" do
-      row = new_publication_row({"body" => "Some body goes here"})
-      assert_equal "Some body goes here", row.body
-    end
-
-    test "takes legacy urls from the old_url column" do
-      row = new_publication_row({"old_url" => "http://example.com/old-url"})
-      assert_equal ["http://example.com/old-url"], row.legacy_urls
     end
 
     test "finds document series by slug in document_series_n column" do
@@ -121,19 +81,6 @@ module Whitehall::Uploader
                                   "policy_4" => policy_4.slug })
 
       assert_equal [policy_1, policy_2, policy_3, policy_4], row.related_policies
-    end
-
-    test "finds organisation by name in organisation column" do
-      organisation = create(:organisation)
-      row = new_publication_row({"organisation" => organisation.name})
-      assert_equal [organisation], row.organisations
-    end
-
-    test "takes lead_organisations from the found organisations" do
-      o = stub(:organisation)
-      row = new_publication_row({})
-      row.stubs(:organisations).returns([o])
-      assert_equal [o], row.lead_organisations
     end
 
     test "uses the organisation as the alternative format provider" do

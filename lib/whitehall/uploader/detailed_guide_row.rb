@@ -1,23 +1,7 @@
-require 'whitehall/uploader/finders'
-require 'whitehall/uploader/parsers'
-require 'whitehall/uploader/builders'
-require 'whitehall/uploader/row'
-
 module Whitehall::Uploader
   class DetailedGuideRow < Row
-    attr_reader :row
-
-    def initialize(row, line_number, attachment_cache, default_organisation, logger = Logger.new($stdout))
-      @row = row
-      @line_number = line_number
-      @logger = logger
-      @attachment_cache = attachment_cache
-      @default_organisation = default_organisation
-    end
-
     def self.validator
-      HeadingValidator.new
-        .required(%w{old_url title summary body organisation})
+      super
         .multiple("topic_#", 1..4)
         .multiple("document_series_#", 1..4)
         .multiple("detailed_guidance_category_#", 1..4)
@@ -27,35 +11,6 @@ module Whitehall::Uploader
         .ignored("ignore_*")
         .multiple(%w{attachment_#_url attachment_#_title}, 0..Row::ATTACHMENT_LIMIT)
         .optional('json_attachments')
-    end
-
-    def legacy_urls
-      Parsers::OldUrlParser.parse(row['old_url'], @logger, @line_number)
-    end
-
-    def title
-      row['title']
-    end
-
-    def summary
-      summary_text = row['summary']
-      if summary_text.blank?
-        Parsers::SummariseBody.parse(body)
-      else
-        summary_text
-      end
-    end
-
-    def body
-      row['body']
-    end
-
-    def organisations
-      Finders::OrganisationFinder.find(row['organisation'], @logger, @line_number, @default_organisation)
-    end
-
-    def lead_organisations
-      organisations
     end
 
     def topics
@@ -126,12 +81,6 @@ module Whitehall::Uploader
     end
 
     private
-
-    def fields(range, pattern)
-      range.map do |n|
-        row[pattern.gsub('#', n.to_s)]
-      end
-    end
 
     def attachments_from_json
       if row["json_attachments"]

@@ -1,4 +1,4 @@
-Given /^a (topic|document series|mainstream category) with the slug "([^"]*)" exists$/ do |type, slug|
+Given /^a (topic|document series|mainstream category|policy) with the slug "([^"]*)" exists$/ do |type, slug|
   o = create(type.parameterize.underscore)
   o.update_attributes!(slug: slug)
 end
@@ -195,12 +195,26 @@ end
 Then /^the import succeeds creating (\d+) detailed guidance document$/ do |n|
   assert_equal [], Import.last.import_errors
   assert_equal :succeeded, Import.last.status
-  assert_equal 1, Import.last.documents.where(document_type: DetailedGuide.name).to_a.size
+  assert_equal n.to_i, Import.last.documents.where(document_type: DetailedGuide.name).to_a.size
 end
 
 Then /^the imported detailed guidance document has the following associations:$/ do |expected_table|
   detailed_guide_document = Import.last.documents.where(document_type: DetailedGuide.name).first
   edition = detailed_guide_document.editions.first
+  expected_table.hashes.each do |row|
+    assert_equal edition.send(row["Name"].to_sym).map(&:slug), row["Slugs"].split(/, +/)
+  end
+end
+
+Then /^the import succeeds creating (\d+) case stud(?:y|ies)$/ do |n|
+  assert_equal [], Import.last.import_errors
+  assert_equal :succeeded, Import.last.status
+  assert_equal n.to_i, Import.last.documents.where(document_type: CaseStudy.name).to_a.size
+end
+
+Then /^the imported case study has the following associations:$/ do |expected_table|
+  case_study = Import.last.documents.where(document_type: CaseStudy.name).first
+  edition = case_study.editions.first
   expected_table.hashes.each do |row|
     assert_equal edition.send(row["Name"].to_sym).map(&:slug), row["Slugs"].split(/, +/)
   end

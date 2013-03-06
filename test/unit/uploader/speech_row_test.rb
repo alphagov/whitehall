@@ -21,55 +21,6 @@ module Whitehall::Uploader
       assert_equal [], Whitehall::Uploader::SpeechRow.heading_validation_errors(basic_headings)
     end
 
-    test "validation reports missing row headings" do
-      keys = basic_headings - ['title']
-      assert_equal ["missing fields: 'title'"], Whitehall::Uploader::SpeechRow.heading_validation_errors(keys)
-    end
-
-    test "validation reports extra row headings" do
-      keys = basic_headings + ['extra_stuff']
-      assert_equal ["unexpected fields: 'extra_stuff'"], Whitehall::Uploader::SpeechRow.heading_validation_errors(keys)
-    end
-
-    test "takes legacy urls from the old_url column" do
-      row = new_speech_row({"old_url" => "http://example.com/old-url"})
-      assert_equal ["http://example.com/old-url"], row.legacy_urls
-    end
-
-    test "takes title from the title column" do
-      row = new_speech_row({"title" => "a-title"})
-      assert_equal "a-title", row.title
-    end
-
-    test "takes body from the body column" do
-      row = new_speech_row({"body" => "Some body goes here"})
-      assert_equal "Some body goes here", row.body
-    end
-
-    test "takes summary from the summary column" do
-      row = new_speech_row({"summary" => "a-summary"})
-      assert_equal "a-summary", row.summary
-    end
-
-    test 'if summary column is blank, generates summary from body' do
-      row = new_speech_row("summary" => '', "body" => 'woo')
-      Parsers::SummariseBody.stubs(:parse).with('woo').returns('w')
-      assert_equal 'w', row.summary
-    end
-
-    test "finds temporary organisation from the organisation field" do
-      organisation = stub('Organisation', name: 'Treasury')
-      Organisation.stubs(:find_by_name).with('Treasury').returns(organisation)
-
-      row = new_speech_row({"organisation" => "Treasury"})
-      assert_equal [organisation], row.organisations
-    end
-
-    test "uses default organisation as temporary org if the organisation field is blank" do
-      row = new_speech_row({"organisation" => ""})
-      assert_equal [@default_organisation], row.organisations
-    end
-
     test "finds speech type by slug in the speech type column" do
       row = new_speech_row({"type" => "transcript"})
       assert_equal SpeechType::Transcript, row.speech_type

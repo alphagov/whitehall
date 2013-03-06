@@ -1,7 +1,9 @@
 # encoding: utf-8
 require "fast_test_helper"
-
-require "whitehall/uploader/parsers/summarise_body"
+require "whitehall/uploader"
+require 'govspeak'
+require 'action_view'
+require 'strscan'
 
 module Whitehall::Uploader::Parsers
   class SummariseBodyTest < ActiveSupport::TestCase

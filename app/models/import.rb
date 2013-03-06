@@ -20,7 +20,8 @@ class Import < ActiveRecord::Base
     speech: [Whitehall::Uploader::SpeechRow, Speech],
     statistical_data_set: [Whitehall::Uploader::StatisticalDataSetRow, StatisticalDataSet],
     fatality_notice: [Whitehall::Uploader::FatalityNoticeRow, FatalityNotice],
-    detailed_guide: [Whitehall::Uploader::DetailedGuideRow, DetailedGuide]
+    detailed_guide: [Whitehall::Uploader::DetailedGuideRow, DetailedGuide],
+    case_study: [Whitehall::Uploader::CaseStudyRow, CaseStudy],
   }
 
   after_destroy :destroy_all_imported_documents

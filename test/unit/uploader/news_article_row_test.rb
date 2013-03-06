@@ -1,7 +1,3 @@
-# encoding: UTF-8
-
-require File.expand_path("../../../fast_test_helper", __FILE__)
-require 'whitehall/uploader/news_article_row'
 require 'test_helper'
 
 module Whitehall::Uploader
@@ -22,64 +18,9 @@ module Whitehall::Uploader
       assert_equal [], NewsArticleRow.heading_validation_errors(basic_headings)
     end
 
-    test "validation reports missing row headings" do
-      keys = basic_headings - ['title']
-      assert_equal ["missing fields: 'title'"], NewsArticleRow.heading_validation_errors(keys)
-    end
-
-    test "validation reports extra row headings" do
-      keys = basic_headings + ['extra_stuff']
-      assert_equal ["unexpected fields: 'extra_stuff'"], NewsArticleRow.heading_validation_errors(keys)
-    end
-
-    test "takes legacy urls from the old_url column" do
-      row = news_article_row("old_url" => "http://example.com/old-url")
-      assert_equal ["http://example.com/old-url"], row.legacy_urls
-    end
-
-    test "takes title from title column" do
-      row = news_article_row("title" => "a-title")
-      assert_equal "a-title", row.title
-    end
-
-    test "takes summary from the summary column, converting relative links to absolute" do
-      Parsers::RelativeToAbsoluteLinks.stubs(:parse).with("relative links", "url").returns("absolute links")
-      row = news_article_row("summary" => "relative links")
-      row.stubs(:organisation).returns(stub("organisation", url: "url"))
-      assert_equal "absolute links", row.summary
-    end
-
-    test 'if summary column is blank, generates summary from body' do
-      row = news_article_row("summary" => '', "body" => 'woo')
-      row.stubs(:organisation).returns(stub("organisation", url: "url"))
-      Parsers::SummariseBody.stubs(:parse).with('woo').returns('w')
-      assert_equal 'w', row.summary
-    end
-
-    test "takes body from the 'body' column, converting relative links to absolute" do
-      Parsers::RelativeToAbsoluteLinks.stubs(:parse).with("relative links", "url").returns("absolute links")
-      row = news_article_row("body" => "relative links")
-      row.stubs(:organisation).returns(stub("organisation", url: "url"))
-      assert_equal "absolute links", row.body
-    end
-
     test "finds news article type by slug in the news_article_type column" do
-    row = news_article_row("news_article_type" => "rebuttals")
-    assert_equal ::NewsArticleType::Rebuttal, row.news_article_type
-  end
-
-    test "finds an organisation using the organisation finder" do
-      organisation = stub("Organisation")
-      Finders::OrganisationFinder.stubs(:find).with("name or slug", anything, anything, @default_organisation).returns([organisation])
-      row = news_article_row("organisation" => "name or slug")
-      assert_equal organisation, row.organisation
-    end
-
-    test "takes lead_organisations from the found organisations" do
-      o = stub(:organisation)
-      row = news_article_row({})
-      row.stubs(:organisations).returns([o])
-      assert_equal [o], row.lead_organisations
+      row = news_article_row("news_article_type" => "rebuttals")
+      assert_equal ::NewsArticleType::Rebuttal, row.news_article_type
     end
 
     test "takes first_published_at from the 'first_published' column" do

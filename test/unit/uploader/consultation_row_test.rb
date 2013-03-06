@@ -1,9 +1,5 @@
-# encoding: UTF-8
-# *NOTE* this file deliberately does not include test_helper
-# in order to attempt to speed up the tests
-
-require File.expand_path("../../../fast_test_helper", __FILE__)
-require 'whitehall/uploader/consultation_row'
+require 'fast_test_helper'
+require 'whitehall/uploader'
 
 module Whitehall::Uploader
   class ConsultationRowTest < ActiveSupport::TestCase
@@ -38,16 +34,6 @@ module Whitehall::Uploader
       assert_equal [], ConsultationRow.heading_validation_errors(keys)
     end
 
-    test "validation reports missing row headings" do
-      keys = basic_headings - ['title']
-      assert_equal ["missing fields: 'title'"], ConsultationRow.heading_validation_errors(keys)
-    end
-
-    test "validation reports extra row headings" do
-      keys = basic_headings + ['extra_stuff']
-      assert_equal ["unexpected fields: 'extra_stuff'"], ConsultationRow.heading_validation_errors(keys)
-    end
-
     test "validation accepts a complete set of response headings" do
       keys = basic_headings + %w{response_1_url response_1_title response_1_ISBN}
       assert_equal [], ConsultationRow.heading_validation_errors(keys)
@@ -72,37 +58,6 @@ module Whitehall::Uploader
         ], ConsultationRow.heading_validation_errors(keys)
     end
 
-    test "takes title from the title column" do
-      row = consultation_row("title" => "a-title")
-      assert_equal "a-title", row.title
-    end
-
-    test "takes summary from the summary column, converting relative links to absolute" do
-      Parsers::RelativeToAbsoluteLinks.stubs(:parse).with("relative links", "url").returns("absolute links")
-      row = consultation_row("summary" => "relative links")
-      row.stubs(:organisation).returns(stub("organisation", url: "url"))
-      assert_equal "absolute links", row.summary
-    end
-
-    test 'if summary column is blank, generates summary from body' do
-      row = consultation_row("summary" => '', "body" => 'woo')
-      row.stubs(:organisation).returns(stub("organisation", url: "url"))
-      Parsers::SummariseBody.stubs(:parse).with('woo').returns('w')
-      assert_equal 'w', row.summary
-    end
-
-    test "takes legacys url from the old_url column" do
-      row = consultation_row("old_url" => "http://example.com/old-url")
-      assert_equal ["http://example.com/old-url"], row.legacy_urls
-    end
-
-    test "takes body from the 'body' column, converting relative links to absolute" do
-      Parsers::RelativeToAbsoluteLinks.stubs(:parse).with("relative links", "url").returns("absolute links")
-      row = consultation_row("body" => "relative links")
-      row.stubs(:organisation).returns(stub("organisation", url: "url"))
-      assert_equal "absolute links", row.body
-    end
-
     test "takes opening on from the 'opening_date' column" do
       Parsers::DateParser.stubs(:parse).with("opening-on-date", anything, anything).returns("date-object")
       row = consultation_row("opening_date" => "opening-on-date")
@@ -121,26 +76,6 @@ module Whitehall::Uploader
     test "leaves closing on blank if the 'closing_date' column is blank" do
       row = consultation_row("closing_date" => '')
       assert_nil row.closing_on
-    end
-
-    test "finds an organisation using the organisation finder" do
-      organisation = stub("Organisation")
-      Finders::OrganisationFinder.stubs(:find).with("name or slug", anything, anything, @default_organisation).returns([organisation])
-      row = consultation_row("organisation" => "name or slug")
-      assert_equal organisation, row.organisation
-    end
-
-    test "takes organisations as an array containing the found organisation" do
-      row = consultation_row({})
-      row.stubs(:organisation).returns(:organisation)
-      assert_equal [:organisation], row.organisations
-    end
-
-    test "takes lead_organisations from the found organisations" do
-      o = stub(:organisation)
-      row = consultation_row({})
-      row.stubs(:organisations).returns([o])
-      assert_equal [o], row.lead_organisations
     end
 
     test "finds related policies using the policy finder" do

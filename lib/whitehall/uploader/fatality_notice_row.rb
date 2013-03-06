@@ -1,11 +1,5 @@
-require 'whitehall/uploader/row'
-require 'whitehall/uploader/finders/operational_field_finder'
-require 'whitehall/uploader/finders/operational_field_finder'
-
 module Whitehall::Uploader
   class FatalityNoticeRow < Row
-    attr_reader :row
-
     def initialize(row, line_number, _, logger = Logger.new($stdout), image_cache = nil)
       @row = row
       @line_number = line_number
@@ -19,35 +13,6 @@ module Whitehall::Uploader
         .multiple(%w{image_#_imgalt image_#_imgcap image_#_imgcapmd image_#_imgurl}, 0..4)
         .ignored("ignore_*")
         .required(%w{first_published field_of_operation roll_call_introduction})
-    end
-
-    def title
-      row['title']
-    end
-
-    def summary
-      summary_text = row['summary']
-      if summary_text.blank?
-        Parsers::SummariseBody.parse(body)
-      else
-        summary_text
-      end
-    end
-
-    def body
-      row['body']
-    end
-
-    def legacy_urls
-      Parsers::OldUrlParser.parse(row['old_url'], @logger, @line_number)
-    end
-
-    def organisations
-      [Organisation.find_by_slug("ministry-of-defence")]
-    end
-
-    def lead_organisations
-      organisations
     end
 
     def images
@@ -72,6 +37,10 @@ module Whitehall::Uploader
 
     def roll_call_introduction
       row['roll_call_introduction']
+    end
+
+    def organisation
+      Organisation.find_by_slug("ministry-of-defence")
     end
 
     def attributes
