@@ -31,6 +31,12 @@ Scenario: Viewing all ministers
   Then I should see that "Johnny Macaroon" is a minister in the "Department of Woah"
   And I should see that "Fred Bloggs" is a minister in the "Department of Foo"
 
+Scenario: Ministers show only once even if they have two roles
+  Given "Johnny Macaroon" is the "Minister of Crazy" for the "Department of Woah"
+  And "Johnny Macaroon" is the "Minister of Fun" for the "Department of Woah"
+  When I visit the ministers page
+  Then I should see that "Johnny Macaroon" is a minister in the "Department of Woah" with role "Minister of Crazy, Minister of Fun"
+
 Scenario: Viewing ministers and whips
   Given "Johnny Macaroon" is the "Minister of Crazy" for the "Department of Woah"
   And "Fred Bloggs" is a commons whip "Deputy Chief Whip, Comptroller of HM Household" for the "Department of Foo"

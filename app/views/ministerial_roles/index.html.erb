@@ -47,7 +47,7 @@
 <div class="ministers-by-organisation">
   <div class="inner-block">
     <h2 id="ministers-by-organisation">Ministers by organisation</h2>
-    <% @ministers_by_organisation.each do |organisation, ministers| %>
+    <% @ministers_by_organisation.each do |organisation, roles| %>
       <%= content_tag_for :section, organisation do %>
         <h3>
           <%= link_to organisation_path(organisation), class: logo_classes(class_name: organisation.organisation_logo_type.class_name,  size: 'medium', stacked: true) do %>
@@ -55,11 +55,11 @@
           <% end %>
         </h3>
         <ul class="minister-list">
-          <% ministers.each.with_index do |role_appointment, i| %>
+          <% roles.unique_people.each.with_index do |person, i| %>
             <%= render partial: "people/person",
                 locals: {
-                  person: role_appointment.person,
-                  roles: [role_appointment.role],
+                  person: PersonPresenter.new(person),
+                  roles: roles.roles_for(person),
                   hlevel: "h4",
                   prefix: 'by-organisation',
                   hide_image: true,

@@ -34,7 +34,7 @@ class MinisterialRolesControllerTest < ActionController::TestCase
     assert_equal [prime_minister, deputy_prime_minister, first_sec_of_state, defence_minister, culture_minister], assigns(:cabinet_ministerial_roles).map { |person, role| role.first.model }
   end
 
-  test "shows roles by organisation in the correct order" do
+  test "shows ministers by organisation in the correct order" do
     organisation = create(:ministerial_department)
     person_2 = create(:person, forename: 'Jeremy', surname: 'Hunt')
     person_1 = create(:person, forename: 'Nick', surname: 'Clegg')
@@ -50,9 +50,10 @@ class MinisterialRolesControllerTest < ActionController::TestCase
 
     get :index
 
-    expected_results = [[organisation, [appointment_1, appointment_2]]]
-    assert_equal expected_results, assigns(:ministers_by_organisation).map { |org, role_appointments| [org, role_appointments.map(&:model)] }
+    expected_results = [[organisation, RolesPresenter.new([role_1, role_2])]]
+    assert_equal expected_results, assigns(:ministers_by_organisation)
   end
+
 
   test "shows whips separately" do
     organisation = create(:ministerial_department)
@@ -73,8 +74,6 @@ class MinisterialRolesControllerTest < ActionController::TestCase
     whips = [[Whitehall::WhipOrganisation.find_by_id(1), []]]
     whips[0][1] = [appointment_3]
 
-    expected_results = [[organisation, [appointment_1, appointment_2]]]
-    assert_equal expected_results, assigns(:ministers_by_organisation).map { |org, role_appointments| [org, role_appointments.map(&:model)] }
     assert_equal whips, assigns(:whips_by_organisation).map { |org, role_appointments| [org, role_appointments.map(&:model)] }
   end
 
@@ -218,8 +217,8 @@ class MinisterialRolesControllerTest < ActionController::TestCase
 
     get :index
 
-    expected_results = [[organisation, [appointment_1]]]
-    assert_equal expected_results, assigns(:ministers_by_organisation).map { |org, role_appointments| [org, role_appointments.map(&:model)] }
+    expected_results = [[organisation, RolesPresenter.new([ministerial_role])]]
+    assert_equal expected_results, assigns(:ministers_by_organisation)
   end
 
   private
