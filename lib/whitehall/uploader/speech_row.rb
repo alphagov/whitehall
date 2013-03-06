@@ -1,5 +1,3 @@
-require 'whitehall/uploader/row'
-
 module Whitehall::Uploader
   class SpeechRow < Row
     attr_reader :row

@@ -1,5 +1,3 @@
-require 'whitehall/uploader/heading_validator'
-
 module Whitehall::Uploader
   class Row
     ATTACHMENT_LIMIT = 100

@@ -1,4 +1,4 @@
-require "test_helper"
+require 'test_helper'
 require 'support/consultation_csv_sample_helpers'
 
 class ImportTest < ActiveSupport::TestCase

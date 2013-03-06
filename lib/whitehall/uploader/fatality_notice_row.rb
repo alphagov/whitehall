@@ -1,7 +1,3 @@
-require 'whitehall/uploader/row'
-require 'whitehall/uploader/finders/operational_field_finder'
-require 'whitehall/uploader/finders/operational_field_finder'
-
 module Whitehall::Uploader
   class FatalityNoticeRow < Row
     attr_reader :row

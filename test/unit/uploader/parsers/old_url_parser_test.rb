@@ -1,6 +1,5 @@
 require "fast_test_helper"
-
-require "whitehall/uploader/parsers/old_url_parser"
+require "whitehall/uploader"
 
 class Whitehall::Uploader::Parsers::OldUrlParserTest < ActiveSupport::TestCase
   def setup

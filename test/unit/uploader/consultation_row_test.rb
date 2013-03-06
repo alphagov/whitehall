@@ -1,9 +1,5 @@
-# encoding: UTF-8
-# *NOTE* this file deliberately does not include test_helper
-# in order to attempt to speed up the tests
-
-require File.expand_path("../../../fast_test_helper", __FILE__)
-require 'whitehall/uploader/consultation_row'
+require 'fast_test_helper'
+require 'whitehall/uploader'
 
 module Whitehall::Uploader
   class ConsultationRowTest < ActiveSupport::TestCase

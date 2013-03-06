@@ -1,8 +1,3 @@
-require 'whitehall/uploader/finders'
-require 'whitehall/uploader/parsers'
-require 'whitehall/uploader/builders'
-require 'whitehall/uploader/row'
-
 module Whitehall::Uploader
   class ConsultationRow < Row
     attr_reader :row

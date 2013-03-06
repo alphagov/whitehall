@@ -1,5 +1,3 @@
-require 'whitehall/uploader/finders'
-
 class Whitehall::Uploader::Finders::OrganisationFinder
   def self.find(name_or_slug, logger, line_number, default_organisation)
     return [default_organisation] if name_or_slug.blank?

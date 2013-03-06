@@ -1,7 +1,4 @@
 # encoding: UTF-8
-
-require File.expand_path("../../../fast_test_helper", __FILE__)
-require 'whitehall/uploader/detailed_guide_row'
 require 'test_helper'
 
 module Whitehall::Uploader

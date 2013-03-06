@@ -1,4 +1,4 @@
-require "whitehall/uploader/parsers"
+require 'json'
 
 class Whitehall::Uploader::Parsers::OldUrlParser
   def self.parse(old_url, logger, line_number)
@@ -13,7 +13,7 @@ class Whitehall::Uploader::Parsers::OldUrlParser
 
   def self.parse_json_old_url(old_url, logger)
     JSON.parse(old_url)
-  rescue => e
+  rescue JSON::ParserError => e
     logger.error "Unable to parse the old url '#{old_url}', #{e.class.name}: #{e.message}"
     []
   end
