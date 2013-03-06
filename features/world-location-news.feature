@@ -35,12 +35,12 @@ Feature: World location news for people local to countries
     Given I am an editor
 
   Scenario: Create a world location news article
-    When I create a world location news article "Beirut News"
+    When I draft a valid world location news article "Beirut News"
     Then the world location news article "Beirut News" should have been created
 
   Scenario: Associate a world location news article with an worldwide priority
     Given a published worldwide priority "Helping local people" exists
-    When I create a valid world location news article "Beirut News"
+    When I draft a valid world location news article "Beirut News"
     Then I should be able to associate "Beirut News" with the worldwide priority "Helping local people"
     And see the world location news article "Beirut News" appear on the worldwide priority "Helping local people"
 
