@@ -29,14 +29,13 @@ private
   end
 
   def whips_by_organisation
-    RoleAppointment.current.for_ministerial_roles.merge(Role.whip)
-      .map { |appointment| RoleAppointmentPresenter.decorate(appointment) }
-      .group_by {|appointment| appointment.role.whip_organisation_id }
-      .map do |whip_organisation_id, role_appointments|
-        [
-          Whitehall::WhipOrganisation.find_by_id(whip_organisation_id),
-          role_appointments.sort_by { |ra| ra.role.seniority }
-        ]
+    Role.whip.group_by(&:whip_organisation_id).map do |whip_organisation_id, roles|
+      presenter = RolesPresenter.new(roles.sort_by(&:seniority))
+      presenter.remove_unfilled_roles!
+      [
+        Whitehall::WhipOrganisation.find_by_id(whip_organisation_id),
+        presenter
+      ]
     end.sort_by { |org, whips| org.sort_order }
   end
 end

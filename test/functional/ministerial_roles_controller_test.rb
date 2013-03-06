@@ -71,10 +71,9 @@ class MinisterialRolesControllerTest < ActionController::TestCase
 
     get :index
 
-    whips = [[Whitehall::WhipOrganisation.find_by_id(1), []]]
-    whips[0][1] = [appointment_3]
+    whips = [[Whitehall::WhipOrganisation.find_by_id(1), RolesPresenter.new([role_3])]]
 
-    assert_equal whips, assigns(:whips_by_organisation).map { |org, role_appointments| [org, role_appointments.map(&:model)] }
+    assert_equal whips, assigns(:whips_by_organisation)
   end
 
   test 'orders whips by organisation sort order' do
@@ -101,13 +100,13 @@ class MinisterialRolesControllerTest < ActionController::TestCase
     get :index
 
     whips = [
-      [Whitehall::WhipOrganisation.find_by_id(1), [appointment_1]],
-      [Whitehall::WhipOrganisation.find_by_id(3), [appointment_3]],
-      [Whitehall::WhipOrganisation.find_by_id(4), [appointment_4]],
-      [Whitehall::WhipOrganisation.find_by_id(2), [appointment_2]],
-      [Whitehall::WhipOrganisation.find_by_id(5), [appointment_5]]
+      [Whitehall::WhipOrganisation.find_by_id(1), RolesPresenter.new([role_1])],
+      [Whitehall::WhipOrganisation.find_by_id(3), RolesPresenter.new([role_3])],
+      [Whitehall::WhipOrganisation.find_by_id(4), RolesPresenter.new([role_4])],
+      [Whitehall::WhipOrganisation.find_by_id(2), RolesPresenter.new([role_2])],
+      [Whitehall::WhipOrganisation.find_by_id(5), RolesPresenter.new([role_5])]
     ]
-    assert_equal whips, assigns(:whips_by_organisation).map { |org, role_appointments| [org, role_appointments.map(&:model)] }
+    assert_equal whips, assigns(:whips_by_organisation)
   end
 
   test "should avoid n+1 queries" do

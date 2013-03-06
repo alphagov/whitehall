@@ -80,11 +80,11 @@
       <%= content_tag_for :section, whip_organisation do %>
         <h3><%= whip_organisation.name %></h3>
         <ul class="minister-list">
-          <% whips.each.with_index do |role_appointment, i| %>
+          <% whips.unique_people.each.with_index do |person, i| %>
             <%= render partial: "people/person",
                 locals: {
-                  person: role_appointment.person,
-                  roles: [role_appointment.role],
+              person: PersonPresenter.new(person),
+                  roles: whips.roles_for(person),
                   hlevel: "h4",
                   prefix: 'by-organisation',
                   hide_image: true,
