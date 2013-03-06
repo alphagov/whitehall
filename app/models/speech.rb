@@ -26,7 +26,7 @@ class Speech < Announcement
 
   def display_type
     if statement_to_parliament?
-      "Statement to parliament"
+      "Statement to Parliament"
     else
       super
     end
