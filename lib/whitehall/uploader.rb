@@ -8,6 +8,7 @@ module Whitehall
     autoload :Row, 'whitehall/uploader/row'
 
     autoload :ConsultationRow, 'whitehall/uploader/consultation_row'
+    autoload :CaseStudyRow, 'whitehall/uploader/case_study_row'
     autoload :DetailedGuideRow, 'whitehall/uploader/detailed_guide_row'
     autoload :NewsArticleRow, 'whitehall/uploader/news_article_row'
     autoload :PublicationRow, 'whitehall/uploader/publication_row'

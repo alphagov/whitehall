@@ -54,6 +54,12 @@ module Whitehall::Uploader
 
     protected
 
+    def fields(range, pattern)
+      range.map do |n|
+        row[pattern.gsub('#', n.to_s)]
+      end
+    end
+
     def self.provided_response_ids(headings)
       headings.map do |k|
         if match = k.match(/^response_([0-9]+).*$/)

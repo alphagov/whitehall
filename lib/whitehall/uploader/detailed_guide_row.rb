@@ -82,12 +82,6 @@ module Whitehall::Uploader
 
     private
 
-    def fields(range, pattern)
-      range.map do |n|
-        row[pattern.gsub('#', n.to_s)]
-      end
-    end
-
     def attachments_from_json
       if row["json_attachments"]
         attachment_data = ActiveSupport::JSON.decode(row["json_attachments"])
