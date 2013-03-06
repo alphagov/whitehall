@@ -14,7 +14,7 @@ module Admin::AdminGovspeakHelper
 
   def bare_govspeak_to_admin_html(govspeak, images = [], attachments = [])
     govspeak = remove_extra_quotes_from_blockquotes(govspeak)
-    govspeak_to_html_with_replaced_admin_links(govspeak, images) do |replacement_html, edition|
+    bare_govspeak_to_html(govspeak, images) do |replacement_html, edition|
       latest_edition = edition && edition.document.latest_edition
       if latest_edition.nil?
         replacement_html = content_tag(:del, replacement_html)
