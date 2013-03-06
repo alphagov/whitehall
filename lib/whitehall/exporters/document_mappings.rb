@@ -59,7 +59,7 @@ class Whitehall::Exporters::DocumentMappings < Struct.new(:platform)
       next unless page.edition.present?
       target << row(
         policy_supporting_page_url(page.edition.document, page, host: host_name, protocol: 'https'),
-        admin_edition_supporting_page_url(page, edition_id: page.edition_id, host: admin_host, protocol: 'https')
+        admin_supporting_page_url(page, host: admin_host, protocol: 'https')
       )
     end
 
