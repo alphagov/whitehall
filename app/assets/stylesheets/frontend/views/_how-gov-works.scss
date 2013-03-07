@@ -10,34 +10,22 @@
         padding: $gutter*1.5 $gutter-half 0;
       }
 
-      .header-title, .jump-links {
+      .header-title {
         .content {
           padding: 0 $gutter-half;
+        }
+        a {
+          text-decoration: none;
+          white-space: nowrap;
+          &:hover,
+          &:focus {
+            text-decoration: underline;
+          }
         }
         @include media(tablet) {
           float: left;
           display: inline;
-          width: 66.66%;
-        }
-      }
-
-      .jump-links {
-        h4 {
-          @include core-16;
-          padding-top: $gutter-one-third;
-        }
-        ul li {
-          @include core-16;
-          list-style: none;
-          padding: $gutter-one-sixth 0 0 0;
-          margin-left: 0;
-          a {
-            text-decoration: none;
-          }
-        }
-        @include media(tablet) {
-          float: right;
-          width: 25%;
+          width: 75%;
         }
       }
     }

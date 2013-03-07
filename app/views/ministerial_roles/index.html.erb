@@ -7,19 +7,9 @@
       <div class="header-title">
         <div class="content">
           <h1>Ministers</h1>
+          <p class="intro">Read biographies and responsibilities of <a href="#cabinet-ministers">Cabinet ministers</a> and all <a href="#ministers-by-department">ministers by department</a>, as well as the <a href="#whips">whips</a> who help co-ordinate parliamentary business.</p>
         </div>
       </div>
-
-      <aside class="jump-links">
-        <div class="content">
-          <h1>Sections:</h1>
-          <ul>
-            <li><a href="#cabinet-ministers">Cabinet ministers</a></li>
-            <li><a href="#ministers-by-organisation">Ministers by organisation</a></li>
-            <li><a href="#whips">Whips</a></li>
-          </ul>
-        </div>
-      </aside>
     </header>
   </div>
 </div>
@@ -46,7 +36,7 @@
 
 <div class="ministers-by-organisation">
   <div class="inner-block">
-    <h2 id="ministers-by-organisation">Ministers by organisation</h2>
+    <h2 id="ministers-by-department">Ministers by department</h2>
     <% @ministers_by_organisation.each do |organisation, roles| %>
       <%= content_tag_for :section, organisation do %>
         <h3>
