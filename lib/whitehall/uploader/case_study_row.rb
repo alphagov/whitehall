@@ -4,6 +4,7 @@ module Whitehall::Uploader
     def self.validator
       super
         .required("first_published")
+        .ignored("ignore_*")
         .multiple("policy_#", 1..4)
         .multiple("document_series_#", 1..4)
     end

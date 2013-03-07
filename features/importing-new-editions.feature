@@ -242,7 +242,7 @@ Feature: Importing new editions
     And a published policy "policy-one"
     When I import the following data as CSV as "Case study" for "Department for Beards":
       """
-      old_url,title,summary,body,organisation,policy_1,document_series_1,first_published
+      old_url,title,summary,body,organisation,policy_1,document_series_1,first_published,ignore_this
       http://example.com/1,title,summary,body,,policy-one,my-document-series,14-Dec-2011
       """
     Then the import succeeds creating 1 case study

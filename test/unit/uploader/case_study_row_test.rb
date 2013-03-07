@@ -18,6 +18,10 @@ module Whitehall::Uploader
       assert_equal [], Whitehall::Uploader::CaseStudyRow.heading_validation_errors(complete_row_headings)
     end
 
+    test "ignores ignored fields" do
+      assert_equal [], Whitehall::Uploader::CaseStudyRow.heading_validation_errors(basic_headings + %w(ignore_this ignore_this_too))
+    end
+
     test "finds document series by slug in document_series_n column" do
       doc_series_1 = create(:document_series)
       doc_series_2 = create(:document_series)
