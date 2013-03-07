@@ -113,6 +113,7 @@ When /^I add an "([^"]*)" office with address, phone number, and some services$/
   visit offices_admin_worldwide_organisation_path(WorldwideOrganisation.last)
   click_link "Add"
   fill_in "Title", with: description
+  select WorldwideOfficeType.all.sample.name, from: 'Office type'
 
   check service1.name
   check service3.name
