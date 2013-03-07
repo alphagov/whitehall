@@ -93,7 +93,7 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
 
   test "updating should retain associations to related editions" do
     policy = create(:draft_policy)
-    publication = create(:draft_publication, related_policies: [policy])
+    publication = create(:draft_publication, related_editions: [policy])
     assert policy.related_editions.include?(publication), "policy and publication should be related"
 
     put :update, id: policy, edition: controller_attributes_for_instance(policy, title: "another title")

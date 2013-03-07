@@ -325,11 +325,11 @@ Then /^the change notes should appear in the history for the policy "([^"]*)" in
 end
 
 Given /^a published publication "([^"]*)" associated with the policy$/ do |title|
-  create(:published_speech, title: title, related_policies: [@policy])
+  create(:published_speech, title: title, related_editions: [@policy])
 end
 
 Given /^a draft publication "([^"]*)" associated with the policy$/ do |title|
-  create(:draft_speech, title: title, related_policies: [@policy])
+  create(:draft_speech, title: title, related_editions: [@policy])
 end
 
 Then /^I should see a link to "([^"]*)" in the list of related documents$/ do |title|

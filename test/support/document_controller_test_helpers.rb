@@ -96,21 +96,21 @@ module DocumentControllerTestHelpers
     def should_show_related_policies_for(document_type)
       view_test "show displays related published policies for #{document_type}" do
         published_policy = create(:published_policy)
-        edition = create("published_#{document_type}", related_policies: [published_policy])
+        edition = create("published_#{document_type}", related_editions: [published_policy])
         get :show, id: edition.document
         assert_select_object published_policy
       end
 
       view_test "show doesn't display related unpublished policies for #{document_type}" do
         draft_policy = create(:draft_policy)
-        edition = create("published_#{document_type}", related_policies: [draft_policy])
+        edition = create("published_#{document_type}", related_editions: [draft_policy])
         get :show, id: edition.document
         refute_select_object draft_policy
       end
 
       view_test "should not display policies unless they are related for #{document_type}" do
         unrelated_policy = create(:published_policy)
-        edition = create("published_#{document_type}", related_policies: [])
+        edition = create("published_#{document_type}", related_editions: [])
         get :show, id: edition.document
         refute_select_object unrelated_policy
       end
@@ -128,7 +128,7 @@ module DocumentControllerTestHelpers
       view_test "show infers topics from published policies for #{document_type}" do
         topic = create(:topic)
         published_policy = create(:published_policy, topics: [topic])
-        edition = create("published_#{document_type}", related_policies: [published_policy])
+        edition = create("published_#{document_type}", related_editions: [published_policy])
         get :show, id: edition.document
         assert_select_object topic
       end
@@ -137,7 +137,7 @@ module DocumentControllerTestHelpers
         topic = create(:topic)
         published_policy_1 = create(:published_policy, topics: [topic])
         published_policy_2 = create(:published_policy, topics: [topic])
-        edition = create("published_#{document_type}", related_policies: [published_policy_1, published_policy_2])
+        edition = create("published_#{document_type}", related_editions: [published_policy_1, published_policy_2])
         get :show, id: edition.document
         assert_select_object topic, count: 1
       end

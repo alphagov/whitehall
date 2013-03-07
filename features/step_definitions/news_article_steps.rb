@@ -1,7 +1,7 @@
 Given /^a published news article "([^"]*)" with related published policies "([^"]*)" and "([^"]*)"$/ do |news_article_title, policy_title_1, policy_title_2|
   policy_1 = create(:published_policy, title: policy_title_1)
   policy_2 = create(:published_policy, title: policy_title_2)
-  create(:published_news_article, title: news_article_title, related_policies: [policy_1, policy_2])
+  create(:published_news_article, title: news_article_title, related_editions: [policy_1, policy_2])
 end
 
 Given /^a published news article "([^"]*)" for the organisation "([^"]*)"$/ do |title, organisation|
@@ -11,7 +11,7 @@ end
 
 Given /^a published news article "([^"]*)" for the policy "([^"]*)"$/ do |title, policy_name|
   policy = Policy.find_by_title(policy_name) || create(:policy, title: policy_name)
-  create(:published_news_article, title: title, related_policies: [policy])
+  create(:published_news_article, title: title, related_editions: [policy])
 end
 
 Given /^a published news article "([^"]*)" associated with "([^"]*)"$/ do |title, appointee|

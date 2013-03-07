@@ -660,7 +660,7 @@ module AdminEditionControllerTestHelpers
 
       view_test "edit displays document form with related policies field" do
         policy = create(:policy)
-        document = create(document_type, related_policies: [policy])
+        document = create(document_type, related_editions: [policy])
 
         get :edit, id: document
 
@@ -672,7 +672,7 @@ module AdminEditionControllerTestHelpers
       test "updating should save modified document attributes with related policies" do
         first_policy = create(:policy)
         second_policy = create(:policy)
-        document = create(document_type, related_policies: [first_policy])
+        document = create(document_type, related_editions: [first_policy])
 
         put :update, id: document, edition: controller_attributes_for_instance(document,
           related_document_ids: [second_policy.document.id]
@@ -684,7 +684,7 @@ module AdminEditionControllerTestHelpers
 
       test "updating should remove all related policies if none in params" do
         policy = create(:policy)
-        document = create(document_type, related_policies: [policy])
+        document = create(document_type, related_editions: [policy])
 
         put :update, id: document, edition: controller_attributes_for_instance(document, related_document_ids: [])
 
@@ -694,7 +694,7 @@ module AdminEditionControllerTestHelpers
 
       view_test "updating a stale document should render edit page with conflicting document and its related policies" do
         policy = create(:policy)
-        document = create(document_type, related_policies: [policy])
+        document = create(document_type, related_editions: [policy])
         lock_version = document.lock_version
         document.touch
 
@@ -709,7 +709,7 @@ module AdminEditionControllerTestHelpers
 
       view_test "show displays related policies" do
         policy = create(:policy)
-        document = create(document_type, related_policies: [policy])
+        document = create(document_type, related_editions: [policy])
 
         get :show, id: document
 

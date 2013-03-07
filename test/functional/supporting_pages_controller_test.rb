@@ -239,7 +239,7 @@ class SupportingPagesControllerTest < ActionController::TestCase
   view_test "shows activity link when viewing supporting details" do
     policy = create(:published_policy)
     supporting_page = create(:supporting_page, edition: policy)
-    speech = create(:published_speech, related_policies: [policy])
+    speech = create(:published_speech, related_editions: [policy])
 
     get :show, policy_id: policy.document, id: supporting_page
 

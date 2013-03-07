@@ -23,10 +23,11 @@ class Edition::WorldwidePrioritiesTest < ActiveSupport::TestCase
   end
 
   setup do
-    @edition = EditionWithWorldwidePriorities.new(valid_edition_attributes.merge(worldwide_priorities: priorities))
+    @edition = EditionWithWorldwidePriorities.new(valid_edition_attributes.merge(related_editions: priorities))
   end
 
   test "edition can be created with worldwide priorities" do
+    @edition.save!
     assert_equal priorities, @edition.worldwide_priorities
   end
 
@@ -40,12 +41,20 @@ class Edition::WorldwidePrioritiesTest < ActiveSupport::TestCase
   end
 
   test "copies the worldwide priorities over to a new draft" do
-    published = build :published_world_location_news_article, worldwide_priorities: priorities
+    published = create :published_world_location_news_article, related_editions: priorities
     assert_equal priorities, published.create_draft(build(:user)).worldwide_priorities
   end
 
   test "editions with worldwide priorities report that they can be associated with them" do
     refute Edition.new.can_be_associated_with_worldwide_priorities?
     assert EditionWithWorldwidePriorities.new.can_be_associated_with_worldwide_priorities?
+  end
+
+  test "editions with worldwide priorities always point to the latest edition of the priority" do
+    @edition.save!
+    new_priority = priorities.first.latest_edition.create_draft(build(:user))
+    new_priority.update_column(:minor_change, true)
+    new_priority.publish!
+    assert @edition.published_worldwide_priorities.include?(new_priority)
   end
 end

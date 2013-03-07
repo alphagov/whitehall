@@ -82,14 +82,14 @@ class PublicationsControllerTest < ActionController::TestCase
   end
 
   view_test "show not link policies to national statistics publications" do
-    publication = create(:published_publication, publication_type_id: PublicationType::NationalStatistics.id, related_policies: [create(:published_policy)])
+    publication = create(:published_publication, publication_type_id: PublicationType::NationalStatistics.id, related_editions: [create(:published_policy)])
     get :show, id: publication.document
 
     refute_select ".policies"
   end
 
   view_test "show not link policies to general statistics publications" do
-    publication = create(:published_publication, publication_type_id: PublicationType::Statistics.id, related_policies: [create(:published_policy)])
+    publication = create(:published_publication, publication_type_id: PublicationType::Statistics.id, related_editions: [create(:published_policy)])
     get :show, id: publication.document
 
     refute_select ".policies"
@@ -667,15 +667,15 @@ class PublicationsControllerTest < ActionController::TestCase
   def given_two_documents_in_two_topics
     @topic_1, @topic_2 = create(:topic), create(:topic)
     policy_1 = create(:published_policy, topics: [@topic_1])
-    create(:published_publication, related_policies: [policy_1])
+    create(:published_publication, related_editions: [policy_1])
     policy_2 = create(:published_policy, topics: [@topic_2])
-    create(:published_consultation, related_policies: [policy_2])
+    create(:published_consultation, related_editions: [policy_2])
   end
 
   def create_publications_in(*topics)
     topics.map do |topic|
       policy = create(:published_policy, topics: [topic])
-      create(:published_publication, related_policies: [policy])
+      create(:published_publication, related_editions: [policy])
     end
   end
 
