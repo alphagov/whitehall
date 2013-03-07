@@ -51,7 +51,7 @@ Whitehall::Application.routes.draw do
     resources :speeches, only: [:show], localised: true
     resources :statistical_data_sets, path: 'statistical-data-sets', only: [:index, :show]
     match "/speeches" => redirect("/announcements")
-    resources :world_location_news_articles, path: 'world-location-news', only: [:index, :show]
+    resources :world_location_news_articles, path: 'world-location-news', only: [:index, :show], localised: true
 
     resources :worldwide_priorities, path: "priority", only: [:index, :show], localised: true
     resources :consultations, only: [:index, :show] do
