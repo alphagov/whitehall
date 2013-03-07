@@ -56,6 +56,18 @@ class AddressFormatter::TextTest < ActiveSupport::TestCase
     fields_without_region.delete('region')
 
     assert_equal addr_without_region, AddressFormatter::Text.new(fields_without_region, 'GB').render
+
+    fields_without_recipient = addr_fields
+    fields_without_recipient.delete('fn')
+
+    rendered = AddressFormatter::Text.new(fields_without_recipient, 'GB').render
+    assert rendered !~ /\A\n/, 'expected not to start with a blank line'
+
+    fields_without_country = addr_fields
+    fields_without_country.delete('country-name')
+
+    rendered = AddressFormatter::Text.new(fields_without_country, 'GB').render
+    assert rendered !~ /\n\Z/, 'expected not to end with a blank line'
   end
 
   test "doesn't render a property when it's a blank string" do
