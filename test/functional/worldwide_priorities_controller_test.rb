@@ -21,10 +21,10 @@ class WorldwidePrioritiesControllerTest < ActionController::TestCase
 
   test "fetches a list of published related world location news" do
     edition = create(:published_worldwide_priority)
-    first_news = create(:published_world_location_news_article, worldwide_priorities: [edition])
+    first_news = create(:published_world_location_news_article, related_editions: [edition])
     second_news = create(:published_world_location_news_article)
-    third_news = create(:published_world_location_news_article, worldwide_priorities: [edition, create(:published_worldwide_priority)])
-    fourth_news = create(:draft_world_location_news_article, worldwide_priorities: [edition])
+    third_news = create(:published_world_location_news_article, related_editions: [edition, create(:published_worldwide_priority)])
+    fourth_news = create(:draft_world_location_news_article, related_editions: [edition])
 
     get :show, id: edition.document
 
