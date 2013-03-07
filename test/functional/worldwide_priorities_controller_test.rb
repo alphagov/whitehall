@@ -19,6 +19,23 @@ class WorldwidePrioritiesControllerTest < ActionController::TestCase
     assert_select ".body", "priority-body"
   end
 
+  test "fetches a list of published related world location news" do
+    edition = create(:published_worldwide_priority)
+    first_news = create(:published_world_location_news_article, worldwide_priorities: [edition])
+    second_news = create(:published_world_location_news_article)
+    third_news = create(:published_world_location_news_article, worldwide_priorities: [edition, create(:published_worldwide_priority)])
+    fourth_news = create(:draft_world_location_news_article, worldwide_priorities: [edition])
+
+    get :show, id: edition.document
+
+    related_world_news = assigns(:recent_world_location_news)
+    assert related_world_news.include?(first_news)
+    assert related_world_news.include?(third_news)
+    refute related_world_news.include?(second_news)
+    refute related_world_news.include?(fourth_news)
+  end
+
+
   view_test "should display the associated organisations" do
     first_organisation = create(:organisation)
     second_organisation = create(:organisation)

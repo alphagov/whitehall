@@ -99,7 +99,7 @@
             <div class="content">
               <%= render partial: "announcements/list_description", locals: {announcements: @announcements} %>
               <p class="see-all">
-                <%= link_to t_world_location_see_all_our(:announcement), announcements_filter_path(@world_location) %>
+                <%= link_to t_world_location_see_all_our(:announcement), announcements_filter_path(@world_location, include_world_location_news: '1') %>
               </p>
             </div>
           </section>

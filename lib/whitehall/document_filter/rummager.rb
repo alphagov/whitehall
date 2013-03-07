@@ -130,25 +130,25 @@ module Whitehall::DocumentFilter
     end
 
     def filter_by_announcement_type
-      if selected_announcement_type_option
-        {search_format_types: selected_announcement_type_option.search_format_types}
-      else
-        {search_format_types: [Announcement.search_format_type]}
-      end
+      announcement_types =
+        if selected_announcement_type_option
+          selected_announcement_type_option.search_format_types
+        elsif include_world_location_news
+          [Announcement.search_format_type]
+        else
+          Announcement.concrete_descendant_search_format_types - [WorldLocationNewsArticle.search_format_type]
+        end
+      {search_format_types: announcement_types}
     end
 
     def filter_by_publication_type
-      if selected_publication_filter_option
-        {search_format_types: selected_publication_filter_option.search_format_types}
-      else
-        {search_format_types: [Publication.search_format_type, StatisticalDataSet.search_format_type, Consultation.search_format_type]}
-      end
-    end
-
-    def search_format_types_from_model_names(model_names)
-      model_names.map do |model_name|
-        Object.const_get(model_name).search_format_type
-      end
+      publication_types =
+        if selected_publication_filter_option
+          selected_publication_filter_option.search_format_types
+        else
+          Publicationesque.concrete_descendant_search_format_types
+        end
+      {search_format_types: publication_types}
     end
 
     def documents

@@ -1,0 +1,7 @@
+<%= form.label :worldwide_priority_ids, 'Worldwide priorities' %>
+<%= form.select :worldwide_priority_ids,
+                options_from_collection_for_select(WorldwidePriority.published.alphabetical, 'id', 'title', form.object.worldwide_priority_ids),
+                {},
+                multiple: true,
+                class: 'chzn-select',
+                data: { placeholder: "Choose worldwide priorities..."} %>

@@ -1,4 +1,4 @@
-THE_DOCUMENT = Transform(/the (document|publication|policy|news article|consultation|consultation response|speech|worldwide priority|detailed guide|announcement) "([^"]*)"/) do |document_type, title|
+THE_DOCUMENT = Transform(/the (document|publication|policy|news article|consultation|consultation response|speech|worldwide priority|detailed guide|announcement|world location news article) "([^"]*)"/) do |document_type, title|
   document_class(document_type).latest_edition.find_by_title!(title)
 end
 
@@ -50,6 +50,10 @@ module DocumentHelper
   def begin_drafting_news_article(options)
     begin_drafting_document(options.merge(type: "news_article"))
     fill_in_news_article_fields
+  end
+
+  def begin_drafting_world_location_news_article(options)
+    begin_drafting_document(options.merge(type: "world_location_news_article"))
   end
 
   def begin_drafting_publication(title)

@@ -1,2 +1,7 @@
 <% page_title @document.title, "Worldwide Priorities" %>
 <%= render template: 'documents/show', locals: { header_title: t_display_type(@document) } %>
+<% if @recent_world_location_news.any? %>
+  <%= render partial: "shared/recently_updated", locals: {recently_updated: @recent_world_location_news,
+                                                          atom_url: nil,
+                                                          govdelivery_url: nil} %>
+<% end %>

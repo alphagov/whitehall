@@ -343,6 +343,22 @@ module Whitehall::DocumentFilter
       assert_equal 2, filter.documents.count
     end
 
+    test "does not include WorldLocationNewsArticles by default" do
+      create(:published_world_location_news_article)
+      unfiltered_announcements = Announcement.published
+      filter = create_filter(unfiltered_announcements, {})
+
+      assert filter.documents.empty?
+    end
+
+    test "will include WorldLocationNewsArticles when explicitly asked to" do
+      world_news = create(:published_world_location_news_article)
+      unfiltered_announcements = Announcement.published
+      filter = create_filter(unfiltered_announcements, include_world_location_news: '1')
+
+      assert filter.documents.include?(world_news)
+    end
+
     # def self.test_delegates_to_documents(method)
     #   test "delegates ##{method} to documents" do
     #     document_scope.expects(method)
@@ -376,6 +392,7 @@ module Whitehall::DocumentFilter
         num_pages: stub_everything
       )
       document_scope.stubs(:arel_table).returns(Edition.arel_table)
+      document_scope.stubs(:without_editions_of_type).returns(document_scope)
       document_scope.stubs(:in_reverse_chronological_order).returns(document_scope)
       document_scope.stubs(:in_chronological_order).returns(document_scope)
       document_scope.stubs(:with_title_or_summary_containing).returns(document_scope)

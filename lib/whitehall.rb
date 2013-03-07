@@ -177,6 +177,10 @@ module Whitehall
       true
     end
 
+    def world_location_news_feature?
+      true
+    end
+
     private
 
     def load_secrets

@@ -67,6 +67,10 @@ module Edition::Organisations
     edition_organisations.where(organisation_id: organisation.id).first
   end
 
+  def can_be_related_to_organisations?
+    true
+  end
+
   def skip_organisation_validation?
     false
   end
