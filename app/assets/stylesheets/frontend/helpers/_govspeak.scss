@@ -19,10 +19,10 @@
     font-weight: bold;
     margin-top: $gutter + $gutter-one-sixth;
   }
-  h4,
-  h5,
-  h6 {
+  h4 {
     @include ig-core-19;
+    font-weight: bold;
+    margin-top: $gutter + $gutter-one-sixth;
   }
 
   p {
@@ -33,6 +33,16 @@
     }
   }
 
+  h4,
+  h5,
+  h6 {
+    @include ig-core-19;
+    font-weight: bold;
+    &+p {
+      margin-top: 0;
+    }
+  }
+
   a {
     text-decoration: underline;
   }
@@ -40,18 +50,6 @@
   ol {
     list-style: decimal;
     list-style-position: outside;
-    padding: 0;
-    margin: 0 0 $gutter-half $gutter;
-  }
-
-  ul {
-    list-style: disc;
-    list-style-position: outside;
-    padding: 0;
-    margin: 0 0 $gutter-half $gutter;
-  }
-
-  li {
     @include ig-core-19;
     margin: $gutter-one-sixth 0;
     @include media (tablet) {
@@ -59,6 +57,15 @@
     }
   }
 
+  ul {
+    list-style: disc;
+    list-style-position: outside;
+    @include ig-core-19;
+    margin: $gutter-one-sixth 0;
+    @include media (tablet) {
+      margin: $gutter-one-third 0;
+    }
+  }
 
   em, i {
     font-style: italic;
