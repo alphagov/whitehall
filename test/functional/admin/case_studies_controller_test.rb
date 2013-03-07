@@ -16,5 +16,5 @@ class Admin::CaseStudiesControllerTest < ActionController::TestCase
   should_have_summary :case_study
   should_allow_assignment_to_document_series :case_study
   should_allow_scheduled_publication_of :case_study
-
+  should_allow_setting_first_published_at_during_speed_tagging :case_study
 end
