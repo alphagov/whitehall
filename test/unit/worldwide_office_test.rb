@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class WorldwideOfficeTest < ActiveSupport::TestCase
-  %w{contact worldwide_organisation}.each do |param|
+  %w{contact worldwide_organisation worldwide_office_type}.each do |param|
     test "should not be valid without a #{param}" do
       refute build(:worldwide_office, param.to_sym => nil).valid?
     end
