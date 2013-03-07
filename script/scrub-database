@@ -67,10 +67,6 @@ if [ -n "$copy_databases" ]; then
     echo "Done"
 fi
 
-echo "Anonymising user accounts..."
-run_mysql_command "UPDATE users SET email=concat('email-address-', id, '@example.com'), name=concat('User Name ', id)" 1> /dev/null
-echo "Done"
-
 echo "Anonymising latest access limited drafts..."
 run_mysql_command "UPDATE edition_translations SET title='${lorem_ipsum_line}', summary='${lorem_ipsum_line}', body='${lorem_ipsum_paragraphs}' WHERE edition_id IN (SELECT id FROM editions WHERE state IN ('draft', 'scheduled') AND access_limited = 1 AND NOT EXISTS (
   SELECT 1
