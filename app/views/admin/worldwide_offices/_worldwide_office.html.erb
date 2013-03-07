@@ -15,6 +15,7 @@
     <% if contact.email.present? %>
       <%= definition('Email', contact.email) %>
     <% end %>
+    <%= definition('Office type', worldwide_office.worldwide_office_type.name) %>
   <% end %>
   <% if contact.comments.present? %>
     <p class="comments"><%= format_with_html_line_breaks(h(contact.comments)) %></p>

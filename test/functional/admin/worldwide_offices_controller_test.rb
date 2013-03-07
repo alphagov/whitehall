@@ -12,7 +12,10 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
     worldwide_organisation = create(:worldwide_organisation)
 
     post :create,
-      worldwide_office: { contact_attributes: {title: "Main office"} },
+      worldwide_office: {
+        worldwide_office_type_id: WorldwideOfficeType::Other.id,
+        contact_attributes: {title: "Main office"} 
+      },
       worldwide_organisation_id: worldwide_organisation.id
 
     assert_equal 1, worldwide_organisation.offices.count
@@ -26,6 +29,7 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
 
     post :create,
       worldwide_office: {
+        worldwide_office_type_id: WorldwideOfficeType::Other.id,
         contact_attributes: {title: "Main office"},
         service_ids: [service2.id, service1.id]
       },
@@ -40,6 +44,7 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
 
     post :create,
       worldwide_office: {
+        worldwide_office_type_id: WorldwideOfficeType::Other.id,
         contact_attributes: {
           title: "Head office",
           contact_numbers_attributes: {
@@ -56,7 +61,10 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
 
   test "put update updates an office" do
     worldwide_organisation = create(:worldwide_organisation)
-    office = worldwide_organisation.offices.create(contact_attributes: {title: "Main office"})
+    office = worldwide_organisation.offices.create(
+      worldwide_office_type_id: WorldwideOfficeType::Other.id,
+      contact_attributes: {title: "Main office"}
+    )
 
     put :update,
       worldwide_office: {
@@ -75,7 +83,10 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
     service2 = create(:worldwide_service)
     service3 = create(:worldwide_service)
     worldwide_organisation = create(:worldwide_organisation)
-    office = worldwide_organisation.offices.create(contact_attributes: {title: "Main office"}, services: [service1, service2])
+    office = worldwide_organisation.offices.create(
+      worldwide_office_type_id: WorldwideOfficeType::Other.id,
+      contact_attributes: {title: "Main office"}, services: [service1, service2]
+    )
 
     put :update,
       worldwide_office: {
@@ -89,7 +100,10 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
 
   test "put update updates associated phone numbers" do
     worldwide_organisation = create(:worldwide_organisation)
-    office = worldwide_organisation.offices.create(contact_attributes: {title: "Main office"})
+    office = worldwide_organisation.offices.create(
+      worldwide_office_type_id: WorldwideOfficeType::Other.id,
+      contact_attributes: {title: "Main office"}
+    )
     contact_number = office.contact.contact_numbers.create(label: "Main phone", number: "1234")
 
     put :update,
