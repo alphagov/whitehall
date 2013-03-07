@@ -16,8 +16,8 @@ class Api::WorldwideOrganisationPresenter < Draper::Base
       details: {
         slug: model.slug,
         summary: model.summary,
-        description: model.description,
-        services: model.services || '',
+        description: h.govspeak_to_html(model.description),
+        services: services_for_json,
       },
       offices: offices_as_json,
       sponsors: sponsors_as_json,
@@ -28,6 +28,14 @@ class Api::WorldwideOrganisationPresenter < Draper::Base
     [
       [h.api_worldwide_organisation_url(model, host: h.public_host), {'rel' => 'self'}]
     ]
+  end
+
+  def services_for_json
+    if model.services.present?
+      h.govspeak_to_html(model.services)
+    else
+      ''
+    end
   end
 
   def sponsors_as_json

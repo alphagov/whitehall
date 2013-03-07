@@ -10,6 +10,7 @@ class Api::WorldwideOrganisationPresenterTest < PresenterTestCase
                                                       offices: [@office])
     @presenter = Api::WorldwideOrganisationPresenter.decorate(@world_org)
     stubs_helper_method(:params).returns(format: :json)
+    stubs_helper_method(:govspeak_to_html).returns('govspoken')
   end
 
   test ".paginate returns a decorated page of results" do
@@ -59,14 +60,21 @@ class Api::WorldwideOrganisationPresenterTest < PresenterTestCase
     assert_equal 'world-org-summary', @presenter.as_json[:details][:summary]
   end
 
-  test "json includes description in details hash" do
+  test "json includes govspoken description in details hash" do
     @world_org.stubs(:description).returns('world-org-description')
-    assert_equal 'world-org-description', @presenter.as_json[:details][:description]
+    stubs_helper_method(:govspeak_to_html).with('world-org-description').returns('govspoken-world-org-description')
+    assert_equal 'govspoken-world-org-description', @presenter.as_json[:details][:description]
   end
 
-  test "json includes services in details hash" do
+  test "json includes govspoken services in details hash" do
     @world_org.stubs(:services).returns('world-org-services')
-    assert_equal 'world-org-services', @presenter.as_json[:details][:services]
+    stubs_helper_method(:govspeak_to_html).with('world-org-services').returns('govspoken-world-org-services')
+    assert_equal 'govspoken-world-org-services', @presenter.as_json[:details][:services]
+  end
+
+  test "json includes empty string for services if they are missing" do
+    @world_org.stubs(:services).returns(nil)
+    assert_equal '', @presenter.as_json[:details][:services]
   end
 
   test "json includes public world organisations url as web_url" do
