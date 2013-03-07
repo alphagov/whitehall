@@ -39,7 +39,7 @@ class Edition::WorldwidePrioritiesTest < ActiveSupport::TestCase
     assert EditionWithWorldwidePriorities.new(valid_edition_attributes).valid?
   end
 
-  test "copies the role appointments over to a new draft" do
+  test "copies the worldwide priorities over to a new draft" do
     published = build :published_world_location_news_article, worldwide_priorities: priorities
     assert_equal priorities, published.create_draft(build(:user)).worldwide_priorities
   end
