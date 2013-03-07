@@ -14,3 +14,9 @@ Feature: Unpublishing published documents
     And a published document exists with a slug that does not match the title
     When I unpublish the document because it was published in error
     Then I should see that the document was published in error at the original url
+
+  Scenario: Unpublishing a document and redirecting
+    Given I am a GDS editor
+    And a published document "Published by accident" exists
+    When I unpublish the document and ask for a redirect
+    Then I should be redirected to the new url when I view the document on the public site
