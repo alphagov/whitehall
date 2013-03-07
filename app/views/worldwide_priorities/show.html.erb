@@ -1,5 +1,41 @@
+<% header_title ||= t_display_type(@document) %>
 <% page_title @document.title, "Worldwide Priorities" %>
-<%= render template: 'documents/show', locals: { header_title: t_display_type(@document) } %>
+
+<article class="document-page <%= @document.type.downcase %>">
+  <div class="block-1">
+    <div class="inner-block">
+      <%= render  partial: 'documents/header',
+                  locals: {
+                    header_title: header_title,
+                    document: @document,
+                    policies: @related_policies
+                  } %>
+    </div>
+  </div>
+
+  <div class="block-2 ">
+    <div class="inner-block">
+      <%= render partial: "documents/document_summary", locals: { document: @document } %>
+    </div>
+  </div>
+
+  <div class="block-3">
+    <div class="inner-block">
+      <%= render partial: "documents/document_sidebar", locals: { document: @document } %>
+    </div>
+  </div>
+  <div class="block-4">
+    <div class="inner-block">
+      <div class="document body">
+        <%= govspeak_to_html @document.body, @document.images %>
+        <% if @document.published_case_studies.any? %>
+          <%= render partial: "case_studies/case_studies", locals: {case_studies: @document.published_case_studies} %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</article>
+
 <% if @recent_world_location_news.any? %>
   <%= render partial: "shared/recently_updated", locals: {recently_updated: @recent_world_location_news,
                                                           atom_url: nil,
