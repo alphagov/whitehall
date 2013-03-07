@@ -11,6 +11,11 @@ class Newsesque < Announcement
       validates :first_published_at, presence: true
     end
   end
+
+  def translatable?
+    true
+  end
+
 end
 
 require_relative 'news_article'
