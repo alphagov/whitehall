@@ -68,6 +68,7 @@ class Api::WorldwideOrganisationPresenter < Draper::Base
         email: office_model.contact.email || '',
         description: office_model.contact.comments || '',
         contact_form_url: office_model.contact.contact_form_url || '',
+        type: office_model.worldwide_office_type.name
       }
     }.merge(office_addresss_as_json(office_model)).
       merge(office_contact_numbers_as_json(office_model)).
