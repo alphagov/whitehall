@@ -4,17 +4,9 @@ module Whitehall::Uploader
   class SpeechRowTest < ActiveSupport::TestCase
     setup do
       @attachment_cache = stub('attachment cache')
-      @default_organisation = stub('Organisation')
+      @default_organisation = stub('organisation', url: 'url')
       @logged = StringIO.new
       @logger = Logger.new(@logged)
-    end
-
-    def new_speech_row(data = {})
-      Whitehall::Uploader::SpeechRow.new(data, 1, @attachment_cache, @default_organisation, @logger)
-    end
-
-    def basic_headings
-      %w{old_url title summary body  type  delivered_by  delivered_on event_and_location  policy_1  policy_2  policy_3  policy_4  organisation country_1 country_2 country_3 country_4}
     end
 
     test "validates row headings" do
@@ -100,6 +92,28 @@ module Whitehall::Uploader
           "country_4" => "fourth"
         })
       assert_equal world_locations, row.world_locations
+    end
+
+    test "returns translation attributes" do
+      row = new_speech_row(
+        {
+          'title_translation' => 'translated title',
+          'body_translation' => 'translated body',
+          'summary_translation' => 'translated summary'
+        })
+      expected_attributes = { title: 'translated title', summary: 'translated summary', body: 'translated body'}
+
+      assert_equal expected_attributes, row.translation_attributes
+    end
+
+    private
+
+    def new_speech_row(data = {})
+      Whitehall::Uploader::SpeechRow.new(data, 1, @attachment_cache, @default_organisation, @logger)
+    end
+
+    def basic_headings
+      %w{old_url title summary body  type  delivered_by  delivered_on event_and_location  policy_1  policy_2  policy_3  policy_4  organisation country_1 country_2 country_3 country_4}
     end
   end
 end
