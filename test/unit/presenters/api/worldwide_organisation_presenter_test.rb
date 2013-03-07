@@ -174,4 +174,9 @@ class Api::WorldwideOrganisationPresenterTest < PresenterTestCase
     assert_equal 'as-json', @presenter.as_json[:offices][:main]['address']
   end
 
+  test 'json includes office type in offices array as type in details hash' do
+    @office.stubs(:worldwide_office_type).returns WorldwideOfficeType::Embassy
+    assert_equal WorldwideOfficeType::Embassy.name, @presenter.as_json[:offices][:main][:details][:type]
+  end
+
 end

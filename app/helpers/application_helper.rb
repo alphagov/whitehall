@@ -104,6 +104,15 @@ module ApplicationHelper
     ]
   end
 
+  def worldwide_office_type_options
+    WorldwideOfficeType.by_grouping.map { |grouping, types|
+      [
+        grouping,
+        types.map { |t| [t.name, t.id] }
+      ]
+    }
+  end
+
   def news_article_type_options
     [
       ["", [""]],
