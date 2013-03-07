@@ -116,7 +116,12 @@ class Api::WorldwideOrganisationPresenterTest < PresenterTestCase
     @office.contact.stubs(:contact_form_url).returns('office-contact-form-url')
     assert_equal 'office-contact-form-url', @presenter.as_json[:offices][:main][:details][:contact_form_url]
   end
-  
+
+  test 'json does not include main key in offices if there is no main office' do
+    @world_org.stubs(:main_office).returns(nil)
+    refute @presenter.as_json[:offices].has_key?(:main)
+  end
+
   test 'json includes main and other offices in offices with separate keys' do
     office1 = stub_record(:worldwide_office, contact: stub_record(:contact, title: 'best-office', contact_numbers: []),
                                              services: [],
@@ -129,7 +134,7 @@ class Api::WorldwideOrganisationPresenterTest < PresenterTestCase
     @world_org.stubs(:other_offices).returns([office2])
     main_office_as_json = @presenter.as_json[:offices][:main]
     other_offices_as_json = @presenter.as_json[:offices][:other]
-    
+
     assert_equal 'best-office', main_office_as_json[:title]
     assert_equal 1, other_offices_as_json.size
     assert_equal 'worst-office', other_offices_as_json.first[:title]

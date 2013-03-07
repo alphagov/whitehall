@@ -53,10 +53,10 @@ class Api::WorldwideOrganisationPresenter < Draper::Base
   end
 
   def offices_as_json
-    {
-      main: office_as_json(model.main_office),
-      other: model.other_offices.map { |office| office_as_json(office) }
-    }
+    offices = {}
+    offices[:main] = office_as_json(model.main_office) if model.main_office
+    offices[:other] = model.other_offices.map { |office| office_as_json(office) }
+    offices
   end
 
   def office_as_json(office_model)
