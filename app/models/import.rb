@@ -189,6 +189,7 @@ class Import < ActiveRecord::Base
     if model.save
       if row.translation_present?
         LocalisedModel.new(model, row.translation_locale).update_attributes(row.translation_attributes)
+        DocumentSource.create!(document: model.document, url: row.translation_url, locale: row.translation_locale, import: self, row_number: row_number)
       end
       row.legacy_urls.each do |legacy_url|
         DocumentSource.create!(document: model.document, url: legacy_url, import: self, row_number: row_number)

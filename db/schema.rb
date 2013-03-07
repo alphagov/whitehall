@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130307120615) do
+ActiveRecord::Schema.define(:version => 20130307174608) do
 
   create_table "attachment_data", :force => true do |t|
     t.string   "carrierwave_file"
@@ -241,9 +241,10 @@ ActiveRecord::Schema.define(:version => 20130307120615) do
 
   create_table "document_sources", :force => true do |t|
     t.integer "document_id"
-    t.string  "url",         :null => false
+    t.string  "url",                           :null => false
     t.integer "import_id"
     t.integer "row_number"
+    t.string  "locale",      :default => "en"
   end
 
   add_index "document_sources", ["document_id"], :name => "index_document_sources_on_document_id"
