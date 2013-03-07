@@ -11,7 +11,8 @@
       direction: filter.direction,
       date: filter.date.to_s(:short_ordinal)
     } if filter.date),
-    relevant_to_local_government: filter.relevant_to_local_government
+    relevant_to_local_government: filter.relevant_to_local_government,
+    include_world_location_news: filter.include_world_location_news
   }
 %>
 <div class="filter-results-summary">

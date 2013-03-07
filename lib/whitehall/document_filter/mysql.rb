@@ -28,6 +28,7 @@ module Whitehall::DocumentFilter
       filter_by_publication_filter_option!
       filter_by_announcement_filter_option!
       filter_by_relevant_to_local_government_option!
+      filter_by_include_world_location_news_option!
       filter_by_location!
       paginate!
       apply_sort_direction!
@@ -89,6 +90,13 @@ module Whitehall::DocumentFilter
     def filter_by_relevant_to_local_government_option!
       # By default we don't want to surface these results
       @documents = @documents.where(relevant_to_local_government: relevant_to_local_government)
+    end
+
+    def filter_by_include_world_location_news_option!
+      # By defaults we don't want to include any WorldLocationNewsArticles
+      unless include_world_location_news
+        @documents = @documents.without_editions_of_type(WorldLocationNewsArticle)
+      end
     end
 
     def filter_by_location!

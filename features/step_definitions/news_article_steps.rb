@@ -14,7 +14,6 @@ Given /^a published news article "([^"]*)" for the policy "([^"]*)"$/ do |title,
   create(:published_news_article, title: title, related_policies: [policy])
 end
 
-
 Given /^a published news article "([^"]*)" associated with "([^"]*)"$/ do |title, appointee|
   person = find_person(appointee)
   appointment = find_person(appointee).current_role_appointments.last
@@ -46,6 +45,10 @@ end
 
 When /^I attempt to add the article image into the markdown$/ do
   fill_in "Body", with: "body copy\n!!1\nmore body"
+end
+
+Then /^the news story "([^"]*)" should have been created$/ do |title|
+  NewsArticle.find_by_title(title).should_not be_nil
 end
 
 Then /^the article mentions "([^"]*)" and links to their bio page$/ do |person_name|
@@ -87,4 +90,8 @@ Then /^if no image is uploaded a default image is shown$/ do
   article.images.first.destroy
   visit document_path(article)
   assert page.has_css?("aside.sidebar img[src*='placeholder']")
+end
+
+When /^I browse to the announcements index$/ do
+  visit announcements_path
 end

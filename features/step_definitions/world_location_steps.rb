@@ -90,6 +90,11 @@ When /^I edit the "([^"]*)" translation for "([^"]*)" setting:$/ do |locale, nam
   click_on "Save"
 end
 
+When /^I visit the worldwide location "([^"]+)"$/ do |name|
+  world_location = WorldLocation.find_by_name!(name)
+  visit world_location_path(world_location)
+end
+
 Then /^I should see the featured items of the (?:country|overseas territory|international delegation) "([^"]*)" are:$/ do |name, expected_table|
   world_location = WorldLocation.find_by_name!(name)
   visit world_location_path(world_location)
@@ -132,4 +137,17 @@ Then /^when viewing the (?:country|overseas territory|international delegation) 
   click_link locale
   assert page.has_css?('.title', text: translation["title"]), "Title wasn't present"
   assert page.has_css?('.mission_statement', text: translation["mission_statement"]), "Mission statement wasn't present"
+end
+
+Then /^I should be able to associate "([^"]+)" with the (?:country|overseas territory|international delegation|world location) "([^"]+)"$/ do |title, location|
+  begin_editing_document title
+  select location, from: "edition_world_location_ids"
+  click_on "Save"
+end
+
+When /^I click through to see all the announcements for (?:country|overseas territory|international delegation|world location) "([^"]*)"$/ do |name|
+  visit world_location_path(WorldLocation.find_by_name!(name))
+  within '#announcements' do
+    click_link 'See all'
+  end
 end

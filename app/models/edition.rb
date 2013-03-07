@@ -59,6 +59,10 @@ class Edition < ActiveRecord::Base
     order(arel_table[:public_timestamp].desc, arel_table[:document_id].desc)
   end
 
+  def self.without_editions_of_type(*edition_classes)
+    where(arel_table[:type].not_in(edition_classes.map(&:name)))
+  end
+
   class UnmodifiableValidator < ActiveModel::Validator
     def validate(record)
       significant_changed_attributes(record).each do |attribute|
@@ -133,6 +137,9 @@ class Edition < ActiveRecord::Base
   def self.search_format_type
     self.name.underscore.gsub('_', '-')
   end
+  def self.concrete_descendant_search_format_types
+    descendants.reject { |model| model.descendants.any? }.map { |model| model.search_format_type }
+  end
 
   [:publish, :unpublish, :archive, :delete].each do |event|
     set_callback(event, :after) { refresh_index_if_required }
@@ -177,6 +184,10 @@ class Edition < ActiveRecord::Base
   end
 
   def can_be_associated_with_role_appointments?
+    false
+  end
+
+  def can_be_associated_with_worldwide_priorities?
     false
   end
 

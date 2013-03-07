@@ -13,9 +13,13 @@
 <div class="block-2">
   <div class="inner-block">
     <% if Locale.current.english? %>
-      <%= render partial: "documents/filter_form", locals: {document_type: :policy, filter_by_keyword: true, filter_by_department: true, filter_by_topic: true} %>
+      <%= render partial: "documents/filter_form",
+                 locals: {
+                   document_type: :policy,
+                   filters: [ :keyword, :department, :topic ]
+                 } %>
     <% else %>
-      <%= render partial: "documents/filter_form", locals: {document_type: :policy } %>
+      <%= render partial: "documents/filter_form", locals: { document_type: :policy } %>
     <% end %>
   </div>
 </div>

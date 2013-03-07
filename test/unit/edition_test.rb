@@ -410,6 +410,27 @@ class EditionTest < ActiveSupport::TestCase
     assert edition.search_format_types.include?('edition')
   end
 
+  test 'concrete_descendant_search_format_types does not include Edition subclasses that themselves have subclasses' do
+    concrete_formats = Edition.concrete_descendant_search_format_types
+
+    refute concrete_formats.include? Announcement.search_format_type
+    refute concrete_formats.include? Newsesque.search_format_type
+    refute concrete_formats.include? Publicationesque.search_format_type
+    refute concrete_formats.include? Edition.search_format_type
+
+    assert concrete_formats.include? NewsArticle.search_format_type
+    assert concrete_formats.include? WorldLocationNewsArticle.search_format_type
+    assert concrete_formats.include? Speech.search_format_type
+    assert concrete_formats.include? FatalityNotice.search_format_type
+    assert concrete_formats.include? Publication.search_format_type
+    assert concrete_formats.include? StatisticalDataSet.search_format_type
+    assert concrete_formats.include? Consultation.search_format_type
+    assert concrete_formats.include? DetailedGuide.search_format_type
+    assert concrete_formats.include? CaseStudy.search_format_type
+    assert concrete_formats.include? Policy.search_format_type
+    assert concrete_formats.include? WorldwidePriority.search_format_type
+  end
+
   test "#indexable_content should return the body without markup by default" do
     policy = create(:published_policy, body: "# header\n\nsome text")
     assert_equal "header some text", policy.indexable_content
@@ -701,5 +722,34 @@ class EditionTest < ActiveSupport::TestCase
     edition.remove_translations_for(:fr)
     refute edition.translated_locales.include?(:fr)
     assert edition.translated_locales.include?(:es)
+  end
+
+  test 'without_editions_of_type allows us to exclude certain subclasses from a result set' do
+    edition_1 = create(:case_study)
+    edition_2 = create(:fatality_notice)
+
+    no_case_studies = Edition.without_editions_of_type(CaseStudy)
+    assert no_case_studies.include?(edition_2)
+    refute no_case_studies.include?(edition_1)
+  end
+
+  test 'without_editions_of_type takes multiple classes to exclude' do
+    edition_1 = create(:case_study)
+    edition_2 = create(:fatality_notice)
+    edition_3 = create(:detailed_guide)
+
+    no_fatalities_or_guides = Edition.without_editions_of_type(FatalityNotice, DetailedGuide)
+    assert no_fatalities_or_guides.include?(edition_1)
+    refute no_fatalities_or_guides.include?(edition_2)
+    refute no_fatalities_or_guides.include?(edition_3)
+  end
+
+  test 'without_editions_of_type doesn\'t exclude subclasses of the supplied classes' do
+    edition_1 = create(:edition, type: 'Announcement')
+    edition_2 = create(:fatality_notice)
+
+    no_editions = Edition.without_editions_of_type(Announcement)
+    assert no_editions.include?(edition_2)
+    refute no_editions.include?(edition_1)
   end
 end

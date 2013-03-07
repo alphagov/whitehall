@@ -1,16 +1,18 @@
-<fieldset class="named">
-  <div class="row-fluid">
-    <fieldset class="named span4">
-      <legend>Lead organisations</legend>
+<% if edition.can_be_related_to_organisations? %>
+  <fieldset class="named">
+    <div class="row-fluid">
+      <fieldset class="named span4">
+        <legend>Lead organisations</legend>
 
-      <%= form.lead_organisations_fields %>
-    </fieldset>
+        <%= form.lead_organisations_fields %>
+      </fieldset>
 
-    <fieldset class="named span4">
-      <legend>Supporting organisations</legend>
+      <fieldset class="named span4">
+        <legend>Supporting organisations</legend>
 
-      <%= form.supporting_organisations_fields %>
-    </fieldset>
-  </div>
-</fieldset>
-<%= form.alternative_format_provider_select %>
+        <%= form.supporting_organisations_fields %>
+      </fieldset>
+    </div>
+  </fieldset>
+  <%= form.alternative_format_provider_select %>
+<% end %>

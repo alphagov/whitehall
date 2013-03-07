@@ -68,6 +68,10 @@ module Whitehall::DocumentFilter
       @params[:relevant_to_local_government].present? && @params[:relevant_to_local_government].to_s == '1'
     end
 
+    def include_world_location_news
+      @params[:include_world_location_news].present? && @params[:include_world_location_news].to_s == '1'
+    end
+
     private
 
     def find_by_slug(klass, slugs)
