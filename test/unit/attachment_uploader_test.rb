@@ -3,9 +3,9 @@ require 'test_helper'
 class AttachmentUploaderTest < ActiveSupport::TestCase
   include ActionDispatch::TestProcess
 
-  test 'should only allow PDF, CSV, RTF, PNG, JPG, DOC, DOCX, XLS, XLSX, PPT, PPTX, ZIP, RDF, TXT, KML, ODS, ODT attachments' do
+  test 'should only allow PDF, CSV, RTF, PNG, JPG, DOC, DOCX, XLS, XLSX, PPT, PPTX, ZIP, RDF, TXT, KML, ODS, ODT, XML attachments' do
     uploader = AttachmentUploader.new
-    allowed = %w(pdf csv rtf png jpg doc docx xls xlsx ppt pptx zip rdf txt kml odt ods)
+    allowed = %w(pdf csv rtf png jpg doc docx xls xlsx ppt pptx zip rdf txt kml odt ods xml)
     assert_equal allowed.sort, uploader.extension_white_list.sort
   end
 
