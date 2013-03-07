@@ -3,7 +3,7 @@ require 'test_helper'
 module Whitehall::Uploader
   class NewsArticleRowTest < ActiveSupport::TestCase
     setup do
-      @default_organisation = stub('Organisation')
+      @default_organisation = stub("organisation", url: "url")
     end
 
     def news_article_row(data)
@@ -65,6 +65,17 @@ module Whitehall::Uploader
       Finders::WorldLocationsFinder.stubs(:find).with("first", "second", "third", "fourth", anything, anything).returns(world_locations)
       row = news_article_row("country_1" => "first", "country_2" => "second", "country_3" => "third", "country_4" => "fourth")
       assert_equal world_locations, row.world_locations
+    end
+
+    test "returns translation attributes" do
+      row = news_article_row({
+        'title_translation' => 'translated title',
+        'body_translation' => 'translated body',
+        'summary_translation' => 'translated summary'
+      })
+      expected_attributes = { title: 'translated title', summary: 'translated summary', body: 'translated body'}
+
+      assert_equal expected_attributes, row.translation_attributes
     end
   end
 end
