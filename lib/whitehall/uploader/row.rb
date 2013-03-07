@@ -36,6 +36,23 @@ module Whitehall::Uploader
       Parsers::RelativeToAbsoluteLinks.parse(row['body'], organisation.try(:url))
     end
 
+    def translated_title
+      row['title_translation']
+    end
+
+    def translated_summary
+      summary_text = Parsers::RelativeToAbsoluteLinks.parse(row['summary_translation'], organisation.try(:url))
+      if summary_text.blank?
+        Parsers::SummariseBody.parse(translated_body)
+      else
+        summary_text
+      end
+    end
+
+    def translated_body
+      Parsers::RelativeToAbsoluteLinks.parse(row['body_translation'], organisation.try(:url))
+    end
+
     def legacy_urls
       Parsers::OldUrlParser.parse(row['old_url'], @logger, @line_number)
     end
@@ -50,6 +67,18 @@ module Whitehall::Uploader
 
     def lead_organisations
       organisations
+    end
+
+    def translation_present?
+      translation_locale.present?
+    end
+
+    def translation_locale
+      row['locale']
+    end
+
+    def translation_url
+      row['translation_url']
     end
 
     protected
