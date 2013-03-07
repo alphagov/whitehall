@@ -1,4 +1,441 @@
 ar:
+  document:
+    headings:
+      ministers:
+        zero:
+        one: وزير
+        two:
+        few:
+        many:
+        other: وزراء
+      policies:
+        zero:
+        one: سياسة
+        two:
+        few:
+        many:
+        other: سياسات
+      topics:
+        zero:
+        one: موضوع
+        two:
+        few:
+        many:
+        other: مواضيع
+      world_locations:
+        zero:
+        one: الموقع في العالم
+        two:
+        few:
+        many:
+        other: المواقع في العالم
+      worldwide_organisations:
+        zero:
+        one: مكتب عالمي
+        two:
+        few:
+        many:
+        other: مكاتب عالمية
+      advisory_groups: جماعات استشارية
+      applies_to_nations: ينطبق على
+      document_series: سلسة
+      field_of_operation: مجال العمل
+      live_data: بيانات حية
+      policy_team: فريق السياسات
+    type:
+      announcement:
+        zero:
+        one: إعلان
+        two:
+        few:
+        many:
+        other: إعلانات
+      case_study:
+        zero:
+        one: دراسة حالة
+        two:
+        few:
+        many:
+        other: دراسات حالة
+      closed_consultation:
+        zero:
+        one: استشارة منتهية
+        two:
+        few:
+        many:
+        other: استشارات منتهية
+      consultation:
+        zero:
+        one: مشاورة
+        two:
+        few:
+        many:
+        other: مشاورات
+      consultation_outcome:
+        zero:
+        one: نتيجة المشاورة
+        two:
+        few:
+        many:
+        other: نتائج المشاورات
+      corporate_report:
+        zero:
+        one: تقرير الوزارة
+        two:
+        few:
+        many:
+        other: تقارير الوزارة
+      correspondence:
+        zero:
+        one: مراسلة
+        two:
+        few:
+        many:
+        other: مراسلات
+      detailed_guidance:
+        zero:
+        one: توجيه مفصل
+        two:
+        few:
+        many:
+        other: توجيهات مفصل
+      draft_text:
+        zero:
+        one: مسودة النص
+        two:
+        few:
+        many:
+        other: مسودة النصوص
+      fatality_notice:
+        zero:
+        one: إشعار وفاة
+        two:
+        few:
+        many:
+        other: إشعارات وفاة
+      foi_release:
+        zero:
+        one: نشرة وفق حرية الحصول على المعلومات
+        two:
+        few:
+        many:
+        other: نشرات وفق حرية الحصول على المعلومات
+      form:
+        zero:
+        one: ! 'نموذج '
+        two:
+        few:
+        many:
+        other: ! 'نماذج '
+      guidance:
+        zero:
+        one: توجيه
+        two:
+        few:
+        many:
+        other: توجيهات
+      impact_assessment:
+        zero:
+        one: تقييم التأثير
+        two:
+        few:
+        many:
+        other: تقييمات التأثير
+      imported:
+        zero:
+        one:
+        two:
+        few:
+        many:
+        other:
+      independent_report:
+        zero:
+        one: تقرير مستقل
+        two:
+        few:
+        many:
+        other: تقارير مستقلة
+      map:
+        zero:
+        one:
+        two:
+        few:
+        many:
+        other:
+      national_statistics:
+        zero:
+        one: إحصائية - إحصائية محلية
+        two:
+        few:
+        many:
+        other: إحصائيات - إحصائيات محلية
+      news_article:
+        zero:
+        one: مقال إخباري
+        two:
+        few:
+        many:
+        other: مقالات إخبارية
+      news_story:
+        zero:
+        one: قصة إخبارية
+        two:
+        few:
+        many:
+        other: قصص إخبارية
+      open_consultation:
+        zero:
+        one: مشاورة جارية
+        two:
+        few:
+        many:
+        other: مشاورات جارية
+      oral_statement:
+        zero:
+        one: تصريح شفهي
+        two:
+        few:
+        many:
+        other: تصريحات شفهية
+      policy:
+        zero:
+        one: سياسة
+        two:
+        few:
+        many:
+        other: سياسات
+      policy_paper:
+        zero:
+        one: ورقة عن السياسة
+        two:
+        few:
+        many:
+        other: ورقة عن السياسات
+      press_release:
+        zero:
+        one: بيان صحفي
+        two:
+        few:
+        many:
+        other: بيانات صحفية
+      promotional:
+        zero:
+        one: مادة ترويجية
+        two:
+        few:
+        many:
+        other: مواد ترويجية
+      publication:
+        zero:
+        one: مطبوعة
+        two:
+        few:
+        many:
+        other: مطبوعات
+      rebuttal:
+        zero:
+        one: دحض
+        two:
+        few:
+        many:
+        other: ! 'دحوض '
+      research:
+        zero:
+        one: بحث وتحليل
+        two:
+        few:
+        many:
+        other: بحوث وتحليلات
+      speaking_notes:
+        zero:
+        one: مذكرات كلامية
+        two:
+        few:
+        many:
+        other: مذكرات كلامية
+      speech:
+        zero:
+        one: كلمة
+        two:
+        few:
+        many:
+        other: كلمات
+      statement_to_parliament:
+        zero:
+        one: تصريح للبرلمان
+        two:
+        few:
+        many:
+        other: تصريحات للبرلمان
+      statistical_data_set:
+        zero:
+        one: مجموعة بيانات إحصائية
+        two:
+        few:
+        many:
+        other: مجموعات بيانات إحصائية
+      statistics:
+        zero:
+        one: إحصائية
+        two:
+        few:
+        many:
+        other: إحصائيات
+      transcript:
+        zero:
+        one: نص منسوخ
+        two:
+        few:
+        many:
+        other: نصوص منسوخة
+      transparency:
+        zero:
+        one: بيانات تتعلق بالشفافية
+        two:
+        few:
+        many:
+        other: بيانات تتعلق بالشفافية
+      worldwide_priority:
+        zero:
+        one:
+        two:
+        few:
+        many:
+        other:
+      written_statement:
+        zero:
+        one: تصريح خطي
+        two:
+        few:
+        many:
+        other: تصريحات خطية
+    published: نشر
+    read: اقرأ %{title} المقال
+    speech:
+      delivered_on:
+      delivery_title:
+        minister:
+        speaker:
+      originally_given_at:
+    updated: محدث
+    view: اطلع على ’%{title}‘
+  organisation:
+    type:
+      Ad-hoc advisory group:
+        zero:
+        one: فريق استشاري مخصص
+        two:
+        few:
+        many:
+        other: فرق استشارية مخصصة
+      Advisory non-departmental public body:
+        zero:
+        one: هيئة استشارية عامة غير حكومية
+        two:
+        few:
+        many:
+        other: هيئات استشارية عامة غير حكومية
+      Executive agency:
+        zero:
+        one: جهاز تنفيذي
+        two:
+        few:
+        many:
+        other: أجهزة تنفيذية
+      Executive non-departmental public body:
+        zero:
+        one: هيئة تنفيذية عامة غير حكومية
+        two:
+        few:
+        many:
+        other: هيئات تنفيذية عامة غير حكومية
+      Independent monitoring body:
+        zero:
+        one: جهاز رقابي مستقل
+        two:
+        few:
+        many:
+        other: أجهزة رقابية مستقلة
+      Ministerial department:
+        zero:
+        one: إدارة وزارية
+        two:
+        few:
+        many:
+        other: إدارات وزارية
+      Non-ministerial department:
+        zero:
+        one: إدارة غير وزارية
+        two:
+        few:
+        many:
+        other: إدارات غير وزارية
+      Other:
+        zero:
+        one: إدارة أخرى
+        two:
+        few:
+        many:
+        other: إدارات أخرى
+      Public corporation:
+        zero:
+        one: مؤسسة عامة
+        two:
+        few:
+        many:
+        other: مؤسسات عامة
+      Sub-organisation:
+        zero:
+        one: هيئة فرعية
+        two:
+        few:
+        many:
+        other: هيئات فرعية
+      Tribunal non-departmental public body:
+        zero:
+        one: هيئة قضائية عامة غير حكومية
+        two:
+        few:
+        many:
+        other: هيئات قضائية عامة غير حكومية
+    headings:
+      plus_others:
+  world_location:
+    type:
+      country:
+        zero:
+        one: البلد
+        two:
+        few:
+        many:
+        other: البلدان
+      international_delegation:
+        zero:
+        one: وفد دولي
+        two:
+        few:
+        many:
+        other: وفود دولية
+      overseas_territory:
+        zero:
+        one: إقليم في الخارج
+        two:
+        few:
+        many:
+        other: أقاليم في الخارج
+    headings:
+      announcements: إعلاناتنا
+      country: البلد
+      documents: وثائق
+      mission: مهمتنا
+      organisations:
+      priorities: أولويات
+      publications: مطبوعاتنا
+      quick_links:
+      related_policies: سياسات ذات صلة
+      see_all: اطلع على كافة %{type}
+      statistics: إحصائياتنا
+    see_all: اطلع على كافة %{type}
   activerecord:
     attributes:
       detailed_guide:
@@ -20,151 +457,6 @@ ar:
     formats:
       default: ! '%d %B %Y'
       long_ordinal: ! '%e %B %Y'
-  document:
-    headings:
-      advisory_groups: جماعات استشارية
-      applies_to_nations: ينطبق على
-      document_series: سلسة
-      field_of_operation: مجال العمل
-      live_data: بيانات حية
-      ministers:
-        one: وزير
-        other: وزراء
-      policies:
-        one: سياسة
-        other: سياسات
-      policy_team: فريق السياسات
-      topics:
-        one: موضوع
-        other: مواضيع
-      world_locations:
-        one: الموقع في العالم
-        other: المواقع في العالم
-      worldwide_organisations:
-        one: مكتب عالمي
-        other: مكاتب عالمية
-    published: نشر
-    read: اقرأ %{title} المقال
-    speech:
-      delivered_on:
-      delivery_title:
-        minister:
-        speaker:
-      originally_given_at:
-    type:
-      announcement:
-        one: إعلان
-        other: إعلانات
-      case_study:
-        one: دراسة حالة
-        other: دراسات حالة
-      closed_consultation:
-        one: استشارة منتهية
-        other: استشارات منتهية
-      consultation:
-        one: مشاورة
-        other: مشاورات
-      consultation_outcome:
-        one: نتيجة المشاورة
-        other: نتائج المشاورات
-      corporate_report:
-        one: تقرير الوزارة
-        other: تقارير الوزارة
-      correspondence:
-        one: مراسلة
-        other: مراسلات
-      detailed_guidance:
-        one: توجيه مفصل
-        other: توجيهات مفصل
-      draft_text:
-        one: مسودة النص
-        other: مسودة النصوص
-      fatality_notice:
-        one: إشعار وفاة
-        other: إشعارات وفاة
-      foi_release:
-        one: نشرة وفق حرية الحصول على المعلومات
-        other: نشرات وفق حرية الحصول على المعلومات
-      form:
-        one: ! 'نموذج '
-        other: ! 'نماذج '
-      guidance:
-        one: توجيه
-        other: توجيهات
-      impact_assessment:
-        one: تقييم التأثير
-        other: تقييمات التأثير
-      imported:
-        one:
-        other:
-      independent_report:
-        one: تقرير مستقل
-        other: تقارير مستقلة
-      map:
-        one:
-        other:
-      national_statistics:
-        one: إحصائية - إحصائية محلية
-        other: إحصائيات - إحصائيات محلية
-      news_article:
-        one: مقال إخباري
-        other: مقالات إخبارية
-      news_story:
-        one: قصة إخبارية
-        other: قصص إخبارية
-      open_consultation:
-        one: مشاورة جارية
-        other: مشاورات جارية
-      oral_statement:
-        one: تصريح شفهي
-        other: تصريحات شفهية
-      policy:
-        one: سياسة
-        other: سياسات
-      policy_paper:
-        one: ورقة عن السياسة
-        other: ورقة عن السياسات
-      press_release:
-        one: بيان صحفي
-        other: بيانات صحفية
-      promotional:
-        one: مادة ترويجية
-        other: مواد ترويجية
-      publication:
-        one: مطبوعة
-        other: مطبوعات
-      rebuttal:
-        one: دحض
-        other: ! 'دحوض '
-      research:
-        one: بحث وتحليل
-        other: بحوث وتحليلات
-      speaking_notes:
-        one: مذكرات كلامية
-        other: مذكرات كلامية
-      speech:
-        one: كلمة
-        other: كلمات
-      statement_to_parliament:
-        one: تصريح للبرلمان
-        other: تصريحات للبرلمان
-      statistical_data_set:
-        one: مجموعة بيانات إحصائية
-        other: مجموعات بيانات إحصائية
-      statistics:
-        one: إحصائية
-        other: إحصائيات
-      transcript:
-        one: نص منسوخ
-        other: نصوص منسوخة
-      transparency:
-        one: بيانات تتعلق بالشفافية
-        other: بيانات تتعلق بالشفافية
-      written_statement:
-        one: تصريح خطي
-        other: تصريحات خطية
-    updated: محدث
-    view: اطلع على ’%{title}‘
   document_filters:
     description:
     no_results:
@@ -188,43 +480,6 @@ ar:
     human:
       storage_units:
         format: ! '%n%u'
-  organisation:
-    headings:
-      plus_others:
-    type:
-      Ad-hoc advisory group:
-        one: فريق استشاري مخصص
-        other: فرق استشارية مخصصة
-      Advisory non-departmental public body:
-        one: هيئة استشارية عامة غير حكومية
-        other: هيئات استشارية عامة غير حكومية
-      Executive agency:
-        one: جهاز تنفيذي
-        other: أجهزة تنفيذية
-      Executive non-departmental public body:
-        one: هيئة تنفيذية عامة غير حكومية
-        other: هيئات تنفيذية عامة غير حكومية
-      Independent monitoring body:
-        one: جهاز رقابي مستقل
-        other: أجهزة رقابية مستقلة
-      Ministerial department:
-        one: إدارة وزارية
-        other: إدارات وزارية
-      Non-ministerial department:
-        one: إدارة غير وزارية
-        other: إدارات غير وزارية
-      Other:
-        one: إدارة أخرى
-        other: إدارات أخرى
-      Public corporation:
-        one: مؤسسة عامة
-        other: مؤسسات عامة
-      Sub-organisation:
-        one: هيئة فرعية
-        other: هيئات فرعية
-      Tribunal non-departmental public body:
-        one: هيئة قضائية عامة غير حكومية
-        other: هيئات قضائية عامة غير حكومية
   policies:
     heading:
   publications:
@@ -236,34 +491,12 @@ ar:
   time:
     formats:
       long_ordinal: ! '%e %B %Y %H:%M'
-  world_location:
-    headings:
-      announcements: إعلاناتنا
-      country: البلد
-      documents: وثائق
-      mission: مهمتنا
-      organisations:
-      priorities: أولويات
-      publications: مطبوعاتنا
-      quick_links:
-      related_policies: سياسات ذات صلة
-      see_all: اطلع على كافة %{type}
-      statistics: إحصائياتنا
-    see_all: اطلع على كافة %{type}
-    type:
-      country:
-        one: البلد
-        other: البلدان
-      international_delegation:
-        one: وفد دولي
-        other: وفود دولية
-      overseas_territory:
-        one: إقليم في الخارج
-        other: أقاليم في الخارج
   worldwide_organisation:
     corporate_information:
-      personal_information_charter_html: لدينا %{link} الرابط يشرح كيفية التعامل مع المعلومات الشخصية الخاصة بك
-      publication_scheme_html: قرأت عن أنواع المعلومات التي ننشرها بشكل روتيني في موقعنا %{link} الرابط.
+      personal_information_charter_html: لدينا %{link} الرابط يشرح كيفية التعامل مع
+        المعلومات الشخصية الخاصة بك
+      publication_scheme_html: قرأت عن أنواع المعلومات التي ننشرها بشكل روتيني في
+        موقعنا %{link} الرابط.
       welsh_language_scheme_html: معرفة التزامنا النشر في%{link} الرابط.
     find_out_more: اطلع على النبذة بالكامل وكافة تفاصيل الاتصال
     headings:

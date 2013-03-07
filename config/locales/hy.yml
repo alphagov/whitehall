@@ -1,39 +1,12 @@
 hy:
-  activerecord:
-    attributes:
-      detailed_guide:
-        primary_mainstream_category:
-  announcements:
-    heading:
-  change_notes:
-    published:
-    updated:
-  contact:
-    contact_form:
-    email:
-  corporate_information_page:
-    type:
-      personal_information_charter:
-      publication_scheme:
-      welsh_language_scheme:
-  date:
-    formats:
-      default:
-      long_ordinal: ! '%e %B %Y'
   document:
     headings:
-      advisory_groups:
-      applies_to_nations:
-      document_series:
-      field_of_operation:
-      live_data:
       ministers:
         one:
         other:
       policies:
         one:
         other:
-      policy_team:
       topics:
         one:
         other:
@@ -43,14 +16,12 @@ hy:
       worldwide_organisations:
         one:
         other:
-    published:
-    read:
-    speech:
-      delivered_on:
-      delivery_title:
-        minister:
-        speaker:
-      originally_given_at:
+      advisory_groups:
+      applies_to_nations:
+      document_series:
+      field_of_operation:
+      live_data:
+      policy_team:
     type:
       announcement:
         one:
@@ -166,34 +137,17 @@ hy:
       written_statement:
         one:
         other:
+    published:
+    read:
+    speech:
+      delivered_on:
+      delivery_title:
+        minister:
+        speaker:
+      originally_given_at:
     updated:
     view:
-  document_filters:
-    description:
-    no_results:
-      description:
-      title:
-    world_locations:
-      all:
-      label:
-  feeds:
-    atom:
-    email_alerts:
-    latest_activity:
-  i18n:
-    direction: ltr
-  language_names:
-    hy: Հայերեն
-  latest_feed:
-    no_updates:
-    title:
-  number:
-    human:
-      storage_units:
-        format:
   organisation:
-    headings:
-      plus_others:
     type:
       Ad-hoc advisory group:
         one:
@@ -228,18 +182,19 @@ hy:
       Tribunal non-departmental public body:
         one:
         other:
-  policies:
-    heading:
-  publications:
-    heading:
-  read_more:
-  support:
-    array:
-      last_word_connector:
-  time:
-    formats:
-      long_ordinal:
+    headings:
+      plus_others:
   world_location:
+    type:
+      country:
+        one:
+        other:
+      international_delegation:
+        one:
+        other:
+      overseas_territory:
+        one:
+        other:
     headings:
       announcements:
       country:
@@ -253,16 +208,61 @@ hy:
       see_all:
       statistics:
     see_all:
+  activerecord:
+    attributes:
+      detailed_guide:
+        primary_mainstream_category:
+  announcements:
+    heading:
+  change_notes:
+    published:
+    updated:
+  contact:
+    contact_form:
+    email:
+  corporate_information_page:
     type:
-      country:
-        one:
-        other:
-      international_delegation:
-        one:
-        other:
-      overseas_territory:
-        one:
-        other:
+      personal_information_charter:
+      publication_scheme:
+      welsh_language_scheme:
+  date:
+    formats:
+      default:
+      long_ordinal: ! '%e %B %Y'
+  document_filters:
+    description:
+    no_results:
+      description:
+      title:
+    world_locations:
+      all:
+      label:
+  feeds:
+    atom:
+    email_alerts:
+    latest_activity:
+  i18n:
+    direction: ltr
+  language_names:
+    hy: Հայերեն
+  latest_feed:
+    no_updates:
+    title:
+  number:
+    human:
+      storage_units:
+        format:
+  policies:
+    heading:
+  publications:
+    heading:
+  read_more:
+  support:
+    array:
+      last_word_connector:
+  time:
+    formats:
+      long_ordinal:
   worldwide_organisation:
     corporate_information:
       personal_information_charter_html:
