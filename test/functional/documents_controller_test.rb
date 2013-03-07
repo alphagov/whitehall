@@ -32,6 +32,17 @@ class DocumentsControllerTest < ActionController::TestCase
     assert_cache_control("max-age=#{Whitehall.default_cache_max_age}")
   end
 
+  test "show redirects to new location if the document has been unpublished and a redirect has been requested" do
+    user = login_as(:departmental_editor)
+    edition = create(:unpublished_edition)
+    edition.unpublishing.update_attributes(redirect: true, alternative_url: "http://gov.uk/some-other-url")
+
+    get :show, id: edition.unpublishing.slug
+
+    assert_response :redirect
+    assert_redirected_to edition.unpublishing.alternative_url
+  end
+
   view_test "show responds with 'Coming soon' page and shorter cache control 'max-age' if document is scheduled for publication" do
     user = login_as(:departmental_editor)
     edition = create(:draft_edition, scheduled_publication: Time.zone.now + Whitehall.default_cache_max_age * 2)

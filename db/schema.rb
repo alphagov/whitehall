@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130228155806) do
+ActiveRecord::Schema.define(:version => 20130307114057) do
 
   create_table "attachment_data", :force => true do |t|
     t.string   "carrierwave_file"
@@ -851,6 +851,7 @@ ActiveRecord::Schema.define(:version => 20130228155806) do
     t.datetime "updated_at"
     t.string   "document_type"
     t.string   "slug"
+    t.boolean  "redirect",               :default => false
   end
 
   add_index "unpublishings", ["edition_id"], :name => "index_unpublishings_on_edition_id"

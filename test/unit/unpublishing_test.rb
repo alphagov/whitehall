@@ -21,6 +21,17 @@ class UnpublishingTest < ActiveSupport::TestCase
     refute unpublishing.valid?
   end
 
+  test 'is not valid without a url if redirect is chosen' do
+    unpublishing = build(:unpublishing, redirect: true)
+    refute unpublishing.valid?
+
+    unpublishing = build(:unpublishing, redirect: true, alternative_url: "http://example.com")
+    assert unpublishing.valid?
+
+    unpublishing = build(:unpublishing, redirect: false, alternative_url: "http://example.com")
+    assert unpublishing.valid?
+  end
+
   test 'returns an unpublishing reason' do
     unpublishing = build(:unpublishing, unpublishing_reason_id: reason.id)
     assert_equal reason, unpublishing.unpublishing_reason

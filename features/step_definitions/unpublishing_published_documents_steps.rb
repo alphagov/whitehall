@@ -4,14 +4,18 @@ Given /^a published document exists with a slug that does not match the title$/ 
   @document.update_attribute(:title, 'Published in error')
 end
 
-When /^I unpublish the document because it was published in error$/ do
-  edition = Edition.last
+def unpublish_edition(edition)
   visit admin_edition_path(edition)
   click_button 'Unpublish'
   select 'Published in error', from: 'Reason for unpublishing'
   fill_in 'Further explanation', with: 'This page should never have existed'
-  fill_in 'Alternative URL', with: 'https://www.gov.uk/some/alternative/page'
+  fill_in 'Alternative URL', with: 'https://www.gov.uk/government/'
+  yield if block_given?
   click_button 'Unpublish'
+end
+
+When /^I unpublish the document because it was published in error$/ do
+  unpublish_edition(Edition.last)
 end
 
 Then /^I should see that the document was published in error on the public site$/ do
@@ -20,7 +24,7 @@ Then /^I should see that the document was published in error on the public site$
   refute page.has_content?(edition.title)
   assert page.has_content?('The information on this page has been removed because it was published in error')
   assert page.has_content?('This page should never have existed')
-  assert page.has_css?('a[href="https://www.gov.uk/some/alternative/page"]')
+  assert page.has_css?('a[href="https://www.gov.uk/government/"]')
 end
 
 Then /^I should see that the document was published in error at the original url$/ do
@@ -28,5 +32,18 @@ Then /^I should see that the document was published in error at the original url
   refute page.has_content?(@document.title)
   assert page.has_content?('The information on this page has been removed because it was published in error')
   assert page.has_content?('This page should never have existed')
-  assert page.has_css?('a[href="https://www.gov.uk/some/alternative/page"]')
+  assert page.has_css?('a[href="https://www.gov.uk/government/"]')
+end
+
+When /^I unpublish the document and ask for a redirect$/ do
+  unpublish_edition(Edition.last) do
+    check 'Redirect to URL automatically?'
+  end
+end
+
+Then /^I should be redirected to the new url when I view the document on the public site$/ do
+  edition = Edition.last
+
+  visit public_document_path(edition)
+  assert_current_url edition.unpublishing.alternative_url
 end
