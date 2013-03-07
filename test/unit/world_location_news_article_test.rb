@@ -17,6 +17,12 @@ class WorldLocationNewsArticleTest < ActiveSupport::TestCase
     refute world_article.can_be_related_to_organisations?
   end
 
+  test 'search_format_types tags the news article as a world-location-news-article and announcement' do
+    world_article = build(:world_location_news_article)
+    assert world_article.search_format_types.include?('world-location-news-article')
+    assert world_article.search_format_types.include?('announcement')
+  end
+
   test "should be translatable" do
     world_article = build(:world_location_news_article)
     assert world_article.translatable?
