@@ -15,6 +15,10 @@ class WorldLocationNewsArticle < Newsesque
     true
   end
 
+  def search_format_types
+    super + [WorldLocationNewsArticle.search_format_type]
+  end
+
   def display_type_key
     'world_location_news_article'
   end

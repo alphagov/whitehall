@@ -42,10 +42,6 @@ class NewsArticle < Newsesque
     true
   end
 
-  def translatable?
-    true
-  end
-
   private
 
   def only_news_article_allowed_invalid_data_can_be_awaiting_type
