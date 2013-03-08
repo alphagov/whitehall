@@ -177,4 +177,26 @@ class WorldLocationTest < ActiveSupport::TestCase
     refute world_location.translated_locales.include?(:fr)
     assert world_location.translated_locales.include?(:es)
   end
+
+  test 'we can find those that are countries' do
+    country = create(:country)
+    overseas_territory = create(:overseas_territory)
+    international_delegation = create(:international_delegation)
+
+    countries = WorldLocation.countries
+    assert countries.include?(country)
+    refute countries.include?(overseas_territory)
+    refute countries.include?(international_delegation)
+  end
+
+  test 'we can find those that represent something geographic (if not neccessarily a country)' do
+    country = create(:country)
+    overseas_territory = create(:overseas_territory)
+    international_delegation = create(:international_delegation)
+
+    geographic = WorldLocation.geographical
+    assert geographic.include?(country)
+    assert geographic.include?(overseas_territory)
+    refute geographic.include?(international_delegation)
+  end
 end

@@ -10,4 +10,8 @@ class WorldLocationTypeTest < ActiveSupport::TestCase
     world_location_type = WorldLocationType.find_by_id(1)
     assert_equal world_location_type, WorldLocationType.find_by_slug(world_location_type.slug)
   end
+
+  test 'we can find those types that are geographic' do
+    assert_equal [WorldLocationType::Country, WorldLocationType::OverseasTerritory], WorldLocationType.geographic
+  end
 end

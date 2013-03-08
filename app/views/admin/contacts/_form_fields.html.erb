@@ -10,7 +10,7 @@
     <%= contact_form.label :country_id, 'Country', class: "control-label" %>
     <div class="controls">
       <%= contact_form.select :country_id,
-                              options_from_collection_for_select(WorldLocation.countries, :id, :name, contact_form.object.country_id),
+                              options_from_collection_for_select(WorldLocation.geographical, :id, :name, contact_form.object.country_id),
                               { include_blank: true },
                               class: 'chzn-select', 
                               data: { placeholder: "Choose the country..." } %>

@@ -68,6 +68,10 @@ class WorldLocation < ActiveRecord::Base
     where(world_location_type_id: WorldLocationType::Country.id).ordered_by_name
   end
 
+  def self.geographical
+    where(world_location_type_id: WorldLocationType.geographic.map(&:id)).ordered_by_name
+  end
+
   validates_with SafeHtmlValidator
   validates :name, :world_location_type_id, presence: true
 

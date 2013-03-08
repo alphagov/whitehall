@@ -15,6 +15,10 @@ class WorldLocationType
     all.find { |type| type.slug == slug }
   end
 
+  def self.geographic
+    [Country, OverseasTerritory]
+  end
+
   Country = create( id: 1, key: "country", name: "Country", sort_order: 0 )
   OverseasTerritory = create( id: 2, key: "overseas_territory", name: "Overseas territory", sort_order: 1 )
   InternationalDelegation = create( id: 3, key: "international_delegation", name: "International delegation", sort_order: 2 )
