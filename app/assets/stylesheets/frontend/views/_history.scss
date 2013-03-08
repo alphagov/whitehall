@@ -45,16 +45,23 @@
         padding: $gutter*1.5 $gutter-half $gutter*2;
       }
 
-      .header-title, .jump-links {
+      .header-title {
         h1 {
           @include heading-48;
           font-weight: bold;
+          margin: 0 0 $gutter +5px;
+          @include media(desktop) {
+            margin-top: 0;
+          }
         }
         .intro {
           @include core-27;
-          margin: $gutter-half 0;
+          margin-bottom:$gutter;
           @include media(tablet) {
-            margin: 0;
+            margin-bottom:$gutter*2;      
+          }
+          a {
+            white-space: nowrap;
           }
         }
         @include media(tablet) {
