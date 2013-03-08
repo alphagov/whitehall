@@ -8,6 +8,11 @@ class RoutingLocaleTest < ActionDispatch::IntegrationTest
       routing_options: {controller: 'world_locations', action: 'show', id: 'spain', locale: 'en'}
     },
     {
+      name:            'world location news articles',
+      expected_url:    '/government/world-location-news/a-thing-happened-abroad',
+      routing_options: {controller: 'world_location_news_articles', action: 'show', id: 'a-thing-happened-abroad', locale: 'en'}
+    },
+    {
       name:            'world priorities',
       expected_url:    '/government/priority/a-world-priority',
       routing_options: {controller: 'worldwide_priorities', action: 'show', id: 'a-world-priority', locale: 'en'}
