@@ -16,4 +16,10 @@ class CaseStudy < Edition
   def translatable?
     true
   end
+
+  def apply_any_extra_validations_when_converting_from_imported_to_draft
+    class << self
+      validates :first_published_at, presence: true
+    end
+  end
 end
