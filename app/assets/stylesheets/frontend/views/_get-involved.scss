@@ -29,22 +29,29 @@
         padding: $gutter*1.5 $gutter-half $gutter*2;
       }
 
-      .header-title, .jump-links {
+      .header-title {
         h1 {
           @include heading-48;
           font-weight: bold;
+          margin: 0 0 $gutter +5px;
+          @include media(desktop) {
+            margin-top: 0;
+          }
         }
         .intro {
           @include core-27;
           margin: $gutter-half 0;
+          a {
+            white-space: nowrap;
+          }
           @include media(tablet) {
-            margin: 0;
+            margin: 0 0 $gutter*2;
           }
         }
         @include media(tablet) {
           float: left;
           display: inline;
-          width: 80%;
+          width: 75%;
         }
       }
     }
@@ -60,6 +67,19 @@
       margin-right: $gutter-half;
     }
 
+    .head-section {
+      @include media(tablet) {
+        float: left;
+        width: 33.33%;
+      }
+      h3 {
+        @include heading-27;
+        font-weight: bold;
+        padding-left: $gutter-half;
+        padding-right: $gutter-half;
+      }
+    }
+
     section {
       @include core-19;
       @extend %contain-floats;
@@ -68,19 +88,6 @@
 
       h3, h4 {
         font-weight: bold;
-      }
-
-      .head-section {
-        @include media(tablet) {
-          float: left;
-          width: 33.33%;
-        }
-        h3 {
-          @include heading-27;
-          font-weight: bold;
-          padding-left: $gutter-half;
-          padding-right: $gutter-half;
-        }
       }
 
       dt, dd {
@@ -130,11 +137,40 @@
           width: 66.66%;
         }
         .consultation-closing-soon {
-          border: 3px solid $inside-gov-brand;
+          color: $white;
+          background-color: $inside-gov-brand;
           margin: $gutter $gutter-half;
-          padding: $gutter-half $gutter-half $gutter-one-sixth;
+          padding: $gutter-half $gutter-half 0;
+          a {
+            color: $white;
+          }
+          h3 {
+            @include heading-27;
+            font-weight: bold;
+            padding: 0 0 $gutter-one-sixth;
+            @include media(tablet) {
+              padding: 0 0 $gutter-one-sixth;
+            }
+          }
           .document-list {
             margin-top: -$gutter-one-third;
+
+            h3 {
+              @include core-19;
+              border-bottom: 1px solid $white;
+              padding-bottom: $gutter-one-third;
+              font-weight: normal;
+            }
+            .attributes {
+              @extend %contain-floats;
+              margin-top: $gutter-one-third;
+              li {
+                @include core-19;
+                a {
+                  color: $white;
+                }
+              }
+            }
           }
           @include media(tablet) {
             margin: $gutter-half $gutter-half $gutter;
@@ -188,6 +224,10 @@
           margin: $gutter-one-third 0 $gutter;
         }
       }
+
+      &.consultations + .keyline {
+        padding-top: 0;
+      }
     }
 
     article {
@@ -234,6 +274,9 @@
           }
         }
       }
+      &+ .keyline {
+        padding-top: $gutter*1.5;
+      }
     }
 
     .description, .list {
@@ -258,9 +301,10 @@
 
     .keyline {
       clear: both;
-      margin: 0 $gutter-half $gutter;
       border: solid $border-colour;
       border-width: 0 0 1px;
+      margin: 0 $gutter-half $gutter;
+      padding-top: $gutter;
     }
 
   }
