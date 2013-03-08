@@ -4,6 +4,8 @@ class CaseStudy < Edition
   include Edition::FactCheckable
   include Edition::FirstImagePulledOut
   include Edition::DocumentSeries
+  include Edition::WorldLocations
+  include Edition::WorldwideOrganisations
 
   def display_type_key
     "case_study"
