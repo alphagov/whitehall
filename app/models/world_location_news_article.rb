@@ -1,5 +1,4 @@
 class WorldLocationNewsArticle < Newsesque
-  include Edition::WorldwidePriorities
   include Edition::WorldLocations
   include Edition::WorldwideOrganisations
 
