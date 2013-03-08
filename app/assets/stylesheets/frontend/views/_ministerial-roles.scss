@@ -13,7 +13,7 @@
           @include core-27;
           margin-bottom:$gutter;
           @include media(tablet) {
-            margin-bottom:$gutter*2;      
+            margin-bottom:$gutter*2;
           }
           a {
             white-space: nowrap;
