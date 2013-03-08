@@ -37,7 +37,7 @@
       text-decoration: underline;
     }
   }
-  
+
   li {
     margin-left: $gutter;
   }
@@ -57,7 +57,7 @@
     .inner-block {
       padding: 0;
     }
-    
+
     @include media(tablet) {
       margin-left:-$gutter-half;
       margin-right:-$gutter-half;
@@ -83,14 +83,14 @@
       }
     }
   }
-  
+
   .depts {
     .two-thirds,
     .one-third {
       margin-bottom: 0;
     }
   }
-  
+
   .ministers{
     margin-bottom:$gutter*2;
   }
@@ -195,7 +195,7 @@
       }
     }
   }
-  
+
   .feature-caption {
     @include ig-core-16;
     display: block;
@@ -279,13 +279,13 @@
   .ministers .caption {
     max-width: 26em;
   }
-  
+
   .policy-count {
     text-align: center;
     p {
       @include ig-core-16;
     }
-    
+
     p.circle{
       background-color:$panel-colour;
       border:1px solid $panel-colour;
@@ -321,7 +321,7 @@
       }
     }
   }
-  
+
   h1 {
     @include heading-48;
     font-weight: bold;
@@ -399,12 +399,12 @@
     width: 100%;
     margin-top: $gutter + $gutter-one-third;
   }
-   
+
   p.intro {
     @include core-27;
     margin-bottom:$gutter;
     @include media(tablet) {
-      margin-bottom:$gutter*2;      
+      margin-bottom:$gutter*2;
     }
   }
   p.small-print {
@@ -418,13 +418,13 @@
     border-width: 5px;
     padding-top: $gutter - 9px;
   }
-  
+
   hr.keyline {
     margin: 0;
     border: solid $border-colour;
     border-width: 0 0 1px;
   }
-  
+
   @media (min-width: 640px) and (max-width: 900px) {
     .prime-minister,
     .history {
@@ -435,14 +435,14 @@
         }
       }
     }
-    
+
     .cabinet {
       .two-thirds,
       .one-third {
         width: 50%;
       }
     }
-    
+
     .depts-cont,
     .legislation,
     .access-information {
@@ -455,20 +455,20 @@
         }
       }
     }
-    
+
     .depts-cont .one-third:nth-child(2),
     .legislation .one-third:nth-child(4),
     .access-information .one-third:nth-child(2) {
       margin-bottom: $gutter-half;
     }
-    
+
     .gov-types {
       .one-third {
         width: 100%;
       }
     }
   }
-      
+
   @media (min-width: 640px) and (max-width: 760px) {
     .feature-ministers {
       p {
@@ -484,7 +484,7 @@
       }
     }
   }
-      
+
   @media (min-width: 761px) and (max-width: 980px) {
     .feature-ministers {
       p {
@@ -500,7 +500,7 @@
       }
     }
   }
-      
+
   @media (min-width: 811px) and (max-width: 980px) {
     .feature-ministers {
       p {
@@ -516,5 +516,5 @@
       }
     }
   }
-  
+
 }
