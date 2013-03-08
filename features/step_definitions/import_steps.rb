@@ -219,3 +219,8 @@ Then /^the imported case study has the following associations:$/ do |expected_ta
     assert_equal edition.send(row["Name"].to_sym).map(&:slug), row["Slugs"].split(/, +/)
   end
 end
+
+Then /^the imported news article has (?:a|an) "([^"]*)" locale translation$/ do |locale|
+  news_article = Import.last.documents.where(document_type: NewsArticle.name).first.latest_edition
+  assert news_article.available_in_locale?(locale), "News article should have been translated into #{locale}"
+end

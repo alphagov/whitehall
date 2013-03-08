@@ -73,6 +73,45 @@ module Whitehall::Uploader
       assert_equal [organisation], row.lead_organisations
     end
 
+    test "recognises the presence of a translation" do
+      refute build_row({}).translation_present?
+      assert build_row({'locale' => 'es'}).translation_present?
+    end
+
+    test "returns the locale" do
+      assert_equal 'es', build_row('locale' => 'es').translation_locale
+    end
+
+    test "returns the tranlsation url" do
+      assert_equal 'http://web.com/article.es', build_row('translation_url' => 'http://web.com/article.es').translation_url
+    end
+
+    test "returns the translated title from the title_translation" do
+      row = build_row("title_translation" => "a-title")
+      assert_equal "a-title", row.translated_title
+    end
+
+    test "returns the translated summary from the summary_translation column, converting relative links to absolute" do
+      Parsers::RelativeToAbsoluteLinks.stubs(:parse).with("translated summary with relative links", "url").returns("translated summary with absolute links")
+      row = build_row("summary_translation" => "translated summary with relative links")
+      row.stubs(:organisation).returns(stubbed_organisation)
+      assert_equal "translated summary with absolute links", row.translated_summary
+    end
+
+    test 'generates the translated summary from the translated body if the translated summary column is blank' do
+      row = build_row("summary_translation" => '', "body_translation" => 'translated body')
+      row.stubs(:organisation).returns(stubbed_organisation)
+      Parsers::SummariseBody.stubs(:parse).with('translated body').returns('translated summary')
+      assert_equal 'translated summary', row.translated_summary
+    end
+
+    test "returns the translated body from the 'body_tranlsation' column, converting relative links to absolute" do
+      Parsers::RelativeToAbsoluteLinks.expects(:parse).with("translated body with relative links", "url").returns("translated body with absolute links")
+      row = build_row("body_translation" => "translated body with relative links")
+      row.stubs(:organisation).returns(stubbed_organisation)
+      assert_equal "translated body with absolute links", row.translated_body
+    end
+
     private
 
     def build_row(data)

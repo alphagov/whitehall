@@ -86,5 +86,33 @@ module Whitehall::Uploader
       assert_equal ['dont_ignore_this'], validator.validate(['dont_ignore_this']).extra
     end
 
+    test "translatable fields are ignored if locale is not specified" do
+      validator = HeadingValidator.new.required(['a_required_field','another_required_field']).translatable('a_required_field')
+      assert_equal [], validator.errors(['a_required_field', 'another_required_field'])
+    end
+
+    test "required translatable fields and translation_url are required when locale is present" do
+      validator = HeadingValidator.new.required(%w(required also_required)).translatable('required')
+
+      assert validator.valid?(%w(required also_required))
+      assert_equal %w(translation_url required_translation), validator.validate(%w(required also_required locale)).missing
+      assert_equal %w(required_translation), validator.validate(%w(required also_required locale translation_url)).missing
+      assert validator.valid?(%w(required also_required locale translation_url required_translation))
+    end
+
+    test "rogue translatable fields are flaggeed as extra" do
+      validator = HeadingValidator.new.required(%w(required and_again)).translatable('required')
+
+      refute validator.valid?(%w(required and_again locale and_again_translation))
+      assert_equal ['and_again_translation'], validator.validate(%w(required and_again locale translation_url and_again_translation)).extra
+      assert_equal [], validator.validate(%w(required and_again locale translation_url required_translation required_translation)).extra
+    end
+
+    test "optional translatable fields are optional" do
+      validator = HeadingValidator.new.required('required').optional('optional').translatable(%w(required optional))
+      assert validator.valid?(%w(required))
+      assert validator.valid?(%w(required locale translation_url required_translation))
+      assert validator.valid?(%w(required locale translation_url required_translation optional_translation))
+    end
   end
 end

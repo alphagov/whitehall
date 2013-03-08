@@ -59,5 +59,37 @@ Old Url,New Url,Status,Slug,Admin Url,State
 "",https://www.preview.alphagov.co.uk/government/policies/#{edition.slug}/supporting-pages/#{supporting_page.slug},"","",https://whitehall-admin.test.alphagov.co.uk/government/admin/editions/#{supporting_page.edition_id}/supporting-pages/#{supporting_page.id}/edit,""
       EOT
     end
+
+    test "exports multiple document sources" do
+      article = create(:news_article)
+      source_1 = create(:document_source, document: article.document)
+      source_2 = create(:document_source, document: article.document)
+
+      assert_extraction_contains <<-EOF.strip_heredoc
+        #{source_1.url},#{news_article_url(article)},418,#{article.slug},#{news_article_admin_url(article)},#{article.state}
+        #{source_2.url},#{news_article_url(article)},418,#{article.slug},#{news_article_admin_url(article)},#{article.state}
+      EOF
+    end
+
+    test "exports documents with translated sources points to localised version" do
+      article = create(:news_article)
+      translation_source = create(:document_source, document: article.document, locale: 'es')
+      source = create(:document_source, document: article.document)
+
+      assert_extraction_contains <<-EOF.strip_heredoc
+        #{translation_source.url},#{news_article_url(article)}.es,418,#{article.slug},#{news_article_admin_url(article)},#{article.state}
+        #{source.url},#{news_article_url(article)},418,#{article.slug},#{news_article_admin_url(article)},#{article.state}
+      EOF
+    end
+
+    private
+
+    def news_article_url(article)
+      Rails.application.routes.url_helpers.news_article_url(article.slug, host: "www.preview.alphagov.co.uk", protocol: 'https')
+    end
+
+    def news_article_admin_url(article)
+      Rails.application.routes.url_helpers.admin_news_article_url(article, host: "whitehall-admin.test.alphagov.co.uk", protocol: 'https')
+    end
   end
 end
