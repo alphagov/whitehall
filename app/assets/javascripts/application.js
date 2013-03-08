@@ -5,7 +5,7 @@
 // the compiled file.
 //
 //= require jquery_ujs
-//= require jquery/jquery.player.min
+//= require vendor/jquery/jquery.player.min
 //= require_tree ./common
 //= require govuk_toolkit
 //= require_tree ./application
