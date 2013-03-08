@@ -118,6 +118,17 @@
     </section>
   <% end %>
 
+  <% if edition.can_be_associated_with_worldwide_priorities? %>
+    <section>
+      <h2>Worldwide Priorities</h2>
+      <% if edition.worldwide_priorities.any? %>
+        <%= render partial: "admin/worldwide_priorities/list", locals: {worldwide_priorities: edition.worldwide_priorities} %>
+      <% else %>
+        <p>This document isn't assigned to any worldwide priorities.</p>
+      <% end %>
+    </section>
+  <% end %>
+
   <% if edition.can_be_associated_with_statistical_data_sets? %>
     <section>
       <h2>Statistical data sets</h2>

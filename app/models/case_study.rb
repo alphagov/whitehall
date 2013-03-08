@@ -6,6 +6,7 @@ class CaseStudy < Edition
   include Edition::DocumentSeries
   include Edition::WorldLocations
   include Edition::WorldwideOrganisations
+  include Edition::WorldwidePriorities
 
   def display_type_key
     "case_study"
