@@ -29,6 +29,15 @@ FactoryGirl.define do
     trait(:policy_paper) do
       publication_type_id { PublicationType::PolicyPaper.id }
     end
+
+    trait(:with_html_version) do
+      html_version_attributes do
+        {
+          title: "title",
+          body: "body"
+        }
+      end
+    end
   end
 
   factory :imported_publication, parent: :publication, traits: [:imported]

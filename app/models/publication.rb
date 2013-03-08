@@ -13,6 +13,9 @@ class Publication < Publicationesque
 
   after_update { |p| p.published_related_policies.each(&:update_published_related_publication_count) }
 
+  has_one :html_version, foreign_key: :edition_id, dependent: :destroy
+  accepts_nested_attributes_for :html_version, reject_if: :all_blank_or_empty_hashes
+
   def self.not_statistics
     where("publication_type_id NOT IN (?)", PublicationType.statistical.map(&:id))
   end

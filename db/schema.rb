@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130307174608) do
+ActiveRecord::Schema.define(:version => 20130308163542) do
 
   create_table "attachment_data", :force => true do |t|
     t.string   "carrierwave_file"
@@ -525,6 +525,14 @@ ActiveRecord::Schema.define(:version => 20130307174608) do
 
   add_index "groups", ["organisation_id"], :name => "index_groups_on_organisation_id"
   add_index "groups", ["slug"], :name => "index_groups_on_slug"
+
+  create_table "html_versions", :force => true do |t|
+    t.integer  "edition_id"
+    t.string   "title"
+    t.text     "body"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "image_data", :force => true do |t|
     t.string   "carrierwave_image"
