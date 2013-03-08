@@ -250,3 +250,12 @@ Feature: Importing new editions
       | Name                             | Slugs                         |
       | related_policies                 | policy-one                    |
       | document_series                  | my-document-series            |
+
+  Scenario: Importing a news article with a translated version present
+    When I import the following data as CSV as "News article" for "Department for Transport":
+      """
+      old_url,title,summary,body,organisation,policy_1,minister_1,first_published,country_1,news_article_type,locale,translation_url,title_translation,summary_translation,body_translation
+      http://example.com/1,title,summary,body,,,,14-Dec-2011,,,es,http://example.com/1.es,spanish title,spanish summary,spanish body
+      """
+    Then the import succeeds, creating 1 imported news article for "Department for Transport" with "imported-awaiting-type" news article type
+    And the imported news article has an "es" locale translation

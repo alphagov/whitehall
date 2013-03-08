@@ -4,30 +4,6 @@ require 'support/consultation_csv_sample_helpers'
 class ImportTest < ActiveSupport::TestCase
   include ConsultationCsvSampleHelpers
 
-  def organisation_id
-    1
-  end
-
-  def new_import(params = {})
-    valid_params = {
-      csv_data: consultation_csv_sample,
-      data_type: "consultation",
-      organisation_id: 1,
-      creator: stub_record(:user)
-    }
-
-    Import.new(valid_params.merge(params))
-  end
-
-  def perform_import(params = {})
-    new_import(params).tap do |import|
-      import.save!
-      yield(import) if block_given?
-      import.update_column(:import_enqueued_at, Time.current)
-      import.perform
-    end
-  end
-
   setup do
     @automatic_data_importer = create(:importer, name: "Automatic Data Importer")
   end
@@ -139,6 +115,36 @@ class ImportTest < ActiveSupport::TestCase
       DocumentSource.expects(:create!).with(document: @document, url: "http://example.com/1", import: import, row_number: 2)
       DocumentSource.expects(:create!).with(document: @document, url: "http://example.com/2", import: import, row_number: 2)
     end
+  end
+
+  test '#perform saves translations along with the document' do
+    import = perform_import(csv_data: translated_news_article_csv, data_type: "news_article", organisation_id: create(:organisation).id)
+    assert_equal 1, import.documents.size
+    assert article = import.documents.first.latest_edition
+
+    assert article.is_a?(NewsArticle)
+    assert_equal 'Title', article.title
+    assert_equal 'Summary', article.summary
+    assert_equal 'Body', article.body
+
+    assert article.available_in_locale?(:es)
+    translation = LocalisedModel.new(article, :es)
+    assert_equal 'Spanish Title', translation.title
+    assert_equal 'Spanish Summary', translation.summary
+    assert_equal 'Spanish Body', translation.body
+  end
+
+  test '#perform saves the translation source, along with its locale' do
+    import = perform_import(csv_data: translated_news_article_csv, data_type: "news_article", organisation_id: create(:organisation).id)
+    assert_equal 2, import.document_sources.size
+
+    assert translation_source = import.document_sources.first
+    assert_equal 'http://example.com/1.es', translation_source.url
+    assert_equal 'es', translation_source.locale
+
+    assert legacy_source = import.document_sources.last
+    assert_equal 'http://example.com/1', legacy_source.url
+    assert_equal 'en', legacy_source.locale
   end
 
   test "#peform creates editions in the imported state" do
@@ -426,13 +432,38 @@ class ImportTest < ActiveSupport::TestCase
   end
 
   private
+
+  def organisation_id
+    1
+  end
+
+  def new_import(params = {})
+    valid_params = {
+      csv_data: consultation_csv_sample,
+      data_type: "consultation",
+      organisation_id: 1,
+      creator: stub_record(:user)
+    }
+
+    Import.new(valid_params.merge(params))
+  end
+
+  def perform_import(params = {})
+    new_import(params).tap do |import|
+      import.save!
+      yield(import) if block_given?
+      import.update_column(:import_enqueued_at, Time.current)
+      import.perform
+    end
+  end
+
   def stub_document_source
     DocumentSource.stubs(:find_by_url).returns(nil)
     DocumentSource.stubs(:create!)
   end
 
   def stub_row_class(row_attribute_overrides = {})
-    @row = stub('row', {attributes: {row: :one}, legacy_urls: ['row-legacy-url'], valid?: true}.merge(row_attribute_overrides))
+    @row = stub('row', {attributes: {row: :one}, legacy_urls: ['row-legacy-url'], valid?: true, translation_present?: false}.merge(row_attribute_overrides))
     @row_class = stub('row-class', new: @row, heading_validation_errors: [])
   end
 
@@ -442,4 +473,11 @@ class ImportTest < ActiveSupport::TestCase
     @model_class = stub('model-class', new: @model)
   end
 
+
+  def translated_news_article_csv
+    <<-EOF.strip_heredoc
+    old_url,title,summary,body,organisation,policy_1,minister_1,first_published,country_1,news_article_type,locale,translation_url,title_translation,summary_translation,body_translation
+    http://example.com/1,Title,Summary,Body,,,,14-Dec-2011,,,es,http://example.com/1.es,Spanish Title,Spanish Summary,Spanish Body
+    EOF
+  end
 end

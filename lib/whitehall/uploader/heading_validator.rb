@@ -6,6 +6,7 @@ module Whitehall
         @optional_fields = []
         @correlated_fields = []
         @ignored_patterns = []
+        @translatable_fields = []
       end
 
       def required(fields)
@@ -25,6 +26,11 @@ module Whitehall
 
       def ignored(pattern)
         @ignored_patterns << Regexp.new('\A' + Regexp.escape(pattern.downcase).gsub('\*', '.*') + '\z')
+        self
+      end
+
+      def translatable(fields)
+        @translatable_fields.concat([*fields].map(&:downcase))
         self
       end
 
@@ -51,16 +57,39 @@ module Whitehall
       end
 
       def missing(headings)
-        missing = @required_fields - headings
         missing_correlations = @correlated_fields.map do |correlation|
           correlation.missing(headings)
         end
-        missing + missing_correlations.flatten
+        missing_fields(headings) + missing_correlations.flatten
+      end
+
+      def missing_fields(headings)
+        if includes_translation?(headings)
+          @required_fields + required_translation_fields - headings
+        else
+          @required_fields - headings
+        end
       end
 
       def extra(headings)
         correlated = @correlated_fields.map { |c| c.accepted(headings) }.flatten
-        normalise(headings) - (@required_fields + @optional_fields + correlated)
+        if includes_translation?(headings)
+          normalise(headings) - (@required_fields + translation_fields + @optional_fields + correlated)
+        else
+          normalise(headings) - (@required_fields + @optional_fields + correlated)
+        end
+      end
+
+      def includes_translation?(headings)
+        headings.include?('locale')
+      end
+
+      def translation_fields
+        ['locale', 'translation_url'] + @translatable_fields.map {|field| "#{field}_translation" }
+      end
+
+      def required_translation_fields
+        ['locale', 'translation_url'] + (@translatable_fields & @required_fields).map {|field| "#{field}_translation" }
       end
 
       def normalise(headings)

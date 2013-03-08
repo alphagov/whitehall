@@ -24,25 +24,37 @@ class Whitehall::Exporters::DocumentMappings < Struct.new(:platform)
     platform == 'production' ? 'www.gov.uk' : 'www.preview.alphagov.co.uk'
   end
 
+  def edition_values(edition, document, document_source=nil)
+    [ (document_source.try(:url) || ''),
+      public_document_url(document.published_edition || document.latest_edition, protocol: 'https', locale: document_source.try(:locale)),
+      http_status(edition),
+      document.slug,
+      admin_edition_url(edition, host: admin_host, protocol: 'https'),
+      edition.state ]
+  end
+
+  def http_status(edition)
+    case edition.state
+    when 'published'
+      '301'
+    when 'draft'
+      '418'
+    else
+      ''
+    end
+  end
+
   def export(target)
     target << ['Old Url','New Url','Status','Slug','Admin Url','State']
     Document.find_each do |document|
       document.editions.each do |edition|
-        status = if edition.state == 'published'
-                    '301'
-                elsif edition.state == 'draft'
-                    '418'
-                else
-                    ''
-                end
-        target << [
-          document.document_sources.any? ? document.document_sources.first.url : '',
-          public_document_url(document.published_edition || document.latest_edition, protocol: 'https'),
-          status,
-          document.slug,
-          admin_edition_url(edition, host: admin_host, protocol: 'https'),
-          edition.state
-        ]
+        if document.document_sources.any?
+          document.document_sources.each do |source|
+            target << edition_values(edition, document, source)
+          end
+        else
+          target << edition_values(edition, document)
+        end
       end
     end
 

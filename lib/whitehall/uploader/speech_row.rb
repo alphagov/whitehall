@@ -7,6 +7,7 @@ module Whitehall::Uploader
         .multiple("policy_#", 1..4)
         .required(%w{delivered_by delivered_on event_and_location})
         .multiple("country_#", 0..4)
+        .translatable(%w{title summary body})
     end
 
     def speech_type
@@ -38,6 +39,10 @@ module Whitehall::Uploader
       Parsers::DateParser.parse(row['delivered_on'], @logger, @line_number)
     end
 
+    def world_locations
+      Finders::WorldLocationsFinder.find(row['country_1'], row['country_2'], row['country_3'], row['country_4'], @logger, @line_number)
+    end
+
     def attributes
       [:title, :summary, :body, :speech_type,
        :role_appointment, :delivered_on, :location, :organisations,
@@ -47,8 +52,12 @@ module Whitehall::Uploader
       end
     end
 
-    def world_locations
-      Finders::WorldLocationsFinder.find(row['country_1'], row['country_2'], row['country_3'], row['country_4'], @logger, @line_number)
+    def translation_attributes
+      {
+        title: translated_title,
+        body: translated_body,
+        summary: translated_summary
+      }
     end
   end
 end

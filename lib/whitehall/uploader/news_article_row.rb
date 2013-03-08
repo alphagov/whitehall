@@ -7,6 +7,7 @@ module Whitehall::Uploader
         .multiple("policy_#", 1..4)
         .multiple("minister_#", 1..2)
         .multiple("country_#", 0..4)
+        .translatable(%w{title summary body})
     end
 
     def news_article_type
@@ -35,6 +36,14 @@ module Whitehall::Uploader
        :world_locations, :news_article_type].map.with_object({}) do |name, result|
         result[name] = __send__(name)
       end
+    end
+
+    def translation_attributes
+      {
+        title: translated_title,
+        body: translated_body,
+        summary: translated_summary
+      }
     end
   end
 end
