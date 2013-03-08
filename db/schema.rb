@@ -405,11 +405,6 @@ ActiveRecord::Schema.define(:version => 20130307174608) do
   add_index "edition_worldwide_organisations", ["edition_id"], :name => "index_edition_worldwide_orgs_on_edition_id"
   add_index "edition_worldwide_organisations", ["worldwide_organisation_id"], :name => "index_edition_worldwide_orgs_on_worldwide_organisation_id"
 
-  create_table "edition_worldwide_priorities", :force => true do |t|
-    t.integer "edition_id"
-    t.integer "worldwide_priority_id"
-  end
-
   create_table "editions", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"

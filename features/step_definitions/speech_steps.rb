@@ -23,7 +23,7 @@ end
 Given /^a published speech "([^"]*)" with related published policies "([^"]*)" and "([^"]*)"$/ do |speech_title, policy_title_1, policy_title_2|
   policy_1 = create(:published_policy, title: policy_title_1)
   policy_2 = create(:published_policy, title: policy_title_2)
-  create(:published_speech, title: speech_title, related_policies: [policy_1, policy_2])
+  create(:published_speech, title: speech_title, related_editions: [policy_1, policy_2])
 end
 
 Given /^a published speech "([^"]*)" for the organisation "([^"]*)"$/ do |title, organisation|
@@ -33,7 +33,7 @@ end
 
 Given /^a published speech "([^"]*)" for the policy "([^"]*)"$/ do |title, policy_name|
   policy = Policy.find_by_title(policy_name) || create(:policy, title: policy_name)
-  create(:published_speech, title: title, related_policies: [policy])
+  create(:published_speech, title: title, related_editions: [policy])
 end
 
 Given /^(\d+) published speeches for the organisation "([^"]*)"$/ do |count, organisation|

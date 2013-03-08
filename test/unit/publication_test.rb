@@ -130,14 +130,14 @@ class PublicationsInTopicsTest < ActiveSupport::TestCase
   end
 
   test "should be able to find a publication using the topic of an associated policy" do
-    published_publication = create(:published_publication, related_policies: @topic_1.policies)
+    published_publication = create(:published_publication, related_editions: @topic_1.policies)
 
     assert_equal [published_publication], Publication.published_in_topic([@topic_1]).all
   end
 
   test "should return the publications with the given policy but not other policies" do
-    published_publication_1 = create(:published_publication, related_policies: @topic_1.policies)
-    published_publication_2 = create(:published_publication, related_policies: @topic_1.policies + @topic_2.policies)
+    published_publication_1 = create(:published_publication, related_editions: @topic_1.policies)
+    published_publication_2 = create(:published_publication, related_editions: @topic_1.policies + @topic_2.policies)
 
     assert_equal [published_publication_1, published_publication_2], Publication.published_in_topic([@topic_1]).all
     assert_equal [published_publication_2], Publication.published_in_topic([@topic_2]).all
@@ -149,22 +149,22 @@ class PublicationsInTopicsTest < ActiveSupport::TestCase
 
   test "returns publications with any of the listed topics" do
     publications = [
-      create(:published_publication, related_policies: @topic_1.policies),
-      create(:published_publication, related_policies: @topic_2.policies)
+      create(:published_publication, related_editions: @topic_1.policies),
+      create(:published_publication, related_editions: @topic_2.policies)
     ]
 
     assert_equal publications, Publication.published_in_topic([@topic_1, @topic_2]).all
   end
 
   test "should only find published publications, not draft ones" do
-    published_publication = create(:published_publication, related_policies: [@policy_1])
-    create(:draft_publication, related_policies: [@policy_1])
+    published_publication = create(:published_publication, related_editions: [@policy_1])
+    create(:draft_publication, related_editions: [@policy_1])
 
     assert_equal [published_publication], Publication.published_in_topic([@topic_1]).all
   end
 
   test "should only consider associations through published policies, not draft ones" do
-    published_publication = create(:published_publication, related_policies: [@policy_1, @draft_policy])
+    published_publication = create(:published_publication, related_editions: [@policy_1, @draft_policy])
 
     assert_equal [published_publication], Publication.published_in_topic([@topic_1]).all
     assert_equal [], Publication.published_in_topic([@topic_with_draft_policy]).all
@@ -175,7 +175,7 @@ class PublicationsInTopicsTest < ActiveSupport::TestCase
     policy_1_b = @policy_1.create_draft(user)
     policy_1_b.change_note = 'change-note'
     topic_1_b = create(:topic, policies: [policy_1_b])
-    published_publication = create(:published_publication, related_policies: [policy_1_b])
+    published_publication = create(:published_publication, related_editions: [policy_1_b])
 
     assert_equal [], Publication.published_in_topic([topic_1_b]).all
 
@@ -186,8 +186,8 @@ class PublicationsInTopicsTest < ActiveSupport::TestCase
   end
 
   test "should be able to get items scheduled in a particular topic" do
-    scheduled_publication = create(:scheduled_publication, related_policies: [@policy_1])
-    create(:published_publication, related_policies: [@policy_1])
+    scheduled_publication = create(:scheduled_publication, related_editions: [@policy_1])
+    create(:published_publication, related_editions: [@policy_1])
 
     assert_equal [scheduled_publication], Publication.scheduled_in_topic([@topic_1]).all
   end

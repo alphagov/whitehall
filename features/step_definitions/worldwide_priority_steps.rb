@@ -52,3 +52,13 @@ Then /^I cannot associate "([^"]*)" with worldwide priorities$/ do |title|
   begin_editing_document title
   refute page.has_css?("input[name='edition[worldwide_priority_ids][]']")
 end
+
+When /^I associate it with the worldwide priority "([^"]*)"$/ do |priority|
+  begin_editing_document title
+  select priority, from: "Worldwide priorities"
+  click_on 'Save'
+end
+
+Then /^the world location news article should still be related to the policy "([^"]*)"$/ do |policy|
+  assert Edition.last.related_policies.include?(Policy.find_by_title(policy))
+end

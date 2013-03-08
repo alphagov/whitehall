@@ -208,7 +208,7 @@ That's all
 
   view_test "activity displays the date that the policy was updated" do
     policy = create(:published_policy)
-    publication = create(:published_publication, related_policies: [policy])
+    publication = create(:published_publication, related_editions: [policy])
 
     get :activity, id: policy.document
 
@@ -218,7 +218,7 @@ That's all
   view_test "activity includes the main policy navigation" do
     policy = create(:published_policy)
     supporting_page = create(:supporting_page, edition: policy)
-    publication = create(:published_publication, related_policies: [policy])
+    publication = create(:published_publication, related_editions: [policy])
 
     get :activity, id: policy.document
 
@@ -232,7 +232,7 @@ That's all
   view_test "activity displays the policy's topics" do
     topic = create(:topic)
     policy = create(:published_policy, topics: [topic])
-    publication = create(:published_publication, related_policies: [policy])
+    publication = create(:published_publication, related_editions: [policy])
 
     get :activity, id: policy.document
 
@@ -241,7 +241,7 @@ That's all
 
   view_test "activity adds the current class to the activity link in the policy navigation" do
     policy = create(:published_policy)
-    publication = create(:published_publication, related_policies: [policy])
+    publication = create(:published_publication, related_editions: [policy])
 
     get :activity, id: policy.document
 
@@ -250,10 +250,10 @@ That's all
 
   view_test "activity displays recently changed documents relating to the policy" do
     policy = create(:published_policy)
-    publication = create(:published_publication, related_policies: [policy])
-    consultation = create(:published_consultation, related_policies: [policy])
-    news_article = create(:published_news_article, related_policies: [policy])
-    speech = create(:published_speech, related_policies: [policy])
+    publication = create(:published_publication, related_editions: [policy])
+    consultation = create(:published_consultation, related_editions: [policy])
+    news_article = create(:published_news_article, related_editions: [policy])
+    speech = create(:published_speech, related_editions: [policy])
 
     get :activity, id: policy.document
 
@@ -269,7 +269,7 @@ That's all
     first_delivered_on = Time.zone.now
     policy = create(:published_policy)
     organisation = create(:organisation)
-    speech = create(:published_speech, delivered_on: first_delivered_on, related_policies: [policy], organisations: [organisation])
+    speech = create(:published_speech, delivered_on: first_delivered_on, related_editions: [policy], organisations: [organisation])
 
     get :activity, id: policy.document
 
@@ -285,10 +285,10 @@ That's all
   test "activity sets Cache-Control: max-age to the time of the next scheduled publication" do
     policy = create(:published_policy)
     user = login_as(:departmental_editor)
-    p1 = create(:published_publication, publication_date: Time.zone.now, related_policies: [policy])
+    p1 = create(:published_publication, publication_date: Time.zone.now, related_editions: [policy])
     p2 = create(:draft_publication,
       scheduled_publication: Time.zone.now + Whitehall.default_cache_max_age * 2,
-      related_policies: [policy])
+      related_editions: [policy])
     p2.schedule_as(user, force: true)
 
     Timecop.freeze(Time.zone.now + Whitehall.default_cache_max_age * 1.5) do
@@ -301,7 +301,7 @@ That's all
   view_test "activity uses publication_date to indicate when a publication was changed" do
     policy = create(:published_policy)
     edition = create(:published_publication,
-      related_policies: [policy],
+      related_editions: [policy],
       publication_date: 2.days.ago.to_date)
 
     get :activity, id: policy.document
@@ -314,9 +314,9 @@ That's all
   view_test "activity distinguishes between published and updated documents" do
     policy = create(:published_policy)
 
-    first_major_edition = create(:published_news_article, related_policies: [policy], published_major_version: 1)
-    first_minor_edition = create(:published_news_article, related_policies: [policy], published_major_version: 1, published_minor_version: 1)
-    second_major_edition = create(:published_news_article, related_policies: [policy], published_major_version: 2)
+    first_major_edition = create(:published_news_article, related_editions: [policy], published_major_version: 1)
+    first_minor_edition = create(:published_news_article, related_editions: [policy], published_major_version: 1, published_minor_version: 1)
+    second_major_edition = create(:published_news_article, related_editions: [policy], published_major_version: 2)
 
     get :activity, id: policy.document
 
@@ -335,10 +335,10 @@ That's all
 
   test "activity orders recently changed documents in reverse chronological order" do
     policy = create(:published_policy)
-    publication = create(:published_publication, publication_date: 4.weeks.ago, related_policies: [policy])
-    consultation = create(:published_consultation, first_published_at: 1.weeks.ago, related_policies: [policy])
-    news_article = create(:published_news_article, first_published_at: 3.weeks.ago, related_policies: [policy])
-    speech = create(:published_speech, delivered_on: 2.weeks.ago, related_policies: [policy])
+    publication = create(:published_publication, publication_date: 4.weeks.ago, related_editions: [policy])
+    consultation = create(:published_consultation, first_published_at: 1.weeks.ago, related_editions: [policy])
+    news_article = create(:published_news_article, first_published_at: 3.weeks.ago, related_editions: [policy])
+    speech = create(:published_speech, delivered_on: 2.weeks.ago, related_editions: [policy])
 
     get :activity, id: policy.document
 
@@ -347,7 +347,7 @@ That's all
 
   view_test "activity shows the display type of speeches" do
     policy = create(:published_policy)
-    speech = create(:published_speech, speech_type: SpeechType::WrittenStatement, related_policies: [policy])
+    speech = create(:published_speech, speech_type: SpeechType::WrittenStatement, related_editions: [policy])
 
     get :activity, id: policy.document
 
@@ -356,7 +356,7 @@ That's all
 
   view_test "supporting case studies are included in page" do
     policy = create(:published_policy)
-    case_study = create(:published_case_study, related_policies: [policy])
+    case_study = create(:published_case_study, related_editions: [policy])
 
     get :show, id: policy.document
 
@@ -366,7 +366,7 @@ That's all
 
   view_test "link to case studies are included in policy navigation" do
     policy = create(:published_policy)
-    case_study = create(:published_case_study, related_policies: [policy])
+    case_study = create(:published_case_study, related_editions: [policy])
 
     get :show, id: policy.document
     assert_select "#document_sections:last-child", text: "Case studies"
@@ -410,7 +410,7 @@ That's all
 
   view_test 'activity has an atom feed autodiscovery link' do
     policy = create(:published_policy)
-    publication = create(:published_publication, related_policies: [policy])
+    publication = create(:published_publication, related_editions: [policy])
 
     get :activity, id: policy.document
 
@@ -419,7 +419,7 @@ That's all
 
   view_test 'activity shows a link to the atom feed' do
     policy = create(:published_policy)
-    publication = create(:published_publication, related_policies: [policy])
+    publication = create(:published_publication, related_editions: [policy])
 
     get :activity, id: policy.document
 
@@ -430,7 +430,7 @@ That's all
   view_test 'activity atom feed shows latest 10 documents' do
     policy = create(:published_policy)
     11.times do
-      create(:published_publication, related_policies: [policy])
+      create(:published_publication, related_editions: [policy])
     end
     get :activity, id: policy.document, format: "atom"
 
@@ -441,10 +441,10 @@ That's all
 
   view_test 'activity atom feed shows activity documents' do
     policy = create(:published_policy)
-    publication = create(:published_publication, publication_date: 4.weeks.ago.to_date, related_policies: [policy])
-    consultation = create(:published_consultation, opening_on: 1.weeks.ago.to_date, related_policies: [policy])
-    news_article = create(:published_news_article, first_published_at: 3.weeks.ago, related_policies: [policy])
-    speech = create(:published_speech, delivered_on: 2.weeks.ago.to_date, related_policies: [policy])
+    publication = create(:published_publication, publication_date: 4.weeks.ago.to_date, related_editions: [policy])
+    consultation = create(:published_consultation, opening_on: 1.weeks.ago.to_date, related_editions: [policy])
+    news_article = create(:published_news_article, first_published_at: 3.weeks.ago, related_editions: [policy])
+    speech = create(:published_speech, delivered_on: 2.weeks.ago.to_date, related_editions: [policy])
 
     get :activity, id: policy.document, format: "atom"
 
@@ -460,7 +460,7 @@ That's all
 
   view_test 'activity shows a link to govdelivery if one exists' do
     policy = create(:published_policy, govdelivery_url: 'http://my-govdelivery-url.com')
-    publication = create(:published_publication, publication_date: 4.weeks.ago, related_policies: [policy])
+    publication = create(:published_publication, publication_date: 4.weeks.ago, related_editions: [policy])
 
     get :activity, id: policy.document
 

@@ -118,7 +118,7 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
   test "should build a draft copy with references to related policies" do
     policy_1 = create(:published_policy)
     policy_2 = create(:published_policy)
-    publication = create(:published_publication, related_policies: [policy_1, policy_2])
+    publication = create(:published_publication, related_editions: [policy_1, policy_2])
 
     draft = publication.create_draft(create(:policy_writer))
     draft.change_note = 'change-note'

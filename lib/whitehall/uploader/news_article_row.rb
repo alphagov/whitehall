@@ -18,7 +18,7 @@ module Whitehall::Uploader
       Parsers::DateParser.parse(row['first_published'], @logger, @line_number)
     end
 
-    def related_policies
+    def related_editions
       Finders::PoliciesFinder.find(row['policy_1'], row['policy_2'], row['policy_3'], row['policy_4'], @logger, @line_number)
     end
 
@@ -32,7 +32,7 @@ module Whitehall::Uploader
 
     def attributes
       [:title, :summary, :body, :lead_organisations,
-       :first_published_at, :related_policies, :role_appointments,
+       :first_published_at, :related_editions, :role_appointments,
        :world_locations, :news_article_type].map.with_object({}) do |name, result|
         result[name] = __send__(name)
       end

@@ -50,7 +50,7 @@ class TopicTest < ActiveSupport::TestCase
 
   test "return published editions relating to policies in the topic" do
     policy = create(:published_policy)
-    publication_1 = create(:published_publication, related_policies: [policy])
+    publication_1 = create(:published_publication, related_editions: [policy])
     topic = create(:topic, policies: [policy])
 
     assert_equal [publication_1], topic.published_related_editions
@@ -59,8 +59,8 @@ class TopicTest < ActiveSupport::TestCase
   test "return published editions relating to policies in the topic without duplicates" do
     policy_1 = create(:published_policy)
     policy_2 = create(:published_policy)
-    publication_1 = create(:published_publication, related_policies: [policy_1])
-    publication_2 = create(:published_publication, related_policies: [policy_1, policy_2])
+    publication_1 = create(:published_publication, related_editions: [policy_1])
+    publication_2 = create(:published_publication, related_editions: [policy_1, policy_2])
     topic = create(:topic, policies: [policy_1, policy_2])
 
     assert_equal [publication_1, publication_2], topic.published_related_editions
@@ -68,7 +68,7 @@ class TopicTest < ActiveSupport::TestCase
 
   test "return only *published* editions relating to policies in the topic" do
     published_policy = create(:published_policy)
-    create(:draft_publication, related_policies: [published_policy])
+    create(:draft_publication, related_editions: [published_policy])
     topic = create(:topic, policies: [published_policy])
 
     assert_equal [], topic.published_related_editions
@@ -76,7 +76,7 @@ class TopicTest < ActiveSupport::TestCase
 
   test "return editions relating to only *published* policies in the topic" do
     draft_policy = create(:draft_policy)
-    create(:published_publication, related_policies: [draft_policy])
+    create(:published_publication, related_editions: [draft_policy])
     topic = create(:topic, policies: [draft_policy])
 
     assert_equal [], topic.published_related_editions
@@ -85,8 +85,8 @@ class TopicTest < ActiveSupport::TestCase
   test "return published editions relating from policies in the topic without duplicates" do
     policy_1 = create(:published_policy)
     policy_2 = create(:published_policy)
-    publication_1 = create(:published_publication, related_policies: [policy_1, policy_2])
-    publication_2 = create(:published_publication, related_policies: [policy_1])
+    publication_1 = create(:published_publication, related_editions: [policy_1, policy_2])
+    publication_2 = create(:published_publication, related_editions: [policy_1])
     topic = create(:topic, policies: [policy_1, policy_2])
 
     assert_equal [publication_1, publication_2], topic.published_related_editions
@@ -94,7 +94,7 @@ class TopicTest < ActiveSupport::TestCase
 
   test "return only *published* editions relating from policies in the topic" do
     published_policy = create(:published_policy)
-    draft_publication = create(:draft_publication, related_policies: [published_policy])
+    draft_publication = create(:draft_publication, related_editions: [published_policy])
     topic = create(:topic, policies: [published_policy])
 
     assert_equal [], topic.published_related_editions
@@ -102,7 +102,7 @@ class TopicTest < ActiveSupport::TestCase
 
   test "return editions relating from only *published* policies in the topic" do
     draft_policy = create(:draft_policy)
-    published_publication = create(:published_publication, related_policies: [draft_policy])
+    published_publication = create(:published_publication, related_editions: [draft_policy])
     topic = create(:topic, policies: [draft_policy])
 
     assert_equal [], topic.published_related_editions
@@ -262,12 +262,12 @@ class TopicTest < ActiveSupport::TestCase
   test 'should filter out topics without any published publications or consultations related via published policies' do
     has_nothing = create(:topic)
     create(:published_policy, topics: [has_published_policy = create(:topic)])
-    create(:draft_publication, related_policies: [create(:published_policy, topics: [has_draft_publication_via_published_policy = create(:topic)])])
-    create(:draft_consultation, related_policies: [create(:published_policy, topics: [has_draft_consultation_via_published_policy = create(:topic)])])
-    create(:published_publication, related_policies: [create(:draft_policy, topics: [has_published_publication_via_draft_policy = create(:topic)])])
-    create(:published_consultation, related_policies: [create(:draft_policy, topics: [has_published_consultation_via_draft_policy = create(:topic)])])
-    create(:published_consultation, related_policies: [create(:published_policy, topics: [has_published_consultation_via_published_policy = create(:topic)])])
-    create(:published_publication, related_policies: [create(:published_policy, topics: [has_published_publication_via_published_policy = create(:topic)])])
+    create(:draft_publication, related_editions: [create(:published_policy, topics: [has_draft_publication_via_published_policy = create(:topic)])])
+    create(:draft_consultation, related_editions: [create(:published_policy, topics: [has_draft_consultation_via_published_policy = create(:topic)])])
+    create(:published_publication, related_editions: [create(:draft_policy, topics: [has_published_publication_via_draft_policy = create(:topic)])])
+    create(:published_consultation, related_editions: [create(:draft_policy, topics: [has_published_consultation_via_draft_policy = create(:topic)])])
+    create(:published_consultation, related_editions: [create(:published_policy, topics: [has_published_consultation_via_published_policy = create(:topic)])])
+    create(:published_publication, related_editions: [create(:published_policy, topics: [has_published_publication_via_published_policy = create(:topic)])])
 
     topics = Topic.with_related_publications
 
@@ -284,13 +284,13 @@ class TopicTest < ActiveSupport::TestCase
   test 'should filter out topics without any published announcements related via published policies' do
     has_nothing = create(:topic)
     create(:published_policy, topics: [has_published_policy = create(:topic)])
-    create(:draft_news_article, related_policies: [create(:published_policy, topics: [has_draft_news_article_via_published_policy = create(:topic)])])
-    create(:draft_speech, related_policies: [create(:published_policy, topics: [has_draft_speech_via_published_policy = create(:topic)])])
-    create(:published_news_article, related_policies: [create(:draft_policy, topics: [has_published_news_article_via_draft_policy = create(:topic)])])
-    create(:published_speech, related_policies: [create(:draft_policy, topics: [has_published_speech_via_draft_policy = create(:topic)])])
-    create(:published_consultation, related_policies: [create(:published_policy, topics: [has_published_consultation_via_published_policy = create(:topic)])])
-    create(:published_news_article, related_policies: [create(:published_policy, topics: [has_published_news_article_via_published_policy = create(:topic)])])
-    create(:published_speech, related_policies: [create(:published_policy, topics: [has_published_speech_via_published_policy = create(:topic)])])
+    create(:draft_news_article, related_editions: [create(:published_policy, topics: [has_draft_news_article_via_published_policy = create(:topic)])])
+    create(:draft_speech, related_editions: [create(:published_policy, topics: [has_draft_speech_via_published_policy = create(:topic)])])
+    create(:published_news_article, related_editions: [create(:draft_policy, topics: [has_published_news_article_via_draft_policy = create(:topic)])])
+    create(:published_speech, related_editions: [create(:draft_policy, topics: [has_published_speech_via_draft_policy = create(:topic)])])
+    create(:published_consultation, related_editions: [create(:published_policy, topics: [has_published_consultation_via_published_policy = create(:topic)])])
+    create(:published_news_article, related_editions: [create(:published_policy, topics: [has_published_news_article_via_published_policy = create(:topic)])])
+    create(:published_speech, related_editions: [create(:published_policy, topics: [has_published_speech_via_published_policy = create(:topic)])])
 
     topics = Topic.with_related_announcements
 
@@ -309,9 +309,9 @@ class TopicTest < ActiveSupport::TestCase
     topic = create(:topic)
     policy1 = create(:published_policy, topics: [topic])
     policy2 = create(:published_policy, topics: [topic])
-    create(:published_speech, related_policies: [policy1])
-    create(:published_speech, related_policies: [policy1])
-    create(:published_speech, related_policies: [policy2])
+    create(:published_speech, related_editions: [policy1])
+    create(:published_speech, related_editions: [policy1])
+    create(:published_speech, related_editions: [policy2])
 
     assert_equal [topic], Topic.with_related_announcements
   end
@@ -373,9 +373,9 @@ class TopicTest < ActiveSupport::TestCase
     topic = create(:topic)
     old_published_policy = create(:published_policy, topics: [topic], first_published_at: 1.month.ago)
     new_published_policy = create(:published_policy, topics: [topic], first_published_at: 1.day.ago)
-    news_article = create(:published_news_article, related_policies: [old_published_policy], first_published_at: 1.week.ago)
-    publication = create(:published_publication, related_policies: [new_published_policy], publication_date: 2.weeks.ago)
-    speech = create(:published_speech, related_policies: [new_published_policy], delivered_on: 3.weeks.ago)
+    news_article = create(:published_news_article, related_editions: [old_published_policy], first_published_at: 1.week.ago)
+    publication = create(:published_publication, related_editions: [new_published_policy], publication_date: 2.weeks.ago)
+    speech = create(:published_speech, related_editions: [new_published_policy], delivered_on: 3.weeks.ago)
 
     assert_equal [new_published_policy, news_article, publication, speech, old_published_policy], topic.recently_changed_documents
   end

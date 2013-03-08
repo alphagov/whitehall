@@ -38,7 +38,7 @@ module Whitehall::Uploader
       policies = 5.times.map { stub('policy') }
       Finders::PoliciesFinder.stubs(:find).with("first", "second", "third", "fourth", anything, anything).returns(policies)
       row = news_article_row("policy_1" => "first", "policy_2" => "second", "policy_3" => "third", "policy_4" => "fourth")
-      assert_equal policies, row.related_policies
+      assert_equal policies, row.related_editions
     end
 
     test "finds the roles ministers in minister_1 and minister_2 columns held on the publication date" do
@@ -52,7 +52,7 @@ module Whitehall::Uploader
 
     test "supplies an attribute list for the new news article record" do
       row = news_article_row({})
-      attribute_keys = [:title, :summary, :body, :news_article_type, :lead_organisations, :first_published_at, :related_policies, :role_appointments, :world_locations]
+      attribute_keys = [:title, :summary, :body, :news_article_type, :lead_organisations, :first_published_at, :related_editions, :role_appointments, :world_locations]
       attribute_keys.each do |key|
         row.stubs(key).returns(key.to_s)
       end

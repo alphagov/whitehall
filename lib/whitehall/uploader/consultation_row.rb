@@ -29,7 +29,7 @@ module Whitehall::Uploader
       Parsers::DateParser.parse(row['closing_date'], @logger, @line_number)
     end
 
-    def related_policies
+    def related_editions
       Finders::PoliciesFinder.find(row['policy_1'], row['policy_2'], row['policy_3'], row['policy_4'], @logger, @line_number)
     end
 
@@ -53,7 +53,7 @@ module Whitehall::Uploader
         opening_on: opening_on,
         closing_on: closing_on,
         lead_organisations: lead_organisations,
-        related_policies: related_policies,
+        related_editions: related_editions,
         attachments: attachments,
         alternative_format_provider: alternative_format_provider,
         response: response

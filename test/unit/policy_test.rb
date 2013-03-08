@@ -27,8 +27,8 @@ class PolicyTest < ActiveSupport::TestCase
 
   test "should build a draft copy with references to related editions" do
     published_policy = create(:published_policy)
-    publication = create(:published_publication, related_policies: [published_policy])
-    speech = create(:published_speech, related_policies: [published_policy])
+    publication = create(:published_publication, related_editions: [published_policy])
+    speech = create(:published_speech, related_editions: [published_policy])
 
     draft_policy = published_policy.create_draft(create(:policy_writer))
     draft_policy.change_note = 'change-note'
@@ -54,10 +54,10 @@ class PolicyTest < ActiveSupport::TestCase
 
   test "should be able to fetch case studies" do
     edition = create(:published_policy)
-    case_study_1 = create(:published_case_study, related_policies: [edition])
-    case_study_2 = create(:published_case_study, related_policies: [edition])
-    case_study_3 = create(:draft_case_study, related_policies: [edition])
-    random_publication = create(:published_publication, related_policies: [edition])
+    case_study_1 = create(:published_case_study, related_editions: [edition])
+    case_study_2 = create(:published_case_study, related_editions: [edition])
+    case_study_3 = create(:draft_case_study, related_editions: [edition])
+    random_publication = create(:published_publication, related_editions: [edition])
     assert_equal [case_study_1, case_study_2].to_set, edition.case_studies.to_set
   end
 

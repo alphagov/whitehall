@@ -284,7 +284,7 @@ module Whitehall::DocumentFilter
       organisation = create(:organisation)
       policy = create(:published_policy)
       topic = create(:topic, policies: [policy])
-      news_article = create(:published_news_article, related_policies: [policy], organisations: [organisation])
+      news_article = create(:published_news_article, related_editions: [policy], organisations: [organisation])
 
       document_scope = Announcement.published.includes(:document, :organisations)
       filter = create_filter(document_scope,
@@ -298,7 +298,7 @@ module Whitehall::DocumentFilter
     test 'does not use n+1 selects when filtering by topics' do
       policy = create(:published_policy)
       topic = create(:topic, policies: [policy])
-      3.times { create(:published_publication, related_policies: [policy]) }
+      3.times { create(:published_publication, related_editions: [policy]) }
       queries = count_queries {
         create_filter(Publication.published, topics: [topic.slug]).documents
       }
@@ -333,8 +333,8 @@ module Whitehall::DocumentFilter
     test "can filter announcements by topic" do
       policy = create(:published_policy)
       topic = create(:topic, policies: [policy])
-      create(:published_speech, related_policies: [policy])
-      create(:published_news_article, related_policies: [policy])
+      create(:published_speech, related_editions: [policy])
+      create(:published_news_article, related_editions: [policy])
       create(:published_speech)
       create(:published_news_article)
       unfiltered_announcements = Announcement.published
