@@ -141,8 +141,8 @@ class EditionTest < ActiveSupport::TestCase
 
   test "return editions bi-directionally related to specific edition" do
     policy = create(:policy)
-    publication_1 = create(:publication, related_policies: [policy])
-    publication_2 = create(:publication, related_policies: [policy])
+    publication_1 = create(:publication, related_editions: [policy])
+    publication_2 = create(:publication, related_editions: [policy])
 
     assert_equal [publication_1, publication_2], policy.related_editions
     assert_equal [policy], publication_1.related_policies
@@ -151,8 +151,8 @@ class EditionTest < ActiveSupport::TestCase
 
   test "return published editions bi-directionally related to specific policy" do
     policy = create(:published_policy)
-    edition_1 = create(:published_publication, related_policies: [policy])
-    edition_2 = create(:published_publication, related_policies: [policy])
+    edition_1 = create(:published_publication, related_editions: [policy])
+    edition_2 = create(:published_publication, related_editions: [policy])
 
     assert_equal [edition_1, edition_2], policy.published_related_editions
     assert_equal [policy], edition_1.published_related_policies
@@ -199,13 +199,13 @@ class EditionTest < ActiveSupport::TestCase
 
   test ".related_to includes editions related to edition" do
     policy = create(:policy)
-    publication = create(:publication, related_policies: [policy])
+    publication = create(:publication, related_editions: [policy])
     assert Edition.related_to(policy).include?(publication)
   end
 
   test ".related_to respects chained scopes" do
     policy = create(:policy)
-    publication = create(:publication, related_policies: [policy])
+    publication = create(:publication, related_editions: [policy])
     assert Publication.related_to(policy).include?(publication)
     refute Policy.related_to(policy).include?(publication)
   end

@@ -20,7 +20,7 @@ module Whitehall::Uploader
       Finders::PublicationTypeFinder.find(row['publication_type'], @logger, @line_number)
     end
 
-    def related_policies
+    def related_editions
       Finders::PoliciesFinder.find(row['policy_1'], row['policy_2'], row['policy_3'], row["policy_4"], @logger, @line_number)
     end
 
@@ -50,7 +50,7 @@ module Whitehall::Uploader
 
     def attributes
       [:title, :summary, :body, :publication_date, :publication_type,
-       :related_policies, :lead_organisations,
+       :related_editions, :lead_organisations,
        :ministerial_roles, :attachments, :alternative_format_provider,
        :world_locations].map.with_object({}) do |name, result|
         result[name] = __send__(name)

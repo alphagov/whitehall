@@ -44,7 +44,7 @@ class TopicsControllerTest < ActionController::TestCase
     user = login_as(:departmental_editor)
     policy = create(:published_policy, title: "policy-title", summary: "policy-summary")
     topic = create(:topic, policies: [policy])
-    publication = create(:draft_publication, scheduled_publication: Time.zone.now + Whitehall.default_cache_max_age * 2, related_policies: [policy])
+    publication = create(:draft_publication, scheduled_publication: Time.zone.now + Whitehall.default_cache_max_age * 2, related_editions: [policy])
     publication.schedule_as(user, force: true)
 
     Timecop.freeze(Time.zone.now + Whitehall.default_cache_max_age * 1.5) do
@@ -58,7 +58,7 @@ class TopicsControllerTest < ActionController::TestCase
     user = login_as(:departmental_editor)
     policy = create(:published_policy, title: "policy-title", summary: "policy-summary")
     topic = create(:topic, policies: [policy])
-    news = create(:draft_news_article, scheduled_publication: Time.zone.now + Whitehall.default_cache_max_age * 2, related_policies: [policy])
+    news = create(:draft_news_article, scheduled_publication: Time.zone.now + Whitehall.default_cache_max_age * 2, related_editions: [policy])
     news.schedule_as(user, force: true)
 
     Timecop.freeze(Time.zone.now + Whitehall.default_cache_max_age * 1.5) do
@@ -73,7 +73,7 @@ class TopicsControllerTest < ActionController::TestCase
     topic = create(:topic, policies: [policy])
     published = []
     4.times do |i|
-      published << create(:published_publication, title: "title-#{i}", related_policies: [policy], publication_date: i.days.ago)
+      published << create(:published_publication, title: "title-#{i}", related_editions: [policy], publication_date: i.days.ago)
     end
 
     get :show, id: topic
@@ -91,7 +91,7 @@ class TopicsControllerTest < ActionController::TestCase
   view_test "doesn't show unpublished publications" do
     policy = create(:published_policy, title: "policy-title", summary: "policy-summary")
     topic = create(:topic, policies: [policy])
-    draft_publication = create(:draft_publication, related_policies: [policy])
+    draft_publication = create(:draft_publication, related_editions: [policy])
 
     get :show, id: topic
 
@@ -103,7 +103,7 @@ class TopicsControllerTest < ActionController::TestCase
     topic = create(:topic, policies: [policy])
     published = []
     4.times do |i|
-      published << create(:published_news_article, title: "title-#{i}", related_policies: [policy], first_published_at: i.days.ago)
+      published << create(:published_news_article, title: "title-#{i}", related_editions: [policy], first_published_at: i.days.ago)
     end
 
     get :show, id: topic
@@ -121,7 +121,7 @@ class TopicsControllerTest < ActionController::TestCase
   view_test "doesn't show unpublished announcements" do
     policy = create(:published_policy, title: "policy-title", summary: "policy-summary")
     topic = create(:topic, policies: [policy])
-    draft_article = create(:draft_news_article, related_policies: [policy])
+    draft_article = create(:draft_news_article, related_editions: [policy])
 
     get :show, id: topic
 
@@ -208,7 +208,7 @@ class TopicsControllerTest < ActionController::TestCase
 
   view_test "show displays recently changed documents relating to policies in the topic" do
     policy_1 = create(:published_policy)
-    news_article = create(:published_news_article, related_policies: [policy_1])
+    news_article = create(:published_news_article, related_editions: [policy_1])
 
     policy_2 = create(:published_policy)
 
@@ -225,7 +225,7 @@ class TopicsControllerTest < ActionController::TestCase
 
   view_test "show displays a maximum of 3 recently changed documents" do
     policy = create(:published_policy)
-    4.times { create(:published_news_article, related_policies: [policy]) }
+    4.times { create(:published_news_article, related_editions: [policy]) }
     topic = create(:topic, policies: [policy])
 
     get :show, id: topic
@@ -241,7 +241,7 @@ class TopicsControllerTest < ActionController::TestCase
 
   view_test "show displays metadata about the recently changed documents" do
     policy = create(:published_policy)
-    speech = create(:published_speech, related_policies: [policy])
+    speech = create(:published_speech, related_editions: [policy])
 
     topic = create(:topic, policies: [policy])
 
@@ -257,7 +257,7 @@ class TopicsControllerTest < ActionController::TestCase
 
   test "show displays recently changed documents including the policy in reverse chronological order" do
     policy_1 = create(:published_policy, first_published_at: 2.weeks.ago)
-    publication_1 = create(:published_publication, publication_date: 6.weeks.ago, related_policies: [policy_1])
+    publication_1 = create(:published_publication, publication_date: 6.weeks.ago, related_editions: [policy_1])
     policy_2 = create(:published_policy, first_published_at: 5.weeks.ago)
 
     topic = create(:topic, policies: [policy_1, policy_2])

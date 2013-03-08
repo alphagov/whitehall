@@ -1,24 +1,23 @@
 module Edition::RelatedPolicies
   extend ActiveSupport::Concern
 
-  class Trait < Edition::Traits::Trait
-    def process_associations_after_save(edition)
-      edition.related_documents = @edition.related_documents
-    end
-  end
+  include Edition::RelatedDocuments
 
   included do
-    has_many :edition_relations, foreign_key: :edition_id, dependent: :destroy
-    has_many :related_documents, through: :edition_relations, source: :document
-    has_many :related_policies, through: :related_documents, source: :latest_edition
+    has_many :related_policies,
+      through: :related_documents,
+      source: :latest_edition,
+      class_name: 'Policy'
     has_many :published_related_policies, through: :related_documents, source: :published_edition, class_name: 'Policy'
     has_many :topics, through: :published_related_policies, uniq: true
 
-    define_method(:related_policies=) do |policies|
-      self.related_documents = policies.map(&:document)
-    end
+    # Ensure that when we set policy ids we don't remove other types of edition from the array
+    define_method(:related_policy_ids=) do |policy_ids|
+      new_policies = policy_ids.map {|id| Policy.find(id).document }
+      other_related_documents = self.related_documents.reject { |document| document.latest_edition.is_a?(Policy) }
 
-    add_trait Trait
+      self.related_documents = other_related_documents + new_policies
+    end
   end
 
   def can_be_related_to_policies?

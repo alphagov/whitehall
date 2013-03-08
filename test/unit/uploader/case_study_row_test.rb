@@ -35,7 +35,7 @@ module Whitehall::Uploader
       policy_2 = create(:policy)
       row = case_study_row({"policy_1" => policy_1.slug, "policy_2" => policy_2.slug})
       row.stubs(:organisation).returns(stubbed_organisation)
-      assert_equal [policy_1, policy_2], row.attributes[:related_policies]
+      assert_equal [policy_1, policy_2], row.attributes[:related_editions]
     end
 
     test "parses first published column" do

@@ -6,8 +6,8 @@ class EditionActiveRecordBugWorkaroundTest < ActiveSupport::TestCase
   test ".related_to avoids wierd bug in active record" do
     policy = create(:published_policy)
     publications = [
-      create(:published_publication, related_policies: [policy]),
-      create(:draft_publication, related_policies: [policy])
+      create(:published_publication, related_editions: [policy]),
+      create(:draft_publication, related_editions: [policy])
     ]
 
     # This has a side-effect of causing active-record to cache the
