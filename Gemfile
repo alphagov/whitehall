@@ -40,7 +40,7 @@ gem 'globalize3'
 gem 'link_header'
 
 group :assets do
-  gem 'govuk_frontend_toolkit', '0.12.4'
+  gem 'govuk_frontend_toolkit', '0.14.2'
   gem 'sass', '3.2.5'
   gem 'sass-rails', '3.1.4'
   gem 'uglifier'
