@@ -1,8 +1,13 @@
 class UseRelatedDocumentsForWorldwidePriorityLinks < ActiveRecord::Migration
+  class EditionWorldwidePriority < ActiveRecord::Base
+    belongs_to :edition
+    belongs_to :worldwide_priority
+  end
+
   def up
-    # NOTE: this will remove all the links between editions and
-    # worldwide priorities. As it's not in production yet and no links exist
-    # this is acceptable.
+    EditionWorldwidePriority.find_each do |ewp|
+      ewp.edition.related_documents << ewp.worldwide_priority.document
+    end
     drop_table :edition_worldwide_priorities
   end
 

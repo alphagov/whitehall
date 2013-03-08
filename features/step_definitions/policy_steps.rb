@@ -63,7 +63,7 @@ end
 Given /^a published (publication|consultation|news article|speech) "([^"]*)" related to the policy "([^"]*)"$/ do |document_type, document_title, policy_title|
   policy = Policy.find_by_title!(policy_title)
   create("published_#{document_class(document_type).name.underscore}".to_sym,
-          title: document_title, related_policies: [policy])
+          title: document_title, related_editions: [policy])
 end
 
 When /^I reject the policy titled "([^"]*)"$/ do |policy_title|
@@ -371,4 +371,10 @@ end
 Given /^(\d+) published policies for the organisation "([^"]+)"$/ do |count, organisation|
   organisation = create(:organisation, name: organisation)
   count.to_i.times { |i| create(:published_policy, title: "keyword-#{i}", organisations: [organisation]) }
+end
+
+When /^I relate it to the policy "([^"]*)"$/ do |title|
+  begin_editing_document Edition.last.title
+  select title, from: "Related policies"
+  click_on 'Save'
 end

@@ -13,7 +13,7 @@ module Whitehall::Uploader
       Finders::SluggedModelFinder.new(DocumentSeries, @logger).find(fields(1..4, 'document_series_#'))
     end
 
-    def related_policies
+    def related_editions
       Finders::PoliciesFinder.find(*fields(1..4, 'policy_#'), @logger, @line_number)
     end
 
@@ -28,7 +28,7 @@ module Whitehall::Uploader
         body: body,
         lead_organisations: lead_organisations,
         document_series: document_series,
-        related_policies: related_policies,
+        related_editions: related_editions,
         first_published_at: first_published_at
       }
     end

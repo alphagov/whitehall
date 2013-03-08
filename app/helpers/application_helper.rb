@@ -82,7 +82,7 @@ module ApplicationHelper
     Policy.latest_edition.active.map do |policy|
       parts = [policy.title]
       parts << "(#{policy.topics.map(&:name).to_sentence})" if policy.topics.any?
-      [policy.document_id, parts.join(" ")]
+      [policy.id, parts.join(" ")]
     end
   end
 
