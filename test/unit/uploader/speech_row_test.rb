@@ -54,7 +54,7 @@ module Whitehall::Uploader
         "policy_4" => policy_4.slug
       })
 
-      assert_equal [policy_1, policy_2, policy_3, policy_4], row.related_policies
+      assert_equal [policy_1, policy_2, policy_3, policy_4], row.related_editions
     end
 
     test "takes location from the event_and_location column" do

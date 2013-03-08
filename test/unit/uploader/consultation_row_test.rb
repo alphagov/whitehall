@@ -82,7 +82,7 @@ module Whitehall::Uploader
       policies = 5.times.map { stub('policy') }
       Finders::PoliciesFinder.stubs(:find).with("first", "second", "third", "fourth", anything, anything).returns(policies)
       row = consultation_row("policy_1" => "first", "policy_2" => "second", "policy_3" => "third", "policy_4" => "fourth")
-      assert_equal policies, row.related_policies
+      assert_equal policies, row.related_editions
     end
 
     test "builds up to 50 attachments from columns attachment_1_title, attachment_1_url..." do
@@ -125,7 +125,7 @@ module Whitehall::Uploader
 
     test "supplies an attribute list for the new consultation record" do
       row = consultation_row({})
-      attribute_keys = [:title, :summary, :body, :opening_on, :closing_on, :lead_organisations, :related_policies, :attachments, :alternative_format_provider, :response]
+      attribute_keys = [:title, :summary, :body, :opening_on, :closing_on, :lead_organisations, :related_editions, :attachments, :alternative_format_provider, :response]
       attribute_keys.each do |key|
         row.stubs(key).returns(key.to_s)
       end

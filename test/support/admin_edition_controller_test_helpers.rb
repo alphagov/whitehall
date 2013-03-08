@@ -634,13 +634,13 @@ module AdminEditionControllerTestHelpers
         get :new
 
         assert_select "form#edition_new" do
-          assert_select "select[name*='edition[related_document_ids]']" do
-            assert_select "option[value='#{draft_policy.document.id}']"
-            assert_select "option[value='#{submitted_policy.document.id}']"
-            assert_select "option[value='#{rejected_policy.document.id}']"
-            assert_select "option[value='#{published_policy.document.id}']"
-            refute_select "option[value='#{archived_policy.document.id}']"
-            refute_select "option[value='#{deleted_policy.document.id}']"
+          assert_select "select[name*='edition[related_policy_ids]']" do
+            assert_select "option[value='#{draft_policy.id}']"
+            assert_select "option[value='#{submitted_policy.id}']"
+            assert_select "option[value='#{rejected_policy.id}']"
+            assert_select "option[value='#{published_policy.id}']"
+            refute_select "option[value='#{archived_policy.id}']"
+            refute_select "option[value='#{deleted_policy.id}']"
           end
         end
       end
@@ -665,7 +665,7 @@ module AdminEditionControllerTestHelpers
         get :edit, id: document
 
         assert_select "form#edition_edit" do
-          assert_select "select[name*='edition[related_document_ids]']"
+          assert_select "select[name*='edition[related_policy_ids]']"
         end
       end
 

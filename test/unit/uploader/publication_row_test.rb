@@ -80,7 +80,7 @@ module Whitehall::Uploader
                                   "policy_3" => policy_3.slug,
                                   "policy_4" => policy_4.slug })
 
-      assert_equal [policy_1, policy_2, policy_3, policy_4], row.related_policies
+      assert_equal [policy_1, policy_2, policy_3, policy_4], row.related_editions
     end
 
     test "uses the organisation as the alternative format provider" do

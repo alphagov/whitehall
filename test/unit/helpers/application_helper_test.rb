@@ -210,7 +210,7 @@ class ApplicationHelperTest < ActionView::TestCase
   test "generates related policy option as title without topics" do
     policy = create(:policy, title: "Policy title", topics: [])
     options = related_policy_options
-    assert_equal [[policy.document_id, "Policy title"]], related_policy_options
+    assert_equal [[policy.id, "Policy title"]], related_policy_options
   end
 
   test "generates related policy option as title with topics" do
@@ -219,7 +219,7 @@ class ApplicationHelperTest < ActionView::TestCase
     third_topic = build(:topic, name: "Third topic")
     policy = create(:policy, title: "Policy title", topics: [first_topic, second_topic, third_topic])
     options = related_policy_options
-    assert_equal [[policy.document_id, "Policy title (First topic, Second topic and Third topic)"]], related_policy_options
+    assert_equal [[policy.id, "Policy title (First topic, Second topic and Third topic)"]], related_policy_options
   end
 
   test "JSON URL generator returns the correct format automatically" do
