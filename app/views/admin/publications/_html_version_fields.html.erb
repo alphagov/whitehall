@@ -1,0 +1,9 @@
+<fieldset id="html_version_fields">
+  <legend>HTML version of publication</legend>
+
+  <%= form.fields_for :html_version do |html_version_fields| %>
+    <%= html_version_fields.text_field :title, label_text: "HTML version title" %>
+
+    <%= html_version_fields.text_area :body, label_text: "HTML version text" %>
+  <% end %>
+</fieldset>

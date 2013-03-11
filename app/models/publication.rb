@@ -6,6 +6,7 @@ class Publication < Publicationesque
   include Edition::AlternativeFormatProvider
   include Edition::WorldLocations
   include Edition::StatisticalDataSets
+  include Edition::HtmlVersion
 
   validates :publication_date, presence: true, unless: ->(edition) { edition.can_have_some_invalid_data? }
   validates :publication_type_id, presence: true
