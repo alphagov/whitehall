@@ -5,7 +5,7 @@ class Import < ActiveRecord::Base
   serialize :successful_rows
   has_many :document_sources
   has_many :documents, through: :document_sources, uniq: true
-  has_many :editions, through: :documents
+  has_many :editions, through: :documents, uniq: true
   has_many :import_errors, dependent: :destroy
   has_many :force_publication_attempts, dependent: :destroy
   has_many :import_logs, dependent: :destroy
@@ -92,11 +92,11 @@ class Import < ActiveRecord::Base
     when :succeeded
       most_recent = most_recent_force_publication_attempt
       if most_recent.nil? || (most_recent.present?) && most_recent.repeatable?
-        if imported_editions.count == 0
+        if imported_editions.empty?
           'Import created no documents'
-        elsif imported_editions.imported.count > 0
+        elsif imported_editions.imported.any?
           'Some still imported'
-        elsif force_publishable_editions.count == 0
+        elsif force_publishable_editions.empty?
           'None to publish'
         else
           nil
@@ -118,8 +118,19 @@ class Import < ActiveRecord::Base
   def force_publishable_editions
     imported_editions.where(state: ['draft', 'submitted'])
   end
+
+  # needed because count does not resepect uniq until rails 3.2.13
+  def force_publishable_edition_count
+    force_publishable_editions.count(distinct: true)
+  end
+
   def imported_editions
-    editions.where('not exists ( select 1 from editions e2 where e2.document_id = editions.document_id and e2.id < editions.id )')
+    is_first_edition_for_document = "NOT EXISTS (
+        SELECT 1
+          FROM editions e2
+         WHERE e2.document_id = editions.document_id
+           AND e2.id < editions.id)"
+    editions.where(is_first_edition_for_document)
   end
 
   def import_errors_for_row(row_number)

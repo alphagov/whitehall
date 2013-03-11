@@ -285,6 +285,28 @@ class ImportTest < ActiveSupport::TestCase
     assert_equal [Consultation.find_by_title('title')], import.imported_editions.all
   end
 
+  test 'imported_editions lists each imported edition once even when there are multiple document sources per edition' do
+    title = 'my consultation'
+    csv_data = consultation_csv_sample(
+      'title' => title,
+      'old_url' => '["http://example.com/1","http://example.com/2"]'
+    )
+    import = perform_import(csv_data: csv_data)
+    assert_equal [Consultation.find_by_title(title)], import.imported_editions.all
+  end
+
+  test 'force_publishable_edition_count counts each imported edition once even when there are multiple document sources per edition' do
+    title = 'my consultation'
+    csv_data = consultation_csv_sample(
+      'title' => title,
+      'old_url' => '["http://example.com/1","http://example.com/2"]'
+    )
+    import = perform_import(csv_data: csv_data)
+    consultation = Consultation.find_by_title(title)
+    consultation.convert_to_draft!
+    assert_equal 1, import.force_publishable_edition_count
+  end
+
   test 'if an imported edition is published and re-drafted, imported_editions only contains the original, not the re-draft' do
     import = perform_import
     edition = Consultation.find_by_title('title')
@@ -295,7 +317,7 @@ class ImportTest < ActiveSupport::TestCase
     refute import.imported_editions.include?(new_draft)
   end
 
-  test 'force_publishable editions contains only editions from imported_editions that are draft or submitted' do
+  test 'force_publishable_editions contains only editions from imported_editions that are draft or submitted' do
     import = perform_import
     edition = Consultation.find_by_title('title')
     refute import.force_publishable_editions.include?(edition)

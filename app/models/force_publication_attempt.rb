@@ -10,8 +10,12 @@ class ForcePublicationAttempt < ActiveRecord::Base
     import.force_publishable_editions
   end
 
+  def document_count
+    import.force_publishable_edition_count
+  end
+
   def perform(options = {})
-    progress_logger.start(documents)
+    progress_logger.start(document_count)
 
     worker = ForcePublisher::Worker.new
     worker.force_publish!(documents, progress_logger)
@@ -75,8 +79,8 @@ class ForcePublicationAttempt < ActiveRecord::Base
       @current_row = nil
     end
 
-    def start(documents)
-      @force_publish_attempt.update_column(:total_documents, documents.size)
+    def start(document_count)
+      @force_publish_attempt.update_column(:total_documents, document_count)
       @force_publish_attempt.update_column(:started_at, Time.zone.now)
       write_log(:info, "Started run: #{@force_publish_attempt.started_at}")
     end

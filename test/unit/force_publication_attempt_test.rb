@@ -6,10 +6,9 @@ class ForcePublicationAttemptTest < ActiveSupport::TestCase
   end
 
   test "records the start time and total number of documents to be force published" do
-    stubbed_import = stub(:import)
-    stubbed_import.stubs(:force_publishable_editions).returns([build(:imported_edition), build(:imported_edition)])
+    stubbed_import = stub_import([build(:imported_edition), build(:imported_edition)])
     force_publish_attempt = ForcePublicationAttempt.create()
-    force_publish_attempt.stubs(:import).returns stubbed_import
+    force_publish_attempt.stubs(:import).returns(stubbed_import)
     ForcePublisher::Worker.any_instance.stubs(:force_publish!)
 
     force_publish_attempt.perform
@@ -23,10 +22,9 @@ class ForcePublicationAttemptTest < ActiveSupport::TestCase
     failure_doc.stubs(:reason_to_prevent_publication_by).returns('it is badly written')
     failure_doc.expects(:publish_as).never
 
-    stubbed_import = stub(:import)
-    stubbed_import.stubs(:force_publishable_editions).returns([failure_doc])
+    stubbed_import = stub_import([failure_doc])
     force_publish_attempt = ForcePublicationAttempt.create()
-    force_publish_attempt.stubs(:import).returns stubbed_import
+    force_publish_attempt.stubs(:import).returns(stubbed_import)
 
     force_publish_attempt.perform
     assert_equal 0, force_publish_attempt.successful_documents
@@ -39,8 +37,7 @@ class ForcePublicationAttemptTest < ActiveSupport::TestCase
     failure_doc.stubs(:reason_to_prevent_publication_by).returns('it is badly written')
     failure_doc.expects(:publish_as).never
 
-    stubbed_import = stub(:import)
-    stubbed_import.stubs(:force_publishable_editions).returns([failure_doc])
+    stubbed_import = stub_import([failure_doc])
     force_publish_attempt = ForcePublicationAttempt.create()
     force_publish_attempt.stubs(:import).returns stubbed_import
 
@@ -54,8 +51,7 @@ class ForcePublicationAttemptTest < ActiveSupport::TestCase
     failure_doc.stubs(:reason_to_prevent_publication_by).returns(nil)
     failure_doc.stubs(:publish_as).raises(ArgumentError.new('eek!'))
 
-    stubbed_import = stub(:import)
-    stubbed_import.stubs(:force_publishable_editions).returns([failure_doc])
+    stubbed_import = stub_import([failure_doc])
     force_publish_attempt = ForcePublicationAttempt.create()
     force_publish_attempt.stubs(:import).returns stubbed_import
 
@@ -71,8 +67,7 @@ class ForcePublicationAttemptTest < ActiveSupport::TestCase
     exception = ArgumentError.new('eek!')
     failure_doc.stubs(:publish_as).raises(exception)
 
-    stubbed_import = stub(:import)
-    stubbed_import.stubs(:force_publishable_editions).returns([failure_doc])
+    stubbed_import = stub_import([failure_doc])
     force_publish_attempt = ForcePublicationAttempt.create()
     force_publish_attempt.stubs(:import).returns stubbed_import
 
@@ -86,8 +81,7 @@ class ForcePublicationAttemptTest < ActiveSupport::TestCase
     success_doc.stubs(:reason_to_prevent_publication_by).returns(nil)
     success_doc.stubs(:publish_as).returns true
 
-    stubbed_import = stub(:import)
-    stubbed_import.stubs(:force_publishable_editions).returns([success_doc])
+    stubbed_import = stub_import([success_doc])
     force_publish_attempt = ForcePublicationAttempt.create()
     force_publish_attempt.stubs(:import).returns stubbed_import
 
@@ -103,8 +97,7 @@ class ForcePublicationAttemptTest < ActiveSupport::TestCase
     success_doc.stubs(:reason_to_prevent_publication_by).returns(nil)
     success_doc.stubs(:publish_as).returns true
 
-    stubbed_import = stub(:import)
-    stubbed_import.stubs(:force_publishable_editions).returns([success_doc])
+    stubbed_import = stub_import([success_doc])
     force_publish_attempt = ForcePublicationAttempt.create()
     force_publish_attempt.stubs(:import).returns stubbed_import
 
@@ -117,8 +110,7 @@ class ForcePublicationAttemptTest < ActiveSupport::TestCase
     success_doc = stub_imported_document
     success_doc.stubs(:reason_to_prevent_publication_by).returns(nil)
 
-    stubbed_import = stub(:import)
-    stubbed_import.stubs(:force_publishable_editions).returns([success_doc])
+    stubbed_import = stub_import([success_doc])
     force_publish_attempt = ForcePublicationAttempt.create()
     force_publish_attempt.stubs(:import).returns stubbed_import
 
@@ -128,8 +120,7 @@ class ForcePublicationAttemptTest < ActiveSupport::TestCase
   end
 
   test "records the finish time and total number of documents successfully published" do
-    stubbed_import = stub(:import)
-    stubbed_import.stubs(:force_publishable_editions).returns([stub_successful_document, stub_failure_document])
+    stubbed_import = stub_import([stub_successful_document, stub_failure_document])
     force_publish_attempt = ForcePublicationAttempt.create()
     force_publish_attempt.stubs(:import).returns stubbed_import
 
@@ -138,6 +129,13 @@ class ForcePublicationAttemptTest < ActiveSupport::TestCase
     assert_equal 1, force_publish_attempt.successful_documents
     assert_equal 1, force_publish_attempt.failed_documents
     assert_equal Time.zone.now, force_publish_attempt.finished_at
+  end
+
+  def stub_import(force_publishable_editions)
+    stub(:import).tap do |stubbed_import|
+      stubbed_import.stubs(:force_publishable_editions).returns(force_publishable_editions)
+      stubbed_import.stubs(:force_publishable_edition_count).returns(force_publishable_editions.size)
+    end
   end
 
   def stub_imported_document
