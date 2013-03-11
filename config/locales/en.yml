@@ -88,6 +88,15 @@ en:
       ministers:
         one: Minister
         other: Ministers
+      organisations:
+        one: Organisation
+        other: Orgnisations
+      attachments:
+        one: Document
+        other: Documents
+      supporting_documents:
+        one: Supporting document
+        other: Supporting documents
     type:
       announcement:
         one: Announcement
@@ -329,4 +338,18 @@ en:
     no_results:
       title: There are no matching documents.
       description: Try making your search broader and try again.
-
+  attachment:
+    headings:
+      published: Published
+      reference: Ref
+      order_a_copy: Order a copy
+      order_a_copy_full: Order a copy of the publication
+    accessibility:
+      heading: This file may not be suitable for users of assistive technology.
+      request_a_different_format: Request a different format.
+      full_help_html: |
+        To request this document in an alternative format such as braille, audio
+        or a different file type please email
+        %{email}
+        quoting your address, telephone number along with the title of the
+        publication ("%{title}")%{references}.

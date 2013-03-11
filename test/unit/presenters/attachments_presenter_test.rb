@@ -1,4 +1,4 @@
-require 'fast_test_helper'
+require 'test_helper'
 
 class AttachmentsPresenterTest < ActiveSupport::TestCase
   def attachment_1
@@ -42,6 +42,15 @@ class WithNoHtmlVersion < AttachmentsPresenterTest
 
   test 'accepts an edition on creation' do
     assert presenter.edition
+  end
+
+  test '#length returns the number of attachments in the edition' do
+    edition_has_no_attachments
+    assert_equal 0, presenter.length
+    edition_has_one_attachment
+    assert_equal 1, presenter.length
+    edition_has_two_attachments
+    assert_equal 2, presenter.length
   end
 
   test '#any? returns false if there are no attachments in the edition' do
