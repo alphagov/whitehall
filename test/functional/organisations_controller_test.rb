@@ -186,8 +186,10 @@ class OrganisationsControllerTest < ActionController::TestCase
 
     get :show, id: sub_organisation
 
-    assert_select ".page-header .organisation-logo", "Ministry of Jam"
-    assert_select ".page-header .sub-organisation-name", "Marmalade Inspection Board"
+    assert_select ".#{organisation.slug}" do
+      assert_select ".organisation-logo", "Ministry of Jam"
+      assert_select ".sub-organisation-name", "Marmalade Inspection Board"
+    end
   end
 
   test "shows primary featured editions in ordering defined by association" do

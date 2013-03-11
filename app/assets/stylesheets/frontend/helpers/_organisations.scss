@@ -125,6 +125,10 @@
     color: #000;
   }
 
+  span {
+    color: #000;
+  }
+
   @include right-to-left {
     direction: ltr;
   }
