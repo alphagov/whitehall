@@ -58,7 +58,7 @@ class WorldwidePrioritiesControllerTest < ActionController::TestCase
   end
 
   view_test "should display translated page labels when requested in a different locale" do
-    edition = create(:published_worldwide_priority)
+    edition = create(:published_worldwide_priority, translated_into: 'fr')
 
     get :show, id: edition.document, locale: 'fr'
 

@@ -46,6 +46,24 @@ class Edition::IdentifiableTest < ActiveSupport::TestCase
     assert_equal publication, Publication.published_as(same_title)
   end
 
+  test "should return nil if the edition isn't translated into the supplied locale" do
+    policy = create(:published_policy, translated_into: 'fr')
+
+    assert_nil Policy.published_as(policy.slug, 'zh')
+  end
+
+  test "should return the edition if it is translated into the supplied locale" do
+    policy = create(:published_policy, translated_into: 'fr')
+
+    assert_equal policy, Policy.published_as(policy.slug, 'fr')
+  end
+
+  test "should return the edition if it is translated into the default locale when none is specified" do
+    policy = create(:published_policy, translated_into: I18n.default_locale)
+
+    assert_equal policy, Policy.published_as(policy.slug)
+  end
+
   test "should be linkable when draft if document is published" do
     policy = create(:published_policy)
     new_edition = policy.create_draft(create(:policy_writer))

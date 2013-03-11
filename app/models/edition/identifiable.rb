@@ -36,9 +36,13 @@ module Edition::Identifiable
       sti_name
     end
 
-    def published_as(slug)
+    def published_as(slug, locale = I18n.default_locale)
       document = Document.at_slug(document_type, slug)
-      document && document.published_edition
+      if document.present?
+        published_edition = document.published_edition
+        return published_edition if published_edition.present? && published_edition.available_in_locale?(locale)
+      end
+      nil
     end
   end
 end
