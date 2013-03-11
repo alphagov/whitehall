@@ -5,7 +5,8 @@ When /^I add an HTML version of the publication$/ do
 end
 
 Then /^the HTML version should be visible on the public page$/ do
-  visit public_document_path(Publication.last)
+  visit preview_document_path(Publication.last)
+  save_and_open_page
   assert page.has_css?(".publication .attachment .type abbr", text: "HTML")
 end
 

@@ -71,6 +71,7 @@ module DocumentHelper
       "pptx" => MS_POWERPOINT_PRESENTATION_HUMANIZED_CONTENT_TYPE,
       "odt" => content_tag(:abbr, 'ODT', title: 'OpenDocument Text document'),
       "ods" => content_tag(:abbr, 'ODS', title: 'OpenDocument Spreadsheet'),
+      "html" => content_tag(:abbr, 'HTML', title: 'Hypertext Markup Language'),
     }
     file_extension_vs_humanized_content_type[file_extension.downcase] if file_extension.present?
   end
