@@ -1,6 +1,13 @@
 cy:
   document:
     headings:
+      attachments:
+        zero:
+        one:
+        two:
+        few:
+        many:
+        other:
       ministers:
         zero:
         one:
@@ -8,7 +15,21 @@ cy:
         few:
         many:
         other:
+      organisations:
+        zero:
+        one:
+        two:
+        few:
+        many:
+        other:
       policies:
+        zero:
+        one:
+        two:
+        few:
+        many:
+        other:
+      supporting_documents:
         zero:
         one:
         two:
@@ -295,6 +316,13 @@ cy:
         few:
         many:
         other:
+      world_location_news_article:
+        zero:
+        one:
+        two:
+        few:
+        many:
+        other:
       worldwide_priority:
         zero:
         one:
@@ -442,6 +470,16 @@ cy:
         primary_mainstream_category:
   announcements:
     heading:
+  attachment:
+    accessibility:
+      full_help_html:
+      heading:
+      request_a_different_format:
+    headings:
+      order_a_copy:
+      order_a_copy_full:
+      published:
+      reference:
   change_notes:
     published:
     updated:
@@ -484,6 +522,8 @@ cy:
     heading:
   publications:
     heading:
+    headings:
+      detail:
   read_more:
   support:
     array:

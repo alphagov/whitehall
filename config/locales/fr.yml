@@ -1,12 +1,21 @@
 fr:
   document:
     headings:
+      attachments:
+        one:
+        other:
       ministers:
         one: Ministre
         other: Ministres
+      organisations:
+        one:
+        other:
       policies:
         one: Priorité politique
         other: ! 'Priorités politiques '
+      supporting_documents:
+        one:
+        other:
       topics:
         one: Sujet
         other: Sujets
@@ -131,6 +140,9 @@ fr:
       transparency:
         one: Données de transparence
         other: Données de transparence
+      world_location_news_article:
+        one:
+        other:
       worldwide_priority:
         one: Priorité internationale
         other: Priorités internationales
@@ -214,6 +226,16 @@ fr:
         primary_mainstream_category: Catégorie d'instructions détaillées
   announcements:
     heading: Nos annonces
+  attachment:
+    accessibility:
+      full_help_html:
+      heading:
+      request_a_different_format:
+    headings:
+      order_a_copy:
+      order_a_copy_full:
+      published:
+      reference:
   change_notes:
     published: Publié
     updated: Mise à jour
@@ -257,6 +279,8 @@ fr:
     heading: Politiques
   publications:
     heading: Publications
+    headings:
+      detail:
   read_more: En savoir plus
   support:
     array:
