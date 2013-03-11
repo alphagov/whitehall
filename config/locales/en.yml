@@ -319,6 +319,8 @@ en:
     heading: Policies
   publications:
     heading: Publications
+    headings:
+      detail: Detail
   document_filters:
     description: You can use the filters to show only results that match your interests
     world_locations:
