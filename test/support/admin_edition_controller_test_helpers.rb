@@ -651,7 +651,7 @@ module AdminEditionControllerTestHelpers
         attributes = controller_attributes_for(document_type)
 
         post :create, edition: attributes.merge(
-          related_policy_ids: [first_policy.document.id, second_policy.document.id]
+          related_policy_ids: [first_policy.id, second_policy.id]
         )
 
         assert document = edition_class.last
