@@ -16,7 +16,9 @@ module Whitehall::Uploader
     end
 
     def self.validator
-      HeadingValidator.new.required(%w{old_url title summary body organisation})
+      HeadingValidator.new
+        .required(%w{old_url title summary body organisation})
+        .optional("body_#", 1..5)
     end
 
     def title
@@ -33,7 +35,8 @@ module Whitehall::Uploader
     end
 
     def body
-      Parsers::RelativeToAbsoluteLinks.parse(row['body'], organisation.try(:url))
+      body_parts = [row['body']] + (1..5).map {|n| row["body_#{n}"]}
+      Parsers::RelativeToAbsoluteLinks.parse(body_parts.compact.join(''), organisation.try(:url))
     end
 
     def translated_title

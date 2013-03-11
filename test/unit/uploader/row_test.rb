@@ -53,6 +53,20 @@ module Whitehall::Uploader
       assert_equal "absolute links", row.body
     end
 
+    test "constructs a long body from multiple body fields to work around CSV cell size limits" do
+      csv_data = {
+        "body" => "body0\n",
+        "body_1" => "body1\n",
+        "body_2" => "body2\n",
+        "body_3" => "body3\n",
+        "body_4" => "body4\n",
+        "body_5" => "body5\n"
+      }
+      row = build_row(csv_data)
+      row.stubs(:organisation).returns(stubbed_organisation)
+      assert_equal csv_data.values.join(''), row.body
+    end
+
     test "finds an organisation using the organisation finder" do
       organisation = stubbed_organisation
       Finders::OrganisationFinder.stubs(:find).with("name or slug", anything, anything, @default_organisation).returns([organisation])
