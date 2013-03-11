@@ -242,3 +242,44 @@ Then /^I should see the "([^"]*)" contact in the admin interface with address "(
     assert page.has_css?(".adr .street-address", text: address)
   end
 end
+
+Given /^the organisation "([^"]*)" exists with a translation for the locale "([^"]*)"$/ do |name, native_locale_name|
+  locale_code = Locale.find_by_language_name(native_locale_name).code
+  create(:ministerial_department, name: name, translated_into: [locale_code])
+end
+
+When /^I add a new translation to the organisation with:$/ do |table|
+  organisation = Organisation.last
+  translation = table.rows_hash.stringify_keys
+
+  visit admin_organisation_path(organisation)
+  click_link "Translations"
+  select translation["locale"], from: "Locale"
+  click_on "Create translation"
+  fill_in_organisation_translation_form(translation)
+end
+
+When /^I edit the translation for the organisation setting:$/ do |table|
+  organisation = Organisation.last
+  translation = table.rows_hash.stringify_keys
+  visit admin_organisation_path(organisation)
+  click_link "Translations"
+  click_link translation["locale"]
+  fill_in_organisation_translation_form(translation)
+end
+
+Then /^when I view the organisation with the locale "([^"]*)" I should see:$/ do |locale, table|
+  organisation = Organisation.last
+  translation = table.rows_hash
+
+  visit organisation_path(organisation)
+  click_link locale
+
+  within record_css_selector(organisation) do
+    assert page.has_css?('.organisation-logo', text: translation['logo formatted name']), 'Logo formatted name has not been translated'
+    assert page.has_css?('.description', text: translation['description']), 'Description has not been translated'
+  end
+
+  click_link 'read_more_link'
+  assert page.has_content? translation['about us']
+end

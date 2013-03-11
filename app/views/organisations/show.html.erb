@@ -6,6 +6,7 @@
 
   <div class="block-1">
     <div class="inner-block">
+      <%= render partial: 'shared/available_languages', locals: {object: @organisation} %>
       <%= render 'header', organisation: @organisation, show_mainstream_links: true %>
     </div>
   </div>
@@ -41,7 +42,7 @@
               <%= govspeak_to_html @organisation.about_us %>
             </div>
           <% else %>
-            <h1 class="label">What we do</h1>
+            <h1 class="label"><%= t('organisation.headings.what_we_do') %></h1>
             <div class="overview">
               <p class="description"><%= @organisation.description %></p>
               <p class="parent_organisations">
@@ -54,7 +55,7 @@
                     <%= link_to "#{agencies_and_public_bodies_count} agencies and public bodies", organisations_path(anchor: @organisation.slug) %>.
                   <% end %><% end %>
               </p>
-              <p><%= link_to "Read more about what we do", about_organisation_path(@organisation) %></p>
+              <p><%= link_to t('organisation.about.read_more'), about_organisation_path(@organisation), id: 'read_more_link' %></p>
             </div>
           <% end %>
         </div>
@@ -73,7 +74,7 @@
     <div class="block-6">
       <div class="inner-block">
         <section id="topics">
-          <h1 class="label">We work on these topics</h1>
+          <h1 class="label"><%= t('organisation.headings.our_topics') %></h1>
           <%= render partial: "classifications/list_description", locals: {topics: @topics, organisation: @organisation} %>
         </section>
       </div>
@@ -85,7 +86,7 @@
       <div class="inner-block">
         <% if @policies.any? %>
           <section id="policies" class="heading-block">
-            <h1 class="label"><%= link_to 'Our policies', policies_filter_path(@organisation) %></h1>
+            <h1 class="label"><%= link_to t('organisation.headings.our_policies'), policies_filter_path(@organisation) %></h1>
             <div class="content">
               <%= render partial: "policies/list_description", locals: {policies: @policies} %>
               <p class="see-all">
@@ -104,7 +105,7 @@
         <h1 class="block-title">Documents</h1>
         <% if @announcements.any? %>
           <section id="announcements" class="document-block documents-<%= document_block_count+=1 %>">
-            <h1>Our announcements</h1>
+            <h1><%= t('organisation.headings.our_announcements') %></h1>
             <div class="content">
               <%= render partial: "announcements/list_description", locals: {announcements: @announcements} %>
               <p class="see-all">
@@ -126,7 +127,7 @@
         <% end %>
         <% if @non_statistics_publications.any? %>
           <section id="publications" class="document-block documents-<%= document_block_count+=1 %>">
-            <h1>Our publications</h1>
+            <h1><%= t('organisation.headings.our_publications') %></h1>
             <div class="content">
               <%= render partial: "publications/list_description", locals: {publications: @non_statistics_publications} %>
               <p class="see-all">
@@ -137,7 +138,7 @@
         <% end %>
         <% if @statistics_publications.any? %>
           <section id="statistics-publications" class="document-block documents-<%= document_block_count+=1 %>">
-            <h1>Our statistics</h1>
+            <h1><%= t('organisation.headings.our_statistics') %></h1>
             <div class="content">
               <%= render partial: "publications/list_description", locals: {publications: @statistics_publications} %>
               <p class="see-all">
@@ -156,7 +157,7 @@
         <section id="who">
           <% if @ministers.any? %>
             <section id="ministers">
-              <h1 class="label">Our ministers</h1>
+              <h1 class="label"><%= t('organisation.headings.our_ministers') %></h1>
               <ul>
               <% @ministers.each_with_index do |role, i| %>
                 <%= render partial: "people/person",
@@ -173,7 +174,7 @@
 
           <% if @military_personnel.any? %>
             <section id="military">
-              <h1 class="label">Our senior military officials</h1>
+              <h1 class="label"><%= t('organisation.headings.our_senior_military_officials') %></h1>
               <ul class="js-hide-extra-rows">
                 <% @military_personnel.each_with_index do |role, i| %>
                 <%= render partial: "people/person",
@@ -191,7 +192,7 @@
 
           <% if @important_board_members.any? || @board_members.any? %>
             <section id="management" class="important-board-members-<%= @organisation.important_board_members %>">
-              <h1 class="label">Our management</h1>
+              <h1 class="label"><%= t('organisation.headings.our_management') %></h1>
               <ul class="management-primary">
                 <% @important_board_members.each_with_index do |role, i| %>
                   <%= render partial: "people/person",
@@ -219,7 +220,7 @@
 
           <% if @traffic_commissioners.any? %>
             <section id="traffic_commissioners">
-              <h1 class="label">Traffic commissioners</h1>
+              <h1 class="label"><%= t('organisation.headings.traffic_commissioners') %></h1>
               <ul class="js-hide-extra-rows">
                 <% @traffic_commissioners.each_with_index do |role, i| %>
                   <%= render partial: "people/person",
@@ -237,7 +238,7 @@
 
           <% if @special_representatives.any? %>
             <section id="special_representatives">
-              <h1 class="label">Special representatives</h1>
+              <h1 class="label"><%= t('organisation.headings.special_representatives') %></h1>
               <ul class="js-hide-extra-rows">
                 <% @special_representatives.each_with_index do |role, i| %>
                   <%= render partial: "people/person",
@@ -260,7 +261,7 @@
   <div class="block-10">
     <div class="inner-block">
       <div class="contact-wrapper">
-        <h1 id="org-contacts" class="label">Contact <%= @organisation.display_name %></h1>
+        <h1 id="org-contacts" class="label"><%= t('organisation.headings.contact', name: @organisation.display_name) %></h1>
         <div class="org-contacts">
           <div class="addresses js-hide-extra-rows-2">
             <%= render partial: 'contacts/contact', collection: @organisation.contacts %>

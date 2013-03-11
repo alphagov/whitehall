@@ -124,6 +124,7 @@ class Admin::WorldLocationTranslationsControllerTest < ActionController::TestCas
 
   view_test 'update re-renders form if translation is invalid' do
     put :update, world_location_id: @location, id: 'fr', world_location: {
+      name: '',
       mission_statement: 'Enseigner aux gens comment infuser le thé'
     }
 
