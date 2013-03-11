@@ -8,9 +8,9 @@
     <div class="logo">
       <h1>
         <% if link_to_organisation %>
-          <%= link_to content_tag(:span, format_with_html_line_breaks(h(organisation.logo_formatted_name))), organisation, class: logo_classes(class_name: 'single-identity', size: 'large', stacked: true) %>
+          <%= link_to content_tag(:span, organisation_logo_name(organisation)), organisation, class: logo_classes(class_name: 'single-identity', size: 'large', stacked: true) %>
         <% else %>
-          <%= content_tag :span, content_tag(:span, format_with_html_line_breaks(h(organisation.logo_formatted_name))), class: logo_classes(class_name: 'single-identity', size: 'large', stacked: true) %>
+          <%= content_tag :span, content_tag(:span, organisation_logo_name(organisation)), class: logo_classes(class_name: 'single-identity', size: 'large', stacked: true) %>
         <% end %>
       </h1>
     </div>

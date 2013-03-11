@@ -1,6 +1,7 @@
 require "test_helper"
 
 class OrganisationHelperTest < ActionView::TestCase
+  include ApplicationHelper
   test "returns acroynm in abbr tag if present" do
     organisation = build(:organisation, acronym: "BLAH", name: "Building Law and Hygiene")
     assert_equal %{<abbr title="Building Law and Hygiene">BLAH</abbr>}, organisation_display_name(organisation)
@@ -14,6 +15,12 @@ class OrganisationHelperTest < ActionView::TestCase
   test "returns name when acroynm is empty" do
     organisation = build(:organisation, acronym: "", name: "Building Law and Hygiene")
     assert_equal "Building Law and Hygiene", organisation_display_name(organisation)
+  end
+
+  test "returns name formatted for logos" do
+    organisation = build(:organisation, name: "Building Law and Hygiene", logo_formatted_name: "Building Law\nand Hygiene")
+    assert_equal "Building Law<br/>and Hygiene", organisation_logo_name(organisation)
+    assert_equal "Building Law and Hygiene", organisation_logo_name(organisation, false)
   end
 
   test 'organisation header helper should place org specific class onto the div' do

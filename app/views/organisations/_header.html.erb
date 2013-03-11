@@ -18,11 +18,11 @@
   <%= content_tag :h1 do %>
     <% if link_to_organisation %>
       <%= link_to organisation_path(organisation), class: logo_classes(class_name: organisation.organisation_logo_type.class_name, size: logo_size, stacked: true) do %>
-        <span><%= format_with_html_line_breaks(h(organisation.logo_formatted_name)) %></span>
+        <span><%= organisation_logo_name(organisation) %></span>
       <% end %>
     <% else %>
       <span class="<%= logo_classes(class_name: organisation.organisation_logo_type.class_name, size: logo_size, stacked: true) %>">
-        <span><%= format_with_html_line_breaks(h(organisation.logo_formatted_name)) %></span>
+        <span><%= organisation_logo_name(organisation) %></span>
       </span>
     <% end %>
   <% end %>
