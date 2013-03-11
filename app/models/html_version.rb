@@ -3,4 +3,6 @@ class HtmlVersion < ActiveRecord::Base
 
   extend FriendlyId
   friendly_id :title, use: :scoped, scope: :edition
+
+  validates_with SafeHtmlValidator
 end
