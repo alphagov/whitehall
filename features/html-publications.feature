@@ -22,7 +22,7 @@ Feature: HTML version of publication
   displayed on the html publication.
 
   Scenario: Adding an HTML version to a publication
-    Given I am a writer
+    Given I am an editor
     When I begin drafting a new publication "Beard figures 2013"
     And I add an HTML version of the publication
     Then the HTML version should be visible on the public page

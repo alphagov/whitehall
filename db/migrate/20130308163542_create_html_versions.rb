@@ -4,8 +4,11 @@ class CreateHtmlVersions < ActiveRecord::Migration
       t.references :edition
       t.string :title
       t.text :body
+      t.string :slug
 
       t.timestamps
     end
+
+    add_index :html_versions, :slug
   end
 end

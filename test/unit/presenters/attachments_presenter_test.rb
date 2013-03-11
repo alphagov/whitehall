@@ -26,6 +26,14 @@ class AttachmentsPresenterTest < ActiveSupport::TestCase
   end
 end
 
+class WithoutHtmlVersionModule < AttachmentsPresenterTest
+  test 'handles an edition with no html_version method' do
+    @edition = stub(:edition)
+    edition_has_no_attachments
+    refute presenter.any?
+  end
+end
+
 class WithNoHtmlVersion < AttachmentsPresenterTest
   setup do
     @edition = stub(:edition)
@@ -35,6 +43,7 @@ class WithNoHtmlVersion < AttachmentsPresenterTest
   test 'accepts an edition on creation' do
     assert presenter.edition
   end
+
   test '#any? returns false if there are no attachments in the edition' do
     edition_has_no_attachments
     refute presenter.any?
@@ -70,8 +79,7 @@ end
 class WhenHtmlVersionPresentTest < AttachmentsPresenterTest
   setup do
     @html_version = stub
-    @edition = stub(:edition)
-    @edition.stubs(:html_version).returns(@html_version)
+    @edition = stub(html_version: @html_version)
   end
 
   test '#any? shows an attachment present when only an HTML version is in the edition' do
@@ -98,20 +106,33 @@ class WhenHtmlVersionPresentTest < AttachmentsPresenterTest
   end
 
   test 'html attachment creating with the HTML version' do
+    edition_has_no_attachments
     assert_equal @html_version, presenter.first.html_version
   end
 end
 
 class HtmlAttachmentTest < ActiveSupport::TestCase
   def html_version
-    @html_version ||= stub(title: 'title', body: 'body')
+    @html_version ||= stub(title: 'title', body: 'body', slug: 'slug')
+  end
+
+  def edition
+    @edition ||= stub(html_version: html_version, document: stub(to_param: 'edition-slug'))
   end
 
   def html_attachment
-    AttachmentsPresenter::HtmlAttachment.new(html_version)
+    @html_attachment ||= AttachmentsPresenter::HtmlAttachment.new(edition)
   end
 
   test '#file_size returns the size of the body' do
     assert_equal 'body'.size, html_attachment.file_size
+  end
+
+  test '#url returns the html attachment url generated from the publication path' do
+    assert_equal '/government/publications/edition-slug/attachments/slug', html_attachment.url
+  end
+
+  test '#to_param returns the slug' do
+    assert_equal 'slug', html_attachment.to_param
   end
 end

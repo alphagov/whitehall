@@ -1,52 +1,51 @@
 class AttachmentsPresenter < Struct.new(:edition)
-  class HtmlAttachment < Struct.new(:html_version)
+  class HtmlAttachment < Struct.new(:edition)
     include ActiveModel::Conversion
+    include Rails.application.routes.url_helpers
 
-    def self.model_name; ActiveModel::Name.new(Attachment); end
+    def html_version
+      edition.html_version
+    end
 
-    def file_extension; 'HTML'; end
-    def file_size; html_version.body.size; end
-    def number_of_pages; nil; end
-    def persisted?; false; end
+    def self.model_name
+      ActiveModel::Name.new(Attachment)
+    end
 
-    def url
-      'http://gov.uk'
+    %w(number_of_pages isbn unique_reference
+       command_paper_number order_url price).each do |name|
+      define_method(name.to_sym) { nil }
+    end
+
+    def file_extension
+      'HTML'
     end
 
     def title
-      'title'
-    end
-
-    def isbn
-      nil
-    end
-
-    def unique_reference
-      nil
-    end
-
-    def command_paper_number
-      nil
-    end
-
-    def order_url
-      nil
-    end
-
-    def price
-      nil
+      html_version.title
     end
 
     def accessible?
       true
     end
 
-    def id
-      nil
-    end
-
     def pdf?
       false
+    end
+
+    def file_size
+      html_version.body.size
+    end
+
+    def persisted?
+      true
+    end
+
+    def url
+      publication_attachment_path(edition.document, self)
+    end
+
+    def id
+      html_version.slug
     end
   end
 
@@ -57,8 +56,8 @@ class AttachmentsPresenter < Struct.new(:edition)
   def attachments
     return @attachments if @attachments
     @attachments = edition.attachments.dup
-    if edition.html_version.present?
-      @attachments.unshift HtmlAttachment.new(edition.html_version)
+    if edition.respond_to?(:html_version) && edition.html_version.present?
+      @attachments.unshift HtmlAttachment.new(edition)
     end
     @attachments
   end

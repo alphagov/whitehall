@@ -530,9 +530,12 @@ ActiveRecord::Schema.define(:version => 20130308163542) do
     t.integer  "edition_id"
     t.string   "title"
     t.text     "body"
+    t.string   "slug"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "html_versions", ["slug"], :name => "index_html_versions_on_slug"
 
   create_table "image_data", :force => true do |t|
     t.string   "carrierwave_image"
