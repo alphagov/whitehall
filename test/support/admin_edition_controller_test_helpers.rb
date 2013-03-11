@@ -651,7 +651,7 @@ module AdminEditionControllerTestHelpers
         attributes = controller_attributes_for(document_type)
 
         post :create, edition: attributes.merge(
-          related_document_ids: [first_policy.document.id, second_policy.document.id]
+          related_policy_ids: [first_policy.document.id, second_policy.document.id]
         )
 
         assert document = edition_class.last
@@ -675,7 +675,7 @@ module AdminEditionControllerTestHelpers
         document = create(document_type, related_editions: [first_policy])
 
         put :update, id: document, edition: controller_attributes_for_instance(document,
-          related_document_ids: [second_policy.document.id]
+          related_policy_ids: [second_policy.document.id]
         )
 
         document = document.reload
@@ -686,7 +686,7 @@ module AdminEditionControllerTestHelpers
         policy = create(:policy)
         document = create(document_type, related_editions: [policy])
 
-        put :update, id: document, edition: controller_attributes_for_instance(document, related_document_ids: [])
+        put :update, id: document, edition: controller_attributes_for_instance(document, related_policy_ids: [])
 
         document.reload
         assert_equal [], document.related_policies
@@ -699,7 +699,7 @@ module AdminEditionControllerTestHelpers
         document.touch
 
         put :update, id: document, edition: controller_attributes_for_instance(document,
-          lock_version: lock_version, related_document_ids: document.related_document_ids)
+          lock_version: lock_version, related_policy_ids: document.related_document_ids)
 
         assert_select ".document.conflict" do
           assert_select "h1", "Related policies"
