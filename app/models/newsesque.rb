@@ -7,8 +7,8 @@ class Newsesque < Announcement
   end
 
   def apply_any_extra_validations_when_converting_from_imported_to_draft
-    class << self
-      validates :first_published_at, presence: true
+    unless singleton_class.ancestors.include?(ImportToDraftValidations)
+      singleton_class.send(:include, ImportToDraftValidations)
     end
   end
 
@@ -16,6 +16,13 @@ class Newsesque < Announcement
     true
   end
 
+  module ImportToDraftValidations
+    extend ActiveSupport::Concern
+
+    included do
+      validates :first_published_at, presence: true
+    end
+  end
 end
 
 require_relative 'news_article'
