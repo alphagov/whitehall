@@ -144,7 +144,7 @@ class Admin::EditionsController < Admin::BaseController
       params[:edition][:document_series_ids] ||= []
     end
     if @edition.can_be_related_to_policies?
-      params[:edition][:related_document_ids] ||= []
+      params[:edition][:related_policy_ids] ||= []
     end
     if @edition.can_be_associated_with_world_locations?
       params[:edition][:world_location_ids] ||= []
