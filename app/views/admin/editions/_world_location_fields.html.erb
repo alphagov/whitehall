@@ -1,4 +1,4 @@
-<%= form.label :world_location_ids, "Select the international locations this #{edition.format_name.titleize.downcase} is about" %>
+<%= form.label :world_location_ids, "Select the world locations this #{edition.format_name.titleize.downcase} is about" %>
 <%= form.select :world_location_ids,
                 options_from_collection_for_select(WorldLocation.ordered_by_name, 'id', 'name', edition.world_location_ids),
                 { include_blank: true },
