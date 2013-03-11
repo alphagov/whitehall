@@ -2,7 +2,7 @@ class HtmlVersionsController < PublicFacingController
   layout 'detailed-guidance'
 
   before_filter :find_publication
-  before_filter :find_supporting_page
+  before_filter :find_html_version
 
   include CacheControlHelper
   include PublicDocumentRoutesHelper
@@ -24,7 +24,7 @@ class HtmlVersionsController < PublicFacingController
     end
   end
 
-  def find_supporting_page
+  def find_html_version
     unless (@publication.html_version)
       render text: "Not found", status: :not_found
     end
