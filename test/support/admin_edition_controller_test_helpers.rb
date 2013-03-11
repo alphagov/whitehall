@@ -675,7 +675,7 @@ module AdminEditionControllerTestHelpers
         document = create(document_type, related_editions: [first_policy])
 
         put :update, id: document, edition: controller_attributes_for_instance(document,
-          related_policy_ids: [second_policy.document.id]
+          related_policy_ids: [second_policy.id]
         )
 
         document = document.reload
