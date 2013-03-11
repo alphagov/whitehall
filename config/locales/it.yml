@@ -2,279 +2,285 @@ it:
   document:
     headings:
       ministers:
-        one:
-        other:
+        one: Ministro
+        other: Ministri
       policies:
-        one:
-        other:
+        one: Politica
+        other: Politiche
       topics:
-        one:
-        other:
+        one: Argomento
+        other: Argomenti
       world_locations:
-        one:
-        other:
+        one: Posizione geografica
+        other: Posizioni geografiche
       worldwide_organisations:
-        one:
-        other:
-      advisory_groups:
-      applies_to_nations:
-      document_series:
-      field_of_operation:
-      live_data:
-      policy_team:
+        one: Organizzazione mondiale
+        other: Organizzazioni mondiali
+      advisory_groups: Gruppi di consulenza
+      applies_to_nations: Valido per
+      document_series: Serie
+      field_of_operation: Settore di lavoro
+      live_data: Live data
+      policy_team: Personale politico
     type:
       announcement:
-        one:
-        other:
+        one: Annuncio
+        other: Annunci
       case_study:
-        one:
-        other:
+        one: Caso studio
+        other: Casi studio
       closed_consultation:
-        one:
-        other:
+        one: Consultazione chiusa
+        other: Consultazioni chiuse
       consultation:
-        one:
-        other:
+        one: Consultazione
+        other: Consultazioni
       consultation_outcome:
-        one:
-        other:
+        one: Esito delle consultazioni
+        other: Esiti delle consultazioni
       corporate_report:
-        one:
-        other:
+        one: Relazione aziendale
+        other: Relazioni aziendali
       correspondence:
-        one:
-        other:
+        one: Corrispondenza
+        other: Corrispondenze
       detailed_guidance:
-        one:
-        other:
+        one: Indicazioni dettagliate
+        other: Indicazioni dettagliate
       draft_text:
-        one:
-        other:
+        one: Bozza
+        other: Bozze
       fatality_notice:
-        one:
-        other:
+        one: Nota di decesso
+        other: Note di decesso
       foi_release:
-        one:
-        other:
+        one: Comunicato FOI
+        other: Comunicati FOI
       form:
-        one:
-        other:
+        one: Formulario
+        other: Formulari
       guidance:
-        one:
-        other:
+        one: Indicazione
+        other: Indicazione
       impact_assessment:
-        one:
-        other:
+        one: Valutazione impatto
+        other: Valutazioni impatto
       imported:
-        one:
-        other:
+        one: importato - in attesa
+        other: importato - in attesa
       independent_report:
-        one:
-        other:
+        one: Relazione indipendente
+        other: Relazioni indipendenti
       map:
-        one:
-        other:
+        one: Mappa
+        other: Mappe
       national_statistics:
-        one:
-        other:
+        one: Statistica - statistica nazionale
+        other: Statistica - statistica nazionale
       news_article:
-        one:
-        other:
+        one: Articolo
+        other: Articoli
       news_story:
-        one:
-        other:
+        one: Notizia
+        other: Notizie
       open_consultation:
-        one:
-        other:
+        one: Consultazione aperta
+        other: Consultazioni aperte
       oral_statement:
-        one:
-        other:
+        one: Discorso in parlamento
+        other: Discorsi in parlamento
       policy:
-        one:
-        other:
+        one: Politica
+        other: Politiche
       policy_paper:
-        one:
-        other:
+        one: Politica
+        other: Politiche
       press_release:
-        one:
-        other:
+        one: Comunicato stampa
+        other: Comunicati stampa
       promotional:
-        one:
-        other:
+        one: Materiale promozionale
+        other: Materiale promozionale
       publication:
-        one:
-        other:
+        one: Pubblicazione
+        other: Pubblicazioni
       rebuttal:
-        one:
-        other:
+        one: Replica
+        other: Repliche
       research:
-        one:
-        other:
+        one: Ricerca ed analisi
+        other: Ricerca ed analisi
       speaking_notes:
-        one:
-        other:
+        one: Note
+        other: Note
       speech:
-        one:
-        other:
+        one: Discorso
+        other: Discorsi
       statement_to_parliament:
-        one:
-        other:
+        one: Dichiarazione in parlamento
+        other: Dichiarazioni in parlamento
       statistical_data_set:
-        one:
-        other:
+        one: Dati statistici
+        other: Dati stitistici
       statistics:
-        one:
-        other:
+        one: Statistica
+        other: Statistiche
       transcript:
-        one:
-        other:
+        one: Trascrizione
+        other: Trascrizioni
       transparency:
+        one: Dati sulla trasparenza
+        other: Dati sulla trasparenza
+      world_location_news_article:
         one:
         other:
       worldwide_priority:
-        one:
-        other:
+        one: Priorità mondiale
+        other: Priorità mondiali
       written_statement:
-        one:
-        other:
-    published:
-    read:
+        one: Dichiarazione scritta al parlamento
+        other: Dichiarazioni scritte al parlamento
+    published: pubblicato
+    read: ! 'Leggere l''articolo intitolato %{title} '
     speech:
-      delivered_on:
+      delivered_on: ! 'Consegnato il:'
       delivery_title:
-        minister:
-        speaker:
-      originally_given_at:
-    updated:
-    view:
+        minister: Ministro
+        speaker: Relatore
+      originally_given_at: Tenuto originariamente a %{location}.
+    updated: aggiornato
+    view: Vedere '%{title}'
   organisation:
     type:
       Ad-hoc advisory group:
-        one:
-        other:
+        one: Gruppo di consulenza ad-hoc
+        other: Gruppi di consulenza ad-hoc
       Advisory non-departmental public body:
-        one:
-        other:
+        one: Ente pubblico di consulenza non ministeriale
+        other: Enti pubblici di consulenza non ministeriali
       Executive agency:
-        one:
-        other:
+        one: Agenzia esecutiva
+        other: Agenzie esecutive
       Executive non-departmental public body:
-        one:
-        other:
+        one: Ente pubblico esecutivo non ministeriale
+        other: Enti pubblici esecutivi non ministeriali
       Independent monitoring body:
-        one:
-        other:
+        one: Ente di controllo autonomo
+        other: Enti di controllo autonomi
       Ministerial department:
-        one:
-        other:
+        one: Dipartimento ministeriale
+        other: Dipartimenti ministeriali
       Non-ministerial department:
-        one:
-        other:
+        one: Dipartimento non ministeriale
+        other: Dipartimenti non ministeriali
       Other:
-        one:
-        other:
+        one: Altro
+        other: Altri
       Public corporation:
-        one:
-        other:
+        one: Società pubblica
+        other: Società pubbliche
       Sub-organisation:
-        one:
-        other:
+        one: Filiale
+        other: Filiali
       Tribunal non-departmental public body:
-        one:
-        other:
+        one: ! 'Ente pubblico giudiziario non ministeriale '
+        other: ! 'Enti pubblici giudiziari non ministeriali '
     headings:
       plus_others:
   world_location:
     type:
       country:
-        one:
-        other:
+        one: Paese
+        other: Paesi
       international_delegation:
-        one:
-        other:
+        one: Delegazione internazionale
+        other: Delegazioni internazionali
       overseas_territory:
-        one:
-        other:
+        one: Territorio d'oltremare
+        other: Territori d'oltremare
     headings:
-      announcements:
-      country:
-      documents:
-      mission:
-      organisations:
-      priorities:
-      publications:
-      quick_links:
-      related_policies:
-      see_all:
-      statistics:
-    see_all:
+      announcements: I nostri annunci
+      country: Paese
+      documents: Documenti
+      mission: La nostra missione
+      organisations: ! 'Organizzazioni '
+      priorities: Priorità
+      publications: Le nostre pubblicazioni
+      quick_links: Link veloci
+      related_policies: Politiche collegate
+      see_all: Vedere tutte le nostre %{type}
+      statistics: Le nostre statistiche
+    see_all: Vedere tutte le nostre %{type}
   activerecord:
     attributes:
       detailed_guide:
-        primary_mainstream_category:
+        primary_mainstream_category: Categoria principale indicazioni dettagliate
   announcements:
-    heading:
+    heading: Annunci
   change_notes:
-    published:
-    updated:
+    published: Pubblicato
+    updated: Aggiornato
   contact:
-    contact_form:
-    email:
+    contact_form: Per contattarci
+    email: Email
   corporate_information_page:
     type:
-      personal_information_charter:
-      publication_scheme:
-      welsh_language_scheme:
+      personal_information_charter: Informazioni personali
+      publication_scheme: Schema di pubblicazione
+      welsh_language_scheme: Schema gaelico
   date:
     formats:
-      default:
+      default: ! '%d %B %Y'
       long_ordinal: ! '%e %B %Y'
   document_filters:
-    description:
+    description: Per visualizzare esclusivamente i risultati di proprio interesse
     no_results:
-      description:
-      title:
+      description: Restringere la ricerca e riprovare
+      title: Non è stato trovato alcun documento corrispondente
     world_locations:
-      all:
-      label:
+      all: Tutte le sedi
+      label: Sedi mondiali
   feeds:
-    atom:
-    email_alerts:
-    latest_activity:
+    atom: atomo
+    email_alerts: ricezione messaggio email
+    latest_activity: Attività recente
   i18n:
-    direction:
+    direction: Itr
   language_names:
     it: Italiano
   latest_feed:
-    no_updates:
-    title:
+    no_updates: Non sono ancora disponibili aggiornamenti
+    title: Recente
   number:
     human:
       storage_units:
-        format:
+        format: ! '%n%u'
   policies:
-    heading:
+    heading: Politiche
   publications:
-    heading:
-  read_more:
+    heading: Pubblicazioni
+  read_more: Per saperne di più…
   support:
     array:
-      last_word_connector:
+      last_word_connector: e
   time:
     formats:
-      long_ordinal:
+      long_ordinal: ! '%e %B %Y %H:%M'
   worldwide_organisation:
     corporate_information:
-      personal_information_charter_html:
-      publication_scheme_html:
-      welsh_language_scheme_html:
-    find_out_more:
+      personal_information_charter_html: Sulla pagina %{link} è possibile trovare
+        tutte le informazioni relative al trattamento dei dati personali.
+      publication_scheme_html: ! 'Sulla pagina %{link} è possibile trovare maggiori
+        dettagli sulle informazioni pubblicate di routine. '
+      welsh_language_scheme_html: Sulla pagina %{link} è possibile trovare maggiori
+        informazioni su cosa pubblichiamo
+    find_out_more: Consultare il profilo completo e tutti i contatti
     headings:
-      about_us:
-      contact_us:
-      corporate_information:
-      follow_us:
-      our_people:
-      our_services:
-    location:
-    part_of:
+      about_us: Chi siamo
+      contact_us: Contatti
+      corporate_information: Informazioni aziendali
+      follow_us: Seguici
+      our_people: Il nostro personale
+      our_services: I nostri servizi
+    location: Dove siamo
+    part_of: Parte di
