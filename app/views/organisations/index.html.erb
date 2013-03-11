@@ -22,7 +22,7 @@
                                     "data-filter-terms" => filter_terms(ministerial_department) do %>
                 <h2 id="<%= ministerial_department.slug %>" class="<%= ministerial_department.slug %>">
                   <%= link_to organisation_path(ministerial_department), class: logo_classes(class_name: ministerial_department.organisation_logo_type.class_name, size: 'medium') do %>
-                    <span><%= ministerial_department.logo_formatted_name %></span>
+                    <span><%= organisation_logo_name(ministerial_department, false) %></span>
                   <% end %>
                 </h2>
                 <%= render partial: 'works_with', locals: { organisation: ministerial_department, link_to_homepage: true } %>
