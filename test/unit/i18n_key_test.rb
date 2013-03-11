@@ -1,6 +1,22 @@
 require "test_helper"
 
 class I18nKeyTest < ActiveSupport::TestCase
+  test "the default locale has values for all keys" do
+    default_translation_data = YAML.load_file default_locale_file_path
+
+    refute any_nil_values?(default_translation_data), "Default translation #{I18n.default_locale}.yml contains keys with nil values."
+  end
+
+  test "all locale files are up-to-date" do
+    default_changed_time = File.ctime(default_locale_file_path)
+    locale_files = Dir[Rails.root.join('config','locales','*.yml')] - [default_locale_file_path.to_s]
+
+    locale_files.each do |locale_file|
+      assert File.ctime(locale_file) >= default_changed_time,
+        "#{locale_file} is older than the default locale file. Have you regenerated the locale files to add any missing keys?"
+    end
+  end
+
   test "translations for all publication types are present" do
     assert_translations PublicationType, "document.type"
   end
@@ -66,5 +82,13 @@ class I18nKeyTest < ActiveSupport::TestCase
       I18n.t("#{translation_prefix}.#{key}", count: 1)
       I18n.t("#{translation_prefix}.#{key}", count: 2)
     end
+  end
+
+  def default_locale_file_path
+    Rails.root.join('config', 'locales', "#{I18n.default_locale}.yml")
+  end
+
+  def any_nil_values?(hash)
+    hash.detect {|k,v| v.nil? or (v.is_a?(Hash) && any_nil_values?(v)) }
   end
 end
