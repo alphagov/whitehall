@@ -18,7 +18,7 @@ module Whitehall::Uploader
     def self.validator
       HeadingValidator.new
         .required(%w{old_url title summary body organisation})
-        .optional("body_#", 1..5)
+        .multiple("body_#", 0..5)
     end
 
     def title
