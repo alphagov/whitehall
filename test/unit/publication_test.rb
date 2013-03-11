@@ -19,7 +19,7 @@ class PublicationTest < ActiveSupport::TestCase
     }
     publication.save!
 
-    assert_equal "title", publication.html_version.title
+    assert_equal "title", publication.reload.html_version.title
   end
 
   test 'html version is destroyed if the publication is destroyed' do
@@ -37,6 +37,17 @@ class PublicationTest < ActiveSupport::TestCase
     }
     publication.save!
     refute publication.html_version
+  end
+
+  test 'html version is copied over on republish' do
+    publication = create(:published_publication, :with_html_version)
+    new_draft = publication.create_draft(create(:author))
+
+    assert publication.html_version.title, new_draft.html_version.title
+    assert publication.html_version.body, new_draft.html_version.body
+
+    new_draft.html_version.title = 'new title'
+    refute_equal 'new title', publication.reload.html_version.title
   end
 
   test 'imported publications are valid when the publication_type is \'imported-awaiting-type\'' do

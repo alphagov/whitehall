@@ -6,15 +6,13 @@ class Publication < Publicationesque
   include Edition::AlternativeFormatProvider
   include Edition::WorldLocations
   include Edition::StatisticalDataSets
+  include Edition::HtmlVersion
 
   validates :publication_date, presence: true, unless: ->(edition) { edition.can_have_some_invalid_data? }
   validates :publication_type_id, presence: true
   validate :only_publications_allowed_invalid_data_can_be_awaiting_type
 
   after_update { |p| p.published_related_policies.each(&:update_published_related_publication_count) }
-
-  has_one :html_version, foreign_key: :edition_id, dependent: :destroy
-  accepts_nested_attributes_for :html_version, reject_if: :all_blank_or_empty_hashes
 
   def self.not_statistics
     where("publication_type_id NOT IN (?)", PublicationType.statistical.map(&:id))
