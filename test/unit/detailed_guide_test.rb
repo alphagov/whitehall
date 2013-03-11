@@ -7,6 +7,16 @@ class DetailedGuideTest < ActiveSupport::TestCase
   should_allow_inline_attachments
   should_protect_against_xss_and_content_attacks_on :title, :body, :summary, :change_note
 
+  test 'imported detailed guides are valid when the primary_mainstream_category is blank' do
+    detailed_guide = build(:detailed_guide, state: 'imported', primary_mainstream_category: nil)
+    assert detailed_guide.valid?
+  end
+
+  test 'imported detailed guides are not valid_as_draft? when the primary_mainstream_category is blank' do
+    detailed_guide = build(:detailed_guide, state: 'imported', primary_mainstream_category: nil)
+    refute detailed_guide.valid_as_draft?
+  end
+
   test "should be able to relate to topics" do
     article = build(:detailed_guide)
     assert article.can_be_associated_with_topics?
