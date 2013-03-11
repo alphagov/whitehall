@@ -2,20 +2,20 @@ fr:
   document:
     headings:
       attachments:
-        one:
-        other:
+        one: Attachment
+        other: Attachments
       ministers:
         one: Ministre
         other: Ministres
       organisations:
-        one:
-        other:
+        one: Organisation
+        other: Organisations
       policies:
         one: Priorité politique
         other: ! 'Priorités politiques '
       supporting_documents:
-        one:
-        other:
+        one: Document d'appui
+        other: Documents à l'appui
       topics:
         one: Sujet
         other: Sujets
@@ -81,8 +81,8 @@ fr:
         one: Rapport indépendant
         other: Rapports indépendants
       map:
-        one:
-        other:
+        one: Carte
+        other: Cartes
       national_statistics:
         one: Statistiques - statistiques nationales
         other: Statistiques - statistiques nationales
@@ -141,8 +141,8 @@ fr:
         one: Données de transparence
         other: Données de transparence
       world_location_news_article:
-        one:
-        other:
+        one: Actualités du endroits du monde
+        other: Actualités du endroits du monde
       worldwide_priority:
         one: Priorité internationale
         other: Priorités internationales
