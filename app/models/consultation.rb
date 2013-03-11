@@ -139,16 +139,6 @@ class Consultation < Publicationesque
     end
   end
 
-  def all_blank_or_empty_hashes(attributes)
-    hash_with_blank_values?(attributes)
-  end
-
-  def hash_with_blank_values?(hash)
-    hash.values.inject(true) do |result, value|
-      result && (value.is_a?(Hash) ? hash_with_blank_values?(value) : value.blank?)
-    end
-  end
-
   class << self
     def closed
       where 'closing_on < :today', today: Date.today

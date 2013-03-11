@@ -284,6 +284,19 @@ module AdminEditionControllerTestHelpers
       end
     end
 
+    def should_allow_html_versions_for(edition_type)
+      edition_class = class_for(edition_type)
+
+      view_test "new displays html version fields" do
+        get :new
+
+        assert_select "form#edition_new" do
+          assert_select "input[name='edition[html_version_attributes][title]'][type='text']"
+          assert_select "textarea[name='edition[html_version_attributes][body]']"
+        end
+      end
+    end
+
     def should_allow_attached_images_for(edition_type)
       edition_class = class_for(edition_type)
 
