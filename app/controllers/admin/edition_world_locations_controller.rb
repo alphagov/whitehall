@@ -5,7 +5,7 @@ class Admin::EditionWorldLocationsController < Admin::BaseController
 
   def index
     @featured_editions = @world_location.featured_edition_world_locations
-    @editions = @world_location.published_edition_world_locations.order("editions.public_timestamp DESC")
+    @editions = @world_location.published_edition_world_locations
   end
 
   def edit
