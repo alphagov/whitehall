@@ -17,7 +17,7 @@ class DetailedGuidesControllerTest < ActionController::TestCase
   end
 
   view_test "shows related organisations" do
-    organisation = create(:organisation, logo_formatted_name: 'The Organisation')
+    organisation = create(:organisation, name: 'The Organisation')
     guide = create(:published_detailed_guide, organisations: [organisation])
 
     get :show, id: guide.document
