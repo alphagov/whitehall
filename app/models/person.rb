@@ -36,7 +36,7 @@ class Person < ActiveRecord::Base
   searchable title: :name,
              link: :search_link,
              content: :biography,
-             only: :non_current_ministerial_roles #Already covered by MinisterialRole
+             only: :without_a_current_ministerial_role #Already covered by MinisterialRole
 
   extend FriendlyId
   friendly_id :slug_name
@@ -52,8 +52,8 @@ class Person < ActiveRecord::Base
     person_path(slug)
   end
 
-  def self.non_current_ministerial_roles
-    joins(:current_roles).where(Role.arel_table[:type].not_eq("MinisterialRole"))
+  def self.without_a_current_ministerial_role
+    includes(:current_roles).where("(#{RoleAppointment.arel_table[:id].eq(nil).to_sql}) OR (#{Role.arel_table[:type].not_eq("MinisterialRole").to_sql})")
   end
 
   def ministerial_roles_at(date)
