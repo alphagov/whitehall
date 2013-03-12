@@ -143,6 +143,9 @@ it:
       world_location_news_article:
         one:
         other:
+      world_location_news_article:
+        one:
+        other:
       worldwide_priority:
         one: Priorità mondiale
         other: Priorità mondiali
@@ -192,10 +195,33 @@ it:
         one: Filiale
         other: Filiali
       Tribunal non-departmental public body:
-        one: ! 'Ente pubblico giudiziario non ministeriale '
-        other: ! 'Enti pubblici giudiziari non ministeriali '
+        one: Ente pubblico giudiziario non ministeriale
+        other: Enti pubblici giudiziari non ministeriali
+    about:
+      read_more:
+    corporate_information:
+      access_our_info:
+      foi_how_to:
+      foi_releases:
+      jobs_and_contacts:
+      transparency:
     headings:
+      contact:
+      corporate_information:
+      corporate_reports:
+      our_announcements:
+      our_management:
+      our_ministers:
+      our_policies:
+      our_publications:
+      our_senior_military_officials:
+      our_services:
+      our_statistics:
+      our_topics:
       plus_others:
+      special_representatives:
+      traffic_commissioners:
+      what_we_do:
   world_location:
     type:
       country:

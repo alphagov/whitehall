@@ -42,3 +42,37 @@ Scenario: Adding mainstream services
   And the organisation "Ministry of Pop" exists
   When I add some mainstream links to "Ministry of Pop" via the admin
   Then the mainstream links for "Ministry of Pop" should be visible on the public site
+
+Scenario: Adding a new translation
+  Given I am an admin called "Jane"
+  And the organisation "Department of Beards" exists
+  When I add a new translation to the organisation with:
+    | locale              | Français                                          |
+    | name                | Département des barbes en France                  |
+    | acronym             | DOF                                               |
+    | logo formatted name | Département des barbes en France                  |
+    | description         | Barbes, moustaches, même rouflaquettes            |
+    | about us            | Nous nous occupons de la pilosité faciale du pays |
+  Then when I view the organisation with the locale "Français" I should see:
+    | name                | Département des barbes en France                  |
+    | acronym             | DOF                                               |
+    | logo formatted name | Département des barbes en France                  |
+    | description         | Barbes, moustaches, même rouflaquettes            |
+    | about us            | Nous nous occupons de la pilosité faciale du pays |
+
+Scenario: Editing an existing translation
+  Given I am an admin called "Jane"
+  And the organisation "Department of Beards" exists with a translation for the locale "Français"
+  When I edit the translation for the organisation setting:
+    | locale              | Français                                          |
+    | name                | Département des barbes en France                  |
+    | acronym             | DOF                                               |
+    | logo formatted name | Département des barbes en France                  |
+    | description         | Barbes, moustaches, même rouflaquettes            |
+    | about us            | Nous nous occupons de la pilosité faciale du pays |
+  Then when I view the organisation with the locale "Français" I should see:
+    | name                | Département des barbes en France                  |
+    | acronym             | DOF                                               |
+    | logo formatted name | Département des barbes en France                  |
+    | description         | Barbes, moustaches, même rouflaquettes            |
+    | about us            | Nous nous occupons de la pilosité faciale du pays |

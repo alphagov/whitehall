@@ -50,7 +50,7 @@ class Edition::OrganisationsTest < ActiveSupport::TestCase
     create(:draft_detailed_guide, title: "ignore-me", organisations: [dwp])
 
     assert 3 > count_queries {
-      editions = DetailedGuide.includes(:organisations).in_organisation([dfid])
+      editions = DetailedGuide.includes(organisations: :translations).in_organisation([dfid])
       assert_equal 1, editions.length
       assert_equal "find-me", editions[0].title
       assert_equal 0, count_queries {

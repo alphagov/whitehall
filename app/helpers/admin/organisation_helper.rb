@@ -20,6 +20,7 @@ module Admin::OrganisationHelper
       "Featured documents" => documents_admin_organisation_path(organisation),
       "Document series" => document_series_admin_organisation_path(organisation),
       "Corporate information pages" => admin_organisation_corporate_information_pages_path(organisation),
+      "Translations" => admin_organisation_translations_path(organisation)
     }
   end
 end

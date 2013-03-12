@@ -95,7 +95,7 @@ class OrganisationsController < PublicFacingController
   end
 
   def load_organisation
-    @organisation = Organisation.find(params[:id])
+    @organisation = Organisation.with_translations(I18n.locale).find(params[:id])
   end
 
   def set_cache_max_age

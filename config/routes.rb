@@ -67,10 +67,10 @@ Whitehall::Application.routes.draw do
     resources :topics, path: "topics", only: [:index, :show]
     resources :topical_events, path: "topical-events", only: [:index, :show]
 
-    resources :organisations, only: [:index, :show] do
+    resources :organisations, only: [:index, :show], localised: true do
       resources :document_series, only: [:index, :show], path: 'series'
       member do
-        get :about
+        get :about, localised: true
         get :consultations
         get :chiefs_of_staff, path: 'chiefs-of-staff'
       end
@@ -105,6 +105,7 @@ Whitehall::Application.routes.draw do
           resources :corporate_information_pages
           resources :contacts
           resources :social_media_accounts
+          resources :translations, controller: 'organisation_translations'
           member do
             get :documents, as: 'documents'
             get :document_series

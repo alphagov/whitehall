@@ -6,7 +6,7 @@ class PeopleControllerTest < ActionController::TestCase
   should_be_a_public_facing_controller
 
   def stub_role_appointment(role_type, options = {})
-    organisation = stub_record(:organisation, organisation_type: stub_record(:ministerial_organisation_type))
+    organisation = stub_translatable_record(:organisation, organisation_type: stub_record(:ministerial_organisation_type))
     stub_record(:role_appointment,
       {
         role: stub_translatable_record(role_type, organisations: [organisation]),

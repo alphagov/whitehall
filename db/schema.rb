@@ -659,6 +659,21 @@ ActiveRecord::Schema.define(:version => 20130308163542) do
   add_index "organisation_roles", ["organisation_id"], :name => "index_organisation_roles_on_organisation_id"
   add_index "organisation_roles", ["role_id"], :name => "index_organisation_roles_on_role_id"
 
+  create_table "organisation_translations", :force => true do |t|
+    t.integer  "organisation_id"
+    t.string   "locale"
+    t.text     "name"
+    t.text     "logo_formatted_name"
+    t.string   "acronym"
+    t.text     "description"
+    t.text     "about_us"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "organisation_translations", ["locale"], :name => "index_organisation_translations_on_locale"
+  add_index "organisation_translations", ["organisation_id"], :name => "index_organisation_translations_on_organisation_id"
+
   create_table "organisation_types", :force => true do |t|
     t.string   "name"
     t.datetime "created_at"

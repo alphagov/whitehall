@@ -174,6 +174,9 @@ class Organisation < ActiveRecord::Base
   validates :organisation_logo_type_id, presence: true
   validate :sub_organisations_must_have_a_parent
 
+  include TranslatableModel
+  translates :name, :logo_formatted_name, :acronym, :description, :about_us
+
   default_scope order(arel_table[:name])
 
   searchable title: :select_name,
