@@ -64,7 +64,7 @@
         <h3>Related policies</h3>
         <% Policy.in_organisation(@edition.organisations).latest_edition.active.map do |policy| %>
           <label class="checkbox">
-            <%= check_box_tag 'edition[related_document_ids][]', policy.document_id, @edition.related_documents.include?(policy.document) %>
+            <%= check_box_tag 'edition[related_policy_ids][]', policy.id, @edition.related_policies.include?(policy) %>
             <%= policy.title %><% if policy.topics.any? %>
             <span class="muted"><%= policy.topics.map(&:name).to_sentence%></span>
             <% end %>
