@@ -51,13 +51,5 @@ module Whitehall::Uploader
         result[name] = __send__(name)
       end
     end
-
-    def translation_attributes
-      {
-        title: translated_title,
-        body: translated_body,
-        summary: translated_summary
-      }
-    end
   end
 end
