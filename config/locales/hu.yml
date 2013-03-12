@@ -5,6 +5,16 @@ hu:
         primary_mainstream_category:
   announcements:
     heading:
+  attachment:
+    accessibility:
+      full_help_html:
+      heading:
+      request_a_different_format:
+    headings:
+      order_a_copy:
+      order_a_copy_full:
+      published:
+      reference:
   change_notes:
     published:
     updated:
@@ -24,16 +34,25 @@ hu:
     headings:
       advisory_groups:
       applies_to_nations:
+      attachments:
+        one:
+        other:
       document_series:
       field_of_operation:
       live_data:
       ministers:
         one:
         other:
+      organisations:
+        one:
+        other:
       policies:
         one:
         other:
       policy_team:
+      supporting_documents:
+        one:
+        other:
       topics:
         one:
         other:
@@ -160,6 +179,9 @@ hu:
       transparency:
         one:
         other:
+      world_location_news_article:
+        one:
+        other:
       worldwide_priority:
         one:
         other:
@@ -232,6 +254,8 @@ hu:
     heading:
   publications:
     heading:
+    headings:
+      detail:
   read_more:
   support:
     array:

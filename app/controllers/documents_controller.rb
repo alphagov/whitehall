@@ -36,9 +36,9 @@ class DocumentsController < PublicFacingController
 
   def find_document_or_edition
     if current_user_can_preview?
-      document_class.find(params[:preview])
+      document_class.with_translations(I18n.locale).find(params[:preview])
     else
-      document_class.published_as(params[:id])
+      document_class.published_as(params[:id], I18n.locale)
     end
   end
 

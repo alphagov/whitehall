@@ -159,6 +159,11 @@ class PublicationTest < ActiveSupport::TestCase
     e.publication_type = dont_limit_by_default
     assert e.access_limited?
   end
+
+  test "should be translatable" do
+    publication = build(:draft_publication)
+    assert publication.translatable?
+  end
 end
 
 class PublicationsInTopicsTest < ActiveSupport::TestCase

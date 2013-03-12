@@ -1,8 +1,8 @@
 <%
-  title = "Documents" unless local_assigns.include?(:title)
+  attachments = AttachmentsPresenter.new(document)
+  title = t('document.headings.attachments', count: attachments.length) unless local_assigns.include?(:title)
   summary = document.summary unless local_assigns.include?(:summary)
   published_on = '' unless local_assigns.include?(:published_on)
-  attachments = AttachmentsPresenter.new(document)
 %>
 <section class="attachment-full-width">
   <% if attachments.any? %>
@@ -17,12 +17,12 @@
       </div>
       <% if attachments.more_than_one? %>
         <div class="attachment-without-thumbnail">
-          <h2 class="supporting-documents-title">Supporting documents</h2>
+          <h2 class="supporting-documents-title"><%= t('document.headings.supporting_documents', count: attachments.remaining.length) %></h2>
           <% attachments.remaining.each do |attachment| %>
             <%= render partial: "documents/attachment",
-                      object: attachment,
-                      locals: { hide_thumbnail: false,
-                                alternative_format_contact_email: document.alternative_format_contact_email } %>
+                       object: attachment,
+                       locals: { hide_thumbnail: false,
+                                 alternative_format_contact_email: document.alternative_format_contact_email } %>
           <% end %>
         </div>
       <% end %>
