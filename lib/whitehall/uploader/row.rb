@@ -73,7 +73,7 @@ module Whitehall::Uploader
     end
 
     def translation_present?
-      translation_locale.present?
+      translation_locale.present? || translation_attributes.values.any?(&:present?)
     end
 
     def translation_locale
@@ -82,6 +82,15 @@ module Whitehall::Uploader
 
     def translation_url
       row['translation_url']
+    end
+
+    # Default translation attributes. Override as required
+    def translation_attributes
+      {
+        title: translated_title,
+        body: translated_body,
+        summary: translated_summary
+      }
     end
 
     protected

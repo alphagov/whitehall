@@ -198,31 +198,14 @@ class Import < ActiveRecord::Base
     attributes = row.attributes.merge(creator: creator, state: 'imported')
     model = model_class.new(attributes)
     if model.save
-      if row.translation_present?
-        LocalisedModel.new(model, row.translation_locale).update_attributes(row.translation_attributes)
-        DocumentSource.create!(document: model.document, url: row.translation_url, locale: row.translation_locale, import: self, row_number: row_number)
-      end
+      save_translation!(model, row, row_number) if row.translation_present?
       row.legacy_urls.each do |legacy_url|
         DocumentSource.create!(document: model.document, url: legacy_url, import: self, row_number: row_number)
       end
       progress_logger.success(model)
       true
     else
-      model.errors.keys.each do |attribute|
-        next if [:attachments, :images].include?(attribute)
-        progress_logger.error("#{attribute}: #{model.errors[attribute].join(", ")}")
-      end
-      if model.respond_to?(:attachments)
-        model.attachments.reject(&:valid?).each do |a|
-          progress_logger.error("Attachment '#{a.attachment_source.url}': #{a.errors.full_messages.to_s}")
-        end
-      end
-      if model.respond_to?(:images)
-        model.images.reject(&:valid?).each do |i|
-          progress_logger.error("Image '#{i.caption}': #{i.errors.full_messages.to_s}")
-        end
-      end
-
+      record_errors_for(model)
       false
     end
   rescue => e
@@ -289,6 +272,37 @@ class Import < ActiveRecord::Base
       duplicates.each do |old_url, set|
         errors.add(:csv_data, "Duplicate old_url '#{old_url}' in rows #{set.map {|r| r[0]}.join(', ')}")
       end
+    end
+  end
+
+  def record_errors_for(model)
+    model.errors.keys.each do |attribute|
+      next if [:attachments, :images].include?(attribute)
+      progress_logger.error("#{attribute}: #{model.errors[attribute].join(", ")}")
+    end
+    if model.respond_to?(:attachments)
+      model.attachments.reject(&:valid?).each do |a|
+        progress_logger.error("Attachment '#{a.attachment_source.url}': #{a.errors.full_messages.to_s}")
+      end
+    end
+    if model.respond_to?(:images)
+      model.images.reject(&:valid?).each do |i|
+        progress_logger.error("Image '#{i.caption}': #{i.errors.full_messages.to_s}")
+      end
+    end
+  end
+
+  def save_translation!(model, row, row_number)
+    translation = LocalisedModel.new(model, row.translation_locale)
+
+    if translation.update_attributes(row.translation_attributes)
+      if locale = Locale.find_by_code(row.translation_locale.to_s)
+        DocumentSource.create!(document: model.document, url: row.translation_url, locale: locale.code, import: self, row_number: row_number)
+      else
+        progress_logger.error("Locale not recognised")
+      end
+    else
+      record_errors_for(translation)
     end
   end
 
