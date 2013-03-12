@@ -71,7 +71,9 @@ module Searchable
     end
 
     def update_in_search_index
-      Rummageable.index(search_index, rummager_index)
+      if searchable_options[:only].call(self.class).find_by_id(self.id).present?
+        Rummageable.index(search_index, rummager_index)
+      end
     end
 
     def remove_from_search_index
