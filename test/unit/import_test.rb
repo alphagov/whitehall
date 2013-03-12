@@ -147,6 +147,22 @@ class ImportTest < ActiveSupport::TestCase
     assert_equal 'en', legacy_source.locale
   end
 
+  test '#perform records an error when given incomplete translation data' do
+    perform_import_cleanup do
+      import = perform_import(csv_data: incomplete_translated_news_article_csv, data_type: "news_article", organisation_id: create(:organisation).id)
+      assert_equal 1, import.import_errors.count
+      assert_match /title: no puede estar en blanco/, import.import_errors.map.first.message
+    end
+  end
+
+  test '#perform records an error when translation data is present without a locale' do
+    perform_import_cleanup do
+      import = perform_import(csv_data: translated_news_article_with_missing_locale_csv, data_type: "news_article", organisation_id: create(:organisation).id)
+      assert_equal 1 ,import.import_errors.count
+      assert_match /Locale not recognised/, import.import_errors.map.first.message
+    end
+  end
+
   test "#peform creates editions in the imported state" do
     perform_import
     assert_equal Edition.count, Edition.imported.count
@@ -161,39 +177,35 @@ class ImportTest < ActiveSupport::TestCase
 
   test "#perform records an error if a document has already been imported" do
     DocumentSource.stubs(:where).with(url: ["http://example.com"]).returns([stub("document source", row_number: 2, import_id: 3, url: "http://example.com")])
-    Import.use_separate_connection
-    Import.delete_all
-    ImportError.delete_all
-    i = perform_import(csv_data: consultation_csv_sample("old_url" => "http://example.com"))
-    assert_equal 1, i.import_errors.count
-    assert_match /already imported/, i.import_errors.map(&:message).first
-    i.destroy
+    perform_import_cleanup do
+      i = perform_import(csv_data: consultation_csv_sample("old_url" => "http://example.com"))
+      assert_equal 1, i.import_errors.count
+      assert_match /already imported/, i.import_errors.map(&:message).first
+    end
   end
 
   test "#perform records an error if any old url of a row has already been imported" do
     DocumentSource.stubs(:where)
       .with(url: ["http://example.com/1", "http://example.com/2"])
       .returns([stub("document source", row_number: 2, import_id: 3, url: "http://example.com/2")])
-    Import.use_separate_connection
-    Import.delete_all
-    ImportError.delete_all
-    i = perform_import(csv_data: consultation_csv_sample("old_url" => ["http://example.com/1", "http://example.com/2"].to_json))
-    assert_equal 1, i.import_errors.count
-    assert_match /already imported/, i.import_errors.map(&:message).first
-    assert_match %r{http://example\.com/2}, i.import_errors.map(&:message).first
-    i.destroy
+
+    perform_import_cleanup do
+      i = perform_import(csv_data: consultation_csv_sample("old_url" => ["http://example.com/1", "http://example.com/2"].to_json))
+      assert_equal 1, i.import_errors.count
+      assert_match /already imported/, i.import_errors.map(&:message).first
+      assert_match %r{http://example\.com/2}, i.import_errors.map(&:message).first
+    end
   end
 
   test "#perform skips blank rows" do
     blank_row = Hash[minimally_valid_consultation_row.map {|k,v| [k,'']}]
-    Import.use_separate_connection
-    Import.delete_all
-    ImportError.delete_all
-    i = perform_import(csv_data: consultation_csv_sample({}, [blank_row]))
-    assert_equal [], i.import_errors
-    assert_equal 1, i.document_sources.count
-    assert_match /blank, skipped/, i.log
-    i.destroy
+
+    perform_import_cleanup do
+      i = perform_import(csv_data: consultation_csv_sample({}, [blank_row]))
+      assert_equal [], i.import_errors
+      assert_equal 1, i.document_sources.count
+      assert_match /blank, skipped/, i.log
+    end
   end
 
   test 'logs failure if save unsuccessful' do
@@ -205,17 +217,15 @@ class ImportTest < ActiveSupport::TestCase
     @model.stubs(:errors).returns(@errors)
     @model.stubs(:attachments).returns([])
 
-    Import.use_separate_connection
-    Import.delete_all
-    ImportError.delete_all
-    i = perform_import(creator: stub_record(:user)) do |import|
-      import.stubs(:row_class).returns(@row_class)
-      import.stubs(:model_class).returns(@model_class)
+    perform_import_cleanup do
+      i = perform_import(creator: stub_record(:user)) do |import|
+        import.stubs(:row_class).returns(@row_class)
+        import.stubs(:model_class).returns(@model_class)
+      end
+      assert_equal 1, i.import_errors.count
+      assert_equal 2, i.import_errors[0].row_number
+      assert_match /body: required/, i.import_errors[0].message
     end
-    assert_equal 1, i.import_errors.count
-    assert_equal 2, i.import_errors[0].row_number
-    assert_match /body: required/, i.import_errors[0].message
-    i.destroy
   end
 
   test 'logs failure if unable to parse a date' do
@@ -269,14 +279,10 @@ class ImportTest < ActiveSupport::TestCase
     stub_row_class
     stub_model_class
     data = consultation_csv_sample({}, [{'title' => '', 'old_url' => 'http://example.com/invalid'}])
-    Import.use_separate_connection
-    Import.delete_all
-    Import.transaction do
+    perform_import_cleanup do
       i = perform_import(csv_data: data)
       assert_equal 1, Import.count, "Import wasn't saved correctly"
       assert_equal 0, Consultation.count, "Imported rows weren't rolled back correctly"
-      # roll back changes to the import record to ensure we don't leave test data lying around
-      raise ActiveRecord::Rollback
     end
   end
 
@@ -495,11 +501,32 @@ class ImportTest < ActiveSupport::TestCase
     @model_class = stub('model-class', new: @model)
   end
 
+  def perform_import_cleanup(&block)
+    Import.use_separate_connection
+    Import.delete_all
+    ImportError.delete_all
+    yield
+    Import.destroy_all
+  end
 
   def translated_news_article_csv
     <<-EOF.strip_heredoc
     old_url,title,summary,body,organisation,policy_1,minister_1,first_published,country_1,news_article_type,locale,translation_url,title_translation,summary_translation,body_translation
     http://example.com/1,Title,Summary,Body,,,,14-Dec-2011,,,es,http://example.com/1.es,Spanish Title,Spanish Summary,Spanish Body
+    EOF
+  end
+
+  def translated_news_article_with_missing_locale_csv
+    <<-EOF.strip_heredoc
+    old_url,title,summary,body,organisation,policy_1,minister_1,first_published,country_1,news_article_type,locale,translation_url,title_translation,summary_translation,body_translation
+    http://example.com/1,Title,Summary,Body,,,,14-Dec-2011,,,,http://example.com/1.es,Spanish Title,Spanish Summary,Spanish Body
+    EOF
+  end
+
+  def incomplete_translated_news_article_csv
+    <<-EOF.strip_heredoc
+    old_url,title,summary,body,organisation,policy_1,minister_1,first_published,country_1,news_article_type,locale,translation_url,title_translation,summary_translation,body_translation
+    http://example.com/1,Title,Summary,Body,,,,14-Dec-2011,,,es,http://example.com/1.es,,Spanish Summary,Spanish Body
     EOF
   end
 end
