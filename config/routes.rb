@@ -106,7 +106,7 @@ Whitehall::Application.routes.draw do
           resources :contacts
           resources :social_media_accounts
           member do
-            get :documents
+            get :documents, as: 'documents'
             get :document_series
             get :about
             get :people
