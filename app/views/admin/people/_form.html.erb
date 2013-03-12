@@ -1,3 +1,8 @@
+<%
+  show_instantly_live_warning ||= false
+  show_consult_gds_warning ||= false
+%>
+
 <%= form_for [:admin, person] do |person_form| %>
   <%= person_form.errors %>
 
@@ -16,6 +21,13 @@
   <fieldset>
     <%= person_form.text_area :biography, class: "previewable" %>
   </fieldset>
-
+  <p class="warning">
+    <% if show_instantly_live_warning %>
+      Warning: changes to people appear instantly on the live site.
+    <% end %>
+    <% if show_consult_gds_warning %>
+      Do not create ministerial people without consulting GDS.
+    <% end %>
+  </p>
   <%= person_form.save_or_cancel cancel: admin_people_path %>
 <% end %>

@@ -2,7 +2,8 @@
 <div class="span8">
   <section>
     <h1>Edit role</h1>
-    <%= render partial: "form", locals: {role: @role} %>
+    <p class="warning">Warning: changes to roles appear instantly on the live site.</p>
+    <%= render partial: "form", locals: {role: @role, show_instantly_live_warning: true} %>
   </section>
 </div>
 

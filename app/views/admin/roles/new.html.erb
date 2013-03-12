@@ -2,7 +2,8 @@
 <div class="span8">
   <section>
     <h1>New role</h1>
-    <%= render partial: "form", locals: {role: @role} %>
+    <p class="warning">Do not create ministerial roles without consulting GDS.</p>
+    <%= render partial: "form", locals: {role: @role, show_consult_gds_warning: true} %>
   </section>
 </div>
 

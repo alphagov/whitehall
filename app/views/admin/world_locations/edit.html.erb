@@ -3,6 +3,7 @@
 <div class="span8 world-locations-edit-span">
   <section>
     <h1>Edit world location</h1>
+  <p class="warning">Warning: changes to worldwide locations appear instantly on the live site.</p>
     <%= form_for([:admin, @world_location]) do |form| %>
       <%= form.label :world_location_type_id, 'Type' %>
       <%= form.select :world_location_type_id, options_from_collection_for_select(WorldLocationType.all, :id, :name, form.object.world_location_type_id) %>
@@ -15,7 +16,7 @@
                 label_text: "Active (can visitors click through from the world location list?)" %>
 
       <%= render partial: 'admin/shared/mainstream_link_fields', locals: { form: form } %>
-
+      <p class="warning">Warning: changes to worldwide locations appear instantly on the live site.</p>
       <%= form.save_or_cancel cancel: admin_world_locations_path %>
     <% end %>
   </section>
