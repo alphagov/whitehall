@@ -39,6 +39,13 @@ table, caption, tbody, tfoot, thead, tr, th, td {
     &:focus {
       text-decoration: underline;
     }
+
+    &[rel="external"] {
+      @include external-link-13-no-hover;
+      @include media(tablet) {
+        @include external-link-19-no-hover;
+      }
+    }
   }
 
   a * {
