@@ -1,3 +1,7 @@
 <ul class="world-locations">
-  <%= render partial: "world_locations/world_location", collection: world_locations %>
+  <% world_locations.each do |world_location| %>
+  <li>
+    <%= link_to world_location.name, admin_world_locations_path(anchor: "world_location_#{world_location.id}"), class: 'location-link' %>
+  </li>
+  <% end %>
 </ul>
