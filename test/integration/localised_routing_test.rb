@@ -18,6 +18,11 @@ class RoutingLocaleTest < ActionDispatch::IntegrationTest
       routing_options: {controller: 'worldwide_priorities', action: 'show', id: 'a-world-priority', locale: 'en'}
     },
     {
+      name:            'publications',
+      expected_url:    '/government/publications/look-at-this-thing-we-did',
+      routing_options: {controller: 'publications', action: 'show', id: 'look-at-this-thing-we-did', locale: 'en'}
+    },
+    {
       name:            'people',
       expected_url:    '/government/people/lord-ahmad-of-wimbledon',
       routing_options: {controller: 'people', action: 'show', id: 'lord-ahmad-of-wimbledon', locale: 'en'}

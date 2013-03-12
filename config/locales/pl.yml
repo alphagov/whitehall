@@ -1,12 +1,27 @@
 pl:
   document:
     headings:
+      attachments:
+        one:
+        few:
+        many:
+        other:
       ministers:
         one:
         few:
         many:
         other:
+      organisations:
+        one:
+        few:
+        many:
+        other:
       policies:
+        one:
+        few:
+        many:
+        other:
+      supporting_documents:
         one:
         few:
         many:
@@ -213,6 +228,11 @@ pl:
         few:
         many:
         other:
+      world_location_news_article:
+        one:
+        few:
+        many:
+        other:
       worldwide_priority:
         one:
         few:
@@ -328,6 +348,16 @@ pl:
         primary_mainstream_category:
   announcements:
     heading:
+  attachment:
+    accessibility:
+      full_help_html:
+      heading:
+      request_a_different_format:
+    headings:
+      order_a_copy:
+      order_a_copy_full:
+      published:
+      reference:
   change_notes:
     published:
     updated:
@@ -370,6 +400,8 @@ pl:
     heading:
   publications:
     heading:
+    headings:
+      detail:
   read_more:
   support:
     array:

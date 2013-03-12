@@ -1,12 +1,21 @@
 es:
   document:
     headings:
+      attachments:
+        one:
+        other:
       ministers:
         one: Ministro
         other: Ministros
+      organisations:
+        one:
+        other:
       policies:
         one: Política
         other: Políticas
+      supporting_documents:
+        one:
+        other:
       topics:
         one: Tema
         other: Temas
@@ -131,6 +140,9 @@ es:
       transparency:
         one: Datos sobre transparencia
         other: Datos sobre transparencia
+      world_location_news_article:
+        one:
+        other:
       worldwide_priority:
         one: Prioridad en todo el mundo
         other: Prioridades en todo el mundo
@@ -214,6 +226,16 @@ es:
         primary_mainstream_category: Categoría de orientación principal en detalle
   announcements:
     heading:
+  attachment:
+    accessibility:
+      full_help_html:
+      heading:
+      request_a_different_format:
+    headings:
+      order_a_copy:
+      order_a_copy_full:
+      published:
+      reference:
   change_notes:
     published: Publicado
     updated: Actualizado
@@ -256,6 +278,8 @@ es:
     heading:
   publications:
     heading:
+    headings:
+      detail:
   read_more: Leer más
   support:
     array:

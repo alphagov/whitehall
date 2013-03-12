@@ -62,6 +62,10 @@ class AttachmentsPresenter < Struct.new(:edition)
     @attachments
   end
 
+  def length
+    attachments.length
+  end
+
   def any?
     attachments.any?
   end

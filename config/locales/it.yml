@@ -1,12 +1,21 @@
 it:
   document:
     headings:
+      attachments:
+        one:
+        other:
       ministers:
         one: Ministro
         other: Ministri
+      organisations:
+        one:
+        other:
       policies:
         one: Politica
         other: Politiche
+      supporting_documents:
+        one:
+        other:
       topics:
         one: Argomento
         other: Argomenti
@@ -217,6 +226,16 @@ it:
         primary_mainstream_category: Categoria principale indicazioni dettagliate
   announcements:
     heading: Annunci
+  attachment:
+    accessibility:
+      full_help_html:
+      heading:
+      request_a_different_format:
+    headings:
+      order_a_copy:
+      order_a_copy_full:
+      published:
+      reference:
   change_notes:
     published: Pubblicato
     updated: Aggiornato
@@ -259,6 +278,8 @@ it:
     heading: Politiche
   publications:
     heading: Pubblicazioni
+    headings:
+      detail:
   read_more: Per saperne di più…
   support:
     array:

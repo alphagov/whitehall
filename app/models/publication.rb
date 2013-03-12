@@ -93,6 +93,10 @@ class Publication < Publicationesque
     true
   end
 
+  def translatable?
+    true
+  end
+
   private
 
   def only_publications_allowed_invalid_data_can_be_awaiting_type

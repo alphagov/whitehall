@@ -1,10 +1,19 @@
 lv:
   document:
     headings:
+      attachments:
+        one:
+        other:
       ministers:
         one:
         other:
+      organisations:
+        one:
+        other:
       policies:
+        one:
+        other:
+      supporting_documents:
         one:
         other:
       topics:
@@ -131,6 +140,9 @@ lv:
       transparency:
         one:
         other:
+      world_location_news_article:
+        one:
+        other:
       worldwide_priority:
         one:
         other:
@@ -214,6 +226,16 @@ lv:
         primary_mainstream_category:
   announcements:
     heading:
+  attachment:
+    accessibility:
+      full_help_html:
+      heading:
+      request_a_different_format:
+    headings:
+      order_a_copy:
+      order_a_copy_full:
+      published:
+      reference:
   change_notes:
     published:
     updated:
@@ -256,6 +278,8 @@ lv:
     heading:
   publications:
     heading:
+    headings:
+      detail:
   read_more:
   support:
     array:
