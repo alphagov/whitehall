@@ -506,6 +506,7 @@ class ImportTest < ActiveSupport::TestCase
     Import.delete_all
     ImportError.delete_all
     yield
+  ensure
     Import.destroy_all
   end
 
