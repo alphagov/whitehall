@@ -40,20 +40,20 @@ module Whitehall::Uploader
     end
 
     def translated_title
-      row['title_translation']
+      row['title_translation'].to_s
     end
 
     def translated_summary
       summary_text = Parsers::RelativeToAbsoluteLinks.parse(row['summary_translation'], organisation.try(:url))
       if summary_text.blank?
-        Parsers::SummariseBody.parse(translated_body)
+        Parsers::SummariseBody.parse(translated_body).to_s
       else
-        summary_text
+        summary_text.to_s
       end
     end
 
     def translated_body
-      Parsers::RelativeToAbsoluteLinks.parse(row['body_translation'], organisation.try(:url))
+      Parsers::RelativeToAbsoluteLinks.parse(row['body_translation'], organisation.try(:url)).to_s
     end
 
     def legacy_urls
