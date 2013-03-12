@@ -1,6 +1,6 @@
 <%
-  warning ||= false
-  warning_do_not ||= false
+  show_instantly_live_warning ||= false
+  show_consult_gds_warning ||= false
 %>
 
 <% role_type = role.type %>
@@ -24,10 +24,10 @@
     <%= form.text_area :responsibilities, class: "previewable" %>
   </fieldset>
   <p class="warning">
-    <% if warning %>
+    <% if show_instantly_live_warning %>
       Warning: changes to roles appear instantly on the live site.
     <% end %>
-    <% if warning_do_not %>
+    <% if show_consult_gds_warning %>
       Do not create ministerial roles without consulting GDS.
     <% end %>
   </p>
