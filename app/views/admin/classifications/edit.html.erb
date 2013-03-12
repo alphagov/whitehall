@@ -3,7 +3,8 @@
 <div class="span8">
   <section>
     <h1>Edit <%= model_class.name.underscore.humanize.downcase %></h1>
-    <%= render partial: "form", locals: {classification: @classification} %>
+    <p class="warning">Warning: changes to <%= model_class.name.underscore.humanize.downcase %>s appear instantly on the live site.</p>
+    <%= render partial: "form", locals: {classification: @classification, show_instantly_live_warning: true} %>
   </section>
 </div>
 

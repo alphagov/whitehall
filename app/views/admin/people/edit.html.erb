@@ -3,7 +3,8 @@
 <div class="span8">
   <section>
     <h1>Edit person</h1>
-    <%= render partial: "form", locals: {person: @person} %>
+    <p class="warning">Warning: changes to people appear instantly on the live site.</p>
+    <%= render partial: "form", locals: {person: @person, show_instantly_live_warning: true} %>
   </section>
 </div>
 

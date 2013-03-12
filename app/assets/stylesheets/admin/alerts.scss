@@ -48,3 +48,10 @@ $notice-border-color: #39b54a;
     margin-bottom: 0;
   }
 }
+
+.warning {
+  color: $alert-border-color;
+  font-size: 1.2em;
+  font-weight: bold;
+  margin: 15px 0;
+}
