@@ -1,0 +1,15 @@
+<% page_title "Edit translation for: #{@english_organisation.name}" %>
+
+<h1>Edit '<%= @translation_locale.native_language_name %> (<%= @translation_locale.english_language_name %>)' translation for: <%= @english_organisation.name %></h1>
+
+<%= form_for @translated_organisation, url: admin_organisation_translation_path(@translated_organisation, translation_locale), method: :put do |form| %>
+  <%= form.errors %>
+
+  <%= form.translated_text_field :name %>
+  <%= form.translated_text_field :acronym %>
+  <%= form.translated_text_area  :logo_formatted_name %>
+  <%= form.translated_text_area  :description %>
+  <%= form.translated_text_area  :about_us %>
+
+  <%= form.save_or_cancel cancel: admin_organisation_translations_path(@translated_organisation) %>
+<% end %>

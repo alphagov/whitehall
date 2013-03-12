@@ -134,6 +134,7 @@ class Admin::WorldwideOrganisationsTranslationsControllerTest < ActionController
 
   view_test 'update re-renders form if translation is invalid' do
     put :update, worldwide_organisation_id: @worldwide_organisation, id: 'fr', worldwide_organisation: {
+      name: '',
       description: 'Barbes, moustaches, même rouflaquettes',
     }
 

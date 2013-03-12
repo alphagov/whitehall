@@ -322,6 +322,29 @@ en:
         other: Others
     headings:
       plus_others: + others
+      what_we_do: What we do
+      our_topics: We work on these topics
+      our_policies: Our policies
+      our_announcements: Our announcements
+      our_services: Our services
+      our_publications: Our publications
+      our_statistics: Our statistics
+      our_ministers: Our ministers
+      our_senior_military_officials: Our senior military officials
+      our_management: Our management
+      traffic_commissioners: Traffic commissioners
+      special_representatives: Special representatives
+      contact: Contact %{name}
+      corporate_information: Corporate information
+      corporate_reports: Corporate reports
+    corporate_information:
+      access_our_info: Access our information
+      jobs_and_contacts: Jobs and contracts
+      transparency: Transparency data
+      foi_releases: FOI releases
+      foi_how_to: How to make an FOI request
+    about:
+      read_more: Read more about what we do
   announcements:
     heading: Announcements
   policies:

@@ -17,7 +17,7 @@
 <header class="page-header">
   <%= content_tag :h1 do %>
     <% if link_to_organisation %>
-      <%= link_to organisation_path(organisation), class: logo_classes(class_name: organisation.organisation_logo_type.class_name, size: logo_size, stacked: true) do %>
+      <%= link_to organisation, class: logo_classes(class_name: organisation.organisation_logo_type.class_name, size: logo_size, stacked: true) do %>
         <span><%= organisation_logo_name(organisation) %></span>
       <% end %>
     <% else %>
@@ -30,7 +30,7 @@
     <%= content_tag :div, class: "sub-organisation-name" do %>
       <h2>
         <% if link_to_sub_organisation %>
-          <%= link_to sub_organisation.name, organisation_path(sub_organisation), class: "sub-organisation-name" %>
+          <%= link_to sub_organisation.name, sub_organisation, class: "sub-organisation-name" %>
         <% else %>
           <%= sub_organisation.name %>
         <% end %>
