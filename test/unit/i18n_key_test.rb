@@ -8,12 +8,14 @@ class I18nKeyTest < ActiveSupport::TestCase
   end
 
   test "all locale files are up-to-date" do
-    default_changed_time = File.ctime(default_locale_file_path)
+    default_keys = keys_in_locale_file(default_locale_file_path)
     locale_files = Dir[Rails.root.join('config','locales','*.yml')] - [default_locale_file_path.to_s]
 
     locale_files.each do |locale_file|
-      assert File.ctime(locale_file) >= default_changed_time,
-        "#{locale_file} is older than the default locale file. Have you regenerated the locale files to add any missing keys?"
+      missing_keys = default_keys - keys_in_locale_file(locale_file)
+      assert(missing_keys.empty?,
+        "#{locale_file} is missing '#{missing_keys.join("', '")}'. Have you run " +
+        "rake translation:regenerate to add any missing keys?")
     end
   end
 
@@ -90,5 +92,24 @@ class I18nKeyTest < ActiveSupport::TestCase
 
   def any_nil_values?(hash)
     hash.detect {|k,v| v.nil? or (v.is_a?(Hash) && any_nil_values?(v)) }
+  end
+
+  def keys_in_locale_file(locale_file)
+    yaml = YAML.load_file(locale_file)
+    flatten_keys(yaml, [])
+  end
+
+  def flatten_keys(hash, context)
+    hash.map do |key, value|
+      if context.size == 1 && key == "language_names"
+        # don't care about language names, each language should define
+        # its own language name and nothing more
+        next
+      elsif value.is_a?(Hash)
+        flatten_keys(value, context + [key])
+      else
+        context[1..-1].join(".") << "." << key
+      end
+    end.flatten
   end
 end
