@@ -119,11 +119,11 @@ class Admin::EditionOrganisationsControllerTest < ActionController::TestCase
     assert edition_organisation.alt_text.blank?
   end
 
-  test "should redirect back to the documents tab of the organisation's admin page" do
+  test "should redirect back to the documents page of the organisation's admin page" do
     organisation = create(:organisation)
     edition_organisation = create(:edition_organisation, organisation: organisation)
     post :update, id: edition_organisation, edition_organisation: {}
-    assert_redirected_to admin_organisation_path(organisation, anchor: "documents")
+    assert_redirected_to documents_admin_organisation_path(organisation)
   end
 
   test "should prevent access to editon_organisations of inaccessible editions" do
