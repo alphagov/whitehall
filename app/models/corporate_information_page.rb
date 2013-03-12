@@ -18,7 +18,9 @@ class CorporateInformationPage < ActiveRecord::Base
 
   searchable title: :title_prefix_organisation_name,
              link: :search_link,
-             content: :indexable_content
+             content: :indexable_content,
+             # NOTE: when we launch world we can change this to belonging_to_live_organisations on it's own
+             only: :belonging_to_live_organisations_and_excluding_worldwide_organisations
 
   def body_without_markup
     Govspeak::Document.new(body).to_text
@@ -40,6 +42,21 @@ class CorporateInformationPage < ActiveRecord::Base
   def self.for_slug!(slug)
     type = CorporateInformationPageType.find(slug)
     find_by_type_id!(type && type.id)
+  end
+
+  def self.belonging_to_live_organisations_and_excluding_worldwide_organisations
+    belonging_to_live_organisations.excluding_worldwide_organisations
+  end
+
+  def self.belonging_to_live_organisations
+    joins("LEFT OUTER JOIN organisations ON
+      corporate_information_pages.organisation_id = organisations.id AND
+      corporate_information_pages.organisation_type = 'Organisation'").
+    where("(#{Organisation.arel_table[:id].eq(nil).to_sql} OR #{Organisation.arel_table[:govuk_status].eq('live').to_sql})")
+  end
+
+  def self.excluding_worldwide_organisations
+    where(CorporateInformationPage.arel_table[:organisation_type].not_eq('WorldwideOrganisation'))
   end
 
   def type

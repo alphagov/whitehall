@@ -129,4 +129,35 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
     end
   end
 
+  test 'will not be indexed if the org it belongs to is not live on gov.uk' do
+    joining_org = create(:organisation, govuk_status: 'joining')
+    exempt_org = create(:organisation, govuk_status: 'exempt')
+    transitioning_org = create(:organisation, govuk_status: 'transitioning')
+    live_org = create(:organisation, govuk_status: 'live')
+
+
+    c1 = build(:corporate_information_page, organisation: joining_org)
+    c2 = build(:corporate_information_page, organisation: exempt_org)
+    c3 = build(:corporate_information_page, organisation: transitioning_org)
+    c4 = build(:corporate_information_page, organisation: live_org)
+    Rummageable.expects(:index).with(c1.search_index, Whitehall.government_search_index_path).never
+    c1.save
+
+    Rummageable.expects(:index).with(c2.search_index, Whitehall.government_search_index_path).never
+    c2.save
+
+    Rummageable.expects(:index).with(c3.search_index, Whitehall.government_search_index_path).never
+    c3.save
+
+    Rummageable.expects(:index).with(c4.search_index, Whitehall.government_search_index_path).once
+    c4.save
+  end
+
+  test 'until we launch worldwide will not be indexed if the org it belongs to is a worldwide org' do
+    world_org = create(:worldwide_organisation)
+
+    corp_page = build(:corporate_information_page, organisation: world_org)
+    Rummageable.expects(:index).with(corp_page.search_index, Whitehall.government_search_index_path).never
+    corp_page.save
+  end
 end
