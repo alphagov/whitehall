@@ -1,3 +1,4 @@
+# encoding: utf-8
 require 'fast_test_helper'
 require 'whitehall/uploader'
 
@@ -5,7 +6,7 @@ module Whitehall::Uploader
   class RowTest < ActiveSupport::TestCase
     setup do
       @attachment_cache = stub('attachment cache')
-      @default_organisation = stub('Organisation')
+      @default_organisation = stub('organisation', url: 'url')
     end
 
     test "validates row headings" do
@@ -89,7 +90,10 @@ module Whitehall::Uploader
 
     test "recognises the presence of a translation" do
       refute build_row({}).translation_present?
+      refute build_row({'title' => 'Title'}).translation_present?
       assert build_row({'locale' => 'es'}).translation_present?
+      assert build_row({'title_translation' => 'Título'}).translation_present?
+      assert build_row({'locale' => 'es', 'title_translation' => 'Título'}).translation_present?
     end
 
     test "returns the locale" do
