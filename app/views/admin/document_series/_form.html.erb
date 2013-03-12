@@ -3,6 +3,7 @@
 
   <%= form.text_field :name %>
   <%= form.text_area :description, "class" => "previewable" %>
-
+  
+  <p class="warning">Warning: changes to document series appear instantly on the live site.</p>
   <%= form.save_or_cancel cancel: admin_organisation_path(@document_series.organisation) %>
 <% end %>

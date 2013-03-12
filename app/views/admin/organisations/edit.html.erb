@@ -2,7 +2,8 @@
 <div class="span8">
   <section>
     <h1>Edit organisation</h1>
-    <%= render partial: "form", locals: {organisation: @organisation} %>
+    <p class="warning">Warning: changes to organisations appear instantly on the live site.</p>
+    <%= render partial: "form", locals: {organisation: @organisation, warning: true} %>
   </section>
 </div>
 

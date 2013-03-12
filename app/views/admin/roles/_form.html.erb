@@ -1,3 +1,8 @@
+<%
+  warning ||= false
+  warning_do_not ||= false
+%>
+
 <% role_type = role.type %>
 <%= form_for [:admin, role.becomes(Role)], as: :role do |form| %>
   <%= form.errors %>
@@ -18,6 +23,13 @@
   <fieldset>
     <%= form.text_area :responsibilities, class: "previewable" %>
   </fieldset>
-
+  <p class="warning">
+    <% if warning %>
+      Warning: changes to roles appear instantly on the live site.
+    <% end %>
+    <% if warning_do_not %>
+      Do not create ministerial roles without consulting GDS.
+    <% end %>
+  </p>
   <%= form.save_or_cancel cancel: admin_roles_path %>
 <% end %>

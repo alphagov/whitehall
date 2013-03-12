@@ -1,3 +1,8 @@
+<%
+  warning ||= false
+  warning_do_not ||= false
+%>
+
 <%= form_for [:admin, classification] do |classification_form| %>
   <%= classification_form.errors %>
 
@@ -55,5 +60,13 @@
     </fieldset>
   </div>
   <%= render partial: 'admin/shared/govdelivery_fields', locals: { form: classification_form } %>
+  <p class="warning">
+    <% if warning %>
+      Warning: changes to <%= model_class.name.underscore.humanize.downcase %>s appear instantly on the live site.
+    <% end %>
+    <% if warning_do_not %>
+      Do not create <%= model_class.name.underscore.humanize.downcase %>s without consulting GDS.
+    <% end %>
+  </p>
   <%= classification_form.save_or_cancel cancel: [:admin, model_class] %>
 <% end %>

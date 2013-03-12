@@ -1,3 +1,8 @@
+<%
+  warning ||= false
+  warning_do_not ||= false
+%>
+
 <%= form_for [:admin, organisation], as: :organisation do |organisation_form| %>
   <%= organisation_form.errors %>
   <fieldset>
@@ -90,5 +95,13 @@
   <% end %>
 
   <%= render partial: 'admin/shared/govdelivery_fields', locals: { form: organisation_form } %>
+  <p class="warning">
+    <% if warning %>
+      Warning: changes to organisations appear instantly on the live site.
+    <% end %>
+    <% if warning_do_not %>
+      Do not create organisations without consulting GDS.
+      <% end %>
+  </p>
   <%= organisation_form.save_or_cancel(cancel: (@organisation.persisted? ? admin_organisation_path(@organisation) : admin_organisations_path)) %>
 <% end %>
