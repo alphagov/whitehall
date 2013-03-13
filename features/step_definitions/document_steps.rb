@@ -241,6 +241,12 @@ Then /^I should see in the preview that "([^"]*)" should related to "([^"]*)" an
   assert has_css?("#related-policies .policy", text: related_policy_2)
 end
 
+Then /^I should see in the preview that "([^"]*)" should related to "([^"]*)" and "([^"]*)" worldwide priorities$/ do |title, related_priority_1, related_priority_2|
+  visit_document_preview title
+  assert has_css?("#related-priorities .worldwide_priority", text: related_priority_1)
+  assert has_css?("#related-priorities .worldwide_priority", text: related_priority_2)
+end
+
 Then /^I should see in the preview that "([^"]*)" does (not )?have a public link to "([^"]*)"/ do |source_title, should_not_have_link, target_title|
   visit_document_preview source_title
   target_edition = Edition.find_by_title!(target_title)

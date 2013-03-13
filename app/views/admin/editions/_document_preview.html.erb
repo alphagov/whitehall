@@ -164,6 +164,19 @@
         </section>
       <% end %>
 
+      <% if @edition.can_be_associated_with_worldwide_priorities? %>
+        <section>
+          <h1>Related worldwide priorities</h1>
+          <% if @edition.worldwide_priorities.any? %>
+            <ul id="related-priorities">
+              <%= render partial: 'worldwide_priority', collection: @edition.worldwide_priorities %>
+            </ul>
+          <% else %>
+            <p>This document doesn't have any related worldwide priorities.</p>
+          <% end %>
+        </section>
+      <% end %>
+
       <% if @edition.images.any? %>
         <section class="images">
           <h1>Images</h1>
