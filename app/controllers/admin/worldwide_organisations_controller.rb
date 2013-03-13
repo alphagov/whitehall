@@ -4,7 +4,7 @@ class Admin::WorldwideOrganisationsController < Admin::BaseController
   before_filter :find_worldwide_organisation, except: [:index, :new, :create]
 
   def index
-    respond_with @worldwide_organisations = WorldwideOrganisation.all
+    respond_with @worldwide_organisations = WorldwideOrganisation.ordered_by_name
   end
 
   def new
