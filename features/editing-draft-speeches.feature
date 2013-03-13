@@ -14,7 +14,7 @@ Scenario: Editing an existing draft speech
 
 Scenario: Creating a speech related to multiple policies
   Given two published policies "Against All Cods" and "O For Tuna" exist
-  When I draft a new speech "Fishy Business" relating it to "Against All Cods" and "O For Tuna"
+  When I draft a new speech "Fishy Business" relating it to the policies "Against All Cods" and "O For Tuna"
   Then I should see in the preview that "Fishy Business" should related to "Against All Cods" and "O For Tuna" policies
 
 Scenario: Trying to save a speech that has been changed by another user

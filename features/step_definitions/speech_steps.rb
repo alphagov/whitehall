@@ -74,7 +74,7 @@ When /^I visit the speech "([^"]*)"$/ do |title|
   visit public_document_path(speech)
 end
 
-When /^I draft a new speech "([^"]*)" relating it to "([^"]*)" and "([^"]*)"$/ do |title, first_policy, second_policy|
+When /^I draft a new speech "([^"]*)" relating it to the policies "([^"]*)" and "([^"]*)"$/ do |title, first_policy, second_policy|
   begin_drafting_speech title: title
   select first_policy, from: "Related policies"
   select second_policy, from: "Related policies"

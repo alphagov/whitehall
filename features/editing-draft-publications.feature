@@ -9,7 +9,7 @@ Scenario: Creating a new draft publication
 
 Scenario: Creating a new draft publication related to multiple policies
   Given two published policies "Totally Tangy Tofu" and "Awakened Tastebuds" exist
-  When I draft a new publication "Healthy Eating" relating it to "Totally Tangy Tofu" and "Awakened Tastebuds"
+  When I draft a new publication "Healthy Eating" relating it to the policies "Totally Tangy Tofu" and "Awakened Tastebuds"
   Then I should see in the preview that "Healthy Eating" should related to "Totally Tangy Tofu" and "Awakened Tastebuds" policies
 
 Scenario: Creating a new draft publication that applies to multiple nations
