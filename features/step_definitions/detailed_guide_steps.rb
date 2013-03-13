@@ -41,12 +41,6 @@ Given /^I start drafting a new detailed guide$/ do
   begin_drafting_document type: 'detailed_guide', title: "Detailed Guide", primary_mainstream_category: category
 end
 
-When /^I select an image for the detailed guide$/ do
-  within ".images" do
-    attach_file "File", Rails.root.join("test/fixtures/minister-of-funk.960x640.jpg")
-  end
-end
-
 When /^I visit the detailed guide "([^"]*)"$/ do |name|
   guide = DetailedGuide.find_by_title!(name)
   visit detailed_guide_path(guide.document)
