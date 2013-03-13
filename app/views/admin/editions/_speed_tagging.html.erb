@@ -22,6 +22,14 @@
 
 
   <%= form_for [:admin, @edition], as: :edition, builder: Admin::EditionsHelper::EditionFormBuilder do |form| %>
+
+    <%= form.text_field :title %>
+
+    <%= form.text_area :summary, rows: 2 %>
+    <div class="summary-length-info">Summary text should be 140 characters or fewer. <span class="count"></span></div>
+
+    <%= form.text_area :body, "class" => "previewable" %>
+
     <%= form.label :organisation_ids, 'Organisations:' %>
     <%= form.select :organisation_ids, options_from_collection_for_select(Organisation.all, 'id', 'name', @edition.organisation_ids), {}, multiple: true, class: 'chzn-select', data: { placeholder: "Choose organisations which produced this document..." } %>
 
