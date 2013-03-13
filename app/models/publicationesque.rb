@@ -1,6 +1,7 @@
 class Publicationesque < Edition
   include Edition::RelatedPolicies
   include Edition::DocumentSeries
+  include Edition::WorldwidePriorities
   include ::Attachable
 
   attachable :edition

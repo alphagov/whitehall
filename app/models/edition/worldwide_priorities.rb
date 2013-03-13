@@ -11,7 +11,6 @@ module Edition::WorldwidePriorities
     has_many :published_worldwide_priorities,
       through: :related_documents,
       class_name: "WorldwidePriority",
-      conditions: { state: "published" },
       source: :published_edition
 
     # Ensure that when we set priority ids we don't remove other types of edition from the array

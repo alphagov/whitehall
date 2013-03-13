@@ -24,7 +24,7 @@
     <div class="inner-block">
       <%= render partial: "document_content" %>
       <% if @document.case_studies.any? %>
-        <%= render partial: "case_studies", locals: {document: @document} %>
+        <%= render partial: "case_studies/case_studies", locals: {case_studies: @document.case_studies} %>
       <% end %>
     </div>
   </div>

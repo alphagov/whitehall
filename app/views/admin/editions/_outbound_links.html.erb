@@ -118,6 +118,20 @@
     </section>
   <% end %>
 
+
+  <% if edition.can_be_associated_with_worldwide_priorities? %>
+    <section>
+      <h2>Worldwide priorities</h2>
+      <% if edition.worldwide_priorities.any? %>
+        <ul id="related-priorities">
+          <%= render partial: 'worldwide_priority', collection: edition.worldwide_priorities %>
+        </ul>
+      <% else %>
+        <p>This document doesn't have any related worldwide priorities.</p>
+      <% end %>
+    </section>
+  <% end %>
+
   <% if edition.can_be_associated_with_statistical_data_sets? %>
     <section>
       <h2>Statistical data sets</h2>
