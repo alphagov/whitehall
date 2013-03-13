@@ -345,6 +345,24 @@ That's all
     assert_equal [consultation, speech, news_article, publication], assigns(:recently_changed_documents)
   end
 
+  view_test "activity uses pagination when there are many documents" do
+    policy = create(:published_policy)
+    publication_1 = create(:published_publication, publication_date: 4.weeks.ago, related_editions: [policy])
+    publication_2 = create(:published_publication, publication_date: 3.weeks.ago, related_editions: [policy])
+    publication_3 = create(:published_publication, publication_date: 3.weeks.ago, related_editions: [policy])
+
+    pagination = mock('pagination')
+    pagination.expects(:per).with(40).once.returns(Edition.published.related_to(policy).page(2).per(1))
+    Edition.expects(:page).with('2').once.returns(pagination)
+
+    get :activity, id: policy.document, page: 2
+
+    assert_select '#show-more-documents' do
+      assert_select "a[href='#{activity_policy_path(policy.document)}']"
+      assert_select "a[href='#{activity_policy_path(policy.document, page: 3)}']"
+    end
+  end
+
   view_test "activity shows the display type of speeches" do
     policy = create(:published_policy)
     speech = create(:published_speech, speech_type: SpeechType::WrittenStatement, related_editions: [policy])

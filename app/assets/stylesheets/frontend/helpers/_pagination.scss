@@ -1,7 +1,6 @@
 #page .previous-next-navigation {
   position: relative;
   overflow: hidden;
-  background: $detailed-guidance-brand;
   margin-top: $gutter*2;
   width: 100%;
 
@@ -21,7 +20,7 @@
         padding: $gutter-half $gutter-half+30px $gutter-half 0;
       }
       a:before {
-        background: transparent image-url("arrow-sprite.png") no-repeat -102px -11px;
+        background: transparent image-url("arrow-sprite-2B8CC4.png") no-repeat -102px -11px;
         margin: -4px -32px 0 0;
         display: block;
         float: right;
@@ -35,7 +34,7 @@
           padding: $gutter-half 0 $gutter-half $gutter-half+30px;
       }
       a:before {
-        background: transparent image-url("arrow-sprite.png") no-repeat -20px -11px;
+        background: transparent image-url("arrow-sprite-2B8CC4.png") no-repeat -20px -11px;
         margin: -4px 0 0 -32px;
         display: block;
         float: left;
@@ -47,7 +46,6 @@
 
     a {
       display: block;
-      color: $white;
       text-decoration: none;
 
       span {
@@ -58,8 +56,11 @@
       &:hover span {
         text-decoration: underline;
       }
+      &:hover {
+        background: $grey-4;
+      }
       &:active {
-        background: darken($detailed-guidance-brand, 10%);
+        background: $grey-3;
       }
     }
     @media (max-width: 768px) {
@@ -88,7 +89,6 @@
       width: 240px;
       a {
         padding: 15px 0;
-        color: $text-colour;
       }
     }
     &.loading li {
