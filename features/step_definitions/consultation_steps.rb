@@ -52,3 +52,11 @@ Then /^the published date should be visible on save$/ do
   view_visible_consultation_on_website
   should_have_consultation_response_attachment_with_published_date(date)
 end
+
+When /^I draft a new consultation "([^"]*)" relating it to the worldwide_priorities "([^"]*)" and "([^"]*)"$/ do |title, first_priority, second_priority|
+  begin_drafting_news_article title: title
+  select first_priority, from: "Worldwide priorities"
+  select second_priority, from: "Worldwide priorities"
+  click_button "Save"
+end
+

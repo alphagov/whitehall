@@ -3,6 +3,10 @@ require "test_helper"
 class StatisticalDataSetTest < ActiveSupport::TestCase
   should_allow_inline_attachments
 
+  test "can be associated with worldwide priorities" do
+    assert StatisticalDataSet.new.can_be_associated_with_worldwide_priorities?
+  end
+
   test "should include the Edition::DocumentSeries behaviour" do
     assert StatisticalDataSet.ancestors.include?(Edition::DocumentSeries)
   end
@@ -21,7 +25,7 @@ class StatisticalDataSetTest < ActiveSupport::TestCase
     data_set = build(:statistical_data_set)
     assert data_set.access_limited?
   end
-  
+
   test 'search_format_types tags the data set as a statistical-data-set and publicationesque-statistics' do
     statistical_data_set = build(:statistical_data_set)
     assert statistical_data_set.search_format_types.include?('statistical-data-set')
