@@ -1,17 +1,17 @@
 <% page_title @worldwide_organisation.name %>
-<div class="row-fluid organisation-header">
-  <div class="span8">
-    <h1><%= @worldwide_organisation.name %></h1>
-    <%= link_to "View on website", url_for(@worldwide_organisation) %>
+
+<%= content_tag_for(:div, @worldwide_organisation) do %>
+  <div class="row-fluid organisation-header">
+    <div class="span8">
+      <h1><%= @worldwide_organisation.name %></h1>
+      <%= link_to "View on website", url_for(@worldwide_organisation) %>
+    </div>
   </div>
-</div>
 
 <div class="row-fluid">
   <div class="span12 organisation-details">
     <section>
       <%= tab_navigation_for(@worldwide_organisation) %>
-
-      <%= link_to "Add worldwide office", new_admin_worldwide_organisation_worldwide_office_path(@worldwide_organisation), class: "btn new_resource"%>
 
       <% if @worldwide_organisation.offices.any? %>
         <table class="table table-striped">
@@ -30,6 +30,9 @@
         <p>No offices</p>
       <% end %>
 
+      <div class="form-actions">
+        <%= link_to "Add", new_admin_worldwide_organisation_worldwide_office_path(@worldwide_organisation), class: "btn btn-large btn-primary"%>
+      </div>
     </section>
   </div>
-</div>
+<% end %>
