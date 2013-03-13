@@ -7,10 +7,6 @@ class HtmlVersionsController < PublicFacingController
   include CacheControlHelper
   include PublicDocumentRoutesHelper
 
-  def index
-    redirect_to publication_attachment_path(@publication.document, @publication.html_version)
-  end
-
   def show
     @document = @publication
     @html_version = @publication.html_version
@@ -25,7 +21,7 @@ class HtmlVersionsController < PublicFacingController
   end
 
   def find_html_version
-    unless (@publication.html_version)
+    unless (@publication.html_version && params[:id] == @publication.html_version.slug)
       render text: "Not found", status: :not_found
     end
   end

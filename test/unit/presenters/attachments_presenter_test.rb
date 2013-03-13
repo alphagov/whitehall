@@ -138,7 +138,7 @@ class HtmlAttachmentTest < ActiveSupport::TestCase
   end
 
   test '#url returns the html attachment url generated from the publication path' do
-    assert_equal '/government/publications/edition-slug/attachments/slug', html_attachment.url
+    assert_equal '/government/publications/edition-slug/slug', html_attachment.url
   end
 
   test '#to_param returns the slug' do
