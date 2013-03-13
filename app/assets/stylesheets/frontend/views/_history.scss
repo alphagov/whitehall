@@ -99,10 +99,16 @@
       border: solid $black;
       border-width: 0 0 $gutter-one-sixth;
     }
-    @include media(tablet) {
-      .image {
+    .image {
+      figcaption {
+        @include core-14;
+        color: grey;
+      }
+      @include media(tablet) {
         width: 33.33%;
       }
+    }
+    @include media(tablet) {
       .copy {
         width: 66.66%;
       }
