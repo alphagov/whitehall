@@ -46,9 +46,10 @@ Whitehall::Application.routes.draw do
     resources :fatality_notices, path: 'fatalities', only: [:show]
     match "/news" => redirect("/announcements")
     match "/fatalities" => redirect("/announcements")
-    resources :publications, only: [:index, :show], localised: true do
-      resources :attachments, controller: 'html_versions', only: [:index, :show]
-    end
+
+    resources :publications, only: [:index, :show], localised: true
+    match "/publications/:publication_id/:id" => 'html_versions#show', as: 'publication_html_version'
+
     resources :case_studies, path: 'case-studies', only: [:show, :index], localised: true
     resources :speeches, only: [:show], localised: true
     resources :statistical_data_sets, path: 'statistical-data-sets', only: [:index, :show]

@@ -220,4 +220,31 @@ class PersonTest < ActiveSupport::TestCase
     refute person.translated_locales.include?(:fr)
     assert person.translated_locales.include?(:es)
   end
+
+  test '#without_current_ministerial_roles finds people with no roles' do
+    person = create(:person)
+
+    assert_includes Person.without_a_current_ministerial_role, person
+  end
+
+  test '#without_a_current_ministerial_role finds people with a ministerial role that has ended' do
+    person = create(:person)
+    create(:ministerial_role_appointment, person: person, started_at: 2.years.ago, ended_at: 1.day.ago)
+
+    assert_includes Person.without_a_current_ministerial_role, person
+  end
+
+  test '#without_current_ministerial_roles finds people with current role that is not ministerial' do
+    person = create(:person)
+    create(:role_appointment, person: person)
+
+    assert_includes Person.without_a_current_ministerial_role, person
+  end
+
+  test '#without_current_ministerial_roles does not include people with a current ministerial role' do
+    person = create(:person)
+    mini_role = create(:ministerial_role_appointment, person: person)
+
+    refute_includes Person.without_a_current_ministerial_role, person
+  end
 end

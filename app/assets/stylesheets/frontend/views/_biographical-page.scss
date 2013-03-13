@@ -23,7 +23,7 @@
 
   .in-page-navigation {
     margin-top: 0;
-    padding-top: 0;
+    padding: 0 0 $gutter;
     .image {
       padding: $gutter-one-sixth 0 $gutter-two-thirds;
     }

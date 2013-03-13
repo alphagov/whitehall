@@ -31,7 +31,6 @@ $department-for-work-pensions-websafe: #37807b;
 $department-of-energy-climate-change-websafe: #2b7cac;
 $department-of-health-websafe: #39836e;
 $foreign-commonwealth-office-websafe: #406e97;
-$government-equalities-office-websafe: #9440b2;
 $hm-government-websafe: #347da4;
 $hm-treasury-websafe: #832322;
 $home-office-websafe: #9440b2;
@@ -77,7 +76,7 @@ $wales-office-websafe: #7a242a;
   .department-of-health #{$selector} { #{$property}: $department-of-health; }
   .driving-standards-agency #{$selector} { #{$property}: $department-for-transport; }
   .foreign-commonwealth-office #{$selector} { #{$property}: $foreign-commonwealth-office; }
-  .government-equalities-office #{$selector} { #{$property}: $government-equalities-office; }
+  .government-equalities-office #{$selector} { #{$property}: $department-for-culture-media-sport; }
   .hm-government #{$selector} { #{$property}: $hm-government; }
   .hm-treasury #{$selector} { #{$property}: $hm-treasury; }
   .home-office #{$selector} { #{$property}: $home-office; }
@@ -108,7 +107,7 @@ $wales-office-websafe: #7a242a;
   .department-of-health #{$selector} { #{$property}: $department-of-health-websafe; }
   .driving-standards-agency #{$selector} { #{$property}: $department-for-transport-websafe; }
   .foreign-commonwealth-office #{$selector} { #{$property}: $foreign-commonwealth-office-websafe; }
-  .government-equalities-office #{$selector} { #{$property}: $government-equalities-office-websafe; }
+  .government-equalities-office #{$selector} { #{$property}: $department-for-culture-media-sport-websafe; }
   .hm-government #{$selector} { #{$property}: $hm-government-websafe; }
   .hm-treasury #{$selector} { #{$property}: $hm-treasury-websafe; }
   .home-office #{$selector} { #{$property}: $home-office-websafe; }

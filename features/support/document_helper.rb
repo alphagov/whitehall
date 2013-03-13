@@ -52,6 +52,11 @@ module DocumentHelper
     fill_in_news_article_fields
   end
 
+  def begin_drafting_consultation(options)
+    begin_drafting_document(options.merge(type: "consultation"))
+    fill_in_news_article_fields
+  end
+
   def begin_drafting_world_location_news_article(options)
     begin_drafting_document(options.merge(type: "world_location_news_article"))
   end

@@ -12,6 +12,10 @@ class NewsArticleTest < ActiveSupport::TestCase
     assert article.can_be_related_to_policies?
   end
 
+  test "can be associated with worldwide priorities" do
+    assert NewsArticle.new.can_be_associated_with_worldwide_priorities?
+  end
+
   test "#topics includes topics associated with related published policies" do
     related_policy = create(:published_policy, topics: [create(:topic), create(:topic)])
     news_article = create(:news_article, related_editions: [related_policy])

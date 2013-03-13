@@ -41,7 +41,7 @@ class AttachmentsPresenter < Struct.new(:edition)
     end
 
     def url
-      publication_attachment_path(edition.document, self)
+      publication_html_version_path(edition.document, self)
     end
 
     def id
