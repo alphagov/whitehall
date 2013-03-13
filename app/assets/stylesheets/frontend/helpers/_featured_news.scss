@@ -65,10 +65,21 @@
             font-weight: bold;
           }
         }
+        h3 {
+          @include core-19;
+          font-weight: bold;
+          padding: $gutter-one-sixth 0 $gutter-one-third ;
+        }
         .summary {
           @include ig-core-14;
         }
       }
+    }
+    &.article-clear {
+      clear: both;
+    }
+    &+ .keyline {
+      padding-top: $gutter*1.5;
     }
   }
 }
