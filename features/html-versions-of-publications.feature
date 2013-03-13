@@ -21,12 +21,18 @@ Feature: HTML version of publication
   html publication and a link back to the publication record page is
   displayed on the html publication.
 
-  Scenario: Adding an HTML version to a publication
+  Background:
     Given I am an editor
-    When I begin drafting a new publication "Beard figures 2013"
-    And I add an HTML version of the publication
+
+  Scenario: Adding an HTML version to a publication
+    When I publish a publication with an HTML version
     Then the HTML version should be visible on the public page
     And citizens should be able to view the HTML version
     And the HTML version should be styled with the organisation logo
     And the HTML version should link back to the publication record page
 
+  Scenario: Adding an image to the HTML version of a publication
+    When I begin drafting a new publication with an HTML version
+    And I select an image for the publication
+    And I reference the image from the HTML version
+    Then the HTML version of the published publication should show the referenced image

@@ -27,7 +27,7 @@
     <div class="inner-block">
       <article class="document">
         <div class="body govspeak">
-          <%= bare_govspeak_to_html @html_version.body, [] %>
+          <%= bare_govspeak_to_html @html_version.body, @document.images %>
         </div>
       </article>
     </div>
