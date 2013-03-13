@@ -27,7 +27,11 @@ module Whitehall
 
     # Activate observers that should always be running.
     unless ENV["SKIP_OBSERVERS_FOR_ASSET_TASKS"].present?
-      config.active_record.observers = :ministerial_role_search_index_observer, :supporting_page_search_index_observer
+      config.active_record.observers = [
+        :ministerial_role_search_index_observer,
+        :supporting_page_search_index_observer,
+        :corporate_information_page_search_index_observer
+      ]
     end
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
