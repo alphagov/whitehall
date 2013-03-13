@@ -6,6 +6,7 @@ class Policy < Edition
   include Edition::FactCheckable
   include Edition::SupportingPages
   include Edition::WorldLocations
+  include Edition::WorldwidePriorities
   include Edition::AlternativeFormatProvider
 
   has_many :edition_relations, through: :document

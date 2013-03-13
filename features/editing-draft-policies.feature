@@ -34,6 +34,12 @@ Scenario: Creating a new draft policy that applies to multiple nations
   Then I should see in the preview that "Outlaw Moustaches" does not apply to the nations:
     | Scotland | Wales |
 
+Scenario: Creating a new policy related to multiple worldwide prioirites
+  Given a published worldwide priority "Fish Exchange Programme" exists
+  And a published worldwide priority "Supporting British Fish Abroad" exists
+  When I draft a new policy "Fishy Business" relating it to the worldwide_priorities "Fish Exchange Programme" and "Supporting British Fish Abroad"
+  Then I should see in the preview that "Fishy Business" should related to "Fish Exchange Programme" and "Supporting British Fish Abroad" worldwide priorities
+
 Scenario: Adding a supporting page to a draft policy
   Given a draft policy "Outlaw Moustaches" exists
   When I add a supporting page "Handlebar Waxing" to the "Outlaw Moustaches" policy

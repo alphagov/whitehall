@@ -49,7 +49,7 @@ class PolicyTest < ActiveSupport::TestCase
     edition = create(:draft_policy)
     relationship = create(:edition_relation, document: edition.document)
     edition.destroy
-    assert_equal nil, EditionRelation.find_by_id(relationship.id)
+    refute EditionRelation.exists?(relationship)
   end
 
   test "should be able to fetch case studies" do
@@ -106,5 +106,9 @@ class PolicyTest < ActiveSupport::TestCase
   test 'search_format_types tags the policy as a policy' do
     policy = build(:policy)
     assert policy.search_format_types.include?('policy')
+  end
+
+  test 'can be associated with worldwide priorities' do
+    assert Policy.new.can_be_associated_with_worldwide_priorities?
   end
 end
