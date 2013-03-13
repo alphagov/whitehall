@@ -175,7 +175,7 @@
           <% if @military_personnel.any? %>
             <section id="military">
               <h1 class="label"><%= t('organisation.headings.our_senior_military_officials') %></h1>
-              <ul class="js-hide-extra-rows">
+              <ul>
                 <% @military_personnel.each_with_index do |role, i| %>
                 <%= render partial: "people/person",
                             locals: {
@@ -203,7 +203,7 @@
                              } %>
                 <% end %>
               </ul>
-              <ul class="management-secondary js-hide-extra-rows-2">
+              <ul class="management-secondary">
                 <% @board_members.each_with_index do |role, i| %>
                   <%= render partial: "people/person",
                              locals: {
@@ -221,7 +221,7 @@
           <% if @traffic_commissioners.any? %>
             <section id="traffic_commissioners">
               <h1 class="label"><%= t('organisation.headings.traffic_commissioners') %></h1>
-              <ul class="js-hide-extra-rows">
+              <ul>
                 <% @traffic_commissioners.each_with_index do |role, i| %>
                   <%= render partial: "people/person",
                              locals: {
@@ -239,7 +239,7 @@
           <% if @special_representatives.any? %>
             <section id="special_representatives">
               <h1 class="label"><%= t('organisation.headings.special_representatives') %></h1>
-              <ul class="js-hide-extra-rows">
+              <ul>
                 <% @special_representatives.each_with_index do |role, i| %>
                   <%= render partial: "people/person",
                              locals: {
@@ -263,7 +263,7 @@
       <div class="contact-wrapper">
         <h1 id="org-contacts" class="label"><%= t('organisation.headings.contact', name: @organisation.display_name) %></h1>
         <div class="org-contacts">
-          <div class="addresses js-hide-extra-rows-2">
+          <div class="addresses js-hide-extra-contacts">
             <%= render partial: 'contacts/contact', collection: @organisation.contacts %>
           </div>
         </div>

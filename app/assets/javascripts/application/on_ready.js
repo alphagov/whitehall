@@ -19,12 +19,7 @@ jQuery(function($) {
     appendToParent: true,
     showWrapper: $('<li/>')
   });
-  $('.js-hide-extra-rows').hideExtraRows();
-  $('.js-hide-extra-rows-2').hideExtraRows({ rows: 2 });
-  $('.js-hide-extra-rows-3').hideExtraRows({ rows: 3 });
-  $('.js-hide-extra-rows-4').hideExtraRows({ rows: 4 });
-  $('.js-hide-extra-rows-5').hideExtraRows({ rows: 5 });
-  $('.js-hide-extra-rows-6').hideExtraRows({ rows: 6 });
+  $('.js-hide-extra-contacts').hideExtraRows({ rows: 2 });
 
   GOVUK.hideDepartmentChildren.init();
   GOVUK.filterListItems.init();
