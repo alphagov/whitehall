@@ -1569,7 +1569,7 @@ module AdminEditionControllerTestHelpers
 
       test "update should remove all worldwide priorities if none specified at all" do
         worldwide_priority = create(:worldwide_priority)
-        edition = create("draft_#{edition_type}", worldwide_priorities: [worldwide_priority])
+        edition = create("draft_#{edition_type}", worldwide_priority_ids: [worldwide_priority.id])
         put :update, id: edition, edition: controller_attributes_for_instance(edition).except(:worldwide_priority_ids)
 
         assert_equal [], edition.reload.worldwide_priorities
