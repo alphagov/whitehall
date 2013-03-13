@@ -140,6 +140,27 @@ class WorldLocationTest < ActiveSupport::TestCase
     assert_equal [item_b], world_location.featured_edition_world_locations.map(&:edition)
   end
 
+  test '#featured_edition_world_locations should still return featured editions after republication' do
+    world_location = create(:world_location)
+
+    item_a = create(:published_news_article)
+    item_b = create(:published_news_article)
+
+    create(:edition_world_location, world_location: world_location, edition: item_a)
+    create(:featured_edition_world_location, world_location: world_location, edition: item_b)
+
+    item_b.reload
+
+    editor = create(:departmental_editor)
+    new_draft = item_b.create_draft(editor)
+    new_draft.minor_change = true
+    new_draft.publish_as(editor, force: true)
+
+    world_location.reload
+
+    assert_equal [new_draft.reload], world_location.featured_edition_world_locations.map(&:edition)
+  end
+
   test "should be creatable with mainstream link data" do
     params = {
       mainstream_links_attributes: [
