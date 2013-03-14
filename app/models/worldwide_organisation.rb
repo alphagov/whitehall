@@ -60,4 +60,8 @@ class WorldwideOrganisation < ActiveRecord::Base
   def unused_corporate_information_page_types
     CorporateInformationPageType.all - corporate_information_pages.map(&:type)
   end
+
+  def has_corporate_information_page_translations?
+    true
+  end
 end
