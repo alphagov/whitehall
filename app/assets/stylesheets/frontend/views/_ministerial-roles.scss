@@ -42,12 +42,13 @@
   h2 {
     @include heading-36;
     border-bottom: 5px solid $inside-gov-brand;
+    margin: 0 $gutter-half;
   }
 
   .block-2 {
     clear: both;
     #cabinet {
-      margin: 0 ($gutter-half*-1);
+      margin: 0;
       overflow: hidden;
       padding-top: $gutter-half;
       @include media(tablet) {
@@ -74,15 +75,15 @@
 
     section {
       @extend %contain-floats;
-      margin-bottom: $gutter;
-      padding-bottom: $gutter-half;
-      border-bottom: 1px solid $border-colour;
 
-      h3 {
-        margin: $gutter-half 0;
+      .heading {
         @include media(tablet) {
           float: left;
           width: 25%;
+        }
+        h3 {
+          padding: 0 $gutter-half;
+          margin: $gutter-half 0;
         }
       }
 
@@ -94,10 +95,8 @@
       }
 
       .minister-list {
-        margin: 0 (-$gutter-half) 0;
-
         @include media(tablet) {
-          float: right;
+          float: left;
           width: 75%;
 
           .person-excerpt {
@@ -105,6 +104,11 @@
           }
         }
       }
+    }
+    .keyline {
+      margin: $gutter $gutter-half;
+      border: solid $border-colour;
+      border-width: 0 0 1px;
     }
   }
 
@@ -114,12 +118,14 @@
     }
     section {
       margin-bottom: 0;
-      h3 {
-        @include heading-24;
-        margin-bottom: 0;
-        padding-bottom: 0;
-        @include media(tablet) {
-          margin-top: $gutter-two-thirds;
+      .heading {
+        h3 {
+          @include heading-24;
+          margin: 0;
+          padding-bottom: 0;
+          @include media(tablet) {
+            margin-top: $gutter-two-thirds;
+          }
         }
       }
       .minister-list {
@@ -128,6 +134,9 @@
           margin-top: $gutter-half;
         }
       }
+    }
+    .keyline {
+      margin-bottom: $gutter-two-thirds;
     }
     .person-excerpt .inner {
       padding: $gutter-one-third $gutter-half ;
