@@ -1,0 +1,20 @@
+language: ruby
+rvm:
+  - 1.9.3
+  - 1.9.2
+env:
+  - DB=mysql CUCUMBER_FORMAT=progress GOVUK_APP_DOMAIN=test.gov.uk DISPLAY=:99
+script:
+  - bundle exec rake db:create
+  - bundle exec rake db:schema:load
+  - bundle exec rake
+before_install:
+  - mysql -u root -e "CREATE USER 'whitehall'@'localhost' IDENTIFIED BY 'whitehall'"
+  - mysql -u root -e 'CREATE DATABASE whitehall_test'
+  - mysql -u root -e "GRANT ALL ON whitehall_test.* TO 'whitehall'@'localhost'"
+  - sudo apt-get update -qq
+  - sudo apt-get install -qq xpdf imagemagick
+  - "export DISPLAY=:99.0"
+  - "sh -e /etc/init.d/xvfb start"
+  - cp config/database.travis.yml config/database.yml
+  - mkdir clean-uploads
