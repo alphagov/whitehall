@@ -83,8 +83,17 @@
 
     p {
       padding-left: $gutter-half;
+      @include right-to-left {
+        padding-left: 0;
+        padding-right: $gutter-half;
+      }
+
       @include media(tablet) {
         padding-left: $gutter;
+        @include right-to-left {
+          padding-left: 0;
+          padding-right: $gutter;
+        }
       }
     }
     & p:before {
@@ -93,14 +102,26 @@
       clear: both;
       @include core-48;
       margin-left: -$gutter;
-      margin-top: -$gutter-one-third;
+      margin-top: -$gutter-one-sixth;
+      @include right-to-left {
+        content: "\201D";
+        float: right;
+        margin-left: 0;
+        margin-right: (-$gutter);
+      }
     }
     & p.last-child:after {
       content: "\201D";
+      @include right-to-left {
+        content: "\201C";
+      }
     }
 
     @include media(desktop) {
       margin: 0 0 0 (-$gutter);
+      @include right-to-left {
+        margin: 0 (-$gutter) 0 0;
+      }
     }
   }
 
