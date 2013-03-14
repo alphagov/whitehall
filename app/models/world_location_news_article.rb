@@ -14,6 +14,14 @@ class WorldLocationNewsArticle < Newsesque
     true
   end
 
+  def skip_world_location_validation?
+    false
+  end
+
+  def skip_worldwide_organisations_validation?
+    false
+  end
+
   def search_format_types
     super + [WorldLocationNewsArticle.search_format_type]
   end

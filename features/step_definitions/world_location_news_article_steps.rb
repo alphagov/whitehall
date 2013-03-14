@@ -4,11 +4,19 @@ end
 
 Given /^a world location news article "([^"]+)" for the world location "([^"]+)" exists$/ do |title, location|
   world_location = create(:world_location)
-  create(:published_world_location_news_article, title: title, world_locations: [world_location])
+  worldwide_organisation = create(:worldwide_organisation)
+  create(:published_world_location_news_article, title: title, world_locations: [world_location], worldwide_organisations: [worldwide_organisation])
 end
 
 When /^I draft a valid world location news article "([^"]*)"$/ do |title|
+  world_location = create(:world_location, name: "Afganistan")
+  worldwide_organisation = create(:worldwide_organisation, name: "Afganistan embassy")
+
   begin_drafting_world_location_news_article title: title, body: 'test-body', summary: 'test-summary'
+
+  select "Afganistan", from: "Select the world locations this world location news article is about"
+  select "Afganistan embassy", from: "Select the worldwide organisations associated with this world location news article"
+
   click_button "Save"
 end
 
