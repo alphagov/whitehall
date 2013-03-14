@@ -52,7 +52,8 @@ module("Document filter", {
           "title": "document-title",
           "url": "/document-path",
           "organisations": "organisation-name-1, organisation-name-2",
-          "topics": "topic-name-1, topic-name-2"
+          "topics": "topic-name-1, topic-name-2",
+          "field_of_operation": "place-of-war"
         },
         {
           "id": 2,
@@ -60,7 +61,7 @@ module("Document filter", {
           "title": "document-title-2",
           "url": "/document-path-2",
           "organisations": "organisation-name-2, organisation-name-3",
-          "topics": "topic-name-1, topic-name-2"
+          "publication_series": "series-1"
         }
       ]
     };
@@ -186,6 +187,9 @@ test("should render results based on successful ajax response", function() {
   equals($('link[rel=next][type=application/json]').length, 1);
   equals($('link[rel=next][type=application/json]').attr('href'), this.ajaxData.next_page_json);
   equals(this.filterResults.find(".document-row").length, 2);
+  equals(this.filterResults.find(".document-row .document-series").text(), 'series-1');
+  equals(this.filterResults.find(".document-row .topics").text(), 'topic-name-1, topic-name-2');
+  equals(this.filterResults.find(".document-row .field-of-operation").text(), 'place-of-war');
 });
 
 test("should add extra results to table results", function() {
