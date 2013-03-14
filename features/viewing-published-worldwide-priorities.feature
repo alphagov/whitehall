@@ -11,3 +11,15 @@ Scenario: Viewing a worldwide priority associated with a worldwide organisation
   And a published worldwide priority "Oil field exploitation" exists relating to the worldwide organisation "Embassy in Spain"
   When I view the worldwide priority "Oil field exploitation"
   Then I should see the worldwide organisation listed on the page
+
+Scenario: Viewing the activity around a worldwide priority
+  Given a published worldwide priority "Unicorn research" exists
+  And a published publication "Adventures in unicorn breeding" related to the priority "Unicorn research"
+  And a published consultation "Optimum unicorn horn length" related to the priority "Unicorn research"
+  And a published news article "Latest unicorn sightings reported" related to the priority "Unicorn research"
+  And a published speech "Unicorns and our future: Mark Web" related to the priority "Unicorn research"
+  When I visit the activity of the published priority "Unicorn research"
+  Then I can see links to the recently changed document "Adventures in unicorn breeding"
+  And I can see links to the recently changed document "Optimum unicorn horn length"
+  And I can see links to the recently changed document "Latest unicorn sightings reported"
+  And I can see links to the recently changed document "Unicorns and our future: Mark Web"

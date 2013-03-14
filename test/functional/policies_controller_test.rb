@@ -60,7 +60,7 @@ class PoliciesControllerTest < ActionController::TestCase
 
     get :show, id: policy.document
 
-    assert_select ".policy-navigation" do
+    assert_select ".activity-navigation" do
       assert_select "a[href='#{policy_path(policy.document)}']"
       assert_select "a[href='#{policy_supporting_pages_path(policy.document)}']"
     end
@@ -72,7 +72,7 @@ class PoliciesControllerTest < ActionController::TestCase
 
     get :show, id: policy.document
 
-    assert_select ".policy-navigation a.current[href='#{policy_path(policy.document)}']"
+    assert_select ".activity-navigation a.current[href='#{policy_path(policy.document)}']"
   end
 
   view_test "should render the content using govspeak markup" do
@@ -222,7 +222,7 @@ That's all
 
     get :activity, id: policy.document
 
-    assert_select ".policy-navigation" do
+    assert_select ".activity-navigation" do
       assert_select "a[href='#{policy_path(policy.document)}']"
       assert_select "a[href='#{policy_supporting_pages_path(policy.document)}']"
       assert_select "a[href='#{activity_policy_path(policy.document)}']"
@@ -245,7 +245,7 @@ That's all
 
     get :activity, id: policy.document
 
-    assert_select ".policy-navigation a.current[href='#{activity_policy_path(policy.document)}']"
+    assert_select ".activity-navigation a.current[href='#{activity_policy_path(policy.document)}']"
   end
 
   view_test "activity displays recently changed documents relating to the policy" do
@@ -397,7 +397,7 @@ That's all
     policy = create(:published_policy)
 
     get :show, id: policy.document
-    refute_select '.policy-navigation'
+    refute_select '.activity-navigation'
   end
 
   view_test "class is applied to policies page when navigation isn't shown" do
@@ -413,7 +413,7 @@ That's all
 
     get :show, id: policy.document
 
-    assert_select '.policy-navigation' do
+    assert_select '.activity-navigation' do
       assert_select "a[href='#{policy_path(policy.document)}']"
       assert_select "a[href='#{policy_supporting_pages_path(policy.document)}']"
     end
