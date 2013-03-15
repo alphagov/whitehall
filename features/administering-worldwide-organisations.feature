@@ -42,6 +42,7 @@ Feature: Administering worldwide organisation
     Given that the world location "France" exists
     When I create a new worldwide organisation "Department of Beards in France" in "France"
     Then I should see the worldwide organisation "Department of Beards in France" on the "France" world location page
+    Then I should see the worldwide location name "France" on the worldwide organisation page
 
   Scenario: Choosing the main office for a worldwide organisation with multiple offices
     Given a worldwide organisation "Department of Beards in France" with offices "Head office" and "Branch office"
