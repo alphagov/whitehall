@@ -275,19 +275,21 @@ class Import < ActiveRecord::Base
     end
   end
 
-  def record_errors_for(model)
+  def record_errors_for(model, translated=false)
+    error_prefix = translated ? 'Translated ' : ''
+
     model.errors.keys.each do |attribute|
       next if [:attachments, :images].include?(attribute)
-      progress_logger.error("#{attribute}: #{model.errors[attribute].join(", ")}")
+      progress_logger.error("#{error_prefix}#{attribute}: #{model.errors[attribute].join(", ")}")
     end
     if model.respond_to?(:attachments)
       model.attachments.reject(&:valid?).each do |a|
-        progress_logger.error("Attachment '#{a.attachment_source.url}': #{a.errors.full_messages.to_s}")
+        progress_logger.error("#{error_prefix}Attachment '#{a.attachment_source.url}': #{a.errors.full_messages.to_s}")
       end
     end
     if model.respond_to?(:images)
       model.images.reject(&:valid?).each do |i|
-        progress_logger.error("Image '#{i.caption}': #{i.errors.full_messages.to_s}")
+        progress_logger.error("#{error_prefix}Image '#{i.caption}': #{i.errors.full_messages.to_s}")
       end
     end
   end
@@ -302,7 +304,7 @@ class Import < ActiveRecord::Base
         progress_logger.error("Locale not recognised")
       end
     else
-      record_errors_for(translation)
+      record_errors_for(translation, true)
     end
   end
 
