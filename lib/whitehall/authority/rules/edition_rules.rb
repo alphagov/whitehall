@@ -1,5 +1,14 @@
 module Whitehall::Authority::Rules
   class EditionRules
+    def self.actions
+      [
+        'see', 'update', 'create', 'approve', 'publish', 'force_publish',
+        'reject', 'make_fact_check', 'review_fact_check',
+        'make_editorial_remark', 'review_editorial_remark',
+        'limit_access', 'unpublish'
+      ]
+    end
+
     attr_reader :actor, :subject
     def initialize(actor, subject)
       @actor = actor
@@ -7,6 +16,9 @@ module Whitehall::Authority::Rules
     end
 
     def can?(action)
+      action = sanitized_action(action)
+      return false unless valid_action?(action)
+      return false unless can_see?
       if actor.gds_editor?
         gds_editor_can?(action)
       elsif actor.departmental_editor?
@@ -16,22 +28,32 @@ module Whitehall::Authority::Rules
       end
     end
 
+    def valid_action?(action)
+      EditionRules.actions.include?(sanitized_action(action))
+    end
+
     private
+    def sanitized_action(action)
+      action.to_s.downcase
+    end
+
     def gds_editor_can?(action)
-      case action.to_s.downcase
+      case action
       when 'approve'
         can_approve?
+      when 'publish'
+        can_publish?
       else
-        can_see?
+        true
       end
     end
 
     def can_approve?
-      if subject.force_published?
-        subject.creator != actor
-      else
-        subject.state == 'submitted'
-      end
+      subject.published_by != actor
+    end
+
+    def can_publish?
+      subject.creator != actor
     end
 
     def can_see?
@@ -43,22 +65,24 @@ module Whitehall::Authority::Rules
     end
 
     def departmental_editor_can?(action)
-      case action.to_s.downcase
+      case action
       when 'approve'
         can_approve?
+      when 'publish'
+        can_publish?
       when 'unpublish'
         false
       else
-        can_see?
+        true
       end
     end
 
     def departmental_writer_can?(action)
-      case action.to_s.downcase
-      when 'approve', 'unpublish', 'force_publish', 'publish', 'reject'
+      case action
+      when 'approve', 'publish', 'unpublish', 'force_publish', 'reject'
         false
       else
-        can_see?
+        true
       end
     end
 

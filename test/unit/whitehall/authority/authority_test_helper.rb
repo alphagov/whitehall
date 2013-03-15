@@ -1,15 +1,10 @@
 require 'fast_test_helper'
-
-module Whitehall
-  module Authority
-  end
-end
-require 'whitehall/authority/enforcer'
+require 'whitehall/authority'
 require 'ostruct'
 
 # so we don't have to require the real editions and slow these tests
 # right down
-class Edition < Struct.new(:state, :force_published, :creator);
+class Edition < Struct.new(:creator, :force_published, :published_by);
   def force_published?
     !!@force_published
   end
@@ -36,16 +31,12 @@ end
 class Document; end
 
 module AuthorityTestHelper
-  def normal_edition
-    Edition.new
-  end
-
-  def submitted_edition
-    Edition.new('submitted')
+  def normal_edition(user=nil)
+    Edition.new(user)
   end
 
   def force_published_edition(user)
-    Edition.new('published', true, user)
+    Edition.new(nil, true, user)
   end
 
   def limited_edition(orgs)
