@@ -31,87 +31,63 @@
       <section class="consultations">
         <div class="head-section">
           <dl class="values">
-            <dt><a href="#">38</a></dt>
+            <dt><%= link_to @open_consultation_count, publications_path(publication_filter_option: "consultations") %></dt>
             <dd>Open consultations</dd>
-            <dt><a href="#">41</a></dt>
+            <dt><%= link_to @closed_consultation_count, publications_path(publication_filter_option: "consultations") %></dt>
             <dd>Closed consultations in the past 12 months</dd>
-            <dt><a href="#">29</a></dt>
-            <dd>Responses in the past 12 months</dd>
+            <% if false # this count not implemented yet %>
+              <dt><a href="#">29</a></dt>
+              <dd>Responses in the past 12 months</dd>
+            <% end %>
           </dl>
         </div>
         <div class="consultation-lists">
           <div class="consultation-closing-soon">
             <h3>Closing soon</h3>
             <ol class="document-list">
-              <li class="document-row">
-                <h3><a href="#">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam pateriam eaquipsa</a></h3>
-                <ul class="attributes">
-                  <li>3 days left</li>
-                  <li><a href="#">Respond now</a></li>
-                </ul>                        
-              </li>
+              <% [@next_closing_consultation].each do |consultation| %>
+                <%= content_tag_for(:li, consultation, class: 'document-row') do %>
+                  <h3><%= link_to consultation.title, public_document_path(consultation) %></h3>
+                  <ul class="attributes">
+                    <li class="publication-date"><%= consultation.time_until_closure %></li>
+                    <li><%= link_to "Respond now", public_document_path(consultation) %></li>
+                  </ul>
+                <% end %>
+              <% end %>
             </ol>
           </div>
           <div class="column">
             <div class="content">
               <h3>Recently opened</h3>
               <ol class="document-list">
-                <li class="document-row">
-                  <h3><a href="#">Consultation on the strategic road network and the delivery of sustainable development</a></h3>
-                  <ul class="attributes">
-                    <li>DFT</li>
-                    <li>Closes 28 February</li>
-                    <li><a href="#">Respond now</a></li>
-                  </ul>                        
-                </li>
-                <li class="document-row">
-                  <h3><a href="#">Provision of Services Regulations 2009: national applicability of licences consultation</a></h3>
-                  <ul class="attributes">
-                    <li>MOD</li>
-                    <li>Closes 28 February</li>
-                    <li><a href="#">Respond now</a></li>
-                  </ul>                        
-                </li>
-                <li class="document-row">
-                  <h3><a href="#">Amending regulations on nuclear waste and decommissioning</a></h3>
-                  <ul class="attributes">
-                    <li>DECC</li>
-                    <li>Closes 28 February</li>
-                    <li><a href="#">Respond now</a></li>
-                  </ul>                        
-                </li>                                    
+                <% @recently_opened_consultations.each do |consultation| %>
+                  <li class="document-row">
+                    <h3><%= link_to consultation.title, public_document_path(consultation) %></h3>
+                    <ul class="attributes">
+                      <li><%= consultation.organisations.map(&:acronym).to_sentence %></li>
+                      <li>Closes <%= consultation.date_microformat(:closing_on) %></li>
+                      <li><%= link_to "Respond now", public_document_path(consultation) %></li>
+                    </ul>
+                  </li>
+                <% end %>
               </ol>
-              <p class="see-all"><a href="#">Search all consultations</a></p>              
+              <p class="see-all"><%= link_to("Search all consultations", publications_path(publication_filter_option: "consultations")) %></p>
             </div>
           </div>
           <div class="column">
             <div class="content">
               <h3>Recent outcomes</h3>
               <ol class="document-list">
-                <li class="document-row">
-                  <h3><a href="#">Private actions in competition law: a consultation on options for reform</a></h3>
-                  <ul class="attributes">
-                    <li>DFT</li>
-                    <li>Closed 22 January</li>
-                    <li><a href="#">See the outcome</a></li>
-                  </ul>                        
-                </li>
-                <li class="document-row">
-                  <h3><a href="#">Private actions in competition law: a consultation on options for reform</a></h3>
-                  <ul class="attributes">
-                    <li>DECC</li>
-                    <li>Closed 22 January</li>
-                    <li><a href="#">See the outcome</a></li>
-                  </ul>                        
-                </li>
-                <li class="document-row">
-                  <h3><a href="#">Private actions in competition law: a consultation on options for reform</a></h3>
-                  <ul class="attributes">
-                    <li>DFT</li>
-                    <li>Closed 22 January</li>
-                    <li><a href="#">See the outcome</a></li>
-                  </ul>                        
-                </li> 
+                <% @recent_consultation_outcomes.each do |consultation| %>
+                  <li class="document-row">
+                    <h3><%= link_to consultation.title, public_document_path(consultation) %></h3>
+                    <ul class="attributes">
+                      <li><%= consultation.organisations.map(&:acronym).to_sentence %></li>
+                      <li>Closed <%= consultation.date_microformat(:closing_on) %></li>
+                      <li><%= link_to "Respond now", public_document_path(consultation) %></li>
+                    </ul>
+                  </li>
+                <% end %>
               </ol>
             </div>
           </div>
@@ -246,22 +222,22 @@
                 <ul class="attributes">
                   <li>DCLG</li>
                   <li>Community and society</li>
-                </ul>                        
+                </ul>
               </li>
               <li class="document-row">
                 <h3><a href="/government/policies/giving-communities-more-power-in-planning-local-development">Giving communities more power in planning local development</a></h3>
                 <ul class="attributes">
                   <li>DCLG</li>
                   <li>Planning and building</li>
-                </ul>                        
+                </ul>
               </li>
               <li class="document-row">
                 <h3><a href="/government/policies/promoting-social-action-encouraging-and-enabling-people-to-play-a-more-active-part-in-society">Promoting social action: encouraging and enabling people to play a more active part in society</a></h3>
                 <ul class="attributes">
                   <li>CO</li>
                   <li>Community and society</li>
-                </ul>                        
-              </li>          
+                </ul>
+              </li>
             </ol>
           </div>
         </div>

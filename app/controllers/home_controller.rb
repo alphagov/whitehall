@@ -31,6 +31,10 @@ class HomeController < PublicFacingController
   def history
 
   def get_involved
+    @open_consultation_count = Consultation.published.open.count
+    @closed_consultation_count = Consultation.published.closed_since(1.year.ago).count
+    @next_closing_consultation = PublicationesquePresenter.decorate(Consultation.published.open.order("closing_on asc").limit(1).first)
+    @recently_opened_consultations = PublicationesquePresenter.decorate(Consultation.published.open.order("opening_on desc").limit(3))
+    @recent_consultation_outcomes = PublicationesquePresenter.decorate(Consultation.published.responded.order("closing_on desc").limit(3))
   end
-
 end
