@@ -1,6 +1,4 @@
-require "fast_test_helper"
-require "localised_model"
-require "i18n"
+require "test_helper"
 
 class LocalisedModelTest < ActiveSupport::TestCase
   class Model
@@ -41,5 +39,13 @@ class LocalisedModelTest < ActiveSupport::TestCase
 
   test "has same identity as decorated instance" do
     assert_equal Model, @localised_model.class
+  end
+
+  test "ActiveRecord errors are generated in English" do
+    model = NewsArticle.new
+    localised_model = LocalisedModel.new(model, :es)
+
+    refute localised_model.valid?
+    assert_equal ["can't be blank"], localised_model.errors[:title]
   end
 end

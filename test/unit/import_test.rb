@@ -151,7 +151,7 @@ class ImportTest < ActiveSupport::TestCase
     perform_import_cleanup do
       import = perform_import(csv_data: incomplete_translated_news_article_csv, data_type: "news_article", organisation_id: create(:organisation).id)
       assert_equal 1, import.import_errors.count
-      assert_match /title: no puede estar en blanco/, import.import_errors.map.first.message
+      assert_equal "Translated title: can't be blank", import.import_errors.map.first.message
     end
   end
 
