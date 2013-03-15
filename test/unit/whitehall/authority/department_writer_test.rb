@@ -3,7 +3,7 @@ require 'ostruct'
 
 class DepartmentWriterTest < ActiveSupport::TestCase
   def department_writer(id = 1)
-    OpenStruct.new(id: id, department_writer?: false, departmental_editor?: false, organisations: [])
+    OpenStruct.new(id: id, department_writer?: false, departmental_editor?: false, organisation: nil)
   end
 
   include AuthorityTestHelper
@@ -19,7 +19,7 @@ class DepartmentWriterTest < ActiveSupport::TestCase
   test 'can see an edition that is access limited if it is limited to their organisation' do
     org = 'organisation'
     user = department_writer
-    user.stubs(:organisations).returns([org])
+    user.stubs(:organisation).returns(org)
     edition = limited_edition([org])
     assert enforcer_for(user, edition).can?(:see)
   end
@@ -28,7 +28,7 @@ class DepartmentWriterTest < ActiveSupport::TestCase
     org1 = 'organisation_1'
     org2 = 'organisation_2'
     user = department_writer
-    user.stubs(:organisations).returns([org1])
+    user.stubs(:organisation).returns(org1)
     edition = limited_edition([org2])
 
     refute enforcer_for(user, edition).can?(:see)
@@ -38,7 +38,7 @@ class DepartmentWriterTest < ActiveSupport::TestCase
     org1 = 'organisation_1'
     org2 = 'organisation_2'
     user = department_writer
-    user.stubs(:organisations).returns([org1])
+    user.stubs(:organisation).returns(org1)
     edition = limited_edition([org2])
     enforcer = enforcer_for(user, edition)
     

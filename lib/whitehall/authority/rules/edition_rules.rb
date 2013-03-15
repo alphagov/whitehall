@@ -58,7 +58,7 @@ module Whitehall::Authority::Rules
 
     def can_see?
       if subject.access_limited?
-        (subject.organisations & actor.organisations).any?
+        (subject.organisations & [actor.organisation].compact).any?
       else
         true
       end
