@@ -55,6 +55,14 @@ Then /^I should see the worldwide organisation listed on the page$/ do
   end
 end
 
+Then /^I should see the worldwide location name "([^"]*)" on the worldwide organisation page$/ do |location_name|
+  location = WorldLocation.find_by_name(location_name)
+  worldwide_organisation = WorldwideOrganisation.last
+  within record_css_selector(worldwide_organisation) do
+    assert page.has_content?(location.name)
+  end
+end
+
 Then /^I should see the worldwide organisation "([^"]*)" on the "([^"]*)" world location page$/ do |worldwide_organisation_name, location_name|
   location = WorldLocation.find_by_name(location_name)
   worldwide_organisation = WorldwideOrganisation.find_by_name(worldwide_organisation_name)
