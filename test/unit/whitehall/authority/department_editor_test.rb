@@ -12,7 +12,11 @@ class DepartmentEditorTest < ActiveSupport::TestCase
     assert enforcer_for(department_editor, Document).can?(:create)
   end
 
-  test 'can see an edition or document that is not access limited' do
+  test 'can create a new edition' do
+    assert enforcer_for(department_editor, Edition).can?(:create)
+  end
+
+  test 'can see an edition that is not access limited' do
     assert enforcer_for(department_editor, normal_edition).can?(:see)
   end
 
@@ -55,11 +59,11 @@ class DepartmentEditorTest < ActiveSupport::TestCase
     assert enforcer_for(department_editor, normal_edition).can?(:update)
   end
 
-  test 'can make a fact check request for a document' do
+  test 'can make a fact check request for a edition' do
     assert enforcer_for(department_editor, normal_edition).can?(:make_fact_check)
   end
 
-  test 'can view fact check requests on a document' do
+  test 'can view fact check requests on a edition' do
     assert enforcer_for(department_editor, normal_edition).can?(:review_fact_check)
   end
 

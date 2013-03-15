@@ -18,13 +18,18 @@ module Whitehall::Authority::Rules
     def can?(action)
       action = sanitized_action(action)
       return false unless valid_action?(action)
-      return false unless can_see?
-      if actor.gds_editor?
-        gds_editor_can?(action)
-      elsif actor.departmental_editor?
-        departmental_editor_can?(action)
+      if action == 'create' && subject.is_a?(Class)
+        can_create_class?
+      elsif !can_see?
+        return false
       else
-        departmental_writer_can?(action)
+        if actor.gds_editor?
+          gds_editor_can?(action)
+        elsif actor.departmental_editor?
+          departmental_editor_can?(action)
+        else
+          departmental_writer_can?(action)
+        end
       end
     end
 
@@ -54,6 +59,10 @@ module Whitehall::Authority::Rules
 
     def can_publish?
       subject.creator != actor
+    end
+
+    def can_create_class?
+      true
     end
 
     def can_see?
