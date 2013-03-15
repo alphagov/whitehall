@@ -18,6 +18,24 @@ if defined? Rails
       le.stubs(:organisations).returns(Array.wrap(orgs))
       le
     end
+
+    def normal_fatality_notice(user=nil)
+      fn = FactoryGirl.build(:fatality_notice)
+      fn.stubs(:creator).returns(user)
+      fn
+    end
+
+    def force_published_fatality_notice(user)
+      fpfn = FactoryGirl.build(:published_fatality_notice, force_published: true)
+      fpfn.stubs(:published_by).returns(user)
+      fpfn
+    end
+
+    def limited_fatality_notice(orgs)
+      lfn = FactoryGirl.build(:fatality_notice, access_limited: true)
+      lfn.stubs(:organisations).returns(Array.wrap(orgs))
+      lfn
+    end
   end
 else
   # otherwise use the fast_test_helper and fake things out a bit
@@ -48,6 +66,20 @@ else
     end
   end
 
+  class FatalityNotice < Edition
+  end
+  class LimitedFatalityNotice < FatalityNotice
+    def access_limited?
+      true
+    end
+    def organisations=(orgs)
+      @orgs = orgs
+    end
+    def organisations
+      @orgs
+    end
+  end
+
   class Document; end
 
   module AuthorityTestHelper
@@ -63,6 +95,20 @@ else
       e = LimitedEdition.new
       e.organisations = (orgs || [])
       e
+    end
+
+    def normal_fatality_notice(user=nil)
+      FatalityNotice.new(user)
+    end
+
+    def force_published_fatality_notice(user)
+      FatalityNotice.new(nil, true, user)
+    end
+
+    def limited_fatality_notice(orgs)
+      lfn = LimitedFatalityNotice.new
+      lfn.organisations = (orgs || [])
+      lfn
     end
   end
 end
