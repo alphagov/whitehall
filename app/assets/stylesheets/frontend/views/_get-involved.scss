@@ -135,7 +135,7 @@
       .column {
         @include media(tablet) {
           float: left;
-          width: 33.33%;
+          width: 66.66%;
         }
       }
 
@@ -214,13 +214,18 @@
         }
       }
 
-      &.comment-follow, &.respond-to-consultations, &.policies, &.more-ways {
-        .column {
-          @include media(tablet) {
-            width: 66.66%;
-          }
+      &.start-a-petition, &.comment-follow {
+        p {
+          padding-top: $gutter-one-third;
         }
       }
+
+      &.more-ways {
+        .index-list {
+          margin-top: $gutter-half;
+        }
+      }
+
       &.respond-to-consultations {
         margin-bottom: 0;
       }
@@ -239,10 +244,16 @@
           margin: $gutter-one-third 0 $gutter;
         }
       }
+    
 
-      &.consultations + .keyline {
-        padding-top: 0;
-      }
+    }
+
+    .article-clear {
+      clear: both;
+    }
+
+    .consultations + .keyline {
+      padding-top: 0;
     }
 
     .keyline {
