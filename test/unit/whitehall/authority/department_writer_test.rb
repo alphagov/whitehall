@@ -1,8 +1,9 @@
 require 'unit/whitehall/authority/authority_test_helper'
+require 'ostruct'
 
 class DepartmentWriterTest < ActiveSupport::TestCase
   def department_writer(id = 1)
-    OpenStruct.new(id: id, department_writer?: false, departmental_editor?: false)
+    OpenStruct.new(id: id, department_writer?: false, departmental_editor?: false, organisations: [])
   end
 
   include AuthorityTestHelper
