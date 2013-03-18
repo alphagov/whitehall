@@ -35,6 +35,7 @@ if defined? Rails
     define_edition_factory_methods :edition
     define_edition_factory_methods :fatality_notice
     define_edition_factory_methods :world_location_news_article
+    define_edition_factory_methods :worldwide_priority
   end
 else
   # otherwise use the fast_test_helper and fake things out a bit
@@ -67,6 +68,7 @@ else
     define_edition_factory_methods :edition
     define_edition_factory_methods :fatality_notice
     define_edition_factory_methods :world_location_news_article
+    define_edition_factory_methods :worldwide_priority
   end
 
   class EditionBase < Struct.new(:creator, :force_published, :published_by);
@@ -104,6 +106,7 @@ else
   AuthorityTestHelper.define_edition_classes :edition
   AuthorityTestHelper.define_edition_classes :fatality_notice
   AuthorityTestHelper.define_edition_classes :world_location_news_article
+  AuthorityTestHelper.define_edition_classes :worldwide_priority
 
   class Document; end
 end

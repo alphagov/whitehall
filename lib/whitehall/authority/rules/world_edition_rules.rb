@@ -1,5 +1,5 @@
 module Whitehall::Authority::Rules
-  class WorldLocationNewsArticleRules < Whitehall::Authority::Rules::EditionRules
+  class WorldEditionRules < Whitehall::Authority::Rules::EditionRules
     protected
     def actor_can_handle_world_editions?
       if actor.gds_editor?
