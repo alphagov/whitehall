@@ -38,7 +38,7 @@ class Admin::DocumentSeriesController < Admin::BaseController
     if @document_series.deleted?
       redirect_to admin_document_series_index_path, notice: "document series destroyed"
     else
-      redirect_to admin_document_series_index_path, alert: "Cannot destroy document series with associated content"
+      redirect_to admin_document_series_index_path, alert: "Cannot destroy document series with associated content, please remove them first"
     end
   end
 
