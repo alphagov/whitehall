@@ -3,7 +3,7 @@ source 'https://BnrJb6FZyzspBboNJzYZ@gem.fury.io/govuk/'
 
 gem 'delayed_job_active_record'
 gem 'statsd-ruby', '1.0.0', require: "statsd"
-gem 'rails', '3.1.11'
+gem 'rails', '3.1.12'
 gem 'mysql2'
 gem 'jquery-rails'
 gem 'transitions', require: ['transitions', 'active_record/transitions']
