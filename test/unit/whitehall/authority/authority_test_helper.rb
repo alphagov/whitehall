@@ -1,3 +1,14 @@
+module AuthorityTestHelper
+  def enforcer_for(actor, subject)
+    Whitehall::Authority::Enforcer.new(actor, subject)
+  end
+
+  def with_locations(edition, world_locations)
+    edition.stubs(:world_locations).returns(world_locations)
+    edition
+  end
+end
+
 if defined? Rails
   # if we've already loaded rails, no point jumping through hoops to avoid it
   require 'test_helper'
@@ -95,15 +106,4 @@ else
   AuthorityTestHelper.define_edition_classes :world_location_news_article
 
   class Document; end
-end
-
-module AuthorityTestHelper
-  def enforcer_for(actor, subject)
-    Whitehall::Authority::Enforcer.new(actor, subject)
-  end
-
-  def with_locations(edition, world_locations)
-    edition.stubs(:world_locations).returns(world_locations)
-    edition
-  end
 end
