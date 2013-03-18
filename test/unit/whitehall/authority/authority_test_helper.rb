@@ -3,57 +3,27 @@ if defined? Rails
   require 'test_helper'
 
   module AuthorityTestHelper
-    def normal_edition(user=nil)
-      ne = FactoryGirl.build(:edition)
-      ne.stubs(:creator).returns(user)
-      ne
-    end
-    def force_published_edition(user)
-      fpe = FactoryGirl.build(:published_edition, force_published: true)
-      fpe.stubs(:published_by).returns(user)
-      fpe
-    end
-    def limited_edition(orgs)
-      le = FactoryGirl.build(:edition, access_limited: true)
-      le.stubs(:organisations).returns(Array.wrap(orgs))
-      le
-    end
-
-    def normal_fatality_notice(user=nil)
-      fn = FactoryGirl.build(:fatality_notice)
-      fn.stubs(:creator).returns(user)
-      fn
+    def self.define_edition_factory_methods(edition_type)
+      define_method("normal_#{edition_type}") do |user = nil|
+        ne = FactoryGirl.build(edition_type)
+        ne.stubs(:creator).returns(user)
+        ne
+      end
+      define_method("force_published_#{edition_type}") do |user|
+        fpe = FactoryGirl.build(:"published_#{edition_type}", force_published: true)
+        fpe.stubs(:published_by).returns(user)
+        fpe
+      end
+      define_method("limited_#{edition_type}") do |orgs|
+        le = FactoryGirl.build(edition_type, access_limited: true)
+        le.stubs(:organisations).returns(Array.wrap(orgs))
+        le
+      end
     end
 
-    def force_published_fatality_notice(user)
-      fpfn = FactoryGirl.build(:published_fatality_notice, force_published: true)
-      fpfn.stubs(:published_by).returns(user)
-      fpfn
-    end
-
-    def limited_fatality_notice(orgs)
-      lfn = FactoryGirl.build(:fatality_notice, access_limited: true)
-      lfn.stubs(:organisations).returns(Array.wrap(orgs))
-      lfn
-    end
-
-    def normal_world_location_news(user=nil)
-      wln = FactoryGirl.build(:world_location_news)
-      wln.stubs(:creator).returns(user)
-      wln
-    end
-
-    def force_published_world_location_news(user)
-      fpwln = FactoryGirl.build(:published_world_location_news, force_published: true)
-      fpwln.stubs(:published_by).returns(user)
-      fpwln
-    end
-
-    def limited_world_location_news(orgs)
-      lwln = FactoryGirl.build(:world_location_news, access_limited: true)
-      lwln.stubs(:organisations).returns(Array.wrap(orgs))
-      lwln
-    end
+    define_edition_factory_methods :edition
+    define_edition_factory_methods :fatality_notice
+    define_edition_factory_methods :world_location_news_article
   end
 else
   # otherwise use the fast_test_helper and fake things out a bit
@@ -115,47 +85,28 @@ else
   class Document; end
 
   module AuthorityTestHelper
-    def normal_edition(user=nil)
-      Edition.new(user)
+    def self.get_class_from_type(edition_type)
+      class_name = edition_type.to_s.gsub('_',' ').split().map(&:capitalize).join
+      Object.const_get(class_name)
     end
 
-    def force_published_edition(user)
-      Edition.new(nil, true, user)
+    def self.define_edition_factory_methods(edition_type)
+      define_method("normal_#{edition_type}") do |user = nil|
+        AuthorityTestHelper.get_class_from_type(edition_type).new(user)
+      end
+      define_method("force_published_#{edition_type}") do |user|
+        AuthorityTestHelper.get_class_from_type(edition_type).new(nil, true, user)
+      end
+      define_method("limited_#{edition_type}") do |orgs|
+        e = AuthorityTestHelper.get_class_from_type("limited_#{edition_type}").new
+        e.organisations = (orgs || [])
+        e
+      end
     end
 
-    def limited_edition(orgs)
-      e = LimitedEdition.new
-      e.organisations = (orgs || [])
-      e
-    end
-
-    def normal_fatality_notice(user=nil)
-      FatalityNotice.new(user)
-    end
-
-    def force_published_fatality_notice(user)
-      FatalityNotice.new(nil, true, user)
-    end
-
-    def limited_fatality_notice(orgs)
-      lfn = LimitedFatalityNotice.new
-      lfn.organisations = (orgs || [])
-      lfn
-    end
-
-    def normal_world_location_news(user=nil)
-      WorldLocationNewsArticle.new(user)
-    end
-
-    def force_published_world_location_news(user)
-      WorldLocationNewsArticle.new(nil, true, user)
-    end
-
-    def limited_world_location_news(orgs)
-      lfn = LimitedWorldLocationNewsArticle.new
-      lfn.organisations = (orgs || [])
-      lfn
-    end
+    define_edition_factory_methods :edition
+    define_edition_factory_methods :fatality_notice
+    define_edition_factory_methods :world_location_news_article
   end
 end
 

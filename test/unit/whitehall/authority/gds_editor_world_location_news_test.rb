@@ -13,14 +13,14 @@ class GDSEditorWorldLocationNewsTest < ActiveSupport::TestCase
   end
 
   test 'can see a world location news article that is not access limited' do
-    assert enforcer_for(gds_editor, normal_world_location_news).can?(:see)
+    assert enforcer_for(gds_editor, normal_world_location_news_article).can?(:see)
   end
 
   test 'can see an world location news article that is access limited if it is limited to their organisation' do
     org = 'organisation'
     user = gds_editor
     user.stubs(:organisation).returns(org)
-    edition = limited_world_location_news([org])
+    edition = limited_world_location_news_article([org])
     assert enforcer_for(user, edition).can?(:see)
   end
 
@@ -29,7 +29,7 @@ class GDSEditorWorldLocationNewsTest < ActiveSupport::TestCase
     org2 = 'organisation_2'
     user = gds_editor
     user.stubs(:organisation).returns(org1)
-    edition = limited_world_location_news([org2])
+    edition = limited_world_location_news_article([org2])
 
     refute enforcer_for(user, edition).can?(:see)
   end
@@ -39,7 +39,7 @@ class GDSEditorWorldLocationNewsTest < ActiveSupport::TestCase
     org2 = 'organisation_2'
     user = gds_editor
     user.stubs(:organisation).returns(org1)
-    edition = limited_world_location_news([org2])
+    edition = limited_world_location_news_article([org2])
     enforcer = enforcer_for(user, edition)
 
     Whitehall::Authority::Rules::EditionRules.actions.each do |action|
@@ -48,69 +48,69 @@ class GDSEditorWorldLocationNewsTest < ActiveSupport::TestCase
   end
 
   test 'can create a new edition of a world location news article that is not access limited' do
-    assert enforcer_for(gds_editor, normal_world_location_news).can?(:create)
+    assert enforcer_for(gds_editor, normal_world_location_news_article).can?(:create)
   end
 
   test 'can make changes to a world location news article that is not access limited' do
-    assert enforcer_for(gds_editor, normal_world_location_news).can?(:update)
+    assert enforcer_for(gds_editor, normal_world_location_news_article).can?(:update)
   end
 
   test 'can delete a world location news article that is not access limited' do
-    assert enforcer_for(gds_editor, normal_world_location_news).can?(:delete)
+    assert enforcer_for(gds_editor, normal_world_location_news_article).can?(:delete)
   end
 
   test 'can make a fact check request for a world location news article' do
-    assert enforcer_for(gds_editor, normal_world_location_news).can?(:make_fact_check)
+    assert enforcer_for(gds_editor, normal_world_location_news_article).can?(:make_fact_check)
   end
 
   test 'can view fact check requests on a world location news article' do
-    assert enforcer_for(gds_editor, normal_world_location_news).can?(:review_fact_check)
+    assert enforcer_for(gds_editor, normal_world_location_news_article).can?(:review_fact_check)
   end
 
   test 'can publish a world location news article' do
-    assert enforcer_for(gds_editor, normal_world_location_news).can?(:publish)
+    assert enforcer_for(gds_editor, normal_world_location_news_article).can?(:publish)
   end
 
   test 'cannot publish a world location news article we created' do
     me = gds_editor
-    refute enforcer_for(me, normal_world_location_news(me)).can?(:publish)
+    refute enforcer_for(me, normal_world_location_news_article(me)).can?(:publish)
   end
 
   test 'can reject a world location news article' do
-    assert enforcer_for(gds_editor, normal_world_location_news).can?(:reject)
+    assert enforcer_for(gds_editor, normal_world_location_news_article).can?(:reject)
   end
 
   test 'can force publish a world location news article' do
-    assert enforcer_for(gds_editor, normal_world_location_news).can?(:force_publish)
+    assert enforcer_for(gds_editor, normal_world_location_news_article).can?(:force_publish)
   end
 
   test 'can force publish a world location news article we created' do
     me = gds_editor
-    assert enforcer_for(me, normal_world_location_news(me)).can?(:force_publish)
+    assert enforcer_for(me, normal_world_location_news_article(me)).can?(:force_publish)
   end
 
   test 'can make editorial remarks' do
-    assert enforcer_for(gds_editor, normal_world_location_news).can?(:make_editorial_remark)
+    assert enforcer_for(gds_editor, normal_world_location_news_article).can?(:make_editorial_remark)
   end
 
   test 'can review editorial remarks' do
-    assert enforcer_for(gds_editor, normal_world_location_news).can?(:review_editorial_remark)
+    assert enforcer_for(gds_editor, normal_world_location_news_article).can?(:review_editorial_remark)
   end
 
   test 'can clear the "not reviewed" flag on world location news articles they didn\'t force publish' do
-    assert enforcer_for(gds_editor(10), force_published_world_location_news(gds_editor(100))).can?(:approve)
+    assert enforcer_for(gds_editor(10), force_published_world_location_news_article(gds_editor(100))).can?(:approve)
   end
 
   test 'cannot clear the "not reviewed" flag on world location news articles they did force publish' do
     me = gds_editor
-    refute enforcer_for(me, force_published_world_location_news(me)).can?(:approve)
+    refute enforcer_for(me, force_published_world_location_news_article(me)).can?(:approve)
   end
 
   test 'can limit access to a world location news article' do
-    assert enforcer_for(gds_editor, normal_world_location_news).can?(:limit_access)
+    assert enforcer_for(gds_editor, normal_world_location_news_article).can?(:limit_access)
   end
 
   test 'can unpublish a world location news article' do
-    assert enforcer_for(gds_editor, normal_world_location_news).can?(:unpublish)
+    assert enforcer_for(gds_editor, normal_world_location_news_article).can?(:unpublish)
   end
 end
