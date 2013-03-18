@@ -7,6 +7,4 @@
     remote:        data-remote
 -%>
 <% text = "Next page <span>#{current_page + 1} of #{num_pages}</span>".html_safe %>
-<li class="next"><%= link_to_unless current_page.last?, text, url %>
-<link rel="next" type="application/json" href="<%= filter_json_url(page: current_page + 1) %>">
-</li>
+<li class="next"><%= link_to_unless current_page.last?, text, url %></li>
