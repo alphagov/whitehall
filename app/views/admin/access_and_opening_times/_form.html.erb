@@ -1,0 +1,5 @@
+<%= form_for access_and_opening_times, url: admin_worldwide_organisation_access_and_opening_time_path(accessible) do |form| %>
+  <%= form.errors %>
+  <%= form.text_area :body, label_text: "Body", "class" => "previewable" %>
+  <%= form.save_or_cancel cancel: [:admin, accessible] %>
+<% end %>

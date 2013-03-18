@@ -12,6 +12,7 @@ class WorldwideOrganisation < ActiveRecord::Base
   has_many :roles, through: :worldwide_organisation_roles
   has_many :people, through: :roles
   has_many :corporate_information_pages, as: :organisation, dependent: :destroy
+  has_one  :access_and_opening_times, as: :accessible, dependent: :destroy
 
   include TranslatableModel
   translates :name, :summary, :description, :services

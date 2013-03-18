@@ -223,35 +223,45 @@ Then /^I should not see his picture on the worldwide organisation page$/ do
   end
 end
 
-def add_translation_to_worldwide_organisation(worldwide_organisation, translation)
-  translation = translation.stringify_keys
-  visit admin_worldwide_organisations_path
-  within record_css_selector(worldwide_organisation) do
-    click_link "Manage translations"
-  end
-
-  select translation["locale"], from: "Locale"
-  click_on "Create translation"
-  fill_in "Name", with: translation["name"]
-  fill_in "Summary", with: translation["summary"]
-  fill_in "Description", with: translation["description"]
-  fill_in "Services", with: translation["services"]
-  click_on "Save"
+When /^I add default access information to the worldwide organisation$/ do
+  visit admin_worldwide_organisation_path(WorldwideOrganisation.last)
+  click_link 'Access and opening times'
+  click_link 'Add default access information'
+  fill_in 'Body', with: 'Default body information'
+  click_button 'Save'
 end
 
-def edit_translation_for_worldwide_organisation(locale, name, translation)
-  location = WorldwideOrganisation.find_by_name!(name)
-  visit admin_worldwide_organisations_path
-  within record_css_selector(location) do
-    click_link "Manage translations"
+Then /^I should be able to view the default access information on the public "([^"]*)" office page$/ do |office_name|
+  worldwide_organisation = WorldwideOrganisation.last
+  worldwide_office = Contact.where(title: office_name).first.contactable
+  visit worldwide_organisation_path(worldwide_organisation)
+  within record_css_selector(worldwide_office) do
+    click_link 'Access and opening times'
   end
-  click_link locale
-  fill_in "Name", with: translation["name"]
-  fill_in "Summary", with: translation["summary"]
-  fill_in "Description", with: translation["description"]
-  fill_in "Services", with: translation["services"]
-  click_on "Save"
+
+  within '.body' do
+    assert page.has_content?('Default body information')
+  end
 end
+
+Given /^a worldwide organisation "([^"]*)" with default access information$/ do |name|
+  worldwide_organisation = create(:worldwide_organisation, name: name)
+  create(:access_and_opening_times, accessible: worldwide_organisation)
+end
+
+When /^I edit the default access information for the worldwide organisation$/ do
+  worldwide_organisation = WorldwideOrganisation.last
+  visit admin_worldwide_organisation_path(worldwide_organisation)
+  click_link 'Access and opening times'
+  click_on 'Edit'
+  fill_in 'Body', with: 'Edited body information'
+  click_button 'Save'
+end
+
+Then /^I should see the updated default access information$/ do
+  assert page.has_css?('.govspeak p', text: 'Edited body information')
+end
+
 
 When /^I add a new translation to the worldwide organisation "([^"]*)" with:$/ do |name, table|
   worldwide_organisation = WorldwideOrganisation.find_by_name!(name)

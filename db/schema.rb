@@ -13,6 +13,16 @@
 
 ActiveRecord::Schema.define(:version => 20130320174658) do
 
+  create_table "access_and_opening_times", :force => true do |t|
+    t.text     "body"
+    t.string   "accessible_type"
+    t.integer  "accessible_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "access_and_opening_times", ["accessible_id", "accessible_type"], :name => "accessible_index"
+
   create_table "attachment_data", :force => true do |t|
     t.string   "carrierwave_file"
     t.string   "content_type"
