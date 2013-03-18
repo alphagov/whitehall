@@ -12,7 +12,7 @@ class WorldwideOfficeTypeTest < ActiveSupport::TestCase
   end
 
   test 'should be fetchable in order' do
-    assert_equal WorldwideOfficeType.all.map(&:sort_order).sort, WorldwideOfficeType.in_sort_order.map(&:sort_order)
+    assert_equal WorldwideOfficeType.all.map(&:listing_order).sort, WorldwideOfficeType.in_listing_order.map(&:listing_order)
   end
 
   test 'should be fetchable by grouping (retaining order within group)' do
@@ -20,8 +20,8 @@ class WorldwideOfficeTypeTest < ActiveSupport::TestCase
     all_groups = WorldwideOfficeType.all.map(&:grouping).uniq.sort
     assert_equal all_groups, in_groups.keys.sort
     all_groups.each do |grouping|
-      grouped_order = WorldwideOfficeType.all.select { |wot| wot.grouping == grouping }.map(&:sort_order).sort
-      assert_equal grouped_order, in_groups[grouping].map(&:sort_order)
+      grouped_order = WorldwideOfficeType.all.select { |wot| wot.grouping == grouping }.map(&:listing_order).sort
+      assert_equal grouped_order, in_groups[grouping].map(&:listing_order)
     end
   end
 end
