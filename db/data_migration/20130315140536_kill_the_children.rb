@@ -7,8 +7,8 @@ CSV.open(Rails.root.join('tmp/child_killing.csv'),'w') do |output|
     url = row.first
 
     if source = DocumentSource.where(url: url).first
-      if source.document.latest_edition.imported?
-        output << ["Document is in :import state. Deleting source and document",source.document.id,url]
+      if !source.document.latest_edition || source.document.latest_edition.imported?
+        output << ["Document is in :import state or has been deleted. Deleting source and document",source.document.id,url]
         source.destroy
         source.document.destroy
       else
