@@ -1,6 +1,7 @@
 class DocumentSeries < ActiveRecord::Base
   include Rails.application.routes.url_helpers
   include Searchable
+  include SimpleWorkflow
 
   belongs_to :organisation
 
@@ -58,8 +59,6 @@ class DocumentSeries < ActiveRecord::Base
   def scheduled_editions
     editions.scheduled
   end
-
-  protected
 
   def destroyable?
     editions.empty?

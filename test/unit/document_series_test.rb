@@ -49,6 +49,19 @@ class DocumentSeriesTest < ActiveSupport::TestCase
     assert DocumentSeries.find(series.id)
   end
 
+  test "should exclude deleted document_series by default" do
+    current_document_series = create(:document_series)
+    deleted_document_series = create(:document_series, state: "deleted")
+    assert_equal [current_document_series], DocumentSeries.all
+  end
+
+  test "should be deletable when there are no associated editions" do
+    document_series = create(:document_series)
+    assert document_series.destroyable?
+    document_series.delete!
+    assert document_series.deleted?
+  end
+
   test "should generate a slug based on its name" do
     series = create(:document_series, name: 'The Best Series Ever')
     assert_equal 'the-best-series-ever', series.reload.slug
