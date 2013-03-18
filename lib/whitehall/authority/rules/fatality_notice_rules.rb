@@ -4,7 +4,7 @@ module Whitehall::Authority::Rules
     def actor_can_handle_fatalities?
       actor.gds_editor? || (actor.organisation && actor.organisation.handles_fatalities?)
     end
-    def can_create_class?
+    def can_with_a_class?(action)
       actor_can_handle_fatalities? && super
     end
     def can_see?

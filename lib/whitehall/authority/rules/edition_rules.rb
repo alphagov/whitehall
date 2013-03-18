@@ -19,18 +19,10 @@ module Whitehall::Authority::Rules
     def can?(action)
       action = sanitized_action(action)
       return false unless valid_action?(action)
-      if action == 'create' && subject.is_a?(Class)
-        can_create_class?
-      elsif !can_see?
-        return false
+      if subject.is_a?(Class)
+        can_with_a_class?(action)
       else
-        if actor.gds_editor?
-          gds_editor_can?(action)
-        elsif actor.departmental_editor?
-          departmental_editor_can?(action)
-        else
-          departmental_writer_can?(action)
-        end
+        can_with_an_instance?(action)
       end
     end
 
@@ -41,6 +33,20 @@ module Whitehall::Authority::Rules
     private
     def sanitized_action(action)
       action.to_s.downcase
+    end
+
+    def can_with_an_instance?(action)
+      if !can_see?
+        return false
+      else
+        if actor.gds_editor?
+          gds_editor_can?(action)
+        elsif actor.departmental_editor?
+          departmental_editor_can?(action)
+        else
+          departmental_writer_can?(action)
+        end
+      end
     end
 
     def gds_editor_can?(action)
@@ -62,8 +68,8 @@ module Whitehall::Authority::Rules
       subject.creator != actor
     end
 
-    def can_create_class?
-      true
+    def can_with_a_class?(action)
+      ['create', 'see'].include? action
     end
 
     def can_see?
