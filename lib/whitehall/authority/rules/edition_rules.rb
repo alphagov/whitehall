@@ -43,6 +43,10 @@ module Whitehall::Authority::Rules
           gds_editor_can?(action)
         elsif actor.departmental_editor?
           departmental_editor_can?(action)
+        elsif actor.world_editor?
+          world_editor_can?(action)
+        elsif actor.world_writer?
+          world_writer_can?(action)
         else
           departmental_writer_can?(action)
         end
@@ -72,8 +76,14 @@ module Whitehall::Authority::Rules
       ['create', 'see'].include? action
     end
 
+    def world_actor?
+      actor.world_editor? || actor.world_writer?
+    end
+
     def can_see?
-      if subject.access_limited?
+      if world_actor? && (subject.world_locations & actor.world_locations).empty?
+        false
+      elsif subject.access_limited?
         (subject.organisations & [actor.organisation].compact).any?
       else
         true
@@ -93,6 +103,10 @@ module Whitehall::Authority::Rules
       end
     end
 
+    def world_editor_can?(action)
+      departmental_editor_can?(action)
+    end
+
     def departmental_writer_can?(action)
       case action
       when 'approve', 'publish', 'unpublish', 'force_publish', 'reject'
@@ -102,5 +116,8 @@ module Whitehall::Authority::Rules
       end
     end
 
+    def world_writer_can?(action)
+      departmental_writer_can?(action)
+    end
   end
 end

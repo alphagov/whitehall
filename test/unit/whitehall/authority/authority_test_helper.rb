@@ -117,4 +117,9 @@ module AuthorityTestHelper
   def enforcer_for(actor, subject)
     Whitehall::Authority::Enforcer.new(actor, subject)
   end
+
+  def with_locations(edition, world_locations)
+    edition.stubs(:world_locations).returns(world_locations)
+    edition
+  end
 end
