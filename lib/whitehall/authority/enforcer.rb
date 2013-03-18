@@ -1,6 +1,7 @@
 require 'whitehall/authority/rules/object_rules'
 require 'whitehall/authority/rules/edition_rules'
 require 'whitehall/authority/rules/fatality_notice_rules'
+require 'whitehall/authority/rules/world_location_news_article_rules'
 require 'whitehall/authority/rules/document_rules'
 
 module Whitehall::Authority
@@ -30,6 +31,7 @@ module Whitehall::Authority
     'Object' => ->(actor, subject) { Rules::ObjectRules },
     'Document' => ->(actor, subject) { Rules::DocumentRules.new(actor, subject) },
     'Edition' => ->(actor, subject) { Rules::EditionRules.new(actor, subject) },
-    'FatalityNotice' => ->(actor, subject) { Rules::FatalityNoticeRules.new(actor, subject) }
+    'FatalityNotice' => ->(actor, subject) { Rules::FatalityNoticeRules.new(actor, subject) },
+    'WorldLocationNewsArticle' => ->(actor, subject) { Rules::WorldLocationNewsArticleRules.new(actor, subject) }
   }
 end

@@ -36,6 +36,24 @@ if defined? Rails
       lfn.stubs(:organisations).returns(Array.wrap(orgs))
       lfn
     end
+
+    def normal_world_location_news(user=nil)
+      wln = FactoryGirl.build(:world_location_news)
+      wln.stubs(:creator).returns(user)
+      wln
+    end
+
+    def force_published_world_location_news(user)
+      fpwln = FactoryGirl.build(:published_world_location_news, force_published: true)
+      fpwln.stubs(:published_by).returns(user)
+      fpwln
+    end
+
+    def limited_world_location_news(orgs)
+      lwln = FactoryGirl.build(:world_location_news, access_limited: true)
+      lwln.stubs(:organisations).returns(Array.wrap(orgs))
+      lwln
+    end
   end
 else
   # otherwise use the fast_test_helper and fake things out a bit
@@ -80,6 +98,20 @@ else
     end
   end
 
+  class WorldLocationNewsArticle < Edition
+  end
+  class LimitedWorldLocationNewsArticle < WorldLocationNewsArticle
+    def access_limited?
+      true
+    end
+    def organisations=(orgs)
+      @orgs = orgs
+    end
+    def organisations
+      @orgs
+    end
+  end
+
   class Document; end
 
   module AuthorityTestHelper
@@ -107,6 +139,20 @@ else
 
     def limited_fatality_notice(orgs)
       lfn = LimitedFatalityNotice.new
+      lfn.organisations = (orgs || [])
+      lfn
+    end
+
+    def normal_world_location_news(user=nil)
+      WorldLocationNewsArticle.new(user)
+    end
+
+    def force_published_world_location_news(user)
+      WorldLocationNewsArticle.new(nil, true, user)
+    end
+
+    def limited_world_location_news(orgs)
+      lfn = LimitedWorldLocationNewsArticle.new
       lfn.organisations = (orgs || [])
       lfn
     end
