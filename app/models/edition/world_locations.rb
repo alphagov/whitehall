@@ -10,11 +10,24 @@ module Edition::WorldLocations
   end
 
   included do
+    validate :at_least_one_world_location
     add_trait Trait
   end
 
   def can_be_associated_with_world_locations?
     true
+  end
+
+  def skip_world_location_validation?
+    true
+  end
+
+  def at_least_one_world_location
+    unless skip_world_location_validation?
+      if world_locations.empty?
+        errors[:world_locations] = "at least one required"
+      end
+    end
   end
 
   module InstanceMethods

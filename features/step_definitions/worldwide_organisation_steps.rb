@@ -153,6 +153,7 @@ end
 
 Given /^the worldwide organisation "([^"]*)" exists$/ do |worldwide_organisation_name|
   create(:worldwide_organisation, name: worldwide_organisation_name, logo_formatted_name: worldwide_organisation_name)
+  create(:organisation_type, name: "Other") #Needed for sorting
 end
 
 When /^I begin editing a new worldwide organisation "([^"]*)"$/ do |worldwide_organisation_name|

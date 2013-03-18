@@ -27,4 +27,16 @@ class WorldLocationNewsArticleTest < ActiveSupport::TestCase
     world_article = build(:world_location_news_article)
     assert world_article.translatable?
   end
+
+  test "should not be valid without a world location" do
+    world_article = build(:world_location_news_article)
+    world_article.world_locations = []
+    refute world_article.valid?
+  end
+
+  test "should not be valid without a worldwide organisations" do
+    world_article = build(:world_location_news_article)
+    world_article.worldwide_organisations = []
+    refute world_article.valid?
+  end
 end

@@ -13,10 +13,24 @@ module Edition::WorldwideOrganisations
     has_many :edition_worldwide_organisations, foreign_key: :edition_id, dependent: :destroy
     has_many :worldwide_organisations, through: :edition_worldwide_organisations
 
+    validate :at_least_one_worldwide_organisations
+
     add_trait Trait
   end
 
   def can_be_associated_with_worldwide_organisations?
     true
+  end
+
+  def skip_worldwide_organisations_validation?
+    true
+  end
+
+  def at_least_one_worldwide_organisations
+    unless skip_worldwide_organisations_validation?
+      if worldwide_organisations.empty?
+        errors[:worldwide_organisations] = "at least one required"
+      end
+    end
   end
 end
