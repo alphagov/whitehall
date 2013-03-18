@@ -2,7 +2,8 @@ module Whitehall::Authority::Rules
   class EditionRules
     def self.actions
       [
-        'see', 'update', 'create', 'approve', 'publish', 'force_publish',
+        'see', 'update', 'create', 'delete',
+        'approve', 'publish', 'force_publish',
         'reject', 'make_fact_check', 'review_fact_check',
         'make_editorial_remark', 'review_editorial_remark',
         'limit_access', 'unpublish'

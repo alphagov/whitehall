@@ -59,6 +59,10 @@ class DepartmentWriterTest < ActiveSupport::TestCase
     assert enforcer_for(department_writer, normal_edition).can?(:update)
   end
 
+  test 'can delete an edition that is not access limited' do
+    assert enforcer_for(department_writer, normal_edition).can?(:delete)
+  end
+
   test 'can make a fact check request for an edition' do
     assert enforcer_for(department_writer, normal_edition).can?(:make_fact_check)
   end
