@@ -1,107 +1,36 @@
 // flatten all browser defaults and styles inherited from gov.uk header
 
-#whitehall-wrapper {
-  font-family: $NTA-Light;
-  position: relative;
-  overflow: visible;
-  margin: 0 auto;
-  padding-top: 0;
-  padding-bottom: $gutter;
-  background: transparent;
-  color: $text-colour;
-  border-top: 50px solid #f4f4f4;
-  -webkit-font-smoothing: antialiased;
-  border-bottom: $gutter-one-third solid $inside-gov-secondary;
-
-  @include ie(7){
-    border-top: 1px solid #fff !important;
-    // I don't like this, I am not proud of this, but this is how it has to be.
-    // IE7 can't manage -ve margins over borders. It also won't let me redefine
-    // the border without the important, I probably could manage it using a
-    // better selector but that wouldn't be inline in this IE block.
-  }
-
-  @include media(desktop) {
-    padding-bottom: $gutter*2;
-  }
-
-  #whitehall-inner {
-    position: relative;
-    margin: -50px auto 0;
-    width: auto;
-    max-width: $max-site-width + $gutter*2;
-
-    @extend %contain-floats;
-  }
-  
-  @include media(tablet){
-    border-top: 60px solid #f8f8f8;
-    #whitehall-inner {
-      margin-top: -60px;
-    }
-  }
-  #page {
-    @include right-to-left {
-      direction: rtl;
-    }
-  }
+/* Borrowed from http://meyerweb.com/eric/tools/css/reset/ */
+div, span,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark {
+  border: none;
+  margin: 0;
+  padding: 0;
 }
 
-.detailed-guidance #whitehall-wrapper,
-.sunset #whitehall-wrapper {
-  border: 0;
-
-  #whitehall-inner {
-    position: static;
-    margin-top: 0;
-
-    @include media(tablet){
-      margin-top: 0;
-    }
-  }
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+input, textarea,
+table, caption, tbody, tfoot, thead, tr, th, td {
+  font-size: inherit;
+  font-family: inherit;
+  line-height: inherit;
+  font-weight: normal;
 }
 
 #whitehall-wrapper {
-  /* Borrowed from http://meyerweb.com/eric/tools/css/reset/ */
-  div, span,
-  h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-  a, abbr, acronym, address, big, cite, code,
-  del, dfn, em, img, ins, kbd, q, s, samp,
-  small, strike, strong, sub, sup, tt, var,
-  b, u, i, center,
-  dl, dt, dd, ol, ul, li,
-  fieldset, form, label, legend,
-  table, caption, tbody, tfoot, thead, tr, th, td,
-  article, aside, canvas, details, embed,
-  figure, figcaption, footer, header, hgroup,
-  menu, nav, output, ruby, section, summary,
-  time, mark {
-    //display: block;
-    background: transparent;
-    float: none;
-    margin-right: 0;
-    min-height: 0;
-    position: auto;
-    width: auto;
-    height: auto;
-    z-index: auto;
-    border: none;
-
-    margin: 0;
-    padding: 0;
-    font-family: inherit;
-    font-size: inherit;
-    font-weight: inherit;
-    line-height: inherit;
-    color: inherit;
-    @include box-shadow(none);
-  }
-
-  input, input:hover, input:active, input:focus {
-    @include box-shadow(none);
-    @include translate(0,0);
-  }
-
   a {
     color: $link-colour;
     text-decoration: none;
@@ -118,9 +47,5 @@
 
   a:active {
     color: orange
-  }
-
-  article {
-    position: static;
   }
 }
