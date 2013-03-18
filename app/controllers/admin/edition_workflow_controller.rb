@@ -2,6 +2,7 @@ class Admin::EditionWorkflowController < Admin::BaseController
   include PublicDocumentRoutesHelper
 
   before_filter :find_edition
+  before_filter :enforce_permissions!
   before_filter :limit_edition_access!
   before_filter :lock_edition
   before_filter :set_change_note
@@ -22,6 +23,26 @@ class Admin::EditionWorkflowController < Admin::BaseController
       alert: "Unable to #{action_name_as_human_interaction(params[:action])} because it is not ready yet. Please try again."
   end
 
+  def enforce_permissions!
+    case action_name
+    when 'submit', 'unschedule', 'convert_to_draft'
+      enforce_permission!(:update, @edition)
+    when 'reject'
+      enforce_permission!(:reject, @edition)
+    when 'publish', 'schedule'
+      if params[:force].present?
+        enforce_permission!(:force_publish, @edition)
+      else
+        enforce_permission!(:publish, @edition)
+      end
+    when 'unpublish'
+      enforce_permission!(:unpublish, @edition)
+    when 'approve_retrospectively'
+      enforce_permission!(:approve, @edition)
+    else
+      enforce_permission!(action_name, @edition)
+    end
+  end
 
   def submit
     @edition.submit!

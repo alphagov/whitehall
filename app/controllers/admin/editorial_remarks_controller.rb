@@ -1,6 +1,11 @@
 class Admin::EditorialRemarksController < Admin::BaseController
   before_filter :find_edition
+  before_filter :enforce_permissions!
   before_filter :limit_edition_access!
+
+  def enforce_permissions!
+    enforce_permission!(:make_editorial_remark, @edition)
+  end
 
   def new
     @editorial_remark = @edition.editorial_remarks.build
