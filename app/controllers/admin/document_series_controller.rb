@@ -33,6 +33,15 @@ class Admin::DocumentSeriesController < Admin::BaseController
     end
   end
 
+  def destroy
+    @document_series.delete!
+    if @document_series.deleted?
+      redirect_to admin_document_series_index_path, notice: "document series destroyed"
+    else
+      redirect_to admin_document_series_index_path, alert: "Cannot destroy document series with associated content"
+    end
+  end
+
   private
 
   def find_organisation
