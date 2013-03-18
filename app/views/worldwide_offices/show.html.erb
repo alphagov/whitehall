@@ -1,0 +1,33 @@
+<% page_title @worldwide_organisation.name %>
+<% page_class "corporate-information-pages-show-worldwide-organisation" %>
+
+<%= render partial: 'worldwide_organisations/header', locals: { organisation: @worldwide_organisation, link_to_organisation: true, object_for_translation: @worldwide_office } %>
+<article class="block article">
+  <div class="inner-block floated-children">
+    <% if govspeak_headers(@worldwide_office.access_and_opening_times.body).any? %>
+      <nav>
+        <div class="content js-stick-at-top-when-scrolling">
+          <h1>Contents</h1>
+          <ol>
+            <% govspeak_headers(@worldwide_office.access_and_opening_times.body).each do |header| %>
+              <li><%= link_to header.text, "##{header.id}" %></li>
+            <% end %>
+          </ol>
+        </div>
+      </nav>
+    <% end %>
+    <div class="main-body">
+      <div class="content">
+        <h1 class="main"><%= @worldwide_office.title %></h1>
+
+        <div class="contact-us">
+          <%= render partial: 'contacts/contact', locals: { contact: @worldwide_office.contact } %>
+        </div>
+
+        <div class="body">
+          <%= wrapped_in_govspeak_div bare_govspeak_to_html(@worldwide_office.access_and_opening_times.body) %>
+        </div>
+      </div>
+    </div>
+  </div>
+</article>

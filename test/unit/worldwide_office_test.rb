@@ -42,4 +42,34 @@ class WorldwideOfficeTest < ActiveSupport::TestCase
     assert_equal contact.country_name, office.country_name
     assert_equal contact.has_postal_address?, office.has_postal_address?
   end
+
+  test 'sets a slug based on the title' do
+    office = create(:worldwide_office, contact: create(:contact, title: "Consulate General's Office"))
+    assert office.contact
+
+    assert_equal 'consulate-generals-office', office.slug
+  end
+
+  test 'scopes the slug to the worldwide organisation' do
+    office = create(:worldwide_office, contact: create(:contact, title: "Consulate General's Office"))
+    office_at_same_org = create(:worldwide_office, worldwide_organisation: office.worldwide_organisation, contact: create(:contact, title: "Consulate General's Office"))
+
+    assert_equal 'consulate-generals-office', office.slug
+    assert_equal 'consulate-generals-office--2', office_at_same_org.slug
+
+    office_at_different_org = create(:worldwide_office, contact: create(:contact, title: "Consulate General's Office"))
+    assert_equal 'consulate-generals-office', office_at_different_org.slug
+  end
+
+  test 'defaults to the access info of the worldwide organisation' do
+    office = create(:worldwide_office)
+    assert_nil office.access_and_opening_times
+
+    access_and_opening_times = create(:access_and_opening_times, accessible: office.worldwide_organisation)
+    assert_equal access_and_opening_times, office.reload.access_and_opening_times
+  end
+
+  test 'is not translatable just yet' do
+    refute WorldwideOffice.new.available_in_multiple_languages?
+  end
 end

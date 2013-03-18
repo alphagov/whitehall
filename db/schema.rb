@@ -971,8 +971,10 @@ ActiveRecord::Schema.define(:version => 20130320174658) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "worldwide_office_type_id",  :null => false
+    t.string   "slug"
   end
 
+  add_index "worldwide_offices", ["slug"], :name => "index_worldwide_offices_on_slug"
   add_index "worldwide_offices", ["worldwide_organisation_id"], :name => "index_worldwide_offices_on_worldwide_organisation_id"
 
   create_table "worldwide_organisation_roles", :force => true do |t|
