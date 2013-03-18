@@ -30,64 +30,13 @@ else
   require 'fast_test_helper'
   require 'whitehall/authority'
 
-  class Edition < Struct.new(:creator, :force_published, :published_by);
-    def force_published?
-      !!@force_published
-    end
-    def access_limited?
-      false
-    end
-    def organisations
-      []
-    end
-  end
-
-  class LimitedEdition < Edition
-    def access_limited?
-      true
-    end
-    def organisations=(orgs)
-      @orgs = orgs
-    end
-    def organisations
-      @orgs
-    end
-  end
-
-  class FatalityNotice < Edition
-  end
-  class LimitedFatalityNotice < FatalityNotice
-    def access_limited?
-      true
-    end
-    def organisations=(orgs)
-      @orgs = orgs
-    end
-    def organisations
-      @orgs
-    end
-  end
-
-  class WorldLocationNewsArticle < Edition
-  end
-  class LimitedWorldLocationNewsArticle < WorldLocationNewsArticle
-    def access_limited?
-      true
-    end
-    def organisations=(orgs)
-      @orgs = orgs
-    end
-    def organisations
-      @orgs
-    end
-  end
-
-  class Document; end
-
   module AuthorityTestHelper
+    def self.get_class_name_from_type(edition_type)
+      edition_type.to_s.gsub('_',' ').split().map(&:capitalize).join
+    end
+
     def self.get_class_from_type(edition_type)
-      class_name = edition_type.to_s.gsub('_',' ').split().map(&:capitalize).join
-      Object.const_get(class_name)
+      Object.const_get(get_class_name_from_type(edition_type))
     end
 
     def self.define_edition_factory_methods(edition_type)
@@ -108,6 +57,44 @@ else
     define_edition_factory_methods :fatality_notice
     define_edition_factory_methods :world_location_news_article
   end
+
+  class EditionBase < Struct.new(:creator, :force_published, :published_by);
+    def force_published?
+      !!@force_published
+    end
+    def access_limited?
+      false
+    end
+    def organisations
+      []
+    end
+  end
+
+  module AuthorityTestHelper
+    def self.define_edition_classes(edition_type)
+      class_name = get_class_name_from_type(edition_type)
+      unless Object.const_defined? class_name
+        base = class_name == 'Edition' ? EditionBase : Edition
+        new_edition_class = Object.const_set(class_name, Class.new(base))
+        Object.const_set("Limited#{class_name}", Class.new(new_edition_class) do
+          def access_limited?
+            true
+          end
+          def organisations=(orgs)
+            @orgs = orgs
+          end
+          def organisations
+            @orgs
+          end
+        end)
+      end
+    end
+  end
+  AuthorityTestHelper.define_edition_classes :edition
+  AuthorityTestHelper.define_edition_classes :fatality_notice
+  AuthorityTestHelper.define_edition_classes :world_location_news_article
+
+  class Document; end
 end
 
 module AuthorityTestHelper
