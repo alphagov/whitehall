@@ -108,19 +108,6 @@ class TopicTest < ActiveSupport::TestCase
     assert_equal [], topic.published_related_editions
   end
 
-  test "should exclude deleted topics by default" do
-    current_topic = create(:topic)
-    deleted_topic = create(:topic, state: "deleted")
-    assert_equal [current_topic], Topic.all
-  end
-
-  test "should be deletable when there are no associated editions" do
-    topic = create(:topic)
-    assert topic.destroyable?
-    topic.delete!
-    assert topic.deleted?
-  end
-
   test "should be deletable if all the associated policies are archived" do
     topic = create(:topic, policies: [create(:archived_policy)])
     assert topic.destroyable?
@@ -212,12 +199,6 @@ class TopicTest < ActiveSupport::TestCase
     topic = create(:topic)
     Rummageable.expects(:delete).with("/government/topics/#{topic.slug}", Whitehall.government_search_index_path)
     topic.destroy
-  end
-
-  test 'should remove topic from search index on deleting' do
-    topic = create(:topic)
-    Rummageable.expects(:delete).with("/government/topics/#{topic.slug}", Whitehall.government_search_index_path)
-    topic.delete!
   end
 
   test 'should return search index data for all topics' do
