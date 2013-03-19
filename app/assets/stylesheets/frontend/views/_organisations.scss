@@ -11,6 +11,11 @@
   }
 
   .page-header {
+
+    h1.title {
+      @include heading-27;
+    }
+
     padding: $gutter-half 0;
     @extend %contain-floats;
 
@@ -22,21 +27,6 @@
     .page_title {
       display: block;
       @include bold;
-    }
-
-    .js-filter-form {
-      display: none;
-
-      label {
-        @include ig-core-19;
-        color: $secondary-text-colour;
-        display: inline-block;
-      }
-      input {
-        display: inline-block;
-        margin: 7px $gutter-one-third 3px;
-        width: 30%;
-      }
     }
 
   }
