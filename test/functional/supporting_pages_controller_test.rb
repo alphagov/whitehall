@@ -36,7 +36,7 @@ class SupportingPagesControllerTest < ActionController::TestCase
 
     get :show, policy_id: policy.document, id: supporting_page
 
-    assert_select ".policy-navigation" do
+    assert_select ".activity-navigation" do
       assert_select "a[href='#{policy_path(policy.document)}']"
       assert_select "a[href='#{policy_supporting_pages_path(policy.document)}']"
     end
@@ -48,7 +48,7 @@ class SupportingPagesControllerTest < ActionController::TestCase
 
     get :show, policy_id: policy.document, id: supporting_page
 
-    assert_select ".policy-navigation a.current[href='#{policy_supporting_pages_path(policy.document)}']"
+    assert_select ".activity-navigation a.current[href='#{policy_supporting_pages_path(policy.document)}']"
   end
 
   view_test "shows the body using govspeak markup" do
@@ -230,7 +230,7 @@ class SupportingPagesControllerTest < ActionController::TestCase
 
     get :show, policy_id: policy.document, id: supporting_page
 
-    assert_select '.policy-navigation' do
+    assert_select '.activity-navigation' do
       assert_select "a[href='#{policy_path(policy.document)}']"
       assert_select "a[href='#{policy_supporting_pages_path(policy.document)}']"
     end
@@ -243,7 +243,7 @@ class SupportingPagesControllerTest < ActionController::TestCase
 
     get :show, policy_id: policy.document, id: supporting_page
 
-    assert_select '.policy-navigation' do
+    assert_select '.activity-navigation' do
       assert_select "a[href='#{policy_path(policy.document)}']"
       assert_select "a[href='#{policy_supporting_pages_path(policy.document)}']"
       assert_select "a[href='#{activity_policy_path(policy.document)}']"

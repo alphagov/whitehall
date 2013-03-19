@@ -1,0 +1,43 @@
+.activity-navigation {
+  border-bottom: 1px solid $border-colour;
+  float: left;
+  width: 100%;
+  margin: 0 ($gutter * -1 + 2px);
+  padding: 0 ($gutter - 2px);
+
+  li {
+    list-style: none;
+    float: left;
+    width: 33.333%;
+    padding: 0;
+
+    a {
+      display: block;
+      @include ig-core-24;
+      padding: $gutter-half 0 $gutter-half ($gutter-half + 2px);
+      margin: 0 2px;
+      background: $panel-colour;
+      color: $text-colour;
+
+      @include media(tablet){
+        margin-bottom: 4px;
+      }
+
+      &:hover,
+      &:focus {
+        background: $panel-colour;
+      }
+      &.current {
+        position: relative;
+        margin-bottom: -1px;
+        @include ig-core-24;
+        padding: $gutter-half 0 ($gutter-half + 4px) ($gutter-half + 1px);
+        border: 1px solid $border-colour;
+        border-bottom: none;
+        background: $white;
+        text-decoration: none;
+      }
+
+    }
+  }
+}

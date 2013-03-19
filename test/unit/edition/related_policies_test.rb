@@ -3,9 +3,9 @@ require "test_helper"
 class Edition::RelatedPoliciesTest < ActiveSupport::TestCase
   test "#destroy should also remove the relationship to existing policies" do
     edition = create(:draft_consultation, related_editions: [create(:draft_policy)])
-    relation = edition.edition_relations.first
+    relation = edition.outbound_edition_relations.first
     edition.destroy
-    refute EditionRelation.find_by_id(relation.id)
+    refute EditionRelation.exists?(relation.id)
   end
 
   class EditionWithRelatedPolicies < Edition

@@ -17,32 +17,28 @@ class WorldwidePrioritiesControllerTest < ActionController::TestCase
 
     assert_select ".title", "priority-title"
     assert_select ".body", "priority-body"
+    refute_select "nav.activity-navigation"
   end
 
-  test "fetches a list of published related world location news" do
-    edition = create(:published_worldwide_priority)
-    first_news = create(:published_world_location_news_article, related_editions: [edition])
-    second_news = create(:published_world_location_news_article)
-    third_news = create(:published_world_location_news_article, related_editions: [edition, create(:published_worldwide_priority)])
-    fourth_news = create(:draft_world_location_news_article, related_editions: [edition])
+  view_test '#show includes navigation tabs when there are related published prioritys' do
+    priority = create(:published_worldwide_priority)
+    news     = create(:published_world_location_news_article, related_editions: [priority])
 
-    get :show, id: edition.document
+    get :show, id: priority.document
 
-    related_world_news = assigns(:recent_world_location_news)
-    assert related_world_news.include?(first_news)
-    assert related_world_news.include?(third_news)
-    refute related_world_news.include?(second_news)
-    refute related_world_news.include?(fourth_news)
+    assert_response :success
+    assert_template :show
+    assert_equal priority, assigns(:document)
+    assert_select "nav.activity-navigation"
   end
-
 
   view_test "should display the associated organisations" do
-    first_organisation = create(:organisation)
+    first_organisation  = create(:organisation)
     second_organisation = create(:organisation)
-    third_organisation = create(:organisation)
-    edition = create(:published_worldwide_priority, organisations: [first_organisation, second_organisation])
+    third_organisation  = create(:organisation)
+    priority            = create(:published_worldwide_priority, organisations: [first_organisation, second_organisation])
 
-    get :show, id: edition.document
+    get :show, id: priority.document
 
     assert_select_object first_organisation
     assert_select_object second_organisation
@@ -50,19 +46,33 @@ class WorldwidePrioritiesControllerTest < ActionController::TestCase
   end
 
   view_test "should not display an empty list of organisations" do
-    edition = create(:published_worldwide_priority, organisations: [])
+    priority = create(:published_worldwide_priority, organisations: [])
 
-    get :show, id: edition.document
+    get :show, id: priority.document
 
     refute_select "#organisations"
   end
 
   view_test "should display translated page labels when requested in a different locale" do
-    edition = create(:published_worldwide_priority, translated_into: 'fr')
+    priority = create(:published_worldwide_priority, translated_into: 'fr')
 
-    get :show, id: edition.document, locale: 'fr'
+    get :show, id: priority.document, locale: 'fr'
 
     assert_select ".page_title", /Priorité internationale/
     assert_select ".change-notes-title", /Publié/
+  end
+
+  test '#activity loads the recently changed documents related to the priority' do
+    priority = create(:published_worldwide_priority)
+    news     = create(:published_world_location_news_article, related_editions: [priority])
+    speech   = create(:published_speech, related_editions: [priority])
+    draft    = create(:draft_world_location_news_article, related_editions: [priority])
+
+    get :activity, id: priority.document
+
+    assert_response :success
+    assert_template :activity
+    assert_equal priority, assigns(:document)
+    assert_equal [speech, news], assigns(:related_editions)
   end
 end
