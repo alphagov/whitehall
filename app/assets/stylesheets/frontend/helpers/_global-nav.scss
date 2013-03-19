@@ -1,24 +1,29 @@
-
+.global-nav-wrapper {
+  background: #f4f4f4;
+}
 #global-nav {
-  margin: 4px $gutter-half 0;
-  border-bottom: $gutter-one-third solid $inside-gov-secondary;
+  margin-top: 4px;
   position: relative;
   z-index: 100;
 
-  @include media(tablet){
-    margin: $gutter-one-sixth $gutter 0;
-  }
-  
   @include media(desktop){
     text-align: right;
   }
   
   .inner {
-    border-bottom: $gutter-one-sixth solid $inside-gov-nav;
-    padding-bottom: 2px;
-    @extend %contain-floats;
+    border-bottom: $gutter-one-third solid $inside-gov-secondary;
+    margin: 0 $gutter-half;
     @include media(tablet){
-      padding-bottom: 0;
+      margin: 0 $gutter;
+    }
+
+    .extra-inner {
+      border-bottom: $gutter-one-sixth solid $inside-gov-nav;
+      padding-bottom: 2px;
+      @extend %contain-floats;
+      @include media(tablet){
+        padding-bottom: 0;
+      }
     }
   }
 
