@@ -62,3 +62,14 @@ end
 Then /^the world location news article should still be related to the policy "([^"]*)"$/ do |policy|
   assert Edition.last.related_policies.include?(Policy.find_by_title(policy))
 end
+
+When /^I visit the activity of the published priority "([^"]*)"$/ do |title|
+  priority = WorldwidePriority.find_by_title!(title)
+  visit activity_worldwide_priority_path(priority.document)
+end
+
+Given /^a published (publication|consultation|news article|speech) "([^"]*)" related to the priority "([^"]*)"$/ do |document_type, document_title, title|
+  priority = WorldwidePriority.find_by_title!(title)
+  create("published_#{document_class(document_type).name.underscore}".to_sym,
+          title: document_title, related_editions: [priority])
+end

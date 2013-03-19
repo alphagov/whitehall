@@ -28,4 +28,15 @@
       }
     }
   }
+
+  .meta-two {
+    clear: both;
+    position: relative;
+    padding: $gutter 0 $gutter-half;
+    @extend %contain-floats;
+
+    @include media(tablet){
+      padding: ($gutter + $gutter-one-third - 2px) 0 ($gutter);
+    }
+  }
 }

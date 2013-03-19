@@ -135,6 +135,13 @@ When /^I draft a new policy "([^"]*)" that does not apply to the nations:$/ do |
   click_button "Save"
 end
 
+When /^I draft a new policy "([^"]*)" relating it to the worldwide_priorities "([^"]*)" and "([^"]*)"$/ do |title, first_priority, second_priority|
+  begin_drafting_policy title: title
+  select first_priority, from: "Worldwide priorities"
+  select second_priority, from: "Worldwide priorities"
+  click_button "Save"
+end
+
 When /^I edit the policy "([^"]*)" changing the title to "([^"]*)"$/ do |original_title, new_title|
   begin_editing_document original_title
   fill_in "Title", with: new_title
