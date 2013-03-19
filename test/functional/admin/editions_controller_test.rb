@@ -58,7 +58,15 @@ class Admin::EditionsController
       policy = create(:draft_policy, world_locations: [location])
       another_edition = create(:published_policy, world_locations: [location])
 
-      assert_equal [policy], EditionFilter.new(Edition, @current_user, type: 'policy', state: 'draft', world_locations: [location.id]).editions
+      assert_equal [policy], EditionFilter.new(Edition, @current_user, type: 'policy', state: 'draft', world_location_ids: [location.id]).editions
+    end
+
+    test "should filter by world location" do
+      location = create(:world_location)
+      consultation = create(:consultation)
+      policy = create(:policy, world_locations: [location])
+
+      assert_equal [policy], EditionFilter.new(Edition, @current_user, world_location_ids: [location.id]).editions
     end
 
     test "should filter by title" do

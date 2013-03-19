@@ -40,4 +40,14 @@ class Edition::WorldLocationsTest < ActiveSupport::TestCase
     refute edition_world_location.featured?
   end
 
+
+  test "ensures that featured editions on worldwide pages have their associations preserved" do
+    image_data_with_missing_image = build(:edition_world_location_image_data, file: '')
+    image_data_with_missing_image.save(validate: false)
+    edition = create(:published_world_location_news_article)
+    feature = create(:featured_edition_world_location, edition: edition, edition_world_location_image_data_id: image_data_with_missing_image.id)
+
+    new_edition = edition.create_draft(create(:author))
+    refute_equal feature.id, EditionWorldLocation.last.id
+  end
 end
