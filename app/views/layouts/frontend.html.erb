@@ -29,9 +29,9 @@
   <body class="website government">
     <div class="header-context group"><!-- deliberately empty --></div>
     <div id="whitehall-wrapper">
-      <div id="whitehall-inner">
-        <div class="js-toggle-nav" id="global-nav">
-          <div class="inner">
+      <div class="global-nav-wrapper">
+        <div class="whitehall-content js-toggle-nav" id="global-nav">
+          <div class="inner"><div class="extra-inner"><!-- extra inner for extra border bottom -->
             <span class="home"><%= link_to "Inside Government", root_path %></span>
             <span class="jump-link"><a href="#navigation" class="toggler">menu</a></span>
             <nav role="navigation" class="content">
@@ -50,9 +50,10 @@
                 </li>
               </ul>
             </nav>
-          </div>
+        </div></div>
         </div>
-        <div id="content"></div>
+      </div>
+      <div class="whitehall-content">
         <div class="progress-bar js-progress-bar js-hidden" id="progress-bar" data-join-count="<%= joined_ministerial_department_count %>">
           <div class="bar"><div class="joined" style="width: <%= joined_ministerial_department_percent %>"></div></div>
           <p>
