@@ -27,7 +27,9 @@ if defined? Rails
       end
       define_method("limited_#{edition_type}") do |orgs|
         le = FactoryGirl.build(edition_type, access_limited: true)
-        le.stubs(:organisations).returns(Array.wrap(orgs))
+        le.stubs(:edition_organisations).returns(Array.wrap(orgs).map { |o|
+          OpenStruct.new(organisation: o)
+        })
         le
       end
     end
@@ -60,7 +62,9 @@ else
       end
       define_method("limited_#{edition_type}") do |orgs|
         e = AuthorityTestHelper.get_class_from_type("limited_#{edition_type}").new
-        e.organisations = (orgs || [])
+        e.edition_organisations = Array.wrap(orgs || []).map { |o|
+          OpenStruct.new(organisation: o)
+        }
         e
       end
     end
@@ -78,7 +82,7 @@ else
     def access_limited?
       false
     end
-    def organisations
+    def edition_organisations
       []
     end
   end
@@ -93,11 +97,11 @@ else
           def access_limited?
             true
           end
-          def organisations=(orgs)
-            @orgs = orgs
+          def edition_organisations=(edition_orgs)
+            @edition_orgs = edition_orgs
           end
-          def organisations
-            @orgs
+          def edition_organisations
+            @edition_orgs
           end
         end)
       end

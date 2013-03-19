@@ -80,7 +80,10 @@ module Whitehall::Authority::Rules
       if world_actor? && (subject.world_locations & actor.world_locations).empty?
         false
       elsif subject.access_limited?
-        (subject.organisations & [actor.organisation].compact).any?
+        # NOTE: the subjects edition_organisations is more likely to be 
+        # populated for new edition instances, so use that in favour of 
+        # its organisations
+        (subject.edition_organisations.map(&:organisation) & [actor.organisation].compact).any?
       else
         true
       end
