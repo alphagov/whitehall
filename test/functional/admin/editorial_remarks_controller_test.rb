@@ -48,6 +48,7 @@ class Admin::EditorialRemarksControllerTest < ActionController::TestCase
   test "should prevent access to inaccessible editions" do
     protected_edition = stub("protected edition", id: "1")
     protected_edition.stubs(:accessible_by?).with(@current_user).returns(false)
+    controller.stubs(:can?).with(anything, protected_edition).returns(true)
     Edition.stubs(:find).with("1").returns(protected_edition)
 
     get :new, edition_id: "1"

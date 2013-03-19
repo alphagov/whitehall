@@ -200,6 +200,7 @@ class Admin::CreatingFactCheckRequestsControllerTest < ActionController::TestCas
     author = create(:user, organisation: create(:organisation))
     @edition = create(:draft_publication, publication_type: PublicationType::NationalStatistics, access_limited: true, organisations: [author.organisation])
     refute @edition.accessible_by?(@requestor)
+    controller.stubs(:can?).with(anything, @edition).returns(true)
 
     post :create, edition_id: @edition.id, fact_check_request: @attributes
 

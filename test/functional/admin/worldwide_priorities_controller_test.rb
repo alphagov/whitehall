@@ -3,7 +3,7 @@ require 'test_helper'
 class Admin::WorldwidePrioritiesControllerTest < ActionController::TestCase
 
   setup do
-    @user = login_as :policy_writer
+    @user = login_as :gds_editor
   end
 
   should_be_an_admin_controller

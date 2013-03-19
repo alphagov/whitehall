@@ -3,7 +3,7 @@ require 'test_helper'
 class Admin::EditionsController
   class EditionFilterTest < ActiveSupport::TestCase
     setup do
-      @current_user = build(:user)
+      @current_user = build(:gds_editor)
     end
 
     test "should filter by edition type" do
@@ -415,6 +415,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     my_organisation, other_organisation = create(:organisation), create(:organisation)
     login_as(create(:user, organisation: my_organisation))
     inaccessible = create(:draft_publication, publication_type: PublicationType::NationalStatistics, access_limited: true, organisations: [other_organisation])
+    controller.stubs(:can?).with(anything, inaccessible).returns(true)
 
     get :show, id: inaccessible
     assert_response :forbidden
@@ -433,6 +434,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
   end
 
   test "confirm_unpublish loads the edition and renders the confirm page" do
+    login_as(create(:gds_editor))
     policy = create(:published_policy)
     get :confirm_unpublish, id: policy.to_param
 

@@ -8,10 +8,10 @@ class Admin::EditionsController < Admin::BaseController
   before_filter :build_edition, only: [:new, :create]
   before_filter :build_edition_organisations, only: [:new, :edit]
   before_filter :detect_other_active_editors, only: [:edit]
-  before_filter :redirect_to_controller_for_type, only: [:show]
   before_filter :set_default_world_locations, only: :index
   before_filter :enforce_permissions!
   before_filter :limit_edition_access!, only: [:show, :edit, :update, :submit, :revise, :reject, :destroy, :confirm_unpublish]
+  before_filter :redirect_to_controller_for_type, only: [:show]
 
   def enforce_permissions!
     case action_name

@@ -361,12 +361,14 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
   end
 
   test 'unpublish unpublishes the edition' do
+    controller.stubs(:can?).with(:unpublish, @edition).returns(true)
     @edition.expects(:unpublish_as).with(@user)
     @edition.stubs(:create_unpublishing!)
     post :unpublish, id: @edition, lock_version: 1
   end
 
   test 'unpublish records the unpublishing reasons' do
+    controller.stubs(:can?).with(:unpublish, @edition).returns(true)
     @edition.stubs(:unpublish_as).returns(true)
     unpublish_params = {
       'unpublishing_reason_id' => '1',
@@ -380,6 +382,7 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
   end
 
   test 'unpublish redirects back to the edition with a message' do
+    controller.stubs(:can?).with(:unpublish, @edition).returns(true)
     @edition.stubs(:unpublish_as).returns(true)
     @edition.stubs(:create_unpublishing!)
     post :unpublish, id: @edition, lock_version: 1
@@ -389,6 +392,7 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
   end
 
   test 'unpublish redirects back to the edition with an error message on validation error' do
+    controller.stubs(:can?).with(:unpublish, @edition).returns(true)
     @edition.stubs(:unpublish_as).returns(false)
     @edition.errors.add(:base, 'Could not unpublish')
     post :unpublish, id: @edition, lock_version: 1
@@ -397,6 +401,7 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
   end
 
   test 'unpublish sets lock version on edition before attempting to unpublish to guard against unpublishing stale objects' do
+    controller.stubs(:can?).with(:unpublish, @edition).returns(true)
     lock_before_unpublishing = sequence('lock-before-unpublishing')
     @edition.expects(:lock_version=).with('92').in_sequence(lock_before_unpublishing)
     @edition.expects(:unpublish_as).in_sequence(lock_before_unpublishing).returns(true)
@@ -404,6 +409,7 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
   end
 
   test 'unpublish redirects back to the edition with an error message if a stale object error is thrown' do
+    controller.stubs(:can?).with(:unpublish, @edition).returns(true)
     @edition.stubs(:unpublish_as).raises(ActiveRecord::StaleObjectError)
     post :unpublish, id: @edition, lock_version: 1
     assert_redirected_to admin_policy_path(@edition)
@@ -411,6 +417,7 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
   end
 
   test 'unpublish responds with 422 if missing a lock version' do
+    controller.stubs(:can?).with(:unpublish, @edition).returns(true)
     post :unpublish, id: @edition
     assert_equal 422, response.status
     assert_equal 'All workflow actions require a lock version', response.body
@@ -464,9 +471,10 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
   end
 
   test "should prevent access to inaccessible editions" do
-    protected_edition = stub("protected edition", id: "1")
+    protected_edition = build(:edition, id: "1")
     protected_edition.stubs(:accessible_by?).with(@current_user).returns(false)
     Edition.stubs(:find).with("1").returns(protected_edition)
+    controller.stubs(:can?).with(anything, protected_edition).returns(true)
 
     post :submit, id: protected_edition.id
     assert_response 403
