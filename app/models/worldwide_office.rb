@@ -8,6 +8,10 @@ class WorldwideOffice < ActiveRecord::Base
 
   accepts_nested_attributes_for :contact
 
+  # WorldOffice quacks like a Contact
+  contact_methods = Contact.column_names + %w(contact_numbers country country_code country_name has_postal_address?) -  %w(id contactable_id contactable_type)
+  delegate *contact_methods, to: :contact, allow_nil: true
+
   def worldwide_office_type
     WorldwideOfficeType.find_by_id(worldwide_office_type_id)
   end
