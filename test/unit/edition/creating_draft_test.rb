@@ -149,7 +149,7 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
   end
 
   test "should build a draft copy with copies of translations" do
-    editor = create(:departmental_editor)
+    editor = create(:gds_editor)
     spanish_translation_attributes = {
       title: 'spanish-title',
       summary: 'spanish-summary',
