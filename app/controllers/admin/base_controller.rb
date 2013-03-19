@@ -25,9 +25,18 @@ class Admin::BaseController < ApplicationController
 
   def enforce_permission!(action, subject)
     unless can?(action, subject)
-      puts "You can't #{action} that #{subject.inspect}"
-      forbidden!
+      raise Whitehall::Authority::Errors::PermissionDenied.new(action, subject)
     end
+  end
+
+  rescue_from Whitehall::Authority::Errors::PermissionDenied do |exception|
+    puts "You can't #{exception.action} that #{exception.subject}"
+    forbidden!
+  end
+
+  rescue_from Whitehall::Authority::Errors::InvalidAction do |exception|
+    puts "Trying to do #{exception.action} which isn't a real action"
+    forbidden!
   end
 
   private

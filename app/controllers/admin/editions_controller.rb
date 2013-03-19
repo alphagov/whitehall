@@ -28,7 +28,7 @@ class Admin::EditionsController < Admin::BaseController
     when 'destroy'
       enforce_permission!(:delete, @edition)
     else
-      enforce_permission!(action_name, @edition)
+      raise Whitehall::Authority::Errors::InvalidAction.new(action_name)
     end
   end
 
