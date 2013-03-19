@@ -2,6 +2,7 @@ class Edition < ActiveRecord::Base
   include Edition::Traits
 
   include Edition::NullImages
+  include Edition::NullWorldLocations
 
   include Edition::Identifiable
   include Edition::AccessControl
@@ -21,9 +22,6 @@ class Edition < ActiveRecord::Base
   has_many :editorial_remarks, dependent: :destroy
   has_many :edition_authors, dependent: :destroy
   has_many :authors, through: :edition_authors, source: :user
-
-  has_many :edition_world_locations, foreign_key: :edition_id, dependent: :destroy
-  has_many :world_locations, through: :edition_world_locations
 
   validates_with SafeHtmlValidator
   validates :title, :creator, presence: true
@@ -192,10 +190,6 @@ class Edition < ActiveRecord::Base
   end
 
   def can_be_associated_with_statistical_data_sets?
-    false
-  end
-
-  def can_be_associated_with_world_locations?
     false
   end
 
