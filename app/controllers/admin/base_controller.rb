@@ -30,12 +30,12 @@ class Admin::BaseController < ApplicationController
   end
 
   rescue_from Whitehall::Authority::Errors::PermissionDenied do |exception|
-    puts "You can't #{exception.action} that #{exception.subject}"
+    logger.warn "Attempt to perform '#{exception.action}' on #{exception.subject} prevented."
     forbidden!
   end
 
   rescue_from Whitehall::Authority::Errors::InvalidAction do |exception|
-    puts "Trying to do #{exception.action} which isn't a real action"
+    logger.warn "Attempt to perform unknown action '#{exception.action}' prevented."
     forbidden!
   end
 
