@@ -2,11 +2,11 @@ module Whitehall::Authority::Rules
   class EditionRules
     def self.actions
       [
-        'see', 'update', 'create', 'delete',
-        'approve', 'publish', 'force_publish',
-        'reject', 'make_fact_check', 'review_fact_check',
-        'make_editorial_remark', 'review_editorial_remark',
-        'limit_access', 'unpublish'
+        :see, :update, :create, :delete,
+        :approve, :publish, :force_publish,
+        :reject, :make_fact_check, :review_fact_check,
+        :make_editorial_remark, :review_editorial_remark,
+        :limit_access, :unpublish
       ]
     end
 
@@ -17,7 +17,6 @@ module Whitehall::Authority::Rules
     end
 
     def can?(action)
-      action = sanitized_action(action)
       return false unless valid_action?(action)
       if subject.is_a?(Class)
         can_with_a_class?(action)
@@ -27,13 +26,10 @@ module Whitehall::Authority::Rules
     end
 
     def valid_action?(action)
-      EditionRules.actions.include?(sanitized_action(action))
+      EditionRules.actions.include?(action)
     end
 
     private
-    def sanitized_action(action)
-      action.to_s.downcase
-    end
 
     def can_with_an_instance?(action)
       if !can_see?
@@ -55,9 +51,9 @@ module Whitehall::Authority::Rules
 
     def gds_editor_can?(action)
       case action
-      when 'approve'
+      when :approve
         can_approve?
-      when 'publish'
+      when :publish
         can_publish?
       else
         true
@@ -73,7 +69,7 @@ module Whitehall::Authority::Rules
     end
 
     def can_with_a_class?(action)
-      ['create', 'see'].include? action
+      [:create, :see].include? action
     end
 
     def world_actor?
@@ -92,11 +88,11 @@ module Whitehall::Authority::Rules
 
     def departmental_editor_can?(action)
       case action
-      when 'approve'
+      when :approve
         can_approve?
-      when 'publish'
+      when :publish
         can_publish?
-      when 'unpublish'
+      when :unpublish
         false
       else
         true
@@ -109,7 +105,7 @@ module Whitehall::Authority::Rules
 
     def departmental_writer_can?(action)
       case action
-      when 'approve', 'publish', 'unpublish', 'force_publish', 'reject'
+      when :approve, :publish, :unpublish, :force_publish, :reject
         false
       else
         true

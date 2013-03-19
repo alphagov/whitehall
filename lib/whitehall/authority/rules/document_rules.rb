@@ -8,7 +8,7 @@ module Whitehall::Authority::Rules
     def can?(action)
       if actor.gds_editor? || actor.departmental_editor?
         true
-      elsif action.to_s.downcase == 'create'
+      elsif action == :create
         true
       else
         false
