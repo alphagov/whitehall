@@ -9,13 +9,21 @@ policies = CSV.read('db/data_migration/20130319122658_apply_local_flag_to_conten
 policies.each do |row|
   title = row.first
   puts "Updating editions related to policy: #{title}"
-  editions = Policy.in_default_locale.where(edition_translations: {title: title}).first.related_editions
+  policy_versions = Policy.in_default_locale.where(edition_translations: {title: title})
+  policy_versions.each do |v|
+    v.update_column('relevant_to_local_government', true)
+  end
+  policy = policy_versions.last
+  editions = policy.related_editions
   CSV.open(Rails.root.join('tmp/apply_local_flag.csv'),'a') do |output|
+    output << ["Updated Policy",policy.document_id,policy.id,nil,title]
     if editions.any?
       editions.each do |edition|
         if edition.can_apply_to_local_government?
-          edition.update_column('relevant_to_local_government', true)
-          output << ["Updated Edition",edition.document_id,edition.id,edition.title,title]
+          edition.document.editions.each do |ev|
+            ev.update_column('relevant_to_local_government', true)
+            output << ["Updated Edition",ev.document_id,ev.id,ev.title,title]
+          end
         end
       end
     else
