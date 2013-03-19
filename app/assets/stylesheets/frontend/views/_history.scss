@@ -102,7 +102,7 @@
     .image {
       figcaption {
         @include core-14;
-        color: $grey-2;
+        color: $grey-1;
       }
       @include media(tablet) {
         width: 33.33%;
