@@ -5,10 +5,12 @@
 // the compiled file.
 //
 //= require jquery_ujs
+//= require vendor/jquery/jquery-ui-1.10.2.custom
 //= require vendor/jquery/jquery.player.min
-//= require_tree ./common
+//
 //= require govuk_toolkit
-//= require_tree ./application
-//= require_tree ./vendor
 //= require shared_mustache
 //= require templates
+//
+//= require_tree ./common
+//= require_tree ./application
