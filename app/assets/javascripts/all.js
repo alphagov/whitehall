@@ -4,4 +4,15 @@
 // It's not advisable to add code directly here, but if you do, it'll appear at the bottom of the
 // the compiled file.
 //
-//= require_tree .
+//= require jquery
+//= require vendor/jquery/jquery-ui-1.10.2.custom
+//= require vendor/jquery/jquery.player.min
+//= require bootstrap
+//
+//= require shared_mustache
+//= require templates
+//= require govuk_toolkit
+//
+//= require_tree ./common
+//= require_tree ./application
+//= require_tree ./admin
