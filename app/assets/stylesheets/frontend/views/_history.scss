@@ -135,6 +135,7 @@
     }
     @include media(tablet) {
       clear: none;
+      display: inline;
       float: left;
       width: 50%;
     }
