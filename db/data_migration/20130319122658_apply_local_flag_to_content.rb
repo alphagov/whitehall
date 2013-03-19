@@ -2,15 +2,19 @@ require 'csv'
 
 CSV.open(Rails.root.join('tmp/apply_local_flag.csv'),'w') do |output|
   output << %w(message document_id edition_id title policy)
+end
 
-  CSV.read('db/data_migration/20130319122658_apply_local_flag_to_content.csv', headers: false, encoding: "UTF-8").each do |row|
-    title = row.first
-    puts "Updating editions related to policy: #{title}"
-    editions = Policy.in_default_locale.where(edition_translations: {title: title}).first.related_editions.all
+policies = CSV.read('db/data_migration/20130319122658_apply_local_flag_to_content.csv', headers: false, encoding: "UTF-8")
+
+policies.each do |row|
+  title = row.first
+  puts "Updating editions related to policy: #{title}"
+  editions = Policy.in_default_locale.where(edition_translations: {title: title}).first.related_editions
+  CSV.open(Rails.root.join('tmp/apply_local_flag.csv'),'a') do |output|
     if editions.any?
       editions.each do |edition|
         if edition.can_apply_to_local_government?
-          edition.update_attribute(:relevant_to_local_government, true)
+          edition.update_column('relevant_to_local_government', true)
           output << ["Updated Edition",edition.document_id,edition.id,edition.title,title]
         end
       end
@@ -18,4 +22,5 @@ CSV.open(Rails.root.join('tmp/apply_local_flag.csv'),'w') do |output|
       output << ["Warning: No editions found for policy",nil,nil,nil,title]
     end
   end
+  GC.start
 end
