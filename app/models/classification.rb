@@ -1,21 +1,12 @@
 class Classification < ActiveRecord::Base
-  include ActiveRecord::Transitions
-  include Searchable
   include Rails.application.routes.url_helpers
+  include Searchable
+  include SimpleWorkflow
 
   searchable title: :name,
              link: :search_link,
              content: :description,
              format: 'topic'
-
-  state_machine do
-    state :current
-    state :deleted
-
-    event :delete, success: -> topic { topic.remove_from_search_index } do
-      transitions from: [:current], to: :deleted, guard: :destroyable?
-    end
-  end
 
   has_many :classification_memberships
   has_many :editions, through: :classification_memberships
@@ -63,8 +54,6 @@ class Classification < ActiveRecord::Base
 
   accepts_nested_attributes_for :classification_memberships
   accepts_nested_attributes_for :organisation_classifications
-
-  default_scope where(arel_table[:state].not_eq("deleted"))
 
   scope :with_content, where("published_edition_count <> 0")
   scope :with_policies, where("published_policies_count <> 0")

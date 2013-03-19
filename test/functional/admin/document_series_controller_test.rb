@@ -111,6 +111,15 @@ class Admin::DocumentSeriesControllerTest < ActionController::TestCase
     assert_redirected_to admin_organisation_document_series_path(organisation, document_series)
   end
 
+  test "delete should delete a series" do
+    document_series = create(:document_series, name: "old-name")
+    organisation = document_series.organisation
+
+    delete :destroy, organisation_id: organisation, id: document_series
+
+    assert_redirected_to admin_document_series_index_path
+  end
+
   view_test "update should show errors updating a series" do
     document_series = create(:document_series, name: "old-name")
     organisation = document_series.organisation
