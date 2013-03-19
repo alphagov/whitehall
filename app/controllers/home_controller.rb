@@ -28,4 +28,7 @@ class HomeController < PublicFacingController
     @all_ministers_count = @cabinet_minister_count + @other_minister_count + 1 # add one to put the PM back in
   end
 
+  def history
+  end
+
 end
