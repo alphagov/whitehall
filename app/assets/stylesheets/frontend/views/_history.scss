@@ -1,4 +1,4 @@
-.history {
+.home-history {
   @include core-19;
 
   h2 {
@@ -102,7 +102,7 @@
     .image {
       figcaption {
         @include core-14;
-        color: grey;
+        color: $grey-2;
       }
       @include media(tablet) {
         width: 33.33%;
