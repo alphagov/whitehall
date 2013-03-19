@@ -1,5 +1,6 @@
 module Whitehall::Authority::Rules
   class ObjectRules
-    def self.can?(action); false; end
+    def initialize(*_); end
+    def can?(action); false; end
   end
 end

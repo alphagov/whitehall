@@ -17,22 +17,27 @@ module Whitehall::Authority
     end
 
     def rules
-      if @ruleset.nil?
-        look_at = subject.is_a?(Class) ? subject.ancestors : subject.class.ancestors
-        rules_class = look_at.detect { |clazz| RulesMap.has_key?(clazz.name) }
-        rules_proc = RulesMap[rules_class.name]
-        @rules = rules_proc.call(@actor, @subject)
+      if @rules.nil?
+        rules_class = find_ruleset_for_instance_or_closest_ancestor(subject)
+        @rules = rules_class.new(@actor, @subject)
       end
       @rules
+    end
+
+    protected
+    def find_ruleset_for_instance_or_closest_ancestor(subject)
+      classes_to_look_at = subject.is_a?(Class) ? subject.ancestors : subject.class.ancestors
+      classname_with_rules = classes_to_look_at.map(&:name).detect { |class_name| RulesMap.has_key?(class_name) }
+      RulesMap[classname_with_rules]
     end
   end
 
   RulesMap = {
-    'Object' => ->(actor, subject) { Rules::ObjectRules },
-    'Document' => ->(actor, subject) { Rules::DocumentRules.new(actor, subject) },
-    'Edition' => ->(actor, subject) { Rules::EditionRules.new(actor, subject) },
-    'FatalityNotice' => ->(actor, subject) { Rules::FatalityNoticeRules.new(actor, subject) },
-    'WorldLocationNewsArticle' => ->(actor, subject) { Rules::WorldEditionRules.new(actor, subject) },
-    'WorldwidePriority' => ->(actor, subject) { Rules::WorldEditionRules.new(actor, subject) }
+    'Object' => Rules::ObjectRules,
+    'Document' => Rules::DocumentRules,
+    'Edition' => Rules::EditionRules,
+    'FatalityNotice' => Rules::FatalityNoticeRules,
+    'WorldLocationNewsArticle' => Rules::WorldEditionRules,
+    'WorldwidePriority' => Rules::WorldEditionRules
   }
 end
