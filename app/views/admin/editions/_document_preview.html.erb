@@ -187,7 +187,17 @@
           <% end %>
         </section>
       <% end %>
+
+      <% if @edition.can_apply_to_local_government? %>
+        <section>
+          <h1>Relevant to local government</h1>
+          <p>
+          Local government content: <%= @edition.relevant_to_local_government ? 'Yes' : 'No'%>
+          </p>
+        </section>
+      <% end %>
     </section>
+
     <section class="tab-pane" id="document-sources">
       <% if current_user.can_import? %>
         <h1>Old URLs (one per line)</h1>
