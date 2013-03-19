@@ -78,4 +78,65 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
     refute Edition.accessible_to(user).include?(inaccessible)
   end
 
+  test "if access is not limited, edition is only accessible to a world user if it\'s about their location" do
+    loc_1, loc_2 = build(:country), build(:country)
+    editor_in_loc_1 = build(:world_editor, world_locations: [loc_1])
+    writer_in_loc_1 = build(:world_writer, world_locations: [loc_1])
+    editor_in_loc_2 = build(:world_editor, world_locations: [loc_2])
+    writer_in_loc_2 = build(:world_writer, world_locations: [loc_2])
+
+    e = create(:limited_access_edition, world_locations: [loc_2], access_limited: false)
+
+    refute e.accessible_by?(editor_in_loc_1)
+    refute e.accessible_by?(writer_in_loc_1)
+
+    assert e.accessible_by?(editor_in_loc_2)
+    assert e.accessible_by?(writer_in_loc_2)
+  end
+
+  test "if access is limited, edition is only accessible to a world user if it\'s about their location AND their org" do
+    loc_1, loc_2 = build(:country), build(:country)
+    org_1, org_2 = build(:organisation), build(:organisation)
+
+    editor_in_org_1_loc_1 = build(:world_editor, world_locations: [loc_1], organisation: org_1)
+    writer_in_org_1_loc_1 = build(:world_writer, world_locations: [loc_1], organisation: org_1)
+    editor_in_org_1_loc_2 = build(:world_editor, world_locations: [loc_2], organisation: org_1)
+    writer_in_org_1_loc_2 = build(:world_writer, world_locations: [loc_2], organisation: org_1)
+    editor_in_org_2_loc_2 = build(:world_editor, world_locations: [loc_2], organisation: org_2)
+    writer_in_org_2_loc_2 = build(:world_writer, world_locations: [loc_2], organisation: org_2)
+
+    e = create(:limited_access_edition, world_locations: [loc_2], organisations: [org_2], access_limited: true)
+
+    refute e.accessible_by?(editor_in_org_1_loc_1)
+    refute e.accessible_by?(writer_in_org_1_loc_1)
+    refute e.accessible_by?(editor_in_org_1_loc_2)
+    refute e.accessible_by?(writer_in_org_1_loc_2)
+
+    assert e.accessible_by?(editor_in_org_2_loc_2)
+    assert e.accessible_by?(writer_in_org_2_loc_2)
+  end
+
+  test "can select all editions accessible to a particular world user, respecting access_limit, org and location" do
+    my_organisation, other_organisation = create(:organisation), create(:organisation)
+    my_location, other_location = create(:country), create(:country)
+    user = create(:world_writer, organisation: my_organisation, world_locations: [my_location])
+    accessible = [
+      create(:draft_publication, access_limited: false, world_locations: [my_location]),
+      create(:draft_publication, access_limited: true, organisations: [my_organisation], world_locations: [my_location]),
+      create(:draft_publication, access_limited: true, organisations: [other_organisation], authors: [user], world_locations: [my_location]),
+    ]
+    inaccessible = [
+      create(:draft_publication, access_limited: false, world_locations: [other_location]),
+      create(:draft_publication, access_limited: true, organisations: [my_organisation], world_locations: [other_location]),
+      create(:draft_publication, access_limited: true, organisations: [other_organisation], world_locations: [my_location])
+    ]
+
+    accessible.each.with_index do |edition, i|
+      assert Edition.accessible_to(user).include?(edition), "doc #{i} should be accessible"
+    end
+    inaccessible.each.with_index do |edition, i|
+      refute Edition.accessible_to(user).include?(edition), "doc #{i} should not be accessible"
+    end
+  end
+
 end

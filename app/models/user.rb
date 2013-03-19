@@ -48,6 +48,10 @@ class User < ActiveRecord::Base
     has_permission?(Permissions::WORLD_WRITER)
   end
 
+  def location_limited?
+    world_editor? || world_writer?
+  end
+
   def can_publish_scheduled_editions?
     has_permission?(Permissions::PUBLISH_SCHEDULED_EDITIONS)
   end
