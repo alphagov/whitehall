@@ -61,16 +61,20 @@ Feature: Administering worldwide organisation
   Scenario: Adding default access information to a worldwide organisation
     Given a worldwide organisation "Department of Beards in France" with offices "Head office" and "Branch office"
     When I add default access information to the worldwide organisation
-    Then I should be able to view the default access information on the public "Head office" office page
-    And I should be able to view the default access information on the public "Branch office" office page
+    Then I should see the default access information on the public "Head office" office page
+    And I should see the default access information on the public "Branch office" office page
 
   Scenario: Editing the default access information for a worldwide organisation
     Given a worldwide organisation "Department of Beards in France" with default access information
     When I edit the default access information for the worldwide organisation
     Then I should see the updated default access information
 
-  Scenario: Adding custom access information to a worldwide office
-  Scenario: Removing custom access information from a worldwide office
+  Scenario: Adding custom access information to a particular worldwide office
+    Given a worldwide organisation "Department of Bananas" with default access information
+    And the offices "Head office" and "Branch office"
+    When I give "Head office" custom access information
+    Then I should see the custom access information on the public "Head office" office page
+    And I should see the default access information on the public "Branch office" office page
 
   Scenario: Adding a corporate information page to a worldwide organisation
     Given a worldwide organisation "Department of Beards in France"

@@ -61,12 +61,22 @@ class WorldwideOfficeTest < ActiveSupport::TestCase
     assert_equal 'consulate-generals-office', office_at_different_org.slug
   end
 
+  test 'returns nil if no default or custom access info has been set' do
+    office = create(:worldwide_office)
+    assert_nil office.access_and_opening_times_body
+  end
+
   test 'defaults to the access info of the worldwide organisation' do
     office = create(:worldwide_office)
-    assert_nil office.access_and_opening_times
-
     access_and_opening_times = create(:access_and_opening_times, accessible: office.worldwide_organisation)
-    assert_equal access_and_opening_times, office.reload.access_and_opening_times
+    assert_equal access_and_opening_times.body, office.access_and_opening_times_body
+  end
+
+  test 'returns custom access info ahead of a default one it present' do
+    office = create(:worldwide_office)
+    create(:access_and_opening_times, accessible: office.worldwide_organisation)
+    custom_access_and_opening_times = create(:access_and_opening_times, accessible: office, body: 'custom body')
+    assert_equal 'custom body', office.access_and_opening_times_body
   end
 
   test 'is not translatable just yet' do

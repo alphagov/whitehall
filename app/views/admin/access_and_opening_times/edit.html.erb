@@ -1,6 +1,6 @@
-<% page_title "Default access information for: #{@accessible.name}" %>
-<h1>Access information for: <%= @accessible.name %></h1>
-<p><%= link_to "Back to #{@accessible.name}", [:admin, @accessible] %></p>
+<% page_title "Access information for: #{@accessible_name}" %>
+<h1>Access information for: <%= @accessible_name %></h1>
+<p><%= link_to "Back to #{@accessible_name}", accessible_path(@accessible) %></p>
 
 <div class="row-fluid">
   <div class="span8">

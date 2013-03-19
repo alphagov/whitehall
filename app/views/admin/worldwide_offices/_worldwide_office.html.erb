@@ -8,6 +8,18 @@
   </td>
 
   <td>
+    <% if worldwide_office.access_and_opening_times.present? %>
+      Custom info
+      <%= link_to 'Edit access info', [:edit, :admin, worldwide_organisation, worldwide_office, :access_and_opening_time], class: 'btn' %>
+    <% elsif worldwide_office.default_access_and_opening_times.present? %>
+      Using default
+      <%= link_to 'Customise access info', [:edit, :admin, worldwide_organisation, worldwide_office, :access_and_opening_time], class: 'btn' %>
+    <% else %>
+      <%= link_to 'Add custom access info', [:edit, :admin, worldwide_organisation, worldwide_office, :access_and_opening_time], class: 'btn' %>
+    <% end %>
+  </td>
+
+  <td>
     <%= button_to 'Delete', [:admin, worldwide_organisation, worldwide_office], method: 'delete', class: 'btn btn-small btn-danger', confirm: "Delete office '#{worldwide_office.title}'?" %>
 
     <% unless worldwide_organisation.is_main_office?(worldwide_office) %>

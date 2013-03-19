@@ -231,7 +231,7 @@ When /^I add default access information to the worldwide organisation$/ do
   click_button 'Save'
 end
 
-Then /^I should be able to view the default access information on the public "([^"]*)" office page$/ do |office_name|
+Then /^I should see the default access information on the public "([^"]*)" office page$/ do |office_name|
   worldwide_organisation = WorldwideOrganisation.last
   worldwide_office = Contact.where(title: office_name).first.contactable
   visit worldwide_organisation_path(worldwide_organisation)
@@ -246,7 +246,7 @@ end
 
 Given /^a worldwide organisation "([^"]*)" with default access information$/ do |name|
   worldwide_organisation = create(:worldwide_organisation, name: name)
-  create(:access_and_opening_times, accessible: worldwide_organisation)
+  create(:access_and_opening_times, accessible: worldwide_organisation, body: 'Default body information')
 end
 
 When /^I edit the default access information for the worldwide organisation$/ do
@@ -256,6 +256,38 @@ When /^I edit the default access information for the worldwide organisation$/ do
   click_on 'Edit'
   fill_in 'Body', with: 'Edited body information'
   click_button 'Save'
+end
+
+Given /^the offices "([^"]*)" and "([^"]*)"$/ do |contact1_title, contact2_title|
+  worldwide_organisation = WorldwideOrganisation.last
+  create(:worldwide_office, worldwide_organisation: worldwide_organisation, contact: create(:contact, title: contact1_title))
+  create(:worldwide_office, worldwide_organisation: worldwide_organisation, contact: create(:contact, title: contact2_title))
+end
+
+When /^I give "([^"]*)" custom access information$/ do |office_name|
+  worldwide_organisation = WorldwideOrganisation.last
+  worldwide_office = Contact.where(title: office_name).first.contactable
+  visit admin_worldwide_organisation_path(worldwide_organisation)
+  click_link 'Offices'
+  within record_css_selector(worldwide_office) do
+    click_on 'Customise'
+  end
+
+  fill_in 'Body', with: 'Custom body information'
+  click_button 'Save'
+end
+
+Then /^I should see the custom access information on the public "([^"]*)" office page$/ do |office_name|
+  worldwide_organisation = WorldwideOrganisation.last
+  worldwide_office = Contact.where(title: office_name).first.contactable
+  visit worldwide_organisation_path(worldwide_organisation)
+  within record_css_selector(worldwide_office) do
+    click_link 'Access and opening times'
+  end
+
+  within '.body' do
+    assert page.has_content?('Custom body information')
+  end
 end
 
 Then /^I should see the updated default access information$/ do

@@ -15,7 +15,7 @@
 
         <div>
           <% if @access_and_opening_times.new_record? %>
-            <%= link_to 'Add default access information', new_admin_worldwide_organisation_access_and_opening_time_path(@worldwide_organisation), class: "btn btn-primary" %>
+            <%= link_to 'Add default access information', edit_admin_worldwide_organisation_access_and_opening_time_path(@worldwide_organisation), class: "btn btn-primary" %>
           <% else %>
             <article class="document">
               <h2 class="title">Default Access and opening times:</h2>
