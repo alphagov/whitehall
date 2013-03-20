@@ -21,6 +21,7 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
   should_allow_alternative_format_provider_for :policy
   should_allow_scheduled_publication_of :policy
   should_allow_access_limiting_of :policy
+  should_allow_relevance_to_local_government_of :policy
 
   view_test "show the 'add supporting page' button for an unpublished edition" do
     draft_policy = create(:draft_policy)

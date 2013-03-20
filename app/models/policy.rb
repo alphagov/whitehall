@@ -51,6 +51,10 @@ class Policy < Edition
     true
   end
 
+  def can_apply_to_local_government?
+    true
+  end
+
   def update_published_related_publication_count
     update_attribute(:published_related_publication_count, published_related_publications.count)
   end
