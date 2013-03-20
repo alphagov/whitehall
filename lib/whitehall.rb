@@ -129,21 +129,6 @@ module Whitehall
     end
 
     def government_search_index
-      additional_classes = [ MinisterialRole,
-                             Organisation,
-                             SupportingPage,
-                             Topic,
-                             TopicalEvent,
-                             DocumentSeries,
-                             OperationalField,
-                             PolicyTeam,
-                             PolicyAdvisoryGroup,
-                             Person,
-                             CorporateInformationPage
-                           ]
-      not_yet_searchable_classes = [ WorldwidePriority ]
-
-      searchable_classes = government_edition_classes + additional_classes - not_yet_searchable_classes
       Enumerator.new do |y|
         searchable_classes.each do |klass|
           klass.search_index.each do |search_index_entry|
@@ -159,6 +144,24 @@ module Whitehall
 
     def edition_classes
       [NewsArticle, Speech, Policy, Publication, Consultation, WorldwidePriority, DetailedGuide, CaseStudy, StatisticalDataSet, FatalityNotice]
+    end
+
+    def searchable_classes
+      additional_classes = [
+        MinisterialRole,
+        Organisation,
+        SupportingPage,
+        Topic,
+        TopicalEvent,
+        DocumentSeries,
+        OperationalField,
+        PolicyTeam,
+        PolicyAdvisoryGroup,
+        Person,
+        CorporateInformationPage
+      ]
+      not_yet_searchable_classes = [ WorldwidePriority ]
+      government_edition_classes + additional_classes - not_yet_searchable_classes
     end
 
     def edition_route_path_segments

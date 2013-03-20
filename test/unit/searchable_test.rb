@@ -16,6 +16,10 @@ class SearchableTest < ActiveSupport::TestCase
     scope :published, where(state: 'published')
   end
 
+  def setup
+    Whitehall.stubs(:searchable_classes).returns([SearchableTestTopic])
+  end
+
   test 'will not add content to the search index if it is not contained in the scope described by the searchable[:only]' do
     s = SearchableTestTopic.new(name: 'woo', state: 'draft')
     Rummageable.expects(:index).never
@@ -38,5 +42,13 @@ class SearchableTest < ActiveSupport::TestCase
     s = SearchableTestTopic.create(name: 'woo', state: 'published')
     Rummageable.expects(:delete).with('woo', Whitehall.government_search_index_path).once
     s.destroy
+  end
+
+  test 'will only index things that are included in the searchable_classes property' do
+    class NonExistentClass; end
+    Whitehall.stubs(:searchable_classes).returns([NonExistentClass])
+    s = SearchableTestTopic.new(name: 'woo', state: 'published')
+    Rummageable.expects(:index).never
+    s.save
   end
 end
