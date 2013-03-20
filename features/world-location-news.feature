@@ -24,7 +24,7 @@ Feature: World location news for people local to countries
   announcements list including the location specific stuff
 
   World location-specific news articles should be associated to
-  Worldwide organisations, as well as to locations, so the world 
+  Worldwide organisations, as well as to locations, so the world
   organisation logos are shown as the producing orgs
 
   It should be possible to associate them to worldwide priorities
