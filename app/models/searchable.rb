@@ -70,8 +70,12 @@ module Searchable
       end
     end
 
+    def can_index_in_search?
+      searchable_options[:only].call(self.class).find_by_id(self.id).present? && Whitehall.searchable_classes.include?(self.class)
+    end
+
     def update_in_search_index
-      if searchable_options[:only].call(self.class).find_by_id(self.id).present?
+      if can_index_in_search?
         Rummageable.index(search_index, rummager_index)
       end
     end
