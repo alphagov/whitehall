@@ -161,7 +161,7 @@ module Whitehall
         CorporateInformationPage
       ]
       not_yet_searchable_classes = [ WorldwidePriority, WorldLocationNewsArticle ]
-      government_edition_classes + additional_classes - not_yet_searchable_classes
+      edition_classes + additional_classes - not_yet_searchable_classes
     end
 
     def edition_route_path_segments
@@ -169,7 +169,7 @@ module Whitehall
     end
 
     def government_edition_classes
-      edition_classes - [DetailedGuide] - DetailedGuide.descendants
+      searchable_classes - [DetailedGuide] - DetailedGuide.descendants
     end
 
     def analytics_format(format)
