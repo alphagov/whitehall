@@ -6,180 +6,180 @@ cs:
         few:
         other:
       ministers:
-        one:
+        one: Ministr
         few:
-        other:
+        other: Ministři
       organisations:
         one:
         few:
         other:
       policies:
-        one:
+        one: Politika
         few:
-        other:
+        other: Politiky
       supporting_documents:
         one:
         few:
         other:
       topics:
-        one:
+        one: Téma
         few:
-        other:
+        other: Témata
       world_locations:
-        one:
+        one: Kde jsme
         few:
-        other:
+        other: Kde jsme
       worldwide_organisations:
-        one:
+        one: Světová organizace
         few:
-        other:
-      advisory_groups:
-      applies_to_nations:
+        other: Světové organizace
+      advisory_groups: Poradní skupiny
+      applies_to_nations: Týká se
       document_series:
-      field_of_operation:
-      live_data:
+      field_of_operation: Oblast působnosti
+      live_data: Aktuální data
       policy_team:
     type:
       announcement:
-        one:
+        one: Oznámení
         few:
-        other:
+        other: Oznámení
       case_study:
-        one:
+        one: Případová studie
         few:
-        other:
+        other: Případové studie
       closed_consultation:
-        one:
+        one: Uzavřená konzultace
         few:
-        other:
+        other: Uzavřené konzultace
       consultation:
-        one:
+        one: Konzultace
         few:
-        other:
+        other: Konzultace
       consultation_outcome:
-        one:
+        one: Výsledek konzultací
         few:
-        other:
+        other: Výsledky konzultací
       corporate_report:
-        one:
+        one: Korporátní zpráva
         few:
-        other:
+        other: Korporátní zprávy
       correspondence:
-        one:
+        one: Korespondence
         few:
-        other:
+        other: Korespondence
       detailed_guidance:
-        one:
+        one: Podrobný návod
         few:
-        other:
+        other: Podrobný návod
       draft_text:
-        one:
+        one: Koncept
         few:
-        other:
+        other: Koncepty
       fatality_notice:
-        one:
+        one: Hlášení závad
         few:
-        other:
+        other: Hlášení závad
       foi_release:
         one:
         few:
         other:
       form:
-        one:
+        one: Formulář
         few:
-        other:
+        other: Formuláře
       guidance:
-        one:
+        one: Návod
         few:
-        other:
+        other: Návody
       impact_assessment:
-        one:
+        one: Vyhodnocení dopadu
         few:
-        other:
+        other: Vyhodnocení dopadů
       imported:
         one:
         few:
         other:
       independent_report:
-        one:
+        one: Nezávislá zpráva
         few:
-        other:
+        other: Nezávislé zprávy
       map:
-        one:
+        one: Mapa
         few:
-        other:
+        other: Mapy
       national_statistics:
-        one:
+        one: Statistiky - národní statistiky
         few:
-        other:
+        other: Statistiky - národní statistiky
       news_article:
-        one:
+        one: Nový článek
         few:
-        other:
+        other: Nové články
       news_story:
-        one:
+        one: Zpráva
         few:
-        other:
+        other: Zprávy
       open_consultation:
         one:
         few:
         other:
       oral_statement:
-        one:
+        one: Vystoupení v  parlamentu
         few:
-        other:
+        other: Vystoupení v parlamentu
       policy:
-        one:
+        one: Politika
         few:
-        other:
+        other: Politiky
       policy_paper:
-        one:
+        one: Dokument
         few:
-        other:
+        other: Dokumenty
       press_release:
-        one:
+        one: Tisková zpráva
         few:
-        other:
+        other: Tiskové zprávy
       promotional:
-        one:
+        one: Propagační materiál
         few:
-        other:
+        other: Propagační materiály
       publication:
-        one:
+        one: Publikace
         few:
-        other:
+        other: Publikace
       rebuttal:
         one:
         few:
         other:
       research:
-        one:
+        one: Výzkum a analýza
         few:
-        other:
+        other: Výzkumy a analýzy
       speaking_notes:
-        one:
+        one: Poznámky
         few:
-        other:
+        other: Poznámky
       speech:
-        one:
+        one: Proslov
         few:
-        other:
+        other: Proslovy
       statement_to_parliament:
-        one:
+        one: Prohlášení v parlamentu
         few:
-        other:
+        other: Prohlášení v parlamentu
       statistical_data_set:
-        one:
+        one: Statistická data
         few:
-        other:
+        other: Statistická data
       statistics:
-        one:
+        one: Statistika
         few:
-        other:
+        other: Statistiky
       transcript:
-        one:
+        one: Přepis
         few:
-        other:
+        other: Přepisy
       transparency:
         one:
         few:
@@ -189,69 +189,69 @@ cs:
         few:
         other:
       worldwide_priority:
-        one:
+        one: Světová priorita
         few:
-        other:
+        other: Světové priority
       written_statement:
-        one:
+        one: Písemná prohlášení do parlamentu
         few:
-        other:
-    published:
+        other: Písemná prohlášení do parlamentu
+    published: Publikováno
     read:
     speech:
       delivered_on:
       delivery_title:
-        minister:
-        speaker:
+        minister: Ministr
+        speaker: Řečník
       originally_given_at:
-    updated:
+    updated: Aktualizováno
     view:
   organisation:
     type:
       Ad-hoc advisory group:
-        one:
+        one: Ad-hoc poradní skupina
         few:
-        other:
+        other: Ad-hoc poradní skupiny
       Advisory non-departmental public body:
-        one:
+        one: Poradní nevládní organizace
         few:
-        other:
+        other: Poradní nevládní organizace
       Executive agency:
-        one:
+        one: Výkonná agentura
         few:
-        other:
+        other: Výkonné agentury
       Executive non-departmental public body:
-        one:
+        one: Výkonná nevládní agentura
         few:
-        other:
+        other: Výkonné nevládní agentury
       Independent monitoring body:
-        one:
+        one: Nezavislý monitorovací orgán
         few:
-        other:
+        other: Nezávislé monitorovaní orgány
       Ministerial department:
-        one:
+        one: Ministerstvo
         few:
-        other:
+        other: Ministerstva
       Non-ministerial department:
-        one:
+        one: Nevládní organizace
         few:
-        other:
+        other: Nevládní organizace
       Other:
-        one:
+        one: Ostatní
         few:
-        other:
+        other: Ostatní
       Public corporation:
-        one:
+        one: Veřejné společnosti
         few:
-        other:
+        other: Veřejné společnosti
       Sub-organisation:
-        one:
+        one: Dílčí organizace
         few:
-        other:
+        other: Dílčí organizace
       Tribunal non-departmental public body:
-        one:
+        one: Soudy - nevládní organizace
         few:
-        other:
+        other: Soudy - nevládní organizace
     about:
       read_more:
     corporate_information:
@@ -281,32 +281,32 @@ cs:
   world_location:
     type:
       international_delegation:
-        one:
+        one: Mezinárodní delegace
         few:
-        other:
+        other: Mezinárodní delegace
       world_location:
         one:
         few:
         other:
     headings:
-      announcements:
-      country:
-      documents:
-      mission:
-      organisations:
-      priorities:
-      publications:
-      quick_links:
-      related_policies:
-      see_all:
-      statistics:
-    see_all:
+      announcements: Naše oznámení
+      country: Země
+      documents: Dokumenty
+      mission: Naše poslání
+      organisations: Organizace
+      priorities: Priority
+      publications: Naše publikace
+      quick_links: Odkazy
+      related_policies: Související témata
+      see_all: Podívejte se na
+      statistics: Naše statistiky
+    see_all: Podívejte se na
   activerecord:
     attributes:
       detailed_guide:
         primary_mainstream_category:
   announcements:
-    heading:
+    heading: Oznámení
   attachment:
     accessibility:
       full_help_html:
@@ -318,68 +318,69 @@ cs:
       published:
       reference:
   change_notes:
-    published:
-    updated:
+    published: Uveřejněno
+    updated: Aktualizováno
   contact:
-    contact_form:
-    email:
+    contact_form: Kontaktní formulář
+    email: Email
   corporate_information_page:
     type:
       personal_information_charter:
       publication_scheme:
-      welsh_language_scheme:
+      welsh_language_scheme: Welština
   date:
     formats:
       default:
-      long_ordinal: ! '%e %B %Y'
+      long_ordinal:
   document_filters:
-    description:
+    description: Tyto filtry Vám ukáží pouze výstupy, které se shodují s vaším zadáním.
     no_results:
-      description:
-      title:
+      description: ! 'Prosím upravte vámi hledaný pojem a zkuste to znovu. '
+      title: Systém nemůže nalézt Vámi požadované heslo.
     world_locations:
-      all:
+      all: Všude
       label:
   feeds:
     atom:
-    email_alerts:
-    latest_activity:
+    email_alerts: Upozornění na email
+    latest_activity: Poslední aktivita
   i18n:
     direction: ltr
   language_names:
     cs: Česky
   latest_feed:
-    no_updates:
-    title:
+    no_updates: Aktualizace nejsou k dispozici
+    title: Nejnovější
   number:
     human:
       storage_units:
         format:
   policies:
-    heading:
+    heading: Politiky
   publications:
-    heading:
+    heading: Publikace
     headings:
       detail:
-  read_more:
+  read_more: Více
   support:
     array:
-      last_word_connector:
+      last_word_connector: a
   time:
     formats:
       long_ordinal:
   worldwide_organisation:
     corporate_information:
-      personal_information_charter_html:
+      personal_information_charter_html: Jak nakládáme s vašimi osobními informacemi
+        %{link}
       publication_scheme_html:
       welsh_language_scheme_html:
-    find_out_more:
+    find_out_more: Celý profil a kontakty zde.
     headings:
-      about_us:
-      contact_us:
-      corporate_information:
-      follow_us:
-      our_people:
-      our_services:
-    location:
-    part_of:
+      about_us: O nás
+      contact_us: Kontaktujte nás
+      corporate_information: Korporátní informace
+      follow_us: Buďte s námi
+      our_people: Naši lidé
+      our_services: Naše služby
+    location: Kde nás najdete
+    part_of: Jsme součást
