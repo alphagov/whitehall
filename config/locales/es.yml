@@ -23,12 +23,12 @@ es:
         one: Destino central
         other: Destinos en el mundo
       worldwide_organisations:
-        one:
-        other:
+        one: Organización mundial
+        other: Organizaciones mundiales
       advisory_groups: Grupos de consulta
-      applies_to_nations: Se aplica a /Sirve para
+      applies_to_nations: Sirve para
       document_series: Series
-      field_of_operation: Ámbito de actuación/Terreno de operaciones
+      field_of_operation: ! 'Ãmbito de actuación '
       live_data: Datos activos
       policy_team: Equipo de política
     type:
@@ -76,7 +76,7 @@ es:
         other: Evaluaciones del impacto
       imported:
         one: Importado - esperando prototipo
-        other: Importado
+        other: Importado - esperando prototipo
       independent_report:
         one: Informe independiente
         other: Informes independientes
@@ -87,8 +87,8 @@ es:
         one: Estadísticas - cifras nacionales
         other: Estadísticas - cifras nacionales
       news_article:
-        one: Artículo periodístico
-        other: Artículos periodísticos
+        one: Artículo
+        other: Artículos
       news_story:
         one: Noticia
         other: Noticias
@@ -112,7 +112,7 @@ es:
         other: Material de promoción
       publication:
         one: Publicaciones
-        other: Publicacion
+        other: Publicación
       rebuttal:
         one: Rebote
         other: Rebotes
@@ -150,22 +150,22 @@ es:
         one: Declaración escrita
         other: Declaraciones escritas
     published: Publicado
-    read: Lea el artículo de la '%{title}'
+    read:
     speech:
       delivered_on: Emitido el
       delivery_title:
         minister: Ministro
         speaker: Orador
-      originally_given_at: Dado originalmente a
+      originally_given_at:
     updated: Actualizado
-    view: Mirar '%{title}'
+    view: Mirar '%{title]
   organisation:
     type:
       Ad-hoc advisory group:
         one: Grupo de consulta ad-hoc
         other: Grupos de consulta ad-hoc
       Advisory non-departmental public body:
-        one: ! 'Organismo público consultivo no ministerial '
+        one: ! 'Organismo públicoco consultivo no ministerial '
         other: ! 'Organismos públicos consultivos no ministeriales '
       Executive agency:
         one: Agencia ejecutiva
@@ -190,7 +190,7 @@ es:
         other: Empresas públicas
       Sub-organisation:
         one: Sub-organización
-        other: Sub-organizacioneds
+        other: Sub-organizaciones
       Tribunal non-departmental public body:
         one: ! 'Tribunal del NHS no dependiente del Ministerio '
         other: ! 'Tribunales del NHS no dependientes del Ministerio '
@@ -216,7 +216,7 @@ es:
       our_services:
       our_statistics:
       our_topics:
-      plus_others: + otros
+      plus_others:
       special_representatives:
       traffic_commissioners:
       what_we_do:
@@ -233,10 +233,10 @@ es:
       country: País
       documents: Documentos
       mission: Nuestra Misión
-      organisations:
+      organisations: Organizaciones
       priorities: Prioridades
       publications: Publicaciones
-      quick_links:
+      quick_links: Enlaces directos
       related_policies: Políticas relacionadas
       see_all: Ver toda nuestra %{type}
       statistics: Nuestras estadísticas
@@ -244,9 +244,9 @@ es:
   activerecord:
     attributes:
       detailed_guide:
-        primary_mainstream_category: Categoría de orientación principal en detalle
+        primary_mainstream_category: Categoría principal guía en detalle
   announcements:
-    heading:
+    heading: Anuncios
   attachment:
     accessibility:
       full_help_html:
@@ -265,25 +265,25 @@ es:
     email: Email
   corporate_information_page:
     type:
-      personal_information_charter:
-      publication_scheme:
-      welsh_language_scheme:
+      personal_information_charter: Cédula de información personal
+      publication_scheme: Esquema de publicación
+      welsh_language_scheme: Esquema de gales
   date:
     formats:
       default: ! '%e %B %Y'
       long_ordinal: ! '%e %B %Y'
   document_filters:
-    description:
+    description: Puedes utilizar los filtros para ver sólo los resultados que te interesen
     no_results:
-      description:
-      title:
+      description: Haz una búsqueda más amplio e intentalo de nuevo
+      title: No se ha producido ningún resultado
     world_locations:
-      all:
-      label:
+      all: Todos los lugares
+      label: Lugares del mundo
   feeds:
     atom: Átomo
     email_alerts: alertas de email
-    latest_activity: Última actividad
+    latest_activity: Actividad reciente
   i18n:
     direction: ltr
   language_names:
@@ -296,9 +296,9 @@ es:
       storage_units:
         format: ! '%n%u'
   policies:
-    heading:
+    heading: Politicas
   publications:
-    heading:
+    heading: Publicaciones
     headings:
       detail:
   read_more: Leer más
@@ -313,13 +313,13 @@ es:
       personal_information_charter_html:
       publication_scheme_html:
       welsh_language_scheme_html:
-    find_out_more:
+    find_out_more: Vea el perfil completo y los detalles de contacto
     headings:
-      about_us:
-      contact_us:
-      corporate_information:
-      follow_us:
-      our_people:
-      our_services:
-    location:
-    part_of:
+      about_us: Nosotros
+      contact_us: Contáctenos
+      corporate_information: Información corporativa
+      follow_us: Síguenos
+      our_people: Nuestro equipo
+      our_services: Servicios
+    location: Estamos
+    part_of: Parte de
