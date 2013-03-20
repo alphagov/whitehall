@@ -78,7 +78,7 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
     refute Edition.accessible_to(user).include?(inaccessible)
   end
 
-  test "if access is not limited, edition is only accessible to a world user if it\'s about their location" do
+  test "if access is not limited, edition is only accessible to a world user if it's about their location" do
     loc_1, loc_2 = build(:country), build(:country)
     editor_in_loc_1 = build(:world_editor, world_locations: [loc_1])
     writer_in_loc_1 = build(:world_writer, world_locations: [loc_1])
@@ -94,7 +94,7 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
     assert e.accessible_by?(writer_in_loc_2)
   end
 
-  test "if access is limited, edition is only accessible to a world user if it\'s about their location AND their org" do
+  test "if access is limited, edition is only accessible to a world user if it's about their location AND their org" do
     loc_1, loc_2 = build(:country), build(:country)
     org_1, org_2 = build(:organisation), build(:organisation)
 
