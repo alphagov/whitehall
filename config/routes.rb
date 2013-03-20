@@ -140,7 +140,7 @@ Whitehall::Application.routes.draw do
           end
           resource :access_and_opening_time, path: 'access_info', except: [:index, :show]
           resources :translations, controller: 'worldwide_organisations_translations'
-          resources :offices, controller: 'worldwide_offices', except: [:index, :show]
+          resources :worldwide_offices, path: 'offices', except: [:index, :show]
           resources :corporate_information_pages do
             resources :translations, controller: 'corporate_information_pages_translations'
           end
