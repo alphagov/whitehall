@@ -2,9 +2,9 @@ id:
   activerecord:
     attributes:
       detailed_guide:
-        primary_mainstream_category:
+        primary_mainstream_category: Kategori rincian panduan utama
   announcements:
-    heading:
+    heading: Pengumuman
   attachment:
     accessibility:
       full_help_html:
@@ -16,203 +16,204 @@ id:
       published:
       reference:
   change_notes:
-    published:
-    updated:
+    published: Diterbitkan
+    updated: Diperbaharui
   contact:
-    contact_form:
-    email:
+    contact_form: Formulir kontak
+    email: Email
   corporate_information_page:
     type:
-      personal_information_charter:
-      publication_scheme:
-      welsh_language_scheme:
+      personal_information_charter: piagam informasi pribadi
+      publication_scheme: Skema publikasi
+      welsh_language_scheme: Skema bahasa Wales
   date:
     formats:
-      default:
+      default: ! '%d %B %Y'
       long_ordinal: ! '%e %B %Y'
   document:
     headings:
-      advisory_groups:
-      applies_to_nations:
+      advisory_groups: Kelompok penasehat
+      applies_to_nations: Diterapkan pada
       attachments:
         one:
         other:
-      document_series:
-      field_of_operation:
-      live_data:
+      document_series: Seri
+      field_of_operation: Area operasi
+      live_data: Data Live
       ministers:
-        one:
-        other:
+        one: Menteri
+        other: Menteri-menteri
       organisations:
         one:
         other:
       policies:
-        one:
-        other:
-      policy_team:
+        one: Kebijakan
+        other: Kebijakan-kebijakan
+      policy_team: Tim kebijakan
       supporting_documents:
         one:
         other:
       topics:
-        one:
-        other:
+        one: Topik
+        other: Topik-topik
       world_locations:
-        one:
-        other:
+        one: Lokasi di dunia
+        other: Lokasi-lokasi di dunia
       worldwide_organisations:
-        one:
-        other:
-    published:
-    read:
+        one: Organisasi di penjuru dunia
+        other: Organisasi-organisasi di penjuru dunia
+    published: Diterbitkan
+    read: Baca artikel %{title}
     speech:
-      delivered_on:
+      delivered_on: ! 'Dikirimkan pada:'
       delivery_title:
-        minister:
-        speaker:
-      originally_given_at:
+        minister: Menteri
+        speaker: Pembicara
+      originally_given_at: Disampaikan di %{location}
     type:
       announcement:
-        one:
-        other:
+        one: Pengumuman
+        other: Pengumuman-pengumuman
       case_study:
-        one:
-        other:
+        one: Studi kasus
+        other: Studi kasus
       closed_consultation:
-        one:
-        other:
+        one: Konsultasi tertutup
+        other: Konsultasi-konsultasi tertutup
       consultation:
-        one:
-        other:
+        one: Konsultasi
+        other: ! 'Konsultasi-konsultasi  '
       consultation_outcome:
-        one:
-        other:
+        one: Hasil konsultasi
+        other: Hasil-hasil konsultasi
       corporate_report:
-        one:
-        other:
+        one: Laporan korporat
+        other: Laporan-laporan korporat
       correspondence:
-        one:
-        other:
+        one: Koresponden
+        other: Koresponden-koresponden
       detailed_guidance:
-        one:
-        other:
+        one: Panduan lebih lanjut
+        other: Panduan lebih lanjut
       draft_text:
-        one:
-        other:
+        one: Rancangan teks
+        other: Rancangan tulisan
       fatality_notice:
-        one:
-        other:
+        one: Pemberitahuan kematian
+        other: Pemberitahuan-pemberitahuan kematian
       foi_release:
-        one:
-        other:
+        one: Rilis FOI
+        other: Rilis FOI
       form:
-        one:
-        other:
+        one: ! 'Formulir  '
+        other: Formulir-formulir
       guidance:
-        one:
-        other:
+        one: ! 'Panduan  '
+        other: Panduan
       impact_assessment:
-        one:
-        other:
+        one: Penilaian dampak
+        other: Penilaian-penilaian dampak
       imported:
-        one:
-        other:
+        one: Diimpor-menunggu tipe
+        other: Diimpor-menunggu tipe
       independent_report:
-        one:
-        other:
+        one: Laporan independen
+        other: Laporan-laporan independen
       map:
-        one:
-        other:
+        one: Peta
+        other: Peta-peta
       national_statistics:
-        one:
-        other:
+        one: Statistik-statistik nasional
+        other: Statistik-statistik nasional
       news_article:
-        one:
-        other:
+        one: Artikel berita
+        other: Artikel-artikel berita
       news_story:
-        one:
-        other:
+        one: Berita
+        other: Berita-berita
       open_consultation:
-        one:
-        other:
+        one: Konsultasi terbuka
+        other: Konsultasi-konsultasi terbuka
       oral_statement:
-        one:
-        other:
+        one: Pernyataan langsung kepada parlemen
+        other: Pernyataan-pernyataan langsung kepada parlemen
       policy:
-        one:
-        other:
+        one: Kebijakan
+        other: Kebijakan-kebijakan
       policy_paper:
-        one:
-        other:
+        one: Laporan kebijakan
+        other: Laporan-laporan kebijakan
       press_release:
-        one:
-        other:
+        one: Rilis pers
+        other: Rilis pers
       promotional:
-        one:
-        other:
+        one: Materi promosi
+        other: Materi promosi
       publication:
-        one:
-        other:
+        one: Publikasi
+        other: Publikasi-publikasi
       rebuttal:
-        one:
-        other:
+        one: Sanggahan
+        other: Sanggahan-sanggahan
       research:
-        one:
-        other:
+        one: Riset dan analisis
+        other: Riset dan analisis
       speaking_notes:
-        one:
-        other:
+        one: Naskah Pembicara
+        other: Naskah Pembicara
       speech:
-        one:
-        other:
+        one: Pidato
+        other: Pidato-pidato
       statement_to_parliament:
-        one:
-        other:
+        one: Pernyatan kepada Parlemen
+        other: Pernyataan-pernyaatan kepada Parlemen
       statistical_data_set:
-        one:
-        other:
+        one: Set data statistik
+        other: Set data statistik
       statistics:
-        one:
-        other:
+        one: ! 'Statistik '
+        other: ! 'Statistik-statistik '
       transcript:
-        one:
-        other:
+        one: Transkrip
+        other: Transkrip-transkrip
       transparency:
-        one:
-        other:
+        one: Transparansi data
+        other: Transparansi data
       world_location_news_article:
         one:
         other:
       worldwide_priority:
-        one:
-        other:
+        one: Prioritas di penjuru dunia
+        other: Prioritas-prioritas di penjuru dunia
       written_statement:
-        one:
-        other:
-    updated:
-    view:
+        one: Pernyataan tertulis kepada parlemen
+        other: Pernyataan-pernyatan tertulis kepada parlemen
+    updated: Terkini
+    view: Lihat '%{title}'
   document_filters:
-    description:
+    description: Silahkan gunakan bantuan filter untuk menunjukkan hasil yang hanya
+      sesuai dengan keinginan Anda
     no_results:
-      description:
-      title:
+      description: Mohon perluas pencarian Anda dan coba kembali
+      title: Dokumen tidak ditemukan
     world_locations:
-      all:
-      label:
+      all: Semua lokasi
+      label: Lokasi-lokasi di dunia
   feeds:
-    atom:
-    email_alerts:
-    latest_activity:
+    atom: atom
+    email_alerts: email pemberitahuan
+    latest_activity: Aktivitas terbaru
   i18n:
     direction: ltr
   language_names:
     id: Bahasa Indonesia
   latest_feed:
-    no_updates:
-    title:
+    no_updates: Belum ada informasi terkini
+    title: Terkini
   number:
     human:
       storage_units:
-        format:
+        format: ! '%n%u'
   organisation:
     about:
       read_more:
@@ -242,84 +243,87 @@ id:
       what_we_do:
     type:
       Ad-hoc advisory group:
-        one:
-        other:
+        one: Kelompok penasehat ad-hoc
+        other: Kelompok-kelompok penasehat ad-hoc
       Advisory non-departmental public body:
-        one:
-        other:
+        one: Badan penasehat non-departemen umum
+        other: Badan-badan penasehat non-departemen umum
       Executive agency:
-        one:
-        other:
+        one: Badan eksekutif
+        other: Badan-badan eksekutif
       Executive non-departmental public body:
-        one:
-        other:
+        one: Badan eksekutif non-departmen
+        other: Badan-badan eksekutif non-departemen
       Independent monitoring body:
-        one:
-        other:
+        one: Badan pengawas independen
+        other: Badan-badan pengawas independen
       Ministerial department:
-        one:
-        other:
+        one: Departemen Kementerian
+        other: Departemen-departemen Kementerian
       Non-ministerial department:
-        one:
-        other:
+        one: Departemen non-kementerian
+        other: Departemen-departemen non-kementerian
       Other:
-        one:
-        other:
+        one: Lainnya
+        other: Lainnya
       Public corporation:
-        one:
-        other:
+        one: Kerja sama publik
+        other: Kerja sama publik
       Sub-organisation:
-        one:
-        other:
+        one: Sub-organisasi
+        other: Sub-sub organisasi
       Tribunal non-departmental public body:
-        one:
-        other:
+        one: Badan hukum non-departemen umum
+        other: Badan-badan hukum non-departemen umum
   policies:
-    heading:
+    heading: Kebijakan-kebijakan
   publications:
-    heading:
+    heading: Publikasi-publikasi
     headings:
       detail:
-  read_more:
+  read_more: Baca lebih lanjut
   support:
     array:
-      last_word_connector:
+      last_word_connector: dan
   time:
     formats:
-      long_ordinal:
+      long_ordinal: ! '%e %B %Y %H:%M'
   world_location:
     headings:
-      announcements:
-      country:
-      documents:
-      mission:
-      organisations:
-      priorities:
-      publications:
-      quick_links:
-      related_policies:
-      see_all:
-      statistics:
-    see_all:
+      announcements: Pengumuman kami
+      country: Negara
+      documents: Dokumen-dokumen
+      mission: Misi kami
+      organisations: ! 'Organisasi-organisasi  '
+      priorities: Kebijakan-kebijakan
+      publications: Publikasi-publikasi kami
+      quick_links: Tautan cepat
+      related_policies: Kebijakan terkait
+      see_all: Lihat semua %{type}
+      statistics: Statistik-statistik kami
+    see_all: Lihat semua %{type}
     type:
       international_delegation:
-        one:
-        other:
+        one: Delegasi internasional
+        other: Delegasi-delegasi internasional
       world_location:
         one:
         other:
   worldwide_organisation:
     corporate_information:
-      personal_information_charter_html:
-      publication_scheme_html:
-      welsh_language_scheme_html:
-    find_out_more:
+      personal_information_charter_html: ! '%{link} menjelaskan tentang bagaimana
+        kami memperlakukan informasi pribadi Anda'
+      publication_scheme_html: Baca jenis-jenis informasi yang secara rutin kami muat
+        di %{link}
+      welsh_language_scheme_html: Informasi lebih lanjut mengenai komitmen kami dalam
+        memuat informasi di %{link}
+    find_out_more: Baca profil keseluruhan dan semua rincian kontak
     headings:
-      about_us:
-      contact_us:
-      corporate_information:
-      follow_us:
-      our_people:
-      our_services:
-    location:
-    part_of:
+      about_us: Tentang kami
+      contact_us: Hubungi kami
+      corporate_information: Informasi korporat
+      follow_us: Ikuti kami
+      our_people: Staf kami
+      our_services: Pelayanan kami
+    location: Lokasi
+    part_of: Bagian dari
