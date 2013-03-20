@@ -76,7 +76,7 @@ module Edition::Publishing
       "Not ready for publication"
     elsif user == creator && !options[:force]
       "You are not the second set of eyes"
-    elsif !user.departmental_editor?
+    elsif !enforcer(user).can?( options[:force] ? :force_publish : :publish )
       "Only departmental editors can publish"
     end
   end
@@ -87,7 +87,7 @@ module Edition::Publishing
 
   def reasons_to_prevent_unpublication_by(user)
     errors = []
-    errors << "Only GDS editors can unpublish" unless user.gds_editor?
+    errors << "Only GDS editors can unpublish" unless enforcer(user).can?(:unpublish)
     errors << "This edition has not been published" unless published?
     unless other_draft_editions.empty?
       errors << "There is already a draft edition of this document. You must remove it before you can unpublish this edition."

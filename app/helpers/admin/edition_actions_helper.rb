@@ -78,6 +78,24 @@ module Admin::EditionActionsHelper
     button_to 'Unpublish', confirm_unpublish_admin_edition_path(edition), title: "Unpublish", class: "btn btn-danger", method: :get
   end
 
+  def document_creation_menu
+    if can?(:create, Document)
+      content_tag(:a, class: "btn btn-large dropdown-toggle", data: {toggle: "dropdown"}, href: "#") do
+        %{Create new document
+        <span class="caret"></span>}.html_safe
+      end +
+      content_tag(:ul, class: "dropdown-menu") do
+        [Policy, Publication, NewsArticle, FatalityNotice,
+         Consultation, Speech, DetailedGuide, WorldwidePriority,
+         CaseStudy, StatisticalDataSet, WorldLocationNewsArticle].map do |edition_type|
+          content_tag(:li) do
+            link_to edition_type.model_name.human.titleize, polymorphic_path([:new, :admin, edition_type.name.underscore]), title: "Create #{edition_type.model_name.human.titleize}"
+          end if can?(:create, edition_type)
+        end.compact.join.html_safe
+      end
+    end
+  end
+
   private
 
   def publish_edition_alerts(edition, force)

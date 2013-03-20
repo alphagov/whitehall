@@ -2,15 +2,35 @@ class Admin::EditionsController < Admin::BaseController
   before_filter :remove_blank_parameters
   before_filter :clear_scheduled_publication_if_not_activated, only: [:create, :update]
   before_filter :find_edition, only: [:show, :edit, :update, :submit, :revise, :reject, :destroy, :confirm_unpublish]
-  before_filter :limit_edition_access!, only: [:show, :edit, :update, :submit, :revise, :reject, :destroy, :confirm_unpublish]
   before_filter :prevent_modification_of_unmodifiable_edition, only: [:edit, :update]
   before_filter :default_arrays_of_ids_to_empty, only: [:update]
   before_filter :delete_absent_edition_organisations, only: [:create, :update]
   before_filter :build_edition, only: [:new, :create]
   before_filter :build_edition_organisations, only: [:new, :edit]
   before_filter :detect_other_active_editors, only: [:edit]
-  before_filter :redirect_to_controller_for_type, only: [:show]
   before_filter :set_default_world_locations, only: :index
+  before_filter :enforce_permissions!
+  before_filter :limit_edition_access!, only: [:show, :edit, :update, :submit, :revise, :reject, :destroy, :confirm_unpublish]
+  before_filter :redirect_to_controller_for_type, only: [:show]
+
+  def enforce_permissions!
+    case action_name
+    when 'index'
+      enforce_permission!(:see, edition_class || Edition)
+    when 'show'
+      enforce_permission!(:see, @edition)
+    when 'new', 'create'
+      enforce_permission!(:create, @edition)
+    when 'edit', 'update', 'revise'
+      enforce_permission!(:update, @edition)
+    when 'confirm_unpublish'
+      enforce_permission!(:unpublish, @edition)
+    when 'destroy'
+      enforce_permission!(:delete, @edition)
+    else
+      raise Whitehall::Authority::Errors::InvalidAction.new(action_name)
+    end
+  end
 
   def index
     if filter && filter.valid?

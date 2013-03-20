@@ -36,6 +36,26 @@ class UserTest < ActiveSupport::TestCase
     refute user.gds_editor?
   end
 
+  test 'should be a world editor if has whitehall World Editor role' do
+    user = build(:user, permissions: [User::Permissions::WORLD_EDITOR])
+    assert user.world_editor?
+  end
+
+  test 'should not be a world editor if does not have has whitehall World Editor role' do
+    user = build(:user, permissions: [])
+    refute user.world_editor?
+  end
+
+  test 'should be a world writer if has whitehall World Editor role' do
+    user = build(:user, permissions: [User::Permissions::WORLD_WRITER])
+    assert user.world_writer?
+  end
+
+  test 'should not be a world writer if does not have has whitehall World Writer role' do
+    user = build(:user, permissions: [])
+    refute user.world_writer?
+  end
+
   test 'should not normally allow mass assignment of permissions' do
     user = build(:user, permissions: [])
     user.assign_attributes(permissions: ['Superuser'])

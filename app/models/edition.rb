@@ -472,6 +472,10 @@ class Edition < ActiveRecord::Base
 
   private
 
+  def enforcer(user)
+    Whitehall::Authority::Enforcer.new(user, self)
+  end
+
   def body_required?
     true
   end

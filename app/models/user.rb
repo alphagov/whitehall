@@ -18,12 +18,18 @@ class User < ActiveRecord::Base
     GDS_EDITOR = 'GDS Editor'
     PUBLISH_SCHEDULED_EDITIONS = 'Publish scheduled editions'
     IMPORT = 'Import CSVs'
+    WORLD_WRITER = 'World Writer'
+    WORLD_EDITOR = 'World Editor'
   end
 
   def role
-    return "GDS Editor" if gds_editor?
-    return "Departmental Editor" if departmental_editor?
-    "Policy Writer"
+    case
+    when gds_editor? then "GDS Editor"
+    when departmental_editor? then "Departmental Editor"
+    when world_editor? then 'World Editor'
+    when world_writer? then 'World Writer'
+    else "Policy Writer"
+    end
   end
 
   def departmental_editor?
@@ -32,6 +38,18 @@ class User < ActiveRecord::Base
 
   def gds_editor?
     has_permission?(Permissions::GDS_EDITOR)
+  end
+
+  def world_editor?
+    has_permission?(Permissions::WORLD_EDITOR)
+  end
+
+  def world_writer?
+    has_permission?(Permissions::WORLD_WRITER)
+  end
+
+  def location_limited?
+    world_editor? || world_writer?
   end
 
   def can_publish_scheduled_editions?

@@ -132,6 +132,8 @@ module Edition::ScheduledPublishing
     def reason_to_prevent_unscheduling_by(user)
       if !scheduled?
         "This edition is not scheduled for publication"
+      elsif !enforcer(user).can?(:update)
+        "You do not have permission to unschedule this publication"
       end
     end
 

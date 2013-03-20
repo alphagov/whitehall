@@ -288,9 +288,10 @@ class Edition::PublishingTest < ActiveSupport::TestCase
   end
 
   test "publication clears the access_limited flag from a submitted edition if it was set" do
-    edition = create(:submitted_edition, access_limited: true)
+    org = create(:organisation)
+    edition = create(:submitted_edition, access_limited: true, organisations: [org])
     assert edition.access_limited
-    edition.publish_as(create(:departmental_editor))
+    edition.publish_as(create(:departmental_editor, organisation: org))
     refute edition.reload.access_limited?
   end
 
