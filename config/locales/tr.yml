@@ -2,9 +2,9 @@ tr:
   activerecord:
     attributes:
       detailed_guide:
-        primary_mainstream_category:
+        primary_mainstream_category: ! 'Ayrıntılı Ana Kılavuz Kategorisi '
   announcements:
-    heading:
+    heading: Duyurular
   attachment:
     accessibility:
       full_help_html:
@@ -16,199 +16,199 @@ tr:
       published:
       reference:
   change_notes:
-    published:
-    updated:
+    published: Yayında
+    updated: Güncellendi
   contact:
-    contact_form:
-    email:
+    contact_form: ! 'İletişim Formu '
+    email: E-posta
   corporate_information_page:
     type:
-      personal_information_charter:
-      publication_scheme:
-      welsh_language_scheme:
+      personal_information_charter: ! 'Kişisel Bilgiler Tüzüğü '
+      publication_scheme: Yayın Programı
+      welsh_language_scheme: Galler dili Programı
   date:
     formats:
       default:
       long_ordinal: ! '%e %B %Y'
   document:
     headings:
-      advisory_groups:
-      applies_to_nations:
+      advisory_groups: ! 'Danışma Grubu '
+      applies_to_nations: ! 'Uygulandığı Alanlar '
       attachments:
         one:
         other:
-      document_series:
-      field_of_operation:
-      live_data:
+      document_series: ! 'Dizi '
+      field_of_operation: ! 'Faaliyet Alanı '
+      live_data: ! 'Canlı veri '
       ministers:
-        one:
-        other:
+        one: Bakan
+        other: ! 'Bakanlar '
       organisations:
         one:
         other:
       policies:
-        one:
-        other:
-      policy_team:
+        one: Politika
+        other: ! 'Politikalar '
+      policy_team: Politika Ekibi
       supporting_documents:
         one:
         other:
       topics:
-        one:
-        other:
+        one: Konu
+        other: Konular
       world_locations:
-        one:
-        other:
+        one: Dünyadaki konumu
+        other: Dünyadaki konumlar
       worldwide_organisations:
-        one:
-        other:
-    published:
-    read:
+        one: ! 'Tüm dünyada şubeleri olan kuruluş '
+        other: Tüm dünyada şubeleri olan kuruluşlar
+    published: Yayında
+    read: ! '%{title} makalesini okuyunuz '
     speech:
-      delivered_on:
+      delivered_on: ! 'Teslim tarihi:'
       delivery_title:
-        minister:
-        speaker:
+        minister: Bakan
+        speaker: ! 'Konuşmacı '
       originally_given_at:
     type:
       announcement:
-        one:
-        other:
+        one: Duyuru
+        other: Duyurular
       case_study:
-        one:
-        other:
+        one: Örnek Olay
+        other: ! 'Örnek Olaylar '
       closed_consultation:
-        one:
-        other:
+        one: ! 'Sona eren çalışmalar '
+        other: ! 'Sona eren çalışmalar '
       consultation:
-        one:
-        other:
+        one: ! 'Danışma '
+        other: ! 'Yapılan Danışmalar '
       consultation_outcome:
-        one:
-        other:
+        one: ! 'Danışma sonucu '
+        other: ! 'Danışma sonuçları '
       corporate_report:
-        one:
-        other:
+        one: Kurumsal Rapor
+        other: Kurumsal Raporlar
       correspondence:
-        one:
-        other:
+        one: Yazışma
+        other: ! 'Yazışmalar '
       detailed_guidance:
-        one:
-        other:
+        one: ! 'Ayrıntılı Kılavuz '
+        other: ! 'Ayrıntılı Kılavuzlar '
       draft_text:
-        one:
-        other:
+        one: Taslak metin
+        other: ! 'Taslak metinler '
       fatality_notice:
-        one:
-        other:
+        one: Ölüm ilanı
+        other: Ölüm ilanları
       foi_release:
-        one:
-        other:
+        one: Bilgi edinme özgürlüğü açıklaması
+        other: ! 'Bilgi edinme özgürlüğü baçıklamaları '
       form:
-        one:
-        other:
+        one: Form
+        other: ! 'Formlar '
       guidance:
-        one:
-        other:
+        one: Kılavuz
+        other: ! 'Kılavuzlar '
       impact_assessment:
-        one:
-        other:
+        one: ! 'Etki değerlendirmesi '
+        other: Etki değerlendirmeleri
       imported:
-        one:
-        other:
+        one: Alındı - Kategorize edilecek
+        other: Alındı - Kategorize edilecek
       independent_report:
-        one:
-        other:
+        one: Bağımsız rapor
+        other: Bağımsız raporlar
       map:
-        one:
-        other:
+        one: Harita
+        other: ! 'Haritalar '
       national_statistics:
-        one:
-        other:
+        one: ! 'İstatistikler - ulusal istatistikler '
+        other: ! 'İstatistikler - ulusal istatistikler '
       news_article:
-        one:
-        other:
+        one: Makale
+        other: ! 'Makaleler '
       news_story:
-        one:
-        other:
+        one: Haber
+        other: ! 'Haberler '
       open_consultation:
-        one:
-        other:
+        one: ! 'Devam eden çalışma '
+        other: ! 'Devam eden çalışmalar '
       oral_statement:
-        one:
-        other:
+        one: Parlamento'ya sözlü açıklama
+        other: ! 'Parlamento''ya sözlü açıklamalar '
       policy:
-        one:
-        other:
+        one: Politika
+        other: ! 'Politikalar '
       policy_paper:
-        one:
-        other:
+        one: Politika belgesi
+        other: ! 'Politika belgeleri '
       press_release:
-        one:
-        other:
+        one: Basın Bülteni
+        other: ! 'Basın Bültenleri '
       promotional:
-        one:
-        other:
+        one: Tanıtım Malzemesi
+        other: ! 'Tanıtım Malzemeleri '
       publication:
-        one:
-        other:
+        one: ! 'Yayın '
+        other: ! 'Yayınlar '
       rebuttal:
-        one:
-        other:
+        one: ! 'Tekzip '
+        other: Tekzipler
       research:
-        one:
-        other:
+        one: Araştırma ve analiz
+        other: ! 'Araştırma ve analizler '
       speaking_notes:
-        one:
-        other:
+        one: Konuşma notu
+        other: ! 'Konuşma notları '
       speech:
-        one:
-        other:
+        one: ! 'Konuşma '
+        other: ! 'Konuşmalar '
       statement_to_parliament:
-        one:
-        other:
+        one: ! 'Parlamento''ya yapılan açıklama '
+        other: Parlamento'ya yapılan açıklamalar
       statistical_data_set:
-        one:
-        other:
+        one: ! 'İstatiksel veri setleri '
+        other: ! 'İstatiksel veri setleri '
       statistics:
-        one:
-        other:
+        one: ! 'İstatistikler '
+        other: İstatistikler
       transcript:
-        one:
-        other:
+        one: ! 'Transkriptler '
+        other: ! 'Transkriptler '
       transparency:
-        one:
-        other:
+        one: ! 'Şeffaflık verileri '
+        other: Şeffaflık verileri
       world_location_news_article:
         one:
         other:
       worldwide_priority:
-        one:
-        other:
+        one: Dünya genelindeki öncelik
+        other: Dünya genelindeki öncelikler
       written_statement:
-        one:
-        other:
-    updated:
+        one: Parlamento'ya yapılan yazılı açıklama
+        other: Parlamento'ya yapılan yazılı açıklamalar
+    updated: Güncellendi
     view:
   document_filters:
     description:
     no_results:
-      description:
-      title:
+      description: ! 'Aramanızı genişleterek tekrar deneyiniz '
+      title: ! 'Eşleşen sonuç yok '
     world_locations:
-      all:
-      label:
+      all: ! 'Tüm yerler '
+      label: ! 'Dünyadaki konumlar '
   feeds:
-    atom:
-    email_alerts:
-    latest_activity:
+    atom: ! 'atom '
+    email_alerts: E-post uyarıları
+    latest_activity: ! 'Son etkinlik '
   i18n:
-    direction:
+    direction: Itr
   language_names:
-    tr: Türkçe
+    tr: ! 'Türkçe '
   latest_feed:
-    no_updates:
-    title:
+    no_updates: Henüz güncelleme yok
+    title: ! 'En son '
   number:
     human:
       storage_units:
@@ -242,84 +242,87 @@ tr:
       what_we_do:
     type:
       Ad-hoc advisory group:
-        one:
-        other:
+        one: Olağanüstü Danışma Grubu
+        other: Olağanüstü Danışma Grupları
       Advisory non-departmental public body:
-        one:
-        other:
+        one: Bakanlık dışı bağımsız kamu danışma kurumu
+        other: ! 'Bakanlık dışı bağımsız kamu danışma kurumları '
       Executive agency:
-        one:
-        other:
+        one: Yürütme organı
+        other: Yürütme organları
       Executive non-departmental public body:
-        one:
-        other:
+        one: ! 'Bakanlık dışı bağımsız kamu yönetim kurumu '
+        other: Bakanlık dışı bağımsız kamu yönetim kurumları
       Independent monitoring body:
-        one:
-        other:
+        one: Bağımsız izleme organı
+        other: ! 'Bağımsız izleme organları '
       Ministerial department:
-        one:
-        other:
+        one: ! 'Bakanlık birimi '
+        other: Bakanlık birimleri
       Non-ministerial department:
-        one:
-        other:
+        one: ! 'Bağımsız kurum '
+        other: Bağımsız kurumlar
       Other:
-        one:
-        other:
+        one: ! 'Diğer '
+        other: ! 'Diğerleri '
       Public corporation:
-        one:
-        other:
+        one: Kamu kuruluşu
+        other: Kamu kuruluşları
       Sub-organisation:
-        one:
-        other:
+        one: Alt kuruluş
+        other: Alt kuruluşlar
       Tribunal non-departmental public body:
-        one:
-        other:
+        one: Bakanlık dışı adli kamu kurumu
+        other: Bakanlık dışı adli kamu kurumları
   policies:
-    heading:
+    heading: ! 'Politikalar '
   publications:
-    heading:
+    heading: ! 'Yayınlar '
     headings:
       detail:
-  read_more:
+  read_more: ! 'Daha fazlası için:'
   support:
     array:
-      last_word_connector:
+      last_word_connector: ve
   time:
     formats:
       long_ordinal:
   world_location:
     headings:
-      announcements:
-      country:
-      documents:
-      mission:
-      organisations:
-      priorities:
-      publications:
-      quick_links:
-      related_policies:
-      see_all:
-      statistics:
-    see_all:
+      announcements: Duyurularımız
+      country: Ülke
+      documents: ! 'Belgeler '
+      mission: Misyonumuz
+      organisations: ! 'Organizasyon '
+      priorities: ! 'Öncelikler '
+      publications: Yayınlarımız
+      quick_links: ! 'Kısa Yollar '
+      related_policies: ! 'İlgili politikalar '
+      see_all: ! 'Tüm  %{type} görünüz '
+      statistics: ! 'İstatistiklerimiz '
+    see_all: Tüm %{type} görünüz
     type:
       international_delegation:
-        one:
-        other:
+        one: Uluslararası heyet
+        other: ! 'Uluslararası heyetler '
       world_location:
         one:
         other:
   worldwide_organisation:
     corporate_information:
-      personal_information_charter_html:
-      publication_scheme_html:
-      welsh_language_scheme_html:
-    find_out_more:
+      personal_information_charter_html: Bu %{link} bilgilerinizi nasıl sakladığımız
+        açıklamaktadır
+      publication_scheme_html: Rutin olarak yayınladığımız bilgiler için bu %{link}
+        e bakınız
+      welsh_language_scheme_html: Yayın hedefimiz ile ilgili bilgilere bu  %{link}ten
+        ulaşabilirsiniz.
+    find_out_more: ! 'Tüm profili ve ileti?im bilgilerini görmek için '
     headings:
-      about_us:
-      contact_us:
-      corporate_information:
-      follow_us:
-      our_people:
-      our_services:
-    location:
+      about_us: Hakkımızda
+      contact_us: Bize ulaşın
+      corporate_information: ! 'Kurumsal Bilgi '
+      follow_us: Bizi takip edin
+      our_people: Biz Kimiz
+      our_services: ! 'Hizmetlerimiz '
+    location: ! 'Konum '
     part_of:
