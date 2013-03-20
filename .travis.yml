@@ -1,6 +1,5 @@
 language: ruby
 rvm:
-  - 1.9.3
   - 1.9.2
 env:
   - DB=mysql CUCUMBER_FORMAT=progress GOVUK_APP_DOMAIN=test.gov.uk DISPLAY=:99
