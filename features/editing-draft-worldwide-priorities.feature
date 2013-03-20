@@ -1,7 +1,7 @@
 Feature: editing draft worldwide priorities
 
 Background:
-  Given I am a writer
+  Given I am a GDS editor
 
 Scenario: Creating a new draft worldwide priority
   When I draft a new worldwide priority "Military officer exchange"

@@ -32,7 +32,7 @@ Feature: World location news for people local to countries
   on the worldwide priority.
 
   Background:
-    Given I am an editor
+    Given I am an GDS editor
 
   Scenario: Create a world location news article
     When I draft a valid world location news article "Beirut News"
