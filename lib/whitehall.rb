@@ -160,7 +160,7 @@ module Whitehall
         Person,
         CorporateInformationPage
       ]
-      not_yet_searchable_classes = [ WorldwidePriority ]
+      not_yet_searchable_classes = [ WorldwidePriority, WorldLocationNewsArticle ]
       government_edition_classes + additional_classes - not_yet_searchable_classes
     end
 
