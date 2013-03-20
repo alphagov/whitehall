@@ -7,309 +7,309 @@ uk:
         many:
         other:
       ministers:
-        one:
+        one: Міністр
         few:
         many:
-        other:
+        other: Міністри
       organisations:
         one:
         few:
         many:
         other:
       policies:
-        one:
+        one: Політика
         few:
         many:
-        other:
+        other: Політика
       supporting_documents:
         one:
         few:
         many:
         other:
       topics:
-        one:
+        one: Тема
         few:
         many:
-        other:
+        other: Теми
       world_locations:
-        one:
+        one: Місцезнаходження у світі
         few:
         many:
-        other:
+        other: Місцезнаходження у світі
       worldwide_organisations:
-        one:
+        one: Світова організація
         few:
         many:
-        other:
-      advisory_groups:
-      applies_to_nations:
-      document_series:
-      field_of_operation:
-      live_data:
-      policy_team:
+        other: Світові організації
+      advisory_groups: Дорадчі групи
+      applies_to_nations: Застосовується до
+      document_series: Серія
+      field_of_operation: Сфера діяльності
+      live_data: Дані в реальному часі
+      policy_team: Політичний відділ
     type:
       announcement:
-        one:
+        one: Оголошення
         few:
         many:
-        other:
+        other: Оголошення
       case_study:
-        one:
+        one: Тематчине дослідження
         few:
         many:
-        other:
+        other: Тематичні дослідження
       closed_consultation:
-        one:
+        one: Закрите обговорення
         few:
         many:
-        other:
+        other: Закриті обговорення
       consultation:
-        one:
+        one: Обговорення
         few:
         many:
-        other:
+        other: Обговорення
       consultation_outcome:
-        one:
+        one: Результат обговорення
         few:
         many:
-        other:
+        other: Результати обговорень
       corporate_report:
-        one:
+        one: Корпоративний звіт
         few:
         many:
-        other:
+        other: Корпоративні звіти
       correspondence:
-        one:
+        one: Кореспонденція
         few:
         many:
-        other:
+        other: Кореспонденція
       detailed_guidance:
-        one:
+        one: Детальні інструкції
         few:
         many:
-        other:
+        other: Детальні інструкції
       draft_text:
-        one:
+        one: Проект документу
         few:
         many:
-        other:
+        other: Проекти документів
       fatality_notice:
-        one:
+        one: Повідомлення про смерть
         few:
         many:
-        other:
+        other: Повідомлення про смерть
       foi_release:
-        one:
+        one: ! 'Відповідь на інформаційний запит '
         few:
         many:
-        other:
+        other: ! 'Відповіді на інформаційні запити '
       form:
-        one:
+        one: Форма
         few:
         many:
-        other:
+        other: Форми
       guidance:
-        one:
+        one: Інструкції
         few:
         many:
-        other:
+        other: Інструкції
       impact_assessment:
-        one:
+        one: Оцінка впливу
         few:
         many:
-        other:
+        other: Оцінки впливу
       imported:
-        one:
+        one: імпортовано - в очікуванні
         few:
         many:
-        other:
+        other: імпортовано - в очікуванні
       independent_report:
-        one:
+        one: Незалежний звіт
         few:
         many:
-        other:
+        other: Незалежні звіти
       map:
-        one:
+        one: Мапа
         few:
         many:
-        other:
+        other: Мапи
       national_statistics:
-        one:
+        one: Статистика - національна статистика
         few:
         many:
-        other:
+        other: Статистика - національна статистика
       news_article:
-        one:
+        one: Стаття
         few:
         many:
-        other:
+        other: Статті
       news_story:
-        one:
+        one: Новина
         few:
         many:
-        other:
+        other: Новини
       open_consultation:
-        one:
+        one: Відкрите обговорення
         few:
         many:
-        other:
+        other: Відкриті обговорення
       oral_statement:
-        one:
+        one: Усна заява у парламенті
         few:
         many:
-        other:
+        other: Усні заяви у парламенті
       policy:
-        one:
+        one: Політика
         few:
         many:
-        other:
+        other: Політика
       policy_paper:
-        one:
+        one: Програмний документ
         few:
         many:
-        other:
+        other: Програмні документи
       press_release:
-        one:
+        one: Прес-реліз
         few:
         many:
-        other:
+        other: Прес-релізи
       promotional:
-        one:
+        one: Промоційний матеріал
         few:
         many:
-        other:
+        other: Промоційний матеріал
       publication:
-        one:
+        one: Публікація
         few:
         many:
-        other:
+        other: Публікації
       rebuttal:
-        one:
+        one: Спростування
         few:
         many:
-        other:
+        other: Спростування
       research:
-        one:
+        one: Дослідження та аналіз
         few:
         many:
-        other:
+        other: Дослідження та аналіз
       speaking_notes:
-        one:
+        one: Тези для промови
         few:
         many:
-        other:
+        other: Тези для промови
       speech:
-        one:
+        one: Промова
         few:
         many:
-        other:
+        other: Промови
       statement_to_parliament:
-        one:
+        one: Заява у парламенті
         few:
         many:
-        other:
+        other: Заяви у парламенті
       statistical_data_set:
-        one:
+        one: Набір статистичних даних
         few:
         many:
-        other:
+        other: Набір статистичних даних
       statistics:
-        one:
+        one: Статистика
         few:
         many:
-        other:
+        other: Статистика
       transcript:
-        one:
+        one: Транскрипт
         few:
         many:
-        other:
+        other: Транскрипти
       transparency:
-        one:
+        one: Прозорість інформації
         few:
         many:
-        other:
+        other: Прозорість інформації
       world_location_news_article:
         one:
         few:
         many:
         other:
       worldwide_priority:
-        one:
+        one: Глобальний пріоритет
         few:
         many:
-        other:
+        other: Глобальні пріоритети
       written_statement:
-        one:
+        one: Письмова заява у парламенті
         few:
         many:
-        other:
-    published:
-    read:
+        other: Письмові заяви у парламенті
+    published: опубліковано
+    read: Читати %{title} статтю
     speech:
-      delivered_on:
+      delivered_on: ! 'Виголошено:'
       delivery_title:
-        minister:
-        speaker:
-      originally_given_at:
-    updated:
-    view:
+        minister: Міністр
+        speaker: Спікер
+      originally_given_at: Уперше виголошено в %{location}.
+    updated: оновлено
+    view: Перегляди '%{title}'
   organisation:
     type:
       Ad-hoc advisory group:
-        one:
+        one: Тимчасова дорадча група
         few:
         many:
-        other:
+        other: Тимчасові дорадчі групи
       Advisory non-departmental public body:
-        one:
+        one: Дорадчий позавідомчий орган державної влади
         few:
         many:
-        other:
+        other: Дорадчі позавідомчі органи державної влади
       Executive agency:
-        one:
+        one: Орган виконавчої влади
         few:
         many:
-        other:
+        other: Органи виконавчої влади
       Executive non-departmental public body:
-        one:
+        one: Виконавчий позавідомчий орган державної влади
         few:
         many:
-        other:
+        other: Виконавчі позавідомчі органи державної влади
       Independent monitoring body:
-        one:
+        one: Незалежний моніторинговий орган
         few:
         many:
-        other:
+        other: Незалежні моніторингові органи
       Ministerial department:
-        one:
+        one: Міністерство
         few:
         many:
-        other:
+        other: Міністерства
       Non-ministerial department:
-        one:
+        one: Неміністерський департамент
         few:
         many:
-        other:
+        other: ! 'Неміністерські департаменти '
       Other:
-        one:
+        one: Інше
         few:
         many:
-        other:
+        other: Інші
       Public corporation:
-        one:
+        one: Публічна корпорація
         few:
         many:
-        other:
+        other: Публічні корпорації
       Sub-organisation:
-        one:
+        one: Підрядна організація
         few:
         many:
-        other:
+        other: Підрядні організації
       Tribunal non-departmental public body:
-        one:
+        one: Судовий позавідомчий орган державної влади
         few:
         many:
-        other:
+        other: Судові позавідомчі органи державної влади
     about:
       read_more:
     corporate_information:
@@ -339,34 +339,34 @@ uk:
   world_location:
     type:
       international_delegation:
-        one:
+        one: Міжнародна делегація
         few:
         many:
-        other:
+        other: Міжнародні делегації
       world_location:
         one:
         few:
         many:
         other:
     headings:
-      announcements:
-      country:
-      documents:
-      mission:
-      organisations:
-      priorities:
-      publications:
-      quick_links:
-      related_policies:
-      see_all:
-      statistics:
-    see_all:
+      announcements: Наші оголошення
+      country: Країна
+      documents: Документи
+      mission: Наша місія
+      organisations: Організації
+      priorities: Пріоритети
+      publications: Наші публікації
+      quick_links: Прямі посилання
+      related_policies: Подібні документи
+      see_all: Дивіться всі наші %{type}
+      statistics: Наша статистика
+    see_all: Дивіться всі наші %{type}
   activerecord:
     attributes:
       detailed_guide:
         primary_mainstream_category:
   announcements:
-    heading:
+    heading: Оголошення
   attachment:
     accessibility:
       full_help_html:
@@ -378,68 +378,72 @@ uk:
       published:
       reference:
   change_notes:
-    published:
-    updated:
+    published: Опубліковано
+    updated: Оновлено
   contact:
-    contact_form:
-    email:
+    contact_form: Форма для контактів
+    email: E-пошта
   corporate_information_page:
     type:
-      personal_information_charter:
-      publication_scheme:
-      welsh_language_scheme:
+      personal_information_charter: Персональна інформація
+      publication_scheme: План публікацій
+      welsh_language_scheme: Програма збереження валійської мови
   date:
     formats:
       default:
-      long_ordinal: ! '%e %B %Y'
+      long_ordinal:
   document_filters:
-    description:
+    description: Ви можете скористатись фільтрами для отримання тільки тих результатів,
+      які збігаються з вашим запитом
     no_results:
-      description:
-      title:
+      description: Спробуйте розширити параметри пошуку та повторіть пошук.
+      title: Документів не знайдено.
     world_locations:
-      all:
-      label:
+      all: Будь-яке місце
+      label: Місцезнаходження у світі
   feeds:
-    atom:
-    email_alerts:
-    latest_activity:
+    atom: атом
+    email_alerts: сповіщення е-поштою
+    latest_activity: Останні події
   i18n:
     direction: ltr
   language_names:
     uk: Українська
   latest_feed:
-    no_updates:
-    title:
+    no_updates: Оновлень поки що немає.
+    title: Останній
   number:
     human:
       storage_units:
         format:
   policies:
-    heading:
+    heading: Політика
   publications:
-    heading:
+    heading: Публікації
     headings:
       detail:
-  read_more:
+  read_more: Читати далі
   support:
     array:
-      last_word_connector:
+      last_word_connector: та
   time:
     formats:
       long_ordinal:
   worldwide_organisation:
     corporate_information:
-      personal_information_charter_html:
-      publication_scheme_html:
-      welsh_language_scheme_html:
-    find_out_more:
+      personal_information_charter_html: ! 'Це %{link} пояснює наші принципи роботи
+        з персональними даними. '
+      publication_scheme_html: Прочитайте про те, яку інформацію ми регулярно публікуємо
+        у %{link}.
+      welsh_language_scheme_html: ! 'Дізнайтеся про наші зобов''язання щодо публікації
+        інформації у %{link}. '
+    find_out_more: Дивіться повний профіль та всі контакти
     headings:
-      about_us:
-      contact_us:
-      corporate_information:
-      follow_us:
-      our_people:
-      our_services:
-    location:
-    part_of:
+      about_us: Про нас
+      contact_us: Зв'яжіться з нами
+      corporate_information: Корпоративна інформація
+      follow_us: Слідкуйте за нами
+      our_people: Наші співробітники
+      our_services: Наші послуги
+    location: Місцезнаходження
+    part_of: Частина
