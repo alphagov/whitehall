@@ -26,6 +26,7 @@ class Role < ActiveRecord::Base
   scope :traffic_commissioner, where(type: 'TrafficCommissionerRole')
   scope :military, where(type: 'MilitaryRole')
   scope :special_representative, where(type: 'SpecialRepresentativeRole')
+  scope :chief_professional_officer, where(type: 'ChiefProfessionalOfficerRole')
 
   validates :name, presence: true
   validates_with SafeHtmlValidator

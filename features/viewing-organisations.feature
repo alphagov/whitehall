@@ -22,6 +22,11 @@ Scenario: Organisation page should show any traffic commissioners
   When I visit the "Department for Transport" organisation
   Then I should be able to view all traffic commissioners for the "Department for Transport" organisation
 
+Scenario: Organisation page should show any chief professional officers
+  Given the "Department of Health" organisation is associated with chief professional officers
+  When I visit the "Department of Health" organisation
+  Then I should be able to view all chief professional officers for the "Department of Health" organisation
+
 Scenario: Organisation page should show any chief scientific advisors
   Given the "Department for Transport" organisation is associated with scientific advisors
   When I visit the "Department for Transport" organisation

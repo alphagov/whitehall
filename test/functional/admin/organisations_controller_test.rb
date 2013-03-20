@@ -270,6 +270,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     board_member_role = create(:board_member_role)
     chief_scientific_advisor_role = create(:chief_scientific_advisor_role)
     traffic_commissioner_role = create(:traffic_commissioner_role)
+    chief_professional_officer_role = create(:chief_professional_officer_role)
     military_role = create(:military_role)
 
     organisation = create(:organisation)
@@ -277,6 +278,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     organisation_board_member_role = create(:organisation_role, organisation: organisation, role: board_member_role)
     organisation_scientific_role = create(:organisation_role, organisation: organisation, role: chief_scientific_advisor_role)
     organisation_traffic_commissioner_role = create(:organisation_role, organisation: organisation, role: traffic_commissioner_role)
+    organisation_chief_professional_officer_role = create(:organisation_role, organisation: organisation, role: chief_professional_officer_role)
     organisation_military_role = create(:organisation_role, organisation: organisation, role: military_role)
 
     get :edit, id: organisation
@@ -301,6 +303,12 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     refute_select "#military_ordering input[name^='organisation[organisation_roles_attributes]'][value=#{organisation_board_member_role.id}]"
     refute_select "#military_ordering input[name^='organisation[organisation_roles_attributes]'][value=#{organisation_traffic_commissioner_role.id}]"
     refute_select "#military_ordering input[name^='organisation[organisation_roles_attributes]'][value=#{organisation_scientific_role.id}]"
+
+    assert_select "#chief_professional_officer_ordering input[name^='organisation[organisation_roles_attributes]'][value=#{organisation_chief_professional_officer_role.id}]"
+    refute_select "#chief_professional_officer_ordering input[name^='organisation[organisation_roles_attributes]'][value=#{organisation_ministerial_role.id}]"
+    refute_select "#chief_professional_officer_ordering input[name^='organisation[organisation_roles_attributes]'][value=#{organisation_board_member_role.id}]"
+    refute_select "#chief_professional_officer_ordering input[name^='organisation[organisation_roles_attributes]'][value=#{organisation_traffic_commissioner_role.id}]"
+    refute_select "#chief_professional_officer_ordering input[name^='organisation[organisation_roles_attributes]'][value=#{organisation_scientific_role.id}]"
   end
 
   view_test "editing shows ministerial role and current person's name" do
@@ -356,6 +364,18 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     get :edit, id: organisation
 
     assert_equal [organisation_senior_traffic_commissioner_role, organisation_junior_traffic_commissioner_role], assigns(:traffic_commissioner_organisation_roles)
+  end
+
+  test "editing shows chief professional officer roles in their currently specified order" do
+    junior_chief_professional_officer_role = create(:chief_professional_officer_role)
+    senior_chief_professional_officer_role = create(:chief_professional_officer_role)
+    organisation = create(:organisation)
+    organisation_junior_chief_professional_officer_role = create(:organisation_role, organisation: organisation, role: junior_chief_professional_officer_role, ordering: 2)
+    organisation_senior_chief_professional_officer_role = create(:organisation_role, organisation: organisation, role: senior_chief_professional_officer_role, ordering: 1)
+
+    get :edit, id: organisation
+
+    assert_equal [organisation_senior_chief_professional_officer_role, organisation_junior_chief_professional_officer_role], assigns(:chief_professional_officer_roles)
   end
 
   test "editing shows special representative roles in their currently specified order" do

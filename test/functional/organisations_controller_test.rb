@@ -692,6 +692,18 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_equal [senior_role, junior_role], assigns(:traffic_commissioner_roles).collect(&:model)
   end
 
+  test "shows traffic chief professional officer roles in the specified order" do
+    junior_role = create(:chief_professional_officer_role, role_appointments: [create(:role_appointment)])
+    senior_role = create(:chief_professional_officer_role, role_appointments: [create(:role_appointment)])
+    organisation = create(:organisation)
+    create(:organisation_role, organisation: organisation, role: junior_role, ordering: 2)
+    create(:organisation_role, organisation: organisation, role: senior_role, ordering: 1)
+
+    get :show, id: organisation
+
+    assert_equal [senior_role, junior_role], assigns(:chief_professional_officer_roles).collect(&:model)
+  end
+
   test "shows military roles in the specified order" do
     junior_role = create(:military_role, role_appointments: [create(:role_appointment)])
     senior_role = create(:military_role, role_appointments: [create(:role_appointment)])

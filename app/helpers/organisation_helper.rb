@@ -92,8 +92,9 @@ module OrganisationHelper
       @special_representatives.any? ||
       @board_members.any? ||
       @important_board_members.any? ||
-      @organisation.military_roles.any? ||
-      @traffic_commissioner_roles.any?
+      @military_personnel.any? ||
+      @chief_professional_officers.any? ||
+      @traffic_commissioners.any?
   end
 
   def organisations_grouped_by_type(organisations)

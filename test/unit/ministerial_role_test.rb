@@ -79,15 +79,13 @@ class MinisterialRoleTest < ActiveSupport::TestCase
   end
 
   test "can never be a permanent secretary" do
-    ministerial_role = build(:ministerial_role, permanent_secretary: true)
+    ministerial_role = build(:ministerial_role)
     refute ministerial_role.permanent_secretary?
-    refute ministerial_role.permanent_secretary
   end
 
   test "can never be a chief of the defence staff" do
-    ministerial_role = build(:ministerial_role, chief_of_the_defence_staff: true)
+    ministerial_role = build(:ministerial_role)
     refute ministerial_role.chief_of_the_defence_staff?
-    refute ministerial_role.chief_of_the_defence_staff
   end
 
   test 'should return search index data suitable for Rummageable' do

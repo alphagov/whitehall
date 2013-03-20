@@ -83,6 +83,7 @@ class Admin::OrganisationsController < Admin::BaseController
     @traffic_commissioner_organisation_roles = []
     @military_organisation_roles = []
     @special_representative_organisation_roles = []
+    @chief_professional_officer_roles = []
   end
 
   def build_organisation_classifications
@@ -120,6 +121,7 @@ class Admin::OrganisationsController < Admin::BaseController
     @traffic_commissioner_organisation_roles = @organisation.organisation_roles.joins(:role).merge(Role.traffic_commissioner).order(:ordering)
     @military_organisation_roles = @organisation.organisation_roles.joins(:role).merge(Role.military).order(:ordering)
     @special_representative_organisation_roles = @organisation.organisation_roles.joins(:role).merge(Role.special_representative).order(:ordering)
+    @chief_professional_officer_roles = @organisation.organisation_roles.joins(:role).merge(Role.chief_professional_officer).order(:ordering)
   end
 
   def destroy_blank_mainstream_links

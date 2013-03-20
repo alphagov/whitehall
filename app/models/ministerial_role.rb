@@ -38,22 +38,6 @@ class MinisterialRole < Role
     where(cabinet_member: true).alphabetical_by_person
   end
 
-  def permanent_secretary
-    false
-  end
-
-  def permanent_secretary?
-    permanent_secretary
-  end
-
-  def chief_of_the_defence_staff
-    false
-  end
-
-  def chief_of_the_defence_staff?
-    chief_of_the_defence_staff
-  end
-
   def ministerial?
     true
   end

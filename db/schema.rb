@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130318122649) do
+ActiveRecord::Schema.define(:version => 20130320174658) do
 
   create_table "attachment_data", :force => true do |t|
     t.string   "carrierwave_file"
@@ -813,7 +813,7 @@ ActiveRecord::Schema.define(:version => 20130318122649) do
     t.boolean  "cabinet_member",             :default => false,             :null => false
     t.string   "slug"
     t.text     "responsibilities"
-    t.boolean  "chief_of_the_defence_staff"
+    t.boolean  "chief_of_the_defence_staff", :default => false,             :null => false
     t.integer  "whip_organisation_id"
   end
 
