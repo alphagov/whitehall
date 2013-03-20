@@ -41,8 +41,11 @@ module Whitehall
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
 
+    # We need to set the I18n.available_locales early in the initialization process
+    # as it is used to generate the regex for the LocalizedRouting patch. To keep things DRY
+    # we use Whitehall.available_locales for the canonical definition of this.
     config.i18n.default_locale = :en
-    config.i18n.available_locales = [:en, :ar, :az, :be, :bg, :bn, :cs, :cy, :de, :dr, :el, :es, 'es-419', :fa, :fr, :he, :hi, :hu, :hy, :id, :it, :ja, :ka, :ko, :lt, :lv, :ms, :pl, :ps, :pt, :ro, :ru, :si, :sk, :so, :sq, :sr, :sw, :ta, :th, :tk, :tr, :uk, :ur, :uz, :vi, :zh]
+    config.i18n.available_locales = Whitehall.available_locales
 
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"

@@ -47,6 +47,16 @@ module Whitehall
       detailed_guidance: "detailed_guidance"
     }
 
+    def available_locales
+      [
+        :en, :ar, :az, :be, :bg, :bn, :cs, :cy, :de, :dr, :el,
+        :es, 'es-419', :fa, :fr, :he, :hi, :hu, :hy, :id, :it,
+        :ja, :ka, :ko, :lt, :lv, :ms, :pl, :ps, :pt, :ro, :ru,
+        :si, :sk, :so, :sq, :sr, :sw, :ta, :th, :tk, :tr, :uk,
+        :ur, :uz, :vi, :zh
+      ]
+    end
+
     def system_binaries
       {
         zipinfo: "/usr/bin/zipinfo",
