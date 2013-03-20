@@ -78,14 +78,16 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
     refute Edition.accessible_to(user).include?(inaccessible)
   end
 
-  test "if access is not limited, edition is only accessible to a world user if it's about their location" do
+  test "if access is not limited, edition is only accessible to a world user if it's about their location, regardless of org" do
     loc_1, loc_2 = build(:country), build(:country)
-    editor_in_loc_1 = build(:world_editor, world_locations: [loc_1])
-    writer_in_loc_1 = build(:world_writer, world_locations: [loc_1])
-    editor_in_loc_2 = build(:world_editor, world_locations: [loc_2])
-    writer_in_loc_2 = build(:world_writer, world_locations: [loc_2])
+    organisation = build(:organisation)
 
-    e = create(:limited_access_edition, world_locations: [loc_2], access_limited: false)
+    editor_in_loc_1 = build(:world_editor, world_locations: [loc_1], organisation: organisation)
+    writer_in_loc_1 = build(:world_writer, world_locations: [loc_1], organisation: organisation)
+    editor_in_loc_2 = build(:world_editor, world_locations: [loc_2], organisation: organisation)
+    writer_in_loc_2 = build(:world_writer, world_locations: [loc_2], organisation: organisation)
+
+    e = create(:limited_access_edition, world_locations: [loc_2], organisations: [organisation], access_limited: false)
 
     refute e.accessible_by?(editor_in_loc_1)
     refute e.accessible_by?(writer_in_loc_1)
@@ -127,6 +129,7 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
     ]
     inaccessible = [
       create(:draft_publication, access_limited: false, world_locations: [other_location]),
+      create(:draft_publication, access_limited: false, organisations: [my_organisation]),
       create(:draft_publication, access_limited: true, organisations: [my_organisation], world_locations: [other_location]),
       create(:draft_publication, access_limited: true, organisations: [other_organisation], world_locations: [my_location])
     ]
