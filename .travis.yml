@@ -22,3 +22,5 @@ branches:
   except:
     - master
     - release
+notifications:
+  email: false
