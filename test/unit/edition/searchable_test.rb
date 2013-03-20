@@ -33,7 +33,7 @@ class Edition::SearchableTest < ActiveSupport::TestCase
 
   test "should add edition to search index on publishing" do
     edition = create(:submitted_edition)
-
+    Whitehall.stubs(:searchable_classes).returns([edition.class])
     Rummageable.expects(:index).with(has_entry("id", edition.id), Whitehall.government_search_index_path)
 
     edition.publish_as(create(:departmental_editor))
