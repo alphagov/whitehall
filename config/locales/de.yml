@@ -17,60 +17,60 @@ de:
         one:
         other:
       topics:
-        one:
-        other:
+        one: Thema
+        other: Themen
       world_locations:
-        one:
-        other:
+        one: Standort weltweit
+        other: Standorte weltweit
       worldwide_organisations:
-        one:
-        other:
-      advisory_groups:
-      applies_to_nations:
-      document_series:
-      field_of_operation:
-      live_data:
+        one: Weltweite Organisation
+        other: Weltweite Organisationen
+      advisory_groups: Beratergruppen
+      applies_to_nations: Gilt für
+      document_series: Reihe
+      field_of_operation: Einsatzbereich
+      live_data: Live-Daten
       policy_team:
     type:
       announcement:
-        one:
-        other:
+        one: Ankündigung
+        other: Ankündigungen
       case_study:
-        one:
-        other:
+        one: Fallstudie
+        other: Fallstudien
       closed_consultation:
-        one:
-        other:
+        one: Abgeschlossene Konsultation
+        other: Abgeschlossene Konsultationen
       consultation:
-        one:
-        other:
+        one: Konsultation
+        other: Konsultationen
       consultation_outcome:
-        one:
-        other:
+        one: Konsultationsergebnis
+        other: Konsultationsergebnisse
       corporate_report:
-        one:
-        other:
+        one: Geschäftsbericht
+        other: Geschäftsberichte
       correspondence:
-        one:
-        other:
+        one: Korrespondenz
+        other: Korrespondenz
       detailed_guidance:
-        one:
-        other:
+        one: Detaillierte Hinweise
+        other: Detaillierte Hinweise
       draft_text:
-        one:
-        other:
+        one: Entwurf
+        other: Entwürfe
       fatality_notice:
-        one:
-        other:
+        one: Bekanntgabe eines Todesfalls
+        other: Bekanntgabe von Todesfällen
       foi_release:
-        one:
-        other:
+        one: Freigabe gemäß Freedom of Information Act
+        other: Freigabe gemäß Freedom of Information Act
       form:
-        one:
-        other:
+        one: Formular
+        other: Formulare
       guidance:
-        one:
-        other:
+        one: Hinweise
+        other: Hinweise
       impact_assessment:
         one:
         other:
@@ -78,26 +78,26 @@ de:
         one:
         other:
       independent_report:
-        one:
-        other:
+        one: Unabhängiger Bericht
+        other: Unabhängige Berichte
       map:
         one:
         other:
       national_statistics:
-        one:
-        other:
+        one: Statistik - Nationale Statistik
+        other: Statistik - Nationale Statistik
       news_article:
-        one:
-        other:
+        one: Presseartikel
+        other: Presseartikel
       news_story:
-        one:
-        other:
+        one: Pressemeldung
+        other: Pressemeldungen
       open_consultation:
-        one:
-        other:
+        one: Laufende Konsultation
+        other: Laufende Konsultationen
       oral_statement:
-        one:
-        other:
+        one: Mündliche Erklärung vor dem Parlament
+        other: Mündliche Erklärungen vor dem Parlament
       policy:
         one:
         other:
@@ -105,92 +105,92 @@ de:
         one:
         other:
       press_release:
-        one:
-        other:
+        one: Pressemitteilung
+        other: Pressemitteilungen
       promotional:
-        one:
-        other:
+        one: Werbematerial
+        other: Werbematerial
       publication:
-        one:
-        other:
+        one: Veröffentlichung
+        other: Veröffentlichungen
       rebuttal:
-        one:
-        other:
+        one: Gegendarstellung
+        other: Gegendarstellungen
       research:
-        one:
-        other:
+        one: Forschung und Analyse
+        other: Forschung und Analyse
       speaking_notes:
-        one:
-        other:
+        one: Sprechzettel
+        other: Sprechzettel
       speech:
-        one:
-        other:
+        one: Rede
+        other: ! 'Reden '
       statement_to_parliament:
-        one:
-        other:
+        one: Erklärung vor dem Parlament
+        other: Erklärungen vor dem Parlament
       statistical_data_set:
-        one:
-        other:
+        one: Statistischer Datensatz
+        other: Statistische Datensätze
       statistics:
-        one:
-        other:
+        one: ! 'Statistik '
+        other: Statistiken
       transcript:
-        one:
-        other:
+        one: Mitschrift/Niederschrift
+        other: Mitschriften/Niederschriften
       transparency:
-        one:
-        other:
+        one: Transparenz-Daten
+        other: Transparenz-Daten
       world_location_news_article:
         one:
         other:
       worldwide_priority:
-        one:
-        other:
+        one: Weltweite Priorität
+        other: Weltweite Prioritäten
       written_statement:
-        one:
-        other:
-    published:
-    read:
+        one: Schriftliche Erklärung vor dem Parlament
+        other: Schriftliche Erklärungen vor dem Parlament
+    published: ! 'veröffentlicht '
+    read: Lesen Sie den Artikel %{title}
     speech:
-      delivered_on:
+      delivered_on: ! 'Gehalten am:'
       delivery_title:
         minister:
         speaker:
-      originally_given_at:
-    updated:
-    view:
+      originally_given_at: Ursprünglich gehalten in %{location}.
+    updated: aktualisiert
+    view: Schauen Sie sich '%{title}' an
   organisation:
     type:
       Ad-hoc advisory group:
-        one:
-        other:
+        one: Ad-hoc-Beratergruppe
+        other: Ad-hoc-Beratergruppen
       Advisory non-departmental public body:
-        one:
-        other:
+        one: Keinem Ministerium unterstelltes öffentliches Beratungsorgan
+        other: Keinem Ministerium unterstellte öffentliche Beratungsorgane
       Executive agency:
-        one:
-        other:
+        one: Exekutivagentur
+        other: Exekutivagenturen
       Executive non-departmental public body:
-        one:
-        other:
+        one: Keinem Ministerium unterstelltes öffentliches Exekutivorgan
+        other: ! 'Keinem Ministerium unterstellte öffentliche Exekutivorgane '
       Independent monitoring body:
-        one:
-        other:
+        one: Unabhängiges Kontrollorgan
+        other: Unabhängige Kontrollorgane
       Ministerial department:
-        one:
-        other:
+        one: Ministerium
+        other: Ministerien
       Non-ministerial department:
-        one:
-        other:
+        one: Nichtministerelle Regierungsstelle
+        other: Nichtministerelle Regierungsstellen
       Other:
-        one:
-        other:
+        one: Andere
+        other: Andere
       Public corporation:
-        one:
-        other:
+        one: Körperschaft des öffentlichen Rechts
+        other: Körperschaften des öffentlichen Rechts
       Sub-organisation:
-        one:
-        other:
+        one: Unterorganisation
+        other: Unterorganisationen
       Tribunal non-departmental public body:
         one:
         other:
@@ -223,30 +223,30 @@ de:
   world_location:
     type:
       international_delegation:
-        one:
-        other:
+        one: Internationale Delegation
+        other: Internationale Delegationen
       world_location:
         one:
         other:
     headings:
-      announcements:
-      country:
-      documents:
-      mission:
-      organisations:
-      priorities:
-      publications:
-      quick_links:
-      related_policies:
-      see_all:
-      statistics:
-    see_all:
+      announcements: Unsere Ankündigungen
+      country: Land
+      documents: Dokumente
+      mission: Unser Auftrag
+      organisations: Organisationen
+      priorities: Prioritäten
+      publications: Unsere Veröffentlichungen
+      quick_links: Quicklinks
+      related_policies: Relevante Politiken/Maßnahmen
+      see_all: Alle unsere %{type}
+      statistics: Unsere Statistiken
+    see_all: Alle unsere %{type}
   activerecord:
     attributes:
       detailed_guide:
-        primary_mainstream_category:
+        primary_mainstream_category: Kategorie  detaillierte Hinweise
   announcements:
-    heading:
+    heading: Ankündigungen
   attachment:
     accessibility:
       full_help_html:
@@ -258,39 +258,40 @@ de:
       published:
       reference:
   change_notes:
-    published:
-    updated:
+    published: ! 'Veröffentlicht '
+    updated: Aktualisiert
   contact:
-    contact_form:
-    email:
+    contact_form: Kontaktformular
+    email: E-Mail
   corporate_information_page:
     type:
-      personal_information_charter:
-      publication_scheme:
-      welsh_language_scheme:
+      personal_information_charter: Charta zum Schutz personenbezogener Daten
+      publication_scheme: Publikationsprogramm
+      welsh_language_scheme: Walisisches Sprachprogramm
   date:
     formats:
-      default:
+      default: ! '%d %B %Y'
       long_ordinal: ! '%e %B %Y'
   document_filters:
-    description:
+    description: Mit Hilfe der Filter erhalten Sie nur Ergebnisse, die Ihrem Interesse
+      entsprechen.
     no_results:
-      description:
-      title:
+      description: Formulieren Sie Ihre Suche allgemeiner.
+      title: Ihre Suchanfrage hat keine Ergebnisse gebracht.
     world_locations:
-      all:
-      label:
+      all: Alle Standorte
+      label: Standorte weltweit
   feeds:
-    atom:
-    email_alerts:
-    latest_activity:
+    atom: Atom-Feed
+    email_alerts: Benachrichtigung per E-Mail
+    latest_activity: Zuletzt aktiv
   i18n:
     direction:
   language_names:
     de: Deutsch
   latest_feed:
-    no_updates:
-    title:
+    no_updates: Es liegen noch keine Updates vor.
+    title: Neuester Feed
   number:
     human:
       storage_units:
@@ -298,28 +299,31 @@ de:
   policies:
     heading:
   publications:
-    heading:
+    heading: Veröffentlichungen
     headings:
       detail:
-  read_more:
+  read_more: Lesen Sie mehr dazu
   support:
     array:
-      last_word_connector:
+      last_word_connector: und
   time:
     formats:
       long_ordinal:
   worldwide_organisation:
     corporate_information:
-      personal_information_charter_html:
-      publication_scheme_html:
-      welsh_language_scheme_html:
-    find_out_more:
+      personal_information_charter_html: Unser %{link} erklärt, wie wir Ihre personenbezogenen
+        Daten schützen.
+      publication_scheme_html: Lesen Sie hier %{link}, welche Informationen wir routinemäßig
+        publizieren.
+      welsh_language_scheme_html: Lesen Sie hier %{link} mehr zu unserer Verpflichtung
+        zur Veröffentlichung
+    find_out_more: Hier finden Sie das vollständige Profil und alle Kontaktdaten
     headings:
-      about_us:
-      contact_us:
-      corporate_information:
-      follow_us:
-      our_people:
-      our_services:
-    location:
-    part_of:
+      about_us: Über uns
+      contact_us: Schreiben Sie uns
+      corporate_information: Behördeninformationen
+      follow_us: Folgen Sie uns
+      our_people: Unsere Mitarbeiter
+      our_services: Unsere Dienstleistungen
+    location: Standort
+    part_of: Teil von
