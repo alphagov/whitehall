@@ -3,25 +3,7 @@
   <div class="row-fluid">
     <div class="span2">
       <div class="btn-group">
-        <a class="btn btn-large dropdown-toggle" data-toggle="dropdown" href="#">
-          Create new document
-          <span class="caret"></span>
-        </a>
-        <ul class="dropdown-menu">
-          <li><%= link_to "Policy", new_admin_policy_path, title: "Create Policy" %></li>
-          <li><%= link_to "Publication", new_admin_publication_path, title: "Create Publication" %></li>
-          <li><%= link_to "News Article", new_admin_news_article_path, title: "Create News Article" %></li>
-          <% if current_user.can_handle_fatalities? %>
-            <li><%= link_to "Fatality Notice", new_admin_fatality_notice_path, title: "Create Fatality Notice" %></li>
-          <% end %>
-          <li><%= link_to "Consultation", new_admin_consultation_path, title: "Create Consultation" %></li>
-          <li><%= link_to "Speech", new_admin_speech_path, title: "Create Speech" %></li>
-          <li><%= link_to "Detailed Guide", new_admin_detailed_guide_path, title: "Create Detailed Guide" %></li>
-          <li><%= link_to "Worldwide priority", new_admin_worldwide_priority_path, title: "Create Worldwide Priority" %></li>
-          <li><%= link_to "Case Study", new_admin_case_study_path, title: "Create Case Study" %></li>
-          <li><%= link_to "Statistical Data Set", new_admin_statistical_data_set_path, title: "Create Statistical Data Set" %></li>
-          <li><%= link_to "World Location News Article", new_admin_world_location_news_article_path, title: "Create World Location News Article" %></li>
-        </ul>
+        <%= document_creation_menu %>
       </div>
 
       <nav class="well" style="padding: 8px 0;">

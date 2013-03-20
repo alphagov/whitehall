@@ -126,6 +126,7 @@ class Admin::EditionTranslationsControllerTest < ActionController::TestCase
   test "should limit access to translations of editions that aren't accessible to the current user" do
     protected_edition = stub("protected edition", id: "1")
     protected_edition.stubs(:accessible_by?).with(@current_user).returns(false)
+    controller.stubs(:can?).with(anything, protected_edition).returns(true)
     Edition.stubs(:find).with(protected_edition.id).returns(protected_edition)
 
     post :create, edition_id: protected_edition.id, id: "en"

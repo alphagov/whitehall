@@ -1,8 +1,13 @@
 class Admin::EditionTranslationsController < Admin::BaseController
   before_filter :find_edition
+  before_filter :enforce_permissions!
   before_filter :limit_edition_access!
   before_filter :load_translated_and_english_edition, only: [:edit, :update, :destroy]
   helper_method :translation_locale
+
+  def enforce_permissions!
+    enforce_permission!(:update, @edition)
+  end
 
   def create
     redirect_to edit_admin_edition_translation_path(@edition, id: translation_locale)

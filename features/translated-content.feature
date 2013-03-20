@@ -9,7 +9,7 @@ Feature: Providing translated content from gov.uk/government
     Then I should see the translation of that world organisation
 
   Scenario: Adding a translation to a draft translatable document
-    Given I am a writer
+    Given I am a GDS editor
     And I have drafted a translatable document "Military officer exchange"
     When I add a french translation "Échange officier de l'armée" to the "Military officer exchange" document
     Then I should see in preview that "Military officer exchange" has a french translation "Échange officier de l'armée"

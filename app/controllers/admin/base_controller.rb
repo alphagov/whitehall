@@ -18,7 +18,33 @@ class Admin::BaseController < ApplicationController
     authorise_user!(User::Permissions::IMPORT)
   end
 
+  def can?(action, subject)
+    enforcer_for(subject).can?(action)
+  end
+  helper_method :can?
+
+  def enforce_permission!(action, subject)
+    unless can?(action, subject)
+      raise Whitehall::Authority::Errors::PermissionDenied.new(action, subject)
+    end
+  end
+
+  rescue_from Whitehall::Authority::Errors::PermissionDenied do |exception|
+    logger.warn "Attempt to perform '#{exception.action}' on #{exception.subject} prevented."
+    forbidden!
+  end
+
+  rescue_from Whitehall::Authority::Errors::InvalidAction do |exception|
+    logger.warn "Attempt to perform unknown action '#{exception.action}' prevented."
+    forbidden!
+  end
+
   private
+
+  def enforcer_for(subject)
+    actor = current_user || User.new
+    enforcer = Whitehall::Authority::Enforcer.new(actor, subject)
+  end
 
   def forbidden!
     render "admin/editions/forbidden", status: 403
