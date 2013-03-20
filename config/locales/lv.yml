@@ -5,195 +5,195 @@ lv:
         one:
         other:
       ministers:
-        one:
-        other:
+        one: Ministrs
+        other: Ministri
       organisations:
         one:
         other:
       policies:
-        one:
-        other:
+        one: Plāns
+        other: Politika
       supporting_documents:
         one:
         other:
       topics:
-        one:
-        other:
+        one: Tēma
+        other: Tēmas
       world_locations:
-        one:
-        other:
+        one: Pasaules vieta
+        other: Pasaules vietas
       worldwide_organisations:
-        one:
-        other:
-      advisory_groups:
-      applies_to_nations:
-      document_series:
-      field_of_operation:
-      live_data:
-      policy_team:
+        one: Vispasaules organizācija
+        other: Vispasaules organizācijas
+      advisory_groups: Padomdevēju grupas
+      applies_to_nations: Attiecas uz
+      document_series: Sērija
+      field_of_operation: Darbības lauks
+      live_data: Tiešie dati
+      policy_team: Politikas darba grupa
     type:
       announcement:
-        one:
-        other:
+        one: Paziņojums
+        other: Paziņojumi
       case_study:
-        one:
-        other:
+        one: Piemērs
+        other: Piemēri
       closed_consultation:
-        one:
-        other:
+        one: Slēgta tipa konsultācija
+        other: Slēgta tipa konsultācijas
       consultation:
-        one:
-        other:
+        one: Konsultēšana
+        other: Konsultācijas
       consultation_outcome:
-        one:
-        other:
+        one: Konsultāciju rezultāts
+        other: Konsultāciju rezultāti
       corporate_report:
-        one:
-        other:
+        one: Korporatīvais ziņojums
+        other: Korporatīvie ziņojumi
       correspondence:
-        one:
-        other:
+        one: Sarakste
+        other: Sarakstes
       detailed_guidance:
-        one:
-        other:
+        one: Detalizētas norādes
+        other: Detalizētas norādes
       draft_text:
-        one:
-        other:
+        one: Teksta uzmetums
+        other: Teksta uzmetumi
       fatality_notice:
-        one:
-        other:
+        one: Nāves paziņojums
+        other: Nāves paziņojumi
       foi_release:
-        one:
-        other:
+        one: Informācijas atklātības datu publicēšana
+        other: Informācijas atklātības datu publicēšana
       form:
-        one:
-        other:
+        one: Forma
+        other: Formas
       guidance:
-        one:
-        other:
+        one: Norādes
+        other: Norādes
       impact_assessment:
-        one:
-        other:
+        one: Ietekmes novērtējums
+        other: Ietekmes novērtējumi
       imported:
-        one:
-        other:
+        one: Importēts-gaidīšanas režīmā
+        other: Importēts-gaidīšanas režīmā
       independent_report:
-        one:
-        other:
+        one: Neatkarīgs ziņojums
+        other: Neatkarīgi ziņojumi
       map:
-        one:
-        other:
+        one: Karte
+        other: Kartes
       national_statistics:
-        one:
-        other:
+        one: Statistika - valsts dati
+        other: Statistika - valsts dati
       news_article:
-        one:
-        other:
+        one: Raksts
+        other: Raksti
       news_story:
-        one:
-        other:
+        one: Ziņa
+        other: Ziņas
       open_consultation:
-        one:
-        other:
+        one: Atklāta konsultācija
+        other: Atklātas konsultācijas
       oral_statement:
-        one:
-        other:
+        one: Mutisks paziņojums parlamentam
+        other: Mutiski paziņojumi parlamentam
       policy:
-        one:
-        other:
+        one: Plāns
+        other: Politika
       policy_paper:
-        one:
-        other:
+        one: Politikas dokuments
+        other: Politikas dokumenti
       press_release:
-        one:
-        other:
+        one: Paziņojums presei
+        other: Paziņojumi presei
       promotional:
-        one:
-        other:
+        one: Reklāmas materiāls
+        other: Reklāmas materiāli
       publication:
-        one:
-        other:
+        one: Publikācija
+        other: Publikācijas
       rebuttal:
-        one:
-        other:
+        one: Atspēkojums
+        other: Atspēkojumi
       research:
-        one:
-        other:
+        one: Izpēte un analīze
+        other: Izpēte un analīze
       speaking_notes:
-        one:
-        other:
+        one: Runas piezīmes
+        other: Runas piezīmes
       speech:
-        one:
-        other:
+        one: Runa
+        other: Runas
       statement_to_parliament:
-        one:
-        other:
+        one: Ziņojums parlamentam
+        other: Ziņojumi parlamentam
       statistical_data_set:
-        one:
-        other:
+        one: Statistiskas datu kopums
+        other: Statistikas datu kopumi
       statistics:
-        one:
-        other:
+        one: Statistika
+        other: Statistika
       transcript:
-        one:
-        other:
+        one: Noraksts
+        other: Noraksti
       transparency:
-        one:
-        other:
+        one: Atklātības dati
+        other: Atklātības dati
       world_location_news_article:
         one:
         other:
       worldwide_priority:
-        one:
-        other:
+        one: Pasaules mēroga prioritāte
+        other: Pasaules mēroga prioritātes
       written_statement:
-        one:
-        other:
-    published:
-    read:
+        one: Rakstisks ziņojums parlamentam
+        other: Rakstiski ziņojumi parlamentam
+    published: publicēts
+    read: Lasīt %{title} rakstu
     speech:
-      delivered_on:
+      delivered_on: ! 'Datums:'
       delivery_title:
-        minister:
-        speaker:
-      originally_given_at:
-    updated:
-    view:
+        minister: Ministrs
+        speaker: Runas autors
+      originally_given_at: Noturēta %{location}.
+    updated: Atjaunināts
+    view: Skatīt '%{title}'
   organisation:
     type:
       Ad-hoc advisory group:
-        one:
-        other:
+        one: Konsultatīvā ad hoc kolēģija
+        other: Konsultatīvās ad hoc kolēģijas
       Advisory non-departmental public body:
-        one:
-        other:
+        one: Konsultatīva kvazi autonoma nevalstiskā organizācija
+        other: Konsultatīvas kvazi autonomas nevalstiskās organizācijas
       Executive agency:
-        one:
-        other:
+        one: Izpildaģentūra
+        other: Izpildaģentūras
       Executive non-departmental public body:
-        one:
-        other:
+        one: Kvazi autonoma nevalstiska izpildorganizācija
+        other: Kvazi autonomas nevalstiskas izpildorganizācijas
       Independent monitoring body:
-        one:
-        other:
+        one: Neatkarīga uzraudzības iestāde
+        other: Neatkarīgas uzraudzības iestādes
       Ministerial department:
-        one:
-        other:
+        one: Valdības departaments
+        other: Valdības departamenti
       Non-ministerial department:
-        one:
-        other:
+        one: Ārpus ministra uzraudzības esoša iestāde
+        other: Ārpus ministra uzraudzības esošas iestādes
       Other:
-        one:
-        other:
+        one: Cits
+        other: Citi
       Public corporation:
-        one:
-        other:
+        one: Valsts komercsabiedrība
+        other: Valsts komercsabiedrības
       Sub-organisation:
-        one:
-        other:
+        one: Padotības iestāde
+        other: Padotības iestādes
       Tribunal non-departmental public body:
-        one:
-        other:
+        one: Ar tiesu saistīta kvazi autonoma nevalstiskā organizācija
+        other: Ar tiesu saistītas kvazi autonomas nevalstiskās organizācijas
     about:
       read_more:
     corporate_information:
@@ -223,30 +223,30 @@ lv:
   world_location:
     type:
       international_delegation:
-        one:
-        other:
+        one: Starptautiskā delegācija
+        other: Starptautiskās delegācijas
       world_location:
         one:
         other:
     headings:
-      announcements:
-      country:
-      documents:
-      mission:
-      organisations:
-      priorities:
-      publications:
-      quick_links:
-      related_policies:
-      see_all:
-      statistics:
-    see_all:
+      announcements: Paziņojumi
+      country: Valsts
+      documents: Dokumenti
+      mission: Misija
+      organisations: Organizācijas
+      priorities: Prioritātes
+      publications: Publikācijas
+      quick_links: Ātrās saites
+      related_policies: Saistītās politikas jomas
+      see_all: Skatīt visus %{type}
+      statistics: Statistikas dati
+    see_all: Skatīt visas %{type}
   activerecord:
     attributes:
       detailed_guide:
-        primary_mainstream_category:
+        primary_mainstream_category: Izvērstā pamatojuma pamata kategorija
   announcements:
-    heading:
+    heading: Paziņojumi
   attachment:
     accessibility:
       full_help_html:
@@ -258,68 +258,71 @@ lv:
       published:
       reference:
   change_notes:
-    published:
-    updated:
+    published: Publicēts
+    updated: Atjaunināts
   contact:
-    contact_form:
-    email:
+    contact_form: Saziņas forma
+    email: E-pasts
   corporate_information_page:
     type:
-      personal_information_charter:
-      publication_scheme:
-      welsh_language_scheme:
+      personal_information_charter: Personas datu harta
+      publication_scheme: Publikāciju shēma
+      welsh_language_scheme: Velsiešu valodas shēma
   date:
     formats:
-      default:
+      default: ! '%d %B %Y'
       long_ordinal: ! '%e %B %Y'
   document_filters:
-    description:
+    description: Izmantojiet filtrus Jums interesējošo rezultātu atlasei
     no_results:
-      description:
-      title:
+      description: Paplašiniet meklēšanas nosacījumus un mēģiniet vēlreiz.
+      title: Neviens dokuments neatbilst pieprasījumam.
     world_locations:
-      all:
-      label:
+      all: Visas vietas
+      label: Pasaules vietas
   feeds:
-    atom:
-    email_alerts:
-    latest_activity:
+    atom: atom
+    email_alerts: E-pasta paziņojumi
+    latest_activity: Jaunumi
   i18n:
     direction: ltr
   language_names:
     lv: Latviešu
   latest_feed:
-    no_updates:
-    title:
+    no_updates: Pagaidām jaunumu nav
+    title: Jaunākais
   number:
     human:
       storage_units:
         format:
   policies:
-    heading:
+    heading: Politika
   publications:
-    heading:
+    heading: Publikācijas
     headings:
       detail:
-  read_more:
+  read_more: Lasīt vairāk
   support:
     array:
-      last_word_connector:
+      last_word_connector: un
   time:
     formats:
-      long_ordinal:
+      long_ordinal: ! '%e %B %Y %H:%M'
   worldwide_organisation:
     corporate_information:
-      personal_information_charter_html:
-      publication_scheme_html:
-      welsh_language_scheme_html:
-    find_out_more:
+      personal_information_charter_html: Šeit %{link} izskaidrots, kā tiks apstrādāta
+        Jūsu sniegtā personīgā informācija
+      publication_scheme_html: Iepazīsties ar informāciju, kāda parasti tiek publicēta
+        mūsu %{link}
+      welsh_language_scheme_html: Vairāk par mūsu apņemšanos nodrošināt informācijas
+        pieejamību %{link}
+    find_out_more: Skatīt pilnu profilu un kontaktinformāciju
     headings:
-      about_us:
-      contact_us:
-      corporate_information:
-      follow_us:
-      our_people:
-      our_services:
-    location:
-    part_of:
+      about_us: Par mums
+      contact_us: Sazinies ar mums
+      corporate_information: Korporatīvā informācija
+      follow_us: Seko mums
+      our_people: Darbinieki
+      our_services: Pakalpojumi
+    location: Atrašanās vieta
+    part_of: Daļa no
