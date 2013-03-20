@@ -2,9 +2,9 @@ zh:
   activerecord:
     attributes:
       detailed_guide:
-        primary_mainstream_category:
+        primary_mainstream_category: 首要详细指导类别
   announcements:
-    heading:
+    heading: 公告
   attachment:
     accessibility:
       full_help_html:
@@ -16,199 +16,199 @@ zh:
       published:
       reference:
   change_notes:
-    published:
-    updated:
+    published: 已发布
+    updated: 已更新
   contact:
-    contact_form:
-    email:
+    contact_form: 联系表格
+    email: 邮件
   corporate_information_page:
     type:
-      personal_information_charter:
-      publication_scheme:
-      welsh_language_scheme:
+      personal_information_charter: 个人信息资料
+      publication_scheme: 信息发布计划
+      welsh_language_scheme: 威尔士语言计划
   date:
     formats:
       default:
-      long_ordinal: ! '%e %B %Y'
+      long_ordinal:
   document:
     headings:
-      advisory_groups:
-      applies_to_nations:
+      advisory_groups: 咨询小组
+      applies_to_nations: 适用于
       attachments:
         one:
         other:
-      document_series:
-      field_of_operation:
-      live_data:
+      document_series: 系列
+      field_of_operation: 操作区域
+      live_data: 实时数据
       ministers:
-        one:
-        other:
+        one: 首相/大臣/秘书
+        other: 首相/大臣/秘书
       organisations:
         one:
         other:
       policies:
-        one:
-        other:
-      policy_team:
+        one: 政策
+        other: 政策
+      policy_team: 政策团队
       supporting_documents:
         one:
         other:
       topics:
-        one:
-        other:
+        one: 主题
+        other: 主题
       world_locations:
-        one:
-        other:
+        one: 世界地区位置
+        other: 世界地区位置
       worldwide_organisations:
-        one:
-        other:
-    published:
-    read:
+        one: 世界范围内的组织
+        other: 世界范围内的组织
+    published: 已发布
+    read: 阅读这篇%{题目}文章
     speech:
-      delivered_on:
+      delivered_on: 发表于：
       delivery_title:
-        minister:
-        speaker:
-      originally_given_at:
+        minister: 首相/大臣/秘书
+        speaker: 演讲者
+      originally_given_at: 最初发表于%{位置}
     type:
       announcement:
-        one:
-        other:
+        one: 公告
+        other: 公告
       case_study:
-        one:
-        other:
+        one: 实例研究
+        other: 实例研究
       closed_consultation:
-        one:
-        other:
+        one: 已办结的咨询
+        other: 已办结的咨询
       consultation:
-        one:
-        other:
+        one: 咨询
+        other: 咨询
       consultation_outcome:
-        one:
-        other:
+        one: 咨询结果
+        other: 咨询结果
       corporate_report:
-        one:
-        other:
+        one: 政府报告
+        other: 政府报告
       correspondence:
-        one:
-        other:
+        one: 交流
+        other: 交流
       detailed_guidance:
-        one:
-        other:
+        one: 详细指导
+        other: 详细指导
       draft_text:
-        one:
-        other:
+        one: 草拟稿件
+        other: 草拟稿件
       fatality_notice:
-        one:
-        other:
+        one: 死亡通告
+        other: 死亡通告
       foi_release:
-        one:
-        other:
+        one: 关于资讯自由的信息
+        other: 关于资讯自由的信息
       form:
-        one:
-        other:
+        one: 表格
+        other: 表格
       guidance:
-        one:
-        other:
+        one: 指导
+        other: 指导
       impact_assessment:
-        one:
-        other:
+        one: 影响评估
+        other: 影响评估
       imported:
-        one:
-        other:
+        one: 导入 - 正在等待的类型
+        other: 导入 - 正在等待的类型
       independent_report:
-        one:
-        other:
+        one: 独立报告
+        other: 独立报告
       map:
-        one:
-        other:
+        one: 地图
+        other: 地图
       national_statistics:
-        one:
-        other:
+        one: 统计数据 - 国家数据
+        other: 统计数据 - 国家数据
       news_article:
-        one:
-        other:
+        one: 新闻文章
+        other: 新闻文章
       news_story:
-        one:
-        other:
+        one: 新闻报道
+        other: 新闻报道
       open_consultation:
-        one:
-        other:
+        one: 公开咨询
+        other: 公开咨询
       oral_statement:
-        one:
-        other:
+        one: 对议会的口头声明
+        other: 对议会的口头声明
       policy:
-        one:
-        other:
+        one: 政策
+        other: 政策
       policy_paper:
-        one:
-        other:
+        one: 政策文件
+        other: 政策文件
       press_release:
-        one:
-        other:
+        one: 新闻稿
+        other: 新闻稿
       promotional:
-        one:
-        other:
+        one: 宣传资料
+        other: 宣传资料
       publication:
-        one:
-        other:
+        one: 发布的报告
+        other: 发布的报告
       rebuttal:
-        one:
-        other:
+        one: 反证
+        other: 反证
       research:
-        one:
-        other:
+        one: 研究及分析
+        other: 研究及分析
       speaking_notes:
-        one:
-        other:
+        one: 演讲稿
+        other: 演讲稿
       speech:
-        one:
-        other:
+        one: 演讲
+        other: 演讲
       statement_to_parliament:
-        one:
-        other:
+        one: 对议会的声明
+        other: 对议会的声明
       statistical_data_set:
-        one:
-        other:
+        one: 统计数据集
+        other: 统计数据集
       statistics:
-        one:
-        other:
+        one: 统计数据
+        other: 统计数据
       transcript:
-        one:
-        other:
+        one: 副本
+        other: 副本
       transparency:
-        one:
-        other:
+        one: 透明化数据
+        other: 透明化数据
       world_location_news_article:
         one:
         other:
       worldwide_priority:
-        one:
-        other:
+        one: 世界范围内的工作重点
+        other: 世界范围内的工作重点
       written_statement:
-        one:
-        other:
-    updated:
+        one: 对议会的书面声明
+        other: 对议会的书面声明
+    updated: 已更新
     view:
   document_filters:
-    description:
+    description: 您可以使用过滤功能显示只符合您需要的结果。
     no_results:
-      description:
-      title:
+      description: 尝试扩大您的搜索范围并再次搜索。
+      title: 没有符合的文件。
     world_locations:
-      all:
-      label:
+      all: 所有地区位置
+      label: 世界地区位置
   feeds:
     atom:
-    email_alerts:
-    latest_activity:
+    email_alerts: 邮件提醒
+    latest_activity: 最新活动
   i18n:
     direction:
   language_names:
     zh: 中文
   latest_feed:
-    no_updates:
-    title:
+    no_updates: 目前暂无更新。
+    title: 最新消息
   number:
     human:
       storage_units:
@@ -242,84 +242,84 @@ zh:
       what_we_do:
     type:
       Ad-hoc advisory group:
-        one:
-        other:
+        one: 特别咨询小组
+        other: 特别咨询小组
       Advisory non-departmental public body:
-        one:
-        other:
+        one: 非政府公共咨询机构
+        other: 非政府公共咨询机构
       Executive agency:
-        one:
-        other:
+        one: 执行机构
+        other: 执行机构
       Executive non-departmental public body:
-        one:
-        other:
+        one: 非政府公共执行机构
+        other: 非政府公共执行机构
       Independent monitoring body:
-        one:
-        other:
+        one: 独立监督机构
+        other: 独立监督机构
       Ministerial department:
-        one:
-        other:
+        one: 部级部门
+        other: 部级部门
       Non-ministerial department:
-        one:
-        other:
+        one: 非部级部门
+        other: 非部级部门
       Other:
-        one:
-        other:
+        one: 其他
+        other: 其他
       Public corporation:
-        one:
-        other:
+        one: 公共团体
+        other: 公共团体
       Sub-organisation:
-        one:
-        other:
+        one: 二级机构
+        other: 二级机构
       Tribunal non-departmental public body:
-        one:
-        other:
+        one: 非政府公共特别法庭
+        other: 非政府公共特别法庭
   policies:
-    heading:
+    heading: 政策
   publications:
-    heading:
+    heading: 发布的报告
     headings:
       detail:
-  read_more:
+  read_more: 阅读更多
   support:
     array:
-      last_word_connector:
+      last_word_connector: 和
   time:
     formats:
       long_ordinal:
   world_location:
     headings:
-      announcements:
-      country:
-      documents:
-      mission:
-      organisations:
-      priorities:
-      publications:
-      quick_links:
-      related_policies:
-      see_all:
-      statistics:
-    see_all:
+      announcements: 我们的公告
+      country: 国家
+      documents: 文件
+      mission: 我们的任务
+      organisations: 机构
+      priorities: 工作重点
+      publications: 我们的报告
+      quick_links: 快速链接
+      related_policies: 相关政策
+      see_all: 查阅我们所有的%{类型}
+      statistics: 我们的数据
+    see_all: 查阅我们所有的%{类型}
     type:
       international_delegation:
-        one:
-        other:
+        one: 国际代表
+        other: 国际代表
       world_location:
         one:
         other:
   worldwide_organisation:
     corporate_information:
-      personal_information_charter_html:
-      publication_scheme_html:
-      welsh_language_scheme_html:
-    find_out_more:
+      personal_information_charter_html: 我们的%{链接}解释了我们如何对待您的个人信息。
+      publication_scheme_html: 阅读我们在{链接}定期发布的信息类型。
+      welsh_language_scheme_html: 查阅我们在{链接}发布的信息。
+    find_out_more: 查阅全部内容和联系方式
     headings:
-      about_us:
-      contact_us:
-      corporate_information:
-      follow_us:
-      our_people:
-      our_services:
-    location:
-    part_of:
+      about_us: 关于我们
+      contact_us: 联系我们
+      corporate_information: 政府信息
+      follow_us: 关注我们
+      our_people: 我们的人员
+      our_services: 我们的服务
+    location: 位置
+    part_of: 隶属于
