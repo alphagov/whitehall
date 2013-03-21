@@ -49,7 +49,7 @@
         </div>
       </nav>
       <div class="body">
-        <%= govspeak_to_html @html_version.body, @document.images %>
+        <%= govspeak_to_html @html_version.body, @document.images, numbered_heading_level: 'h2' %>
       </div>
     </div>
   </div>
