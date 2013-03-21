@@ -171,6 +171,40 @@ class HomeControllerTest < ActionController::TestCase
     assert_equal [ topics[2], topical_event, topics[1]], assigns(:classifications)
   end
 
+  test "get involved has counts of open and closed consultations" do
+    old = create(:published_consultation, opening_on: 2.years.ago, closing_on: 1.year.ago - 2.day)
+
+    # open
+    recently_opened_consultations = [
+      next_closing = create(:open_consultation, opening_on: 9.days.ago, closing_on: 2.days.from_now),
+      create(:open_consultation, opening_on: 8.days.ago, closing_on: 3.days.from_now),
+      create(:open_consultation, opening_on: 7.days.ago, closing_on: 4.days.from_now),
+      create(:open_consultation, opening_on: 6.days.ago, closing_on: 5.days.from_now),
+      create(:open_consultation, opening_on: 5.days.ago, closing_on: 6.days.from_now),
+    ]
+
+    # closed
+    closed_in_past_12_months = create(:published_consultation, opening_on: 2.years.ago, closing_on: 1.year.ago + 1.day)
+    create(:closed_consultation, opening_on: 4.days.ago, closing_on: 2.days.ago)
+    create(:closed_consultation, opening_on: 3.days.ago, closing_on: 1.day.ago)
+
+    # responded
+    recent_outcomes = [
+      create(:consultation_with_response, opening_on: 2.years.ago, closing_on: 1.year.ago - 8.day),
+      create(:consultation_with_response, opening_on: 2.years.ago, closing_on: 1.year.ago - 7.day),
+      create(:consultation_with_response, opening_on: 2.years.ago, closing_on: 1.year.ago - 6.day),
+      create(:consultation_with_response, opening_on: 2.years.ago, closing_on: 1.year.ago - 5.day),
+    ]
+
+    get :get_involved
+
+    assert_equal recently_opened_consultations.size, assigns[:open_consultation_count]
+    assert_equal 3, assigns[:closed_consultation_count]
+    assert_equal PublicationesquePresenter.decorate(next_closing), assigns[:next_closing_consultation]
+    assert_equal PublicationesquePresenter.decorate(recently_opened_consultations[-3..-1].reverse), assigns[:recently_opened_consultations]
+    assert_equal PublicationesquePresenter.decorate(recent_outcomes[-3..-1].reverse), assigns[:recent_consultation_outcomes]
+  end
+
   private
 
   def create_published_documents

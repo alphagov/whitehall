@@ -144,12 +144,20 @@ class Consultation < Publicationesque
       where 'closing_on < :today', today: Date.today
     end
 
+    def closed_since(earliest_closing_date)
+      closed.where 'closing_on >= :earliest_closing_date', earliest_closing_date: earliest_closing_date.to_date
+    end
+
     def open
       where 'closing_on >= :today AND opening_on <= :today', today: Date.today
     end
 
     def upcoming
       where 'opening_on > :today', today: Date.today
+    end
+
+    def responded
+      joins(response: :attachments)
     end
   end
 end
