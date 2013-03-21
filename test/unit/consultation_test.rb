@@ -115,6 +115,16 @@ class ConsultationTest < ActiveSupport::TestCase
     assert_equal 0, Consultation.closed.count
   end
 
+  test ".closed_since only includes consultations closed on or after the specified date" do
+    closed_three_days_ago = create(:consultation, opening_on: 1.month.ago, closing_on: 3.days.ago)
+    closed_two_days_ago = create(:consultation, opening_on: 1.month.ago, closing_on: 2.days.ago)
+    open = create(:consultation, opening_on: 1.month.ago, closing_on: 1.day.from_now)
+
+    assert_same_elements [], Consultation.closed_since(1.days.ago)
+    assert_same_elements [closed_two_days_ago], Consultation.closed_since(2.days.ago)
+    assert_same_elements [closed_two_days_ago, closed_three_days_ago], Consultation.closed_since(3.days.ago)
+  end
+
   test ".open includes consultations closing in the future and opening in the past" do
     open_consultation = create(:consultation, opening_on: 2.days.ago, closing_on: 1.day.from_now)
 

@@ -1,0 +1,269 @@
+.get-involved {
+
+  h2 {
+    @include heading-36;
+    border-bottom: 5px solid $inside-gov-brand;
+    margin-bottom: $gutter-half;
+    @include media(tablet) {
+      margin-bottom: $gutter;
+    }
+    &#take-part {
+      margin-bottom: 0;
+      @include media(tablet) {
+        margin-bottom: $gutter-half;
+      }
+    }
+    &#elsewhere-on-the-web, &#related-polices {
+      margin-top: $gutter*1.5;
+    }
+  }
+
+  .content {
+    padding: 0 $gutter-half;
+  }
+
+  .header-block {
+    .inner-block {
+      padding-top: $gutter*1.5;
+      @include media(tablet) {
+        padding: $gutter*1.5 $gutter-half $gutter*2;
+      }
+
+      .header-title {
+        h1 {
+          @include heading-48;
+          font-weight: bold;
+          margin: 0 0 $gutter +5px;
+          @include media(desktop) {
+            margin-top: 0;
+          }
+        }
+        .intro {
+          @include core-27;
+          margin: $gutter-half 0;
+          a {
+            white-space: nowrap;
+          }
+          @include media(tablet) {
+            margin: 0 0 $gutter*2;
+          }
+        }
+        @include media(tablet) {
+          float: left;
+          display: inline;
+          width: 75%;
+        }
+      }
+    }
+  }
+
+  .block {
+    clear: both;
+  }
+
+  .floated-children {
+    h2 {
+      margin-left: $gutter-half;
+      margin-right: $gutter-half;
+    }
+
+    .head-section {
+      @include media(tablet) {
+        float: left;
+        width: 33.33%;
+      }
+      h3 {
+        @include heading-27;
+        font-weight: bold;
+        padding-left: $gutter-half;
+        padding-right: $gutter-half;
+      }
+    }
+
+    section {
+      @include core-19;
+      @extend %contain-floats;
+      clear: both;
+      margin-bottom: $gutter;
+
+      h3, h4 {
+        font-weight: bold;
+      }
+
+      dt, dd {
+        @include core-16;
+        display: block;
+      }
+      dt{
+        @include heading-80;
+        font-weight: bold;
+        margin: 0 0 (-$gutter-one-sixth) 0;
+        @include media(tablet) {
+          padding: 0;
+        }
+      }
+
+      .value {
+        @include heading-80;
+        font-weight: bold;
+        @include media(tablet) {
+          padding-bottom: 0;
+        }
+        &+ p {
+          @include core-16;
+          margin-top: -$gutter-one-sixth;
+        }
+      }
+
+      .values {
+        padding-top: $gutter-half;
+        dt, dd {
+          padding: 0 $gutter-half;
+          @include media(tablet) {
+            width: 50%;
+          }
+        }
+        dt {
+          padding: 0 $gutter-half;
+          margin-top: $gutter-half;
+          @include media(tablet) {
+            margin: $gutter-half 0 (-$gutter-one-third);
+          }
+        }
+      }
+
+      .column {
+        @include media(tablet) {
+          float: left;
+          width: 66.66%;
+        }
+      }
+
+      .consultation-lists {
+        @include media(tablet) {
+          float: left;
+          width: 66.66%;
+        }
+        .consultation-closing-soon {
+          color: $white;
+          background-color: $inside-gov-brand;
+          margin: $gutter $gutter-half;
+          padding: $gutter-half $gutter-half 0;
+          a {
+            color: $white;
+          }
+          h3 {
+            @include heading-27;
+            font-weight: bold;
+            padding: 0 0 $gutter-one-sixth;
+            @include media(tablet) {
+              padding: 0 0 $gutter-one-sixth;
+            }
+          }
+          .document-list {
+            margin-top: -$gutter-one-third;
+
+            h3 {
+              @include core-19;
+              border-bottom: 1px solid $white;
+              padding-bottom: $gutter-one-third;
+              font-weight: normal;
+            }
+            .attributes {
+              @extend %contain-floats;
+              margin-top: $gutter-one-third;
+              li {
+                @include core-19;
+                a {
+                  color: $white;
+                }
+              }
+            }
+          }
+          @include media(tablet) {
+            margin: $gutter-half $gutter-half $gutter;
+          }
+        }
+        .column {
+          @include media(tablet) {
+            float: left;
+            width: 50%;
+          }       
+        }
+        .document-row {
+          border: 0;
+        }
+      }
+
+      .document-list {
+        .document-row {
+          border: 0;
+          h3 {
+            font-weight: normal;
+          }
+          .attributes {
+            margin-top: $gutter-one-sixth;
+            li {
+              padding-right: $gutter-one-third;
+              a {
+                font-weight: bold;
+                color: $fuschia;
+              }
+            }
+          }
+        }
+      }
+
+      &.start-a-petition, &.comment-follow {
+        p {
+          padding-top: $gutter-one-third;
+        }
+      }
+
+      &.more-ways {
+        .index-list {
+          margin-top: $gutter-half;
+        }
+      }
+
+      &.respond-to-consultations {
+        margin-bottom: 0;
+      }
+      &.policies {
+        .document-list .document-row {
+          border-bottom: 1px solid $grey-2;
+          padding-top: 0;
+          margin-bottom: $gutter-one-third;
+        }
+      }
+
+      .see-all {
+        font-weight: bold;
+        margin: $gutter-one-third 0 $gutter*1.5;
+        @include media(tablet) {
+          margin: $gutter-one-third 0 $gutter;
+        }
+      }
+    
+
+    }
+
+    .article-clear {
+      clear: both;
+    }
+
+    .consultations + .keyline {
+      padding-top: 0;
+    }
+
+    .keyline {
+      clear: both;
+      border: solid $border-colour;
+      border-width: 0 0 1px;
+      margin: 0 $gutter-half $gutter;
+      padding-top: $gutter;
+    }
+
+  }
+
+}
