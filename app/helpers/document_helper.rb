@@ -135,7 +135,7 @@ Details of document required:
     when Edition
       public_document_path(object, locale: locale)
     when CorporateInformationPage
-      worldwide_organisation_corporate_information_page_path(object.organisation, object, locale: locale)
+      polymorphic_path([object.organisation, object], locale: locale)
     else
       polymorphic_path(object, locale: locale)
     end

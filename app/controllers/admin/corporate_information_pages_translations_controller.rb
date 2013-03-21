@@ -8,7 +8,7 @@ class Admin::CorporateInformationPagesTranslationsController < Admin::BaseContro
   end
 
   def create
-    redirect_to action: 'edit', id: translation_locale
+    redirect_to [:edit, :admin, @organisational_entity, corporate_information_page, translation_locale]
   end
 
   def edit

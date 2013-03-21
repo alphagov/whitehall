@@ -20,6 +20,7 @@
       </div>
     </div>
     <div class="block-2">
+      <%= render partial: 'shared/available_languages', locals: {object: @corporate_information_page } %>
       <div class="inner-block">
         <h1 class="main"><%= @corporate_information_page.title %></h1>
         <p class="description">
