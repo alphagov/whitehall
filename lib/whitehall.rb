@@ -171,7 +171,7 @@ module Whitehall
         CorporateInformationPage
       ]
       not_yet_searchable_classes = [ WorldwidePriority ]
-      if world_location_news_feature?
+      if world_feature?
         additional_classes << WorldLocationNewsArticle
       else
         not_yet_searchable_classes << WorldLocationNewsArticle
@@ -195,7 +195,7 @@ module Whitehall
       true
     end
 
-    def world_location_news_feature?
+    def world_feature?
       true
     end
 

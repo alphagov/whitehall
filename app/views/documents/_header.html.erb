@@ -51,11 +51,11 @@
       <% end %>
       <% if document.respond_to?(:world_locations) && document.world_locations.any? %>
         <dt><%= t('document.headings.world_locations', count: document.world_locations.length) %>:</dt>
-        <dd class="document-world-locations js-hide-other-links"><%= list_of_links_to_world_locations_once_world_goes_live(document.world_locations) %></dd>
+        <dd class="document-world-locations js-hide-other-links"><%= list_of_links_to_world_locations(document.world_locations) %></dd>
       <% end %>
       <% if document.respond_to?(:worldwide_organisations) && document.worldwide_organisations.any? %>
         <dt><%= t('document.headings.worldwide_organisations', count: document.worldwide_organisations.length) %>:</dt>
-        <dd class="document-worldwide-organisations js-hide-other-links"><%= list_of_links_to_worldwide_organisations_once_world_goes_live(document.worldwide_organisations) %></dd>
+        <dd class="document-worldwide-organisations js-hide-other-links"><%= list_of_links_to_worldwide_organisations(document.worldwide_organisations) %></dd>
       <% end %>
       <% if document.respond_to?(:inapplicable_nations) && document.inapplicable_nations.any? %>
         <dt><%= t('document.headings.applies_to_nations') %>:</dt>
