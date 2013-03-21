@@ -29,6 +29,7 @@ class HomeController < PublicFacingController
   end
 
   def history
+  end
 
   def get_involved
     @open_consultation_count = Consultation.published.open.count
