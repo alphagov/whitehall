@@ -1,7 +1,14 @@
+Translations = Class.new
 class Locale < Struct.new(:code)
   ENGLISH_LOCALE_CODE = :en
 
+  extend ActiveModel::Naming
+
   class << self
+    def model_name
+      ActiveModel::Name.new(Translations)
+    end
+
     def current
       new(I18n.locale)
     end

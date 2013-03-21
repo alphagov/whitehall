@@ -109,7 +109,9 @@ Whitehall::Application.routes.draw do
         resources :organisations do
           resources :groups, except: [:show]
           resources :document_series, except: [:index]
-          resources :corporate_information_pages
+          resources :corporate_information_pages do
+            resources :translations, controller: 'corporate_information_pages_translations'
+          end
           resources :contacts
           resources :social_media_accounts
           resources :translations, controller: 'organisation_translations'

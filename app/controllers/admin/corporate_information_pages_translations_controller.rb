@@ -45,7 +45,13 @@ class Admin::CorporateInformationPagesTranslationsController < Admin::BaseContro
   end
 
   def organisational_entity
-    @organisational_entity ||= WorldwideOrganisation.find(params[:worldwide_organisation_id])
+    @organisational_entity ||= if params.has_key?(:organisation_id)
+        Organisation.find(params[:organisation_id])
+      elsif params.has_key?(:worldwide_organisation_id)
+        WorldwideOrganisation.find(params[:worldwide_organisation_id])
+      else
+        raise ActiveRecord::RecordNotFound
+      end
   end
 
   def corporate_information_page

@@ -18,17 +18,16 @@ module AdminCorporateInformationPagesTranslationsControllerHelpers
 
       setup do
         login_as :policy_writer
-        @organisational_entity = create(type)
-
         Locale.stubs(:non_english).returns([ Locale.new(:fr), Locale.new(:es) ])
       end
 
-      view_test 'index shows a form to create missing translations' do
-        corporate_information_page = create(:corporate_information_page, organisation: @organisational_entity)
+      view_test "#{type}: index shows a form to create missing translations" do
+        organisational_entity = create(type)
+        corporate_information_page = create(:corporate_information_page, organisation: organisational_entity)
 
-        get :index, id_key => @organisational_entity, corporate_information_page_id: corporate_information_page
+        get :index, id_key => organisational_entity, corporate_information_page_id: corporate_information_page
 
-        assert_select "form[action=#{CGI::escapeHTML(path_prefix(type, @organisational_entity, corporate_information_page))}]" do
+        assert_select "form[action=#{CGI::escapeHTML(path_prefix(type, organisational_entity, corporate_information_page))}]" do
           assert_select "select[name=translation_locale]" do
             assert_select "option[value=fr]", text: 'Français (French)'
             assert_select "option[value=es]", text: 'Español (Spanish)'
@@ -38,48 +37,53 @@ module AdminCorporateInformationPagesTranslationsControllerHelpers
         end
       end
 
-      view_test 'index omits existing translations from create select' do
-        corporate_information_page = create(:corporate_information_page, organisation: @organisational_entity, translated_into: [:fr])
+      view_test "#{type}: index omits existing translations from create select" do
+        organisational_entity = create(type)
+        corporate_information_page = create(:corporate_information_page, organisation: organisational_entity, translated_into: [:fr])
 
-        get :index, id_key => @organisational_entity, corporate_information_page_id: corporate_information_page
+        get :index, id_key => organisational_entity, corporate_information_page_id: corporate_information_page
 
         assert_select "select[name=translation_locale]" do
           assert_select "option[value=fr]", count: 0
         end
       end
 
-      view_test 'index omits create form if no missing translations' do
-        corporate_information_page = create(:corporate_information_page, organisation: @organisational_entity, translated_into: [:fr, :es])
+      view_test "#{type}: index omits create form if no missing translations" do
+        organisational_entity = create(type)
+        corporate_information_page = create(:corporate_information_page, organisation: organisational_entity, translated_into: [:fr, :es])
 
-        get :index, id_key => @organisational_entity, corporate_information_page_id: corporate_information_page
+        get :index, id_key => organisational_entity, corporate_information_page_id: corporate_information_page
 
         assert_select "select[name=translation_locale]", count: 0
       end
 
-      view_test 'index lists existing translations' do
-        corporate_information_page = create(:corporate_information_page, organisation: @organisational_entity, translated_into: [:fr])
+      view_test "#{type}: index lists existing translations" do
+        organisational_entity = create(type)
+        corporate_information_page = create(:corporate_information_page, organisation: organisational_entity, translated_into: [:fr])
 
-        get :index, id_key => @organisational_entity, corporate_information_page_id: corporate_information_page
+        get :index, id_key => organisational_entity, corporate_information_page_id: corporate_information_page
 
-        edit_translation_path = path_prefix(type, @organisational_entity, corporate_information_page) + '/fr/edit'
+        edit_translation_path = path_prefix(type, organisational_entity, corporate_information_page) + '/fr/edit'
         assert_select "a[href=#{CGI::escapeHTML(edit_translation_path)}]", text: 'Français'
       end
 
-      view_test 'index does not list the english translation' do
-        corporate_information_page = create(:corporate_information_page, organisation: @organisational_entity)
+      view_test "#{type}: index does not list the english translation" do
+        organisational_entity = create(type)
+        corporate_information_page = create(:corporate_information_page, organisation: organisational_entity)
 
-        get :index, id_key => @organisational_entity, corporate_information_page_id: corporate_information_page
+        get :index, id_key => organisational_entity, corporate_information_page_id: corporate_information_page
 
-        edit_translation_path = path_prefix(type, @organisational_entity, corporate_information_page) + '/en'
+        edit_translation_path = path_prefix(type, organisational_entity, corporate_information_page) + '/en'
         assert_select "a[href=#{CGI::escapeHTML(edit_translation_path)}]", text: 'en', count: 0
       end
 
-      view_test 'index displays delete button for a translation' do
-        corporate_information_page = create(:corporate_information_page, organisation: @organisational_entity, translated_into: [:fr])
+      view_test "#{type}: index displays delete button for a translation" do
+        organisational_entity = create(type)
+        corporate_information_page = create(:corporate_information_page, organisation: organisational_entity, translated_into: [:fr])
 
-        get :index, id_key => @organisational_entity, corporate_information_page_id: corporate_information_page
+        get :index, id_key => organisational_entity, corporate_information_page_id: corporate_information_page
 
-        assert_select "form[action=?]", path_prefix(type, @organisational_entity, corporate_information_page) + '/fr' do
+        assert_select "form[action=?]", path_prefix(type, organisational_entity, corporate_information_page) + '/fr' do
           assert_select "input[type='submit'][value=?]", "Delete"
         end
       end
@@ -91,7 +95,14 @@ class Admin::CorporateInformationPagesTranslationsControllerTest < ActionControl
   include AdminCorporateInformationPagesTranslationsControllerHelpers
 
   should_be_an_admin_controller
+
   should_show_list_of_corporate_information_translations_for :worldwide_organisation
+
+  should_show_list_of_corporate_information_translations_for :organisation
+
+  setup do
+    @organisational_entity = create(:worldwide_organisation)
+  end
 
   test 'create redirects to edit for the chosen language' do
     corporate_information_page = create(:corporate_information_page, organisation: @organisational_entity)
