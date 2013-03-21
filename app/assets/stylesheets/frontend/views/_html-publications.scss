@@ -1,9 +1,103 @@
 .html-publications-show {
-  .in-page-navigation {
-    margin: $gutter-half 0;
+  .publication-external {
+    @extend %contain-floats;
 
-    li {
-      list-style: decimal;
+    .content {
+      padding: 0 $gutter-half;
+      margin: $gutter-half 0;
+
+      @include media(tablet){
+        margin: $gutter 0;
+      }
+    }
+
+    .organisations {
+      @include media(tablet){
+        width: 25%;
+        float: left;
+      }
+      .content {
+        margin-bottom: $gutter-half;
+      }
+    }
+    .return {
+      @include core-19;
+
+      @include media(tablet){
+        width: 75%;
+        float: left;
+      }
+    }
+  }
+
+  .publication-header {
+    @extend %contain-floats;
+    background: $light-blue;
+
+    .headings {
+      float: right;
+      width: 100%;
+      @include media(tablet){
+        width: 75%;
+      }
+      .headings-content {
+        padding: 0 $gutter-half;
+
+        h1 {
+          @include heading-48;
+          margin: $gutter-half 0;
+          color: $white;
+
+          @include media(tablet){
+            margin: $gutter 0;
+          }
+        }
+        p {
+          margin: $gutter-half 0;
+          @include copy-19;
+        }
+      }
+    }
+  }
+  .publication-content {
+    .in-page-navigation,
+    .body {
+      @include media(tablet){
+        width: 75%;
+        float: right;
+      }
+
+      .content,
+      .govspeak {
+        padding: 0 $gutter-half;
+      }
+    }
+    .in-page-navigation {
+      margin: $gutter 0;
+      @include core-19;
+
+      ol {
+        margin-left: 1.3em;
+        @include media(desktop){
+          margin-left: 0;
+        }
+        li {
+          list-style: decimal;
+        }
+      }
+    }
+    .govspeak {
+      h2 {
+        @include heading-48;
+        font-weight: normal;
+
+        .number {
+          @include media(tablet){
+            position: absolute;
+            margin-left: -25%;
+          }
+        }
+      }
     }
   }
 }
