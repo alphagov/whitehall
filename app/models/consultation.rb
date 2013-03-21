@@ -157,7 +157,7 @@ class Consultation < Publicationesque
     end
 
     def responded
-      joins(:response => :attachments)
+      joins(response: :attachments)
     end
   end
 end
