@@ -249,6 +249,13 @@
           @include media(tablet){
             padding: $gutter-one-sixth 0 0;
           }
+
+          a[rel="external"] {
+            @include external-link-14-bold-no-hover;
+            @include media(tablet) {
+              @include external-link-16-bold-no-hover;
+            }
+          }
         }
       }
     }
