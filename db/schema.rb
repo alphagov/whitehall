@@ -501,6 +501,31 @@ ActiveRecord::Schema.define(:version => 20130322201300) do
     t.text    "personal_details"
   end
 
+  create_table "feature_lists", :force => true do |t|
+    t.integer  "featurable_id"
+    t.string   "featurable_type"
+    t.string   "locale"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "feature_lists", ["featurable_id", "featurable_type", "locale"], :name => "featurable_lists_unique_locale_per_featurable", :unique => true
+
+  create_table "features", :force => true do |t|
+    t.integer  "document_id"
+    t.integer  "feature_list_id"
+    t.string   "carrierwave_image"
+    t.string   "alt_text"
+    t.integer  "ordering"
+    t.datetime "started_at"
+    t.datetime "ended_at"
+  end
+
+  add_index "features", ["document_id"], :name => "index_features_on_document_id"
+  add_index "features", ["feature_list_id", "ordering"], :name => "index_features_on_feature_list_id_and_ordering", :unique => true
+  add_index "features", ["feature_list_id"], :name => "index_features_on_feature_list_id"
+  add_index "features", ["ordering"], :name => "index_features_on_ordering"
+
   create_table "force_publication_attempts", :force => true do |t|
     t.integer  "import_id"
     t.integer  "total_documents"

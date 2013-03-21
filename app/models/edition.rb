@@ -23,6 +23,8 @@ class Edition < ActiveRecord::Base
   has_many :edition_authors, dependent: :destroy
   has_many :authors, through: :edition_authors, source: :user
 
+  has_many :featurings, class_name: "Feature"
+
   validates_with SafeHtmlValidator
   validates :title, :creator, presence: true
   validates :body, presence: true, if: :body_required?
