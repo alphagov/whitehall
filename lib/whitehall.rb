@@ -153,7 +153,7 @@ module Whitehall
     end
 
     def edition_classes
-      [NewsArticle, Speech, Policy, Publication, Consultation, WorldwidePriority, DetailedGuide, CaseStudy, StatisticalDataSet, FatalityNotice]
+      [NewsArticle, Speech, Policy, Publication, Consultation, WorldwidePriority, DetailedGuide, CaseStudy, StatisticalDataSet, FatalityNotice, WorldLocationNewsArticle]
     end
 
     def searchable_classes
@@ -170,11 +170,12 @@ module Whitehall
         Person,
         CorporateInformationPage
       ]
-      not_yet_searchable_classes = [ WorldwidePriority ]
-      if world_feature?
-        additional_classes << WorldLocationNewsArticle
-      else
-        not_yet_searchable_classes << WorldLocationNewsArticle
+      not_yet_searchable_classes = []
+      unless world_feature?
+        not_yet_searchable_classes += [
+          WorldLocationNewsArticle,
+          WorldwidePriority
+        ]
       end
       edition_classes + additional_classes - not_yet_searchable_classes
     end
