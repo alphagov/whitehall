@@ -4,7 +4,7 @@ module Whitehall::DocumentFilter
     class << self
       attr_accessor :number_of_documents_per_page
     end
-    self.number_of_documents_per_page = 20
+    self.number_of_documents_per_page = 40
 
     def initialize(params = {})
       @params = params
