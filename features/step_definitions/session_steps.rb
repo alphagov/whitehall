@@ -15,7 +15,7 @@ Given /^I am (?:a|an) (writer|editor|admin|GDS editor|importer)(?: called "([^"]
 end
 
 Given /^I am (?:an?) (writer|editor) in the organisation "([^"]*)"$/ do |role, organisation_name|
-  organisation = Organisation.find_by_name(organisation) || create(:organisation, name: organisation_name)
+  organisation = Organisation.find_by_name(organisation_name) || create(:organisation, name: organisation_name)
   @user = case role
   when "writer"
     create(:policy_writer, name: "Wally Writer", organisation: organisation)

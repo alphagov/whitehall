@@ -5,7 +5,6 @@ Feature: Grouping documents into series
 
   Background:
     Given I am a writer in the organisation "Department of Beards"
-    And the organisation "Department of Beards" exists
     And I create a series called "Monthly Facial Topiary Update" in the "Department of Beards" organisation
 
   Scenario: Documents should link back to their series
