@@ -9,7 +9,9 @@
 <table class="worldwide_organisation table table-striped">
   <thead>
     <tr>
-      <th width="70%">Summary</th>
+      <th width="40%">Summary</th>
+      <th width="40%">Translations</th>
+
       <th width="15%">Location(s)</th>
       <th width="15%">Sponsor(s)</th>
     </tr>
@@ -18,11 +20,10 @@
     <% if @worldwide_organisations.any? %>
       <% @worldwide_organisations.each do |worldwide_organisation| %>
         <%= content_tag_for(:tr, worldwide_organisation) do %>
+          <td class="name">
+            <%= link_to worldwide_organisation.name, admin_worldwide_organisation_path(worldwide_organisation), title: "View #{worldwide_organisation.name}" %>
+          </td>
           <td>
-            <p class="name"><%= link_to worldwide_organisation.name, admin_worldwide_organisation_path(worldwide_organisation), title: "View #{worldwide_organisation.name}" %></p>
-            <p class="summary"><%= worldwide_organisation.summary %></p>
-            <p class="locales">
-              Translations:
               <% if worldwide_organisation.non_english_translated_locales.any? %>
                 <%= worldwide_organisation.non_english_translated_locales.map do |locale|
                   link_to("#{locale.english_language_name} (#{locale.native_language_name})", edit_admin_worldwide_organisation_translation_path(worldwide_organisation, locale.code))
@@ -30,7 +31,6 @@
               <% else %>
                 none
               <% end %>
-            </p>
           </td>
           <td><%= worldwide_organisation.world_locations.map {|l| link_to(l.name, [:admin, l])}.to_sentence.html_safe %></td>
           <td><%= worldwide_organisation.sponsoring_organisations.map {|o| link_to(o.acronym, [:admin, o])}.to_sentence.html_safe %></td>
