@@ -171,7 +171,9 @@ module Whitehall
         CorporateInformationPage
       ]
       not_yet_searchable_classes = []
-      unless world_feature?
+      if world_feature?
+        additional_classes << WorldLocation
+      else
         not_yet_searchable_classes += [
           WorldLocationNewsArticle,
           WorldwidePriority
