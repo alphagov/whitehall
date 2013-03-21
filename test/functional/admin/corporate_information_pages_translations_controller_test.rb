@@ -13,7 +13,7 @@ module AdminCorporateInformationPagesTranslationsControllerHelpers
   end
 
   module ClassMethods
-    def should_show_index_for(type)
+    def should_show_list_of_corporate_information_translations_for(type)
       id_key = "#{type}_id".to_sym
 
       setup do
@@ -90,11 +90,8 @@ end
 class Admin::CorporateInformationPagesTranslationsControllerTest < ActionController::TestCase
   include AdminCorporateInformationPagesTranslationsControllerHelpers
 
-  setup do
-  end
-
   should_be_an_admin_controller
-  should_show_index_for :worldwide_organisation
+  should_show_list_of_corporate_information_translations_for :worldwide_organisation
 
   test 'create redirects to edit for the chosen language' do
     corporate_information_page = create(:corporate_information_page, organisation: @organisational_entity)
