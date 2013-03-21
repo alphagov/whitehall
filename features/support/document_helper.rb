@@ -1,4 +1,4 @@
-THE_DOCUMENT = Transform(/the (document|publication|policy|news article|consultation|consultation response|speech|worldwide priority|detailed guide|announcement|world location news article) "([^"]*)"/) do |document_type, title|
+THE_DOCUMENT = Transform(/the (document|publication|policy|news article|consultation|consultation response|speech|worldwide priority|detailed guide|announcement|world location news article|statistical data set) "([^"]*)"/) do |document_type, title|
   document_class(document_type).latest_edition.find_by_title!(title)
 end
 
@@ -66,6 +66,10 @@ module DocumentHelper
     begin_drafting_document type: 'publication', title: title, summary: "Some summary of the content", alternative_format_provider: create(:alternative_format_provider)
     fill_in_publication_fields
     select policy.title, from: "Related policies"
+  end
+
+  def begin_drafting_statistical_data_set(title)
+    begin_drafting_document type: 'statistical_data_set', title: title, summary: "Some summary of the content"
   end
 
   def begin_drafting_speech(options)
