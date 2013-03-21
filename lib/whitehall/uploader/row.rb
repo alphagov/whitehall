@@ -18,7 +18,7 @@ module Whitehall::Uploader
     def self.validator
       HeadingValidator.new
         .required(%w{old_url title summary body organisation})
-        .multiple("body_#", 0..5)
+        .multiple("body_#", 0..9)
     end
 
     def title
@@ -35,7 +35,7 @@ module Whitehall::Uploader
     end
 
     def body
-      body_parts = [row['body']] + (1..5).map {|n| row["body_#{n}"]}
+      body_parts = [row['body']] + (1..9).map {|n| row["body_#{n}"]}
       Parsers::RelativeToAbsoluteLinks.parse(body_parts.compact.join(''), organisation.try(:url))
     end
 
