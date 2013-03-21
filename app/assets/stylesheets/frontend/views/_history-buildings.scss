@@ -1,0 +1,81 @@
+.home-history-buildings {
+
+  .page-header {
+    padding : $gutter*2 0 $gutter;
+    @include media(tablet) {
+      padding : $gutter*2 0;
+    }
+
+    h1 {
+      @include heading-36;
+      color: $grey-1;
+    }
+    h2 {
+      @include heading-48;
+      font-weight: bold;
+      @include media(tablet) {
+        padding-top: 0;
+      }
+    }
+  }
+
+  .content-list, .content-body {
+    @include media(tablet) {
+      float: left;
+      width: 33.33%;
+    }
+  }
+  .content-body {
+    h2 {
+      @include heading-27;
+      border-bottom: 1px solid $grey-2;
+      font-weight: bold;
+      margin-bottom: $gutter-two-thirds;
+    }
+    h3 {
+      @include core-19;
+      font-weight: bold;
+      margin-bottom: $gutter-one-third;
+    }
+    p {
+      @include core-19;
+      margin-bottom: $gutter;
+    }
+    @include media(tablet) {
+      width: 66.66%;
+    }
+  }
+
+  .content-list {
+    padding-top: $gutter-one-sixth;
+    nav {
+      padding: $gutter-two-thirds 0 $gutter;
+      h1 {
+        font-weight: bold;
+        margin-bottom: $gutter-one-sixth;
+      }
+      li {
+        padding-top: $gutter-one-sixth;
+        list-style: disc;
+        margin-left: 1.2em;
+        @media (min-width: 1px ){ // target modern browsers
+          list-style: none;
+          &:before {
+            content: "-";
+            position: relative;
+            float: left;
+            width: $gutter-half;
+            margin-left: $gutter-half*-1;
+          }
+        }
+      }
+    }
+    img {
+      width: 100%;
+      @include media(tablet) {
+        max-width: 100%;
+      }
+    }
+  }
+
+}
