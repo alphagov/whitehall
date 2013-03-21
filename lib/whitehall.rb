@@ -172,7 +172,10 @@ module Whitehall
       ]
       not_yet_searchable_classes = []
       if world_feature?
-        additional_classes << WorldLocation
+        additional_classes += [
+          WorldLocation,
+          WorldwideOrganisation
+        ]
       else
         not_yet_searchable_classes += [
           WorldLocationNewsArticle,
