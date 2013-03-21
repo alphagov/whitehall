@@ -1,82 +1,49 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta content="text/html; charset=UTF-8" http-equiv="content-type">
-    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
-
-    <!-- http://t.co/dKP3o1e -->
-    <meta content="True" name="HandheldFriendly">
-    <meta content="320" name="MobileOptimized">
-    <meta content="width=device-width, initial-scale=1" name="viewport">
-
-    <title><%= page_title %></title>
-    <% if right_to_left? %>
-      <!--[if gt IE 8]><!--><%= stylesheet_link_tag "frontend/right-to-left.css" %><!--<![endif]-->
-      <!--[if IE 6]><%= stylesheet_link_tag "frontend/right-to-left-ie6.css" %><script>var ieVersion = 6;</script><![endif]-->
-      <!--[if IE 7]><%= stylesheet_link_tag "frontend/right-to-left-ie7.css" %><script>var ieVersion = 7;</script><![endif]-->
-      <!--[if IE 8]><%= stylesheet_link_tag "frontend/right-to-left-ie8.css" %><script>var ieVersion = 8;</script><![endif]-->
-    <% else %>
-      <!--[if gt IE 8]><!--><%= stylesheet_link_tag "frontend/base.css" %><!--<![endif]-->
-      <!--[if IE 6]><%= stylesheet_link_tag "frontend/base-ie6.css" %><script>var ieVersion = 6;</script><![endif]-->
-      <!--[if IE 7]><%= stylesheet_link_tag "frontend/base-ie7.css" %><script>var ieVersion = 7;</script><![endif]-->
-      <!--[if IE 8]><%= stylesheet_link_tag "frontend/base-ie8.css" %><script>var ieVersion = 8;</script><![endif]-->
-    <% end %>
-    <%= stylesheet_link_tag "frontend/print.css", media: "print" %>
-    <%= csrf_meta_tags %>
-    <%= atom_discovery_link_tag %>
-
-  </head>
-  <body class="website government">
-    <div class="header-context group"><!-- deliberately empty --></div>
-    <div id="whitehall-wrapper">
-      <div class="global-nav-wrapper">
-        <div class="whitehall-content js-toggle-nav" id="global-nav">
-          <div class="inner"><div class="extra-inner"><!-- extra inner for extra border bottom -->
-            <span class="home"><%= link_to "Inside Government", root_path %></span>
-            <span class="jump-link"><a href="#navigation" class="toggler">menu</a></span>
-            <nav role="navigation" class="content">
-              <ul id="navigation">
-                <li><%= main_navigation_link_to 'How government works', how_government_works_path %></li>
-                <li><%= main_navigation_link_to "Departments", organisations_path %></li>
-                <li><%= main_navigation_link_to "Worldwide", world_locations_path %></li>
-                <li><%= main_navigation_link_to "Topics", topics_path %></li>
-                <li><span class="toggler <%= main_navigation_documents_class %>">Content by type</span>
-                  <ul class="subtype content js-hidden">
-                    <li><%= main_navigation_link_to "Announcements", announcements_path %></li>
-                    <li><%= main_navigation_link_to "Consultations", publications_filter_path(publication_filter_option: 'consultations') %></li>
-                    <li><%= main_navigation_link_to "Policies", policies_path %></li>
-                    <li><%= main_navigation_link_to "Publications", publications_path %></li>
-                    <li><%= main_navigation_link_to "Statistics", publications_filter_path(publication_filter_option: 'statistics') %></li>
-                  </ul>
-                </li>
+<%= render :layout => 'layouts/frontend_base', locals: {remove_breadcrumbs: true} do %>
+  <div class="global-nav-wrapper">
+    <div class="whitehall-content js-toggle-nav" id="global-nav">
+      <div class="inner"><div class="extra-inner"><!-- extra inner for extra border bottom -->
+        <span class="home"><%= link_to "Inside Government", root_path %></span>
+        <span class="jump-link"><a href="#navigation" class="toggler">menu</a></span>
+        <nav role="navigation" class="content">
+          <ul id="navigation">
+            <li><%= main_navigation_link_to 'How government works', how_government_works_path %></li>
+            <li><%= main_navigation_link_to "Departments", organisations_path %></li>
+            <li><%= main_navigation_link_to "Worldwide", world_locations_path %></li>
+            <li><%= main_navigation_link_to "Topics", topics_path %></li>
+            <li><span class="toggler <%= main_navigation_documents_class %>">Content by type</span>
+              <ul class="subtype content js-hidden">
+                <li><%= main_navigation_link_to "Announcements", announcements_path %></li>
+                <li><%= main_navigation_link_to "Consultations", publications_filter_path(publication_filter_option: 'consultations') %></li>
+                <li><%= main_navigation_link_to "Policies", policies_path %></li>
+                <li><%= main_navigation_link_to "Publications", publications_path %></li>
+                <li><%= main_navigation_link_to "Statistics", publications_filter_path(publication_filter_option: 'statistics') %></li>
               </ul>
-            </nav>
-        </div></div>
-        </div>
-      </div>
-      <div class="whitehall-content">
-        <% if world_page? %>
-          <div class="progress-bar world-bar" id="progress-bar">
-            <p>
-              FCO, DFID and UKTI have moved their overseas websites to GOV.UK. <%= link_to 'Read about the transition', '/government/news/welcome-to-our-new-website-gov-uk' %>
-            </p>
-          </div>
-        <% else %>
-          <div class="progress-bar js-progress-bar js-hidden" id="progress-bar" data-join-count="<%= joined_ministerial_department_count %>">
-            <div class="bar"><div class="joined" style="width: <%= joined_ministerial_department_percent %>"></div></div>
-            <p>
-              <%= joined_ministerial_department_count %> of <%= ministerial_department_count %>
-              ministerial departments have moved their corporate websites to GOV.UK.
-              <%= progress_bar_link %>
-            </p>
-          </div>
-        <% end %>
-        <div id="page" class="<%= content_for?(:page_class) ? yield(:page_class) : '' %>" >
-          <%= yield %>
-          <%= render_mustache_templates if Rails.env.development? %>
-        </div>
-      </div>
+            </li>
+          </ul>
+        </nav>
+      </div></div>
     </div>
-    <%= javascript_include_tag "application" %>
-  </body>
-</html>
+  </div>
+  <div class="whitehall-content">
+    <% if world_page? %>
+      <div class="progress-bar world-bar" id="progress-bar">
+        <p>
+          FCO, DFID and UKTI have moved their overseas websites to GOV.UK. <%= link_to 'Read about the transition', '/government/news/welcome-to-our-new-website-gov-uk' %>
+        </p>
+      </div>
+    <% else %>
+      <div class="progress-bar js-progress-bar js-hidden" id="progress-bar" data-join-count="<%= joined_ministerial_department_count %>">
+        <div class="bar"><div class="joined" style="width: <%= joined_ministerial_department_percent %>"></div></div>
+        <p>
+          <%= joined_ministerial_department_count %> of <%= ministerial_department_count %>
+          ministerial departments have moved their corporate websites to GOV.UK.
+          <%= progress_bar_link %>
+        </p>
+      </div>
+    <% end %>
+    <div id="page" class="<%= content_for?(:page_class) ? yield(:page_class) : '' %>" >
+      <%= yield %>
+      <%= render_mustache_templates if Rails.env.development? %>
+    </div>
+  </div>
+<% end %>

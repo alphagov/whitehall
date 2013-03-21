@@ -1,5 +1,5 @@
 class HtmlVersionsController < PublicFacingController
-  layout 'detailed-guidance'
+  layout 'html-publication'
 
   before_filter :find_publication
   before_filter :find_html_version
