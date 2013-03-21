@@ -2,12 +2,12 @@ unless defined? Rails
   lib = File.expand_path("../../../lib", __FILE__)
   $:.unshift lib unless $:.include?(lib)
 end
-
+require 'fast_test_helper'
 require "pdf_info"
 require "tempfile"
 require "shellwords"
 
-class PdfInfoTest < MiniTest::Unit::TestCase
+class PdfInfoTest < ActiveSupport::TestCase
   def test_raises_if_executable_missing
     assert_raises RuntimeError do
       PdfInfo.new("/this/path/does/not/exist")

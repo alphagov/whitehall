@@ -7,17 +7,23 @@ module CountryHelper
     url_for params.slice(:controller, :action, :id).merge(only_path: true)
   end
 
-  def list_of_links_to_world_locations_once_world_goes_live(world_locations)
-    # Once world goes live, return a list of links rather than spans
+  def list_of_links_to_world_locations(world_locations)
     world_locations.map { |world_location|
-      content_tag_for(:span, world_location) { world_location.name }
+      if Whitehall.world_feature?
+        link_to(world_location.name, world_location, class: dom_class(world_location), id: dom_id(world_location))
+      else
+        content_tag_for(:span, world_location) { world_location.name }
+      end
     }.to_sentence.html_safe
   end
 
-  def list_of_links_to_worldwide_organisations_once_world_goes_live(worldwide_organisations)
-    # Once world goes live, return a list of links rather than spans
+  def list_of_links_to_worldwide_organisations(worldwide_organisations)
     worldwide_organisations.map { |worldwide_organisation|
-      content_tag_for(:span, worldwide_organisation) { worldwide_organisation.name }
+      if Whitehall.world_feature?
+        link_to(worldwide_organisation.name, worldwide_organisation, class: dom_class(worldwide_organisation), id: dom_id(worldwide_organisation))
+      else
+        content_tag_for(:span, worldwide_organisation) { worldwide_organisation.name }
+      end
     }.to_sentence.html_safe
   end
 end
