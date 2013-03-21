@@ -8,7 +8,7 @@ class Admin::CorporateInformationPagesTranslationsController < Admin::BaseContro
   end
 
   def create
-    redirect_to edit_admin_worldwide_organisation_corporate_information_page_translation_path(worldwide_organisation, corporate_information_page, id: translation_locale)
+    redirect_to url_for(action: 'edit', id: translation_locale)
   end
 
   def edit
@@ -16,7 +16,7 @@ class Admin::CorporateInformationPagesTranslationsController < Admin::BaseContro
 
   def update
     if @translated_corporate_information_page.update_attributes(params[:corporate_information_page])
-      redirect_to admin_worldwide_organisation_corporate_information_page_translations_path(worldwide_organisation, @translated_corporate_information_page),
+      redirect_to url_for(action: 'index', corporate_information_page_id: @translated_corporate_information_page),
         notice: notice_message("saved")
     else
       render action: 'edit'
@@ -25,7 +25,7 @@ class Admin::CorporateInformationPagesTranslationsController < Admin::BaseContro
 
   def destroy
     @translated_corporate_information_page.remove_translations_for(translation_locale.code)
-    redirect_to admin_worldwide_organisation_corporate_information_page_translations_path(worldwide_organisation, @translated_corporate_information_page),
+    redirect_to url_for(action: 'index', corporate_information_page_id: @translated_corporate_information_page),
       notice: notice_message("deleted")
   end
 
