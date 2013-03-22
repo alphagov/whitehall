@@ -24,6 +24,9 @@ class RoleTypePresenter
       "chief_of_the_defence_staff" => RoleType.new(MilitaryRole.name, false, false, true),
       "chief_of_staff" => RoleType.new(MilitaryRole.name, false, false, false)
     },
+    "Chief Professional Officers" => {
+      "chief_professional_officer" => RoleType.new(ChiefProfessionalOfficerRole.name, false, false, false),
+    },
     "FCO" => {
       "special_representative" => RoleType.new(SpecialRepresentativeRole.name, false, false, false)
     },

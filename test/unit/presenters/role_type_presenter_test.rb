@@ -17,6 +17,9 @@ class RoleTypePresenterTest < PresenterTestCase
         ["Chief of the defence staff", "chief_of_the_defence_staff"],
         ["Chief of staff", "chief_of_staff"]
       ]],
+      ["Chief Professional Officers", [
+        ["Chief professional officer", "chief_professional_officer"],
+      ]],
       ["FCO", [
         ["Special representative", "special_representative"]
       ]],
@@ -119,6 +122,11 @@ class RoleTypePresenterTest < PresenterTestCase
   test "should generate attributes for chief of staff" do
     expected = {type: "MilitaryRole", cabinet_member: false, permanent_secretary: false, chief_of_the_defence_staff: false}
     assert_equal expected, RoleTypePresenter.role_attributes_from(type: "chief_of_staff")
+  end
+
+  test "should generate attributes for chief professional officers" do
+    expected = {type: "ChiefProfessionalOfficerRole", cabinet_member: false, permanent_secretary: false, chief_of_the_defence_staff: false}
+    assert_equal expected, RoleTypePresenter.role_attributes_from(type: "chief_professional_officer")
   end
 
   test "should generate attributes for FCO special representative" do

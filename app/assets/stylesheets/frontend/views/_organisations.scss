@@ -145,7 +145,7 @@
       height: auto;
     }
   }
-  
+
   @include media(tablet) {
     .block-7 {
       padding-bottom: $gutter;
@@ -181,18 +181,18 @@
     padding-bottom: 1px;
     margin-bottom: $gutter-two-thirds;
   }
-  
+
   #topics h1 {
     @include ig-core-27;
     font-weight: bold;
     margin: $gutter 0 $gutter-one-third;
   }
-  
+
   .social-media h2 {
     @include ig-core-19;
     font-weight: bold;
   }
-  
+
   .topic h2 {
     @include core-19;
     font-weight: bold;
@@ -364,7 +364,7 @@
         display: inline;
         float: left;
         width: 66.66%;
-        
+
         p {
           padding-right: $gutter-half;
         }
@@ -394,7 +394,7 @@
 
   .what-we-do {
     clear: both;
-    
+
     p {
       @include ig-core-19;
     }
@@ -412,10 +412,11 @@
 
   #who {
     padding-top: $gutter-two-thirds;
-  
+
     #ministers,
     #management,
     #military,
+    #chief_professional_officers,
     #traffic_commissioners,
     #special_representatives {
       display: block;
@@ -425,6 +426,7 @@
 
     #management,
     #military,
+    #chief_professional_officers,
     #traffic_commissioners,
     #special_representatives {
       padding-top: $gutter-half;
@@ -432,7 +434,7 @@
         padding-top: $gutter + $gutter-one-third;
       }
     }
-    
+
     h1 {
       @include core-36;
       padding-bottom: 1px;
@@ -499,7 +501,7 @@
     @include media(tablet) {
       margin-bottom: $gutter;
     }
-    
+
     h1 {
       @include core-27;
       font-weight: bold;
@@ -511,7 +513,7 @@
         margin: 0 $gutter-half $gutter-one-third;
       }
     }
-    
+
     h2 {
       @include core-19;
       font-weight: bold;
@@ -608,6 +610,7 @@
   #management h1,
   #military h1,
   #traffic_commissioners h1,
+  #chief_professional_officers h1,
   #special_representatives h1,
   #org-contacts h2,
   #what-we-do h1 {

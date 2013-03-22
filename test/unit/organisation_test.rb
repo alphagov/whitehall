@@ -183,6 +183,12 @@ class OrganisationTest < ActiveSupport::TestCase
     assert_equal [representative], organisation.special_representative_roles
   end
 
+  test '#chief_professional_officers includes all chief professional officers' do
+    chief_professional_officer = create(:chief_professional_officer_role)
+    organisation = create(:organisation, roles:  [chief_professional_officer])
+    assert_equal [chief_professional_officer], organisation.chief_professional_officer_roles
+  end
+
   test 'should be creatable with mainstream link data' do
     params = {
       mainstream_links_attributes: [
