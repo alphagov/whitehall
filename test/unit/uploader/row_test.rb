@@ -61,7 +61,11 @@ module Whitehall::Uploader
         "body_2" => "body2\n",
         "body_3" => "body3\n",
         "body_4" => "body4\n",
-        "body_5" => "body5\n"
+        "body_5" => "body5\n",
+        "body_6" => "body6\n",
+        "body_7" => "body7\n",
+        "body_8" => "body8\n",
+        "body_9" => "body9\n"
       }
       row = build_row(csv_data)
       row.stubs(:organisation).returns(stubbed_organisation)
