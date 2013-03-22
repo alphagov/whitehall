@@ -54,14 +54,22 @@
         </div>
       </div>
       <div class="whitehall-content">
-        <div class="progress-bar js-progress-bar js-hidden" id="progress-bar" data-join-count="<%= joined_ministerial_department_count %>">
-          <div class="bar"><div class="joined" style="width: <%= joined_ministerial_department_percent %>"></div></div>
-          <p>
-            <%= joined_ministerial_department_count %> of <%= ministerial_department_count %>
-            ministerial departments have moved their corporate websites to GOV.UK.
-            <%= progress_bar_link %>
-          </p>
-        </div>
+        <% if world_page? %>
+          <div class="progress-bar world-bar" id="progress-bar">
+            <p>
+              FCO, DFID and UKTI have moved their overseas websites to GOV.UK. <%= link_to 'Read about the transition', world_locations_path %>
+            </p>
+          </div>
+        <% else %>
+          <div class="progress-bar js-progress-bar js-hidden" id="progress-bar" data-join-count="<%= joined_ministerial_department_count %>">
+            <div class="bar"><div class="joined" style="width: <%= joined_ministerial_department_percent %>"></div></div>
+            <p>
+              <%= joined_ministerial_department_count %> of <%= ministerial_department_count %>
+              ministerial departments have moved their corporate websites to GOV.UK.
+              <%= progress_bar_link %>
+            </p>
+          </div>
+        <% end %>
         <div id="page" class="<%= content_for?(:page_class) ? yield(:page_class) : '' %>" >
           <%= yield %>
           <%= render_mustache_templates if Rails.env.development? %>
