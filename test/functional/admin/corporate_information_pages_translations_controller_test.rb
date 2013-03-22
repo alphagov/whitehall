@@ -190,5 +190,3 @@ class Admin::CorporateInformationPagesTranslationsControllerTest < ActionControl
   should_show_list_of_corporate_information_translations_for :worldwide_organisation
   should_show_list_of_corporate_information_translations_for :organisation
 end
-
-
