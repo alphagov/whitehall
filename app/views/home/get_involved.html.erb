@@ -56,39 +56,41 @@
             <% end %>
           </ol>
         </div>
-        <div class="column">
-          <div class="content">
-            <h3>Recently opened</h3>
-            <ol class="document-list">
-              <% @recently_opened_consultations.each do |consultation| %>
-                <li class="document-row">
-                  <h3><%= link_to consultation.title, public_document_path(consultation) %></h3>
-                  <ul class="attributes">
-                    <li><%= consultation.organisations.map(&:acronym).to_sentence %></li>
-                    <li>Closes <%= consultation.date_microformat(:closing_on) %></li>
-                    <li><%= link_to "Respond now", public_document_path(consultation) %></li>
-                  </ul>
-                </li>
-              <% end %>
-            </ol>
-            <p class="see-all"><%= link_to("Search all consultations", publications_path(publication_filter_option: "consultations")) %></p>
+        <div>
+          <div class="column">
+            <div class="content">
+              <h3>Recently opened</h3>
+              <ol class="document-list">
+                <% @recently_opened_consultations.each do |consultation| %>
+                  <li class="document-row">
+                    <h3><%= link_to consultation.title, public_document_path(consultation) %></h3>
+                    <ul class="attributes">
+                      <li><%= consultation.organisations.map(&:acronym).to_sentence %></li>
+                      <li>Closes <%= consultation.date_microformat(:closing_on) %></li>
+                      <li><%= link_to "Respond now", public_document_path(consultation) %></li>
+                    </ul>
+                  </li>
+                <% end %>
+              </ol>
+              <p class="see-all"><%= link_to("Search all consultations", publications_path(publication_filter_option: "consultations")) %></p>
+            </div>
           </div>
-        </div>
-        <div class="column">
-          <div class="content">
-            <h3>Recent outcomes</h3>
-            <ol class="document-list">
-              <% @recent_consultation_outcomes.each do |consultation| %>
-                <li class="document-row">
-                  <h3><%= link_to consultation.title, public_document_path(consultation) %></h3>
-                  <ul class="attributes">
-                    <li><%= consultation.organisations.map(&:acronym).to_sentence %></li>
-                    <li>Closed <%= consultation.date_microformat(:closing_on) %></li>
-                    <li><%= link_to "Respond now", public_document_path(consultation) %></li>
-                  </ul>
-                </li>
-              <% end %>
-            </ol>
+          <div class="column">
+            <div class="content">
+              <h3>Recent outcomes</h3>
+              <ol class="document-list">
+                <% @recent_consultation_outcomes.each do |consultation| %>
+                  <li class="document-row">
+                    <h3><%= link_to consultation.title, public_document_path(consultation) %></h3>
+                    <ul class="attributes">
+                      <li><%= consultation.organisations.map(&:acronym).to_sentence %></li>
+                      <li>Closed <%= consultation.date_microformat(:closing_on) %></li>
+                      <li><%= link_to "Respond now", public_document_path(consultation) %></li>
+                    </ul>
+                  </li>
+                <% end %>
+              </ol>
+            </div>
           </div>
         </div>
       </div>
