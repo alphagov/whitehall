@@ -129,42 +129,8 @@
     }
   }
 
-  .historical-articles, .government-history {
-    .inner-block {
-      padding: 0 $gutter-half;
-    }
-    @include media(tablet) {
-      clear: none;
-      display: inline;
-      float: left;
-      width: 50%;
-    }
-
-    .content {
-      padding: 0;
-      @include media(tablet) {
-        padding: 0 0 0 $gutter-half;
-      }
-    }
-    .keyline {
-      margin: 0 0 $gutter;
-      @include media(tablet) {
-        margin: 0 0 $gutter $gutter-half;
-      }
-    }
-  }
-
-  .government-history {
-    .content {
-      @include media(tablet) {
-        padding: 0 $gutter-half 0 0;
-      }
-    }
-    .keyline {
-      @include media(tablet) {
-        margin: 0 $gutter-half $gutter 0;
-      }
-    }
+  #historical-research {
+    padding-bottom: $gutter;
   }
 
 }
