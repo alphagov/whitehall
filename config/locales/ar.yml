@@ -454,13 +454,6 @@ ar:
       what_we_do:
   world_location:
     type:
-      country:
-        zero:
-        one: البلد
-        two:
-        few:
-        many:
-        other: البلدان
       international_delegation:
         zero:
         one: وفد دولي
@@ -468,13 +461,13 @@ ar:
         few:
         many:
         other: وفود دولية
-      overseas_territory:
+      world_location:
         zero:
-        one: إقليم في الخارج
+        one:
         two:
         few:
         many:
-        other: أقاليم في الخارج
+        other:
     headings:
       announcements: إعلاناتنا
       country: البلد

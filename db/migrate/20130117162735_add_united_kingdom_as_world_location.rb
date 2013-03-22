@@ -2,7 +2,7 @@ class AddUnitedKingdomAsWorldLocation < ActiveRecord::Migration
   class WorldLocation < ActiveRecord::Base; end
 
   def up
-    WorldLocation.create!(name: "United Kingdom", iso2: "GB", world_location_type_id: WorldLocationType::Country.id)
+    WorldLocation.create!(name: "United Kingdom", iso2: "GB", world_location_type_id: WorldLocationType::WorldLocation.id)
   end
 
   def down

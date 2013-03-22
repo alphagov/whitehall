@@ -76,7 +76,7 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
     topic = create(:topic)
     organisation = create(:organisation)
     ministerial_role = create(:ministerial_role)
-    country = create(:country)
+    country = create(:world_location)
 
     published_policy = create(:published_policy, topics: [topic], organisations: [organisation], ministerial_roles: [ministerial_role], world_locations: [country])
 

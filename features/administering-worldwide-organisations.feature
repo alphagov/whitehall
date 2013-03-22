@@ -82,7 +82,7 @@ Feature: Administering worldwide organisation
     Then I should see the corporate information on the public worldwide organisation page
 
   Scenario: Adding a new translation
-    Given a worldwide organisation "Department of Beards in France" exists for the country "France" with translations into "fr"
+    Given a worldwide organisation "Department of Beards in France" exists for the world location "France" with translations into "fr"
     When I add a new translation to the worldwide organisation "Department of Beards in France" with:
       | locale      | Français                                          |
       | name        | Département des barbes en France                  |

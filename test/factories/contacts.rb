@@ -5,6 +5,6 @@ FactoryGirl.define do
 
   factory :contact_with_country, parent: :contact do
     street_address '29 Acacier Road'
-    country
+    association :country, factory: :world_location
   end
 end

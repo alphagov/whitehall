@@ -13,30 +13,30 @@ def add_translation_to_world_location(location, translation)
   click_on "Save"
 end
 
-Given /^an? (country|overseas territory|international delegation) "([^"]*)" exists$/ do |world_location_type, name|
+Given /^an? (world location|international delegation) "([^"]*)" exists$/ do |world_location_type, name|
   create(world_location_type.gsub(' ','_').to_sym, name: name)
 end
 
-Given /^an? (country|overseas territory|international delegation) "([^"]*)" exists with the mission statement "([^"]*)"$/ do |world_location_type, name, mission_statement|
+Given /^an? (world location|international delegation) "([^"]*)" exists with the mission statement "([^"]*)"$/ do |world_location_type, name, mission_statement|
   create(world_location_type.gsub(' ','_').to_sym, name: name, mission_statement: mission_statement)
 end
 
-Given /^the (country|overseas territory|international delegation) "([^"]*)" is inactive/ do |world_location_type, name|
+Given /^the (world location|international delegation) "([^"]*)" is inactive/ do |world_location_type, name|
   world_location = WorldLocation.find_by_name(name) || create(world_location_type.gsub(' ','_').to_sym, name: name)
   world_location.update_column(:active, false)
 end
 
-Given /^an? (country|overseas territory|international delegation) "([^"]*)" exists with a translation for the locale "([^"]*)"$/ do |world_location_type, name, locale|
+Given /^an? (world location|international delegation) "([^"]*)" exists with a translation for the locale "([^"]*)"$/ do |world_location_type, name, locale|
   location = create(world_location_type.gsub(' ','_').to_sym, name: name)
   add_translation_to_world_location(location, locale: locale, name: 'Unimportant', mission_statement: 'Unimportant')
 end
 
-When /^I view the (?:country|overseas territory|international delegation) "([^"]*)"$/ do |name|
+When /^I view the (?:world location|international delegation) "([^"]*)"$/ do |name|
   world_location = WorldLocation.find_by_name!(name)
   visit world_location_path(world_location)
 end
 
-When /^I navigate to the "([^"]*)" (?:country|overseas territory|international delegation)'s (home) page$/ do |world_location_name, page_name|
+When /^I navigate to the "([^"]*)" (?:world location|international delegation)'s (home) page$/ do |world_location_name, page_name|
   within('.world_location nav') do
     click_link \
       case page_name
@@ -49,7 +49,7 @@ When /^I visit the world locations page$/ do
   visit world_locations_path
 end
 
-When /^I feature the news article "([^"]*)" for (?:country|overseas territory|international delegation) "([^"]*)"(?: with image "([^"]*)")?$/ do |news_article_title, organisation_name, image_filename|
+When /^I feature the news article "([^"]*)" for (?:world location|international delegation) "([^"]*)"(?: with image "([^"]*)")?$/ do |news_article_title, organisation_name, image_filename|
   image_filename ||= 'minister-of-funk.960x640.jpg'
   organisation = WorldLocation.find_by_name!(organisation_name)
   visit admin_world_location_featurings_path(organisation)
@@ -62,7 +62,7 @@ When /^I feature the news article "([^"]*)" for (?:country|overseas territory|in
   click_button "Save"
 end
 
-When /^I order the featured items of the (?:country|overseas territory|international delegation) "([^"]*)" to:$/ do |name, table|
+When /^I order the featured items of the (?:world location|international delegation) "([^"]*)" to:$/ do |name, table|
   world_location = WorldLocation.find_by_name!(name)
   visit admin_world_location_featurings_path(world_location)
   table.rows.each_with_index do |(title), index|
@@ -71,7 +71,7 @@ When /^I order the featured items of the (?:country|overseas territory|internati
   click_on "Save"
 end
 
-When /^I add a new translation to the country "([^"]*)" with:$/ do |name, table|
+When /^I add a new translation to the world location "([^"]*)" with:$/ do |name, table|
   world_location = WorldLocation.find_by_name!(name)
   add_translation_to_world_location(world_location, table.rows_hash)
 end
@@ -95,7 +95,7 @@ When /^I visit the worldwide location "([^"]+)"$/ do |name|
   visit world_location_path(world_location)
 end
 
-Then /^I should see the featured items of the (?:country|overseas territory|international delegation) "([^"]*)" are:$/ do |name, expected_table|
+Then /^I should see the featured items of the (?:world location|international delegation) "([^"]*)" are:$/ do |name, expected_table|
   world_location = WorldLocation.find_by_name!(name)
   visit world_location_path(world_location)
   rows = find(featured_documents_selector).all('.news_article')
@@ -109,7 +109,7 @@ Then /^I should see the featured items of the (?:country|overseas territory|inte
   expected_table.diff!(table)
 end
 
-Then /^I should see the "([^"]*)" (?:country|overseas territory|international delegation)'s (home) page$/ do |world_location_name, page_name|
+Then /^I should see the "([^"]*)" (?:world location|international delegation)'s (home) page$/ do |world_location_name, page_name|
   title =
     case page_name
     when 'home'   then world_location_name
@@ -118,19 +118,19 @@ Then /^I should see the "([^"]*)" (?:country|overseas territory|international de
   assert page.has_css?('title', text: title)
 end
 
-Then /^I should see a (?:country|overseas territory|international delegation) called "([^"]*)"$/ do |name|
+Then /^I should see a (?:world location|international delegation) called "([^"]*)"$/ do |name|
   assert page.has_css?(".world_location", text: name)
 end
 
-Then /^I should not see a link to the (?:country|overseas territory|international delegation) called "([^"]*)"$/ do |text|
+Then /^I should not see a link to the (?:world location|international delegation) called "([^"]*)"$/ do |text|
   refute page.has_css?(".world_location a", text: text)
 end
 
-Then /^I should see that it is an? (country|overseas territory|international delegation)$/ do |world_location_type|
+Then /^I should see that it is an? (world location|international delegation)$/ do |world_location_type|
   assert has_css?('.type', text: world_location_type.capitalize)
 end
 
-Then /^when viewing the (?:country|overseas territory|international delegation) "([^"]*)" with the locale "([^"]*)" I should see:$/ do |name, locale, table|
+Then /^when viewing the (?:world location|international delegation) "([^"]*)" with the locale "([^"]*)" I should see:$/ do |name, locale, table|
   world_location = WorldLocation.find_by_name!(name)
   translation = table.rows_hash
   visit world_location_path(world_location)
@@ -139,13 +139,13 @@ Then /^when viewing the (?:country|overseas territory|international delegation) 
   assert page.has_css?('.mission_statement', text: translation["mission_statement"]), "Mission statement wasn't present"
 end
 
-Then /^I should be able to associate "([^"]+)" with the (?:country|overseas territory|international delegation|world location) "([^"]+)"$/ do |title, location|
+Then /^I should be able to associate "([^"]+)" with the (?:world location|international delegation) "([^"]+)"$/ do |title, location|
   begin_editing_document title
   select location, from: "edition_world_location_ids"
   click_on "Save"
 end
 
-When /^I click through to see all the announcements for (?:country|overseas territory|international delegation|world location) "([^"]*)"$/ do |name|
+When /^I click through to see all the announcements for (?:international delegation|world location) "([^"]*)"$/ do |name|
   visit world_location_path(WorldLocation.find_by_name!(name))
   within '#announcements' do
     click_link 'See all'

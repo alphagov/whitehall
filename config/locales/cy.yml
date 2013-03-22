@@ -454,13 +454,6 @@ cy:
       what_we_do:
   world_location:
     type:
-      country:
-        zero:
-        one: Gwlad
-        two:
-        few:
-        many:
-        other: Gwledydd
       international_delegation:
         zero:
         one: Dirprwyaeth ryngwladol
@@ -468,13 +461,13 @@ cy:
         few:
         many:
         other: Dirprwyaethau rhyngwladol
-      overseas_territory:
+      world_location:
         zero:
-        one: Tiriogaeth dramor
+        one:
         two:
         few:
         many:
-        other: Tiriogaethau tramor
+        other:
     headings:
       announcements: Ein cyhoeddiadau
       country: Gwlad

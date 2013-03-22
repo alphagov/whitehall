@@ -222,15 +222,12 @@ es:
       what_we_do:
   world_location:
     type:
-      country:
-        one: País
-        other: Países
       international_delegation:
         one: Delegación internacional
         other: Delegaciones internacionales
-      overseas_territory:
-        one: Territorio en el exterior
-        other: Territorios en el exterior
+      world_location:
+        one:
+        other:
     headings:
       announcements: Anuncios
       country: País

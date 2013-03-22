@@ -14,29 +14,29 @@ module AdminEditionWorldLocationsBehaviour
       end
 
       test "creating should create a new document with world locations" do
-        country = create(:country)
-        overseas_territory = create(:overseas_territory)
+        world_location = create(:world_location)
+        world_location2 = create(:world_location)
         attributes = controller_attributes_for(document_type)
 
         post :create, edition: attributes.merge(
-          world_location_ids: [country.id, overseas_territory.id]
+          world_location_ids: [world_location.id, world_location2.id]
         )
 
         assert document = edition_class.last
-        assert_equal [country, overseas_territory], document.world_locations
+        assert_equal [world_location, world_location2], document.world_locations
       end
 
       test "updating should save modified document attributes with world locations" do
-        country = create(:country)
-        overseas_territory = create(:overseas_territory)
-        document = create(document_type, world_locations: [overseas_territory])
+        world_location = create(:world_location)
+        world_location2 = create(:world_location)
+        document = create(document_type, world_locations: [world_location2])
 
         put :update, id: document, edition: {
-          world_location_ids: [country.id]
+          world_location_ids: [world_location.id]
         }
 
         document = document.reload
-        assert_equal [country], document.world_locations
+        assert_equal [world_location], document.world_locations
       end
 
       test "updating should remove all world locations if none in params" do
@@ -63,14 +63,14 @@ module AdminEditionWorldLocationsBehaviour
       end
 
       view_test "should display the world locations to which the document relates" do
-        country = create(:country)
-        overseas_territory = create(:overseas_territory)
-        document = create(document_type, world_locations: [overseas_territory, country])
+        country = create(:world_location)
+        world_location = create(:world_location)
+        document = create(document_type, world_locations: [world_location, country])
 
         get :show, id: document
 
         assert_select_object(country)
-        assert_select_object(overseas_territory)
+        assert_select_object(world_location)
       end
 
       view_test "should indicate that the document does not relate to any world location" do
