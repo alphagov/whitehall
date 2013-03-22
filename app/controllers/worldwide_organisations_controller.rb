@@ -10,8 +10,8 @@ class WorldwideOrganisationsController < PublicFacingController
       format.html do
         expires_in 5.minutes, public: true
         @world_locations = @worldwide_organisation.world_locations
-        @main_office = main_office
-        @other_offices = other_offices
+        @main_office = @worldwide_organisation.main_office if @worldwide_organisation.main_office
+        @other_offices = @worldwide_organisation.other_offices
         @primary_role = primary_role
         @other_roles = ([secondary_role] + office_roles).compact
       end
@@ -34,13 +34,5 @@ class WorldwideOrganisationsController < PublicFacingController
 
   def office_roles
     @worldwide_organisation.office_staff_roles.collect { |office_staff| RolePresenter.new(office_staff) }
-  end
-
-  def main_office
-    ContactPresenter.new(@worldwide_organisation.main_office) if @worldwide_organisation.main_office
-  end
-
-  def other_offices
-    @worldwide_organisation.other_offices.map { |o| ContactPresenter.new(o) }
   end
 end

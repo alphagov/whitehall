@@ -1,4 +1,4 @@
-<%= form_for worldwide_office, url: worldwide_office.persisted? ? admin_worldwide_organisation_office_path(worldwide_organisation, worldwide_office) : admin_worldwide_organisation_offices_path(worldwide_organisation), html: {class: "form-horizontal"} do |office_form| %>
+<%= form_for [:admin, worldwide_organisation,worldwide_office], html: {class: "form-horizontal"} do |office_form| %>
   <%= office_form.errors %>
   <fieldset class="contact">
     <%= office_form.fields_for(:contact) do |contact_form| %>

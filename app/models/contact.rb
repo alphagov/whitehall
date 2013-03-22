@@ -12,10 +12,6 @@ class Contact < ActiveRecord::Base
   validates :street_address, :country_id, presence: true, if: -> r { r.has_postal_address? }
   accepts_nested_attributes_for :contact_numbers, allow_destroy: true, reject_if: :all_blank
 
-  def mappable?
-    (latitude.present? and longitude.present?) or postcode.present?
-  end
-
   def has_postal_address?
     recipient.present? || street_address.present? || locality.present? ||
       region.present? || postal_code.present? || country_id.present?
@@ -27,12 +23,5 @@ class Contact < ActiveRecord::Base
 
   def country_name
     country.try(:name)
-  end
-
-  DEPRECATED_ATTRIBUTES = %w{description address postcode}
-
-  DEPRECATED_ATTRIBUTES.each do |attribute_name|
-    define_method(attribute_name) { raise "#{attribute_name} is deprecated" }
-    define_method("attribute_name=") { raise "#{attribute_name}= is deprecated" }
   end
 end

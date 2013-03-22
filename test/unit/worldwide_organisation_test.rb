@@ -65,6 +65,13 @@ class WorldwideOrganisationTest < ActiveSupport::TestCase
     assert_equal 0, worldwide_organisation.worldwide_organisation_roles.count
   end
 
+  test "destroys associated office access information" do
+    worldwide_organisation = create(:worldwide_organisation)
+    office_access_info = create(:access_and_opening_times, accessible: worldwide_organisation)
+    worldwide_organisation.destroy
+    refute AccessAndOpeningTimes.exists?(office_access_info)
+  end
+
   test "has an overridable default main office" do
     worldwide_organisation = create(:worldwide_organisation)
 
