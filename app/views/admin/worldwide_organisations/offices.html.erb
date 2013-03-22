@@ -10,11 +10,26 @@
   <div class="span12 organisation-details">
     <section>
       <%= tab_navigation_for(@worldwide_organisation) %>
-      <%= render(@worldwide_organisation.offices, worldwide_organisation: @worldwide_organisation) || content_tag(:p, 'No offices') %>
 
-      <div class="form-actions">
-        <%= link_to "Add", new_admin_worldwide_organisation_office_path(@worldwide_organisation), class: "btn btn-large btn-primary"%>
-      </div>
+      <%= link_to "Add worldwide office", new_admin_worldwide_organisation_worldwide_office_path(@worldwide_organisation), class: "btn new_resource"%>
+
+      <% if @worldwide_organisation.offices.any? %>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Access and opening times</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <%= render @worldwide_organisation.offices, worldwide_organisation: @worldwide_organisation %>
+          </tbody>
+        </table>
+      <% else %>
+        <p>No offices</p>
+      <% end %>
+
     </section>
   </div>
 </div>

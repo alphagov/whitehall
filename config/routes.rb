@@ -96,7 +96,9 @@ Whitehall::Application.routes.draw do
     resources :operational_fields, path: 'fields-of-operation', only: [:index, :show]
     resources :worldwide_organisations, path: 'world/organisations', only: [:show], localised: true do
       resources :corporate_information_pages, only: [:show], path: 'about', localised: true
+      resources :worldwide_offices, path: 'office', only: [:show]
     end
+    match 'world/organisations/:organisation_id/office' =>redirect('/world/organisations/%{organisation_id}')
     match 'world/organisations/:organisation_id/about' => redirect('/world/organisations/%{organisation_id}')
 
     constraints(AdminRequest) do
@@ -136,9 +138,13 @@ Whitehall::Application.routes.draw do
           member do
             put :set_main_office
             get :offices
+            get :access_info
           end
+          resource :access_and_opening_time, path: 'access_info', except: [:index, :show, :new]
           resources :translations, controller: 'worldwide_organisations_translations'
-          resources :offices, controller: 'worldwide_offices', except: [:index, :show]
+          resources :worldwide_offices, path: 'offices', except: [:index, :show] do
+            resource :access_and_opening_time, path: 'access_info', except: [:index, :show, :new]
+          end
           resources :corporate_information_pages do
             resources :translations, controller: 'corporate_information_pages_translations'
           end

@@ -26,6 +26,13 @@ class Admin::WorldwideOrganisationsController < Admin::BaseController
     respond_with :admin, @worldwide_organisation
   end
 
+  def show
+  end
+
+  def access_info
+    @access_and_opening_times = @worldwide_organisation.access_and_opening_times || @worldwide_organisation.build_access_and_opening_times
+  end
+
   def set_main_office
     if @worldwide_organisation.update_attributes(params[:worldwide_organisation])
       flash[:notice] = "Main office updated successfully"

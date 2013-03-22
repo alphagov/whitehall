@@ -69,6 +69,17 @@ class Admin::WorldwideOrganisationsControllerTest < ActionController::TestCase
     assert_redirected_to offices_admin_worldwide_organisation_path(worldwide_organisation)
   end
 
+  test "viewing office access details with no default assigns a new one" do
+    worldwide_organisation = create(:worldwide_organisation)
+    get :access_info, id: worldwide_organisation
+
+    assert_response :success
+    assert_template :access_info
+    assert assigns(:access_and_opening_times).is_a?(AccessAndOpeningTimes)
+    assert assigns(:access_and_opening_times).new_record?
+    assert_equal worldwide_organisation, assigns(:worldwide_organisation)
+  end
+
   test "destroys an existing object" do
     organisation = create(:worldwide_organisation)
     count = WorldwideOrganisation.count
