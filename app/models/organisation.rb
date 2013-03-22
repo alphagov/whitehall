@@ -305,10 +305,6 @@ class Organisation < ActiveRecord::Base
     published_publications.where("editions.publication_type_id" => publication_type.id).any?
   end
 
-  def has_corporate_information_page_translations?
-    false
-  end
-
   private
 
   def sub_organisations_must_have_a_parent
