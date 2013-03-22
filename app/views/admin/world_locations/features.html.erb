@@ -1,0 +1,26 @@
+<% page_title "Featured items on " + @world_location.name %>
+
+<%= content_tag_for(:div, @world_location) do %>
+  <div class="row-fluid world-location-header">
+    <div class="span8">
+      <h1>
+        <span class="name"><%= @world_location.name %></span>
+        &ldquo;<span class="title"><%= @world_location.title %></span>&rdquo;
+      </h1>
+      <p><%= link_to "View on website", @world_location %></p>
+    </div>
+  </div>
+
+  <div class="row-fluid">
+    <div class="span12 world-location-details">
+      <section>
+        <%= tab_navigation_for(@world_location) %>
+
+        <%= render partial: 'admin/feature_lists/current_feature_list', locals: {feature_list: @feature_list} %>
+
+        <%= render partial: 'admin/feature_lists/featurable_editions', locals: {feature_list: @feature_list, featurable_editions: @editions} %>
+
+      </section>
+    </div>
+  </div>
+<% end %>

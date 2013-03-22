@@ -1,6 +1,6 @@
 <% page_title "Edit " + @world_location.name %>
 
-<div class="span8 world-locations-edit-span">
+<div class="span12 world-locations-edit-span">
   <section>
     <h1>Edit world location</h1>
   <p class="warning">Warning: changes to worldwide locations appear instantly on the live site.</p>
@@ -16,16 +16,9 @@
                 label_text: "Active (can visitors click through from the world location list?)" %>
 
       <%= render partial: 'admin/shared/mainstream_link_fields', locals: { form: form } %>
+
       <p class="warning">Warning: changes to worldwide locations appear instantly on the live site.</p>
-      <%= form.save_or_cancel cancel: admin_world_locations_path %>
+      <%= form.save_or_cancel cancel: admin_world_location_path(@world_location) %>
     <% end %>
   </section>
-</div>
-
-<div class="span4 world-locations-edit-span">
-  <%= sidebar_tabs govspeak_help: "Formatting Help" do |tabs| %>
-    <%= tabs.pane class: "govspeak_help", id: "govspeak_help" do %>
-      <%= render partial: "admin/editions/govspeak_help" %>
-    <% end %>
-  <% end %>
 </div>

@@ -1,22 +1,7 @@
 <% page_title "World locations" %>
 
 <h1>World locations</h1>
-<table id="world-locations" class="table table-striped">
-  <thead>
-    <tr>
-      <th width="15%">Name</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @world_locations.each do |world_location| %>
-      <%= content_tag_for(:tr, world_location) do %>
-        <td class="name">
-          <%= link_to world_location.name, edit_admin_world_location_path(world_location) %> (<%= world_location.world_location_type.name %>)<br />
-          - <%= link_to "view", world_location, title: "View #{world_location.name} on the public website" %><br />
-          - <%= link_to "manage translations", admin_world_location_translations_path(world_location), title: "Manage translations of #{world_location.name}" %><br />
-          - <%= link_to "featured items", [:admin, world_location, :featurings], title: "Manage featurings on #{world_location.name}" %><br />
-        </td>
-      <% end %>
-    <% end %>
-  </tbody>
-</table>
+
+<%= render partial: "world_location_table", locals: {title: "Active", world_locations: @active_world_locations } %>
+
+<%= render partial: "world_location_table", locals: {title: "Inactive", world_locations: @inactive_world_locations } %>

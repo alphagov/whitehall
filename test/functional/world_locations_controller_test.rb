@@ -10,6 +10,10 @@ class WorldLocationsControllerTest < ActionController::TestCase
   should_show_published_documents_associated_with :world_location, :policies
   should_show_published_documents_associated_with :world_location, :worldwide_priorities
 
+  def assert_featured_editions(editions)
+    assert_equal editions, assigns(:feature_list).current_featured_editions.map(&:edition)
+  end
+
   view_test "index should display a list of world locations" do
     bat = create(:world_location, name: "British Antarctic Territory")
     png = create(:world_location, name: "Papua New Guinea")
@@ -86,28 +90,63 @@ class WorldLocationsControllerTest < ActionController::TestCase
     end
   end
 
-  test "shows featured items in defined order" do
+  test "shows the latest published edition for a featured document" do
     world_location = create(:world_location)
-    less_recent_news_article = create(:published_news_article, first_published_at: 2.days.ago)
-    more_recent_news_article = create(:published_publication, first_published_at: 1.day.ago)
-    create(:featured_edition_world_location, ordering: 1, edition: less_recent_news_article, world_location: world_location)
-    create(:featured_edition_world_location, ordering: 2, edition: more_recent_news_article, world_location: world_location)
+
+    news = create(:published_news_article, first_published_at: 2.days.ago)
+    editor = create(:departmental_editor)
+    draft = news.create_draft(editor)
+
+    feature_list = create(:feature_list, featurable: world_location, locale: :en)
+    create(:feature, feature_list: feature_list, document: news.document)
 
     get :show, id: world_location
 
-    assert_equal [less_recent_news_article, more_recent_news_article], assigns(:featured_editions).map(&:edition)
+    assert_featured_editions [news]
+  end
+
+  test "shows featured items in defined order for locale" do
+    world_location = create(:world_location)
+    LocalisedModel.new(world_location, :fr).update_attributes(name: "Territoire antarctique britannique")
+
+    less_recent_news_article = create(:published_news_article, first_published_at: 2.days.ago)
+    more_recent_news_article = create(:published_publication, first_published_at: 1.day.ago)
+    english = FeatureList.create!(featurable: world_location, locale: :en)
+    create(:feature, feature_list: english, ordering: 1, document: less_recent_news_article.document)
+
+    french = FeatureList.create!(featurable: world_location, locale: :fr)
+    create(:feature, feature_list: french, ordering: 1, document: less_recent_news_article.document)
+    create(:feature, feature_list: french, ordering: 2, document: more_recent_news_article.document)
+
+    get :show, id: world_location, locale: :fr
+    assert_featured_editions [less_recent_news_article, more_recent_news_article]
+
+    get :show, id: world_location, locale: :en
+    assert_featured_editions [less_recent_news_article]
+  end
+
+  test "excludes ended features" do
+    world_location = create(:world_location)
+
+    news = create(:published_news_article, first_published_at: 2.days.ago)
+    feature_list = create(:feature_list, featurable: world_location, locale: :en)
+    create(:feature, feature_list: feature_list, document: news.document, started_at: 2.days.ago, ended_at: 1.day.ago)
+
+    get :show, id: world_location
+    assert_featured_editions []
   end
 
   test "shows a maximum of 5 featured news articles" do
     world_location = create(:world_location)
+    english = FeatureList.create!(featurable: world_location, locale: :en)
     6.times do
       news_article = create(:published_news_article)
-      create(:featured_edition_world_location, edition: news_article, world_location: world_location)
+      create(:feature, feature_list: english, document: news_article.document)
     end
 
     get :show, id: world_location
 
-    assert_equal 5, assigns(:featured_editions).length
+    assert_equal 5, assigns(:feature_list).current_feature_count
   end
 
   test "should display world_location's latest two announcements in reverse chronological order" do
@@ -270,19 +309,6 @@ class WorldLocationsControllerTest < ActionController::TestCase
     get :show, id: world_location, locale: 'fr'
 
     assert_equal PolicyPresenter.decorate([translated_policy]), assigns(:policies)
-  end
-
-  test "should only display translated featured editions when requested for a locale" do
-    world_location = create(:world_location, translated_into: [:fr])
-
-    translated_edition = create(:published_news_article, translated_into: [:fr])
-    untranslated_edition = create(:published_publication)
-    create(:featured_edition_world_location, ordering: 1, edition: untranslated_edition, world_location: world_location)
-    create(:featured_edition_world_location, ordering: 2, edition: translated_edition, world_location: world_location)
-
-    get :show, id: world_location, locale: 'fr'
-
-    assert_equal [translated_edition], assigns(:featured_editions).map(&:edition)
   end
 
   test "should only display translated recently updated editions when requested for a locale" do

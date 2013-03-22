@@ -1,0 +1,30 @@
+<% page_title @world_location.name %>
+<% page_class "world-location-show" %>
+
+<%= content_tag_for(:div, @world_location) do %>
+  <div class="row-fluid world-location-header">
+    <div class="span8">
+      <h1>
+        <span class="name"><%= @world_location.name %></span>
+        &ldquo;<span class="title"><%= @world_location.title %></span>&rdquo;
+      </h1>
+      <p><%= link_to "View on website", @world_location %></p>
+    </div>
+  </div>
+
+  <div class="row-fluid">
+    <div class="span12 world-location-details">
+      <section>
+        <%= tab_navigation_for(@world_location) %>
+
+        <div class="mission-statement">
+          <%= govspeak_to_html @world_location.mission_statement %>
+        </div>
+
+        <div class="form-actions">
+          <%= link_to "Edit", [:edit, :admin, @world_location], class: "btn btn-large btn-primary"%>
+        </div>
+      </section>
+    </div>
+  </div>
+<% end %>

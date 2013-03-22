@@ -238,26 +238,11 @@ Then /^I should see the default access information on the public "([^"]*)" offic
   within record_css_selector(worldwide_office) do
     click_link 'Access and opening times'
   end
-  click_link "Translations"
 
   within '.body' do
     assert page.has_content?('Default body information')
   end
 end
-
-def add_translation_to_worldwide_organisation(worldwide_organisation, translation)
-  translation = translation.stringify_keys
-  visit admin_worldwide_organisations_path
-  within record_css_selector(worldwide_organisation) do
-    click_link worldwide_organisation.name
-  end
-  click_link "Translations"
-
-  within '.body' do
-    assert page.has_content?('Default body information')
-  end
-end
-
 
 Given /^a worldwide organisation "([^"]*)" with default access information$/ do |name|
   worldwide_organisation = create(:worldwide_organisation, name: name)
@@ -290,19 +275,6 @@ When /^I give "([^"]*)" custom access information$/ do |office_name|
 
   fill_in 'Body', with: 'Custom body information'
   click_button 'Save'
-end
-
-def edit_translation_for_worldwide_organisation(locale, name, translation)
-  location = WorldwideOrganisation.find_by_name!(name)
-  visit admin_worldwide_organisations_path
-  within record_css_selector(location) do
-    page.find("a", text: locale).click
-  end
-  fill_in "Name", with: translation["name"]
-  fill_in "Summary", with: translation["summary"]
-  fill_in "Description", with: translation["description"]
-  fill_in "Services", with: translation["services"]
-  click_on "Save"
 end
 
 Then /^I should see the custom access information on the public "([^"]*)" office page$/ do |office_name|

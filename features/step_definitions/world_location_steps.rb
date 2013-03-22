@@ -1,9 +1,7 @@
 def add_translation_to_world_location(location, translation)
   translation = translation.stringify_keys
-  visit admin_world_locations_path
-  within record_css_selector(location) do
-    click_link "manage translations"
-  end
+  visit admin_world_location_path(location)
+  click_link "Translations"
 
   select translation["locale"], from: "Locale"
   click_on "Create translation"
@@ -49,10 +47,11 @@ When /^I visit the world locations page$/ do
   visit world_locations_path
 end
 
-When /^I feature the news article "([^"]*)" for (?:world location|international delegation) "([^"]*)"(?: with image "([^"]*)")?$/ do |news_article_title, organisation_name, image_filename|
+When /^I feature the news article "([^"]*)" for (?:world location|overseas territory|international delegation) "([^"]*)"(?: with image "([^"]*)")?$/ do |news_article_title, world_location_name, image_filename|
   image_filename ||= 'minister-of-funk.960x640.jpg'
-  organisation = WorldLocation.find_by_name!(organisation_name)
-  visit admin_world_location_featurings_path(organisation)
+  world_location = WorldLocation.find_by_name!(world_location_name)
+  visit admin_world_location_path(world_location)
+  click_link "Features (English)"
   news_article = NewsArticle.find_by_title(news_article_title)
   within record_css_selector(news_article) do
     click_link "Feature"
@@ -64,9 +63,10 @@ end
 
 When /^I order the featured items of the (?:world location|international delegation) "([^"]*)" to:$/ do |name, table|
   world_location = WorldLocation.find_by_name!(name)
-  visit admin_world_location_featurings_path(world_location)
+  visit admin_world_location_path(world_location)
+  click_link "Features (English)"
   table.rows.each_with_index do |(title), index|
-    fill_in title, with: index
+    page.find("a", text: title).find(:xpath, '..').set(index)
   end
   click_on "Save"
 end
@@ -79,10 +79,8 @@ end
 When /^I edit the "([^"]*)" translation for "([^"]*)" setting:$/ do |locale, name, table|
   location = WorldLocation.find_by_name!(name)
   translation = table.rows_hash
-  visit admin_world_locations_path
-  within record_css_selector(location) do
-    click_link "manage translations"
-  end
+  visit admin_world_location_path(location)
+  click_link "Translations"
   click_link locale
   fill_in "Name", with: translation["name"]
   fill_in "Title", with: translation["title"]

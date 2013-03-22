@@ -3,8 +3,9 @@ module WorldwideOrganisationsHelper
     translation = translation.stringify_keys
     visit admin_worldwide_organisations_path
     within record_css_selector(worldwide_organisation) do
-      click_link "Manage translations"
+      click_link worldwide_organisation.name
     end
+    click_link "Translations"
 
     select translation["locale"], from: "Locale"
     click_on "Create translation"
@@ -15,13 +16,14 @@ module WorldwideOrganisationsHelper
     click_on "Save"
   end
 
-  def edit_translation_for_worldwide_organisation(locale, name, translation)
-    location = WorldwideOrganisation.find_by_name!(name)
+  def edit_translation_for_worldwide_organisation(locale, worldwide_organisation_name, translation)
+    worldwide_organisation = WorldwideOrganisation.find_by_name!(worldwide_organisation_name)
     visit admin_worldwide_organisations_path
-    within record_css_selector(location) do
-      click_link "Manage translations"
+
+    within record_css_selector(worldwide_organisation) do
+      click_link locale
     end
-    click_link locale
+
     fill_in "Name", with: translation["name"]
     fill_in "Summary", with: translation["summary"]
     fill_in "Description", with: translation["description"]

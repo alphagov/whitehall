@@ -1,0 +1,28 @@
+<h2>Featured documents</h2>
+<p class="warning">
+  Warning: changes to features appear instantly on the live site.
+</p>
+
+<% if feature_list.features.any? %>
+  <%= form_for feature_list, url: reorder_admin_feature_list_path(feature_list), method: :post do |form| %>
+    <fieldset class="sortable">
+      <% @feature_list.features.current.each do |feature| %>
+        <div class="well">
+          <%= label_tag "ordering-#{feature.id}" do %>
+            <%= image_tag feature.image.url(:s216), class: 'featured-image', alt: feature.alt_text %>
+            <% if feature.document.published_edition %>
+              <%= link_to(feature, admin_edition_path(feature.document.published_edition)) %>
+            <% else %>
+              <%= feature.document.latest_edition || "No edition" %>
+            <% end %>
+          <% end %>
+
+          <%= text_field_tag "ordering[#{feature.id}]", feature.ordering, id: "ordering-#{feature.id}", class: "ordering" %>
+        </div>
+      <% end %>
+    </fieldset>
+    <%= form.submit "Save", class: "btn" %>
+  <% end %>
+<% else %>
+  <p>Nothing featured yet</p>
+<% end %>
