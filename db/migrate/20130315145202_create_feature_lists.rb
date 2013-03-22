@@ -52,6 +52,7 @@ class CreateFeatureLists < ActiveRecord::Migration
     WorldLocation.find_each do |wl|
       wl.feature_list = ::FeatureList.create!
       wl.featured_edition_world_locations.each do |ewl|
+        next if wl.feature_list.features.where(document_id: ewl.edition.document_id).any?
         new_feature = wl.feature_list.features.create!(
           document_id: ewl.edition.document_id,
           carrierwave_image: ewl.image.carrierwave_image,
