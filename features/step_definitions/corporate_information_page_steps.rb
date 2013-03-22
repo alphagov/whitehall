@@ -65,3 +65,32 @@ Then /^I should be able to read the translated "([^"]*)" corporate information p
   assert page.has_css?(".description", text: "Le summary")
   assert page.has_css?(".body", text: "Le body")
 end
+
+When /^I translate the "([^"]*)" corporate information page for the organisation "([^"]*)"$/ do |corp_page, organisation_name|
+  organisation = Organisation.find_by_name(organisation_name)
+  visit admin_organisation_path(organisation)
+  click_link "Corporate information pages"
+  corporate_information_page_type = CorporateInformationPageType.find_by_title(corp_page)
+  corporate_information_page = organisation.corporate_information_pages.by_type(corporate_information_page_type).first
+
+  within(record_css_selector(corporate_information_page)) do
+    click_link "Manage translations"
+  end
+
+  select "Français", from: "Locale"
+  click_on "Create translation"
+  fill_in "Summary", with: "Le summary"
+  fill_in "Body", with: "Le body"
+  click_on "Save"
+end
+
+Then /^I should be able to read the translated "([^"]*)" corporate information page for the organisation "([^"]*)" on the site$/ do |corp_page, organisation_name|
+  organisation = Organisation.find_by_name(organisation_name)
+  visit organisation_path(organisation)
+
+  click_link corp_page
+  click_link "Français"
+
+  assert page.has_css?(".description", text: "Le summary")
+  assert page.has_css?(".body", text: "Le body")
+end

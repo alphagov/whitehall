@@ -782,6 +782,10 @@
     }
   }
 
+  .available-languages {
+    margin: 0 $gutter;
+  }
+
   nav {
     @include ig-core-16;
     padding: ($gutter - $gutter-one-third) 0 $gutter;

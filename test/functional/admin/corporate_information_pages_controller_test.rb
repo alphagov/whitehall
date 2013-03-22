@@ -44,13 +44,6 @@ class Admin::CorporateInformationPagesControllerTest < ActionController::TestCas
     assert_equal [corporate_information_page], assigns(:corporate_information_pages)
   end
 
-  view_test "GET :index should not show manage translations for orgs right now" do
-    corporate_information_page = create(:corporate_information_page, organisation: @organisation)
-    get :index, organisation_id: @organisation
-
-    refute response.body.include?("Manage translations")
-  end
-
   view_test "GET :new should display form" do
     get :new, organisation_id: @organisation
 

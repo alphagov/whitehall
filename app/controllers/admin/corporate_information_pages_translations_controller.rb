@@ -8,7 +8,7 @@ class Admin::CorporateInformationPagesTranslationsController < Admin::BaseContro
   end
 
   def create
-    redirect_to edit_admin_worldwide_organisation_corporate_information_page_translation_path(worldwide_organisation, corporate_information_page, id: translation_locale)
+    redirect_to [:edit, :admin, @organisational_entity, corporate_information_page, translation_locale]
   end
 
   def edit
@@ -16,16 +16,16 @@ class Admin::CorporateInformationPagesTranslationsController < Admin::BaseContro
 
   def update
     if @translated_corporate_information_page.update_attributes(params[:corporate_information_page])
-      redirect_to admin_worldwide_organisation_corporate_information_page_translations_path(worldwide_organisation, @translated_corporate_information_page),
+      redirect_to [:admin, @organisational_entity, @translated_corporate_information_page, :translations],
         notice: notice_message("saved")
     else
-      render action: 'edit'
+      render :edit
     end
   end
 
   def destroy
     @translated_corporate_information_page.remove_translations_for(translation_locale.code)
-    redirect_to admin_worldwide_organisation_corporate_information_page_translations_path(worldwide_organisation, @translated_corporate_information_page),
+    redirect_to [:admin, @organisational_entity, @translated_corporate_information_page, :translations],
       notice: notice_message("deleted")
   end
 
@@ -44,11 +44,17 @@ class Admin::CorporateInformationPagesTranslationsController < Admin::BaseContro
     @translation_locale ||= Locale.new(params[:translation_locale] || params[:id])
   end
 
-  def worldwide_organisation
-    @worldwide_organisation ||= WorldwideOrganisation.find(params[:worldwide_organisation_id])
+  def organisational_entity
+    @organisational_entity ||= if params.has_key?(:organisation_id)
+        Organisation.find(params[:organisation_id])
+      elsif params.has_key?(:worldwide_organisation_id)
+        WorldwideOrganisation.find(params[:worldwide_organisation_id])
+      else
+        raise ActiveRecord::RecordNotFound
+      end
   end
 
   def corporate_information_page
-    @corporate_information_page ||= worldwide_organisation.corporate_information_pages.for_slug!(params[:corporate_information_page_id])
+    @corporate_information_page ||= organisational_entity.corporate_information_pages.for_slug!(params[:corporate_information_page_id])
   end
 end
