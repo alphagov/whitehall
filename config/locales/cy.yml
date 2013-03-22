@@ -435,6 +435,7 @@ cy:
       jobs_and_contacts: Swyddi a chontractau
       transparency: Data tryloywder
     headings:
+      chief_professional_officers:
       contact: Cyswllt %{name}
       corporate_information: Gwybodaeth gorfforaethol
       corporate_reports: Adroddiadau corfforaethol

@@ -1,39 +1,21 @@
 hy:
-  activerecord:
-    attributes:
-      detailed_guide:
-        primary_mainstream_category: Ուղեցույցի առաջնային մանրամասն կատեգորիա
-  announcements:
-    heading: Հայտարարություններ
-  change_notes:
-    published: Հրապարակված
-    updated: Թարմացված
-  contact:
-    contact_form: Կապի միջոց
-    email: Էլելտրոնային հասցե
-  corporate_information_page:
-    type:
-      personal_information_charter: Անձնական տվյալների կանոնադրություն
-      publication_scheme: Հրապարակման համակարգ
-      welsh_language_scheme: Ուելսերենի կանոնադրություն
-  date:
-    formats:
-      default:
-      long_ordinal: ! '%e %B %Y'
   document:
     headings:
-      advisory_groups: Խորհրդակցական խմբեր
-      applies_to_nations: Վերաբերվում է
-      document_series: Մի շարք
-      field_of_operation: Գործունեության ոլորտ
-      live_data:
+      attachments:
+        one:
+        other:
       ministers:
         one: Նախարար
         other: Նախարարներ
+      organisations:
+        one:
+        other:
       policies:
         one: Քաղաքականություն
         other: Քաղաքականություններ
-      policy_team: Քաղաքական թիմ
+      supporting_documents:
+        one:
+        other:
       topics:
         one: Թեմա
         other: Թեմաներ
@@ -43,14 +25,12 @@ hy:
       worldwide_organisations:
         one: Համաշխարհային կազմակերպություն
         other: Համաշխարհային կազմակերպություններ
-    published: հրապարակված
-    read: Կարդացեք  %{title} հոդվածը
-    speech:
-      delivered_on: Առաքվել է
-      delivery_title:
-        minister: Նախարար
-        speaker: Խոսնակ
-      originally_given_at: Սկզբնապես տրվել է %{location}ում
+      advisory_groups: Խորհրդակցական խմբեր
+      applies_to_nations: Վերաբերվում է
+      document_series: Մի շարք
+      field_of_operation: Գործունեության ոլորտ
+      live_data:
+      policy_team: Քաղաքական թիմ
     type:
       announcement:
         one: Հայտարարություն
@@ -160,41 +140,26 @@ hy:
       transparency:
         one: Թափանցիկ տվյալ
         other: Թափանցիկ տվյալներ
+      world_location_news_article:
+        one:
+        other:
       worldwide_priority:
         one: Համաշխարհային առաջնայնություն
         other: Համաշխարհային առաջնայնություններ
       written_statement:
         one: Գրավոր դիմում խորհրդարան
         other: Գրավոր դիմումներ խորհրդարան
+    published: հրապարակված
+    read: Կարդացեք  %{title} հոդվածը
+    speech:
+      delivered_on: Առաքվել է
+      delivery_title:
+        minister: Նախարար
+        speaker: Խոսնակ
+      originally_given_at: Սկզբնապես տրվել է %{location}ում
     updated: Թարմացված
     view: Տես '%{title}'-ը
-  document_filters:
-    description: Դուք կարող եք օգտագործել ֆիլտրերը պահպանելու համար միայն ձեզ հետաքրքրող
-      արդյունքները
-    no_results:
-      description: Փորձեք առավել տարածական դարձնել ձեր փնտրածը և նորից փորձեք
-      title: Համապատասխան ինֆորմացի չի գտնվել
-    world_locations:
-      all: Բոլոր վայրերը
-      label: Տեղակայված բառեր
-  feeds:
-    atom: ատոմ
-    email_alerts: Տեղեկատվություն Էլ. Փոստին
-    latest_activity: Վերջին գործողություն
-  i18n:
-    direction: ltr
-  language_names:
-    hy:
-  latest_feed:
-    no_updates: Դեռևս թարմացումներ չկան
-    title: Վերջին գործողություն
-  number:
-    human:
-      storage_units:
-        format:
   organisation:
-    headings:
-      plus_others:
     type:
       Ad-hoc advisory group:
         one: Հատուկ խորհրդատվական մարմին
@@ -258,90 +223,11 @@ hy:
   world_location:
     type:
       international_delegation:
-        one:
-        other:
+        one: Միջազգային պատվիրակություն
+        other: Միջազգային պատվիրակություններ
       world_location:
         one:
         other:
-    headings:
-      announcements:
-      country:
-      documents:
-      mission:
-      organisations:
-      priorities:
-      publications:
-      quick_links:
-      related_policies:
-      see_all:
-      statistics:
-    see_all:
-  activerecord:
-    attributes:
-      detailed_guide:
-        primary_mainstream_category:
-  announcements:
-    heading:
-  attachment:
-    accessibility:
-      full_help_html:
-      heading:
-      request_a_different_format:
-    headings:
-      order_a_copy:
-      order_a_copy_full:
-      published:
-      reference:
-  change_notes:
-    published:
-    updated:
-  contact:
-    contact_form:
-    email:
-  corporate_information_page:
-    type:
-      personal_information_charter:
-      publication_scheme:
-      welsh_language_scheme:
-  date:
-    formats:
-      default:
-      long_ordinal: ! '%e %B %Y'
-  document_filters:
-    description:
-    no_results:
-      description:
-      title:
-    world_locations:
-      all:
-      label:
-  feeds:
-    atom:
-    email_alerts:
-    latest_activity:
-  i18n:
-    direction: ltr
-  language_names:
-    hy: Հայերեն
-  latest_feed:
-    no_updates:
-    title:
-  number:
-    human:
-      storage_units:
-        format:
-  policies:
-    heading: Քաղաքականություն
-  publications:
-    heading: Հրապարակումներ
-  read_more: Կարդալ ավելին
-  support:
-    array:
-      last_word_connector: և
-  time:
-    formats:
-      long_ordinal:
-  world_location:
     headings:
       announcements: Մեր հայտարարությունները
       country: Երկիր
@@ -355,21 +241,82 @@ hy:
       see_all: Տես՝ մեր բոլոր %{type} -ը
       statistics: Մեր վիճակագրությունը
     see_all: Տես՝ մեր բոլոր %{type} -ը
+  activerecord:
+    attributes:
+      detailed_guide:
+        primary_mainstream_category: Ուղեցույցի առաջնային մանրամասն կատեգորիա
+  announcements:
+    heading: Հայտարարություններ
+  attachment:
+    accessibility:
+      full_help_html:
+      heading:
+      request_a_different_format:
+    headings:
+      order_a_copy:
+      order_a_copy_full:
+      published:
+      reference:
+  change_notes:
+    published: Հրապարակված
+    updated: Թարմացված
+  contact:
+    contact_form: Կապի միջոց
+    email: Էլելտրոնային հասցե
+  corporate_information_page:
     type:
-      country:
-        one: Երկիր
-        other: Երկրներ
-      international_delegation:
-        one: Միջազգային պատվիրակություն
-        other: Միջազգային պատվիրակություններ
-      overseas_territory:
-        one: Արտերկրի տարածք
-        other: Արտերկրի տարածքներ
+      personal_information_charter: Անձնական տվյալների կանոնադրություն
+      publication_scheme: Հրապարակման համակարգ
+      welsh_language_scheme: Ուելսերենի կանոնադրություն
+  date:
+    formats:
+      default:
+      long_ordinal: ! '%e %B %Y'
+  document_filters:
+    description: Դուք կարող եք օգտագործել ֆիլտրերը պահպանելու համար միայն ձեզ հետաքրքրող
+      արդյունքները
+    no_results:
+      description: Փորձեք առավել տարածական դարձնել ձեր փնտրածը և նորից փորձեք
+      title: Համապատասխան ինֆորմացի չի գտնվել
+    world_locations:
+      all: Բոլոր վայրերը
+      label: Տեղակայված բառեր
+  feeds:
+    atom: ատոմ
+    email_alerts: Տեղեկատվություն Էլ. Փոստին
+    latest_activity: Վերջին գործողություն
+  i18n:
+    direction: ltr
+  language_names:
+    hy:
+  latest_feed:
+    no_updates: Դեռևս թարմացումներ չկան
+    title: Վերջին գործողություն
+  number:
+    human:
+      storage_units:
+        format:
+  policies:
+    heading: Քաղաքականություն
+  publications:
+    heading: Հրապարակումներ
+    headings:
+      detail:
+  read_more: Կարդալ ավելին
+  support:
+    array:
+      last_word_connector: և
+  time:
+    formats:
+      long_ordinal:
   worldwide_organisation:
     corporate_information:
-      personal_information_charter_html: Մեր %{link}ը կպարզաբանի մեր մոտեցումները անձնական տեղեկատվությանը
-      publication_scheme_html: Կարդացեք այն ամնենի մասին ինչ մենք հրապարակում ենք մեր %{link}ում
-      welsh_language_scheme_html: Գտեք այստեղ %{link}ում հրապարակելու մեր պարտավորության մասին
+      personal_information_charter_html: Մեր %{link}ը կպարզաբանի մեր մոտեցումները
+        անձնական տեղեկատվությանը
+      publication_scheme_html: Կարդացեք այն ամնենի մասին ինչ մենք հրապարակում ենք
+        մեր %{link}ում
+      welsh_language_scheme_html: Գտեք այստեղ %{link}ում հրապարակելու մեր պարտավորության
+        մասին
     find_out_more: Տես՝ մեր ամբողջական պրոֆիլն ու կոնտակտային տվյալները
     headings:
       about_us: Մեր մասին

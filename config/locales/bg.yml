@@ -1,39 +1,21 @@
 bg:
-  activerecord:
-    attributes:
-      detailed_guide:
-        primary_mainstream_category: Първоначална  категория с подробни указания
-  announcements:
-    heading: Съобщения
-  change_notes:
-    published: Публикувано
-    updated: Обновено
-  contact:
-    contact_form: Контактна форма
-    email: И-мейл
-  corporate_information_page:
-    type:
-      personal_information_charter: Харта за персонална информация
-      publication_scheme: Схема за публикации
-      welsh_language_scheme: Уелска езикова схема
-  date:
-    formats:
-      default:
-      long_ordinal: ! '%e %B %Y'
   document:
     headings:
-      advisory_groups: Консултативни групи
-      applies_to_nations: Отнася се към
-      document_series: Серии
-      field_of_operation: Поле на операцията
-      live_data: Реална информация
+      attachments:
+        one:
+        other:
       ministers:
         one: Министър
         other: Министри
+      organisations:
+        one:
+        other:
       policies:
         one: Политика
         other: Политики
-      policy_team: Екип по политики
+      supporting_documents:
+        one:
+        other:
       topics:
         one: Тема
         other: Теми
@@ -43,14 +25,12 @@ bg:
       worldwide_organisations:
         one: Разпространена по целия свят организация
         other: Разпространени по целия свят организации
-    published: Публикувано
-    read:
-    speech:
-      delivered_on: Представено на
-      delivery_title:
-        minister: Министър
-        speaker: Говорител
-      originally_given_at:
+      advisory_groups: Консултативни групи
+      applies_to_nations: Отнася се към
+      document_series: Серии
+      field_of_operation: Поле на операцията
+      live_data: Реална информация
+      policy_team: Екип по политики
     type:
       announcement:
         one: Съобщение
@@ -160,40 +140,26 @@ bg:
       transparency:
         one: Информация за прозрачността
         other: Информация за прозрачността
+      world_location_news_article:
+        one:
+        other:
       worldwide_priority:
         one: Глобален приоритет
         other: Глобални приоритети
       written_statement:
         one: Писмено изявление до парламента
         other: Писмени изявления до парламента
+    published: Публикувано
+    read:
+    speech:
+      delivered_on: Представено на
+      delivery_title:
+        minister: Министър
+        speaker: Говорител
+      originally_given_at:
     updated: обновено
     view:
-  document_filters:
-    description: Можете да използвате филтрите, за да видите резултатите, които пасват на вашето търсене
-    no_results:
-      description: Разширете търсенето си и опитайте отново
-      title: Няма намерени документи
-    world_locations:
-      all: Всички места
-      label: Световни места
-  feeds:
-    atom: Атом
-    email_alerts: сигнал за и-мейл
-    latest_activity: Последна дейност
-  i18n:
-    direction: ltr
-  language_names:
-    bg: български
-  latest_feed:
-    no_updates: Няма нови обновления
-    title: Последни
-  number:
-    human:
-      storage_units:
-        format:
   organisation:
-    headings:
-      plus_others:
     type:
       Ad-hoc advisory group:
         one: Временна консултативна група
@@ -257,90 +223,11 @@ bg:
   world_location:
     type:
       international_delegation:
-        one:
-        other:
+        one: Международна делегация
+        other: Международни делегации
       world_location:
         one:
         other:
-    headings:
-      announcements:
-      country:
-      documents:
-      mission:
-      organisations:
-      priorities:
-      publications:
-      quick_links:
-      related_policies:
-      see_all:
-      statistics:
-    see_all:
-  activerecord:
-    attributes:
-      detailed_guide:
-        primary_mainstream_category:
-  announcements:
-    heading:
-  attachment:
-    accessibility:
-      full_help_html:
-      heading:
-      request_a_different_format:
-    headings:
-      order_a_copy:
-      order_a_copy_full:
-      published:
-      reference:
-  change_notes:
-    published:
-    updated:
-  contact:
-    contact_form:
-    email:
-  corporate_information_page:
-    type:
-      personal_information_charter:
-      publication_scheme:
-      welsh_language_scheme:
-  date:
-    formats:
-      default:
-      long_ordinal: ! '%e %B %Y'
-  document_filters:
-    description:
-    no_results:
-      description:
-      title:
-    world_locations:
-      all:
-      label:
-  feeds:
-    atom:
-    email_alerts:
-    latest_activity:
-  i18n:
-    direction: ltr
-  language_names:
-    bg: Български
-  latest_feed:
-    no_updates:
-    title:
-  number:
-    human:
-      storage_units:
-        format:
-  policies:
-    heading: Политики
-  publications:
-    heading: Публикации
-  read_more: Прочетете повече
-  support:
-    array:
-      last_word_connector: ! ' и '
-  time:
-    formats:
-      long_ordinal:
-  world_location:
     headings:
       announcements: Нашите съобщения
       country: Държава
@@ -354,21 +241,82 @@ bg:
       see_all:
       statistics: Нашите статистики
     see_all:
+  activerecord:
+    attributes:
+      detailed_guide:
+        primary_mainstream_category: Първоначална  категория с подробни указания
+  announcements:
+    heading: Съобщения
+  attachment:
+    accessibility:
+      full_help_html:
+      heading:
+      request_a_different_format:
+    headings:
+      order_a_copy:
+      order_a_copy_full:
+      published:
+      reference:
+  change_notes:
+    published: Публикувано
+    updated: Обновено
+  contact:
+    contact_form: Контактна форма
+    email: И-мейл
+  corporate_information_page:
     type:
-      country:
-        one: Държава
-        other: Държави
-      international_delegation:
-        one: Международна делегация
-        other: Международни делегации
-      overseas_territory:
-        one: Задгранична територия
-        other: Задгранични територии
+      personal_information_charter: Харта за персонална информация
+      publication_scheme: Схема за публикации
+      welsh_language_scheme: Уелска езикова схема
+  date:
+    formats:
+      default:
+      long_ordinal: ! '%e %B %Y'
+  document_filters:
+    description: Можете да използвате филтрите, за да видите резултатите, които пасват
+      на вашето търсене
+    no_results:
+      description: Разширете търсенето си и опитайте отново
+      title: Няма намерени документи
+    world_locations:
+      all: Всички места
+      label: Световни места
+  feeds:
+    atom: Атом
+    email_alerts: сигнал за и-мейл
+    latest_activity: Последна дейност
+  i18n:
+    direction: ltr
+  language_names:
+    bg: български
+  latest_feed:
+    no_updates: Няма нови обновления
+    title: Последни
+  number:
+    human:
+      storage_units:
+        format:
+  policies:
+    heading: Политики
+  publications:
+    heading: Публикации
+    headings:
+      detail:
+  read_more: Прочетете повече
+  support:
+    array:
+      last_word_connector: ! ' и '
+  time:
+    formats:
+      long_ordinal:
   worldwide_organisation:
     corporate_information:
-      personal_information_charter_html: Нашият (link) дава информация за начина на ползване на личните Ви данни
-      publication_scheme_html: Прочетете какви видове информация публикуваме в нашия %{link}.
-      welsh_language_scheme_html: Разберете повече за нашето задължение да публикуваме в %{link}.
+      personal_information_charter_html: Нашият (link) дава информация за начина на
+        ползване на личните Ви данни
+      publication_scheme_html: Прочетете какви видове информация публикуваме в нашия
+        %{link}.
+      welsh_language_scheme_html: Разберете повече за нашето задължение да публикуваме
+        в %{link}.
     find_out_more: Вижте пълния профил и всички контакти
     headings:
       about_us: За нас

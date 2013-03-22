@@ -1,48 +1,201 @@
 ro:
-  activerecord:
-    attributes:
-      detailed_guide:
-        primary_mainstream_category:
-  announcements:
-    heading: Știri
-  change_notes:
-    published: Publicat
-    updated: Actualizat
-  contact:
-    contact_form: Formular de contact
-    email: Email
-  corporate_information_page:
-    type:
-      personal_information_charter: Organigramă
-      publication_scheme:
-      welsh_language_scheme:
-  date:
-    formats:
-      default:
-      long_ordinal:
   document:
     headings:
+      attachments:
+        one:
+        few:
+        other:
+      ministers:
+        one: Ministru
+        few:
+        other: Miniştrii
+      organisations:
+        one:
+        few:
+        other:
+      policies:
+        one: Obiectiv strategic
+        few:
+        other: Obiective strategic
+      supporting_documents:
+        one:
+        few:
+        other:
+      topics:
+        one: Temă
+        few:
+        other: Teme
+      world_locations:
+        one: Localizare
+        few:
+        other: Localizare
+      worldwide_organisations:
+        one: Organizație
+        few:
+        other: Organizații
       advisory_groups: Consultanți
       applies_to_nations: Se adresează
       document_series: Seria
       field_of_operation: Domeniu de activitate
       live_data: Informaţii în timp real
-      ministers:
-        one: Ministru
-        other: Miniştrii
-      policies:
-        one: Obiectiv strategic
-        other: Obiective strategic
       policy_team:
-      topics:
-        one: Temă
-        other: Teme
-      world_locations:
-        one: Localizare
-        other: Localizare
-      worldwide_organisations:
-        one: Organizație
-        other: Organizații
+    type:
+      announcement:
+        one: Știre
+        few:
+        other: Știri
+      case_study:
+        one: Studiu de caz
+        few:
+        other: Studii de caz
+      closed_consultation:
+        one: Dezbatere
+        few:
+        other: Dezbateri
+      consultation:
+        one: Dezbatere
+        few:
+        other: Dezbateri
+      consultation_outcome:
+        one: Concluzia dezbaterii
+        few:
+        other: Concluziile dezbaterii
+      corporate_report:
+        one: Raport
+        few:
+        other: Rapoarte
+      correspondence:
+        one: Similaritate
+        few:
+        other: Similarităţi
+      detailed_guidance:
+        one: Mai multe detalii
+        few:
+        other: Mai multe detalii
+      draft_text:
+        one: Versiune preliminară
+        few:
+        other: Versiuni preliminare
+      fatality_notice:
+        one:
+        few:
+        other:
+      foi_release:
+        one:
+        few:
+        other:
+      form:
+        one: Formular
+        few:
+        other: Formulare
+      guidance:
+        one: Mai multe detalii
+        few:
+        other: Mai multe detalii
+      impact_assessment:
+        one:
+        few:
+        other:
+      imported:
+        one:
+        few:
+        other:
+      independent_report:
+        one: Raport independent
+        few:
+        other: Rapoarte independente
+      map:
+        one: Hartă
+        few:
+        other: Hărţi
+      national_statistics:
+        one: Statistici - statistici naționale
+        few:
+        other: Statistici - statistici naționale
+      news_article:
+        one: Știre
+        few:
+        other: Știri
+      news_story:
+        one: Știre
+        few:
+        other: Știri
+      open_consultation:
+        one: Dezbatere
+        few:
+        other: Dezbateri
+      oral_statement:
+        one:
+        few:
+        other:
+      policy:
+        one: Obiectiv strategic
+        few:
+        other: Obiective strategic
+      policy_paper:
+        one:
+        few:
+        other:
+      press_release:
+        one: Știre
+        few:
+        other: Știri
+      promotional:
+        one: Material promoțional
+        few:
+        other: Materiale promoționale
+      publication:
+        one: Publicație
+        few:
+        other: Publicații
+      rebuttal:
+        one:
+        few:
+        other:
+      research:
+        one: Analiză și cercetare
+        few:
+        other: Analiză și cercetare
+      speaking_notes:
+        one:
+        few:
+        other:
+      speech:
+        one: Discurs
+        few:
+        other: Discursuri
+      statement_to_parliament:
+        one: Declarație în Parlament
+        few:
+        other: Declarații în Parlament
+      statistical_data_set:
+        one: Date statistice
+        few:
+        other: Date statistice
+      statistics:
+        one: Statistici
+        few:
+        other: Statistici
+      transcript:
+        one: Transcriere
+        few:
+        other: Transcrieri
+      transparency:
+        one: Acurateţea datelor
+        few:
+        other: Acurateţea datelor
+      world_location_news_article:
+        one:
+        few:
+        other:
+      worldwide_priority:
+        one: Priorități
+        few:
+        other: Priorități
+      written_statement:
+        one:
+        few:
+        other:
     published: Data publicării
     read:
     speech:
@@ -51,182 +204,53 @@ ro:
         minister: Ministru
         speaker: Vorbitor
       originally_given_at:
-    type:
-      announcement:
-        one: Știre
-        other: Știri
-      case_study:
-        one: Studiu de caz
-        other: Studii de caz
-      closed_consultation:
-        one: Dezbatere
-        other: Dezbateri
-      consultation:
-        one: Dezbatere
-        other: Dezbateri
-      consultation_outcome:
-        one: Concluzia dezbaterii
-        other: Concluziile dezbaterii
-      corporate_report:
-        one: Raport
-        other: Rapoarte
-      correspondence:
-        one: Similaritate
-        other: Similarităţi
-      detailed_guidance:
-        one: Mai multe detalii
-        other: Mai multe detalii
-      draft_text:
-        one: Versiune preliminară
-        other: Versiuni preliminare
-      fatality_notice:
-        one:
-        other:
-      foi_release:
-        one:
-        other:
-      form:
-        one: Formular
-        other: Formulare
-      guidance:
-        one: Mai multe detalii
-        other: Mai multe detalii
-      impact_assessment:
-        one:
-        other:
-      imported:
-        one:
-        other:
-      independent_report:
-        one: Raport independent
-        other: Rapoarte independente
-      map:
-        one: Hartă
-        other: Hărţi
-      national_statistics:
-        one: Statistici - statistici naționale
-        other: Statistici - statistici naționale
-      news_article:
-        one: Știre
-        other: Știri
-      news_story:
-        one: Știre
-        other: Știri
-      open_consultation:
-        one: Dezbatere
-        other: Dezbateri
-      oral_statement:
-        one:
-        other:
-      policy:
-        one: Obiectiv strategic
-        other: Obiective strategic
-      policy_paper:
-        one:
-        other:
-      press_release:
-        one: Știre
-        other: Știri
-      promotional:
-        one: Material promoțional
-        other: Materiale promoționale
-      publication:
-        one: Publicație
-        other: Publicații
-      rebuttal:
-        one:
-        other:
-      research:
-        one: Analiză și cercetare
-        other: Analiză și cercetare
-      speaking_notes:
-        one:
-        other:
-      speech:
-        one: Discurs
-        other: Discursuri
-      statement_to_parliament:
-        one: Declarație în Parlament
-        other: Declarații în Parlament
-      statistical_data_set:
-        one: Date statistice
-        other: Date statistice
-      statistics:
-        one: Statistici
-        other: Statistici
-      transcript:
-        one: Transcriere
-        other: Transcrieri
-      transparency:
-        one: Acurateţea datelor
-        other: Acurateţea datelor
-      worldwide_priority:
-        one: Priorități
-        other: Priorități
-      written_statement:
-        one:
-        other:
     updated: Actualizat
     view:
-  document_filters:
-    description: Folosește filtrele pentru a personaliza căutarea
-    no_results:
-      description: Lărgește aria de căutare şi încearcă din nou
-      title: Nu există informații despre acest subiect
-    world_locations:
-      all: Toate locațiile
-      label: Locații
-  feeds:
-    atom:
-    email_alerts: Alerte pe email
-    latest_activity: Activiţăti recente
-  i18n:
-    direction:
-  language_names:
-    ro: Română
-  latest_feed:
-    no_updates: Nu sunt actualizări
-    title: Cele mai recente
-  number:
-    human:
-      storage_units:
-        format:
   organisation:
-    headings:
-      plus_others:
     type:
       Ad-hoc advisory group:
         one:
+        few:
         other:
       Advisory non-departmental public body:
         one:
+        few:
         other:
       Executive agency:
         one:
+        few:
         other:
       Executive non-departmental public body:
         one:
+        few:
         other:
       Independent monitoring body:
         one:
+        few:
         other:
       Ministerial department:
         one:
+        few:
         other:
       Non-ministerial department:
         one:
+        few:
         other:
       Other:
         one: Altele
+        few:
         other: Altele
       Public corporation:
         one:
+        few:
         other:
       Sub-organisation:
         one:
+        few:
         other:
       Tribunal non-departmental public body:
         one:
+        few:
         other:
     about:
       read_more:
@@ -257,92 +281,13 @@ ro:
   world_location:
     type:
       international_delegation:
-        one:
+        one: Delegaţie internaţională
         few:
-        other:
+        other: Delegaţii internaţionale
       world_location:
         one:
         few:
         other:
-    headings:
-      announcements:
-      country:
-      documents:
-      mission:
-      organisations:
-      priorities:
-      publications:
-      quick_links:
-      related_policies:
-      see_all:
-      statistics:
-    see_all:
-  activerecord:
-    attributes:
-      detailed_guide:
-        primary_mainstream_category:
-  announcements:
-    heading:
-  attachment:
-    accessibility:
-      full_help_html:
-      heading:
-      request_a_different_format:
-    headings:
-      order_a_copy:
-      order_a_copy_full:
-      published:
-      reference:
-  change_notes:
-    published:
-    updated:
-  contact:
-    contact_form:
-    email:
-  corporate_information_page:
-    type:
-      personal_information_charter:
-      publication_scheme:
-      welsh_language_scheme:
-  date:
-    formats:
-      default:
-      long_ordinal: ! '%e %B %Y'
-  document_filters:
-    description:
-    no_results:
-      description:
-      title:
-    world_locations:
-      all:
-      label:
-  feeds:
-    atom:
-    email_alerts:
-    latest_activity:
-  i18n:
-    direction: ltr
-  language_names:
-    ro: Română
-  latest_feed:
-    no_updates:
-    title:
-  number:
-    human:
-      storage_units:
-        format:
-  policies:
-    heading: Obiectiv strategic
-  publications:
-    heading: Obiective strategic
-  read_more: Află mai multe
-  support:
-    array:
-      last_word_connector: și
-  time:
-    formats:
-      long_ordinal:
-  world_location:
     headings:
       announcements: Știri
       country: Țară
@@ -356,16 +301,73 @@ ro:
       see_all:
       statistics: Statistici
     see_all:
+  activerecord:
+    attributes:
+      detailed_guide:
+        primary_mainstream_category:
+  announcements:
+    heading: Știri
+  attachment:
+    accessibility:
+      full_help_html:
+      heading:
+      request_a_different_format:
+    headings:
+      order_a_copy:
+      order_a_copy_full:
+      published:
+      reference:
+  change_notes:
+    published: Publicat
+    updated: Actualizat
+  contact:
+    contact_form: Formular de contact
+    email: Email
+  corporate_information_page:
     type:
-      country:
-        one: Țară
-        other: Țări
-      international_delegation:
-        one: Delegaţie internaţională
-        other: Delegaţii internaţionale
-      overseas_territory:
-        one:
-        other:
+      personal_information_charter: Organigramă
+      publication_scheme:
+      welsh_language_scheme:
+  date:
+    formats:
+      default:
+      long_ordinal:
+  document_filters:
+    description: Folosește filtrele pentru a personaliza căutarea
+    no_results:
+      description: Lărgește aria de căutare şi încearcă din nou
+      title: Nu există informații despre acest subiect
+    world_locations:
+      all: Toate locațiile
+      label: Locații
+  feeds:
+    atom:
+    email_alerts: Alerte pe email
+    latest_activity: Activiţăti recente
+  i18n:
+    direction:
+  language_names:
+    ro: Română
+  latest_feed:
+    no_updates: Nu sunt actualizări
+    title: Cele mai recente
+  number:
+    human:
+      storage_units:
+        format:
+  policies:
+    heading: Obiectiv strategic
+  publications:
+    heading: Obiective strategic
+    headings:
+      detail:
+  read_more: Află mai multe
+  support:
+    array:
+      last_word_connector: și
+  time:
+    formats:
+      long_ordinal:
   worldwide_organisation:
     corporate_information:
       personal_information_charter_html:
