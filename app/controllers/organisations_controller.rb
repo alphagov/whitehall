@@ -42,6 +42,7 @@ class OrganisationsController < PublicFacingController
           @board_members = board_members.from(@organisation.important_board_members)
           @military_personnel = military_personnel
           @traffic_commissioners = traffic_commissioners
+          @chief_professional_officers = chief_professional_officers
           @special_representatives = special_representatives
           @sub_organisations = @organisation.sub_organisations
           set_slimmer_organisations_header([@organisation])
@@ -77,6 +78,11 @@ class OrganisationsController < PublicFacingController
   def military_personnel
     @military_roles ||= roles_presenter_for(:military)
     @military_roles.with_unique_people
+  end
+
+  def chief_professional_officers
+    @chief_professional_officer_roles ||= roles_presenter_for(:chief_professional_officer)
+    @chief_professional_officer_roles.with_unique_people
   end
 
   def special_representatives

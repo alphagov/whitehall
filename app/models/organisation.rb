@@ -121,6 +121,10 @@ class Organisation < ActiveRecord::Base
             class_name: 'TrafficCommissionerRole',
             through: :organisation_roles,
             source: :role
+  has_many :chief_professional_officer_roles,
+            class_name: 'ChiefProfessionalOfficerRole',
+            through: :organisation_roles,
+            source: :role
   has_many :special_representative_roles,
             class_name: 'SpecialRepresentativeRole',
             through: :organisation_roles,

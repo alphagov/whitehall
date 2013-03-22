@@ -1,0 +1,2 @@
+class ChiefProfessionalOfficerRole < Role
+end

@@ -77,6 +77,15 @@
       </div>
     <% end %>
 
+    <% if @chief_professional_officer_roles.any? %>
+      <div class="span4">
+        <fieldset id="chief_professional_officer_ordering" class="sortable">
+          <legend>Chief professional officer ordering</legend>
+          <%= organisation_role_ordering_fields(organisation_form, @chief_professional_officer_roles) %>
+        </fieldset>
+      </div>
+    <% end %>
+
     <% if @military_organisation_roles.any? %>
       <div class="span4">
         <fieldset id="military_ordering" class="sortable">

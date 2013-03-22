@@ -15,7 +15,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
     create(:role_appointment, role: ministerial_role, person: person)
     management_role = create(:board_member_role, name: "management-role", permanent_secretary: true, organisations: [org_one])
     military_role = create(:military_role, name: "military-role", organisations: [org_two])
-
+    chief_professional_officer_role = create(:chief_professional_officer_role, name: "chief-professional-officer-role", organisations: [org_one])
     get :index
 
     assert_select ".roles" do
@@ -28,6 +28,12 @@ class Admin::RolesControllerTest < ActionController::TestCase
       assert_select_object management_role do
         assert_select ".name", "management-role"
         assert_select ".role_type", "Permanent secretary"
+        assert_select ".organisations", "org-one"
+        assert_select ".person", "No one is assigned to this role"
+      end
+      assert_select_object chief_professional_officer_role do
+        assert_select ".name", "chief-professional-officer-role"
+        assert_select ".role_type", "Chief professional officer"
         assert_select ".organisations", "org-one"
         assert_select ".person", "No one is assigned to this role"
       end
@@ -211,6 +217,14 @@ class Admin::RolesControllerTest < ActionController::TestCase
     )
 
     assert role = SpecialRepresentativeRole.last
+  end
+
+  test "create should create a new chief professional officer role" do
+    post :create, role: attributes_for(:chief_professional_officer_role,
+      type: "chief_professional_officer",
+    )
+
+    assert role = ChiefProfessionalOfficerRole.last
   end
 
   test "create redirects to the index on success" do

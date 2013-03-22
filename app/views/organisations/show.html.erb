@@ -253,6 +253,24 @@
               </ul>
             </section>
           <% end %>
+
+          <% if @chief_professional_officers.any? %>
+            <section id="chief_professional_officers">
+              <h1 class="label"><%= t('organisation.headings.chief_professional_officers') %></h1>
+              <ul>
+                <% @chief_professional_officers.each_with_index do |role, i| %>
+                  <%= render partial: "people/person",
+                             locals: {
+                               person: role.current_person,
+                               roles: @chief_professional_officer_roles.roles_for(role.current_person),
+                               hlevel: "h3",
+                               hide_image: false,
+                               extra_class: (i % 4 == 0) ? 'clear-person' : ''
+                             } %>
+                <% end %>
+              </ul>
+            </section>
+          <% end %>
         </section>
       </div>
     </div>
