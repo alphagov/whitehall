@@ -1,199 +1,234 @@
 hy:
+  activerecord:
+    attributes:
+      detailed_guide:
+        primary_mainstream_category: Ուղեցույցի առաջնային մանրամասն կատեգորիա
+  announcements:
+    heading: Հայտարարություններ
+  change_notes:
+    published: Հրապարակված
+    updated: Թարմացված
+  contact:
+    contact_form: Կապի միջոց
+    email: Էլելտրոնային հասցե
+  corporate_information_page:
+    type:
+      personal_information_charter: Անձնական տվյալների կանոնադրություն
+      publication_scheme: Հրապարակման համակարգ
+      welsh_language_scheme: Ուելսերենի կանոնադրություն
+  date:
+    formats:
+      default:
+      long_ordinal: ! '%e %B %Y'
   document:
     headings:
-      attachments:
-        one:
-        other:
-      ministers:
-        one:
-        other:
-      organisations:
-        one:
-        other:
-      policies:
-        one:
-        other:
-      supporting_documents:
-        one:
-        other:
-      topics:
-        one:
-        other:
-      world_locations:
-        one:
-        other:
-      worldwide_organisations:
-        one:
-        other:
-      advisory_groups:
-      applies_to_nations:
-      document_series:
-      field_of_operation:
+      advisory_groups: Խորհրդակցական խմբեր
+      applies_to_nations: Վերաբերվում է
+      document_series: Մի շարք
+      field_of_operation: Գործունեության ոլորտ
       live_data:
-      policy_team:
+      ministers:
+        one: Նախարար
+        other: Նախարարներ
+      policies:
+        one: Քաղաքականություն
+        other: Քաղաքականություններ
+      policy_team: Քաղաքական թիմ
+      topics:
+        one: Թեմա
+        other: Թեմաներ
+      world_locations:
+        one: Համաշխարհային տեղաբաշխում
+        other: Համաշխարհային տեղաբաշխումներ
+      worldwide_organisations:
+        one: Համաշխարհային կազմակերպություն
+        other: Համաշխարհային կազմակերպություններ
+    published: հրապարակված
+    read: Կարդացեք  %{title} հոդվածը
+    speech:
+      delivered_on: Առաքվել է
+      delivery_title:
+        minister: Նախարար
+        speaker: Խոսնակ
+      originally_given_at: Սկզբնապես տրվել է %{location}ում
     type:
       announcement:
-        one:
-        other:
+        one: Հայտարարություն
+        other: Հայտարարություններ
       case_study:
-        one:
-        other:
+        one: Թեմատիկ ուսումնասիրություն
+        other: Թեմատիկ ուսումնասիրություններ
       closed_consultation:
-        one:
-        other:
+        one: Փակ խորհրդատվություն
+        other: Փակ խորհրդատվություններ
       consultation:
-        one:
-        other:
+        one: Խորհրդատվություն
+        other: Խորհրդատվություններ
       consultation_outcome:
-        one:
-        other:
+        one: Խորհրդատվության արդյունք
+        other: Խորհրդատվության արդյունքներ
       corporate_report:
-        one:
-        other:
+        one: Կորպորատիվ հաշվետվություն
+        other: Կորպորատիվ հաշվետվություններ
       correspondence:
-        one:
-        other:
+        one: Նամակագրություն
+        other: Նամակագրություններ
       detailed_guidance:
-        one:
-        other:
+        one: Մանրամասն ուղեցույց
+        other: Մանրամասն ուղեցույցներ
       draft_text:
-        one:
-        other:
+        one: Սևագիր տեքստ
+        other: Սևագիր տեքստեր
       fatality_notice:
-        one:
-        other:
+        one: Մահվան ծանուցում
+        other: Մահվան ծանուցումներ
       foi_release:
-        one:
-        other:
+        one: Ազատ տեղեկատվության հաղորդագրություն
+        other: Ազատ տեղեկատվության հաղորդագրություններ
       form:
-        one:
-        other:
+        one: Ձևաթուղթ
+        other: Ձևաթղթեր
       guidance:
-        one:
-        other:
+        one: Ուղեցույց
+        other: Ուղեցույցեր
       impact_assessment:
-        one:
-        other:
+        one: Ազդեցության գնահատում
+        other: Ազդեցության գնահատումներ
       imported:
-        one:
-        other:
+        one: Ներկրման սպասման տեսակ
+        other: Ներկրման սպասման տեսակներ
       independent_report:
-        one:
-        other:
+        one: Անկախ հաշվետվություն
+        other: Անկախ հաշվետվություններ
       map:
-        one:
-        other:
+        one: Քարտեզ
+        other: Քարտեզներ
       national_statistics:
-        one:
-        other:
+        one: Վիճակագրություն-ազգային վիճակագրություն
+        other: Վիճակագրություն-ազգային վիճակագրություններ
       news_article:
-        one:
-        other:
+        one: Հոդված
+        other: Հոդվածներ
       news_story:
-        one:
-        other:
+        one: Պատմություն
+        other: Պատմություններ
       open_consultation:
-        one:
-        other:
+        one: Բաց խորհրդատվություն
+        other: Բաց խորհրդատվություններ
       oral_statement:
-        one:
-        other:
+        one: Բանավոր դիմում խորհրդարան
+        other: Բանավոր դիմումներ խորհրդարան
       policy:
-        one:
-        other:
+        one: Քաղաքականություն
+        other: Քաղաքականություններ
       policy_paper:
-        one:
-        other:
+        one: Քաղաքականության փաստաթուղթ
+        other: Քաղակականության փաստաթղթեր
       press_release:
-        one:
-        other:
+        one: Մամլո հաղորդագրություն
+        other: Մամլո հաղորդագրություններ
       promotional:
-        one:
-        other:
+        one: Գովազդային նյութ
+        other: Գովազդային նյութներ
       publication:
-        one:
-        other:
+        one: Հրապարակում
+        other: Հրապարակումներ
       rebuttal:
-        one:
-        other:
+        one: Մերժում
+        other: Մերժումներ
       research:
-        one:
-        other:
+        one: Հետազոտություն և վերլուծություն
+        other: Հետազոտություններ և վերլուծություններ
       speaking_notes:
-        one:
-        other:
+        one: Խոսքի գրառում
+        other: Խոսքի գրառումներ
       speech:
-        one:
-        other:
+        one: Ելույթ
+        other: Ելույթներ
       statement_to_parliament:
-        one:
-        other:
+        one: Դիմում խորհրդարան
+        other: Դիմումներ խորհրդարան
       statistical_data_set:
-        one:
-        other:
+        one: Վիճակագրական տվյալ
+        other: Վիճակագրական տվյալներ
       statistics:
-        one:
-        other:
+        one: Վիճակագրություն
+        other: Վիճակագրություն
       transcript:
-        one:
-        other:
+        one: Վերծանում
+        other: Վերծանումներ
       transparency:
-        one:
-        other:
-      world_location_news_article:
-        one:
-        other:
+        one: Թափանցիկ տվյալ
+        other: Թափանցիկ տվյալներ
       worldwide_priority:
-        one:
-        other:
+        one: Համաշխարհային առաջնայնություն
+        other: Համաշխարհային առաջնայնություններ
       written_statement:
-        one:
-        other:
-    published:
-    read:
-    speech:
-      delivered_on:
-      delivery_title:
-        minister:
-        speaker:
-      originally_given_at:
-    updated:
-    view:
+        one: Գրավոր դիմում խորհրդարան
+        other: Գրավոր դիմումներ խորհրդարան
+    updated: Թարմացված
+    view: Տես '%{title}'-ը
+  document_filters:
+    description: Դուք կարող եք օգտագործել ֆիլտրերը պահպանելու համար միայն ձեզ հետաքրքրող
+      արդյունքները
+    no_results:
+      description: Փորձեք առավել տարածական դարձնել ձեր փնտրածը և նորից փորձեք
+      title: Համապատասխան ինֆորմացի չի գտնվել
+    world_locations:
+      all: Բոլոր վայրերը
+      label: Տեղակայված բառեր
+  feeds:
+    atom: ատոմ
+    email_alerts: Տեղեկատվություն Էլ. Փոստին
+    latest_activity: Վերջին գործողություն
+  i18n:
+    direction: ltr
+  language_names:
+    hy:
+  latest_feed:
+    no_updates: Դեռևս թարմացումներ չկան
+    title: Վերջին գործողություն
+  number:
+    human:
+      storage_units:
+        format:
   organisation:
+    headings:
+      plus_others:
     type:
       Ad-hoc advisory group:
-        one:
-        other:
+        one: Հատուկ խորհրդատվական մարմին
+        other: Հատուկ խորհրդատվական մարմիններ
       Advisory non-departmental public body:
-        one:
-        other:
+        one: Ոչ գերատեսչական խորհրդատվական հանրային մարմին
+        other: Ոչ գերատեսչական խորհրդատվական հանրային մարմիններ
       Executive agency:
-        one:
-        other:
+        one: Գլխավոր գործակալություն
+        other: Գլխավոր գործակալություններ
       Executive non-departmental public body:
-        one:
-        other:
+        one: Գլխավոր ոչ գերատեսչական հանրայի մարմին
+        other: Գլխավոր ոչ գերատեսչական հանրային մարմիններ
       Independent monitoring body:
-        one:
-        other:
+        one: Անկախ մոնիտորինգի մարմին
+        other: Անկախ մոնիտորինգի մարմիններ
       Ministerial department:
-        one:
-        other:
+        one: Նախարարական բաժին
+        other: Նախարարական բաժիններ
       Non-ministerial department:
-        one:
-        other:
+        one: Ոչ նախարարական բաժին
+        other: Ոչ նախարարական բաժիններ
       Other:
-        one:
-        other:
+        one: Այլ
+        other: Այլք
       Public corporation:
-        one:
-        other:
+        one: Հանրային համագործակցություն
+        other: Հանրային համագործակցություններ
       Sub-organisation:
-        one:
-        other:
+        one: Ենթա կազմակերպություն
+        other: Ենթա կազմակերպություններ
       Tribunal non-departmental public body:
-        one:
-        other:
+        one: Տրիբունալը ոչ գերատեսչական պետական ​​մարմին
+        other: Տրիբունալը ոչ գերատեսչական պետական ​​մարմիններ
     about:
       read_more:
     corporate_information:
@@ -296,30 +331,52 @@ hy:
       storage_units:
         format:
   policies:
-    heading:
+    heading: Քաղաքականություն
   publications:
-    heading:
-    headings:
-      detail:
-  read_more:
+    heading: Հրապարակումներ
+  read_more: Կարդալ ավելին
   support:
     array:
-      last_word_connector:
+      last_word_connector: և
   time:
     formats:
       long_ordinal:
+  world_location:
+    headings:
+      announcements: Մեր հայտարարությունները
+      country: Երկիր
+      documents: Փաստաթղթեր
+      mission: Մեր գործունեությունը
+      organisations: Կազմակերպություններ
+      priorities: Առաջնայնություններ
+      publications: Մեր հրատարակությունները
+      quick_links: Հղումներ
+      related_policies: Համանման նյութեր
+      see_all: Տես՝ մեր բոլոր %{type} -ը
+      statistics: Մեր վիճակագրությունը
+    see_all: Տես՝ մեր բոլոր %{type} -ը
+    type:
+      country:
+        one: Երկիր
+        other: Երկրներ
+      international_delegation:
+        one: Միջազգային պատվիրակություն
+        other: Միջազգային պատվիրակություններ
+      overseas_territory:
+        one: Արտերկրի տարածք
+        other: Արտերկրի տարածքներ
   worldwide_organisation:
     corporate_information:
-      personal_information_charter_html:
-      publication_scheme_html:
-      welsh_language_scheme_html:
-    find_out_more:
+      personal_information_charter_html: Մեր %{link}ը կպարզաբանի մեր մոտեցումները անձնական տեղեկատվությանը
+      publication_scheme_html: Կարդացեք այն ամնենի մասին ինչ մենք հրապարակում ենք մեր %{link}ում
+      welsh_language_scheme_html: Գտեք այստեղ %{link}ում հրապարակելու մեր պարտավորության մասին
+    find_out_more: Տես՝ մեր ամբողջական պրոֆիլն ու կոնտակտային տվյալները
     headings:
-      about_us:
-      contact_us:
-      corporate_information:
-      follow_us:
-      our_people:
-      our_services:
-    location:
-    part_of:
+      about_us: Մեր մասին
+      contact_us: Կապ մեզ հետ
+      corporate_information: Կորպորատիվ տեղեկատվություն
+      follow_us: Հետևեք մեզ
+      our_people: Մեր անձնակազմը
+      our_services: Մեր ծառայությունները
+    location: Տարածք
+    part_of: Մաս

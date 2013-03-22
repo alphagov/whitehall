@@ -1,199 +1,233 @@
 bg:
+  activerecord:
+    attributes:
+      detailed_guide:
+        primary_mainstream_category: Първоначална  категория с подробни указания
+  announcements:
+    heading: Съобщения
+  change_notes:
+    published: Публикувано
+    updated: Обновено
+  contact:
+    contact_form: Контактна форма
+    email: И-мейл
+  corporate_information_page:
+    type:
+      personal_information_charter: Харта за персонална информация
+      publication_scheme: Схема за публикации
+      welsh_language_scheme: Уелска езикова схема
+  date:
+    formats:
+      default:
+      long_ordinal: ! '%e %B %Y'
   document:
     headings:
-      attachments:
-        one:
-        other:
+      advisory_groups: Консултативни групи
+      applies_to_nations: Отнася се към
+      document_series: Серии
+      field_of_operation: Поле на операцията
+      live_data: Реална информация
       ministers:
-        one:
-        other:
-      organisations:
-        one:
-        other:
+        one: Министър
+        other: Министри
       policies:
-        one:
-        other:
-      supporting_documents:
-        one:
-        other:
+        one: Политика
+        other: Политики
+      policy_team: Екип по политики
       topics:
-        one:
-        other:
+        one: Тема
+        other: Теми
       world_locations:
-        one:
-        other:
+        one: Световно място
+        other: Световни места
       worldwide_organisations:
-        one:
-        other:
-      advisory_groups:
-      applies_to_nations:
-      document_series:
-      field_of_operation:
-      live_data:
-      policy_team:
+        one: Разпространена по целия свят организация
+        other: Разпространени по целия свят организации
+    published: Публикувано
+    read:
+    speech:
+      delivered_on: Представено на
+      delivery_title:
+        minister: Министър
+        speaker: Говорител
+      originally_given_at:
     type:
       announcement:
-        one:
-        other:
+        one: Съобщение
+        other: Съобщения
       case_study:
-        one:
-        other:
+        one: Казус
+        other: Казуси
       closed_consultation:
-        one:
-        other:
+        one: Затворена консултация
+        other: Затворени консултации
       consultation:
-        one:
-        other:
+        one: Консултация
+        other: Консултации
       consultation_outcome:
-        one:
-        other:
+        one: Резултат от консултацията
+        other: Резултат от консултациите
       corporate_report:
-        one:
-        other:
+        one: Корпоративен доклад
+        other: Корпоративни доклади
       correspondence:
-        one:
-        other:
+        one: Кореспонденция
+        other: Кореспонденции
       detailed_guidance:
-        one:
-        other:
+        one: Подробна насока
+        other: Подробни насоки
       draft_text:
-        one:
-        other:
+        one: Чернова
+        other: Чернови
       fatality_notice:
         one:
         other:
       foi_release:
-        one:
-        other:
+        one: Съобщение във връзка със свободен достъп до информация
+        other: Съобщения във връзка със свободен достъп до информация
       form:
-        one:
-        other:
+        one: Формуляр
+        other: Формуляри
       guidance:
-        one:
-        other:
+        one: Насоки
+        other: Насоки
       impact_assessment:
-        one:
-        other:
+        one: Оценка на влиянието
+        other: Оценки на влиянието
       imported:
         one:
         other:
       independent_report:
-        one:
-        other:
+        one: Независим доклад
+        other: Независими доклади
       map:
-        one:
-        other:
+        one: Карта
+        other: Карти
       national_statistics:
-        one:
-        other:
+        one: Статистика- национална статистика
+        other: Статистики- национални статистики
       news_article:
-        one:
-        other:
+        one: Новинарска статия
+        other: Новинарски статии
       news_story:
-        one:
-        other:
+        one: Новина
+        other: Новини
       open_consultation:
-        one:
-        other:
+        one: Отворена консултация
+        other: Отворени консултации
       oral_statement:
-        one:
-        other:
+        one: Устно изказване в Парламента
+        other: Устни изказвания в Парламента
       policy:
-        one:
-        other:
+        one: Политика
+        other: Политики
       policy_paper:
-        one:
-        other:
+        one: Документ, залагащ политика
+        other: Документи, залагащи политика
       press_release:
-        one:
-        other:
+        one: Съобщение до медиите
+        other: Съобщения до медиите
       promotional:
-        one:
-        other:
+        one: Промоционален материал
+        other: Промоционален материал
       publication:
-        one:
-        other:
+        one: Публикация
+        other: Публикации
       rebuttal:
-        one:
-        other:
+        one: Опровержение
+        other: Опровержения
       research:
-        one:
-        other:
+        one: Проучване и анализ
+        other: Проучване и анализи
       speaking_notes:
-        one:
-        other:
+        one: Устна нота
+        other: Устни ноти
       speech:
-        one:
-        other:
+        one: Реч
+        other: Речи
       statement_to_parliament:
-        one:
-        other:
+        one: Изявление в парламента
+        other: Изявления в парламента
       statistical_data_set:
-        one:
-        other:
+        one: Набор от статистически данни
+        other: Набори от статистически данни
       statistics:
-        one:
-        other:
+        one: Статистики
+        other: Статистики
       transcript:
-        one:
-        other:
+        one: Препис
+        other: Преписи
       transparency:
-        one:
-        other:
-      world_location_news_article:
-        one:
-        other:
+        one: Информация за прозрачността
+        other: Информация за прозрачността
       worldwide_priority:
-        one:
-        other:
+        one: Глобален приоритет
+        other: Глобални приоритети
       written_statement:
-        one:
-        other:
-    published:
-    read:
-    speech:
-      delivered_on:
-      delivery_title:
-        minister:
-        speaker:
-      originally_given_at:
-    updated:
+        one: Писмено изявление до парламента
+        other: Писмени изявления до парламента
+    updated: обновено
     view:
+  document_filters:
+    description: Можете да използвате филтрите, за да видите резултатите, които пасват на вашето търсене
+    no_results:
+      description: Разширете търсенето си и опитайте отново
+      title: Няма намерени документи
+    world_locations:
+      all: Всички места
+      label: Световни места
+  feeds:
+    atom: Атом
+    email_alerts: сигнал за и-мейл
+    latest_activity: Последна дейност
+  i18n:
+    direction: ltr
+  language_names:
+    bg: български
+  latest_feed:
+    no_updates: Няма нови обновления
+    title: Последни
+  number:
+    human:
+      storage_units:
+        format:
   organisation:
+    headings:
+      plus_others:
     type:
       Ad-hoc advisory group:
-        one:
-        other:
+        one: Временна консултативна група
+        other: Временни консултативни групи
       Advisory non-departmental public body:
-        one:
-        other:
+        one: Консултативен неведомствен публичен орган
+        other: Консултативни неведомствени публични органи
       Executive agency:
-        one:
-        other:
+        one: Изпълнителна агенция
+        other: Изпълнителни агенции
       Executive non-departmental public body:
-        one:
-        other:
+        one: Изпълнителен неведомствен публичен орган
+        other: Изпълнителни неведомствени публични органи
       Independent monitoring body:
-        one:
-        other:
+        one: Независим мониторингов орган
+        other: Независими мониторингови органи
       Ministerial department:
-        one:
-        other:
+        one: Министерска секция
+        other: Министерски секции
       Non-ministerial department:
-        one:
-        other:
+        one: Неправителствена секция
+        other: Неправителствени секции
       Other:
-        one:
-        other:
+        one: Друго
+        other: Други
       Public corporation:
-        one:
-        other:
+        one: Обществена корпорация
+        other: Обществени корпорации
       Sub-organisation:
-        one:
-        other:
+        one: Под-организация
+        other: Под-организации
       Tribunal non-departmental public body:
-        one:
-        other:
+        one: Трибунален неведомствен обществен орган
+        other: Трибунални неведомствени обществени органи
     about:
       read_more:
     corporate_information:
@@ -296,30 +330,52 @@ bg:
       storage_units:
         format:
   policies:
-    heading:
+    heading: Политики
   publications:
-    heading:
-    headings:
-      detail:
-  read_more:
+    heading: Публикации
+  read_more: Прочетете повече
   support:
     array:
-      last_word_connector:
+      last_word_connector: ! ' и '
   time:
     formats:
       long_ordinal:
+  world_location:
+    headings:
+      announcements: Нашите съобщения
+      country: Държава
+      documents: Документи
+      mission: Нашата мисия
+      organisations: Организации
+      priorities: Приоритети
+      publications: Нашите публикации
+      quick_links: Бързи връзки
+      related_policies: Свързани политики
+      see_all:
+      statistics: Нашите статистики
+    see_all:
+    type:
+      country:
+        one: Държава
+        other: Държави
+      international_delegation:
+        one: Международна делегация
+        other: Международни делегации
+      overseas_territory:
+        one: Задгранична територия
+        other: Задгранични територии
   worldwide_organisation:
     corporate_information:
-      personal_information_charter_html:
-      publication_scheme_html:
-      welsh_language_scheme_html:
-    find_out_more:
+      personal_information_charter_html: Нашият (link) дава информация за начина на ползване на личните Ви данни
+      publication_scheme_html: Прочетете какви видове информация публикуваме в нашия %{link}.
+      welsh_language_scheme_html: Разберете повече за нашето задължение да публикуваме в %{link}.
+    find_out_more: Вижте пълния профил и всички контакти
     headings:
-      about_us:
-      contact_us:
-      corporate_information:
-      follow_us:
-      our_people:
-      our_services:
-    location:
-    part_of:
+      about_us: За нас
+      contact_us: Свържете се с нас
+      corporate_information: Корпоративна информация
+      follow_us: Следвайте ни
+      our_people: Нашите служители
+      our_services: Нашите услуги
+    location: Местоположение
+    part_of: Част от
