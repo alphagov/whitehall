@@ -1,5 +1,5 @@
 edition_types_to_remove = [WorldwidePriority]
-if ! Whitehall.world_location_news_feature?
+if ! Whitehall.world_feature?
   edition_types_to_remove << WorldLocationNewsArticle
 end
 
