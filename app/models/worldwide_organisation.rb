@@ -30,6 +30,17 @@ class WorldwideOrganisation < ActiveRecord::Base
     sponsoring_organisations.first
   end
 
+  include Searchable
+  searchable title: :name,
+             link: :search_link,
+             content: :summary,
+             format: 'worldwide_organisation'
+
+  include Rails.application.routes.url_helpers
+  def search_link
+    worldwide_organisation_path(slug)
+  end
+
   def display_name
     self.name
   end

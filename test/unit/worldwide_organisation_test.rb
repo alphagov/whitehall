@@ -176,4 +176,42 @@ class WorldwideOrganisationTest < ActiveSupport::TestCase
 
     assert_equal types, organisation.reload.unused_corporate_information_page_types
   end
+
+  test 'adds worldwide organisation to search index on creating' do
+    worldwide_organisation = build(:worldwide_organisation)
+
+    search_index_data = stub('search index data')
+    worldwide_organisation.stubs(:search_index).returns(search_index_data)
+    Rummageable.expects(:index).with(search_index_data, Whitehall.government_search_index_path)
+
+    worldwide_organisation.save
+  end
+
+  test 'adds worldwide organisation to search index on updating' do
+    worldwide_organisation = create(:worldwide_organisation)
+
+    search_index_data = stub('search index data')
+    worldwide_organisation.stubs(:search_index).returns(search_index_data)
+    Rummageable.expects(:index).with(search_index_data, Whitehall.government_search_index_path)
+
+    worldwide_organisation.name = 'British Embassy to Hat land'
+    worldwide_organisation.save
+  end
+
+  test 'removes worldwide organisation role from search index on destroying if it is active' do
+    worldwide_organisation = create(:worldwide_organisation)
+    Rummageable.expects(:delete).with("/government/world/organisations/#{worldwide_organisation.slug}", Whitehall.government_search_index_path)
+    worldwide_organisation.destroy
+  end
+
+  test 'search index data for a worldwide organisation includes name, summary, the correct link and format' do
+    worldwide_organisation = build(:worldwide_organisation, name: 'British Embassy to Hat land', slug: 'british-embassy-to-hat-land', summary: 'Providing assistance to uk residents in hat land')
+
+    assert_equal({'title' => worldwide_organisation.name,
+                  'link' => '/government/world/organisations/british-embassy-to-hat-land',
+                  'indexable_content' => 'Providing assistance to uk residents in hat land',
+                  'format' => 'worldwide_organisation',
+                  'description' => ''}, worldwide_organisation.search_index)
+  end
+
 end
