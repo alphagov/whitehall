@@ -68,4 +68,7 @@ class CorporateInformationPageType
   OfficeAccessAndOpeningTimes = create(
     id: 15, title_template: "Office access and opening times", slug: "access-and-opening", menu_heading: :our_information
   )
+  StaffNewsAndInformation = create(
+    id: 16, title_template: "Staff news and information", slug: "staff-update", menu_heading: :other
+  )
 end
