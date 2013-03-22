@@ -62,7 +62,7 @@ cy:
       document_series: Cyfres
       field_of_operation: Maes gweithredu
       live_data: Data byw
-      policy_team: TÌ¨m polisi
+      policy_team: Tîm polisi
     type:
       announcement:
         zero:
@@ -477,7 +477,7 @@ cy:
       priorities: Blaenoriaethau
       publications: Ein cyhoeddiadau
       quick_links: Dolenni cyflym
-      related_policies: PolisÌøau perthnasol
+      related_policies: Polisïau perthnasol
       see_all: Gweld ein holl %{type}
       statistics: Ein hystadegau
     see_all: Gweld ein holl %{type}
@@ -541,7 +541,7 @@ cy:
       storage_units:
         format: ! '%n%u'
   policies:
-    heading: PolisÌøau
+    heading: Polisïau
   publications:
     heading: Cyhoeddiadau
     headings:
@@ -563,7 +563,7 @@ cy:
     find_out_more: Gweld proffil llawn a'r holl fanylion cyswllt
     headings:
       about_us: Gwybodaeth amdanom ni
-      contact_us: Cysylltu Ì¢ ni
+      contact_us: Cysylltu â ni
       corporate_information: Gwybodaeth gorfforaethol
       follow_us: Dilynwch ni
       our_people: Ein pobl
