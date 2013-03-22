@@ -44,5 +44,5 @@ class HomeController < PublicFacingController
 
   def history_lancaster_house
   end
-  
+
 end

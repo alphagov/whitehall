@@ -44,6 +44,11 @@
     @include media(tablet) {
       width: 66.66%;
     }
+    address {
+      @include core-19;
+      font-style:normal;
+      margin-bottom: $gutter;
+    }
   }
 
   .content-list {
@@ -71,10 +76,7 @@
       }
     }
     img {
-      width: 100%;
-      @include media(tablet) {
-        max-width: 100%;
-      }
+      max-width: 100%;
     }
   }
 
