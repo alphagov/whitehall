@@ -49,6 +49,10 @@
       font-style:normal;
       margin-bottom: $gutter;
     }
+    img {
+      margin-bottom: $gutter-half;
+      width: 100%
+    }
   }
 
   .content-list {
