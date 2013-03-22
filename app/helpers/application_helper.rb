@@ -243,6 +243,10 @@ module ApplicationHelper
     end
   end
 
+  def world_page?
+    request.fullpath.match(world_locations_path)
+  end
+
   def linked_author(author)
     if author
       link_to(author.name, admin_author_path(author))
