@@ -30,7 +30,28 @@ class WorldLocation < ActiveRecord::Base
   include TranslatableModel
   translates :name, :title, :mission_statement
 
+  include Searchable
+  searchable title: :name,
+             link: :search_link,
+             content: :mission_statement,
+             only: :active,
+             format: 'world_location'
+
+  include Rails.application.routes.url_helpers
+  def search_link
+    world_location_path(slug)
+  end
+
+  after_update :remove_from_index_if_became_inactive
+  def remove_from_index_if_became_inactive
+    remove_from_search_index if self.active_changed? && !self.active
+  end
+
   scope :ordered_by_name, ->() { with_translations(I18n.default_locale).order(:name) }
+
+  def self.active
+    where(active: true)
+  end
 
   def self.with_announcements
     joins(:editions).where("editions.type" => Announcement.sti_names,

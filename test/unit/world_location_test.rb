@@ -220,4 +220,87 @@ class WorldLocationTest < ActiveSupport::TestCase
     assert geographic.include?(overseas_territory)
     refute geographic.include?(international_delegation)
   end
+
+  test 'adds world location to search index on creating if it is active' do
+    active_location = build(:world_location, active: true)
+
+    search_index_data = stub('search index data')
+    active_location.stubs(:search_index).returns(search_index_data)
+    Rummageable.expects(:index).with(search_index_data, Whitehall.government_search_index_path)
+
+    active_location.save
+  end
+
+  test 'does not add world location to search index on creating if it is not active' do
+    inactive_location = build(:world_location, active: false)
+
+    search_index_data = stub('search index data')
+    inactive_location.stubs(:search_index).returns(search_index_data)
+    Rummageable.expects(:index).with(search_index_data, Whitehall.government_search_index_path).never
+
+    inactive_location.save
+  end
+
+  test 'adds world location to search index on updating if it is active' do
+    active_location = create(:world_location, active: true)
+
+    search_index_data = stub('search index data')
+    active_location.stubs(:search_index).returns(search_index_data)
+    Rummageable.expects(:index).with(search_index_data, Whitehall.government_search_index_path)
+
+    active_location.name = 'Hat land'
+    active_location.save
+  end
+
+  test 'does not add world location to search index on updating if it is inactive' do
+    inactive_location = create(:world_location, active: false)
+
+    search_index_data = stub('search index data')
+    inactive_location.stubs(:search_index).returns(search_index_data)
+    Rummageable.expects(:index).with(search_index_data, Whitehall.government_search_index_path).never
+
+    inactive_location.name = 'Hat land'
+    inactive_location.save
+  end
+
+  test 'removes world location from search index on updating if it is becoming inactive' do
+    inactive_location = create(:world_location, active: true)
+
+    search_index_data = stub('search index data')
+    inactive_location.stubs(:search_index).returns(search_index_data)
+    Rummageable.expects(:delete).with("/government/world/#{inactive_location.slug}", Whitehall.government_search_index_path)
+
+    inactive_location.active = false
+    inactive_location.save
+  end
+
+  test 'removes world location role from search index on destroying if it is active' do
+    active_location = create(:world_location, active: true)
+    Rummageable.expects(:delete).with("/government/world/#{active_location.slug}", Whitehall.government_search_index_path)
+    active_location.destroy
+  end
+
+  test 'removes world location role from search index on destroying if it is inactive' do
+    inactive_location = create(:world_location, active: false)
+    Rummageable.expects(:delete).with("/government/world/#{inactive_location.slug}", Whitehall.government_search_index_path)
+    inactive_location.destroy
+  end
+
+  test 'search index data for a world locaiton includes name, mission statement, the correct link and format' do
+    location = build(:world_location, name: 'hat land', slug: 'hat-land', mission_statement: 'helping people in hat land find out about other clothing')
+
+    assert_equal({'title' => location.name,
+                  'link' => '/government/world/hat-land',
+                  'indexable_content' => 'helping people in hat land find out about other clothing',
+                  'format' => 'world_location',
+                  'description' => ''}, location.search_index)
+  end
+
+  test 'search index includes data for all active locations' do
+    active_location = create(:world_location, name: 'hat land', mission_statement: 'helping people in hat land find out about other clothing', active: true)
+    active_location = create(:world_location, name: 'sheep land', mission_statement: 'helping people in sheep land find out about other animals', active: false)
+
+    assert_equal 1, WorldLocation.search_index.to_a.length
+    assert_equal ['/government/world/hat-land'], WorldLocation.search_index.map {|search_data| search_data['link']}
+  end
 end
