@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130320174658) do
+ActiveRecord::Schema.define(:version => 20130322171426) do
 
   create_table "access_and_opening_times", :force => true do |t|
     t.text     "body"
@@ -540,7 +540,7 @@ ActiveRecord::Schema.define(:version => 20130320174658) do
   create_table "html_versions", :force => true do |t|
     t.integer  "edition_id"
     t.string   "title"
-    t.text     "body"
+    t.text     "body",       :limit => 2147483647
     t.string   "slug"
     t.datetime "created_at"
     t.datetime "updated_at"
