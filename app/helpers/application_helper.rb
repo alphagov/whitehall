@@ -194,7 +194,7 @@ module ApplicationHelper
   end
 
   def main_navigation_documents_class
-    document_paths = [publications_path, consultations_path, announcements_path]
+    document_paths = [publications_path, consultations_path, announcements_path, publications_path(publication_filter_option: 'consultations'), publications_path(publication_filter_option: 'statistics')]
     if document_paths.include? current_main_navigation_path(params)
       "current"
     else
@@ -212,14 +212,14 @@ module ApplicationHelper
       end
     when "site"
       root_path
-    when "announcements", "news_articles", "speeches"
+    when "announcements", "news_articles", "speeches", "fatality_notices", "operational_fields"
       announcements_path
-    when "topics"
+    when "topics", "classifications", "topical_events"
       topics_path
-    when "publications"
+    when "publications", "statistical_data_sets"
       if parameters[:publication_filter_option] == 'consultations'
         publications_path(publication_filter_option: 'consultations')
-      elsif parameters[:publication_filter_option] == 'statistics'
+      elsif parameters[:publication_filter_option] == 'statistics' or parameters[:controller] == 'statistical_data_sets'
         publications_path(publication_filter_option: 'statistics')
       else
         publications_path
@@ -228,11 +228,17 @@ module ApplicationHelper
       publications_path(publication_filter_option: 'consultations')
     when "ministerial_roles"
       ministerial_roles_path
-    when "organisations", "corporate_information_pages"
+    when "organisations", "groups"
       organisations_path
-    when "world_locations", "worldwide_priorities"
+    when "corporate_information_pages"
+      if parameters.has_key?(:worldwide_organisation_id)
+        world_locations_path
+      else
+        organisations_path
+      end
+    when "world_locations", "worldwide_priorities", "world_location_news_articles", "worldwide_organisations"
       world_locations_path
-    when "policies", "supporting_pages"
+    when "policies", "supporting_pages", "policy_advisory_groups", "policy_teams"
       policies_path
     end
   end
