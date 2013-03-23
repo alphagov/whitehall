@@ -280,15 +280,11 @@ sk:
       what_we_do:
   world_location:
     type:
-      country:
-        one:
-        few:
-        other:
       international_delegation:
         one:
         few:
         other:
-      overseas_territory:
+      world_location:
         one:
         few:
         other:

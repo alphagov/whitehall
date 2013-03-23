@@ -11,8 +11,8 @@ class WorldLocationsControllerTest < ActionController::TestCase
   should_show_published_documents_associated_with :world_location, :worldwide_priorities
 
   view_test "index should display a list of world locations" do
-    bat = create(:overseas_territory, name: "British Antarctic Territory")
-    png = create(:country, name: "Papua New Guinea")
+    bat = create(:world_location, name: "British Antarctic Territory")
+    png = create(:world_location, name: "Papua New Guinea")
 
     get :index
 
@@ -203,7 +203,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
   end
 
   view_test "should display translated page labels when requested in a different locale" do
-    world_location = create(:country, translated_into: [:fr])
+    world_location = create(:world_location, translated_into: [:fr])
 
     create(:published_worldwide_priority, world_locations: [world_location], translated_into: [:fr])
     create(:published_publication, world_locations: [world_location], translated_into: [:fr])
@@ -211,14 +211,14 @@ class WorldLocationsControllerTest < ActionController::TestCase
 
     get :show, id: world_location, locale: 'fr'
 
-    assert_select ".type", "Pays"
+    assert_select ".type", "Localisation"
     assert_select "#worldwide-priorities", /Priorités/
     assert_select "#policies .see-all a", /Voir tous nos priorités politiques/
     assert_select "#publications .see-all a", /Voir tous nos publications/
   end
 
   test "should only display translated priorities when requested for a locale" do
-    world_location = create(:country, translated_into: [:fr])
+    world_location = create(:world_location, translated_into: [:fr])
 
     translated_priority = create(:published_worldwide_priority, world_locations: [world_location], translated_into: [:fr])
     untranslated_priority = create(:published_worldwide_priority, world_locations: [world_location])
@@ -229,7 +229,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
   end
 
   test "should only display translated announcements when requested for a locale" do
-    world_location = create(:country, translated_into: [:fr])
+    world_location = create(:world_location, translated_into: [:fr])
 
     translated_speech = create(:published_speech, world_locations: [world_location], translated_into: [:fr])
     untranslated_speech = create(:published_speech, world_locations: [world_location])
@@ -240,7 +240,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
   end
 
   test "should only display translated publications when requested for a locale" do
-    world_location = create(:country, translated_into: [:fr])
+    world_location = create(:world_location, translated_into: [:fr])
 
     translated_publication = create(:published_publication, world_locations: [world_location], translated_into: [:fr])
     untranslated_publication = create(:published_publication, world_locations: [world_location])
@@ -251,7 +251,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
   end
 
   test "should only display translated statistics when requested for a locale" do
-    world_location = create(:country, translated_into: [:fr])
+    world_location = create(:world_location, translated_into: [:fr])
 
     translated_statistics = create(:published_statistics, world_locations: [world_location], translated_into: [:fr])
     untranslated_statistics = create(:published_statistics, world_locations: [world_location])
@@ -262,7 +262,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
   end
 
   test "should only display translated policies when requested for a locale" do
-    world_location = create(:country, translated_into: [:fr])
+    world_location = create(:world_location, translated_into: [:fr])
 
     translated_policy = create(:published_policy, world_locations: [world_location], translated_into: [:fr])
     untranslated_policy = create(:published_policy, world_locations: [world_location])
@@ -273,7 +273,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
   end
 
   test "should only display translated featured editions when requested for a locale" do
-    world_location = create(:country, translated_into: [:fr])
+    world_location = create(:world_location, translated_into: [:fr])
 
     translated_edition = create(:published_news_article, translated_into: [:fr])
     untranslated_edition = create(:published_publication)
@@ -286,7 +286,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
   end
 
   test "should only display translated recently updated editions when requested for a locale" do
-    world_location = create(:country, translated_into: [:fr])
+    world_location = create(:world_location, translated_into: [:fr])
 
     translated_publication = create(:published_publication, world_locations: [world_location], translated_into: [:fr])
     untranslated_publication = create(:published_publication, world_locations: [world_location])

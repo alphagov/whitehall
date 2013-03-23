@@ -338,17 +338,12 @@ ru:
       what_we_do:
   world_location:
     type:
-      country:
-        one:
-        few:
-        many:
-        other:
       international_delegation:
         one:
         few:
         many:
         other:
-      overseas_territory:
+      world_location:
         one:
         few:
         many:

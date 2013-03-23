@@ -1,5 +1,5 @@
 puts "Adding Chad and Mauritania to WorldLocations."
-country_type = WorldLocationType::Country
+country_type = WorldLocationType::WorldLocation
 WorldLocation.create(name: 'Chad', title: 'UK in Chad', iso2: 'td', world_location_type: country_type)
 WorldLocation.create(name: 'Mauritania', title: 'UK in Mauritania', iso2: 'mr', world_location_type: country_type)
 

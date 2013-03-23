@@ -222,15 +222,12 @@ fr:
       what_we_do:
   world_location:
     type:
-      country:
-        one: Pays
-        other: Pays
       international_delegation:
         one: Délégation internationale
         other: Délégations internationales
-      overseas_territory:
-        one: Territoire d'outre-mer
-        other: Territoires d'outre-mer
+      world_location:
+        one: Localisation
+        other: Localisations
     headings:
       announcements: Nos annonces
       country: Pays

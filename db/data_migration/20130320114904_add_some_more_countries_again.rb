@@ -27,7 +27,7 @@ created = []
 ].each do |country_details|
   lines += 1
   name, slug, iso2 = *country_details
-  country = WorldLocation.new(name: name, iso2: iso2, title: "UK in #{name}", world_location_type: WorldLocationType::Country)
+  country = WorldLocation.new(name: name, iso2: iso2, title: "UK in #{name}", world_location_type: WorldLocationType::WorldLocation)
   country.save
   if country.persisted?
     country.update_column(:slug, slug)

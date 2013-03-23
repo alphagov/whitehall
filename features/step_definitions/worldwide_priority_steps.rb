@@ -9,7 +9,7 @@ Given /^a published worldwide priority "([^"]*)" exists$/ do |title|
   create(:published_worldwide_priority, title: title)
 end
 
-Given /^a published worldwide priority "([^"]*)" exists relating to the (?:country|overseas territory|international delegation) "([^"]*)"$/ do |title, world_location_name|
+Given /^a published worldwide priority "([^"]*)" exists relating to the (?:world location|international delegation) "([^"]*)"$/ do |title, world_location_name|
   world_location = WorldLocation.find_by_name!(world_location_name)
   create(:published_worldwide_priority, title: title, world_locations: [world_location])
 end

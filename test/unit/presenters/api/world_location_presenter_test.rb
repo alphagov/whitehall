@@ -2,7 +2,7 @@ require 'test_helper'
 
 class Api::WorldLocationPresenterTest < PresenterTestCase
   setup do
-    @location = stub_record(:world_location, world_location_type: WorldLocationType::Country)
+    @location = stub_record(:world_location, world_location_type: WorldLocationType::WorldLocation)
     @presenter = Api::WorldLocationPresenter.decorate(@location)
     stubs_helper_method(:params).returns(format: :json)
   end

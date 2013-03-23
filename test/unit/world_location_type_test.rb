@@ -12,6 +12,6 @@ class WorldLocationTypeTest < ActiveSupport::TestCase
   end
 
   test 'we can find those types that are geographic' do
-    assert_equal [WorldLocationType::Country, WorldLocationType::OverseasTerritory], WorldLocationType.geographic
+    assert_equal [WorldLocationType::WorldLocation], WorldLocationType.geographic
   end
 end

@@ -1,11 +1,11 @@
 lines = 0
 created = []
 [
-  ['Bermuda', WorldLocationType::Country, 'bm'],
-  ['Burundi', WorldLocationType::Country, 'bi'],
-  ['El Salvador', WorldLocationType::Country, 'sv'],
-  ['Falkland Islands', WorldLocationType::OverseasTerritory, 'fk'],
-  ['Guinea', WorldLocationType::Country, 'gn'],
+  ['Bermuda', WorldLocationType::WorldLocation, 'bm'],
+  ['Burundi', WorldLocationType::WorldLocation, 'bi'],
+  ['El Salvador', WorldLocationType::WorldLocation, 'sv'],
+  ['Falkland Islands', WorldLocationType::WorldLocation, 'fk'],
+  ['Guinea', WorldLocationType::WorldLocation, 'gn'],
   ['UK Mission to the United Nations, New York', WorldLocationType::InternationalDelegation],
   ['UK Delegation to Council of Europe', WorldLocationType::InternationalDelegation],
   ['The UK Permanent Delegation to the OECD (Organisation for Economic Co-operation and Development)', WorldLocationType::InternationalDelegation],
@@ -18,9 +18,9 @@ created = []
   lines += 1
   name, type, iso2 = *new_world_location
   wl = WorldLocation.new(name: name, world_location_type: type)
-  wl.iso2 = iso2 if [WorldLocationType::Country, WorldLocationType::OverseasTerritory].include? type
+  wl.iso2 = iso2 if [WorldLocationType::WorldLocation].include? type
   wl.title =
-    if [WorldLocationType::Country, WorldLocationType::OverseasTerritory].include? type
+    if [WorldLocationType::WorldLocation].include? type
       'UK in '+name
     else
       name

@@ -5,7 +5,7 @@ class Contact < ActiveRecord::Base
   has_many :contact_numbers, dependent: :destroy
   belongs_to :country, class_name: "WorldLocation",
     foreign_key: :country_id,
-    conditions: { "world_locations.world_location_type_id" => WorldLocationType::Country.id }
+    conditions: { "world_locations.world_location_type_id" => WorldLocationType::WorldLocation.id }
 
   validates :title, presence: true
   validates :contact_form_url, url: true, allow_blank: true

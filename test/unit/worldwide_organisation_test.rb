@@ -16,8 +16,8 @@ class WorldwideOrganisationTest < ActiveSupport::TestCase
 
   test 'can be associated with multiple world locations' do
     countries = [
-      create(:country, name: 'France'),
-      create(:country, name: 'Spain')
+      create(:world_location, name: 'France'),
+      create(:world_location, name: 'Spain')
     ]
     worldwide_organisation = create(:worldwide_organisation, name: 'Office Name', world_locations: countries)
 

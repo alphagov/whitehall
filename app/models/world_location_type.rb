@@ -16,10 +16,9 @@ class WorldLocationType
   end
 
   def self.geographic
-    [Country, OverseasTerritory]
+    [WorldLocation]
   end
 
-  Country = create( id: 1, key: "country", name: "Country", sort_order: 0 )
-  OverseasTerritory = create( id: 2, key: "overseas_territory", name: "Overseas territory", sort_order: 1 )
+  WorldLocation = create( id: 1, key: "world_location", name: "World location", sort_order: 0 )
   InternationalDelegation = create( id: 3, key: "international_delegation", name: "International delegation", sort_order: 2 )
 end

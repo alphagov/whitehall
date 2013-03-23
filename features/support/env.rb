@@ -41,7 +41,7 @@ rescue NameError
 end
 
 Before do
-  create(:country, name: "United Kingdom", iso2: "GB")
+  create(:world_location, name: "United Kingdom", iso2: "GB")
 end
 
 # You may also want to configure DatabaseCleaner to use different strategies for certain features and scenarios.

@@ -51,7 +51,7 @@ Feature: World location news for people local to countries
 
   @not-quite-as-fake-search
   Scenario: Associate a world location news article with a world location
-    Given a country "Indonesia" exists
+    Given a world location "Indonesia" exists
     When I draft a valid world location news article "Indonesian Beer"
     Then I should be able to associate "Indonesian Beer" with the world location "Indonesia"
     When I force publish the world location news article "Indonesian Beer"

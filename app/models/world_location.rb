@@ -86,7 +86,7 @@ class WorldLocation < ActiveRecord::Base
   end
 
   def self.countries
-    where(world_location_type_id: WorldLocationType::Country.id).ordered_by_name
+    where(world_location_type_id: WorldLocationType::WorldLocation.id).ordered_by_name
   end
 
   def self.geographical
