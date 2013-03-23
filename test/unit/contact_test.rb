@@ -24,7 +24,7 @@ class ContactTest < ActiveSupport::TestCase
   end
 
   test "should be invalid with only country but no street address" do
-    country = create(:country)
+    country = create(:world_location)
     contact = build(:contact,
       recipient: "",
       street_address: "",
@@ -49,7 +49,7 @@ class ContactTest < ActiveSupport::TestCase
   end
 
   test "should be valid with only street address and country" do
-    country = create(:country)
+    country = create(:world_location)
     contact = build(:contact,
       recipient: "",
       street_address: "123 Acacia avenue",
@@ -61,12 +61,12 @@ class ContactTest < ActiveSupport::TestCase
   end
 
   test "should return a country code" do
-    contact = build(:contact, country: build(:country, iso2: 'GB'))
+    contact = build(:contact, country: build(:world_location, iso2: 'GB'))
     assert_equal 'GB', contact.country_code
   end
 
   test "should return a country name" do
-    contact = build(:contact, country: build(:country, name: 'United Kingdom'))
+    contact = build(:contact, country: build(:world_location, name: 'United Kingdom'))
     assert_equal 'United Kingdom', contact.country_name
   end
 

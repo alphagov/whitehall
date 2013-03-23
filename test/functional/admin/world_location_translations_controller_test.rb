@@ -4,7 +4,7 @@ require "test_helper"
 class Admin::WorldLocationTranslationsControllerTest < ActionController::TestCase
   setup do
     login_as :policy_writer
-    @location = create(:country, name: 'Afrolasia', mission_statement: 'Teaching the people how to brew tea')
+    @location = create(:world_location, name: 'Afrolasia', mission_statement: 'Teaching the people how to brew tea')
 
     Locale.stubs(:non_english).returns([
       Locale.new(:fr), Locale.new(:es)

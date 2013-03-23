@@ -30,7 +30,7 @@ class WorldLocationTest < ActiveSupport::TestCase
   end
 
   test "has name of it's world location type as display type" do
-    world_location_type = WorldLocationType::Country
+    world_location_type = WorldLocationType::WorldLocation
     world_location_type.stubs(:name).returns('The Moon')
     world_location = build(:world_location, world_location_type: world_location_type)
     assert_equal "The Moon", world_location.display_type
@@ -80,25 +80,25 @@ class WorldLocationTest < ActiveSupport::TestCase
   end
 
   test "all_by_type should group world locations by type sorting the types by their sort order" do
-    territory_type = WorldLocationType::OverseasTerritory
-    country_type = WorldLocationType::Country
+    world_location_type = WorldLocationType::WorldLocation
+    delegation_type = WorldLocationType::InternationalDelegation
 
-    location_1 = create(:world_location, world_location_type: territory_type)
-    location_2 = create(:world_location, world_location_type: country_type)
-    location_3 = create(:world_location, world_location_type: country_type)
+    location_1 = create(:world_location, world_location_type: world_location_type)
+    location_2 = create(:world_location, world_location_type: delegation_type)
+    location_3 = create(:world_location, world_location_type: delegation_type)
 
-    assert_equal [ [country_type, [location_2, location_3]] , [territory_type, [location_1]] ], WorldLocation.all_by_type
+    assert_equal [ [world_location_type, [location_1]] , [delegation_type, [location_2, location_3]] ], WorldLocation.all_by_type
   end
 
   test "all_by_type should group world locations by type sorting the locations by their name" do
-    territory_type = WorldLocationType::OverseasTerritory
-    country_type = WorldLocationType::Country
+    world_location_type = WorldLocationType::WorldLocation
+    delegation_type = WorldLocationType::InternationalDelegation
 
-    location_1 = create(:world_location, world_location_type: territory_type, name: 'Neverland')
-    location_2 = create(:world_location, world_location_type: country_type, name: 'Narnia')
-    location_3 = create(:world_location, world_location_type: country_type, name: 'Middle Earth')
+    location_1 = create(:world_location, world_location_type: delegation_type, name: 'Neverland')
+    location_2 = create(:world_location, world_location_type: world_location_type, name: 'Narnia')
+    location_3 = create(:world_location, world_location_type: world_location_type, name: 'Middle Earth')
 
-    assert_equal [ [country_type, [location_3, location_2]] , [territory_type, [location_1]] ], WorldLocation.all_by_type
+    assert_equal [ [world_location_type, [location_3, location_2]] , [delegation_type, [location_1]] ], WorldLocation.all_by_type
   end
 
   test '#featured_edition_world_locations should return editions featured against this world_location' do
@@ -200,24 +200,20 @@ class WorldLocationTest < ActiveSupport::TestCase
   end
 
   test 'we can find those that are countries' do
-    country = create(:country)
-    overseas_territory = create(:overseas_territory)
+    country = create(:world_location)
     international_delegation = create(:international_delegation)
 
     countries = WorldLocation.countries
     assert countries.include?(country)
-    refute countries.include?(overseas_territory)
     refute countries.include?(international_delegation)
   end
 
   test 'we can find those that represent something geographic (if not neccessarily a country)' do
-    country = create(:country)
-    overseas_territory = create(:overseas_territory)
+    country = create(:world_location)
     international_delegation = create(:international_delegation)
 
     geographic = WorldLocation.geographical
     assert geographic.include?(country)
-    assert geographic.include?(overseas_territory)
     refute geographic.include?(international_delegation)
   end
 

@@ -46,7 +46,7 @@ Feature: Speed tagging editions
     And I should be able to set the delivered date of the speech
 
   Scenario: Speed tagging shows world locations when relevant
-    Given a country "Uganda" exists
+    Given a world location "Uganda" exists
     When I go to speed tag a newly imported speech "Speech about Uganda"
     Then I should be able to select the world location "Uganda"
 

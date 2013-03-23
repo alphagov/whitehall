@@ -79,7 +79,7 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
   end
 
   test "if access is not limited, edition is only accessible to a world user if it's about their location, regardless of org" do
-    loc_1, loc_2 = build(:country), build(:country)
+    loc_1, loc_2 = build(:world_location), build(:world_location)
     organisation = build(:organisation)
 
     editor_in_loc_1 = build(:world_editor, world_locations: [loc_1], organisation: organisation)
@@ -97,7 +97,7 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
   end
 
   test "if access is limited, edition is only accessible to a world user if it's about their location AND their org" do
-    loc_1, loc_2 = build(:country), build(:country)
+    loc_1, loc_2 = build(:world_location), build(:world_location)
     org_1, org_2 = build(:organisation), build(:organisation)
 
     editor_in_org_1_loc_1 = build(:world_editor, world_locations: [loc_1], organisation: org_1)
@@ -120,7 +120,7 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
 
   test "can select all editions accessible to a particular world user, respecting access_limit, org and location" do
     my_organisation, other_organisation = create(:organisation), create(:organisation)
-    my_location, other_location = create(:country), create(:country)
+    my_location, other_location = create(:world_location), create(:world_location)
     user = create(:world_writer, organisation: my_organisation, world_locations: [my_location])
     accessible = [
       create(:draft_publication, access_limited: false, world_locations: [my_location]),

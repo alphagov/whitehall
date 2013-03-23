@@ -145,8 +145,8 @@ module DocumentControllerTestHelpers
 
     def should_show_the_world_locations_associated_with(document_type)
       view_test "should display the world locations associated with this #{document_type}" do
-        first_location = create(:country)
-        second_location = create(:overseas_territory)
+        first_location = create(:world_location)
+        second_location = create(:world_location)
         third_location = create(:international_delegation)
         edition = create("published_#{document_type}", world_locations: [first_location, second_location])
 

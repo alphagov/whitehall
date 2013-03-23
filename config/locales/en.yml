@@ -249,15 +249,12 @@ en:
       statistics: Our statistics
     see_all: See all our %{type}
     type:
-      country:
-        one: Country
-        other: Countries
       international_delegation:
         one: International delegation
         other: International delegations
-      overseas_territory:
-        one: Overseas territory
-        other: Overseas territories
+      world_location:
+        one: World location
+        other: World locations
   worldwide_organisation:
     find_out_more: See full profile and all contact details
     part_of: Part of

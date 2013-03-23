@@ -13,8 +13,8 @@ class Whitehall::Uploader::Finders::WorldLocationsFinderTest < ActiveSupport::Te
   end
 
   test "returns an array of countries" do
-    world_location_1 = create(:country)
-    world_location_2 = create(:overseas_territory)
+    world_location_1 = create(:world_location)
+    world_location_2 = create(:world_location)
     world_location_3 = create(:international_delegation)
     assert_equal [world_location_1, world_location_2, world_location_3], Whitehall::Uploader::Finders::WorldLocationsFinder.find(world_location_1.slug, world_location_2.slug, world_location_3.slug, @log, @line_number)
   end

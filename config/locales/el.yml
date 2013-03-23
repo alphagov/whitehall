@@ -222,13 +222,10 @@ el:
       what_we_do:
   world_location:
     type:
-      country:
-        one:
-        other:
       international_delegation:
         one:
         other:
-      overseas_territory:
+      world_location:
         one:
         other:
     headings:

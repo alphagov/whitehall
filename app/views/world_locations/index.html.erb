@@ -19,7 +19,7 @@
           <p><span class="js-filter-count"><%= locations.length %></span> <span class="visuallyhidden">locations</span></p>
         </header>
         <div class="content">
-          <% if type === WorldLocationType::Country %>
+          <% if type === WorldLocationType::WorldLocation %>
             <% locations.group_by {|location| location.name.first.upcase }.sort.each do |letter, locations| %>
               <div class="js-filter-block">
                 <h2 class="letter"><%= letter %></h2>
@@ -51,4 +51,3 @@
     </div>
   </div>
 </div>
-
