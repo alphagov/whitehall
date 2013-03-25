@@ -311,7 +311,7 @@ bg:
       long_ordinal:
   worldwide_organisation:
     corporate_information:
-      personal_information_charter_html: Нашият (link) дава информация за начина на
+      personal_information_charter_html: Нашият %{link} дава информация за начина на
         ползване на личните Ви данни
       publication_scheme_html: Прочетете какви видове информация публикуваме в нашия
         %{link}.
