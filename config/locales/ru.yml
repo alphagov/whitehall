@@ -1,10 +1,382 @@
 ru:
+  document:
+    headings:
+      attachments:
+        one:
+        few:
+        many:
+        other:
+      ministers:
+        one: Министр
+        few:
+        many:
+        other: Министры
+      organisations:
+        one:
+        few:
+        many:
+        other:
+      policies:
+        one: Стратегия
+        few:
+        many:
+        other: Стратегии
+      supporting_documents:
+        one:
+        few:
+        many:
+        other:
+      topics:
+        one: Тема
+        few:
+        many:
+        other: Темы
+      world_locations:
+        one: Представительство по миру
+        few:
+        many:
+        other: Представительства по миру
+      worldwide_organisations:
+        one: Всемирная организация
+        few:
+        many:
+        other: Всемираные организации
+      advisory_groups: Консультативные группы
+      applies_to_nations: Применимо к
+      document_series: Серии
+      field_of_operation: Сфера деятельности
+      live_data: Обновленная информация
+      policy_team: Команда стратегического планирования
+    type:
+      announcement:
+        one: Объявление
+        few:
+        many:
+        other: Объявления
+      case_study:
+        one: Ситуационный анализ
+        few:
+        many:
+        other: Ситуационные анализы
+      closed_consultation:
+        one: Закрытая консультация
+        few:
+        many:
+        other: Закрытые консультации
+      consultation:
+        one: Консультация
+        few:
+        many:
+        other: Консультации
+      consultation_outcome:
+        one: Результат консультаци
+        few:
+        many:
+        other: Результаты консультаций
+      corporate_report:
+        one: Корпоративный отчет
+        few:
+        many:
+        other: Корпоративные отчеты
+      correspondence:
+        one: Корреспонденция
+        few:
+        many:
+        other: Корреспонденция
+      detailed_guidance:
+        one: Подробное руководство
+        few:
+        many:
+        other: Подробное руководство
+      draft_text:
+        one: Проект текста
+        few:
+        many:
+        other: Проект текстов
+      fatality_notice:
+        one: Уведомление о несчастном случае
+        few:
+        many:
+        other: Уведомления о несчастных случаях
+      foi_release:
+        one: Свобода распространения информации релиз
+        few:
+        many:
+        other: Свобода распространения информации релизы
+      form:
+        one: Форма
+        few:
+        many:
+        other: Формы
+      guidance:
+        one: Руководство
+        few:
+        many:
+        other: Руководство
+      impact_assessment:
+        one: Оценка воздействия
+        few:
+        many:
+        other: Оценки воздействия
+      imported:
+        one: импортировано - тип ожидания
+        few:
+        many:
+        other: импортировано - тип ожидания
+      independent_report:
+        one: Независимый отчет
+        few:
+        many:
+        other: Независимые отчеты
+      map:
+        one: Карта
+        few:
+        many:
+        other: Карты
+      national_statistics:
+        one: Статистика - национальная статистика
+        few:
+        many:
+        other: Статистика - национальная статистика
+      news_article:
+        one: Новостная статья
+        few:
+        many:
+        other: Новостные статьи
+      news_story:
+        one: Новостная заметка
+        few:
+        many:
+        other: Новостные заметки
+      open_consultation:
+        one: Открытая консультация
+        few:
+        many:
+        other: Открытые консультации
+      oral_statement:
+        one: Устное заявление парламенту
+        few:
+        many:
+        other: Устные заявления парламенту
+      policy:
+        one: Политика
+        few:
+        many:
+        other: Политика
+      policy_paper:
+        one: Директивный документ
+        few:
+        many:
+        other: Директивные документы
+      press_release:
+        one: Пресс-релиз
+        few:
+        many:
+        other: Пресс-релизы
+      promotional:
+        one: Рекламный материал
+        few:
+        many:
+        other: Рекламные материалы
+      publication:
+        one: Публикация
+        few:
+        many:
+        other: Публикации
+      rebuttal:
+        one: Опровержение
+        few:
+        many:
+        other: Опровержения
+      research:
+        one: Исследования и аналитика
+        few:
+        many:
+        other: Исследования и аналитика
+      speaking_notes:
+        one: Памятная записка
+        few:
+        many:
+        other: Памятная записка
+      speech:
+        one: Текст выступления
+        few:
+        many:
+        other: Тексты выступлений
+      statement_to_parliament:
+        one: Заявление парламенту
+        few:
+        many:
+        other: Заявления парламенту
+      statistical_data_set:
+        one: Набор статистических данных
+        few:
+        many:
+        other: Наборы статистических данных
+      statistics:
+        one: Статистика
+        few:
+        many:
+        other: Статистика
+      transcript:
+        one: Текст
+        few:
+        many:
+        other: Тексты
+      transparency:
+        one: Прозрачность данных
+        few:
+        many:
+        other: Прозрачность данных
+      world_location_news_article:
+        one:
+        few:
+        many:
+        other:
+      worldwide_priority:
+        one: Мировой приоритет
+        few:
+        many:
+        other: Мировые приоритеты
+      written_statement:
+        one: Письменное заявление парламенту
+        few:
+        many:
+        other: Письменные заявления парламенту
+    published: Опубликовано
+    read: Прочитать статью %{title}
+    speech:
+      delivered_on: Представлено в
+      delivery_title:
+        minister: Министр
+        speaker: Докладчик
+      originally_given_at: Источник %{location}
+    updated: обновлено
+    view:
+  organisation:
+    type:
+      Ad-hoc advisory group:
+        one: Специальная консультативная группа
+        few:
+        many:
+        other: Специальные консультативные группы
+      Advisory non-departmental public body:
+        one: Консультативный вневедомственный государственный орган
+        few:
+        many:
+        other: Консультативные вневедомственные государственные органы
+      Executive agency:
+        one: Исполнительный орган
+        few:
+        many:
+        other: Исполнительные органы
+      Executive non-departmental public body:
+        one: Исполнительный вневедомственный государственный орган
+        few:
+        many:
+        other: Исполнительные вневедомственные государственные органы
+      Independent monitoring body:
+        one: Независимый наблюдательный орган
+        few:
+        many:
+        other: Независимые наблюдательные органы
+      Ministerial department:
+        one: Управление министерства
+        few:
+        many:
+        other: Управления министерства
+      Non-ministerial department:
+        one: Неправительственный департамент
+        few:
+        many:
+        other: Неправительственные департаменты
+      Other:
+        one: Другое
+        few:
+        many:
+        other: Другие
+      Public corporation:
+        one: Государственная корпорация
+        few:
+        many:
+        other: Государственные корпорации
+      Sub-organisation:
+        one: Суб-организация
+        few:
+        many:
+        other: Суб-организации
+      Tribunal non-departmental public body:
+        one: Арбитражный вневедомственный государственный орган
+        few:
+        many:
+        other: Арбитражные вневедомственные государственные органы
+    about:
+      read_more:
+    corporate_information:
+      access_our_info:
+      foi_how_to:
+      foi_releases:
+      jobs_and_contacts:
+      transparency:
+    headings:
+      chief_professional_officers:
+      contact:
+      corporate_information:
+      corporate_reports:
+      our_announcements:
+      our_management:
+      our_ministers:
+      our_policies:
+      our_publications:
+      our_senior_military_officials:
+      our_services:
+      our_statistics:
+      our_topics:
+      plus_others:
+      special_representatives:
+      traffic_commissioners:
+      what_we_do:
+  world_location:
+    type:
+      international_delegation:
+        one: Международное представительство
+        few:
+        many:
+        other: Международные представительства
+      world_location:
+        one:
+        few:
+        many:
+        other:
+    headings:
+      announcements: Наши объявления
+      country: Страна
+      documents: Документы
+      mission: Наша цель
+      organisations: Организации
+      priorities: Приоритеты
+      publications: Наши публикации
+      quick_links: Быстрые ссылки
+      related_policies: Публикации на схожие темы
+      see_all: Посмотреть все наши %{type}
+      statistics: Наша статистика
+    see_all: Посмотреть все наши %{type}
   activerecord:
     attributes:
       detailed_guide:
         primary_mainstream_category: Основная категория подробной инструкции
   announcements:
     heading: Объявление
+  attachment:
+    accessibility:
+      full_help_html:
+      heading:
+      request_a_different_format:
+    headings:
+      order_a_copy:
+      order_a_copy_full:
+      published:
+      reference:
   change_notes:
     published: Опубликовано
     updated: Обновлено
@@ -20,154 +392,6 @@ ru:
     formats:
       default:
       long_ordinal:
-  document:
-    headings:
-      advisory_groups: Консультативные группы
-      applies_to_nations: Применимо к
-      document_series: Серии
-      field_of_operation: Сфера деятельности
-      live_data: Обновленная информация
-      ministers:
-        one: Министр
-        other: Министры
-      policies:
-        one: Стратегия
-        other: Стратегии
-      policy_team: Команда стратегического планирования
-      topics:
-        one: Тема
-        other: Темы
-      world_locations:
-        one: Представительство по миру
-        other: Представительства по миру
-      worldwide_organisations:
-        one: Всемирная организация
-        other: Всемираные организации
-    published: Опубликовано
-    read: Прочитать статью %{title}
-    speech:
-      delivered_on: Представлено в
-      delivery_title:
-        minister: Министр
-        speaker: Докладчик
-      originally_given_at: Источник %{location}
-    type:
-      announcement:
-        one: Объявление
-        other: Объявления
-      case_study:
-        one: Ситуационный анализ
-        other: Ситуационные анализы
-      closed_consultation:
-        one: Закрытая консультация
-        other: Закрытые консультации
-      consultation:
-        one: Консультация
-        other: Консультации
-      consultation_outcome:
-        one: Результат консультаци
-        other: Результаты консультаций
-      corporate_report:
-        one: Корпоративный отчет
-        other: Корпоративные отчеты
-      correspondence:
-        one: Корреспонденция
-        other: Корреспонденция
-      detailed_guidance:
-        one: Подробное руководство
-        other: Подробное руководство
-      draft_text:
-        one: Проект текста
-        other: Проект текстов
-      fatality_notice:
-        one: Уведомление о несчастном случае
-        other: Уведомления о несчастных случаях
-      foi_release:
-        one: Свобода распространения информации релиз
-        other: Свобода распространения информации релизы
-      form:
-        one: Форма
-        other: Формы
-      guidance:
-        one: Руководство
-        other: Руководство
-      impact_assessment:
-        one: Оценка воздействия
-        other: Оценки воздействия
-      imported:
-        one: импортировано - тип ожидания
-        other: импортировано - тип ожидания
-      independent_report:
-        one: Независимый отчет
-        other: Независимые отчеты
-      map:
-        one: Карта
-        other: Карты
-      national_statistics:
-        one: Статистика - национальная статистика
-        other: Статистика - национальная статистика
-      news_article:
-        one: Новостная статья
-        other: Новостные статьи
-      news_story:
-        one: Новостная заметка
-        other: Новостные заметки
-      open_consultation:
-        one: Открытая консультация
-        other: Открытые консультации
-      oral_statement:
-        one: Устное заявление парламенту
-        other: Устные заявления парламенту
-      policy:
-        one: Политика
-        other: Политика
-      policy_paper:
-        one: Директивный документ
-        other: Директивные документы
-      press_release:
-        one: Пресс-релиз
-        other: Пресс-релизы
-      promotional:
-        one: Рекламный материал
-        other: Рекламные материалы
-      publication:
-        one: Публикация
-        other: Публикации
-      rebuttal:
-        one: Опровержение
-        other: Опровержения
-      research:
-        one: Исследования и аналитика
-        other: Исследования и аналитика
-      speaking_notes:
-        one: Памятная записка
-        other: Памятная записка
-      speech:
-        one: Текст выступления
-        other: Тексты выступлений
-      statement_to_parliament:
-        one: Заявление парламенту
-        other: Заявления парламенту
-      statistical_data_set:
-        one: Набор статистических данных
-        other: Наборы статистических данных
-      statistics:
-        one: Статистика
-        other: Статистика
-      transcript:
-        one: Текст
-        other: Тексты
-      transparency:
-        one: Прозрачность данных
-        other: Прозрачность данных
-      worldwide_priority:
-        one: Мировой приоритет
-        other: Мировые приоритеты
-      written_statement:
-        one: Письменное заявление парламенту
-        other: Письменные заявления парламенту
-    updated: обновлено
-    view:
   document_filters:
     description: Чтобы увидеть результаты, соответствующие Вашим интересам, используйте
       фильтры
@@ -192,47 +416,12 @@ ru:
     human:
       storage_units:
         format:
-  organisation:
-    headings:
-      plus_others:
-    type:
-      Ad-hoc advisory group:
-        one: Специальная консультативная группа
-        other: Специальные консультативные группы
-      Advisory non-departmental public body:
-        one: Консультативный вневедомственный государственный орган
-        other: Консультативные вневедомственные государственные органы
-      Executive agency:
-        one: Исполнительный орган
-        other: Исполнительные органы
-      Executive non-departmental public body:
-        one: Исполнительный вневедомственный государственный орган
-        other: Исполнительные вневедомственные государственные органы
-      Independent monitoring body:
-        one: Независимый наблюдательный орган
-        other: Независимые наблюдательные органы
-      Ministerial department:
-        one: Управление министерства
-        other: Управления министерства
-      Non-ministerial department:
-        one: Неправительственный департамент
-        other: Неправительственные департаменты
-      Other:
-        one: Другое
-        other: Другие
-      Public corporation:
-        one: Государственная корпорация
-        other: Государственные корпорации
-      Sub-organisation:
-        one: Суб-организация
-        other: Суб-организации
-      Tribunal non-departmental public body:
-        one: Арбитражный вневедомственный государственный орган
-        other: Арбитражные вневедомственные государственные органы
   policies:
     heading: Политика
   publications:
     heading: Публикации
+    headings:
+      detail:
   read_more: Подробнее
   support:
     array:
@@ -240,30 +429,6 @@ ru:
   time:
     formats:
       long_ordinal:
-  world_location:
-    headings:
-      announcements: Наши объявления
-      country: Страна
-      documents: Документы
-      mission: Наша цель
-      organisations: Организации
-      priorities: Приоритеты
-      publications: Наши публикации
-      quick_links: Быстрые ссылки
-      related_policies: Публикации на схожие темы
-      see_all: Посмотреть все наши %{type}
-      statistics: Наша статистика
-    see_all: Посмотреть все наши %{type}
-    type:
-      country:
-        one: Страна
-        other: Страны
-      international_delegation:
-        one: Международное представительство
-        other: Международные представительства
-      overseas_territory:
-        one: Заграничная территория
-        other: Заграничные территории
   worldwide_organisation:
     corporate_information:
       personal_information_charter_html:

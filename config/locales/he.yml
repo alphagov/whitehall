@@ -1,10 +1,382 @@
 he:
+  document:
+    headings:
+      attachments:
+        one:
+        two:
+        many:
+        other:
+      ministers:
+        one: שר
+        two:
+        many:
+        other: שרים
+      organisations:
+        one:
+        two:
+        many:
+        other:
+      policies:
+        one: מדיניות
+        two:
+        many:
+        other: מדיניות
+      supporting_documents:
+        one:
+        two:
+        many:
+        other:
+      topics:
+        one: נושא
+        two:
+        many:
+        other: נושאים
+      world_locations:
+        one: מיקום עולמי
+        two:
+        many:
+        other: מיקומים עולמיים
+      worldwide_organisations:
+        one: ארגון גלובאלי
+        two:
+        many:
+        other: ארגונים גלובאליים
+      advisory_groups: קבוצות ייעוץ
+      applies_to_nations: מתייחס ל
+      document_series: סדרות
+      field_of_operation: שדה פעולה
+      live_data: מידע פעיל
+      policy_team: תנאי מדיניות
+    type:
+      announcement:
+        one: הודעה
+        two:
+        many:
+        other: הודעות
+      case_study:
+        one: מקרה בוחן
+        two:
+        many:
+        other: מקרי בוחן
+      closed_consultation:
+        one: דיון סגור
+        two:
+        many:
+        other: דיונים סגורים
+      consultation:
+        one: דיון
+        two:
+        many:
+        other: דיונים
+      consultation_outcome:
+        one: תוצאות דיון
+        two:
+        many:
+        other: תוצאות דיונים
+      corporate_report:
+        one: דו"ח משותף
+        two:
+        many:
+        other: דו"חות משותפים
+      correspondence:
+        one: תכתובת
+        two:
+        many:
+        other: תכתובות
+      detailed_guidance:
+        one: מדריך מפורט
+        two:
+        many:
+        other: מדריך מפורט
+      draft_text:
+        one: טיוטה
+        two:
+        many:
+        other: טיוטות
+      fatality_notice:
+        one: הודעת פטירה
+        two:
+        many:
+        other: הודעות פטירה
+      foi_release:
+        one: פרסום חופש מידע
+        two:
+        many:
+        other: פרסומי חופש מידע
+      form:
+        one: טופס
+        two:
+        many:
+        other: טפסים
+      guidance:
+        one: הדרכה
+        two:
+        many:
+        other: הדרכה
+      impact_assessment:
+        one: הערכת השפעה
+        two:
+        many:
+        other: הערכת השפעות
+      imported:
+        one: יבוא- המתנה לסוג
+        two:
+        many:
+        other: יבוא- המתנה לסוג
+      independent_report:
+        one: דו"ח עצמאי
+        two:
+        many:
+        other: דו"ות עצמאיים
+      map:
+        one: מפה
+        two:
+        many:
+        other: מפות
+      national_statistics:
+        one: סטטיסטיקות- סטטיסטיקה לאומית
+        two:
+        many:
+        other: סטטיסטיקות- סטטסטיקה לאומית
+      news_article:
+        one: מאמר חדשות
+        two:
+        many:
+        other: מאמרי חדשות
+      news_story:
+        one: חדשות
+        two:
+        many:
+        other: חדשות
+      open_consultation:
+        one: דיון פתוח
+        two:
+        many:
+        other: דיון פתוח
+      oral_statement:
+        one: הצהרה בעל פה לפרלמנט
+        two:
+        many:
+        other: הצהרות בעל פה לפרלמנט
+      policy:
+        one: מדיניות
+        two:
+        many:
+        other: מדיניות
+      policy_paper:
+        one: נייר מדיניות
+        two:
+        many:
+        other: ניירות מדיניות
+      press_release:
+        one: הודעה לעיתונות
+        two:
+        many:
+        other: הודעות לעיתונות
+      promotional:
+        one: חומר פרסומי
+        two:
+        many:
+        other: חומר פרסומי
+      publication:
+        one: פרסום
+        two:
+        many:
+        other: פרסומים
+      rebuttal:
+        one: סתירה
+        two:
+        many:
+        other: סתירות
+      research:
+        one: מחקר וניתוח
+        two:
+        many:
+        other: מחקר וניתוח
+      speaking_notes:
+        one: נאומים
+        two:
+        many:
+        other: נאומים
+      speech:
+        one: נאום
+        two:
+        many:
+        other: נאומים
+      statement_to_parliament:
+        one: הצהרה לפרלמנט
+        two:
+        many:
+        other: הצהרות לפרלמנט
+      statistical_data_set:
+        one: מידע סטטיסטי
+        two:
+        many:
+        other: מידע סטטיסטי
+      statistics:
+        one: נתונים
+        two:
+        many:
+        other: נתונים
+      transcript:
+        one: תמלול
+        two:
+        many:
+        other: תמלולים
+      transparency:
+        one: שקיפות מידע
+        two:
+        many:
+        other: שקיפות מידע
+      world_location_news_article:
+        one:
+        two:
+        many:
+        other:
+      worldwide_priority:
+        one: עדיפות גלובאלית
+        two:
+        many:
+        other: עדיפות גלובאלית
+      written_statement:
+        one: הצהרה בכתב לפרלמנט
+        two:
+        many:
+        other: הצהרות בכתב לפרלמנט
+    published: פורסם
+    read:
+    speech:
+      delivered_on: ! 'נשלח ב:'
+      delivery_title:
+        minister: שר
+        speaker: דובר
+      originally_given_at:
+    updated: מעודכן
+    view:
+  organisation:
+    type:
+      Ad-hoc advisory group:
+        one: קבוצת ייעוץ אד- הוק
+        two:
+        many:
+        other: קבוצות ייעוץ אד- הוק
+      Advisory non-departmental public body:
+        one: ! ',גוף ייעוץ חוץ- מחלקתי בכיר'
+        two:
+        many:
+        other: ! ',ייעוץ חוץ- מחלקתי של גוף ציבורי'
+      Executive agency:
+        one: סוכנות בכירה
+        two:
+        many:
+        other: סוכנויות בכירות
+      Executive non-departmental public body:
+        one: מחלקת בקרה עצמאית
+        two:
+        many:
+        other: מחלקות בקרה עצמאיות
+      Independent monitoring body:
+        one: גוף בקרה עצמאי
+        two:
+        many:
+        other: גופי בקרה עצמאיים
+      Ministerial department:
+        one: מחלקה מיניסטריאלית
+        two:
+        many:
+        other: מחלקות מיניסטריאליות
+      Non-ministerial department:
+        one: מחלקה לא- מיניסטריאלית
+        two:
+        many:
+        other: מחלקות לא- מיניסטריאליות
+      Other:
+        one: אחר
+        two:
+        many:
+        other: אחרים
+      Public corporation:
+        one: תאגיד ציבורי
+        two:
+        many:
+        other: תאגידים ציבוריים
+      Sub-organisation:
+        one: תת- ארגון
+        two:
+        many:
+        other: תת- ארגונים
+      Tribunal non-departmental public body:
+        one: גוף משפטי חוץ- מחלקתי ציבורי
+        two:
+        many:
+        other: גופים משפטיים חוץ- מחלקתיים ציבוריים
+    about:
+      read_more:
+    corporate_information:
+      access_our_info:
+      foi_how_to:
+      foi_releases:
+      jobs_and_contacts:
+      transparency:
+    headings:
+      chief_professional_officers:
+      contact:
+      corporate_information:
+      corporate_reports:
+      our_announcements:
+      our_management:
+      our_ministers:
+      our_policies:
+      our_publications:
+      our_senior_military_officials:
+      our_services:
+      our_statistics:
+      our_topics:
+      plus_others:
+      special_representatives:
+      traffic_commissioners:
+      what_we_do:
+  world_location:
+    type:
+      international_delegation:
+        one: משלחת בין לאומית
+        two:
+        many:
+        other: משלחות בין לאומיות
+      world_location:
+        one:
+        two:
+        many:
+        other:
+    headings:
+      announcements: ההודעות שלנו
+      country: מדינה
+      documents: מסמכים
+      mission: החזון שלנו
+      organisations: ארגונים
+      priorities: עדיפויות
+      publications: הפרסומים שלנו
+      quick_links: קישורים מהירים
+      related_policies: מדיניות רלוונטית
+      see_all:
+      statistics: הנתונים שלנו
+    see_all:
   activerecord:
     attributes:
       detailed_guide:
         primary_mainstream_category: קטגוריית פרטים ראשית
   announcements:
     heading: הודעות
+  attachment:
+    accessibility:
+      full_help_html:
+      heading:
+      request_a_different_format:
+    headings:
+      order_a_copy:
+      order_a_copy_full:
+      published:
+      reference:
   change_notes:
     published: פורסם
     updated: עודכן
@@ -20,154 +392,6 @@ he:
     formats:
       default:
       long_ordinal:
-  document:
-    headings:
-      advisory_groups: קבוצות ייעוץ
-      applies_to_nations: מתייחס ל
-      document_series: סדרות
-      field_of_operation: שדה פעולה
-      live_data: מידע פעיל
-      ministers:
-        one: שר
-        other: שרים
-      policies:
-        one: מדיניות
-        other: מדיניות
-      policy_team: תנאי מדיניות
-      topics:
-        one: נושא
-        other: נושאים
-      world_locations:
-        one: מיקום עולמי
-        other: מיקומים עולמיים
-      worldwide_organisations:
-        one: ארגון גלובאלי
-        other: ארגונים גלובאליים
-    published: פורסם
-    read:
-    speech:
-      delivered_on: 'נשלח ב:'
-      delivery_title:
-        minister: שר
-        speaker: דובר
-      originally_given_at:
-    type:
-      announcement:
-        one: הודעה
-        other: הודעות
-      case_study:
-        one: מקרה בוחן
-        other: מקרי בוחן
-      closed_consultation:
-        one: דיון סגור
-        other: דיונים סגורים
-      consultation:
-        one: דיון
-        other: דיונים
-      consultation_outcome:
-        one: תוצאות דיון
-        other: תוצאות דיונים
-      corporate_report:
-        one: דו"ח משותף
-        other: דו"חות משותפים
-      correspondence:
-        one: תכתובת
-        other: תכתובות
-      detailed_guidance:
-        one: מדריך מפורט
-        other: מדריך מפורט
-      draft_text:
-        one: טיוטה
-        other: טיוטות
-      fatality_notice:
-        one: הודעת פטירה
-        other: הודעות פטירה
-      foi_release:
-        one: פרסום חופש מידע
-        other: פרסומי חופש מידע
-      form:
-        one: טופס
-        other: טפסים
-      guidance:
-        one: הדרכה
-        other: הדרכה
-      impact_assessment:
-        one: הערכת השפעה
-        other: הערכת השפעות
-      imported:
-        one: יבוא- המתנה לסוג
-        other: יבוא- המתנה לסוג
-      independent_report:
-        one: דו"ח עצמאי
-        other: דו"ות עצמאיים
-      map:
-        one: מפה
-        other: מפות
-      national_statistics:
-        one: סטטיסטיקות- סטטיסטיקה לאומית
-        other: סטטיסטיקות- סטטסטיקה לאומית
-      news_article:
-        one: מאמר חדשות
-        other: מאמרי חדשות
-      news_story:
-        one: חדשות
-        other: חדשות
-      open_consultation:
-        one: דיון פתוח
-        other: דיון פתוח
-      oral_statement:
-        one: הצהרה בעל פה לפרלמנט
-        other: הצהרות בעל פה לפרלמנט
-      policy:
-        one: מדיניות
-        other: מדיניות
-      policy_paper:
-        one: נייר מדיניות
-        other: ניירות מדיניות
-      press_release:
-        one: הודעה לעיתונות
-        other: הודעות לעיתונות
-      promotional:
-        one: חומר פרסומי
-        other: חומר פרסומי
-      publication:
-        one: פרסום
-        other: פרסומים
-      rebuttal:
-        one: סתירה
-        other: סתירות
-      research:
-        one: מחקר וניתוח
-        other: מחקר וניתוח
-      speaking_notes:
-        one: נאומים
-        other: נאומים
-      speech:
-        one: נאום
-        other: נאומים
-      statement_to_parliament:
-        one: הצהרה לפרלמנט
-        other: הצהרות לפרלמנט
-      statistical_data_set:
-        one: מידע סטטיסטי
-        other: מידע סטטיסטי
-      statistics:
-        one: נתונים
-        other: נתונים
-      transcript:
-        one: תמלול
-        other: תמלולים
-      transparency:
-        one: שקיפות מידע
-        other: שקיפות מידע
-      worldwide_priority:
-        one: עדיפות גלובאלית
-        other: עדיפות גלובאלית
-      written_statement:
-        one: הצהרה בכתב לפרלמנט
-        other: הצהרות בכתב לפרלמנט
-    updated: מעודכן
-    view:
   document_filters:
     description: ניתן לעשות שימוש בפילטרים כדי לראות תוצאות ממוקדות
     no_results:
@@ -191,47 +415,12 @@ he:
     human:
       storage_units:
         format:
-  organisation:
-    headings:
-      plus_others:
-    type:
-      Ad-hoc advisory group:
-        one: קבוצת ייעוץ אד- הוק
-        other: קבוצות ייעוץ אד- הוק
-      Advisory non-departmental public body:
-        one: ',גוף ייעוץ חוץ- מחלקתי בכיר'
-        other: ',ייעוץ חוץ- מחלקתי של גוף ציבורי'
-      Executive agency:
-        one: סוכנות בכירה
-        other: סוכנויות בכירות
-      Executive non-departmental public body:
-        one: מחלקת בקרה עצמאית
-        other: מחלקות בקרה עצמאיות
-      Independent monitoring body:
-        one: גוף בקרה עצמאי
-        other: גופי בקרה עצמאיים
-      Ministerial department:
-        one: מחלקה מיניסטריאלית
-        other: מחלקות מיניסטריאליות
-      Non-ministerial department:
-        one: מחלקה לא- מיניסטריאלית
-        other: מחלקות לא- מיניסטריאליות
-      Other:
-        one: אחר
-        other: אחרים
-      Public corporation:
-        one: תאגיד ציבורי
-        other: תאגידים ציבוריים
-      Sub-organisation:
-        one: תת- ארגון
-        other: תת- ארגונים
-      Tribunal non-departmental public body:
-        one: גוף משפטי חוץ- מחלקתי ציבורי
-        other: גופים משפטיים חוץ- מחלקתיים ציבוריים
   policies:
     heading: מדיניות
   publications:
     heading: מדיניות
+    headings:
+      detail:
   read_more: קרא עוד
   support:
     array:
@@ -239,30 +428,6 @@ he:
   time:
     formats:
       long_ordinal:
-  world_location:
-    headings:
-      announcements: ההודעות שלנו
-      country: מדינה
-      documents: מסמכים
-      mission: החזון שלנו
-      organisations: ארגונים
-      priorities: עדיפויות
-      publications: הפרסומים שלנו
-      quick_links: קישורים מהירים
-      related_policies: מדיניות רלוונטית
-      see_all:
-      statistics: הנתונים שלנו
-    see_all:
-    type:
-      country:
-        one: מדינה
-        other: מדינות
-      international_delegation:
-        one: משלחת בין לאומית
-        other: משלחות בין לאומיות
-      overseas_territory:
-        one: טריטוריה מעבר לים
-        other: טריטוריות מעבר לים
   worldwide_organisation:
     corporate_information:
       personal_information_charter_html:

@@ -5,6 +5,16 @@ az:
         primary_mainstream_category: Ilkin qaydalar kateqoriyasi
   announcements:
     heading: Elanlar
+  attachment:
+    accessibility:
+      full_help_html:
+      heading:
+      request_a_different_format:
+    headings:
+      order_a_copy:
+      order_a_copy_full:
+      published:
+      reference:
   change_notes:
     published: çap edilib
     updated: Yenilənmiş
@@ -24,16 +34,25 @@ az:
     headings:
       advisory_groups: Məsləhətçi qruplar
       applies_to_nations: tətbiq olunur
+      attachments:
+        one:
+        other:
       document_series: növlər
       field_of_operation: əməliyyat sahəsi
       live_data: canlı məlumat
       ministers:
         one: nazir
         other: nazirlər
+      organisations:
+        one:
+        other:
       policies:
         one: siyasət
         other: siyasəti
       policy_team: siyasət komandası
+      supporting_documents:
+        one:
+        other:
       topics:
         one: mövzu
         other: mövzular
@@ -160,6 +179,9 @@ az:
       transparency:
         one: Şəffaf məlumat
         other: Şəffaf məlumat
+      world_location_news_article:
+        one:
+        other:
       worldwide_priority:
         one: dünya üzrə prioritet
         other: dünya üzrə prioritetlər
@@ -192,8 +214,32 @@ az:
       storage_units:
         format:
   organisation:
+    about:
+      read_more:
+    corporate_information:
+      access_our_info:
+      foi_how_to:
+      foi_releases:
+      jobs_and_contacts:
+      transparency:
     headings:
+      chief_professional_officers:
+      contact:
+      corporate_information:
+      corporate_reports:
+      our_announcements:
+      our_management:
+      our_ministers:
+      our_policies:
+      our_publications:
+      our_senior_military_officials:
+      our_services:
+      our_statistics:
+      our_topics:
       plus_others:
+      special_representatives:
+      traffic_commissioners:
+      what_we_do:
     type:
       Ad-hoc advisory group:
         one: Məsləhətçi qrup
@@ -232,6 +278,8 @@ az:
     heading: Siyasət
   publications:
     heading: Nəşrlər
+    headings:
+      detail:
   read_more: Ətraflı oxu
   support:
     array:
@@ -254,15 +302,12 @@ az:
       statistics: Bizim statistika
     see_all: Bax bütün növ
     type:
-      country:
-        one: Ölkə
-        other: Ölkələr
       international_delegation:
         one: Beynəlxalq nümayəndəlik
         other: Beynəlxalq nümayəndəliklər
-      overseas_territory:
-        one: Dünya üzrə ərazilər
-        other: Dünya üzrə ərazilər
+      world_location:
+        one:
+        other:
   worldwide_organisation:
     corporate_information:
       personal_information_charter_html:

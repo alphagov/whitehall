@@ -1,39 +1,21 @@
 hi:
-  activerecord:
-    attributes:
-      detailed_guide:
-        primary_mainstream_category: प्राथमिक विस्तृत मार्गदर्शन श्रेणी
-  announcements:
-    heading: घोषणाएं
-  change_notes:
-    published: प्रकाशित
-    updated: अद्यतन
-  contact:
-    contact_form: संपर्क फॉर्म
-    email: ईमेल
-  corporate_information_page:
-    type:
-      personal_information_charter: व्यक्तिगत जानकारी चार्टर
-      publication_scheme: प्रकाशन योजना
-      welsh_language_scheme: वेल्श भाषा योजना
-  date:
-    formats:
-      default:
-      long_ordinal:
   document:
     headings:
-      advisory_groups: सलाहकार समूह
-      applies_to_nations: पर लागू
-      document_series:
-      field_of_operation: प्रचालन क्षेत्र
-      live_data: लाइव डेटा
+      attachments:
+        one:
+        other:
       ministers:
         one: मंत्री
         other: मंत्रीगण
+      organisations:
+        one:
+        other:
       policies:
         one: नीति
         other: नीतियां
-      policy_team: नीति टीम
+      supporting_documents:
+        one:
+        other:
       topics:
         one: विषय
         other: विषय
@@ -43,14 +25,12 @@ hi:
       worldwide_organisations:
         one: दुनिया भर में संगठन
         other: दुनिया भर में संगठन
-    published: प्रकाशित
-    read:
-    speech:
-      delivered_on: ! 'को वितरित:'
-      delivery_title:
-        minister: मंत्री
-        speaker: वक्ता
-      originally_given_at:
+      advisory_groups: सलाहकार समूह
+      applies_to_nations: पर लागू
+      document_series:
+      field_of_operation: प्रचालन क्षेत्र
+      live_data: लाइव डेटा
+      policy_team: नीति टीम
     type:
       announcement:
         one: घोषणा
@@ -160,41 +140,26 @@ hi:
       transparency:
         one: पारदर्शिता आंकड़े
         other: पारदर्शिता आंकड़े
+      world_location_news_article:
+        one:
+        other:
       worldwide_priority:
         one: दुनिया भर में प्राथमिकता
         other: दुनिया भर में प्राथमिकता
       written_statement:
         one: दुनिया भर में प्राथमिकताएं
         other: संसद में लिखित बयान
+    published: प्रकाशित
+    read:
+    speech:
+      delivered_on: ! 'को वितरित:'
+      delivery_title:
+        minister: मंत्री
+        speaker: वक्ता
+      originally_given_at:
     updated: संसद में लिखित बयान
     view:
-  document_filters:
-    description:
-    no_results:
-      description: आप फिल्टरों का उपयोग सिर्फ उन नतीजों को दर्शाने के लिए कर सकते
-        हैं, जिनमें आप की दिलचस्पी हो।
-      title: ! 'अपनी खोज़ को व्यापक बनाए और पुन: कोशिश करें'
-    world_locations:
-      all: मेल खाने वाले दस्तावेज़ नहीं हैं
-      label: सभी स्थान
-  feeds:
-    atom: विश्व के स्थान
-    email_alerts: एटम
-    latest_activity: ईमेल अलर्टस
-  i18n:
-    direction: नवीनतम गतिविधि
-  language_names:
-    hi: लिटर
-  latest_feed:
-    no_updates: हिन्दी
-    title: अभी कोई नया अपडेट नहीं हैं।
-  number:
-    human:
-      storage_units:
-        format:
   organisation:
-    headings:
-      plus_others:
     type:
       Ad-hoc advisory group:
         one: तदर्थ सलाहकार समूह
@@ -229,18 +194,40 @@ hi:
       Tribunal non-departmental public body:
         one: न्यायाधिकरण गैर-विभागीय सार्वजनिक निकाय
         other: न्यायाधिकरण गैर-विभागीय सार्वजनिक निकाय
-  policies:
-    heading: नीतियां
-  publications:
-    heading: प्रकाशन
-  read_more: विस्तार में पढ़ें
-  support:
-    array:
-      last_word_connector: और
-  time:
-    formats:
-      long_ordinal:
+    about:
+      read_more:
+    corporate_information:
+      access_our_info:
+      foi_how_to:
+      foi_releases:
+      jobs_and_contacts:
+      transparency:
+    headings:
+      chief_professional_officers:
+      contact:
+      corporate_information:
+      corporate_reports:
+      our_announcements:
+      our_management:
+      our_ministers:
+      our_policies:
+      our_publications:
+      our_senior_military_officials:
+      our_services:
+      our_statistics:
+      our_topics:
+      plus_others:
+      special_representatives:
+      traffic_commissioners:
+      what_we_do:
   world_location:
+    type:
+      international_delegation:
+        one: अंतर्राष्ट्रीय प्रतिनिधिमंडल
+        other: अंतर्राष्ट्रीय प्रतिनिधिमंडल
+      world_location:
+        one:
+        other:
     headings:
       announcements: देश
       country: दस्तावेज़
@@ -254,16 +241,74 @@ hi:
       see_all:
       statistics: हमारे आंकड़े
     see_all:
+  activerecord:
+    attributes:
+      detailed_guide:
+        primary_mainstream_category: प्राथमिक विस्तृत मार्गदर्शन श्रेणी
+  announcements:
+    heading: घोषणाएं
+  attachment:
+    accessibility:
+      full_help_html:
+      heading:
+      request_a_different_format:
+    headings:
+      order_a_copy:
+      order_a_copy_full:
+      published:
+      reference:
+  change_notes:
+    published: प्रकाशित
+    updated: अद्यतन
+  contact:
+    contact_form: संपर्क फॉर्म
+    email: ईमेल
+  corporate_information_page:
     type:
-      country:
-        one: देश
-        other: देश
-      international_delegation:
-        one: अंतर्राष्ट्रीय प्रतिनिधिमंडल
-        other: अंतर्राष्ट्रीय प्रतिनिधिमंडल
-      overseas_territory:
-        one: विदेशी क्षेत्र
-        other: विदेशी क्षेत्र
+      personal_information_charter: व्यक्तिगत जानकारी चार्टर
+      publication_scheme: प्रकाशन योजना
+      welsh_language_scheme: वेल्श भाषा योजना
+  date:
+    formats:
+      default:
+      long_ordinal:
+  document_filters:
+    description:
+    no_results:
+      description: आप फिल्टरों का उपयोग सिर्फ उन नतीजों को दर्शाने के लिए कर सकते
+        हैं, जिनमें आप की दिलचस्पी हो।
+      title: ! 'अपनी खोज़ को व्यापक बनाए और पुन: कोशिश करें'
+    world_locations:
+      all: मेल खाने वाले दस्तावेज़ नहीं हैं
+      label: सभी स्थान
+  feeds:
+    atom: विश्व के स्थान
+    email_alerts: एटम
+    latest_activity: ईमेल अलर्टस
+  i18n:
+    direction: नवीनतम गतिविधि
+  language_names:
+    hi: लिटर
+  latest_feed:
+    no_updates: हिन्दी
+    title: अभी कोई नया अपडेट नहीं हैं।
+  number:
+    human:
+      storage_units:
+        format:
+  policies:
+    heading: नीतियां
+  publications:
+    heading: प्रकाशन
+    headings:
+      detail:
+  read_more: विस्तार में पढ़ें
+  support:
+    array:
+      last_word_connector: और
+  time:
+    formats:
+      long_ordinal:
   worldwide_organisation:
     corporate_information:
       personal_information_charter_html:

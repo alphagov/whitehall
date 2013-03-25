@@ -1,39 +1,21 @@
 so:
-  activerecord:
-    attributes:
-      detailed_guide:
-        primary_mainstream_category: Qayb tilmaan faahfaahsan oo aasaasi ah
-  announcements:
-    heading: Ogeysiisyo
-  change_notes:
-    published: La-daabacay/nashriyey
-    updated: Wax lagu kordhiyey
-  contact:
-    contact_form: Foom cinwaan
-    email:
-  corporate_information_page:
-    type:
-      personal_information_charter: Axdiga macluumaadka shakhsiga ah
-      publication_scheme:
-      welsh_language_scheme:
-  date:
-    formats:
-      default:
-      long_ordinal:
   document:
     headings:
-      advisory_groups: Kooxo la-talineed
-      applies_to_nations: Waxa lagu saleeyaa
-      document_series: Taxane
-      field_of_operation: Nooca hawlgalka
-      live_data: Xog cusub
+      attachments:
+        one:
+        other:
       ministers:
         one: Wasiir
         other: Wasiirro
+      organisations:
+        one:
+        other:
       policies:
         one: Siyaasad
         other: Siyaasado
-      policy_team: Koox siyaad-dejin
+      supporting_documents:
+        one:
+        other:
       topics:
         one: Mowduuc
         other: Mowduucyo
@@ -43,14 +25,12 @@ so:
       worldwide_organisations:
         one: Urur caalami ah
         other: Ururro caalami ah
-    published: La-daabacay/nashriyey
-    read:
-    speech:
-      delivered_on: La-jeediyey
-      delivery_title:
-        minister: Wasiir
-        speaker: Af-hayeen
-      originally_given_at: Asalkii hore waxaa laga jeediyey
+      advisory_groups: Kooxo la-talineed
+      applies_to_nations: Waxa lagu saleeyaa
+      document_series: Taxane
+      field_of_operation: Nooca hawlgalka
+      live_data: Xog cusub
+      policy_team: Koox siyaad-dejin
     type:
       announcement:
         one: Ogeysiis
@@ -160,41 +140,26 @@ so:
       transparency:
         one: Xog daahfurnaan
         other: Xog daahfurnaan
+      world_location_news_article:
+        one:
+        other:
       worldwide_priority:
         one: Muhiimad caalami ah
         other: Muhiimado caalami ah
       written_statement:
         one: Hadal qoran oo loo gudbiyo baarlamaanka
         other: Hadallo qoran oo loo gudbiyo baarlamaanka
+    published: La-daabacay/nashriyey
+    read:
+    speech:
+      delivered_on: La-jeediyey
+      delivery_title:
+        minister: Wasiir
+        speaker: Af-hayeen
+      originally_given_at: Asalkii hore waxaa laga jeediyey
     updated: Wax lagu kordhiyey
     view:
-  document_filters:
-    description: Filtarradan shaandheynta ayaad adeegsan kartaa si aad u aragto keliya
-      natiijooyinka waafaqsan waxa aad daneyneyso
-    no_results:
-      description: Isku day in aad ballaariso baaritaankaaga oo mar kale isku day
-      title: Ma jiraan qoraallo waafaqsan baaritaankaaga
-    world_locations:
-      all: Dhammaan goobaha kala duwan
-      label: Goobo dunida ka mid ah
-  feeds:
-    atom:
-    email_alerts: e-mail soo dhacay
-    latest_activity: Waxqabadkii ugu dambeeyey
-  i18n:
-    direction:
-  language_names:
-    so: Soomaaliga
-  latest_feed:
-    no_updates: Weli wax laguma kordhin.
-    title: Ugu dambeeyey
-  number:
-    human:
-      storage_units:
-        format:
   organisation:
-    headings:
-      plus_others:
     type:
       Ad-hoc advisory group:
         one: Koox la-talineed degdeg loo dhiso
@@ -229,18 +194,40 @@ so:
       Tribunal non-departmental public body:
         one: Hay'ad gaar ah oo garsoor oo aan waax ka tirsaneyn
         other: Hay'ado gaar ah oo garsoor oo aan waax ka tirsaneyn
-  policies:
-    heading: Siyaasado
-  publications:
-    heading: Daabacaado/Nashrin
-  read_more: Sii akhri
-  support:
-    array:
-      last_word_connector: iyo
-  time:
-    formats:
-      long_ordinal:
+    about:
+      read_more:
+    corporate_information:
+      access_our_info:
+      foi_how_to:
+      foi_releases:
+      jobs_and_contacts:
+      transparency:
+    headings:
+      chief_professional_officers:
+      contact:
+      corporate_information:
+      corporate_reports:
+      our_announcements:
+      our_management:
+      our_ministers:
+      our_policies:
+      our_publications:
+      our_senior_military_officials:
+      our_services:
+      our_statistics:
+      our_topics:
+      plus_others:
+      special_representatives:
+      traffic_commissioners:
+      what_we_do:
   world_location:
+    type:
+      international_delegation:
+        one: Ergo caalami ah
+        other: Ergooyin caalami ah
+      world_location:
+        one:
+        other:
     headings:
       announcements: Ogeysiisyadeeenna
       country: Dal
@@ -254,22 +241,84 @@ so:
       see_all:
       statistics: Istaatistikadeenna
     see_all:
+  activerecord:
+    attributes:
+      detailed_guide:
+        primary_mainstream_category: Qayb tilmaan faahfaahsan oo aasaasi ah
+  announcements:
+    heading: Ogeysiisyo
+  attachment:
+    accessibility:
+      full_help_html:
+      heading:
+      request_a_different_format:
+    headings:
+      order_a_copy:
+      order_a_copy_full:
+      published:
+      reference:
+  change_notes:
+    published: La-daabacay/nashriyey
+    updated: Wax lagu kordhiyey
+  contact:
+    contact_form: Foom cinwaan
+    email:
+  corporate_information_page:
     type:
-      country:
-        one: Dal
-        other: Dalal
-      international_delegation:
-        one: Ergo caalami ah
-        other: Ergooyin caalami ah
-      overseas_territory:
-        one:
-        other:
+      personal_information_charter: Axdiga macluumaadka shakhsiga ah
+      publication_scheme:
+      welsh_language_scheme:
+  date:
+    formats:
+      default:
+      long_ordinal:
+  document_filters:
+    description: Filtarradan shaandheynta ayaad adeegsan kartaa si aad u aragto keliya
+      natiijooyinka waafaqsan waxa aad daneyneyso
+    no_results:
+      description: Isku day in aad ballaariso baaritaankaaga oo mar kale isku day
+      title: Ma jiraan qoraallo waafaqsan baaritaankaaga
+    world_locations:
+      all: Dhammaan goobaha kala duwan
+      label: Goobo dunida ka mid ah
+  feeds:
+    atom:
+    email_alerts: e-mail soo dhacay
+    latest_activity: Waxqabadkii ugu dambeeyey
+  i18n:
+    direction:
+  language_names:
+    so: Soomaaliga
+  latest_feed:
+    no_updates: Weli wax laguma kordhin.
+    title: Ugu dambeeyey
+  number:
+    human:
+      storage_units:
+        format:
+  policies:
+    heading: Siyaasado
+  publications:
+    heading: Daabacaado/Nashrin
+    headings:
+      detail:
+  read_more: Sii akhri
+  support:
+    array:
+      last_word_connector: iyo
+  time:
+    formats:
+      long_ordinal:
   worldwide_organisation:
     corporate_information:
-      personal_information_charter_html: '%{link} ayaa sharxaya sida aan ula tacaamulno macluumaadkaaga shakhsiga ah'
-      publication_scheme_html: Akhri noocyada macluumaadka aan caadi ahaan ku daabacno/nashrinno %{link} aan soo saarno.
-      welsh_language_scheme_html: Wax ka ogow sida aan ugu dadaalno ku daabacadda/nashrinta %{link}.
-    find_out_more: Halkaan ka eeg qoraalka sharxaya oo dhammeystiran iyo dhammaan cinwaannada oo faahfaahsan
+      personal_information_charter_html: ! '%{link} ayaa sharxaya sida aan ula tacaamulno
+        macluumaadkaaga shakhsiga ah'
+      publication_scheme_html: Akhri noocyada macluumaadka aan caadi ahaan ku daabacno/nashrinno
+        %{link} aan soo saarno.
+      welsh_language_scheme_html: Wax ka ogow sida aan ugu dadaalno ku daabacadda/nashrinta
+        %{link}.
+    find_out_more: Halkaan ka eeg qoraalka sharxaya oo dhammeystiran iyo dhammaan
+      cinwaannada oo faahfaahsan
     headings:
       about_us: Nagu saabsan
       contact_us: Nala soo xiriir

@@ -1,43 +1,36 @@
 ur:
-  activerecord:
-    attributes:
-      detailed_guide:
-        primary_mainstream_category:
-  change_notes:
-    published: شائع شدہ
-    updated: تجدیدشدہ
-  contact:
-    contact_form: کانٹیکٹ فارم
-    email: ای میل
-  date:
-    formats:
-      default:
-      long_ordinal:
   document:
     headings:
-      advisory_groups: مشاورتی گروپس
-      applies_to_nations: اطلاق ہوتا ہے
-      document_series: سلسلہ
-      field_of_operation: کارروائی کا میدان
-      live_data: لائیو ڈیٹا
+      attachments:
+        one:
+        other:
       ministers:
         one: وزير
         other: وزراء
+      organisations:
+        one:
+        other:
       policies:
         one: پالیسی
         other: پالیسیاں
-      policy_team: پالیسی ٹیم
+      supporting_documents:
+        one:
+        other:
       topics:
         one: موضوع
         other: موضوعات
       world_locations:
         one: جغرافیائی محل وقوع
         other: جغرافیائی محل ہائے وقوع
-      worldwide_offices:
-        one: عالمی دفتر
-        other: عالمی دفاتر
-    published: شائع شدہ
-    read: پڑھئیے %{title} مضمون
+      worldwide_organisations:
+        one:
+        other:
+      advisory_groups: مشاورتی گروپس
+      applies_to_nations: اطلاق ہوتا ہے
+      document_series: سلسلہ
+      field_of_operation: کارروائی کا میدان
+      live_data: لائیو ڈیٹا
+      policy_team: پالیسی ٹیم
     type:
       announcement:
         one: اعلان
@@ -87,9 +80,9 @@ ur:
       independent_report:
         one: غیر جانبدار رپورٹ
         other: غیر جانبداررپورٹس
-      international_priority:
-        one: عالمی ترجیح
-        other: عالمی ترجیحات
+      map:
+        one:
+        other:
       national_statistics:
         one: اعدادوشمار- قومی اعدادوشمار
         other: اعدادوشمار- قومی اعدادوشمار
@@ -147,29 +140,25 @@ ur:
       transparency:
         one: ٹرانسپیرنسی ڈیٹا
         other: ٹرانسپیرنسی ڈیٹا
-      treaty:
-        one: معاہدہ
-        other: معاہدات
+      world_location_news_article:
+        one:
+        other:
+      worldwide_priority:
+        one:
+        other:
       written_statement:
         one: تحریری بیان
         other: تحریری بیانات
+    published: شائع شدہ
+    read: پڑھئیے %{title} مضمون
+    speech:
+      delivered_on:
+      delivery_title:
+        minister:
+        speaker:
+      originally_given_at:
     updated: تجدید شدہ
     view: ! '''%{title}'' دیکھئیے'
-  feeds:
-    atom: ایٹم
-    email_alerts: ای میل الرٹس
-    latest_activity: تازہ ترین سرگرمیاں
-  i18n:
-    direction:
-  language_names:
-    ur: اردو
-  latest_feed:
-    no_updates: فی الحال کوئی تجدید نہیں
-    title: آخری فیڈ
-  number:
-    human:
-      storage_units:
-        format:
   organisation:
     type:
       Ad-hoc advisory group:
@@ -205,6 +194,113 @@ ur:
       Tribunal non-departmental public body:
         one: ٹریبونل غیرشعبہ جاتی عوامی ادارہ
         other: ٹریبونل غیرشعبہ جاتی عوامی ادارے
+    about:
+      read_more:
+    corporate_information:
+      access_our_info:
+      foi_how_to:
+      foi_releases:
+      jobs_and_contacts:
+      transparency:
+    headings:
+      chief_professional_officers:
+      contact:
+      corporate_information:
+      corporate_reports:
+      our_announcements:
+      our_management:
+      our_ministers:
+      our_policies:
+      our_publications:
+      our_senior_military_officials:
+      our_services:
+      our_statistics:
+      our_topics:
+      plus_others:
+      special_representatives:
+      traffic_commissioners:
+      what_we_do:
+  world_location:
+    type:
+      international_delegation:
+        one: عالمی وفد
+        other: عالمی وفود
+      world_location:
+        one:
+        other:
+    headings:
+      announcements: ہمارے اعلانات
+      country: ملک
+      documents: دستاویزات
+      mission: ہمارا مشن
+      organisations:
+      priorities: ترجیحات
+      publications: ہماری مطبوعات
+      quick_links:
+      related_policies: متعلقہ پالیسیاں
+      see_all: تما م دیکھئیے %{type}
+      statistics: ہمارے اعدادو شمار
+    see_all: تما م دیکھئیے%{type}
+  activerecord:
+    attributes:
+      detailed_guide:
+        primary_mainstream_category:
+  announcements:
+    heading:
+  attachment:
+    accessibility:
+      full_help_html:
+      heading:
+      request_a_different_format:
+    headings:
+      order_a_copy:
+      order_a_copy_full:
+      published:
+      reference:
+  change_notes:
+    published: شائع شدہ
+    updated: تجدیدشدہ
+  contact:
+    contact_form: کانٹیکٹ فارم
+    email: ای میل
+  corporate_information_page:
+    type:
+      personal_information_charter:
+      publication_scheme:
+      welsh_language_scheme:
+  date:
+    formats:
+      default:
+      long_ordinal:
+  document_filters:
+    description:
+    no_results:
+      description:
+      title:
+    world_locations:
+      all:
+      label:
+  feeds:
+    atom: ایٹم
+    email_alerts: ای میل الرٹس
+    latest_activity: تازہ ترین سرگرمیاں
+  i18n:
+    direction:
+  language_names:
+    ur: اردو
+  latest_feed:
+    no_updates: فی الحال کوئی تجدید نہیں
+    title: آخری فیڈ
+  number:
+    human:
+      storage_units:
+        format:
+  policies:
+    heading:
+  publications:
+    heading:
+    headings:
+      detail:
   read_more: آگے پڑھئیے
   support:
     array:
@@ -212,35 +308,18 @@ ur:
   time:
     formats:
       long_ordinal:
-  world_location:
-    country:
-      Spain: اسپین
+  worldwide_organisation:
+    corporate_information:
+      personal_information_charter_html:
+      publication_scheme_html:
+      welsh_language_scheme_html:
+    find_out_more:
     headings:
-      announcements: ہمارے اعلانات
-      country: ملک
-      documents: دستاویزات
-      mission: ہمارا مشن
-      offices: دفاتر
-      priorities: ترجیحات
-      publications: ہماری مطبوعات
-      related_policies: متعلقہ پالیسیاں
-      see_all: تما م دیکھئیے %{type}
-      statistics: ہمارے اعدادو شمار
-    see_all: تما م دیکھئیے%{type}
-    type:
-      country:
-        one: ملک
-        other: ممالک
-      international_delegation:
-        one: عالمی وفد
-        other: عالمی وفود
-      overseas_territory:
-        one: سمندر پارعلاقہ
-        other: سمندرپارعلاقہ جات
-  worldwide_office:
-    about_us: ہمارے بارے میں
-    contact_us: ہم سےرابطہ کیجئیے
-    find_out_more: مکمل پروفائل اوررابطے کی تمام تفصیلات
-    our_people: ہمارے اہلکار
-    our_services: ہماری خدمات
-    part_of: کا حصہ
+      about_us:
+      contact_us:
+      corporate_information:
+      follow_us:
+      our_people:
+      our_services:
+    location:
+    part_of:
