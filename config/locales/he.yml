@@ -7,309 +7,309 @@ he:
         many:
         other:
       ministers:
-        one:
+        one: שר
         two:
         many:
-        other:
+        other: שרים
       organisations:
         one:
         two:
         many:
         other:
       policies:
-        one:
+        one: מדיניות
         two:
         many:
-        other:
+        other: מדיניות
       supporting_documents:
         one:
         two:
         many:
         other:
       topics:
-        one:
+        one: נושא
         two:
         many:
-        other:
+        other: נושאים
       world_locations:
-        one:
+        one: מיקום עולמי
         two:
         many:
-        other:
+        other: מיקומים עולמיים
       worldwide_organisations:
-        one:
+        one: ארגון גלובאלי
         two:
         many:
-        other:
-      advisory_groups:
-      applies_to_nations:
-      document_series:
-      field_of_operation:
-      live_data:
-      policy_team:
+        other: ארגונים גלובאליים
+      advisory_groups: קבוצות ייעוץ
+      applies_to_nations: מתייחס ל
+      document_series: סדרות
+      field_of_operation: שדה פעולה
+      live_data: מידע פעיל
+      policy_team: תנאי מדיניות
     type:
       announcement:
-        one:
+        one: הודעה
         two:
         many:
-        other:
+        other: הודעות
       case_study:
-        one:
+        one: מקרה בוחן
         two:
         many:
-        other:
+        other: מקרי בוחן
       closed_consultation:
-        one:
+        one: דיון סגור
         two:
         many:
-        other:
+        other: דיונים סגורים
       consultation:
-        one:
+        one: דיון
         two:
         many:
-        other:
+        other: דיונים
       consultation_outcome:
-        one:
+        one: תוצאות דיון
         two:
         many:
-        other:
+        other: תוצאות דיונים
       corporate_report:
-        one:
+        one: דו"ח משותף
         two:
         many:
-        other:
+        other: דו"חות משותפים
       correspondence:
-        one:
+        one: תכתובת
         two:
         many:
-        other:
+        other: תכתובות
       detailed_guidance:
-        one:
+        one: מדריך מפורט
         two:
         many:
-        other:
+        other: מדריך מפורט
       draft_text:
-        one:
+        one: טיוטה
         two:
         many:
-        other:
+        other: טיוטות
       fatality_notice:
-        one:
+        one: הודעת פטירה
         two:
         many:
-        other:
+        other: הודעות פטירה
       foi_release:
-        one:
+        one: פרסום חופש מידע
         two:
         many:
-        other:
+        other: פרסומי חופש מידע
       form:
-        one:
+        one: טופס
         two:
         many:
-        other:
+        other: טפסים
       guidance:
-        one:
+        one: הדרכה
         two:
         many:
-        other:
+        other: הדרכה
       impact_assessment:
-        one:
+        one: הערכת השפעה
         two:
         many:
-        other:
+        other: הערכת השפעות
       imported:
-        one:
+        one: יבוא- המתנה לסוג
         two:
         many:
-        other:
+        other: יבוא- המתנה לסוג
       independent_report:
-        one:
+        one: דו"ח עצמאי
         two:
         many:
-        other:
+        other: דו"ות עצמאיים
       map:
-        one:
+        one: מפה
         two:
         many:
-        other:
+        other: מפות
       national_statistics:
-        one:
+        one: סטטיסטיקות- סטטיסטיקה לאומית
         two:
         many:
-        other:
+        other: סטטיסטיקות- סטטסטיקה לאומית
       news_article:
-        one:
+        one: מאמר חדשות
         two:
         many:
-        other:
+        other: מאמרי חדשות
       news_story:
-        one:
+        one: חדשות
         two:
         many:
-        other:
+        other: חדשות
       open_consultation:
-        one:
+        one: דיון פתוח
         two:
         many:
-        other:
+        other: דיון פתוח
       oral_statement:
-        one:
+        one: הצהרה בעל פה לפרלמנט
         two:
         many:
-        other:
+        other: הצהרות בעל פה לפרלמנט
       policy:
-        one:
+        one: מדיניות
         two:
         many:
-        other:
+        other: מדיניות
       policy_paper:
-        one:
+        one: נייר מדיניות
         two:
         many:
-        other:
+        other: ניירות מדיניות
       press_release:
-        one:
+        one: הודעה לעיתונות
         two:
         many:
-        other:
+        other: הודעות לעיתונות
       promotional:
-        one:
+        one: חומר פרסומי
         two:
         many:
-        other:
+        other: חומר פרסומי
       publication:
-        one:
+        one: פרסום
         two:
         many:
-        other:
+        other: פרסומים
       rebuttal:
-        one:
+        one: סתירה
         two:
         many:
-        other:
+        other: סתירות
       research:
-        one:
+        one: מחקר וניתוח
         two:
         many:
-        other:
+        other: מחקר וניתוח
       speaking_notes:
-        one:
+        one: נאומים
         two:
         many:
-        other:
+        other: נאומים
       speech:
-        one:
+        one: נאום
         two:
         many:
-        other:
+        other: נאומים
       statement_to_parliament:
-        one:
+        one: הצהרה לפרלמנט
         two:
         many:
-        other:
+        other: הצהרות לפרלמנט
       statistical_data_set:
-        one:
+        one: מידע סטטיסטי
         two:
         many:
-        other:
+        other: מידע סטטיסטי
       statistics:
-        one:
+        one: נתונים
         two:
         many:
-        other:
+        other: נתונים
       transcript:
-        one:
+        one: תמלול
         two:
         many:
-        other:
+        other: תמלולים
       transparency:
-        one:
+        one: שקיפות מידע
         two:
         many:
-        other:
+        other: שקיפות מידע
       world_location_news_article:
         one:
         two:
         many:
         other:
       worldwide_priority:
-        one:
+        one: עדיפות גלובאלית
         two:
         many:
-        other:
+        other: עדיפות גלובאלית
       written_statement:
-        one:
+        one: הצהרה בכתב לפרלמנט
         two:
         many:
-        other:
-    published:
+        other: הצהרות בכתב לפרלמנט
+    published: פורסם
     read:
     speech:
-      delivered_on:
+      delivered_on: ! 'נשלח ב:'
       delivery_title:
-        minister:
-        speaker:
+        minister: שר
+        speaker: דובר
       originally_given_at:
-    updated:
+    updated: מעודכן
     view:
   organisation:
     type:
       Ad-hoc advisory group:
-        one:
+        one: קבוצת ייעוץ אד- הוק
         two:
         many:
-        other:
+        other: קבוצות ייעוץ אד- הוק
       Advisory non-departmental public body:
-        one:
+        one: ! ',גוף ייעוץ חוץ- מחלקתי בכיר'
         two:
         many:
-        other:
+        other: ! ',ייעוץ חוץ- מחלקתי של גוף ציבורי'
       Executive agency:
-        one:
+        one: סוכנות בכירה
         two:
         many:
-        other:
+        other: סוכנויות בכירות
       Executive non-departmental public body:
-        one:
+        one: מחלקת בקרה עצמאית
         two:
         many:
-        other:
+        other: מחלקות בקרה עצמאיות
       Independent monitoring body:
-        one:
+        one: גוף בקרה עצמאי
         two:
         many:
-        other:
+        other: גופי בקרה עצמאיים
       Ministerial department:
-        one:
+        one: מחלקה מיניסטריאלית
         two:
         many:
-        other:
+        other: מחלקות מיניסטריאליות
       Non-ministerial department:
-        one:
+        one: מחלקה לא- מיניסטריאלית
         two:
         many:
-        other:
+        other: מחלקות לא- מיניסטריאליות
       Other:
-        one:
+        one: אחר
         two:
         many:
-        other:
+        other: אחרים
       Public corporation:
-        one:
+        one: תאגיד ציבורי
         two:
         many:
-        other:
+        other: תאגידים ציבוריים
       Sub-organisation:
-        one:
+        one: תת- ארגון
         two:
         many:
-        other:
+        other: תת- ארגונים
       Tribunal non-departmental public body:
-        one:
+        one: גוף משפטי חוץ- מחלקתי ציבורי
         two:
         many:
-        other:
+        other: גופים משפטיים חוץ- מחלקתיים ציבוריים
     about:
       read_more:
     corporate_information:
@@ -339,34 +339,34 @@ he:
   world_location:
     type:
       international_delegation:
-        one:
+        one: משלחת בין לאומית
         two:
         many:
-        other:
+        other: משלחות בין לאומיות
       world_location:
         one:
         two:
         many:
         other:
     headings:
-      announcements:
-      country:
-      documents:
-      mission:
-      organisations:
-      priorities:
-      publications:
-      quick_links:
-      related_policies:
+      announcements: ההודעות שלנו
+      country: מדינה
+      documents: מסמכים
+      mission: החזון שלנו
+      organisations: ארגונים
+      priorities: עדיפויות
+      publications: הפרסומים שלנו
+      quick_links: קישורים מהירים
+      related_policies: מדיניות רלוונטית
       see_all:
-      statistics:
+      statistics: הנתונים שלנו
     see_all:
   activerecord:
     attributes:
       detailed_guide:
-        primary_mainstream_category:
+        primary_mainstream_category: קטגוריית פרטים ראשית
   announcements:
-    heading:
+    heading: הודעות
   attachment:
     accessibility:
       full_help_html:
@@ -378,53 +378,53 @@ he:
       published:
       reference:
   change_notes:
-    published:
-    updated:
+    published: פורסם
+    updated: עודכן
   contact:
-    contact_form:
-    email:
+    contact_form: טופס יצירת קשר
+    email: דואר אלקטרוני
   corporate_information_page:
     type:
-      personal_information_charter:
-      publication_scheme:
-      welsh_language_scheme:
+      personal_information_charter: טבלת מידע אישי
+      publication_scheme: תכנית פרסומים
+      welsh_language_scheme: תכנית שפה וולשית
   date:
     formats:
       default:
-      long_ordinal: ! '%e %B %Y'
+      long_ordinal:
   document_filters:
-    description:
+    description: ניתן לעשות שימוש בפילטרים כדי לראות תוצאות ממוקדות
     no_results:
-      description:
-      title:
+      description: נסי/ה להרחיב את החיפוש וחפש/י שוב
+      title: אין מסמכים תואמים
     world_locations:
-      all:
-      label:
+      all: כל המיקומים
+      label: מיקומים גלובאליים
   feeds:
-    atom:
-    email_alerts:
-    latest_activity:
+    atom: אטום
+    email_alerts: התרעת דואר אלטרוני
+    latest_activity: פעילות אחרונה
   i18n:
     direction: rtl
   language_names:
     he: עברית
   latest_feed:
-    no_updates:
-    title:
+    no_updates: אין עדכונים נוספים
+    title: אחרון
   number:
     human:
       storage_units:
         format:
   policies:
-    heading:
+    heading: מדיניות
   publications:
-    heading:
+    heading: מדיניות
     headings:
       detail:
-  read_more:
+  read_more: קרא עוד
   support:
     array:
-      last_word_connector:
+      last_word_connector: בנוסף
   time:
     formats:
       long_ordinal:
@@ -433,13 +433,13 @@ he:
       personal_information_charter_html:
       publication_scheme_html:
       welsh_language_scheme_html:
-    find_out_more:
+    find_out_more: ראה/י פרופיל מלא ופרטי התקשרות
     headings:
-      about_us:
-      contact_us:
-      corporate_information:
-      follow_us:
-      our_people:
-      our_services:
-    location:
-    part_of:
+      about_us: אודותינו
+      contact_us: יצירת קשר
+      corporate_information: מידע תאגידי
+      follow_us: עקבו אחרינו
+      our_people: הצוות שלנו
+      our_services: השירותים שלנו
+    location: מיקום
+    part_of: חלק מ

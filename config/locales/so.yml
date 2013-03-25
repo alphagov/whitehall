@@ -5,108 +5,108 @@ so:
         one:
         other:
       ministers:
-        one:
-        other:
+        one: Wasiir
+        other: Wasiirro
       organisations:
         one:
         other:
       policies:
-        one:
-        other:
+        one: Siyaasad
+        other: Siyaasado
       supporting_documents:
         one:
         other:
       topics:
-        one:
-        other:
+        one: Mowduuc
+        other: Mowduucyo
       world_locations:
-        one:
-        other:
+        one: Goob dunida ka mid ah
+        other: Goobo dunida ka mid ah
       worldwide_organisations:
-        one:
-        other:
-      advisory_groups:
-      applies_to_nations:
-      document_series:
-      field_of_operation:
-      live_data:
-      policy_team:
+        one: Urur caalami ah
+        other: Ururro caalami ah
+      advisory_groups: Kooxo la-talineed
+      applies_to_nations: Waxa lagu saleeyaa
+      document_series: Taxane
+      field_of_operation: Nooca hawlgalka
+      live_data: Xog cusub
+      policy_team: Koox siyaad-dejin
     type:
       announcement:
-        one:
-        other:
+        one: Ogeysiis
+        other: Ogeysiisyo
       case_study:
-        one:
-        other:
+        one: Daraasad xaalad gaar ah
+        other: Daraasado xaalado gaar ah
       closed_consultation:
-        one:
-        other:
+        one: Wada-tashi albaabadu u xiran yihiin
+        other: Wadatashiyo albaabadu u xiran yihiin
       consultation:
-        one:
-        other:
+        one: Wadatashi
+        other: Wadatashiyo
       consultation_outcome:
-        one:
-        other:
+        one: Natiijo ka dhalatey wadatashi
+        other: Natiijooyin ka dhashey wadatashiyo
       corporate_report:
-        one:
-        other:
+        one: Warbixin sharikaad
+        other: Warbixinno sharikaad
       correspondence:
-        one:
-        other:
+        one: Waraaq is-dhaafsi
+        other: Waraaqo is-dhaafsi
       detailed_guidance:
         one:
         other:
       draft_text:
-        one:
-        other:
+        one: Qoraal qabyo ah
+        other: Qoraallo qabyo ah
       fatality_notice:
-        one:
-        other:
+        one: Ogeysiis geeri
+        other: Ogeysiisyo geeri
       foi_release:
-        one:
-        other:
+        one: Soo saarista FOI
+        other: Soo saarista FOI-yo
       form:
-        one:
-        other:
+        one: Foom
+        other: Foomam
       guidance:
-        one:
-        other:
+        one: Hagid
+        other: Hagid
       impact_assessment:
-        one:
-        other:
+        one: Daraasad saameyn ku saabsan
+        other: Daraasado saameyn ku saabsan
       imported:
-        one:
-        other:
+        one: La soo waaridey - nooca sugitaanka
+        other: La soo waaridey - nooca sugitaanka
       independent_report:
-        one:
-        other:
+        one: Warbixin madax bannaan
+        other: Warbixinno madax bannaan
       map:
-        one:
-        other:
+        one: Khariidad
+        other: Khariidado
       national_statistics:
-        one:
-        other:
+        one: Istaatistik - istaatistik qaran
+        other: Istaatistik - istaatistik qaran
       news_article:
-        one:
-        other:
+        one: Maqaal wareed
+        other: Maqaallo wareed
       news_story:
-        one:
-        other:
+        one: Sheeko wareed
+        other: Sheekooyin wareed
       open_consultation:
-        one:
-        other:
+        one: Wada-tashi furan
+        other: Wada-tashiyo furan
       oral_statement:
-        one:
-        other:
+        one: Hadal loo jeediyo baarlamaanka
+        other: hadallo loo jeediyo baarlamaanka
       policy:
-        one:
-        other:
+        one: Siyaasad
+        other: Siyaasado
       policy_paper:
-        one:
-        other:
+        one: Waraaq qeexaysa siyaasadda
+        other: Waraaqo qeexaya siyaasadda
       press_release:
-        one:
-        other:
+        one: War-saxaafadeed
+        other: War-saxaafadeedyo
       promotional:
         one:
         other:
@@ -114,86 +114,86 @@ so:
         one:
         other:
       rebuttal:
-        one:
-        other:
+        one: Beennin
+        other: Beennin
       research:
-        one:
-        other:
+        one: Cilmi-baaris iyo lafaguris
+        other: Cilmi-baaris iyo lafaguris
       speaking_notes:
-        one:
-        other:
+        one: Qoraallo hadal jeedin
+        other: Qoraallo hadal jeedin
       speech:
-        one:
-        other:
+        one: Hadal
+        other: Hadallo
       statement_to_parliament:
         one:
         other:
       statistical_data_set:
-        one:
-        other:
+        one: Xirmo xog istaatistik ah
+        other: Xirmooyin xog istaatistik ah
       statistics:
-        one:
-        other:
+        one: Istaatistik
+        other: Istaatistik
       transcript:
-        one:
-        other:
+        one: Qoraal la soo guuriyey
+        other: Qoraallo la soo guuriyey
       transparency:
-        one:
-        other:
+        one: Xog daahfurnaan
+        other: Xog daahfurnaan
       world_location_news_article:
         one:
         other:
       worldwide_priority:
-        one:
-        other:
+        one: Muhiimad caalami ah
+        other: Muhiimado caalami ah
       written_statement:
-        one:
-        other:
-    published:
+        one: Hadal qoran oo loo gudbiyo baarlamaanka
+        other: Hadallo qoran oo loo gudbiyo baarlamaanka
+    published: La-daabacay/nashriyey
     read:
     speech:
-      delivered_on:
+      delivered_on: La-jeediyey
       delivery_title:
-        minister:
-        speaker:
-      originally_given_at:
-    updated:
+        minister: Wasiir
+        speaker: Af-hayeen
+      originally_given_at: Asalkii hore waxaa laga jeediyey
+    updated: Wax lagu kordhiyey
     view:
   organisation:
     type:
       Ad-hoc advisory group:
-        one:
-        other:
+        one: Koox la-talineed degdeg loo dhiso
+        other: Kooxo la-talineed oo degdeg loo dhis
       Advisory non-departmental public body:
-        one:
-        other:
+        one: Hay'ad la-talin dowladeed oo aan waax gaar ahayn
+        other: Hay'ado la-talin dowladeed oo aan waax gaar ahayn
       Executive agency:
-        one:
-        other:
+        one: Hay'ad fulineed
+        other: Hay'ado fulineed
       Executive non-departmental public body:
-        one:
-        other:
+        one: Hay'ad fulineed dowladeed oo aan waax gaar ahayn
+        other: Hay'ado fulineed dowladeed oo aan waax gaar ahayn
       Independent monitoring body:
-        one:
-        other:
+        one: Hay'ad kormeer oo madax bannaan
+        other: Hay'ado kormeer oo madax bannaan
       Ministerial department:
-        one:
-        other:
+        one: Waax wasaaradeed
+        other: Waaxo wasaaradeed
       Non-ministerial department:
-        one:
-        other:
+        one: Waax aan wasaarad ka tirsaneyn
+        other: Waaxo aan wasaarad ka tirsaneyn
       Other:
-        one:
-        other:
+        one: Mid kale
+        other: Kuwo kale
       Public corporation:
-        one:
-        other:
+        one: Sharikad dowladeed
+        other: Sharikado dowladeed
       Sub-organisation:
-        one:
-        other:
+        one: Urur-hoosaad
+        other: Ururro-hoosaadyo
       Tribunal non-departmental public body:
-        one:
-        other:
+        one: Hay'ad gaar ah oo garsoor oo aan waax ka tirsaneyn
+        other: Hay'ado gaar ah oo garsoor oo aan waax ka tirsaneyn
     about:
       read_more:
     corporate_information:
@@ -223,30 +223,30 @@ so:
   world_location:
     type:
       international_delegation:
-        one:
-        other:
+        one: Ergo caalami ah
+        other: Ergooyin caalami ah
       world_location:
         one:
         other:
     headings:
-      announcements:
-      country:
-      documents:
-      mission:
+      announcements: Ogeysiisyadeeenna
+      country: Dal
+      documents: Dokumentiyo
+      mission: Hawsheenna
       organisations:
-      priorities:
-      publications:
-      quick_links:
-      related_policies:
+      priorities: Arrimo mudnaan leh
+      publications: Daabacaadaheenna
+      quick_links: Waddooyin xiriir degdeg ah
+      related_policies: Siyaasado xiriir la leh
       see_all:
-      statistics:
+      statistics: Istaatistikadeenna
     see_all:
   activerecord:
     attributes:
       detailed_guide:
-        primary_mainstream_category:
+        primary_mainstream_category: Qayb tilmaan faahfaahsan oo aasaasi ah
   announcements:
-    heading:
+    heading: Ogeysiisyo
   attachment:
     accessibility:
       full_help_html:
@@ -258,68 +258,73 @@ so:
       published:
       reference:
   change_notes:
-    published:
-    updated:
+    published: La-daabacay/nashriyey
+    updated: Wax lagu kordhiyey
   contact:
-    contact_form:
+    contact_form: Foom cinwaan
     email:
   corporate_information_page:
     type:
-      personal_information_charter:
+      personal_information_charter: Axdiga macluumaadka shakhsiga ah
       publication_scheme:
       welsh_language_scheme:
   date:
     formats:
       default:
-      long_ordinal: ! '%e %B %Y'
+      long_ordinal:
   document_filters:
-    description:
+    description: Filtarradan shaandheynta ayaad adeegsan kartaa si aad u aragto keliya
+      natiijooyinka waafaqsan waxa aad daneyneyso
     no_results:
-      description:
-      title:
+      description: Isku day in aad ballaariso baaritaankaaga oo mar kale isku day
+      title: Ma jiraan qoraallo waafaqsan baaritaankaaga
     world_locations:
-      all:
-      label:
+      all: Dhammaan goobaha kala duwan
+      label: Goobo dunida ka mid ah
   feeds:
     atom:
-    email_alerts:
-    latest_activity:
+    email_alerts: e-mail soo dhacay
+    latest_activity: Waxqabadkii ugu dambeeyey
   i18n:
-    direction: ltr
+    direction:
   language_names:
     so: Soomaaliga
   latest_feed:
-    no_updates:
-    title:
+    no_updates: Weli wax laguma kordhin.
+    title: Ugu dambeeyey
   number:
     human:
       storage_units:
         format:
   policies:
-    heading:
+    heading: Siyaasado
   publications:
-    heading:
+    heading: Daabacaado/Nashrin
     headings:
       detail:
-  read_more:
+  read_more: Sii akhri
   support:
     array:
-      last_word_connector:
+      last_word_connector: iyo
   time:
     formats:
       long_ordinal:
   worldwide_organisation:
     corporate_information:
-      personal_information_charter_html:
-      publication_scheme_html:
-      welsh_language_scheme_html:
-    find_out_more:
+      personal_information_charter_html: ! '%{link} ayaa sharxaya sida aan ula tacaamulno
+        macluumaadkaaga shakhsiga ah'
+      publication_scheme_html: Akhri noocyada macluumaadka aan caadi ahaan ku daabacno/nashrinno
+        %{link} aan soo saarno.
+      welsh_language_scheme_html: Wax ka ogow sida aan ugu dadaalno ku daabacadda/nashrinta
+        %{link}.
+    find_out_more: Halkaan ka eeg qoraalka sharxaya oo dhammeystiran iyo dhammaan
+      cinwaannada oo faahfaahsan
     headings:
-      about_us:
-      contact_us:
-      corporate_information:
-      follow_us:
-      our_people:
-      our_services:
-    location:
-    part_of:
+      about_us: Nagu saabsan
+      contact_us: Nala soo xiriir
+      corporate_information: Macluumaad hay'adeed
+      follow_us: Nala jaanqaad
+      our_people: Dadkeenna
+      our_services: Adeegyadeenna
+    location: Goob
+    part_of: Qayb ka mid ah

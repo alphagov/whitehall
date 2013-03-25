@@ -5,141 +5,141 @@ ur:
         one:
         other:
       ministers:
-        one:
-        other:
+        one: وزير
+        other: وزراء
       organisations:
         one:
         other:
       policies:
-        one:
-        other:
+        one: پالیسی
+        other: پالیسیاں
       supporting_documents:
         one:
         other:
       topics:
-        one:
-        other:
+        one: موضوع
+        other: موضوعات
       world_locations:
-        one:
-        other:
+        one: جغرافیائی محل وقوع
+        other: جغرافیائی محل ہائے وقوع
       worldwide_organisations:
         one:
         other:
-      advisory_groups:
-      applies_to_nations:
-      document_series:
-      field_of_operation:
-      live_data:
-      policy_team:
+      advisory_groups: مشاورتی گروپس
+      applies_to_nations: اطلاق ہوتا ہے
+      document_series: سلسلہ
+      field_of_operation: کارروائی کا میدان
+      live_data: لائیو ڈیٹا
+      policy_team: پالیسی ٹیم
     type:
       announcement:
-        one:
-        other:
+        one: اعلان
+        other: اعلانات
       case_study:
-        one:
-        other:
+        one: کیس اسٹڈی
+        other: کیس اسٹڈیز
       closed_consultation:
-        one:
-        other:
+        one: مشاورت ختم
+        other: مشاورت ختم
       consultation:
-        one:
-        other:
+        one: مشاورت
+        other: مشاورت
       consultation_outcome:
-        one:
-        other:
+        one: مشاورت کا نتیجہ
+        other: مشاورت کے نتائج
       corporate_report:
-        one:
-        other:
+        one: کارپوریٹ رپورٹ
+        other: کارپوریٹ رپورٹس
       correspondence:
-        one:
-        other:
+        one: مراسلت
+        other: مراسلات
       detailed_guidance:
-        one:
-        other:
+        one: مفصل رہنمائی
+        other: مفصل رہنمائی
       draft_text:
-        one:
-        other:
+        one: ڈرافٹ مسودہ
+        other: ڈرافٹ مسودات
       fatality_notice:
-        one:
-        other:
+        one: وفات کی اطلاع
+        other: وفات کی اطلاعات
       foi_release:
-        one:
-        other:
+        one: آزادئی معلومات کی نشریات
+        other: آزادئی معلومات کی نشریات
       form:
-        one:
-        other:
+        one: فارم
+        other: فارمز
       guidance:
-        one:
-        other:
+        one: رہنمائی
+        other: رہنمائی
       impact_assessment:
-        one:
-        other:
+        one: اثرات کا تجزیہ
+        other: اثرات کے تجزیے
       imported:
         one:
         other:
       independent_report:
-        one:
-        other:
+        one: غیر جانبدار رپورٹ
+        other: غیر جانبداررپورٹس
       map:
         one:
         other:
       national_statistics:
-        one:
-        other:
+        one: اعدادوشمار- قومی اعدادوشمار
+        other: اعدادوشمار- قومی اعدادوشمار
       news_article:
-        one:
-        other:
+        one: نیوزآرٹیکل
+        other: نیوزآرٹیکلز
       news_story:
-        one:
-        other:
+        one: نیوز اسٹوری
+        other: نیوزاسٹوریز
       open_consultation:
-        one:
-        other:
+        one: جاری مشاورت
+        other: جاری مشاورت
       oral_statement:
-        one:
-        other:
+        one: زبانی بیان
+        other: زبانی بیانات
       policy:
-        one:
-        other:
+        one: پالیسی
+        other: پالیسیاں
       policy_paper:
-        one:
-        other:
+        one: پالیسی پیپر
+        other: پالیسی پیپرز
       press_release:
-        one:
-        other:
+        one: پریس ریلیز
+        other: پریس ریلیزز
       promotional:
-        one:
-        other:
+        one: تشہیری مواد
+        other: تشہیری مواد
       publication:
-        one:
-        other:
+        one: مطبوعہ
+        other: مطبوعات
       rebuttal:
-        one:
-        other:
+        one: دفاع
+        other: دفاع
       research:
-        one:
-        other:
+        one: تحقیق و تجزیہ
+        other: تحقیق و تجزیہ
       speaking_notes:
-        one:
-        other:
+        one: تقریری نوٹس
+        other: تقریری نوٹس
       speech:
-        one:
-        other:
+        one: تقریر
+        other: تقاریر
       statement_to_parliament:
-        one:
-        other:
+        one: پارلیمنٹ میں بیان
+        other: پارلیمنٹ میں بیانات
       statistical_data_set:
-        one:
-        other:
+        one: اعدادوشمار ڈیٹا سیٹ
+        other: اعدادو شمار ڈیٹا سیٹ
       statistics:
-        one:
-        other:
+        one: اعدادوشمار
+        other: اعدادو شمار
       transcript:
-        one:
-        other:
+        one: ٹرانسکرپٹ
+        other: ٹرانسکرپٹس
       transparency:
-        one:
-        other:
+        one: ٹرانسپیرنسی ڈیٹا
+        other: ٹرانسپیرنسی ڈیٹا
       world_location_news_article:
         one:
         other:
@@ -147,53 +147,53 @@ ur:
         one:
         other:
       written_statement:
-        one:
-        other:
-    published:
-    read:
+        one: تحریری بیان
+        other: تحریری بیانات
+    published: شائع شدہ
+    read: پڑھئیے %{title} مضمون
     speech:
       delivered_on:
       delivery_title:
         minister:
         speaker:
       originally_given_at:
-    updated:
-    view:
+    updated: تجدید شدہ
+    view: ! '''%{title}'' دیکھئیے'
   organisation:
     type:
       Ad-hoc advisory group:
-        one:
-        other:
+        one: ایڈہاک مشاورتی گروپ
+        other: ایڈہاک مشاورتی گروپس
       Advisory non-departmental public body:
-        one:
-        other:
+        one: ! 'مشاورتی غیر شعبہ جاتی عوامی ادارہ '
+        other: مشاورتی غیر شعبہ جاتی عوامی ادارے
       Executive agency:
-        one:
-        other:
+        one: نافذ کنندہ ایجنسی
+        other: نافذ کنندہ ایجنسیاں
       Executive non-departmental public body:
-        one:
-        other:
+        one: نافذ کنندہ غیر شعبہ جاتی عوامی ادارہ
+        other: نافذ کنندہ غیر شعبہ جاتی عوامی ادارے
       Independent monitoring body:
-        one:
-        other:
+        one: غیر جانبدار نگراں ادارہ
+        other: غیر جانبدار نگراں ادارے
       Ministerial department:
-        one:
-        other:
+        one: وزارتی محکمہ
+        other: وزارتی محکمہ جات
       Non-ministerial department:
-        one:
-        other:
+        one: ! 'غیروزارتی محکمہ '
+        other: غیروزارتی محکمہ جات
       Other:
-        one:
-        other:
+        one: دیگر
+        other: دیگر
       Public corporation:
-        one:
-        other:
+        one: عوامی کارپوریشن
+        other: عوامی کارپوریشنز
       Sub-organisation:
-        one:
-        other:
+        one: ! 'ذیلی تنظیم '
+        other: ذیلی تنظیمیں
       Tribunal non-departmental public body:
-        one:
-        other:
+        one: ٹریبونل غیرشعبہ جاتی عوامی ادارہ
+        other: ٹریبونل غیرشعبہ جاتی عوامی ادارے
     about:
       read_more:
     corporate_information:
@@ -223,24 +223,24 @@ ur:
   world_location:
     type:
       international_delegation:
-        one:
-        other:
+        one: عالمی وفد
+        other: عالمی وفود
       world_location:
         one:
         other:
     headings:
-      announcements:
-      country:
-      documents:
-      mission:
+      announcements: ہمارے اعلانات
+      country: ملک
+      documents: دستاویزات
+      mission: ہمارا مشن
       organisations:
-      priorities:
-      publications:
+      priorities: ترجیحات
+      publications: ہماری مطبوعات
       quick_links:
-      related_policies:
-      see_all:
-      statistics:
-    see_all:
+      related_policies: متعلقہ پالیسیاں
+      see_all: تما م دیکھئیے %{type}
+      statistics: ہمارے اعدادو شمار
+    see_all: تما م دیکھئیے%{type}
   activerecord:
     attributes:
       detailed_guide:
@@ -258,11 +258,11 @@ ur:
       published:
       reference:
   change_notes:
-    published:
-    updated:
+    published: شائع شدہ
+    updated: تجدیدشدہ
   contact:
-    contact_form:
-    email:
+    contact_form: کانٹیکٹ فارم
+    email: ای میل
   corporate_information_page:
     type:
       personal_information_charter:
@@ -271,7 +271,7 @@ ur:
   date:
     formats:
       default:
-      long_ordinal: ! '%e %B %Y'
+      long_ordinal:
   document_filters:
     description:
     no_results:
@@ -281,16 +281,16 @@ ur:
       all:
       label:
   feeds:
-    atom:
-    email_alerts:
-    latest_activity:
+    atom: ایٹم
+    email_alerts: ای میل الرٹس
+    latest_activity: تازہ ترین سرگرمیاں
   i18n:
     direction: rtl
   language_names:
     ur: اردو
   latest_feed:
-    no_updates:
-    title:
+    no_updates: فی الحال کوئی تجدید نہیں
+    title: آخری فیڈ
   number:
     human:
       storage_units:
@@ -301,10 +301,10 @@ ur:
     heading:
     headings:
       detail:
-  read_more:
+  read_more: آگے پڑھئیے
   support:
     array:
-      last_word_connector:
+      last_word_connector: اور
   time:
     formats:
       long_ordinal:
