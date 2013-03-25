@@ -59,6 +59,9 @@ Feature: Importing new editions
   - policy_1..4: 1 column required, data optional
   - minister_1..2: optional
   - country_1..4: 1 column required, data optional
+  - attachment_(0..Row::ATTACHMENT_LIMIT)_url: optional
+  - attachment_(0..Row::ATTACHMENT_LIMIT)_title: optional
+  - json_attachments: optional (allows attachments to be supplied as a json array)
 
   Speeches:
 
@@ -85,8 +88,8 @@ Feature: Importing new editions
   - related_mainstream_content_url_1..2: 1 column required, data optional
   - related_mainstream_content_title_1..2: 1 column required, data optional
   - first_published: optional
-  - attachment_url_0..Row::ATTACHMENT_LIMIT: optional
-  - attachment_title_0..Row::ATTACHMENT_LIMIT: optional
+  - attachment_(0..Row::ATTACHMENT_LIMIT)_url: optional
+  - attachment_(0..Row::ATTACHMENT_LIMIT)_title: optional
   - json_attachments: optional (allows attachments to be supplied as a json array)
 
   CaseStudies:

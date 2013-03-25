@@ -7,6 +7,8 @@ module Whitehall::Uploader
         .multiple("policy_#", 1..4)
         .multiple("minister_#", 1..2)
         .multiple("country_#", 0..4)
+        .multiple(%w{attachment_#_url attachment_#_title}, 0..Row::ATTACHMENT_LIMIT)
+        .optional('json_attachments')
         .translatable(%w{title summary body})
     end
 
@@ -30,12 +32,36 @@ module Whitehall::Uploader
       Finders::WorldLocationsFinder.find(row['country_1'], row['country_2'], row['country_3'], row['country_4'], @logger, @line_number)
     end
 
+    def attachments
+      attachments_from_columns + attachments_from_json
+    end
+
     def attributes
       [:title, :summary, :body, :lead_organisations,
        :first_published_at, :related_editions, :role_appointments,
-       :world_locations, :news_article_type].map.with_object({}) do |name, result|
+       :world_locations, :news_article_type, :attachments].map.with_object({}) do |name, result|
         result[name] = __send__(name)
       end
+    end
+
+    private
+
+    def attachments_from_json
+      if row["json_attachments"]
+        attachment_data = ActiveSupport::JSON.decode(row["json_attachments"])
+        attachment_data.map do |attachment|
+          Builders::AttachmentBuilder.build({title: attachment["title"]}, attachment["link"], @attachment_cache, @logger, @line_number)
+        end
+      else
+        []
+      end
+    end
+
+    def attachments_from_columns
+      1.upto(Row::ATTACHMENT_LIMIT).map do |number|
+        next unless row["attachment_#{number}_title"] || row["attachment_#{number}_url"]
+        Builders::AttachmentBuilder.build({title: row["attachment_#{number}_title"]}, row["attachment_#{number}_url"], @attachment_cache, @logger, @line_number)
+      end.compact
     end
   end
 end
