@@ -3,11 +3,11 @@ cy:
     headings:
       attachments:
         zero:
-        one:
+        one: Dogfen
         two:
         few:
         many:
-        other:
+        other: Dogfennau
       ministers:
         zero:
         one: Gweinidog
@@ -17,11 +17,11 @@ cy:
         other: Gweinidogion
       organisations:
         zero:
-        one:
+        one: Sefydliad
         two:
         few:
         many:
-        other:
+        other: Sefydliadau
       policies:
         zero:
         one: Polisi
@@ -31,11 +31,11 @@ cy:
         other: Polisïau
       supporting_documents:
         zero:
-        one:
+        one: Dogfen ategol
         two:
         few:
         many:
-        other:
+        other: Dogfennau ategol
       topics:
         zero:
         one: Pwnc
@@ -318,11 +318,11 @@ cy:
         other: Data tryloywder
       world_location_news_article:
         zero:
-        one:
+        one: Erthygl newyddion lleoliad byd
         two:
         few:
         many:
-        other:
+        other: Erthyglau newyddion lleoliad byd
       worldwide_priority:
         zero:
         one: Blaenoriaeth fyd-eang
@@ -332,11 +332,11 @@ cy:
         other: Blaenoriaethau byd-eang
       written_statement:
         zero:
-        one: Datganiad ysgrifenedig i'r senedd
+        one: Datganiad ysgrifenedig i'r Senedd
         two:
         few:
         many:
-        other: Datganiadau ysgrifenedig i'r senedd
+        other: Datganiadau ysgrifenedig i'r Senedd
     published: cyhoeddwyd
     read: Darllenwch yr erthygl %{title}
     speech:
@@ -351,7 +351,7 @@ cy:
     type:
       Ad-hoc advisory group:
         zero:
-        one: Gr?p cynghori ad-hoc
+        one: Grŵp cynghori ad-hoc
         two:
         few:
         many:
@@ -427,31 +427,31 @@ cy:
         many:
         other: Cyrff cyhoeddus anadrannol tribiwnlys
     about:
-      read_more:
+      read_more: Darllen mwy am yr hyn rydyn ni'n ei wneud
     corporate_information:
-      access_our_info:
-      foi_how_to:
-      foi_releases:
-      jobs_and_contacts:
-      transparency:
+      access_our_info: Cael gweld ein gwybodaeth
+      foi_how_to: Sut mae gwneud cais Rhyddid Gwybodaeth
+      foi_releases: Datganiadau Rhyddid Gwybodaeth
+      jobs_and_contacts: Swyddi a chontractau
+      transparency: Data tryloywder
     headings:
       chief_professional_officers:
-      contact:
-      corporate_information:
-      corporate_reports:
-      our_announcements:
-      our_management:
-      our_ministers:
-      our_policies:
-      our_publications:
-      our_senior_military_officials:
-      our_services:
-      our_statistics:
-      our_topics:
+      contact: Cyswllt %{name}
+      corporate_information: Gwybodaeth gorfforaethol
+      corporate_reports: Adroddiadau corfforaethol
+      our_announcements: Ein cyhoeddiadau
+      our_management: Ein rheolaeth
+      our_ministers: Ein gweinidogion
+      our_policies: Ein polisïau
+      our_publications: Ein cyhoeddiadau
+      our_senior_military_officials: Ein huwch swyddogion milwrol
+      our_services: Ein gwasanaethau
+      our_statistics: Ein hystadegau
+      our_topics: Rydym ni'n gweithio ar y pynciau hyn
       plus_others:
-      special_representatives:
-      traffic_commissioners:
-      what_we_do:
+      special_representatives: Cynrychiolwyr arbennig
+      traffic_commissioners: Comisiynwyr traffig
+      what_we_do: Yr hyn rydym ni'n ei wneud
   world_location:
     type:
       international_delegation:
@@ -489,14 +489,17 @@ cy:
     heading: Cyhoeddiadau
   attachment:
     accessibility:
-      full_help_html:
-      heading:
-      request_a_different_format:
+      full_help_html: I ofyn am y ddogfen hon  mewn fformat arall, fel braille, sain
+        neu fath arall o ffeil anfonwch e-bost at %{e-bost} gan roi eich cyfeiriad,
+        eich rhif ffôn a theitl y cyhoeddiad ("%{teitl}")%{cyfeiriadau}.
+      heading: Efallai na fydd y ffeil hon yn addas ar gyfer defnyddwyr technoleg
+        gynorthwyol
+      request_a_different_format: Gwneud cais am fformat gwahanol.
     headings:
-      order_a_copy:
-      order_a_copy_full:
-      published:
-      reference:
+      order_a_copy: Archebu copi
+      order_a_copy_full: Archebu copi o'r cyhoeddiad
+      published: Cyhoeddwyd
+      reference: Cyf
   change_notes:
     published: Cyhoeddwyd
     updated: Diweddarwyd
@@ -542,11 +545,11 @@ cy:
   publications:
     heading: Cyhoeddiadau
     headings:
-      detail:
+      detail: Manylyn
   read_more: Darllen mwy
   support:
     array:
-      last_word_connector: ! ' a'
+      last_word_connector: ! ' a '
   time:
     formats:
       long_ordinal: ! '%e %B %Y %H:%M'
