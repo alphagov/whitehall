@@ -5,195 +5,195 @@ hi:
         one:
         other:
       ministers:
-        one: मंत्री
-        other: मंत्रीगण
+        one:
+        other:
       organisations:
         one:
         other:
       policies:
-        one: नीति
-        other: नीतियां
+        one:
+        other:
       supporting_documents:
         one:
         other:
       topics:
-        one: विषय
-        other: विषय
+        one:
+        other:
       world_locations:
-        one: विश्व स्थान
-        other: विश्व के स्थान
+        one:
+        other:
       worldwide_organisations:
-        one: दुनिया भर में संगठन
-        other: दुनिया भर में संगठन
-      advisory_groups: सलाहकार समूह
-      applies_to_nations: पर लागू
+        one:
+        other:
+      advisory_groups:
+      applies_to_nations:
       document_series:
-      field_of_operation: प्रचालन क्षेत्र
-      live_data: लाइव डेटा
-      policy_team: नीति टीम
+      field_of_operation:
+      live_data:
+      policy_team:
     type:
       announcement:
-        one: घोषणा
-        other: घोषणाएं
+        one:
+        other:
       case_study:
-        one: केस स्टडी
-        other: केस स्टडीज
+        one:
+        other:
       closed_consultation:
-        one: बंद कमरे में परामर्श
-        other: बंद कमरे में परामर्श
+        one:
+        other:
       consultation:
-        one: परामर्श
-        other: परामर्श
+        one:
+        other:
       consultation_outcome:
-        one: परामर्श का नतीजा
-        other: परामर्श के नतीजे
+        one:
+        other:
       corporate_report:
-        one: कॉरपोरेट रिपोर्ट
-        other: कॉरपोरेट रिपोर्टें
+        one:
+        other:
       correspondence:
-        one: पत्र व्यवहार
-        other: पत्र व्यवहार
+        one:
+        other:
       detailed_guidance:
-        one: विस्तृत मार्गदर्शन
-        other: विस्तृत मार्गदर्शन
+        one:
+        other:
       draft_text:
-        one: मसौदा पाठ
-        other: मसौदे के पाठ
+        one:
+        other:
       fatality_notice:
-        one: विपत्ति नोटिस
-        other: विपत्ति के नोटिस
+        one:
+        other:
       foi_release:
-        one: एफओआई की विज्ञप्ति
-        other: एफओआई की विज्ञप्तियां
+        one:
+        other:
       form:
-        one: फॉर्म
-        other: फॉम्र्स
+        one:
+        other:
       guidance:
-        one: मार्गदर्शन
-        other: मार्गदर्शन
+        one:
+        other:
       impact_assessment:
-        one: प्रभाव का आकलन
-        other: प्रभाव के आकलन
+        one:
+        other:
       imported:
-        one: आयातित- प्रतीक्षा
-        other: आयातित- प्रतीक्षा
+        one:
+        other:
       independent_report:
-        one: स्वतंत्र रिपोर्ट
-        other: स्वतंत्र रिपोर्टें
+        one:
+        other:
       map:
-        one: मानचित्र
-        other: मानचित्र
+        one:
+        other:
       national_statistics:
-        one: सांख्यिकी- राष्ट्रीय सांख्यिकी
-        other: सांख्यिकी- राष्ट्रीय सांख्यिकी
+        one:
+        other:
       news_article:
-        one: नया लेख
-        other: नए लेख
+        one:
+        other:
       news_story:
-        one: समाचार कथा
-        other: समाचार कथाएं
+        one:
+        other:
       open_consultation:
-        one: खुला परामर्श
-        other: खुले परामर्श
+        one:
+        other:
       oral_statement:
-        one: संसद में मौखिक बयान
-        other: संसद में मौखिक बयान
+        one:
+        other:
       policy:
-        one: नीति
-        other: नीतियां
+        one:
+        other:
       policy_paper:
-        one: नीति पत्र
-        other: नीति पत्र
+        one:
+        other:
       press_release:
-        one: प्रेस विज्ञप्ति
-        other: प्रेस विज्ञप्तियां
+        one:
+        other:
       promotional:
-        one: प्रचार सामग्री
-        other: प्रचार सामग्री
+        one:
+        other:
       publication:
-        one: प्रकाशन
-        other: प्रकाशन
+        one:
+        other:
       rebuttal:
-        one: खंडन
-        other: खंडन
+        one:
+        other:
       research:
-        one: अनुसंधान एवं विश्लेषण
-        other: अनुसंधान एवं विश्लेषण
+        one:
+        other:
       speaking_notes:
-        one: बोलने के लिए नोट्स
-        other: बोलने के लिए नोट्स
+        one:
+        other:
       speech:
-        one: भाषण
-        other: भाषण
+        one:
+        other:
       statement_to_parliament:
-        one: संसद में बयान
-        other: संसद में बयान
+        one:
+        other:
       statistical_data_set:
-        one: सांख्यिकीय डेटा सेट
-        other: सांख्यिकीय डेटा सेट्स
+        one:
+        other:
       statistics:
-        one: आंकड़े
-        other: आंकड़े
+        one:
+        other:
       transcript:
-        one: प्रतिलिपि
-        other: प्रतिलिपियां
+        one:
+        other:
       transparency:
-        one: पारदर्शिता आंकड़े
-        other: पारदर्शिता आंकड़े
+        one:
+        other:
       world_location_news_article:
         one:
         other:
       worldwide_priority:
-        one: दुनिया भर में प्राथमिकता
-        other: दुनिया भर में प्राथमिकता
+        one:
+        other:
       written_statement:
-        one: दुनिया भर में प्राथमिकताएं
-        other: संसद में लिखित बयान
-    published: प्रकाशित
+        one:
+        other:
+    published:
     read:
     speech:
-      delivered_on: ! 'को वितरित:'
+      delivered_on:
       delivery_title:
-        minister: मंत्री
-        speaker: वक्ता
+        minister:
+        speaker:
       originally_given_at:
-    updated: संसद में लिखित बयान
+    updated:
     view:
   organisation:
     type:
       Ad-hoc advisory group:
-        one: तदर्थ सलाहकार समूह
-        other: तदर्थ सलाहकार समूह
+        one:
+        other:
       Advisory non-departmental public body:
-        one: परामर्शी गैर-विभागीय सार्वजनिक निकाय
-        other: परामर्शी गैर-विभागीय सार्वजनिक निकाय
+        one:
+        other:
       Executive agency:
-        one: नवीनतम
+        one:
         other:
       Executive non-departmental public body:
-        one: कार्यकारी एजेंसी
-        other: कार्यकारी एजेंसियां
+        one:
+        other:
       Independent monitoring body:
-        one: कार्यकारी गैर-विभागीय सार्वजनिक निकाय
-        other: कार्यकारी गैर-विभागीय सार्वजनिक निकाय
+        one:
+        other:
       Ministerial department:
-        one: स्वतंत्र पर्यवेक्षण निकाय
-        other: स्वतंत्र पर्यवेक्षण निकाय
+        one:
+        other:
       Non-ministerial department:
-        one: मंत्रालयी विभाग
-        other: मंत्रालयी विभाग
+        one:
+        other:
       Other:
-        one: गैर-मंत्रालय विभाग
-        other: गैर-मंत्रालयी विभाग
+        one:
+        other:
       Public corporation:
-        one: अन्य
-        other: मंत्रालयी विभाग
+        one:
+        other:
       Sub-organisation:
-        one: उप-संगठन
-        other: उप-संगठन
+        one:
+        other:
       Tribunal non-departmental public body:
-        one: न्यायाधिकरण गैर-विभागीय सार्वजनिक निकाय
-        other: न्यायाधिकरण गैर-विभागीय सार्वजनिक निकाय
+        one:
+        other:
     about:
       read_more:
     corporate_information:
@@ -223,30 +223,30 @@ hi:
   world_location:
     type:
       international_delegation:
-        one: अंतर्राष्ट्रीय प्रतिनिधिमंडल
-        other: अंतर्राष्ट्रीय प्रतिनिधिमंडल
+        one:
+        other:
       world_location:
         one:
         other:
     headings:
-      announcements: देश
-      country: दस्तावेज़
-      documents: हमारा मिशन
-      mission: संगठन
-      organisations: प्राथमिकताएं
-      priorities: और
+      announcements:
+      country:
+      documents:
+      mission:
+      organisations:
+      priorities:
       publications:
-      quick_links: क्विक लिंक्स
-      related_policies: संबंधित नीतियां
+      quick_links:
+      related_policies:
       see_all:
-      statistics: हमारे आंकड़े
+      statistics:
     see_all:
   activerecord:
     attributes:
       detailed_guide:
-        primary_mainstream_category: प्राथमिक विस्तृत मार्गदर्शन श्रेणी
+        primary_mainstream_category:
   announcements:
-    heading: घोषणाएं
+    heading:
   attachment:
     accessibility:
       full_help_html:
@@ -258,54 +258,53 @@ hi:
       published:
       reference:
   change_notes:
-    published: प्रकाशित
-    updated: अद्यतन
+    published:
+    updated:
   contact:
-    contact_form: संपर्क फॉर्म
-    email: ईमेल
+    contact_form:
+    email:
   corporate_information_page:
     type:
-      personal_information_charter: व्यक्तिगत जानकारी चार्टर
-      publication_scheme: प्रकाशन योजना
-      welsh_language_scheme: वेल्श भाषा योजना
+      personal_information_charter:
+      publication_scheme:
+      welsh_language_scheme:
   date:
     formats:
       default:
-      long_ordinal:
+      long_ordinal: ! '%e %B %Y'
   document_filters:
     description:
     no_results:
-      description: आप फिल्टरों का उपयोग सिर्फ उन नतीजों को दर्शाने के लिए कर सकते
-        हैं, जिनमें आप की दिलचस्पी हो।
-      title: ! 'अपनी खोज़ को व्यापक बनाए और पुन: कोशिश करें'
+      description:
+      title:
     world_locations:
-      all: मेल खाने वाले दस्तावेज़ नहीं हैं
-      label: सभी स्थान
+      all:
+      label:
   feeds:
-    atom: विश्व के स्थान
-    email_alerts: एटम
-    latest_activity: ईमेल अलर्टस
+    atom:
+    email_alerts:
+    latest_activity:
   i18n:
-    direction: नवीनतम गतिविधि
+    direction: ltr
   language_names:
-    hi: लिटर
+    hi: हिन्दी
   latest_feed:
-    no_updates: हिन्दी
-    title: अभी कोई नया अपडेट नहीं हैं।
+    no_updates:
+    title:
   number:
     human:
       storage_units:
         format:
   policies:
-    heading: नीतियां
+    heading:
   publications:
-    heading: प्रकाशन
+    heading:
     headings:
       detail:
-  read_more: विस्तार में पढ़ें
+  read_more:
   support:
     array:
-      last_word_connector: और
+      last_word_connector:
   time:
     formats:
       long_ordinal:
@@ -314,13 +313,13 @@ hi:
       personal_information_charter_html:
       publication_scheme_html:
       welsh_language_scheme_html:
-    find_out_more: देखें- पूरा प्रोफाइल देखें और संपर्क विवरण
+    find_out_more:
     headings:
-      about_us: हमारे बारे में
-      contact_us: हमसे संपर्क करें
-      corporate_information: कॉरपोरेट सूचना
-      follow_us: हमारा अनुसरण करें
-      our_people: हमारे लोग
-      our_services: हमारी सेवाएं
-    location: स्थान
-    part_of: का अंग
+      about_us:
+      contact_us:
+      corporate_information:
+      follow_us:
+      our_people:
+      our_services:
+    location:
+    part_of:
