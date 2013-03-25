@@ -5,6 +5,7 @@ module Edition::SupportingPages
     def process_associations_after_save(edition)
       @edition.supporting_pages.each do |sd|
         new_supporting_page = edition.supporting_pages.create(sd.attributes.except("id", "edition_id"))
+        new_supporting_page.update_column(:slug, sd.slug)
         sd.attachments.each do |a|
           new_supporting_page.supporting_page_attachments.create(attachment_id: a.id)
         end
