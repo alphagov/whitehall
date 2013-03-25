@@ -85,7 +85,7 @@
                     <ul class="attributes">
                       <li><%= consultation.organisations.map(&:acronym).to_sentence %></li>
                       <li>Closed <%= consultation.date_microformat(:closing_on) %></li>
-                      <li><%= link_to "Respond now", public_document_path(consultation) %></li>
+                      <li><%= link_to "See the outcome", public_document_path(consultation) %></li>
                     </ul>
                   </li>
                 <% end %>
