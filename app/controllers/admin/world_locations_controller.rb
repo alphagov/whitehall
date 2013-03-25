@@ -1,11 +1,11 @@
 class Admin::WorldLocationsController < Admin::BaseController
-  before_filter :load_world_location, only: [:edit, :update]
-  before_filter :load_news_articles, only: [:edit, :update]
+  before_filter :load_world_location, only: [:edit, :update, :show, :features]
+  before_filter :load_or_create_feature_list, only: [:features]
   before_filter :build_mainstream_links, only: [:edit]
   before_filter :destroy_blank_mainstream_links, only: [:create, :update]
 
   def index
-    @world_locations = WorldLocation.ordered_by_name
+    @active_world_locations, @inactive_world_locations = WorldLocation.ordered_by_name.partition {|wl| wl.active? }
   end
 
   def edit
@@ -13,20 +13,25 @@ class Admin::WorldLocationsController < Admin::BaseController
 
   def update
     if @world_location.update_attributes(params[:world_location])
-      redirect_to admin_world_locations_path, notice: "World location updated successfully"
+      redirect_to [:admin, @world_location], notice: "World location updated successfully"
     else
       render action: :edit
     end
   end
 
+  def features
+    @editions = @feature_list.featurable_editions
+  end
+
   private
 
   def load_world_location
-    @world_location = WorldLocation.find(params[:id])
+    @world_location = WorldLocation.find(params[:id] || params[:world_location_id])
   end
 
-  def load_news_articles
-    @news_articles = NewsArticle.accessible_to(current_user).published.in_world_location(@world_location).in_reverse_chronological_order
+  def load_or_create_feature_list
+    @feature_list = @world_location.feature_lists.find_by_locale(params[:locale]) ||
+      @world_location.feature_lists.create(locale: params[:locale])
   end
 
   def build_mainstream_links

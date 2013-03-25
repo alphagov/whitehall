@@ -5,6 +5,8 @@ module Admin::TabbedNavHelper
       tab_navigation(organisation_tabs(organisation), &block)
     when WorldwideOrganisation
       tab_navigation(worldwide_organisation_tabs(organisation), &block)
+    when WorldLocation
+      tab_navigation(world_location_tabs(organisation), &block)
     end
   end
 
