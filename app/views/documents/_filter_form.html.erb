@@ -1,9 +1,10 @@
 <% unless defined?(filters); filters = []; end %>
+<% document_type_plural = document_type.to_s.pluralize %>
 <div class="filter-block">
   <h2><%= t 'document_filters.description' %></h2>
-  <form method="get" action="<%= send(:"#{document_type.to_s.pluralize}_path") %>" id="document-filter" class="js-document-filter">
+  <form method="get" action="<%= send(:"#{document_type_plural}_path") %>" id="document-filter" class="js-document-filter">
     <fieldset>
-      <legend class="visuallyhidden">Filter <%= document_type.to_s.pluralize %></legend>
+      <legend class="visuallyhidden">Filter <%= document_type_plural %></legend>
 
       <% if filters.include? :keyword %>
         <div class="filter" id="keyword-filter">
@@ -58,7 +59,7 @@
         <% if filters.include? :relevant_to_local_government %>
           <div class="filter" id="local-government-relevance-filter">
             <div class="filter-inner checkbox">
-              <%= label_tag "relevant_to_local_government", "Local government content" %>
+              <%= label_tag "relevant_to_local_government", "Only show #{document_type_plural} relevant to local government" %>
               <%= check_box_tag :relevant_to_local_government, '1', @filter.relevant_to_local_government %>
             </div>
           </div>
