@@ -239,7 +239,7 @@ class Admin::EditionsController < Admin::BaseController
   end
 
   def params_filters_with_default_state
-    params_filters.reverse_merge(state: 'active')
+    params_filters.reverse_merge(state: 'active', world_location_ids: 'all')
   end
 
   def sanitized_filters(filters)
