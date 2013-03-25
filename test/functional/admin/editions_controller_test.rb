@@ -361,12 +361,6 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     assert_select "tr.force_published"
   end
 
-  view_test "should link to all active editions" do
-    get :index, state: :draft
-
-    assert_select "a[href='#{admin_editions_path(state: :active)}']"
-  end
-
   test "should not display the featured column when viewing all active editions" do
     create(:published_news_article)
 
