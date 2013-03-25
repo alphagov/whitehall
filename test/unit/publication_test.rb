@@ -51,7 +51,7 @@ class PublicationTest < ActiveSupport::TestCase
     refute_equal 'new title', publication.reload.html_version.title
   end
 
-  test 'slug does not change on republish' do
+  test 'slug of html version does not change on republish' do
     publication = create(:published_publication, :with_html_version)
     new_draft = publication.create_draft(create(:author))
     new_draft.html_version.title = "title-changed"
