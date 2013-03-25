@@ -3,11 +3,12 @@ require 'test_helper'
 module Whitehall::Uploader
   class NewsArticleRowTest < ActiveSupport::TestCase
     setup do
+      @attachment_cache = stub('attachment cache')
       @default_organisation = stub("organisation", url: "url")
     end
 
     def news_article_row(data)
-      NewsArticleRow.new(data, 1, stub('Attachment cache'), @default_organisation)
+      NewsArticleRow.new(data, 1, @attachment_cache, @default_organisation)
     end
 
     def basic_headings
@@ -16,6 +17,12 @@ module Whitehall::Uploader
 
     test "validates row headings" do
       assert_equal [], NewsArticleRow.heading_validation_errors(basic_headings)
+    end
+
+    test "accepts attachment rows" do
+      assert_equal [], NewsArticleRow.heading_validation_errors(basic_headings + %w(attachment_1_title attachment_1_url))
+      assert_equal [], NewsArticleRow.heading_validation_errors(basic_headings + %w(attachment_1_title attachment_1_url attachment_2_title attachment_2_url))
+      assert_equal [], NewsArticleRow.heading_validation_errors(basic_headings + %w(json_attachments))
     end
 
     test "finds news article type by slug in the news_article_type column" do
@@ -52,7 +59,7 @@ module Whitehall::Uploader
 
     test "supplies an attribute list for the new news article record" do
       row = news_article_row({})
-      attribute_keys = [:title, :summary, :body, :news_article_type, :lead_organisations, :first_published_at, :related_editions, :role_appointments, :world_locations]
+      attribute_keys = [:title, :summary, :body, :news_article_type, :lead_organisations, :first_published_at, :related_editions, :role_appointments, :world_locations, :attachments]
       attribute_keys.each do |key|
         row.stubs(key).returns(key.to_s)
       end
@@ -65,6 +72,34 @@ module Whitehall::Uploader
       Finders::WorldLocationsFinder.stubs(:find).with("first", "second", "third", "fourth", anything, anything).returns(world_locations)
       row = news_article_row("country_1" => "first", "country_2" => "second", "country_3" => "third", "country_4" => "fourth")
       assert_equal world_locations, row.world_locations
+    end
+
+    test "finds attachments from the attachment columns" do
+      @attachment_cache.stubs(:fetch).with('http://example.com/attachment.pdf').returns(File.open(Rails.root.join('test', 'fixtures', 'two-pages.pdf')))
+      @attachment_cache.stubs(:fetch).with('http://example.com/second_attachment.pdf').returns(File.open(Rails.root.join('test', 'fixtures', 'two-pages.pdf')))
+
+      row = news_article_row({
+        'attachment_1_title' => 'first title', 'attachment_1_url' => 'http://example.com/attachment.pdf',
+        'attachment_2_title' => 'second title', 'attachment_2_url' => 'http://example.com/second_attachment.pdf'
+      })
+
+      assert_equal 2, row.attachments.size
+      assert_equal 'first title', row.attachments.first.title
+      assert_equal 'http://example.com/attachment.pdf', row.attachments.first.attachment_source.url
+      assert_equal 'second title', row.attachments.second.title
+      assert_equal 'http://example.com/second_attachment.pdf', row.attachments.second.attachment_source.url
+    end
+
+    test "finds attachments from JSON column" do
+      @attachment_cache.stubs(:fetch).with("http://example.com/another_attachment.pdf").returns(File.open(Rails.root.join("test", "fixtures", "two-pages.pdf")))
+
+      row = news_article_row({
+        'json_attachments' => ActiveSupport::JSON.encode([{"title" => "attachment title", "link" => "http://example.com/another_attachment.pdf"}])
+      })
+
+      assert_equal 1, row.attachments.size
+      assert_equal 'attachment title', row.attachments.first.title
+      assert_equal 'http://example.com/another_attachment.pdf', row.attachments.first.attachment_source.url
     end
 
     test "returns translation attributes" do
