@@ -39,8 +39,14 @@ module FeedHelper
     request.host
   end
 
+  def feed_display_type_for(document)
+    return "News story" if (document.is_a?(WorldLocationNewsArticle))
+    return "Priority" if (document.is_a?(WorldwidePriority))
+    document.display_type
+  end
+
   def document_as_feed_entry(document, builder, govdelivery_version = false)
-    builder.title "#{document.display_type}: #{document.title}"
+    builder.title "#{feed_display_type_for(document)}: #{document.title}"
     builder.category label: document.display_type, term: document.display_type
     builder.summary entry_summary(document, govdelivery_version)
     builder.content entry_content(document), type: 'html'
