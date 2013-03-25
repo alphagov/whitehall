@@ -8,7 +8,7 @@ class Whitehall::Translation::Importer
   end
 
   def import
-    csv = CSV.read(@csv_path, headers: true)
+    csv = CSV.read(@csv_path, headers: true, header_converters: :downcase)
     data = {}
     csv.each do |row|
       key = row["key"]

@@ -2,9 +2,9 @@ vi:
   activerecord:
     attributes:
       detailed_guide:
-        primary_mainstream_category:
+        primary_mainstream_category: Hạng mục hướng dẫn chi tiết sơ cấp
   announcements:
-    heading:
+    heading: Thông báo
   attachment:
     accessibility:
       full_help_html:
@@ -16,203 +16,204 @@ vi:
       published:
       reference:
   change_notes:
-    published:
-    updated:
+    published: Xuất bản
+    updated: Cập nhật
   contact:
-    contact_form:
-    email:
+    contact_form: Mẫu liên hệ
+    email: Email
   corporate_information_page:
     type:
-      personal_information_charter:
-      publication_scheme:
-      welsh_language_scheme:
+      personal_information_charter: Bảng thông tin cá nhân
+      publication_scheme: Cơ chế Xuất bản
+      welsh_language_scheme: cơ chế ngôn ngữ của xứ Wales
   date:
     formats:
       default:
-      long_ordinal: ! '%e %B %Y'
+      long_ordinal:
   document:
     headings:
-      advisory_groups:
-      applies_to_nations:
+      advisory_groups: Nhóm tham vấn
+      applies_to_nations: Áp dụngng cho
       attachments:
         one:
         other:
-      document_series:
-      field_of_operation:
-      live_data:
+      document_series: Chuỗi
+      field_of_operation: Lĩnh vực hoạt động
+      live_data: Dữ liệu cập nhật
       ministers:
-        one:
-        other:
+        one: Thứ trưởng
+        other: Các thứ trưởng
       organisations:
         one:
         other:
       policies:
-        one:
-        other:
-      policy_team:
+        one: Chính sách
+        other: Các chính sách
+      policy_team: Nhóm chính sách
       supporting_documents:
         one:
         other:
       topics:
-        one:
-        other:
+        one: Chủ đề
+        other: Các chủ đề
       world_locations:
-        one:
-        other:
+        one: Địa điểm thế giới
+        other: Các địa điểm thế giới
       worldwide_organisations:
-        one:
-        other:
-    published:
-    read:
+        one: Tổ chức trên toàn thế giới
+        other: Tổ chức trên toàn thế giới
+    published: Đã xuất bản
+    read: Đọc bài có  %{tiêu đề}
     speech:
       delivered_on:
       delivery_title:
-        minister:
-        speaker:
-      originally_given_at:
+        minister: Thứ trưởng
+        speaker: Người phát biểu
+      originally_given_at: Được đưa ra đầu tiên tại %{địa điểm}
     type:
       announcement:
-        one:
-        other:
+        one: Thông báo
+        other: Các thông báo
       case_study:
-        one:
-        other:
+        one: Trường hợp cụ thể
+        other: Các Trường hợp cụ thể
       closed_consultation:
-        one:
-        other:
+        one: Kết thúc tham vấn
+        other: Kết thúc các cuộc tham vấn
       consultation:
-        one:
-        other:
+        one: Tham vấn
+        other: Các cuộc tham vấn
       consultation_outcome:
-        one:
-        other:
+        one: Kết quả tham vấn
+        other: Các Kết quả tham vấn
       corporate_report:
-        one:
-        other:
+        one: báo cáo tổng hợp
+        other: Các báo cáo tổng hợp
       correspondence:
-        one:
-        other:
+        one: Liên hệ
+        other: Liên hệ
       detailed_guidance:
-        one:
-        other:
+        one: Hướng dẫn chi tiết
+        other: Hướng dẫn chi tiết
       draft_text:
-        one:
-        other:
+        one: Nội dung dự thảo
+        other: Các nội dung dự thảo
       fatality_notice:
-        one:
-        other:
+        one: Tin buồn
+        other: Tin buồn
       foi_release:
-        one:
-        other:
+        one: Thông cáo FOI
+        other: Thông cáo FOI
       form:
-        one:
-        other:
+        one: Mẫu đơn
+        other: Các mẫu đơn
       guidance:
-        one:
-        other:
+        one: hướng dẫn
+        other: hướng dẫn
       impact_assessment:
-        one:
-        other:
+        one: Đánh giá tác động
+        other: Đánh giá tác động
       imported:
-        one:
-        other:
+        one: Loại tài liệu đính kèm
+        other: Loại tài liệu đính kèm
       independent_report:
-        one:
-        other:
+        one: Báo cáo độc lập
+        other: Các báo cáo độc lập
       map:
-        one:
-        other:
+        one: Bản đồ
+        other: Các bản đồ
       national_statistics:
-        one:
-        other:
+        one: Thống kê - Thống kê quốc gia
+        other: Thống kê - Thống kê quốc gia
       news_article:
-        one:
-        other:
+        one: Tin tức
+        other: Tin tức
       news_story:
-        one:
-        other:
+        one: Câu chuyện tin tức
+        other: Câu chuyện tin tức
       open_consultation:
-        one:
-        other:
+        one: Tham vấn mở rộng
+        other: Tham vấn mở rộng
       oral_statement:
-        one:
-        other:
+        one: Tuyên bố bằng lời nói tới quốc hội
+        other: Tuyên bố bằng lời nói tới quốc hội
       policy:
-        one:
-        other:
+        one: Chính sách
+        other: Các chính sách
       policy_paper:
-        one:
-        other:
+        one: Tài liệu chính sách
+        other: Tài liệu chính sách
       press_release:
-        one:
-        other:
+        one: Thông cáo báo chí
+        other: Thông cáo báo chí
       promotional:
-        one:
-        other:
+        one: Tài liệu truyền thông
+        other: Tài liệu truyền thông
       publication:
-        one:
-        other:
+        one: Tài liệu truyền thông
+        other: Tài liệu truyền thông
       rebuttal:
-        one:
-        other:
+        one: Sự bác bỏ
+        other: Sự bác bỏ
       research:
-        one:
-        other:
+        one: Nghiên cứu và phân tích
+        other: Nghiên cứu và phân tích
       speaking_notes:
-        one:
-        other:
+        one: Bài phát biểu
+        other: Bài phát biểu
       speech:
-        one:
-        other:
+        one: Bài phát biểu
+        other: Các bài phát biểu
       statement_to_parliament:
-        one:
-        other:
+        one: Tuyên bố tới Quốc hội
+        other: Tuyên bố tới Quốc hội
       statistical_data_set:
-        one:
-        other:
+        one: Bộ dữ liệu thống kê
+        other: Bộ dữ liệu thống kê
       statistics:
-        one:
-        other:
+        one: Thống kê
+        other: Thống kê
       transcript:
-        one:
-        other:
+        one: Kịch bản
+        other: Kịch bản
       transparency:
-        one:
-        other:
+        one: Dữ liệu kịch bản
+        other: Dữ liệu kịch bản
       world_location_news_article:
         one:
         other:
       worldwide_priority:
-        one:
-        other:
+        one: Ưu tiên toàn cầu
+        other: Các ưu tiên toàn cầu
       written_statement:
-        one:
-        other:
-    updated:
-    view:
+        one: Tuyên bố bằng văn bản tới quốc hội
+        other: Các Tuyên bố bằng văn bản tới quốc hội
+    updated: Cập nhật
+    view: Xem '%{title}'
   document_filters:
-    description:
+    description: bạn có thể sử dụng chức năng "filers" để hiện chỉ các kết quả bạn
+      quan tâm
     no_results:
-      description:
-      title:
+      description: thử làm cho tìm kiếm của bạn rộng hơn và thử lại
+      title: Không có tài liệu phù hợp
     world_locations:
-      all:
-      label:
+      all: Tất cả địa điểm
+      label: Các địa điểm trên thế giới
   feeds:
-    atom:
-    email_alerts:
-    latest_activity:
+    atom: nguyên tử
+    email_alerts: Cảnh báo qua thư điện tử
+    latest_activity: Hoạt động mới nhất
   i18n:
     direction: ltr
   language_names:
     vi: Tiếng Việt
   latest_feed:
-    no_updates:
-    title:
+    no_updates: Chưa có cập nhật
+    title: Mới nhất
   number:
     human:
       storage_units:
-        format:
+        format: ! '%n%u'
   organisation:
     about:
       read_more:
@@ -242,84 +243,87 @@ vi:
       what_we_do:
     type:
       Ad-hoc advisory group:
-        one:
-        other:
+        one: Nhóm tham vấn đặc biệt
+        other: Các nhóm tham vấn đặc biệt
       Advisory non-departmental public body:
-        one:
-        other:
+        one: Nhóm tham vấn không thuộc cơ chế công
+        other: Các nhóm tham vấn không thuộc cơ chế công
       Executive agency:
-        one:
-        other:
+        one: Văn phòng chuyên trách
+        other: Các văn phòng chuyên trách
       Executive non-departmental public body:
-        one:
-        other:
+        one: Phòng chuyên trách không thuộc cơ chế công
+        other: Các phòng chuyên trách không thuộc cơ chế công
       Independent monitoring body:
-        one:
-        other:
+        one: Cơ chế giám sát độc lập
+        other: Các cơ chế giám sát độc lập
       Ministerial department:
-        one:
-        other:
+        one: Cơ quan thuộc bộ
+        other: Các cơ quan thuộc bộ
       Non-ministerial department:
-        one:
-        other:
+        one: Cơ quan không thuộc bộ
+        other: Các cơ quan không thuộc bộ
       Other:
-        one:
-        other:
+        one: Khác
+        other: Các tổ chức khác
       Public corporation:
-        one:
-        other:
+        one: Hợp tác công
+        other: Hợp tác công
       Sub-organisation:
-        one:
-        other:
+        one: Tổ chức phụ
+        other: Các tổ chức phụ
       Tribunal non-departmental public body:
         one:
         other:
   policies:
-    heading:
+    heading: Các chính sách
   publications:
-    heading:
+    heading: Tài liệu truyền thông
     headings:
       detail:
-  read_more:
+  read_more: Đọc thêm
   support:
     array:
-      last_word_connector:
+      last_word_connector: và
   time:
     formats:
-      long_ordinal:
+      long_ordinal: ! '%e %B %Y %H:%M'
   world_location:
     headings:
-      announcements:
-      country:
-      documents:
-      mission:
-      organisations:
-      priorities:
-      publications:
-      quick_links:
-      related_policies:
-      see_all:
-      statistics:
-    see_all:
+      announcements: Các thông báo của chúng tôi
+      country: Đất nước
+      documents: Tài liệu
+      mission: Nhiệm vụ của chúng tôi
+      organisations: Các tổ chức
+      priorities: Các ưu tiên
+      publications: Tài liệu truyền thông của chúng tôi
+      quick_links: Links nhanh
+      related_policies: ! 'Các chính sách liên quan '
+      see_all: Xem tất cả các %{type} của chúng tôi
+      statistics: Thống kê của chúng tôi
+    see_all: Xem tất cả %{type} của chúng tôi
     type:
       international_delegation:
-        one:
-        other:
+        one: Phái đoàn quốc tế
+        other: Các phái đoàn quốc tế
       world_location:
         one:
         other:
   worldwide_organisation:
     corporate_information:
-      personal_information_charter_html:
-      publication_scheme_html:
-      welsh_language_scheme_html:
-    find_out_more:
+      personal_information_charter_html: ! '%{link} của chúng tôi giải thích cách
+        chúng tôi xử lý thông tin cá nhân của bạn'
+      publication_scheme_html: ! 'Xem các loại thông tin mà chúng tôi cập nhật thường
+        xuyên tại %{link} '
+      welsh_language_scheme_html: Tìm hiểu các cam kết của chúng tôi trong việc công
+        bố thông tin tại %{link}
+    find_out_more: Xem hồ sơ đầy đủ và tất cả các chi tiết liên hệ
     headings:
-      about_us:
-      contact_us:
-      corporate_information:
-      follow_us:
-      our_people:
-      our_services:
-    location:
-    part_of:
+      about_us: Về chúng tôi
+      contact_us: Liên hệ với chúng tôi
+      corporate_information: Thông tin tổng hợp
+      follow_us: Kết nối với chúng tôi
+      our_people: Nhân viên Bộ Ngoại giao Anh
+      our_services: Dịch vụ của chúng tôi
+    location: Địa điểm
+    part_of: Phần của

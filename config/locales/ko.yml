@@ -2,9 +2,9 @@ ko:
   activerecord:
     attributes:
       detailed_guide:
-        primary_mainstream_category:
+        primary_mainstream_category: 상세 안내 카테고리
   announcements:
-    heading:
+    heading: 공지사항
   attachment:
     accessibility:
       full_help_html:
@@ -16,199 +16,199 @@ ko:
       published:
       reference:
   change_notes:
-    published:
-    updated:
+    published: 퍼블리시
+    updated: 업데이트
   contact:
-    contact_form:
-    email:
+    contact_form: 콘택트 폼
+    email: 이메일
   corporate_information_page:
     type:
-      personal_information_charter:
-      publication_scheme:
-      welsh_language_scheme:
+      personal_information_charter: 개인정보 규정
+      publication_scheme: 발행 계획
+      welsh_language_scheme: 웨일스어 계획
   date:
     formats:
-      default:
+      default: ! '%d %B %Y'
       long_ordinal: ! '%e %B %Y'
   document:
     headings:
-      advisory_groups:
-      applies_to_nations:
+      advisory_groups: 자문 그룹
+      applies_to_nations: 적용
       attachments:
         one:
         other:
-      document_series:
-      field_of_operation:
-      live_data:
+      document_series: 시리즈
+      field_of_operation: 오퍼레이션 필드
+      live_data: 라이브 데이터
       ministers:
-        one:
-        other:
+        one: 장관
+        other: 장관
       organisations:
         one:
         other:
       policies:
-        one:
-        other:
-      policy_team:
+        one: 정책
+        other: 정책
+      policy_team: 정책팀
       supporting_documents:
         one:
         other:
       topics:
-        one:
-        other:
+        one: 토픽
+        other: 토픽
       world_locations:
-        one:
-        other:
+        one: 세계 로케이션
+        other: 세계 로케이션
       worldwide_organisations:
-        one:
-        other:
-    published:
+        one: 세계 기구
+        other: 세계 기구
+    published: 출판물/발행물
     read:
     speech:
       delivered_on:
       delivery_title:
-        minister:
-        speaker:
+        minister: 장관
+        speaker: 대변인
       originally_given_at:
     type:
       announcement:
-        one:
-        other:
+        one: 공지
+        other: 공지
       case_study:
-        one:
-        other:
+        one: 케이스 스터디
+        other: 케이스 스터디
       closed_consultation:
-        one:
-        other:
+        one: 비공개 협의
+        other: 비공개 협의
       consultation:
-        one:
-        other:
+        one: 협의/회담/상담
+        other: 협의/회담/상담
       consultation_outcome:
-        one:
-        other:
+        one: 협의 결과
+        other: 협의 결과
       corporate_report:
-        one:
-        other:
+        one: 기업 레포트
+        other: 기업 레포트
       correspondence:
-        one:
-        other:
+        one: 서신
+        other: 서신
       detailed_guidance:
-        one:
-        other:
+        one: 상세 안내
+        other: 상세 안내
       draft_text:
-        one:
-        other:
+        one: 드래프트 택스트
+        other: 드래프트 택스트
       fatality_notice:
-        one:
-        other:
+        one: 사상자 공지
+        other: 사상자 공지
       foi_release:
-        one:
-        other:
+        one: FOI 보도자료
+        other: FOI 보도자료
       form:
-        one:
-        other:
+        one: 문서
+        other: 문서
       guidance:
-        one:
-        other:
+        one: 안내
+        other: 안내
       impact_assessment:
-        one:
-        other:
+        one: 임팩트 평가
+        other: 임팩트 평가
       imported:
-        one:
-        other:
+        one: 수입 - 대기
+        other: 수입 - 대기
       independent_report:
-        one:
-        other:
+        one: 독립 레포트
+        other: 독립 레포트
       map:
-        one:
-        other:
+        one: 지도
+        other: 지도
       national_statistics:
-        one:
-        other:
+        one: 통계 - 국가 통계
+        other: 통계 - 국가 통계
       news_article:
-        one:
-        other:
+        one: 뉴스
+        other: 뉴스
       news_story:
-        one:
-        other:
+        one: 뉴스 스토리
+        other: 뉴스 스토리
       open_consultation:
-        one:
-        other:
+        one: 오픈 컨설테이션
+        other: 오픈 컨설테이션
       oral_statement:
-        one:
-        other:
+        one: 의회로 구두 성명
+        other: 의회로 구두 성명
       policy:
-        one:
-        other:
+        one: 정책
+        other: 정책
       policy_paper:
-        one:
-        other:
+        one: 정책 논문
+        other: 정책 논문
       press_release:
-        one:
-        other:
+        one: 보도자료
+        other: 보도자료
       promotional:
-        one:
-        other:
+        one: 홍보물
+        other: 홍보물
       publication:
-        one:
-        other:
+        one: 간행물
+        other: 간행물
       rebuttal:
-        one:
-        other:
+        one: 반박
+        other: 반박
       research:
-        one:
-        other:
+        one: 리써치 및 분석
+        other: 리써치 및 분석
       speaking_notes:
-        one:
-        other:
+        one: 요점사항
+        other: 요점사항
       speech:
-        one:
-        other:
+        one: 연설문
+        other: 연설문
       statement_to_parliament:
-        one:
-        other:
+        one: 의회로 성명
+        other: 의회로 성명
       statistical_data_set:
-        one:
-        other:
+        one: 통계 데이터 세트
+        other: 통계 데이터 세트
       statistics:
-        one:
-        other:
+        one: 통계
+        other: 통계
       transcript:
-        one:
-        other:
+        one: 트랜스크립트
+        other: 트랜스크립트
       transparency:
-        one:
-        other:
+        one: 투명성 데이타
+        other: 투명성 데이타
       world_location_news_article:
         one:
         other:
       worldwide_priority:
-        one:
-        other:
+        one: 세계 우선과제
+        other: 세계 우선과제
       written_statement:
-        one:
-        other:
-    updated:
+        one: 의회로 서면 성명
+        other: 의회로 서면 성명
+    updated: 업데이트
     view:
   document_filters:
-    description:
+    description: 원하시는 내용으로 써치를 제한하는 필터를 사용하실 수 있습니다.
     no_results:
-      description:
-      title:
+      description: 다시 써치해주시기 바랍니다.
+      title: 매치되는 문서가 없습니다.
     world_locations:
-      all:
-      label:
+      all: 모든 로케이션
+      label: 월드 로케이션
   feeds:
-    atom:
-    email_alerts:
-    latest_activity:
+    atom: 부분
+    email_alerts: 이메일 소식
+    latest_activity: 최근 활동
   i18n:
     direction: ltr
   language_names:
     ko: 한국어
   latest_feed:
-    no_updates:
-    title:
+    no_updates: 관련 내용이 아직 없습니다.
+    title: 최신
   number:
     human:
       storage_units:
@@ -242,69 +242,69 @@ ko:
       what_we_do:
     type:
       Ad-hoc advisory group:
-        one:
-        other:
+        one: 임시자문기구
+        other: 임시 자문기구
       Advisory non-departmental public body:
-        one:
-        other:
+        one: 자문 공공기관
+        other: 자문 공공기관
       Executive agency:
-        one:
-        other:
+        one: 행정기관
+        other: 행정기관
       Executive non-departmental public body:
-        one:
-        other:
+        one: 행정 공공기관
+        other: 행정 공공기관
       Independent monitoring body:
-        one:
-        other:
+        one: 독립 감시 기구
+        other: 독립 감시 기구
       Ministerial department:
-        one:
-        other:
+        one: 장관 부처
+        other: 장관 부처
       Non-ministerial department:
-        one:
-        other:
+        one: 비장관 부처
+        other: 비장관 부처
       Other:
-        one:
-        other:
+        one: 기타
+        other: ! '기타  '
       Public corporation:
-        one:
-        other:
+        one: 공기업
+        other: 공기업
       Sub-organisation:
-        one:
-        other:
+        one: 산하 기관
+        other: 산하 기관
       Tribunal non-departmental public body:
-        one:
-        other:
+        one: 트리뷰널 공공기관
+        other: 트리뷰널 공공기관
   policies:
-    heading:
+    heading: 정책사안
   publications:
-    heading:
+    heading: 출판물
     headings:
       detail:
-  read_more:
+  read_more: 더 자세한 정보 알아보기
   support:
     array:
-      last_word_connector:
+      last_word_connector: 그리고
   time:
     formats:
-      long_ordinal:
+      long_ordinal: ! '%e %B %Y %H:%M'
   world_location:
     headings:
-      announcements:
-      country:
-      documents:
-      mission:
-      organisations:
-      priorities:
-      publications:
-      quick_links:
-      related_policies:
+      announcements: 공지사항
+      country: 국가
+      documents: 자료
+      mission: 대사관 안내
+      organisations: 조직 안내
+      priorities: 우선과제
+      publications: 출판물
+      quick_links: 퀵 링크
+      related_policies: 관련 정책
       see_all:
-      statistics:
+      statistics: 통계
     see_all:
     type:
       international_delegation:
-        one:
-        other:
+        one: 국제 사절단
+        other: 국제 사절단
       world_location:
         one:
         other:
@@ -313,13 +313,13 @@ ko:
       personal_information_charter_html:
       publication_scheme_html:
       welsh_language_scheme_html:
-    find_out_more:
+    find_out_more: 프로필과 연락처 보기
     headings:
-      about_us:
-      contact_us:
-      corporate_information:
-      follow_us:
-      our_people:
-      our_services:
-    location:
-    part_of:
+      about_us: 대사관 안내
+      contact_us: 연락처
+      corporate_information: 대사관 정보
+      follow_us: 트위터 팔로우
+      our_people: 직원
+      our_services: 서비스
+    location: 로케이션
+    part_of: 파트
