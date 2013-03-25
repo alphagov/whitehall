@@ -192,8 +192,8 @@ it:
         one: Filiale
         other: Filiali
       Tribunal non-departmental public body:
-        one: Ente pubblico giudiziario non ministeriale
-        other: Enti pubblici giudiziari non ministeriali
+        one: ! 'Ente pubblico giudiziario non ministeriale '
+        other: ! 'Enti pubblici giudiziari non ministeriali '
     about:
       read_more:
     corporate_information:
@@ -273,7 +273,8 @@ it:
       default: ! '%d %B %Y'
       long_ordinal: ! '%e %B %Y'
   document_filters:
-    description: Per visualizzare esclusivamente i risultati di proprio interesse
+    description: Per visualizzare esclusivamente i risultati di proprio interesse,
+      utilizzare i filtri
     no_results:
       description: Restringere la ricerca e riprovare
       title: Non è stato trovato alcun documento corrispondente
@@ -301,7 +302,7 @@ it:
     heading: Pubblicazioni
     headings:
       detail:
-  read_more: Per saperne di più…
+  read_more: Per saperne di più
   support:
     array:
       last_word_connector: e
