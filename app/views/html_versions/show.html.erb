@@ -1,30 +1,41 @@
 <% page_title @document.title %>
 <% page_class "html-publications-show" %>
 
-<div class="block">
-  <div class="inner-block">
-    <header class="page-header">
-      <ul class="organisations-icon-list">
-        <% @document.organisations.each do |organisation| %>
-          <%= content_tag_for(:li, organisation, class: organisation.slug) do %>
-            <%= link_to organisation_path(organisation),
-                        class: logo_classes(class_name: organisation.organisation_logo_type.class_name, size: 'medium') do %>
-              <span><%= organisation.logo_formatted_name %></span>
-            <% end %>
+<div class="block publication-external">
+  <div class="inner-block floated-children">
+    <ul class="organisations-icon-list organisations">
+      <% @document.organisations.each do |organisation| %>
+        <%= content_tag_for(:li, organisation, class: organisation.slug) do %>
+          <%= link_to organisation_path(organisation),
+                      class: logo_classes(class_name: organisation.organisation_logo_type.class_name, size: 'medium', stacked: true) do %>
+            <span><%= organisation.logo_formatted_name %></span>
           <% end %>
         <% end %>
-      </ul>
-      <h1><%= @document.title %></h1>
-      <p><%= link_to 'Back to publication page', public_document_path(@document) %></p>
-      <nav class="in-page-navigation">
-        <h2>Contents</h2>
-        <ol>
-          <% govspeak_headers(@html_version.body).each do |header| %>
-            <li><%= link_to header.text, "##{header.id}" %></li>
-          <% end %>
-        </ol>
-      </nav>
-    </header>
-    <%= govspeak_to_html @html_version.body, @document.images %>
+      <% end %>
+    </ul>
+    <div class="return">
+      <p>Part of: <%= link_to @document.title, public_document_path(@document) %></p>
+    </div>
+  </div>
+</div>
+<header class="publication-header">
+  <div class="inner-block floated-children">
+    <div class="headings">
+      <h1><%= @html_version.title %></h1>
+      <p><%= published_or_updated(@document) %> <%= absolute_date(@document.public_timestamp, class: 'published-at') %></p>
+    </div>
+  </div>
+</header>
+<div class="block publication-content">
+  <div class="inner-block floated-children">
+    <nav class="in-page-navigation">
+      <h2>Contents</h2>
+      <ol>
+        <% govspeak_headers(@html_version.body).each do |header| %>
+          <li><%= link_to header.text, "##{header.id}" %></li>
+        <% end %>
+      </ol>
+    </nav>
+    <%= govspeak_to_html @html_version.body, @document.images, numbered_heading_level: 'h2' %>
   </div>
 </div>

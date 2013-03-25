@@ -1,11 +1,15 @@
 class HtmlVersionsController < PublicFacingController
-  layout 'detailed-guidance'
+  layout 'html-publication'
 
   before_filter :find_publication
   before_filter :find_html_version
 
   include CacheControlHelper
   include PublicDocumentRoutesHelper
+
+  def set_slimmer_template
+    slimmer_template('chromeless')
+  end
 
   def show
     @document = @publication

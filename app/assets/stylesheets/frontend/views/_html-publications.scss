@@ -1,9 +1,178 @@
-.html-publications-show {
-  .in-page-navigation {
-    margin: $gutter-half 0;
+$gutter: 28px;
 
-    li {
-      list-style: decimal;
+.html-publications-show {
+  @extend %contain-floats;
+
+  padding: $gutter-half $gutter-half $gutter*3;
+  @include media(tablet){
+    padding: $gutter $gutter $gutter*3;
+  }
+
+  .publication-external {
+    @extend %contain-floats;
+    margin: 7px 0 14px;
+    position: relative;
+
+    .organisations {
+      @include media(tablet){
+        width: 25%;
+        float: left;
+      }
+      .content {
+        margin-bottom: $gutter-half;
+      }
+    }
+    .return {
+      color: $text-colour;
+      @include media(tablet){
+        width: 75%;
+        float: left;
+
+        p {
+          position: absolute;
+          bottom: 3px;
+        }
+      }
+    }
+  }
+
+  .publication-header {
+    @extend %contain-floats;
+    background: $light-blue;
+    padding: $gutter-one-third;
+    margin: 0 (-$gutter-half);
+    @include media(tablet){
+      padding: 0;
+      margin: 0;
+    }
+
+    .headings {
+      float: right;
+      width: 100%;
+      @include media(tablet){
+        width: 75%;
+      }
+      h1 {
+        font-size: 30px;
+        line-height: (36/30);
+        font-weight: lighter;
+        margin: $gutter-half 0;
+        color: $white;
+
+        @include media(tablet){
+          margin: $gutter*2 0 $gutter*2;
+          font-size: 48px;
+          line-height: (56/48);
+          padding-right: $gutter-half;
+        }
+      }
+      p {
+        margin: $gutter-half 0 22px;
+        color: $text-colour;
+      }
+    }
+  }
+  .publication-content {
+    .in-page-navigation,
+    .govspeak {
+      @include media(tablet){
+        width: 75%;
+        float: right;
+      }
+    }
+    .in-page-navigation {
+      margin: 20px 0 14px;
+
+      h2 {
+        font-size: 19px;
+        font-weight: normal;
+      }
+      ol {
+        margin-left: 1.3em;
+        @include media(desktop){
+          margin-left: 0;
+        }
+        @include ie(7){
+          margin-left: $gutter;
+        }
+        li {
+          list-style: decimal;
+        }
+      }
+    }
+    .govspeak {
+      h2 {
+        font-weight: normal;
+        font-size: 30px;
+        line-height: (36/30);
+        margin: $gutter-half 0 $gutter-one-third;
+
+        @include media(tablet){
+          font-size: 44px;
+          line-height: (49/44);
+          margin: $gutter*2 0 $gutter-half;
+        }
+        .number {
+          @include media(tablet){
+            position: absolute;
+            margin-left: -23%;
+          }
+        }
+      }
+      h3 {
+        font-weight: normal;
+        font-size: 24px;
+        line-height: (32/24);
+        margin: $gutter-half 0;
+
+        @include media(tablet){
+          font-size: 28px;
+          line-height: (35/28);
+          margin: $gutter 0;
+        }
+      }
+      h2, h3, h4, h5, h6 {
+        color: black;
+      }
+      h4, h5, h6 {
+        font-weight: bold;
+      }
+      p, ul, ol {
+        margin: $gutter-two-thirds 0;
+        @include media(tablet){
+          margin: $gutter 0;
+        }
+      }
+      ul, ol {
+        margin-left: 1.3em;
+        @include media(tablet){
+          margin-left: 0;
+        }
+        @include ie(7){
+          margin-left: $gutter;
+        }
+      }
+      ol {
+        list-style-type: decimal;
+      }
+      table, img {
+        margin: $gutter-half 0;
+        width: 100%;
+        height: auto;
+      }
+      table {
+        border-collapse: collapse;
+        border-spacing: 0;
+
+        th {
+          font-weight: bold;
+        }
+        th, td {
+          text-align: left;
+          padding: 6px 14px 7px 0;
+          border-bottom: 1px solid $grey-2;
+        }
+      }
     }
   }
 }

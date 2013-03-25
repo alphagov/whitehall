@@ -2,8 +2,8 @@ require 'addressable/uri'
 require 'delegate'
 
 module GovspeakHelper
-  def govspeak_to_html(govspeak, images=[])
-    wrapped_in_govspeak_div(bare_govspeak_to_html(govspeak, images))
+  def govspeak_to_html(govspeak, images=[], options={})
+    wrapped_in_govspeak_div(bare_govspeak_to_html(govspeak, images, options))
   end
 
   def govspeak_edition_to_html(edition)
@@ -62,7 +62,7 @@ module GovspeakHelper
     content_tag(:div, html_string.html_safe, class: 'govspeak')
   end
 
-  def bare_govspeak_to_html(govspeak, images = [], &block)
+  def bare_govspeak_to_html(govspeak, images = [], options = {}, &block)
     # pre-processors
     govspeak = remove_extra_quotes_from_blockquotes(govspeak)
 
@@ -70,6 +70,7 @@ module GovspeakHelper
       # post-processors
       replace_internal_admin_links_in(nokogiri_doc, &block)
       add_class_to_last_blockquote_paragraph(nokogiri_doc)
+      add_heading_numbers(nokogiri_doc, options[:numbered_heading_level]) if options[:numbered_heading_level]
     end.to_html.html_safe
   end
 
@@ -98,6 +99,12 @@ module GovspeakHelper
   def add_class_to_last_blockquote_paragraph(nokogiri_doc)
     nokogiri_doc.css('blockquote p:last-child').map do |el|
       el[:class] = 'last-child'
+    end
+  end
+
+  def add_heading_numbers(nokogiri_doc, heading_level)
+    nokogiri_doc.css(heading_level).map.with_index do |el,i|
+      el.inner_html = %{<span class="number">#{i+1}.</span> #{el.inner_html}}
     end
   end
 

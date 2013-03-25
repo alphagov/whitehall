@@ -229,6 +229,11 @@ class GovspeakHelperTest < ActionView::TestCase
     assert_equal output, govspeak_to_html(input).gsub(/\s+/, ' ')
   end
 
+  test "should add numbers to defined heading level" do
+    input = "# first\n\n# second"
+    output = '<div class="govspeak"><h1 id="first"> <span class="number">1.</span> first</h1> <h1 id="second"> <span class="number">2.</span> second</h1></div>'
+    assert_equal output, govspeak_to_html(input, [], numbered_heading_level: 'h1').gsub(/\s+/, ' ')
+  end
 
   private
 
