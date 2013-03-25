@@ -1,56 +1,41 @@
 <% page_title @document.title %>
 <% page_class "html-publications-show" %>
 
-<div class="whitehall-content publication-external">
+<div class="block publication-external">
   <div class="inner-block floated-children">
-    <div class="organisations">
-      <ul class="organisations-icon-list content">
-        <% @document.organisations.each do |organisation| %>
-          <%= content_tag_for(:li, organisation, class: organisation.slug) do %>
-            <%= link_to organisation_path(organisation),
-                        class: logo_classes(class_name: organisation.organisation_logo_type.class_name, size: 'medium', stacked: true) do %>
-              <span><%= organisation.logo_formatted_name %></span>
-            <% end %>
+    <ul class="organisations-icon-list organisations">
+      <% @document.organisations.each do |organisation| %>
+        <%= content_tag_for(:li, organisation, class: organisation.slug) do %>
+          <%= link_to organisation_path(organisation),
+                      class: logo_classes(class_name: organisation.organisation_logo_type.class_name, size: 'medium', stacked: true) do %>
+            <span><%= organisation.logo_formatted_name %></span>
           <% end %>
         <% end %>
-      </ul>
-    </div>
+      <% end %>
+    </ul>
     <div class="return">
-      <div class="content">
-        <p><%= link_to @document.title, public_document_path(@document) %></p>
-      </div>
+      <p>Part of: <%= link_to @document.title, public_document_path(@document) %></p>
     </div>
   </div>
 </div>
 <header class="publication-header">
-  <div class="whitehall-content">
-    <div class="inner-block floated-children">
-      <div class="headings">
-        <div class="headings-content">
-          <h1><%= @html_version.title %></h1>
-          <p><%= published_or_updated(@document) %> <%= absolute_date(@document.public_timestamp, class: 'published-at') %></p>
-        </div>
-      </div>
+  <div class="inner-block floated-children">
+    <div class="headings">
+      <h1><%= @html_version.title %></h1>
+      <p><%= published_or_updated(@document) %> <%= absolute_date(@document.public_timestamp, class: 'published-at') %></p>
     </div>
   </div>
 </header>
-
-<div class="whitehall-content">
-  <div class="block publication-content">
-    <div class="inner-block floated-children">
-      <nav class="in-page-navigation">
-        <div class="content">
-          <h2>Contents</h2>
-          <ol>
-            <% govspeak_headers(@html_version.body).each do |header| %>
-              <li><%= link_to header.text, "##{header.id}" %></li>
-            <% end %>
-          </ol>
-        </div>
-      </nav>
-      <div class="body">
-        <%= govspeak_to_html @html_version.body, @document.images, numbered_heading_level: 'h2' %>
-      </div>
-    </div>
+<div class="block publication-content">
+  <div class="inner-block floated-children">
+    <nav class="in-page-navigation">
+      <h2>Contents</h2>
+      <ol>
+        <% govspeak_headers(@html_version.body).each do |header| %>
+          <li><%= link_to header.text, "##{header.id}" %></li>
+        <% end %>
+      </ol>
+    </nav>
+    <%= govspeak_to_html @html_version.body, @document.images, numbered_heading_level: 'h2' %>
   </div>
 </div>

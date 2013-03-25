@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
   before_filter :set_audit_trail_whodunnit
 
   layout 'frontend'
-  slimmer_template 'header_footer_only'
+  after_filter :set_slimmer_template
 
   private
 
@@ -21,6 +21,14 @@ class ApplicationController < ActionController::Base
 
   def skip_slimmer
     response.headers[Slimmer::Headers::SKIP_HEADER] = "true"
+  end
+
+  def slimmer_template(template_name)
+    response.headers[Slimmer::Headers::TEMPLATE_HEADER] = template_name
+  end
+
+  def set_slimmer_template
+    slimmer_template('header_footer_only')
   end
 
   def set_proposition

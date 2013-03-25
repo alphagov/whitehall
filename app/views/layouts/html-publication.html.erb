@@ -1,5 +1,7 @@
-<%= render :layout => 'layouts/frontend_base', locals: {remove_breadcrumbs: true} do %>
-  <div id="page" class="<%= content_for?(:page_class) ? yield(:page_class) : '' %>" >
-    <%= yield %>
+<%= render :layout => 'layouts/frontend_base', locals: {remove_breadcrumbs: true, extra_body_class: 'html-publication', stylesheet: 'html-publication'} do %>
+  <div class="whitehall-content">
+    <div id="page" class="<%= content_for?(:page_class) ? yield(:page_class) : '' %>" >
+      <%= yield %>
+    </div>
   </div>
 <% end %>

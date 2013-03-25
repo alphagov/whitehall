@@ -7,6 +7,10 @@ class HtmlVersionsController < PublicFacingController
   include CacheControlHelper
   include PublicDocumentRoutesHelper
 
+  def set_slimmer_template
+    slimmer_template('chromeless')
+  end
+
   def show
     @document = @publication
     @html_version = @publication.html_version

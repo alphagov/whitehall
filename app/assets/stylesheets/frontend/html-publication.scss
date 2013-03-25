@@ -1,0 +1,51 @@
+
+// BASE STYLESHEET COMPILER
+
+
+
+// STYLEGUIDE
+// Mixins to be shared across gov.uk sites. Anything set in these
+// files can be used in the view files.
+
+// From the https://github.com/alphagov/govuk_frontend_toolkit
+@import "_colours.scss";
+@import "_conditionals.scss";
+@import "_css3.scss";
+@import "_typography.scss";
+
+@import "styleguide/_dimensions.scss";
+@import "styleguide/_colours.scss";
+@import "styleguide/_float-fix.scss";
+@import "styleguide/_hidpi.scss";
+@import "styleguide/_typography.scss";
+@import "styleguide/_right-to-left.scss";
+
+// RESET
+// Flatten exising styles
+
+@import "reset/_govuk-overrides.scss";
+// overrides to the gov.uk header and footer
+@import "reset/_reset.scss";
+// reset styles applied to #whitehall-wrapper & #whitehall-wrapper *
+// so as to override global styles being set by gov.uk chrome. When
+// gov.uk styles are scoped, will want to change these selectors to
+// body and *
+
+
+// HELPERS
+// Styles for comment page elements
+#whitehall-wrapper {
+  @import "helpers/_organisations.scss";
+}
+
+
+// VIEWS
+// Styles scoped to each template in /views
+#whitehall-wrapper {
+  @import "views/_html-publications.scss";
+}
+
+
+// LAYOUTS
+// Styles scoped to a layout. Be careful.
+@import "layouts/html-publication.scss";
