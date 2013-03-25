@@ -101,20 +101,22 @@ module Whitehall::Uploader
       end
     end
 
-    def self.provided_response_ids(headings)
-      headings.map do |k|
-        if match = k.match(/^response_([0-9]+).*$/)
-          match[1]
+    def attachments_from_json
+      if row["json_attachments"]
+        attachment_data = ActiveSupport::JSON.decode(row["json_attachments"])
+        attachment_data.map do |attachment|
+          Builders::AttachmentBuilder.build({title: attachment["title"]}, attachment["link"], @attachment_cache, @logger, @line_number)
         end
-      end.compact.uniq
+      else
+        []
+      end
     end
 
-    def self.provided_attachment_ids(headings)
-      headings.map do |k|
-        if match = k.match(/^attachment_([0-9]+).*$/)
-          match[1]
-        end
-      end.compact.uniq
+    def attachments_from_columns
+      1.upto(Row::ATTACHMENT_LIMIT).map do |number|
+        next unless row["attachment_#{number}_title"] || row["attachment_#{number}_url"]
+        Builders::AttachmentBuilder.build({title: row["attachment_#{number}_title"]}, row["attachment_#{number}_url"], @attachment_cache, @logger, @line_number)
+      end.compact
     end
   end
 end
