@@ -7,6 +7,7 @@ class PageTitleTest < ActiveSupport::TestCase
     layouts/admin.html.erb
     layouts/frontend.html.erb
     layouts/detailed-guidance.html.erb
+    layouts/html-publication.html.erb
     layouts/home.html.erb
   ).map do |f|
     File.expand_path(Rails.root + "app/views/" + f )

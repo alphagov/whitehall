@@ -1,0 +1,36 @@
+.html-publication {
+  font-family: "Helvetica Neue", sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: (28/19);
+  color: #292929;
+  background: #fff image-url('html-publication/texture.png') repeat;
+  -webkit-font-smoothing: antialiased;
+  @include media(tablet){
+    font-size: 19px;
+  }
+}
+
+#whitehall-wrapper {
+  position: relative;
+  margin: 0 auto;
+  padding-top: 0;
+
+  .whitehall-content {
+    position: relative;
+    margin: 0 auto;
+    width: auto;
+    max-width: $max-site-width;
+
+    @extend %contain-floats;
+  }
+}
+
+#footer {
+  font-size: 16px;
+  .footer-meta {
+    border-top: 0;
+    margin-top: 0;
+    padding-top: 0;
+  }
+}

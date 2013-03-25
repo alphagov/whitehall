@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="content-type">
+
+    <!-- http://t.co/dKP3o1e -->
+    <meta content="True" name="HandheldFriendly">
+    <meta content="320" name="MobileOptimized">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+
+    <title><%= page_title %></title>
+    <% if right_to_left? %>
+      <!--[if gt IE 8]><!--><%= stylesheet_link_tag "frontend/right-to-left.css" %><!--<![endif]-->
+      <!--[if IE 6]><%= stylesheet_link_tag "frontend/right-to-left-ie6.css" %><script>var ieVersion = 6;</script><![endif]-->
+      <!--[if IE 7]><%= stylesheet_link_tag "frontend/right-to-left-ie7.css" %><script>var ieVersion = 7;</script><![endif]-->
+      <!--[if IE 8]><%= stylesheet_link_tag "frontend/right-to-left-ie8.css" %><script>var ieVersion = 8;</script><![endif]-->
+    <% else %>
+      <!--[if gt IE 8]><!--><%= stylesheet_link_tag "frontend/#{local_assigns[:stylesheet] || "base"}.css" %><!--<![endif]-->
+      <!--[if IE 6]><%= stylesheet_link_tag "frontend/#{local_assigns[:stylesheet] || "base"}-ie6.css" %><script>var ieVersion = 6;</script><![endif]-->
+      <!--[if IE 7]><%= stylesheet_link_tag "frontend/#{local_assigns[:stylesheet] || "base"}-ie7.css" %><script>var ieVersion = 7;</script><![endif]-->
+      <!--[if IE 8]><%= stylesheet_link_tag "frontend/#{local_assigns[:stylesheet] || "base"}-ie8.css" %><script>var ieVersion = 8;</script><![endif]-->
+    <% end %>
+    <%= stylesheet_link_tag "frontend/print.css", media: "print" %>
+    <%= csrf_meta_tags %>
+    <%= atom_discovery_link_tag %>
+  </head>
+  <body class="website government<%= " #{local_assigns[:extra_body_class]}" if local_assigns[:extra_body_class] %>">
+    <% if local_assigns[:remove_breadcrumbs] %><div class="header-context group"><!-- deliberately empty --></div><% end %>
+    <div id="whitehall-wrapper">
+      <%= yield %>
+    </div>
+    <%= javascript_include_tag "application", defer: true %>
+  </body>
+</html>
