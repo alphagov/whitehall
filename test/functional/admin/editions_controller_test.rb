@@ -204,11 +204,18 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     get :index, state: :draft, author: ""
   end
 
-  test 'should strip out any invalid states passed as parameters' do
+  test 'should strip out any invalid states passed as parameters and replace them with "active"' do
     stub_filter = stub_edition_filter
-    Admin::EditionsController::EditionFilter.expects(:new).with(anything, anything, {"type" => "policy"}).returns(stub_filter)
+    Admin::EditionsController::EditionFilter.expects(:new).with(anything, anything, {"state" => "active", "type" => "policy"}).returns(stub_filter)
 
     get :index, state: :haxxor_method, type: :policy
+  end
+
+  test 'should add state param set to "active" if none is supplied' do
+    stub_filter = stub_edition_filter
+    Admin::EditionsController::EditionFilter.expects(:new).with(anything, anything, {"state" => "active", "type" => "policy"}).returns(stub_filter)
+
+    get :index, type: :policy
   end
 
   view_test 'should distinguish between edition types when viewing the list of editions' do

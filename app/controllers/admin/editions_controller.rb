@@ -238,6 +238,10 @@ class Admin::EditionsController < Admin::BaseController
     sanitized_filters(params.slice(:type, :state, :organisation, :author, :page, :title, :world_location_ids))
   end
 
+  def params_filters_with_default_state
+    params_filters.reverse_merge(state: 'active')
+  end
+
   def sanitized_filters(filters)
     valid_states = %w[ active imported draft submitted rejected published scheduled ]
     filters.delete(:state) unless filters[:state].nil? || valid_states.include?(filters[:state].to_s)
@@ -245,7 +249,7 @@ class Admin::EditionsController < Admin::BaseController
   end
 
   def filter
-    @filter ||= params_filters.any? && EditionFilter.new(edition_class, current_user, params_filters)
+    @filter ||= params_filters.any? && EditionFilter.new(edition_class, current_user, params_filters_with_default_state)
   end
 
   def detect_other_active_editors
