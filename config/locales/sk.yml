@@ -88,6 +88,10 @@ sk:
         one:
         few:
         other:
+      government_response:
+        one:
+        few:
+        other:
       guidance:
         one:
         few:
@@ -145,10 +149,6 @@ sk:
         few:
         other:
       publication:
-        one:
-        few:
-        other:
-      rebuttal:
         one:
         few:
         other:

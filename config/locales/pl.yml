@@ -108,6 +108,11 @@ pl:
         few:
         many:
         other:
+      government_response:
+        one:
+        few:
+        many:
+        other:
       guidance:
         one:
         few:
@@ -179,11 +184,6 @@ pl:
         many:
         other:
       publication:
-        one:
-        few:
-        many:
-        other:
-      rebuttal:
         one:
         few:
         many:

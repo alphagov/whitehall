@@ -68,6 +68,9 @@ it:
       form:
         one: Formulario
         other: Formulari
+      government_response:
+        one:
+        other:
       guidance:
         one: Indicazione
         other: Indicazione
@@ -113,9 +116,6 @@ it:
       publication:
         one: Pubblicazione
         other: Pubblicazioni
-      rebuttal:
-        one: Replica
-        other: Repliche
       research:
         one: Ricerca ed analisi
         other: Ricerca ed analisi

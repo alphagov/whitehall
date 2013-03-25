@@ -68,6 +68,9 @@ tk:
       form:
         one:
         other:
+      government_response:
+        one:
+        other:
       guidance:
         one:
         other:
@@ -111,9 +114,6 @@ tk:
         one:
         other:
       publication:
-        one:
-        other:
-      rebuttal:
         one:
         other:
       research:

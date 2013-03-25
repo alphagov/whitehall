@@ -107,6 +107,9 @@ id:
       form:
         one: ! 'Formulir  '
         other: Formulir-formulir
+      government_response:
+        one:
+        other:
       guidance:
         one: ! 'Panduan  '
         other: Panduan
@@ -152,9 +155,6 @@ id:
       publication:
         one: Publikasi
         other: Publikasi-publikasi
-      rebuttal:
-        one: Sanggahan
-        other: Sanggahan-sanggahan
       research:
         one: Riset dan analisis
         other: Riset dan analisis

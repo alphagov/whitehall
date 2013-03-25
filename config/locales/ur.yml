@@ -68,6 +68,9 @@ ur:
       form:
         one: فارم
         other: فارمز
+      government_response:
+        one:
+        other:
       guidance:
         one: رہنمائی
         other: رہنمائی
@@ -113,9 +116,6 @@ ur:
       publication:
         one: مطبوعہ
         other: مطبوعات
-      rebuttal:
-        one: دفاع
-        other: دفاع
       research:
         one: تحقیق و تجزیہ
         other: تحقیق و تجزیہ

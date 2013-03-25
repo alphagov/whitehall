@@ -68,6 +68,9 @@ de:
       form:
         one: Formular
         other: Formulare
+      government_response:
+        one:
+        other:
       guidance:
         one: Hinweise
         other: Hinweise
@@ -113,9 +116,6 @@ de:
       publication:
         one: Veröffentlichung
         other: Veröffentlichungen
-      rebuttal:
-        one: Gegendarstellung
-        other: Gegendarstellungen
       research:
         one: Forschung und Analyse
         other: Forschung und Analyse

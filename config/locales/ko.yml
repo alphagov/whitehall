@@ -107,6 +107,9 @@ ko:
       form:
         one: 문서
         other: 문서
+      government_response:
+        one:
+        other:
       guidance:
         one: 안내
         other: 안내
@@ -152,9 +155,6 @@ ko:
       publication:
         one: 간행물
         other: 간행물
-      rebuttal:
-        one: 반박
-        other: 반박
       research:
         one: 리써치 및 분석
         other: 리써치 및 분석

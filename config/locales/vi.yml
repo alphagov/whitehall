@@ -107,6 +107,9 @@ vi:
       form:
         one: Mẫu đơn
         other: Các mẫu đơn
+      government_response:
+        one:
+        other:
       guidance:
         one: hướng dẫn
         other: hướng dẫn
@@ -152,9 +155,6 @@ vi:
       publication:
         one: Tài liệu truyền thông
         other: Tài liệu truyền thông
-      rebuttal:
-        one: Sự bác bỏ
-        other: Sự bác bỏ
       research:
         one: Nghiên cứu và phân tích
         other: Nghiên cứu và phân tích

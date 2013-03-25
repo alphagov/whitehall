@@ -107,6 +107,9 @@ ja:
       form:
         one: フォーム
         other: フォーム
+      government_response:
+        one:
+        other:
       guidance:
         one: 説明
         other: 説明
@@ -152,9 +155,6 @@ ja:
       publication:
         one: 出版物
         other: 出版物
-      rebuttal:
-        one: 反論
-        other: 反論
       research:
         one: 調査と分析
         other: 調査と分析

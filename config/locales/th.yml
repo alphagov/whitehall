@@ -107,6 +107,9 @@ th:
       form:
         one:
         other:
+      government_response:
+        one:
+        other:
       guidance:
         one:
         other:
@@ -150,9 +153,6 @@ th:
         one:
         other:
       publication:
-        one:
-        other:
-      rebuttal:
         one:
         other:
       research:
