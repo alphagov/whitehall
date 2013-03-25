@@ -1,325 +1,281 @@
 hi:
-  document:
-    headings:
-      attachments:
-        one:
-        other:
-      ministers:
-        one:
-        other:
-      organisations:
-        one:
-        other:
-      policies:
-        one:
-        other:
-      supporting_documents:
-        one:
-        other:
-      topics:
-        one:
-        other:
-      world_locations:
-        one:
-        other:
-      worldwide_organisations:
-        one:
-        other:
-      advisory_groups:
-      applies_to_nations:
-      document_series:
-      field_of_operation:
-      live_data:
-      policy_team:
-    type:
-      announcement:
-        one:
-        other:
-      case_study:
-        one:
-        other:
-      closed_consultation:
-        one:
-        other:
-      consultation:
-        one:
-        other:
-      consultation_outcome:
-        one:
-        other:
-      corporate_report:
-        one:
-        other:
-      correspondence:
-        one:
-        other:
-      detailed_guidance:
-        one:
-        other:
-      draft_text:
-        one:
-        other:
-      fatality_notice:
-        one:
-        other:
-      foi_release:
-        one:
-        other:
-      form:
-        one:
-        other:
-      guidance:
-        one:
-        other:
-      impact_assessment:
-        one:
-        other:
-      imported:
-        one:
-        other:
-      independent_report:
-        one:
-        other:
-      map:
-        one:
-        other:
-      national_statistics:
-        one:
-        other:
-      news_article:
-        one:
-        other:
-      news_story:
-        one:
-        other:
-      open_consultation:
-        one:
-        other:
-      oral_statement:
-        one:
-        other:
-      policy:
-        one:
-        other:
-      policy_paper:
-        one:
-        other:
-      press_release:
-        one:
-        other:
-      promotional:
-        one:
-        other:
-      publication:
-        one:
-        other:
-      rebuttal:
-        one:
-        other:
-      research:
-        one:
-        other:
-      speaking_notes:
-        one:
-        other:
-      speech:
-        one:
-        other:
-      statement_to_parliament:
-        one:
-        other:
-      statistical_data_set:
-        one:
-        other:
-      statistics:
-        one:
-        other:
-      transcript:
-        one:
-        other:
-      transparency:
-        one:
-        other:
-      world_location_news_article:
-        one:
-        other:
-      worldwide_priority:
-        one:
-        other:
-      written_statement:
-        one:
-        other:
-    published:
-    read:
-    speech:
-      delivered_on:
-      delivery_title:
-        minister:
-        speaker:
-      originally_given_at:
-    updated:
-    view:
-  organisation:
-    type:
-      Ad-hoc advisory group:
-        one:
-        other:
-      Advisory non-departmental public body:
-        one:
-        other:
-      Executive agency:
-        one:
-        other:
-      Executive non-departmental public body:
-        one:
-        other:
-      Independent monitoring body:
-        one:
-        other:
-      Ministerial department:
-        one:
-        other:
-      Non-ministerial department:
-        one:
-        other:
-      Other:
-        one:
-        other:
-      Public corporation:
-        one:
-        other:
-      Sub-organisation:
-        one:
-        other:
-      Tribunal non-departmental public body:
-        one:
-        other:
-    about:
-      read_more:
-    corporate_information:
-      access_our_info:
-      foi_how_to:
-      foi_releases:
-      jobs_and_contacts:
-      transparency:
-    headings:
-      chief_professional_officers:
-      contact:
-      corporate_information:
-      corporate_reports:
-      our_announcements:
-      our_management:
-      our_ministers:
-      our_policies:
-      our_publications:
-      our_senior_military_officials:
-      our_services:
-      our_statistics:
-      our_topics:
-      plus_others:
-      special_representatives:
-      traffic_commissioners:
-      what_we_do:
-  world_location:
-    type:
-      international_delegation:
-        one:
-        other:
-      world_location:
-        one:
-        other:
-    headings:
-      announcements:
-      country:
-      documents:
-      mission:
-      organisations:
-      priorities:
-      publications:
-      quick_links:
-      related_policies:
-      see_all:
-      statistics:
-    see_all:
   activerecord:
     attributes:
       detailed_guide:
-        primary_mainstream_category:
+        primary_mainstream_category: प्राथमिक विस्तृत मार्गदर्शन श्रेणी
   announcements:
-    heading:
-  attachment:
-    accessibility:
-      full_help_html:
-      heading:
-      request_a_different_format:
-    headings:
-      order_a_copy:
-      order_a_copy_full:
-      published:
-      reference:
+    heading: घोषणाएं
   change_notes:
-    published:
-    updated:
+    published: प्रकाशित
+    updated: अद्यतन
   contact:
-    contact_form:
-    email:
+    contact_form: संपर्क फॉर्म
+    email: ईमेल
   corporate_information_page:
     type:
-      personal_information_charter:
-      publication_scheme:
-      welsh_language_scheme:
+      personal_information_charter: व्यक्तिगत जानकारी चार्टर
+      publication_scheme: प्रकाशन योजना
+      welsh_language_scheme: वेल्श भाषा योजना
   date:
     formats:
       default:
-      long_ordinal: ! '%e %B %Y'
+      long_ordinal:
+  document:
+    headings:
+      advisory_groups: सलाहकार समूह
+      applies_to_nations: पर लागू
+      document_series:
+      field_of_operation: प्रचालन क्षेत्र
+      live_data: लाइव डेटा
+      ministers:
+        one: मंत्री
+        other: मंत्रीगण
+      policies:
+        one: नीति
+        other: नीतियां
+      policy_team: नीति टीम
+      topics:
+        one: विषय
+        other: विषय
+      world_locations:
+        one: विश्व स्थान
+        other: विश्व के स्थान
+      worldwide_organisations:
+        one: दुनिया भर में संगठन
+        other: दुनिया भर में संगठन
+    published: प्रकाशित
+    read:
+    speech:
+      delivered_on: ! 'को वितरित:'
+      delivery_title:
+        minister: मंत्री
+        speaker: वक्ता
+      originally_given_at:
+    type:
+      announcement:
+        one: घोषणा
+        other: घोषणाएं
+      case_study:
+        one: केस स्टडी
+        other: केस स्टडीज
+      closed_consultation:
+        one: बंद कमरे में परामर्श
+        other: बंद कमरे में परामर्श
+      consultation:
+        one: परामर्श
+        other: परामर्श
+      consultation_outcome:
+        one: परामर्श का नतीजा
+        other: परामर्श के नतीजे
+      corporate_report:
+        one: कॉरपोरेट रिपोर्ट
+        other: कॉरपोरेट रिपोर्टें
+      correspondence:
+        one: पत्र व्यवहार
+        other: पत्र व्यवहार
+      detailed_guidance:
+        one: विस्तृत मार्गदर्शन
+        other: विस्तृत मार्गदर्शन
+      draft_text:
+        one: मसौदा पाठ
+        other: मसौदे के पाठ
+      fatality_notice:
+        one: विपत्ति नोटिस
+        other: विपत्ति के नोटिस
+      foi_release:
+        one: एफओआई की विज्ञप्ति
+        other: एफओआई की विज्ञप्तियां
+      form:
+        one: फॉर्म
+        other: फॉम्र्स
+      guidance:
+        one: मार्गदर्शन
+        other: मार्गदर्शन
+      impact_assessment:
+        one: प्रभाव का आकलन
+        other: प्रभाव के आकलन
+      imported:
+        one: आयातित- प्रतीक्षा
+        other: आयातित- प्रतीक्षा
+      independent_report:
+        one: स्वतंत्र रिपोर्ट
+        other: स्वतंत्र रिपोर्टें
+      map:
+        one: मानचित्र
+        other: मानचित्र
+      national_statistics:
+        one: सांख्यिकी- राष्ट्रीय सांख्यिकी
+        other: सांख्यिकी- राष्ट्रीय सांख्यिकी
+      news_article:
+        one: नया लेख
+        other: नए लेख
+      news_story:
+        one: समाचार कथा
+        other: समाचार कथाएं
+      open_consultation:
+        one: खुला परामर्श
+        other: खुले परामर्श
+      oral_statement:
+        one: संसद में मौखिक बयान
+        other: संसद में मौखिक बयान
+      policy:
+        one: नीति
+        other: नीतियां
+      policy_paper:
+        one: नीति पत्र
+        other: नीति पत्र
+      press_release:
+        one: प्रेस विज्ञप्ति
+        other: प्रेस विज्ञप्तियां
+      promotional:
+        one: प्रचार सामग्री
+        other: प्रचार सामग्री
+      publication:
+        one: प्रकाशन
+        other: प्रकाशन
+      rebuttal:
+        one: खंडन
+        other: खंडन
+      research:
+        one: अनुसंधान एवं विश्लेषण
+        other: अनुसंधान एवं विश्लेषण
+      speaking_notes:
+        one: बोलने के लिए नोट्स
+        other: बोलने के लिए नोट्स
+      speech:
+        one: भाषण
+        other: भाषण
+      statement_to_parliament:
+        one: संसद में बयान
+        other: संसद में बयान
+      statistical_data_set:
+        one: सांख्यिकीय डेटा सेट
+        other: सांख्यिकीय डेटा सेट्स
+      statistics:
+        one: आंकड़े
+        other: आंकड़े
+      transcript:
+        one: प्रतिलिपि
+        other: प्रतिलिपियां
+      transparency:
+        one: पारदर्शिता आंकड़े
+        other: पारदर्शिता आंकड़े
+      worldwide_priority:
+        one: दुनिया भर में प्राथमिकता
+        other: दुनिया भर में प्राथमिकता
+      written_statement:
+        one: दुनिया भर में प्राथमिकताएं
+        other: संसद में लिखित बयान
+    updated: संसद में लिखित बयान
+    view:
   document_filters:
     description:
     no_results:
-      description:
-      title:
+      description: आप फिल्टरों का उपयोग सिर्फ उन नतीजों को दर्शाने के लिए कर सकते
+        हैं, जिनमें आप की दिलचस्पी हो।
+      title: ! 'अपनी खोज़ को व्यापक बनाए और पुन: कोशिश करें'
     world_locations:
-      all:
-      label:
+      all: मेल खाने वाले दस्तावेज़ नहीं हैं
+      label: सभी स्थान
   feeds:
-    atom:
-    email_alerts:
-    latest_activity:
+    atom: विश्व के स्थान
+    email_alerts: एटम
+    latest_activity: ईमेल अलर्टस
   i18n:
-    direction: ltr
+    direction: नवीनतम गतिविधि
   language_names:
-    hi: हिन्दी
+    hi: लिटर
   latest_feed:
-    no_updates:
-    title:
+    no_updates: हिन्दी
+    title: अभी कोई नया अपडेट नहीं हैं।
   number:
     human:
       storage_units:
         format:
-  policies:
-    heading:
-  publications:
-    heading:
+  organisation:
     headings:
-      detail:
-  read_more:
+      plus_others:
+    type:
+      Ad-hoc advisory group:
+        one: तदर्थ सलाहकार समूह
+        other: तदर्थ सलाहकार समूह
+      Advisory non-departmental public body:
+        one: परामर्शी गैर-विभागीय सार्वजनिक निकाय
+        other: परामर्शी गैर-विभागीय सार्वजनिक निकाय
+      Executive agency:
+        one: नवीनतम
+        other:
+      Executive non-departmental public body:
+        one: कार्यकारी एजेंसी
+        other: कार्यकारी एजेंसियां
+      Independent monitoring body:
+        one: कार्यकारी गैर-विभागीय सार्वजनिक निकाय
+        other: कार्यकारी गैर-विभागीय सार्वजनिक निकाय
+      Ministerial department:
+        one: स्वतंत्र पर्यवेक्षण निकाय
+        other: स्वतंत्र पर्यवेक्षण निकाय
+      Non-ministerial department:
+        one: मंत्रालयी विभाग
+        other: मंत्रालयी विभाग
+      Other:
+        one: गैर-मंत्रालय विभाग
+        other: गैर-मंत्रालयी विभाग
+      Public corporation:
+        one: अन्य
+        other: मंत्रालयी विभाग
+      Sub-organisation:
+        one: उप-संगठन
+        other: उप-संगठन
+      Tribunal non-departmental public body:
+        one: न्यायाधिकरण गैर-विभागीय सार्वजनिक निकाय
+        other: न्यायाधिकरण गैर-विभागीय सार्वजनिक निकाय
+  policies:
+    heading: नीतियां
+  publications:
+    heading: प्रकाशन
+  read_more: विस्तार में पढ़ें
   support:
     array:
-      last_word_connector:
+      last_word_connector: और
   time:
     formats:
       long_ordinal:
+  world_location:
+    headings:
+      announcements: देश
+      country: दस्तावेज़
+      documents: हमारा मिशन
+      mission: संगठन
+      organisations: प्राथमिकताएं
+      priorities: और
+      publications:
+      quick_links: क्विक लिंक्स
+      related_policies: संबंधित नीतियां
+      see_all:
+      statistics: हमारे आंकड़े
+    see_all:
+    type:
+      country:
+        one: देश
+        other: देश
+      international_delegation:
+        one: अंतर्राष्ट्रीय प्रतिनिधिमंडल
+        other: अंतर्राष्ट्रीय प्रतिनिधिमंडल
+      overseas_territory:
+        one: विदेशी क्षेत्र
+        other: विदेशी क्षेत्र
   worldwide_organisation:
     corporate_information:
       personal_information_charter_html:
       publication_scheme_html:
       welsh_language_scheme_html:
-    find_out_more:
+    find_out_more: देखें- पूरा प्रोफाइल देखें और संपर्क विवरण
     headings:
-      about_us:
-      contact_us:
-      corporate_information:
-      follow_us:
-      our_people:
-      our_services:
-    location:
-    part_of:
+      about_us: हमारे बारे में
+      contact_us: हमसे संपर्क करें
+      corporate_information: कॉरपोरेट सूचना
+      follow_us: हमारा अनुसरण करें
+      our_people: हमारे लोग
+      our_services: हमारी सेवाएं
+    location: स्थान
+    part_of: का अंग

@@ -1,445 +1,280 @@
 he:
-  document:
-    headings:
-      attachments:
-        one:
-        two:
-        many:
-        other:
-      ministers:
-        one:
-        two:
-        many:
-        other:
-      organisations:
-        one:
-        two:
-        many:
-        other:
-      policies:
-        one:
-        two:
-        many:
-        other:
-      supporting_documents:
-        one:
-        two:
-        many:
-        other:
-      topics:
-        one:
-        two:
-        many:
-        other:
-      world_locations:
-        one:
-        two:
-        many:
-        other:
-      worldwide_organisations:
-        one:
-        two:
-        many:
-        other:
-      advisory_groups:
-      applies_to_nations:
-      document_series:
-      field_of_operation:
-      live_data:
-      policy_team:
-    type:
-      announcement:
-        one:
-        two:
-        many:
-        other:
-      case_study:
-        one:
-        two:
-        many:
-        other:
-      closed_consultation:
-        one:
-        two:
-        many:
-        other:
-      consultation:
-        one:
-        two:
-        many:
-        other:
-      consultation_outcome:
-        one:
-        two:
-        many:
-        other:
-      corporate_report:
-        one:
-        two:
-        many:
-        other:
-      correspondence:
-        one:
-        two:
-        many:
-        other:
-      detailed_guidance:
-        one:
-        two:
-        many:
-        other:
-      draft_text:
-        one:
-        two:
-        many:
-        other:
-      fatality_notice:
-        one:
-        two:
-        many:
-        other:
-      foi_release:
-        one:
-        two:
-        many:
-        other:
-      form:
-        one:
-        two:
-        many:
-        other:
-      guidance:
-        one:
-        two:
-        many:
-        other:
-      impact_assessment:
-        one:
-        two:
-        many:
-        other:
-      imported:
-        one:
-        two:
-        many:
-        other:
-      independent_report:
-        one:
-        two:
-        many:
-        other:
-      map:
-        one:
-        two:
-        many:
-        other:
-      national_statistics:
-        one:
-        two:
-        many:
-        other:
-      news_article:
-        one:
-        two:
-        many:
-        other:
-      news_story:
-        one:
-        two:
-        many:
-        other:
-      open_consultation:
-        one:
-        two:
-        many:
-        other:
-      oral_statement:
-        one:
-        two:
-        many:
-        other:
-      policy:
-        one:
-        two:
-        many:
-        other:
-      policy_paper:
-        one:
-        two:
-        many:
-        other:
-      press_release:
-        one:
-        two:
-        many:
-        other:
-      promotional:
-        one:
-        two:
-        many:
-        other:
-      publication:
-        one:
-        two:
-        many:
-        other:
-      rebuttal:
-        one:
-        two:
-        many:
-        other:
-      research:
-        one:
-        two:
-        many:
-        other:
-      speaking_notes:
-        one:
-        two:
-        many:
-        other:
-      speech:
-        one:
-        two:
-        many:
-        other:
-      statement_to_parliament:
-        one:
-        two:
-        many:
-        other:
-      statistical_data_set:
-        one:
-        two:
-        many:
-        other:
-      statistics:
-        one:
-        two:
-        many:
-        other:
-      transcript:
-        one:
-        two:
-        many:
-        other:
-      transparency:
-        one:
-        two:
-        many:
-        other:
-      world_location_news_article:
-        one:
-        two:
-        many:
-        other:
-      worldwide_priority:
-        one:
-        two:
-        many:
-        other:
-      written_statement:
-        one:
-        two:
-        many:
-        other:
-    published:
-    read:
-    speech:
-      delivered_on:
-      delivery_title:
-        minister:
-        speaker:
-      originally_given_at:
-    updated:
-    view:
-  organisation:
-    type:
-      Ad-hoc advisory group:
-        one:
-        two:
-        many:
-        other:
-      Advisory non-departmental public body:
-        one:
-        two:
-        many:
-        other:
-      Executive agency:
-        one:
-        two:
-        many:
-        other:
-      Executive non-departmental public body:
-        one:
-        two:
-        many:
-        other:
-      Independent monitoring body:
-        one:
-        two:
-        many:
-        other:
-      Ministerial department:
-        one:
-        two:
-        many:
-        other:
-      Non-ministerial department:
-        one:
-        two:
-        many:
-        other:
-      Other:
-        one:
-        two:
-        many:
-        other:
-      Public corporation:
-        one:
-        two:
-        many:
-        other:
-      Sub-organisation:
-        one:
-        two:
-        many:
-        other:
-      Tribunal non-departmental public body:
-        one:
-        two:
-        many:
-        other:
-    about:
-      read_more:
-    corporate_information:
-      access_our_info:
-      foi_how_to:
-      foi_releases:
-      jobs_and_contacts:
-      transparency:
-    headings:
-      chief_professional_officers:
-      contact:
-      corporate_information:
-      corporate_reports:
-      our_announcements:
-      our_management:
-      our_ministers:
-      our_policies:
-      our_publications:
-      our_senior_military_officials:
-      our_services:
-      our_statistics:
-      our_topics:
-      plus_others:
-      special_representatives:
-      traffic_commissioners:
-      what_we_do:
-  world_location:
-    type:
-      international_delegation:
-        one:
-        two:
-        many:
-        other:
-      world_location:
-        one:
-        two:
-        many:
-        other:
-    headings:
-      announcements:
-      country:
-      documents:
-      mission:
-      organisations:
-      priorities:
-      publications:
-      quick_links:
-      related_policies:
-      see_all:
-      statistics:
-    see_all:
   activerecord:
     attributes:
       detailed_guide:
-        primary_mainstream_category:
+        primary_mainstream_category: קטגוריית פרטים ראשית
   announcements:
-    heading:
-  attachment:
-    accessibility:
-      full_help_html:
-      heading:
-      request_a_different_format:
-    headings:
-      order_a_copy:
-      order_a_copy_full:
-      published:
-      reference:
+    heading: הודעות
   change_notes:
-    published:
-    updated:
+    published: פורסם
+    updated: עודכן
   contact:
-    contact_form:
-    email:
+    contact_form: טופס יצירת קשר
+    email: דואר אלקטרוני
   corporate_information_page:
     type:
-      personal_information_charter:
-      publication_scheme:
-      welsh_language_scheme:
+      personal_information_charter: טבלת מידע אישי
+      publication_scheme: תכנית פרסומים
+      welsh_language_scheme: תכנית שפה וולשית
   date:
     formats:
       default:
-      long_ordinal: ! '%e %B %Y'
+      long_ordinal:
+  document:
+    headings:
+      advisory_groups: קבוצות ייעוץ
+      applies_to_nations: מתייחס ל
+      document_series: סדרות
+      field_of_operation: שדה פעולה
+      live_data: מידע פעיל
+      ministers:
+        one: שר
+        other: שרים
+      policies:
+        one: מדיניות
+        other: מדיניות
+      policy_team: תנאי מדיניות
+      topics:
+        one: נושא
+        other: נושאים
+      world_locations:
+        one: מיקום עולמי
+        other: מיקומים עולמיים
+      worldwide_organisations:
+        one: ארגון גלובאלי
+        other: ארגונים גלובאליים
+    published: פורסם
+    read:
+    speech:
+      delivered_on: 'נשלח ב:'
+      delivery_title:
+        minister: שר
+        speaker: דובר
+      originally_given_at:
+    type:
+      announcement:
+        one: הודעה
+        other: הודעות
+      case_study:
+        one: מקרה בוחן
+        other: מקרי בוחן
+      closed_consultation:
+        one: דיון סגור
+        other: דיונים סגורים
+      consultation:
+        one: דיון
+        other: דיונים
+      consultation_outcome:
+        one: תוצאות דיון
+        other: תוצאות דיונים
+      corporate_report:
+        one: דו"ח משותף
+        other: דו"חות משותפים
+      correspondence:
+        one: תכתובת
+        other: תכתובות
+      detailed_guidance:
+        one: מדריך מפורט
+        other: מדריך מפורט
+      draft_text:
+        one: טיוטה
+        other: טיוטות
+      fatality_notice:
+        one: הודעת פטירה
+        other: הודעות פטירה
+      foi_release:
+        one: פרסום חופש מידע
+        other: פרסומי חופש מידע
+      form:
+        one: טופס
+        other: טפסים
+      guidance:
+        one: הדרכה
+        other: הדרכה
+      impact_assessment:
+        one: הערכת השפעה
+        other: הערכת השפעות
+      imported:
+        one: יבוא- המתנה לסוג
+        other: יבוא- המתנה לסוג
+      independent_report:
+        one: דו"ח עצמאי
+        other: דו"ות עצמאיים
+      map:
+        one: מפה
+        other: מפות
+      national_statistics:
+        one: סטטיסטיקות- סטטיסטיקה לאומית
+        other: סטטיסטיקות- סטטסטיקה לאומית
+      news_article:
+        one: מאמר חדשות
+        other: מאמרי חדשות
+      news_story:
+        one: חדשות
+        other: חדשות
+      open_consultation:
+        one: דיון פתוח
+        other: דיון פתוח
+      oral_statement:
+        one: הצהרה בעל פה לפרלמנט
+        other: הצהרות בעל פה לפרלמנט
+      policy:
+        one: מדיניות
+        other: מדיניות
+      policy_paper:
+        one: נייר מדיניות
+        other: ניירות מדיניות
+      press_release:
+        one: הודעה לעיתונות
+        other: הודעות לעיתונות
+      promotional:
+        one: חומר פרסומי
+        other: חומר פרסומי
+      publication:
+        one: פרסום
+        other: פרסומים
+      rebuttal:
+        one: סתירה
+        other: סתירות
+      research:
+        one: מחקר וניתוח
+        other: מחקר וניתוח
+      speaking_notes:
+        one: נאומים
+        other: נאומים
+      speech:
+        one: נאום
+        other: נאומים
+      statement_to_parliament:
+        one: הצהרה לפרלמנט
+        other: הצהרות לפרלמנט
+      statistical_data_set:
+        one: מידע סטטיסטי
+        other: מידע סטטיסטי
+      statistics:
+        one: נתונים
+        other: נתונים
+      transcript:
+        one: תמלול
+        other: תמלולים
+      transparency:
+        one: שקיפות מידע
+        other: שקיפות מידע
+      worldwide_priority:
+        one: עדיפות גלובאלית
+        other: עדיפות גלובאלית
+      written_statement:
+        one: הצהרה בכתב לפרלמנט
+        other: הצהרות בכתב לפרלמנט
+    updated: מעודכן
+    view:
   document_filters:
-    description:
+    description: ניתן לעשות שימוש בפילטרים כדי לראות תוצאות ממוקדות
     no_results:
-      description:
-      title:
+      description: נסי/ה להרחיב את החיפוש וחפש/י שוב
+      title: אין מסמכים תואמים
     world_locations:
-      all:
-      label:
+      all: כל המיקומים
+      label: מיקומים גלובאליים
   feeds:
-    atom:
-    email_alerts:
-    latest_activity:
+    atom: אטום
+    email_alerts: התרעת דואר אלטרוני
+    latest_activity: פעילות אחרונה
   i18n:
-    direction: rtl
+    direction:
   language_names:
     he: עברית
   latest_feed:
-    no_updates:
-    title:
+    no_updates: אין עדכונים נוספים
+    title: אחרון
   number:
     human:
       storage_units:
         format:
-  policies:
-    heading:
-  publications:
-    heading:
+  organisation:
     headings:
-      detail:
-  read_more:
+      plus_others:
+    type:
+      Ad-hoc advisory group:
+        one: קבוצת ייעוץ אד- הוק
+        other: קבוצות ייעוץ אד- הוק
+      Advisory non-departmental public body:
+        one: ',גוף ייעוץ חוץ- מחלקתי בכיר'
+        other: ',ייעוץ חוץ- מחלקתי של גוף ציבורי'
+      Executive agency:
+        one: סוכנות בכירה
+        other: סוכנויות בכירות
+      Executive non-departmental public body:
+        one: מחלקת בקרה עצמאית
+        other: מחלקות בקרה עצמאיות
+      Independent monitoring body:
+        one: גוף בקרה עצמאי
+        other: גופי בקרה עצמאיים
+      Ministerial department:
+        one: מחלקה מיניסטריאלית
+        other: מחלקות מיניסטריאליות
+      Non-ministerial department:
+        one: מחלקה לא- מיניסטריאלית
+        other: מחלקות לא- מיניסטריאליות
+      Other:
+        one: אחר
+        other: אחרים
+      Public corporation:
+        one: תאגיד ציבורי
+        other: תאגידים ציבוריים
+      Sub-organisation:
+        one: תת- ארגון
+        other: תת- ארגונים
+      Tribunal non-departmental public body:
+        one: גוף משפטי חוץ- מחלקתי ציבורי
+        other: גופים משפטיים חוץ- מחלקתיים ציבוריים
+  policies:
+    heading: מדיניות
+  publications:
+    heading: מדיניות
+  read_more: קרא עוד
   support:
     array:
-      last_word_connector:
+      last_word_connector: בנוסף
   time:
     formats:
       long_ordinal:
+  world_location:
+    headings:
+      announcements: ההודעות שלנו
+      country: מדינה
+      documents: מסמכים
+      mission: החזון שלנו
+      organisations: ארגונים
+      priorities: עדיפויות
+      publications: הפרסומים שלנו
+      quick_links: קישורים מהירים
+      related_policies: מדיניות רלוונטית
+      see_all:
+      statistics: הנתונים שלנו
+    see_all:
+    type:
+      country:
+        one: מדינה
+        other: מדינות
+      international_delegation:
+        one: משלחת בין לאומית
+        other: משלחות בין לאומיות
+      overseas_territory:
+        one: טריטוריה מעבר לים
+        other: טריטוריות מעבר לים
   worldwide_organisation:
     corporate_information:
       personal_information_charter_html:
       publication_scheme_html:
       welsh_language_scheme_html:
-    find_out_more:
+    find_out_more: ראה/י פרופיל מלא ופרטי התקשרות
     headings:
-      about_us:
-      contact_us:
-      corporate_information:
-      follow_us:
-      our_people:
-      our_services:
-    location:
-    part_of:
+      about_us: אודותינו
+      contact_us: יצירת קשר
+      corporate_information: מידע תאגידי
+      follow_us: עקבו אחרינו
+      our_people: הצוות שלנו
+      our_services: השירותים שלנו
+    location: מיקום
+    part_of: חלק מ

@@ -2,324 +2,279 @@ az:
   activerecord:
     attributes:
       detailed_guide:
-        primary_mainstream_category:
+        primary_mainstream_category: Ilkin qaydalar kateqoriyasi
   announcements:
-    heading:
-  attachment:
-    accessibility:
-      full_help_html:
-      heading:
-      request_a_different_format:
-    headings:
-      order_a_copy:
-      order_a_copy_full:
-      published:
-      reference:
+    heading: Elanlar
   change_notes:
-    published:
-    updated:
+    published: çap edilib
+    updated: Yenilənmiş
   contact:
-    contact_form:
-    email:
+    contact_form: Əlaqə vasitəsi
+    email: elektron poçt
   corporate_information_page:
     type:
-      personal_information_charter:
-      publication_scheme:
-      welsh_language_scheme:
+      personal_information_charter: şəxsi məlumatlar bölümü
+      publication_scheme: çap sxemi
+      welsh_language_scheme: Uels dili cədvəli
   date:
     formats:
       default:
-      long_ordinal: ! '%e %B %Y'
+      long_ordinal:
   document:
     headings:
-      advisory_groups:
-      applies_to_nations:
-      attachments:
-        one:
-        other:
-      document_series:
-      field_of_operation:
-      live_data:
+      advisory_groups: Məsləhətçi qruplar
+      applies_to_nations: tətbiq olunur
+      document_series: növlər
+      field_of_operation: əməliyyat sahəsi
+      live_data: canlı məlumat
       ministers:
-        one:
-        other:
-      organisations:
-        one:
-        other:
+        one: nazir
+        other: nazirlər
       policies:
-        one:
-        other:
-      policy_team:
-      supporting_documents:
-        one:
-        other:
+        one: siyasət
+        other: siyasəti
+      policy_team: siyasət komandası
       topics:
-        one:
-        other:
+        one: mövzu
+        other: mövzular
       world_locations:
-        one:
-        other:
+        one: dünyada yeri
+        other: dünya üzrə məkanlar
       worldwide_organisations:
-        one:
-        other:
-    published:
+        one: dünyəvi təşkilat
+        other: dünyəvi təşkilatlar
+    published: dərc olunub
     read:
     speech:
-      delivered_on:
+      delivered_on: çatdırılıb
       delivery_title:
-        minister:
-        speaker:
+        minister: Nazir
+        speaker: Spiker
       originally_given_at:
     type:
       announcement:
-        one:
-        other:
+        one: Elan
+        other: Elanlar
       case_study:
-        one:
-        other:
+        one: Öyrənilib
+        other: Öyrənilib
       closed_consultation:
-        one:
-        other:
+        one: Bağlı məslətləşmə
+        other: Bağlı məslətləşmələr
       consultation:
-        one:
-        other:
+        one: Məsləhət
+        other: məsləhətləşmələr
       consultation_outcome:
-        one:
-        other:
+        one: məsləhətləşmənin nəticəsi
+        other: məsləhətləşmənin nəticələri
       corporate_report:
-        one:
-        other:
+        one: birgə məruzə
+        other: birgə məruzələr
       correspondence:
-        one:
-        other:
+        one: Yazışmalar
+        other: Yazışmalar
       detailed_guidance:
-        one:
-        other:
+        one: ətraflı məlumat
+        other: ətraflı məlumat
       draft_text:
-        one:
-        other:
+        one: hazırlanmış mətn
+        other: hazırlanmış mətn
       fatality_notice:
-        one:
-        other:
+        one: səhvlə bağlı qeyd
+        other: səhvlə bağlı qeydlər
       foi_release:
-        one:
-        other:
+        one: Məlumat azadlığı ilə bağlı açıqlama
+        other: Məlumat azadlığı ilə bağlı açıqlamalar
       form:
-        one:
-        other:
+        one: Forma
+        other: Formalar
       guidance:
-        one:
-        other:
+        one: İnstruksiya
+        other: İnstruksiya
       impact_assessment:
-        one:
-        other:
+        one: Dəyərləndirmə
+        other: Dəyərləndirmə
       imported:
         one:
         other:
       independent_report:
-        one:
-        other:
+        one: Müstəqil məruzə
+        other: Müstəqil məruzələr
       map:
-        one:
-        other:
+        one: Xəritə
+        other: xəritələr
       national_statistics:
-        one:
-        other:
+        one: Statistika - milli statistika
+        other: Statistika - milli statistika
       news_article:
-        one:
-        other:
+        one: məqalə
+        other: məqalələr
       news_story:
-        one:
-        other:
+        one: Xəbərlər
+        other: Xəbərlər
       open_consultation:
-        one:
-        other:
+        one: açıq məsləhətləşmələr
+        other: açıq məsləhətləşmələr
       oral_statement:
-        one:
-        other:
+        one: Parliamentə açıq bəyanat
+        other: Parlamentə açıq bəyanatlar
       policy:
-        one:
-        other:
+        one: Siyasət
+        other: Siyasət
       policy_paper:
-        one:
-        other:
+        one: Siyasi sənədlər
+        other: Siyasi sənədlər
       press_release:
-        one:
-        other:
+        one: mətbuat üçün açıqlama
+        other: mətbuat üçün açıqlama
       promotional:
-        one:
-        other:
+        one: Təşviqedici materiallar
+        other: Təşviqedici materiallar
       publication:
-        one:
-        other:
+        one: Nəşrlər
+        other: Nəşrlər
       rebuttal:
-        one:
-        other:
+        one: Düzəliş
+        other: Düzəlişlər
       research:
-        one:
-        other:
+        one: Tətqiqat və analiz
+        other: Tətqiqat və analiz
       speaking_notes:
-        one:
-        other:
+        one: Çıxış üçün  qeydləri
+        other: Çıxış üçün  qeydləri
       speech:
-        one:
-        other:
+        one: çıxış
+        other: Çıxışlar
       statement_to_parliament:
-        one:
-        other:
+        one: Parlamentə bəyanat
+        other: Parlamentə bəyanatlar
       statistical_data_set:
-        one:
-        other:
+        one: statistik məlumatlar bazası
+        other: statistik məlumatlar bazaları
       statistics:
-        one:
-        other:
+        one: statistika
+        other: statistika
       transcript:
-        one:
-        other:
+        one: Transkripsiya
+        other: Transkripsiyalar
       transparency:
-        one:
-        other:
-      world_location_news_article:
-        one:
-        other:
+        one: Şəffaf məlumat
+        other: Şəffaf məlumat
       worldwide_priority:
-        one:
-        other:
+        one: dünya üzrə prioritet
+        other: dünya üzrə prioritetlər
       written_statement:
-        one:
-        other:
-    updated:
+        one: Parlamentə yazılı müraciət
+        other: Parlamentə yazılı müraciət
+    updated: yenilənib
     view:
   document_filters:
-    description:
+    description: filterdən istifadə edərək nəticəni görmək mümkündür
     no_results:
-      description:
-      title:
+      description: axtarışınızı daha geniş edin
+      title: uygün məlumat tapılmadı
     world_locations:
-      all:
-      label:
+      all: bütün yerlər
+      label: dünya üzrə məkanlar
   feeds:
     atom:
-    email_alerts:
-    latest_activity:
+    email_alerts: email xəbərdarlığı
+    latest_activity: sonuncu fəaliyyət
   i18n:
     direction: ltr
   language_names:
     az: Azərbaycanca
   latest_feed:
-    no_updates:
-    title:
+    no_updates: yeni məlumat yoxdur
+    title: Ən sonuncu
   number:
     human:
       storage_units:
         format:
   organisation:
-    about:
-      read_more:
-    corporate_information:
-      access_our_info:
-      foi_how_to:
-      foi_releases:
-      jobs_and_contacts:
-      transparency:
     headings:
-      chief_professional_officers:
-      contact:
-      corporate_information:
-      corporate_reports:
-      our_announcements:
-      our_management:
-      our_ministers:
-      our_policies:
-      our_publications:
-      our_senior_military_officials:
-      our_services:
-      our_statistics:
-      our_topics:
       plus_others:
-      special_representatives:
-      traffic_commissioners:
-      what_we_do:
     type:
       Ad-hoc advisory group:
-        one:
-        other:
+        one: Məsləhətçi qrup
+        other: Məsləhətçi qruplar
       Advisory non-departmental public body:
-        one:
-        other:
+        one: İctimai qrum
+        other: İctimai qrumlar
       Executive agency:
-        one:
-        other:
+        one: İcraedici orqan
+        other: İcraedici orqanlar
       Executive non-departmental public body:
-        one:
-        other:
+        one: İcraedici ictimai qrumlar
+        other: İcraedici ictimai qrumlar
       Independent monitoring body:
-        one:
-        other:
+        one: Müstəqil monitorinq qrupu
+        other: Müstəqil monitorinq qrupları
       Ministerial department:
-        one:
-        other:
+        one: Nazirlərin departamentləri
+        other: Nazirlərin departamentləri
       Non-ministerial department:
-        one:
-        other:
+        one: Digər deparamentlər
+        other: Digər deparamentlər
       Other:
-        one:
-        other:
+        one: Digər
+        other: Digərləri
       Public corporation:
-        one:
-        other:
+        one: İctimai korporasiya
+        other: İctimai korporasiyalar
       Sub-organisation:
-        one:
-        other:
+        one: Təşkilatlar
+        other: Təşkilatlar
       Tribunal non-departmental public body:
-        one:
-        other:
+        one: İcraedici ictimai qrumlar
+        other: İcraedici ictimai qrumlar
   policies:
-    heading:
+    heading: Siyasət
   publications:
-    heading:
-    headings:
-      detail:
-  read_more:
+    heading: Nəşrlər
+  read_more: Ətraflı oxu
   support:
     array:
-      last_word_connector:
+      last_word_connector: və
   time:
     formats:
       long_ordinal:
   world_location:
     headings:
-      announcements:
-      country:
-      documents:
-      mission:
-      organisations:
-      priorities:
-      publications:
-      quick_links:
-      related_policies:
-      see_all:
-      statistics:
-    see_all:
+      announcements: Bizim elanlar
+      country: Ölkə
+      documents: Sənədlər
+      mission: Bizim missiyamız
+      organisations: Təşkilatlar
+      priorities: Prioritetlər
+      publications: Bizim nəşrlər
+      quick_links: Linklər
+      related_policies: Uygün mövzular
+      see_all: Bax bütün növ
+      statistics: Bizim statistika
+    see_all: Bax bütün növ
     type:
+      country:
+        one: Ölkə
+        other: Ölkələr
       international_delegation:
-        one:
-        other:
-      world_location:
-        one:
-        other:
+        one: Beynəlxalq nümayəndəlik
+        other: Beynəlxalq nümayəndəliklər
+      overseas_territory:
+        one: Dünya üzrə ərazilər
+        other: Dünya üzrə ərazilər
   worldwide_organisation:
     corporate_information:
       personal_information_charter_html:
       publication_scheme_html:
       welsh_language_scheme_html:
-    find_out_more:
+    find_out_more: Bütün profilə və əlaqə nömrələrinə bax
     headings:
-      about_us:
-      contact_us:
-      corporate_information:
-      follow_us:
-      our_people:
-      our_services:
-    location:
-    part_of:
+      about_us: Barəmizdə
+      contact_us: Əlaqə vasitəsi
+      corporate_information: Məlumatlar
+      follow_us: Bizi izlə
+      our_people: Bizim adamlar
+      our_services: Bizim xidmətlər
+    location: Məkan
+    part_of: Hissə

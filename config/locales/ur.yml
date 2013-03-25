@@ -1,325 +1,246 @@
 ur:
-  document:
-    headings:
-      attachments:
-        one:
-        other:
-      ministers:
-        one:
-        other:
-      organisations:
-        one:
-        other:
-      policies:
-        one:
-        other:
-      supporting_documents:
-        one:
-        other:
-      topics:
-        one:
-        other:
-      world_locations:
-        one:
-        other:
-      worldwide_organisations:
-        one:
-        other:
-      advisory_groups:
-      applies_to_nations:
-      document_series:
-      field_of_operation:
-      live_data:
-      policy_team:
-    type:
-      announcement:
-        one:
-        other:
-      case_study:
-        one:
-        other:
-      closed_consultation:
-        one:
-        other:
-      consultation:
-        one:
-        other:
-      consultation_outcome:
-        one:
-        other:
-      corporate_report:
-        one:
-        other:
-      correspondence:
-        one:
-        other:
-      detailed_guidance:
-        one:
-        other:
-      draft_text:
-        one:
-        other:
-      fatality_notice:
-        one:
-        other:
-      foi_release:
-        one:
-        other:
-      form:
-        one:
-        other:
-      guidance:
-        one:
-        other:
-      impact_assessment:
-        one:
-        other:
-      imported:
-        one:
-        other:
-      independent_report:
-        one:
-        other:
-      map:
-        one:
-        other:
-      national_statistics:
-        one:
-        other:
-      news_article:
-        one:
-        other:
-      news_story:
-        one:
-        other:
-      open_consultation:
-        one:
-        other:
-      oral_statement:
-        one:
-        other:
-      policy:
-        one:
-        other:
-      policy_paper:
-        one:
-        other:
-      press_release:
-        one:
-        other:
-      promotional:
-        one:
-        other:
-      publication:
-        one:
-        other:
-      rebuttal:
-        one:
-        other:
-      research:
-        one:
-        other:
-      speaking_notes:
-        one:
-        other:
-      speech:
-        one:
-        other:
-      statement_to_parliament:
-        one:
-        other:
-      statistical_data_set:
-        one:
-        other:
-      statistics:
-        one:
-        other:
-      transcript:
-        one:
-        other:
-      transparency:
-        one:
-        other:
-      world_location_news_article:
-        one:
-        other:
-      worldwide_priority:
-        one:
-        other:
-      written_statement:
-        one:
-        other:
-    published:
-    read:
-    speech:
-      delivered_on:
-      delivery_title:
-        minister:
-        speaker:
-      originally_given_at:
-    updated:
-    view:
-  organisation:
-    type:
-      Ad-hoc advisory group:
-        one:
-        other:
-      Advisory non-departmental public body:
-        one:
-        other:
-      Executive agency:
-        one:
-        other:
-      Executive non-departmental public body:
-        one:
-        other:
-      Independent monitoring body:
-        one:
-        other:
-      Ministerial department:
-        one:
-        other:
-      Non-ministerial department:
-        one:
-        other:
-      Other:
-        one:
-        other:
-      Public corporation:
-        one:
-        other:
-      Sub-organisation:
-        one:
-        other:
-      Tribunal non-departmental public body:
-        one:
-        other:
-    about:
-      read_more:
-    corporate_information:
-      access_our_info:
-      foi_how_to:
-      foi_releases:
-      jobs_and_contacts:
-      transparency:
-    headings:
-      chief_professional_officers:
-      contact:
-      corporate_information:
-      corporate_reports:
-      our_announcements:
-      our_management:
-      our_ministers:
-      our_policies:
-      our_publications:
-      our_senior_military_officials:
-      our_services:
-      our_statistics:
-      our_topics:
-      plus_others:
-      special_representatives:
-      traffic_commissioners:
-      what_we_do:
-  world_location:
-    type:
-      international_delegation:
-        one:
-        other:
-      world_location:
-        one:
-        other:
-    headings:
-      announcements:
-      country:
-      documents:
-      mission:
-      organisations:
-      priorities:
-      publications:
-      quick_links:
-      related_policies:
-      see_all:
-      statistics:
-    see_all:
   activerecord:
     attributes:
       detailed_guide:
         primary_mainstream_category:
-  announcements:
-    heading:
-  attachment:
-    accessibility:
-      full_help_html:
-      heading:
-      request_a_different_format:
-    headings:
-      order_a_copy:
-      order_a_copy_full:
-      published:
-      reference:
   change_notes:
-    published:
-    updated:
+    published: شائع شدہ
+    updated: تجدیدشدہ
   contact:
-    contact_form:
-    email:
-  corporate_information_page:
-    type:
-      personal_information_charter:
-      publication_scheme:
-      welsh_language_scheme:
+    contact_form: کانٹیکٹ فارم
+    email: ای میل
   date:
     formats:
       default:
-      long_ordinal: ! '%e %B %Y'
-  document_filters:
-    description:
-    no_results:
-      description:
-      title:
-    world_locations:
-      all:
-      label:
+      long_ordinal:
+  document:
+    headings:
+      advisory_groups: مشاورتی گروپس
+      applies_to_nations: اطلاق ہوتا ہے
+      document_series: سلسلہ
+      field_of_operation: کارروائی کا میدان
+      live_data: لائیو ڈیٹا
+      ministers:
+        one: وزير
+        other: وزراء
+      policies:
+        one: پالیسی
+        other: پالیسیاں
+      policy_team: پالیسی ٹیم
+      topics:
+        one: موضوع
+        other: موضوعات
+      world_locations:
+        one: جغرافیائی محل وقوع
+        other: جغرافیائی محل ہائے وقوع
+      worldwide_offices:
+        one: عالمی دفتر
+        other: عالمی دفاتر
+    published: شائع شدہ
+    read: پڑھئیے %{title} مضمون
+    type:
+      announcement:
+        one: اعلان
+        other: اعلانات
+      case_study:
+        one: کیس اسٹڈی
+        other: کیس اسٹڈیز
+      closed_consultation:
+        one: مشاورت ختم
+        other: مشاورت ختم
+      consultation:
+        one: مشاورت
+        other: مشاورت
+      consultation_outcome:
+        one: مشاورت کا نتیجہ
+        other: مشاورت کے نتائج
+      corporate_report:
+        one: کارپوریٹ رپورٹ
+        other: کارپوریٹ رپورٹس
+      correspondence:
+        one: مراسلت
+        other: مراسلات
+      detailed_guidance:
+        one: مفصل رہنمائی
+        other: مفصل رہنمائی
+      draft_text:
+        one: ڈرافٹ مسودہ
+        other: ڈرافٹ مسودات
+      fatality_notice:
+        one: وفات کی اطلاع
+        other: وفات کی اطلاعات
+      foi_release:
+        one: آزادئی معلومات کی نشریات
+        other: آزادئی معلومات کی نشریات
+      form:
+        one: فارم
+        other: فارمز
+      guidance:
+        one: رہنمائی
+        other: رہنمائی
+      impact_assessment:
+        one: اثرات کا تجزیہ
+        other: اثرات کے تجزیے
+      imported:
+        one:
+        other:
+      independent_report:
+        one: غیر جانبدار رپورٹ
+        other: غیر جانبداررپورٹس
+      international_priority:
+        one: عالمی ترجیح
+        other: عالمی ترجیحات
+      national_statistics:
+        one: اعدادوشمار- قومی اعدادوشمار
+        other: اعدادوشمار- قومی اعدادوشمار
+      news_article:
+        one: نیوزآرٹیکل
+        other: نیوزآرٹیکلز
+      news_story:
+        one: نیوز اسٹوری
+        other: نیوزاسٹوریز
+      open_consultation:
+        one: جاری مشاورت
+        other: جاری مشاورت
+      oral_statement:
+        one: زبانی بیان
+        other: زبانی بیانات
+      policy:
+        one: پالیسی
+        other: پالیسیاں
+      policy_paper:
+        one: پالیسی پیپر
+        other: پالیسی پیپرز
+      press_release:
+        one: پریس ریلیز
+        other: پریس ریلیزز
+      promotional:
+        one: تشہیری مواد
+        other: تشہیری مواد
+      publication:
+        one: مطبوعہ
+        other: مطبوعات
+      rebuttal:
+        one: دفاع
+        other: دفاع
+      research:
+        one: تحقیق و تجزیہ
+        other: تحقیق و تجزیہ
+      speaking_notes:
+        one: تقریری نوٹس
+        other: تقریری نوٹس
+      speech:
+        one: تقریر
+        other: تقاریر
+      statement_to_parliament:
+        one: پارلیمنٹ میں بیان
+        other: پارلیمنٹ میں بیانات
+      statistical_data_set:
+        one: اعدادوشمار ڈیٹا سیٹ
+        other: اعدادو شمار ڈیٹا سیٹ
+      statistics:
+        one: اعدادوشمار
+        other: اعدادو شمار
+      transcript:
+        one: ٹرانسکرپٹ
+        other: ٹرانسکرپٹس
+      transparency:
+        one: ٹرانسپیرنسی ڈیٹا
+        other: ٹرانسپیرنسی ڈیٹا
+      treaty:
+        one: معاہدہ
+        other: معاہدات
+      written_statement:
+        one: تحریری بیان
+        other: تحریری بیانات
+    updated: تجدید شدہ
+    view: ! '''%{title}'' دیکھئیے'
   feeds:
-    atom:
-    email_alerts:
-    latest_activity:
+    atom: ایٹم
+    email_alerts: ای میل الرٹس
+    latest_activity: تازہ ترین سرگرمیاں
   i18n:
-    direction: rtl
+    direction:
   language_names:
     ur: اردو
   latest_feed:
-    no_updates:
-    title:
+    no_updates: فی الحال کوئی تجدید نہیں
+    title: آخری فیڈ
   number:
     human:
       storage_units:
         format:
-  policies:
-    heading:
-  publications:
-    heading:
-    headings:
-      detail:
-  read_more:
+  organisation:
+    type:
+      Ad-hoc advisory group:
+        one: ایڈہاک مشاورتی گروپ
+        other: ایڈہاک مشاورتی گروپس
+      Advisory non-departmental public body:
+        one: ! 'مشاورتی غیر شعبہ جاتی عوامی ادارہ '
+        other: مشاورتی غیر شعبہ جاتی عوامی ادارے
+      Executive agency:
+        one: نافذ کنندہ ایجنسی
+        other: نافذ کنندہ ایجنسیاں
+      Executive non-departmental public body:
+        one: نافذ کنندہ غیر شعبہ جاتی عوامی ادارہ
+        other: نافذ کنندہ غیر شعبہ جاتی عوامی ادارے
+      Independent monitoring body:
+        one: غیر جانبدار نگراں ادارہ
+        other: غیر جانبدار نگراں ادارے
+      Ministerial department:
+        one: وزارتی محکمہ
+        other: وزارتی محکمہ جات
+      Non-ministerial department:
+        one: ! 'غیروزارتی محکمہ '
+        other: غیروزارتی محکمہ جات
+      Other:
+        one: دیگر
+        other: دیگر
+      Public corporation:
+        one: عوامی کارپوریشن
+        other: عوامی کارپوریشنز
+      Sub-organisation:
+        one: ! 'ذیلی تنظیم '
+        other: ذیلی تنظیمیں
+      Tribunal non-departmental public body:
+        one: ٹریبونل غیرشعبہ جاتی عوامی ادارہ
+        other: ٹریبونل غیرشعبہ جاتی عوامی ادارے
+  read_more: آگے پڑھئیے
   support:
     array:
-      last_word_connector:
+      last_word_connector: اور
   time:
     formats:
       long_ordinal:
-  worldwide_organisation:
-    corporate_information:
-      personal_information_charter_html:
-      publication_scheme_html:
-      welsh_language_scheme_html:
-    find_out_more:
+  world_location:
+    country:
+      Spain: اسپین
     headings:
-      about_us:
-      contact_us:
-      corporate_information:
-      follow_us:
-      our_people:
-      our_services:
-    location:
-    part_of:
+      announcements: ہمارے اعلانات
+      country: ملک
+      documents: دستاویزات
+      mission: ہمارا مشن
+      offices: دفاتر
+      priorities: ترجیحات
+      publications: ہماری مطبوعات
+      related_policies: متعلقہ پالیسیاں
+      see_all: تما م دیکھئیے %{type}
+      statistics: ہمارے اعدادو شمار
+    see_all: تما م دیکھئیے%{type}
+    type:
+      country:
+        one: ملک
+        other: ممالک
+      international_delegation:
+        one: عالمی وفد
+        other: عالمی وفود
+      overseas_territory:
+        one: سمندر پارعلاقہ
+        other: سمندرپارعلاقہ جات
+  worldwide_office:
+    about_us: ہمارے بارے میں
+    contact_us: ہم سےرابطہ کیجئیے
+    find_out_more: مکمل پروفائل اوررابطے کی تمام تفصیلات
+    our_people: ہمارے اہلکار
+    our_services: ہماری خدمات
+    part_of: کا حصہ
