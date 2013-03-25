@@ -22,8 +22,8 @@ module Whitehall::DocumentFilter
     end
 
     test 'announcements_search looks for a specific announcement sub type if we use the announcement_type option' do
-      r = Rummager.new({announcement_type: 'rebuttals'})
-      expected_search_formats = NewsArticleType::Rebuttal.search_format_types
+      r = Rummager.new({announcement_type: 'government-responses'})
+      expected_search_formats = NewsArticleType::GovernmentResponse.search_format_types
       Whitehall.government_search_client.expects(:advanced_search).with(has_entry(search_format_types: expected_search_formats))
       r.announcements_search
     end

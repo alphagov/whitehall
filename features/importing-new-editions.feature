@@ -157,7 +157,7 @@ Feature: Importing new editions
       """
     Then the import succeeds, creating 1 imported news article for "Department for Transport" with "imported-awaiting-type" news article type
     And I can't make the imported news article into a draft edition yet
-    When I set the imported news article's type to "Rebuttal"
+    When I set the imported news article's type to "Government response"
     Then I can make the imported news article into a draft edition
 
   Scenario: Importing news article with blank first published allows them to be filled in later
