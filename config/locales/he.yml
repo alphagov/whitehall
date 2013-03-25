@@ -405,7 +405,7 @@ he:
     email_alerts: התרעת דואר אלטרוני
     latest_activity: פעילות אחרונה
   i18n:
-    direction:
+    direction: rtl
   language_names:
     he: עברית
   latest_feed:
