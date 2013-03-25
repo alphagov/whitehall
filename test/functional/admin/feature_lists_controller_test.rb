@@ -6,8 +6,8 @@ class Admin::FeatureListsControllerTest < ActionController::TestCase
   end
 
   test "get show redirects to the featurable features page" do
-    country = create(:country)
-    feature_list = create(:feature_list, featurable: country, locale: :fr)
+    world_location = create(:world_location)
+    feature_list = create(:feature_list, featurable: world_location, locale: :fr)
 
     get :show, id: feature_list
 
@@ -15,8 +15,8 @@ class Admin::FeatureListsControllerTest < ActionController::TestCase
   end
 
   test "post reorder reorders the feature list" do
-    country = create(:country)
-    feature_list = create(:feature_list, featurable: country, locale: :fr)
+    world_location = create(:world_location)
+    feature_list = create(:feature_list, featurable: world_location, locale: :fr)
     feature1 = create(:feature, feature_list: feature_list, ordering: 1)
     feature2 = create(:feature, feature_list: feature_list, ordering: 2)
 

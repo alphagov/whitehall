@@ -6,9 +6,9 @@ class Admin::FeaturesControllerTest < ActionController::TestCase
   end
 
   test "get :new loads the given edition" do
-    country = create(:country)
-    feature_list = create(:feature_list, featurable: country, locale: :en)
-    edition = create(:published_speech, world_locations: [country])
+    world_location = create(:world_location)
+    feature_list = create(:feature_list, featurable: world_location, locale: :en)
+    edition = create(:published_speech, world_locations: [world_location])
 
     get :new, feature_list_id: feature_list, edition_id: edition.id
 
@@ -16,8 +16,8 @@ class Admin::FeaturesControllerTest < ActionController::TestCase
   end
 
   test "get :new does not load an edition if its not in the featureable editions of the feature list" do
-    country = create(:country)
-    feature_list = create(:feature_list, featurable: country, locale: :en)
+    world_location = create(:world_location)
+    feature_list = create(:feature_list, featurable: world_location, locale: :en)
     edition = create(:published_speech)
 
     assert_raises ActiveRecord::RecordNotFound do
@@ -26,8 +26,8 @@ class Admin::FeaturesControllerTest < ActionController::TestCase
   end
 
   test "post :unfeature sets the ended_at date of a feature" do
-    country = create(:country)
-    feature_list = create(:feature_list, featurable: country, locale: :en)
+    world_location = create(:world_location)
+    feature_list = create(:feature_list, featurable: world_location, locale: :en)
     edition = create(:published_speech)
     feature = create(:feature, document: edition.document, feature_list: feature_list)
 

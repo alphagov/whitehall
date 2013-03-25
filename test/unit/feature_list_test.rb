@@ -58,19 +58,19 @@ class FeatureListTest < ActiveSupport::TestCase
   end
 
   test "returns featurable editions" do
-    country = create(:country)
-    published = create(:published_publication, world_locations: [country])
-    draft = create(:draft_publication, world_locations: [country])
-    feature_list = create(:feature_list, featurable: country, locale: :en)
+    world_location = create(:world_location)
+    published = create(:published_publication, world_locations: [world_location])
+    draft = create(:draft_publication, world_locations: [world_location])
+    feature_list = create(:feature_list, featurable: world_location, locale: :en)
     assert_equal [published], feature_list.featurable_editions
   end
 
   test "only returns featurable documents with translations in the same locale" do
-    country = create(:country)
-    published = create(:published_publication, world_locations: [country])
-    french_publication = create(:published_publication, world_locations: [country], translated_into: [:fr])
-    published = create(:published_publication, world_locations: [country])
-    feature_list = create(:feature_list, featurable: country, locale: :fr)
+    world_location = create(:world_location)
+    published = create(:published_publication, world_locations: [world_location])
+    french_publication = create(:published_publication, world_locations: [world_location], translated_into: [:fr])
+    published = create(:published_publication, world_locations: [world_location])
+    feature_list = create(:feature_list, featurable: world_location, locale: :fr)
     assert_equal [french_publication], feature_list.featurable_editions
   end
 

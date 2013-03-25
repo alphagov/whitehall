@@ -25,14 +25,14 @@ Feature: Administering world location information
       |You must buy the X-Factor single, says Queen|
 
   Scenario: Featuring different things on different locale versions of a world location page
-    Given an overseas territory "Jamestopia" exists in both english and french
-    And an english news article called "Beards" related to the overseas territory
+    Given a world location "Jamestopia" exists in both english and french
+    And an english news article called "Beards" related to the world location
     When I feature "Beards" on the english "Jamestopia" page
     Then I should see no featured items on the french version of the "Jamestopia" page
 
   Scenario: Featuring shows the correct translation of the article on world location page
-    Given an overseas territory "Jamestopia" exists in both english and french
-    And there is a news article "Beards" in english ("Barbes" in french) related to the overseas territory
+    Given a world location "Jamestopia" exists in both english and french
+    And there is a news article "Beards" in english ("Barbes" in french) related to the world location
     When I feature "Barbes" on the french "Jamestopia" page
     Then I should see "Barbes" as the title of the feature on the french "Jamestopia" page
 

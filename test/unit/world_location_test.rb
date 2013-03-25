@@ -153,20 +153,20 @@ class WorldLocationTest < ActiveSupport::TestCase
   end
 
   test 'we can find those that are countries' do
-    country = create(:world_location)
+    world_location = create(:world_location)
     international_delegation = create(:international_delegation)
 
     countries = WorldLocation.countries
-    assert countries.include?(country)
+    assert countries.include?(world_location)
     refute countries.include?(international_delegation)
   end
 
-  test 'we can find those that represent something geographic (if not neccessarily a country)' do
-    country = create(:world_location)
+  test 'we can find those that represent something geographic (if not neccessarily a world location)' do
+    world_location = create(:world_location)
     international_delegation = create(:international_delegation)
 
     geographic = WorldLocation.geographical
-    assert geographic.include?(country)
+    assert geographic.include?(world_location)
     refute geographic.include?(international_delegation)
   end
 
@@ -253,14 +253,14 @@ class WorldLocationTest < ActiveSupport::TestCase
     assert_equal ['/government/world/hat-land'], WorldLocation.search_index.map {|search_data| search_data['link']}
   end
 
-  test 'only one feature list per language per country' do
-    country1 = create(:country)
-    country2 = create(:country)
-    FeatureList.create!(featurable: country1, locale: :en)
-    FeatureList.create!(featurable: country1, locale: :fr)
-    FeatureList.create!(featurable: country2, locale: :en)
+  test 'only one feature list per language per world location' do
+    world_location1 = create(:world_location)
+    world_location2 = create(:world_location)
+    FeatureList.create!(featurable: world_location1, locale: :en)
+    FeatureList.create!(featurable: world_location1, locale: :fr)
+    FeatureList.create!(featurable: world_location2, locale: :en)
     assert_raises ActiveRecord::RecordInvalid do
-      FeatureList.create!(featurable: country2, locale: :en)
+      FeatureList.create!(featurable: world_location2, locale: :en)
     end
   end
 end
