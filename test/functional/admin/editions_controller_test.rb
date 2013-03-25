@@ -192,23 +192,37 @@ class Admin::EditionsControllerTest < ActionController::TestCase
 
   test 'should pass filter parameters to an edition filter' do
     stub_filter = stub_edition_filter
-    Admin::EditionsController::EditionFilter.expects(:new).with(anything, anything, {"state" => "draft", "type" => "policy"}).returns(stub_filter)
+    Admin::EditionsController::EditionFilter.expects(:new).with(anything, anything, has_entries("state" => "draft", "type" => "policy")).returns(stub_filter)
 
     get :index, state: :draft, type: :policy
   end
 
   test "should not pass blank parameters to the edition filter" do
     stub_filter = stub_edition_filter
-    Admin::EditionsController::EditionFilter.expects(:new).with(anything, anything, {"state" => "draft"}).returns(stub_filter)
+    Admin::EditionsController::EditionFilter.expects(:new).with(anything, anything, Not(has_key("author"))).returns(stub_filter)
 
     get :index, state: :draft, author: ""
   end
 
-  test 'should strip out any invalid states passed as parameters' do
+  test 'should strip out any invalid states passed as parameters and replace them with "active"' do
     stub_filter = stub_edition_filter
-    Admin::EditionsController::EditionFilter.expects(:new).with(anything, anything, {"type" => "policy"}).returns(stub_filter)
+    Admin::EditionsController::EditionFilter.expects(:new).with(anything, anything, has_entry("state" => "active")).returns(stub_filter)
 
     get :index, state: :haxxor_method, type: :policy
+  end
+
+  test 'should add state param set to "active" if none is supplied' do
+    stub_filter = stub_edition_filter
+    Admin::EditionsController::EditionFilter.expects(:new).with(anything, anything, has_entry("state" => "active")).returns(stub_filter)
+
+    get :index, type: :policy
+  end
+
+  test 'should add world_location_ids param set to "all" if none is supplied' do
+    stub_filter = stub_edition_filter
+    Admin::EditionsController::EditionFilter.expects(:new).with(anything, anything, has_entry("world_location_ids" => "all")).returns(stub_filter)
+
+    get :index, type: :policy
   end
 
   view_test 'should distinguish between edition types when viewing the list of editions' do
@@ -347,12 +361,6 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     assert_select "tr.force_published"
   end
 
-  view_test "should link to all active editions" do
-    get :index, state: :draft
-
-    assert_select "a[href='#{admin_editions_path(state: :active)}']"
-  end
-
   test "should not display the featured column when viewing all active editions" do
     create(:published_news_article)
 
@@ -451,7 +459,8 @@ class Admin::EditionsControllerTest < ActionController::TestCase
   def stub_edition_filter(attributes = {})
     default_attributes = {
       editions: Kaminari.paginate_array(attributes[:editions] || []).page(1),
-      page_title: '', edition_state: '', valid?: true
+      page_title: '', edition_state: '', valid?: true,
+      options: {}
     }
     stub('edition filter', default_attributes.merge(attributes.except(:editions)))
   end

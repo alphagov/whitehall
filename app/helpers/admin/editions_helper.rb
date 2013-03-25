@@ -21,16 +21,39 @@ module Admin::EditionsHelper
     admin_header_link "Document Series", admin_document_series_index_path, /^#{Whitehall.router_prefix}\/admin\/document_series/
   end
 
-  def link_to_filter(link, options, html_options={})
-    content_tag(:li, link_to(link, url_for(params.slice('state', 'type', 'author', 'organisation', 'title', 'world_location_ids').merge(options)), html_options), class: filter_class(options))
+  def link_to_filter(link, options, filter, html_options={})
+    content_tag(:li, link_to(link, url_for(filter.options.slice('state', 'type', 'author', 'organisation', 'title', 'world_location_ids').merge(options)), html_options), class: active_filter_if_options_match_class(filter, options))
   end
 
-  def filter_class(options)
+  def active_filter_if_options_match_class(filter, options)
     current = options.keys.all? do |key|
-      options[key].to_param == params[key].to_param
+      options[key].to_param == filter.options[key].to_param
     end
 
     'active' if current
+  end
+
+  def active_filter_unless_values_match_class(filter, key, *disallowed_values)
+    filter_value = filter.options[key]
+    'active' if filter_value && disallowed_values.none? { |disallowed_value| filter_value == disallowed_value }
+  end
+
+  def pass_through_filter_options_as_hidden_fields(filter, *options_to_pass)
+    options_to_pass.map do |option_to_pass|
+      value = filter.options[option_to_pass]
+      pass_through_filter_value_as_hidden_field(option_to_pass, value)
+    end.join.html_safe
+  end
+
+  def pass_through_filter_value_as_hidden_field(filter_name, filter_value)
+    return '' unless filter_value
+    if filter_value.is_a?(Array)
+      filter_value.map do |value_to_pass|
+        hidden_field_tag "#{filter_name}[]", value_to_pass
+      end.join.html_safe
+    else
+      hidden_field_tag filter_name, filter_value
+    end
   end
 
   def viewing_all_active_editions?
