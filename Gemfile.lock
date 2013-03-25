@@ -130,7 +130,7 @@ GEM
       nokogiri (~> 1.5.0)
       ruby-hmac
     formatador (0.2.1)
-    friendly_id (4.0.0.beta14)
+    friendly_id (4.0.9)
     gds-api-adapters (4.8.0)
       link_header
       lrucache (~> 0.1.1)
@@ -396,7 +396,7 @@ DEPENDENCIES
   factory_girl
   faker
   fog
-  friendly_id (= 4.0.0.beta14)
+  friendly_id (= 4.0.9)
   gds-api-adapters (~> 4.8.0)
   gds-sso (= 3.0.0)
   globalize3

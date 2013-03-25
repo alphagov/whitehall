@@ -45,9 +45,22 @@ class PublicationTest < ActiveSupport::TestCase
 
     assert publication.html_version.title, new_draft.html_version.title
     assert publication.html_version.body, new_draft.html_version.body
+    assert publication.html_version.slug, new_draft.html_version.slug
 
     new_draft.html_version.title = 'new title'
     refute_equal 'new title', publication.reload.html_version.title
+  end
+
+  test 'slug of html version does not change on republish' do
+    publication = create(:published_publication, :with_html_version)
+    new_draft = publication.create_draft(create(:author))
+    new_draft.html_version.title = "title-changed"
+    new_draft.minor_change = true
+    new_draft.publish!
+    document = new_draft.document
+    latest_edition = document.latest_edition
+
+    assert new_draft.html_version.slug, latest_edition.html_version.slug
   end
 
   test 'imported publications are valid when the publication_type is \'imported-awaiting-type\'' do
