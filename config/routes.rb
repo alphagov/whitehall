@@ -194,9 +194,17 @@ Whitehall::Application.routes.draw do
           resources :role_appointments, only: [:new, :create, :edit, :update, :destroy], shallow: true
           resources :translations, controller: 'role_translations'
         end
-        resources :world_locations, only: [:index, :edit, :update] do
-          resources :edition_world_locations, path: "featurings", as: "featurings", only: [:index, :edit, :update]
+        resources :world_locations, only: [:index, :edit, :update, :show] do
+          get :features, localised: true
           resources :translations, controller: 'world_location_translations'
+        end
+        resources :feature_lists, only: [:show] do
+
+          post :reorder, on: :member
+
+          resources :features, only: [:new, :create] do
+            post :unfeature, on: :member
+          end
         end
         resources :case_studies, path: "case-studies", except: [:index]
         if Rails.env.test?

@@ -1,0 +1,24 @@
+<% page_title "Feature document" %>
+
+<h2>Feature '<%= @feature %>' within '<%= @feature_list %>'</h2>
+
+<div class="row-fluid">
+  <div class="span6">
+    <%= form_for @feature, url: [:admin, @featurable, @feature_list, @feature], builder: Whitehall::FormBuilder do |form| %>
+      <%= form.errors %>
+      <%= form.hidden_field :document_id %>
+      <div class="control-group">
+        <%= form.label :image, 'Select an image to be shown when featuring', class: "control-label" %>
+        <div class="controls">
+          <%= form.file_field :image %>
+          <% if form.object.image_cache.present? %>
+            <span class="already_uploaded"><%= File.basename(form.object.image_cache) %> already uploaded</span>
+          <% end %>
+          <%= form.hidden_field :image_cache %>
+        </div>
+      </div>
+      <%= form.text_field :alt_text, horizontal: true, label_text: "Image description (alt text)" %>
+      <%= form.save_or_cancel cancel: admin_feature_list_path(@feature_list) %>
+    <% end %>
+  </div>
+</div>

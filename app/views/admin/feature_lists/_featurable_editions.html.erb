@@ -1,0 +1,38 @@
+<h2>Published documents</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Title</th>
+      <th>Published</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% feature_list.features.current.each do |feature| %>
+      <% edition = feature.document.published_edition || next %>
+      <%= content_tag_for :tr, edition do %>
+        <td class="type"><%= edition.type.titleize %></td>
+        <td><%= link_to edition.title, admin_edition_path(edition) %></td>
+        <td><%=l edition.major_change_published_at.to_date %></td>
+        <td>
+          <%= button_to('Unfeature', unfeature_admin_feature_list_feature_path(@feature_list, feature), confirm: "Unfeature '#{feature}'?", method: :post, class: "btn btn-danger") %>
+        </td>
+      <% end %>
+    <% end %>
+
+    <% featurable_editions.each do |edition| %>
+      <% next if feature_list.features.current.find {|f| f.document == edition.document } %>
+      <%= content_tag_for :tr, edition do %>
+        <td class="type"><%= edition.type.titleize %></td>
+        <td><%= link_to edition.title, admin_edition_path(edition) %></td>
+        <td><%=l edition.major_change_published_at.to_date %></td>
+        <td>
+          <%= link_to("Feature", polymorphic_url([:new, :admin, @feature_list, :feature], edition_id: edition), class: 'btn') %>
+        </td>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>

@@ -7,14 +7,20 @@ class Admin::WorldLocationsControllerTest < ActionController::TestCase
 
   should_be_an_admin_controller
 
-  test 'should return world locations in alphabetical order' do
-    world_location_2 = create(:world_location, name: 'zzz')
-    world_location_1 = create(:world_location, name: 'aaa')
+  test 'should return active and inactive world locations in alphabetical order' do
+    active = [
+      create(:world_location, name: 'zzz', active: true),
+      create(:world_location, name: 'aaa', active: true)
+    ]
+    inactive = [
+      create(:world_location, name: 'zzz', active: false),
+      create(:world_location, name: 'aaa', active: false)
+    ]
 
     get :index
 
-    assert_equal [world_location_1, world_location_2], assigns(:world_locations)
-
+    assert_equal active.sort_by(&:name), assigns(:active_world_locations)
+    assert_equal inactive.sort_by(&:name), assigns(:inactive_world_locations)
   end
 
   view_test 'should allow modification of existing world location data' do
@@ -25,7 +31,6 @@ class Admin::WorldLocationsControllerTest < ActionController::TestCase
     assert_template 'world_locations/edit'
     assert_select "input[name='world_location[title]']"
     assert_select "textarea[name='world_location[mission_statement]']"
-    assert_select '#govspeak_help'
   end
 
   test 'updating should modify the world location' do
@@ -35,6 +40,14 @@ class Admin::WorldLocationsControllerTest < ActionController::TestCase
 
     world_location.reload
     assert_equal 'country-mission-statement', world_location.mission_statement
+  end
+
+  test 'after updating redirects to world location show page' do
+    world_location = create(:world_location)
+
+    put :update, id: world_location, world_location: { mission_statement: 'country-mission-statement' }
+
+    assert_redirected_to [:admin, world_location]
   end
 
   view_test "should display fields for new mainstream links" do
@@ -75,5 +88,24 @@ class Admin::WorldLocationsControllerTest < ActionController::TestCase
     }
 
     assert_equal 0, world_location.mainstream_links.length
+  end
+
+  test "get features with locale should find feature list if present" do
+    world_location = create(:world_location)
+    feature_list = create(:feature_list, featurable: world_location, locale: :fr)
+
+    put :features, id: world_location, locale: :fr
+
+    assert_equal feature_list, assigns[:feature_list]
+  end
+
+  test "get features should create feature list if not present" do
+    world_location = create(:world_location)
+
+    put :features, id: world_location, locale: :fr
+
+    world_location.reload
+
+    assert_equal ["fr"], world_location.feature_lists.map(&:locale)
   end
 end

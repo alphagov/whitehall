@@ -25,10 +25,10 @@
 
   <div class="block news-block">
     <div class="inner-block">
-      <section class="featured-news items-<%= @featured_editions.length %>" id="featured-documents">
-        <% if @featured_editions.any? %>
+      <section class="featured-news items-<%= @feature_list.current_feature_count %>" id="featured-documents">
+        <% if @feature_list.any_current_features? %>
           <%= render partial: 'shared/featured_news',
-                     collection: @featured_editions,
+                     collection: @feature_list.current_featured_editions,
                      as: :edition,
                      locals: { show_meta: true,
                                extra_class: "secondary" } %>
