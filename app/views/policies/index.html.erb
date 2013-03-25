@@ -16,7 +16,7 @@
       <%= render partial: "documents/filter_form",
                  locals: {
                    document_type: :policy,
-                   filters: [ :keyword, :department, :topic ]
+                   filters: [ :keyword, :department, :topic, :relevant_to_local_government ]
                  } %>
     <% else %>
       <%= render partial: "documents/filter_form", locals: { document_type: :policy } %>
