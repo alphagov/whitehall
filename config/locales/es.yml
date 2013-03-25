@@ -158,7 +158,7 @@ es:
         speaker: Orador
       originally_given_at:
     updated: Actualizado
-    view: Mirar '%{title]
+    view: Mirar '%{title}'
   organisation:
     type:
       Ad-hoc advisory group:
