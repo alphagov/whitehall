@@ -1,7 +1,7 @@
 .home-history-buildings {
 
   .page-header {
-    padding : $gutter*2 0 $gutter;
+    padding : $gutter 0;
     @include media(tablet) {
       padding : $gutter*2 0;
     }
@@ -64,7 +64,6 @@
         margin-bottom: $gutter-one-sixth;
       }
       li {
-        padding-top: $gutter-one-sixth;
         list-style: disc;
         margin-left: 1.2em;
         @media (min-width: 1px ){ // target modern browsers
