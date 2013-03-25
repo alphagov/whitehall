@@ -226,8 +226,8 @@ bg:
         one: Международна делегация
         other: Международни делегации
       world_location:
-        one:
-        other:
+        one: Световно място
+        other: Световни места
     headings:
       announcements: Нашите съобщения
       country: Държава

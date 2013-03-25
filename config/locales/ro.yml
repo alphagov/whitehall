@@ -285,9 +285,9 @@ ro:
         few:
         other: Delegaţii internaţionale
       world_location:
-        one:
+        one: Localizare
         few:
-        other:
+        other: Localizare
     headings:
       announcements: Știri
       country: Țară
