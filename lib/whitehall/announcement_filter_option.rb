@@ -21,6 +21,6 @@ module Whitehall
     FatalityNotice = create(id: 3, label: "Fatality notices", search_format_types: [FatalityNotice.search_format_type], edition_types: ["FatalityNotice"])
     Speech = create(id: 4, label: "Speeches", search_format_types: [SpeechType.non_statements.map(&:search_format_types)].flatten, edition_types: ["Speech"], speech_types: SpeechType.non_statements)
     Statement = create(id: 5, label: "Statements", search_format_types: [SpeechType.statements.map(&:search_format_types)].flatten, edition_types: ["Speech"], speech_types: SpeechType.statements)
-    Rebuttal = create(id: 6, label: "Rebuttals", search_format_types: NewsArticleType::Rebuttal.search_format_types, edition_types: ["NewsArticle"], news_article_types: [NewsArticleType::Rebuttal])
+    GovernmentResponse = create(id: 6, label: "Government responses", search_format_types: NewsArticleType::GovernmentResponse.search_format_types, edition_types: ["NewsArticle"], news_article_types: [NewsArticleType::GovernmentResponse])
   end
 end

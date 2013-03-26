@@ -88,6 +88,10 @@ ro:
         one: Formular
         few:
         other: Formulare
+      government_response:
+        one:
+        few:
+        other:
       guidance:
         one: Mai multe detalii
         few:
@@ -148,10 +152,6 @@ ro:
         one: Publicație
         few:
         other: Publicații
-      rebuttal:
-        one:
-        few:
-        other:
       research:
         one: Analiză și cercetare
         few:

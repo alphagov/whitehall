@@ -108,6 +108,11 @@ he:
         two:
         many:
         other: טפסים
+      government_response:
+        one:
+        two:
+        many:
+        other:
       guidance:
         one: הדרכה
         two:
@@ -183,11 +188,6 @@ he:
         two:
         many:
         other: פרסומים
-      rebuttal:
-        one: סתירה
-        two:
-        many:
-        other: סתירות
       research:
         one: מחקר וניתוח
         two:

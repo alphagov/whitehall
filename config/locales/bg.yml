@@ -68,6 +68,9 @@ bg:
       form:
         one: Формуляр
         other: Формуляри
+      government_response:
+        one:
+        other:
       guidance:
         one: Насоки
         other: Насоки
@@ -113,9 +116,6 @@ bg:
       publication:
         one: Публикация
         other: Публикации
-      rebuttal:
-        one: Опровержение
-        other: Опровержения
       research:
         one: Проучване и анализ
         other: Проучване и анализи

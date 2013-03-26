@@ -107,6 +107,9 @@ az:
       form:
         one: Forma
         other: Formalar
+      government_response:
+        one:
+        other:
       guidance:
         one: İnstruksiya
         other: İnstruksiya
@@ -152,9 +155,6 @@ az:
       publication:
         one: Nəşrlər
         other: Nəşrlər
-      rebuttal:
-        one: Düzəliş
-        other: Düzəlişlər
       research:
         one: Tətqiqat və analiz
         other: Tətqiqat və analiz

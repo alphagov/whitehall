@@ -26,8 +26,8 @@ module Whitehall::Uploader
     end
 
     test "finds news article type by slug in the news_article_type column" do
-      row = news_article_row("news_article_type" => "rebuttals")
-      assert_equal ::NewsArticleType::Rebuttal, row.news_article_type
+      row = news_article_row("news_article_type" => "government-responses")
+      assert_equal ::NewsArticleType::GovernmentResponse, row.news_article_type
     end
 
     test "takes first_published_at from the 'first_published' column" do

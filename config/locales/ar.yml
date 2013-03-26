@@ -148,6 +148,13 @@ ar:
         few:
         many:
         other: ! 'نماذج '
+      government_response:
+        zero:
+        one:
+        two:
+        few:
+        many:
+        other:
       guidance:
         zero:
         one: توجيه
@@ -253,13 +260,6 @@ ar:
         few:
         many:
         other: مطبوعات
-      rebuttal:
-        zero:
-        one: دحض
-        two:
-        few:
-        many:
-        other: ! 'دحوض '
       research:
         zero:
         one: بحث وتحليل

@@ -88,6 +88,11 @@ cs:
         one: Formulář
         few:
         other: Formuláře
+        other:
+      government_response:
+        one:
+        few:
+        other:
       guidance:
         one: Návod
         few:
@@ -148,10 +153,6 @@ cs:
         one: Publikace
         few:
         other: Publikace
-      rebuttal:
-        one:
-        few:
-        other:
       research:
         one: Výzkum a analýza
         few:

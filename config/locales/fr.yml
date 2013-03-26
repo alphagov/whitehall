@@ -68,6 +68,9 @@ fr:
       form:
         one: Formulaire
         other: Formulaires
+      government_response:
+        one:
+        other:
       guidance:
         one: Instructions
         other: Instructions
@@ -113,9 +116,6 @@ fr:
       publication:
         one: Publication
         other: Publications
-      rebuttal:
-        one: Réfutation
-        other: Réfutations
       research:
         one: Recherche et analyse
         other: Recherche et analyse

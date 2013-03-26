@@ -68,6 +68,9 @@ el:
       form:
         one: Φόρμα
         other: Φόρμες
+      government_response:
+        one:
+        other:
       guidance:
         one: Καθοδήγηση
         other:
@@ -113,9 +116,6 @@ el:
       publication:
         one: Έκδοση
         other: Εκδόσεις
-      rebuttal:
-        one: Αντίκρουση
-        other: Αντικρούσεις
       research:
         one: Έρευνα και ανάλυση
         other:

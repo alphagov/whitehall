@@ -68,6 +68,9 @@ so:
       form:
         one: Foom
         other: Foomam
+      government_response:
+        one:
+        other:
       guidance:
         one: Hagid
         other: Hagid
@@ -113,9 +116,6 @@ so:
       publication:
         one:
         other:
-      rebuttal:
-        one: Beennin
-        other: Beennin
       research:
         one: Cilmi-baaris iyo lafaguris
         other: Cilmi-baaris iyo lafaguris

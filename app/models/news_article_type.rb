@@ -36,12 +36,12 @@ class NewsArticleType
   end
 
   def search_format_types
-    ['news-article-'+self.singular_name.parameterize]
+    ['news-article-'+self.key.gsub('_',' ').parameterize]
   end
 
   NewsStory = create(id: 1, key: "news_story", singular_name: "News story", plural_name: "News stories", prevalence: :primary)
   PressRelease = create(id: 2, key: "press_release", singular_name: "Press release", plural_name: "Press releases", prevalence: :primary)
-  Rebuttal = create(id: 3, key: "rebuttal", singular_name: "Rebuttal", plural_name: "Rebuttals", prevalence: :primary)
+  GovernmentResponse = create(id: 3, key: "government_response", singular_name: "Government response", plural_name: "Government responses", prevalence: :primary)
 
   # Temporary to allow migration
   Unknown                = create(id: 999, key: "announcement", singular_name: "Announcement", plural_name: "Announcements", prevalence: :migration)

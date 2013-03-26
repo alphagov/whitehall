@@ -148,6 +148,13 @@ cy:
         few:
         many:
         other: Ffurflenni
+      government_response:
+        zero:
+        one:
+        two:
+        few:
+        many:
+        other:
       guidance:
         zero:
         one: Cyfarwyddyd
@@ -253,13 +260,6 @@ cy:
         few:
         many:
         other: Cyhoeddiadau
-      rebuttal:
-        zero:
-        one: Gwrthodiad
-        two:
-        few:
-        many:
-        other: Gwrthodiadau
       research:
         zero:
         one: Ymchwil a dadansoddiad

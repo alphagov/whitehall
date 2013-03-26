@@ -68,6 +68,9 @@ uz:
       form:
         one:
         other:
+      government_response:
+        one:
+        other:
       guidance:
         one:
         other:
@@ -111,9 +114,6 @@ uz:
         one:
         other:
       publication:
-        one:
-        other:
-      rebuttal:
         one:
         other:
       research:

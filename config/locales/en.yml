@@ -182,9 +182,9 @@ en:
       publication:
         one: Publication
         other: Publications
-      rebuttal:
-        one: Rebuttal
-        other: Rebuttals
+      government_response:
+        one: Government response
+        other: Government responses
       research:
         one: Research and analysis
         other: Research and analysis

@@ -20,7 +20,7 @@ class AnnouncementPresenterTest < PresenterTestCase
     news_article_types = {
       NewsArticleType::NewsStory => "News story",
       NewsArticleType::PressRelease => "Press release",
-      NewsArticleType::Rebuttal => "Rebuttal"
+      NewsArticleType::GovernmentResponse => "Government response"
     }
 
     news_article_types.each do |type, expected|

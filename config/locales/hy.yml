@@ -68,6 +68,9 @@ hy:
       form:
         one: Ձևաթուղթ
         other: Ձևաթղթեր
+      government_response:
+        one:
+        other:
       guidance:
         one: Ուղեցույց
         other: Ուղեցույցեր
@@ -113,9 +116,6 @@ hy:
       publication:
         one: Հրապարակում
         other: Հրապարակումներ
-      rebuttal:
-        one: Մերժում
-        other: Մերժումներ
       research:
         one: Հետազոտություն և վերլուծություն
         other: Հետազոտություններ և վերլուծություններ

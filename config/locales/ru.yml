@@ -108,6 +108,11 @@ ru:
         few:
         many:
         other: Формы
+      government_response:
+        one:
+        few:
+        many:
+        other:
       guidance:
         one: Руководство
         few:
@@ -183,11 +188,6 @@ ru:
         few:
         many:
         other: Публикации
-      rebuttal:
-        one: Опровержение
-        few:
-        many:
-        other: Опровержения
       research:
         one: Исследования и аналитика
         few:
