@@ -4,7 +4,7 @@ class Feature < ActiveRecord::Base
 
   mount_uploader :image, ImageUploader, mount_on: :carrierwave_image
   validates :document, :started_at, presence: true
-  validates :image, presence: true, unless: ->(f) { f.ended_at.present? }
+  validates :image, presence: true, on: :create
 
   validate :image_must_be_960px_by_640px, if: :image_changed?
 
@@ -13,6 +13,8 @@ class Feature < ActiveRecord::Base
   def to_s
     if document && document.published_edition
       LocalisedModel.new(document.published_edition, locale).title
+    else
+      "Feature #{id}"
     end
   end
 

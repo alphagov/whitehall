@@ -5,6 +5,19 @@ class FeatureTest < ActiveSupport::TestCase
     refute build(:feature, document: nil).valid?
   end
 
+  test "invalid without image on create" do
+    refute build(:feature, image: nil).valid?
+  end
+
+  test "valid without image on update" do
+    # This is to work around the fact that carrierwave will consider the image invalid
+    # because the file will have been moved to the 'clean' folder by the virus scanner
+    # and therefore not in the location that it expects
+    feature = create(:feature)
+    feature.image = nil
+    assert feature.valid?
+  end
+
   test "started_at set by default on creation" do
     feature = Feature.create(image: image_fixture, feature_list: create(:feature_list), document: create(:document))
     assert_equal Time.zone.now, feature.started_at

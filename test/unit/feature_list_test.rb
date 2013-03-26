@@ -37,13 +37,23 @@ class FeatureListTest < ActiveSupport::TestCase
     feature_list.reload
     assert_equal [feature1, feature2], feature_list.features
 
-    feature_list.reorder!([feature2.id, feature1.id])
+    assert feature_list.reorder!([feature2.id, feature1.id])
+    refute feature_list.errors.any?
 
     feature_list.reload
     assert_equal [feature2, feature1], feature_list.features
   end
 
-  test "features which are not part of the feature list are ignored when re-ordering" do
+  test "validation errors when reordering features are propogated" do
+    f1 = create(:feature)
+    feature_list = create(:feature_list, locale: :en, features: [f1])
+    f1.document = nil
+    feature_list.features.stubs(:find_by_id!).returns(f1)
+    refute feature_list.reorder!([f1.id])
+    assert_match /Can't reorder because '.*'/, feature_list.errors.full_messages.to_sentence
+  end
+
+  test "reordering fails if features which are not part of the feature list are referenced when re-ordering" do
     f1, f2, f3 = [create(:feature), create(:feature), create(:feature)]
 
     feature_list_1 = create(:feature_list, locale: :en, features: [f1, f2])
@@ -51,10 +61,11 @@ class FeatureListTest < ActiveSupport::TestCase
 
     refute_nil f3_original_ordering = f3.ordering
 
-    feature_list_1.reorder!([f2.id, f3.id, f1.id])
+    refute feature_list_1.reorder!([f2.id, f3.id, f1.id])
+    assert_match /Can't reorder because '.*'/, feature_list_1.errors[:base].to_sentence
 
     assert_equal f3_original_ordering, f3.reload.ordering
-    assert_equal [f2, f1], feature_list_1.reload.features
+    assert_equal [f1, f2], feature_list_1.reload.features
   end
 
   test "returns featurable editions" do

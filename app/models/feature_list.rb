@@ -19,11 +19,18 @@ class FeatureList < ActiveRecord::Base
     Feature.connection.transaction do
       start_at = next_ordering
       new_ordering.each.with_index do |feature_id, i|
-        feature = self.features.find_by_id(feature_id) || next
-        feature.ordering = next_ordering + i
-        feature.save
+        feature = self.features.find_by_id!(feature_id)
+        feature.ordering = start_at + i
+        feature.save!
       end
     end
+    true
+  rescue ActiveRecord::RecordNotFound => e
+    self.errors[:base] << "Can't reorder because '#{e}'"
+    false
+  rescue ActiveRecord::RecordInvalid => e
+    self.errors[:base] << "Can't reorder because '#{e}' on '#{e.record}'"
+    false
   end
 
   def published_features
