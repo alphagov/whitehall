@@ -21,7 +21,7 @@ class Admin::FeaturesController < Admin::BaseController
     if @feature.save
       message = {notice: "'#{@feature}' unfeatured"}
     else
-      message = {error: "Unable to unfeature '#{@feature}' because #{@feature.errors.full_messages.to_sentence}"}
+      message = {alert: "Unable to unfeature '#{@feature}' because #{@feature.errors.full_messages.to_sentence}"}
     end
     redirect_to admin_feature_list_path(@feature_list), message
   end
