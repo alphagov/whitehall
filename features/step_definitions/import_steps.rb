@@ -33,6 +33,23 @@ Then /^the import succeeds, creating (\d+) imported publications? for "([^"]*)" 
   assert_nil edition.publication_date
 end
 
+Then /^the import succeeds, creating (\d+) imported publication for "([^"]*)"$/ do |edition_count, organisation_name|
+  import = Import.last
+  assert_equal :succeeded, import.status
+  assert_equal edition_count.to_i, import.documents.count
+
+  organisation = Organisation.find_by_name(organisation_name)
+  edition = import.editions.last
+  assert_kind_of Publication, edition
+  assert_equal organisation, edition.organisations.first
+end
+
+Then /^the imported publication has an html version with the title "([^"]*)" and body "([^"]*)"$/ do |html_title, html_body|
+  publication = Import.last.editions.last
+  assert_equal html_title, publication.html_version.title
+  assert_equal html_body, publication.html_version.body
+end
+
 Then /^the import succeeds, creating (\d+) imported speech(?:es)? with "([^"]*)" speech type and with no deliverer set$/ do |edition_count, speech_type_slug|
   speech_type = SpeechType.find_by_slug(speech_type_slug)
   assert_equal edition_count.to_i, Edition.imported.count
