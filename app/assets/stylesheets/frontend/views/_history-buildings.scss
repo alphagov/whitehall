@@ -84,7 +84,7 @@
   }
 
   .vcard {
-    p {
+    p, span {
       @include core-16;
       margin-bottom: 0;
     }
