@@ -4,10 +4,9 @@
   <thead>
     <tr>
       <th width="10%">Type</th>
-      <th width="60%">Summary</th>
+      <th width="60%">Location</th>
       <th width="10%">Status</th>
-      <th width="10%">Translations</th>
-      <th width="10%">ISO2</th>
+      <th width="30%">Translations</th>
     </tr>
   </thead>
 
@@ -19,7 +18,6 @@
         <td>
           <p>
             <%= link_to world_location.name, [:admin, world_location], class: "name" %>
-            &ldquo;<span class="title"><%= world_location.title %></span>&rdquo;
           </p>
           <p>
             <% if world_location.mission_statement.present? %>
@@ -42,7 +40,6 @@
           <% end %>
         </td>
 
-        <td class="iso2"> <%= world_location.iso2 %></td>
       <% end %>
     <% end %>
 
