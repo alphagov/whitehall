@@ -83,4 +83,11 @@
     }
   }
 
+  .vcard {
+    p {
+      @include core-16;
+      margin-bottom: 0;
+    }
+  }
+
 }
