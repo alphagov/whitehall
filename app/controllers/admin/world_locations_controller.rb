@@ -20,7 +20,7 @@ class Admin::WorldLocationsController < Admin::BaseController
   end
 
   def features
-    @editions = @feature_list.featurable_editions
+    @editions = @feature_list.featurable_editions.map {|e| LocalisedModel.new(e, @feature_list.locale)}
   end
 
   private
