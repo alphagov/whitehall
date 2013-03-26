@@ -88,6 +88,10 @@ lt:
         one:
         few:
         other:
+      government_response:
+        one:
+        few:
+        other:
       guidance:
         one:
         few:
@@ -145,10 +149,6 @@ lt:
         few:
         other:
       publication:
-        one:
-        few:
-        other:
-      rebuttal:
         one:
         few:
         other:

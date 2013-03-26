@@ -51,7 +51,7 @@ class DocumentFilterHelperTest < ActionView::TestCase
   end
 
   test "#announcement_types_for_filter returns all announcement filter option types" do
-    announcement_type_options = ["Press releases","News stories","Fatality notices","Speeches","Statements", "Rebuttals"]
+    announcement_type_options = ["Press releases", "News stories", "Fatality notices", "Speeches", "Statements", "Government responses"]
     assert_equal announcement_type_options, announcement_types_for_filter.map(&:label)
   end
 

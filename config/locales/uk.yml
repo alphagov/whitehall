@@ -108,6 +108,11 @@ uk:
         few:
         many:
         other: Форми
+      government_response:
+        one:
+        few:
+        many:
+        other:
       guidance:
         one: Інструкції
         few:
@@ -183,11 +188,6 @@ uk:
         few:
         many:
         other: Публікації
-      rebuttal:
-        one: Спростування
-        few:
-        many:
-        other: Спростування
       research:
         one: Дослідження та аналіз
         few:

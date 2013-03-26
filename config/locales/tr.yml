@@ -107,6 +107,9 @@ tr:
       form:
         one: Form
         other: ! 'Formlar '
+      government_response:
+        one:
+        other:
       guidance:
         one: Kılavuz
         other: ! 'Kılavuzlar '
@@ -152,9 +155,6 @@ tr:
       publication:
         one: ! 'Yayın '
         other: ! 'Yayınlar '
-      rebuttal:
-        one: ! 'Tekzip '
-        other: Tekzipler
       research:
         one: Araştırma ve analiz
         other: ! 'Araştırma ve analizler '

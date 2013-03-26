@@ -68,6 +68,9 @@ es:
       form:
         one: Formulario
         other: Formularios
+      government_response:
+        one:
+        other:
       guidance:
         one: Instrucciones
         other: Instrucciones
@@ -113,9 +116,6 @@ es:
       publication:
         one: Publicaciones
         other: Publicación
-      rebuttal:
-        one: Rebote
-        other: Rebotes
       research:
         one: Investigación y análisis
         other: Investigación y análisis

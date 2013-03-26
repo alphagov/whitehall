@@ -68,6 +68,9 @@ lv:
       form:
         one: Forma
         other: Formas
+      government_response:
+        one:
+        other:
       guidance:
         one: Norādes
         other: Norādes
@@ -113,9 +116,6 @@ lv:
       publication:
         one: Publikācija
         other: Publikācijas
-      rebuttal:
-        one: Atspēkojums
-        other: Atspēkojumi
       research:
         one: Izpēte un analīze
         other: Izpēte un analīze

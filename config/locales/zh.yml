@@ -107,6 +107,9 @@ zh:
       form:
         one: 表格
         other: 表格
+      government_response:
+        one:
+        other:
       guidance:
         one: 指导
         other: 指导
@@ -152,9 +155,6 @@ zh:
       publication:
         one: 发布的报告
         other: 发布的报告
-      rebuttal:
-        one: 反证
-        other: 反证
       research:
         one: 研究及分析
         other: 研究及分析
