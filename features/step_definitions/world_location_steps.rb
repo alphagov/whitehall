@@ -197,3 +197,11 @@ Then /^I should see "([^"]*)" as the title of the feature on the french "([^"]*)
   view_world_location_in_locale(world_location_name, "Français")
   assert page.has_css?('.feature h2', text: expected_title)
 end
+
+Then /^I should see "([^"]*)" as the title of the featured item on the french "([^"]*)" admin page$/ do |expected_title, world_location_name|
+  world_location = WorldLocation.find_by_name!(world_location_name)
+  visit admin_world_location_path(world_location)
+  click_link "Features (Français)"
+  assert has_css?('.sortable a', text: expected_title)
+  assert has_css?('.table .news_article a', text: expected_title)
+end

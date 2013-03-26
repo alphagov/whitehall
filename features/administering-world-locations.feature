@@ -35,6 +35,7 @@ Feature: Administering world location information
     And there is a news article "Beards" in english ("Barbes" in french) related to the world location
     When I feature "Barbes" on the french "Jamestopia" page
     Then I should see "Barbes" as the title of the feature on the french "Jamestopia" page
+    And I should see "Barbes" as the title of the featured item on the french "Jamestopia" admin page
 
   Scenario: Adding a new translation
     Given a world location "Afrolasia" exists with the mission statement "The UK has a long-standing relationship with Afrolasia"

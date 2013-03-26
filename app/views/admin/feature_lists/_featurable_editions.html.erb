@@ -11,8 +11,8 @@
     </tr>
   </thead>
   <tbody>
-    <% feature_list.features.current.each do |feature| %>
-      <% edition = feature.document.published_edition || next %>
+    <% feature_list.published_features.each do |feature| %>
+      <% edition = LocalisedModel.new(feature.document.published_edition, feature_list.locale) %>
       <%= content_tag_for :tr, edition do %>
         <td class="type"><%= edition.type.titleize %></td>
         <td><%= link_to edition.title, admin_edition_path(edition) %></td>
