@@ -7,5 +7,13 @@ class HtmlVersionTest < ActiveSupport::TestCase
     publication = build(:publication)
     HtmlVersion.new(edition_id: publication.id)
   end
+
+  test 'is invalid without a title' do
+    refute build(:html_version, title: nil).valid?
+  end
+
+  test 'is invalid without a body' do
+    refute build(:html_version, body: nil).valid?
+  end
 end
 

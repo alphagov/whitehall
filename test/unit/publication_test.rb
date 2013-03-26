@@ -39,6 +39,16 @@ class PublicationTest < ActiveSupport::TestCase
     refute publication.html_version
   end
 
+  test 'html version errors mean the publication will not save' do
+    publication = build(:publication)
+    publication.html_version_attributes = {
+      title: "something",
+      body: ""
+    }
+    refute publication.valid?
+    refute publication.html_version.errors.empty?
+  end
+
   test 'html version is copied over on republish' do
     publication = create(:published_publication, :with_html_version)
     new_draft = publication.create_draft(create(:author))
