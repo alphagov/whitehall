@@ -128,9 +128,15 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
                 $title.html($title.text().trim() + '<span>: '+field.title[0]+'</span>');
               }
             } else if (field.id === 'date'){
+              var direction_value = 'before';
+              $.each(formStatus.checked, function(i, checkbox) {
+                if (checkbox.id.match(/^direction_/) !== null) {
+                  direction_value = checkbox.value;
+                }
+              });
               context[field.id] = {
                 date: field.title[0],
-                direction: formStatus.checked[0].value
+                direction: direction_value
               }
             } else if (field.id === 'world_locations'){
               context.world_locations = [];
@@ -157,7 +163,7 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
                     url: documentFilter.urlWithout(field.id, field.value[j]),
                     value: field.value[j],
                     joining: (j < _j-1 ? 'and' : '')
-                });
+                  });
                 }
               }
             }
