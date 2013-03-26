@@ -15,7 +15,7 @@
       <aside class="mainstream-links">
       <h4><%= t('world_location.headings.quick_links') %></h4>
         <ul>
-          <% @world_location.mainstream_links.each do |link| %>
+          <% @world_location.mainstream_links.only_the_initial_set.each do |link| %>
             <li><%= link_to link.title, link.url, ({rel: 'external'} if is_external?(link.url)) %></li>
           <% end %>
         </ul>

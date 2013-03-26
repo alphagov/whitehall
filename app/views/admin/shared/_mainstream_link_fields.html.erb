@@ -1,7 +1,12 @@
 <fieldset class="named mainstream-links form-horizontal">
   <legend>Mainstream links</legend>
-  <%= form.fields_for :mainstream_links do |mainstream_link_form| %>
-    <%= mainstream_link_form.text_field :title, horizontal: true %>
-    <%= mainstream_link_form.text_field :url, horizontal: true %>
-  <% end %>
+  <p class="alert alert-info">Only the first <%= MainstreamLink::DEFAULT_INITIAL_SET_SIZE %> mainstream links will be shown on the public site.</p>
+  <ol>
+    <%= form.fields_for(:mainstream_links, form.object.mainstream_links.sort_by { |ml| ml.created_at || Time.current }) do |mainstream_link_form| %>
+      <li>
+        <%= mainstream_link_form.text_field :title, horizontal: true %>
+        <%= mainstream_link_form.text_field :url, horizontal: true %>
+      </li>
+    <% end %>
+  </ol>
 </fieldset>
