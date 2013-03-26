@@ -32,6 +32,7 @@ Feature: Importing new editions
   - title: required
   - summary: optional
   - body: required
+  - body_1..9: optional - allows long bodies to be split across multiple columns. body + body_1..9 are concatinated to form the complete body
   - organisation: required, ideally default blank to SELECTED, reject anything that is non-blank that can't be found
 
   Publications:
@@ -43,6 +44,9 @@ Feature: Importing new editions
   - attachment_1..n_*: 1 column required, data required (should stay as is)
   - json_attachments: optional, leave as is
   - country_1..4: 1 column required, data optional
+  - html_title: optional
+  - html_body: optional
+  - html_body_1..50: optional, allows long html bodies to be split across multiple columns. html_body + html_body_1..50 are concatinated to form the complete html body
 
   Consultations:
 
@@ -148,6 +152,15 @@ Feature: Importing new editions
     And I can't make the imported publication into a draft edition yet
     When I set the imported publication's publication date to "14-Dec-2011"
     Then I can make the imported publication into a draft edition
+
+  Scenario: Importing publications with an html version
+    When I import the following data as CSV as "Publication" for "Department for Transport":
+      """
+      old_url,title,summary,body,organisation,policy_1,publication_type,document_series_1,publication_date,order_url,price,isbn,urn,command_paper_number,ignore_1,attachment_1_url,attachment_1_title,country_1,html_title,html_body,html_body_1
+      http://example.com/1,title,summary,body,department-for-transport,,policy-papers,,,,,,,,,,,,HTML version title,Body part one, plus body part two
+      """
+    Then the import succeeds, creating 1 imported publication for "Department for Transport"
+    And the imported publication has an html version with the title "HTML version title" and body "Body part one plus body part two"
 
   Scenario: Importing news article sets imported state, ImportedAwaitingType type and default organisation, to be filled in later
     When I import the following data as CSV as "News article" for "Department for Transport":

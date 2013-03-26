@@ -4,10 +4,10 @@ module Whitehall::Uploader
   class PublicationRowTest < ActiveSupport::TestCase
     setup do
       @attachment_cache = stub('attachment cache')
-      @default_organisation = stub('Organisation')
+      @default_organisation = stub('Organisation', url: 'url')
     end
 
-    def new_publication_row(csv_data, logger = Logger.new($stdout))
+    def new_publication_row(csv_data={}, logger = Logger.new($stdout))
       Whitehall::Uploader::PublicationRow.new(csv_data, 1, @attachment_cache, @default_organisation, logger)
     end
 
@@ -36,6 +36,16 @@ module Whitehall::Uploader
         ], Whitehall::Uploader::PublicationRow.heading_validation_errors(keys)
     end
 
+    test "validation accepts optional HTML title and body" do
+      keys = basic_headings + %w(html_title html_body)
+      assert_equal [], Whitehall::Uploader::PublicationRow.heading_validation_errors(keys)
+    end
+
+    test "validation accepts HTML body across multiple columns" do
+      keys = basic_headings + %w(html_title html_body html_body_1 html_body_2 html_body_3)
+      assert_equal [], Whitehall::Uploader::PublicationRow.heading_validation_errors(keys)
+    end
+
     test "finds document series by slug in document_series_n column" do
       document_series = create(:document_series)
       row = new_publication_row({"document_series_1" => document_series.slug})
@@ -55,6 +65,26 @@ module Whitehall::Uploader
     test "leaves the publication date blank if the publication_date column is blank" do
       row = new_publication_row({"publication_date" => ""})
       assert_nil row.publication_date
+    end
+
+    test "combines HTML body parts if present" do
+      assert_nil new_publication_row.html_body
+
+      row = new_publication_row({'html_body' => 'body', 'html_body_1' => ' part 1', 'html_body_2' => ' part 2'})
+      assert_equal 'body part 1 part 2', row.html_body
+    end
+
+    test "returns the HTML title if present" do
+      assert_nil new_publication_row.html_title
+
+      row = new_publication_row({'html_title' => 'HTML title'})
+      assert_equal 'HTML title', row.html_title
+    end
+
+    test "sets nested attributes for an HTML version if present" do
+      row_with_html_version = new_publication_row({'html_title' => 'HTML title', 'html_body' => 'HTML body'})
+      assert_equal 'HTML title', row_with_html_version.attributes[:html_version_attributes][:title]
+      assert_equal 'HTML body', row_with_html_version.attributes[:html_version_attributes][:body]
     end
 
     test "finds ministers specified by slug in minister 1 and minister 2 columns" do

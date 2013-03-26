@@ -10,6 +10,8 @@ module Whitehall::Uploader
         .multiple(%w{attachment_#_url attachment_#_title}, 0..Row::ATTACHMENT_LIMIT)
         .optional('json_attachments')
         .multiple("country_#", 0..4)
+        .optional(%w(html_title html_body))
+        .multiple('html_body_#',0..50)
     end
 
     def publication_date
@@ -48,11 +50,25 @@ module Whitehall::Uploader
       Finders::WorldLocationsFinder.find(row['country_1'], row['country_2'], row['country_3'], row['country_4'], @logger, @line_number)
     end
 
+    def html_title
+      row['html_title']
+    end
+
+    def html_body
+      if row['html_body']
+        ([row['html_body']] + (1..50).map {|n| row["html_body_#{n}"] }).compact.join
+      end
+    end
+
+    def html_version_attributes
+      { title: html_title, body: html_body }
+    end
+
     def attributes
       [:title, :summary, :body, :publication_date, :publication_type,
        :related_editions, :lead_organisations,
        :ministerial_roles, :attachments, :alternative_format_provider,
-       :world_locations].map.with_object({}) do |name, result|
+       :world_locations, :html_version_attributes].map.with_object({}) do |name, result|
         result[name] = __send__(name)
       end
     end
