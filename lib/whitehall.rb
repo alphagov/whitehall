@@ -126,6 +126,10 @@ module Whitehall
       Rails.root.join('clean-uploads').realpath
     end
 
+    def gov_delivery_url
+      "https://whitehall-admin.preview.alphagov.co.uk" #TODO Replace with plek for govdelivery
+    end
+
     def government_search_index_name
       "government"
     end
