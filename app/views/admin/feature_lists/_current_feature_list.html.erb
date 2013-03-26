@@ -9,7 +9,6 @@
       <% @feature_list.features.current.each do |feature| %>
         <div class="well">
           <%= label_tag "ordering-#{feature.id}" do %>
-            <%= image_tag feature.image.url(:s216), class: 'featured-image', alt: feature.alt_text %>
             <% if feature.document.published_edition %>
               <%= link_to(feature, admin_edition_path(feature.document.published_edition)) %>
             <% else %>
@@ -21,7 +20,7 @@
         </div>
       <% end %>
     </fieldset>
-    <%= form.submit "Save", class: "btn" %>
+    <%= form.submit "Update feature order", class: "btn" %>
   <% end %>
 <% else %>
   <p>Nothing featured yet</p>

@@ -75,7 +75,7 @@ When /^I order the featured items of the (?:world location|international delegat
   table.rows.each_with_index do |(title), index|
     page.find("a", text: title).find(:xpath, '..').set(index)
   end
-  click_on "Save"
+  click_on "Update feature order"
 end
 
 When /^I add a new translation to the world location "([^"]*)" with:$/ do |name, table|
