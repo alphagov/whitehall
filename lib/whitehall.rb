@@ -9,6 +9,7 @@ module Whitehall
   mattr_accessor :mainstream_content_api
   mattr_accessor :stats_collector
   mattr_accessor :skip_safe_html_validation
+  mattr_accessor :govuk_delivery_url
 
   revision_file = "#{Rails.root}/REVISION"
   if File.exists?(revision_file)

@@ -3,7 +3,7 @@
 # body:  {"title":"Improving the health and safety system","summary":"How the government is improving the health and safety system, making sure it is taken seriously and reducing the burden on business.","link":"/government/policies/improving-the-health-and-safety-system"}
 
 require 'uri'
-module Edition::GovDelivery
+module Edition::GovUKDelivery
   extend ActiveSupport::Concern
 
   included do
@@ -27,7 +27,7 @@ module Edition::GovDelivery
       hash = {title: title, summary: summary, link: public_document_path(self)}.to_json
       puts "body: #{hash}"
     else
-      conn = Faraday.new url: Whitehall.gov_delivery_url do |faraday|
+      conn = Faraday.new url: Whitehall.govuk_delivery_url do |faraday|
         faraday.response :logger                  # log requests to STDOUT
         faraday.adapter  Faraday.default_adapter  # make requests with Net::HTTP
       end

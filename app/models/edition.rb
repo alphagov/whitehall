@@ -18,7 +18,7 @@ class Edition < ActiveRecord::Base
   include Rails.application.routes.url_helpers
   include PublicDocumentRoutesHelper
   include Searchable
-  include Edition::GovDelivery
+  include Edition::GovUKDelivery
 
   has_many :editorial_remarks, dependent: :destroy
   has_many :edition_authors, dependent: :destroy
