@@ -70,23 +70,13 @@ module Edition::ScheduledPublishing
     end
 
     def publish_atomically_as(user, edition_id, logger = Rails.logger)
-      acting_as(user) do
-        Edition.connection.execute "set transaction isolation level serializable"
-        Edition.connection.transaction do
-          edition = Edition.find(edition_id)
-          if edition.publish_as(user)
-            Whitehall.stats_collector.increment("scheduled_publishing.published")
-            logger.info("Published #{edition.title} automatically")
-            return true
-          else
-            logger.error("Unable to publish edition id '#{edition_id}' because '#{edition.errors.full_messages.to_sentence}'")
-            return false
-          end
-        end
-      end
+      EditionPublishingWorker.new.perform(edition_id, user.id)
+      logger.info("Published edition (#{edition_id}) automatically")
+      Whitehall.stats_collector.increment("scheduled_publishing.published")
+      return true
     rescue => e
-      logger.error("Unable to publish edition id '#{edition_id}' because '#{e}'")
-      false
+      logger.error("Unable to publish edition id '#{edition_id}' because '#{e.message}'")
+      return false
     end
 
     def acting_as(user)

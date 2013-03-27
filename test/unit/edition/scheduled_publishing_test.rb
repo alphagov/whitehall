@@ -229,9 +229,8 @@ class Edition::PublishAllDueEditionsTest < ActiveSupport::TestCase
   test "#publish_all_due_editions_as publishes all due publications using the specified account" do
     edition = create(:edition, :scheduled, scheduled_publication: 1.day.ago)
     robot_user = create(:scheduled_publishing_robot)
-    Edition.publish_all_due_editions_as(robot_user)
-    edition.reload
-    assert edition.published?
+    assert Edition.publish_all_due_editions_as(robot_user)
+    assert_equal :published, edition.reload.current_state
   end
 
   test "#publish_all_due_editions_as records number of due publications to statsd" do
@@ -249,7 +248,7 @@ class Edition::PublishAllDueEditionsTest < ActiveSupport::TestCase
 
   test "#publish_all_due_editions_as sets transaction isolation level to SERIALIZABLE to ensure atomic update" do
     edition = create(:edition, :scheduled, scheduled_publication: 1.day.ago)
-    robot_user = build(:scheduled_publishing_robot)
+    robot_user = create(:scheduled_publishing_robot)
 
     atomic_publishing = sequence('atomic publishing')
     Edition.connection.expects(:execute).with("set transaction isolation level serializable").in_sequence(atomic_publishing)
