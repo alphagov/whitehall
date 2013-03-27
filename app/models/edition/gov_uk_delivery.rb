@@ -13,19 +13,26 @@ module Edition::GovUkDelivery
   def notify_govuk_delivery
     # payload[:relevant_to_local_government] = relevant_to_local_government if can_apply_to_local_government?
 
-    topics = []
     if can_be_associated_with_topics? || can_be_related_to_policies?
-      topics = topics.map(&:slug)
+      topic_slugs = topics.map(&:slug)
+    else
+      topic_slugs = []
     end
 
-    tags = [[display_type], organisations.map(&:slug), topics].inject(&:product).map(&:flatten)
+    org_slugs = organisations.map(&:slug)
+    puts "orgs: #{org_slugs.inspect}"
+    puts "topics: #{topic_slugs.inspect}"
+
+    tags_args = [[display_type], org_slugs, topic_slugs].reject{ |arr| arr.empty? }
+    tags = tags_args.inject(&:product).map(&:flatten)
+    puts tags.inspect
 
   # tags[
   #   "announcements.json?organisation[]=org-slug&topic[]=topic",
   #   "announcements.json?organisation[]=org-slug&topic[]=topic"
   # ]
 
-    payload = {title: title, summary: summary, link: public_document_path(self), tags: tags}
+    payload = {title: title, summary: summary, link: public_document_path(self), tags: tags_args}
 
     if %w{test development}.include?(Whitehall.platform)
       puts "*" * 80
