@@ -609,6 +609,13 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_select ".description", text: "organisation-description"
   end
 
+  view_test "should show links to the alternate languages for a translated organisation" do
+    organisation = create(:organisation, description: "organisation-description", translated_into: [:fr])
+    get :about, id: organisation
+    expected_url = about_organisation_path(organisation, locale: :fr)
+    assert_select ".available-languages a[href='#{expected_url}']", text: Locale.new(:fr).native_language_name
+  end
+
   view_test "should render the about-us content using govspeak markup" do
     organisation = create(:organisation,
       name: "organisation-name",

@@ -29,7 +29,7 @@
       </div>
     </div>
       <div class="block-2">
-        <%= render partial: 'shared/available_languages', locals: {object: @organisation} %>
+        <%= render partial: 'shared/available_languages', locals: {object: @organisation, linkable: [:about, @organisation]} %>
         <div class="inner-block">
           <h1 class="main"><%= t('organisation.headings.what_we_do') %></h1>
           <p class="description">
