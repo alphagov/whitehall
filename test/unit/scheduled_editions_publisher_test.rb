@@ -53,10 +53,32 @@ class ScheduledEditionsPublisherTest < ActiveSupport::TestCase
     edition1 = create(:edition, :scheduled, scheduled_publication: Time.zone.now)
     edition2 = create(:edition, :scheduled, scheduled_publication: Time.zone.now)
     publisher = ScheduledEditionsPublisher.new(stubbed_scope)
+    publisher.stubs(:unpublished_editions_remaining?).returns(true, false)
     publisher.stubs(editions: [edition1, edition2])
     publisher.expects(:publish_edition!).with(edition1)
     publisher.expects(:publish_edition!).with(edition2)
     publisher.publish_all!
+  end
+
+  test '#publish_all! will retry if there are still unpublished editions' do
+    edition1 = create(:edition, :scheduled, scheduled_publication: Time.zone.now)
+    publisher = ScheduledEditionsPublisher.new(stubbed_scope)
+    publisher.stubs(editions: [edition1])
+    publisher.expects(:publish_edition!).twice
+    publisher.stubs(:unpublished_editions_remaining?).returns(true, true, false)
+    publisher.publish_all!
+  end
+
+  test '#publish_all! will give up after 5 attempts' do
+    edition1 = create(:edition, :scheduled, scheduled_publication: Time.zone.now)
+    publisher = ScheduledEditionsPublisher.new(stubbed_scope)
+    publisher.stubs(editions: [edition1])
+    publisher.expects(:publish_edition!).with(edition1).times(5)
+    publisher.stubs(unpublished_editions_remaining?: true)
+
+    assert_raises ScheduledEditionsPublisher::PublishingFailure do
+      publisher.publish_all!
+    end
   end
 
   private

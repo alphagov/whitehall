@@ -1,4 +1,6 @@
 class ScheduledEditionsPublisher
+  class PublishingFailure < Exception; end
+
   def self.publish_all_due_editions
     editions_scope = Edition.due_for_publication(5.minutes).order("scheduled_publication asc")
     new(editions_scope).publish_all!
@@ -15,13 +17,15 @@ class ScheduledEditionsPublisher
     @editions_scope.reload.to_ary
   end
 
-  def unpublished_editions_count
-    @editions_scope.count
-  end
-
   def publish_all!
-    log_publish_run do
-      editions.each { |edition| publish_edition!(edition) }
+    reset_attempt_count
+
+    while unpublished_editions_remaining?
+      raise PublishingFailure if attempt_limit_reached?
+      log_publish_run do
+        editions.each { |edition| publish_edition!(edition) }
+      end
+      increment_attempt_count
     end
   end
 
@@ -40,6 +44,14 @@ class ScheduledEditionsPublisher
 
   private
 
+  def unpublished_editions_remaining?
+    unpublished_editions_count > 0
+  end
+
+  def unpublished_editions_count
+    @editions_scope.count
+  end
+
   def wait_until(timestamp, &block)
     while Time.zone.now < timestamp
       time_to_wait = timestamp - Time.zone.now
@@ -47,6 +59,17 @@ class ScheduledEditionsPublisher
       sleep(time_to_wait)
     end
     yield
+  end
+
+  def reset_attempt_count
+    @attempts = 0
+  end
+  def attempt_limit_reached?
+    @attempts >= 5
+  end
+
+  def increment_attempt_count
+    @attempts +=1
   end
 
   def log(message)
