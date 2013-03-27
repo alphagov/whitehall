@@ -2,6 +2,7 @@ class OrganisationType < ActiveRecord::Base
   validates :name, presence: true, uniqueness: true
 
   LISTING_ORDER = [
+    "Executive office",
     "Ministerial department",
     "Non-ministerial department",
     "Executive agency",
@@ -27,6 +28,10 @@ class OrganisationType < ActiveRecord::Base
     where(name: "Sub-organisation")
   end
 
+  def self.executive_office
+    where(name: "Executive office")
+  end
+
   def self.agency_or_public_body
     where(arel_table[:name].not_eq("Sub-organisation"))
   end
@@ -49,5 +54,9 @@ class OrganisationType < ActiveRecord::Base
 
   def sub_organisation?
     name == "Sub-organisation"
+  end
+
+  def executive_office?
+    name == 'Executive office'
   end
 end

@@ -14,6 +14,7 @@ class OrganisationTypeTest < ActiveSupport::TestCase
 
   test "should be returnable in an ordering suitable for organisational listing" do
     type_names = [
+      "Executive office",
       "Ministerial department",
       "Non-ministerial department",
       "Executive agency",

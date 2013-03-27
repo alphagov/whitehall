@@ -1,0 +1,1 @@
+OrganisationType.create(name: 'Executive office', analytics_prefix: 'EO')
