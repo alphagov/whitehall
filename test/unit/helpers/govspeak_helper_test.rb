@@ -238,7 +238,7 @@ class GovspeakHelperTest < ActionView::TestCase
   test "should not corrupt character encoding of numbered headings" do
     input = '# café'
     actual_output = govspeak_to_html(input, [], numbered_heading_level: 'h1')
-    assert_include actual_output, 'café</h1>'
+    assert actual_output.include?('café</h1>')
   end
 
   private
