@@ -87,6 +87,15 @@ module AdminEditionControllerTestHelpers
         assert_equal attributes[:body], assigns(:edition).body, "the valid data should not have been lost"
         assert_equal 'There are some problems with the document', flash.now[:alert]
       end
+
+      test "removes blank space from titles for new editions" do
+        attributes = controller_attributes_for(edition_type)
+
+        post :create, edition: attributes.merge(title: '   my title   ')
+
+        edition = edition_class.last
+        assert_equal 'my title', edition.title
+      end
     end
 
     def should_allow_editing_of(edition_type)
@@ -176,6 +185,14 @@ module AdminEditionControllerTestHelpers
         assert_equal conflicting_edition, assigns(:conflicting_edition)
         assert_equal conflicting_edition.lock_version, assigns(:edition).lock_version
         assert_equal %{This document has been saved since you opened it}, flash[:alert]
+      end
+
+      test "removes blank space from titles for updated editions" do
+        edition = create(edition_type)
+
+        put :update, id: edition, edition: { title: '   my title    ' }
+
+        assert_equal 'my title', edition.reload.title
       end
     end
 
