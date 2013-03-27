@@ -95,6 +95,16 @@ class UserTest < ActiveSupport::TestCase
     assert gds_editor.can_handle_fatalities?
   end
 
+  test 'cannot force publish anything by default' do
+    user = build(:user)
+    refute user.can_force_publish_anything?
+  end
+
+  test 'can force publish imports if given permission' do
+    user = build(:user, permissions: [User::Permissions::FORCE_PUBLISH_ANYTHING])
+    assert user.can_force_publish_anything?
+  end
+
   test 'can handle fatalities if our organisation is set to handle them' do
     not_allowed = build(:user, organisation: build(:organisation, handles_fatalities: false))
     refute not_allowed.can_handle_fatalities?

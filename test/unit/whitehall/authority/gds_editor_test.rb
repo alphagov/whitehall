@@ -3,7 +3,8 @@ require 'ostruct'
 
 class GDSEditorTest < ActiveSupport::TestCase
   def gds_editor(id = 1)
-    OpenStruct.new(id: id, gds_editor?: true, organisation: nil)
+    OpenStruct.new(id: id, gds_editor?: true, organisation: nil,
+                   can_force_publish_anything?: false)
   end
 
   include AuthorityTestHelper
@@ -45,7 +46,7 @@ class GDSEditorTest < ActiveSupport::TestCase
     user.stubs(:organisation).returns(org1)
     edition = limited_edition([org2])
     enforcer = enforcer_for(user, edition)
-    
+
     Whitehall::Authority::Rules::EditionRules.actions.each do |action|
       refute enforcer.can?(action)
     end
@@ -91,6 +92,17 @@ class GDSEditorTest < ActiveSupport::TestCase
   test 'can force publish a edition we created' do
     me = gds_editor
     assert enforcer_for(me, normal_edition(me)).can?(:force_publish)
+  end
+
+  test 'can force publish a limited access edition outside their org if they can_force_publish_anything?' do
+    org1 = 'organisation_1'
+    org2 = 'organisation_2'
+    user = gds_editor
+    user.stubs(:organisation).returns(org1)
+    user.stubs(:can_force_publish_anything?).returns(true)
+    edition = limited_edition([org2])
+
+    assert enforcer_for(user, edition).can?(:force_publish)
   end
 
   test 'can make editorial remarks' do
