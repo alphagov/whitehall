@@ -15,6 +15,7 @@ class OrganisationType < ActiveRecord::Base
     "Sub-organisation",
     "Other"
   ]
+  BOTTOM_OF_LISTING_ORDER = 99
 
   def self.in_listing_order
     all.sort_by { |ot| ot.listing_order }
@@ -37,7 +38,7 @@ class OrganisationType < ActiveRecord::Base
   end
 
   def listing_order
-    LISTING_ORDER.index(name)
+    LISTING_ORDER.index(name) || BOTTOM_OF_LISTING_ORDER
   end
 
   def ministerial_department?
