@@ -17,7 +17,6 @@ module Edition::GovUkDelivery
     org_slugs = organisations.map(&:slug)
 
     tags = [org_slugs, topic_slugs].inject(&:product).map(&:flatten)
-    puts tags.inspect
 
     tag_paths = tags.map do |t|
       case
@@ -44,11 +43,9 @@ module Edition::GovUkDelivery
       end
     end
 
-    puts tag_paths.inspect
-
     payload = {title: title, summary: summary, link: public_document_path(self), tags: tag_paths}
 
-    if %w{test development}.include?(Whitehall.platform)
+    if %w{development}.include?(Whitehall.platform)
       puts "*" * 80
       puts "payload: #{payload.inspect}"
     else
