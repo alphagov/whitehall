@@ -31,6 +31,9 @@ class HomeController < PublicFacingController
   def history
   end
 
+  def history_past_foreign_secretaries
+  end
+
   def get_involved
     @open_consultation_count = Consultation.published.open.count
     @closed_consultation_count = Consultation.published.closed_since(1.year.ago).count

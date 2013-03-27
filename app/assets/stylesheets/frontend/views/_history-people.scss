@@ -1,0 +1,70 @@
+.history-people {
+
+  .page-header {
+    padding : $gutter*2 0 $gutter;
+    @include media(tablet) {
+      padding : $gutter*2 0 0;
+    }
+
+    h1 {
+      @include heading-36;
+      color: $grey-1;
+    }
+    h2 {
+      @include heading-48;
+      font-weight: bold;
+      @include media(tablet) {
+        padding: 0;
+      }
+    }
+  }
+
+  .profiles {
+    @include heading-36;
+    border-bottom: 5px solid $black;
+    margin: 0 $gutter-half $gutter-half;
+  }
+
+  .name {
+    @include core-19;
+    font-weight: bold;
+  }
+  .term {
+    @include core-14;
+    color: $grey-1;
+  }
+
+  .clear-person {
+    clear: both;
+  }
+
+  .foreign-secretaries {
+    .heading, ol {
+      float: left;
+      width: 25%;
+    }
+    ol {
+      width: 75%;
+      li {
+        float: left;
+        list-style: none;
+        width: 33.33%;
+        .inner {
+          padding: $gutter-one-third;
+        }
+      }
+    }
+    .heading {
+      h3 {
+        @include heading-36;
+        font-weight: bold;
+        padding: 0 $gutter-half;
+        span {
+          @include core-19;
+          display: block;
+        }
+      }
+    }
+  }
+
+}

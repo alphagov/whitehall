@@ -32,6 +32,7 @@ Whitehall::Application.routes.draw do
     root to: "home#home"
     match "/how-government-works" => "home#how_government_works", as: 'how_government_works'
     match "/history" => "home#history", as: 'history'
+    match "/history/past-foreign-secretaries" => "home#history_past_foreign_secretaries", as: 'history_past_foreign_secretaries'
     match "/get-involved" => "home#get_involved", as: 'get_involved'
     match "/history/king-charles-street" => "home#history_king_charles_street", as: 'history_king_charles_street'
     match "/history/lancaster-house" => "home#history_lancaster_house", as: 'history_lancaster_house'
