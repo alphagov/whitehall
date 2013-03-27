@@ -78,20 +78,6 @@ class OrganisationsControllerTest < ActionController::TestCase
     end
   end
 
-  test "index avoids n+1 selects" do
-    ministerial_org = create(:ministerial_organisation_type)
-    non_ministerial_org = create(:non_ministerial_organisation_type)
-    public_corporation_org = create(:public_corporation_organisation_type)
-    executive_office_org = create(:executive_office_organisation_type)
-
-    4.times { create(:organisation, organisation_type_id: ministerial_org.id) }
-    3.times { create(:organisation, organisation_type_id: non_ministerial_org.id) }
-    3.times { create(:organisation, organisation_type_id: public_corporation_org.id) }
-    3.times { create(:organisation, organisation_type_id: executive_office_org.id) }
-    queries_used = count_queries { get :index }
-    assert 21 > queries_used, "Expected less than 21 queries, #{queries_used} were counted"
-  end
-
   view_test "shows organisation name and description" do
     organisation = create(:organisation,
       logo_formatted_name: "unformatted name",

@@ -155,7 +155,7 @@ class Organisation < ActiveRecord::Base
   has_many :corporate_information_pages, as: :organisation, dependent: :destroy
 
   has_many :contacts, as: :contactable, dependent: :destroy
-  has_many :social_media_accounts, as: :socialable, dependent: :destroy
+  has_many :social_media_accounts, as: :socialable, dependent: :destroy, include: [:social_media_service]
 
   has_many :sponsorships, dependent: :destroy
   has_many :sponsored_worldwide_organisations, through: :sponsorships, source: :worldwide_organisation
@@ -280,7 +280,7 @@ class Organisation < ActiveRecord::Base
   end
 
   def self.departments
-    where(organisation_type_id: OrganisationType.departmental_types)
+    where(organisation_type_id: OrganisationType.departmental_types).includes(:translations)
   end
 
   def self.parent_organisations

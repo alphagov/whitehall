@@ -45,17 +45,6 @@ class ActiveSupport::TestCase
     assert_equal array1.to_set, array2.to_set, "Different elements in #{array1.inspect} and #{array2}.inspect"
   end
 
-  def count_queries
-    count = 0
-    subscriber = ActiveSupport::Notifications.subscribe("sql.active_record") do |*args|
-      count = count + 1
-    end
-    yield
-    count
-  ensure
-    ActiveSupport::Notifications.unsubscribe(subscriber)
-  end
-
   def with_service(service_name, service, &block)
     original_service = Whitehall.send(service_name)
     Whitehall.send(:"#{service_name}=", service)

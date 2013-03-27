@@ -88,21 +88,6 @@ class Admin::EditionsController
       assert_equal [newer_policy, older_policy], EditionFilter.new(Edition, @current_user, {}).editions
     end
 
-    test "should provide efficient access to edition creators" do
-      create(:policy)
-      create(:publication)
-      create(:speech)
-      create(:consultation)
-
-      query_count = count_queries do
-        editions = EditionFilter.new(Edition, @current_user).editions
-        editions.each { |d| d.creator.name }
-      end
-
-      expected_queries = [:query_for_all_editions, :query_for_all_edition_authors, :query_for_all_users]
-      assert_equal expected_queries.length, query_count
-    end
-
     test "should be invalid if author can't be found" do
       filter = EditionFilter.new(Edition, @current_user, author: 'invalid')
       refute filter.valid?
