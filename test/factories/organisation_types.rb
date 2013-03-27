@@ -19,4 +19,8 @@ FactoryGirl.define do
   factory :sub_organisation_type, parent: :organisation_type do
     name "Sub-organisation"
   end
+
+  factory :executive_office_organisation_type, parent: :organisation_type do
+    name "Executive office"
+  end
 end

@@ -2,6 +2,7 @@ class OrganisationType < ActiveRecord::Base
   validates :name, presence: true, uniqueness: true
 
   LISTING_ORDER = [
+    "Executive office",
     "Ministerial department",
     "Non-ministerial department",
     "Executive agency",
@@ -14,6 +15,7 @@ class OrganisationType < ActiveRecord::Base
     "Sub-organisation",
     "Other"
   ]
+  BOTTOM_OF_LISTING_ORDER = 99
 
   def self.in_listing_order
     all.sort_by { |ot| ot.listing_order }
@@ -27,12 +29,16 @@ class OrganisationType < ActiveRecord::Base
     where(name: "Sub-organisation")
   end
 
+  def self.executive_office
+    where(name: "Executive office")
+  end
+
   def self.agency_or_public_body
     where(arel_table[:name].not_eq("Sub-organisation"))
   end
 
   def listing_order
-    LISTING_ORDER.index(name)
+    LISTING_ORDER.index(name) || BOTTOM_OF_LISTING_ORDER
   end
 
   def ministerial_department?
@@ -49,5 +55,9 @@ class OrganisationType < ActiveRecord::Base
 
   def sub_organisation?
     name == "Sub-organisation"
+  end
+
+  def executive_office?
+    name == 'Executive office'
   end
 end

@@ -253,6 +253,9 @@ ja:
       Executive non-departmental public body:
         one: 非省庁公的機関
         other: 非省庁公的機関
+      Executive office:
+        one:
+        other:
       Independent monitoring body:
         one: 第三者評価機関
         other: 第三者評価機関

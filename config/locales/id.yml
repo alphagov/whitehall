@@ -254,6 +254,9 @@ id:
       Executive non-departmental public body:
         one: Badan eksekutif non-departmen
         other: Badan-badan eksekutif non-departemen
+      Executive office:
+        one:
+        other:
       Independent monitoring body:
         one: Badan pengawas independen
         other: Badan-badan pengawas independen

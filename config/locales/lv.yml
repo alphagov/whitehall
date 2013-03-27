@@ -173,6 +173,9 @@ lv:
       Executive non-departmental public body:
         one: Kvazi autonoma nevalstiska izpildorganizācija
         other: Kvazi autonomas nevalstiskas izpildorganizācijas
+      Executive office:
+        one:
+        other:
       Independent monitoring body:
         one: Neatkarīga uzraudzības iestāde
         other: Neatkarīgas uzraudzības iestādes

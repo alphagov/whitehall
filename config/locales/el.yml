@@ -173,6 +173,9 @@ el:
       Executive non-departmental public body:
         one: Δημόσιο μη-κυβερνητικό εκτελεστικό όργανο
         other: Δημόσια μη-κυβερνητικά εκτελεστικά όργανα
+      Executive office:
+        one:
+        other:
       Independent monitoring body:
         one: Ανεξάρτητο ελεγκτικό σώμα
         other: Ανεξάρτητα ελεγκτικά σώματα

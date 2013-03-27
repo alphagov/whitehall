@@ -173,6 +173,9 @@ fr:
       Executive non-departmental public body:
         one: Organisme exécutif public non-ministériel
         other: Organismes exécutifs publics non-ministériels
+      Executive office:
+        one:
+        other:
       Independent monitoring body:
         one: Organisme de surveillance indépendant
         other: Organismes de surveillance indépendants

@@ -377,6 +377,13 @@ cy:
         few:
         many:
         other: Cyrff cyhoeddus anadrannol gweithredol
+      Executive office:
+        zero:
+        one:
+        two:
+        few:
+        many:
+        other:
       Independent monitoring body:
         zero:
         one: Corff monitro annibynnol

@@ -13,6 +13,24 @@
 
   <div class="block-2">
     <div class="inner-block">
+      <div class="heading-block executive-offices js-filter-block">
+        <h1 id="executive-offices">Executive offices</h1>
+        <div class="content">
+          <ol>
+            <% @executive_offices.each do |executive_office| %>
+              <%= content_tag_for :li, executive_office,
+                                  class: 'department js-filter-item',
+                                    "data-filter-terms" => filter_terms(executive_office) do %>
+                <h2 id="<%= executive_office.slug %>" class="<%= executive_office.slug %>">
+                  <%= link_to organisation_path(executive_office), class: logo_classes(class_name: executive_office.organisation_logo_type.class_name, size: 'medium') do %>
+                    <span><%= organisation_logo_name(executive_office, false) %></span>
+                  <% end %>
+                </h2>
+              <% end %>
+            <% end %>
+          </ol>
+        </div>
+      </div>
       <div class="heading-block ministerial-departments js-hide-department-children js-filter-block">
         <h1 id="departments">Ministerial departments</h1>
         <div class="content">

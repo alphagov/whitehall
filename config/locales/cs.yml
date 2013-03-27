@@ -225,6 +225,10 @@ cs:
         one: Výkonná nevládní agentura
         few:
         other: Výkonné nevládní agentury
+      Executive office:
+        one:
+        few:
+        other:
       Independent monitoring body:
         one: Nezavislý monitorovací orgán
         few:

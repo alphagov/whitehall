@@ -275,6 +275,11 @@ ru:
         few:
         many:
         other: Исполнительные вневедомственные государственные органы
+      Executive office:
+        one:
+        few:
+        many:
+        other:
       Independent monitoring body:
         one: Независимый наблюдательный орган
         few:

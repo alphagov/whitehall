@@ -253,6 +253,9 @@ tr:
       Executive non-departmental public body:
         one: ! 'Bakanlık dışı bağımsız kamu yönetim kurumu '
         other: Bakanlık dışı bağımsız kamu yönetim kurumları
+      Executive office:
+        one:
+        other:
       Independent monitoring body:
         one: Bağımsız izleme organı
         other: ! 'Bağımsız izleme organları '
