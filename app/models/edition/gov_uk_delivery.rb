@@ -1,9 +1,6 @@
-# Example request
-# query: content_type%5B%5D=edition&content_type%5B%5D=policy&organisation%5B%5D=department-for-work-pensions&relevant_to_local_government=true&topic%5B%5D=business-and-enterprise&topic%5B%5D=regulation-reform
-# body:  {"title":"Improving the health and safety system","summary":"How the government is improving the health and safety system, making sure it is taken seriously and reducing the burden on business.","link":"/government/policies/improving-the-health-and-safety-system"}
-
 require 'uri'
 module Edition::GovUkDelivery
+  include Rails.application.routes.url_helpers
   extend ActiveSupport::Concern
 
   included do
@@ -11,8 +8,6 @@ module Edition::GovUkDelivery
   end
 
   def notify_govuk_delivery
-    # payload[:relevant_to_local_government] = relevant_to_local_government if can_apply_to_local_government?
-
     if can_be_associated_with_topics? || can_be_related_to_policies?
       topic_slugs = topics.map(&:slug)
     else
@@ -20,19 +15,29 @@ module Edition::GovUkDelivery
     end
 
     org_slugs = organisations.map(&:slug)
-    puts "orgs: #{org_slugs.inspect}"
-    puts "topics: #{topic_slugs.inspect}"
 
-    tags_args = [[display_type], org_slugs, topic_slugs].reject{ |arr| arr.empty? }
-    tags = tags_args.inject(&:product).map(&:flatten)
+    tags = [org_slugs, topic_slugs].inject(&:product).map(&:flatten)
     puts tags.inspect
+    tag_paths = tags.map do |t|
+      case
+      when self.search_format_types.include?(Policy.search_format_type)
+        if relevant_to_local_government?
+          policies_path(departments: [t[0]], topics: [t[1]], relevant_to_local_government: true)
+        else
+          policies_path(departments: [t[0]], topics: [t[1]])
+        end
+      when self.search_format_types.include?(Announcement.search_format_type)
+        filter_option = Whitehall::AnnouncementFilterOption.find_by_search_format_types(self.search_format_types)
+        if relevant_to_local_government?
+          announcements_path(announcement_type_option: filter_option.slug, departments: [t[0]], topics: [t[1]], relevant_to_local_government: true)
+        else
+          announcements_path(announcement_type_option: filter_option.slug, departments: [t[0]], topics: [t[1]])
+        end
+      end
+    end
+    puts tag_paths.inspect
 
-  # tags[
-  #   "announcements.json?organisation[]=org-slug&topic[]=topic",
-  #   "announcements.json?organisation[]=org-slug&topic[]=topic"
-  # ]
-
-    payload = {title: title, summary: summary, link: public_document_path(self), tags: tags_args}
+    payload = {title: title, summary: summary, link: public_document_path(self), tags: tag_paths}
 
     if %w{test development}.include?(Whitehall.platform)
       puts "*" * 80
