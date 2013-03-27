@@ -25,8 +25,14 @@ class Whitehall::Exporters::DocumentMappings < Struct.new(:platform)
   end
 
   def edition_values(edition, document, document_source=nil)
+    doc_url_args = { protocol: 'https' }
+    if edition.translatable?
+      locale = document_source.try(:locale)
+      doc_url_args[:locale] = locale unless locale.nil? || Locale.new(locale).english?
+    end
+
     [ (document_source.try(:url) || ''),
-      public_document_url(document.published_edition || document.latest_edition, protocol: 'https', locale: document_source.try(:locale)),
+      public_document_url(document.published_edition || document.latest_edition, doc_url_args),
       http_status(edition),
       document.slug,
       admin_edition_url(edition, host: admin_host, protocol: 'https'),
