@@ -188,17 +188,6 @@ class Edition::ScheduledPublishingTest < ActiveSupport::TestCase
     assert_equal [due_in_one_day, due_in_two_days], Edition.due_for_publication(2.days)
   end
 
-  test ".scheduled_publishing_robot creates a scheduled publishing robot user account if none exists" do
-    assert_difference "User.count", 1 do
-      Edition.scheduled_publishing_robot
-    end
-    assert_difference "User.count", 0 do
-      Edition.scheduled_publishing_robot
-    end
-    assert_equal nil, Edition.scheduled_publishing_robot.uid
-    assert Edition.scheduled_publishing_robot.can_publish_scheduled_editions?
-  end
-
   test ".scheduled_for_publication_as returns edition if edition is scheduled" do
     edition = create(:draft_publication, scheduled_publication: 1.day.from_now)
     edition.schedule_as(create(:departmental_editor), force: true)
@@ -237,10 +226,7 @@ class Edition::PublishAllDueEditionsTest < ActiveSupport::TestCase
     edition = create(:edition, :scheduled, scheduled_publication: 1.day.ago)
     robot_user = create(:scheduled_publishing_robot)
     stats_collector = stub_everything("stats_collector")
-    seq = sequence("publishing")
-    stats_collector.expects(:gauge).with("scheduled_publishing.due", 1).in_sequence(seq)
-    stats_collector.expects(:increment).with("scheduled_publishing.published").in_sequence(seq)
-    stats_collector.expects(:gauge).with("scheduled_publishing.due", 0).in_sequence(seq)
+    stats_collector.expects(:increment).with("scheduled_publishing.published")
     with_service(:stats_collector, stats_collector) do
       Edition.publish_all_due_editions_as(robot_user)
     end

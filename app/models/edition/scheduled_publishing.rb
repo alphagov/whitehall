@@ -7,7 +7,7 @@ module Edition::ScheduledPublishing
 
   module ClassMethods
     def scheduled_publishing_robot
-      User.where(name: "Scheduled Publishing Robot", uid: nil).first || create_scheduled_publishing_robot
+      User.where(name: "Scheduled Publishing Robot", uid: nil).first
     end
 
     def publish_all_due_editions_as(user, logger = Rails.logger)
@@ -26,7 +26,6 @@ module Edition::ScheduledPublishing
           publish_atomically_as(user, edition_id, logger)
         end
       end
-      Whitehall.stats_collector.gauge("scheduled_publishing.due", due_for_publication(5.minutes).reload.count)
       logger.info "SCHEDULED PUBLISHING COMPLETE"
     end
 
@@ -43,7 +42,6 @@ module Edition::ScheduledPublishing
   private
 
     def log_schedule(logger, schedule)
-      Whitehall.stats_collector.gauge("scheduled_publishing.due", schedule.size)
       logger.info "Detected #{schedule.size} editions to publish:"
       schedule.each do |edition_id, scheduled_publication, title|
         logger.info "#{edition_id} - #{title} - due at #{scheduled_publication}"
@@ -59,32 +57,12 @@ module Edition::ScheduledPublishing
       yield
     end
 
-    def create_scheduled_publishing_robot
-      permissions = [
-        User::Permissions::SIGNIN,
-        User::Permissions::PUBLISH_SCHEDULED_EDITIONS
-      ]
-      User.create!(name: "Scheduled Publishing Robot", uid: nil) do |user|
-        user.permissions = permissions
-      end
-    end
-
     def publish_atomically_as(user, edition_id, logger = Rails.logger)
       EditionPublishingWorker.new.perform(edition_id, user.id)
       logger.info("Published edition (#{edition_id}) automatically")
       Whitehall.stats_collector.increment("scheduled_publishing.published")
-      return true
     rescue => e
       logger.error("Unable to publish edition id '#{edition_id}' because '#{e.message}'")
-      return false
-    end
-
-    def acting_as(user)
-      original_user = Edition::AuditTrail.whodunnit
-      Edition::AuditTrail.whodunnit = user
-      yield
-    ensure
-      Edition::AuditTrail.whodunnit = original_user
     end
   end
 
