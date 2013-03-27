@@ -15,6 +15,10 @@ class Publicationesque < Edition
 
   protected
 
+  def search_format_types
+    super + [Publicationesque.search_format_type]
+  end
+
   def hash_with_blank_values?(hash)
     hash.values.inject(true) do |result, value|
       result && (value.is_a?(Hash) ? hash_with_blank_values?(value) : value.blank?)
