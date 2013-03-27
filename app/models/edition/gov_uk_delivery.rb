@@ -3,7 +3,7 @@
 # body:  {"title":"Improving the health and safety system","summary":"How the government is improving the health and safety system, making sure it is taken seriously and reducing the burden on business.","link":"/government/policies/improving-the-health-and-safety-system"}
 
 require 'uri'
-module Edition::GovUKDelivery
+module Edition::GovUkDelivery
   extend ActiveSupport::Concern
 
   included do
