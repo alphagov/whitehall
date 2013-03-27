@@ -253,6 +253,9 @@ ko:
       Executive non-departmental public body:
         one: 행정 공공기관
         other: 행정 공공기관
+      Executive office:
+        one:
+        other:
       Independent monitoring body:
         one: 독립 감시 기구
         other: 독립 감시 기구

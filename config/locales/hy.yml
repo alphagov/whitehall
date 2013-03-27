@@ -173,6 +173,9 @@ hy:
       Executive non-departmental public body:
         one: Գլխավոր ոչ գերատեսչական հանրայի մարմին
         other: Գլխավոր ոչ գերատեսչական հանրային մարմիններ
+      Executive office:
+        one:
+        other:
       Independent monitoring body:
         one: Անկախ մոնիտորինգի մարմին
         other: Անկախ մոնիտորինգի մարմիններ

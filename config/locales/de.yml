@@ -173,6 +173,9 @@ de:
       Executive non-departmental public body:
         one: Keinem Ministerium unterstelltes öffentliches Exekutivorgan
         other: ! 'Keinem Ministerium unterstellte öffentliche Exekutivorgane '
+      Executive office:
+        one:
+        other:
       Independent monitoring body:
         one: Unabhängiges Kontrollorgan
         other: Unabhängige Kontrollorgane

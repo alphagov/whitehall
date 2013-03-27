@@ -254,6 +254,9 @@ vi:
       Executive non-departmental public body:
         one: Phòng chuyên trách không thuộc cơ chế công
         other: Các phòng chuyên trách không thuộc cơ chế công
+      Executive office:
+        one:
+        other:
       Independent monitoring body:
         one: Cơ chế giám sát độc lập
         other: Các cơ chế giám sát độc lập

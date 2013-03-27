@@ -275,6 +275,11 @@ uk:
         few:
         many:
         other: Виконавчі позавідомчі органи державної влади
+      Executive office:
+        one:
+        few:
+        many:
+        other:
       Independent monitoring body:
         one: Незалежний моніторинговий орган
         few:
