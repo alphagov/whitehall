@@ -259,11 +259,15 @@ class Edition::PublishAllDueEditionsTest < ActiveSupport::TestCase
   end
 
   test "#publish_all_due_editions_as rescues exceptions raised by publish_as" do
-    edition = build(:edition, title: "My doc")
-    Edition.stubs(:due_for_publication).returns([edition])
+    edition = create(:edition, :scheduled, scheduled_publication: 1.day.ago)
+    robot_user = create(:scheduled_publishing_robot)
 
-    robot_user = stub("robot user", can_publish_scheduled_editions?: true)
+    active_record_relation = stub('AR relation', order: [edition], count: 1)
+    active_record_relation.stubs(:reload).returns(active_record_relation)
+    Edition.stubs(:due_for_publication).returns(active_record_relation)
     edition.stubs(:publish_as).raises(ActiveRecord::StatementInvalid)
+
+    Edition.publish_all_due_editions_as(robot_user)
   end
 
   test "#publish_all_due_editions_as updates the audit trail to indicate that the robot user published the edition" do
