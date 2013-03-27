@@ -13,6 +13,10 @@ class Edition::GovUkDeliveryTest < ActiveSupport::TestCase
     news_article.major_change_published_at = Time.zone.now
     news_article.publish!
 
+    publiction = create(:publication, related_editions: [policy])
+    publiction.first_published_at = Time.zone.now
+    publiction.major_change_published_at = Time.zone.now
+    publiction.publish!
 
   end
 

@@ -18,6 +18,7 @@ module Edition::GovUkDelivery
 
     tags = [org_slugs, topic_slugs].inject(&:product).map(&:flatten)
     puts tags.inspect
+
     tag_paths = tags.map do |t|
       case
       when self.search_format_types.include?(Policy.search_format_type)
@@ -33,8 +34,16 @@ module Edition::GovUkDelivery
         else
           announcements_path(announcement_type_option: filter_option.slug, departments: [t[0]], topics: [t[1]])
         end
+      when self.search_format_types.include?(Publicationesque.search_format_type)
+        filter_option = Whitehall::PublicationFilterOption.find_by_search_format_types(self.search_format_types)
+        if relevant_to_local_government?
+          publications_path(publication_filter_option: filter_option.slug, departments: [t[0]], topics: [t[1]], relevant_to_local_government: true)
+        else
+          publications_path(publication_filter_option: filter_option.slug, departments: [t[0]], topics: [t[1]])
+        end
       end
     end
+
     puts tag_paths.inspect
 
     payload = {title: title, summary: summary, link: public_document_path(self), tags: tag_paths}
