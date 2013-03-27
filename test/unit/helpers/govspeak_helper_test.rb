@@ -235,6 +235,12 @@ class GovspeakHelperTest < ActionView::TestCase
     assert_equal output, govspeak_to_html(input, [], numbered_heading_level: 'h1').gsub(/\s+/, ' ')
   end
 
+  test "should not corrupt character encoding of numbered headings" do
+    input = '# café'
+    actual_output = govspeak_to_html(input, [], numbered_heading_level: 'h1')
+    assert_include actual_output, 'café</h1>'
+  end
+
   private
 
   def internal_preview_host

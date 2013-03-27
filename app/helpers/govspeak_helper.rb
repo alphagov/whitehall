@@ -104,7 +104,7 @@ module GovspeakHelper
 
   def add_heading_numbers(nokogiri_doc, heading_level)
     nokogiri_doc.css(heading_level).map.with_index do |el,i|
-      el.inner_html = %{<span class="number">#{i+1}.</span> #{el.inner_html}}
+      el.inner_html = el.document.fragment(%{<span class="number">#{i+1}.</span> #{el.inner_html}}).children
     end
   end
 
