@@ -11,21 +11,25 @@ module Edition::GovUKDelivery
   end
 
   def notify_govuk_delivery
-    payload = {}
-    payload[:organisation] = organisations.map(&:slug)
+    # payload[:relevant_to_local_government] = relevant_to_local_government if can_apply_to_local_government?
 
+    topics = []
     if can_be_associated_with_topics? || can_be_related_to_policies?
-      payload[:topic] = topics.map(&:slug)
+      topics = topics.map(&:slug)
     end
 
-    payload[:content_type] = self.search_format_types
-    payload[:relevant_to_local_government] = relevant_to_local_government if can_apply_to_local_government?
+    tags = [[display_type], organisations.map(&:slug), topics].inject(&:product).map(&:flatten)
+
+  # tags[
+  #   "announcements.json?organisation[]=org-slug&topic[]=topic",
+  #   "announcements.json?organisation[]=org-slug&topic[]=topic"
+  # ]
+
+    payload = {title: title, summary: summary, link: public_document_path(self), tags: tags}
 
     if %w{test development}.include?(Whitehall.platform)
       puts "*" * 80
-      puts "query: #{payload.to_param}"
-      hash = {title: title, summary: summary, link: public_document_path(self)}.to_json
-      puts "body: #{hash}"
+      puts "payload: #{payload.inspect}"
     else
       conn = Faraday.new url: Whitehall.govuk_delivery_url do |faraday|
         faraday.response :logger                  # log requests to STDOUT
@@ -33,11 +37,9 @@ module Edition::GovUKDelivery
       end
 
       conn.post do |req|
-        req.url "/send-email?#{payload.to_param}"
-        req.body = {title: title, summary: summary, link: public_document_path(self)}.to_json
+        req.url "/send-email"
+        req.body = payload.to_json
       end
     end
   end
-  ####
-
 end
