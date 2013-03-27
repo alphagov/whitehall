@@ -39,6 +39,15 @@ Old Url,New Url,Status,Slug,Admin Url,State
       EOT
     end
 
+    test "extract consultations (with source) to csv" do
+      article = create(:published_consultation)
+      source = create(:document_source, document: article.document)
+
+      assert_extraction_contains <<-EOT
+#{source.url},https://www.preview.alphagov.co.uk/government/consultations/consultation-title,301,consultation-title,https://whitehall-admin.test.alphagov.co.uk/government/admin/consultations/#{article.id},published
+      EOT
+    end
+
     test "extracts corporate information pages to csv" do
       corporate_information_page = create(:corporate_information_page)
       organisation = Organisation.last
