@@ -173,6 +173,9 @@ ur:
       Executive non-departmental public body:
         one: نافذ کنندہ غیر شعبہ جاتی عوامی ادارہ
         other: نافذ کنندہ غیر شعبہ جاتی عوامی ادارے
+      Executive office:
+        one:
+        other:
       Independent monitoring body:
         one: غیر جانبدار نگراں ادارہ
         other: غیر جانبدار نگراں ادارے

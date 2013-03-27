@@ -16,6 +16,18 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_select_object(organisation_1)
   end
 
+  view_test "should display a list of executive offices" do
+    executive_office_type = create(:executive_office_organisation_type)
+    organisation = create(:organisation, organisation_type_id: executive_office_type.id)
+
+    get :index
+
+    assert_select '#executive-offices'
+    assert_select '.executive-offices' do
+      assert_select_object(organisation)
+    end
+  end
+
   view_test "should display a list of non-ministerial departments" do
     non_ministerial_org_type = create(:non_ministerial_organisation_type)
     organisation = create(:organisation, organisation_type_id: non_ministerial_org_type.id)
@@ -70,12 +82,14 @@ class OrganisationsControllerTest < ActionController::TestCase
     ministerial_org = create(:ministerial_organisation_type)
     non_ministerial_org = create(:non_ministerial_organisation_type)
     public_corporation_org = create(:public_corporation_organisation_type)
+    executive_office_org = create(:executive_office_organisation_type)
 
     4.times { create(:organisation, organisation_type_id: ministerial_org.id) }
     3.times { create(:organisation, organisation_type_id: non_ministerial_org.id) }
     3.times { create(:organisation, organisation_type_id: public_corporation_org.id) }
+    3.times { create(:organisation, organisation_type_id: executive_office_org.id) }
     queries_used = count_queries { get :index }
-    assert 18 > queries_used, "Expected less than 18 queries, #{queries_used} were counted"
+    assert 21 > queries_used, "Expected less than 21 queries, #{queries_used} were counted"
   end
 
   view_test "shows organisation name and description" do

@@ -317,6 +317,9 @@ en:
       Other:
         one: Other
         other: Others
+      Executive office:
+        one: Executive office
+        other: Executive offices
     headings:
       plus_others: + others
       what_we_do: What we do

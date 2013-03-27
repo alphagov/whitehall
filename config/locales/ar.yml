@@ -377,6 +377,13 @@ ar:
         few:
         many:
         other: هيئات تنفيذية عامة غير حكومية
+      Executive office:
+        zero:
+        one:
+        two:
+        few:
+        many:
+        other:
       Independent monitoring body:
         zero:
         one: جهاز رقابي مستقل

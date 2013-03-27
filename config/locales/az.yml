@@ -253,6 +253,9 @@ az:
       Executive non-departmental public body:
         one: İcraedici ictimai qrumlar
         other: İcraedici ictimai qrumlar
+      Executive office:
+        one:
+        other:
       Independent monitoring body:
         one: Müstəqil monitorinq qrupu
         other: Müstəqil monitorinq qrupları

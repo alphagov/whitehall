@@ -173,6 +173,9 @@ it:
       Executive non-departmental public body:
         one: Ente pubblico esecutivo non ministeriale
         other: Enti pubblici esecutivi non ministeriali
+      Executive office:
+        one:
+        other:
       Independent monitoring body:
         one: Ente di controllo autonomo
         other: Enti di controllo autonomi

@@ -31,15 +31,12 @@
 
   }
 
-  .ministerial-departments {
+  .ministerial-departments, .executive-offices {
     margin-bottom: $gutter*2;
 
     h1 {
-      padding-top: 0;
-      &#departments {
-        padding-top: 17px;
-        padding-top: 1.7rem;
-      }
+      padding-top: 17px;
+      padding-top: 1.7rem;
     }
   }
 

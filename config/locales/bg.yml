@@ -173,6 +173,9 @@ bg:
       Executive non-departmental public body:
         one: Изпълнителен неведомствен публичен орган
         other: Изпълнителни неведомствени публични органи
+      Executive office:
+        one:
+        other:
       Independent monitoring body:
         one: Независим мониторингов орган
         other: Независими мониторингови органи
