@@ -34,7 +34,7 @@ class Admin::OrganisationsController < Admin::BaseController
   end
 
   def people
-    @roles = @organisation.roles
+    load_organisation_roles
   end
 
   def document_series
