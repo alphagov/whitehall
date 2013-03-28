@@ -34,6 +34,12 @@
                             extra_class: 'panel'} %>
       </section>
 
+      <% if @organisation.organisation_type.executive_office? %>
+      <section id="featured-topics-and-policies" class="featured-topics-and-policies">
+        <h1 class="label">Featured topics and policies</h1>
+        <p class="description"><%= format_with_html_line_breaks(@organisation.featured_topics_and_policies_list_summary) %></p>
+      </section>
+      <% else %>
       <section id="what-we-do" class="what-we-do">
         <div class="content">
           <% if @organisation.organisation_type.sub_organisation? %>
@@ -60,6 +66,7 @@
           <% end %>
         </div>
       </section>
+      <% end %>
       <% if @organisation.social_media_accounts.any? %>
         <div class="social-media">
           <div class="content">
