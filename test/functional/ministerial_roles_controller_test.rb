@@ -109,11 +109,6 @@ class MinisterialRolesControllerTest < ActionController::TestCase
     assert_equal whips, assigns(:whips_by_organisation)
   end
 
-  test "should avoid n+1 queries" do
-    MinisterialRole.expects(:includes).with(:current_people).returns([])
-    get :index
-  end
-
   view_test "shows the cabinet minister's name and role" do
     person = create(:person, forename: "John", surname: "Doe", image: File.open(Rails.root.join("test/fixtures/minister-of-funk.960x640.jpg")))
     ministerial_role = create(:ministerial_role, name: "Prime Minister", cabinet_member: true)
