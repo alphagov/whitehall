@@ -16,24 +16,24 @@ module Edition::GovUkDelivery
 
     org_slugs = organisations.map(&:slug)
 
-    tags = [org_slugs, topic_slugs].inject(&:product).map(&:flatten)
+    tags = [org_slugs, topic_slugs].inject(&:product)
 
     tag_paths = tags.map do |t|
-      case
-      when self.search_format_types.include?(Policy.search_format_type)
+      case self
+      when Policy
         if relevant_to_local_government?
           policies_path(departments: [t[0]], topics: [t[1]], relevant_to_local_government: true)
         else
           policies_path(departments: [t[0]], topics: [t[1]])
         end
-      when self.search_format_types.include?(Announcement.search_format_type)
+      when Announcement
         filter_option = Whitehall::AnnouncementFilterOption.find_by_search_format_types(self.search_format_types)
         if relevant_to_local_government?
           announcements_path(announcement_type_option: filter_option.slug, departments: [t[0]], topics: [t[1]], relevant_to_local_government: true)
         else
           announcements_path(announcement_type_option: filter_option.slug, departments: [t[0]], topics: [t[1]])
         end
-      when self.search_format_types.include?(Publicationesque.search_format_type)
+      when Publicationesque
         filter_option = Whitehall::PublicationFilterOption.find_by_search_format_types(self.search_format_types)
         if relevant_to_local_government?
           publications_path(publication_filter_option: filter_option.slug, departments: [t[0]], topics: [t[1]], relevant_to_local_government: true)
@@ -44,20 +44,8 @@ module Edition::GovUkDelivery
     end
 
     payload = {title: title, summary: summary, link: public_document_path(self), tags: tag_paths}
-
-    if %w{development}.include?(Whitehall.platform)
-      puts "*" * 80
-      puts "payload: #{payload.inspect}"
-    else
-      conn = Faraday.new url: Whitehall.govuk_delivery_url do |faraday|
-        faraday.response :logger                  # log requests to STDOUT
-        faraday.adapter  Faraday.default_adapter  # make requests with Net::HTTP
-      end
-
-      conn.post do |req|
-        req.url "/send-email"
-        req.body = payload.to_json
-      end
-    end
+    #TODO GDS API adapter call
+    puts payload.inspect
   end
+
 end
