@@ -1,0 +1,60 @@
+<% page_title "Email alert subscription" %>
+<% page_class "email-signup-show" %>
+
+<header class="block email-header">
+  <div class="inner-block">
+    <h1>Email alert subscription</h1>
+    <h2>Use the filters to subscribe to email alerts</h2>
+    <p>(You can subscribe to multiple alerts by clicking &lsquo;Add another alert&rsquo;)</p>
+  </div>
+</header>
+
+<div class="block">
+  <div class="inner-block">
+    <form class="signup-form js-email-signup">
+      <fieldset class="notification">
+        <div class="fieldset-inner">
+          <div class="field"><div class="field-inner">
+            <label for="content-types">I want</label>
+            <select id="content-types" name="content_type">
+              <option>all types of document</option>
+              <%= document_type_filter_options %>
+            </select>
+          </div></div>
+          <div class="field"><div class="field-inner">
+            <label for="topics">about</label>
+            <select id="topics" name="topics">
+              <%= options_for_select([['any topic', 'all']] + @classifications.map { |o| [o.name, o.slug] }) %>
+            </select>
+          </div></div>
+          <div class="field"><div class="field-inner">
+            <label for="organisation">by</label>
+            <select id="organisation" name="organisation">
+              <option value="all">all organisations</option>
+              <optgroup label="Ministerial departments">
+                <%= options_for_select(@live_ministerial_departments.map { |o| [o.name, o.slug] }) %>
+              </optgroup>
+              <optgroup label="Other departments &amp; public bodies">
+                <%= options_for_select(@live_other_departments.map { |o| [o.name, o.slug] }) %>
+              </optgroup>
+            </select>
+          </div></div>
+          <div class="field info4local"><div class="field-inner">
+            <label for="info-for-local"><input type="checkbox" name="info-for-local" id="info-for-local"> Only include results relevant to local government</label>
+            <p>This replaces info4local</p>
+          </div></div>
+        </div>
+      </fieldset>
+      <div class="duplicate-fields">
+        <input type="submit" name="duplicate" value="Add another alert" class="js-duplicate">
+      </div>
+
+      <div class="submit">
+        <button type="submit">Create subscription</button>
+        <p>You can enter your email address on the next page to complete the subscription</p>
+      </div>
+    </form>
+  </div>
+</div>
+
+

@@ -25,4 +25,5 @@ jQuery(function($) {
   GOVUK.filterListItems.init();
   GOVUK.joiningMessage.init();
   GOVUK.showHide.init();
+  GOVUK.emailSignup.init();
 });
