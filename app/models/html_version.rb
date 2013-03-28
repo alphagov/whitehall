@@ -4,6 +4,10 @@ class HtmlVersion < ActiveRecord::Base
   extend FriendlyId
   friendly_id :title, use: :scoped, scope: :edition
 
+  def should_generate_new_friendly_id?
+    edition.nil? || !edition.document.published?
+  end
+
   validates :title, :body, presence: true
 
   validates_with SafeHtmlValidator
