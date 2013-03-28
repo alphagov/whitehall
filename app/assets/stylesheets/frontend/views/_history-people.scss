@@ -3,7 +3,7 @@
   .page-header {
     padding : $gutter*2 0 $gutter;
     @include media(tablet) {
-      padding : $gutter*2 0 0;
+      padding : $gutter*2 0;
     }
 
     h1 {

@@ -28,12 +28,6 @@ class HomeController < PublicFacingController
     @all_ministers_count = @cabinet_minister_count + @other_minister_count + 1 # add one to put the PM back in
   end
 
-  def history
-  end
-
-  def history_past_foreign_secretaries
-  end
-
   def get_involved
     @open_consultation_count = Consultation.published.open.count
     @closed_consultation_count = Consultation.published.closed_since(1.year.ago).count
