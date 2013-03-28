@@ -22,6 +22,8 @@ class EditionPublishingWorker
   # NOTE: Once this is being run as a proper background job, there should be
   # only one worker processing the job, meaning we won't have to worry about
   # contention and this code can be removed.
+  # Also note that the isolation level is set for the next transaction only.
+  # It will automatically revert back after the next transaction completes.
   def perform_atomic_update(&block)
     Edition.connection.execute "set transaction isolation level serializable"
     Edition.connection.transaction do
