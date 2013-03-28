@@ -1,16 +1,21 @@
 class ScheduledEditionsPublisher
-  class PublishingFailure < Exception; end
+  class PublishingFailure < StandardError
+    attr_reader :unpublished_edition_ids
 
-  def self.publish_all_due_editions
-    editions_scope = Edition.due_for_publication(5.minutes).order("scheduled_publication asc")
-    new(editions_scope).publish_all!
+    def initialize(msg, unpublished_edition_ids)
+      @unpublished_edition_ids = unpublished_edition_ids
+      super(msg)
+    end
   end
+
+  attr_reader :log_cache
 
   def initialize(editions_scope)
     unless editions_scope.is_a?(ActiveRecord::Relation)
       raise ArgumentError, 'editions_scope must be an ActiveRecord::Relation'
     end
     @editions_scope = editions_scope
+    @log_cache = ''
   end
 
   def editions
@@ -21,7 +26,7 @@ class ScheduledEditionsPublisher
     reset_attempt_count
 
     while unpublished_editions_remaining?
-      raise PublishingFailure if attempt_limit_reached?
+      raise PublishingFailure.new(log_cache, editions.collect(&:id)) if attempt_limit_reached?
       log_publish_run do
         editions.each { |edition| publish_edition!(edition) }
       end
@@ -40,6 +45,16 @@ class ScheduledEditionsPublisher
 
   def publishing_robot
     User.where(name: "Scheduled Publishing Robot", uid: nil).first
+  end
+
+  def self.publish_all_due_editions
+    editions_scope = Edition.due_for_publication(5.minutes).order("scheduled_publication asc")
+    new(editions_scope).publish_all!
+  end
+
+  def log(message)
+    Rails.logger.info(message)
+    @log_cache << message << "\n"
   end
 
   private
@@ -61,10 +76,6 @@ class ScheduledEditionsPublisher
 
   def increment_attempt_count
     @attempts +=1
-  end
-
-  def log(message)
-    Rails.logger.info(message)
   end
 
   def log_publish_run(&block)

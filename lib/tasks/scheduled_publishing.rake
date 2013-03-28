@@ -26,7 +26,11 @@ namespace :publishing do
 
     desc "Publish all editions due for publication"
     task :publish => :environment do
-      ScheduledEditionsPublisher.publish_all_due_editions
+      begin
+        ScheduledEditionsPublisher.publish_all_due_editions
+      rescue ScheduledEditionsPublisher::PublishingFailure => exception
+        ExceptionNotifier::Notifier.background_exception_notification(exception, data: { unpublished_editions: exception.unpublished_edition_ids })
+      end
     end
   end
 end

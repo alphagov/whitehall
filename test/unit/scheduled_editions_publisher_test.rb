@@ -60,16 +60,16 @@ class ScheduledEditionsPublisherTest < ActiveSupport::TestCase
   end
 
   test '#publish_all! will retry if there are still unpublished editions' do
-    edition1 = create(:edition, :scheduled, scheduled_publication: Time.zone.now)
+    edition1 = stubbed_edition
     publisher = ScheduledEditionsPublisher.new(stubbed_scope)
     publisher.stubs(editions: [edition1])
-    publisher.expects(:publish_edition!).twice
-    publisher.stubs(:unpublished_editions_remaining?).returns(true, true, false)
+    publisher.expects(:publish_edition!).with(edition1).twice
+    publisher.stubs(:unpublished_editions_remaining?).returns(true, true, true, false)
     publisher.publish_all!
   end
 
   test '#publish_all! will give up after 5 attempts' do
-    edition1 = create(:edition, :scheduled, scheduled_publication: Time.zone.now)
+    edition1 = stubbed_edition
     publisher = ScheduledEditionsPublisher.new(stubbed_scope)
     publisher.stubs(editions: [edition1])
     publisher.expects(:publish_edition!).with(edition1).times(5)
@@ -80,6 +80,29 @@ class ScheduledEditionsPublisherTest < ActiveSupport::TestCase
     end
   end
 
+  test 'includes the log output and ids of editions not published with the exception raised when publishing fails' do
+    edition = stubbed_edition
+    publisher = ScheduledEditionsPublisher.new(stubbed_scope)
+    publisher.stubs(editions: [edition], log_cache: 'Log output')
+    publisher.stubs(unpublished_editions_remaining?: true)
+
+    exception = assert_raises ScheduledEditionsPublisher::PublishingFailure do
+      publisher.publish_all!
+    end
+
+    assert_equal "Log output", exception.message
+    assert_equal [edition.id], exception.unpublished_edition_ids
+  end
+
+  test '#log_cache returns everything that has been sent to #log' do
+    publisher = ScheduledEditionsPublisher.new(stubbed_scope)
+    publisher.log('line 1')
+    publisher.log('line 2')
+    publisher.log('line 3')
+
+    assert_equal "line 1\nline 2\nline 3\n", publisher.log_cache
+  end
+
   private
 
   def stubbed_scope(editions=nil)
@@ -87,7 +110,7 @@ class ScheduledEditionsPublisherTest < ActiveSupport::TestCase
   end
 
   def stubbed_edition(publication_time=nil)
-    stub('edition', id: 123, scheduled_publication: (publication_time || 1.day.ago))
+    stub('edition', id: 123, title: 'Edition title', scheduled_publication: (publication_time || 1.day.ago))
   end
 
   def publishing_robot
