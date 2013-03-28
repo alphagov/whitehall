@@ -3,6 +3,13 @@ module Edition::AuditTrail
 
   class << self
     attr_accessor :whodunnit
+
+    def acting_as(actor)
+      original_actor, Edition::AuditTrail.whodunnit = Edition::AuditTrail.whodunnit, actor
+      yield
+    ensure
+      Edition::AuditTrail.whodunnit = original_actor
+    end
   end
 
   included do

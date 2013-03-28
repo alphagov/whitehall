@@ -10,21 +10,13 @@ class EditionPublishingWorker
   private
 
   def publish_edition_as_user(edition, user)
-    with_audit_trail_for(user) do
+    Edition::AuditTrail.acting_as(user) do
       perform_atomic_update do
         if !edition.publish_as(user)
           raise ScheduledPublishingFailure, edition.errors.full_messages.to_sentence
         end
       end
     end
-  end
-
-  def with_audit_trail_for(user, &block)
-    original_user = Edition::AuditTrail.whodunnit
-    Edition::AuditTrail.whodunnit = user
-    yield
-  ensure
-    Edition::AuditTrail.whodunnit = original_user
   end
 
   # NOTE: Once this is being run as a proper background job, there should be
