@@ -70,7 +70,7 @@
     <% if @edition.can_be_related_to_policies? %>
       <div class="row-fluid">
         <h3>Related policies</h3>
-        <% Policy.in_organisation(@edition.organisations).latest_edition.active.map do |policy| %>
+        <% policies_for_editions_organisations(@edition).each do |policy| %>
           <label class="checkbox">
             <%= check_box_tag 'edition[related_policy_ids][]', policy.id, @edition.related_policies.include?(policy) %>
             <%= policy.title %><% if policy.topics.any? %>
@@ -78,6 +78,18 @@
             <% end %>
           </label>
         <% end %>
+      </div>
+      <div class="row-fluid">
+        <%= label_tag 'edition[related_policy_ids][]', 'Additional policies' %>
+        <%= select_tag 'edition[related_policy_ids][]',
+          options_from_collection_for_select(
+            related_policy_options_excluding(policies_for_editions_organisations(@edition)),
+            :first, :last, @edition.related_policy_ids),
+          include_blank: true,
+          multiple: true,
+          class: 'chzn-select',
+            data: { placeholder: "Choose from other policies..."}
+        %>
       </div>
     <% end %>
 
