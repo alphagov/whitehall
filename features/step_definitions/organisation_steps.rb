@@ -12,6 +12,10 @@ Given /^the organisation "([^"]*)" exists$/ do |name|
   create(:ministerial_department, name: name)
 end
 
+Given /^the executive office "([^"]*)" exists$/ do |name|
+  create(:executive_office, name: name)
+end
+
 Given /^two organisations "([^"]*)" and "([^"]*)" exist$/ do |first_organisation, second_organisation|
   create(:organisation, name: first_organisation)
   create(:organisation, name: second_organisation)
