@@ -40,18 +40,24 @@
 
   .foreign-secretaries {
     .heading, ol {
-      float: left;
-      width: 25%;
+      @include media(tablet) {
+        float: left;
+        width: 25%;
+      }
     }
     ol {
-      width: 75%;
       li {
-        float: left;
         list-style: none;
-        width: 33.33%;
-        .inner {
-          padding: $gutter-one-third;
+        @include media(tablet) {
+          float: left;
+          width: 33.33%;
         }
+        .inner {
+          padding: $gutter-half;
+        }
+      }
+      @include media(tablet) {
+        width: 75%;
       }
     }
     .heading {
