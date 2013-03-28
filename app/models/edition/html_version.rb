@@ -4,8 +4,8 @@ module Edition::HtmlVersion
   class Trait < Edition::Traits::Trait
     def process_associations_before_save(edition)
       return unless @edition.html_version
-      edition.html_version_attributes = @edition.html_version.attributes.except("id")
-      edition.html_version.slug = @edition.html_version.slug
+      attributes = @edition.html_version.attributes.except("id").merge(edition: edition)
+      edition.html_version = HtmlVersion.new(attributes)
     end
   end
 
