@@ -38,6 +38,7 @@
       <section id="featured-topics-and-policies" class="featured-topics-and-policies">
         <h1 class="label">Featured topics and policies</h1>
         <p class="description"><%= format_with_html_line_breaks(@organisation.featured_topics_and_policies_list_summary) %></p>
+        <p><%= link_to 'See all our policies', policies_path(departments: [@organisation]) %></p>
       </section>
       <% else %>
       <section id="what-we-do" class="what-we-do">

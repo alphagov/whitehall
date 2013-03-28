@@ -24,5 +24,9 @@ Then /^the featured topics and policies are in my specified order$/ do
 end
 
 Then /^I am invited to click through to see all the policies the executive office is involved with$/ do
-  pending
+  visit_organisation @the_featuring_org.name
+
+  click_on 'See all our policies'
+  assert page.has_css?(".page_title", text: 'Policies')
+  assert page.has_content?("about All topics by #{@the_featuring_org.name}")
 end
