@@ -30,7 +30,7 @@ class ScheduledEditionsPublisher
   end
 
   def publish_edition!(edition)
-    wait_until edition.scheduled_publication do
+    Whitehall::Wait.until edition.scheduled_publication do
       EditionPublishingWorker.new.perform(edition.id, publishing_robot.id)
       log_successful_publication(edition)
     end
@@ -50,15 +50,6 @@ class ScheduledEditionsPublisher
 
   def unpublished_editions_count
     @editions_scope.count
-  end
-
-  def wait_until(timestamp, &block)
-    while Time.zone.now < timestamp
-      time_to_wait = timestamp - Time.zone.now
-      log "Waiting #{time_to_wait} seconds until #{timestamp}. Time now is #{Time.zone.now}"
-      sleep(time_to_wait)
-    end
-    yield
   end
 
   def reset_attempt_count

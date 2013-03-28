@@ -43,10 +43,9 @@ class ScheduledEditionsPublisherTest < ActiveSupport::TestCase
   end
 
   test '#publish_edition! waits until the publication time before publishing' do
-    Timecop.return
+    Whitehall::Wait.expects(:sleep).with(2).returns(2)
     publisher = ScheduledEditionsPublisher.new(stubbed_scope)
-    publisher.publish_edition!(stubbed_edition(1.second.from_now))
-    assert Time.zone.now > stubbed_edition.scheduled_publication, '#publish_edition! method did not wait until scheduled_publication time before publishing!'
+    publisher.publish_edition!(stubbed_edition(2.seconds.from_now))
   end
 
   test '#publish_all! publishes editions in scope' do
