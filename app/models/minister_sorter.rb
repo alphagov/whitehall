@@ -1,5 +1,5 @@
 class MinisterSorter
-  def initialize(roles = MinisterialRole.includes(:current_people))
+  def initialize(roles = MinisterialRole.includes(:translations, :current_people))
     @roles = roles
   end
 

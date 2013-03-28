@@ -21,15 +21,15 @@ private
   end
 
   def ministers_by_organisation
-    Organisation.where(organisation_type_id: ministerial_department_type).map do |organisation|
-      presenter = RolesPresenter.new(organisation.ministerial_roles.order("organisation_roles.ordering").sort_by(&:seniority))
+    Organisation.where(organisation_type_id: ministerial_department_type).includes(:translations).map do |organisation|
+      presenter = RolesPresenter.new(organisation.ministerial_roles.includes(:translations, :current_people).order("organisation_roles.ordering").sort_by(&:seniority))
       presenter.remove_unfilled_roles!
       [ organisation, presenter ]
     end
   end
 
   def whips_by_organisation
-    Role.whip.group_by(&:whip_organisation_id).map do |whip_organisation_id, roles|
+    Role.includes(:translations, :current_people).whip.group_by(&:whip_organisation_id).map do |whip_organisation_id, roles|
       presenter = RolesPresenter.new(roles.sort_by(&:seniority))
       presenter.remove_unfilled_roles!
       [
