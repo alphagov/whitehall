@@ -80,14 +80,15 @@ class ScheduledEditionsPublisher
 
   def log_publish_run(&block)
     Whitehall.stats_collector.increment("scheduled_publishing.call_rate")
-    log "SCHEDULED PUBLISHING"
+    log "STARTED SCHEDULED PUBLISHING ATTEMPT NO #{@attempts}"
     log "Time now: #{Time.zone.now}"
     log "Detected #{unpublished_editions_count} editions to publish:"
     editions.each {|e| log "#{e.id} - #{e.title} - due at #{e.scheduled_publication}" }
 
     yield
 
-    log "SCHEDULED PUBLISHING COMPLETE"
+    log "FINISHED SCHEDULED PUBLISHING"
+    log "WARNING: #{unpublished_editions_count} unpublished editions remaining" if unpublished_editions_remaining?
   end
 
   def log_successful_publication(edition)
