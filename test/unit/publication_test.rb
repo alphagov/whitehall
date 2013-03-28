@@ -53,9 +53,9 @@ class PublicationTest < ActiveSupport::TestCase
     publication = create(:published_publication, :with_html_version)
     new_draft = publication.create_draft(create(:author))
 
-    assert publication.html_version.title, new_draft.html_version.title
-    assert publication.html_version.body, new_draft.html_version.body
-    assert publication.html_version.slug, new_draft.html_version.slug
+    assert_equal publication.html_version.title, new_draft.html_version.title
+    assert_equal publication.html_version.body, new_draft.html_version.body
+    assert_equal publication.html_version.slug, new_draft.html_version.slug
 
     new_draft.html_version.title = 'new title'
     refute_equal 'new title', publication.reload.html_version.title
