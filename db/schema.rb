@@ -511,6 +511,13 @@ ActiveRecord::Schema.define(:version => 20130405110012) do
 
   add_index "feature_lists", ["featurable_id", "featurable_type", "locale"], :name => "featurable_lists_unique_locale_per_featurable", :unique => true
 
+  create_table "featured_topics_and_policies_lists", :force => true do |t|
+    t.integer  "organisation_id", :null => false
+    t.text     "summary"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "features", :force => true do |t|
     t.integer  "document_id"
     t.integer  "feature_list_id"
