@@ -8,10 +8,6 @@ jQuery(document).ready(function($) {
 
   $("#completed_fact_check_requests").markLinkedAnchor();
 
-  $('fieldset.sortable legend').each(function () {
-    $(this).append(' (drag up and down to re-order)');
-  })
-
   $('.document .body').enhanceYoutubeVideoLinks();
 
   var url = document.location.toString();
