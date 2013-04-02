@@ -33,7 +33,7 @@
   </section>
 <% end %>
 
-<% if @primary_role.present? || @other_roles.present? %>
+<% if (@primary_role && @primary_role.current_person.present?) || @other_roles.present? %>
   <section class="block people" id="people">
     <div class="inner-block floated-children">
       <h1 class="keyline-header"><%= t('worldwide_organisation.headings.our_people' ) %></h1>

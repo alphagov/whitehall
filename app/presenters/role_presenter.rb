@@ -60,6 +60,10 @@ class RolePresenter < Draper::Base
       "blank-person.png"
     end
 
+    def present?
+      false
+    end
+
     def privy_counsellor?
       false
     end
