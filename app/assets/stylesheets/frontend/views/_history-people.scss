@@ -34,6 +34,16 @@
     color: $grey-1;
   }
 
+  .person-excerpt {
+    .inner {
+      .image-holder {
+        img {
+          max-width: 100%;
+        }
+      }
+    }
+  }
+
   .clear-person {
     clear: both;
   }
