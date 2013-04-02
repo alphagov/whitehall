@@ -1,4 +1,16 @@
 GIT
+  remote: https://github.com/alphagov/gds-api-adapters.git
+  revision: ee4fb9f1ca40de2aa2905b5eca8f7ac36246fa28
+  branch: govuk-delivery
+  specs:
+    gds-api-adapters (5.3.0)
+      link_header
+      lrucache (~> 0.1.1)
+      null_logger
+      plek
+      rest-client (~> 1.6.3)
+
+GIT
   remote: https://github.com/alphagov/rack-test.git
   revision: c98433f5f6a45842520913c31968cde5cd782d55
   specs:
@@ -132,12 +144,6 @@ GEM
       ruby-hmac
     formatador (0.2.1)
     friendly_id (4.0.9)
-    gds-api-adapters (4.8.0)
-      link_header
-      lrucache (~> 0.1.1)
-      null_logger
-      plek
-      rest-client (~> 1.6.3)
     gds-sso (3.0.0)
       omniauth-gds (= 0.0.3)
       rack-accept (~> 0.4.4)
@@ -186,18 +192,18 @@ GEM
     libwebsocket (0.1.7.1)
       addressable
       websocket
-    link_header (0.0.5)
+    link_header (0.0.6)
     lograge (0.0.6)
       actionpack
       activesupport
-    lrucache (0.1.3)
+    lrucache (0.1.4)
       PriorityQueue (~> 0.1.2)
     mail (2.4.4)
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     metaclass (0.0.1)
-    mime-types (1.21)
+    mime-types (1.22)
     mini_magick (3.4)
       subexec (~> 0.2.1)
     minitest (2.5.1)
@@ -398,7 +404,7 @@ DEPENDENCIES
   faker
   fog
   friendly_id (= 4.0.9)
-  gds-api-adapters (~> 4.8.0)
+  gds-api-adapters!
   gds-sso (= 3.0.0)
   globalize3
   govspeak (~> 1.2.3)
