@@ -48,9 +48,8 @@ module Edition::GovUkDelivery
 
   def notify_govuk_delivery
     if (tags = govuk_delivery_tags).any?
-      payload = {title: title, summary: summary, link: public_document_path(self), tags: tags}
-      #TODO GDS API adapter call
-      puts payload.inspect
+      #payload = {title: title, summary: summary, link: public_document_path(self), tags: tags}
+      response = Whitehall.govuk_delivery_client.notify(tags, title, '')
     end
   end
 

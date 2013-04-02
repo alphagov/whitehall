@@ -1,28 +1,39 @@
 require "test_helper"
+require 'gds_api/test_helpers/gov_uk_delivery'
 
 class Edition::GovUkDeliveryTest < ActiveSupport::TestCase
-  test "should build gov uk delivery query" do
+  include GdsApi::TestHelpers::GovUkDelivery
+
+  test "should notify govuk_delivery on publishing policies" do
     Edition::AuditTrail.whodunnit = create(:user)
     policy = create(:policy, topics: [create(:topic), create(:topic)])
     policy.first_published_at = Time.zone.now
     policy.major_change_published_at = Time.zone.now
 
-    #Assert gds api adapters gets called with the correct values
-    #{:title=>"policy-title", :summary=>"policy-summary", :link=>"/government/policies/policy-title", :tags=>["/government/policies?departments%5B%5D=organisation-2&topics%5B%5D=topic-1", "/government/policies?departments%5B%5D=organisation-2&topics%5B%5D=topic-2"]}
+    policy.stubs(:govuk_delivery_tags).returns(['http://example.com/feed'])
+    govuk_delivery_create_notification_success(['http://example.com/feed'], policy.title, '')
     policy.publish!
 
-    news_article = create(:news_article, related_editions: [policy])
+  end
+
+  test "should notify govuk_delivery on publishing news articles" do
+    news_article = create(:news_article)
     news_article.first_published_at = Time.zone.now
     news_article.major_change_published_at = Time.zone.now
 
-    #{:title=>"news-title", :summary=>"news-summary", :link=>"/government/news/news-title", :tags=>["/government/announcements?announcement_type_option=press-releases&departments%5B%5D=organisation-3&topics%5B%5D=topic-1", "/government/announcements?announcement_type_option=press-releases&departments%5B%5D=organisation-3&topics%5B%5D=topic-2"]}
+    news_article.stubs(:govuk_delivery_tags).returns(['http://example.com/feed'])
+    govuk_delivery_create_notification_success(['http://example.com/feed'], news_article.title, '')
     news_article.publish!
+  end
 
-    publication = create(:publication, related_editions: [policy])
+  test "should notify govuk_delivery on publishing publications" do
+
+    publication = create(:publication)
     publication.first_published_at = Time.zone.now
     publication.major_change_published_at = Time.zone.now
 
-    #{:title=>"publication-title", :summary=>"publication-summary", :link=>"/government/publications/publication-title", :tags=>["/government/publications?departments%5B%5D=organisation-4&publication_filter_option=policy-papers&topics%5B%5D=topic-1", "/government/publications?departments%5B%5D=organisation-4&publication_filter_option=policy-papers&topics%5B%5D=topic-2"]}
+    publication.stubs(:govuk_delivery_tags).returns(['http://example.com/feed'])
+    govuk_delivery_create_notification_success(['http://example.com/feed'], publication.title, '')
     publication.publish!
   end
 end
