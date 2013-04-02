@@ -1,5 +1,8 @@
 require 'uri'
+require 'erb'
+
 require 'gds_api/exceptions'
+
 module Edition::GovUkDelivery
   include Rails.application.routes.url_helpers
   extend ActiveSupport::Concern
@@ -49,14 +52,27 @@ module Edition::GovUkDelivery
 
   def notify_govuk_delivery
     if (tags = govuk_delivery_tags).any?
-      #payload = {title: title, summary: summary, link: public_document_path(self), tags: tags}
       # Swallow all errors for the time being
       begin
-        response = Whitehall.govuk_delivery_client.notify(tags, title, '')
+        response = Whitehall.govuk_delivery_client.notify(tags, title, govuk_delivery_email_body(public_document_path(self), title, summary, public_timestamp))
       rescue GdsApi::HTTPErrorResponse
         nil
       end
     end
+  end
+
+  def govuk_delivery_email_body(url, title, summary, published_on)
+    template = ERB.new <<-eos
+<div class="rss_item" style="margin-bottom: 2em;">
+  <div class="rss_title" style="font-weight: bold; font-size: 120%; margin: 0 0 0.3em; padding: 0;">
+    <a href="<%= url %>"><%= title %></a>
+  </div>
+  <div class="rss_pub_date" style="font-size: 90%; margin: 0 0 0.3em; padding: 0; color: #666666; font-style: italic;"><%= published_on %></div>
+  <br />
+  <div class="rss_description" style="margin: 0 0 0.3em; padding: 0;"><%= summary %></div>
+</div>
+eos
+    template.result(binding)
   end
 
 end

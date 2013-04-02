@@ -15,6 +15,7 @@ class GovUkDeliveryTest < ActiveSupport::TestCase
     policy.first_published_at = Time.zone.now
     policy.major_change_published_at = Time.zone.now
     policy.stubs(:govuk_delivery_tags).returns(['http://example.com/feed'])
+    policy.stubs(:govuk_delivery_email_body).returns('')
     govuk_delivery_create_notification_success(['http://example.com/feed'], policy.title, '')
     assert policy.publish!
   end
@@ -25,6 +26,7 @@ class GovUkDeliveryTest < ActiveSupport::TestCase
     policy.first_published_at = Time.zone.now
     policy.major_change_published_at = Time.zone.now
     policy.stubs(:govuk_delivery_tags).returns(['http://example.com/feed'])
+    policy.stubs(:govuk_delivery_email_body).returns('')
     govuk_delivery_create_notification_error(['http://example.com/feed'], policy.title, '')
     assert policy.publish!
   end
