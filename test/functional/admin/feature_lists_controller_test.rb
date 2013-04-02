@@ -27,4 +27,13 @@ class Admin::FeatureListsControllerTest < ActionController::TestCase
 
     assert_equal [feature2, feature1], feature_list.reload.features
   end
+
+  test "post reorder with no ordering does nothing" do
+    world_location = create(:world_location)
+    feature_list = create(:feature_list, featurable: world_location, locale: :fr)
+
+    post :reorder, id: feature_list
+
+    assert_redirected_to admin_world_location_features_path(feature_list.featurable, locale: feature_list.locale)
+  end
 end
