@@ -38,6 +38,13 @@
       <section id="featured-topics-and-policies" class="featured-topics-and-policies">
         <h1 class="label">Featured topics and policies</h1>
         <p class="description"><%= format_with_html_line_breaks(@organisation.featured_topics_and_policies_list_summary) %></p>
+        <% if @organisation.featured_topics_and_policies_list.present? %>
+          <ul class="featured-items">
+            <% @organisation.featured_topics_and_policies_list.featured_items.map { |featured_item| link_to_featured_item featured_item }.compact.each do |featured_item_link| %>
+              <li class="featured-item"><%= featured_item_link.html_safe %></li>
+            <% end %>
+          </ul>
+        <% end %>
         <p><%= link_to 'See all our policies', policies_path(departments: [@organisation]) %></p>
       </section>
       <% else %>

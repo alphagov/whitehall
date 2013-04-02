@@ -108,4 +108,16 @@ module OrganisationHelper
     end
     (i % clear_number == 0) ? 'clear-person' : ''
   end
+
+  def link_to_featured_item(featured_item)
+    case featured_item.item
+    when Topic
+      link_to featured_item.item.name, featured_item.item
+    when Document
+      edition = featured_item.item.published_edition
+      if edition
+        link_to edition.title, edition
+      end
+    end
+  end
 end
