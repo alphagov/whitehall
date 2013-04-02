@@ -11,7 +11,7 @@ class OrganisationsController < PublicFacingController
     public_corporation_type = OrganisationType.find_by_name('Public corporation')
     executive_office_type = OrganisationType.find_by_name('Executive office')
 
-    @executive_offices = Organisation.where(organisation_type_id: executive_office_type).all(include: [:organisation_type, { child_organisations: :organisation_type}])
+    @executive_offices = Organisation.where(organisation_type_id: executive_office_type).all(include: [:organisation_type, { child_organisations: :organisation_type}]).reverse
     @ministerial_departments = Organisation.where(organisation_type_id: ministerial_department_type).all(include: [:organisation_type, { child_organisations: :organisation_type}])
 
     @public_corporations = Organisation.where(organisation_type_id: public_corporation_type)
