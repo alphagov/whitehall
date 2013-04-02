@@ -27,7 +27,7 @@ Feature: Speed tagging editions
     And I should be able to tag the publication with "Joe Bloggs"
     And I should not be able to tag the publication with "Jane Smith"
 
-  Scenario: Speed tagging only shows relevant policies
+  Scenario: Speed tagging only shows relevant policies in the checkbox list
     Given a draft policy "Local beards" for the organisation "DCLG"
     And a published policy "Beard taxes" for the organisation "Treasury"
     When I go to speed tag a newly imported publication for "DCLG"
@@ -38,6 +38,13 @@ Feature: Speed tagging editions
     Given a draft policy "Local beards" for the organisations "DCLG" and "Treasury"
     When I go to speed tag a newly imported publication for "DCLG" and "Treasury"
     Then I can only tag the publication with "Local beards" once
+
+  Scenario: Speed taggings shows all the policies as a dropdown at the end of the list
+    Given a published policy "Local beards" for the organisation "DCLG"
+    Given a published policy "Beard taxes" for the organisation "Treasury"
+    When I go to speed tag a newly imported publication for "DCLG"
+    Then I can choose "Beard taxes" from an additional list of policies
+    But I can't select "Local beards" from the additional list
 
   Scenario: Speed tagging shows speech required fields
     When I go to speed tag a newly imported speech "Written statement on Beards"
