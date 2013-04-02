@@ -20,6 +20,7 @@ class User < ActiveRecord::Base
     IMPORT = 'Import CSVs'
     WORLD_WRITER = 'World Writer'
     WORLD_EDITOR = 'World Editor'
+    FORCE_PUBLISH_ANYTHING = 'Force publish anything'
   end
 
   def role
@@ -58,6 +59,10 @@ class User < ActiveRecord::Base
 
   def can_import?
     has_permission?(Permissions::IMPORT)
+  end
+
+  def can_force_publish_anything?
+    has_permission?(Permissions::FORCE_PUBLISH_ANYTHING)
   end
 
   def organisation_name

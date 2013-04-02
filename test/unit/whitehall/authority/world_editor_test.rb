@@ -5,7 +5,8 @@ class WorldEditorTest < ActiveSupport::TestCase
   def world_editor(world_locations, id = 1)
     OpenStruct.new(id: id, gds_editor?: false,
                    departmental_editor?: false, world_editor?: true,
-                   organisation: nil, world_locations: world_locations || [])
+                   organisation: nil, can_force_publish_anything?: false,
+                   world_locations: world_locations || [])
   end
 
   include AuthorityTestHelper
@@ -110,6 +111,36 @@ class WorldEditorTest < ActiveSupport::TestCase
   test 'can force publish an edition that is about their location and not access limited' do
     user = world_editor(['hat land', 'tie land'])
     edition = with_locations(normal_edition, ['shirt land', 'hat land'])
+
+    assert enforcer_for(user, edition).can?(:force_publish)
+  end
+
+  test 'can force publish an edition not about their location if they can_force_publish_anything?' do
+    user = world_editor(['hat land', 'tie land'])
+    user.stubs(:can_force_publish_anything?).returns(true)
+    edition = with_locations(normal_edition, ['shirt land', 'hat land'])
+
+    assert enforcer_for(user, edition).can?(:force_publish)
+  end
+
+  test 'can force publish an edition about their location that is limited to another org if they can_force_publish_anything?' do
+    org1 = 'organisation_1'
+    org2 = 'organisation_2'
+    user = world_editor(['hat land', 'tie land'])
+    user.stubs(:organisation).returns(org1)
+    user.stubs(:can_force_publish_anything?).returns(true)
+    edition = with_locations(limited_edition([org2]), ['shirt land', 'hat land'])
+
+    assert enforcer_for(user, edition).can?(:force_publish)
+  end
+
+  test 'can force publish a limited access edition outside their location and org if they can_force_publish_anything?' do
+    org1 = 'organisation_1'
+    org2 = 'organisation_2'
+    user = world_editor(['hat land', 'tie land'])
+    user.stubs(:organisation).returns(org1)
+    user.stubs(:can_force_publish_anything?).returns(true)
+    edition = with_locations(limited_edition([org2]), ['shirt land'])
 
     assert enforcer_for(user, edition).can?(:force_publish)
   end

@@ -3,7 +3,9 @@ require 'ostruct'
 
 class DepartmentWriterTest < ActiveSupport::TestCase
   def department_writer(id = 1)
-    OpenStruct.new(id: id, department_writer?: false, departmental_editor?: false, organisation: nil)
+    OpenStruct.new(id: id, gds_editor?: false,
+                   departmental_editor?: false, organisation: nil,
+                   can_force_publish_anything?: false)
   end
 
   include AuthorityTestHelper
@@ -45,7 +47,7 @@ class DepartmentWriterTest < ActiveSupport::TestCase
     user.stubs(:organisation).returns(org1)
     edition = limited_edition([org2])
     enforcer = enforcer_for(user, edition)
-    
+
     Whitehall::Authority::Rules::EditionRules.actions.each do |action|
       refute enforcer.can?(action)
     end
@@ -81,6 +83,24 @@ class DepartmentWriterTest < ActiveSupport::TestCase
 
   test 'cannot force publish a edition' do
     refute enforcer_for(department_writer, normal_edition).can?(:force_publish)
+  end
+
+  test 'can force publish an edition if they can_force_publish_anything?' do
+    user = department_writer
+    user.stubs(:can_force_publish_anything?).returns(true)
+
+    assert enforcer_for(user, normal_edition).can?(:force_publish)
+  end
+
+  test 'can force publish a limited access edition outside their org if they can_force_publish_anything?' do
+    org1 = 'organisation_1'
+    org2 = 'organisation_2'
+    user = department_writer
+    user.stubs(:organisation).returns(org1)
+    user.stubs(:can_force_publish_anything?).returns(true)
+    edition = limited_edition([org2])
+
+    assert enforcer_for(user, edition).can?(:force_publish)
   end
 
   test 'can make editorial remarks' do

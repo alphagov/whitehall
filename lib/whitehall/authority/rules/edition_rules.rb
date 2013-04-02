@@ -32,7 +32,9 @@ module Whitehall::Authority::Rules
     private
 
     def can_with_an_instance?(action)
-      if !can_see?
+      if actor.can_force_publish_anything? && action == :force_publish
+        return true
+      elsif !can_see?
         return false
       else
         if actor.gds_editor?
