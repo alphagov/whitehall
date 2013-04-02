@@ -166,6 +166,8 @@ class Organisation < ActiveRecord::Base
     featured_topics_and_policies_list.try(:summary)
   end
 
+  has_many :promotional_features
+
   accepts_nested_attributes_for :default_news_image, reject_if: :all_blank
   accepts_nested_attributes_for :mainstream_links, allow_destroy: true, reject_if: :all_blank
   accepts_nested_attributes_for :organisation_roles
@@ -286,8 +288,16 @@ class Organisation < ActiveRecord::Base
     organisation_type.department?
   end
 
+  def executive_office?
+    organisation_type.executive_office?
+  end
+
   def self.departments
     where(organisation_type_id: OrganisationType.departmental_types).includes(:translations)
+  end
+
+  def self.executive_offices
+    where(organisation_type_id: OrganisationType.executive_office)
   end
 
   def self.parent_organisations

@@ -276,6 +276,18 @@
     </div>
   <% end %>
 
+  <% @organisation.promotional_features.each do |promotional_feature| %>
+    <%= content_tag_for(:feature, promotional_feature) do %>
+      <h3><%= promotional_feature.title %></h3>
+      <% promotional_feature.items.each do |item| %>
+        <%= content_tag_for(:div, item) do %>
+          <p><%= item.summary %></p>
+          <p><%= link_to item.link_text, item.link_url %></p>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+
   <div class="block-10">
     <div class="inner-block">
       <div class="contact-wrapper">

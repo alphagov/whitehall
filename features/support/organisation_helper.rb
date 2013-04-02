@@ -13,6 +13,10 @@ module OrganisationHelper
     fill_in "Description", with: translation["description"]
     click_on "Save"
   end
+
+  def last_executive_office
+    Organisation.executive_offices.last
+  end
 end
 
 World(OrganisationHelper)

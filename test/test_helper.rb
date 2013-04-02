@@ -8,6 +8,10 @@ if ENV["TEST_COVERAGE"]
   SimpleCov.formatter = SimpleCov::Formatter::RcovFormatter
 end
 
+def image_fixture_file
+  @_image_fixture_file ||= File.open(Rails.root.join('test', 'fixtures', 'minister-of-funk.960x640.jpg'))
+end
+
 require 'rails/test_help'
 require 'mocha/setup'
 require 'slimmer/test'

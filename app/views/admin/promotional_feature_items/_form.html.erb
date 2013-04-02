@@ -1,0 +1,40 @@
+<%= form_for promotional_feature_item,
+      :url => promotional_feature_item.persisted? ?
+            admin_organisation_promotional_feature_item_path(organisation, promotional_feature, promotional_feature_item) :
+            admin_organisation_promotional_feature_items_path(organisation, promotional_feature) do |form| %>
+  <%= form.errors %>
+
+  <fieldset>
+    <%= form.text_area :summary %>
+
+    <div class="control-group">
+      <%= form.label :image, 'Item image (must be 960px by 640px)', class: "control-label" %>
+      <div class="controls">
+        <%= form.file_field :image %>
+        <% if form.object.image_cache.present? %>
+          <span class="already_uploaded"><%= File.basename(form.object.image_cache) %> already uploaded</span>
+        <% end %>
+        <%= form.hidden_field :image_cache %>
+      </div>
+    </div>
+    <%= form.text_field :image_alt_text, horizontal: true, label_text: "Image description (alt text)" %>
+
+    <%= form.check_box :double_width, horizontal: true, label_text: "Display double-width?" %>
+
+    <%= form.text_field :title, horizontal: true, label_text: 'Title (optional)' %>
+    <%= form.text_field :title_url, horizontal: true, label_text: 'Title link url (optional)' %>
+  </fieldset>
+
+  <fieldset class="feature_links">
+    <legend>Links</legend>
+
+    <%= form.fields_for :links, promotional_feature_item.links do |link| %>
+      <div class="feature_link">
+        <%= link.text_field :url, horizontal: true %>
+        <%= link.text_field :text, horizontal: true %>
+      </div>
+    <% end %>
+  </fieldset>
+
+  <%= form.save_or_cancel(cancel: [:admin, organisation, promotional_feature]) %>
+<% end %>

@@ -1,0 +1,9 @@
+<%= form_for [:admin, organisation, promotional_feature] do |form| %>
+  <%= form.errors %>
+
+  <fieldset>
+    <%= form.text_field :title %>
+  </fieldset>
+
+  <%= form.save_or_cancel(cancel: [:admin, organisation, PromotionalFeature]) %>
+<% end %>
