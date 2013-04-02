@@ -48,9 +48,11 @@ class FeatureListTest < ActiveSupport::TestCase
     f1 = create(:feature)
     feature_list = create(:feature_list, locale: :en, features: [f1])
     f1.document = nil
-    feature_list.features.stubs(:find_by_id!).returns(f1)
-    refute feature_list.reorder!([f1.id])
-    assert_match /Can't reorder because '.*'/, feature_list.errors.full_messages.to_sentence
+    Mocha::Configuration.allow(:stubbing_non_existent_method) do
+      feature_list.features.stubs(:find_by_id!).with(f1.id).returns(f1)
+      refute feature_list.reorder!([f1.id])
+      assert_match /Can't reorder because '.*'/, feature_list.errors.full_messages.to_sentence
+    end
   end
 
   test "reordering fails if features which are not part of the feature list are referenced when re-ordering" do
