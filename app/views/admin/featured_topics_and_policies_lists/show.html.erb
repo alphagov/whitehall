@@ -11,7 +11,37 @@
     <section>
       <%= tab_navigation_for(@organisation) %>
       <%= form_for @featured_topics_and_policies_list, url: admin_organisation_featured_topics_and_policies_list_path(@organisation), method: 'put' do |form| %>
+        <%= form.errors %>
         <%= form.text_area :summary, rows: 4 %>
+
+        <div class="featured-topics-and-policies-items">
+          <div class="sortable" data-ordering-label-selector="label[for$=ordering]">
+          <%= form.fields_for :featured_items, (form.object.featured_items.sort_by { |fi| fi.ordering || 99 }) do |featured_item_form| %>
+            <div class="well">
+              <%= featured_item_form.hidden_field :id %>
+              <div class="control-group">
+                <%= label_tag(nil, data: { :"item-type" => "topic"  }, class: 'featured-item-type radio inline') do %><%= featured_item_form.radio_button :item_type, 'Topic' %> Topic<% end %>
+                <%= label_tag(nil, data: { :"item-type" => "policy" }, class: 'featured-item-type radio inline') do %><%= featured_item_form.radio_button :item_type, 'Document' %> Policy<% end %>
+              </div>
+              <div class="featured-item-type-pane" data-item-type="topic">
+                <%= featured_item_form.select(:topic_id,
+                                              options_from_collection_for_select(@topics, 'id', 'name', featured_item_form.object.try(:topic_id)),
+                                              {include_blank: true},
+                                              class: 'chzn-select',
+                                              data: { placeholder: "Choose topic..." }) %>
+              </div>
+              <div class="featured-item-type-pane" data-item-type="policy">
+                <%= featured_item_form.select(:document_id,
+                                              options_from_collection_for_select(@policies, 'document_id', 'title', featured_item_form.object.try(:document_id)),
+                                              {include_blank: true},
+                                              class: 'chzn-select',
+                                              data: { placeholder: 'Choose policy...'}) %>
+              </div>
+              <%= featured_item_form.text_field(:ordering, class: "ordering") %>
+            </div>
+          <% end %>
+          </div>
+        </div>
         <%= form.submit "Save", class: "btn" %>
       <% end %>
     </section>
