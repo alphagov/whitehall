@@ -7,7 +7,7 @@ module Edition::GovUkDelivery
     set_callback(:publish, :after) { notify_govuk_delivery }
   end
 
-  def notify_govuk_delivery
+  def govuk_delivery_tags
     if can_be_associated_with_topics? || can_be_related_to_policies?
       topic_slugs = topics.map(&:slug)
     else
@@ -43,7 +43,11 @@ module Edition::GovUkDelivery
       end
     end
 
-    payload = {title: title, summary: summary, link: public_document_path(self), tags: tag_paths}
+    tag_paths
+  end
+
+  def notify_govuk_delivery
+    payload = {title: title, summary: summary, link: public_document_path(self), tags: govuk_delivery_tags}
     #TODO GDS API adapter call
     puts payload.inspect
   end
