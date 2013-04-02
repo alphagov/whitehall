@@ -22,23 +22,23 @@ module Edition::GovUkDelivery
       case self
       when Policy
         if relevant_to_local_government?
-          policies_path(departments: [t[0]], topics: [t[1]], relevant_to_local_government: true)
+          policies_url(departments: [t[0]], topics: [t[1]], relevant_to_local_government: true, format: :atom, host: Whitehall.public_host, protocol: Whitehall.public_protocol)
         else
-          policies_path(departments: [t[0]], topics: [t[1]])
+          policies_url(departments: [t[0]], topics: [t[1]], format: :atom, host: Whitehall.public_host, protocol: Whitehall.public_protocol)
         end
       when Announcement
         filter_option = Whitehall::AnnouncementFilterOption.find_by_search_format_types(self.search_format_types)
         if relevant_to_local_government?
-          announcements_path(announcement_type_option: filter_option.slug, departments: [t[0]], topics: [t[1]], relevant_to_local_government: true)
+          announcements_url(announcement_type_option: filter_option.slug, departments: [t[0]], topics: [t[1]], relevant_to_local_government: true, format: :atom, host: Whitehall.public_host, protocol: Whitehall.public_protocol)
         else
-          announcements_path(announcement_type_option: filter_option.slug, departments: [t[0]], topics: [t[1]])
+          announcements_url(announcement_type_option: filter_option.slug, departments: [t[0]], topics: [t[1]], format: :atom, host: Whitehall.public_host, protocol: Whitehall.public_protocol)
         end
       when Publicationesque
         filter_option = Whitehall::PublicationFilterOption.find_by_search_format_types(self.search_format_types)
         if relevant_to_local_government?
-          publications_path(publication_filter_option: filter_option.slug, departments: [t[0]], topics: [t[1]], relevant_to_local_government: true)
+          publications_url(publication_filter_option: filter_option.slug, departments: [t[0]], topics: [t[1]], relevant_to_local_government: true, format: :atom, host: Whitehall.public_host, protocol: Whitehall.public_protocol)
         else
-          publications_path(publication_filter_option: filter_option.slug, departments: [t[0]], topics: [t[1]])
+          publications_url(publication_filter_option: filter_option.slug, departments: [t[0]], topics: [t[1]], format: :atom, host: Whitehall.public_host, protocol: Whitehall.public_protocol)
         end
       end
     end

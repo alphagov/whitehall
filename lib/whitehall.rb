@@ -101,6 +101,14 @@ module Whitehall
       PUBLIC_HOSTS[request_host] || request_host
     end
 
+    def public_host
+      ENV['FACTER_govuk_platform'] == 'production' ? 'www.gov.uk' : 'www.preview.alphagov.co.uk'
+    end
+
+    def public_protocol
+      ENV['FACTER_govuk_platform'] == 'development' ? 'http': 'https'
+    end
+
     def secrets
       @secrets ||= load_secrets
     end
