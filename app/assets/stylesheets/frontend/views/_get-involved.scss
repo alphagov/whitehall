@@ -188,6 +188,9 @@
           @include media(tablet) {
             float: left;
             width: 50%;
+            @include ie(7) {
+              width: 49.99%;
+            }
           }       
         }
         .document-row {
