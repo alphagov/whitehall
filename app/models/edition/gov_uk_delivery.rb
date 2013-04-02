@@ -47,9 +47,11 @@ module Edition::GovUkDelivery
   end
 
   def notify_govuk_delivery
-    payload = {title: title, summary: summary, link: public_document_path(self), tags: govuk_delivery_tags}
-    #TODO GDS API adapter call
-    puts payload.inspect
+    if (tags = govuk_delivery_tags).any?
+      payload = {title: title, summary: summary, link: public_document_path(self), tags: tags}
+      #TODO GDS API adapter call
+      puts payload.inspect
+    end
   end
 
 end
