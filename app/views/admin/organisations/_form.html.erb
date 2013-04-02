@@ -40,62 +40,6 @@
     <%= organisation_form.text_area :about_us, class: "previewable" %>
   </fieldset>
 
-  <div id="role_ordering" class="row-fluid">
-    <% if @ministerial_organisation_roles.any? %>
-      <div class="span4">
-        <fieldset id="minister_ordering" class="sortable">
-          <legend>Minister ordering</legend>
-          <%= organisation_role_ordering_fields(organisation_form, @ministerial_organisation_roles) %>
-        </fieldset>
-      </div>
-    <% end %>
-
-    <% if @special_representative_organisation_roles.any? %>
-      <div class="span4">
-        <fieldset id="special_representative_ordering" class="sortable">
-          <legend>Special representative ordering</legend>
-          <%= organisation_role_ordering_fields(organisation_form, @special_representative_organisation_roles) %>
-        </fieldset>
-      </div>
-    <% end %>
-
-    <% if @management_organisation_roles.any? %>
-      <div class="span4">
-        <fieldset id="board_member_ordering" class="sortable">
-          <legend>Management team ordering</legend>
-          <%= organisation_role_ordering_fields(organisation_form, @management_organisation_roles) %>
-        </fieldset>
-      </div>
-    <% end %>
-
-    <% if @traffic_commissioner_organisation_roles.any? %>
-      <div class="span4">
-        <fieldset id="traffic_commissioner_ordering" class="sortable">
-          <legend>Traffic commissioner ordering</legend>
-          <%= organisation_role_ordering_fields(organisation_form, @traffic_commissioner_organisation_roles) %>
-        </fieldset>
-      </div>
-    <% end %>
-
-    <% if @chief_professional_officer_roles.any? %>
-      <div class="span4">
-        <fieldset id="chief_professional_officer_ordering" class="sortable">
-          <legend>Chief professional officer ordering</legend>
-          <%= organisation_role_ordering_fields(organisation_form, @chief_professional_officer_roles) %>
-        </fieldset>
-      </div>
-    <% end %>
-
-    <% if @military_organisation_roles.any? %>
-      <div class="span4">
-        <fieldset id="military_ordering" class="sortable">
-          <legend>Military ordering</legend>
-          <%= organisation_role_ordering_fields(organisation_form, @military_organisation_roles) %>
-        </fieldset>
-      </div>
-    <% end %>
-  </div>
-
   <% if current_user.gds_editor? && @management_organisation_roles.any? %>
     <fieldset id="board_member_count">
       <legend>Number of important members of the managment team</legend>

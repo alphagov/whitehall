@@ -281,7 +281,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     organisation_chief_professional_officer_role = create(:organisation_role, organisation: organisation, role: chief_professional_officer_role)
     organisation_military_role = create(:organisation_role, organisation: organisation, role: military_role)
 
-    get :edit, id: organisation
+    get :people, id: organisation
 
     assert_select "#minister_ordering input[name^='organisation[organisation_roles_attributes]'][value=#{organisation_ministerial_role.id}]"
     refute_select "#minister_ordering input[name^='organisation[organisation_roles_attributes]'][value=#{organisation_board_member_role.id}]"
@@ -317,7 +317,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     create(:role_appointment, person: person, role: ministerial_role, started_at: 1.day.ago)
     organisation = create(:organisation, roles: [ministerial_role])
 
-    get :edit, id: organisation
+    get :people, id: organisation
 
     assert_select "#minister_ordering label", text: /Prime Minister/i
     assert_select "#minister_ordering label", text: /John Doe/i
@@ -330,7 +330,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     organisation_junior_ministerial_role = create(:organisation_role, organisation: organisation, role: junior_ministerial_role, ordering: 2)
     organisation_senior_ministerial_role = create(:organisation_role, organisation: organisation, role: senior_ministerial_role, ordering: 1)
 
-    get :edit, id: organisation
+    get :people, id: organisation
 
     assert_equal [organisation_senior_ministerial_role, organisation_junior_ministerial_role], assigns(:ministerial_organisation_roles)
   end
@@ -345,7 +345,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     organisation_junior_board_member_role = create(:organisation_role, organisation: organisation, role: junior_board_member_role, ordering: 3)
     organisation_senior_board_member_role = create(:organisation_role, organisation: organisation, role: senior_board_member_role, ordering: 1)
 
-    get :edit, id: organisation
+    get :people, id: organisation
 
     assert_equal [
       organisation_senior_board_member_role,
@@ -361,7 +361,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     organisation_junior_traffic_commissioner_role = create(:organisation_role, organisation: organisation, role: junior_traffic_commissioner_role, ordering: 2)
     organisation_senior_traffic_commissioner_role = create(:organisation_role, organisation: organisation, role: senior_traffic_commissioner_role, ordering: 1)
 
-    get :edit, id: organisation
+    get :people, id: organisation
 
     assert_equal [organisation_senior_traffic_commissioner_role, organisation_junior_traffic_commissioner_role], assigns(:traffic_commissioner_organisation_roles)
   end
@@ -373,7 +373,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     organisation_junior_chief_professional_officer_role = create(:organisation_role, organisation: organisation, role: junior_chief_professional_officer_role, ordering: 2)
     organisation_senior_chief_professional_officer_role = create(:organisation_role, organisation: organisation, role: senior_chief_professional_officer_role, ordering: 1)
 
-    get :edit, id: organisation
+    get :people, id: organisation
 
     assert_equal [organisation_senior_chief_professional_officer_role, organisation_junior_chief_professional_officer_role], assigns(:chief_professional_officer_roles)
   end
@@ -385,20 +385,20 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     organisation_junior_representative_role = create(:organisation_role, organisation: organisation, role: junior_representative_role, ordering: 2)
     organisation_senior_representative_role = create(:organisation_role, organisation: organisation, role: senior_representative_role, ordering: 1)
 
-    get :edit, id: organisation
+    get :people, id: organisation
 
     assert_equal [organisation_senior_representative_role, organisation_junior_representative_role], assigns(:special_representative_organisation_roles)
   end
 
   view_test "editing does not display an empty ministerial roles section" do
     organisation = create(:organisation)
-    get :edit, id: organisation
+    get :people, id: organisation
     refute_select "#minister_ordering"
   end
 
   view_test "editing contains the relevant dom classes to facilitate the javascript ordering functionality" do
     organisation = create(:organisation, roles: [create(:ministerial_role)])
-    get :edit, id: organisation
+    get :people, id: organisation
     assert_select "fieldset#minister_ordering.sortable input.ordering[name^='organisation[organisation_roles_attributes]']"
   end
 
@@ -523,15 +523,6 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert_response :success
     assert_template :about
     assert_equal organisation, assigns(:organisation)
-  end
-
-  test "GET on :people" do
-    organisation = create(:organisation)
-    get :people, id: organisation
-
-    assert_response :success
-    assert_template :people
-    assert_equal organisation.roles, assigns(:roles)
   end
 
   test "GET on :document_series" do
