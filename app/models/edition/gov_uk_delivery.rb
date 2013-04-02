@@ -1,4 +1,5 @@
 require 'uri'
+require 'gds_api/exceptions'
 module Edition::GovUkDelivery
   include Rails.application.routes.url_helpers
   extend ActiveSupport::Concern
@@ -49,7 +50,12 @@ module Edition::GovUkDelivery
   def notify_govuk_delivery
     if (tags = govuk_delivery_tags).any?
       #payload = {title: title, summary: summary, link: public_document_path(self), tags: tags}
-      response = Whitehall.govuk_delivery_client.notify(tags, title, '')
+      # Swallow all errors for the time being
+      begin
+        response = Whitehall.govuk_delivery_client.notify(tags, title, '')
+      rescue GdsApi::HTTPErrorResponse
+        nil
+      end
     end
   end
 
