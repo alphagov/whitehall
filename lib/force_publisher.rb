@@ -17,23 +17,17 @@ class ForcePublisher
       @user ||= User.find_by_name!("GDS Inside Government Team")
     end
 
-    def acting_as(user)
-      old_user, Edition::AuditTrail.whodunnit = Edition::AuditTrail.whodunnit, user
-      yield
-      Edition::AuditTrail.whodunnit = old_user
-    end
-
     def force_publish!(editions, reporter)
       editions.each do |edition|
         if edition.nil?
           reporter.failure(edition, 'Edition is nil')
-        else        
+        else
           reason = edition.reason_to_prevent_publication_by(user, force: true)
           if reason
             reporter.failure(edition, reason)
           else
             begin
-              acting_as(user) do
+              Edition::AuditTrail.acting_as(user) do
                 edition.publish_as(user, force: true)
               end
               reporter.success(edition)

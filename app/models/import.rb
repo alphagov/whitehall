@@ -143,14 +143,6 @@ class Import < ActiveRecord::Base
     import_errors.count(:row_number, distinct: true)
   end
 
-  def acting_as(user)
-    original_user = Edition::AuditTrail.whodunnit
-    Edition::AuditTrail.whodunnit = user
-    yield
-  ensure
-    Edition::AuditTrail.whodunnit = original_user
-  end
-
   def perform(options = {})
     attachment_cache = options[:attachment_cache] || Whitehall::Uploader::AttachmentCache.new(Whitehall::Uploader::AttachmentCache.default_root_directory, progress_logger)
 
@@ -170,7 +162,7 @@ class Import < ActiveRecord::Base
               progress_logger.already_imported(document_source)
             end
           else
-            acting_as(automatic_data_importer) do
+            Edition::AuditTrail.acting_as(automatic_data_importer) do
               import_row(row, row_number, automatic_data_importer, progress_logger)
             end
           end

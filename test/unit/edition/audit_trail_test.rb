@@ -13,6 +13,22 @@ class Edition::AuditTrailTest < ActiveSupport::TestCase
     Timecop.return
   end
 
+  test '#acting_as switches to the supplied user for the duration of the block, returning to the original user afterwards' do
+    Edition::AuditTrail.acting_as(@user2) do
+      assert_equal @user2, Edition::AuditTrail.whodunnit
+    end
+    assert_equal @user, Edition::AuditTrail.whodunnit
+  end
+
+  test '#acting_as will return to the previous whodunnit, even when an exception is thrown' do
+    begin
+      Edition::AuditTrail.acting_as(@user2) { raise 'Boom!' }
+    rescue
+    end
+
+    assert_equal @user, Edition::AuditTrail.whodunnit
+  end
+
   test "creation appears as a creation action" do
     edition = create(:draft_edition)
     assert_equal 1, edition.document_audit_trail.size
