@@ -66,3 +66,11 @@ Then /^I should be able to set the publication date$/ do
   assert page.has_css?('select[id*=edition_publication_date]')
   select_date "Publication date", with: '02-May-2013'
 end
+
+Then /^I can choose "([^"]*)" from an additional list of policies$/ do |policy_name|
+  select policy_name, from: "Additional policies"
+end
+
+Then /^I can't select "([^"]*)" from the additional list$/ do |policy_name|
+  assert page.has_no_css?('option', text: policy_name)
+end

@@ -213,8 +213,20 @@ class ApplicationHelperTest < ActionView::TestCase
 
   test "generates related policy option as title without topics" do
     policy = create(:policy, title: "Policy title", topics: [])
-    options = related_policy_options
     assert_equal [[policy.id, "Policy title"]], related_policy_options
+  end
+
+  test "#related_policy_options_excluding excludes a set of policies" do
+    policy = create(:policy, title: "Policy title", topics: [])
+    excluded = create(:policy, title: "Excluded", topics: [])
+    assert_equal [[policy.id, "Policy title"]], related_policy_options_excluding([excluded])
+  end
+
+  test "#policies_for_editions_organisations returns all active policies that map to an organisation the edition is in" do
+    publication = create(:imported_publication)
+    policy = create(:published_policy, organisations: [publication.organisations.first])
+    another = create(:published_policy)
+    assert_equal [policy], policies_for_editions_organisations(publication)
   end
 
   test "generates related policy option as title with topics" do
