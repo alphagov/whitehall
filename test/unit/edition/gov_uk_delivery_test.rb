@@ -1,9 +1,7 @@
 require "test_helper"
-require 'gds_api/test_helpers/gov_uk_delivery'
+
 
 class Edition::GovUkDeliveryTest < ActiveSupport::TestCase
-  include GdsApi::TestHelpers::GovUkDelivery
-
   test "should notify govuk_delivery on publishing policies" do
     Edition::AuditTrail.whodunnit = create(:user)
     policy = create(:policy, topics: [create(:topic), create(:topic)])

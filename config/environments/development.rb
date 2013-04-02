@@ -32,10 +32,6 @@ Whitehall::Application.configure do
 
   config.slimmer.asset_host = ENV['GOVUK_ASSET_ROOT'] || "https://static.preview.alphagov.co.uk"
 
-  unless ENV['USE_GOVUK_DELIVERY']
-    Whitehall.govuk_delivery_client = GdsApi::GovUkDelivery.new(Plek.current.find('govuk-delivery'), {noop: true})
-  end
-
   if ENV['SHOW_PRODUCTION_IMAGES']
     orig_host = config.asset_host
     config.asset_host = Proc.new do |source|
