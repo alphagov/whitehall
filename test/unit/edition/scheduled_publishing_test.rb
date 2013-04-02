@@ -188,17 +188,6 @@ class Edition::ScheduledPublishingTest < ActiveSupport::TestCase
     assert_equal [due_in_one_day, due_in_two_days], Edition.due_for_publication(2.days)
   end
 
-  test ".scheduled_publishing_robot creates a scheduled publishing robot user account if none exists" do
-    assert_difference "User.count", 1 do
-      Edition.scheduled_publishing_robot
-    end
-    assert_difference "User.count", 0 do
-      Edition.scheduled_publishing_robot
-    end
-    assert_equal nil, Edition.scheduled_publishing_robot.uid
-    assert Edition.scheduled_publishing_robot.can_publish_scheduled_editions?
-  end
-
   test ".scheduled_for_publication_as returns edition if edition is scheduled" do
     edition = create(:draft_publication, scheduled_publication: 1.day.from_now)
     edition.schedule_as(create(:departmental_editor), force: true)
@@ -212,74 +201,5 @@ class Edition::ScheduledPublishingTest < ActiveSupport::TestCase
 
   test ".scheduled_for_publication_as returns nil if document is unknown" do
     assert_nil Edition.scheduled_for_publication_as('unknown')
-  end
-end
-
-class Edition::PublishAllDueEditionsTest < ActiveSupport::TestCase
-  self.use_transactional_fixtures = false
-
-  setup do
-    DatabaseCleaner.clean_with :truncation
-  end
-
-  teardown do
-    DatabaseCleaner.clean_with :truncation
-  end
-
-  test "#publish_all_due_editions_as publishes all due publications using the specified account" do
-    edition = create(:edition, :scheduled, scheduled_publication: 1.day.ago)
-    robot_user = create(:scheduled_publishing_robot)
-    Edition.publish_all_due_editions_as(robot_user)
-    edition.reload
-    assert edition.published?
-  end
-
-  test "#publish_all_due_editions_as records number of due publications to statsd" do
-    edition = create(:edition, :scheduled, scheduled_publication: 1.day.ago)
-    robot_user = create(:scheduled_publishing_robot)
-    stats_collector = stub_everything("stats_collector")
-    seq = sequence("publishing")
-    stats_collector.expects(:gauge).with("scheduled_publishing.due", 1).in_sequence(seq)
-    stats_collector.expects(:increment).with("scheduled_publishing.published").in_sequence(seq)
-    stats_collector.expects(:gauge).with("scheduled_publishing.due", 0).in_sequence(seq)
-    with_service(:stats_collector, stats_collector) do
-      Edition.publish_all_due_editions_as(robot_user)
-    end
-  end
-
-  test "#publish_all_due_editions_as sets transaction isolation level to SERIALIZABLE to ensure atomic update" do
-    edition = create(:edition, :scheduled, scheduled_publication: 1.day.ago)
-    robot_user = build(:scheduled_publishing_robot)
-
-    atomic_publishing = sequence('atomic publishing')
-    Edition.connection.expects(:execute).with("set transaction isolation level serializable").in_sequence(atomic_publishing)
-    Edition.connection.expects(:transaction).returns(true).in_sequence(atomic_publishing)
-
-    Edition.publish_all_due_editions_as(robot_user)
-  end
-
-  test "#publish_all_due_editions_as rescues exceptions raised by publish_as" do
-    edition = build(:edition, title: "My doc")
-    Edition.stubs(:due_for_publication).returns([edition])
-
-    robot_user = stub("robot user", can_publish_scheduled_editions?: true)
-    edition.stubs(:publish_as).raises(ActiveRecord::StatementInvalid)
-  end
-
-  test "#publish_all_due_editions_as updates the audit trail to indicate that the robot user published the edition" do
-    edition = create(:edition, :scheduled, scheduled_publication: 1.day.ago)
-    robot_user = create(:scheduled_publishing_robot)
-    Edition.publish_all_due_editions_as(robot_user)
-    publishing_event = edition.reload.edition_audit_trail.last
-    assert_equal "published", publishing_event.action
-    assert_equal robot_user, publishing_event.actor
-  end
-
-  test "#publish_all_due_editions_as increments call_rate statsd counter" do
-    stats_collector = stub_everything("stats_collector")
-    stats_collector.expects(:increment).with("scheduled_publishing.call_rate").once
-    with_service(:stats_collector, stats_collector) do
-      Edition.publish_all_due_editions_as(stub("robot user"))
-    end
   end
 end

@@ -6,30 +6,6 @@ module Edition::ScheduledPublishing
   end
 
   module ClassMethods
-    def scheduled_publishing_robot
-      User.where(name: "Scheduled Publishing Robot", uid: nil).first || create_scheduled_publishing_robot
-    end
-
-    def publish_all_due_editions_as(user, logger = Rails.logger)
-      logger.info "SCHEDULED PUBLISHING"
-      logger.info "Time now: #{Time.zone.now}"
-      Whitehall.stats_collector.increment("scheduled_publishing.call_rate")
-      schedule = due_for_publication(5.minutes).order("scheduled_publication asc").map do |edition|
-        [edition.id, edition.scheduled_publication, edition.title]
-      end
-
-      log_schedule(logger, schedule)
-
-      schedule.each do |edition_id, scheduled_publication, title|
-        wait_until(scheduled_publication, logger) do
-          logger.info "Time now is #{Time.zone.now}, publishing #{edition_id} - #{title}"
-          publish_atomically_as(user, edition_id, logger)
-        end
-      end
-      Whitehall.stats_collector.gauge("scheduled_publishing.due", due_for_publication(5.minutes).reload.count)
-      logger.info "SCHEDULED PUBLISHING COMPLETE"
-    end
-
     def due_for_publication(within_time = 0)
       cutoff = Time.zone.now + within_time
       scheduled.where(arel_table[:scheduled_publication].lteq(cutoff))
@@ -38,63 +14,6 @@ module Edition::ScheduledPublishing
     def scheduled_for_publication_as(slug)
       document = Document.at_slug(document_type, slug)
       document && document.scheduled_edition
-    end
-
-  private
-
-    def log_schedule(logger, schedule)
-      Whitehall.stats_collector.gauge("scheduled_publishing.due", schedule.size)
-      logger.info "Detected #{schedule.size} editions to publish:"
-      schedule.each do |edition_id, scheduled_publication, title|
-        logger.info "#{edition_id} - #{title} - due at #{scheduled_publication}"
-      end
-    end
-
-    def wait_until(timestamp, logger, &block)
-      while Time.zone.now < timestamp
-        time_to_wait = timestamp - Time.zone.now
-        logger.info "Waiting #{time_to_wait} seconds"
-        sleep(time_to_wait)
-      end
-      yield
-    end
-
-    def create_scheduled_publishing_robot
-      permissions = [
-        User::Permissions::SIGNIN,
-        User::Permissions::PUBLISH_SCHEDULED_EDITIONS
-      ]
-      User.create!(name: "Scheduled Publishing Robot", uid: nil) do |user|
-        user.permissions = permissions
-      end
-    end
-
-    def publish_atomically_as(user, edition_id, logger = Rails.logger)
-      acting_as(user) do
-        Edition.connection.execute "set transaction isolation level serializable"
-        Edition.connection.transaction do
-          edition = Edition.find(edition_id)
-          if edition.publish_as(user)
-            Whitehall.stats_collector.increment("scheduled_publishing.published")
-            logger.info("Published #{edition.title} automatically")
-            return true
-          else
-            logger.error("Unable to publish edition id '#{edition_id}' because '#{edition.errors.full_messages.to_sentence}'")
-            return false
-          end
-        end
-      end
-    rescue => e
-      logger.error("Unable to publish edition id '#{edition_id}' because '#{e}'")
-      false
-    end
-
-    def acting_as(user)
-      original_user = Edition::AuditTrail.whodunnit
-      Edition::AuditTrail.whodunnit = user
-      yield
-    ensure
-      Edition::AuditTrail.whodunnit = original_user
     end
   end
 

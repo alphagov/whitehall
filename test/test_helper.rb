@@ -37,12 +37,8 @@ class ActiveSupport::TestCase
     Timecop.return
   end
 
-  def acting_as(user)
-    original_user = Edition::AuditTrail.whodunnit
-    Edition::AuditTrail.whodunnit = user
-    yield
-  ensure
-    Edition::AuditTrail.whodunnit = original_user
+  def acting_as(actor, &block)
+    Edition::AuditTrail.acting_as(actor, &block)
   end
 
   def assert_same_elements(array1, array2)
