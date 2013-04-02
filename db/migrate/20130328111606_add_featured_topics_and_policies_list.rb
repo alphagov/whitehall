@@ -5,5 +5,6 @@ class AddFeaturedTopicsAndPoliciesList < ActiveRecord::Migration
       t.text :summary
       t.timestamps
     end
+    add_index :featured_topics_and_policies_lists, :organisation_id
   end
 end

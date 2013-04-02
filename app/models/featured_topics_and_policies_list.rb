@@ -3,4 +3,22 @@ class FeaturedTopicsAndPoliciesList < ActiveRecord::Base
 
   validates :summary, presence: true, length: { maximum: 65_535 }
   validates :organisation, presence: true
+
+  has_many :featured_items, dependent: :destroy,
+                            order: :ordering,
+                            before_add: :ensure_ordering!
+  accepts_nested_attributes_for :featured_items, reject_if: :no_useful_featured_item_attributes?
+
+  protected
+  def next_ordering
+    (featured_items.map(&:ordering).max || 0) + 1
+  end
+
+  def ensure_ordering!(new_feature)
+    new_feature.ordering = next_ordering unless new_feature.ordering
+  end
+
+  def no_useful_featured_item_attributes?(attrs)
+    attrs.except(:item_type, :ordering).all? { |a, v| v.blank? }
+  end
 end
