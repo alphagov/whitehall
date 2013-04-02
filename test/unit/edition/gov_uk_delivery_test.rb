@@ -10,10 +10,8 @@ class Edition::GovUkDeliveryTest < ActiveSupport::TestCase
     policy.first_published_at = Time.zone.now
     policy.major_change_published_at = Time.zone.now
 
-    policy.stubs(:govuk_delivery_tags).returns(['http://example.com/feed'])
-    govuk_delivery_create_notification_success(['http://example.com/feed'], policy.title, '')
+    policy.expects(:notify_govuk_delivery).once
     policy.publish!
-
   end
 
   test "should notify govuk_delivery on publishing news articles" do
@@ -21,8 +19,8 @@ class Edition::GovUkDeliveryTest < ActiveSupport::TestCase
     news_article.first_published_at = Time.zone.now
     news_article.major_change_published_at = Time.zone.now
 
-    news_article.stubs(:govuk_delivery_tags).returns(['http://example.com/feed'])
-    govuk_delivery_create_notification_success(['http://example.com/feed'], news_article.title, '')
+
+    news_article.expects(:notify_govuk_delivery).once
     news_article.publish!
   end
 
@@ -32,8 +30,7 @@ class Edition::GovUkDeliveryTest < ActiveSupport::TestCase
     publication.first_published_at = Time.zone.now
     publication.major_change_published_at = Time.zone.now
 
-    publication.stubs(:govuk_delivery_tags).returns(['http://example.com/feed'])
-    govuk_delivery_create_notification_success(['http://example.com/feed'], publication.title, '')
+    publication.expects(:notify_govuk_delivery).once
     publication.publish!
   end
 end
