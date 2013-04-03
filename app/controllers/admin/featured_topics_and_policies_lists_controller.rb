@@ -4,7 +4,8 @@ class Admin::FeaturedTopicsAndPoliciesListsController < Admin::BaseController
 
   def show
     fetch_topics_and_policies
-    @featured_topics_and_policies_list.featured_items.build(item_type: 'Topic')
+    @featured_items = @featured_topics_and_policies_list.featured_items.current.order(:ordering).to_a
+    @featured_items << @featured_topics_and_policies_list.featured_items.build(item_type: 'Topic')
   end
 
   def update
@@ -13,6 +14,12 @@ class Admin::FeaturedTopicsAndPoliciesListsController < Admin::BaseController
       redirect_to admin_organisation_featured_topics_and_policies_list_path(@organisation), notice: "Featured topics and policies for #{@organisation.name} updated"
     else
       fetch_topics_and_policies
+      # this is to make sure we only expose current items but also doesn't
+      # reload from the db and clobber the user's unsaved changes
+      ids = FeaturedItem.where(featured_topics_and_policies_list_id: @featured_topics_and_policies_list.id).current.map(&:id)
+      @featured_items = @featured_topics_and_policies_list.featured_items.
+                          select { |fi| ids.include?(fi.id) || fi.id.nil? }.
+                          sort_by { |fi| }.sort_by { |fi| fi.ordering || 99 }
       render :show
     end
   end
@@ -43,7 +50,6 @@ class Admin::FeaturedTopicsAndPoliciesListsController < Admin::BaseController
       else
         v.delete('topic_id')
         v.delete('document_id')
-        v.delete('item_id')
       end
     end
     feature_list_params

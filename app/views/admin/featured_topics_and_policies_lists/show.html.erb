@@ -16,7 +16,7 @@
 
         <div class="featured-topics-and-policies-items">
           <div class="sortable" data-ordering-label-selector="label[for$=ordering]">
-          <%= form.fields_for :featured_items, (form.object.featured_items.sort_by { |fi| fi.ordering || 99 }) do |featured_item_form| %>
+          <%= form.fields_for(:featured_items, @featured_items) do |featured_item_form| %>
             <div class="well">
               <%= featured_item_form.hidden_field :id %>
               <div class="control-group">

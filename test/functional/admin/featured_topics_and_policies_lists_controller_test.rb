@@ -25,12 +25,24 @@ class Admin::FeaturedTopicsAndPoliciesListsControllerTest < ActionController::Te
     refute list.persisted?
   end
 
-  test 'GET show will add an unsaved featured_item of the Topic type to the featured topics and policies list' do
+  test 'GET show will fetch only the current featured_items for the list' do
+    org = create(:organisation)
+    featured_topics_and_policies_list = create(:featured_topics_and_policies_list, organisation: org)
+    current_item = create(:featured_topic_item, featured_topics_and_policies_list: featured_topics_and_policies_list)
+    ended_item = create(:featured_topic_item, featured_topics_and_policies_list: featured_topics_and_policies_list, started_at: 2.days.ago, ended_at: 1.day.ago)
+
+    get :show, organisation_id: org
+    items = assigns(:featured_items)
+    assert items.include?(current_item)
+    refute items.include?(ended_item)
+  end
+
+  test 'GET show will add an unsaved featured_item for a topic to the end of the fetched featured items' do
     org = create(:organisation)
 
     get :show, organisation_id: org
     list = assigns(:featured_topics_and_policies_list)
-    items = list.featured_items
+    items = assigns(:featured_items)
     assert_equal 1, items.size
     refute items.first.persisted?
     assert_equal 'Topic', items.first.item_type
@@ -98,5 +110,38 @@ class Admin::FeaturedTopicsAndPoliciesListsControllerTest < ActionController::Te
     put :update, organisation_id: org, featured_topics_and_policies_list: { summary: '' }
 
     assert_template :show
+  end
+
+  test 'PUT update that fails will fetch only the existing current featured items, or unpersisted ones, in order' do
+    org = create(:organisation)
+    t = create(:topic)
+    featured_topics_and_policies_list = create(:featured_topics_and_policies_list, organisation: org)
+    current_item = build(:featured_topic_item, featured_topics_and_policies_list: featured_topics_and_policies_list)
+    ended_item = build(:featured_topic_item, featured_topics_and_policies_list: featured_topics_and_policies_list, started_at: 2.days.ago, ended_at: 1.day.ago)
+    featured_topics_and_policies_list.featured_items << current_item
+    featured_topics_and_policies_list.featured_items << ended_item
+    
+    put :update, organisation_id: org, featured_topics_and_policies_list: {
+      summary: '',
+      featured_items_attributes: {
+        :"0" => {
+          id: current_item.id,
+          item_type: current_item.item_type,
+          topic_id: current_item.topic_id,
+          ordering: '2'
+        },
+        :"1" => {
+          item_type: 'Topic',
+          topic_id: t.id.to_s,
+          ordering: '1'
+        }
+      }
+    }
+
+    items = assigns(:featured_items)
+    refute items.include?(ended_item)
+    assert_equal 2, items.size
+    assert_equal current_item, items.last
+    refute items.first.persisted?
   end
 end
