@@ -109,6 +109,18 @@ module OrganisationHelper
     (i % clear_number == 0) ? 'clear-person' : ''
   end
 
+  def render_featured_topics_and_policies_list(featured_topics_and_policies_list)
+    if featured_topics_and_policies_list.present?
+      items = featured_topics_and_policies_list.featured_items.current
+      links = items.map { |featured_item| link_to_featured_item featured_item }.compact
+      if links.any?
+        content_tag(:ul) do
+          links.map { |featured_item_link| content_tag(:li, featured_item_link.html_safe, class: "featured-item") }.join.html_safe
+        end
+      end
+    end
+  end
+
   def link_to_featured_item(featured_item)
     case featured_item.item
     when Topic
