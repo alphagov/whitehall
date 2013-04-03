@@ -9,7 +9,7 @@ class Admin::FeaturedTopicsAndPoliciesListsController < Admin::BaseController
   end
 
   def update
-    params_with_item_ids = prepare_item_id_params(params[:featured_topics_and_policies_list])
+    params_with_item_ids = prepare_feature_item_params(params[:featured_topics_and_policies_list])
     if @featured_topics_and_policies_list.update_attributes(params_with_item_ids)
       redirect_to admin_organisation_featured_topics_and_policies_list_path(@organisation), notice: "Featured topics and policies for #{@organisation.name} updated"
     else
@@ -38,20 +38,32 @@ class Admin::FeaturedTopicsAndPoliciesListsController < Admin::BaseController
     @featured_topics_and_policies_list = @organisation.featured_topics_and_policies_list || @organisation.build_featured_topics_and_policies_list
   end
 
-  def prepare_item_id_params(feature_list_params)
+  def prepare_feature_item_params(feature_list_params)
     (feature_list_params['featured_items_attributes'] || {}).each do |k, v|
-      case v['item_type']
-      when 'Topic'
-        v.delete('document_id')
-        v['item_id'] = v.delete('topic_id')
-      when 'Document'
-        v.delete('topic_id')
-        v['item_id'] = v.delete('document_id')
-      else
-        v.delete('topic_id')
-        v.delete('document_id')
-      end
+      prepare_item_id_param(v)
+      prepare_ended_at_param(v)
     end
     feature_list_params
+  end
+
+  def prepare_item_id_param(feature_item_params)
+    case feature_item_params['item_type']
+    when 'Topic'
+      feature_item_params.delete('document_id')
+      feature_item_params['item_id'] = feature_item_params.delete('topic_id')
+    when 'Document'
+      feature_item_params.delete('topic_id')
+      feature_item_params['item_id'] = feature_item_params.delete('document_id')
+    else
+      feature_item_params.delete('topic_id')
+      feature_item_params.delete('document_id')
+    end
+  end
+
+  def prepare_ended_at_param(feature_item_params)
+    unfeature = feature_item_params.delete('unfeature')
+    if unfeature && unfeature == '1'
+      feature_item_params['ended_at'] = Time.current
+    end
   end
 end

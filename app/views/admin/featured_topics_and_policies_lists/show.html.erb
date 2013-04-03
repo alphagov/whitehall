@@ -38,6 +38,7 @@
                                               data: { placeholder: 'Choose policy...'}) %>
               </div>
               <%= featured_item_form.text_field(:ordering, class: "ordering") %>
+              <%= featured_item_form.check_box(:unfeature, label_text: 'Remove', checked: featured_item_form.object.ended_at.present?) %>
             </div>
           <% end %>
           </div>

@@ -69,6 +69,50 @@ class Admin::FeaturedTopicsAndPoliciesListsControllerTest < ActionController::Te
     assert_equal 'Wooo', list.summary
   end
 
+  test "PUT update with an unfeature param set to 1 will set the ended_at date of the featured item (making it no longer current)" do
+    org = create(:organisation)
+    t = create(:topic)
+    p = create(:policy, :with_document)
+    featured_topics_and_policies_list = create(:featured_topics_and_policies_list, organisation: org)
+    item = build(:featured_topic_item, featured_topics_and_policies_list: featured_topics_and_policies_list)
+    featured_topics_and_policies_list.featured_items << item
+
+    put :update, organisation_id: org, featured_topics_and_policies_list: {
+      featured_items_attributes: {
+        :"0" => {
+          id: item.id,
+          unfeature: '1'
+        }
+      }
+    }
+
+    refute featured_topics_and_policies_list.featured_items.current.include?(item)
+    item.reload
+    assert_equal Time.current, item.ended_at
+  end
+
+  test "PUT update with an unfeature param set to 0 will ignore the param and not set the ended_at date of the featured item" do
+    org = create(:organisation)
+    t = create(:topic)
+    p = create(:policy, :with_document)
+    featured_topics_and_policies_list = create(:featured_topics_and_policies_list, organisation: org)
+    item = build(:featured_topic_item, featured_topics_and_policies_list: featured_topics_and_policies_list)
+    featured_topics_and_policies_list.featured_items << item
+
+    put :update, organisation_id: org, featured_topics_and_policies_list: {
+      featured_items_attributes: {
+        :"0" => {
+          id: item.id,
+          unfeature: '0'
+        }
+      }
+    }
+
+    assert featured_topics_and_policies_list.featured_items.current.include?(item)
+    item.reload
+    refute item.ended_at.present?
+  end
+
   test "PUT update will save featured items, using item_type to choose between topic_id and document_id params" do
     org = create(:organisation)
     t = create(:topic)
@@ -112,14 +156,16 @@ class Admin::FeaturedTopicsAndPoliciesListsControllerTest < ActionController::Te
     assert_template :show
   end
 
-  test 'PUT update that fails will fetch only the existing current featured items, or unpersisted ones, in order' do
+  test 'PUT update that fails will fetch only the existing current featured items (including those about to become un-current by user action), or unpersisted ones, in order' do
     org = create(:organisation)
     t = create(:topic)
     featured_topics_and_policies_list = create(:featured_topics_and_policies_list, organisation: org)
     current_item = build(:featured_topic_item, featured_topics_and_policies_list: featured_topics_and_policies_list)
     ended_item = build(:featured_topic_item, featured_topics_and_policies_list: featured_topics_and_policies_list, started_at: 2.days.ago, ended_at: 1.day.ago)
+    to_be_ended_item = build(:featured_topic_item, featured_topics_and_policies_list: featured_topics_and_policies_list, started_at: 2.days.ago)
     featured_topics_and_policies_list.featured_items << current_item
     featured_topics_and_policies_list.featured_items << ended_item
+    featured_topics_and_policies_list.featured_items << to_be_ended_item
     
     put :update, organisation_id: org, featured_topics_and_policies_list: {
       summary: '',
@@ -134,14 +180,22 @@ class Admin::FeaturedTopicsAndPoliciesListsControllerTest < ActionController::Te
           item_type: 'Topic',
           topic_id: t.id.to_s,
           ordering: '1'
+        },
+        :"2" => {
+          id: to_be_ended_item.id,
+          unfeature: '1',
+          ordering: '3'
         }
       }
     }
 
     items = assigns(:featured_items)
+
     refute items.include?(ended_item)
-    assert_equal 2, items.size
-    assert_equal current_item, items.last
-    refute items.first.persisted?
+    assert_equal 3, items.size
+    refute items[0].persisted?
+    assert_equal current_item, items[1]
+    assert_equal to_be_ended_item, items[2]
+    assert items[2].ended_at.present?
   end
 end

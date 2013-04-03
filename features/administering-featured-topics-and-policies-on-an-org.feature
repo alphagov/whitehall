@@ -26,3 +26,7 @@ Feature: Featured topics and policies for an org
     And the featured topics and policies are in my specified order
     And I am invited to click through to see all the policies the executive office is involved with
 
+  Scenario: I can remove things from the list of featured topics and policies for an org and it no longer displays them
+    Given there are some topics and policies featured for the executive office "Office of the Beard-Shaper General"
+    When I remove some items from the featured topics and policies list for the executive office
+    Then the removed items are no longer displayed on the executive office page
