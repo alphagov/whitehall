@@ -55,6 +55,28 @@ class Edition::GovUkDeliveryTest < ActiveSupport::TestCase
       publication.govuk_delivery_tags
   end
 
+  test '#notify_govuk_delivery sends a notification via the govuk delivery client when there are topics' do
+    policy = create(:policy, topics: [create(:topic)])
+    policy.stubs(:govuk_delivery_email_body).returns('email body')
+    Whitehall.govuk_delivery_client.expects(:notify).with(policy.govuk_delivery_tags, policy.title, 'email body')
+
+    policy.notify_govuk_delivery
+  end
+
+  test '#notify_govuk_delivery does nothing if the edition has no topics' do
+    policy = create(:policy, topics: [])
+    Whitehall.govuk_delivery_client.expects(:notify).never
+
+    policy.notify_govuk_delivery
+  end
+
+  test '#notify_govuk_delivery swallows errors from the API' do
+    policy = create(:policy, topics: [create(:topic)])
+    Whitehall.govuk_delivery_client.expects(:notify).raises(GdsApi::HTTPErrorResponse, 500)
+
+    policy.notify_govuk_delivery
+  end
+
   test "should notify govuk_delivery on publishing policies" do
     Edition::AuditTrail.whodunnit = create(:user)
     policy = create(:policy, topics: [create(:topic), create(:topic)])
