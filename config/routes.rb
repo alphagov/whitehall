@@ -33,6 +33,8 @@ Whitehall::Application.routes.draw do
     match "/how-government-works" => "home#how_government_works", as: 'how_government_works'
     match "/history" => "home#history", as: 'history'
     match "/get-involved" => "home#get_involved", as: 'get_involved'
+    match "/history/king-charles-street" => "home#history_king_charles_street", as: 'history_king_charles_street'
+    match "/history/lancaster-house" => "home#history_lancaster_house", as: 'history_lancaster_house'
     match '/feed' => 'home#feed', defaults: { format: :atom }, constraints: { format: :atom }, as: :atom_feed
     match '/tour' => redirect("/tour", prefix: "")
 

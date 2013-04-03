@@ -38,4 +38,11 @@ class HomeController < PublicFacingController
     @recently_opened_consultations = PublicationesquePresenter.decorate(Consultation.published.open.order("opening_on desc").limit(3))
     @recent_consultation_outcomes = PublicationesquePresenter.decorate(Consultation.published.responded.order("closing_on desc").limit(3))
   end
+
+  def history_king_charles_street
+  end
+
+  def history_lancaster_house
+  end
+
 end
