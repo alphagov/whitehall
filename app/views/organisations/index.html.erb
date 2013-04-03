@@ -13,6 +13,7 @@
 
   <div class="block-2">
     <div class="inner-block">
+      <% if @executive_offices.any? %>
       <div class="heading-block executive-offices js-filter-block">
         <h1 id="executive-offices">Executive offices</h1>
         <div class="content">
@@ -31,6 +32,7 @@
           </ol>
         </div>
       </div>
+      <% end %>
       <div class="heading-block ministerial-departments js-hide-department-children js-filter-block">
         <h1 id="departments">Ministerial departments</h1>
         <div class="content">
