@@ -38,6 +38,22 @@ class PolicyTest < ActiveSupport::TestCase
     assert draft_policy.related_editions.include?(publication)
   end
 
+  test "should build a draft copy with policy groups" do
+    published_policy = create(:published_policy)
+    policy_team = create(:policy_team, policies: [published_policy])
+    policy_advisory_group = create(:policy_advisory_group, policies: [published_policy])
+
+    assert published_policy.policy_teams.include?(policy_team)
+    assert published_policy.policy_advisory_groups.include?(policy_advisory_group)
+
+    draft_policy = published_policy.create_draft(create(:policy_writer))
+    draft_policy.change_note = 'change-note'
+    assert draft_policy.valid?
+
+    assert draft_policy.policy_teams.include?(policy_team)
+    assert draft_policy.policy_advisory_groups.include?(policy_advisory_group)
+  end
+
   test "can belong to multiple topics" do
     topic_1 = create(:topic)
     topic_2 = create(:topic)
