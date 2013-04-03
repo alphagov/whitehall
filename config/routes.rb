@@ -32,21 +32,14 @@ Whitehall::Application.routes.draw do
     root to: "home#home"
     match "/how-government-works" => "home#how_government_works", as: 'how_government_works'
     match "/get-involved" => "home#get_involved", as: 'get_involved'
+
     match "/history/king-charles-street" => "home#history_king_charles_street", as: 'history_king_charles_street'
     match "/history/lancaster-house" => "home#history_lancaster_house", as: 'history_lancaster_house'
 
-    match "/history" => "history#index"
-    match "/history/past-foreign-secretaries" => "history#past_foreign_secretaries", as: 'past_foreign_secretaries'
-    match "/history/past-foreign-secretaries/edward-wood" => "history#edward_wood", as: 'edward_wood'
-    match "/history/past-foreign-secretaries/austen-chamberlain" => "history#austen_chamberlain", as: 'austen_chamberlain'
-    match "/history/past-foreign-secretaries/george-curzon" => "history#george_curzon", as: 'george_curzon'
-    match "/history/past-foreign-secretaries/edward-grey" => "history#edward_grey", as: 'edward_grey'
-    match "/history/past-foreign-secretaries/henry-petty-fitzmaurice" => "history#henry_petty_fitzmaurice", as: 'henry_petty_fitzmaurice'
-    match "/history/past-foreign-secretaries/robert-cecil" => "history#robert_cecil", as: 'robert_cecil'
-    match "/history/past-foreign-secretaries/george-gower" => "history#george_gower", as: 'george_gower'
-    match "/history/past-foreign-secretaries/george-gordon" => "history#george_gordon", as: 'george_gordon'
-    match "/history/past-foreign-secretaries/charles-fox" => "history#charles_fox", as: 'charles_fox'
-    match "/history/past-foreign-secretaries/william-grenville" => "history#william_grenville", as: 'william_grenville'
+    resource :history, only: [:show] do
+      resources :past_foreign_secretaries, path: "past-foreign-secretaries", only: [:index, :show]
+    end
+
     match '/feed' => 'home#feed', defaults: { format: :atom }, constraints: { format: :atom }, as: :atom_feed
     match '/tour' => redirect("/tour", prefix: "")
 
