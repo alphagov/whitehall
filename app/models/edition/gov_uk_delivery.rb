@@ -74,5 +74,4 @@ module Edition::GovUkDelivery
 eos
     template.result(binding)
   end
-
 end
