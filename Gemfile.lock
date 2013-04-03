@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/alphagov/gds-api-adapters.git
-  revision: ee4fb9f1ca40de2aa2905b5eca8f7ac36246fa28
+  revision: 2fd374a63cd3afe124d04d3237ddb6cd96170d99
   branch: govuk-delivery
   specs:
     gds-api-adapters (5.3.0)

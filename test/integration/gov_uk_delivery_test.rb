@@ -15,11 +15,13 @@ class GovUkDeliveryTest < ActiveSupport::TestCase
     policy.first_published_at = Time.zone.now
     policy.major_change_published_at = Time.zone.now
     policy.stubs(:govuk_delivery_tags).returns(['http://example.com/feed'])
-    policy.stubs(:govuk_delivery_email_body).returns('')
-    request = govuk_delivery_create_notification_success(['http://example.com/feed'], policy.title, '')
+    policy.stubs(:govuk_delivery_email_body).returns('body')
+
+    expected_payload = { feed_urls: ['http://example.com/feed'], subject: policy.title, body: 'body' }
+    stub = stub_gov_uk_delivery_post_request('notifications', expected_payload).to_return(created_response_hash)
 
     assert policy.publish!
-    assert_requested request
+    assert_requested stub
   end
 
   test "Failing API calls don't block publishing" do
@@ -28,10 +30,22 @@ class GovUkDeliveryTest < ActiveSupport::TestCase
     policy.first_published_at = Time.zone.now
     policy.major_change_published_at = Time.zone.now
     policy.stubs(:govuk_delivery_tags).returns(['http://example.com/feed'])
-    policy.stubs(:govuk_delivery_email_body).returns('')
-    request = govuk_delivery_create_notification_error(['http://example.com/feed'], policy.title, '')
+    policy.stubs(:govuk_delivery_email_body).returns('body')
+
+    expected_payload = { feed_urls: ['http://example.com/feed'], subject: policy.title, body: 'body' }
+    stub = stub_gov_uk_delivery_post_request('notifications', expected_payload).to_return(error_response_hash)
 
     assert policy.publish!
-    assert_requested request
+    assert_requested stub
+  end
+
+  private
+
+  def created_response_hash
+    { body: '', status: 201 }
+  end
+
+  def error_response_hash
+    { body: '', status: 500 }
   end
 end
