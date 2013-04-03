@@ -191,7 +191,7 @@
             @include ie(7) {
               width: 49.99%;
             }
-          }       
+          }
         }
         .document-row {
           border: 0;
@@ -267,6 +267,12 @@
       padding-top: $gutter;
     }
 
+  }
+
+  .featured-news {
+    h3 a {
+      @include external-link-19-bold-no-hover;
+    }
   }
 
 }
