@@ -81,7 +81,7 @@ class Edition::GovUkDeliveryTest < ActiveSupport::TestCase
     policy = create(:policy, topics: [create(:topic)])
     Whitehall.govuk_delivery_client.expects(:notify).raises(GdsApi::HTTPErrorResponse, 500)
 
-    policy.notify_govuk_delivery
+    assert_nothing_raised { policy.notify_govuk_delivery }
   end
 
   test "should notify govuk_delivery on publishing policies" do
