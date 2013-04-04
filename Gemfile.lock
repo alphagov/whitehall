@@ -1,4 +1,16 @@
 GIT
+  remote: https://github.com/alphagov/gds-api-adapters.git
+  revision: 2fd374a63cd3afe124d04d3237ddb6cd96170d99
+  branch: govuk-delivery
+  specs:
+    gds-api-adapters (5.3.0)
+      link_header
+      lrucache (~> 0.1.1)
+      null_logger
+      plek
+      rest-client (~> 1.6.3)
+
+GIT
   remote: https://github.com/alphagov/rack-test.git
   revision: c98433f5f6a45842520913c31968cde5cd782d55
   specs:
@@ -109,7 +121,7 @@ GEM
     eventmachine (1.0.0)
     exception_notification (3.0.1)
       actionmailer (>= 3.0.4)
-    excon (0.7.6)
+    excon (0.20.1)
     execjs (1.2.13)
       multi_json (~> 1.0)
     factory_girl (4.1.0)
@@ -120,24 +132,18 @@ GEM
       multipart-post (~> 1.1)
     fastercsv (1.5.5)
     ffi (1.2.0)
-    fog (1.1.1)
+    fog (1.10.0)
       builder
-      excon (~> 0.7.4)
+      excon (~> 0.14)
       formatador (~> 0.2.0)
       mime-types
-      multi_json (~> 1.0.3)
-      net-scp (~> 1.0.4)
+      multi_json (~> 1.0)
+      net-scp (~> 1.1)
       net-ssh (>= 2.1.3)
       nokogiri (~> 1.5.0)
       ruby-hmac
-    formatador (0.2.1)
+    formatador (0.2.4)
     friendly_id (4.0.9)
-    gds-api-adapters (4.8.0)
-      link_header
-      lrucache (~> 0.1.1)
-      null_logger
-      plek
-      rest-client (~> 1.6.3)
     gds-sso (3.0.0)
       omniauth-gds (= 0.0.3)
       rack-accept (~> 0.4.4)
@@ -186,18 +192,18 @@ GEM
     libwebsocket (0.1.7.1)
       addressable
       websocket
-    link_header (0.0.5)
+    link_header (0.0.6)
     lograge (0.0.6)
       actionpack
       activesupport
-    lrucache (0.1.3)
+    lrucache (0.1.4)
       PriorityQueue (~> 0.1.2)
     mail (2.4.4)
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     metaclass (0.0.1)
-    mime-types (1.21)
+    mime-types (1.22)
     mini_magick (3.4)
       subexec (~> 0.2.1)
     minitest (2.5.1)
@@ -207,11 +213,11 @@ GEM
     multipart-post (1.1.5)
     mustache (0.99.4)
     mysql2 (0.3.11)
-    net-scp (1.0.4)
-      net-ssh (>= 1.99.1)
-    net-ssh (2.2.1)
+    net-scp (1.1.0)
+      net-ssh (>= 2.6.5)
+    net-ssh (2.6.6)
     newrelic_rpm (3.5.3.25)
-    nokogiri (1.5.5)
+    nokogiri (1.5.9)
     null_logger (0.0.1)
     oauth2 (0.8.0)
       faraday (~> 0.8)
@@ -363,9 +369,9 @@ GEM
     validates_email_format_of (1.5.3)
     warden (1.2.1)
       rack (>= 1.0)
-    webmock (1.7.8)
-      addressable (~> 2.2, > 2.2.5)
-      crack (>= 0.1.7)
+    webmock (1.11.0)
+      addressable (>= 2.2.7)
+      crack (>= 0.3.2)
     websocket (1.0.4)
     whenever (0.7.3)
       activesupport (>= 2.3.4)
@@ -398,7 +404,7 @@ DEPENDENCIES
   faker
   fog
   friendly_id (= 4.0.9)
-  gds-api-adapters (~> 4.8.0)
+  gds-api-adapters!
   gds-sso (= 3.0.0)
   globalize3
   govspeak (~> 1.2.3)

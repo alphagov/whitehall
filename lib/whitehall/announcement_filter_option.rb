@@ -13,7 +13,13 @@ module Whitehall
     end
 
     def self.find_by_slug(slug)
-      all.find { |pt| pt.slug == slug }
+      all.find { |at| at.slug == slug }
+    end
+
+    def self.find_by_search_format_types(format_types)
+      all.find do |at|
+        format_types.any? {|t| at.search_format_types.include?(t)}
+      end
     end
 
     PressRelease = create(id: 1, label: "Press releases", search_format_types: [NewsArticleType::PressRelease.search_format_types, NewsArticleType::Unknown.search_format_types].flatten, edition_types: ["NewsArticle"], news_article_types: [NewsArticleType::PressRelease, NewsArticleType::Unknown])
