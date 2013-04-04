@@ -17,6 +17,6 @@ end
 
 ## 14:45 is during our regular release slot, this may have to change
 ## post-April. 2am is our regular time for this.
-every :day, at: ['2am', '2:45pm'], roles: [:admin] do
+every :day, at: ['2am', '11:45am'], roles: [:admin] do
   runner 'script/dump_all_admin_to_public_documents_and_non_documents.rb'
 end
