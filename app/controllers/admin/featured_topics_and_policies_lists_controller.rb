@@ -27,7 +27,7 @@ class Admin::FeaturedTopicsAndPoliciesListsController < Admin::BaseController
   private
   def fetch_topics_and_policies
     @topics = Topic.all
-    @policies = Policy.latest_edition.with_translations.includes(:document)
+    @policies = Policy.published.with_translations.includes(:document)
   end
 
   def load_organisation
