@@ -220,6 +220,8 @@ module ApplicationHelper
       else
         how_government_works_path
       end
+    when "histories", "past_foreign_secretaries"
+      how_government_works_path
     when "site"
       root_path
     when "announcements", "news_articles", "speeches", "fatality_notices", "operational_fields"
