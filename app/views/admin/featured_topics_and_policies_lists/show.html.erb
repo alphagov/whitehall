@@ -13,6 +13,11 @@
       <%= form_for @featured_topics_and_policies_list, url: admin_organisation_featured_topics_and_policies_list_path(@organisation), method: 'put' do |form| %>
         <%= form.errors %>
         <%= form.text_area :summary, rows: 4 %>
+        <p class="control-group">
+          <span class="radio-label control-label">"See all our policies" link shows:</span>
+          <%= label_tag(nil, class: 'radio inline') do %><%= form.radio_button :link_to_filtered_policies, '0', checked: !form.object.link_to_filtered_policies? %> all policies<% end %>
+          <%= label_tag(nil, class: 'radio inline') do %><%= form.radio_button :link_to_filtered_policies, '1', checked: form.object.link_to_filtered_policies? %> only policies associated with <%= @organisation.name %><% end %>
+        </p>
 
         <div class="featured-topics-and-policies-items">
           <div class="sortable" data-ordering-label-selector="label[for$=ordering]">

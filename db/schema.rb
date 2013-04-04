@@ -525,8 +525,9 @@ ActiveRecord::Schema.define(:version => 20130405110012) do
   add_index "featured_items", ["item_id", "item_type"], :name => "index_featured_items_on_item_id_and_item_type"
 
   create_table "featured_topics_and_policies_lists", :force => true do |t|
-    t.integer  "organisation_id", :null => false
+    t.integer  "organisation_id",                             :null => false
     t.text     "summary"
+    t.boolean  "link_to_filtered_policies", :default => true, :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
