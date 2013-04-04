@@ -26,7 +26,7 @@ class ScheduledEditionsPublisherTest < ActiveSupport::TestCase
   test '#publish_edition! publishes the edition using the publishing robot and logs the result' do
     EditionPublishingWorker.any_instance.expects(:perform).with(stubbed_edition.id, publishing_robot.id)
     publisher = ScheduledEditionsPublisher.new(stubbed_scope)
-    publisher.expects(:log).with("Edition (#{stubbed_edition.id}) successfully published")
+    publisher.expects(:log).with("Edition (#{stubbed_edition.id}) successfully published at #{Time.zone.now}")
     stats_collector = stub_everything("stats_collector")
     stats_collector.expects(:increment).with('scheduled_publishing.published').once
 
@@ -38,7 +38,7 @@ class ScheduledEditionsPublisherTest < ActiveSupport::TestCase
   test '#publish_edition! recovers from exceptions and logs the failure' do
     publisher = ScheduledEditionsPublisher.new(stubbed_scope)
     EditionPublishingWorker.any_instance.expects(:perform).raises(EditionPublishingWorker::ScheduledPublishingFailure, 'Some failure message')
-    publisher.expects(:log).with("Unable to publish edition (#{stubbed_edition.id}): Some failure message")
+    publisher.expects(:log).with("WARNING: Edition (#{stubbed_edition.id}) failed to publish: Some failure message")
     publisher.publish_edition!(stubbed_edition)
   end
 

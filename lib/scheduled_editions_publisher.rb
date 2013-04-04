@@ -53,7 +53,7 @@ class ScheduledEditionsPublisher
   end
 
   def log(message)
-    Rails.logger.info(message)
+    Rails.logger.info("Scheduled Publisher > #{message}")
     @log_cache << message << "\n"
   end
 
@@ -80,23 +80,23 @@ class ScheduledEditionsPublisher
 
   def log_publish_run(&block)
     Whitehall.stats_collector.increment("scheduled_publishing.call_rate")
-    log "STARTED SCHEDULED PUBLISHING ATTEMPT NO #{@attempts}"
+    log "Starting attempt No. #{@attempts}"
     log "Time now: #{Time.zone.now}"
-    log "Detected #{unpublished_editions_count} editions to publish:"
-    editions.each {|e| log "#{e.id} - #{e.title} - due at #{e.scheduled_publication}" }
+    log "Detected #{unpublished_editions_count} editions due to be published:"
+    editions.each {|e| log "\t#{e.id} - #{e.title} - due at #{e.scheduled_publication}" }
 
     yield
 
-    log "FINISHED SCHEDULED PUBLISHING"
-    log "WARNING: #{unpublished_editions_count} unpublished editions remaining" if unpublished_editions_remaining?
+    log "Finishing attempt No. #{@attempts}"
+    log "WARNING: #{unpublished_editions_count} unpublished editions still remain" if unpublished_editions_remaining?
   end
 
   def log_successful_publication(edition)
-    log "Edition (#{edition.id}) successfully published"
+    log "Edition (#{edition.id}) successfully published at #{Time.zone.now}"
     Whitehall.stats_collector.increment('scheduled_publishing.published')
   end
 
   def log_unsuccessful_publication(edition, reason)
-    log "Unable to publish edition (#{edition.id}): #{reason}"
+    log "WARNING: Edition (#{edition.id}) failed to publish: #{reason}"
   end
 end
