@@ -114,8 +114,8 @@ module OrganisationHelper
       items = featured_topics_and_policies_list.featured_items.current
       links = items.map { |featured_item| link_to_featured_item featured_item }.compact
       if links.any?
-        content_tag(:ul) do
-          links.map { |featured_item_link| content_tag(:li, featured_item_link.html_safe, class: "featured-item") }.join.html_safe
+        content_tag(:ul, class: 'featured-items') do
+          links.map { |featured_item_link| content_tag(:li, featured_item_link.html_safe) }.join.html_safe
         end
       end
     end
