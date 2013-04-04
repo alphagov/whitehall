@@ -1,0 +1,254 @@
+.historic-people-index {
+
+  .page-header {
+    padding : $gutter*2 0 $gutter;
+    @include media(tablet) {
+      padding : $gutter*2 0;
+    }
+
+    h1 {
+      @include heading-36;
+      color: $grey-1;
+    }
+    h2 {
+      @include heading-48;
+      font-weight: bold;
+      @include media(tablet) {
+        padding: 0;
+      }
+    }
+  }
+
+  .profiles {
+    @include heading-36;
+    border-bottom: 5px solid $black;
+    margin: 0 $gutter-half $gutter-half;
+  }
+
+  .name {
+    @include core-19;
+    font-weight: bold;
+  }
+  .term {
+    @include core-14;
+    color: $grey-1;
+  }
+
+  .person-excerpt {
+    .inner {
+      .image-holder {
+        img {
+          max-width: 100%;
+        }
+      }
+    }
+  }
+
+  .clear-person {
+    clear: both;
+  }
+
+  .foreign-secretaries {
+    .heading, ol {
+      @include media(tablet) {
+        float: left;
+        width: 25%;
+      }
+    }
+    ol {
+      li {
+        list-style: none;
+        @include media(tablet) {
+          float: left;
+          width: 33.33%;
+        }
+        .inner {
+          padding: $gutter-half;
+        }
+      }
+      @include media(tablet) {
+        width: 75%;
+      }
+    }
+    .heading {
+      h3 {
+        @include heading-36;
+        font-weight: bold;
+        padding: 0 $gutter-half;
+        span {
+          @include core-19;
+          display: block;
+        }
+      }
+    }
+  }
+
+}
+
+
+
+.historic-people-show {
+
+  .page-header {
+    padding : $gutter*2 0 $gutter;
+    @include media(tablet) {
+      padding : $gutter*2 0;
+    }
+
+    h1 {
+      @include heading-36;
+      color: $grey-1;
+    }
+    h2 {
+      @include heading-48;
+      font-weight: bold;
+      @include media(tablet) {
+        padding: 0;
+      }
+    }
+  }
+
+  .people-list, .person-info {
+    @include media(tablet) {
+      float: left;
+      width: 25%;
+    }
+  }
+
+  .person-info {
+
+    .name-title, .person-detail, .person-profile {
+      .inner {
+        padding: 0 $gutter-half;
+      }
+    }
+
+    .person-profile {
+      @include core-14;
+      width: 218px;
+
+      img {
+        max-width: 100%;
+      }
+      .info {
+        background-color: $grey-3;
+        padding-bottom: $gutter-half;
+        margin-bottom: $gutter;
+        h3, p {
+          padding: 0 $gutter-half;
+        }
+        h3 {
+          font-weight: bold;
+          margin-top: $gutter-half;
+        }
+      }
+    }
+
+    .name-title {
+      h2 {
+        @include heading-27;
+        font-weight: bold;
+        margin-bottom: $gutter;
+        span {
+          @include core-19;
+          display: block;
+          color: $grey-1;
+          margin-top: $gutter-one-sixth;
+        }
+      }
+    }
+
+    .person-detail {
+      @include core-19;
+      h3 {
+        font-weight: bold;
+      }
+      p {
+        margin-bottom: $gutter;
+        &.intro {
+          font-weight: bold;
+        }
+      }
+    }
+
+    @include media(tablet) {
+      position: relative;
+      width: 75%;
+      .person-profile {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 33.33%;
+        img {
+          width: 100%;
+        }
+        .inner {
+          padding: 0 $gutter-half;
+        }
+      }
+      .name-title, .person-detail {
+        float: right;
+        width: 66.66%;
+        .inner {
+          padding: 0 $gutter 0 $gutter-half;
+        }
+      }
+    }
+
+  }
+
+  .people-list {
+    margin-bottom: $gutter;
+    .inner-block {
+      p {
+        margin: $gutter 0;
+      }
+      ol {
+        li {
+          @include core-16;
+          border-bottom: 1px solid $grey-2;
+          list-style: none;
+          padding: $gutter-one-third 0;
+        }
+      }
+      @include media(tablet) {
+        padding: 0 $gutter-half 0 $gutter;
+      }
+    }
+
+    .contents-toggle {
+      display: block;
+      text-decoration: none;
+      zoom: 1;
+
+      background: transparent image-url("accordian-arrow.png") 100% -40px no-repeat;
+      background-position: 100% -4rem;
+
+      margin-left: 0;
+      padding: 0.5em 2em 0.5em 0;
+
+      float: none;
+      clear: both;
+
+      border: solid 1px $border-colour;
+      border-width: 1px 0;
+
+      line-height: (45/16);
+
+      @include media(tablet) {
+        line-height: (45/19);
+      }
+
+      @include media(tablet) {
+        display: none;
+      }
+
+      &.closed {
+        background-position: 100% 6px;
+        background-position: 100% 0.6rem;
+      }
+    }
+
+  }
+
+}
