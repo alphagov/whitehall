@@ -17,6 +17,12 @@ module Whitehall
       all.find { |pt| pt.slug == slug }
     end
 
+    def self.find_by_search_format_types(format_types)
+      all.find do |at|
+        format_types.any? {|t| at.search_format_types.include?(t)}
+      end
+    end
+
     PolicyPaper = create(id: 1, label: "Policy papers", search_format_types: PublicationType::PolicyPaper.search_format_types, publication_types: [PublicationType::PolicyPaper])
     Consultation = create(id: 2, label: "Consultations", search_format_types: ['publicationesque-consultation'], publication_types: [PublicationType::Consultation])
     ImpactAssessment = create(id: 3, label: "Impact assessments", search_format_types: PublicationType::ImpactAssessment.search_format_types, publication_types: [PublicationType::ImpactAssessment])

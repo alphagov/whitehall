@@ -2,6 +2,7 @@ class Publicationesque < Edition
   include Edition::RelatedPolicies
   include Edition::DocumentSeries
   include Edition::WorldwidePriorities
+  include Edition::GovUkDelivery
   include ::Attachable
 
   attachable :edition
@@ -14,6 +15,10 @@ class Publicationesque < Edition
   end
 
   protected
+
+  def search_format_types
+    super + [Publicationesque.search_format_type]
+  end
 
   def hash_with_blank_values?(hash)
     hash.values.inject(true) do |result, value|
