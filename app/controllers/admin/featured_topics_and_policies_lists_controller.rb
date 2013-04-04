@@ -42,6 +42,8 @@ class Admin::FeaturedTopicsAndPoliciesListsController < Admin::BaseController
     (feature_list_params['featured_items_attributes'] || {}).each do |k, v|
       prepare_item_id_param(v)
       prepare_ended_at_param(v)
+      # this helps when new lists are created at the same time as new items
+      v['featured_topics_and_policies_list'] = @featured_topics_and_policies_list
     end
     feature_list_params
   end
