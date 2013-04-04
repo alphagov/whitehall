@@ -36,12 +36,14 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
         $container.append($results.filter('nav'));
         $('.previous-next-navigation').addClass('infinite');
 
+        documentFilter.updateAtomFeed(data);
+
         window._gaq && _gaq.push(['_trackEvent', 'edd_inside_gov', 'page-'+data.current_page, documentFilter.formType]);
       }
     },
     updateAtomFeed: function(data) {
       if (data.atom_feed_url) {
-        $(".subscribe a.feed").attr("href", data.atom_feed_url);
+        $(".filter-feed .feed").attr("href", data.atom_feed_url);
       }
     },
     submitFilters: function(e){

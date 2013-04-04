@@ -22,7 +22,7 @@ module("Document filter", {
     this.filterResults = $('<div class="js-filter-results" />');
     $('#qunit-fixture').append(this.filterResults);
 
-    this.atomLink = $('<div class="subscribe"><a class="feed">feed</a></div>');
+    this.atomLink = $('<div class="filter-feed"><a class="feed">feed</a></div>');
     $('#qunit-fixture').append(this.atomLink);
 
     this.resultsCount = $('<div class="filter-results-summary"><h3 class="selections"></h3></div>');
