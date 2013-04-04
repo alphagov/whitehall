@@ -267,17 +267,22 @@ test("onPopState should restore the state as specified in the event", function()
 });
 
 test("should record initial page state in browser history", function() {
+  var oldPageState = window.GOVUK.documentFilter.currentPageState;
   window.GOVUK.documentFilter.currentPageState = function() { return "INITIALSTATE"; }
+
   var historyReplaceState = this.spy(history, "replaceState");
   this.filterForm.enableDocumentFilter();
 
   var data = historyReplaceState.getCall(0).args[0];
   equals(data, "INITIALSTATE", "Initial state is stored in history data");
+
+  window.GOVUK.documentFilter.currentPageState = oldPageState;
 });
 
 test("should update browser location on successful ajax response", function() {
   this.filterForm.enableDocumentFilter();
 
+  var oldPageState = window.GOVUK.documentFilter.currentPageState;
   window.GOVUK.documentFilter.currentPageState = function() { return "CURRENTSTATE"; }
 
   var historyPushState = this.spy(history, "pushState");
@@ -298,6 +303,22 @@ test("should update browser location on successful ajax response", function() {
 
   var path = historyPushState.getCall(0).args[2];
   equals(path, "/specialist?foo=bar", "Bookmarkable URL path");
+
+  window.GOVUK.documentFilter.currentPageState = oldPageState;
+});
+
+test("should store new table html on successful ajax response", function() {
+  this.filterForm.enableDocumentFilter();
+
+  var historyPushState = this.spy(history, "pushState");
+  var server = this.sandbox.useFakeServer();
+  server.respondWith(JSON.stringify(this.ajaxData));
+
+  this.filterForm.submit();
+  server.respond();
+
+  var data = historyPushState.getCall(0).args[0];
+  ok(!!data.html.match('document-title'), "Current state is stored in history data");
 });
 
 test("should not enable ajax filtering if browser does not support HTML5 History API", function() {

@@ -36,8 +36,6 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
         $container.append($results.filter('nav'));
         $('.previous-next-navigation').addClass('infinite');
 
-        documentFilter.updateAtomFeed(data);
-
         window._gaq && _gaq.push(['_trackEvent', 'edd_inside_gov', 'page-'+data.current_page, documentFilter.formType]);
       }
     },
@@ -67,16 +65,14 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
         },
         success: function(data) {
           documentFilter.updateAtomFeed(data);
-          var newUrl = url + "?" + $form.serialize();
-          history.pushState(documentFilter.currentPageState(), null, newUrl);
-          window._gaq && _gaq.push(['_trackPageview', newUrl]);
-          // undo double-click protection
-          //$submitButton.removeAttr('disabled').removeClass('disabled');
-
           if (data.results) {
             documentFilter.renderTable(data);
             documentFilter.liveResultSummary(data);
           }
+
+          var newUrl = url + "?" + $form.serialize();
+          history.pushState(documentFilter.currentPageState(), null, newUrl);
+          window._gaq && _gaq.push(['_trackPageview', newUrl]);
         },
         error: function() {
           $submitButton.removeAttr('disabled');
