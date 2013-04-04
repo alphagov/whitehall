@@ -4,7 +4,7 @@
     <% unless followus %>
       <h2 class="label">Follow us</h2>
     <% end %>
-    <ul class="social-media-accounts">
+    <ul class="social-media-accounts js-hide-extra-social-media">
       <% socialable.social_media_accounts.each do |account| %>
         <%= content_tag_for(:li, account) do %>
           <%= link_to account.url,
