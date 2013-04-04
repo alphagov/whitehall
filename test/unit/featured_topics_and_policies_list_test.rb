@@ -2,11 +2,6 @@ require 'test_helper'
 
 class FeaturedTopicsAndPoliciesListTest < ActiveSupport::TestCase
 
-  test 'is invalid without a summary' do
-    list = build(:featured_topics_and_policies_list, summary: nil)
-    refute list.valid?
-  end
-
   test "is invalid without an organisation" do
     list = build(:featured_topics_and_policies_list, organisation: nil)
     refute list.valid?

@@ -151,7 +151,7 @@ class Admin::FeaturedTopicsAndPoliciesListsControllerTest < ActionController::Te
     org = create(:organisation)
     featured_topics_and_policies_list = create(:featured_topics_and_policies_list, organisation: org)
 
-    put :update, organisation_id: org, featured_topics_and_policies_list: { summary: '' }
+    put :update, organisation_id: org, featured_topics_and_policies_list: { summary: ('a' * 65_536) }
 
     assert_template :show
   end
@@ -168,7 +168,7 @@ class Admin::FeaturedTopicsAndPoliciesListsControllerTest < ActionController::Te
     featured_topics_and_policies_list.featured_items << to_be_ended_item
     
     put :update, organisation_id: org, featured_topics_and_policies_list: {
-      summary: '',
+      summary: ('a' * 65_536),
       featured_items_attributes: {
         :"0" => {
           id: current_item.id,

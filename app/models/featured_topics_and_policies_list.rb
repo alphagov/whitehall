@@ -1,7 +1,7 @@
 class FeaturedTopicsAndPoliciesList < ActiveRecord::Base
   belongs_to :organisation
 
-  validates :summary, presence: true, length: { maximum: 65_535 }
+  validates :summary, length: { maximum: 65_535 }
   validates :organisation, presence: true
 
   has_many :featured_items, dependent: :destroy,
