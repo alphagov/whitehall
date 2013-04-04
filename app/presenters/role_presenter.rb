@@ -9,6 +9,10 @@ class RolePresenter < Draper::Base
     end
   end
 
+  def has_appointment?
+    current_person.present?
+  end
+
   def announcements
     return [] unless ministerial?
     announcements =
