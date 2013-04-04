@@ -11,7 +11,7 @@ class Edition::GovUkDeliveryTest < ActiveSupport::TestCase
     organisation = create(:ministerial_department)
     edition = create(:policy, topics: [topic], organisations: [organisation])
 
-    assert_equal ["https://www.preview.alphagov.co.uk/government/policies.atom?departments%5B%5D=#{organisation.slug}&topics%5B%5D=#{topic.slug}"],
+    assert_equal ["https://#{Whitehall.public_host}/government/policies.atom?departments%5B%5D=#{organisation.slug}&topics%5B%5D=#{topic.slug}"],
       edition.govuk_delivery_tags
   end
 
@@ -21,8 +21,8 @@ class Edition::GovUkDeliveryTest < ActiveSupport::TestCase
     organisation = create(:ministerial_department)
     edition = create(:policy, topics: [topic1, topic2], organisations: [organisation])
 
-    assert_equal ["https://www.preview.alphagov.co.uk/government/policies.atom?departments%5B%5D=#{organisation.slug}&topics%5B%5D=#{topic1.slug}",
-                  "https://www.preview.alphagov.co.uk/government/policies.atom?departments%5B%5D=#{organisation.slug}&topics%5B%5D=#{topic2.slug}"],
+    assert_equal ["https://#{Whitehall.public_host}/government/policies.atom?departments%5B%5D=#{organisation.slug}&topics%5B%5D=#{topic1.slug}",
+                  "https://#{Whitehall.public_host}/government/policies.atom?departments%5B%5D=#{organisation.slug}&topics%5B%5D=#{topic2.slug}"],
       edition.govuk_delivery_tags
   end
 
@@ -31,7 +31,7 @@ class Edition::GovUkDeliveryTest < ActiveSupport::TestCase
     organisation = create(:ministerial_department)
     edition = create(:policy, topics: [topic], organisations: [organisation], relevant_to_local_government: true)
 
-    assert_equal ["https://www.preview.alphagov.co.uk/government/policies.atom?departments%5B%5D=#{organisation.slug}&relevant_to_local_government=true&topics%5B%5D=#{topic.slug}"],
+    assert_equal ["https://#{Whitehall.public_host}/government/policies.atom?departments%5B%5D=#{organisation.slug}&relevant_to_local_government=true&topics%5B%5D=#{topic.slug}"],
       edition.govuk_delivery_tags
   end
 
@@ -41,7 +41,7 @@ class Edition::GovUkDeliveryTest < ActiveSupport::TestCase
     organisation = create(:ministerial_department)
     publication = create(:publication, organisations: [organisation], related_documents: [policy.document])
 
-    assert_equal ["https://www.preview.alphagov.co.uk/government/publications.atom?departments%5B%5D=#{organisation.slug}&publication_filter_option=policy-papers&topics%5B%5D=#{topic.slug}"],
+    assert_equal ["https://#{Whitehall.public_host}/government/publications.atom?departments%5B%5D=#{organisation.slug}&publication_filter_option=policy-papers&topics%5B%5D=#{topic.slug}"],
       publication.govuk_delivery_tags
   end
 
@@ -51,7 +51,7 @@ class Edition::GovUkDeliveryTest < ActiveSupport::TestCase
     organisation = create(:ministerial_department)
     publication = create(:news_article, organisations: [organisation], related_documents: [policy.document])
 
-    assert_equal ["https://www.preview.alphagov.co.uk/government/announcements.atom?announcement_type_option=press-releases&departments%5B%5D=#{organisation.slug}&topics%5B%5D=#{topic.slug}"],
+    assert_equal ["https://#{Whitehall.public_host}/government/announcements.atom?announcement_type_option=press-releases&departments%5B%5D=#{organisation.slug}&topics%5B%5D=#{topic.slug}"],
       publication.govuk_delivery_tags
   end
 
