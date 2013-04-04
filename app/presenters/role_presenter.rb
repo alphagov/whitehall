@@ -9,6 +9,10 @@ class RolePresenter < Draper::Base
     end
   end
 
+  def has_appointment?
+    current_person.present?
+  end
+
   def announcements
     return [] unless ministerial?
     announcements =
@@ -58,6 +62,10 @@ class RolePresenter < Draper::Base
 
     def image_url(size)
       "blank-person.png"
+    end
+
+    def present?
+      false
     end
 
     def privy_counsellor?
