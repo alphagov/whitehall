@@ -51,7 +51,7 @@ module Edition::GovUkDelivery
   end
 
   def notify_govuk_delivery
-    if (tags = govuk_delivery_tags).any?
+    if (tags = govuk_delivery_tags).any? && !minor_change?
       # Swallow all errors for the time being
       begin
         response = Whitehall.govuk_delivery_client.notify(tags, title, govuk_delivery_email_body(public_document_path(self), title, summary, public_timestamp))

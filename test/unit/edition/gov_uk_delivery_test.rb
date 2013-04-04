@@ -70,6 +70,13 @@ class Edition::GovUkDeliveryTest < ActiveSupport::TestCase
     policy.notify_govuk_delivery
   end
 
+  test '#notify_govuk_delivery does nothing if the change is minor' do
+    policy = create(:policy, topics: [create(:topic)], minor_change: true)
+    Whitehall.govuk_delivery_client.expects(:notify).never
+
+    policy.notify_govuk_delivery
+  end
+
   test '#notify_govuk_delivery swallows errors from the API' do
     policy = create(:policy, topics: [create(:topic)])
     Whitehall.govuk_delivery_client.expects(:notify).raises(GdsApi::HTTPErrorResponse, 500)
