@@ -121,6 +121,17 @@ module OrganisationHelper
     end
   end
 
+  def link_to_all_featured_policies(organisation)
+    list = organisation.featured_topics_and_policies_list
+    url =
+      if list.nil? || list.link_to_filtered_policies?
+        policies_path(departments: [organisation])
+      else
+        policies_path
+      end
+    link_to 'See all our policies', url
+  end
+
   def link_to_featured_item(featured_item)
     case featured_item.item
     when Topic

@@ -42,7 +42,7 @@
             <p class="description"><%= format_with_html_line_breaks(@organisation.featured_topics_and_policies_list_summary) %></p>
           <% end %>
           <%= render_featured_topics_and_policies_list(@organisation.featured_topics_and_policies_list) %>
-          <p><%= link_to 'See all our policies', policies_path(departments: [@organisation]) %></p>
+          <p><%= link_to_all_featured_policies @organisation %></p>
         </div>
       </section>
       <% else %>
