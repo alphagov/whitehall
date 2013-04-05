@@ -1,3 +1,4 @@
+# encoding: utf-8
 require 'uri'
 require 'erb'
 
@@ -62,7 +63,7 @@ module Edition::GovUkDelivery
   end
 
   def govuk_delivery_email_body(url, title, summary, published_on)
-    template = ERB.new <<-eos
+    ERB.new(%q{
 <div class="rss_item" style="margin-bottom: 2em;">
   <div class="rss_title" style="font-weight: bold; font-size: 120%; margin: 0 0 0.3em; padding: 0;">
     <a href="<%= url %>"><%= title %></a>
@@ -71,7 +72,6 @@ module Edition::GovUkDelivery
   <br />
   <div class="rss_description" style="margin: 0 0 0.3em; padding: 0;"><%= summary %></div>
 </div>
-eos
-    template.result(binding)
+}.encode("UTF-8")).result(binding)
   end
 end

@@ -1,5 +1,6 @@
-require "test_helper"
+# encoding: utf-8
 
+require "test_helper"
 
 class Edition::GovUkDeliveryTest < ActiveSupport::TestCase
   test '#govuk_delivery_tags returns an empty array if the edition has no topics' do
@@ -53,6 +54,15 @@ class Edition::GovUkDeliveryTest < ActiveSupport::TestCase
 
     assert_equal ["https://#{Whitehall.public_host}/government/announcements.atom?announcement_type_option=press-releases&departments%5B%5D=#{organisation.slug}&topics%5B%5D=#{topic.slug}"],
       publication.govuk_delivery_tags
+  end
+
+  test '#govuk_delivery_email_body generates a utf-8 encoded body' do
+    publication = create(:news_article)
+
+    title = "Café".encode("UTF-8")
+    body = publication.govuk_delivery_email_body("http://example.com", title, "My Summary", Time.zone.now)
+    assert_includes body, title
+    assert_equal 'UTF-8', body.encoding.name
   end
 
   test '#notify_govuk_delivery sends a notification via the govuk delivery client when there are topics' do
