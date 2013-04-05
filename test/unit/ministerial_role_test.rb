@@ -166,24 +166,4 @@ class MinisterialRoleTest < ActiveSupport::TestCase
                   'format' => 'minister',
                   'description' => ''}, results[3])
   end
-
-  test 'prime minister should have seniority 1' do
-    pm = create(:ministerial_role, name: 'Prime Minister')
-    assert_equal 1, pm.seniority
-  end
-
-  test 'deputy prime minister should have seniority 2' do
-    dpm = create(:ministerial_role, name: 'Deputy Prime Minister')
-    assert_equal 2, dpm.seniority
-  end
-
-  test 'first secretaries should have seniority 3' do
-    fs = create(:ministerial_role, name: 'First Secretary of State for Caprid Husbandry')
-    assert_equal 3, fs.seniority
-  end
-
-  test 'other ministers should have seniority 4' do
-    role = create(:ministerial_role)
-    assert_equal 4, role.seniority
-  end
 end
