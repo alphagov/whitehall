@@ -7,8 +7,7 @@ class Admin::CabinetMinistersController < Admin::BaseController
   def update
     role_ids = params[:roles].keys
     role_ids.each do |role|
-      #update attributes resaves the whole model
-      Role.where(id: role).update_all :seniority => params[:roles]["#{role}"]["ordering"]
+      Role.where(id: role).update_all seniority: params[:roles]["#{role}"]["ordering"]
     end
     redirect_to admin_cabinet_ministers_path
   end
