@@ -25,4 +25,13 @@ class SocialMediaAccountTest < ActiveSupport::TestCase
     account = build(:social_media_account, social_media_service_id: nil)
     refute account.valid?
   end
+
+  test 'is invalid if the title is longer than 255 characters' do
+    account = build(:social_media_account, title: 'a' * 254) # just under
+    assert account.valid?
+    account.title = 'a' * 255 # exactly maximum
+    assert account.valid?
+    account.title = 'a' * 256 # just over
+    refute account.valid?
+  end
 end
