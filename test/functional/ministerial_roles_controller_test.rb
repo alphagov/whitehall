@@ -15,12 +15,12 @@ class MinisterialRolesControllerTest < ActionController::TestCase
     philip_hammond = create(:person, forename: 'Philip', surname: 'Hammond')
     davey_jones = create(:person, forename: 'Davey', surname: 'Jones')
 
-    deputy_prime_minister = create(:ministerial_role, name: 'Deputy Prime Minister', cabinet_member: true)
+    deputy_prime_minister = create(:ministerial_role, name: 'Deputy Prime Minister', cabinet_member: true, seniority: 1)
     culture_minister = create(:ministerial_role, name: 'Secretary of State for Culture', cabinet_member: true)
     solicitor_general = create(:ministerial_role, name: 'Solicitor General', cabinet_member: false)
-    prime_minister = create(:ministerial_role, name: 'Prime Minister', cabinet_member: true)
+    prime_minister = create(:ministerial_role, name: 'Prime Minister', cabinet_member: true, seniority: 0)
     defence_minister = create(:ministerial_role, name: 'Secretary of State for Defence', cabinet_member: true)
-    first_sec_of_state = create(:ministerial_role, name: 'First Secretary of State', cabinet_member: true)
+    first_sec_of_state = create(:ministerial_role, name: 'First Secretary of State', cabinet_member: true, seniority: 2)
 
     create(:ministerial_role_appointment, role: deputy_prime_minister, person: nick_clegg)
     create(:ministerial_role_appointment, role: culture_minister, person: jeremy_hunt)
@@ -40,9 +40,9 @@ class MinisterialRolesControllerTest < ActionController::TestCase
     person_1 = create(:person, forename: 'Nick', surname: 'Clegg')
     person_3 = create(:person, forename: 'Geroge', surname: 'Foreman')
 
-    role_2 = create(:ministerial_role, name: 'Non-Executive Director', cabinet_member: false, organisations: [organisation])
-    role_1 = create(:ministerial_role, name: 'Prime Minister', cabinet_member: true, organisations: [organisation])
-    role_3 = create(:board_member_role, name: 'Chief Griller', organisations: [organisation])
+    role_2 = create(:ministerial_role, name: 'Non-Executive Director', cabinet_member: false, organisations: [organisation], seniority: 1)
+    role_1 = create(:ministerial_role, name: 'Prime Minister', cabinet_member: true, organisations: [organisation], seniority: 0)
+    role_3 = create(:board_member_role, name: 'Chief Griller', organisations: [organisation], seniority: 3)
 
     appointment_2 = create(:ministerial_role_appointment, role: role_2, person: person_2)
     appointment_1 = create(:ministerial_role_appointment, role: role_1, person: person_1)
