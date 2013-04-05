@@ -9,4 +9,8 @@ class SocialMediaAccount < ActiveRecord::Base
   def service_name
     social_media_service.name
   end
+
+  def display_name
+    title.present? ? title : service_name
+  end
 end
