@@ -2,7 +2,7 @@ require "test_helper"
 
 class LeadImagePresenterHelperTest < ActiveSupport::TestCase
   setup do
-    @presenter = stub("Target", images:[]).extend(LeadImagePresenterHelper)
+    @presenter = stub("Target", images:[], lead_organisations: []).extend(LeadImagePresenterHelper)
   end
 
   test "should use placeholder image if none had been uploaded" do
