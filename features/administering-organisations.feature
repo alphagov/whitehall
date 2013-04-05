@@ -47,8 +47,11 @@ Scenario: Managing social media links
   Given I am an admin called "Jane"
   And the organisation "Ministry of Pop" exists
   And a social media service "Twooter"
+  And a social media service "Facebark"
   When I add a "Twooter" social media link "http://twooter.com/beards-in-france" to the organisation
-  Then the social link should be shown on the public website for the organisation
+  And I add a "Facebark" social media link "http://facebark.com/beards-in-france" with the title "Beards on Facebark!" to the organisation
+  Then the "Twooter" social link should be shown on the public website for the organisation
+  And the "Facebark" social link called "Beards on Facebark!" should be shown on the public website for the organisation
 
 Scenario: Adding a new translation
   Given I am an admin called "Jane"

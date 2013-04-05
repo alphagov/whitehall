@@ -31,7 +31,7 @@ Feature: Administering worldwide organisation
     Given a worldwide organisation "Department of Beards in France"
     Given a social media service "Twooter"
     When I add a "Twooter" social media link "http://twooter.com/beards-in-france" to the worldwide organisation
-    Then the social link should be shown on the public website for the worldwide organisation
+    Then the "Twooter" social link should be shown on the public website for the worldwide organisation
 
   Scenario: Managing office information
     Given a worldwide organisation "Department of Beards in France"
