@@ -4,6 +4,10 @@ class WorldwideOrganisationsController < PublicFacingController
 
   respond_to :html, :json
 
+  def index
+    @worldwide_organisations = WorldwideOrganisation.ordered_by_name
+  end
+
   def show
     respond_to do |format|
       format.json { redirect_to api_worldwide_organisation_path(@worldwide_organisation, format: :json) }

@@ -14,7 +14,7 @@ class WorldwideOrganisation < ActiveRecord::Base
   has_many :corporate_information_pages, as: :organisation, dependent: :destroy
   has_one  :access_and_opening_times, as: :accessible, dependent: :destroy
 
-  scope :ordered_by_name, ->() { with_translations(I18n.default_locale).order(:name) }
+  scope :ordered_by_name, ->() { with_translations(I18n.default_locale).order(translation_class.arel_table[:name]) }
 
   include TranslatableModel
   translates :name, :summary, :description, :services

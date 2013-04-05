@@ -96,15 +96,16 @@ Whitehall::Application.routes.draw do
 
     resources :ministerial_roles, path: 'ministers', only: [:index, :show]
     resources :people, only: [:index, :show], localised: true
-    resources :world_locations, path: 'world', only: [:index, :show], localised: true
+    # match "world/organisations" => 'worldwide_organisations#index', as: :worldwide_organisations
 
     resources :policy_teams, path: 'policy-teams', only: [:index, :show]
     resources :policy_advisory_groups, path: 'policy-advisory-groups', only: [:index, :show]
     resources :operational_fields, path: 'fields-of-operation', only: [:index, :show]
-    resources :worldwide_organisations, path: 'world/organisations', only: [:show], localised: true do
+    resources :worldwide_organisations, path: 'world/organisations', only: [:show, :index], localised: true do
       resources :corporate_information_pages, only: [:show], path: 'about', localised: true
       resources :worldwide_offices, path: 'office', only: [:show]
     end
+    resources :world_locations, path: 'world', only: [:index, :show], localised: true
     match 'world/organisations/:organisation_id/office' =>redirect('/world/organisations/%{organisation_id}')
     match 'world/organisations/:organisation_id/about' => redirect('/world/organisations/%{organisation_id}')
 

@@ -1,5 +1,8 @@
 Feature: Administering worldwide organisation
-  As a citizen interested in UK gov activity around the world, I want there to be profiles of the world organisation (eg embassies, DFID offices, UKTI branches) in each worldwide location, so I can see which organisation are active in each location and read more about them.
+  As a citizen interested in UK gov activity around the world, I want there to
+  be profiles of the world organisation (eg embassies, DFID offices, UKTI
+  branches) in each worldwide location, so I can see which organisation are
+  active in each location and read more about them.
 
   Acceptance criteria:
 
