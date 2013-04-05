@@ -1,12 +1,13 @@
-    <%= form_for admin_cabinet_ministers_path, method: :put do |form| %>
-      <div id="role_ordering" class="row-fluid">
-          <div class="span4">
-            <fieldset id="minister_ordering" class="sortable">
-              <legend>Cabinet ministers ordering</legend>
-              <%= ministers_role_ordering_fields(form, @cabinet_minister_roles) %>
-              <%= form.save_or_cancel cancel: admin_cabinet_ministers_path %>
-            </fieldset>
-          </div>
-      </div>
-    <% end %>
+<% page_title "Cabinet ministers ordering" %>
 
+<%= form_for admin_cabinet_ministers_path, method: :put do |form| %>
+  <div id="role_ordering" class="row-fluid">
+      <div class="span4">
+        <fieldset id="minister_ordering" class="sortable">
+          <legend>Cabinet ministers ordering</legend>
+          <%= ministers_role_ordering_fields(form, @cabinet_minister_roles) %>
+          <%= form.save_or_cancel cancel: admin_cabinet_ministers_path %>
+        </fieldset>
+      </div>
+  </div>
+<% end %>
