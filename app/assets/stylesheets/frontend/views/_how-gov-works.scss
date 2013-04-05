@@ -425,6 +425,19 @@
     border-width: 0 0 1px;
   }
 
+  .get-involved {
+    h3 {
+      padding: 0 $gutter-half;
+    }
+    p {
+      clear: both;
+      padding: 0 $gutter-half;
+    }
+    .one-third p {
+      padding: 0;
+    }
+  }
+
   @media (min-width: 640px) and (max-width: 900px) {
     .prime-minister,
     .history {
