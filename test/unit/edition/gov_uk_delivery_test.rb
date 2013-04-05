@@ -3,8 +3,8 @@
 require "test_helper"
 
 class Edition::GovUkDeliveryTest < ActiveSupport::TestCase
-  test '#govuk_delivery_tags returns an empty array if the edition has no topics' do
-    assert_equal [], build(:policy).govuk_delivery_tags
+  test "#govuk_delivery_tags returns a feed for 'all' by default" do
+    assert_equal ["https://#{Whitehall.public_host}/government/feed"], build(:policy).govuk_delivery_tags
   end
 
   test '#govuk_delivery_tags returns an atom feed url for the organisation and a topic' do
@@ -12,8 +12,8 @@ class Edition::GovUkDeliveryTest < ActiveSupport::TestCase
     organisation = create(:ministerial_department)
     edition = create(:policy, topics: [topic], organisations: [organisation])
 
-    assert_equal ["https://#{Whitehall.public_host}/government/policies.atom?departments%5B%5D=#{organisation.slug}&topics%5B%5D=#{topic.slug}"],
-      edition.govuk_delivery_tags
+    assert edition.govuk_delivery_tags.include? "https://#{Whitehall.public_host}/government/policies.atom?departments%5B%5D=#{organisation.slug}&topics%5B%5D=#{topic.slug}"
+
   end
 
   test '#govuk_delivery_tags returns an atom feed url for each topic/organisation combination' do
@@ -22,9 +22,17 @@ class Edition::GovUkDeliveryTest < ActiveSupport::TestCase
     organisation = create(:ministerial_department)
     edition = create(:policy, topics: [topic1, topic2], organisations: [organisation])
 
-    assert_equal ["https://#{Whitehall.public_host}/government/policies.atom?departments%5B%5D=#{organisation.slug}&topics%5B%5D=#{topic1.slug}",
-                  "https://#{Whitehall.public_host}/government/policies.atom?departments%5B%5D=#{organisation.slug}&topics%5B%5D=#{topic2.slug}"],
-      edition.govuk_delivery_tags
+    assert edition.govuk_delivery_tags.include? "https://#{Whitehall.public_host}/government/policies.atom?departments%5B%5D=#{organisation.slug}&topics%5B%5D=#{topic1.slug}"
+    assert edition.govuk_delivery_tags.include? "https://#{Whitehall.public_host}/government/policies.atom?departments%5B%5D=#{organisation.slug}&topics%5B%5D=#{topic2.slug}"
+  end
+
+  test '#govuk_delivery_tags returns an atom feed url that does not include departments as well as a regular URL' do
+    topic1 = create(:topic)
+    organisation = create(:ministerial_department)
+    edition = create(:policy, topics: [topic1], organisations: [organisation])
+
+    assert edition.govuk_delivery_tags.include? "https://#{Whitehall.public_host}/government/policies.atom?departments%5B%5D=#{organisation.slug}&topics%5B%5D=#{topic1.slug}"
+    assert edition.govuk_delivery_tags.include? "https://#{Whitehall.public_host}/government/policies.atom?topics%5B%5D=#{topic1.slug}"
   end
 
   test '#govuk_delivery_tags includes relevant to local param if edition is relevant' do
@@ -32,28 +40,7 @@ class Edition::GovUkDeliveryTest < ActiveSupport::TestCase
     organisation = create(:ministerial_department)
     edition = create(:policy, topics: [topic], organisations: [organisation], relevant_to_local_government: true)
 
-    assert_equal ["https://#{Whitehall.public_host}/government/policies.atom?departments%5B%5D=#{organisation.slug}&relevant_to_local_government=true&topics%5B%5D=#{topic.slug}"],
-      edition.govuk_delivery_tags
-  end
-
-  test '#govuk_delivery_tags generates urls for publications with the publication filter option' do
-    topic = create(:topic)
-    policy = create(:published_policy, topics: [topic])
-    organisation = create(:ministerial_department)
-    publication = create(:publication, organisations: [organisation], related_documents: [policy.document])
-
-    assert_equal ["https://#{Whitehall.public_host}/government/publications.atom?departments%5B%5D=#{organisation.slug}&publication_filter_option=policy-papers&topics%5B%5D=#{topic.slug}"],
-      publication.govuk_delivery_tags
-  end
-
-  test '#govuk_delivery_tags generates urls for news articles with the announcement type option' do
-    topic = create(:topic)
-    policy = create(:published_policy, topics: [topic])
-    organisation = create(:ministerial_department)
-    publication = create(:news_article, organisations: [organisation], related_documents: [policy.document])
-
-    assert_equal ["https://#{Whitehall.public_host}/government/announcements.atom?announcement_type_option=press-releases&departments%5B%5D=#{organisation.slug}&topics%5B%5D=#{topic.slug}"],
-      publication.govuk_delivery_tags
+    assert edition.govuk_delivery_tags.include? "https://#{Whitehall.public_host}/government/policies.atom?departments%5B%5D=#{organisation.slug}&relevant_to_local_government=1&topics%5B%5D=#{topic.slug}"
   end
 
   test '#govuk_delivery_email_body generates a utf-8 encoded body' do
@@ -69,13 +56,6 @@ class Edition::GovUkDeliveryTest < ActiveSupport::TestCase
     policy = create(:policy, topics: [create(:topic)])
     policy.stubs(:govuk_delivery_email_body).returns('email body')
     Whitehall.govuk_delivery_client.expects(:notify).with(policy.govuk_delivery_tags, policy.title, 'email body')
-
-    policy.notify_govuk_delivery
-  end
-
-  test '#notify_govuk_delivery does nothing if the edition has no topics' do
-    policy = create(:policy, topics: [])
-    Whitehall.govuk_delivery_client.expects(:notify).never
 
     policy.notify_govuk_delivery
   end

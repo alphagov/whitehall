@@ -27,28 +27,54 @@ module Edition::GovUkDelivery
       case self
       when Policy
         if relevant_to_local_government?
-          policies_url(departments: [t[0]], topics: [t[1]], relevant_to_local_government: true, format: :atom, host: Whitehall.public_host, protocol: Whitehall.public_protocol)
+          [
+            policies_url(departments: [t[0]], topics: [t[1]], relevant_to_local_government: 1, format: :atom, host: Whitehall.public_host, protocol: Whitehall.public_protocol),
+            policies_url(topics: [t[1]], relevant_to_local_government: 1, format: :atom, host: Whitehall.public_host, protocol: Whitehall.public_protocol),
+            policies_url(relevant_to_local_government: 1, format: :atom, host: Whitehall.public_host, protocol: Whitehall.public_protocol),
+          ]
         else
-          policies_url(departments: [t[0]], topics: [t[1]], format: :atom, host: Whitehall.public_host, protocol: Whitehall.public_protocol)
+          [
+            policies_url(departments: [t[0]], topics: [t[1]], format: :atom, host: Whitehall.public_host, protocol: Whitehall.public_protocol),
+            policies_url(topics: [t[1]], format: :atom, host: Whitehall.public_host, protocol: Whitehall.public_protocol),
+            policies_url(format: :atom, host: Whitehall.public_host, protocol: Whitehall.public_protocol)
+          ]
         end
       when Announcement
         filter_option = Whitehall::AnnouncementFilterOption.find_by_search_format_types(self.search_format_types)
         if relevant_to_local_government?
-          announcements_url(announcement_type_option: filter_option.slug, departments: [t[0]], topics: [t[1]], relevant_to_local_government: true, format: :atom, host: Whitehall.public_host, protocol: Whitehall.public_protocol)
+          [
+            announcements_url(departments: [t[0]], topics: [t[1]], relevant_to_local_government: 1, format: :atom, host: Whitehall.public_host, protocol: Whitehall.public_protocol),
+            announcements_url(topics: [t[1]], relevant_to_local_government: 1, format: :atom, host: Whitehall.public_host, protocol: Whitehall.public_protocol),
+            announcements_url(relevant_to_local_government: 1, format: :atom, host: Whitehall.public_host, protocol: Whitehall.public_protocol)
+          ]
         else
-          announcements_url(announcement_type_option: filter_option.slug, departments: [t[0]], topics: [t[1]], format: :atom, host: Whitehall.public_host, protocol: Whitehall.public_protocol)
+          [
+            announcements_url(departments: [t[0]], topics: [t[1]], format: :atom, host: Whitehall.public_host, protocol: Whitehall.public_protocol),
+            announcements_url(topics: [t[1]], format: :atom, host: Whitehall.public_host, protocol: Whitehall.public_protocol),
+            announcements_url(format: :atom, host: Whitehall.public_host, protocol: Whitehall.public_protocol)
+          ]
         end
       when Publicationesque
         filter_option = Whitehall::PublicationFilterOption.find_by_search_format_types(self.search_format_types)
         if relevant_to_local_government?
-          publications_url(publication_filter_option: filter_option.slug, departments: [t[0]], topics: [t[1]], relevant_to_local_government: true, format: :atom, host: Whitehall.public_host, protocol: Whitehall.public_protocol)
+          [
+            publications_url(departments: [t[0]], topics: [t[1]], relevant_to_local_government: 1, format: :atom, host: Whitehall.public_host, protocol: Whitehall.public_protocol),
+            publications_url(topics: [t[1]], relevant_to_local_government: 1, format: :atom, host: Whitehall.public_host, protocol: Whitehall.public_protocol),
+            publications_url(relevant_to_local_government: 1, format: :atom, host: Whitehall.public_host, protocol: Whitehall.public_protocol)
+          ]
         else
-          publications_url(publication_filter_option: filter_option.slug, departments: [t[0]], topics: [t[1]], format: :atom, host: Whitehall.public_host, protocol: Whitehall.public_protocol)
+          [
+            publications_url(departments: [t[0]], topics: [t[1]], format: :atom, host: Whitehall.public_host, protocol: Whitehall.public_protocol),
+            publications_url(topics: [t[1]], format: :atom, host: Whitehall.public_host, protocol: Whitehall.public_protocol),
+            publications_url(format: :atom, host: Whitehall.public_host, protocol: Whitehall.public_protocol)
+          ]
         end
       end
     end
 
-    tag_paths
+    tag_paths << atom_feed_url(format: :atom, host: Whitehall.public_host, protocol: Whitehall.public_protocol)
+
+    tag_paths.flatten
   end
 
   def notify_govuk_delivery
