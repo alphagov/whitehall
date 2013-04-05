@@ -20,6 +20,7 @@ jQuery(function($) {
     showWrapper: $('<li/>')
   });
   $('.js-hide-extra-contacts').hideExtraRows({ rows: 2 });
+  $('.js-hide-extra-social-media').hideExtraRows({ rows: 5 });
 
   GOVUK.hideDepartmentChildren.init();
   GOVUK.filterListItems.init();
