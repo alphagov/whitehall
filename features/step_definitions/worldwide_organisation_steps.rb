@@ -99,20 +99,6 @@ Given /^a worldwide organisation "([^"]*)" exists for the world location "([^"]*
   create(:worldwide_organisation, name: name, world_locations: [country])
 end
 
-When /^I add a "([^"]*)" social media link "([^"]*)"$/ do |social_service, url|
-  visit admin_worldwide_organisation_path(WorldwideOrganisation.last)
-  click_link "Social media accounts"
-  click_link "Add"
-  select social_service, from: "Service"
-  fill_in "Url", with: url
-  click_on "Save"
-end
-
-Then /^the social link should be shown on the public website$/ do
-  visit worldwide_organisation_path(WorldwideOrganisation.last)
-  assert page.has_css?(".social-media-accounts")
-end
-
 When /^I add an "([^"]*)" office with address, phone number, and some services$/ do |description|
   service1 = create(:worldwide_service, name: 'Dance lessons')
   service2 = create(:worldwide_service, name: 'Courses in advanced sword fighting')

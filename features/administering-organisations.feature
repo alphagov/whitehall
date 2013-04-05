@@ -43,6 +43,13 @@ Scenario: Adding mainstream services
   When I add some mainstream links to "Ministry of Pop" via the admin
   Then the mainstream links for "Ministry of Pop" should be visible on the public site
 
+Scenario: Managing social media links
+  Given I am an admin called "Jane"
+  And the organisation "Ministry of Pop" exists
+  And a social media service "Twooter"
+  When I add a "Twooter" social media link "http://twooter.com/beards-in-france" to the organisation
+  Then the social link should be shown on the public website for the organisation
+
 Scenario: Adding a new translation
   Given I am an admin called "Jane"
   And the organisation "Department of Beards" exists
