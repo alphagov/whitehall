@@ -8,6 +8,7 @@ class EmailSignupsController < PublicFacingController
     @live_ministerial_departments = Organisation.where("organisation_type_id = ? AND govuk_status ='live'", ministerial_department_type)
     @live_other_departments = Organisation.where("organisation_type_id NOT IN (?,?) AND govuk_status='live'", ministerial_department_type, sub_organisation_type)
     @world_locations = WorldLocation.all_by_type
+    @email_signup = EmailSignup.new
   end
 
 end

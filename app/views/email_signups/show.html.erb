@@ -11,7 +11,7 @@
 
 <div class="block">
   <div class="inner-block">
-    <form class="signup-form js-email-signup">
+    <%= form_for @email_signup, html: { class: "signup-form js-email-signup" } do |form| %>
       <fieldset class="notification">
         <div class="fieldset-inner">
           <div class="field"><div class="field-inner">
@@ -46,14 +46,14 @@
         </div>
       </fieldset>
       <div class="duplicate-fields">
-        <input type="submit" name="duplicate" value="Add another alert" class="js-duplicate">
+        <%= submit_tag 'Add another alert', name: 'duplicate', class: 'js-duplicate' %>
       </div>
 
       <div class="submit">
-        <button type="submit">Create subscription</button>
+        <%= button_tag 'Create subscription' %>
         <p>You can enter your email address on the next page to complete the subscription</p>
       </div>
-    </form>
+    <% end %>
   </div>
 </div>
 
