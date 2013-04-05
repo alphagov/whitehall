@@ -1,13 +1,10 @@
 .html-publication {
-  font-family: "Helvetica Neue", sans-serif;
-  font-size: 15px;
-  font-weight: 400;
-  line-height: (28/19);
+  @include core-19;
   color: #292929;
+/*   color: #0B0C0C; */
   background: #fff image-url('html-publication/texture.png') repeat;
   -webkit-font-smoothing: antialiased;
   @include media(tablet){
-    font-size: 19px;
   }
 }
 
@@ -20,14 +17,14 @@
     position: relative;
     margin: 0 auto;
     width: auto;
-    max-width: $max-site-width;
+    max-width: $max-site-width + $gutter*2;
 
     @extend %contain-floats;
   }
 }
 
 #footer {
-  font-size: 16px;
+  @include core-16;
   .footer-meta {
     border-top: 0;
     margin-top: 0;

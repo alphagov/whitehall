@@ -1,4 +1,3 @@
-$gutter: 28px;
 
 .html-publications-show {
   @extend %contain-floats;
@@ -10,7 +9,7 @@ $gutter: 28px;
 
   .publication-external {
     @extend %contain-floats;
-    margin: 7px 0 14px;
+    margin: 0 0 $gutter-two-thirds;
     position: relative;
 
     .organisations {
@@ -30,7 +29,7 @@ $gutter: 28px;
 
         p {
           position: absolute;
-          bottom: 3px;
+          bottom: 2px;
         }
       }
     }
@@ -42,28 +41,20 @@ $gutter: 28px;
     padding: $gutter-one-third;
     margin: 0 (-$gutter-half);
     @include media(tablet){
-      padding: 0;
+      padding: 0 $gutter;
       margin: 0;
     }
 
     .headings {
-      float: right;
-      width: 100%;
-      @include media(tablet){
-        width: 75%;
-      }
+      overflow: hidden;
       h1 {
-        font-size: 30px;
-        line-height: (36/30);
-        font-weight: lighter;
+        @include core-48;
+        font-weight: bold;
         margin: $gutter-half 0;
         color: $white;
 
         @include media(tablet){
-          margin: $gutter*2 0 $gutter*2;
-          font-size: 48px;
-          line-height: (56/48);
-          padding-right: $gutter-half;
+          margin: $gutter*2.5 0 $gutter*2;
         }
       }
       p {
@@ -73,7 +64,6 @@ $gutter: 28px;
     }
   }
   .publication-content {
-    .in-page-navigation,
     .govspeak {
       @include media(tablet){
         width: 75%;
@@ -81,20 +71,13 @@ $gutter: 28px;
       }
     }
     .in-page-navigation {
+      line-height: 28/19; 
       margin: 20px 0 14px;
 
       h2 {
-        font-size: 19px;
-        font-weight: normal;
       }
       ol {
-        margin-left: 1.3em;
-        @include media(desktop){
-          margin-left: 0;
-        }
-        @include ie(7){
-          margin-left: $gutter;
-        }
+        margin-left: $gutter;
         li {
           list-style: decimal;
         }
@@ -102,45 +85,39 @@ $gutter: 28px;
     }
     .govspeak {
       h2 {
-        font-weight: normal;
-        font-size: 30px;
-        line-height: (36/30);
+        @include core-36;
         margin: $gutter-half 0 $gutter-one-third;
 
         @include media(tablet){
-          font-size: 44px;
-          line-height: (49/44);
           margin: $gutter*2 0 $gutter-half;
         }
         .number {
+          font-weight: bold;
           @include media(tablet){
+            @include core-80;
+            font-weight: bold;
             position: absolute;
+            margin-top: $gutter-one-sixth;
             margin-left: -23%;
           }
         }
       }
       h3 {
-        font-weight: normal;
-        font-size: 24px;
-        line-height: (32/24);
-        margin: $gutter-half 0;
-
-        @include media(tablet){
-          font-size: 28px;
-          line-height: (35/28);
-          margin: $gutter 0;
-        }
+        @include core-27;
       }
       h2, h3, h4, h5, h6 {
-        color: black;
-      }
-      h4, h5, h6 {
         font-weight: bold;
+        color: black;
+        margin-top: $gutter;
+        @include media(tablet){
+          margin-top: $gutter * 2;
+        }
       }
       p, ul, ol {
-        margin: $gutter-two-thirds 0;
+        line-height: 1.4736842105;
+        margin: $gutter-one-third 0;
         @include media(tablet){
-          margin: $gutter 0;
+          margin: $gutter-two-thirds 0;
         }
       }
       ul, ol {
@@ -163,13 +140,16 @@ $gutter: 28px;
       table {
         border-collapse: collapse;
         border-spacing: 0;
+        border-top: 1px solid $grey-2;
 
         th {
           font-weight: bold;
         }
         th, td {
+          @include core-14;
+          vertical-align: top;
           text-align: left;
-          padding: 6px 14px 7px 0;
+          padding: $gutter-one-third $gutter-two-thirds $gutter-one-third 0;
           border-bottom: 1px solid $grey-2;
         }
       }
