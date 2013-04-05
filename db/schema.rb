@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130322201300) do
+ActiveRecord::Schema.define(:version => 20130405110012) do
 
   create_table "access_and_opening_times", :force => true do |t|
     t.text     "body"
@@ -861,6 +861,7 @@ ActiveRecord::Schema.define(:version => 20130322201300) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "socialable_type"
+    t.string   "title"
   end
 
   add_index "social_media_accounts", ["social_media_service_id"], :name => "index_social_media_accounts_on_social_media_service_id"

@@ -47,4 +47,29 @@
   .blog .connect {
     background-position: -3px -119px;
   }
+
+  .pinterest .connect {
+    background-position: -2px -153px;
+  }
+
+  .linkedin .connect {
+    background-position: -2px -182px;
+  }
+
+  .google-plus .connect {
+    background-position: -3px -213px;
+  }
+
+  .foursquare .connect {
+    background-position: -3px -242px;
+  }
+
+  .email .connect {
+    background-position: -2px -273px;
+  }
+
+  // use the same icon as .blog
+  .other .connect {
+    background-position: -3px -119px;
+  }
 }

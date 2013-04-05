@@ -8,6 +8,7 @@
       </div>
     </div>
     <%= form.text_field :url, horizontal: true %>
+    <%= form.text_field :title, horizontal: true %>
   </fieldset>
 
   <%= form.save_or_cancel(cancel: [:admin, socialable, SocialMediaAccount]) %>
