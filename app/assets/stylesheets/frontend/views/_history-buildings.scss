@@ -53,6 +53,12 @@
       margin-bottom: $gutter-half;
       width: 100%
     }
+    figure {
+      margin-bottom: $gutter;
+      figcaption {
+        color: $grey-1;
+      }
+    }
   }
 
   .content-list {
@@ -87,6 +93,56 @@
     p, span {
       @include core-16;
       margin-bottom: 0;
+    }
+  }
+
+  blockquote {
+    padding: 0;
+    margin: 0;
+    border: 0;
+    color: lighten($text-colour, 33.333%);
+
+    p {
+      padding-left: $gutter-half;
+      @include right-to-left {
+        padding-left: 0;
+        padding-right: $gutter-half;
+      }
+
+      @include media(tablet) {
+        padding-left: $gutter;
+        @include right-to-left {
+          padding-left: 0;
+          padding-right: $gutter;
+        }
+      }
+    }
+    & p:before {
+      content: "\201C";
+      float: left;
+      clear: both;
+      @include core-48;
+      margin-left: -$gutter;
+      margin-top: -$gutter-one-sixth;
+      @include right-to-left {
+        content: "\201D";
+        float: right;
+        margin-left: 0;
+        margin-right: (-$gutter);
+      }
+    }
+    & p.last-child:after {
+      content: "\201D";
+      @include right-to-left {
+        content: "\201C";
+      }
+    }
+
+    @include media(desktop) {
+      margin: 0 0 0 (-$gutter);
+      @include right-to-left {
+        margin: 0 (-$gutter) 0 0;
+      }
     }
   }
 
