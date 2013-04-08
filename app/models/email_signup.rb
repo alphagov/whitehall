@@ -37,6 +37,18 @@ class EmailSignup
     valid_topics.map(&:slug) + ['all']
   end
 
+  def self.valid_organisations_by_type
+    ministerial_department_type = OrganisationType.find_by_name('Ministerial department')
+    sub_organisation_type = OrganisationType.find_by_name('Sub-organisation')
+    {
+      ministerial: Organisation.with_translations.where("organisation_type_id = ? AND govuk_status ='live'", ministerial_department_type),
+      other: Organisation.with_translations.where("organisation_type_id NOT IN (?,?) AND govuk_status='live'", ministerial_department_type, sub_organisation_type)
+    }
+  end
+  def self.valid_organisation_slugs
+    valid_organisations_by_type.values.flatten.map(&:slug) + ['all']
+  end
+
   protected
   def all_alerts_are_valid
     # [].all? is always true, so we won't get double validation errors
@@ -64,13 +76,20 @@ class EmailSignup
     end
     alias :info_for_local? :info_for_local
 
-    validates :topic, presence: true
+    validates :topic, :organisation, presence: true
     validate :selected_topic_is_valid
+    validate :selected_organisation_is_valid
 
     protected
     def selected_topic_is_valid
       if topic.present?
         errors.add(:topic, 'is not a valid topic') unless EmailSignup.valid_topic_slugs.include? topic
+      end
+    end
+
+    def selected_organisation_is_valid
+      if organisation.present?
+        errors.add(:organisation, 'is not a valid organisation') unless EmailSignup.valid_organisation_slugs.include? organisation
       end
     end
   end

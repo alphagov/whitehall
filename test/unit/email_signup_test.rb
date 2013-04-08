@@ -21,6 +21,39 @@ class EmailSignupTest < ActiveSupport::TestCase
     assert EmailSignup.valid_topics.include?(topical_event_2)
   end
 
+  test 'the list of valid_organisations_by_type is split into ministerial and other' do
+    assert_equal [:ministerial, :other], EmailSignup.valid_organisations_by_type.keys
+  end
+
+  test 'the ministerial valid_organisations_by_type only includes live orgs of type "Ministerial department"' do
+    ministerial_dept_type = create(:organisation_type, name: "Ministerial department")
+    other_dept_type = create(:organisation_type, name: "Non-ministerial department")
+    live_ministerial_dept = create(:organisation, govuk_status: 'live', organisation_type: ministerial_dept_type)
+    live_other_dept = create(:organisation, govuk_status: 'live', organisation_type: other_dept_type)
+    not_live_ministerial_dept = create(:organisation, govuk_status: 'joining', organisation_type: ministerial_dept_type)
+
+    valid_ministerial_orgs = EmailSignup.valid_organisations_by_type[:ministerial]
+    assert valid_ministerial_orgs.include?(live_ministerial_dept)
+    refute valid_ministerial_orgs.include?(live_other_dept)
+    refute valid_ministerial_orgs.include?(not_live_ministerial_dept)
+  end
+
+  test 'the ministerial valid_organisations_by_type includes live orgs that are not of type "Ministerial department" or "Sub-organisation"' do
+    ministerial_dept_type = create(:organisation_type, name: "Ministerial department")
+    other_dept_type = create(:organisation_type, name: "Non-ministerial department")
+    sub_org_type = create(:organisation_type, name: "Sub-organisation")
+    live_ministerial_dept = create(:organisation, govuk_status: 'live', organisation_type: ministerial_dept_type)
+    live_other_dept = create(:organisation, govuk_status: 'live', organisation_type: other_dept_type)
+    not_live_other_dept = create(:organisation, govuk_status: 'joining', organisation_type: other_dept_type)
+    live_sub_org = create(:organisation, govuk_status: 'joining', organisation_type: sub_org_type, parent_organisations: [live_ministerial_dept])
+
+    valid_other_orgs = EmailSignup.valid_organisations_by_type[:other]
+    refute valid_other_orgs.include?(live_ministerial_dept)
+    assert valid_other_orgs.include?(live_other_dept)
+    refute valid_other_orgs.include?(not_live_other_dept)
+    refute valid_other_orgs.include?(live_sub_org)
+  end
+
   test 'setting alerts with a hash constructs a single alert from that hash' do
     h = {foo: 'bar'}
     e = EmailSignup.new
@@ -90,19 +123,42 @@ end
 class EmailSignupAlertTest < ActiveSupport::TestCase
   test 'is invalid if the topic is missing' do
     a = EmailSignup::Alert.new(topic: '')
-    refute a.valid?
+    a.valid?
+    refute a.errors[:topic].empty?
   end
 
   test 'is invalid if the topic is not the slug of a topic from EmailSignup.valid_topics' do
     EmailSignup.stubs(:valid_topics).returns [stub(slug: 'woo')]
     a = EmailSignup::Alert.new(topic: 'meh')
-    refute a.valid?
+    a.valid?
+    refute a.errors[:topic].empty?
   end
 
   test 'is valid if the topic is "all" (even if that is not the slug of a topic from EmailSignup.valid_topics)' do
     EmailSignup.stubs(:valid_topics).returns [stub(slug: 'woo')]
     a = EmailSignup::Alert.new(topic: 'all')
-    assert a.valid?
+    a.valid?
+    assert a.errors[:topic].empty?
+  end
+
+  test 'is invalid if the organisation is missing' do
+    a = EmailSignup::Alert.new(organisation: '')
+    a.valid?
+    refute a.errors[:organisation].empty?
+  end
+
+  test 'is invalid if the organisation is not the slug of a organisation from EmailSignup.valid_organisations_by_type' do
+    EmailSignup.stubs(:valid_organisations_by_type).returns({ministerial: stub(slug: 'woo'), other: stub(slug: 'foo')})
+    a = EmailSignup::Alert.new(organisation: 'meh')
+    a.valid?
+    refute a.errors[:organisation].empty?
+  end
+
+  test 'is valid if the organisation is "all" (even if that is not the slug of an organisation from EmailSignup.valid_organisations_by_type)' do
+    EmailSignup.stubs(:valid_organisations_by_type).returns({ministerial: stub(slug: 'woo'), other: stub(slug: 'foo')})
+    a = EmailSignup::Alert.new(organisation: 'all')
+    a.valid?
+    assert a.errors[:organisation].empty?
   end
 
   # NOTE: this is the behaviour of activerecord's boolean column
