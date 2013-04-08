@@ -2,8 +2,10 @@ module LeadImagePresenterHelper
   def lead_image_path
     if images.first
       images.first.url(:s300)
-    elsif lead_organisations.first && lead_organisations.first.default_news_image
+    elsif lead_organisations.any? && lead_organisations.first.default_news_image
       lead_organisations.first.default_news_image.file.url(:s300)
+    elsif organisations.any? && organisations.first.default_news_image
+      worldwide_organisations.first.default_news_image.file.url(:s300)
     else
       'placeholder.jpg'
     end
