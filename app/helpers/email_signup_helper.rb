@@ -1,9 +1,9 @@
 module EmailSignupHelper
   def document_type_options_for_email_signup(selected_option = nil)
     options = {
-      'Publications' => [ ['all publication types', 'publication_type_all' ] ] + publication_types_for_filter.sort_by{ |a| a.label }.map{ |pt| [pt.label, "publication_type_#{pt.slug}"] },
-      'Announcements' => [ ['all announcment types', 'announcement_type_all' ] ] + announcement_types_for_filter.sort_by{ |a| a.label }.map{ |at| [at.label, "announcement_type_#{at.slug}"] },
-      'Policies' => [ ['all policies', 'policy_type_all' ] ]
+      'Publications' => @document_types[:publication_type].map { |pt| [pt.label, "publication_type_#{pt.slug}"] },
+      'Announcements' => @document_types[:announcement_type].map { |at| [at.label, "announcement_type_#{at.slug}"] },
+      'Policies' => @document_types[:policy_type].map { |pt| [pt.label, "policy_type_#{pt.slug}"] }
     }
     options_for_select([['all types of document', 'all']], selected_option) +
     grouped_options_for_select(options, selected_option)

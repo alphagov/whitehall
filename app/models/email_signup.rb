@@ -49,6 +49,19 @@ class EmailSignup
     valid_organisations_by_type.values.flatten.map(&:slug) + ['all']
   end
 
+  def self.valid_document_types_by_type
+    {
+      publication_type: [DocumentTypeOptionForAllOfType.new('All publication types')] + Whitehall::PublicationFilterOption.all.sort_by { |o| o.label },
+      announcement_type: [DocumentTypeOptionForAllOfType.new('All announcment types')] + Whitehall::AnnouncementFilterOption.all.sort_by { |o| o.label },
+      policy_type: [DocumentTypeOptionForAllOfType.new('All policies')]
+    }
+  end
+  def self.valid_document_type_slugs
+    valid_document_types_by_type.map { |type_key, types|
+      types.map { |type| "#{type_key}_#{type.slug}" }
+    }.flatten + ['all']
+  end
+
   protected
   def all_alerts_are_valid
     # [].all? is always true, so we won't get double validation errors
@@ -59,7 +72,7 @@ class EmailSignup
   public
   class Alert
     include ActiveModel::Validations
-    attr_accessor :content_type, :topic, :organisation, :info_for_local
+    attr_accessor :document_type, :topic, :organisation, :info_for_local
     def initialize(args = {})
       args.symbolize_keys.each do |attr, value|
         self.__send__("#{attr}=", args[attr])
@@ -76,9 +89,10 @@ class EmailSignup
     end
     alias :info_for_local? :info_for_local
 
-    validates :topic, :organisation, presence: true
+    validates :topic, :organisation, :document_type, presence: true
     validate :selected_topic_is_valid
     validate :selected_organisation_is_valid
+    validate :selected_document_type_is_valid
 
     protected
     def selected_topic_is_valid
@@ -91,6 +105,18 @@ class EmailSignup
       if organisation.present?
         errors.add(:organisation, 'is not a valid organisation') unless EmailSignup.valid_organisation_slugs.include? organisation
       end
+    end
+
+    def selected_document_type_is_valid
+      if document_type.present?
+        errors.add(:document_type, 'is not a valid document type') unless EmailSignup.valid_document_type_slugs.include? document_type
+      end
+    end
+  end
+
+  class DocumentTypeOptionForAllOfType < Struct.new(:label)
+    def slug
+      'all'
     end
   end
 end

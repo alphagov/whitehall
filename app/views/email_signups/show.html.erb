@@ -17,8 +17,8 @@
           <div class="fieldset-inner">
             <%= form.fields_for :alerts, alert, index: nil do |alert_form| %>
               <div class="field"><div class="field-inner">
-                <%= alert_form.label :content_type, 'I want' %>
-                <%= alert_form.select :content_type, document_type_options_for_email_signup %>
+                <%= alert_form.label :document_type, 'I want' %>
+                <%= alert_form.select :document_type, document_type_options_for_email_signup %>
               </div></div>
               <div class="field"><div class="field-inner">
                 <%= alert_form.label :topic, 'about' %>

@@ -54,6 +54,34 @@ class EmailSignupTest < ActiveSupport::TestCase
     refute valid_other_orgs.include?(live_sub_org)
   end
 
+  test 'the list of valid_document_types_by_type is split into publication_type, announcement_type, and policy_type' do
+    assert_equal [:publication_type, :announcement_type, :policy_type], EmailSignup.valid_document_types_by_type.keys
+  end
+
+  test 'the list of valid_document_types_by_type includes an "all" option as the first option for each subtype' do
+    assert_equal 'all', EmailSignup.valid_document_types_by_type[:publication_type].first.slug
+    assert_equal 'all', EmailSignup.valid_document_types_by_type[:announcement_type].first.slug
+    assert_equal 'all', EmailSignup.valid_document_types_by_type[:policy_type].first.slug
+  end
+
+  test 'the list of publication_type options in valid_document_types_by_type includes all PublicationFilterOptions' do
+    assert_same_elements Whitehall::PublicationFilterOption.all, EmailSignup.valid_document_types_by_type[:publication_type][1..-1]
+  end
+
+  test 'the list of announcement_type options in valid_document_types_by_type includes all AnnouncementFilterOtptions' do
+    assert_same_elements Whitehall::AnnouncementFilterOption.all, EmailSignup.valid_document_types_by_type[:announcement_type][1..-1]
+  end
+
+  test 'the list of policy_type options in valid_document_types_by_type is empty (apart from the "all" option)' do
+    assert_same_elements [], EmailSignup.valid_document_types_by_type[:policy_type][1..-1]
+  end
+
+  test 'the list of valid_document_type_slugs uses the slug of the option and prefixes it with the sub_type' do
+    EmailSignup.stubs(:valid_document_types_by_type).returns({foo: [stub(slug: 'bar'), stub(slug: 'baz')], qux: [stub(slug: 'quux')]})
+
+    assert_equal ['foo_bar', 'foo_baz', 'qux_quux'], EmailSignup.valid_document_type_slugs - ['all']
+  end
+
   test 'setting alerts with a hash constructs a single alert from that hash' do
     h = {foo: 'bar'}
     e = EmailSignup.new
@@ -148,17 +176,37 @@ class EmailSignupAlertTest < ActiveSupport::TestCase
   end
 
   test 'is invalid if the organisation is not the slug of a organisation from EmailSignup.valid_organisations_by_type' do
-    EmailSignup.stubs(:valid_organisations_by_type).returns({ministerial: stub(slug: 'woo'), other: stub(slug: 'foo')})
+    EmailSignup.stubs(:valid_organisations_by_type).returns({ministerial: [stub(slug: 'woo')], other: [stub(slug: 'foo')]})
     a = EmailSignup::Alert.new(organisation: 'meh')
     a.valid?
     refute a.errors[:organisation].empty?
   end
 
   test 'is valid if the organisation is "all" (even if that is not the slug of an organisation from EmailSignup.valid_organisations_by_type)' do
-    EmailSignup.stubs(:valid_organisations_by_type).returns({ministerial: stub(slug: 'woo'), other: stub(slug: 'foo')})
+    EmailSignup.stubs(:valid_organisations_by_type).returns({ministerial: [stub(slug: 'woo')], other: [stub(slug: 'foo')]})
     a = EmailSignup::Alert.new(organisation: 'all')
     a.valid?
     assert a.errors[:organisation].empty?
+  end
+
+  test 'is invalid if the document_type is missing' do
+    a = EmailSignup::Alert.new(document_type: '')
+    a.valid?
+    refute a.errors[:document_type].empty?
+  end
+
+  test 'is invalid if the documemnt_type is not the type-prefixed slug of a document_type from EmailSignup.valid_document_types_by_type' do
+    EmailSignup.stubs(:valid_document_types_by_type).returns({publication_type: [stub(slug: 'woo')], announcment_type: [stub(slug: 'foo')]})
+    a = EmailSignup::Alert.new(document_type: 'publication_type_meh')
+    a.valid?
+    refute a.errors[:document_type].empty?
+  end
+
+  test 'is valid if the documemnt_type is "all" (even if that is not the type-prefixed slug of a document_type from EmailSignup.valid_document_types_by_type)' do
+    EmailSignup.stubs(:valid_document_types_by_type).returns({publication_type: [stub(slug: 'woo')], announcment_type: [stub(slug: 'foo')]})
+    a = EmailSignup::Alert.new(document_type: 'all')
+    a.valid?
+    assert a.errors[:document_type].empty?
   end
 
   # NOTE: this is the behaviour of activerecord's boolean column
