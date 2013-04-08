@@ -7,7 +7,7 @@ class Admin::PromotionalFeatureItemsControllerTest < ActionController::TestCase
 
   should_be_an_admin_controller
 
-  test 'GET :new loads the organisation and feature and instantiates a new item' do
+  test 'GET :new loads the organisation and feature and instantiates a new item and link' do
     get :new, organisation_id: @organisation, promotional_feature_id: @promotional_feature
 
     assert_response :success
@@ -15,6 +15,7 @@ class Admin::PromotionalFeatureItemsControllerTest < ActionController::TestCase
     assert_equal @organisation, assigns(:organisation)
     assert_equal @promotional_feature, assigns(:promotional_feature)
     assert assigns(:promotional_feature_item).is_a?(PromotionalFeatureItem)
+    assert_equal 1, assigns(:promotional_feature_item).links.size
   end
 
   test 'POST :create saves the new promotional item to the feature' do
@@ -29,8 +30,9 @@ class Admin::PromotionalFeatureItemsControllerTest < ActionController::TestCase
     assert_equal 'Feature item added.', flash[:notice]
   end
 
-  test 'GET :edit loads the item and renders the template' do
+  test 'GET :edit loads the item and its links renders the template' do
     promotional_feature_item = create(:promotional_feature_item, promotional_feature: @promotional_feature)
+    link = create(:promotional_feature_link, promotional_feature_item: promotional_feature_item)
     get :edit, organisation_id: @organisation, promotional_feature_id: @promotional_feature, id: promotional_feature_item
 
     assert_response :success
@@ -38,6 +40,18 @@ class Admin::PromotionalFeatureItemsControllerTest < ActionController::TestCase
     assert_equal @organisation, assigns(:organisation)
     assert_equal @promotional_feature, assigns(:promotional_feature)
     assert_equal promotional_feature_item, assigns(:promotional_feature_item)
+    assert_equal [link], assigns(:promotional_feature_item).links
+  end
+
+  test 'GET :edit assigns a blank link if the item does not already have one' do
+    promotional_feature_item = create(:promotional_feature_item, promotional_feature: @promotional_feature)
+    get :edit, organisation_id: @organisation, promotional_feature_id: @promotional_feature, id: promotional_feature_item
+
+    assert_response :success
+    assert_template :edit
+    assert link = assigns(:promotional_feature_item).links.first
+    assert link.new_record?
+    assert link.is_a?(PromotionalFeatureLink)
   end
 
   test 'PUT :update updates the item and redirects to the feature' do

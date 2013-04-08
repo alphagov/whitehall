@@ -3,8 +3,15 @@
   <% if promotional_feature_item.title.present? %>
     <p><%= link_to promotional_feature_item.title, promotional_feature_item.title_url %></p>
   <% end %>
-  <p><%=format_with_html_line_breaks promotional_feature_item.summary %></p>
+  <p>
+    <%=format_with_html_line_breaks promotional_feature_item.summary %>
+  </p>
+  <p>
+    <% promotional_feature_item.links.each do |link| %>
+      &mdash; <%= link_to link.text, link.url %><br />
+    <% end %>
+  </p>
 
-    <%= link_to "Edit", edit_admin_organisation_promotional_feature_item_path(@organisation, @promotional_feature, promotional_feature_item), class: "btn btn-small btn-primary"%>
-    <%= button_to "Delete", admin_organisation_promotional_feature_item_path(@organisation, @promotional_feature, promotional_feature_item), method: "delete", class: "btn btn-small btn-danger", confirm: "Are you sure you want to delete this feature item?" %>
+  <%= link_to "Edit", edit_admin_organisation_promotional_feature_item_path(@organisation, @promotional_feature, promotional_feature_item), class: "btn btn-small btn-primary"%>
+  <%= button_to "Delete", admin_organisation_promotional_feature_item_path(@organisation, @promotional_feature, promotional_feature_item), method: "delete", class: "btn btn-small btn-danger", confirm: "Are you sure you want to delete this feature item?" %>
 <% end %>

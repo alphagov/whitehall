@@ -5,6 +5,7 @@ class Admin::PromotionalFeatureItemsController < Admin::BaseController
 
   def new
     @promotional_feature_item = @promotional_feature.promotional_feature_items.build
+    @promotional_feature_item.links.build
   end
 
   def create
@@ -17,6 +18,7 @@ class Admin::PromotionalFeatureItemsController < Admin::BaseController
   end
 
   def edit
+    @promotional_feature_item.links.build if @promotional_feature_item.links.empty?
   end
 
   def update

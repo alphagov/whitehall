@@ -1,11 +1,12 @@
 <%= form_for promotional_feature_item,
-      :url => promotional_feature_item.persisted? ?
+      url:  promotional_feature_item.persisted? ?
             admin_organisation_promotional_feature_item_path(organisation, promotional_feature, promotional_feature_item) :
-            admin_organisation_promotional_feature_items_path(organisation, promotional_feature) do |form| %>
+            admin_organisation_promotional_feature_items_path(organisation, promotional_feature),
+      html: {class: "form-horizontal promotional_feature_item"}  do |form| %>
   <%= form.errors %>
 
   <fieldset>
-    <%= form.text_area :summary %>
+    <%= form.text_area :summary, horizontal: true, rows: 4 %>
 
     <div class="control-group">
       <%= form.label :image, 'Item image (must be 960px by 640px)', class: "control-label" %>
@@ -29,7 +30,7 @@
     <legend>Links</legend>
 
     <%= form.fields_for :links, promotional_feature_item.links do |link| %>
-      <div class="feature_link">
+      <div class="feature_link well">
         <%= link.text_field :url, horizontal: true %>
         <%= link.text_field :text, horizontal: true %>
       </div>

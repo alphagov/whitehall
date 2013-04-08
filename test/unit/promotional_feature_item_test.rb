@@ -22,6 +22,13 @@ class PromotionalFeatureItemTest < ActiveSupport::TestCase
     assert_equal ["is too long (maximum is 500 characters)"], item.errors[:summary]
   end
 
+  test "accepts nested attributes for links" do
+    item = create(:promotional_feature_item, links_attributes: [{url: 'http://example.com', text: 'Example link'}])
+    assert_equal 1, item.links.count
+    assert_equal 'http://example.com', item.links.first.url
+    assert_equal 'Example link', item.links.first.text
+  end
+
   private
 
   def string_of_length(length)
