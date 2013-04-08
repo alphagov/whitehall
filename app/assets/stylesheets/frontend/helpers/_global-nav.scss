@@ -195,16 +195,4 @@
       left: -9999em;
     }
   }
-
-  &.world-bar {
-    p {
-      background: transparent image-url("information-icon.png") no-repeat 0 0;
-      padding-left: $gutter*1.2;
-
-      a {
-        font-weight: bold;
-      }
-    }
-  }
 }
-
