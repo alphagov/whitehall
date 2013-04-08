@@ -31,7 +31,7 @@ class EmailSignup
   end
 
   def self.valid_topics
-    Classification.order(:name).where("(type = 'Topic' and published_policies_count <> 0) or (type = 'TopicalEvent')")
+    Classification.order(:name).where("(type = 'Topic' and published_policies_count <> 0) or (type = 'TopicalEvent')").alphabetical
   end
   def self.valid_topic_slugs
     valid_topics.map(&:slug) + ['all']

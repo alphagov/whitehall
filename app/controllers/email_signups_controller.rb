@@ -2,7 +2,7 @@ class EmailSignupsController < PublicFacingController
   layout 'frontend'
 
   def show
-    @classifications = EmailSignup.valid_topics.alphabetical
+    @classifications = EmailSignup.valid_topics
     orgs_by_type = EmailSignup.valid_organisations_by_type
     @live_ministerial_departments = orgs_by_type[:ministerial]
     @live_other_departments = orgs_by_type[:other]
