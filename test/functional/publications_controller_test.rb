@@ -153,16 +153,6 @@ class PublicationsControllerTest < ActionController::TestCase
     assert_cache_control("max-age=#{Whitehall.default_cache_max_age/2}")
   end
 
-  test 'index should not use n+1 selects for consultations with outcomes' do
-    15.times do
-      consultation = create(:published_consultation, opening_on: Date.new(2011, 5, 1), closing_on: Date.new(2011, 7, 1))
-      response = consultation.create_response!
-      response.attachments << build(:attachment)
-    end
-    number_of_queries = count_queries { get :index }
-    assert number_of_queries < 18
-  end
-
   view_test "index highlights selected topic filter options" do
     given_two_documents_in_two_topics
 

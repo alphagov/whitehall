@@ -302,7 +302,7 @@ class Admin::EditionsController < Admin::BaseController
         editions = editions.in_organisation(organisation) if options[:organisation]
         editions = editions.with_title_containing(options[:title]) if options[:title]
         editions = editions.in_world_location(selected_world_locations) if selected_world_locations.any?
-        editions.includes(:authors).order("editions.updated_at DESC")
+        editions.includes(:authors, :translations).order("editions.updated_at DESC")
       ).page(options[:page]).per(page_size)
     end
 

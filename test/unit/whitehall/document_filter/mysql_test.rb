@@ -295,41 +295,6 @@ module Whitehall::DocumentFilter
       assert_equal news_article.document_id, filter.documents.first.document.id
     end
 
-    test 'does not use n+1 selects when filtering by topics' do
-      policy = create(:published_policy)
-      topic = create(:topic, policies: [policy])
-      3.times { create(:published_publication, related_editions: [policy]) }
-      queries = count_queries {
-        create_filter(Publication.published, topics: [topic.slug]).documents
-      }
-      assert 3 > queries
-    end
-
-    test 'does not use n+1 selects when filtering by organisations' do
-      organisation = create(:organisation)
-      3.times { create(:published_publication, organisations: [organisation]) }
-      queries = count_queries {
-        create_filter(Publication.published, departments: [organisation.slug]).documents
-      }
-      assert 3 > queries
-    end
-
-    test 'does not use n+1 selects when filtering by keywords' do
-      3.times { |i| create(:published_publication, title: "keyword-#{i}") }
-      queries = count_queries {
-        create_filter(Publication.published, keywords: "keyword").documents
-      }
-      assert 3 > queries
-    end
-
-    test 'does not use n+1 selects when filtering by date' do
-      3.times { |i| create(:published_publication, publication_date: i.months.ago) }
-      queries = count_queries {
-        create_filter(Publication.published, date: "2012-01-01 12:23:45", direction: "before").documents
-      }
-      assert 3 > queries
-    end
-
     test "can filter announcements by topic" do
       policy = create(:published_policy)
       topic = create(:topic, policies: [policy])
