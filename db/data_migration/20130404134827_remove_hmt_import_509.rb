@@ -8,5 +8,5 @@ if i
     puts ". ERROR - import could not be deleted!"
   end
 else
-  pute "Import 509 not present - skipping!"
+  puts "Import 509 not present - skipping!"
 end
