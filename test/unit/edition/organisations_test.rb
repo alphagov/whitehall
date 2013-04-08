@@ -43,22 +43,6 @@ class Edition::OrganisationsTest < ActiveSupport::TestCase
     refute EditionOrganisation.find_by_id(relation.id)
   end
 
-  test "in_organisation should return editions with all associated organisations loaded when includes has also been invoked" do
-    dfid = create(:organisation)
-    dwp = create(:organisation)
-    create(:draft_detailed_guide, title: "find-me", organisations: [dfid, dwp])
-    create(:draft_detailed_guide, title: "ignore-me", organisations: [dwp])
-
-    assert 3 > count_queries {
-      editions = DetailedGuide.includes(organisations: :translations).in_organisation([dfid])
-      assert_equal 1, editions.length
-      assert_equal "find-me", editions[0].title
-      assert_equal 0, count_queries {
-        assert_same_elements [dfid, dwp], editions[0].organisations
-      }, "loading organisations should not contact the database"
-    }, "organisations association wasn't eager-loaded"
-  end
-
   test "new edition of document will retain lead and supporting organisations and their orderings" do
     organisation_1 = create(:organisation)
     organisation_2 = create(:organisation)

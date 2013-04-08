@@ -53,6 +53,7 @@ group :development, :staging, :test do
   gem 'rails-dev-boost', '~> 0.2.1'
   gem 'brakeman'
   gem 'parallel_tests'
+  gem 'bullet'
 end
 
 group :test do
