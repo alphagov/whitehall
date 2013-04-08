@@ -81,7 +81,7 @@ module Edition::GovUkDelivery
     if (tags = govuk_delivery_tags).any? && !minor_change?
       # Swallow all errors for the time being
       begin
-        response = Whitehall.govuk_delivery_client.notify(tags, title, govuk_delivery_email_body(public_document_path(self), title, summary, public_timestamp))
+        response = Whitehall.govuk_delivery_client.notify(tags, title, govuk_delivery_email_body(public_document_url(self), title, summary, public_timestamp))
       rescue GdsApi::HTTPErrorResponse
         nil
       end
