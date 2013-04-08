@@ -1,13 +1,4 @@
 module DocumentFilterHelper
-  def document_type_filter_options(selected_option = nil)
-    options = {
-      'Publications' => [ ['all publication types', 'publication_type_all' ] ] + publication_types_for_filter.sort_by{ |a| a.label }.map{ |pt| [pt.label, "publication_type_#{pt.slug}"] },
-      'Announcements' => [ ['all announcment types', 'announcement_type_all' ] ] + announcement_types_for_filter.sort_by{ |a| a.label }.map{ |at| [at.label, "announcement_type_#{at.slug}"] },
-      'Policies' => [ ['all policies', 'policy_type_all' ] ]
-    }
-    grouped_options_for_select(options, selected_option)
-  end
-
   def topic_filter_options(topics, selected_topics = [])
     selected_values = selected_topics.any? ? selected_topics.map(&:slug) : ["all"]
     options_for_select([["All topics", "all"]] + topics.map{ |o| [o.name, o.slug] }, selected_values)
