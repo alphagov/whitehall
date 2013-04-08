@@ -1,11 +1,8 @@
 .html-publication {
   @include core-19;
   color: #292929;
-/*   color: #0B0C0C; */
   background: #fff image-url('html-publication/texture.png') repeat;
   -webkit-font-smoothing: antialiased;
-  @include media(tablet){
-  }
 }
 
 #whitehall-wrapper {

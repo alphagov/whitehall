@@ -1,4 +1,3 @@
-
 .html-publications-show {
   @extend %contain-floats;
 
@@ -71,11 +70,9 @@
       }
     }
     .in-page-navigation {
-      line-height: 28/19; 
+      line-height: 28/19;
       margin: 20px 0 14px;
 
-      h2 {
-      }
       ol {
         margin-left: $gutter;
         li {
