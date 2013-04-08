@@ -15,6 +15,8 @@ private
       king-charles-street
       lancaster-house
       10-downing-street
+      11-downing-street
+      1-horse-guards
     }
   end
 end
