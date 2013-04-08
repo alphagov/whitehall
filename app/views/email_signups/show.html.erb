@@ -12,21 +12,23 @@
 <div class="block">
   <div class="inner-block">
     <%= form_for @email_signup, html: { class: "signup-form js-email-signup" } do |form| %>
-      <% form.object.alerts.each do |alert| %>
+      <%= form.errors %>
+      <% form.object.alerts.each.with_index do |alert, idx| %>
         <fieldset class="notification">
           <div class="fieldset-inner">
-            <%= form.fields_for :alerts, alert, index: nil do |alert_form| %>
+            <%= form.fields_for :alerts, alert, index: idx do |alert_form| %>
+              <%= alert_form.errors %>
               <div class="field"><div class="field-inner">
                 <%= alert_form.label :document_type, 'I want' %>
-                <%= alert_form.select :document_type, document_type_options_for_email_signup %>
+                <%= alert_form.select :document_type, document_type_options_for_email_signup(alert_form.object.document_type) %>
               </div></div>
               <div class="field"><div class="field-inner">
                 <%= alert_form.label :topic, 'about' %>
-                <%= alert_form.select :topic, topic_options_for_email_signup %>
+                <%= alert_form.select :topic, topic_options_for_email_signup(alert_form.object.topic) %>
               </div></div>
               <div class="field"><div class="field-inner">
                 <%= alert_form.label :organisation, 'by' %>
-                <%= alert_form.select :organisation, organisation_options_for_email_signup %>
+                <%= alert_form.select :organisation, organisation_options_for_email_signup(alert_form.object.organisation) %>
               </div></div>
               <div class="field info4local"><div class="field-inner">
                 <%= alert_form.check_box :info_for_local, label_text: ' Only include results relevant to local government' %>
