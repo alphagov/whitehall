@@ -27,7 +27,11 @@
           $newFields = $fields.clone();
 
       $newFields.find('input[type=text], textarea').val('');
-      $newFields.find('label,input,textarea,select').each(function(i, el){
+      duplicateFields.incrementIndexes($newFields);
+      $button.before($newFields);
+    },
+    incrementIndexes: function(fields){
+      fields.find('label,input,textarea,select').each(function(i, el){
         var $el = $(el),
             currentName = $el.attr('name'),
             currentId = $el.attr('id'),
@@ -51,7 +55,6 @@
           $el.attr('for', currentFor.replace('_'+ index +'_', '_'+ (index+1) +'_'));
         }
       });
-      $button.before($newFields);
     }
   };
   root.GOVUK.duplicateFields = duplicateFields;

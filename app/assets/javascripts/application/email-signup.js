@@ -8,9 +8,10 @@
     duplicate: function(e){
       e.preventDefault();
 
-      var $fieldset = emailSignup.$form.find('fieldset:eq(0)').clone();
+      var $fieldset = emailSignup.$form.find('fieldset:last').clone();
       $fieldset.find('select').val('');
       $fieldset.find('input[type="checkbox"]').attr('checked', false);
+      root.GOVUK.duplicateFields.incrementIndexes($fieldset);
       $fieldset.insertAfter(emailSignup.$form.find('fieldset:last'));
     },
     init: function(){
