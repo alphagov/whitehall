@@ -33,8 +33,7 @@ Whitehall::Application.routes.draw do
     match "/how-government-works" => "home#how_government_works", as: 'how_government_works'
     match "/get-involved" => "home#get_involved", as: 'get_involved'
 
-    resource :history, only: [:show] do
-      resources :buildings, only: [:index, :show]
+    resources :histories, path: "history", only: [:index, :show] do
       resources :past_foreign_secretaries, path: "past-foreign-secretaries", only: [:index, :show]
     end
 
