@@ -88,6 +88,23 @@ class EmailSignupTest < ActiveSupport::TestCase
 end
 
 class EmailSignupAlertTest < ActiveSupport::TestCase
+  test 'is invalid if the topic is missing' do
+    a = EmailSignup::Alert.new(topic: '')
+    refute a.valid?
+  end
+
+  test 'is invalid if the topic is not the slug of a topic from EmailSignup.valid_topics' do
+    EmailSignup.stubs(:valid_topics).returns [stub(slug: 'woo')]
+    a = EmailSignup::Alert.new(topic: 'meh')
+    refute a.valid?
+  end
+
+  test 'is valid if the topic is "all" (even if that is not the slug of a topic from EmailSignup.valid_topics)' do
+    EmailSignup.stubs(:valid_topics).returns [stub(slug: 'woo')]
+    a = EmailSignup::Alert.new(topic: 'all')
+    assert a.valid?
+  end
+
   # NOTE: this is the behaviour of activerecord's boolean column
   # conversion, which we've copied rather than used directly, hence the
   # explicit testing

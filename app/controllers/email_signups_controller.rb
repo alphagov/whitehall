@@ -2,7 +2,7 @@ class EmailSignupsController < PublicFacingController
   layout 'frontend'
 
   def show
-    @classifications = Classification.order(:name).where("(type = 'Topic' and published_policies_count <> 0) or (type = 'TopicalEvent')").alphabetical
+    @classifications = EmailSignup.valid_topics.alphabetical
     ministerial_department_type = OrganisationType.find_by_name('Ministerial department')
     sub_organisation_type = OrganisationType.find_by_name('Sub-organisation')
     @live_ministerial_departments = Organisation.with_translations.where("organisation_type_id = ? AND govuk_status ='live'", ministerial_department_type)

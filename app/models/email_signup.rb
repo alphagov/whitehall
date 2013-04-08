@@ -30,6 +30,13 @@ class EmailSignup
     end
   end
 
+  def self.valid_topics
+    Classification.order(:name).where("(type = 'Topic' and published_policies_count <> 0) or (type = 'TopicalEvent')")
+  end
+  def self.valid_topic_slugs
+    valid_topics.map(&:slug) + ['all']
+  end
+
   protected
   def all_alerts_are_valid
     # [].all? is always true, so we won't get double validation errors
@@ -56,5 +63,15 @@ class EmailSignup
       end
     end
     alias :info_for_local? :info_for_local
+
+    validates :topic, presence: true
+    validate :selected_topic_is_valid
+
+    protected
+    def selected_topic_is_valid
+      if topic.present?
+        errors.add(:topic, 'is not a valid topic') unless EmailSignup.valid_topic_slugs.include? topic
+      end
+    end
   end
 end
