@@ -43,4 +43,51 @@ class FeaturedItemTest < ActiveSupport::TestCase
     ended = create(:featured_item, started_at: 2.days.ago, ended_at: 1.day.ago)
     assert_equal [current], FeaturedItem.current
   end
+
+  test 'linkable_item is the item when it is a topic' do
+    topic = build(:topic)
+    item = build(:featured_topic_item, item: topic)
+    assert_equal topic, item.linkable_item
+  end
+
+  test 'linkable_item is the publised_edition of the item when it is a document' do
+    p1 = create(:published_policy, :with_document)
+    p2 = p1.create_draft(create(:policy_writer))
+    p2.change_note = 'meh'
+    p2.publish_as(create(:gds_editor), force: true)
+
+    item = build(:featured_policy_item, item: p1.document)
+    assert_equal p2, item.linkable_item
+  end
+
+  test 'linkable_item is nil when the item is a document without a published edition' do
+    p = create(:draft_policy, :with_document)
+
+    item = build(:featured_policy_item, item: p.document)
+    assert_nil item.linkable_item
+  end
+
+  test 'linkable_title is the title of the published edition of the item when the it is a document' do
+    p1 = create(:published_policy, :with_document)
+    p2 = p1.create_draft(create(:policy_writer))
+    p2.change_note = 'meh'
+    p2.publish_as(create(:gds_editor), force: true)
+
+    item = build(:featured_policy_item, item: p1.document)
+    assert_equal p2.title, item.linkable_title
+  end
+
+  test 'linkable_title is nil when the item is a document without a published edition' do
+    p = create(:draft_policy, :with_document)
+
+    item = build(:featured_policy_item, item: p.document)
+    assert_nil item.linkable_title
+  end
+
+  test 'linkable_title is the name of the item when it is a topic' do
+    topic = build(:topic)
+    item = build(:featured_topic_item, item: topic)
+    assert_equal topic.name, item.linkable_title
+  end
+
 end

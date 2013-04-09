@@ -44,4 +44,18 @@ class FeaturedTopicsAndPoliciesListTest < ActiveSupport::TestCase
     })
     assert list.featured_items.empty?
   end
+
+  test 'current_and_linkable_featured_items includes only current featured items that are linkable?' do
+    list = create(:featured_topics_and_policies_list)
+    current_linkable_item = build(:featured_topic_item, featured_topics_and_policies_list: list, started_at: 2.days.ago)
+    ended_item = build(:featured_topic_item, featured_topics_and_policies_list: list, started_at: 3.days.ago, ended_at: 1.day.ago)
+    current_unlinkable_item = build(:featured_policy_item, item: create(:draft_policy, :with_document).document, featured_topics_and_policies_list: list, started_at: 4.weeks.ago)
+    list.featured_items << current_linkable_item
+    list.featured_items << ended_item
+    list.featured_items << current_unlinkable_item
+
+    assert list.current_and_linkable_featured_items.include?(current_linkable_item)
+    refute list.current_and_linkable_featured_items.include?(ended_item)
+    refute list.current_and_linkable_featured_items.include?(current_unlinkable_item)
+  end
 end

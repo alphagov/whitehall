@@ -26,6 +26,28 @@ class FeaturedItem < ActiveRecord::Base
     end
   end
 
+  def linkable_item
+    case item
+    when Topic
+      item
+    when Document
+      item.published_edition
+    end
+  end
+
+  def linkable?
+    linkable_item.present?
+  end
+
+  def linkable_title
+    case item
+    when Topic
+      item.name
+    when Document
+      item.published_edition.try(:title)
+    end
+  end
+
   private
 
   def set_started_at!

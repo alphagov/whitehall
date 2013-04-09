@@ -111,11 +111,12 @@ module OrganisationHelper
 
   def render_featured_topics_and_policies_list(featured_topics_and_policies_list)
     if featured_topics_and_policies_list.present?
-      items = featured_topics_and_policies_list.featured_items.current
-      links = items.map { |featured_item| link_to_featured_item featured_item }.compact
-      if links.any?
+      items = featured_topics_and_policies_list.current_and_linkable_featured_items
+      if items.any?
         content_tag(:ul, class: 'featured-items') do
-          links.map { |featured_item_link| content_tag(:li, featured_item_link.html_safe) }.join.html_safe
+          items.map do |linkable_item|
+            content_tag(:li, link_to(linkable_item.linkable_title, linkable_item.linkable_item))
+          end.join.html_safe
         end
       end
     end
@@ -130,17 +131,5 @@ module OrganisationHelper
         policies_path
       end
     link_to 'See all our policies', url
-  end
-
-  def link_to_featured_item(featured_item)
-    case featured_item.item
-    when Topic
-      link_to featured_item.item.name, featured_item.item
-    when Document
-      edition = featured_item.item.published_edition
-      if edition
-        link_to edition.title, edition
-      end
-    end
   end
 end
