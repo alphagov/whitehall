@@ -73,6 +73,13 @@ class Edition::GovUkDeliveryTest < ActiveSupport::TestCase
     assert_nothing_raised { policy.notify_govuk_delivery }
   end
 
+  test '#notify_govuk_delivery swallows timeout errors from the API' do
+    policy = create(:policy, topics: [create(:topic)])
+    Whitehall.govuk_delivery_client.expects(:notify).raises(GdsApi::TimedOutException)
+
+    assert_nothing_raised { policy.notify_govuk_delivery }
+  end
+
   test "should notify govuk_delivery on publishing policies" do
     Edition::AuditTrail.whodunnit = create(:user)
     policy = create(:policy, topics: [create(:topic), create(:topic)])
