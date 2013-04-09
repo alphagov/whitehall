@@ -89,6 +89,21 @@ class EmailSignup
     end
     alias :info_for_local? :info_for_local
 
+    def document_generic_type
+      if document_type == 'all'
+        'all'
+      else
+        document_type.match(/\A(publication|announcement|policy)_type_/)[1]
+      end
+    end
+    def document_specific_type
+      if document_type == 'all'
+        'all'
+      else
+        document_type.match(/\A(?:publication|announcement|policy)_type_(.*)\Z/)[1]
+      end
+    end
+
     validates :topic, :organisation, :document_type, presence: true
     validate :selected_topic_is_valid
     validate :selected_organisation_is_valid
@@ -110,6 +125,51 @@ class EmailSignup
     def selected_document_type_is_valid
       if document_type.present?
         errors.add(:document_type, 'is not a valid document type') unless EmailSignup.valid_document_type_slugs.include? document_type
+      end
+    end
+  end
+
+  class FeedUrlExtractor
+    include Rails.application.routes.url_helpers
+    default_url_options.merge!(host: Whitehall.public_host, protocol: Whitehall.public_protocol)
+
+    def initialize(alert)
+      @alert = alert
+    end
+
+    def extract_feed_url
+      send("#{path_segment_name}_url", filters.merge(format: 'atom'))
+    end
+
+    def filters
+      filters = {}
+      if @alert.organisation && @alert.organisation != 'all'
+        filters[:departments] = [@alert.organisation]
+      end
+      if @alert.topic && @alert.topic != 'all'
+        filters[:topics] = [@alert.topic]
+      end
+      if @alert.document_specific_type != 'all'
+        case @alert.document_generic_type
+        when 'publication'
+          filters[:publication_filter_option] = @alert.document_specific_type
+        when 'announcement'
+          filters[:announcement_filter_option] = @alert.document_specific_type
+        end
+      end
+      filters
+    end
+
+    def path_segment_name
+      case @alert.document_generic_type
+      when 'publication'
+        :publications
+      when 'announcement'
+        :announcements
+      when 'policy'
+        :policies
+      when 'all'
+        :atom_feed
       end
     end
   end
