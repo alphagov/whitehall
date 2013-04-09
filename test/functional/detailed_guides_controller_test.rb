@@ -8,6 +8,14 @@ class DetailedGuidesControllerTest < ActionController::TestCase
   should_show_inapplicable_nations :detailed_guide
   should_be_previewable :detailed_guide
 
+  view_test "show doesn't include header-context element which is used for breadcrumbs" do
+    guide = create(:published_detailed_guide)
+
+    get :show, id: guide.document
+
+    refute_select ".header-context"
+  end
+
   view_test "guide <title> contains Detailed guidance" do
     guide = create(:published_detailed_guide)
 
