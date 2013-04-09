@@ -15,8 +15,8 @@
         <%= form.text_area :summary, rows: 4 %>
         <p class="control-group">
           <span class="radio-label control-label">"See all our policies" link shows:</span>
-          <%= label_tag(nil, class: 'radio inline') do %><%= form.radio_button :link_to_filtered_policies, '0', checked: !form.object.link_to_filtered_policies? %> all policies<% end %>
-          <%= label_tag(nil, class: 'radio inline') do %><%= form.radio_button :link_to_filtered_policies, '1', checked: form.object.link_to_filtered_policies? %> only policies associated with <%= @organisation.name %><% end %>
+          <%= form.labelled_radio_button('all policies', :link_to_filtered_policies, '0', checked: !form.object.link_to_filtered_policies?) %>
+          <%= form.labelled_radio_button("only policies associated with #{h @organisation.name}", :link_to_filtered_policies, '1', checked: form.object.link_to_filtered_policies?) %>
         </p>
 
         <div class="featured-topics-and-policies-items">
@@ -25,8 +25,8 @@
             <div class="well">
               <%= featured_item_form.hidden_field :id %>
               <div class="control-group">
-                <%= label_tag(nil, data: { :"item-type" => "topic"  }, class: 'featured-item-type radio inline') do %><%= featured_item_form.radio_button :item_type, 'Topic' %> Topic<% end %>
-                <%= label_tag(nil, data: { :"item-type" => "policy" }, class: 'featured-item-type radio inline') do %><%= featured_item_form.radio_button :item_type, 'Document' %> Policy<% end %>
+                <%= featured_item_form.labelled_radio_button('Topic', {data: { :"item-type" => "topic"  }, class: 'featured-item-type radio inline'}, :item_type, 'Topic') %>
+                <%= featured_item_form.labelled_radio_button('Policy', {data: { :"item-type" => "policy" }, class: 'featured-item-type radio inline'}, :item_type, 'Document') %>
               </div>
               <div class="featured-item-type-pane" data-item-type="topic">
                 <%= featured_item_form.select(:topic_id,

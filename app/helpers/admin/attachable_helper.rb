@@ -10,15 +10,9 @@ module Admin::AttachableHelper
         'keep'
       end
     [
-      label_tag(nil, class: 'radio inline') do
-        fields.radio_button(:attachment_action, 'keep', checked: keep_destroy_or_replace == 'keep')+ ' Keep'
-      end,
-      label_tag(nil, class: 'radio inline') do
-        fields.radio_button(:attachment_action, 'remove', checked: keep_destroy_or_replace == 'destroy')+' Remove'
-      end,
-      label_tag(nil, class: 'radio inline') do
-        fields.radio_button(:attachment_action, 'replace', checked: keep_destroy_or_replace == 'replace')+' Replace'
-      end
+      fields.labelled_radio_button('Keep', :attachment_action, 'keep', checked: keep_destroy_or_replace == 'keep'),
+      fields.labelled_radio_button('Remove', :attachment_action, 'remove', checked: keep_destroy_or_replace == 'destroy'),
+      fields.labelled_radio_button('Replace', :attachment_action, 'replace', checked: keep_destroy_or_replace == 'replace'),
     ].join.html_safe
   end
 

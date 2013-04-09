@@ -1,5 +1,15 @@
 module Whitehall
   class FormBuilder < ActionView::Helpers::FormBuilder
+    def labelled_radio_button(label_text, *radio_button_args)
+      # 2nd arg is either all the args for the radio_button, or an options
+      # hash for the label, then all the args for the radio_button.
+      label_opts = {class: 'radio inline'}
+      label_opts.merge(radio_button_args.shift) if radio_button_args.first.is_a?(Hash)
+      @template.label_tag(nil, label_opts) do
+        radio_button(*radio_button_args)+ " #{label_text}"
+      end
+    end
+
     def errors
        return unless object.errors.any?
        error_list = @template.content_tag(:ul, "class" => "errors disc") do
