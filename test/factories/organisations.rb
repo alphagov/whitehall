@@ -28,4 +28,11 @@ FactoryGirl.define do
       OrganisationType.find_by_name(type.name) || FactoryGirl.create(:sub_organisation_type)
     }
   end
+
+  factory :executive_office, parent: :organisation do
+    organisation_type {
+      type = FactoryGirl.build(:executive_office_organisation_type)
+      OrganisationType.find_by_name(type.name) || FactoryGirl.create(:executive_office_organisation_type)
+    }
+  end
 end

@@ -16,7 +16,7 @@ module Admin::OrganisationHelper
   end
 
   def organisation_tabs(organisation)
-    {
+    tabs = {
       "Details" => admin_organisation_path(organisation),
       "Contacts" => admin_organisation_contacts_path(organisation),
       "Social media accounts" => admin_organisation_social_media_accounts_path(organisation),
@@ -28,5 +28,7 @@ module Admin::OrganisationHelper
       "Corporate information pages" => admin_organisation_corporate_information_pages_path(organisation),
       "Translations" => admin_organisation_translations_path(organisation)
     }
+    tabs["Featured topics and policies"] = admin_organisation_featured_topics_and_policies_list_path(organisation) if organisation.organisation_type.executive_office?
+    tabs
   end
 end

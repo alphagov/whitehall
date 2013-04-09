@@ -195,7 +195,6 @@
     font-weight: bold;
   }
 
-
   p a {
     text-decoration: underline;
   }
@@ -375,6 +374,59 @@
     }
   }
 
+  .featured-topics-and-policies {
+    clear: both;
+    float: left;
+    display: inline;
+    width: 100%;
+    @include media(desktop) {
+      width: 66.66%;
+    }
+    @include media(tablet) {
+      margin-bottom: $gutter;
+    }
+    .content {
+      padding: $gutter-half $gutter-half 0;
+      @include media(tablet){
+        padding-top: $gutter*1.5;
+      }
+      p {
+        @include ig-core-19;
+        padding-right: $gutter-half;
+      }
+    }
+
+    h1 {
+      @include core-27;
+      font-weight: bold;
+      border-top-width: 5px;
+      border-top-style: solid;
+      padding-top: $gutter-two-thirds;
+      padding-bottom: 1px;
+      margin-bottom: $gutter-two-thirds;
+    }
+
+    .featured-items {
+      @include ig-core-19;
+      list-style: none;
+      margin-bottom: $gutter-one-third;
+      @include media(tablet) {
+        margin-bottom: 0;
+      }
+
+      li {
+        @include media(tablet) {
+          clear: both;
+          margin-bottom: $gutter-two-thirds;
+          padding-bottom: $gutter-one-third;
+          border-bottom: 1px solid $border-colour;
+        }
+      }
+
+    }
+
+  }
+
   .social-media {
     @include media(tablet){
       float: left;
@@ -388,6 +440,24 @@
       }
     }
   }
+  .executive-office .social-media {
+    h2 {
+      @include core-27;
+      font-weight: bold;
+      border-top-width: 5px;
+      border-top-style: solid;
+      padding-top: $gutter-two-thirds;
+      padding-bottom: 1px;
+      margin-bottom: $gutter-two-thirds;
+    }
+    .content {
+      padding: $gutter-half $gutter-half 0;
+      @include media(tablet){
+        padding-top: $gutter*1.5;
+      }
+    }
+  }
+
 
   .what-we-do {
     clear: both;

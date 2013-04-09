@@ -184,5 +184,10 @@ fieldset.fatality-notice-casualties{
   }
 }
 
-
+.control-label.radio-label, .control-label.checkbox-label {
+  padding-top: 5px;
+  margin-bottom: 0;
+  display: inline-block;
+  vertical-align: middle;
+}
 
