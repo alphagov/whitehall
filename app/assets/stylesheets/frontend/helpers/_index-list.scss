@@ -26,6 +26,7 @@
       }
       @include media(tablet) {
         @include core-48;
+        font-weight: bold;
       }
     }
 
