@@ -4,7 +4,7 @@ class Admin::FeaturedTopicsAndPoliciesListsController < Admin::BaseController
 
   def show
     fetch_topics_and_policies
-    @featured_items = @featured_topics_and_policies_list.featured_items.current.order(:ordering).to_a
+    fetch_current_featured_items(@featured_topics_and_policies_list)
     @featured_items << @featured_topics_and_policies_list.featured_items.build(item_type: 'Topic')
   end
 
@@ -14,12 +14,7 @@ class Admin::FeaturedTopicsAndPoliciesListsController < Admin::BaseController
       redirect_to admin_organisation_featured_topics_and_policies_list_path(@organisation), notice: "Featured topics and policies for #{@organisation.name} updated"
     else
       fetch_topics_and_policies
-      # this is to make sure we only expose current items but also doesn't
-      # reload from the db and clobber the user's unsaved changes
-      ids = FeaturedItem.where(featured_topics_and_policies_list_id: @featured_topics_and_policies_list.id).current.map(&:id)
-      @featured_items = @featured_topics_and_policies_list.featured_items.
-                          select { |fi| ids.include?(fi.id) || fi.id.nil? }.
-                          sort_by { |fi| }.sort_by { |fi| fi.ordering || 99 }
+      fetch_current_featured_items(@featured_topics_and_policies_list)
       render :show
     end
   end
@@ -36,6 +31,22 @@ class Admin::FeaturedTopicsAndPoliciesListsController < Admin::BaseController
 
   def fetch_featured_topics_and_policies_list
     @featured_topics_and_policies_list = @organisation.featured_topics_and_policies_list || @organisation.build_featured_topics_and_policies_list
+  end
+
+  def fetch_current_featured_items(list)
+    @featured_items =
+      if list.errors.any?
+        # this is to make sure we only expose current items but also
+        # don't just reload from the db and clobber any reordering or
+        # inspect the in-memory instances to get current ones as that
+        # clobbers marking an instance as ended
+        ids = FeaturedItem.where(featured_topics_and_policies_list_id: list.id).current.map(&:id)
+        list.featured_items.
+          select { |fi| ids.include?(fi.id) || fi.id.nil? }.
+          sort_by { |fi| fi.ordering || 99 }
+      else
+        list.featured_items.current.order(:ordering).to_a
+      end
   end
 
   def prepare_feature_item_params(feature_list_params)
