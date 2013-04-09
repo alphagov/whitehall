@@ -108,4 +108,28 @@ module OrganisationHelper
     end
     (i % clear_number == 0) ? 'clear-person' : ''
   end
+
+  def render_featured_topics_and_policies_list(featured_topics_and_policies_list)
+    if featured_topics_and_policies_list.present?
+      items = featured_topics_and_policies_list.current_and_linkable_featured_items
+      if items.any?
+        content_tag(:ul, class: 'featured-items') do
+          items.map do |linkable_item|
+            content_tag(:li, link_to(linkable_item.linkable_title, linkable_item.linkable_item))
+          end.join.html_safe
+        end
+      end
+    end
+  end
+
+  def link_to_all_featured_policies(organisation)
+    list = organisation.featured_topics_and_policies_list
+    url =
+      if list.nil? || list.link_to_filtered_policies?
+        policies_path(departments: [organisation])
+      else
+        policies_path
+      end
+    link_to 'See all our policies', url
+  end
 end

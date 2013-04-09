@@ -1,12 +1,12 @@
 module Admin::TabbedNavHelper
-  def tab_navigation_for(organisation, &block)
-    case organisation
+  def tab_navigation_for(content_object, &block)
+    case content_object
     when Organisation
-      tab_navigation(organisation_tabs(organisation), &block)
+      tab_navigation(organisation_tabs(content_object), &block)
     when WorldwideOrganisation
-      tab_navigation(worldwide_organisation_tabs(organisation), &block)
+      tab_navigation(worldwide_organisation_tabs(content_object), &block)
     when WorldLocation
-      tab_navigation(world_location_tabs(organisation), &block)
+      tab_navigation(world_location_tabs(content_object), &block)
     end
   end
 

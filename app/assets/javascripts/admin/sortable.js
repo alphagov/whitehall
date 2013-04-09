@@ -2,6 +2,7 @@
   var _enableSortable = function() {
     $(this).each(function() {
       var fieldset = $(this);
+      var order_label_finder = fieldset.data('orderingLabelSelector') || 'label';
       var list = $("<ul></ul>");
       fieldset.find("input.ordering").hide();
       fieldset.children("div").each(function(i, item) {
@@ -15,8 +16,8 @@
         opacity: 0.5,
         update: function(event, ui) {
           list.children(".sort_item").each(function(index, li) {
-            var input_id = $(li).find("label").attr("for");
-            var input = $("#" + input_id)
+            var input_id = $(li).find(order_label_finder).attr("for");
+            var input = $("#" + input_id);
             input.val(index);
           })
         },
