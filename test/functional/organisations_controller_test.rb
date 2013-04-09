@@ -680,7 +680,7 @@ class OrganisationsControllerTest < ActionController::TestCase
 
   view_test "should display the minister's picture if available" do
     ministerial_role = create(:ministerial_role)
-    person = create(:person, image: File.open(File.join(Rails.root, 'test', 'fixtures', 'minister-of-funk.960x640.jpg')))
+    person = create(:person, image: image_fixture_file)
     create(:role_appointment, person: person, role: ministerial_role)
     organisation = create(:organisation, ministerial_roles: [ministerial_role])
     get :show, id: organisation

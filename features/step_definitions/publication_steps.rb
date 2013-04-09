@@ -23,13 +23,12 @@ end
 
 Given /^I attempt to create an invalid publication with an attachment$/ do
   begin_drafting_publication("")
-  file = pdf_attachment
   @attachment_title = "Attachment Title"
-  @attachment_file = File.basename(file.path)
+  @attachment_file = pdf_attachment
   within ".attachments" do
     choose "Individual upload"
     fill_in "Title", with: @attachment_title
-    attach_file "File", file.path
+    attach_file "File", @attachment_file
   end
   click_button "Save"
 end
@@ -187,7 +186,7 @@ When /^I replace the data file of the attachment in a new draft of the publicati
   within "#edition_attachment_fields" do
     choose "Individual upload"
     choose 'Replace'
-    attach_file 'Replacement', new_file.path
+    attach_file 'Replacement', new_file
   end
   fill_in_change_note_if_required
   click_button "Save"

@@ -19,7 +19,7 @@ class FeatureTest < ActiveSupport::TestCase
   end
 
   test "started_at set by default on creation" do
-    feature = Feature.create(image: image_fixture, feature_list: create(:feature_list), document: create(:document))
+    feature = Feature.create(image: image_fixture_file, feature_list: create(:feature_list), document: create(:document))
     assert_equal Time.zone.now, feature.started_at
   end
 
@@ -28,9 +28,5 @@ class FeatureTest < ActiveSupport::TestCase
     ended = create(:feature, started_at: 2.days.ago, ended_at: 1.day.ago)
     assert_equal [current], Feature.current
     assert_same_elements [current, ended], Feature.all
-  end
-
-  def image_fixture
-    File.open(Rails.root.join("test/fixtures/minister-of-funk.960x640.jpg"))
   end
 end

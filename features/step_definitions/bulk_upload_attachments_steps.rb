@@ -4,7 +4,7 @@ When /^I upload a zip file with a new attachment and a replacement attachment to
 
   choose 'Bulk upload'
   within('#bulk_upload_attachments') do
-    attach_file 'Zip file', new_and_replacement_zip_file.path
+    attach_file 'Zip file', new_attachments_zip_file
     click_on 'Bulk upload'
   end
 end
@@ -12,7 +12,7 @@ end
 When /^I upload a zip file of new attachments to my new document$/ do
   choose 'Bulk upload'
   within('#bulk_upload_attachments') do
-    attach_file 'Zip file', new_attachments_zip_file.path
+    attach_file 'Zip file', new_attachments_zip_file
     click_on 'Bulk upload'
   end
 end
