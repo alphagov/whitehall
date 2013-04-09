@@ -129,4 +129,8 @@ class GDSEditorTest < ActiveSupport::TestCase
   test 'can unpublish an edition' do
     assert enforcer_for(gds_editor, normal_edition).can?(:unpublish)
   end
+
+  test 'can reorder cabinet ministers' do
+    assert enforcer_for(gds_editor, MinisterialRole).can?(:reorder_cabinet_ministers)
+  end
 end

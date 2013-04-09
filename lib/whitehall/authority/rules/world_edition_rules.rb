@@ -7,7 +7,7 @@ module Whitehall::Authority::Rules
       elsif actor.world_editor? || actor.world_writer?
         true
       else
-        # returning true here makes this whole ruleset redundant, but 
+        # returning true here makes this whole ruleset redundant, but
         # it's not clear if this will always be the case once world is
         # live, so lets leave it for now
         true
