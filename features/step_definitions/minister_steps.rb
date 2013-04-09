@@ -70,3 +70,22 @@ Then /^I should see that "([^"]*)" is a commons whip "([^"]*)"$/ do |minister_na
     assert page.has_css?('.role', text: role_title)
   end
 end
+
+Given /^two cabinet ministers "([^"]*)" and "([^"]*)"$/ do |person1, person2|
+  create(:role_appointment, person: create(:person, forename: person1), role: create(:ministerial_role, cabinet_member: true))
+  create(:role_appointment, person: create(:person, forename: person2), role: create(:ministerial_role, cabinet_member: true))
+end
+
+When /^I order the cabinet ministers "([^"]*)", "([^"]*)"$/ do |role1, role2|
+  visit admin_cabinet_ministers_path
+  [role1, role2].each_with_index do |role, index|
+    fill_in(role, with: index)
+  end
+  click_button "Save"
+end
+
+Then /^I should see "([^"]*)", "([^"]*)" in that order on the ministers page$/ do |person1, person2|
+  visit ministers_page
+  actual = all(".person .current-appointee").map {|elem| elem.text}
+  assert_equal [person1, person2], actual
+end

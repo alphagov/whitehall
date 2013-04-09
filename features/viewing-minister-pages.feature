@@ -43,4 +43,3 @@ Scenario: Viewing ministers and whips
   When I visit the ministers page
   Then I should see that "Johnny Macaroon" is a minister in the "Department of Woah"
   And I should see that "Fred Bloggs" is a commons whip "Deputy Chief Whip, Comptroller of HM Household"
-
