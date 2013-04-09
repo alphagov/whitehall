@@ -1,29 +1,19 @@
 <%= render :layout => 'layouts/frontend_base', locals: {remove_breadcrumbs: true} do %>
-  <div class="global-nav-wrapper">
-    <div class="whitehall-content js-toggle-nav" id="global-nav">
-      <div class="inner"><div class="extra-inner"><!-- extra inner for extra border bottom -->
-        <span class="home"><%= link_to "Inside Government", root_path %></span>
-        <span class="jump-link"><a href="#navigation" class="toggler">menu</a></span>
-        <nav role="navigation" class="content">
-          <ul id="navigation">
-            <li><%= main_navigation_link_to 'How government works', how_government_works_path %></li>
-            <li><%= main_navigation_link_to "Departments", organisations_path %></li>
-            <li><%= main_navigation_link_to "Worldwide", world_locations_path(locale: :en) %></li>
-            <li><%= main_navigation_link_to "Topics", topics_path %></li>
-            <li><span class="toggler <%= main_navigation_documents_class %>">Content by type</span>
-              <ul class="subtype content js-hidden">
-                <li><%= main_navigation_link_to "Announcements", announcements_path %></li>
-                <li><%= main_navigation_link_to "Consultations", publications_filter_path(publication_filter_option: 'consultations') %></li>
-                <li><%= main_navigation_link_to "Policies", policies_path %></li>
-                <li><%= main_navigation_link_to "Publications", publications_path %></li>
-                <li><%= main_navigation_link_to "Statistics", publications_filter_path(publication_filter_option: 'statistics') %></li>
-              </ul>
-            </li>
-          </ul>
-        </nav>
-      </div></div>
-    </div>
-  </div>
+  <nav id="proposition-menu">
+    <%= link_to "Inside Government", root_path, id: 'proposition-name' %>
+    <ul id="proposition-links">
+      <li><%= main_navigation_link_to 'How government works', how_government_works_path %></li>
+      <li><%= main_navigation_link_to "Departments", organisations_path %></li>
+      <li><%= main_navigation_link_to "Worldwide", world_locations_path(locale: :en) %></li>
+      <li><%= main_navigation_link_to "Topics", topics_path %></li>
+      <li class="clear-child"><%= main_navigation_link_to "Announcements", announcements_path %></li>
+      <li><%= main_navigation_link_to "Consultations", publications_filter_path(publication_filter_option: 'consultations') %></li>
+      <li><%= main_navigation_link_to "Policies", policies_path %></li>
+      <li><%= main_navigation_link_to "Publications", publications_path %></li>
+      <li><%= main_navigation_link_to "Statistics", publications_filter_path(publication_filter_option: 'statistics') %></li>
+    </ul>
+  </nav>
+  <div class="whitehall-top-bar"></div>
   <div class="whitehall-content">
     <div class="progress-bar js-progress-bar js-hidden" id="progress-bar" data-join-count="<%= joined_ministerial_department_count %>">
       <div class="bar"><div class="joined" style="width: <%= joined_ministerial_department_percent %>"></div></div>
