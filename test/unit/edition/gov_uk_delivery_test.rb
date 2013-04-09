@@ -44,11 +44,10 @@ class Edition::GovUkDeliveryTest < ActiveSupport::TestCase
   end
 
   test '#govuk_delivery_email_body generates a utf-8 encoded body' do
-    publication = create(:news_article)
+    publication = create(:news_article, title: "Café".encode("UTF-8"))
 
-    title = "Café".encode("UTF-8")
-    body = publication.govuk_delivery_email_body("http://example.com", title, "My Summary", Time.zone.now)
-    assert_includes body, title
+    body = publication.govuk_delivery_email_body
+    assert_includes body, publication.title
     assert_equal 'UTF-8', body.encoding.name
   end
 
@@ -101,5 +100,13 @@ class Edition::GovUkDeliveryTest < ActiveSupport::TestCase
 
     publication.expects(:notify_govuk_delivery).once
     publication.publish!
+  end
+
+  test "should link to full URL in email" do
+    publication = create(:publication)
+    publication.first_published_at = Time.zone.now
+    publication.major_change_published_at = Time.zone.now
+
+    assert_match /#{Whitehall.public_host}/, publication.govuk_delivery_email_body
   end
 end
