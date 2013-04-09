@@ -68,9 +68,12 @@ module Whitehall
     end
 
     def check_box(method, options = {}, *args)
+      horizontal = options.delete(:horizontal)
       label_text = options.delete(:label_text)
-      label(method, label_text, class: "checkbox") do
-        super + label_text
+      if horizontal
+        horizontal_group(label(method, label_text, class: "control-label"), super, options)
+      else
+        label(method, label_text, class: "checkbox") { super + label_text }
       end
     end
 
