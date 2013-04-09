@@ -9,7 +9,7 @@ module Edition::GovUkDelivery
   extend ActiveSupport::Concern
 
   included do
-    set_callback(:publish, :after) { notify_govuk_delivery }
+    set_callback :publish, :after, :notify_govuk_delivery, unless: :minor_change?
   end
 
   def govuk_delivery_tags
@@ -93,16 +93,14 @@ module Edition::GovUkDelivery
   end
 
   def notify_govuk_delivery
-    if (tags = govuk_delivery_tags).any? && can_be_sent_as_notification?
+    if can_be_sent_as_notification?
       # Swallow all errors for the time being
-      begin
-        response = Whitehall.govuk_delivery_client.notify(tags, title, govuk_delivery_email_body)
-      rescue GdsApi::HTTPErrorResponse => e
-        Rails.logger.warn e
-      rescue => e
-        Rails.logger.error e
-      end
+      Whitehall.govuk_delivery_client.notify(govuk_delivery_tags, title, govuk_delivery_email_body)
     end
+  rescue GdsApi::HTTPErrorResponse => e
+    Rails.logger.warn e
+  rescue => e
+    Rails.logger.error e
   end
 
   def govuk_delivery_email_body
