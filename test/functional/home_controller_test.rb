@@ -55,6 +55,12 @@ class HomeControllerTest < ActionController::TestCase
     end
   end
 
+  view_test "home includes header-context element to stop breadcrumbs being inserted" do
+    get :home
+
+    assert_select ".header-context"
+  end
+
   view_test "home page doesn't link to itself in the progress bar" do
     get :home
 

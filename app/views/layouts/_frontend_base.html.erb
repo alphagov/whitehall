@@ -25,7 +25,7 @@
     <%= atom_discovery_link_tag %>
   </head>
   <body class="website government<%= " #{local_assigns[:extra_body_class]}" if local_assigns[:extra_body_class] %>">
-    <% if local_assigns[:remove_breadcrumbs] %><div class="header-context group"><!-- deliberately empty --></div><% end %>
+    <% unless local_assigns[:show_breadcrumbs] %><div class="header-context group"><!-- deliberately empty --></div><% end %>
     <div id="whitehall-wrapper">
       <%= yield %>
     </div>
