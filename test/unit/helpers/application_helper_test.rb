@@ -194,7 +194,7 @@ class ApplicationHelperTest < ActionView::TestCase
     assert_equal "Inner Text", anchor.inner_text
     assert_equal "/some/path", anchor.attr("href").value
     classes = anchor.attr("class").value.split
-    assert classes.include?("current")
+    assert classes.include?("active")
     assert classes.include?("class-1")
     assert classes.include?("class-2")
   end
@@ -206,7 +206,7 @@ class ApplicationHelperTest < ActionView::TestCase
     assert_equal "Inner Text", anchor.inner_text
     assert_equal "/some/path", anchor.attr("href").value
     classes = anchor.attr("class").value.split
-    refute classes.include?("current")
+    refute classes.include?("active")
     assert classes.include?("class-1")
     assert classes.include?("class-2")
   end

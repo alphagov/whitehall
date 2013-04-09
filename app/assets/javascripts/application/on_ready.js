@@ -10,7 +10,6 @@ jQuery(function($) {
 
   $('.js-toggle-change-notes').toggler();
   $('.js-toggle-accessibility-warning').toggler({header: ".toggler", content: ".help-block"})
-  $('.js-toggle-nav').toggler({header: ".toggler", content: ".content", showArrow: false, actLikeLightbox: true})
   $('.js-toggle-org-list').toggler({actLikeLightbox: true})
 
   $(".js-document-filter").enableDocumentFilter();
