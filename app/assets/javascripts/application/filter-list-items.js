@@ -41,7 +41,7 @@
         if(pagePath){
           window._gaq && _gaq.push(['_trackEvent', 'edd_inside_gov', search, pagePath]);
         }
-      }, 250);
+      }, 1000);
     },
     hideEmptyBlocks: function(itemsToShow){
       if(itemsToShow.length === 0){
