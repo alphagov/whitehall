@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 require "test_helper"
 
 class Edition::GovUkDeliveryTest < ActiveSupport::TestCase
@@ -46,22 +44,6 @@ class Edition::GovUkDeliveryTest < ActiveSupport::TestCase
     edition = create(:policy, topics: [topic], organisations: [organisation], relevant_to_local_government: true)
 
     assert edition.govuk_delivery_tags.include? "https://#{Whitehall.public_host}/government/policies.atom?departments%5B%5D=#{organisation.slug}&relevant_to_local_government=1&topics%5B%5D=#{topic.slug}"
-  end
-
-  test '#govuk_delivery_email_body generates a utf-8 encoded body' do
-    publication = create(:news_article, title: "Café".encode("UTF-8"))
-
-    body = publication.govuk_delivery_email_body
-    assert_includes body, publication.title
-    assert_equal 'UTF-8', body.encoding.name
-  end
-
-  test '#govuk_delivery_email_body should link to full URL in email' do
-    publication = create(:publication)
-    publication.first_published_at = Time.zone.now
-    publication.major_change_published_at = Time.zone.now
-
-    assert_match /#{Whitehall.public_host}/, publication.govuk_delivery_email_body
   end
 
   test '#notify_govuk_delivery queues a GovUkNotificationJob' do

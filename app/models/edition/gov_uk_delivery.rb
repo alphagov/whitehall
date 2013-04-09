@@ -1,8 +1,3 @@
-# encoding: utf-8
-require 'uri'
-require 'erb'
-require 'gds_api/exceptions'
-
 module Edition::GovUkDelivery
   include Rails.application.routes.url_helpers
   extend ActiveSupport::Concern
@@ -95,29 +90,5 @@ module Edition::GovUkDelivery
     if can_be_sent_as_notification?
       Delayed::Job.enqueue GovUkDeliveryNotificationJob.new(id)
     end
-  end
-
-  def govuk_delivery_email_body
-    url = document_url(self, host: Whitehall.public_host)
-    change_note = if document.change_history.length > 1
-      document.change_history.first.note
-    end
-    if public_date = notification_date
-      # Desired format is: 14 June, 2012 at 6:48pm
-      public_date = public_date.strftime('%e %B, %Y at %I:%M%P')
-    end
-    ERB.new(%q{
-  <div class="rss_item" style="margin-bottom: 2em;">
-    <div class="rss_title" style="font-size: 120%; margin: 0 0 0.3em; padding: 0;">
-      <% if change_note %>Updated<% end %>
-      <a href="<%= url %>" style="font-weight: bold; "><%= title %></a>
-    </div>
-    <% if public_date %>
-      <div class="rss_pub_date" style="font-size: 90%; margin: 0 0 0.3em; padding: 0; color: #666666; font-style: italic;"><%= public_date %></div>
-    <% end %>
-    <br />
-    <div class="rss_description" style="margin: 0 0 0.3em; padding: 0;"><%= change_note || summary %></div>
-  </div>
-}.encode("UTF-8")).result(binding)
   end
 end
