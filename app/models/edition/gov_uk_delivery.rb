@@ -1,7 +1,6 @@
 # encoding: utf-8
 require 'uri'
 require 'erb'
-
 require 'gds_api/exceptions'
 
 module Edition::GovUkDelivery
@@ -94,13 +93,8 @@ module Edition::GovUkDelivery
 
   def notify_govuk_delivery
     if can_be_sent_as_notification?
-      # Swallow all errors for the time being
-      Whitehall.govuk_delivery_client.notify(govuk_delivery_tags, title, govuk_delivery_email_body)
+      Delayed::Job.enqueue GovUkDeliveryNotificationJob.new(id)
     end
-  rescue GdsApi::HTTPErrorResponse => e
-    Rails.logger.warn e
-  rescue => e
-    Rails.logger.error e
   end
 
   def govuk_delivery_email_body

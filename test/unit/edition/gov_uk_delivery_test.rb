@@ -64,29 +64,11 @@ class Edition::GovUkDeliveryTest < ActiveSupport::TestCase
     assert_match /#{Whitehall.public_host}/, publication.govuk_delivery_email_body
   end
 
-  test '#notify_govuk_delivery sends a notification via the govuk delivery client when there are topics' do
-    policy = create(:policy, topics: [create(:topic)])
-    policy.stubs(:govuk_delivery_email_body).returns('email body')
-    policy.stubs(:public_timestamp).returns Time.zone.now
-    Whitehall.govuk_delivery_client.expects(:notify).with(policy.govuk_delivery_tags, policy.title, 'email body')
-
-    policy.notify_govuk_delivery
-  end
-
-  test '#notify_govuk_delivery swallows errors from the API' do
-    policy = create(:policy, topics: [create(:topic)])
-    policy.stubs(:public_timestamp).returns Time.zone.now
-    Whitehall.govuk_delivery_client.expects(:notify).raises(GdsApi::HTTPErrorResponse, 500)
-
-    assert_nothing_raised { policy.notify_govuk_delivery }
-  end
-
-  test '#notify_govuk_delivery swallows timeout errors from the API' do
-    policy = create(:policy, topics: [create(:topic)])
-    policy.stubs(:public_timestamp).returns Time.zone.now
-    Whitehall.govuk_delivery_client.expects(:notify).raises(GdsApi::TimedOutException)
-
-    assert_nothing_raised { policy.notify_govuk_delivery }
+  test '#notify_govuk_delivery queues a GovUkNotificationJob' do
+    assert_difference 'Delayed::Job.count', 1 do
+      policy = create(:policy)
+      policy.notify_govuk_delivery
+    end
   end
 
   test "notifies gov uk delivery after publishing a policy" do
