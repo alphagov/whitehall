@@ -8,3 +8,18 @@ body,
 body.js-enabled {
   padding: 0;
 }
+
+#global-header {
+  .header-proposition {
+    #proposition-name,
+    #proposition-links li a.active {
+      color: $inside-gov-secondary;
+    }
+  }
+  form#search input.submit {
+    background-color: $inside-gov-secondary;
+    &:hover {
+      background-color: lighten($inside-gov-secondary, 5%);
+    }
+  }
+}
