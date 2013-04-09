@@ -22,12 +22,8 @@
   <div class="inner-block floated-children">
     <div class="headings">
       <h1><%= @html_version.title %></h1>
-      <p><%= published_or_updated(@document) %> <%= absolute_date(@document.public_timestamp, class: 'published-at') %></p>
+      <p><span class="lead-in"><%= published_or_updated(@document) %></span> <%= absolute_date(@document.public_timestamp, class: 'published-at') %></p>
     </div>
-  </div>
-</header>
-<div class="block publication-content">
-  <div class="inner-block floated-children">
     <nav class="in-page-navigation">
       <h2>Contents</h2>
       <ol>
@@ -36,6 +32,10 @@
         <% end %>
       </ol>
     </nav>
+  </div>
+</header>
+<div class="block publication-content">
+  <div class="inner-block floated-children">
     <%= govspeak_to_html @html_version.body, @document.images, numbered_heading_level: 'h2' %>
   </div>
 </div>

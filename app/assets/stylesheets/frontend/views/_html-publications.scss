@@ -57,27 +57,37 @@
         }
       }
       p {
-        margin: $gutter-half 0 22px;
-        color: $text-colour;
+        margin: $gutter-half 0 20px;
+        color: $white;
+      }
+      .lead-in {
+        text-transform: capitalize;
       }
     }
   }
+  
+  .in-page-navigation {
+    color: $white;
+    margin: 0 0 20px;
+    h2 {
+      font-weight: bold;
+    }
+    ol {
+      padding-left: $gutter;
+      li {
+        list-style: decimal;
+      }
+    }
+    a {
+      color: $white;
+    }
+  }
+  
   .publication-content {
     .govspeak {
       @include media(tablet){
         width: 75%;
         float: right;
-      }
-    }
-    .in-page-navigation {
-      line-height: 28/19;
-      margin: 20px 0 14px;
-
-      ol {
-        margin-left: $gutter;
-        li {
-          list-style: decimal;
-        }
       }
     }
     .govspeak {
