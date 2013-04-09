@@ -81,20 +81,21 @@ module Edition::GovUkDelivery
     if (tags = govuk_delivery_tags).any? && !minor_change?
       # Swallow all errors for the time being
       begin
-        response = Whitehall.govuk_delivery_client.notify(tags, title, govuk_delivery_email_body(public_document_path(self), title, summary, public_timestamp))
+        response = Whitehall.govuk_delivery_client.notify(tags, title, govuk_delivery_email_body)
       rescue GdsApi::HTTPErrorResponse
         nil
       end
     end
   end
 
-  def govuk_delivery_email_body(url, title, summary, published_on)
-    ERB.new(%q{
+def govuk_delivery_email_body
+  url = document_url(self, host: Whitehall.public_host)
+  ERB.new(%q{
 <div class="rss_item" style="margin-bottom: 2em;">
   <div class="rss_title" style="font-weight: bold; font-size: 120%; margin: 0 0 0.3em; padding: 0;">
     <a href="<%= url %>"><%= title %></a>
   </div>
-  <div class="rss_pub_date" style="font-size: 90%; margin: 0 0 0.3em; padding: 0; color: #666666; font-style: italic;"><%= published_on %></div>
+  <div class="rss_pub_date" style="font-size: 90%; margin: 0 0 0.3em; padding: 0; color: #666666; font-style: italic;"><%= public_timestamp %></div>
   <br />
   <div class="rss_description" style="margin: 0 0 0.3em; padding: 0;"><%= summary %></div>
 </div>
