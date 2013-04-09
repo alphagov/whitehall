@@ -3,6 +3,14 @@ require "test_helper"
 class MainstreamCategoriesControllerTest < ActionController::TestCase
   should_be_a_public_facing_controller
 
+  view_test "show doesn't include header-context element which is used for breadcrumbs" do
+    category = create(:mainstream_category)
+
+    get :show, parent_tag: category.parent_tag, id: category
+
+    refute_select ".header-context"
+  end
+
   test "show orders guides alphabetically by title" do
     category = create(:mainstream_category)
     detailed_guide_a = create(:published_detailed_guide, primary_mainstream_category: category, title: "guide-a")
