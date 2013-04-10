@@ -758,6 +758,208 @@
 
 }
 
+.organisations-executive-office {
+
+  .executive-office-header {
+    h1 {
+      background: transparent none no-repeat 50% 0;
+      padding-top: 130px;
+      @include core-19;
+      text-align: center;
+    }
+  }
+  .prime-ministers-office .executive-office-header h1 {
+    background-image: image_url("executive-office-bars/prime-ministers-office.jpg");
+  }
+  .deputy-prime-ministers-office .executive-office-header h1 {
+    background-image: image_url("executive-office-bars/deputy-prime-ministers-office.jpg");
+  }
+
+  .block {
+    @extend %contain-floats;
+  }
+
+  .feature-block {
+    margin-bottom: $gutter;
+
+    h2 {
+      border-top: $gutter-one-sixth solid;
+      @include core-24;
+      font-weight: bold;
+      padding: $gutter-two-thirds 0;
+    }
+    .features h2 {
+      margin: 0 $gutter-half;
+    }
+
+    .promo {
+      float: left;
+      width: 100%;
+      margin: $gutter-half 0 $gutter;
+
+      &.clear-promo {
+        clear: left;
+      }
+
+      .content {
+        padding: 0 $gutter-half;
+        @include core-19;
+      }
+
+      .feature {
+        float: left;
+        width: 100%;
+        margin-bottom: $gutter;
+      }
+    }
+
+    #featured-topics-and-policies {
+      @include media(tablet){
+        width: 66.66%;
+        float: left;
+      }
+
+      ul {
+        list-style: none;
+        margin: $gutter-half 0 $gutter-one-third;
+
+        li {
+          border-bottom: 1px solid $border-colour;
+          padding: $gutter-one-sixth 0;
+        }
+      }
+    }
+
+    .social-media {
+      @include media(tablet){
+        width: 33.33%;
+      }
+    }
+
+    .features {
+      .features-1 {
+        @include media(tablet){
+          width: 33.33%;
+          .large {
+            width: 66.66%;
+          }
+        }
+      }
+      .features-2 {
+        @include media(tablet){
+          width: 66.66%;
+
+          .feature {
+            width: 50%;
+            &.large {
+              width: 100%;
+            }
+          }
+        }
+      }
+      .features-3 {
+        @include media(tablet){
+          width: 100%;
+
+          .feature {
+            width: 33.33%;
+            &.large {
+              width: 66.66%;
+            }
+          }
+        }
+      }
+      .content {
+        @include core-16;
+        img {
+          width: 100%;
+          margin-bottom: $gutter-one-third;
+        }
+        h3 {
+          @include copy-19;
+          font-weight: bold;
+        }
+        ul {
+          margin-top: $gutter-one-third;
+        }
+      }
+      .large {
+        ul {
+          margin: $gutter-one-third (-$gutter-half);
+          li {
+            list-style: none;
+            float: left;
+            width: 50%;
+            a {
+              border-bottom: 1px solid $border-colour;
+              display: block;
+              margin: 0 $gutter-half;
+              padding: $gutter-one-sixth 0;
+            }
+          }
+        }
+      }
+
+    }
+  }
+
+  .contact-wrapper {
+    h1 {
+      border-top: $gutter-one-sixth solid;
+      @include core-24;
+      font-weight: bold;
+      padding: $gutter-two-thirds 0;
+    }
+
+    .contact {
+      width: 66.66%;
+      clear: both;
+      margin-top: $gutter-one-third;
+      @include media(tablet){
+        margin-bottom: $gutter-two-thirds;
+      }
+      h2 {
+        @include core-19;
+        font-weight: bold;
+        margin-bottom: $gutter-one-third;
+        padding-top: $gutter-half;
+        border-top: 1px solid $border-colour;
+        border-bottom: none;
+      }
+      p {
+        margin: 0 0 $gutter-one-third;
+
+        .type {
+          display: block;
+        }
+      }
+      .comment {
+        margin-bottom: $gutter-half;
+      }
+      .adr {
+        margin: 0 0 $gutter-one-third;
+
+        p {
+          margin: 0;
+        }
+      }
+      .email {
+        word-break: break-word;
+
+        @include ie(6) {
+          word-break: break-all;
+        }
+      }
+    }
+    .show-other-content {
+      @include core-19;
+      font-weight: bold;
+    }
+  }
+
+
+}
+
 
 // Used on:
 // organisations#about, corporate_information_page#show
