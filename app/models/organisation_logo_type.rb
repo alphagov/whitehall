@@ -37,4 +37,7 @@ class OrganisationLogoType
   UKHydrographicOffice = create(
     id: 10, title: "UK Hydrographic Office", class_name: "ukho"
   )
+  ExecutiveOffice = create(
+    id: 11, title: "Executive Office", class_name: "eo"
+  )
 end
