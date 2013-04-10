@@ -49,7 +49,7 @@ form {
   }
 
   select {
-    &.chzn-select {
+    &.chzn-select, &.chzn-select-no-deselect {
       width: 100%;
     }
 

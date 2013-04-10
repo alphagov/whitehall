@@ -7,8 +7,8 @@
       elem.parents('.well').find('.featured-item-type-pane[data-item-type='+target+']').show();
     };
     // know how many lists to expect
-    var counter = $('.featured-topics-and-policies-items .featured-item-type-pane .chzn-select').length;
-    $('.featured-topics-and-policies-items .featured-item-type-pane .chzn-select').on('liszt:ready', function() {
+    var counter = $('.featured-topics-and-policies-items .featured-item-type-pane .chzn-select-no-deselect').length;
+    $('.featured-topics-and-policies-items .featured-item-type-pane .chzn-select-no-deselect').on('liszt:ready', function() {
       // count how many are ready
       counter--;
       if (counter < 1) {

@@ -32,14 +32,14 @@
                 <%= featured_item_form.select(:topic_id,
                                               options_from_collection_for_select(@topics, 'id', 'name', featured_item_form.object.try(:topic_id)),
                                               {include_blank: true},
-                                              class: 'chzn-select',
+                                              class: 'chzn-select-no-deselect',
                                               data: { placeholder: "Choose topic..." }) %>
               </div>
               <div class="featured-item-type-pane" data-item-type="policy">
                 <%= featured_item_form.select(:document_id,
                                               options_from_collection_for_select(@policies, 'document_id', 'title', featured_item_form.object.try(:document_id)),
                                               {include_blank: true},
-                                              class: 'chzn-select',
+                                              class: 'chzn-select-no-deselect',
                                               data: { placeholder: 'Choose policy...'}) %>
               </div>
               <%= featured_item_form.text_field(:ordering, class: "ordering") %>
