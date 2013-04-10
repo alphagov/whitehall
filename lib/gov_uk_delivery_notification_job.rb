@@ -2,6 +2,9 @@ class GovUkDeliveryNotificationJob < Struct.new(:id)
 
   def perform
     Whitehall.govuk_delivery_client.notify(edition.govuk_delivery_tags, edition.title, email_body)
+  rescue GdsApi::HTTPErrorResponse => exception
+    # we handle 400 responses because that is what the API returns if there are no subscribers
+    raise unless exception.code == 400
   end
 
   def edition
