@@ -199,6 +199,7 @@ Whitehall::Application.routes.draw do
         resources :people, except: [:show] do
           resources :translations, controller: 'person_translations'
         end
+        resource :cabinet_ministers, only: [:show, :update]
         resources :roles, except: [:show] do
           resources :role_appointments, only: [:new, :create, :edit, :update, :destroy], shallow: true
           resources :translations, controller: 'role_translations'

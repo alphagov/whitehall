@@ -119,4 +119,8 @@ class DepartmentEditorTest < ActiveSupport::TestCase
   test 'cannot unpublish an edition' do
     refute enforcer_for(department_editor, normal_edition).can?(:unpublish)
   end
+
+  test 'cannot reorder cabinet ministers' do
+    refute enforcer_for(department_editor, MinisterialRole).can?(:reorder_cabinet_ministers)
+  end
 end
