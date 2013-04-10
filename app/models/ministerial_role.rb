@@ -50,13 +50,6 @@ class MinisterialRole < Role
     super && editions.empty?
   end
 
-  def seniority
-    [ /^Prime Minister/,
-      /^Deputy Prime Minister/,
-      /^First Secretary of State/,
-      // ].index { |re| name.match(re) } + 1
-  end
-
   def search_link
     # This should be ministerial_role_path(self), but we can't use that because friendly_id's #to_param returns
     # the old value of the slug (e.g. nil for a new record) if the record is dirty, and apparently the record

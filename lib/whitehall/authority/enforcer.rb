@@ -3,6 +3,7 @@ require 'whitehall/authority/rules/edition_rules'
 require 'whitehall/authority/rules/fatality_notice_rules'
 require 'whitehall/authority/rules/world_edition_rules'
 require 'whitehall/authority/rules/document_rules'
+require 'whitehall/authority/rules/ministerial_role_rules'
 
 module Whitehall::Authority
   class Enforcer
@@ -38,6 +39,7 @@ module Whitehall::Authority
     'Edition' => Rules::EditionRules,
     'FatalityNotice' => Rules::FatalityNoticeRules,
     'WorldLocationNewsArticle' => Rules::WorldEditionRules,
-    'WorldwidePriority' => Rules::WorldEditionRules
+    'WorldwidePriority' => Rules::WorldEditionRules,
+    'MinisterialRole' => Rules::MinisterialRoleRules
   }
 end

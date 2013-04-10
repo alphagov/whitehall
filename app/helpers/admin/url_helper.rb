@@ -57,6 +57,10 @@ module Admin::UrlHelper
     end
   end
 
+  def admin_cabinet_ministers_link
+    admin_header_link "Sort Cabinet Ministers", admin_cabinet_ministers_path
+  end
+
   def admin_header_link(name, path, path_matcher = nil, options = {})
     path_matcher ||= Regexp.new("^#{Regexp.escape(path)}")
     if user_signed_in?
