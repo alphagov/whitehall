@@ -1,4 +1,6 @@
 class MinisterialRolesController < PublicFacingController
+  include Whitehall::Controllers::RolesPresenters
+
   def index
     sorter = MinisterSorter.new
     @cabinet_ministerial_roles = sorter.cabinet_ministers.map { |p, r|
@@ -22,9 +24,8 @@ private
 
   def ministers_by_organisation
     Organisation.where(organisation_type_id: ministerial_department_type).includes(:translations).map do |organisation|
-      presenter = RolesPresenter.new(organisation.ministerial_roles.includes(:translations, :current_people).order("organisation_roles.ordering").sort_by(&:seniority))
-      presenter.remove_unfilled_roles!
-      [ organisation, presenter ]
+      roles_presenter = filled_roles_presenter_for(organisation, :ministerial)
+      [ organisation, roles_presenter ]
     end
   end
 

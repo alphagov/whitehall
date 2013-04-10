@@ -34,23 +34,30 @@ class MinisterialRolesControllerTest < ActionController::TestCase
     assert_equal [prime_minister, deputy_prime_minister, first_sec_of_state, defence_minister, culture_minister], assigns(:cabinet_ministerial_roles).map { |person, role| role.first.model }
   end
 
-  test "shows ministers by organisation in the correct order" do
+  test "shows ministers by organisation in the cms-defined order" do
     organisation = create(:ministerial_department)
     person_2 = create(:person, forename: 'Jeremy', surname: 'Hunt')
     person_1 = create(:person, forename: 'Nick', surname: 'Clegg')
-    person_3 = create(:person, forename: 'Geroge', surname: 'Foreman')
+    person_3 = create(:person, forename: 'George', surname: 'Foreman')
+    person_4 = create(:person, forename: 'Brian', surname: 'Smith')
 
     role_2 = create(:ministerial_role, name: 'Non-Executive Director', cabinet_member: false, organisations: [organisation], seniority: 1)
     role_1 = create(:ministerial_role, name: 'Prime Minister', cabinet_member: true, organisations: [organisation], seniority: 0)
     role_3 = create(:board_member_role, name: 'Chief Griller', organisations: [organisation], seniority: 3)
+    role_4 = create(:ministerial_role, name: 'First Secretary of State', cabinet_member: true, organisations: [organisation], seniority: 2)
+
+    organisation.organisation_roles.find_by_role_id(role_2.id).update_column(:ordering, 3)
+    organisation.organisation_roles.find_by_role_id(role_1.id).update_column(:ordering, 2)
+    organisation.organisation_roles.find_by_role_id(role_4.id).update_column(:ordering, 1)
 
     appointment_2 = create(:ministerial_role_appointment, role: role_2, person: person_2)
     appointment_1 = create(:ministerial_role_appointment, role: role_1, person: person_1)
     appointment_3 = create(:board_member_role_appointment, role: role_3, person: person_3)
+    appointment_4 = create(:ministerial_role_appointment, role: role_4, person: person_4)
 
     get :index
 
-    expected_results = [[organisation, RolesPresenter.new([role_1, role_2])]]
+    expected_results = [[organisation, RolesPresenter.new([role_4, role_1, role_2])]]
     assert_equal expected_results, assigns(:ministers_by_organisation)
   end
 
