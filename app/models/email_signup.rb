@@ -46,7 +46,7 @@ class EmailSignup
     }
   end
   def self.valid_organisation_slugs
-    valid_organisations_by_type.values.flatten.map(&:slug) + ['all']
+    valid_organisations_by_type.map { |type, orgs| orgs.map(&:slug) }.flatten + ['all']
   end
 
   def self.valid_document_types_by_type
