@@ -3,6 +3,11 @@
 require "test_helper"
 
 class Edition::GovUkDeliveryTest < ActiveSupport::TestCase
+
+  def assert_equal_ignoring_whitespace(expected, actual)
+    assert_equal expected.gsub(/\s+/, ' ').strip, actual.gsub(/\s+/, ' ').strip
+  end
+
   test "#govuk_delivery_tags returns a feed for 'all' by default" do
     assert_equal ["https://#{Whitehall.public_host}/government/feed"], build(:policy).govuk_delivery_tags
   end
@@ -115,5 +120,18 @@ class Edition::GovUkDeliveryTest < ActiveSupport::TestCase
     publication.major_change_published_at = Time.zone.now
 
     assert_match /#{Whitehall.public_host}/, publication.govuk_delivery_email_body
+  end
+
+  test "#govuk_delivery_email_body should include change note in an updated edition" do
+    editor = create(:departmental_editor)
+    first_draft = create(:published_publication)
+    second_draft = first_draft.create_draft(editor)
+    second_draft.change_note = "Updated some stuff"
+    second_draft.save!
+    assert second_draft.publish_as(editor, force: true)
+
+    body = Nokogiri::HTML.fragment(second_draft.govuk_delivery_email_body)
+    assert_equal_ignoring_whitespace "Updated #{second_draft.title}", body.css('.rss_title').inner_text
+    assert_equal_ignoring_whitespace second_draft.change_note, body.css('.rss_description').inner_text
   end
 end
