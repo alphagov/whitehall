@@ -35,22 +35,27 @@ class OrganisationsController < PublicFacingController
         @recently_updated = recently_updated_source.limit(3)
         if @organisation.live?
           @featured_editions = FeaturedEditionPresenter.decorate(@organisation.featured_edition_organisations.limit(6))
-          @policies = PolicyPresenter.decorate(@organisation.published_policies.in_reverse_chronological_order.limit(3))
-          @topics = @organisation.topics_with_content
-          @non_statistics_publications = PublicationesquePresenter.decorate(@organisation.published_non_statistics_publications.in_reverse_chronological_order.limit(2))
-          @statistics_publications = PublicationesquePresenter.decorate(@organisation.published_statistics_publications.in_reverse_chronological_order.limit(2))
-          @consultations = PublicationesquePresenter.decorate(@organisation.published_consultations.in_reverse_chronological_order.limit(2))
-          @announcements = AnnouncementPresenter.decorate(@organisation.published_announcements.in_reverse_chronological_order.limit(2))
-          @ministers = ministers
-          @important_board_members = board_members.take(@organisation.important_board_members)
-          @board_members = board_members.from(@organisation.important_board_members)
-          @military_personnel = military_personnel
-          @traffic_commissioners = traffic_commissioners
-          @chief_professional_officers = chief_professional_officers
-          @special_representatives = special_representatives
-          @sub_organisations = @organisation.sub_organisations
           set_slimmer_organisations_header([@organisation])
           expire_on_next_scheduled_publication(@organisation.scheduled_editions)
+
+          if @organisation.organisation_type.executive_office?
+            render 'show-executive-office'
+          else
+            @policies = PolicyPresenter.decorate(@organisation.published_policies.in_reverse_chronological_order.limit(3))
+            @topics = @organisation.topics_with_content
+            @non_statistics_publications = PublicationesquePresenter.decorate(@organisation.published_non_statistics_publications.in_reverse_chronological_order.limit(2))
+            @statistics_publications = PublicationesquePresenter.decorate(@organisation.published_statistics_publications.in_reverse_chronological_order.limit(2))
+            @consultations = PublicationesquePresenter.decorate(@organisation.published_consultations.in_reverse_chronological_order.limit(2))
+            @announcements = AnnouncementPresenter.decorate(@organisation.published_announcements.in_reverse_chronological_order.limit(2))
+            @ministers = ministers
+            @important_board_members = board_members.take(@organisation.important_board_members)
+            @board_members = board_members.from(@organisation.important_board_members)
+            @military_personnel = military_personnel
+            @traffic_commissioners = traffic_commissioners
+            @chief_professional_officers = chief_professional_officers
+            @special_representatives = special_representatives
+            @sub_organisations = @organisation.sub_organisations
+          end
         else
           render action: 'external'
         end
