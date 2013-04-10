@@ -38,8 +38,13 @@ class GovUkDeliveryNotificationJobTest < ActiveSupport::TestCase
   end
 
   test '#email_body should link to full URL in email' do
-    body = @job.email_body
+    assert_match /#{Whitehall.public_host}/, @job.email_body
+  end
 
-    assert_match /#{Whitehall.public_host}/, body
+  test '#email_body html escapes html characters in the title and summary' do
+    @policy.update_attributes(title: 'Beards & Facial Hair', summary: 'Keep your beard "tip-top"!')
+
+    assert_match %r(Beards &amp; Facial Hair), @job.email_body
+    assert_match %r(Keep your beard &quot;tip-top&quot;!), @job.email_body
   end
 end

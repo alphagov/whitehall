@@ -19,11 +19,11 @@ class GovUkDeliveryNotificationJob < Struct.new(:id)
 %Q(<div class="rss_item" style="margin-bottom: 2em;">
   <div class="rss_title" style="font-size: 120%; margin: 0 0 0.3em; padding: 0;">
     #{'Updated' if change_note}
-    <a href="#{edition_url}" style="font-weight: bold; ">#{edition.title}</a>
+    <a href="#{edition_url}" style="font-weight: bold; ">#{escape(edition.title)}</a>
   </div>
   #{public_date_html}
   <br />
-  <div class="rss_description" style="margin: 0 0 0.3em; padding: 0;">#{change_note || edition.summary}</div>
+  <div class="rss_description" style="margin: 0 0 0.3em; padding: 0;">#{escape(change_note || edition.summary)}</div>
 </div>)
   end
 
@@ -41,5 +41,11 @@ class GovUkDeliveryNotificationJob < Struct.new(:id)
     if public_date
       %Q(<div class="rss_pub_date" style="font-size: 90%; margin: 0 0 0.3em; padding: 0; color: #666666; font-style: italic;">#{public_date}</div>)
     end
+  end
+
+  private
+
+  def escape(string)
+    ERB::Util.html_escape(string)
   end
 end
