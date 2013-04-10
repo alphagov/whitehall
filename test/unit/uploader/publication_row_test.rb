@@ -49,36 +49,36 @@ module Whitehall::Uploader
     test "finds document series by slug in document_series_n column" do
       document_series = create(:document_series)
       row = new_publication_row({"document_series_1" => document_series.slug})
-      assert_equal [document_series], row.document_series
+      assert_equal [document_series], row.attributes[:document_series]
     end
 
     test "finds publication type by slug in the pub type column" do
       row = new_publication_row({"publication_type" => "guidance"})
-      assert_equal PublicationType::Guidance, row.publication_type
+      assert_equal PublicationType::Guidance, row.attributes[:publication_type]
     end
 
     test "parses the publication date from the publication_date column" do
       row = new_publication_row({"publication_date" => "16-May-12"})
-      assert_equal Date.parse("2012-05-16"), row.publication_date
+      assert_equal Date.parse("2012-05-16"), row.attributes[:publication_date]
     end
 
     test "leaves the publication date blank if the publication_date column is blank" do
       row = new_publication_row({"publication_date" => ""})
-      assert_nil row.publication_date
+      assert_nil row.attributes[:publication_date]
     end
 
     test "combines HTML body parts if present" do
       assert_nil new_publication_row.html_body
 
       row = new_publication_row({'html_body' => 'body', 'html_body_1' => ' part 1', 'html_body_2' => ' part 2'})
-      assert_equal 'body part 1 part 2', row.html_body
+      assert_equal 'body part 1 part 2', row.attributes[:html_version_attributes][:body]
     end
 
     test "returns the HTML title if present" do
       assert_nil new_publication_row.html_title
 
       row = new_publication_row({'html_title' => 'HTML title'})
-      assert_equal 'HTML title', row.html_title
+      assert_equal 'HTML title', row.attributes[:html_version_attributes][:title]
     end
 
     test "sets nested attributes for an HTML version if present" do
@@ -97,7 +97,7 @@ module Whitehall::Uploader
       row = new_publication_row({ "minister_1" => minister_1.slug,
                                   "minister_2" => minister_2.slug,
                                   "publication_date" => "16-Nov-2011" })
-      assert_equal [role_1, role_2], row.ministerial_roles
+      assert_equal [role_1, role_2], row.attributes[:ministerial_roles]
     end
 
     test "finds up to 4 policies specified by slug in columns policy_1, policy_2, policy_3 and policy_4" do
@@ -110,13 +110,13 @@ module Whitehall::Uploader
                                   "policy_3" => policy_3.slug,
                                   "policy_4" => policy_4.slug })
 
-      assert_equal [policy_1, policy_2, policy_3, policy_4], row.related_editions
+      assert_equal [policy_1, policy_2, policy_3, policy_4], row.attributes[:related_editions]
     end
 
     test "uses the organisation as the alternative format provider" do
       organisation = create(:organisation)
       row = new_publication_row({"organisation" => organisation.name})
-      assert_equal organisation, row.alternative_format_provider
+      assert_equal organisation, row.attributes[:alternative_format_provider]
     end
 
     test "finds up to 42 attachments in columns attachment 1 title, attachement 1 url..." do
@@ -128,8 +128,8 @@ module Whitehall::Uploader
       }, Logger.new(StringIO.new))
 
       attachment = Attachment.new(title: "first title")
-      assert_equal [attachment.attributes], row.attachments.collect(&:attributes)
-      assert_equal "http://example.com/attachment.pdf", row.attachments.first.attachment_source.url
+      assert_equal [attachment.attributes], row.attributes[:attachments].collect(&:attributes)
+      assert_equal "http://example.com/attachment.pdf", row.attributes[:attachments].first.attachment_source.url
     end
 
     test "records the order_url, price, isbn, urn and command_paper_number on the first attachment" do
@@ -153,7 +153,7 @@ module Whitehall::Uploader
         unique_reference: "10/899",
         command_paper_number: "Cm 5861"
       )
-      assert_equal [attachment.attributes], row.attachments.collect(&:attributes)
+      assert_equal [attachment.attributes], row.attributes[:attachments].collect(&:attributes)
     end
 
     test "finds any attachments specified in JSON in the json_attachments column" do
@@ -164,8 +164,20 @@ module Whitehall::Uploader
       }, Logger.new(StringIO.new))
 
       attachment = Attachment.new(title: "first title")
-      assert_equal [attachment.attributes], row.attachments.collect(&:attributes)
-      assert_equal "http://example.com/attachment.pdf", row.attachments.first.attachment_source.url
+      assert_equal [attachment.attributes], row.attributes[:attachments].collect(&:attributes)
+      assert_equal "http://example.com/attachment.pdf", row.attributes[:attachments].first.attachment_source.url
+    end
+
+    test "finds related world locations using the world location finder" do
+      world_locations = 5.times.map { stub('world_location') }
+      Whitehall::Uploader::Finders::WorldLocationsFinder.stubs(:find).with("first", "second", "third", "fourth", anything, anything).returns(world_locations)
+      row = new_publication_row({
+          "country_1" => "first",
+          "country_2" => "second",
+          "country_3" => "third",
+          "country_4" => "fourth"
+        })
+      assert_equal world_locations, row.attributes[:world_locations]
     end
   end
 
@@ -196,18 +208,6 @@ module Whitehall::Uploader
       @attachment.expects(:command_paper_number=).with("command-paper-number")
       @attachment.expects(:price=).with("12.34")
       Whitehall::Uploader::PublicationRow::AttachmentMetadataBuilder.build(@attachment, nil, "ISBN", nil, "command-paper-number", "12.34")
-    end
-
-    test "finds related world locations using the world location finder" do
-      world_locations = 5.times.map { stub('world_location') }
-      Whitehall::Uploader::Finders::WorldLocationsFinder.stubs(:find).with("first", "second", "third", "fourth", anything, anything).returns(world_locations)
-      row = Whitehall::Uploader::PublicationRow.new({
-          "country_1" => "first",
-          "country_2" => "second",
-          "country_3" => "third",
-          "country_4" => "fourth"
-        }, 1, stub("cache"), stub("organisation"))
-      assert_equal world_locations, row.world_locations
     end
   end
 end
