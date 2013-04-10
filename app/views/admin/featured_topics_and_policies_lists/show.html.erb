@@ -21,12 +21,12 @@
           <%= form.labelled_radio_button("only policies associated with #{h @organisation.name}", :link_to_filtered_policies, '1', checked: form.object.link_to_filtered_policies?) %>
         </p>
 
-        <fieldset class="featured-topics-and-policies-items">
+        <fieldset class="featured-topics-and-policies-items js-duplicate-fields">
           <legend>Featured Items</legend>
           <p>Drag up and down to re-order then click save at the bottom of the form.</p>
           <div class="sortable" data-ordering-label-selector="label[for$=ordering]">
           <%= form.fields_for(:featured_items, @featured_items) do |featured_item_form| %>
-            <div class="well">
+            <div class="well js-duplicate-fields-set">
               <%= featured_item_form.hidden_field :id %>
               <div class="control-group">
                 <%= featured_item_form.labelled_radio_button('Topic', {data: { :"item-type" => "topic"  }, class: 'featured-item-type radio inline'}, :item_type, 'Topic') %>
