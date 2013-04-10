@@ -223,6 +223,7 @@
 
   .back-to-content {
     position: fixed;
+    padding-left: $gutter;
     top: $gutter-half;
     a {
       display: block;
