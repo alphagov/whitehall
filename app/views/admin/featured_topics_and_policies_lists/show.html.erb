@@ -10,16 +10,20 @@
   <div class="span12 organisation-details">
     <section>
       <%= tab_navigation_for(@organisation) %>
+
+      <p class="warning">Warning: changes to featured topics and policies appear instantly on the live site.</p>
       <%= form_for @featured_topics_and_policies_list, url: admin_organisation_featured_topics_and_policies_list_path(@organisation), method: 'put' do |form| %>
         <%= form.errors %>
         <%= form.text_area :summary, rows: 4 %>
         <p class="control-group">
-          <span class="radio-label control-label">"See all our policies" link shows:</span>
+          <span class="radio-label control-label">"See all our policies" link goes to a list of:</span>
           <%= form.labelled_radio_button('all policies', :link_to_filtered_policies, '0', checked: !form.object.link_to_filtered_policies?) %>
           <%= form.labelled_radio_button("only policies associated with #{h @organisation.name}", :link_to_filtered_policies, '1', checked: form.object.link_to_filtered_policies?) %>
         </p>
 
-        <div class="featured-topics-and-policies-items">
+        <fieldset class="featured-topics-and-policies-items">
+          <legend>Featured Items</legend>
+          <p>Drag up and down to re-order then click save at the bottom of the form.</p>
           <div class="sortable" data-ordering-label-selector="label[for$=ordering]">
           <%= form.fields_for(:featured_items, @featured_items) do |featured_item_form| %>
             <div class="well">
@@ -47,8 +51,10 @@
             </div>
           <% end %>
           </div>
-        </div>
-        <%= form.submit "Save", class: "btn" %>
+        </fieldset>
+        <fieldset>
+          <%= form.submit "Save", class: "btn" %>
+        </fieldset>
       <% end %>
     </section>
   </div>
