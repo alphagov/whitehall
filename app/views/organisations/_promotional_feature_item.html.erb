@@ -1,0 +1,32 @@
+<% # I wanted to utilise #to_partial_path instead of this if/else, but that is only available in Rails > 3.2 :( %>
+<% if promotional_feature_item.double_width? %>
+  <% @column_count += 2 %>
+  <%= content_tag_for(:div, promotional_feature_item, class: "feature large") do %>
+    <div class="content">
+      <%= image_tag promotional_feature_item.image.s630.url, alt: promotional_feature_item.image_alt_text %>
+      <%= optional_feature_item_title(promotional_feature_item) %>
+      <p><%= format_with_html_line_breaks promotional_feature_item.summary %></p>
+
+      <ul>
+        <% promotional_feature_item.links.each do |link| %>
+          <li><%= link_to link.text, link.url %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+<% else %>
+  <% @column_count += 1 %>
+  <%= content_tag_for(:div, promotional_feature_item, class: "feature") do %>
+    <div class="content">
+      <%= image_tag promotional_feature_item.image.s300.url, alt: promotional_feature_item.image_alt_text %>
+      <%= optional_feature_item_title(promotional_feature_item) %>
+      <p><%= format_with_html_line_breaks promotional_feature_item.summary %></p>
+
+      <ul class="dash-list">
+        <% promotional_feature_item.links.each do |link| %>
+          <li><%= link_to link.text, link.url %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+<% end %>

@@ -56,120 +56,13 @@
       <% end %>
 
       <section class="features">
-        <div class="promo features-1 clear-promo">
-          <h2>Transparency</h2>
-          <div class="feature">
-            <div class="content">
-              <img src="/government/assets/thumbnail-placeholder.png">
-              <p>Greater transparency across Government is at the heart of our commitment to let you hold politicians and public bodies to account</p>
-              <ul class="dash-list">
-                <li>Business plans</li>
-                <li>Organisation charts</li>
-                <li>Ministers meetings</li>
-                <li>Government spending</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div class="promo features-2">
-          <h2>Transparency</h2>
-          <div class="feature">
-            <div class="content">
-              <img src="/government/assets/thumbnail-placeholder.png">
-              <p>Greater transparency across Government is at the heart of our commitment to let you hold politicians and public bodies to account</p>
-              <ul class="dash-list">
-                <li>Business plans</li>
-                <li>Organisation charts</li>
-                <li>Ministers meetings</li>
-                <li>Government spending</li>
-              </ul>
-            </div>
-          </div>
-          <div class="feature">
-            <div class="content">
-              <img src="/government/assets/thumbnail-placeholder.png">
-              <p>Greater transparency across Government is at the heart of our commitment to let you hold politicians and public bodies to account</p>
-              <ul class="dash-list">
-                <li>Business plans</li>
-                <li>Organisation charts</li>
-                <li>Ministers meetings</li>
-                <li>Government spending</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div class="promo features-3 clear-promo">
-          <h2>Transparency</h2>
-          <div class="feature">
-            <div class="content">
-              <img src="/government/assets/thumbnail-placeholder.png">
-              <h3>Something short about this</h3>
-              <p>Greater transparency across Government is at the heart of our commitment to let you hold politicians and public bodies to account</p>
-              <ul class="dash-list">
-                <li>Business plans</li>
-                <li>Organisation charts</li>
-                <li>Ministers meetings</li>
-                <li>Government spending</li>
-              </ul>
-            </div>
-          </div>
-          <div class="feature">
-            <div class="content">
-              <img src="/government/assets/thumbnail-placeholder.png">
-              <h3>Something short about this</h3>
-              <p>Greater transparency across Government is at the heart of our commitment to let you hold politicians and public bodies to account</p>
-              <ul class="dash-list">
-                <li>Business plans</li>
-                <li>Organisation charts</li>
-                <li>Ministers meetings</li>
-                <li>Government spending</li>
-              </ul>
-            </div>
-          </div>
-          <div class="feature">
-            <div class="content">
-              <img src="/government/assets/thumbnail-placeholder.png">
-              <h3>Something short about this</h3>
-              <p>Greater transparency across Government is at the heart of our commitment to let you hold politicians and public bodies to account</p>
-              <ul class="dash-list">
-                <li>Business plans</li>
-                <li>Organisation charts</li>
-                <li>Ministers meetings</li>
-                <li>Government spending</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div class="promo features-1 clear-promo">
-          <h2>Transparency</h2>
-          <div class="feature">
-            <div class="content">
-              <img src="/government/assets/thumbnail-placeholder.png">
-              <p>Greater transparency across Government is at the heart of our commitment to let you hold politicians and public bodies to account</p>
-              <ul class="dash-list">
-                <li>Business plans</li>
-                <li>Organisation charts</li>
-                <li>Ministers meetings</li>
-                <li>Government spending</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div class="promo features-2">
-          <h2>Transparency</h2>
-          <div class="feature large">
-            <div class="content">
-              <img src="/government/assets/thumbnail-placeholder.png">
-              <p>Greater transparency across Government is at the heart of our commitment to let you hold politicians and public bodies to account</p>
-              <ul>
-                <li><a href="#">Business plans</a></li>
-                <li><a href="#">Organisation charts</a></li>
-                <li><a href="#">Ministers meetings</a></li>
-                <li><a href="#">Government spending</a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
+        <% @column_count = 0 %>
+        <% @organisation.promotional_features.each do |feature| %>
+          <%= content_tag_for(:div, feature, class: promotional_feature_classes(feature, @column_count)) do %>
+            <h2><%= feature.title %></h2>
+            <%= render partial: 'promotional_feature_item', collection: feature.items %>
+          <% end %>
+        <% end %>
       </section>
     </div>
   </div>

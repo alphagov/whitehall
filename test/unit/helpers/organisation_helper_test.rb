@@ -154,6 +154,38 @@ class OrganisationHelperDisplayNameWithParentalRelationshipTest < ActionView::Te
     assert_match parent.name, result
     assert_match parent2.name, result
   end
+
+  test '#optional_feature_item_title returns nil if feature item has no title' do
+    assert_nil optional_feature_item_title(PromotionalFeatureItem.new)
+  end
+
+  test '#optional_feature_item_title returns the title wrapped in a h3 tag if title is set' do
+    assert_equal '<h3>Optional title</h3>', optional_feature_item_title(PromotionalFeatureItem.new(title: 'Optional title'))
+  end
+
+  test '#optional_feature_item_title returns the title with a link if there is a link present' do
+    item = PromotionalFeatureItem.new(title: 'Optional title with link', title_url: 'http://example.com')
+    assert_equal '<h3><a href="http://example.com">Optional title with link</a></h3>', optional_feature_item_title(item)
+  end
+
+  test '#clear_class returns "clear-promo" for all modulo of 3' do
+    assert_equal 'clear-promo', clear_class(0)
+    assert_nil clear_class(1)
+    assert_nil clear_class(2)
+    assert_equal 'clear-promo', clear_class(3)
+    assert_nil clear_class(4)
+    assert_nil clear_class(5)
+    assert_equal 'clear-promo', clear_class(6)
+  end
+
+  test '#promotional_feature_class returns the class based on the number of items in the feature' do
+    assert_equal 'features-1', promotional_feature_class(build(:promotional_feature, promotional_feature_items: [build(:promotional_feature_item)]))
+    assert_equal 'features-2', promotional_feature_class(build(:promotional_feature, promotional_feature_items: [build(:promotional_feature_item),build(:promotional_feature_item)]))
+    assert_equal 'features-3', promotional_feature_class(build(:promotional_feature, promotional_feature_items: [build(:promotional_feature_item),build(:promotional_feature_item),build(:promotional_feature_item)]))
+  end
+  test '#promotional_feature_class counts double-width items twice' do
+    assert_equal 'features-3', promotional_feature_class(build(:promotional_feature, promotional_feature_items: [build(:promotional_feature_item),build(:promotional_feature_item, double_width: true)]))
+  end
 end
 
 class OrganisationSiteThumbnailPathTest < ActionView::TestCase

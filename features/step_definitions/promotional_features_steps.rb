@@ -102,3 +102,21 @@ end
 Then /^I should not be able to add any further feature items$/ do
   refute page.has_link?("Add feature item")
 end
+
+Then /^I should see the promotional feature on the executive office page$/ do
+  visit organisation_path(@executive_office)
+
+  within record_css_selector(@executive_office) do
+    within 'section.features' do
+      assert page.has_css?('.promo h2', @promotional_feature.title)
+
+      within record_css_selector(@promotional_feature) do
+        @promotional_feature.items.each do |item|
+          assert page.has_content?(item.summary)
+          assert page.has_css?("img[src='#{item.image.s300.url}'][alt='#{item.image_alt_text}']")
+          item.links.each { |link| assert page.has_link(link.text, href: link.url)  }
+        end
+      end
+    end
+  end
+end

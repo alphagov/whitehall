@@ -139,4 +139,29 @@ module OrganisationHelper
       end
     link_to 'See all our policies', url
   end
+
+  def optional_feature_item_title(promotional_feature_item)
+    return unless promotional_feature_item.title
+    if promotional_feature_item.title_url
+      content_tag(:h3, link_to(promotional_feature_item.title, promotional_feature_item.title_url))
+    else
+      content_tag(:h3, promotional_feature_item.title)
+    end
+  end
+
+  def promotional_feature_classes(promotional_feature, column_number)
+    [ 'promo',
+      promotional_feature_class(promotional_feature),
+      clear_class(column_number)
+    ].compact.join(' ')
+  end
+
+  def promotional_feature_class(promotional_feature)
+    feature_width = promotional_feature.items.inject(0) {|sum, item| sum + (item.double_width? ? 2 : 1) }
+    "features-#{feature_width}"
+  end
+
+  def clear_class(column_number)
+    'clear-promo' if (column_number % 3).zero?
+  end
 end
