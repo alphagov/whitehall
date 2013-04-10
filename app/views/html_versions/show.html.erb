@@ -22,7 +22,7 @@
   <div class="inner-block floated-children">
     <div class="headings">
       <h1><%= @html_version.title %></h1>
-      <p><span class="lead-in"><%= published_or_updated(@document) %></span> <%= absolute_date(@document.public_timestamp, class: 'published-at') %></p>
+      <p><%= published_or_updated(@document).titlecase %> <%= absolute_date(@document.public_timestamp, class: 'published-at') %></p>
     </div>
     <nav class="in-page-navigation">
       <h2>Contents</h2>
