@@ -18,7 +18,7 @@
         <p class="control-group">
           <span class="radio-label control-label">"See all our policies" link goes to a list of:</span>
           <%= form.labelled_radio_button('all policies', :link_to_filtered_policies, '0', checked: !form.object.link_to_filtered_policies?) %>
-          <%= form.labelled_radio_button("only policies associated with #{h @organisation.name}", :link_to_filtered_policies, '1', checked: form.object.link_to_filtered_policies?) %>
+          <%= form.labelled_radio_button("only policies associated with #{@organisation.name}", :link_to_filtered_policies, '1', checked: form.object.link_to_filtered_policies?) %>
         </p>
 
         <fieldset class="featured-topics-and-policies-items js-duplicate-fields">
