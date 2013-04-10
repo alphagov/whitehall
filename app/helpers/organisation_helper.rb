@@ -114,8 +114,15 @@ module OrganisationHelper
       items = featured_topics_and_policies_list.current_and_linkable_featured_items
       if items.any?
         content_tag(:ul, class: 'featured-items') do
-          items.map do |linkable_item|
-            content_tag(:li, link_to(linkable_item.linkable_title, linkable_item.linkable_item))
+          items.map do |featured_item|
+            linkable_item = featured_item.linkable_item
+            url =
+              if linkable_item.is_a? Edition
+                public_document_path(linkable_item)
+              else
+                linkable_item
+              end
+            content_tag(:li, link_to(featured_item.linkable_title, url))
           end.join.html_safe
         end
       end
