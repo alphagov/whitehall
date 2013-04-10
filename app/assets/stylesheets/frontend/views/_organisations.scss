@@ -285,64 +285,6 @@
     }
   }
 
-  .organisation-news {
-    article {
-      &.first {
-        width: 100%;
-        .content {
-          padding: $gutter-half 0 $gutter-one-third 0;
-          @extend %contain-floats;
-          .img-holder {
-            @include media(tablet){
-              width: 66.66%;
-              float: left;
-            }
-            .img {
-              padding: 0 $gutter-half;
-            }
-          }
-          .text {
-            .meta, h2, .summary {
-              padding: 0 $gutter-half;
-            }
-            @include media(tablet){
-              width: 33.33%;
-              float: left;
-
-              .meta, h2, .summary {
-                padding-left: $gutter-half;
-              }
-              .meta {
-                padding-top: 0;
-              }
-            }
-            h2 {
-              @include ig-core-24;
-            }
-            .summary {
-              @include ig-core-19;
-            }
-          }
-        }
-      }
-      &.item-3 {
-        clear: both;
-      }
-    }
-    &.items-1,
-    &.items-4 {
-      .recently-updated {
-        @include media(tablet){
-          clear: both;
-          width: 66.66%;
-        }
-      }
-    }
-    &.items-2 {
-      @extend %contain-floats;
-    }
-  }
-
   .has-social {
     .organisation-news.items-0 .recently-updated {
       @include media(desktop){
