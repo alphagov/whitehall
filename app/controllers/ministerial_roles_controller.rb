@@ -7,6 +7,11 @@ class MinisterialRolesController < PublicFacingController
       [PersonPresenter.decorate(p), RolePresenter.decorate(r)]
     }
 
+    cabinet_roles = MinisterSorter.new(Role.includes(:translations, :current_people)).also_attends_cabinet
+    @also_attends_cabinet = cabinet_roles.map { |p, r|
+      [PersonPresenter.decorate(p), RolePresenter.decorate(r)]
+    }
+
     @ministers_by_organisation = ministers_by_organisation
     @whips_by_organisation = whips_by_organisation
   end

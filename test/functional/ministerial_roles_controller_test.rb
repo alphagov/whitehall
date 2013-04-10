@@ -61,6 +61,25 @@ class MinisterialRolesControllerTest < ActionController::TestCase
     assert_equal expected_results, assigns(:ministers_by_organisation)
   end
 
+  test "shows ministers who also attend cabinet separately" do
+    organisation = create(:ministerial_department)
+    person_1 = create(:person, forename: 'Nick', surname: 'Clegg')
+    person_2 = create(:person, forename: 'Jeremy', surname: 'Hunt')
+    person_3 = create(:person, forename: 'Geroge', surname: 'Foreman')
+
+    role_1 = create(:ministerial_role, name: 'Prime Minister', cabinet_member: true, organisations: [organisation])
+    role_2 = create(:ministerial_role, name: 'Non-Executive Director', cabinet_member: false, organisations: [organisation])
+    role_3 = create(:ministerial_role, name: 'Chief Whip and Parliamentary Secretary to the Treasury', organisations: [organisation], whip_organisation_id: 1, attends_cabinet_type_id: 1)
+
+    appointment_1 = create(:ministerial_role_appointment, role: role_1, person: person_1)
+    appointment_2 = create(:ministerial_role_appointment, role: role_2, person: person_2)
+    appointment_3 = create(:ministerial_role_appointment, role: role_3, person: person_3)
+
+    get :index
+
+    assert_equal [role_3], assigns(:also_attends_cabinet).map { |person, role| role.first.model }
+  end
+
 
   test "shows whips separately" do
     organisation = create(:ministerial_department)

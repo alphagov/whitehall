@@ -130,6 +130,34 @@ class RoleTest < ActiveSupport::TestCase
     assert_equal 100, role.seniority
   end
 
+  test "should have a payment type" do
+    role = create(:role, role_payment_type_id: 1)
+    assert_equal RolePaymentType.find_by_id(1), role.role_payment_type
+  end
+
+  test "should have a attendance type" do
+    role = create(:role, attends_cabinet_type_id: 1)
+    assert_equal RoleAttendsCabinetType.find_by_id(1), role.attends_cabinet_type
+  end
+
+  test "footnotes should be based on the role type and attendance type 2" do
+    role = create(:role, attends_cabinet_type_id: 2, role_payment_type_id: 1)
+    footnote = " <span>#{role.attends_cabinet_type.name}<span><sup>#{role.role_payment_footnote}</sup>"
+    assert_equal footnote, role.footnotes
+  end
+
+  test "should be able to scope roles by whips" do
+    role = create(:role, whip_organisation_id: 1)
+    role2 = create(:role)
+    assert_equal [role], Role.whip
+  end
+
+  test "should be able to scope roles by cabinet attendance" do
+    role = create(:role, attends_cabinet_type_id: 1)
+    role2 = create(:role)
+    assert_equal [role], Role.also_attends_cabinet
+  end
+
   test "has removeable translations" do
     role = create(:role, translated_into: [:fr, :es])
     role.remove_translations_for(:fr)

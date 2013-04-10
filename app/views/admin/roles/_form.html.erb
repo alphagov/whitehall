@@ -15,6 +15,10 @@
     <%= form.select :organisation_ids, options_from_collection_for_select(Organisation.all, 'id', 'name', role.organisation_ids), {}, multiple: true, class: 'chzn-select', data: { placeholder: "Choose organisations..." } %>
     <%= form.label :whip_organisation_id, 'Whip Organisation' %>
     <%= form.select :whip_organisation_id, options_from_collection_for_select(Whitehall::WhipOrganisation.all, 'id', 'name', role.whip_organisation_id),  { include_blank: true } %>
+    <%= form.label :role_payment_type_id, 'Payment options' %>
+    <%= form.select :role_payment_type_id, options_from_collection_for_select(RolePaymentType.all, :id, :name, form.object.role_payment_type_id), { include_blank: true } %>
+    <%= form.label :attends_cabinet_type_id, 'Attends cabinet options' %>
+    <%= form.select :attends_cabinet_type_id, options_from_collection_for_select(RoleAttendsCabinetType.all, :id, :name, form.object.attends_cabinet_type_id), { include_blank: true } %>
 
     <%= form.label :worldwide_organisation_ids, 'Worldwide organisations' %>
     <%= form.select :worldwide_organisation_ids, options_from_collection_for_select(WorldwideOrganisation.all, 'id', 'name', role.worldwide_organisation_ids), {}, multiple: true, class: 'chzn-select', data: { placeholder: "Choose worldwide organisations..." } %>

@@ -43,6 +43,29 @@ class Role < ActiveRecord::Base
     where(arel_table[:whip_organisation_id].not_eq(nil))
   end
 
+  def role_payment_footnote
+    role_payment_type.footnote if role_payment_type
+  end
+
+  def role_payment_type
+    RolePaymentType.find_by_id(role_payment_type_id)
+  end
+
+  def attends_cabinet_type
+    RoleAttendsCabinetType.find_by_id(attends_cabinet_type_id)
+  end
+
+  def self.also_attends_cabinet
+    where(arel_table[:attends_cabinet_type_id].not_eq(nil))
+  end
+
+  def footnotes
+    note = ""
+    note << " <span>#{attends_cabinet_type.name}<span>" if attends_cabinet_type_id == 2
+    note << "<sup>#{role_payment_footnote}</sup>" if role_payment_type
+    note
+  end
+
   def occupied?
     current_role_appointments.any?
   end
