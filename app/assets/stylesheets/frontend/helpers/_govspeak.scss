@@ -65,6 +65,10 @@
     @include media (tablet) {
       margin: $gutter-one-third 0;
     }
+    ul {
+      margin: 0 0 0 $gutter;
+      padding: 0;
+    }
   }
 
   em, i {
