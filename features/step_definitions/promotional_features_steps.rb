@@ -3,12 +3,12 @@ Given /^the executive office organisation "([^"]*)" exists$/ do |organisation_na
 end
 
 Given /^the executive office has a promotional feature with an item$/ do
-  @promotional_item = create_feature_item_for(last_executive_office)
+  @promotional_item = create_feature_item_for(@executive_office)
   @promotional_feature = @promotional_item.promotional_feature
 end
 
 Given /^the executive office has a promotional feature with the maximum number of items$/ do
-  @promotional_feature = create_feature_item_for(last_executive_office).promotional_feature
+  @promotional_feature = create_feature_item_for(@executive_office).promotional_feature
   create(:promotional_feature_item, promotional_feature: @promotional_feature)
   create(:promotional_feature_item, promotional_feature: @promotional_feature)
 end
