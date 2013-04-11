@@ -9,21 +9,23 @@ class RoleTypePresenterTest < PresenterTestCase
       ]],
       ["Managerial", [
         ["Permanent secretary", "permanent_secretary"],
-        ["Board member", "board_member"],
-        ["Traffic commissioner", "traffic_commissioner"],
+        ["Board level manager", "board_level_manager"],
         ["Chief scientific advisor", "chief_scientific_advisor"]
       ]],
-      ["Military", [
+      ["DFT only", [
+        ["Traffic commissioner", "traffic_commissioner"],
+      ]],
+      ["MOD only", [
         ["Chief of the defence staff", "chief_of_the_defence_staff"],
         ["Chief of staff", "chief_of_staff"]
       ]],
-      ["Chief Professional Officers", [
-        ["Chief professional officer", "chief_professional_officer"],
-      ]],
-      ["FCO", [
+      ["FCO only", [
         ["Special representative", "special_representative"]
       ]],
-      ["Worldwide", [
+      ["DH only", [
+        ["Chief professional officer", "chief_professional_officer"],
+      ]],
+      ["Worldwide orgs only", [
         ["Ambassador", "ambassador"],
         ["High commissioner", "high_commissioner"],
         ["Governor", "governor"],
@@ -49,9 +51,9 @@ class RoleTypePresenterTest < PresenterTestCase
     assert_equal "permanent_secretary", RoleTypePresenter.option_value_for(role, "BoardMemberRole")
   end
 
-  test "should select board member" do
+  test "should select board board level manager" do
     role = Role.new(permanent_secretary: false)
-    assert_equal "board_member", RoleTypePresenter.option_value_for(role, "BoardMemberRole")
+    assert_equal "board_level_manager", RoleTypePresenter.option_value_for(role, "BoardMemberRole")
   end
 
   test "should select chief of the defence staff" do
@@ -111,7 +113,7 @@ class RoleTypePresenterTest < PresenterTestCase
 
   test "should generate attributes for board member" do
     expected = {type: "BoardMemberRole", cabinet_member: false, permanent_secretary: false, chief_of_the_defence_staff: false}
-    assert_equal expected, RoleTypePresenter.role_attributes_from(type: "board_member")
+    assert_equal expected, RoleTypePresenter.role_attributes_from(type: "board_level_manager")
   end
 
   test "should generate attributes for chief of the defence staff" do
