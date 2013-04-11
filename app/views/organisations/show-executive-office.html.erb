@@ -56,11 +56,10 @@
       <% end %>
 
       <section class="features">
-        <% @column_count = 0 %>
-        <% @organisation.promotional_features.each do |feature| %>
-          <%= content_tag_for(:div, feature, class: promotional_feature_classes(feature, @column_count)) do %>
+        <% @promotional_features.each do |feature| %>
+          <%= content_tag_for(:div, feature, class: feature.css_classes) do %>
             <h2><%= feature.title %></h2>
-            <%= render partial: 'promotional_feature_item', collection: feature.items %>
+            <%= render partial: 'promotional_feature_item', as: :item, collection: feature.promotional_feature_items %>
           <% end %>
         <% end %>
       </section>
