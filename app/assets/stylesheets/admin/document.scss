@@ -91,11 +91,9 @@ html {
     @import "../frontend/helpers/_govspeak.scss";
     @import "../frontend/helpers/_attachment.scss";
 
-    .govspeak {
-      ul ul {
-        margin: 0 0 0 $gutter;
-        padding: 0;
-      }
+    ul ul {
+      margin: 0 0 0 $gutter;
+      padding: 0;
     }
   }
 
