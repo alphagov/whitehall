@@ -81,7 +81,15 @@ module Edition::GovUkDelivery
     !minor_change? &&
       # We don't want to send anything that will appear to have been
       # published in the past.
-      (Time.zone.now.to_date == public_timestamp.to_date)
+      (Time.zone.now.to_date == notification_date.to_date)
+  end
+
+  def notification_date
+    if is_a? Speech
+      major_change_published_at
+    else
+      public_timestamp
+    end
   end
 
   def notify_govuk_delivery
@@ -102,7 +110,7 @@ module Edition::GovUkDelivery
     change_note = if document.change_history.length > 1
       document.change_history.first.note
     end
-    if public_date = self.public_timestamp
+    if public_date = notification_date
       # Desired format is: 10-04-2013 06:48 PM BST
       public_date = public_date.strftime('%d-%m-%Y %I:%M %p %Z')
     end

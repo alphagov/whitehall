@@ -145,6 +145,21 @@ class Edition::GovUkDeliveryTest < ActiveSupport::TestCase
     assert_equal_ignoring_whitespace "01-01-2011 12:13 PM GMT", body.css('.rss_pub_date').inner_text
   end
 
+  test "#govuk_delivery_email_body should include a speech published date date" do
+    speech = create(:speech)
+    speech.major_change_published_at = Time.zone.parse('2011-01-01 12:13:14')
+    speech.public_timestamp = Time.zone.parse('2010-12-31 12:13:14')
+    body = Nokogiri::HTML.fragment(speech.govuk_delivery_email_body)
+    assert_equal_ignoring_whitespace "01-01-2011 12:13 PM GMT", body.css('.rss_pub_date').inner_text
+  end
+
+  test "#notification_date treats speeches differently" do
+    speech = create(:speech)
+    speech.major_change_published_at = Time.zone.parse('2011-01-01 12:13:14')
+    speech.public_timestamp = Time.zone.parse('2010-12-31 12:13:14')
+    assert_equal speech.notification_date, Time.zone.parse('2011-01-01 12:13:14')
+  end
+
   test "#notify_govuk_delivery should not send API requests for old content" do
     publication = create(:publication)
 
