@@ -134,4 +134,11 @@ class Edition::GovUkDeliveryTest < ActiveSupport::TestCase
     assert_equal_ignoring_whitespace "Updated #{second_draft.title}", body.css('.rss_title').inner_text
     assert_equal_ignoring_whitespace second_draft.change_note, body.css('.rss_description').inner_text
   end
+
+  test "#govuk_delivery_email_body should include a formatted date" do
+    publication = create(:publication)
+    publication.stubs(:public_timestamp).returns Time.zone.parse("2011-01-01 12:13:14")
+    body = Nokogiri::HTML.fragment(publication.govuk_delivery_email_body)
+    assert_equal_ignoring_whitespace "01-01-2011 12:13 PM GMT", body.css('.rss_pub_date').inner_text
+  end
 end

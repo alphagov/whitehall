@@ -95,13 +95,19 @@ module Edition::GovUkDelivery
     change_note = if document.change_history.length > 1
       document.change_history.first.note
     end
+    if public_date = self.public_timestamp
+      # Desired format is: 10-04-2013 06:48 PM BST
+      public_date = public_date.strftime('%d-%m-%Y %I:%M %p %Z')
+    end
     ERB.new(%q{
   <div class="rss_item" style="margin-bottom: 2em;">
     <div class="rss_title" style="font-size: 120%; margin: 0 0 0.3em; padding: 0;">
       <% if change_note %>Updated<% end %>
       <a href="<%= url %>" style="font-weight: bold; "><%= title %></a>
     </div>
-    <div class="rss_pub_date" style="font-size: 90%; margin: 0 0 0.3em; padding: 0; color: #666666; font-style: italic;"><%= public_timestamp %></div>
+    <% if public_date %>
+      <div class="rss_pub_date" style="font-size: 90%; margin: 0 0 0.3em; padding: 0; color: #666666; font-style: italic;"><%= public_date %></div>
+    <% end %>
     <br />
     <div class="rss_description" style="margin: 0 0 0.3em; padding: 0;"><%= change_note || summary %></div>
   </div>
