@@ -5,9 +5,9 @@ module LeadImagePresenterHelper
     elsif lead_organisations.any? && lead_organisations.first.default_news_image
       lead_organisations.first.default_news_image.file.url(:s300)
     elsif organisations.any? && organisations.first.default_news_image
-      worldwide_organisations.first.default_news_image.file.url(:s300)
-    else
-      'placeholder.jpg'
+      organisations.first.default_news_image.file.url(:s300)
+    elsif organisations.any? && placeholder_image_exisits
+      "organisation_default_news/s300_#{organisations.first.slug}.jpg"
     end
   end
 
@@ -17,6 +17,10 @@ module LeadImagePresenterHelper
     else
       'placeholder'
     end
+  end
+
+  def placeholder_image_exisits
+    find_asset("organisation_default_news/s300_#{organisations.first.slug}.jpg")
   end
 
   def lead_image_caption
