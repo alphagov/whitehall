@@ -49,7 +49,7 @@ class Admin::AccessAndOpeningTimesController < Admin::BaseController
 
   def set_default_body_for_worldwide_office
     if @accessible.is_a?(WorldwideOffice)
-      @access_and_opening_times.body = @accessible.default_access_and_opening_times.try(:body)
+      @access_and_opening_times.body ||= @accessible.default_access_and_opening_times.try(:body)
     end
   end
 end
