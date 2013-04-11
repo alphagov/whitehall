@@ -43,3 +43,10 @@ Scenario: Viewing ministers and whips
   When I visit the ministers page
   Then I should see that "Johnny Macaroon" is a minister in the "Department of Woah"
   And I should see that "Fred Bloggs" is a commons whip "Deputy Chief Whip, Comptroller of HM Household"
+
+Scenario: Ordering ministers in their organisation
+  Given I am a GDS editor
+  And there are some ministers for the "Department of Woah"
+  When I specify an order for those ministers
+  Then I should see that ordering displayed on the organisation page
+  And I should see that ordering displayed on the section for the organisation on the ministers page
