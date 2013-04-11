@@ -140,9 +140,6 @@ el:
       transparency:
         one: Στοιχεία διαφάνειας
         other:
-      world_location_news_article:
-        one:
-        other:
       worldwide_priority:
         one: Παγκόσμια προτεραιότητα
         other: Παγκόσμιες προτεραιότητες

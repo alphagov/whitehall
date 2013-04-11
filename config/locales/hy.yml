@@ -140,9 +140,6 @@ hy:
       transparency:
         one: Թափանցիկ տվյալ
         other: Թափանցիկ տվյալներ
-      world_location_news_article:
-        one:
-        other:
       worldwide_priority:
         one: Համաշխարհային առաջնայնություն
         other: Համաշխարհային առաջնայնություններ

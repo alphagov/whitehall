@@ -316,13 +316,6 @@ cy:
         few:
         many:
         other: Data tryloywder
-      world_location_news_article:
-        zero:
-        one: Erthygl newyddion lleoliad byd
-        two:
-        few:
-        many:
-        other: Erthyglau newyddion lleoliad byd
       worldwide_priority:
         zero:
         one: Blaenoriaeth fyd-eang

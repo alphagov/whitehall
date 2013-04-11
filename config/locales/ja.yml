@@ -179,9 +179,6 @@ ja:
       transparency:
         one: 透明性データ
         other: 透明性データ
-      world_location_news_article:
-        one:
-        other:
       worldwide_priority:
         one: 優先事項
         other: 優先事項

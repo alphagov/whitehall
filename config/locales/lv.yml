@@ -140,9 +140,6 @@ lv:
       transparency:
         one: Atklātības dati
         other: Atklātības dati
-      world_location_news_article:
-        one:
-        other:
       worldwide_priority:
         one: Pasaules mēroga prioritāte
         other: Pasaules mēroga prioritātes

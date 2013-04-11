@@ -179,9 +179,6 @@ tr:
       transparency:
         one: ! 'Şeffaflık verileri '
         other: Şeffaflık verileri
-      world_location_news_article:
-        one:
-        other:
       worldwide_priority:
         one: Dünya genelindeki öncelik
         other: Dünya genelindeki öncelikler
