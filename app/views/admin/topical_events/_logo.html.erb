@@ -3,11 +3,6 @@
   <div class="control-group">
     <%= image_tag classification_form.object.logo_url if classification_form.object.logo_url %>
     <%= classification_form.text_field :logo_alt_text, label_text: 'Alt text' %>
-    <%= classification_form.label :image, 'File' %>
-    <%= classification_form.file_field :logo %>
-    <% if classification_form.object.logo_cache.present? %>
-      <span class="already_uploaded"><%= File.basename(classification_form.object.logo_cache) %> already uploaded</span>
-    <% end %>
-    <%= classification_form.hidden_field :logo_cache %>
+    <%= classification_form.upload :logo, label_text: 'File' %>
   </div>
 </fieldset>

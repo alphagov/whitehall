@@ -77,6 +77,23 @@ module Whitehall
       end
     end
 
+    def upload(method, options={})
+      horizontal = options.delete(:horizontal)
+      label_text = options.delete(:label_text)
+
+      if object.send("#{method}_cache").present?
+        fields = file_field(method, options) + file_cache_fields(method)
+      else
+        fields = file_field(method, options)
+      end
+
+      if horizontal
+        horizontal_group(label(method, label_text, class: "control-label"), fields, options)
+      else
+        label(method, label_text) + fields
+      end
+    end
+
     private
 
     def right_to_left?
@@ -118,6 +135,10 @@ module Whitehall
         object.new_record? ? @template.polymorphic_path([:admin, object.class]) :
                              @template.polymorphic_path([:admin, object])
       end
+    end
+
+    def file_cache_fields(method)
+      @template.content_tag(:span, "#{File.basename(object.send("#{method}_cache"))} already uploaded", class: 'already_uploaded') + hidden_field("#{method}_cache")
     end
   end
 end
