@@ -111,8 +111,8 @@ module Edition::GovUkDelivery
       document.change_history.first.note
     end
     if public_date = notification_date
-      # Desired format is: 10-04-2013 06:48 PM BST
-      public_date = public_date.strftime('%d-%m-%Y %I:%M %p %Z')
+      # Desired format is: 14 June, 2012 at 6:48pm
+      public_date = public_date.strftime('%e %B, %Y at %I:%M%P')
     end
     ERB.new(%q{
   <div class="rss_item" style="margin-bottom: 2em;">

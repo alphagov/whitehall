@@ -142,7 +142,7 @@ class Edition::GovUkDeliveryTest < ActiveSupport::TestCase
     publication = create(:publication)
     publication.stubs(:public_timestamp).returns Time.zone.parse("2011-01-01 12:13:14")
     body = Nokogiri::HTML.fragment(publication.govuk_delivery_email_body)
-    assert_equal_ignoring_whitespace "01-01-2011 12:13 PM GMT", body.css('.rss_pub_date').inner_text
+    assert_equal_ignoring_whitespace "1 January, 2011 at 12:13pm", body.css('.rss_pub_date').inner_text
   end
 
   test "#govuk_delivery_email_body should include a speech published date date" do
@@ -150,7 +150,7 @@ class Edition::GovUkDeliveryTest < ActiveSupport::TestCase
     speech.major_change_published_at = Time.zone.parse('2011-01-01 12:13:14')
     speech.public_timestamp = Time.zone.parse('2010-12-31 12:13:14')
     body = Nokogiri::HTML.fragment(speech.govuk_delivery_email_body)
-    assert_equal_ignoring_whitespace "01-01-2011 12:13 PM GMT", body.css('.rss_pub_date').inner_text
+    assert_equal_ignoring_whitespace "1 January, 2011 at 12:13pm", body.css('.rss_pub_date').inner_text
   end
 
   test "#notification_date treats speeches differently" do
