@@ -81,7 +81,7 @@ module Edition::GovUkDelivery
     !minor_change? &&
       # We don't want to send anything that will appear to have been
       # published in the past.
-      (major_change_published_at <= public_timestamp)
+      (Time.zone.now.to_date == public_timestamp.to_date)
   end
 
   def notify_govuk_delivery
