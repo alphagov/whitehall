@@ -402,6 +402,34 @@
   }
 }
 
+// Executive Office
+.organisation-logo-eo {
+  @extend .organisation-logo-no-identity;
+
+  padding: 3px 0 2px 35px;
+  background-image: image-url("crests/org_crest_13px.png");
+  background-position: 5px center;
+  background-size: auto 20px;
+}
+.organisation-logo-stacked-eo {
+  @extend .organisation-logo-no-identity;
+
+  padding: 20px 0 0 1px;
+  background-image: image-url("crests/org_crest_13px.png");
+  background-position: 0 top;
+  background-size: auto 20px;
+}
+.organisation-logo-stacked-eo span {
+  display: block;
+  position: relative;
+  top: 3px;
+}
+@media all and (-webkit-min-device-pixel-ratio: 2) {
+  .organisation-logo-eo,
+  .organisation-logo-stacked-eo {
+    background-image: image-url("crests/org_crest_13px_x2.png");
+  }
+}
 
 // Non-cornforming Medium
 .organisation-logo-no-identity-medium {
@@ -715,6 +743,38 @@
   }
 }
 
+// Executive Office Medium
+.organisation-logo-eo-medium {
+  @extend .organisation-logo-no-identity-medium;
+  @include media(tablet){
+    padding: 3px 0 2px 44px;
+    background-image: image-url("crests/org_crest_18px.png");
+    background-position: 6px center;
+    background-size: auto 25px;
+  }
+}
+.organisation-logo-stacked-eo-medium {
+  @extend .organisation-logo-no-identity-medium;
+  @include media(tablet){
+    padding: 25px 0 0 1px;
+    background-image: image-url("crests/org_crest_18px.png");
+    background-position: 0 top;
+    background-size: auto 25px;
+  }
+}
+@include media(tablet){
+  .organisation-logo-stacked-eo-medium span {
+      display: block;
+      position: relative;
+      top: 3px;
+  }
+  @media all and (-webkit-min-device-pixel-ratio: 2) {
+    .organisation-logo-eo-medium,
+    .organisation-logo-stacked-eo-medium {
+      background-image: image-url("crests/org_crest_18px_x2.png");
+    }
+  }
+}
 
 // Non-conforming Large
 .organisation-logo-no-identity-large,
@@ -1025,6 +1085,39 @@
     .organisation-logo-ukho-large,
     .organisation-logo-stacked-ukho-large {
       background-image: image-url("crests/ukho_27px_x2.png");
+    }
+  }
+}
+
+// Executive Office Large
+.organisation-logo-eo-large {
+  @extend .organisation-logo-no-identity-large;
+  @include media(tablet){
+    padding: 5px 0 5px 65px;
+    background-image: image-url("crests/org_crest_27px.png");
+    background-position: 9px center;
+    background-size: auto 40px;
+  }
+}
+.organisation-logo-stacked-eo-large {
+  @extend .organisation-logo-no-identity-large;
+  @include media(tablet){
+    padding: 40px 0 0 1px;
+    background-image: image-url("crests/org_crest_27px.png");
+    background-position: 0 top;
+    background-size: auto 40px;
+  }
+}
+@include media(tablet){
+  .organisation-logo-stacked-eo-large span {
+    display: block;
+    position: relative;
+    top: 5px;
+  }
+  @media all and (-webkit-min-device-pixel-ratio: 2) {
+    .organisation-logo-eo-large,
+    .organisation-logo-stacked-eo-large {
+      background-image: image-url("crests/org_crest_27px_x2.png");
     }
   }
 }
