@@ -8,5 +8,5 @@ unless Rails.env.production? || ENV['USE_GOVUK_DELIVERY']
   }
   Whitehall.govuk_delivery_client = GdsApi::GovUkDelivery.new(Plek.current.find('govuk-delivery'), options)
 else
-  Whitehall.govuk_delivery_client = GdsApi::GovUkDelivery.new(Plek.current.find('govuk-delivery'), {noop: true})
+  Whitehall.govuk_delivery_client = GdsApi::GovUkDelivery.new(Plek.current.find('govuk-delivery'))
 end
