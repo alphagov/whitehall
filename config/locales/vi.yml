@@ -179,9 +179,6 @@ vi:
       transparency:
         one: Dữ liệu kịch bản
         other: Dữ liệu kịch bản
-      world_location_news_article:
-        one:
-        other:
       worldwide_priority:
         one: Ưu tiên toàn cầu
         other: Các ưu tiên toàn cầu
