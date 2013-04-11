@@ -195,9 +195,9 @@ class Admin::RolesControllerTest < ActionController::TestCase
     assert_equal [org_one, org_two], role.organisations
   end
 
-  test "create should create a new board member role" do
+  test "create should create a new board level manager role" do
     post :create, role: attributes_for(:board_member_role,
-      type: "board_member",
+      type: "board_level_manager",
     )
 
     assert role = BoardMemberRole.last

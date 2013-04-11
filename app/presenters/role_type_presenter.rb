@@ -16,21 +16,23 @@ class RoleTypePresenter
     },
     "Managerial" => {
       "permanent_secretary" => RoleType.new(BoardMemberRole.name, false, true, false),
-      "board_member" => RoleType.new(BoardMemberRole.name, false, false, false),
-      "traffic_commissioner" => RoleType.new(TrafficCommissionerRole.name, false, false, false),
+      "board_level_manager" => RoleType.new(BoardMemberRole.name, false, false, false),
       "chief_scientific_advisor" => RoleType.new(ChiefScientificAdvisorRole.name, false, false, false)
     },
-    "Military" => {
+    "DFT only" => {
+      "traffic_commissioner" => RoleType.new(TrafficCommissionerRole.name, false, false, false),
+    },
+    "MOD only" => {
       "chief_of_the_defence_staff" => RoleType.new(MilitaryRole.name, false, false, true),
       "chief_of_staff" => RoleType.new(MilitaryRole.name, false, false, false)
     },
-    "Chief Professional Officers" => {
-      "chief_professional_officer" => RoleType.new(ChiefProfessionalOfficerRole.name, false, false, false),
-    },
-    "FCO" => {
+    "FCO only" => {
       "special_representative" => RoleType.new(SpecialRepresentativeRole.name, false, false, false)
     },
-    "Worldwide" => {
+    "DH only" => {
+      "chief_professional_officer" => RoleType.new(ChiefProfessionalOfficerRole.name, false, false, false),
+    },
+    "Worldwide orgs only" => {
       "ambassador" => RoleType.new(AmbassadorRole.name, false, false, false),
       "high_commissioner" => RoleType.new(HighCommissionerRole.name, false, false, false),
       "governor" => RoleType.new(GovernorRole.name, false, false, false),
