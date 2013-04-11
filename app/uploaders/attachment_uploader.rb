@@ -71,7 +71,7 @@ class AttachmentUploader < WhitehallUploader
     def extensions
       filenames.map do |f|
         if match = f.match(/\.([^\.]+)\Z/)
-          match[1]
+          match[1].downcase
         else
           nil
         end
@@ -112,7 +112,7 @@ class AttachmentUploader < WhitehallUploader
       end
 
       def failure_message
-        "You are not allowed to upload a zip file containing #{illegal_extensions.join(", ")} files, allowed types: #{@white_list.inspect}"
+        "You are not allowed to upload a zip file containing #{illegal_extensions.join(", ")} files, allowed types: #{@whitelist.inspect}"
       end
     end
 
