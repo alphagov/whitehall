@@ -792,7 +792,8 @@
       margin: 0 $gutter-half;
     }
 
-    .promo {
+    .promo,
+    .promotional_feature {
       float: left;
       width: 100%;
       margin: $gutter-half 0 $gutter;
@@ -806,7 +807,7 @@
         @include core-19;
       }
 
-      .feature {
+      .promotional_feature_item {
         float: left;
         width: 100%;
         margin-bottom: $gutter;
@@ -849,7 +850,7 @@
         @include media(tablet){
           width: 66.66%;
 
-          .feature {
+          .promotional_feature_item {
             width: 50%;
             &.large {
               width: 100%;
@@ -861,7 +862,7 @@
         @include media(tablet){
           width: 100%;
 
-          .feature {
+          .promotional_feature_item {
             width: 33.33%;
             &.large {
               width: 66.66%;

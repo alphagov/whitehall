@@ -1,7 +1,7 @@
 <% # I wanted to utilise #to_partial_path instead of this if/else, but that is only available in Rails > 3.2 :( %>
 <% if promotional_feature_item.double_width? %>
   <% @column_count += 2 %>
-  <%= content_tag_for(:div, promotional_feature_item, class: "feature large") do %>
+  <%= content_tag_for(:div, promotional_feature_item, class: "large") do %>
     <div class="content">
       <%= image_tag promotional_feature_item.image.s630.url, alt: promotional_feature_item.image_alt_text %>
       <%= optional_feature_item_title(promotional_feature_item) %>
@@ -16,7 +16,7 @@
   <% end %>
 <% else %>
   <% @column_count += 1 %>
-  <%= content_tag_for(:div, promotional_feature_item, class: "feature") do %>
+  <%= content_tag_for(:div, promotional_feature_item) do %>
     <div class="content">
       <%= image_tag promotional_feature_item.image.s300.url, alt: promotional_feature_item.image_alt_text %>
       <%= optional_feature_item_title(promotional_feature_item) %>

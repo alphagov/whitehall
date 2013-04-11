@@ -150,8 +150,7 @@ module OrganisationHelper
   end
 
   def promotional_feature_classes(promotional_feature, column_number)
-    [ 'promo',
-      promotional_feature_class(promotional_feature),
+    [ promotional_feature_class(promotional_feature),
       clear_class(column_number)
     ].compact.join(' ')
   end
