@@ -426,12 +426,17 @@
   }
 
   .get-involved {
-    h3 {
-      padding: 0 $gutter-half;
-    }
     p {
       clear: both;
-      padding: 0 $gutter-half;
+      @include media(tablet) {
+        padding: 0 $gutter-half;
+      }
+    }
+    @include media(tablet) {
+      padding-bottom: $gutter;
+      h3 {
+        padding: 0 $gutter-half;
+      }
     }
     .one-third p {
       padding: 0;
