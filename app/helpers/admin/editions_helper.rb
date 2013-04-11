@@ -64,9 +64,9 @@ module Admin::EditionsHelper
     def alternative_format_provider_select
       if object.respond_to?(:alternative_format_provider)
         select_options = @template.options_for_select(
-          Organisation.all.map {|o| ["#{o.name} (#{o.alternative_format_contact_email || "-"})", o.id]},
+          organisations_for_edition_organisations_fields.map {|o| ["#{o.name} (#{o.alternative_format_contact_email || "-"})", o.id]},
           selected: object.alternative_format_provider_id,
-          disabled: Organisation.all.reject {|o| o.alternative_format_contact_email.present?}.map(&:id))
+          disabled: organisations_for_edition_organisations_fields.reject { |o| o.alternative_format_contact_email.present? }.map(&:id))
         @template.content_tag(:div, class: 'control-group') do
           label(:alternative_format_provider_id, "Email address for ordering this #{object.format_name} in an alternative format") +
             @template.content_tag(:div, class: 'controls') do
@@ -103,7 +103,7 @@ module Admin::EditionsHelper
     def edition_organisations_fields(edition_organisations, lead = true)
       field_identifier = lead ? 'lead' : 'supporting'
       edition_organisations.map.with_index do |eo, idx|
-        select_options = @template.options_from_collection_for_select(Organisation.all, 'id', 'select_name', eo.organisation_id)
+        select_options = @template.options_from_collection_for_select(organisations_for_edition_organisations_fields, 'id', 'select_name', eo.organisation_id)
         @template.label_tag "edition_#{field_identifier}_organisation_ids_#{idx + 1}" do
           [
             "Organisation #{idx + 1}",
@@ -117,6 +117,9 @@ module Admin::EditionsHelper
           ].join.html_safe
         end
       end.join.html_safe
+    end
+    def organisations_for_edition_organisations_fields
+      @organisations_for_edition_organisations_fields ||= Organisation.with_translations.all
     end
   end
 
