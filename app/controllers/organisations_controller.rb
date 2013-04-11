@@ -1,5 +1,6 @@
 class OrganisationsController < PublicFacingController
   include CacheControlHelper
+  include Whitehall::Controllers::RolesPresenters
 
   before_filter :load_organisation, only: [:show, :about]
   skip_before_filter :set_cache_control_headers, only: [:show]
@@ -64,43 +65,33 @@ class OrganisationsController < PublicFacingController
   private
 
   def ministers
-    @ministerial_roles ||= filled_roles_presenter_for(:ministerial)
+    @ministerial_roles ||= filled_roles_presenter_for(@organisation, :ministerial)
     @ministerial_roles.with_unique_people
   end
 
   def board_members
-    @board_member_roles ||= roles_presenter_for(:management)
+    @board_member_roles ||= roles_presenter_for(@organisation, :management)
     @board_member_roles.with_unique_people
   end
 
   def traffic_commissioners
-    @traffic_commissioner_roles ||= roles_presenter_for(:traffic_commissioner)
+    @traffic_commissioner_roles ||= roles_presenter_for(@organisation, :traffic_commissioner)
     @traffic_commissioner_roles.with_unique_people
   end
 
   def military_personnel
-    @military_roles ||= roles_presenter_for(:military)
+    @military_roles ||= roles_presenter_for(@organisation, :military)
     @military_roles.with_unique_people
   end
 
   def chief_professional_officers
-    @chief_professional_officer_roles ||= roles_presenter_for(:chief_professional_officer)
+    @chief_professional_officer_roles ||= roles_presenter_for(@organisation, :chief_professional_officer)
     @chief_professional_officer_roles.with_unique_people
   end
 
   def special_representatives
-    @special_representative_roles ||= roles_presenter_for(:special_representative)
+    @special_representative_roles ||= roles_presenter_for(@organisation, :special_representative)
     @special_representative_roles.with_unique_people
-  end
-
-  def filled_roles_presenter_for(association)
-    roles_presenter = roles_presenter_for(association)
-    roles_presenter.remove_unfilled_roles!
-    roles_presenter
-  end
-
-  def roles_presenter_for(association)
-    RolesPresenter.new(@organisation.send("#{association}_roles").order("organisation_roles.ordering"))
   end
 
   def load_organisation

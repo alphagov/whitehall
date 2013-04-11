@@ -89,3 +89,41 @@ Then /^I should see "([^"]*)", "([^"]*)" in that order on the ministers page$/ d
   actual = all(".person .current-appointee").map {|elem| elem.text}
   assert_equal [person1, person2], actual
 end
+
+Given /^there are some ministers for the "([^"]*)"$/ do |organisation_name|
+  aaron = create_role_appointment('Aaron A. Aadrvark', "Minister of The Start Of The Alphabet", organisation_name, 2.years.ago)
+  marion = create_role_appointment('Marion M. Myddleton', "Minister of The Middle Of The Alphabet", organisation_name, 2.years.ago)
+  zeke = create_role_appointment('Zeke Z. Zaltzman', "Minister of The End Of The Alphabet", organisation_name, 2.years.ago)
+  onezero = create_role_appointment('10101010', "Minister of Numbers", organisation_name, 2.years.ago)
+  @the_ministers = [aaron, marion, zeke, onezero]
+  @the_ministerial_organisation = Organisation.find_by_name(organisation_name)
+end
+
+When /^I specify an order for those ministers$/ do
+  visit people_admin_organisation_path(@the_ministerial_organisation)
+  # .shuffle on it's own isn't enough to guarantee a new ordering, so we
+  # swap the first and last, and shuffle the middle
+  @the_ordered_ministers = [@the_ministers[-1], *(@the_ministers[1..-2].shuffle), @the_ministers[0]]
+  @the_ordered_ministers.each_with_index do |role_appointment, index|
+    fill_in "#{role_appointment.role.name}#{role_appointment.person.name}", with: index
+  end
+  click_on 'Save'
+end
+
+Then /^I should see that ordering displayed on the organisation page$/ do
+  visit organisation_path(@the_ministerial_organisation)
+  within '#ministers' do
+    @the_ordered_ministers.each.with_index do |role_appointment, idx|
+      assert page.has_css?("li:nth-child(#{idx + 1}) h3", text: role_appointment.person.name)
+    end
+  end
+end
+
+Then /^I should see that ordering displayed on the section for the organisation on the ministers page$/ do
+  visit ministers_page
+  within "#organisation_#{@the_ministerial_organisation.id} .minister-list" do
+    @the_ordered_ministers.each.with_index do |role_appointment, idx|
+      assert page.has_css?("li:nth-child(#{idx + 1}) h4", text: role_appointment.person.name)
+    end
+  end
+end

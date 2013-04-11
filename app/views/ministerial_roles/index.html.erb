@@ -47,11 +47,11 @@
           </h3>
         </div>
         <ul class="minister-list">
-          <% ministers.unique_people.each.with_index do |person, i| %>
+          <% ministers.with_unique_people.each.with_index do |role, i| %>
             <%= render partial: "people/person",
                 locals: {
-                  person: PersonPresenter.new(person),
-                  roles: ministers.roles_for(person),
+                  person: PersonPresenter.new(role.current_person),
+                  roles: ministers.roles_for(role.current_person),
                   hlevel: "h4",
                   prefix: 'by-organisation',
                   hide_image: true,
