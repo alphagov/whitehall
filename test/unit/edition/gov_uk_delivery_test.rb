@@ -59,6 +59,8 @@ class Edition::GovUkDeliveryTest < ActiveSupport::TestCase
   test '#notify_govuk_delivery sends a notification via the govuk delivery client when there are topics' do
     policy = create(:policy, topics: [create(:topic)])
     policy.stubs(:govuk_delivery_email_body).returns('email body')
+    policy.stubs(:major_change_published_at).returns Time.zone.parse("2011-01-01 12:13:14")
+    policy.stubs(:public_timestamp).returns Time.zone.parse("2011-01-01 12:13:14")
     Whitehall.govuk_delivery_client.expects(:notify).with(policy.govuk_delivery_tags, policy.title, 'email body')
 
     policy.notify_govuk_delivery
@@ -73,6 +75,8 @@ class Edition::GovUkDeliveryTest < ActiveSupport::TestCase
 
   test '#notify_govuk_delivery swallows errors from the API' do
     policy = create(:policy, topics: [create(:topic)])
+    policy.stubs(:major_change_published_at).returns Time.zone.parse("2011-01-01 12:13:14")
+    policy.stubs(:public_timestamp).returns Time.zone.parse("2011-01-01 12:13:14")
     Whitehall.govuk_delivery_client.expects(:notify).raises(GdsApi::HTTPErrorResponse, 500)
 
     assert_nothing_raised { policy.notify_govuk_delivery }
@@ -80,6 +84,8 @@ class Edition::GovUkDeliveryTest < ActiveSupport::TestCase
 
   test '#notify_govuk_delivery swallows timeout errors from the API' do
     policy = create(:policy, topics: [create(:topic)])
+    policy.stubs(:major_change_published_at).returns Time.zone.parse("2011-01-01 12:13:14")
+    policy.stubs(:public_timestamp).returns Time.zone.parse("2011-01-01 12:13:14")
     Whitehall.govuk_delivery_client.expects(:notify).raises(GdsApi::TimedOutException)
 
     assert_nothing_raised { policy.notify_govuk_delivery }
@@ -140,5 +146,15 @@ class Edition::GovUkDeliveryTest < ActiveSupport::TestCase
     publication.stubs(:public_timestamp).returns Time.zone.parse("2011-01-01 12:13:14")
     body = Nokogiri::HTML.fragment(publication.govuk_delivery_email_body)
     assert_equal_ignoring_whitespace "01-01-2011 12:13 PM GMT", body.css('.rss_pub_date').inner_text
+  end
+
+  test "#notify_govuk_delivery should not send API requests for old content" do
+    publication = create(:publication)
+
+    publication.first_published_at = Time.zone.parse("2011-01-01 12:13:14")
+    publication.major_change_published_at = Time.zone.now
+
+    Whitehall.govuk_delivery_client.expects(:notify).never
+    publication.publish!
   end
 end

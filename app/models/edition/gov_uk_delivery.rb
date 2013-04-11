@@ -77,8 +77,15 @@ module Edition::GovUkDelivery
     tag_paths.flatten
   end
 
+  def can_be_sent_as_notification?
+    !minor_change? &&
+      # We don't want to send anything that will appear to have been
+      # published in the past.
+      (major_change_published_at <= public_timestamp)
+  end
+
   def notify_govuk_delivery
-    if (tags = govuk_delivery_tags).any? && !minor_change?
+    if (tags = govuk_delivery_tags).any? && can_be_sent_as_notification?
       # Swallow all errors for the time being
       begin
         response = Whitehall.govuk_delivery_client.notify(tags, title, govuk_delivery_email_body)
