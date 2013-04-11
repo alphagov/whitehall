@@ -140,9 +140,6 @@ bg:
       transparency:
         one: Информация за прозрачността
         other: Информация за прозрачността
-      world_location_news_article:
-        one:
-        other:
       worldwide_priority:
         one: Глобален приоритет
         other: Глобални приоритети

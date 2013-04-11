@@ -179,9 +179,6 @@ az:
       transparency:
         one: Şəffaf məlumat
         other: Şəffaf məlumat
-      world_location_news_article:
-        one:
-        other:
       worldwide_priority:
         one: dünya üzrə prioritet
         other: dünya üzrə prioritetlər

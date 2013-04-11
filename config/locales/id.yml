@@ -179,9 +179,6 @@ id:
       transparency:
         one: Transparansi data
         other: Transparansi data
-      world_location_news_article:
-        one:
-        other:
       worldwide_priority:
         one: Prioritas di penjuru dunia
         other: Prioritas-prioritas di penjuru dunia
