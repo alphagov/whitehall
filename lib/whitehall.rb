@@ -10,6 +10,7 @@ module Whitehall
   mattr_accessor :stats_collector
   mattr_accessor :skip_safe_html_validation
   mattr_accessor :govuk_delivery_client
+  mattr_accessor :public_host
 
   revision_file = "#{Rails.root}/REVISION"
   if File.exists?(revision_file)
@@ -99,10 +100,6 @@ module Whitehall
 
     def public_host_for(request_host)
       PUBLIC_HOSTS[request_host] || request_host
-    end
-
-    def public_host
-      ENV['FACTER_govuk_platform'] == 'production' ? 'www.gov.uk' : 'www.preview.alphagov.co.uk'
     end
 
     def public_protocol
