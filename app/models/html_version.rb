@@ -5,7 +5,7 @@ class HtmlVersion < ActiveRecord::Base
   friendly_id :title, use: :scoped, scope: :edition
 
   def should_generate_new_friendly_id?
-    edition.nil? || !edition.document.published?
+    slug.nil? || edition.nil? || !edition.document.published?
   end
 
   validates :title, :body, presence: true
