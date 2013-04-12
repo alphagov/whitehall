@@ -122,8 +122,11 @@ Whitehall::Application.routes.draw do
           resources :contacts
           resources :social_media_accounts
           resources :translations, controller: 'organisation_translations'
+          resources :promotional_features do
+            resources :promotional_feature_items, as: :items, path: 'items', except: [:index]
+          end
           member do
-            get :documents, as: 'documents'
+            get :documents
             get :document_series
             get :about
             get :people

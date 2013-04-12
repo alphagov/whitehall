@@ -117,7 +117,7 @@ class MinisterialRolesControllerTest < ActionController::TestCase
   end
 
   view_test "shows the cabinet minister's name and role" do
-    person = create(:person, forename: "John", surname: "Doe", image: File.open(Rails.root.join("test/fixtures/minister-of-funk.960x640.jpg")))
+    person = create(:person, forename: "John", surname: "Doe", image: image_fixture_file)
     ministerial_role = create(:ministerial_role, name: "Prime Minister", cabinet_member: true)
     create(:role_appointment, person: person, role: ministerial_role)
 

@@ -85,20 +85,12 @@ module DocumentHelper
     fill_in "Location", with: "The Drawing Room"
   end
 
-  def new_and_replacement_zip_file
-    File.open(Rails.root.join('test', 'fixtures', 'two-pages-and-greenpaper.zip'))
-  end
-
   def new_attachments_zip_file
-    File.open(Rails.root.join('test', 'fixtures', 'two-pages-and-greenpaper.zip'))
+    Rails.root.join('test/fixtures/two-pages-and-greenpaper.zip')
   end
 
   def pdf_attachment
-    File.open(Rails.root.join("features/fixtures/attachment.pdf"))
-  end
-
-  def jpg_image
-    File.open(Rails.root.join("test/fixtures/minister-of-funk.960x640.jpg"))
+    Rails.root.join('features/fixtures/attachment.pdf')
   end
 
   def fill_in_news_article_fields

@@ -1,0 +1,4 @@
+<% page_title "Feature item for #{@promotional_feature.title}" %>
+<h1>New feature item for <%= @promotional_feature.title %></h1>
+
+<%= render "form", promotional_feature_item: @promotional_feature_item, promotional_feature: @promotional_feature, organisation: @organisation %>

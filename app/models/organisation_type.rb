@@ -30,7 +30,7 @@ class OrganisationType < ActiveRecord::Base
   end
 
   def self.executive_office
-    where(name: "Executive office")
+    where(name: "Executive office").first
   end
 
   def self.agency_or_public_body

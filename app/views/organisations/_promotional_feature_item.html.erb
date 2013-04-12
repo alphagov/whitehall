@@ -1,0 +1,13 @@
+<%= content_tag_for(:div, item, class: item.css_classes) do %>
+  <div class="content">
+    <%= image_tag item.image_url, alt: item.image_alt_text %>
+    <%= item.title %>
+    <%= item.summary %>
+
+    <%=content_tag :ul, class: item.link_list_class do %>
+      <% item.links.each do |link| %>
+        <li><%= link_to link.text, link.url %></li>
+      <% end %>
+    <% end %>
+  </div>
+<% end %>

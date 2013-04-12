@@ -12,8 +12,7 @@ FactoryGirl.define do
 
   factory :ministerial_department, parent: :organisation do
     organisation_type {
-      type = FactoryGirl.build(:ministerial_organisation_type)
-      OrganisationType.find_by_name(type.name) || FactoryGirl.create(:ministerial_organisation_type)
+      OrganisationType.find_by_name(build(:ministerial_organisation_type).name) || FactoryGirl.create(:ministerial_organisation_type)
     }
   end
 
@@ -24,15 +23,13 @@ FactoryGirl.define do
   factory :sub_organisation, parent: :organisation do
     parent_organisations { [build(:organisation)] }
     organisation_type {
-      type = FactoryGirl.build(:sub_organisation_type)
-      OrganisationType.find_by_name(type.name) || FactoryGirl.create(:sub_organisation_type)
+      OrganisationType.find_by_name(build(:sub_organisation_type).name) || FactoryGirl.create(:sub_organisation_type)
     }
   end
 
   factory :executive_office, parent: :organisation do
     organisation_type {
-      type = FactoryGirl.build(:executive_office_organisation_type)
-      OrganisationType.find_by_name(type.name) || FactoryGirl.create(:executive_office_organisation_type)
+      OrganisationType.find_by_name(build(:executive_office_organisation_type).name) || create(:executive_office_organisation_type)
     }
   end
 end

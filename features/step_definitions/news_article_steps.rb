@@ -23,7 +23,7 @@ end
 When /^I draft a new news article "([^"]*)"$/ do |title|
   begin_drafting_news_article title: title, summary: "here's a simple summary"
   within ".images" do
-    attach_file "File", Rails.root.join("test/fixtures/minister-of-funk.960x640.jpg")
+    attach_file "File", jpg_image
     fill_in "Alt text", with: 'An alternative description'
   end
   click_button "Save"

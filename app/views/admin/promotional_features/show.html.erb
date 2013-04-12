@@ -1,0 +1,16 @@
+<% page_title "Promotional feature: #{@promotional_feature.title}" %>
+
+<%= content_tag_for(:div, @promotional_feature) do %>
+  <h1>Promotional feature: <%= @promotional_feature.title %></h1>
+  <p><%= link_to "Back to #{@organisation.name}", [:admin, @organisation, PromotionalFeature] %></p>
+
+  <%= render @promotional_feature.items %>
+
+  <% if @promotional_feature.has_reached_item_limit? %>
+    <p><em>(maximum number of feature items reached)</em></p>
+  <% else %>
+    <div class="form-actions">
+      <%= link_to "Add feature item", new_admin_organisation_promotional_feature_item_path(@organisation, @promotional_feature), class: "btn btn-large btn-primary"%>
+    </div>
+  <% end %>
+<% end %>
