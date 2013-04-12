@@ -55,6 +55,7 @@ class Admin::OrganisationsController < Admin::BaseController
     build_mainstream_links
     social.build_social_media_account(@organisation)
     load_organisation_roles
+    build_default_news_image
   end
 
   def update
@@ -94,6 +95,10 @@ class Admin::OrganisationsController < Admin::BaseController
     (n...13).each do |i|
       @organisation.organisation_classifications.build(ordering: i)
     end
+  end
+
+  def build_default_news_image
+    @organisation.build_default_news_image
   end
 
   def delete_absent_organisation_classifications

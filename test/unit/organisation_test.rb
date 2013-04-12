@@ -70,6 +70,12 @@ class OrganisationTest < ActiveSupport::TestCase
     refute organisation.valid?
   end
 
+  test 'can have a default news article image' do
+    image = build(:default_news_organisation_image_data)
+    organisation = build(:organisation, default_news_image: image)
+    assert_equal image, organisation.default_news_image
+  end
+
   test "should be orderable ignoring common prefixes" do
     culture = create(:organisation, name: "Department for Culture and Sports")
     education = create(:organisation, name: "Department of Education")

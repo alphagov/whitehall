@@ -13,6 +13,9 @@ class WorldwideOrganisation < ActiveRecord::Base
   has_many :people, through: :roles
   has_many :corporate_information_pages, as: :organisation, dependent: :destroy
   has_one  :access_and_opening_times, as: :accessible, dependent: :destroy
+  belongs_to :default_news_image, class_name: 'DefaultNewsOrganisationImageData', foreign_key: :default_news_organisation_image_data_id
+
+  accepts_nested_attributes_for :default_news_image, reject_if: :all_blank
 
   scope :ordered_by_name, ->() { with_translations(I18n.default_locale).order(translation_class.arel_table[:name]) }
 

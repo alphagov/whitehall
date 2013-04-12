@@ -5,6 +5,7 @@ class Organisation < ActiveRecord::Base
   include Rails.application.routes.url_helpers
 
   belongs_to :organisation_type
+  belongs_to :default_news_image, class_name: 'DefaultNewsOrganisationImageData', foreign_key: :default_news_organisation_image_data_id
 
   has_many :child_organisational_relationships,
             foreign_key: :parent_organisation_id,
@@ -165,6 +166,7 @@ class Organisation < ActiveRecord::Base
     featured_topics_and_policies_list.try(:summary)
   end
 
+  accepts_nested_attributes_for :default_news_image, reject_if: :all_blank
   accepts_nested_attributes_for :mainstream_links, allow_destroy: true, reject_if: :all_blank
   accepts_nested_attributes_for :organisation_roles
   accepts_nested_attributes_for :edition_organisations
