@@ -80,6 +80,17 @@ Old Url,New Url,Status,Slug,Admin Url,State
       EOF
     end
 
+    test "exports non published editions with 418s" do
+      draft = create(:draft_news_article)
+      submitted = create(:submitted_news_article)
+      archived = create(:archived_news_article)
+      assert_extraction_contains <<-EOF.strip_heredoc
+        "",#{news_article_url(draft)},418,#{draft.slug},#{news_article_admin_url(draft)},#{draft.state}
+        "",#{news_article_url(submitted)},418,#{submitted.slug},#{news_article_admin_url(submitted)},#{submitted.state}
+        "",#{news_article_url(archived)},301,#{archived.slug},#{news_article_admin_url(archived)},#{archived.state}
+      EOF
+    end
+
     test "exports documents with translated sources points to localised version" do
       article = create(:news_article)
       translation_source = create(:document_source, document: article.document, locale: 'es')
