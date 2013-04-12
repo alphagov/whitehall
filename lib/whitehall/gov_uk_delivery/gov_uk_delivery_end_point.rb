@@ -16,6 +16,44 @@ class Whitehall::GovUkDelivery::GovUkDeliveryEndPoint < Whitehall::GovUkDelivery
         email_curation_queue_item.summary).notify!
   end
 
+  def url_helper(edition, args={})
+    url_params = args.merge({
+      protocol: Whitehall.public_protocol,
+      host: Whitehall.public_host,
+      format: :atom
+    })
+
+    if edition.relevant_to_local_government?
+      url_params[:relevant_to_local_government] = 1
+    end
+
+    case edition
+    when Policy
+      policies_url(url_params)
+    when Announcement
+      announcements_url(url_params)
+    when Publicationesque
+      publications_url(url_params)
+    end
+  end
+
+  def filter_option
+    case edition
+    when Policy
+      nil
+    when Announcement
+      {
+        announcement_filter_option:
+        Whitehall::AnnouncementFilterOption.find_by_search_format_types(edition.search_format_types).slug
+      } if Whitehall::AnnouncementFilterOption.find_by_search_format_types(edition.search_format_types)
+    when Publicationesque
+      {
+        publication_filter_option:
+        Whitehall::PublicationFilterOption.find_by_search_format_types(edition.search_format_types).slug
+      } if Whitehall::PublicationFilterOption.find_by_search_format_types(edition.search_format_types)
+    end
+  end
+
   def tags
     if edition.can_be_associated_with_topics? || edition.can_be_related_to_policies?
       topic_slugs = edition.topics.map(&:slug)
@@ -27,33 +65,19 @@ class Whitehall::GovUkDelivery::GovUkDeliveryEndPoint < Whitehall::GovUkDelivery
 
     tags = [org_slugs, topic_slugs].inject(&:product)
 
-    required_url_args = { format: :atom, host: Whitehall.public_host, protocol: Whitehall.public_protocol }
-    required_url_args[:relevant_to_local_government] = 1 if edition.relevant_to_local_government?
     tag_paths = tags.map do |t|
       combinatorial_args = [{departments: [t[0]]}, {topics: [t[1]]}]
-      case edition
-      when Policy
-        all_combinations_of_args(combinatorial_args).map do |combined_args|
-          policies_url(combined_args.merge(required_url_args))
-        end
-      when Announcement
-        filter_option = Whitehall::AnnouncementFilterOption.find_by_search_format_types(edition.search_format_types)
-        combinatorial_args << {announcement_filter_option: filter_option.slug} unless filter_option.nil?
-        all_combinations_of_args(combinatorial_args).map do |combined_args|
-          announcements_url(combined_args.merge(required_url_args))
-        end
-      when Publicationesque
-        filter_option = Whitehall::PublicationFilterOption.find_by_search_format_types(edition.search_format_types)
-        combinatorial_args << {publication_filter_option: filter_option.slug} unless filter_option.nil?
-        all_combinations_of_args(combinatorial_args).map do |combined_args|
-          publications_url(combined_args.merge(required_url_args))
-        end
+      if filter_option
+        combinatorial_args << filter_option
+      end
+      all_combinations_of_args(combinatorial_args).map do |combined_args|
+        url_helper(edition, combined_args)
       end
     end
 
     tag_paths << atom_feed_url(format: :atom, host: Whitehall.public_host, protocol: Whitehall.public_protocol)
 
-    tag_paths.flatten
+    tag_paths.flatten.uniq
   end
 
   def all_combinations_of_args(args)

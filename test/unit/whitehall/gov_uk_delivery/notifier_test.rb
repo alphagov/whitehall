@@ -81,4 +81,5 @@ class Whitehall::GovUkDelivery::NotifierTest < ActiveSupport::TestCase
     policy.public_timestamp = Time.zone.parse('2010-12-31 12:13:14')
     assert_equal notification_date_for(policy), Time.zone.parse('2010-12-31 12:13:14')
   end
+
 end
