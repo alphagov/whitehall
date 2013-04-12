@@ -45,6 +45,7 @@ GEM
       mail (> 2.2.5)
       mime-types
       xml-simple
+    babosa (0.3.9)
     boomerang-rails (0.0.2)
       rails (~> 3.0)
     bootstrap-kaminari-views (0.0.2)
@@ -383,6 +384,7 @@ PLATFORMS
 DEPENDENCIES
   addressable
   aws-ses
+  babosa
   boomerang-rails
   bootstrap-kaminari-views
   brakeman
