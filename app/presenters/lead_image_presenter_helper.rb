@@ -9,7 +9,7 @@ module LeadImagePresenterHelper
     elsif organisations.any? && placeholder_image_exisits?
       "organisation_default_news/s300_#{organisations.first.slug}.jpg"
     else
-      "placeholder.png"
+      "placeholder.jpg"
     end
   end
 
