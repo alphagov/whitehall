@@ -11,6 +11,7 @@
       <tr>
         <th width="30%">Name</th>
         <th>Email</th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
@@ -18,6 +19,9 @@
         <%= content_tag_for(:tr, policy_advisory_group) do %>
           <td class="name"><%= link_to policy_advisory_group.name, edit_admin_policy_advisory_group_path(policy_advisory_group), title: "Edit policy advisory group #{policy_advisory_group.name}" %></td>
           <td class="email"><%= policy_advisory_group.email %></td>
+          <td>
+            <%= button_to 'Delete', admin_policy_advisory_group_path(policy_advisory_group), method: :delete, title: "Delete", confirm: "Are you sure you want to delete the policy advisory group?", class: "btn btn-danger" %>
+          </td>
         <% end %>
       <% end %>
     </tbody>
