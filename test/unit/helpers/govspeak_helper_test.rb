@@ -241,6 +241,22 @@ class GovspeakHelperTest < ActionView::TestCase
     assert actual_output.include?('café</h1>')
   end
 
+  test 'converts [Contact:<id>] into a rendering of contacts/_contact for the Contact with id = <id>' do
+    contact = build(:contact)
+    Contact.stubs(:find_by_id).with('1').returns(contact)
+    input = '[Contact:1]'
+    output = govspeak_to_html(input)
+    contact_html = render('contacts/contact', contact: contact)
+    assert_equal "<div class=\"govspeak\">#{contact_html}</div>", output
+  end
+
+  test 'silently converts [Contact:<id>] into nothing if there is no Contact with id = <id>' do
+    Contact.stubs(:find_by_id).with('1').returns(nil)
+    input = '[Contact:1]'
+    output = govspeak_to_html(input)
+    assert_equal "<div class=\"govspeak\"></div>", output
+  end
+
   private
 
   def internal_preview_host

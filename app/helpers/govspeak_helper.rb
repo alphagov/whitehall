@@ -65,6 +65,7 @@ module GovspeakHelper
   def bare_govspeak_to_html(govspeak, images = [], options = {}, &block)
     # pre-processors
     govspeak = remove_extra_quotes_from_blockquotes(govspeak)
+    govspeak = render_embedded_contacts(govspeak)
 
     markup_to_nokogiri_doc(govspeak, images).tap do |nokogiri_doc|
       # post-processors
@@ -72,6 +73,16 @@ module GovspeakHelper
       add_class_to_last_blockquote_paragraph(nokogiri_doc)
       add_heading_numbers(nokogiri_doc, options[:numbered_heading_level]) if options[:numbered_heading_level]
     end.to_html.html_safe
+  end
+
+  def render_embedded_contacts(govspeak)
+    govspeak.gsub(/\[Contact\:([0-9]+)\]/) do
+      if contact = Contact.find_by_id($1)
+        render(contact)
+      else
+        ''
+      end
+    end
   end
 
   def replace_internal_admin_links_in(nokogiri_doc)
