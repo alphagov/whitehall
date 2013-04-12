@@ -33,9 +33,8 @@ Whitehall::Application.routes.draw do
     match "/how-government-works" => "home#how_government_works", as: 'how_government_works'
     match "/get-involved" => "home#get_involved", as: 'get_involved'
 
-    resources :histories, path: "history", only: [:index, :show] do
-      resources :past_foreign_secretaries, path: "past-foreign-secretaries", only: [:index, :show]
-    end
+    resources :past_foreign_secretaries, path: "/history/past-foreign-secretaries", only: [:index, :show]
+    resources :histories, path: "history", only: [:index, :show]
 
     match '/feed' => 'home#feed', defaults: { format: :atom }, constraints: { format: :atom }, as: :atom_feed
     match '/tour' => redirect("/tour", prefix: "")
