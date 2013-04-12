@@ -3,7 +3,7 @@ module Edition::GovUkDelivery
   extend ActiveSupport::Concern
 
   included do
-    set_callback :publish, :after, :notify_govuk_delivery, unless: :minor_change?
+    set_callback :publish, :after, :notify_govuk_delivery, unless: :govuk_delivery_notification_suppressed?
   end
 
   def govuk_delivery_tags
@@ -71,11 +71,12 @@ module Edition::GovUkDelivery
     tag_paths.flatten
   end
 
-  def can_be_sent_as_notification?
-    !minor_change? &&
-      # We don't want to send anything that will appear to have been
-      # published in the past.
-      (Time.zone.now.to_date == notification_date.to_date)
+  def govuk_delivery_notification_suppressed?
+    minor_change? || published_in_the_past?
+  end
+
+  def published_in_the_past?
+    notification_date.to_date < Time.zone.now.to_date
   end
 
   def notification_date
@@ -87,8 +88,6 @@ module Edition::GovUkDelivery
   end
 
   def notify_govuk_delivery
-    if can_be_sent_as_notification?
-      Delayed::Job.enqueue GovUkDeliveryNotificationJob.new(id)
-    end
+    Delayed::Job.enqueue GovUkDeliveryNotificationJob.new(id)
   end
 end
