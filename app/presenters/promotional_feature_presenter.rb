@@ -3,7 +3,7 @@ class PromotionalFeaturePresenter < Draper::Base
   decorates_association :promotional_feature_items, with: PromotionalFeatureItemPresenter
 
   def width
-    promotional_feature_items.inject(0) {|sum, item| sum + item.width }
+    promotional_feature_items.sum { |item| item.width }
   end
 
   def position
