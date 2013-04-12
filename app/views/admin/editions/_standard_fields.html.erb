@@ -1,7 +1,10 @@
 <fieldset>
   <%= form.hidden_field :lock_version %>
-
+  <% if form.object.document %>
+  <%= form.text_field :slug, disabled: true %>
+  <% end %>
   <%= form.text_field :title %>
+  <div class="title-length-info">Title text should be 65 characters or fewer and the slug will be truncated past 150. <span class="count"></span></div>
 
   <%= form.text_area :summary, rows: 2 %>
   <div class="summary-length-info">Summary text should be 140 characters or fewer. <span class="count"></span></div>

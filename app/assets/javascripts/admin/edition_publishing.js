@@ -89,3 +89,40 @@ jQuery(function($) {
     checkLength();
   }
 }(jQuery));
+
+(function($){
+  var $input = $('#edition_title'),
+      $message = $('.title-length-info').hide(),
+      $count = $message.find('.count');
+
+  if($input.length > 0){
+    $input.addClass('title-length-input');
+    function checkLength(){
+      var length = $input.val().split('').length;
+
+      $count.text('Current length: '+length);
+      if(length > 149){
+        $input.removeClass('warning');
+        $message.removeClass('warning');
+        $input.addClass('error');
+        $message.addClass('error');
+        $message.show();
+      }
+      else if(length > 65){
+        $input.removeClass('error');
+        $message.removeClass('error');
+        $input.addClass('warning');
+        $message.addClass('warning');
+        $message.show();
+      }
+      else {
+        $input.removeClass('error');
+        $message.removeClass('error');
+        $input.removeClass('warning');
+        $message.removeClass('warning');
+      }
+    }
+    $input.bind('keyup', checkLength);
+    checkLength();
+  }
+}(jQuery));
