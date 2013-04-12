@@ -1,13 +1,12 @@
 require 'test_helper'
 
-class NewsArticlePresenterTest < PresenterTestCase
+class NewsArticlePresenterTest < ActionView::TestCase
 
   setup do
-    organisation = build(:organisation, slug: "slug", organisation_type: build(:organisation_type))
-    @news_article = build(:news_article, organisations: [organisation])
-    # TODO: perhaps rethink edition factory, so this apparent duplication
-    # isn't neccessary
-    @news_article.stubs(:organisations).returns([organisation])
+    Draper::ViewContext.current = @controller.view_context
+
+    @organisation = create(:organisation, organisation_type: create(:organisation_type))
+    @news_article = create(:news_article, organisations: [@organisation])
     @presenter = NewsArticlePresenter.decorate(@news_article)
   end
 
@@ -17,6 +16,17 @@ class NewsArticlePresenterTest < PresenterTestCase
 
   test "lead_image_path returns the department's default placeholder" do
     @presenter.stubs(:find_asset).returns(true)
-    assert_match 'slug', @presenter.lead_image_path
+    assert_match "organisation_default_news/s300_#{@organisation.slug}.jpg", @presenter.lead_image_path
+  end
+
+  test "lead_image_path returns the department default image" do
+    image = create(:default_news_organisation_image_data)
+    organisation = create(:organisation,
+                            organisation_type: create(:organisation_type),
+                            default_news_image: image
+                          )
+    news_article = create(:news_article, organisations: [organisation])
+    presenter = NewsArticlePresenter.decorate(news_article)
+    assert_match organisation.default_news_image.file.url(:s300), presenter.lead_image_path
   end
 end

@@ -9,6 +9,7 @@ class Admin::WorldwideOrganisationsController < Admin::BaseController
 
   def new
     @worldwide_organisation = WorldwideOrganisation.new
+    @worldwide_organisation.build_default_news_image
     respond_with :admin, @worldwide_organisation
   end
 
@@ -18,6 +19,7 @@ class Admin::WorldwideOrganisationsController < Admin::BaseController
   end
 
   def edit
+    @worldwide_organisation.build_default_news_image
     respond_with :admin, @worldwide_organisation
   end
 

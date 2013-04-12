@@ -37,6 +37,14 @@
           </div>
         </article>
 
+        <% if @worldwide_organisation.default_news_image %>
+        <div class="document">
+          <p>Default News Image</p>
+          <%= image_tag @worldwide_organisation.default_news_image.file.url(:s300) %>
+        </div>
+        <% end %>
+
+
         <div class="form-actions">
           <%= link_to "Edit", edit_admin_worldwide_organisation_path(@worldwide_organisation), class: "btn btn-large btn-primary"%>
         </div>

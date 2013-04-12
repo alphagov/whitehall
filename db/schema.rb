@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130405113113) do
+ActiveRecord::Schema.define(:version => 20130408162556) do
 
   create_table "access_and_opening_times", :force => true do |t|
     t.text     "body"
@@ -220,6 +220,12 @@ ActiveRecord::Schema.define(:version => 20130405113113) do
   end
 
   add_index "data_migration_records", ["version"], :name => "index_data_migration_records_on_version", :unique => true
+
+  create_table "default_news_organisation_image_data", :force => true do |t|
+    t.string   "carrierwave_image"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -762,14 +768,16 @@ ActiveRecord::Schema.define(:version => 20130405113113) do
     t.string   "url"
     t.text     "logo_formatted_name"
     t.string   "alternative_format_contact_email"
-    t.string   "govuk_status",                     :default => "live", :null => false
-    t.integer  "organisation_logo_type_id",        :default => 2
+    t.string   "govuk_status",                            :default => "live", :null => false
+    t.integer  "organisation_logo_type_id",               :default => 2
     t.string   "analytics_identifier"
-    t.boolean  "handles_fatalities",               :default => false
+    t.boolean  "handles_fatalities",                      :default => false
     t.text     "govdelivery_url"
-    t.integer  "important_board_members",          :default => 1
+    t.integer  "important_board_members",                 :default => 1
+    t.integer  "default_news_organisation_image_data_id"
   end
 
+  add_index "organisations", ["default_news_organisation_image_data_id"], :name => "index_organisations_on_default_news_organisation_image_data_id"
   add_index "organisations", ["organisation_logo_type_id"], :name => "index_organisations_on_organisation_logo_type_id"
   add_index "organisations", ["organisation_type_id"], :name => "index_organisations_on_organisation_type_id"
   add_index "organisations", ["slug"], :name => "index_organisations_on_slug"
@@ -1068,8 +1076,10 @@ ActiveRecord::Schema.define(:version => 20130405113113) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "main_office_id"
+    t.integer  "default_news_organisation_image_data_id"
   end
 
+  add_index "worldwide_organisations", ["default_news_organisation_image_data_id"], :name => "index_worldwide_organisations_on_image_data_id"
   add_index "worldwide_organisations", ["slug"], :name => "index_worldwide_organisations_on_slug", :unique => true
 
   create_table "worldwide_services", :force => true do |t|

@@ -41,6 +41,12 @@ class WorldwideOrganisationTest < ActiveSupport::TestCase
     assert_equal organisation, worldwide_organisation.reload.sponsoring_organisation
   end
 
+  test 'can have a default news article image' do
+     image = build(:default_news_organisation_image_data)
+     worldwide_organisation = build(:worldwide_organisation, default_news_image: image)
+     assert_equal image, worldwide_organisation.default_news_image
+  end
+
   test "defers to the main sponsoring organisation for its analytics_identifier" do
     organisation = create(:organisation)
     worldwide_organisation = create(:worldwide_organisation)
