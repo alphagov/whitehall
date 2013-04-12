@@ -19,33 +19,39 @@
     }
   }
 
-  .profiles {
-    @include heading-36;
-    border-bottom: 5px solid $black;
-    margin: 0 $gutter-half $gutter-half;
-  }
+  .featured-profiles {
+    margin-bottom: $gutter;
+    .profiles {
+      @include heading-36;
+      border-bottom: 5px solid $black;
+      margin: 0 $gutter-half $gutter-half;
+    }
 
-  .name {
-    @include core-19;
-    font-weight: bold;
-  }
-  .term {
-    @include core-14;
-    color: $grey-1;
-  }
+    .name {
+      @include core-19;
+      font-weight: bold;
+    }
+    .term {
+      @include core-14;
+      color: $grey-1;
+    }
 
-  .person-excerpt {
-    .inner {
-      .image-holder {
-        img {
-          max-width: 100%;
+    .person-excerpt {
+      .inner {
+        .image-holder {
+          img {
+            max-width: 100%;
+          }
         }
       }
     }
-  }
 
-  .clear-person {
-    clear: both;
+    .clear-person {
+      clear: both;
+    }
+    @include media(tablet) {
+      margin-bottom: $gutter*2;
+    }
   }
 
   .foreign-secretaries {
