@@ -43,10 +43,10 @@ class Whitehall::Exporters::DocumentMappings < Struct.new(:platform)
     case edition.state
     when 'published'
       '301'
-    when 'draft'
-      '418'
+    when 'archived'
+      '301'
     else
-      ''
+      '418'
     end
   end
 
