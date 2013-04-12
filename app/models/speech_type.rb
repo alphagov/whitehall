@@ -51,5 +51,7 @@ class SpeechType
   )
   WrittenStatement = create(id: 4, key: "written_statement", name: "Written statement to Parliament")
   OralStatement = create(id: 5, key: "oral_statement", name: "Oral statement to Parliament")
+  BylinedArticle = create(id: 6, key: "bylined_article", name: "Bylined article")
+
   ImportedAwaitingType = create(id: 1000, key: "imported", name: "Imported - Awaiting Type")
 end

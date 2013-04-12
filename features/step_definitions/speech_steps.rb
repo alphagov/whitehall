@@ -103,3 +103,14 @@ Then /^I should see the speech was delivered on "([^"]*)" at "([^"]*)"$/ do |del
   assert page.has_css?('.delivered-on', text: delivered_on)
   assert page.has_css?('.location', text: location)
 end
+
+When /^I draft a new bylined article "([^"]*)"$/ do |title|
+  begin_drafting_speech title: title
+  select 'Bylined article', from: "Type"
+  click_button "Save"
+end
+
+Then /^I should see the bylined article in the list of draft documents$/ do
+  visit admin_editions_path(state: :draft)
+  assert has_css?(record_css_selector(Speech.last))
+end

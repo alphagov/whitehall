@@ -36,3 +36,7 @@ Scenario: Submitting a draft speech to a second pair of eyes
   Given a draft speech "Outlaw Moustaches" exists
   When I submit the speech "Outlaw Moustaches"
   Then I should see the speech "Outlaw Moustaches" in the list of submitted documents
+
+Scenario: Creating bylined articles
+  When I draft a new bylined article "Colonel Mustard talks about beards to The Times"
+  Then I should see the bylined article in the list of draft documents
