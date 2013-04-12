@@ -551,4 +551,12 @@ class OrganisationTest < ActiveSupport::TestCase
 
     assert_equal 0, organisation.sponsorships.count
   end
+
+  test "Organisation.executive_offices returns executive offices" do
+    organisation = create(:ministerial_department)
+    no10 = create(:executive_office, name: 'No 10')
+    dpms_office = create(:executive_office, name: "Deputy Prime Minister's office")
+
+    assert_same_elements [no10, dpms_office], Organisation.executive_offices
+  end
 end

@@ -39,3 +39,8 @@ Scenario: Organisation pages links to any FOI releases and transparency data pub
   Then I can see a link to "FOI releases" on the "Cabinet Office" about page
   When I associate a Transparency data publication to the "Cabinet Office"
   Then I can see a link to "Transparency data" on the "Cabinet Office" about page
+
+Scenario: Organisation page lists promotional features for executive offices
+  Given the executive office organisation "Number 32 - The Cheese Office" exists
+  And the executive office has a promotional feature with an item
+  Then I should see the promotional feature on the executive office page

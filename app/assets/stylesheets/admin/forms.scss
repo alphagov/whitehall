@@ -95,7 +95,8 @@ fieldset.contacts {
   }
 }
 
-fieldset.contact_number {
+fieldset.contact_number,
+div.feature_link {
   padding-bottom: 1em;
   margin-bottom: 1em;
   border-bottom: 1px solid #EEE;
@@ -110,7 +111,7 @@ fieldset.contact_number {
     margin-left: 160px;
   }
 }
-fieldset.fatality-notice-casualties{
+fieldset.fatality-notice-casualties {
   h3 {
     margin-top: 0.5em;
     margin-bottom: 0.5em;

@@ -1,0 +1,18 @@
+.dash-list {
+  li {
+    list-style-position: inside;
+    padding-right: $gutter-half;
+
+    @media (min-width: 1px ){ // target modern browsers
+      margin-left: $gutter-half;
+      list-style: none;
+      &:before {
+        content: "-";
+        position: relative;
+        float: left;
+        width: $gutter-half;
+        margin-left: $gutter-half*-1;
+      }
+    }
+  }
+}

@@ -7,16 +7,7 @@
     <%= form_for @feature, url: [:admin, @featurable, @feature_list, @feature], builder: Whitehall::FormBuilder do |form| %>
       <%= form.errors %>
       <%= form.hidden_field :document_id %>
-      <div class="control-group">
-        <%= form.label :image, 'Select an image to be shown when featuring', class: "control-label" %>
-        <div class="controls">
-          <%= form.file_field :image %>
-          <% if form.object.image_cache.present? %>
-            <span class="already_uploaded"><%= File.basename(form.object.image_cache) %> already uploaded</span>
-          <% end %>
-          <%= form.hidden_field :image_cache %>
-        </div>
-      </div>
+      <%= form.upload :image, horizontal: true, label_text: 'Select an image to be shown when featuring' %>
       <%= form.text_field :alt_text, horizontal: true, label_text: "Image description (alt text)" %>
       <%= form.save_or_cancel cancel: admin_feature_list_path(@feature_list) %>
     <% end %>

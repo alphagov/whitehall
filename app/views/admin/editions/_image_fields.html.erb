@@ -6,12 +6,7 @@
       <div class="file_upload well">
         <h3>New image</h3>
         <%= images_fields.fields_for :image_data do |image_data_fields| %>
-          <%= image_data_fields.label :file %>
-          <%= image_data_fields.file_field :file %>
-          <% if image_data_fields.object.file_cache.present? %>
-            <span class="already_uploaded"><%= File.basename(image_data_fields.object.file_cache) %> already uploaded</span>
-          <% end %>
-          <%= image_data_fields.hidden_field :file_cache %>
+          <%= image_data_fields.upload :file %>
         <% end %>
         <%= images_fields.text_field :alt_text, label_text: 'Alt text' %>
         <%= images_fields.text_area :caption, rows: 2 %>
