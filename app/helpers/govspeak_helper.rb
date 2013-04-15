@@ -35,6 +35,7 @@ module GovspeakHelper
   end
 
   def govspeak_embedded_contacts(govspeak)
+    return [] if govspeak.blank?
     # scan yields an array of capture groups for each match
     # so "[Contact:1] is now [Contact:2]" => [["1"], ["2"]]
     govspeak.scan(GovspeakHelper::EMBEDDED_CONTACT_REGEXP).map { |capture|
@@ -87,6 +88,7 @@ module GovspeakHelper
   end
 
   def render_embedded_contacts(govspeak)
+    return govspeak if govspeak.blank?
     govspeak.gsub(GovspeakHelper::EMBEDDED_CONTACT_REGEXP) do
       if contact = Contact.find_by_id($1)
         render(contact)
