@@ -23,8 +23,15 @@
     .block-4 {
       float: left;
       width: 66.666%;
+      .inner-block {
+        padding: 0 $gutter 0 $gutter-half;
+      }
+
       @include right-to-left {
         float: right;
+        .inner-block {
+          padding: 0 $gutter-half 0 $gutter;
+        }
       }
     }
   }

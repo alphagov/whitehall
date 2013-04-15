@@ -11,7 +11,10 @@
 
       .filter {
         width: 100%;
-        margin-top: $gutter-two-thirds;
+        margin-top: $gutter-one-third;
+        @include media (tablet) {
+          margin-top: $gutter-half;
+        }
       }
     }
   }
@@ -21,7 +24,8 @@
   }
 
   label {
-    @include ig-core-19;
+    @include ig-core-14;
+    font-weight: bold;
 
     &.sub-title {
       @include ig-core-19;
@@ -31,6 +35,7 @@
   input {
     @include ig-core-14;
     background: $white;
+    border: 1px solid $grey-3;
     width: 100%;
     margin: 0;
     @include media (desktop) {
@@ -46,12 +51,6 @@
     background: #fff;
     line-height: 1.3;
     width: 100%;
-  }
-
-  .multi-row-select {
-    border: 1px solid $border-colour;
-    width: 100%;
-    padding-bottom: 0;
   }
 
   .checkbox input {
@@ -79,20 +78,33 @@
 
     h3 {
       @include ig-core-14;
+      font-weight: bold;
       display: inline;
       padding-right: $gutter-half;
     }
 
     label {
+      position: relative;
       @include ig-core-14;
+      padding-left: $gutter-two-thirds;
       padding-right: $gutter-one-third;
     }
   }
 
   .checkbox {
+    position: relative;
     label {
       @include ig-core-14;
-      padding-right: $gutter-one-third;
+      display: block;
+      padding-left: $gutter-two-thirds;
+    }
+    input {
+      position: absolute;
+      top: $gutter-one-sixth;
+      left: 0;
+      @include media (tablet) {
+        top: $gutter * 0.25;
+      }
     }
   }
 
