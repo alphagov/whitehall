@@ -4,7 +4,7 @@ class EmailSignup::TitleExtractor
   end
 
   def title
-    [document_type_title_part, topic_title_part, organisation_title_part].compact.join(' ')
+    [document_type_title_part, topic_title_part, organisation_title_part, local_government_title_part].compact.join(' ')
   end
 
   def document_type_title_part
@@ -50,5 +50,9 @@ class EmailSignup::TitleExtractor
         end
       "by #{title}" if title
     end
+  end
+
+  def local_government_title_part
+    'relevant to local government' if @alert.info_for_local?
   end
 end

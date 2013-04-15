@@ -54,4 +54,9 @@ class EmailSignup::TitleExtractorTest < ActiveSupport::TestCase
     a = EmailSignup::Alert.new(document_type: 'all', topic: 'environment')
     assert_match(/ about the environment/, EmailSignup::TitleExtractor.new(a).title)
   end
+
+  test 'given an alert with local government ticked the title should include "relevant to local government"' do
+    a = EmailSignup::Alert.new(document_type: 'all', info_for_local: true)
+    assert_match(/ relevant to local government/, EmailSignup::TitleExtractor.new(a).title)
+  end
 end

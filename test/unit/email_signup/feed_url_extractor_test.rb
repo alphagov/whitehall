@@ -60,5 +60,9 @@ class EmailSignup::FeedUrlExtractorTest < ActiveSupport::TestCase
     a = EmailSignup::Alert.new(document_type: 'all', topic: 'environment')
     assert_match(/topics\%5B\%5D\=environment/, EmailSignup::FeedUrlExtractor.new(a).feed_url)
   end
-end
 
+  test 'given an alert relevant to local government the URL should have relevant_to_local_government=1 in it' do
+    a = EmailSignup::Alert.new(document_type: 'all', info_for_local: true)
+    assert_match(/relevant_to_local_government=1/, EmailSignup::FeedUrlExtractor.new(a).feed_url)
+  end
+end

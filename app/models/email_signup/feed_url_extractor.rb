@@ -26,6 +26,9 @@ class EmailSignup::FeedUrlExtractor
         filters[:announcement_filter_option] = @alert.document_specific_type
       end
     end
+    if @alert.info_for_local?
+      filters[:relevant_to_local_government] = 1
+    end
     filters
   end
 
