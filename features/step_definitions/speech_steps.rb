@@ -127,5 +127,5 @@ When /^I preview the authored article$/ do
 end
 
 Then /^I should see who wrote it clearly labelled in the metadata$/ do
-  assert page.has_css?('.document-page-header dt', :text => "Written on:")
+  assert page.has_css?('.document-page-header dt', text: "Written on:")
 end
