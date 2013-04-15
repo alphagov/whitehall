@@ -40,14 +40,7 @@ class Whitehall::Exporters::DocumentMappings < Struct.new(:platform)
   end
 
   def http_status(edition)
-    case edition.state
-    when 'published'
-      '301'
-    when 'archived'
-      '301'
-    else
-      '418'
-    end
+    edition.document.published? ? '301' : '418'
   end
 
   def export(target)
