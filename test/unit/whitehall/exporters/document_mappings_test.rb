@@ -83,11 +83,20 @@ Old Url,New Url,Status,Slug,Admin Url,State
     test "exports non published editions with 418s" do
       draft = create(:draft_news_article)
       submitted = create(:submitted_news_article)
-      archived = create(:archived_news_article)
+      published = create(:published_news_article)
       assert_extraction_contains <<-EOF.strip_heredoc
         "",#{news_article_url(draft)},418,#{draft.slug},#{news_article_admin_url(draft)},#{draft.state}
         "",#{news_article_url(submitted)},418,#{submitted.slug},#{news_article_admin_url(submitted)},#{submitted.state}
-        "",#{news_article_url(archived)},301,#{archived.slug},#{news_article_admin_url(archived)},#{archived.state}
+        "",#{news_article_url(published)},301,#{published.slug},#{news_article_admin_url(published)},#{published.state}
+      EOF
+    end
+
+    test "exports with 301 if the document has ever been published" do
+      publication = create(:published_publication)
+      new_draft = publication.create_draft(create(:gds_editor))
+      assert_extraction_contains <<-EOF.strip_heredoc
+        "",https://www.preview.alphagov.co.uk/government/publications/#{publication.slug},301,#{publication.slug},https://whitehall-admin.test.alphagov.co.uk/government/admin/publications/#{publication.id},published
+        "",https://www.preview.alphagov.co.uk/government/publications/#{publication.slug},301,#{publication.slug},https://whitehall-admin.test.alphagov.co.uk/government/admin/publications/#{new_draft.id},draft
       EOF
     end
 
