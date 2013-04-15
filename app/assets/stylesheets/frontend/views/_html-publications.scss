@@ -132,6 +132,12 @@
         @include ie(7){
           margin-left: $gutter;
         }
+
+        li {
+          ol, ul {
+            margin: 0 $gutter-two-thirds;
+          }
+        }
       }
       ol {
         list-style-type: decimal;
