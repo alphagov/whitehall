@@ -32,6 +32,40 @@ class Edition::GovUkDeliveryTest < ActiveSupport::TestCase
     Edition::GovUkDelivery::Notifier::EmailCurationQueue.new(edition, notification_date)
   end
 
+  test "should notify on publishing policies" do
+    Edition::AuditTrail.whodunnit = create(:user)
+    policy = create(:policy, topics: [create(:topic), create(:topic)])
+    policy.first_published_at = Time.zone.now
+    policy.major_change_published_at = Time.zone.now
+
+    notifier = notifier_for(policy)
+    Edition::GovUkDelivery::Notifier.expects(:new).with(policy).returns(notifier)
+    notifier.expects(:edition_published!).once
+    policy.publish!
+  end
+
+  test "should notify on publishing news articles" do
+    news_article = create(:news_article)
+    news_article.first_published_at = Time.zone.now
+    news_article.major_change_published_at = Time.zone.now
+
+    notifier = notifier_for(news_article)
+    Edition::GovUkDelivery::Notifier.expects(:new).with(news_article).returns(notifier)
+    notifier.expects(:edition_published!).once
+    news_article.publish!
+  end
+
+  test "should notify on publishing publications" do
+    publication = create(:publication)
+    publication.first_published_at = Time.zone.now
+    publication.major_change_published_at = Time.zone.now
+
+    notifier = notifier_for(publication)
+    Edition::GovUkDelivery::Notifier.expects(:new).with(publication).returns(notifier)
+    notifier.expects(:edition_published!).once
+    publication.publish!
+  end
+
   test 'Notifier#edition_published! will route the edition to govuk delivery if it is not relevant to local government' do
     edition = build(:edition, relevant_to_local_government: false, public_timestamp: Time.zone.now)
     edition.stubs(:available_in_locale?).returns true
@@ -350,66 +384,6 @@ class Edition::GovUkDeliveryTest < ActiveSupport::TestCase
     assert_equal 'UTF-8', body.encoding.name
   end
 
-  test 'Notifier::GovUkDelivery#notify! sends a notification via the govuk delivery client when there are topics' do
-    policy = create(:policy, topics: [create(:topic)])
-    policy.stubs(:public_timestamp).returns Time.zone.now
-    notifier = govuk_delivery_notifier_for(policy)
-    notifier.stubs(:govuk_delivery_email_body).returns('email body')
-    Whitehall.govuk_delivery_client.expects(:notify).with(notifier.govuk_delivery_tags, policy.title, 'email body')
-
-    notifier.notify!
-  end
-
-  test 'Notifier::GovUkDelivery#notify! swallows errors from the API' do
-    policy = create(:policy, topics: [create(:topic)])
-    policy.public_timestamp = Time.zone.now
-    Whitehall.govuk_delivery_client.expects(:notify).raises(GdsApi::HTTPErrorResponse, 500)
-
-    assert_nothing_raised { govuk_delivery_notifier_for(policy).notify! }
-  end
-
-  test 'Notifier::GovUkDelivery#notify! swallows timeout errors from the API' do
-    policy = create(:policy, topics: [create(:topic)])
-    policy.public_timestamp = Time.zone.now
-    Whitehall.govuk_delivery_client.expects(:notify).raises(GdsApi::TimedOutException)
-
-    assert_nothing_raised { govuk_delivery_notifier_for(policy).notify! }
-  end
-
-  test "should notify on publishing policies" do
-    Edition::AuditTrail.whodunnit = create(:user)
-    policy = create(:policy, topics: [create(:topic), create(:topic)])
-    policy.first_published_at = Time.zone.now
-    policy.major_change_published_at = Time.zone.now
-
-    notifier = notifier_for(policy)
-    Edition::GovUkDelivery::Notifier.expects(:new).with(policy).returns(notifier)
-    notifier.expects(:edition_published!).once
-    policy.publish!
-  end
-
-  test "should notify on publishing news articles" do
-    news_article = create(:news_article)
-    news_article.first_published_at = Time.zone.now
-    news_article.major_change_published_at = Time.zone.now
-
-    notifier = notifier_for(news_article)
-    Edition::GovUkDelivery::Notifier.expects(:new).with(news_article).returns(notifier)
-    notifier.expects(:edition_published!).once
-    news_article.publish!
-  end
-
-  test "should notify on publishing publications" do
-    publication = create(:publication)
-    publication.first_published_at = Time.zone.now
-    publication.major_change_published_at = Time.zone.now
-
-    notifier = notifier_for(publication)
-    Edition::GovUkDelivery::Notifier.expects(:new).with(publication).returns(notifier)
-    notifier.expects(:edition_published!).once
-    publication.publish!
-  end
-
   test "Notifier::GovUkDelivery#govuk_delivery_email_body should link to full URL in email" do
     publication = create(:publication)
     publication.first_published_at = Time.zone.now
@@ -449,5 +423,39 @@ class Edition::GovUkDeliveryTest < ActiveSupport::TestCase
     policy.major_change_published_at = Time.zone.parse('2011-01-01 12:13:14')
     policy.public_timestamp = Time.zone.parse('2010-12-31 12:13:14')
     assert_equal notification_date_for(policy), Time.zone.parse('2010-12-31 12:13:14')
+  end
+
+  test 'Notifier::GovUkDelivery#notify! sends a notification via the govuk delivery client when there are topics' do
+    policy = create(:policy, topics: [create(:topic)])
+    policy.stubs(:public_timestamp).returns Time.zone.now
+    notifier = govuk_delivery_notifier_for(policy)
+    notifier.stubs(:govuk_delivery_email_body).returns('email body')
+    Whitehall.govuk_delivery_client.expects(:notify).with(notifier.govuk_delivery_tags, policy.title, 'email body')
+
+    notifier.notify!
+  end
+
+  test 'Notifier::GovUkDelivery#notify! swallows errors from the API' do
+    policy = create(:policy, topics: [create(:topic)])
+    policy.public_timestamp = Time.zone.now
+    Whitehall.govuk_delivery_client.expects(:notify).raises(GdsApi::HTTPErrorResponse, 500)
+
+    assert_nothing_raised { govuk_delivery_notifier_for(policy).notify! }
+  end
+
+  test 'Notifier::GovUkDelivery#notify! swallows timeout errors from the API' do
+    policy = create(:policy, topics: [create(:topic)])
+    policy.public_timestamp = Time.zone.now
+    Whitehall.govuk_delivery_client.expects(:notify).raises(GdsApi::TimedOutException)
+
+    assert_nothing_raised { govuk_delivery_notifier_for(policy).notify! }
+  end
+
+  test 'Notifier::EmailCurationQueue#notify! constructs a new EmailCurationQueueItem based on the edition' do
+    policy = create(:policy, topics: [create(:topic)])
+    notifier = email_curation_queue_notifier_for(policy, 1.day.ago)
+    EmailCurationQueueItem.expects(:create_from_edition).with(policy, 1.day.ago)
+
+    notifier.notify!
   end
 end
