@@ -38,6 +38,7 @@
 
 .organisations-icon-list {
   position: relative;
+  z-index: 9;
   @include right-to-left {
     direction: ltr;
   }
