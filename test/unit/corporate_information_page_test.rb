@@ -107,7 +107,8 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
         CorporateInformationPageType::TermsOfReference,
         CorporateInformationPageType::OurGovernance,
         CorporateInformationPageType::Membership,
-        CorporateInformationPageType::OfficeAccessAndOpeningTimes
+        CorporateInformationPageType::OfficeAccessAndOpeningTimes,
+        CorporateInformationPageType::MediaEnquiries
       ],
       jobs_and_contracts: [
         CorporateInformationPageType::Procurement,
