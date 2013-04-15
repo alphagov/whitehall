@@ -18,6 +18,10 @@
       }
     }
   }
+  
+  .clear-person {
+    clear: both;
+  }
 
   .featured-profiles {
     margin-bottom: $gutter;
@@ -46,9 +50,6 @@
       }
     }
 
-    .clear-person {
-      clear: both;
-    }
     @include media(tablet) {
       margin-bottom: $gutter*2;
     }
@@ -70,6 +71,9 @@
         }
         .inner {
           padding: $gutter-half;
+          h4 {
+            font-weight: bold;
+          }
         }
       }
       @include media(tablet) {
@@ -84,6 +88,9 @@
         span {
           @include core-19;
           display: block;
+        }
+        @include media(tablet) {
+          padding-top: 0;
         }
       }
     }

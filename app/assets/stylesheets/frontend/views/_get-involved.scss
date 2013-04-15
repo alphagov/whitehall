@@ -231,10 +231,22 @@
         .index-list {
           margin-top: $gutter-half;
         }
+        h3 {
+          padding-top: 0;
+        }
+        .column {
+          margin-top: $gutter-one-sixth;
+        }
       }
 
       &.respond-to-consultations {
         margin-bottom: 0;
+        h3 {
+          padding-top: 0;
+        }
+        .column {
+          margin-top: $gutter-one-sixth;
+        }
       }
       &.policies {
         .document-list .document-row {
