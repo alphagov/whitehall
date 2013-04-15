@@ -39,18 +39,24 @@
 
       .adr,
       .email-url-number {
+        margin-bottom: $gutter-one-third;
         @include media(tablet){
           float: left;
           width: 50%;
         }
+        .email,
         .tel {
           span {
             float: left;
-            width: 5em;
+            min-width: 5em;
+            clear: both;
+            padding-right: $gutter-one-sixth;
           }
         }
         p {
-          margin: 0 $gutter-half;
+          @include media(tablet){
+            margin: 0 $gutter-half;
+          }
         }
       }
       .comments {
@@ -62,6 +68,10 @@
     .govspeak {
       h2 {
         border-bottom: 1px solid $border-colour;
+      }
+      table {
+        margin-left: 0;
+        margin-right: 0;
       }
     }
   }
