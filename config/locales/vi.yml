@@ -65,15 +65,22 @@ vi:
     published: Đã xuất bản
     read: Đọc bài có  %{tiêu đề}
     speech:
+      author_title:
+        minister:
+        speaker:
       delivered_on:
       delivery_title:
         minister: Thứ trưởng
         speaker: Người phát biểu
       originally_given_at: Được đưa ra đầu tiên tại %{địa điểm}
+      written_on:
     type:
       announcement:
         one: Thông báo
         other: Các thông báo
+      authored_article:
+        one:
+        other:
       case_study:
         one: Trường hợp cụ thể
         other: Các Trường hợp cụ thể

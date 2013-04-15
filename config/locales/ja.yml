@@ -65,15 +65,22 @@ ja:
     published: 掲載済
     read: ! '%{title} の記事を読む'
     speech:
+      author_title:
+        minister:
+        speaker:
       delivered_on: 場所
       delivery_title:
         minister: 大臣
         speaker: スピーカー
       originally_given_at: ! ' %{location} で実施'
+      written_on:
     type:
       announcement:
         one: ニュース
         other: ニュース
+      authored_article:
+        one:
+        other:
       case_study:
         one: ケーススタディ
         other: ケーススタディ
@@ -202,7 +209,7 @@ ja:
   i18n:
     direction:
   language_names:
-    ja:  日本語
+    ja: 日本語
   latest_feed:
     no_updates:
     title: Latest

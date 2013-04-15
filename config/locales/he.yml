@@ -53,6 +53,11 @@ he:
         two:
         many:
         other: הודעות
+      authored_article:
+        one:
+        two:
+        many:
+        other:
       case_study:
         one: מקרה בוחן
         two:
@@ -241,11 +246,15 @@ he:
     published: פורסם
     read:
     speech:
+      author_title:
+        minister:
+        speaker:
       delivered_on: ! 'נשלח ב:'
       delivery_title:
         minister: שר
         speaker: דובר
       originally_given_at:
+      written_on:
     updated: מעודכן
     view:
   organisation:

@@ -35,6 +35,9 @@ fr:
       announcement:
         one: Annonce
         other: Annonces
+      authored_article:
+        one:
+        other:
       case_study:
         one: Etude de cas
         other: Etudes de cas
@@ -149,11 +152,15 @@ fr:
     published: publié
     read: Lire l'article intitulé «%{title}»
     speech:
+      author_title:
+        minister:
+        speaker:
       delivered_on:
       delivery_title:
         minister:
         speaker:
       originally_given_at:
+      written_on:
     updated: mise à  jour
     view: Voir Â«%{title}Â»
   organisation:

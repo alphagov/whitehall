@@ -53,6 +53,11 @@ sr:
         few:
         many:
         other:
+      authored_article:
+        one:
+        few:
+        many:
+        other:
       case_study:
         one:
         few:
@@ -241,11 +246,15 @@ sr:
     published:
     read:
     speech:
+      author_title:
+        minister:
+        speaker:
       delivered_on:
       delivery_title:
         minister:
         speaker:
       originally_given_at:
+      written_on:
     updated:
     view:
   organisation:

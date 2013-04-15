@@ -35,6 +35,9 @@ ps:
       announcement:
         one:
         other:
+      authored_article:
+        one:
+        other:
       case_study:
         one:
         other:
@@ -149,11 +152,15 @@ ps:
     published:
     read:
     speech:
+      author_title:
+        minister:
+        speaker:
       delivered_on:
       delivery_title:
         minister:
         speaker:
       originally_given_at:
+      written_on:
     updated:
     view:
   organisation:

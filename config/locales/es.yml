@@ -35,6 +35,9 @@ es:
       announcement:
         one: Anuncio
         other: Anuncios
+      authored_article:
+        one:
+        other:
       case_study:
         one: Caso de estudio práctico
         other: Casos de estudio práctico
@@ -149,11 +152,15 @@ es:
     published: Publicado
     read:
     speech:
+      author_title:
+        minister:
+        speaker:
       delivered_on: Emitido el
       delivery_title:
         minister: Ministro
         speaker: Orador
       originally_given_at:
+      written_on:
     updated: Actualizado
     view: Mirar '%{title}'
   organisation:

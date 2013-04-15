@@ -35,6 +35,9 @@ lv:
       announcement:
         one: Paziņojums
         other: Paziņojumi
+      authored_article:
+        one:
+        other:
       case_study:
         one: Piemērs
         other: Piemēri
@@ -149,11 +152,15 @@ lv:
     published: publicēts
     read: Lasīt %{title} rakstu
     speech:
+      author_title:
+        minister:
+        speaker:
       delivered_on: ! 'Datums:'
       delivery_title:
         minister: Ministrs
         speaker: Runas autors
       originally_given_at: Noturēta %{location}.
+      written_on:
     updated: Atjaunināts
     view: Skatīt '%{title}'
   organisation:

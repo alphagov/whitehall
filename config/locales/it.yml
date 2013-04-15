@@ -35,6 +35,9 @@ it:
       announcement:
         one: Annuncio
         other: Annunci
+      authored_article:
+        one:
+        other:
       case_study:
         one: Caso studio
         other: Casi studio
@@ -149,11 +152,15 @@ it:
     published: pubblicato
     read: ! 'Leggere l''articolo intitolato %{title} '
     speech:
+      author_title:
+        minister:
+        speaker:
       delivered_on: ! 'Consegnato il:'
       delivery_title:
         minister: Ministro
         speaker: Relatore
       originally_given_at: Tenuto originariamente a %{location}.
+      written_on:
     updated: aggiornato
     view: Vedere '%{title}'
   organisation:
