@@ -24,7 +24,7 @@ namespace :translation do
     desc "Export all locales to CSV files."
     task :all, [:directory] do |t, args|
       directory = args[:directory] || "tmp/locale_csv"
-      FileUtils.mkdir_p(directory) unless File.exist?(args[:directory])
+      FileUtils.mkdir_p(directory) unless File.exist?(directory)
       locales = Dir[Rails.root.join("config", "locales", "*.yml")]
       base_locale = Rails.root.join("config", "locales", "en.yml")
       target_locales = locales - [base_locale.to_s]
