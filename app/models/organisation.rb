@@ -254,7 +254,7 @@ class Organisation < ActiveRecord::Base
   end
 
   def name_without_prefix
-    name.gsub(/^Ministry of/, "").gsub(/^Department (of|for)/, "").gsub(/^Office of the/, "").strip
+    name.gsub(/^The/, "").strip
   end
 
   def display_name

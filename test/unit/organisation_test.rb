@@ -77,12 +77,11 @@ class OrganisationTest < ActiveSupport::TestCase
   end
 
   test "should be orderable ignoring common prefixes" do
-    culture = create(:organisation, name: "Department for Culture and Sports")
-    education = create(:organisation, name: "Department of Education")
-    hmrc = create(:organisation, name: "HMRC")
-    defence = create(:organisation, name: "Ministry of Defence")
+    hair = create(:organisation, name: "The Department for Hair")
+    eyes = create(:organisation, name: "Eyes")
+    wool = create(:organisation, name: "Department for Wool")
 
-    assert_equal [culture, defence, education, hmrc], Organisation.ordered_by_name_ignoring_prefix
+    assert_equal [hair, wool, eyes], Organisation.ordered_by_name_ignoring_prefix
   end
 
   test "should be ordered by name by default" do
