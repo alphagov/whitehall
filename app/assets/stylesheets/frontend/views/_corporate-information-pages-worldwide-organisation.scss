@@ -1,0 +1,68 @@
+.corporate-information-pages-show-worldwide-organisation {
+  .content {
+    padding: 0 $gutter-half;
+  }
+  nav {
+    @include media(tablet){
+      float: left;
+      width: 33.33%;
+    }
+    li {
+      list-style: none;
+      margin-left: 1.2em;
+
+      &:before {
+        content: "-";
+        position: relative;
+        float: left;
+        width: $gutter-half;
+        margin-left: -$gutter-half;
+      }
+    }
+  }
+  .main-body {
+    @include media(tablet){
+      float: right;
+      width: 66.66%;
+    }
+    h1.main {
+      @include heading-48;
+      font-weight: bold;
+    }
+    .description {
+      @include heading-27;
+      margin-bottom: $gutter;
+    }
+    .contact-us {
+      @extend %contain-floats;
+      margin: 0 (-$gutter-half) $gutter;
+
+      .adr,
+      .email-url-number {
+        @include media(tablet){
+          float: left;
+          width: 50%;
+        }
+        .tel {
+          span {
+            float: left;
+            width: 5em;
+          }
+        }
+        p {
+          margin: 0 $gutter-half;
+        }
+      }
+      .comments {
+        clear: both;
+        padding: $gutter-one-third 0;
+        color: $secondary-text-colour;
+      }
+    }
+    .govspeak {
+      h2 {
+        border-bottom: 1px solid $border-colour;
+      }
+    }
+  }
+}

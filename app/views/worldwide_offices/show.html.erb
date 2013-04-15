@@ -21,7 +21,7 @@
         <h1 class="main"><%= @worldwide_office.title %></h1>
 
         <div class="contact-us">
-          <%= render partial: 'contacts/contact', locals: { contact: @worldwide_office.contact } %>
+          <%= render partial: 'contacts/contact', locals: { contact: @worldwide_office.contact, hide_title: true } %>
         </div>
 
         <div class="body">
