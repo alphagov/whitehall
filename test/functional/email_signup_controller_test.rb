@@ -57,4 +57,22 @@ class EmailSignupsControllerTest < ActionController::TestCase
 
     assert_redirected_to 'http://govdelivery.example.com/new-signup'
   end
+
+  test 'POST create will re-render the "show" template and preserve the error on the alert if extracting the redirect url causes an InvalidSlugError' do
+    e = EmailSignup.new
+    a = EmailSignup::Alert.new
+    EmailSignup.expects(:new).returns(e)
+    e.stubs(:valid?).returns true
+    e.stubs(:alerts).returns [a, EmailSignup::Alert.new]
+
+    r = EmailSignup::GovUkDeliveryRedirectUrlExtractor.new(a)
+    EmailSignup::GovUkDeliveryRedirectUrlExtractor.expects(:new).with(a).returns(r)
+    r.expects(:redirect_url).raises(EmailSignup::InvalidSlugError.new('slug', :invalid_slug_attribute))
+
+    post :create
+
+    assert_template 'show'
+    refute assigns(:email_signup).alerts.first.errors[:invalid_slug_attribute].blank?
+  end
+
 end

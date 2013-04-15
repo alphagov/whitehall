@@ -13,17 +13,26 @@ class EmailSignupsController < PublicFacingController
     @email_signup = EmailSignup.new
     @email_signup.alerts = extract_alerts_params
     if @email_signup.valid?
-      redirector = EmailSignup::GovUkDeliveryRedirectUrlExtractor.new(@email_signup.alerts.first)
-      redirect_to redirector.redirect_url
+      begin
+        redirector = EmailSignup::GovUkDeliveryRedirectUrlExtractor.new(@email_signup.alerts.first)
+        redirect_to redirector.redirect_url
+      rescue EmailSignup::InvalidSlugError => e
+        @email_signup.alerts.first.errors.add(e.attribute, "is not a valid #{e.attribute}")
+        signup_failed
+      end
     else
-      fetch_topics
-      fetch_organisations
-      fetch_document_types
-      render :show
+      signup_failed
     end
   end
 
   protected
+  def signup_failed
+    fetch_topics
+    fetch_organisations
+    fetch_document_types
+    render :show
+  end
+
   def fetch_topics
     @classifications = EmailSignup.valid_topics
   end

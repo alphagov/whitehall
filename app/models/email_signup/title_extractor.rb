@@ -34,7 +34,12 @@ class EmailSignup::TitleExtractor
         if @alert.topic == 'all'
           'all topics'
         else
-          Topic.find_by_slug(@alert.topic).try(:name)
+          t = Topic.find_by_slug(@alert.topic)
+          if t.present?
+            t.name
+          else
+            raise EmailSignup::InvalidSlugError.new(@alert.topic, :topic)
+          end
         end
       "about #{title}" if title
     end
@@ -46,7 +51,12 @@ class EmailSignup::TitleExtractor
         if @alert.organisation == 'all'
           'all organisations'
         else
-          Organisation.find_by_slug(@alert.organisation).try(:name)
+          o = Organisation.find_by_slug(@alert.organisation)
+          if o.present?
+            o.name
+          else
+            raise EmailSignup::InvalidSlugError.new(@alert.organisation, :organisation)
+          end
         end
       "by #{title}" if title
     end

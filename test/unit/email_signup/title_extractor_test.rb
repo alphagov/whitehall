@@ -43,6 +43,19 @@ class EmailSignup::TitleExtractorTest < ActiveSupport::TestCase
     assert_match(/ by #{Regexp.escape(org.name)}\Z/, EmailSignup::TitleExtractor.new(a).title)
   end
 
+  test 'given an alert with an organisation not "all", but not the slug of an actual organisation, it should raise an error' do
+    a = EmailSignup::Alert.new(document_type: 'all', organisation: 'decc')
+    begin
+      EmailSignup::TitleExtractor.new(a).title
+      flunk 'expected extracting title from a invalid org slug to raise something, but it didn\'t'
+    rescue EmailSignup::InvalidSlugError => e
+      assert_equal 'decc', e.slug
+      assert_equal :organisation, e.attribute
+    rescue Object => e
+      flunk %Q{expected extracting title from an invalid org slug to raise EmailSignup::InvalidSlugError, but it raised #{e.class} "#{e.message}" instead}
+    end
+  end
+
   test 'given an alert with a topic of "all" the title should include "about all topics"' do
     a = EmailSignup::Alert.new(document_type: 'all', topic: 'all')
     assert_match(/ about all topics/, EmailSignup::TitleExtractor.new(a).title)
@@ -53,6 +66,19 @@ class EmailSignup::TitleExtractorTest < ActiveSupport::TestCase
     topic.update_column(:slug, 'environment')
     a = EmailSignup::Alert.new(document_type: 'all', topic: 'environment')
     assert_match(/ about the environment/, EmailSignup::TitleExtractor.new(a).title)
+  end
+
+  test 'given an alert with an topic not "all", but not the slug of an actual topic, it should raise an error' do
+    a = EmailSignup::Alert.new(document_type: 'all', topic: 'environment')
+    begin
+      EmailSignup::TitleExtractor.new(a).title
+      flunk 'expected extracting title from a invalid topic slug to raise something, but it didn\'t'
+    rescue EmailSignup::InvalidSlugError => e
+      assert_equal 'environment', e.slug
+      assert_equal :topic, e.attribute
+    rescue Object => e
+      flunk %Q{expected extracting title from an invalid topic slug to raise EmailSignup::InvalidSlugError, but it raised #{e.class} "#{e.message}" instead}
+    end
   end
 
   test 'given an alert with local government ticked the title should include "relevant to local government"' do
