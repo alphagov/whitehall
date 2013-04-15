@@ -39,7 +39,8 @@ module Edition::GovUkDelivery
       !edition.minor_change? &&
         # We don't want to send anything that will appear to have been
         # published in the past.
-        (Time.zone.now.to_date == notification_date.to_date)
+        (Time.zone.now.to_date == notification_date.to_date) &&
+        edition.available_in_locale?(:en)
     end
 
     def notification_date

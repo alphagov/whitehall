@@ -34,6 +34,7 @@ class Edition::GovUkDeliveryTest < ActiveSupport::TestCase
 
   test 'Notifier#edition_published! will route the edition to govuk delivery if it is not relevant to local government' do
     edition = build(:edition, relevant_to_local_government: false, public_timestamp: Time.zone.now)
+    edition.stubs(:available_in_locale?).returns true
     notifier = notifier_for(edition)
     notification_end_point = govuk_delivery_notifier_for(edition)
     Edition::GovUkDelivery::Notifier::GovUkDelivery.expects(:new).with(edition, anything).returns(notification_end_point).once
@@ -44,6 +45,7 @@ class Edition::GovUkDeliveryTest < ActiveSupport::TestCase
 
   test 'Notifier#edition_published! will route the edition to the email curation queue if it is relevant to local government' do
     edition = build(:edition, relevant_to_local_government: true, public_timestamp: Time.zone.now)
+    edition.stubs(:available_in_locale?).returns true
     notifier = notifier_for(edition)
     notification_end_point = email_curation_queue_notifier_for(edition)
     Edition::GovUkDelivery::Notifier::GovUkDelivery.expects(:new).never
@@ -53,7 +55,7 @@ class Edition::GovUkDeliveryTest < ActiveSupport::TestCase
   end
 
   test 'Notifier#edition_published! does nothing if the change is minor' do
-    policy = create(:policy, topics: [create(:topic)], minor_change: true)
+    policy = create(:policy, topics: [create(:topic)], minor_change: true, public_timestamp: Time.zone.now)
     notifier = notifier_for(policy)
     notifier.expects(:notify_email_curation_queue).never
     notifier.expects(:notify_govuk_delivery).never
@@ -61,8 +63,18 @@ class Edition::GovUkDeliveryTest < ActiveSupport::TestCase
     notifier.edition_published!
   end
 
+  test 'Notifier#edition_published! does nothing if the edition is not available in english' do
+    speech = I18n.with_locale(:es) { create(:published_speech, minor_change: false, major_change_published_at: Time.zone.now) }
+    speech.stubs(:topics).returns [create(:topic)]
+    notifier = notifier_for(speech)
+    notifier.expects(:notify_email_curation_queue).never
+    notifier.expects(:notify_govuk_delivery).never
+
+    notifier.edition_published!
+  end
+
   test 'Notifier#edition_published! does nothing if the edition notification date is not today' do
-    policy = create(:policy, topics: [create(:topic)], minor_change: false)
+    policy = create(:policy, topics: [create(:topic)], minor_change: false, public_timestamp: Time.zone.now)
     notifier = notifier_for(policy)
     notifier.stubs(:notification_date).returns 2.days.ago
     notifier.expects(:notify_email_curation_queue).never
