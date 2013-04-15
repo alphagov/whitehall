@@ -16,6 +16,6 @@ class EmailSignup::GovUkDeliveryRedirectUrlExtractor
   end
 
   def redirect_url
-    Whitehall.govuk_delivery_client.new_signup_url(gov_uk_delivery_topic)
+    Whitehall.govuk_delivery_client.signup_url(feed_url_for_topic)
   end
 end

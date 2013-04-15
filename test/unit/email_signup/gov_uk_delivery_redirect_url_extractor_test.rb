@@ -32,8 +32,8 @@ class EmailSignup::GovUkDeliveryRedirectUrlExtractorTest < ActiveSupport::TestCa
   test 'given an alert, it requests the new signup url for it from the govuk_delivery client, using gov_uk_delivery_topic' do
     a = EmailSignup::Alert.new
     r = EmailSignup::GovUkDeliveryRedirectUrlExtractor.new(a)
-    r.stubs(:gov_uk_delivery_topic).returns :a_gov_uk_delivery_topic
-    Whitehall.govuk_delivery_client.expects(:new_signup_url).with(:a_gov_uk_delivery_topic).returns 'http://govdelivery.example.com/new-signup?topic_id=a_gov_uk_delivery_topic'
+    r.stubs(:feed_url_for_topic).returns :a_gov_uk_delivery_topic
+    Whitehall.govuk_delivery_client.expects(:signup_url).with(:a_gov_uk_delivery_topic).returns 'http://govdelivery.example.com/new-signup?topic_id=a_gov_uk_delivery_topic'
 
     assert_equal 'http://govdelivery.example.com/new-signup?topic_id=a_gov_uk_delivery_topic', r.redirect_url
   end

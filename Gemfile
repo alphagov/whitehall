@@ -31,7 +31,7 @@ gem 'lograge'
 gem 'unicorn'
 gem 'kaminari'
 gem 'bootstrap-kaminari-views'
-gem 'gds-api-adapters', '5.4.0'
+gem 'gds-api-adapters', git: 'https://github.com/alphagov/gds-api-adapters.git', branch: 'subscription-url-creation'
 gem 'whenever', '0.7.3', require: false
 gem 'mini_magick'
 gem 'shared_mustache', '~> 0.0.2'
