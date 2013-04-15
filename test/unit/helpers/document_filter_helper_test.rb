@@ -23,8 +23,10 @@ class DocumentFilterHelperTest < ActionView::TestCase
   test "#all_organisations_with returns all organisations with content, alphabetically" do
     final_scope = stub('final scope')
     final_scope.expects(:ordered_by_name_ignoring_prefix)
+    middle_scope = stub('middle scope')
+    middle_scope.expects(:includes).with(:organisation_type, :translations).returns(final_scope)
     scope = stub('organisation scope')
-    scope.expects(:group).with(:name).returns(final_scope)
+    scope.expects(:group).with(:name).returns(middle_scope)
     Organisation.expects(:joins).with(:published_document_types).returns(scope)
 
     all_organisations_with(:document_type)
