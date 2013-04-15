@@ -41,6 +41,7 @@ $office-of-the-advocate-general-for-scotland-websafe: $link-colour;
 $office-of-the-leader-of-the-house-of-lords-websafe: #c2395d;
 $scotland-office-websafe: #405c8a;
 $the-office-of-the-leader-of-the-house-of-commons-websafe: #005f8f;
+$uk-export-finance-websafe: $link-colour;
 $wales-office-websafe: #7a242a;
 
 
@@ -88,6 +89,7 @@ $wales-office-websafe: #7a242a;
   .planning-inspectorate #{$selector} { #{$property}: $department-for-communities-and-local-government; }
   .scotland-office #{$selector} { #{$property}: $scotland-office; }
   .the-office-of-the-leader-of-the-house-of-commons #{$selector} { #{$property}: $the-office-of-the-leader-of-the-house-of-commons; }
+  .uk-export-finance #{$selector} { #{$property}: $uk-export-finance; }
   .wales-office #{$selector} { #{$property}: $wales-office; }
 }
 
@@ -119,5 +121,6 @@ $wales-office-websafe: #7a242a;
   .planning-inspectorate #{$selector} { #{$property}: $department-for-communities-and-local-government-websafe; }
   .scotland-office #{$selector} { #{$property}: $scotland-office-websafe; }
   .the-office-of-the-leader-of-the-house-of-commons #{$selector} { #{$property}: $the-office-of-the-leader-of-the-house-of-commons-websafe; }
+  .uk-export-finance #{$selector} { #{$property}: $uk-export-finance-websafe; }
   .wales-office #{$selector} { #{$property}: $wales-office-websafe; }
 }
