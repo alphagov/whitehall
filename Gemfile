@@ -81,7 +81,7 @@ group :cucumber do
   gem 'cucumber-rails', '~> 1.0.5', require: false
   gem 'launchy', '~> 2.0.5'
   gem 'capybara', '1.1.4'
-  gem 'capybara-webkit'
+  gem 'capybara-webkit', '0.12.1'
 end
 
 group :router do

@@ -388,7 +388,7 @@ DEPENDENCIES
   brakeman
   bullet
   capybara (= 1.1.4)
-  capybara-webkit
+  capybara-webkit (= 0.12.1)
   carrierwave
   ci_reporter
   crack (~> 0.3.2)
