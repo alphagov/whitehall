@@ -88,6 +88,9 @@
       @include ig-core-14;
       padding-left: $gutter-two-thirds;
       padding-right: $gutter-one-third;
+      &.visuallyhidden {
+        position: absolute;
+      }
     }
   }
 
