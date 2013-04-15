@@ -25,6 +25,12 @@
       <% end %>
     </div>
   <% end %>
+  <% if warn_about_lack_of_contacts_in_body?(edition) %>
+    <div class="alert alert-info no-contacts">
+      <p>This press release has no contact information embedded in the
+         body. You may want to edit it and add some.</p>
+    </div>
+  <% end %>
 
   <% if edition.published? %>
     <%= link_to "View", public_document_url(edition), class: 'btn btn-primary public_version' %>
