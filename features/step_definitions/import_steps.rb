@@ -180,7 +180,7 @@ When /^I set the deliverer of the speech to "([^"]*)" from the "([^"]*)"$/ do |p
   create(:role_appointment, role: role, person: person)
 
   begin_editing_document Edition.imported.last.title
-  select person_name, from: 'Delivered by'
+  select person_name, from: 'Speaker'
   click_on 'Save'
 end
 

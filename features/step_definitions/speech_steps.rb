@@ -104,13 +104,28 @@ Then /^I should see the speech was delivered on "([^"]*)" at "([^"]*)"$/ do |del
   assert page.has_css?('.location', text: location)
 end
 
-When /^I draft a new bylined article "([^"]*)"$/ do |title|
+When /^I draft a new authored article "([^"]*)"$/ do |title|
   begin_drafting_speech title: title
-  select 'Bylined article', from: "Type"
-  click_button "Save"
+  select 'Authored article', from: "Type"
 end
 
-Then /^I should see the bylined article in the list of draft documents$/ do
-  visit admin_editions_path(state: :draft)
-  assert has_css?(record_css_selector(Speech.last))
+Then /^I should be able to choose who wrote the article$/ do
+  select "Colonel Mustard, Attorney General", from: "Writer"
+end
+
+Then /^I should be able to choose the date it was written on$/ do
+  select_date "Written on", with: 1.day.ago.to_s
+end
+
+Then /^I cannot choose a location for the article$/ do
+  assert page.has_no_css?('input[id=location]')
+end
+
+When /^I preview the authored article$/ do
+  click_button "Save"
+  click_link "Preview"
+end
+
+Then /^I should see who wrote it clearly labelled in the metadata$/ do
+  assert page.has_css?('.document-page-header dt', :text => "Written on:")
 end

@@ -1,2 +1,9 @@
 <%= form.label :speech_type_id, "Type" %>
 <%= form.select :speech_type_id, options_from_collection_for_select(SpeechType.all, :id, :name, edition.speech_type_id) %>
+<script>
+  if(typeof GOVUK === 'undefined') { window.GOVUK = {}; }
+
+  GOVUK.speechTypeLabels = <%= Hash[ SpeechType.all.map { |t| [t.id, {
+    :ownerGroup => t("document.speech.#{t.owner_key_group}"), :publishedExternallyLabel => t_delivered_on(t)
+  }] } ].to_json.html_safe %>
+</script>

@@ -46,4 +46,12 @@ jQuery(document).ready(function($) {
     // ... if it's not already selected.
     $('a[href$=#' + hash + '][data-toggle=tab]:not(.active)').tab('show');
   }
+
+  if (typeof GOVUK.speechTypeLabels !== "undefined") {
+    GOVUK.updateSpeechHeaders(GOVUK.speechTypeLabels);
+
+    $('select#edition_speech_type_id').on('change', function(e) {
+      GOVUK.updateSpeechHeaders(GOVUK.speechTypeLabels);
+    });
+  }
 })
