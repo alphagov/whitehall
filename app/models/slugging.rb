@@ -3,8 +3,7 @@ module Slugging
     new_record?
   end
 
-  def normalize_friendly_id(value)
-    value = value.gsub(/'/, '') if value
-    super value
+  def normalize_friendly_id(input)
+    input.to_s.to_slug.truncate(150).normalize.to_s
   end
 end

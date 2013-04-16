@@ -153,17 +153,20 @@ fieldset.fatality-notice-casualties {
   *background-color: #85994b;
 }
 
-.summary-length-info {
+.title-length-info, .summary-length-info {
   text-align: right;
   margin-right: 25px;
   &.warning {
     color: #C09853;
   }
+  &.error {
+    color: #c06253;
+  }
   .count {
     font-weight: bold;
   }
 }
-.summary-length-input.warning:focus {
+.title-length-input, .summary-length-input.warning:focus {
   border-color: #A47E3C;
   outline: 0;
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(236, 187, 82, 0.6);
