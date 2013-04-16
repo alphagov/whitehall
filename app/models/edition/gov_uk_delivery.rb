@@ -63,6 +63,14 @@ module Edition::GovUkDelivery
     class GovUkDelivery < NotificationEndPoint
       include Rails.application.routes.url_helpers
       include PublicDocumentRoutesHelper
+
+      attr_reader :title, :summary
+      def initialize(edition, notification_date, title = edition.title, summary = edition.summary)
+        super(edition, notification_date)
+        @title = title
+        @summary = summary
+      end
+
       def govuk_delivery_tags
         if edition.can_be_associated_with_topics? || edition.can_be_related_to_policies?
           topic_slugs = edition.topics.map(&:slug)
@@ -117,7 +125,7 @@ module Edition::GovUkDelivery
         if (tags = govuk_delivery_tags).any?
           # Swallow all errors for the time being
           begin
-            response = Whitehall.govuk_delivery_client.notify(tags, edition.title, govuk_delivery_email_body)
+            response = Whitehall.govuk_delivery_client.notify(tags, title, govuk_delivery_email_body)
           rescue GdsApi::HTTPErrorResponse => e
             Rails.logger.warn e
           rescue => e
@@ -126,26 +134,38 @@ module Edition::GovUkDelivery
         end
       end
 
-      def govuk_delivery_email_body
-        url = document_url(edition, host: Whitehall.public_host)
-        change_note = if edition.document.change_history.length > 1
+      def url
+        document_url(edition, host: Whitehall.public_host)
+      end
+
+      def public_date
+        if notification_date
+          notification_date.strftime('%e %B, %Y at %I:%M%P')
+        end
+      end
+
+      def change_note
+        if edition.document.change_history.length > 1
           edition.document.change_history.first.note
         end
-        if public_date = notification_date
-          # Desired format is: 14 June, 2012 at 6:48pm
-          public_date = public_date.strftime('%e %B, %Y at %I:%M%P')
-        end
+      end
+
+      def description
+        change_note || summary
+      end
+
+      def govuk_delivery_email_body
         ERB.new(%q{
   <div class="rss_item" style="margin-bottom: 2em;">
     <div class="rss_title" style="font-size: 120%; margin: 0 0 0.3em; padding: 0;">
       <% if change_note %>Updated<% end %>
-      <a href="<%= url %>" style="font-weight: bold; "><%= edition.title %></a>
+      <a href="<%= url %>" style="font-weight: bold; "><%= title %></a>
     </div>
     <% if public_date %>
       <div class="rss_pub_date" style="font-size: 90%; margin: 0 0 0.3em; padding: 0; color: #666666; font-style: italic;"><%= public_date %></div>
     <% end %>
     <br />
-    <div class="rss_description" style="margin: 0 0 0.3em; padding: 0;"><%= change_note || edition.summary %></div>
+    <div class="rss_description" style="margin: 0 0 0.3em; padding: 0;"><%= description %></div>
   </div>
   }.encode("UTF-8")).result(binding)
       end

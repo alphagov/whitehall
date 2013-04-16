@@ -58,7 +58,7 @@ class Admin::EmailCurationQueueItemsControllerTest < ActionController::TestCase
 
     assert_redirected_to admin_email_curation_queue_items_path
 
-    assert_raises(ActiveRecord::RecordNotFound) { item.reload }
+    refute EmailCurationQueueItem.exists?(item)
   end
 
 end

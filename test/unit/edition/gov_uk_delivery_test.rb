@@ -16,8 +16,8 @@ class Edition::GovUkDeliveryTest < ActiveSupport::TestCase
     notifier_for(edition).notification_date
   end
 
-  def govuk_delivery_notifier_for(edition, notification_date = Time.zone.now)
-    Edition::GovUkDelivery::Notifier::GovUkDelivery.new(edition, notification_date)
+  def govuk_delivery_notifier_for(edition, notification_date = Time.zone.now, *args)
+    Edition::GovUkDelivery::Notifier::GovUkDelivery.new(edition, notification_date, *args)
   end
 
   def tags_for(edition, notification_date = Time.zone.now)
@@ -115,6 +115,26 @@ class Edition::GovUkDeliveryTest < ActiveSupport::TestCase
     notifier.expects(:notify_govuk_delivery).never
 
     notifier.edition_published!
+  end
+
+  test "Notifier::GovukDelivery uses the title of the edition if not specified" do
+    policy = build(:policy, title: 'Meh')
+    assert_equal 'Meh', govuk_delivery_notifier_for(policy).title
+  end
+
+  test "Notifier::GovukDelivery uses the supplied title" do
+    policy = build(:policy, title: 'Meh')
+    assert_equal 'Cheese', govuk_delivery_notifier_for(policy, Time.zone.now, 'Cheese').title
+  end
+
+  test "Notifier::GovukDelivery uses the summary of the edition if not specified" do
+    policy = build(:policy, title: 'Meh', summary: 'Woo')
+    assert_equal 'Woo', govuk_delivery_notifier_for(policy).summary
+  end
+
+  test "Notifier::GovukDelivery uses the supplied title summary" do
+    policy = build(:policy, title: 'Meh', summary: 'Woo')
+    assert_equal 'Hat', govuk_delivery_notifier_for(policy, Time.zone.now, 'Cheese', 'Hat').summary
   end
 
   test "Notifier::GovUkDelivery#govuk_delivery_tags returns a feed for 'all' by default" do
