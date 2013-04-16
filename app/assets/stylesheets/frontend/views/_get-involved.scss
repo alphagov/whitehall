@@ -248,11 +248,10 @@
           margin-top: $gutter-one-sixth;
         }
       }
+
       &.policies {
-        .document-list .document-row {
-          border-bottom: 1px solid $grey-2;
-          padding-top: 0;
-          margin-bottom: $gutter-one-third;
+        .head-section .content {
+          padding-top: $gutter-half;
         }
       }
 
@@ -264,7 +263,6 @@
         }
       }
     
-
     }
 
     .article-clear {
