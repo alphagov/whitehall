@@ -52,7 +52,7 @@ class EmailSignup
   def self.valid_document_types_by_type
     {
       publication_type: [DocumentTypeOptionForAllOfType.new('All publication types')] + Whitehall::PublicationFilterOption.all.sort_by { |o| o.label },
-      announcement_type: [DocumentTypeOptionForAllOfType.new('All announcment types')] + Whitehall::AnnouncementFilterOption.all.sort_by { |o| o.label },
+      announcement_type: [DocumentTypeOptionForAllOfType.new('All announcement types')] + Whitehall::AnnouncementFilterOption.all.sort_by { |o| o.label },
       policy_type: [DocumentTypeOptionForAllOfType.new('All policies')]
     }
   end
