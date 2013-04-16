@@ -225,6 +225,14 @@ class Organisation < ActiveRecord::Base
     joins(:organisation_type).all.sort_by { |o| o.organisation_type.listing_order }
   end
 
+  def self.ministerial_departments
+    where("organisation_type_id = ?" , OrganisationType.ministerial_department)
+  end
+
+  def self.non_ministerial_departments
+    where("organisation_type_id != ?" , OrganisationType.ministerial_department)
+  end
+
   def agencies_and_public_bodies
     child_organisations.joins(:organisation_type).merge(OrganisationType.agency_or_public_body)
   end
@@ -254,7 +262,7 @@ class Organisation < ActiveRecord::Base
   end
 
   def name_without_prefix
-    name.gsub(/^Ministry of/, "").gsub(/^Department (of|for)/, "").gsub(/^Office of the/, "").strip
+    name.gsub(/^The/, "").strip
   end
 
   def display_name

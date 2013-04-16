@@ -37,6 +37,10 @@ class OrganisationType < ActiveRecord::Base
     where(arel_table[:name].not_eq("Sub-organisation"))
   end
 
+  def self.ministerial_department
+    where(name: "Ministerial department").first
+  end
+
   def listing_order
     LISTING_ORDER.index(name) || BOTTOM_OF_LISTING_ORDER
   end
