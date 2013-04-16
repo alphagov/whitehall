@@ -51,4 +51,14 @@ class Admin::EmailCurationQueueItemsControllerTest < ActionController::TestCase
     assert_equal 'An irrelevant title', item.title
     assert_equal 'An irrelevant summary', item.summary
   end
+
+  test 'DELETE on :destroy removes the specified queue item' do
+    item = create(:email_curation_queue_item)
+    delete :destroy, id: item
+
+    assert_redirected_to admin_email_curation_queue_items_path
+
+    assert_raises(ActiveRecord::RecordNotFound) { item.reload }
+  end
+
 end

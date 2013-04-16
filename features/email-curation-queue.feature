@@ -20,3 +20,10 @@ Feature: Email queue for local gov alerts
     And I decide the policy is ready to go out
     Then the policy is not listed on the email curation queue
     And the policy is sent to the notification service with the tweaked copy
+
+  Scenario: Curating items in the email queue
+    When a policy relevant to local government is published
+    Then the policy is listed at the top of the email curation queue
+    When I decide the policy is not relevant to subscribers and delete it
+    Then the policy is not listed on the email curation queue
+    And the policy is not sent to the notification service

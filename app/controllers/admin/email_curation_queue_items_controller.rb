@@ -16,6 +16,12 @@ class Admin::EmailCurationQueueItemsController < Admin::BaseController
     end
   end
 
+  def destroy
+    @email_curation_queue_item.destroy
+    flash[:notice] = "#{@email_curation_queue_item.title} has been removed from the queue"
+    redirect_to [:admin, EmailCurationQueueItem]
+  end
+
   private
   def load_email_curation_queue_item
     @email_curation_queue_item = EmailCurationQueueItem.find(params[:id])
