@@ -111,7 +111,7 @@ module GovspeakHelper
         levels = [levels[0], levels[1]+1]
         level_output = levels[0] > 0 ? levels.join('.') : ""
       end
-      el.inner_html = el.document.fragment(%{<span class="number">#{level_output}</span> #{el.inner_html}}).children unless level_output.empty?
+      el.inner_html = el.document.fragment(%{<span class="number">#{level_output} </span>#{el.inner_html}}).children unless level_output.empty?
       levels
     end
   end
