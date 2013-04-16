@@ -91,7 +91,7 @@ cs:
       form:
         one: Formulář
         few:
-        other:
+        other: Formuláře
       government_response:
         one:
         few:
