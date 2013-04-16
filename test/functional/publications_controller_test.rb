@@ -166,6 +166,7 @@ class PublicationsControllerTest < ActionController::TestCase
 
   view_test "index highlights selected organisation filter options" do
     given_two_documents_in_two_organisations
+    create(:ministerial_department) # needed so you can select ministerial and non-ministerial orgs
 
     get :index, departments: [@organisation_1, @organisation_2]
 
