@@ -230,6 +230,8 @@ Whitehall::Application.routes.draw do
           end
         end
 
+        resources :email_curation_queue_items, path: 'email-curation-queue', except: [:show, :new, :create]
+
         match "preview" => "preview#preview", via: :post
       end
     end

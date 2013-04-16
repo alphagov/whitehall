@@ -1,0 +1,17 @@
+<% page_title "Edit email curation queue item" %>
+<h1>Edit email curation queue item</h1>
+<p><%= link_to "Back to queue", [:admin, EmailCurationQueueItem] %></p>
+
+<%= form_for [:admin, @email_curation_queue_item], html: {class: "form-horizontal"} do |form| %>
+  <%= form.errors %>
+
+  <p>For <%= form.object.edition.type.titleize %></p>
+  <p><%= link_to form.object.edition.title, form.object.edition %></p>
+
+  <%= form.text_field :title %>
+
+  <%= form.text_area :summary, rows: 2, class: 'js-summary-length-counting', data: { 'count-message-threshold' => 140, 'count-message-selector' => '.summary-length-info' }%>
+  <div class="summary-length-info">Summary text should be 140 characters or fewer. <span class="count"></span></div>
+
+  <%= form.save_or_cancel(cancel: [:admin, EmailCurationQueueItem]) %>
+<% end %>

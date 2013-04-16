@@ -1,0 +1,32 @@
+<% page_title "Email curation queue" %>
+<h1>Email curation queue</h1>
+
+<table class="table table-striped" id="email_curation_queue_items">
+  <thead>
+    <tr>
+      <th width="40%">Title</th>
+      <th width="40%">Summary</th>
+      <th width="20%">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% if @email_curation_queue_items.any? %>
+      <% @email_curation_queue_items.each do |item| %>
+        <%= content_tag_for(:tr, item) do %>
+          <td class="title">
+            <%= item.title %>
+          </td>
+          <td class="summary">
+            <p><%= item.summary %></p>
+          </td>
+          <td class="actions">
+            <%= link_to 'View document', [:admin, item.edition], class: 'btn' %>
+            <%= link_to 'Edit', [:edit, :admin, item], class: 'btn btn-primary' %>
+          </td>
+        <% end %>
+      <% end %>
+    <% else %>
+      <td colspan="3">Queue empty!</td>
+    <% end %>
+  </tbody>
+</table>
