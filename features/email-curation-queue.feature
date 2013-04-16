@@ -13,6 +13,7 @@ Feature: Email queue for local gov alerts
   Background:
     Given I am a GDS editor
 
+  @gov-uk-delivery-remembers-notifications
   Scenario: Curating items in the email queue
     When a policy relevant to local government is published
     Then the policy is listed at the top of the email curation queue
@@ -21,6 +22,7 @@ Feature: Email queue for local gov alerts
     Then the policy is not listed on the email curation queue
     And the policy is sent to the notification service with the tweaked copy
 
+  @gov-uk-delivery-remembers-notifications
   Scenario: Curating items in the email queue
     When a policy relevant to local government is published
     Then the policy is listed at the top of the email curation queue

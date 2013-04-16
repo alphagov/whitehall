@@ -55,16 +55,26 @@ Then /^the policy is not listed on the email curation queue$/ do
   end
 end
 
-Then /^the policy is sent to the notification service with the tweaked copy$/ do
-  pending
-end
-
 When /^I decide the policy is not relevant to subscribers and delete it$/ do
   within '#email_curation_queue_items tr:nth-child(1) td.actions' do
     click_on 'Delete'
   end
 end
 
+Then /^the policy is sent to the notification service with the tweaked copy$/ do
+  found = RememberingNotificationEndPoint.memories.detect do |memory|
+    edition, notification_date, title, summary = *memory
+    edition == @the_local_government_edition &&
+    title == @tweaked_copy_for_the_local_government_edition[:title] &&
+    summary == @tweaked_copy_for_the_local_government_edition[:summary]
+  end
+  assert found, "Expected to find #{@the_local_government_edition} in the list of things gov uk delivery was notified about, but it was missing"
+end
+
 Then /^the policy is not sent to the notification service$/ do
-  pending # express the regexp above with the code you wish you had
+  found = RememberingNotificationEndPoint.memories.detect do |memory|
+    edition, notification_date, title, summary = *memory
+    edition == @the_local_government_edition
+  end
+  refute found, "Expected not to find #{@the_local_government_edition} in the list of things gov uk delivery was notified about, but we found it"
 end
