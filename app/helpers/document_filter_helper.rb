@@ -6,7 +6,11 @@ module DocumentFilterHelper
 
   def organisation_filter_options(organisations, selected_organisations = [])
     selected_values = selected_organisations.any? ? selected_organisations.map(&:slug) : ["all"]
-    options_for_select([["All departments", "all"]] + organisations.map{ |o| [o.name, o.slug] }, selected_values)
+    grouped_organisations = {
+      'Ministerial departments' => organisations.ministerial_departments.ordered_by_name_ignoring_prefix.map { |o| [o.name, o.slug] },
+      'Other departments & public bodies' => organisations.non_ministerial_departments.ordered_by_name_ignoring_prefix.map { |o| [o.name, o.slug] }
+    }
+    options_for_select([["All departments", "all"]], selected_values) + grouped_options_for_select(grouped_organisations, selected_values)
   end
 
   def publication_type_filter_options(publication_filter_options, selected_publication_filter_options = nil)
@@ -58,7 +62,7 @@ module DocumentFilterHelper
   end
 
   def all_organisations_with(type)
-    Organisation.joins(:"published_#{type.to_s.pluralize}").group(:name).ordered_by_name_ignoring_prefix
+    Organisation.joins(:"published_#{type.to_s.pluralize}").group(:name).includes(:translations)
   end
 
   def publication_types_for_filter
