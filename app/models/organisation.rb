@@ -225,6 +225,14 @@ class Organisation < ActiveRecord::Base
     joins(:organisation_type).all.sort_by { |o| o.organisation_type.listing_order }
   end
 
+  def self.ministerial_departments
+    where("organisation_type_id = ?" , OrganisationType.ministerial_department)
+  end
+
+  def self.non_ministerial_departments
+    where("organisation_type_id != ?" , OrganisationType.ministerial_department)
+  end
+
   def agencies_and_public_bodies
     child_organisations.joins(:organisation_type).merge(OrganisationType.agency_or_public_body)
   end
