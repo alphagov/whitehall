@@ -142,7 +142,7 @@ class RoleTest < ActiveSupport::TestCase
 
   test "footnotes should be based on the role type and attendance type 2" do
     role = create(:role, attends_cabinet_type_id: 2, role_payment_type_id: 1)
-    footnote = " <span>#{role.attends_cabinet_type.name}<span><sup>#{role.role_payment_footnote}</sup>"
+    footnote = "#{role.attends_cabinet_type.name} and #{role.role_payment_type.name}"
     assert_equal footnote, role.footnotes
   end
 
