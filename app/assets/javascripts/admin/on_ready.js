@@ -47,11 +47,10 @@ jQuery(document).ready(function($) {
     $('a[href$=#' + hash + '][data-toggle=tab]:not(.active)').tab('show');
   }
 
-  if (typeof GOVUK.speechTypeLabels !== "undefined") {
-    GOVUK.updateSpeechHeaders(GOVUK.speechTypeLabels);
-
+  if($('select#edition_speech_type_id').length) {
+    GOVUK.updateSpeechHeaders();
     $('select#edition_speech_type_id').on('change', function(e) {
-      GOVUK.updateSpeechHeaders(GOVUK.speechTypeLabels);
+      GOVUK.updateSpeechHeaders();
     });
   }
 })

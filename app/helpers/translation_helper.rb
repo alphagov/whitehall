@@ -25,7 +25,7 @@ module TranslationHelper
   end
 
   def t_delivered_on(speech_type)
-    t("document.speech.#{speech_type.published_externally_key}")
+    I18n.t("document.speech.#{speech_type.published_externally_key}")
   end
 
   def t_corporate_information_page_type(page)

@@ -63,7 +63,7 @@ module Admin::EditionsHelper
   def speech_type_label_data
     label_data = SpeechType.all.map do |speech_type|
       [ speech_type.id,
-        { ownerGroup: t("document.speech.#{speech_type.owner_key_group}"),
+        { ownerGroup: I18n.t("document.speech.#{speech_type.owner_key_group}"),
           publishedExternallyLabel: t_delivered_on(speech_type),
           locationRelevant: speech_type.location_relevant }
       ]
