@@ -49,3 +49,9 @@ Feature: Policy advisory groups
     When I insert the attachment into the body of policy advisory group "Yet More Amazing Advisories"
     And I visit the policy advisory group "Yet More Amazing Advisories"
     Then I should be able to see a PDF document "Meeting notes"
+
+  Scenario: Deleting a policy advisory group
+    Given I am a GDS editor
+    And a policy advisory group "Delete me" exists
+    When I delete the policy advisory group "Delete me"
+    Then I should not see the policy advisory group "Delete me"

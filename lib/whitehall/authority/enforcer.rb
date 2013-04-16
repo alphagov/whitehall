@@ -40,6 +40,7 @@ module Whitehall::Authority
     'FatalityNotice' => Rules::FatalityNoticeRules,
     'WorldLocationNewsArticle' => Rules::WorldEditionRules,
     'WorldwidePriority' => Rules::WorldEditionRules,
-    'MinisterialRole' => Rules::MinisterialRoleRules
+    'MinisterialRole' => Rules::MinisterialRoleRules,
+    'PolicyAdvisoryGroup' => Rules::PolicyAdvisoryGroupRules
   }
 end
