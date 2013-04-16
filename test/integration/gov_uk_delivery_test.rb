@@ -14,8 +14,8 @@ class GovUkDeliveryTest < ActiveSupport::TestCase
     policy = create(:policy, topics: [create(:topic), create(:topic)])
     policy.first_published_at = Time.zone.now
     policy.major_change_published_at = Time.zone.now
-    policy.stubs(:govuk_delivery_tags).returns(['http://example.com/feed'])
-    policy.stubs(:govuk_delivery_email_body).returns('body')
+    Edition::GovUkDelivery::Notifier::GovUkDelivery.any_instance.stubs(:govuk_delivery_tags).returns(['http://example.com/feed'])
+    Edition::GovUkDelivery::Notifier::GovUkDelivery.any_instance.stubs(:govuk_delivery_email_body).returns('body')
 
     expected_payload = { feed_urls: ['http://example.com/feed'], subject: policy.title, body: 'body' }
     stub = stub_gov_uk_delivery_post_request('notifications', expected_payload).to_return(created_response_hash)
@@ -29,8 +29,8 @@ class GovUkDeliveryTest < ActiveSupport::TestCase
     policy = create(:policy, topics: [create(:topic), create(:topic)])
     policy.first_published_at = Time.zone.now
     policy.major_change_published_at = Time.zone.now
-    policy.stubs(:govuk_delivery_tags).returns(['http://example.com/feed'])
-    policy.stubs(:govuk_delivery_email_body).returns('body')
+    Edition::GovUkDelivery::Notifier::GovUkDelivery.any_instance.stubs(:govuk_delivery_tags).returns(['http://example.com/feed'])
+    Edition::GovUkDelivery::Notifier::GovUkDelivery.any_instance.stubs(:govuk_delivery_email_body).returns('body')
 
     expected_payload = { feed_urls: ['http://example.com/feed'], subject: policy.title, body: 'body' }
     stub = stub_gov_uk_delivery_post_request('notifications', expected_payload).to_return(error_response_hash)
