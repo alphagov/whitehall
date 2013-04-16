@@ -14,7 +14,7 @@ Then /^the policy is listed at the top of the email curation queue$/ do
     assert page.has_css? 'tr:nth-child(1) td.title', text: @the_local_government_edition.title
     assert page.has_css? 'tr:nth-child(1) td.summary', text: @the_local_government_edition.summary
     within 'tr:nth-child(1) td.actions' do
-      assert page.has_link? 'View document', href: admin_edition_path(@the_local_government_edition)
+      assert page.has_link? 'View on website', href: document_url(@the_local_government_edition, host: public_host_for_test)
     end
   end
 end
@@ -29,8 +29,8 @@ When /^I tweak the title and summary to better reflect why it is interesting to 
     summary: 'Totes changed summary: ' + @the_local_government_edition.summary
   }
 
-  fill_in 'Title', with: @tweaked_copy_for_the_local_government_edition[:title]
-  fill_in 'Summary', with: @tweaked_copy_for_the_local_government_edition[:summary]
+  fill_in 'Title for email', with: @tweaked_copy_for_the_local_government_edition[:title]
+  fill_in 'Summary for email', with: @tweaked_copy_for_the_local_government_edition[:summary]
 
   click_on 'Save'
 
@@ -38,20 +38,20 @@ When /^I tweak the title and summary to better reflect why it is interesting to 
     assert page.has_css? 'tr:nth-child(1) td.title', text: @tweaked_copy_for_the_local_government_edition[:title]
     assert page.has_css? 'tr:nth-child(1) td.summary', text: @tweaked_copy_for_the_local_government_edition[:summary]
     within 'tr:nth-child(1) td.actions' do
-      assert page.has_link? 'View document', href: admin_edition_path(@the_local_government_edition)
+      assert page.has_link? 'View on website', href: document_url(@the_local_government_edition, host: public_host_for_test)
     end
   end
 end
 
 When /^I decide the policy is ready to go out$/ do
   within '#email_curation_queue_items tr:nth-child(1) td.actions' do
-    click_on 'Notify subscribers'
+    click_on 'Send'
   end
 end
 
 Then /^the policy is not listed on the email curation queue$/ do
   within '#email_curation_queue_items' do
-    assert page.has_no_link? 'View document', href: admin_edition_path(@the_local_government_edition)
+    assert page.has_no_link? 'View document', href: document_url(@the_local_government_edition, host: public_host_for_test)
   end
 end
 
