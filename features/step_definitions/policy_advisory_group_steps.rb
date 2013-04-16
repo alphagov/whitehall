@@ -31,6 +31,20 @@ When /^I visit the policy advisory group "([^"]*)"$/ do |group_name|
   visit policy_advisory_group_path(group)
 end
 
+When /^I delete the policy advisory group "([^"]*)"$/ do |group_name|
+  visit admin_policy_advisory_groups_path
+  group = PolicyAdvisoryGroup.where(name: group_name).first
+  within(record_css_selector(group)) do
+    click_button "Delete"
+  end
+end
+
+Then /^I should not see the policy advisory group "([^"]*)"$/ do |group_name|
+  within(".policy_advisory_groups") do
+    assert page.has_no_content?(group_name)
+  end
+end
+
 Given /^I attach a PDF document "([^"]*)" to the policy advisory group "([^"]*)"$/ do |attachment_name, group_name|
   group = PolicyAdvisoryGroup.where(name: group_name).first
   visit edit_admin_policy_advisory_group_path(group)
