@@ -2,6 +2,8 @@ require 'addressable/uri'
 require 'delegate'
 
 module GovspeakHelper
+  EMBEDDED_CONTACT_REGEXP = /\[Contact\:([0-9]+)\]/
+
   def govspeak_to_html(govspeak, images=[], options={})
     wrapped_in_govspeak_div(bare_govspeak_to_html(govspeak, images, options))
   end
@@ -30,6 +32,16 @@ module GovspeakHelper
     build_govspeak_document(govspeak).headers.select do |header|
       level.cover?(header.level)
     end
+  end
+
+  def govspeak_embedded_contacts(govspeak)
+    return [] if govspeak.blank?
+    # scan yields an array of capture groups for each match
+    # so "[Contact:1] is now [Contact:2]" => [["1"], ["2"]]
+    govspeak.scan(GovspeakHelper::EMBEDDED_CONTACT_REGEXP).map { |capture|
+      contact_id = capture.first
+      Contact.find_by_id(contact_id)
+    }.compact
   end
 
   class OrphanedHeadingError < StandardError
@@ -65,6 +77,7 @@ module GovspeakHelper
   def bare_govspeak_to_html(govspeak, images = [], options = {}, &block)
     # pre-processors
     govspeak = remove_extra_quotes_from_blockquotes(govspeak)
+    govspeak = render_embedded_contacts(govspeak)
 
     markup_to_nokogiri_doc(govspeak, images).tap do |nokogiri_doc|
       # post-processors
@@ -72,6 +85,17 @@ module GovspeakHelper
       add_class_to_last_blockquote_paragraph(nokogiri_doc)
       add_heading_numbers(nokogiri_doc, options[:numbered_heading_level]) if options[:numbered_heading_level]
     end.to_html.html_safe
+  end
+
+  def render_embedded_contacts(govspeak)
+    return govspeak if govspeak.blank?
+    govspeak.gsub(GovspeakHelper::EMBEDDED_CONTACT_REGEXP) do
+      if contact = Contact.find_by_id($1)
+        render(contact)
+      else
+        ''
+      end
+    end
   end
 
   def replace_internal_admin_links_in(nokogiri_doc)

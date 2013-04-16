@@ -71,4 +71,7 @@ class CorporateInformationPageType
   StaffNewsAndInformation = create(
     id: 16, title_template: "Staff news and information", slug: "staff-update", menu_heading: :other
   )
+  MediaEnquiries = create(
+    id: 17, title_template: "Media enquiries", slug: 'media-enquiries', menu_heading: :our_information
+  )
 end
