@@ -4,6 +4,8 @@
   if(typeof GOVUK === 'undefined') { window.GOVUK = {}; }
 
   GOVUK.speechTypeLabels = <%= Hash[ SpeechType.all.map { |t| [t.id, {
-    :ownerGroup => t("document.speech.#{t.owner_key_group}"), :publishedExternallyLabel => t_delivered_on(t)
+    :ownerGroup => t("document.speech.#{t.owner_key_group}"),
+    :publishedExternallyLabel => t_delivered_on(t),
+    :locationRelevant => t.location_relevant,
   }] } ].to_json.html_safe %>
 </script>

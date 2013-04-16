@@ -7,7 +7,7 @@ class SpeechType
     super({
       owner_key_group: "delivery_title",
       published_externally_key: "delivered_on",
-      location_relevant: false
+      location_relevant: true
     }.merge(attributes))
   end
 
