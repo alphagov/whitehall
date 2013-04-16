@@ -44,6 +44,10 @@ ro:
         one: Știre
         few:
         other: Știri
+      authored_article:
+        one:
+        few:
+        other:
       case_study:
         one: Studiu de caz
         few:
@@ -195,11 +199,15 @@ ro:
     published: Data publicării
     read:
     speech:
+      author_title:
+        minister:
+        speaker:
       delivered_on: Data prezentării
       delivery_title:
         minister: Ministru
         speaker: Vorbitor
       originally_given_at:
+      written_on:
     updated: Actualizat
     view:
   organisation:

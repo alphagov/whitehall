@@ -71,6 +71,13 @@ cy:
         few:
         many:
         other: Cyhoeddiadau
+      authored_article:
+        zero:
+        one:
+        two:
+        few:
+        many:
+        other:
       case_study:
         zero:
         one: Astudiaeth achos
@@ -333,11 +340,15 @@ cy:
     published: cyhoeddwyd
     read: Darllenwch yr erthygl %{title}
     speech:
+      author_title:
+        minister:
+        speaker:
       delivered_on: ! 'Danfonwyd ar:'
       delivery_title:
         minister: Gweinidog
         speaker: Siaradwr
       originally_given_at: Wedi'i roi yn wreiddiol yn %{location}.
+      written_on:
     updated: diweddarwyd
     view: Gweld '%{title}'
   organisation:

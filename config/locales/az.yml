@@ -65,15 +65,22 @@ az:
     published: dərc olunub
     read:
     speech:
+      author_title:
+        minister:
+        speaker:
       delivered_on: çatdırılıb
       delivery_title:
         minister: Nazir
         speaker: Spiker
       originally_given_at:
+      written_on:
     type:
       announcement:
         one: Elan
         other: Elanlar
+      authored_article:
+        one:
+        other:
       case_study:
         one: Öyrənilib
         other: Öyrənilib

@@ -35,6 +35,9 @@ de:
       announcement:
         one: Ankündigung
         other: Ankündigungen
+      authored_article:
+        one:
+        other:
       case_study:
         one: Fallstudie
         other: Fallstudien
@@ -149,11 +152,15 @@ de:
     published: ! 'veröffentlicht '
     read: Lesen Sie den Artikel %{title}
     speech:
+      author_title:
+        minister:
+        speaker:
       delivered_on: ! 'Gehalten am:'
       delivery_title:
         minister:
         speaker:
       originally_given_at: Ursprünglich gehalten in %{location}.
+      written_on:
     updated: aktualisiert
     view: Schauen Sie sich '%{title}' an
   organisation:

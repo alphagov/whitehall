@@ -35,6 +35,9 @@ so:
       announcement:
         one: Ogeysiis
         other: Ogeysiisyo
+      authored_article:
+        one:
+        other:
       case_study:
         one: Daraasad xaalad gaar ah
         other: Daraasado xaalado gaar ah
@@ -149,11 +152,15 @@ so:
     published: La-daabacay/nashriyey
     read:
     speech:
+      author_title:
+        minister:
+        speaker:
       delivered_on: La-jeediyey
       delivery_title:
         minister: Wasiir
         speaker: Af-hayeen
       originally_given_at: Asalkii hore waxaa laga jeediyey
+      written_on:
     updated: Wax lagu kordhiyey
     view:
   organisation:

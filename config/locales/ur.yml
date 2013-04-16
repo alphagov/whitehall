@@ -35,6 +35,9 @@ ur:
       announcement:
         one: اعلان
         other: اعلانات
+      authored_article:
+        one:
+        other:
       case_study:
         one: کیس اسٹڈی
         other: کیس اسٹڈیز
@@ -149,11 +152,15 @@ ur:
     published: شائع شدہ
     read: پڑھئیے %{title} مضمون
     speech:
+      author_title:
+        minister:
+        speaker:
       delivered_on:
       delivery_title:
         minister:
         speaker:
       originally_given_at:
+      written_on:
     updated: تجدید شدہ
     view: ! '''%{title}'' دیکھئیے'
   organisation:

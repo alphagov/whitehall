@@ -18,10 +18,14 @@ module TranslationHelper
 
   def t_delivery_title(document)
     if document.delivered_by_minister?
-      t("document.speech.delivery_title.minister")
+      t("document.speech.#{document.speech_type.owner_key_group}.minister")
     else
-      t("document.speech.delivery_title.speaker")
+      t("document.speech.#{document.speech_type.owner_key_group}.speaker")
     end
+  end
+
+  def t_delivered_on(speech_type)
+    I18n.t("document.speech.#{speech_type.published_externally_key}")
   end
 
   def t_corporate_information_page_type(page)

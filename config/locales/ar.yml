@@ -71,6 +71,13 @@ ar:
         few:
         many:
         other: إعلانات
+      authored_article:
+        zero:
+        one:
+        two:
+        few:
+        many:
+        other:
       case_study:
         zero:
         one: دراسة حالة
@@ -333,11 +340,15 @@ ar:
     published: نشر
     read: اقرأ %{title} المقال
     speech:
+      author_title:
+        minister:
+        speaker:
       delivered_on:
       delivery_title:
         minister:
         speaker:
       originally_given_at:
+      written_on:
     updated: محدث
     view: اطلع على ’%{title}‘
   organisation:

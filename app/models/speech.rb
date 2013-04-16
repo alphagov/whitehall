@@ -25,7 +25,7 @@ class Speech < Announcement
   end
 
   def display_type
-    if statement_to_parliament?
+    if speech_type.statement_to_parliament?
       "Statement to Parliament"
     else
       super
@@ -52,10 +52,6 @@ class Speech < Announcement
   end
 
   private
-
-  def statement_to_parliament?
-    [SpeechType::WrittenStatement, SpeechType::OralStatement].include?(speech_type)
-  end
 
   def skip_organisation_validation?
     true

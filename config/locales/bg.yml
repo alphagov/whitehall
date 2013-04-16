@@ -35,6 +35,9 @@ bg:
       announcement:
         one: Съобщение
         other: Съобщения
+      authored_article:
+        one:
+        other:
       case_study:
         one: Казус
         other: Казуси
@@ -149,11 +152,15 @@ bg:
     published: Публикувано
     read:
     speech:
+      author_title:
+        minister:
+        speaker:
       delivered_on: Представено на
       delivery_title:
         minister: Министър
         speaker: Говорител
       originally_given_at:
+      written_on:
     updated: обновено
     view:
   organisation:
@@ -311,8 +318,8 @@ bg:
       long_ordinal:
   worldwide_organisation:
     corporate_information:
-      personal_information_charter_html: Нашият %{link} дава информация за начина на
-        ползване на личните Ви данни
+      personal_information_charter_html: Нашият %{link} дава информация за начина
+        на ползване на личните Ви данни
       publication_scheme_html: Прочетете какви видове информация публикуваме в нашия
         %{link}.
       welsh_language_scheme_html: Разберете повече за нашето задължение да публикуваме

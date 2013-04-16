@@ -60,6 +60,17 @@ module Admin::EditionsHelper
     params[:state] == 'active'
   end
 
+  def speech_type_label_data
+    label_data = SpeechType.all.map do |speech_type|
+      [ speech_type.id,
+        { ownerGroup: I18n.t("document.speech.#{speech_type.owner_key_group}"),
+          publishedExternallyLabel: t_delivered_on(speech_type),
+          locationRelevant: speech_type.location_relevant }
+      ]
+    end
+    Hash[label_data]
+  end
+
   class EditionFormBuilder < Whitehall::FormBuilder
     def alternative_format_provider_select
       if object.respond_to?(:alternative_format_provider)

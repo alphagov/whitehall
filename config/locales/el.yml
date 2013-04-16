@@ -35,6 +35,9 @@ el:
       announcement:
         one: Ανακοίνωση
         other: Ανακοινώσεις
+      authored_article:
+        one:
+        other:
       case_study:
         one: Παράδειγμα
         other: Παραδείγματα
@@ -149,11 +152,15 @@ el:
     published: Δημοσιευμένο
     read: ! 'Διαβάστε το άρθρο  %{title} '
     speech:
+      author_title:
+        minister:
+        speaker:
       delivered_on: ! 'Παραδόθηκε στις: '
       delivery_title:
         minister: Υπουργός
         speaker: Ομιλητής
       originally_given_at: Δόθηκε για πρώτη φορά στο %{location}
+      written_on:
     updated: ! 'Ανανεωμένο '
     view:
   organisation:
