@@ -158,7 +158,7 @@ module Edition::GovUkDelivery
       end
 
       def description
-        change_note || summary
+        [change_note, summary].compact.join('<br /><br />')
       end
 
       def govuk_delivery_email_body

@@ -421,7 +421,7 @@ class Edition::GovUkDeliveryTest < ActiveSupport::TestCase
     assert_match /#{Whitehall.public_host}/, email_body_for(publication)
   end
 
-  test "Notifier::GovUkDelivery#govuk_delivery_email_body should include change note in an updated edition" do
+  test "Notifier::GovUkDelivery#govuk_delivery_email_body should include change note along with summary in an updated edition" do
     editor = create(:departmental_editor)
     first_draft = create(:published_publication)
     second_draft = first_draft.create_draft(editor)
@@ -431,7 +431,16 @@ class Edition::GovUkDeliveryTest < ActiveSupport::TestCase
 
     body = Nokogiri::HTML.fragment(email_body_for(second_draft))
     assert_equal_ignoring_whitespace "Updated #{second_draft.title}", body.css('.rss_title').inner_text
-    assert_equal_ignoring_whitespace second_draft.change_note, body.css('.rss_description').inner_text
+    assert_equal_ignoring_whitespace second_draft.change_note + second_draft.summary, body.css('.rss_description').inner_text
+  end
+
+  test "Notifier::GovUkDelivery#govuk_delivery_email_body includes summary in the first published edition" do
+    editor = create(:departmental_editor)
+    first_draft = create(:published_publication)
+
+    body = Nokogiri::HTML.fragment(email_body_for(first_draft))
+    assert_equal_ignoring_whitespace first_draft.title, body.css('.rss_title').inner_text
+    assert_equal_ignoring_whitespace first_draft.summary, body.css('.rss_description').inner_text
   end
 
   test "Notifier::GovUkDelivery#govuk_delivery_email_body includes a formatted date" do
