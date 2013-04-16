@@ -1,0 +1,105 @@
+.email-signup-show {
+  .email-header {
+    h1 {
+      @include heading-36;
+      font-weight: bold;
+      margin: $gutter 0;
+    }
+    h2 {
+      @include heading-27;
+    }
+    p {
+      @include core-19;
+      color: $secondary-text-colour;
+    }
+  }
+
+  .signup-form {
+    margin: $gutter-half 0;
+
+    .notification {
+      border: 1px solid $border-colour;
+      border-width: 1px 0;
+      padding: $gutter-two-thirds 0 $gutter-one-sixth;
+      margin-bottom: -1px;
+
+      .fieldset-inner {
+        margin: 0 (-$gutter-half);
+      }
+
+      .field {
+        margin-bottom: $gutter-half;
+
+        @include media(tablet){
+          width: 33.33%;
+          float: left;
+        }
+        &.clear-field {
+          clear: left;
+        }
+
+        .field-inner {
+          margin: 0 $gutter-half;
+        }
+
+        label {
+          display: block;
+          @include core-19;
+          font-weight: bold;
+        }
+        select {
+          width: 100%;
+        }
+
+        &.info4local {
+          clear: both;
+          @include media(tablet){
+            width: 100%;
+          }
+
+          label {
+            font-weight: normal;
+          }
+          p {
+            color: $secondary-text-colour;
+            margin-left: $gutter;
+          }
+        }
+      }
+    }
+    .duplicate-fields {
+      padding: $gutter-half 0 $gutter-one-third;
+      border-bottom: 1px solid $border-colour;
+
+      input {
+        @include core-19;
+        font-weight: bold;
+        border: 0;
+        background: transparent;
+        color: $link-colour;
+        text-decoration: underline;
+        cursor: pointer;
+        padding: 0;
+        margin: 0;
+
+        &:hover {
+          color: $link-hover-colour;
+        }
+      }
+    }
+    .submit {
+      margin: $gutter 0;
+
+      button {
+        @include button($color: $turquoise);
+        @include core-19;
+      }
+      p {
+        margin: $gutter-half 0;
+        color: $secondary-text-colour;
+        max-width: 25em;
+      }
+    }
+  }
+
+}

@@ -14,6 +14,7 @@ class NavigationSelectionTest < ActiveSupport::TestCase
     detailed_guides
     document_series
     documents
+    email_signups
     healthcheck
     html_versions
     mainstream_categories

@@ -32,7 +32,7 @@ gem 'lograge'
 gem 'unicorn'
 gem 'kaminari'
 gem 'bootstrap-kaminari-views'
-gem 'gds-api-adapters', '5.4.0'
+gem 'gds-api-adapters', '5.5.0'
 gem 'whenever', '0.7.3', require: false
 gem 'mini_magick'
 gem 'shared_mustache', '~> 0.0.2'

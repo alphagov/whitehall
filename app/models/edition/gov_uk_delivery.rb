@@ -23,51 +23,26 @@ module Edition::GovUkDelivery
 
     tags = [org_slugs, topic_slugs].inject(&:product)
 
+    required_url_args = { format: :atom, host: Whitehall.public_host, protocol: Whitehall.public_protocol }
+    required_url_args[:relevant_to_local_government] = 1 if relevant_to_local_government?
     tag_paths = tags.map do |t|
+      combinatorial_args = [{departments: [t[0]]}, {topics: [t[1]]}]
       case self
       when Policy
-        if relevant_to_local_government?
-          [
-            policies_url(departments: [t[0]], topics: [t[1]], relevant_to_local_government: 1, format: :atom, host: Whitehall.public_host, protocol: Whitehall.public_protocol),
-            policies_url(topics: [t[1]], relevant_to_local_government: 1, format: :atom, host: Whitehall.public_host, protocol: Whitehall.public_protocol),
-            policies_url(relevant_to_local_government: 1, format: :atom, host: Whitehall.public_host, protocol: Whitehall.public_protocol),
-          ]
-        else
-          [
-            policies_url(departments: [t[0]], topics: [t[1]], format: :atom, host: Whitehall.public_host, protocol: Whitehall.public_protocol),
-            policies_url(topics: [t[1]], format: :atom, host: Whitehall.public_host, protocol: Whitehall.public_protocol),
-            policies_url(format: :atom, host: Whitehall.public_host, protocol: Whitehall.public_protocol)
-          ]
+        all_combinations_of_args(combinatorial_args).map do |combined_args|
+          policies_url(combined_args.merge(required_url_args))
         end
       when Announcement
         filter_option = Whitehall::AnnouncementFilterOption.find_by_search_format_types(self.search_format_types)
-        if relevant_to_local_government?
-          [
-            announcements_url(departments: [t[0]], topics: [t[1]], relevant_to_local_government: 1, format: :atom, host: Whitehall.public_host, protocol: Whitehall.public_protocol),
-            announcements_url(topics: [t[1]], relevant_to_local_government: 1, format: :atom, host: Whitehall.public_host, protocol: Whitehall.public_protocol),
-            announcements_url(relevant_to_local_government: 1, format: :atom, host: Whitehall.public_host, protocol: Whitehall.public_protocol)
-          ]
-        else
-          [
-            announcements_url(departments: [t[0]], topics: [t[1]], format: :atom, host: Whitehall.public_host, protocol: Whitehall.public_protocol),
-            announcements_url(topics: [t[1]], format: :atom, host: Whitehall.public_host, protocol: Whitehall.public_protocol),
-            announcements_url(format: :atom, host: Whitehall.public_host, protocol: Whitehall.public_protocol)
-          ]
+        combinatorial_args << {announcement_filter_option: filter_option.slug}
+        all_combinations_of_args(combinatorial_args).map do |combined_args|
+          announcements_url(combined_args.merge(required_url_args))
         end
       when Publicationesque
         filter_option = Whitehall::PublicationFilterOption.find_by_search_format_types(self.search_format_types)
-        if relevant_to_local_government?
-          [
-            publications_url(departments: [t[0]], topics: [t[1]], relevant_to_local_government: 1, format: :atom, host: Whitehall.public_host, protocol: Whitehall.public_protocol),
-            publications_url(topics: [t[1]], relevant_to_local_government: 1, format: :atom, host: Whitehall.public_host, protocol: Whitehall.public_protocol),
-            publications_url(relevant_to_local_government: 1, format: :atom, host: Whitehall.public_host, protocol: Whitehall.public_protocol)
-          ]
-        else
-          [
-            publications_url(departments: [t[0]], topics: [t[1]], format: :atom, host: Whitehall.public_host, protocol: Whitehall.public_protocol),
-            publications_url(topics: [t[1]], format: :atom, host: Whitehall.public_host, protocol: Whitehall.public_protocol),
-            publications_url(format: :atom, host: Whitehall.public_host, protocol: Whitehall.public_protocol)
-          ]
+        combinatorial_args << {publication_filter_option: filter_option.slug}
+        all_combinations_of_args(combinatorial_args).map do |combined_args|
+          publications_url(combined_args.merge(required_url_args))
         end
       end
     end
@@ -90,6 +65,16 @@ module Edition::GovUkDelivery
     else
       public_timestamp
     end
+  end
+
+  def all_combinations_of_args(args)
+    # turn [1,2,3] into [[], [1], [2], [3], [1,2], [1,3], [2,3], [1,2,3]]
+    # then, given 1 is really {a: 1} and 2 is {b: 2} etc...
+    # turn that into [{}, {a:1}, {b: 2}, {c: 3}, {a:1, b:2}, {a:1, c:3}, ...]
+    0.upto(args.size)
+      .map { |s| args.combination(s) }
+      .flat_map(&:to_a)
+      .map { |c| c.inject({}) { |h, a| h.merge(a) } }
   end
 
   def notify_govuk_delivery

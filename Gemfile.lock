@@ -132,15 +132,15 @@ GEM
       net-scp (~> 1.1)
       net-ssh (>= 2.1.3)
       nokogiri (~> 1.5.0)
-      ruby-hmac
-    formatador (0.2.4)
-    friendly_id (4.0.9)
-    gds-api-adapters (5.4.0)
+    gds-api-adapters (5.5.0)
       link_header
       lrucache (~> 0.1.1)
       null_logger
       plek
       rest-client (~> 1.6.3)
+      ruby-hmac
+    formatador (0.2.4)
+    friendly_id (4.0.9)
     gds-sso (3.0.0)
       omniauth-gds (= 0.0.3)
       rack-accept (~> 0.4.4)
@@ -404,7 +404,7 @@ DEPENDENCIES
   faker
   fog
   friendly_id (= 4.0.9)
-  gds-api-adapters (= 5.4.0)
+  gds-api-adapters (= 5.5.0)
   gds-sso (= 3.0.0)
   globalize3
   govspeak (~> 1.2.3)
