@@ -22,6 +22,13 @@ class Admin::EmailCurationQueueItemsController < Admin::BaseController
     redirect_to [:admin, EmailCurationQueueItem]
   end
 
+  def send_to_subscribers
+    Edition::GovUkDelivery::Notifier::GovUkDelivery.notify_from_queue!(@email_curation_queue_item)
+    @email_curation_queue_item.destroy
+    flash[:notice] = "#{@email_curation_queue_item.title} has been sent to subscribers"
+    redirect_to [:admin, EmailCurationQueueItem]
+  end
+
   private
   def load_email_curation_queue_item
     @email_curation_queue_item = EmailCurationQueueItem.find(params[:id])

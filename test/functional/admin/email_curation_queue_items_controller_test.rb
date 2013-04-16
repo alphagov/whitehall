@@ -61,4 +61,19 @@ class Admin::EmailCurationQueueItemsControllerTest < ActionController::TestCase
     refute EmailCurationQueueItem.exists?(item)
   end
 
+  test 'POST on :send_to_subscribers removes the specified queue item' do
+    item = create(:email_curation_queue_item)
+    post :send_to_subscribers, id: item
+
+    assert_redirected_to admin_email_curation_queue_items_path
+
+    refute EmailCurationQueueItem.exists?(item)
+  end
+
+  test 'POST on :send_to_subscribers invokes the Edition::GovUkDelivery::Notifier::GovUkDelivery with the specified queue item' do
+    item = create(:email_curation_queue_item)
+    Edition::GovUkDelivery::Notifier::GovUkDelivery.expects(:notify_from_queue!).with(item)
+    post :send_to_subscribers, id: item
+  end
+
 end

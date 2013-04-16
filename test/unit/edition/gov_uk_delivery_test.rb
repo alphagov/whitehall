@@ -117,6 +117,15 @@ class Edition::GovUkDeliveryTest < ActiveSupport::TestCase
     notifier.edition_published!
   end
 
+  test "Notifier::GovukDelivery.notify_from_queue! constructs an instance using the queue item and calls notify! on it" do
+    policy = build(:policy, title: 'Foo', summary: 'Bar')
+    queue_item = stub(edition: policy, notification_date: 3.days.ago, title: 'Baz', summary: 'Qux')
+    notifier = mock()
+    notifier.expects(:notify!)
+    Edition::GovUkDelivery::Notifier::GovUkDelivery.expects(:new).with(policy, 3.days.ago, 'Baz', 'Qux').returns(notifier)
+    Edition::GovUkDelivery::Notifier::GovUkDelivery.notify_from_queue!(queue_item)
+  end
+
   test "Notifier::GovukDelivery uses the title of the edition if not specified" do
     policy = build(:policy, title: 'Meh')
     assert_equal 'Meh', govuk_delivery_notifier_for(policy).title

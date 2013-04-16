@@ -71,6 +71,13 @@ module Edition::GovUkDelivery
         @summary = summary
       end
 
+      def self.notify_from_queue!(email_curation_queue_item)
+        new(email_curation_queue_item.edition,
+            email_curation_queue_item.notification_date,
+            email_curation_queue_item.title,
+            email_curation_queue_item.summary).notify!
+      end
+
       def govuk_delivery_tags
         if edition.can_be_associated_with_topics? || edition.can_be_related_to_policies?
           topic_slugs = edition.topics.map(&:slug)

@@ -44,7 +44,9 @@ When /^I tweak the title and summary to better reflect why it is interesting to 
 end
 
 When /^I decide the policy is ready to go out$/ do
-  pending
+  within '#email_curation_queue_items tr:nth-child(1) td.actions' do
+    click_on 'Notify subscribers'
+  end
 end
 
 Then /^the policy is not listed on the email curation queue$/ do

@@ -22,6 +22,7 @@
           <td class="actions">
             <%= link_to 'View document', [:admin, item.edition], class: 'btn' %>
             <%= link_to 'Edit', [:edit, :admin, item], class: 'btn btn-primary' %>
+            <%= button_to "Notify subscribers", [:send_to_subscribers, :admin, item], method: :post, class: "btn btn-warning", confirm: "Are you sure you wan to send this document to subcribers?" %>
             <%= button_to "Delete", [:admin, item], method: :delete, class: "btn btn-danger", confirm: "Are you sure you want to delete this from the queue; it will not be sent to subscribers?" %>
           </td>
         <% end %>
