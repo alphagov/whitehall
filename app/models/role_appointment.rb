@@ -10,6 +10,7 @@ class RoleAppointment < ActiveRecord::Base
   belongs_to :person
 
   delegate :slug, to: :person
+  delegate :name, to: :role, prefix: true
 
   class Validator < ActiveModel::Validator
     def validate(record)

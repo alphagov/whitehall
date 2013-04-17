@@ -37,6 +37,7 @@ end
 When /^I update the person called "([^"]*)" to have the name "([^"]*)"$/ do |old_name, new_name|
   visit_people_admin
   click_link old_name
+  click_on 'Edit'
   fill_in_person_name new_name
   fill_in "Biography", with: "Vivamus fringilla libero et augue fermentum eget molestie felis accumsan."
   click_button "Save"
@@ -58,10 +59,9 @@ end
 When /^I edit the "([^"]*)" translation for the person called "([^"]*)" setting:$/ do |locale, name, table|
   person = find_person(name)
   translation = table.rows_hash.stringify_keys
-  visit admin_people_path
-  within record_css_selector(person) do
-    click_link "Manage translations"
-  end
+
+  visit admin_person_path(person)
+  click_link "Translations"
   click_link locale
   fill_in "Biography", with: translation["biography"]
   click_on "Save"

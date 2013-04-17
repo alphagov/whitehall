@@ -1,0 +1,39 @@
+<% page_title @person.name %>
+
+<%= content_tag_for(:div, @person) do %>
+  <div class="row-fluid person-header">
+    <div class="span8">
+      <h1><%= @person.name %></h1>
+      <%= link_to "View on website", url_for(@person) %>
+    </div>
+  </div>
+
+  <div class="row-fluid">
+    <div class="span12 person-details">
+      <section>
+        <%= tab_navigation_for(@person) %>
+
+        <article class="person">
+
+          <%= image_tag @person.image.url(:s300) || 'blank-person.png' %>
+
+          <div class="roles">
+            <h2><%= @person.current_role_appointments.collect(&:role_name).to_sentence %></h2>
+          </div>
+
+          <div class="biography">
+            <h2>Biography</h2>
+            <div class="content">
+              <%= @person.biography %>
+            </div>
+          </div>
+        </article>
+
+        <div class="form-actions">
+          <%= link_to "Edit", [:edit, :admin, @person], class: "btn btn-large btn-primary"%>
+        </div>
+
+      </section>
+    </div>
+  </div>
+<% end %>

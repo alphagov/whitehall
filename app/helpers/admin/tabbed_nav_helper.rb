@@ -7,7 +7,14 @@ module Admin::TabbedNavHelper
       tab_navigation(worldwide_organisation_tabs(content_object), &block)
     when WorldLocation
       tab_navigation(world_location_tabs(content_object), &block)
+    when Person
+      tab_navigation(person_tabs(content_object), &block)
     end
+  end
+
+  def person_tabs(person)
+    { 'Details' => admin_person_path(person),
+      'Translations' => admin_person_translations_path(person) }
   end
 
   def tab_navigation(tabs, &block)

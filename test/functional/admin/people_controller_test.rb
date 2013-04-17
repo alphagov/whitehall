@@ -44,7 +44,7 @@ class Admin::PeopleControllerTest < ActionController::TestCase
   test "creating with valid data redirects to the index" do
     post :create, person: attributes_for(:person)
 
-    assert_redirected_to admin_people_path
+    assert_redirected_to admin_person_url(Person.last)
   end
 
   test "creating allows attachment of an image" do
@@ -53,6 +53,15 @@ class Admin::PeopleControllerTest < ActionController::TestCase
     post :create, person: attributes
 
     refute_nil Person.last.image
+  end
+
+  test "GET on :show assigns the person and renders the show page" do
+    person = create(:person)
+    get :show, id: person
+
+    assert_equal person, assigns(:person)
+    assert_response :success
+    assert_template :show
   end
 
   view_test "editing shows form for editing a person" do
@@ -89,7 +98,7 @@ class Admin::PeopleControllerTest < ActionController::TestCase
 
     put :update, id: person.id, person: attributes_for(:person)
 
-    assert_redirected_to admin_people_path
+    assert_redirected_to admin_person_url(person)
   end
 
   test "should be able to destroy a destroyable person" do

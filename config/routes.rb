@@ -196,7 +196,7 @@ Whitehall::Application.routes.draw do
         resources :speeches, except: [:index]
         resources :statistical_data_sets, path: 'statistical-data-sets', except: [:index]
         resources :detailed_guides, path: "detailed-guides", except: [:index]
-        resources :people, except: [:show] do
+        resources :people do
           resources :translations, controller: 'person_translations'
         end
         resource :cabinet_ministers, only: [:show, :update]
