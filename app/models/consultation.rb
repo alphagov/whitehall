@@ -4,6 +4,7 @@ class Consultation < Publicationesque
   include Edition::Ministers
   include Edition::FactCheckable
   include Edition::AlternativeFormatProvider
+  include Edition::CanApplyToLocalGovernmentThroughRelatedPolicies
 
   validates :opening_on, presence: true, unless: ->(consultation) { consultation.can_have_some_invalid_data? }
   validates :closing_on, presence: true, unless: ->(consultation) { consultation.can_have_some_invalid_data? }
@@ -104,10 +105,6 @@ class Consultation < Publicationesque
     else
       "consultation"
     end
-  end
-
-  def can_apply_to_local_government?
-    true
   end
 
   def search_format_types

@@ -143,8 +143,10 @@ class Edition::GovUkDeliveryTest < ActiveSupport::TestCase
   test '#govuk_delivery_tags for a relevant to local government publication puts the relevant to local param on all publications.atom urls' do
     topic = create(:topic)
     organisation = create(:ministerial_department)
-    edition = create(:publication, organisations: [organisation], relevant_to_local_government: true, publication_type: PublicationType::CorporateReport)
+    edition = create(:publication, organisations: [organisation], publication_type: PublicationType::CorporateReport)
     edition.stubs(:topics).returns [topic]
+    # This value is inferred through parent policy in the full stack
+    edition.stubs(:relevant_to_local_government?).returns true
 
     assert edition.govuk_delivery_tags.include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/publications.atom?departments%5B%5D=#{organisation.slug}&relevant_to_local_government=1&topics%5B%5D=#{topic.slug}"
     assert edition.govuk_delivery_tags.include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/publications.atom?departments%5B%5D=#{organisation.slug}&relevant_to_local_government=1"
@@ -224,8 +226,10 @@ class Edition::GovUkDeliveryTest < ActiveSupport::TestCase
   test '#govuk_delivery_tags for a relevant to local government announcement puts the relevant to local param on all publications.atom urls' do
     topic = create(:topic)
     organisation = create(:ministerial_department)
-    edition = create(:news_article, organisations: [organisation], relevant_to_local_government: true, news_article_type: NewsArticleType::PressRelease)
+    edition = create(:news_article, organisations: [organisation], news_article_type: NewsArticleType::PressRelease)
     edition.stubs(:topics).returns [topic]
+    # This value is inferred through parent policy in the full stack
+    edition.stubs(:relevant_to_local_government?).returns true
 
     assert edition.govuk_delivery_tags.include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/announcements.atom?departments%5B%5D=#{organisation.slug}&relevant_to_local_government=1&topics%5B%5D=#{topic.slug}"
     assert edition.govuk_delivery_tags.include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/announcements.atom?departments%5B%5D=#{organisation.slug}&relevant_to_local_government=1"

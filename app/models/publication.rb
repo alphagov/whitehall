@@ -7,6 +7,7 @@ class Publication < Publicationesque
   include Edition::WorldLocations
   include Edition::StatisticalDataSets
   include Edition::HtmlVersion
+  include Edition::CanApplyToLocalGovernmentThroughRelatedPolicies
 
   validates :publication_date, presence: true, unless: ->(edition) { edition.can_have_some_invalid_data? }
   validates :publication_type_id, presence: true
@@ -87,10 +88,6 @@ class Publication < Publicationesque
     else
       nil
     end
-  end
-
-  def can_apply_to_local_government?
-    true
   end
 
   def translatable?
