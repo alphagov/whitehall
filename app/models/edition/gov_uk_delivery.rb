@@ -34,13 +34,13 @@ module Edition::GovUkDelivery
         end
       when Announcement
         filter_option = Whitehall::AnnouncementFilterOption.find_by_search_format_types(self.search_format_types)
-        combinatorial_args << {announcement_filter_option: filter_option.slug}
+        combinatorial_args << {announcement_filter_option: filter_option.slug} unless filter_option.nil?
         all_combinations_of_args(combinatorial_args).map do |combined_args|
           announcements_url(combined_args.merge(required_url_args))
         end
       when Publicationesque
         filter_option = Whitehall::PublicationFilterOption.find_by_search_format_types(self.search_format_types)
-        combinatorial_args << {publication_filter_option: filter_option.slug}
+        combinatorial_args << {publication_filter_option: filter_option.slug} unless filter_option.nil?
         all_combinations_of_args(combinatorial_args).map do |combined_args|
           publications_url(combined_args.merge(required_url_args))
         end

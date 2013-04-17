@@ -9,7 +9,7 @@ class Edition::GovUkDeliveryTest < ActiveSupport::TestCase
   end
 
   test "#govuk_delivery_tags returns a feed for 'all' by default" do
-    assert_equal ["https://#{Whitehall.public_host}/government/feed"], build(:policy).govuk_delivery_tags
+    assert_equal ["#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/feed"], build(:policy).govuk_delivery_tags
   end
 
   test "#govuk_delivery_tags for a policy returns a feed for 'all'" do
@@ -140,6 +140,15 @@ class Edition::GovUkDeliveryTest < ActiveSupport::TestCase
     assert edition.govuk_delivery_tags.include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/publications.atom?publication_filter_option=corporate-reports"
   end
 
+  test '#govuk_delivery_tags for a publication with a type that is not available as a filter returns an atom feed without a publication_filter_option' do
+    topic = create(:topic)
+    organisation = create(:ministerial_department)
+    edition = create(:publication, organisations: [organisation], publication_type: PublicationType::Unknown)
+    edition.stubs(:topics).returns [topic]
+
+    refute edition.govuk_delivery_tags.any? { |feed_url| feed_url =~ /publication_filter_option\=/ }
+  end
+
   test '#govuk_delivery_tags for a relevant to local government publication puts the relevant to local param on all publications.atom urls' do
     topic = create(:topic)
     organisation = create(:ministerial_department)
@@ -221,6 +230,16 @@ class Edition::GovUkDeliveryTest < ActiveSupport::TestCase
 
     assert edition.govuk_delivery_tags.include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/announcements.atom"
     assert edition.govuk_delivery_tags.include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/announcements.atom?announcement_filter_option=press-releases"
+  end
+
+  test '#govuk_delivery_tags for an announcement with a type that is not available as a filter returns an atom feed without a announcement_filter_option' do
+    topic = create(:topic)
+    organisation = create(:ministerial_department)
+    edition = create(:news_article, organisations: [organisation])
+    edition.stubs(:news_article_type).returns(NewsArticleType::ImportedAwaitingType)
+    edition.stubs(:topics).returns [topic]
+
+    refute edition.govuk_delivery_tags.any? { |feed_url| feed_url =~ /announcement_filter_option\=/ }
   end
 
   test '#govuk_delivery_tags for a relevant to local government announcement puts the relevant to local param on all publications.atom urls' do
