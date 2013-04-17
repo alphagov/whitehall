@@ -32,38 +32,45 @@ class Edition::GovUkDeliveryTest < ActiveSupport::TestCase
     Edition::GovUkDelivery::Notifier::EmailCurationQueue.new(edition, notification_date)
   end
 
-  test "should notify on publishing policies" do
+  test 'is only included in Annoucement, Publicationesque, and Policy' do
+    govuk_delivery_edition_types = [Announcement, Publicationesque, Policy]
+    govuk_delivery_edition_types += govuk_delivery_edition_types.map(&:descendants).flatten
+
+    govuk_delivery_edition_types.each do |govuk_delivery_edition_type|
+      assert govuk_delivery_edition_type.ancestors.include?(Edition::GovUkDelivery), "Expected #{govuk_delivery_edition_type.name} to include Edition::GovUkDelivery, but it doesn't"
+    end
+
+    (Edition.descendants - govuk_delivery_edition_types - [EditionWithGovUkDelivery]).each do |edition_type|
+      refute edition_type.ancestors.include?(Edition::GovUkDelivery), "#{edition_type} includes Edition::GovUkDelivery, but it shouldn't"
+    end
+  end
+
+  class EditionWithGovUkDelivery < Edition
+    include Edition::GovUkDelivery
+  end
+
+  def edition_with_gov_uk_delivery
+    o = create(:organisation)
+    EditionWithGovUkDelivery.new(
+      title:   'edition-title',
+      body:    'edition-body',
+      summary: 'edition-summary',
+      creator: build(:user),
+      lead_organisations: [o]
+    )
+  end
+
+  test "notifies when publishing editions with govukdelivery mixed in" do
     Edition::AuditTrail.whodunnit = create(:user)
-    policy = create(:policy, topics: [create(:topic), create(:topic)])
-    policy.first_published_at = Time.zone.now
-    policy.major_change_published_at = Time.zone.now
 
-    notifier = notifier_for(policy)
-    Edition::GovUkDelivery::Notifier.expects(:new).with(policy).returns(notifier)
+    notifiable_edition = edition_with_gov_uk_delivery
+    notifiable_edition.first_published_at = Time.zone.now
+    notifiable_edition.major_change_published_at = Time.zone.now
+
+    notifier = notifier_for(notifiable_edition)
+    Edition::GovUkDelivery::Notifier.expects(:new).with(notifiable_edition).returns(notifier)
     notifier.expects(:edition_published!).once
-    policy.publish!
-  end
-
-  test "should notify on publishing news articles" do
-    news_article = create(:news_article)
-    news_article.first_published_at = Time.zone.now
-    news_article.major_change_published_at = Time.zone.now
-
-    notifier = notifier_for(news_article)
-    Edition::GovUkDelivery::Notifier.expects(:new).with(news_article).returns(notifier)
-    notifier.expects(:edition_published!).once
-    news_article.publish!
-  end
-
-  test "should notify on publishing publications" do
-    publication = create(:publication)
-    publication.first_published_at = Time.zone.now
-    publication.major_change_published_at = Time.zone.now
-
-    notifier = notifier_for(publication)
-    Edition::GovUkDelivery::Notifier.expects(:new).with(publication).returns(notifier)
-    notifier.expects(:edition_published!).once
-    publication.publish!
+    notifiable_edition.publish!
   end
 
   test 'Notifier#edition_published! will route the edition to govuk delivery if it is not relevant to local government' do
