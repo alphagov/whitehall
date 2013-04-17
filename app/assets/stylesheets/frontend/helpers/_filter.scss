@@ -141,12 +141,15 @@
 }
 
 .filter-feed {
+  display: inline;
   .subscribe {
     float: right;
   }
 }
 
 .filter-results {
+  padding-top: $gutter;
+  
   .no-results {
     padding: $gutter 0 $gutter-half;
     border-bottom: 1px solid $border-colour;
@@ -160,6 +163,13 @@
 }
 
 .filter-results-summary {
+  display: inline;
+
+  h3 {
+    display: inline;
+    padding-right: $gutter-one-third;
+  }
+
   .count{
     padding-bottom: 0;
   }

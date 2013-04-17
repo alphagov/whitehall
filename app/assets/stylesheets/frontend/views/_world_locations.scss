@@ -35,9 +35,11 @@
           float: left
         }
 
-        p {
-          @include heading-24;
-          color: $secondary-text-colour;
+        @include media(tablet){
+          p {
+            @include core-80;
+            font-weight: bold;
+          }
         }
       }
 
