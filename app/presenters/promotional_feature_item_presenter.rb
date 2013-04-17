@@ -24,10 +24,14 @@ class PromotionalFeatureItemPresenter < Draper::Base
   def title
     return unless model.title
 
-    if model.title_url.present?
-      h.content_tag(:h3, h.link_to(model.title, model.title_url))
-    else
+    if model.title_url.blank?
       h.content_tag(:h3, model.title)
+    else
+      h.content_tag(:h3, title_link)
     end
+  end
+
+  def title_link
+    h.link_to(model.title, model.title_url, ({rel: 'external'} if h.is_external?(model.title_url)))
   end
 end
