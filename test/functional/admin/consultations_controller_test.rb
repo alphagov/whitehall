@@ -27,7 +27,6 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
   should_allow_assignment_to_document_series :consultation
   should_allow_scheduled_publication_of :consultation
   should_allow_access_limiting_of :consultation
-  should_allow_relevance_to_local_government_of :consultation
 
   view_test 'new displays consultation fields' do
     get :new

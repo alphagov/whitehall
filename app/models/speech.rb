@@ -1,6 +1,7 @@
 class Speech < Announcement
   include Edition::Appointment
   include Edition::DocumentSeries
+  include Edition::CanApplyToLocalGovernmentThroughRelatedPolicies
 
   after_save :populate_organisations_based_on_role_appointment
 
@@ -45,10 +46,6 @@ class Speech < Announcement
   end
 
   def make_public_at(date)
-  end
-
-  def can_apply_to_local_government?
-    true
   end
 
   private

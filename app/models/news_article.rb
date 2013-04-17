@@ -3,6 +3,7 @@ class NewsArticle < Newsesque
   include Edition::DocumentSeries
   include ::Attachable
   include Edition::AlternativeFormatProvider
+  include Edition::CanApplyToLocalGovernmentThroughRelatedPolicies
 
   attachable :edition
   force_review_of_bulk_attachments
@@ -36,10 +37,6 @@ class NewsArticle < Newsesque
 
   def alternative_format_provider_required?
     false
-  end
-
-  def can_apply_to_local_government?
-    true
   end
 
   private
