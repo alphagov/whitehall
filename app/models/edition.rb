@@ -151,6 +151,9 @@ class Edition < ActiveRecord::Base
     else
       remove_from_search_index
     end
+  rescue => e
+    # TODO: this is harsh, revisit
+    Rails.logger.error e
   end
 
   def creator

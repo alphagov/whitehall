@@ -462,6 +462,14 @@ class EditionTest < ActiveSupport::TestCase
     policy.publish_as(create(:departmental_editor))
   end
 
+  test "swallows errors from search index on publishing" do
+    policy = create(:submitted_policy)
+
+    Rummageable.expects(:index).raises(RuntimeError, 'Problem?')
+
+    assert_nothing_raised { policy.publish_as(create(:departmental_editor)) }
+  end
+
   test "should not remove edition from search index when a new edition is published" do
     policy = create(:published_policy)
     slug = policy.document.slug
@@ -492,6 +500,15 @@ class EditionTest < ActiveSupport::TestCase
     policy.unpublish_as(create(:gds_editor))
   end
 
+  test "swallows errors from search index when it's unpublished" do
+    policy = create(:published_policy)
+    slug = policy.document.slug
+
+    Rummageable.expects(:delete).raises(RuntimeError, 'Problem?')
+
+    assert_nothing_raised { policy.unpublish_as(create(:gds_editor)) }
+  end
+
   test "should remove published edition from search index when it's archived" do
     policy = create(:published_policy)
     slug = policy.document.slug
@@ -499,6 +516,15 @@ class EditionTest < ActiveSupport::TestCase
     Rummageable.expects(:delete).with("/government/policies/#{slug}", Whitehall.government_search_index_path)
 
     policy.archive!
+  end
+
+  test "swallows errors from search index when it's archived" do
+    policy = create(:published_policy)
+    slug = policy.document.slug
+
+    Rummageable.expects(:delete).raises(RuntimeError, 'Problem?')
+
+    assert_nothing_raised { policy.archive! }
   end
 
   test "#destroy should also remove the relationship to any authors" do
