@@ -396,6 +396,7 @@ he:
     type:
       personal_information_charter: טבלת מידע אישי
       publication_scheme: תכנית פרסומים
+      social_media_use:
       welsh_language_scheme: תכנית שפה וולשית
   date:
     formats:
@@ -441,6 +442,7 @@ he:
     corporate_information:
       personal_information_charter_html:
       publication_scheme_html:
+      social_media_use_html:
       welsh_language_scheme_html:
     find_out_more: ראה/י פרופיל מלא ופרטי התקשרות
     headings:

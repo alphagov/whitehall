@@ -25,6 +25,7 @@ ko:
     type:
       personal_information_charter: 개인정보 규정
       publication_scheme: 발행 계획
+      social_media_use:
       welsh_language_scheme: 웨일스어 계획
   date:
     formats:
@@ -319,6 +320,7 @@ ko:
     corporate_information:
       personal_information_charter_html:
       publication_scheme_html:
+      social_media_use_html:
       welsh_language_scheme_html:
     find_out_more: 프로필과 연락처 보기
     headings:

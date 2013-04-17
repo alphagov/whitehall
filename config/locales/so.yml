@@ -274,6 +274,7 @@ so:
     type:
       personal_information_charter: Axdiga macluumaadka shakhsiga ah
       publication_scheme:
+      social_media_use:
       welsh_language_scheme:
   date:
     formats:
@@ -322,6 +323,7 @@ so:
         macluumaadkaaga shakhsiga ah'
       publication_scheme_html: Akhri noocyada macluumaadka aan caadi ahaan ku daabacno/nashrinno
         %{link} aan soo saarno.
+      social_media_use_html:
       welsh_language_scheme_html: Wax ka ogow sida aan ugu dadaalno ku daabacadda/nashrinta
         %{link}.
     find_out_more: Halkaan ka eeg qoraalka sharxaya oo dhammeystiran iyo dhammaan

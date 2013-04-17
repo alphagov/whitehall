@@ -274,6 +274,7 @@ it:
     type:
       personal_information_charter: Informazioni personali
       publication_scheme: Schema di pubblicazione
+      social_media_use:
       welsh_language_scheme: Schema gaelico
   date:
     formats:
@@ -322,6 +323,7 @@ it:
         tutte le informazioni relative al trattamento dei dati personali.
       publication_scheme_html: ! 'Sulla pagina %{link} è possibile trovare maggiori
         dettagli sulle informazioni pubblicate di routine. '
+      social_media_use_html:
       welsh_language_scheme_html: Sulla pagina %{link} è possibile trovare maggiori
         informazioni su cosa pubblichiamo
     find_out_more: Consultare il profilo completo e tutti i contatti
