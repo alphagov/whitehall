@@ -6,6 +6,7 @@ class PromotionalFeatureItem < ActiveRecord::Base
   validates :summary, presence: true, length: { maximum: 500 }
   validates :image, :image_alt_text, presence: true, on: :create
   validate :image_must_be_960px_by_640px, if: :image_changed?
+  validates :title_url, url: true, allow_blank: true
 
   accepts_nested_attributes_for :links, allow_destroy: true, reject_if: :all_blank
 
