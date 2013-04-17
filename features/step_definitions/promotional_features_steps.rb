@@ -22,15 +22,16 @@ When /^I add a new promotional feature with a single item$/ do
   click_link 'Promotional features'
   click_link 'New promotional feature'
 
-  fill_in 'Title', with: 'Big Cheese'
-  click_button 'Save'
+  fill_in 'Feature title', with: 'Big Cheese'
 
-  click_link 'Add feature item'
-  fill_in 'Summary',                      with: 'The Big Cheese is coming.'
-  fill_in 'Title',                        with: 'The Big Cheese'
-  fill_in 'Title link',                   with: 'http://big-cheese.co'
-  attach_file :image,    Rails.root.join('test/fixtures/big-cheese.960x640.jpg')
-  fill_in 'Image description (alt text)', with: 'The Big Cheese'
+  within '.promotional_feature_item' do
+    fill_in 'Summary',                      with: 'The Big Cheese is coming.'
+    fill_in 'Title',                        with: 'The Big Cheese'
+    fill_in 'Title link',                   with: 'http://big-cheese.co'
+    attach_file :image,    Rails.root.join('test/fixtures/big-cheese.960x640.jpg')
+    fill_in 'Image description (alt text)', with: 'The Big Cheese'
+  end
+
   click_button 'Save'
 end
 

@@ -8,6 +8,8 @@ class Admin::PromotionalFeaturesController < Admin::BaseController
 
   def new
     @promotional_feature = @organisation.promotional_features.build
+    @promotional_feature.promotional_feature_items.build
+    @promotional_feature.promotional_feature_items.first.links.build
   end
 
   def create
