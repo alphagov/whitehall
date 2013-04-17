@@ -66,31 +66,6 @@ jQuery(function($) {
 })(jQuery);
 
 (function($){
-  var $input = $('#edition_summary'),
-      $message = $('.summary-length-info').hide(),
-      $count = $message.find('.count');
-
-  if($input.length > 0){
-    $input.addClass('summary-length-input');
-    function checkLength(){
-      var length = $input.val().split('').length;
-
-      $count.text('Current length: '+length);
-      if(length > 140){
-        $input.addClass('warning');
-        $message.addClass('warning');
-        $message.show();
-      } else {
-        $input.removeClass('warning');
-        $message.removeClass('warning');
-      }
-    }
-    $input.bind('keyup', checkLength);
-    checkLength();
-  }
-}(jQuery));
-
-(function($){
   var $input = $('#edition_title'),
       $message = $('.title-length-info').hide(),
       $count = $message.find('.count');
