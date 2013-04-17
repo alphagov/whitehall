@@ -274,6 +274,7 @@ fr:
     type:
       personal_information_charter: Charte de renseignements personnels
       publication_scheme: Régime de publication
+      social_media_use:
       welsh_language_scheme: Système de la langue galloise
   date:
     formats:
@@ -322,6 +323,7 @@ fr:
         vos renseignements personnels.
       publication_scheme_html: Découvrez les types d'informations que nous publions
         régulièrement dans notre %{link}
+      social_media_use_html:
       welsh_language_scheme_html: Renseignez-vous sur notre engagement à l'édition
         en %{link}
     find_out_more: En savoir plus

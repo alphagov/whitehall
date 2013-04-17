@@ -25,6 +25,7 @@ ja:
     type:
       personal_information_charter: 個人情報保護法
       publication_scheme: 情報公開法
+      social_media_use:
       welsh_language_scheme: ウェールズ語スキーム
   date:
     formats:
@@ -319,6 +320,7 @@ ja:
     corporate_information:
       personal_information_charter_html: 個人情報の取り扱いについては %{link} をご覧下さい。
       publication_scheme_html: 情報公開の種類については %{link} をご覧下さい。
+      social_media_use_html:
       welsh_language_scheme_html: 情報公開の詳細については %{link} をご覧下さい。
     find_out_more: 業務案内と連絡先を見る
     headings:

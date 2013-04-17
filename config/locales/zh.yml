@@ -25,6 +25,7 @@ zh:
     type:
       personal_information_charter: 个人信息资料
       publication_scheme: 信息发布计划
+      social_media_use:
       welsh_language_scheme: 威尔士语言计划
   date:
     formats:
@@ -319,6 +320,7 @@ zh:
     corporate_information:
       personal_information_charter_html: 我们的%{链接}解释了我们如何对待您的个人信息。
       publication_scheme_html: 阅读我们在{链接}定期发布的信息类型。
+      social_media_use_html:
       welsh_language_scheme_html: 查阅我们在{链接}发布的信息。
     find_out_more: 查阅全部内容和联系方式
     headings:

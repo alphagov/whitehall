@@ -335,6 +335,7 @@ cs:
     type:
       personal_information_charter:
       publication_scheme:
+      social_media_use:
       welsh_language_scheme: Welština
   date:
     formats:
@@ -381,6 +382,7 @@ cs:
       personal_information_charter_html: Jak nakládáme s vašimi osobními informacemi
         %{link}
       publication_scheme_html:
+      social_media_use_html:
       welsh_language_scheme_html:
     find_out_more: Celý profil a kontakty zde.
     headings:

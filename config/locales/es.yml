@@ -274,6 +274,7 @@ es:
     type:
       personal_information_charter: Cédula de información personal
       publication_scheme: Esquema de publicación
+      social_media_use:
       welsh_language_scheme: Esquema de gales
   date:
     formats:
@@ -319,6 +320,7 @@ es:
     corporate_information:
       personal_information_charter_html:
       publication_scheme_html:
+      social_media_use_html:
       welsh_language_scheme_html:
     find_out_more: Vea el perfil completo y los detalles de contacto
     headings:

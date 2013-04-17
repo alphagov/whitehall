@@ -518,6 +518,7 @@ ar:
     type:
       personal_information_charter: المعلومات الشخصية الميثاق
       publication_scheme:
+      social_media_use:
       welsh_language_scheme:
   date:
     formats:
@@ -565,6 +566,7 @@ ar:
         المعلومات الشخصية الخاصة بك
       publication_scheme_html: قرأت عن أنواع المعلومات التي ننشرها بشكل روتيني في
         موقعنا %{link} الرابط.
+      social_media_use_html:
       welsh_language_scheme_html: معرفة التزامنا النشر في%{link} الرابط.
     find_out_more: اطلع على النبذة بالكامل وكافة تفاصيل الاتصال
     headings:

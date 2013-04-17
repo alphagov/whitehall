@@ -396,6 +396,7 @@ ru:
     type:
       personal_information_charter: Раздел личной информации
       publication_scheme: Схема публикации
+      social_media_use:
       welsh_language_scheme: Выбор Уэльского языка
   date:
     formats:
@@ -442,6 +443,7 @@ ru:
     corporate_information:
       personal_information_charter_html:
       publication_scheme_html:
+      social_media_use_html:
       welsh_language_scheme_html:
     find_out_more: Общая иформация и контакты
     headings:

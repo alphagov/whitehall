@@ -25,6 +25,7 @@ tr:
     type:
       personal_information_charter: ! 'Kişisel Bilgiler Tüzüğü '
       publication_scheme: Yayın Programı
+      social_media_use:
       welsh_language_scheme: Galler dili Programı
   date:
     formats:
@@ -321,6 +322,7 @@ tr:
         açıklamaktadır
       publication_scheme_html: Rutin olarak yayınladığımız bilgiler için bu %{link}
         e bakınız
+      social_media_use_html:
       welsh_language_scheme_html: Yayın hedefimiz ile ilgili bilgilere bu  %{link}ten
         ulaşabilirsiniz.
     find_out_more: ! 'Tüm profili ve ileti?im bilgilerini görmek için '

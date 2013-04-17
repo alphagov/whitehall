@@ -274,6 +274,7 @@ de:
     type:
       personal_information_charter: Charta zum Schutz personenbezogener Daten
       publication_scheme: Publikationsprogramm
+      social_media_use:
       welsh_language_scheme: Walisisches Sprachprogramm
   date:
     formats:
@@ -322,6 +323,7 @@ de:
         Daten schützen.
       publication_scheme_html: Lesen Sie hier %{link}, welche Informationen wir routinemäßig
         publizieren.
+      social_media_use_html:
       welsh_language_scheme_html: Lesen Sie hier %{link} mehr zu unserer Verpflichtung
         zur Veröffentlichung
     find_out_more: Hier finden Sie das vollständige Profil und alle Kontaktdaten

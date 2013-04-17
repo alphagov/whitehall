@@ -25,6 +25,7 @@ vi:
     type:
       personal_information_charter: Bảng thông tin cá nhân
       publication_scheme: Cơ chế Xuất bản
+      social_media_use:
       welsh_language_scheme: cơ chế ngôn ngữ của xứ Wales
   date:
     formats:
@@ -322,6 +323,7 @@ vi:
         chúng tôi xử lý thông tin cá nhân của bạn'
       publication_scheme_html: ! 'Xem các loại thông tin mà chúng tôi cập nhật thường
         xuyên tại %{link} '
+      social_media_use_html:
       welsh_language_scheme_html: Tìm hiểu các cam kết của chúng tôi trong việc công
         bố thông tin tại %{link}
     find_out_more: Xem hồ sơ đầy đủ và tất cả các chi tiết liên hệ
