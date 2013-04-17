@@ -96,6 +96,7 @@
           margin: $gutter*2 0 $gutter-half;
         }
         .number {
+          padding-right: $gutter-one-third;
           font-weight: bold;
           @include media(tablet){
             @include core-80;
@@ -103,11 +104,21 @@
             position: absolute;
             margin-top: $gutter-one-sixth;
             margin-left: -23%;
+            padding-right: 0;
           }
         }
       }
       h3 {
         @include core-27;
+        .number {
+          padding-right: $gutter-one-third;
+          @include media(tablet){
+            padding-right: 0;
+            display: inline-block;
+            width: $gutter*2;
+            margin-left: $gutter*-2;
+          }
+        }
       }
       h2, h3, h4, h5, h6 {
         font-weight: bold;
@@ -122,6 +133,14 @@
         margin: $gutter-one-third 0;
         @include media(tablet){
           margin: $gutter-two-thirds 0;
+        }
+      }
+      figcaption {
+        @include core-16;
+        font-weight: bold;
+        margin: 0 0 $gutter-one-third;
+        @include media(tablet){
+          margin: 0 0 $gutter-two-thirds;
         }
       }
       ul, ol {
@@ -151,16 +170,25 @@
         border-collapse: collapse;
         border-spacing: 0;
         border-top: 1px solid $grey-2;
-
-        th {
-          font-weight: bold;
-        }
         th, td {
           @include core-14;
           vertical-align: top;
           text-align: left;
           padding: $gutter-one-third $gutter-two-thirds $gutter-one-third 0;
           border-bottom: 1px solid $grey-2;
+        }
+        th {
+          font-weight: bold;
+        }
+        td {
+          p, ul, ol {
+            margin: 0;
+          }
+          p+p, p+ul, p+ol,
+          ul+p, ul+ol,
+          ol+p {
+            margin-top: $gutter-one-third;
+          }
         }
       }
     }
