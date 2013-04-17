@@ -396,6 +396,7 @@ uk:
     type:
       personal_information_charter: Персональна інформація
       publication_scheme: План публікацій
+      social_media_use:
       welsh_language_scheme: Програма збереження валійської мови
   date:
     formats:
@@ -444,6 +445,7 @@ uk:
         з персональними даними. '
       publication_scheme_html: Прочитайте про те, яку інформацію ми регулярно публікуємо
         у %{link}.
+      social_media_use_html:
       welsh_language_scheme_html: ! 'Дізнайтеся про наші зобов''язання щодо публікації
         інформації у %{link}. '
     find_out_more: Дивіться повний профіль та всі контакти

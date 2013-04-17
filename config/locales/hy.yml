@@ -274,6 +274,7 @@ hy:
     type:
       personal_information_charter: Անձնական տվյալների կանոնադրություն
       publication_scheme: Հրապարակման համակարգ
+      social_media_use:
       welsh_language_scheme: Ուելսերենի կանոնադրություն
   date:
     formats:
@@ -322,6 +323,7 @@ hy:
         անձնական տեղեկատվությանը
       publication_scheme_html: Կարդացեք այն ամնենի մասին ինչ մենք հրապարակում ենք
         մեր %{link}ում
+      social_media_use_html:
       welsh_language_scheme_html: Գտեք այստեղ %{link}ում հրապարակելու մեր պարտավորության
         մասին
     find_out_more: Տես՝ մեր ամբողջական պրոֆիլն ու կոնտակտային տվյալները

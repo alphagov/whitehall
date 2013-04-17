@@ -521,6 +521,7 @@ cy:
     type:
       personal_information_charter: Nod gwybodaeth bersonol
       publication_scheme: Cynllun cyhoeddi
+      social_media_use:
       welsh_language_scheme: Cynllun iaith Gymraeg
   date:
     formats:
@@ -570,6 +571,7 @@ cy:
         eich gwybodaeth bersonol.
       publication_scheme_html: Darllenwch am y mathau o wybodaeth rydym yn eu cyhoeddi'n
         rheolaidd yn ein %{link}.
+      social_media_use_html:
       welsh_language_scheme_html: Dysgwch am ein hymrwymiad i gyhoeddi yn y %{link}.
     find_out_more: Gweld proffil llawn a'r holl fanylion cyswllt
     headings:

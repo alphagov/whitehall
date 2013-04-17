@@ -274,6 +274,7 @@ bg:
     type:
       personal_information_charter: Харта за персонална информация
       publication_scheme: Схема за публикации
+      social_media_use:
       welsh_language_scheme: Уелска езикова схема
   date:
     formats:
@@ -322,6 +323,7 @@ bg:
         на ползване на личните Ви данни
       publication_scheme_html: Прочетете какви видове информация публикуваме в нашия
         %{link}.
+      social_media_use_html:
       welsh_language_scheme_html: Разберете повече за нашето задължение да публикуваме
         в %{link}.
     find_out_more: Вижте пълния профил и всички контакти

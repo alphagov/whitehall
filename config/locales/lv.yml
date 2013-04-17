@@ -274,6 +274,7 @@ lv:
     type:
       personal_information_charter: Personas datu harta
       publication_scheme: Publikāciju shēma
+      social_media_use:
       welsh_language_scheme: Velsiešu valodas shēma
   date:
     formats:
@@ -321,6 +322,7 @@ lv:
         Jūsu sniegtā personīgā informācija
       publication_scheme_html: Iepazīsties ar informāciju, kāda parasti tiek publicēta
         mūsu %{link}
+      social_media_use_html:
       welsh_language_scheme_html: Vairāk par mūsu apņemšanos nodrošināt informācijas
         pieejamību %{link}
     find_out_more: Skatīt pilnu profilu un kontaktinformāciju
