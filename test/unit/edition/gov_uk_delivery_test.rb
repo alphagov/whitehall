@@ -463,8 +463,8 @@ class Edition::GovUkDeliveryTest < ActiveSupport::TestCase
     assert_equal notification_date_for(policy), Time.zone.parse('2010-12-31 12:13:14')
   end
 
-  test 'Notifier::GovUkDelivery#notify! sends a notification via the govuk delivery client when there are topics' do
-    policy = create(:policy, topics: [create(:topic)])
+  test 'Notifier::GovUkDelivery#notify! sends a notification via the govuk delivery client' do
+    policy = create(:policy)
     policy.stubs(:public_timestamp).returns Time.zone.now
     notifier = govuk_delivery_notifier_for(policy)
     notifier.stubs(:govuk_delivery_email_body).returns('email body')

@@ -129,15 +129,12 @@ module Edition::GovUkDelivery
       end
 
       def notify!
-        if (tags = govuk_delivery_tags).any?
-          # Swallow all errors for the time being
-          begin
-            response = Whitehall.govuk_delivery_client.notify(tags, title, govuk_delivery_email_body)
-          rescue GdsApi::HTTPErrorResponse => e
-            Rails.logger.warn e
-          rescue => e
-            Rails.logger.error e
-          end
+        begin
+          response = Whitehall.govuk_delivery_client.notify(govuk_delivery_tags, title, govuk_delivery_email_body)
+        rescue GdsApi::HTTPErrorResponse => e
+          Rails.logger.warn e
+        rescue => e
+          Rails.logger.error e
         end
       end
 
