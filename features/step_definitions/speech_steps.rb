@@ -122,8 +122,12 @@ Then /^I cannot choose a location for the article$/ do
 end
 
 When /^I preview the authored article$/ do
-  click_button "Save"
   click_link "Preview"
+end
+
+Then /^it should be shown as an authored article in the admin screen$/ do
+  click_button "Save"
+  assert page.has_content?("Draft Authored Article")
 end
 
 Then /^I should see who wrote it clearly labelled in the metadata$/ do
