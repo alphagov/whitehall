@@ -1,5 +1,5 @@
 # extend, so that we get the implementation of notify_from_queue!
-class RememberingNotificationEndPoint < Edition::GovUkDelivery::Notifier::GovUkDelivery
+class RememberingNotificationEndPoint < Whitehall::GovUkDelivery::GovUkDeliveryEndPoint
   # this isn't thread-safe - not a huge problem as we use mocha, which
   # also isn't thread-safe, but if we want to parallelize the tests using
   # a single process, we'll need to deal with this too.
@@ -21,10 +21,10 @@ end
 
 Before("@gov-uk-delivery-remembers-notifications") do
   RememberingNotificationEndPoint.mind_wipe!
-  @original_gov_uk_delivery_notification_end_point = Edition::GovUkDelivery::Notifier::GovUkDelivery
-  silence_warnings { Edition::GovUkDelivery::Notifier::GovUkDelivery = RememberingNotificationEndPoint }
+  @original_gov_uk_delivery_notification_end_point = Whitehall::GovUkDelivery::GovUkDeliveryEndPoint
+  silence_warnings { Whitehall::GovUkDelivery::GovUkDeliveryEndPoint = RememberingNotificationEndPoint }
 end
 
 After("@gov-uk-delivery-remembers-notifications") do
-  silence_warnings { Edition::GovUkDelivery::Notifier::GovUkDelivery = @original_gov_uk_delivery_notification_end_point }
+  silence_warnings { Whitehall::GovUkDelivery::GovUkDeliveryEndPoint = @original_gov_uk_delivery_notification_end_point }
 end

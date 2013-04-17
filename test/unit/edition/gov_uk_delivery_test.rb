@@ -9,7 +9,7 @@ class Edition::GovUkDeliveryTest < ActiveSupport::TestCase
   end
 
   def notifier_for(edition)
-    Edition::GovUkDelivery::Notifier.new(edition)
+    Whitehall::GovUkDelivery::Notifier.new(edition)
   end
 
   def notification_date_for(edition)
@@ -17,7 +17,7 @@ class Edition::GovUkDeliveryTest < ActiveSupport::TestCase
   end
 
   def govuk_delivery_notifier_for(edition, notification_date = Time.zone.now, *args)
-    Edition::GovUkDelivery::Notifier::GovUkDelivery.new(edition, notification_date, *args)
+    Whitehall::GovUkDelivery::GovUkDeliveryEndPoint.new(edition, notification_date, *args)
   end
 
   def tags_for(edition, notification_date = Time.zone.now)
@@ -29,7 +29,7 @@ class Edition::GovUkDeliveryTest < ActiveSupport::TestCase
   end
 
   def email_curation_queue_notifier_for(edition, notification_date = Time.zone.now)
-    Edition::GovUkDelivery::Notifier::EmailCurationQueue.new(edition, notification_date)
+    Whitehall::GovUkDelivery::EmailCurationQueueEndPoint.new(edition, notification_date)
   end
 
   test 'is only included in Annoucement, Publicationesque, and Policy' do
@@ -68,7 +68,7 @@ class Edition::GovUkDeliveryTest < ActiveSupport::TestCase
     notifiable_edition.major_change_published_at = Time.zone.now
 
     notifier = notifier_for(notifiable_edition)
-    Edition::GovUkDelivery::Notifier.expects(:new).with(notifiable_edition).returns(notifier)
+    Whitehall::GovUkDelivery::Notifier.expects(:new).with(notifiable_edition).returns(notifier)
     notifier.expects(:edition_published!).once
     notifiable_edition.publish!
   end
@@ -78,8 +78,8 @@ class Edition::GovUkDeliveryTest < ActiveSupport::TestCase
     edition.stubs(:available_in_locale?).returns true
     notifier = notifier_for(edition)
     notification_end_point = govuk_delivery_notifier_for(edition)
-    Edition::GovUkDelivery::Notifier::GovUkDelivery.expects(:new).with(edition, anything).returns(notification_end_point).once
-    Edition::GovUkDelivery::Notifier::EmailCurationQueue.expects(:new).never
+    Whitehall::GovUkDelivery::GovUkDeliveryEndPoint.expects(:new).with(edition, anything).returns(notification_end_point).once
+    Whitehall::GovUkDelivery::EmailCurationQueueEndPoint.expects(:new).never
 
     notifier.edition_published!
   end
@@ -89,8 +89,8 @@ class Edition::GovUkDeliveryTest < ActiveSupport::TestCase
     edition.stubs(:available_in_locale?).returns true
     notifier = notifier_for(edition)
     notification_end_point = email_curation_queue_notifier_for(edition)
-    Edition::GovUkDelivery::Notifier::GovUkDelivery.expects(:new).never
-    Edition::GovUkDelivery::Notifier::EmailCurationQueue.expects(:new).with(edition, anything).returns(notification_end_point).once
+    Whitehall::GovUkDelivery::GovUkDeliveryEndPoint.expects(:new).never
+    Whitehall::GovUkDelivery::EmailCurationQueueEndPoint.expects(:new).with(edition, anything).returns(notification_end_point).once
 
     notifier.edition_published!
   end
@@ -129,8 +129,8 @@ class Edition::GovUkDeliveryTest < ActiveSupport::TestCase
     queue_item = stub(edition: policy, notification_date: 3.days.ago, title: 'Baz', summary: 'Qux')
     notifier = mock()
     notifier.expects(:notify!)
-    Edition::GovUkDelivery::Notifier::GovUkDelivery.expects(:new).with(policy, 3.days.ago, 'Baz', 'Qux').returns(notifier)
-    Edition::GovUkDelivery::Notifier::GovUkDelivery.notify_from_queue!(queue_item)
+    Whitehall::GovUkDelivery::GovUkDeliveryEndPoint.expects(:new).with(policy, 3.days.ago, 'Baz', 'Qux').returns(notifier)
+    Whitehall::GovUkDelivery::GovUkDeliveryEndPoint.notify_from_queue!(queue_item)
   end
 
   test "Notifier::GovukDelivery uses the title of the edition if not specified" do
@@ -153,11 +153,11 @@ class Edition::GovUkDeliveryTest < ActiveSupport::TestCase
     assert_equal 'Hat', govuk_delivery_notifier_for(policy, Time.zone.now, 'Cheese', 'Hat').summary
   end
 
-  test "Notifier::GovUkDelivery#govuk_delivery_tags returns a feed for 'all' by default" do
+  test "GovUkDeliveryEndPoint#govuk_delivery_tags returns a feed for 'all' by default" do
     assert tags_for(build(:policy)).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/feed"
   end
 
-  test 'Notifier::GovUkDelivery#govuk_delivery_tags for a relevant to local government policy does not put the relevant to local param on the "all" feed url' do
+  test 'GovUkDeliveryEndPoint#govuk_delivery_tags for a relevant to local government policy does not put the relevant to local param on the "all" feed url' do
     edition = build(:policy, relevant_to_local_government: true)
 
     refute tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/feed?relevant_to_local_government=1"
@@ -167,7 +167,7 @@ class Edition::GovUkDeliveryTest < ActiveSupport::TestCase
 
   ### policy feed urls tests
 
-  test 'Notifier::GovUkDelivery#govuk_delivery_tags returns an atom feed url for the organisation and a topic' do
+  test 'GovUkDeliveryEndPoint#govuk_delivery_tags returns an atom feed url for the organisation and a topic' do
     topic = create(:topic)
     organisation = create(:ministerial_department)
     edition = create(:policy, topics: [topic], organisations: [organisation])
@@ -175,7 +175,7 @@ class Edition::GovUkDeliveryTest < ActiveSupport::TestCase
     assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/policies.atom?departments%5B%5D=#{organisation.slug}&topics%5B%5D=#{topic.slug}"
   end
 
-  test 'Notifier::GovUkDelivery#govuk_delivery_tags for a policy returns an atom feed url for each topic/organisation combination' do
+  test 'GovUkDeliveryEndPoint#govuk_delivery_tags for a policy returns an atom feed url for each topic/organisation combination' do
     topic1 = create(:topic)
     topic2 = create(:topic)
     organisation = create(:ministerial_department)
@@ -185,7 +185,7 @@ class Edition::GovUkDeliveryTest < ActiveSupport::TestCase
     assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/policies.atom?departments%5B%5D=#{organisation.slug}&topics%5B%5D=#{topic2.slug}"
   end
 
-  test 'Notifier::GovUkDelivery#govuk_delivery_tags for a policy returns an atom feed url that does not include topics' do
+  test 'GovUkDeliveryEndPoint#govuk_delivery_tags for a policy returns an atom feed url that does not include topics' do
     topic = create(:topic)
     organisation = create(:ministerial_department)
     edition = create(:policy, topics: [topic], organisations: [organisation])
@@ -193,7 +193,7 @@ class Edition::GovUkDeliveryTest < ActiveSupport::TestCase
     assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/policies.atom?departments%5B%5D=#{organisation.slug}"
   end
 
-  test 'Notifier::GovUkDelivery#govuk_delivery_tags for a policy returns an atom feed url that does not include departments' do
+  test 'GovUkDeliveryEndPoint#govuk_delivery_tags for a policy returns an atom feed url that does not include departments' do
     topic = create(:topic)
     organisation = create(:ministerial_department)
     edition = create(:policy, topics: [topic], organisations: [organisation])
@@ -201,7 +201,7 @@ class Edition::GovUkDeliveryTest < ActiveSupport::TestCase
     assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/policies.atom?topics%5B%5D=#{topic.slug}"
   end
 
-  test 'Notifier::GovUkDelivery#govuk_delivery_tags for a policy returns an atom feed url that does not include departments or topics' do
+  test 'GovUkDeliveryEndPoint#govuk_delivery_tags for a policy returns an atom feed url that does not include departments or topics' do
     topic = create(:topic)
     organisation = create(:ministerial_department)
     edition = create(:policy, topics: [topic], organisations: [organisation])
@@ -209,7 +209,7 @@ class Edition::GovUkDeliveryTest < ActiveSupport::TestCase
     assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/policies.atom"
   end
 
-  test 'Notifier::GovUkDelivery#govuk_delivery_tags for a relevant to local government policy puts the relevant to local param on all policies.atom urls' do
+  test 'GovUkDeliveryEndPoint#govuk_delivery_tags for a relevant to local government policy puts the relevant to local param on all policies.atom urls' do
     topic = create(:topic)
     organisation = create(:ministerial_department)
     edition = create(:policy, topics: [topic], organisations: [organisation], relevant_to_local_government: true)
@@ -227,7 +227,7 @@ class Edition::GovUkDeliveryTest < ActiveSupport::TestCase
 
   ### publications feed urls tests
 
-  test 'Notifier::GovUkDelivery#govuk_delivery_tags for a publication returns an atom feed url for the organisation and a topic (with and without the publication_filter_option param)' do
+  test 'GovUkDeliveryEndPoint#govuk_delivery_tags for a publication returns an atom feed url for the organisation and a topic (with and without the publication_filter_option param)' do
     topic = create(:topic)
     organisation = create(:ministerial_department)
     edition = create(:publication, organisations: [organisation], publication_type: PublicationType::CorporateReport)
@@ -237,7 +237,7 @@ class Edition::GovUkDeliveryTest < ActiveSupport::TestCase
     assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/publications.atom?departments%5B%5D=#{organisation.slug}&publication_filter_option=corporate-reports&topics%5B%5D=#{topic.slug}"
   end
 
-  test 'Notifier::GovUkDelivery#govuk_delivery_tags for a publication returns an atom feed url for each topic/organisation combination' do
+  test 'GovUkDeliveryEndPoint#govuk_delivery_tags for a publication returns an atom feed url for each topic/organisation combination' do
     topic1 = create(:topic)
     topic2 = create(:topic)
     organisation = create(:ministerial_department)
@@ -251,7 +251,7 @@ class Edition::GovUkDeliveryTest < ActiveSupport::TestCase
     assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/publications.atom?departments%5B%5D=#{organisation.slug}&publication_filter_option=corporate-reports&topics%5B%5D=#{topic2.slug}"
   end
 
-  test 'Notifier::GovUkDelivery#govuk_delivery_tags for a publication returns an atom feed url that does not include topics (with and without the publication_filter_option param)' do
+  test 'GovUkDeliveryEndPoint#govuk_delivery_tags for a publication returns an atom feed url that does not include topics (with and without the publication_filter_option param)' do
     topic = create(:topic)
     organisation = create(:ministerial_department)
     edition = create(:publication, organisations: [organisation], publication_type: PublicationType::CorporateReport)
@@ -261,7 +261,7 @@ class Edition::GovUkDeliveryTest < ActiveSupport::TestCase
     assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/publications.atom?departments%5B%5D=#{organisation.slug}&publication_filter_option=corporate-reports"
   end
 
-  test 'Notifier::GovUkDelivery#govuk_delivery_tags for a publication returns an atom feed url that does not include departments (with and without the publication_filter_option param)' do
+  test 'GovUkDeliveryEndPoint#govuk_delivery_tags for a publication returns an atom feed url that does not include departments (with and without the publication_filter_option param)' do
     topic = create(:topic)
     organisation = create(:ministerial_department)
     edition = create(:publication, organisations: [organisation], publication_type: PublicationType::CorporateReport)
@@ -271,7 +271,7 @@ class Edition::GovUkDeliveryTest < ActiveSupport::TestCase
     assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/publications.atom?publication_filter_option=corporate-reports&topics%5B%5D=#{topic.slug}"
   end
 
-  test 'Notifier::GovUkDelivery#govuk_delivery_tags for a publication returns an atom feed url that does not include departments or topics (with and without the publication_filter_option param)' do
+  test 'GovUkDeliveryEndPoint#govuk_delivery_tags for a publication returns an atom feed url that does not include departments or topics (with and without the publication_filter_option param)' do
     topic = create(:topic)
     organisation = create(:ministerial_department)
     edition = create(:publication, organisations: [organisation], publication_type: PublicationType::CorporateReport)
@@ -281,7 +281,7 @@ class Edition::GovUkDeliveryTest < ActiveSupport::TestCase
     assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/publications.atom?publication_filter_option=corporate-reports"
   end
 
-  test 'Notifier::GovUkDelivery#govuk_delivery_tags for a publication with a type that is not available as a filter returns an atom feed without a publication_filter_option' do
+  test 'GovUkDeliveryEndPoint#govuk_delivery_tags for a publication with a type that is not available as a filter returns an atom feed without a publication_filter_option' do
     topic = create(:topic)
     organisation = create(:ministerial_department)
     edition = create(:publication, organisations: [organisation], publication_type: PublicationType::Unknown)
@@ -290,7 +290,7 @@ class Edition::GovUkDeliveryTest < ActiveSupport::TestCase
     refute tags_for(edition).any? { |feed_url| feed_url =~ /publication_filter_option\=/ }
   end
 
-  test 'Notifier::GovUkDelivery#govuk_delivery_tags for a relevant to local government publication puts the relevant to local param on all publications.atom urls' do
+  test 'GovUkDeliveryEndPoint#govuk_delivery_tags for a relevant to local government publication puts the relevant to local param on all publications.atom urls' do
     topic = create(:topic)
     organisation = create(:ministerial_department)
     edition = create(:publication, organisations: [organisation], publication_type: PublicationType::CorporateReport)
@@ -319,7 +319,7 @@ class Edition::GovUkDeliveryTest < ActiveSupport::TestCase
 
   ## announcements feed urls tests
 
-  test 'Notifier::GovUkDelivery#govuk_delivery_tags for an announcement returns an atom feed url for the organisation and a topic (with and without the publication_filter_option param)' do
+  test 'GovUkDeliveryEndPoint#govuk_delivery_tags for an announcement returns an atom feed url for the organisation and a topic (with and without the publication_filter_option param)' do
     topic = create(:topic)
     organisation = create(:ministerial_department)
     edition = create(:news_article, organisations: [organisation], news_article_type: NewsArticleType::PressRelease)
@@ -329,7 +329,7 @@ class Edition::GovUkDeliveryTest < ActiveSupport::TestCase
     assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/announcements.atom?announcement_filter_option=press-releases&departments%5B%5D=#{organisation.slug}&topics%5B%5D=#{topic.slug}"
   end
 
-  test 'Notifier::GovUkDelivery#govuk_delivery_tags for an announcement returns an atom feed url for each topic/organisation combination' do
+  test 'GovUkDeliveryEndPoint#govuk_delivery_tags for an announcement returns an atom feed url for each topic/organisation combination' do
     topic1 = create(:topic)
     topic2 = create(:topic)
     organisation = create(:ministerial_department)
@@ -343,7 +343,7 @@ class Edition::GovUkDeliveryTest < ActiveSupport::TestCase
     assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/announcements.atom?announcement_filter_option=press-releases&departments%5B%5D=#{organisation.slug}&topics%5B%5D=#{topic2.slug}"
   end
 
-  test 'Notifier::GovUkDelivery#govuk_delivery_tags for an announcement returns an atom feed url that does not include topics (with and without the publication_filter_option param)' do
+  test 'GovUkDeliveryEndPoint#govuk_delivery_tags for an announcement returns an atom feed url that does not include topics (with and without the publication_filter_option param)' do
     topic = create(:topic)
     organisation = create(:ministerial_department)
     edition = create(:news_article, organisations: [organisation], news_article_type: NewsArticleType::PressRelease)
@@ -353,7 +353,7 @@ class Edition::GovUkDeliveryTest < ActiveSupport::TestCase
     assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/announcements.atom?announcement_filter_option=press-releases&departments%5B%5D=#{organisation.slug}"
   end
 
-  test 'Notifier::GovUkDelivery#govuk_delivery_tags for an announcement returns an atom feed url that does not include departments (with and without the publication_filter_option param)' do
+  test 'GovUkDeliveryEndPoint#govuk_delivery_tags for an announcement returns an atom feed url that does not include departments (with and without the publication_filter_option param)' do
     topic = create(:topic)
     organisation = create(:ministerial_department)
     edition = create(:news_article, organisations: [organisation], news_article_type: NewsArticleType::PressRelease)
@@ -363,7 +363,7 @@ class Edition::GovUkDeliveryTest < ActiveSupport::TestCase
     assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/announcements.atom?announcement_filter_option=press-releases&topics%5B%5D=#{topic.slug}"
   end
 
-  test 'Notifier::GovUkDelivery#govuk_delivery_tags for an announcement returns an atom feed url that does not include departments or topics (with and without the publication_filter_option param)' do
+  test 'GovUkDeliveryEndPoint#govuk_delivery_tags for an announcement returns an atom feed url that does not include departments or topics (with and without the publication_filter_option param)' do
     topic = create(:topic)
     organisation = create(:ministerial_department)
     edition = create(:news_article, organisations: [organisation], news_article_type: NewsArticleType::PressRelease)
@@ -373,7 +373,7 @@ class Edition::GovUkDeliveryTest < ActiveSupport::TestCase
     assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/announcements.atom?announcement_filter_option=press-releases"
   end
 
-  test 'Notifier::GovUkDelivery#govuk_delivery_tags for an announcement with a type that is not available as a filter returns an atom feed without a announcement_filter_option' do
+  test 'GovUkDeliveryEndPoint#govuk_delivery_tags for an announcement with a type that is not available as a filter returns an atom feed without a announcement_filter_option' do
     topic = create(:topic)
     organisation = create(:ministerial_department)
     edition = create(:news_article, organisations: [organisation])
@@ -383,7 +383,7 @@ class Edition::GovUkDeliveryTest < ActiveSupport::TestCase
     refute tags_for(edition).any? { |feed_url| feed_url =~ /announcement_filter_option\=/ }
   end
 
-  test 'Notifier::GovUkDelivery#govuk_delivery_tags for a relevant to local government announcement puts the relevant to local param on all publications.atom urls' do
+  test 'GovUkDeliveryEndPoint#govuk_delivery_tags for a relevant to local government announcement puts the relevant to local param on all publications.atom urls' do
     topic = create(:topic)
     organisation = create(:ministerial_department)
     edition = create(:news_article, organisations: [organisation], news_article_type: NewsArticleType::PressRelease)
@@ -412,7 +412,7 @@ class Edition::GovUkDeliveryTest < ActiveSupport::TestCase
 
   ## end document type specific tests
 
-  test 'Notifier::GovUkDelivery#govuk_delivery_email_body generates a utf-8 encoded body' do
+  test 'GovUkDeliveryEndPoint#govuk_delivery_email_body generates a utf-8 encoded body' do
     publication = create(:news_article, title: "Café".encode("UTF-8"))
 
     body = email_body_for(publication)
@@ -420,7 +420,7 @@ class Edition::GovUkDeliveryTest < ActiveSupport::TestCase
     assert_equal 'UTF-8', body.encoding.name
   end
 
-  test "Notifier::GovUkDelivery#govuk_delivery_email_body should link to full URL in email" do
+  test "GovUkDeliveryEndPoint#govuk_delivery_email_body should link to full URL in email" do
     publication = create(:publication)
     publication.first_published_at = Time.zone.now
     publication.major_change_published_at = Time.zone.now
@@ -428,7 +428,7 @@ class Edition::GovUkDeliveryTest < ActiveSupport::TestCase
     assert_match /#{Whitehall.public_host}/, email_body_for(publication)
   end
 
-  test "Notifier::GovUkDelivery#govuk_delivery_email_body should include change note along with summary in an updated edition" do
+  test "GovUkDeliveryEndPoint#govuk_delivery_email_body should include change note along with summary in an updated edition" do
     editor = create(:departmental_editor)
     first_draft = create(:published_publication)
     second_draft = first_draft.create_draft(editor)
@@ -441,7 +441,7 @@ class Edition::GovUkDeliveryTest < ActiveSupport::TestCase
     assert_equal_ignoring_whitespace second_draft.change_note + second_draft.summary, body.css('.rss_description').inner_text
   end
 
-  test "Notifier::GovUkDelivery#govuk_delivery_email_body includes summary in the first published edition" do
+  test "GovUkDeliveryEndPoint#govuk_delivery_email_body includes summary in the first published edition" do
     editor = create(:departmental_editor)
     first_draft = create(:published_publication)
 
@@ -450,27 +450,27 @@ class Edition::GovUkDeliveryTest < ActiveSupport::TestCase
     assert_equal_ignoring_whitespace first_draft.summary, body.css('.rss_description').inner_text
   end
 
-  test "Notifier::GovUkDelivery#govuk_delivery_email_body includes a formatted date" do
+  test "GovUkDeliveryEndPoint#govuk_delivery_email_body includes a formatted date" do
     publication = create(:publication)
     body = Nokogiri::HTML.fragment(email_body_for(publication, Time.zone.parse("2011-01-01 12:13:14")))
     assert_equal_ignoring_whitespace "1 January, 2011 at 12:13pm", body.css('.rss_pub_date').inner_text
   end
 
-  test "Notifier::GovUkDelivery#notification_date uses the major_change_published_at for the notification_date of speeches" do
+  test "GovUkDeliveryEndPoint#notification_date uses the major_change_published_at for the notification_date of speeches" do
     speech = create(:speech)
     speech.major_change_published_at = Time.zone.parse('2011-01-01 12:13:14')
     speech.public_timestamp = Time.zone.parse('2010-12-31 12:13:14')
     assert_equal notification_date_for(speech), Time.zone.parse('2011-01-01 12:13:14')
   end
 
-  test "Notifier::GovUkDelivery#notification_date uses the public_timestamp for the notification_date of other editions" do
+  test "GovUkDeliveryEndPoint#notification_date uses the public_timestamp for the notification_date of other editions" do
     policy = create(:policy)
     policy.major_change_published_at = Time.zone.parse('2011-01-01 12:13:14')
     policy.public_timestamp = Time.zone.parse('2010-12-31 12:13:14')
     assert_equal notification_date_for(policy), Time.zone.parse('2010-12-31 12:13:14')
   end
 
-  test 'Notifier::GovUkDelivery#notify! sends a notification via the govuk delivery client' do
+  test 'GovUkDeliveryEndPoint#notify! sends a notification via the govuk delivery client' do
     policy = create(:policy)
     policy.stubs(:public_timestamp).returns Time.zone.now
     notifier = govuk_delivery_notifier_for(policy)
@@ -480,7 +480,7 @@ class Edition::GovUkDeliveryTest < ActiveSupport::TestCase
     notifier.notify!
   end
 
-  test 'Notifier::GovUkDelivery#notify! swallows errors from the API' do
+  test 'GovUkDeliveryEndPoint#notify! swallows errors from the API' do
     policy = create(:policy, topics: [create(:topic)])
     policy.public_timestamp = Time.zone.now
     Whitehall.govuk_delivery_client.expects(:notify).raises(GdsApi::HTTPErrorResponse, 500)
@@ -488,7 +488,7 @@ class Edition::GovUkDeliveryTest < ActiveSupport::TestCase
     assert_nothing_raised { govuk_delivery_notifier_for(policy).notify! }
   end
 
-  test 'Notifier::GovUkDelivery#notify! swallows timeout errors from the API' do
+  test 'GovUkDeliveryEndPoint#notify! swallows timeout errors from the API' do
     policy = create(:policy, topics: [create(:topic)])
     policy.public_timestamp = Time.zone.now
     Whitehall.govuk_delivery_client.expects(:notify).raises(GdsApi::TimedOutException)
@@ -496,7 +496,7 @@ class Edition::GovUkDeliveryTest < ActiveSupport::TestCase
     assert_nothing_raised { govuk_delivery_notifier_for(policy).notify! }
   end
 
-  test 'Notifier::EmailCurationQueue#notify! constructs a new EmailCurationQueueItem based on the edition' do
+  test 'EmailCurationQueueEndPoint#notify! constructs a new EmailCurationQueueItem based on the edition' do
     policy = create(:policy, topics: [create(:topic)])
     notifier = email_curation_queue_notifier_for(policy, 1.day.ago)
     EmailCurationQueueItem.expects(:create_from_edition).with(policy, 1.day.ago)
