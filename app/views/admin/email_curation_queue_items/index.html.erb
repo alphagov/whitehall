@@ -11,22 +11,7 @@
   </thead>
   <tbody>
     <% if @email_curation_queue_items.any? %>
-      <% @email_curation_queue_items.each do |item| %>
-        <%= content_tag_for(:tr, item) do %>
-          <td class="title">
-            <%= item.title %>
-          </td>
-          <td class="summary">
-            <p><%= item.summary %></p>
-          </td>
-          <td class="actions">
-            <%= link_to 'View on website', public_document_url(item.edition), class: 'btn' %>
-            <%= link_to 'Edit', [:edit, :admin, item], class: 'btn btn-primary' %>
-            <%= button_to "Send", [:send_to_subscribers, :admin, item], method: :post, class: "btn btn-success", confirm: "Are you sure you wan to send this document to subcribers?" %>
-            <%= button_to "Delete", [:admin, item], method: :delete, class: "btn btn-danger", confirm: "Are you sure you want to delete this from the queue; it will not be sent to subscribers?" %>
-          </td>
-        <% end %>
-      <% end %>
+      <%= render @email_curation_queue_items %>
     <% else %>
       <td colspan="3">Queue empty!</td>
     <% end %>

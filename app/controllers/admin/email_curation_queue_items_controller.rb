@@ -2,7 +2,7 @@ class Admin::EmailCurationQueueItemsController < Admin::BaseController
   before_filter :load_email_curation_queue_item, except: [:index]
 
   def index
-    @email_curation_queue_items = EmailCurationQueueItem.order('created_at desc').all
+    @email_curation_queue_items = EmailCurationQueueItem.order('created_at desc').includes(edition: :document)
   end
 
   def edit
