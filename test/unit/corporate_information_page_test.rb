@@ -117,7 +117,8 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
       other: [
         CorporateInformationPageType::PublicationScheme,
         CorporateInformationPageType::WelshLanguageScheme,
-        CorporateInformationPageType::PersonalInformationCharter
+        CorporateInformationPageType::PersonalInformationCharter,
+        CorporateInformationPageType::SocialMediaUse
       ]
     }
 

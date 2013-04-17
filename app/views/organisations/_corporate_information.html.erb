@@ -50,5 +50,9 @@
       <%= t('worldwide_organisation.corporate_information.personal_information_charter_html',
             link: t_corporate_information_page_link(organisation, "personal-information-charter")) %>
     <% end %>
+    <% if organisation.corporate_information_pages.for_slug('social-media-use').present? %>
+      <%= t('worldwide_organisation.corporate_information.social_media_use_html',
+            link: t_corporate_information_page_link(organisation, 'social-media-use')) %>
+    <% end %>
   </p>
 </section>
