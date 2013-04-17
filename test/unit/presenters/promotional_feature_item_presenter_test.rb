@@ -35,7 +35,7 @@ class PromotionalFeatureItemPresenterTest < ActionView::TestCase
   end
 
   test '#title returns the title wrapped in a h3 tag if title is set' do
-    assert_equal '<h3>Optional title</h3>', item_presenter(title: 'Optional title').title
+    assert_equal '<h3>Optional title</h3>', item_presenter(title: 'Optional title', title_url: '').title
   end
 
   test '#title returns the title with a link if there is a link present' do
