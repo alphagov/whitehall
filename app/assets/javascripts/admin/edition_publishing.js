@@ -48,6 +48,35 @@ jQuery(function($) {
 })(jQuery);
 
 (function($) {
+  var $label = $('.check-date-valid'),
+      $message = $('.date-warning-info').hide();
+  if ($label.length > 0){
+    var id = $($('.check-date-valid')[0]).attr('for'),
+        $year = $('#' + id + '_1i'),
+        $month = $('#' + id + '_2i'),
+        $day = $('#' + id + '_3i');
+    function checkDateValidity(){
+      var year = $year[0].value,
+          month = (parseInt($month[0].value) - 1),
+          day = $day[0].value,
+          dateSet = new Date(year, month, day),
+          today = new Date();
+      if (today < dateSet){
+        $message.addClass('warning');
+        $message.show();
+      } else {
+        $message.removeClass('warning');
+        $message.hide();
+      }
+    }
+    $year.bind('blur', checkDateValidity);
+    $month.bind('blur', checkDateValidity);
+    $day.bind('blur', checkDateValidity);
+    checkDateValidity();
+  }
+})(jQuery);
+
+(function($) {
   var publicationTypeChooser = $('.js-access-limited-by-default-checkbox');
   if (publicationTypeChooser.length > 0) {
     var accessLimitedByDefaultIds = publicationTypeChooser.data('access-limited-by-default-type-ids');

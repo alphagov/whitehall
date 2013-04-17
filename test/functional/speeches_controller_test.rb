@@ -13,7 +13,7 @@ class SpeechesControllerTest < ActionController::TestCase
     theresa_may = create(:person, forename: "Theresa", surname: "May", image: fixture_file_upload('minister-of-funk.960x640.jpg'))
     theresa_may_appointment = create(:role_appointment, role: home_secretary, person: theresa_may)
     speech_type = SpeechType::Transcript
-    published_speech = create(:published_speech, speech_type: speech_type, role_appointment: theresa_may_appointment, delivered_on: Date.parse("2011-06-01"), location: "The Guidhall")
+    published_speech = create(:published_speech, speech_type: speech_type, role_appointment: theresa_may_appointment, delivered_on: Time.zone.parse("2011-06-01 00:00:00"), location: "The Guidhall")
 
     get :show, id: published_speech.document
 

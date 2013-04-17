@@ -15,7 +15,6 @@ class Admin::SpeechesControllerTest < ActionController::TestCase
   should_allow_association_between_world_locations_and :speech
   should_allow_attached_images_for :speech
   should_prevent_modification_of_unmodifiable :speech
-  should_allow_overriding_of_first_published_at_for :speech
   should_allow_assignment_to_document_series :speech
   should_allow_scheduled_publication_of :speech
   should_allow_access_limiting_of :speech
@@ -27,7 +26,7 @@ class Admin::SpeechesControllerTest < ActionController::TestCase
     assert_select "form#edition_new" do
       assert_select "select[name='edition[speech_type_id]']"
       assert_select "select[name='edition[role_appointment_id]']"
-      assert_select "select[name*='edition[delivered_on']", count: 3
+      assert_select "select[name*='edition[delivered_on']", count: 5
       assert_select "input[name='edition[location]'][type='text']"
     end
   end
@@ -72,7 +71,7 @@ class Admin::SpeechesControllerTest < ActionController::TestCase
     theresa_may = create(:person, forename: "Theresa", surname: "May")
     theresa_may_appointment = create(:role_appointment, role: home_secretary, person: theresa_may, started_at: Date.parse('2011-01-01'))
     speech_type = SpeechType::Transcript
-    draft_speech = create(:draft_speech, speech_type: speech_type, role_appointment: theresa_may_appointment, delivered_on: Date.parse("2011-06-01"), location: "The Guidhall")
+    draft_speech = create(:draft_speech, speech_type: speech_type, role_appointment: theresa_may_appointment, delivered_on: Time.zone.parse("2011-06-01 00:00:00"), location: "The Guidhall")
 
     get :show, id: draft_speech
 
@@ -83,7 +82,7 @@ class Admin::SpeechesControllerTest < ActionController::TestCase
         assert_select ".role", "Secretary of State"
         assert_select ".organisations", "Home Office"
       end
-      assert_select ".delivered_on", "1 June 2011"
+      assert_select ".delivered_on", "1 June 2011 00:00"
       assert_select ".location", "The Guidhall"
     end
   end

@@ -302,12 +302,12 @@ That's all
     policy = create(:published_policy)
     edition = create(:published_publication,
       related_editions: [policy],
-      publication_date: 2.days.ago.to_date)
+      publication_date: Time.zone.now - 2.days)
 
     get :activity, id: policy.document
 
     assert_select_object edition do
-      assert_select '.date', text: %r{#{edition.publication_date.to_s(:long_ordinal)}}
+      assert_select '.date', text: %r{#{edition.publication_date.to_date.to_s(:long_ordinal)}}
     end
   end
 

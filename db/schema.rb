@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130415151833) do
+ActiveRecord::Schema.define(:version => 20130417115108) do
 
   create_table "access_and_opening_times", :force => true do |t|
     t.text     "body"
@@ -431,12 +431,12 @@ ActiveRecord::Schema.define(:version => 20130415151833) do
     t.string   "type"
     t.integer  "role_appointment_id"
     t.string   "location"
-    t.date     "delivered_on"
+    t.datetime "delivered_on"
     t.date     "opening_on"
     t.date     "closing_on"
     t.datetime "major_change_published_at"
     t.datetime "first_published_at"
-    t.date     "publication_date"
+    t.datetime "publication_date"
     t.integer  "speech_type_id"
     t.boolean  "stub",                                        :default => false
     t.text     "change_note"
