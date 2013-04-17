@@ -602,6 +602,32 @@ ActiveRecord::Schema.define(:version => 20130417115108) do
   add_index "groups", ["organisation_id"], :name => "index_groups_on_organisation_id"
   add_index "groups", ["slug"], :name => "index_groups_on_slug"
 
+  create_table "historical_account_roles", :force => true do |t|
+    t.integer  "role_id"
+    t.integer  "historical_account_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "historical_account_roles", ["historical_account_id"], :name => "index_historical_account_roles_on_historical_account_id"
+  add_index "historical_account_roles", ["role_id"], :name => "index_historical_account_roles_on_role_id"
+
+  create_table "historical_accounts", :force => true do |t|
+    t.integer  "person_id"
+    t.text     "summary"
+    t.text     "body"
+    t.string   "born"
+    t.string   "died"
+    t.integer  "political_party_id"
+    t.text     "major_acts"
+    t.text     "interesting_facts"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "historical_accounts", ["person_id"], :name => "index_historical_accounts_on_person_id"
+  add_index "historical_accounts", ["political_party_id"], :name => "index_historical_accounts_on_political_party_id"
+
   create_table "html_versions", :force => true do |t|
     t.integer  "edition_id"
     t.string   "title"
