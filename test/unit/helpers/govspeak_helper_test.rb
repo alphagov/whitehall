@@ -231,16 +231,16 @@ class GovspeakHelperTest < ActionView::TestCase
 
   test "should add numbers to defined heading level" do
     input = "# first\n\n# second"
-    output = '<div class="govspeak"><h1 id="first"> <span class="number">1.</span> first</h1> <h1 id="second"> <span class="number">2.</span> second</h1></div>'
+    output = '<div class="govspeak"><h1 id="first"> <span class="number">1. </span>first</h1> <h1 id="second"> <span class="number">2. </span>second</h1></div>'
     assert_equal output, govspeak_to_html(input, [], numbered_heading_level: ['h1']).gsub(/\s+/, ' ')
   end
 
   test "should add numbers to two defined heading levels" do
     input = "# first\n\n## first point one\n\n## first point two\n\n# second"
-    expected_output_1 = '<h1 id="first"> <span class="number">1.</span> first</h1>'
-    expected_output_1_1 = '<h2 id="first-point-one"> <span class="number">1.1</span> first point one</h2>'
-    expected_output_1_2 = '<h2 id="first-point-two"> <span class="number">1.2</span> first point two</h2>'
-    expected_output_2 = '<h1 id="second"> <span class="number">2.</span> second</h1>'
+    expected_output_1 = '<h1 id="first"> <span class="number">1. </span>first</h1>'
+    expected_output_1_1 = '<h2 id="first-point-one"> <span class="number">1.1 </span>first point one</h2>'
+    expected_output_1_2 = '<h2 id="first-point-two"> <span class="number">1.2 </span>first point two</h2>'
+    expected_output_2 = '<h1 id="second"> <span class="number">2. </span>second</h1>'
     actual_output = govspeak_to_html(input, [], numbered_heading_level: ['h1', 'h2']).gsub(/\s+/, ' ')
     assert_match %r(#{expected_output_1}), actual_output
     assert_match %r(#{expected_output_1_1}), actual_output
@@ -251,7 +251,7 @@ class GovspeakHelperTest < ActionView::TestCase
   test "should not add numbers to heading before first major heading" do
     input = "## zero point one\n\n# first"
     expected_output_0 = '<h2 id="zero-point-one">zero point one</h2>'
-    expected_output_1 = '<h1 id="first"> <span class="number">1.</span> first</h1>'
+    expected_output_1 = '<h1 id="first"> <span class="number">1. </span>first</h1>'
     actual_output = govspeak_to_html(input, [], numbered_heading_level: ['h1', 'h2']).gsub(/\s+/, ' ')
     assert_match %r(#{expected_output_0}), actual_output
     assert_match %r(#{expected_output_1}), actual_output
