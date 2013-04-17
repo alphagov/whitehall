@@ -1,0 +1,19 @@
+<% page_title "Email curation queue" %>
+<h1>Email curation queue</h1>
+
+<table class="table table-striped" id="email_curation_queue_items">
+  <thead>
+    <tr>
+      <th width="30%">Title for email</th>
+      <th width="50%">Summary for email</th>
+      <th width="20%">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% if @email_curation_queue_items.any? %>
+      <%= render @email_curation_queue_items %>
+    <% else %>
+      <td colspan="3">Queue empty!</td>
+    <% end %>
+  </tbody>
+</table>
