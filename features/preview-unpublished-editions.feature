@@ -16,4 +16,4 @@ Scenario: Unpublished editions are protected from visitors
   Given a draft publication "Beard Length Review" exists
   And I am a visitor
   When I preview the publication "Beard Length Review"
-  Then I should get a "404" error
+  Then I should get a "302" error
