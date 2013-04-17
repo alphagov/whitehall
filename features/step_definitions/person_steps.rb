@@ -1,5 +1,5 @@
-Given /^a person called "([^"]*)"$/ do |name|
-  create_person(name)
+Given /^a person called "([^"]*)"( exists)?$/ do |name, ignored|
+  @person = create_person(name)
 end
 
 Given /^a person called "([^"]*)" exists with the biography "([^"]*)"$/ do |name, biography|
