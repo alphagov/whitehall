@@ -53,6 +53,11 @@ ru:
         few:
         many:
         other: Объявления
+      authored_article:
+        one:
+        few:
+        many:
+        other:
       case_study:
         one: Ситуационный анализ
         few:
@@ -241,11 +246,15 @@ ru:
     published: Опубликовано
     read: Прочитать статью %{title}
     speech:
+      author_title:
+        minister:
+        speaker:
       delivered_on: Представлено в
       delivery_title:
         minister: Министр
         speaker: Докладчик
       originally_given_at: Источник %{location}
+      written_on:
     updated: обновлено
     view:
   organisation:

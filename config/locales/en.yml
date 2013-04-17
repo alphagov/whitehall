@@ -212,15 +212,22 @@ en:
       written_statement:
         one: Written statement to Parliament
         other: Written statements to Parliament
+      authored_article:
+        one: Authored article
+        other: Authored articles
     updated: updated
     view: View '%{title}'
     read: Read the %{title} article
     speech:
       delivered_on: "Delivered on:"
+      written_on: "Written on:"
       originally_given_at: "Originally given at %{location}."
       delivery_title:
         minister: Minister
         speaker: Speaker
+      author_title:
+        minister: Minister
+        speaker: Writer
   feeds:
     atom: atom
     email_alerts: email alerts

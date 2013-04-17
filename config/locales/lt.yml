@@ -44,6 +44,10 @@ lt:
         one:
         few:
         other:
+      authored_article:
+        one:
+        few:
+        other:
       case_study:
         one:
         few:
@@ -195,11 +199,15 @@ lt:
     published:
     read:
     speech:
+      author_title:
+        minister:
+        speaker:
       delivered_on:
       delivery_title:
         minister:
         speaker:
       originally_given_at:
+      written_on:
     updated:
     view:
   organisation:

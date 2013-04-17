@@ -53,6 +53,11 @@ uk:
         few:
         many:
         other: Оголошення
+      authored_article:
+        one:
+        few:
+        many:
+        other:
       case_study:
         one: Тематчине дослідження
         few:
@@ -241,11 +246,15 @@ uk:
     published: опубліковано
     read: Читати %{title} статтю
     speech:
+      author_title:
+        minister:
+        speaker:
       delivered_on: ! 'Виголошено:'
       delivery_title:
         minister: Міністр
         speaker: Спікер
       originally_given_at: Уперше виголошено в %{location}.
+      written_on:
     updated: оновлено
     view: Перегляди '%{title}'
   organisation:

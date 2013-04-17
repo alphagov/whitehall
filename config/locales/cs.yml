@@ -44,6 +44,10 @@ cs:
         one: Oznámení
         few:
         other: Oznámení
+      authored_article:
+        one:
+        few:
+        other:
       case_study:
         one: Případová studie
         few:
@@ -88,7 +92,6 @@ cs:
         one: Formulář
         few:
         other: Formuláře
-        other:
       government_response:
         one:
         few:
@@ -196,11 +199,15 @@ cs:
     published: Publikováno
     read:
     speech:
+      author_title:
+        minister:
+        speaker:
       delivered_on:
       delivery_title:
         minister: Ministr
         speaker: Řečník
       originally_given_at:
+      written_on:
     updated: Aktualizováno
     view:
   organisation:

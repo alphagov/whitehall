@@ -103,3 +103,29 @@ Then /^I should see the speech was delivered on "([^"]*)" at "([^"]*)"$/ do |del
   assert page.has_css?('.delivered-on', text: delivered_on)
   assert page.has_css?('.location', text: location)
 end
+
+When /^I draft a new authored article "([^"]*)"$/ do |title|
+  begin_drafting_speech title: title
+  select 'Authored article', from: "Type"
+end
+
+Then /^I should be able to choose who wrote the article$/ do
+  select "Colonel Mustard, Attorney General", from: "Writer"
+end
+
+Then /^I should be able to choose the date it was written on$/ do
+  select_date "Written on", with: 1.day.ago.to_s
+end
+
+Then /^I cannot choose a location for the article$/ do
+  refute page.find("#edition_location").visible?
+end
+
+When /^I preview the authored article$/ do
+  click_button "Save"
+  click_link "Preview"
+end
+
+Then /^I should see who wrote it clearly labelled in the metadata$/ do
+  assert page.has_css?('.document-page-header dt', text: "Written on:")
+end

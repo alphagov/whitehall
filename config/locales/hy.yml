@@ -35,6 +35,9 @@ hy:
       announcement:
         one: Հայտարարություն
         other: Հայտարարություններ
+      authored_article:
+        one:
+        other:
       case_study:
         one: Թեմատիկ ուսումնասիրություն
         other: Թեմատիկ ուսումնասիրություններ
@@ -149,11 +152,15 @@ hy:
     published: հրապարակված
     read: Կարդացեք  %{title} հոդվածը
     speech:
+      author_title:
+        minister:
+        speaker:
       delivered_on: Առաքվել է
       delivery_title:
         minister: Նախարար
         speaker: Խոսնակ
       originally_given_at: Սկզբնապես տրվել է %{location}ում
+      written_on:
     updated: Թարմացված
     view: Տես '%{title}'-ը
   organisation:

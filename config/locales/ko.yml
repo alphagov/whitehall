@@ -65,15 +65,22 @@ ko:
     published: 출판물/발행물
     read:
     speech:
+      author_title:
+        minister:
+        speaker:
       delivered_on:
       delivery_title:
         minister: 장관
         speaker: 대변인
       originally_given_at:
+      written_on:
     type:
       announcement:
         one: 공지
         other: 공지
+      authored_article:
+        one:
+        other:
       case_study:
         one: 케이스 스터디
         other: 케이스 스터디

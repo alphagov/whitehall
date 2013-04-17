@@ -20,16 +20,23 @@ class TranslationHelperTest < ActionView::TestCase
 
   test "t_delivery_title returns minister value if document was delivered by minister" do
     I18n.backend.store_translations :en, {document: {speech: {delivery_title: {minister: 'minister-value'}}}}
-    assert_equal "minister-value", t_delivery_title(stub('document', delivered_by_minister?: true))
+    assert_equal "minister-value", t_delivery_title(stub('document', speech_type: stub('type', owner_key_group: 'delivery_title'), delivered_by_minister?: true))
   end
 
   test "t_delivery_title returns speaker value if document was not delivered by minister" do
     I18n.backend.store_translations :en, {document: {speech: {delivery_title: {speaker: 'speaker-value'}}}}
-    assert_equal "speaker-value", t_delivery_title(stub('document', delivered_by_minister?: false))
+    assert_equal "speaker-value", t_delivery_title(stub('document', speech_type: stub('type', owner_key_group: 'delivery_title'), delivered_by_minister?: false))
   end
 
   test "t_corporate_information_page_type uses display_type_key from the page" do
     I18n.backend.store_translations :en, {corporate_information_page: {type: {page_type: "the-page-type"}}}
     assert_equal "the-page-type", t_corporate_information_page_type(stub('corp info page', display_type_key: "page_type"))
+  end
+
+  test "t_delivered_on returns written value if document is a written speech" do
+    I18n.backend.store_translations :en, {document: {speech: {delivered_on: 'delivered-on-value'}}}
+    I18n.backend.store_translations :en, {document: {speech: {written_on: 'written-on-value'}}}
+    assert_equal "delivered-on-value", t_delivered_on(stub('speech_type', published_externally_key: 'delivered_on'))
+    assert_equal "written-on-value", t_delivered_on(stub('speech_type', published_externally_key: 'written_on'))
   end
 end

@@ -65,15 +65,22 @@ id:
     published: Diterbitkan
     read: Baca artikel %{title}
     speech:
+      author_title:
+        minister:
+        speaker:
       delivered_on: ! 'Dikirimkan pada:'
       delivery_title:
         minister: Menteri
         speaker: Pembicara
       originally_given_at: Disampaikan di %{location}
+      written_on:
     type:
       announcement:
         one: Pengumuman
         other: Pengumuman-pengumuman
+      authored_article:
+        one:
+        other:
       case_study:
         one: Studi kasus
         other: Studi kasus
