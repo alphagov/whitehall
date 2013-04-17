@@ -126,9 +126,17 @@ module GovspeakHelper
     end
   end
 
-  def add_heading_numbers(nokogiri_doc, heading_level)
-    nokogiri_doc.css(heading_level).map.with_index do |el,i|
-      el.inner_html = el.document.fragment(%{<span class="number">#{i+1}.</span> #{el.inner_html}}).children
+  def add_heading_numbers(nokogiri_doc, heading_levels)
+    nokogiri_doc.css(heading_levels.join(',')).inject([0, 0]) do |levels, el|
+      if el.name == heading_levels[0]
+        levels = [levels[0]+1, 0]
+        level_output = "#{levels[0]}."
+      else
+        levels = [levels[0], levels[1]+1]
+        level_output = levels[0] > 0 ? levels.join('.') : ""
+      end
+      el.inner_html = el.document.fragment(%{<span class="number">#{level_output} </span>#{el.inner_html}}).children unless level_output.empty?
+      levels
     end
   end
 
