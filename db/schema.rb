@@ -1012,6 +1012,19 @@ ActiveRecord::Schema.define(:version => 20130423141920) do
   add_index "supporting_pages", ["edition_id"], :name => "index_supporting_pages_on_edition_id"
   add_index "supporting_pages", ["slug"], :name => "index_supporting_documents_on_slug"
 
+  create_table "take_part_pages", :force => true do |t|
+    t.string   "title",                                 :null => false
+    t.string   "slug",                                  :null => false
+    t.string   "summary",                               :null => false
+    t.text     "body",              :limit => 16777215, :null => false
+    t.string   "carrierwave_image"
+    t.string   "image_alt_text"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "take_part_pages", ["slug"], :name => "index_take_part_pages_on_slug", :unique => true
+
   create_table "unpublishings", :force => true do |t|
     t.integer  "edition_id"
     t.integer  "unpublishing_reason_id"
