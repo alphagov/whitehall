@@ -91,7 +91,7 @@ module GovspeakHelper
     return govspeak if govspeak.blank?
     govspeak.gsub(GovspeakHelper::EMBEDDED_CONTACT_REGEXP) do
       if contact = Contact.find_by_id($1)
-        render(contact)
+        render('contacts/contact', contact: contact)
       else
         ''
       end

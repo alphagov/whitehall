@@ -8,6 +8,9 @@ class Admin::AdminGovspeakHelperTest < ActionView::TestCase
   setup do
     @request  = ActionController::TestRequest.new
     ActionController::Base.default_url_options = {}
+    # To mimic the setup for this helper where it is likely to be used
+    # e.g. in Admin:: prefixed controllers and admin/ views
+    @controller.lookup_context.prefixes = ['admin/base']
   end
   attr_reader :request
 
@@ -113,4 +116,14 @@ class Admin::AdminGovspeakHelperTest < ActionView::TestCase
     html = govspeak_edition_to_admin_html(edition)
     assert_select_within_html html, ".govspeak figure.image.embedded img[src=https://some.cdn.com/image.jpg]"
   end
+
+  test 'uses the frontend contacts/_contact partial when rendering embedded contacts, not the admin partial' do
+    contact = build(:contact)
+    Contact.stubs(:find_by_id).with('1').returns(contact)
+    input = '[Contact:1]'
+    output = govspeak_to_admin_html(input)
+    contact_html = render('contacts/contact', contact: contact)
+    assert_equal "<div class=\"govspeak\">#{contact_html}</div>", output
+  end
+
 end
