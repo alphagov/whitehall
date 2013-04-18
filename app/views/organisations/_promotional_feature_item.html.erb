@@ -6,7 +6,7 @@
 
     <%=content_tag :ul, class: item.link_list_class do %>
       <% item.links.each do |link| %>
-        <li><%= link_to link.text, link.url %></li>
+        <li><%= link_to link.text, link.url, ({rel: 'external'} if is_external?(link.url)) %></li>
       <% end %>
     <% end %>
   </div>

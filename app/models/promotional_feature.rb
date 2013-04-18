@@ -4,6 +4,8 @@ class PromotionalFeature < ActiveRecord::Base
 
   validates_presence_of :organisation, :title
 
+  accepts_nested_attributes_for :promotional_feature_items
+
   def items
     promotional_feature_items
   end
