@@ -39,6 +39,10 @@ class SpeechType
     [WrittenStatement, OralStatement]
   end
 
+  def written_article?
+    [AuthoredArticle].include? self
+  end
+
   def search_format_types
     types = ['speech-'+self.name.parameterize]
     types << 'speech-statement-to-parliament' if statement_to_parliament?
