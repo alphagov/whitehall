@@ -20,6 +20,9 @@ class Role < ActiveRecord::Base
   has_many :worldwide_organisation_roles
   has_many :worldwide_organisations, through: :worldwide_organisation_roles
 
+  has_many :historical_account_roles
+  has_many :historical_accounts, through: :historical_account_roles
+
   scope :alphabetical_by_person, includes(:current_people, :organisations).order('people.surname', 'people.forename')
 
   scope :ministerial, where(type: 'MinisterialRole')

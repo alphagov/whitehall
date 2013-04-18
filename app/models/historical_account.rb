@@ -7,6 +7,10 @@ class HistoricalAccount < ActiveRecord::Base
   validates :person, :roles, :summary, :body, :political_party, presence: true
   validates :born, :died, length: { maximum: 256 }
 
+  def self.for_role(role)
+    includes(:historical_account_roles).where('historical_account_roles.role_id' => role)
+  end
+
   def political_party=(political_party)
     self.political_party_id = political_party.try(:id)
   end

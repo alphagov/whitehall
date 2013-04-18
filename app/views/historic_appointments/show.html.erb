@@ -1,0 +1,46 @@
+<% page_title "History of #{@person.name}" %>
+<% page_class "historic-people-show" %>
+
+<div class="block">
+  <div class="inner-block">
+    <header class="page-header">
+      <h1 class="topics">
+        <%= link_to 'History:', histories_path %> Notable people
+      </h1>
+      <h2>Past <%= @role_title %></h2>
+    </header>
+  </div>
+</div>
+
+<%= render partial: 'role_appointments_list', locals: { role: @role, role_title: @role_title } %>
+
+<%= content_tag_for(:div, @role_appointment, class: "block person-info") do %>
+  <div class="name-title">
+    <div class="inner">
+      <h2>
+        <%= @person.name %>
+        <span><%= @role_title.chop %> <%= @role_appointment.date_range %></span>
+      </h2>
+    </div>
+  </div>
+  <div class="person-profile">
+    <div class="inner">
+      <div class="info">
+        <%= @person.image %>
+        <%= historical_fact('Born', @historical_account.born) %>
+        <%= historical_fact('Died', @historical_account.died) %>
+        <%= historical_fact('Dates in office', @role_appointment.date_range) %>
+        <%= historical_fact('Political party', @historical_account.political_membership) %>
+        <%= historical_fact('Major acts', format_with_html_line_breaks(@historical_account.major_acts)) %>
+        <%= historical_fact('Interesting facts', format_with_html_line_breaks(@historical_account.interesting_facts)) %>
+      </div>
+    </div>
+  </div>
+  <div class="person-detail">
+    <div class="inner">
+      <p class="intro"><%= @historical_account.summary %></p>
+
+      <%= govspeak_to_html @historical_account.body %>
+    </div>
+  </div>
+<% end %>

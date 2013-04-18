@@ -7,6 +7,6 @@ module HistoricalAccountHelper
   def historical_account_path(historical_account, role=nil)
     return unless historical_account
     role ||= historical_account.role
-    url_for({ controller: '/historical_accounts', action: :show, role: role.historic_param, person_id: historical_account.person })
+    url_for({ controller: '/historic_appointments', action: :show, role: role.historic_param, person_id: historical_account.person })
   end
 end

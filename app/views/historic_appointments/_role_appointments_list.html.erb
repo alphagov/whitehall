@@ -1,0 +1,22 @@
+<div class="block people-list">
+  <div class="inner-block">
+    <a href="#contents" class="js-showhide contents-toggle">Show past <%= role_title %></a>
+    <div id="contents">
+      <h3>
+        <%= previous_appointments.size %>
+        <span>Past <%= role_title %></span>
+      </h3>
+      <ol>
+        <% previous_appointments.each do |role_appointment| %>
+          <li>
+            <% if role_appointment.has_historical_account? %>
+              <%= link_to_unless_current role_appointment.person.name, historical_account_path(role_appointment.historical_account, role) %>
+            <% else %>
+              <%= role_appointment.person.name %>
+            <% end %>
+          </li>
+        <% end %>
+      </ol>
+    </div>
+  </div>
+</div>

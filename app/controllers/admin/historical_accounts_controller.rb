@@ -4,7 +4,7 @@ class Admin::HistoricalAccountsController < Admin::BaseController
 
 
   def index
-    @historical_accounts = @person.historical_accounts.includes(:roles => :translations)
+    @historical_accounts = @person.historical_accounts.includes(roles: :translations)
   end
 
   def new
