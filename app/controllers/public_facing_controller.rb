@@ -29,7 +29,7 @@ class PublicFacingController < ApplicationController
 
   def restrict_request_formats
     allowed_formats = [Mime::HTML, Mime::JSON, Mime::XML, Mime::ATOM, Mime::ALL]
-    error(406) unless allowed_formats.include?(request.format)
+    error(404) unless allowed_formats.include?(request.format)
   end
 
   def set_expiry(duration = 30.minutes)
