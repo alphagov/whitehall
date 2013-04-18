@@ -17,17 +17,12 @@
     li {
       float: left;
       display: block;
-      border-left: 1px solid $border-colour;
-      padding: 0 $gutter-one-third;
+      border-right: 1px solid $border-colour;
+      padding: 0 $gutter-one-third 0 0;
       height: 16px;
-      margin: 3px 0 2px;
+      margin: 3px $gutter-one-third 2px 0;
       @include right-to-left {
         float: right;
-      }
-
-      &.first {
-        padding-left: 0;
-        border-left: 0;
       }
 
       a, span {
