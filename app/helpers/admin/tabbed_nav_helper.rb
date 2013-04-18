@@ -14,7 +14,8 @@ module Admin::TabbedNavHelper
 
   def person_tabs(person)
     { 'Details' => admin_person_path(person),
-      'Translations' => admin_person_translations_path(person) }
+      'Translations' => admin_person_translations_path(person),
+      'Historical accounts' => admin_person_historical_accounts_path(person) }
   end
 
   def tab_navigation(tabs, &block)

@@ -1,4 +1,4 @@
-Given /^a person called "([^"]*)"( exists)?$/ do |name, ignored|
+Given /^a person called "([^"]*)"$/ do |name, ignored|
   @person = create_person(name)
 end
 
@@ -9,6 +9,12 @@ end
 Given /^a person called "([^"]*)" exists with a translation for the locale "([^"]*)"$/ do |name, locale|
   person = create_person(name, biography: "Unimportant")
   add_translation_to_person(person, locale: locale, biography: 'Unimportant')
+end
+
+Given /^a person called "([^"]*)" exists in the role of "([^"]*)"$/ do |name, role_name|
+  @person = create_person(name)
+  @role = create(:ministerial_role, name: role_name)
+  create(:role_appointment, role: @role, person: @person)
 end
 
 Given /^"([^"]*)" is a minister with a history$/ do |name|

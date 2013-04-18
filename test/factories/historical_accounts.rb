@@ -6,7 +6,9 @@ FactoryGirl.define do
     political_party PoliticalParty::Labour
 
     after(:build) do |account|
-      account.roles << build(:role_appointment, person: account.person).role
+      unless account.roles.present?
+        account.roles << build(:role_appointment, person: account.person).role
+      end
     end
   end
 end

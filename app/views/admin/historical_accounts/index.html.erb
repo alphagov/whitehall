@@ -1,0 +1,35 @@
+<% page_title @person.name + " historical accounts" %>
+
+<%= content_tag_for(:div, @person) do %>
+  <div class="row-fluid organisation-header">
+    <div class="span8">
+      <h1><%= @person.name %></h1>
+      <%= link_to "View on website", url_for(@person) %>
+    </div>
+  </div>
+
+  <div class="row-fluid">
+    <div class="span12 organisation-details">
+      <section>
+        <%= tab_navigation_for(@person) %>
+
+        <table id="person-historical-accounts" class="table table-striped">
+          <thead>
+            <tr>
+              <th>Role</th>
+              <th>Summary</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <%= render @historical_accounts, { person: @person } %>
+          </tbody>
+        </table>
+
+        <nav class="form-actions">
+          <%= link_to 'Add an historical account', new_admin_person_historical_account_path, class: "btn btn-primary"  %>
+        </nav>
+      </section>
+    </div>
+  </div>
+<% end %>

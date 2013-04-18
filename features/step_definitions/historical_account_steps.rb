@@ -5,10 +5,9 @@ When /^I add an historical account to "([^"]*)" for his role as "([^"]*)"$/ do |
   visit admin_person_url(person)
   click_link 'Historical accounts'
   click_on 'Add an historical account'
+  select role.name, from: 'Role(s)'
   fill_in 'Summary', with: 'The one and only Walrus of Love'
   fill_in 'Body', with: 'Making you quiver with his dulset bass tones.'
-  # select born date
-  # select died date
   select 'Labour', from: 'Political party'
   fill_in 'Major acts', with: 'Helped make lots of babies'
   fill_in 'Interesting facts', with: 'In his teenage years, he was jailed for stealing $30k worth of Cadillac tires.'

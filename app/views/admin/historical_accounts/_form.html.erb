@@ -1,0 +1,22 @@
+<%= form_for [:admin, person, historical_account] do |form| %>
+  <%= form.errors %>
+
+  <fieldset>
+    <%= form.label :role_ids, 'Role(s)' %>
+    <%= form.select :role_ids, options_from_collection_for_select(person.roles, :id, :name, historical_account.role_ids),
+                    { include_blank: true },
+                    multiple: true,
+                    class: 'chzn-select',
+                    data: { placeholder: "Role(s) this account is for..."} %>
+    <%= form.text_area :summary , rows: 2 %>
+    <div class="summary-length-info">Summary text should be 140 characters or fewer. <span class="count"></span></div>
+    <%= form.label :political_party_id %>
+    <%= form.select :political_party_id, options_from_collection_for_select(PoliticalParty.all, :id, :name, historical_account.political_party_id) %>
+    <%= form.text_field :born %>
+    <%= form.text_field :died %>
+    <%= form.text_area :body, class: "previewable" %>
+    <%= form.text_area :major_acts, rows: 2 %>
+    <%= form.text_area :interesting_facts, rows: 2 %>
+
+  <%= form.save_or_cancel cancel: admin_person_historical_accounts_path(person) %>
+<% end %>

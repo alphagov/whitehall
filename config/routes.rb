@@ -198,6 +198,7 @@ Whitehall::Application.routes.draw do
         resources :detailed_guides, path: "detailed-guides", except: [:index]
         resources :people do
           resources :translations, controller: 'person_translations'
+          resources :historical_accounts
         end
         resource :cabinet_ministers, only: [:show, :update]
         resources :roles, except: [:show] do
