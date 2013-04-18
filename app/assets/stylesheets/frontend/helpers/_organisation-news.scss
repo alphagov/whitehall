@@ -5,7 +5,8 @@
       .content {
         padding: $gutter-half 0 $gutter-one-third 0;
         @extend %contain-floats;
-        .img-holder {
+        .image-holder {
+          width: 100%;
           @include media(tablet){
             width: 66.66%;
             float: left;
@@ -15,6 +16,7 @@
           }
         }
         .text {
+          width: 100%;
           .meta, h2, .summary {
             padding: 0 $gutter-half;
           }
