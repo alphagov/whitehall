@@ -91,11 +91,13 @@
         padding: $gutter-half 0;
         
         @include media(tablet){
+          clear: right;
           margin-top: $gutter;
           float: right;
           width: 25%;
           padding: 0;
           @include right-to-left {
+            clear: left;
             float: left;
           }
         }
