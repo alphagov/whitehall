@@ -51,5 +51,6 @@ Scenario: Creating authored articles (originally published externally)
 Scenario: Viewing authored articles (originally published externally)
   Given I am an editor
   When I draft a new authored article "Colonel Mustard talks about beards to The Times"
-  And I preview the authored article
+  Then it should be shown as an authored article in the admin screen
+  When I preview the authored article
   Then I should see who wrote it clearly labelled in the metadata

@@ -1,7 +1,11 @@
 <p class="details well">
   <% if @edition.role_appointment %>
     <span class="type"><%= @edition.speech_type.name %></span>
-    for speech delivered by
+    <% if @edition.speech_type.written_article? %>
+      written by
+    <% else %>
+      for speech delivered by
+    <% end %>
     <span class="role_appointment">
       <span class="person"><%= link_to @edition.role_appointment.person.name, @edition.role_appointment.person %></span>
       <span class="role"><%= role_appointment(@edition.role_appointment, true) %></span>
@@ -16,6 +20,8 @@
   <% end %>
   on
   <span class="delivered_on"><%= @edition.delivered_on.to_s(:long_ordinal) %></span>
-  at
-  <span class="location"><%= @edition.location %></span>
+  <% if @edition.speech_type.location_relevant %>
+    at
+    <span class="location"><%= @edition.location %></span>
+  <% end %>
 </p>

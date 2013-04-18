@@ -7,6 +7,16 @@ module Admin::EditionsHelper
     end
   end
 
+  def edition_description(edition)
+    if (@edition.is_a?(Speech) && @edition.speech_type.written_article?)
+      type_description = @edition.speech_type.name.titlecase
+    else
+      type_description = @edition.type.underscore.titlecase
+    end
+
+    "#{@edition.state.capitalize} #{type_description}"
+  end
+
   def nested_attribute_destroy_checkbox_options(form, html_args = {})
     checked_value, unchecked_value = '0', '1'
     checked = form.object[:_destroy].present? ? (form.object[:_destroy] == checked_value) : form.object.persisted?
