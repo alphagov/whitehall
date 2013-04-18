@@ -1,0 +1,24 @@
+<%= form.text_area :summary, horizontal: true, rows: 4 %>
+
+<div class="control-group">
+  <div class="controls">
+    <%= image_tag(form.object.image.url(:s300)) if form.object.image_url %>
+  </div>
+</div>
+<%= form.upload :image, horizontal: true, label_text: 'Item image (must be 960px by 640px)' %>
+<%= form.text_field :image_alt_text, horizontal: true, label_text: "Image description (alt text)" %>
+<%= form.check_box :double_width, horizontal: true, label_text: "Display double-width?" %>
+<%= form.text_field :title, horizontal: true, label_text: 'Title (optional)' %>
+<%= form.text_field :title_url, horizontal: true, label_text: 'Title link url (optional)' %>
+
+
+<div class="feature_links">
+  <legend>Feature item links</legend>
+
+  <%= form.fields_for :links, form.object.links do |link| %>
+    <div class="feature_link well">
+      <%= link.text_field :url, horizontal: true %>
+      <%= link.text_field :text, horizontal: true %>
+    </div>
+  <% end %>
+</div>

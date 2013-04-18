@@ -84,5 +84,5 @@
 })(jQuery);
 
 jQuery(function($) {
-  $("form.promotional_feature_item .feature_links").setupPromotionalFeatureLinksForm();
+  $("form .promotional_feature_item .feature_links").setupPromotionalFeatureLinksForm();
 })
