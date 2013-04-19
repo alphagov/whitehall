@@ -33,26 +33,27 @@
     </section>
   </div>
 </div>
-
-<div class="block-2">
-  <div class="inner-block floated-children">
-    <section class="cab_ministers">
-      <h2 class="label" id="also-attends-cabinet-ministers">Also attends Cabinet</h2>
-      <ul id="also-attends-cabinet" class="cabinet_list">
-        <% @also_attends_cabinet.each_with_index do |(person, roles), i| %>
-          <%= render partial: "people/person",
-              locals: {
-                person: person,
-                roles: roles,
-                hlevel: "h3",
-                hide_image: false,
-                extra_class: (i % 4 == 0) ? 'clear-person' : ''
-          } %>
-        <% end %>
-      </ul>
-    </section>
+<% if @also_attends_cabinet.any? %>
+  <div class="block-2">
+    <div class="inner-block floated-children">
+      <section class="cab_ministers">
+        <h2 class="label" id="also-attends-cabinet-ministers">Also attends Cabinet</h2>
+        <ul id="also-attends-cabinet" class="cabinet_list">
+          <% @also_attends_cabinet.each_with_index do |(person, roles), i| %>
+            <%= render partial: "people/person",
+                locals: {
+                  person: person,
+                  roles: roles,
+                  hlevel: "h3",
+                  hide_image: false,
+                  extra_class: (i % 4 == 0) ? 'clear-person' : ''
+            } %>
+          <% end %>
+        </ul>
+      </section>
+    </div>
   </div>
-</div>
+<% end %>
 
 <div class="ministers-by-organisation">
   <div class="inner-block floated-children">
