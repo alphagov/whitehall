@@ -81,16 +81,6 @@ class OrganisationsControllerTest < ActionController::TestCase
     end
   end
 
-  view_test "shows organisation name and description" do
-    organisation = create(:organisation,
-      logo_formatted_name: "unformatted name",
-      description: "organisation-description"
-    )
-    get :show, id: organisation
-    assert_select ".organisation h1", text: "unformatted name"
-    assert_select ".organisation .description", text: "organisation-description"
-  end
-
   view_test "provides ids for links with fragment identifiers to jump to relevent sections" do
     topic = create(:topic, published_edition_count: 1)
     management_role = create(:board_member_role)

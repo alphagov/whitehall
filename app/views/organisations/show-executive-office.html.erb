@@ -55,7 +55,25 @@
         </div>
       <% end %>
 
+
+
       <section class="features">
+        <div class="features-1 promo clear-promo">
+          <h2>About <%= @organisation.name %></h2>
+          <div class="feature">
+            <div class="content">
+              <p class="description"><%= @organisation.description %></p>
+              <% if @organisation.corporate_information_pages.any? %>
+                <ul class="dash-list">
+                  <% @organisation.corporate_information_pages.each do |page| %>
+                    <li><%= link_to page.title, organisation_corporate_information_page_path(@organisation, page) %></li>
+                  <% end %>
+                </ul>
+              <% end %>
+            </div>
+          </div>
+        </div>
+
         <% @promotional_features.each do |feature| %>
           <%= content_tag_for(:div, feature, class: feature.css_classes) do %>
             <h2><%= feature.title %></h2>
@@ -76,11 +94,6 @@
           </div>
         </div>
       </section>
-
-      <% if @organisation.corporate_information_pages.any? %>
-        <%= render partial: 'corporate_information',
-                    locals: { organisation: @organisation, show_corporate_reports: true } %>
-      <% end %>
     </div>
   </div>
 <% end %>

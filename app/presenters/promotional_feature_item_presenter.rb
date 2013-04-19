@@ -2,7 +2,7 @@ class PromotionalFeatureItemPresenter < Draper::Base
   decorates :promotional_feature_item
 
   def css_classes
-    'large' if double_width?
+    ['feature', ('large' if double_width?)].compact.join(' ')
   end
 
   def image_url

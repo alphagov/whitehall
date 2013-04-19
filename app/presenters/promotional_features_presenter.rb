@@ -5,7 +5,7 @@ class PromotionalFeaturesPresenter
   delegate *array_methods, to: :decorated_collection
 
   def initialize(source)
-    position = 0
+    position = 1
     @decorated_collection ||= source.collect do |feature|
       presenter = PromotionalFeaturePresenter.new(feature, position: position)
       position += presenter.width
