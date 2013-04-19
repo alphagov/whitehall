@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130415151833) do
+ActiveRecord::Schema.define(:version => 20130417115108) do
 
   create_table "access_and_opening_times", :force => true do |t|
     t.text     "body"
@@ -926,6 +926,8 @@ ActiveRecord::Schema.define(:version => 20130415151833) do
     t.boolean  "chief_of_the_defence_staff", :default => false,             :null => false
     t.integer  "whip_organisation_id"
     t.integer  "seniority",                  :default => 100
+    t.integer  "attends_cabinet_type_id"
+    t.integer  "role_payment_type_id"
   end
 
   add_index "roles", ["slug"], :name => "index_roles_on_slug"

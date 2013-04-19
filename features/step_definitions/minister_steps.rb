@@ -14,6 +14,10 @@ Given /^"([^"]*)" is the "([^"]*)" for the "([^"]*)"$/ do |person_name, minister
   create_role_appointment(person_name, ministerial_role, organisation_name, 2.years.ago)
 end
 
+Given /^"([^"]*)" is the "([^"]*)" for the "([^"]*)" and also attends cabinet$/ do |person_name, ministerial_role, organisation_name|
+  create_role_appointment(person_name, ministerial_role, organisation_name, 2.years.ago, role_options: {attends_cabinet_type_id: 1})
+end
+
 Given /^the role "([^"]*)" has the responsibilities "([^"]*)"$/ do |role_name, responsibilities|
   ministerial_role = MinisterialRole.find_or_create_by_name(role_name)
   ministerial_role.responsibilities = responsibilities
@@ -68,6 +72,12 @@ Then /^I should see that "([^"]*)" is a commons whip "([^"]*)"$/ do |minister_na
   within record_css_selector(Whitehall::WhipOrganisation::WhipsHouseOfCommons) do
     assert page.has_css?('.current-appointee', text: minister_name)
     assert page.has_css?('.role', text: role_title)
+  end
+end
+
+Then /^I should see that "([^"]*)" also attends cabinet$/ do |minister_name|
+  within "#also-attends-cabinet" do
+    assert page.has_css?('.current-appointee', text: minister_name)
   end
 end
 
