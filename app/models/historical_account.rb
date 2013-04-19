@@ -18,4 +18,8 @@ class HistoricalAccount < ActiveRecord::Base
   def political_membership
     political_party.try(:membership)
   end
+
+  def role
+    roles.first
+  end
 end

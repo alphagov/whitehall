@@ -33,6 +33,8 @@ Whitehall::Application.routes.draw do
     match "/how-government-works" => "home#how_government_works", as: 'how_government_works'
     match "/get-involved" => "home#get_involved", as: 'get_involved'
 
+    match "/history/:role" => "historical_accounts#index", constraints: { role: /(past-prime-ministers)|(past-chancellors)/ }, as: 'historical_accounts'
+    match "/history/:role/:person_id" => "historical_accounts#show", constraints: { role: /(past-prime-ministers)|(past-chancellors)/ }
     resources :past_foreign_secretaries, path: "/history/past-foreign-secretaries", only: [:index, :show]
     resources :histories, path: "history", only: [:index, :show]
 

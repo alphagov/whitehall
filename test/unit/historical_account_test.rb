@@ -28,4 +28,12 @@ class HistoricalAccountTest < ActiveSupport::TestCase
     historical_account = build(:historical_account, political_party: PoliticalParty::Whigs)
     assert_equal 'Whig', historical_account.political_membership
   end
+
+  test "#role defaults to the first role when there are multiple" do
+    role1 = create(:role)
+    role2 = create(:role)
+    historical_account = create(:historical_account, roles: [role1, role2])
+
+    assert_equal role1, historical_account.role
+  end
 end
