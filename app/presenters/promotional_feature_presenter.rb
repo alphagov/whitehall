@@ -19,6 +19,6 @@ class PromotionalFeaturePresenter < Draper::Base
   end
 
   def css_classes
-    [width_class, clear_class].compact.join(' ')
+    ['promo', width_class, clear_class].compact.join(' ')
   end
 end
