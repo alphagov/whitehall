@@ -423,4 +423,14 @@ class RoleAppointmentTest < ActiveSupport::TestCase
 
     assert_nil role_appointment.historical_account
   end
+
+  test "can scope appointments between dates" do
+    today       = create(:role_appointment, started_at: Time.zone.now)
+    last_month  = create(:role_appointment, started_at: 1.month.ago)
+    last_year   = create(:role_appointment, started_at: 1.year.ago)
+
+    assert_equal [today], RoleAppointment.between(1.week.ago, Time.zone.now)
+    assert_equal [last_month], RoleAppointment.between(2.months.ago, 1.week.ago)
+    assert_equal [today, last_month, last_year], RoleAppointment.between(1.year.ago, Time.zone.now)
+  end
 end

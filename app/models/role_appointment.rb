@@ -59,6 +59,10 @@ class RoleAppointment < ActiveRecord::Base
   after_save :update_indexes
   after_destroy :update_indexes
 
+  def self.between(start_time, end_time)
+    where(started_at: start_time..end_time)
+  end
+
   #This is to prevent duplication of people by ministerial roles indexing
   def update_indexes
     if person.current_ministerial_roles.any?
