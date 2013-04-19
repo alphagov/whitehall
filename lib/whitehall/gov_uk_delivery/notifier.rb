@@ -31,7 +31,8 @@ class Whitehall::GovUkDelivery::Notifier
   end
 
   def notification_date
-    if edition.is_a? Speech
+    case edition
+    when Speech, Consultation
       edition.major_change_published_at
     else
       edition.public_timestamp
