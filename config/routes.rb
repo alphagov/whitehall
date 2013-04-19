@@ -239,6 +239,13 @@ Whitehall::Application.routes.draw do
         end
 
         match "preview" => "preview#preview", via: :post
+
+        scope '/get-involved' do
+          root to: 'get_involved#index', as: :get_involved
+          resources :take_part_pages, except: [:show] do
+            post :reorder, on: :collection
+          end
+        end
       end
     end
 

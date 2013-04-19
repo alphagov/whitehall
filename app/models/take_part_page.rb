@@ -8,6 +8,7 @@ class TakePartPage < ActiveRecord::Base
   validates :body, presence: true, length: { maximum: (16.megabytes - 1), tokenizer: ->(value) {value} }
 
   before_save :ensure_ordering!
+  scope :in_order, -> { order(:ordering) }
 
   extend FriendlyId
   friendly_id :title
