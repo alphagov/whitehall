@@ -123,6 +123,14 @@ class RoleAppointment < ActiveRecord::Base
     ended_at.nil? || date <= ended_at
   end
 
+  def historical_account
+    person.historical_accounts.includes(:roles).detect {|historical_account| historical_account.roles.include?(role) }
+  end
+
+  def has_historical_account?
+    historical_account.present?
+  end
+
   private
 
   def make_other_current_appointments_non_current

@@ -406,4 +406,21 @@ class RoleAppointmentTest < ActiveSupport::TestCase
     assert role_appointment.current_at(18.months.ago)
     assert role_appointment.current_at(1.second.ago)
   end
+
+  test "returns an historical account for the role and appointtee if one exists" do
+    role_appointment = create(:role_appointment)
+
+    assert_nil role_appointment.historical_account
+
+    historical_account = create(:historical_account, roles: [role_appointment.role], person: role_appointment.person)
+    assert_equal historical_account, role_appointment.reload.historical_account
+  end
+
+  test "does not return an historical account if the appointee has one for another role" do
+    role_appointment   = create(:role_appointment)
+    second_appointment = create(:role_appointment, person: role_appointment.person)
+    create(:historical_account, roles: [second_appointment.role], person: role_appointment.person)
+
+    assert_nil role_appointment.historical_account
+  end
 end
