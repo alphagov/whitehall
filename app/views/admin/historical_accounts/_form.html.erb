@@ -3,7 +3,7 @@
 
   <fieldset>
     <%= form.label :role_ids, 'Role(s)' %>
-    <%= form.select :role_ids, options_from_collection_for_select(person.roles, :id, :name, historical_account.role_ids),
+    <%= form.select :role_ids, options_from_collection_for_select(person.roles.uniq, :id, :name, historical_account.role_ids),
                     { include_blank: true },
                     multiple: true,
                     class: 'chzn-select',
