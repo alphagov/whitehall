@@ -1019,10 +1019,12 @@ ActiveRecord::Schema.define(:version => 20130423141920) do
     t.text     "body",              :limit => 16777215, :null => false
     t.string   "carrierwave_image"
     t.string   "image_alt_text"
+    t.integer  "ordering",                              :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
+  add_index "take_part_pages", ["ordering"], :name => "index_take_part_pages_on_ordering"
   add_index "take_part_pages", ["slug"], :name => "index_take_part_pages_on_slug", :unique => true
 
   create_table "unpublishings", :force => true do |t|

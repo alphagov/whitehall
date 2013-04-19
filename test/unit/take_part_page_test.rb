@@ -86,4 +86,25 @@ class TakePartPageTest < ActiveSupport::TestCase
     refute page.valid?
   end
 
+  test '.next_ordering returns us the next ordering available (1 more than the largest stored)' do
+    TakePartPage.destroy_all
+    assert_equal 1, TakePartPage.next_ordering
+
+    create(:take_part_page, ordering: 20)
+    assert_equal 21, TakePartPage.next_ordering
+
+    create(:take_part_page, ordering: 10)
+    assert_equal 21, TakePartPage.next_ordering
+
+    create(:take_part_page, ordering: 99)
+    assert_equal 100, TakePartPage.next_ordering
+  end
+
+  test 'if ordering is not supplied, it is set to the next_ordering when saving' do
+    page_1 = create(:take_part_page, ordering: nil)
+    assert_equal 1, page_1.ordering
+
+    page_2 = create(:take_part_page, ordering: 20)
+    assert_equal 20, page_2.ordering
+  end
 end

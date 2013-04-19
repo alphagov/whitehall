@@ -7,6 +7,8 @@ class TakePartPage < ActiveRecord::Base
   # tokenize strings by default so it's safe to remove
   validates :body, presence: true, length: { maximum: (16.megabytes - 1), tokenizer: ->(value) {value} }
 
+  before_save :ensure_ordering!
+
   extend FriendlyId
   friendly_id :title
 
@@ -15,6 +17,10 @@ class TakePartPage < ActiveRecord::Base
   validate :image_must_be_960px_by_640px, if: :image_changed?
 
   mount_uploader :image, ImageUploader, mount_on: :carrierwave_image
+
+  def self.next_ordering
+    (TakePartPage.maximum(:ordering) || 0) + 1
+  end
 
   protected
   def image_must_be_960px_by_640px
@@ -25,6 +31,10 @@ class TakePartPage < ActiveRecord::Base
 
   def image_changed?
     changes["carrierwave_image"].present?
+  end
+
+  def ensure_ordering!
+    self.ordering = TakePartPage.next_ordering if self.ordering.nil?
   end
 
 end
