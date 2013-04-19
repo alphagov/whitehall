@@ -4,6 +4,16 @@ module OrganisationControllerTestHelpers
   module ClassMethods
     def should_display_organisation_page_elements_for(org_type)
 
+      view_test "#{org_type}:shows organisation name and description" do
+        organisation = create(org_type,
+          logo_formatted_name: "unformatted name",
+          description: "organisation-description"
+        )
+        get :show, id: organisation
+        assert_select ".organisation h1", text: "unformatted name"
+        assert_select ".organisation .description", text: "organisation-description"
+      end
+
       test "#{org_type}:shows primary featured editions in ordering defined by association" do
         organisation = create(org_type)
         news_article = create(:published_news_article)

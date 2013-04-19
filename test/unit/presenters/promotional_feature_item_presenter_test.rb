@@ -6,8 +6,8 @@ class PromotionalFeatureItemPresenterTest < ActionView::TestCase
   end
 
   test '#css_classes returns "large" for double-width items' do
-    assert_nil item_presenter.css_classes
-    assert_equal 'large', item_presenter(double_width: true).css_classes
+    assert_equal 'feature', item_presenter.css_classes
+    assert_equal 'feature large', item_presenter(double_width: true).css_classes
   end
 
   test '#image_url returns 300px width images for single-width items' do

@@ -792,8 +792,7 @@
       margin: 0 $gutter-half;
     }
 
-    .promo,
-    .promotional_feature {
+    .promo {
       float: left;
       width: 100%;
       margin: $gutter-half 0 $gutter;
@@ -807,7 +806,7 @@
         @include core-19;
       }
 
-      .promotional_feature_item {
+      .feature {
         float: left;
         width: 100%;
         margin-bottom: $gutter;
@@ -883,7 +882,9 @@
         ul {
           margin-top: $gutter-one-third;
         }
-        a { @include external-link-16-bold-no-hover; }
+        a[rel=external] {
+          @include external-link-16-bold-no-hover;
+        }
       }
       .large {
         ul {
