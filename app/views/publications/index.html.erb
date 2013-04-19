@@ -1,5 +1,5 @@
 <% page_title "Publications" %>
-<% page_class "publications-index" %>
+<% page_class "publications-index document-filter-page" %>
 <% atom_discovery_link_tag filter_atom_feed_url, "Recent publications" %>
 
 <div class="block-1">
@@ -37,10 +37,10 @@
     <% if Locale.current.english? %>
       <%= render partial: "documents/filter_results", locals: { filter: @filter } %>
     <% end %>
-    <div class="filter-feed">
-      <%= link_to_feed filter_atom_feed_url %>
-    </div>
-
+    <%= render partial: 'shared/feeds',
+        locals: { atom_url: filter_atom_feed_url,
+                  govdelivery_url: filter_email_signup_url }
+    %>
     <div class="filter-results js-filter-results" id="publications-container" aria-live="polite">
       <%= render_mustache('documents/filter_table', @filter.as_hash) %>
     </div>

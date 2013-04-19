@@ -32,6 +32,22 @@ module ApplicationHelper
     url_for(params.except(:utf8, :_).merge(format: "json").merge(args))
   end
 
+  def filter_email_signup_url(args={})
+    if params[:departments] && params[:departments].first != 'all'
+      params[:organisation] = params[:departments].first
+    end
+    if params[:topics] && params[:topics].first != 'all'
+      params[:topic] = params[:topics].first
+    end
+    if params.has_key?(:announcement_type_option) and params[:announcement_type_option] != 'all'
+      params[:document_type] = "announcement_type_#{params[:announcement_type_option]}"
+    elsif params.has_key?(:publication_filter_option) and params[:publication_filter_option] != 'all'
+      params[:document_type] = "publication_type_#{params[:publication_filter_option]}"
+    end
+
+    url_for(params.slice(:organisation, :topic, :document_type).merge(controller: :email_signups, action: :show))
+  end
+
   def format_in_paragraphs(string)
     safe_join (string||"").split(/(?:\r?\n){2}/).collect { |paragraph| content_tag(:p, paragraph) }
   end
