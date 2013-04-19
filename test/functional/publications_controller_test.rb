@@ -153,12 +153,25 @@ class PublicationsControllerTest < ActionController::TestCase
     assert_cache_control("max-age=#{Whitehall.default_cache_max_age/2}")
   end
 
+  view_test "index highlights selected world filter options" do
+    @world_location_1, @world_location_2 = create(:world_location), create(:world_location)
+    create(:published_publication, world_locations: [@world_location_1])
+    create(:published_publication, world_locations: [@world_location_2])
+
+    get :index, world_locations: [@world_location_1, @world_location_2]
+
+    assert_select "select#world_locations[name='world_locations[]']" do
+      assert_select "option[selected='selected']", text: @world_location_1.name
+      assert_select "option[selected='selected']", text: @world_location_2.name
+    end
+  end
+
   view_test "index highlights selected topic filter options" do
     given_two_documents_in_two_topics
 
     get :index, topics: [@topic_1, @topic_2]
 
-    assert_select "select[name='topics[]']" do
+    assert_select "select#topics[name='topics[]']" do
       assert_select "option[selected='selected']", text: @topic_1.name
       assert_select "option[selected='selected']", text: @topic_2.name
     end
@@ -170,7 +183,7 @@ class PublicationsControllerTest < ActionController::TestCase
 
     get :index, departments: [@organisation_1, @organisation_2]
 
-    assert_select "select[name='departments[]']" do
+    assert_select "select#departments[name='departments[]']" do
       assert_select "option[selected='selected']", text: @organisation_1.name
       assert_select "option[selected='selected']", text: @organisation_2.name
     end
