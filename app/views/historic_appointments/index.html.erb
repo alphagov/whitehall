@@ -17,21 +17,21 @@
 <div class="block featured-profiles">
 
   <div class="inner-block floated-children" id="modern-appointments">
-    <h2 class="profiles">2010 - 1902</h2>
+    <h2 class="profiles"><%= year_range_for(@recent_appointments) %></h2>
     <ol>
       <%= render partial: 'role_appointment', collection: @recent_appointments, locals: { role: @role } %>
     </ol>
   </div>
 
   <div class="inner-block floated-children" id="nineteenth-century-appointments">
-    <h2 class="profiles">1902 - 1801</h2>
+    <h2 class="profiles"><%= year_range_for(@nineteenth_century_appointments) %></h2>
     <ol>
       <%= render partial: 'role_appointment', collection: @nineteenth_century_appointments, locals: { role: @role } %>
     </ol>
   </div>
 
   <div class="inner-block floated-children" id="eighteenth-century-appointments">
-    <h2 class="profiles">1802 - 1730</h2>
+    <h2 class="profiles"><%= year_range_for(@eighteenth_century_appointments) %></h2>
     <ol>
       <%= render partial: 'role_appointment', collection: @eighteenth_century_appointments, locals: { role: @role } %>
     </ol>
