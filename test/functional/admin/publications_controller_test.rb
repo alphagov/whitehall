@@ -34,7 +34,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     get :new
 
     assert_select "form#edition_new" do
-      assert_select "select[name*='edition[publication_date']", count: 3
+      assert_select "select[name*='edition[publication_date']", count: 5
       assert_select "select[name='edition[publication_type_id]']"
     end
   end
@@ -58,12 +58,12 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
 
   test "create should create a new publication" do
     post :create, edition: controller_attributes_for(:publication,
-      publication_date: Date.parse("1805-10-21"),
+      publication_date: Time.zone.parse("2001-10-21 00:00:00"),
       publication_type_id: PublicationType::ResearchAndAnalysis.id
     )
 
     created_publication = Publication.last
-    assert_equal Date.parse("1805-10-21"), created_publication.publication_date
+    assert_equal Time.zone.parse("2001-10-21 00:00:00"), created_publication.publication_date
     assert_equal PublicationType::ResearchAndAnalysis, created_publication.publication_type
   end
 
@@ -93,7 +93,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
 
     assert_select "form#edition_edit" do
       assert_select "select[name='edition[publication_type_id]']"
-      assert_select "select[name*='edition[publication_date']", count: 3
+      assert_select "select[name*='edition[publication_date']", count: 5
     end
   end
 
@@ -113,16 +113,16 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     publication = create(:publication)
 
     put :update, id: publication, edition: controller_attributes_for_instance(publication,
-      publication_date: Date.parse("1815-06-18")
+      publication_date: Time.zone.parse("2001-06-18 00:00:00")
     )
 
     saved_publication = publication.reload
-    assert_equal Date.parse("1815-06-18"), saved_publication.publication_date
+    assert_equal Time.zone.parse("2001-06-18 00:00:00"), saved_publication.publication_date
   end
 
   view_test "should display publication attributes" do
     publication = create(:publication,
-      publication_date: Date.parse("1916-05-31"),
+      publication_date: Time.zone.parse("2001-05-31 00:00:00"),
       publication_type_id: PublicationType::ResearchAndAnalysis.id
     )
 
@@ -130,7 +130,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
 
     assert_select ".document" do
       assert_select ".publication_type", text: "Research and analysis"
-      assert_select ".publication_date", text: "31 May 1916"
+      assert_select ".publication_date", text: "31 May 2001 00:00"
     end
   end
 
