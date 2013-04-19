@@ -6,7 +6,10 @@
 */
 (function($) {
   "use strict";
-  $.fn.hideOtherLinks = function() {
+  $.fn.hideOtherLinks = function(options) {
+    var config = { linkElement: 'a', alwaysVisibleClass: '.always-visible' };
+    $.extend(config, options);
+
     $(this).each(function(i, elm){
       var $el = $(elm),
           showHide = $('<span class="other-content" />'),
@@ -16,12 +19,12 @@
           fullStop = false;
 
       $($el.contents()).each(function(i, el) {
-        if (el.nodeValue && (el.nodeValue === "." || el.nodeValue === ' ')) {
+        if (el.nodeValue && (el.nodeValue === "." || el.nodeValue.match(/^\s+$/))) {
           fullStop = (el.nodeValue === ".");
           return;
         }
         currentlyAppending.push(el);
-        if ($(el).is('a')) {
+        if($(el).is(config.linkElement) && !$(el).next(config.linkElement).is(config.alwaysVisibleClass)) {
           currentlyAppending = hiddenElements;
         }
       });

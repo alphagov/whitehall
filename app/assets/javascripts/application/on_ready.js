@@ -1,5 +1,6 @@
 jQuery(function($) {
   $('.js-hide-other-links').hideOtherLinks();
+  $('.js-hide-other-departments').hideOtherLinks({ linkElement: 'span', alwaysVisibleClass: '.lead' });
 
   $('.govspeak').enhanceYoutubeVideoLinks();
 

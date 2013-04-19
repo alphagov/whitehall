@@ -131,10 +131,10 @@ class PoliciesControllerTest < ActionController::TestCase
     assert_select_object first_org do
       assert_select "a[href='#{organisation_path(first_org)}']"
     end
-    assert_select_prefix_object first_org, 'by-type' do
+    assert_select_object first_org do
       assert_select "a[href='#{organisation_path(first_org)}']"
     end
-    assert_select_prefix_object second_org, 'by-type' do
+    assert_select_object second_org do
       assert_select "a[href='#{organisation_path(second_org)}']"
     end
   end
