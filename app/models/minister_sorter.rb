@@ -10,6 +10,13 @@ class MinisterSorter
     }.map { |person, roles| [person, roles.sort_by(&:seniority)] }
   end
 
+  def also_attends_cabinet
+    ministers = roles_by_person.select { |_, roles| roles.any?(&:attends_cabinet_type_id?) }
+    ministers.sort_by { |person, roles|
+      [roles.map(&:seniority).min, person.sort_key]
+    }.map { |person, roles| [person, roles.sort_by(&:seniority)] }
+  end
+
   def other_ministers
     ministers = roles_by_person.reject { |_, roles| roles.any?(&:cabinet_member?) }
     ministers.sort_by { |person, _|
