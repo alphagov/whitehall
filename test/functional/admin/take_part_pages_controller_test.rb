@@ -79,4 +79,12 @@ class Admin::TakePartPagesControllerTest < ActionController::TestCase
     assert_template 'edit'
   end
 
+  test 'DELETE :destroy removes the suppliued instance' do
+    page = create(:take_part_page)
+
+    delete :destroy, id: page
+
+    refute TakePartPage.exists?(page)
+    assert_redirected_to admin_take_part_pages_path
+  end
 end

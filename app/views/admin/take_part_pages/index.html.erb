@@ -24,7 +24,7 @@
               <% @take_part_pages.each do |take_part_page| %>
                 <div class="well">
                   <%= label_tag "ordering-#{take_part_page.id}" do %>
-                    <%= link_to(take_part_page.title, admin_take_part_page_path(take_part_page)) %>
+                    <%= link_to(take_part_page.title, [:edit, :admin, take_part_page]) %>
                   <% end %>
 
                   <%= text_field_tag "ordering[#{take_part_page.id}]", take_part_page.ordering, id: "ordering-#{take_part_page.id}", class: "ordering" %>
