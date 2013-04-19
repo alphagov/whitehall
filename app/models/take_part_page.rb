@@ -23,6 +23,17 @@ class TakePartPage < ActiveRecord::Base
     (TakePartPage.maximum(:ordering) || 0) + 1
   end
 
+  def self.reorder!(ids_in_new_ordering)
+    return if ids_in_new_ordering.empty?
+    ids_in_new_ordering = ids_in_new_ordering.map(&:to_s)
+    TakePartPage.transaction do
+      TakePartPage.where(id: ids_in_new_ordering).each do |page|
+        page.update_column(:ordering, ids_in_new_ordering.index(page.id.to_s) + 1)
+      end
+      TakePartPage.where('id NOT IN (?)', ids_in_new_ordering).update_all(ordering: ids_in_new_ordering.size + 1)
+    end
+  end
+
   protected
   def image_must_be_960px_by_640px
     if image.path

@@ -107,4 +107,28 @@ class TakePartPageTest < ActiveSupport::TestCase
     page_2 = create(:take_part_page, ordering: 20)
     assert_equal 20, page_2.ordering
   end
+
+  test '.reorder! updates the ordering of each page with an id in the supplied ordering, to match it\'s position in that ordering' do
+    page_1 = create(:take_part_page, ordering: 1)
+    page_2 = create(:take_part_page, ordering: 12)
+    page_3 = create(:take_part_page, ordering: 50)
+
+    TakePartPage.reorder!([page_3.id, page_1.id, page_2.id])
+
+    assert_equal 2, page_1.reload.ordering
+    assert_equal 3, page_2.reload.ordering
+    assert_equal 1, page_3.reload.ordering
+  end
+
+  test '.reorder! places any pages not in the supplied ordering at the end of the list' do
+    page_1 = create(:take_part_page, ordering: 1)
+    page_2 = create(:take_part_page, ordering: 12)
+    page_3 = create(:take_part_page, ordering: 50)
+
+    TakePartPage.reorder!([page_3.id])
+
+    assert_equal 2, page_1.reload.ordering
+    assert_equal 2, page_2.reload.ordering
+    assert_equal 1, page_3.reload.ordering
+  end
 end
