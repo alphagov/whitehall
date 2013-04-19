@@ -148,7 +148,7 @@ class RoleTest < ActiveSupport::TestCase
 
   test "footnotes should only display cabinet when option true" do
     role = create(:role, attends_cabinet_type_id: 2, role_payment_type_id: 1)
-    footnote = "#{role.attends_cabinet_type.name} and #{role.role_payment_type.name}"
+    footnote = "#{role.attends_cabinet_type.name}. #{role.role_payment_type.name}"
     assert_equal footnote, role.footnotes(true)
   end
 

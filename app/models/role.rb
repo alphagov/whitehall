@@ -60,7 +60,7 @@ class Role < ActiveRecord::Base
       note = []
       note << attends_cabinet_type.name if attends_cabinet_type_id == 2
       note << role_payment_type.name if role_payment_type
-      note.join(" and ")
+      note.join(". ")
     else
       role_payment_type.name if role_payment_type
     end
