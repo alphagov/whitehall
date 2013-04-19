@@ -1,7 +1,11 @@
-<ul class="organisations-name-list">
-  <% organisations.each do |organisation| %>
-    <%= content_tag_for(:li, organisation, class: 'organisation') do %>
-      <%= link_to organisation.name, organisation_path(organisation) %>
-    <% end %>
+<%
+  lead_organisations ||= []
+  organisations ||= []
+  show_hm_government = lead_organisations.length == 0
+%>
+<p class="js-hide-other-departments organisations-name-list">
+  <% if show_hm_government %>
+    <span>HM Government</span>
   <% end %>
-</ul>
+  <%= organisations_link_sentence(lead_organisations, organisations) %>
+</p>

@@ -27,7 +27,7 @@ end
 Then /^the worldwide organisation "([^"]+)" is listed as a producing org on the world location news article "([^"]+)"$/ do |world_org_name, world_news_title|
   visit document_path(WorldLocationNewsArticle.find_by_title(world_news_title))
   world_org = WorldwideOrganisation.find_by_name(world_org_name)
-  within '.meta .organisations-icon-list' do
+  within '.meta' do
     assert page.has_link?(world_org.name, href: worldwide_organisation_path(world_org)), "should have a link to #{world_org.name} as a producing org, but I don't"
   end
 end

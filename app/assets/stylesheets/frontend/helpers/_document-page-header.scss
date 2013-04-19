@@ -83,40 +83,6 @@
           float: right;
         }
       }
-      dt.organisations {
-        clear: none;
-      }
-      dd.organisations {
-        width: 100%;
-        padding: $gutter-half 0;
-        
-        @include media(tablet){
-          clear: right;
-          margin-top: $gutter;
-          float: right;
-          width: 25%;
-          padding: 0;
-          @include right-to-left {
-            clear: left;
-            float: left;
-          }
-        }
-        
-        li {
-          margin-left: 0;
-
-          &.hm-government {
-            margin-bottom: $gutter-one-sixth;
-          }
-        }
-
-        .organisations-icon-list {
-          padding-bottom: ($gutter*0.25);
-          @include media(tablet){
-            margin-left: $gutter-half;
-          }
-        }
-      }
 
       a[rel="external"] {
         @include external-link-12;
