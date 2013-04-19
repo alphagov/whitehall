@@ -140,10 +140,16 @@ class RoleTest < ActiveSupport::TestCase
     assert_equal RoleAttendsCabinetType.find_by_id(1), role.attends_cabinet_type
   end
 
-  test "footnotes should be based on the role type and attendance type 2" do
+  test "footnotes should display only payment when option not set" do
+    role = create(:role, attends_cabinet_type_id: 2, role_payment_type_id: 1)
+    footnote = "#{role.role_payment_type.name}"
+    assert_equal footnote, role.footnotes
+  end
+
+  test "footnotes should only display cabinet when option true" do
     role = create(:role, attends_cabinet_type_id: 2, role_payment_type_id: 1)
     footnote = "#{role.attends_cabinet_type.name} and #{role.role_payment_type.name}"
-    assert_equal footnote, role.footnotes
+    assert_equal footnote, role.footnotes(true)
   end
 
   test "should be able to scope roles by whips" do

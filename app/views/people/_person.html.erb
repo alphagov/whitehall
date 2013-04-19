@@ -3,6 +3,7 @@
   extra_class ||= ""
   prefix ||= nil
   wrapping_element ||= :li
+  display_cabinet_attendance ||= false
 %>
 <% if person.model.present? %>
   <%= content_tag_for(wrapping_element, person, prefix, class: "person-excerpt #{extra_class}") do %>
@@ -14,7 +15,8 @@
       <% end %>
       <<%= hlevel %> class="current-appointee"><%= person.link %></<%= hlevel %>>
       <p class="role">
-        <%= roles.map { |role| role.link }.join(", ").html_safe %><%= roles_footnotes(roles)%>
+        <%= roles.map { |role| role.link }.join(", ").html_safe -%>
+        <%= roles_footnotes(roles, display_cabinet_attendance) -%>
       </p>
     </div>
   <% end %>

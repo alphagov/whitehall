@@ -55,11 +55,15 @@ class Role < ActiveRecord::Base
     where(arel_table[:attends_cabinet_type_id].not_eq(nil))
   end
 
-  def footnotes
-    note = []
-    note << attends_cabinet_type.name if attends_cabinet_type_id == 2
-    note << role_payment_type.name if role_payment_type
-    note.join(" and ")
+  def footnotes(including_cabinet=false)
+    if including_cabinet
+      note = []
+      note << attends_cabinet_type.name if attends_cabinet_type_id == 2
+      note << role_payment_type.name if role_payment_type
+      note.join(" and ")
+    else
+      role_payment_type.name if role_payment_type
+    end
   end
 
   def occupied?
