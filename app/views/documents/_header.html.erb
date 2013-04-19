@@ -11,9 +11,9 @@
   </h1>
   <aside class="meta">
     <dl>
-      <dt class="organisations visuallyhidden"><%= t('document.headings.organisations', count: document.organisations.length) %>:</dt>
-      <dd class="organisations">
-        <%= render  partial: 'organisations/organisations_logo_list',
+      <dt><%= t('document.headings.organisations', count: document.organisations.length) %>:</dt>
+      <dd>
+        <%= render  partial: 'organisations/organisations_name_list',
                     locals: { organisations: document.organisations,
                               lead_organisations: document.lead_organisations } %>
       </dd>

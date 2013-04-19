@@ -139,4 +139,20 @@ module OrganisationHelper
       end
     link_to 'See all our policies', url
   end
+
+  def organisations_link_sentence(lead_organisations, organisations)
+    all_organisations = []
+    lead_organisations.map do |o|
+      all_organisations << { organisation: o, lead: true }
+    end
+    (organisations - lead_organisations).map do |o|
+      all_organisations << { organisation: o, lead: false }
+    end
+
+    all_organisations.map do |o|
+      content_tag_for :span, o[:organisation], ({class: "lead"} if o[:lead]) do
+        link_to o[:organisation].name, o[:organisation]
+      end
+    end.to_sentence.html_safe
+  end
 end
