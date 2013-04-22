@@ -34,7 +34,7 @@ Whitehall::Application.routes.draw do
     match "/get-involved" => "home#get_involved", as: 'get_involved'
 
     match "/history/:role" => "historic_appointments#index", constraints: { role: /(past-prime-ministers)|(past-chancellors)/ }, as: 'historic_appointments'
-    match "/history/:role/:person_id" => "historic_appointments#show", constraints: { role: /(past-prime-ministers)|(past-chancellors)/ }
+    match "/history/:role/:person_id" => "historic_appointments#show", constraints: { role: /(past-prime-ministers)|(past-chancellors)/ }, as: 'historic_appointment'
     resources :past_foreign_secretaries, path: "/history/past-foreign-secretaries", only: [:index, :show]
     resources :histories, path: "history", only: [:index, :show]
 
