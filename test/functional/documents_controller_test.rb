@@ -57,6 +57,26 @@ class DocumentsControllerTest < ActionController::TestCase
     assert_cache_control("max-age=#{Whitehall.default_cache_max_age/2}")
   end
 
+  view_test "show responds with shorter cache control 'max-age' if document is scheduled for publication" do
+    user = login_as(:departmental_editor)
+
+    edition = create(:edition)
+    edition.publish_as(user, force: true)
+    new_draft = edition.create_draft(user)
+    new_draft.title = "Second Title"
+    new_draft.change_note = "change-note"
+    new_draft.save_as(user)
+    new_draft.scheduled_publication = Time.zone.now + Whitehall.default_cache_max_age * 2
+    new_draft.schedule_as(user, force: true)
+
+    Timecop.freeze(Time.zone.now + Whitehall.default_cache_max_age * 1.5) do
+      get :show, id: new_draft.document
+    end
+
+    assert_response :ok
+    assert_cache_control("max-age=#{Whitehall.default_cache_max_age/2}")
+  end
+
   view_test "show responds with 'Coming soon' page and default cache control 'max-age' if document is scheduled for publication far in the future" do
     user = login_as(:departmental_editor)
     edition = create(:draft_edition, scheduled_publication: Time.zone.now + Whitehall.default_cache_max_age * 10)
