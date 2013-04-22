@@ -27,6 +27,6 @@ class HistoricAppointmentsController < ApplicationController
   end
 
   def previous_appointments
-    @previous_appointments ||= @role.previous_appointments.includes(:role, :person).reorder('started_at DESC')
+    @previous_appointments ||= @role.previous_appointments.includes(:role, person: :historical_accounts).reorder('started_at DESC')
   end
 end

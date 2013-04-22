@@ -4,6 +4,6 @@
       <%= link_to_if role_appointment.has_historical_account?, role_appointment.person.image, historic_appointment_path(role, role_appointment.person) %>
     </div>
     <h3 class="name"><%= link_to_if role_appointment.has_historical_account?, role_appointment.person.name, historic_appointment_path(role, role_appointment.person) %></h3>
-    <p class="term"><%= role_appointment.date_range %></p>
+    <p class="term"><%= role_appointment.historical_account.try(:political_membership) %> <%= role_appointment.date_range %></p>
   </div>
 <% end %>
