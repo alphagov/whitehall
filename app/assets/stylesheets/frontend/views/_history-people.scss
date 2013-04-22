@@ -188,9 +188,7 @@
       position: relative;
       width: 75%;
       .person-profile {
-        position: absolute;
-        top: 0;
-        left: 0;
+        float: left;
         width: 33.33%;
         img {
           width: 100%;
