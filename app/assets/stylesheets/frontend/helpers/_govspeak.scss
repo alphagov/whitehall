@@ -64,6 +64,15 @@
         margin-left: $gutter;
       }
     }
+    @include right-to-left {
+      margin: $gutter-one-sixth $gutter-two-thirds $gutter-one-sixth 0;
+      @include media (tablet) {
+        margin: $gutter-one-third $gutter-two-thirds $gutter-one-third 0;
+      }
+      ul, ol {
+        margin: 0 $gutter-two-thirds 0 0;
+      }
+    }
   }
 
   ul {
@@ -83,6 +92,15 @@
         margin-left: $gutter;
       }
     }
+    @include right-to-left {
+      margin: $gutter-one-sixth $gutter-two-thirds $gutter-one-sixth 0;
+      @include media (tablet) {
+        margin: $gutter-one-third $gutter-two-thirds $gutter-one-third 0;
+      }
+      ul, ol {
+        margin: 0 $gutter-two-thirds 0 0;
+      }
+    }
   }
 
   em, i {
@@ -92,11 +110,12 @@
   li {
     p {
       margin: 0;
+      padding: 0;
     }
     p+p, p+ul, p+ol,
     ul+p, ul+ol,
     ol+p, ol+ul {
-      margin-top: $gutter-one-sixth;
+      margin-top: $gutter-one-third;
     }
   }
 
@@ -106,6 +125,9 @@
 
   blockquote {
     padding: 0 0 0 $gutter-two-thirds;
+    @include right-to-left {
+      padding: 0 $gutter-two-thirds 0 0;
+    }
     margin: 0;
     border: 0;
 
@@ -133,7 +155,7 @@
         content: "\201D";
         float: right;
         margin-left: 0;
-        margin-right: (-$gutter);
+        margin-right: (-$gutter-half);
       }
     }
     & p.last-child:after {
