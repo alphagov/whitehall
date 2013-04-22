@@ -22,8 +22,8 @@ module("Document filter", {
     this.filterResults = $('<div class="js-filter-results" />');
     $('#qunit-fixture').append(this.filterResults);
 
-    this.atomLink = $('<div class="filter-feed"><a class="feed">feed</a></div>');
-    $('#qunit-fixture').append(this.atomLink);
+    this.feedLinks = $('<div class="feeds"><a class="feed">feed</a> <a class="govdelivery">email</a></div>');
+    $('#qunit-fixture').append(this.feedLinks);
 
     this.resultsCount = $('<div class="filter-results-summary"><h3 class="selections"></h3></div>');
     $('#qunit-fixture').append(this.resultsCount);
@@ -44,6 +44,7 @@ module("Document filter", {
       "total_pages": 5,
 
       "atom_feed_url": '/atom-feed',
+      "email_signup_url": '/email-signups',
       "results_any?": true,
       "results": [
         {
@@ -90,11 +91,19 @@ test("should show message when ajax data is empty", function() {
 });
 
 test("should update the atom feed url", function() {
-  equals(this.atomLink.find('a[href="/atom-feed"]').length, 0);
+  equals(this.feedLinks.find('a[href="/atom-feed"]').length, 0);
 
   GOVUK.documentFilter.updateAtomFeed(this.ajaxData);
 
-  equals(this.atomLink.find('a[href="/atom-feed"]').length, 1);
+  equals(this.feedLinks.find('a[href="/atom-feed"]').length, 1);
+});
+
+test("should update the email signup url", function() {
+  equals(this.feedLinks.find('a[href="/email-signups"]').length, 0);
+
+  GOVUK.documentFilter.updateEmailSignup(this.ajaxData);
+
+  equals(this.feedLinks.find('a[href="/email-signups"]').length, 1);
 });
 
 test("should visually hide the footer", function(){

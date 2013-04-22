@@ -376,6 +376,25 @@ class PublicationsControllerTest < ActionController::TestCase
     assert_equal json["atom_feed_url"], publications_url(format: "atom", topics: ["topic-1"])
   end
 
+  view_test "index requested as JSON includes email signup path without date parameters" do
+    get :index, format: :json, date: "2012-01-01", direction: "before"
+
+    json = ActiveSupport::JSON.decode(response.body)
+
+    assert_equal json["email_signup_url"], email_signups_path
+  end
+
+  view_test "index requested as JSON includes email signup path with organisation and topic parameters" do
+    topic = create(:topic)
+    organisation = create(:organisation)
+
+    get :index, format: :json, date: "2012-01-01", direction: "before", topics: [topic], departments: [organisation]
+
+    json = ActiveSupport::JSON.decode(response.body)
+
+    assert_equal json["email_signup_url"], email_signups_path(topic: topic.slug, organisation: organisation.slug)
+  end
+
   view_test 'index has atom feed autodiscovery link' do
     get :index
     assert_select_autodiscovery_link publications_url(format: "atom")
