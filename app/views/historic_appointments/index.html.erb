@@ -14,21 +14,21 @@
 
 <div class="block featured-profiles">
   <div class="inner-block floated-children">
-    <div class="year-block">
+    <div class="year-block" id="modern-appointments">
       <h2 class="profiles">20th &amp; 21st centuries</h2>
       <ol>
         <%= render partial: 'role_appointment', collection: @recent_appointments, locals: { role: @role } %>
       </ol>
     </div>
 
-    <div class="year-block">
+    <div class="year-block" id="nineteenth-century-appointments">
       <h2 class="profiles">19th century</h2>
       <ol>
         <%= render partial: 'role_appointment', collection: @nineteenth_century_appointments, locals: { role: @role } %>
       </ol>
     </div>
 
-    <div class="year-block">
+    <div class="year-block" id="eighteenth-century-appointments">
       <h2 class="profiles">18th century</h2>
       <ol>
         <%= render partial: 'role_appointment', collection: @eighteenth_century_appointments, locals: { role: @role } %>
