@@ -1,7 +1,7 @@
 class Admin::PeopleController < Admin::BaseController
   before_filter :load_person, only: [:show, :edit, :update, :destroy]
   def index
-    @people = Person.order(:surname, :forename)
+    @people = Person.order(:surname, :forename).includes(:translations)
   end
 
   def new

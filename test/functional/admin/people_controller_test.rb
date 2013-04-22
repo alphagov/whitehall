@@ -134,32 +134,4 @@ class Admin::PeopleControllerTest < ActionController::TestCase
 
     assert_select ".people .person .biography", text: %r{^Hathi is head of the elephant troop}
   end
-
-  view_test "provides link to manage translations for a person" do
-    person = create(:person)
-
-    get :index
-
-    assert_select_object(person) do
-      assert_select "a[href=?]", admin_person_translations_path(person), text: "Manage translations"
-    end
-  end
-
-  view_test "provides delete buttons for destroyable people" do
-    destroyable_person = create(:person)
-    indestructable_person = create(:person)
-    create(:role_appointment, person: indestructable_person)
-
-    get :index
-
-    assert_select_object destroyable_person do
-      assert_select ".delete form[action='#{admin_person_path(destroyable_person)}']" do
-        assert_select "input[name='_method'][value='delete']"
-        assert_select "input[type='submit']"
-      end
-    end
-    assert_select_object indestructable_person do
-      refute_select ".delete form[action='#{admin_person_path(indestructable_person)}']"
-    end
-  end
 end
