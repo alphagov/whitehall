@@ -16,7 +16,7 @@ Given /^there are previous prime ministers$/ do
 end
 
 When /^I view the past prime ministers page$/ do
-  visit historical_accounts_path('past-prime-ministers')
+  visit historic_appointments_path('past-prime-ministers')
 end
 
 Then /^I should see the previous prime ministers listed according the century in which they served$/ do

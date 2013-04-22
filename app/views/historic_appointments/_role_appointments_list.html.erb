@@ -10,7 +10,7 @@
         <% previous_appointments.uniq {|ra| ra.person}.each do |role_appointment| %>
           <li>
             <% if role_appointment.has_historical_account? %>
-              <%= link_to_unless_current role_appointment.person.name, historical_account_path(role_appointment.historical_account, role) %>
+              <%= link_to_unless_current role_appointment.person.name, historic_appointment_path(role, role_appointment.person) %>
             <% else %>
               <%= role_appointment.person.name %>
             <% end %>
