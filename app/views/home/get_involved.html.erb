@@ -45,7 +45,7 @@
         <div class="consultation-closing-soon">
           <h3>Closing soon</h3>
           <ol class="document-list">
-            <% [@next_closing_consultation].each do |consultation| %>
+            <% @next_closing_consultations.each do |consultation| %>
               <%= content_tag_for(:li, consultation, class: 'document-row') do %>
                 <h3><%= link_to consultation.title, public_document_path(consultation) %></h3>
                 <ul class="attributes">
