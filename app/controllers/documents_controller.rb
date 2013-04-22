@@ -16,7 +16,11 @@ class DocumentsController < PublicFacingController
   end
 
   def find_document
-    unless @document = find_document_or_edition
+    if @document = find_document_or_edition
+      if scheduled_document = document_class.scheduled_for_publication_as(params[:id])
+        expire_on_next_scheduled_publication([scheduled_document])
+      end
+    else
       if @document = document_class.scheduled_for_publication_as(params[:id])
         expire_on_next_scheduled_publication([@document])
         render :coming_soon
