@@ -93,23 +93,30 @@ class Whitehall::GovUkDelivery::GovUkDeliveryEndPoint < Whitehall::GovUkDelivery
   end
 
   def description
-    [change_note, summary].compact.join('<br /><br />')
+    [escape(change_note), escape(summary)].delete_if(&:blank?).join('<br /><br />')
+  end
+
+  def public_date_html
+    if public_date
+      %Q(<div class="rss_pub_date" style="font-size: 90%; margin: 0 0 0.3em; padding: 0; color: #666666; font-style: italic;">#{public_date}</div>)
+    end
   end
 
   def govuk_delivery_email_body
-    ERB.new(%q{
-<div class="rss_item" style="margin-bottom: 2em;">
-  <div class="rss_title" style="font-size: 120%; margin: 0 0 0.3em; padding: 0;">
-    <% if change_note %>Updated<% end %>
-    <a href="<%= url %>" style="font-weight: bold; "><%= title %></a>
-  </div>
-  <% if public_date %>
-    <div class="rss_pub_date" style="font-size: 90%; margin: 0 0 0.3em; padding: 0; color: #666666; font-style: italic;"><%= public_date %></div>
-  <% end %>
-  <br />
-  <div class="rss_description" style="margin: 0 0 0.3em; padding: 0;"><%= description %></div>
-</div>
-}.encode("UTF-8")).result(binding)
+    %Q( <div class="rss_item" style="margin-bottom: 2em;">
+          <div class="rss_title" style="font-size: 120%; margin: 0 0 0.3em; padding: 0;">
+            #{'Updated' if change_note}
+            <a href="#{url}" style="font-weight: bold; ">#{escape(title)}</a>
+          </div>
+          #{public_date_html}
+          <br />
+          <div class="rss_description" style="margin: 0 0 0.3em; padding: 0;">#{description}</div>
+        </div> )
   end
 
+  private
+
+  def escape(string)
+    ERB::Util.html_escape(string)
+  end
 end

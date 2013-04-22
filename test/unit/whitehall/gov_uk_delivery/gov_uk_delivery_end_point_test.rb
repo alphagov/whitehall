@@ -350,6 +350,19 @@ class Whitehall::GovUkDelivery::GovUkDeliveryEndPointTest < ActiveSupport::TestC
     assert_equal_ignoring_whitespace "1 January, 2011 at 12:13pm", body.css('.rss_pub_date').inner_text
   end
 
+  test '#govuk_delivery_email_body html-escapes html characters in the title, change note and summary' do
+    editor = create(:departmental_editor)
+    first_draft = create(:published_publication, title: 'Beards & Facial Hair', summary: 'Keep your beard "tip-top"!')
+    second_draft = first_draft.create_draft(editor)
+    second_draft.change_note = '"tip-top" added.'
+    second_draft.save!
+    second_draft.publish_as(editor, force: true)
+
+    body = email_body_for(second_draft)
+    assert_match %r(Beards &amp; Facial Hair), body
+    assert_match %r(&quot;tip-top&quot; added.<br /><br />Keep your beard &quot;tip-top&quot;!), body
+  end
+
   test '#notify! sends a notification via the govuk delivery client' do
     policy = create(:policy)
     policy.stubs(:public_timestamp).returns Time.zone.now
@@ -375,5 +388,4 @@ class Whitehall::GovUkDelivery::GovUkDeliveryEndPointTest < ActiveSupport::TestC
 
     assert_nothing_raised { govuk_delivery_notifier_for(policy).notify! }
   end
-  
 end
