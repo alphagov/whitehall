@@ -26,6 +26,7 @@ Feature: Administering take part pages
     Then I see the take part pages in my specified order on the frontend get involved section
     And I can click through to read all about my new page
 
+  @allow-rescue
   Scenario: I can remove a take part page and it no longer displays them on /get-involved
     Given there are some take part pages for the get involved section
     When I remove one of the take part pages because it's not something we want to promote
