@@ -1,9 +1,3 @@
-# encoding: utf-8
-require 'uri'
-require 'erb'
-
-require 'gds_api/exceptions'
-
 module Edition::GovUkDelivery
   extend ActiveSupport::Concern
 
