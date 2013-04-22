@@ -1,0 +1,78 @@
+.take-part-pages-show {
+  @include media(desktop){
+    .block-1 {
+      width: 33.33%;
+      float: left;
+    }
+    .block-2 {
+      width: 66.66%;
+      float: right;
+    }
+  }
+
+  .page-header {
+    @extend %contain-floats;
+
+    @include media(tablet){
+      padding: $gutter + 8px 0 0;
+    }
+
+    h1 {
+      @include media(tablet) {
+        width: 75%;
+        float: left;
+      }
+
+      .label {
+        display: block;
+        @include core-36;
+        color: $grey-1;
+        padding-bottom: 2px;
+      }
+
+      .topic {
+        display: block;
+        @include core-48;
+        font-weight: bold;
+      }
+    }
+  }
+
+  nav {
+    @include ig-core-16;
+    padding: ($gutter - $gutter-one-third) 0 $gutter;
+    h1 {
+      @include bold;
+    }
+
+    ol {
+      li {
+        padding-top: $gutter-one-sixth;
+        list-style: disc;
+        margin-left: 1.2em;
+        @media (min-width: 1px ){ // target modern browsers
+          list-style: none;
+          &:before {
+            content: "-";
+            position: relative;
+            float: left;
+            width: $gutter-half;
+            margin-left: $gutter-half*-1;
+          }
+        }
+      }
+    }
+  }
+  .description {
+    @include ig-core-27;
+  }
+  .body {
+    h2 {
+      border-bottom: 1px solid $border-colour;
+
+      &:first-child {
+        margin-top: $gutter;
+      }
+    }
+  }
+}

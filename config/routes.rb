@@ -31,7 +31,10 @@ Whitehall::Application.routes.draw do
   scope Whitehall.router_prefix, shallow_path: Whitehall.router_prefix do
     root to: "home#home"
     match "/how-government-works" => "home#how_government_works", as: 'how_government_works'
-    match "/get-involved" => "home#get_involved", as: 'get_involved'
+    scope '/get-involved' do
+      root to: 'home#get_involved', as: :get_involved
+      resources :take_part_pages, path: 'take-part', only: [:show, :index]
+    end
 
     match "history/past-chancellors" => 'historic_appointments#past_chancellors'
     match "/history/:role" => "historic_appointments#index", constraints: { role: /(past-prime-ministers)|(past-chancellors)/ }, as: 'historic_appointments'

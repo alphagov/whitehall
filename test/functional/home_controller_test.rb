@@ -211,6 +211,16 @@ class HomeControllerTest < ActionController::TestCase
     assert_equal PublicationesquePresenter.decorate(recent_outcomes[-3..-1].reverse), assigns[:recent_consultation_outcomes]
   end
 
+  test 'get involved collects all the take part pages in order' do
+    page_3 = create(:take_part_page, ordering: 3)
+    page_1 = create(:take_part_page, ordering: 1)
+    page_2 = create(:take_part_page, ordering: 2)
+
+    get :get_involved
+
+    assert_equal [page_1, page_2, page_3], assigns(:take_part_pages)
+  end
+
   private
 
   def create_published_documents
