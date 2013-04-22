@@ -48,15 +48,23 @@
       }
 
       h2 {
-        @include core-24;
+        @include core-19;
+        font-weight: bold;
         border-bottom: 5px solid;
-        margin: 0 $gutter-half;
+        margin: 0 $gutter-half $gutter-one-sixth;
       }
 
       .person-excerpt {
         width: 100%;
         float: none;
 
+        h3 {
+          @include core-19;
+          font-weight: bold;
+        }
+        p {
+          color: $secondary-text-colour;
+        }
         img {
           width: 100%;
         }
