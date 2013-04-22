@@ -39,7 +39,12 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
     },
     updateAtomFeed: function(data) {
       if (data.atom_feed_url) {
-        $(".filter-feed .feed").attr("href", data.atom_feed_url);
+        $(".feeds .feed").attr("href", data.atom_feed_url);
+      }
+    },
+    updateEmailSignup: function(data) {
+      if (data.email_signup_url) {
+        $(".feeds .govdelivery").attr("href", data.email_signup_url);
       }
     },
     submitFilters: function(e){
@@ -63,6 +68,7 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
         },
         success: function(data) {
           documentFilter.updateAtomFeed(data);
+          documentFilter.updateEmailSignup(data);
           if (data.results) {
             documentFilter.renderTable(data);
             documentFilter.liveResultSummary(data);

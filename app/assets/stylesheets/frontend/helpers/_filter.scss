@@ -140,16 +140,19 @@
   }
 }
 
-.filter-feed {
-  display: inline;
-  .subscribe {
-    float: right;
+.document-filter-page {
+  .feeds {
+    display: inline;
+    .feed,
+    .govdelivery {
+      @include inline-block;
+    }
   }
 }
 
 .filter-results {
   padding-top: $gutter;
-  
+
   .no-results {
     padding: $gutter 0 $gutter-half;
     border-bottom: 1px solid $border-colour;
