@@ -89,9 +89,19 @@ module Searchable
     end
 
     module ClassMethods
+      def reindex_all
+        if Whitehall.searchable_classes.include?(self)
+          searchable_instances.each do |instance|
+            Searchable::Index.later(instance)
+          end
+        end
+      end
+      def searchable_instances
+        searchable_options[:only].call(self)
+      end
       def search_index
         Enumerator.new do |y|
-          searchable_options[:only].call(self).find_each do |edition|
+          searchable_instances.find_each do |edition|
             y << edition.search_index
           end
         end

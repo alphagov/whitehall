@@ -52,6 +52,29 @@ class SearchableTest < ActiveSupport::TestCase
     s.save
   end
 
+  test '#reindex_all will not request indexing if the class is not in searchable_classes' do
+    class NonExistentClass; end
+    Whitehall.stubs(:searchable_classes).returns([NonExistentClass])
+    Searchable::Index.expects(:later).never
+    SearchableTestTopic.reindex_all
+  end
+
+  test '#reindex_all will request indexing of each searchable instance' do
+    SearchableTestTopic.stubs(:searchable_instances).returns [:a_searchable_instance, :another_searchable_instance]
+    Searchable::Index.expects(:later).with(:a_searchable_instance)
+    Searchable::Index.expects(:later).with(:another_searchable_instance)
+    SearchableTestTopic.reindex_all
+  end
+
+  test '#searchable_instances uses the searchable[:only] to find instances that can be searched' do
+    draft_topic = SearchableTestTopic.create(name: 'woo', state: 'draft')
+    published_topic = SearchableTestTopic.create(name: 'woo', state: 'published')
+
+    searchable_topics = SearchableTestTopic.searchable_instances
+    assert searchable_topics.include?(published_topic)
+    refute searchable_topics.include?(draft_topic)
+  end
+
   test 'Index.later will enqueue an indexing job with the class and id' do
     s = SearchableTestTopic.create(name: 'woo', state: 'draft')
     Searchable::Index.expects(:new).with('SearchableTest::SearchableTestTopic', s.id).returns :an_indexing_job
