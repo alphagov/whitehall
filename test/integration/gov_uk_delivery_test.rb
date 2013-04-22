@@ -7,6 +7,7 @@ class GovUkDeliveryTest < ActiveSupport::TestCase
   setup do
     # Use the real GovUkDelivery client
     Whitehall.govuk_delivery_client = GdsApi::GovUkDelivery.new(Plek.current.find('govuk-delivery'))
+    Delayed::Job.destroy_all
   end
 
   test "Publishing a policy calls govuk-delivery API" do
@@ -21,10 +22,11 @@ class GovUkDeliveryTest < ActiveSupport::TestCase
     stub = stub_gov_uk_delivery_post_request('notifications', expected_payload).to_return(created_response_hash)
 
     assert policy.publish!
+    Delayed::Job.last.invoke_job
     assert_requested stub
   end
 
-  test "Failing API calls don't block publishing" do
+  test "API 400 errors calls don't block publishing" do
     Edition::AuditTrail.whodunnit = create(:user)
     policy = create(:policy, topics: [create(:topic), create(:topic)])
     policy.first_published_at = Time.zone.now
@@ -36,6 +38,7 @@ class GovUkDeliveryTest < ActiveSupport::TestCase
     stub = stub_gov_uk_delivery_post_request('notifications', expected_payload).to_return(error_response_hash)
 
     assert policy.publish!
+    Delayed::Job.last.invoke_job
     assert_requested stub
   end
 
@@ -46,6 +49,6 @@ class GovUkDeliveryTest < ActiveSupport::TestCase
   end
 
   def error_response_hash
-    { body: '', status: 500 }
+    { body: 'No subscribers', status: 400 }
   end
 end

@@ -363,29 +363,16 @@ class Whitehall::GovUkDelivery::GovUkDeliveryEndPointTest < ActiveSupport::TestC
     assert_match %r(&quot;tip-top&quot; added.<br /><br />Keep your beard &quot;tip-top&quot;!), body
   end
 
-  test '#notify! sends a notification via the govuk delivery client' do
+  test '#notify! queues a notification job to be performed later' do
     policy = create(:policy)
-    policy.stubs(:public_timestamp).returns Time.zone.now
     notifier = govuk_delivery_notifier_for(policy)
-    notifier.stubs(:govuk_delivery_email_body).returns('email body')
-    Whitehall.govuk_delivery_client.expects(:notify).with(notifier.govuk_delivery_tags, policy.title, 'email body')
 
-    notifier.notify!
-  end
+    assert_difference 'Delayed::Job.count', 1 do
+      notifier.notify!
+    end
 
-  test '#notify! swallows errors from the API' do
-    policy = create(:policy, topics: [create(:topic)])
-    policy.public_timestamp = Time.zone.now
-    Whitehall.govuk_delivery_client.expects(:notify).raises(GdsApi::HTTPErrorResponse, 500)
-
-    assert_nothing_raised { govuk_delivery_notifier_for(policy).notify! }
-  end
-
-  test '#notify! swallows timeout errors from the API' do
-    policy = create(:policy, topics: [create(:topic)])
-    policy.public_timestamp = Time.zone.now
-    Whitehall.govuk_delivery_client.expects(:notify).raises(GdsApi::TimedOutException)
-
-    assert_nothing_raised { govuk_delivery_notifier_for(policy).notify! }
+    payload_object = Delayed::Job.last.payload_object
+    assert payload_object.is_a?(GovUkDeliveryNotificationJob)
+    assert_equal notifier, payload_object.notifier
   end
 end

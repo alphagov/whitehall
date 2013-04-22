@@ -67,13 +67,7 @@ class Whitehall::GovUkDelivery::GovUkDeliveryEndPoint < Whitehall::GovUkDelivery
   end
 
   def notify!
-    begin
-      response = Whitehall.govuk_delivery_client.notify(govuk_delivery_tags, title, govuk_delivery_email_body)
-    rescue GdsApi::HTTPErrorResponse => e
-      Rails.logger.warn e
-    rescue => e
-      Rails.logger.error e
-    end
+    Delayed::Job.enqueue GovUkDeliveryNotificationJob.new(self)
   end
 
   def url
