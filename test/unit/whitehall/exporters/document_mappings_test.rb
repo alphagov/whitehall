@@ -91,12 +91,26 @@ Old Url,New Url,Status,Slug,Admin Url,State
       EOF
     end
 
-    test "exports with 301 if the document has ever been published" do
+    test "exports with 301 if the document has a published edition" do
       publication = create(:published_publication)
       new_draft = publication.create_draft(create(:gds_editor))
       assert_extraction_contains <<-EOF.strip_heredoc
         "",https://www.preview.alphagov.co.uk/government/publications/#{publication.slug},301,#{publication.slug},https://whitehall-admin.test.alphagov.co.uk/government/admin/publications/#{publication.id},published
         "",https://www.preview.alphagov.co.uk/government/publications/#{publication.slug},301,#{publication.slug},https://whitehall-admin.test.alphagov.co.uk/government/admin/publications/#{new_draft.id},draft
+      EOF
+    end
+
+    test "exports with 301 to the original slug of an unpublished edition" do
+      user = create(:gds_editor)
+      publication = create(:published_publication)
+      old_slug = publication.document.slug
+      publication.unpublish_as(user)
+      unpublishing = publication.create_unpublishing!(attributes_for(:unpublishing))
+      publication.title = "This is a new title"
+      publication.save!
+      refute_equal old_slug, publication.document.slug
+      assert_extraction_contains <<-EOF.strip_heredoc
+        "",https://www.preview.alphagov.co.uk/government/publications/#{unpublishing.slug},301,#{unpublishing.slug},https://whitehall-admin.test.alphagov.co.uk/government/admin/publications/#{publication.id},draft
       EOF
     end
 

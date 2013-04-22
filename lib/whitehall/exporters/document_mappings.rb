@@ -25,22 +25,49 @@ class Whitehall::Exporters::DocumentMappings < Struct.new(:platform)
   end
 
   def edition_values(edition, document, document_source=nil)
+    public_url, slug = document_url_and_slug(edition, document, document_source)
+    [ (document_source.try(:url) || ''),
+      public_url,
+      http_status(edition),
+      slug,
+      admin_edition_url(edition, host: admin_host, protocol: 'https'),
+      edition.state ]
+  end
+
+  def document_slug(edition, document)
+    if edition.pre_publication? && edition.unpublishing.present?
+      edition.unpublishing.slug
+    else
+      document.slug
+    end
+  end
+
+  def document_url_and_slug(edition, document, document_source)
     doc_url_args = { protocol: 'https' }
     if edition.translatable?
       locale = document_source.try(:locale)
       doc_url_args[:locale] = locale unless locale.nil? || Locale.new(locale).english?
     end
 
-    [ (document_source.try(:url) || ''),
-      public_document_url(document.published_edition || document.latest_edition, doc_url_args),
-      http_status(edition),
-      document.slug,
-      admin_edition_url(edition, host: admin_host, protocol: 'https'),
-      edition.state ]
+    slug = document_slug(edition, document)
+    [
+      polymorphic_url(model_name(edition), doc_url_args.merge(id: slug, host: public_host)),
+      slug
+    ]
   end
 
   def http_status(edition)
-    edition.document.published? ? '301' : '418'
+    if edition.document.published? || any_edition_has_ever_been_published?(edition)
+      '301'
+    else
+      '418'
+    end
+  end
+
+  def any_edition_has_ever_been_published?(edition)
+    edition.document.editions.any? do |edition|
+      edition.versions.any? {|v| v.state == "published" }
+    end
   end
 
   def export(target)
