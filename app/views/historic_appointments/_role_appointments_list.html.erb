@@ -4,7 +4,7 @@
     <div id="contents">
       <h3>
         <span><%= previous_appointments.size %></span>
-        Past <%= role_title %>
+        <%= link_to_unless_current "Past #{role_title}", historic_appointments_path(params[:role]) %>
       </h3>
       <ol>
         <% previous_appointments.uniq {|ra| ra.person}.each do |role_appointment| %>
