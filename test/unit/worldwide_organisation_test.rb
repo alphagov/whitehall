@@ -186,9 +186,7 @@ class WorldwideOrganisationTest < ActiveSupport::TestCase
   test 'adds worldwide organisation to search index on creating' do
     worldwide_organisation = build(:worldwide_organisation)
 
-    search_index_data = stub('search index data')
-    worldwide_organisation.stubs(:search_index).returns(search_index_data)
-    Rummageable.expects(:index).with(search_index_data, Whitehall.government_search_index_path)
+    Searchable::Index.expects(:later).with(worldwide_organisation)
 
     worldwide_organisation.save
   end
@@ -196,9 +194,7 @@ class WorldwideOrganisationTest < ActiveSupport::TestCase
   test 'adds worldwide organisation to search index on updating' do
     worldwide_organisation = create(:worldwide_organisation)
 
-    search_index_data = stub('search index data')
-    worldwide_organisation.stubs(:search_index).returns(search_index_data)
-    Rummageable.expects(:index).with(search_index_data, Whitehall.government_search_index_path)
+    Searchable::Index.expects(:later).with(worldwide_organisation)
 
     worldwide_organisation.name = 'British Embassy to Hat land'
     worldwide_organisation.save
@@ -206,7 +202,7 @@ class WorldwideOrganisationTest < ActiveSupport::TestCase
 
   test 'removes worldwide organisation role from search index on destroying if it is active' do
     worldwide_organisation = create(:worldwide_organisation)
-    Rummageable.expects(:delete).with("/government/world/organisations/#{worldwide_organisation.slug}", Whitehall.government_search_index_path)
+    Searchable::Delete.expects(:later).with(worldwide_organisation)
     worldwide_organisation.destroy
   end
 

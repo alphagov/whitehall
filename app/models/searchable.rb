@@ -76,12 +76,12 @@ module Searchable
 
     def update_in_search_index
       if can_index_in_search?
-        Rummageable.index(search_index, rummager_index)
+        Searchable::Index.later(self)
       end
     end
 
     def remove_from_search_index
-      Rummageable.delete(searchable_options[:link].call(self), rummager_index)
+      Searchable::Delete.later(self)
     end
 
     def rummager_index
@@ -96,6 +96,43 @@ module Searchable
           end
         end
       end
+    end
+  end
+
+  class Index < Struct.new(:searchable_class_name, :searchable_id)
+    def allowed_class_names
+      Whitehall.searchable_classes.map(&:name)
+    end
+    def searchable_class
+      if allowed_class_names.include?(searchable_class_name)
+        searchable_class_name.constantize
+      else
+        raise ArgumentError, "#{searchable_class_name} is not an allowed class for searching"
+      end
+    end
+
+    def searchable_instance
+      @searchable_instance ||= searchable_class.find(searchable_id)
+    end
+
+    def self.later(object)
+      Delayed::Job.enqueue new(object.class.name, object.id)
+    end
+
+    def perform
+      if searchable_instance.can_index_in_search?
+        Rummageable.index(searchable_instance.search_index, searchable_instance.rummager_index)
+      end
+    end
+  end
+
+  class Delete < Struct.new(:link, :index)
+    def self.later(object)
+      Delayed::Job.enqueue new(object.searchable_options[:link].call(object), object.rummager_index)
+    end
+
+    def perform
+      Rummageable.delete(link, index)
     end
   end
 end

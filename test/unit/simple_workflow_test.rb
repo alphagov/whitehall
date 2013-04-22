@@ -22,7 +22,7 @@ class SimpleWorkflowTest < ActiveSupport::TestCase
 
   test "should remove from search index on delete if Searchable is included" do
     topic = create(:topic)
-    Rummageable.expects(:delete).with("/government/topics/#{topic.slug}", Whitehall.government_search_index_path)
+    Searchable::Delete.expects(:later).with(topic)
     topic.delete!
     assert_equal :deleted, topic.current_state
   end
@@ -30,7 +30,7 @@ class SimpleWorkflowTest < ActiveSupport::TestCase
   test "should not call rummager if Searchable is not included" do
     topic = create(:topic)
     Topic.any_instance.stubs(:remove_from_search_index).returns(NameError)
-    Rummageable.expects(:delete).never
+    Searchable::Delete.expects(:later).never
     topic.delete!
     assert_equal :deleted, topic.current_state
   end

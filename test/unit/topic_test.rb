@@ -177,9 +177,7 @@ class TopicTest < ActiveSupport::TestCase
   test 'should add topic to search index on creating' do
     topic = build(:topic)
 
-    search_index_data = stub('search index data')
-    topic.stubs(:search_index).returns(search_index_data)
-    Rummageable.expects(:index).with(search_index_data, Whitehall.government_search_index_path)
+    Searchable::Index.expects(:later).with(topic)
 
     topic.save
   end
@@ -187,9 +185,7 @@ class TopicTest < ActiveSupport::TestCase
   test 'should add topic to search index on updating' do
     topic = create(:topic)
 
-    search_index_data = stub('search index data')
-    topic.stubs(:search_index).returns(search_index_data)
-    Rummageable.expects(:index).with(search_index_data, Whitehall.government_search_index_path)
+    Searchable::Index.expects(:later).with(topic)
 
     topic.name = 'different topic name'
     topic.save
@@ -197,7 +193,7 @@ class TopicTest < ActiveSupport::TestCase
 
   test 'should remove topic from search index on destroying' do
     topic = create(:topic)
-    Rummageable.expects(:delete).with("/government/topics/#{topic.slug}", Whitehall.government_search_index_path)
+    Searchable::Delete.expects(:later).with(topic)
     topic.destroy
   end
 
