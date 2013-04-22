@@ -3,8 +3,8 @@
     <a href="#contents" class="js-showhide contents-toggle">Show past <%= role_title %></a>
     <div id="contents">
       <h3>
-        <%= previous_appointments.size %>
-        <span>Past <%= role_title %></span>
+        <span><%= previous_appointments.size %></span>
+        Past <%= role_title %>
       </h3>
       <ol>
         <% previous_appointments.uniq {|ra| ra.person}.each do |role_appointment| %>
