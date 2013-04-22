@@ -1,4 +1,4 @@
-Given /^a person called "([^"]*)"$/ do |name, ignored|
+Given /^a person called "([^"]*)"$/ do |name|
   @person = create_person(name)
 end
 
