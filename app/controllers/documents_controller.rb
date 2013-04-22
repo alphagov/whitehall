@@ -11,10 +11,6 @@ class DocumentsController < PublicFacingController
     params[:preview]
   end
 
-  def current_user_can_preview?
-    preview? && user_signed_in?
-  end
-
   def find_document
     unless @document = find_document_or_edition
       if @document = document_class.scheduled_for_publication_as(params[:id])
@@ -35,8 +31,13 @@ class DocumentsController < PublicFacingController
   end
 
   def find_document_or_edition
-    if current_user_can_preview?
-      document_class.with_translations(I18n.locale).find(params[:preview])
+    if preview?
+      if user_signed_in?
+        document_class.with_translations(I18n.locale).find(params[:preview])
+      else
+        session["return_to"] = request.fullpath if request.get?
+        redirect_to '/auth/gds'
+      end
     else
       document_class.published_as(params[:id], I18n.locale)
     end

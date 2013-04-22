@@ -246,7 +246,7 @@ module DocumentControllerTestHelpers
                                body: "Draft information")
 
         get :show, id: document.id, preview: draft_edition.id
-        assert_response 404
+        assert_response 302
       end
     end
 
