@@ -34,7 +34,7 @@ When /^I reorder the take part pages to highlight my new page$/ do
   click_on 'Update order'
 end
 
-Then /^I see the take part pages in my specified order on the frontend get involved section$/ do
+Then /^I see the take part pages in my specified order including the new page on the frontend get involved section$/ do
   visit get_involved_path
 
   within '.take-part-pages' do

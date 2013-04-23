@@ -23,7 +23,7 @@ Feature: Administering take part pages
     Given there are some take part pages for the get involved section
     When I create a new take part page called "Fund raising in Novembeard"
     And I reorder the take part pages to highlight my new page
-    Then I see the take part pages in my specified order on the frontend get involved section
+    Then I see the take part pages in my specified order including the new page on the frontend get involved section
     And I can click through to read all about my new page
 
   @allow-rescue
