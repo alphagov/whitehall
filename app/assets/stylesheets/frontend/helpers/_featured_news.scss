@@ -16,8 +16,8 @@
     .content {
       padding: $gutter-half $gutter-half $gutter-one-third;
 
-      .img-holder {
-        width: 25%;
+      .image-holder {
+        width: 33.33%;
         float: left;
         @include right-to-left {
           float: right;
@@ -29,7 +29,7 @@
 
         .img {
           display: block;
-          padding: $gutter-one-third $gutter-half 0 0;
+          padding: $gutter-one-sixth $gutter-half 0 0;
           @include right-to-left {
             padding: $gutter-one-third 0 0 $gutter-half;
           }
@@ -44,7 +44,7 @@
       }
       .text {
         float: left;
-        width: 75%;
+        width: 66.66%;
         @include right-to-left {
           float: right;
         }

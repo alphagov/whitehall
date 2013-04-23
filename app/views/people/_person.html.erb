@@ -9,15 +9,17 @@
   <%= content_tag_for(wrapping_element, person, prefix, class: "person-excerpt #{extra_class}") do %>
     <div class="inner">
       <% unless hide_image %>
-        <div class="image_holder">
-          <%= link_to person.image, person %>
+        <div class="image-holder">
+          <%= link_to person.image, person, class: "img" %>
         </div>
       <% end %>
-      <<%= hlevel %> class="current-appointee"><%= person.link %></<%= hlevel %>>
-      <p class="role">
-        <%= roles.map { |role| role.link }.join(", ").html_safe -%>
-        <%= roles_footnotes(roles, display_cabinet_attendance) -%>
-      </p>
+      <div class="text">
+        <<%= hlevel %> class="current-appointee"><%= person.link %></<%= hlevel %>>
+        <p class="role">
+          <%= roles.map { |role| role.link }.join(", ").html_safe %>
+          <%= roles_footnotes(roles, display_cabinet_attendance) -%>
+        </p>
+      </div>
     </div>
   <% end %>
 <% end %>

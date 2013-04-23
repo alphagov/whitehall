@@ -19,57 +19,67 @@
     @extend %contain-floats;
   }
 
-  .image_holder {
+  .image-holder {
+    width: 33.33%;
     float: left;
-    margin: 0;
-    padding-right: $gutter-one-third;
-    width: 25%;
-    min-width: 7.7rem;
-    min-width: 77px;
-    min-height: 5rem;
-    min-height: 50px;
-
+    @include right-to-left {
+      float: right;
+    }
     @include media(tablet){
-      padding: 0;
+      width: 100%;
+      float: none;
+    }
+
+    .img {
+      display: block;
+      padding: 0 $gutter-half 0 0;
+      @include right-to-left {
+        padding: $gutter-one-third 0 0 $gutter-half;
+      }
+      @include media(tablet){
+        padding: 0;
+      }
+
+      img {
+        width: 100%;
+      }
+    }
+  }
+
+  .text {
+    float: left;
+    width: 66.66%;
+    @include media(tablet){
       float: none;
       width: 100%;
     }
+    .current-appointee {
+      padding-top: 0;
+      a {
+        &:hover,
+        &:focus,
+        &:active {
+          text-decoration: none;
 
-    img {
-      display: block;
-      margin: $gutter-one-sixth 0 $gutter-one-third;
-      width: 100%;
-      height: auto;
-
-      @include media(tablet) {
-        width: 100%;
-        height: auto;
-        margin-left: 0;
-      }
-    }
-  }
-
-  .current-appointee {
-    padding-top: 0;
-    a {
-      &:hover,
-      &:focus,
-      &:active {
-        text-decoration: none;
-
-        strong {
-          text-decoration: underline;
+          strong {
+            text-decoration: underline;
+          }
         }
       }
     }
-  }
 
-  .role a {
-    text-decoration: none;
-    &:hover,
-    &:focus,
-    &:active {
-      text-decoration: underline;
+    .role {
+      @include core-14;
+      padding-top: $gutter-one-sixth;
+
+      a {
+        text-decoration: none;
+        &:hover,
+        &:focus,
+        &:active {
+          text-decoration: underline;
+        }
+      }
     }
   }
 
@@ -87,8 +97,5 @@
     padding-top: 0;
   }
 
-  .role {
-    @include core-14;
-    padding-top: $gutter-one-sixth;
-  }
+
 }

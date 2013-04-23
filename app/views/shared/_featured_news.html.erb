@@ -12,7 +12,7 @@
 %>
 <%= content_tag_for(:article, edition, nil, class: extra_classes.strip) do %>
   <div class="content">
-    <span class="img-holder">
+    <span class="image-holder">
       <%= link_to edition.image_tag(image_size), public_document_path(edition), title: t("document.read", title: edition.title), class: 'img'%>
     </span>
     <div class="text">
