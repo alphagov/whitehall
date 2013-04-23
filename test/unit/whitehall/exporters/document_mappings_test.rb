@@ -1,3 +1,4 @@
+# encoding: utf-8
 require 'test_helper'
 
 module Whitehall
@@ -15,10 +16,10 @@ module Whitehall
       end
     end
 
-    def assert_extraction(expected)
+    def assert_extraction(expected, row_skip_predicate=nil)
       actual = []
       @exporter.export(actual)
-      assert_equal expected, arrays_to_csv(actual)
+      assert_equal expected, arrays_to_csv(actual.reject(&row_skip_predicate))
     end
 
     def assert_extraction_contains(expected)
@@ -123,6 +124,18 @@ Old Url,New Url,Status,Slug,Admin Url,State
         #{translation_source.url},#{news_article_url(article)}.es,418,#{article.slug},#{news_article_admin_url(article)},#{article.state}
         #{source.url},#{news_article_url(article)},418,#{article.slug},#{news_article_admin_url(article)},#{article.state}
       EOF
+    end
+
+    test "an error exporting an edition doesn't cause the whole export to fail" do
+      article1 = create(:published_worldwide_priority)
+      article2 = create(:published_news_article)
+      @exporter.stubs(:document_url_and_slug).raises("Error!").then.returns(["http://example.com/slug", "slug"])
+
+      expected = <<-EOT
+Old Url,New Url,Status,Slug,Admin Url,State
+"",http://example.com/slug,301,slug,https://whitehall-admin.test.alphagov.co.uk/government/admin/news/#{article2.id},published
+      EOT
+      assert_extraction expected, ->(row) { row.any? {|cell| cell =~ /organisation/ } }
     end
 
     private

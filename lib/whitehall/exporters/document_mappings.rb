@@ -32,6 +32,9 @@ class Whitehall::Exporters::DocumentMappings < Struct.new(:platform)
       slug,
       admin_edition_url(edition, host: admin_host, protocol: 'https'),
       edition.state ]
+  rescue => e
+    Rails.logger.error("Whitehall::Exporters::DocumentMappings: when exporting #{edition} - #{e} - #{e.backtrace.join("\n")}")
+    nil
   end
 
   def document_slug(edition, document)
@@ -76,10 +79,14 @@ class Whitehall::Exporters::DocumentMappings < Struct.new(:platform)
       document.editions.each do |edition|
         if document.document_sources.any?
           document.document_sources.each do |source|
-            target << edition_values(edition, document, source)
+            edition_values(edition, document, source).tap do |row|
+              target << row if row
+            end
           end
         else
-          target << edition_values(edition, document)
+          edition_values(edition, document).tap do |row|
+            target << row if row
+          end
         end
       end
     end
