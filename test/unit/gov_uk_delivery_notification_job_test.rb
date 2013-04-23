@@ -2,7 +2,7 @@ require 'test_helper'
 
 class GovUkDeliveryNotificationJobTest < ActiveSupport::TestCase
   test '#perform sends a notification via the govuk delivery client' do
-    Whitehall.govuk_delivery_client.expects(:notify).with(notifier.govuk_delivery_tags, notifier.title, notifier.govuk_delivery_email_body)
+    Whitehall.govuk_delivery_client.expects(:notify).with(notifier.tags, notifier.display_title, notifier.email_body)
     job.perform
   end
 
@@ -25,7 +25,7 @@ class GovUkDeliveryNotificationJobTest < ActiveSupport::TestCase
   private
 
   def notifier
-    @notifier ||= stub('notifier', govuk_delivery_tags: 'tags', title: 'title', govuk_delivery_email_body: 'email body')
+    @notifier ||= stub('notifier', tags: 'tags', display_title: 'title', email_body: 'email body')
   end
 
   def job
