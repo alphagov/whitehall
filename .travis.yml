@@ -2,7 +2,7 @@ language: ruby
 rvm:
   - 1.9.2
 env:
-  - DB=mysql CUCUMBER_FORMAT=progress GOVUK_APP_DOMAIN=test.gov.uk DISPLAY=:99
+  - DB=mysql CUCUMBER_FORMAT=progress GOVUK_APP_DOMAIN=test.gov.uk DISPLAY=:99 RUBYOPT="-rpsych"
 script:
   - bundle exec rake db:create
   - bundle exec rake db:schema:load
