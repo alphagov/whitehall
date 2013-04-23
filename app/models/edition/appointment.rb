@@ -6,17 +6,27 @@ module Edition::Appointment
 
     delegate :role, to: :role_appointment
 
-    validates :role_appointment, presence: true, unless: ->(edition) { edition.can_have_some_invalid_data? }
+    validates :role_appointment, presence: true, unless: ->(edition) { edition.can_have_some_invalid_data? || edition.person_override? }
 
   end
 
+  def person_override?
+    person_override.present?
+  end
+
   def person
-    role_appointment.person
+    if person_override?
+      person_override
+    else
+      role_appointment.person
+    end
   end
 
   module InstanceMethods
     def search_index
-      super.merge("people" => [person.slug])
+      unless person_override?
+        super.merge("people" => [person.slug])
+      end
     end
   end
 end

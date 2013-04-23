@@ -12,6 +12,13 @@
       in
       <span class="organisations"><%= @edition.role.organisations.map {|o| link_to(o.name, o)}.to_sentence.html_safe %></span>
     </span>
+  <% elsif @edition.person_override? %>
+      <% if @edition.speech_type.written_article? %>
+      written by
+    <% else %>
+      for speech delivered by
+    <% end %>
+    <span class="person"><%= @edition.person_override %></span>
   <% else %>
     Speech type: <span class="type"><%= @edition.speech_type.name %></span><br/>
     Organisation:
