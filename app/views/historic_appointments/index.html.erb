@@ -1,0 +1,38 @@
+<% page_title "Past #{@role_title}" %>
+<% page_class "historic-appointments historic-appointments-index" %>
+
+<div class="block">
+  <div class="inner-block">
+    <header class="page-header">
+      <h1 class="topics"><%= link_to 'History', histories_path %></h1>
+      <h2>Past <%= @role_title %></h2>
+    </header>
+  </div>
+</div>
+
+<%= render partial: 'role_appointments_list', locals: { role: @role, role_title: @role_title } %>
+
+<div class="block featured-profiles">
+  <div class="inner-block floated-children">
+    <div class="year-block" id="modern-appointments">
+      <h2 class="profiles">20th &amp; 21st centuries</h2>
+      <ol>
+        <%= render partial: 'role_appointment', collection: @recent_appointments, locals: { role: @role } %>
+      </ol>
+    </div>
+
+    <div class="year-block" id="nineteenth-century-appointments">
+      <h2 class="profiles">19th century</h2>
+      <ol>
+        <%= render partial: 'role_appointment', collection: @nineteenth_century_appointments, locals: { role: @role } %>
+      </ol>
+    </div>
+
+    <div class="year-block" id="eighteenth-century-appointments">
+      <h2 class="profiles">18th century</h2>
+      <ol>
+        <%= render partial: 'role_appointment', collection: @eighteenth_century_appointments, locals: { role: @role } %>
+      </ol>
+    </div>
+  </div>
+</div>

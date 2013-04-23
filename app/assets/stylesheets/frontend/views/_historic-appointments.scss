@@ -1,0 +1,74 @@
+.historic-appointments {
+  .historic-people-list {
+    @include media(tablet){
+      float: left;
+      width: 25%;
+    }
+    h3 {
+      @include core-19;
+      margin-bottom: $gutter;
+
+      span {
+        @include core-80;
+        font-weight: bold;
+        display: block;
+      }
+    }
+  }
+}
+.historic-appointments-index {
+  .page-header {
+    padding : $gutter*2 0 $gutter;
+    @include media(tablet) {
+      padding : $gutter*2 0;
+    }
+
+    h1 {
+      @include heading-36;
+      color: $grey-1;
+    }
+    h2 {
+      @include heading-48;
+      font-weight: bold;
+      @include media(tablet) {
+        padding: 0;
+      }
+    }
+  }
+  .featured-profiles {
+    @include media(tablet){
+      width: 75%;
+      float: left;
+    }
+
+    .year-block {
+      @include media(tablet){
+        width: 33.33%;
+        float: left;
+      }
+
+      h2 {
+        @include core-19;
+        font-weight: bold;
+        border-bottom: 5px solid;
+        margin: 0 $gutter-half $gutter-one-sixth;
+      }
+
+      .person-excerpt {
+        width: 100%;
+        float: none;
+
+        h3 {
+          @include core-19;
+          font-weight: bold;
+        }
+        p {
+          color: $secondary-text-colour;
+        }
+        img {
+          width: 100%;
+        }
+      }
+    }
+  }
+}

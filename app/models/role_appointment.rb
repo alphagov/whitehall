@@ -10,6 +10,7 @@ class RoleAppointment < ActiveRecord::Base
   belongs_to :person
 
   delegate :slug, to: :person
+  delegate :name, to: :role, prefix: true
 
   class Validator < ActiveModel::Validator
     def validate(record)
@@ -57,6 +58,10 @@ class RoleAppointment < ActiveRecord::Base
 
   after_save :update_indexes
   after_destroy :update_indexes
+
+  def self.between(start_time, end_time)
+    where(started_at: start_time..end_time)
+  end
 
   #This is to prevent duplication of people by ministerial roles indexing
   def update_indexes
@@ -120,6 +125,14 @@ class RoleAppointment < ActiveRecord::Base
     return true if date.nil?
     return false if date < started_at
     ended_at.nil? || date <= ended_at
+  end
+
+  def historical_account
+    person.historical_accounts.includes(:roles).detect {|historical_account| historical_account.roles.include?(role) }
+  end
+
+  def has_historical_account?
+    historical_account.present?
   end
 
   private

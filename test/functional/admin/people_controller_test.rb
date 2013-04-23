@@ -44,7 +44,7 @@ class Admin::PeopleControllerTest < ActionController::TestCase
   test "creating with valid data redirects to the index" do
     post :create, person: attributes_for(:person)
 
-    assert_redirected_to admin_people_path
+    assert_redirected_to admin_person_url(Person.last)
   end
 
   test "creating allows attachment of an image" do
@@ -53,6 +53,15 @@ class Admin::PeopleControllerTest < ActionController::TestCase
     post :create, person: attributes
 
     refute_nil Person.last.image
+  end
+
+  test "GET on :show assigns the person and renders the show page" do
+    person = create(:person)
+    get :show, id: person
+
+    assert_equal person, assigns(:person)
+    assert_response :success
+    assert_template :show
   end
 
   view_test "editing shows form for editing a person" do
@@ -89,7 +98,7 @@ class Admin::PeopleControllerTest < ActionController::TestCase
 
     put :update, id: person.id, person: attributes_for(:person)
 
-    assert_redirected_to admin_people_path
+    assert_redirected_to admin_person_url(person)
   end
 
   test "should be able to destroy a destroyable person" do
@@ -124,33 +133,5 @@ class Admin::PeopleControllerTest < ActionController::TestCase
     get :index
 
     assert_select ".people .person .biography", text: %r{^Hathi is head of the elephant troop}
-  end
-
-  view_test "provides link to manage translations for a person" do
-    person = create(:person)
-
-    get :index
-
-    assert_select_object(person) do
-      assert_select "a[href=?]", admin_person_translations_path(person), text: "Manage translations"
-    end
-  end
-
-  view_test "provides delete buttons for destroyable people" do
-    destroyable_person = create(:person)
-    indestructable_person = create(:person)
-    create(:role_appointment, person: indestructable_person)
-
-    get :index
-
-    assert_select_object destroyable_person do
-      assert_select ".delete form[action='#{admin_person_path(destroyable_person)}']" do
-        assert_select "input[name='_method'][value='delete']"
-        assert_select "input[type='submit']"
-      end
-    end
-    assert_select_object indestructable_person do
-      refute_select ".delete form[action='#{admin_person_path(indestructable_person)}']"
-    end
   end
 end
