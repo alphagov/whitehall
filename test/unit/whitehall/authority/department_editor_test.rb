@@ -123,4 +123,8 @@ class DepartmentEditorTest < ActiveSupport::TestCase
   test 'cannot reorder cabinet ministers' do
     refute enforcer_for(department_editor, MinisterialRole).can?(:reorder_cabinet_ministers)
   end
+
+  test 'cannot administer the get_involved_section' do
+    refute enforcer_for(department_editor, :get_involved_section).can?(:administer)
+  end
 end

@@ -1,4 +1,9 @@
 class Admin::TakePartPagesController < Admin::BaseController
+  before_filter :enforce_permissions!
+  def enforce_permissions!
+    enforce_permission!(:administer, :get_involved_section)
+  end
+
   def index
     @take_part_pages = TakePartPage.in_order
   end

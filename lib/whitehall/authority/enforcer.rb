@@ -4,6 +4,7 @@ require 'whitehall/authority/rules/fatality_notice_rules'
 require 'whitehall/authority/rules/world_edition_rules'
 require 'whitehall/authority/rules/document_rules'
 require 'whitehall/authority/rules/ministerial_role_rules'
+require 'whitehall/authority/rules/miscellaneous_rules'
 
 module Whitehall::Authority
   class Enforcer
@@ -35,6 +36,7 @@ module Whitehall::Authority
 
   RulesMap = {
     'Object' => Rules::ObjectRules,
+    'Symbol' => Rules::MiscellaneousRules,
     'Document' => Rules::DocumentRules,
     'Edition' => Rules::EditionRules,
     'FatalityNotice' => Rules::FatalityNoticeRules,
