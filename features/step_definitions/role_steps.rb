@@ -1,4 +1,7 @@
 # encoding: utf-8
+Given /^the role "([^"]*)"( exists)?$/ do |name, ignored|
+  @role = create(:role, name: name)
+end
 
 Given /^a person called "([^"]*)" is assigned as its ambassador "([^"]*)"$/ do |person_name, role_name|
   person = create_person(person_name)

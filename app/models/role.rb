@@ -1,4 +1,6 @@
 class Role < ActiveRecord::Base
+  HISTORIC_ROLE_PARAM_MAPPINGS = { 'past-prime-ministers' => 'prime-minister',
+                                   'past-chancellors'     => 'chancellor-of-the-exchequer' }
 
   def self.columns
     # This is here to enable us to gracefully remove the biography column
@@ -17,6 +19,9 @@ class Role < ActiveRecord::Base
 
   has_many :worldwide_organisation_roles
   has_many :worldwide_organisations, through: :worldwide_organisation_roles
+
+  has_many :historical_account_roles
+  has_many :historical_accounts, through: :historical_account_roles
 
   scope :alphabetical_by_person, includes(:current_people, :organisations).order('people.surname', 'people.forename')
 
@@ -126,6 +131,10 @@ class Role < ActiveRecord::Base
 
   def destroyable?
     role_appointments.empty? && organisations.empty? && worldwide_organisations.empty?
+  end
+
+  def historic_param
+    HISTORIC_ROLE_PARAM_MAPPINGS.invert[slug]
   end
 
   private

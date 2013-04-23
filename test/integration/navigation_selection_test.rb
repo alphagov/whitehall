@@ -23,6 +23,7 @@ class NavigationSelectionTest < ActiveSupport::TestCase
     public_facing
     public_uploads
     uploads
+    historic_appointments
   ).map do |f|
     File.expand_path(Rails.root + "app/controllers/#{f}_controller.rb")
   end

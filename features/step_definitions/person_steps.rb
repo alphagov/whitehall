@@ -1,5 +1,5 @@
 Given /^a person called "([^"]*)"$/ do |name|
-  create_person(name)
+  @person = create_person(name)
 end
 
 Given /^a person called "([^"]*)" exists with the biography "([^"]*)"$/ do |name, biography|
@@ -9,6 +9,12 @@ end
 Given /^a person called "([^"]*)" exists with a translation for the locale "([^"]*)"$/ do |name, locale|
   person = create_person(name, biography: "Unimportant")
   add_translation_to_person(person, locale: locale, biography: 'Unimportant')
+end
+
+Given /^a person called "([^"]*)" exists in the role of "([^"]*)"$/ do |name, role_name|
+  @person = create_person(name)
+  @role = create(:ministerial_role, name: role_name)
+  create(:role_appointment, role: @role, person: @person)
 end
 
 Given /^"([^"]*)" is a minister with a history$/ do |name|
@@ -37,6 +43,7 @@ end
 When /^I update the person called "([^"]*)" to have the name "([^"]*)"$/ do |old_name, new_name|
   visit_people_admin
   click_link old_name
+  click_on 'Edit'
   fill_in_person_name new_name
   fill_in "Biography", with: "Vivamus fringilla libero et augue fermentum eget molestie felis accumsan."
   click_button "Save"
@@ -44,10 +51,8 @@ end
 
 When /^I remove the person "([^"]*)"$/ do |name|
   visit_people_admin
-  person = find_person(name)
-  within(record_css_selector(person)) do
-    click_button 'delete'
-  end
+  click_link name
+  click_button 'Delete'
 end
 
 When /^I add a new "([^"]*)" translation to the person "([^"]*)" with:$/ do |locale, name, table|
@@ -58,10 +63,9 @@ end
 When /^I edit the "([^"]*)" translation for the person called "([^"]*)" setting:$/ do |locale, name, table|
   person = find_person(name)
   translation = table.rows_hash.stringify_keys
-  visit admin_people_path
-  within record_css_selector(person) do
-    click_link "Manage translations"
-  end
+
+  visit admin_person_path(person)
+  click_link "Translations"
   click_link locale
   fill_in "Biography", with: translation["biography"]
   click_on "Save"

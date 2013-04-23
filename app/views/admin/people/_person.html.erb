@@ -1,0 +1,4 @@
+<%= content_tag_for(:tr, person) do %>
+  <td class="name"><%= link_to person.name, [:admin, person], title: "View #{person.name}" %></td>
+  <td class="biography"><%= truncate(person.biography, length: 70) %></td>
+<% end %>

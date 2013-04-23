@@ -20,7 +20,7 @@ module PersonHelper
   end
 
   def person_image_path
-    page.find("fieldset.image img")[:src]
+    page.find(".person img")[:src]
   end
 
   def visit_people_admin
@@ -30,11 +30,8 @@ module PersonHelper
 
   def add_translation_to_person(person, translation)
     translation = translation.stringify_keys
-    visit admin_people_path
-    within record_css_selector(person) do
-      click_link "Manage translations"
-    end
-
+    visit admin_person_path(person)
+    click_link "Translations"
     select translation["locale"], from: "Locale"
     click_on "Create translation"
     fill_in "Biography", with: translation["biography"]
