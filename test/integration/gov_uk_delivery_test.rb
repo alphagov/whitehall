@@ -18,7 +18,7 @@ class GovUkDeliveryTest < ActiveSupport::TestCase
     Whitehall::GovUkDelivery::GovUkDeliveryEndPoint.any_instance.stubs(:tags).returns(['http://example.com/feed'])
     Whitehall::GovUkDelivery::GovUkDeliveryEndPoint.any_instance.stubs(:email_body).returns('body')
 
-    expected_payload = { feed_urls: ['http://example.com/feed'], subject: policy.title, body: 'body' }
+    expected_payload = { feed_urls: ['http://example.com/feed'], subject: "Policy: #{policy.title}", body: 'body' }
     stub = stub_gov_uk_delivery_post_request('notifications', expected_payload).to_return(created_response_hash)
 
     assert policy.publish!
@@ -34,7 +34,7 @@ class GovUkDeliveryTest < ActiveSupport::TestCase
     Whitehall::GovUkDelivery::GovUkDeliveryEndPoint.any_instance.stubs(:tags).returns(['http://example.com/feed'])
     Whitehall::GovUkDelivery::GovUkDeliveryEndPoint.any_instance.stubs(:email_body).returns('body')
 
-    expected_payload = { feed_urls: ['http://example.com/feed'], subject: policy.title, body: 'body' }
+    expected_payload = { feed_urls: ['http://example.com/feed'], subject: "Policy: #{policy.title}", body: 'body' }
     stub = stub_gov_uk_delivery_post_request('notifications', expected_payload).to_return(error_response_hash)
 
     assert policy.publish!
