@@ -763,7 +763,7 @@
   .executive-office-header {
     h1 {
       background: transparent none no-repeat 50% 0;
-      padding-top: 130px;
+      padding-top: 140px;
       @include core-19;
       text-align: center;
     }
@@ -772,7 +772,11 @@
     background-image: image_url("executive-office-bars/prime-ministers-office.jpg");
   }
   .deputy-prime-ministers-office .executive-office-header h1 {
-    background-image: image_url("executive-office-bars/deputy-prime-ministers-office.jpg");
+    padding-top: 110px;
+    padding-bottom: 15px;
+    background-position: 50% 10px;
+    background-image: image_url("executive-office-bars/deputy-prime-ministers-office.png");
+    font-family: 'Times New Roman', serif;
   }
 
   .block {
