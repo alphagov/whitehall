@@ -16,7 +16,7 @@ class Whitehall::GovUkDelivery::GovUkDeliveryEndPoint < Whitehall::GovUkDelivery
         email_curation_queue_item.summary).notify!
   end
 
-  def govuk_delivery_tags
+  def tags
     if edition.can_be_associated_with_topics? || edition.can_be_related_to_policies?
       topic_slugs = edition.topics.map(&:slug)
     else
@@ -96,7 +96,7 @@ class Whitehall::GovUkDelivery::GovUkDeliveryEndPoint < Whitehall::GovUkDelivery
     end
   end
 
-  def govuk_delivery_email_body
+  def email_body
     %Q( <div class="rss_item" style="margin-bottom: 2em;">
           <div class="rss_title" style="font-size: 120%; margin: 0 0 0.3em; padding: 0;">
             #{'Updated' if change_note}
