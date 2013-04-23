@@ -208,7 +208,7 @@ zh-tw:
     email_alerts:
     latest_activity:
   i18n:
-    direction: rtl
+    direction: ltr
   language_names:
     zh-tw: 正體字
   latest_feed:
