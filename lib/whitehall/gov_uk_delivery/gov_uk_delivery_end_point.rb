@@ -70,10 +70,13 @@ class Whitehall::GovUkDelivery::GovUkDeliveryEndPoint < Whitehall::GovUkDelivery
         combinatorial_args << { relevant_to_local_government: 1 }
       end
       all_combinations_of_args(combinatorial_args).map do |combined_args|
-        url_helper(edition, combined_args)
+        [
+          url_helper(edition, combined_args),
+          atom_feed_url(combined_args.merge(format: :atom, host: Whitehall.public_host, protocol: Whitehall.public_protocol))
+        ]
       end
     end
-
+    # Include this in case there aren't any other tag paths
     tag_paths << atom_feed_url(format: :atom, host: Whitehall.public_host, protocol: Whitehall.public_protocol)
 
     tag_paths.flatten.uniq

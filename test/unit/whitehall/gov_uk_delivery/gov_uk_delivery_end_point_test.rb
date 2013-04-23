@@ -85,6 +85,19 @@ class Whitehall::GovUkDelivery::GovUkDeliveryEndPointTest < ActiveSupport::TestC
     refute tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/feed?relevant_to_local_government=1"
   end
 
+  test '#govuk_delivery_tags includes both a document specific and an "all" variant of the same params' do
+    topic = create(:topic)
+    organisation = create(:ministerial_department)
+    edition = create(:policy, topics: [topic], organisations: [organisation])
+
+    assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/policies.atom?departments%5B%5D=#{organisation.slug}&topics%5B%5D=#{topic.slug}"
+    assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/feed?departments%5B%5D=#{organisation.slug}&topics%5B%5D=#{topic.slug}"
+    assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/feed?departments%5B%5D=#{organisation.slug}"
+    assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/feed?topics%5B%5D=#{topic.slug}"
+    assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/policies.atom?departments%5B%5D=#{organisation.slug}"
+    assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/policies.atom?topics%5B%5D=#{topic.slug}"
+  end
+
   ### begin document type specific tests
 
   ### policy feed urls tests
