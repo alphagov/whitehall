@@ -65,6 +65,7 @@ Whitehall::Application.configure do
     frontend/html-publication-ie6.css
     frontend/print.css
     admin.js
+    tour/tour_pano.js
   )
 
   # Disable delivery errors, bad email addresses will be ignored
