@@ -8,5 +8,5 @@ if u
     puts ". ERROR - unpublishing no longer valid: #{u.errors.full_messages}"
   end
 else
-  pute "Unpublishing for 'civil-contingencies-act-a-short-guide-revised' not present - skipping!"
+  puts "Unpublishing for 'civil-contingencies-act-a-short-guide-revised' not present - skipping!"
 end
