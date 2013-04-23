@@ -60,7 +60,7 @@
         width: 40%;
         @include media(tablet) {
           width: auto;
-          min-width: ($gutter * 3 - $gutter-one-third);
+          min-width: ($gutter * 4);
           padding-right: $gutter-one-third;
 
           @include right-to-left {
