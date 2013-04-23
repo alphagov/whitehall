@@ -24,6 +24,8 @@
     @include media($min-width: $max-site-width + $gutter*2){
       margin: 0 auto;
     }
+    &.prime-ministers-office-10-downing-street { border-color: $black; }
+    &.deputy-prime-ministers-office { border-color: $white; }
   }
 
   .whitehall-content {
