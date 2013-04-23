@@ -212,7 +212,7 @@ module Whitehall
     end
 
     def rummager_work_queue_name
-      'always-be-rummaging'
+      'rummager-delayed-indexing'
     end
 
     private
