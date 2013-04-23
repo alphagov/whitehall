@@ -74,20 +74,28 @@ class Whitehall::GovUkDelivery::GovUkDeliveryEndPoint < Whitehall::GovUkDelivery
     document_url(edition, host: Whitehall.public_host)
   end
 
+  def display_title
+    if edition.is_a?(WorldLocationNewsArticle)
+      "News story: #{title}"
+    else
+      "#{edition.display_type}: #{title}"
+    end
+  end
+
   def public_date
     if notification_date
       notification_date.strftime('%e %B, %Y at %I:%M%P')
     end
   end
 
-  def change_note
+  def update_information
     if edition.document.change_history.length > 1
-      edition.document.change_history.first.note
+      "[Updated: #{edition.document.change_history.first.note}]"
     end
   end
 
   def description
-    [escape(change_note), escape(summary)].delete_if(&:blank?).join('<br /><br />')
+    [escape(update_information), escape(summary)].delete_if(&:blank?).join('<br /><br />')
   end
 
   def public_date_html
@@ -99,8 +107,7 @@ class Whitehall::GovUkDelivery::GovUkDeliveryEndPoint < Whitehall::GovUkDelivery
   def email_body
     %Q( <div class="rss_item" style="margin-bottom: 2em;">
           <div class="rss_title" style="font-size: 120%; margin: 0 0 0.3em; padding: 0;">
-            #{'Updated' if change_note}
-            <a href="#{url}" style="font-weight: bold; ">#{escape(title)}</a>
+            <a href="#{url}" style="font-weight: bold; ">#{escape(display_title)}</a>
           </div>
           #{public_date_html}
           <br />

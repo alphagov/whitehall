@@ -37,14 +37,42 @@ class Whitehall::GovUkDelivery::GovUkDeliveryEndPointTest < ActiveSupport::TestC
     assert_equal 'Cheese', govuk_delivery_notifier_for(policy, Time.zone.now, 'Cheese').title
   end
 
+  test '#display_title combines the title with the document type' do
+    policy = Policy.new(title: 'Compulsory pickles for all')
+    assert_equal 'Policy: Compulsory pickles for all', govuk_delivery_notifier_for(policy).display_title
+  end
+
+  test '#display_title uses an appropriate document type for world location new articles' do
+    news = WorldLocationNewsArticle.new(title: 'Global pickle sales skyrocket')
+    assert_equal 'News story: Global pickle sales skyrocket', govuk_delivery_notifier_for(news).display_title
+  end
+
   test "uses the summary of the edition if not specified" do
     policy = build(:policy, title: 'Meh', summary: 'Woo')
     assert_equal 'Woo', govuk_delivery_notifier_for(policy).summary
   end
 
-  test "uses the supplied title summary" do
+  test "uses the supplied summary" do
     policy = build(:policy, title: 'Meh', summary: 'Woo')
     assert_equal 'Hat', govuk_delivery_notifier_for(policy, Time.zone.now, 'Cheese', 'Hat').summary
+  end
+
+  test '#description returns the summary for a first edition' do
+    first_edition = create(:published_publication)
+    notifier = govuk_delivery_notifier_for(first_edition)
+    assert_equal first_edition.summary, notifier.description
+  end
+
+  test '#description includes the change note for updated editions' do
+    editor = create(:departmental_editor)
+    first_edition = create(:published_publication)
+    second_edition = first_edition.create_draft(editor)
+    second_edition.change_note = "Updated some stuff"
+    second_edition.save!
+    assert second_edition.publish_as(editor, force: true)
+    notifier = govuk_delivery_notifier_for(second_edition)
+
+    assert_equal "[Updated: #{second_edition.change_note}]<br /><br />#{second_edition.summary}", notifier.description
   end
 
   test "#tags returns a feed for 'all' by default" do
@@ -322,26 +350,13 @@ class Whitehall::GovUkDelivery::GovUkDeliveryEndPointTest < ActiveSupport::TestC
     assert_match /#{Whitehall.public_host}/, email_body_for(publication)
   end
 
-  test "#email_body should include change note along with summary in an updated edition" do
-    editor = create(:departmental_editor)
+  test "#email_body includes the description and display_title" do
     first_draft = create(:published_publication)
-    second_draft = first_draft.create_draft(editor)
-    second_draft.change_note = "Updated some stuff"
-    second_draft.save!
-    assert second_draft.publish_as(editor, force: true)
+    notifier = govuk_delivery_notifier_for(first_draft)
 
-    body = Nokogiri::HTML.fragment(email_body_for(second_draft))
-    assert_equal_ignoring_whitespace "Updated #{second_draft.title}", body.css('.rss_title').inner_text
-    assert_equal_ignoring_whitespace second_draft.change_note + second_draft.summary, body.css('.rss_description').inner_text
-  end
-
-  test "#email_body includes summary in the first published edition" do
-    editor = create(:departmental_editor)
-    first_draft = create(:published_publication)
-
-    body = Nokogiri::HTML.fragment(email_body_for(first_draft))
-    assert_equal_ignoring_whitespace first_draft.title, body.css('.rss_title').inner_text
-    assert_equal_ignoring_whitespace first_draft.summary, body.css('.rss_description').inner_text
+    body = Nokogiri::HTML.fragment(notifier.email_body)
+    assert_equal_ignoring_whitespace notifier.display_title, body.css('.rss_title').inner_text
+    assert_equal_ignoring_whitespace notifier.description, body.css('.rss_description').inner_text
   end
 
   test "#email_body includes a formatted date" do
@@ -360,7 +375,8 @@ class Whitehall::GovUkDelivery::GovUkDeliveryEndPointTest < ActiveSupport::TestC
 
     body = email_body_for(second_draft)
     assert_match %r(Beards &amp; Facial Hair), body
-    assert_match %r(&quot;tip-top&quot; added.<br /><br />Keep your beard &quot;tip-top&quot;!), body
+    assert_match %r(&quot;tip-top&quot; added), body
+    assert_match %r(Keep your beard &quot;tip-top&quot;!), body
   end
 
   test '#notify! queues a notification job to be performed later' do
