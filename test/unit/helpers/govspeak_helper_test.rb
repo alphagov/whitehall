@@ -304,6 +304,17 @@ class GovspeakHelperTest < ActionView::TestCase
     assert_equal [], embedded_contacts
   end
 
+  test 'will use the html version of the contact partial, even if the view context is for a different format' do
+    contact = build(:contact)
+    Contact.stubs(:find_by_id).with('1').returns(contact)
+    input = '[Contact:1]'
+    contact_html = render('contacts/contact', contact: contact)
+    @controller.lookup_context.formats = ['atom']
+    assert_nothing_raised(ActionView::MissingTemplate) do
+      assert_equal "<div class=\"govspeak\">#{contact_html}</div>", govspeak_to_html(input)
+    end
+  end
+
   private
 
   def internal_preview_host

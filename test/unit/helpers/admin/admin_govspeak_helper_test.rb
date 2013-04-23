@@ -126,4 +126,15 @@ class Admin::AdminGovspeakHelperTest < ActionView::TestCase
     assert_equal "<div class=\"govspeak\">#{contact_html}</div>", output
   end
 
+  test 'use the frontend html version of the contact partial, even if the view context is for a different format' do
+    contact = build(:contact)
+    Contact.stubs(:find_by_id).with('1').returns(contact)
+    input = '[Contact:1]'
+    contact_html = render('contacts/contact', contact: contact)
+    @controller.lookup_context.formats = ['atom']
+    assert_nothing_raised(ActionView::MissingTemplate) do
+      assert_equal "<div class=\"govspeak\">#{contact_html}</div>", govspeak_to_admin_html(input)
+    end
+  end
+
 end
