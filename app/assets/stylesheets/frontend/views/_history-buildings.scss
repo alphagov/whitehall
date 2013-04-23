@@ -149,4 +149,50 @@
     }
   }
 
+  .virtual-tour {
+    margin: 0 (-$gutter-half) $gutter;
+    @extend %contain-floats;
+
+    #tour-player {
+      .js-enabled & {
+        margin: 0 $gutter-half $gutter-half;
+        height: 400px;
+      }
+    }
+
+
+    .tour-nav {
+      @include media(tablet){
+        float: left;
+        width: 33.33%;
+      }
+
+      ul {
+        padding: 0 $gutter-half;
+
+        li {
+          @include core-14;
+          display: block;
+          border-bottom: 1px solid $border-colour;
+          padding: 4px 0 3px;
+        }
+      }
+    }
+    .tour-info {
+      @include media(tablet){
+        float: left;
+        width: 66.66%;
+      }
+      .tour-content {
+        padding: 0 $gutter-half;
+      }
+      .js-enabled & {
+        display: none;
+
+        &.js-visible {
+          display: block;
+        }
+      }
+    }
+  }
 }
