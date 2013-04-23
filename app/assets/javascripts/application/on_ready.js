@@ -27,4 +27,5 @@ jQuery(function($) {
   GOVUK.joiningMessage.init();
   GOVUK.showHide.init();
   GOVUK.emailSignup.init();
+  GOVUK.virtualTour.init();
 });
