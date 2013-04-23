@@ -4,6 +4,7 @@ class Admin::CabinetMinistersController < Admin::BaseController
 
   def show
     @cabinet_minister_roles = MinisterialRole.includes(:translations).where(cabinet_member: true).order(:seniority)
+    @also_attends_cabinet_roles = MinisterialRole.includes(:translations).also_attends_cabinet.order(:seniority)
   end
 
   def update
