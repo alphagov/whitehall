@@ -90,11 +90,9 @@ module Searchable
 
     module ClassMethods
       def reindex_all
-        if Whitehall.searchable_classes.include?(self)
-          searchable_instances.each do |instance|
-            Searchable::Index.later(instance)
-          end
-        end
+        searchable_instances
+          .select { |instance| Whitehall.searchable_classes.include?(instance.class) }
+          .each { |instance|  Searchable::Index.later(instance) }
       end
       def searchable_instances
         searchable_options[:only].call(self)

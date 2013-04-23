@@ -44,7 +44,7 @@ class SearchableTest < ActiveSupport::TestCase
     s.destroy
   end
 
-  test 'will only request indexing of things that are included in the searchable_classes property' do
+  test 'will only request indexing of things that are included in the Whitehall.searchable_classes property' do
     class NonExistentClass; end
     Whitehall.stubs(:searchable_classes).returns([NonExistentClass])
     s = SearchableTestTopic.new(name: 'woo', state: 'published')
@@ -52,17 +52,27 @@ class SearchableTest < ActiveSupport::TestCase
     s.save
   end
 
-  test '#reindex_all will not request indexing if the class is not in searchable_classes' do
+  test '#reindex_all will not request indexing for an instance whose class is not in Whitehall.searchable_classes' do
     class NonExistentClass; end
     Whitehall.stubs(:searchable_classes).returns([NonExistentClass])
+    s = SearchableTestTopic.create(name: 'woo', state: 'published')
     Searchable::Index.expects(:later).never
     SearchableTestTopic.reindex_all
   end
 
-  test '#reindex_all will request indexing of each searchable instance' do
-    SearchableTestTopic.stubs(:searchable_instances).returns [:a_searchable_instance, :another_searchable_instance]
-    Searchable::Index.expects(:later).with(:a_searchable_instance)
-    Searchable::Index.expects(:later).with(:another_searchable_instance)
+  test '#reindex_all will respect the scopes it is prefixed with' do
+    s1 = SearchableTestTopic.create(name: 'woo', state: 'published')
+    s2 = SearchableTestTopic.create(name: 'moo', state: 'published')
+    Searchable::Index.expects(:later).with(s1).never
+    Searchable::Index.expects(:later).with(s2)
+    SearchableTestTopic.where(name: 'moo').reindex_all
+  end
+
+  test '#reindex_all will request indexing for each searchable instance' do
+    s1 = SearchableTestTopic.create(name: 'woo', state: 'draft')
+    s2 = SearchableTestTopic.create(name: 'woo', state: 'published')
+    Searchable::Index.expects(:later).with(s1).never
+    Searchable::Index.expects(:later).with(s2)
     SearchableTestTopic.reindex_all
   end
 
