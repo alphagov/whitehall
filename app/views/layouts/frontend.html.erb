@@ -14,7 +14,7 @@
       <li><%= main_navigation_link_to "Statistics", publications_filter_path(publication_filter_option: 'statistics') %></li>
     </ul>
   </nav>
-  <div class="whitehall-top-bar"></div>
+  <div class="whitehall-top-bar<%= content_for?(:bar_colour_class) ? " #{yield(:bar_colour_class)}" : '' %>"></div>
   <div class="whitehall-content">
     <div class="progress-bar js-progress-bar js-hidden" id="progress-bar" data-join-count="<%= joined_ministerial_department_count %>">
       <div class="bar"><div class="joined" style="width: <%= joined_ministerial_department_percent %>"></div></div>
