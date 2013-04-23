@@ -1,11 +1,12 @@
 <% page_title @organisation.name %>
 <% page_class "organisations-executive-office" %>
+<% bar_colour_class @organisation.slug %>
 <% atom_discovery_link_tag organisation_url(@organisation, format: :atom), "Latest activity" %>
 
 <%= organisation_wrapper(@organisation) do %>
   <header class="executive-office-header block">
     <div class="inner-block">
-      <h1><%= organisation_logo_name(@organisation) %></h1>
+      <h1><%= @organisation.logo_formatted_name %></h1>
     </div>
   </header>
 
