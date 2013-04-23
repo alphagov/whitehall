@@ -964,6 +964,13 @@
     }
   }
 
+  .corporate-information {
+    .dash-list {
+      margin-top: $gutter;
+      padding-top: $gutter;
+      border-top: 1px solid $border-colour;
+    }
+  }
 
 }
 
