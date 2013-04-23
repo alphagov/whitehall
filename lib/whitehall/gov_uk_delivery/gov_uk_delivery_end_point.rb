@@ -23,10 +23,6 @@ class Whitehall::GovUkDelivery::GovUkDeliveryEndPoint < Whitehall::GovUkDelivery
       format: :atom
     })
 
-    if edition.relevant_to_local_government?
-      url_params[:relevant_to_local_government] = 1
-    end
-
     case edition
     when Policy
       policies_url(url_params)
@@ -69,6 +65,9 @@ class Whitehall::GovUkDelivery::GovUkDeliveryEndPoint < Whitehall::GovUkDelivery
       combinatorial_args = [{departments: [t[0]]}, {topics: [t[1]]}]
       if filter_option
         combinatorial_args << filter_option
+      end
+      if edition.relevant_to_local_government?
+        combinatorial_args << { relevant_to_local_government: 1 }
       end
       all_combinations_of_args(combinatorial_args).map do |combined_args|
         url_helper(edition, combined_args)
