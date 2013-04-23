@@ -85,17 +85,17 @@ class SearchableTest < ActiveSupport::TestCase
     refute searchable_topics.include?(draft_topic)
   end
 
-  test 'Index.later will enqueue an indexing job with the class and id' do
+  test 'Index.later will enqueue an indexing job with the class and id onto the rummager work queue' do
     s = SearchableTestTopic.create(name: 'woo', state: 'draft')
     Searchable::Index.expects(:new).with('SearchableTest::SearchableTestTopic', s.id).returns :an_indexing_job
-    Delayed::Job.expects(:enqueue).with :an_indexing_job
+    Delayed::Job.expects(:enqueue).with(:an_indexing_job, queue: Whitehall.rummager_work_queue_name)
     Searchable::Index.later(s)
   end
 
-  test 'Delete.later will enqueue an indexing job with the link for the object and the index to remove it from' do
+  test 'Delete.later will enqueue an indexing job with the link for the object and the index to remove it from onto the rummager work queue' do
     s = SearchableTestTopic.create(name: 'woo', state: 'draft')
     Searchable::Delete.expects(:new).with(s.name, Whitehall.government_search_index_path).returns :a_deletion_job
-    Delayed::Job.expects(:enqueue).with :a_deletion_job
+    Delayed::Job.expects(:enqueue).with(:a_deletion_job, queue: Whitehall.rummager_work_queue_name)
     Searchable::Delete.later(s)
   end
 

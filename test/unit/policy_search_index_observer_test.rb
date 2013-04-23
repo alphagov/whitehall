@@ -17,12 +17,12 @@ class PolicySearchIndexObserverTest < ActiveSupport::TestCase
     policy.unpublish_as(create(:gds_editor))
   end
 
-  test 'ReindexRelatedEditions.later enqueues a job for the supplied policy' do
+  test 'ReindexRelatedEditions.later enqueues a job for the supplied policy onto the rummager work queue' do
     policy = create(:published_policy)
 
     job = PolicySearchIndexObserver::ReindexRelatedEditions.new(policy.id)
     PolicySearchIndexObserver::ReindexRelatedEditions.expects(:new).with(policy.id).returns(job)
-    Delayed::Job.expects(:enqueue).with(job)
+    Delayed::Job.expects(:enqueue).with(job, queue: Whitehall.rummager_work_queue_name)
 
     PolicySearchIndexObserver::ReindexRelatedEditions.later(policy)
   end

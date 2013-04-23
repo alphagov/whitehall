@@ -17,7 +17,8 @@ class PolicySearchIndexObserver < ActiveRecord::Observer
       policy.published_related_editions.reindex_all
     end
     def self.later(policy)
-      Delayed::Job.enqueue new(policy.id)
+      job = new(policy.id)
+      Delayed::Job.enqueue job, queue: Whitehall.rummager_work_queue_name
     end
   end
 end

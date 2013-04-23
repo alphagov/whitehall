@@ -124,7 +124,8 @@ module Searchable
     end
 
     def self.later(object)
-      Delayed::Job.enqueue new(object.class.name, object.id)
+      job = new(object.class.name, object.id)
+      Delayed::Job.enqueue job, queue: Whitehall.rummager_work_queue_name
     end
 
     def perform
@@ -136,7 +137,8 @@ module Searchable
 
   class Delete < Struct.new(:link, :index)
     def self.later(object)
-      Delayed::Job.enqueue new(object.searchable_options[:link].call(object), object.rummager_index)
+      job = new(object.searchable_options[:link].call(object), object.rummager_index)
+      Delayed::Job.enqueue job, queue: Whitehall.rummager_work_queue_name
     end
 
     def perform
