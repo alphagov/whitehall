@@ -46,9 +46,11 @@ module Edition::Organisations
   def lead_organisations
     organisations.where(edition_organisations: { lead: true }).reorder('edition_organisations.lead_ordering')
   end
+
   def lead_organisations=(new_lead_organisations)
-    self.lead_organisation_ids= new_lead_organisations.map(&:id)
+    self.lead_organisation_ids = new_lead_organisations.map(&:id)
   end
+
   def lead_organisation_ids=(new_lead_organisation_ids)
     __mange_edition_organisations(new_lead_organisation_ids, for_lead: true)
   end
@@ -56,9 +58,11 @@ module Edition::Organisations
   def supporting_organisations
     organisations.where(edition_organisations: { lead: false })
   end
+
   def supporting_organisations=(new_supporting_organisations)
     self.supporting_organisation_ids = new_supporting_organisations.map(&:id)
   end
+
   def supporting_organisation_ids=(new_supporting_organisation_ids)
     __mange_edition_organisations(new_supporting_organisation_ids, for_lead: false)
   end
@@ -79,7 +83,7 @@ module Edition::Organisations
 
   def at_least_one_lead_organisation
     unless skip_organisation_validation?
-      unless edition_organisations.detect {|eo| eo.lead? }
+      unless edition_organisations.detect { |eo| eo.lead? }
         errors[:lead_organisations] = "at least one required"
       end
     end
@@ -149,12 +153,15 @@ module Edition::Organisations
   def __edition_organisations_touched_by_lead_or_supporting_organisations_setters
     @edition_organisations_touched_by_lead_or_supporting_organisations_setters ||= []
   end
+
   def __edition_organisations_for_destruction_on_save
     @edition_organisations_for_destruction_on_save ||= []
   end
+
   def mark_for_destruction_all_edition_organisations_for_destruction
     __edition_organisations_for_destruction_on_save.each { |eo| eo.mark_for_destruction }
   end
+
   def clear_edition_organisations_touched_or_destroyed_by_lead_or_supporting_organisations_setters
     __edition_organisations_for_destruction_on_save.clear
     __edition_organisations_touched_by_lead_or_supporting_organisations_setters.clear

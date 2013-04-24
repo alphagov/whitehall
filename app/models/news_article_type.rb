@@ -27,7 +27,7 @@ class NewsArticleType
     primary + migration
   end
 
-   def self.primary
+  def self.primary
     by_prevalence[:primary]
   end
 
@@ -36,7 +36,7 @@ class NewsArticleType
   end
 
   def search_format_types
-    ['news-article-'+self.key.gsub('_',' ').parameterize]
+    ['news-article-' + self.key.gsub('_', ' ').parameterize]
   end
 
   NewsStory = create(id: 1, key: "news_story", singular_name: "News story", plural_name: "News stories", prevalence: :primary)

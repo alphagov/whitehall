@@ -8,8 +8,8 @@ module TranslationHelper
     t("world_location.type.#{world_location.display_type_key}", count: 1)
   end
 
-  def t_display_type(document, count=1)
-    translation = t("document.type.#{document.display_type_key}", count: count)
+  def t_display_type(document, count = 1)
+    t("document.type.#{document.display_type_key}", count: count)
   end
 
   def t_world_location_see_all_our(type)

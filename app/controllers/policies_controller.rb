@@ -2,7 +2,7 @@ class PoliciesController < DocumentsController
   include CacheControlHelper
 
   before_filter :find_document, only: [:show, :activity]
-  before_filter :set_analytics_format, only:[:show, :activity]
+  before_filter :set_analytics_format, only: [:show, :activity]
 
   respond_to :html
   respond_to :atom, only: :activity

@@ -48,12 +48,12 @@ module Edition::Workflow
       end
 
       event :convert_to_draft do
-        transitions from: :imported, to: :draft, guard: ->(edition){ edition.valid_as_draft? }
+        transitions from: :imported, to: :draft, guard: -> edition { edition.valid_as_draft? }
       end
 
       event :delete, success: -> edition { edition.run_callbacks(:delete) } do
         transitions from: [:imported, :draft, :submitted, :rejected], to: :deleted,
-          guard: lambda { |d| d.deletable? }
+          guard: -> d { d.deletable? }
       end
 
       event :submit do
@@ -66,7 +66,7 @@ module Edition::Workflow
 
       event :schedule do
         transitions from: [:draft, :submitted], to: :scheduled,
-          guard: lambda { |edition| edition.scheduled_publication.present? }
+          guard: -> edition { edition.scheduled_publication.present? }
       end
 
       event :unschedule do
@@ -75,13 +75,13 @@ module Edition::Workflow
 
       event :publish, success: -> edition { edition.run_callbacks(:publish) } do
         transitions from: [:draft, :submitted], to: :published,
-          guard: lambda { |edition| edition.scheduled_publication.blank? }
+          guard: -> edition { edition.scheduled_publication.blank? }
         transitions from: [:scheduled], to: :published
       end
 
       event :unpublish, success: -> edition { edition.run_callbacks(:unpublish) } do
         transitions from: :published, to: :draft,
-          guard: ->(edition){ edition.other_draft_editions.empty? }
+          guard: -> edition { edition.other_draft_editions.empty? }
       end
 
       event :archive, success: -> edition { edition.run_callbacks(:archive) } do

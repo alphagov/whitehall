@@ -1,5 +1,5 @@
 module Admin::DefinitionListHelper
-  def dd(value, default=nil, &block)
+  def dd(value, default = nil, &block)
     value = if value.present?
       if block_given?
         capture do
@@ -18,7 +18,7 @@ module Admin::DefinitionListHelper
     content_tag(:dt, label)
   end
 
-  def definition(label, value, default=nil, &block)
+  def definition(label, value, default = nil, &block)
     dt(label) + dd(value, default, &block)
   end
 

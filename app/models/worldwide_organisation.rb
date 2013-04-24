@@ -22,7 +22,7 @@ class WorldwideOrganisation < ActiveRecord::Base
   include TranslatableModel
   translates :name, :summary, :description, :services
 
-  alias :original_main_office :main_office
+  alias_method :original_main_office, :main_office
 
   validates_with SafeHtmlValidator
   validates :name, :summary, :description, presence: true
@@ -63,7 +63,7 @@ class WorldwideOrganisation < ActiveRecord::Base
   end
 
   def primary_role
-    roles.where(type: PRIMARY_ROLES.collect(&:name)).first
+    roles.where(type: PRIMARY_ROLES.map(&:name)).first
   end
 
   def secondary_role

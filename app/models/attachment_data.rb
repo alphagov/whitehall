@@ -50,7 +50,7 @@ class AttachmentData < ActiveRecord::Base
 
   def cant_be_replaced_by_self
     return if replaced_by.nil?
-    errors.add(:base, 'can\'t be replaced by itself') if replaced_by == self
+    errors.add(:base, "can't be replaced by itself") if replaced_by == self
   end
 
   def handle_to_replace_id

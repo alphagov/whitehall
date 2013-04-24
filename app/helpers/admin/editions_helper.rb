@@ -31,7 +31,7 @@ module Admin::EditionsHelper
     admin_header_link "Document Series", admin_document_series_index_path, /^#{Whitehall.router_prefix}\/admin\/document_series/
   end
 
-  def link_to_filter(link, options, filter, html_options={})
+  def link_to_filter(link, options, filter, html_options = {})
     content_tag(:li, link_to(link, url_for(filter.options.slice('state', 'type', 'author', 'organisation', 'title', 'world_location_ids').merge(options)), html_options), class: active_filter_if_options_match_class(filter, options))
   end
 
@@ -94,7 +94,7 @@ module Admin::EditionsHelper
               select(
                 :alternative_format_provider_id,
                 select_options,
-                {include_blank: true, multiple: false},
+                { include_blank: true, multiple: false },
                 class: 'chzn-select',
                 data: { placeholder: "Choose which organisation will provide alternative formats..." }
               ) + @template.content_tag(:p, "If the email address you need isn't here, it should be added to the relevant Department or Agency", class: 'help-block')
@@ -106,8 +106,8 @@ module Admin::EditionsHelper
     def lead_organisations_fields
       edition_organisations =
         object.edition_organisations.
-          select {|eo| eo.lead? }.
-          sort_by {|eo| eo.lead_ordering }
+          select { |eo| eo.lead? }.
+          sort_by { |eo| eo.lead_ordering }
 
       edition_organisations_fields(edition_organisations, true)
     end
@@ -115,7 +115,7 @@ module Admin::EditionsHelper
     def supporting_organisations_fields
       edition_organisations =
         object.edition_organisations.
-          reject {|eo| eo.lead? }
+          reject { |eo| eo.lead? }
 
       edition_organisations_fields(edition_organisations, false)
     end
@@ -133,7 +133,7 @@ module Admin::EditionsHelper
                                  include_blank: true,
                                  multiple: false,
                                  class: 'chzn-select-non-ie',
-                                 data: { placeholder: "Choose a #{field_identifier} organisation which produced this document..."},
+                                 data: { placeholder: "Choose a #{field_identifier} organisation which produced this document..." },
                                  id: "edition_#{field_identifier}_organisation_ids_#{idx + 1}"),
           ].join.html_safe
         end
@@ -149,11 +149,11 @@ module Admin::EditionsHelper
       concat edition_information(@information) if @information
       concat form.errors
       concat render(partial: "standard_fields",
-                    locals: {form: form, edition: edition})
+                    locals: { form: form, edition: edition })
       yield(form)
       concat render('access_limiting_fields', form: form, edition: edition)
       concat render(partial: "scheduled_publication_fields",
-                    locals: {form: form, edition: edition})
+                    locals: { form: form, edition: edition })
       concat standard_edition_publishing_controls(form, edition)
     end
   end
@@ -168,7 +168,7 @@ module Admin::EditionsHelper
     content_tag(:div, class: "publishing-controls well") do
       if edition.change_note_required?
         concat render(partial: "change_notes",
-                      locals: {form: form, edition: edition})
+                      locals: { form: form, edition: edition })
       end
       concat form.save_or_cancel
     end

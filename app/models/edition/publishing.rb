@@ -26,7 +26,7 @@ module Edition::Publishing
   end
 
   def published_version
-    if published_major_version and published_minor_version
+    if published_major_version && published_minor_version
       "#{published_major_version}.#{published_minor_version}"
     end
   end
@@ -42,7 +42,7 @@ module Edition::Publishing
   end
 
   def change_note_present!
-    if change_note.blank? and !minor_change
+    if change_note.blank? && !minor_change
       errors[:change_note] = "can't be blank"
     end
   end
@@ -76,7 +76,7 @@ module Edition::Publishing
       "Not ready for publication"
     elsif user == creator && !options[:force]
       "You are not the second set of eyes"
-    elsif !enforcer(user).can?( options[:force] ? :force_publish : :publish )
+    elsif !enforcer(user).can?(options[:force] ? :force_publish : :publish)
       "Only departmental editors can publish"
     end
   end
@@ -100,7 +100,7 @@ module Edition::Publishing
       self.major_change_published_at = Time.zone.now unless self.minor_change?
       make_public_at(major_change_published_at)
       self.access_limited = false
-      if ! scheduled?
+      unless scheduled?
         self.force_published = options[:force]
       end
       if minor_change?

@@ -37,7 +37,7 @@ class Admin::CorporateInformationPagesController < Admin::BaseController
       render :new
     end
   rescue ActiveRecord::StaleObjectError
-    flash.now[:alert] = %{This page has been saved since you opened it. Your version appears at the top and the latest version appears at the bottom. Please incorporate any relevant changes into your version and then save it.}
+    flash.now[:alert] = %(This page has been saved since you opened it. Your version appears at the top and the latest version appears at the bottom. Please incorporate any relevant changes into your version and then save it.)
     @conflicting_corporate_information_page = @organisation.corporate_information_pages.for_slug(params[:id])
     @corporate_information_page.lock_version = @conflicting_corporate_information_page.lock_version
     build_attachment
@@ -80,7 +80,8 @@ private
   end
 
   def cope_with_attachment_action_params
-    return unless params[:corporate_information_page] && params[:corporate_information_page][:corporate_information_page_attachments_attributes]
+    return unless params[:corporate_information_page] &&
+                  params[:corporate_information_page][:corporate_information_page_attachments_attributes]
     params[:corporate_information_page][:corporate_information_page_attachments_attributes].each do |_, corporate_information_page_attachment_params|
       Admin::AttachmentActionParamHandler.manipulate_params!(corporate_information_page_attachment_params)
     end

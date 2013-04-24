@@ -83,7 +83,9 @@ module Edition::AuditTrail
       edition_serial_number == 0
     end
 
-    def sort_priority; 0; end
+    def sort_priority
+      0
+    end
   end
 
   class VersionAuditEntry < AuditEntry
@@ -137,6 +139,8 @@ module Edition::AuditTrail
       editorial_remark.body
     end
 
-    def sort_priority; 2; end
+    def sort_priority
+      2
+    end
   end
 end

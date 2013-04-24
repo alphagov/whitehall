@@ -6,7 +6,7 @@ class PromotionalFeaturesPresenter
 
   def initialize(source)
     position = 0
-    @decorated_collection ||= source.collect do |feature|
+    @decorated_collection ||= source.map do |feature|
       presenter = PromotionalFeaturePresenter.new(feature, position: position)
       position += presenter.width
       presenter

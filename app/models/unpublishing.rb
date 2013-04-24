@@ -4,7 +4,7 @@ class Unpublishing < ActiveRecord::Base
   validates :edition, :unpublishing_reason, :document_type, :slug, presence: true
   validates :alternative_url, presence: {
     message: "must be entered if you want to redirect to it",
-    if: lambda { |unpublishing| unpublishing.redirect? }
+    if: -> unpublishing { unpublishing.redirect? }
   }
 
   def self.from_slug(slug, type)

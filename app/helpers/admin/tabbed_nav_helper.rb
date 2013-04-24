@@ -18,8 +18,8 @@ module Admin::TabbedNavHelper
       'Historical accounts' => admin_person_historical_accounts_path(person) }
   end
 
-  def tab_navigation(tabs, &block)
-    tab_navigation_header(tabs).tap do |tabs|
+  def tab_navigation(nav_tabs, &block)
+    tab_navigation_header(nav_tabs).tap do |tabs|
       if block_given?
         content_tag(:div, class: :tabbable) do
           tabs + content_tag(:div, class: "tab-content") { yield }
@@ -29,7 +29,7 @@ module Admin::TabbedNavHelper
   end
 
   def tab_navigation_header(tabs)
-    content_tag(:ul, class: %w{nav nav-tabs}) do
+    content_tag(:ul, class: %w(nav nav-tabs)) do
       tabs.map do |label, url|
         content_tag(:li, link_to(label, url), class: class_for_tab(url))
       end.join.html_safe

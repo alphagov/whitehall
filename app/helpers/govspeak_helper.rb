@@ -38,10 +38,10 @@ module GovspeakHelper
     return [] if govspeak.blank?
     # scan yields an array of capture groups for each match
     # so "[Contact:1] is now [Contact:2]" => [["1"], ["2"]]
-    govspeak.scan(GovspeakHelper::EMBEDDED_CONTACT_REGEXP).map { |capture|
+    govspeak.scan(GovspeakHelper::EMBEDDED_CONTACT_REGEXP).map do |capture|
       contact_id = capture.first
       Contact.find_by_id(contact_id)
-    }.compact
+    end.compact
   end
 
   class OrphanedHeadingError < StandardError
@@ -127,12 +127,12 @@ module GovspeakHelper
   end
 
   def add_heading_numbers(nokogiri_doc, heading_levels)
-    nokogiri_doc.css(heading_levels.join(',')).inject([0, 0]) do |levels, el|
+    nokogiri_doc.css(heading_levels.join(',')).reduce([0, 0]) do |levels, el|
       if el.name == heading_levels[0]
-        levels = [levels[0]+1, 0]
+        levels = [levels[0] + 1, 0]
         level_output = "#{levels[0]}."
       else
-        levels = [levels[0], levels[1]+1]
+        levels = [levels[0], levels[1] + 1]
         level_output = levels[0] > 0 ? levels.join('.') : ""
       end
       el.inner_html = el.document.fragment(%{<span class="number">#{level_output} </span>#{el.inner_html}}).children unless level_output.empty?
@@ -217,7 +217,7 @@ module GovspeakHelper
     request_host = respond_to?(:request) ? request.host : nil
     hosts = [request_host] + Whitehall.admin_hosts + Whitehall.public_hosts
     Govspeak::Document.new(govspeak, document_domains: hosts).tap do |document|
-      document.images = images.map {|i| AssetHostDecorator.new(i)}
+      document.images = images.map { |i| AssetHostDecorator.new(i) }
     end
   end
 

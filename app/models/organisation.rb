@@ -238,7 +238,7 @@ class Organisation < ActiveRecord::Base
   end
 
   def agencies_and_public_bodies_by_type
-    agencies_and_public_bodies.group_by(&:organisation_type).sort_by { |type,department| type.listing_order }
+    agencies_and_public_bodies.group_by(&:organisation_type).sort_by { |type, department| type.listing_order }
   end
 
   def sub_organisations
