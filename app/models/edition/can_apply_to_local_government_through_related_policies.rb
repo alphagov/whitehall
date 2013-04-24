@@ -6,6 +6,6 @@ module Edition::CanApplyToLocalGovernmentThroughRelatedPolicies
   end
 
   def relevant_to_local_government?
-    related_policies.any?(&:relevant_to_local_government?)
+    published_related_policies.any?(&:relevant_to_local_government?)
   end
 end

@@ -27,14 +27,21 @@ class Edition::CanApplyToLocalGovernmentThroughRelatedPoliciesTest < ActiveSuppo
     assert @edition.can_apply_to_local_government?
   end
 
-  test "edition obtains relevance to local government from any policy that is also relevant" do
-    relevant_policy = build(:policy, relevant_to_local_government: true)
-    irrelevant_policy = build(:policy, relevant_to_local_government: false)
+  test "edition obtains relevance to local government from any published policy that is also relevant" do
+    relevant_draft_policy = create(:policy, :with_document, relevant_to_local_government: true)
+    relevant_published_policy = create(:published_policy, :with_document, relevant_to_local_government: true)
+    irrelevant_policy = create(:published_policy, :with_document, relevant_to_local_government: false)
 
-    @edition.related_policies = [irrelevant_policy]
+    @edition.related_editions = [irrelevant_policy]
+    @edition.save!; @edition.reload
     refute @edition.relevant_to_local_government?
 
-    @edition.related_policies = [relevant_policy, irrelevant_policy]
+    @edition.related_editions = [relevant_draft_policy, irrelevant_policy]
+    @edition.save!; @edition.reload
+    refute @edition.relevant_to_local_government?
+
+    @edition.related_editions = [relevant_published_policy, relevant_draft_policy, irrelevant_policy]
+    @edition.save!; @edition.reload
     assert @edition.relevant_to_local_government?
   end
 
