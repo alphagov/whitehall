@@ -5,11 +5,13 @@ class HistoricAppointmentsControllerTest < ActionController::TestCase
     assert_routing({ path: 'government/history/past-prime-ministers', method: :get },
       { controller: 'historic_appointments', action: 'index', role: 'past-prime-ministers' })
 
-    assert_routing({ path: 'government/history/past-chancellors', method: :get },
-      { controller: 'historic_appointments', action: 'index', role: 'past-chancellors' })
-
     assert_routing({ path: 'government/history/king-charles-street', method: :get },
       { controller: 'histories', action: 'show', id: 'king-charles-street' })
+  end
+
+  test "routing for static chancellors page" do
+    assert_routing({ path: 'government/history/past-chancellors', method: :get },
+      { controller: 'historic_appointments', action: 'past_chancellors' })
   end
 
   test "routing for :show action" do
@@ -34,6 +36,13 @@ class HistoricAppointmentsControllerTest < ActionController::TestCase
     assert_equal_role_presenters [previous_pm2, previous_pm1], assigns(:recent_appointments)
     assert_equal_role_presenters [nineteenth_century_pm], assigns(:nineteenth_century_appointments)
     assert_equal_role_presenters [eighteenth_century_pm], assigns(:eighteenth_century_appointments)
+  end
+
+  test 'GET on :past_chancellors renders the template' do
+    get :past_chancellors
+
+    assert_response :success
+    assert_template :past_chancellors
   end
 
   test "GET on :show loads the person, appointment and historical account for previous Prime Ministers" do
