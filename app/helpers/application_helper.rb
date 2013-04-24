@@ -37,6 +37,7 @@ module ApplicationHelper
   end
 
   def filter_email_signup_url(args = {})
+    params.merge!(args)
     if params[:departments] && params[:departments].first != 'all'
       params[:organisation] = params[:departments].first
     end
