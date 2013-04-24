@@ -10,10 +10,6 @@ module Edition::Appointment
 
   end
 
-  def person_override?
-    person_override.present?
-  end
-
   def person
     if person_override?
       person_override
