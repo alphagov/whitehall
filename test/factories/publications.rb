@@ -38,6 +38,15 @@ FactoryGirl.define do
         }
       end
     end
+    ignore do
+      relevant_to_local_government { false }
+    end
+
+    after(:build) do |object, evaluator|
+      if evaluator.relevant_to_local_government
+        object.related_policy_ids = [FactoryGirl.create(:published_policy, relevant_to_local_government: true)].map(&:id)
+      end
+    end
   end
 
   factory :imported_publication, parent: :publication, traits: [:imported]
