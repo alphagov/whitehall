@@ -8,4 +8,8 @@ module Edition::CanApplyToLocalGovernmentThroughRelatedPolicies
   def relevant_to_local_government?
     published_related_policies.any?(&:relevant_to_local_government?)
   end
+
+  def self.edition_types
+    Edition.concrete_descendants.select { |concrete_edition_type| concrete_edition_type.ancestors.include?(self) }
+  end
 end
