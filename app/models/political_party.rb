@@ -9,4 +9,5 @@ class PoliticalParty
   LiberalDemocrats  = create(id: 3, name: 'Liberal Democrats', membership: 'Liberal Democrat')
   Tories            = create(id: 4, name: 'Tories', membership: 'Tory')
   Whigs             = create(id: 5, name: 'Whigs', membership: 'Whig')
+  Liberal           = create(id: 6, name: 'Liberal', membership: 'Liberal')
 end
