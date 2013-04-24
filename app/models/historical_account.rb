@@ -6,6 +6,7 @@ class HistoricalAccount < ActiveRecord::Base
   validates_with SafeHtmlValidator
   validates :person, :roles, :summary, :body, :political_party, presence: true
   validates :born, :died, length: { maximum: 256 }
+  validate :roles_support_historical_accounts
 
   def self.for_role(role)
     includes(:historical_account_roles).where('historical_account_roles.role_id' => role)
@@ -25,5 +26,13 @@ class HistoricalAccount < ActiveRecord::Base
 
   def role
     roles.first
+  end
+
+  private
+
+  def roles_support_historical_accounts
+    unless roles.all? { |role| role.supports_historical_accounts? }
+      errors.add(:base, 'The selected role(s) do not all support historical accounts')
+    end
   end
 end

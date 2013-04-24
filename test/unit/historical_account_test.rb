@@ -12,8 +12,18 @@ class HistoricalAccountTest < ActiveSupport::TestCase
     historical_account = build(:historical_account)
     historical_account.roles = []
     refute historical_account.valid?
-    historical_account.roles << create(:role)
+    historical_account.roles << create(:historic_role)
     assert historical_account.valid?
+  end
+
+  test "is not valid unless its role supports historic accounts" do
+
+    historical_account = build(:historical_account, roles: [create(:historic_role)])
+    assert historical_account.valid?
+
+    historical_account = build(:historical_account, roles: [create(:role)])
+    refute historical_account.valid?
+    assert_equal ['The selected role(s) do not all support historical accounts'], historical_account.errors[:base]
   end
 
   test "has accessor for political party" do
@@ -30,8 +40,8 @@ class HistoricalAccountTest < ActiveSupport::TestCase
   end
 
   test "#role defaults to the first role when there are multiple" do
-    role1 = create(:role)
-    role2 = create(:role)
+    role1 = create(:historic_role)
+    role2 = create(:historic_role)
     historical_account = create(:historical_account, roles: [role1, role2])
 
     assert_equal role1, historical_account.role

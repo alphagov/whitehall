@@ -97,6 +97,10 @@ class Person < ActiveRecord::Base
     [surname, forename].compact.join(' ').downcase
   end
 
+  def can_have_historical_accounts?
+    roles.any?(&:supports_historical_accounts?)
+  end
+
   private
 
   def name_as_words(*elements)

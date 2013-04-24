@@ -408,7 +408,7 @@ class RoleAppointmentTest < ActiveSupport::TestCase
   end
 
   test "returns an historical account for the role and appointtee if one exists" do
-    role_appointment = create(:role_appointment)
+    role_appointment = create(:historic_role_appointment)
 
     assert_nil role_appointment.historical_account
 
@@ -417,8 +417,8 @@ class RoleAppointmentTest < ActiveSupport::TestCase
   end
 
   test "does not return an historical account if the appointee has one for another role" do
-    role_appointment   = create(:role_appointment)
-    second_appointment = create(:role_appointment, person: role_appointment.person)
+    role_appointment   = create(:historic_role_appointment)
+    second_appointment = create(:historic_role_appointment, person: role_appointment.person)
     create(:historical_account, roles: [second_appointment.role], person: role_appointment.person)
 
     assert_nil role_appointment.historical_account

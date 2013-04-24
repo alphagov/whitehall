@@ -28,4 +28,8 @@ FactoryGirl.define do
   factory :deputy_head_of_mission_role_appointment, parent: :role_appointment do
     association :role, factory: :deputy_head_of_mission_role
   end
+
+  factory :historic_role_appointment, parent: :role_appointment do
+    association :role, factory: :historic_role
+  end
 end

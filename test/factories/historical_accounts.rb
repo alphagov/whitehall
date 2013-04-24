@@ -7,7 +7,7 @@ FactoryGirl.define do
 
     after(:build) do |account|
       unless account.roles.present?
-        account.roles << build(:role_appointment, person: account.person).role
+        account.roles << build(:historic_role_appointment, person: account.person).role
       end
     end
   end

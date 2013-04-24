@@ -13,7 +13,7 @@ end
 
 Given /^a person called "([^"]*)" exists in the role of "([^"]*)"$/ do |name, role_name|
   @person = create_person(name)
-  @role = create(:ministerial_role, name: role_name)
+  @role = create(:ministerial_role, supports_historical_accounts: true, name: role_name)
   create(:role_appointment, role: @role, person: @person)
 end
 
