@@ -64,6 +64,31 @@ class OrganisationHelperTest < ActionView::TestCase
     list = build(:featured_topics_and_policies_list, link_to_filtered_policies: true)
     assert_equal link_to('See all our policies', policies_path(departments: [o])), link_to_all_featured_policies(o)
   end
+  
+  test 'organisation_count_paragraph includes the number of orgs in a filterable container' do
+    orgs = [build(:organisation), build(:organisation)]
+    render text: organisation_count_paragraph(orgs)
+    assert_select '.js-filter-count', text: '2'
+  end
+
+  test 'organisation_count_paragraph includes the number of orgs live on govuk in a container' do
+    orgs = [build(:organisation, govuk_status: 'live'), build(:organisation, govuk_status: 'joining')]
+    render text: organisation_count_paragraph(orgs)
+    assert_select '.on-govuk'
+    assert_select '.on-govuk', text: '1 live on GOV.UK'
+  end
+
+  test 'organisation_count_paragraph includes "all" instead of a number, if all supplied orgs are live on govuk in a container' do
+    orgs = [build(:organisation, govuk_status: 'live'), build(:organisation, govuk_status: 'live')]
+    render text: organisation_count_paragraph(orgs)
+    assert_select '.on-govuk', text: 'All live on GOV.UK'
+  end
+
+  test 'organisation_count_paragraph won\'t include the live on govuk container if you ask it not to' do
+    orgs = [build(:organisation, govuk_status: 'live'), build(:organisation, govuk_status: 'live')]
+    render text: organisation_count_paragraph(orgs, with_live_on_govuk: false)
+    assert_select '.on-govuk', count: 0
+  end
 end
 
 class OrganisationHelperDisplayNameWithParentalRelationshipTest < ActionView::TestCase
@@ -154,6 +179,8 @@ class OrganisationHelperDisplayNameWithParentalRelationshipTest < ActionView::Te
     assert_match parent.name, result
     assert_match parent2.name, result
   end
+  
+  
 end
 
 class OrganisationSiteThumbnailPathTest < ActionView::TestCase
