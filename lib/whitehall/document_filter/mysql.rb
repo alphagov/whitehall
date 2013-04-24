@@ -88,8 +88,9 @@ module Whitehall::DocumentFilter
     end
 
     def filter_by_relevant_to_local_government_option!
-      # By default we don't want to surface these results
-      @documents = @documents.where(relevant_to_local_government: relevant_to_local_government)
+      if relevant_to_local_government
+        @documents = @documents.relevant_to_local_government(relevant_to_local_government)
+      end
     end
 
     def filter_by_include_world_location_news_option!
