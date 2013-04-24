@@ -212,3 +212,12 @@ Then /^I should see "([^"]*)" as the title of the featured item on the french "(
   assert has_css?('.sortable a', text: expected_title)
   assert has_css?('.table .news_article a', text: expected_title)
 end
+
+Then /^I cannot feature "([^"]*)" on the french "([^"]*)" page due to the lack of a translation$/ do |title, world_location_name|
+  world_location = WorldLocation.find_by_name!(world_location_name)
+  visit admin_world_location_path(world_location)
+  click_link "Features (Français)"
+  fill_in 'title', with: title.split.first
+  click_link 'Everywhere'
+  assert page.has_no_css?("a.btn", text: "Feature")
+end

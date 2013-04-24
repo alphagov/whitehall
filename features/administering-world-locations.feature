@@ -42,6 +42,7 @@ Feature: Administering world location information
     And a published news article "Beards" which isn't explicitly associated with "Jamestopia"
     When I feature "Beards" on the english "Jamestopia" page
     Then I should see "Beards" featured on the public facing "Jamestopia" page
+    And I cannot feature "Beards" on the french "Jamestopia" page due to the lack of a translation
 
   Scenario: Adding a new translation
     Given a world location "Afrolasia" exists with the mission statement "The UK has a long-standing relationship with Afrolasia"
