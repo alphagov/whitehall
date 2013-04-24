@@ -778,4 +778,34 @@ class EditionTest < ActiveSupport::TestCase
     assert no_editions.include?(edition_2)
     refute no_editions.include?(edition_1)
   end
+
+  test 'relevant_to_local_government excludes editions not relevant to local government by default' do
+    local_gov_policy = create(:published_policy, :with_document, relevant_to_local_government: true)
+    non_local_gov_policy = create(:published_policy, :with_document, relevant_to_local_government: false)
+
+    local_gov_publication = create(:publication, related_policy_ids: [local_gov_policy.id])
+    non_local_gov_publication = create(:publication, related_policy_ids: [non_local_gov_policy.id])
+
+    local_gov_editions = Edition.relevant_to_local_government
+    assert local_gov_editions.include? local_gov_policy
+    assert local_gov_editions.include? local_gov_publication
+
+    refute local_gov_editions.include? non_local_gov_policy
+    refute local_gov_editions.include? non_local_gov_publication
+  end
+
+  test 'not_relevant_to_local_government only includes editions not relevant to local government' do
+    local_gov_policy = create(:published_policy, :with_document, relevant_to_local_government: true)
+    non_local_gov_policy = create(:published_policy, :with_document, relevant_to_local_government: false)
+
+    local_gov_publication = create(:publication, related_policy_ids: [local_gov_policy.id])
+    non_local_gov_publication = create(:publication, related_policy_ids: [non_local_gov_policy.id])
+
+    non_local_gov_editions = Edition.not_relevant_to_local_government
+    assert non_local_gov_editions.include? non_local_gov_policy
+    assert non_local_gov_editions.include? non_local_gov_publication
+
+    refute non_local_gov_editions.include? local_gov_policy
+    refute non_local_gov_editions.include? local_gov_publication
+  end
 end
