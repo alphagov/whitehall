@@ -274,6 +274,8 @@ module ApplicationHelper
       world_locations_path(locale: :en)
     when "policies", "supporting_pages", "policy_advisory_groups", "policy_teams"
       policies_path
+    when "take_part_pages"
+      get_involved_path
     end
   end
 

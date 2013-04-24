@@ -133,4 +133,8 @@ class GDSEditorTest < ActiveSupport::TestCase
   test 'can reorder cabinet ministers' do
     assert enforcer_for(gds_editor, MinisterialRole).can?(:reorder_cabinet_ministers)
   end
+
+  test 'can administer the get_involved_section' do
+    assert enforcer_for(gds_editor, :get_involved_section).can?(:administer)
+  end
 end
