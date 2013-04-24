@@ -1,4 +1,4 @@
-class HistoricAppointmentsController < ApplicationController
+class HistoricAppointmentsController < PublicFacingController
   before_filter :load_role, except: [:past_chancellors]
   helper_method :previous_appointments
 

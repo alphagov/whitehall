@@ -1,6 +1,8 @@
 require 'test_helper'
 
 class HistoricAppointmentsControllerTest < ActionController::TestCase
+  should_be_a_public_facing_controller
+
   test "routing constraints stop routes historic appointments routes stomping on histories routes" do
     assert_routing({ path: 'government/history/past-prime-ministers', method: :get },
       { controller: 'historic_appointments', action: 'index', role: 'past-prime-ministers' })
