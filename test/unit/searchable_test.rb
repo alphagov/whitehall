@@ -20,25 +20,25 @@ class SearchableTest < ActiveSupport::TestCase
     Whitehall.stubs(:searchable_classes).returns([SearchableTestTopic])
   end
 
-  test 'will not request indexing on save if it is not contained in the scope described by the searchable[:only]' do
+  test 'will not request indexing on save if it is not in searchable_instances' do
     s = SearchableTestTopic.new(name: 'woo', state: 'draft')
     Searchable::Index.expects(:later).never
     s.save
   end
 
-  test 'will request indexing on save if it is contained in the scope described by the searchable[:only]' do
+  test 'will request indexing on save if it is in searchable_instances' do
     s = SearchableTestTopic.new(name: 'woo', state: 'published')
     Searchable::Index.expects(:later).with(s)
     s.save
   end
 
-  test 'will request deletion on destruction even if it is not contained in the scope described by the searchable[:only]' do
+  test 'will request deletion on destruction even if it is not in searchable_instances' do
     s = SearchableTestTopic.create(name: 'woo', state: 'draft')
     Searchable::Delete.expects(:later).with(s)
     s.destroy
   end
 
-  test 'will request deletion on destruction if it is contained in the scope described by the searchable[:only]' do
+  test 'will request deletion on destruction if it is contained in searchable_instances' do
     s = SearchableTestTopic.create(name: 'woo', state: 'published')
     Searchable::Delete.expects(:later).with(s)
     s.destroy
@@ -76,7 +76,7 @@ class SearchableTest < ActiveSupport::TestCase
     SearchableTestTopic.reindex_all
   end
 
-  test '#searchable_instances uses the searchable[:only] to find instances that can be searched' do
+  test '#searchable_instances uses the searchable_options[:only] proc to find instances that can be searched' do
     draft_topic = SearchableTestTopic.create(name: 'woo', state: 'draft')
     published_topic = SearchableTestTopic.create(name: 'woo', state: 'published')
 
@@ -111,14 +111,14 @@ class SearchableTest < ActiveSupport::TestCase
     assert_raises(ActiveRecord::RecordNotFound) { index_job.perform }
   end
 
-  test 'Index#perform will not index the object if it is not contained in the scope described by the searchable[:only]' do
+  test 'Index#perform will not index the object if it is not in searchable_instances' do
     s = SearchableTestTopic.create(name: 'woo', state: 'draft')
     Rummageable.expects(:index).never
     index_job = Searchable::Index.new(s.class.name, s.id)
     index_job.perform
   end
 
-  test 'Index#perform will index the object if it is contained in the scope described by the searchable[:only]' do
+  test 'Index#perform will index the object if it is contained in searchable_instances' do
     s = SearchableTestTopic.create(name: 'woo', state: 'published')
     Rummageable.expects(:index).with(s.search_index, Whitehall.government_search_index_path).once
     index_job = Searchable::Index.new(s.class.name, s.id)
