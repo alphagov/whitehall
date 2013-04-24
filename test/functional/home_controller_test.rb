@@ -206,9 +206,19 @@ class HomeControllerTest < ActionController::TestCase
 
     assert_equal recently_opened_consultations.size, assigns[:open_consultation_count]
     assert_equal 3, assigns[:closed_consultation_count]
-    assert_equal PublicationesquePresenter.decorate(next_closing), assigns[:next_closing_consultation]
+    assert_equal PublicationesquePresenter.decorate([next_closing]), assigns[:next_closing_consultations]
     assert_equal PublicationesquePresenter.decorate(recently_opened_consultations[-3..-1].reverse), assigns[:recently_opened_consultations]
     assert_equal PublicationesquePresenter.decorate(recent_outcomes[-3..-1].reverse), assigns[:recent_consultation_outcomes]
+  end
+
+  test 'get involved collects all the take part pages in order' do
+    page_3 = create(:take_part_page, ordering: 3)
+    page_1 = create(:take_part_page, ordering: 1)
+    page_2 = create(:take_part_page, ordering: 2)
+
+    get :get_involved
+
+    assert_equal [page_1, page_2, page_3], assigns(:take_part_pages)
   end
 
   private

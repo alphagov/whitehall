@@ -111,7 +111,8 @@ else
   AuthorityTestHelper.define_edition_classes :fatality_notice
   AuthorityTestHelper.define_edition_classes :world_location_news_article
   AuthorityTestHelper.define_edition_classes :worldwide_priority
-  AuthorityTestHelper.define_edition_classes :ministerial_role
 
   class Document; end
+  class MinisterialRole; end
+  class PolicyAdvisoryGroup; end
 end
