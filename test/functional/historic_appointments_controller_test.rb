@@ -81,11 +81,11 @@ class HistoricAppointmentsControllerTest < ActionController::TestCase
   private
 
   def pm_role
-    @pm_role ||= create(:role, name: 'Prime Minister', slug: 'prime-minister')
+    @pm_role ||= create(:historic_role, name: 'Prime Minister', slug: 'prime-minister')
   end
 
   def chancellor_role
-    @chancellor_role ||= create(:role, name: 'Chancellor of the Exchequer', slug: 'chancellor-of-the-exchequer')
+    @chancellor_role ||= create(:historic_role, name: 'Chancellor of the Exchequer', slug: 'chancellor-of-the-exchequer')
   end
 
   def assert_equal_role_presenters(role_appointments, expected)

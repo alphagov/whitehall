@@ -247,4 +247,15 @@ class PersonTest < ActiveSupport::TestCase
 
     refute_includes Person.without_a_current_ministerial_role, person
   end
+
+  test '#can_have_historical_accounts? returns true when person has roles that support them' do
+    person = create(:person)
+    refute person.can_have_historical_accounts?
+
+    create(:role_appointment, person: person)
+    refute person.reload.can_have_historical_accounts?
+
+    create(:historic_role_appointment, person: person)
+    assert person.reload.can_have_historical_accounts?
+  end
 end

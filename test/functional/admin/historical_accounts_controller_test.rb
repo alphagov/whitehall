@@ -4,7 +4,7 @@ class Admin::HistoricalAccountsControllerTest < ActionController::TestCase
   setup do
     login_as :policy_writer
     @person = create(:person)
-    @role = create(:role)
+    @role = create(:historic_role)
     @historical_account = create(:historical_account, person: @person, roles: [@role])
   end
 

@@ -1,5 +1,5 @@
 Given /^there are previous prime ministers$/ do
-  pm_role = create(:role, name: 'Prime Minister', slug: 'prime-minister')
+  pm_role = create(:role, name: 'Prime Minister', slug: 'prime-minister', supports_historical_accounts: true)
   previous_pm1  = create(:ministerial_role_appointment, role: pm_role, started_at: 8.years.ago, ended_at: 4.years.ago)
   previous_pm2  = create(:ministerial_role_appointment, role: pm_role, started_at: 4.years.ago, ended_at: 1.day.ago)
   current_pm    = create(:ministerial_role_appointment, role: pm_role, started_at: Time.zone.now)
