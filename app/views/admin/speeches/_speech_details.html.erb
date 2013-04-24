@@ -1,11 +1,11 @@
 <p class="details well">
   <span class="type"><%= @edition.speech_type.name %></span><br/>
+  <% if @edition.speech_type.written_article? %>
+    written by
+  <% else %>
+    for speech delivered by
+  <% end %>
   <% if @edition.role_appointment %>
-    <% if @edition.speech_type.written_article? %>
-      written by
-    <% else %>
-      for speech delivered by
-    <% end %>
     <span class="role_appointment">
       <span class="person"><%= link_to @edition.role_appointment.person.name, @edition.role_appointment.person %></span>
       <span class="role"><%= role_appointment(@edition.role_appointment, true) %></span>
@@ -13,21 +13,17 @@
       <span class="organisations"><%= @edition.role.organisations.map {|o| link_to(o.name, o)}.to_sentence.html_safe %></span>
     </span>
   <% elsif @edition.person_override? %>
-      <% if @edition.speech_type.written_article? %>
-      written by
-    <% else %>
-      for speech delivered by
-    <% end %>
     <span class="person"><%= @edition.person_override %></span>
+    <br/>
     Organisation:
-    <span class="organisations"><%= @edition.organisations.map {|o| link_to(o.name, o)}.to_sentence.html_safe %></span><br/>
-    Delivered
+    <span class="organisations"><%= @edition.organisations.map {|o| link_to(o.name, o)}.to_sentence.html_safe %></span>
   <% else %>
+  <br/>
     Organisation:
-    <span class="organisations"><%= @edition.organisations.map {|o| link_to(o.name, o)}.to_sentence.html_safe %></span><br/>
-    Delivered
+    <span class="organisations"><%= @edition.organisations.map {|o| link_to(o.name, o)}.to_sentence.html_safe %></span>
   <% end %>
-  on
+  <br/>
+    Delivered on
   <span class="delivered_on"><%= @edition.delivered_on.to_s(:long_ordinal) %></span>
   <% if @edition.speech_type.location_relevant %>
     at
