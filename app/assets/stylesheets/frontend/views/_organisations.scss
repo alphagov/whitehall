@@ -193,9 +193,11 @@
   }
 
   #topics {
+    border-bottom: 1px solid $border-colour;
     margin-bottom: $gutter-half;
     @include media(tablet) {
       margin-bottom: 0;
+      padding-bottom: $gutter;
     }
   }
 
