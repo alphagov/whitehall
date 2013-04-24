@@ -81,6 +81,21 @@ class OrganisationsControllerTest < ActionController::TestCase
     end
   end
 
+  view_test 'should not use the term executive office on the frontend' do
+    ministerial_org_type = create(:ministerial_organisation_type)
+    executive_office_type = create(:executive_office_organisation_type)
+
+    organisation_1 = create(:organisation, organisation_type_id: ministerial_org_type.id)
+    child_organisation_1 = create(:organisation, organisation_type_id: executive_office_type.id, parent_organisations: [organisation_1])
+
+    get :index
+
+    assert_select_object(organisation_1) do |sub_orgs|
+      refute sub_orgs.first.match /executive office/i
+      assert_select_object(child_organisation_1)
+    end
+  end
+
   view_test "shows organisation description" do
     organisation = create(:organisation,
       description: "organisation-description"

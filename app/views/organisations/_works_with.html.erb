@@ -15,7 +15,9 @@
       <p><%= link_to "#{organisation.name} homepage", organisation_path(organisation) %></p>
     <% end %>
     <% organisation.agencies_and_public_bodies_by_type.each do |type,departments| %>
-      <h3><%= type.name %></h3>
+      <% unless type.executive_office? %>
+        <h3><%= type.name %></h3>
+      <% end %>
       <ol>
         <% departments.each do |department| %>
           <%= content_tag_for :li, department do %>
