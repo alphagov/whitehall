@@ -4,6 +4,15 @@ FactoryGirl.define do
     summary "news-summary"
     body  "news-body"
     news_article_type {NewsArticleType::PressRelease}
+    ignore do
+      relevant_to_local_government { false }
+    end
+
+    after(:build) do |object, evaluator|
+      if evaluator.relevant_to_local_government
+        object.related_documents = [FactoryGirl.create(:published_policy, :with_document, relevant_to_local_government: true)].map(&:document)
+      end
+    end
   end
 
   factory :imported_news_article, parent: :news_article, traits: [:imported]

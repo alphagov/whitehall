@@ -63,6 +63,28 @@ class Edition < ActiveRecord::Base
     where(arel_table[:type].not_in(edition_classes.map(&:name)))
   end
 
+  def self.not_relevant_to_local_government
+    relevant_to_local_government(false)
+  end
+  def self.relevant_to_local_government(include_relevant = true)
+    types_that_get_relevance_from_related_policies = Edition::CanApplyToLocalGovernmentThroughRelatedPolicies.edition_types.map(&:name)
+    where(%{
+      (
+        type IN (:types) AND EXISTS (
+          SELECT 1
+            FROM editions related_editions
+           INNER JOIN edition_relations ON related_editions.document_id = edition_relations.document_id
+           WHERE edition_relations.edition_id = editions.id
+             AND related_editions.type = 'Policy'
+             AND related_editions.relevant_to_local_government = :relevant
+             AND related_editions.state = 'published'
+        )
+      ) OR (
+        type NOT IN (:types) AND editions.relevant_to_local_government = :relevant
+      )
+    }, types: types_that_get_relevance_from_related_policies, relevant: include_relevant)
+  end
+
   class UnmodifiableValidator < ActiveModel::Validator
     def validate(record)
       significant_changed_attributes(record).each do |attribute|
@@ -122,7 +144,7 @@ class Edition < ActiveRecord::Base
     people: nil,
     display_type: -> d { d.display_type },
     public_timestamp: :public_timestamp,
-    relevant_to_local_government: :relevant_to_local_government,
+    relevant_to_local_government: :relevant_to_local_government?,
     world_locations: nil,
     topics: nil,
     only: :published,
@@ -137,8 +159,11 @@ class Edition < ActiveRecord::Base
   def self.search_format_type
     self.name.underscore.gsub('_', '-')
   end
+  def self.concrete_descendants
+    descendants.reject { |model| model.descendants.any? }
+  end
   def self.concrete_descendant_search_format_types
-    descendants.reject { |model| model.descendants.any? }.map { |model| model.search_format_type }
+    concrete_descendants.map { |model| model.search_format_type }
   end
 
   [:publish, :unpublish, :archive, :delete].each do |event|
