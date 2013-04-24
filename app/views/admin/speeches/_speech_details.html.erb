@@ -1,6 +1,6 @@
 <p class="details well">
+  <span class="type"><%= @edition.speech_type.name %></span>
   <% if @edition.role_appointment %>
-    <span class="type"><%= @edition.speech_type.name %></span>
     <% if @edition.speech_type.written_article? %>
       written by
     <% else %>
@@ -19,8 +19,10 @@
       for speech delivered by
     <% end %>
     <span class="person"><%= @edition.person_override %></span>
+    Organisation:
+    <span class="organisations"><%= @edition.organisations.map {|o| link_to(o.name, o)}.to_sentence.html_safe %></span><br/>
+    Delivered
   <% else %>
-    Speech type: <span class="type"><%= @edition.speech_type.name %></span><br/>
     Organisation:
     <span class="organisations"><%= @edition.organisations.map {|o| link_to(o.name, o)}.to_sentence.html_safe %></span><br/>
     Delivered
