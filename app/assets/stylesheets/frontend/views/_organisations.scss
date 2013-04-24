@@ -911,15 +911,25 @@
   }
 
   .contact-wrapper {
+    @include media(tablet){
+      width: 66.33%;
+      float: left;
+    }
     h1 {
       border-top: $gutter-one-sixth solid;
       @include core-24;
       font-weight: bold;
       padding: $gutter-two-thirds 0;
+      @include media(tablet){
+        margin: 0 $gutter-half;
+      }
     }
-
+    .org-contacts {
+      @include media(tablet){
+        margin: 0 $gutter-half;
+      }
+    }
     .contact {
-      width: 66.66%;
       clear: both;
       margin-top: $gutter-one-third;
       @include media(tablet){
@@ -965,10 +975,14 @@
   }
 
   .corporate-information {
+    @include media(tablet){
+      width: 33.33%;
+      float: left;
+    }
     .dash-list {
-      margin-top: $gutter;
+      margin: 0 $gutter-half;
       padding-top: $gutter;
-      border-top: 1px solid $border-colour;
+      border-top: 5px solid;
     }
   }
 

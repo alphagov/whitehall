@@ -68,7 +68,7 @@
   </div>
 
   <div class="block">
-    <div class="inner-block">
+    <div class="inner-block floated-children">
       <section class="contact-wrapper">
         <h1 id="org-contacts" class="label"><%= t('organisation.headings.contact', name: @organisation.display_name) %></h1>
         <div class="org-contacts">
@@ -77,19 +77,15 @@
           </div>
         </div>
       </section>
+      <% if @organisation.corporate_information_pages.any? %>
+        <section class="corporate-information">
+          <ul class="dash-list">
+            <% @organisation.corporate_information_pages.each do |page| %>
+              <li><%= link_to page.title, organisation_corporate_information_page_path(@organisation, page) %></li>
+            <% end %>
+          </ul>
+        </section>
+      <% end %>
     </div>
   </div>
-
-  <% if @organisation.corporate_information_pages.any? %>
-    <div class="block corporate-information">
-      <div class="inner-block">
-        <ul class="dash-list">
-          <% @organisation.corporate_information_pages.each do |page| %>
-            <li><%= link_to page.title, organisation_corporate_information_page_path(@organisation, page) %></li>
-          <% end %>
-        </ul>
-      </div>
-    </div>
-  <% end %>
-
 <% end %>
