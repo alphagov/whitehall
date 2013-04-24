@@ -20,6 +20,10 @@ Given /^a published news article "([^"]*)" associated with "([^"]*)"$/ do |title
   create(:published_news_article, title: title, role_appointments: [appointment])
 end
 
+Given /^a published news article "([^"]*)" which isn't explicitly associated with "([^"]*)"$/ do |title, thing|
+  create(:published_news_article, title: title)
+end
+
 When /^I draft a new news article "([^"]*)"$/ do |title|
   begin_drafting_news_article title: title, summary: "here's a simple summary"
   within ".images" do

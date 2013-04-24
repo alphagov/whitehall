@@ -56,6 +56,8 @@ def feature_news_article_in_world_location(news_article_title, world_location_na
   click_link "Features (#{locale})"
   locale = Locale.find_by_language_name(locale)
   news_article = LocalisedModel.new(NewsArticle, locale.code).find_by_title(news_article_title)
+  fill_in 'title', with: news_article.title.split.first
+  click_link 'Everywhere'
   within record_css_selector(news_article) do
     click_link "Feature"
   end
@@ -195,6 +197,11 @@ end
 
 Then /^I should see "([^"]*)" as the title of the feature on the french "([^"]*)" page$/ do |expected_title, world_location_name|
   view_world_location_in_locale(world_location_name, "Français")
+  assert page.has_css?('.feature h2', text: expected_title)
+end
+
+Then /^I should see "([^"]*)" featured on the public facing "([^"]*)" page$/ do |expected_title, name|
+  visit world_location_path(WorldLocation.find_by_name!(name))
   assert page.has_css?('.feature h2', text: expected_title)
 end
 

@@ -1,5 +1,5 @@
 <%
-  display ||= [:title, :author, :world_location, :kind, :state]
+  display ||= [:title, :author, :world_location, :type, :state]
 %>
 <nav class="well" style="padding: 8px 0;">
   <ul class="nav nav-list">
@@ -40,7 +40,7 @@
       <% if current_user.world_locations.any? %>
         <%= link_to_filter('My Locations', {world_location_ids: current_user.world_locations.map(&:id)}, @filter, title: "Show documents for your locations") %>
       <% end %>
-      <%= link_to_filter('Everywhere', {world_location_ids: "all"}, @filter, title: "Show documents for all locations") %>
+      <%= link_to_filter('Everywhere', {locale: params[:locale], world_location_ids: "all"}, @filter, title: "Show documents for all locations") %>
       <li class="world-location-filter <%= active_filter_unless_values_match_class(@filter, :world_location_ids, 'all', current_user.world_locations.map(&:id)) %>">
         <%= form_tag("", method: :get) do  %>
           <%= select_tag :world_location_ids,
@@ -54,34 +54,34 @@
       </li>
     <% end %>
 
-    <% if display.include?(:kind) %>
+    <% if display.include?(:type) %>
       <li class="nav-header">Filter by Kind</li>
-      <%= link_to_filter 'All', {type: nil}, @filter, title: "Show all kinds of document" %>
-      <%= link_to_filter 'Policies', {type: 'policy'}, @filter, title: "Show only policies" %>
-      <%= link_to_filter 'Publications', {type: 'publication'}, @filter, title: "Show only publications" %>
-      <%= link_to_filter 'News articles', {type: 'news_article'}, @filter, title: "Show only news articles" %>
-      <%= link_to_filter 'Consultations', {type: 'consultation'}, @filter, title: "Show only consultations" %>
-      <%= link_to_filter 'Speeches', {type: 'speech'}, @filter, title: "Show only speeches" %>
-      <%= link_to_filter 'Detailed guide', {type: 'detailed_guide'}, @filter, title: "Show only detailed guides" %>
-      <%= link_to_filter 'Worldwide priorities', {type: 'worldwide_priorities'}, @filter, title: "Show only worldwide priorities" %>
-      <%= link_to_filter 'World location news article', {type: 'world_location_news_article'}, @filter, title: "Show only worldwide priorities" %>
-      <%= link_to_filter 'Case studies', {type: 'case_studies'}, @filter, title: "Show only case studies" %>
-      <%= link_to_filter 'Statistical data sets', {type: 'statistical_data_sets'}, @filter, title: "Show only statistical data sets" %>
+      <%= link_to_filter 'All', {locale: params[:locale], type: nil}, @filter, title: "Show all kinds of document" %>
+      <%= link_to_filter 'Policies', {locale: params[:locale], type: 'policy'}, @filter, title: "Show only policies" %>
+      <%= link_to_filter 'Publications', {locale: params[:locale], type: 'publication'}, @filter, title: "Show only publications" %>
+      <%= link_to_filter 'News articles', {locale: params[:locale], type: 'news_article'}, @filter, title: "Show only news articles" %>
+      <%= link_to_filter 'Consultations', {locale: params[:locale], type: 'consultation'}, @filter, title: "Show only consultations" %>
+      <%= link_to_filter 'Speeches', {locale: params[:locale], type: 'speech'}, @filter, title: "Show only speeches" %>
+      <%= link_to_filter 'Detailed guide', {locale: params[:locale], type: 'detailed_guide'}, @filter, title: "Show only detailed guides" %>
+      <%= link_to_filter 'Worldwide priorities', {locale: params[:locale], type: 'worldwide_priorities'}, @filter, title: "Show only worldwide priorities" %>
+      <%= link_to_filter 'World location news article', {locale: params[:locale], type: 'world_location_news_article'}, @filter, title: "Show only worldwide priorities" %>
+      <%= link_to_filter 'Case studies', {locale: params[:locale], type: 'case_studies'}, @filter, title: "Show only case studies" %>
+      <%= link_to_filter 'Statistical data sets', {locale: params[:locale], type: 'statistical_data_sets'}, @filter, title: "Show only statistical data sets" %>
       <% if current_user.can_handle_fatalities? %>
-        <%= link_to_filter 'Fatality notices', {type: 'fatality_notices'}, @filter, title: "Show only fatality notices" %>
+        <%= link_to_filter 'Fatality notices', {locale: params[:locale], type: 'fatality_notices'}, @filter, title: "Show only fatality notices" %>
       <% end %>
     <% end %>
 
     <% if display.include?(:state) %>
       <li class="nav-header">Filter by state</li>
       <% document_type = (@filter.options[:type] || "document").pluralize %>
-      <%= link_to_filter 'All', {state: :active}, @filter, title: "Show #{document_type} in any workflow state" %>
-      <%= link_to_filter 'Imported (pre-draft)', {state: :imported}, @filter, title: "Show only imported pre-draft #{document_type}" %>
-      <%= link_to_filter 'Drafts', {state: :draft}, @filter, title: "Show only draft #{document_type}" %>
-      <%= link_to_filter 'Submitted', {state: :submitted}, @filter, title: "Show only submitted #{document_type}" %>
-      <%= link_to_filter 'Rejected', {state: :rejected}, @filter, title: "Show only rejected #{document_type}" %>
-      <%= link_to_filter 'Scheduled', {state: :scheduled}, @filter, title: "Show only scheduled #{document_type}" %>
-      <%= link_to_filter 'Published', {state: :published}, @filter, title: "Show only published #{document_type}" %>
+      <%= link_to_filter 'All', {locale: params[:locale], state: :active}, @filter, title: "Show #{document_type} in any workflow state" %>
+      <%= link_to_filter 'Imported (pre-draft)', {locale: params[:locale], state: :imported}, @filter, title: "Show only imported pre-draft #{document_type}" %>
+      <%= link_to_filter 'Drafts', {locale: params[:locale], state: :draft}, @filter, title: "Show only draft #{document_type}" %>
+      <%= link_to_filter 'Submitted', {locale: params[:locale], state: :submitted}, @filter, title: "Show only submitted #{document_type}" %>
+      <%= link_to_filter 'Rejected', {locale: params[:locale], state: :rejected}, @filter, title: "Show only rejected #{document_type}" %>
+      <%= link_to_filter 'Scheduled', {locale: params[:locale], state: :scheduled}, @filter, title: "Show only scheduled #{document_type}" %>
+      <%= link_to_filter 'Published', {locale: params[:locale], state: :published}, @filter, title: "Show only published #{document_type}" %>
     <% end %>
   </ul>
 </nav>

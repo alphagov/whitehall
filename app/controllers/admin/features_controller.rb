@@ -36,7 +36,7 @@ private
   end
 
   def find_edition
-    @feature.document = @feature_list.featurable_editions.find(params[:edition_id]).document
+    @feature.document = Edition.find(params[:edition_id]).document
   end
 
 end
