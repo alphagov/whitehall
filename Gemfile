@@ -42,7 +42,7 @@ gem 'link_header'
 
 group :assets do
   gem 'govuk_frontend_toolkit', '0.18.0'
-  gem 'sass', '3.2.5'
+  gem 'sass', '3.2.8'
   gem 'sass-rails', '3.1.4'
   gem 'uglifier'
 end
