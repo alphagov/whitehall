@@ -55,8 +55,6 @@ When /^I view the most recent past prime minister$/ do
 end
 
 Then /^I should see the most recent past priminister's historical account on the page$/ do
-  within record_css_selector(@most_recent_appointment) do
-    assert has_content?(@most_recent_appointment.historical_account.summary)
-    assert has_content?(@most_recent_appointment.historical_account.body)
-  end
+  assert has_content?(@most_recent_appointment.historical_account.summary)
+  assert has_content?(@most_recent_appointment.historical_account.body)
 end

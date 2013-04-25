@@ -3,11 +3,11 @@
     <a href="#contents" class="js-showhide contents-toggle">Show past <%= role_title %></a>
     <div id="contents">
       <h3>
-        <span><%= previous_appointments.size %></span>
+        <span><%= previous_appointments_with_unique_people.size %></span>
         <%= link_to_unless_current "Past #{role_title}", historic_appointments_path(role.historic_param) %>
       </h3>
       <ol>
-        <% previous_appointments.uniq {|ra| ra.person}.each do |role_appointment| %>
+        <% previous_appointments_with_unique_people.each do |role_appointment| %>
           <li>
             <% if role_appointment.has_historical_account? %>
               <%= link_to_unless_current role_appointment.person.name, historic_appointment_path(role.historic_param, role_appointment.person) %>
