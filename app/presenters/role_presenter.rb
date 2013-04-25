@@ -44,7 +44,7 @@ class RolePresenter < Draper::Base
   end
 
   def previous_appointments
-    RoleAppointmentPresenter.decorate model.previous_appointments
+    RoleAppointmentPresenter.decorate model.previous_appointments.reorder('started_at DESC')
   end
 
   def responsibilities

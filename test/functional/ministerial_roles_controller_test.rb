@@ -227,6 +227,32 @@ class MinisterialRolesControllerTest < ActionController::TestCase
     refute_select ".news_and_speeches"
   end
 
+  view_test "show lists previous appointments for non-historic roles" do
+    role = create(:ministerial_role)
+    first_appointment = create(:role_appointment, role: role, started_at: 9.years.ago, ended_at: 4.years.ago)
+    second_appointment = create(:role_appointment, role: role, started_at: 4.years.ago, ended_at: 5.days.ago)
+    get :show, id: role
+
+
+    assert_select ".previous-roles" do
+      assert_select_object first_appointment do
+        assert_select "a[href=#{person_path(first_appointment.person)}]", text: first_appointment.person.name
+      end
+      assert_select_object second_appointment do
+        assert_select "a[href=#{person_path(second_appointment.person)}]", text: second_appointment.person.name
+      end
+    end
+  end
+
+  view_test "show links to historical appointments when the role is historic" do
+    historic_role = create(:historic_role, name: 'Prime Minister')
+    get :show, id: historic_role
+
+    assert_select ".previous-roles" do
+      assert_select "a[href=#{historic_appointments_path('past-prime-ministers')}]", text: "past #{historic_role.name.pluralize}"
+    end
+  end
+
   test "shows only latest role appointments" do
     person = create(:person, forename: "John", surname: "Doe")
     organisation = create(:ministerial_department)
