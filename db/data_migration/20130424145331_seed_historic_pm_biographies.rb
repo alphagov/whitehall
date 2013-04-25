@@ -1,6 +1,5 @@
-
 def historic_biography_for(person, role_appointments)
-  appointment_dates = role_appointments.collect { |a| "#{a.started_at.strftime("%Y")} &ndash; #{a.ended_at.strftime("%Y")}" }.to_sentence
+  appointment_dates = role_appointments.collect { |a| "#{a.started_at.strftime("%Y")} to #{a.ended_at.strftime("%Y")}" }.to_sentence
   "#{person.name} served as Prime Minister between #{appointment_dates}. Read more about the life and achievements of #{person.name} in our [past Prime Ministers](/government/history/past-prime-ministers/#{person.slug}) section."
 end
 
