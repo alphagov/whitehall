@@ -173,9 +173,7 @@ class WorldLocationTest < ActiveSupport::TestCase
   test 'adds world location to search index on creating if it is active' do
     active_location = build(:world_location, active: true)
 
-    search_index_data = stub('search index data')
-    active_location.stubs(:search_index).returns(search_index_data)
-    Rummageable.expects(:index).with(search_index_data, Whitehall.government_search_index_path)
+    Searchable::Index.expects(:later).with(active_location)
 
     active_location.save
   end
@@ -183,9 +181,7 @@ class WorldLocationTest < ActiveSupport::TestCase
   test 'does not add world location to search index on creating if it is not active' do
     inactive_location = build(:world_location, active: false)
 
-    search_index_data = stub('search index data')
-    inactive_location.stubs(:search_index).returns(search_index_data)
-    Rummageable.expects(:index).with(search_index_data, Whitehall.government_search_index_path).never
+    Searchable::Index.expects(:later).with(inactive_location).never
 
     inactive_location.save
   end
@@ -193,9 +189,7 @@ class WorldLocationTest < ActiveSupport::TestCase
   test 'adds world location to search index on updating if it is active' do
     active_location = create(:world_location, active: true)
 
-    search_index_data = stub('search index data')
-    active_location.stubs(:search_index).returns(search_index_data)
-    Rummageable.expects(:index).with(search_index_data, Whitehall.government_search_index_path)
+    Searchable::Index.expects(:later).with(active_location)
 
     active_location.name = 'Hat land'
     active_location.save
@@ -204,9 +198,7 @@ class WorldLocationTest < ActiveSupport::TestCase
   test 'does not add world location to search index on updating if it is inactive' do
     inactive_location = create(:world_location, active: false)
 
-    search_index_data = stub('search index data')
-    inactive_location.stubs(:search_index).returns(search_index_data)
-    Rummageable.expects(:index).with(search_index_data, Whitehall.government_search_index_path).never
+    Searchable::Index.expects(:later).with(inactive_location).never
 
     inactive_location.name = 'Hat land'
     inactive_location.save
@@ -215,9 +207,7 @@ class WorldLocationTest < ActiveSupport::TestCase
   test 'removes world location from search index on updating if it is becoming inactive' do
     inactive_location = create(:world_location, active: true)
 
-    search_index_data = stub('search index data')
-    inactive_location.stubs(:search_index).returns(search_index_data)
-    Rummageable.expects(:delete).with("/government/world/#{inactive_location.slug}", Whitehall.government_search_index_path)
+    Searchable::Delete.expects(:later).with(inactive_location)
 
     inactive_location.active = false
     inactive_location.save
@@ -225,13 +215,13 @@ class WorldLocationTest < ActiveSupport::TestCase
 
   test 'removes world location role from search index on destroying if it is active' do
     active_location = create(:world_location, active: true)
-    Rummageable.expects(:delete).with("/government/world/#{active_location.slug}", Whitehall.government_search_index_path)
+    Searchable::Delete.expects(:later).with(active_location)
     active_location.destroy
   end
 
   test 'removes world location role from search index on destroying if it is inactive' do
     inactive_location = create(:world_location, active: false)
-    Rummageable.expects(:delete).with("/government/world/#{inactive_location.slug}", Whitehall.government_search_index_path)
+    Searchable::Delete.expects(:later).with(inactive_location)
     inactive_location.destroy
   end
 

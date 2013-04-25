@@ -4,10 +4,7 @@ class MinisterialRoleSearchIndexObserverTest < ActiveSupport::TestCase
   test 'should reindex all ministerial roles when a person is updated' do
     person = create(:person)
 
-    search_index_data = stub('search index data')
-    Rummageable.stubs(:index)
-    MinisterialRole.stubs(:search_index).returns(search_index_data)
-    Rummageable.expects(:index).with(search_index_data, Whitehall.government_search_index_path)
+    MinisterialRole.expects(:reindex_all)
 
     person.forename = 'Jim'
     person.save
@@ -16,10 +13,7 @@ class MinisterialRoleSearchIndexObserverTest < ActiveSupport::TestCase
   test 'should reindex all ministerial roles when an organisation is updated' do
     organisation = create(:organisation)
 
-    search_index_data = stub('search index data')
-    MinisterialRole.stubs(:search_index).returns(search_index_data)
-    Rummageable.stubs(:index) # ignore the update to the organisation index
-    Rummageable.expects(:index).with(search_index_data, Whitehall.government_search_index_path)
+    MinisterialRole.expects(:reindex_all)
 
     organisation.name = 'Ministry of Funk'
     organisation.save
@@ -28,10 +22,7 @@ class MinisterialRoleSearchIndexObserverTest < ActiveSupport::TestCase
   test 'should not reindex all ministerial roles when an organisation is updated if observer is disabled' do
     organisation = create(:organisation)
 
-    search_index_data = stub('search index data')
-    MinisterialRole.stubs(:search_index).returns(search_index_data)
-    Rummageable.stubs(:index)
-    Rummageable.expects(:index).with(search_index_data, Whitehall.government_search_index_path).never
+    MinisterialRole.expects(:reindex_all).never
 
     organisation.name = 'Ministry of Funk'
     MinisterialRoleSearchIndexObserver.while_disabled do
@@ -42,10 +33,7 @@ class MinisterialRoleSearchIndexObserverTest < ActiveSupport::TestCase
   test 'should reindex all ministerial roles when a role appointment is created' do
     role_appointment = build(:ministerial_role_appointment)
 
-    search_index_data = stub('search index data')
-    Rummageable.stubs(:index)
-    MinisterialRole.stubs(:search_index).returns(search_index_data)
-    Rummageable.expects(:index).with(search_index_data, Whitehall.government_search_index_path)
+    MinisterialRole.expects(:reindex_all)
 
     role_appointment.save
   end
@@ -54,10 +42,7 @@ class MinisterialRoleSearchIndexObserverTest < ActiveSupport::TestCase
     role_appointment = create(:ministerial_role_appointment)
     person = create(:person)
 
-    search_index_data = stub('search index data')
-    Rummageable.stubs(:index)
-    MinisterialRole.stubs(:search_index).returns(search_index_data)
-    Rummageable.expects(:index).with(search_index_data, Whitehall.government_search_index_path)
+    MinisterialRole.expects(:reindex_all)
 
     role_appointment.person = person
     role_appointment.save
@@ -66,10 +51,7 @@ class MinisterialRoleSearchIndexObserverTest < ActiveSupport::TestCase
   test 'should reindex all ministerial roles when a role appointment is destroyed' do
     role_appointment = create(:ministerial_role_appointment)
 
-    search_index_data = stub('search index data')
-    Rummageable.stubs(:index)
-    MinisterialRole.stubs(:search_index).returns(search_index_data)
-    Rummageable.expects(:index).with(search_index_data, Whitehall.government_search_index_path)
+    MinisterialRole.expects(:reindex_all)
 
     role_appointment.destroy
   end
@@ -77,10 +59,7 @@ class MinisterialRoleSearchIndexObserverTest < ActiveSupport::TestCase
   test 'should reindex all ministerial roles when an organisation role is created' do
     organisation_role = build(:organisation_role)
 
-    search_index_data = stub('search index data')
-    Rummageable.stubs(:index)
-    MinisterialRole.stubs(:search_index).returns(search_index_data)
-    Rummageable.expects(:index).with(search_index_data, Whitehall.government_search_index_path)
+    MinisterialRole.expects(:reindex_all)
 
     organisation_role.save
   end
@@ -89,10 +68,7 @@ class MinisterialRoleSearchIndexObserverTest < ActiveSupport::TestCase
     organisation_role = create(:organisation_role)
     organisation = create(:organisation)
 
-    search_index_data = stub('search index data')
-    Rummageable.stubs(:index)
-    MinisterialRole.stubs(:search_index).returns(search_index_data)
-    Rummageable.expects(:index).with(search_index_data, Whitehall.government_search_index_path)
+    MinisterialRole.expects(:reindex_all)
 
     organisation_role.organisation = organisation
     organisation_role.save
@@ -101,10 +77,7 @@ class MinisterialRoleSearchIndexObserverTest < ActiveSupport::TestCase
   test 'should reindex all ministerial roles when an organisation role is destroyed' do
     organisation_role = create(:organisation_role)
 
-    search_index_data = stub('search index data')
-    Rummageable.stubs(:index)
-    MinisterialRole.stubs(:search_index).returns(search_index_data)
-    Rummageable.expects(:index).with(search_index_data, Whitehall.government_search_index_path)
+    MinisterialRole.expects(:reindex_all)
 
     organisation_role.destroy
   end

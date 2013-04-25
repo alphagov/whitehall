@@ -81,9 +81,7 @@ class SupportingPageTest < ActiveSupport::TestCase
   test 'should not add supporting page to search index on creating' do
     supporting_page = build(:supporting_page)
 
-    search_index_data = stub('search index data')
-    supporting_page.stubs(:search_index).returns(search_index_data)
-    Rummageable.expects(:index).with(search_index_data).never
+    Searchable::Index.expects(:later).with(supporting_page).never
 
     supporting_page.save
   end
@@ -91,9 +89,7 @@ class SupportingPageTest < ActiveSupport::TestCase
   test 'should not add supporting page to search index on updating' do
     supporting_page = create(:supporting_page)
 
-    search_index_data = stub('search index data')
-    supporting_page.stubs(:search_index).returns(search_index_data)
-    Rummageable.expects(:index).with(search_index_data).never
+    Searchable::Index.expects(:later).with(supporting_page).never
 
     supporting_page.title = 'Love all the people'
     supporting_page.save
@@ -102,9 +98,8 @@ class SupportingPageTest < ActiveSupport::TestCase
   test 'should not remove supporting page from search index on destroying' do
     policy = create(:published_policy)
     supporting_page = create(:supporting_page, edition: policy)
-    policy_slug = policy.document.slug
 
-    Rummageable.expects(:delete).with("/government/policies/#{policy_slug}/supporting-pages/#{supporting_page.slug}").never
+    Searchable::Delete.expects(:later).with(supporting_page).never
     supporting_page.destroy
   end
 

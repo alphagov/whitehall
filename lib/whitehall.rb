@@ -211,6 +211,10 @@ module Whitehall
       true
     end
 
+    def rummager_work_queue_name
+      'rummager-delayed-indexing'
+    end
+
     private
 
     def load_secrets

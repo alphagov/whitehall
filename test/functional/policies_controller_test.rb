@@ -18,13 +18,15 @@ class PoliciesControllerTest < ActionController::TestCase
   end
 
   view_test "index only lists documents in the given locale" do
-    english_policy = create(:published_policy)
-    french_policy = create(:published_policy, translated_into: [:fr])
+    without_delay! do
+      english_policy = create(:published_policy)
+      french_policy = create(:published_policy, translated_into: [:fr])
 
-    get :index, locale: 'fr'
+      get :index, locale: 'fr'
 
-    assert_select_object french_policy
-    refute_select_object english_policy
+      assert_select_object french_policy
+      refute_select_object english_policy
+    end
   end
 
   view_test "index for non-english locales does not yet allow any filtering" do

@@ -120,25 +120,29 @@ class PublicationsControllerTest < ActionController::TestCase
   end
 
   view_test "index only displays *published* publications" do
-    archived_publication = create(:archived_publication)
-    published_publication = create(:published_publication)
-    draft_publication = create(:draft_publication)
-    get :index
+    without_delay! do
+      archived_publication = create(:archived_publication)
+      published_publication = create(:published_publication)
+      draft_publication = create(:draft_publication)
+      get :index
 
-    assert_select_object(published_publication)
-    refute_select_object(archived_publication)
-    refute_select_object(draft_publication)
+      assert_select_object(published_publication)
+      refute_select_object(archived_publication)
+      refute_select_object(draft_publication)
+    end
   end
 
   view_test "index only displays *published* consultations" do
-    archived_consultation = create(:archived_consultation)
-    published_consultation = create(:published_consultation)
-    draft_consultation = create(:draft_consultation)
-    get :index
+    without_delay! do
+      archived_consultation = create(:archived_consultation)
+      published_consultation = create(:published_consultation)
+      draft_consultation = create(:draft_consultation)
+      get :index
 
-    assert_select_object(published_consultation)
-    refute_select_object(archived_consultation)
-    refute_select_object(draft_consultation)
+      assert_select_object(published_consultation)
+      refute_select_object(archived_consultation)
+      refute_select_object(draft_consultation)
+    end
   end
 
   test "index sets Cache-Control: max-age to the time of the next scheduled publication" do
@@ -219,33 +223,39 @@ class PublicationsControllerTest < ActionController::TestCase
   end
 
   view_test "index orders publications by publication date by default" do
-    publications = 5.times.map {|i| create(:published_publication, publication_date: (10 - i).days.ago) }
+    without_delay! do
+      publications = 5.times.map {|i| create(:published_publication, publication_date: (10 - i).days.ago) }
 
-    get :index
+      get :index
 
-    assert_equal "publication_#{publications.last.id}", css_select(".filter-results .document-row").first['id']
-    assert_equal "publication_#{publications.first.id}", css_select(".filter-results .document-row").last['id']
+      assert_equal "publication_#{publications.last.id}", css_select(".filter-results .document-row").first['id']
+      assert_equal "publication_#{publications.first.id}", css_select(".filter-results .document-row").last['id']
+    end
   end
 
   view_test "index orders consultations by first_published_at date by default" do
-    consultations = 5.times.map {|i| create(:published_consultation, opening_on: (10 - i).days.ago) }
+    without_delay! do
+      consultations = 5.times.map {|i| create(:published_consultation, opening_on: (10 - i).days.ago) }
 
-    get :index
+      get :index
 
-    assert_equal "consultation_#{consultations.last.id}", css_select(".filter-results .document-row").first['id']
-    assert_equal "consultation_#{consultations.first.id}", css_select(".filter-results .document-row").last['id']
+      assert_equal "consultation_#{consultations.last.id}", css_select(".filter-results .document-row").first['id']
+      assert_equal "consultation_#{consultations.first.id}", css_select(".filter-results .document-row").last['id']
+    end
   end
 
   view_test "index orders documents by appropriate timestamp by default" do
-    documents = [
-      consultation = create(:published_consultation, opening_on: 5.days.ago),
-      publication = create(:published_publication, publication_date: 4.days.ago)
-    ]
+    without_delay! do
+      documents = [
+        consultation = create(:published_consultation, opening_on: 5.days.ago),
+        publication = create(:published_publication, publication_date: 4.days.ago)
+      ]
 
-    get :index
+      get :index
 
-    assert_equal "publication_#{publication.id}", css_select(".filter-results .document-row").first['id']
-    assert_equal "consultation_#{consultation.id}", css_select(".filter-results .document-row").last['id']
+      assert_equal "publication_#{publication.id}", css_select(".filter-results .document-row").first['id']
+      assert_equal "consultation_#{consultation.id}", css_select(".filter-results .document-row").last['id']
+    end
   end
 
   view_test "index highlights all topics filter option by default" do
@@ -312,47 +322,51 @@ class PublicationsControllerTest < ActionController::TestCase
   end
 
   view_test "index requested as JSON includes data for publications" do
-    org = create(:organisation, name: "org-name")
-    org2 = create(:organisation, name: "other-org")
-    publication = create(:published_publication, title: "publication-title",
-                         organisations: [org, org2],
-                         publication_date: Date.parse("2012-03-14"),
-                         publication_type: PublicationType::CorporateReport)
+    without_delay! do
+      org = create(:organisation, name: "org-name")
+      org2 = create(:organisation, name: "other-org")
+      publication = create(:published_publication, title: "publication-title",
+                           organisations: [org, org2],
+                           publication_date: Date.parse("2012-03-14"),
+                           publication_type: PublicationType::CorporateReport)
 
-    get :index, format: :json
+      get :index, format: :json
 
-    results = ActiveSupport::JSON.decode(response.body)["results"]
-    assert_equal 1, results.length
-    json = results.first
-    assert_equal "publication", json["type"]
-    assert_equal "publication-title", json["title"]
-    assert_equal publication.id, json["id"]
-    assert_equal publication_path(publication.document), json["url"]
-    assert_equal "org-name and other-org", json["organisations"]
-    assert_equal %{<abbr class="public_timestamp" title="2012-03-14T00:00:00+00:00">14 March 2012</abbr>}, json["display_date_microformat"]
-    assert_equal "Corporate report", json["display_type"]
+      results = ActiveSupport::JSON.decode(response.body)["results"]
+      assert_equal 1, results.length
+      json = results.first
+      assert_equal "publication", json["type"]
+      assert_equal "publication-title", json["title"]
+      assert_equal publication.id, json["id"]
+      assert_equal publication_path(publication.document), json["url"]
+      assert_equal "org-name and other-org", json["organisations"]
+      assert_equal %{<abbr class="public_timestamp" title="2012-03-14T00:00:00+00:00">14 March 2012</abbr>}, json["display_date_microformat"]
+      assert_equal "Corporate report", json["display_type"]
+    end
   end
 
   view_test "index requested as JSON includes data for consultations" do
-    org = create(:organisation, name: "org-name")
-    org2 = create(:organisation, name: "other-org")
-    consultation = create(:published_consultation, title: "consultation-title",
-                         organisations: [org, org2],
-                         opening_on: Time.zone.parse("2012-03-14"),
-                         closing_on: Time.zone.parse("2012-03-15"))
+    without_delay! do
+      org = create(:organisation, name: "org-name")
+      org2 = create(:organisation, name: "other-org")
+      consultation = create(:published_consultation, title: "consultation-title",
+                           organisations: [org, org2],
+                           opening_on: Time.zone.parse("2012-03-14"),
+                           closing_on: Time.zone.parse("2012-03-15"))
 
-    get :index, format: :json
+      get :index, format: :json
 
-    results = ActiveSupport::JSON.decode(response.body)["results"]
-    assert_equal 1, results.length
-    json = results.first
-    assert_equal "consultation", json["type"]
-    assert_equal "consultation-title", json["title"]
-    assert_equal consultation.id, json["id"]
-    assert_equal consultation_path(consultation.document), json["url"]
-    assert_equal "org-name and other-org", json["organisations"]
-    assert_equal %{<abbr class="public_timestamp" title="2012-03-14T00:00:00+00:00">14 March 2012</abbr>}, json["display_date_microformat"]
-    assert_equal "Consultation", json["display_type"]
+      results = ActiveSupport::JSON.decode(response.body)["results"]
+      assert_equal 1, results.length
+      json = results.first
+      assert_equal "consultation", json["type"]
+      assert_equal "consultation-title", json["title"]
+      assert_equal consultation.id, json["id"]
+      assert_equal consultation_path(consultation.document), json["url"]
+      assert_equal "org-name and other-org", json["organisations"]
+      assert_equal %{<abbr class="public_timestamp" title="2012-03-14T00:00:00+00:00">14 March 2012</abbr>}, json["display_date_microformat"]
+      assert_equal "Consultation", json["display_type"]
+    end
   end
 
   view_test "index requested as JSON includes URL to the atom feed including any filters" do
@@ -453,60 +467,70 @@ class PublicationsControllerTest < ActionController::TestCase
   end
 
   view_test "index generates an atom feed entries for publications matching the current filter" do
-    org = create(:organisation, name: "org-name")
-    other_org = create(:organisation, name: "other-org")
-    p1 = create(:published_publication, organisations: [org], publication_date: 2.days.ago.to_date)
-    c1 = create(:published_consultation, organisations: [org], opening_on: 1.day.ago.to_date)
-    p2 = create(:published_publication, organisations: [other_org])
+    without_delay! do
+      org = create(:organisation, name: "org-name")
+      other_org = create(:organisation, name: "other-org")
+      p1 = create(:published_publication, organisations: [org], publication_date: 2.days.ago.to_date)
+      c1 = create(:published_consultation, organisations: [org], opening_on: 1.day.ago.to_date)
+      p2 = create(:published_publication, organisations: [other_org])
 
-    get :index, format: :atom, departments: [org.to_param]
+      get :index, format: :atom, departments: [org.to_param]
 
-    assert_select_atom_feed do
-      assert_select_atom_entries([c1, p1])
+      assert_select_atom_feed do
+        assert_select_atom_entries([c1, p1])
+      end
     end
   end
 
   view_test "index generates an atom feed entries for consultations matching the current filter" do
-    org = create(:organisation, name: "org-name")
-    other_org = create(:organisation, name: "other-org")
-    document = create(:published_consultation, organisations: [org], opening_on: Date.parse('2001-12-12'))
-    create(:published_consultation, organisations: [other_org])
+    without_delay! do
+      org = create(:organisation, name: "org-name")
+      other_org = create(:organisation, name: "other-org")
+      document = create(:published_consultation, organisations: [org], opening_on: Date.parse('2001-12-12'))
+      create(:published_consultation, organisations: [other_org])
 
-    get :index, format: :atom, departments: [org.to_param]
+      get :index, format: :atom, departments: [org.to_param]
 
-    assert_select_atom_feed do
-      assert_select_atom_entries([document])
+      assert_select_atom_feed do
+        assert_select_atom_entries([document])
+      end
     end
   end
 
   test 'index atom feed orders publications according to publication_date (newest first)' do
-    oldest = create(:published_publication, publication_date: 5.days.ago, title: "oldest")
-    newest = create(:published_publication, publication_date: 1.days.ago, title: "newest")
-    middle = create(:published_publication, publication_date: 3.days.ago, title: "middle")
+    without_delay! do
+      oldest = create(:published_publication, publication_date: 5.days.ago, title: "oldest")
+      newest = create(:published_publication, publication_date: 1.days.ago, title: "newest")
+      middle = create(:published_publication, publication_date: 3.days.ago, title: "middle")
 
-    get :index, format: :atom
+      get :index, format: :atom
 
-    assert_equal [ newest, middle, oldest ], assigns(:publications).map(&:model)
+      assert_equal [ newest, middle, oldest ], assigns(:publications).map(&:model)
+    end
   end
 
   test 'index atom feed orders consultations according to opening_on (newest first)' do
-    oldest = create(:published_consultation, opening_on: 5.days.ago.to_date, title: "oldest")
-    newest = create(:published_consultation, opening_on: 1.days.ago.to_date, title: "newest")
-    middle = create(:published_consultation, opening_on: 3.days.ago.to_date, title: "middle")
+    without_delay! do
+      oldest = create(:published_consultation, opening_on: 5.days.ago.to_date, title: "oldest")
+      newest = create(:published_consultation, opening_on: 1.days.ago.to_date, title: "newest")
+      middle = create(:published_consultation, opening_on: 3.days.ago.to_date, title: "middle")
 
-    get :index, format: :atom
+      get :index, format: :atom
 
-    assert_equal [ newest, middle, oldest ], assigns(:publications).map(&:model)
+      assert_equal [ newest, middle, oldest ], assigns(:publications).map(&:model)
+    end
   end
 
   test 'index atom feed orders mixed publications and consultations according to publication_date or opening_on (newest first)' do
-    oldest = create(:published_publication,  publication_date: 5.days.ago, title: "oldest")
-    newest = create(:published_consultation, opening_on: 1.days.ago, title: "newest")
-    middle = create(:published_publication,  publication_date: 3.days.ago, title: "middle")
+    without_delay! do
+      oldest = create(:published_publication,  publication_date: 5.days.ago, title: "oldest")
+      newest = create(:published_consultation, opening_on: 1.days.ago, title: "newest")
+      middle = create(:published_publication,  publication_date: 3.days.ago, title: "middle")
 
-    get :index, format: :atom
+      get :index, format: :atom
 
-    assert_equal [ newest, middle, oldest ], assigns(:publications).map(&:model)
+      assert_equal [ newest, middle, oldest ], assigns(:publications).map(&:model)
+    end
   end
 
   view_test 'index atom feed should return a valid feed if there are no matching documents' do
@@ -519,44 +543,50 @@ class PublicationsControllerTest < ActionController::TestCase
   end
 
   view_test 'index atom feed should include links to download attachments' do
-    publication = create(:published_publication, :with_attachment, title: "publication-title",
-                         body: "include the attachment:\n\n!@1")
+    without_delay! do
+      publication = create(:published_publication, :with_attachment, title: "publication-title",
+                           body: "include the attachment:\n\n!@1")
 
-    get :index, format: :atom
+      get :index, format: :atom
 
-    assert_select_atom_feed do
-      assert_select 'feed > entry' do
-        assert_select "content" do |content|
-          assert content[0].to_s.include?(publication.attachments.first.url), "escaped publication body should include link to attachment"
+      assert_select_atom_feed do
+        assert_select 'feed > entry' do
+          assert_select "content" do |content|
+            assert content[0].to_s.include?(publication.attachments.first.url), "escaped publication body should include link to attachment"
+          end
         end
       end
     end
   end
 
   view_test 'index should show relevant document series information' do
-    organisation = create(:organisation)
-    series = create(:document_series, organisation: organisation)
-    publication = create(:published_publication, document_series: [series])
+    without_delay! do
+      organisation = create(:organisation)
+      series = create(:document_series, organisation: organisation)
+      publication = create(:published_publication, document_series: [series])
 
-    get :index
+      get :index
 
-    assert_select_object(publication) do
-      assert_select ".document-series a[href=?]", organisation_document_series_path(organisation, series)
+      assert_select_object(publication) do
+        assert_select ".document-series a[href=?]", organisation_document_series_path(organisation, series)
+      end
     end
   end
 
   view_test 'index requested as JSON includes document series information' do
-    organisation = create(:organisation)
-    series = create(:document_series, organisation: organisation)
-    publication = create(:published_publication, document_series: [series])
+    without_delay! do
+      organisation = create(:organisation)
+      series = create(:document_series, organisation: organisation)
+      publication = create(:published_publication, document_series: [series])
 
-    get :index, format: :json
+      get :index, format: :json
 
-    json = ActiveSupport::JSON.decode(response.body)
+      json = ActiveSupport::JSON.decode(response.body)
 
-    result = json['results'].first
+      result = json['results'].first
 
-    assert_equal "Part of a series: <a href=\"#{organisation_document_series_path(organisation, series)}\">#{series.name}</a>", result['publication_series']
+      assert_equal "Part of a series: <a href=\"#{organisation_document_series_path(organisation, series)}\">#{series.name}</a>", result['publication_series']
+    end
   end
 
   view_test "show displays the ISBN of the attached document" do
