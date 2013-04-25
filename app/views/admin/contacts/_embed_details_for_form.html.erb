@@ -1,0 +1,8 @@
+<% if contact.persisted? %>
+  <div class="control-group">
+    <p class="control-label">Markdown to use</p>
+    <div class="controls">
+      <input type="text" readonly="readonly" value="[Contact:<%= contact.id %>]" />
+    </div>
+  </div>
+<% end %>

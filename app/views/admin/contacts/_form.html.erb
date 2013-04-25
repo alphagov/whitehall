@@ -3,7 +3,7 @@
   <fieldset class="contact">
     <%= contact_form.text_field :title, horizontal: true %>
     <%= contact_form.text_area :comments, rows: 2, horizontal: true, placeholder: "Optional instructions for this contact e.g. opening hours, rules of use…" %>
-
+    <%= render partial: 'admin/contacts/embed_details_for_form', locals: { contact: contact_form.object } %>
     <%= render partial: 'admin/contacts/form_fields', locals: { contact_form: contact_form } %>
   </fieldset>
 

@@ -17,6 +17,7 @@
               data: { placeholder: "Choose office type..." } %>
         </div>
       </div>
+      <%= render partial: 'admin/contacts/embed_details_for_form', locals: { contact: office_form.object.contact } %>
 
       <fieldset class="services">
         <legend>Services</legend>
