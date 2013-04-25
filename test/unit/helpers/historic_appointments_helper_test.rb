@@ -10,4 +10,15 @@ class HistoricAppointmentsHelperTest < ActionView::TestCase
     assert_nil historical_fact('Born', '')
     assert_nil historical_fact('Born', nil)
   end
+
+  test '#previous_dates_in_office returns a year range for the period the person was appointment to the role' do
+    role_appointment = create(:role_appointment, started_at: Time.zone.parse("2001-01-01 00:00:00"), ended_at: Time.zone.parse("2011-01-01 00:00:00"))
+    assert_equal "2001 to 2011", previous_dates_in_office(role_appointment.role, role_appointment.person)
+  end
+
+  test '#previous_dates_in_office returns comma separated year ranges when the person has been appointed to that role multiple times' do
+    ra1 = create(:role_appointment, started_at: Time.zone.parse("2001-01-01 00:00:00"), ended_at: Time.zone.parse("2005-01-01 00:00:00"))
+    ra2 = create(:role_appointment, role: ra1.role, person: ra1.person, started_at: Time.zone.parse("2008-01-01 00:00:00"), ended_at: Time.zone.parse("2011-01-01 00:00:00"))
+    assert_equal "2001 to 2005, 2008 to 2011", previous_dates_in_office(ra1.role, ra1.person)
+  end
 end
