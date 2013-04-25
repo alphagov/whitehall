@@ -272,93 +272,109 @@ module DocumentControllerTestHelpers
       options.reverse_merge!(timestamp_key: :first_published_at)
 
       view_test "index should only show a certain number of #{edition_type.to_s.pluralize} by default" do
-        documents = (1..6).to_a.map { |i| create("published_#{edition_type}", title: "keyword-#{i}-index-default", options[:timestamp_key] => i.days.ago) }
-        documents.sort_by!(&options[:sort_by]) if options[:sort_by]
+        without_delay! do
+          documents = (1..6).to_a.map { |i| create("published_#{edition_type}", title: "keyword-#{i}-index-default", options[:timestamp_key] => i.days.ago) }
+          documents.sort_by!(&options[:sort_by]) if options[:sort_by]
 
-        with_number_of_documents_per_page(3) do
-          get :index
+          with_number_of_documents_per_page(3) do
+            get :index
+          end
+
+          (0..2).to_a.each { |i| assert_select_object(documents[i]) }
+          (3..5).to_a.each { |i| refute_select_object(documents[i]) }
         end
-
-        (0..2).to_a.each { |i| assert_select_object(documents[i]) }
-        (3..5).to_a.each { |i| refute_select_object(documents[i]) }
       end
 
       view_test "index should show window of pagination for #{edition_type}" do
-        documents = (1..6).to_a.map { |i| create("published_#{edition_type}", title:   "keyword-#{i}-window-pagination", options[:timestamp_key] => i.days.ago) }
-        documents.sort_by!(&options[:sort_by]) if options[:sort_by]
+        without_delay! do
+          documents = (1..6).to_a.map { |i| create("published_#{edition_type}", title:   "keyword-#{i}-window-pagination", options[:timestamp_key] => i.days.ago) }
+          documents.sort_by!(&options[:sort_by]) if options[:sort_by]
 
-        with_number_of_documents_per_page(3) do
-          get :index, page: 2
+          with_number_of_documents_per_page(3) do
+            get :index, page: 2
+          end
+
+          (0..2).to_a.each { |i| refute_select_object(documents[i]) }
+          (3..5).to_a.each { |i| assert_select_object(documents[i]) }
         end
-
-        (0..2).to_a.each { |i| refute_select_object(documents[i]) }
-        (3..5).to_a.each { |i| assert_select_object(documents[i]) }
       end
 
       view_test "show more button should not appear by default for #{edition_type}" do
-        documents = (1..3).to_a.map { |i| create("published_#{edition_type}", title: "keyword-#{i}") }
+        without_delay! do
+          documents = (1..3).to_a.map { |i| create("published_#{edition_type}", title: "keyword-#{i}") }
 
-        with_number_of_documents_per_page(3) do
-          get :index
+          with_number_of_documents_per_page(3) do
+            get :index
+          end
+
+          refute_select "#show-more-documents"
         end
-
-        refute_select "#show-more-documents"
       end
 
       view_test "show more button should appear when there are more records for #{edition_type}" do
-        documents = (1..4).to_a.map { |i| create("published_#{edition_type}", title: "keyword-#{i}") }
+        without_delay! do
+          documents = (1..4).to_a.map { |i| create("published_#{edition_type}", title: "keyword-#{i}") }
 
-        with_number_of_documents_per_page(3) do
-          get :index
+          with_number_of_documents_per_page(3) do
+            get :index
+          end
+
+          assert_select "#show-more-documents"
         end
-
-        assert_select "#show-more-documents"
       end
 
       view_test "infinite pagination link should appear when there are more records for #{edition_type}" do
-        documents = (1..4).to_a.map { |i| create("published_#{edition_type}", title: "keyword-#{i}") }
+        without_delay! do
+          documents = (1..4).to_a.map { |i| create("published_#{edition_type}", title: "keyword-#{i}") }
 
-        with_number_of_documents_per_page(3) do
-          get :index
+          with_number_of_documents_per_page(3) do
+            get :index
+          end
+
+          assert_select "link[rel='next'][type='application/json']"
         end
-
-        assert_select "link[rel='next'][type='application/json']"
       end
 
       view_test "should show previous page link when not on the first page for #{edition_type}" do
-        documents = (1..4).to_a.map { |i| create("published_#{edition_type}", title: "keyword-#{i}") }
+        without_delay! do
+          documents = (1..4).to_a.map { |i| create("published_#{edition_type}", title: "keyword-#{i}") }
 
-        with_number_of_documents_per_page(3) do
-          get :index, page: 2
-        end
+          with_number_of_documents_per_page(3) do
+            get :index, page: 2
+          end
 
-        assert_select "#show-more-documents" do
-          assert_select ".previous"
-          refute_select ".next"
+          assert_select "#show-more-documents" do
+            assert_select ".previous"
+            refute_select ".next"
+          end
         end
       end
 
       view_test "should show progress helpers in pagination links for #{edition_type}" do
-        documents = (1..7).to_a.map { |i| create("published_#{edition_type}", title: "keyword-#{i}") }
+        without_delay! do
+          documents = (1..7).to_a.map { |i| create("published_#{edition_type}", title: "keyword-#{i}") }
 
-        with_number_of_documents_per_page(3) do
-          get :index, page: 2
-        end
+          with_number_of_documents_per_page(3) do
+            get :index, page: 2
+          end
 
-        assert_select "#show-more-documents" do
-          assert_select ".previous span", text: "1 of 3"
-          assert_select ".next span", text: "3 of 3"
+          assert_select "#show-more-documents" do
+            assert_select ".previous span", text: "1 of 3"
+            assert_select ".next span", text: "3 of 3"
+          end
         end
       end
 
       view_test "should preserve query params in next pagination link for #{edition_type}" do
-        documents = (1..4).to_a.map { |i| create("published_#{edition_type}", title: "keyword-#{i}") }
+        without_delay! do
+          documents = (1..4).to_a.map { |i| create("published_#{edition_type}", title: "keyword-#{i}") }
 
-        with_number_of_documents_per_page(3) do
-          get :index, keywords: 'keyword'
+          with_number_of_documents_per_page(3) do
+            get :index, keywords: 'keyword'
+          end
+
+          assert_select "link[rel=next][type='application/json'][href*='keywords=keyword']"
         end
-
-        assert_select "link[rel=next][type='application/json'][href*='keywords=keyword']"
       end
     end
 
@@ -366,49 +382,59 @@ module DocumentControllerTestHelpers
       include DocumentFilterHelpers
 
       view_test "index requested as JSON includes a count of #{document_type}" do
-        create(:"published_#{document_type}")
+        without_delay! do
+          create(:"published_#{document_type}")
 
-        get :index, format: :json
+          get :index, format: :json
 
-        assert_equal 1, ActiveSupport::JSON.decode(response.body)["count"]
+          assert_equal 1, ActiveSupport::JSON.decode(response.body)["count"]
+        end
       end
 
       view_test "index requested as JSON includes the total pages of #{document_type}" do
-        4.times { create(:"published_#{document_type}") }
+        without_delay! do
+          4.times { create(:"published_#{document_type}") }
 
-        with_number_of_documents_per_page(3) do
-          get :index, format: :json
+          with_number_of_documents_per_page(3) do
+            get :index, format: :json
+          end
+
+          assert_equal 2, ActiveSupport::JSON.decode(response.body)["total_pages"]
         end
-
-        assert_equal 2, ActiveSupport::JSON.decode(response.body)["total_pages"]
       end
 
       view_test "index requested as JSON includes the current page of #{document_type}" do
-        create(:"published_#{document_type}")
+        without_delay! do
+          create(:"published_#{document_type}")
 
-        get :index, format: :json
+          get :index, format: :json
 
-        assert_equal 1, ActiveSupport::JSON.decode(response.body)["current_page"]
+          assert_equal 1, ActiveSupport::JSON.decode(response.body)["current_page"]
+        end
       end
     end
 
     def should_show_local_government_items_for(document_type)
       view_test "index includes #{document_type} items irrespective of relevance to local goverment by default" do
-        announced_today = [create(:"published_#{document_type}", relevant_to_local_government: true), create(:"published_#{document_type}")]
+        without_delay! do
+          announced_today = [create(:"published_#{document_type}", relevant_to_local_government: true), create(:"published_#{document_type}")]
 
-        get :index
+          get :index
 
-        assert_select_object announced_today[0]
-        assert_select_object announced_today[1]
+          assert_select_object announced_today[0]
+          assert_select_object announced_today[1]
+        end
       end
 
       view_test "index includes only local government #{document_type} only when asked for" do
-        announced_today = [create(:"published_#{document_type}", relevant_to_local_government: true), create(:"published_#{document_type}")]
+        without_delay! do
+          announced_today = [create(:"published_#{document_type}", relevant_to_local_government: true), create(:"published_#{document_type}")]
 
-        get :index, relevant_to_local_government: 1
+          get :index, relevant_to_local_government: 1
 
-        assert_select_object announced_today[0]
-        refute_select_object announced_today[1]
+          assert_select_object announced_today[0]
+          refute_select_object announced_today[1]
+        end
       end
 
       view_test "index doesn't show local government checkbox if turned off for #{document_type}" do

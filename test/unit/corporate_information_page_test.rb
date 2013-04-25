@@ -142,16 +142,16 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
     c2 = build(:corporate_information_page, organisation: exempt_org)
     c3 = build(:corporate_information_page, organisation: transitioning_org)
     c4 = build(:corporate_information_page, organisation: live_org)
-    Rummageable.expects(:index).with(c1.search_index, Whitehall.government_search_index_path).never
+    Searchable::Index.expects(:later).with(c1).never
     c1.save
 
-    Rummageable.expects(:index).with(c2.search_index, Whitehall.government_search_index_path).never
+    Searchable::Index.expects(:later).with(c2).never
     c2.save
 
-    Rummageable.expects(:index).with(c3.search_index, Whitehall.government_search_index_path).never
+    Searchable::Index.expects(:later).with(c3).never
     c3.save
 
-    Rummageable.expects(:index).with(c4.search_index, Whitehall.government_search_index_path).once
+    Searchable::Index.expects(:later).with(c4).once
     c4.save
   end
 
@@ -159,7 +159,7 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
     world_org = create(:worldwide_organisation)
 
     corp_page = build(:corporate_information_page, organisation: world_org)
-    Rummageable.expects(:index).with(corp_page.search_index, Whitehall.government_search_index_path).never
+    Searchable::Index.expects(:later).with(corp_page).never
     corp_page.save
   end
 end

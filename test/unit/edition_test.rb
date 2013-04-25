@@ -457,7 +457,7 @@ class EditionTest < ActiveSupport::TestCase
   test "should add edition to search index on publishing" do
     policy = create(:submitted_policy)
 
-    Rummageable.expects(:index).with(has_entry("id", policy.id), Whitehall.government_search_index_path)
+    Searchable::Index.expects(:later).with(policy)
 
     policy.publish_as(create(:departmental_editor))
   end
@@ -465,55 +465,51 @@ class EditionTest < ActiveSupport::TestCase
   test "swallows errors from search index on publishing" do
     policy = create(:submitted_policy)
 
-    Rummageable.expects(:index).raises(RuntimeError, 'Problem?')
+    Searchable::Index.stubs(:later).raises(RuntimeError, 'Problem?')
 
     assert_nothing_raised { policy.publish_as(create(:departmental_editor)) }
   end
 
   test "should not remove edition from search index when a new edition is published" do
     policy = create(:published_policy)
-    slug = policy.document.slug
-
-    Rummageable.expects(:delete).with("/government/policies/#{slug}", Whitehall.government_search_index_path).never
 
     new_edition = policy.create_draft(create(:policy_writer))
     new_edition.change_note = "change-note"
+
+    Searchable::Delete.expects(:later).with(policy).never
+
     new_edition.publish_as(create(:departmental_editor), force: true)
   end
 
   test "should not remove edition from search index when a new draft of a published edition is deleted" do
     policy = create(:published_policy)
     new_draft_policy = policy.create_draft(create(:policy_writer))
-    slug = policy.document.slug
 
-    Rummageable.expects(:delete).with("/government/policies/#{slug}", Whitehall.government_search_index_path).never
+    Searchable::Delete.expects(:later).with(policy).never
 
     new_draft_policy.delete!
   end
 
   test "should remove published edition from search index when it's unpublished" do
     policy = create(:published_policy)
-    slug = policy.document.slug
 
-    Rummageable.expects(:delete).with("/government/policies/#{slug}", Whitehall.government_search_index_path)
+    Searchable::Delete.expects(:later).with(policy)
 
     policy.unpublish_as(create(:gds_editor))
   end
 
   test "swallows errors from search index when it's unpublished" do
     policy = create(:published_policy)
-    slug = policy.document.slug
 
-    Rummageable.expects(:delete).raises(RuntimeError, 'Problem?')
+    Searchable::Delete.expects(:later).raises(RuntimeError, 'Problem?')
 
     assert_nothing_raised { policy.unpublish_as(create(:gds_editor)) }
   end
 
   test "should remove published edition from search index when it's archived" do
     policy = create(:published_policy)
-    slug = policy.document.slug
 
-    Rummageable.expects(:delete).with("/government/policies/#{slug}", Whitehall.government_search_index_path)
+    Searchable::Delete.expects(:later).with(policy)
 
     policy.archive!
   end
@@ -522,7 +518,7 @@ class EditionTest < ActiveSupport::TestCase
     policy = create(:published_policy)
     slug = policy.document.slug
 
-    Rummageable.expects(:delete).raises(RuntimeError, 'Problem?')
+    Searchable::Delete.expects(:later).raises(RuntimeError, 'Problem?')
 
     assert_nothing_raised { policy.archive! }
   end

@@ -25,6 +25,7 @@ class ActiveSupport::TestCase
   include ModelStubbingHelpers
   include HtmlAssertions
   include I18nHelpers
+  include DelayedJobTestHelpers
   extend GovspeakValidationTestHelper
 
   setup do

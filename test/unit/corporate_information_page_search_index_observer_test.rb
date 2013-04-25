@@ -5,8 +5,8 @@ class CorporateInformationPageSearchIndexObserverTest < ActiveSupport::TestCase
     org = create(:organisation, govuk_status: 'joining')
     corp_page = create(:corporate_information_page, organisation: org)
 
-    Rummageable.stubs(:index).with(anything, Whitehall.government_search_index_path)
-    Rummageable.expects(:index).with(corp_page.search_index, Whitehall.government_search_index_path)
+    Searchable::Index.stubs(:later).with(anything)
+    Searchable::Index.expects(:later).with(corp_page)
 
     org.govuk_status = 'live'
     org.save
@@ -16,8 +16,8 @@ class CorporateInformationPageSearchIndexObserverTest < ActiveSupport::TestCase
     org = create(:organisation, govuk_status: 'live')
     corp_page = create(:corporate_information_page, organisation: org)
 
-    Rummageable.stubs(:delete).with(anything, Whitehall.government_search_index_path)
-    Rummageable.expects(:delete).with(corp_page.search_index['link'], Whitehall.government_search_index_path)
+    Searchable::Delete.stubs(:later).with(anything)
+    Searchable::Delete.expects(:later).with(corp_page)
 
     org.govuk_status = 'joining'
     org.save
