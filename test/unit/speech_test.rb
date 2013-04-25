@@ -58,6 +58,16 @@ class SpeechTest < ActiveSupport::TestCase
     refute speech.valid?
   end
 
+  test "should be invalid without a person_override and no role_appointment" do
+    speech = build(:speech, role_appointment: nil, person_override: nil)
+    refute speech.valid?
+  end
+
+  test "should be valid with a person_override and no role_appointment" do
+    speech = build(:speech, role_appointment: nil, person_override: "The Queen")
+    assert speech.valid?
+  end
+
   test "should be invalid if role_appointment has no associated organisation" do
     speech = build(:speech, role_appointment: build(:role_appointment, role: nil))
     refute speech.valid?
@@ -72,6 +82,13 @@ class SpeechTest < ActiveSupport::TestCase
     speech = build(:speech)
     speech.save!
     assert_equal speech.role_appointment.role.organisations, speech.reload.organisations
+  end
+
+  test "should not associates itself via role appointments organisation on save with a person_override" do
+    speech = build(:speech, person_override: "The Queen", role_appointment: nil, create_default_organisation: false)
+    assert speech.person_override?
+    speech.save!
+    assert_equal [], speech.reload.organisations
   end
 
   test "has statement to parliament display type if written statement" do
@@ -118,6 +135,14 @@ class SpeechTest < ActiveSupport::TestCase
     assert_equal [organisation], speech.organisations
   end
 
+  test "save should set the lead organisations, with a person_override" do
+    organisation = create(:organisation)
+    speech = create(:speech, lead_organisations: [organisation], person_override: "The Queen")
+
+    assert_equal [organisation], speech.lead_organisations
+    assert_equal [organisation], speech.organisations
+  end
+
   test "creating a new draft should not associate speech with duplicate organisations" do
     organisation = create(:organisation)
     ministerial_role = create(:ministerial_role, organisations: [organisation])
@@ -143,6 +168,17 @@ class SpeechTest < ActiveSupport::TestCase
     assert_equal [organisation_2], speech.organisations(true)
   end
 
+  test "editing a speech should reassign organisations based on role_appointment if removing a person_override" do
+    organisation_1 = create(:organisation)
+    ministerial_role_1 = create(:ministerial_role, organisations: [organisation_1])
+    role_appointment_1 = create(:role_appointment, role: ministerial_role_1)
+
+    speech = create(:speech, person_override: "The Queen", role_appointment: nil)
+    speech.update_attributes!(role_appointment: role_appointment_1, person_override: nil)
+
+    assert_equal [organisation_1], speech.organisations(true)
+  end
+
   test "organisation association to edition preserved when edition state changes" do
     user = create(:departmental_editor)
     organisation = create(:ministerial_department)
@@ -163,6 +199,13 @@ class SpeechTest < ActiveSupport::TestCase
     speech = create(:speech, role_appointment: role_appointment)
 
     assert_equal person, speech.person
+  end
+
+  test "#person should return the person who gave the speech when person_override is set" do
+    person = "The Queen"
+    speech = create(:speech, role_appointment: nil, person_override: person)
+
+    assert_equal person, speech.person_override
   end
 
   test "#person should return the person who gave the speech even if they are no longer in the same role" do
@@ -220,6 +263,12 @@ class SpeechTest < ActiveSupport::TestCase
     speech.stubs(:public_document_path).returns("/my/speech")
     assert_equal [person.slug], speech.search_index['people']
     assert_equal [organisation.slug], speech.search_index['organisations']
+  end
+
+  test "search_index does not contain person when person_override is set" do
+    speech = create(:published_speech, title: "my title", speech_type: SpeechType::Transcript, role_appointment: nil, person_override: "The Queen")
+    speech.stubs(:public_document_path).returns("/my/speech")
+    refute speech.search_index.has_key?('people')
   end
 
   test 'search_format_types tags the speech as a speech and announcement' do

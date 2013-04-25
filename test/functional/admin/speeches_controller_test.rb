@@ -45,6 +45,19 @@ class Admin::SpeechesControllerTest < ActionController::TestCase
     assert_equal attributes[:location], speech.location
   end
 
+  test "create should create a new speech without a real person" do
+    speech_type = SpeechType::Transcript
+    attributes = controller_attributes_for(:speech, speech_type: speech_type, person_override: "The Queen")
+
+    post :create, edition: attributes
+
+    assert speech = Speech.last
+    assert_equal speech_type, speech.speech_type
+    assert_equal "The Queen", speech.person_override
+    assert_equal attributes[:delivered_on], speech.delivered_on
+    assert_equal attributes[:location], speech.location
+  end
+
   test "update should save modified speech attributes" do
     speech = create(:speech)
     new_role_appointment = create(:role_appointment)
@@ -82,6 +95,22 @@ class Admin::SpeechesControllerTest < ActionController::TestCase
         assert_select ".role", "Secretary of State"
         assert_select ".organisations", "Home Office"
       end
+      assert_select ".delivered_on", "1 June 2011 00:00"
+      assert_select ".location", "The Guidhall"
+    end
+  end
+
+  view_test "should display details about the speech when delivered by a person who isn't in IG" do
+    home_office = create(:organisation, name: "Home Office")
+    speech_type = SpeechType::Transcript
+    draft_speech = create(:draft_speech, speech_type: speech_type, person_override: "The Queen", delivered_on: Time.zone.parse("2011-06-01 00:00:00"), location: "The Guidhall", organisations: [home_office], role_appointment: nil)
+
+    get :show, id: draft_speech
+
+    assert_select ".details" do
+      assert_select ".type", "Transcript"
+      assert_select ".person", "The Queen"
+      assert_select ".organisations", "Home Office"
       assert_select ".delivered_on", "1 June 2011 00:00"
       assert_select ".location", "The Guidhall"
     end

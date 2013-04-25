@@ -36,6 +36,15 @@ class SpeechesControllerTest < ActionController::TestCase
     assert_select ".person", "Theresa May"
   end
 
+  view_test "should display who gave the speech even if they are not a real person on IG" do
+    speech_type = SpeechType::Transcript
+    published_speech = create(:published_speech, speech_type: speech_type, delivered_on: 6.months.ago, location: "Buckingham palace", person_override: "The Queen")
+
+    get :show, id: published_speech.document
+
+    assert_select ".person", "The Queen"
+  end
+
   view_test "should display details about a transcript" do
     speech_type = SpeechType::Transcript
     published_speech = create(:published_speech, speech_type: speech_type)

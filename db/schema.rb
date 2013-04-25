@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130423141920) do
+ActiveRecord::Schema.define(:version => 20130423150642) do
 
   create_table "access_and_opening_times", :force => true do |t|
     t.text     "body"
@@ -461,6 +461,7 @@ ActiveRecord::Schema.define(:version => 20130423141920) do
     t.text     "govdelivery_url"
     t.integer  "news_article_type_id"
     t.boolean  "relevant_to_local_government",                :default => false
+    t.string   "person_override"
   end
 
   add_index "editions", ["alternative_format_provider_id"], :name => "index_editions_on_alternative_format_provider_id"
