@@ -366,7 +366,7 @@ class Edition < ActiveRecord::Base
     unless first_published_version?
       # Change notes are only on major published versions
       if minor_change?
-        previous_major_version = Edition.unscoped.where( 'document_id=? and published_major_version=? and published_minor_version=0', document_id, published_major_version )
+        previous_major_version = Edition.unscoped.where('document_id=? and published_major_version=? and published_minor_version=0', document_id, published_major_version)
         recent_change_note = previous_major_version.first.change_note if previous_major_version.any?
       else
         recent_change_note = change_note
@@ -449,7 +449,7 @@ class Edition < ActiveRecord::Base
       # This works around a wierd bug in ActiveRecord where an outer scope applied
       # to Edition would be applied to this association. See EditionActiveRecordBugWorkaroundTest.
       all_after_forcing_query_execution = related.all
-      where(id: all_after_forcing_query_execution.collect(&:id))
+      where(id: all_after_forcing_query_execution.map(&:id))
     end
 
     def latest_edition

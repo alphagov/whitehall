@@ -41,14 +41,14 @@ class RoleTypePresenter
     }
   }.freeze
 
-  NAMES_VS_TYPES = RoleTypePresenter::GROUPS_VS_NAMES_VS_TYPES.values.inject(:merge)
+  NAMES_VS_TYPES = RoleTypePresenter::GROUPS_VS_NAMES_VS_TYPES.values.reduce(:merge)
 
   DEFAULT_NAME, DEFAULT_TYPE = NAMES_VS_TYPES.first
 
   class << self
     def options
-      GROUPS_VS_NAMES_VS_TYPES.collect do |group, names_vs_types|
-        [group, names_vs_types.collect { |name, type| [name.humanize, name] }]
+      GROUPS_VS_NAMES_VS_TYPES.map do |group, names_vs_types|
+        [group, names_vs_types.map { |name, type| [name.humanize, name] }]
       end
     end
 

@@ -32,7 +32,9 @@ class Admin::ConsultationsController < Admin::EditionsController
   end
 
   def cope_with_response_attachment_action_params
-    return unless params[:edition] && params[:edition][:response_attributes] && params[:edition][:response_attributes][:consultation_response_attachments_attributes]
+    return unless params[:edition] &&
+                  params[:edition][:response_attributes] &&
+                  params[:edition][:response_attributes][:consultation_response_attachments_attributes]
     params[:edition][:response_attributes][:consultation_response_attachments_attributes].each do |_, consultation_response_attachments_attributes|
       Admin::AttachmentActionParamHandler.manipulate_params!(consultation_response_attachments_attributes)
     end

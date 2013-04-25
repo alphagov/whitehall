@@ -57,6 +57,7 @@ class ForcePublicationAttempt < ActiveRecord::Base
       :finished_at
     end
   end
+
   def status_timestamp
     __send__(status_timestamp_method)
   end

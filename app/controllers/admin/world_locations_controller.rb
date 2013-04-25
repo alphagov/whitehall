@@ -5,7 +5,7 @@ class Admin::WorldLocationsController < Admin::BaseController
   before_filter :destroy_blank_mainstream_links, only: [:create, :update]
 
   def index
-    @active_world_locations, @inactive_world_locations = WorldLocation.ordered_by_name.partition {|wl| wl.active? }
+    @active_world_locations, @inactive_world_locations = WorldLocation.ordered_by_name.partition { |wl| wl.active? }
   end
 
   def edit

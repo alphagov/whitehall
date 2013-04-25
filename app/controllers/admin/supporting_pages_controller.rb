@@ -38,7 +38,8 @@ class Admin::SupportingPagesController < Admin::BaseController
       render :edit
     end
   rescue ActiveRecord::StaleObjectError
-    flash.now[:alert] = %{This page has been saved since you opened it. Your version appears at the top and the latest version appears at the bottom. Please incorporate any relevant changes into your version and then save it.}
+    flash.now[:alert] = %(This page has been saved since you opened it. Your version appears at the top and the latest version appears at the bottom. Please incorporate any relevant changes into your version and then save it.)
+
     @conflicting_supporting_page = SupportingPage.find(params[:id])
     @supporting_page.lock_version = @conflicting_supporting_page.lock_version
     build_attachment
@@ -48,7 +49,7 @@ class Admin::SupportingPagesController < Admin::BaseController
   def destroy
     if @supporting_page.destroyable?
       @supporting_page.destroy
-      flash[:notice] = %{"#{@supporting_page.title}" destroyed.}
+      flash[:notice] = %("#{@supporting_page.title}" destroyed.)
     else
       flash[:alert] = "Cannot destroy a supporting page that has been published"
     end
@@ -70,7 +71,8 @@ class Admin::SupportingPagesController < Admin::BaseController
   end
 
   def cope_with_attachment_action_params
-    return unless params[:supporting_page] && params[:supporting_page][:supporting_page_attachments_attributes]
+    return unless params[:supporting_page] &&
+                  params[:supporting_page][:supporting_page_attachments_attributes]
     params[:supporting_page][:supporting_page_attachments_attributes].each do |_, supporting_page_attachment_params|
       Admin::AttachmentActionParamHandler.manipulate_params!(supporting_page_attachment_params)
     end

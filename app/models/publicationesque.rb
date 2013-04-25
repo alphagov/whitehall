@@ -21,7 +21,7 @@ class Publicationesque < Edition
   end
 
   def hash_with_blank_values?(hash)
-    hash.values.inject(true) do |result, value|
+    hash.values.reduce(true) do |result, value|
       result && (value.is_a?(Hash) ? hash_with_blank_values?(value) : value.blank?)
     end
   end

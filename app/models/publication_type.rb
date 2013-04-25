@@ -28,7 +28,7 @@ class PublicationType
   end
 
   def self.find_by_slug(slug)
-    all.find { |pt| pt.slug == slug }
+    all.detect { |pt| pt.slug == slug }
   end
 
   def self.primary

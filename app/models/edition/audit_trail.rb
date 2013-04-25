@@ -48,7 +48,7 @@ module Edition::AuditTrail
   end
 
   def latest_version_audit_entry_for(state)
-    edition_audit_trail.reverse.find { |audit_entry| audit_entry.is_a?(VersionAuditEntry) && audit_entry.version.state == state }
+    edition_audit_trail.reverse.detect { |audit_entry| audit_entry.is_a?(VersionAuditEntry) && audit_entry.version.state == state }
   end
 
   class AuditEntry
@@ -83,7 +83,9 @@ module Edition::AuditTrail
       edition_serial_number == 0
     end
 
-    def sort_priority; 0; end
+    def sort_priority
+      0
+    end
   end
 
   class VersionAuditEntry < AuditEntry
@@ -137,6 +139,8 @@ module Edition::AuditTrail
       editorial_remark.body
     end
 
-    def sort_priority; 2; end
+    def sort_priority
+      2
+    end
   end
 end

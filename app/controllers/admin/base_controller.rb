@@ -43,7 +43,7 @@ class Admin::BaseController < ApplicationController
 
   def enforcer_for(subject)
     actor = current_user || User.new
-    enforcer = Whitehall::Authority::Enforcer.new(actor, subject)
+    Whitehall::Authority::Enforcer.new(actor, subject)
   end
 
   def forbidden!

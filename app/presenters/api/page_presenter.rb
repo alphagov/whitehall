@@ -13,7 +13,7 @@ class Api::PagePresenter < Draper::Base
       pages: model.num_pages,
       page_size: model.limit_value,
       start_index: start_index
-    }.reject {|k, v| v.nil? }
+    }.reject { |k, v| v.nil? }
   end
 
   def links

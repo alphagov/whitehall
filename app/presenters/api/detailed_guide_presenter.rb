@@ -7,7 +7,7 @@ class Api::DetailedGuidePresenter < Draper::Base
   end
 
   def as_json(options = {})
-    data = {
+    {
       title: model.title,
       id: detailed_guide_url(model),
       web_url: h.public_document_url(model),
@@ -29,7 +29,7 @@ class Api::DetailedGuidePresenter < Draper::Base
   private
 
   def organisation_tags(model)
-    model.organisations.collect do |org|
+    model.organisations.map do |org|
       {
         title: org.name,
         id: h.organisation_url(org, format: :json),

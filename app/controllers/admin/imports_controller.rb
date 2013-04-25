@@ -12,7 +12,10 @@ class Admin::ImportsController < Admin::BaseController
 
   def create
     csv_file = params[:import].delete(:file)
-    @import = Import.create_from_file(current_user, csv_file, params[:import][:data_type], params[:import][:organisation_id])
+    @import = Import.create_from_file(current_user,
+                                      csv_file,
+                                      params[:import][:data_type],
+                                      params[:import][:organisation_id])
     if @import.valid?
       redirect_to admin_import_path(@import)
     else

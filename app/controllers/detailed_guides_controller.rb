@@ -5,7 +5,7 @@ class DetailedGuidesController < DocumentsController
   before_filter :set_search_index
   before_filter :set_artefact, only: [:show]
   before_filter :set_expiry, only: [:show]
-  before_filter :set_analytics_format, only:[:show]
+  before_filter :set_analytics_format, only: [:show]
 
   respond_to :html, :json
 

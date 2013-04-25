@@ -37,6 +37,6 @@ class WorldwideOrganisationsController < PublicFacingController
   end
 
   def office_roles
-    @worldwide_organisation.office_staff_roles.collect { |office_staff| RolePresenter.new(office_staff) }
+    @worldwide_organisation.office_staff_roles.map { |office_staff| RolePresenter.new(office_staff) }
   end
 end

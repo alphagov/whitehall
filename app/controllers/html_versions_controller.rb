@@ -25,7 +25,7 @@ class HtmlVersionsController < PublicFacingController
   end
 
   def find_html_version
-    unless (@publication.html_version && params[:id] == @publication.html_version.slug)
+    unless @publication.html_version && (params[:id] == @publication.html_version.slug)
       render text: "Not found", status: :not_found
     end
   end

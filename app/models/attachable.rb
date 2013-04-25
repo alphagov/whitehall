@@ -85,7 +85,7 @@ module Attachable
   end
 
   def thumbnailable_attachments
-    attachments.select {|a| a.content_type == AttachmentUploader::PDF_CONTENT_TYPE}
+    attachments.select { |a| a.content_type == AttachmentUploader::PDF_CONTENT_TYPE }
   end
 
   def indexable_content

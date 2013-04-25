@@ -13,11 +13,11 @@ module Whitehall
     end
 
     def self.find_by_slug(slug)
-      all.find { |at| at.slug == slug }
+      all.detect { |at| at.slug == slug }
     end
 
     def self.find_by_search_format_types(format_types)
-      all.find do |at|
+      all.detect do |at|
         format_types.any? {|t| at.search_format_types.include?(t)}
       end
     end

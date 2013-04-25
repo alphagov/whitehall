@@ -104,9 +104,9 @@ class Person < ActiveRecord::Base
   private
 
   def name_as_words(*elements)
-    elements.select do |word|
+    elements.select { |word|
       word.present?
-    end.join(' ')
+    }.join(' ')
   end
 
   def image_changed?

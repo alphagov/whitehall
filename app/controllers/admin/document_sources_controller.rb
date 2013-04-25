@@ -8,7 +8,7 @@ class Admin::DocumentSourcesController < Admin::BaseController
     @document_sources.split(/\r?\n/).each do |source|
       @edition.document.document_sources.create(url: source)
     end
-    
+
     redirect_to admin_edition_path(@edition, anchor: 'document-sources')
   end
 

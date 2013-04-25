@@ -51,7 +51,8 @@ class Admin::PolicyAdvisoryGroupsController < Admin::BaseController
   end
 
   def cope_with_attachment_action_params
-    return unless params[:policy_advisory_group] && params[:policy_advisory_group][:policy_group_attachments_attributes]
+    return unless params[:policy_advisory_group] &&
+                  params[:policy_advisory_group][:policy_group_attachments_attributes]
     params[:policy_advisory_group][:policy_group_attachments_attributes].each do |_, policy_advisory_group_attachment_params|
       Admin::AttachmentActionParamHandler.manipulate_params!(policy_advisory_group_attachment_params)
     end

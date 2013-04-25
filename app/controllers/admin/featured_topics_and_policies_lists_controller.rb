@@ -11,7 +11,8 @@ class Admin::FeaturedTopicsAndPoliciesListsController < Admin::BaseController
   def update
     params_with_item_ids = prepare_feature_item_params(params[:featured_topics_and_policies_list])
     if @featured_topics_and_policies_list.update_attributes(params_with_item_ids)
-      redirect_to admin_organisation_featured_topics_and_policies_list_path(@organisation), notice: "Featured topics and policies for #{@organisation.name} updated"
+      redirect_to admin_organisation_featured_topics_and_policies_list_path(@organisation),
+        notice: "Featured topics and policies for #{@organisation.name} updated"
     else
       fetch_topics_and_policies
       fetch_current_featured_items(@featured_topics_and_policies_list)
@@ -30,7 +31,8 @@ class Admin::FeaturedTopicsAndPoliciesListsController < Admin::BaseController
   end
 
   def fetch_featured_topics_and_policies_list
-    @featured_topics_and_policies_list = @organisation.featured_topics_and_policies_list || @organisation.build_featured_topics_and_policies_list
+    @featured_topics_and_policies_list = @organisation.featured_topics_and_policies_list ||
+                                         @organisation.build_featured_topics_and_policies_list
   end
 
   def fetch_current_featured_items(list)
