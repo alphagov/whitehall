@@ -49,18 +49,18 @@ module Admin::EditionsHelper
   end
 
   def pass_through_filter_options_as_hidden_fields(filter, *options_to_pass)
-    options_to_pass.map do |option_to_pass|
+    options_to_pass.map { |option_to_pass|
       value = filter.options[option_to_pass]
       pass_through_filter_value_as_hidden_field(option_to_pass, value)
-    end.join.html_safe
+    }.join.html_safe
   end
 
   def pass_through_filter_value_as_hidden_field(filter_name, filter_value)
     return '' unless filter_value
     if filter_value.is_a?(Array)
-      filter_value.map do |value_to_pass|
+      filter_value.map { |value_to_pass|
         hidden_field_tag "#{filter_name}[]", value_to_pass
-      end.join.html_safe
+      }.join.html_safe
     else
       hidden_field_tag filter_name, filter_value
     end
@@ -123,7 +123,7 @@ module Admin::EditionsHelper
     protected
     def edition_organisations_fields(edition_organisations, lead = true)
       field_identifier = lead ? 'lead' : 'supporting'
-      edition_organisations.map.with_index do |eo, idx|
+      edition_organisations.map.with_index { |eo, idx|
         select_options = @template.options_from_collection_for_select(organisations_for_edition_organisations_fields, 'id', 'select_name', eo.organisation_id)
         @template.label_tag "edition_#{field_identifier}_organisation_ids_#{idx + 1}" do
           [
@@ -137,7 +137,7 @@ module Admin::EditionsHelper
                                  id: "edition_#{field_identifier}_organisation_ids_#{idx + 1}"),
           ].join.html_safe
         end
-      end.join.html_safe
+      }.join.html_safe
     end
     def organisations_for_edition_organisations_fields
       @organisations_for_edition_organisations_fields ||= Organisation.with_translations.all

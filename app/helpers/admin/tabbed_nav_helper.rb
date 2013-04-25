@@ -30,9 +30,9 @@ module Admin::TabbedNavHelper
 
   def tab_navigation_header(tabs)
     content_tag(:ul, class: %w(nav nav-tabs)) do
-      tabs.map do |label, url|
+      tabs.map { |label, url|
         content_tag(:li, link_to(label, url), class: class_for_tab(url))
-      end.join.html_safe
+      }.join.html_safe
     end
   end
 
