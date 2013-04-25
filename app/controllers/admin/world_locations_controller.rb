@@ -23,7 +23,7 @@ class Admin::WorldLocationsController < Admin::BaseController
     filter_params = params.slice(:page, :type, :world_location_ids, :title).
       reverse_merge(world_location_ids: [@world_location.id]).
       merge(state: 'published')
-    @filter = EditionFilter.new(Edition, current_user, filter_params)
+    @filter = Admin::EditionFilter.new(Edition, current_user, filter_params)
   end
 
   private

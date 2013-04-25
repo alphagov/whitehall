@@ -9,35 +9,35 @@ class Admin::EditionsControllerTest < ActionController::TestCase
 
   test 'should pass filter parameters to an edition filter' do
     stub_filter = stub_edition_filter
-    EditionFilter.expects(:new).with(anything, anything, has_entries("state" => "draft", "type" => "policy")).returns(stub_filter)
+    Admin::EditionFilter.expects(:new).with(anything, anything, has_entries("state" => "draft", "type" => "policy")).returns(stub_filter)
 
     get :index, state: :draft, type: :policy
   end
 
   test "should not pass blank parameters to the edition filter" do
     stub_filter = stub_edition_filter
-    EditionFilter.expects(:new).with(anything, anything, Not(has_key("author"))).returns(stub_filter)
+    Admin::EditionFilter.expects(:new).with(anything, anything, Not(has_key("author"))).returns(stub_filter)
 
     get :index, state: :draft, author: ""
   end
 
   test 'should strip out any invalid states passed as parameters and replace them with "active"' do
     stub_filter = stub_edition_filter
-    EditionFilter.expects(:new).with(anything, anything, has_entry("state" => "active")).returns(stub_filter)
+    Admin::EditionFilter.expects(:new).with(anything, anything, has_entry("state" => "active")).returns(stub_filter)
 
     get :index, state: :haxxor_method, type: :policy
   end
 
   test 'should add state param set to "active" if none is supplied' do
     stub_filter = stub_edition_filter
-    EditionFilter.expects(:new).with(anything, anything, has_entry("state" => "active")).returns(stub_filter)
+    Admin::EditionFilter.expects(:new).with(anything, anything, has_entry("state" => "active")).returns(stub_filter)
 
     get :index, type: :policy
   end
 
   test 'should add world_location_ids param set to "all" if none is supplied' do
     stub_filter = stub_edition_filter
-    EditionFilter.expects(:new).with(anything, anything, has_entry("world_location_ids" => "all")).returns(stub_filter)
+    Admin::EditionFilter.expects(:new).with(anything, anything, has_entry("world_location_ids" => "all")).returns(stub_filter)
 
     get :index, type: :policy
   end
@@ -46,7 +46,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     policy = create(:draft_policy)
     publication = create(:draft_publication)
     stub_filter = stub_edition_filter(editions: [policy, publication])
-    EditionFilter.stubs(:new).returns(stub_filter)
+    Admin::EditionFilter.stubs(:new).returns(stub_filter)
 
     get :index, state: :draft
 

@@ -74,7 +74,7 @@ class Admin::EditionsController < Admin::BaseController
     if @edition.edit_as(current_user, params[:edition])
       if params[:speed_save_convert]
         @edition.convert_to_draft!
-        next_edition = EditionFilter.new(edition_class, current_user, session_filters.merge(state: :imported)).editions.first
+        next_edition = Admin::EditionFilter.new(edition_class, current_user, session_filters.merge(state: :imported)).editions.first
         if next_edition
           redirect_to admin_edition_path(next_edition)
         else
@@ -250,7 +250,7 @@ class Admin::EditionsController < Admin::BaseController
   end
 
   def filter
-    @filter ||= params_filters.any? && EditionFilter.new(edition_class, current_user, params_filters_with_default_state)
+    @filter ||= params_filters.any? && Admin::EditionFilter.new(edition_class, current_user, params_filters_with_default_state)
   end
 
   def detect_other_active_editors
