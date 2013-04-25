@@ -32,7 +32,7 @@ class Admin::HistoricalAccountsControllerTest < ActionController::TestCase
       summary: 'Summary',
       body: 'Body',
       role_ids: @role.id,
-      political_party_id: PoliticalParty::Labour.id,
+      political_party_ids: [PoliticalParty::Labour.id],
       interesting_facts: 'Stuff',
       major_acts: 'Mo Stuff'
     }
@@ -47,7 +47,7 @@ class Admin::HistoricalAccountsControllerTest < ActionController::TestCase
     assert_equal [@role], historical_account.roles
     assert_equal 'Summary', historical_account.summary
     assert_equal 'Body', historical_account.body
-    assert_equal PoliticalParty::Labour, historical_account.political_party
+    assert_equal [PoliticalParty::Labour], historical_account.political_parties
     assert_equal 'Stuff', historical_account.interesting_facts
     assert_equal 'Mo Stuff', historical_account.major_acts
   end
