@@ -266,7 +266,7 @@ class Organisation < ActiveRecord::Base
   end
 
   def display_name
-    [acronym, name].find { |s| s.present? }
+    [acronym, name].detect { |s| s.present? }
   end
 
   def select_name

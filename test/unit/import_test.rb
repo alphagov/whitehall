@@ -230,12 +230,12 @@ class ImportTest < ActiveSupport::TestCase
 
   test 'logs failure if unable to parse a date' do
     i = perform_import(csv_data: consultation_csv_sample("opening_date" => "31/10/2012"))
-    assert i.import_errors.find {|e| e[:message] =~ /Unable to parse the date/}
+    assert i.import_errors.detect {|e| e[:message] =~ /Unable to parse the date/}
   end
 
   test 'logs failure if unable to find an organisation' do
     i = perform_import(csv_data: consultation_csv_sample("organisation" => "does-not-exist"))
-    assert i.import_errors.find {|e| e[:message] =~ /Unable to find Organisation/}
+    assert i.import_errors.detect {|e| e[:message] =~ /Unable to find Organisation/}
   end
 
   test 'logs failures within attachments if save unsuccessful' do

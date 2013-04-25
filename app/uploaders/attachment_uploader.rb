@@ -209,7 +209,7 @@ class AttachmentUploader < WhitehallUploader
         ZipFile::ArcGISShapefileExaminer.new(zip_file)
       ])
     ]
-    problem = examiners.find { |examiner| !examiner.valid? }
+    problem = examiners.detect { |examiner| !examiner.valid? }
     raise CarrierWave::IntegrityError, problem.failure_message if problem
   end
 

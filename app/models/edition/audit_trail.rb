@@ -48,7 +48,7 @@ module Edition::AuditTrail
   end
 
   def latest_version_audit_entry_for(state)
-    edition_audit_trail.reverse.find { |audit_entry| audit_entry.is_a?(VersionAuditEntry) && audit_entry.version.state == state }
+    edition_audit_trail.reverse.detect { |audit_entry| audit_entry.is_a?(VersionAuditEntry) && audit_entry.version.state == state }
   end
 
   class AuditEntry
