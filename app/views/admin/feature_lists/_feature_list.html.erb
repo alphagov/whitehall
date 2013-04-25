@@ -1,0 +1,33 @@
+<%= render partial: 'admin/feature_lists/current_feature_list', locals: {feature_list: feature_list} %>
+
+<p><strong>Stop featuring documents:</strong></p>
+
+<table class="table">
+  <% feature_list.published_features.each do |feature| %>
+    <% edition = LocalisedModel.new(feature.document.published_edition, feature_list.locale) %>
+    <%= content_tag_for :tr, edition do %>
+      <td class="type"><%= edition.type.titleize %></td>
+      <td><%= link_to edition.title, admin_edition_path(edition) %></td>
+      <td><%=l edition.major_change_published_at.to_date %></td>
+      <td>
+        <%= button_to('Unfeature', unfeature_admin_feature_list_feature_path(feature_list, feature), confirm: "Unfeature '#{feature}'?", method: :post, class: "btn btn-danger") %>
+      </td>
+    <% end %>
+  <% end %>
+</table>
+
+<h2>Choose new documents to feature</h2>
+<br/>
+
+<div class="row-fluid">
+  <div class="span2">
+    <%= render partial: 'admin/editions/filter_options', locals: {display: [:title, :type, :world_location] } %>
+  </div>
+  <div class="span10">
+
+    <p><strong><%= @filter.page_title %>:</strong></p>
+
+    <%= render partial: 'admin/feature_lists/featurable_editions', locals: {feature_list: feature_list, featurable_editions: @filter.editions.with_translations(feature_list.locale)} %>
+  </div>
+</div>
+
