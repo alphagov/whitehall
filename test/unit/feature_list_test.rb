@@ -70,23 +70,6 @@ class FeatureListTest < ActiveSupport::TestCase
     assert_equal [f1, f2], feature_list_1.reload.features
   end
 
-  test "returns featurable editions" do
-    world_location = create(:world_location)
-    published = create(:published_publication, world_locations: [world_location])
-    draft = create(:draft_publication, world_locations: [world_location])
-    feature_list = create(:feature_list, featurable: world_location, locale: :en)
-    assert_equal [published], feature_list.featurable_editions
-  end
-
-  test "only returns featurable documents with translations in the same locale" do
-    world_location = create(:world_location)
-    published = create(:published_publication, world_locations: [world_location])
-    french_publication = create(:published_publication, world_locations: [world_location], translated_into: [:fr])
-    published = create(:published_publication, world_locations: [world_location])
-    feature_list = create(:feature_list, featurable: world_location, locale: :fr)
-    assert_equal [french_publication], feature_list.featurable_editions
-  end
-
   test '#features should still return featured documents after republication' do
     world_location = create(:world_location)
 
