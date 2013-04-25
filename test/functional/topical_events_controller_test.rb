@@ -52,4 +52,34 @@ class TopicalEventsControllerTest < ActionController::TestCase
 
     assert_select ".govdelivery[href='http://my-govdelivery-url.com']"
   end
+
+  view_test "#show displays extra org logos for first-world-war-centenary" do
+    topical_event = create(:topical_event, name: 'First World War Centenary')
+
+    get :show, id: topical_event
+
+    assert_select '.arts-council-england'
+    assert_select '.bbc'
+    assert_select '.british-library'
+    assert_select '.commonwealth-war-graves-commission'
+    assert_select '.english-heritage'
+    assert_select '.heritage-lottery-fund'
+    assert_select '.imperial-war-museums'
+    assert_select '.war-memorials-trust'
+  end
+
+  view_test "#show doesn't show extra org logos for non first-world-war-centenary" do
+    topical_event = create(:topical_event, name: 'Something exciting')
+
+    get :show, id: topical_event
+
+    refute_select '.arts-council-england'
+    refute_select '.bbc'
+    refute_select '.british-library'
+    refute_select '.commonwealth-war-graves-commission'
+    refute_select '.english-heritage'
+    refute_select '.heritage-lottery-fund'
+    refute_select '.imperial-war-museums'
+    refute_select '.war-memorials-trust'
+  end
 end

@@ -173,11 +173,50 @@
       list-style: none;
 
       li {
-        padding: 0 0 $gutter-half;
-        @include media(tablet){
-          float: left;
-          width: 127px; // kill me now! this is far to tight but they have been 'signed off' on one line.
-          min-height: 90px;
+        float: left;
+        padding: 0 $gutter-half $gutter-half;
+        min-height: 90px;
+      }
+
+      .non-govuk {
+        a {
+          display: block;
+          height: 80px;
+          text-indent: -999em;
+          background: transparent none no-repeat 50% 50%;
+        }
+
+        &.arts-council-england a {
+          background-image: image-url('topical-events/arts-council-england.png');
+          width: 217px;
+        }
+        &.bbc a {
+          background-image: image-url('topical-events/bbc.png');
+          width: 143px;
+        }
+        &.british-library a {
+          background-image: image-url('topical-events/british-library.png');
+          width: 30px;
+        }
+        &.commonwealth-war-graves-commission a {
+          background-image: image-url('topical-events/cwgc.png');
+          width: 209px;
+        }
+        &.english-heritage a {
+          background-image: image-url('topical-events/english-heritage.png');
+          width: 117px;
+        }
+        &.heritage-lottery-fund a {
+          background-image: image-url('topical-events/hlf.png');
+          width: 74px;
+        }
+        &.imperial-war-museums a {
+          background-image: image-url('topical-events/iwm.png');
+          width: 80px;
+        }
+        &.war-memorials-trust a {
+          background-image: image-url('topical-events/wmt.png');
+          width: 103px;
         }
       }
     }
