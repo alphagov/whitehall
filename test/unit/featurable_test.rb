@@ -13,4 +13,19 @@ class Edition::FeaturableTest < ActiveSupport::TestCase
     assert_equal location, arabic.featurable
     refute arabic.persisted?
   end
+
+
+  test "get features with locale should find feature list if present" do
+    world_location = create(:world_location)
+    feature_list = create(:feature_list, featurable: world_location, locale: :fr)
+
+    assert_equal feature_list, world_location.load_or_create_feature_list(:fr)
+  end
+
+  test "get features should create feature list if not present" do
+    world_location = create(:world_location)
+    world_location.load_or_create_feature_list(:fr)
+    world_location.reload
+    assert_equal ["fr"], world_location.feature_lists.map(&:locale)
+  end
 end

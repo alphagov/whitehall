@@ -1,15 +1,16 @@
 require "test_helper"
 
 class FeatureListPresenterTest < PresenterTestCase
-  test "#current_featured_editions first 5 current published featurings" do
+  test "#current_featured_editions first 5 current published featurings by default" do
     decorated = FeatureListPresenter.decorate(stub_feature_list)
 
     assert_equal [FeaturePresenter.decorate(feature)], decorated.current_featured_editions.map(&:edition)
   end
 
-  test "#current_feature_count the number of current featured editions (up to 5)" do
+  test "#current_feature_count the number of current featured editions (up to given limit)" do
     assert_equal 1, FeatureListPresenter.decorate(stub_feature_list).current_feature_count
     assert_equal 5, FeatureListPresenter.decorate(stub_feature_list(17)).current_feature_count
+    assert_equal 7, FeatureListPresenter.decorate(stub_feature_list(17)).limit_to(7).current_feature_count
   end
 
   test "#any_current_features? indicates whether there are any current features" do

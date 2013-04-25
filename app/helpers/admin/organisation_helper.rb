@@ -23,7 +23,6 @@ module Admin::OrganisationHelper
       "About us" => about_admin_organisation_path(organisation),
       "Governance groups" => admin_organisation_groups_path(organisation),
       "People" => people_admin_organisation_path(organisation),
-      "Featured documents" => documents_admin_organisation_path(organisation),
       "Document series" => document_series_admin_organisation_path(organisation),
       "Corporate information pages" => admin_organisation_corporate_information_pages_path(organisation),
       "Translations" => admin_organisation_translations_path(organisation)
@@ -31,6 +30,10 @@ module Admin::OrganisationHelper
     if organisation.executive_office?
       tabs["Featured topics and policies"] = admin_organisation_featured_topics_and_policies_list_path(organisation)
       tabs["Promotional features"] = admin_organisation_promotional_features_path(organisation)
+    end
+    tabs["Featured documents"] = features_admin_organisation_path(organisation, locale: "")
+    organisation.non_english_translated_locales.each do |locale|
+      tabs["Featured documents (#{locale.native_language_name})"] = features_admin_organisation_path(organisation, locale: locale.code)
     end
     tabs
   end

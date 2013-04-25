@@ -16,7 +16,7 @@
       <section>
         <%= tab_navigation_for(@world_location) %>
 
-        <%= render @feature_list %>
+        <%= render @feature_list, filter_by: [:title, :type, :world_location] %>
       </section>
     </div>
   </div>

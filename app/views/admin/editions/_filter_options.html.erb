@@ -1,9 +1,9 @@
 <%
-  display ||= [:title, :author, :world_location, :type, :state]
+  filter_by ||= [:title, :author, :world_location, :type, :state]
 %>
 <nav class="well" style="padding: 8px 0;">
   <ul class="nav nav-list">
-    <% if display.include?(:title) %>
+    <% if filter_by.include?(:title) %>
       <li class="nav-header">Filter by Title</li>
       <li>
         <%= form_tag("", method: :get, class: "pull-left") do %>
@@ -13,10 +13,10 @@
       </li>
     <% end %>
 
-    <% if display.include?(:author) %>
+    <% if filter_by.include?(:author) %>
       <li class="nav-header">Filter by Author</li>
-      <%= link_to_filter('Me', {author: current_user, organisation: nil}, @filter, title: "Show documents by me") %>
-      <%= link_to_filter('My department', {author: nil, organisation: current_user.organisation}, @filter, title: "Show documents by my department") %>
+      <%= link_to_filter('Me', {locale: params[:locale], author: current_user, organisation: nil}, @filter, title: "Show documents by me") %>
+      <%= link_to_filter('My department', {locale: params[:locale], author: nil, organisation: current_user.organisation}, @filter, title: "Show documents by my department") %>
 
       <li class="organisation-filter <%= active_filter_unless_values_match_class(@filter, :organisation, current_user.organisation_id) %>">
         <%= form_tag("", method: :get) do %>
@@ -25,7 +25,7 @@
           <%= submit_tag "Go", class: "btn" %>
         <% end %>
       </li>
-      <%= link_to_filter('Everyone', {author: nil, organisation: nil}, @filter, title: "Show documents by everyone") %>
+      <%= link_to_filter('Everyone', {locale: params[:locale], author: nil, organisation: nil}, @filter, title: "Show documents by everyone") %>
       <li class="author-filter <%= active_filter_unless_values_match_class(@filter, :author, current_user.id.to_s) %>">
         <%= form_tag("", method: :get) do %>
           <%= select_tag :author, options_from_collection_for_select(User.all - [current_user], 'id', 'name', @filter.options[:author]), class: 'chzn-select', include_blank: true, data: { placeholder: "Other authors..." } %>
@@ -35,7 +35,7 @@
       </li>
     <% end %>
 
-    <% if display.include?(:world_location) %>
+    <% if filter_by.include?(:world_location) %>
       <li class="nav-header">Filter by World locations</li>
       <% if current_user.world_locations.any? %>
         <%= link_to_filter('My Locations', {world_location_ids: current_user.world_locations.map(&:id)}, @filter, title: "Show documents for your locations") %>
@@ -54,7 +54,7 @@
       </li>
     <% end %>
 
-    <% if display.include?(:type) %>
+    <% if filter_by.include?(:type) %>
       <li class="nav-header">Filter by Kind</li>
       <%= link_to_filter 'All', {locale: params[:locale], type: nil}, @filter, title: "Show all kinds of document" %>
       <%= link_to_filter 'Policies', {locale: params[:locale], type: 'policy'}, @filter, title: "Show only policies" %>
@@ -72,7 +72,7 @@
       <% end %>
     <% end %>
 
-    <% if display.include?(:state) %>
+    <% if filter_by.include?(:state) %>
       <li class="nav-header">Filter by state</li>
       <% document_type = (@filter.options[:type] || "document").pluralize %>
       <%= link_to_filter 'All', {locale: params[:locale], state: :active}, @filter, title: "Show #{document_type} in any workflow state" %>

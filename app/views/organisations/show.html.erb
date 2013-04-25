@@ -13,26 +13,12 @@
 
   <div class="block-2 <%= "has-social" if @organisation.social_media_accounts.any? %>">
     <div class="inner-block">
-      <section class="organisation-news featured-news items-<%= @featured_editions.length %>" id="featured-documents">
-        <% if @featured_editions.any? %>
-          <%= render partial: 'shared/featured_news',
-                    locals: { edition: @featured_editions.first,
-                              extra_class: 'first',
-                              show_meta: true,
-                              image_size: :s630 } %>
-          <%= render partial: 'shared/featured_news',
-                     collection: @featured_editions.to_a.from(1),
-                     as: :edition,
-                     locals: { show_meta: true,
-                               extra_class: "secondary" } %>
-        <% end %>
-
-        <%= render partial: 'shared/recently_updated',
-                  locals: { recently_updated: @recently_updated,
-                            atom_url: organisation_url(@organisation, format: "atom"),
-                            govdelivery_url: filter_email_signup_url(organisation: @organisation.slug),
-                            extra_class: 'panel'} %>
-      </section>
+      <%= render partial: 'featured_items' %>
+      <%= render partial: 'shared/recently_updated',
+                locals: { recently_updated: @recently_updated,
+                          atom_url: organisation_url(@organisation, format: "atom"),
+                          govdelivery_url: filter_email_signup_url(organisation: @organisation.slug),
+                          extra_class: 'panel'} %>
 
       <section id="what-we-do" class="what-we-do">
         <div class="content">
