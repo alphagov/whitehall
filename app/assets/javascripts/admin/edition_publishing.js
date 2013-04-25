@@ -35,6 +35,23 @@ jQuery(function($) {
 });
 
 (function($) {
+  var hidePersonOverride = function() {
+    if ($('input#person_override_active').prop('checked')) {
+      $('.edition_person_override').show();
+      $('.role_appointment').hide();
+      $("#edition_role_appointment_id").val('');
+    } else {
+      $('.role_appointment').show();
+      $('.edition_person_override').hide();
+      $('#edition_person_override').val('');
+    }
+  }
+
+  $('input#person_override_active').change(hidePersonOverride)
+  hidePersonOverride();
+})(jQuery);
+
+(function($) {
   var hideScheduledPublication = function() {
     if ($('input#scheduled_publication_active').prop('checked')) {
       $('.scheduled_publication').show();

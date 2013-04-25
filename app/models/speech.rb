@@ -3,12 +3,12 @@ class Speech < Announcement
   include Edition::DocumentSeries
   include Edition::CanApplyToLocalGovernmentThroughRelatedPolicies
 
-  after_save :populate_organisations_based_on_role_appointment
+  after_save :populate_organisations_based_on_role_appointment, unless: ->(speech) { speech.person_override? }
 
   validates :speech_type_id, presence: true
   validates :delivered_on, presence: true, unless: ->(speech) { speech.can_have_some_invalid_data? }
 
-  validate :role_appointment_has_associated_organisation, unless: ->(speech) { speech.can_have_some_invalid_data? }
+  validate :role_appointment_has_associated_organisation, unless: ->(speech) { speech.can_have_some_invalid_data? || speech.person_override? }
 
   delegate :display_type_key, :explanation, to: :speech_type
   validate :only_speeches_allowed_invalid_data_can_be_awaiting_type
@@ -38,7 +38,7 @@ class Speech < Announcement
   end
 
   def delivered_by_minister?
-    role_appointment.role.ministerial?
+    role_appointment && role_appointment.role.ministerial?
   end
 
   def first_public_at
