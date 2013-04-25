@@ -11,10 +11,6 @@ class FeatureList < ActiveRecord::Base
     "#{featurable.name} (#{locale})"
   end
 
-  def featurable_editions
-    featurable.published_editions.with_translations(locale)
-  end
-
   def reorder!(new_ordering)
     Feature.connection.transaction do
       start_at = next_ordering
