@@ -10,13 +10,18 @@ class OrganisationsControllerTest < ActionController::TestCase
   should_display_organisation_page_elements_for(:organisation)
   should_display_organisation_page_elements_for(:executive_office)
 
-  view_test "should display a list of organisations" do
+  view_test "should display a list of ministerial departments" do
     ministerial_org_type = create(:ministerial_organisation_type)
     organisation_1 = create(:organisation, organisation_type_id: ministerial_org_type.id)
+    organisation_2 = create(:organisation, organisation_type_id: ministerial_org_type.id)
+    organisation_3 = create(:organisation, organisation_type_id: ministerial_org_type.id)
 
     get :index
 
-    assert_select_object(organisation_1)
+    assert_select '.ministerial-departments' do
+      assert_select '.js-filter-count', text: '3'
+      assert_select_object(organisation_1)
+    end
   end
 
   view_test "should display a list of executive offices" do
@@ -33,25 +38,29 @@ class OrganisationsControllerTest < ActionController::TestCase
 
   view_test "should display a list of non-ministerial departments" do
     non_ministerial_org_type = create(:non_ministerial_organisation_type)
-    organisation = create(:organisation, organisation_type_id: non_ministerial_org_type.id)
+    organisation_1 = create(:organisation, organisation_type_id: non_ministerial_org_type.id)
+    organisation_2 = create(:organisation, organisation_type_id: non_ministerial_org_type.id)
 
     get :index
 
     assert_select '#agencies-and-public-bodies'
     assert_select '.other-departments' do
-      assert_select_object(organisation)
+      assert_select '.js-filter-count', text: '2'
+      assert_select_object(organisation_1)
     end
   end
 
   view_test "should display a list of public corporation organisations" do
     public_corporation_org_type = create(:public_corporation_organisation_type)
-    organisation = create(:organisation, organisation_type_id: public_corporation_org_type.id)
+    organisation_1 = create(:organisation, organisation_type_id: public_corporation_org_type.id)
+    organisation_2 = create(:organisation, organisation_type_id: public_corporation_org_type.id)
 
     get :index
 
     assert_select '#public-corporations'
     assert_select '.other-departments' do
-      assert_select_object(organisation)
+      assert_select '.js-filter-count', text: '2'
+      assert_select_object(organisation_1)
     end
   end
 
