@@ -94,9 +94,11 @@ module Searchable
           .select { |instance| Whitehall.searchable_classes.include?(instance.class) }
           .each { |instance|  Searchable::Index.later(instance) }
       end
+
       def searchable_instances
         searchable_options[:only].call(self)
       end
+
       def search_index
         Enumerator.new do |y|
           searchable_instances.find_each do |edition|
@@ -111,6 +113,7 @@ module Searchable
     def allowed_class_names
       Whitehall.searchable_classes.map(&:name)
     end
+
     def searchable_class
       if allowed_class_names.include?(searchable_class_name)
         searchable_class_name.constantize
