@@ -24,7 +24,6 @@ jQuery(function($) {
 
   GOVUK.hideDepartmentChildren.init();
   GOVUK.filterListItems.init();
-  GOVUK.joiningMessage.init();
   GOVUK.showHide.init();
   GOVUK.emailSignup.init();
   GOVUK.virtualTour.init();
