@@ -57,6 +57,7 @@
       .person-excerpt {
         width: 100%;
         float: none;
+        min-height: 280px;
 
         h3 {
           @include core-19;
@@ -81,6 +82,10 @@
     .year-block {
       @include media(tablet){
         width: 25%;
+      }
+
+      .person-excerpt {
+        min-height: 0;
       }
     }
   }
