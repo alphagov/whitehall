@@ -15,16 +15,6 @@ class Admin::FeaturesControllerTest < ActionController::TestCase
     assert_equal edition.document, assigns[:feature].document
   end
 
-  test "get :new does not load an edition if its not in the featureable editions of the feature list" do
-    world_location = create(:world_location)
-    feature_list = create(:feature_list, featurable: world_location, locale: :en)
-    edition = create(:published_speech)
-
-    assert_raises ActiveRecord::RecordNotFound do
-      get :new, feature_list_id: feature_list, edition_id: edition.id
-    end
-  end
-
   test "post :unfeature sets the ended_at date of a feature" do
     world_location = create(:world_location)
     feature_list = create(:feature_list, featurable: world_location, locale: :en)

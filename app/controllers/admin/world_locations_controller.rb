@@ -20,7 +20,10 @@ class Admin::WorldLocationsController < Admin::BaseController
   end
 
   def features
-    @editions = @feature_list.featurable_editions.map {|e| LocalisedModel.new(e, @feature_list.locale)}
+    filter_params = params.slice(:page, :type, :world_location_ids, :title).
+      reverse_merge(world_location_ids: [@world_location.id]).
+      merge(state: 'published')
+    @filter = Admin::EditionFilter.new(Edition, current_user, filter_params)
   end
 
   private

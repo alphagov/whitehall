@@ -37,6 +37,13 @@ Feature: Administering world location information
     Then I should see "Barbes" as the title of the feature on the french "Jamestopia" page
     And I should see "Barbes" as the title of the featured item on the french "Jamestopia" admin page
 
+  Scenario: Featuring things that aren't associated with the world location
+    Given a world location "Jamestopia" exists in both english and french
+    And a published news article "Beards" which isn't explicitly associated with "Jamestopia"
+    When I feature "Beards" on the english "Jamestopia" page
+    Then I should see "Beards" featured on the public facing "Jamestopia" page
+    And I cannot feature "Beards" on the french "Jamestopia" page due to the lack of a translation
+
   Scenario: Adding a new translation
     Given a world location "Afrolasia" exists with the mission statement "The UK has a long-standing relationship with Afrolasia"
     When I add a new translation to the world location "Afrolasia" with:

@@ -1,9 +1,10 @@
-<h2>Featured documents</h2>
+<h2>Currently featured documents</h2>
 <p class="warning">
   Warning: changes to features appear instantly on the live site.
 </p>
 
 <% if feature_list.features.current.any? %>
+  <p><strong>Reorder featured documents:</strong></p>
   <%= form_for feature_list, url: reorder_admin_feature_list_path(feature_list), method: :post do |form| %>
     <fieldset class="sortable">
       <% @feature_list.features.current.each do |feature| %>
