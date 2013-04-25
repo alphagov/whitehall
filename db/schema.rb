@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130423150642) do
+ActiveRecord::Schema.define(:version => 20130425111246) do
 
   create_table "access_and_opening_times", :force => true do |t|
     t.text     "body"
@@ -624,6 +624,7 @@ ActiveRecord::Schema.define(:version => 20130423150642) do
     t.text     "interesting_facts"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "political_party_ids"
   end
 
   add_index "historical_accounts", ["person_id"], :name => "index_historical_accounts_on_person_id"
