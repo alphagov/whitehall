@@ -219,7 +219,7 @@ class Whitehall::GovUkDelivery::GovUkDeliveryEndPointTest < ActiveSupport::TestC
   test '#tags for a publication with a type that is not available as a filter returns an atom feed without a publication_filter_option' do
     topic = create(:topic)
     organisation = create(:ministerial_department)
-    edition = create(:publication, organisations: [organisation], publication_type: PublicationType::Unknown)
+    edition = create(:imported_publication, organisations: [organisation], publication_type: PublicationType::Unknown)
     edition.stubs(:topics).returns [topic]
 
     refute tags_for(edition).any? { |feed_url| feed_url =~ /publication_filter_option\=/ }
