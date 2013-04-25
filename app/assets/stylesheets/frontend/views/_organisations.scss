@@ -1,6 +1,6 @@
 .organisations-index {
 
-  .other-departments h1 {
+  .other-departments .type-heading {
     margin-top: 0;
     width: 25%;
   }
@@ -34,7 +34,7 @@
   .ministerial-departments, .executive-offices {
     margin-bottom: $gutter*2;
 
-    h1 {
+    .type-heading {
       padding-top: 17px;
       padding-top: 1.7rem;
     }
@@ -113,6 +113,32 @@
       list-style: none;
       border-bottom: 1px solid $border-colour;
       @include ig-core-19;
+    }
+  }
+  
+  .type-heading {
+    h1 {
+      width: 100%;
+    }
+    @include media(desktop){
+      width: 33.33%;
+      float: left
+    }
+
+    @include media(tablet){
+      p {
+        clear: both;
+        span.count {
+          @include core-80;
+          display: block;
+          font-weight: bold;
+        }
+        span.on-govuk {
+          @include core-24;
+          display: block;
+          color: $secondary-text-colour;
+        }
+      }
     }
   }
 }
