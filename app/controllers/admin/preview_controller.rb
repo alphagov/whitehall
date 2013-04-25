@@ -29,7 +29,7 @@ class Admin::PreviewController < Admin::BaseController
 
 private
   def limit_access_to_attachments!
-    unless @attachments.all? {|a| a.accessible_by?(current_user)}
+    unless @attachments.all? { |a| a.accessible_by?(current_user) }
       render "admin/editions/forbidden", status: 403
     end
   end

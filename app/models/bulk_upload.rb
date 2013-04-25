@@ -43,7 +43,7 @@ class BulkUpload
           split(/[\r\n]+/).
           map { |l| l.strip }.
           reject { |l| l =~ /\A(Archive|creating):/ }.
-          map { |f| f.gsub(/\Ainflating:\s+/,'') }.
+          map { |f| f.gsub(/\Ainflating:\s+/, '') }.
           reject { |f| f =~ /\/__MACOSX\// }.
           map { |f| [File.basename(f), File.expand_path(f)] }
     end
@@ -63,7 +63,7 @@ class BulkUpload
     end
 
     def is_a_zip?
-      _,_,errs = Open3.popen3("#{Whitehall.system_binaries[:zipinfo]} -1 #{self.temp_location} > /dev/null")
+      _, _, errs = Open3.popen3("#{Whitehall.system_binaries[:zipinfo]} -1 #{self.temp_location} > /dev/null")
       errs.read.empty?
     end
   end

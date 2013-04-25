@@ -128,7 +128,7 @@ class RoleAppointment < ActiveRecord::Base
   end
 
   def historical_account
-    person.historical_accounts.includes(:roles).detect {|historical_account| historical_account.roles.include?(role) }
+    person.historical_accounts.includes(:roles).detect { |historical_account| historical_account.roles.include?(role) }
   end
 
   def has_historical_account?

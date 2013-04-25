@@ -16,7 +16,7 @@ class RolesPresenter
   end
 
   def decorated_collection
-    @decorated_collection ||= source.to_a.collect {|role| RolePresenter.new(role) }
+    @decorated_collection ||= source.to_a.map { |role| RolePresenter.new(role) }
   end
 
   def with_unique_people
@@ -25,11 +25,11 @@ class RolesPresenter
   end
 
   def unique_people
-    @unique_people ||= source.collect { |role| role.current_person }.compact.uniq
+    @unique_people ||= source.map { |role| role.current_person }.compact.uniq
   end
 
   def roles_for(person)
-    decorated_collection.select {|role| role.current_person == person}
+    decorated_collection.select { |role| role.current_person == person }
   end
 
   def each(&block)

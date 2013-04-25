@@ -12,7 +12,7 @@ class EditionPublishingWorker
   def publish_edition_as_user(edition, user)
     Edition::AuditTrail.acting_as(user) do
       perform_atomic_update do
-        if !edition.publish_as(user)
+        unless edition.publish_as(user)
           raise ScheduledPublishingFailure, edition.errors.full_messages.to_sentence
         end
       end

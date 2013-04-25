@@ -1,12 +1,12 @@
 module Admin::DocumentSeriesHelper
   def document_series_select_options(edition, user, document_series_ids)
-    organisation = user.organisation
+    user_organisation = user.organisation
     grouped_series = DocumentSeries.with_translations_for(:organisation).all.group_by(&:organisation)
-    primary_series = grouped_series.delete(user.organisation)
+    primary_series = grouped_series.delete(user_organisation)
 
     series_options = [%{<option value=""></option>}]
     if primary_series
-      series_options << (%{<optgroup label="#{user.organisation.name}">} +
+      series_options << (%{<optgroup label="#{user_organisation.name}">} +
       options_from_collection_for_select(primary_series, 'id', 'name', document_series_ids) +
       %{</optgroup>})
     end

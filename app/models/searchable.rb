@@ -62,7 +62,7 @@ module Searchable
     }
 
     def search_index
-      SEARCH_FIELDS.inject({}) do |result, name|
+      SEARCH_FIELDS.reduce({}) do |result, name|
         value = searchable_options[name].call(self)
         key = KEY_MAPPING[name] || name.to_s
         result[key] = value unless value.nil?

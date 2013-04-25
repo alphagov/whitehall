@@ -33,6 +33,7 @@ class EmailSignup
   def self.valid_topics
     Classification.order(:name).where("(type = 'Topic' and published_policies_count <> 0) or (type = 'TopicalEvent')").alphabetical
   end
+
   def self.valid_topic_slugs
     valid_topics.map(&:slug) + ['all']
   end
@@ -45,6 +46,7 @@ class EmailSignup
       other: Organisation.with_translations.where("organisation_type_id NOT IN (?,?) AND govuk_status='live'", ministerial_department_type, sub_organisation_type)
     }
   end
+
   def self.valid_organisation_slugs
     valid_organisations_by_type.map { |type, orgs| orgs.map(&:slug) }.flatten + ['all']
   end
@@ -56,6 +58,7 @@ class EmailSignup
       policy_type: [DocumentTypeOptionForAllOfType.new('All policies')]
     }
   end
+
   def self.valid_document_type_slugs
     valid_document_types_by_type.map { |type_key, types|
       types.map { |type| "#{type_key}_#{type.slug}" }

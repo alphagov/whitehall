@@ -8,7 +8,7 @@ module Admin::SidebarHelper
   end
 
   def edition_tabs(edition, editing=false)
-    {}.tap { |tabs|
+    {}.tap do |tabs|
       if editing
         tabs[:govspeak_help] = "Formatting Help"
       end
@@ -16,7 +16,7 @@ module Admin::SidebarHelper
       if @edition.can_be_fact_checked?
         tabs[:fact_checking] = ["Fact checking", @edition.all_completed_fact_check_requests.count]
       end
-    }
+    end
   end
 
   def sidebar_tabs(tabs, &block)

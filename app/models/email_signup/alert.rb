@@ -1,6 +1,7 @@
 class EmailSignup::Alert
   include ActiveModel::Validations
   attr_accessor :document_type, :topic, :organisation, :info_for_local
+
   def initialize(args = {})
     args.symbolize_keys.each do |attr, value|
       self.__send__("#{attr}=", args[attr])
@@ -15,7 +16,8 @@ class EmailSignup::Alert
       [true, 1, '1', 't', 'T', 'true', 'TRUE'].include?(@info_for_local)
     end
   end
-  alias :info_for_local? :info_for_local
+
+  alias_method :info_for_local?, :info_for_local
 
   def document_generic_type
     if document_type == 'all'
@@ -24,6 +26,7 @@ class EmailSignup::Alert
       document_type.match(/\A(publication|announcement|policy)_type_/)[1]
     end
   end
+
   def document_specific_type
     if document_type == 'all'
       'all'

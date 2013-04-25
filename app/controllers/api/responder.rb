@@ -11,10 +11,10 @@ class Api::Responder < ActionController::Responder
   private
 
   def response_info
-    response_info = {status: status_for_response_info}
+    response_info = { status: status_for_response_info }
     response_info[:links] = links_for_response_info if link_header.links.any?
 
-    {_response_info: response_info}
+    { _response_info: response_info }
   end
 
   def status_for_response_info
@@ -41,8 +41,8 @@ class Api::Responder < ActionController::Responder
   end
 
   def links_for_response_info
-    link_header.links.map { |link|
+    link_header.links.map do |link|
       { href: link.href }.merge(link.attrs.symbolize_keys)
-    }
+    end
   end
 end

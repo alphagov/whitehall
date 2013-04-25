@@ -37,7 +37,7 @@ class TopicalEvent < Classification
   accepts_nested_attributes_for :social_media_accounts, allow_destroy: true
   accepts_nested_attributes_for :classification_featurings
 
-  alias :display_name :to_s
+  alias_method :display_name, :to_s
 
   def featured?(edition)
     return false unless edition.persisted?

@@ -1,5 +1,5 @@
 class NewsArticlesController < DocumentsController
-  before_filter :set_analytics_format, only:[:show]
+  before_filter :set_analytics_format, only: [:show]
 
   def show
     @related_policies = @document.published_related_policies

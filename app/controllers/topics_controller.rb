@@ -14,12 +14,12 @@ class TopicsController < ClassificationsController
       Announcement.scheduled_in_topic([@classification]))
 
     respond_to do |format|
-      format.html {
+      format.html do
         @recently_changed_documents = @recently_changed_documents[0...3]
-      }
-      format.atom {
+      end
+      format.atom do
         @recently_changed_documents = @recently_changed_documents[0...10]
-      }
+      end
     end
   end
 end

@@ -17,11 +17,14 @@ class AttachmentUploader < WhitehallUploader
     def full_filename(for_file)
       super + ".png"
     end
+
     def full_original_filename
       super + ".png"
     end
+
     process :generate_thumbnail
     before :store, :set_correct_content_type
+
     def set_correct_content_type(ignore_argument)
       @file.content_type = "image/png"
     end
@@ -37,7 +40,7 @@ class AttachmentUploader < WhitehallUploader
 
   def get_first_page_as_png(width, height)
     output = `#{pdf_thumbnail_command(width, height)}`
-    if !$?.success?
+    unless $?.success?
       Rails.logger.warn "Error thumbnailing PDF. Exit status: #{$?.exitstatus}; Output: #{output}"
       FileUtils.cp(FALLBACK_THUMBNAIL_PDF, path)
     end
@@ -121,7 +124,7 @@ class AttachmentUploader < WhitehallUploader
       OPTIONAL_EXTS = ['prj', 'sbn', 'sbx', 'fbn', 'fbx', 'ain', 'aih',
                        'ixs', 'mxs', 'atx', 'shp.xml', 'cpg']
       ALLOWED_EXTS = REQUIRED_EXTS + OPTIONAL_EXTS
-      EXT_MATCHER = /\.(#{ALLOWED_EXTS.map {|e| Regexp.escape(e)}.join('|')})\Z/
+      EXT_MATCHER = /\.(#{ALLOWED_EXTS.map { |e| Regexp.escape(e)}.join('|') })\Z/
 
       def files_with_extensions
         @files_with_extensions ||=
@@ -139,7 +142,7 @@ class AttachmentUploader < WhitehallUploader
           Hash[
             files_with_extensions.
               reject { |file, ext| ext.nil? }.
-              group_by { |file, ext| file.gsub(/\.#{Regexp.escape(ext)}\Z/,'')}.
+              group_by { |file, ext| file.gsub(/\.#{Regexp.escape(ext)}\Z/, '')}.
               map { |shape, files|
                 [ shape, files.group_by { |file, ext| ext } ]
               }
@@ -189,7 +192,7 @@ class AttachmentUploader < WhitehallUploader
       end
 
       def failure_message
-        "The contents of your zip file did not meet any of our constraints: #{@others.map {|o| o.failure_message}.join(' or: ')}"
+        "The contents of your zip file did not meet any of our constraints: #{@others.map { |o| o.failure_message }.join(' or: ')}"
       end
     end
   end
@@ -207,9 +210,7 @@ class AttachmentUploader < WhitehallUploader
       ])
     ]
     problem = examiners.detect { |examiner| !examiner.valid? }
-    if problem
-      raise CarrierWave::IntegrityError, problem.failure_message
-    end
+    raise CarrierWave::IntegrityError, problem.failure_message if problem
   end
 
 end

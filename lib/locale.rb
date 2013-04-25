@@ -24,11 +24,11 @@ class Locale < Struct.new(:code)
     end
 
     def find_by_language_name(native_language_name)
-      all.find { |l| l.native_language_name == native_language_name }
+      all.detect { |l| l.native_language_name == native_language_name }
     end
 
     def find_by_code(code)
-      all.find { |l| l.code == code.to_sym }
+      all.detect { |l| l.code == code.to_sym }
     end
   end
 

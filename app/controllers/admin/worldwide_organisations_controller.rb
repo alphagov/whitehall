@@ -32,7 +32,8 @@ class Admin::WorldwideOrganisationsController < Admin::BaseController
   end
 
   def access_info
-    @access_and_opening_times = @worldwide_organisation.access_and_opening_times || @worldwide_organisation.build_access_and_opening_times
+    @access_and_opening_times = @worldwide_organisation.access_and_opening_times ||
+                                @worldwide_organisation.build_access_and_opening_times
   end
 
   def set_main_office

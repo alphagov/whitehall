@@ -203,7 +203,7 @@ class Admin::SupportingPagesControllerTest < ActionController::TestCase
     conflicting_supporting_page = supporting_page.reload
     assert_equal conflicting_supporting_page, assigns(:conflicting_supporting_page)
     assert_equal conflicting_supporting_page.lock_version, assigns(:supporting_page).lock_version
-    assert_equal %{This page has been saved since you opened it. Your version appears at the top and the latest version appears at the bottom. Please incorporate any relevant changes into your version and then save it.}, flash[:alert]
+    assert_equal %(This page has been saved since you opened it. Your version appears at the top and the latest version appears at the bottom. Please incorporate any relevant changes into your version and then save it.), flash[:alert]
   end
 
   test "should be able to destroy a destroyable supporting page" do

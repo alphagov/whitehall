@@ -20,7 +20,7 @@ module DocumentHelper
   end
 
   def only_applies_to_nations_list(document)
-    if document.respond_to?(:nation_inapplicabilities) and document.nation_inapplicabilities.any?
+    if document.respond_to?(:nation_inapplicabilities) && document.nation_inapplicabilities.any?
       content_tag :span, "#{document.applicable_nations.map(&:name).sort.to_sentence}#{see_alternative_urls_for_inapplicable_nations(document)}".html_safe, class: 'inapplicable-nations'
     end
   end
@@ -78,7 +78,7 @@ module DocumentHelper
 
   def attachment_reference(attachment)
     ref = []
-    ref << "ISBN "+ content_tag(:span, attachment.isbn, class: "isbn") if attachment.isbn.present?
+    ref << "ISBN " + content_tag(:span, attachment.isbn, class: "isbn") if attachment.isbn.present?
     ref << content_tag(:span, attachment.unique_reference, class: "unique_reference") if attachment.unique_reference.present?
     ref << content_tag(:span, attachment.command_paper_number, class: "command_paper_number") if attachment.command_paper_number.present?
 
@@ -101,12 +101,12 @@ module DocumentHelper
     attachment_info << "Command paper number: #{attachment.command_paper_number}" if attachment.command_paper_number
     mail_to alternative_format_contact_email, alternative_format_contact_email,
       subject: "Request for '#{attachment.title}' in an alternative format",
-      body: %Q[
+      body: %(
 
 Details of document required:
 
 #{attachment_info.join("\n")}
-      ]
+      )
   end
 
   def attachment_references(attachment)

@@ -7,6 +7,7 @@ module Edition::Traits
     end
 
     def process_associations_before_save(edition); end
+
     def process_associations_after_save(edition); end
   end
 
@@ -20,7 +21,7 @@ module Edition::Traits
   end
 
   module ClassMethods
-    def add_trait(trait=nil, &block)
+    def add_trait(trait = nil, &block)
       if trait.nil?
         if block_given?
           trait = Class.new(Edition::Traits::Trait, &block)

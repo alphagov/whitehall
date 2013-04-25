@@ -30,5 +30,4 @@ class Api::MainstreamCategoryTagPresenter
       }
     }
   end
-
- end
+end

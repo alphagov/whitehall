@@ -18,7 +18,7 @@ module ApplicationHelper
     content_for(:bar_colour_class, css_class)
   end
 
-  def atom_discovery_link_tag(url=nil, title=nil)
+  def atom_discovery_link_tag(url = nil, title = nil)
     @atom_discovery_link_url = url if url.present?
     @atom_discovery_link_title = title if title.present?
     auto_discovery_link_tag(:atom, @atom_discovery_link_url || atom_feed_url(format: :atom), title: @atom_discovery_link_title || "Recent updates")
@@ -32,20 +32,20 @@ module ApplicationHelper
     url_for(params.except(:utf8, :_, :date, :direction, :page).merge(format: "atom", only_path: false))
   end
 
-  def filter_json_url(args={})
+  def filter_json_url(args = {})
     url_for(params.except(:utf8, :_).merge(format: "json").merge(args))
   end
 
-  def filter_email_signup_url(args={})
+  def filter_email_signup_url(args = {})
     if params[:departments] && params[:departments].first != 'all'
       params[:organisation] = params[:departments].first
     end
     if params[:topics] && params[:topics].first != 'all'
       params[:topic] = params[:topics].first
     end
-    if params.has_key?(:announcement_type_option) and params[:announcement_type_option] != 'all'
+    if params.has_key?(:announcement_type_option) && params[:announcement_type_option] != 'all'
       params[:document_type] = "announcement_type_#{params[:announcement_type_option]}"
-    elsif params.has_key?(:publication_filter_option) and params[:publication_filter_option] != 'all'
+    elsif params.has_key?(:publication_filter_option) && params[:publication_filter_option] != 'all'
       params[:document_type] = "publication_type_#{params[:publication_filter_option]}"
     end
 
@@ -53,7 +53,7 @@ module ApplicationHelper
   end
 
   def format_in_paragraphs(string)
-    safe_join (string||"").split(/(?:\r?\n){2}/).collect { |paragraph| content_tag(:p, paragraph) }
+    safe_join (string || "").split(/(?:\r?\n){2}/).map { |paragraph| content_tag(:p, paragraph) }
   end
 
   def format_with_html_line_breaks(string)
@@ -65,7 +65,7 @@ module ApplicationHelper
     link_to attachment.filename, attachment.url
   end
 
-  def role_appointment(appointment, link=false)
+  def role_appointment(appointment, link = false)
     link = false unless appointment.role.ministerial?
     role_text = (link ? link_to(appointment.role.name, appointment.role) : appointment.role.name)
     if appointment.current?
@@ -82,7 +82,7 @@ module ApplicationHelper
 
   def role_appointment_options(filter = RoleAppointment)
     filter.alphabetical_by_person.map do |appointment|
-      [appointment.id, "#{appointment.person.name}, #{role_appointment(appointment)}, in #{appointment.role.organisations.collect(&:name).to_sentence}"]
+      [appointment.id, "#{appointment.person.name}, #{role_appointment(appointment)}, in #{appointment.role.organisations.map(&:name).to_sentence}"]
     end
   end
 
@@ -94,7 +94,7 @@ module ApplicationHelper
 
   def ministerial_role_options
     MinisterialRole.alphabetical_by_person.map do |role|
-      [role.id, "#{role.name}, in #{role.organisations.collect(&:name).to_sentence} (#{role.current_person_name})"]
+      [role.id, "#{role.name}, in #{role.organisations.map(&:name).to_sentence} (#{role.current_person_name})"]
     end
   end
 
@@ -187,7 +187,7 @@ module ApplicationHelper
     render_list_of_roles(ministerial_roles, &block)
   end
 
-  def link_to_with_current(name, path, options={})
+  def link_to_with_current(name, path, options = {})
     path_matcher = options.delete(:current_path) || Regexp.new("^#{Regexp.escape(path)}$")
     css_classes = [options[:class], current_link_class(path_matcher)].join(" ").strip
     options[:class] = css_classes unless css_classes.blank?
@@ -253,7 +253,7 @@ module ApplicationHelper
     when "publications", "statistical_data_sets"
       if parameters[:publication_filter_option] == 'consultations'
         publications_path(publication_filter_option: 'consultations')
-      elsif parameters[:publication_filter_option] == 'statistics' or parameters[:controller] == 'statistical_data_sets'
+      elsif parameters[:publication_filter_option] == 'statistics' || parameters[:controller] == 'statistical_data_sets'
         publications_path(publication_filter_option: 'statistics')
       else
         publications_path
@@ -300,14 +300,14 @@ module ApplicationHelper
   end
 
   def corporate_information_page_types(organisation)
-    CorporateInformationPageType.all.map {|c| [c.title(organisation), c.id]}
+    CorporateInformationPageType.all.map { |c| [c.title(organisation), c.id] }
   end
 
   def mainstream_category_path(category)
     url_for(controller: '/mainstream_categories', action: :show, id: category, parent_tag: category.parent_tag, only_path: true)
   end
 
-  def collection_list_class(items, minimum_columns=1)
+  def collection_list_class(items, minimum_columns = 1)
     if items.length > 8 || minimum_columns == 3
       "three-columns"
     elsif items.length > 3 || minimum_columns == 2
@@ -338,7 +338,7 @@ module ApplicationHelper
   end
 
   def joined_ministerial_department_percent
-    number_to_percentage(100*joined_ministerial_department_count.to_f/ministerial_department_count, precision: 0)
+    number_to_percentage(100 * joined_ministerial_department_count.to_f / ministerial_department_count, precision: 0)
   end
 
   def is_external?(href)

@@ -204,8 +204,12 @@ class Admin::EditionsController < Admin::BaseController
 
   def delete_absent_edition_organisations
     return unless params[:edition]
-    params[:edition][:lead_organisation_ids].delete_if {|org_id| org_id.blank?} if params[:edition][:lead_organisation_ids]
-    params[:edition][:supporting_organisation_ids].delete_if {|org_id| org_id.blank?} if params[:edition][:supporting_organisation_ids]
+    if params[:edition][:lead_organisation_ids]
+      params[:edition][:lead_organisation_ids].delete_if { |org_id| org_id.blank? }
+    end
+    if params[:edition][:supporting_organisation_ids]
+      params[:edition][:supporting_organisation_ids].delete_if { |org_id| org_id.blank? }
+    end
   end
 
   def build_image
@@ -244,7 +248,7 @@ class Admin::EditionsController < Admin::BaseController
   end
 
   def sanitized_filters(filters)
-    valid_states = %w[ active imported draft submitted rejected published scheduled ]
+    valid_states = %w(active imported draft submitted rejected published scheduled)
     filters.delete(:state) unless filters[:state].nil? || valid_states.include?(filters[:state].to_s)
     filters
   end

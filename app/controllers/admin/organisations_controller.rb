@@ -42,8 +42,11 @@ class Admin::OrganisationsController < Admin::BaseController
   end
 
   def documents
-    @featured_editions = @organisation.featured_edition_organisations.collect { |e| e.edition }
-    @editions = Edition.accessible_to(current_user).published.in_organisation(@organisation).in_reverse_chronological_order
+    @featured_editions = @organisation.featured_edition_organisations.map { |e| e.edition }
+    @editions = Edition.accessible_to(current_user).
+                        published.
+                        in_organisation(@organisation).
+                        in_reverse_chronological_order
     if @featured_editions.any?
       @editions = @editions.where(Edition.arel_table[:id].not_in @featured_editions.map(&:id))
     end
@@ -102,7 +105,8 @@ class Admin::OrganisationsController < Admin::BaseController
   end
 
   def delete_absent_organisation_classifications
-    return unless params[:organisation] && params[:organisation][:organisation_classifications_attributes]
+    return unless params[:organisation] &&
+                  params[:organisation][:organisation_classifications_attributes]
     params[:organisation][:organisation_classifications_attributes].each do |p|
       if p[:classification_id].blank?
         p["_destroy"] = true
@@ -121,12 +125,18 @@ class Admin::OrganisationsController < Admin::BaseController
   end
 
   def load_organisation_roles
-    @ministerial_organisation_roles = @organisation.organisation_roles.joins(:role).merge(Role.ministerial).order(:ordering)
-    @management_organisation_roles = @organisation.organisation_roles.joins(:role).merge(Role.management).order(:ordering)
-    @traffic_commissioner_organisation_roles = @organisation.organisation_roles.joins(:role).merge(Role.traffic_commissioner).order(:ordering)
-    @military_organisation_roles = @organisation.organisation_roles.joins(:role).merge(Role.military).order(:ordering)
-    @special_representative_organisation_roles = @organisation.organisation_roles.joins(:role).merge(Role.special_representative).order(:ordering)
-    @chief_professional_officer_roles = @organisation.organisation_roles.joins(:role).merge(Role.chief_professional_officer).order(:ordering)
+    @ministerial_organisation_roles = @organisation.organisation_roles.joins(:role).
+                                        merge(Role.ministerial).order(:ordering)
+    @management_organisation_roles = @organisation.organisation_roles.joins(:role).
+                                        merge(Role.management).order(:ordering)
+    @traffic_commissioner_organisation_roles = @organisation.organisation_roles.joins(:role).
+                                        merge(Role.traffic_commissioner).order(:ordering)
+    @military_organisation_roles = @organisation.organisation_roles.joins(:role).
+                                        merge(Role.military).order(:ordering)
+    @special_representative_organisation_roles = @organisation.organisation_roles.joins(:role).
+                                        merge(Role.special_representative).order(:ordering)
+    @chief_professional_officer_roles = @organisation.organisation_roles.joins(:role).
+                                        merge(Role.chief_professional_officer).order(:ordering)
   end
 
   def destroy_blank_mainstream_links

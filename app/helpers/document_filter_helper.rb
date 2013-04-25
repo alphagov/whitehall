@@ -1,7 +1,7 @@
 module DocumentFilterHelper
   def topic_filter_options(topics, selected_topics = [])
     selected_values = selected_topics.any? ? selected_topics.map(&:slug) : ["all"]
-    options_for_select([["All topics", "all"]] + topics.map{ |o| [o.name, o.slug] }, selected_values)
+    options_for_select([["All topics", "all"]] + topics.map { |o| [o.name, o.slug] }, selected_values)
   end
 
   def organisation_filter_options(organisations, selected_organisations = [])
@@ -15,12 +15,12 @@ module DocumentFilterHelper
 
   def publication_type_filter_options(publication_filter_options, selected_publication_filter_options = nil)
     selected_value = selected_publication_filter_options ? selected_publication_filter_options.slug : "all"
-    options_for_select([["All publication types", "all"]] + publication_filter_options.sort_by{ |a| a.label }.map{ |pt| [pt.label, pt.slug] }, [selected_value])
+    options_for_select([["All publication types", "all"]] + publication_filter_options.sort_by { |a| a.label }.map { |pt| [pt.label, pt.slug] }, [selected_value])
   end
 
   def announcement_type_filter_options(announcement_filter_options, selected_announcement_filter_options = nil)
     selected_value = selected_announcement_filter_options ? selected_announcement_filter_options.slug : "all"
-    options_for_select([["All announcement types", "all"]] + announcement_filter_options.sort_by{ |a| a.label }.map { |a| [a.label, a.slug] }, [selected_value])
+    options_for_select([["All announcement types", "all"]] + announcement_filter_options.sort_by { |a| a.label }.map { |a| [a.label, a.slug] }, [selected_value])
   end
 
   def people_filter_options(people, selected_person = nil)
@@ -31,12 +31,12 @@ module DocumentFilterHelper
   def consultation_type_filter_options(selected_consultation_type)
     selected_value = selected_consultation_type ? selected_consultation_type : "all"
     types = ["Consultation outcome","Closed consultation","Open consultation"]
-    options_for_select([["All consultation types", "all"]] + types.map{|a|[a,a]}, [selected_value])
+    options_for_select([["All consultation types", "all"]] + types.map{ |a|[a, a] }, [selected_value])
   end
 
   def locations_options(locations, selected_locations)
     selected_value = selected_locations.any? ? selected_locations.map(&:slug) : ["all"]
-    options_for_select([[t("document_filters.world_locations.all"), "all"]] + locations.map{|a|[a.name,a.slug]}, selected_value)
+    options_for_select([[t("document_filters.world_locations.all"), "all"]] + locations.map { |a|[a.name, a.slug] }, selected_value)
   end
 
   def all_topics_with(type)
@@ -73,8 +73,8 @@ module DocumentFilterHelper
     Whitehall::AnnouncementFilterOption.all
   end
 
-  def remove_filter_from_params(key, value=nil)
-    if value and params[key].is_a? Array
+  def remove_filter_from_params(key, value = nil)
+    if value && params[key].is_a?(Array)
       params.merge({ key => (params[key] - [value]) })
     else
       params.merge({ key => nil })
@@ -89,18 +89,18 @@ module DocumentFilterHelper
         value: obj.slug
       }
     end
-    results.map.with_index { |obj, i| obj.merge({ joining: (results.length-1 == i ? '' : 'and') }) }
+    results.map.with_index { |obj, i| obj.merge({ joining: (results.length - 1 == i ? '' : 'and') }) }
   end
 
   def filter_results_keywords(keywords)
     results = keywords.map.with_index do |word, index|
-      new_keywords = keywords.reject.with_index { |w,i| i==index }.join(' ')
+      new_keywords = keywords.reject.with_index { |w, i| i == index }.join(' ')
       {
         name: word,
         url: url_for(remove_filter_from_params('keywords').merge({ 'keywords' => new_keywords }))
       }
     end
-    results.map.with_index { |obj, i| obj.merge({ joining: (results.length-1 == i ? '' : 'or') }) }
+    results.map.with_index { |obj, i| obj.merge({ joining: (results.length - 1 == i ? '' : 'or') }) }
   end
 
   def result_count(count)

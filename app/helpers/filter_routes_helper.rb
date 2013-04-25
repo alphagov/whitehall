@@ -14,7 +14,7 @@ module FilterRoutesHelper
   private
 
   def path_arguments(objects)
-    objects.inject({}) do |out, obj|
+    objects.reduce({}) do |out, obj|
       if obj.is_a? Organisation
         out[:departments] = [obj.slug]
       elsif obj.is_a? Topic

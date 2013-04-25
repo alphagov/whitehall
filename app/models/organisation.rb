@@ -238,7 +238,7 @@ class Organisation < ActiveRecord::Base
   end
 
   def agencies_and_public_bodies_by_type
-    agencies_and_public_bodies.group_by(&:organisation_type).sort_by { |type,department| type.listing_order }
+    agencies_and_public_bodies.group_by(&:organisation_type).sort_by { |type, department| type.listing_order }
   end
 
   def sub_organisations
@@ -266,7 +266,7 @@ class Organisation < ActiveRecord::Base
   end
 
   def display_name
-    [acronym, name].find { |s| s.present? }
+    [acronym, name].detect { |s| s.present? }
   end
 
   def select_name

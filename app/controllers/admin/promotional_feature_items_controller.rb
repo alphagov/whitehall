@@ -48,7 +48,7 @@ class Admin::PromotionalFeatureItemsController < Admin::BaseController
     @promotional_feature_item = @promotional_feature.promotional_feature_items.find(params[:id])
   end
 
-  def redirect_to_feature(notice=nil)
+  def redirect_to_feature(notice = nil)
     redirect_to [:admin, @organisation, @promotional_feature], notice: notice
   end
 end

@@ -11,7 +11,7 @@ class PastForeignSecretariesController < PublicFacingController
 
 private
   def valid_names
-    %w{
+    %w(
       edward-wood
       austen-chamberlain
       george-curzon
@@ -22,6 +22,6 @@ private
       george-gordon
       charles-fox
       william-grenville
-    }
+    )
   end
 end

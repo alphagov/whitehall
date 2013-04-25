@@ -16,14 +16,14 @@ module OrganisationHelper
   end
 
   def organisation_type_name(organisation)
-    type_name = ActiveSupport::Inflector.singularize(organisation.organisation_type.name.downcase)
+    ActiveSupport::Inflector.singularize(organisation.organisation_type.name.downcase)
   end
 
   def organisation_display_name_and_parental_relationship(organisation)
     name = ERB::Util.h(organisation_display_name(organisation))
     type_name = organisation_type_name(organisation)
     relationship = ERB::Util.h(add_indefinite_article(type_name))
-    parents = organisation.parent_organisations.map {|parent| organisation_relationship_html(parent) }
+    parents = organisation.parent_organisations.map { |parent| organisation_relationship_html(parent) }
     if parents.any?
       if type_name == 'other'
         "%s works with %s" % [name, parents.to_sentence]
@@ -42,7 +42,7 @@ module OrganisationHelper
 
   def needs_definite_article?(phrase)
     exceptions = [/^hm/, /ordnance survey/]
-    !has_definite_article?(phrase) && !(exceptions.any? {|e| e =~ phrase.downcase})
+    !has_definite_article?(phrase) && !(exceptions.any? { |e| e =~ phrase.downcase })
   end
 
   def has_definite_article?(phrase)
@@ -98,7 +98,7 @@ module OrganisationHelper
   end
 
   def organisations_grouped_by_type(organisations)
-    organisations.group_by(&:organisation_type).sort_by { |type,department| type.listing_order }
+    organisations.group_by(&:organisation_type).sort_by { |type, department| type.listing_order }
   end
 
   def extra_board_member_class(organisation, i)

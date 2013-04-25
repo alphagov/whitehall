@@ -60,7 +60,7 @@ class Role < ActiveRecord::Base
     where(arel_table[:attends_cabinet_type_id].not_eq(nil))
   end
 
-  def footnotes(including_cabinet=false)
+  def footnotes(including_cabinet = false)
     if including_cabinet
       note = []
       note << attends_cabinet_type.name if attends_cabinet_type_id == 2
@@ -87,7 +87,7 @@ class Role < ActiveRecord::Base
     role_appointments.where(["ended_at is not null AND ended_at < ?", Time.zone.now])
   end
 
-  def current_person_name(default="No one is assigned to this role")
+  def current_person_name(default = "No one is assigned to this role")
     current_person ? current_person.name : default
   end
 
