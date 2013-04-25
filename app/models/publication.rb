@@ -98,7 +98,7 @@ class Publication < Publicationesque
 
   def only_publications_allowed_invalid_data_can_be_awaiting_type
     unless self.can_have_some_invalid_data?
-      errors.add(:publication_type, 'must be changed') if PublicationType::ImportedAwaitingType == self.publication_type
+      errors.add(:publication_type, 'must be changed') if PublicationType.migration.include?(self.publication_type)
     end
   end
 end
