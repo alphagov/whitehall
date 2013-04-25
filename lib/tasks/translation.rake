@@ -22,7 +22,7 @@ namespace :translation do
 
   namespace :export do
     desc "Export all locales to CSV files."
-    task :all, [:directory] do |t, args|
+    task :all, [:directory] => [:environment] do |t, args|
       directory = args[:directory] || "tmp/locale_csv"
       FileUtils.mkdir_p(directory) unless File.exist?(directory)
       locales = Dir[Rails.root.join("config", "locales", "*.yml")]
@@ -37,14 +37,14 @@ namespace :translation do
   end
 
   desc "Import a specific locale CSV to YAML within the app."
-  task :import, [:locale, :path] do |t, args|
+  task :import, [:locale, :path] => [:environment] do |t, args|
     importer = Whitehall::Translation::Importer.new(args[:locale], args[:path], Rails.root.join("config", "locales"))
     importer.import
   end
 
   namespace :import do
     desc "Import all locale CSV files to YAML within the app."
-    task :all, [:directory] do |t, args|
+    task :all, [:directory] => [:environment] do |t, args|
       directory = args[:directory] || "tmp/locale_csv"
       Dir[File.join(directory, "*.csv")].each do |csv_path|
         locale = File.basename(csv_path, ".csv")
