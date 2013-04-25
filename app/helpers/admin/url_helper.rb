@@ -63,7 +63,7 @@ module Admin::UrlHelper
 
   def admin_get_involved_link
     if can?(:administer, :get_involved_section)
-      admin_header_link "Get involved", admin_cabinet_ministers_path
+      admin_header_link "Get involved", admin_get_involved_path
     end
   end
 
