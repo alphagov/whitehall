@@ -4,24 +4,27 @@ class HistoricalAccount < ActiveRecord::Base
   has_many   :roles, through: :historical_account_roles
 
   validates_with SafeHtmlValidator
-  validates :person, :roles, :summary, :body, :political_party, presence: true
+  validates :person, :roles, :summary, :body, :political_parties, presence: true
   validates :born, :died, length: { maximum: 256 }
   validate :roles_support_historical_accounts
+
+  serialize :political_party_ids, Array
 
   def self.for_role(role)
     includes(:historical_account_roles).where('historical_account_roles.role_id' => role)
   end
 
-  def political_party=(political_party)
-    self.political_party_id = political_party.try(:id)
+  def political_parties=(political_parties)
+    political_parties ||= []
+    self.political_party_ids = political_parties.collect(&:id)
   end
 
-  def political_party
-    PoliticalParty.find_by_id(political_party_id)
+  def political_parties
+    political_party_ids.collect { |id| PoliticalParty.find_by_id(id.to_i) }
   end
 
   def political_membership
-    political_party.try(:membership)
+    political_parties.collect(&:membership).to_sentence
   end
 
   def role

@@ -10,8 +10,13 @@
                     data: { placeholder: "Role(s) this account is for..."} %>
     <%= form.text_area :summary , rows: 2 %>
     <div class="summary-length-info">Summary text should be 140 characters or fewer. <span class="count"></span></div>
-    <%= form.label :political_party_id %>
-    <%= form.select :political_party_id, options_from_collection_for_select(PoliticalParty.all, :id, :name, historical_account.political_party_id) %>
+    <%= form.label :political_party_ids, 'Political parties' %>
+    <%= form.select :political_party_ids,
+                    options_from_collection_for_select(PoliticalParty.all, :id, :name, historical_account.political_party_ids),
+                    { include_blank: true },
+                    multiple: true,
+                    class: 'chzn-select',
+                    data: { placeholder: "Political affiliation" } %>
     <%= form.text_field :born %>
     <%= form.text_field :died %>
     <%= form.text_area :body, class: "previewable" %>

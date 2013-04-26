@@ -3,7 +3,7 @@ FactoryGirl.define do
     association :person
     summary "Some summary text"
     body "Some body text"
-    political_party PoliticalParty::Labour
+    political_parties [PoliticalParty::Labour]
 
     after(:build) do |account|
       unless account.roles.present?
