@@ -5,12 +5,12 @@
   <div class="inner-block">
     <header class="page-header">
       <h1 class="topics"><%= link_to 'History', histories_path %></h1>
-      <h2>Past <%= @role_title %></h2>
+      <h2>Past <%= @role.name.pluralize %></h2>
     </header>
   </div>
 </div>
 
-<%= render partial: 'role_appointments_list', locals: { role: @role, role_title: @role_title } %>
+<%= render partial: 'role_appointments_list', locals: { role: @role } %>
 
 <%= content_tag_for(:div, @historical_account, class: "block person-info") do %>
   <div class="name-title">
