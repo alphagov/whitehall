@@ -10,7 +10,7 @@ FactoryGirl.define do
     type ""
   end
 
-  factory :historic_role, parent: :role do
+  factory :historic_role, parent: :ministerial_role do
     supports_historical_accounts true
   end
 end

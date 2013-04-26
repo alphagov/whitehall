@@ -21,7 +21,6 @@ class HistoricAppointmentsController < PublicFacingController
 
   def load_role
     @role = Role.find(role_id)
-    @role_title = params[:role].underscore.humanize.titleize.gsub('Past ', '')
   end
 
   def role_id

@@ -60,10 +60,11 @@
         </section>
       <% end %>
 
-      <% if @ministerial_role.previous_appointments.any? %>
-        <section class="previous-roles" id="previous-holders-of-this-role">
-          <h1>Previous holders of this role</h1>
-
+      <section class="previous-roles" id="previous-holders-of-this-role">
+        <h1>Previous holders of this role</h1>
+        <% if @ministerial_role.supports_historical_accounts? %>
+          <p>Find out more about previous holders of this role in our <%= link_to "past #{@ministerial_role.name.pluralize}", historic_appointments_path(@ministerial_role.historic_param) %> section.</p>
+        <% elsif @ministerial_role.previous_appointments.any? %>
           <ol class="document-list">
             <% @ministerial_role.previous_appointments.each do |appointment| %>
               <%= content_tag_for :li, appointment, class: "document-row" do %>
@@ -74,8 +75,8 @@
               <% end %>
             <% end %>
           </ol>
-        </section>
-      <% end %>
+        <% end %>
+      </section>
 
       <% if @ministerial_role.published_policies.any? %>
         <section class="policy" id="policies">
