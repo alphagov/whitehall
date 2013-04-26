@@ -252,6 +252,17 @@ class AnnouncementsControllerTest < ActionController::TestCase
     end
   end
 
+  view_test "index requested as JSON includes email signup path with organisation and topic parameters" do
+    topic = create(:topic)
+    organisation = create(:organisation)
+
+    get :index, format: :json, date: "2012-01-01", direction: "before", topics: [topic], departments: [organisation]
+
+    json = ActiveSupport::JSON.decode(response.body)
+
+    assert_equal json["email_signup_url"], email_signups_path(document_type: 'announcement_type_all', topic: topic.slug, organisation: organisation.slug)
+  end
+
   view_test 'index only lists documents in the given locale' do
     english_article = create(:published_news_article)
     spanish_article = create(:published_news_article, translated_into: [:fr])

@@ -395,7 +395,7 @@ class PublicationsControllerTest < ActionController::TestCase
 
     json = ActiveSupport::JSON.decode(response.body)
 
-    assert_equal json["email_signup_url"], email_signups_path
+    assert_equal json["email_signup_url"], email_signups_path(document_type: 'publication_type_all')
   end
 
   view_test "index requested as JSON includes email signup path with organisation and topic parameters" do
@@ -406,7 +406,7 @@ class PublicationsControllerTest < ActionController::TestCase
 
     json = ActiveSupport::JSON.decode(response.body)
 
-    assert_equal json["email_signup_url"], email_signups_path(topic: topic.slug, organisation: organisation.slug)
+    assert_equal json["email_signup_url"], email_signups_path(document_type: 'publication_type_all', topic: topic.slug, organisation: organisation.slug)
   end
 
   view_test 'index has atom feed autodiscovery link' do

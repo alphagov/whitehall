@@ -330,6 +330,10 @@ class ApplicationHelperTest < ActionView::TestCase
     assert_match %r{organisation=cabinet-office}, filter_email_signup_url(organisation: 'cabinet-office')
   end
 
+  test "email signup url accepts policies" do
+    assert_match %r{policy=policy-1}, filter_email_signup_url(policy: 'policy-1')
+  end
+
   private
 
   def appoint_minister(attributes = {})

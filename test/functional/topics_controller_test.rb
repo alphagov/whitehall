@@ -313,11 +313,11 @@ class TopicsControllerTest < ActionController::TestCase
   end
 
   view_test 'show hass a link to govdelivery if one exists' do
-    topic = create(:topic, govdelivery_url: 'http://my-govdelivery-url.com')
+    topic = create(:topic)
 
     get :show, id: topic
 
-    assert_select ".govdelivery[href='http://my-govdelivery-url.com']"
+    assert_select ".govdelivery[href='#{email_signups_path(topic: topic.slug)}']"
   end
 
 

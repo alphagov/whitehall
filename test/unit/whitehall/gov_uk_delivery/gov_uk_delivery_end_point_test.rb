@@ -85,7 +85,7 @@ class Whitehall::GovUkDelivery::GovUkDeliveryEndPointTest < ActiveSupport::TestC
     refute tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/feed?relevant_to_local_government=1"
   end
 
-  test '#govuk_delivery_tags includes both a document specific and an "all" variant of the same params' do
+  test '#tags includes both a document specific and an "all" variant of the same params' do
     topic = create(:topic)
     organisation = create(:ministerial_department)
     edition = create(:policy, topics: [topic], organisations: [organisation])
@@ -158,6 +158,13 @@ class Whitehall::GovUkDelivery::GovUkDeliveryEndPointTest < ActiveSupport::TestC
     assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/policies.atom?departments%5B%5D=#{organisation.slug}"
     assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/policies.atom?topics%5B%5D=#{topic.slug}"
     assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/policies.atom"
+  end
+
+  test "#tags includes policy activity feeds" do
+    policy = create(:published_policy)
+    edition = create(:news_article, related_policy_ids: [policy])
+
+    assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/policies/#{policy.slug}/activity.atom"
   end
 
   ### publications feed urls tests
