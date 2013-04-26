@@ -9,6 +9,18 @@ class PromotionalFeatureItemPresenter < Draper::Base
     double_width? ? image.s630.url : image.s300.url
   end
 
+  def display_image
+    if model.title_url.blank?
+      image_tag
+    else
+      h.link_to(image_tag, model.title_url)
+    end
+  end
+
+  def image_tag
+    h.image_tag(image_url, alt: image_alt_text)
+  end
+
   def link_list_class
     'dash-list' unless double_width?
   end
@@ -22,7 +34,7 @@ class PromotionalFeatureItemPresenter < Draper::Base
   end
 
   def title
-    return unless model.title
+    return if model.title.blank?
 
     if model.title_url.blank?
       h.content_tag(:h3, model.title)
