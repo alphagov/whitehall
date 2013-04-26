@@ -61,27 +61,6 @@ class HomeControllerTest < ActionController::TestCase
     assert_select ".header-context"
   end
 
-  view_test "home page doesn't link to itself in the progress bar" do
-    get :home
-
-    refute_select ".progress-bar a[href=#{root_path}]"
-  end
-
-  view_test "non home page doesn't link to itself in the progress bar" do
-    get :how_government_works
-
-    assert_select ".progress-bar a[href=#{root_path}]"
-  end
-
-  view_test "progress bar has current number of live departments" do
-    org = create(:ministerial_department, govuk_status: 'live')
-    org = create(:ministerial_department, govuk_status: 'transitioning')
-
-    get :home
-
-    assert_select '.progress-bar', /1 of 2/
-  end
-
   view_test "how government works page shows a count of published policies" do
     create(:published_policy)
     create(:draft_policy)

@@ -20,7 +20,7 @@
         <div class="live-count">
           <span class="organisation-count">
             <span class="live-ministerial-departments"><%= @live_ministerial_departments.length %></span> of
-            <%= link_to ministerial_department_count, organisations_path(anchor: 'departments') %>
+            <%= link_to @ministerial_department_count, organisations_path(anchor: 'departments') %>
           </span>
           are live on GOV.UK
         </div>

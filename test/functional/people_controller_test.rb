@@ -24,8 +24,6 @@ class PeopleControllerTest < ActionController::TestCase
     @person.stubs(:published_speeches).returns(stub("all published speeches", limit: []))
     @person.stubs(:published_news_articles).returns(stub("all published news_articles", limit: []))
     Person.stubs(:find).with(@person.to_param).returns(@person)
-    @controller.instance_variable_set(:@ministerial_department_count, 23)
-    @controller.instance_variable_set(:@joined_ministerial_department_count, 2)
   end
 
   view_test "show displays name and biography" do
