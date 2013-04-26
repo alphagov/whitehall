@@ -58,4 +58,35 @@ class HomePageListTest < ActiveSupport::TestCase
 
     assert_equal [contact_2, contact_3, contact_1], list.items
   end
+
+  test '.get will return the list for the supplied owned_by: and called: params' do
+    o = create(:organisation)
+    list_1 = create(:home_page_list, owner: o, name: 'donkeys')
+    list_2 = create(:home_page_list, owner: o, name: 'cats')
+    list_3 = create(:home_page_list, owner: create(:organisation), name: 'cats')
+
+    assert_equal list_2, HomePageList.get(owned_by: o, called: 'cats')
+  end
+
+  test '.get will create a new list for the supplied owned_by: and called: params if one does not exist already' do
+    o = create(:organisation)
+
+    list = HomePageList.get(owned_by: o, called: 'cats')
+    assert list.persisted?
+    assert_equal o, list.owner
+    assert_equal 'cats', list.name
+  end
+
+  test '.get will not create a new list if told not to' do
+    o = create(:organisation)
+
+    list = HomePageList.get(owned_by: o, called: 'cats', create_if_missing: false)
+    assert_nil list
+  end
+
+  test '.get will raise ArgumentError if owned_by: and called: are not both present' do
+    assert_raises(ArgumentError) { HomePageList.get() }
+    assert_raises(ArgumentError) { HomePageList.get(owned_by: create(:organisation)) }
+    assert_raises(ArgumentError) { HomePageList.get(called: 'cates') }
+  end
 end

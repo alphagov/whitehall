@@ -13,6 +13,19 @@ class HomePageList < ActiveRecord::Base
     home_page_list_items.includes(:item).map(&:item)
   end
 
+  def self.get(opts = {})
+    owner = opts[:owned_by]
+    name = opts[:called]
+    create_if_missing = opts.has_key?(:create_if_missing) ? opts[:create_if_missing] : true
+    raise ArgumentError, "Must supply owned_by: and called: options" if (owner.nil? || name.nil?)
+    scoping = where(owner_id: owner.id, owner_type: owner.class, name: name)
+    if list = scoping.first
+      list
+    elsif create_if_missing
+      scoping.create!
+    end
+  end
+
   protected
   def next_ordering
     (home_page_list_items.map(&:ordering).max || 0) + 1
