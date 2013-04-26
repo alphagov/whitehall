@@ -9,9 +9,8 @@
 <div class="row-fluid">
   <div class="span12 organisation-details">
     <section>
-      <%= tab_navigation_for(@organisation) %>
-
-      <div class="tab-pane active" id="details">
+      <%= tab_navigation_for(@organisation, 'tabs-left') do %>
+        <h2>Details</h2>
         <table class="table">
           <tr><th>Type</th><td><%= @organisation.organisation_type.name %></td></tr>
           <tr><th>Acronym</th><td><%= @organisation.acronym %></td></tr>
@@ -59,7 +58,7 @@
         <div class="form-actions">
           <%= link_to "Edit", edit_admin_organisation_path(@organisation), class: "btn btn-large btn-primary"%>
         </div>
-      </div>
+      <% end %>
     </section>
   </div>
 </div>

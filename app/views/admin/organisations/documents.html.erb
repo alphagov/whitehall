@@ -9,32 +9,33 @@
 <div class="row-fluid">
   <div class="span12 organisation-details">
     <section>
-      <%= tab_navigation_for(@organisation) %>
-      <% if @organisation.featured_edition_organisations.any? %>
-        <h2>Featured documents</h2>
-        <%= form_for [:admin, @organisation], as: :organisation do |form| %>
-          <fieldset class="sortable">
-            <%= form.fields_for :edition_organisations, @organisation.featured_edition_organisations do |fe_form| %>
-              <div class="well">
-                <%= fe_form.text_field :ordering, label_text: link_to(fe_form.object.edition.title, admin_edition_path(fe_form.object.edition)), class: "ordering" %>
-              </div>
-            <% end %>
-          </fieldset>
-          <%= form.submit "Save", class: "btn" %>
+      <%= tab_navigation_for(@organisation, 'tabs-left') do %>
+        <% if @organisation.featured_edition_organisations.any? %>
+          <h2>Featured documents</h2>
+          <%= form_for [:admin, @organisation], as: :organisation do |form| %>
+            <fieldset class="sortable">
+              <%= form.fields_for :edition_organisations, @organisation.featured_edition_organisations do |fe_form| %>
+                <div class="well">
+                  <%= fe_form.text_field :ordering, label_text: link_to(fe_form.object.edition.title, admin_edition_path(fe_form.object.edition)), class: "ordering" %>
+                </div>
+              <% end %>
+            </fieldset>
+            <%= form.submit "Save", class: "btn" %>
+          <% end %>
         <% end %>
-      <% end %>
 
-      <% if @featured_editions.any? %>
-        <h2>Featured documents</h2>
-        <%= render 'organisation_editions', { editions: @featured_editions, organisation: @organisation } %>
-      <% end %>
+        <% if @featured_editions.any? %>
+          <h2>Featured documents</h2>
+          <%= render 'organisation_editions', { editions: @featured_editions, organisation: @organisation } %>
+        <% end %>
 
-      <% if @editions.any? %>
-        <h2>Published documents (<%= link_to "View all", admin_editions_path(organisation: @organisation.slug, state: :active)%>)</h2>
-        <%= paginate @editions, theme: 'twitter-bootstrap' %>
-        <%= render partial: 'organisation_editions',
-                   locals: { editions: @editions, organisation: @organisation  } %>
-        <%= paginate @editions, theme: 'twitter-bootstrap' %>
+        <% if @editions.any? %>
+          <h2>Published documents (<%= link_to "View all", admin_editions_path(organisation: @organisation.slug, state: :active)%>)</h2>
+          <%= paginate @editions, theme: 'twitter-bootstrap' %>
+          <%= render partial: 'organisation_editions',
+                     locals: { editions: @editions, organisation: @organisation  } %>
+          <%= paginate @editions, theme: 'twitter-bootstrap' %>
+        <% end %>
       <% end %>
     </section>
   </div>

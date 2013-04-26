@@ -9,52 +9,53 @@
 <div class="row-fluid">
   <div class="span12 organisation-details">
     <section>
-      <%= tab_navigation_for(@organisation) %>
+      <%= tab_navigation_for(@organisation, 'tabs-left') do %>
+        <h2>Featured topics and policies</h2>
+        <p class="warning">Warning: changes to featured topics and policies appear instantly on the live site.</p>
+        <%= form_for @featured_topics_and_policies_list, url: admin_organisation_featured_topics_and_policies_list_path(@organisation), method: 'put' do |form| %>
+          <%= form.errors %>
+          <%= form.text_area :summary, rows: 4 %>
+          <p class="control-group">
+            <span class="radio-label control-label">"See all our policies" link goes to a list of:</span>
+            <%= form.labelled_radio_button('all policies', :link_to_filtered_policies, '0', checked: !form.object.link_to_filtered_policies?) %>
+            <%= form.labelled_radio_button("only policies associated with #{@organisation.name}", :link_to_filtered_policies, '1', checked: form.object.link_to_filtered_policies?) %>
+          </p>
 
-      <p class="warning">Warning: changes to featured topics and policies appear instantly on the live site.</p>
-      <%= form_for @featured_topics_and_policies_list, url: admin_organisation_featured_topics_and_policies_list_path(@organisation), method: 'put' do |form| %>
-        <%= form.errors %>
-        <%= form.text_area :summary, rows: 4 %>
-        <p class="control-group">
-          <span class="radio-label control-label">"See all our policies" link goes to a list of:</span>
-          <%= form.labelled_radio_button('all policies', :link_to_filtered_policies, '0', checked: !form.object.link_to_filtered_policies?) %>
-          <%= form.labelled_radio_button("only policies associated with #{@organisation.name}", :link_to_filtered_policies, '1', checked: form.object.link_to_filtered_policies?) %>
-        </p>
-
-        <fieldset class="featured-topics-and-policies-items">
-          <legend>Featured Items</legend>
-          <p>Drag up and down to re-order then click save at the bottom of the form.</p>
-          <div class="sortable" data-ordering-label-selector="label[for$=ordering]">
-          <%= form.fields_for(:featured_items, @featured_items) do |featured_item_form| %>
-            <div class="well">
-              <%= featured_item_form.hidden_field :id %>
-              <div class="control-group">
-                <%= featured_item_form.labelled_radio_button('Topic', {data: { :"item-type" => "topic"  }, class: 'featured-item-type radio inline'}, :item_type, 'Topic') %>
-                <%= featured_item_form.labelled_radio_button('Policy', {data: { :"item-type" => "policy" }, class: 'featured-item-type radio inline'}, :item_type, 'Document') %>
+          <fieldset class="featured-topics-and-policies-items">
+            <legend>Featured Items</legend>
+            <p>Drag up and down to re-order then click save at the bottom of the form.</p>
+            <div class="sortable" data-ordering-label-selector="label[for$=ordering]">
+            <%= form.fields_for(:featured_items, @featured_items) do |featured_item_form| %>
+              <div class="well">
+                <%= featured_item_form.hidden_field :id %>
+                <div class="control-group">
+                  <%= featured_item_form.labelled_radio_button('Topic', {data: { :"item-type" => "topic"  }, class: 'featured-item-type radio inline'}, :item_type, 'Topic') %>
+                  <%= featured_item_form.labelled_radio_button('Policy', {data: { :"item-type" => "policy" }, class: 'featured-item-type radio inline'}, :item_type, 'Document') %>
+                </div>
+                <div class="featured-item-type-pane" data-item-type="topic">
+                  <%= featured_item_form.select(:topic_id,
+                                                options_from_collection_for_select(@topics, 'id', 'name', featured_item_form.object.try(:topic_id)),
+                                                {include_blank: true},
+                                                class: 'chzn-select-no-deselect',
+                                                data: { placeholder: "Choose topic..." }) %>
+                </div>
+                <div class="featured-item-type-pane" data-item-type="policy">
+                  <%= featured_item_form.select(:document_id,
+                                                options_from_collection_for_select(@policies, 'document_id', 'title', featured_item_form.object.try(:document_id)),
+                                                {include_blank: true},
+                                                class: 'chzn-select-no-deselect',
+                                                data: { placeholder: 'Choose policy...'}) %>
+                </div>
+                <%= featured_item_form.text_field(:ordering, class: "ordering") %>
+                <%= featured_item_form.check_box(:unfeature, label_text: 'Remove', checked: featured_item_form.object.ended_at.present?) %>
               </div>
-              <div class="featured-item-type-pane" data-item-type="topic">
-                <%= featured_item_form.select(:topic_id,
-                                              options_from_collection_for_select(@topics, 'id', 'name', featured_item_form.object.try(:topic_id)),
-                                              {include_blank: true},
-                                              class: 'chzn-select-no-deselect',
-                                              data: { placeholder: "Choose topic..." }) %>
-              </div>
-              <div class="featured-item-type-pane" data-item-type="policy">
-                <%= featured_item_form.select(:document_id,
-                                              options_from_collection_for_select(@policies, 'document_id', 'title', featured_item_form.object.try(:document_id)),
-                                              {include_blank: true},
-                                              class: 'chzn-select-no-deselect',
-                                              data: { placeholder: 'Choose policy...'}) %>
-              </div>
-              <%= featured_item_form.text_field(:ordering, class: "ordering") %>
-              <%= featured_item_form.check_box(:unfeature, label_text: 'Remove', checked: featured_item_form.object.ended_at.present?) %>
+            <% end %>
             </div>
-          <% end %>
-          </div>
-        </fieldset>
-        <fieldset>
-          <%= form.submit "Save", class: "btn" %>
-        </fieldset>
+          </fieldset>
+          <fieldset>
+            <%= form.submit "Save", class: "btn" %>
+          </fieldset>
+        <% end %>
       <% end %>
     </section>
   </div>
