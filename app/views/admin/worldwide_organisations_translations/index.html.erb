@@ -11,40 +11,41 @@
   <div class="row-fluid">
     <div class="span12 organisation-details">
       <section>
-        <%= tab_navigation_for(@worldwide_organisation) %>
+        <%= tab_navigation_for(@worldwide_organisation, 'tabs-left') do %>
+          <h2>Translations</h2>
 
-
-        <table id="worldwide-organisations-translations" class="table table-striped">
-          <thead>
-            <tr>
-              <th>Locale</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            <% @worldwide_organisation.non_english_translated_locales.each do |locale| %>
+          <table id="worldwide-organisations-translations" class="table table-striped">
+            <thead>
               <tr>
-                <td class="locale">
-                  <%= link_to locale.native_language_name, edit_admin_worldwide_organisation_translation_path(@worldwide_organisation, locale.code) %> (<%= link_to "view", worldwide_organisation_path(@worldwide_organisation, locale: locale) %>)
-                </td>
-                <td class="actions">
-                  <%= button_to 'Delete', admin_worldwide_organisation_translation_path(@worldwide_organisation, locale.code), method: :delete, class: "btn btn-danger", confirm: "Are you sure you want to delete this translation?" %>
-                </td>
+                <th>Locale</th>
+                <th>Actions</th>
               </tr>
-            <% end %>
-          </tbody>
-        </table>
+            </thead>
 
-        <nav class="form-actions">
-          <% if @worldwide_organisation.missing_translations.any? %>
-            <%= form_tag admin_worldwide_organisation_translations_path(@worldwide_organisation) do %>
-              <%= label_tag :translation_locale, 'Locale' %>
-              <%= select_locale :translation_locale, @worldwide_organisation.missing_translations %>
-              <%= submit_tag "Create translation", class: "btn btn-primary" %>
+            <tbody>
+              <% @worldwide_organisation.non_english_translated_locales.each do |locale| %>
+                <tr>
+                  <td class="locale">
+                    <%= link_to locale.native_language_name, edit_admin_worldwide_organisation_translation_path(@worldwide_organisation, locale.code) %> (<%= link_to "view", worldwide_organisation_path(@worldwide_organisation, locale: locale) %>)
+                  </td>
+                  <td class="actions">
+                    <%= button_to 'Delete', admin_worldwide_organisation_translation_path(@worldwide_organisation, locale.code), method: :delete, class: "btn btn-danger", confirm: "Are you sure you want to delete this translation?" %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+
+          <nav class="form-actions">
+            <% if @worldwide_organisation.missing_translations.any? %>
+              <%= form_tag admin_worldwide_organisation_translations_path(@worldwide_organisation) do %>
+                <%= label_tag :translation_locale, 'Locale' %>
+                <%= select_locale :translation_locale, @worldwide_organisation.missing_translations %>
+                <%= submit_tag "Create translation", class: "btn btn-primary" %>
+              <% end %>
             <% end %>
-          <% end %>
-        </nav>
+          </nav>
+        <% end %>
       </section>
     </div>
   </div>

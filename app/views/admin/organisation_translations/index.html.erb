@@ -7,18 +7,6 @@
 </div>
 
 <%= tab_navigation_for(@organisation, 'tabs-left') do %>
-  <section>
-    <nav class="actions">
-      <% if @organisation.missing_translations.any? %>
-        <%= form_tag admin_organisation_translations_path(@organisation) do %>
-          <%= label_tag :translation_locale, 'Locale' %>
-          <%= select_locale :translation_locale, @organisation.missing_translations %>
-          <%= submit_tag "Create translation", class: "btn btn-primary" %>
-        <% end %>
-      <% end %>
-    </nav>
-  </section>
-
   <h2>Translations for <%= @organisation.name %></h2>
   <table id="world-location-translations" class="table table-striped">
     <thead>
@@ -40,5 +28,15 @@
       <% end %>
     </tbody>
   </table>
+
+  <nav class="form-actions">
+    <% if @organisation.missing_translations.any? %>
+      <%= form_tag admin_organisation_translations_path(@organisation) do %>
+        <%= label_tag :translation_locale, 'Locale' %>
+        <%= select_locale :translation_locale, @organisation.missing_translations %>
+        <%= submit_tag "Create translation", class: "btn btn-primary" %>
+      <% end %>
+    <% end %>
+  </nav>
 
 <% end %>
