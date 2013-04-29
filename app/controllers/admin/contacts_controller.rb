@@ -2,6 +2,7 @@ class Admin::ContactsController < Admin::BaseController
   before_filter :find_contactable
   before_filter :find_contact, only: [:edit, :update, :destroy]
   before_filter :destroy_blank_contact_numbers, only: [:create, :update]
+  before_filter :extract_show_on_home_page_param, only: [:create, :update]
 
   def index
   end
@@ -18,6 +19,7 @@ class Admin::ContactsController < Admin::BaseController
   def update
     @contact.update_attributes(params[:contact])
     if @contact.save
+      handle_show_on_home_page_param
       redirect_to [:admin, @contact.contactable, Contact], notice: %{"#{@contact.title}" updated successfully}
     else
       render :edit
@@ -27,6 +29,7 @@ class Admin::ContactsController < Admin::BaseController
   def create
     @contact = @contactable.contacts.build(params[:contact])
     if @contact.save
+      handle_show_on_home_page_param
       redirect_to [:admin, @contact.contactable, Contact], notice: %{"#{@contact.title}" created successfully}
     else
       render :edit
@@ -60,6 +63,20 @@ private
     (params[:contact][:contact_numbers_attributes] || []).each do |index, attributes|
       if attributes.except(:id).values.all?(&:blank?)
         attributes[:_destroy] = "1"
+      end
+    end
+  end
+
+  def extract_show_on_home_page_param
+    @show_on_home_page = params[:contact].delete(:show_on_home_page)
+  end
+
+  def handle_show_on_home_page_param
+    if @contactable.respond_to?(:home_page_contacts) && @show_on_home_page.present?
+      if @show_on_home_page == '1'
+        @contactable.add_contact_to_home_page!(@contact)
+      elsif @show_on_home_page == '0'
+        @contactable.remove_contact_from_home_page!(@contact)
       end
     end
   end

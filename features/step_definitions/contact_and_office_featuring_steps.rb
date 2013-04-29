@@ -3,6 +3,9 @@ Given /^there is an organisation with some contacts on its home page$/ do
   contact_1 = create(:contact, contactable: @the_organisation, title: 'Main office')
   contact_2 = create(:contact, contactable: @the_organisation, title: 'Summer office by the lake')
   contact_3 = create(:contact, contactable: @the_organisation, title: 'Emergency bunker office')
+  @the_organisation.add_contact_to_home_page!(contact_1)
+  @the_organisation.add_contact_to_home_page!(contact_2)
+  @the_organisation.add_contact_to_home_page!(contact_3)
   @the_ordered_contacts = [contact_1, contact_2, contact_3]
 end
 
@@ -27,9 +30,9 @@ When /^I add a new contact to be featured on the home page of the organisation$/
   fill_in "Label", with: "Main phone number"
   fill_in "Number", with: "+22 (0) 111 111-111"
   select "United Kingdom", from: "Country"
-  pending
+  choose "yes"
   click_on "Save"
-  @the_new_office = Contact.last
+  @the_new_contact = Contact.last
 end
 
 When /^I reorder the contacts to highlight my new contact$/ do

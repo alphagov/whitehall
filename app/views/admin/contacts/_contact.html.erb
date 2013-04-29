@@ -15,6 +15,9 @@
       <%= definition('Email', contact.email) %>
     <% end %>
     <%= definition('Markdown to use', "[Contact:#{contact.id}]") %>
+    <% if contactable.respond_to? :home_page_contacts %>
+      <%= definition('On home page?', contactable.contact_shown_on_home_page?(contact) ? 'Yes' : 'No')%>
+    <% end %>
   <% end %>
   <% if contact.comments.present? %>
     <p class="comments"><%= format_with_html_line_breaks(h(contact.comments)) %></p>

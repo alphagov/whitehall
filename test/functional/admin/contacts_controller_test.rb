@@ -36,6 +36,39 @@ class Admin::ContactsControllerTest < ActionController::TestCase
     assert_equal ["Main phone: 1234"], contact.contact_numbers.map { |cn| "#{cn.label}: #{cn.number}" }
   end
 
+  test "POST on :create creates contact on the home page of the organisation if told to" do
+    organisation = create(:organisation)
+    post :create, contact: {title: "Main office", show_on_home_page: '1'}, organisation_id: organisation.id
+
+    assert_redirected_to admin_organisation_contacts_url(organisation)
+    assert contact = organisation.contacts.last
+    assert_equal %{"#{contact.title}" created successfully}, flash[:notice]
+    assert_equal "Main office", organisation.contacts.first.title
+    assert organisation.contact_shown_on_home_page?(contact)
+  end
+
+  test "POST on :create creates contact without adding to the home page of the organisation if told not to" do
+    organisation = create(:organisation)
+    post :create, contact: {title: "Main office", show_on_home_page: '0'}, organisation_id: organisation.id
+
+    assert_redirected_to admin_organisation_contacts_url(organisation)
+    assert contact = organisation.contacts.last
+    assert_equal %{"#{contact.title}" created successfully}, flash[:notice]
+    assert_equal "Main office", organisation.contacts.first.title
+    refute organisation.contact_shown_on_home_page?(contact)
+  end
+
+  test "POST on :create creates contact without adding to the home page of the organisation if no suggestion made" do
+    organisation = create(:organisation)
+    post :create, contact: {title: "Main office"}, organisation_id: organisation.id
+
+    assert_redirected_to admin_organisation_contacts_url(organisation)
+    assert contact = organisation.contacts.last
+    assert_equal %{"#{contact.title}" created successfully}, flash[:notice]
+    assert_equal "Main office", organisation.contacts.first.title
+    refute organisation.contact_shown_on_home_page?(contact)
+  end
+
   test "PUT on :update updates a contact" do
     organisation = create(:organisation)
     contact = organisation.contacts.create(title: "Main office")
@@ -64,6 +97,61 @@ class Admin::ContactsControllerTest < ActionController::TestCase
     assert_redirected_to admin_organisation_contacts_url(organisation)
     assert_equal %{"#{contact.reload.title}" updated successfully}, flash[:notice]
     assert_equal ["Main phone: 5678"], contact.reload.contact_numbers.map { |cn| "#{cn.label}: #{cn.number}" }
+  end
+
+  test "PUT on :update adds contact to the home page of the organisation if told to" do
+    organisation = create(:organisation)
+    contact = organisation.contacts.create(title: "Main office")
+
+    put :update,
+      contact: {
+        title: "Head office",
+        show_on_home_page: '1',
+      },
+      organisation_id: organisation, id: contact
+
+    contact.reload
+    assert_redirected_to admin_organisation_contacts_url(organisation)
+    assert_equal %{"#{contact.title}" updated successfully}, flash[:notice]
+    assert_equal "Head office", contact.title
+    assert organisation.contact_shown_on_home_page?(contact)
+  end
+
+  test "PUT on :update removes contact from the home page of the organisation if told to" do
+    organisation = create(:organisation)
+    contact = organisation.contacts.create(title: "Main office")
+    organisation.add_contact_to_home_page!(contact)
+
+    put :update,
+      contact: {
+        title: "Head office",
+        show_on_home_page: '0',
+      },
+      organisation_id: organisation, id: contact
+
+    contact.reload
+    assert_redirected_to admin_organisation_contacts_url(organisation)
+    assert_equal %{"#{contact.title}" updated successfully}, flash[:notice]
+    assert_equal "Head office", contact.title
+    refute organisation.contact_shown_on_home_page?(contact)
+  end
+
+  test "PUT on :update doesn\'t change home page status of the organisation if no suggestion made" do
+    organisation = create(:organisation)
+    contact = organisation.contacts.create(title: "Main office")
+    organisation.add_contact_to_home_page!(contact)
+
+    put :update,
+      contact: {
+        title: "Head office",
+      },
+      organisation_id: organisation, id: contact
+
+    contact.reload
+    assert_redirected_to admin_organisation_contacts_url(organisation)
+    assert_equal %{"#{contact.title}" updated successfully}, flash[:notice]
+    assert_equal "Head office", contact.title
+    assert organisation.contact_shown_on_home_page?(contact)
   end
 
   test "DELETE on :destroy destroys the contact" do
