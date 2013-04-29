@@ -1,15 +1,15 @@
 h1 {
-  @include ig-core-27;
+  @include heading-27;
   margin: $gutter 0;
 }
 h2 {
-  @include ig-core-24;
+  @include heading-24;
   margin: $gutter 0 0;
 }
 h3,
 h4,
 h5 {
-  @include ig-core-19;
+  @include copy-19;
   margin: $gutter 0 0;
 }
 h4 {
@@ -19,7 +19,7 @@ h5 {
   margin: 0;
 }
 p {
-  @include ig-core-14;
+  @include copy-14;
   margin: $gutter-half 0;
 }
 ol {
@@ -31,7 +31,7 @@ ul {
   list-style-position: outside;
 }
 li {
-  @include ig-core-14;
+  @include copy-14;
   margin-left: $gutter*1.2;
   
   li {
@@ -68,9 +68,21 @@ figure {
     max-width: 100%;
   }
   figcaption {
-    @include ig-core-14;
+    @include copy-14;
   }
 }
 .player-container {
   display: none;
+}
+
+aside.meta {
+  dt {
+    float: left;
+    padding-right: 5px;
+    clear: both;
+  }
+  dd p {
+    margin: 0;
+    padding: 0;
+  }
 }
