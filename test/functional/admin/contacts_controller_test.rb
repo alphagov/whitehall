@@ -164,4 +164,28 @@ class Admin::ContactsControllerTest < ActionController::TestCase
     assert_equal %{"#{contact.title}" deleted successfully}, flash[:notice]
     refute Contact.exists?(contact)
   end
+
+  test "POST on :remove_from_home_page removes contact from the home page of the organisation" do
+    organisation = create(:organisation)
+    contact = organisation.contacts.create(title: "Main office")
+    organisation.add_contact_to_home_page!(contact)
+
+    post :remove_from_home_page, organisation_id: organisation, id: contact
+
+    assert_redirected_to admin_organisation_contacts_url(organisation)
+    assert_equal %{"#{contact.title}" removed from home page successfully}, flash[:notice]
+    refute organisation.contact_shown_on_home_page?(contact)
+  end
+
+  test "POST on :add_to_home_page adds contact to the home page of the organisation" do
+    organisation = create(:organisation)
+    contact = organisation.contacts.create(title: "Main office")
+
+    post :add_to_home_page, organisation_id: organisation, id: contact
+
+    assert_redirected_to admin_organisation_contacts_url(organisation)
+    assert_equal %{"#{contact.title}" added to home page successfully}, flash[:notice]
+    assert organisation.contact_shown_on_home_page?(contact)
+  end
+
 end

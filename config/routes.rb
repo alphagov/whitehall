@@ -127,7 +127,12 @@ Whitehall::Application.routes.draw do
           resources :corporate_information_pages do
             resources :translations, controller: 'corporate_information_pages_translations'
           end
-          resources :contacts
+          resources :contacts do
+            member do
+              post :remove_from_home_page
+              post :add_to_home_page
+            end
+          end
           resources :social_media_accounts
           resources :translations, controller: 'organisation_translations'
           resources :promotional_features do

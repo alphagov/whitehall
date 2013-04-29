@@ -1,6 +1,6 @@
 class Admin::ContactsController < Admin::BaseController
   before_filter :find_contactable
-  before_filter :find_contact, only: [:edit, :update, :destroy]
+  before_filter :find_contact, only: [:edit, :update, :destroy, :remove_from_home_page, :add_to_home_page]
   before_filter :destroy_blank_contact_numbers, only: [:create, :update]
   before_filter :extract_show_on_home_page_param, only: [:create, :update]
 
@@ -42,6 +42,18 @@ class Admin::ContactsController < Admin::BaseController
     else
       render :edit
     end
+  end
+
+  def remove_from_home_page
+    @show_on_home_page = '0'
+    handle_show_on_home_page_param
+    redirect_to [:admin, @contact.contactable, Contact], notice: %{"#{@contact.title}" removed from home page successfully}
+  end
+
+  def add_to_home_page
+    @show_on_home_page = '1'
+    handle_show_on_home_page_param
+    redirect_to [:admin, @contact.contactable, Contact], notice: %{"#{@contact.title}" added to home page successfully}
   end
 
 private
