@@ -87,7 +87,7 @@ class Admin::AccessAndOpeningTimesControllerTest < ActionController::TestCase
 
     assert access_and_opening_times = worldwide_office.access_and_opening_times
     assert_equal 'custom body text', access_and_opening_times.body
-    assert_redirected_to offices_admin_worldwide_organisation_path(worldwide_organisation)
+    assert_redirected_to admin_worldwide_organisation_worldwide_offices_path(worldwide_organisation)
   end
 
   view_test "POST on :create displays errors if access and opening times info is invalid" do
@@ -119,7 +119,7 @@ class Admin::AccessAndOpeningTimesControllerTest < ActionController::TestCase
 
     assert_equal 'custom new body', access_and_opening_times.reload.body
     assert_equal 'default body', default_access_and_opening_times.body
-    assert_redirected_to offices_admin_worldwide_organisation_path(worldwide_organisation)
+    assert_redirected_to admin_worldwide_organisation_worldwide_offices_path(worldwide_organisation)
   end
 
   view_test "PUT on :update displays errors if access and opening times info is invalid" do

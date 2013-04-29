@@ -2,6 +2,10 @@ class Admin::WorldwideOfficesController < Admin::BaseController
   before_filter :find_worldwide_office, only: [:edit, :update, :destroy]
   before_filter :destroy_blank_contact_numbers, only: [:create, :update]
 
+  def index
+    worldwide_organisation
+  end
+
   def new
     @worldwide_office = worldwide_organisation.offices.build
     @worldwide_office.build_contact
@@ -15,7 +19,7 @@ class Admin::WorldwideOfficesController < Admin::BaseController
   def update
     @worldwide_office.update_attributes(params[:worldwide_office])
     if @worldwide_office.save
-      redirect_to(offices_admin_worldwide_organisation_path(worldwide_organisation))
+      redirect_to [:admin, worldwide_organisation, WorldwideOffice]
     else
       render :edit
     end
@@ -24,7 +28,7 @@ class Admin::WorldwideOfficesController < Admin::BaseController
   def create
     @worldwide_office = worldwide_organisation.offices.build(params[:worldwide_office])
     if @worldwide_office.save
-      redirect_to(offices_admin_worldwide_organisation_path(worldwide_organisation))
+      redirect_to [:admin, worldwide_organisation, WorldwideOffice]
     else
       render :edit
     end
@@ -32,7 +36,7 @@ class Admin::WorldwideOfficesController < Admin::BaseController
 
   def destroy
     if @worldwide_office.destroy
-      redirect_to(offices_admin_worldwide_organisation_path(worldwide_organisation))
+      redirect_to [:admin, worldwide_organisation, WorldwideOffice]
     else
       render :edit
     end

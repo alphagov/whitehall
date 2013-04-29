@@ -159,12 +159,11 @@ Whitehall::Application.routes.draw do
         resources :worldwide_organisations do
           member do
             put :set_main_office
-            get :offices
             get :access_info
           end
           resource :access_and_opening_time, path: 'access_info', except: [:index, :show, :new]
           resources :translations, controller: 'worldwide_organisations_translations'
-          resources :worldwide_offices, path: 'offices', except: [:index, :show] do
+          resources :worldwide_offices, path: 'offices', except: [:show] do
             resource :access_and_opening_time, path: 'access_info', except: [:index, :show, :new]
           end
           resources :corporate_information_pages do

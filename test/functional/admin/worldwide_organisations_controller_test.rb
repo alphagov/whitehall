@@ -66,7 +66,7 @@ class Admin::WorldwideOrganisationsControllerTest < ActionController::TestCase
 
     assert_equal offices.last, worldwide_organisation.reload.main_office
     assert_equal "Main office updated successfully", flash[:notice]
-    assert_redirected_to offices_admin_worldwide_organisation_path(worldwide_organisation)
+    assert_redirected_to admin_worldwide_organisation_worldwide_offices_path(worldwide_organisation)
   end
 
   test "viewing office access details with no default assigns a new one" do
