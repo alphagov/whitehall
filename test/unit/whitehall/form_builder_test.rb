@@ -7,16 +7,22 @@ class FormBuilderTest < ActionView::TestCase
     @builder = Whitehall::FormBuilder.new(:promotional_feature_item, @object, self, {}, nil)
   end
 
-  test 'Whitehall::FormBuilder#upload returns a label and file upload input field by default' do
+  def hidden_image_cache_field(value = '')
+    %(<input id='promotional_feature_item_image_cache' name='promotional_feature_item[image_cache]' type='hidden' #{value} />)
+  end
+
+  test 'Whitehall::FormBuilder#upload returns a label and file upload input field, and a hidden cache field by default' do
     expected_html = '<label for="promotional_feature_item_image">Image</label>' +
-                    '<input id="promotional_feature_item_image" name="promotional_feature_item[image]" type="file" />'
+                    '<input id="promotional_feature_item_image" name="promotional_feature_item[image]" type="file" />' +
+                    hidden_image_cache_field
 
     assert_dom_equal expected_html, @builder.upload(:image)
   end
 
   test 'Whitehall::FormBuilder#upload allows the label text to be overridden' do
     expected_html = '<label for="promotional_feature_item_image">Image upload</label>' +
-                    '<input id="promotional_feature_item_image" name="promotional_feature_item[image]" type="file" />'
+                    '<input id="promotional_feature_item_image" name="promotional_feature_item[image]" type="file" />' +
+                    hidden_image_cache_field
 
     assert_dom_equal expected_html, @builder.upload(:image, label_text: "Image upload")
   end
@@ -26,7 +32,7 @@ class FormBuilderTest < ActionView::TestCase
     expected_html = '<label for="promotional_feature_item_image">Image upload</label>' +
                     '<input id="promotional_feature_item_image" name="promotional_feature_item[image]" type="file" />' +
                     "<span class='already_uploaded'>#{File.basename(image_fixture_file)} already uploaded</span>" +
-                     "<input id='promotional_feature_item_image_cache' name='promotional_feature_item[image_cache]' type='hidden' value='#{@object.image_cache}' />"
+                    hidden_image_cache_field("value = '#{@object.image_cache}'")
 
     assert_dom_equal expected_html, @builder.upload(:image, label_text: "Image upload")
   end
@@ -36,6 +42,7 @@ class FormBuilderTest < ActionView::TestCase
                       '<label for="promotional_feature_item_image" class="control-label">Image</label>' +
                       '<div class="controls">' +
                         '<input id="promotional_feature_item_image" name="promotional_feature_item[image]" type="file" />' +
+                        hidden_image_cache_field +
                       '</div>' +
                     '</div>'
 
