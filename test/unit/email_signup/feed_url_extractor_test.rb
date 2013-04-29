@@ -65,4 +65,15 @@ class EmailSignup::FeedUrlExtractorTest < ActiveSupport::TestCase
     a = EmailSignup::Alert.new(document_type: 'all', info_for_local: true)
     assert_match(/relevant_to_local_government=1/, EmailSignup::FeedUrlExtractor.new(a).feed_url)
   end
+
+  test 'given a policy the URL should be a policy feed' do
+    a = EmailSignup::Alert.new(policy: 'this-is-a-policy')
+    assert_match(/this-is-a-policy\/activity.atom/, EmailSignup::FeedUrlExtractor.new(a).feed_url)
+  end
+
+  test 'given many options, a policy being present trumps all others' do
+    a = EmailSignup::Alert.new(policy: 'this-is-a-policy', topic: 'environment', info_for_local: true)
+    refute_match(/topic\=/, EmailSignup::FeedUrlExtractor.new(a).feed_url)
+    refute_match(/relevant_to_local_government\=/, EmailSignup::FeedUrlExtractor.new(a).feed_url)
+  end
 end

@@ -85,4 +85,10 @@ class EmailSignup::TitleExtractorTest < ActiveSupport::TestCase
     a = EmailSignup::Alert.new(document_type: 'all', info_for_local: true)
     assert_match(/ relevant to local government/, EmailSignup::TitleExtractor.new(a).title)
   end
+
+  test 'given an alert with a policy the title should include the policy title' do
+    policy = create(:published_policy, title: "Example policy")
+    a = EmailSignup::Alert.new(policy: policy.slug)
+    assert_match(/Example policy/, EmailSignup::TitleExtractor.new(a).title)
+  end
 end

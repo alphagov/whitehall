@@ -4,7 +4,11 @@ class EmailSignup::TitleExtractor
   end
 
   def title
-    [document_type_title_part, topic_title_part, organisation_title_part, local_government_title_part].compact.join(' ')
+    if @alert.policy
+      policy_title_part
+    else
+      [document_type_title_part, topic_title_part, organisation_title_part, local_government_title_part].compact.join(' ')
+    end
   end
 
   def document_type_title_part
@@ -64,5 +68,12 @@ class EmailSignup::TitleExtractor
 
   def local_government_title_part
     'relevant to local government' if @alert.info_for_local?
+  end
+
+  def policy_title_part
+    if @alert.policy
+      policy = Policy.published_as(@alert.policy)
+      "All alerts related to policy #{policy.title}" if policy
+    end
   end
 end

@@ -22,4 +22,10 @@ module EmailSignupHelper
     options_for_select([['all organisations', 'all']], selected_option) +
     grouped_options_for_select(options, selected_option)
   end
+
+  def policy_title_for_email_signup(slug)
+    if policy = Policy.published_as(slug)
+      policy.title
+    end
+  end
 end
