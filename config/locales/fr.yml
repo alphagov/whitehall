@@ -13,9 +13,6 @@ fr:
       policies:
         one: Priorité politique
         other: ! 'Priorités politiques '
-      supporting_documents:
-        one: Document d'appui
-        other: Documents à l'appui
       topics:
         one: Sujet
         other: Sujets

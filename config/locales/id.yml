@@ -51,9 +51,6 @@ id:
         one: Kebijakan
         other: Kebijakan-kebijakan
       policy_team: Tim kebijakan
-      supporting_documents:
-        one:
-        other:
       topics:
         one: Topik
         other: Topik-topik

@@ -29,13 +29,6 @@ cy:
         few:
         many:
         other: Polisïau
-      supporting_documents:
-        zero:
-        one: Dogfen ategol
-        two:
-        few:
-        many:
-        other: Dogfennau ategol
       topics:
         zero:
         one: Pwnc

@@ -13,9 +13,6 @@ bg:
       policies:
         one: Политика
         other: Политики
-      supporting_documents:
-        one:
-        other:
       topics:
         one: Тема
         other: Теми

@@ -17,7 +17,6 @@
       </div>
       <% if attachments.more_than_one? %>
         <div class="attachment-without-thumbnail">
-          <h2 class="supporting-documents-title"><%= t('document.headings.supporting_documents', count: attachments.remaining.length) %></h2>
           <% attachments.remaining.each do |attachment| %>
             <%= render partial: "documents/attachment",
                        object: attachment,
