@@ -65,6 +65,14 @@ class EmailSignup
     }.flatten + ['all']
   end
 
+  def self.valid_policies
+    Policy.published.alphabetical
+  end
+
+  def self.valid_policy_slugs
+    valid_policies.map(&:slug) + ['all']
+  end
+
   protected
   def all_alerts_are_valid
     # [].all? is always true, so we won't get double validation errors

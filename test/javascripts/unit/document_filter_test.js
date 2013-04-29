@@ -234,6 +234,19 @@ test("should fire analytics on successful ajax response", function() {
   sinon.assert.callCount(analytics, 1);
 });
 
+test("should apply hide class to feed on ajax call", function() {
+  var removeClass = this.spy(GOVUK.documentFilter, 'updateFeeds');
+  this.filterForm.enableDocumentFilter();
+
+  var server = this.sandbox.useFakeServer();
+  server.respondWith(JSON.stringify(this.ajaxData));
+
+  this.filterForm.submit();
+  ok(this.feedLinks.is('.js-hidden'));
+  server.respond();
+  ok(! this.feedLinks.is('.js-hidden'));
+});
+
 test("currentPageState should include the current results", function() {
   this.filterForm.enableDocumentFilter();
   var resultsContent = '<p>Test content</p>';

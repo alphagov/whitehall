@@ -146,11 +146,11 @@ module OrganisationControllerTestHelpers
       end
 
       view_test "#{org_type}:show hass a link to govdelivery if one exists" do
-        organisation = create(org_type, govdelivery_url: 'http://my-govdelivery-url.com')
+        organisation = create(org_type)
 
         get :show, id: organisation
 
-        assert_select ".govdelivery[href='http://my-govdelivery-url.com']"
+        assert_select ".govdelivery[href='#{email_signups_path(organisation: organisation.slug)}']"
       end
     end
   end

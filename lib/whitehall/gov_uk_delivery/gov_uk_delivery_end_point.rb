@@ -76,6 +76,13 @@ class Whitehall::GovUkDelivery::GovUkDeliveryEndPoint < Whitehall::GovUkDelivery
         ]
       end
     end
+
+    if edition.can_be_related_to_policies? && edition.published_related_policies.any?
+      edition.published_related_policies.each do |policy|
+        tag_paths << activity_policy_url(policy.document, format: :atom, host: Whitehall.public_host, protocol: Whitehall.public_protocol)
+      end
+    end
+
     # Include this in case there aren't any other tag paths
     tag_paths << atom_feed_url(format: :atom, host: Whitehall.public_host, protocol: Whitehall.public_protocol)
 

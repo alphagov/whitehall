@@ -37,19 +37,24 @@ module ApplicationHelper
   end
 
   def filter_email_signup_url(args = {})
-    if params[:departments] && params[:departments].first != 'all'
-      params[:organisation] = params[:departments].first
-    end
-    if params[:topics] && params[:topics].first != 'all'
-      params[:topic] = params[:topics].first
-    end
-    if params.has_key?(:announcement_type_option) && params[:announcement_type_option] != 'all'
-      params[:document_type] = "announcement_type_#{params[:announcement_type_option]}"
-    elsif params.has_key?(:publication_filter_option) && params[:publication_filter_option] != 'all'
-      params[:document_type] = "publication_type_#{params[:publication_filter_option]}"
+    local_params = params.clone
+    local_params.merge!(args)
+
+    if local_params[:departments] && local_params[:departments].first != 'all'
+      local_params[:organisation] = local_params[:departments].first
     end
 
-    url_for(params.slice(:organisation, :topic, :document_type).merge(controller: :email_signups, action: :show))
+    if local_params[:topics] && local_params[:topics].first != 'all'
+      local_params[:topic] = local_params[:topics].first
+    end
+
+    if local_params.has_key?(:announcement_type_option) && local_params[:announcement_type_option] != 'all'
+      local_params[:document_type] = "announcement_type_#{local_params[:announcement_type_option]}"
+    elsif local_params.has_key?(:publication_filter_option) && local_params[:publication_filter_option] != 'all'
+      local_params[:document_type] = "publication_type_#{local_params[:publication_filter_option]}"
+    end
+
+    url_for(local_params.slice(:organisation, :topic, :document_type, :policy).merge(controller: :email_signups, action: :show))
   end
 
   def format_in_paragraphs(string)

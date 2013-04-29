@@ -45,12 +45,12 @@ class TopicalEventsControllerTest < ActionController::TestCase
     assert_select "a.feed[href=?]", feed_url
   end
 
-  view_test 'show has a link to govdelivery if one exists' do
-    event = create(:topical_event, govdelivery_url: 'http://my-govdelivery-url.com')
+  view_test 'show has a link to email signup page' do
+    event = create(:topical_event)
 
     get :show, id: event
 
-    assert_select ".govdelivery[href='http://my-govdelivery-url.com']"
+    assert_select ".govdelivery[href='#{email_signups_path(topic: event.slug)}']"
   end
 
   view_test "#show displays extra org logos for first-world-war-centenary" do

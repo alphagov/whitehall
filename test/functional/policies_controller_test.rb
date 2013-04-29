@@ -479,13 +479,13 @@ That's all
     end
   end
 
-  view_test 'activity shows a link to govdelivery if one exists' do
-    policy = create(:published_policy, govdelivery_url: 'http://my-govdelivery-url.com')
+  view_test 'activity shows a link to email signup' do
+    policy = create(:published_policy)
     publication = create(:published_publication, publication_date: 4.weeks.ago, related_editions: [policy])
 
     get :activity, id: policy.document
 
-    assert_select ".govdelivery[href='http://my-govdelivery-url.com']"
+    assert_select ".govdelivery[href='#{email_signups_path(policy: policy.document.slug)}']"
   end
 
   test "the format name is being set to policy" do

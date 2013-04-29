@@ -4,7 +4,7 @@ class EmailSignup::AlertTest < ActiveSupport::TestCase
   test 'is invalid if the topic is missing' do
     a = EmailSignup::Alert.new(topic: '')
     a.valid?
-    refute a.errors[:topic].empty?
+    refute a.errors[:base].empty?
   end
 
   test 'is invalid if the topic is not the slug of a topic from EmailSignup.valid_topics' do
@@ -24,7 +24,7 @@ class EmailSignup::AlertTest < ActiveSupport::TestCase
   test 'is invalid if the organisation is missing' do
     a = EmailSignup::Alert.new(organisation: '')
     a.valid?
-    refute a.errors[:organisation].empty?
+    refute a.errors[:base].empty?
   end
 
   test 'is invalid if the organisation is not the slug of a organisation from EmailSignup.valid_organisations_by_type' do
@@ -44,21 +44,28 @@ class EmailSignup::AlertTest < ActiveSupport::TestCase
   test 'is invalid if the document_type is missing' do
     a = EmailSignup::Alert.new(document_type: '')
     a.valid?
-    refute a.errors[:document_type].empty?
+    refute a.errors[:base].empty?
   end
 
-  test 'is invalid if the documemnt_type is not the type-prefixed slug of a document_type from EmailSignup.valid_document_types_by_type' do
+  test 'is invalid if the document_type is not the type-prefixed slug of a document_type from EmailSignup.valid_document_types_by_type' do
     EmailSignup.stubs(:valid_document_types_by_type).returns({publication_type: [stub(slug: 'woo')], announcment_type: [stub(slug: 'foo')]})
     a = EmailSignup::Alert.new(document_type: 'publication_type_meh')
     a.valid?
     refute a.errors[:document_type].empty?
   end
 
-  test 'is valid if the documemnt_type is "all" (even if that is not the type-prefixed slug of a document_type from EmailSignup.valid_document_types_by_type)' do
+  test 'is valid if the document_type is "all" (even if that is not the type-prefixed slug of a document_type from EmailSignup.valid_document_types_by_type)' do
     EmailSignup.stubs(:valid_document_types_by_type).returns({publication_type: [stub(slug: 'woo')], announcment_type: [stub(slug: 'foo')]})
     a = EmailSignup::Alert.new(document_type: 'all')
     a.valid?
     assert a.errors[:document_type].empty?
+  end
+
+  test 'is valid if there is a policy' do
+    EmailSignup.stubs(:valid_policy_slugs).returns(['test'])
+    a = EmailSignup::Alert.new(policy: 'test')
+    a.valid?
+    assert a.errors[:policy].empty?
   end
 
   # NOTE: this is the behaviour of activerecord's boolean column
