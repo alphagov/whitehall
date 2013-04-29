@@ -7,9 +7,11 @@ class Admin::CabinetMinistersControllerTest < ActionController::TestCase
 
   should_be_an_admin_controller
 
-  test "should reorder miniserial roles" do
-    organisation = create(:organisation)
+  def organisation
+    @organisation ||= create(:organisation)
+  end
 
+  test "should reorder ministerial roles" do
     role_2 = create(:ministerial_role, name: 'Non-Executive Director', cabinet_member: true, organisations: [organisation])
     role_1 = create(:ministerial_role, name: 'Prime Minister', cabinet_member: true, organisations: [organisation])
 
@@ -22,8 +24,6 @@ class Admin::CabinetMinistersControllerTest < ActionController::TestCase
   end
 
   test 'should reorder people who also attend cabinet' do
-    organisation = create(:organisation)
-
     role_2 = create(:ministerial_role, name: 'Chief Whip and Parliamentary Secretary to the Treasury', attends_cabinet_type_id: 2, organisations: [organisation])
     role_1 = create(:ministerial_role, name: 'Minister without Portfolio', attends_cabinet_type_id: 1, organisations: [organisation])
 
@@ -33,5 +33,18 @@ class Admin::CabinetMinistersControllerTest < ActionController::TestCase
     }
 
     assert_equal MinisterialRole.also_attends_cabinet.order(:seniority).all, [role_1, role_2]
+  end
+
+  test 'should reorder whips as part of the same request' do
+    role_2 = create(:ministerial_role, name: 'Whip 1', whip_organisation_id: 2, organisations: [organisation])
+    role_1 = create(:ministerial_role, name: 'Whip 2', whip_organisation_id: 2, organisations: [organisation])
+
+    put :update, whips: {
+      "#{role_1.id}" => {ordering: 0},
+      "#{role_2.id}" => {ordering: 1},
+    }
+
+    assert_equal MinisterialRole.whip.order(:seniority).all, [role_2, role_1]
+    assert_equal MinisterialRole.whip.order(:whip_ordering).all, [role_1, role_2]
   end
 end

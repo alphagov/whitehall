@@ -86,7 +86,17 @@ Given /^two cabinet ministers "([^"]*)" and "([^"]*)"$/ do |person1, person2|
   create(:role_appointment, person: create(:person, forename: person2), role: create(:ministerial_role, cabinet_member: true))
 end
 
-When /^I order the cabinet ministers "([^"]*)", "([^"]*)"$/ do |role1, role2|
+Given /^two whips "([^"]*)" and "([^"]*)"$/ do |person1, person2|
+  whip_organisation_id = Whitehall::WhipOrganisation::WhipsHouseOfCommons.id
+  create(:role_appointment,
+         person: create(:person, forename: person1),
+         role: create(:ministerial_role, whip_organisation_id: whip_organisation_id, cabinet_member: false))
+  create(:role_appointment,
+         person: create(:person, forename: person2),
+         role: create(:ministerial_role, whip_organisation_id: whip_organisation_id, cabinet_member: false))
+end
+
+When /^I order the (?:cabinet ministers|whips) "([^"]*)", "([^"]*)"$/ do |role1, role2|
   visit admin_cabinet_ministers_path
   [role1, role2].each_with_index do |role, index|
     fill_in(role, with: index)
@@ -97,6 +107,12 @@ end
 Then /^I should see "([^"]*)", "([^"]*)" in that order on the ministers page$/ do |person1, person2|
   visit ministers_page
   actual = all(".person .current-appointee").map {|elem| elem.text}
+  assert_equal [person1, person2], actual
+end
+
+Then /^I should see "([^"]*)", "([^"]*)" in that order on the whips section of the ministers page$/ do |person1, person2|
+  visit ministers_page
+  actual = all(".whips .current-appointee").map {|elem| elem.text}
   assert_equal [person1, person2], actual
 end
 
