@@ -63,17 +63,28 @@ Then /^I see the contacts in my specified order including the new one on the hom
 end
 
 When /^I decide that one of the contacts no longer belongs on the home page$/ do
-  pending # express the regexp above with the code you wish you had
+  visit admin_organisation_path(@the_organisation)
+
+  click_on 'Contacts'
+
+  @the_removed_contact = @the_ordered_contacts.sample
+  @the_ordered_contacts.delete(@the_removed_contact)
+  within record_css_selector(@the_removed_contact) do
+    click_on 'Remove from home page'
+  end
 end
 
 Then /^that contact is no longer visible on the home page of the organisation$/ do
-  pending # express the regexp above with the code you wish you had
+  visit organisation_path(@the_organisation)
+
+  within '.addresses' do
+    refute page.has_css?("div.contact h2", text: @the_removed_contact.title)
+  end
 end
 
 When /^I add a new office to be featured on the home page of the worldwide organisation$/ do
   visit admin_worldwide_organisation_path(@the_organisation)
   click_on 'Offices'
-  click_on 'All'
   click_on "Add"
   fill_in "Title", with: 'Our shiny new office'
   select WorldwideOfficeType.all.sample.name, from: 'Office type'
@@ -84,9 +95,9 @@ When /^I add a new office to be featured on the home page of the worldwide organ
   fill_in "Label", with: "Main phone number"
   fill_in "Number", with: "+22 (0) 111 111-111"
   select "United Kingdom", from: "Country"
-  pending
+  choose "yes"
   click_on "Save"
-  @the_new_office = WorldwideOffice.last
+  @the_new_contact = WorldwideOffice.last
 end
 
 When /^I reorder the offices to highlight my new office$/ do
@@ -95,8 +106,8 @@ end
 
 Then /^I see the offices in my specified order including the new one on the home page of the worldwide organisation$/ do
   visit worldwide_organisation_path(@the_organisation)
-  
-  within '.org-contacts' do
+
+  within '.contact-us' do
     @the_ordered_contacts.each.with_index do |contact, idx|
       assert page.has_css?("div.contact:nth-child(#{idx+1}) h2", text: contact.title)
     end
