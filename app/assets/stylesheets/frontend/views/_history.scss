@@ -41,41 +41,6 @@
     }
   }
 
-  .header-block {
-    .inner-block {
-      padding: $gutter*1.5 0 $gutter;
-      @include media(tablet) {
-        padding: $gutter*1.5 $gutter-half $gutter*2;
-      }
-
-      .header-title {
-        h1 {
-          @include heading-48;
-          font-weight: bold;
-          margin: 0 0 $gutter +5px;
-          @include media(desktop) {
-            margin-top: 0;
-          }
-        }
-        .intro {
-          @include core-27;
-          margin-bottom:$gutter;
-          @include media(tablet) {
-            margin-bottom:$gutter*2;
-          }
-          a {
-            white-space: nowrap;
-          }
-        }
-        @include media(tablet) {
-          float: left;
-          display: inline;
-          width: 80%;
-        }
-      }
-    }
-  }
-
   .floated-children {
     .column {
       img {

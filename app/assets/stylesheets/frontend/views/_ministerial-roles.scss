@@ -1,44 +1,5 @@
 
 .ministers-index {
-
-  .header-block {
-    .inner-block {
-      padding: $gutter*1.5 0 0;
-      @include media(tablet) {
-        padding: $gutter*1.5 $gutter-half 0;
-      }
-
-      .header-title {
-        p.intro {
-          @include core-27;
-          margin-bottom:$gutter;
-          @include media(tablet) {
-            margin-bottom:$gutter*2;
-          }
-          a {
-            white-space: nowrap;
-          }
-        }
-        .content {
-          padding: 0 $gutter-half;
-        }
-        @include media(tablet) {
-          float: left;
-          width: 75%;
-        }
-      }
-    }
-  }
-
-  h1 {
-    @include heading-48;
-    font-weight: bold;
-    margin: 0 0 $gutter +5px;
-    @include media(desktop) {
-      margin-top: 0;
-    }
-  }
-
   h2 {
     @include heading-36;
     border-bottom: 5px solid $inside-gov-brand;
