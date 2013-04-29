@@ -30,7 +30,8 @@
                   locals: { recently_updated: @recently_updated,
                             atom_url: organisation_url(@organisation, format: "atom"),
                             govdelivery_url: filter_email_signup_url(organisation: @organisation.slug),
-                            extra_class: 'panel'} %>
+                            extra_class: 'panel',
+                            all_announcements_link: announcements_filter_path(@organisation) } %>
       </section>
     </div>
   </div>

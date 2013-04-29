@@ -64,5 +64,16 @@
     clear: both;
     @include copy-19;
   }
-  
+  .see-all {
+    @include core-16;
+    margin-top: $gutter-one-sixth;
+    padding-top: $gutter-one-third;
+    border-top: 1px solid $grey-2;
+
+    a {
+      font-weight: bold;
+      margin-right: $gutter-one-third;
+      text-decoration: underline;
+    }
+  }
 }
