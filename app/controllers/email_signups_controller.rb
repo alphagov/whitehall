@@ -5,6 +5,7 @@ class EmailSignupsController < PublicFacingController
     fetch_topics
     fetch_organisations
     fetch_document_types
+    fetch_policies
     @email_signup = EmailSignup.new
     @email_signup.alerts = extract_alerts_params
   end
@@ -31,6 +32,7 @@ class EmailSignupsController < PublicFacingController
     fetch_topics
     fetch_organisations
     fetch_document_types
+    fetch_policies
     render :show
   end
 
@@ -48,6 +50,10 @@ class EmailSignupsController < PublicFacingController
     @document_types = EmailSignup.valid_document_types_by_type
   end
 
+  def fetch_policies
+    @policies = EmailSignup.valid_policies
+  end
+
   def extract_alerts_params
     alerts_params = normalize_params
     case alerts_params
@@ -63,7 +69,7 @@ class EmailSignupsController < PublicFacingController
   def normalize_params
     if params[:email_signup]
       (params[:email_signup] || {})[:alerts]
-    elsif (relevant_params = params.slice(:organisation, :topic, :document_type, :info_for_local)).any?
+    elsif (relevant_params = params.slice(:organisation, :topic, :document_type, :info_for_local, :policy)).any?
       [relevant_params]
     end
   end

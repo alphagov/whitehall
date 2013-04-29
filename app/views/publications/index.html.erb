@@ -39,7 +39,7 @@
     <% end %>
     <%= render partial: 'shared/feeds',
         locals: { atom_url: filter_atom_feed_url,
-                  govdelivery_url: filter_email_signup_url }
+                  govdelivery_url: filter_email_signup_url(document_type: 'publication_type_all') }
     %>
     <div class="filter-results js-filter-results" id="publications-container" aria-live="polite">
       <%= render_mustache('documents/filter_table', @filter.as_hash) %>

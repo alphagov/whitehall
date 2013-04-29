@@ -34,20 +34,6 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert_select "input[type=text][name='organisation[mainstream_links_attributes][0][title]']"
   end
 
-  view_test "should show allow entry of gds editor only data" do
-    login_as :gds_editor
-
-    get :new
-
-    assert_select 'input#organisation_govdelivery_url'
-  end
-
-  view_test "should not show gds admin only fields to non gds admins" do
-    get :new
-
-    refute_select 'input#organisation_govdelivery_url'
-  end
-
   test "should allow creation of an organisation without any contact details" do
     organisation_type = create(:organisation_type)
 

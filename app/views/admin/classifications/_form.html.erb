@@ -59,7 +59,6 @@
       </div>
     </fieldset>
   </div>
-  <%= render partial: 'admin/shared/govdelivery_fields', locals: { form: classification_form } %>
   <p class="warning">
     <% if show_instantly_live_warning %>
       Warning: changes to <%= model_class.name.underscore.humanize.downcase %>s appear instantly on the live site.

@@ -25,20 +25,6 @@ class Admin::TopicsControllerTest < ActionController::TestCase
     end
   end
 
-  view_test "should show govdelivery field for gds editors" do
-    login_as :gds_editor
-
-    get :new
-
-    assert_select 'input#topic_govdelivery_url'
-  end
-
-  view_test "should not show govdelivery field for non gds admins" do
-    get :new
-
-    refute_select 'input#topic_govdelivery_url'
-  end
-
   test "create should create a new topic" do
     attributes = attributes_for(:topic)
 

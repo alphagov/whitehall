@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130425111246) do
+ActiveRecord::Schema.define(:version => 20130426130658) do
 
   create_table "access_and_opening_times", :force => true do |t|
     t.text     "body"
@@ -110,7 +110,6 @@ ActiveRecord::Schema.define(:version => 20130425111246) do
     t.string   "type"
     t.string   "carrierwave_image"
     t.string   "logo_alt_text"
-    t.text     "govdelivery_url"
   end
 
   add_index "classifications", ["slug"], :name => "index_classifications_on_slug"
@@ -458,7 +457,6 @@ ActiveRecord::Schema.define(:version => 20130425111246) do
     t.integer  "published_minor_version"
     t.integer  "operational_field_id"
     t.text     "roll_call_introduction"
-    t.text     "govdelivery_url"
     t.integer  "news_article_type_id"
     t.boolean  "relevant_to_local_government",                :default => false
     t.string   "person_override"
@@ -811,7 +809,6 @@ ActiveRecord::Schema.define(:version => 20130425111246) do
     t.integer  "organisation_logo_type_id",               :default => 2
     t.string   "analytics_identifier"
     t.boolean  "handles_fatalities",                      :default => false
-    t.text     "govdelivery_url"
     t.integer  "important_board_members",                 :default => 1
     t.integer  "default_news_organisation_image_data_id"
   end

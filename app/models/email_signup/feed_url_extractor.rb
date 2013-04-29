@@ -7,7 +7,11 @@ class EmailSignup::FeedUrlExtractor
   end
 
   def feed_url
-    send("#{path_segment_name}_url", filters.merge(format: 'atom'))
+    if @alert.policy
+      activity_policy_url(@alert.policy, format: :atom)
+    else
+      send("#{path_segment_name}_url", filters.merge(format: 'atom'))
+    end
   end
 
   def filters
