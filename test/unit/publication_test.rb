@@ -7,59 +7,7 @@ class PublicationTest < ActiveSupport::TestCase
   should_not_allow_inline_attachments
   should_allow_referencing_of_statistical_data_sets
   should_protect_against_xss_and_content_attacks_on :title, :body, :summary, :change_note
-
-
-  test 'has optional html version' do
-    publication = build(:publication)
-    refute publication.html_version.present?
-
-    publication.html_version_attributes = {
-      title: "title",
-      body: "body"
-    }
-    publication.save!
-
-    assert_equal "title", publication.reload.html_version.title
-  end
-
-  test 'html version is destroyed if the publication is destroyed' do
-    publication = create(:publication, :with_html_version)
-    html_version = publication.html_version
-    publication.destroy
-    refute HtmlVersion.find_by_id(html_version.id)
-  end
-
-  test 'html version is not saved if all blank' do
-    publication = build(:publication)
-    publication.html_version_attributes = {
-      title: "",
-      body: ""
-    }
-    publication.save!
-    refute publication.html_version
-  end
-
-  test 'html version errors mean the publication will not save' do
-    publication = build(:publication)
-    publication.html_version_attributes = {
-      title: "something",
-      body: ""
-    }
-    refute publication.valid?
-    refute publication.html_version.errors.empty?
-  end
-
-  test 'html version is copied over on republish' do
-    publication = create(:published_publication, :with_html_version)
-    new_draft = publication.create_draft(create(:author))
-
-    assert_equal publication.html_version.title, new_draft.html_version.title
-    assert_equal publication.html_version.body, new_draft.html_version.body
-    assert_equal publication.html_version.slug, new_draft.html_version.slug
-
-    new_draft.html_version.title = 'new title'
-    refute_equal 'new title', publication.reload.html_version.title
-  end
+  should_allow_html_version
 
   def draft_with_new_title(edition, new_title)
     edition.create_draft(create(:author)).tap do |draft|
