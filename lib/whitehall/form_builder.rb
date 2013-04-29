@@ -81,11 +81,11 @@ module Whitehall
       horizontal = options.delete(:horizontal)
       label_text = options.delete(:label_text)
 
+      fields = file_field(method, options)
       if object.send("#{method}_cache").present?
-        fields = file_field(method, options) + file_cache_fields(method)
-      else
-        fields = file_field(method, options)
+        fields += file_cache_already_uploaded(method)
       end
+      fields += hidden_field("#{method}_cache")
 
       if horizontal
         horizontal_group(label(method, label_text, class: "control-label"), fields, options)
@@ -137,8 +137,8 @@ module Whitehall
       end
     end
 
-    def file_cache_fields(method)
-      @template.content_tag(:span, "#{File.basename(object.send("#{method}_cache"))} already uploaded", class: 'already_uploaded') + hidden_field("#{method}_cache")
+    def file_cache_already_uploaded(method)
+      @template.content_tag(:span, "#{File.basename(object.send("#{method}_cache"))} already uploaded", class: 'already_uploaded')
     end
   end
 end
