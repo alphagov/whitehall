@@ -60,4 +60,55 @@ class HomePageList < ActiveRecord::Base
     new_item.ordering = next_ordering unless new_item.ordering
   end
 
+  public
+  module Container
+    # Given:
+    #   has_home_page_list_of :contacts
+    # Gives:
+    #   has_home_page_contacts_list?
+    #   contact_shown_on_home_page?
+    #   home_page_contacts
+    #   add_contact_to_home_page!
+    #   remove_contact_from_home_page!
+    #   reorder_contacts_on_home_page!
+    #   a destroy hook to remove the list impl
+    #   a protected home_page_contacts_list method to fetch the list impl
+    # It uses a module so that you can override the methods and still
+    # call super
+    def has_home_page_list_of(list_type)
+      single_name = list_type.to_s.singularize
+      plural_name = list_type.to_s
+      list_name = list_type.to_s
+      home_page_list_methods = Module.new do
+        protected
+        define_method(:"home_page_#{plural_name}_list") do
+          HomePageList.get(owned_by: self, called: list_name)
+        end
+        public
+        define_method(:"has_home_page_#{plural_name}_list?") do
+          HomePageList.get(owned_by: self, called: list_name, create_if_missing: false).present?
+        end
+        define_method(:"#{single_name}_shown_on_home_page?") do |contact|
+          __send__(:"home_page_#{plural_name}_list").shown_on_home_page?(contact)
+        end
+        define_method(:"home_page_#{plural_name}") do
+          __send__(:"home_page_#{plural_name}_list").items
+        end
+        define_method(:"add_#{single_name}_to_home_page!") do |contact|
+          __send__(:"home_page_#{plural_name}_list").add_item(contact)
+        end
+        define_method(:"remove_#{single_name}_from_home_page!") do |contact|
+          __send__(:"home_page_#{plural_name}_list").remove_item(contact)
+        end
+        define_method(:"reorder_#{plural_name}_on_home_page!") do |contacts|
+          __send__(:"home_page_#{plural_name}_list").reorder_items!(contacts)
+        end
+        define_method(:"__remove_home_page_#{plural_name}_list") do
+          __send__(:"home_page_#{plural_name}_list").destroy if __send__(:"has_home_page_#{plural_name}_list?")
+        end
+      end
+      self.after_destroy :"__remove_home_page_#{plural_name}_list"
+      self.__send__(:include, home_page_list_methods)
+    end
+  end
 end

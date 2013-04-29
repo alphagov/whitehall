@@ -169,34 +169,10 @@ class Organisation < ActiveRecord::Base
   # I'm trying to use a domain centric design rather than a persistence
   # centric design, so I do not want to expose a has_many :home_page_lists
   # and all that this implies. I really only want to expose a list of
-  # contacts (in order) that should be shown on the home page.
-  protected
-  def home_page_contacts_list
-    HomePageList.get(owned_by: self, called: 'contacts')
-  end
-  public
-  def has_home_page_contact_list?
-    HomePageList.get(owned_by: self, called: 'contacts', create_if_missing: false).present?
-  end
-  def contact_shown_on_home_page?(contact)
-    home_page_contacts_list.shown_on_home_page?(contact)
-  end
-  def home_page_contacts
-    home_page_contacts_list.items
-  end
-  def add_contact_to_home_page!(contact)
-    home_page_contacts_list.add_item(contact)
-  end
-  def remove_contact_from_home_page!(contact)
-    home_page_contacts_list.remove_item(contact)
-  end
-  def reorder_contacts_on_home_page!(contacts)
-    home_page_contacts_list.reorder_items!(contacts)
-  end
-  after_destroy :remove_home_page_contacts_list
-  def remove_home_page_contacts_list
-    home_page_contacts_list.destroy if has_home_page_contact_list?
-  end
+  # contacts (in order) that should be shown on the home page, and some
+  # simple (explicit) methods for manipulating them.
+  extend HomePageList::Container
+  has_home_page_list_of :contacts
 
   has_many :promotional_features
 
