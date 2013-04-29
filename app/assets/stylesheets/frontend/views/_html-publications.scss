@@ -118,12 +118,13 @@
         @include core-27;
         .number {
           background: $white image-url('html-publication/texture.png') repeat;
+          color: $secondary-text-colour;
           padding-right: $gutter-one-third;
           @include media(tablet){
             padding-right: 0;
             display: inline-block;
-            width: $gutter*2;
-            margin-left: $gutter*-2;
+            width: $gutter*2.5;
+            margin-left: $gutter*-2.5;
           }
         }
       }
