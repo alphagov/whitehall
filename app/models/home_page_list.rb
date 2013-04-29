@@ -38,6 +38,19 @@ class HomePageList < ActiveRecord::Base
     home_page_list_items.where(item_id: item.id, item_type: item.class).destroy_all
   end
 
+  def reorder_items!(items_in_order)
+    return if items_in_order.empty?
+    HomePageListItem.transaction do
+      home_page_list_items.each do |home_page_list_item|
+        new_ordering = items_in_order.index(home_page_list_item.item)
+        if new_ordering.nil?
+          new_ordering = items_in_order.size
+        end
+        home_page_list_item.update_column(:ordering, new_ordering + 1)
+      end
+    end
+  end
+
   protected
   def next_ordering
     (home_page_list_items.map(&:ordering).max || 0) + 1

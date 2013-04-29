@@ -188,4 +188,40 @@ class Admin::ContactsControllerTest < ActionController::TestCase
     assert organisation.contact_shown_on_home_page?(contact)
   end
 
+  test 'POST on :reorder_for_home_page takes id => ordering mappings and reorders the list based on this' do
+    organisation = create(:organisation)
+    contact_1 = organisation.contacts.create(title: "Head office")
+    contact_2 = organisation.contacts.create(title: "Body office")
+    contact_3 = organisation.contacts.create(title: 'Spirit office')
+    organisation.add_contact_to_home_page!(contact_1)
+    organisation.add_contact_to_home_page!(contact_2)
+    organisation.add_contact_to_home_page!(contact_3)
+
+    post :reorder_for_home_page, organisation_id: organisation,
+      ordering: {
+        contact_1.id.to_s => '3',
+        contact_2.id.to_s => '1',
+        contact_3.id.to_s => '2'
+      }
+
+    assert_redirected_to admin_organisation_contacts_url(organisation)
+    assert_equal %{Contacts on home page reordered successfully}, flash[:notice]
+    assert_equal [contact_2, contact_3, contact_1], organisation.reload.home_page_contacts
+  end
+
+  test 'POST on :reorder_for_home_page doesn\'t break with unknown contact ids' do
+    organisation = create(:organisation)
+    contact = organisation.contacts.create(title: "Head office")
+    organisation.add_contact_to_home_page!(contact)
+
+    post :reorder_for_home_page, organisation_id: organisation,
+      ordering: {
+        contact.id.to_s => '2',
+        '1000000' => '1'
+      }
+
+    assert_redirected_to admin_organisation_contacts_url(organisation)
+    assert_equal %{Contacts on home page reordered successfully}, flash[:notice]
+    assert_equal [contact], organisation.reload.home_page_contacts
+  end
 end

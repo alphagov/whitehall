@@ -132,6 +132,7 @@ Whitehall::Application.routes.draw do
               post :remove_from_home_page
               post :add_to_home_page
             end
+            post :reorder_for_home_page, on: :collection
           end
           resources :social_media_accounts
           resources :translations, controller: 'organisation_translations'

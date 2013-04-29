@@ -131,4 +131,45 @@ class HomePageListTest < ActiveSupport::TestCase
     assert_raises(ArgumentError) { HomePageList.get(owned_by: create(:organisation)) }
     assert_raises(ArgumentError) { HomePageList.get(called: 'cates') }
   end
+
+  test '#reorder_items! takes a list of items and reorders the existing list' do
+    list = create(:home_page_list)
+    contact_1 = create(:contact)
+    contact_2 = create(:contact)
+    contact_3 = create(:contact)
+    list.home_page_list_items << build(:home_page_list_item, item: contact_1)
+    list.home_page_list_items << build(:home_page_list_item, item: contact_2)
+    list.home_page_list_items << build(:home_page_list_item, item: contact_3)
+
+    list.reorder_items!([contact_2, contact_3, contact_1])
+
+    assert_equal [contact_2, contact_3, contact_1], list.reload.items
+  end
+
+  test '#reorder_items! puts any existing items not mentioned in the new ordering at the end of the list' do
+    list = create(:home_page_list)
+    contact_1 = create(:contact)
+    contact_2 = create(:contact)
+    contact_3 = create(:contact)
+    list.home_page_list_items << build(:home_page_list_item, item: contact_1)
+    list.home_page_list_items << build(:home_page_list_item, item: contact_2)
+    list.home_page_list_items << build(:home_page_list_item, item: contact_3)
+
+    list.reorder_items!([contact_2, contact_3])
+
+    assert_equal [contact_2, contact_3, contact_1], list.reload.items
+  end
+
+  test '#reorder_items! ignores any items not already in the list' do
+    list = create(:home_page_list)
+    contact_1 = create(:contact)
+    contact_2 = create(:contact)
+    contact_3 = create(:contact)
+    list.home_page_list_items << build(:home_page_list_item, item: contact_1)
+    list.home_page_list_items << build(:home_page_list_item, item: contact_3)
+
+    list.reorder_items!([contact_2, contact_3, contact_1])
+
+    assert_equal [contact_3, contact_1], list.reload.items
+  end
 end

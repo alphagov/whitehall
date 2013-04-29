@@ -36,13 +36,26 @@ When /^I add a new contact to be featured on the home page of the organisation$/
 end
 
 When /^I reorder the contacts to highlight my new contact$/ do
-  pending
+  visit admin_organisation_path(@the_organisation)
+  click_on 'Contacts'
+  click_on 'Order on home page'
+
+  within '#on-home-page' do
+    @the_ordered_contacts = [@the_ordered_contacts[-1], *(@the_ordered_contacts[1..-2].shuffle), @the_ordered_contacts[0]]
+    @the_ordered_contacts.each_with_index do |contact, index|
+      fill_in contact.title, with: index + 2
+    end
+    fill_in @the_new_contact.title, with: 1
+  end
+  click_on 'Update contact list order'
+
+  @the_ordered_contacts = [@the_new_contact, *@the_ordered_contacts]
 end
 
 Then /^I see the contacts in my specified order including the new one on the home page of the organisation$/ do
   visit organisation_path(@the_organisation)
-  
-  within '.contact-us' do
+
+  within '.addresses' do
     @the_ordered_contacts.each.with_index do |contact, idx|
       assert page.has_css?("div.contact:nth-child(#{idx+1}) h2", text: contact.title)
     end

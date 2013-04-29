@@ -190,6 +190,9 @@ class Organisation < ActiveRecord::Base
   def remove_contact_from_home_page!(contact)
     home_page_contacts_list.remove_item(contact)
   end
+  def reorder_contacts_on_home_page!(contacts)
+    home_page_contacts_list.reorder_items!(contacts)
+  end
   after_destroy :remove_home_page_contacts_list
   def remove_home_page_contacts_list
     home_page_contacts_list.destroy if has_home_page_contact_list?

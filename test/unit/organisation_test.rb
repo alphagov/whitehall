@@ -592,6 +592,17 @@ class OrganisationTest < ActiveSupport::TestCase
     assert_equal :a_result, organisation.remove_contact_from_home_page!(c)
   end
 
+  test 'can reorder the contacts on the list' do
+    organisation = build(:organisation)
+    c1 = create(:contact)
+    c2 = create(:contact)
+    h = build(:home_page_list)
+    HomePageList.stubs(:get).returns(h)
+    h.expects(:reorder_items!).with([c1, c2]).returns :a_result
+
+    assert_equal :a_result, organisation.reorder_contacts_on_home_page!([c1, c2])
+  end
+
   test 'maintains a home page list for storing contacts' do
     organisation = build(:organisation)
     HomePageList.expects(:get).with(has_entries(owned_by: organisation, called: 'contacts')).returns :a_home_page_list_of_contacts

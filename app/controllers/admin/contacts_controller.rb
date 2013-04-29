@@ -56,6 +56,12 @@ class Admin::ContactsController < Admin::BaseController
     redirect_to [:admin, @contact.contactable, Contact], notice: %{"#{@contact.title}" added to home page successfully}
   end
 
+  def reorder_for_home_page
+    reordered_contacts = extract_contacts_from_ordering_params(params[:ordering] || {})
+    @contactable.reorder_contacts_on_home_page!(reordered_contacts)
+    redirect_to [:admin, @contactable, Contact], notice: %{Contacts on home page reordered successfully}
+  end
+
 private
 
   def find_contactable
@@ -92,4 +98,17 @@ private
       end
     end
   end
+
+  def extract_contacts_from_ordering_params(ids_and_orderings)
+    ids_and_orderings.
+      # convert to useful forms
+      map {|contact_id, ordering| [Contact.find_by_id(contact_id), ordering.to_i] }.
+      # sort by ordering
+      sort_by { |_, ordering| ordering }.
+      # discard ordering
+      map {|contact, _| contact }.
+      # reject any blank contacts
+      compact
+  end
+
 end
