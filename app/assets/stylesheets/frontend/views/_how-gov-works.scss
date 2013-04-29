@@ -3,34 +3,6 @@
     clear:both;
   }
 
-  .header-block {
-    .inner-block {
-      padding: $gutter*1.5 0 0;
-      @include media(tablet) {
-        padding: $gutter*1.5 $gutter-half 0;
-      }
-
-      .header-title {
-        .content {
-          padding: 0 $gutter-half;
-        }
-        a {
-          text-decoration: none;
-          white-space: nowrap;
-          &:hover,
-          &:focus {
-            text-decoration: underline;
-          }
-        }
-        @include media(tablet) {
-          float: left;
-          display: inline;
-          width: 75%;
-        }
-      }
-    }
-  }
-
   p, li{
     @include ig-core-19;
     a {
@@ -322,15 +294,6 @@
     }
   }
 
-  h1 {
-    @include heading-48;
-    font-weight: bold;
-    margin: 0 0 $gutter +5px;
-    @include media(desktop) {
-      margin-top: 0;
-    }
-  }
-
   h2 {
     @include ig-core-36;
     padding-bottom: 1px;
@@ -400,13 +363,6 @@
     margin-top: $gutter + $gutter-one-third;
   }
 
-  p.intro {
-    @include core-27;
-    margin-bottom:$gutter;
-    @include media(tablet) {
-      margin-bottom:$gutter*2;
-    }
-  }
   p.small-print {
     @include ig-core-14;
   }

@@ -22,44 +22,6 @@
     padding: 0 $gutter-half;
   }
 
-  .header-block {
-    .inner-block {
-      padding-top: $gutter*1.5;
-      @include media(tablet) {
-        padding: $gutter*1.5 $gutter-half $gutter*2;
-      }
-
-      .header-title {
-        .content {
-          padding: 0;
-          h1 {
-            @include heading-48;
-            font-weight: bold;
-            margin: 0 0 $gutter +5px;
-            @include media(desktop) {
-              margin-top: 0;
-            }
-          }
-          .intro {
-            @include core-27;
-            margin: $gutter-half 0;
-            a {
-              white-space: nowrap;
-            }
-            @include media(tablet) {
-              margin: 0 0 $gutter*2;
-            }
-          }
-          @include media(tablet) {
-            float: left;
-            display: inline;
-            padding: 0 $gutter-half;
-            width: 75%;
-          }
-        }
-      }
-    }
-  }
 
   .block {
     clear: both;
