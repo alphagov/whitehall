@@ -1,6 +1,32 @@
 require 'test_helper'
 
 class TopicalEventTestTest < ActiveSupport::TestCase
+  test "archive topical event when it ends" do
+    topical_event = create(:topical_event, start_date: 1.year.ago.to_date, end_date: 1.day.ago.to_date)
+    assert topical_event.archived?
+    assert_equal 1, TopicalEvent.archived.count
+  end
+
+  test "topical event should not last more than a year" do
+    topical_event = build(:topical_event, start_date: 1.day.ago.to_date, end_date: (Date.today + 2.years))
+    refute topical_event.valid?
+  end
+
+  test "topical event can be a year long" do
+    topical_event = build(:topical_event, start_date: Date.today, end_date: (Date.today + 1.year))
+    assert topical_event.valid?
+  end
+
+  test "topical event can be a year with a day leeway" do
+    topical_event = build(:topical_event, start_date: 1.day.ago.to_date, end_date: (Date.today + 1.year))
+    assert topical_event.valid?
+  end
+
+  test "topical event should not end before it starts" do
+    topical_event = build(:topical_event, start_date: Date.today, end_date: 1.day.ago)
+    refute topical_event.valid?
+  end
+
   test "a new news article is not featured" do
     topical_event = create(:topical_event)
     news_article = build(:news_article)
