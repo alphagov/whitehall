@@ -6,7 +6,7 @@
   if(typeof root.GOVUK === 'undefined') { root.GOVUK = {}; }
 
   var backToContent = {
-    _hasScrolled: false,
+    _hasScrolled: true,
     _scrollTimeout: false,
 
     init: function(){
@@ -38,18 +38,23 @@
               start = $el.data('backToContent-start'),
               stop = $el.data('backToContent-stop'),
               offset = $el.data('backToContent-offset'),
-              $nav;
+              windowOffset = $el.data('backToContent-windowOffset'),
+              $nav, top;
 
           if(!start) {
             $nav = $($el.find('a').attr('href'));
             start = $nav.height() + $nav.offset().top + padding;
             $el.data('backToContent-start', start);
 
-            offset = $('#whitehall-wrapper').offset().top - 15; // 15px from the $gutter-half in the css
+            top = $el.css('top') == 'auto';
+
+            offset = $('#page').offset().top - (top ? -15 : 15); // 15px from the $gutter-half in the css
             $el.data('backToContent-offset', offset);
 
-            // yes this is brittle. sorry.
-            stop =  $('.block-4').offset().top - padding;
+            windowOffset = top ? $(window).height() - $el.height() : 0;
+            $el.data('backToContent-windowOffset', windowOffset);
+
+            stop =  $('.js-back-to-content-stop').offset().top - padding - windowOffset + $el.height();
             $el.data('backToContent-stop', stop);
           }
 
@@ -59,7 +64,7 @@
             backToContent.hide($el);
           }
           if(stop < windowVerticalPosition){
-            backToContent.stick($el, stop - offset);
+            backToContent.stick($el, stop - offset + windowOffset);
           } else {
             backToContent.unstick($el);
           }

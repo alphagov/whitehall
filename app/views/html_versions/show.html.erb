@@ -18,7 +18,7 @@
     </div>
   </div>
 </div>
-<header class="publication-header">
+<header class="publication-header" id="contents">
   <div class="inner-block floated-children">
     <div class="headings">
       <h1><%= @html_version.title %></h1>
@@ -39,3 +39,7 @@
     <%= govspeak_to_html @html_version.body, @document.images, numbered_heading_level: ['h2','h3'] %>
   </div>
 </div>
+<div class="js-back-to-content back-to-content">
+  <a href="#contents">Contents</a>
+</div>
+<div class="js-back-to-content-stop"></div>

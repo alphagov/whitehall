@@ -81,6 +81,9 @@
   }
   
   .publication-content {
+    position: relative;
+    z-index: 2;
+
     .govspeak {
       @include media(tablet){
         width: 75%;
@@ -96,21 +99,25 @@
           margin: $gutter*2 0 $gutter-half;
         }
         .number {
+          background: $white image-url('html-publication/texture.png') repeat;
           padding-right: $gutter-one-third;
           font-weight: bold;
           @include media(tablet){
             @include core-80;
             font-weight: bold;
             position: absolute;
-            margin-top: $gutter-one-sixth;
-            margin-left: -23%;
-            padding-right: 0;
+            margin: (-$gutter) 0 0 (-25%);
+            width: 22%;
+            padding: ($gutter+$gutter-one-sixth) 0 $gutter 3%;
           }
         }
       }
       h3 {
+        z-index: 5;
+        position: relative;
         @include core-27;
         .number {
+          background: $white image-url('html-publication/texture.png') repeat;
           padding-right: $gutter-one-third;
           @include media(tablet){
             padding-right: 0;
@@ -192,5 +199,19 @@
         }
       }
     }
+  }
+  .back-to-content {
+    position: fixed;
+    bottom: $gutter-half;
+    a {
+      display: block;
+
+      &:before {
+        content: "\2191 ";
+      }
+    }
+  }
+  .js-back-to-content-stop {
+    clear: both;
   }
 }
