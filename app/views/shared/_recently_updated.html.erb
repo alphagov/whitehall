@@ -14,5 +14,10 @@
     <%= render partial: 'shared/feeds',
           locals: { atom_url: atom_url,
                     govdelivery_url: govdelivery_url } %>
+    <% if local_assigns[:all_announcements_link] %>
+      <p class="see-all">
+        <%= link_to "See all our announcements", all_announcements_link %>
+      </p>
+    <% end %>
   </div>
 </section>
