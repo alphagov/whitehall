@@ -47,6 +47,11 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
         $(".feeds .govdelivery").attr("href", data.email_signup_url);
       }
     },
+    updateFeeds: function(data) {
+      $(".feeds").removeClass('js-hidden');
+      documentFilter.updateAtomFeed(data);
+      documentFilter.updateEmailSignup(data);
+    },
     submitFilters: function(e){
       e.preventDefault();
       var $form = documentFilter.$form,
@@ -57,6 +62,7 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
 
       $submitButton.addClass('disabled');
       $(".filter-results-summary").find('.selections').text("Loading results…");
+      $(".feeds").addClass('js-hidden');
       documentFilter.loading = true;
       // TODO: make a spinny updating thing
       $.ajax(jsonUrl, {
@@ -67,8 +73,7 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
           documentFilter.loading = false;
         },
         success: function(data) {
-          documentFilter.updateAtomFeed(data);
-          documentFilter.updateEmailSignup(data);
+          documentFilter.updateFeeds(data);
           if (data.results) {
             documentFilter.renderTable(data);
             documentFilter.liveResultSummary(data);

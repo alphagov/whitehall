@@ -148,6 +148,10 @@
       @include inline-block;
     }
   }
+
+  .js-hidden {
+    display: none;
+  }
 }
 
 .filter-results {
