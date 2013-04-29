@@ -13,9 +13,6 @@ es:
       policies:
         one: Política
         other: Políticas
-      supporting_documents:
-        one:
-        other:
       topics:
         one: Tema
         other: Temas

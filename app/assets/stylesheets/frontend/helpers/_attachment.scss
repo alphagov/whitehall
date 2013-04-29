@@ -103,12 +103,6 @@ $thumbnail-width: 99px;
     background: transparent;
   }
   
-  h2.supporting-documents-title {
-    @include ig-core-16;
-    margin-top: $gutter;
-    color: $text-colour;
-  }
-  
   .attachment-without-thumbnail {
     margin-top: $gutter;
   }

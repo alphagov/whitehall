@@ -96,9 +96,6 @@ en:
       attachments:
         one: Document
         other: Documents
-      supporting_documents:
-        one: Supporting document
-        other: Supporting documents
     type:
       announcement:
         one: Announcement

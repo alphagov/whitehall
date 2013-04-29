@@ -13,9 +13,6 @@ hy:
       policies:
         one: Քաղաքականություն
         other: Քաղաքականություններ
-      supporting_documents:
-        one:
-        other:
       topics:
         one: Թեմա
         other: Թեմաներ
