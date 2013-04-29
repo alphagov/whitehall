@@ -51,9 +51,6 @@ vi:
         one: Chính sách
         other: Các chính sách
       policy_team: Nhóm chính sách
-      supporting_documents:
-        one:
-        other:
       topics:
         one: Chủ đề
         other: Các chủ đề
