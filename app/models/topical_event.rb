@@ -34,7 +34,7 @@ class TopicalEvent < Classification
             source: :edition,
             order: "classification_featurings.ordering ASC"
 
-  scope :archived, -> {where("end_date < ?", Date.today)}
+  scope :running, -> {where("end_date > ?", Date.today)}
 
   validate :duration_of_event
 

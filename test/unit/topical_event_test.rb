@@ -4,7 +4,7 @@ class TopicalEventTestTest < ActiveSupport::TestCase
   test "archive topical event when it ends" do
     topical_event = create(:topical_event, start_date: 1.year.ago.to_date, end_date: 1.day.ago.to_date)
     assert topical_event.archived?
-    assert_equal 1, TopicalEvent.archived.count
+    assert_equal 0, TopicalEvent.running.count
   end
 
   test "topical event should not last more than a year" do
