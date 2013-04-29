@@ -279,12 +279,6 @@ module ApplicationHelper
     end
   end
 
-  def progress_bar_link
-    unless params[:controller] == "home" && params[:action] == "home"
-      link_to "More will join soon", root_path
-    end
-  end
-
   def linked_author(author)
     if author
       link_to(author.name, admin_author_path(author))
