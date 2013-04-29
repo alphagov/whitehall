@@ -293,8 +293,9 @@ module ApplicationHelper
     end
   end
 
-  def recent_month_filter_options(number_of_months, selected_date)
+  def month_filter_options(start_date, selected_date)
     baseline = (Date.today + 1.month).beginning_of_month
+    number_of_months = ((baseline.to_time - start_date.to_time) / 43829.1 / 60).round + 1
     months = (0...number_of_months).map { |i| baseline - i.months }
     options_for_select(months.map { |m| [m.to_s(:short_ordinal), m.to_s] }, selected_date.to_s)
   end
