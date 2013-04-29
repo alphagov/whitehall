@@ -1,6 +1,8 @@
 class HomeController < PublicFacingController
   layout 'frontend'
 
+  before_filter :load_ministerial_department_count, only: [:home, :how_government_works]
+
   def home
     ministerial_department_type = OrganisationType.find_by_name('Ministerial department')
     sub_organisation_type = OrganisationType.find_by_name('Sub-organisation')
@@ -39,4 +41,9 @@ class HomeController < PublicFacingController
   def history_lancaster_house
   end
 
+  private
+
+  def load_ministerial_department_count
+    @ministerial_department_count = Organisation.ministerial_departments.count
+  end
 end

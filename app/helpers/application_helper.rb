@@ -279,12 +279,6 @@ module ApplicationHelper
     end
   end
 
-  def progress_bar_link
-    unless params[:controller] == "home" && params[:action] == "home"
-      link_to "More will join soon", root_path
-    end
-  end
-
   def linked_author(author)
     if author
       link_to(author.name, admin_author_path(author))
@@ -323,22 +317,6 @@ module ApplicationHelper
     else
       super(source)
     end
-  end
-
-  def ministerial_department_type_id
-    @ministerial_department_type_id ||= OrganisationType.find_by_name('Ministerial department')
-  end
-
-  def ministerial_department_count
-    @ministerial_department_count ||= Organisation.where(organisation_type_id: ministerial_department_type_id).count
-  end
-
-  def joined_ministerial_department_count
-    @joined_ministerial_department_count ||= Organisation.where("organisation_type_id = ? AND govuk_status = 'live'", ministerial_department_type_id).count
-  end
-
-  def joined_ministerial_department_percent
-    number_to_percentage(100 * joined_ministerial_department_count.to_f / ministerial_department_count, precision: 0)
   end
 
   def is_external?(href)

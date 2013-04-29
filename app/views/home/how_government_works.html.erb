@@ -110,7 +110,7 @@
       <div class="thirds-width-section depts-cont">
         <div class="one-third">
           <div class="inner-block">
-            <p><span class="feature-value"><a href="/government/organisations#departments"><%= ministerial_department_count %></a></span>
+            <p><span class="feature-value"><%= link_to @ministerial_department_count, organisations_path(anchor: 'departments') %></span>
               <span class="feature-caption">Ministerial departments</span>
               <span class="feature-value"><a href="/government/organisations#non-ministerial-departments"><%= @non_ministerial_department_count %></a></span>
               <span class="feature-caption">Non-ministerial departments</span>
