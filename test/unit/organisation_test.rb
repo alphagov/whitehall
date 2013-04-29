@@ -552,4 +552,56 @@ class OrganisationTest < ActiveSupport::TestCase
 
     assert_same_elements [no10, dpms_office], Organisation.executive_offices
   end
+
+  test 'knows if a given contact is on its home page' do
+    organisation = build(:organisation)
+    c = build(:contact)
+    h = build(:home_page_list)
+    HomePageList.stubs(:get).returns(h)
+    h.expects(:shown_on_home_page?).with(c).returns :the_answer
+
+    assert_equal :the_answer, organisation.contact_shown_on_home_page?(c)
+  end
+
+  test 'has a list of contacts that are on its home page' do
+    organisation = build(:organisation)
+    h = build(:home_page_list)
+    HomePageList.stubs(:get).returns(h)
+    h.expects(:items).returns :the_list_of_contacts
+
+    assert_equal :the_list_of_contacts, organisation.home_page_contacts
+  end
+
+  test 'can add a contact to the list of those that are on its home page' do
+    organisation = build(:organisation)
+    c = build(:contact)
+    h = build(:home_page_list)
+    HomePageList.stubs(:get).returns(h)
+    h.expects(:add_item).with(c).returns :a_result
+
+    assert_equal :a_result, organisation.add_contact_to_home_page!(c)
+  end
+
+  test 'can remove a contact from the list of those that are on its home page' do
+    organisation = build(:organisation)
+    c = build(:contact)
+    h = build(:home_page_list)
+    HomePageList.stubs(:get).returns(h)
+    h.expects(:remove_item).with(c).returns :a_result
+
+    assert_equal :a_result, organisation.remove_contact_from_home_page!(c)
+  end
+
+  test 'maintains a home page list for storing contacts' do
+    organisation = build(:organisation)
+    HomePageList.expects(:get).with(has_entries(owned_by: organisation, called: 'contacts')).returns :a_home_page_list_of_contacts
+    assert_equal :a_home_page_list_of_contacts, organisation.__send__(:home_page_contacts_list)
+  end
+
+  test 'when destroyed, will remove its home page list for storing contacts' do
+    organisation = create(:organisation)
+    h = organisation.__send__(:home_page_contacts_list)
+    organisation.destroy
+    refute HomePageList.exists?(h)
+  end
 end
