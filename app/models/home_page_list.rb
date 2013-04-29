@@ -26,6 +26,18 @@ class HomePageList < ActiveRecord::Base
     end
   end
 
+  def shown_on_home_page?(item)
+    items.include?(item)
+  end
+
+  def add_item(item)
+    home_page_list_items.create(item: item) unless shown_on_home_page?(item)
+  end
+
+  def remove_item(item)
+    home_page_list_items.where(item_id: item.id, item_type: item.class).destroy_all
+  end
+
   protected
   def next_ordering
     (home_page_list_items.map(&:ordering).max || 0) + 1

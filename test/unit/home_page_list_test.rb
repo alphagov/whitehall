@@ -59,6 +59,48 @@ class HomePageListTest < ActiveSupport::TestCase
     assert_equal [contact_2, contact_3, contact_1], list.items
   end
 
+  test '#shown_on_home_page? tells us if a given thing is in the list or not' do
+    list = create(:home_page_list)
+    contact_1 = create(:contact)
+    contact_2 = create(:contact)
+    list.home_page_list_items << build(:home_page_list_item, item: contact_1)
+
+    assert list.shown_on_home_page?(contact_1)
+    refute list.shown_on_home_page?(contact_2)
+  end
+
+  test '#add_item will put the supplied item onto the list' do
+    list = create(:home_page_list)
+    contact = create(:contact)
+    list.add_item(contact)
+
+    assert list.home_page_list_items.where(item_id: contact.id, item_type: contact.class).any?
+  end
+
+  test '#add_item will not duplicate an item that is already on the list' do
+    list = create(:home_page_list)
+    contact = create(:contact)
+    list.home_page_list_items << build(:home_page_list_item, item: contact)
+    list.add_item(contact)
+
+    assert_equal 1, list.home_page_list_items.where(item_id: contact.id, item_type: contact.class).length
+  end
+
+  test '#remove_item will take an idem off the list' do
+    list = create(:home_page_list)
+    contact = create(:contact)
+    list.home_page_list_items << build(:home_page_list_item, item: contact)
+    list.remove_item(contact)
+
+    refute list.home_page_list_items.where(item_id: contact.id, item_type: contact.class).any?
+  end
+
+  test '#remove_item won\'t complain if the supplied item isn\'t already on the list' do
+    list = create(:home_page_list)
+    contact = create(:contact)
+    assert_nothing_raised { list.remove_item(contact) }
+  end
+
   test '.get will return the list for the supplied owned_by: and called: params' do
     o = create(:organisation)
     list_1 = create(:home_page_list, owner: o, name: 'donkeys')
