@@ -36,7 +36,7 @@ private
 
   def whips_by_organisation
     Role.includes(:translations, :current_people).whip.group_by(&:whip_organisation_id).map do |whip_organisation_id, roles|
-      presenter = RolesPresenter.new(roles.sort_by(&:seniority))
+      presenter = RolesPresenter.new(roles.sort_by(&:whip_ordering))
       presenter.remove_unfilled_roles!
       [
         Whitehall::WhipOrganisation.find_by_id(whip_organisation_id),
