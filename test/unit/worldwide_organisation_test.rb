@@ -216,4 +216,66 @@ class WorldwideOrganisationTest < ActiveSupport::TestCase
                   'description' => ''}, worldwide_organisation.search_index)
   end
 
+  test 'knows if a given office is on its home page' do
+    world_organisation = build(:worldwide_organisation)
+    office = build(:worldwide_office)
+    h = build(:home_page_list)
+    HomePageList.stubs(:get).returns(h)
+    h.expects(:shown_on_home_page?).with(office).returns :the_answer
+
+    assert_equal :the_answer, world_organisation.office_shown_on_home_page?(office)
+  end
+
+  test 'has a list of offices that are on its home page' do
+    world_organisation = build(:worldwide_organisation)
+    h = build(:home_page_list)
+    HomePageList.stubs(:get).returns(h)
+    h.expects(:items).returns :the_list_of_offices
+
+    assert_equal :the_list_of_offices, world_organisation.home_page_offices
+  end
+
+  test 'can add a office to the list of those that are on its home page' do
+    world_organisation = build(:worldwide_organisation)
+    office = build(:worldwide_office)
+    h = build(:home_page_list)
+    HomePageList.stubs(:get).returns(h)
+    h.expects(:add_item).with(office).returns :a_result
+
+    assert_equal :a_result, world_organisation.add_office_to_home_page!(office)
+  end
+
+  test 'can remove a office from the list of those that are on its home page' do
+    world_organisation = build(:worldwide_organisation)
+    office = build(:worldwide_office)
+    h = build(:home_page_list)
+    HomePageList.stubs(:get).returns(h)
+    h.expects(:remove_item).with(office).returns :a_result
+
+    assert_equal :a_result, world_organisation.remove_office_from_home_page!(office)
+  end
+
+  test 'can reorder the contacts on the list' do
+    world_organisation = build(:worldwide_organisation)
+    office1 = build(:worldwide_office)
+    office2 = build(:worldwide_office)
+    h = build(:home_page_list)
+    HomePageList.stubs(:get).returns(h)
+    h.expects(:reorder_items!).with([office1, office2]).returns :a_result
+
+    assert_equal :a_result, world_organisation.reorder_offices_on_home_page!([office1, office2])
+  end
+
+  test 'maintains a home page list for storing offices' do
+    world_organisation = build(:worldwide_organisation)
+    HomePageList.expects(:get).with(has_entries(owned_by: world_organisation, called: 'offices')).returns :a_home_page_list_of_offices
+    assert_equal :a_home_page_list_of_offices, world_organisation.__send__(:home_page_offices_list)
+  end
+
+  test 'when destroyed, will remove its home page list for storing offices' do
+    world_organisation = create(:worldwide_organisation)
+    h = world_organisation.__send__(:home_page_offices_list)
+    world_organisation.destroy
+    refute HomePageList.exists?(h)
+  end
 end

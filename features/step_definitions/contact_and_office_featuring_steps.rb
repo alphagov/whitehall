@@ -14,7 +14,10 @@ Given /^there is a worldwide organisation with some offices on its home page$/ d
   office_1 = create(:worldwide_office, worldwide_organisation: @the_organisation, title: 'Main office')
   office_2 = create(:worldwide_office, worldwide_organisation: @the_organisation, title: 'Summer office by the lake')
   office_3 = create(:worldwide_office, worldwide_organisation: @the_organisation, title: 'Emergency bunker office')
-  @the_ordered_contacts = [office_1, office_2, office_3]
+  @the_organisation.add_office_to_home_page!(office_1)
+  @the_organisation.add_office_to_home_page!(office_2)
+  @the_organisation.add_office_to_home_page!(office_3)
+  @the_ordered_offices = [office_1, office_2, office_3]
 end
 
 When /^I add a new contact to be featured on the home page of the organisation$/ do
@@ -85,6 +88,7 @@ end
 When /^I add a new office to be featured on the home page of the worldwide organisation$/ do
   visit admin_worldwide_organisation_path(@the_organisation)
   click_on 'Offices'
+  click_on 'All'
   click_on "Add"
   fill_in "Title", with: 'Our shiny new office'
   select WorldwideOfficeType.all.sample.name, from: 'Office type'
@@ -97,18 +101,31 @@ When /^I add a new office to be featured on the home page of the worldwide organ
   select "United Kingdom", from: "Country"
   choose "yes"
   click_on "Save"
-  @the_new_contact = WorldwideOffice.last
+  @the_new_office = WorldwideOffice.last
 end
 
 When /^I reorder the offices to highlight my new office$/ do
-  pending # express the regexp above with the code you wish you had
+  visit admin_worldwide_organisation_path(@the_organisation)
+  click_on 'Offices'
+  click_on 'Order on home page'
+
+  within '#on-home-page' do
+    @the_ordered_offices = [@the_ordered_offices[-1], *(@the_ordered_offices[1..-2].shuffle), @the_ordered_offices[0]]
+    @the_ordered_offices.each_with_index do |office, index|
+      fill_in office.title, with: index + 2
+    end
+    fill_in @the_new_office.title, with: 1
+  end
+  click_on 'Update office list order'
+
+  @the_ordered_offices = [@the_new_office, *@the_ordered_offices]
 end
 
 Then /^I see the offices in my specified order including the new one on the home page of the worldwide organisation$/ do
   visit worldwide_organisation_path(@the_organisation)
 
   within '.contact-us' do
-    @the_ordered_contacts.each.with_index do |contact, idx|
+    @the_ordered_offices.each.with_index do |contact, idx|
       assert page.has_css?("div.contact:nth-child(#{idx+1}) h2", text: contact.title)
     end
   end

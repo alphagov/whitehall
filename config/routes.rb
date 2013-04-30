@@ -164,6 +164,11 @@ Whitehall::Application.routes.draw do
           resource :access_and_opening_time, path: 'access_info', except: [:index, :show, :new]
           resources :translations, controller: 'worldwide_organisations_translations'
           resources :worldwide_offices, path: 'offices', except: [:show] do
+            member do
+              post :remove_from_home_page
+              post :add_to_home_page
+            end
+            post :reorder_for_home_page, on: :collection
             resource :access_and_opening_time, path: 'access_info', except: [:index, :show, :new]
           end
           resources :corporate_information_pages do

@@ -13,26 +13,58 @@
     <section>
       <%= tab_navigation_for(@worldwide_organisation, 'tabs-left') do %>
         <h2>Offices</h2>
-        <% if @worldwide_organisation.offices.any? %>
-          <table class="table table-striped">
-            <thead>
-              <tr>
-                <th>Title</th>
-                <th>Markdown to use</th>
-                <th>Access and opening times</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              <%= render @worldwide_organisation.offices, worldwide_organisation: @worldwide_organisation %>
-            </tbody>
-          </table>
-        <% else %>
-          <p>No offices</p>
-        <% end %>
+        <div class="tabbable">
+          <ul class="nav nav-tabs">
+            <li class="active"><a href="#manage-all" data-toggle="tab">All</a></li>
+            <li><a href="#on-home-page" data-toggle="tab">Order on home page</a></li>
+          </ul>
+          <div class="tab-content">
+            <div class="tab-pane active" id="manage-all">
+              <% if @worldwide_organisation.offices.any? %>
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th>Title</th>
+                      <th>Markdown to use</th>
+                      <th>On home page?</th>
+                      <th>Access and opening times</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <%= render @worldwide_organisation.offices, worldwide_organisation: @worldwide_organisation %>
+                  </tbody>
+                </table>
+              <% else %>
+                <p>No offices</p>
+              <% end %>
 
-        <div class="form-actions">
-          <%= link_to "Add", new_admin_worldwide_organisation_worldwide_office_path(@worldwide_organisation), class: "btn btn-large btn-primary"%>
+              <div class="form-actions">
+                <%= link_to "Add", new_admin_worldwide_organisation_worldwide_office_path(@worldwide_organisation), class: "btn btn-large btn-primary"%>
+              </div>
+            </div>
+
+            <div class="tab-pane" id="on-home-page">
+              <p>Drag up and down to re-order then click "Update office list order" at the bottom of the form</p>
+              <p class="warning">Warning: changes to offices appear instantly on the live site.</p>
+              <%= form_tag [:reorder_for_home_page, :admin, @worldwide_organisation, WorldwideOffice], method: :post do %>
+                <fieldset class="sortable">
+                  <% @worldwide_organisation.home_page_offices.each.with_index do |office, idx| %>
+                    <div class="well">
+                      <%= label_tag "ordering-#{office.id}" do %>
+                        <%= office.title %>
+                      <% end %>
+
+                      <%= text_field_tag "ordering[#{office.id}]", idx, id: "ordering-#{office.id}", class: "ordering" %>
+                    </div>
+                  <% end %>
+                </fieldset>
+                <div class="form-actions">
+                  <%= submit_tag "Update office list order", class: "btn btn-primary" %>
+                </div>
+              <% end %>
+            </div>
+          </div>
         </div>
       <% end %>
     </section>

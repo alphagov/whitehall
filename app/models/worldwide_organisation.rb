@@ -30,6 +30,14 @@ class WorldwideOrganisation < ActiveRecord::Base
   extend FriendlyId
   friendly_id
 
+  # I'm trying to use a domain centric design rather than a persistence
+  # centric design, so I do not want to expose a has_many :home_page_lists
+  # and all that this implies. I really only want to expose a list of
+  # contacts (in order) that should be shown on the home page, and some
+  # simple (explicit) methods for manipulating them.
+  extend HomePageList::Container
+  has_home_page_list_of :offices
+
   delegate :analytics_identifier, :alternative_format_contact_email, to: :sponsoring_organisation, allow_nil: true
   def sponsoring_organisation
     sponsoring_organisations.first

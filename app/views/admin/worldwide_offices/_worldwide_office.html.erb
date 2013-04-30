@@ -12,6 +12,14 @@
   </td>
 
   <td>
+    <% if worldwide_organisation.office_shown_on_home_page?(worldwide_office) %>
+      Yes
+    <% else %>
+      No
+    <% end %>
+  </td>
+
+  <td>
     <% if worldwide_office.access_and_opening_times.present? %>
       Custom info
       <%= link_to 'Edit access info', [:edit, :admin, worldwide_organisation, worldwide_office, :access_and_opening_time], class: 'btn' %>

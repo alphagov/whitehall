@@ -18,6 +18,13 @@
         </div>
       </div>
       <%= render partial: 'admin/contacts/embed_details_for_form', locals: { contact: office_form.object.contact } %>
+      <div class="control-group">
+        <p class="radio-label control-label">Feature on home page?</p>
+        <div class="controls">
+          <%= office_form.labelled_radio_button('yes', :show_on_home_page, '1', checked: worldwide_organisation.office_shown_on_home_page?(office_form.object)) %>
+          <%= office_form.labelled_radio_button('no', :show_on_home_page, '0', checked: !worldwide_organisation.office_shown_on_home_page?(office_form.object)) %>
+        </div>
+      </div>
 
       <fieldset class="services">
         <legend>Services</legend>
