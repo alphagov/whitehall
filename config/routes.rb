@@ -36,10 +36,10 @@ Whitehall::Application.routes.draw do
       resources :take_part_pages, path: 'take-part', only: [:show, :index]
     end
 
-    match "history/past-chancellors" => 'historic_appointments#past_chancellors'
-    match "/history/:role" => "historic_appointments#index", constraints: { role: /(past-prime-ministers)|(past-chancellors)/ }, as: 'historic_appointments'
-    match "/history/:role/:person_id" => "historic_appointments#show", constraints: { role: /(past-prime-ministers)|(past-chancellors)/ }, as: 'historic_appointment'
     resources :past_foreign_secretaries, path: "/history/past-foreign-secretaries", only: [:index, :show]
+    match "history/past-chancellors" => 'historic_appointments#past_chancellors'
+    match "/history/:role" => "historic_appointments#index", constraints: { role: /(past-prime-ministers)|(past-chancellors)|(past-foreign-secretaries)/ }, as: 'historic_appointments'
+    match "/history/:role/:person_id" => "historic_appointments#show", constraints: { role: /(past-prime-ministers)|(past-chancellors)|(past-foreign-secretaries)/ }, as: 'historic_appointment'
     resources :histories, path: "history", only: [:index, :show]
 
     resource :email_signups, path: 'email-signup', only: [:show, :create]
