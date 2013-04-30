@@ -109,7 +109,7 @@ class PublicationTest < ActiveSupport::TestCase
     assert_nil publication.first_public_at
   end
 
-  [:draft, :scheduled, :published, :archived, :submitted, :rejected].each do |state|
+  [:draft, :scheduled, :published, :submitted, :rejected].each do |state|
     test "#{state} editions are not valid when the publication type is 'imported-awaiting-type'" do
       edition = build(:publication, state: state, publication_type: PublicationType.find_by_slug('imported-awaiting-type'))
       refute edition.valid?

@@ -41,7 +41,7 @@ class ConsultationTest < ActiveSupport::TestCase
     end
   end
 
-  [:draft, :scheduled, :published, :archived, :submitted, :rejected].each do |state|
+  [:draft, :scheduled, :published, :submitted, :rejected].each do |state|
     test "#{state} editions are not valid without an opening on date" do
       edition = build(:consultation, state: state, opening_on: nil)
       refute edition.valid?

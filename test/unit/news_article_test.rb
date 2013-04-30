@@ -54,6 +54,11 @@ class NewsArticleTest < ActiveSupport::TestCase
     refute news_article.valid?
   end
 
+  test 'archived news articles are valid with the "unknown" news_article_type' do
+    news_article = build(:archived_news_article, news_article_type: NewsArticleType::Unknown)
+    assert news_article.valid?
+  end
+
   test 'imported news article are valid when the news_article_type is \'imported-awaiting-type\'' do
     news_article = build(:news_article, state: 'imported', news_article_type: NewsArticleType.find_by_slug('imported-awaiting-type'))
     assert news_article.valid?
@@ -84,7 +89,7 @@ class NewsArticleTest < ActiveSupport::TestCase
     assert_equal ["can't be blank"], news_article.errors[:first_published_at]
   end
 
-  [:draft, :scheduled, :published, :archived, :submitted, :rejected].each do |state|
+  [:draft, :scheduled, :published, :submitted, :rejected].each do |state|
     test "#{state} news article is not valid when the news article type is 'imported-awaiting-type'" do
       news_article = build(:news_article, state: state, news_article_type: NewsArticleType.find_by_slug('imported-awaiting-type'))
       refute news_article.valid?
