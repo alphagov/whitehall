@@ -80,61 +80,60 @@
   <div class="inner-block">
     <section id="document_series" class="group">
 
-    <% unless @document_series.description.blank? %>
-      <div class="description">
-        <h2 id="this-series">In this series</h2>
-        <%= govspeak_to_html @document_series.description %>
-      </div>
-    <% end %>
+      <% unless @document_series.description.blank? %>
+        <div class="description" id="this-series">
+          <%= govspeak_to_html @document_series.description %>
+        </div>
+      <% end %>
 
-    <% if @published_publications.any? %>
-      <div class="editions">
-        <h2 id="publications">Publications</h2>
-        <%= render partial: "editions_table", locals: {editions: @published_publications} %>
-      </div>
-    <% end %>
+      <% if @published_publications.any? %>
+        <div class="editions">
+          <h2 id="publications">Publications</h2>
+          <%= render partial: "editions_table", locals: {editions: @published_publications} %>
+        </div>
+      <% end %>
 
-    <% if @published_consultations.any? %>
-      <div class="editions">
-        <h2 id="consultations">Consultations</h2>
-        <%= render partial: "editions_table", locals: {editions: @published_consultations, show_type: true} %>
-      </div>
-    <% end %>
+      <% if @published_consultations.any? %>
+        <div class="editions">
+          <h2 id="consultations">Consultations</h2>
+          <%= render partial: "editions_table", locals: {editions: @published_consultations, show_type: true} %>
+        </div>
+      <% end %>
 
-    <% if @published_speeches.any? %>
-      <div class="editions">
-        <h2 id="speeches">Speeches</h2>
-        <%= render partial: "editions_table", locals: {editions: @published_speeches, show_type: true} %>
-      </div>
-    <% end %>
+      <% if @published_speeches.any? %>
+        <div class="editions">
+          <h2 id="speeches">Speeches</h2>
+          <%= render partial: "editions_table", locals: {editions: @published_speeches, show_type: true} %>
+        </div>
+      <% end %>
 
-    <% if @published_case_studies.any? %>
-      <div class="editions">
-        <h2 id="case-studies">Case studies</h2>
-        <%= render partial: "editions_table", locals: {editions: @published_case_studies} %>
-      </div>
-    <% end %>
+      <% if @published_case_studies.any? %>
+        <div class="editions">
+          <h2 id="case-studies">Case studies</h2>
+          <%= render partial: "editions_table", locals: {editions: @published_case_studies} %>
+        </div>
+      <% end %>
 
-    <% if @published_detailed_guides.any? %>
-      <div class="editions">
-        <h2 id="detailed-guides">Detailed guides</h2>
-        <%= render partial: "editions_table", locals: {editions: @published_detailed_guides} %>
-      </div>
-    <% end %>
+      <% if @published_detailed_guides.any? %>
+        <div class="editions">
+          <h2 id="detailed-guides">Detailed guides</h2>
+          <%= render partial: "editions_table", locals: {editions: @published_detailed_guides} %>
+        </div>
+      <% end %>
 
-    <% if @published_statistical_data_sets.any? %>
-      <div class="editions">
-        <h2 id="statistical-data-sets">Statistical data sets</h2>
-        <%= render partial: "editions_table", locals: {editions: @published_statistical_data_sets} %>
-      </div>
-    <% end %>
+      <% if @published_statistical_data_sets.any? %>
+        <div class="editions">
+          <h2 id="statistical-data-sets">Statistical data sets</h2>
+          <%= render partial: "editions_table", locals: {editions: @published_statistical_data_sets} %>
+        </div>
+      <% end %>
 
-    <% if @published_news_articles.any? %>
-      <div class="editions">
-        <h2 id="news-articles">News articles</h2>
-        <%= render partial: "editions_table", locals: {editions: @published_news_articles, show_type: true} %>
-      </div>
-    <% end %>
+      <% if @published_news_articles.any? %>
+        <div class="editions">
+          <h2 id="news-articles">News articles</h2>
+          <%= render partial: "editions_table", locals: {editions: @published_news_articles, show_type: true} %>
+        </div>
+      <% end %>
     </section>
   </div>
 </div>
