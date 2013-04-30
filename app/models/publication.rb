@@ -10,6 +10,7 @@ class Publication < Publicationesque
   include Edition::CanApplyToLocalGovernmentThroughRelatedPolicies
 
   validates :publication_date, presence: true, unless: ->(edition) { edition.can_have_some_invalid_data? }
+  validates_datetime :publication_date, after: :year_1900, unless: ->(edition) { edition.can_have_some_invalid_data? }
   validates :publication_type_id, presence: true
   validate :only_publications_allowed_invalid_data_can_be_awaiting_type
 

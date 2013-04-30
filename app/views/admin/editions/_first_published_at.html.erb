@@ -7,5 +7,5 @@
 %>
 <fieldset>
   <%= form.label :first_published_at, "First published at (#{label_text})" %>
-  <%= form.datetime_select :first_published_at, { include_blank: true, start_year: 2000 }, { class: 'date' } %>
+  <%= form.datetime_select :first_published_at, { include_blank: true, start_year: 1997, end_year: Date.today.year + 5 }, { class: 'date' } %>
 </fieldset>

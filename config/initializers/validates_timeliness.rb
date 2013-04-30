@@ -21,7 +21,7 @@ ValidatesTimeliness.setup do |config|
   config.restriction_shorthand_symbols.update(
     now: -> { Time.current },
     today: -> { Date.current },
-    year_2000: -> { Date.parse('2000-01-01') }
+    year_1900: -> { Date.parse('1900-01-01') }
   )
 
   # Use the plugin date/time parser which is stricter and extendable
