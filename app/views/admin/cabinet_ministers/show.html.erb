@@ -6,7 +6,7 @@
     <div class="span4">
       <fieldset id="minister_ordering" class="sortable">
         <legend>Cabinet ministers ordering</legend>
-        <%= ministers_role_ordering_fields(form, @cabinet_minister_roles) %>
+        <%= ministers_role_ordering_fields(form, @cabinet_minister_roles, 'roles', &:seniority) %>
       </fieldset>
     </div>
   <% end %>
@@ -15,10 +15,20 @@
     <div class="span4">
       <fieldset id="special_representative_ordering" class="sortable">
         <legend>Also attends cabinet ordering</legend>
-        <%= ministers_role_ordering_fields(form, @also_attends_cabinet_roles) %>
+        <%= ministers_role_ordering_fields(form, @also_attends_cabinet_roles, 'roles', &:seniority) %>
       </fieldset>
     </div>
   <% end %>
+
+  <% if @whip_roles.any? %>
+    <div class="span4">
+      <fieldset id="special_representative_ordering" class="sortable">
+        <legend>Whips ordering</legend>
+        <%= ministers_role_ordering_fields(form, @whip_roles, 'whips', &:whip_ordering) %>
+      </fieldset>
+    </div>
+  <% end %>
+
   </div>
   <%= form.save_or_cancel cancel: admin_cabinet_ministers_path %>
 <% end %>
