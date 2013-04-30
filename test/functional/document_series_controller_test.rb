@@ -80,7 +80,7 @@ class DocumentSeriesControllerTest < ActionController::TestCase
     end
 
     assert_select "h1 .title", "series-name"
-    assert_select ".description", "In this series\n        description-in-html"
+    assert_select ".description", "description-in-html"
   end
 
   test "show sets Cache-Control: max-age to the time of the next scheduled publication in the series" do
