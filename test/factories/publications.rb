@@ -38,6 +38,7 @@ FactoryGirl.define do
         }
       end
     end
+
     ignore do
       relevant_to_local_government { false }
     end

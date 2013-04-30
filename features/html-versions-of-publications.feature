@@ -1,4 +1,4 @@
-Feature: HTML version of publication
+Feature: HTML version of publications and consultations
   As a writer
   I want the option of adding markdown to a publication edition on
   Inside Gov which, when a citizen views it, displays as a separate "HTML"
@@ -24,12 +24,17 @@ Feature: HTML version of publication
   Background:
     Given I am an editor
 
-  Scenario: Adding an HTML version to a publication
-    When I publish a publication with an HTML version
-    Then the HTML version should be visible on the public page
+  Scenario Outline: Adding an HTML version
+    When I publish a <type> with an HTML version
+    Then the HTML version of the <type> should be visible on the public page
     And citizens should be able to view the HTML version
     And the HTML version should be styled with the organisation logo
-    And the HTML version should link back to the publication record page
+    And the HTML version should link back to the <type> record page
+
+    Examples:
+      | type         |
+      | publication  |
+      | consultation |
 
   Scenario: Adding an image to the HTML version of a publication
     When I begin drafting a new publication with an HTML version
