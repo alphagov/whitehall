@@ -172,4 +172,23 @@ class HomePageListTest < ActiveSupport::TestCase
 
     assert_equal [contact_3, contact_1], list.reload.items
   end
+
+  test '.remove_from_all_lists destroys all list items for the supplied content' do
+    list_1 = create(:home_page_list, name: 'contacts')
+    list_2 = create(:home_page_list, name: 'press_offices')
+    contact_1 = create(:contact)
+    contact_2 = create(:contact)
+    list_1.add_item(contact_1)
+    list_1.add_item(contact_2)
+    list_2.add_item(contact_1)
+
+    HomePageList.remove_from_all_lists(contact_1)
+
+    # removes from all lists it's on
+    refute list_1.shown_on_home_page?(contact_1)
+    refute list_2.shown_on_home_page?(contact_1)
+
+    # doesn't remove other items
+    assert list_1.shown_on_home_page?(contact_2)
+  end
 end

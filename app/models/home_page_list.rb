@@ -51,6 +51,10 @@ class HomePageList < ActiveRecord::Base
     end
   end
 
+  def self.remove_from_all_lists(item)
+    HomePageListItem.where(item_id: item.id, item_type: item.class).destroy_all
+  end
+
   protected
   def next_ordering
     (home_page_list_items.map(&:ordering).max || 0) + 1
@@ -108,6 +112,17 @@ class HomePageList < ActiveRecord::Base
         end
       end
       self.after_destroy :"__remove_home_page_#{plural_name}_list"
+      self.__send__(:include, home_page_list_methods)
+    end
+  end
+  module ContentItem
+    def is_stored_on_home_page_lists
+      home_page_list_methods = Module.new do
+        def __remove_home_page_list_items
+          HomePageList.remove_from_all_lists(self)
+        end
+      end
+      self.after_destroy :__remove_home_page_list_items
       self.__send__(:include, home_page_list_methods)
     end
   end
