@@ -37,7 +37,8 @@ class Api::PagePresenter < Draper::Base
   end
 
   def start_index
-    model.current_page * model.limit_value
+    # current_page and start_index start at 1, not 0
+    (model.current_page - 1) * model.limit_value + 1
   end
   private
 
