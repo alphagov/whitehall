@@ -943,9 +943,11 @@
   }
 
   .contact-wrapper {
+    padding: 0 $gutter-half;
     @include media(tablet){
       width: 66.33%;
       float: left;
+      padding: 0;
     }
     h1 {
       border-top: $gutter-one-sixth solid;
@@ -1012,6 +1014,7 @@
       float: left;
     }
     .dash-list {
+      @include core-19;
       margin: 0 $gutter-half;
       padding-top: $gutter;
       border-top: 5px solid;
