@@ -5,6 +5,7 @@ Given /^I create a series called "([^"]*)" in the "([^"]*)" organisation$/ do |n
   click_link "Document series"
   click_link "New series"
   fill_in "Name", with: name
+  fill_in "Summary", with: "This is a summary of #{name}"
   click_button "Save"
 end
 
@@ -28,6 +29,10 @@ When /^I view the "([^"]*)" series$/ do |series_name|
   # It would be better to navigate to this, but at the moment we're not sure
   # where the seriess will sit
   visit organisation_document_series_path(series.organisation, series)
+end
+
+Then /^I should see a summary of the series clearly displayed$/ do
+  assert page.has_css?(".summary p", DocumentSeries.last.summary)
 end
 
 Then /^I should see links to all the documents in the "([^"]*)" series$/ do |series_name|

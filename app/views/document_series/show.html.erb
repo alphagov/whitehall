@@ -13,52 +13,65 @@
       </h1>
         <aside class="meta">
           <dl>
-            <dd class="organisations">
-              <%= render  partial: 'organisations/organisations_logo_list',
-                        locals: { organisations: [@organisation] } %>
+            <dt><%= t('document.headings.organisations', count: 1) %>:</dt>
+            <dd>
+              <%= render  partial: 'organisations/organisations_name_list',
+                          locals: { lead_organisations: [@organisation] } %>
             </dd>
+            <% unless @document_series.published_editions.empty? %>
+              <% most_recent_change = @document_series.published_editions.first.public_timestamp %>
+              <dt class="change-notes-title"><%= t('change_notes.updated') %>:</dt>
+              <dd class="change-notes">
+                <%= absolute_date(most_recent_change, class: 'published-at') %>
+              </dd>
+            <% end %>
           </dl>
         </aside>
       </header>
     </section>
+    <% unless @document_series.summary.blank? %>
+      <div class="summary">
+        <p><%= @document_series.summary %></p>
+      </div>
+    <% end %>
   </div>
 </div>
 
 <div class="block-2 ">
   <div class="inner-block">
     <div class="contextual-info js-stick-at-top-when-scrolling">
-      <nav>
-        <h1>Contents</h1>
-        <ol>
-          <% unless @document_series.description.blank? %>
-            <li><a href="#this-series">In this series</a></li>
-          <% end %>
-          <% govspeak_headers(@document_series.description).each do |header| %>
-            <li><%= link_to header.text, "##{header.id}" %></li>
-          <% end %>
-          <% if @published_publications.any? %>
-            <li><a href="#publications">Publications</a></li>
-          <% end %>
-          <% if @published_consultations.any? %>
-            <li><a href="#consultations">Consultations</a></li>
-          <% end %>
-          <% if @published_speeches.any? %>
-            <li><a href="#speeches">Speeches</a></li>
-          <% end %>
-          <% if @published_case_studies.any? %>
-            <li><a href="#case-studies">Case studies</a></li>
-          <% end %>
-          <% if @published_detailed_guides.any? %>
-            <li><a href="#detailed-guides">Detailed guides</a></li>
-          <% end %>
-          <% if @published_statistical_data_sets.any? %>
-            <li><a href="#statistical-data-sets">Statistical data sets</a></li>
-          <% end %>
-          <% if @published_news_articles.any? %>
-            <li><a href="#news-articles">News articles</a></li>
-          <% end %>
-        </ol>
-      </nav>
+      <% content_headers = govspeak_headers(@document_series.description) %>
+      <% unless content_headers.empty? && @document_series.editions.empty? %>
+        <nav>
+          <h1>Contents</h1>
+          <ol>
+            <% content_headers.each do |header| %>
+              <li><%= link_to header.text, "##{header.id}" %></li>
+            <% end %>
+            <% if @published_publications.any? %>
+              <li><a href="#publications">Publications</a></li>
+            <% end %>
+            <% if @published_consultations.any? %>
+              <li><a href="#consultations">Consultations</a></li>
+            <% end %>
+            <% if @published_speeches.any? %>
+              <li><a href="#speeches">Speeches</a></li>
+            <% end %>
+            <% if @published_case_studies.any? %>
+              <li><a href="#case-studies">Case studies</a></li>
+            <% end %>
+            <% if @published_detailed_guides.any? %>
+              <li><a href="#detailed-guides">Detailed guides</a></li>
+            <% end %>
+            <% if @published_statistical_data_sets.any? %>
+              <li><a href="#statistical-data-sets">Statistical data sets</a></li>
+            <% end %>
+            <% if @published_news_articles.any? %>
+              <li><a href="#news-articles">News articles</a></li>
+            <% end %>
+          </ol>
+        </nav>
+      <% end %>
     </div>
   </div>
 </div>
@@ -67,61 +80,60 @@
   <div class="inner-block">
     <section id="document_series" class="group">
 
-    <% unless @document_series.description.blank? %>
-      <div class="description">
-        <h2 id="this-series">In this series</h2>
-        <%= govspeak_to_html @document_series.description %>
-      </div>
-    <% end %>
+      <% unless @document_series.description.blank? %>
+        <div class="description" id="this-series">
+          <%= govspeak_to_html @document_series.description %>
+        </div>
+      <% end %>
 
-    <% if @published_publications.any? %>
-      <div class="editions">
-        <h2 id="publications">Publications</h2>
-        <%= render partial: "editions_table", locals: {editions: @published_publications} %>
-      </div>
-    <% end %>
+      <% if @published_publications.any? %>
+        <div class="editions">
+          <h2 id="publications">Publications</h2>
+          <%= render partial: "editions_table", locals: {editions: @published_publications} %>
+        </div>
+      <% end %>
 
-    <% if @published_consultations.any? %>
-      <div class="editions">
-        <h2 id="consultations">Consultations</h2>
-        <%= render partial: "editions_table", locals: {editions: @published_consultations, show_type: true} %>
-      </div>
-    <% end %>
+      <% if @published_consultations.any? %>
+        <div class="editions">
+          <h2 id="consultations">Consultations</h2>
+          <%= render partial: "editions_table", locals: {editions: @published_consultations, show_type: true} %>
+        </div>
+      <% end %>
 
-    <% if @published_speeches.any? %>
-      <div class="editions">
-        <h2 id="speeches">Speeches</h2>
-        <%= render partial: "editions_table", locals: {editions: @published_speeches, show_type: true} %>
-      </div>
-    <% end %>
+      <% if @published_speeches.any? %>
+        <div class="editions">
+          <h2 id="speeches">Speeches</h2>
+          <%= render partial: "editions_table", locals: {editions: @published_speeches, show_type: true} %>
+        </div>
+      <% end %>
 
-    <% if @published_case_studies.any? %>
-      <div class="editions">
-        <h2 id="case-studies">Case studies</h2>
-        <%= render partial: "editions_table", locals: {editions: @published_case_studies} %>
-      </div>
-    <% end %>
+      <% if @published_case_studies.any? %>
+        <div class="editions">
+          <h2 id="case-studies">Case studies</h2>
+          <%= render partial: "editions_table", locals: {editions: @published_case_studies} %>
+        </div>
+      <% end %>
 
-    <% if @published_detailed_guides.any? %>
-      <div class="editions">
-        <h2 id="detailed-guides">Detailed guides</h2>
-        <%= render partial: "editions_table", locals: {editions: @published_detailed_guides} %>
-      </div>
-    <% end %>
+      <% if @published_detailed_guides.any? %>
+        <div class="editions">
+          <h2 id="detailed-guides">Detailed guides</h2>
+          <%= render partial: "editions_table", locals: {editions: @published_detailed_guides} %>
+        </div>
+      <% end %>
 
-    <% if @published_statistical_data_sets.any? %>
-      <div class="editions">
-        <h2 id="statistical-data-sets">Statistical data sets</h2>
-        <%= render partial: "editions_table", locals: {editions: @published_statistical_data_sets} %>
-      </div>
-    <% end %>
+      <% if @published_statistical_data_sets.any? %>
+        <div class="editions">
+          <h2 id="statistical-data-sets">Statistical data sets</h2>
+          <%= render partial: "editions_table", locals: {editions: @published_statistical_data_sets} %>
+        </div>
+      <% end %>
 
-    <% if @published_news_articles.any? %>
-      <div class="editions">
-        <h2 id="news-articles">News articles</h2>
-        <%= render partial: "editions_table", locals: {editions: @published_news_articles, show_type: true} %>
-      </div>
-    <% end %>
+      <% if @published_news_articles.any? %>
+        <div class="editions">
+          <h2 id="news-articles">News articles</h2>
+          <%= render partial: "editions_table", locals: {editions: @published_news_articles, show_type: true} %>
+        </div>
+      <% end %>
     </section>
   </div>
 </div>

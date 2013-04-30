@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130429123453) do
+ActiveRecord::Schema.define(:version => 20130430093825) do
 
   create_table "access_and_opening_times", :force => true do |t|
     t.text     "body"
@@ -250,6 +250,7 @@ ActiveRecord::Schema.define(:version => 20130429123453) do
     t.string   "slug"
     t.text     "description"
     t.string   "state",           :default => "current"
+    t.string   "summary"
   end
 
   add_index "document_series", ["organisation_id"], :name => "index_document_series_on_organisation_id"

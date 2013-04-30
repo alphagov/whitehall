@@ -13,12 +13,13 @@ Feature: Grouping documents into series
     When I visit the publication "May 2012 Update"
     Then I should see links back to the "Monthly Facial Topiary Update" series
 
-  Scenario: series list all their documents
+  Scenario: Series list all their documents
     Given I create a document called "May 2012 Update" in the "Monthly Facial Topiary Update" series
     And I create a document called "June 2012 Update" in the "Monthly Facial Topiary Update" series
     And someone publishes the document "May 2012 Update"
     And someone publishes the document "June 2012 Update"
     When I view the "Monthly Facial Topiary Update" series
+    Then I should see a summary of the series clearly displayed
     Then I should see links to all the documents in the "Monthly Facial Topiary Update" series
 
   Scenario: Editors should not be overwhelmed by series from other organisations
