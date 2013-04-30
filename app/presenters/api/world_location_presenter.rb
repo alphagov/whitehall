@@ -8,7 +8,7 @@ class Api::WorldLocationPresenter < Draper::Base
 
   def as_json(options = {})
     {
-      id: h.api_world_location_url(model, host: h.public_host),
+      id: h.api_world_location_url(model),
       title: model.name,
       format: model.display_type,
       updated_at: model.updated_at,
@@ -18,7 +18,7 @@ class Api::WorldLocationPresenter < Draper::Base
         iso2: model.iso2,
       },
       organisations: {
-        id: h.api_world_location_worldwide_organisations_url(model, host: h.public_host),
+        id: h.api_world_location_worldwide_organisations_url(model),
         web_url: h.world_location_url(model, host: h.public_host, anchor: 'organisations'),
       }
     }
@@ -26,7 +26,7 @@ class Api::WorldLocationPresenter < Draper::Base
 
   def links
     [
-      [h.api_world_location_url(model, host: h.public_host), {'rel' => 'self'}]
+      [h.api_world_location_url(model), {'rel' => 'self'}]
     ]
   end
 end

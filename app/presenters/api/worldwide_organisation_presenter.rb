@@ -8,7 +8,7 @@ class Api::WorldwideOrganisationPresenter < Draper::Base
 
   def as_json(options = {})
     {
-      id: h.api_worldwide_organisation_url(model, host: h.public_host),
+      id: h.api_worldwide_organisation_url(model),
       title: model.name,
       format: 'Worldwide Organisation',
       updated_at: model.updated_at,
@@ -26,7 +26,7 @@ class Api::WorldwideOrganisationPresenter < Draper::Base
 
   def links
     [
-      [h.api_worldwide_organisation_url(model, host: h.public_host), {'rel' => 'self'}]
+      [h.api_worldwide_organisation_url(model), {'rel' => 'self'}]
     ]
   end
 
