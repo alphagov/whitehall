@@ -1,6 +1,6 @@
 .document-page-header {
   @extend %contain-floats;
-  padding-bottom: ($gutter-two-thirds + $gutter-one-sixth);
+  margin-bottom: ($gutter-two-thirds + $gutter-one-sixth);
 
   .available-languages {
     @include media(tablet){
@@ -8,7 +8,7 @@
     }
   }
   h1 {
-    margin-top: ($gutter-two-thirds);
+    margin: $gutter-two-thirds 0;
     @include media(tablet){
       margin-bottom: ($gutter + $gutter-one-third);
       width: 75%;
