@@ -23,6 +23,7 @@ class Admin::DocumentSeriesControllerTest < ActionController::TestCase
 
     post :create, organisation_id: organisation, document_series: {
           name: "series-name",
+          summary: "series-summary",
           description: "series-description"
         }
 

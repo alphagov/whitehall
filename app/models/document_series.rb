@@ -9,7 +9,7 @@ class DocumentSeries < ActiveRecord::Base
   has_many :edition_document_series
 
   validates_with SafeHtmlValidator
-  validates :name, presence: true
+  validates :name, :summary, presence: true
 
   before_destroy { |dc| dc.destroyable? }
 

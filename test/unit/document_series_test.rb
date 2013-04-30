@@ -8,6 +8,11 @@ class DocumentSeriesTest < ActiveSupport::TestCase
     refute series.valid?
   end
 
+  test 'is invalid without a summary' do
+    series = build(:document_series, summary: nil)
+    refute series.valid?
+  end
+
   test 'should be associatable to editions' do
     series = create(:document_series)
     publication = create(:publication, document_series: [series])

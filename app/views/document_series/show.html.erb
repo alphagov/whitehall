@@ -13,52 +13,65 @@
       </h1>
         <aside class="meta">
           <dl>
-            <dd class="organisations">
-              <%= render  partial: 'organisations/organisations_logo_list',
-                        locals: { organisations: [@organisation] } %>
+            <dt><%= t('document.headings.organisations', count: 1) %>:</dt>
+            <dd>
+              <%= render  partial: 'organisations/organisations_name_list',
+                          locals: { lead_organisations: [@organisation] } %>
             </dd>
+            <% unless @document_series.published_editions.empty? %>
+              <% most_recent_change = @document_series.published_editions.first.public_timestamp %>
+              <dt class="change-notes-title"><%= t('change_notes.updated') %>:</dt>
+              <dd class="change-notes">
+                <%= absolute_date(most_recent_change, class: 'published-at') %>
+              </dd>
+            <% end %>
           </dl>
         </aside>
       </header>
     </section>
+    <% unless @document_series.summary.blank? %>
+      <div class="summary">
+        <p><%= @document_series.summary %></p>
+      </div>
+    <% end %>
   </div>
 </div>
 
 <div class="block-2 ">
   <div class="inner-block">
     <div class="contextual-info js-stick-at-top-when-scrolling">
-      <nav>
-        <h1>Contents</h1>
-        <ol>
-          <% unless @document_series.description.blank? %>
-            <li><a href="#this-series">In this series</a></li>
-          <% end %>
-          <% govspeak_headers(@document_series.description).each do |header| %>
-            <li><%= link_to header.text, "##{header.id}" %></li>
-          <% end %>
-          <% if @published_publications.any? %>
-            <li><a href="#publications">Publications</a></li>
-          <% end %>
-          <% if @published_consultations.any? %>
-            <li><a href="#consultations">Consultations</a></li>
-          <% end %>
-          <% if @published_speeches.any? %>
-            <li><a href="#speeches">Speeches</a></li>
-          <% end %>
-          <% if @published_case_studies.any? %>
-            <li><a href="#case-studies">Case studies</a></li>
-          <% end %>
-          <% if @published_detailed_guides.any? %>
-            <li><a href="#detailed-guides">Detailed guides</a></li>
-          <% end %>
-          <% if @published_statistical_data_sets.any? %>
-            <li><a href="#statistical-data-sets">Statistical data sets</a></li>
-          <% end %>
-          <% if @published_news_articles.any? %>
-            <li><a href="#news-articles">News articles</a></li>
-          <% end %>
-        </ol>
-      </nav>
+      <% content_headers = govspeak_headers(@document_series.description) %>
+      <% unless content_headers.empty? && @document_series.editions.empty? %>
+        <nav>
+          <h1>Contents</h1>
+          <ol>
+            <% content_headers.each do |header| %>
+              <li><%= link_to header.text, "##{header.id}" %></li>
+            <% end %>
+            <% if @published_publications.any? %>
+              <li><a href="#publications">Publications</a></li>
+            <% end %>
+            <% if @published_consultations.any? %>
+              <li><a href="#consultations">Consultations</a></li>
+            <% end %>
+            <% if @published_speeches.any? %>
+              <li><a href="#speeches">Speeches</a></li>
+            <% end %>
+            <% if @published_case_studies.any? %>
+              <li><a href="#case-studies">Case studies</a></li>
+            <% end %>
+            <% if @published_detailed_guides.any? %>
+              <li><a href="#detailed-guides">Detailed guides</a></li>
+            <% end %>
+            <% if @published_statistical_data_sets.any? %>
+              <li><a href="#statistical-data-sets">Statistical data sets</a></li>
+            <% end %>
+            <% if @published_news_articles.any? %>
+              <li><a href="#news-articles">News articles</a></li>
+            <% end %>
+          </ol>
+        </nav>
+      <% end %>
     </div>
   </div>
 </div>
