@@ -1,6 +1,7 @@
 class Role < ActiveRecord::Base
   HISTORIC_ROLE_PARAM_MAPPINGS = { 'past-prime-ministers' => 'prime-minister',
-                                   'past-chancellors'     => 'chancellor-of-the-exchequer' }
+                                   'past-chancellors'     => 'chancellor-of-the-exchequer',
+                                   'past-foreign-secretaries' => 'foreign-secretary' }
 
   def self.columns
     # This is here to enable us to gracefully remove the biography column
