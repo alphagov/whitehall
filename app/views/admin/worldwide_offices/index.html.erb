@@ -21,20 +21,7 @@
           <div class="tab-content">
             <div class="tab-pane active" id="manage-all">
               <% if @worldwide_organisation.offices.any? %>
-                <table class="table table-striped">
-                  <thead>
-                    <tr>
-                      <th>Title</th>
-                      <th>Markdown to use</th>
-                      <th>On home page?</th>
-                      <th>Access and opening times</th>
-                      <th>Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <%= render @worldwide_organisation.offices, worldwide_organisation: @worldwide_organisation %>
-                  </tbody>
-                </table>
+                <%= render @worldwide_organisation.offices, worldwide_organisation: @worldwide_organisation %>
               <% else %>
                 <p>No offices</p>
               <% end %>

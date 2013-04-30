@@ -1,48 +1,49 @@
-<%= content_tag_for(:tr, worldwide_office) do %>
-  <td>
-    <% if worldwide_organisation.is_main_office?(worldwide_office) %>
-      <strong><%= link_to worldwide_office.title, [:edit, :admin, worldwide_organisation, worldwide_office] %> (Main office)</strong>
-    <% else %>
-      <%= link_to worldwide_office.title, [:edit, :admin, worldwide_organisation, worldwide_office] %>
+<%= content_tag_for(:div, worldwide_office, class: 'well') do %>
+  <% if worldwide_organisation.is_main_office?(worldwide_office) %>
+    <h4 class="main-flag">(Main office)</h4>
+  <% end %>
+  <h3><%= worldwide_office.title %></h3>
+
+  <div class="vcard">
+    <%= render_hcard_address(worldwide_office.contact) %>
+  </div>
+  <%= content_tag(:dl, class: "dl-horizontal") do %>
+    <% worldwide_office.contact.contact_numbers.each do |cn| %>
+      <%= definition(cn.label, cn.number) %>
     <% end %>
-  </td>
-
-  <td>
-    [Contact:<%= worldwide_office.contact.id %>]
-  </td>
-
-  <td>
-    <% if worldwide_organisation.is_main_office?(worldwide_office) %>
-      Yes (as main office)
-    <% elsif worldwide_organisation.office_shown_on_home_page?(worldwide_office) %>
-      Yes
-    <% else %>
-      No
+    <% if worldwide_office.contact.contact_form_url.present? %>
+      <%= definition('Contact form', link_to(worldwide_office.contact.contact_form_url.truncate(25), worldwide_office.contact.contact_form_url)) %>
     <% end %>
-  </td>
-
-  <td>
-    <% if worldwide_office.access_and_opening_times.present? %>
-      Custom info
-      <%= link_to 'Edit access info', [:edit, :admin, worldwide_organisation, worldwide_office, :access_and_opening_time], class: 'btn' %>
-    <% elsif worldwide_office.default_access_and_opening_times.present? %>
-      Using default
-      <%= link_to 'Customise access info', [:edit, :admin, worldwide_organisation, worldwide_office, :access_and_opening_time], class: 'btn' %>
-    <% else %>
-      <%= link_to 'Add custom access info', [:edit, :admin, worldwide_organisation, worldwide_office, :access_and_opening_time], class: 'btn' %>
+    <% if worldwide_office.contact.email.present? %>
+      <%= definition('Email', worldwide_office.contact.email) %>
     <% end %>
-  </td>
-
-  <td>
-    <%= button_to 'Delete', [:admin, worldwide_organisation, worldwide_office], method: 'delete', class: 'btn btn-small btn-danger', confirm: "Delete office '#{worldwide_office.title}'?" %>
-
-    <% unless worldwide_organisation.is_main_office?(worldwide_office) %>
-      <%= button_to 'Set as main office', set_main_office_admin_worldwide_organisation_path(worldwide_organisation, worldwide_organisation: {main_office_id: worldwide_office.id}), method: :put, class: 'btn btn-info' %>
-      <% if worldwide_organisation.office_shown_on_home_page?(worldwide_office) %>
-        <%= button_to "Remove from home page", [:remove_from_home_page, :admin, worldwide_organisation, worldwide_office], class: 'btn btn-small' %>
+    <%= definition('Markdown to use', "[Contact:#{worldwide_office.contact.id}]") %>
+    <%= definition('On home page?', worldwide_office_shown_on_home_page_text(worldwide_organisation, worldwide_office)) %>
+    <%= definition("Access and<br/>opening times".html_safe, 'ignored') do |ignored| %>
+      <% if worldwide_office.access_and_opening_times.present? %>
+        Custom info
+        <%= link_to 'Edit access info', [:edit, :admin, worldwide_organisation, worldwide_office, :access_and_opening_time], class: 'btn' %>
+      <% elsif worldwide_office.default_access_and_opening_times.present? %>
+        Using default
+        <%= link_to 'Customise access info', [:edit, :admin, worldwide_organisation, worldwide_office, :access_and_opening_time], class: 'btn' %>
       <% else %>
-        <%= button_to "Add to home page", [:add_to_home_page, :admin, worldwide_organisation, worldwide_office], class: 'btn btn-small' %>
+        <%= link_to 'Add custom access info', [:edit, :admin, worldwide_organisation, worldwide_office, :access_and_opening_time], class: 'btn' %>
       <% end %>
     <% end %>
-  </td>
+  <% end %>
+  <% if worldwide_office.contact.comments.present? %>
+    <p class="comments"><%= format_with_html_line_breaks(h(worldwide_office.comments)) %></p>
+  <% end %>
+
+  <%= button_to "Delete", [:admin, worldwide_organisation, worldwide_office], method: "delete", class: "btn btn-small btn-danger", confirm: "Delete office '#{worldwide_office.title}'?" %>
+  <%= link_to icon("Edit"), [:edit, :admin, worldwide_organisation, worldwide_office], class: "btn" %>
+  <% unless worldwide_organisation.is_main_office?(worldwide_office) %>
+    <%= button_to 'Set as main office', set_main_office_admin_worldwide_organisation_path(worldwide_organisation, worldwide_organisation: {main_office_id: worldwide_office.id}), method: :put, class: 'btn btn-info' %>
+    <% if worldwide_organisation.office_shown_on_home_page?(worldwide_office) %>
+      <%= button_to "Remove from home page", [:remove_from_home_page, :admin, worldwide_organisation, worldwide_office], class: 'btn btn-small' %>
+    <% else %>
+      <%= button_to "Add to home page", [:add_to_home_page, :admin, worldwide_organisation, worldwide_office], class: 'btn btn-small' %>
+    <% end %>
+  <% end %>
+
 <% end %>
