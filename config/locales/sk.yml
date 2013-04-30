@@ -345,6 +345,16 @@ sk:
     world_locations:
       all:
       label:
+  errors:
+    messages:
+      after:
+      before:
+      invalid_date:
+      invalid_datetime:
+      invalid_time:
+      is_at:
+      on_or_after:
+      on_or_before:
   feeds:
     atom:
     email_alerts:
@@ -373,6 +383,11 @@ sk:
   time:
     formats:
       long_ordinal:
+  validates_timeliness:
+    error_value_formats:
+      date:
+      datetime:
+      time:
   worldwide_organisation:
     corporate_information:
       personal_information_charter_html:

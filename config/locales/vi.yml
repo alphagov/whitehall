@@ -201,6 +201,16 @@ vi:
     world_locations:
       all: Tất cả địa điểm
       label: Các địa điểm trên thế giới
+  errors:
+    messages:
+      after:
+      before:
+      invalid_date:
+      invalid_datetime:
+      invalid_time:
+      is_at:
+      on_or_after:
+      on_or_before:
   feeds:
     atom: nguyên tử
     email_alerts: Cảnh báo qua thư điện tử
@@ -293,6 +303,11 @@ vi:
   time:
     formats:
       long_ordinal: ! '%e %B %Y %H:%M'
+  validates_timeliness:
+    error_value_formats:
+      date:
+      datetime:
+      time:
   world_location:
     headings:
       announcements: Các thông báo của chúng tôi

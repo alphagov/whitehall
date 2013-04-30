@@ -200,6 +200,16 @@ az:
     world_locations:
       all: bütün yerlər
       label: dünya üzrə məkanlar
+  errors:
+    messages:
+      after:
+      before:
+      invalid_date:
+      invalid_datetime:
+      invalid_time:
+      is_at:
+      on_or_after:
+      on_or_before:
   feeds:
     atom:
     email_alerts: email xəbərdarlığı
@@ -292,6 +302,11 @@ az:
   time:
     formats:
       long_ordinal:
+  validates_timeliness:
+    error_value_formats:
+      date:
+      datetime:
+      time:
   world_location:
     headings:
       announcements: Bizim elanlar

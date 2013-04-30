@@ -200,6 +200,16 @@ ja:
     world_locations:
       all: 全ての地域
       label: 地域
+  errors:
+    messages:
+      after:
+      before:
+      invalid_date:
+      invalid_datetime:
+      invalid_time:
+      is_at:
+      on_or_after:
+      on_or_before:
   feeds:
     atom: atom
     email_alerts: email alerts
@@ -292,6 +302,11 @@ ja:
   time:
     formats:
       long_ordinal:
+  validates_timeliness:
+    error_value_formats:
+      date:
+      datetime:
+      time:
   world_location:
     headings:
       announcements: 発表
