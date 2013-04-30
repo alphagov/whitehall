@@ -65,6 +65,7 @@ module OrganisationControllerTestHelpers
           ],
           country: create(:world_location, iso2: 'GB')
         )
+        organisation.add_contact_to_home_page!(organisation.contacts.first)
         get :show, id: organisation
 
         assert_select ".vcard" do

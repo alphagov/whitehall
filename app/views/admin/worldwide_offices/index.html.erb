@@ -45,6 +45,11 @@
             </div>
 
             <div class="tab-pane" id="on-home-page">
+              <h3>Main office</h3>
+              <div class="well">
+                <p><%= @worldwide_organisation.main_office.title %> <br/>(always shown first)</p>
+              </div>
+              <h3>Other offices</h3>
               <p>Drag up and down to re-order then click "Update office list order" at the bottom of the form</p>
               <p class="warning">Warning: changes to offices appear instantly on the live site.</p>
               <%= form_tag [:reorder_for_home_page, :admin, @worldwide_organisation, WorldwideOffice], method: :post do %>

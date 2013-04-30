@@ -226,13 +226,36 @@ class WorldwideOrganisationTest < ActiveSupport::TestCase
     assert_equal :the_answer, world_organisation.office_shown_on_home_page?(office)
   end
 
+  test 'knows that the main office is on the home page, even if it\'s not explicitly in the list' do
+    world_organisation = create(:worldwide_organisation)
+    office_1 = create(:worldwide_office, worldwide_organisation: world_organisation)
+    office_2 = create(:worldwide_office, worldwide_organisation: world_organisation)
+    world_organisation.add_office_to_home_page!(office_1)
+    world_organisation.main_office = office_2
+
+    assert world_organisation.office_shown_on_home_page?(office_2)
+  end
+
   test 'has a list of offices that are on its home page' do
     world_organisation = build(:worldwide_organisation)
     h = build(:home_page_list)
     HomePageList.stubs(:get).returns(h)
-    h.expects(:items).returns :the_list_of_offices
+    h.expects(:items).returns [:the_list_of_offices]
 
-    assert_equal :the_list_of_offices, world_organisation.home_page_offices
+    assert_equal [:the_list_of_offices], world_organisation.home_page_offices
+  end
+
+  test 'the list of offices that are on its home page excludes the main office' do
+    world_organisation = create(:worldwide_organisation)
+    office_1 = create(:worldwide_office, worldwide_organisation: world_organisation)
+    office_2 = create(:worldwide_office, worldwide_organisation: world_organisation)
+    office_3 = create(:worldwide_office, worldwide_organisation: world_organisation)
+    world_organisation.add_office_to_home_page!(office_1)
+    world_organisation.add_office_to_home_page!(office_2)
+    world_organisation.add_office_to_home_page!(office_3)
+    world_organisation.main_office = office_2
+
+    assert_equal [office_1, office_3], world_organisation.home_page_offices
   end
 
   test 'can add a office to the list of those that are on its home page' do

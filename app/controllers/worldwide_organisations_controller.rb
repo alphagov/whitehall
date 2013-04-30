@@ -15,7 +15,7 @@ class WorldwideOrganisationsController < PublicFacingController
         expires_in 5.minutes, public: true
         @world_locations = @worldwide_organisation.world_locations
         @main_office = @worldwide_organisation.main_office if @worldwide_organisation.main_office
-        @other_offices = @worldwide_organisation.other_offices
+        @home_page_offices = @worldwide_organisation.home_page_offices
         @primary_role = primary_role
         @other_roles = ([secondary_role] + office_roles).compact
       end

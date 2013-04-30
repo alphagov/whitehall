@@ -11,6 +11,7 @@ end
 
 Given /^there is a worldwide organisation with some offices on its home page$/ do
   @the_organisation = create(:worldwide_organisation)
+  @the_main_office = create(:worldwide_office, worldwide_organisation: @the_organisation, title: 'HQ1.0')
   office_1 = create(:worldwide_office, worldwide_organisation: @the_organisation, title: 'Main office')
   office_2 = create(:worldwide_office, worldwide_organisation: @the_organisation, title: 'Summer office by the lake')
   office_3 = create(:worldwide_office, worldwide_organisation: @the_organisation, title: 'Emergency bunker office')
@@ -121,12 +122,13 @@ When /^I reorder the offices to highlight my new office$/ do
   @the_ordered_offices = [@the_new_office, *@the_ordered_offices]
 end
 
-Then /^I see the offices in my specified order including the new one on the home page of the worldwide organisation$/ do
+Then /^I see the offices in my specified order including the new one under the main office on the home page of the worldwide organisation$/ do
   visit worldwide_organisation_path(@the_organisation)
 
   within '.contact-us' do
+    assert page.has_css?("div.contact:nth-child(1) h2", text: @the_main_office.title)
     @the_ordered_offices.each.with_index do |contact, idx|
-      assert page.has_css?("div.contact:nth-child(#{idx+1}) h2", text: contact.title)
+      assert page.has_css?("div.contact:nth-child(#{idx+2}) h2", text: contact.title)
     end
   end
 end

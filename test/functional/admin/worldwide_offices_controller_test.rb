@@ -25,6 +25,7 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
 
   test "post create creates worldwide office on the home page of the world org if told to" do
     worldwide_organisation = create(:worldwide_organisation)
+    worldwide_organisation.main_office = create(:worldwide_office, worldwide_organisation: worldwide_organisation)
 
     post :create,
       worldwide_office: {
@@ -34,14 +35,14 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
       },
       worldwide_organisation_id: worldwide_organisation.id
 
-    assert_equal 1, worldwide_organisation.offices.count
-    new_office = worldwide_organisation.offices.first
-    assert_equal 'Main office',new_office.contact.title
+    new_office = worldwide_organisation.offices.last
+    assert_equal 'Main office', new_office.contact.title
     assert worldwide_organisation.office_shown_on_home_page?(new_office)
   end
 
   test "post create creates worldwide office without adding it to the home page of the world org if told not to" do
     worldwide_organisation = create(:worldwide_organisation)
+    worldwide_organisation.main_office = create(:worldwide_office, worldwide_organisation: worldwide_organisation)
 
     post :create,
       worldwide_office: {
@@ -51,14 +52,14 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
       },
       worldwide_organisation_id: worldwide_organisation.id
 
-    assert_equal 1, worldwide_organisation.offices.count
-    new_office = worldwide_organisation.offices.first
+    new_office = worldwide_organisation.offices.last
     assert_equal 'Main office',new_office.contact.title
     refute worldwide_organisation.office_shown_on_home_page?(new_office)
   end
 
   test "post create creates worldwide office without adding it to the home page of the world org if no suggestion made" do
     worldwide_organisation = create(:worldwide_organisation)
+    worldwide_organisation.main_office = create(:worldwide_office, worldwide_organisation: worldwide_organisation)
 
     post :create,
       worldwide_office: {
@@ -67,8 +68,7 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
       },
       worldwide_organisation_id: worldwide_organisation.id
 
-    assert_equal 1, worldwide_organisation.offices.count
-    new_office = worldwide_organisation.offices.first
+    new_office = worldwide_organisation.offices.last
     assert_equal 'Main office',new_office.contact.title
     refute worldwide_organisation.office_shown_on_home_page?(new_office)
   end
@@ -126,11 +126,13 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
       id: office,
       worldwide_organisation_id: worldwide_organisation
 
-    assert_equal "Head office", worldwide_organisation.offices.first.contact.title
+    office.reload
+    assert_equal "Head office", office.contact.title
   end
 
   test "put update updates an office adding it to the home page of the world org if told to" do
     worldwide_organisation = create(:worldwide_organisation)
+    worldwide_organisation.main_office = create(:worldwide_office, worldwide_organisation: worldwide_organisation)
     office = worldwide_organisation.offices.create(
       worldwide_office_type_id: WorldwideOfficeType::Other.id,
       contact_attributes: {title: "Main office"}
@@ -146,12 +148,14 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
       id: office,
       worldwide_organisation_id: worldwide_organisation
 
-    assert_equal "Head office", worldwide_organisation.offices.first.contact.title
+    office.reload
+    assert_equal "Head office", office.contact.title
     assert worldwide_organisation.office_shown_on_home_page?(office)
   end
 
   test "put update updates an office removing it from the home page of the world org if told to" do
     worldwide_organisation = create(:worldwide_organisation)
+    worldwide_organisation.main_office = create(:worldwide_office, worldwide_organisation: worldwide_organisation)
     office = worldwide_organisation.offices.create(
       worldwide_office_type_id: WorldwideOfficeType::Other.id,
       contact_attributes: {title: "Main office"}
@@ -168,12 +172,14 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
       id: office,
       worldwide_organisation_id: worldwide_organisation
 
-    assert_equal "Head office", worldwide_organisation.offices.first.contact.title
+    office.reload
+    assert_equal "Head office", office.contact.title
     refute worldwide_organisation.office_shown_on_home_page?(office)
   end
 
   test "put update updates an office without changing the home page state if no suggestion made" do
     worldwide_organisation = create(:worldwide_organisation)
+    worldwide_organisation.main_office = create(:worldwide_office, worldwide_organisation: worldwide_organisation)
     office = worldwide_organisation.offices.create(
       worldwide_office_type_id: WorldwideOfficeType::Other.id,
       contact_attributes: {title: "Main office"}
@@ -189,7 +195,8 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
       id: office,
       worldwide_organisation_id: worldwide_organisation
 
-    assert_equal "Head office", worldwide_organisation.offices.first.contact.title
+    office.reload
+    assert_equal "Head office", office.contact.title
     assert worldwide_organisation.office_shown_on_home_page?(office)
   end
 
@@ -210,7 +217,8 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
       id: office,
       worldwide_organisation_id: worldwide_organisation
 
-    assert_equal [service2, service3], worldwide_organisation.offices.first.services.sort_by {|s| s.id}
+    office.reload
+    assert_equal [service2, service3], office.services.sort_by {|s| s.id}
   end
 
   test "put update updates associated phone numbers" do
@@ -234,13 +242,14 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
       id: office,
       worldwide_organisation_id: worldwide_organisation
 
-    assert_equal 1, worldwide_organisation.offices.count
-    assert office = worldwide_organisation.offices.first
+    office.reload
+    assert_equal office, worldwide_organisation.offices.first
     assert_equal ["Main phone: 5678"], office.contact.reload.contact_numbers.reload.map { |cn| "#{cn.label}: #{cn.number}" }
   end
 
   test "POST on :remove_from_home_page removes office from the home page of the worldwide organisation" do
     worldwide_organisation = create(:worldwide_organisation)
+    worldwide_organisation.main_office = create(:worldwide_office, worldwide_organisation: worldwide_organisation)
     office = worldwide_organisation.offices.create(
       worldwide_office_type_id: WorldwideOfficeType::Other.id,
       contact_attributes: {title: "Main office"}
@@ -256,6 +265,7 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
 
   test "POST on :add_to_home_page adds office to the home page of the worldwide organisation" do
     worldwide_organisation = create(:worldwide_organisation)
+    worldwide_organisation.main_office = create(:worldwide_office, worldwide_organisation: worldwide_organisation)
     office = worldwide_organisation.offices.create(
       worldwide_office_type_id: WorldwideOfficeType::Other.id,
       contact_attributes: {title: "Main office"}
@@ -270,6 +280,7 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
 
   test 'POST on :reorder_for_home_page takes id => ordering mappings and reorders the list based on this' do
     worldwide_organisation = create(:worldwide_organisation)
+    worldwide_organisation.main_office = create(:worldwide_office, worldwide_organisation: worldwide_organisation)
     office_1 = worldwide_organisation.offices.create(
       worldwide_office_type_id: WorldwideOfficeType::Other.id,
       contact_attributes: {title: "Head office"}
@@ -300,6 +311,7 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
 
   test 'POST on :reorder_for_home_page doesn\'t break with unknown contact ids' do
     worldwide_organisation = create(:worldwide_organisation)
+    worldwide_organisation.main_office = create(:worldwide_office, worldwide_organisation: worldwide_organisation)
     office = worldwide_organisation.offices.create(
       worldwide_office_type_id: WorldwideOfficeType::Other.id,
       contact_attributes: {title: "Head office"}

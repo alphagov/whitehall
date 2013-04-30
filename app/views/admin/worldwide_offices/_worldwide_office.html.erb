@@ -12,7 +12,9 @@
   </td>
 
   <td>
-    <% if worldwide_organisation.office_shown_on_home_page?(worldwide_office) %>
+    <% if worldwide_organisation.is_main_office?(worldwide_office) %>
+      Yes (as main office)
+    <% elsif worldwide_organisation.office_shown_on_home_page?(worldwide_office) %>
       Yes
     <% else %>
       No

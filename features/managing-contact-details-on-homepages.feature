@@ -24,7 +24,7 @@ Feature: managing contact details on home pages
     Given there is a worldwide organisation with some offices on its home page
     When I add a new office to be featured on the home page of the worldwide organisation
     And I reorder the offices to highlight my new office
-    Then I see the offices in my specified order including the new one on the home page of the worldwide organisation
+    Then I see the offices in my specified order including the new one under the main office on the home page of the worldwide organisation
 
   Scenario: Removing offices from the home page of a worldwide organisation
     Given there is a worldwide organisation with some offices on its home page

@@ -37,6 +37,12 @@ class WorldwideOrganisation < ActiveRecord::Base
   # simple (explicit) methods for manipulating them.
   extend HomePageList::Container
   has_home_page_list_of :offices
+  def home_page_offices
+    super - [main_office]
+  end
+  def office_shown_on_home_page?(office)
+    super || is_main_office?(office)
+  end
 
   delegate :analytics_identifier, :alternative_format_contact_email, to: :sponsoring_organisation, allow_nil: true
   def sponsoring_organisation
