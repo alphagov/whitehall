@@ -12,9 +12,9 @@ Whitehall::Application.routes.draw do
   root to: redirect("/admin/"), constraints: lambda { |request|
     ::Whitehall.admin_hosts.include?(request.host)
   }
-  root to: redirect("/")
+  root to: redirect("/"), via: :get
 
-  match '/browse/*parent_tag/:id', to: 'mainstream_categories#show'
+  get '/browse/*parent_tag/:id', to: 'mainstream_categories#show'
 
   namespace 'api' do
     resources :detailed_guides, path: 'specialist', only: [:show, :index], defaults: { format: :json } do
@@ -29,22 +29,25 @@ Whitehall::Application.routes.draw do
   end
 
   scope Whitehall.router_prefix, shallow_path: Whitehall.router_prefix do
-    root to: "home#home"
-    match "/how-government-works" => "home#how_government_works", as: 'how_government_works'
+    root to: "home#home", via: :get
+    get "/how-government-works" => "home#how_government_works", as: 'how_government_works'
     scope '/get-involved' do
-      root to: 'home#get_involved', as: :get_involved
+      root to: 'home#get_involved', as: :get_involved, via: :get
       resources :take_part_pages, path: 'take-part', only: [:show, :index]
     end
 
+    get "history/past-chancellors" => 'historic_appointments#past_chancellors'
+    get "/history/:role" => "historic_appointments#index", constraints: { role: /(past-prime-ministers)|(past-chancellors)/ }, as: 'historic_appointments'
+    get "/history/:role/:person_id" => "historic_appointments#show", constraints: { role: /(past-prime-ministers)|(past-chancellors)/ }, as: 'historic_appointment'
     resources :past_foreign_secretaries, path: "/history/past-foreign-secretaries", only: [:index, :show]
-    match "history/past-chancellors" => 'historic_appointments#past_chancellors'
-    match "/history/:role" => "historic_appointments#index", constraints: { role: /(past-prime-ministers)|(past-chancellors)|(past-foreign-secretaries)/ }, as: 'historic_appointments'
-    match "/history/:role/:person_id" => "historic_appointments#show", constraints: { role: /(past-prime-ministers)|(past-chancellors)|(past-foreign-secretaries)/ }, as: 'historic_appointment'
+    get "history/past-chancellors" => 'historic_appointments#past_chancellors'
+    get "/history/:role" => "historic_appointments#index", constraints: { role: /(past-prime-ministers)|(past-chancellors)|(past-foreign-secretaries)/ }, as: 'historic_appointments'
+    get "/history/:role/:person_id" => "historic_appointments#show", constraints: { role: /(past-prime-ministers)|(past-chancellors)|(past-foreign-secretaries)/ }, as: 'historic_appointment'
     resources :histories, path: "history", only: [:index, :show]
 
     resource :email_signups, path: 'email-signup', only: [:show, :create]
-    match '/feed' => 'home#feed', defaults: { format: :atom }, constraints: { format: :atom }, as: :atom_feed
-    match '/tour' => redirect("/tour", prefix: "")
+    get '/feed' => 'home#feed', defaults: { format: :atom }, constraints: { format: :atom }, as: :atom_feed
+    get '/tour' => redirect("/tour", prefix: "")
 
     resources :announcements, only: [:index], path: 'announcements', localised: true
     resources :policies, only: [:index], localised: true
@@ -56,16 +59,16 @@ Whitehall::Application.routes.draw do
     end
     resources :news_articles, path: 'news', only: [:show], localised: true
     resources :fatality_notices, path: 'fatalities', only: [:show]
-    match "/news" => redirect("/announcements")
-    match "/fatalities" => redirect("/announcements")
+    get "/news" => redirect("/announcements")
+    get "/fatalities" => redirect("/announcements")
 
     resources :publications, only: [:index, :show], localised: true
-    match "/publications/:publication_id/:id" => 'html_versions#show', as: 'publication_html_version'
+    get "/publications/:publication_id/:id" => 'html_versions#show', as: 'publication_html_version'
 
     resources :case_studies, path: 'case-studies', only: [:show, :index], localised: true
     resources :speeches, only: [:show], localised: true
     resources :statistical_data_sets, path: 'statistical-data-sets', only: [:index, :show]
-    match "/speeches" => redirect("/announcements")
+    get "/speeches" => redirect("/announcements")
     resources :world_location_news_articles, path: 'world-location-news', only: [:index, :show], localised: true
 
     resources :worldwide_priorities, path: "priority", only: [:index, :show], localised: true do
@@ -96,7 +99,7 @@ Whitehall::Application.routes.draw do
       resources :corporate_information_pages, only: [:show], path: 'about'
       resources :groups, only: [:show]
     end
-    match "/organisations/:organisation_id/groups" => redirect("/organisations/%{organisation_id}")
+    get "/organisations/:organisation_id/groups" => redirect("/organisations/%{organisation_id}")
 
     resources :ministerial_roles, path: 'ministers', only: [:index, :show]
     resources :people, only: [:index, :show], localised: true
@@ -110,12 +113,12 @@ Whitehall::Application.routes.draw do
       resources :worldwide_offices, path: 'office', only: [:show]
     end
     resources :world_locations, path: 'world', only: [:index, :show], localised: true
-    match 'world/organisations/:organisation_id/office' =>redirect('/world/organisations/%{organisation_id}')
-    match 'world/organisations/:organisation_id/about' => redirect('/world/organisations/%{organisation_id}')
+    get 'world/organisations/:organisation_id/office' =>redirect('/world/organisations/%{organisation_id}')
+    get 'world/organisations/:organisation_id/about' => redirect('/world/organisations/%{organisation_id}')
 
     constraints(AdminRequest) do
       namespace :admin do
-        root to: redirect('/admin/editions')
+        root to: redirect('/admin/editions'), via: :get
 
         resources :users, only: [:index, :show, :edit, :update]
 
@@ -188,9 +191,9 @@ Whitehall::Application.routes.draw do
         end
 
         # Ensure that supporting page routes are just ids in admin
-        match "/editions/:edition_id/supporting-pages/:id" => "supporting_pages#show", constraints: {id: /[0-9]+/}, via: :get
+        get "/editions/:edition_id/supporting-pages/:id" => "supporting_pages#show", constraints: {id: /[0-9]+/}
 
-        match "/editions/:id" => "editions#show", via: :get
+        get "/editions/:id" => "editions#show"
 
         resources :publications, except: [:index]
 
@@ -242,10 +245,10 @@ Whitehall::Application.routes.draw do
           post :send_to_subscribers, on: :member
         end
 
-        match "preview" => "preview#preview", via: :post
+        post "preview" => "preview#preview"
 
         scope '/get-involved' do
-          root to: 'get_involved#index', as: :get_involved
+          root to: 'get_involved#index', as: :get_involved, via: :get
           resources :take_part_pages, except: [:show] do
             post :reorder, on: :collection
           end
@@ -253,12 +256,12 @@ Whitehall::Application.routes.draw do
       end
     end
 
-    match '/policy-topics' => redirect("/topics")
+    get '/policy-topics' => redirect("/topics")
 
 
-    match 'site/sha' => 'site#sha'
+    get 'site/sha' => 'site#sha'
 
-    match '/placeholder' => 'placeholder#show', as: :placeholder
+    get '/placeholder' => 'placeholder#show', as: :placeholder
   end
 
   get 'healthcheck' => 'healthcheck#check'
@@ -266,13 +269,13 @@ Whitehall::Application.routes.draw do
 
   # XXX: we use a blank prefix here because redirect has been
   # overridden further up in the routes
-  match '/specialist/:id', constraints: {id: /[A-z0-9\-]+/}, to: redirect("/%{id}", prefix: '')
+  get '/specialist/:id', constraints: {id: /[A-z0-9\-]+/}, to: redirect("/%{id}", prefix: '')
   # Detailed guidance lives at the root
-  match ':id' => 'detailed_guides#show', constraints: {id: /[A-z0-9\-]+/}, as: 'detailed_guide'
+  get ':id' => 'detailed_guides#show', constraints: {id: /[A-z0-9\-]+/}, as: 'detailed_guide'
 
   mount TestTrack::Engine => "test" if Rails.env.test?
 
-  match '/government/uploads/system/uploads/consultation_response_form/*path.:extension' => LongLifeRedirect.new('/government/uploads/system/uploads/consultation_response_form_data/')
-  match '/government/uploads/system/uploads/attachment_data/file/:id/*file.:extension' => "attachments#show"
-  match '/government/uploads/*path.:extension' => "public_uploads#show"
+  get '/government/uploads/system/uploads/consultation_response_form/*path.:extension' => LongLifeRedirect.new('/government/uploads/system/uploads/consultation_response_form_data/')
+  get '/government/uploads/system/uploads/attachment_data/file/:id/*file.:extension' => "attachments#show"
+  get '/government/uploads/*path.:extension' => "public_uploads#show"
 end
