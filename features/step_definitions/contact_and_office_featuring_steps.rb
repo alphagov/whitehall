@@ -134,9 +134,21 @@ Then /^I see the offices in my specified order including the new one under the m
 end
 
 When /^I decide that one of the offices no longer belongs on the home page$/ do
-  pending # express the regexp above with the code you wish you had
+  visit admin_worldwide_organisation_path(@the_organisation)
+
+  click_on 'Offices'
+
+  @the_removed_office = @the_ordered_offices.sample
+  @the_ordered_offices.delete(@the_removed_office)
+  within record_css_selector(@the_removed_office) do
+    click_on 'Remove from home page'
+  end
 end
 
 Then /^that office is no longer visible on the home page of the worldwide organisation$/ do
-  pending # express the regexp above with the code you wish you had
+  visit worldwide_organisation_path(@the_organisation)
+
+  within '.contact-us' do
+    refute page.has_css?("div.contact h2", text: @the_removed_office.title)
+  end
 end

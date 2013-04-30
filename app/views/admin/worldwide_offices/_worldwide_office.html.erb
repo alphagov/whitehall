@@ -38,6 +38,11 @@
 
     <% unless worldwide_organisation.is_main_office?(worldwide_office) %>
       <%= button_to 'Set as main office', set_main_office_admin_worldwide_organisation_path(worldwide_organisation, worldwide_organisation: {main_office_id: worldwide_office.id}), method: :put, class: 'btn btn-info' %>
+      <% if worldwide_organisation.office_shown_on_home_page?(worldwide_office) %>
+        <%= button_to "Remove from home page", [:remove_from_home_page, :admin, worldwide_organisation, worldwide_office], class: 'btn btn-small' %>
+      <% else %>
+        <%= button_to "Add to home page", [:add_to_home_page, :admin, worldwide_organisation, worldwide_office], class: 'btn btn-small' %>
+      <% end %>
     <% end %>
   </td>
 <% end %>
