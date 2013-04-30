@@ -10,6 +10,7 @@ FactoryGirl.define do
   factory :rejected_policy, parent: :policy, traits: [:rejected]
   factory :published_policy, parent: :policy, traits: [:published] do
     first_published_at  { 2.days.ago }
+    public_timestamp { 2.days.ago }
   end
   factory :deleted_policy, parent: :policy, traits: [:deleted]
   factory :archived_policy, parent: :policy, traits: [:archived]
