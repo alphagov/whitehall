@@ -1,7 +1,7 @@
 class HtmlVersionsController < PublicFacingController
   layout 'html-publication'
 
-  before_filter :find_publication
+  before_filter :find_edition
   before_filter :find_html_version
 
   include CacheControlHelper
@@ -12,25 +12,29 @@ class HtmlVersionsController < PublicFacingController
   end
 
   def show
-    @document = @publication
-    @html_version = @publication.html_version
+    @document = @edition
+    @html_version = @edition.html_version
   end
 
   private
 
-  def find_publication
-    unless @publication = Publication.published_as(params[:publication_id])
-      render text: "Not found", status: :not_found
+  def find_edition
+    if (params[:publication_id])
+      @edition = Publication.published_as(params[:publication_id])
+    elsif (params[:consultation_id])
+      @edition = Consultation.published_as(params[:consultation_id])
     end
+
+    render text: "Not found", status: :not_found unless @edition
   end
 
   def find_html_version
-    unless @publication.html_version && (params[:id] == @publication.html_version.slug)
+    unless @edition.html_version && (params[:id] == @edition.html_version.slug)
       render text: "Not found", status: :not_found
     end
   end
 
   def analytics_format
-    :publication
+    @edition.type.underscore.to_sym
   end
 end

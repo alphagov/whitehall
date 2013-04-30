@@ -7,6 +7,7 @@ class ConsultationTest < ActiveSupport::TestCase
   should_be_attachable
   should_allow_inline_attachments
   should_protect_against_xss_and_content_attacks_on :title, :body, :summary, :change_note
+  should_allow_html_version
 
   [:imported, :deleted].each do |state|
     test "#{state} editions are valid without an opening on date" do

@@ -19,7 +19,7 @@ class HtmlVersionsControllerTest < ActionController::TestCase
 
     get :show, publication_id: publication.document, id: publication.html_version.slug
     assert_response :success
-    assert_equal publication, assigns(:publication)
+    assert_equal publication, assigns(:edition)
   end
 
   test "#show 404s if the slug is wrong" do
@@ -38,5 +38,15 @@ class HtmlVersionsControllerTest < ActionController::TestCase
     publication = create(:draft_publication, :with_html_version)
     get :show, publication_id: publication.document, id: 'slug'
     assert_response :not_found
+  end
+
+  test "finds consultations if the html version is for a consultation" do
+    consultation = create(:published_consultation, :with_html_version)
+
+    get :show, consultation_id: consultation.document, id: consultation.html_version.slug
+
+    assert_response :success
+    assert_equal consultation, assigns(:document)
+    assert_equal consultation.html_version, assigns(:html_version)
   end
 end

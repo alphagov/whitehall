@@ -81,6 +81,7 @@ Whitehall::Application.routes.draw do
         get :upcoming
       end
     end
+    match "/consultations/:consultation_id/:id" => 'html_versions#show', as: 'consultation_html_version'
 
     resources :topics, path: "topics", only: [:index, :show]
     resources :topical_events, path: "topical-events", only: [:index, :show]

@@ -126,7 +126,7 @@ class HtmlAttachmentTest < ActiveSupport::TestCase
   end
 
   def edition
-    @edition ||= stub(html_version: html_version, document: stub(to_param: 'edition-slug'))
+    @edition ||= stub(html_version: html_version, type: 'Publication', document: stub(to_param: 'edition-slug'))
   end
 
   def html_attachment

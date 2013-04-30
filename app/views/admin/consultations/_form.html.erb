@@ -5,6 +5,8 @@
               legend: 'Attachments - Consultation documents',
               bulk_upload_zip_file: @bulk_upload_zip_file } %>
 
+  <%= render partial: 'html_version_fields', locals: { form: form, edition: edition } %>
+
   <fieldset>
     <legend>Associations</legend>
     <%= render partial: 'related_policy_fields', locals: { form: form, edition: edition } %>
