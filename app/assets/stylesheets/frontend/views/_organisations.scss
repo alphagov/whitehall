@@ -785,6 +785,12 @@
 }
 
 .organisations-executive-office {
+  a {
+    color: $fuschia;
+  }
+  .social-media-accounts .connect {
+    background-color: $fuschia;
+  }
 
   .executive-office-header {
     h1 {
