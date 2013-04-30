@@ -25,6 +25,10 @@
         float: right;
       }
 
+      &.last {
+        border-right: 0;
+      }
+
       a, span {
         display: block;
         margin-top: -1px;
