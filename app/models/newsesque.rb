@@ -2,8 +2,6 @@ class Newsesque < Announcement
   include Edition::FactCheckable
   include Edition::FirstImagePulledOut
 
-  validates_datetime :first_published_at, after: :year_2000, allow_blank: true
-
   def self.sti_names
     ([self] + descendants).map { |model| model.sti_name }
   end

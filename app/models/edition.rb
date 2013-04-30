@@ -29,6 +29,7 @@ class Edition < ActiveRecord::Base
   validates :title, :creator, presence: true
   validates :body, presence: true, if: :body_required?
   validates :summary, presence: true
+  validates_datetime :first_published_at, after: :year_2000, allow_blank: true
 
 
   scope :with_title_or_summary_containing, -> *keywords {
