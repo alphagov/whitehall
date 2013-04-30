@@ -214,11 +214,11 @@ class PublicationsControllerTest < ActionController::TestCase
   end
 
   view_test "index displays selected date filter" do
-    get :index, direction: "before", date: "2010-01-01"
+    get :index, direction: "before", date: "2011-01-01"
 
     assert_select "input#direction_before[name='direction'][checked=checked]"
     assert_select "select[name='date']" do
-      assert_select "option[selected='selected'][value=?]", "2010-01-01"
+      assert_select "option[selected='selected'][value=?]", "2011-01-01"
     end
   end
 
