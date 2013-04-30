@@ -55,7 +55,7 @@ class Api::PagePresenterTest < PresenterTestCase
   test 'json includes start_index by calculating offset from the collection\'s current_page and limit_value' do
     @page.stubs(:current_page).returns 4
     @page.stubs(:limit_value).returns 7
-    assert_equal 28, @presenter.as_json[:start_index]
+    assert_equal 22, @presenter.as_json[:start_index]
   end
 
   test 'links include a rel=self url pointing to the current page' do
