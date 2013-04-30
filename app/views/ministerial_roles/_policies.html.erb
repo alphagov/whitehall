@@ -3,7 +3,7 @@
     <%= content_tag_for :li, policy, class: "document-row" do %>
       <h3><%= policy.link %></h3>
       <ul class="attributes">
-        <li class="date"><%= policy.public_timestamp %></li>
+        <li class="date"><%= policy.display_date_microformat %></li>
       </ul>
     <% end %>
   <% end %>
