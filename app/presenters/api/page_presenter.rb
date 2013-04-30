@@ -43,7 +43,7 @@ class Api::PagePresenter < Draper::Base
 
   def url(override_params)
     h.url_for(h.params.merge(
-      override_params.merge(only_path: false, host: h.public_host)
+      override_params.merge(only_path: false)
     ))
   end
 end
