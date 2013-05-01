@@ -29,7 +29,7 @@ class Edition::TopicalEventsTest < ActiveSupport::TestCase
     refute ClassificationFeaturing.find_by_id(relation.id)
   end
 
-  test "new edition of document featured in topical event should remain featured in that topic event with image and alt text" do
+  test "new edition of document featured in topical event should remain featured in that topic event with image, alt text and ordering" do
     featured_image = create(:classification_featuring_image_data)
     topical_event = create(:topical_event)
     edition = create(:published_news_article)
@@ -40,8 +40,10 @@ class Edition::TopicalEventsTest < ActiveSupport::TestCase
     new_edition.publish_as(create(:departmental_editor), force: true)
 
     featuring = new_edition.classification_featurings.first
+    assert featuring.persisted?
     assert_equal featured_image, featuring.image
     assert_equal "alt-text", featuring.alt_text
+    assert_equal 12, featuring.ordering
     assert_equal topical_event, featuring.classification
   end
 end
