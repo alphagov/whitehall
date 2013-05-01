@@ -31,7 +31,7 @@ module Admin::OrganisationHelper
       tabs["Featured topics and policies"] = admin_organisation_featured_topics_and_policies_list_path(organisation)
       tabs["Promotional features"] = admin_organisation_promotional_features_path(organisation)
     end
-    tabs["Featured documents"] = features_admin_organisation_path(organisation, locale: "")
+    tabs["Featured documents"] = features_admin_organisation_path(organisation, locale: nil)
     organisation.non_english_translated_locales.each do |locale|
       tabs["Featured documents (#{locale.native_language_name})"] = features_admin_organisation_path(organisation, locale: locale.code)
     end
