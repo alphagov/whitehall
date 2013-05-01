@@ -8,8 +8,38 @@ class DocumentSeriesTest < ActiveSupport::TestCase
     refute series.valid?
   end
 
+  test 'is invalid with a name that would breach the db limit' do
+    series = build(:document_series)
+
+    series.name = ('a'*255) # on limit
+    assert series.valid?
+
+    series.name += 'a' # just over limit
+    refute series.valid?
+  end
+
   test 'is invalid without a summary' do
     series = build(:document_series, summary: nil)
+    refute series.valid?
+  end
+
+  test 'is invalid with a summary that would breach the db limit' do
+    series = build(:document_series)
+
+    series.summary = ('a'*255) # on limit
+    assert series.valid?
+
+    series.summary += 'a' # just over limit
+    refute series.valid?
+  end
+
+  test 'is invalid with a description that would breach the db limit' do
+    series = build(:document_series)
+
+    series.description = ('a'*(64.kilobytes - 1)) # on limit
+    assert series.valid?
+
+    series.description += 'a' # just over limit
     refute series.valid?
   end
 
