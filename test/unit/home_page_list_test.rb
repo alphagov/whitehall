@@ -86,6 +86,14 @@ class HomePageListTest < ActiveSupport::TestCase
     assert_equal 1, list.home_page_list_items.where(item_id: contact.id, item_type: contact.class).length
   end
 
+  test '#add_item will persist the list' do
+    list = build(:home_page_list)
+    contact = create(:contact)
+    list.add_item(contact)
+
+    assert list.persisted?
+  end
+
   test '#remove_item will take an idem off the list' do
     list = create(:home_page_list)
     contact = create(:contact)
@@ -101,6 +109,14 @@ class HomePageListTest < ActiveSupport::TestCase
     assert_nothing_raised { list.remove_item(contact) }
   end
 
+  test '#remove_item will persist the list' do
+    list = build(:home_page_list)
+    contact = create(:contact)
+    list.remove_item(contact)
+
+    assert list.persisted?
+  end
+
   test '.get will return the list for the supplied owned_by: and called: params' do
     o = create(:organisation)
     list_1 = create(:home_page_list, owner: o, name: 'donkeys')
@@ -110,19 +126,19 @@ class HomePageListTest < ActiveSupport::TestCase
     assert_equal list_2, HomePageList.get(owned_by: o, called: 'cats')
   end
 
-  test '.get will create a new list for the supplied owned_by: and called: params if one does not exist already' do
+  test '.get will build a new list for the supplied owned_by: and called: params if one does not exist already' do
     o = create(:organisation)
 
     list = HomePageList.get(owned_by: o, called: 'cats')
-    assert list.persisted?
+    refute list.persisted?
     assert_equal o, list.owner
     assert_equal 'cats', list.name
   end
 
-  test '.get will not create a new list if told not to' do
+  test '.get will not build a new list if told not to' do
     o = create(:organisation)
 
-    list = HomePageList.get(owned_by: o, called: 'cats', create_if_missing: false)
+    list = HomePageList.get(owned_by: o, called: 'cats', build_if_missing: false)
     assert_nil list
   end
 
@@ -171,6 +187,14 @@ class HomePageListTest < ActiveSupport::TestCase
     list.reorder_items!([contact_2, contact_3, contact_1])
 
     assert_equal [contact_3, contact_1], list.reload.items
+  end
+
+  test '#reorder_items! will persist the list' do
+    list = build(:home_page_list)
+    contact = create(:contact)
+    list.reorder_items!([contact])
+
+    assert list.persisted?
   end
 
   test '.remove_from_all_lists destroys all list items for the supplied content' do

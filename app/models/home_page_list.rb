@@ -16,13 +16,13 @@ class HomePageList < ActiveRecord::Base
   def self.get(opts = {})
     owner = opts[:owned_by]
     name = opts[:called]
-    create_if_missing = opts.has_key?(:create_if_missing) ? opts[:create_if_missing] : true
+    build_if_missing = opts.has_key?(:build_if_missing) ? opts[:build_if_missing] : true
     raise ArgumentError, "Must supply owned_by: and called: options" if (owner.nil? || name.nil?)
     scoping = where(owner_id: owner.id, owner_type: owner.class, name: name)
     if list = scoping.first
       list
-    elsif create_if_missing
-      scoping.create!
+    elsif build_if_missing
+      scoping.build
     end
   end
 
@@ -30,15 +30,22 @@ class HomePageList < ActiveRecord::Base
     items.include?(item)
   end
 
+  def persist_if_required
+    save! if new_record?
+  end
+
   def add_item(item)
+    persist_if_required
     home_page_list_items.create(item: item) unless shown_on_home_page?(item)
   end
 
   def remove_item(item)
+    persist_if_required
     home_page_list_items.where(item_id: item.id, item_type: item.class).destroy_all
   end
 
   def reorder_items!(items_in_order)
+    persist_if_required
     return if items_in_order.empty?
     HomePageListItem.transaction do
       home_page_list_items.each do |home_page_list_item|
@@ -90,7 +97,7 @@ class HomePageList < ActiveRecord::Base
         end
         public
         define_method(:"has_home_page_#{plural_name}_list?") do
-          HomePageList.get(owned_by: self, called: list_name, create_if_missing: false).present?
+          HomePageList.get(owned_by: self, called: list_name, build_if_missing: false).present?
         end
         define_method(:"#{single_name}_shown_on_home_page?") do |contact|
           __send__(:"home_page_#{plural_name}_list").shown_on_home_page?(contact)
