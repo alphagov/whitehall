@@ -9,7 +9,7 @@ class I18nKeyTest < ActiveSupport::TestCase
 
   test "all locale files are up-to-date" do
     default_keys = keys_in_locale_file(default_locale_file_path)
-    locale_files = Dir[Rails.root.join('config','locales','*.yml')] - [default_locale_file_path.to_s]
+    locale_files = Dir[Rails.root.join('config','locales','*.yml')] - [default_locale_file_path.to_s, admin_locale_file_path.to_s]
 
     locale_files.each do |locale_file|
       missing_keys = default_keys - keys_in_locale_file(locale_file)
@@ -88,6 +88,10 @@ class I18nKeyTest < ActiveSupport::TestCase
 
   def default_locale_file_path
     Rails.root.join('config', 'locales', "#{I18n.default_locale}.yml")
+  end
+
+  def admin_locale_file_path
+    Rails.root.join('config', 'locales', "admin.#{I18n.default_locale}.yml")
   end
 
   def any_nil_values?(hash)
