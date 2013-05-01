@@ -87,4 +87,14 @@ class ContactTest < ActiveSupport::TestCase
     contact.destroy
     assert contact.contact_numbers.empty?
   end
+
+  test 'removes itself from any home page lists when it is destroyed' do
+    contact = create(:contact)
+    list = create(:home_page_list)
+    list.add_item(contact)
+
+    contact.destroy
+
+    refute list.shown_on_home_page?(contact)
+  end
 end

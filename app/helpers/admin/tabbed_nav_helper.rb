@@ -1,14 +1,14 @@
 module Admin::TabbedNavHelper
-  def tab_navigation_for(content_object, &block)
+  def tab_navigation_for(content_object, *extra_classes, &block)
     case content_object
     when Organisation
-      tab_navigation(organisation_tabs(content_object), &block)
+      tab_navigation(organisation_tabs(content_object), *extra_classes, &block)
     when WorldwideOrganisation
-      tab_navigation(worldwide_organisation_tabs(content_object), &block)
+      tab_navigation(worldwide_organisation_tabs(content_object), *extra_classes, &block)
     when WorldLocation
-      tab_navigation(world_location_tabs(content_object), &block)
+      tab_navigation(world_location_tabs(content_object), *extra_classes, &block)
     when Person
-      tab_navigation(person_tabs(content_object), &block)
+      tab_navigation(person_tabs(content_object), *extra_classes, &block)
     end
   end
 
@@ -18,12 +18,13 @@ module Admin::TabbedNavHelper
       'Historical accounts' => admin_person_historical_accounts_path(person) }
   end
 
-  def tab_navigation(nav_tabs, &block)
-    tab_navigation_header(nav_tabs).tap do |tabs|
+  def tab_navigation(tabs, *extra_classes, &block)
+    tabs = tab_navigation_header(tabs)
+    content_tag(:div, class: ['tabbable', *extra_classes] ) do
       if block_given?
-        content_tag(:div, class: :tabbable) do
-          tabs + content_tag(:div, class: "tab-content") { yield }
-        end
+        tabs + content_tag(:div, class: "tab-content") { yield }
+      else
+        tabs
       end
     end
   end

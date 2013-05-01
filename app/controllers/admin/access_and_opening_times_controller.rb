@@ -43,7 +43,7 @@ class Admin::AccessAndOpeningTimesController < Admin::BaseController
     when WorldwideOrganisation
       [:access_info, :admin, accessible]
     when WorldwideOffice
-      [:offices, :admin, accessible.worldwide_organisation]
+      [:admin, accessible.worldwide_organisation, WorldwideOffice]
     end
   end
 

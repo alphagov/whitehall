@@ -12,6 +12,9 @@ class Contact < ActiveRecord::Base
   validates :street_address, :country_id, presence: true, if: -> r { r.has_postal_address? }
   accepts_nested_attributes_for :contact_numbers, allow_destroy: true, reject_if: :all_blank
 
+  extend HomePageList::ContentItem
+  is_stored_on_home_page_lists
+
   def has_postal_address?
     recipient.present? || street_address.present? || locality.present? ||
       region.present? || postal_code.present? || country_id.present?

@@ -104,7 +104,7 @@ When /^I add an "([^"]*)" office with address, phone number, and some services$/
   service2 = create(:worldwide_service, name: 'Courses in advanced sword fighting')
   service3 = create(:worldwide_service, name: 'Beard grooming')
 
-  visit offices_admin_worldwide_organisation_path(WorldwideOrganisation.last)
+  visit admin_worldwide_organisation_worldwide_offices_path(WorldwideOrganisation.last)
   click_link "Add"
   fill_in "Title", with: description
   select WorldwideOfficeType.all.sample.name, from: 'Office type'
@@ -159,8 +159,8 @@ end
 
 Given /^a worldwide organisation "([^"]*)" with offices "([^"]*)" and "([^"]*)"$/ do |worldwide_organisation_name, contact1_title, contact2_title|
   worldwide_organisation = create(:worldwide_organisation, name: worldwide_organisation_name)
-  create(:worldwide_office, worldwide_organisation: worldwide_organisation, contact: create(:contact, title: contact1_title))
-  create(:worldwide_office, worldwide_organisation: worldwide_organisation, contact: create(:contact, title: contact2_title))
+  worldwide_organisation.add_office_to_home_page!(create(:worldwide_office, worldwide_organisation: worldwide_organisation, contact: create(:contact, title: contact1_title)))
+  worldwide_organisation.add_office_to_home_page!(create(:worldwide_office, worldwide_organisation: worldwide_organisation, contact: create(:contact, title: contact2_title)))
 end
 
 When /^I choose "([^"]*)" to be the main office$/ do |contact_title|
@@ -246,8 +246,8 @@ end
 
 Given /^the offices "([^"]*)" and "([^"]*)"$/ do |contact1_title, contact2_title|
   worldwide_organisation = WorldwideOrganisation.last
-  create(:worldwide_office, worldwide_organisation: worldwide_organisation, contact: create(:contact, title: contact1_title))
-  create(:worldwide_office, worldwide_organisation: worldwide_organisation, contact: create(:contact, title: contact2_title))
+  worldwide_organisation.add_office_to_home_page!(create(:worldwide_office, worldwide_organisation: worldwide_organisation, contact: create(:contact, title: contact1_title)))
+  worldwide_organisation.add_office_to_home_page!(create(:worldwide_office, worldwide_organisation: worldwide_organisation, contact: create(:contact, title: contact2_title)))
 end
 
 When /^I give "([^"]*)" custom access information$/ do |office_name|
