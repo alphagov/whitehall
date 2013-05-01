@@ -1392,7 +1392,7 @@ module AdminEditionControllerTestHelpers
       test "create should record the access_limited flag" do
         controller.current_user.organisation = create(:organisation); controller.current_user.save!
         post :create, edition: controller_attributes_for(edition_type,
-          publication_date: Date.parse("1805-10-21"),
+          publication_date: Date.parse("2010-10-21"),
           access_limited: '1',
           lead_organisation_ids: [controller.current_user.organisation_id]
         )
@@ -1428,7 +1428,7 @@ module AdminEditionControllerTestHelpers
 
       test "create should record the relevant_to_local_government flag" do
         post :create, edition: controller_attributes_for(edition_type,
-          publication_date: Date.parse("1805-10-21"),
+          publication_date: Date.parse("2010-10-21"),
           relevant_to_local_government: '1'
         )
 
