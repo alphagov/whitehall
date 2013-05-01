@@ -19,19 +19,26 @@ module Admin::OrganisationHelper
     tabs = {
       "Details" => admin_organisation_path(organisation),
       "Contacts" => admin_organisation_contacts_path(organisation),
-      "Social media accounts" => admin_organisation_social_media_accounts_path(organisation),
-      "About us" => about_admin_organisation_path(organisation),
-      "Governance groups" => admin_organisation_groups_path(organisation),
-      "People" => people_admin_organisation_path(organisation),
-      "Featured documents" => documents_admin_organisation_path(organisation),
       "Document series" => document_series_admin_organisation_path(organisation),
-      "Corporate information pages" => admin_organisation_corporate_information_pages_path(organisation),
-      "Translations" => admin_organisation_translations_path(organisation)
     }
     if organisation.executive_office?
       tabs["Featured topics and policies"] = admin_organisation_featured_topics_and_policies_list_path(organisation)
       tabs["Promotional features"] = admin_organisation_promotional_features_path(organisation)
     end
+
+    tabs["Featured documents"] = features_admin_organisation_path(organisation, locale: nil)
+    organisation.non_english_translated_locales.each do |locale|
+      tabs["Featured documents (#{locale.native_language_name})"] = features_admin_organisation_path(organisation, locale: locale.code)
+    end
+
+    tabs["More"] = {
+      "About us" => about_admin_organisation_path(organisation),
+      "Social media accounts" => admin_organisation_social_media_accounts_path(organisation),
+      "Governance groups" => admin_organisation_groups_path(organisation),
+      "People" => people_admin_organisation_path(organisation),
+      "Corporate information pages" => admin_organisation_corporate_information_pages_path(organisation),
+      "Translations" => admin_organisation_translations_path(organisation)
+    }
     tabs
   end
 end

@@ -89,23 +89,4 @@ class Admin::WorldLocationsControllerTest < ActionController::TestCase
 
     assert_equal 0, world_location.mainstream_links.length
   end
-
-  test "get features with locale should find feature list if present" do
-    world_location = create(:world_location)
-    feature_list = create(:feature_list, featurable: world_location, locale: :fr)
-
-    put :features, id: world_location, locale: :fr
-
-    assert_equal feature_list, assigns[:feature_list]
-  end
-
-  test "get features should create feature list if not present" do
-    world_location = create(:world_location)
-
-    put :features, id: world_location, locale: :fr
-
-    world_location.reload
-
-    assert_equal ["fr"], world_location.feature_lists.map(&:locale)
-  end
 end

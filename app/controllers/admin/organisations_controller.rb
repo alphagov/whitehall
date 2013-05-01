@@ -41,16 +41,12 @@ class Admin::OrganisationsController < Admin::BaseController
     @document_series = @organisation.document_series
   end
 
-  def documents
-    @featured_editions = @organisation.featured_edition_organisations.map { |e| e.edition }
-    @editions = Edition.accessible_to(current_user).
-                        published.
-                        in_organisation(@organisation).
-                        in_reverse_chronological_order
-    if @featured_editions.any?
-      @editions = @editions.where(Edition.arel_table[:id].not_in @featured_editions.map(&:id))
-    end
-    @editions = @editions.page(params[:page]).per(20)
+  def features
+    @feature_list = @organisation.load_or_create_feature_list(params[:locale])
+
+    filter_params = params.slice(:page, :type, :author, :organisation, :title).
+      merge(state: 'published')
+    @filter = Admin::EditionFilter.new(Edition, current_user, filter_params)
   end
 
   def edit

@@ -18,11 +18,11 @@ Feature: Administering world location information
     And I feature the news article "Bringing back the Charleston" for world location "Jamestopia"
     And I feature the news article "You must buy the X-Factor single, says Queen" for world location "Jamestopia"
     When I order the featured items of the world location "Jamestopia" to:
-      |Bringing back the Charleston|
       |You must buy the X-Factor single, says Queen|
+      |Bringing back the Charleston|
     Then I should see the featured items of the world location "Jamestopia" are:
-      |Bringing back the Charleston|
       |You must buy the X-Factor single, says Queen|
+      |Bringing back the Charleston|
 
   Scenario: Featuring different things on different locale versions of a world location page
     Given a world location "Jamestopia" exists in both english and french

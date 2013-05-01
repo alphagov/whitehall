@@ -90,8 +90,12 @@ end
 
 When /^I feature the news article "([^"]*)" for "([^"]*)" with image "([^"]*)"$/ do |news_article_title, organisation_name, image_filename|
   organisation = Organisation.find_by_name!(organisation_name)
-  visit documents_admin_organisation_path(organisation)
-  news_article = NewsArticle.find_by_title(news_article_title)
+  visit admin_organisation_path(organisation)
+  click_link "Featured documents"
+  locale = Locale.find_by_language_name("English")
+  news_article = LocalisedModel.new(NewsArticle, locale.code).find_by_title(news_article_title)
+  fill_in 'title', with: news_article_title.split.first
+  click_link 'Everyone'
   within record_css_selector(news_article) do
     click_link "Feature"
   end
@@ -100,13 +104,20 @@ When /^I feature the news article "([^"]*)" for "([^"]*)" with image "([^"]*)"$/
   click_button "Save"
 end
 
+When /^I stop featuring the news article "([^"]*)" for "([^"]*)"$/ do |news_article_title, organisation_name|
+  organisation = Organisation.find_by_name!(organisation_name)
+  visit features_admin_organisation_path(organisation)
+  locale = Locale.find_by_language_name("English")
+  news_article = LocalisedModel.new(NewsArticle, locale.code).find_by_title(news_article_title)
+  within record_css_selector(news_article) do
+    click_on "Unfeature"
+  end
+end
+
 When /^I order the featured items in the "([^"]*)" organisation as:$/ do |name, table|
   organisation = Organisation.find_by_name!(name)
-  visit documents_admin_organisation_path(organisation)
-  table.rows.each_with_index do |(title), index|
-    fill_in title, with: index
-  end
-  click_button "Save"
+  visit features_admin_organisation_path(organisation)
+  order_features_from(table)
 end
 
 When /^I delete the organisation "([^"]*)"$/ do |name|
@@ -158,6 +169,12 @@ Then /^I should see the featured news articles in the "([^"]*)" organisation are
   end
   expected_table.diff!(table)
 end
+
+Then /^there should be nothing featured on the home page of "([^"]*)"$/ do |name|
+  visit_organisation name
+  find(featured_documents_selector).all('article').should be_empty
+end
+
 
 Then /^I should only see published policies belonging to the "([^"]*)" organisation$/ do |name|
   organisation = Organisation.find_by_name!(name)

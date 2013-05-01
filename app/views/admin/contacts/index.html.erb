@@ -6,7 +6,7 @@
   </div>
 </div>
 
-<%= tab_navigation_for(@contactable, 'tabs-left') do %>
+<%= tab_navigation_for(@contactable) do %>
   <h2>Contacts</h2>
   <% if @contactable.respond_to?(:home_page_contacts) %>
     <div class="tabbable">

@@ -9,7 +9,7 @@
 <div class="row-fluid">
   <div class="span12 organisation-details">
     <section>
-      <%= tab_navigation_for(@organisation, 'tabs-left') do %>
+      <%= tab_navigation_for(@organisation) do %>
 
         <%= link_to "New Governance group", new_admin_organisation_group_path(@organisation), class: "btn pull-right" %>
         <h2>Governance groups</h2>

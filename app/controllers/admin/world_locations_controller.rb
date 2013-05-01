@@ -1,6 +1,5 @@
 class Admin::WorldLocationsController < Admin::BaseController
   before_filter :load_world_location, only: [:edit, :update, :show, :features]
-  before_filter :load_or_create_feature_list, only: [:features]
   before_filter :build_mainstream_links, only: [:edit]
   before_filter :destroy_blank_mainstream_links, only: [:create, :update]
 
@@ -20,6 +19,7 @@ class Admin::WorldLocationsController < Admin::BaseController
   end
 
   def features
+    @feature_list = @world_location.load_or_create_feature_list(params[:locale])
     filter_params = params.slice(:page, :type, :world_location_ids, :title).
       reverse_merge(world_location_ids: [@world_location.id]).
       merge(state: 'published')
@@ -30,11 +30,6 @@ class Admin::WorldLocationsController < Admin::BaseController
 
   def load_world_location
     @world_location = WorldLocation.find(params[:id] || params[:world_location_id])
-  end
-
-  def load_or_create_feature_list
-    @feature_list = @world_location.feature_lists.find_by_locale(params[:locale]) ||
-      @world_location.feature_lists.create(locale: params[:locale])
   end
 
   def build_mainstream_links

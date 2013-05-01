@@ -34,7 +34,7 @@ class OrganisationsController < PublicFacingController
       format.html do
         @recently_updated = recently_updated_source.limit(3)
         if @organisation.live?
-          @featured_editions = FeaturedEditionPresenter.decorate(@organisation.featured_edition_organisations.limit(6))
+          @feature_list = FeatureListPresenter.decorate(@organisation.feature_list_for_locale(I18n.locale)).limit_to(6)
           set_slimmer_organisations_header([@organisation])
           expire_on_next_scheduled_publication(@organisation.scheduled_editions)
 

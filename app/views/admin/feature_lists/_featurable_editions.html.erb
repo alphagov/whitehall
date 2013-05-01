@@ -10,6 +10,7 @@
   </thead>
   <tbody>
     <% featurable_editions.each do |edition| %>
+      <% edition = LocalisedModel.new(edition, feature_list.locale) %>
       <% next if feature_list.features.current.detect {|f| f.document == edition.document } %>
       <%= content_tag_for :tr, edition do %>
         <td class="type"><%= edition.type.titleize %></td>
