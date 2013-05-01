@@ -119,7 +119,7 @@ class HomePageList < ActiveRecord::Base
         end
       end
       self.after_destroy :"__remove_home_page_#{plural_name}_list"
-      self.__send__(:include, home_page_list_methods)
+      include home_page_list_methods
     end
   end
   module ContentItem
@@ -130,7 +130,7 @@ class HomePageList < ActiveRecord::Base
         end
       end
       self.after_destroy :__remove_home_page_list_items
-      self.__send__(:include, home_page_list_methods)
+      include home_page_list_methods
     end
   end
 end

@@ -61,7 +61,7 @@ module Admin::HomePageListController
       end
     end
     self.before_filter :extract_show_on_home_page_param, only: [:create, :update]
-    self.__send__(:include, home_page_list_controller_methods)
+    include home_page_list_controller_methods
   end
 end
 
