@@ -40,6 +40,27 @@ class Admin::SocialMediaAccountsControllerTest < ActionController::TestCase
     assert_equal ["http://bar"], worldwide_organisation.social_media_accounts.map(&:url)
   end
 
+  test ":create and :update strip whitespace from urls" do
+    worldwide_organisation = create(:worldwide_organisation)
+    post :create, worldwide_organisation_id: worldwide_organisation, social_media_account: {
+      social_media_service_id: @social_media_service.id,
+      url: "http://foo "
+    }
+
+    social_media_account = worldwide_organisation.social_media_accounts.first
+    assert_equal "http://foo", social_media_account.url
+
+    post :update, {
+      id: social_media_account,
+      worldwide_organisation_id: worldwide_organisation,
+      social_media_account: {
+        social_media_service_id: @social_media_service.id,
+        url: "http://bar "
+      }
+    }
+    assert_equal "http://bar", social_media_account.reload.url
+  end
+
   test "DELETE on :destroy destroys the social media account" do
     organisation = create(:worldwide_organisation)
     social_media_account = create(:social_media_account, socialable: organisation)
