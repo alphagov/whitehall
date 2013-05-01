@@ -1,6 +1,8 @@
 <%= render partial: 'admin/feature_lists/current_feature_list', locals: {feature_list: feature_list} %>
 
-<p><strong>Stop featuring documents:</strong></p>
+<% unless feature_list.published_features.empty? %>
+  <p><strong>Stop featuring documents:</strong></p>
+<% end %>
 
 <table class="table">
   <% feature_list.published_features.each do |feature| %>
