@@ -1,5 +1,3 @@
-<%= label_tag :person_override_active, 'Speaker is not a person on inside government' %>
-<%= check_box_tag :person_override_active, "1", edition.person_override? %>
 <div class="role_appointment">
   <%= form.label :role_appointment_id, 'Speaker' %>
   <%= form.select :role_appointment_id, options_from_collection_for_select(role_appointment_options, :first, :last, edition.role_appointment_id), { include_blank: true }, class: 'chzn-select', data: { placeholder: "Choose a speaker..." } %>
@@ -7,3 +5,6 @@
 <div class="edition_person_override">
   <%= form.text_field :person_override, label_text: "Speaker" %>
 </div>
+<%= label_tag :person_override_active, nil, class: 'checkbox' do %>
+  <%= check_box_tag :person_override_active, "1", edition.person_override? %> Speaker is not a person on inside government
+<% end %>
