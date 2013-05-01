@@ -11,19 +11,20 @@
   <div class="row-fluid">
     <div class="span12 organisation-details">
       <section>
-        <%= tab_navigation_for(@worldwide_organisation) %>
-
-        <div>
-          <% if @access_and_opening_times.new_record? %>
-            <%= link_to 'Add default access information', edit_admin_worldwide_organisation_access_and_opening_time_path(@worldwide_organisation), class: "btn btn-primary" %>
-          <% else %>
-            <article class="document">
-              <h2 class="title">Default Access and opening times:</h2>
-              <p class="body"><%= govspeak_to_admin_html(@access_and_opening_times.body) %></p>
-              <%= link_to 'Edit', edit_admin_worldwide_organisation_access_and_opening_time_path(@worldwide_organisation), class: 'btn btn-primary' %>
-            </article>
-          <% end %>
-        </div>
+        <%= tab_navigation_for(@worldwide_organisation, 'tabs-left') do %>
+          <h2>Access and opening times</h2>
+          <div>
+            <% if @access_and_opening_times.new_record? %>
+              <%= link_to 'Add default access information', edit_admin_worldwide_organisation_access_and_opening_time_path(@worldwide_organisation), class: "btn btn-primary" %>
+            <% else %>
+              <article class="document">
+                <h2 class="title">Default Access and opening times:</h2>
+                <p class="body"><%= govspeak_to_admin_html(@access_and_opening_times.body) %></p>
+                <%= link_to 'Edit', edit_admin_worldwide_organisation_access_and_opening_time_path(@worldwide_organisation), class: 'btn btn-primary' %>
+              </article>
+            <% end %>
+          </div>
+        <% end %>
       </section>
     </div>
   </div>

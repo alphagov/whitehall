@@ -166,6 +166,14 @@ class Organisation < ActiveRecord::Base
     featured_topics_and_policies_list.try(:summary)
   end
 
+  # I'm trying to use a domain centric design rather than a persistence
+  # centric design, so I do not want to expose a has_many :home_page_lists
+  # and all that this implies. I really only want to expose a list of
+  # contacts (in order) that should be shown on the home page, and some
+  # simple (explicit) methods for manipulating them.
+  extend HomePageList::Container
+  has_home_page_list_of :contacts
+
   has_many :promotional_features
 
   accepts_nested_attributes_for :default_news_image, reject_if: :all_blank

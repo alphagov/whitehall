@@ -17,6 +17,18 @@
               data: { placeholder: "Choose office type..." } %>
         </div>
       </div>
+      <%= render partial: 'admin/contacts/embed_details_for_form', locals: { contact: office_form.object.contact } %>
+      <div class="control-group">
+        <p class="radio-label control-label">Feature on home page?</p>
+        <div class="controls">
+          <% if worldwide_organisation.is_main_office?(office_form.object) %>
+            <p>Yes (as the main office)</p>
+          <% else %>
+            <%= office_form.labelled_radio_button('yes', :show_on_home_page, '1', checked: worldwide_organisation.office_shown_on_home_page?(office_form.object)) %>
+            <%= office_form.labelled_radio_button('no', :show_on_home_page, '0', checked: !worldwide_organisation.office_shown_on_home_page?(office_form.object)) %>
+          <% end %>
+        </div>
+      </div>
 
       <fieldset class="services">
         <legend>Services</legend>

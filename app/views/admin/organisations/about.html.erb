@@ -9,8 +9,10 @@
 <div class="row-fluid">
   <div class="span12 organisation-details">
     <section>
-      <%= tab_navigation_for(@organisation) %>
-      <%= govspeak_to_html @organisation.about_us %>
+      <%= tab_navigation_for(@organisation, 'tabs-left') do %>
+        <h2>About us</h2>
+        <%= govspeak_to_html @organisation.about_us %>
+      <% end %>
     </section>
   </div>
 </div>

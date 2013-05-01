@@ -11,43 +11,44 @@
   <div class="row-fluid">
     <div class="span12 organisation-details">
       <section>
-        <%= tab_navigation_for(@worldwide_organisation) %>
+        <%= tab_navigation_for(@worldwide_organisation, 'tabs-left') do %>
+          <h2>Details</h2>
+          <article class="document">
+            <p class="sponsoring-organisations">
+              Part of <%= @worldwide_organisation.sponsoring_organisations.map {|o| link_to(o.name, [:admin, o]) }.to_sentence.html_safe %>
+            </p>
 
-        <article class="document">
-          <p class="sponsoring-organisations">
-            Part of <%= @worldwide_organisation.sponsoring_organisations.map {|o| link_to(o.name, [:admin, o]) }.to_sentence.html_safe %>
-          </p>
-
-          <div class="summary">
-            <div class="content">
-              <%= @worldwide_organisation.summary %>
+            <div class="summary">
+              <div class="content">
+                <%= @worldwide_organisation.summary %>
+              </div>
             </div>
-          </div>
 
-          <div class="body description">
-            <div class="content govspeak">
-              <%= govspeak_to_html @worldwide_organisation.description %>
+            <div class="body description">
+              <div class="content govspeak">
+                <%= govspeak_to_html @worldwide_organisation.description %>
+              </div>
             </div>
-          </div>
 
-          <div class="body services">
-            <div class="content govspeak">
-              <%= govspeak_to_html @worldwide_organisation.services %>
+            <div class="body services">
+              <div class="content govspeak">
+                <%= govspeak_to_html @worldwide_organisation.services %>
+              </div>
             </div>
-          </div>
-        </article>
+          </article>
 
-        <% if @worldwide_organisation.default_news_image %>
-        <div class="document">
-          <p>Default News Image</p>
-          <%= image_tag @worldwide_organisation.default_news_image.file.url(:s300) %>
-        </div>
+          <% if @worldwide_organisation.default_news_image %>
+          <div class="document">
+            <p>Default News Image</p>
+            <%= image_tag @worldwide_organisation.default_news_image.file.url(:s300) %>
+          </div>
+          <% end %>
+
+
+          <div class="form-actions">
+            <%= link_to "Edit", edit_admin_worldwide_organisation_path(@worldwide_organisation), class: "btn btn-large btn-primary"%>
+          </div>
         <% end %>
-
-
-        <div class="form-actions">
-          <%= link_to "Edit", edit_admin_worldwide_organisation_path(@worldwide_organisation), class: "btn btn-large btn-primary"%>
-        </div>
       </section>
     </div>
   </div>

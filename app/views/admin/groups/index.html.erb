@@ -9,37 +9,38 @@
 <div class="row-fluid">
   <div class="span12 organisation-details">
     <section>
-      <%= tab_navigation_for(@organisation) %>
+      <%= tab_navigation_for(@organisation, 'tabs-left') do %>
 
-      <%= link_to "New Governance group", new_admin_organisation_group_path(@organisation), class: "btn pull-right" %>
-      <% if @organisation.groups.any? %>
+        <%= link_to "New Governance group", new_admin_organisation_group_path(@organisation), class: "btn pull-right" %>
         <h2>Governance groups</h2>
-        <table class="groups table table-striped">
-          <thead>
-            <tr>
-              <th width="15%">Name</th>
-              <th width="70%">Members</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% @organisation.groups.each do |group| %>
-              <%= content_tag_for(:tr, group) do %>
-                <td class="name"><%= link_to group.name, edit_admin_organisation_group_path(@organisation, group), title: "Edit group #{group.name}" %></td>
-                <td class="members"><%= group.members.map { |p| link_to p.name, edit_admin_person_path(p) }.to_sentence.html_safe %></td>
-                <td class="delete">
-                  <% if group.destroyable? %>
-                    <%= button_to 'delete', admin_organisation_group_path(@organisation, group), method: :delete, class: 'btn btn-danger', confirm: "Are you sure you wish to remove this group?" %>
-                  <% else %>
-                    <span>Cannot delete</span>
-                  <% end %>
-                </td>
+        <% if @organisation.groups.any? %>
+          <table class="groups table table-striped">
+            <thead>
+              <tr>
+                <th width="15%">Name</th>
+                <th width="70%">Members</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @organisation.groups.each do |group| %>
+                <%= content_tag_for(:tr, group) do %>
+                  <td class="name"><%= link_to group.name, edit_admin_organisation_group_path(@organisation, group), title: "Edit group #{group.name}" %></td>
+                  <td class="members"><%= group.members.map { |p| link_to p.name, edit_admin_person_path(p) }.to_sentence.html_safe %></td>
+                  <td class="delete">
+                    <% if group.destroyable? %>
+                      <%= button_to 'delete', admin_organisation_group_path(@organisation, group), method: :delete, class: 'btn btn-danger', confirm: "Are you sure you wish to remove this group?" %>
+                    <% else %>
+                      <span>Cannot delete</span>
+                    <% end %>
+                  </td>
+                <% end %>
               <% end %>
-            <% end %>
-          </tbody>
-        </table>
-      <% else %>
-        <p>No groups exist yet.</p>
+            </tbody>
+          </table>
+        <% else %>
+          <p>No groups exist yet.</p>
+        <% end %>
       <% end %>
     </section>
   </div>

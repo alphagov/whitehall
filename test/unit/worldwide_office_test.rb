@@ -82,4 +82,15 @@ class WorldwideOfficeTest < ActiveSupport::TestCase
   test 'is not translatable just yet' do
     refute WorldwideOffice.new.available_in_multiple_languages?
   end
+
+  test 'removes itself from any home page lists when it is destroyed' do
+    office = create(:worldwide_office)
+    list = create(:home_page_list)
+    list.add_item(office)
+
+    office.destroy
+
+    refute list.shown_on_home_page?(office)
+  end
+
 end

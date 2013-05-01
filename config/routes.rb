@@ -130,7 +130,13 @@ Whitehall::Application.routes.draw do
           resources :corporate_information_pages do
             resources :translations, controller: 'corporate_information_pages_translations'
           end
-          resources :contacts
+          resources :contacts do
+            member do
+              post :remove_from_home_page
+              post :add_to_home_page
+            end
+            post :reorder_for_home_page, on: :collection
+          end
           resources :social_media_accounts
           resources :translations, controller: 'organisation_translations'
           resources :promotional_features do
@@ -156,12 +162,16 @@ Whitehall::Application.routes.draw do
         resources :worldwide_organisations do
           member do
             put :set_main_office
-            get :offices
             get :access_info
           end
           resource :access_and_opening_time, path: 'access_info', except: [:index, :show, :new]
           resources :translations, controller: 'worldwide_organisations_translations'
-          resources :worldwide_offices, path: 'offices', except: [:index, :show] do
+          resources :worldwide_offices, path: 'offices', except: [:show] do
+            member do
+              post :remove_from_home_page
+              post :add_to_home_page
+            end
+            post :reorder_for_home_page, on: :collection
             resource :access_and_opening_time, path: 'access_info', except: [:index, :show, :new]
           end
           resources :corporate_information_pages do

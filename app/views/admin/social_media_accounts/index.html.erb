@@ -9,12 +9,14 @@
 <div class="row-fluid">
   <div class="span12 organisation-details">
     <section>
-      <%= tab_navigation_for(@socialable) %>
-      <%= render(@social_media_accounts, { socialable: @socialable }) || content_tag(:p, 'No social media accounts') %>
+      <%= tab_navigation_for(@socialable, 'tabs-left') do %>
+        <h2>Social media accounts</h2>
+        <%= render(@social_media_accounts, { socialable: @socialable }) || content_tag(:p, 'No social media accounts') %>
 
-      <div class="form-actions">
-        <%= link_to "Add", new_polymorphic_path([:admin, @socialable, SocialMediaAccount]), class: "btn btn-large btn-primary"%>
-      </div>
+        <div class="form-actions">
+          <%= link_to "Add", new_polymorphic_path([:admin, @socialable, SocialMediaAccount]), class: "btn btn-large btn-primary"%>
+        </div>
+      <% end %>
     </section>
   </div>
 </div>
