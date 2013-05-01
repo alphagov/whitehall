@@ -29,10 +29,27 @@ module Admin::TabbedNavHelper
     end
   end
 
+  def tab_dropdown(label, menu_items)
+    content_tag(:li, class: 'dropdown') do
+      content_tag(:a, class: 'dropdown-toggle', :'data-toggle' => 'dropdown', href: '#') do
+        (label + " " + content_tag(:b, '', class: 'caret')).html_safe
+      end +
+      content_tag(:ul, class: 'dropdown-menu') do
+        menu_items.map { |sub_label, sub_content|
+          content_tag(:li, link_to(sub_label, sub_content), class: class_for_tab(sub_content))
+        }.join.html_safe
+      end
+    end
+  end
+
   def tab_navigation_header(tabs)
     content_tag(:ul, class: %w(nav nav-tabs)) do
-      tabs.map { |label, url|
-        content_tag(:li, link_to(label, url), class: class_for_tab(url))
+      tabs.map { |label, content|
+        if content.is_a?(Hash)
+          tab_dropdown(label, content)
+        else
+          content_tag(:li, link_to(label, content), class: class_for_tab(content))
+        end
       }.join.html_safe
     end
   end
