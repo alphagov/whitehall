@@ -530,16 +530,6 @@ cy:
     world_locations:
       all: Pob lleoliad
       label: Lleoliadau byd
-  errors:
-    messages:
-      after:
-      before:
-      invalid_date:
-      invalid_datetime:
-      invalid_time:
-      is_at:
-      on_or_after:
-      on_or_before:
   feeds:
     atom: atom
     email_alerts: hysbysiadau e-bost
@@ -568,11 +558,6 @@ cy:
   time:
     formats:
       long_ordinal: ! '%e %B %Y %H:%M'
-  validates_timeliness:
-    error_value_formats:
-      date:
-      datetime:
-      time:
   worldwide_organisation:
     corporate_information:
       personal_information_charter_html: Mae ein %{link} yn egluro sut rydym yn trin

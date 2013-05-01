@@ -200,16 +200,6 @@ zh:
     world_locations:
       all: 所有地区位置
       label: 世界地区位置
-  errors:
-    messages:
-      after:
-      before:
-      invalid_date:
-      invalid_datetime:
-      invalid_time:
-      is_at:
-      on_or_after:
-      on_or_before:
   feeds:
     atom:
     email_alerts: 邮件提醒
@@ -302,11 +292,6 @@ zh:
   time:
     formats:
       long_ordinal:
-  validates_timeliness:
-    error_value_formats:
-      date:
-      datetime:
-      time:
   world_location:
     headings:
       announcements: 我们的公告

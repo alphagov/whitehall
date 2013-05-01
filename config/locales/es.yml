@@ -285,16 +285,6 @@ es:
     world_locations:
       all: Todos los lugares
       label: Lugares del mundo
-  errors:
-    messages:
-      after:
-      before:
-      invalid_date:
-      invalid_datetime:
-      invalid_time:
-      is_at:
-      on_or_after:
-      on_or_before:
   feeds:
     atom: Átomo
     email_alerts: alertas de email
@@ -323,11 +313,6 @@ es:
   time:
     formats:
       long_ordinal: ! '%e %B %Y %H:%M'
-  validates_timeliness:
-    error_value_formats:
-      date:
-      datetime:
-      time:
   worldwide_organisation:
     corporate_information:
       personal_information_charter_html:

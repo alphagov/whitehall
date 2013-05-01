@@ -286,16 +286,6 @@ fr:
     world_locations:
       all: Tous les endroits
       label: Endroits du monde
-  errors:
-    messages:
-      after:
-      before:
-      invalid_date:
-      invalid_datetime:
-      invalid_time:
-      is_at:
-      on_or_after:
-      on_or_before:
   feeds:
     atom: atome
     email_alerts: alertes emails
@@ -324,11 +314,6 @@ fr:
   time:
     formats:
       long_ordinal: ! '%B %d, %Y %H:%M'
-  validates_timeliness:
-    error_value_formats:
-      date:
-      datetime:
-      time:
   worldwide_organisation:
     corporate_information:
       personal_information_charter_html: Notre %{link} explique comment nous traitons

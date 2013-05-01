@@ -286,16 +286,6 @@ it:
     world_locations:
       all: Tutte le sedi
       label: Sedi mondiali
-  errors:
-    messages:
-      after:
-      before:
-      invalid_date:
-      invalid_datetime:
-      invalid_time:
-      is_at:
-      on_or_after:
-      on_or_before:
   feeds:
     atom: atomo
     email_alerts: ricezione messaggio email
@@ -324,11 +314,6 @@ it:
   time:
     formats:
       long_ordinal: ! '%e %B %Y %H:%M'
-  validates_timeliness:
-    error_value_formats:
-      date:
-      datetime:
-      time:
   worldwide_organisation:
     corporate_information:
       personal_information_charter_html: Sulla pagina %{link} è possibile trovare
