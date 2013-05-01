@@ -57,7 +57,7 @@ class PublicationTest < ActiveSupport::TestCase
     assert_nil publication.first_public_at
   end
 
-  [:draft, :scheduled, :published, :archived, :submitted, :rejected].each do |state|
+  [:draft, :scheduled, :published, :submitted, :rejected].each do |state|
     test "#{state} editions are not valid when the publication type is 'imported-awaiting-type'" do
       edition = build(:publication, state: state, publication_type: PublicationType.find_by_slug('imported-awaiting-type'))
       refute edition.valid?
@@ -93,6 +93,11 @@ class PublicationTest < ActiveSupport::TestCase
   test "should be invalid without a publication type" do
     publication = build(:publication, publication_type: nil)
     refute publication.valid?
+  end
+
+  test 'archived publications are valid with the "unknown" publication_type' do
+    publication = build(:archived_publication, publication_type: PublicationType::Unknown)
+    assert publication.valid?
   end
 
   test ".in_chronological_order returns publications in ascending order of publication_date" do

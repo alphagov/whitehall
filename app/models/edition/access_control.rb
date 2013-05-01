@@ -14,7 +14,7 @@ module Edition::AccessControl
   end
 
   def can_have_some_invalid_data?
-    imported? || deleted?
+    imported? || deleted? || archived?
   end
 
   def rejectable_by?(user)

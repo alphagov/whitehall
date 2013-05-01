@@ -36,7 +36,7 @@ class SpeechTest < ActiveSupport::TestCase
     end
   end
 
-  [:draft, :scheduled, :published, :archived, :submitted, :rejected].each do |state|
+  [:draft, :scheduled, :published, :submitted, :rejected].each do |state|
     test "#{state} editions are not valid when the publication type is 'imported-awaiting-type'" do
       edition = build(:speech, state: state, speech_type: SpeechType.find_by_slug('imported-awaiting-type'))
       refute edition.valid?
