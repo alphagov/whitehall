@@ -9,7 +9,7 @@
 <div class="row-fluid">
   <div class="span12 organisation-details">
     <section>
-      <%= tab_navigation_for(@organisation, 'tabs-left') do %>
+      <%= tab_navigation_for(@organisation) do %>
         <h2>Featured topics and policies</h2>
         <p class="warning">Warning: changes to featured topics and policies appear instantly on the live site.</p>
         <%= form_for @featured_topics_and_policies_list, url: admin_organisation_featured_topics_and_policies_list_path(@organisation), method: 'put' do |form| %>

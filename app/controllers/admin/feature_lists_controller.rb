@@ -21,6 +21,6 @@ private
   end
 
   def feature_list_path(feature_list)
-    polymorphic_url([:admin, feature_list.featurable, :features], locale: feature_list.locale)
+    polymorphic_url([:features, :admin, feature_list.featurable], locale: feature_list.locale)
   end
 end

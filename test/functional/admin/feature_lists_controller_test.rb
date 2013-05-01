@@ -11,7 +11,7 @@ class Admin::FeatureListsControllerTest < ActionController::TestCase
 
     get :show, id: feature_list
 
-    assert_redirected_to admin_world_location_features_path(feature_list.featurable, locale: feature_list.locale)
+    assert_redirected_to features_admin_world_location_path(feature_list.featurable, locale: feature_list.locale)
   end
 
   test "post reorder reorders the feature list" do
@@ -34,6 +34,6 @@ class Admin::FeatureListsControllerTest < ActionController::TestCase
 
     post :reorder, id: feature_list
 
-    assert_redirected_to admin_world_location_features_path(feature_list.featurable, locale: feature_list.locale)
+    assert_redirected_to features_admin_world_location_path(feature_list.featurable, locale: feature_list.locale)
   end
 end

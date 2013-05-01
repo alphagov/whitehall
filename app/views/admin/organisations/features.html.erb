@@ -10,8 +10,7 @@
   <div class="span12 organisation-details">
     <section>
       <%= tab_navigation_for(@organisation) do %>
-        <h2>About us</h2>
-        <%= govspeak_to_html @organisation.about_us %>
+        <%= render @feature_list, filter_by: [:title, :type, :author, :organisation] %>
       <% end %>
     </section>
   </div>

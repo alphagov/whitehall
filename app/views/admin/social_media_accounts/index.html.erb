@@ -9,7 +9,7 @@
 <div class="row-fluid">
   <div class="span12 organisation-details">
     <section>
-      <%= tab_navigation_for(@socialable, 'tabs-left') do %>
+      <%= tab_navigation_for(@socialable) do %>
         <h2>Social media accounts</h2>
         <%= render(@social_media_accounts, { socialable: @socialable }) || content_tag(:p, 'No social media accounts') %>
 

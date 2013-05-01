@@ -72,12 +72,8 @@ end
 
 When /^I order the featured items of the (?:world location|international delegation) "([^"]*)" to:$/ do |name, table|
   world_location = WorldLocation.find_by_name!(name)
-  visit admin_world_location_path(world_location)
-  click_link "Features (English)"
-  table.rows.each_with_index do |(title), index|
-    page.find("a", text: title).find(:xpath, '..').set(index)
-  end
-  click_on "Update feature order"
+  visit features_admin_world_location_path(world_location)
+  order_features_from(table)
 end
 
 When /^I add a new translation to the world location "([^"]*)" with:$/ do |name, table|

@@ -25,7 +25,7 @@ class WorldLocationsController < PublicFacingController
         @non_statistics_publications = PublicationesquePresenter.decorate(publications.not_statistics.limit(2))
         @statistics_publications = PublicationesquePresenter.decorate(publications.statistics.limit(2))
         @announcements = AnnouncementPresenter.decorate(Announcement.with_translations(I18n.locale).published.in_world_location(@world_location).in_reverse_chronological_order.limit(2))
-        @feature_list = FeatureListPresenter.decorate(@world_location.feature_list_for_locale(I18n.locale))
+        @feature_list = FeatureListPresenter.decorate(@world_location.feature_list_for_locale(I18n.locale)).limit_to(5)
         @worldwide_organisations = @world_location.worldwide_organisations
       end
     end

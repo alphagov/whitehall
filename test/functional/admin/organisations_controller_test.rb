@@ -164,66 +164,6 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert_select 'td', text: 'Exempt'
   end
 
-  view_test "documents should allow featured published news articles to be unfeatured" do
-    published_news_article = create(:published_news_article)
-    organisation = create(:organisation)
-    edition_organisation = create(:featured_edition_organisation, organisation: organisation, edition: published_news_article)
-
-    get :documents, id: organisation
-
-    assert_select "form[action=#{admin_edition_organisation_path(edition_organisation)}]" do
-      assert_select "input[name='edition_organisation[featured]'][value='false']"
-    end
-  end
-
-  test "documents should display all editions most recently published first" do
-    earlier_news_article = create(:published_news_article, first_published_at: 2.days.ago)
-    later_policy = create(:published_policy, first_published_at: 1.days.ago)
-    organisation = create(:organisation, editions: [earlier_news_article, later_policy])
-
-    get :documents, id: organisation
-
-    assert_equal [later_policy, earlier_news_article], assigns(:editions)
-  end
-
-  test "documents should exclude featured things from editions list" do
-    featured_news_article = create(:published_news_article)
-    published_news_article = create(:published_news_article)
-    organisation = create(:organisation)
-    featured_edition_organisation = create(:featured_edition_organisation, organisation: organisation, edition: featured_news_article)
-    edition_organisation = create(:edition_organisation, organisation: organisation, edition: published_news_article)
-
-    get :documents, id: organisation
-
-    assert_equal [published_news_article], assigns(:editions)
-    assert_equal [featured_news_article], assigns(:featured_editions)
-  end
-
-  view_test "documents should display published editions related to the organisation" do
-    published_news_article = create(:published_news_article)
-    published_policy = create(:published_policy)
-    draft_news_article = create(:draft_news_article)
-    another_policy = create(:published_policy)
-    organisation = create(:organisation, editions: [published_news_article, published_policy, draft_news_article])
-
-    get :documents, id: organisation
-
-    assert_select_object(published_news_article)
-    assert_select_object(published_policy)
-    refute_select_object(draft_news_article)
-    refute_select_object(another_policy)
-  end
-
-  view_test "documents should allow non-featured published news articles to be featured" do
-    published_news_article = create(:published_news_article)
-    organisation = create(:organisation)
-    edition_organisation = create(:edition_organisation, organisation: organisation, edition: published_news_article)
-
-    get :documents, id: organisation
-
-    assert_select "a[href=?]", edit_admin_edition_organisation_path(edition_organisation), text: "Feature"
-  end
-
   test "editing should load the requested organisation" do
     organisation = create(:organisation)
     get :edit, id: organisation

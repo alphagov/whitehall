@@ -9,26 +9,28 @@
 <div class="row-fluid">
   <div class="span12 organisation-details">
     <section>
-      <%= tab_navigation_for(@organisation) %>
+      <%= tab_navigation_for(@organisation) do %>
 
-      <p class="warning">Warning: changes to promotional features appear instantly on the live site.</p>
+        <p class="warning">Warning: changes to promotional features appear instantly on the live site.</p>
 
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Promotional Feature</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Promotional Feature</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
 
-        <tbody>
-          <%= render @promotional_features, organisation: @organisation %>
-        </tbody>
-      </table>
+          <tbody>
+            <%= render @promotional_features, organisation: @organisation %>
+          </tbody>
+        </table>
 
-      <div class="form-actions">
-        <%= link_to "New promotional feature", new_admin_organisation_promotional_feature_path, class: "btn btn-large btn-primary"%>
-      </div>
+        <div class="form-actions">
+          <%= link_to "New promotional feature", new_admin_organisation_promotional_feature_path, class: "btn btn-large btn-primary"%>
+        </div>
+
+      <% end %>
     </section>
   </div>
 </div>

@@ -12,37 +12,26 @@ module OrganisationControllerTestHelpers
         assert_select ".organisation h1", text: "unformatted name"
       end
 
-      test "#{org_type}:shows primary featured editions in ordering defined by association" do
-        organisation = create(org_type)
-        news_article = create(:published_news_article)
-        policy = create(:published_policy)
-        create(:featured_edition_organisation, edition: news_article, organisation: organisation, ordering: 1)
-        create(:featured_edition_organisation, edition: policy, organisation: organisation, ordering: 0)
-
-        get :show, id: organisation
-
-        assert_equal [policy, news_article], assigns(:featured_editions).collect(&:model)
-      end
-
       view_test "#{org_type}:shows a maximum of 6 featured editions" do
         organisation = create(org_type)
-        editions = []
+        features = []
+        feature_list = organisation.load_or_create_feature_list(:en)
         7.times do |i|
           edition = create(:published_news_article, first_published_at: i.days.ago)
-          editions << create(:featured_edition_organisation, edition: edition, organisation: organisation)
+          features << create(:feature, document: edition.document, feature_list: feature_list, ordering: i)
         end
 
         get :show, id: organisation
 
-        assert_select_object editions[0].edition do
-          assert_select "img[src$='#{editions[0].image.file.url(:s630)}'][alt=?]", editions[0].alt_text
+        assert_select_object features[0].document.latest_edition do
+          assert_select "img[src$='#{features[0].image.url(:s630)}'][alt=?]", features[0].alt_text
         end
-        editions[1...6].each do |edition|
-          assert_select_object edition.edition do
-            assert_select "img[src$='#{edition.image.file.url(:s300)}'][alt=?]", edition.alt_text
+        features[1...6].each do |feature|
+          assert_select_object feature.document.latest_edition do
+            assert_select "img[src$='#{feature.image.url(:s300)}'][alt=?]", feature.alt_text
           end
         end
-        refute_select_object editions.last.edition
+        refute_select_object features.last.document.latest_edition
       end
 
       view_test "#{org_type}:should not display an empty featured editions section" do
