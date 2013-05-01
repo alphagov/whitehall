@@ -113,6 +113,15 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_select ".organisation .description", text: "organisation-description"
   end
 
+  view_test "showing an organisation without a list of contacts doesn't try to create one" do
+    # needs to be a view_test so the entire view is rendered
+    organisation = create(:organisation)
+    get :show, id: organisation
+
+    organisation.reload
+    refute organisation.has_home_page_contacts_list?
+  end
+
   view_test "provides ids for links with fragment identifiers to jump to relevent sections" do
     topic = create(:topic, published_edition_count: 1)
     management_role = create(:board_member_role)
