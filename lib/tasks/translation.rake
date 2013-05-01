@@ -27,7 +27,8 @@ namespace :translation do
       FileUtils.mkdir_p(directory) unless File.exist?(directory)
       locales = Dir[Rails.root.join("config", "locales", "*.yml")]
       base_locale = Rails.root.join("config", "locales", "en.yml")
-      target_locales = locales - [base_locale.to_s]
+      admin_locale = Rails.root.join("config", "locales", "admin.en.yml")
+      target_locales = locales - [base_locale.to_s, admin_locale.to_s]
       target_locales.each do |target_locale_path|
         exporter = Whitehall::Translation::Exporter.new(directory, base_locale, target_locale_path)
         exporter.export
