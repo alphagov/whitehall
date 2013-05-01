@@ -8,7 +8,7 @@ class Response < ActiveRecord::Base
                                 reject_if: :no_substantive_attachment_attributes?,
                                 allow_destroy: true
 
-  validates_datetime :published_on, after: :year_1900, allow_blank: true
+  validates :published_on, recent_date: true, allow_blank: true
 
   def published?
     attachments.any?
