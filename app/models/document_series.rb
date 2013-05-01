@@ -9,7 +9,9 @@ class DocumentSeries < ActiveRecord::Base
   has_many :edition_document_series
 
   validates_with SafeHtmlValidator
-  validates :name, :summary, presence: true
+  validates :name, presence: true, length: { maximum: 255 }
+  validates :summary, presence: true, length: { maximum: 255 }
+  validates :description, length: { maximum: (64.kilobytes - 1) }
 
   before_destroy { |dc| dc.destroyable? }
 
