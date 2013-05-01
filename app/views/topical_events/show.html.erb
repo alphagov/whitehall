@@ -9,10 +9,20 @@
       <header class="page-title">
         <% if @classification.logo_url.present? %>
           <h1><span><%= image_tag(@classification.logo_url, alt: @classification.logo_alt_text) if @classification.logo_url %></span></h1>
-          <h2><span><%= @classification.name %></span></h2>
+          <h2>
+            <span><%= @classification.name %></span>
+            <% if @classification.archived? %>
+              <span class="archived">(Archived)</span>
+            <% end %>
+          </h2>
         <% else %>
           <h1 class="label">Topical event</h1>
-          <h2 class="title"><span><%= @classification.name %></span></h2>
+          <h2 class="title">
+            <span><%= @classification.name %></span>
+            <% if @classification.archived? %>
+              <span class="archived">(Archived)</span>
+            <% end %>
+          </h2>
         <% end %>
       </header>
 

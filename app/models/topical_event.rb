@@ -50,7 +50,11 @@ class TopicalEvent < Classification
   end
 
   def archived?
-    end_date < Date.today ? true : false
+    if end_date && end_date <= Date.today
+      true
+    else
+      false
+    end
   end
 
   def featuring_of(edition)
