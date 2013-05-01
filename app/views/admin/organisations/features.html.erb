@@ -9,9 +9,9 @@
 <div class="row-fluid">
   <div class="span12 organisation-details">
     <section>
-      <%= tab_navigation_for(@organisation, 'tabs-left') %>
-
-      <%= render @feature_list, filter_by: [:title, :type, :author, :organisation] %>
+      <%= tab_navigation_for(@organisation, 'tabs-left') do %>
+        <%= render @feature_list, filter_by: [:title, :type, :author, :organisation] %>
+      <% end %>
     </section>
   </div>
 </div>
