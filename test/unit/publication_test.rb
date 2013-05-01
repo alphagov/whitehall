@@ -147,6 +147,11 @@ class PublicationTest < ActiveSupport::TestCase
     refute publication.valid?
   end
 
+  test 'archived publications are valid with the "unknown" publication_type' do
+    publication = build(:archived_publication, publication_type: PublicationType::Unknown)
+    assert publication.valid?
+  end
+
   test ".in_chronological_order returns publications in ascending order of publication_date" do
     jan = create(:publication, publication_date: Date.parse("2011-01-01"))
     mar = create(:publication, publication_date: Date.parse("2011-03-01"))
