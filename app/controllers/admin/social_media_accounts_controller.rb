@@ -1,6 +1,7 @@
 class Admin::SocialMediaAccountsController < Admin::BaseController
   before_filter :find_socialable
   before_filter :find_social_media_account, only: [:edit, :update, :destroy]
+  before_filter :strip_whitespace_from_url
 
   def index
     @social_media_accounts = @socialable.social_media_accounts
@@ -57,5 +58,11 @@ private
 
   def find_social_media_account
     @social_media_account = @socialable.social_media_accounts.find(params[:id])
+  end
+
+  def strip_whitespace_from_url
+    if params[:social_media_account] && params[:social_media_account][:url]
+      params[:social_media_account][:url].strip!
+    end
   end
 end
