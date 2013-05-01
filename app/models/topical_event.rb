@@ -36,7 +36,8 @@ class TopicalEvent < Classification
 
   scope :running, -> {where("end_date > ?", Date.today)}
 
-  validate :duration_of_event
+  validate :start_and_end_dates
+  validates :start_date, presence: true, if: -> topical_event { topical_event.end_date }
 
   accepts_nested_attributes_for :social_media_accounts, allow_destroy: true
   accepts_nested_attributes_for :classification_featurings
@@ -74,13 +75,13 @@ class TopicalEvent < Classification
   end
 
   private
-  def duration_of_event
+  def start_and_end_dates
     if start_date && end_date
       if more_than_a_year(start_date, end_date)
         errors.add(:base, "cannot be longer than a year")
       end
-      if end_date < start_date
-        errors.add(:end_date, "cannot be before the start_date")
+      if start_date >= end_date
+        errors.add(:end_date, "cannot be before or equal to the start_date")
       end
     end
   end

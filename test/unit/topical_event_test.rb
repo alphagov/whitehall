@@ -7,23 +7,33 @@ class TopicalEventTestTest < ActiveSupport::TestCase
     assert_equal 0, TopicalEvent.running.count
   end
 
-  test "topical event should not last more than a year" do
-    topical_event = build(:topical_event, start_date: 1.day.ago.to_date, end_date: (Date.today + 2.years))
+  test "should not last more than a year" do
+    topical_event = build(:topical_event, start_date: 3.days.ago.to_date, end_date: (Date.today + 1.year))
     refute topical_event.valid?
   end
 
-  test "topical event can be a year long" do
+  test "requires a start_date if end_date is set" do
+    topical_event = build(:topical_event, end_date: (Date.today + 1.year))
+    refute topical_event.valid?
+  end
+
+  test "can be a year long" do
     topical_event = build(:topical_event, start_date: Date.today, end_date: (Date.today + 1.year))
     assert topical_event.valid?
   end
 
-  test "topical event can be a year with a day leeway" do
+  test "can be a year with a day leeway" do
     topical_event = build(:topical_event, start_date: 1.day.ago.to_date, end_date: (Date.today + 1.year))
     assert topical_event.valid?
   end
 
-  test "topical event should not end before it starts" do
-    topical_event = build(:topical_event, start_date: Date.today, end_date: 1.day.ago)
+  test "should not end before it starts" do
+    topical_event = build(:topical_event, start_date: Date.today, end_date: 1.day.ago.to_date)
+    refute topical_event.valid?
+  end
+
+  test "should be longer than a day" do
+    topical_event = build(:topical_event, start_date: Date.today, end_date: Date.today)
     refute topical_event.valid?
   end
 
