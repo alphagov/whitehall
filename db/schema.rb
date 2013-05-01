@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130430093825) do
+ActiveRecord::Schema.define(:version => 20130501153224) do
 
   create_table "access_and_opening_times", :force => true do |t|
     t.text     "body"
@@ -618,7 +618,6 @@ ActiveRecord::Schema.define(:version => 20130430093825) do
     t.text     "body"
     t.string   "born"
     t.string   "died"
-    t.integer  "political_party_id"
     t.text     "major_acts"
     t.text     "interesting_facts"
     t.datetime "created_at"
@@ -627,7 +626,6 @@ ActiveRecord::Schema.define(:version => 20130430093825) do
   end
 
   add_index "historical_accounts", ["person_id"], :name => "index_historical_accounts_on_person_id"
-  add_index "historical_accounts", ["political_party_id"], :name => "index_historical_accounts_on_political_party_id"
 
   create_table "home_page_list_items", :force => true do |t|
     t.integer  "home_page_list_id", :null => false
