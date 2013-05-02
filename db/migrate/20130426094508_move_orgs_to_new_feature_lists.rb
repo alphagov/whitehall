@@ -44,7 +44,8 @@ class MoveOrgsToNewFeatureLists < ActiveRecord::Migration
             document_id: feo.edition.document_id,
             carrierwave_image: feo.image.carrierwave_image,
             alt_text: feo.alt_text,
-            ordering: idx
+            ordering: idx,
+            started_at: feo.created_at
           )
           copy_attachments(feo.image.id, new_feature.id)
         end
