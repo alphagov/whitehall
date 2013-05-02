@@ -6,6 +6,10 @@ class WorldLocationNewsArticlesController < DocumentsController
     @document = WorldLocationNewsArticlePresenter.new(@document)
   end
 
+  def index
+    redirect_to announcements_path(include_world_location_news: "1")
+  end
+
   private
 
   def document_class
