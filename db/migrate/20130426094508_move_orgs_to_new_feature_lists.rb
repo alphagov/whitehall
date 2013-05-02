@@ -48,17 +48,20 @@ class MoveOrgsToNewFeatureLists < ActiveRecord::Migration
           )
           copy_attachments(feo.image.id, new_feature.id)
         end
+        # Otherwise we end up with featurable_type = 'MoveOrgsToNewFeatureLists::Organisation'
+        feature_list.update_column(:featurable_type, 'Organisation')
       end
     end
   end
 
   def down
     ActiveRecord::Base.connection.execute "DELETE FROM feature_lists WHERE featurable_type = 'Organisation'"
+    ActiveRecord::Base.connection.execute "DELETE FROM features WHERE NOT EXISTS (SELECT 1 FROM feature_lists WHERE feature_lists.id = features.feature_list_id)"
   end
 
   def copy_files(old_id, new_id, path)
     old_dir = "#{path}/edition_organisation_image_data/file/#{old_id}"
-    new_dir = "#{path}/feature/file/#{new_id}"
+    new_dir = "#{path}/feature/image/#{new_id}"
     puts "copy #{old_dir}/* to #{new_dir}"
     cmd = "[ -e #{old_dir} ] && mkdir -p #{new_dir} && cp -f #{old_dir}/* #{new_dir}/"
     system cmd
