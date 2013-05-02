@@ -13,6 +13,7 @@
       <th width="15%">Name</th>
       <th width="40%">Description</th>
       <th width="25%">Details</th>
+      <th width="25%">Duration</th>
       <th width="20%">Related</th>
     </tr>
   </thead>
@@ -29,6 +30,11 @@
           <%= classification.breakdown.map { |key, count|
             pluralize count, key
            }.to_sentence %>
+        </td>
+        <td class="duration">
+          <% if classification.start_date && classification.end_date %>
+            <%= classification.start_date %> to <%= classification.end_date %>
+          <% end %>
         </td>
         <td class="related">
           <ul>

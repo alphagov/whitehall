@@ -45,6 +45,10 @@
           padding-left: $gutter-half;
         }
       }
+      .archived {
+        color: $grey-1;
+        padding-left: 0;
+      }
     }
     .label, .title {
       @include core-36;
@@ -94,7 +98,6 @@
 
     article {
       width: 100%;
-      
     }
 
     &.items-1 {

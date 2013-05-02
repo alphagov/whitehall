@@ -110,6 +110,8 @@ ActiveRecord::Schema.define(:version => 20130501153224) do
     t.string   "type"
     t.string   "carrierwave_image"
     t.string   "logo_alt_text"
+    t.date     "start_date"
+    t.date     "end_date"
   end
 
   add_index "classifications", ["slug"], :name => "index_classifications_on_slug"
