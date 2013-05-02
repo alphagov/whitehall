@@ -11,6 +11,11 @@ class WorldLocationNewsArticlesControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "index redirects to the announcements page with the world location news flag" do
+    get :index
+    assert_redirected_to announcements_path(include_world_location_news: "1")
+  end
+
   view_test "renders the world location news article summary from plain text" do
     world_news_article = create(:published_world_location_news_article, summary: 'plain text & so on')
     get :show, id: world_news_article.document
