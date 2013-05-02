@@ -21,7 +21,10 @@
 <header class="publication-header" id="contents">
   <div class="inner-block floated-children">
     <div class="headings">
-      <h1><%= @html_version.title %></h1>
+      <h1>
+        <span class="document-type"><%= @document.publication_type.singular_name %></span>
+        <%= @html_version.title %>
+      </h1>
       <p><%= published_or_updated(@document).titlecase %> <%= absolute_date(@document.public_timestamp, class: 'published-at') %></p>
     </div>
     <nav class="in-page-navigation">

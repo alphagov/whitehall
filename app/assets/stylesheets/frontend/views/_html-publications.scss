@@ -55,6 +55,12 @@
         @include media(tablet){
           margin: $gutter*2.5 0 $gutter*2;
         }
+
+        .document-type {
+          @include core-27;
+          display: block;
+          margin-bottom: $gutter-one-third;
+        }
       }
       p {
         margin: $gutter-half 0 20px;
