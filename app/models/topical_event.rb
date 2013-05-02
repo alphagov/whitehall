@@ -34,7 +34,7 @@ class TopicalEvent < Classification
             source: :edition,
             order: "classification_featurings.ordering ASC"
 
-  scope :active, -> {where("end_date > ?", Date.today)}
+  scope :active, -> { where("end_date > ?", Date.today) }
 
   validate :start_and_end_dates
   validates :start_date, presence: true, if: -> topical_event { topical_event.end_date }
