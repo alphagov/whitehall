@@ -24,6 +24,16 @@
   <% if @contactable.respond_to?(:home_page_contacts) %>
         </div>
         <div class="tab-pane" id="on-home-page">
+          <% if @contactable.respond_to?(:foi_contacts) && @contactable.foi_contacts.any? %>
+            <h3>FOI Contacts</h3>
+            <p>All FOI contacts are always shown on the home page in static order.</p>
+            <% @contactable.foi_contacts.each do |foi_contact| %>
+              <div class="well">
+                <p><%= foi_contact.title %></p>
+              </div>
+            <% end %>
+            <h3>Other contacts</h3>
+          <% end %>
           <p>Drag up and down to re-order then click "Update contact list order" at the bottom of the form</p>
           <p class="warning">Warning: changes to contacts appear instantly on the live site.</p>
           <%= form_tag [:reorder_for_home_page, :admin, @contactable, Contact], method: :post do %>

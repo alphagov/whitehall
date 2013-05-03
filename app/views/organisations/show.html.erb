@@ -281,6 +281,17 @@
           </div>
         </div>
 
+        <% if @foi_contacts.any? %>
+          <section id="foi-contacts">
+            <h1 class="label">Freedom of Information</h1>
+            <div class="org-contacts">
+              <div class="addresses js-hide-extra-contacts">
+                <%= render partial: 'contacts/contact', collection: @foi_contacts %>
+              </div>
+            </div>
+          </section>
+        <% end %>
+
         <% if @sub_organisations.any? %>
           <section id="high-profile-units">
             <h1 class="label">High profile groups within <%= @organisation.display_name %></h1>
@@ -298,8 +309,10 @@
       </div>
 
       <% if @organisation.corporate_information_pages.any? %>
-            <%= render partial: 'corporate_information',
-                        locals: { organisation: @organisation, show_corporate_reports: true } %>
+        <%= render partial: 'corporate_information',
+                   locals: { organisation: @organisation,
+                             show_corporate_reports: true,
+                             show_foi_links: @foi_contacts.empty? } %>
       <% end %>
 
     </div>

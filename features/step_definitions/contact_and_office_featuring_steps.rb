@@ -156,11 +156,11 @@ end
 Then /^I see the new FOI contact listed on the home page(?: only once,)? in the FOI section$/ do
   visit organisation_path(@the_organisation)
 
-  within '.addresses' do
+  within '#org-contacts + .org-contacts' do
     refute page.has_css?("div.contact h2", text: @the_new_foi_contact.title)
   end
 
-  within '.foi-addresses' do
+  within '#foi-contacts .org-contacts' do
     assert page.has_css?("div.contact h2", text: @the_new_foi_contact.title)
   end
 end

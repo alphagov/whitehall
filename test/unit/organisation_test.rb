@@ -553,6 +553,20 @@ class OrganisationTest < ActiveSupport::TestCase
     assert_same_elements [no10, dpms_office], Organisation.executive_offices
   end
 
+  test 'can provide a list of all its FOI contacts' do
+    organisation = create(:organisation)
+    contact_1 = create(:contact, contactable: organisation, contact_type: ContactType::FOI)
+    contact_2 = create(:contact, contact_type: ContactType::FOI)
+    contact_3 = create(:contact, contactable: organisation, contact_type: ContactType::Media)
+    contact_4 = create(:contact, contactable: organisation, contact_type: ContactType::General)
+
+    foi_contacts = organisation.foi_contacts
+    assert foi_contacts.include?(contact_1), 'expected our foi contact to be in our list of foi contacts'
+    refute foi_contacts.include?(contact_2), 'expected someone else\'s foi contact not to be in our list of foi contacts'
+    refute foi_contacts.include?(contact_3), 'expected our media contact not to be in our list of foi contacts'
+    refute foi_contacts.include?(contact_4), 'expected our general contact not to be in our list of foi contacts'
+  end
+
   test 'knows if a given contact is on its home page' do
     organisation = build(:organisation)
     c = build(:contact)

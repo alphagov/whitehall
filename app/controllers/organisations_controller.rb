@@ -56,6 +56,7 @@ class OrganisationsController < PublicFacingController
             @chief_professional_officers = chief_professional_officers
             @special_representatives = special_representatives
             @sub_organisations = @organisation.sub_organisations
+            @foi_contacts = @organisation.foi_contacts
           end
         else
           render action: 'external'

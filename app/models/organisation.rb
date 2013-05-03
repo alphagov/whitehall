@@ -179,6 +179,9 @@ class Organisation < ActiveRecord::Base
   def contact_shown_on_home_page?(contact)
     super || (contact.foi? && contact.contactable == self)
   end
+  def foi_contacts
+    contacts.where(contact_type_id: ContactType::FOI.id)
+  end
 
   has_many :promotional_features
 
