@@ -1,6 +1,5 @@
 atom_feed language: 'en-GB', root_url: root_url do |feed|
-  feed.title ['Inside government', @ministerial_role.name].join(" - ")
-  feed.subtitle 'Latest'
+  feed.title [@ministerial_role.name, 'Activity on GOV.UK'].join(' - ')
   feed.author do |author|
     author.name 'HM Government'
   end

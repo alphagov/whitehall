@@ -1,6 +1,5 @@
 atom_feed language: 'en-GB', root_url: root_url do |feed|
-  feed.title 'Inside Government'
-  feed.subtitle 'Recent announcements'
+  feed.title 'Announcements on GOV.UK'
   feed.author do |author|
     author.name 'HM Government'
   end
