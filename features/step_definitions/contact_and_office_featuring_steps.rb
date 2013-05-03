@@ -26,15 +26,7 @@ When /^I add a new contact to be featured on the home page of the organisation$/
   click_on 'Contacts'
   click_on 'All'
   click_on "Add"
-  fill_in "Title", with: 'Our shiny new office'
-
-  fill_in "Street address", with: "address1\naddress2"
-  fill_in "Postal code", with: "12345-123"
-  fill_in "Email", with: "foo@bar.com"
-  fill_in "Label", with: "Main phone number"
-  fill_in "Number", with: "+22 (0) 111 111-111"
-  select "United Kingdom", from: "Country"
-  choose "yes"
+  fill_in_contact_details(feature_on_home_page: 'yes')
   click_on "Save"
   @the_new_contact = Contact.last
 end
@@ -91,16 +83,10 @@ When /^I add a new office to be featured on the home page of the worldwide organ
   click_on 'Offices'
   click_on 'All'
   click_on "Add"
-  fill_in "Title", with: 'Our shiny new office'
+
+  fill_in_contact_details(feature_on_home_page: 'yes')
   select WorldwideOfficeType.all.sample.name, from: 'Office type'
 
-  fill_in "Street address", with: "address1\naddress2"
-  fill_in "Postal code", with: "12345-123"
-  fill_in "Email", with: "foo@bar.com"
-  fill_in "Label", with: "Main phone number"
-  fill_in "Number", with: "+22 (0) 111 111-111"
-  select "United Kingdom", from: "Country"
-  choose "yes"
   click_on "Save"
   @the_new_office = WorldwideOffice.last
 end

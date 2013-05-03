@@ -255,9 +255,7 @@ end
 When /^I add a new contact "([^"]*)" with address "([^"]*)"$/ do |contact_description, address|
   click_link "Contacts"
   click_link "Add"
-  fill_in "Title", with: contact_description
-  fill_in "Street address", with: address
-  select "United Kingdom", from: "Country"
+  fill_in_contact_details(title: contact_description, street_address: address)
   click_button "Save"
 end
 
