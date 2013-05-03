@@ -22,7 +22,7 @@
   <div class="inner-block floated-children">
     <div class="headings">
       <h1>
-        <span class="document-type"><%= @document.publication_type.singular_name %></span>
+        <%= content_tag(:span, @document.display_type, class: 'document-type') %>
         <%= @html_version.title %>
       </h1>
       <p><%= published_or_updated(@document).titlecase %> <%= absolute_date(@document.public_timestamp, class: 'published-at') %></p>
