@@ -280,31 +280,6 @@
     }
   }
 
-  @include print {
-    table {
-      border-collapse: collapse;
-      width: 100%;
-      margin: $gutter 0;
-
-      thead {
-        display: table-header-group;
-      }
-
-      tr {
-        th, td {
-          background-color: white;
-          border: 1pt solid rgb(125,125,125);
-          padding: 0.25em 0.5em;
-          text-align: left;
-        }
-
-        th {
-          font-weight: bold;
-        }
-      }
-    }
-  }
-
   .address {
     border-left: 1px solid $border-colour;
     padding-left: $gutter-half;
