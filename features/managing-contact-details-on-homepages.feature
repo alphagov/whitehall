@@ -6,6 +6,9 @@ Feature: managing contact details on home pages
   Contact details comprise contact records on organisation pages, and 
   offices on world organisation pages.
 
+  Contacts can also be marked with their type, and on organisation pages
+  FOI contacts are displayed separately from the rest of the list
+
   Background:
     Given I am a GDS editor
 
@@ -14,6 +17,11 @@ Feature: managing contact details on home pages
     When I add a new contact to be featured on the home page of the organisation
     And I reorder the contacts to highlight my new contact
     Then I see the contacts in my specified order including the new one on the home page of the organisation
+
+  Scenario: FOI contacts for an organisation
+    Given there is an organisation with some contacts on its home page
+    When I add a new FOI contact to the organisation without adding it to the list of contacts for the home page
+    Then I see the new FOI contact listed on the home page only once, in the FOI section
 
   Scenario: Removing contacts from the home page of an organisation
     Given there is an organisation with some contacts on its home page

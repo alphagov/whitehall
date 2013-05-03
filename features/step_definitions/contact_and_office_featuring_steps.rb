@@ -138,3 +138,29 @@ Then /^that office is no longer visible on the home page of the worldwide organi
     refute page.has_css?("div.contact h2", text: @the_removed_office.title)
   end
 end
+
+When /^I add a new FOI contact to the organisation without adding it to the list of contacts for the home page$/ do
+  visit admin_organisation_path(@the_organisation)
+  click_on 'Contacts'
+  click_on 'All'
+  click_on "Add"
+  fill_in_contact_details(
+    title: 'Our FOI contact',
+    feature_on_home_page: nil,
+    contact_type: ContactType::FOI.title
+  )
+  click_on "Save"
+  @the_new_foi_contact = Contact.last
+end
+
+Then /^I see the new FOI contact listed on the home page(?: only once,)? in the FOI section$/ do
+  visit organisation_path(@the_organisation)
+
+  within '.addresses' do
+    refute page.has_css?("div.contact h2", text: @the_new_foi_contact.title)
+  end
+
+  within '.foi-addresses' do
+    assert page.has_css?("div.contact h2", text: @the_new_foi_contact.title)
+  end
+end

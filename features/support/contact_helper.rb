@@ -17,7 +17,10 @@ module ContactHelper
     fill_in "Label", with: contact_details[:phone_number_label]
     fill_in "Number", with: contact_details[:phone_number]
     select contact_details[:country], from: "Country"
-    choose contact_details[:feature_on_home_page]
+    # allow passing in nil to say - don't try to choose the feature on
+    # home page? setting; maybe because it's the first office for a world
+    # org, or because it's an FOI contact for a normal org.
+    choose contact_details[:feature_on_home_page] unless contact_details[:feature_on_home_page].nil?
   end
 end
 
