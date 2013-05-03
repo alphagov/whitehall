@@ -10,6 +10,7 @@ class Admin::EditionsController < Admin::BaseController
   before_filter :build_edition_organisations, only: [:new, :edit]
   before_filter :detect_other_active_editors, only: [:edit]
   before_filter :set_default_world_locations, only: :index
+  before_filter :set_default_edition_locations, only: :new
   before_filter :enforce_permissions!
   before_filter :limit_edition_access!, only: [:show, :edit, :update, :submit, :revise, :reject, :destroy, :confirm_unpublish]
   before_filter :redirect_to_controller_for_type, only: [:show]
@@ -199,6 +200,12 @@ class Admin::EditionsController < Admin::BaseController
     n = @edition.edition_organisations.reject { |eo| eo.lead? }.count
     (n...6).each do |i|
       @edition.edition_organisations.build(lead: false)
+    end
+  end
+
+  def set_default_edition_locations
+    if current_user.world_locations.any? && !@edition.world_locations.any?
+      @edition.world_locations = current_user.world_locations
     end
   end
 
