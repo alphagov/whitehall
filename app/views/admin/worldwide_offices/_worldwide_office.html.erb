@@ -17,6 +17,7 @@
     <% if worldwide_office.contact.email.present? %>
       <%= definition('Email', worldwide_office.contact.email) %>
     <% end %>
+    <%= definition('Office type', worldwide_office.worldwide_office_type.name) %>
     <%= definition('Contact type', worldwide_office.contact.contact_type.name) %>
     <%= definition('Markdown to use', "[Contact:#{worldwide_office.contact.id}]") %>
     <%= definition('On home page?', worldwide_office_shown_on_home_page_text(worldwide_organisation, worldwide_office)) %>
