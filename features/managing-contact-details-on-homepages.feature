@@ -21,7 +21,8 @@ Feature: managing contact details on home pages
   Scenario: FOI contacts for an organisation
     Given there is an organisation with some contacts on its home page
     When I add a new FOI contact to the organisation without adding it to the list of contacts for the home page
-    Then I see the new FOI contact listed on the home page only once, in the FOI section
+    Then I cannot add or reorder the new FOI contact in the home page list
+    And I see the new FOI contact listed on the home page only once, in the FOI section
 
   Scenario: Removing contacts from the home page of an organisation
     Given there is an organisation with some contacts on its home page

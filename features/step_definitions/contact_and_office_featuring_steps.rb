@@ -153,6 +153,22 @@ When /^I add a new FOI contact to the organisation without adding it to the list
   @the_new_foi_contact = Contact.last
 end
 
+Then /^I cannot add or reorder the new FOI contact in the home page list$/ do
+  visit admin_organisation_path(@the_organisation)
+
+  click_on 'Contacts'
+  click_on 'All'
+
+  within record_css_selector(@the_new_foi_contact) do
+    refute page.has_button?('Add to home page')
+    refute page.has_button?('Remove from home page')
+  end
+
+  click_on 'Order on home page'
+
+  refute page.has_field?("ordering[#{@the_new_foi_contact.id}]")
+end
+
 Then /^I see the new FOI contact listed on the home page(?: only once,)? in the FOI section$/ do
   visit organisation_path(@the_organisation)
 
