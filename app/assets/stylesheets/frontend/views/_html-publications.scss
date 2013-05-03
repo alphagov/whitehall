@@ -49,17 +49,19 @@
       h1 {
         @include core-48;
         font-weight: bold;
-        margin: $gutter-half 0;
+        margin: $gutter-one-sixth 0 $gutter-half;
         color: $white;
 
         @include media(tablet){
-          margin: $gutter*2.5 0 $gutter*2;
+          margin-bottom: $gutter*2;
         }
-
-        .document-type {
-          @include core-27;
-          display: block;
-          margin-bottom: $gutter-one-third;
+      }
+      .document-type {
+        @include core-27;
+        display: block;
+        margin: $gutter-two-thirds 0 0;
+        @include media(tablet) {
+          margin: $gutter*2.5 0 $gutter-one-third;
         }
       }
       p {
