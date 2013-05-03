@@ -1,14 +1,23 @@
-<section class="organisation-news featured-news items-<%= @feature_list.current_feature_count %>" id="featured-documents">
-  <% if @feature_list.any_current_features? %>
+<%
+  all_announcements_link ||= nil
+%>
+<section class="organisation-news featured-news items-<%= feature_list.current_feature_count %>" id="featured-documents">
+  <% if feature_list.any_current_features? %>
     <%= render partial: 'shared/featured_news',
-              locals: { edition: @feature_list.current_featured_editions.first,
+              locals: { edition: feature_list.current_featured_editions.first,
                         extra_class: 'first',
                         show_meta: true,
                         image_size: :s630 } %>
     <%= render partial: 'shared/featured_news',
-               collection: @feature_list.current_featured_editions.to_a.from(1),
+               collection: feature_list.current_featured_editions.to_a.from(1),
                as: :edition,
                locals: { show_meta: true,
                          extra_class: "secondary" } %>
   <% end %>
+  <%= render partial: 'shared/recently_updated',
+            locals: { recently_updated: recently_updated,
+                      atom_url: organisation_url(organisation, format: "atom"),
+                      govdelivery_url: filter_email_signup_url(organisation: organisation.slug),
+                      extra_class: 'panel',
+                      all_announcements_link: all_announcements_link } %>
 </section>
