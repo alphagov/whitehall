@@ -1,6 +1,12 @@
 <%
   show_corporate_reports ||= false
   show_access_our_information_header ||= false
+  show_foi_links =
+    if local_assigns.has_key?(:show_foi_links)
+      local_assigns[:show_foi_links]
+    else
+      true
+    end
 %>
 <section class="corporate-information" id="corporate-info">
   <h1><%= t('organisation.headings.corporate_information') %></h1>
@@ -19,10 +25,12 @@
         <% if organisation.has_published_publications_of_type?(PublicationType::TransparencyData) %>
           <li><%= link_to t('organisation.corporate_information.transparency'), publications_filter_path(organisation, publication_type: 'transparency-data') %></li>
         <% end %>
-        <% if organisation.has_published_publications_of_type?(PublicationType::FoiRelease) %>
-          <li><%= link_to t('organisation.corporate_information.foi_releases'), publications_filter_path(organisation, publication_type: 'foi-releases') %></li>
+        <% if show_foi_links %>
+          <% if organisation.has_published_publications_of_type?(PublicationType::FoiRelease) %>
+            <li><%= link_to t('organisation.corporate_information.foi_releases'), publications_filter_path(organisation, publication_type: 'foi-releases') %></li>
+          <% end %>
+          <li><%= link_to t('organisation.corporate_information.foi_how_to'), 'https://www.gov.uk/make-a-freedom-of-information-request/the-freedom-of-information-act' %></li>
         <% end %>
-        <li><%= link_to t('organisation.corporate_information.foi_how_to'), 'https://www.gov.uk/make-a-freedom-of-information-request/the-freedom-of-information-act' %></li>
       </ul>
     </nav>
   </div>
