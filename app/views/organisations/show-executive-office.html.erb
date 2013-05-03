@@ -58,7 +58,7 @@
         <h1 id="org-contacts" class="label"><%= t('organisation.headings.contact', name: @organisation.display_name) %></h1>
         <div class="org-contacts">
           <div class="addresses js-hide-extra-contacts">
-            <%= render partial: 'contacts/contact', collection: @organisation.contacts %>
+            <%= render partial: 'contacts/contact', collection: @organisation.home_page_contacts %>
           </div>
         </div>
       </section>
