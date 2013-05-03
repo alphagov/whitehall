@@ -4,6 +4,7 @@
     <%= contact_form.text_field :title, horizontal: true %>
     <%= contact_form.text_area :comments, rows: 2, horizontal: true, placeholder: "Optional instructions for this contact e.g. opening hours, rules of use…" %>
     <%= render partial: 'admin/contacts/embed_details_for_form', locals: { contact: contact_form.object } %>
+    <%= render partial: 'admin/contacts/contact_type_details_form', locals: { contact_form: contact_form } %>
     <% if contactable.respond_to? :home_page_contacts %>
       <div class="control-group">
         <p class="radio-label control-label">Feature on home page?</p>

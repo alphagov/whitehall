@@ -147,7 +147,7 @@ When /^I add a new FOI contact to the organisation without adding it to the list
   fill_in_contact_details(
     title: 'Our FOI contact',
     feature_on_home_page: nil,
-    contact_type: ContactType::FOI.title
+    contact_type: ContactType::FOI.name
   )
   click_on "Save"
   @the_new_foi_contact = Contact.last

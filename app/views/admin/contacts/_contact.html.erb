@@ -14,6 +14,7 @@
     <% if contact.email.present? %>
       <%= definition('Email', contact.email) %>
     <% end %>
+    <%= definition('Contact type', contact.contact_type.name) %>
     <%= definition('Markdown to use', "[Contact:#{contact.id}]") %>
     <% if contactable.respond_to? :home_page_contacts %>
       <%= definition('On home page?', contactable.contact_shown_on_home_page?(contact) ? 'Yes' : 'No')%>

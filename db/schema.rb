@@ -177,8 +177,10 @@ ActiveRecord::Schema.define(:version => 20130507112303) do
     t.string  "region"
     t.string  "postal_code"
     t.integer "country_id"
+    t.integer "contact_type_id",                                  :null => false
   end
 
+  add_index "contacts", ["contact_type_id"], :name => "index_contacts_on_contact_type_id"
   add_index "contacts", ["contactable_id", "contactable_type"], :name => "index_contacts_on_contactable_id_and_contactable_type"
 
   create_table "corporate_information_page_attachments", :force => true do |t|

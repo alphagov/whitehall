@@ -1,0 +1,10 @@
+<div class="control-group">
+  <%= contact_form.label :contact_type_id, 'Contact type', class: "control-label" %>
+  <div class="controls">
+    <%= contact_form.select :contact_type_id,
+                            options_from_collection_for_select(ContactType.all, :id, :name, contact_form.object.contact_type_id),
+                            { include_blank: true },
+                            class: 'chzn-select',
+                            data: { placeholder: "Choose the contact type..." } %>
+  </div>
+</div>

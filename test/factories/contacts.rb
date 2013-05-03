@@ -1,6 +1,7 @@
 FactoryGirl.define do
   factory :contact do
     title "Contact description"
+    contact_type { ContactType::General }
   end
 
   factory :contact_with_country, parent: :contact do
