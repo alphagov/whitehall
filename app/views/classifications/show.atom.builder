@@ -1,5 +1,5 @@
 atom_feed language: 'en-GB', root_url: classification_url(@classification) do |feed|
-  feed.title "Latest activity on \"#{@classification.name}\""
+  feed.title [@classification.name, 'Activity on GOV.UK'].join(' - ')
   feed.author do |author|
     author.name 'HM Government'
   end

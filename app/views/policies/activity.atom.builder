@@ -1,6 +1,5 @@
 atom_feed language: 'en-GB', root_url: activity_policy_url(@policy.document) do |feed|
-  feed.title "Latest activity on \"#{@policy.title}\""
-  feed.subtitle 'Recently associated'
+  feed.title [@policy.title, 'Activity on GOV.UK'].join(' - ')
   feed.author do |author|
     author.name 'HM Government'
   end
