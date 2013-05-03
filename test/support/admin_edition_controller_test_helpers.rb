@@ -1541,6 +1541,22 @@ module AdminEditionControllerTestHelpers
         end
       end
 
+      test "should not populate world locations if user doesn't have any" do
+        world_location = create(:world_location)
+        login_as create(:departmental_editor, world_locations: [])
+        get :new
+
+        assert_equal assigns(:edition).world_locations, []
+      end
+
+      test "should populate world locations with the current users locations" do
+        world_location = create(:world_location)
+        login_as create(:departmental_editor, world_locations: [world_location])
+        get :new
+
+        assert_equal assigns(:edition).world_locations, [world_location]
+      end
+
       test "create should associate worldwide organisations with the edition" do
         first_world_organisation = create(:worldwide_organisation)
         second_world_organisation = create(:worldwide_organisation)
