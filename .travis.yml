@@ -2,11 +2,15 @@ language: ruby
 rvm:
   - 1.9.2
 env:
-  - DB=mysql CUCUMBER_FORMAT=progress GOVUK_APP_DOMAIN=test.gov.uk DISPLAY=:99 RUBYOPT="-rpsych"
+  - DB=mysql CUCUMBER_FORMAT=progress GOVUK_APP_DOMAIN=test.gov.uk DISPLAY=:99 RUBYOPT="-rpsych" TEST_SUITE=test:units
+  - DB=mysql CUCUMBER_FORMAT=progress GOVUK_APP_DOMAIN=test.gov.uk DISPLAY=:99 RUBYOPT="-rpsych" TEST_SUITE=test:functionals
+  - DB=mysql CUCUMBER_FORMAT=progress GOVUK_APP_DOMAIN=test.gov.uk DISPLAY=:99 RUBYOPT="-rpsych" TEST_SUITE=test:integration
+  - DB=mysql CUCUMBER_FORMAT=progress GOVUK_APP_DOMAIN=test.gov.uk DISPLAY=:99 RUBYOPT="-rpsych" TEST_SUITE=cucumber
+  - DB=mysql CUCUMBER_FORMAT=progress GOVUK_APP_DOMAIN=test.gov.uk DISPLAY=:99 RUBYOPT="-rpsych" TEST_SUITE=test:javascript
 script:
   - bundle exec rake db:create
   - bundle exec rake db:schema:load
-  - bundle exec rake
+  - bundle exec rake $TEST_SUITE
 before_install:
   - mysql -u root -e "CREATE USER 'whitehall'@'localhost' IDENTIFIED BY 'whitehall'"
   - mysql -u root -e 'CREATE DATABASE whitehall_test'
