@@ -80,12 +80,17 @@ module Whitehall
     def upload(method, options={})
       horizontal = options.delete(:horizontal)
       label_text = options.delete(:label_text)
+      allow_removal = options.delete(:allow_removal) || false
+      allow_removal_label_text = options.delete(:allow_removal_label_text) || "Check to remove #{method.to_s.humanize.downcase}"
 
       fields = file_field(method, options)
       if object.send("#{method}_cache").present?
         fields += file_cache_already_uploaded(method)
       end
       fields += hidden_field("#{method}_cache")
+      if allow_removal
+        fields += check_box(:"remove_#{method}", label_text: allow_removal_label_text)
+      end
 
       if horizontal
         horizontal_group(label(method, label_text, class: "control-label"), fields, options)
