@@ -41,6 +41,10 @@ class FeatureList < ActiveRecord::Base
     features.current.with_topical_events
   end
 
+  def empty?
+    current.empty?
+  end
+
 private
   def next_ordering
     (features.map(&:ordering).max || 0) + 1
