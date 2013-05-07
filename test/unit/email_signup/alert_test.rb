@@ -7,15 +7,17 @@ class EmailSignup::AlertTest < ActiveSupport::TestCase
     refute a.errors[:base].empty?
   end
 
-  test 'is invalid if the topic is not the slug of a topic from EmailSignup.valid_topics' do
-    EmailSignup.stubs(:valid_topics).returns [stub(slug: 'woo')]
+  test 'is invalid if the topic is not the slug of a topic from EmailSignup.valid_topics_by_type' do
+    topics_by_type = {topic: [stub(slug: 'woo')], topical_event: []}
+    EmailSignup.stubs(:valid_topics_by_type).returns topics_by_type
     a = EmailSignup::Alert.new(topic: 'meh')
     a.valid?
     refute a.errors[:topic].empty?
   end
 
-  test 'is valid if the topic is "all" (even if that is not the slug of a topic from EmailSignup.valid_topics)' do
-    EmailSignup.stubs(:valid_topics).returns [stub(slug: 'woo')]
+  test 'is valid if the topic is "all" (even if that is not the slug of a topic from EmailSignup.valid_topics_by_type)' do
+    topics_by_type = {topic: [stub(slug: 'woo')], topical_event: []}
+    EmailSignup.stubs(:valid_topics_by_type).returns topics_by_type
     a = EmailSignup::Alert.new(topic: 'all')
     a.valid?
     assert a.errors[:topic].empty?
