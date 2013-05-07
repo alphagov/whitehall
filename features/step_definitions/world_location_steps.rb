@@ -101,7 +101,7 @@ end
 Then /^I should see the featured items of the (?:world location|international delegation) "([^"]*)" are:$/ do |name, expected_table|
   world_location = WorldLocation.find_by_name!(name)
   visit world_location_path(world_location)
-  rows = find(featured_documents_selector).all('.news_article')
+  rows = find(featured_documents_selector).all('.feature')
   table = rows.collect do |row|
     [
       row.find('h2').text.strip,
