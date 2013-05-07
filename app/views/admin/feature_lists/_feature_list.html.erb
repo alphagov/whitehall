@@ -1,6 +1,6 @@
 <%= render partial: 'admin/feature_lists/current_feature_list', locals: {feature_list: feature_list} %>
 
-<% unless feature_list.published_features.empty? %>
+<% unless feature_list.published_features.empty? || feature_list.topical_events.empty? %>
   <p><strong>Stop featuring documents:</strong></p>
 <% end %>
 
@@ -16,7 +16,24 @@
       </td>
     <% end %>
   <% end %>
+  <% feature_list.topical_events.each do |feature| %>
+    <%= content_tag_for :tr, feature.topical_event do %>
+      <td class="type">Topical Event</td>
+      <td><%= link_to feature.topical_event, edit_admin_topical_event_path(feature.topical_event) %></td>
+      <td><%= l feature.topical_event.start_date.to_date %> to <%= l feature.topical_event.end_date.to_date %></td>
+      <td>
+        <%= button_to('Unfeature', unfeature_admin_feature_list_feature_path(feature_list, feature), confirm: "Unfeature '#{feature}'?", method: :post, class: "btn btn-danger") %>
+      </td>
+    <% end %>
+  <% end %>
+
 </table>
+
+<h2>Choose new topical event to feature</h2>
+<br/>
+<div class="row-fluid">
+  <%= render partial: 'admin/feature_lists/featurable_topical_events', locals: { feature_list: feature_list, featurable_topical_events: @featurable_topical_events } %>
+</div>
 
 <h2>Choose new documents to feature</h2>
 <br/>
@@ -29,7 +46,7 @@
 
     <p><strong><%= @filter.page_title %>:</strong></p>
 
-    <%= render partial: 'admin/feature_lists/featurable_editions', locals: {feature_list: feature_list, featurable_editions: @filter.editions.with_translations(feature_list.locale)} %>
+    <%= render partial: 'admin/feature_lists/featurable_editions', locals: { feature_list: feature_list, featurable_editions: @filter.editions.with_translations(feature_list.locale) } %>
   </div>
 </div>
 

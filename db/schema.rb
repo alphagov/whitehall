@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130501153224) do
+ActiveRecord::Schema.define(:version => 20130507112303) do
 
   create_table "access_and_opening_times", :force => true do |t|
     t.text     "body"
@@ -561,6 +561,7 @@ ActiveRecord::Schema.define(:version => 20130501153224) do
     t.integer  "ordering"
     t.datetime "started_at"
     t.datetime "ended_at"
+    t.integer  "topical_event_id"
   end
 
   add_index "features", ["document_id"], :name => "index_features_on_document_id"
