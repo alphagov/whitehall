@@ -8,7 +8,6 @@ env:
   - DB=mysql CUCUMBER_FORMAT=progress GOVUK_APP_DOMAIN=test.gov.uk DISPLAY=:99 RUBYOPT="-rpsych" TEST_SUITE=cucumber
   - DB=mysql CUCUMBER_FORMAT=progress GOVUK_APP_DOMAIN=test.gov.uk DISPLAY=:99 RUBYOPT="-rpsych" TEST_SUITE=test:javascript
 script:
-  - bundle exec rake db:create
   - bundle exec rake db:schema:load
   - bundle exec rake $TEST_SUITE
 before_install:
