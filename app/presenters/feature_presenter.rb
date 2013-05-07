@@ -17,8 +17,12 @@ class FeaturePresenter < Struct.new(:feature)
     feature.id
   end
 
+  def document
+    feature.document
+  end
+
   def edition
-    feature.document.published_edition
+    document.published_edition
   end
 
   def topical_event
