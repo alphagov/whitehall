@@ -1,6 +1,7 @@
 language: ruby
 rvm:
   - 1.9.2
+bundler_args: --without development
 env:
   - TEST_SUITE=test:units GOVUK_APP_DOMAIN=test.gov.uk RUBYOPT="-rpsych"
   - TEST_SUITE=test:functionals GOVUK_APP_DOMAIN=test.gov.uk RUBYOPT="-rpsych"
