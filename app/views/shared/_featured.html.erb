@@ -1,0 +1,31 @@
+<%
+  extra_class ||= ""
+  extra_classes =
+    if defined?(edition_counter)
+      extra_class + " item-#{edition_counter}"
+    else
+      extra_class
+    end
+  extra_classes << " feature"
+  image_size ||= :s300
+  show_meta ||= false
+%>
+<%= content_tag_for(:article, feature, nil, class: extra_classes.strip) do %>
+  <div class="content">
+    <span class="image-holder">
+      <%= link_to image_tag(feature.image(image_size), {class: 'featured-image', alt: feature.alt_text}), feature.public_path, title: I18n.t("document.read", title: feature.title), class: 'img'%>
+    </span>
+    <div class="text">
+      <% if show_meta %>
+        <p class="meta"><%= absolute_date(feature.time_stamp) %>
+        <% unless feature.topical_event %>
+          &mdash; <%= t_display_type feature %></p>
+        <% end %>
+      <% end %>
+      <h2><%= link_to feature.title, feature.public_path %></h2>
+      <% unless feature.summary.blank? %>
+        <p class="summary"><%= truncate(feature.summary, length: 150, separator: ' ') %></p>
+      <% end %>
+    </div>
+  </div>
+<% end %>

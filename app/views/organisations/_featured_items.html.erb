@@ -3,14 +3,14 @@
 %>
 <section class="organisation-news featured-news items-<%= feature_list.current_feature_count %>" id="featured-documents">
   <% if feature_list.any_current_features? %>
-    <%= render partial: 'shared/featured_news',
-              locals: { edition: feature_list.current_featured_editions.first,
+    <%= render partial: 'shared/featured',
+              locals: { feature: feature_list.current_featured.first,
                         extra_class: 'first',
                         show_meta: true,
                         image_size: :s630 } %>
-    <%= render partial: 'shared/featured_news',
-               collection: feature_list.current_featured_editions.to_a.from(1),
-               as: :edition,
+    <%= render partial: 'shared/featured',
+               collection: feature_list.current_featured.to_a.from(1),
+               as: :feature,
                locals: { show_meta: true,
                          extra_class: "secondary" } %>
   <% end %>

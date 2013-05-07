@@ -29,8 +29,16 @@ class FeatureList < ActiveRecord::Base
     false
   end
 
+  def current
+    features.current.includes([:topical_event, { document: :published_edition }])
+  end
+
   def published_features
     features.current.with_published_edition
+  end
+
+  def topical_events
+    features.current.with_topical_events
   end
 
 private
