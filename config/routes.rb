@@ -9,6 +9,11 @@ Whitehall::Application.routes.draw do
     super(options[:prefix] + path)
   end
 
+  def external_redirect(path_prefix, target)
+    get path_prefix => redirect(target, prefix: '')
+    get "#{path_prefix}/*anything" => redirect(target, prefix: '')
+  end
+
   root to: redirect("/admin/"), constraints: lambda { |request|
     ::Whitehall.admin_hosts.include?(request.host)
   }
@@ -29,6 +34,9 @@ Whitehall::Application.routes.draw do
   end
 
   scope Whitehall.router_prefix, shallow_path: Whitehall.router_prefix do
+    external_redirect '/organisations/ministry-of-defence-police-and-guarding-agency',
+      "http://webarchive.nationalarchives.gov.uk/20121212174735/http://www.mod.uk/DefenceInternet/AboutDefence/WhatWeDo/SecurityandIntelligence/MDPGA/"
+
     root to: "home#home", via: :get
     get "/how-government-works" => "home#how_government_works", as: 'how_government_works'
     scope '/get-involved' do
