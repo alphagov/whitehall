@@ -160,7 +160,7 @@ end
 
 Then /^I should see the featured news articles in the "([^"]*)" organisation are:$/ do |name, expected_table|
   visit_organisation name
-  rows = find(featured_documents_selector).all('.news_article')
+  rows = find(featured_documents_selector).all('.feature')
   table = rows.collect do |row|
     [
       row.find('h2').text.strip,
@@ -172,7 +172,7 @@ end
 
 Then /^there should be nothing featured on the home page of "([^"]*)"$/ do |name|
   visit_organisation name
-  find(featured_documents_selector).all('article').should be_empty
+  find(featured_documents_selector).all('feature').should be_empty
 end
 
 
