@@ -19,8 +19,9 @@
       <% if show_meta %>
         <p class="meta"><%= absolute_date(feature.time_stamp) %>
         <% unless feature.topical_event %>
-          &mdash; <%= t_display_type feature %></p>
+          &mdash; <%= t_display_type feature %>
         <% end %>
+        </p>
       <% end %>
       <h2><%= link_to feature.title, feature.public_path %></h2>
       <% unless feature.summary.blank? %>
