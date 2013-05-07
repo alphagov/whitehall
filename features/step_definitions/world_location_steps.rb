@@ -28,7 +28,12 @@ end
 
 Given /^an? (world location|international delegation) "([^"]*)" exists with a translation for the locale "([^"]*)"$/ do |world_location_type, name, locale|
   location = create(world_location_type.gsub(' ','_').to_sym, name: name)
-  add_translation_to_world_location(location, locale: locale, name: 'Unimportant', mission_statement: 'Unimportant')
+  locale = Locale.find_by_language_name(locale)
+
+  translation = LocalisedModel.new(location, locale.code)
+  translation.name = 'Unimportant'
+  translation.title = 'Unimportant'
+  translation.save!
 end
 
 When /^I view the (?:world location|international delegation) "([^"]*)"$/ do |name|
