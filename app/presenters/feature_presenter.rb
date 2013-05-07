@@ -2,8 +2,6 @@ class FeaturePresenter < Struct.new(:feature)
   include ActiveModel::Conversion
   include Rails.application.routes.url_helpers
   include PublicDocumentRoutesHelper
-  include ActionView::Helpers
-  include ActionView::Helpers::AssetTagHelper
 
   def self.model_name
     Feature.model_name
