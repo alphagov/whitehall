@@ -158,7 +158,7 @@ Then /^I should be able to view all chief professional officers for the "([^"]*)
   end
 end
 
-Then /^I should see the featured news articles in the "([^"]*)" organisation are:$/ do |name, expected_table|
+Then /^I should see the featured (news articles|topical events) in the "([^"]*)" organisation are:$/ do |type, name, expected_table|
   visit_organisation name
   rows = find(featured_documents_selector).all('.feature')
   table = rows.collect do |row|
@@ -317,3 +317,32 @@ Then /^when I view the organisation with the locale "([^"]*)" I should see:$/ do
   click_link 'read_more_link'
   assert page.has_content? translation['about us']
 end
+
+Given /^the topical event "([^"]*)" exists$/ do |name|
+  TopicalEvent.create(name: name, description: "test", start_date: Date.today, end_date: Date.today + 2.months)
+end
+
+When /^I feature the topical event "([^"]*)" for "([^"]*)" with image "([^"]*)"$/ do |topic, organisation_name, image_filename|
+  organisation = Organisation.find_by_name!(organisation_name)
+  visit admin_organisation_path(organisation)
+  click_link "Featured documents"
+  locale = Locale.find_by_language_name("English")
+  topical_event = TopicalEvent.find_by_name(topic)
+  within record_css_selector(topical_event) do
+    click_link "Feature"
+  end
+  attach_file "Select an image to be shown when featuring", Rails.root.join("test/fixtures/#{image_filename}")
+  fill_in :alt_text, with: "An accessible description of the image"
+  click_button "Save"
+end
+
+When /^I stop featuring the topical event "([^"]*)" for "([^"]*)"$/ do |topic, organisation_name|
+  organisation = Organisation.find_by_name!(organisation_name)
+  visit features_admin_organisation_path(organisation)
+  locale = Locale.find_by_language_name("English")
+  topical_event = TopicalEvent.find_by_name(topic)
+  within record_css_selector(topical_event) do
+    click_on "Unfeature"
+  end
+end
+

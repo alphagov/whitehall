@@ -19,10 +19,12 @@ Scenario: Featuring news on an organisation page
   Then there should be nothing featured on the home page of "Ministry of Pop"
 
 Scenario: Featuring a topical event on an organisation page
-  Given the organisation "Ministry of Pop" exists
+  Given I am an admin called "Jane"
+  And the organisation "Ministry of Pop" exists
   And the topical event "G8" exists
-  When I feature the topical event "G8" with image "minister-of-funk.960x640.jpg"
-  Then I should see the featured topical event "G8" on the "Ministry of Pop" organisation page
+  When I feature the topical event "G8" for "Ministry of Pop" with image "minister-of-funk.960x640.jpg"
+  Then I should see the featured topical events in the "Ministry of Pop" organisation are:
+    | G8 | s630_minister-of-funk.960x640.jpg |
   When I stop featuring the topical event "G8" for "Ministry of Pop"
   Then there should be nothing featured on the home page of "Ministry of Pop"
 
