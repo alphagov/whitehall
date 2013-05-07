@@ -4,7 +4,8 @@ class Feature < ActiveRecord::Base
   belongs_to :feature_list
 
   mount_uploader :image, ImageUploader, mount_on: :carrierwave_image
-  validates :document, :started_at, presence: true, unless: -> feature { feature.topical_event_id.present? }
+  validates :document, presence: true, unless: -> feature { feature.topical_event_id.present? }
+  validates :started_at, presence: true
   validates :image, presence: true, on: :create
 
   validate :image_must_be_960px_by_640px, if: :image_changed?
