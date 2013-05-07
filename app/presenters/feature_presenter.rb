@@ -6,12 +6,12 @@ class FeaturePresenter < Struct.new(:feature)
   include ActionView::Helpers::AssetTagHelper
 
   def self.model_name
-    ActiveModel::Name.new(Feature)
+    Feature.model_name
   end
 
-    def persisted?
-      true
-    end
+  def persisted?
+    true
+  end
 
   def id
     feature.id
