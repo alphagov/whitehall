@@ -15,7 +15,7 @@ before_install:
   - mysql -u root -e 'CREATE DATABASE whitehall_test'
   - mysql -u root -e "GRANT ALL ON whitehall_test.* TO 'whitehall'@'localhost'"
   - sudo apt-get update -qq
-  - sudo apt-get install -qq xpdf imagemagick
+  - sudo apt-get install -qq xpdf
   - "export DISPLAY=:99.0"
   - "sh -e /etc/init.d/xvfb start"
   - cp config/database.travis.yml config/database.yml
