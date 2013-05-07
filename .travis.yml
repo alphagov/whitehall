@@ -1,12 +1,13 @@
 language: ruby
 rvm:
   - 1.9.2
+services: mysql
 env:
-  - DB=mysql CUCUMBER_FORMAT=progress GOVUK_APP_DOMAIN=test.gov.uk DISPLAY=:99 RUBYOPT="-rpsych" TEST_SUITE=test:units
-  - DB=mysql CUCUMBER_FORMAT=progress GOVUK_APP_DOMAIN=test.gov.uk DISPLAY=:99 RUBYOPT="-rpsych" TEST_SUITE=test:functionals
-  - DB=mysql CUCUMBER_FORMAT=progress GOVUK_APP_DOMAIN=test.gov.uk DISPLAY=:99 RUBYOPT="-rpsych" TEST_SUITE=test:integration
-  - DB=mysql CUCUMBER_FORMAT=progress GOVUK_APP_DOMAIN=test.gov.uk DISPLAY=:99 RUBYOPT="-rpsych" TEST_SUITE=cucumber
-  - DB=mysql CUCUMBER_FORMAT=progress GOVUK_APP_DOMAIN=test.gov.uk DISPLAY=:99 RUBYOPT="-rpsych" TEST_SUITE=test:javascript
+  - TEST_SUITE=test:units GOVUK_APP_DOMAIN=test.gov.uk DISPLAY=:99 RUBYOPT="-rpsych"
+  - TEST_SUITE=test:functionals GOVUK_APP_DOMAIN=test.gov.uk DISPLAY=:99 RUBYOPT="-rpsych"
+  - TEST_SUITE=test:integration GOVUK_APP_DOMAIN=test.gov.uk DISPLAY=:99 RUBYOPT="-rpsych"
+  - TEST_SUITE=cucumber CUCUMBER_FORMAT=progress GOVUK_APP_DOMAIN=test.gov.uk DISPLAY=:99 RUBYOPT="-rpsych"
+  - TEST_SUITE=test:javascript GOVUK_APP_DOMAIN=test.gov.uk DISPLAY=:99 RUBYOPT="-rpsych"
 script:
   - bundle exec rake db:schema:load
   - bundle exec rake $TEST_SUITE
