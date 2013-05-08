@@ -1,24 +1,34 @@
 require 'test_helper'
 
 class EmailSignupTest < ActiveSupport::TestCase
-  test 'the list of valid_topics only includes topics with published policies' do
+  test 'the list of valid_topics_by_type exposes topics and topical events' do
+    assert_equal [:topic, :topical_event], EmailSignup.valid_topics_by_type.keys.sort
+  end
+
+  test 'the list of valid_topics_by_type only includes topics with published policies in the list of topics' do
     topic_1 = create(:topic)
     topic_2 = create(:topic)
     policy  = create(:published_policy)
     topic_1.published_policies << policy
 
-    assert EmailSignup.valid_topics.include?(topic_1)
-    refute EmailSignup.valid_topics.include?(topic_2)
+    topics_by_type = EmailSignup.valid_topics_by_type
+    assert topics_by_type[:topic].include?(topic_1)
+    refute topics_by_type[:topic].include?(topic_2)
+    refute topics_by_type[:topical_event].include?(topic_1)
+    refute topics_by_type[:topical_event].include?(topic_2)
   end
 
-  test 'the list of valid_topics includes all topical events even if they have no published policies' do
+  test 'the list of valid_topics_by_type includes all topical events even if they have no published policies in the list of topical event' do
     topical_event_1 = create(:topical_event)
     topical_event_2 = create(:topical_event)
     policy  = create(:published_policy)
     topical_event_1.published_policies << policy
 
-    assert EmailSignup.valid_topics.include?(topical_event_1)
-    assert EmailSignup.valid_topics.include?(topical_event_2)
+    topics_by_type = EmailSignup.valid_topics_by_type
+    assert topics_by_type[:topical_event].include?(topical_event_1)
+    assert topics_by_type[:topical_event].include?(topical_event_2)
+    refute topics_by_type[:topic].include?(topical_event_1)
+    refute topics_by_type[:topic].include?(topical_event_2)
   end
 
   test 'the list of valid_organisations_by_type is split into ministerial and other' do

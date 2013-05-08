@@ -38,7 +38,7 @@ class EmailSignup::TitleExtractor
         if @alert.topic == 'all'
           'all topics'
         else
-          t = Topic.find_by_slug(@alert.topic)
+          t = Classification.find_by_slug(@alert.topic)
           if t.present?
             t.name
           else

@@ -61,14 +61,21 @@ class EmailSignup::TitleExtractorTest < ActiveSupport::TestCase
     assert_match(/ about all topics/, EmailSignup::TitleExtractor.new(a).title)
   end
 
-  test 'given an alert with an topic not "all" the title should include "about <name of topic with that slug>"' do
+  test 'given an alert with a topic slug that is not "all", and maps to a Topic instance the title should include "about <name of topic with that slug>"' do
     topic = create(:topic, name: 'the environment')
     topic.update_column(:slug, 'environment')
     a = EmailSignup::Alert.new(document_type: 'all', topic: 'environment')
     assert_match(/ about the environment/, EmailSignup::TitleExtractor.new(a).title)
   end
 
-  test 'given an alert with an topic not "all", but not the slug of an actual topic, it should raise an error' do
+  test 'given an alert with a topic slug that is not "all", and maps to a Topical Event instance the title should include "about <name of topical event with that slug>"' do
+    topical_event = create(:topical_event, name: 'the environment 2013')
+    topical_event.update_column(:slug, 'environment-2013')
+    a = EmailSignup::Alert.new(document_type: 'all', topic: 'environment-2013')
+    assert_match(/ about the environment/, EmailSignup::TitleExtractor.new(a).title)
+  end
+
+  test 'given an alert with an topic not "all", but not the slug of an actual topic or topical event, it should raise an error' do
     a = EmailSignup::Alert.new(document_type: 'all', topic: 'environment')
     begin
       EmailSignup::TitleExtractor.new(a).title
