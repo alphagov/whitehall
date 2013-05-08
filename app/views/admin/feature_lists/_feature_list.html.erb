@@ -29,14 +29,6 @@
 
 </table>
 
-<% if @featurable_topical_events.any? %>
-<h2>Choose new topical event to feature</h2>
-<br/>
-<div class="row-fluid">
-  <%= render partial: 'admin/feature_lists/featurable_topical_events', locals: { feature_list: feature_list, featurable_topical_events: @featurable_topical_events } %>
-</div>
-<% end %>
-
 <h2>Choose new documents to feature</h2>
 <br/>
 
@@ -52,3 +44,10 @@
   </div>
 </div>
 
+<% if @featurable_topical_events.any? %>
+<h2>Choose new topical event to feature</h2>
+<br/>
+<div class="row-fluid">
+  <%= render partial: 'admin/feature_lists/featurable_topical_events', locals: { feature_list: feature_list, featurable_topical_events: @featurable_topical_events } %>
+</div>
+<% end %>
