@@ -10,7 +10,13 @@ module EmailSignupHelper
   end
 
   def topic_options_for_email_signup(selected_option = nil)
-    options_for_select([['any topic', 'all']] + @classifications.map { |o| [o.name, o.slug] }, selected_option)
+    topic_options = {
+      'Topics' => @classifications[:topic].map { |o| [o.name, o.slug] },
+      'Topical events' => @classifications[:topical_event].map { |o| [o.name, o.slug] },
+    }
+
+    options_for_select([['any topic or topical event', 'all']], selected_option) +
+    grouped_options_for_select(topic_options, selected_option)
   end
 
   def organisation_options_for_email_signup(selected_option = nil)

@@ -37,7 +37,7 @@ class EmailSignupsController < PublicFacingController
   end
 
   def fetch_topics
-    @classifications = EmailSignup.valid_topics
+    @classifications = EmailSignup.valid_topics_by_type
   end
 
   def fetch_organisations

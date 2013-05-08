@@ -30,12 +30,15 @@ class EmailSignup
     end
   end
 
-  def self.valid_topics
-    Classification.order(:name).where("(type = 'Topic' and published_policies_count <> 0) or (type = 'TopicalEvent')").alphabetical
+  def self.valid_topics_by_type
+    {
+      topic: Topic.where("published_policies_count <> 0").alphabetical,
+      topical_event: TopicalEvent.alphabetical
+    }
   end
 
   def self.valid_topic_slugs
-    valid_topics.map(&:slug) + ['all']
+    valid_topics_by_type.map { |type, topics| topics.map(&:slug) }.flatten + ['all']
   end
 
   def self.valid_organisations_by_type
