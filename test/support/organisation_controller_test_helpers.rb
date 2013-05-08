@@ -23,11 +23,11 @@ module OrganisationControllerTestHelpers
 
         get :show, id: organisation
 
-        assert_select_object features[0].document.latest_edition do
+        assert_select_object features[0] do
           assert_select "img[src$='#{features[0].image.url(:s630)}'][alt=?]", features[0].alt_text
         end
         features[1...6].each do |feature|
-          assert_select_object feature.document.latest_edition do
+          assert_select_object feature do
             assert_select "img[src$='#{feature.image.url(:s300)}'][alt=?]", feature.alt_text
           end
         end

@@ -7,6 +7,7 @@
     <%= form_for @feature, url: [:admin, @featurable, @feature_list, @feature], builder: Whitehall::FormBuilder do |form| %>
       <%= form.errors %>
       <%= form.hidden_field :document_id %>
+      <%= form.hidden_field :topical_event_id %>
       <%= form.upload :image, horizontal: true, label_text: 'Select an image to be shown when featuring' %>
       <%= form.text_field :alt_text, horizontal: true, label_text: "Image description (alt text)" %>
       <%= form.save_or_cancel cancel: admin_feature_list_path(@feature_list) %>

@@ -1,0 +1,22 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Duration</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% featurable_topical_events.each do |event| %>
+      <% next if feature_list.features.current.detect {|f| f.topical_event == event } %>
+      <%= content_tag_for :tr, event do %>
+        <td><%= link_to event.name, admin_topical_event_path(event) %></td>
+        <td><%= l event.start_date.to_date %> to <%= l event.end_date.to_date %></td>
+        <td>
+          <%= link_to("Feature", polymorphic_url([:new, :admin, @feature_list, :feature], topical_event_id: event.id), class: 'btn') %>
+        </td>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>

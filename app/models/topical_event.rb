@@ -34,6 +34,8 @@ class TopicalEvent < Classification
             source: :edition,
             order: "classification_featurings.ordering ASC"
 
+  has_many :features, dependent: :destroy
+
   scope :active, -> { where("end_date > ?", Date.today) }
 
   validate :start_and_end_dates
