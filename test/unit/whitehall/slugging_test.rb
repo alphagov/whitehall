@@ -13,4 +13,17 @@ class SluggingTest < ActiveSupport::TestCase
     assert_match /--2/, document2.slug
   end
 
+  test "deleting should free up the slug" do
+    user = create(:departmental_editor)
+    d1 = create(:draft_policy, title: "test")
+    d1.publish_as(user, force: true)
+    d1.reload
+    d1.unpublish!
+    d1.delete!
+    assert_equal "deleted-test", d1.reload.slug
+
+    d2 = create(:draft_policy, title: "test")
+    d2.publish_as(user, force: true)
+    assert_equal "test", d2.slug
+  end
 end

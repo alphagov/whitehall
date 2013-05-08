@@ -31,7 +31,6 @@ class Edition < ActiveRecord::Base
   validates :summary, presence: true
   validates :first_published_at, recent_date: true, allow_blank: true
 
-
   scope :with_title_or_summary_containing, -> *keywords {
     pattern = "(#{keywords.map { |k| Regexp.escape(k) }.join('|')})"
     in_default_locale.where("edition_translations.title REGEXP :pattern OR edition_translations.summary REGEXP :pattern", pattern: pattern)
@@ -118,6 +117,7 @@ class Edition < ActiveRecord::Base
   before_save :set_public_timestamp
 
   after_unpublish :reset_force_published_flag
+  after_delete :clear_slug
 
   UNMODIFIABLE_STATES = %w(scheduled published archived deleted).freeze
   FROZEN_STATES = %w(archived deleted).freeze
@@ -129,6 +129,10 @@ class Edition < ActiveRecord::Base
 
   def unmodifiable?
     persisted? && UNMODIFIABLE_STATES.include?(state_was)
+  end
+
+  def clear_slug
+    document.update_slug_if_possible("deleted-#{title(I18n.default_locale)}")
   end
 
   searchable(
