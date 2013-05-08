@@ -1,18 +1,22 @@
 language: ruby
 rvm:
   - 1.9.2
+bundler_args: --without development
 env:
-  - DB=mysql CUCUMBER_FORMAT=progress GOVUK_APP_DOMAIN=test.gov.uk DISPLAY=:99 RUBYOPT="-rpsych"
+  - TEST_SUITE=test:units GOVUK_APP_DOMAIN=test.gov.uk RUBYOPT="-rpsych"
+  - TEST_SUITE=test:functionals GOVUK_APP_DOMAIN=test.gov.uk RUBYOPT="-rpsych"
+  - TEST_SUITE=test:integration GOVUK_APP_DOMAIN=test.gov.uk RUBYOPT="-rpsych"
+  - TEST_SUITE=cucumber CUCUMBER_FORMAT=progress GOVUK_APP_DOMAIN=test.gov.uk RUBYOPT="-rpsych"
+  - TEST_SUITE=test:javascript GOVUK_APP_DOMAIN=test.gov.uk RUBYOPT="-rpsych"
 script:
-  - bundle exec rake db:create
   - bundle exec rake db:schema:load
-  - bundle exec rake
+  - bundle exec rake $TEST_SUITE
 before_install:
   - mysql -u root -e "CREATE USER 'whitehall'@'localhost' IDENTIFIED BY 'whitehall'"
   - mysql -u root -e 'CREATE DATABASE whitehall_test'
   - mysql -u root -e "GRANT ALL ON whitehall_test.* TO 'whitehall'@'localhost'"
   - sudo apt-get update -qq
-  - sudo apt-get install -qq xpdf imagemagick
+  - sudo apt-get install -qq xpdf
   - "export DISPLAY=:99.0"
   - "sh -e /etc/init.d/xvfb start"
   - cp config/database.travis.yml config/database.yml
