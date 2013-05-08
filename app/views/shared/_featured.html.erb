@@ -1,12 +1,11 @@
 <%
   extra_class ||= ""
   extra_classes =
-    if defined?(edition_counter)
-      extra_class + " item-#{edition_counter}"
+    if defined?(feature_counter)
+      extra_class + " item-#{feature_counter}"
     else
       extra_class
     end
-  extra_classes << " feature"
   image_size ||= :s300
   show_meta ||= false
 %>
