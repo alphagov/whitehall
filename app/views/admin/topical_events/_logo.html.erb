@@ -3,6 +3,6 @@
   <div class="control-group">
     <%= image_tag classification_form.object.logo_url if classification_form.object.logo_url %>
     <%= classification_form.text_field :logo_alt_text, label_text: 'Alt text' %>
-    <%= classification_form.upload :logo, label_text: 'File' %>
+    <%= classification_form.upload :logo, label_text: 'File', allow_removal: classification_form.object.logo_url.present? %>
   </div>
 </fieldset>
