@@ -1,7 +1,7 @@
 class Admin::FeaturesController < Admin::BaseController
   before_filter :find_feature_list
   before_filter :build_feature
-  before_filter :find_edition, only: [:new]
+  before_filter :find_edition, :find_topical_event, only: [:new]
 
   def new
   end
@@ -36,7 +36,11 @@ private
   end
 
   def find_edition
-    @feature.document = Edition.find(params[:edition_id]).document
+    @feature.document = Edition.find(params[:edition_id]).document if params[:edition_id]
+  end
+
+  def find_topical_event
+    @feature.topical_event = TopicalEvent.find(params[:topical_event_id]) if params[:topical_event_id]
   end
 
 end

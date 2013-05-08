@@ -11,7 +11,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
   should_show_published_documents_associated_with :world_location, :worldwide_priorities
 
   def assert_featured_editions(editions)
-    assert_equal editions, assigns(:feature_list).current_featured_editions.map(&:edition)
+    assert_equal editions, assigns(:feature_list).current_featured.map(&:edition)
   end
 
   view_test "index should display a list of world locations" do

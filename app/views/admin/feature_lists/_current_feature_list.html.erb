@@ -10,10 +10,12 @@
       <% @feature_list.features.current.each do |feature| %>
         <div class="well">
           <%= label_tag "ordering-#{feature.id}" do %>
-            <% if feature.document.published_edition %>
+            <% if feature.document && feature.document.published_edition %>
               <%= link_to(feature, admin_edition_path(feature.document.published_edition)) %>
+            <% elsif feature.topical_event %>
+              <%= link_to(feature, edit_admin_topical_event_path(feature.topical_event)) %>
             <% else %>
-              <%= feature.document.latest_edition || "No edition" %>
+              <%= feature.document ? feature.document.latest_edition : "No edition" %>
             <% end %>
           <% end %>
 

@@ -24,6 +24,7 @@ class Admin::WorldLocationsController < Admin::BaseController
       reverse_merge(world_location_ids: [@world_location.id]).
       merge(state: 'published')
     @filter = Admin::EditionFilter.new(Edition, current_user, filter_params)
+    @featurable_topical_events = []
   end
 
   private

@@ -13,14 +13,14 @@ class FeatureListPresenter < Draper::Base
     self
   end
 
-  def current_featured_editions
-    feature_list.published_features.limit(@limit).map do |feature|
-      FeaturePresenter.decorate(feature)
+  def current_featured
+    feature_list.current.limit(@limit).map do |feature|
+      FeaturePresenter.new(feature)
     end
   end
 
   def current_feature_count
-    [feature_list.published_features.count, @limit].min
+    [feature_list.current.count, @limit].min
   end
 
   def any_current_features?
