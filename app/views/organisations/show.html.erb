@@ -281,25 +281,24 @@
           </div>
         </div>
 
-        <% if @foi_contacts.any? %>
-          <section id="foi-contacts">
-            <h1 class="label">Freedom of Information</h1>
-            <nav class="group sub_navigation" role="navigation">
-              <ul>
-                <% if @organisation.has_published_publications_of_type?(PublicationType::FoiRelease) %>
-                  <li><%= link_to t('organisation.corporate_information.foi_releases'), publications_filter_path(@organisation, publication_type: 'foi-releases') %></li>
-                <% end %>
-                <li><%= link_to t('organisation.corporate_information.foi_how_to'), 'https://www.gov.uk/make-a-freedom-of-information-request/the-freedom-of-information-act' %></li>
-              </ul>
-            </nav>
+        <section id="foi-contacts">
+          <h1 class="label"><%= t('organisation.headings.making_foi_requests') %></h1>
+          <ol class="steps">
+            <li><%= t('organisation.making_foi_requests.step1_html', how_to_path: 'https://www.gov.uk/make-a-freedom-of-information-request/the-freedom-of-information-act') %></li>
+            <li><%= t('organisation.making_foi_requests.step2_html', our_releases_path: publications_filter_path(@organisation, publication_type: 'foi-releases')) %></li>
+            <% if @foi_contacts.any? %>
+              <li><%= t('organisation.making_foi_requests.step3_html') %></li>
+            <% end %>
+          </ol>
 
+          <% if @foi_contacts.any? %>
             <div class="org-contacts">
               <div class="addresses js-hide-extra-contacts">
                 <%= render partial: 'contacts/contact', collection: @foi_contacts %>
               </div>
             </div>
-          </section>
-        <% end %>
+          <% end %>
+        </section>
 
         <% if @sub_organisations.any? %>
           <section id="high-profile-units">
@@ -320,8 +319,7 @@
       <% if @organisation.corporate_information_pages.any? %>
         <%= render partial: 'corporate_information',
                    locals: { organisation: @organisation,
-                             show_corporate_reports: true,
-                             show_foi_links: @foi_contacts.empty? } %>
+                             show_corporate_reports: true } %>
       <% end %>
 
     </div>

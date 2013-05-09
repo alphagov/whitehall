@@ -343,6 +343,7 @@ en:
       contact: Contact %{name}
       corporate_information: Corporate information
       corporate_reports: Corporate reports
+      making_foi_requests: Make an FOI request
     corporate_information:
       access_our_info: Access our information
       jobs_and_contacts: Jobs and contracts
@@ -351,6 +352,10 @@ en:
       foi_how_to: How to make an FOI request
     about:
       read_more: Read more about what we do
+    making_foi_requests:
+      step1_html: Read about the Freedom of Information (FOI) Act and <a href="%{how_to_path}">how to make a request</a>
+      step2_html: Check <a href="%{our_releases_path}">our previous releases</a> to see if we’ve already answered your question
+      step3_html: "Make a new request by contacting us at:"
   announcements:
     heading: Announcements
   policies:
