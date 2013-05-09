@@ -12,7 +12,7 @@
   <div class="inner-block floated-children">
     <section class="cab_ministers">
       <h2 class="label" id="cabinet-ministers">Cabinet ministers</h2>
-      <ul id="cabinet" class="cabinet_list">
+      <ul id="cabinet" class="cabinet-list">
         <% @cabinet_ministerial_roles.each_with_index do |(person, roles), i| %>
           <%= render partial: "people/person",
               locals: {
@@ -32,7 +32,7 @@
     <div class="inner-block floated-children">
       <section class="cab_ministers">
         <h2 class="label" id="also-attends-cabinet-ministers">Also attends Cabinet</h2>
-        <ul id="also-attends-cabinet" class="cabinet_list">
+        <ul id="also-attends-cabinet" class="cabinet-list">
           <% @also_attends_cabinet.each_with_index do |(person, roles), i| %>
             <%= render partial: "people/person",
                 locals: {
