@@ -61,7 +61,7 @@ zh:
         one: 世界范围内的组织
         other: 世界范围内的组织
     published: 已发布
-    read: 阅读这篇%{题目}文章
+    read: 阅读这篇%{title}文章
     speech:
       author_title:
         minister:
@@ -70,7 +70,7 @@ zh:
       delivery_title:
         minister: 首相/大臣/秘书
         speaker: 演讲者
-      originally_given_at: 最初发表于%{位置}
+      originally_given_at: 最初发表于%{location}
       written_on:
     type:
       announcement:
@@ -303,9 +303,9 @@ zh:
       publications: 我们的报告
       quick_links: 快速链接
       related_policies: 相关政策
-      see_all: 查阅我们所有的%{类型}
+      see_all: 查阅我们所有的%{type}
       statistics: 我们的数据
-    see_all: 查阅我们所有的%{类型}
+    see_all: 查阅我们所有的%{type}
     type:
       international_delegation:
         one: 国际代表
@@ -315,10 +315,10 @@ zh:
         other:
   worldwide_organisation:
     corporate_information:
-      personal_information_charter_html: 我们的%{链接}解释了我们如何对待您的个人信息。
-      publication_scheme_html: 阅读我们在{链接}定期发布的信息类型。
+      personal_information_charter_html: 我们的%{link}解释了我们如何对待您的个人信息。
+      publication_scheme_html: 阅读我们在%{link}定期发布的信息类型。
       social_media_use_html:
-      welsh_language_scheme_html: 查阅我们在{链接}发布的信息。
+      welsh_language_scheme_html: 查阅我们在%{link}发布的信息。
     find_out_more: 查阅全部内容和联系方式
     headings:
       about_us: 关于我们
