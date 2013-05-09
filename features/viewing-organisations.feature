@@ -32,11 +32,9 @@ Scenario: Organisation page should show any chief scientific advisors
   When I visit the "Department for Transport" organisation
   Then I should be able to view all civil servants for the "Department for Transport" organisation
 
-Scenario: Organisation pages links to any FOI releases and transparency data publications
+Scenario: Organisation pages links to transparency data publications
   Given the organisation "Cabinet Office" exists
-  Then I cannot see links to FOI releases or Transparency data on the "Cabinet Office" about page
-  When I associate an FOI release to the "Cabinet Office"
-  Then I can see a link to "FOI releases" on the "Cabinet Office" about page
+  Then I cannot see links to Transparency data on the "Cabinet Office" about page
   When I associate a Transparency data publication to the "Cabinet Office"
   Then I can see a link to "Transparency data" on the "Cabinet Office" about page
 

@@ -204,9 +204,8 @@ Then /^I should see a mailto link for the alternative format contact email "([^"
   assert page.has_css?("a[href^=\"mailto:#{email}\"]")
 end
 
-Then /^I cannot see links to FOI releases or Transparency data on the "([^"]*)" about page$/ do |name|
+Then /^I cannot see links to Transparency data on the "([^"]*)" about page$/ do |name|
   visit_organisation_about_page name
-  refute page.has_css?('a', text: 'FOI releases')
   refute page.has_css?('a', text: 'Transparency data')
 end
 
