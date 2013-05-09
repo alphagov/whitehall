@@ -15,6 +15,12 @@
       @include media(tablet) {
         padding-top: $gutter-one-third;
       }
+
+      @include ie(7) {
+        .person-excerpt {
+          height: 280px;
+        }
+      }
     }
 
   }
