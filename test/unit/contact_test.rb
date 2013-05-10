@@ -11,6 +11,11 @@ class ContactTest < ActiveSupport::TestCase
     refute contact.valid?
   end
 
+  test "should be invalid without a contact_type" do
+    contact = build(:contact, contact_type: nil)
+    refute contact.valid?
+  end
+
   test "should be valid with no postal address fields" do
     contact = build(:contact,
       recipient: "",

@@ -26,15 +26,7 @@ When /^I add a new contact to be featured on the home page of the organisation$/
   click_on 'Contacts'
   click_on 'All'
   click_on "Add"
-  fill_in "Title", with: 'Our shiny new office'
-
-  fill_in "Street address", with: "address1\naddress2"
-  fill_in "Postal code", with: "12345-123"
-  fill_in "Email", with: "foo@bar.com"
-  fill_in "Label", with: "Main phone number"
-  fill_in "Number", with: "+22 (0) 111 111-111"
-  select "United Kingdom", from: "Country"
-  choose "yes"
+  fill_in_contact_details(feature_on_home_page: 'yes')
   click_on "Save"
   @the_new_contact = Contact.last
 end
@@ -91,16 +83,10 @@ When /^I add a new office to be featured on the home page of the worldwide organ
   click_on 'Offices'
   click_on 'All'
   click_on "Add"
-  fill_in "Title", with: 'Our shiny new office'
+
+  fill_in_contact_details(feature_on_home_page: 'yes')
   select WorldwideOfficeType.all.sample.name, from: 'Office type'
 
-  fill_in "Street address", with: "address1\naddress2"
-  fill_in "Postal code", with: "12345-123"
-  fill_in "Email", with: "foo@bar.com"
-  fill_in "Label", with: "Main phone number"
-  fill_in "Number", with: "+22 (0) 111 111-111"
-  select "United Kingdom", from: "Country"
-  choose "yes"
   click_on "Save"
   @the_new_office = WorldwideOffice.last
 end
@@ -150,5 +136,47 @@ Then /^that office is no longer visible on the home page of the worldwide organi
 
   within '.contact-us' do
     refute page.has_css?("div.contact h2", text: @the_removed_office.title)
+  end
+end
+
+When /^I add a new FOI contact to the organisation without adding it to the list of contacts for the home page$/ do
+  visit admin_organisation_path(@the_organisation)
+  click_on 'Contacts'
+  click_on 'All'
+  click_on "Add"
+  fill_in_contact_details(
+    title: 'Our FOI contact',
+    feature_on_home_page: nil,
+    contact_type: ContactType::FOI.name
+  )
+  click_on "Save"
+  @the_new_foi_contact = Contact.last
+end
+
+Then /^I cannot add or reorder the new FOI contact in the home page list$/ do
+  visit admin_organisation_path(@the_organisation)
+
+  click_on 'Contacts'
+  click_on 'All'
+
+  within record_css_selector(@the_new_foi_contact) do
+    refute page.has_button?('Add to home page')
+    refute page.has_button?('Remove from home page')
+  end
+
+  click_on 'Order on home page'
+
+  refute page.has_field?("ordering[#{@the_new_foi_contact.id}]")
+end
+
+Then /^I see the new FOI contact listed on the home page(?: only once,)? in the FOI section$/ do
+  visit organisation_path(@the_organisation)
+
+  within '#org-contacts + .org-contacts' do
+    refute page.has_css?("div.contact h2", text: @the_new_foi_contact.title)
+  end
+
+  within '#foi-contacts .org-contacts' do
+    assert page.has_css?("div.contact h2", text: @the_new_foi_contact.title)
   end
 end

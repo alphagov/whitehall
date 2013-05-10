@@ -4,12 +4,17 @@
     <%= contact_form.text_field :title, horizontal: true %>
     <%= contact_form.text_area :comments, rows: 2, horizontal: true, placeholder: "Optional instructions for this contact e.g. opening hours, rules of use…" %>
     <%= render partial: 'admin/contacts/embed_details_for_form', locals: { contact: contact_form.object } %>
+    <%= render partial: 'admin/contacts/contact_type_details_form', locals: { contact_form: contact_form } %>
     <% if contactable.respond_to? :home_page_contacts %>
       <div class="control-group">
         <p class="radio-label control-label">Feature on home page?</p>
         <div class="controls">
-          <%= contact_form.labelled_radio_button('yes', :show_on_home_page, '1', checked: contactable.contact_shown_on_home_page?(contact_form.object)) %>
-          <%= contact_form.labelled_radio_button('no', :show_on_home_page, '0', checked: !contactable.contact_shown_on_home_page?(contact_form.object)) %>
+          <% if contact.foi? %>
+            <p>Yes (in FOI section)</p>
+          <% else %>
+            <%= contact_form.labelled_radio_button('yes', :show_on_home_page, '1', checked: contactable.contact_shown_on_home_page?(contact_form.object)) %>
+            <%= contact_form.labelled_radio_button('no', :show_on_home_page, '0', checked: !contactable.contact_shown_on_home_page?(contact_form.object)) %>
+          <% end %>
         </div>
       </div>
     <% end %>

@@ -14,7 +14,10 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
     post :create,
       worldwide_office: {
         worldwide_office_type_id: WorldwideOfficeType::Other.id,
-        contact_attributes: {title: "Main office"} 
+        contact_attributes: {
+          title: "Main office",
+          contact_type_id: ContactType::General.id
+        }
       },
       worldwide_organisation_id: worldwide_organisation.id
 
@@ -30,7 +33,10 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
     post :create,
       worldwide_office: {
         worldwide_office_type_id: WorldwideOfficeType::Other.id,
-        contact_attributes: {title: "Main office"},
+        contact_attributes: {
+          title: "Main office",
+          contact_type_id: ContactType::General.id
+        },
         show_on_home_page: '1'
       },
       worldwide_organisation_id: worldwide_organisation.id
@@ -47,7 +53,10 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
     post :create,
       worldwide_office: {
         worldwide_office_type_id: WorldwideOfficeType::Other.id,
-        contact_attributes: {title: "Main office"},
+        contact_attributes: {
+          title: "Main office",
+          contact_type_id: ContactType::General.id
+        },
         show_on_home_page: '0'
       },
       worldwide_organisation_id: worldwide_organisation.id
@@ -64,7 +73,10 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
     post :create,
       worldwide_office: {
         worldwide_office_type_id: WorldwideOfficeType::Other.id,
-        contact_attributes: {title: "Main office"}
+        contact_attributes: {
+          title: "Main office",
+          contact_type_id: ContactType::General.id
+        }
       },
       worldwide_organisation_id: worldwide_organisation.id
 
@@ -81,7 +93,10 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
     post :create,
       worldwide_office: {
         worldwide_office_type_id: WorldwideOfficeType::Other.id,
-        contact_attributes: {title: "Main office"},
+        contact_attributes: {
+          title: "Main office",
+          contact_type_id: ContactType::General.id
+        },
         service_ids: [service2.id, service1.id]
       },
       worldwide_organisation_id: worldwide_organisation.id
@@ -98,6 +113,7 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
         worldwide_office_type_id: WorldwideOfficeType::Other.id,
         contact_attributes: {
           title: "Head office",
+          contact_type_id: ContactType::General.id,          
           contact_numbers_attributes: {
             "0" => {label: "Main phone", number: "1234"}
           }
@@ -114,12 +130,16 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
     worldwide_organisation = create(:worldwide_organisation)
     office = worldwide_organisation.offices.create(
       worldwide_office_type_id: WorldwideOfficeType::Other.id,
-      contact_attributes: {title: "Main office"}
+      contact_attributes: {
+        title: "Main office",
+        contact_type_id: ContactType::General.id
+      }
     )
 
     put :update,
       worldwide_office: {
         contact_attributes: {
+          id: office.contact.id,
           title: "Head office"
         }
       },
@@ -135,12 +155,16 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
     worldwide_organisation.main_office = create(:worldwide_office, worldwide_organisation: worldwide_organisation)
     office = worldwide_organisation.offices.create(
       worldwide_office_type_id: WorldwideOfficeType::Other.id,
-      contact_attributes: {title: "Main office"}
+      contact_attributes: {
+        title: "Main office",
+        contact_type_id: ContactType::General.id
+      }
     )
 
     put :update,
       worldwide_office: {
         contact_attributes: {
+          id: office.contact.id,
           title: "Head office"
         },
         show_on_home_page: '1'
@@ -158,13 +182,17 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
     worldwide_organisation.main_office = create(:worldwide_office, worldwide_organisation: worldwide_organisation)
     office = worldwide_organisation.offices.create(
       worldwide_office_type_id: WorldwideOfficeType::Other.id,
-      contact_attributes: {title: "Main office"}
+      contact_attributes: {
+        title: "Main office",
+        contact_type_id: ContactType::General.id
+      }
     )
     worldwide_organisation.add_office_to_home_page!(office)
 
     put :update,
       worldwide_office: {
         contact_attributes: {
+          id: office.contact.id,
           title: "Head office"
         },
         show_on_home_page: '0'
@@ -182,13 +210,17 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
     worldwide_organisation.main_office = create(:worldwide_office, worldwide_organisation: worldwide_organisation)
     office = worldwide_organisation.offices.create(
       worldwide_office_type_id: WorldwideOfficeType::Other.id,
-      contact_attributes: {title: "Main office"}
+      contact_attributes: {
+        title: "Main office",
+        contact_type_id: ContactType::General.id
+      }
     )
     worldwide_organisation.add_office_to_home_page!(office)
 
     put :update,
       worldwide_office: {
         contact_attributes: {
+          id: office.contact.id,
           title: "Head office"
         }
       },
@@ -207,7 +239,11 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
     worldwide_organisation = create(:worldwide_organisation)
     office = worldwide_organisation.offices.create(
       worldwide_office_type_id: WorldwideOfficeType::Other.id,
-      contact_attributes: {title: "Main office"}, services: [service1, service2]
+      contact_attributes: {
+        title: "Main office",
+        contact_type_id: ContactType::General.id
+      },
+      services: [service1, service2]
     )
 
     put :update,
@@ -225,7 +261,10 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
     worldwide_organisation = create(:worldwide_organisation)
     office = worldwide_organisation.offices.create(
       worldwide_office_type_id: WorldwideOfficeType::Other.id,
-      contact_attributes: {title: "Main office"}
+      contact_attributes: {
+        title: "Main office",
+        contact_type_id: ContactType::General.id
+      }
     )
     contact_number = office.contact.contact_numbers.create(label: "Main phone", number: "1234")
 
@@ -252,7 +291,10 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
     worldwide_organisation.main_office = create(:worldwide_office, worldwide_organisation: worldwide_organisation)
     office = worldwide_organisation.offices.create(
       worldwide_office_type_id: WorldwideOfficeType::Other.id,
-      contact_attributes: {title: "Main office"}
+      contact_attributes: {
+        title: "Main office",
+        contact_type_id: ContactType::General.id
+      }
     )
     worldwide_organisation.add_office_to_home_page!(office)
 
@@ -268,7 +310,10 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
     worldwide_organisation.main_office = create(:worldwide_office, worldwide_organisation: worldwide_organisation)
     office = worldwide_organisation.offices.create(
       worldwide_office_type_id: WorldwideOfficeType::Other.id,
-      contact_attributes: {title: "Main office"}
+      contact_attributes: {
+        title: "Main office",
+        contact_type_id: ContactType::General.id
+      }
     )
 
     post :add_to_home_page, worldwide_organisation_id: worldwide_organisation, id: office
@@ -283,15 +328,24 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
     worldwide_organisation.main_office = create(:worldwide_office, worldwide_organisation: worldwide_organisation)
     office_1 = worldwide_organisation.offices.create(
       worldwide_office_type_id: WorldwideOfficeType::Other.id,
-      contact_attributes: {title: "Head office"}
+      contact_attributes: {
+        title: "Head office",
+        contact_type_id: ContactType::General.id
+      }
     )
     office_2 = worldwide_organisation.offices.create(
       worldwide_office_type_id: WorldwideOfficeType::Other.id,
-      contact_attributes: {title: "Body office"}
+      contact_attributes: {
+        title: "Body office",
+        contact_type_id: ContactType::General.id
+      }
     )
     office_3 = worldwide_organisation.offices.create(
       worldwide_office_type_id: WorldwideOfficeType::Other.id,
-      contact_attributes: {title: "Spirit office"}
+      contact_attributes: {
+        title: "Spirit office",
+        contact_type_id: ContactType::General.id
+      }
     )
     worldwide_organisation.add_office_to_home_page!(office_1)
     worldwide_organisation.add_office_to_home_page!(office_2)
@@ -314,7 +368,10 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
     worldwide_organisation.main_office = create(:worldwide_office, worldwide_organisation: worldwide_organisation)
     office = worldwide_organisation.offices.create(
       worldwide_office_type_id: WorldwideOfficeType::Other.id,
-      contact_attributes: {title: "Head office"}
+      contact_attributes: {
+        title: "Head office",
+        contact_type_id: ContactType::General.id
+      }
     )
     worldwide_organisation.add_office_to_home_page!(office)
 

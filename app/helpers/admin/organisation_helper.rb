@@ -41,4 +41,15 @@ module Admin::OrganisationHelper
     }
     tabs
   end
+
+  def contact_shown_on_home_page_text(organisation, contact)
+    if contact.foi?
+      "Yes (in FOI section)"
+    elsif organisation.contact_shown_on_home_page?(contact)
+      "Yes"
+    else
+      "No"
+    end
+  end
+
 end

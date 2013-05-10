@@ -47,6 +47,7 @@ module OrganisationControllerTestHelpers
           recipient: "Ministry of Pomp",
           email: "pomp@gov.uk",
           contact_form_url: "http://pomp.gov.uk/contact",
+          contact_type: ContactType::General,
           street_address: "1 Smashing Place, London", postal_code: "LO1 8DN",
           contact_numbers_attributes: [
             { label: "Helpline", number: "02079460000" },

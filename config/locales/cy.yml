@@ -443,6 +443,7 @@ cy:
       contact: Cyswllt %{name}
       corporate_information: Gwybodaeth gorfforaethol
       corporate_reports: Adroddiadau corfforaethol
+      making_foi_requests:
       our_announcements: Ein cyhoeddiadau
       our_management: Ein rheolaeth
       our_ministers: Ein gweinidogion
@@ -456,6 +457,10 @@ cy:
       special_representatives: Cynrychiolwyr arbennig
       traffic_commissioners: Comisiynwyr traffig
       what_we_do: Yr hyn rydym ni'n ei wneud
+    making_foi_requests:
+      step1_html:
+      step2_html:
+      step3_html:
   world_location:
     type:
       international_delegation:

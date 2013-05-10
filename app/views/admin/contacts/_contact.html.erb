@@ -14,9 +14,10 @@
     <% if contact.email.present? %>
       <%= definition('Email', contact.email) %>
     <% end %>
+    <%= definition('Contact type', contact.contact_type.name) %>
     <%= definition('Markdown to use', "[Contact:#{contact.id}]") %>
     <% if contactable.respond_to? :home_page_contacts %>
-      <%= definition('On home page?', contactable.contact_shown_on_home_page?(contact) ? 'Yes' : 'No')%>
+      <%= definition('On home page?', contact_shown_on_home_page_text(contact.contactable, contact)) %>
     <% end %>
   <% end %>
   <% if contact.comments.present? %>
@@ -26,10 +27,12 @@
   <%= button_to "Delete", [:admin, contactable, contact], method: "delete", class: "btn btn-small btn-danger", confirm: "Delete contact '#{contact.title}' from #{contactable.class.name.underscore.humanize.downcase} '#{contactable.name}'?" %>
   <%= link_to icon("Edit"), edit_polymorphic_path([:admin, contactable, contact]), class: "btn" %>
   <% if contactable.respond_to? :home_page_contacts %>
-    <% if contactable.contact_shown_on_home_page?(contact) %>
-      <%= button_to "Remove from home page", [:remove_from_home_page, :admin, contactable, contact], class: 'btn btn-small' %>
-    <% else %>
-      <%= button_to "Add to home page", [:add_to_home_page, :admin, contactable, contact], class: 'btn btn-small' %>
+    <% unless contact.foi? %>
+      <% if contactable.contact_shown_on_home_page?(contact) %>
+        <%= button_to "Remove from home page", [:remove_from_home_page, :admin, contactable, contact], class: 'btn btn-small' %>
+      <% else %>
+        <%= button_to "Add to home page", [:add_to_home_page, :admin, contactable, contact], class: 'btn btn-small' %>
+      <% end %>
     <% end %>
   <% end %>
 
