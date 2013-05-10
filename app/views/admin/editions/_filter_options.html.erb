@@ -4,7 +4,7 @@
 <nav class="well" style="padding: 8px 0;">
   <ul class="nav nav-list">
     <% if filter_by.include?(:title) %>
-      <li class="nav-header">Filter by Title</li>
+      <li class="nav-header">Filter by Title or Slug</li>
       <li>
         <%= form_tag("", method: :get, class: "pull-left") do %>
           <%= pass_through_filter_options_as_hidden_fields(@filter, :organisation, :type, :state, :author, :world_location_ids) %>
