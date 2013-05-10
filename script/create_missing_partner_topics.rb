@@ -5,7 +5,8 @@ CSV.read(ARGV[0], headers: true, header_converters: :symbol).each_with_index do 
   parts = url.sub('https://www.gov.uk/government/', '').split('/')
   if parts.first == 'policies'
     alert = EmailSignup::Alert.new(policy: parts[1])
-    puts EmailSignup::FeedUrlExtractor.new(alert).feed_url
+    puts "#{url} => #{EmailSignup::GovUkDeliveryRedirectUrlExtractor.new(alert).redirect_url}"
+    # puts EmailSignup::FeedUrlExtractor.new(alert).feed_url
   elsif parts.first.include? 'feed'
     parsed = Rack::Utils.parse_nested_query(parts.first.split('?')[1])
     alert = nil
@@ -15,9 +16,10 @@ CSV.read(ARGV[0], headers: true, header_converters: :symbol).each_with_index do 
       alert = EmailSignup::Alert.new(organisation: parsed['departments'].first, document_type: 'all')
     end
     if alert
-      puts EmailSignup::FeedUrlExtractor.new(alert).feed_url
+      puts "#{url} => #{EmailSignup::GovUkDeliveryRedirectUrlExtractor.new(alert).redirect_url}"
+      # puts EmailSignup::FeedUrlExtractor.new(alert).feed_url
     else
-      puts parsed
+      puts "#{url} => Can't be topic-ified (parsed as:#{parsed})"
     end
   end
 end
