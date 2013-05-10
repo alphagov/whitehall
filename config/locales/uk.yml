@@ -327,6 +327,7 @@ uk:
       contact:
       corporate_information:
       corporate_reports:
+      making_foi_requests:
       our_announcements:
       our_management:
       our_ministers:
@@ -340,6 +341,10 @@ uk:
       special_representatives:
       traffic_commissioners:
       what_we_do:
+    making_foi_requests:
+      step1_html:
+      step2_html:
+      step3_html:
   world_location:
     type:
       international_delegation:

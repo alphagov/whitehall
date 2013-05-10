@@ -204,9 +204,8 @@ Then /^I should see a mailto link for the alternative format contact email "([^"
   assert page.has_css?("a[href^=\"mailto:#{email}\"]")
 end
 
-Then /^I cannot see links to FOI releases or Transparency data on the "([^"]*)" about page$/ do |name|
+Then /^I cannot see links to Transparency data on the "([^"]*)" about page$/ do |name|
   visit_organisation_about_page name
-  refute page.has_css?('a', text: 'FOI releases')
   refute page.has_css?('a', text: 'Transparency data')
 end
 
@@ -255,9 +254,7 @@ end
 When /^I add a new contact "([^"]*)" with address "([^"]*)"$/ do |contact_description, address|
   click_link "Contacts"
   click_link "Add"
-  fill_in "Title", with: contact_description
-  fill_in "Street address", with: address
-  select "United Kingdom", from: "Country"
+  fill_in_contact_details(title: contact_description, street_address: address)
   click_button "Save"
 end
 

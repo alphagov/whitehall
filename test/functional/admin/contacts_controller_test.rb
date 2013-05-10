@@ -10,7 +10,12 @@ class Admin::ContactsControllerTest < ActionController::TestCase
 
   test "POST on :create creates contact" do
     organisation = create(:organisation)
-    post :create, contact: {title: "Main office"}, organisation_id: organisation.id
+    post :create,
+      contact: {
+        title: "Main office",
+        contact_type_id: ContactType::General.id
+      },
+      organisation_id: organisation.id
 
     assert_redirected_to admin_organisation_contacts_url(organisation)
     assert contact = organisation.contacts.last
@@ -26,7 +31,8 @@ class Admin::ContactsControllerTest < ActionController::TestCase
         title: "Head office",
         contact_numbers_attributes: {
           "0" => {label: "Main phone", number: "1234"}
-        }
+        },
+        contact_type_id: ContactType::General.id
       },
       organisation_id: organisation.id
 
@@ -38,7 +44,13 @@ class Admin::ContactsControllerTest < ActionController::TestCase
 
   test "POST on :create creates contact on the home page of the organisation if told to" do
     organisation = create(:organisation)
-    post :create, contact: {title: "Main office", show_on_home_page: '1'}, organisation_id: organisation.id
+    post :create, 
+      contact: {
+        title: "Main office",
+        show_on_home_page: '1',
+        contact_type_id: ContactType::General.id
+      },
+      organisation_id: organisation.id
 
     assert_redirected_to admin_organisation_contacts_url(organisation)
     assert contact = organisation.contacts.last
@@ -49,7 +61,13 @@ class Admin::ContactsControllerTest < ActionController::TestCase
 
   test "POST on :create creates contact without adding to the home page of the organisation if told not to" do
     organisation = create(:organisation)
-    post :create, contact: {title: "Main office", show_on_home_page: '0'}, organisation_id: organisation.id
+    post :create, 
+      contact: {
+        title: "Main office",
+        show_on_home_page: '0',
+        contact_type_id: ContactType::General.id
+      },
+      organisation_id: organisation.id
 
     assert_redirected_to admin_organisation_contacts_url(organisation)
     assert contact = organisation.contacts.last
@@ -60,7 +78,12 @@ class Admin::ContactsControllerTest < ActionController::TestCase
 
   test "POST on :create creates contact without adding to the home page of the organisation if no suggestion made" do
     organisation = create(:organisation)
-    post :create, contact: {title: "Main office"}, organisation_id: organisation.id
+    post :create, 
+      contact: {
+        title: "Main office",
+        contact_type_id: ContactType::General.id
+      },
+      organisation_id: organisation.id
 
     assert_redirected_to admin_organisation_contacts_url(organisation)
     assert contact = organisation.contacts.last
@@ -71,7 +94,7 @@ class Admin::ContactsControllerTest < ActionController::TestCase
 
   test "PUT on :update updates a contact" do
     organisation = create(:organisation)
-    contact = organisation.contacts.create(title: "Main office")
+    contact = organisation.contacts.create(title: "Main office", contact_type: ContactType::General)
 
     put :update, contact: {title: "Head office"}, organisation_id: organisation, id: contact
 
@@ -82,7 +105,7 @@ class Admin::ContactsControllerTest < ActionController::TestCase
 
   test "PUT on :update updates associated phone numbers" do
     organisation = create(:organisation)
-    contact = organisation.contacts.create(title: "Main office")
+    contact = organisation.contacts.create(title: "Main office", contact_type: ContactType::General)
     contact_number = contact.contact_numbers.create(label: "Main phone", number: "1234")
 
     put :update,
@@ -101,7 +124,7 @@ class Admin::ContactsControllerTest < ActionController::TestCase
 
   test "PUT on :update adds contact to the home page of the organisation if told to" do
     organisation = create(:organisation)
-    contact = organisation.contacts.create(title: "Main office")
+    contact = organisation.contacts.create(title: "Main office", contact_type: ContactType::General)
 
     put :update,
       contact: {
@@ -119,7 +142,7 @@ class Admin::ContactsControllerTest < ActionController::TestCase
 
   test "PUT on :update removes contact from the home page of the organisation if told to" do
     organisation = create(:organisation)
-    contact = organisation.contacts.create(title: "Main office")
+    contact = organisation.contacts.create(title: "Main office", contact_type: ContactType::General)
     organisation.add_contact_to_home_page!(contact)
 
     put :update,
@@ -138,7 +161,7 @@ class Admin::ContactsControllerTest < ActionController::TestCase
 
   test "PUT on :update doesn\'t change home page status of the organisation if no suggestion made" do
     organisation = create(:organisation)
-    contact = organisation.contacts.create(title: "Main office")
+    contact = organisation.contacts.create(title: "Main office", contact_type: ContactType::General)
     organisation.add_contact_to_home_page!(contact)
 
     put :update,
@@ -156,7 +179,7 @@ class Admin::ContactsControllerTest < ActionController::TestCase
 
   test "DELETE on :destroy destroys the contact" do
     organisation = create(:organisation)
-    contact = organisation.contacts.create(title: "Main office")
+    contact = organisation.contacts.create(title: "Main office", contact_type: ContactType::General)
 
     delete :destroy, organisation_id: organisation, id: contact
 
@@ -167,7 +190,7 @@ class Admin::ContactsControllerTest < ActionController::TestCase
 
   test "POST on :remove_from_home_page removes contact from the home page of the organisation" do
     organisation = create(:organisation)
-    contact = organisation.contacts.create(title: "Main office")
+    contact = organisation.contacts.create(title: "Main office", contact_type: ContactType::General)
     organisation.add_contact_to_home_page!(contact)
 
     post :remove_from_home_page, organisation_id: organisation, id: contact
@@ -179,7 +202,7 @@ class Admin::ContactsControllerTest < ActionController::TestCase
 
   test "POST on :add_to_home_page adds contact to the home page of the organisation" do
     organisation = create(:organisation)
-    contact = organisation.contacts.create(title: "Main office")
+    contact = organisation.contacts.create(title: "Main office", contact_type: ContactType::General)
 
     post :add_to_home_page, organisation_id: organisation, id: contact
 
@@ -190,9 +213,9 @@ class Admin::ContactsControllerTest < ActionController::TestCase
 
   test 'POST on :reorder_for_home_page takes id => ordering mappings and reorders the list based on this' do
     organisation = create(:organisation)
-    contact_1 = organisation.contacts.create(title: "Head office")
-    contact_2 = organisation.contacts.create(title: "Body office")
-    contact_3 = organisation.contacts.create(title: 'Spirit office')
+    contact_1 = organisation.contacts.create(title: "Head office", contact_type: ContactType::General)
+    contact_2 = organisation.contacts.create(title: "Body office", contact_type: ContactType::General)
+    contact_3 = organisation.contacts.create(title: 'Spirit office', contact_type: ContactType::General)
     organisation.add_contact_to_home_page!(contact_1)
     organisation.add_contact_to_home_page!(contact_2)
     organisation.add_contact_to_home_page!(contact_3)
@@ -211,7 +234,7 @@ class Admin::ContactsControllerTest < ActionController::TestCase
 
   test 'POST on :reorder_for_home_page doesn\'t break with unknown contact ids' do
     organisation = create(:organisation)
-    contact = organisation.contacts.create(title: "Head office")
+    contact = organisation.contacts.create(title: "Head office", contact_type: ContactType::General)
     organisation.add_contact_to_home_page!(contact)
 
     post :reorder_for_home_page, organisation_id: organisation,

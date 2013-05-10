@@ -7,7 +7,7 @@ class Contact < ActiveRecord::Base
     foreign_key: :country_id,
     conditions: { "world_locations.world_location_type_id" => WorldLocationType::WorldLocation.id }
 
-  validates :title, presence: true
+  validates :title, :contact_type, presence: true
   validates :contact_form_url, url: true, allow_blank: true
   validates :street_address, :country_id, presence: true, if: -> r { r.has_postal_address? }
   accepts_nested_attributes_for :contact_numbers, allow_destroy: true, reject_if: :all_blank
@@ -26,5 +26,23 @@ class Contact < ActiveRecord::Base
 
   def country_name
     country.try(:name)
+  end
+
+  def contact_type
+    ContactType.find_by_id(contact_type_id)
+  end
+
+  def contact_type=(new_contact_type)
+    self.contact_type_id = new_contact_type && new_contact_type.id
+  end
+
+  def foi?
+    contact_type == ContactType::FOI
+  end
+  def media?
+    contact_type == ContactType::Media
+  end
+  def general?
+    contact_type == ContactType::General
   end
 end

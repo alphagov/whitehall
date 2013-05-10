@@ -91,7 +91,8 @@ Then /^the worldwide organisation should not be visible from the public website$
 end
 
 Given /^a worldwide organisation "([^"]*)"$/ do |name|
-  create(:worldwide_organisation, name: name)
+  worg = create(:worldwide_organisation, name: name)
+  worg.main_office = create(:worldwide_office, worldwide_organisation: worg, title: "Main office for #{name}")
 end
 
 Given /^a worldwide organisation "([^"]*)" exists for the world location "([^"]*)" with translations into "([^"]*)"$/ do |name, country_name, translation|
@@ -99,25 +100,19 @@ Given /^a worldwide organisation "([^"]*)" exists for the world location "([^"]*
   create(:worldwide_organisation, name: name, world_locations: [country])
 end
 
-When /^I add an "([^"]*)" office with address, phone number, and some services$/ do |description|
+When /^I add an "([^"]*)" office for the home page with address, phone number, and some services$/ do |description|
   service1 = create(:worldwide_service, name: 'Dance lessons')
   service2 = create(:worldwide_service, name: 'Courses in advanced sword fighting')
   service3 = create(:worldwide_service, name: 'Beard grooming')
 
   visit admin_worldwide_organisation_worldwide_offices_path(WorldwideOrganisation.last)
   click_link "Add"
-  fill_in "Title", with: description
+  fill_in_contact_details(title: description, feature_on_home_page: 'yes')
   select WorldwideOfficeType.all.sample.name, from: 'Office type'
 
   check service1.name
   check service3.name
 
-  fill_in "Street address", with: "address1\naddress2"
-  fill_in "Postal code", with: "12345-123"
-  fill_in "Email", with: "foo@bar.com"
-  fill_in "Label", with: "Main phone number"
-  fill_in "Number", with: "+22 (0) 111 111-111"
-  select "United Kingdom", from: "Country"
   click_on "Save"
 end
 
@@ -126,7 +121,7 @@ Then /^the "([^"]*)" office details should be shown on the public website$/ do |
   visit worldwide_organisation_path(worldwide_org)
   worldwide_office = worldwide_org.offices.includes(:contact).where(contacts: {title: description}).first
 
-  within '.contact' do
+  within "#{record_css_selector(worldwide_office)}.contact" do
     assert page.has_css?("h2", text: worldwide_office.contact.title)
     assert page.has_css?('.vcard', text: worldwide_office.contact.street_address)
     assert page.has_css?('.tel', text: worldwide_office.contact.contact_numbers.first.number)

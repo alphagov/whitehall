@@ -18,6 +18,7 @@
         </div>
       </div>
       <%= render partial: 'admin/contacts/embed_details_for_form', locals: { contact: office_form.object.contact } %>
+      <%= render partial: 'admin/contacts/contact_type_details_form', locals: { contact_form: contact_form } %>
       <div class="control-group">
         <p class="radio-label control-label">Feature on home page?</p>
         <div class="controls">

@@ -553,6 +553,20 @@ class OrganisationTest < ActiveSupport::TestCase
     assert_same_elements [no10, dpms_office], Organisation.executive_offices
   end
 
+  test 'can provide a list of all its FOI contacts' do
+    organisation = create(:organisation)
+    contact_1 = create(:contact, contactable: organisation, contact_type: ContactType::FOI)
+    contact_2 = create(:contact, contact_type: ContactType::FOI)
+    contact_3 = create(:contact, contactable: organisation, contact_type: ContactType::Media)
+    contact_4 = create(:contact, contactable: organisation, contact_type: ContactType::General)
+
+    foi_contacts = organisation.foi_contacts
+    assert foi_contacts.include?(contact_1), 'expected our foi contact to be in our list of foi contacts'
+    refute foi_contacts.include?(contact_2), 'expected someone else\'s foi contact not to be in our list of foi contacts'
+    refute foi_contacts.include?(contact_3), 'expected our media contact not to be in our list of foi contacts'
+    refute foi_contacts.include?(contact_4), 'expected our general contact not to be in our list of foi contacts'
+  end
+
   test 'knows if a given contact is on its home page' do
     organisation = build(:organisation)
     c = build(:contact)
@@ -563,13 +577,35 @@ class OrganisationTest < ActiveSupport::TestCase
     assert_equal :the_answer, organisation.contact_shown_on_home_page?(c)
   end
 
+  test 'knows that its FOI contacts are on the home page, even if it\'s not explicitly in the list' do
+    organisation = create(:organisation)
+    contact_1 = create(:contact, contactable: organisation, contact_type: ContactType::FOI)
+    contact_2 = create(:contact, contact_type: ContactType::FOI)
+
+    assert organisation.contact_shown_on_home_page?(contact_1), 'expected FOI contact that belongs to org to be shown_on_home_page?, but it wasn\'t'
+    refute organisation.contact_shown_on_home_page?(contact_2), 'expected FOI contact that doesn\'t belong to org to not be shown_on_home_page?, but it was'
+  end
+
   test 'has a list of contacts that are on its home page' do
     organisation = build(:organisation)
     h = build(:home_page_list)
     HomePageList.stubs(:get).returns(h)
-    h.expects(:items).returns :the_list_of_contacts
+    c = build(:contact)
+    h.expects(:items).returns [c]
 
-    assert_equal :the_list_of_contacts, organisation.home_page_contacts
+    assert_equal [c], organisation.home_page_contacts
+  end
+
+  test 'the list of contacts that are on its home page excludes any FOI contacts' do
+    organisation = create(:organisation)
+    contact_1 = create(:contact, contactable: organisation, contact_type: ContactType::General)
+    contact_2 = create(:contact, contactable: organisation, contact_type: ContactType::FOI)
+    contact_3 = create(:contact, contactable: organisation, contact_type: ContactType::Media)
+    organisation.add_contact_to_home_page!(contact_1)
+    organisation.add_contact_to_home_page!(contact_2)
+    organisation.add_contact_to_home_page!(contact_3)
+
+    assert_equal [contact_1, contact_3], organisation.home_page_contacts
   end
 
   test 'can add a contact to the list of those that are on its home page' do

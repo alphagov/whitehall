@@ -19,10 +19,6 @@
         <% if organisation.has_published_publications_of_type?(PublicationType::TransparencyData) %>
           <li><%= link_to t('organisation.corporate_information.transparency'), publications_filter_path(organisation, publication_type: 'transparency-data') %></li>
         <% end %>
-        <% if organisation.has_published_publications_of_type?(PublicationType::FoiRelease) %>
-          <li><%= link_to t('organisation.corporate_information.foi_releases'), publications_filter_path(organisation, publication_type: 'foi-releases') %></li>
-        <% end %>
-        <li><%= link_to t('organisation.corporate_information.foi_how_to'), 'https://www.gov.uk/make-a-freedom-of-information-request/the-freedom-of-information-act' %></li>
       </ul>
     </nav>
   </div>
