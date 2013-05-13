@@ -38,7 +38,9 @@ class Edition < ActiveRecord::Base
 
   scope :with_title_containing, -> *keywords {
     pattern = "(#{keywords.map { |k| Regexp.escape(k) }.join('|')})"
-    in_default_locale.where("edition_translations.title REGEXP :pattern", pattern: pattern)
+    in_default_locale
+    .includes(:document)
+    .where("edition_translations.title REGEXP :pattern OR documents.slug = :slug", pattern: pattern, slug: keywords)
   }
 
   def self.alphabetical(locale = I18n.locale)
