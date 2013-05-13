@@ -132,6 +132,10 @@ class TakePartPageTest < ActiveSupport::TestCase
     assert_equal 1, page_3.reload.ordering
   end
 
+  test 'is in the Whitehall searchable_classes list' do
+    assert Whitehall.searchable_classes.include?(TakePartPage)
+  end
+
   test 'returns search index data suitable for Rummageable' do
     page = create(:take_part_page, title: 'Build a new polling station', summary: 'Help people vote!')
 
@@ -140,6 +144,31 @@ class TakePartPageTest < ActiveSupport::TestCase
     assert_equal page.body, page.search_index['indexable_content']
     assert_equal 'Help people vote!', page.search_index['description']
     assert_equal 'take_part', page.search_index['format']
+  end
+
+  test 'adds page to search index on creating' do
+    page = build(:take_part_page)
+
+    Searchable::Index.expects(:later).with(page)
+
+    page.save
+  end
+
+  test 'adds page to search index on updating' do
+    page = create(:take_part_page)
+
+    Searchable::Index.expects(:later).with(page)
+
+    page.title = 'Build a new polling station'
+    page.save
+  end
+
+  test 'removes page from search index on destroying' do
+    page = create(:take_part_page)
+
+    Searchable::Delete.expects(:later).with(page)
+
+    page.destroy
   end
 
   test 'returns search index data for all take part pages' do
