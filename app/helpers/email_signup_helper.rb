@@ -22,7 +22,7 @@ module EmailSignupHelper
   def organisation_options_for_email_signup(selected_option = nil)
     options = {
       'Ministerial departments' => @live_ministerial_departments.map { |o| [o.name, o.slug] },
-      'Other departments &amp; public bodies' => @live_other_departments.map { |o| [o.name, o.slug] }
+      'Other departments & public bodies' => @live_other_departments.map { |o| [o.name, o.slug] }
     }
 
     options_for_select([['all organisations', 'all']], selected_option) +
