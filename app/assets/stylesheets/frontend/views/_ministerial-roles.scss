@@ -9,7 +9,7 @@
   @include ie(7) {
     .cabinet-list { 
       .person-excerpt {
-        height: 280px;
+        min-height: 290px;
       }
     }
   }
