@@ -131,4 +131,34 @@ class TakePartPageTest < ActiveSupport::TestCase
     assert_equal 2, page_2.reload.ordering
     assert_equal 1, page_3.reload.ordering
   end
+
+  test 'returns search index data suitable for Rummageable' do
+    page = create(:take_part_page, title: 'Build a new polling station', summary: 'Help people vote!')
+
+    assert_equal 'Build a new polling station', page.search_index["title"]
+    assert_equal "/government/get-involved/take-part/build-a-new-polling-station", page.search_index['link']
+    assert_equal page.body, page.search_index['indexable_content']
+    assert_equal 'Help people vote!', page.search_index['description']
+    assert_equal 'take_part', page.search_index['format']
+  end
+
+  test 'returns search index data for all take part pages' do
+    create(:take_part_page, title: 'Build a new polling station', summary: 'Help people vote!', body: 'Everyone can build a building.')
+    create(:take_part_page, title: 'Stand for election', summary: 'Help govern this country!', body: 'Maybe you can change the system from within?')
+
+    results = TakePartPage.search_index.to_a
+
+    assert_equal 2, results.length
+    assert_equal({'title' => 'Build a new polling station',
+                  'link' => "/government/get-involved/take-part/build-a-new-polling-station",
+                  'indexable_content' => 'Everyone can build a building.',
+                  'format' => 'take_part',
+                  'description' => 'Help people vote!'}, results[0])
+    assert_equal({'title' => 'Stand for election',
+                  'link' => "/government/get-involved/take-part/stand-for-election",
+                  'indexable_content' => 'Maybe you can change the system from within?',
+                  'format' => 'take_part',
+                  'description' => 'Help govern this country!'}, results[1])
+  end
+
 end
