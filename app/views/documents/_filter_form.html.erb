@@ -81,7 +81,7 @@
         <% if filters.include? :include_world_location_news %>
           <div class="filter" id="include-world-location-news-articles-filter">
             <div class="filter-inner checkbox">
-              <%= label_tag "include_world_location_news", "Include location-specific news" %>
+              <%= label_tag "include_world_location_news", "Include local news from UK embassies and other world organisations" %>
               <%= check_box_tag :include_world_location_news, '1', @filter.include_world_location_news %>
             </div>
           </div>

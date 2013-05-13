@@ -58,7 +58,7 @@ end
 
 When /^I explicitly ask for world location news to be included$/ do
   visit announcements_path
-  check 'Include location-specific news'
+  check 'Include local news from UK embassies and other world organisations'
   click_on "Refresh results"
 end
 
