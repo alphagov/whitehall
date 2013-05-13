@@ -818,6 +818,17 @@ module AdminEditionControllerTestHelpers
         end
       end
 
+      test "new should set first lead organisation to users organisation" do
+        editors_org = create(:organisation)
+        login_as create(:departmental_editor, organisation: editors_org)
+
+        get :new
+
+        assert_equal assigns(:edition).edition_organisations.first.organisation, editors_org
+        assert_equal assigns(:edition).edition_organisations.first.lead, true
+        assert_equal assigns(:edition).edition_organisations.first.lead_ordering, 0
+      end
+
       test "create should associate organisations with edition" do
         first_organisation = create(:organisation)
         second_organisation = create(:organisation)
