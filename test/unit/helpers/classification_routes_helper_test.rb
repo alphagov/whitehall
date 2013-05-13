@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ClassificationHelperTest < ActionView::TestCase
+class ClassificationRoutesHelperTest < ActionView::TestCase
   [:topic, :topical_event].each do |type|
     test "given a #{type} creates a #{type} path" do
       classification = create(type)
