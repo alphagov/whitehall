@@ -216,6 +216,10 @@ module Whitehall
       'rummager-delayed-indexing'
     end
 
+    def url_maker
+      @url_maker ||= Whitehall::UrlMaker.new
+    end
+
     private
 
     def load_secrets
