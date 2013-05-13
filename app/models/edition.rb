@@ -15,8 +15,6 @@ class Edition < ActiveRecord::Base
   include Edition::ActiveEditors
   include Edition::Translatable
 
-  include Rails.application.routes.url_helpers
-  include PublicDocumentRoutesHelper
   include Searchable
 
   has_many :editorial_remarks, dependent: :destroy
@@ -140,7 +138,7 @@ class Edition < ActiveRecord::Base
   searchable(
     id: :id,
     title: :title,
-    link: -> d { d.public_document_path(d) },
+    link: -> d { Whitehall.url_maker.public_document_path(d) },
     format: -> d { d.format_name.gsub(" ", "_") },
     content: :indexable_content,
     description: :summary,

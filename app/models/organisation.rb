@@ -2,7 +2,6 @@ require 'validators/url_validator.rb'
 
 class Organisation < ActiveRecord::Base
   include Searchable
-  include Rails.application.routes.url_helpers
 
   belongs_to :organisation_type
   belongs_to :default_news_image, class_name: 'DefaultNewsOrganisationImageData', foreign_key: :default_news_organisation_image_data_id
@@ -304,7 +303,7 @@ class Organisation < ActiveRecord::Base
     # This should be organisation_path(self), but we can't use that because friendly_id's #to_param returns
     # the old value of the slug (e.g. nil for a new record) if the record is dirty, and apparently the record
     # is still marked as dirty during after_save callbacks.
-    organisation_path(slug)
+    Whitehall.url_maker.organisation_path(slug)
   end
 
   def published_speeches

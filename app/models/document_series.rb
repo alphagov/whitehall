@@ -1,5 +1,4 @@
 class DocumentSeries < ActiveRecord::Base
-  include Rails.application.routes.url_helpers
   include Searchable
   include SimpleWorkflow
 
@@ -23,7 +22,7 @@ class DocumentSeries < ActiveRecord::Base
   friendly_id
 
   def search_link
-    organisation_document_series_path(organisation, slug)
+    Whitehall.url_maker.organisation_document_series_path(organisation, slug)
   end
 
   def published_editions

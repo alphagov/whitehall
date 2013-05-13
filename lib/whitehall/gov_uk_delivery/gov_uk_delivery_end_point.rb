@@ -1,12 +1,13 @@
 class Whitehall::GovUkDelivery::GovUkDeliveryEndPoint < Whitehall::GovUkDelivery::NotificationEndPoint
-  include Rails.application.routes.url_helpers
-  include PublicDocumentRoutesHelper
-
   attr_reader :title, :summary
   def initialize(edition, notification_date, title = edition.title, summary = edition.summary)
     super(edition, notification_date)
     @title = title
     @summary = summary
+  end
+
+  def url_maker
+    @url_maker ||= Whitehall::UrlMaker.new(host: Whitehall.public_host, protocol: Whitehall.public_protocol)
   end
 
   def self.notify_from_queue!(email_curation_queue_item)
@@ -17,19 +18,15 @@ class Whitehall::GovUkDelivery::GovUkDeliveryEndPoint < Whitehall::GovUkDelivery
   end
 
   def url_helper(edition, args={})
-    url_params = args.merge({
-      protocol: Whitehall.public_protocol,
-      host: Whitehall.public_host,
-      format: :atom
-    })
+    url_params = args.merge(format: :atom)
 
     case edition
     when Policy
-      policies_url(url_params)
+      url_maker.policies_url(url_params)
     when Announcement
-      announcements_url(url_params)
+      url_maker.announcements_url(url_params)
     when Publicationesque
-      publications_url(url_params)
+      url_maker.publications_url(url_params)
     end
   end
 
@@ -72,19 +69,19 @@ class Whitehall::GovUkDelivery::GovUkDeliveryEndPoint < Whitehall::GovUkDelivery
       all_combinations_of_args(combinatorial_args).map do |combined_args|
         [
           url_helper(edition, combined_args),
-          atom_feed_url(combined_args.merge(format: :atom, host: Whitehall.public_host, protocol: Whitehall.public_protocol))
+          url_maker.atom_feed_url(combined_args.merge(format: :atom))
         ]
       end
     end
 
     if edition.can_be_related_to_policies? && edition.published_related_policies.any?
       edition.published_related_policies.each do |policy|
-        tag_paths << activity_policy_url(policy.document, format: :atom, host: Whitehall.public_host, protocol: Whitehall.public_protocol)
+        tag_paths << url_maker.activity_policy_url(policy.document, format: :atom)
       end
     end
 
     # Include this in case there aren't any other tag paths
-    tag_paths << atom_feed_url(format: :atom, host: Whitehall.public_host, protocol: Whitehall.public_protocol)
+    tag_paths << url_maker.atom_feed_url(format: :atom)
 
     tag_paths.flatten.uniq
   end
@@ -104,7 +101,7 @@ class Whitehall::GovUkDelivery::GovUkDeliveryEndPoint < Whitehall::GovUkDelivery
   end
 
   def url
-    document_url(edition, host: Whitehall.public_host)
+    url_maker.document_url(edition)
   end
 
   def display_title

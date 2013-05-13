@@ -1,7 +1,5 @@
 class FeaturePresenter < Struct.new(:feature)
   include ActiveModel::Conversion
-  include Rails.application.routes.url_helpers
-  include PublicDocumentRoutesHelper
 
   def self.model_name
     Feature.model_name
@@ -45,9 +43,9 @@ class FeaturePresenter < Struct.new(:feature)
 
   def public_path
     if topical_event
-      topical_event_path(topical_event)
+      Whitehall.url_maker.topical_event_path(topical_event)
     else
-      public_document_path(edition, locale: feature.locale)
+      Whitehall.url_maker.public_document_path(edition, locale: feature.locale)
     end
   end
 

@@ -1,8 +1,4 @@
 class Api::MainstreamCategoryTagPresenter
-  include Rails.application.routes.url_helpers
-  include PublicDocumentRoutesHelper
-  include MainstreamCategoryRoutesHelper
-
   def initialize(categories)
     @categories = categories
   end
@@ -26,7 +22,7 @@ class Api::MainstreamCategoryTagPresenter
       },
       content_with_tag: {
         id: mainstream_category.path,
-        web_url: mainstream_category_path(mainstream_category)
+        web_url: Whitehall.url_maker.mainstream_category_path(mainstream_category)
       }
     }
   end

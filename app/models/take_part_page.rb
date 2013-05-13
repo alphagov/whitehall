@@ -26,9 +26,8 @@ class TakePartPage < ActiveRecord::Base
              description: :summary,
              format: 'take_part'
 
-  include Rails.application.routes.url_helpers
   def search_link
-    take_part_page_path(self.slug)
+    Whitehall.url_maker.take_part_page_path(self.slug)
   end
 
   def body_without_markup
