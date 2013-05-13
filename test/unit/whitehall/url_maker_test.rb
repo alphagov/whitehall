@@ -28,5 +28,10 @@ module Whitehall
       assert Whitehall::UrlMaker.ancestors.include? FilterRoutesHelper
       assert Whitehall::UrlMaker.ancestors.include? LocalisedUrlPathHelper
     end
+
+    test 'has an empty set of params (for the url helpers that need it)' do
+      expected_params = {}
+      assert_equal expected_params, Whitehall::UrlMaker.new.params
+    end
   end
 end
