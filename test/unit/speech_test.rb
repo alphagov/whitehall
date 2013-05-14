@@ -219,20 +219,6 @@ class SpeechTest < ActiveSupport::TestCase
     assert_equal person, speech.person
   end
 
-  test ".in_chronological_order returns speeches in ascending order of delivered_on" do
-    jan = create(:speech, delivered_on: Date.parse("2011-01-01"))
-    mar = create(:speech, delivered_on: Date.parse("2011-03-01"))
-    feb = create(:speech, delivered_on: Date.parse("2011-02-01"))
-    assert_equal [jan, feb, mar], Speech.in_chronological_order.all
-  end
-
-  test ".in_reverse_chronological_order returns speeches in descending order of delivered_on" do
-    jan = create(:speech, delivered_on: Date.parse("2011-01-01"))
-    mar = create(:speech, delivered_on: Date.parse("2011-03-01"))
-    feb = create(:speech, delivered_on: Date.parse("2011-02-01"))
-    assert_equal [mar, feb, jan], Speech.in_reverse_chronological_order.all
-  end
-
   test "delivered_by_minister? returns true for ministerial role appointments" do
     assert build(:speech, role_appointment: build(:ministerial_role_appointment)).delivered_by_minister?
   end
@@ -246,12 +232,6 @@ class SpeechTest < ActiveSupport::TestCase
     speech.topical_events << TopicalEvent.new(name: "foo", description: "bar")
     assert speech.can_be_associated_with_topical_events?
     assert_equal 1, speech.topical_events.size
-  end
-
-  test "make_public_at should not set first_published_at" do
-    speech = build(:speech, first_published_at: nil)
-    speech.make_public_at(2.days.ago)
-    refute speech.first_published_at
   end
 
   test "search_index contains person and organisation via role appointment" do
