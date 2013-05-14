@@ -9,7 +9,7 @@
 
   <%= form.text_area :summary, label_text: "Summary", rows: 2, disabled: disabled %>
 
-  <%= form.text_area :body, label_text: "Body", "class" => "previewable", disabled: disabled %>
+  <%= form.text_area :body, label_text: "Body", class: "previewable", disabled: disabled %>
 
   <%= render partial: "admin/editions/attachment_fields", locals: { form: form, edition: corporate_information_page, parent_type: :corporate_information_page, show_inline_attachment_help: true } %>
   

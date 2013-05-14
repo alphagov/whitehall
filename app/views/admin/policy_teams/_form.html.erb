@@ -4,7 +4,7 @@
   <fieldset>
     <%= policy_team_form.text_field :name %>
     <%= policy_team_form.text_field :email %>
-    <%= policy_team_form.text_area :description, "class" => "previewable" %>
+    <%= policy_team_form.text_area :description, class: "previewable" %>
   </fieldset>
   <p class="warning">Warning: changes to policy teams appear instantly on the live site.</p>
   <%= policy_team_form.save_or_cancel cancel: admin_policy_teams_path %>
