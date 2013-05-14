@@ -5,7 +5,7 @@
     <%= policy_advisory_group_form.text_field :name %>
     <%= policy_advisory_group_form.text_field :email %>
     <%= policy_advisory_group_form.text_area :summary %>
-    <%= policy_advisory_group_form.text_area :description, "class" => "previewable" %>
+    <%= policy_advisory_group_form.text_area :description, class: "previewable" %>
   </fieldset>
 
   <%= render partial: "admin/editions/attachment_fields", locals: { form: policy_advisory_group_form, edition: policy_advisory_group, parent_type: :policy_group, show_inline_attachment_help: true } %>

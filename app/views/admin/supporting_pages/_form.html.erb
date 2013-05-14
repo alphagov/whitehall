@@ -2,7 +2,7 @@
   <%= form.errors %>
   <%= form.hidden_field :lock_version %>
   <%= form.text_field :title, disabled: disabled %>
-  <%= form.text_area :body, disabled: disabled, "class" => disabled ? "" : "previewable" %>
+  <%= form.text_area :body, disabled: disabled, class: disabled ? "" : "previewable" %>
 
   <%= render partial: "admin/editions/attachment_fields", locals: { form: form, edition: supporting_page, parent_type: :supporting_page, show_inline_attachment_help: supporting_page.allows_inline_attachments? } %>
 
