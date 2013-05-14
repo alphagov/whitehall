@@ -79,6 +79,7 @@ module Whitehall
             organisations
             people
             topics
+            topical_events
             search_format_types
             world_locations
           },
