@@ -76,7 +76,10 @@ module Whitehall::DocumentFilter
 
     def filter_by_topics
       if selected_topics.any?
-        {topics: selected_topics.map(&:slug)}
+        {
+          topics: selected_topics.map(&:slug),
+          topical_events: selected_topics.map(&:slug)
+        }
       else
         {}
       end
