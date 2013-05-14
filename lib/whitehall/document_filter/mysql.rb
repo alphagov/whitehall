@@ -42,7 +42,7 @@ module Whitehall::DocumentFilter
 
     def filter_by_topics!
       @documents = @documents.published_in_topic(selected_topics) if selected_topics.any?
-      @documents = @documents.published_in_topical_events(selected_topics) if selected_topics.any?
+      @documents = @documents.published_in_topical_event(selected_topics) if selected_topics.any?
     end
 
     def filter_by_departments!

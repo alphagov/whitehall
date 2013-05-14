@@ -39,8 +39,8 @@ module DocumentFilterHelper
     options_for_select([[t("document_filters.world_locations.all"), "all"]] + locations.map { |a|[a.name, a.slug] }, selected_value)
   end
 
-  def all_classifications_with(type)
-    Topic.alphabetical + TopicalEvent.active
+  def all_classifications
+    [Topic.alphabetical + TopicalEvent.active.order("start_date DESC")].flatten
   end
 
   def all_locations_with(type)

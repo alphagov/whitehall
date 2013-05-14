@@ -3,21 +3,11 @@ require 'test_helper'
 class DocumentFilterHelperTest < ActionView::TestCase
   include ApplicationHelper
 
-  test "#all_topics_with :announcement returns all topics with announcements, alphabetically" do
-    scope = stub('topic scope')
-    scope.expects(:order).with(:name)
-    Topic.expects(:with_related_announcements).returns(scope)
+  test "#all_classifications returns all topics alphabetically and active topcial events" do
+    Topic.expects(:alphabetical)
+    TopicalEvent.expects(:active)
 
-    all_topics_with(:announcement)
-  end
-
-  test "#all_topics_with :publication returns all topics with publications, alphabetically" do
-    aardvark = build(:topic, name: "aardvark")
-    zebra = build(:topic, name: "zebra")
-    topics = [zebra, aardvark]
-    Topic.expects(:with_related_publications).returns(topics)
-
-    assert_equal [aardvark, zebra], all_topics_with(:publication)
+    all_classifications
   end
 
   test "#all_organisations_with returns all organisations that have published editions" do
