@@ -1,0 +1,1 @@
+Rummageable.index(TakePartPage.search_index, Whitehall.government_search_index_path)
