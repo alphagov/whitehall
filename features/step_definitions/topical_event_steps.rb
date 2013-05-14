@@ -42,6 +42,18 @@ When /^I draft a new news article "([^"]*)" relating it to topical event "([^"]*
   click_button "Save"
 end
 
+When /^I draft a new publication "([^"]*)" relating it to topical event "([^"]*)"$/ do |publication_title, topical_event_name|
+  begin_drafting_publication publication_title
+  select topical_event_name, from: "Topical events"
+  click_button "Save"
+end
+
+When /^I draft a new consultation "([^"]*)" relating it to topical event "([^"]*)"$/ do |consultation_title, topical_event_name|
+  begin_drafting_consultation title: consultation_title
+  select topical_event_name, from: "Topical events"
+  click_button "Save"
+end
+
 Then /^I should see (#{THE_DOCUMENT}) in the announcements section of the topical event "([^"]*)"$/ do |edition, topical_event_name|
   topical_event = TopicalEvent.find_by_name!(topical_event_name)
   visit topical_event_path(topical_event)

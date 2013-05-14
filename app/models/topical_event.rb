@@ -11,6 +11,9 @@ class TopicalEvent < Classification
   has_many :news_articles, through: :classification_memberships
   has_many :speeches, through: :classification_memberships
 
+  has_many :publications, through: :classification_memberships
+  has_many :consultations, through: :classification_memberships
+
   has_many :published_announcements,
             through: :classification_memberships,
             class_name: "Announcement",
@@ -22,6 +25,12 @@ class TopicalEvent < Classification
             class_name: "Publication",
             conditions: { "editions.state" => "published" },
             source: :publication
+
+  has_many :published_consultations,
+            through: :classification_memberships,
+            class_name: "Consultation",
+            conditions: { "editions.state" => "published" },
+            source: :consultation
 
   has_many :classification_featurings,
             foreign_key: :classification_id,

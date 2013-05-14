@@ -8,6 +8,7 @@ class Publication < Publicationesque
   include Edition::StatisticalDataSets
   include Edition::HtmlVersion
   include Edition::CanApplyToLocalGovernmentThroughRelatedPolicies
+  include Edition::TopicalEvents
 
   validates :publication_date, presence: true, unless: ->(edition) { edition.can_have_some_invalid_data? }
   validates :publication_date, recent_date: true, unless: ->(edition) { edition.can_have_some_invalid_data? }

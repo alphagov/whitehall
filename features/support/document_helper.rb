@@ -54,6 +54,8 @@ module DocumentHelper
 
   def begin_drafting_consultation(options)
     begin_drafting_document(options.merge(type: "consultation"))
+    select_date "Opening Date", with: 10.days.from_now.to_s
+    select_date "Closing Date", with: 40.days.from_now.to_s
   end
 
   def begin_drafting_world_location_news_article(options)
