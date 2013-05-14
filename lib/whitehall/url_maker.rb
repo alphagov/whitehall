@@ -4,6 +4,7 @@ module Whitehall
     include PublicDocumentRoutesHelper
     include MainstreamCategoryRoutesHelper
     include FilterRoutesHelper
+    include Admin::EditionRoutesHelper
     include LocalisedUrlPathHelper
 
     def initialize(default_options = {})

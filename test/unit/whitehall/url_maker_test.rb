@@ -26,6 +26,7 @@ module Whitehall
       assert Whitehall::UrlMaker.ancestors.include? PublicDocumentRoutesHelper
       assert Whitehall::UrlMaker.ancestors.include? MainstreamCategoryRoutesHelper
       assert Whitehall::UrlMaker.ancestors.include? FilterRoutesHelper
+      assert Whitehall::UrlMaker.ancestors.include? Admin::EditionRoutesHelper
       assert Whitehall::UrlMaker.ancestors.include? LocalisedUrlPathHelper
     end
 
