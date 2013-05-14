@@ -4,11 +4,7 @@ module ForceToDraftHOImports
   ADMIN_HOST = 'whitehall-admin.production.alphagov.co.uk'
 
   def self.routes_helper
-    @routes_helper ||= Class.new do
-      include Rails.application.routes.url_helpers
-      include PublicDocumentRoutesHelper
-      include Admin::EditionRoutesHelper
-    end.new
+    @routes_helper ||= Whitehall::UrlMaker.new(host: ForceToDraftHOImports::ADMIN_HOST)
   end
 end
 
@@ -32,6 +28,6 @@ end
   puts "Result: #{successes.length} successes, #{failures.length} failures"
   puts "Failures:"
   failures.each do |failed_import|
-    puts ForceToDraftHOImports.routes_helper.admin_edition_url(failed_import, host: ForceToDraftHOImports::ADMIN_HOST)
+    puts ForceToDraftHOImports.routes_helper.admin_edition_url(failed_import)
   end
 end
