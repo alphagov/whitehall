@@ -20,7 +20,7 @@ class Edition::RelatedPoliciesTest < ActiveSupport::TestCase
     edition = create(:edition_with_related_policies, related_editions: [create(:published_policy, topics: [create(:topic)])])
 
     # TODO: Would return "edition" otherwise and that doesn't exist
-    Whitehall.url_maker.stubs(:model_name).with(edition).returns('generic_edition')
+    Whitehall.url_maker.stubs(:model_name_for_route_recognition).with(edition).returns('generic_edition')
 
     assert_equal edition.topics.map(&:slug), edition.search_index['topics']
   end
