@@ -83,10 +83,6 @@ namespace :guidance do
 
   desc "Maps business link URLs in the database to their admin equivalents"
   task :map_business_link_urls, [:file, :host, :creator] => [:environment] do |t, args|
-    include Rails.application.routes.url_helpers
-    include PublicDocumentRoutesHelper
-    include Admin::EditionRoutesHelper
-
     creator = User.where(email: args[:creator]).first
 
     found_urls = 0
@@ -118,7 +114,7 @@ namespace :guidance do
             to_match = /\([^\)]+topicId=#{topic_id}[^\\d)]*\)/
             to_match.match(old_body) do |matched|
               title = result.title
-              new_url = admin_edition_url(new_record, :host => args[:host])
+              new_url = Whitehall.url_maker.admin_edition_url(new_record, :host => args[:host])
               if ! other_records[title]
                 other_records[title] = Set.new
               end
