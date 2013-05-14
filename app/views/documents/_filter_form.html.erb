@@ -41,7 +41,7 @@
         <div class="filter" id="topic-filter">
           <div class="filter-inner">
             <%= label_tag "topics", "Topic" %>
-            <%= select_tag "topics[]", topic_filter_options(all_topics_with(document_type), @filter.selected_topics), class: "single-row-select", id: "topics" %>
+            <%= select_tag "topics[]", classification_filter_options(all_classifications_with(document_type), @filter.selected_topics), class: "single-row-select", id: "topics" %>
           </div>
         </div>
       <% end %>

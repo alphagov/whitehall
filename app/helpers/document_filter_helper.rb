@@ -1,7 +1,7 @@
 module DocumentFilterHelper
-  def topic_filter_options(topics, selected_topics = [])
+  def classification_filter_options(classifications, selected_topics = [])
     selected_values = selected_topics.any? ? selected_topics.map(&:slug) : ["all"]
-    options_for_select([["All topics", "all"]] + topics.map { |o| [o.name, o.slug] }, selected_values)
+    options_for_select([["All topics", "all"]] + classifications.map { |o| [o.name, o.slug] }, selected_values)
   end
 
   def organisation_filter_options(organisations, selected_organisations = [])
@@ -39,17 +39,8 @@ module DocumentFilterHelper
     options_for_select([[t("document_filters.world_locations.all"), "all"]] + locations.map { |a|[a.name, a.slug] }, selected_value)
   end
 
-  def all_topics_with(type)
-    case type
-    when :publication
-      Topic.with_related_publications.sort_by(&:name)
-    when :detailed_guide
-      Topic.with_related_detailed_guides.order(:name)
-    when :announcement
-      Topic.with_related_announcements.order(:name)
-    when :policy
-      Topic.with_related_policies.order(:name)
-    end
+  def all_classifications_with(type)
+    Topic.alphabetical + TopicalEvent.active
   end
 
   def all_locations_with(type)
