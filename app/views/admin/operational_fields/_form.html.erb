@@ -3,7 +3,7 @@
 
   <fieldset>
     <%= operational_field_form.text_field :name %>
-    <%= operational_field_form.text_area :description, "class" => "previewable" %>
+    <%= operational_field_form.text_area :description, class: "previewable" %>
   </fieldset>
   <p class="warning">Warning: changes to fields of operation appear instantly on the live site.</p>
   <%= operational_field_form.save_or_cancel cancel: admin_operational_fields_path %>
