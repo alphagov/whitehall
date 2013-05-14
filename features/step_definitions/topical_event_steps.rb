@@ -54,10 +54,10 @@ When /^I draft a new consultation "([^"]*)" relating it to topical event "([^"]*
   click_button "Save"
 end
 
-Then /^I should see (#{THE_DOCUMENT}) in the announcements section of the topical event "([^"]*)"$/ do |edition, topical_event_name|
+Then /^I should see (#{THE_DOCUMENT}) in the (announcements|publications|consultations) section of the topical event "([^"]*)"$/ do |edition, section, topical_event_name|
   topical_event = TopicalEvent.find_by_name!(topical_event_name)
   visit topical_event_path(topical_event)
-  within "#announcements" do
+  within "##{section}" do
     assert page.has_css?(record_css_selector(edition))
   end
 end
