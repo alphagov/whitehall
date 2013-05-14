@@ -4,10 +4,9 @@ class DocumentFilterHelperTest < ActionView::TestCase
   include ApplicationHelper
 
   test "#all_classifications returns all topics alphabetically and active topcial events" do
-    Topic.expects(:alphabetical)
-    TopicalEvent.expects(:active)
-
-    all_classifications
+    topic = create(:topic)
+    topical_event = create(:topical_event, :active)
+    assert_equal [topic, topical_event], all_classifications
   end
 
   test "#all_organisations_with returns all organisations that have published editions" do

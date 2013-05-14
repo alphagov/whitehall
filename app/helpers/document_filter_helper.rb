@@ -40,7 +40,7 @@ module DocumentFilterHelper
   end
 
   def all_classifications
-    [Topic.alphabetical + TopicalEvent.active.order("start_date DESC")].flatten
+    [Topic.alphabetical + TopicalEvent.active.alphabetical].flatten
   end
 
   def all_locations_with(type)
