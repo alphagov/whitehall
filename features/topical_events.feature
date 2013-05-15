@@ -29,6 +29,18 @@ Scenario: Associating a news article with a topical event
   And I force publish the news article "Famous moustaches of the 19th century"
   Then I should see the news article "Famous moustaches of the 19th century" in the announcements section of the topical event "Moustache Growing Convention"
 
+Scenario: Associating a publication with a topical event
+  When I create a new topical event "Moustache Growing Convention" with description "Annual convention on moustach growing"
+  And I draft a new publication "Famous moustaches of the 19th century" relating it to topical event "Moustache Growing Convention"
+  And I force publish the publication "Famous moustaches of the 19th century"
+  Then I should see the publication "Famous moustaches of the 19th century" in the publications section of the topical event "Moustache Growing Convention"
+
+Scenario: Associating a consultation with a topical event
+  When I create a new topical event "Moustache Growing Convention" with description "Annual convention on moustach growing"
+  And I draft a new consultation "Should goatees be considered as Moustaches for the competition?" relating it to topical event "Moustache Growing Convention"
+  And I force publish the consultation "Should goatees be considered as Moustaches for the competition?"
+  Then I should see the consultation "Should goatees be considered as Moustaches for the competition?" in the consultations section of the topical event "Moustache Growing Convention"
+
 Scenario: Featuring news on an topical event page
   When I create a new topical event "Moustache Growing Convention" with description "Annual convention on moustach growing"
   And I draft a new news article "Famous moustaches of the 19th century" relating it to topical event "Moustache Growing Convention"

@@ -1,6 +1,8 @@
 <%= standard_edition_form(edition) do |form| %>
   <%= render partial: 'attachment_fields', locals: {
-              form: form, edition: edition, parent_type: :edition,
+              form: form,
+              edition: edition,
+              parent_type: :edition,
               show_inline_attachment_help: edition.allows_inline_attachments?,
               legend: 'Attachments - Consultation documents',
               bulk_upload_zip_file: @bulk_upload_zip_file } %>
@@ -12,8 +14,9 @@
     <%= render partial: 'related_policy_fields', locals: { form: form, edition: edition } %>
     <%= render partial: 'organisation_fields', locals: { form: form, edition: edition } %>
     <%= render partial: 'document_series_fields', locals: { form: form, edition: edition } %>
-    <%= render partial: 'worldwide_priority_fields', locals: { form: form, edition: edition } %>
     <%= render partial: 'minister_fields', locals: { form: form, edition: edition } %>
+    <%= render partial: 'topical_event_fields', locals: { form: form, edition: edition } %>
+    <%= render partial: 'worldwide_priority_fields', locals: { form: form, edition: edition } %>
     <%= render partial: 'nation_fields', locals: { form: form, edition: edition } %>
   </fieldset>
 

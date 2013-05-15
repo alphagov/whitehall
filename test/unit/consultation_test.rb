@@ -343,4 +343,12 @@ class ConsultationTest < ActiveSupport::TestCase
   test "can be associated with worldwide priorities" do
     assert Consultation.new.can_be_associated_with_worldwide_priorities?
   end
+
+  test "can associate consultations with topical events" do
+    consultation = create(:consultation)
+    assert consultation.can_be_associated_with_topical_events?
+    assert topical_event = consultation.topical_events.create(name: "Test", description: "Test")
+    assert_equal [consultation], topical_event.consultations
+  end
+
 end
