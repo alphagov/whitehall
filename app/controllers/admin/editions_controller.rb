@@ -195,7 +195,11 @@ class Admin::EditionsController < Admin::BaseController
   def build_edition_organisations
     n = @edition.edition_organisations.select { |eo| eo.lead? }.count
     (n...4).each do |i|
-      @edition.edition_organisations.build(lead_ordering: i, lead: true)
+      if i == 0 && current_user.organisation
+        @edition.edition_organisations.build(lead_ordering: i, lead: true, organisation: current_user.organisation)
+      else
+        @edition.edition_organisations.build(lead_ordering: i, lead: true)
+      end
     end
     n = @edition.edition_organisations.reject { |eo| eo.lead? }.count
     (n...6).each do |i|
