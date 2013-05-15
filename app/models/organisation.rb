@@ -144,7 +144,7 @@ class Organisation < ActiveRecord::Base
   has_many :topics, through: :organisation_classifications, order: 'organisation_classifications.ordering'
   has_many :classifications, through: :organisation_classifications
 
-  has_many :organisation_mainstream_categories, dependent: :destroy, order: 'organisation_mainstream_categories.ordering'
+  has_many :organisation_mainstream_categories, dependent: :destroy, order: 'organisation_mainstream_categories.ordering', inverse_of: :organisation
   has_many :mainstream_categories, through: :organisation_mainstream_categories, order: 'organisation_mainstream_categories.ordering'
 
   has_many :users, dependent: :nullify
