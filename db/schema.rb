@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130507112303) do
+ActiveRecord::Schema.define(:version => 20130514152339) do
 
   create_table "access_and_opening_times", :force => true do |t|
     t.text     "body"
@@ -771,6 +771,18 @@ ActiveRecord::Schema.define(:version => 20130507112303) do
   add_index "organisation_classifications", ["classification_id"], :name => "index_org_classifications_on_classification_id"
   add_index "organisation_classifications", ["organisation_id", "ordering"], :name => "index_org_classifications_on_organisation_id_and_ordering", :unique => true
   add_index "organisation_classifications", ["organisation_id"], :name => "index_org_classifications_on_organisation_id"
+
+  create_table "organisation_mainstream_categories", :force => true do |t|
+    t.integer  "organisation_id",                        :null => false
+    t.integer  "mainstream_category_id",                 :null => false
+    t.integer  "ordering",               :default => 99, :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "organisation_mainstream_categories", ["mainstream_category_id"], :name => "index_org_mainstream_cats_on_mainstream_cat_id"
+  add_index "organisation_mainstream_categories", ["organisation_id", "mainstream_category_id"], :name => "index_org_mainstream_cats_on_org_id_and_mainstream_cat_id", :unique => true
+  add_index "organisation_mainstream_categories", ["organisation_id"], :name => "index_org_mainstream_cats_on_org_id"
 
   create_table "organisation_mainstream_links", :force => true do |t|
     t.integer "organisation_id"

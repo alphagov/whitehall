@@ -400,6 +400,14 @@ class OrganisationTest < ActiveSupport::TestCase
     assert_equal 0, OrganisationClassification.count
   end
 
+  test 'destroy removes mainstream category relationships' do
+    organisation = create(:organisation)
+    mainstream_category = create(:mainstream_category)
+    relationship =  create(:organisation_mainstream_category, organisation: organisation, mainstream_category: mainstream_category)
+    organisation.destroy
+    refute OrganisationMainstreamCategory.exists?(relationship)
+  end
+
   test 'destroy unsets user organisation' do
     organisation = create(:organisation)
     user = create(:policy_writer, organisation: organisation)
@@ -495,6 +503,15 @@ class OrganisationTest < ActiveSupport::TestCase
     organisation.organisation_classifications.create(classification_id: topics[1].id, ordering: 1)
     assert_match /order by/i, organisation.topics.to_sql
     assert_equal [topics[1], topics[0]], organisation.topics
+  end
+
+  test "mainstream categories are explicitly ordered" do
+    mainstream_categories = [create(:mainstream_category), create(:mainstream_category)]
+    organisation = create(:organisation)
+    organisation.organisation_mainstream_categories.create(mainstream_category_id: mainstream_categories[0].id, ordering: 2)
+    organisation.organisation_mainstream_categories.create(mainstream_category_id: mainstream_categories[1].id, ordering: 1)
+    assert_match /order by/i, organisation.mainstream_categories.to_sql
+    assert_equal [mainstream_categories[1], mainstream_categories[0]], organisation.mainstream_categories
   end
 
   test "can have associated contacts" do
