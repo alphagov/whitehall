@@ -34,8 +34,9 @@ Feature: Administering world location information
     Given a world location "Jamestopia" exists in both english and french
     And there is a news article "Beards" in english ("Barbes" in french) related to the world location
     When I feature "Barbes" on the french "Jamestopia" page
-    Then I should see "Barbes" as the title of the feature on the french "Jamestopia" page
-    And I should see "Barbes" as the title of the featured item on the french "Jamestopia" admin page
+    Then I should see "Barbes" as the title of the featured item on the french "Jamestopia" admin page
+    And I should see "Barbes" as the title of the feature on the french "Jamestopia" page
+    And clicking on "Barbes" on the french "Jamestopia" page should take me to the french version of the article
 
   Scenario: Featuring things that aren't associated with the world location
     Given a world location "Jamestopia" exists in both english and french

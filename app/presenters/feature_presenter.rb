@@ -47,7 +47,7 @@ class FeaturePresenter < Struct.new(:feature)
     if topical_event
       topical_event_path(topical_event)
     else
-      public_document_path(edition)
+      public_document_path(edition, locale: feature.locale)
     end
   end
 

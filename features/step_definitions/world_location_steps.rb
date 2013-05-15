@@ -217,3 +217,14 @@ Then /^I cannot feature "([^"]*)" on the french "([^"]*)" page due to the lack o
   click_link 'Everywhere'
   assert page.has_no_css?("a.btn", text: "Feature")
 end
+
+Then /^clicking on "([^"]*)" on the french "([^"]*)" page should take me to the french version of the article$/ do |title, world_location_name|
+  view_world_location_in_locale(world_location_name, "Français")
+
+  within '.feature h2' do
+    click_on title
+  end
+
+  assert page.has_css?('h1.page_title .title', text: title)
+  assert page.has_css?('.available-languages li.translation span', text: 'Français')
+end
