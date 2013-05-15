@@ -192,7 +192,7 @@
     }
   }
 
-  #topics {
+  #topics, #mainstream_categories {
     border-bottom: 1px solid $border-colour;
     margin-bottom: $gutter-half;
     @include media(tablet) {
@@ -212,13 +212,18 @@
     font-weight: bold;
     margin: $gutter 0 $gutter-one-third;
   }
+  #mainstream_categories h1 {
+    @include ig-core-27;
+    font-weight: bold;
+    margin: $gutter-one-third 0;
+  }
 
   .social-media h2 {
     @include ig-core-19;
     font-weight: bold;
   }
 
-  .topic h2 {
+  .topic h2, .mainstream_category h2 {
     @include core-19;
     font-weight: bold;
   }

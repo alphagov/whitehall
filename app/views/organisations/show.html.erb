@@ -64,6 +64,17 @@
     </div>
   <% end %>
 
+  <% if @mainstream_categories.any? %>
+    <div class="block-6">
+      <div class="inner-block">
+        <section id="mainstream_categories">
+          <h1 class="label"><%= t('organisation.headings.our_mainstream_categories') %></h1>
+          <%= render partial: "mainstream_categories/list_description", locals: {mainstream_categories: @mainstream_categories, organisation: @organisation} %>
+        </section>
+      </div>
+    </div>
+  <% end %>
+
   <% if @policies.any? %>
     <div class="block-7">
       <div class="inner-block">

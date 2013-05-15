@@ -44,6 +44,7 @@ class OrganisationsController < PublicFacingController
           else
             @policies = decorate_collection(@organisation.published_policies.in_reverse_chronological_order.limit(3), PolicyPresenter)
             @topics = @organisation.topics_with_content
+            @mainstream_categories = @organisation.mainstream_categories
             @non_statistics_publications = decorate_collection(@organisation.published_non_statistics_publications.in_reverse_chronological_order.limit(2), PublicationesquePresenter)
             @statistics_publications = decorate_collection(@organisation.published_statistics_publications.in_reverse_chronological_order.limit(2), PublicationesquePresenter)
             @consultations = decorate_collection(@organisation.published_consultations.in_reverse_chronological_order.limit(2), PublicationesquePresenter)
