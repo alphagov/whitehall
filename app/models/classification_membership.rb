@@ -10,6 +10,7 @@ class ClassificationMembership < ActiveRecord::Base
   belongs_to :news_article, foreign_key: :edition_id
   belongs_to :speech, foreign_key: :edition_id
   belongs_to :publication, foreign_key: :edition_id
+  belongs_to :consultation, foreign_key: :edition_id
 
   validates :edition, :classification, presence: true
 

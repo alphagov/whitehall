@@ -77,6 +77,17 @@
           </div>
         </section>
       <% end %>
+      <% if @consultations.any? %>
+        <section id="consultations" class="heading-block">
+          <h1 class="label">Consultations</h1>
+          <div class="content">
+            <%= render partial: "publications/list_description", locals: {publications: @consultations} %>
+            <p class="see-all">
+              <%#= link_to 'See all consultations', publications_filter_path(@classification, publication_filter_option: 'consultations') %>
+            </p>
+          </div>
+        </section>
+      <% end %>
       <% if @announcements.any? %>
         <section id="announcements" class="heading-block">
           <h1 class="label">Announcements</h1>
