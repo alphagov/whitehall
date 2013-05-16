@@ -45,7 +45,7 @@
 
   <% if current_user.gds_editor? && @management_organisation_roles.any? %>
     <fieldset id="board_member_count">
-      <legend>Number of important members of the managment team</legend>
+      <legend>Number of important members of the management team</legend>
       <%= organisation_form.select :important_board_members, (1..@management_organisation_roles.length) %>
     </fieldset>
   <% end %>
