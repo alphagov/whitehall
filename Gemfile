@@ -3,7 +3,7 @@ source 'https://BnrJb6FZyzspBboNJzYZ@gem.fury.io/govuk/'
 
 gem 'delayed_job_active_record'
 gem 'statsd-ruby', '1.0.0', require: "statsd"
-gem 'rails', '3.1.12'
+gem 'rails', '3.2.13'
 gem 'mysql2'
 gem 'jquery-rails'
 gem 'transitions', require: ['transitions', 'active_record/transitions']
@@ -42,7 +42,7 @@ gem 'diffy'
 group :assets do
   gem 'govuk_frontend_toolkit', '0.19.2'
   gem 'sass', '3.2.8'
-  gem 'sass-rails', '3.1.4'
+  gem 'sass-rails'
   gem 'uglifier'
 end
 
@@ -63,7 +63,7 @@ group :test do
   gem 'factory_girl'
   gem 'hash_syntax'
   gem 'mocha', '0.13.2', require: false
-  gem 'test_track'
+  gem 'test_track', github: 'episko/test_track'
   gem 'timecop'
   gem 'webmock', require: false
   gem 'crack', '~> 0.3.2'
