@@ -19,6 +19,21 @@ class TakePartPage < ActiveRecord::Base
 
   mount_uploader :image, ImageUploader, mount_on: :carrierwave_image
 
+  include Searchable
+  searchable title: :title,
+             link: :search_link,
+             content: :body_without_markup,
+             description: :summary,
+             format: 'take_part'
+
+  def search_link
+    Whitehall.url_maker.take_part_page_path(self.slug)
+  end
+
+  def body_without_markup
+    Govspeak::Document.new(body).to_text
+  end
+
   def self.next_ordering
     (TakePartPage.maximum(:ordering) || 0) + 1
   end

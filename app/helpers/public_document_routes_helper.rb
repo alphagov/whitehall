@@ -4,7 +4,7 @@ module PublicDocumentRoutesHelper
   end
 
   def document_path(edition, options = {})
-    polymorphic_path(model_name(edition), options.merge(id: edition.document))
+    polymorphic_path(model_name_for_route_recognition(edition), options.merge(id: edition.document))
   end
 
   def public_document_path(edition, options = {})
@@ -21,7 +21,7 @@ module PublicDocumentRoutesHelper
   end
 
   def document_url(edition, options = {})
-    polymorphic_url(model_name(edition), options.merge(id: edition.document))
+    polymorphic_url(model_name_for_route_recognition(edition), options.merge(id: edition.document))
   end
 
   def public_document_url(edition, options = {})
@@ -60,9 +60,7 @@ module PublicDocumentRoutesHelper
     admin_edition_supporting_page_url(supporting_page.edition, supporting_page.id, options)
   end
 
-  private
-
-  def model_name(edition)
+  def model_name_for_route_recognition(edition)
     klass = edition.is_a?(Draper::Base) ? edition.model.class : edition.class
     klass.name.split("::").first.underscore
   end

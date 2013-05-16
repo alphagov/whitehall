@@ -1,5 +1,4 @@
 class Classification < ActiveRecord::Base
-  include Rails.application.routes.url_helpers
   include Searchable
   include SimpleWorkflow
 
@@ -118,7 +117,7 @@ class Classification < ActiveRecord::Base
   end
 
   def search_link
-    topic_path(slug)
+    Whitehall.url_maker.topic_path(slug)
   end
 
   def recently_changed_documents

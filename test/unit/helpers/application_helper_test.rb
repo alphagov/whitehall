@@ -238,21 +238,6 @@ class ApplicationHelperTest < ActionView::TestCase
     assert_equal [[policy.id, "Policy title (First topic, Second topic and Third topic)"]], related_policy_options
   end
 
-  test "JSON URL generator returns the correct format automatically" do
-    stubs(:params).returns(action: "index", controller: "publications")
-    assert_equal filter_json_url, "/government/publications.json"
-  end
-
-  test "JSON URL generator preserves extra params correctly" do
-    stubs(:params).returns(action: "index", controller: "publications", keywords: "test", extra: "extra")
-    assert_equal filter_json_url, "/government/publications.json?extra=extra&keywords=test"
-  end
-
-  test "JSON URL generator strips spurious query params" do
-    stubs(:params).returns(action: "index", controller: "publications", utf8: "✓", _: "jquerycache")
-    assert_equal filter_json_url, "/government/publications.json"
-  end
-
   test "skips asset host for image paths if user signed in and image in uploads" do
     view = TestView.new
     view.stubs(:user_signed_in?).returns(true)
@@ -296,42 +281,6 @@ class ApplicationHelperTest < ActionView::TestCase
     refute is_external?('/something'), 'no host'
     refute is_external?('https://www.gov.uk'), 'good host'
     refute is_external?('http://www.preview.alphagov.co.uk/something'), 'good host with path'
-  end
-
-  test "email signup url only accepts certain params" do
-    stubs(:params).returns(action: "index", controller: "publications", ignored: "yes")
-    refute filter_email_signup_url.match %r{ignored=yes}
-  end
-
-  test "email signup url transforms filter params" do
-    stubs(:params).returns(action: "index", controller: "publications", topics: ['topic-1'], departments: ['department-1'])
-    assert filter_email_signup_url.match %r{topic=topic-1}
-    assert filter_email_signup_url.match %r{organisation=department-1}
-  end
-
-  test "email signup url ignores 'all' variants of params" do
-    stubs(:params).returns(action: "index", controller: "publications", topics: ['all'], departments: ['all'])
-    refute filter_email_signup_url.match %r{topic=}
-    refute filter_email_signup_url.match %r{organisation=}
-  end
-
-  test "email signup url prefixes publication types" do
-    stubs(:params).returns(action: "index", controller: "publications", publication_filter_option: "publication-type")
-    assert_match %r{document_type=publication_type_publication-type}, filter_email_signup_url
-  end
-
-  test "email signup url prefixes announcement types" do
-    stubs(:params).returns(action: "index", controller: "announcements", announcement_type_option: "announcement-type")
-    assert_match %r{document_type=announcement_type_announcement-type}, filter_email_signup_url
-  end
-
-  test "email signup url accepts arguments" do
-    stubs(:params).returns(action: "index", controller: "announcements")
-    assert_match %r{organisation=cabinet-office}, filter_email_signup_url(organisation: 'cabinet-office')
-  end
-
-  test "email signup url accepts policies" do
-    assert_match %r{policy=policy-1}, filter_email_signup_url(policy: 'policy-1')
   end
 
   private

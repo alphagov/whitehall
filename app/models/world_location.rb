@@ -36,9 +36,8 @@ class WorldLocation < ActiveRecord::Base
              only: :active,
              format: 'world_location'
 
-  include Rails.application.routes.url_helpers
   def search_link
-    world_location_path(slug)
+    Whitehall.url_maker.world_location_path(slug)
   end
 
   after_update :remove_from_index_if_became_inactive

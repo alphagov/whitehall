@@ -1,4 +1,4 @@
-module ClassificationHelper
+module ClassificationRoutesHelper
   def classification_path(classification, options={})
     polymorphic_path(classification_model_name(classification), options.merge(id: classification))
   end

@@ -15,7 +15,7 @@ module EditionPresenterHelper
   end
 
   def link
-    h.link_to model.title, public_document_path(model)
+    h.link_to model.title, h.public_document_path(model)
   end
 
   def display_organisations

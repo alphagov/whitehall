@@ -10,6 +10,6 @@ class PolicyAdvisoryGroup < PolicyGroup
   end
 
   def search_link
-    policy_advisory_group_path(slug)
+    Whitehall.url_maker.policy_advisory_group_path(slug)
   end
 end

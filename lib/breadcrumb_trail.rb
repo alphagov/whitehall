@@ -1,8 +1,4 @@
 class BreadcrumbTrail
-  include Rails.application.routes.url_helpers
-  include PublicDocumentRoutesHelper
-  include MainstreamCategoryRoutesHelper
-
   def valid?
     to_hash.present?
   end
@@ -14,6 +10,10 @@ class BreadcrumbTrail
     when MainstreamCategory
       MainstreamCategoryBreadcrumbTrail.new(content_object)
     end
+  end
+
+  def url_maker
+    Whitehall.url_maker
   end
 end
 
@@ -27,7 +27,7 @@ class DetailedGuideBreadcrumbTrail < BreadcrumbTrail
     @hash ||= {
       title: @detailed_guide.title,
       format: 'detailedguidance',
-      web_url: public_document_path(@detailed_guide),
+      web_url: url_maker.public_document_path(@detailed_guide),
       tags: [tag_hash(@detailed_guide.primary_mainstream_category)]
     }
   end
@@ -44,7 +44,7 @@ private
       },
       content_with_tag: {
         id: mainstream_category.path,
-        web_url: mainstream_category_path(mainstream_category)
+        web_url: url_maker.mainstream_category_path(mainstream_category)
       },
       parent: tag.to_hash
     }
@@ -62,7 +62,7 @@ class MainstreamCategoryBreadcrumbTrail < BreadcrumbTrail
     @hash ||= {
       title: @mainstream_category.title,
       format: 'section',
-      web_url: mainstream_category_path(@mainstream_category),
+      web_url: url_maker.mainstream_category_path(@mainstream_category),
       id: @mainstream_category.path,
       tags: [Whitehall.mainstream_content_api.tag(@mainstream_category.parent_tag).to_hash]
     }

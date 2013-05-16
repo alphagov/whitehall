@@ -2,10 +2,6 @@ require 'csv'
 
 module DataHygiene
   class OrphanedAttachmentFinder
-    include Admin::EditionRoutesHelper
-    include Rails.application.routes.url_helpers
-    include PublicDocumentRoutesHelper
-
     def editions_with_orphaned_attachments
       @editions_with_orphaned_attachments ||= find
     end
@@ -85,11 +81,11 @@ module DataHygiene
     def admin_path(thing)
       case thing
       when CorporateInformationPage
-        admin_organisation_corporate_information_page_path(thing.organisation, thing)
+        Whitehall.url_maker.admin_organisation_corporate_information_page_path(thing.organisation, thing)
       when SupportingPage
-        admin_supporting_page_path(thing)
+        Whitehall.url_maker.admin_supporting_page_path(thing)
       when StatisticalDataSet, DetailedGuide
-        admin_edition_path(thing)
+        Whitehall.url_maker.admin_edition_path(thing)
       end
     end
   end

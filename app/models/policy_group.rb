@@ -1,5 +1,4 @@
 class PolicyGroup < ActiveRecord::Base
-  include Rails.application.routes.url_helpers
   include Searchable
 
   validates :email, email_format: true, allow_blank: true
@@ -12,15 +11,19 @@ class PolicyGroup < ActiveRecord::Base
     false
   end
 
-  searchable title: :name,
-             link: :search_link,
-             content: :summary_or_name
-
   extend FriendlyId
   friendly_id
 
   def summary_or_name
     summary.present? ? summary : name
+  end
+
+  searchable title: :name,
+             link: :search_link,
+             content: :summary_or_name
+
+  def search_link
+    raise NotImplementedError, '#search_link must be implemented in PolicyGroup subclasses, PolicyGroup can\'t be indexed directly.'
   end
 
 end

@@ -1,7 +1,5 @@
 class SupportingPage < ActiveRecord::Base
   include Searchable
-  include Rails.application.routes.url_helpers
-  include PublicDocumentRoutesHelper
   include ::Attachable
 
   belongs_to :edition
@@ -41,7 +39,7 @@ class SupportingPage < ActiveRecord::Base
     # This should be public_supporting_page_path(edition, self), but we can't use that because friendly_id's
     # #to_param returns the old value of the slug (e.g. nil for a new record) if the record is dirty, and
     # apparently the record is still marked as dirty during after_save callbacks.
-    public_supporting_page_path(edition, slug)
+    Whitehall.url_maker.public_supporting_page_path(edition, slug)
   end
 
   def body_without_markup

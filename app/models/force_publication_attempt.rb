@@ -72,8 +72,6 @@ class ForcePublicationAttempt < ActiveRecord::Base
 
   class ProgressLogger
     include Admin::EditionRoutesHelper
-    include Rails.application.routes.url_helpers
-    include PublicDocumentRoutesHelper
 
     def initialize(force_publish_attempt)
       @force_publish_attempt = force_publish_attempt
@@ -97,7 +95,7 @@ class ForcePublicationAttempt < ActiveRecord::Base
     end
 
     def success(document)
-      write_log(:success, "#{document.id}: https://www.gov.uk#{public_document_path(document)}")
+      write_log(:success, "#{document.id}: https://www.gov.uk#{Whitehall.url_maker.public_document_path(document)}")
       @force_publish_attempt.successes << document
     end
 

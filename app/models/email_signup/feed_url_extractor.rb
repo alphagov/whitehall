@@ -1,6 +1,10 @@
 class EmailSignup::FeedUrlExtractor
-  include Rails.application.routes.url_helpers
-  default_url_options.merge!(host: Whitehall.public_host, protocol: Whitehall.public_protocol)
+  def self.url_maker
+    @url_maker ||= Whitehall::UrlMaker.new(host: Whitehall.public_host, protocol: Whitehall.public_protocol)
+  end
+  def url_maker
+    self.class.url_maker
+  end
 
   def initialize(alert)
     @alert = alert
@@ -8,9 +12,9 @@ class EmailSignup::FeedUrlExtractor
 
   def feed_url
     if @alert.policy
-      activity_policy_url(@alert.policy, format: :atom)
+      url_maker.activity_policy_url(@alert.policy, format: :atom)
     else
-      send("#{path_segment_name}_url", filters.merge(format: 'atom'))
+      url_maker.send("#{path_segment_name}_url", filters.merge(format: 'atom'))
     end
   end
 

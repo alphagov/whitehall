@@ -260,14 +260,12 @@ class SpeechTest < ActiveSupport::TestCase
     person = create(:person)
     role_appointment = create(:role_appointment, role: ministerial_role, person: person)
     speech = create(:published_speech, title: "my title", speech_type: SpeechType::Transcript, role_appointment: role_appointment)
-    speech.stubs(:public_document_path).returns("/my/speech")
     assert_equal [person.slug], speech.search_index['people']
     assert_equal [organisation.slug], speech.search_index['organisations']
   end
 
   test "search_index does not contain person when person_override is set" do
     speech = create(:published_speech, title: "my title", speech_type: SpeechType::Transcript, role_appointment: nil, person_override: "The Queen")
-    speech.stubs(:public_document_path).returns("/my/speech")
     refute speech.search_index.has_key?('people')
   end
 
