@@ -60,8 +60,9 @@ module PublicDocumentRoutesHelper
     admin_edition_supporting_page_url(supporting_page.edition, supporting_page.id, options)
   end
 
+  # NOTE: This method could (possibly) be dropped once Draper has been removed/replaced.
   def model_name_for_route_recognition(edition)
     klass = edition.is_a?(Draper::Base) ? edition.model.class : edition.class
-    klass.name.split("::").first.underscore
+    klass.name.underscore
   end
 end

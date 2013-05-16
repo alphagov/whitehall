@@ -20,4 +20,4 @@ module Whitehall
       {}
     end
   end
-end  
+end
