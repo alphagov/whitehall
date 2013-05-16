@@ -40,14 +40,7 @@ namespace :export do
   end
 
   def routes_helper
-    @routes_helper ||= Class.new do
-      include Rails.application.routes.url_helpers
-      include PublicDocumentRoutesHelper
-      include Admin::EditionRoutesHelper
-      def request
-        OpenStruct.new(host: PUBLIC_HOST)
-      end
-    end.new
+    @routes_helper ||= Whitehall::UrlMaker.new(host: PUBLIC_HOST)
   end
 
 end

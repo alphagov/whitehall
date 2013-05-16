@@ -174,7 +174,8 @@ module Whitehall
         PolicyTeam,
         PolicyAdvisoryGroup,
         Person,
-        CorporateInformationPage
+        CorporateInformationPage,
+        TakePartPage
       ]
       not_yet_searchable_classes = []
       if world_feature?
@@ -213,6 +214,10 @@ module Whitehall
 
     def rummager_work_queue_name
       'rummager-delayed-indexing'
+    end
+
+    def url_maker
+      @url_maker ||= Whitehall::UrlMaker.new
     end
 
     private

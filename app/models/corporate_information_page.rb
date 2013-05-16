@@ -1,7 +1,6 @@
 class CorporateInformationPage < ActiveRecord::Base
   include ::Attachable
   include Searchable
-  include Rails.application.routes.url_helpers
 
   delegate :slug, :display_type_key, to: :type
   delegate :alternative_format_contact_email, :acronym, to: :organisation
@@ -31,7 +30,7 @@ class CorporateInformationPage < ActiveRecord::Base
   end
 
   def search_link
-    organisation_corporate_information_page_path(organisation, slug)
+    Whitehall.url_maker.organisation_corporate_information_page_path(organisation, slug)
   end
 
   def self.for_slug(slug)

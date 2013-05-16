@@ -5,11 +5,7 @@ module GiveAllDocumentsALeadOrganisationHelper
   ADMIN_HOST = 'whitehall-admin.production.alphagov.co.uk'
 
   def self.routes_helper
-    @routes_helper ||= Class.new do
-      include Rails.application.routes.url_helpers
-      include PublicDocumentRoutesHelper
-      include Admin::EditionRoutesHelper
-    end.new
+    @routes_helper ||= Whitehall::UrlMaker.new(host: GiveAllDocumentsALeadOrganisationHelper::ADMIN_HOST)
   end
 end
 
@@ -26,7 +22,7 @@ Edition.find_each do |edition|
   end
   edition.reload
   edition.valid?
-  out = [edition.id, edition.title, GiveAllDocumentsALeadOrganisationHelper.routes_helper.admin_edition_url(edition, host: ADMIN_HOST)]
+  out = [edition.id, edition.title, GiveAllDocumentsALeadOrganisationHelper.routes_helper.admin_edition_url(edition)]
   state = nil
   if edition.errors[:lead_organisations].empty?
     if edition.organisations.count > 1

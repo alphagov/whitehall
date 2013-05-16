@@ -66,14 +66,6 @@ class BreadcrumbTrailTest < ActiveSupport::TestCase
   end
 
 private
-  def routes_helper
-    Class.new do
-      include Rails.application.routes.url_helpers
-      include PublicDocumentRoutesHelper
-      include MainstreamCategoryRoutesHelper
-    end.new
-  end
-
   def business_tax_tag
     stub("business_tax_tag response", to_hash: {
       "_response_info" => {

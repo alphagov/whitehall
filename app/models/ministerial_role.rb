@@ -1,6 +1,5 @@
 class MinisterialRole < Role
   include Searchable
-  include Rails.application.routes.url_helpers
 
   has_many :edition_ministerial_roles
   has_many :editions, through: :edition_ministerial_roles
@@ -54,6 +53,6 @@ class MinisterialRole < Role
     # This should be ministerial_role_path(self), but we can't use that because friendly_id's #to_param returns
     # the old value of the slug (e.g. nil for a new record) if the record is dirty, and apparently the record
     # is still marked as dirty during after_save callbacks.
-    ministerial_role_path(slug)
+    Whitehall.url_maker.ministerial_role_path(slug)
   end
 end

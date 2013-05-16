@@ -1,7 +1,6 @@
 class AttachmentsPresenter < Struct.new(:edition)
   class HtmlAttachment < Struct.new(:edition)
     include ActiveModel::Conversion
-    include Rails.application.routes.url_helpers
 
     def html_version
       edition.html_version
@@ -43,9 +42,9 @@ class AttachmentsPresenter < Struct.new(:edition)
     def url
       case edition.type
       when 'Publication'
-        publication_html_version_path(edition.document, self)
+        Whitehall.url_maker.publication_html_version_path(edition.document, self)
       when 'Consultation'
-        consultation_html_version_path(edition.document, self)
+        Whitehall.url_maker.consultation_html_version_path(edition.document, self)
       else
         raise "Edition type '#{edition.class}' does not support viewing HTML versions"
       end

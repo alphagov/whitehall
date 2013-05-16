@@ -1,9 +1,5 @@
 # This can be used to force publish all documents for a particular organisation
 class ForcePublisher
-  include Admin::EditionRoutesHelper
-  include Rails.application.routes.url_helpers
-  include PublicDocumentRoutesHelper
-
   attr_reader :failures, :successes, :editions_to_publish
 
   def initialize(editions_to_publish)
@@ -51,7 +47,7 @@ class ForcePublisher
   end
 
   def success(edition)
-    puts "OK : #{edition.id}: https://www.gov.uk#{public_document_path(edition)}"
+    puts "OK : #{edition.id}: https://www.gov.uk#{Whitehall.url_maker.public_document_path(edition)}"
     @successes << edition
   end
 

@@ -1,8 +1,7 @@
 class Whitehall::Exporters::DocumentMappings < Struct.new(:platform)
-  include Rails.application.routes.url_helpers, PublicDocumentRoutesHelper, Admin::EditionRoutesHelper
 
-  def request
-    OpenStruct.new(host: "whitehall.#{ENV['FACTER_govuk_platform']}.alphagov.co.uk")
+  def url_maker
+    @url_maker ||= Whitehall::UrlMaker.new(host: public_host, protocol: 'https')
   end
 
   def row(public_url, admin_url)
@@ -14,6 +13,10 @@ class Whitehall::Exporters::DocumentMappings < Struct.new(:platform)
       admin_url,
       ''
     ]
+  end
+
+  def public_host
+    Whitehall.public_host_for("whitehall.#{ENV['FACTER_govuk_platform']}.alphagov.co.uk")
   end
 
   def admin_host
@@ -30,7 +33,7 @@ class Whitehall::Exporters::DocumentMappings < Struct.new(:platform)
       public_url,
       http_status(edition),
       slug,
-      admin_edition_url(edition, host: admin_host, protocol: 'https'),
+      url_maker.admin_edition_url(edition, host: admin_host),
       edition.state ]
   rescue => e
     Rails.logger.error("Whitehall::Exporters::DocumentMappings: when exporting #{edition} - #{e} - #{e.backtrace.join("\n")}")
@@ -46,15 +49,16 @@ class Whitehall::Exporters::DocumentMappings < Struct.new(:platform)
   end
 
   def document_url_and_slug(edition, document, document_source)
-    doc_url_args = { protocol: 'https' }
+    doc_url_args = { }
     if edition.translatable?
       locale = document_source.try(:locale)
       doc_url_args[:locale] = locale unless locale.nil? || Locale.new(locale).english?
     end
 
     slug = document_slug(edition, document)
+    edition_type_for_route = url_maker.model_name_for_route_recognition(edition)
     [
-      polymorphic_url(model_name(edition), doc_url_args.merge(id: slug, host: public_host)),
+      url_maker.polymorphic_url(edition_type_for_route, doc_url_args.merge(id: slug)),
       slug
     ]
   end
@@ -103,75 +107,75 @@ class Whitehall::Exporters::DocumentMappings < Struct.new(:platform)
     SupportingPage.find_each do |page|
       next unless page.edition.present?
       target << row(
-        policy_supporting_page_url(page.edition.document, page, host: host_name, protocol: 'https'),
-        admin_supporting_page_url(page, host: admin_host, protocol: 'https')
+        url_maker.policy_supporting_page_url(page.edition.document, page, host: host_name),
+        url_maker.admin_supporting_page_url(page, host: admin_host)
       )
       target << row(
-        policy_supporting_page_url(page.edition.document, page, host: host_name, protocol: 'https'),
-        edit_admin_supporting_page_url(page, host: admin_host, protocol: 'https')
+        url_maker.policy_supporting_page_url(page.edition.document, page, host: host_name),
+        url_maker.edit_admin_supporting_page_url(page, host: admin_host)
       )
     end
 
     Person.find_each do |person|
       target << row(
-        person_url(person, host: host_name, protocol: 'https'),
-        admin_person_url(person, host: admin_host, protocol: 'https')
+        url_maker.person_url(person, host: host_name),
+        url_maker.admin_person_url(person, host: admin_host)
       )
       target << row(
-        person_url(person, host: host_name, protocol: 'https'),
-        edit_admin_person_url(person, host: admin_host, protocol: 'https'),
+        url_maker.person_url(person, host: host_name),
+        url_maker.edit_admin_person_url(person, host: admin_host),
       )
     end
 
     PolicyAdvisoryGroup.find_each do |group|
       target << row(
-        policy_advisory_group_url(group, host: host_name, protocol: 'https'),
-        admin_policy_advisory_group_url(group, host: admin_host, protocol: 'https')
+        url_maker.policy_advisory_group_url(group, host: host_name),
+        url_maker.admin_policy_advisory_group_url(group, host: admin_host)
       )
       target << row(
-        policy_advisory_group_url(group, host: host_name, protocol: 'https'),
-        edit_admin_policy_advisory_group_url(group, host: admin_host, protocol: 'https')
+        url_maker.policy_advisory_group_url(group, host: host_name),
+        url_maker.edit_admin_policy_advisory_group_url(group, host: admin_host)
       )
     end
 
     PolicyTeam.find_each do |team|
       target << row(
-        policy_team_url(team, host: host_name, protocol: 'https'),
-        admin_policy_team_url(team, host: admin_host, protocol: 'https'),
+        url_maker.policy_team_url(team, host: host_name),
+        url_maker.admin_policy_team_url(team, host: admin_host),
       )
       target << row(
-        policy_team_url(team, host: host_name, protocol: 'https'),
-        edit_admin_policy_team_url(team, host: admin_host, protocol: 'https'),
+        url_maker.policy_team_url(team, host: host_name),
+        url_maker.edit_admin_policy_team_url(team, host: admin_host),
       )
     end
 
     Role.find_each do |role|
       target << row(
-        ministerial_role_url(role, host: host_name, protocol: 'https'),
-        admin_role_url(role, host: admin_host, protocol: 'https'),
+        url_maker.ministerial_role_url(role, host: host_name),
+        url_maker.admin_role_url(role, host: admin_host),
       )
       target << row(
-        ministerial_role_url(role, host: host_name, protocol: 'https'),
-        edit_admin_role_url(role, host: admin_host, protocol: 'https'),
+        url_maker.ministerial_role_url(role, host: host_name),
+        url_maker.edit_admin_role_url(role, host: admin_host),
       )
     end
 
     Organisation.find_each do |organisation|
       target << row(
-        organisation_url(organisation, host: host_name, protocol: 'https'),
-        admin_organisation_url(organisation, host: admin_host, protocol: 'https'),
+        url_maker.organisation_url(organisation, host: host_name),
+        url_maker.admin_organisation_url(organisation, host: admin_host),
       )
       target << row(
-        organisation_url(organisation, host: host_name, protocol: 'https'),
-        edit_admin_organisation_url(organisation, host: admin_host, protocol: 'https'),
+        url_maker.organisation_url(organisation, host: host_name),
+        url_maker.edit_admin_organisation_url(organisation, host: admin_host),
       )
     end
 
     CorporateInformationPage.find_each do |page|
       organisation = page.organisation
       target << row(
-        organisation_corporate_information_page_url(page, organisation_id: organisation, host: host_name, protocol: 'https'),
-        edit_admin_organisation_corporate_information_page_url(page, organisation_id: organisation, host: admin_host, protocol: 'https')
+        url_maker.organisation_corporate_information_page_url(page, organisation_id: organisation, host: host_name),
+        url_maker.edit_admin_organisation_corporate_information_page_url(page, organisation_id: organisation, host: admin_host)
       )
     end
   end

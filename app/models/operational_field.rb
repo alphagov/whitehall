@@ -1,5 +1,4 @@
 class OperationalField < ActiveRecord::Base
-  include Rails.application.routes.url_helpers
   include Searchable
 
   validates :name, presence: true, uniqueness: true
@@ -14,7 +13,7 @@ class OperationalField < ActiveRecord::Base
   friendly_id
 
   def search_link
-    operational_field_path(slug)
+    Whitehall.url_maker.operational_field_path(slug)
   end
 
   def published_fatality_notices

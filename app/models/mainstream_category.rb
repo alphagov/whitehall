@@ -1,8 +1,6 @@
 require 'cgi'
 
 class MainstreamCategory < ActiveRecord::Base
-  include Rails.application.routes.url_helpers
-
   has_many :primary_detailed_guides, class_name: "DetailedGuide",
            foreign_key: "primary_mainstream_category_id"
   has_many :edition_mainstream_categories

@@ -55,9 +55,8 @@ class WorldwideOrganisation < ActiveRecord::Base
              content: :summary,
              format: 'worldwide_organisation'
 
-  include Rails.application.routes.url_helpers
   def search_link
-    worldwide_organisation_path(slug)
+    Whitehall.url_maker.worldwide_organisation_path(slug)
   end
 
   def display_name

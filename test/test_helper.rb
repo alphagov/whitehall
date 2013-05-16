@@ -70,11 +70,7 @@ class ActiveSupport::TestCase
   end
 
   def routes_helper
-    Class.new do
-      include Rails.application.routes.url_helpers
-      include PublicDocumentRoutesHelper
-      include MainstreamCategoryRoutesHelper
-    end.new
+    @routes_helper ||= Whitehall::UrlMaker.new
   end
 
   class << self

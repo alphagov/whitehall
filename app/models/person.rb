@@ -6,7 +6,6 @@ class Person < ActiveRecord::Base
     super.reject { |column| ['biography'].include?(column.name) }
   end
 
-  include Rails.application.routes.url_helpers
   include Searchable
 
   mount_uploader :image, ImageUploader, mount_on: :carrierwave_image
@@ -51,7 +50,7 @@ class Person < ActiveRecord::Base
   before_destroy :prevent_destruction_if_appointed
 
   def search_link
-    person_path(slug)
+    Whitehall.url_maker.person_path(slug)
   end
 
   def self.without_a_current_ministerial_role
