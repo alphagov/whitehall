@@ -1,7 +1,7 @@
 require 'test_helper'
 
 module Whitehall
-  class UrlMakerTest < ActiveSupport::TestCase  
+  class UrlMakerTest < ActiveSupport::TestCase
     test 'default url options can be set at create time' do
       maker = Whitehall::UrlMaker.new(host: 'yahoo.com', protocol: 'ftp')
       assert_equal 'ftp://yahoo.com/government/get-involved/take-part/woo', maker.take_part_page_url('woo')
@@ -20,7 +20,7 @@ module Whitehall
     end
 
     test 'includes all the relevant helpers for constructing urls' do
-      # TODO: not at all happy about this, but I don't want to write
+      # NOTE: not at all happy about this, but I don't want to write
       # tests to ensure all the routes are available
       assert Whitehall::UrlMaker.ancestors.include? Rails.application.routes.url_helpers
       assert Whitehall::UrlMaker.ancestors.include? PublicDocumentRoutesHelper
