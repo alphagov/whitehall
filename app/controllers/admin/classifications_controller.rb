@@ -6,7 +6,7 @@ class Admin::ClassificationsController < Admin::BaseController
   before_filter :load_object, only: [:edit]
 
   def index
-    @classifications = ClassificationsPresenter.decorate(model_class.order(:name))
+    @classifications = model_class.order(:name)
     @new_classification = model_class.new
   end
 
@@ -46,16 +46,6 @@ class Admin::ClassificationsController < Admin::BaseController
 
   def human_friendly_model_name
     model_class.name.underscore.humanize
-  end
-
-  class ClassificationsPresenter < Draper::Base
-    def breakdown
-      published_policy_ids = policies.published.select("editions.id")
-      {
-        "published policy" => published_policy_ids.count,
-        "published detailed guide" => detailed_guides.published.count
-      }
-    end
   end
 
   def build_object
