@@ -56,7 +56,7 @@ class Whitehall::Exporters::DocumentMappings < Struct.new(:platform)
     end
 
     slug = document_slug(edition, document)
-    edition_type_for_route = url_maker.model_name_for_route_recognition(edition)
+    edition_type_for_route = edition.class.name.underscore
     [
       url_maker.polymorphic_url(edition_type_for_route, doc_url_args.merge(id: slug)),
       slug
