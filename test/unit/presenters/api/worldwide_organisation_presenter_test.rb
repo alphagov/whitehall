@@ -8,18 +8,22 @@ class Api::WorldwideOrganisationPresenterTest < PresenterTestCase
                                              worldwide_organisation: nil)
     @world_org = stub_record(:worldwide_organisation, sponsoring_organisations: [@main_sponsor],
                                                       offices: [@office])
-    @presenter = Api::WorldwideOrganisationPresenter.decorate(@world_org)
+    @presenter = Api::WorldwideOrganisationPresenter.new(@world_org, @view_context)
     stubs_helper_method(:params).returns(format: :json)
     stubs_helper_method(:govspeak_to_html).returns('govspoken')
   end
 
   test ".paginate returns a decorated page of results" do
     stubs_helper_method(:params).returns(page: 1)
-    page = stub('page')
-    decorated_results = stub('decorated-results')
-    Api::Paginator.stubs(:paginate).with([@office], page: 1).returns(page)
-    Api::WorldwideOrganisationPresenter.stubs(:decorate).with(page).returns(decorated_results)
-    assert_equal Api::WorldwideOrganisationPresenter.paginate([@office]), Api::PagePresenter.new(decorated_results)
+    page = [@world_org]
+    Api::Paginator.stubs(:paginate).with([@world_org], page: 1).returns(page)
+
+    paginated = Api::WorldwideOrganisationPresenter.paginate([@world_org], @view_context)
+
+    assert_equal Api::PagePresenter, paginated.class
+    assert_equal 1, paginated.page.size
+    assert_equal Api::WorldwideOrganisationPresenter, paginated.page.first.class
+    assert_equal @world_org, paginated.page.first.model
   end
 
   test 'links has a self link, pointing to the request-relative api worldwide organisations url' do
