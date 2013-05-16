@@ -9,8 +9,9 @@ module ClassificationRoutesHelper
 
   private
 
+  # NOTE: This method could (possibly) be dropped once Draper has been removed/replaced.
   def classification_model_name(classification)
     klass = classification.is_a?(Draper::Base) ? classification.model.class : classification.class
-    klass.name.split("::").first.underscore
+    klass.name.underscore
   end
 end

@@ -138,7 +138,7 @@ class Edition < ActiveRecord::Base
   searchable(
     id: :id,
     title: :title,
-    link: -> d { Whitehall.url_maker.public_document_path(d) },
+    link: :search_link,
     format: -> d { d.format_name.gsub(" ", "_") },
     content: :indexable_content,
     description: :summary,
@@ -147,7 +147,7 @@ class Edition < ActiveRecord::Base
     subsubsection: :subsubsection,
     organisations: -> d { d.organisations.map(&:slug) },
     people: nil,
-    display_type: -> d { d.display_type },
+    display_type: :display_type,
     public_timestamp: :public_timestamp,
     relevant_to_local_government: :relevant_to_local_government?,
     world_locations: nil,
@@ -155,9 +155,12 @@ class Edition < ActiveRecord::Base
     only: :published,
     index_after: [],
     unindex_after: [],
-    search_format_types: -> d { d.search_format_types }
+    search_format_types: :search_format_types
   )
 
+  def search_link
+    Whitehall.url_maker.public_document_path(self)
+  end
   def search_format_types
     [Edition.search_format_type]
   end
