@@ -18,13 +18,11 @@ module Edition::Appointment
     end
   end
 
-  module InstanceMethods
-    def search_index
-      if person_override?
-        super
-      else
-        super.merge("people" => [person.slug])
-      end
+  def search_index
+    if person_override?
+      super
+    else
+      super.merge("people" => [person.slug])
     end
   end
 end
