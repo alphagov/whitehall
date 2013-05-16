@@ -1,6 +1,6 @@
 class AddBoundingTimesToMinisterialAppointment < ActiveRecord::Migration
   class MinisterialAppointmentTable < ActiveRecord::Base
-    set_table_name :ministerial_appointments
+    self.table_name = "ministerial_appointments"
   end
 
   def change
