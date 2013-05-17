@@ -17,4 +17,34 @@ class Edition::TranslatableTest < ActiveSupport::TestCase
     edition.primary_locale = 'fr'
     assert edition.valid?
   end
+
+  test 'English editions fallback to their English translation when localised' do
+    edition = create(:edition, title: 'English Title', body: 'English Body')
+
+    with_locale(:fr) do
+      assert_equal 'English Title', edition.title
+      assert_equal 'English Body', edition.body
+      edition.title = 'French Title'
+      assert_equal 'French Title', edition.title
+      assert_equal 'English Body', edition.body
+    end
+
+    assert_equal 'English Title', edition.title
+    assert_equal 'English Body', edition.body
+  end
+
+  test 'non-English editions fallback to their primary locale when localised, even with English translation' do
+    I18n.locale = :fr
+    french_edition = create(:edition, title: 'French Title', body: 'French Body', primary_locale: :fr)
+
+    with_locale(:en) do
+      french_edition.title = 'English Title'
+      french_edition.save!
+      assert_equal 'English Title', french_edition.title
+    end
+
+    I18n.locale = :es
+    assert_equal 'French Title', french_edition.title
+    assert_equal 'French Body', french_edition.body
+  end
 end
