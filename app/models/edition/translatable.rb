@@ -35,6 +35,10 @@ module Edition::Translatable
     false
   end
 
+  def non_english_edition?
+    primary_locale.intern != :en
+  end
+
   private
 
   def primary_locale_is_valid

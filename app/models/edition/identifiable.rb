@@ -20,11 +20,11 @@ module Edition::Identifiable
   end
 
   def ensure_presence_of_document
-    self.document ||= Document.new(sluggable_string: title)
+    self.document ||= Document.new(sluggable_string: string_for_slug)
   end
 
   def update_document_slug
-    document.update_slug_if_possible(title(I18n.default_locale))
+    document.update_slug_if_possible(string_for_slug)
   end
 
   def propagate_type_to_document
@@ -44,5 +44,11 @@ module Edition::Identifiable
       end
       nil
     end
+  end
+
+  private
+
+  def string_for_slug
+    non_english_edition? ? nil : title(:en)
   end
 end

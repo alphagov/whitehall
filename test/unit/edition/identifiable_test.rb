@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 require "test_helper"
 
 class Edition::IdentifiableTest < ActiveSupport::TestCase
@@ -118,5 +120,22 @@ class Edition::IdentifiableTest < ActiveSupport::TestCase
 
     existing_edition.save!
     assert_equal 'this-is-my-policy', existing_edition.document.reload.slug
+  end
+
+  test "non-English editions don't get a slug (i.e. will fallback to their id)" do
+    edition = create(:world_location_news_article, title: 'Faire la fête', primary_locale: 'fr')
+    document = edition.document
+    assert_nil document.slug
+    assert_equal document.id.to_s, document.to_param
+  end
+
+  test "non-English editions do not get a slug even when a document exists with a dodgy-nil-based slug" do
+    edition1 = create(:world_location_news_article, title: 'Faire la fête', primary_locale: 'fr')
+    edition1.document.update_attribute(:slug, '--1')
+
+    edition2 = create(:world_location_news_article, title: 'Faire la fête', primary_locale: 'fr')
+    document = edition2.document
+    assert_nil document.slug
+    assert_equal document.id.to_s, document.to_param
   end
 end

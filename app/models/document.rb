@@ -42,7 +42,7 @@ class Document < ActiveRecord::Base
   end
 
   def should_generate_new_friendly_id?
-    true
+    sluggable_string.present?
   end
 
   def update_slug_if_possible(new_title)
