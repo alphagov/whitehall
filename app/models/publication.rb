@@ -93,7 +93,7 @@ class Publication < Publicationesque
   end
 
   def translatable?
-    true
+    !non_english_edition?
   end
 
   private

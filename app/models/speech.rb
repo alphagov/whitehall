@@ -34,7 +34,7 @@ class Speech < Announcement
   end
 
   def translatable?
-    true
+    !non_english_edition?
   end
 
   def delivered_by_minister?

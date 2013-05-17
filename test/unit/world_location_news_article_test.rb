@@ -28,6 +28,10 @@ class WorldLocationNewsArticleTest < ActiveSupport::TestCase
     assert world_article.translatable?
   end
 
+  test "is not translatable when non-English" do
+    refute build(:world_location_news_article, primary_locale: :es).translatable?
+  end
+
   test "should not be valid without a world location" do
     world_article = build(:world_location_news_article)
     world_article.world_locations = []

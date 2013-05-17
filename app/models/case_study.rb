@@ -17,7 +17,7 @@ class CaseStudy < Edition
   end
 
   def translatable?
-    true
+    !non_english_edition?
   end
 
   def apply_any_extra_validations_when_converting_from_imported_to_draft
