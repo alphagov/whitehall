@@ -27,8 +27,7 @@ class Admin::WorldLocationNewsArticlesControllerTest < ActionController::TestCas
     assert_equal 'fr', edition.primary_locale
     assert edition.available_in_locale?(:fr)
     refute edition.available_in_locale?(:en)
-    assert_nil edition.document.slug
-    assert_equal edition.document.id.to_s, edition.document.to_param
+    assert_equal edition.document.id.to_s, edition.document.slug
 
     translation = edition.translation_for(:fr)
     assert_equal 'French title', translation.title

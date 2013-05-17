@@ -33,6 +33,8 @@ class Document < ActiveRecord::Base
 
   has_many :document_sources, dependent: :destroy
 
+  after_create :ensure_document_has_a_slug
+
   attr_accessor :sluggable_string
 
   class Change < Struct.new(:public_timestamp, :note)
@@ -88,5 +90,11 @@ class Document < ActiveRecord::Base
 
   def destroy_all_editions
     Edition.unscoped.destroy_all(document_id: self.id)
+  end
+
+  def ensure_document_has_a_slug
+    if slug.blank?
+      update_column(:slug, id)
+    end
   end
 end
