@@ -55,6 +55,7 @@ group :development, :staging, :test do
   gem 'parallel_tests'
   gem 'bullet'
   gem 'test-queue'
+  gem 'pry-rails'
 end
 
 group :test do
@@ -62,7 +63,7 @@ group :test do
   gem 'rack-test', git: 'https://github.com/alphagov/rack-test.git'
   gem 'factory_girl'
   gem 'hash_syntax'
-  gem 'mocha', '0.13.2', require: false
+  gem 'mocha', '0.14.0', require: false
   gem 'test_track', github: 'episko/test_track'
   gem 'timecop'
   gem 'webmock', require: false

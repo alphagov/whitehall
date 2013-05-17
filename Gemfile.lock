@@ -99,6 +99,7 @@ GEM
     chronic (0.6.7)
     ci_reporter (1.8.4)
       builder (>= 2.1.2)
+    coderay (1.0.9)
     crack (0.3.2)
     cucumber (1.0.6)
       builder (>= 2.1.2)
@@ -191,11 +192,12 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     metaclass (0.0.1)
+    method_source (0.8.1)
     mime-types (1.23)
     mini_magick (3.6.0)
       subexec (~> 0.2.1)
     minitest (2.5.1)
-    mocha (0.13.2)
+    mocha (0.14.0)
       metaclass (~> 0.0.1)
     multi_json (1.7.6)
     multipart-post (1.2.0)
@@ -228,6 +230,12 @@ GEM
     plek (1.1.0)
       builder
     polyglot (0.3.3)
+    pry (0.9.12)
+      coderay (~> 1.0.5)
+      method_source (~> 0.8)
+      slop (~> 3.4)
+    pry-rails (0.2.2)
+      pry (>= 0.9.10)
     quiet_assets (1.0.2)
       railties (>= 3.1, < 5.0)
     rabl (0.8.5)
@@ -310,6 +318,7 @@ GEM
       null_logger
       plek (>= 0.1.8)
       rack (>= 1.3.5)
+    slop (3.4.4)
     sprockets (2.2.2)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -398,12 +407,13 @@ DEPENDENCIES
   lograge
   mini_magick
   minitest (= 2.5.1)
-  mocha (= 0.13.2)
+  mocha (= 0.14.0)
   mysql2
   newrelic_rpm
   nokogiri
   parallel_tests
   plek (= 1.1.0)
+  pry-rails
   quiet_assets
   rabl
   rack-test!
