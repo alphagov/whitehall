@@ -132,7 +132,7 @@ class Edition < ActiveRecord::Base
   end
 
   def clear_slug
-    document.update_slug_if_possible("deleted-#{title(I18n.default_locale)}")
+    document.update_column(:slug, "deleted-#{title(I18n.default_locale)}")
   end
 
   searchable(
