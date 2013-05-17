@@ -36,6 +36,9 @@
               <td class="type"><%= edition.type.titleize %></td>
               <td class="title">
                 <span class="title"><%= link_to edition.title, admin_edition_path(edition), title: "View document #{edition.title}" %></span>
+                <% if edition.non_english_edition? %>
+                  (<%= edition.primary_locale %>)
+                <% end %>
                 <% if edition.force_published? %>
                   <span class="force_published label label-important">not reviewed</span>
                 <% end %>

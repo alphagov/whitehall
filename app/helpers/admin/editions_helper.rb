@@ -146,6 +146,7 @@ module Admin::EditionsHelper
 
   def standard_edition_form(edition, &blk)
     form_for [:admin, edition], as: :edition, builder: EditionFormBuilder do |form|
+      concat render('primary_locale_fields', form: form, edition: edition)
       concat edition_information(@information) if @information
       concat form.errors
       concat render(partial: "standard_fields",

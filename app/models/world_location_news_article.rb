@@ -22,6 +22,10 @@ class WorldLocationNewsArticle < Newsesque
     false
   end
 
+  def primary_locale_can_be_changed?
+    new_record?
+  end
+
   def search_format_types
     super + [WorldLocationNewsArticle.search_format_type]
   end

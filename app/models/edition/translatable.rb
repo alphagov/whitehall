@@ -39,6 +39,14 @@ module Edition::Translatable
     primary_locale.intern != :en
   end
 
+  def primary_language_name
+    Locale.find_by_code(primary_locale).english_language_name
+  end
+
+  def primary_locale_can_be_changed?
+    false
+  end
+
   private
 
   def primary_locale_is_valid

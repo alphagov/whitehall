@@ -18,6 +18,25 @@ class Edition::TranslatableTest < ActiveSupport::TestCase
     assert edition.valid?
   end
 
+  test 'primary_language_name returns the native English lanugage name' do
+    assert_equal 'English', Edition.new.primary_language_name
+    assert_equal 'French', Edition.new(primary_locale: :fr).primary_language_name
+  end
+
+  test 'primary_locale_can_be_changed? returns true for a new WorldLocationNewsArticle' do
+    assert WorldLocationNewsArticle.new.primary_locale_can_be_changed?
+  end
+
+  test 'primary_locale_can_be_changed? returns false for a persisted new WorldLocationNewsArticle' do
+    refute create(:world_location_news_article).primary_locale_can_be_changed?
+  end
+
+  test 'primary_locale_can_be_changed? returns false for other edition types' do
+    Edition.concrete_descendants.reject {|k| k == WorldLocationNewsArticle }.each do |klass|
+      refute klass.new.primary_locale_can_be_changed?, "Instance of #{klass} should not allow the changing of primary locale"
+    end
+  end
+
   test 'English editions fallback to their English translation when localised' do
     edition = create(:edition, title: 'English Title', body: 'English Body')
 
