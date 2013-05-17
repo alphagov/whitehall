@@ -275,7 +275,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
 
     get :show, id: world_location, locale: 'fr'
 
-    assert_equal AnnouncementPresenter.decorate([translated_speech]), assigns(:announcements)
+    assert_equal [translated_speech], assigns(:announcements).object
   end
 
   test "should only display translated publications when requested for a locale" do
@@ -286,7 +286,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
 
     get :show, id: world_location, locale: 'fr'
 
-    assert_equal PublicationesquePresenter.decorate([translated_publication]), assigns(:non_statistics_publications)
+    assert_equal [translated_publication], assigns(:non_statistics_publications).object
   end
 
   test "should only display translated statistics when requested for a locale" do
@@ -297,7 +297,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
 
     get :show, id: world_location, locale: 'fr'
 
-    assert_equal PublicationesquePresenter.decorate([translated_statistics]), assigns(:statistics_publications)
+    assert_equal [translated_statistics], assigns(:statistics_publications).object
   end
 
   test "should only display translated policies when requested for a locale" do
@@ -308,7 +308,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
 
     get :show, id: world_location, locale: 'fr'
 
-    assert_equal PolicyPresenter.decorate([translated_policy]), assigns(:policies)
+    assert_equal [translated_policy], assigns(:policies).object
   end
 
   test "should only display translated recently updated editions when requested for a locale" do

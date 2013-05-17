@@ -42,12 +42,12 @@ class OrganisationsController < PublicFacingController
             @promotional_features = PromotionalFeaturesPresenter.new(@organisation.promotional_features)
             render 'show-executive-office'
           else
-            @policies = PolicyPresenter.decorate(@organisation.published_policies.in_reverse_chronological_order.limit(3))
+            @policies = decorate_collection(@organisation.published_policies.in_reverse_chronological_order.limit(3), PolicyPresenter)
             @topics = @organisation.topics_with_content
-            @non_statistics_publications = PublicationesquePresenter.decorate(@organisation.published_non_statistics_publications.in_reverse_chronological_order.limit(2))
-            @statistics_publications = PublicationesquePresenter.decorate(@organisation.published_statistics_publications.in_reverse_chronological_order.limit(2))
-            @consultations = PublicationesquePresenter.decorate(@organisation.published_consultations.in_reverse_chronological_order.limit(2))
-            @announcements = AnnouncementPresenter.decorate(@organisation.published_announcements.in_reverse_chronological_order.limit(2))
+            @non_statistics_publications = decorate_collection(@organisation.published_non_statistics_publications.in_reverse_chronological_order.limit(2), PublicationesquePresenter)
+            @statistics_publications = decorate_collection(@organisation.published_statistics_publications.in_reverse_chronological_order.limit(2), PublicationesquePresenter)
+            @consultations = decorate_collection(@organisation.published_consultations.in_reverse_chronological_order.limit(2), PublicationesquePresenter)
+            @announcements = decorate_collection(@organisation.published_announcements.in_reverse_chronological_order.limit(2), AnnouncementPresenter)
             @ministers = ministers
             @important_board_members = board_members.take(@organisation.important_board_members)
             @board_members = board_members.from(@organisation.important_board_members)

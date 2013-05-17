@@ -20,11 +20,11 @@ class WorldLocationsController < PublicFacingController
       format.html do
         @recently_updated = recently_updated_source.limit(3)
         @worldwide_priorities = WorldwidePriority.with_translations(I18n.locale).published.in_world_location(@world_location).in_reverse_chronological_order
-        @policies = PolicyPresenter.decorate(Policy.with_translations(I18n.locale).published.in_world_location(@world_location).in_reverse_chronological_order.limit(3))
+        @policies = decorate_collection(Policy.with_translations(I18n.locale).published.in_world_location(@world_location).in_reverse_chronological_order.limit(3), PolicyPresenter)
         publications = Publication.with_translations(I18n.locale).published.in_world_location(@world_location).in_reverse_chronological_order
-        @non_statistics_publications = PublicationesquePresenter.decorate(publications.not_statistics.limit(2))
-        @statistics_publications = PublicationesquePresenter.decorate(publications.statistics.limit(2))
-        @announcements = AnnouncementPresenter.decorate(Announcement.with_translations(I18n.locale).published.in_world_location(@world_location).in_reverse_chronological_order.limit(2))
+        @non_statistics_publications = decorate_collection(publications.not_statistics.limit(2), PublicationesquePresenter)
+        @statistics_publications = decorate_collection(publications.statistics.limit(2), PublicationesquePresenter)
+        @announcements = decorate_collection(Announcement.with_translations(I18n.locale).published.in_world_location(@world_location).in_reverse_chronological_order.limit(2), AnnouncementPresenter)
         @feature_list = FeatureListPresenter.decorate(@world_location.feature_list_for_locale(I18n.locale)).limit_to(5)
         @worldwide_organisations = @world_location.worldwide_organisations
       end

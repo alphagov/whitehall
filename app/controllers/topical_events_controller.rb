@@ -6,9 +6,9 @@ class TopicalEventsController < ClassificationsController
   def show
     @classification = TopicalEvent.find(params[:id])
     @policies = @classification.published_policies
-    @publications = PublicationesquePresenter.decorate(@classification.published_publications.in_reverse_chronological_order.limit(6))
-    @consultations = PublicationesquePresenter.decorate(@classification.published_consultations.in_reverse_chronological_order.limit(6))
-    @announcements = AnnouncementPresenter.decorate(@classification.published_announcements.in_reverse_chronological_order.limit(6))
+    @publications = decorate_collection(@classification.published_publications.in_reverse_chronological_order.limit(6), PublicationesquePresenter)
+    @consultations = decorate_collection(@classification.published_consultations.in_reverse_chronological_order.limit(6), PublicationesquePresenter)
+    @announcements = decorate_collection(@classification.published_announcements.in_reverse_chronological_order.limit(6), AnnouncementPresenter)
     @detailed_guides = @classification.detailed_guides.published.limit(5)
     @related_classifications = @classification.related_classifications
     @recently_changed_documents = @classification.recently_changed_documents

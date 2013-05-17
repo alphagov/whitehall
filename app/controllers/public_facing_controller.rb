@@ -49,4 +49,8 @@ class PublicFacingController < ApplicationController
       Whitehall::DocumentFilter::Mysql
     end
   end
+
+  def decorate_collection(collection, presenter_class)
+    Whitehall::Decorators::CollectionDecorator.new(collection, presenter_class, view_context)
+  end
 end

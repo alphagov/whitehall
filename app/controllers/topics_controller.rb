@@ -2,8 +2,8 @@ class TopicsController < ClassificationsController
   def show
     @classification = Topic.find(params[:id])
     @policies = @classification.published_policies
-    @publications = PublicationesquePresenter.decorate(Publication.published_in_topic([@classification]).in_reverse_chronological_order.limit(3))
-    @announcements = AnnouncementPresenter.decorate(Announcement.published_in_topic([@classification]).in_reverse_chronological_order.limit(3))
+    @publications = decorate_collection(Publication.published_in_topic([@classification]).in_reverse_chronological_order.limit(3), PublicationesquePresenter)
+    @announcements = decorate_collection(Announcement.published_in_topic([@classification]).in_reverse_chronological_order.limit(3), AnnouncementPresenter)
     @detailed_guides = @classification.detailed_guides.published.limit(5)
     @related_classifications = @classification.related_classifications
     @recently_changed_documents = @classification.recently_changed_documents
