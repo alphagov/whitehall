@@ -8,8 +8,13 @@ class PoliciesController < DocumentsController
   respond_to :atom, only: :activity
 
   class SearchPoliciesDecorator < SimpleDelegator
+    def initialize(filter, view_context)
+      super(filter)
+      @view_context = view_context
+    end
+
     def documents
-      PolicyPresenter.decorate(__getobj__.documents)
+      Whitehall::Decorators::CollectionDecorator.new(__getobj__.documents, PolicyPresenter, @view_context)
     end
   end
 
@@ -55,7 +60,7 @@ class PoliciesController < DocumentsController
   def build_document_filter(params)
     document_filter = search_backend.new(params)
     document_filter.policies_search
-    SearchPoliciesDecorator.new(document_filter)
+    SearchPoliciesDecorator.new(document_filter, view_context)
   end
 
   def analytics_format

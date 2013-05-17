@@ -1,7 +1,12 @@
 class PublicationsController < DocumentsController
   class SearchPublicationesqueDecorator < SimpleDelegator
+    def initialize(filter, view_context)
+      super(filter)
+      @view_context = view_context
+    end
+
     def documents
-      PublicationesquePresenter.decorate(__getobj__.documents)
+      Whitehall::Decorators::CollectionDecorator.new(__getobj__.documents, PublicationesquePresenter, @view_context)
     end
   end
 
@@ -35,7 +40,7 @@ private
   def build_document_filter(params)
     document_filter = search_backend.new(params)
     document_filter.publications_search
-    SearchPublicationesqueDecorator.new(document_filter)
+    SearchPublicationesqueDecorator.new(document_filter, view_context)
   end
 
   def scheduled_publications

@@ -5,12 +5,13 @@ class AnnouncementsController < PublicFacingController
   respond_to :atom, only: :index
 
   class SearchAnnouncementsDecorator < SimpleDelegator
-    def documents
-      AnnouncementPresenter.decorate(__getobj__.documents)
+    def initialize(filter, view_context)
+      super(filter)
+      @view_context = view_context
     end
 
-    def as_hash
-      documents.map { |d| d.as_hash }
+    def documents
+      Whitehall::Decorators::CollectionDecorator.new(__getobj__.documents, AnnouncementPresenter, @view_context)
     end
   end
 
@@ -38,7 +39,7 @@ private
   def build_document_filter(params)
     document_filter = search_backend.new(params)
     document_filter.announcements_search
-    SearchAnnouncementsDecorator.new(document_filter)
+    SearchAnnouncementsDecorator.new(document_filter, view_context)
   end
 
   def scheduled_announcements
