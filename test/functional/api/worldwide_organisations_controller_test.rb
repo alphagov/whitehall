@@ -9,9 +9,9 @@ class Api::WorldwideOrganisationsControllerTest < ActionController::TestCase
     worldwide_organisation.stubs(:to_param).returns('woo')
     WorldwideOrganisation.stubs(:find_by_slug).with(worldwide_organisation.slug).returns(worldwide_organisation)
 
-    presenter = Api::WorldwideOrganisationPresenter.decorate(worldwide_organisation)
+    presenter = Api::WorldwideOrganisationPresenter.new(worldwide_organisation, controller.view_context)
     presenter.stubs(:as_json).returns(worldwide_organisation: :representation)
-    Api::WorldwideOrganisationPresenter.stubs(:new).with(worldwide_organisation).returns(presenter)
+    Api::WorldwideOrganisationPresenter.stubs(:new).with(worldwide_organisation, anything).returns(presenter)
 
     get :show, id: worldwide_organisation.slug, format: 'json'
     assert_equal 'representation', json_response['worldwide_organisation']
@@ -22,9 +22,9 @@ class Api::WorldwideOrganisationsControllerTest < ActionController::TestCase
     worldwide_organisation.stubs(:to_param).returns('woo')
     WorldwideOrganisation.stubs(:find_by_slug).with(worldwide_organisation.slug).returns(worldwide_organisation)
 
-    presenter = Api::WorldwideOrganisationPresenter.decorate(worldwide_organisation)
+    presenter = Api::WorldwideOrganisationPresenter.new(worldwide_organisation, controller.view_context)
     presenter.stubs(:as_json).returns(worldwide_organisation: :representation)
-    Api::WorldwideOrganisationPresenter.stubs(:new).with(worldwide_organisation).returns(presenter)
+    Api::WorldwideOrganisationPresenter.stubs(:new).with(worldwide_organisation, anything).returns(presenter)
 
     get :show, id: worldwide_organisation.slug, format: 'json'
     assert_equal 'ok', json_response['_response_info']['status']
@@ -43,9 +43,9 @@ class Api::WorldwideOrganisationsControllerTest < ActionController::TestCase
     world_location.stubs(:worldwide_organisations).returns ['my orgs']
     WorldLocation.stubs(:find_by_slug).with(world_location.slug).returns(world_location)
 
-    presenter = Api::PagePresenter.new(Kaminari.paginate_array([]).page(1).per(1))
+    presenter = Api::PagePresenter.new(Kaminari.paginate_array([]).page(1).per(1), controller.view_context)
     presenter.stubs(:as_json).returns(paged: :representation)
-    Api::WorldwideOrganisationPresenter.stubs(:paginate).with(world_location.worldwide_organisations).returns(presenter)
+    Api::WorldwideOrganisationPresenter.stubs(:paginate).with(world_location.worldwide_organisations, anything).returns(presenter)
 
     get :index, world_location_id: world_location.slug, format: 'json'
 
@@ -57,9 +57,9 @@ class Api::WorldwideOrganisationsControllerTest < ActionController::TestCase
     world_location.stubs(:worldwide_organisations).returns ['my orgs']
     WorldLocation.stubs(:find_by_slug).with(world_location.slug).returns(world_location)
 
-    presenter = Api::PagePresenter.new(Kaminari.paginate_array([]).page(1).per(1))
+    presenter = Api::PagePresenter.new(Kaminari.paginate_array([]).page(1).per(1), controller.view_context)
     presenter.stubs(:as_json).returns(paged: :representation)
-    Api::WorldwideOrganisationPresenter.stubs(:paginate).with(world_location.worldwide_organisations).returns(presenter)
+    Api::WorldwideOrganisationPresenter.stubs(:paginate).with(world_location.worldwide_organisations, anything).returns(presenter)
 
     get :index, world_location_id: world_location.slug, format: 'json'
 

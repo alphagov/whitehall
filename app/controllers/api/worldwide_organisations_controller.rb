@@ -6,7 +6,7 @@ class Api::WorldwideOrganisationsController < PublicFacingController
   def show
     @worldwide_organisation = WorldwideOrganisation.find_by_slug(params[:id])
     if @worldwide_organisation
-      respond_with Api::WorldwideOrganisationPresenter.new(@worldwide_organisation)
+      respond_with Api::WorldwideOrganisationPresenter.new(@worldwide_organisation, view_context)
     else
       respond_with_not_found
     end
@@ -15,7 +15,8 @@ class Api::WorldwideOrganisationsController < PublicFacingController
   def index
     if world_location
       respond_with Api::WorldwideOrganisationPresenter.paginate(
-        world_location.worldwide_organisations
+        world_location.worldwide_organisations,
+        view_context
       )
     else
       respond_with_not_found
