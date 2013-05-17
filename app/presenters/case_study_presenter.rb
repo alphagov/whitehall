@@ -1,8 +1,9 @@
-class CaseStudyPresenter < Draper::Base
+class CaseStudyPresenter < Struct.new(:model, :context)
   include EditionPresenterHelper
   include LeadImagePresenterHelper
 
-  decorates :case_study
+  case_study_methods = CaseStudy.instance_methods - Object.instance_methods
+  delegate *case_study_methods, to: :model
 
   private
 

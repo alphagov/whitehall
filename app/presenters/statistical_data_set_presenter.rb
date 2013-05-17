@@ -1,5 +1,6 @@
-class StatisticalDataSetPresenter < Draper::Base
+class StatisticalDataSetPresenter < Struct.new(:model, :context)
   include EditionPresenterHelper
 
-  decorates :statistical_data_set
+  statistical_data_set_methods = StatisticalDataSet.instance_methods - Object.instance_methods
+  delegate *statistical_data_set_methods, to: :model
 end

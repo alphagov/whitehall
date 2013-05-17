@@ -1,6 +1,7 @@
 class EditionCollectionPresenter
-  def initialize(array)
+  def initialize(array, context)
     @array = array
+    @context = context
   end
 
   def method_missing(method, *args, &block)
@@ -21,7 +22,7 @@ class EditionCollectionPresenter
     if result.is_a?(Enumerable)
       result.map { |r| wrap_result(r) }
     elsif presenter = presenter_for(result)
-      presenter.decorate(result)
+      presenter.new(result, @context)
     else
       result
     end
@@ -45,6 +46,10 @@ class EditionCollectionPresenter
       CaseStudyPresenter
     when FatalityNotice
       FatalityNoticePresenter
+    when WorldLocationNewsArticle
+      WorldLocationNewsArticlePresenter
+    when Announcement
+      AnnouncementPresenter
     end
   end
 end

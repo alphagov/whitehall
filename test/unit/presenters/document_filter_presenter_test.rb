@@ -49,7 +49,7 @@ class DocumentFilterPresenterTest < PresenterTestCase
     # isn't neccessary
     publication.stubs(:organisations).returns([organisation])
     publication.stubs(:document_series).returns([])
-    @filter.stubs(:documents).returns(Kaminari.paginate_array([PublicationesquePresenter.new(publication)]).page(1))
+    @filter.stubs(:documents).returns(Kaminari.paginate_array([PublicationesquePresenter.new(publication, @view_context)]).page(1))
     json = JSON.parse(DocumentFilterPresenter.new(@filter, @view_context).to_json)
     assert_equal 1, json['results'].size
     assert_equal({

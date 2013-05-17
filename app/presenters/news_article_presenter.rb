@@ -1,8 +1,9 @@
-class NewsArticlePresenter < Draper::Base
+class NewsArticlePresenter < Struct.new(:model, :context)
   include EditionPresenterHelper
   include LeadImagePresenterHelper
 
-  decorates :news_article
+  news_article_methods = NewsArticle.instance_methods - Object.instance_methods
+  delegate *news_article_methods, to: :model
 
   private
 

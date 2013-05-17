@@ -1,7 +1,8 @@
-class PolicyPresenter < Draper::Base
+class PolicyPresenter < Struct.new(:model, :context)
   include EditionPresenterHelper
 
-  decorates :policy
+  policy_methods = Policy.instance_methods - Object.instance_methods
+  delegate *policy_methods, to: :model
 
   def as_hash
     super.merge({

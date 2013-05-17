@@ -1,6 +1,7 @@
-class WorldwidePriorityPresenter < Draper::Base
+class WorldwidePriorityPresenter < Struct.new(:model, :context)
   include EditionPresenterHelper
 
-  decorates :worldwide_priority
+  worldwide_priority_methods = WorldwidePriority.instance_methods - Object.instance_methods
+  delegate *worldwide_priority_methods, to: :model
 
 end

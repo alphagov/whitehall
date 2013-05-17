@@ -1,8 +1,9 @@
-class WorldLocationNewsArticlePresenter < Draper::Base
+class WorldLocationNewsArticlePresenter < Struct.new(:model, :context)
   include EditionPresenterHelper
   include LeadImagePresenterHelper
 
-  decorates :world_location_news_article
+  world_location_news_article_methods = WorldLocationNewsArticle.instance_methods - Object.instance_methods
+  delegate *world_location_news_article_methods, to: :model
 
   def organisations
     @orgs ||= model.worldwide_organisations.map { |wo| WorldwideOrganisationPresenter.new(wo) }
