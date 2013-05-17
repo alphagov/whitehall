@@ -16,6 +16,22 @@ module Whitehall::DocumentFilter
       @locale = params[:locale]
     end
 
+    def announcements_search
+      raise NotImplementedError, 'you must provide #announcements_search implementation in your filterer subclass'
+    end
+
+    def publications_search
+      raise NotImplementedError, 'you must provide #publications_search implementation in your filterer subclass'
+    end
+
+    def policies_search
+      raise NotImplementedError, 'you must provide #policies_search implementation in your filterer subclass'
+    end
+
+    def documents
+      raise NotImplementedError, 'you must provide #documents implementation in your filterer subclass'
+    end
+
     def selected_topics
       find_by_slug(Topic, @params[:topics])
     end

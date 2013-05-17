@@ -21,10 +21,10 @@ class PoliciesController < DocumentsController
 
     respond_to do |format|
       format.html do
-        @filter = DocumentFilterPresenter.new(@filter)
+        @filter = DocumentFilterPresenter.new(@filter, view_context)
       end
       format.json do
-        render json: PolicyFilterJsonPresenter.new(@filter)
+        render json: PolicyFilterJsonPresenter.new(@filter, view_context)
       end
     end
   end

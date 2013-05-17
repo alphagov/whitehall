@@ -14,10 +14,10 @@ class PublicationsController < DocumentsController
 
     respond_to do |format|
       format.html do
-        @filter = DocumentFilterPresenter.new(@filter)
+        @filter = DocumentFilterPresenter.new(@filter, view_context)
       end
       format.json do
-        render json: PublicationFilterJsonPresenter.new(@filter)
+        render json: PublicationFilterJsonPresenter.new(@filter, view_context)
       end
       format.atom do
         @publications = @filter.documents.sort_by(&:public_timestamp).reverse
