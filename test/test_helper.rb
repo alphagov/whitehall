@@ -180,11 +180,11 @@ class PresenterTestCase < ActionView::TestCase
   disable_database_queries
 
   setup do
-    Draper::ViewContext.current = @controller.view_context
+    @view_context = @controller.view_context
   end
 
   def stubs_helper_method(*args)
-    Draper::ViewContext.current.stubs(*args)
+    @view_context.stubs(*args)
   end
 
   def assert_select_from(text, *args, &block)
