@@ -91,6 +91,6 @@ class HistoricAppointmentsControllerTest < ActionController::TestCase
   end
 
   def assert_equal_role_presenters(role_appointments, expected)
-    assert_equal(role_appointments.collect {|appointment| RoleAppointmentPresenter.new(appointment) }, expected)
+    assert_equal(role_appointments, expected.map(&:to_model))
   end
 end

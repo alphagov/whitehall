@@ -14,15 +14,15 @@ class PersonPresenter < Draper::Base
   end
 
   def current_role_appointments
-    RoleAppointmentPresenter.decorate person.current_role_appointments
+    person.current_role_appointments.map {|ra| RoleAppointmentPresenter.new(ra, h) }
   end
 
   def previous_role_appointments
-    RoleAppointmentPresenter.decorate person.previous_role_appointments
+    person.previous_role_appointments.map { |ra| RoleAppointmentPresenter.new(ra, h) }
   end
 
   def current_ministerial_roles
-    RolePresenter.decorate person.current_ministerial_roles
+    person.current_ministerial_roles.map { |role| RolePresenter.new(role, h) }
   end
 
   def has_policy_responsibilities?

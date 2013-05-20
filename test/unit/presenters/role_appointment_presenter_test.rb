@@ -4,7 +4,7 @@ class RoleAppointmentPresenterTest < PresenterTestCase
   setup do
     role = stub_translatable_record(:role_without_organisations)
     @appointment = stub_record(:role_appointment, role: role, person: stub_translatable_record(:person))
-    @presenter = RoleAppointmentPresenter.decorate(@appointment)
+    @presenter = RoleAppointmentPresenter.new(@appointment, @view_context)
   end
 
   test 'role decorates appointment#role with a RolePresenter' do

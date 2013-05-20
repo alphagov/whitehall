@@ -20,7 +20,7 @@ module Edition::Ministers
 
   module ClassMethods
     def in_ministerial_role(role)
-      joins(:ministerial_roles).where('roles.id' => role)
+      joins(:ministerial_roles).where('roles.id' => role.to_model)
     end
   end
 end

@@ -78,6 +78,13 @@ module Whitehall
         decorator_class.new(item, context)
       end
 
+      def ==(other)
+        if other.respond_to? :object
+          @object == other.object
+        else
+          @object == other
+        end
+      end
     end
   end
 end

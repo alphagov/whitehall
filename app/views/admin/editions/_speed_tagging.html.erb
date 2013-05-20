@@ -47,7 +47,7 @@
           <% if role_appointment.current_at(@edition.first_published_at) %>
             <label class="checkbox">
               <%= check_box_tag 'edition[role_appointment_ids][]', role_appointment.id, @edition.role_appointments.include?(role_appointment) %>
-              <%= RoleAppointmentPresenter.new(role_appointment).person.name %>
+              <%= RoleAppointmentPresenter.new(role_appointment, self).person.name %>
               <span class="muted"><%= role_appointment(role_appointment) %></span>
             </label>
           <% end %>
@@ -61,8 +61,8 @@
         <% @edition.organisations.map(&:ministerial_roles).flatten.each do |role| %>
           <label class="checkbox">
             <%= check_box_tag 'edition[ministerial_role_ids][]', role.id, @edition.ministerial_roles.include?(role) %>
-            <%= RolePresenter.new(role).current_person.name %>
-            <span class="muted"><%= RolePresenter.new(role).name %></span>
+            <%= RolePresenter.new(role, self).current_person.name %>
+            <span class="muted"><%= RolePresenter.new(role, self).name %></span>
           </label>
         <% end %>
       </div>
