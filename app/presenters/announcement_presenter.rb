@@ -1,8 +1,7 @@
-class AnnouncementPresenter < Struct.new(:model, :context)
+class AnnouncementPresenter < Whitehall::Decorators::Decorator
   include EditionPresenterHelper
 
-  announcement_methods = Announcement.concrete_descendants.map(&:instance_methods).flatten.uniq - Object.instance_methods
-  delegate *announcement_methods, to: :model
+  delegate_instance_methods_of *Announcement.concrete_descendants
 
   def as_hash
     super.merge({

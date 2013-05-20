@@ -1,7 +1,6 @@
-class WorldwideOrganisationPresenter < Struct.new(:model, :context)
+class WorldwideOrganisationPresenter < Whitehall::Decorators::Decorator
 
-  worldwide_organisation_methods = WorldwideOrganisation.instance_methods - Object.instance_methods
-  delegate *worldwide_organisation_methods, to: :model
+  delegate_instance_methods_of WorldwideOrganisation
 
   def organisation_logo_type
     OrganisationLogoType::SingleIdentity

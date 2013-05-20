@@ -1,6 +1,5 @@
-class StatisticalDataSetPresenter < Struct.new(:model, :context)
+class StatisticalDataSetPresenter < Whitehall::Decorators::Decorator
   include EditionPresenterHelper
 
-  statistical_data_set_methods = StatisticalDataSet.instance_methods - Object.instance_methods
-  delegate *statistical_data_set_methods, to: :model
+  delegate_instance_methods_of StatisticalDataSet
 end

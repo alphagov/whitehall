@@ -1,7 +1,6 @@
-class WorldwidePriorityPresenter < Struct.new(:model, :context)
+class WorldwidePriorityPresenter < Whitehall::Decorators::Decorator
   include EditionPresenterHelper
 
-  worldwide_priority_methods = WorldwidePriority.instance_methods - Object.instance_methods
-  delegate *worldwide_priority_methods, to: :model
+  delegate_instance_methods_of WorldwidePriority
 
 end

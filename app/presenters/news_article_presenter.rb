@@ -1,9 +1,8 @@
-class NewsArticlePresenter < Struct.new(:model, :context)
+class NewsArticlePresenter < Whitehall::Decorators::Decorator
   include EditionPresenterHelper
   include LeadImagePresenterHelper
 
-  news_article_methods = NewsArticle.instance_methods - Object.instance_methods
-  delegate *news_article_methods, to: :model
+  delegate_instance_methods_of NewsArticle
 
   private
 

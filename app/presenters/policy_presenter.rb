@@ -1,8 +1,7 @@
-class PolicyPresenter < Struct.new(:model, :context)
+class PolicyPresenter < Whitehall::Decorators::Decorator
   include EditionPresenterHelper
 
-  policy_methods = Policy.instance_methods - Object.instance_methods
-  delegate *policy_methods, to: :model
+  delegate_instance_methods_of Policy
 
   def as_hash
     super.merge({

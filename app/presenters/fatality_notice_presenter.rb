@@ -1,7 +1,6 @@
-class FatalityNoticePresenter < Struct.new(:model, :context)
+class FatalityNoticePresenter < Whitehall::Decorators::Decorator
   include EditionPresenterHelper
 
-  fatality_notice_methods = FatalityNotice.instance_methods - Object.instance_methods
-  delegate *fatality_notice_methods, to: :model
+  delegate_instance_methods_of FatalityNotice
 
 end

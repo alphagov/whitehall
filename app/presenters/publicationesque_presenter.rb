@@ -1,8 +1,7 @@
-class PublicationesquePresenter < Struct.new(:model, :context)
+class PublicationesquePresenter < Whitehall::Decorators::Decorator
   include EditionPresenterHelper
 
-  publicationesque_methods = Publicationesque.concrete_descendants.map(&:instance_methods).flatten.uniq - Object.instance_methods
-  delegate *publicationesque_methods, to: :model
+  delegate_instance_methods_of *Publicationesque.concrete_descendants
 
   def as_hash
     super.merge({

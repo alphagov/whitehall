@@ -1,8 +1,7 @@
-class SpeechPresenter < Struct.new(:model, :context)
+class SpeechPresenter < Whitehall::Decorators::Decorator
   include EditionPresenterHelper
 
-  speech_methods = Speech.instance_methods - Object.instance_methods
-  delegate *speech_methods, to: :model
+  delegate_instance_methods_of Speech
 
   def delivered_on
     date_microformat(:delivered_on)

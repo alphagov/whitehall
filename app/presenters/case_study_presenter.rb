@@ -1,9 +1,8 @@
-class CaseStudyPresenter < Struct.new(:model, :context)
+class CaseStudyPresenter < Whitehall::Decorators::Decorator
   include EditionPresenterHelper
   include LeadImagePresenterHelper
 
-  case_study_methods = CaseStudy.instance_methods - Object.instance_methods
-  delegate *case_study_methods, to: :model
+  delegate_instance_methods_of CaseStudy
 
   private
 

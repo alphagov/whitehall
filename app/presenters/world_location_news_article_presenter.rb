@@ -1,9 +1,8 @@
-class WorldLocationNewsArticlePresenter < Struct.new(:model, :context)
+class WorldLocationNewsArticlePresenter < Whitehall::Decorators::Decorator
   include EditionPresenterHelper
   include LeadImagePresenterHelper
 
-  world_location_news_article_methods = WorldLocationNewsArticle.instance_methods - Object.instance_methods
-  delegate *world_location_news_article_methods, to: :model
+  delegate_instance_methods_of WorldLocationNewsArticle
 
   def organisations
     @orgs ||= model.worldwide_organisations.map { |wo| WorldwideOrganisationPresenter.new(wo, context) }
