@@ -6,7 +6,7 @@ class WorldLocationNewsArticlePresenter < Struct.new(:model, :context)
   delegate *world_location_news_article_methods, to: :model
 
   def organisations
-    @orgs ||= model.worldwide_organisations.map { |wo| WorldwideOrganisationPresenter.new(wo) }
+    @orgs ||= model.worldwide_organisations.map { |wo| WorldwideOrganisationPresenter.new(wo, context) }
   end
 
   def lead_organisations
