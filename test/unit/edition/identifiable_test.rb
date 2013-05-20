@@ -125,7 +125,7 @@ class Edition::IdentifiableTest < ActiveSupport::TestCase
   test "non-English editions get a slug based on the document id rather than the title" do
     edition = create(:world_location_news_article, title: 'Faire la fête', locale: 'fr')
     document = edition.document
-    assert_equal document.id, document.slug
+    assert_equal document.id.to_s, document.slug
   end
 
   test "non-English editions do not get confused when documents exists with dodgy-nil-based slugs" do
@@ -134,6 +134,6 @@ class Edition::IdentifiableTest < ActiveSupport::TestCase
 
     edition2 = create(:world_location_news_article, title: 'Faire la fête', locale: 'fr')
     document = edition2.document
-    assert_equal document.id, document.slug
+    assert_equal document.id.to_s, document.slug
   end
 end

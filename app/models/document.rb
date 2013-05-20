@@ -94,7 +94,7 @@ class Document < ActiveRecord::Base
 
   def ensure_document_has_a_slug
     if slug.blank?
-      update_column(:slug, id)
+      update_column(:slug, id.to_s)
     end
   end
 end
