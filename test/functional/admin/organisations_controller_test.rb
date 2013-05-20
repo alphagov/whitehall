@@ -8,7 +8,9 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
   should_be_an_admin_controller
 
   test "index should list all the organisations in alphabetical order" do
-    organisations = [create(:organisation, name: "org 1"), create(:organisation, name: "org 2")]
+    org2 = create(:organisation, name: "org 2")
+    org1 = create(:organisation, name: "org 1")
+    organisations = [org1, org2]
     get :index
     assert_equal organisations, assigns(:organisations)
   end

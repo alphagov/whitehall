@@ -4,7 +4,7 @@
 <div class="block publication-external">
   <div class="inner-block floated-children">
     <ul class="organisations-icon-list organisations">
-      <% @document.organisations.each do |organisation| %>
+      <% @document.organisations.alphabetical.each do |organisation| %>
         <%= content_tag_for(:li, organisation, class: organisation.slug) do %>
           <%= link_to organisation_path(organisation),
                       class: logo_classes(class_name: organisation.organisation_logo_type.class_name, size: 'medium', stacked: true) do %>

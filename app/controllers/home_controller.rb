@@ -6,8 +6,8 @@ class HomeController < PublicFacingController
   def home
     ministerial_department_type = OrganisationType.find_by_name('Ministerial department')
     sub_organisation_type = OrganisationType.find_by_name('Sub-organisation')
-    @live_ministerial_departments = Organisation.where("organisation_type_id = ? AND govuk_status ='live'", ministerial_department_type)
-    @live_other_departments = Organisation.where("organisation_type_id NOT IN (?,?) AND govuk_status='live'", ministerial_department_type, sub_organisation_type)
+    @live_ministerial_departments = Organisation.where("organisation_type_id = ? AND govuk_status ='live'", ministerial_department_type).alphabetical
+    @live_other_departments = Organisation.where("organisation_type_id NOT IN (?,?) AND govuk_status='live'", ministerial_department_type, sub_organisation_type).alphabetical
     @transitioning_ministerial_departments = Organisation.where("organisation_type_id = ? AND govuk_status ='transitioning'", ministerial_department_type)
     @transitioning_other_departments = Organisation.where("organisation_type_id NOT IN (?, ?) AND govuk_status='transitioning'", ministerial_department_type, sub_organisation_type)
     @classifications = Classification.order(:name).where("(type = 'Topic' and published_policies_count <> 0) or (type = 'TopicalEvent')").alphabetical

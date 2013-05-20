@@ -1,5 +1,5 @@
 When /^I write some copy to describe the featured topics and policies for the executive office "([^"]*)"$/ do |org_name|
-  @the_featuring_org = Organisation.where(name: org_name).first
+  @the_featuring_org = Organisation.find_by_name(org_name)
   @the_featuring_org_ftap_copy = "The #{@the_featuring_org.name} is totes involved in all of these things. Do ch-ch-check 'em out! LOL"
   visit admin_organisation_path(@the_featuring_org)
   click_on 'Featured topics and policies'
@@ -67,7 +67,7 @@ Then /^I am invited to click through to see all the policies the executive offic
 end
 
 Given /^there are some topics and policies featured for the executive office "([^"]*)"$/ do |org_name|
-  @the_featuring_org = Organisation.where(name: org_name).first
+  @the_featuring_org = Organisation.find_by_name(org_name)
   topic_1 = create(:topic, name: 'Grooming')
   topic_2 = create(:topic, name: 'Cooking')
   policy_1 = create(:published_policy, title: 'Beards to be removed from all statues')

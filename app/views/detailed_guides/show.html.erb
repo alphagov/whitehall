@@ -11,7 +11,7 @@
       </div>
       <section class="page-header js-hide-extra-logos">
         <ul class="organisations-icon-list">
-          <% @document.organisations.each do |organisation| %>
+          <% @document.organisations.alphabetical.each do |organisation| %>
             <%= content_tag_for(:li, organisation, class: organisation.slug) do %>
               <%= link_to organisation_path(organisation),
                           class: logo_classes(class_name: organisation.organisation_logo_type.class_name, size: 'medium') do %>

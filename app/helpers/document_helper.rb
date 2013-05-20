@@ -4,7 +4,7 @@ module DocumentHelper
   end
 
   def edition_organisation_class(edition)
-    if organisation = edition.organisations.first
+    if organisation = edition.organisations.alphabetical.first
       organisation.slug
     else
       'unknown_organisation'

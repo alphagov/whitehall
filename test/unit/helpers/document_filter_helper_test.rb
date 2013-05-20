@@ -24,7 +24,7 @@ class DocumentFilterHelperTest < ActionView::TestCase
     middle_scope = stub('middle scope')
     middle_scope.expects(:includes).with(:translations)
     scope = stub('organisation scope')
-    scope.expects(:group).with(:name).returns(middle_scope)
+    scope.expects(:group).with('organisation_translations.name').returns(middle_scope)
     Organisation.expects(:joins).with(:published_document_types).returns(scope)
 
     all_organisations_with(:document_type)
