@@ -10,8 +10,24 @@ module Whitehall
 
         methods = model_classes.map { |mc| mc.instance_methods }.flatten.uniq
         methods -= Object.instance_methods
+        # methods added by rails to object that we probably do want to
+        # delegate  .. shame these aren't collected somewhere that makes
+        # them easy to detect
+        methods += [:to_param, :to_query, :try, :with_options, :to_json, 
+                    :instance_values, :instance_variable_names, :in?,
+                    :duplicable?, :nil?, :blank?, :present?, :presence]
 
         delegate *methods, delegate_options
+      end
+
+      def ==(other)
+        if other.respond_to? :model
+          model == other.model
+        elsif other.respond_to? :to_model
+          model == other.to_model
+        else
+          model == other
+        end
       end
     end
   end
