@@ -15,11 +15,11 @@ class WorldLocationsController < PublicFacingController
         redirect_to api_world_location_path(@world_location, format: :json)
       end
       format.atom do
-        @documents = EditionCollectionPresenter.new(recently_updated_source.limit(10))
+        @documents = EditionCollectionPresenter.new(recently_updated_source.limit(10), view_context)
       end
       format.html do
         @recently_updated = recently_updated_source.limit(3)
-        @worldwide_priorities = WorldwidePriority.with_translations(I18n.locale).published.in_world_location(@world_location).in_reverse_chronological_order
+        @worldwide_priorities = decorate_collection(WorldwidePriority.with_translations(I18n.locale).published.in_world_location(@world_location).in_reverse_chronological_order, WorldwidePriorityPresenter)
         @policies = decorate_collection(Policy.with_translations(I18n.locale).published.in_world_location(@world_location).in_reverse_chronological_order.limit(3), PolicyPresenter)
         publications = Publication.with_translations(I18n.locale).published.in_world_location(@world_location).in_reverse_chronological_order
         @non_statistics_publications = decorate_collection(publications.not_statistics.limit(2), PublicationesquePresenter)

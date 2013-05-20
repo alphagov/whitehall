@@ -379,7 +379,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     policy_3 = create(:published_policy, organisations: [organisation], first_published_at: 3.days.ago)
     policy_1 = create(:published_policy, organisations: [organisation], first_published_at: 1.day.ago)
     get :show, id: organisation
-    assert_equal [policy_1, policy_2, policy_3], assigns[:policies]
+    assert_equal [policy_1, policy_2, policy_3], assigns[:policies].object
   end
 
   test "should display 2 announcements in reverse chronological order" do
@@ -392,7 +392,7 @@ class OrganisationsControllerTest < ActionController::TestCase
 
     get :show, id: organisation
 
-    assert_equal [announcement_3, announcement_1], assigns[:announcements]
+    assert_equal [announcement_3, announcement_1], assigns[:announcements].object
   end
 
   view_test "should display 2 announcements with details and a link to announcements filter if there are many announcements" do
@@ -427,7 +427,7 @@ class OrganisationsControllerTest < ActionController::TestCase
 
     get :show, id: organisation
 
-    assert_equal [consultation_1, consultation_2], assigns[:consultations]
+    assert_equal [consultation_1, consultation_2], assigns[:consultations].object
   end
 
   view_test "should display 2 consultations with details and a link to publications filter if there are many consultations" do
@@ -466,7 +466,7 @@ class OrganisationsControllerTest < ActionController::TestCase
 
     get :show, id: organisation
 
-    assert_equal [publication_1, publication_2], assigns[:non_statistics_publications]
+    assert_equal [publication_1, publication_2], assigns[:non_statistics_publications].object
   end
 
   view_test "should display 2 non-statistics publications with details and a link to publications filter if there are many publications" do
@@ -494,7 +494,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     publication_3 = create(:published_publication, organisations: [organisation], publication_date: 3.days.ago, publication_type: PublicationType::Statistics)
     publication_1 = create(:published_publication, organisations: [organisation], publication_date: 1.day.ago, publication_type: PublicationType::NationalStatistics)
     get :show, id: organisation
-    assert_equal [publication_1, publication_2], assigns[:statistics_publications]
+    assert_equal [publication_1, publication_2], assigns[:statistics_publications].object
   end
 
   view_test "should display 2 statistics publications with details and a link to publications filter if there are many publications" do

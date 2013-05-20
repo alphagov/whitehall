@@ -3,7 +3,7 @@ class NewsArticlesController < DocumentsController
 
   def show
     @related_policies = @document.published_related_policies
-    @document = NewsArticlePresenter.decorate(@document)
+    @document = NewsArticlePresenter.new(@document, view_context)
     set_slimmer_organisations_header(@document.organisations)
   end
 

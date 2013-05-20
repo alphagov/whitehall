@@ -16,8 +16,8 @@ class RolePresenter < Draper::Base
   def announcements
     return [] unless ministerial?
     announcements =
-      SpeechPresenter.decorate(model.published_speeches.limit(10)).to_a +
-      NewsArticlePresenter.decorate(model.published_news_articles.limit(10)).to_a
+      model.published_speeches.limit(10).map { |s| SpeechPresenter.new(s, h) } +
+      model.published_news_articles.limit(10).map { |na| NewsArticlePresenter.new(na, h) }
     announcements.sort_by { |a| a.public_timestamp.to_datetime }.reverse[0..9]
   end
 
@@ -40,7 +40,7 @@ class RolePresenter < Draper::Base
   end
 
   def published_policies
-    PolicyPresenter.decorate(model.published_policies(limit: 10))
+    model.published_policies(limit: 10).map { |p| PolicyPresenter.new(p, h) }
   end
 
   def previous_appointments

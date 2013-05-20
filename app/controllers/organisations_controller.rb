@@ -29,7 +29,7 @@ class OrganisationsController < PublicFacingController
     expires_in 5.minutes, public: true
     respond_to do |format|
       format.atom do
-        @documents = EditionCollectionPresenter.new(recently_updated_source.limit(10))
+        @documents = EditionCollectionPresenter.new(recently_updated_source.limit(10), view_context)
       end
       format.html do
         @recently_updated = recently_updated_source.limit(3)

@@ -185,7 +185,8 @@ class HomeControllerTest < ActionController::TestCase
 
     assert_equal recently_opened_consultations.size, assigns[:open_consultation_count]
     assert_equal 3, assigns[:closed_consultation_count]
-    assert_equal 1, assigns[:next_closing_consultations].size
+
+    # de-reference from the collection decorator
     assert_equal [next_closing], assigns[:next_closing_consultations].object
     assert_equal recently_opened_consultations[-3..-1].reverse, assigns[:recently_opened_consultations].object
     assert_equal recent_outcomes[-3..-1].reverse, assigns[:recent_consultation_outcomes].object

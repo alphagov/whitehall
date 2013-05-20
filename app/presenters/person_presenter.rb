@@ -31,13 +31,13 @@ class PersonPresenter < Draper::Base
 
   def announcements
     announcements =
-      SpeechPresenter.decorate(person.published_speeches.limit(10)).to_a +
-      NewsArticlePresenter.decorate(person.published_news_articles.limit(10)).to_a
+      person.published_speeches.limit(10).map { |s| SpeechPresenter.new(s, h) } +
+      person.published_news_articles.limit(10).map { |na| NewsArticlePresenter.new(na, h) }
     announcements.sort_by { |a| a.public_timestamp.to_datetime }.reverse[0..9]
   end
 
   def speeches
-    SpeechPresenter.decorate(person.speeches.latest_published_edition.order("delivered_on desc").limit(10))
+    person.speeches.latest_published_edition.order("delivered_on desc").limit(10).map { |s| SpeechPresenter.new(s, h) }
   end
 
   def biography

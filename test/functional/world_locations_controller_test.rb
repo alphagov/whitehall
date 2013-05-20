@@ -157,7 +157,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
 
     get :show, id: world_location
 
-    assert_equal [announcement_1, announcement_2], assigns[:announcements]
+    assert_equal [announcement_1, announcement_2], assigns[:announcements].object
   end
 
   view_test "should display 2 announcements with details and a link to announcements filter if there are many announcements" do
@@ -191,7 +191,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
 
     get :show, id: world_location
 
-    assert_equal [publication_1, publication_2], assigns[:non_statistics_publications]
+    assert_equal [publication_1, publication_2], assigns[:non_statistics_publications].object
   end
 
   view_test "should display 2 non-statistics publications with details and a link to publications filter if there are many publications" do
@@ -219,7 +219,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
     publication_3 = create(:published_statistics, world_locations: [world_location], publication_date: 3.days.ago)
     publication_1 = create(:published_national_statistics, world_locations: [world_location], publication_date: 1.day.ago)
     get :show, id: world_location
-    assert_equal [publication_1, publication_2], assigns[:statistics_publications]
+    assert_equal [publication_1, publication_2], assigns[:statistics_publications].object
   end
 
   view_test "should display 2 statistics publications with details and a link to publications filter if there are many publications" do
@@ -264,7 +264,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
 
     get :show, id: world_location, locale: 'fr'
 
-    assert_equal [translated_priority], assigns(:worldwide_priorities)
+    assert_equal [translated_priority], assigns(:worldwide_priorities).object
   end
 
   test "should only display translated announcements when requested for a locale" do
