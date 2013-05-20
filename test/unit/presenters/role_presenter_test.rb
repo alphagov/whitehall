@@ -30,12 +30,12 @@ class RolePresenterTest < PresenterTestCase
 
   test 'current_person returns a PersonPresenter for the current appointee' do
     @role.stubs(:current_person).returns(stub_translatable_record(:person))
-    assert_equal @presenter.current_person, PersonPresenter.new(@role.current_person)
+    assert_equal @presenter.current_person, PersonPresenter.new(@role.current_person, @view_context)
   end
 
   test 'current_person returns a UnassignedPersonPresenter if there is no current appointee' do
     @role.stubs(:current_person).returns(nil)
-    assert_equal @presenter.current_person, RolePresenter::UnassignedPersonPresenter.new(nil)
+    assert_equal @presenter.current_person, RolePresenter::UnassignedPersonPresenter.new(nil, @view_context)
   end
 
   test 'responsibilities generates html from the original govspeak' do

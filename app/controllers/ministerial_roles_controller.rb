@@ -3,14 +3,10 @@ class MinisterialRolesController < PublicFacingController
 
   def index
     sorter = MinisterSorter.new
-    @cabinet_ministerial_roles = sorter.cabinet_ministers.map do |person, roles|
-      [PersonPresenter.decorate(person), roles.map { |r| RolePresenter.new(r, view_context) }]
-    end
+    @cabinet_ministerial_roles = decorated_people_and_their_roles(sorter.cabinet_ministers)
 
     cabinet_roles = MinisterSorter.new(Role.includes(:translations, :current_people)).also_attends_cabinet
-    @also_attends_cabinet = cabinet_roles.map do |person, roles|
-      [PersonPresenter.decorate(person), roles.map { |r| RolePresenter.new(r, view_context) }]
-    end
+    @also_attends_cabinet = decorated_people_and_their_roles(cabinet_roles)
 
     @ministers_by_organisation = ministers_by_organisation
     @whips_by_organisation = whips_by_organisation
@@ -23,6 +19,15 @@ class MinisterialRolesController < PublicFacingController
   end
 
 private
+  def decorated_people_and_their_roles(people_and_roles)
+    people_and_roles.map do |person, roles|
+      [
+        PersonPresenter.new(person, view_context),
+        roles.map { |r| RolePresenter.new(r, view_context) }
+      ]
+    end
+  end
+
   def ministerial_department_type
     OrganisationType.find_by_name('Ministerial department')
   end

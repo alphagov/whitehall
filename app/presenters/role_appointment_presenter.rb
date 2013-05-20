@@ -15,7 +15,7 @@ class RoleAppointmentPresenter < Whitehall::Decorators::Decorator
   end
 
   def person
-    @person ||= PersonPresenter.decorate(model.person)
+    @person ||= PersonPresenter.new(model.person, context)
   end
 
   def date_range

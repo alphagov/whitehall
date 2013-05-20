@@ -140,11 +140,11 @@ module ApplicationHelper
   end
 
   def link_to_person(person)
-    PersonPresenter.new(person).link
+    PersonPresenter.new(person, self).link
   end
 
   def image_for_person(person)
-    PersonPresenter.new(person).image
+    PersonPresenter.new(person, self).image
   end
 
   def render_list_of_roles(roles, class_name = "ministerial_roles", &block)

@@ -7,9 +7,9 @@ class RolePresenter < Whitehall::Decorators::Decorator
 
   def current_person
     if model.current_person
-      PersonPresenter.decorate(model.current_person)
+      PersonPresenter.new(model.current_person, context)
     else
-      UnassignedPersonPresenter.new(nil)
+      UnassignedPersonPresenter.new(nil, context)
     end
   end
 

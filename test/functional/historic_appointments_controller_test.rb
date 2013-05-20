@@ -56,7 +56,7 @@ class HistoricAppointmentsControllerTest < ActionController::TestCase
     assert_template :show
     assert_equal pm_role, assigns(:role)
     assert_equal pm_account, assigns(:historical_account)
-    assert_equal PersonPresenter.new(pm_account.person), assigns(:person)
+    assert_equal PersonPresenter.new(pm_account.person, @controller.view_context), assigns(:person)
   end
 
   test "GET on :show loads the person, appointment and historical account for previous Chanellors" do
@@ -68,7 +68,7 @@ class HistoricAppointmentsControllerTest < ActionController::TestCase
     assert_template :show
     assert_equal chancellor_role, assigns(:role)
     assert_equal chancellor_account, assigns(:historical_account)
-    assert_equal PersonPresenter.new(chancellor_account.person), assigns(:person)
+    assert_equal PersonPresenter.new(chancellor_account.person, @controller.view_context), assigns(:person)
   end
 
 
