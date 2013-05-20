@@ -136,7 +136,7 @@ class Admin::EditionsController < Admin::BaseController
   end
 
   def build_edition
-    edition_locale = edition_params[:primary_locale] || I18n.default_locale
+    edition_locale = edition_params[:locale] || I18n.default_locale
     I18n.with_locale(edition_locale) do
       @edition = LocalisedModel.new(edition_class.new(edition_params), edition_locale)
     end
@@ -144,7 +144,7 @@ class Admin::EditionsController < Admin::BaseController
 
   def find_edition
     edition = edition_class.find(params[:id])
-    @edition = LocalisedModel.new(edition, edition.primary_locale)
+    @edition = LocalisedModel.new(edition, edition.locale)
   end
 
   def extract_edition_information_from_errors

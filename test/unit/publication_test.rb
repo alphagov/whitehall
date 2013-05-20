@@ -158,7 +158,7 @@ class PublicationTest < ActiveSupport::TestCase
   end
 
   test "is not translatable when non-English" do
-    refute build(:publication, primary_locale: :es).translatable?
+    refute build(:publication, locale: :es).translatable?
   end
 
   test "can associate publications with topical events" do

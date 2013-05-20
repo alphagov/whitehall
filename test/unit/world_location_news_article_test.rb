@@ -29,7 +29,7 @@ class WorldLocationNewsArticleTest < ActiveSupport::TestCase
   end
 
   test "is not translatable when non-English" do
-    refute build(:world_location_news_article, primary_locale: :es).translatable?
+    refute build(:world_location_news_article, locale: :es).translatable?
   end
 
   test "should not be valid without a world location" do

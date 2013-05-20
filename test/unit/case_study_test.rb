@@ -26,7 +26,7 @@ class CaseStudyTest < ActiveSupport::TestCase
   end
 
   test "is not translatable when non-English" do
-    refute build(:case_study, primary_locale: :es).translatable?
+    refute build(:case_study, locale: :es).translatable?
   end
 
   test 'imported case study is valid when the first_published_at is blank' do

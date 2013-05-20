@@ -5,6 +5,16 @@ GIT
     rack-test (0.6.2)
       rack (>= 1.0)
 
+GIT
+  remote: https://github.com/svenfuchs/globalize3.git
+  revision: ab69160adc66d23b8d34aedc3ea9bfc724207494
+  ref: ab69160ad
+  specs:
+    globalize3 (0.3.0)
+      activemodel (>= 3.0.0)
+      activerecord (>= 3.0.0)
+      paper_trail (~> 2)
+
 GEM
   remote: http://rubygems.org/
   remote: https://BnrJb6FZyzspBboNJzYZ@gem.fury.io/govuk/
@@ -131,10 +141,6 @@ GEM
       warden (~> 1.2)
     gherkin (2.4.21)
       json (>= 1.4.6)
-    globalize3 (0.3.0)
-      activemodel (>= 3.0.0)
-      activerecord (>= 3.0.0)
-      paper_trail (~> 2)
     govspeak (1.2.3)
       htmlentities (~> 4)
       kramdown (~> 0.13.3)
@@ -211,7 +217,7 @@ GEM
     omniauth-oauth2 (1.1.1)
       oauth2 (~> 0.8.0)
       omniauth (~> 1.0)
-    paper_trail (2.6.4)
+    paper_trail (2.7.1)
       activerecord (~> 3.0)
       railties (~> 3.0)
     parallel (0.6.5)
@@ -377,7 +383,7 @@ DEPENDENCIES
   friendly_id (= 4.0.9)
   gds-api-adapters (= 5.5.0)
   gds-sso (= 3.0.4)
-  globalize3
+  globalize3!
   govspeak (~> 1.2.3)
   govuk_frontend_toolkit (= 0.19.2)
   hash_syntax

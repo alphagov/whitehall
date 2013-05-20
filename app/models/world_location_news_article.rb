@@ -22,7 +22,7 @@ class WorldLocationNewsArticle < Newsesque
     false
   end
 
-  def primary_locale_can_be_changed?
+  def locale_can_be_changed?
     new_record?
   end
 
