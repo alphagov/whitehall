@@ -118,4 +118,15 @@ class PublicDocumentRoutesHelperTest < ActionView::TestCase
     supporting_page = create(:supporting_page, edition: edition)
     assert_equal "www.gov.uk", URI.parse(public_supporting_page_url(edition, supporting_page)).host
   end
+
+  test 'generates an appropriate path for non-English editions' do
+    policy = create(:policy, locale: 'fr')
+    assert_equal policy_path(policy.document, locale: 'fr'), public_document_path(policy)
+  end
+
+  test 'generates an appropriate url for non-English editions' do
+    request.host = "gov.uk"
+    policy = create(:policy, locale: 'fr')
+    assert_equal policy_url(policy.document, host: 'gov.uk', locale: 'fr'), public_document_url(policy)
+  end
 end
