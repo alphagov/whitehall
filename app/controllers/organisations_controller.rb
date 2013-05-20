@@ -39,7 +39,7 @@ class OrganisationsController < PublicFacingController
           expire_on_next_scheduled_publication(@organisation.scheduled_editions)
 
           if @organisation.organisation_type.executive_office?
-            @promotional_features = PromotionalFeaturesPresenter.new(@organisation.promotional_features)
+            @promotional_features = PromotionalFeaturesPresenter.new(@organisation.promotional_features, view_context)
             render 'show-executive-office'
           else
             @policies = decorate_collection(@organisation.published_policies.in_reverse_chronological_order.limit(3), PolicyPresenter)
