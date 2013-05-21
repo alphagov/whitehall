@@ -62,8 +62,6 @@ GEM
       mime-types
       xml-simple
     babosa (0.3.10)
-    boomerang-rails (0.0.2)
-      rails (~> 3.0)
     bootstrap-kaminari-views (0.0.2)
       kaminari (>= 0.13)
       rails (>= 3.1)
@@ -374,7 +372,6 @@ DEPENDENCIES
   addressable
   aws-ses
   babosa
-  boomerang-rails
   bootstrap-kaminari-views
   brakeman
   bullet

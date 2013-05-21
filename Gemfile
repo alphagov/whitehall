@@ -15,7 +15,7 @@ gem 'friendly_id', '4.0.9'
 gem 'babosa'
 gem 'nokogiri'
 gem 'rake', '0.9.2'
-gem 'boomerang-rails'
+
 gem 'slimmer', '3.15.0'
 gem 'plek', '1.1.0'
 gem 'isbn_validation'
