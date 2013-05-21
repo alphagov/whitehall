@@ -13,6 +13,9 @@ el:
       policies:
         one: ! 'Πολιτική '
         other: Πολιτικές
+      topical_events:
+        one:
+        other:
       topics:
         one: Θέμα
         other: Θέματα

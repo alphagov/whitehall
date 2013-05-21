@@ -13,6 +13,9 @@ es-419:
       policies:
         one:
         other:
+      topical_events:
+        one:
+        other:
       topics:
         one:
         other:

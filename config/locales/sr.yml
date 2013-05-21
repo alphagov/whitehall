@@ -21,6 +21,11 @@ sr:
         few:
         many:
         other:
+      topical_events:
+        one:
+        few:
+        many:
+        other:
       topics:
         one:
         few:
