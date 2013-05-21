@@ -6,7 +6,7 @@ end
 
 Then /^clicking on the attachment redirects me to an explanatory page$/ do
   page.find('.attachment a').click
-  page.current_path.should match(/placeholder/)
+  assert_match /placeholder/, page.current_path
 end
 
 When /^the (?:attachment|image)s? (?:has|have) been virus\-checked$/ do
