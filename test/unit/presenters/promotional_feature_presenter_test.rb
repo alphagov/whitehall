@@ -2,9 +2,7 @@ require 'test_helper'
 
 class PromotionalFeaturePresenterTest < ActionView::TestCase
   setup do
-    ac = ApplicationController.new
-    ac.set_current_view_context
-    @view_context = ac.view_context
+    setup_view_context
   end
 
   test "#width returns the sum of the presenter feature's items widths" do

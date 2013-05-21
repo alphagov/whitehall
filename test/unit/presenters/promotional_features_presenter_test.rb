@@ -2,9 +2,7 @@ require 'test_helper'
 
 class PromotionalFeaturesPresenterTest < ActionView::TestCase
   setup do
-    ac = ApplicationController.new
-    ac.set_current_view_context
-    @view_context = ac.view_context
+    setup_view_context
   end
 
   test 'returns a position-aware enumerable collection of PromotionalFeaturePresenters' do

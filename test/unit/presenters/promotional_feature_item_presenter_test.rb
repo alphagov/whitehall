@@ -2,9 +2,7 @@ require 'test_helper'
 
 class PromotionalFeatureItemPresenterTest < ActionView::TestCase
   setup do
-    ac = ApplicationController.new
-    ac.set_current_view_context
-    @view_context = ac.view_context
+    setup_view_context
   end
 
   test '#css_classes returns "large" for double-width items' do

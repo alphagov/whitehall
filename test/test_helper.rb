@@ -174,14 +174,16 @@ class ActionView::TestCase
   def assert_select_in_html(text, *args, &block)
     assert_select HTML::Document.new(text).root, *args, &block
   end
+
+  def setup_view_context
+    @view_context = @controller.view_context
+  end
 end
 
 class PresenterTestCase < ActionView::TestCase
   disable_database_queries
 
-  setup do
-    @view_context = @controller.view_context
-  end
+  setup :setup_view_context
 
   def stubs_helper_method(*args)
     @view_context.stubs(*args)

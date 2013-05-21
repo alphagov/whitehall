@@ -3,7 +3,7 @@ require 'test_helper'
 class WorldLocationNewsArticlePresenterTest < ActionView::TestCase
 
   setup do
-    Draper::ViewContext.current = @controller.view_context
+    setup_view_context
   end
 
   test "lead_image_path returns the world wide organisation default image" do
