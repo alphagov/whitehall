@@ -24,12 +24,4 @@ class EditionWorldLocationTest < ActiveSupport::TestCase
 
     assert_equal [association_for_translated_edition], EditionWorldLocation.with_translations(:es)
   end
-
-  test "should hide deprecated columns" do
-    assert_includes EditionWorldLocation.column_names, "id"
-    refute_includes EditionWorldLocation.column_names, "featured"
-    refute_includes EditionWorldLocation.column_names, "ordering"
-    refute_includes EditionWorldLocation.column_names, "edition_world_location_image_data_id"
-    refute_includes EditionWorldLocation.column_names, "alt_text"
-  end
 end
