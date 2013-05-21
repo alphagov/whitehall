@@ -220,8 +220,8 @@ GEM
     paper_trail (2.6.4)
       activerecord (~> 3.0)
       railties (~> 3.0)
-    parallel (0.5.19)
-    parallel_tests (0.8.14)
+    parallel (0.6.5)
+    parallel_tests (0.13.1)
       parallel
     plek (1.1.0)
       builder
