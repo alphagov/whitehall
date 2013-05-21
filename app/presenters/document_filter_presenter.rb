@@ -1,7 +1,6 @@
 class DocumentFilterPresenter < Struct.new(:filter, :context)
-
-  filter_methods = Whitehall::DocumentFilter::Filterer.instance_methods - Object.instance_methods
-  delegate *filter_methods, to: :filter
+  extend Whitehall::Decorators::DelegateInstanceMethodsOf
+  delegate_instance_methods_of Whitehall::DocumentFilter::Filterer, to: :filter
 
   def as_json(options = nil)
     as_hash(options)

@@ -5,6 +5,7 @@
 # * you must provide the context: option (view context is required)
 # * removed some methods we don't need because we're not Draper
 # * delegate Kaminari::PaginatableArray methods as well, to the object not decorated collection
+# * use our delegate_instance_methods_of helper
 module Whitehall
   module Decorators
     class CollectionDecorator
@@ -18,12 +19,15 @@ module Whitehall
       #   to each item's decorator.
       attr_accessor :context
 
-      array_methods = Array.instance_methods - Object.instance_methods
-      delegate :==, :as_json, *array_methods, to: :decorated_collection
-
-      kaminari_methods = Kaminari::PaginatableArray.instance_methods - Array.instance_methods 
-      kaminari_methods += Kaminari::PageScopeMethods.instance_methods
-      delegate *kaminari_methods, to: :object
+      extend DelegateInstanceMethodsOf
+      delegate_instance_methods_of Array,
+                                   to: :decorated_collection,
+                                   with_extra_methods: :==
+      delegate_instance_methods_of Kaminari::PaginatableArray,
+                                   Kaminari::PageScopeMethods,
+                                   to: :object,
+                                   without_methods_of: Array,
+                                   with_default_methods: false
 
       # @param [Enumerable] object
       #   collection to decorate.
