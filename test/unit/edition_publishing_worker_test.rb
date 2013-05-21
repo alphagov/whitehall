@@ -36,6 +36,7 @@ class EditionPublishingWorkerTest < ActiveSupport::TestCase
   end
 
   test '#perform sets the transaction isolation level to SERIALIZABLE to ensure atomic update' do
+    flunk "Fails on user eager loading, need to review and see if this is still needed"
     edition = create(:edition, :scheduled, scheduled_publication: 1.day.ago)
     user = create(:scheduled_publishing_robot)
 
