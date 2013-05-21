@@ -29,25 +29,25 @@ class OrganisationsController < PublicFacingController
     expires_in 5.minutes, public: true
     respond_to do |format|
       format.atom do
-        @documents = EditionCollectionPresenter.new(recently_updated_source.limit(10))
+        @documents = EditionCollectionPresenter.new(recently_updated_source.limit(10), view_context)
       end
       format.html do
         @recently_updated = recently_updated_source.limit(3)
         if @organisation.live?
-          @feature_list = FeatureListPresenter.decorate(@organisation.feature_list_for_locale(I18n.locale)).limit_to(6)
+          @feature_list = FeatureListPresenter.new(@organisation.feature_list_for_locale(I18n.locale), view_context).limit_to(6)
           set_slimmer_organisations_header([@organisation])
           expire_on_next_scheduled_publication(@organisation.scheduled_editions)
 
           if @organisation.organisation_type.executive_office?
-            @promotional_features = PromotionalFeaturesPresenter.new(@organisation.promotional_features)
+            @promotional_features = PromotionalFeaturesPresenter.new(@organisation.promotional_features, view_context)
             render 'show-executive-office'
           else
-            @policies = PolicyPresenter.decorate(@organisation.published_policies.in_reverse_chronological_order.limit(3))
+            @policies = decorate_collection(@organisation.published_policies.in_reverse_chronological_order.limit(3), PolicyPresenter)
             @topics = @organisation.topics_with_content
-            @non_statistics_publications = PublicationesquePresenter.decorate(@organisation.published_non_statistics_publications.in_reverse_chronological_order.limit(2))
-            @statistics_publications = PublicationesquePresenter.decorate(@organisation.published_statistics_publications.in_reverse_chronological_order.limit(2))
-            @consultations = PublicationesquePresenter.decorate(@organisation.published_consultations.in_reverse_chronological_order.limit(2))
-            @announcements = AnnouncementPresenter.decorate(@organisation.published_announcements.in_reverse_chronological_order.limit(2))
+            @non_statistics_publications = decorate_collection(@organisation.published_non_statistics_publications.in_reverse_chronological_order.limit(2), PublicationesquePresenter)
+            @statistics_publications = decorate_collection(@organisation.published_statistics_publications.in_reverse_chronological_order.limit(2), PublicationesquePresenter)
+            @consultations = decorate_collection(@organisation.published_consultations.in_reverse_chronological_order.limit(2), PublicationesquePresenter)
+            @announcements = decorate_collection(@organisation.published_announcements.in_reverse_chronological_order.limit(2), AnnouncementPresenter)
             @ministers = ministers
             @important_board_members = board_members.take(@organisation.important_board_members)
             @board_members = board_members.from(@organisation.important_board_members)

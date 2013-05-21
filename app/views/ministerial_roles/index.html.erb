@@ -66,7 +66,7 @@
           <% ministers.with_unique_people.each.with_index do |role, i| %>
             <%= render partial: "people/person",
                 locals: {
-                  person: PersonPresenter.new(role.current_person),
+                  person: PersonPresenter.new(role.current_person, self),
                   roles: ministers.roles_for(role.current_person),
                   hlevel: "h4",
                   prefix: 'by-organisation',
@@ -94,7 +94,7 @@
           <% whips.unique_people.each.with_index do |person, i| %>
             <%= render partial: "people/person",
                 locals: {
-              person: PersonPresenter.new(person),
+                  person: PersonPresenter.new(person, self),
                   roles: whips.roles_for(person),
                   hlevel: "h4",
                   prefix: 'by-organisation',

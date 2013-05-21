@@ -1,6 +1,6 @@
-class WorldwideOrganisationPresenter < Draper::Base
+class WorldwideOrganisationPresenter < Whitehall::Decorators::Decorator
 
-  decorates :worldwide_organisation
+  delegate_instance_methods_of WorldwideOrganisation
 
   def organisation_logo_type
     OrganisationLogoType::SingleIdentity

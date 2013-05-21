@@ -2,7 +2,7 @@ require 'test_helper'
 
 class PromotionalFeatureItemPresenterTest < ActionView::TestCase
   setup do
-    ApplicationController.new.set_current_view_context
+    setup_view_context
   end
 
   test '#css_classes returns "large" for double-width items' do
@@ -62,6 +62,6 @@ class PromotionalFeatureItemPresenterTest < ActionView::TestCase
   private
 
   def item_presenter(attributes={})
-    PromotionalFeatureItemPresenter.new(build(:promotional_feature_item, attributes))
+    PromotionalFeatureItemPresenter.new(build(:promotional_feature_item, attributes), @view_context)
   end
 end

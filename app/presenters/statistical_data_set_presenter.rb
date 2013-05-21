@@ -1,5 +1,5 @@
-class StatisticalDataSetPresenter < Draper::Base
+class StatisticalDataSetPresenter < Whitehall::Decorators::Decorator
   include EditionPresenterHelper
 
-  decorates :statistical_data_set
+  delegate_instance_methods_of StatisticalDataSet
 end

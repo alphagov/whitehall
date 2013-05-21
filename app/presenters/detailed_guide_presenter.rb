@@ -1,5 +1,6 @@
-class DetailedGuidePresenter < Draper::Base
-  include EditionPresenterHelper
+class DetailedGuidePresenter < Whitehall::Decorators::Decorator
+ include EditionPresenterHelper
 
-  decorates :detailed_guide
+ delegate_instance_methods_of DetailedGuide
+
 end

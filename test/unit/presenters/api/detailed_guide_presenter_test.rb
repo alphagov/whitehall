@@ -7,17 +7,21 @@ class Api::DetailedGuidePresenterTest < PresenterTestCase
     @guide.stubs(:images).returns([])
     @guide.stubs(:published_related_detailed_guides).returns([])
     @guide.stubs(:organisations).returns([@organisation])
-    @presenter = Api::DetailedGuidePresenter.decorate(@guide)
+    @presenter = Api::DetailedGuidePresenter.new(@guide, @view_context)
     stubs_helper_method(:params).returns(format: :json)
   end
 
-  test ".paginate returns a decorated page of results" do
+  test ".paginate returns a page presenter for the correct page of presented detailed guides" do
     stubs_helper_method(:params).returns(page: 1)
-    page = stub('page')
-    decorated_results = stub('decorated-results')
+    page = [@guide]
     Api::Paginator.stubs(:paginate).with([@guide], page: 1).returns(page)
-    Api::DetailedGuidePresenter.stubs(:decorate).with(page).returns(decorated_results)
-    assert_equal Api::DetailedGuidePresenter.paginate([@guide]), Api::PagePresenter.new(decorated_results)
+
+    paginated = Api::DetailedGuidePresenter.paginate([@guide], @view_context)
+
+    assert_equal Api::PagePresenter, paginated.class
+    assert_equal 1, paginated.page.size
+    assert_equal Api::DetailedGuidePresenter, paginated.page.first.class
+    assert_equal @guide, paginated.page.first.model
   end
 
   test 'links has a self link, pointing to the public API url' do

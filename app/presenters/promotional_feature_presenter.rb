@@ -1,13 +1,21 @@
-class PromotionalFeaturePresenter < Draper::Base
-  decorates :promotional_feature
-  decorates_association :promotional_feature_items, with: PromotionalFeatureItemPresenter
+class PromotionalFeaturePresenter < Whitehall::Decorators::Decorator
+  delegate_instance_methods_of PromotionalFeature
+
+  attr_reader :position
+  def initialize(model, position, context)
+    super(model, context)
+    @position = position
+  end
+
+  def promotional_feature_items
+    @promotional_feature_items ||=
+      Whitehall::Decorators::CollectionDecorator.new(model.promotional_feature_items,
+                                                     PromotionalFeatureItemPresenter,
+                                                     context)
+  end
 
   def width
     promotional_feature_items.sum { |item| item.width }
-  end
-
-  def position
-    options[:position]
   end
 
   def width_class

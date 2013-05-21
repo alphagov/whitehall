@@ -11,7 +11,7 @@ class AnnouncementPresenterTest < PresenterTestCase
     }
 
     speech_types.each do |type, expected|
-      speech = AnnouncementPresenter.decorate(Speech.new(speech_type: type))
+      speech = AnnouncementPresenter.new(Speech.new(speech_type: type), @view_context)
       assert_equal expected, speech.display_type
     end
   end
@@ -24,7 +24,7 @@ class AnnouncementPresenterTest < PresenterTestCase
     }
 
     news_article_types.each do |type, expected|
-      news_article = AnnouncementPresenter.decorate(NewsArticle.new(news_article_type: type))
+      news_article = AnnouncementPresenter.new(NewsArticle.new(news_article_type: type), @view_context)
       assert_equal expected, news_article.display_type
     end
   end
@@ -42,7 +42,7 @@ class AnnouncementPresenterTest < PresenterTestCase
     # TODO: perhaps rethink edition factory, so this apparent duplication
     # isn't neccessary
     fatality_notice.stubs(:organisations).returns([organisation])
-    hash = AnnouncementPresenter.new(fatality_notice).as_hash
+    hash = AnnouncementPresenter.new(fatality_notice, @view_context).as_hash
     assert hash[:field_of_operation]
   end
 end

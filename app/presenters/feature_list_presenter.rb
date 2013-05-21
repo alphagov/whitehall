@@ -1,11 +1,10 @@
-class FeatureListPresenter < Draper::Base
+class FeatureListPresenter < Whitehall::Decorators::Decorator
   DEFAULT_FEATURE_LIMIT = 5
 
-  decorates :feature_list
+  delegate_instance_methods_of FeatureList
 
-  def initialize(*args)
-    super(*args)
-    @limit = DEFAULT_FEATURE_LIMIT
+  def limit
+    @limit || DEFAULT_FEATURE_LIMIT
   end
 
   def limit_to(limit)
@@ -14,13 +13,13 @@ class FeatureListPresenter < Draper::Base
   end
 
   def current_featured
-    feature_list.current.limit(@limit).map do |feature|
+    model.current.limit(limit).map do |feature|
       FeaturePresenter.new(feature)
     end
   end
 
   def current_feature_count
-    [feature_list.current.count, @limit].min
+    [model.current.count, limit].min
   end
 
   def any_current_features?

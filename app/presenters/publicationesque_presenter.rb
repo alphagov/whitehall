@@ -1,7 +1,7 @@
-class PublicationesquePresenter < Draper::Base
+class PublicationesquePresenter < Whitehall::Decorators::Decorator
   include EditionPresenterHelper
 
-  decorates :publicationesque
+  delegate_instance_methods_of *Publicationesque.concrete_descendants
 
   def as_hash
     super.merge({
@@ -12,7 +12,7 @@ class PublicationesquePresenter < Draper::Base
   def publication_series
     if model.part_of_series?
       links = model.document_series.map do |ds|
-        h.link_to(ds.name, h.organisation_document_series_path(ds.organisation, ds))
+        context.link_to(ds.name, context.organisation_document_series_path(ds.organisation, ds))
       end
       "Part of a series: #{links.to_sentence}"
     end

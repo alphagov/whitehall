@@ -3,7 +3,7 @@ require 'test_helper'
 class PersonPresenterTest < PresenterTestCase
   setup do
     @person = stub_translatable_record(:person)
-    @presenter = PersonPresenter.decorate(@person)
+    @presenter = PersonPresenter.new(@person, @view_context)
   end
 
   test 'path is generated using person_path' do

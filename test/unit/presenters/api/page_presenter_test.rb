@@ -7,7 +7,7 @@ class Api::PagePresenterTest < PresenterTestCase
     @second_result = "b"
     @page = Kaminari.paginate_array([@first_result, @second_result]).page(1).per(10)
     @page.stubs(last_page?: false, first_page?: false, current_page: 2)
-    @presenter = Api::PagePresenter.new(@page)
+    @presenter = Api::PagePresenter.new(@page, @view_context)
   end
 
   test "json includes each result in page" do

@@ -1,8 +1,8 @@
-class NewsArticlePresenter < Draper::Base
+class NewsArticlePresenter < Whitehall::Decorators::Decorator
   include EditionPresenterHelper
   include LeadImagePresenterHelper
 
-  decorates :news_article
+  delegate_instance_methods_of NewsArticle
 
   private
 

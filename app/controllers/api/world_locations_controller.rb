@@ -6,7 +6,7 @@ class Api::WorldLocationsController < PublicFacingController
   def show
     @world_location = WorldLocation.find_by_slug(params[:id])
     if @world_location
-      respond_with Api::WorldLocationPresenter.new(@world_location)
+      respond_with Api::WorldLocationPresenter.new(@world_location, view_context)
     else
       respond_with_not_found
     end
@@ -14,7 +14,8 @@ class Api::WorldLocationsController < PublicFacingController
 
   def index
     respond_with Api::WorldLocationPresenter.paginate(
-      WorldLocation.ordered_by_name
+      WorldLocation.ordered_by_name,
+      view_context
     )
   end
 

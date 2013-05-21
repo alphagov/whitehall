@@ -1,6 +1,6 @@
-class FatalityNoticePresenter < Draper::Base
+class FatalityNoticePresenter < Whitehall::Decorators::Decorator
   include EditionPresenterHelper
 
-  decorates :fatality_notice
+  delegate_instance_methods_of FatalityNotice
 
 end

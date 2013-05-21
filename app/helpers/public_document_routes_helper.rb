@@ -62,7 +62,7 @@ module PublicDocumentRoutesHelper
 
   # NOTE: This method could (possibly) be dropped once Draper has been removed/replaced.
   def model_name_for_route_recognition(edition)
-    klass = edition.is_a?(Draper::Base) ? edition.model.class : edition.class
+    klass = edition.to_model.class
     klass.name.underscore
   end
 end

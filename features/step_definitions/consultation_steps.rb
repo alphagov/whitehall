@@ -45,7 +45,7 @@ end
 Then /^the published date should be visible on save$/ do
   date = 1.day.ago.strftime("%Y-%m-%d")
   click_button "Save"
-  page.should have_css("abbr.published_on_or_default", title: date)
+  assert page.has_css?("abbr.published_on_or_default", title: date)
   click_button "Force Publish"
 
   select_most_recent_consultation_from_list

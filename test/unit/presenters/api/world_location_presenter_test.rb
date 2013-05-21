@@ -3,17 +3,21 @@ require 'test_helper'
 class Api::WorldLocationPresenterTest < PresenterTestCase
   setup do
     @location = stub_record(:world_location, world_location_type: WorldLocationType::WorldLocation)
-    @presenter = Api::WorldLocationPresenter.decorate(@location)
+    @presenter = Api::WorldLocationPresenter.new(@location, @view_context)
     stubs_helper_method(:params).returns(format: :json)
   end
 
-  test ".paginate returns a decorated page of results" do
+  test ".paginate returns a page presenter for the correct page of presented world locations" do
     stubs_helper_method(:params).returns(page: 1)
-    page = stub('page')
-    decorated_results = stub('decorated-results')
+    page = [@location]
     Api::Paginator.stubs(:paginate).with([@location], page: 1).returns(page)
-    Api::WorldLocationPresenter.stubs(:decorate).with(page).returns(decorated_results)
-    assert_equal Api::WorldLocationPresenter.paginate([@location]), Api::PagePresenter.new(decorated_results)
+
+    paginated = Api::WorldLocationPresenter.paginate([@location], @view_context)
+
+    assert_equal Api::PagePresenter, paginated.class
+    assert_equal 1, paginated.page.size
+    assert_equal Api::WorldLocationPresenter, paginated.page.first.class
+    assert_equal @location, paginated.page.first.model
   end
 
   test 'links has a self link, pointing to the request-relative api location url' do

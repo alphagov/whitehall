@@ -172,7 +172,7 @@ end
 
 Then /^there should be nothing featured on the home page of "([^"]*)"$/ do |name|
   visit_organisation name
-  find(featured_documents_selector).all('feature').should be_empty
+  assert find(featured_documents_selector).all('feature').empty?
 end
 
 

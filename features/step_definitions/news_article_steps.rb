@@ -59,7 +59,7 @@ When /^I attempt to add the article image into the markdown$/ do
 end
 
 Then /^the news story "([^"]*)" should have been created$/ do |title|
-  NewsArticle.find_by_title(title).should_not be_nil
+  refute NewsArticle.find_by_title(title).nil?
 end
 
 Then /^the article mentions "([^"]*)" and links to their bio page$/ do |person_name|

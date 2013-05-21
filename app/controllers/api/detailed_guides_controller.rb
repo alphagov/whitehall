@@ -6,7 +6,7 @@ class Api::DetailedGuidesController < PublicFacingController
   def show
     @guide = DetailedGuide.published_as(params[:id])
     if @guide
-      respond_with Api::DetailedGuidePresenter.new(@guide)
+      respond_with Api::DetailedGuidePresenter.new(@guide, view_context)
     else
       respond_with_not_found
     end
@@ -14,7 +14,8 @@ class Api::DetailedGuidesController < PublicFacingController
 
   def index
     respond_with Api::DetailedGuidePresenter.paginate(
-      DetailedGuide.published.alphabetical
+      DetailedGuide.published.alphabetical,
+      view_context
     )
   end
 

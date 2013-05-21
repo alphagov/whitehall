@@ -21,7 +21,7 @@ When /^I draft a valid world location news article "([^"]*)"$/ do |title|
 end
 
 Then /^the world location news article "([^"]*)" should have been created$/ do |title|
-  WorldLocationNewsArticle.find_by_title(title).should_not be_nil
+  refute WorldLocationNewsArticle.find_by_title(title).nil?
 end
 
 Then /^the worldwide organisation "([^"]+)" is listed as a producing org on the world location news article "([^"]+)"$/ do |world_org_name, world_news_title|

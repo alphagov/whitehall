@@ -1,8 +1,8 @@
-class CaseStudyPresenter < Draper::Base
+class CaseStudyPresenter < Whitehall::Decorators::Decorator
   include EditionPresenterHelper
   include LeadImagePresenterHelper
 
-  decorates :case_study
+  delegate_instance_methods_of CaseStudy
 
   private
 

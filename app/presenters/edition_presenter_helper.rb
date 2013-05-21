@@ -5,9 +5,9 @@ module EditionPresenterHelper
       type: model.type.underscore,
       display_type: model.display_type,
       title: model.title,
-      url: h.public_document_path(model),
+      url: context.public_document_path(model),
       organisations: model.organisations.map { |o|
-        h.organisation_display_name(o)
+        context.organisation_display_name(o)
       }.to_sentence.html_safe,
       display_date_microformat: display_date_microformat,
       public_timestamp: model.public_timestamp
@@ -15,12 +15,13 @@ module EditionPresenterHelper
   end
 
   def link
-    h.link_to model.title, h.public_document_path(model)
+    context.link_to model.title, context.public_document_path(model)
   end
 
   def display_organisations
     organisations.map { |o|
-      h.organisation_display_name(o) }.to_sentence
+      context.organisation_display_name(o)
+    }.to_sentence
   end
 
   def display_date_microformat
@@ -28,8 +29,8 @@ module EditionPresenterHelper
   end
 
   def date_microformat(attribute_name)
-    h.render_datetime_microformat(model, attribute_name) {
-      l(model.send(attribute_name).to_date, format: :long_ordinal)
+    context.render_datetime_microformat(model, attribute_name) {
+      context.l(model.send(attribute_name).to_date, format: :long_ordinal)
     }
   end
 end
