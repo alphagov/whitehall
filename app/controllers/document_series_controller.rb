@@ -8,13 +8,13 @@ class DocumentSeriesController < PublicFacingController
 
   def show
     @document_series = @organisation.document_series.find(params[:id])
-    @published_publications = PublicationesquePresenter.decorate(@document_series.published_publications.in_reverse_chronological_order)
-    @published_consultations = PublicationesquePresenter.decorate(@document_series.published_consultations.in_reverse_chronological_order)
-    @published_statistical_data_sets = StatisticalDataSetPresenter.decorate(@document_series.published_statistical_data_sets.in_reverse_chronological_order)
-    @published_speeches = SpeechPresenter.decorate(@document_series.published_speeches.in_reverse_chronological_order)
-    @published_detailed_guides = DetailedGuidePresenter.decorate(@document_series.published_detailed_guides.in_reverse_chronological_order)
-    @published_case_studies = CaseStudyPresenter.decorate(@document_series.published_case_studies.in_reverse_chronological_order)
-    @published_news_articles = NewsArticlePresenter.decorate(@document_series.published_news_articles.in_reverse_chronological_order)
+    @published_publications = decorate_collection(@document_series.published_publications.in_reverse_chronological_order, PublicationesquePresenter)
+    @published_consultations = decorate_collection(@document_series.published_consultations.in_reverse_chronological_order, PublicationesquePresenter)
+    @published_statistical_data_sets = decorate_collection(@document_series.published_statistical_data_sets.in_reverse_chronological_order, StatisticalDataSetPresenter)
+    @published_speeches = decorate_collection(@document_series.published_speeches.in_reverse_chronological_order, SpeechPresenter)
+    @published_detailed_guides = decorate_collection(@document_series.published_detailed_guides.in_reverse_chronological_order, DetailedGuidePresenter)
+    @published_case_studies = decorate_collection(@document_series.published_case_studies.in_reverse_chronological_order, CaseStudyPresenter)
+    @published_news_articles = decorate_collection(@document_series.published_news_articles.in_reverse_chronological_order, NewsArticlePresenter)
 
     set_slimmer_organisations_header([@document_series.organisation])
     expire_on_next_scheduled_publication(@document_series.scheduled_editions)

@@ -1,22 +1,12 @@
-class RolesPresenter
-  include Enumerable
+class RolesPresenter < Whitehall::Decorators::CollectionDecorator
 
-  attr_reader :source
-
-  array_methods = Array.instance_methods - Object.instance_methods
-  delegate *array_methods, to: :decorated_collection
-
-  def initialize(source)
-    @source = source
+  def initialize(object, context)
+    super(object, RolePresenter, context)
   end
 
   def remove_unfilled_roles!
     @decorated_collection = nil
-    @source = source.to_a.reject { |role| role.current_person.nil? }
-  end
-
-  def decorated_collection
-    @decorated_collection ||= source.to_a.map { |role| RolePresenter.new(role) }
+    @object = object.to_a.reject { |role| role.current_person.nil? }
   end
 
   def with_unique_people
@@ -25,20 +15,10 @@ class RolesPresenter
   end
 
   def unique_people
-    @unique_people ||= source.map { |role| role.current_person }.compact.uniq
+    @unique_people ||= object.map { |role| role.current_person }.compact.uniq
   end
 
   def roles_for(person)
     decorated_collection.select { |role| role.current_person == person }
-  end
-
-  def each(&block)
-    decorated_collection.each do |presenter|
-      yield presenter
-    end
-  end
-
-  def ==(other)
-    @source == other.source
   end
 end

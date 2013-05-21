@@ -26,11 +26,7 @@
           - <%= link_to "featured items", [:admin, classification, :classification_featurings], title: "Manage featurings on #{classification.name}" %><br />
         </td>
         <td class="description"><%= classification.description %></td>
-        <td class="details">
-          <%= classification.breakdown.map { |key, count|
-            pluralize count, key
-           }.to_sentence %>
-        </td>
+        <td class="details"><%= classification_contents_breakdown(classification) %></td>
         <td class="duration">
           <% if classification.start_date && classification.end_date %>
             <%= classification.start_date %> to <%= classification.end_date %>

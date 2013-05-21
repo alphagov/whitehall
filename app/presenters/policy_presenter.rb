@@ -1,7 +1,7 @@
-class PolicyPresenter < Draper::Base
+class PolicyPresenter < Whitehall::Decorators::Decorator
   include EditionPresenterHelper
 
-  decorates :policy
+  delegate_instance_methods_of Policy
 
   def as_hash
     super.merge({

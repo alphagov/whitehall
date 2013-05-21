@@ -1,17 +1,14 @@
-class Api::PagePresenter < Draper::Base
-  def initialize(page)
-    super(page)
-  end
+class Api::PagePresenter < Struct.new(:page, :context)
 
   def as_json(options = {})
     {
-      results: model.map(&:as_json),
+      results: page.map(&:as_json),
       previous_page_url: previous_page_url,
       next_page_url: next_page_url,
-      current_page: model.current_page,
-      total: model.total_count,
-      pages: model.num_pages,
-      page_size: model.limit_value,
+      current_page: page.current_page,
+      total: page.total_count,
+      pages: page.num_pages,
+      page_size: page.limit_value,
       start_index: start_index
     }.reject { |k, v| v.nil? }
   end
@@ -20,30 +17,30 @@ class Api::PagePresenter < Draper::Base
     links = []
     links << [previous_page_url, {'rel' => 'previous'}] if previous_page_url
     links << [next_page_url, {'rel' => 'next'}] if next_page_url
-    links << [url(page: model.current_page), {'rel' => 'self'}]
+    links << [url(page: page.current_page), {'rel' => 'self'}]
     links
   end
 
   def previous_page_url
-    unless model.first_page?
-      url(page: model.current_page - 1)
+    unless page.first_page?
+      url(page: page.current_page - 1)
     end
   end
 
   def next_page_url
-    unless model.last_page?
-      url(page: model.current_page + 1)
+    unless page.last_page?
+      url(page: page.current_page + 1)
     end
   end
 
   def start_index
     # current_page and start_index start at 1, not 0
-    (model.current_page - 1) * model.limit_value + 1
+    (page.current_page - 1) * page.limit_value + 1
   end
   private
 
   def url(override_params)
-    h.url_for(h.params.merge(
+    context.url_for(context.params.merge(
       override_params.merge(only_path: false)
     ))
   end

@@ -1,22 +1,23 @@
-class Api::WorldwideOrganisationPresenter < Draper::Base
+class Api::WorldwideOrganisationPresenter < Struct.new(:model, :context)
   class << self
-    def paginate(collection)
-      page = Api::Paginator.paginate(collection, h.params)
-      Api::PagePresenter.new decorate(page)
+    def paginate(collection, view_context)
+      page = Api::Paginator.paginate(collection, view_context.params)
+      presented = page.map { |item| new(item, view_context) }
+      Api::PagePresenter.new(presented, view_context)
     end
   end
 
   def as_json(options = {})
     {
-      id: h.api_worldwide_organisation_url(model),
+      id: context.api_worldwide_organisation_url(model),
       title: model.name,
       format: 'Worldwide Organisation',
       updated_at: model.updated_at,
-      web_url: h.worldwide_organisation_url(model, host: h.public_host),
+      web_url: context.worldwide_organisation_url(model, host: context.public_host),
       details: {
         slug: model.slug,
         summary: model.summary,
-        description: h.govspeak_to_html(model.description),
+        description: context.govspeak_to_html(model.description),
         services: services_for_json,
       },
       offices: offices_as_json,
@@ -26,13 +27,13 @@ class Api::WorldwideOrganisationPresenter < Draper::Base
 
   def links
     [
-      [h.api_worldwide_organisation_url(model), {'rel' => 'self'}]
+      [context.api_worldwide_organisation_url(model), {'rel' => 'self'}]
     ]
   end
 
   def services_for_json
     if model.services.present?
-      h.govspeak_to_html(model.services)
+      context.govspeak_to_html(model.services)
     else
       ''
     end
@@ -45,7 +46,7 @@ class Api::WorldwideOrganisationPresenter < Draper::Base
   def sponsor_as_json(sponsor)
     {
       title: sponsor.name,
-      web_url: h.organisation_url(sponsor, host: h.public_host),
+      web_url: context.organisation_url(sponsor, host: context.public_host),
       details: {
         acronym: sponsor.acronym || ''
       }
@@ -59,29 +60,29 @@ class Api::WorldwideOrganisationPresenter < Draper::Base
     offices
   end
 
-  def office_as_json(office_model)
+  def office_as_json(office_worldwide_organisation)
     {
-      title: office_model.contact.title,
+      title: office_worldwide_organisation.contact.title,
       format: 'World Office',
-      updated_at: office_model.updated_at,
+      updated_at: office_worldwide_organisation.updated_at,
       details: {
-        email: office_model.contact.email || '',
-        description: office_model.contact.comments || '',
-        contact_form_url: office_model.contact.contact_form_url || '',
-        type: office_model.worldwide_office_type.name
+        email: office_worldwide_organisation.contact.email || '',
+        description: office_worldwide_organisation.contact.comments || '',
+        contact_form_url: office_worldwide_organisation.contact.contact_form_url || '',
+        type: office_worldwide_organisation.worldwide_office_type.name
       }
-    }.merge(office_addresss_as_json(office_model)).
-      merge(office_contact_numbers_as_json(office_model)).
-      merge(office_services_as_json(office_model))
+    }.merge(office_addresss_as_json(office_worldwide_organisation)).
+      merge(office_contact_numbers_as_json(office_worldwide_organisation)).
+      merge(office_services_as_json(office_worldwide_organisation))
   end
 
-  def office_addresss_as_json(office_model)
-    AddressFormatter::Json.from_contact(office_model.contact).render
+  def office_addresss_as_json(office_worldwide_organisation)
+    AddressFormatter::Json.from_contact(office_worldwide_organisation.contact).render
   end
 
-  def office_contact_numbers_as_json(office_model)
+  def office_contact_numbers_as_json(office_worldwide_organisation)
     {
-      contact_numbers: office_model.contact.contact_numbers.map do |contact_number|
+      contact_numbers: office_worldwide_organisation.contact.contact_numbers.map do |contact_number|
         {
           label: contact_number.label,
           number: contact_number.number
@@ -90,9 +91,9 @@ class Api::WorldwideOrganisationPresenter < Draper::Base
     }
   end
 
-  def office_services_as_json(office_model)
+  def office_services_as_json(office_worldwide_organisation)
     {
-      services: office_model.services.map do |service|
+      services: office_worldwide_organisation.services.map do |service|
         {
           title: service.name,
           type: service.service_type.name

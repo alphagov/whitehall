@@ -8,9 +8,9 @@ class Api::WorldLocationsControllerTest < ActionController::TestCase
     world_location = stub_record(:world_location, slug: 'meh')
     world_location.stubs(:to_param).returns('meh')
     WorldLocation.stubs(:find_by_slug).with(world_location.slug).returns(world_location)
-    presenter = Api::WorldLocationPresenter.decorate(world_location)
+    presenter = Api::WorldLocationPresenter.new(world_location, controller.view_context)
     presenter.stubs(:as_json).returns(location: :representation)
-    Api::WorldLocationPresenter.stubs(:new).with(world_location).returns(presenter)
+    Api::WorldLocationPresenter.stubs(:new).with(world_location, anything).returns(presenter)
 
     get :show, id: world_location.slug, format: 'json'
     assert_equal 'representation', json_response['location']
@@ -20,9 +20,9 @@ class Api::WorldLocationsControllerTest < ActionController::TestCase
     world_location = stub_record(:world_location, slug: 'meh')
     world_location.stubs(:to_param).returns('meh')
     WorldLocation.stubs(:find_by_slug).with(world_location.slug).returns(world_location)
-    presenter = Api::WorldLocationPresenter.decorate(world_location)
+    presenter = Api::WorldLocationPresenter.new(world_location, controller.view_context)
     presenter.stubs(:as_json).returns(location: :representation)
-    Api::WorldLocationPresenter.stubs(:new).with(world_location).returns(presenter)
+    Api::WorldLocationPresenter.stubs(:new).with(world_location, anything).returns(presenter)
 
     get :show, id: world_location.slug, format: 'json'
     assert_equal 'ok', json_response['_response_info']['status']
@@ -36,9 +36,9 @@ class Api::WorldLocationsControllerTest < ActionController::TestCase
   end
 
   view_test "index paginates world locations" do
-    presenter = Api::PagePresenter.new(Kaminari.paginate_array([]).page(1).per(1))
+    presenter = Api::PagePresenter.new(Kaminari.paginate_array([]).page(1).per(1), controller.view_context)
     presenter.stubs(:as_json).returns(paged: :representation)
-    Api::WorldLocationPresenter.stubs(:paginate).with(WorldLocation.ordered_by_name).returns(presenter)
+    Api::WorldLocationPresenter.stubs(:paginate).with(WorldLocation.ordered_by_name, anything).returns(presenter)
 
     get :index, format: 'json'
 
@@ -46,9 +46,9 @@ class Api::WorldLocationsControllerTest < ActionController::TestCase
   end
 
   view_test "index includes _response_info in response" do
-    presenter = Api::PagePresenter.new(Kaminari.paginate_array([]).page(1).per(1))
+    presenter = Api::PagePresenter.new(Kaminari.paginate_array([]).page(1).per(1), controller.view_context)
     presenter.stubs(:as_json).returns(paged: :representation)
-    Api::WorldLocationPresenter.stubs(:paginate).with(WorldLocation.ordered_by_name).returns(presenter)
+    Api::WorldLocationPresenter.stubs(:paginate).with(WorldLocation.ordered_by_name, anything).returns(presenter)
 
     get :index, format: 'json'
 

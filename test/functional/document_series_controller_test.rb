@@ -36,7 +36,7 @@ class DocumentSeriesControllerTest < ActionController::TestCase
       publication_new,
       publication_middle,
       publication_old
-    ], assigns(:published_publications)
+    ], assigns(:published_publications).object
   end
 
   view_test 'show should display published statistical data sets within the series' do
@@ -64,7 +64,7 @@ class DocumentSeriesControllerTest < ActionController::TestCase
       new_statistical_data_set,
       middle_statistical_data_set,
       old_statistical_data_set
-    ], assigns(:published_statistical_data_sets)
+    ], assigns(:published_statistical_data_sets).object
   end
 
   view_test 'show should display document series attributes' do

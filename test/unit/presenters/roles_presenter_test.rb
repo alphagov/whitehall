@@ -17,7 +17,7 @@ class RolesPresenterTest < PresenterTestCase
     @empty_role = stub_translatable_record(:role_without_organisations)
     @empty_role.stubs(:current_person).returns(nil)
 
-    @presenter = RolesPresenter.new([@role1, @role2, @role3, @empty_role])
+    @presenter = RolesPresenter.new([@role1, @role2, @role3, @empty_role], @view_context)
   end
 
   test "it decorates a collection of roles" do

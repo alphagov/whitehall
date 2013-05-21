@@ -1,6 +1,6 @@
 class PeopleController < PublicFacingController
   def show
-    @person = PersonPresenter.decorate(Person.find(params[:id]))
+    @person = PersonPresenter.new(Person.find(params[:id]), view_context)
 
     respond_to do |format|
       format.html do
@@ -11,6 +11,6 @@ class PeopleController < PublicFacingController
   end
 
   def index
-    @people = PersonPresenter.decorate(Person.all)
+    @people = decorate_collection(Person.all, PersonPresenter)
   end
 end

@@ -1,11 +1,15 @@
-class RolePresenter < Draper::Base
+class RolePresenter < Whitehall::Decorators::Decorator
+  # NOTE: we use MinisterialRole because it's the subclass that adds
+  # methods, if other Role subclasses do this we'll need to add their
+  # methods to this array too
+  delegate_instance_methods_of MinisterialRole
   delegate :image, :name, :link, to: :current_person, prefix: :current_person
 
   def current_person
     if model.current_person
-      PersonPresenter.decorate(model.current_person)
+      PersonPresenter.new(model.current_person, context)
     else
-      UnassignedPersonPresenter.new nil
+      UnassignedPersonPresenter.new(nil, context)
     end
   end
 
@@ -16,20 +20,20 @@ class RolePresenter < Draper::Base
   def announcements
     return [] unless ministerial?
     announcements =
-      SpeechPresenter.decorate(model.published_speeches.limit(10)).to_a +
-      NewsArticlePresenter.decorate(model.published_news_articles.limit(10)).to_a
+      model.published_speeches.limit(10).map { |s| SpeechPresenter.new(s, context) } +
+      model.published_news_articles.limit(10).map { |na| NewsArticlePresenter.new(na, context) }
     announcements.sort_by { |a| a.public_timestamp.to_datetime }.reverse[0..9]
   end
 
   def path
     if ministerial?
-      h.ministerial_role_path model
+      context.ministerial_role_path model
     end
   end
 
   def link
     if path
-      h.link_to name, path
+      context.link_to name, path
     else
       ERB::Util.html_escape name
     end
@@ -40,15 +44,15 @@ class RolePresenter < Draper::Base
   end
 
   def published_policies
-    PolicyPresenter.decorate(model.published_policies(limit: 10))
+    model.published_policies(limit: 10).map { |p| PolicyPresenter.new(p, context) }
   end
 
   def previous_appointments
-    RoleAppointmentPresenter.decorate model.previous_appointments.reorder('started_at DESC')
+    model.previous_appointments.reorder('started_at DESC').map { |ra| RoleAppointmentPresenter.new(ra, context) }
   end
 
   def responsibilities
-    h.govspeak_to_html model.responsibilities
+    context.govspeak_to_html model.responsibilities
   end
 
   class UnassignedPersonPresenter < PersonPresenter

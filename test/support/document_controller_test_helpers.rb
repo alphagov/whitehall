@@ -205,7 +205,7 @@ module DocumentControllerTestHelpers
 
         get :show, id: model
 
-        assert_equal [later_edition, earlier_edition], assigns(has_many_association)
+        assert_equal [later_edition, earlier_edition], assigns(has_many_association).object
       end
 
       view_test "should not display an empty published #{has_many_association.to_s.humanize.downcase} section" do

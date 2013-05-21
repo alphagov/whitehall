@@ -24,11 +24,7 @@
           (<%= link_to "view", classification, title: "View #{classification.name} on the public website" %>)
         </td>
         <td class="description"><%= classification.description %></td>
-        <td class="details">
-          <%= classification.breakdown.map { |key, count|
-            pluralize count, key
-           }.to_sentence %>
-        </td>
+        <td class="details"><%= classification_contents_breakdown(classification) %></td>
         <td class="related">
           <ul>
             <% classification.related_classifications.each do |pa| %>

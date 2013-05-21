@@ -169,11 +169,11 @@ end
 
 Then /^the metadata changes should not be public until the draft is published$/ do
   click_link("Preview")
-  page.should have_css(".attachment-details .title", text: "changed title not to be published yet")
-  page.should have_no_css(".attachment-details .title", text: @attachment_title)
+  assert page.has_css?(".attachment-details .title", text: "changed title not to be published yet")
+  refute page.has_css?(".attachment-details .title", text: @attachment_title)
   visit public_document_path(Publication.last)
-  page.should have_css(".attachment-details .title", text: @attachment_title)
-  page.should have_no_css(".attachment-details .title", text: "changed title not to be published yet")
+  assert page.has_css?(".attachment-details .title", text: @attachment_title)
+  refute page.has_css?(".attachment-details .title", text: "changed title not to be published yet")
 end
 
 When /^I replace the data file of the attachment in a new draft of the publication$/ do

@@ -1,8 +1,9 @@
-class Api::DetailedGuidePresenter < Draper::Base
+class Api::DetailedGuidePresenter < Struct.new(:model, :context)
   class << self
-    def paginate(collection)
-      page = Api::Paginator.paginate(collection, h.params)
-      Api::PagePresenter.new decorate(page)
+    def paginate(collection, view_context)
+      page = Api::Paginator.paginate(collection, view_context.params)
+      presented = page.map { |item| new(item, view_context) }
+      Api::PagePresenter.new(presented, view_context)
     end
   end
 
@@ -10,9 +11,9 @@ class Api::DetailedGuidePresenter < Draper::Base
     {
       title: model.title,
       id: detailed_guide_url(model),
-      web_url: h.public_document_url(model),
+      web_url: context.public_document_url(model),
       details: {
-        body: h.bare_govspeak_edition_to_html(model)
+        body: context.bare_govspeak_edition_to_html(model)
       },
       format: model.format_name,
       related: related_json,
@@ -32,8 +33,8 @@ class Api::DetailedGuidePresenter < Draper::Base
     model.organisations.map do |org|
       {
         title: org.name,
-        id: h.organisation_url(org, format: :json),
-        web_url: h.organisation_url(org),
+        id: context.organisation_url(org, format: :json),
+        web_url: context.organisation_url(org),
         details: {
           type: "organisation",
           short_description: org.acronym
@@ -43,7 +44,7 @@ class Api::DetailedGuidePresenter < Draper::Base
   end
 
   def detailed_guide_url(guide)
-    h.api_detailed_guide_url guide.document, host: h.public_host
+    context.api_detailed_guide_url guide.document, host: context.public_host
   end
 
   def related_json
@@ -51,7 +52,7 @@ class Api::DetailedGuidePresenter < Draper::Base
       {
         id: detailed_guide_url(guide),
         title: guide.title,
-        web_url: h.public_document_url(guide)
+        web_url: context.public_document_url(guide)
       }
     end
   end

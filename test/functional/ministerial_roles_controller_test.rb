@@ -57,7 +57,7 @@ class MinisterialRolesControllerTest < ActionController::TestCase
 
     get :index
 
-    expected_results = [[organisation, RolesPresenter.new([role_4, role_1, role_2])]]
+    expected_results = [[organisation, RolesPresenter.new([role_4, role_1, role_2], @controller.view_context)]]
     assert_equal expected_results, assigns(:ministers_by_organisation)
   end
 
@@ -97,7 +97,7 @@ class MinisterialRolesControllerTest < ActionController::TestCase
 
     get :index
 
-    whips = [[Whitehall::WhipOrganisation.find_by_id(1), RolesPresenter.new([role_3])]]
+    whips = [[Whitehall::WhipOrganisation.find_by_id(1), RolesPresenter.new([role_3], @controller.view_context)]]
 
     assert_equal whips, assigns(:whips_by_organisation)
   end
@@ -126,11 +126,11 @@ class MinisterialRolesControllerTest < ActionController::TestCase
     get :index
 
     whips = [
-      [Whitehall::WhipOrganisation.find_by_id(1), RolesPresenter.new([role_1])],
-      [Whitehall::WhipOrganisation.find_by_id(3), RolesPresenter.new([role_3])],
-      [Whitehall::WhipOrganisation.find_by_id(4), RolesPresenter.new([role_4])],
-      [Whitehall::WhipOrganisation.find_by_id(2), RolesPresenter.new([role_2])],
-      [Whitehall::WhipOrganisation.find_by_id(5), RolesPresenter.new([role_5])]
+      [Whitehall::WhipOrganisation.find_by_id(1), RolesPresenter.new([role_1], @controller.view_context)],
+      [Whitehall::WhipOrganisation.find_by_id(3), RolesPresenter.new([role_3], @controller.view_context)],
+      [Whitehall::WhipOrganisation.find_by_id(4), RolesPresenter.new([role_4], @controller.view_context)],
+      [Whitehall::WhipOrganisation.find_by_id(2), RolesPresenter.new([role_2], @controller.view_context)],
+      [Whitehall::WhipOrganisation.find_by_id(5), RolesPresenter.new([role_5], @controller.view_context)]
     ]
     assert_equal whips, assigns(:whips_by_organisation)
   end
@@ -263,7 +263,7 @@ class MinisterialRolesControllerTest < ActionController::TestCase
 
     get :index
 
-    expected_results = [[organisation, RolesPresenter.new([ministerial_role])]]
+    expected_results = [[organisation, RolesPresenter.new([ministerial_role], @controller.view_context)]]
     assert_equal expected_results, assigns(:ministers_by_organisation)
   end
 

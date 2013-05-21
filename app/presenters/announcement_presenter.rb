@@ -1,7 +1,7 @@
-class AnnouncementPresenter < Draper::Base
+class AnnouncementPresenter < Whitehall::Decorators::Decorator
   include EditionPresenterHelper
 
-  decorates :announcement
+  delegate_instance_methods_of *Announcement.concrete_descendants
 
   def as_hash
     super.merge({
@@ -12,14 +12,14 @@ class AnnouncementPresenter < Draper::Base
 
   def field_of_operation
     if model.respond_to?(:operational_field)
-      "Field of operation: #{h.link_to(model.operational_field.name, model.operational_field)}"
+      "Field of operation: #{context.link_to(model.operational_field.name, model.operational_field)}"
     end
   end
 
   def publication_series
     if model.respond_to?(:part_of_series?) && model.part_of_series?
       links = model.document_series.map do |ds|
-        h.link_to(ds.name, h.organisation_document_series_path(ds.organisation, ds))
+        context.link_to(ds.name, context.organisation_document_series_path(ds.organisation, ds))
       end
       "Part of a series: #{links.to_sentence}"
     end

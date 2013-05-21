@@ -1,11 +1,11 @@
-class WorldLocationNewsArticlePresenter < Draper::Base
+class WorldLocationNewsArticlePresenter < Whitehall::Decorators::Decorator
   include EditionPresenterHelper
   include LeadImagePresenterHelper
 
-  decorates :world_location_news_article
+  delegate_instance_methods_of WorldLocationNewsArticle
 
   def organisations
-    @orgs ||= model.worldwide_organisations.map { |wo| WorldwideOrganisationPresenter.new(wo) }
+    @orgs ||= model.worldwide_organisations.map { |wo| WorldwideOrganisationPresenter.new(wo, context) }
   end
 
   def lead_organisations

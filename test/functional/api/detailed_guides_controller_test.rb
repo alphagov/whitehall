@@ -8,9 +8,9 @@ class Api::DetailedGuidesControllerTest < ActionController::TestCase
     organisation = stub_record(:organisation, organisation_type: stub_record(:ministerial_organisation_type))
     detailed_guide = stub_edition(:detailed_guide, organisations: [organisation])
     DetailedGuide.stubs(:published_as).with(detailed_guide.slug).returns(detailed_guide)
-    presenter = Api::DetailedGuidePresenter.decorate(detailed_guide)
+    presenter = Api::DetailedGuidePresenter.new(detailed_guide, controller.view_context)
     presenter.stubs(:as_json).returns(guide: :representation)
-    Api::DetailedGuidePresenter.stubs(:new).with(detailed_guide).returns(presenter)
+    Api::DetailedGuidePresenter.stubs(:new).with(detailed_guide, anything).returns(presenter)
 
     get :show, id: detailed_guide.slug, format: 'json'
     assert_equal 'representation', json_response['guide']
@@ -20,9 +20,9 @@ class Api::DetailedGuidesControllerTest < ActionController::TestCase
     organisation = stub_record(:organisation, organisation_type: stub_record(:ministerial_organisation_type))
     detailed_guide = stub_edition(:detailed_guide, organisations: [organisation])
     DetailedGuide.stubs(:published_as).with(detailed_guide.slug).returns(detailed_guide)
-    presenter = Api::DetailedGuidePresenter.decorate(detailed_guide)
-    presenter.stubs(:as_json).returns(json: :representation)
-    Api::DetailedGuidePresenter.stubs(:new).with(detailed_guide).returns(presenter)
+    presenter = Api::DetailedGuidePresenter.new(detailed_guide, controller.view_context)
+    presenter.stubs(:as_json).returns(guide: :representation)
+    Api::DetailedGuidePresenter.stubs(:new).with(detailed_guide, anything).returns(presenter)
 
     get :show, id: detailed_guide.slug, format: 'json'
     assert_equal 'ok', json_response['_response_info']['status']
@@ -36,9 +36,9 @@ class Api::DetailedGuidesControllerTest < ActionController::TestCase
   end
 
   view_test "index paginates published detailed guides" do
-    presenter = Api::PagePresenter.new(Kaminari.paginate_array([]).page(1).per(1))
+    presenter = Api::PagePresenter.new(Kaminari.paginate_array([]).page(1).per(1), controller.view_context)
     presenter.stubs(:as_json).returns(paged: :representation)
-    Api::DetailedGuidePresenter.stubs(:paginate).with(DetailedGuide.published.alphabetical).returns(presenter)
+    Api::DetailedGuidePresenter.stubs(:paginate).with(DetailedGuide.published.alphabetical, anything).returns(presenter)
 
     get :index, format: 'json'
 
@@ -46,9 +46,9 @@ class Api::DetailedGuidesControllerTest < ActionController::TestCase
   end
 
   view_test "index includes _response_info in response" do
-    presenter = Api::PagePresenter.new(Kaminari.paginate_array([]).page(1).per(1))
+    presenter = Api::PagePresenter.new(Kaminari.paginate_array([]).page(1).per(1), controller.view_context)
     presenter.stubs(:as_json).returns(paged: :representation)
-    Api::DetailedGuidePresenter.stubs(:paginate).with(DetailedGuide.published.alphabetical).returns(presenter)
+    Api::DetailedGuidePresenter.stubs(:paginate).with(DetailedGuide.published.alphabetical, anything).returns(presenter)
 
     get :index, format: 'json'
 

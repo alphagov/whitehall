@@ -140,11 +140,11 @@ module ApplicationHelper
   end
 
   def link_to_person(person)
-    PersonPresenter.new(person).link
+    PersonPresenter.new(person, self).link
   end
 
   def image_for_person(person)
-    PersonPresenter.new(person).image
+    PersonPresenter.new(person, self).image
   end
 
   def render_list_of_roles(roles, class_name = "ministerial_roles", &block)
@@ -152,7 +152,7 @@ module ApplicationHelper
     content_tag(:ul, class: class_name) do
       roles.each do |role|
         li = content_tag_for(:li, role) do
-          block.call(RolePresenter.new(role)).html_safe
+          block.call(RolePresenter.new(role, self)).html_safe
         end.html_safe
         concat li
       end

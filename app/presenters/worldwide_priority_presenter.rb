@@ -1,6 +1,6 @@
-class WorldwidePriorityPresenter < Draper::Base
+class WorldwidePriorityPresenter < Whitehall::Decorators::Decorator
   include EditionPresenterHelper
 
-  decorates :worldwide_priority
+  delegate_instance_methods_of WorldwidePriority
 
 end

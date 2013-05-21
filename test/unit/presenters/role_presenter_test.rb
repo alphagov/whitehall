@@ -3,7 +3,7 @@ require 'test_helper'
 class RolePresenterTest < PresenterTestCase
   setup do
     @role = stub_translatable_record(:role_without_organisations)
-    @presenter = RolePresenter.decorate(@role)
+    @presenter = RolePresenter.new(@role, @view_context)
   end
 
   test 'path is the ministerial_role_path if role is ministerial' do
@@ -30,12 +30,12 @@ class RolePresenterTest < PresenterTestCase
 
   test 'current_person returns a PersonPresenter for the current appointee' do
     @role.stubs(:current_person).returns(stub_translatable_record(:person))
-    assert_equal @presenter.current_person, PersonPresenter.new(@role.current_person)
+    assert_equal @presenter.current_person, PersonPresenter.new(@role.current_person, @view_context)
   end
 
   test 'current_person returns a UnassignedPersonPresenter if there is no current appointee' do
     @role.stubs(:current_person).returns(nil)
-    assert_equal @presenter.current_person, RolePresenter::UnassignedPersonPresenter.new(nil)
+    assert_equal @presenter.current_person, RolePresenter::UnassignedPersonPresenter.new(nil, @view_context)
   end
 
   test 'responsibilities generates html from the original govspeak' do
@@ -46,7 +46,7 @@ class RolePresenterTest < PresenterTestCase
   test "#announcements returns 10 published speeches and news articles sorted by descending date" do
     organisation = stub_record(:organisation, organisation_type: stub_record(:ministerial_organisation_type))
     @role = stub_record(:ministerial_role, organisations: [organisation])
-    @presenter = RolePresenter.decorate(@role)
+    @presenter = RolePresenter.new(@role, @view_context)
 
     speech_1 = Speech.new
     speech_1.stubs(:public_timestamp).returns(1.days.ago)

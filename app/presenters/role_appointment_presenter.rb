@@ -1,4 +1,7 @@
-class RoleAppointmentPresenter < Draper::Base
+class RoleAppointmentPresenter < Whitehall::Decorators::Decorator
+
+  delegate_instance_methods_of RoleAppointment
+
   def role_link
     role.link
   end
@@ -8,11 +11,11 @@ class RoleAppointmentPresenter < Draper::Base
   end
 
   def role
-    @role ||= RolePresenter.decorate(model.role)
+    @role ||= RolePresenter.new(model.role, context)
   end
 
   def person
-    @person ||= PersonPresenter.decorate(model.person)
+    @person ||= PersonPresenter.new(model.person, context)
   end
 
   def date_range

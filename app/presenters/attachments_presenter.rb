@@ -55,10 +55,6 @@ class AttachmentsPresenter < Struct.new(:edition)
     end
   end
 
-  def initialize(*args)
-    super(*args)
-  end
-
   def attachments
     return @attachments if @attachments
     @attachments = edition.attachments.dup

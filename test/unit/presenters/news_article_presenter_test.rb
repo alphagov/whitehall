@@ -3,11 +3,9 @@ require 'test_helper'
 class NewsArticlePresenterTest < ActionView::TestCase
 
   setup do
-    Draper::ViewContext.current = @controller.view_context
-
     @organisation = create(:organisation, organisation_type: create(:organisation_type))
     @news_article = create(:news_article, organisations: [@organisation])
-    @presenter = NewsArticlePresenter.decorate(@news_article)
+    @presenter = NewsArticlePresenter.new(@news_article, @view_context)
   end
 
   test "lead_image_path returns the default image" do
@@ -26,7 +24,7 @@ class NewsArticlePresenterTest < ActionView::TestCase
                             default_news_image: image
                           )
     news_article = create(:news_article, organisations: [organisation])
-    presenter = NewsArticlePresenter.decorate(news_article)
+    presenter = NewsArticlePresenter.new(news_article, @view_context)
     assert_match organisation.default_news_image.file.url(:s300), presenter.lead_image_path
   end
 end
