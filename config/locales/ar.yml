@@ -29,6 +29,13 @@ ar:
         few:
         many:
         other: سياسات
+      topical_events:
+        zero:
+        one:
+        two:
+        few:
+        many:
+        other:
       topics:
         zero:
         one: موضوع

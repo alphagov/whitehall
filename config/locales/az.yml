@@ -51,6 +51,9 @@ az:
         one: siyasət
         other: siyasəti
       policy_team: siyasət komandası
+      topical_events:
+        one:
+        other:
       topics:
         one: mövzu
         other: mövzular

@@ -51,6 +51,9 @@ id:
         one: Kebijakan
         other: Kebijakan-kebijakan
       policy_team: Tim kebijakan
+      topical_events:
+        one:
+        other:
       topics:
         one: Topik
         other: Topik-topik

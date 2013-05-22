@@ -17,6 +17,10 @@ ro:
         one: Obiectiv strategic
         few:
         other: Obiective strategic
+      topical_events:
+        one:
+        few:
+        other:
       topics:
         one: Temă
         few:

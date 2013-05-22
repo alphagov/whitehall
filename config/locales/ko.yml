@@ -51,6 +51,9 @@ ko:
         one: 정책
         other: 정책
       policy_team: 정책팀
+      topical_events:
+        one:
+        other:
       topics:
         one: 토픽
         other: 토픽

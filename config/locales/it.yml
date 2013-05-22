@@ -13,6 +13,9 @@ it:
       policies:
         one: Politica
         other: Politiche
+      topical_events:
+        one:
+        other:
       topics:
         one: Argomento
         other: Argomenti

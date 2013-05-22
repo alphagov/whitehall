@@ -13,6 +13,9 @@ es:
       policies:
         one: Política
         other: Políticas
+      topical_events:
+        one:
+        other:
       topics:
         one: Tema
         other: Temas
