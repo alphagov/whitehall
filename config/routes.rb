@@ -67,8 +67,8 @@ Whitehall::Application.routes.draw do
     end
     resources :news_articles, path: 'news', only: [:show], localised: true
     resources :fatality_notices, path: 'fatalities', only: [:show]
-    get "/news" => redirect("/announcements")
-    get "/fatalities" => redirect("/announcements")
+    get "/news" => redirect("/announcements"), as: 'news_articles'
+    get "/fatalities" => redirect("/announcements"), as: 'fatality_notices'
 
     resources :publications, only: [:index, :show], localised: true
     get "/publications/:publication_id/:id" => 'html_versions#show', as: 'publication_html_version'
