@@ -99,15 +99,6 @@ class DocumentsControllerTest < ActionController::TestCase
     assert_response :not_found
   end
 
-  test "requests for documents in the default locale should redirect to the canonical URL that excludes the locale to avoid serving duplicate content on multiple URLs" do
-    edition = create(:draft_edition)
-    edition.publish_as(create(:departmental_editor), force: true)
-
-    get :show, id: edition.document, locale: 'en'
-
-    assert_redirected_to public_document_path(edition)
-  end
-
   test "requests for documents in a locale it is translated into should respond successfully" do
     edition = create(:draft_edition, translated_into: 'fr')
     edition.publish_as(create(:departmental_editor), force: true)

@@ -45,7 +45,13 @@ class FeaturePresenter < Struct.new(:feature)
     if topical_event
       Whitehall.url_maker.topical_event_path(topical_event)
     else
-      Whitehall.url_maker.public_document_path(edition, locale: feature.locale)
+      if edition.translatable?
+        Whitehall.url_maker.public_document_path(edition, locale: feature.locale)
+      else
+        ::I18n.with_locale Locale::ENGLISH_LOCALE_CODE do
+          Whitehall.url_maker.public_document_path(edition)
+        end
+      end
     end
   end
 
