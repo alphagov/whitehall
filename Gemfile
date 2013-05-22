@@ -7,7 +7,7 @@ gem 'rails', '3.2.13'
 gem 'mysql2'
 gem 'jquery-rails'
 gem 'transitions', require: ['transitions', 'active_record/transitions']
-gem 'carrierwave'
+gem 'carrierwave', '0.6.1'
 gem 'govspeak', '~> 1.2.3'
 gem 'kramdown', '~> 0.13.8'
 gem 'validates_email_format_of'
