@@ -17,6 +17,10 @@ cs:
         one: Politika
         few:
         other: Politiky
+      topical_events:
+        one:
+        few:
+        other:
       topics:
         one: Téma
         few:

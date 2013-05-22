@@ -51,6 +51,9 @@ zh:
         one: 政策
         other: 政策
       policy_team: 政策团队
+      topical_events:
+        one:
+        other:
       topics:
         one: 主题
         other: 主题

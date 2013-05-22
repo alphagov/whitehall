@@ -29,6 +29,10 @@
         <dt><%= t('document.headings.topics', count: topics.length) %>:</dt>
         <dd class="js-hide-other-links"><%= list_of_links_to_topics(topics) %></dd>
       <% end %>
+      <% if document.respond_to?(:topical_events) && document.topical_events.any? %>
+        <dt><%= t('document.headings.topical_events', count: document.topical_events.length) %>:</dt>
+        <dd class="js-hide-other-links"><%= list_of_links_to_topical_events(document.topical_events) %></dd>
+      <% end %>
       <% if !(document.respond_to?(:statistics?) && document.statistics?) %>
         <% if document.respond_to?(:ministerial_roles) && document.ministerial_roles.any? %>
           <dt><%= t('document.headings.ministers', count: document.ministerial_roles) %>:</dt>

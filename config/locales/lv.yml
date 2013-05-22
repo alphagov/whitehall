@@ -13,6 +13,9 @@ lv:
       policies:
         one: Plāns
         other: Politika
+      topical_events:
+        one:
+        other:
       topics:
         one: Tēma
         other: Tēmas

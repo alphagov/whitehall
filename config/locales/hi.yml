@@ -13,6 +13,9 @@ hi:
       policies:
         one:
         other:
+      topical_events:
+        one:
+        other:
       topics:
         one:
         other:

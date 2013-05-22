@@ -29,6 +29,13 @@ cy:
         few:
         many:
         other: Polisïau
+      topical_events:
+        zero:
+        one:
+        two:
+        few:
+        many:
+        other:
       topics:
         zero:
         one: Pwnc

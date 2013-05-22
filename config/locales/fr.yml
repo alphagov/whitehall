@@ -13,6 +13,9 @@ fr:
       policies:
         one: Priorité politique
         other: ! 'Priorités politiques '
+      topical_events:
+        one:
+        other:
       topics:
         one: Sujet
         other: Sujets

@@ -13,6 +13,9 @@ hy:
       policies:
         one: Քաղաքականություն
         other: Քաղաքականություններ
+      topical_events:
+        one:
+        other:
       topics:
         one: Թեմա
         other: Թեմաներ
