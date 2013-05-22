@@ -1,6 +1,7 @@
 class AnnouncementsController < PublicFacingController
   include CacheControlHelper
 
+  before_filter :redirect_to_canonical_url
   respond_to :html, :json
   respond_to :atom, only: :index
 
@@ -34,6 +35,13 @@ class AnnouncementsController < PublicFacingController
   end
 
 private
+
+  def redirect_to_canonical_url
+    if request.query_parameters[:locale] == 'en'
+      redir_params = request.symbolized_path_parameters.merge(request.query_parameters).symbolize_keys.except(:locale)
+      redirect_to url_for(redir_params)
+    end
+  end
 
   def build_document_filter(params)
     document_filter = search_backend.new(params)

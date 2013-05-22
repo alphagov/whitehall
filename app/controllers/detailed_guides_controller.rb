@@ -37,4 +37,10 @@ private
     set_slimmer_artefact breadcrumb_trail if breadcrumb_trail.valid?
   end
 
+  def canonical_redirect_path(redir_params)
+    # There's no index for detailed guides, so we don't need to worry
+    # about this complaing about a lack of id
+    detailed_guide_url(redir_params.except(:controller, :action))
+  end
+
 end
