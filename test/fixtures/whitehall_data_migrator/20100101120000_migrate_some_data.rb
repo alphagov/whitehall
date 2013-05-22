@@ -1,1 +1,1 @@
-MyData.migrate!
+Whitehall::DataMigratorTest::MyData.migrate!
