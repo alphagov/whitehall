@@ -2,8 +2,8 @@ class DocumentsController < PublicFacingController
   include CacheControlHelper
   include PublicDocumentRoutesHelper
 
-  before_filter :find_document, only: [:show]
   before_filter :redirect_to_canonical_url
+  before_filter :find_document, only: [:show]
 
   private
 
@@ -50,7 +50,19 @@ class DocumentsController < PublicFacingController
     Edition
   end
 
+  # See test/integration/document_locale_param_canonicalization_test
+  # for tests for this.  Functional test won't cut it as we can't inject
+  # locale: 'en' to query_parameters (it gets swallowed by the .:locale in
+  # the route and so ends up in path_parameters).
   def redirect_to_canonical_url
-    redirect_to public_document_path(@document) if request.query_parameters[:locale] == 'en'
+    if request.query_parameters[:locale] == 'en'
+      redir_params = request.symbolized_path_parameters.merge(request.query_parameters).symbolize_keys.except(:locale)
+      redirect_to canonical_redirect_path(redir_params)
+    end
   end
+  def canonical_redirect_path(redir_params)
+    url_for(redir_params)
+  end
+
+
 end
