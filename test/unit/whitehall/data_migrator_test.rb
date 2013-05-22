@@ -1,12 +1,12 @@
 require 'test_helper'
 
-class MyData
-  def self.migrate!
-  end
-end
-
 module Whitehall
   class DataMigratorTest < ActiveSupport::TestCase
+
+    class MyData
+      def self.migrate!
+      end
+    end
 
     setup do
       @logger = stub_everything("Logger")
