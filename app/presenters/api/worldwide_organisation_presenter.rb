@@ -1,12 +1,4 @@
-class Api::WorldwideOrganisationPresenter < Struct.new(:model, :context)
-  class << self
-    def paginate(collection, view_context)
-      page = Api::Paginator.paginate(collection, view_context.params)
-      presented = page.map { |item| new(item, view_context) }
-      Api::PagePresenter.new(presented, view_context)
-    end
-  end
-
+class Api::WorldwideOrganisationPresenter < Api::BasePresenter
   def as_json(options = {})
     {
       id: context.api_worldwide_organisation_url(model),
