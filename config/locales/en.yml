@@ -87,6 +87,9 @@ en:
       topics:
         one: Topic
         other: Topics
+      topical_events:
+        one: Topical event
+        other: Topical events
       ministers:
         one: Minister
         other: Ministers

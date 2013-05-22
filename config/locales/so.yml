@@ -13,6 +13,9 @@ so:
       policies:
         one: Siyaasad
         other: Siyaasado
+      topical_events:
+        one:
+        other:
       topics:
         one: Mowduuc
         other: Mowduucyo

@@ -51,6 +51,9 @@ tr:
         one: Politika
         other: ! 'Politikalar '
       policy_team: Politika Ekibi
+      topical_events:
+        one:
+        other:
       topics:
         one: Konu
         other: Konular
