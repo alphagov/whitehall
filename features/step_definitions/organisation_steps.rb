@@ -80,6 +80,30 @@ Given /^I set the alternative format contact email of "([^"]*)" to "([^"]*)"$/ d
   click_button "Save"
 end
 
+When /^I add a new organisation called "([^"]*)"$/ do |organisation_name|
+  TopicalEvent.create(name: 'Jazz Bizniz', description: "test", start_date: Date.today, end_date: Date.today + 2.months)
+  visit new_admin_organisation_path
+  fill_in 'Name', with: organisation_name
+  fill_in 'Acronym', with: organisation_name.split(' ').collect {|word| word.chars.first }.join
+  fill_in 'Logo formatted name', with: organisation_name
+  fill_in 'Description', with: 'Not important'
+  select 'Ministerial department', from: 'Organisation type'
+  select 'Jazz Bizniz', from: 'organisation_topic_ids_0'
+  within '.mainstream-links' do
+    fill_in 'Title', with: 'Mainstream link 1'
+    fill_in 'Url', with: 'http://mainstream.co.uk'
+  end
+  click_button 'Save'
+end
+
+Then /^I should be able to see "([^"]*)" in the list of organisations$/ do |organisation_name|
+  organisation = Organisation.find_by_name!(organisation_name)
+  within record_css_selector(organisation) do
+    assert page.has_content?(organisation_name)
+  end
+end
+
+
 When /^I visit the "([^"]*)" organisation$/ do |name|
   visit_organisation name
 end
