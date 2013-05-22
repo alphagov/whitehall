@@ -42,7 +42,7 @@ module Edition::AuditTrail
   end
 
   def document_audit_trail
-    document.editions.order("created_at asc").map.with_index do |edition, i|
+    document.editions.includes(versions: [:user], editorial_remarks: [:author]).order("created_at asc").map.with_index do |edition, i|
       edition.edition_audit_trail(i)
     end.flatten
   end
@@ -110,11 +110,7 @@ module Edition::AuditTrail
     end
 
     def actor
-      if User.exists?(version.whodunnit)
-        User.find(version.whodunnit)
-      else
-        nil # for deleted users
-      end
+      version.user
     end
   end
 
