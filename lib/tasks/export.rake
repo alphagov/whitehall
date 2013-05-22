@@ -68,7 +68,6 @@ namespace :export do
         org.published_editions.each do |edition|
           csv << [
             org.display_name,
-            # edition.slug,
             routes_helper.public_document_url(edition, host: PUBLIC_HOST, protocol: "https"),
             routes_helper.admin_edition_url(edition, host: ADMIN_HOST, protocol: "https"),
             edition.title
@@ -77,7 +76,6 @@ namespace :export do
         org.mainstream_links.each do |link|
           csv << [
             org.display_name,
-            # edition.slug,
             link.url,
             "",
             link.title
