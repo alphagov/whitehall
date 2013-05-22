@@ -74,6 +74,15 @@ namespace :export do
             edition.title
           ]
         end
+        org.mainstream_links.each do |link|
+          csv << [
+            org.display_name,
+            # edition.slug,
+            link.url,
+            "",
+            link.title
+          ]
+        end
       end
     end
   end
