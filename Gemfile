@@ -5,7 +5,7 @@ gem 'delayed_job_active_record'
 gem 'statsd-ruby', '1.0.0', require: "statsd"
 gem 'rails', '3.2.13'
 gem 'mysql2'
-gem 'jquery-rails'
+gem 'jquery-rails', "1.0.19"
 gem 'transitions', require: ['transitions', 'active_record/transitions']
 gem 'carrierwave', '0.6.1'
 gem 'govspeak', '~> 1.2.3'

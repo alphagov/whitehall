@@ -396,7 +396,7 @@ DEPENDENCIES
   govuk_frontend_toolkit (= 0.19.2)
   hash_syntax
   isbn_validation
-  jquery-rails
+  jquery-rails (= 1.0.19)
   kaminari
   kramdown (~> 0.13.8)
   launchy (~> 2.0.5)
