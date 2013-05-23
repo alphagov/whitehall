@@ -16,7 +16,7 @@ module AdminEditionControllerScheduledPublishingTestHelpers
       view_test "new displays scheduled_publication date and time fields" do
         get :new
 
-        assert_select "form#edition_new" do
+        assert_select "form#new_edition" do
           assert_select "input[type=checkbox][name='scheduled_publication_active']"
           assert_select "select[name*='edition[scheduled_publication']", count: 5
         end
@@ -98,7 +98,7 @@ module AdminEditionControllerScheduledPublishingTestHelpers
 
         get :edit, id: edition
 
-        assert_select "form#edition_edit" do
+        assert_select "form#edit_edition" do
           assert_select "input[type=checkbox][name='scheduled_publication_active'][checked='checked']"
           assert_select "select[name='edition[scheduled_publication(1i)]'] option[value='2060'][selected='selected']"
           assert_select "select[name='edition[scheduled_publication(2i)]'] option[value='6'][selected='selected']"
@@ -115,7 +115,7 @@ module AdminEditionControllerScheduledPublishingTestHelpers
           get :edit, id: edition
         end
 
-        assert_select "form#edition_edit" do
+        assert_select "form#edit_edition" do
           assert_select "input[type=checkbox][name='scheduled_publication_active']"
           assert_select "input[type=checkbox][name='scheduled_publication_active'][checked='checked']", count: 0
           assert_select "select[name='edition[scheduled_publication(1i)]'] option[value='2012'][selected='selected']"

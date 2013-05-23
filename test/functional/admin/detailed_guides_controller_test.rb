@@ -35,7 +35,7 @@ class Admin::DetailedGuidesControllerTest < ActionController::TestCase
 
     get :new
 
-    assert_select "form#edition_new[action='#{admin_detailed_guides_path}']" do
+    assert_select "form#new_edition[action='#{admin_detailed_guides_path}']" do
       assert_select "select[name='edition[primary_mainstream_category_id]']" do
         assert_select "optgroup[label='#{funk.parent_title}']" do
           assert_select "option[value='#{funk.id}']", funk.title
@@ -43,7 +43,7 @@ class Admin::DetailedGuidesControllerTest < ActionController::TestCase
       end
     end
 
-    assert_select "form#edition_new[action='#{admin_detailed_guides_path}']" do
+    assert_select "form#new_edition[action='#{admin_detailed_guides_path}']" do
       assert_select "select[name='edition[other_mainstream_category_ids][]']" do
         assert_select "optgroup[label='#{funk.parent_title}']" do
           assert_select "option[value='#{funk.id}']", funk.title
