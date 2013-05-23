@@ -1,0 +1,245 @@
+(function () {
+  "use strict"
+  var root = this,
+      $ = root.jQuery;
+
+  if(typeof root.GOVUK === 'undefined') { root.GOVUK = {}; }
+
+  var autoCompleter = {
+    active: false,
+    activeSelector: 0,
+    lastValue: '',
+    suggestions: [],
+    allSuggestions: false,
+    maxOptions: 7,
+    types: {
+      contacts: {
+        match: /(^|\s)(\[Contact:([^\]]*))$/i,
+        replace: "$1[Contact:$value] "
+      }
+    },
+    init: function(id){
+      autoCompleter.$textarea = $(id);
+      autoCompleter.textarea = autoCompleter.$textarea[0];
+      autoCompleter.$textarea.on('keyup', autoCompleter.onKeyUp);
+      autoCompleter.$textarea.on('focus', autoCompleter.loadSuggestions);
+
+      autoCompleter.$selector = $('<ol id="auto-complete-selector"></ol>');
+      $('body').append(autoCompleter.$selector);
+    },
+    loadSuggestions: function(){
+      if(autoCompleter.allSuggestions === false){
+        $.ajax({
+          url: '/government/admin/suggestions.json',
+          success: function(data){
+            autoCompleter.allSuggestions = data;
+          }
+        });
+      }
+    },
+    onKeyUp: function(e){
+      autoCompleter.checkText();
+    },
+    checkText: function(){
+      var match = autoCompleter.getMatch(),
+          suggestions;
+
+      if(match){
+        if(match.changed){
+          autoCompleter.match = match;
+          autoCompleter.suggestions = autoCompleter.search(match.type, match.query);
+          autoCompleter.show();
+          autoCompleter.displayOptions();
+        }
+      } else {
+        autoCompleter.hide();
+      }
+    },
+    getMatch: function(){
+      var position = autoCompleter.selectionEnd(),
+          value = autoCompleter.textarea.value.substring(0, position),
+          type, match;
+
+      if(autoCompleter.lastValue === value){
+        return { changed: false };
+      }
+      autoCompleter.lastValue = value;
+
+      for(type in autoCompleter.types){
+        if(match = value.match(autoCompleter.types[type].match)){
+          return { changed: true, type: type, match: match[2], query: match[3], position: position };
+        }
+      }
+      return false;
+    },
+    search: function(type, query){
+      var options = [],
+          i, _i, j, _j, id, title, summary, queryParts, partsMatch = false;
+
+      query = query.toLowerCase();
+      queryParts = query.split(/\s+/);
+      for(i=0,_i=autoCompleter.allSuggestions[type].length; i<_i; i++){
+        id = ("" + autoCompleter.allSuggestions[type][i].id).toLowerCase();
+        title = autoCompleter.allSuggestions[type][i].title.toLowerCase();
+        summary = autoCompleter.allSuggestions[type][i].summary.toLowerCase();
+        partsMatch = true;
+        for(j=0,_j=queryParts.length; j<_j; j++){
+          if(id.indexOf(queryParts[j]) === -1 && title.indexOf(queryParts[j]) === -1 && summary.indexOf(queryParts[j]) === -1){
+            partsMatch = false;
+          }
+        }
+        if(partsMatch){
+          options.push(autoCompleter.allSuggestions[type][i]);
+        }
+      }
+      return options;
+    },
+    displayOptions: function(){
+      var options = [],
+          i, _i;
+
+      autoCompleter.selectorCount = autoCompleter.suggestions.length > autoCompleter.maxOptions ? autoCompleter.maxOptions : autoCompleter.suggestions.length;
+      for(i=0, _i=autoCompleter.selectorCount; i<_i; i++){
+        options.push("<li><em>"+ autoCompleter.suggestions[i].title +"</em> <span>"+  autoCompleter.suggestions[i].summary +" - "+ autoCompleter.suggestions[i].id +"</span></li>");
+      }
+      autoCompleter.$selector.html(options.join(''));
+      autoCompleter.setActiveSelection(0);
+    },
+    setActiveSelection: function(n){
+      var active = autoCompleter.$selector.find('li');
+      active.removeClass('active');
+      active.filter('li:eq('+ n +')').addClass('active');
+
+      autoCompleter.activeSelector = n;
+    },
+    show: function(){
+      if(autoCompleter.active){
+        return true;
+      }
+      autoCompleter.active = true;
+      autoCompleter.$selector.addClass('active');
+      var position = autoCompleter.caretPosition();
+      autoCompleter.$selector.css({
+        left: position.left,
+        top: position.top
+      });
+      autoCompleter.$textarea.on('keydown', autoCompleter.navigate);
+      autoCompleter.$selector.on('click', autoCompleter.mouseClick);
+      autoCompleter.$selector.on('mouseover', 'li', autoCompleter.mouseMove)
+    },
+    hide: function(){
+      if(!autoCompleter.active){
+        return true;
+      }
+      autoCompleter.active = false;
+      autoCompleter.$selector.removeClass('active');
+      autoCompleter.$textarea.off('keydown', autoCompleter.navigate)
+      autoCompleter.$selector.off('click', autoCompleter.mouseClick)
+      autoCompleter.$selector.off('mouseover', 'li', autoCompleter.mouseMove)
+    },
+    navigate: function(e){
+      if(e.which === 38){
+        e.preventDefault()
+        autoCompleter.navigateUp();
+      } else if (e.which === 40){
+        e.preventDefault()
+        autoCompleter.navigateDown();
+      } else if (e.which === 13 || e.which === 9){
+        e.preventDefault()
+        autoCompleter.navigateEnter();
+      }
+    },
+    mouseMove: function(e){
+      var $target = $(e.target);
+      autoCompleter.setActiveSelection(autoCompleter.$selector.find('li').index($target.closest('li')));
+    },
+    mouseClick: function(e){
+      autoCompleter.navigateEnter();
+    },
+    navigateUp: function(){
+      if(autoCompleter.active && autoCompleter.activeSelector - 1 > -1){
+        autoCompleter.setActiveSelection(autoCompleter.activeSelector - 1);
+      }
+    },
+    navigateDown: function(){
+      if(autoCompleter.active && autoCompleter.activeSelector + 1 < autoCompleter.selectorCount){
+        autoCompleter.setActiveSelection(autoCompleter.activeSelector + 1);
+      }
+    },
+    navigateEnter: function(){
+      if(autoCompleter.active){
+        var start = autoCompleter.textarea.value.substring(0, autoCompleter.match.position),
+            end = autoCompleter.textarea.value.substring(autoCompleter.match.position),
+
+        start = start.replace(/\r\n/g, "\n");
+        start = start.replace(autoCompleter.types[autoCompleter.match.type].match, autoCompleter.types[autoCompleter.match.type].replace.replace("$value", autoCompleter.suggestions[autoCompleter.activeSelector].id));
+        autoCompleter.textarea.value = start + end;
+        autoCompleter.selectionEnd(start.length);
+        autoCompleter.hide();
+      }
+    },
+    caretPosition: function(){
+      var $tmp = $('<div>'),
+          $tmpCaret = $('<span>'),
+          caretPosition,
+          textareaPosition;
+
+      $tmp.css({
+        position: 'relative',
+        height: 'auto',
+        width: autoCompleter.$textarea.css('width'),
+        'font-size': autoCompleter.$textarea.css('font-size'),
+        'font-family': autoCompleter.$textarea.css('font-family'),
+        padding: autoCompleter.$textarea.css('padding'),
+        'line-height': autoCompleter.$textarea.css('line-height')
+      });
+      $tmp.text(autoCompleter.textarea.value.substring(0, autoCompleter.match.position).replace(/\n/g, "<br>"));
+      $tmp.append($tmpCaret);
+      $('body').append($tmp);
+      caretPosition = $tmpCaret.position();
+      textareaPosition = autoCompleter.$textarea.offset();
+      $tmp.remove();
+      return {
+        top: caretPosition.top + textareaPosition.top - autoCompleter.$textarea.scrollTop(),
+        left: caretPosition.left + textareaPosition.left
+      };
+    },
+    selectionEnd: function(pos){
+      var range, textInputRange;
+
+      if(typeof pos !== 'undefined'){
+        if (typeof autoCompleter.textarea.selectionEnd == "number") {
+          autoCompleter.textarea.selectionEnd = pos;
+        } else {
+          textInputRange = autoCompleter.textarea.createTextRange();
+
+          textInputRange.collapse(true);
+
+          textInputRange.moveStart('character', pos);
+          textInputRange.collapse(true);
+          textInputRange.moveEnd('character', pos);
+          textInputRange.collapse(true);
+
+          textInputRange.select();
+        }
+      } else {
+        if (typeof autoCompleter.textarea.selectionEnd == "number") {
+          return autoCompleter.textarea.selectionEnd;
+        } else {
+          range = document.selection.createRange().duplicate();
+
+          textInputRange = autoCompleter.textarea.createTextRange();
+          textInputRange.moveToBookmark(range.getBookmark());
+
+          textInputRange.moveStart('character', -autoCompleter.textarea.value.length);
+          return textInputRange.text.length;
+        }
+      }
+    }
+  };
+  root.GOVUK.autoCompleter = autoCompleter;
+
+  $(function(){
+   root.GOVUK.autoCompleter.init('.previewable');
+  });
+}).call(this);

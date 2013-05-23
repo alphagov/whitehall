@@ -15,6 +15,18 @@ class Contact < ActiveRecord::Base
   extend HomePageList::ContentItem
   is_stored_on_home_page_lists
 
+  def contactable_name
+    if contactable.is_a? WorldwideOffice
+      contactable.worldwide_organisation.name
+    else
+      if contactable.acronym.present?
+        contactable.acronym
+      else
+        contactable.name
+      end
+    end
+  end
+
   def has_postal_address?
     recipient.present? || street_address.present? || locality.present? ||
       region.present? || postal_code.present? || country_id.present?
