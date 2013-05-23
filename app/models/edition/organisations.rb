@@ -47,6 +47,10 @@ module Edition::Organisations
     organisations.where(edition_organisations: { lead: true }).reorder('edition_organisations.lead_ordering')
   end
 
+  def sorted_organisations
+    organisations.alphabetical
+  end
+
   def lead_organisations=(new_lead_organisations)
     self.lead_organisation_ids = new_lead_organisations.map(&:id)
   end

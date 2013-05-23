@@ -16,11 +16,11 @@
     <span class="person"><%= @edition.person_override %></span>
     <br/>
     Organisation:
-    <span class="organisations"><%= @edition.organisations.alphabetical.map {|o| link_to(o.name, o)}.to_sentence.html_safe %></span>
+    <span class="organisations"><%= @edition.sorted_organisations.map {|o| link_to(o.name, o)}.to_sentence.html_safe %></span>
   <% else %>
   <br/>
     Organisation:
-    <span class="organisations"><%= @edition.organisations.alphabetical.map {|o| link_to(o.name, o)}.to_sentence.html_safe %></span>
+    <span class="organisations"><%= @edition.sorted_organisations.map {|o| link_to(o.name, o)}.to_sentence.html_safe %></span>
   <% end %>
   <br/>
     Delivered on
