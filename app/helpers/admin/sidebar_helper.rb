@@ -12,7 +12,8 @@ module Admin::SidebarHelper
       if editing
         tabs[:govspeak_help] = "Formatting Help"
       end
-      tabs[:history] = ["History & Notes", @edition.document_audit_trail.length]
+      tabs[:notes] = ["Notes", @edition.document_remarks_trail.length]
+      tabs[:history] = ["History", @edition.document_version_trail.length]
       if @edition.can_be_fact_checked?
         tabs[:fact_checking] = ["Fact checking", @edition.all_completed_fact_check_requests.count]
       end
