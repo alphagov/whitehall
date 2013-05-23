@@ -7,13 +7,14 @@ module Admin::SidebarHelper
     end
   end
 
-  def edition_tabs(edition, editing=false)
+  def edition_tabs(edition, options={})
+    options = {editing: false, history_count: 0, remarks_count: 0}.merge(options)
     {}.tap do |tabs|
-      if editing
+      if options[:editing]
         tabs[:govspeak_help] = "Formatting Help"
       end
-      tabs[:notes] = ["Notes", @edition.document_remarks_trail.length]
-      tabs[:history] = ["History", @edition.document_version_trail.length]
+      tabs[:notes] = ["Notes", options[:remarks_count]]
+      tabs[:history] = ["History", options[:history_count]]
       if @edition.can_be_fact_checked?
         tabs[:fact_checking] = ["Fact checking", @edition.all_completed_fact_check_requests.count]
       end

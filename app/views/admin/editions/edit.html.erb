@@ -31,16 +31,29 @@
   </div>
 
   <div class="span4">
-    <%= sidebar_tabs edition_tabs(@edition, true) do |tabs| %>
+    <%= sidebar_tabs edition_tabs(@edition, remarks_count: @edition_remarks.length, history_count: @edition_history.total_count, editing: true) do |tabs| %>
       <%= tabs.pane class: "govspeak_help", id: "govspeak_help" do %>
         <%= render partial: "govspeak_help" %>
       <% end %>
-      <%= tabs.pane class: "audit-trail", id: "history" do %>
-        <h1>Activity</h1>
+
+      <%= tabs.pane class: "audit-trail", id: "notes" do %>
+        <h1>Notes</h1>
         <p>To add a remark, save your changes.</p>
+        <%= link_to "Add new remark", new_admin_edition_editorial_remark_path(@edition), class: "btn add-remark" %>
         <ul>
-        <%= render :partial => "audit_trail_entry", :collection => @edition.document_audit_trail.reverse %>
+          <%= render partial: "audit_trail_entry", collection: @edition_remarks %>
         </ul>
+      <% end %>
+
+      <%= tabs.pane class: "audit-trail", id: "history" do %>
+        <div class="audit-trail-page">
+          <h1>Activity</h1>
+          <%= paginate @edition_history, theme: 'audit_trail' %>
+          <ul>
+            <%= render partial: "audit_trail_entry", collection: @edition_history %>
+          </ul>
+          <%= paginate @edition_history, theme: 'audit_trail' %>
+        </div>
       <% end %>
 
       <% if @edition.can_be_fact_checked? %>

@@ -31,20 +31,24 @@
       <%= render partial: 'speech_details' %>
     <% end %>
 
-    <%= sidebar_tabs edition_tabs(@edition) do |tabs| %>
+    <%= sidebar_tabs edition_tabs(@edition, remarks_count: @edition_remarks.length, history_count: @edition_history.total_count) do |tabs| %>
       <%= tabs.pane class: "audit-trail", id: "notes" do %>
         <h1>Notes</h1>
         <%= link_to "Add new remark", new_admin_edition_editorial_remark_path(@edition), class: "btn add-remark" %>
         <ul>
-          <%= render partial: "audit_trail_entry", collection: @edition.document_remarks_trail.reverse %>
+          <%= render partial: "audit_trail_entry", collection: @edition_remarks %>
         </ul>
       <% end %>
 
       <%= tabs.pane class: "audit-trail", id: "history" do %>
-        <h1>Activity</h1>
-        <ul>
-          <%= render partial: "audit_trail_entry", collection: @edition.document_version_trail.reverse %>
-        </ul>
+        <div class="audit-trail-page">
+          <h1>Activity</h1>
+          <%= paginate @edition_history, theme: 'audit_trail' %>
+          <ul>
+            <%= render partial: "audit_trail_entry", collection: @edition_history %>
+          </ul>
+          <%= paginate @edition_history, theme: 'audit_trail' %>
+        </div>
       <% end %>
 
       <% if @edition.can_be_fact_checked? %>
