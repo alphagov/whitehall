@@ -62,7 +62,7 @@ module DocumentFilterHelper
   end
 
   def all_organisations_with(type)
-    Organisation.joins(:"published_#{type.to_s.pluralize}").group(:name).includes(:translations)
+    Organisation.joins(:"published_#{type.to_s.pluralize}").group('organisation_translations.name').includes(:translations)
   end
 
   def publication_types_for_filter

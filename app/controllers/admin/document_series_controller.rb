@@ -16,7 +16,7 @@ class Admin::DocumentSeriesController < Admin::BaseController
   end
 
   def index
-    @document_series = DocumentSeries.includes(:organisation).order("organisations.name, document_series.name")
+    @document_series = DocumentSeries.with_translations_for(:organisation).order("organisation_translations.name, document_series.name")
   end
 
   def show

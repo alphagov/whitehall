@@ -3,7 +3,7 @@ class Admin::GroupsController < Admin::BaseController
   before_filter :load_group, only: [:edit, :update, :destroy]
 
   def index
-    @groups = Group.includes(:organisation).order("organisations.name, groups.name")
+    @groups = Group.with_translations_for(:organisation).order("organisation_translations.name, groups.name")
   end
 
   def new
