@@ -17,4 +17,8 @@ module Admin::AuditTrailHelper
     html << " ".html_safe
     html << absolute_time(entry.created_at, class: "created_at")
   end
+
+  def paginated_audit_trail_url(page)
+    url_for(params.merge(controller: 'admin/edition_audit_trail', action: 'index', page: ((page <= 1) ? nil : page)))
+  end
 end

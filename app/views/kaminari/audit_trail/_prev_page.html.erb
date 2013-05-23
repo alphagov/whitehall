@@ -7,4 +7,4 @@
     remote:        data-remote
 -%>
 <% text = "<< Newer".html_safe %>
-<li class="previous"><%= link_to_unless current_page.first?, text, url %></li>
+<li class="previous"><%= link_to_unless current_page.first?, text, url, data: {'remote-pagination' => paginated_audit_trail_url(current_page - 1) } %></li>

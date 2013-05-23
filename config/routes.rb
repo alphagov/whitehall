@@ -200,6 +200,7 @@ Whitehall::Application.routes.draw do
             post :schedule, to: 'edition_workflow#schedule'
             post :unschedule, to: 'edition_workflow#unschedule'
             post :convert_to_draft, to: 'edition_workflow#convert_to_draft'
+            get :audit_trail, to: 'edition_audit_trail#index'
           end
           resources :supporting_pages, path: "supporting-pages", except: [:index, :show]
           resources :translations, controller: "edition_translations", except: [:index, :show]

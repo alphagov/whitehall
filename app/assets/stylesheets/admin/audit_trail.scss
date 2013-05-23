@@ -43,3 +43,8 @@
     }
   }
 }
+.audit-trail-page.loading {
+  nav {
+    background: transparent image-url("loading-2b2c2d.gif") no-repeat 50% 0%;
+  }
+}
