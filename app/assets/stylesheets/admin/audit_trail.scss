@@ -5,6 +5,10 @@
     margin-bottom: 1em;
   }
 
+  h2 {
+    @include type-21;
+  }
+
   ul {
     margin-left: 0;
 
