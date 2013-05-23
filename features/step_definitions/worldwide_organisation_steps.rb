@@ -34,7 +34,6 @@ end
 Then /^I should see the(?: updated)? worldwide organisation information on the public website$/ do
   worldwide_organisation = WorldwideOrganisation.last
   visit worldwide_organisation_path(worldwide_organisation)
-  assert page.has_content?(worldwide_organisation.logo_formatted_name)
   assert page.has_css?(".description strong", text: "organisation")
   assert page.has_css?("#our-services h2", text: 'Passport renewals')
 end
