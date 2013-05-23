@@ -75,4 +75,12 @@ class Edition::OrganisationsTest < ActiveSupport::TestCase
     end
   end
 
+  test '#sorted_organisations returns organisations in alphabetical order' do
+    organisation_1 = create(:organisation, name: 'Ministry of Jazz')
+    organisation_2 = create(:organisation, name: 'Free Jazz Foundation')
+    organisation_3 = create(:organisation, name: 'Jazz Bizniz')
+    edition = create(:published_news_article, lead_organisations: [organisation_3, organisation_1], supporting_organisations: [organisation_2])
+
+    assert_equal [organisation_2, organisation_3, organisation_1], edition.sorted_organisations
+  end
 end

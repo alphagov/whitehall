@@ -208,8 +208,6 @@ class Organisation < ActiveRecord::Base
 
   include Featurable
 
-  default_scope order(arel_table[:name])
-
   searchable title: :select_name,
              link: :search_link,
              content: :indexable_content,
@@ -233,6 +231,10 @@ class Organisation < ActiveRecord::Base
 
   def organisation_logo_type=(organisation_logo_type)
     self.organisation_logo_type_id = organisation_logo_type && organisation_logo_type.id
+  end
+
+  def self.alphabetical(locale = I18n.locale)
+    with_translations(locale).order('organisation_translations.name ASC')
   end
 
   def self.ordered_by_name_ignoring_prefix

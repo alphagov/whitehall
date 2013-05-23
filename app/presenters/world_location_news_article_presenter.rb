@@ -8,6 +8,10 @@ class WorldLocationNewsArticlePresenter < Whitehall::Decorators::Decorator
     @orgs ||= model.worldwide_organisations.map { |wo| WorldwideOrganisationPresenter.new(wo, context) }
   end
 
+  def sorted_organisations
+    organisations.sort_by {|wo| wo.name }
+  end
+
   def lead_organisations
     []
   end
