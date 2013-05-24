@@ -144,6 +144,9 @@ class Organisation < ActiveRecord::Base
   has_many :topics, through: :organisation_classifications, order: 'organisation_classifications.ordering'
   has_many :classifications, through: :organisation_classifications
 
+  has_many :organisation_mainstream_categories, dependent: :destroy, order: 'organisation_mainstream_categories.ordering', inverse_of: :organisation
+  has_many :mainstream_categories, through: :organisation_mainstream_categories, order: 'organisation_mainstream_categories.ordering'
+
   has_many :users, dependent: :nullify
 
   has_many :organisation_mainstream_links,
@@ -189,6 +192,7 @@ class Organisation < ActiveRecord::Base
   accepts_nested_attributes_for :organisation_roles
   accepts_nested_attributes_for :edition_organisations
   accepts_nested_attributes_for :organisation_classifications, reject_if: -> attributes { attributes['classification_id'].blank? }, allow_destroy: true
+  accepts_nested_attributes_for :organisation_mainstream_categories, reject_if: -> attributes { attributes['mainstream_category_id'].blank? }, allow_destroy: true
 
   validates_with SafeHtmlValidator
   validates :name, presence: true, uniqueness: true

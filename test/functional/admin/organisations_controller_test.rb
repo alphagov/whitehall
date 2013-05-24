@@ -70,6 +70,27 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert_equal topic_ids, organisation.organisation_classifications.sort_by(&:ordering).map(&:classification_id)
   end
 
+  test "creating will associate the org to a list of mainstream categories" do
+    attributes = attributes_for(:organisation)
+
+    organisation_type = create(:organisation_type)
+    mainstream_category_ids = [create(:mainstream_category), create(:mainstream_category)].map(&:id)
+
+    post :create, organisation: attributes.merge(
+      organisation_mainstream_categories_attributes: [
+        {mainstream_category_id: mainstream_category_ids[0], ordering: 2 },
+        {mainstream_category_id: mainstream_category_ids[1], ordering: 1 }
+      ],
+      organisation_type_id: organisation_type.id
+    )
+
+    puts assigns(:organisation).errors.full_messages
+
+    assert organisation = Organisation.last
+    assert organisation.organisation_mainstream_categories.map(&:ordering).all?(&:present?), "no ordering"
+    assert_equal [mainstream_category_ids[1], mainstream_category_ids[0]], organisation.organisation_mainstream_categories.sort_by(&:ordering).map(&:mainstream_category_id)
+  end
+
   test "creating should be able to create a new mainstream link for the organisation" do
     attributes = attributes_for(:organisation)
     organisation_type = create(:organisation_type)
@@ -400,6 +421,18 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
 
     organisation.reload
     assert_equal [], organisation.topics
+  end
+
+  test "update should remove all related mainstream categories if none specified" do
+    organisation_attributes = {name: "Ministry of Sound"}
+    organisation = create(:organisation,
+      organisation_attributes.merge(mainstream_categories: [create(:mainstream_category)])
+    )
+
+    put :update, id: organisation, organisation: organisation_attributes.merge(mainstream_category_ids: [""])
+
+    organisation.reload
+    assert_equal [], organisation.mainstream_categories
   end
 
   test "update should remove all parent organisations if none specified" do

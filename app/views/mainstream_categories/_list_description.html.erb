@@ -1,0 +1,12 @@
+<ol class="mainstream_categories collection-list <%= collection_list_class(mainstream_categories) %>">
+  <% mainstream_categories.each do |mainstream_category| %>
+    <%= content_tag_for(:li, mainstream_category, class: 'mainstream_category collection-item') do %>
+      <div class="container">
+        <h2><%= link_to mainstream_category.title, mainstream_category_path(mainstream_category) %></h2>
+        <div class="summary">
+          <p><%= mainstream_category.description %> <%= link_to "Read more", mainstream_category_path(mainstream_category) %></p>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</ol>
