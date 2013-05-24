@@ -69,7 +69,7 @@ module ApplicationHelper
   end
 
   def ministerial_role_options
-    MinisterialRole.alphabetical_by_person.map do |role|
+    MinisterialRole.includes(:translations, organisations: [:translations]).alphabetical_by_person.map do |role|
       [role.id, "#{role.name}, in #{role.organisations.map(&:name).to_sentence} (#{role.current_person_name})"]
     end
   end
