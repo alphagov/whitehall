@@ -8,6 +8,7 @@ class RoleAppointment < ActiveRecord::Base
 
   belongs_to :role
   belongs_to :person
+  has_many :organisations, through: :role
 
   delegate :slug, to: :person
   delegate :name, to: :role, prefix: true
