@@ -2,6 +2,7 @@ require "test_helper"
 
 class HackableUrlTest < ActiveSupport::TestCase
   test "should always provide an index for resources that have a show action" do
+    flunk "Rails journy changes"
     all_routes = Rails.application.routes.routes
 
     resource_routes = all_routes.reject do |route|
@@ -9,8 +10,7 @@ class HackableUrlTest < ActiveSupport::TestCase
     end
 
     resource_routes.each do |resource_route|
-      path = without_format_param(resource_route.path)
-      all_possible_hackings_of(path).each do |path|
+      all_possible_hackings_of(resource_route.path).each do |path|
         assert_path_recognized(path, "Path #{path} not recognised by routes - expected because of #{resource_route.path}")
       end
     end
@@ -21,39 +21,35 @@ class HackableUrlTest < ActiveSupport::TestCase
   end
 
   def admin_route?(route)
-    route.path.match(/\/admin\//)
+    route.path.to_regexp.to_s.match("/admin")
   end
 
   def auth_route?(route)
-    route.path.match(/\/auth\//)
+    route.path.to_regexp.to_s.match("/auth")
   end
 
   def api_route?(route)
-    route.path.match(/\/api\//)
+    route.path.to_regexp.to_s.match("/api")
   end
 
   def browse_route?(route)
-    route.path.match(/\/browse\//)
+    route.path.to_regexp.to_s.match("/browse")
   end
 
   def asset_route?(route)
-    route.path.match(/\/government\/uploads\//)
+    route.path.to_regexp.to_s.match("/government/uploads")
   end
 
   def all_possible_hackings_of(path)
-    parts = path.split("/")
+    parts = path.ast.to_s.split("/")
     (1...parts.size).map do |num_parts|
       parts[0...num_parts].join("/")
     end.reject {|path| path.empty?}
   end
 
-  def without_format_param(path)
-    path.gsub("(.:format)", "")
-  end
-
   def assert_path_recognized(path, message)
     env = Rack::MockRequest.env_for(path, {method: "GET"})
     request = ActionDispatch::Request.new(env)
-    assert Rails.application.routes.set.recognize(request), message
+    assert Rails.application.routes.router.recognize(request), message
   end
 end
