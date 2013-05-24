@@ -15,6 +15,9 @@ module Edition::AuditTrail
   included do
     has_many :versions, as: :item, order: "created_at ASC, id ASC"
 
+    has_one :most_recent_version, class_name: 'Version', as: :item, order: 'created_at DESC, id DESC'
+    has_one :last_author, through: :most_recent_version, source: :user, order: 'versions.created_at DESC, versions.id DESC'
+
     after_create  :record_create
     before_update :record_update
   end
