@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+$LOAD_PATH << File.expand_path(File.join(File.dirname(__FILE__), '../test'))
+require 'test_helper'
+require 'test_queue'
+require 'test_queue/runner/minitest'
+require 'parallel_test_runner'
+
+ARGV.each{ |f| require(f) }
+ParallelTestRunner.new.execute
