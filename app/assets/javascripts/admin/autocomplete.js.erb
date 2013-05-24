@@ -194,7 +194,7 @@
         padding: autoCompleter.$textarea.css('padding'),
         'line-height': autoCompleter.$textarea.css('line-height')
       });
-      $tmp.text(autoCompleter.textarea.value.substring(0, autoCompleter.match.position).replace(/\n/g, "<br>"));
+      $tmp.html(autoCompleter.textarea.value.substring(0, autoCompleter.match.position).replace(/\n/g, "<br>"));
       $tmp.append($tmpCaret);
       $('body').append($tmp);
       caretPosition = $tmpCaret.position();
