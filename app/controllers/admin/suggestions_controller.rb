@@ -11,7 +11,7 @@ class Admin::SuggestionsController < Admin::BaseController
     end
     respond_to do |format|
       format.json do
-        render json: { contacts: contacts }
+        render json: { contacts: @contacts }
       end
     end
   end
