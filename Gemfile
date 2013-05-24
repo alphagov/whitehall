@@ -53,6 +53,7 @@ group :development, :staging, :test do
   gem 'brakeman'
   gem 'parallel_tests'
   gem 'bullet'
+  gem 'test-queue'
 end
 
 group :test do

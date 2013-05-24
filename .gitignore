@@ -20,3 +20,4 @@
 /test-bulk-upload-zip-file-tmp
 /.ruby-version
 /test-quarantine
+.test_queue_stats
