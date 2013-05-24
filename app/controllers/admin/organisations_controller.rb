@@ -10,6 +10,7 @@ class Admin::OrganisationsController < Admin::BaseController
     @organisation = Organisation.new
     build_organisation_roles
     build_organisation_classifications
+    build_organisation_mainstream_categories
     build_mainstream_links
     social.build_social_media_account(@organisation)
   end
@@ -52,6 +53,7 @@ class Admin::OrganisationsController < Admin::BaseController
 
   def edit
     build_organisation_classifications
+    build_organisation_mainstream_categories
     build_mainstream_links
     social.build_social_media_account(@organisation)
     load_organisation_roles
@@ -60,6 +62,7 @@ class Admin::OrganisationsController < Admin::BaseController
 
   def update
     destroy_blank_mainstream_links
+    delete_absent_organisation_classifications
     delete_absent_organisation_classifications
     social.destroy_blank_social_media_accounts(params[:organisation])
     if @organisation.update_attributes(params[:organisation])
@@ -97,6 +100,16 @@ class Admin::OrganisationsController < Admin::BaseController
     end
   end
 
+  def build_organisation_mainstream_categories
+    n = @organisation.organisation_mainstream_categories.count
+    @organisation.organisation_mainstream_categories.each.with_index do |omc, i|
+      omc.ordering = i
+    end
+    (n...13).each do |i|
+      @organisation.organisation_mainstream_categories.build(ordering: i)
+    end
+  end
+
   def build_default_news_image
     @organisation.build_default_news_image
   end
@@ -106,6 +119,16 @@ class Admin::OrganisationsController < Admin::BaseController
                   params[:organisation][:organisation_classifications_attributes]
     params[:organisation][:organisation_classifications_attributes].each do |p|
       if p[:classification_id].blank?
+        p["_destroy"] = true
+      end
+    end
+  end
+
+  def delete_absent_organisation_mainstream_categories
+    return unless params[:organisation] &&
+                  params[:organisation][:organisation_mainstream_categories_attributes]
+    params[:organisation][:organisation_mainstream_categories_attributes].each do |p|
+      if p[:mainstream_category_id].blank?
         p["_destroy"] = true
       end
     end
