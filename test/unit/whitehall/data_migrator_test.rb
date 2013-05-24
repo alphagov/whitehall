@@ -9,6 +9,7 @@ module Whitehall
     end
 
     setup do
+      DataMigrationRecord.destroy_all
       @logger = stub_everything("Logger")
       @migrator = DataMigrator.new(path: File.dirname(__FILE__) + "/../../fixtures/whitehall_data_migrator", logger: @logger)
     end
