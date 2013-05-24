@@ -2,7 +2,6 @@ require "test_helper"
 
 class HackableUrlTest < ActiveSupport::TestCase
   test "should always provide an index for resources that have a show action" do
-    flunk "Rails journy changes"
     all_routes = Rails.application.routes.routes
 
     resource_routes = all_routes.reject do |route|
@@ -11,7 +10,7 @@ class HackableUrlTest < ActiveSupport::TestCase
 
     resource_routes.each do |resource_route|
       all_possible_hackings_of(resource_route.path).each do |path|
-        assert_path_recognized(path, "Path #{path} not recognised by routes - expected because of #{resource_route.path}")
+        assert_path_recognized(path, "Path #{path} not recognised by routes - expected because of #{resource_route.path.ast.to_s}")
       end
     end
   end
@@ -21,23 +20,23 @@ class HackableUrlTest < ActiveSupport::TestCase
   end
 
   def admin_route?(route)
-    route.path.to_regexp.to_s.match("/admin")
+    route.path.ast.to_s.match("\/admin")
   end
 
   def auth_route?(route)
-    route.path.to_regexp.to_s.match("/auth")
+    route.path.ast.to_s.match("\/auth")
   end
 
   def api_route?(route)
-    route.path.to_regexp.to_s.match("/api")
+    route.path.ast.to_s.match("\/api")
   end
 
   def browse_route?(route)
-    route.path.to_regexp.to_s.match("/browse")
+    route.path.ast.to_s.match("\/browse")
   end
 
   def asset_route?(route)
-    route.path.to_regexp.to_s.match("/government/uploads")
+    route.path.ast.to_s.match("\/government\/uploads")
   end
 
   def all_possible_hackings_of(path)
@@ -50,6 +49,10 @@ class HackableUrlTest < ActiveSupport::TestCase
   def assert_path_recognized(path, message)
     env = Rack::MockRequest.env_for(path, {method: "GET"})
     request = ActionDispatch::Request.new(env)
-    assert Rails.application.routes.router.recognize(request), message
+    called = false
+    Rails.application.routes.router.recognize(request) do |r, _, params|
+      called = true
+    end
+    assert called, message
   end
 end
