@@ -5,6 +5,10 @@
     margin-bottom: 1em;
   }
 
+  h2 {
+    @include type-21;
+  }
+
   ul {
     margin-left: 0;
 
@@ -41,5 +45,10 @@
       padding-right: 0.75em;
       img { margin: 0}
     }
+  }
+}
+.audit-trail-page.loading {
+  nav {
+    background: transparent image-url("loading-2b2c2d.gif") no-repeat 50% 0%;
   }
 }

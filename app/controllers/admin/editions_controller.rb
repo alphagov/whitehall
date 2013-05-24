@@ -50,6 +50,7 @@ class Admin::EditionsController < Admin::BaseController
   end
 
   def show
+    fetch_version_and_remark_trails
   end
 
   def new
@@ -68,6 +69,7 @@ class Admin::EditionsController < Admin::BaseController
 
   def edit
     @edition.open_for_editing_as(current_user)
+    fetch_version_and_remark_trails
     render :edit
   end
 
@@ -88,6 +90,7 @@ class Admin::EditionsController < Admin::BaseController
       flash.now[:alert] = "There are some problems with the document"
       extract_edition_information_from_errors
       build_edition_dependencies
+      fetch_version_and_remark_trails
       render action: "edit"
     end
   rescue ActiveRecord::StaleObjectError
@@ -118,6 +121,11 @@ class Admin::EditionsController < Admin::BaseController
   end
 
   private
+
+  def fetch_version_and_remark_trails
+    @edition_remarks = @edition.document_remarks_trail.reverse
+    @edition_history = Kaminari.paginate_array(@edition.document_version_trail.reverse).page(params[:page]).per(30)
+  end
 
   def edition_class
     Edition

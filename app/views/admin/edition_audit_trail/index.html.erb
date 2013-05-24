@@ -1,0 +1,8 @@
+<div class="audit-trail-page">
+  <h1>Activity</h1>
+  <%= paginate @edition_history, theme: 'audit_trail' %>
+  <ul>
+    <%= render partial: "audit_trail_entry", collection: @edition_history %>
+  </ul>
+  <%= paginate @edition_history, theme: 'audit_trail' %>
+</div>
