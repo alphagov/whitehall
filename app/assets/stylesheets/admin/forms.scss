@@ -195,3 +195,33 @@ fieldset.fatality-notice-casualties {
   vertical-align: middle;
 }
 
+
+#auto-complete-selector {
+  position: absolute;
+  display: none;
+  margin: 25px 0 0;
+
+  li {
+    background: #fff;
+    border: 1px solid #ddd;
+    padding: 4px;
+    width: 230px;
+    margin: -1px 0 0;
+    list-style: none;
+    display: block;
+
+    em {
+      font-style: normal;
+    }
+    span {
+      color: #999;
+    }
+  }
+
+  &.active {
+    display: block;
+  }
+  .active {
+    background: #d5e8f3;
+  }
+}
