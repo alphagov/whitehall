@@ -33,6 +33,11 @@ class Organisation < ActiveRecord::Base
             class_name: "Edition",
             conditions: { state: "published" },
             source: :edition
+  has_many :force_published_editions,
+            through: :edition_organisations,
+            class_name: "Edition",
+            conditions: { state: "published", force_published: true },
+            source: :edition
   has_many :corporate_publications,
             through: :edition_organisations,
             class_name: "Publication",

@@ -75,6 +75,15 @@ Given /^a published (publication|policy|news article|consultation|speech) "([^"]
   end
 end
 
+Given /^a force published (document|publication|policy|news article|consultation|speech) "([^"]*)" was produced by the "([^"]*)" organisation$/ do |document_type, title, organisation_name|
+  organisation = Organisation.find_by_name!(organisation_name)
+  document_type = 'policy' if document_type == 'document'
+  create("draft_#{document_class(document_type).name.underscore}".to_sym, title: title, organisations: [organisation])
+  visit admin_editions_path(state: :draft)
+  click_link title
+  publish(force: true)
+end
+
 When /^I view the (publication|policy|news article|consultation|speech|document) "([^"]*)"$/ do |document_type, title|
   click_link title
 end

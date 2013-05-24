@@ -126,7 +126,7 @@ Whitehall::Application.routes.draw do
 
     constraints(AdminRequest) do
       namespace :admin do
-        root to: redirect('/admin/editions'), via: :get
+        root to: 'dashboard#index', via: :get
 
         resources :users, only: [:index, :show, :edit, :update]
 
