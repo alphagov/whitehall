@@ -2,7 +2,8 @@ require "test_helper"
 
 class Admin::DocumentSeriesControllerTest < ActionController::TestCase
   setup do
-    login_as :policy_writer
+    @user = create(:policy_writer)
+    login_as @user
   end
 
   should_be_an_admin_controller
@@ -72,16 +73,20 @@ class Admin::DocumentSeriesControllerTest < ActionController::TestCase
     assert_select_object(edition)
   end
 
-  view_test "lists all document series" do
-    document_series1 = create(:document_series)
-    document_series2 = create(:document_series)
-    document_series3 = create(:document_series)
-
+  test "index sends the user to the list of series for their org" do
+    @user.organisation = create(:organisation, name: "organisation-name")
+    @user.save
     get :index
 
-    assert_select_object(document_series1)
-    assert_select_object(document_series2)
-    assert_select_object(document_series3)
+    assert_redirected_to admin_organisation_document_series_index_path(@user.organisation)
+  end
+
+  test "index sends the user to the list orgs if they don\'t have an org" do
+    @user.organisation = nil
+    @user.save
+    get :index
+
+    assert_redirected_to admin_organisations_path
   end
 
   view_test "edit should show a form for editing the series" do
@@ -118,7 +123,7 @@ class Admin::DocumentSeriesControllerTest < ActionController::TestCase
 
     delete :destroy, organisation_id: organisation, id: document_series
 
-    assert_redirected_to admin_document_series_index_path
+    assert_redirected_to admin_organisation_document_series_index_path(organisation)
   end
 
   view_test "update should show errors updating a series" do
