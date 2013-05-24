@@ -116,6 +116,19 @@ class Edition::AuditTrailTest < ActiveSupport::TestCase
     assert_equal policy_writer, draft_edition.document_audit_trail.last.actor
   end
 
+  test "can request version only trail or remark only trail" do
+    published_edition = create(:published_edition)
+    policy_writer = create(:policy_writer)
+    Edition::AuditTrail.whodunnit = policy_writer
+    policy_writer = create(:policy_writer)
+    editorial_remark_body = "blah"
+    Timecop.freeze(Time.zone.now + 1.day)
+    published_edition.editorial_remarks.create!(body: editorial_remark_body, author: policy_writer)
+    draft_edition = published_edition.create_draft(policy_writer)
+    refute draft_edition.document_version_trail.map(&:object).map(&:class).include? EditorialRemark
+    refute draft_edition.document_remarks_trail.map(&:object).map(&:class).include? Version
+  end
+
   test "editorial remark appears as an audit action" do
     Timecop.freeze(Time.zone.now - 2.days)
     edition = create(:draft_edition)

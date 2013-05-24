@@ -31,24 +31,45 @@ module Edition::AuditTrail
   end
   private :record_update
 
-  def edition_audit_trail(edition_serial_number = 1)
-    versions = self.versions.map { |v|
-      VersionAuditEntry.new(edition_serial_number, self, v)
-    }
-    editorial_remarks = self.editorial_remarks.map { |r|
+  def edition_audit_trail(edition_serial_number = 0)
+    versions = edition_version_trail(edition_serial_number)
+    remarks = edition_remarks_trail(edition_serial_number)
+    (versions + remarks).sort
+  end
+
+  def edition_remarks_trail(edition_serial_number = 0)
+    self.editorial_remarks.map { |r|
       EditorialRemarkAuditEntry.new(edition_serial_number, self, r)
-    }
-    (versions + editorial_remarks).sort
+    }.sort
+  end
+
+  def edition_version_trail(edition_serial_number = 0)
+    self.versions.map { |v|
+      VersionAuditEntry.new(edition_serial_number, self, v)
+    }.sort
   end
 
   def document_audit_trail
-    document.editions.order("created_at asc").map.with_index do |edition, i|
+    document.editions.includes(versions: [:user], editorial_remarks: [:author]).order("created_at asc").map.with_index do |edition, i|
       edition.edition_audit_trail(i)
     end.flatten
   end
 
+  def document_remarks_trail
+    document.editions.includes(editorial_remarks: [:author]).order("created_at asc").map.with_index do |edition, i|
+      edition.edition_remarks_trail(i)
+    end.flatten
+  end
+
+  def document_version_trail
+    document.editions.includes(versions: [:user]).order("created_at asc").map.with_index do |edition, i|
+      edition.edition_version_trail(i)
+    end.flatten
+  end
+
+
   def latest_version_audit_entry_for(state)
-    edition_audit_trail.reverse.detect { |audit_entry| audit_entry.is_a?(VersionAuditEntry) && audit_entry.version.state == state }
+    edition_version_trail.reverse.detect { |audit_entry| audit_entry.version.state == state }
   end
 
   class AuditEntry
@@ -66,7 +87,11 @@ module Edition::AuditTrail
 
     def <=>(other)
       if created_at == other.created_at
-        sort_priority <=> other.sort_priority
+        if sort_priority = other.sort_priority
+          object <=> other.object
+        else
+          sort_priority <=> other.sort_priority
+        end
       else
         created_at <=> other.created_at
       end
@@ -110,11 +135,7 @@ module Edition::AuditTrail
     end
 
     def actor
-      if User.exists?(version.whodunnit)
-        User.find(version.whodunnit)
-      else
-        nil # for deleted users
-      end
+      version.user
     end
   end
 

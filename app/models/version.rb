@@ -2,6 +2,7 @@ class Version < ActiveRecord::Base
   belongs_to :item, polymorphic: true
   validates_presence_of :event
   attr_accessible :item_type, :item_id, :event, :whodunnit, :state
+  belongs_to :user, foreign_key: 'whodunnit'
 
   def self.with_item_keys(item_type, item_id)
     scoped(conditions: {item_type: item_type, item_id: item_id})
@@ -15,13 +16,5 @@ class Version < ActiveRecord::Base
 
   def previous
     sibling_versions.preceding(self).first
-  end
-
-  def user
-    if whodunnit
-      User.find(whodunnit)
-    else
-      nil
-    end
   end
 end
