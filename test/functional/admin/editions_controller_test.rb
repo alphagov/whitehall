@@ -174,6 +174,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
   end
 
   test "index should redirect to drafts if stored filter options are not valid for route building" do
+    flunk "Changes in rails 3.2 exception handling"
     session[:document_filters] = { action: :unknown }
     get :index
     assert_redirected_to admin_editions_path(state: :draft)
