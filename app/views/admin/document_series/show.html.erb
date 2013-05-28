@@ -21,3 +21,4 @@
 <% end %>
 
 <%= link_to "Edit", edit_admin_organisation_document_series_path(@document_series.organisation, @document_series), class: "btn" %>
+<%= button_to 'Delete', admin_organisation_document_series_path(@document_series.organisation, @document_series), method: :delete, title: "Delete", confirm: "Are you sure you want to delete the document series?", class: "btn btn-danger" %>

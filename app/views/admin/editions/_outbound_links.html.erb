@@ -89,7 +89,7 @@
     <section>
       <h2>Ministers</h2>
       <% if edition.ministerial_roles.any? %>
-        <%= render partial: "ministerial_roles/list", locals: {ministerial_roles: edition.ministerial_roles} %>
+        <%= render partial: "ministerial_roles/list", locals: {ministerial_roles: edition.ministerial_roles.includes(:translations)} %>
       <% else %>
         <p>This document isn't assigned to any ministers.</p>
       <% end %>

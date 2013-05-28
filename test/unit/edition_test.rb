@@ -194,7 +194,7 @@ class EditionTest < ActiveSupport::TestCase
     acting_as(user1) do
       edition.publish_as(user1, force: true)
     end
-    assert_equal user1, edition.last_author, 'publishing'
+    assert_equal user1, edition.reload.last_author, 'publishing'
   end
 
   test ".related_to includes editions related to edition" do

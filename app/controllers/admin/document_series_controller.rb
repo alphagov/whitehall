@@ -16,7 +16,13 @@ class Admin::DocumentSeriesController < Admin::BaseController
   end
 
   def index
-    @document_series = DocumentSeries.with_translations_for(:organisation).order("organisation_translations.name, document_series.name")
+    redir_args =
+      if current_user.organisation
+        [admin_organisation_document_series_index_path(current_user.organisation)]
+      else
+        [admin_organisations_path, notice: 'Choose an organisation to view all the document series belonging to it']
+      end
+    redirect_to *redir_args
   end
 
   def show
@@ -36,9 +42,9 @@ class Admin::DocumentSeriesController < Admin::BaseController
   def destroy
     @document_series.delete!
     if @document_series.deleted?
-      redirect_to admin_document_series_index_path, notice: "document series destroyed"
+      redirect_to admin_organisation_document_series_index_path(@document_series.organisation), notice: "document series destroyed"
     else
-      redirect_to admin_document_series_index_path,
+      redirect_to admin_organisation_document_series_path(@document_series.organisation, @document_series),
                   alert: "Cannot destroy document series with associated content, please remove them first"
     end
   end
