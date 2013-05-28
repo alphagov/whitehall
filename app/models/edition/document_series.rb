@@ -22,9 +22,7 @@ module Edition::DocumentSeries
     document_series.any?
   end
 
-  module InstanceMethods
-    def search_index
-      super.merge("document_series" => document_series.map(&:slug))
-    end
+  def search_index
+    super.merge("document_series" => document_series.map(&:slug))
   end
 end
