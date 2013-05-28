@@ -3,6 +3,8 @@
 require 'test_helper'
 
 class DocumentHelperTest < ActionView::TestCase
+  include PublicDocumentRoutesHelper
+
   test "#edition_organisation_class returns the slug of the first organisation of the edition" do
     organisations = [create(:organisation), create(:organisation)]
     edition = create(:edition, organisations: organisations)
@@ -102,5 +104,40 @@ class DocumentHelperTest < ActionView::TestCase
   test "should return native language name for locale" do
     assert_equal "English", native_language_name_for(:en)
     assert_equal "Español", native_language_name_for(:es)
+  end
+
+  test '#link_to_translated_object links to an English edition' do
+    edition = create(:publication)
+    assert_dom_equal %Q(<a href="#{public_document_path(edition, locale: :en)}">English</a>),
+      link_to_translated_object(edition, :en)
+  end
+
+  test "link_to_translated_object links to a translated edition" do
+    edition = create(:publication)
+    with_locale(:fr) { edition.update_attributes!(title: 'french-title', summary: 'french-summary', body: 'french-body') }
+
+    assert_dom_equal %Q(<a href="#{public_document_path(edition, locale: :fr)}">Français</a>),
+      link_to_translated_object(edition, :fr)
+  end
+
+  test "link_to_translated_object links to corporate information pages under their organisation" do
+    info_page = create(:corporate_information_page)
+
+    assert_dom_equal %Q(<a href="#{polymorphic_path([info_page.organisation, info_page], locale: :en)}">English</a>),
+      link_to_translated_object(info_page, :en)
+  end
+
+  test "link_to_translated_object handles decorated editions" do
+    edition = create(:publication)
+    decorated_edition = PublicationesquePresenter.new(edition, 'context')
+    assert_dom_equal %Q(<a href="#{public_document_path(edition, locale: :en)}">English</a>),
+      link_to_translated_object(decorated_edition, :en)
+  end
+
+  test "link_to_translated_object handles linking to resource actions, i.e. organisation about pages" do
+    organisation = create(:organisation)
+
+    assert_dom_equal %Q(<a href="#{polymorphic_path([:about, organisation], locale: :cy)}">Cymraeg</a>),
+      link_to_translated_object([:about, organisation], :cy)
   end
 end
