@@ -67,11 +67,13 @@ Scenario: Managing social media links
 
 Scenario: Managing mainstream categories
   Given I am an admin called "Jane"
-  And there is an organisation with no mainstream cateegories defined
-  Then the public website for the organisation says nothing about mainstream categories
+  And there is an organisation with no mainstream categories defined
+  Then the public page for the organisation says nothing about mainstream categories
+  But the admin page for the organisation says it has no mainstream categories
   And there are some mainstream categories
   When I add a few of those mainstream categories in a specific order to the organisation
-  Then only the mainstream categories I chose appear on the public website for the organisation, in my specified order
+  Then only the mainstream categories I chose appear on the public page for the organisation, in my specified order
+  And they also appear on the admin page, in my specified order
 
 Scenario: Adding a new translation
   Given I am an admin called "Jane"

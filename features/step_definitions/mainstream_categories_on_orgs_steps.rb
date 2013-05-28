@@ -1,11 +1,17 @@
-Given /^there is an organisation with no mainstream cateegories defined$/ do
+Given /^there is an organisation with no mainstream categories defined$/ do
   @the_organisation = create(:ministerial_department)
 end
 
-Then /^the public website for the organisation says nothing about mainstream categories$/ do
+Then /^the public page for the organisation says nothing about mainstream categories$/ do
   visit organisation_path(@the_organisation)
 
   refute page.has_css?('#mainstream_categories')
+end
+
+Then /^the admin page for the organisation says it has no mainstream categories$/ do
+  visit admin_organisation_path(@the_organisation)
+
+  assert page.has_css?('.mainstream_categories td', text: 'None')
 end
 
 Given /^there are some mainstream categories$/ do
@@ -22,12 +28,12 @@ When /^I add a few of those mainstream categories in a specific order to the org
   visit edit_admin_organisation_path(@the_organisation)
   @selected_mainstream_categories = @all_mainstream_categories.shuffle.take(3)
   @selected_mainstream_categories.each.with_index do |mainstream_category, idx|
-    select mainstream_category.title, from: "Mainstream category #{idx+1}"
+    select mainstream_category.title, from: "Detailed guidance category #{idx+1}"
   end
   click_on 'Save'
 end
 
-Then /^only the mainstream categories I chose appear on the public website for the organisation, in my specified order$/ do
+Then /^only the mainstream categories I chose appear on the public page for the organisation, in my specified order$/ do
   visit organisation_path(@the_organisation)
 
   within '#mainstream_categories' do
@@ -38,4 +44,10 @@ Then /^only the mainstream categories I chose appear on the public website for t
       refute page.has_css?("li.mainstream_category h2", text: unselected_mainstream_category.title)
     end
   end
+end
+
+Then /^they also appear on the admin page, in my specified order$/ do
+  visit admin_organisation_path(@the_organisation)
+
+  assert page.has_css?('.mainstream_categories td', text: @selected_mainstream_categories.map {|mc| "#{mc.title} (#{mc.parent_title})" }.to_sentence)
 end
