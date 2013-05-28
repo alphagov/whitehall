@@ -42,7 +42,7 @@ test("cancelling foreign language only document hides and resets the locale fiel
   $('a.foreign-language-only').click();
 
   // choose another language
-  $('#edition_locale').val('cy');
+  $('#edition_locale').val('cy').change();
   equal($('#edition_locale option:selected').val(), 'cy', 'foreign-language selected');
 
   // reset the form
@@ -51,3 +51,18 @@ test("cancelling foreign language only document hides and resets the locale fiel
   ok($('form#non-english:first-child fieldset').is(':hidden'), 'fieldset containing locale inputs has become hidden');
 });
 
+test("selecting and deselecting right-to-left languages applies the appropriate classes to the fieldsets", function () {
+  $('a.foreign-language-only').click();
+
+  $('#edition_locale').val('ar').change();
+  ok($('form#non-english fieldset').hasClass('right-to-left'), 'form fieldsets have "right-to-left" class');
+
+  $('#edition_locale').val('cy').change();
+  ok(!$('form#non-english fieldset').hasClass('right-to-left'), 'form fieldsets no longer have "right-to-left" class');
+
+  // also resets on cancel
+  $('#edition_locale').val('ar').change();
+  ok($('form#non-english fieldset').hasClass('right-to-left'), 'form fieldsets have "right-to-left" class');
+  $('a.cancel-foreign-language-only').click();
+  ok(!$('form#non-english fieldset').hasClass('right-to-left'), 'form fieldsets no longer have "right-to-left" class');
+});
