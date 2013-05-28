@@ -13,6 +13,11 @@ class LocaleTest < ActiveSupport::TestCase
     assert_equal [Locale.new(:fr), Locale.new(:es), Locale.new(:ca)], Locale.non_english
   end
 
+  test "provides a list of all right-to-left locales" do
+    I18n.stubs(:available_locales).returns([:en, :fr, :ar, :ca, :ur])
+    assert_equal [Locale.new(:ar), Locale.new(:ur)], Locale.right_to_left
+  end
+
   test "returns native language name for locale" do
     assert_equal "English", Locale.new(:en).native_language_name
     assert_equal "Español", Locale.new(:es).native_language_name

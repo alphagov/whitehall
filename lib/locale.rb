@@ -23,6 +23,10 @@ class Locale < Struct.new(:code)
       all.reject(&:english?)
     end
 
+    def right_to_left
+      all.select(&:rtl?)
+    end
+
     def find_by_language_name(native_language_name)
       all.detect { |l| l.native_language_name == native_language_name }
     end
