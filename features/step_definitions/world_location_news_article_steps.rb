@@ -14,7 +14,7 @@ When /^I draft a French\-only world location news article called "([^"]*)" assoc
   world_organisation = create(:worldwide_organisation, name: "Funky Consulate in #{location_name}")
   begin_drafting_world_location_news_article title: world_news_title, body: 'test-body', summary: 'test-summary'
 
-  select "Français", from: "Primary locale"
+  select "Français", from: "Document language"
   select location_name, from: "Select the world locations this world location news article is about"
   select world_organisation.name, from: "Select the worldwide organisations associated with this world location news article"
   click_button "Save"

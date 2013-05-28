@@ -1,4 +1,0 @@
-<% if edition.locale_can_be_changed? %>
-  <%= form.label :locale, 'Primary locale' %>
-  <%= form.select :locale, options_for_select(options_for_locales(Locale.all), edition.locale) %>
-<% end %>
