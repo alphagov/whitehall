@@ -32,6 +32,13 @@
               None
             <% end %>
           </td></tr>
+          <tr class="mainstream_categories"><th>Detailed guidance categories</th><td>
+            <% if @organisation.mainstream_categories.any? %>
+              <%= @organisation.mainstream_categories.map { |mc| "#{mc.title} (#{mc.parent_title})" }.to_sentence.html_safe %>
+            <% else %>
+              None
+            <% end %>
+          </td></tr>
           <% @organisation.social_media_accounts.each do |sma| %>
             <tr><th><%= sma.social_media_service.name %></th><td><%= link_to sma.url, sma.url %></td></tr>
           <% end %>
