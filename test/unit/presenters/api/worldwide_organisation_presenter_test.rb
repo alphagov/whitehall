@@ -2,12 +2,15 @@ require 'test_helper'
 
 class Api::WorldwideOrganisationPresenterTest < PresenterTestCase
   setup do
+    @access_times = stub_record(:access_and_opening_times, body: 'never')
     @main_sponsor = stub_record(:organisation, organisation_type: stub_record(:organisation_type))
     @office = stub_record(:worldwide_office, contact: stub_record(:contact, contact_numbers: []),
                                              services: [],
-                                             worldwide_organisation: nil)
+                                             worldwide_organisation: nil,
+                                             access_and_opening_times: @access_times)
     @world_org = stub_record(:worldwide_organisation, sponsoring_organisations: [@main_sponsor],
-                                                      offices: [@office])
+                                                      offices: [@office],
+                                                      access_and_opening_times: @access_times)
     @presenter = Api::WorldwideOrganisationPresenter.new(@world_org, @view_context)
     stubs_helper_method(:params).returns(format: :json)
     stubs_helper_method(:govspeak_to_html).returns('govspoken')
@@ -120,6 +123,17 @@ class Api::WorldwideOrganisationPresenterTest < PresenterTestCase
     @office.contact.stubs(:contact_form_url).returns('office-contact-form-url')
     assert_equal 'office-contact-form-url', @presenter.as_json[:offices][:main][:details][:contact_form_url]
   end
+  
+  test "json includes govspoken access_and_opening_times_body in details hash of an office" do
+    @office.stubs(:access_and_opening_times_body).returns('world-office-access-and-opening-times')
+    stubs_helper_method(:govspeak_to_html).with('world-office-access-and-opening-times').returns('govspoken-world-office-access-and-opening-times')
+    assert_equal 'govspoken-world-office-access-and-opening-times', @presenter.as_json[:offices][:main][:details][:access_and_opening_times]
+  end
+
+  test "json includes empty string for access_and_opening_times_body if they are missing for an office" do
+    @office.stubs(:access_and_opening_times_body).returns(nil)
+    assert_equal '', @presenter.as_json[:offices][:main][:details][:access_and_opening_times]
+  end
 
   test 'json does not include main key in offices if there is no main office' do
     @world_org.stubs(:main_office).returns(nil)
@@ -129,10 +143,12 @@ class Api::WorldwideOrganisationPresenterTest < PresenterTestCase
   test 'json includes main and other offices in offices with separate keys' do
     office1 = stub_record(:worldwide_office, contact: stub_record(:contact, title: 'best-office', contact_numbers: []),
                                              services: [],
-                                             worldwide_organisation: nil)
+                                             worldwide_organisation: nil,
+                                             access_and_opening_times: @access_times)
     office2 = stub_record(:worldwide_office, contact: stub_record(:contact, title: 'worst-office', contact_numbers: []),
                                              services: [],
-                                             worldwide_organisation: nil)
+                                             worldwide_organisation: nil,
+                                             access_and_opening_times: @access_times)
 
     @world_org.stubs(:main_office).returns(office1)
     @world_org.stubs(:other_offices).returns([office2])
