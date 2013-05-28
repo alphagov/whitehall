@@ -202,11 +202,6 @@ class Edition < ActiveRecord::Base
     end
   end
 
-  def last_author
-    last_version = versions.last
-    last_version && last_version.user
-  end
-
   def can_be_associated_with_topics?
     false
   end

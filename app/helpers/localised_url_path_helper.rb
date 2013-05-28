@@ -6,8 +6,8 @@ module LocalisedUrlPathHelper
     define_method(:"#{type}_path") do |*args|
       options = args.last.is_a?(Hash) ? args.pop : {}
       object = args.last.respond_to?(:available_in_locale?) ? args.pop : nil
-      options[:locale] ||= params[:locale]
-      if options[:locale].to_s == "en" || (object && !object.available_in_locale?(options[:locale]))
+      options[:locale] ||= (params[:locale] || I18n.locale)
+      if (options[:locale].to_s == "en") || (object && !object.available_in_locale?(options[:locale]))
         options.delete(:locale)
       end
       args.push(object) if object

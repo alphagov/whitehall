@@ -1,6 +1,6 @@
 <%= form.label :worldwide_organisation_ids, "Select the worldwide organisations associated with this #{edition.format_name.titleize.downcase}" %>
 <%= form.select :worldwide_organisation_ids,
-                options_from_collection_for_select(WorldwideOrganisation.all, 'id', 'name', edition.worldwide_organisation_ids),
+                options_from_collection_for_select(WorldwideOrganisation.with_translations.all, 'id', 'name', edition.worldwide_organisation_ids),
                 { include_blank: true },
                 multiple: true,
                 class: 'chzn-select',

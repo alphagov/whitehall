@@ -29,13 +29,6 @@
             <li><%= link_to department.name, organisation_path(department) %></li>
           <% end %>
         </ul>
-
-        <% if @transitioning_ministerial_departments.any? %>
-          <div class="coming-soon">
-            <h3>Coming soon</h3>
-            <p><%= @transitioning_ministerial_departments.map(&:name).to_sentence %>.</p>
-          </div>
-        <% end %>
       </div>
     </div>
 
@@ -56,13 +49,6 @@
             <li><%= link_to department.name, organisation_path(department) %></li>
           <% end %>
         </ul>
-
-        <% if @transitioning_other_departments.any? %>
-          <div class="coming-soon">
-            <h3>Coming soon</h3>
-            <p><%= @transitioning_other_departments.map(&:name).to_sentence %>.</p>
-          </div>
-        <% end %>
       </div>
     </div>
   </div>

@@ -67,7 +67,7 @@ Given /^a published (publication|policy|news article|consultation|speech) "([^"]
   edition = create(:"published_#{document_type}", title: title)
   table.hashes.each do |row|
     person = find_or_create_person(row["Person"])
-    ministerial_role = MinisterialRole.find_or_create_by_name(row["Ministerial Role"])
+    ministerial_role = find_or_create_ministerial_role(row["Ministerial Role"])
     unless RoleAppointment.for_role(ministerial_role).for_person(person).exists?
       create(:role_appointment, role: ministerial_role, person: person)
     end

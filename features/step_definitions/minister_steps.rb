@@ -1,7 +1,7 @@
 Given /^ministers exist:$/ do |table|
   table.hashes.each do |row|
     person = find_or_create_person(row["Person"])
-    ministerial_role = MinisterialRole.find_or_create_by_name(row["Ministerial Role"])
+    ministerial_role = find_or_create_ministerial_role(row["Ministerial Role"])
     create(:role_appointment, role: ministerial_role, person: person)
   end
 end
@@ -19,7 +19,7 @@ Given /^"([^"]*)" is the "([^"]*)" for the "([^"]*)" and also attends cabinet$/ 
 end
 
 Given /^the role "([^"]*)" has the responsibilities "([^"]*)"$/ do |role_name, responsibilities|
-  ministerial_role = MinisterialRole.find_or_create_by_name(role_name)
+  ministerial_role = find_or_create_ministerial_role(role_name)
   ministerial_role.responsibilities = responsibilities
   ministerial_role.save!
 end

@@ -116,37 +116,6 @@ class HomeControllerTest < ActionController::TestCase
     assert_select '.live-other-departments', '1'
   end
 
-  view_test "home page lists coming soon ministerial departments" do
-    department = create(:ministerial_department, govuk_status: 'transitioning')
-
-    get :home
-
-    assert_select '.departments .coming-soon p', /#{department.name}/
-  end
-
-  view_test "home page lists coming soon non-ministerial departments" do
-    create(:ministerial_organisation_type)
-    create(:sub_organisation_type)
-
-    type = create(:non_ministerial_organisation_type)
-    department = create(:organisation, govuk_status: 'transitioning', organisation_type: type)
-
-    get :home
-
-    assert_select '.agencies .coming-soon p', /#{department.name}/
-  end
-
-  view_test "home page does not list transitioning sub-orgs" do
-    create(:ministerial_organisation_type)
-    create(:sub_organisation_type)
-
-    department = create(:sub_organisation, govuk_status: 'transitioning')
-
-    get :home
-
-    refute_select '.agencies .coming-soon p', text: /#{department.name}/
-  end
-
   test "home page lists topics with policies and topical events sorted alphabetically" do
     topics = [[0, 'alpha'], [1, 'juliet'], [2, 'echo']].map { |n, name| create(:topic, published_policies_count: n, name: name) }
     topical_event = create(:topical_event, name: 'foxtrot')
