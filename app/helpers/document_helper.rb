@@ -131,6 +131,8 @@ Details of document required:
   end
 
   def link_to_translated_object(object, locale)
+    object = object.is_a?(Array) ? object : object.to_model
+
     path = case object
     when Edition
       public_document_path(object, locale: locale)
