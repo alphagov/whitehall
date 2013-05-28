@@ -271,7 +271,7 @@ module DocumentControllerTestHelpers
       include DocumentFilterHelpers
       options.reverse_merge!(timestamp_key: :first_published_at)
 
-      view_test "index should only show a certain number of #{edition_type.to_s.pluralize} by default" do
+      test "index should only fetch a certain number of #{edition_type.to_s.pluralize} by default" do
         without_delay! do
           documents = (1..6).to_a.map { |i| create("published_#{edition_type}", title: "keyword-#{i}-index-default", options[:timestamp_key] => i.days.ago) }
           documents.sort_by!(&options[:sort_by]) if options[:sort_by]
@@ -280,12 +280,13 @@ module DocumentControllerTestHelpers
             get :index
           end
 
-          (0..2).to_a.each { |i| assert_select_object(documents[i]) }
-          (3..5).to_a.each { |i| refute_select_object(documents[i]) }
+          fetched_documents = assigns(:filter).documents
+          (0..2).to_a.each { |i| assert fetched_documents.include?(documents[i]) }
+          (3..5).to_a.each { |i| refute fetched_documents.include?(documents[i]) }
         end
       end
 
-      view_test "index should show window of pagination for #{edition_type}" do
+      test "index should fetch the correct page for #{edition_type}" do
         without_delay! do
           documents = (1..6).to_a.map { |i| create("published_#{edition_type}", title:   "keyword-#{i}-window-pagination", options[:timestamp_key] => i.days.ago) }
           documents.sort_by!(&options[:sort_by]) if options[:sort_by]
@@ -294,8 +295,9 @@ module DocumentControllerTestHelpers
             get :index, page: 2
           end
 
-          (0..2).to_a.each { |i| refute_select_object(documents[i]) }
-          (3..5).to_a.each { |i| assert_select_object(documents[i]) }
+          fetched_documents = assigns(:filter).documents
+          (0..2).to_a.each { |i| refute fetched_documents.include?(documents[i]) }
+          (3..5).to_a.each { |i| assert fetched_documents.include?(documents[i]) }
         end
       end
 
@@ -415,25 +417,27 @@ module DocumentControllerTestHelpers
     end
 
     def should_show_local_government_items_for(document_type)
-      view_test "index includes #{document_type} items irrespective of relevance to local goverment by default" do
+      test "index fetches #{document_type} items irrespective of relevance to local goverment by default" do
         without_delay! do
           announced_today = [create(:"published_#{document_type}", relevant_to_local_government: true), create(:"published_#{document_type}")]
 
           get :index
 
-          assert_select_object announced_today[0]
-          assert_select_object announced_today[1]
+          fetched_documents = assigns(:filter).documents
+          assert fetched_documents.include?(announced_today[0])
+          assert fetched_documents.include?(announced_today[1])
         end
       end
 
-      view_test "index includes only local government #{document_type} only when asked for" do
+      test "index fetches only local government #{document_type} only when asked for" do
         without_delay! do
           announced_today = [create(:"published_#{document_type}", relevant_to_local_government: true), create(:"published_#{document_type}")]
 
           get :index, relevant_to_local_government: 1
 
-          assert_select_object announced_today[0]
-          refute_select_object announced_today[1]
+          fetched_documents = assigns(:filter).documents
+          assert fetched_documents.include?(announced_today[0])
+          refute fetched_documents.include?(announced_today[1])
         end
       end
 
