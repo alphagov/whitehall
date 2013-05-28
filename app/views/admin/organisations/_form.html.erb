@@ -38,11 +38,11 @@
       <% end %>
     <% end %>
 
-    <h3>Mainstream Categories</h3>
+    <h3>Detailed guidance categories</h3>
     <% organisation_form.object.organisation_mainstream_categories.each do |omc| %>
       <%= label_tag "organisation_mainstream_categories_ids_#{omc.ordering}" do %>
-        Mainstream category <%= omc.ordering + 1 %>
-        <%= select_tag "organisation[organisation_mainstream_categories_attributes][][mainstream_category_id]", options_from_collection_for_select(MainstreamCategory.all, 'id', 'title', omc.mainstream_category_id), include_blank: true, multiple: false, class: 'chzn-select', data: { placeholder: "Choose mainstream category..."}, id: "organisation_mainstream_category_ids_#{omc.ordering}" %>
+        Detailed guidance category <%= omc.ordering + 1 %>
+        <%= select_tag "organisation[organisation_mainstream_categories_attributes][][mainstream_category_id]", options_from_collection_for_select(MainstreamCategory.all, 'id', 'title', omc.mainstream_category_id), include_blank: true, multiple: false, class: 'chzn-select', data: { placeholder: "Choose detailed guidance category..."}, id: "organisation_mainstream_category_ids_#{omc.ordering}" %>
         <%= hidden_field_tag "organisation[organisation_mainstream_categories_attributes][][ordering]", omc.ordering %>
         <%= hidden_field_tag "organisation[organisation_mainstream_categories_attributes][][id]", omc.id %>
       <% end %>
