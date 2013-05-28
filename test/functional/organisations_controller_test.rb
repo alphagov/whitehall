@@ -387,7 +387,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     role = create(:ministerial_role, organisations: [organisation])
     role_appointment = create(:ministerial_role_appointment, role: role)
     announcement_1 = create(:published_news_article, organisations: [organisation], first_published_at: 2.days.ago)
-    announcement_2 = create(:published_speech, role_appointment: role_appointment, delivered_on: 3.days.ago)
+    announcement_2 = create(:published_speech, role_appointment: role_appointment, first_published_at: 3.days.ago)
     announcement_3 = create(:published_news_article, organisations: [organisation], first_published_at: 1.days.ago)
 
     get :show, id: organisation
@@ -400,7 +400,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     role = create(:ministerial_role, organisations: [organisation])
     role_appointment = create(:ministerial_role_appointment, role: role)
     announcement_1 = create(:published_news_article, organisations: [organisation], first_published_at: 1.days.ago)
-    announcement_2 = create(:published_speech, role_appointment: role_appointment, delivered_on: 2.days.ago.to_date, speech_type: SpeechType::WrittenStatement)
+    announcement_2 = create(:published_speech, role_appointment: role_appointment, first_published_at: 2.days.ago.to_date, speech_type: SpeechType::WrittenStatement)
     announcement_3 = create(:published_news_article, organisations: [organisation], first_published_at: 3.days.ago)
 
     get :show, id: organisation

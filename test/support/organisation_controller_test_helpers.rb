@@ -97,7 +97,7 @@ module OrganisationControllerTestHelpers
         editions = [create(:published_policy, first_published_at: 1.days.ago),
                   create(:published_publication, publication_date: 2.days.ago),
                   create(:published_consultation, first_published_at: 3.days.ago),
-                  create(:published_speech, delivered_on: 4.days.ago)]
+                  create(:published_speech, first_published_at: 4.days.ago)]
 
         organisation = create(org_type, editions: editions)
         get :show, id: organisation
