@@ -131,7 +131,9 @@ Details of document required:
   end
 
   def link_to_translated_object(object, locale)
-    path = case object.to_model
+    object = object.is_a?(Array) ? object : object.to_model
+
+    path = case object
     when Edition
       public_document_path(object, locale: locale)
     when CorporateInformationPage

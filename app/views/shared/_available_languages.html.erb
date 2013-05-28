@@ -6,7 +6,7 @@
           <% if locale == I18n.locale %>
             <span><%= native_language_name_for(locale) %></span>
           <% else %>
-            <%= link_to_translated_object(defined?(linkable) ? linkable : object, locale) %>
+            <%= link_to_translated_object((defined?(linkable) ? linkable : object), locale) %>
           <% end %>
         </li>
       <% end %>

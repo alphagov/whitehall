@@ -133,4 +133,11 @@ class DocumentHelperTest < ActionView::TestCase
     assert_dom_equal %Q(<a href="#{public_document_path(edition, locale: :en)}">English</a>),
       link_to_translated_object(decorated_edition, :en)
   end
+
+  test "link_to_translated_object handles linking to resource actions, i.e. organisation about pages" do
+    organisation = create(:organisation)
+
+    assert_dom_equal %Q(<a href="#{polymorphic_path([:about, organisation], locale: :cy)}">Cymraeg</a>),
+      link_to_translated_object([:about, organisation], :cy)
+  end
 end
