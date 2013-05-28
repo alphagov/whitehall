@@ -15,7 +15,7 @@ module Edition::WorldwidePriorities
 
     # Ensure that when we set priority ids we don't remove other types of edition from the array
     define_method(:worldwide_priority_ids=) do |priority_ids|
-      priority_ids = [priority_ids].flatten.reject(&:blank?)
+      priority_ids = Array.wrap(priority_ids).reject(&:blank?)
       new_priorities = priority_ids.map { |id| WorldwidePriority.find(id).document }
       other_related_documents = self.related_documents.reject { |document| document.latest_edition.is_a?(WorldwidePriority) }
 
