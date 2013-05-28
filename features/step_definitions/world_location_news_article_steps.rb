@@ -112,3 +112,30 @@ end
 Then /^I should be able to see the world location news article$/ do
   assert page.has_css?(record_css_selector(@world_location_news))
 end
+
+
+Given /^a draft right\-to\-left non\-English edition exists$/ do
+  I18n.with_locale(:ar) do
+    @edition = create(:world_location_news_article, title: 'Arabic title', body: 'Arabic body', summary: 'Arabic summary', locale: :ar)
+  end
+end
+
+When /^I view the right\-to\-left non\-English edition in admin$/ do
+  visit admin_edition_path(@edition)
+end
+
+Then /^I should see the document preview appears right\-to\-left$/ do
+  within '#document article.right-to-left' do
+    page.has_content?(@edition.title)
+    page.has_content?(@edition.body)
+    page.has_content?(@edition.summary)
+  end
+end
+
+When /^I edit the right\-to\-left non\-English edition$/ do
+  click_on 'Edit'
+end
+
+Then /^I should see that the form text fields are displayed right to left$/ do
+  assert page.has_css?('form fieldset.right-to-left')
+end

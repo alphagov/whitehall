@@ -1,4 +1,4 @@
-<fieldset>
+<%= content_tag :fieldset, class: ("right-to-left" if edition.rtl?) do %>
   <%= form.hidden_field :lock_version %>
   <% if form.object.document %>
   <%= form.text_field :slug, disabled: true %>
@@ -12,7 +12,7 @@
   <%= form.text_area :body, class: "previewable" %>
 
   <%= render partial: "additional_significant_fields", locals: {form: form, edition: form.object} %>
-</fieldset>
+<% end %>
 
 <% if form.object.allows_image_attachments? %>
   <%= render partial: "image_fields", locals: {form: form, edition: form.object} %>

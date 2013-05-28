@@ -39,6 +39,10 @@ module Edition::Translatable
     locale.intern != :en
   end
 
+  def rtl?
+    Locale.find_by_code(locale).rtl?
+  end
+
   def primary_language_name
     Locale.find_by_code(locale).english_language_name
   end

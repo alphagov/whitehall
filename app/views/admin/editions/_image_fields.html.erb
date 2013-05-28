@@ -1,4 +1,4 @@
-<fieldset id="image_fields" class="images multiple_file_uploads">
+<%= content_tag :fieldset, id: "image_fields", class: "images multiple_file_uploads#{' right-to-left' if edition.rtl?}" do %>
   <legend>Images</legend>
   <% i = 0 %>
   <%= form.fields_for :images do |images_fields| %>
@@ -34,4 +34,4 @@
       </div>
     <% end %>
   <% end %>
-</fieldset>
+<% end %>

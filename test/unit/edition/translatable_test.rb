@@ -37,6 +37,14 @@ class Edition::TranslatableTest < ActiveSupport::TestCase
     end
   end
 
+  test 'right-to-left editions identify themselves' do
+    french_edition = create(:edition, locale: :fr)
+    refute french_edition.rtl?
+
+    arabic_edition = create(:edition, locale: :ar)
+    assert arabic_edition.rtl?
+  end
+
   test 'English editions fallback to their English translation when localised' do
     edition = create(:edition, title: 'English Title', body: 'English Body')
 
