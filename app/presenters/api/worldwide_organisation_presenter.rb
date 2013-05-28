@@ -61,11 +61,20 @@ class Api::WorldwideOrganisationPresenter < Api::BasePresenter
         email: office_worldwide_organisation.contact.email || '',
         description: office_worldwide_organisation.contact.comments || '',
         contact_form_url: office_worldwide_organisation.contact.contact_form_url || '',
+        access_and_opening_times: office_access_and_opening_times_as_json(office_worldwide_organisation),
         type: office_worldwide_organisation.worldwide_office_type.name
       }
     }.merge(office_addresss_as_json(office_worldwide_organisation)).
       merge(office_contact_numbers_as_json(office_worldwide_organisation)).
       merge(office_services_as_json(office_worldwide_organisation))
+  end
+
+  def office_access_and_opening_times_as_json(office_worldwide_organisation)
+    if office_worldwide_organisation.access_and_opening_times_body.present?
+      context.govspeak_to_html(office_worldwide_organisation.access_and_opening_times_body)
+    else
+      ''
+    end
   end
 
   def office_addresss_as_json(office_worldwide_organisation)
