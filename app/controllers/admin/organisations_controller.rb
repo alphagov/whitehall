@@ -63,7 +63,7 @@ class Admin::OrganisationsController < Admin::BaseController
   def update
     destroy_blank_mainstream_links
     delete_absent_organisation_classifications
-    delete_absent_organisation_classifications
+    delete_absent_organisation_mainstream_categories
     social.destroy_blank_social_media_accounts(params[:organisation])
     if @organisation.update_attributes(params[:organisation])
       redirect_to admin_organisation_path(@organisation)
