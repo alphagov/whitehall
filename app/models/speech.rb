@@ -41,13 +41,6 @@ class Speech < Announcement
     role_appointment && role_appointment.role.ministerial?
   end
 
-  def first_public_at
-    delivered_on.to_datetime unless delivered_on.nil?
-  end
-
-  def make_public_at(date)
-  end
-
   private
 
   def skip_organisation_validation?

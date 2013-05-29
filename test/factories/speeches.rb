@@ -21,7 +21,9 @@ FactoryGirl.define do
   factory :draft_speech, parent: :speech, traits: [:draft]
   factory :submitted_speech, parent: :speech, traits: [:submitted]
   factory :rejected_speech, parent: :speech, traits: [:rejected]
-  factory :published_speech, parent: :speech, traits: [:published]
+  factory :published_speech, parent: :speech, traits: [:published] do
+    first_published_at  { 2.days.ago }
+  end
   factory :deleted_speech, parent: :speech, traits: [:deleted]
   factory :archived_speech, parent: :speech, traits: [:archived]
   factory :scheduled_speech, parent: :speech, traits: [:scheduled]
