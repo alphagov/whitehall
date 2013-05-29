@@ -22,6 +22,7 @@ task :test_queue do
   end
   # Ensure the number of workers matches the number of PARALLEL_TEST_PROCESSORS
   ENV['TEST_QUEUE_WORKERS'] ||= ENV['PARALLEL_TEST_PROCESSORS']
-  command = "./script/test_queue #{files.join(' ')}"
-  abort unless system(command)
+  puts "Running unit, functional and integration tests from #{files.size} files across #{ENV['TEST_QUEUE_WORKERS']} processors."
+  command = "./script/test_queue"
+  abort unless system(command, *files)
 end
