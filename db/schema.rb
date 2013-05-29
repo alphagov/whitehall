@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130514152339) do
+ActiveRecord::Schema.define(:version => 20130520154538) do
 
   create_table "access_and_opening_times", :force => true do |t|
     t.text     "body"
@@ -209,8 +209,6 @@ ActiveRecord::Schema.define(:version => 20130514152339) do
     t.integer  "lock_version"
     t.integer  "organisation_id"
     t.integer  "type_id"
-    t.text     "summary"
-    t.text     "body"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "organisation_type"
@@ -833,16 +831,11 @@ ActiveRecord::Schema.define(:version => 20130514152339) do
   add_index "organisational_relationships", ["parent_organisation_id"], :name => "index_organisational_relationships_on_parent_organisation_id"
 
   create_table "organisations", :force => true do |t|
-    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "slug"
     t.integer  "organisation_type_id"
-    t.text     "description"
-    t.text     "about_us"
-    t.string   "acronym"
     t.string   "url"
-    t.text     "logo_formatted_name"
     t.string   "alternative_format_contact_email"
     t.string   "govuk_status",                            :default => "live", :null => false
     t.integer  "organisation_logo_type_id",               :default => 2
@@ -865,7 +858,6 @@ ActiveRecord::Schema.define(:version => 20130514152339) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "carrierwave_image"
-    t.text     "biography"
     t.string   "slug"
     t.boolean  "privy_counsellor",  :default => false
   end
@@ -981,12 +973,10 @@ ActiveRecord::Schema.define(:version => 20130514152339) do
   create_table "roles", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "name"
     t.string   "type",                         :default => "MinisterialRole", :null => false
     t.boolean  "permanent_secretary",          :default => false
     t.boolean  "cabinet_member",               :default => false,             :null => false
     t.string   "slug"
-    t.text     "responsibilities"
     t.boolean  "chief_of_the_defence_staff",   :default => false,             :null => false
     t.integer  "whip_organisation_id"
     t.integer  "seniority",                    :default => 100
