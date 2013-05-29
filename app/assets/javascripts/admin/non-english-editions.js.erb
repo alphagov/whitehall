@@ -3,7 +3,7 @@
 
   var _setupNonEnglishSupport = function () {
     $(this).each(function() {
-      $form = $(this);
+      var $form = $(this);
       // hide locale fieldsets
       var $localeInput = $(this).find('#edition_locale');
       var $fieldset = $localeInput.parent('fieldset');
@@ -44,7 +44,3 @@
     setupNonEnglishSupport: _setupNonEnglishSupport
   });
 })(jQuery);
-
-jQuery(function($) {
-  $("form.supports-non-english").setupNonEnglishSupport();
-})

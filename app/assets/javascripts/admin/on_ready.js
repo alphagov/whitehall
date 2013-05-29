@@ -53,4 +53,6 @@ jQuery(document).ready(function($) {
       GOVUK.updateSpeechHeaders();
     });
   }
+
+  $("form.js-supports-non-english").setupNonEnglishSupport();
 })
