@@ -435,6 +435,21 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert_equal [], organisation.mainstream_categories
   end
 
+  test "update removes absent mainstream categories via nested attributes" do
+    category1 = create(:mainstream_category)
+    category2 = create(:mainstream_category)
+    organisation_attributes = {name: "Ministry of Sound"}
+    organisation = create(:organisation, organisation_attributes.merge(mainstream_categories: [category1, category2]))
+    category1_join = organisation.organisation_mainstream_categories.where(mainstream_category_id: category1).first
+    category2_join = organisation.organisation_mainstream_categories.where(mainstream_category_id: category2).first
+
+    put :update, id: organisation,
+                 organisation: organisation_attributes.merge( organisation_mainstream_categories_attributes: [ {mainstream_category_id: category1.id, ordering: "0", id: category1_join.id},
+                                                                                                               {mainstream_category_id: "", ordering: "1", id: category2_join.id} ])
+
+    assert_equal [category1], organisation.reload.mainstream_categories
+  end
+
   test "update should remove all parent organisations if none specified" do
     organisation_attributes = {name: "Ministry of Sound"}
     organisation = create(:organisation,
