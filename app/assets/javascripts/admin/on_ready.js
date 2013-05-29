@@ -21,7 +21,10 @@ jQuery(document).ready(function($) {
     window.location.hash = e.target.hash;
     window.scrollTo(before_shown_scroll_y, before_shown_scroll_y);
   })
+
   $('.js-toggle-nav').toggler({header: ".toggler", content: ".content", showArrow: false, actLikeLightbox: true})
+
+  GOVUK.createNew.init();
 
   GOVUK.duplicateFields.init();
 

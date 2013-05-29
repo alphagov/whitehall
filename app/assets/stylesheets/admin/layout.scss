@@ -34,7 +34,7 @@ header {
   background-color: #3b3b3b;
   border-top: 1px solid #444;
   clear: both;
-  overflow: hidden;
+  @extend %contain-floats;
 
   .toggler {
     &:after {
@@ -76,6 +76,25 @@ header {
         display: none;
         @include media(tablet){
           display: block;
+        }
+      }
+    }
+
+    .create-new {
+      position: relative;
+      strong {
+        display: block;
+        overflow: hidden;
+        padding: 9px 10px 11px;
+        line-height: 19px;
+        cursor: pointer;
+        &:hover {
+          color: #fff;
+        }
+
+        span {
+          position: absolute;
+          left: -9999em;
         }
       }
     }
