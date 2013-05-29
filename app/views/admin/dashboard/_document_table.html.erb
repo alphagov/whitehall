@@ -1,0 +1,24 @@
+<%
+  documents ||= []
+%>
+<% if documents.nil? || documents.empty? %>
+  <p>No <%= title %></p>
+<% else %>
+  <ol class="document-list">
+    <% documents.each do |edition| %>
+      <%= content_tag_for(:li, edition, class: 'document-row') do %>
+        <h3><%= link_to edition.title, admin_edition_path(edition) %></h3>
+        <ul class="attributes">
+          <li class="updated-by">updated <%= time_ago_in_words edition.updated_at %> ago by <%= linked_author(edition.last_author) %></li>
+          <li class="type"><%= edition.type.titleize %></li>
+          <% if edition.force_published? %>
+            <li><span class="force_published label label-important">not reviewed</span></li>
+          <% end %>
+          <% if edition.access_limited? %>
+            <li><span class="access_limited label label-important">limited access</span></li>
+          <% end %>
+        </ul>
+      <% end %>
+    <% end %>
+  </ol>
+<% end %>

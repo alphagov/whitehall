@@ -1,11 +1,6 @@
 require 'test_helper'
 
 class RoutingTest < ActionDispatch::IntegrationTest
-  test "visiting #{Whitehall.router_prefix}/admin redirects to /admin/editions" do
-    get "#{Whitehall.router_prefix}/admin"
-    assert_redirected_to "#{Whitehall.router_prefix}/admin/editions"
-  end
-
   test "visiting #{Whitehall.router_prefix}/policy-topics redirects to #{Whitehall.router_prefix}/topics" do
     get "#{Whitehall.router_prefix}/policy-topics"
     assert_redirected_to "#{Whitehall.router_prefix}/topics"
@@ -73,10 +68,11 @@ class RoutingTest < ActionDispatch::IntegrationTest
   end
 
   test "admin is reachable in preview from whitehall-admin" do
+    login_as_admin
     host! 'whitehall-admin.preview.alphagov.co.uk'
     Rails.stubs(:env).returns(ActiveSupport::StringInquirer.new("production"))
     get "/government/admin"
-    assert_redirected_to "/government/admin/editions"
+    assert_response :success
   end
 
   test "admin is unreachable in production from whitehall" do
@@ -88,10 +84,11 @@ class RoutingTest < ActionDispatch::IntegrationTest
   end
 
   test "admin is reachable in production from whitehall-admin" do
+    login_as_admin
     host! 'whitehall-admin.production.alphagov.co.uk'
     Rails.stubs(:env).returns(ActiveSupport::StringInquirer.new("production"))
     get "/government/admin"
-    assert_redirected_to "/government/admin/editions"
+    assert_response :success
   end
 
   test "visiting a detailed guidance document redirects you to the slug at root" do

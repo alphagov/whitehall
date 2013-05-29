@@ -1,0 +1,28 @@
+.document-list {
+  clear: both;
+  margin: 0;
+
+  .document-row {
+    display: block;
+    overflow: hidden;
+    list-style: none;
+    border-bottom: 1px solid $border-colour;
+    padding: $gutter-one-sixth 0 $gutter-one-third;
+
+    h2, h3 {
+      @include core-16;
+      margin-top: $gutter-one-sixth;
+    }
+
+    ul {
+      margin: 0;
+
+      li {
+        float: left;
+        display: block;
+        list-style: none;
+        padding: 0 $gutter-two-thirds 0 0;
+      }
+    }
+  }
+}

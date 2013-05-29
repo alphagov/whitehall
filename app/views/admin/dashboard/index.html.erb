@@ -1,0 +1,16 @@
+<% page_title 'Dashboard' %>
+
+<h1>Dashboard</h1>
+
+<div id="role_ordering" class="row-fluid">
+  <div class="span6 draft-documents">
+    <h2>Your draft documents</h2>
+    <%= render partial: 'document_table', locals: { documents: @draft_documents, title: 'draft documents' } %>
+  </div>
+  <% if current_user.organisation %>
+    <div class="span6 force-published-documents">
+      <h2><%= current_user.organisation.acronym %>'s force published documents</h2>
+      <%= render partial: 'document_table', locals: { documents: @force_published_documents, title: 'foce published documents' } %>
+    </div>
+  <% end %>
+</div>
