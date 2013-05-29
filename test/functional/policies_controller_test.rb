@@ -269,10 +269,10 @@ That's all
   end
 
   view_test "activity displays metadata about the recently changed documents" do
-    first_delivered_on = Time.zone.now
+    first_published_at = Time.zone.now
     policy = create(:published_policy)
     organisation = create(:organisation)
-    speech = create(:published_speech, delivered_on: first_delivered_on, related_editions: [policy], organisations: [organisation])
+    speech = create(:published_speech, first_published_at: first_published_at, related_editions: [policy], organisations: [organisation])
 
     get :activity, id: policy.document
 
@@ -465,7 +465,7 @@ That's all
     publication = create(:published_publication, publication_date: 4.weeks.ago.to_date, related_editions: [policy])
     consultation = create(:published_consultation, opening_on: 1.weeks.ago.to_date, related_editions: [policy])
     news_article = create(:published_news_article, first_published_at: 3.weeks.ago, related_editions: [policy])
-    speech = create(:published_speech, delivered_on: 2.weeks.ago.to_date, related_editions: [policy])
+    speech = create(:published_speech, first_published_at: 2.weeks.ago.to_date, related_editions: [policy])
 
     get :activity, id: policy.document, format: "atom"
 

@@ -62,15 +62,15 @@ class AnnouncementsControllerTest < ActionController::TestCase
     end
   end
 
-  view_test "index shows the date on which a speech was delivered" do
+  view_test "index shows the date on which a speech was first published" do
     without_delay! do
-      delivered_on = Date.parse("1999-12-31")
-      speech = create(:published_speech, delivered_on: delivered_on)
+      first_published_at = Date.parse("1999-12-31")
+      speech = create(:published_speech, first_published_at: first_published_at)
 
       get :index
 
       assert_select_object(speech) do
-        assert_select "abbr.public_timestamp[title=?]", delivered_on.to_datetime.iso8601
+        assert_select "abbr.public_timestamp[title=?]", first_published_at.to_datetime.iso8601
       end
     end
   end
@@ -111,7 +111,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
 
   view_test "index shows articles in reverse chronological order" do
     without_delay! do
-      oldest = create(:published_speech, delivered_on: 5.days.ago)
+      oldest = create(:published_speech, first_published_at: 5.days.ago)
       newest = create(:published_news_article, first_published_at: 4.days.ago)
 
       get :index
@@ -122,7 +122,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
 
   view_test "index shows articles in chronological order if date filter is 'after' a given date" do
     without_delay! do
-      oldest = create(:published_speech, delivered_on: 5.days.ago)
+      oldest = create(:published_speech, first_published_at: 5.days.ago)
       newest = create(:published_news_article, first_published_at: 4.days.ago)
 
       get :index, direction: 'after', date: 6.days.ago.to_s
@@ -169,7 +169,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
   view_test "index shows only the first page of news articles or speeches" do
     without_delay! do
       news = (1..2).map { |n| create(:published_news_article, first_published_at: n.days.ago) }
-      speeches = (3..4).map { |n| create(:published_speech, delivered_on: n.days.ago) }
+      speeches = (3..4).map { |n| create(:published_speech, first_published_at: n.days.ago) }
 
       with_number_of_documents_per_page(3) do
         get :index
@@ -185,7 +185,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
   view_test "index shows the requested page" do
     without_delay! do
       news = (1..3).map { |n| create(:published_news_article, first_published_at: n.days.ago) }
-      speeches = (4..6).map { |n| create(:published_speech, delivered_on: n.days.ago) }
+      speeches = (4..6).map { |n| create(:published_speech, first_published_at: n.days.ago) }
 
       with_number_of_documents_per_page(4) do
         get :index, page: 2

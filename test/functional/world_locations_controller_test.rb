@@ -152,7 +152,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
   test "should display world_location's latest two announcements in reverse chronological order" do
     world_location = create(:world_location)
     announcement_2 = create(:published_news_article, world_locations: [world_location], first_published_at: 2.days.ago)
-    announcement_3 = create(:published_speech, world_locations: [world_location], delivered_on: 3.days.ago)
+    announcement_3 = create(:published_speech, world_locations: [world_location], first_published_at: 3.days.ago)
     announcement_1 = create(:published_news_article, world_locations: [world_location], first_published_at: 1.day.ago)
 
     get :show, id: world_location
@@ -163,7 +163,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
   view_test "should display 2 announcements with details and a link to announcements filter if there are many announcements" do
     world_location = create(:world_location)
     announcement_2 = create(:published_news_article, world_locations: [world_location], first_published_at: 2.days.ago)
-    announcement_3 = create(:published_speech, world_locations: [world_location], delivered_on: 3.days.ago)
+    announcement_3 = create(:published_speech, world_locations: [world_location], first_published_at: 3.days.ago)
     announcement_1 = create(:published_news_article, world_locations: [world_location], first_published_at: 1.day.ago)
 
     get :show, id: world_location
