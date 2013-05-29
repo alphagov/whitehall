@@ -86,7 +86,7 @@ class TopicalEvent < Classification
   end
 
   def search_link
-    topical_event_path(slug)
+    Whitehall.url_maker.topical_event_path(slug)
   end
 
   private
