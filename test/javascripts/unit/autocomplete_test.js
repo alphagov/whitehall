@@ -105,7 +105,6 @@ test("sets active selection on mouse move", function(){
 
   ok(!li1.hasClass('active'), 'not active');
   GOVUK.autoCompleter.mouseMove({ target: li1 });
-  console.log(selector.html());
   ok(li1.hasClass('active'), 'active');
   GOVUK.autoCompleter.$selector = originalSelector;
 });
