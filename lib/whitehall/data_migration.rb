@@ -3,7 +3,7 @@ require 'logger'
 module Whitehall
   class DataMigration
     def initialize(path, options = {})
-      @path = path
+      @path = path.to_s
       @logger = options[:logger] || Logger.new($stderr)
     end
 
