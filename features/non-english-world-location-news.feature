@@ -22,9 +22,9 @@ Feature: World location news specific to native language speakers
     And I should be able to view the article "Le ministre de la Funk aime faire la fête" article in French
     But I shoud not see the "Le ministre de la Funk aime faire la fête" article on the English version of the public "France" location page
 
-Scenario: Editing a right-to-left non-English edition
-  Given a draft right-to-left non-English edition exists
-  When I view the right-to-left non-English edition in admin
-  Then I should see the document preview appears right-to-left
-  When I edit the right-to-left non-English edition
-  Then I should see that the form text fields are displayed right to left
+  Scenario: Editing a right-to-left non-English edition
+    Given a draft right-to-left non-English edition exists
+    When I view the right-to-left non-English edition in admin
+    Then I should see the document preview appears right-to-left
+    When I edit the right-to-left non-English edition
+    Then I should see that the form text fields are displayed right to left
