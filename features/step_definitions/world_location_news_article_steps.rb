@@ -10,49 +10,45 @@ Given /^a world location news article "([^"]+)" for the world location "([^"]+)"
   create(:published_world_location_news_article, title: title, world_locations: [world_location], worldwide_organisations: [worldwide_organisation])
 end
 
-When /^I draft a French\-only world location news article called "([^"]*)" associated with "([^"]*)"$/ do |world_news_title, location_name|
+When /^I draft a French\-only world location news article associated with "([^"]*)"$/ do |location_name|
   world_organisation = create(:worldwide_organisation, name: "Funky Consulate in #{location_name}")
-  begin_drafting_world_location_news_article title: world_news_title, body: 'test-body', summary: 'test-summary'
+  begin_drafting_world_location_news_article title: "French-only world locatino news article", body: 'test-body', summary: 'test-summary'
 
   select "Français", from: "Document language"
   select location_name, from: "Select the world locations this world location news article is about"
   select world_organisation.name, from: "Select the worldwide organisations associated with this world location news article"
   click_button "Save"
+
+  @world_location_news_article = find_world_location_news_article_in_locale!(:fr, 'French-only world locatino news article')
 end
 
-When /^I publish the non-English world location news article "([^"]*)"$/ do |world_news_title|
-  world_location_news_article = find_world_location_news_article_in_locale!(:fr, world_news_title)
-  visit admin_edition_path(world_location_news_article)
+When /^I publish the French-only world location news article$/ do
+  visit admin_edition_path(@world_location_news_article)
   publish
 end
 
-Then /^I should see the "([^"]*)" article listed in admin with an indication that it is in French$/ do |world_news_title|
-  world_location_news_article = find_world_location_news_article_in_locale!(:fr, world_news_title)
-  assert_equal admin_edition_path(world_location_news_article), page.current_path
+Then /^I should see the world location news article listed in admin with an indication that it is in French$/ do
+  assert_equal admin_edition_path(@world_location_news_article), page.current_path
   assert page.has_content?("This document is French-only")
 end
 
-Then /^I should see the "([^"]*)" article on the French version of the public "([^"]*)" location page$/ do |world_news_title, world_location_name|
+Then /^I should only see the world location news article on the French version of the public "([^"]*)" location page$/ do |world_location_name|
   world_location = WorldLocation.find_by_name!(world_location_name, locale: :fr)
-  world_location_news_article = find_world_location_news_article_in_locale!(:fr, world_news_title)
   visit world_location_path(world_location, locale: :fr)
-  within record_css_selector(world_location_news_article) do
-    assert page.has_content?(world_location_news_article.title)
+  within record_css_selector(@world_location_news_article) do
+    assert page.has_content?(@world_location_news_article.title)
   end
-end
 
-Then /^I should be able to view the article "([^"]*)" article in French$/ do |world_news_title|
-  world_location_news_article = find_world_location_news_article_in_locale!(:fr, world_news_title)
-  visit world_location_news_article_path(world_location_news_article, locale: :fr)
-  assert page.has_content?(world_location_news_article.title)
-end
-
-Then /^I shoud not see the "([^"]*)" article on the English version of the public "([^"]*)" location page$/ do |world_news_title, world_location_name|
-  world_location = WorldLocation.find_by_name!(world_location_name)
-  world_location_news_article = find_world_location_news_article_in_locale!(:fr, world_news_title)
   visit world_location_path(world_location)
+  refute page.has_css?(record_css_selector(@world_location_news_article))
+end
 
-  refute page.has_css?(record_css_selector(world_location_news_article))
+Then /^I should only be able to view the world location news article article in French$/ do
+  visit world_location_news_article_path(@world_location_news_article, locale: :fr)
+  assert page.has_content?(@world_location_news_article.title)
+
+  visit world_location_news_article_path(@world_location_news_article)
+  assert_equal 404, page.status_code
 end
 
 When /^I draft a valid world location news article "([^"]*)"$/ do |title|

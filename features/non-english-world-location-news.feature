@@ -15,12 +15,11 @@ Feature: World location news specific to native language speakers
 
   Scenario: Create a world location news article in a non-English language
     Given a world location "France" exists with a translation for the locale "Français"
-    When I draft a French-only world location news article called "Le ministre de la Funk aime faire la fête" associated with "France"
-    Then I should see the "Le ministre de la Funk aime faire la fête" article listed in admin with an indication that it is in French
-    When I publish the non-English world location news article "Le ministre de la Funk aime faire la fête"
-    Then I should see the "Le ministre de la Funk aime faire la fête" article on the French version of the public "France" location page
-    And I should be able to view the article "Le ministre de la Funk aime faire la fête" article in French
-    But I shoud not see the "Le ministre de la Funk aime faire la fête" article on the English version of the public "France" location page
+    When I draft a French-only world location news article associated with "France"
+    Then I should see the world location news article listed in admin with an indication that it is in French
+    When I publish the French-only world location news article
+    Then I should only see the world location news article on the French version of the public "France" location page
+    And I should only be able to view the world location news article article in French
 
   Scenario: Editing a right-to-left non-English edition
     Given a draft right-to-left non-English edition exists
