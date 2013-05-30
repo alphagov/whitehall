@@ -263,7 +263,7 @@ class Organisation < ActiveRecord::Base
   end
 
   def agencies_and_public_bodies
-    child_organisations.joins(:organisation_type).merge(OrganisationType.agency_or_public_body)
+    @agencies_and_public_bodies ||= child_organisations.with_translations.includes(:organisation_type).merge(OrganisationType.agency_or_public_body).all
   end
 
   def agencies_and_public_bodies_by_type
