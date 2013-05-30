@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130530114017) do
+ActiveRecord::Schema.define(:version => 20130530150259) do
 
   create_table "access_and_opening_times", :force => true do |t|
     t.text     "body"
@@ -823,6 +823,8 @@ ActiveRecord::Schema.define(:version => 20130530114017) do
     t.string   "analytics_prefix"
   end
 
+  add_index "organisation_types", ["name"], :name => "index_organisation_types_on_name"
+
   create_table "organisational_relationships", :force => true do |t|
     t.integer  "parent_organisation_id"
     t.integer  "child_organisation_id"
@@ -958,6 +960,7 @@ ActiveRecord::Schema.define(:version => 20130530114017) do
     t.datetime "ended_at"
   end
 
+  add_index "role_appointments", ["ended_at"], :name => "index_role_appointments_on_ended_at"
   add_index "role_appointments", ["person_id"], :name => "index_role_appointments_on_person_id"
   add_index "role_appointments", ["role_id"], :name => "index_role_appointments_on_role_id"
 
@@ -971,6 +974,7 @@ ActiveRecord::Schema.define(:version => 20130530114017) do
   end
 
   add_index "role_translations", ["locale"], :name => "index_role_translations_on_locale"
+  add_index "role_translations", ["name"], :name => "index_role_translations_on_name"
   add_index "role_translations", ["role_id"], :name => "index_role_translations_on_role_id"
 
   create_table "roles", :force => true do |t|
@@ -989,6 +993,7 @@ ActiveRecord::Schema.define(:version => 20130530114017) do
     t.integer  "whip_ordering",                :default => 100
   end
 
+  add_index "roles", ["attends_cabinet_type_id"], :name => "index_roles_on_attends_cabinet_type_id"
   add_index "roles", ["slug"], :name => "index_roles_on_slug"
   add_index "roles", ["supports_historical_accounts"], :name => "index_roles_on_supports_historical_accounts"
 
