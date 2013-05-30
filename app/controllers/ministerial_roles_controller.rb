@@ -5,9 +5,8 @@ class MinisterialRolesController < PublicFacingController
     sorter = MinisterSorter.new
     @cabinet_ministerial_roles = decorated_people_and_their_roles(sorter.cabinet_ministers)
 
-    cabinet_roles = MinisterSorter.new(Role.includes(:translations, :current_people)).also_attends_cabinet
+    cabinet_roles = MinisterSorter.new(Role.with_translations.includes(:current_people)).also_attends_cabinet
     @also_attends_cabinet = decorated_people_and_their_roles(cabinet_roles)
-
     @ministers_by_organisation = ministers_by_organisation
     @whips_by_organisation = whips_by_organisation
   end
@@ -33,20 +32,22 @@ private
   end
 
   def ministers_by_organisation
-    Organisation.where(organisation_type_id: ministerial_department_type).includes(:translations).map do |organisation|
-      roles_presenter = filled_roles_presenter_for(organisation, :ministerial)
+    Organisation.where(organisation_type_id: ministerial_department_type).
+                    with_translations.
+                    with_translations_for(:ministerial_roles).
+                    includes(ministerial_roles: [:current_people]).
+                    order('organisation_roles.ordering').map do |organisation|
+      roles_presenter = RolesPresenter.new(organisation.ministerial_roles, view_context)
+      roles_presenter.remove_unfilled_roles!
       [organisation, roles_presenter]
     end
   end
 
   def whips_by_organisation
-    Role.includes(:translations, :current_people).whip.group_by(&:whip_organisation_id).map do |whip_organisation_id, roles|
-      presenter = RolesPresenter.new(roles.sort_by(&:whip_ordering), view_context)
-      presenter.remove_unfilled_roles!
-      [
-        Whitehall::WhipOrganisation.find_by_id(whip_organisation_id),
-        presenter
-      ]
+    Role.with_translations.includes(:current_people).whip.group_by(&:whip_organisation_id).map do |whip_organisation_id, roles|
+      roles_presenter = RolesPresenter.new(roles.sort_by(&:whip_ordering), view_context)
+      roles_presenter.remove_unfilled_roles!
+      [Whitehall::WhipOrganisation.find_by_id(whip_organisation_id), roles_presenter]
     end.sort_by { |org, whips| org.sort_order }
   end
 end
