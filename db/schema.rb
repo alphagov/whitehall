@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130520154538) do
+ActiveRecord::Schema.define(:version => 20130530114017) do
 
   create_table "access_and_opening_times", :force => true do |t|
     t.text     "body"
@@ -803,7 +803,7 @@ ActiveRecord::Schema.define(:version => 20130520154538) do
   create_table "organisation_translations", :force => true do |t|
     t.integer  "organisation_id"
     t.string   "locale"
-    t.text     "name"
+    t.string   "name"
     t.text     "logo_formatted_name"
     t.string   "acronym"
     t.text     "description"
@@ -813,6 +813,7 @@ ActiveRecord::Schema.define(:version => 20130520154538) do
   end
 
   add_index "organisation_translations", ["locale"], :name => "index_organisation_translations_on_locale"
+  add_index "organisation_translations", ["name"], :name => "index_organisation_translations_on_name"
   add_index "organisation_translations", ["organisation_id"], :name => "index_organisation_translations_on_organisation_id"
 
   create_table "organisation_types", :force => true do |t|
