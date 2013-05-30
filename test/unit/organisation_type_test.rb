@@ -61,6 +61,6 @@ class OrganisationTypeTest < ActiveSupport::TestCase
     group = create(:organisation_type, name: "Ad-hoc advisory group")
     sub_organisation = create(:organisation_type, name: "Sub-organisation")
 
-    assert_equal [department, group], OrganisationType.agency_or_public_body
+    assert_same_elements [department, group], OrganisationType.agency_or_public_body
   end
 end
