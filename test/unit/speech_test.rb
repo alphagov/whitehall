@@ -268,4 +268,8 @@ class SpeechTest < ActiveSupport::TestCase
   test "should be translatable" do
     assert build(:speech).translatable?
   end
+
+  test "is not translatable when non-English" do
+    refute build(:speech, locale: :es).translatable?
+  end
 end

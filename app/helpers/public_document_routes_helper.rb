@@ -4,7 +4,9 @@ module PublicDocumentRoutesHelper
   end
 
   def document_path(edition, options = {})
-    polymorphic_path(model_name_for_route_recognition(edition), options.merge(id: edition.document))
+    defaults = { id: edition.document }
+    defaults[:locale] = edition.locale if edition.non_english_edition?
+    polymorphic_path(model_name_for_route_recognition(edition), defaults.merge(options))
   end
 
   def public_document_path(edition, options = {})
@@ -21,7 +23,9 @@ module PublicDocumentRoutesHelper
   end
 
   def document_url(edition, options = {})
-    polymorphic_url(model_name_for_route_recognition(edition), options.merge(id: edition.document))
+    defaults = { id: edition.document }
+    defaults[:locale] = edition.locale if edition.non_english_edition?
+    polymorphic_url(model_name_for_route_recognition(edition), defaults.merge(options))
   end
 
   def public_document_url(edition, options = {})

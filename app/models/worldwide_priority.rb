@@ -27,6 +27,6 @@ class WorldwidePriority < Edition
   end
 
   def translatable?
-    true
+    !non_english_edition?
   end
 end

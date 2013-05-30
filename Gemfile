@@ -35,7 +35,7 @@ gem 'whenever', '0.7.3', require: false
 gem 'mini_magick'
 gem 'shared_mustache', '~> 0.0.2'
 gem 'rails-i18n'
-gem 'globalize3'
+gem 'globalize3', git: 'https://github.com/svenfuchs/globalize3.git', ref: 'ab69160ad'
 gem 'link_header'
 
 group :assets do

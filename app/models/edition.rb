@@ -48,6 +48,7 @@ class Edition < ActiveRecord::Base
   def self.published_before(date)
     where(arel_table[:public_timestamp].lteq(date))
   end
+
   def self.published_after(date)
     where(arel_table[:public_timestamp].gteq(date))
   end
@@ -66,6 +67,7 @@ class Edition < ActiveRecord::Base
   def self.not_relevant_to_local_government
     relevant_to_local_government(false)
   end
+
   def self.relevant_to_local_government(include_relevant = true)
     types_that_get_relevance_from_related_policies = Edition::CanApplyToLocalGovernmentThroughRelatedPolicies.edition_types.map(&:name)
     where(%{
@@ -83,6 +85,10 @@ class Edition < ActiveRecord::Base
         type NOT IN (:types) AND editions.relevant_to_local_government = :relevant
       )
     }, types: types_that_get_relevance_from_related_policies, relevant: include_relevant)
+  end
+
+  def self.published_and_available_in_english
+    with_translations(:en).published
   end
 
   class UnmodifiableValidator < ActiveModel::Validator
@@ -132,7 +138,7 @@ class Edition < ActiveRecord::Base
   end
 
   def clear_slug
-    document.update_slug_if_possible("deleted-#{title(I18n.default_locale)}")
+    document.update_column(:slug, "deleted-#{title(I18n.default_locale)}")
   end
 
   searchable(
@@ -152,7 +158,7 @@ class Edition < ActiveRecord::Base
     relevant_to_local_government: :relevant_to_local_government?,
     world_locations: nil,
     topics: nil,
-    only: :published,
+    only: :published_and_available_in_english,
     index_after: [],
     unindex_after: [],
     search_format_types: :search_format_types
@@ -512,5 +518,4 @@ class Edition < ActiveRecord::Base
   def body_required?
     true
   end
-
 end

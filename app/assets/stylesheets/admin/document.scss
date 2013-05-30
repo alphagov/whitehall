@@ -96,7 +96,14 @@ html {
     @include type-13;
   }
 
-
+  &.right-to-left {
+    .title,
+    .summary,
+    .body,
+    .govspeak {
+      direction: rtl;
+    }
+  }
 }
 
 

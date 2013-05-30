@@ -1,3 +1,7 @@
+<% if edition.non_english_edition? %>
+  <p><em>(This document is <%=edition.primary_language_name %>-only)</em></p>
+<% end %>
+
 <h1 class="title"><%= edition.title %></h1>
 <% unless edition.summary.blank? %>
   <div class="summary">
