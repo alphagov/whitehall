@@ -12,4 +12,8 @@ class WorldwidePriorityTest < ActiveSupport::TestCase
   test "should be translatable" do
     assert build(:worldwide_priority).translatable?
   end
+
+  test "is not translatable when non-English" do
+    refute build(:worldwide_priority, locale: :es).translatable?
+  end
 end

@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 Given /^a world location news article "([^"]+)" exists$/ do |title|
   create(:published_world_location_news_article, title: title)
 end
@@ -6,6 +8,47 @@ Given /^a world location news article "([^"]+)" for the world location "([^"]+)"
   world_location = create(:world_location)
   worldwide_organisation = create(:worldwide_organisation)
   create(:published_world_location_news_article, title: title, world_locations: [world_location], worldwide_organisations: [worldwide_organisation])
+end
+
+When /^I draft a French\-only world location news article associated with "([^"]*)"$/ do |location_name|
+  world_organisation = create(:worldwide_organisation, name: "Funky Consulate in #{location_name}")
+  begin_drafting_world_location_news_article title: "French-only world locatino news article", body: 'test-body', summary: 'test-summary'
+
+  select "Français", from: "Document language"
+  select location_name, from: "Select the world locations this world location news article is about"
+  select world_organisation.name, from: "Select the worldwide organisations associated with this world location news article"
+  click_button "Save"
+
+  @world_location_news_article = find_world_location_news_article_in_locale!(:fr, 'French-only world locatino news article')
+end
+
+When /^I publish the French-only world location news article$/ do
+  visit admin_edition_path(@world_location_news_article)
+  publish
+end
+
+Then /^I should see the world location news article listed in admin with an indication that it is in French$/ do
+  assert_equal admin_edition_path(@world_location_news_article), page.current_path
+  assert page.has_content?("This document is French-only")
+end
+
+Then /^I should only see the world location news article on the French version of the public "([^"]*)" location page$/ do |world_location_name|
+  world_location = WorldLocation.find_by_name!(world_location_name, locale: :fr)
+  visit world_location_path(world_location, locale: :fr)
+  within record_css_selector(@world_location_news_article) do
+    assert page.has_content?(@world_location_news_article.title)
+  end
+
+  visit world_location_path(world_location)
+  refute page.has_css?(record_css_selector(@world_location_news_article))
+end
+
+Then /^I should only be able to view the world location news article article in French$/ do
+  visit world_location_news_article_path(@world_location_news_article, locale: :fr)
+  assert page.has_content?(@world_location_news_article.title)
+
+  visit world_location_news_article_path(@world_location_news_article)
+  assert_equal 404, page.status_code
 end
 
 When /^I draft a valid world location news article "([^"]*)"$/ do |title|
@@ -34,17 +77,17 @@ end
 
 Then /^the world location news article "([^"]+)" appears on the worldwide priority "([^"]+)"$/ do |world_news_title, world_priority_title|
   visit document_path(WorldwidePriority.find_by_title(world_priority_title))
-  world_news_article = WorldLocationNewsArticle.find_by_title(world_news_title)
-  within record_css_selector(world_news_article, 'recent') do
-    assert page.has_content?(world_news_article.title)
+  world_location_news_article = WorldLocationNewsArticle.find_by_title(world_news_title)
+  within record_css_selector(world_location_news_article, 'recent') do
+    assert page.has_content?(world_location_news_article.title)
   end
 end
 
 Then /^the world location news article "([^"]+)" appears on the world location "([^"]+)"$/ do |world_news_title, world_location_name|
   visit world_location_path(WorldLocation.find_by_name(world_location_name))
-  world_news_article = WorldLocationNewsArticle.find_by_title(world_news_title)
-  within record_css_selector(world_news_article) do
-    assert page.has_content?(world_news_article.title)
+  world_location_news_article = WorldLocationNewsArticle.find_by_title(world_news_title)
+  within record_css_selector(world_location_news_article) do
+    assert page.has_content?(world_location_news_article.title)
   end
 end
 
@@ -64,4 +107,31 @@ end
 
 Then /^I should be able to see the world location news article$/ do
   assert page.has_css?(record_css_selector(@world_location_news))
+end
+
+
+Given /^a draft right\-to\-left non\-English edition exists$/ do
+  I18n.with_locale(:ar) do
+    @edition = create(:world_location_news_article, title: 'Arabic title', body: 'Arabic body', summary: 'Arabic summary', locale: :ar)
+  end
+end
+
+When /^I view the right\-to\-left non\-English edition in admin$/ do
+  visit admin_edition_path(@edition)
+end
+
+Then /^I should see the document preview appears right\-to\-left$/ do
+  within '#document article.right-to-left' do
+    page.has_content?(@edition.title)
+    page.has_content?(@edition.body)
+    page.has_content?(@edition.summary)
+  end
+end
+
+When /^I edit the right\-to\-left non\-English edition$/ do
+  click_on 'Edit'
+end
+
+Then /^I should see that the form text fields are displayed right to left$/ do
+  assert page.has_css?('form fieldset.right-to-left')
 end

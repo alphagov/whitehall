@@ -33,6 +33,8 @@ class Document < ActiveRecord::Base
 
   has_many :document_sources, dependent: :destroy
 
+  after_create :ensure_document_has_a_slug
+
   attr_accessor :sluggable_string
 
   class Change < Struct.new(:public_timestamp, :note)
@@ -42,18 +44,20 @@ class Document < ActiveRecord::Base
   end
 
   def should_generate_new_friendly_id?
-    true
+    sluggable_string.present?
   end
 
   def update_slug_if_possible(new_title)
-    new_slug = normalize_friendly_id(new_title)
-    unless (new_slug == slug) || published?
+    return if published?
+
+    candidate_slug = normalize_friendly_id(new_title)
+    unless candidate_slug == slug
       update_attributes(sluggable_string: new_title)
     end
   end
 
   def published?
-    published_edition.present?
+    published_edition(true).present?
   end
 
   def first_published_date
@@ -86,5 +90,11 @@ class Document < ActiveRecord::Base
 
   def destroy_all_editions
     Edition.unscoped.destroy_all(document_id: self.id)
+  end
+
+  def ensure_document_has_a_slug
+    if slug.blank?
+      update_column(:slug, id.to_s)
+    end
   end
 end

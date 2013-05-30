@@ -47,6 +47,16 @@ class Edition::SearchableTest < ActiveSupport::TestCase
     edition.publish_as(create(:departmental_editor))
   end
 
+  test "should not add edition to search index if it is not available in English" do
+    I18n.locale = :fr
+    french_edition = create(:submitted_edition, title: 'French Title', body: 'French Body', locale: :fr)
+    I18n.locale = I18n.default_locale
+    Whitehall.stubs(:searchable_classes).returns([french_edition.class])
+    Searchable::Index.expects(:later).with(french_edition).never
+
+    french_edition.publish_as(create(:departmental_editor))
+  end
+
   test "should not remove edition from search index when a new edition is published" do
     edition = create(:published_edition)
     slug = edition.document.slug

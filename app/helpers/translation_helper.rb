@@ -1,7 +1,8 @@
 module TranslationHelper
   def sorted_locales(locale_codes)
-    codes = locale_codes.sort_by { |c| c.to_s }
-    codes.unshift(I18n.default_locale) if codes.delete(I18n.default_locale)
+    locale_codes.sort_by { |c| c.to_s }.tap do |codes|
+      codes.unshift(I18n.default_locale) if codes.delete(I18n.default_locale)
+    end
   end
 
   def t_world_location(world_location)

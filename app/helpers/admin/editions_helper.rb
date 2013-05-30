@@ -145,7 +145,9 @@ module Admin::EditionsHelper
   end
 
   def standard_edition_form(edition, &blk)
-    form_for [:admin, edition], as: :edition, builder: EditionFormBuilder do |form|
+    form_for [:admin, edition], as: :edition, builder: EditionFormBuilder,
+              html: { class: ('js-supports-non-english' if edition.locale_can_be_changed?) } do |form|
+      concat render('locale_fields', form: form, edition: edition)
       concat edition_information(@information) if @information
       concat form.errors
       concat render(partial: "standard_fields",

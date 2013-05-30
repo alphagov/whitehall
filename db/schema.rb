@@ -463,11 +463,13 @@ ActiveRecord::Schema.define(:version => 20130520154538) do
     t.integer  "news_article_type_id"
     t.boolean  "relevant_to_local_government",                :default => false
     t.string   "person_override"
+    t.string   "locale",                                      :default => "en",    :null => false
   end
 
   add_index "editions", ["alternative_format_provider_id"], :name => "index_editions_on_alternative_format_provider_id"
   add_index "editions", ["document_id"], :name => "index_editions_on_document_id"
   add_index "editions", ["first_published_at"], :name => "index_editions_on_first_published_at"
+  add_index "editions", ["locale"], :name => "index_editions_on_locale"
   add_index "editions", ["operational_field_id"], :name => "index_editions_on_operational_field_id"
   add_index "editions", ["primary_mainstream_category_id"], :name => "index_editions_on_primary_mainstream_category_id"
   add_index "editions", ["public_timestamp"], :name => "index_editions_on_public_timestamp"

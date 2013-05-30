@@ -120,4 +120,8 @@ class NewsArticleTest < ActiveSupport::TestCase
   test "should be translatable" do
     assert build(:news_article).translatable?
   end
+
+  test "is not translatable when non-English" do
+    refute build(:news_article, locale: :es).translatable?
+  end
 end

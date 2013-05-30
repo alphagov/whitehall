@@ -18,6 +18,10 @@ class TranslationHelperTest < ActionView::TestCase
     assert_equal [:de, :es, :fr], sorted_locales([:fr, :es, I18n.default_locale, :de])[1..-1]
   end
 
+  test "sorted_locales copes with the default locale not being present" do
+    assert_equal [:de, :es, :fr], sorted_locales([:fr, :de, :es])
+  end
+
   test "t_delivery_title returns minister value if document was delivered by minister" do
     I18n.backend.store_translations :en, {document: {speech: {delivery_title: {minister: 'minister-value'}}}}
     assert_equal "minister-value", t_delivery_title(stub('document', speech_type: stub('type', owner_key_group: 'delivery_title'), delivered_by_minister?: true))

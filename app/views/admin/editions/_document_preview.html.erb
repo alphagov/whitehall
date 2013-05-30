@@ -98,11 +98,11 @@
                 <%= button_to "Delete", admin_edition_translation_path(@edition, translation.locale), method: :delete, class: "btn btn-danger", confirm: "Are you sure you want to delete this translation?" %>
               <% end %>
             </nav>
-            <article class="document">
+            <%= content_tag :article, class: "document#{" right-to-left" if Locale.find_by_code(translation.locale).rtl?}" do %>
               <h2 class="title"><%= translation.title %></h2>
               <p class="summary"><%= translation.summary %></p>
               <p class="body"><%= govspeak_to_admin_html(translation.body) %></p>
-            </article>
+            <% end %>
           <% end %>
         <% end %>
       </section>
