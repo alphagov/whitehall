@@ -14,6 +14,9 @@ before_fork do |server, worker|
   if defined?(ActiveRecord::Base)
     ActiveRecord::Base.connection.disconnect!
   end
+
+  # Preload i18n records
+  I18n.t('activerecord')
 end
 
 after_fork do |server, worker|
