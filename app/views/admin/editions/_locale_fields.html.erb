@@ -2,6 +2,6 @@
   <fieldset>
     <%= form.label :locale, 'Document language' %>
     <%= form.select :locale, options_for_select(options_for_locales(Locale.all), edition.locale) %>
-    <p class="warning">Warning: Foreign language only documents do not support translations.</p>
+    <p class="warning">Warning: Foreign language only documents do not allow additional translations.</p>
   </fieldset>
 <% end %>
