@@ -32,6 +32,25 @@ class Admin::WorldLocationNewsArticlesControllerTest < ActionController::TestCas
     assert_equal 'Body', translation.body
   end
 
+  test 'POST :create with a blank locale will create a standard English edition' do
+
+    post :create, edition: {  lock_version: 0,
+                              title: 'Article title',
+                              summary: 'Summary',
+                              body: 'Body',
+                              locale: '',
+                              world_location_ids: [@world_location.id],
+                              worldwide_organisation_ids: [@worldwide_organisation.id]
+                            }
+
+    assert edition = Edition.find_by_title('Article title')
+    assert_redirected_to admin_world_location_news_article_path(edition)
+
+    assert_equal 'en', edition.locale
+    assert edition.available_in_locale?(:en)
+    assert_equal 'article-title', edition.document.slug
+  end
+
   test 'PUT :update for non-English edition does not save any additional translations' do
     edition = I18n.with_locale(:fr) { create(:world_location_news_article, title: 'French Title', body: 'French Body', locale: :fr) }
 

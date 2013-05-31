@@ -1,6 +1,6 @@
 class Admin::EditionsController < Admin::BaseController
   before_filter :remove_blank_parameters
-  before_filter :trim_title_parameters, only: [:create, :update]
+  before_filter :clean_edition_parameters, only: [:create, :update]
   before_filter :clear_scheduled_publication_if_not_activated, only: [:create, :update]
   before_filter :find_edition, only: [:show, :edit, :update, :submit, :revise, :reject, :destroy, :confirm_unpublish]
   before_filter :prevent_modification_of_unmodifiable_edition, only: [:edit, :update]
@@ -291,8 +291,9 @@ class Admin::EditionsController < Admin::BaseController
     end
   end
 
-  def trim_title_parameters
+  def clean_edition_parameters
     params[:edition][:title].strip! if params[:edition] && params[:edition][:title]
+    params[:edition].delete(:locale) if params[:edition] && params[:edition][:locale].blank?
   end
 
   def clear_scheduled_publication_if_not_activated
