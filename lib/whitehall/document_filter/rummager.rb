@@ -20,7 +20,6 @@ module Whitehall::DocumentFilter
         standard_filter_args
           .merge(filter_by_publication_type)
 
-      self.edition_eager_load += [:attachments, {response: :attachments}]
       @results = Whitehall.government_search_client.advanced_search(filter_args)
     end
 
@@ -155,7 +154,7 @@ module Whitehall::DocumentFilter
       if @results.empty? || @results['results'].empty?
         @documents ||= Kaminari.paginate_array([]).page(@page).per(@per_page)
       else
-        objects = Edition.includes(self.edition_eager_load).find(@results['results'].map{ |h| h["id"] })
+        objects = Edition.with_translations.with_translations_for(:organisations).includes(self.edition_eager_load).find(@results['results'].map{ |h| h["id"] })
         sorted = @results['results'].map do |doc|
           objects.detect { |obj| obj.id == doc['id'] }
         end

@@ -48,10 +48,10 @@ module Whitehall::DocumentFilter
       r.publications_search
     end
 
-    test 'publications_search will eager load document, organisations, attachments and response attachments' do
+    test 'publications_search will eager load document and organisations' do
       r = Rummager.new({})
       r.publications_search
-      assert_equal [:document, :organisations, :attachments, response: :attachments], r.edition_eager_load
+      assert_equal [:document, :organisations], r.edition_eager_load
     end
 
     test 'policies_search looks for Policy documents' do
