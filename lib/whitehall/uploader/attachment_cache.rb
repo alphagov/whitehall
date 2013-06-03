@@ -140,7 +140,7 @@ class Whitehall::Uploader::AttachmentCache
 
     def ensure_file_has_extension(local_path, response)
       extension = File.extname(local_path)
-      if extension.blank? || !AttachmentUploader::EXTENSION_WHITE_LIST.include?(extension.downcase)
+      if invalid_extension?(extension)
         detected_type = extension_from_content_type(response) || extension_from_file(local_path)
         if detected_type
           FileUtils.mv(local_path, local_path + ".#{detected_type}")
@@ -151,6 +151,13 @@ class Whitehall::Uploader::AttachmentCache
         end
       end
       local_path
+    end
+
+    def invalid_extension?(extension)
+      # when comparing, remove the trailing . that might be present
+      # from File.extname.  EXTENSION_WHITE_LIST doesn't include them
+      extension.blank? ||
+      !AttachmentUploader::EXTENSION_WHITE_LIST.include?(extension.downcase.gsub(/^\./,''))
     end
 
     def extension_from_file(local_path)
