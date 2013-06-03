@@ -14,7 +14,8 @@ class PublicationesquePresenterTest < PresenterTestCase
   end
 
   test "should indicate when publication is part of a series" do
-    publication = Publication.new(document_series: [DocumentSeries.new])
+    publication = Publication.new
+    publication.expects(:part_of_series?).returns(true)
     presenter = PublicationesquePresenter.new(publication, @view_context)
     assert presenter.part_of_series?
   end
@@ -42,6 +43,7 @@ class PublicationesquePresenterTest < PresenterTestCase
       public_timestamp: Time.zone.now,
       organisations: [organisation],
       document_series: [series])
+    publication.expects(:part_of_series?).returns(true)
     # TODO: perhaps rethink edition factory, so this apparent duplication
     # isn't neccessary
     publication.stubs(:organisations).returns([organisation])
