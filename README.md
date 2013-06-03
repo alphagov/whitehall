@@ -100,6 +100,11 @@ To use a local copy of Rummager you'll need to:
 * Run the `rummager` and `frontend` applications to view results. You
   just need the `rummager` app to index results.
 
+Note: Before you index the whitehall data, make sure you have created the
+rummager indices by running the following task from the rummager repo:
+
+  RUMMAGER_INDEX=government bundle exec rake rummager:migrate_index
+
 ## Specifying a different endpoint for the GDS Content API
 
 Whitehall uses the GDS Content API to serve categorisation for
