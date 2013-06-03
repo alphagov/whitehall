@@ -42,6 +42,9 @@ form {
     input, textarea {
       direction: rtl;
     }
+    .chzn-container-multi input {
+      direction: ltr;
+    }
   }
 
   textarea, input {
