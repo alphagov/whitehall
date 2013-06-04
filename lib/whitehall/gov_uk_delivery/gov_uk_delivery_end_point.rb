@@ -145,6 +145,19 @@ class Whitehall::GovUkDelivery::GovUkDeliveryEndPoint < Whitehall::GovUkDelivery
         </div> )
   end
 
+  def encode_with(coder)
+    super
+    coder['title'] = title
+    coder['summary'] = summary
+  end
+
+  def init_with(coder)
+    super
+    @title = coder['title']
+    @summary = coder['summary']
+    self
+  end
+
   private
 
   def escape(string)
