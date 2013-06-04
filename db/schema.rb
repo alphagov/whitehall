@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130520154538) do
+ActiveRecord::Schema.define(:version => 20130531162954) do
 
   create_table "access_and_opening_times", :force => true do |t|
     t.text     "body"
@@ -464,6 +464,7 @@ ActiveRecord::Schema.define(:version => 20130520154538) do
     t.boolean  "relevant_to_local_government",                :default => false
     t.string   "person_override"
     t.string   "locale",                                      :default => "en",    :null => false
+    t.integer  "document_series_count",                       :default => 0,       :null => false
   end
 
   add_index "editions", ["alternative_format_provider_id"], :name => "index_editions_on_alternative_format_provider_id"
@@ -477,6 +478,7 @@ ActiveRecord::Schema.define(:version => 20130520154538) do
   add_index "editions", ["publication_type_id"], :name => "index_editions_on_publication_type_id"
   add_index "editions", ["role_appointment_id"], :name => "index_editions_on_role_appointment_id"
   add_index "editions", ["speech_type_id"], :name => "index_editions_on_speech_type_id"
+  add_index "editions", ["state", "type"], :name => "index_editions_on_state_and_type"
   add_index "editions", ["state"], :name => "index_editions_on_state"
   add_index "editions", ["type"], :name => "index_editions_on_type"
 
@@ -803,7 +805,7 @@ ActiveRecord::Schema.define(:version => 20130520154538) do
   create_table "organisation_translations", :force => true do |t|
     t.integer  "organisation_id"
     t.string   "locale"
-    t.text     "name"
+    t.string   "name"
     t.text     "logo_formatted_name"
     t.string   "acronym"
     t.text     "description"
@@ -813,6 +815,7 @@ ActiveRecord::Schema.define(:version => 20130520154538) do
   end
 
   add_index "organisation_translations", ["locale"], :name => "index_organisation_translations_on_locale"
+  add_index "organisation_translations", ["name"], :name => "index_organisation_translations_on_name"
   add_index "organisation_translations", ["organisation_id"], :name => "index_organisation_translations_on_organisation_id"
 
   create_table "organisation_types", :force => true do |t|
@@ -821,6 +824,8 @@ ActiveRecord::Schema.define(:version => 20130520154538) do
     t.datetime "updated_at"
     t.string   "analytics_prefix"
   end
+
+  add_index "organisation_types", ["name"], :name => "index_organisation_types_on_name"
 
   create_table "organisational_relationships", :force => true do |t|
     t.integer  "parent_organisation_id"
@@ -848,6 +853,7 @@ ActiveRecord::Schema.define(:version => 20130520154538) do
   end
 
   add_index "organisations", ["default_news_organisation_image_data_id"], :name => "index_organisations_on_default_news_organisation_image_data_id"
+  add_index "organisations", ["id", "organisation_type_id"], :name => "index_organisations_on_id_and_organisation_type_id"
   add_index "organisations", ["organisation_logo_type_id"], :name => "index_organisations_on_organisation_logo_type_id"
   add_index "organisations", ["organisation_type_id"], :name => "index_organisations_on_organisation_type_id"
   add_index "organisations", ["slug"], :name => "index_organisations_on_slug"
@@ -957,6 +963,7 @@ ActiveRecord::Schema.define(:version => 20130520154538) do
     t.datetime "ended_at"
   end
 
+  add_index "role_appointments", ["ended_at"], :name => "index_role_appointments_on_ended_at"
   add_index "role_appointments", ["person_id"], :name => "index_role_appointments_on_person_id"
   add_index "role_appointments", ["role_id"], :name => "index_role_appointments_on_role_id"
 
@@ -970,6 +977,7 @@ ActiveRecord::Schema.define(:version => 20130520154538) do
   end
 
   add_index "role_translations", ["locale"], :name => "index_role_translations_on_locale"
+  add_index "role_translations", ["name"], :name => "index_role_translations_on_name"
   add_index "role_translations", ["role_id"], :name => "index_role_translations_on_role_id"
 
   create_table "roles", :force => true do |t|
@@ -988,6 +996,7 @@ ActiveRecord::Schema.define(:version => 20130520154538) do
     t.integer  "whip_ordering",                :default => 100
   end
 
+  add_index "roles", ["attends_cabinet_type_id"], :name => "index_roles_on_attends_cabinet_type_id"
   add_index "roles", ["slug"], :name => "index_roles_on_slug"
   add_index "roles", ["supports_historical_accounts"], :name => "index_roles_on_supports_historical_accounts"
 

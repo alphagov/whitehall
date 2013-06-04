@@ -262,8 +262,25 @@ class Organisation < ActiveRecord::Base
     where("organisation_type_id != ?" , OrganisationType.ministerial_department)
   end
 
+  def self.with_published_editions(type=nil)
+    if type
+      klass = type.to_s.classify.constantize
+      type_clause = { type: (klass.respond_to?(:sti_names) ? klass.sti_names : klass.name) }
+    else
+      type_class = ''
+    end
+
+    published_editions_conditions = Edition.joins(:edition_organisations).
+                                            published.
+                                            where(type_clause).
+                                            where("edition_organisations.organisation_id = organisations.id").
+                                            select(1).to_sql
+
+    where("exists (#{published_editions_conditions})")
+  end
+
   def agencies_and_public_bodies
-    child_organisations.joins(:organisation_type).merge(OrganisationType.agency_or_public_body)
+    @agencies_and_public_bodies ||= child_organisations.with_translations.includes(:organisation_type).merge(OrganisationType.agency_or_public_body).all
   end
 
   def agencies_and_public_bodies_by_type

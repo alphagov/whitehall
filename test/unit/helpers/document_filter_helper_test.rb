@@ -20,14 +20,9 @@ class DocumentFilterHelperTest < ActionView::TestCase
     assert_equal [aardvark, zebra], all_topics_with(:publication)
   end
 
-  test "#all_organisations_with returns all organisations with content" do
-    middle_scope = stub('middle scope')
-    middle_scope.expects(:includes).with(:translations)
-    scope = stub('organisation scope')
-    scope.expects(:group).with('organisation_translations.name').returns(middle_scope)
-    Organisation.expects(:joins).with(:published_document_types).returns(scope)
-
-    all_organisations_with(:document_type)
+  test "#all_organisations_with returns all organisations that have published editions" do
+    Organisation.expects(:with_published_editions).with(:announcement)
+    all_organisations_with(:announcement)
   end
 
   test "#all_locations_with :publication returns all world locations with publications, alphabetically" do
