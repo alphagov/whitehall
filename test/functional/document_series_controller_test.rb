@@ -88,7 +88,7 @@ class DocumentSeriesControllerTest < ActionController::TestCase
     organisation = create(:organisation)
     series = create(:document_series, organisation: organisation)
     publication = create(:draft_publication, document_series: [series], scheduled_publication: Time.zone.now + Whitehall.default_cache_max_age * 2)
-    publication.schedule_as(user, force: true)
+    publication.reload.schedule_as(user, force: true)
 
     Timecop.freeze(Time.zone.now + Whitehall.default_cache_max_age * 1.5) do
       get :show, organisation_id: organisation, id: series

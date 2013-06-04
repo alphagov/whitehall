@@ -52,15 +52,23 @@ class WorldLocation < ActiveRecord::Base
   end
 
   def self.with_announcements
-    joins(:editions).where("editions.type" => Announcement.sti_names,
-                           "editions.state" => "published"
-                          ).select("DISTINCT world_locations.*")
+    announcement_conditions = Edition.joins(:edition_world_locations).
+                                            published.
+                                            where(type: Announcement.sti_names).
+                                            where("edition_world_locations.world_location_id = world_locations.id").
+                                            select(1).to_sql
+
+    where("exists (#{announcement_conditions})")
   end
 
   def self.with_publications
-    joins(:editions).where("editions.type" => Publicationesque.sti_names,
-                           "editions.state" => "published"
-                          ).select("DISTINCT world_locations.*")
+    publication_conditions = Edition.joins(:edition_world_locations).
+                                            published.
+                                            where(type: Publicationesque.sti_names).
+                                            where("edition_world_locations.world_location_id = world_locations.id").
+                                            select(1).to_sql
+
+    where("exists (#{publication_conditions})")
   end
 
   def world_location_type
