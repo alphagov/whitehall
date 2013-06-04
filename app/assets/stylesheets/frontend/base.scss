@@ -50,7 +50,6 @@
   @import "helpers/_corporate-information.scss";
   @import "helpers/_dash-list.scss";
   @import "helpers/_document-page-header.scss";
-  @import "helpers/_document-series.scss";
   @import "helpers/_document.scss";
   @import "helpers/_document_list.scss";
   @import "helpers/_documents-grid.scss";
@@ -88,7 +87,6 @@
 // Styles scoped to each template in /views
 
 #whitehall-wrapper {
-  @import "views/_activity.scss";
   @import "views/_announcements.scss";
   @import "views/_biographical-page.scss";
   @import "views/_consultations.scss";
