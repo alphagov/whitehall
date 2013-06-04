@@ -182,6 +182,12 @@ class Whitehall::Uploader::AttachmentCacheTest < ActiveSupport::TestCase
     assert_equal "attachment.doc", File.basename(@cache.fetch(url).path)
   end
 
+  test "doesn\'t duplicate the extension if the filename already has one" do
+    url = "http://example.com/attachment.pdf"
+    stub_request(:get, url).to_return(body: "", status: 200, headers: {'Content-type' => 'application/pdf'})
+    assert_equal "attachment.pdf", File.basename(@cache.fetch(url).path)
+  end
+
   private
 
   def assert_raises_retrieval_error_matching(message_regexp)
