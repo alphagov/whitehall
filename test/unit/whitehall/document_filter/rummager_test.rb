@@ -31,7 +31,7 @@ module Whitehall::DocumentFilter
     test 'announcements_search will eager load document and organisations' do
       r = Rummager.new({})
       r.announcements_search
-      assert_equal [:document, :organisations], r.edition_eager_load
+      assert_equal [:document, organisations: :translations], r.edition_eager_load
     end
 
     test 'publications_search looks for Publications, Consultations, and StatisticalDataSets by default' do
@@ -51,7 +51,7 @@ module Whitehall::DocumentFilter
     test 'publications_search will eager load document and organisations' do
       r = Rummager.new({})
       r.publications_search
-      assert_equal [:document, :organisations], r.edition_eager_load
+      assert_equal [:document, organisations: :translations], r.edition_eager_load
     end
 
     test 'policies_search looks for Policy documents' do
@@ -64,7 +64,7 @@ module Whitehall::DocumentFilter
     test 'policies_search will eager load document and organisations' do
       r = Rummager.new({})
       r.policies_search
-      assert_equal [:document, :organisations], r.edition_eager_load
+      assert_equal [:document, organisations: :translations], r.edition_eager_load
     end
 
   end

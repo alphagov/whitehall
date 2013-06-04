@@ -4,7 +4,7 @@ module Whitehall::DocumentFilter
   class Rummager < Filterer
     attr_accessor :edition_eager_load
     def edition_eager_load
-      @edition_eager_load ||= [:document, :organisations]
+      @edition_eager_load ||= [:document, organisations: :translations]
     end
 
     def announcements_search
@@ -154,7 +154,7 @@ module Whitehall::DocumentFilter
       if @results.empty? || @results['results'].empty?
         @documents ||= Kaminari.paginate_array([]).page(@page).per(@per_page)
       else
-        objects = Edition.with_translations.with_translations_for(:organisations).includes(self.edition_eager_load).find(@results['results'].map{ |h| h["id"] })
+        objects = Edition.with_translations.includes(self.edition_eager_load).find(@results['results'].map{ |h| h["id"] })
         sorted = @results['results'].map do |doc|
           objects.detect { |obj| obj.id == doc['id'] }
         end
