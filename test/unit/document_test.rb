@@ -47,16 +47,6 @@ class DocumentTest < ActiveSupport::TestCase
     refute draft_policy.document.published?
   end
 
-  test "should no longer be published when it's edition is unpublished" do
-    published_policy = create(:published_policy)
-    document = published_policy.document
-    assert published_policy.document.published?
-
-    published_policy.unpublish!
-
-    refute published_policy.document.published?
-  end
-
   test "should ignore deleted editions when finding latest edition" do
     original_edition = create(:published_edition)
     new_draft = original_edition.create_draft(create(:policy_writer))

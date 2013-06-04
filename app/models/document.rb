@@ -48,16 +48,14 @@ class Document < ActiveRecord::Base
   end
 
   def update_slug_if_possible(new_title)
-    return if published?
-
-    candidate_slug = normalize_friendly_id(new_title)
-    unless candidate_slug == slug
+    new_slug = normalize_friendly_id(new_title)
+    unless (new_slug == slug) || published?
       update_attributes(sluggable_string: new_title)
     end
   end
 
   def published?
-    published_edition(true).present?
+    published_edition.present?
   end
 
   def first_published_date
