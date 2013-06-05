@@ -2,7 +2,7 @@ source 'http://rubygems.org'
 source 'https://BnrJb6FZyzspBboNJzYZ@gem.fury.io/govuk/'
 
 gem 'delayed_job_active_record'
-gem 'statsd-ruby', '1.0.0', require: "statsd"
+gem 'statsd-ruby', '~> 1.2.0', require: "statsd"
 gem 'rails', '3.1.12'
 gem 'mysql2'
 gem 'jquery-rails'
@@ -60,7 +60,7 @@ group :test do
   gem 'rack-test', git: 'https://github.com/alphagov/rack-test.git'
   gem 'factory_girl'
   gem 'hash_syntax'
-  gem 'mocha', '0.13.2', require: false
+  gem 'mocha', '0.14.0', require: false
   gem 'test_track'
   gem 'timecop'
   gem 'webmock', require: false

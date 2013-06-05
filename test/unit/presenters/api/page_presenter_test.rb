@@ -40,8 +40,8 @@ class Api::PagePresenterTest < PresenterTestCase
     assert_equal @page.total_count, @presenter.as_json[:total]
   end
 
-  test 'json includes num_pages from collection as pages' do
-    assert_equal @page.num_pages, @presenter.as_json[:pages]
+  test 'json includes total_pages from collection as pages' do
+    assert_equal @page.total_pages, @presenter.as_json[:pages]
   end
 
   test 'json includes limit_value form collection as page_size' do
