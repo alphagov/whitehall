@@ -15,7 +15,6 @@ gem 'friendly_id', '4.0.9'
 gem 'babosa'
 gem 'nokogiri'
 gem 'rake', '0.9.2'
-gem 'boomerang-rails'
 gem 'slimmer', '3.15.0'
 gem 'plek', '1.1.0'
 gem 'isbn_validation'
@@ -46,12 +45,11 @@ group :assets do
   gem 'uglifier'
 end
 
-group :development, :staging, :test do
+group :development, :test do
   gem 'faker'
+  gem 'rails-dev-boost'
   gem 'thin', '1.5.0'
   gem 'quiet_assets'
-  gem 'rails-dev-boost', '~> 0.2.1'
-  gem 'brakeman'
   gem 'parallel_tests'
   gem 'bullet'
   gem 'test-queue'
@@ -66,8 +64,6 @@ group :test do
   gem 'test_track'
   gem 'timecop'
   gem 'webmock', require: false
-  gem 'crack', '~> 0.3.2'
-  gem 'minitest', '2.5.1'
   gem 'ci_reporter'
   gem 'database_cleaner', '~> 0.8.0'
 end
