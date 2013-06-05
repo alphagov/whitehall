@@ -46,7 +46,6 @@ group :assets do
 end
 
 group :development, :test do
-  gem 'faker'
   gem 'rails-dev-boost'
   gem 'thin', '1.5.0'
   gem 'quiet_assets'
