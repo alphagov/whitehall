@@ -129,7 +129,7 @@ When /^I feature the news article "([^"]*)" for "([^"]*)" with image "([^"]*)"$/
     click_link "Feature"
   end
   attach_file "Select an image to be shown when featuring", Rails.root.join("test/fixtures/#{image_filename}")
-  fill_in :alt_text, with: "An accessible description of the image"
+  fill_in :feature_alt_text, with: "An accessible description of the image"
   click_button "Save"
 end
 
@@ -358,7 +358,7 @@ When /^I feature the topical event "([^"]*)" for "([^"]*)" with image "([^"]*)"$
     click_link "Feature"
   end
   attach_file "Select an image to be shown when featuring", Rails.root.join("test/fixtures/#{image_filename}")
-  fill_in :alt_text, with: "An accessible description of the image"
+  fill_in :feature_alt_text, with: "An accessible description of the image"
   click_button "Save"
 end
 

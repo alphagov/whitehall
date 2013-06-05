@@ -129,8 +129,10 @@ end
 When /^I draft a new policy "([^"]*)" that does not apply to the nations:$/ do |title, nations|
   begin_drafting_policy title: title
   nations.raw.flatten.each do |nation_name|
-    check nation_name
-    fill_in "Alternative url", with: "http://www.#{nation_name}.com/"
+    within record_css_selector(Nation.find_by_name!(nation_name)) do
+      check nation_name
+      fill_in "Alternative url", with: "http://www.#{nation_name}.com/"
+    end
   end
   click_button "Save"
 end
@@ -271,13 +273,13 @@ end
 Then /^I should see a link to the public version of the policy "([^"]*)"$/ do |policy_title|
   policy = Policy.published.find_by_title!(policy_title)
   visit admin_edition_path(policy)
-  assert has_css?(".actions a.public_version", href: public_document_path(policy)), "Link to public version of policy not found"
+  assert_match public_document_path(policy), find(".actions a.public_version")[:href]
 end
 
 Then /^I should see a link to the preview version of the policy "([^"]*)"$/ do |policy_title|
   policy = Policy.find_by_title!(policy_title)
   visit admin_edition_path(policy)
-  assert has_css?(".actions a.preview_version", href: preview_document_path(policy)), "Link to preview version of policy not found"
+  assert_match preview_document_path(policy), find(".actions a.preview_version")[:href]
 end
 
 Then /^I should see the policy titled "([^"]*)" in the list of documents that need work$/ do |policy_title|
@@ -341,7 +343,7 @@ end
 
 Then /^I should see a link to "([^"]*)" in the list of related documents$/ do |title|
   edition = Edition.find_by_title(title)
-  assert page.has_css?("#inbound-links a", text: title, href: admin_edition_path(edition)), "link to '#{title}' not found"
+  assert_match admin_edition_path(edition), page.find("#inbound-links a", text: title)[:href]
 end
 
 Then /^I should not see a link to "([^"]*)" in the list of related documents$/ do |title|

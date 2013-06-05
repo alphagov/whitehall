@@ -118,7 +118,7 @@ Then /^I should be able to choose the date it was written on$/ do
 end
 
 Then /^I cannot choose a location for the article$/ do
-  refute page.find("#edition_location").visible?
+  refute page.find("#edition_location", visible: :all).visible?
 end
 
 When /^I preview the authored article$/ do

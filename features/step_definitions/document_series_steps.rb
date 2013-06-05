@@ -1,7 +1,11 @@
-Given /^I create a series called "([^"]*)" in the "([^"]*)" organisation$/ do |name, organisation|
+Given /^I create a series called "([^"]*)" in the "([^"]*)" organisation$/ do |name, organisation_name|
+  organisation = Organisation.find_by_name!(organisation_name)
+
   visit admin_root_path
   click_link "Departments & agencies"
-  click_link organisation
+  within record_css_selector(organisation) do
+    click_link organisation_name
+  end
   click_link "Document series"
   click_link "New series"
   fill_in "Name", with: name

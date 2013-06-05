@@ -277,8 +277,8 @@ Then /^I should see in the preview that "([^"]*)" does have an admin link to the
 end
 
 Then /^I should see the conflict between the (publication|policy|news article|consultation|speech) titles "([^"]*)" and "([^"]*)"$/ do |document_type, new_title, latest_title|
-  assert page.has_css?(".conflicting.new #edition_title", value: new_title)
-  assert page.has_css?(".conflicting.latest .document .title", value: latest_title)
+  assert_equal new_title, find(".conflicting.new #edition_title").value
+  assert page.has_css?(".conflicting.latest .document .title", text: latest_title)
 end
 
 Then /^my attempt to publish "([^"]*)" should fail$/ do |title|

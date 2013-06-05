@@ -122,7 +122,9 @@ Then /^the "([^"]*)" office details should be shown on the public website$/ do |
 
   within "#{record_css_selector(worldwide_office)}.contact" do
     assert page.has_css?("h2", text: worldwide_office.contact.title)
-    assert page.has_css?('.vcard', text: worldwide_office.contact.street_address)
+    within find('.vcard') do
+      assert page.has_content?(worldwide_office.contact.street_address)
+    end
     assert page.has_css?('.tel', text: worldwide_office.contact.contact_numbers.first.number)
   end
 end

@@ -13,7 +13,7 @@ Given /^I start editing the supporting page "([^"]*)" changing the title to "([^
   supporting_page = SupportingPage.find_by_title!(original_title)
   visit admin_supporting_page_path(supporting_page)
   click_link "Edit"
-  fill_in "Title", with: new_title
+  fill_in :supporting_page_title, with: new_title
 end
 
 Given /^another user edits the supporting page "([^"]*)" changing the title to "([^"]*)"$/ do |original_title, new_title|
@@ -30,7 +30,7 @@ When /^I edit the supporting page "([^"]*)" changing the title to "([^"]*)"$/ do
   visit admin_edition_path(supporting_page.edition)
   click_link original_title
   click_link "Edit"
-  fill_in "Title", with: new_title
+  fill_in :supporting_page_title, with: new_title
   click_button "Save"
 end
 
@@ -38,8 +38,8 @@ When /^I add a supporting page "([^"]*)" to the "([^"]*)" policy$/ do |supportin
   policy = Policy.find_by_title!(policy_title)
   visit admin_edition_path(policy)
   click_link "Add supporting page"
-  fill_in "Title", with: supporting_title
-  fill_in "Body", with: "Some supporting information"
+  fill_in :supporting_page_title, with: supporting_title
+  fill_in :supporting_page_body, with: "Some supporting information"
   click_button "Save"
 end
 
@@ -47,8 +47,8 @@ When /^I add a supporting page "([^"]*)" with an attachment to the "([^"]*)" pol
   policy = Policy.find_by_title!(policy_title)
   visit admin_edition_path(policy)
   click_link "Add supporting page"
-  fill_in "Title", with: title
-  fill_in "Body", with: "Some supporting information\n\n!@1"
+  fill_in :supporting_page_title, with: title
+  fill_in :supporting_page_body, with: "Some supporting information\n\n!@1"
   @attachment_title = "Attachment Title"
   @attachment_filename = "attachment.pdf"
   within ".attachments" do
@@ -60,7 +60,7 @@ end
 
 
 When /^I edit the supporting page changing the title to "([^"]*)"$/ do |new_title|
-  fill_in "Title", with: new_title
+  fill_in :supporting_page_title, with: new_title
   click_button "Save"
 end
 
@@ -71,8 +71,8 @@ When /^I remove the supporting page "([^"]*)" from "([^"]*)"$/ do |supporting_pa
 end
 
 Then /^I should see the conflict between the supporting page titles "([^"]*)" and "([^"]*)"$/ do |new_title, latest_title|
-  assert page.has_css?(".conflicting.new #supporting_page_title", value: new_title)
-  assert page.has_css?(".conflicting.latest #disabled_supporting_page_title[disabled]", value: latest_title)
+  assert_equal new_title, find(".conflicting.new #supporting_page_title").value
+  assert_equal latest_title, find(".conflicting.latest #disabled_supporting_page_title[disabled]").value
 end
 
 Then /^I should see in the preview that "([^"]*)" includes the "([^"]*)" supporting page$/ do |title, supporting_title|
