@@ -3,8 +3,8 @@ When /^I draft a new consultation "([^"]*)"$/ do |title|
   begin_drafting_document type: 'consultation', title: title, summary: 'consultation-summary', alternative_format_provider: create(:alternative_format_provider)
   fill_in "Link URL", with: "http://participate.com"
   fill_in "Email", with: "participate@gov.uk"
-  select_date "Opening Date", with: 1.day.ago.to_s
-  select_date "Closing Date", with: 6.days.from_now.to_s
+  select_date 1.day.ago.to_s, from: "Opening Date"
+  select_date 6.days.from_now.to_s, from: "Closing Date"
   add_attachment "Attachment Title", "attachment.pdf", "#edition_attachment_fields"
   check "Wales"
   fill_in "Alternative url", with: "http://www.visitwales.co.uk/"
@@ -22,8 +22,8 @@ When /^I add a response to the consultation$/ do
   visit edit_admin_consultation_path(Consultation.last)
   click_button "Create new edition"
   add_attachment("Response Title", "attachment.pdf", "#consultation_response_attachment_fields")
-  select_date "Opening Date", with: 2.days.ago.strftime("%Y-%m-%d")
-  select_date "Closing Date", with: 1.day.ago.strftime("%Y-%m-%d")
+  select_date 2.days.ago.strftime("%Y-%m-%d"), from: "Opening Date"
+  select_date 1.day.ago.strftime("%Y-%m-%d"), from: "Closing Date"
   fill_in_change_note_if_required
 end
 
@@ -39,7 +39,7 @@ Then /^the consultation response should be viewable$/ do
 end
 
 When /^I specify the published response date of the consultation$/ do
-  select_date "Response published date", with: 1.day.ago.strftime("%Y-%m-%d")
+  select_date 1.day.ago.strftime("%Y-%m-%d"), from: "Response published date"
 end
 
 Then /^the published date should be visible on save$/ do

@@ -12,8 +12,8 @@ end
 
 When /^I publish a consultation with an HTML version$/ do
   begin_drafting_consultation(title: "Beard consultation 2012")
-  select_date "Opening Date", with: 1.day.ago.to_s
-  select_date "Closing Date", with: 6.days.from_now.to_s
+  select_date 1.day.ago.to_s, from: "Opening Date"
+  select_date 6.days.from_now.to_s, from: "Closing Date"
   fill_in_html_version_and_save
 end
 

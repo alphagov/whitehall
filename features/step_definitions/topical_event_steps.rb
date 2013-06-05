@@ -98,7 +98,7 @@ def create_topical_event(options = {})
   click_link "Create topical event"
   fill_in "Name", with: options[:name] || "topic-name"
   fill_in "Description", with: options[:description] || "topic-description"
-  select_date "Start Date", with: options[:start_date] || 1.day.ago.to_s
-  select_date "End Date", with: options[:end_date] || 1.month.from_now.to_s
+  select_date (options[:start_date] || 1.day.ago.to_s), from: "Start Date"
+  select_date (options[:end_date] || 1.month.from_now.to_s), from: "End Date"
   click_button "Save"
 end
