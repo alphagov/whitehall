@@ -76,8 +76,8 @@ group :cucumber do
   gem 'cucumber', '~> 1.3.2'
   gem 'cucumber-rails', '~> 1.3.1', require: false
   gem 'launchy', '~> 2.3.0'
-  gem 'capybara', '1.1.4'
-  gem 'capybara-webkit', '0.12.1'
+  gem 'capybara', '~> 2.1.0'
+  gem 'capybara-webkit', '~> 1.0.0'
 end
 
 group :router do

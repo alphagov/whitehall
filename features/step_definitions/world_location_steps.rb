@@ -67,7 +67,7 @@ def feature_news_article_in_world_location(news_article_title, world_location_na
     click_link "Feature"
   end
   attach_file "Select an image to be shown when featuring", Rails.root.join("test/fixtures/#{image_filename}")
-  fill_in :alt_text, with: "An accessible description of the image"
+  fill_in :feature_alt_text, with: "An accessible description of the image"
   click_button "Save"
 end
 
