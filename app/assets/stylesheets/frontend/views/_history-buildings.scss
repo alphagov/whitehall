@@ -1,24 +1,4 @@
 .histories-show {
-
-  .page-header {
-    padding : $gutter 0;
-    @include media(tablet) {
-      padding : $gutter*2 0;
-    }
-
-    h1 {
-      @include heading-36;
-      color: $grey-1;
-    }
-    h2 {
-      @include heading-48;
-      font-weight: bold;
-      @include media(tablet) {
-        padding-top: 0;
-      }
-    }
-  }
-
   .content-list, .content-body {
     @include media(tablet) {
       float: left;

@@ -3,18 +3,23 @@
 <% atom_discovery_link_tag topic_url(@classification, format: 'atom'), "Latest activity on #{@classification.name}" %>
 
 <%= content_tag_for(:div, @classification, class: "classification #{@classification.class.name.underscore}") do %>
-  <div class="block block-1">
-    <div class="inner-block">
-      <header class="page-header">
-        <h1><span class="label">Topic</span> <span class="topic"><%= @classification.name %></span></h1>
-        <div class="meta">
+
+  <header class="block heading-block">
+    <div class="inner-block floated-children">
+      <%= render partial: 'shared/heading',
+                locals: { type: "Topic",
+                          heading: @classification.name } %>
+      <div class="heading-extra">
+        <div class="heading-inner">
           <%= render partial: 'organisations/organisations_logo_list',
-                    locals: { organisations: @classification.organisations,
-                              lead_organisations: @classification.lead_organisations } %>
+                      locals: { organisations: @classification.organisations,
+                                lead_organisations: @classification.lead_organisations } %>
         </div>
-      </header>
+      </div>
+        
+                    
     </div>
-  </div>
+  </header>
 
   <div class="block block-2">
     <div class="inner-block">

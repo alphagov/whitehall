@@ -1,14 +1,18 @@
 <% page_title t('announcements.heading') %>
 <% page_class "announcements-index document-filter-page" %>
 <% atom_discovery_link_tag filter_atom_feed_url, "Recent announcements" %>
+<%
+  heading = [t('announcements.heading')]
+  heading << "<span>: #{@filter.selected_announcement_type_option.label}</span>" if @filter.selected_announcement_type_option
+  heading.join('').html_safe
+%>
 
-<div class="block-1">
-  <div class="inner-block">
-    <header class="page-header announcements icon">
-      <h1 class="page_title"><%= t 'announcements.heading' %><% if @filter.selected_announcement_type_option %><span>: <%= @filter.selected_announcement_type_option.label %></span><% end %></h1>
-    </header>
+<header class="block heading-block">
+  <div class="inner-block floated-children">
+    <%= render partial: 'shared/heading',
+              locals: { big: true, heading: heading } %>
   </div>
-</div>
+</header>
 
 <div class="block-2">
   <div class="inner-block">

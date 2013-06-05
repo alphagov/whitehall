@@ -1,24 +1,18 @@
 <% page_title @operational_field.name %>
 <% page_class "operational-field-show" %>
 
-<div class="block-1">
-  <div class="inner-block">
-    <section class="document-page-header">
-      <header class="page-header">
-        <h1 class="page_title">
-          <span class="inner">
-            <span class="label">British fatalities</span>
-            <span class="title">Operations in <%= @operational_field.name %></span>
-          </span>
-        </h1>
-        <div class="meta">
-          <%= render partial: 'organisations/organisations_logo_list',
-              locals: { organisations: [@organisation] } %>
-        </div>
-      </header>
-    </section>
+<header class="block heading-block">
+  <div class="inner-block floated-children">
+    <%= render partial: 'shared/heading',
+              locals: { type: 'British fatalities',
+                        heading: "Operations in #{@operational_field.name}" } %>
+    <div class="heading-extras">
+      <div class="inner-heading">
+        <%= render partial: 'organisations/organisations_logo_list',
+                  locals: { organisations: [@organisation] } %>
+    </div>                        
   </div>
-</div>
+</header>
 
 <div class="block-2">
   <div class="inner-block">

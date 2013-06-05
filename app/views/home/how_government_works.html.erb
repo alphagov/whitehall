@@ -1,11 +1,13 @@
-<div id="how-government-works">
-  <% page_title "How government works" %>
-  <% page_class "inside_gov_how-gov-works" %>
+<% page_title "How government works" %>
+<% page_class "inside_gov_how-gov-works" %>
 
-  <header class="header-title-with-paragraph">
-    <div class="inner-block">
-      <h1>How government works</h1>
-      <p class="intro">In the UK, the Prime Minister leads the government with the support of the cabinet and ministers. You can find out <a href="#who-runs-government">who runs government</a> and <a href="#how-governement-is-run">how government is run</a>, as well as learning about the <a href="#history-uk-government">history of government</a>.</p>
+<div id="how-government-works">
+  <header class="block heading-block">
+    <div class="inner-block floated-children">
+      <%= render partial: 'shared/heading',
+                locals: { big: true,
+                          heading: "How government works" } %>
+      <p class="intro-paragraph">In the UK, the Prime Minister leads the government with the support of the cabinet and ministers. You can find out <a href="#who-runs-government">who runs government</a> and <a href="#how-governement-is-run">how government is run</a>, as well as learning about the <a href="#history-uk-government">history of government</a>.</p>                    
     </div>
   </header>
 

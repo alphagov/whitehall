@@ -1,15 +1,4 @@
 .policy-groups {
-  .page-header {
-    padding: $gutter-half 0;
-    @include media(tablet){
-      padding: $gutter*1.5 0 ($gutter + $gutter-one-third);
-    }
-    h1 {
-      padding-bottom: 0;
-      @include bold;
-    }
-  }
-
   .summary {
     width: 100%;
     @include ig-core-24;

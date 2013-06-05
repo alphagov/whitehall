@@ -2,23 +2,29 @@
 <% page_class "people-show biographical-page" %>
 
 <%= content_tag_for :div, @person, class: "two-column-page" do %>
-  <div class="block-1">
-    <div class="inner-block">
-      <%= render partial: 'shared/available_languages', locals: {object: @person } %>
-      <header class="page-header person">
-        <hgroup>
-          <h1 class="name"><%= @person.name %></h1>
-          <% if @person.current_role_appointments.any? %>
-          <ul class="current-role <%= @person.current_role_appointments.size == 1 ? 'single' : 'multiple' %>">
+  <header class="block heading-block">
+    <div class="inner-block floated-children">
+      <%= render partial: 'shared/heading',
+                locals: { type: "Ministerial role",
+                          heading: @ministerial_role.name } %>
+      <div class="heading-extra">
+        <div class="heading-inner">
+          <%= render partial: 'shared/available_languages', locals: {object: @person } %>
+        </div>
+      </div>
+
+      <% if @person.current_role_appointments.any? %>
+        <aside class="meta">
+          <dl>
+            <dt>Roles:</dt>
             <% @person.current_role_appointments.each do |appointment| %>
-              <li><%= appointment.role.name %></li>
+              <dd><%= appointment.role.name %></dd>
             <% end %>
-          </ul>
-          <% end %>
-        </hgroup>
-      </header>
+          </dl>
+        </aside>
+      <% end %>
     </div>
-  </div>
+  </header>
 
   <div class="block-2 ">
     <div class="inner-block js-stick-at-top-when-scrolling">

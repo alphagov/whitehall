@@ -1,6 +1,15 @@
 <% page_title "Past Chancellors" %>
 <% page_class "historic-appointments historic-appointments-index historical-past-chancellors" %>
 
+<header class="block heading-block">
+  <div class="inner-block floated-children">
+    <%= render partial: 'shared/heading',
+              locals: { type: link_to('History', histories_path), 
+                        heading: "Past Chancellors of the Exchequer" } %>
+  </div>
+</header>
+
+
 <div class="block">
   <div class="inner-block">
     <header class="page-header">

@@ -1,0 +1,10 @@
+<%
+  type ||= nil
+  big ||= false
+%>
+<div class="heading<%= "-big" if big %>">
+  <div class="inner-heading">
+    <% if type %><p class="type"><%= type %></p><% end %>
+    <h1><%= heading %></h1>
+  </div>
+</div>

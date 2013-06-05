@@ -1,16 +1,17 @@
 <% page_title @document.title, t('publications.heading') %>
 
 <div class="document-page <%= @document.type.downcase %>">
-  <div class="block-1">
-    <div class="inner-block">
+  <header class="block heading-block">
+    <div class="inner-block floated-children">
       <%= render partial: 'header',
                  locals: {
-                   header_title: @document.publication_type.singular_name,
+                   header_title: @document.display_type,
                    document: @document,
                    policies: @related_policies
                  } %>
     </div>
-  </div>
+  </header>
+
   <div class="block-2">
     <div class="inner-block">
       <%= render partial: "documents/attachment_full_width",

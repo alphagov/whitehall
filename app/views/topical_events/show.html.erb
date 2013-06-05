@@ -4,28 +4,23 @@
 
 <%= content_tag_for(:div, @classification, class: "classification #{@classification.class.name.underscore}") do %>
 
+  <header class="block heading-block">
+    <div class="inner-block floated-children">
+      <%= render partial: 'shared/heading',
+                locals: { type: 'Topic',
+                          heading: "#{@classification.name}#{' <span class="archived">(Archived)</span>' if @classification.archived?}" } %>
+      <% if @classification.logo_url.present? %>
+        <div class="heading-extra">
+          <div class="heading-inner">
+            <%= image_tag(@classification.logo_url(:s300), alt: @classification.logo_alt_text) if @classification.logo_url %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </header>
+
   <div class="block">
     <div class="inner-block">
-      <header class="page-title">
-        <% if @classification.logo_url.present? %>
-          <h1><span><%= image_tag(@classification.logo_url, alt: @classification.logo_alt_text) if @classification.logo_url %></span></h1>
-          <h2>
-            <span><%= @classification.name %></span>
-            <% if @classification.archived? %>
-              <span class="archived">(Archived)</span>
-            <% end %>
-          </h2>
-        <% else %>
-          <h1 class="label">Topical event</h1>
-          <h2 class="title">
-            <span><%= @classification.name %></span>
-            <% if @classification.archived? %>
-              <span class="archived">(Archived)</span>
-            <% end %>
-          </h2>
-        <% end %>
-      </header>
-
       <div class="page-description">
         <%= render partial: 'shared/recently_updated',
                   locals: { recently_updated: @recently_changed_documents,

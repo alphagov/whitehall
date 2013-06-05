@@ -1,22 +1,3 @@
-.people-index {
-  .page-header {
-    padding: $gutter-half 0;
-    @include media(tablet){
-      padding: $gutter*1.5 0 ($gutter + $gutter-one-third);
-      width: 75%;
-    }
-    .title {
-      @include light;
-      padding-bottom: 0;
-    }
-    .label {
-      @include ig-core-48;
-      @include bold;
-      padding-top: 0;
-    }
-  }
-}
-
 .people-show {
   .inner-block {
     @extend %contain-floats;

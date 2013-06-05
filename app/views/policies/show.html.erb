@@ -1,19 +1,21 @@
 <% page_title @policy.title, "Policies" %>
 
 <div class="document_page <%= @document.type.downcase %>">
-  <div class="block-1">
-    <div class="inner-block">
-        <%= render  partial: "documents/header", locals: {
-                    document: @document,
-                    header_title: 'Policy',
-                    topics: @document.topics } %>
-      <section class="meta-three<% unless @show_navigation %> no-navigation<% end %>">
-        <% if @show_navigation %>
-          <%= render partial: "policy_navigation" %>
-        <% end %>
-      </section>
+  <header class="block heading-block">
+    <div class="inner-block floated-children">
+      <%= render  partial: "documents/header", locals: {
+                  document: @document,
+                  header_title: 'Policy',
+                  topics: @document.topics } %>
     </div>
+  </header>
+
+  <div class="meta-three<% unless @show_navigation %> no-navigation<% end %>">
+    <% if @show_navigation %>
+      <%= render partial: "policy_navigation" %>
+    <% end %>
   </div>
+
   <div class="block-2">
     <div class="inner-block">
       <%= render partial: "document_contextual" %>

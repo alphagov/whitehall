@@ -2,10 +2,12 @@
 <% page_class "get-involved" %>
 
 
-<header class="block header-title-with-paragraph">
-  <div class="inner-block">
-    <h1>Get involved</h1>
-    <p class="intro">Find out how you can <a href="#engage-with-government">engage with government</a> directly, and <a href="#take-part">take&nbsp;part</a> locally, nationally or internationally. You can also <a href="#related-polices">read&nbsp;policies</a> about how government is increasing participation.</p>
+<header class="block heading-block">
+  <div class="inner-block floated-children">
+    <%= render partial: 'shared/heading',
+              locals: { big: true,
+                        heading: "Get involved" } %>
+    <p class="intro-paragraph">Find out how you can <a href="#engage-with-government">engage with government</a> directly, and <a href="#take-part">take&nbsp;part</a> locally, nationally or internationally. You can also <a href="#related-polices">read&nbsp;policies</a> about how government is increasing participation.</p>
   </div>
 </header>
 

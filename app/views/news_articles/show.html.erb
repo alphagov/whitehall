@@ -1,8 +1,8 @@
 <% page_title @document.title, t_display_type(@document, 10) %>
 
 <article class="document-page <%= @document.type.downcase %>">
-  <div class="block-1">
-    <div class="inner-block">
+  <header class="block heading-block">
+    <div class="inner-block floated-children">
       <%= render  partial: 'header',
                   locals: {
                     header_title: t_display_type(@document),
@@ -10,7 +10,7 @@
                     policies: @related_policies
                   } %>
     </div>
-  </div>
+  </header>
 
   <div class="block-2 ">
     <div class="inner-block">

@@ -2,18 +2,27 @@
 <% page_class "ministerial-role-show biographical-page" %>
 
 <%= content_tag_for :div, @ministerial_role, class: 'two-column-page ministerial-department ' + ministerial_role_organisation_class(@ministerial_role) do %>
-  <div class="block-1">
-    <div class="inner-block">
-      <header class="page-header person">
-      <hgroup>
-        <h1 class="name"><%= @ministerial_role.name %></h1>
-        <ul class="current-person single">
-          <li><%= @ministerial_role.current_person.name %></li>
-        </ul>
-      </hgroup>
-      </header>
+  <header class="block heading-block">
+    <div class="inner-block floated-children">
+      <%= render partial: 'shared/heading',
+                locals: { type: "Ministerial role",
+                          heading: @ministerial_role.name } %>
+                          
+      <aside class="meta">
+        <dl>
+          <dt><%= t('document.headings.organisations', count: @ministerial_role.organisations.count) %>:</dt>
+          <dd>
+            <%= render  partial: 'organisations/organisations_name_list',
+                        locals: { lead_organisations: @ministerial_role.organisations } %>
+          </dd>
+          <% if @ministerial_role.occupied? %>
+            <dt>Current role holder:</dt>
+            <dd><%= @ministerial_role.current_person.name %></dd>
+          <% end %>
+        </dl>
+      </aside>
     </div>
-  </div>
+  </header>
 
   <div class="block-2 ">
     <div class="inner-block js-stick-at-top-when-scrolling">
@@ -43,9 +52,6 @@
   <div class="block-3">
     <div class="inner-block" id="responsibilities">
       <%= content_tag_for :section, @ministerial_role, class: "responsibilities" do %>
-        <%= render  partial: 'organisations/organisations_logo_list',
-                    locals: { organisations: @ministerial_role.organisations } %>
-
         <h1>Responsibilities</h1>
         <%= @ministerial_role.responsibilities %>
       <% end %>

@@ -7,45 +7,6 @@
       width: 25%;
     }
   }
-  h1 {
-    margin: $gutter-two-thirds 0;
-    @include media(tablet){
-      margin-bottom: ($gutter + $gutter-one-third);
-      width: 75%;
-      float: left;
-      @include right-to-left {
-        float: right;
-      }
-    }
-    
-    .label {
-      @include core-27;
-      display: block;
-      color: $grey-1;
-      padding-top: 8px;
-      padding-bottom: 3px;
-    }
-    
-    .title {
-      @include core-36;
-      display: block;
-      font-weight: bold;
-    }
-
-    .inner {
-      position: static;
-
-      @include media(desktop){
-        display: block;
-        padding-right:$gutter-half;
-
-        @include right-to-left {
-          padding-right: 0;
-          padding-left: $gutter-half;
-        }
-      }
-    }
-  }
   .meta {
     display: inline;
     

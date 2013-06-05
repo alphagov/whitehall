@@ -1,15 +1,4 @@
 .policies-index {
-  .block-1 {
-    .page-header {
-      margin: $gutter*1.5 0 0 0;
-      position: relative;
-
-      h1 {
-        margin-bottom: $gutter;
-      }
-    }
-  }
-
   @include media(tablet) {
     .block-2 {
       float: left;
@@ -55,17 +44,10 @@
     }
   }
 
-  .block-1, .block-2, .block-3 {
+  .block-2, .block-3 {
     display: block;
     float: none;
     width: 100%;
-  }
-
-  .block-1 {
-    padding-bottom: 0;
-    @include media(tablet) {
-      padding-bottom: $gutter;
-    }
   }
 
   @include media(desktop) {
@@ -252,7 +234,7 @@
 
 .policies-activities {
   .policy {
-    .block-1, .block-2 {
+    .block-2 {
       position: relative;
       display: block;
       float: none;
