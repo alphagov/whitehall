@@ -4,7 +4,7 @@ module LocaleHelper
   end
 
   def options_for_locales(locales)
-    locales.map { |l| ["#{l.native_language_name} (#{l.english_language_name})", l.code.to_s] }
+    locales.map { |locale| [locale.native_and_english_language_name, locale.code.to_s] }
   end
 
   def options_for_foreign_language_locale(edition)

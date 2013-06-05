@@ -78,7 +78,7 @@ When /^I feature the news article "([^"]*)" for topical event "([^"]*)" with ima
     click_link "Feature"
   end
   attach_file "Select an image to be shown when featuring", Rails.root.join("test/fixtures/#{image_filename}")
-  fill_in :alt_text, with: "An accessible description of the image"
+  fill_in :classification_featuring_alt_text, with: "An accessible description of the image"
   click_button "Save"
 end
 
