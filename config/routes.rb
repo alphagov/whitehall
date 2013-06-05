@@ -192,6 +192,7 @@ Whitehall::Application.routes.draw do
           member do
             post :submit, to: 'edition_workflow#submit'
             post :revise
+            get  :diff
             post :approve_retrospectively, to: 'edition_workflow#approve_retrospectively'
             post :reject, to: 'edition_workflow#reject'
             post :publish, to: 'edition_workflow#publish'

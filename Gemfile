@@ -37,6 +37,7 @@ gem 'shared_mustache', '~> 0.0.2'
 gem 'rails-i18n'
 gem 'globalize3', git: 'https://github.com/svenfuchs/globalize3.git', ref: 'ab69160ad'
 gem 'link_header'
+gem 'diffy'
 
 group :assets do
   gem 'govuk_frontend_toolkit', '0.19.2'
