@@ -1,4 +1,11 @@
 GIT
+  remote: git://github.com/alphagov/rack-test.git
+  revision: c98433f5f6a45842520913c31968cde5cd782d55
+  specs:
+    rack-test (0.6.2)
+      rack (>= 1.0)
+
+GIT
   remote: git://github.com/episko/test_track.git
   revision: d223c352851e54c9bb6b6dc80a6961945606b4cd
   specs:
@@ -6,14 +13,7 @@ GIT
       rails (>= 3.1.0)
 
 GIT
-  remote: https://github.com/alphagov/rack-test.git
-  revision: c98433f5f6a45842520913c31968cde5cd782d55
-  specs:
-    rack-test (0.6.2)
-      rack (>= 1.0)
-
-GIT
-  remote: https://github.com/svenfuchs/globalize3.git
+  remote: git://github.com/svenfuchs/globalize3.git
   revision: ab69160adc66d23b8d34aedc3ea9bfc724207494
   ref: ab69160ad
   specs:
@@ -166,9 +166,9 @@ GEM
     isbn_validation (1.1.1)
       activerecord (>= 3)
     journey (1.0.4)
-    jquery-rails (3.0.0)
-      railties (>= 3.0, < 5.0)
-      thor (>= 0.14, < 2.0)
+    jquery-rails (1.0.19)
+      railties (~> 3.0)
+      thor (~> 0.14)
     json (1.8.0)
     jwt (0.1.8)
       multi_json (>= 1.5)
@@ -194,7 +194,7 @@ GEM
     mini_magick (3.6.0)
       subexec (~> 0.2.1)
     minitest (2.5.1)
-    mocha (0.14.0)
+    mocha (0.13.2)
       metaclass (~> 0.0.1)
     multi_json (1.7.6)
     multipart-post (1.2.0)
@@ -403,7 +403,7 @@ DEPENDENCIES
   lograge
   mini_magick
   minitest (= 2.5.1)
-  mocha (= 0.14.0)
+  mocha (= 0.13.2)
   mysql2
   newrelic_rpm
   nokogiri

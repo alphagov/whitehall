@@ -1,11 +1,12 @@
 source 'http://rubygems.org'
 source 'https://BnrJb6FZyzspBboNJzYZ@gem.fury.io/govuk/'
 
-gem 'delayed_job_active_record'
-gem 'statsd-ruby', '1.0.0', require: "statsd"
+gem 'rake', '0.9.2'
 gem 'rails', '3.2.13'
 gem 'mysql2'
-gem 'jquery-rails', "1.0.19"
+gem 'delayed_job_active_record'
+gem 'statsd-ruby', '1.0.0', require: "statsd"
+gem 'jquery-rails', '1.0.19'
 gem 'transitions', require: ['transitions', 'active_record/transitions']
 gem 'carrierwave', '0.5.7'
 gem 'govspeak', '~> 1.2.3'
@@ -14,7 +15,6 @@ gem 'validates_email_format_of'
 gem 'friendly_id', '4.0.9'
 gem 'babosa'
 gem 'nokogiri'
-gem 'rake', '0.9.2'
 gem 'slimmer', '3.15.0'
 gem 'plek', '1.1.0'
 gem 'isbn_validation'
@@ -34,7 +34,7 @@ gem 'whenever', '0.7.3', require: false
 gem 'mini_magick'
 gem 'shared_mustache', '~> 0.0.2'
 gem 'rails-i18n'
-gem 'globalize3', git: 'https://github.com/svenfuchs/globalize3.git', ref: 'ab69160ad'
+gem 'globalize3', github: 'svenfuchs/globalize3', ref: 'ab69160ad'
 gem 'link_header'
 gem 'diffy'
 
@@ -59,7 +59,7 @@ end
 
 group :test do
   # NOTE: keep until https://github.com/brynary/rack-test/pull/69 is merged
-  gem 'rack-test', git: 'https://github.com/alphagov/rack-test.git'
+  gem 'rack-test', github: 'alphagov/rack-test'
   gem 'factory_girl'
   gem 'hash_syntax'
   gem 'mocha', '0.13.2', require: false
