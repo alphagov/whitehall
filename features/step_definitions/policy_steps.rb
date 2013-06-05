@@ -3,7 +3,7 @@ Given /^a submitted policy titled "([^"]*)"$/ do |policy_title|
 end
 
 Given /^"([^"]*)" submitted "([^"]*)" with body "([^"]*)"$/ do |author, title, body|
-  Given %{I am a writer called "#{author}"}
+  step %{I am a writer called "#{author}"}
 
   begin_drafting_policy title: title, body: body
   click_button 'Save'

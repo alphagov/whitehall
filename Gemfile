@@ -65,7 +65,7 @@ group :test do
   gem 'timecop'
   gem 'webmock', require: false
   gem 'ci_reporter'
-  gem 'database_cleaner', '~> 0.8.0'
+  gem 'database_cleaner', '1.0.1'
 end
 
 group :test_coverage do
@@ -74,9 +74,9 @@ group :test_coverage do
 end
 
 group :cucumber do
-  gem 'cucumber', '~> 1.0.6'
-  gem 'cucumber-rails', '~> 1.0.5', require: false
-  gem 'launchy', '~> 2.0.5'
+  gem 'cucumber', '~> 1.3.2'
+  gem 'cucumber-rails', '~> 1.3.1', require: false
+  gem 'launchy', '~> 2.3.0'
   gem 'capybara', '1.1.4'
   gem 'capybara-webkit', '0.12.1'
 end

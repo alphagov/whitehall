@@ -54,8 +54,8 @@ module DocumentHelper
 
   def begin_drafting_consultation(options)
     begin_drafting_document(options.merge(type: "consultation"))
-    select_date "Opening Date", with: 10.days.from_now.to_s
-    select_date "Closing Date", with: 40.days.from_now.to_s
+    select_date 10.days.from_now.to_s, from: "Opening Date"
+    select_date 40.days.from_now.to_s, from: "Closing Date"
   end
 
   def begin_drafting_world_location_news_article(options)
@@ -82,7 +82,7 @@ module DocumentHelper
     begin_drafting_document options.merge(type: 'speech', summary: "Some summary of the content")
     select speech_type.name, from: "Type"
     select "Colonel Mustard, Attorney General", from: "Speaker"
-    select_date "Delivered on", with: 1.day.ago.to_s
+    select_date 1.day.ago.to_s, from: "Delivered on"
     fill_in "Location", with: "The Drawing Room"
   end
 
@@ -99,7 +99,7 @@ module DocumentHelper
   end
 
   def fill_in_publication_fields
-    select_date "Publication date", with: "2010-01-01"
+    select_date "2010-01-01", from: "Publication date"
     select "Research and analysis", from: "Publication type"
   end
 
