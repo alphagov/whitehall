@@ -5,7 +5,7 @@ gem 'rake', '0.9.2'
 gem 'rails', '3.2.13'
 gem 'mysql2'
 gem 'delayed_job_active_record'
-gem 'statsd-ruby', '1.0.0', require: "statsd"
+gem 'statsd-ruby', '~> 1.2.0', require: 'statsd'
 gem 'jquery-rails', '1.0.19'
 gem 'transitions', require: ['transitions', 'active_record/transitions']
 gem 'carrierwave', '0.5.7'
@@ -61,7 +61,7 @@ group :test do
   gem 'rack-test', github: 'alphagov/rack-test'
   gem 'factory_girl'
   gem 'hash_syntax'
-  gem 'mocha', '0.13.2', require: false
+  gem 'mocha', '0.14.0', require: false
   gem 'test_track', github: 'episko/test_track'
   gem 'timecop'
   gem 'webmock', require: false

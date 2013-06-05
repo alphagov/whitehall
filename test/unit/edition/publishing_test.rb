@@ -300,7 +300,11 @@ class Edition::PublishingTest < ActiveSupport::TestCase
     robot = create(:scheduled_publishing_robot)
     edition = create(:scheduled_edition, access_limited: true)
     assert edition.access_limited
+<<<<<<< HEAD
     Timecop.freeze(edition.scheduled_publication + 1.minute) do
+=======
+    Timecop.freeze(edition.scheduled_publication + 1.second) do
+>>>>>>> d8f5ffb... More gem updates
       assert edition.publish_as(robot), edition.reason_to_prevent_publication_by(robot)
       refute edition.reload.access_limited?
     end
