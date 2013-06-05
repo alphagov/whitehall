@@ -1177,7 +1177,7 @@ module AdminEditionControllerTestHelpers
 
         get :show, id: edition
 
-        assert_select "label[for=edition_first_published_at]", text: "First published at (date required)"
+        assert_select "label[for=edition_first_published_at]", text: "First published at (date required)*"
         assert_select "select[name*='edition[first_published_at']", count: 5
       end
     end

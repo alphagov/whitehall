@@ -4,9 +4,9 @@
   <%= form.text_field :name %>
   <%= form.text_area :summary, rows: 2, class: 'js-summary-length-counting', data: { 'count-message-threshold' => 140, 'count-message-selector' => '.summary-length-info' } %>
   <div class="summary-length-info">Summary text should be 140 characters or fewer. <span class="count"></span></div>
-  
+
   <%= form.text_area :description, class: "previewable" %>
-  
+
   <p class="warning">Warning: changes to document series appear instantly on the live site.</p>
   <%= form.save_or_cancel cancel: admin_organisation_path(@document_series.organisation) %>
 <% end %>

@@ -19,7 +19,7 @@
                     data: { placeholder: "Political affiliation" } %>
     <%= form.text_field :born %>
     <%= form.text_field :died %>
-    <%= form.text_area :body, class: "previewable" %>
+    <%= form.text_area :body, class: "previewable", required: true %>
     <%= form.text_area :major_acts, rows: 2 %>
     <%= form.text_area :interesting_facts, rows: 2 %>
 

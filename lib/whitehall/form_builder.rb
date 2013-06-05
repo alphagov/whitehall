@@ -1,5 +1,19 @@
 module Whitehall
   class FormBuilder < ActionView::Helpers::FormBuilder
+
+    def label(method, text=nil, options={}, &block)
+      options = options.dup
+      if calculate_required(method, options)
+        options[:class] ||= ""
+        class_override = options[:class] << " required"
+        options.merge!(class: class_override.strip)
+        text_override = text ? text : method.to_s.humanize
+        text = "#{text_override}<span>*</span>".html_safe
+      end
+      options.delete(:required)
+      label_tag = super(method, text, options)
+    end
+
     def labelled_radio_button(label_text, *radio_button_args)
       # 2nd arg is either all the args for the radio_button, or an options
       # hash for the label, then all the args for the radio_button.
@@ -34,23 +48,25 @@ module Whitehall
     end
 
     def text_field(method, options={})
+      options.merge!(required: calculate_required(method, options))
       label_text = options.delete(:label_text)
       horizontal = options.delete(:horizontal)
       if horizontal
-        horizontal_group(label(method, label_text, class: "control-label"), super(method, options), options)
+        horizontal_group(label(method, label_text, options.merge(class: "control-label")), super(method, options), options)
       else
-        label(method, label_text) + super(method, options)
+        label(method, label_text, options) + super(method, options)
       end
     end
 
     def text_area(method, *args)
+      options.merge!(required: calculate_required(method, options))
       options = (args.last || {})
       label_text = options.delete(:label_text)
       horizontal = options.delete(:horizontal)
       if horizontal
         horizontal_group(label(method, label_text, class: "control-label"), super, options)
       else
-        label(method, label_text) + super
+        label(method, label_text, options) + super
       end
     end
 
@@ -68,16 +84,18 @@ module Whitehall
     end
 
     def check_box(method, options = {}, *args)
+      options.merge!(required: calculate_required(method, options))
       horizontal = options.delete(:horizontal)
       label_text = options.delete(:label_text)
       if horizontal
-        horizontal_group(label(method, label_text, class: "control-label"), super, options)
+        horizontal_group(label(method, label_text, options.merge(class: "control-label")), super, options)
       else
-        label(method, label_text, class: "checkbox") { super + label_text }
+        label(method, label_text, options.merge(class: "checkbox")) { super + label_text }
       end
     end
 
     def upload(method, options={})
+      options.merge!(required: calculate_required(method, options))
       horizontal = options.delete(:horizontal)
       label_text = options.delete(:label_text)
       allow_removal = options.delete(:allow_removal) || false
@@ -95,11 +113,58 @@ module Whitehall
       if horizontal
         horizontal_group(label(method, label_text, class: "control-label"), fields, options)
       else
-        label(method, label_text) + fields
+        label(method, label_text, options) + fields
       end
     end
 
     private
+
+    def has_validators?(method)
+      @has_validators ||= method && object.class.respond_to?(:validators_on)
+    end
+
+    def calculate_required(method, options)
+      if !options[:required].nil?
+        options[:required]
+      elsif has_validators?(method)
+        required_by_validators?(method)
+      else
+        false
+      end
+    end
+
+    def required_by_validators?(method)
+      (attribute_validators(method)).any? { |v| v.kind == :presence && valid_validator?(v) }
+    end
+
+    def attribute_validators(method)
+      object.class.validators_on(method)
+    end
+
+    def valid_validator?(validator)
+      !conditional_validators?(validator) && action_validator_match?(validator)
+    end
+
+    def conditional_validators?(validator)
+      validator.options.include?(:if) || validator.options.include?(:unless)
+    end
+
+    def action_validator_match?(validator)
+      return true if !validator.options.include?(:on)
+
+      case validator.options[:on]
+      when :save
+        true
+      when :create
+        !object.persisted?
+      when :update
+        object.persisted?
+      end
+    end
+
+    def find_validator(kind)
+      attribute_validators.find { |v| v.kind == kind } if has_validators?
+    end
 
     def right_to_left?
       Locale.new(object.fixed_locale).rtl?

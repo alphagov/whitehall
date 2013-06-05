@@ -6,7 +6,6 @@ jQuery(document).ready(function($) {
     $(".chzn-select-non-ie").addClass('chzn-select').chosen({allow_single_deselect: true, search_contains: true});
   }
 
-
   $("#completed_fact_check_requests").markLinkedAnchor();
 
   $('.document .body').enhanceYoutubeVideoLinks();
