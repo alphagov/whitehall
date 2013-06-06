@@ -4,10 +4,10 @@
 <%
   heading = [t('announcements.heading')]
   heading << "<span>: #{@filter.selected_announcement_type_option.label}</span>" if @filter.selected_announcement_type_option
-  heading.join('').html_safe
+  heading = heading.join('').html_safe
 %>
 
-<header class="block heading-block">
+<header class="block headings-block">
   <div class="inner-block floated-children">
     <%= render partial: 'shared/heading',
               locals: { big: true, heading: heading } %>

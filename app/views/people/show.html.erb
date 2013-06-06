@@ -2,25 +2,26 @@
 <% page_class "people-show biographical-page" %>
 
 <%= content_tag_for :div, @person, class: "two-column-page" do %>
-  <header class="block heading-block">
+  <header class="block headings-block">
     <div class="inner-block floated-children">
       <%= render partial: 'shared/heading',
-                locals: { type: "Ministerial role",
-                          heading: @ministerial_role.name } %>
+                locals: { type: "Person",
+                          heading: @person.name,
+                          big: true, extra: true } %>
       <div class="heading-extra">
-        <div class="heading-inner">
+        <div class="inner-heading">
           <%= render partial: 'shared/available_languages', locals: {object: @person } %>
         </div>
       </div>
 
       <% if @person.current_role_appointments.any? %>
         <aside class="meta">
-          <dl>
-            <dt>Roles:</dt>
-            <% @person.current_role_appointments.each do |appointment| %>
-              <dd><%= appointment.role.name %></dd>
-            <% end %>
-          </dl>
+          <div class="inner-heading">
+            <dl>
+              <dt>Roles:</dt>
+              <dd><%= @person.current_role_appointments.map { |a| a.role.name }.to_sentence %></dd>
+            </dl>
+          </div>
         </aside>
       <% end %>
     </div>

@@ -22,6 +22,11 @@
     margin-bottom: $gutter;
   }
 
+  .headings-block {
+    .organisations-icon-list {
+      margin-top: $gutter*2;
+    }
+  }
 
   @include media(desktop) {
     .latest-block {

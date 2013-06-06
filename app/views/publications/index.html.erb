@@ -3,11 +3,11 @@
 <% atom_discovery_link_tag filter_atom_feed_url, "Recent publications" %>
 <%
   heading = [t('publications.heading')]
-  heading << "<span>: #{@filter.selected_publication_filter_option.label}</span>" if @filter.selected_announcement_type_option
-  heading.join('').html_safe
+  heading << "<span>: #{@filter.selected_publication_filter_option.label}</span>" if @filter.selected_publication_filter_option
+  heading = heading.join('').html_safe
 %>
 
-<header class="block heading-block">
+<header class="block headings-block">
   <div class="inner-block floated-children">
     <%= render partial: 'shared/heading',
               locals: { big: true,

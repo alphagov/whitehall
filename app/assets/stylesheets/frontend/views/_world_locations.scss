@@ -91,11 +91,6 @@
   .mainstream-links {
     @include core-16;
 
-    @include media(desktop){
-      margin: $gutter 0;
-      width: 33.33%;
-      float: right;
-    }
     h4 {
       @include core-19;
       @include media(desktop){
@@ -104,9 +99,6 @@
       }
     }
     ul {
-      @include media(desktop){
-        margin: 0 $gutter-half;
-      }
       li {
         list-style: none;
         margin-bottom: $gutter-one-sixth;

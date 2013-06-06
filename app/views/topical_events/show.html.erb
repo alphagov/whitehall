@@ -4,13 +4,14 @@
 
 <%= content_tag_for(:div, @classification, class: "classification #{@classification.class.name.underscore}") do %>
 
-  <header class="block heading-block">
+  <header class="block headings-block">
     <div class="inner-block floated-children">
       <%= render partial: 'shared/heading',
                 locals: { type: 'Topic',
-                          heading: "#{@classification.name}#{' <span class="archived">(Archived)</span>' if @classification.archived?}" } %>
+                          heading: "#{@classification.name}#{' <span class="archived">(Archived)</span>' if @classification.archived?}",
+                          big: true, extra: true } %>
       <% if @classification.logo_url.present? %>
-        <div class="heading-extra">
+        <div class="heading-extra topical-event-logo">
           <div class="heading-inner">
             <%= image_tag(@classification.logo_url(:s300), alt: @classification.logo_alt_text) if @classification.logo_url %>
           </div>

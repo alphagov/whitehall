@@ -3,10 +3,12 @@
 
 <%= content_tag_for(:div, @take_part_page) do %>
   <article>
-    <header class="block heading-block">
+    <header class="block headings-block">
       <div class="inner-block floated-children">
         <%= render partial: 'shared/heading',
-                  locals: { type: 'Take part', heading: @take_part_page.title } %>
+                  locals: { type: 'Take part',
+                            heading: @take_part_page.title,
+                            big: true } %>
       </div>
     </header>
     <div class="block-1">

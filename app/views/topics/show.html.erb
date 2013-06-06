@@ -4,11 +4,12 @@
 
 <%= content_tag_for(:div, @classification, class: "classification #{@classification.class.name.underscore}") do %>
 
-  <header class="block heading-block">
+  <header class="block headings-block">
     <div class="inner-block floated-children">
       <%= render partial: 'shared/heading',
                 locals: { type: "Topic",
-                          heading: @classification.name } %>
+                          heading: @classification.name,
+                          big: true, extra: true } %>
       <div class="heading-extra">
         <div class="heading-inner">
           <%= render partial: 'organisations/organisations_logo_list',

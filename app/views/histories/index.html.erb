@@ -2,11 +2,11 @@
 <% page_class "home-history" %>
 
 
-<header class="block heading-block">
+<header class="block headings-block">
   <div class="inner-block floated-children">
     <%= render partial: 'shared/heading',
               locals: { big: true,
-                        heading: "History of the UK&nbsp;government" } %>
+                        heading: "History of the UK&nbsp;government".html_safe } %>
     <p class="intro-paragraph">In this section you can read short biographies of <a href="#notable-people">notable people</a> and explore the history of <a href="#government-buildings">government buildings</a>. You can also search our <a href="#documents-records">online records</a> and read <a href="#articles-and-blog-posts">articles and blog posts</a> by historians.</p>
   </div>
 </header>

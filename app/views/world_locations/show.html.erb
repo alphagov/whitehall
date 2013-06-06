@@ -3,23 +3,24 @@
 <% atom_discovery_link_tag world_location_url(@world_location, format: :atom), t("feeds.latest_activity") %>
 
 <%= content_tag_for(:div, @world_location) do %>
-  <header class="block heading-block">
+  <header class="block headings-block">
     <div class="inner-block floated-children">
       <%= render partial: 'shared/heading',
                 locals: { type: t_world_location(@world_location),
-                          heading: @world_location.title } %>
+                          heading: @world_location.title,
+                          extra: true, big: true } %>
+      <aside class="heading-extra mainstream-links">
+        <div class="inner-heading">
+          <%= render partial: 'shared/available_languages', locals: {object: @world_location} %>
+          <h4><%= t('world_location.headings.quick_links') %></h4>
+          <ul>
+            <% @world_location.mainstream_links.only_the_initial_set.each do |link| %>
+              <li><%= link_to link.title, link.url, ({rel: 'external'} if is_external?(link.url)) %></li>
+            <% end %>
+          </ul>
+        </div>
+      </aside>
     </div>
-    <aside class="header-extra mainstream-links">
-      <div class="header-inner">
-        <%= render partial: 'shared/available_languages', locals: {object: @world_location} %>
-        <h4><%= t('world_location.headings.quick_links') %></h4>
-        <ul>
-          <% @world_location.mainstream_links.only_the_initial_set.each do |link| %>
-            <li><%= link_to link.title, link.url, ({rel: 'external'} if is_external?(link.url)) %></li>
-          <% end %>
-        </ul>
-      </div>
-    </aside>
   </header>
 
   <div class="block news-block">

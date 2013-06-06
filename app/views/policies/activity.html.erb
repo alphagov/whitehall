@@ -3,7 +3,7 @@
 <% atom_discovery_link_tag activity_policy_url(@policy.document, format: "atom"), %{Latest activity on "#{@policy.title}"} %>
 
 <div class="document_page <%= @document.type.downcase %>">
-  <header class="block heading-block">
+  <header class="block headings-block">
     <div class="inner-block floated-children">
       <%= render  partial: "documents/header", locals: {
                   document: @document,

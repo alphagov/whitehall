@@ -1,33 +1,37 @@
 <% page_title @document_series.name, @organisation.name %>
 <% page_class "document-series-page" %>
 
-<header class="block heading-block">
+<header class="block headings-block">
   <div class="inner-block floated-children">
     <%= render partial: 'shared/heading',
               locals: { type: 'Series', heading: @document_series.name } %>
 
     <aside class="meta">
-      <dl>
-        <dt><%= t('document.headings.organisations', count: 1) %>:</dt>
-        <dd>
-          <%= render  partial: 'organisations/organisations_name_list',
-                      locals: { lead_organisations: [@organisation] } %>
-        </dd>
-        <% unless @document_series.published_editions.empty? %>
-          <% most_recent_change = @document_series.published_editions.first.public_timestamp %>
-          <dt class="change-notes-title"><%= t('change_notes.updated') %>:</dt>
-          <dd class="change-notes">
-            <%= absolute_date(most_recent_change, class: 'published-at') %>
+      <div class="inner-heading">
+        <dl>
+          <dt><%= t('document.headings.organisations', count: 1) %>:</dt>
+          <dd>
+            <%= render  partial: 'organisations/organisations_name_list',
+                        locals: { lead_organisations: [@organisation] } %>
           </dd>
-        <% end %>
-      </dl>
+          <% unless @document_series.published_editions.empty? %>
+            <% most_recent_change = @document_series.published_editions.first.public_timestamp %>
+            <dt class="change-notes-title"><%= t('change_notes.updated') %>:</dt>
+            <dd class="change-notes">
+              <%= absolute_date(most_recent_change, class: 'published-at') %>
+            </dd>
+          <% end %>
+        </dl>
+      </div>
     </aside>
   </div>
 </header>
 
 <% unless @document_series.summary.blank? %>
-  <div class="summary">
-    <p><%= @document_series.summary %></p>
+  <div class="block summary">
+    <div class="inner-block">
+      <p><%= @document_series.summary %></p>
+    </div>
   </div>
 <% end %>
 

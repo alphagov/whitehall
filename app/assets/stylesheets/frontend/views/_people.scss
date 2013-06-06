@@ -1,6 +1,5 @@
 .people-show {
   .inner-block {
     @extend %contain-floats;
-    margin: $gutter-half 0 $gutter;
   }
 }

@@ -2,24 +2,27 @@
 <% page_class "ministerial-role-show biographical-page" %>
 
 <%= content_tag_for :div, @ministerial_role, class: 'two-column-page ministerial-department ' + ministerial_role_organisation_class(@ministerial_role) do %>
-  <header class="block heading-block">
+  <header class="block headings-block">
     <div class="inner-block floated-children">
       <%= render partial: 'shared/heading',
                 locals: { type: "Ministerial role",
-                          heading: @ministerial_role.name } %>
+                        heading: @ministerial_role.name,
+                        big: true, extra: true} %>
                           
       <aside class="meta">
-        <dl>
-          <dt><%= t('document.headings.organisations', count: @ministerial_role.organisations.count) %>:</dt>
-          <dd>
-            <%= render  partial: 'organisations/organisations_name_list',
-                        locals: { lead_organisations: @ministerial_role.organisations } %>
-          </dd>
-          <% if @ministerial_role.occupied? %>
-            <dt>Current role holder:</dt>
-            <dd><%= @ministerial_role.current_person.name %></dd>
-          <% end %>
-        </dl>
+        <div class="inner-heading">
+          <dl>
+            <dt><%= t('document.headings.organisations', count: @ministerial_role.organisations.count) %>:</dt>
+            <dd>
+              <%= render  partial: 'organisations/organisations_name_list',
+                          locals: { lead_organisations: @ministerial_role.organisations } %>
+            </dd>
+            <% if @ministerial_role.occupied? %>
+              <dt>Current role holder:</dt>
+              <dd><%= link_to @ministerial_role.current_person.name, "#current-role-holder" %></dd>
+            <% end %>
+          </dl>
+        </div>
       </aside>
     </div>
   </header>

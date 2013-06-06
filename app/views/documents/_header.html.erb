@@ -3,8 +3,11 @@
   policies ||= nil
   topics ||= []
 %>
-<%= render partial: 'shared/heading', locals: { type: header_title, heading: document.title } %>
-<div class="heading-extras">
+<%= render partial: 'shared/heading',
+          locals: { type: header_title,
+                    heading: document.title,
+                    extra: true } %>
+<div class="heading-extra">
   <div class="inner-heading">
     <%= render partial: 'shared/available_languages', locals: {object: document} %>
     <%= national_statistics_logo(document) %>

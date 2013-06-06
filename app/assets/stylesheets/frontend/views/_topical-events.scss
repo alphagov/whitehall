@@ -7,9 +7,17 @@
     background-color: $g8-brand;
   }
 
-  .archived {
-    color: $grey-1;
-    padding-left: 0;
+  .headings-block {
+    .archived {
+      color: $grey-1;
+      padding-left: 0;
+    }
+    .topical-event-logo {
+      img {
+        max-width: 100%;
+        margin-top: $gutter;
+      }
+    }
   }
 
   .page-description {
