@@ -3,12 +3,6 @@ require 'test_helper'
 class DocumentFilterHelperTest < ActionView::TestCase
   include ApplicationHelper
 
-  test "#all_classifications returns all topics alphabetically and active topcial events" do
-    topic = create(:topic)
-    topical_event = create(:topical_event, :active)
-    assert_equal [topic, topical_event], all_classifications
-  end
-
   test "#all_organisations_with returns all organisations that have published editions" do
     Organisation.expects(:with_published_editions).with(:announcement)
     all_organisations_with(:announcement)

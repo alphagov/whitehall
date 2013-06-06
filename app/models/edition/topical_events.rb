@@ -20,18 +20,4 @@ module Edition::TopicalEvents
   def can_be_associated_with_topical_events?
     true
   end
-
-  module ClassMethods
-    def in_topical_event(topical_event)
-      joins(:topical_events).where('classifications.id' => topical_event)
-    end
-
-    def published_in_topical_event(topical_event)
-      published.in_topical_event(topical_event)
-    end
-
-    def scheduled_in_topical_event(topical_event)
-      scheduled.in_topical_event(topical_event)
-    end
-  end
 end
