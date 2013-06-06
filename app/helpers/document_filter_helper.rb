@@ -3,7 +3,7 @@ module DocumentFilterHelper
     selected_values = selected_topics.any? ? selected_topics.map(&:slug) : ["all"]
     grouped_classifications = [
       [ 'Topics', Topic.alphabetical.map { |o| [o.name, o.slug] } ],
-      [ 'Topical Events', TopicalEvent.active
+      [ 'Topical events', TopicalEvent.active
                                       .order_by_start_date.map { |o| [o.name, o.slug] } ]
     ]
     options_for_select([["All topics", "all"]], selected_values) +
