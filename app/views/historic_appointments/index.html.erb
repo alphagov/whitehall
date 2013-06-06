@@ -4,8 +4,9 @@
 <header class="block headings-block">
   <div class="inner-block floated-children">
     <%= render partial: 'shared/heading',
-              locals: { type: link_to('History', histories_path), 
-                        heading: "Past #{@role.name.pluralize}" } %>
+              locals: { type: link_to('History', histories_path),
+                        heading: "Past #{@role.name.pluralize}",
+                        big: true } %>
   </div>
 </header>
 

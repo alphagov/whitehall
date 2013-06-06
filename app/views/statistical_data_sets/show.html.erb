@@ -10,9 +10,14 @@
                     document: @document,
                     policies: @related_policies
                   } %>
-      <%= render partial: "document_summary", locals: { document: @document } %>
     </div>
   </header>
+
+  <div class="block">
+    <div class="inner-block">
+      <%= render partial: "document_summary", locals: { document: @document } %>
+    </div>
+  </div>
 
   <div class="block-2 ">
     <div class="inner-block">

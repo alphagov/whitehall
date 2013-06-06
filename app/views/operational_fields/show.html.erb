@@ -5,12 +5,14 @@
   <div class="inner-block floated-children">
     <%= render partial: 'shared/heading',
               locals: { type: 'British fatalities',
-                        heading: "Operations in #{@operational_field.name}" } %>
-    <div class="heading-extras">
+                        heading: "Operations in #{@operational_field.name}",
+                        big: true, extra: true } %>
+    <div class="heading-extra">
       <div class="inner-heading">
         <%= render partial: 'organisations/organisations_logo_list',
                   locals: { organisations: [@organisation] } %>
-    </div>                        
+      </div>
+    </div>
   </div>
 </header>
 
