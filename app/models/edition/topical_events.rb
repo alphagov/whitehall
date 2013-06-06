@@ -20,4 +20,10 @@ module Edition::TopicalEvents
   def can_be_associated_with_topical_events?
     true
   end
+
+  module InstanceMethods
+    def search_index
+      super.merge("topics" => topical_events.map(&:slug)) {|k, ov, nv| ov + nv}
+    end
+  end
 end
