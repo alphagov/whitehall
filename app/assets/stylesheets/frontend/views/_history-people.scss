@@ -81,26 +81,6 @@
 
 
 .historic-people-show {
-
-  .page-header {
-    padding : $gutter*2 0 $gutter;
-    @include media(tablet) {
-      padding : $gutter*2 0;
-    }
-
-    h1 {
-      @include heading-36;
-      color: $grey-1;
-    }
-    h2 {
-      @include heading-48;
-      font-weight: bold;
-      @include media(tablet) {
-        padding: 0;
-      }
-    }
-  }
-
   .historic-people-list, .person-info {
     @include media(tablet) {
       float: left;
