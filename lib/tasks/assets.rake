@@ -16,16 +16,3 @@
 
 Rake::Task["assets:precompile:primary"].prerequisites.delete "tmp:cache:clear"
 Rake::Task["assets:precompile:nondigest"].prerequisites.delete "tmp:cache:clear"
-
-# Turn off garbage collection during Scss compilation.
-# We've had intermittent issues with Scss compilation on busy servers,
-# and we have a theory that the full parser stack of Scss is being
-# garbage collected and breaking the stack.
-namespace :assets do
-  desc "Run assets:precompile with garbage collection turned off"
-  task :gc_precompile do
-    GC.disable
-    Rake::Task['assets:precompile'].invoke
-    GC.enable
-  end
-end
