@@ -114,7 +114,7 @@ class PolicyTest < ActiveSupport::TestCase
   end
 
   test "search_index contains topics" do
-    policy = build(:published_policy, :with_document, title: "my title", topics: [create(:topic)])
+    policy = create(:published_policy, :with_document, title: "my title", topics: [create(:topic)])
 
     assert_equal policy.topics.map(&:slug), policy.search_index['topics']
   end
