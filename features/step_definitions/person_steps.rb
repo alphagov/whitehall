@@ -82,7 +82,7 @@ end
 
 Then /^I should see information about the person "([^"]*)"$/ do |name|
   person = find_person(name)
-  assert page.has_css?(".name", text: person.name)
+  assert page.has_css?("h1", text: person.name)
   assert page.has_css?(".biography", text: person.biography)
 end
 

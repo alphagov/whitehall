@@ -14,7 +14,7 @@ class OperationalFieldsControllerTest < ActionController::TestCase
 
     get :show, id: operational_field
 
-    assert_select ".page-header h1", text: %r{#{operational_field.name}}
+    assert_select "h1", text: %r{#{operational_field.name}}
   end
 
   view_test "shows description using govspeak" do

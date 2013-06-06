@@ -8,7 +8,7 @@ class StatisticalDataSetsControllerTest < ActionController::TestCase
   view_test 'show displays published statistical data set' do
     published_statistical_data_set = create(:published_statistical_data_set)
     get :show, id: published_statistical_data_set.document
-    assert_select '.title', text: published_statistical_data_set.title
+    assert_select 'h1', text: published_statistical_data_set.title
   end
 
   view_test "renders the summary of the statistical data set" do

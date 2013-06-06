@@ -66,7 +66,7 @@ class PublicationsControllerTest < ActionController::TestCase
 
     get :show, id: publication.document
 
-    assert_select ".label", text: /Form/
+    assert_select ".type", text: /Form/
     assert_select ".change-notes .published-at", text: "31 May 1916"
   end
 

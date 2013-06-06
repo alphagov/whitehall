@@ -95,7 +95,7 @@ end
 
 Then /^the published speech should remain unchanged$/ do
   visit public_document_path(@speech)
-  assert page.has_css?('.page_title', text: @speech.title)
+  assert page.has_css?('h1', text: @speech.title)
   assert page.has_css?('.body', text: @speech.body)
 end
 
@@ -131,5 +131,5 @@ Then /^it should be shown as an authored article in the admin screen$/ do
 end
 
 Then /^I should see who wrote it clearly labelled in the metadata$/ do
-  assert page.has_css?('.document-page-header dt', text: "Written on:")
+  assert page.has_css?('dt', text: "Written on:")
 end

@@ -29,5 +29,5 @@ When /^I follow the link to the "([^"]*)" statistical data set$/ do |data_set_ti
 end
 
 Then /^I should see the "([^"]*)" statistical data set$/ do |data_set_title|
-  assert page.has_css?('.title', text: data_set_title)
+  assert page.has_css?('h1', text: data_set_title)
 end
