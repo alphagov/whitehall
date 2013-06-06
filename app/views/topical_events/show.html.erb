@@ -72,7 +72,7 @@
           <div class="content">
             <%= render partial: "publications/list_description", locals: {publications: @publications} %>
             <p class="see-all">
-              <%#= link_to 'See all publications', publications_filter_path(@classification) %>
+              <%= link_to 'See all publications', publications_filter_path(@classification) %>
             </p>
           </div>
         </section>
@@ -83,7 +83,7 @@
           <div class="content">
             <%= render partial: "publications/list_description", locals: {publications: @consultations} %>
             <p class="see-all">
-              <%#= link_to 'See all consultations', publications_filter_path(@classification, publication_filter_option: 'consultations') %>
+              <%= link_to 'See all consultations', publications_filter_path(@classification, publication_filter_option: 'consultations') %>
             </p>
           </div>
         </section>
