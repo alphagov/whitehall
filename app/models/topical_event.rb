@@ -46,6 +46,7 @@ class TopicalEvent < Classification
   has_many :features, dependent: :destroy
 
   scope :active, -> { where("end_date > ?", Date.today) }
+  scope :order_by_start_date, -> { order("start_date DESC") }
 
   validate :start_and_end_dates
   validates :start_date, presence: true, if: -> topical_event { topical_event.end_date }
