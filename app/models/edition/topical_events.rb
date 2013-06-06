@@ -21,12 +21,6 @@ module Edition::TopicalEvents
     true
   end
 
-  module InstanceMethods
-    def search_index
-      super.merge("topical_events" => topical_events.map(&:slug))
-    end
-  end
-
   module ClassMethods
     def in_topical_event(topical_event)
       joins(:topical_events).where('classifications.id' => topical_event)

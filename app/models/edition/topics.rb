@@ -16,12 +16,6 @@ module Edition::Topics
     true
   end
 
-  module InstanceMethods
-    def search_index
-      super.merge("topics" => topics.map(&:slug))
-    end
-  end
-
   module ClassMethods
     def in_topic(topic)
       joins(:topics).where('classifications.id' => topic)

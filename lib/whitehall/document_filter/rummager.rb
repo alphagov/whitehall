@@ -78,7 +78,6 @@ module Whitehall::DocumentFilter
       if selected_topics.any?
         {
           topics: selected_topics.map(&:slug),
-          topical_events: selected_topics.map(&:slug)
         }
       else
         {}
