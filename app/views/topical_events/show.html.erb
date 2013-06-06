@@ -94,7 +94,7 @@
           <div class="content">
             <%= render partial: "announcements/list_description", locals: {announcements: @announcements} %>
             <p class="see-all">
-              <%#= link_to "See all announcements", announcements_filter_path(@classification) %>
+              <%= link_to "See all announcements", announcements_filter_path(@classification) %>
             </p>
           </div>
         </section>
