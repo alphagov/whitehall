@@ -54,6 +54,23 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     assert_select_object(publication) { assert_select ".type", text: "Publication" }
   end
 
+  test "diffing against a previous version" do
+    policy = create(:draft_policy)
+    editor = create(:departmental_editor)
+    Edition::AuditTrail.whodunnit = editor
+    policy.first_published_at = Time.zone.now
+    policy.major_change_published_at = Time.zone.now
+    policy.publish_as(editor, force: true)
+    draft_policy = policy.reload.create_draft(editor)
+
+    get :diff, id: draft_policy, audit_trail_entry_id: draft_policy.document_version_trail.first.version.item_id
+
+    assert_response :success
+    assert_template :diff
+    assert_equal draft_policy, assigns(:edition)
+    assert_equal policy, assigns(:audit_trail_entry)
+  end
+
   test "revising the published edition should create a new draft edition" do
     published_edition = create(:published_policy)
     Edition.stubs(:find).returns(published_edition)
