@@ -13,11 +13,16 @@
                as: :feature,
                locals: { show_meta: true,
                          extra_class: "secondary" } %>
+    <%= render partial: 'shared/recently_updated',
+              locals: { recently_updated: recently_updated,
+                        atom_url: organisation_url(organisation, format: "atom"),
+                        govdelivery_url: filter_email_signup_url(organisation: organisation.slug),
+                        extra_class: 'panel',
+                        all_announcements_link: all_announcements_link } %>
+  <% else %>
+    <%= render partial: 'shared/feeds',
+        locals: { atom_url: @atom_url,
+                  govdelivery_url: @govdelivery_url } %>
   <% end %>
-  <%= render partial: 'shared/recently_updated',
-            locals: { recently_updated: recently_updated,
-                      atom_url: organisation_url(organisation, format: "atom"),
-                      govdelivery_url: filter_email_signup_url(organisation: organisation.slug),
-                      extra_class: 'panel',
-                      all_announcements_link: all_announcements_link } %>
+
 </section>

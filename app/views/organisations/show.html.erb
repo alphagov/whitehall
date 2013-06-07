@@ -19,7 +19,10 @@
       <section id="what-we-do" class="what-we-do">
         <div class="content">
           <% if @organisation.organisation_type.sub_organisation? %>
-            <p class="description"><%= @organisation.description %></p>
+            <% if @organisation.description.present? %>
+              <h1 class="block-title">What we do</h1>
+              <p class="description"><%= @organisation.description %></p>
+            <% end %>
             <div class="body">
               <%= govspeak_to_html @organisation.about_us %>
             </div>

@@ -691,6 +691,23 @@
     }
   }
 
+  //sub orgs
+
+  .body {
+    .govspeak {
+      h2 {
+        border-bottom: 0;
+        position: relative;
+        bottom: -($gutter+$gutter-half);
+      }
+      p, ul {
+        float: left;
+        margin-left: 33.33%;
+        padding-left: $gutter-half;
+      }
+    }
+  }
+
 
 
   // org color bands
