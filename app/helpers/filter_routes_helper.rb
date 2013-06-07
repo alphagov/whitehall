@@ -48,6 +48,8 @@ module FilterRoutesHelper
         out[:departments] = [obj.slug]
       elsif obj.is_a? Topic
         out[:topics] = [obj.slug]
+      elsif obj.is_a? TopicalEvent
+        out[:topics] = [obj.slug]
       elsif obj.is_a? WorldLocation
         out[:world_locations] = [obj.slug]
       else

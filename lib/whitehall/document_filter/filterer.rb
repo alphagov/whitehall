@@ -33,7 +33,7 @@ module Whitehall::DocumentFilter
     end
 
     def selected_topics
-      find_by_slug(Topic, @params[:topics])
+      find_by_slug(Classification, @params[:topics])
     end
 
     def selected_organisations

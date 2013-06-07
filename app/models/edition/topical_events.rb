@@ -23,7 +23,7 @@ module Edition::TopicalEvents
 
   module InstanceMethods
     def search_index
-      super.merge("topical_events" => topical_events.map(&:slug))
+      super.merge("topics" => topical_events.map(&:slug)) {|k, ov, nv| ov + nv}
     end
   end
 end

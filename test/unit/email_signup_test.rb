@@ -19,8 +19,8 @@ class EmailSignupTest < ActiveSupport::TestCase
   end
 
   test 'the list of valid_topics_by_type includes all topical events even if they have no published policies in the list of topical event' do
-    topical_event_1 = create(:topical_event)
-    topical_event_2 = create(:topical_event)
+    topical_event_1 = create(:topical_event, :active)
+    topical_event_2 = create(:topical_event, :active)
     policy  = create(:published_policy)
     topical_event_1.published_policies << policy
 
