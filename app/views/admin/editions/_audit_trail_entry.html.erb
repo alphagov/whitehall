@@ -1,6 +1,6 @@
 <%= content_tag_for(:li, audit_trail_entry) do %>
-  <% if audit_trail_entry.is_a?(Edition::AuditTrail::VersionAuditEntry) %>
-    <%= link_to "[diff]", diff_admin_edition_path(@edition, audit_trail_entry_id: audit_trail_entry.version.item_id) %>
+  <% if audit_trail_entry.is_a?(Edition::AuditTrail::VersionAuditEntry) && audit_trail_entry.action == "published" %>
+    <%= link_to "[compare with current]", diff_admin_edition_path(@edition, audit_trail_entry_id: audit_trail_entry.version.item_id) %>
   <% end %>
 
   <div class="image">
