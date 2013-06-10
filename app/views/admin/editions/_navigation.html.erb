@@ -73,7 +73,7 @@
   <%= delete_edition_button(edition) if edition.deletable? %>
   <%= unpublish_edition_button(edition) if edition.unpublishable_by?(current_user) %>
 </nav>
-<% if @edition.edition_to_diff_against.any? %>
+<% if @edition.edition_to_diff_against %>
 <br/>
 <p>
 <%= link_to "See what's changed", diff_admin_edition_path(@edition, audit_trail_entry_id: @edition.edition_to_diff_against.id) %>
