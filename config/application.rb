@@ -56,7 +56,7 @@ module Whitehall
 
     # Enable the asset pipeline
     config.assets.enabled = true
-    config.assets.initialize_on_precompile = false
+    config.assets.initialize_on_precompile = true
 
     config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for nginx
 
