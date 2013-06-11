@@ -2,7 +2,7 @@ def fill_in_html_version_and_save
   fill_in "HTML version title", with: 'HTML version title'
   fill_in "HTML version text", with: 'HTML version text'
   click_button "Save"
-  click_button "Force Publish"
+  publish force: true
 end
 
 When /^I publish a publication with an HTML version$/ do
@@ -47,7 +47,7 @@ end
 
 Then /^the HTML version of the published publication should show the referenced image$/ do
   click_on "Save"
-  click_on "Force Publish"
+  publish force: true
 
   visit public_document_path(Publication.last)
   click_on HtmlVersion.last.title

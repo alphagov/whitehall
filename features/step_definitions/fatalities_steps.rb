@@ -1,6 +1,6 @@
 When /^I create a fatality notice titled "([^"]*)" in the field "([^"]*)"$/ do |title, field|
   draft_fatality_notice(title, field)
-  click_button "Force Publish"
+  publish force: true
 end
 
 Then /^the fatality notice should be visible on the public site$/ do

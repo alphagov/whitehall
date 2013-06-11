@@ -119,9 +119,21 @@ module DocumentHelper
   end
 
   def publish(options = {})
-    click_button options[:force] ? "Force Publish" : "Publish"
-    unless options[:ignore_errors]
-      refute_flash_alerts_exist
+    if options[:force]
+      click_on "Force Publish"
+      page.has_css?("#forcePublishModal", visible: true)
+      within '#forcePublishModal' do
+        fill_in 'reason', with: "because"
+        click_button 'Force Publish'
+      end
+      unless options[:ignore_errors]
+        refute_flash_alerts_exist
+      end
+    else
+      click_button "Publish"
+      unless options[:ignore_errors]
+        refute_flash_alerts_exist
+      end
     end
   end
 

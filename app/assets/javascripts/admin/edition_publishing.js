@@ -1,13 +1,4 @@
 (function ($) {
-  $("#forcePublishReason").on("click", function(e) {
-    e.preventDefault();
-    $('#forcePublishModal').modal('hide')
-    // Update forceuplish reason
-    // submit form
-  });
-})(jQuery);
-
-(function ($) {
   var _enableChangeNoteHighlighting = function() {
     var form = $(this);
     var changeNoteLabels = form.find("label[for=edition_change_note]");

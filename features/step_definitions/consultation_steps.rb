@@ -29,7 +29,7 @@ end
 
 When /^I save and publish the amended consultation$/ do
   click_button "Save"
-  click_button "Force Publish"
+  publish force: true
 end
 
 Then /^the consultation response should be viewable$/ do
@@ -46,7 +46,7 @@ Then /^the published date should be visible on save$/ do
   date = 1.day.ago.strftime("%Y-%m-%d")
   click_button "Save"
   assert page.has_css?("abbr.published_on_or_default", title: date)
-  click_button "Force Publish"
+  publish force: true
 
   select_most_recent_consultation_from_list
   view_visible_consultation_on_website

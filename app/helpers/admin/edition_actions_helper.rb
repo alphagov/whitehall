@@ -47,7 +47,7 @@ module Admin::EditionActionsHelper
     css_classes = ["btn"]
     css_classes << (options[:force] ? "btn-warning" : "btn-success")
     if options[:force]
-      link_to "Force Publish", nil, class: css_classes.join(" "), "data-toggle" => "modal", "data-target" => "#forcePublishModal"
+      %(<a class="#{css_classes.join(" ")}" data-toggle="modal" data-target="#forcePublishModal">Force Publish</a>).html_safe
     else
       button_to "Publish", publish_admin_edition_path(edition, options.merge(lock_version: edition.lock_version)), confirm: confirm, title: button_title, class: css_classes.join(" ")
     end
