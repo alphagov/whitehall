@@ -28,7 +28,7 @@ When /^I add a few of those mainstream categories in a specific order to the org
   visit edit_admin_organisation_path(@the_organisation)
   @selected_mainstream_categories = @all_mainstream_categories.shuffle.take(3)
   @selected_mainstream_categories.each.with_index do |mainstream_category, idx|
-    select mainstream_category.title, from: "Detailed guidance category #{idx+1}"
+    select mainstream_category.title, from: "organisation_mainstream_category_ids_#{idx+1}"
   end
   click_on 'Save'
 end

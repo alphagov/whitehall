@@ -78,7 +78,7 @@ When /^I feature the news article "([^"]*)" for topical event "([^"]*)" with ima
     click_link "Feature"
   end
   attach_file "Select an image to be shown when featuring", Rails.root.join("test/fixtures/#{image_filename}")
-  fill_in :alt_text, with: "An accessible description of the image"
+  fill_in :classification_featuring_alt_text, with: "An accessible description of the image"
   click_button "Save"
 end
 
@@ -100,7 +100,7 @@ def create_topical_event(options = {})
   click_link "Create topical event"
   fill_in "Name", with: options[:name] || "topic-name"
   fill_in "Description", with: options[:description] || "topic-description"
-  select_date "Start Date", with: options[:start_date] || 1.day.ago.to_s
-  select_date "End Date", with: options[:end_date] || 1.month.from_now.to_s
+  select_date (options[:start_date] || 1.day.ago.to_s), from: "Start Date"
+  select_date (options[:end_date] || 1.month.from_now.to_s), from: "End Date"
   click_button "Save"
 end

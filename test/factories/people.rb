@@ -1,5 +1,5 @@
 FactoryGirl.define do
   factory :person, traits: [:translated] do
-    forename "George"
+    sequence(:forename) { |index| "George #{index}" }
   end
 end
