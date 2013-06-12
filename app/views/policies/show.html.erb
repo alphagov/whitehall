@@ -10,10 +10,14 @@
     </div>
   </header>
 
-  <div class="meta-three<% unless @show_navigation %> no-navigation<% end %>">
-    <% if @show_navigation %>
-      <%= render partial: "policy_navigation" %>
-    <% end %>
+  <div class="block">
+    <div class="inner-block">
+      <div class="meta-three<% unless @show_navigation %> no-navigation<% end %>">
+        <% if @show_navigation %>
+          <%= render partial: "policy_navigation" %>
+        <% end %>
+      </div>
+    </div>
   </div>
 
   <div class="block-2">
