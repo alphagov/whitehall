@@ -377,14 +377,17 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert_equal 2, organisation_role.reload.ordering
   end
 
-  test "failing to update an organisation should render the list of ministerial roles" do
+  test "update with bad params does not update the organisation and renders the edit page" do
     ministerial_role = create(:ministerial_role)
-    organisation = create(:organisation)
-    organisation_ministerial_role = create(:organisation_role, organisation: organisation, role: ministerial_role)
+    organisation = create(:organisation, name: 'org name')
+    create(:organisation_role, organisation: organisation, role: ministerial_role)
 
     put :update, id: organisation, organisation: {name: ""}
 
-    assert_equal [organisation_ministerial_role], assigns(:ministerial_organisation_roles)
+    assert_response :success
+    assert_template :edit
+
+    assert_equal 'org name', organisation.reload.name
   end
 
   test "updating should modify the organisation" do
