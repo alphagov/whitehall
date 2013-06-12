@@ -85,7 +85,7 @@ When /^I visit the "([^"]*)" organisation$/ do |name|
 end
 
 When /^I feature the news article "([^"]*)" for "([^"]*)"$/ do |news_article_title, organisation_name|
-  When %%I feature the news article "#{news_article_title}" for "#{organisation_name}" with image "minister-of-funk.960x640.jpg"%
+  step %%I feature the news article "#{news_article_title}" for "#{organisation_name}" with image "minister-of-funk.960x640.jpg"%
 end
 
 When /^I feature the news article "([^"]*)" for "([^"]*)" with image "([^"]*)"$/ do |news_article_title, organisation_name, image_filename|
@@ -100,7 +100,7 @@ When /^I feature the news article "([^"]*)" for "([^"]*)" with image "([^"]*)"$/
     click_link "Feature"
   end
   attach_file "Select an image to be shown when featuring", Rails.root.join("test/fixtures/#{image_filename}")
-  fill_in :alt_text, with: "An accessible description of the image"
+  fill_in :feature_alt_text, with: "An accessible description of the image"
   click_button "Save"
 end
 
@@ -329,7 +329,7 @@ When /^I feature the topical event "([^"]*)" for "([^"]*)" with image "([^"]*)"$
     click_link "Feature"
   end
   attach_file "Select an image to be shown when featuring", Rails.root.join("test/fixtures/#{image_filename}")
-  fill_in :alt_text, with: "An accessible description of the image"
+  fill_in :feature_alt_text, with: "An accessible description of the image"
   click_button "Save"
 end
 

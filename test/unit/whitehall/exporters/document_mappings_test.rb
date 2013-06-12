@@ -34,7 +34,7 @@ module Whitehall
       organisation = publication.organisations.first
       assert_extraction <<-EOT
 Old Url,New Url,Status,Slug,Admin Url,State
-"",https://www.preview.alphagov.co.uk/government/publications/publication-title,301,publication-title,https://whitehall-admin.test.alphagov.co.uk/government/admin/publications/#{publication.id},published
+"",https://www.preview.alphagov.co.uk/government/publications/#{publication.slug},301,#{publication.slug},https://whitehall-admin.test.alphagov.co.uk/government/admin/publications/#{publication.id},published
 "",https://www.preview.alphagov.co.uk/government/organisations/#{organisation.slug},"","",https://whitehall-admin.test.alphagov.co.uk/government/admin/organisations/#{organisation.slug},""
 "",https://www.preview.alphagov.co.uk/government/organisations/#{organisation.slug},"","",https://whitehall-admin.test.alphagov.co.uk/government/admin/organisations/#{organisation.slug}/edit,""
       EOT

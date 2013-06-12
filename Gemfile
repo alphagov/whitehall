@@ -2,7 +2,7 @@ source 'http://rubygems.org'
 source 'https://BnrJb6FZyzspBboNJzYZ@gem.fury.io/govuk/'
 
 gem 'delayed_job_active_record'
-gem 'statsd-ruby', '1.0.0', require: "statsd"
+gem 'statsd-ruby', '~> 1.2.1', require: "statsd"
 gem 'rails', '3.1.12'
 gem 'mysql2'
 gem 'jquery-rails'
@@ -15,7 +15,6 @@ gem 'friendly_id', '4.0.9'
 gem 'babosa'
 gem 'nokogiri'
 gem 'rake', '0.9.2'
-gem 'boomerang-rails'
 gem 'slimmer', '3.15.0'
 gem 'plek', '1.1.0'
 gem 'isbn_validation'
@@ -46,12 +45,10 @@ group :assets do
   gem 'uglifier'
 end
 
-group :development, :staging, :test do
-  gem 'faker'
-  gem 'thin', '1.5.0'
+group :development, :test do
+  gem 'rails-dev-boost'
+  gem 'thin', '1.5.1'
   gem 'quiet_assets'
-  gem 'rails-dev-boost', '~> 0.2.1'
-  gem 'brakeman'
   gem 'parallel_tests'
   gem 'bullet'
   gem 'test-queue'
@@ -62,14 +59,12 @@ group :test do
   gem 'rack-test', git: 'https://github.com/alphagov/rack-test.git'
   gem 'factory_girl'
   gem 'hash_syntax'
-  gem 'mocha', '0.13.2', require: false
+  gem 'mocha', '0.14.0', require: false
   gem 'test_track'
   gem 'timecop'
   gem 'webmock', require: false
-  gem 'crack', '~> 0.3.2'
-  gem 'minitest', '2.5.1'
   gem 'ci_reporter'
-  gem 'database_cleaner', '~> 0.8.0'
+  gem 'database_cleaner', '1.0.1'
 end
 
 group :test_coverage do
@@ -78,11 +73,11 @@ group :test_coverage do
 end
 
 group :cucumber do
-  gem 'cucumber', '~> 1.0.6'
-  gem 'cucumber-rails', '~> 1.0.5', require: false
-  gem 'launchy', '~> 2.0.5'
-  gem 'capybara', '1.1.4'
-  gem 'capybara-webkit', '0.12.1'
+  gem 'cucumber', '~> 1.3.2'
+  gem 'cucumber-rails', '~> 1.3.1', require: false
+  gem 'launchy', '~> 2.3.0'
+  gem 'capybara', '~> 2.1.0'
+  gem 'capybara-webkit', '~> 1.0.0'
 end
 
 group :router do
