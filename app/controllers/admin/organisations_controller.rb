@@ -19,7 +19,7 @@ class Admin::OrganisationsController < Admin::BaseController
     if @organisation.save
       redirect_to admin_organisations_path
     else
-      render action: "new"
+      render :new
     end
   end
 
@@ -71,7 +71,7 @@ class Admin::OrganisationsController < Admin::BaseController
     if @organisation.update_attributes(params[:organisation])
       redirect_to admin_organisation_path(@organisation)
     else
-      render action: "edit"
+      render :edit
     end
   end
 
