@@ -20,7 +20,8 @@ class PolicyGroup < ActiveRecord::Base
 
   searchable title: :name,
              link: :search_link,
-             content: :summary_or_name
+             content: :summary_or_name,
+             description: :summary
 
   def search_link
     raise NotImplementedError, '#search_link must be implemented in PolicyGroup subclasses, PolicyGroup can\'t be indexed directly.'

@@ -297,24 +297,24 @@ class OrganisationTest < ActiveSupport::TestCase
                   'link' => '/government/organisations/department-for-culture-and-sports',
                   'indexable_content' => 'Sporty. ',
                   'format' => 'organisation',
-                  'description' => ''}, results[0])
+                  'description' => 'Sporty.'}, results[0])
     assert_equal({'title' => 'Department of Education',
                   'link' => '/government/organisations/department-of-education',
                   'indexable_content' => 'Bookish. ',
                   'format' => 'organisation',
-                  'description' => ''}, results[1])
+                  'description' => 'Bookish.'}, results[1])
     assert_equal({'title' => 'HMRC (hmrc)',
                   'link' => '/government/organisations/hmrc',
                   'indexable_content' => 'Taxing. ',
                   'format' => 'organisation',
                   'boost_phrases' => 'hmrc',
-                  'description' => ''}, results[2])
+                  'description' => 'Taxing.'}, results[2])
     assert_equal({'title' => 'Ministry of Defence (mod)',
                   'link' => '/government/organisations/ministry-of-defence',
                   'indexable_content' => 'Defensive. ',
                   'format' => 'organisation',
                   'boost_phrases' => 'mod',
-                  'description' => ''}, results[3])
+                  'description' => 'Defensive.'}, results[3])
   end
 
   test '#featured_editions returns featured editions by ordering' do

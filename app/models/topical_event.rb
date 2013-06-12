@@ -3,7 +3,7 @@ class TopicalEvent < Classification
              link: :search_link,
              content: :description,
              format: 'topical_event',
-             description: :description
+             description: :description_without_markup
 
   has_many :social_media_accounts, as: :socialable, dependent: :destroy
 
