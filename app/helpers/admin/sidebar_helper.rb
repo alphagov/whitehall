@@ -21,7 +21,7 @@ module Admin::SidebarHelper
     end
   end
 
-  def sidebar_tabs(tabs, &block)
+  def sidebar_tabs(tabs, options={}, &block)
     tab_tags = tabs.map.with_index do |(id, tab_content), index|
       link_content = case tab_content
       when String
@@ -40,7 +40,7 @@ module Admin::SidebarHelper
       link = content_tag(:a, link_content, "href" => "##{id}", "data-toggle" => "tab")
       content_tag(:li, link, class: (index == 0 ? "active" : nil))
     end
-    content_tag(:div, class: "sidebar tabbable") do
+    content_tag(:div, class: ["sidebar tabbable", options[:class]].compact.join(' ')) do
       content_tag(:ul, class: "nav nav-tabs") do
         tab_tags.join.html_safe
       end +
