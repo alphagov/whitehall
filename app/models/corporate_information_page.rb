@@ -18,6 +18,7 @@ class CorporateInformationPage < ActiveRecord::Base
   searchable title: :title_prefix_organisation_name,
              link: :search_link,
              content: :indexable_content,
+             description: :summary,
              # NOTE: when we launch world we can change this to belonging_to_live_organisations on it's own
              only: :belonging_to_live_organisations_and_excluding_worldwide_organisations
 
