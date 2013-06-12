@@ -2,7 +2,7 @@ source 'http://rubygems.org'
 source 'https://BnrJb6FZyzspBboNJzYZ@gem.fury.io/govuk/'
 
 gem 'delayed_job_active_record'
-gem 'statsd-ruby', '~> 1.2.0', require: "statsd"
+gem 'statsd-ruby', '~> 1.2.1', require: "statsd"
 gem 'rails', '3.1.12'
 gem 'mysql2'
 gem 'jquery-rails'
@@ -47,7 +47,7 @@ end
 
 group :development, :test do
   gem 'rails-dev-boost'
-  gem 'thin', '1.5.0'
+  gem 'thin', '1.5.1'
   gem 'quiet_assets'
   gem 'parallel_tests'
   gem 'bullet'
