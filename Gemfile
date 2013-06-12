@@ -3,9 +3,9 @@ source 'https://BnrJb6FZyzspBboNJzYZ@gem.fury.io/govuk/'
 
 gem 'rake', '0.9.2'
 gem 'rails', '3.2.13'
+gem 'statsd-ruby', '~> 1.2.1', require: 'statsd'
 gem 'mysql2'
 gem 'delayed_job_active_record'
-gem 'statsd-ruby', '~> 1.2.0', require: 'statsd'
 gem 'jquery-rails', '1.0.19'
 gem 'transitions', require: ['transitions', 'active_record/transitions']
 gem 'carrierwave', '0.5.7'
@@ -47,7 +47,7 @@ end
 
 group :development, :test do
   gem 'rails-dev-boost'
-  gem 'thin', '1.5.0'
+  gem 'thin', '1.5.1'
   gem 'quiet_assets'
   gem 'parallel_tests'
   gem 'bullet'

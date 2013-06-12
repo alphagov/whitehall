@@ -289,7 +289,7 @@ GEM
     statsd-ruby (1.2.1)
     subexec (0.2.3)
     test-queue (0.1.3)
-    thin (1.5.0)
+    thin (1.5.1)
       daemons (>= 1.0.9)
       eventmachine (>= 0.12.6)
       rack (>= 1.0.0)
@@ -380,10 +380,10 @@ DEPENDENCIES
   simplecov
   simplecov-rcov
   slimmer (= 3.15.0)
-  statsd-ruby (~> 1.2.0)
+  statsd-ruby (~> 1.2.1)
   test-queue
   test_track!
-  thin (= 1.5.0)
+  thin (= 1.5.1)
   timecop
   transitions
   uglifier
