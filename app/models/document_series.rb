@@ -16,7 +16,8 @@ class DocumentSeries < ActiveRecord::Base
 
   searchable title: :name,
              link: :search_link,
-             content: :description
+             content: :description,
+             description: :summary
 
   extend FriendlyId
   friendly_id
