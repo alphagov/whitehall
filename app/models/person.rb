@@ -36,7 +36,7 @@ class Person < ActiveRecord::Base
 
   searchable title: :name,
              link: :search_link,
-             content: :biography,
+             content: :biography_without_markup,
              only: :without_a_current_ministerial_role #Already covered by MinisterialRole
 
   extend FriendlyId
@@ -51,6 +51,10 @@ class Person < ActiveRecord::Base
 
   def search_link
     Whitehall.url_maker.person_path(slug)
+  end
+
+  def biography_without_markup
+    Govspeak::Document.new(biography).to_text
   end
 
   def self.without_a_current_ministerial_role
