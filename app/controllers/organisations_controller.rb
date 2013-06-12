@@ -28,9 +28,6 @@ class OrganisationsController < PublicFacingController
     recently_updated_source = @organisation.published_editions.in_reverse_chronological_order
     expires_in 5.minutes, public: true
     respond_to do |format|
-      format.atom do
-        @documents = EditionCollectionPresenter.new(recently_updated_source.limit(10), view_context)
-      end
       format.html do
         @recently_updated = recently_updated_source.limit(3)
         if @organisation.live?
@@ -62,6 +59,9 @@ class OrganisationsController < PublicFacingController
         else
           render action: 'external'
         end
+      end
+      format.atom do
+        @documents = EditionCollectionPresenter.new(recently_updated_source.limit(10), view_context)
       end
     end
   end
