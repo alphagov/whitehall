@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130531162954) do
+ActiveRecord::Schema.define(:version => 20130613083527) do
 
   create_table "access_and_opening_times", :force => true do |t|
     t.text     "body"
@@ -737,7 +737,12 @@ ActiveRecord::Schema.define(:version => 20130531162954) do
     t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "linkable_type"
+    t.integer  "linkable_id"
   end
+
+  add_index "mainstream_links", ["linkable_id", "linkable_type"], :name => "index_mainstream_links_on_linkable_id_and_linkable_type"
+  add_index "mainstream_links", ["linkable_type"], :name => "index_mainstream_links_on_linkable_type"
 
   create_table "nation_inapplicabilities", :force => true do |t|
     t.integer  "nation_id"

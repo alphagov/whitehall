@@ -14,12 +14,7 @@ class WorldLocation < ActiveRecord::Base
             source: :document
   has_many :worldwide_organisation_world_locations, dependent: :destroy
   has_many :worldwide_organisations, through: :worldwide_organisation_world_locations
-
-  has_many :world_location_mainstream_links,
-            dependent: :destroy
-  has_many :mainstream_links,
-            through: :world_location_mainstream_links,
-            dependent: :destroy
+  has_many :mainstream_links, as: :linkable, dependent: :destroy
 
   include Featurable
 

@@ -791,24 +791,23 @@ class OrganisationsControllerTest < ActionController::TestCase
   end
 
   view_test "should show mainstream category links if there are some" do
-    organisation = create(:organisation)
-    link = create(:organisation_mainstream_link, organisation: organisation)
-
+    organisation = create(:organisation,)
+    mainstream_link = create(:mainstream_link, linkable: organisation)
     get :show, id: organisation
 
     assert_select '.organisation-mainstream-links' do
-      assert_select "a[href='#{link.mainstream_link.url}']", text: link.mainstream_link.title
+      assert_select "a[href='#{mainstream_link.url}']", text: mainstream_link.title
     end
   end
 
-  view_test "should not show mainstream categories on suborg pages" do
+  view_test "should not show mainstream links on suborg pages" do
     organisation = create(:organisation)
-    link = create(:organisation_mainstream_link, organisation: organisation)
+    mainstream_link = create(:mainstream_link, linkable: organisation)
     sub_organisation = create(:sub_organisation, parent_organisations: [organisation])
 
     get :show, id: sub_organisation
 
-    refute_select "a[href='#{link.mainstream_link.url}']", text: link.mainstream_link.title
+    refute_select "a[href='#{mainstream_link.url}']", text: mainstream_link.title
   end
 
   view_test 'show lists only the 5 oldest mainstream links' do

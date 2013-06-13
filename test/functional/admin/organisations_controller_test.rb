@@ -267,11 +267,11 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
   test "PUT on :update destroys existing mainstream links if all its field are blank" do
     attributes = attributes_for(:organisation)
     organisation = create(:organisation, attributes)
-    link = create(:organisation_mainstream_link, organisation: organisation)
+    mainstream_link = create(:mainstream_link, linkable: organisation)
 
     put :update, id: organisation, organisation: attributes.merge(
       mainstream_links_attributes: {"0" =>{
-          id: link.mainstream_link.id,
+          id: mainstream_link.id,
           url: "",
           title: ""
       }}
