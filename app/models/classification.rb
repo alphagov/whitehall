@@ -5,6 +5,7 @@ class Classification < ActiveRecord::Base
   searchable title: :name,
              link: :search_link,
              content: :description,
+             description: :description_without_markup,
              format: 'topic'
 
   has_many :classification_memberships
@@ -122,6 +123,10 @@ class Classification < ActiveRecord::Base
 
   def recently_changed_documents
     (policies.published + published_related_editions).sort_by(&:public_timestamp).reverse
+  end
+
+  def description_without_markup
+    Govspeak::Document.new(description).to_text
   end
 
   def to_s

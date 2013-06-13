@@ -220,6 +220,7 @@ class Organisation < ActiveRecord::Base
   searchable title: :select_name,
              link: :search_link,
              content: :indexable_content,
+             description: :description,
              boost_phrases: :acronym
 
   extend FriendlyId
