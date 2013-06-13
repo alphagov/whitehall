@@ -1,4 +1,5 @@
-# @abstract
+# The base class for all editoral content. It configures the searchable options and callbacks.
+# @abstract Using STI should not create editions directly.
 class Edition < ActiveRecord::Base
   include Edition::Traits
 
@@ -332,6 +333,10 @@ class Edition < ActiveRecord::Base
     body_without_markup
   end
 
+  def body_without_markup
+    Govspeak::Document.new(body).to_text
+  end
+
   def section
     nil
   end
@@ -342,10 +347,6 @@ class Edition < ActiveRecord::Base
 
   def subsubsection
     nil
-  end
-
-  def body_without_markup
-    Govspeak::Document.new(body).to_text
   end
 
   def other_editions
