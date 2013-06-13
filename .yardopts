@@ -1,1 +1,1 @@
---no-private --protected app/**/*.rb lib/**/*.rb - inside-government-i18n-notes.md guidelines-for-translators.md
+--no-private --protected app/**/*.rb lib/**/*.rb - doc/misc/inside-government-i18n-notes.md doc/misc/guidelines-for-translators.md
