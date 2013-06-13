@@ -154,7 +154,7 @@ class Organisation < ActiveRecord::Base
 
   has_many :users, dependent: :nullify
 
-  has_many :mainstream_links, as: :linkable, dependent: :destroy
+  has_many :mainstream_links, as: :linkable, dependent: :destroy, order: :created_at
 
   has_many :corporate_information_pages, as: :organisation, dependent: :destroy
 

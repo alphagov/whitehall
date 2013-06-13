@@ -347,23 +347,4 @@ class WorldLocationsControllerTest < ActionController::TestCase
       assert_select "a[href='#{mainstream_link.url}']", text: mainstream_link.title
     end
   end
-
-  view_test 'show lists only the 5 oldest mainstream links' do
-    world_location = create(:world_location)
-    link_1 = create(:mainstream_link, linkable: world_location, title: '2 days ago', created_at: 2.days.ago)
-    link_2 = create(:mainstream_link, linkable: world_location, title: '12 days ago', created_at: 12.days.ago)
-    link_3 = create(:mainstream_link, linkable: world_location, title: '1 hour ago', created_at: 1.hour.ago)
-    link_4 = create(:mainstream_link, linkable: world_location, title: '2 hours ago', created_at: 2.hours.ago)
-    link_5 = create(:mainstream_link, linkable: world_location, title: '20 minutes ago', created_at: 20.minutes.ago)
-    link_6 = create(:mainstream_link, linkable: world_location, title: '2 years ago', created_at: 2.years.ago)
-    get :show, id: world_location
-
-    assert_select '.mainstream-links li', count: 5
-    assert_select '.mainstream-links li:nth-child(1) a', text: '2 years ago'
-    assert_select '.mainstream-links li:nth-child(2) a', text: '12 days ago'
-    assert_select '.mainstream-links li:nth-child(3) a', text: '2 days ago'
-    assert_select '.mainstream-links li:nth-child(4) a', text: '2 hours ago'
-    assert_select '.mainstream-links li:nth-child(5) a', text: '1 hour ago'
-  end
-
 end
