@@ -31,7 +31,7 @@ When /^I link the minister "([^"]*)" to the fatality notice$/ do |minister_name|
   select minister_name, from: "Ministers"
   check "edition_minor_change"
   click_button "Save"
-  publish
+  publish force: true
 end
 
 Then /^I should see the minister's name listed at the top$/ do

@@ -24,7 +24,7 @@ end
 
 When /^I publish the French-only world location news article$/ do
   visit admin_edition_path(@world_location_news_article)
-  publish
+  publish force: true
 end
 
 Then /^I should see the world location news article listed in admin with an indication that it is in French$/ do
