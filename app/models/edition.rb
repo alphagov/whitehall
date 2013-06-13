@@ -1,3 +1,4 @@
+# @abstract
 class Edition < ActiveRecord::Base
   include Edition::Traits
 

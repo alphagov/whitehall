@@ -1,3 +1,4 @@
+# @abstract
 class Classification < ActiveRecord::Base
   include Searchable
   include SimpleWorkflow

@@ -1,3 +1,4 @@
+# @abstract
 class Announcement < Edition
   include Edition::Images
   include Edition::RelatedPolicies

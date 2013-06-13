@@ -1,3 +1,4 @@
+# @abstract
 class PolicyGroup < ActiveRecord::Base
   include Searchable
 
