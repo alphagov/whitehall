@@ -77,11 +77,20 @@ class DocumentSeriesTest < ActiveSupport::TestCase
     assert_equal [published_statistical_data_set], series.published_statistical_data_sets
   end
 
-  test 'should not be destroyable if editions are associated' do
+  test 'should not be destroyable if published editions are associated' do
     series = create(:document_series)
-    publication = create(:draft_publication, document_series: [series])
-    series.destroy
+    publication = create(:published_publication, document_series: [series])
+    refute series.destroyable?
+    series.delete!
     assert DocumentSeries.find(series.id)
+  end
+
+  test 'should be destroyable if archived editions are associated' do
+    series = create(:document_series)
+    publication = create(:archived_publication, document_series: [series])
+    assert series.destroyable?
+    series.delete!
+    assert series.deleted?
   end
 
   test "should exclude deleted document_series by default" do
@@ -91,10 +100,10 @@ class DocumentSeriesTest < ActiveSupport::TestCase
   end
 
   test "should be deletable when there are no associated editions" do
-    document_series = create(:document_series)
-    assert document_series.destroyable?
-    document_series.delete!
-    assert document_series.deleted?
+    series = create(:document_series)
+    assert series.destroyable?
+    series.delete!
+    assert series.deleted?
   end
 
   test "should generate a slug based on its name" do
