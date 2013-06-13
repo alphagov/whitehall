@@ -19,9 +19,9 @@ module Admin::AuditTrailHelper
   end
 
   def render_edition_diff(edition, audit_entry)
-    title = Diffy::Diff.new(audit_entry.title, edition.title, allow_empty_diff: true).to_s(:html)
-    summary = Diffy::Diff.new(audit_entry.summary, edition.summary, allow_empty_diff: true).to_s(:html)
-    body = Diffy::Diff.new(audit_entry.body, edition.body, allow_empty_diff: true).to_s(:html)
+    title = Diffy::Diff.new(audit_entry.title, edition.title, allow_empty_diff: true, include_plus_and_minus_in_html: true).to_s(:html)
+    summary = Diffy::Diff.new(audit_entry.summary, edition.summary, allow_empty_diff: true, include_plus_and_minus_in_html: true).to_s(:html)
+    body = Diffy::Diff.new(audit_entry.body, edition.body, allow_empty_diff: true, include_plus_and_minus_in_html: true).to_s(:html)
     out = ""
     no_changes = "<p>No text changes between versions.</p>"
     out << content_tag(:h2, 'Title')
