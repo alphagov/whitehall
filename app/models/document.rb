@@ -1,3 +1,5 @@
+# All {Edition}s have one document, this model contains the slug and
+# handles the logic for slug regeneration.
 class Document < ActiveRecord::Base
 
   extend FriendlyId
