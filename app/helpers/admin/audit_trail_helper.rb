@@ -23,7 +23,7 @@ module Admin::AuditTrailHelper
     summary = Diffy::Diff.new(audit_entry.summary, edition.summary, allow_empty_diff: true).to_s(:html)
     body = Diffy::Diff.new(audit_entry.body, edition.body, allow_empty_diff: true).to_s(:html)
     out = ""
-    no_changes = "<p>No changes between versions.</p>"
+    no_changes = "<p>No text changes between versions.</p>"
     out << content_tag(:h2, 'Title')
     if title
       out << title
