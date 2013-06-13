@@ -1,12 +1,15 @@
 <% page_title @policy_advisory_group.name, "Policy advisory groups" %>
 <%= content_tag_for(:div, @policy_advisory_group, :class => "policy-groups policy-advisory-groups") do %>
-  <div class="block-1">
-    <div class="inner-block">
-      <section class="page-header">
-        <h1><%= @policy_advisory_group.name %></h1>
-      </section>
-    </div>
+
+<header class="block headings-block">
+  <div class="inner-block floated-children">
+    <%= render partial: 'shared/heading',
+              locals: { type: "Policy advisory group",
+                        heading: @policy_advisory_group.name,
+                        big: true } %>
   </div>
+</header>
+
   <div class="block-2">
     <div class="inner-block">
       <% if @policy_advisory_group.summary.present? %>

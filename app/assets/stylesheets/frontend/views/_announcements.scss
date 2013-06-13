@@ -1,16 +1,4 @@
-
 .announcements-index {
-  .block-1 {
-    .page-header {
-      margin: $gutter*1.5 0 0 0;
-      position: relative;
-
-      h1 {
-        margin-bottom: $gutter;
-      }
-    }
-  }
-
   @include media(tablet) {
     .block-2 {
       float: left;

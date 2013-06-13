@@ -79,7 +79,7 @@ class DocumentSeriesControllerTest < ActionController::TestCase
       get :show, organisation_id: organisation, id: series
     end
 
-    assert_select "h1 .title", "series-name"
+    assert_select "h1", "series-name"
     assert_select ".description", "description-in-html"
   end
 

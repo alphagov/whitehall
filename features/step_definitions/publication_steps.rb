@@ -139,7 +139,7 @@ end
 
 Then /^I should see the summary of the draft publication "([^"]*)"$/ do |publication_title|
   publication = Publication.find_by_title!(publication_title)
-  assert has_css?("h1 .title", publication.title)
+  assert has_css?("h1", publication.title)
 end
 
 Then /^I should see "([^"]*)" is a corporate publication of the "([^"]*)"$/ do |title, organisation|

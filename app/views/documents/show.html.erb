@@ -4,8 +4,8 @@
 <% page_title @document.title, "Documents" if page_title.blank? %>
 
 <article class="document-page <%= @document.type.downcase %>">
-  <div class="block-1">
-    <div class="inner-block">
+  <header class="block headings-block">
+    <div class="inner-block floated-children">
       <%= render  partial: 'header',
                   locals: {
                     header_title: header_title,
@@ -13,7 +13,7 @@
                     policies: @related_policies
                   } %>
     </div>
-  </div>
+  </header>
 
   <div class="block-2 ">
     <div class="inner-block">

@@ -1,0 +1,24 @@
+<header class="block headings-block">
+  <div class="inner-block floated-children">
+    <%= render partial: 'shared/heading',
+              locals: { type: link_to('History', histories_path),
+                        heading: "Past Foreign Secretaries",
+                        big: true } %>
+  </div>
+</header>
+
+<div class="block historic-people-list">
+  <div class="inner-block">
+    <a href="#contents" class="js-showhide contents-toggle">Show past Foreign Secretaries</a>
+    <div id="contents">
+      <ol>
+        <%= past_foreign_secretary_nav(current_person) %>
+      </ol>
+      <p><a href="/government/history/past-foreign-secretaries">See all past Foreign Secretaries</a></p>
+    </div>
+  </div>
+</div>
+
+<div class="block person-info">
+  <%= yield %>
+</div>

@@ -62,7 +62,7 @@ Then /^I am invited to click through to see all the policies the executive offic
   visit_organisation @the_featuring_org.name
 
   click_on 'See all our policies'
-  assert page.has_css?(".page_title", text: 'Policies')
+  assert page.has_css?('h1', text: 'Policies')
   assert page.has_content?("about All topics by #{@the_featuring_org.name}")
 end
 

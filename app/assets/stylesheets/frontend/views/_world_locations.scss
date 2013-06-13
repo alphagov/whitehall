@@ -88,61 +88,31 @@
     margin-bottom: $gutter-two-thirds;
   }
 
-  .header-block {
-    @extend %contain-floats;
-    margin: $gutter-half 0 $gutter;
+  .mainstream-links {
+    @include core-16;
 
-    .page-header {
-      @include heading-48;
+    h4 {
+      @include core-19;
       @include media(desktop){
-        width: 66.66%;
-        float: left;
-      }
-
-      h1 {
-        @include bold;
-        padding-top: 0;
-      }
-      h2 {
-        @include heading-36;
-        color: $secondary-text-colour;
-        padding-bottom: 0;
+        position: absolute;
+        left: -999em;
       }
     }
-    .mainstream-links {
-      @include core-16;
-
-      @include media(desktop){
-        margin: $gutter 0;
-        width: 33.33%;
-        float: right;
-      }
-      h4 {
-        @include core-19;
-        @include media(desktop){
-          position: absolute;
-          left: -999em;
-        }
-      }
-      ul {
-        @include media(desktop){
-          margin: 0 $gutter-half;
-        }
-        li {
-          list-style: none;
-          margin-bottom: $gutter-one-sixth;
-          
-          a[rel="external"] {
-            @include external-link-14-bold-no-hover;
-            @include media(tablet) {
-              @include external-link-16-bold-no-hover;
-            }
+    ul {
+      li {
+        list-style: none;
+        margin-bottom: $gutter-one-sixth;
+        
+        a[rel="external"] {
+          @include external-link-14-bold-no-hover;
+          @include media(tablet) {
+            @include external-link-16-bold-no-hover;
           }
         }
       }
     }
-
   }
+
 
   .news-block {
     .inner-block {

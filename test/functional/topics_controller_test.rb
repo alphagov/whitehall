@@ -9,7 +9,7 @@ class TopicsControllerTest < ActionController::TestCase
   view_test "shows topic title and description" do
     topic = create(:topic)
     get :show, id: topic
-    assert_select "span.topic", text: topic.name
+    assert_select "h1", text: topic.name
     assert_select ".govspeak", text: topic.description
   end
 
@@ -300,10 +300,8 @@ class TopicsControllerTest < ActionController::TestCase
 
     get :show, id: topic
 
-    assert_select ".meta" do
-      assert_select_object first_organisation
-      assert_select_prefix_object second_organisation, 'by-type'
-    end
+    assert_select_object first_organisation
+    assert_select_prefix_object second_organisation, 'by-type'
   end
 
   view_test "should not display an empty organisation section" do

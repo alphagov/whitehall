@@ -1,14 +1,19 @@
 <% page_title "Publications" %>
 <% page_class "publications-index document-filter-page" %>
 <% atom_discovery_link_tag filter_atom_feed_url, "Recent publications" %>
+<%
+  heading = [t('publications.heading')]
+  heading << "<span>: #{@filter.selected_publication_filter_option.label}</span>" if @filter.selected_publication_filter_option
+  heading = heading.join('').html_safe
+%>
 
-<div class="block-1">
-  <div class="inner-block">
-    <header class="page-header publication">
-      <h1 class="page_title"><%= t('publications.heading') %><% if @filter.selected_publication_filter_option %><span>: <%= @filter.selected_publication_filter_option.label %></span><% end %></h1>
-    </header>
+<header class="block headings-block">
+  <div class="inner-block floated-children">
+    <%= render partial: 'shared/heading',
+              locals: { big: true,
+                        heading: heading } %>
   </div>
-</div>
+</header>
 
 <div class="block-2">
   <div class="inner-block">

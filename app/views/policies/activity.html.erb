@@ -3,17 +3,23 @@
 <% atom_discovery_link_tag activity_policy_url(@policy.document, format: "atom"), %{Latest activity on "#{@policy.title}"} %>
 
 <div class="document_page <%= @document.type.downcase %>">
-  <div class="block-1">
+  <header class="block headings-block">
+    <div class="inner-block floated-children">
+      <%= render  partial: "documents/header", locals: {
+                  document: @document,
+                  header_title: 'Policy',
+                  topics: @document.topics } %>
+    </div>
+  </header>
+
+  <div class="block">
     <div class="inner-block">
-        <%= render partial: "documents/header", locals: {
-          document: @document,
-          header_title: 'Policy',
-          topics: @document.topics } %>
-      <section class="meta-three">
+      <div class="meta-three">
         <%= render partial: "policy_navigation" %>
-    </section>
+      </div>
     </div>
   </div>
+
   <div class="block-2">
     <div class="inner-block">
       <%= render partial: 'shared/feeds',

@@ -51,7 +51,7 @@ class SpeechesControllerTest < ActionController::TestCase
 
     get :show, id: published_speech.document
     assert_select ".explanation", "This is a transcript of the speech, exactly as it was delivered."
-    assert_select ".label", "Speech"
+    assert_select ".type", "Speech"
   end
 
   view_test "should display details about a draft text" do
@@ -60,7 +60,7 @@ class SpeechesControllerTest < ActionController::TestCase
 
     get :show, id: published_speech.document
     assert_select ".explanation", "This is the text of the speech as drafted, which may differ slightly from the delivered version."
-    assert_select ".label", "Speech"
+    assert_select ".type", "Speech"
   end
 
   view_test "should display details about speaking notes" do
@@ -69,7 +69,7 @@ class SpeechesControllerTest < ActionController::TestCase
 
     get :show, id: published_speech.document
     assert_select ".explanation", "These are the speaker&#x27;s notes, not a transcript of the speech as it was delivered."
-    assert_select ".label", "Speech"
+    assert_select ".type", "Speech"
   end
 
   view_test "should display details about a written statement" do
@@ -78,7 +78,7 @@ class SpeechesControllerTest < ActionController::TestCase
 
     get :show, id: published_speech.document
     refute_select ".explanation"
-    assert_select ".label", "Written statement to Parliament"
+    assert_select ".type", "Written statement to Parliament"
   end
 
   view_test "should display details about an oral statement" do
@@ -87,7 +87,7 @@ class SpeechesControllerTest < ActionController::TestCase
 
     get :show, id: published_speech.document
     refute_select ".explanation"
-    assert_select ".label", "Oral statement to Parliament"
+    assert_select ".type", "Oral statement to Parliament"
   end
 
   view_test "should omit location if not given" do

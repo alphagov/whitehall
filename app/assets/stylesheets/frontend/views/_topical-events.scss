@@ -7,59 +7,16 @@
     background-color: $g8-brand;
   }
 
-  .page-title {
-    padding: $gutter 0;
-
-    @include media(tablet){
-      padding: $gutter*2 0;
-      overflow: hidden;
-    }
-
-    h1 {
-      @include media(tablet){
-        width: 33.33%;
-        float: left;
-        padding-top: 4px;
-
-        span {
-          padding-right: $gutter-half;
-          display: block;
-        }
-      }
-      img {
-        width: 100%;
-        max-width: 320px;
-      }
-    }
-    h2 {
-      @include media(tablet){
-        width: 66.66%;
-        float: right;
-      }
-      @include core-36;
-
-      span {
-        padding-bottom: $gutter-half;
-
-        @include media(tablet){
-          padding-left: $gutter-half;
-        }
-      }
-      .archived {
-        color: $grey-1;
-        padding-left: 0;
-      }
-    }
-    .label, .title {
-      @include core-36;
-      float: none;
-      display: block;
-      span {
-        padding-left: 0;
-      }
-    }
-    .label {
+  .headings-block {
+    .archived {
       color: $grey-1;
+      padding-left: 0;
+    }
+    .topical-event-logo {
+      img {
+        max-width: 100%;
+        margin-top: $gutter;
+      }
     }
   }
 

@@ -1,16 +1,13 @@
 <% page_title "History of King Charles Street" %>
 <% page_class "histories-show" %>
 
-<div class="block">
-  <div class="inner-block">
-    <header class="page-header">
-      <h1 class="topics">
-        <a href="/government/history">History</a>
-      </h1>
-      <h2>King Charles Street</h2>
-    </header>
+<header class="block headings-block">
+  <div class="inner-block floated-children">
+    <%= render partial: 'shared/heading',
+              locals: { type: link_to('History', histories_path),
+                        heading: "King Charles Street" } %>
   </div>
-</div>
+</header>
 
 <div class="block content-list">
   <div class="inner-block">

@@ -1,26 +1,4 @@
 .biographical-page {
-  .page-header {
-    padding: $gutter-half 0;
-    @include media(tablet){
-      padding: $gutter*1.5 0 ($gutter + $gutter-one-third);
-    }
-
-    h1 {
-      padding-bottom: 0;
-      @include bold;
-    }
-
-    ul li {
-      list-style: none;
-      @include ig-core-27;
-      @include light;
-    }
-
-    ul li + li:before {
-      content:"& ";
-    }
-  }
-
   .in-page-navigation {
     margin-top: 0;
     padding: 0 0 $gutter;

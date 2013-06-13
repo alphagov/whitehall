@@ -2,17 +2,23 @@
 <% page_class "statistical-data-set" %>
 
 <div class="document-page <%= @document.type.downcase %>">
-  <div class="block-1">
-    <div class="inner-block">
+  <header class="block headings-block">
+    <div class="inner-block floated-children">
       <%= render  partial: 'header',
                   locals: {
                     header_title: "Statistical data set",
                     document: @document,
                     policies: @related_policies
                   } %>
+    </div>
+  </header>
+
+  <div class="block">
+    <div class="inner-block">
       <%= render partial: "document_summary", locals: { document: @document } %>
     </div>
   </div>
+
   <div class="block-2 ">
     <div class="inner-block">
       <% if govspeak_headers(@document.body).any? %>

@@ -11,7 +11,7 @@ end
 
 Then /^the document should be clearly marked as a fatality notice$/ do
   click_link FatalityNotice.last.title
-  assert page.has_css?(".label", text: /Operations/)
+  assert page.has_css?(".type", text: /Operations/)
 end
 
 Then /^the document should show the field of operation as "([^"]*)"$/ do |field|
