@@ -81,14 +81,19 @@ Given /^I set the alternative format contact email of "([^"]*)" to "([^"]*)"$/ d
 end
 
 When /^I add a new organisation called "([^"]*)"$/ do |organisation_name|
-  TopicalEvent.create(name: 'Jazz Bizniz', description: "test", start_date: Date.today, end_date: Date.today + 2.months)
+  create(:topic, name: 'Jazz Bizniz')
+  create(:mainstream_category, title: 'Jazzy Bizzle')
+  OrganisationType.find_or_create_by_name('Ministerial department', analytics_prefix: 'J')
+
   visit new_admin_organisation_path
+
   fill_in 'Name', with: organisation_name
   fill_in 'Acronym', with: organisation_name.split(' ').collect {|word| word.chars.first }.join
   fill_in 'Logo formatted name', with: organisation_name
   fill_in 'Description', with: 'Not important'
   select 'Ministerial department', from: 'Organisation type'
-  select 'Jazz Bizniz', from: 'organisation_topic_ids_0'
+  select 'Jazz Bizniz', from: 'Topic 1'
+  select 'Jazzy Bizzle', from: 'Detailed guidance category 1'
   within '.mainstream-links' do
     fill_in 'Title', with: 'Mainstream link 1'
     fill_in 'Url', with: 'http://mainstream.co.uk'
