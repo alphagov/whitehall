@@ -23,24 +23,17 @@ module Admin::AuditTrailHelper
     summary = Diffy::Diff.new(audit_entry.summary, edition.summary, allow_empty_diff: true, include_plus_and_minus_in_html: true).to_s(:html)
     body = Diffy::Diff.new(audit_entry.body, edition.body, allow_empty_diff: true, include_plus_and_minus_in_html: true).to_s(:html)
     out = ""
-    no_changes = "<p>No text changes between versions.</p>"
-    out << content_tag(:h2, 'Title')
     if title
+    out << content_tag(:h2, 'Title')
       out << title
-    else
-      out << no_changes
     end
-    out << content_tag(:h2, 'Summary')
     if summary
+    out << content_tag(:h2, 'Summary')
       out << summary
-    else
-      out << no_changes
     end
-    out << content_tag(:h2, 'Body')
     if body
+    out << content_tag(:h2, 'Body')
       out << body
-    else
-      out << no_changes
     end
     out.html_safe
   end
