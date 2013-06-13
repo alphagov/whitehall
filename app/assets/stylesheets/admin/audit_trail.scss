@@ -58,7 +58,6 @@
 .diff li{padding:0; display:table-row;margin: 0;height:1em;}
 .diff li.ins{background:#dfd; color:#080}
 .diff li.del{background:#fee; color:#b00}
-.diff li:hover{background:#ffc}
 /* try 'whitespace:pre;' if you don't want lines to wrap */
 .diff del, .diff ins, .diff span{white-space:pre-wrap;font-family:courier;}
 .diff del strong{font-weight:normal;background:#fcc;}
