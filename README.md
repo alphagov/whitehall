@@ -115,3 +115,10 @@ You need to set the following environment variables :-
     CONTENT_API_ENDPOINT_URL # e.g. https://contentapi.preview.alphagov.co.uk
     CONTENT_API_USERNAME
     CONTENT_API_PASSWORD
+
+# Reading the documentation
+
+We use [YARD](https://github.com/lsegal/yard) for the documentation, you can generate a local copy with:
+
+    yard server --reload
+
