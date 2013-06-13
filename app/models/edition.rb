@@ -31,6 +31,11 @@ class Edition < ActiveRecord::Base
   validates :summary, presence: true
   validates :first_published_at, recent_date: true, allow_blank: true
 
+  UNMODIFIABLE_STATES = %w(scheduled published archived deleted).freeze
+  FROZEN_STATES = %w(archived deleted).freeze
+  PRE_PUBLICATION_STATES = %w(imported draft submitted rejected scheduled).freeze
+
+
   scope :with_title_or_summary_containing, -> *keywords {
     pattern = "(#{keywords.map { |k| Regexp.escape(k) }.join('|')})"
     in_default_locale.where("edition_translations.title REGEXP :pattern OR edition_translations.summary REGEXP :pattern", pattern: pattern)
@@ -42,6 +47,47 @@ class Edition < ActiveRecord::Base
     .includes(:document)
     .where("edition_translations.title REGEXP :pattern OR documents.slug = :slug", pattern: pattern, slug: keywords)
   }
+
+  # @!group Callbacks
+  before_save :set_public_timestamp
+
+  after_unpublish :reset_force_published_flag
+  after_delete :clear_slug
+
+  [:publish, :unpublish, :archive, :delete].each do |event|
+    set_callback(event, :after) { refresh_index_if_required }
+  end
+  # @!endgroup
+
+
+  class UnmodifiableValidator < ActiveModel::Validator
+    def validate(record)
+      significant_changed_attributes(record).each do |attribute|
+        record.errors.add(attribute, "cannot be modified when edition is in the #{record.state} state")
+      end
+    end
+
+    def significant_changed_attributes(record)
+      record.changed - modifiable_attributes(record.state_was, record.state)
+    end
+
+    def modifiable_attributes(previous_state, current_state)
+      modifiable = %w{state updated_at force_published}
+      if previous_state == 'scheduled'
+        modifiable += %w{major_change_published_at first_published_at access_limited}
+      end
+      if PRE_PUBLICATION_STATES.include?(previous_state) || being_unpublished?(previous_state, current_state)
+        modifiable += %w{published_major_version published_minor_version}
+      end
+      modifiable
+    end
+
+    def being_unpublished?(previous_state, current_state)
+      previous_state == 'published' && current_state == 'draft'
+    end
+  end
+
+  validates_with UnmodifiableValidator, if: :unmodifiable?
 
   def self.alphabetical(locale = I18n.locale)
     with_translations(locale).order("edition_translations.title ASC")
@@ -93,44 +139,6 @@ class Edition < ActiveRecord::Base
     with_translations(:en).published
   end
 
-  class UnmodifiableValidator < ActiveModel::Validator
-    def validate(record)
-      significant_changed_attributes(record).each do |attribute|
-        record.errors.add(attribute, "cannot be modified when edition is in the #{record.state} state")
-      end
-    end
-
-    def significant_changed_attributes(record)
-      record.changed - modifiable_attributes(record.state_was, record.state)
-    end
-
-    def modifiable_attributes(previous_state, current_state)
-      modifiable = %w{state updated_at force_published}
-      if previous_state == 'scheduled'
-        modifiable += %w{major_change_published_at first_published_at access_limited}
-      end
-      if PRE_PUBLICATION_STATES.include?(previous_state) || being_unpublished?(previous_state, current_state)
-        modifiable += %w{published_major_version published_minor_version}
-      end
-      modifiable
-    end
-
-    def being_unpublished?(previous_state, current_state)
-      previous_state == 'published' && current_state == 'draft'
-    end
-  end
-
-  validates_with UnmodifiableValidator, if: :unmodifiable?
-
-  before_save :set_public_timestamp
-
-  after_unpublish :reset_force_published_flag
-  after_delete :clear_slug
-
-  UNMODIFIABLE_STATES = %w(scheduled published archived deleted).freeze
-  FROZEN_STATES = %w(archived deleted).freeze
-  PRE_PUBLICATION_STATES = %w(imported draft submitted rejected scheduled).freeze
-
   def skip_main_validation?
     FROZEN_STATES.include?(state)
   end
@@ -169,21 +177,21 @@ class Edition < ActiveRecord::Base
   def search_link
     Whitehall.url_maker.public_document_path(self)
   end
+
   def search_format_types
     [Edition.search_format_type]
   end
+
   def self.search_format_type
     self.name.underscore.gsub('_', '-')
   end
+
   def self.concrete_descendants
     descendants.reject { |model| model.descendants.any? }
   end
+
   def self.concrete_descendant_search_format_types
     concrete_descendants.map { |model| model.search_format_type }
-  end
-
-  [:publish, :unpublish, :archive, :delete].each do |event|
-    set_callback(event, :after) { refresh_index_if_required }
   end
 
   def refresh_index_if_required
@@ -210,6 +218,7 @@ class Edition < ActiveRecord::Base
     end
   end
 
+  # @group Overwritable permission methods
   def can_be_associated_with_topics?
     false
   end
@@ -289,6 +298,16 @@ class Edition < ActiveRecord::Base
   def can_apply_to_local_government?
     false
   end
+
+  def national_statistic?
+    false
+  end
+
+  def has_consultation_participation?
+    false
+  end
+
+  # @!endgroup
 
   def create_draft(user)
     unless published?
@@ -394,10 +413,6 @@ class Edition < ActiveRecord::Base
     recent_change_note
   end
 
-  def national_statistic?
-    false
-  end
-
   def format_name
     self.class.format_name
   end
@@ -424,10 +439,6 @@ class Edition < ActiveRecord::Base
 
   def alternative_format_contact_email
     nil
-  end
-
-  def has_consultation_participation?
-    false
   end
 
   def reset_force_published_flag
