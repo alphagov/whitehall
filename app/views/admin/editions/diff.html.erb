@@ -1,7 +1,7 @@
 <% page_title @edition.title, @edition.format_name %>
 <div class="span12">
   <p class="alert">
-    This shows changes to the title, summary and body (it doesn't show changes to attachments or associations).
+    This shows changes to the title, summary and body (it doesn't show changes to attachments or associations). When there are no changes nothing is displayed.
     <br/>
     <br/>
     <%= link_to "Back to '#{@edition.title}'", admin_edition_path(@edition) %>.

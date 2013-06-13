@@ -23,15 +23,16 @@ module Admin::AuditTrailHelper
     summary = Diffy::Diff.new(audit_entry.summary, edition.summary, allow_empty_diff: true, include_plus_and_minus_in_html: true).to_s(:html)
     body = Diffy::Diff.new(audit_entry.body, edition.body, allow_empty_diff: true, include_plus_and_minus_in_html: true).to_s(:html)
     out = ""
-    if title
+    empty_diff = %(<div class=\"diff\">\n  <ul>\n\n  </ul>\n</div>\n)
+    unless title == empty_diff
     out << content_tag(:h2, 'Title')
       out << title
     end
-    if summary
+    unless summary == empty_diff
     out << content_tag(:h2, 'Summary')
       out << summary
     end
-    if body
+    unless body == empty_diff
     out << content_tag(:h2, 'Body')
       out << body
     end
