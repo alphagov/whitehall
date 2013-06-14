@@ -18,7 +18,7 @@
           <tr><th>gov.uk status</th><td><%= @organisation.govuk_status.titleize %></td></tr>
           <tr><th>Description</th><td><%= govspeak_to_html @organisation.description %></td></tr>
           <tr><th>Email address for ordering publications or consultations in alternative formats</th><td><%= @organisation.alternative_format_contact_email %></td></tr>
-          <tr><th>Sponsoring departments</th><td>
+          <tr><th>Sponsoring organisations</th><td>
             <% if @organisation.parent_organisations.any? %>
               <%= @organisation.parent_organisations.map {|o| link_to(o.name, [:admin, o]) }.to_sentence.html_safe %>
             <% else %>

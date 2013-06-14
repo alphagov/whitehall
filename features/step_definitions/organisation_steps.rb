@@ -372,3 +372,23 @@ When /^I stop featuring the topical event "([^"]*)" for "([^"]*)"$/ do |topic, o
   end
 end
 
+When /^I choose "([^"]*)" as a sponsoring organisation of "([^"]*)"$/ do |supporting_org_name, supported_org_name|
+  supporting_organisation = Organisation.find_by_name!(supporting_org_name)
+  supported_organisation = Organisation.find_by_name!(supported_org_name)
+
+  visit admin_organisation_path(supported_organisation)
+  click_on 'Edit'
+  select supporting_org_name, from: 'Sponsoring organisations'
+  click_on 'Save'
+end
+
+Then /^I should "([^"]*)" listed as a sponsoring organisation of "([^"]*)"$/ do |supporting_org_name, supported_org_name|
+  supporting_organisation = Organisation.find_by_name!(supporting_org_name)
+  supported_organisation = Organisation.find_by_name!(supported_org_name)
+
+  ensure_path organisation_path(supported_organisation)
+  save_and_open_page
+  within 'p.parent_organisations' do
+    assert page.has_content?(supporting_org_name)
+  end
+end

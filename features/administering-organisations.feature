@@ -7,6 +7,11 @@ Scenario: Adding an Organisation
   When I add a new organisation called "Ministry of Jazz"
   Then I should be able to see "Ministry of Jazz" in the list of organisations
 
+Scenario: Adding a sponsoring organisation
+  Given two organisations "Association of Krunk" and "Administration for the Proliferation of Krunk" exist
+  When I choose "Association of Krunk" as a sponsoring organisation of "Administration for the Proliferation of Krunk"
+  Then I should "Association of Krunk" listed as a sponsoring organisation of "Administration for the Proliferation of Krunk"
+
 Scenario: Administering organisation contact details
   Given the organisation "Ministry of Pop" exists
   When I visit the organisation admin page for "Ministry of Pop"
