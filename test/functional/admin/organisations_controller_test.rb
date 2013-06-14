@@ -332,37 +332,6 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert_equal [category1], organisation.reload.mainstream_categories
   end
 
-  test "PUT on :update should remove all parent organisations if none specified" do
-    organisation_attributes = {name: "Ministry of Sound"}
-    organisation = create(:organisation,
-      organisation_attributes.merge(parent_organisation_ids: [create(:organisation).id])
-    )
-
-    put :update, id: organisation, organisation: organisation_attributes.merge(parent_organisation_ids: [""])
-
-    organisation.reload
-    assert_equal [], organisation.parent_organisations
-  end
-
-  test "PUT on :update should allow ordering of featured editions" do
-    organisation = create(:organisation)
-    edition_association_1 = create(:featured_edition_organisation, organisation: organisation)
-    edition_association_2 = create(:featured_edition_organisation, organisation: organisation)
-    edition_association_3 = create(:featured_edition_organisation, organisation: organisation)
-
-    put :update, id: organisation, organisation: {
-      edition_organisations_attributes: {
-        "0" => {"id" => edition_association_1.id, "ordering" => "3"},
-        "1" => {"id" => edition_association_2.id, "ordering" => "2"},
-        "2" => {"id" => edition_association_3.id, "ordering" => "1"}
-      }
-    }
-
-    assert_equal 3, edition_association_1.reload.ordering
-    assert_equal 2, edition_association_2.reload.ordering
-    assert_equal 1, edition_association_3.reload.ordering
-  end
-
   test "PUT on :update ordering featured editions should not lose topics or parent organisations" do
     topic = create(:topic)
     parent_organisation = create(:organisation)
