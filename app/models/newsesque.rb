@@ -1,3 +1,4 @@
+# @abstract
 class Newsesque < Announcement
   include Edition::FactCheckable
   include Edition::FirstImagePulledOut

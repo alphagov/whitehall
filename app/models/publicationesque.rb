@@ -1,3 +1,4 @@
+# @abstract
 class Publicationesque < Edition
   include Edition::RelatedPolicies
   include Edition::DocumentSeries

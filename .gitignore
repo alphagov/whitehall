@@ -20,3 +20,5 @@
 /test-bulk-upload-zip-file-tmp
 /test-quarantine
 .test_queue_stats
+.yardoc/
+/doc/

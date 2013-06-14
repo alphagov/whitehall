@@ -3,7 +3,7 @@
 "Whitehall" is the code name for the
 [Inside Government](https://www.gov.uk/government/) project, which
 aims to bring Government departments online in a consistent and
-user-friendly manner.
+user-friendly manner. Documention can be found on [rdoc](http://rdoc.info/github/alphagov/whitehall/frames).
 
 ## Getting set-up locally
 
@@ -115,3 +115,11 @@ You need to set the following environment variables :-
     CONTENT_API_ENDPOINT_URL # e.g. https://contentapi.preview.alphagov.co.uk
     CONTENT_API_USERNAME
     CONTENT_API_PASSWORD
+
+# Generating the documentation
+
+We use [YARD](https://github.com/lsegal/yard) for the documentation. You can generate a local copy with:
+
+    yard server --reload
+
+You can also read the docs on [rdoc.info](http://rdoc.info/github/alphagov/whitehall/frames).
