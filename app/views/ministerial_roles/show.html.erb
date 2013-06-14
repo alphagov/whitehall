@@ -19,7 +19,7 @@
             </dd>
             <% if @ministerial_role.occupied? %>
               <dt>Current role holder:</dt>
-              <dd><%= link_to @ministerial_role.current_person.name, "#current-role-holder" %></dd>
+              <dd><%= link_to @ministerial_role.current_person.name, @ministerial_role.current_person %></dd>
             <% end %>
           </dl>
         </div>
