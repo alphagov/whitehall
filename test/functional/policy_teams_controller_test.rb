@@ -18,7 +18,7 @@ class PolicyTeamsControllerTest < ActionController::TestCase
 
     get :show, id: policy_team
 
-    assert_select ".page-header h1", text: policy_team.name
+    assert_select "h1", text: policy_team.name
     assert_select ".email a", text: policy_team.email
   end
 

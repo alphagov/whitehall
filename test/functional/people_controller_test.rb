@@ -32,7 +32,7 @@ class PeopleControllerTest < ActionController::TestCase
 
     get :show, id: @person
 
-    assert_select ".name", text: "Alan Clark MP"
+    assert_select "h1", text: "Alan Clark MP"
     assert_select ".biography", text: /Conservative diarist and philanderer/
   end
 

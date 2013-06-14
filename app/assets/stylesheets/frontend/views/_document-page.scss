@@ -2,7 +2,6 @@
 
 .document_page {
 
-  .block-1,
   .block-2,
   .block-3,
   .block-4 {
@@ -10,12 +9,6 @@
   }
 
   @include media(desktop) {
-    .block-1:after {
-      content: " ";
-      display: block;
-      clear: both;
-      visibility: hidden;
-    }
     .block-2 {
       clear: both;
       width: 25%;

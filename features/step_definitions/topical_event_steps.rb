@@ -65,9 +65,7 @@ end
 Then /^(#{THE_DOCUMENT}) shows it is related to the topical event "([^"]*)" on its public page$/ do |edition, topical_event_name|
   topical_event = TopicalEvent.find_by_name!(topical_event_name)
   visit public_document_path(edition)
-  within ".document-page-header" do
-    assert page.has_css?(record_css_selector(topical_event), text: topical_event.name)
-  end
+  assert page.has_css?(record_css_selector(topical_event), text: topical_event.name)
 end
 
 When /^I feature the news article "([^"]*)" for topical event "([^"]*)" with image "([^"]*)"$/ do |news_article_title, topical_event_name, image_filename|

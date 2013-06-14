@@ -1,41 +1,39 @@
 <% page_title @document_series.name, @organisation.name %>
 <% page_class "document-series-page" %>
 
-<div class="block-1">
-  <div class="inner-block">
-    <section class="document-page-header">
-      <header class="page-header">
-      <h1 class="page_title">
-        <span class="inner">
-          <span class="label">Series</span>
-          <span class="title"><%= @document_series.name %></span>
-        </span>
-      </h1>
-        <aside class="meta">
-          <dl>
-            <dt><%= t('document.headings.organisations', count: 1) %>:</dt>
-            <dd>
-              <%= render  partial: 'organisations/organisations_name_list',
-                          locals: { lead_organisations: [@organisation] } %>
+<header class="block headings-block">
+  <div class="inner-block floated-children">
+    <%= render partial: 'shared/heading',
+              locals: { type: 'Series', heading: @document_series.name } %>
+
+    <aside class="meta">
+      <div class="inner-heading">
+        <dl>
+          <dt><%= t('document.headings.organisations', count: 1) %>:</dt>
+          <dd>
+            <%= render  partial: 'organisations/organisations_name_list',
+                        locals: { lead_organisations: [@organisation] } %>
+          </dd>
+          <% unless @document_series.published_editions.empty? %>
+            <% most_recent_change = @document_series.published_editions.first.public_timestamp %>
+            <dt class="change-notes-title"><%= t('change_notes.updated') %>:</dt>
+            <dd class="change-notes">
+              <%= absolute_date(most_recent_change, class: 'published-at') %>
             </dd>
-            <% unless @document_series.published_editions.empty? %>
-              <% most_recent_change = @document_series.published_editions.first.public_timestamp %>
-              <dt class="change-notes-title"><%= t('change_notes.updated') %>:</dt>
-              <dd class="change-notes">
-                <%= absolute_date(most_recent_change, class: 'published-at') %>
-              </dd>
-            <% end %>
-          </dl>
-        </aside>
-      </header>
-    </section>
-    <% unless @document_series.summary.blank? %>
-      <div class="summary">
-        <p><%= @document_series.summary %></p>
+          <% end %>
+        </dl>
       </div>
-    <% end %>
+    </aside>
   </div>
-</div>
+</header>
+
+<% unless @document_series.summary.blank? %>
+  <div class="block summary">
+    <div class="inner-block">
+      <p><%= @document_series.summary %></p>
+    </div>
+  </div>
+<% end %>
 
 <div class="block-2 ">
   <div class="inner-block">

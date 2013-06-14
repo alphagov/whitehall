@@ -42,24 +42,21 @@
 #whitehall-wrapper {
   @import "helpers/_activity-nav.scss";
   @import "helpers/_attachment.scss";
-  @import "helpers/_available-languages.scss";
   @import "helpers/_browse.scss";
   @import "helpers/_change-notes.scss";
   @import "helpers/_collection_list.scss";
   @import "helpers/_contextual-info.scss";
   @import "helpers/_corporate-information.scss";
   @import "helpers/_dash-list.scss";
-  @import "helpers/_document-page-header.scss";
-  @import "helpers/_document-series.scss";
   @import "helpers/_document.scss";
   @import "helpers/_document_list.scss";
   @import "helpers/_documents-grid.scss";
+  @import "helpers/_headings.scss";
   @import "helpers/_featured_news.scss";
   @import "helpers/_feed.scss";
   @import "helpers/_filter.scss";
   @import "helpers/_govspeak.scss";
   @import "helpers/_heading-block.scss";
-  @import "helpers/_header-title-with-paragraph.scss";
   @import "helpers/_historic-people-list.scss";
   @import "helpers/_holding.scss";
   @import "helpers/_index-list.scss";
@@ -88,7 +85,6 @@
 // Styles scoped to each template in /views
 
 #whitehall-wrapper {
-  @import "views/_activity.scss";
   @import "views/_announcements.scss";
   @import "views/_biographical-page.scss";
   @import "views/_consultations.scss";

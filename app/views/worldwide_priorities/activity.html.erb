@@ -2,12 +2,13 @@
 <% page_title @document.title, "Worldwide Priorities" %>
 
 <article class="<%= @document.type.downcase %>">
-  <div class="block-1">
-    <div class="inner-block">
-      <%= render  partial: 'documents/header', locals: { header_title: header_title, document: @document } %>
-      <%= render(partial: 'navigation', locals: { worldwide_priority: @document }) if show_navigation? %>
+  <header class="block headings-block">
+    <div class="inner-block floated-children">
+      <%= render(partial: 'documents/header', locals: { header_title: header_title, document: @document }) %>
     </div>
-  </div>
+  </header>
+
+  <%= render(partial: 'navigation', locals: { worldwide_priority: @document }) if show_navigation? %>
 
   <div class="block-2">
     <div class="inner-block">

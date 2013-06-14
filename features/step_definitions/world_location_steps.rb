@@ -147,7 +147,7 @@ end
 Then /^when viewing the (?:world location|international delegation) "([^"]*)" with the locale "([^"]*)" I should see:$/ do |world_location_name, locale, table|
   view_world_location_in_locale(world_location_name, locale)
   translation = table.rows_hash
-  assert page.has_css?('.title', text: translation["title"]), "Title wasn't present"
+  assert page.has_css?('h1', text: translation["title"]), "Title wasn't present"
   assert page.has_css?('.mission_statement', text: translation["mission_statement"]), "Mission statement wasn't present"
 end
 
@@ -230,6 +230,6 @@ Then /^clicking on "([^"]*)" on the french "([^"]*)" page should take me to the 
     click_on title
   end
 
-  assert page.has_css?('h1.page_title .title', text: title)
+  assert page.has_css?('h1', text: title)
   assert page.has_css?('.available-languages li.translation span', text: 'Français')
 end

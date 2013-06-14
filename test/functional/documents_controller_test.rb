@@ -138,6 +138,6 @@ class DocumentsControllerTest < ActionController::TestCase
 
     get :show, id: edition.document
 
-    refute_select ".document-page-header .translations"
+    refute_select ".translations"
   end
 end

@@ -109,7 +109,7 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
     },
     liveResultSummary: function(data){
       var $selections = $('.selections'),
-          $title = $('.page_title'),
+          $title = $('.headings-block h1'),
           summary = '',
           formStatus = documentFilter.currentPageState(),
           context = {},

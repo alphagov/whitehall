@@ -2,23 +2,30 @@
 <% page_class "people-show biographical-page" %>
 
 <%= content_tag_for :div, @person, class: "two-column-page" do %>
-  <div class="block-1">
-    <div class="inner-block">
-      <%= render partial: 'shared/available_languages', locals: {object: @person } %>
-      <header class="page-header person">
-        <hgroup>
-          <h1 class="name"><%= @person.name %></h1>
-          <% if @person.current_role_appointments.any? %>
-          <ul class="current-role <%= @person.current_role_appointments.size == 1 ? 'single' : 'multiple' %>">
-            <% @person.current_role_appointments.each do |appointment| %>
-              <li><%= appointment.role.name %></li>
-            <% end %>
-          </ul>
-          <% end %>
-        </hgroup>
-      </header>
+  <header class="block headings-block">
+    <div class="inner-block floated-children">
+      <%= render partial: 'shared/heading',
+                locals: { type: "Person",
+                          heading: @person.name,
+                          big: true, extra: true } %>
+      <div class="heading-extra">
+        <div class="inner-heading">
+          <%= render partial: 'shared/available_languages', locals: {object: @person } %>
+        </div>
+      </div>
+
+      <% if @person.current_role_appointments.any? %>
+        <aside class="meta">
+          <div class="inner-heading">
+            <dl>
+              <dt>Roles:</dt>
+              <dd><%= @person.current_role_appointments.map { |a| a.role.name }.to_sentence %></dd>
+            </dl>
+          </div>
+        </aside>
+      <% end %>
     </div>
-  </div>
+  </header>
 
   <div class="block-2 ">
     <div class="inner-block js-stick-at-top-when-scrolling">

@@ -2,13 +2,13 @@
 <% page_class "policies-index document-filter-page" %>
 
 
-<div class="block-1">
-  <div class="inner-block">
-    <header class="page-header policy">
-      <h1 class="page_title"><%= t('policies.heading') %></h1>
-    </header>
+<header class="block headings-block">
+  <div class="inner-block floated-children">
+    <%= render partial: 'shared/heading',
+              locals: { big: true,
+                        heading: t('policies.heading') } %>
   </div>
-</div>
+</header>
 
 <div class="block-2">
   <div class="inner-block">

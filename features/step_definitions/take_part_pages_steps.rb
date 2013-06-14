@@ -47,7 +47,7 @@ end
 Then /^I can click through to read all about my new page$/ do
   click_on @the_new_take_part_page.title
 
-  assert page.has_css?('h1 .title', text: @the_new_take_part_page.title)
+  assert page.has_css?('h1', text: @the_new_take_part_page.title)
   assert page.has_css?('.description', text: @the_new_take_part_page.summary)
   assert page.has_css?('.body .govspeak', text: @the_new_take_part_page.body)
   assert page.has_css?("img[src='#{@the_new_take_part_page.image_url(:s300)}']")

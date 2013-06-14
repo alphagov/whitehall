@@ -1,10 +1,12 @@
 <% page_title "Ministers" %>
 <% page_class "ministers-index" %>
 
-<header class="header-title-with-paragraph">
-  <div class="inner-block">
-    <h1>Ministers</h1>
-    <p class="intro">Read biographies and responsibilities of <a href="#cabinet-ministers">Cabinet ministers</a> and all <a href="#ministers-by-department">ministers by department</a>, as well as the <a href="#whips">whips</a> who help co-ordinate parliamentary business.</p>
+<header class="block headings-block">
+  <div class="inner-block floated-children">
+    <%= render partial: 'shared/heading',
+              locals: { big: true,
+                        heading: "Ministers" } %>
+    <p class="intro-paragraph">Read biographies and responsibilities of <a href="#cabinet-ministers">Cabinet ministers</a> and all <a href="#ministers-by-department">ministers by department</a>, as well as the <a href="#whips">whips</a> who help co-ordinate parliamentary business.</p>
   </div>
 </header>
 

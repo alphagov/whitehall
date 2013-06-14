@@ -34,12 +34,12 @@ end
 
 Then /^I should be able to navigate to the spanish translation "([^"]*)"$/ do |spanish_title|
   click_link "Español"
-  assert page.has_css?('.title', text: spanish_title)
+  assert page.has_css?('h1', text: spanish_title)
 end
 
 Then /^I should be able to navigate to the english translation "([^"]*)"$/ do |english_title|
   click_link "English"
-  assert page.has_css?('.title', text: english_title)
+  assert page.has_css?('h1', text: english_title)
 end
 
 Then /^I should be able to associate "([^"]*)" with the worldwide priority "([^"]*)"$/ do |title, priority|

@@ -1,0 +1,157 @@
+.headings-block {
+  @extend %contain-floats;
+  margin-top: 0;
+
+  .inner-heading {
+    padding: 0 $gutter-half;
+  }
+
+  .heading {
+    padding: $gutter-half 0;
+
+    @include media(tablet){
+      padding: $gutter*1.5 0;
+    }
+
+    h1 {
+      @include core-36;
+      font-weight: bold;
+    }
+    .type {
+      @include core-27;
+      color: $secondary-text-colour;
+    }
+  }
+  .heading-with-extra {
+    @extend .heading;
+
+    @include media(tablet){
+      float: left;
+      width: 66.66%;
+      @include right-to-left {
+        float: right;
+      }
+    }
+  }
+  .heading-big {
+    @extend .heading;
+    h1 {
+      @include core-48;
+      font-weight: bold;
+    }
+  }
+  .heading-big-with-extra {
+    @extend .heading-with-extra;
+    @extend .heading-big;
+  }
+
+  .heading-extra {
+    @include media(tablet){
+      float: left;
+      width: 33.33%;
+      @include right-to-left {
+        float: right;
+      }
+    }
+  }
+
+  .meta {
+    display: block;
+    clear: both;
+    margin-bottom: $gutter;
+
+    dl {
+      display: inline;
+      @include ig-core-14;
+
+      dt {
+        @include bold;
+        float: left;
+        clear: left;
+        width: 40%;
+        @include media(tablet) {
+          width: auto;
+          min-width: ($gutter * 4);
+          padding-right: $gutter-one-third;
+
+          @include right-to-left {
+            padding-right: 0;
+            padding-left: $gutter-one-third;
+          }
+        }
+        @include right-to-left {
+          float: right;
+          clear: right;
+        }
+      }
+      dd {
+        float: left;
+        width: 60%;
+        &.document-worldwide-organisations {
+          width: 55%;
+        }
+        @include right-to-left {
+          float: right;
+        }
+      }
+
+      a[rel="external"] {
+        @include external-link-12;
+        @include media(tablet) {
+          @include external-link-14;
+        }
+      }
+
+      .change-notes-title {
+        @include media(desktop){
+          clear: left;
+          @include right-to-left {
+            clear: right;
+          }
+        }
+      }
+    }
+  }
+  .available-languages {
+    margin-bottom: $gutter-half;
+
+    ul {
+      @extend %contain-floats;
+      list-style: none;
+      padding: $gutter-half 0 $gutter-one-sixth;
+      border-bottom: 1px solid $border-colour;
+
+      li {
+        float: left;
+        display: block;
+        border-right: 1px solid $border-colour;
+        padding: 0 $gutter-one-third 0 0;
+        height: 16px;
+        margin: 3px $gutter-one-third 2px 0;
+        @include right-to-left {
+          float: right;
+        }
+
+        &.last {
+          border-right: 0;
+        }
+
+        a, span {
+          display: block;
+          margin-top: -1px;
+          @include core-16;
+        }
+      }
+    }
+  }
+  .organisations-icon-list {
+    margin-top: $gutter*2;
+  }
+  .intro-paragraph {
+    padding: 0 $gutter-half;
+    margin-bottom: $gutter;
+    @include core-27;
+    max-width: 27em;
+  }
+
+}

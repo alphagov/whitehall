@@ -43,18 +43,6 @@
 }
 
 
-.beta_disclaimer {
-  color: #000;
-  background-color: #F17921;
-  padding: $gutter-one-third;
-  overflow: hidden;
-  h1 { font-weight: bold;}
-  h1, p {
-    float: left;
-    display: inline;
-    margin-right: $gutter-half;
-  }
-}
 .show-other-content {
   @include ig-core-14;
   margin-left: 0.3em;

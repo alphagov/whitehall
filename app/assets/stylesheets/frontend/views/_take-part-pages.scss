@@ -10,34 +10,6 @@
     }
   }
 
-  .page-header {
-    @extend %contain-floats;
-
-    @include media(tablet){
-      padding: $gutter + 8px 0 0;
-    }
-
-    h1 {
-      @include media(tablet) {
-        width: 75%;
-        float: left;
-      }
-
-      .label {
-        display: block;
-        @include core-36;
-        color: $grey-1;
-        padding-bottom: 2px;
-      }
-
-      .topic {
-        display: block;
-        @include core-48;
-        font-weight: bold;
-      }
-    }
-  }
-
   nav {
     @include ig-core-16;
     padding: ($gutter - $gutter-one-third) 0 $gutter;

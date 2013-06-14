@@ -15,7 +15,7 @@ class WorldwidePrioritiesControllerTest < ActionController::TestCase
 
     get :show, id: priority.document
 
-    assert_select ".title", "priority-title"
+    assert_select "h1", "priority-title"
     assert_select ".body", "priority-body"
     refute_select "nav.activity-navigation"
   end
@@ -58,7 +58,7 @@ class WorldwidePrioritiesControllerTest < ActionController::TestCase
 
     get :show, id: priority.document, locale: 'fr'
 
-    assert_select ".page_title", /Priorité internationale/
+    assert_select ".type", /Priorité internationale/
     assert_select ".change-notes-title", /Publié/
   end
 

@@ -1,12 +1,15 @@
 <% page_title @policy_team.name, "Policy teams" %>
 <%= content_tag_for(:div, @policy_team, :class => "policy-groups policy-teams") do %>
-  <div class="block-1">
-    <div class="inner-block">
-      <section class="page-header">
-        <h1><%= @policy_team.name %></h1>
-      </section>
-    </div>
+
+<header class="block headings-block">
+  <div class="inner-block floated-children">
+    <%= render partial: 'shared/heading',
+              locals: { type: "Teams",
+                        heading: @policy_team.name,
+                        big: true } %>
   </div>
+</header>
+
   <div class="block-2 sidebar">
     <div class="inner-block">
       <section class="contextual-info js-stick-at-top-when-scrolling">
