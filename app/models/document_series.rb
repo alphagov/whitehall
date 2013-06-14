@@ -4,15 +4,20 @@ class DocumentSeries < ActiveRecord::Base
 
   belongs_to :organisation
 
-  has_many :editions, through: :edition_document_series, order: 'publication_date desc'
+  has_many :editions, through: :edition_document_series
+
+  has_many :published_editions,
+            through: :edition_document_series,
+            conditions: { state: "published" },
+            order: 'publication_date desc',
+            source: :edition
+
   has_many :edition_document_series
 
   validates_with SafeHtmlValidator
   validates :name, presence: true, length: { maximum: 255 }
   validates :summary, presence: true, length: { maximum: 255 }
   validates :description, length: { maximum: (64.kilobytes - 1) }
-
-  before_destroy { |dc| dc.destroyable? }
 
   searchable title: :name,
              link: :search_link,
@@ -24,10 +29,6 @@ class DocumentSeries < ActiveRecord::Base
 
   def search_link
     Whitehall.url_maker.organisation_document_series_path(organisation, slug)
-  end
-
-  def published_editions
-    editions.published
   end
 
   def published_publications
@@ -63,6 +64,6 @@ class DocumentSeries < ActiveRecord::Base
   end
 
   def destroyable?
-    editions.empty?
+    published_editions.empty?
   end
 end
