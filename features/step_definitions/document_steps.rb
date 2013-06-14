@@ -131,7 +131,7 @@ When /^someone publishes (#{THE_DOCUMENT})$/ do |edition|
   random_editor = create(:departmental_editor)
   as_user(random_editor) do
     visit_document_preview edition.title
-    publish
+    publish(force: true)
   end
 end
 

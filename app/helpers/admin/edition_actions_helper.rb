@@ -42,13 +42,15 @@ module Admin::EditionActionsHelper
   end
 
   def publish_edition_form(edition, options = {})
-    url = publish_admin_edition_path(edition, options.slice(:force).merge(lock_version: edition.lock_version))
-    button_text = options[:force] ? "Force Publish" : "Publish"
     button_title = "Publish #{edition.title}"
     confirm = publish_edition_alerts(edition, options[:force])
     css_classes = ["btn"]
     css_classes << (options[:force] ? "btn-warning" : "btn-success")
-    button_to button_text, url, confirm: confirm, title: button_title, class: css_classes.join(" ")
+    if options[:force]
+      %(<a class="#{css_classes.join(" ")}" data-toggle="modal" data-target="#forcePublishModal">Force Publish</a>).html_safe
+    else
+      button_to "Publish", publish_admin_edition_path(edition, options.merge(lock_version: edition.lock_version)), confirm: confirm, title: button_title, class: css_classes.join(" ")
+    end
   end
 
   def schedule_edition_form(edition, options = {})
