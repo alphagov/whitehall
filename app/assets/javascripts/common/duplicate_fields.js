@@ -26,12 +26,11 @@
       var $button = $(e.target),
           $set = $button.closest('.js-duplicate-fields'),
           $fields = $set.find('.js-duplicate-fields-set').last(),
-          $newFields = $fields.clone();
+          $newFields = $fields.clone(true);
 
       $newFields.find('input[type=text], input[type=hidden], textarea').val('');
       $newFields.show();
       duplicateFields.incrementIndexes($newFields);
-      $newFields.find('a.js-remove-button').on('click', duplicateFields.removeFields);
       $button.before($newFields);
     },
     removeButton: function(){
