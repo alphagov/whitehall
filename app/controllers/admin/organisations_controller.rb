@@ -8,13 +8,12 @@ class Admin::OrganisationsController < Admin::BaseController
 
   def new
     @organisation = Organisation.new
+    @organisation.mainstream_links.build
     build_organisation_classifications
     build_organisation_mainstream_categories
-    build_mainstream_links
   end
 
   def create
-    remove_blank_mainstream_link_params
     @organisation = Organisation.new(params[:organisation])
     if @organisation.save
       redirect_to admin_organisations_path
@@ -58,14 +57,13 @@ class Admin::OrganisationsController < Admin::BaseController
   end
 
   def edit
+    @organisation.mainstream_links.build unless @organisation.mainstream_links.any?
     build_organisation_classifications
     build_organisation_mainstream_categories
-    build_mainstream_links
     build_default_news_image
   end
 
   def update
-    remove_blank_mainstream_link_params
     delete_absent_organisation_classifications
     delete_absent_organisation_mainstream_categories
     if @organisation.update_attributes(params[:organisation])
@@ -128,21 +126,5 @@ class Admin::OrganisationsController < Admin::BaseController
 
   def load_organisation
     @organisation = Organisation.find(params[:id])
-  end
-
-  def build_mainstream_links
-    unless @organisation.mainstream_links.any?(&:new_record?)
-      @organisation.mainstream_links.build
-    end
-  end
-
-  def remove_blank_mainstream_link_params
-    if params[:organisation][:mainstream_links_attributes]
-      params[:organisation][:mainstream_links_attributes].each do |index, link|
-        if link[:title].blank? && link[:url].blank?
-          link[:_destroy] = "1"
-        end
-      end
-    end
   end
 end

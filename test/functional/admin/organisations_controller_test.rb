@@ -264,22 +264,6 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert_equal 2, organisation_role.reload.ordering
   end
 
-  test "PUT on :update destroys existing mainstream links if all its field are blank" do
-    attributes = attributes_for(:organisation)
-    organisation = create(:organisation, attributes)
-    mainstream_link = create(:mainstream_link, linkable: organisation)
-
-    put :update, id: organisation, organisation: attributes.merge(
-      mainstream_links_attributes: {"0" =>{
-          id: mainstream_link.id,
-          url: "",
-          title: ""
-      }}
-    )
-
-    assert_equal 0, organisation.mainstream_links.length
-  end
-
   test "PUT on :update with bad params does not update the organisation and renders the edit page" do
     ministerial_role = create(:ministerial_role)
     organisation = create(:organisation, name: 'org name')

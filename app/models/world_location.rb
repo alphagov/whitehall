@@ -19,7 +19,7 @@ class WorldLocation < ActiveRecord::Base
   include Featurable
 
   accepts_nested_attributes_for :edition_world_locations
-  accepts_nested_attributes_for :mainstream_links, allow_destroy: true, reject_if: :all_blank
+  accepts_nested_attributes_for :mainstream_links, reject_if: -> attributes { attributes['url'].blank? }, allow_destroy: true
 
   include TranslatableModel
   translates :name, :title, :mission_statement
