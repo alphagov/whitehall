@@ -243,12 +243,6 @@ class PublicationsInTopicsTest < ActiveSupport::TestCase
     assert_equal [scheduled_publication], Publication.scheduled_in_topic([@topic_1]).all
   end
 
-  test "make_public_at should not set first_published_at" do
-    publication = build(:publication, first_published_at: nil)
-    publication.make_public_at(2.days.ago)
-    refute publication.first_published_at
-  end
-
   test 'search_format_types tags the publication as a publication' do
     publication = build(:publication)
     assert publication.search_format_types.include?('publication')
