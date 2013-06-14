@@ -8,7 +8,11 @@
     </div>
   </header>
 
-  <%= render(partial: 'navigation', locals: { worldwide_priority: @document }) if show_navigation? %>
+  <div class="block">
+    <div class="inner-block">
+      <%= render(partial: 'navigation', locals: { worldwide_priority: @document }) if show_navigation? %>
+    </div>
+  </div>
 
   <div class="block-3">
     <div class="inner-block">

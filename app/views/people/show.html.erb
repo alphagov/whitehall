@@ -19,7 +19,7 @@
           <div class="inner-heading">
             <dl>
               <dt>Roles:</dt>
-              <dd><%= @person.current_role_appointments.map { |a| link_to a.role.name, a.role }.to_sentence %></dd>
+              <dd><%= @person.current_role_appointments.map { |a| a.role.ministerial? ? a.role_link : a.role.name }.to_sentence %></dd>
             </dl>
           </div>
         </aside>

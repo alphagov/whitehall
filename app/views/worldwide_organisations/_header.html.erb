@@ -14,7 +14,9 @@
         <% end %>
       </h1>
     </div>
-    <%= render partial: 'shared/available_languages', locals: {object: object_for_translation } %>
+    <div class="headings-block">
+      <%= render partial: 'shared/available_languages', locals: {object: object_for_translation } %>
+    </div>
     <div class="metadata">
       <dl>
         <% if world_locations.any? %>
