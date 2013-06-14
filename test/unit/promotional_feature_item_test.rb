@@ -35,6 +35,14 @@ class PromotionalFeatureItemTest < ActiveSupport::TestCase
     assert_equal 'Example link', item.links.first.text
   end
 
+  test "limits the number of promotional links" do
+    item = build(:promotional_feature_item, links: (1..PromotionalFeatureItem::LINK_LIMIT).collect { PromotionalFeatureLink.new(url: 'http://test.com', text: 'Link text') })
+    assert item.valid?
+    item.links << PromotionalFeatureLink.new(url: 'http://test.com', text: 'Link text')
+    refute item.valid?
+    assert_equal ["are limited to a maximum of #{PromotionalFeatureItem::LINK_LIMIT}"], item.errors[:links]
+  end
+
   private
 
   def string_of_length(length)
