@@ -65,7 +65,7 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
 
   test 'publish passes through the force flag' do
     @edition.expects(:publish_as).with(@user, force: true).returns(true)
-    post :publish, id: @edition, force: true, lock_version: 1
+    post :publish, id: @edition, force: true, lock_version: 1, reason: "Just because"
   end
 
   test 'publish sets change note on edition' do

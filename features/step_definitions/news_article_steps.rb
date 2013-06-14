@@ -51,7 +51,7 @@ When /^I publish a news article "([^"]*)" associated with "([^"]*)"$/ do |title,
   begin_drafting_news_article title: title
   select person_name, from: "Ministers"
   click_button "Save"
-  click_button "Force Publish"
+  publish force: true
 end
 
 When /^I attempt to add the article image into the markdown$/ do
@@ -91,7 +91,7 @@ end
 
 Then /^I should see the first uploaded image used as the lead image$/ do
   article = NewsArticle.last
-  click_on "Force Publish"
+  publish force: true
   visit document_path(article)
   assert page.has_css?("aside.sidebar img[src*='#{article.images.first.url(:s300)}']")
 end

@@ -1,7 +1,7 @@
 When /^I draft and then publish a new document$/ do
   begin_drafting_publication('An exciting new publication')
   click_on "Save"
-  click_on 'Force Publish'
+  publish force: true
   @the_publication = Publication.find_by_title('An exciting new publication')
 end
 

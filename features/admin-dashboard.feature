@@ -9,6 +9,7 @@ Feature: Admin Dashboard
   Background:
     Given I am an editor in the organisation "MOD"
 
+  @javascript
   Scenario: Loading the dashboard
     Given a force published document "forced document" was produced by the "MOD" organisation
     When I draft a new news article "draft document"
