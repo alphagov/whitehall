@@ -10,7 +10,6 @@ class WorldwideOrganisationsController < PublicFacingController
 
   def show
     respond_to do |format|
-      format.json { redirect_to api_worldwide_organisation_path(@worldwide_organisation, format: :json) }
       format.html do
         expires_in 5.minutes, public: true
         @world_locations = @worldwide_organisation.world_locations
@@ -19,6 +18,7 @@ class WorldwideOrganisationsController < PublicFacingController
         @primary_role = primary_role
         @other_roles = ([secondary_role] + office_roles).compact
       end
+      format.json { redirect_to api_worldwide_organisation_path(@worldwide_organisation, format: :json) }
     end
   end
 
