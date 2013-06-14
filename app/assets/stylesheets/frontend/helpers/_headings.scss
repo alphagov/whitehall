@@ -152,6 +152,10 @@
     margin-bottom: $gutter;
     @include core-27;
     max-width: 27em;
+
+    a {
+      text-decoration: underline;
+    }
   }
 
 }
