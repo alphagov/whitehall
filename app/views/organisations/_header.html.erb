@@ -39,6 +39,7 @@
   <% end %>
   <% if show_mainstream_links && organisation.mainstream_links.any? && sub_organisation.nil? %>
     <aside class="organisation-mainstream-links">
+      <%= render partial: 'shared/available_languages', locals: {object: @organisation} %>
       <ul>
         <% organisation.mainstream_links.only_the_initial_set.each do |link| %>
           <li><%= link_to link.title, link.url, ({rel: 'external'} if is_external?(link.url)) %></li>
