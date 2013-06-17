@@ -387,7 +387,6 @@ Then /^I should "([^"]*)" listed as a sponsoring organisation of "([^"]*)"$/ do 
   supported_organisation = Organisation.find_by_name!(supported_org_name)
 
   ensure_path organisation_path(supported_organisation)
-  save_and_open_page
   within 'p.parent_organisations' do
     assert page.has_content?(supporting_org_name)
   end
