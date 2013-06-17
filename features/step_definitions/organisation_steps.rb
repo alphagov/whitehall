@@ -92,8 +92,8 @@ When /^I add a new organisation called "([^"]*)"$/ do |organisation_name|
   fill_in 'Logo formatted name', with: organisation_name
   fill_in 'Description', with: 'Not important'
   select 'Ministerial department', from: 'Organisation type'
-  select 'Jazz Bizniz', from: 'Topic 1'
-  select 'Jazzy Bizzle', from: 'Detailed guidance category 1'
+  select 'Jazz Bizniz', from: 'organisation_topic_ids_0'
+  select 'Jazzy Bizzle', from: 'organisation_mainstream_category_ids_0'
   within '.mainstream-links' do
     fill_in 'Title', with: 'Mainstream link 1'
     fill_in 'Url', with: 'http://mainstream.co.uk'
