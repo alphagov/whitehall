@@ -307,11 +307,13 @@
     }
 
     .sub-organisation-name {
-      float: left;
+      clear: both;
+      float: none;
       width: 66.66%;
 
       h2 {
-        @include ig-core-48;
+        @include heading-48;
+        font-weight: bold;
         padding-left: $gutter-one-third;
         margin-top: $gutter;
       }
@@ -695,15 +697,22 @@
 
   .body {
     .govspeak {
+      @extend %contain-floats;
+      border-bottom: $gutter-one-sixth solid $black;
+      padding-bottom: $gutter*2;
       h2 {
         border-bottom: 0;
-        position: relative;
-        bottom: -($gutter+$gutter-half);
+        @include media(tablet) {
+          position: relative;
+          bottom: -($gutter+$gutter-half);
+        }
       }
       p, ul {
-        float: left;
-        margin-left: 33.33%;
-        padding-left: $gutter-half;
+        @include media(tablet) {
+          float: left;
+          margin-left: 33.33%;
+          padding-left: $gutter-half;
+        }
       }
     }
   }
