@@ -1,6 +1,7 @@
 .filter-block {
   h2 {
-    @include ig-core-19;
+    @include core-16;
+    padding-top: $gutter-one-third;
   }
 
   form {
@@ -145,7 +146,7 @@
     display: inline;
     .feed,
     .govdelivery {
-      @include inline-block;
+      display: inline;
     }
   }
 
@@ -182,7 +183,7 @@
   }
 
   .selections {
-    @include ig-core-19;
+    @include core-16;
   }
 
   .chosen {

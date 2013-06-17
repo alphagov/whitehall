@@ -10,6 +10,7 @@
 
     h2, h3 {
       @include core-19;
+      font-weight: bold;
       margin-top: $gutter-one-sixth;
     }
 
@@ -19,7 +20,7 @@
         float: left;
         display: block;
         list-style: none;
-        padding: 0 $gutter 0 0;
+        padding: 0 $gutter-half 0 0;
 
         @include right-to-left {
           text-align: right;
@@ -34,13 +35,15 @@
     .document-row {
       &:first-child {
         h2, h3 {
-          @include ig-core-27;
+          @include core-27;
+          font-weight: bold;
         }
       }
 
       &:nth-child(2) {
         h2, h3 {
-          @include ig-core-24;
+          @include core-24;
+          font-weight: bold;
         }
       }
     }
