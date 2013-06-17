@@ -1,13 +1,12 @@
 class Admin::WorldLocationsController < Admin::BaseController
   before_filter :load_world_location, only: [:edit, :update, :show, :features]
-  before_filter :build_mainstream_links, only: [:edit]
-  before_filter :destroy_blank_mainstream_links, only: [:create, :update]
 
   def index
     @active_world_locations, @inactive_world_locations = WorldLocation.ordered_by_name.partition { |wl| wl.active? }
   end
 
   def edit
+    @world_location.mainstream_links.build unless @world_location.mainstream_links.any?
   end
 
   def update
@@ -31,21 +30,5 @@ class Admin::WorldLocationsController < Admin::BaseController
 
   def load_world_location
     @world_location = WorldLocation.find(params[:id] || params[:world_location_id])
-  end
-
-  def build_mainstream_links
-    unless @world_location.mainstream_links.any?(&:new_record?)
-      @world_location.mainstream_links.build
-    end
-  end
-
-  def destroy_blank_mainstream_links
-    if params[:world_location][:mainstream_links_attributes]
-      params[:world_location][:mainstream_links_attributes].each do |index, link|
-        if link[:title].blank? && link[:url].blank?
-          link[:_destroy] = "1"
-        end
-      end
-    end
   end
 end

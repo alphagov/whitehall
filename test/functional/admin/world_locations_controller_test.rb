@@ -74,19 +74,4 @@ class Admin::WorldLocationsControllerTest < ActionController::TestCase
     assert_equal "http://www.gov.uk/mainstream/something", mainstream_link.url
     assert_equal "Something on mainstream", mainstream_link.title
   end
-
-  test "updating should destroy existing mainstream links if all its field are blank" do
-    world_location = create(:world_location)
-    link = create(:world_location_mainstream_link, world_location: world_location)
-
-    put :update, id: world_location, world_location: {
-      mainstream_links_attributes: {"0" =>{
-          id: link.mainstream_link.id,
-          url: "",
-          title: ""
-      }}
-    }
-
-    assert_equal 0, world_location.mainstream_links.length
-  end
 end

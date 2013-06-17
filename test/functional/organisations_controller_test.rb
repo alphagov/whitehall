@@ -791,45 +791,23 @@ class OrganisationsControllerTest < ActionController::TestCase
   end
 
   view_test "should show mainstream category links if there are some" do
-    organisation = create(:organisation)
-    link = create(:organisation_mainstream_link, organisation: organisation)
-
+    organisation = create(:organisation,)
+    mainstream_link = create(:mainstream_link, linkable: organisation)
     get :show, id: organisation
 
     assert_select '.organisation-mainstream-links' do
-      assert_select "a[href='#{link.mainstream_link.url}']", text: link.mainstream_link.title
+      assert_select "a[href='#{mainstream_link.url}']", text: mainstream_link.title
     end
   end
 
-  view_test "should not show mainstream categories on suborg pages" do
+  view_test "should not show mainstream links on suborg pages" do
     organisation = create(:organisation)
-    link = create(:organisation_mainstream_link, organisation: organisation)
+    mainstream_link = create(:mainstream_link, linkable: organisation)
     sub_organisation = create(:sub_organisation, parent_organisations: [organisation])
 
     get :show, id: sub_organisation
 
-    refute_select "a[href='#{link.mainstream_link.url}']", text: link.mainstream_link.title
-  end
-
-  view_test 'show lists only the 5 oldest mainstream links' do
-    organisation = create(:organisation)
-    link_1 = create(:mainstream_link, title: '2 days ago', created_at: 2.days.ago)
-    link_2 = create(:mainstream_link, title: '12 days ago', created_at: 12.days.ago)
-    link_3 = create(:mainstream_link, title: '1 hour ago', created_at: 1.hour.ago)
-    link_4 = create(:mainstream_link, title: '2 hours ago', created_at: 2.hours.ago)
-    link_5 = create(:mainstream_link, title: '20 minutes ago', created_at: 20.minutes.ago)
-    link_6 = create(:mainstream_link, title: '2 years ago', created_at: 2.years.ago)
-    organisation.mainstream_links = [link_1, link_2, link_3, link_4, link_5, link_6]
-    organisation.save!
-
-    get :show, id: organisation
-
-    assert_select '.organisation-mainstream-links li', count: 5
-    assert_select '.organisation-mainstream-links li:nth-child(1) a', text: '2 years ago'
-    assert_select '.organisation-mainstream-links li:nth-child(2) a', text: '12 days ago'
-    assert_select '.organisation-mainstream-links li:nth-child(3) a', text: '2 days ago'
-    assert_select '.organisation-mainstream-links li:nth-child(4) a', text: '2 hours ago'
-    assert_select '.organisation-mainstream-links li:nth-child(5) a', text: '1 hour ago'
+    refute_select "a[href='#{mainstream_link.url}']", text: mainstream_link.title
   end
 
   private

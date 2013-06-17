@@ -13,13 +13,15 @@
 <%= form.upload :image, horizontal: true, label_text: 'Item image (must be 960px by 640px)' %>
 <%= form.text_field :image_alt_text, horizontal: true, label_text: "Image description (alt text)" %>
 
-<div class="feature_links">
+<div class="js-duplicate-fields">
   <legend>Feature item links</legend>
+  <p class="alert alert-info">Up to a maximum of <%= PromotionalFeatureItem::LINK_LIMIT %> links.</p>
 
   <%= form.fields_for :links, form.object.links do |link| %>
-    <div class="feature_link well">
+    <div class="js-duplicate-fields-set well">
       <%= link.text_field :url, horizontal: true %>
       <%= link.text_field :text, horizontal: true %>
+      <%= link.hidden_field :_destroy, class: 'js-hidden-destroy' %>
     </div>
   <% end %>
 </div>

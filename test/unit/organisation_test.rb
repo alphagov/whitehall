@@ -205,6 +205,19 @@ class OrganisationTest < ActiveSupport::TestCase
     assert_equal "Wah wah", links[1].title
   end
 
+  test 'mainstream links are returned in order of creation' do
+    organisation = create(:organisation)
+    link_1 = create(:mainstream_link, linkable: organisation, title: '2 days ago', created_at: 2.days.ago)
+    link_2 = create(:mainstream_link, linkable: organisation, title: '12 days ago', created_at: 12.days.ago)
+    link_3 = create(:mainstream_link, linkable: organisation, title: '1 hour ago', created_at: 1.hour.ago)
+    link_4 = create(:mainstream_link, linkable: organisation, title: '2 hours ago', created_at: 2.hours.ago)
+    link_5 = create(:mainstream_link, linkable: organisation, title: '20 minutes ago', created_at: 20.minutes.ago)
+    link_6 = create(:mainstream_link, linkable: organisation, title: '2 years ago', created_at: 2.years.ago)
+
+    assert_equal [link_6, link_2, link_1, link_4, link_3, link_5], organisation.mainstream_links
+    assert_equal [link_6, link_2, link_1, link_4, link_3], organisation.mainstream_links.only_the_initial_set
+  end
+
   test 'should ignore blank mainstream link attributes' do
     params = {
       mainstream_links_attributes: [

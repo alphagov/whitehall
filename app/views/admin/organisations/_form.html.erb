@@ -25,8 +25,8 @@
   <fieldset>
     <legend>Associations</legend>
     <%= hidden_field_tag "organisation[parent_organisation_ids][]", "", id: "organisation_parent_organisation_ids_default" %>
-    <%= organisation_form.label :parent_organisation_ids, 'Sponsoring departments' %>
-    <%= organisation_form.select :parent_organisation_ids, options_from_collection_for_select(Organisation.departments - [organisation_form.object], 'id', 'name', organisation.parent_organisation_ids), {}, multiple: true, class: 'chzn-select', data: { placeholder: "Choose associated departments..." } %>
+    <%= organisation_form.label :parent_organisation_ids, 'Sponsoring organisations' %>
+    <%= organisation_form.select :parent_organisation_ids, options_from_collection_for_select(Organisation.all - [organisation_form.object], 'id', 'name', organisation.parent_organisation_ids), {}, multiple: true, class: 'chzn-select', data: { placeholder: "Choose parent organisations..." } %>
 
     <h3>Topics</h3>
     <% organisation_form.object.organisation_classifications.each do |ot| %>
@@ -55,10 +55,10 @@
     <%= organisation_form.text_area :about_us, class: "previewable" %>
   </fieldset>
 
-  <% if current_user.gds_editor? && @management_organisation_roles.any? %>
+  <% if current_user.gds_editor? && @organisation.management_roles.any? %>
     <fieldset id="board_member_count">
       <legend>Number of important members of the management team</legend>
-      <%= organisation_form.select :important_board_members, (1..@management_organisation_roles.length) %>
+      <%= organisation_form.select :important_board_members, (1..@organisation.management_roles.count) %>
     </fieldset>
   <% end %>
 

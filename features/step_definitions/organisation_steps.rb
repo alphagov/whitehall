@@ -80,6 +80,35 @@ Given /^I set the alternative format contact email of "([^"]*)" to "([^"]*)"$/ d
   click_button "Save"
 end
 
+When /^I add a new organisation called "([^"]*)"$/ do |organisation_name|
+  create(:topic, name: 'Jazz Bizniz')
+  create(:mainstream_category, title: 'Jazzy Bizzle')
+  OrganisationType.find_or_create_by_name('Ministerial department', analytics_prefix: 'J')
+
+  visit new_admin_organisation_path
+
+  fill_in 'Name', with: organisation_name
+  fill_in 'Acronym', with: organisation_name.split(' ').collect {|word| word.chars.first }.join
+  fill_in 'Logo formatted name', with: organisation_name
+  fill_in 'Description', with: 'Not important'
+  select 'Ministerial department', from: 'Organisation type'
+  select 'Jazz Bizniz', from: 'Topic 1'
+  select 'Jazzy Bizzle', from: 'Detailed guidance category 1'
+  within '.mainstream-links' do
+    fill_in 'Title', with: 'Mainstream link 1'
+    fill_in 'Url', with: 'http://mainstream.co.uk'
+  end
+  click_button 'Save'
+end
+
+Then /^I should be able to see "([^"]*)" in the list of organisations$/ do |organisation_name|
+  organisation = Organisation.find_by_name!(organisation_name)
+  within record_css_selector(organisation) do
+    assert page.has_content?(organisation_name)
+  end
+end
+
+
 When /^I visit the "([^"]*)" organisation$/ do |name|
   visit_organisation name
 end
@@ -343,3 +372,23 @@ When /^I stop featuring the topical event "([^"]*)" for "([^"]*)"$/ do |topic, o
   end
 end
 
+When /^I choose "([^"]*)" as a sponsoring organisation of "([^"]*)"$/ do |supporting_org_name, supported_org_name|
+  supporting_organisation = Organisation.find_by_name!(supporting_org_name)
+  supported_organisation = Organisation.find_by_name!(supported_org_name)
+
+  visit admin_organisation_path(supported_organisation)
+  click_on 'Edit'
+  select supporting_org_name, from: 'Sponsoring organisations'
+  click_on 'Save'
+end
+
+Then /^I should "([^"]*)" listed as a sponsoring organisation of "([^"]*)"$/ do |supporting_org_name, supported_org_name|
+  supporting_organisation = Organisation.find_by_name!(supporting_org_name)
+  supported_organisation = Organisation.find_by_name!(supported_org_name)
+
+  ensure_path organisation_path(supported_organisation)
+  save_and_open_page
+  within 'p.parent_organisations' do
+    assert page.has_content?(supporting_org_name)
+  end
+end

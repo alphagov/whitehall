@@ -14,7 +14,7 @@ class FatalityNotice < Announcement
 
   has_many :fatality_notice_casualties, dependent: :destroy
 
-  accepts_nested_attributes_for :fatality_notice_casualties, allow_destroy: true, reject_if: :all_blank
+  accepts_nested_attributes_for :fatality_notice_casualties, allow_destroy: true, reject_if: -> attributes { attributes['personal_details'].blank? }
 
   validates :operational_field, :roll_call_introduction, presence: true
 

@@ -77,24 +77,6 @@ class Admin::FatalityNoticesControllerTest < ActionController::TestCase
     assert_equal "Personal details", fatality_notice_casuality.personal_details
   end
 
-  test "updating should destroy existing fatality notice casualties if all its field are blank" do
-    field = create(:operational_field)
-    attributes = controller_attributes_for(:fatality_notice,
-      operational_field_id: field.id
-    )
-    fatality_notice = create(:fatality_notice, attributes)
-    casualty = create(:fatality_notice_casualty, fatality_notice: fatality_notice)
-
-    put :update, id: fatality_notice, edition: controller_attributes_for_instance(fatality_notice,
-      fatality_notice_casualties_attributes: {"0" =>{
-        id: casualty.id,
-        personal_details: "",
-      }}
-    )
-
-    assert_equal 0, fatality_notice.fatality_notice_casualties.length
-  end
-
   private
 
   def controller_attributes_for(edition_type, attributes = {})
