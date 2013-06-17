@@ -145,6 +145,19 @@ class WorldLocationTest < ActiveSupport::TestCase
     assert world_location.valid?
   end
 
+  test 'mainstream links are returned in order of creation' do
+    world_location = create(:world_location)
+    link_1 = create(:mainstream_link, linkable: world_location, title: '2 days ago', created_at: 2.days.ago)
+    link_2 = create(:mainstream_link, linkable: world_location, title: '12 days ago', created_at: 12.days.ago)
+    link_3 = create(:mainstream_link, linkable: world_location, title: '1 hour ago', created_at: 1.hour.ago)
+    link_4 = create(:mainstream_link, linkable: world_location, title: '2 hours ago', created_at: 2.hours.ago)
+    link_5 = create(:mainstream_link, linkable: world_location, title: '20 minutes ago', created_at: 20.minutes.ago)
+    link_6 = create(:mainstream_link, linkable: world_location, title: '2 years ago', created_at: 2.years.ago)
+
+    assert_equal [link_6, link_2, link_1, link_4, link_3, link_5], world_location.mainstream_links
+    assert_equal [link_6, link_2, link_1, link_4, link_3], world_location.mainstream_links.only_the_initial_set
+  end
+
   test "has removeable translations" do
     world_location = create(:world_location, translated_into: [:fr, :es])
     world_location.remove_translations_for(:fr)
