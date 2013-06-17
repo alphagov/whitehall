@@ -98,7 +98,7 @@ When /^I draft a new publication "([^"]*)" referencing the data set "([^"]*)"$/ 
 end
 
 Then /^I should see in the preview that "([^"]*)" is taken from the live data in "([^"]*)"$/ do |title, data_set_name|
-  publish force: true
+  publish(force: true)
   click_on title
   click_on "View"
   assert has_css?(".live-data a", text: data_set_name)
@@ -208,7 +208,7 @@ Then /^the new data file should not be public until the draft is published$/ do
   assert page.has_no_css?(".attachment a[href*='#{@new_attachment_data.url}']")
 
   visit admin_publication_path(pub)
-  publish force: true
+  publish(force: true)
 
   visit public_document_path(pub)
 

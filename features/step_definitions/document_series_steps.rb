@@ -1,8 +1,7 @@
 Given /^I create a series called "([^"]*)" in the "([^"]*)" organisation$/ do |name, organisation_name|
   organisation = Organisation.find_by_name!(organisation_name)
 
-  visit admin_root_path
-  click_link "Departments & agencies"
+  visit admin_organisations_path
   within record_css_selector(organisation) do
     click_link organisation_name
   end

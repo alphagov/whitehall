@@ -27,8 +27,8 @@ end
 When /^I draft a new news article "([^"]*)"$/ do |title|
   begin_drafting_news_article title: title, summary: "here's a simple summary"
   within ".images" do
-    attach_file "File", jpg_image
-    fill_in "Alt text", with: 'An alternative description'
+    attach_file "File", jpg_image, match: :first
+    fill_in "Alt text", with: 'An alternative description', match: :first
   end
   click_button "Save"
 end
@@ -51,7 +51,7 @@ When /^I publish a news article "([^"]*)" associated with "([^"]*)"$/ do |title,
   begin_drafting_news_article title: title
   select person_name, from: "Ministers"
   click_button "Save"
-  publish force: true
+  publish(force: true)
 end
 
 When /^I attempt to add the article image into the markdown$/ do

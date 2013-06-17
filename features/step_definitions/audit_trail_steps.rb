@@ -1,19 +1,3 @@
-When /^I draft and then publish a new document$/ do
-  begin_drafting_publication('An exciting new publication')
-  click_on "Save"
-  publish force: true
-  @the_publication = Publication.find_by_title('An exciting new publication')
-end
-
-Then /^I should see an audit trail describing my publishing activity on the publication$/ do
-  visit admin_publication_path(@the_publication)
-
-  within '#history' do
-    assert page.has_css?('.version', text: 'Published by '+@user.name)
-    assert page.has_css?('.version', text: 'Created by '+@user.name)
-  end
-end
-
 Given /^a document that has gone through many changes$/ do
   begin_drafting_publication('An exciting new publication')
   click_on "Save"
