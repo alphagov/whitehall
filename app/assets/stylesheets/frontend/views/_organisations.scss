@@ -309,13 +309,21 @@
     .sub-organisation-name {
       clear: both;
       float: none;
-      width: 66.66%;
+      width: 75%;
 
       h2 {
         @include heading-48;
+        clear: both;
         font-weight: bold;
-        padding-left: $gutter-one-third;
-        margin-top: $gutter;
+        margin-top: $gutter-half;
+      }
+
+      ul {
+        @extend %contain-floats;
+        li {
+          float: left;
+          margin : 0 $gutter $gutter-one-sixth 0;
+        }
       }
     }
   }
