@@ -4,6 +4,12 @@
 
   .inner-heading {
     padding: 0 $gutter-half;
+    ul {
+      margin-top: $gutter+$gutter-two-thirds;
+      li {
+        font-weight: bold;
+      }
+    }
   }
 
   .heading {
@@ -113,13 +119,14 @@
     }
   }
   .available-languages {
-    margin-bottom: $gutter-half;
+    margin-bottom: -($gutter+$gutter-one-sixth);
 
     ul {
       @extend %contain-floats;
       list-style: none;
       padding: $gutter-half 0 $gutter-one-sixth;
       border-bottom: 1px solid $border-colour;
+      margin-top: $gutter-two-thirds;
 
       li {
         float: left;
