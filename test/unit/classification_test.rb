@@ -13,9 +13,9 @@ class ClassificationTest < ActiveSupport::TestCase
     refute topic.valid?
   end
 
-  test "should be invalid without a state" do
-    topic = build(:classification, state: nil)
-    refute topic.valid?
+  test "should be current when created" do
+    topic = build(:classification)
+    assert_equal "current", topic.state
   end
 
   test "should be invalid with an unsupported state" do

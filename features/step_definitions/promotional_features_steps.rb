@@ -24,10 +24,10 @@ When /^I add a new promotional feature with a single item$/ do
 
   fill_in 'Feature title', with: 'Big Cheese'
 
-  within '.promotional_feature_item' do
+  within 'form.promotional_feature_item' do
     fill_in 'Summary',                      with: 'The Big Cheese is coming.'
-    fill_in 'Item title',                        with: 'The Big Cheese'
-    fill_in 'Item title url',                   with: 'http://big-cheese.co'
+    fill_in 'Item title (optional)',        with: 'The Big Cheese'
+    fill_in 'Item title url (optional)',    with: 'http://big-cheese.co'
     attach_file :image,    Rails.root.join('test/fixtures/big-cheese.960x640.jpg')
     fill_in 'Image description (alt text)', with: 'The Big Cheese'
   end

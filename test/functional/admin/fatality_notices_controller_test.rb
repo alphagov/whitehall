@@ -31,7 +31,7 @@ class Admin::FatalityNoticesControllerTest < ActionController::TestCase
   view_test "when creating allows assignment to operational field" do
     get :new
 
-    assert_select "form#edition_new" do
+    assert_select "form#new_edition" do
       assert_select "select[name='edition[operational_field_id]']"
     end
   end
@@ -42,7 +42,7 @@ class Admin::FatalityNoticesControllerTest < ActionController::TestCase
 
     get :edit, id: edition
 
-    assert_select "form#edition_edit" do
+    assert_select "form#edit_edition" do
       assert_select "select[name='edition[operational_field_id]']"
     end
   end

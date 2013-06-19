@@ -1,7 +1,7 @@
 class AddKeyToDocumentIdentities < ActiveRecord::Migration
   class DocumentIdentityTable < ActiveRecord::Base
     include Whitehall::RandomKey
-    set_table_name :document_identities
+    self.table_name = "document_identities"
   end
 
   def change

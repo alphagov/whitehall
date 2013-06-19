@@ -1,6 +1,6 @@
 class AddFirstPublishedAtToDocuments < ActiveRecord::Migration
   class DocumentTable < ActiveRecord::Base
-    set_table_name :documents
+    self.table_name = "documents"
   end
 
   def change

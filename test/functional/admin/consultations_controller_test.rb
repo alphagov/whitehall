@@ -32,7 +32,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
   view_test 'new displays consultation fields' do
     get :new
 
-    assert_select "form#edition_new" do
+    assert_select "form#new_edition" do
       assert_select "textarea[name='edition[summary]']"
       assert_select "select[name*='edition[opening_on']", count: 3
       assert_select "select[name*='edition[closing_on']", count: 3
@@ -46,7 +46,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
   view_test 'new displays consultation response fields' do
     get :new
 
-    assert_select "form#edition_new" do
+    assert_select "form#new_edition" do
       assert_select "textarea[name='edition[response_attributes][summary]']"
       assert_select "input[type='text'][name='edition[response_attributes][consultation_response_attachments_attributes][0][attachment_attributes][title]']"
       assert_select "input[type='text'][name='edition[response_attributes][consultation_response_attachments_attributes][0][attachment_attributes][isbn]']"
@@ -68,7 +68,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
   view_test "new should allow users to add consultation metadata to an attachment" do
     get :new
 
-    assert_select "form#edition_new" do
+    assert_select "form#new_edition" do
       assert_select "input[type=text][name='edition[edition_attachments_attributes][0][attachment_attributes][order_url]']"
       assert_select "input[type=text][name='edition[edition_attachments_attributes][0][attachment_attributes][price]']"
     end
@@ -143,7 +143,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
       }
     }
 
-    assert_select "form#edition_new" do
+    assert_select "form#new_edition" do
       assert_select "input[name='edition[response_attributes][consultation_response_attachments_attributes][0][attachment_attributes][attachment_data_attributes][file_cache]'][value$='greenpaper.pdf']"
       assert_select ".already_uploaded", text: "greenpaper.pdf already uploaded"
     end
@@ -230,7 +230,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
 
     post :create, edition: attributes
 
-    assert_select "form#edition_new" do
+    assert_select "form#new_edition" do
       assert_select "input[name='edition[consultation_participation_attributes][consultation_response_form_attributes][consultation_response_form_data_attributes][file_cache]'][value$='two-pages.pdf']"
       assert_select ".already_uploaded", text: "two-pages.pdf already uploaded"
     end
@@ -299,7 +299,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
 
     get :edit, id: consultation
 
-    assert_select "form#edition_edit" do
+    assert_select "form#edit_edition" do
       assert_select "textarea[name='edition[summary]']"
       assert_select "select[name*='edition[opening_on']", count: 3
       assert_select "select[name*='edition[closing_on']", count: 3
@@ -320,7 +320,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
 
     get :edit, id: consultation
 
-    assert_select "form#edition_edit" do
+    assert_select "form#edit_edition" do
       assert_select "a[href='#{response_form.consultation_response_form_data.file.url}']", File.basename(response_form.consultation_response_form_data.file.path)
     end
   end
@@ -369,7 +369,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
 
     get :edit, id: consultation
 
-    assert_select "form#edition_edit" do
+    assert_select "form#edit_edition" do
       assert_select "textarea[name='edition[response_attributes][summary]']", text: 'response-summary'
       assert_select "input[type='text'][name='edition[response_attributes][consultation_response_attachments_attributes][0][attachment_attributes][title]'][value='attachment-title']"
       assert_select "input[type='radio'][name='edition[response_attributes][consultation_response_attachments_attributes][0][attachment_attributes][attachment_action]']"
@@ -468,7 +468,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
       }
     )
 
-    assert_select "form#edition_edit" do
+    assert_select "form#edit_edition" do
       assert_select "input[name='edition[response_attributes][consultation_response_attachments_attributes][0][attachment_attributes][attachment_data_attributes][file_cache]'][value$='greenpaper.pdf']"
       assert_select ".already_uploaded", text: "greenpaper.pdf already uploaded"
     end
