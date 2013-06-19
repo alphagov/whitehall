@@ -10,6 +10,7 @@ class PageTitleTest < ActiveSupport::TestCase
     layouts/html-publication.html.erb
     layouts/home.html.erb
     admin/edition_audit_trail/index.html.erb
+    admin/edition_workflow/force_publish.html.erb
   ).map do |f|
     File.expand_path(Rails.root + "app/views/" + f )
   end

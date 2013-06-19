@@ -1,0 +1,16 @@
+<% extra_css_classes ||= "" %>
+<div id="forcePublishModal", class="modal <%= extra_css_classes %>">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3>Why are you force publishing this‽</h3>
+  </div>
+  <%= form_tag publish_admin_edition_path(@edition, lock_version: @edition.lock_version, force: true) do %>
+    <div class="modal-body">
+      <%= text_area_tag :reason, "", rows: 7 %>
+    </div>
+    <div class="modal-footer">
+      <%= submit_tag "Force Publish", class: "btn-primary btn-warning" %>
+    </div>
+  <% end %>
+</div>
+
