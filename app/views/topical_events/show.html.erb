@@ -17,6 +17,18 @@
           </div>
         </div>
       <% end %>
+      <aside class="meta">
+        <div class="inner-heading">
+          <dl>
+            <dt><%= t('document.headings.organisations', count: @classification.organisations.length) %>:</dt>
+            <dd>
+              <%= render  partial: 'organisations/organisations_name_list',
+                          locals: { organisations: @classification.organisations,
+                                    lead_organisations: @classification.lead_organisations } %>
+            </dd>
+          </dl>
+        </div>
+      </aside>
     </div>
   </header>
 
