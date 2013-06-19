@@ -25,17 +25,11 @@
     padding-bottom: $gutter*2;
 
     .description {
-      @include media(tablet){
-        width: 66.66%;
-        float: right;
-      }
-
-      .govspeak, .social-media-accounts {
-        @include media(tablet){
-          padding-left: $gutter-half;
+      .govspeak {
+        p, ul {
+          @include core-24;
         }
       }
-
       .social-media-accounts {
         @extend %contain-floats;
 
@@ -78,20 +72,25 @@
       }
     }
 
-    &.items-2,
+    &.items-3,
     &.items-4 {
       article {
-        @include media(tablet){
-          width: 50%;
-          float: left;
+        @include media(tablet) {
+          width: 33.33%;
+          &.item-0,
+          &.item-1 {
+            width: 50%;
+            float: left;
+          }
         }
       }
       .item-2 {
         clear: left;
       }
     }
-    &.items-3,
-    &.items-6 {
+
+    &.item-2,
+    &.items-5 {
       article {
         @include media(tablet){
           width: 33.33%;
@@ -99,28 +98,6 @@
         }
       }
       .item-3 {
-        clear: left;
-      }
-    }
-    &.items-5 {
-      article {
-        &.item-0,
-        &.item-1 {
-          @include media(tablet){
-            width: 50%;
-            float: left;
-          }
-        }
-        &.item-2,
-        &.item-3,
-        &.item-4 {
-          @include media(tablet){
-            width: 33.33%;
-            float: left;
-          }
-        }
-      }
-      .item-2 {
         clear: left;
       }
     }
