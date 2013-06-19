@@ -196,6 +196,7 @@ Whitehall::Application.routes.draw do
             post :approve_retrospectively, to: 'edition_workflow#approve_retrospectively'
             post :reject, to: 'edition_workflow#reject'
             post :publish, to: 'edition_workflow#publish'
+            get  :force_publish, to: 'edition_workflow#force_publish'
             get  :confirm_unpublish
             post :unpublish, to: 'edition_workflow#unpublish'
             post :schedule, to: 'edition_workflow#schedule'
