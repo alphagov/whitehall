@@ -35,6 +35,8 @@ class Admin::EditionWorkflowController < Admin::BaseController
       else
         enforce_permission!(:publish, @edition)
       end
+    when 'force_publish'
+      enforce_permission!(:force_publish, @edition)
     when 'unpublish'
       enforce_permission!(:unpublish, @edition)
     when 'approve_retrospectively'
@@ -73,6 +75,9 @@ class Admin::EditionWorkflowController < Admin::BaseController
         redirect_to admin_edition_path(@edition), alert: @edition.errors.full_messages.to_sentence
       end
     end
+  end
+
+  def force_publish
   end
 
   def unpublish
