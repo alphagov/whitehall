@@ -1,6 +1,6 @@
 class RemoveSslEditionVideoUrls < ActiveRecord::Migration
   class EditionTable < ActiveRecord::Base
-    set_table_name :editions
+    self.table_name = "editions"
   end
 
   def change

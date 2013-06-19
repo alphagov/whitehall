@@ -91,7 +91,7 @@ module GovspeakHelper
     return govspeak if govspeak.blank?
     govspeak.gsub(GovspeakHelper::EMBEDDED_CONTACT_REGEXP) do
       if contact = Contact.find_by_id($1)
-        render('contacts/contact.html', contact: contact)
+        render(partial: 'contacts/contact', locals: { contact: contact }, formats: ["html"])
       else
         ''
       end
@@ -150,14 +150,14 @@ module GovspeakHelper
   def govspeak_with_attachments_and_alt_format_information(govspeak, attachments = [], alternative_format_contact_email = nil)
     govspeak = govspeak.gsub(/\n{0,2}^!@([0-9]+)\s*/) do
       if attachment = attachments[$1.to_i - 1]
-        "\n\n" + render(partial: "documents/attachment.html.erb", object: attachment, locals: {alternative_format_contact_email: alternative_format_contact_email}) + "\n\n"
+        "\n\n" + render(partial: "documents/attachment", formats: :html, object: attachment, locals: {alternative_format_contact_email: alternative_format_contact_email}) + "\n\n"
       else
         "\n\n"
       end
     end
     govspeak.gsub(/\[InlineAttachment:([0-9]+)\]/) do
       if attachment = attachments[$1.to_i - 1]
-        render(partial: "documents/inline_attachment.html.erb", locals: { attachment: attachment })
+        render(partial: "documents/inline_attachment", formats: :html, locals: { attachment: attachment })
       else
         ""
       end

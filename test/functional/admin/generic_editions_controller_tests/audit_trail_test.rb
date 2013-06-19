@@ -11,7 +11,7 @@ class Admin::GenericEditionsController::AuditTrailTest < ActionController::TestC
       request.env['HTTPS'] = 'on'
       get action, id: draft_edition
 
-      assert_select ".audit-trail", text: /Created by Tom/ do
+      assert_select "#history", text: /Created by Tom/ do
         assert_select "img[src^='https']"
       end
     end

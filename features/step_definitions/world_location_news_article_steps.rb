@@ -12,19 +12,19 @@ end
 
 When /^I draft a French\-only world location news article associated with "([^"]*)"$/ do |location_name|
   world_organisation = create(:worldwide_organisation, name: "Funky Consulate in #{location_name}")
-  begin_drafting_world_location_news_article title: "French-only world locatino news article", body: 'test-body', summary: 'test-summary'
+  begin_drafting_world_location_news_article title: "French-only world location news article", body: 'test-body', summary: 'test-summary'
 
   select "Français", from: "Document language"
   select location_name, from: "Select the world locations this world location news article is about"
   select world_organisation.name, from: "Select the worldwide organisations associated with this world location news article"
   click_button "Save"
 
-  @world_location_news_article = find_world_location_news_article_in_locale!(:fr, 'French-only world locatino news article')
+  @world_location_news_article = find_world_location_news_article_in_locale!(:fr, 'French-only world location news article')
 end
 
 When /^I publish the French-only world location news article$/ do
   visit admin_edition_path(@world_location_news_article)
-  publish force: true
+  publish(force: true)
 end
 
 Then /^I should see the world location news article listed in admin with an indication that it is in French$/ do
@@ -44,10 +44,11 @@ Then /^I should only see the world location news article on the French version o
 end
 
 Then /^I should only be able to view the world location news article article in French$/ do
-  visit world_location_news_article_path(@world_location_news_article, locale: :fr)
+  visit public_document_path(@world_location_news_article, locale: :fr)
+  doc = Document.where(slug: @world_location_news_article.slug).first
   assert page.has_content?(@world_location_news_article.title)
 
-  visit world_location_news_article_path(@world_location_news_article)
+  visit public_document_path(@world_location_news_article, locale: :en)
   assert_equal 404, page.status_code
 end
 

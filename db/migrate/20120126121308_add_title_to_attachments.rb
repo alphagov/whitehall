@@ -1,6 +1,6 @@
 class AddTitleToAttachments < ActiveRecord::Migration
   class AttachmentTable < ActiveRecord::Base
-    set_table_name :attachments
+    self.table_name = "attachments"
   end
   def change
     add_column :attachments, :title, :string

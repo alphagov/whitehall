@@ -131,7 +131,7 @@ end
 
 When /^I set the imported publication's publication date to "([^"]*)"$/ do |new_publication_date|
   begin_editing_document Edition.imported.last.title
-  select_date "Publication date", with: new_publication_date
+  select_date new_publication_date, from: "Publication date"
   click_on 'Save'
 end
 
@@ -143,7 +143,7 @@ end
 
 When /^I set the imported news article's first published date to "([^"]*)"$/ do |new_first_published_date|
   begin_editing_document Edition.imported.last.title
-  select_date "First published at", with: new_first_published_date
+  select_date new_first_published_date, from: "First published at"
   click_on 'Save'
 end
 
@@ -169,7 +169,7 @@ end
 
 When /^I set the imported speech's delivered on date to "([^"]*)"$/ do |new_delivered_on_date|
   begin_editing_document Edition.imported.last.title
-  select_date "Delivered on", with: new_delivered_on_date
+  select_date new_delivered_on_date, from: "Delivered on"
   click_on 'Save'
 end
 
@@ -190,13 +190,13 @@ end
 
 When /^I set the imported consultation's opening date to "([^"]*)"$/ do |new_opening_date|
   begin_editing_document Edition.imported.last.title
-  select_date "Opening Date", with: new_opening_date
+  select_date new_opening_date, from: "Opening Date"
   click_on 'Save'
 end
 
 When /^I set the imported consultation's closing date to "([^"]*)"$/ do |new_closing_date|
   begin_editing_document Edition.imported.last.title
-  select_date "Closing Date", with: new_closing_date
+  select_date new_closing_date, from: "Closing Date"
   click_on 'Save'
 end
 
