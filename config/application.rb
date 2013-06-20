@@ -1,7 +1,15 @@
 require File.expand_path('../boot', __FILE__)
 
-require 'rails/all'
+require "rails"
 
+unless ENV["SKIP_OBSERVERS_FOR_ASSET_TASKS"].present? || ENV["DISABLE_ACTIVE_RECORD"].present?
+  require "active_record/railtie"
+end
+require "action_controller/railtie"
+require "action_mailer/railtie"
+require "active_resource/railtie"
+require "rails/test_unit/railtie"
+require "sprockets/railtie"
 
 if defined?(Bundler)
   # If you precompile assets before deploying to production, use this line
@@ -26,7 +34,8 @@ module Whitehall
     # config.plugins = [ :exception_notification, :ssl_requirement, :all ]
 
     # Activate observers that should always be running.
-    unless ENV["SKIP_OBSERVERS_FOR_ASSET_TASKS"].present?
+    # Active record will be disabled when compiling assets.
+    if defined?(ActiveRecord)
       config.active_record.observers = [
         :ministerial_role_search_index_observer,
         :policy_search_index_observer,
