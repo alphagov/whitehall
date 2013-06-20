@@ -5,7 +5,7 @@
   <% if @organisation.organisation_type.sub_organisation? %>
     <% if feature_list.any_current_features? %>
       <%= render partial: 'shared/featured',
-                 collection: feature_list.current_featured.to_a.from(0).to(4),
+                 collection: feature_list.current_featured.from(0).to(4),
                  as: :feature,
                  locals: { show_meta: true,
                            extra_class: "secondary" } %>

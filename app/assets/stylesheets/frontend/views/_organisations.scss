@@ -701,32 +701,6 @@
     }
   }
 
-  //sub orgs
-
-  .body {
-    .govspeak {
-      @extend %contain-floats;
-      border-bottom: $gutter-one-sixth solid $black;
-      padding-bottom: $gutter*2;
-      h2 {
-        border-bottom: 0;
-        @include media(tablet) {
-          position: relative;
-          bottom: -($gutter+$gutter-half);
-        }
-      }
-      p, ul {
-        @include media(tablet) {
-          float: left;
-          margin-left: 33.33%;
-          padding-left: $gutter-half;
-        }
-      }
-    }
-  }
-
-
-
   // org color bands
 
   #ministers h1,
