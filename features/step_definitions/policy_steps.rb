@@ -279,7 +279,8 @@ end
 Then /^I should see a link to the preview version of the policy "([^"]*)"$/ do |policy_title|
   policy = Policy.find_by_title!(policy_title)
   visit admin_edition_path(policy)
-  assert_match preview_document_path(policy), find(".actions a.preview_version")[:href]
+  preview_path_regexp = Regexp.new(Regexp.escape(preview_document_path(policy)).gsub(/cachebust=[0-9]+/, 'cachebust=[0-9]+'))
+  assert_match preview_path_regexp, find(".actions a.preview_version")[:href]
 end
 
 Then /^I should see the policy titled "([^"]*)" in the list of documents that need work$/ do |policy_title|
