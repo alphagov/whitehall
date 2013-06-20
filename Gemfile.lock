@@ -74,11 +74,9 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
-    capybara-webkit (1.0.0)
-      capybara (~> 2.0, >= 2.0.2)
-      json
-    carrierwave (0.5.7)
-      activesupport (~> 3.0)
+    carrierwave (0.8.0)
+      activemodel (>= 3.2.0)
+      activesupport (>= 3.2.0)
     chronic (0.6.7)
     ci_reporter (1.8.4)
       builder (>= 2.1.2)
@@ -114,6 +112,8 @@ GEM
       activesupport (>= 3.0.0)
     faraday (0.8.7)
       multipart-post (~> 1.1)
+    faye-websocket (0.4.7)
+      eventmachine (>= 0.12.0)
     friendly_id (4.0.9)
     gds-api-adapters (5.5.0)
       link_header
@@ -141,6 +141,7 @@ GEM
     hashie (2.0.5)
     hike (1.2.3)
     htmlentities (4.3.1)
+    http_parser.rb (0.5.3)
     httpauth (0.2.0)
     i18n (0.6.1)
     isbn_validation (1.1.1)
@@ -205,6 +206,10 @@ GEM
       parallel
     plek (1.1.0)
       builder
+    poltergeist (1.3.0)
+      capybara (~> 2.1.0)
+      faye-websocket (>= 0.4.4, < 0.5.0)
+      http_parser.rb (~> 0.5.3)
     polyglot (0.3.3)
     pry (0.9.12.2)
       coderay (~> 1.0.5)
@@ -333,8 +338,7 @@ DEPENDENCIES
   bootstrap-kaminari-views
   bullet
   capybara (~> 2.1.0)
-  capybara-webkit (~> 1.0.0)
-  carrierwave (= 0.5.7)
+  carrierwave (= 0.8.0)
   ci_reporter
   cucumber (~> 1.3.2)
   cucumber-rails (~> 1.3.1)
@@ -364,6 +368,7 @@ DEPENDENCIES
   nokogiri
   parallel_tests
   plek (= 1.1.0)
+  poltergeist (~> 1.3.0)
   pry-rails
   quiet_assets
   rabl

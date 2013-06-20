@@ -8,7 +8,7 @@ gem 'mysql2'
 gem 'delayed_job_active_record'
 gem 'jquery-rails', '1.0.19'
 gem 'transitions', require: ['transitions', 'active_record/transitions']
-gem 'carrierwave', '0.5.7'
+gem 'carrierwave', '0.8.0'
 gem 'govspeak', '~> 1.2.3'
 gem 'kramdown', '~> 0.13.8'
 gem 'validates_email_format_of'
@@ -78,7 +78,7 @@ group :cucumber do
   gem 'cucumber-rails', '~> 1.3.1', require: false
   gem 'launchy', '~> 2.3.0'
   gem 'capybara', '~> 2.1.0'
-  gem 'capybara-webkit', '~> 1.0.0'
+  gem 'poltergeist', '~> 1.3.0'
 end
 
 group :router do

@@ -1,10 +1,10 @@
-# static.preview SSL certificate is causing errors in Cucumber tests,
-# so we're ignoring SSL errors for now.
-Capybara.register_driver :webkit do |app|
-  Capybara::Webkit::Driver.new(app, ignore_ssl_errors: true)
+require 'capybara/poltergeist'
+# static.preview SSL certificate is causing errors in Cucumber tests, # so we're ignoring SSL errors for now.
+Capybara.register_driver :poltergeist do |app|
+  Capybara::Poltergeist::Driver.new(app, { phantomjs_options: ['--ignore-ssl-errors=yes']})
 end
+Capybara.javascript_driver = :poltergeist
 
-Capybara.javascript_driver = :webkit
 require "slimmer/test"
 
 Before('@javascript') do
