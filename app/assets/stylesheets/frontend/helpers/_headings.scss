@@ -64,6 +64,7 @@
   }
 
   .meta {
+    @extend %contain-floats;
     display: block;
     clear: both;
     margin-bottom: $gutter;
