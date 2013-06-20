@@ -90,14 +90,6 @@
 
   .mainstream-links {
     @include core-16;
-
-    h4 {
-      @include core-19;
-      @include media(desktop){
-        position: absolute;
-        left: -999em;
-      }
-    }
     ul {
       li {
         list-style: none;

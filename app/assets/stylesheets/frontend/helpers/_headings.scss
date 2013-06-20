@@ -4,12 +4,6 @@
 
   .inner-heading {
     padding: 0 $gutter-half;
-    .mainstream-links-list {
-      margin-top: $gutter+$gutter-two-thirds;
-      li {
-        font-weight: bold;
-      }
-    }
   }
 
   .heading {
@@ -54,10 +48,18 @@
   .heading-extra {
     @include media(tablet){
       float: left;
+      margin-top: $gutter;
       width: 33.33%;
       @include right-to-left {
         float: right;
       }
+    }
+  }
+
+  .mainstream-links-list {
+    margin-top: $gutter-two-thirds;
+    li {
+      font-weight: bold;
     }
   }
 
@@ -119,14 +121,11 @@
     }
   }
   .available-languages {
-    margin-bottom: -($gutter+$gutter-one-sixth);
-
     ul {
       @extend %contain-floats;
       list-style: none;
       padding: $gutter-half 0 $gutter-one-sixth;
       border-bottom: 1px solid $border-colour;
-      margin-top: $gutter-two-thirds;
 
       li {
         float: left;
