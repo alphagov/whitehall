@@ -13,7 +13,7 @@
         <div class="inner-heading">
           <%= render partial: 'shared/available_languages', locals: {object: @world_location} %>
           <h4><%= t('world_location.headings.quick_links') %></h4>
-          <ul>
+          <ul class="mainstream-links-list">
             <% @world_location.mainstream_links.only_the_initial_set.each do |link| %>
               <li><%= link_to link.title, link.url, ({rel: 'external'} if is_external?(link.url)) %></li>
             <% end %>
