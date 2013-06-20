@@ -8,26 +8,17 @@ module Whitehall::DocumentFilter
     end
 
     def announcements_search
-      filter_args =
-        standard_filter_args
-          .merge(filter_by_announcement_type)
-
+      filter_args = standard_filter_args.merge(filter_by_announcement_type)
       @results = Whitehall.government_search_client.advanced_search(filter_args)
     end
 
     def publications_search
-      filter_args =
-        standard_filter_args
-          .merge(filter_by_publication_type)
-
+      filter_args = standard_filter_args.merge(filter_by_publication_type)
       @results = Whitehall.government_search_client.advanced_search(filter_args)
     end
 
     def policies_search
-      filter_args =
-        standard_filter_args
-          .merge(search_format_types: [Policy.search_format_type])
-
+      filter_args = standard_filter_args.merge(search_format_types: [Policy.search_format_type])
       @results = Whitehall.government_search_client.advanced_search(filter_args)
     end
 
