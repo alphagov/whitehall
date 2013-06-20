@@ -8,7 +8,7 @@ module AdminEditionWorldLocationsBehaviour
       view_test "new displays document form with world locations field" do
         get :new
 
-        assert_select "form#edition_new" do
+        assert_select "form#new_edition" do
           assert_select "select[name*='edition[world_location_ids]']"
         end
       end

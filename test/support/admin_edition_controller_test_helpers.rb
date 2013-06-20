@@ -35,7 +35,7 @@ module AdminEditionControllerTestHelpers
         get :new
 
         admin_editions_path = send("admin_#{edition_type.to_s.tableize}_path")
-        assert_select "form#edition_new[action='#{admin_editions_path}']" do
+        assert_select "form#new_edition[action='#{admin_editions_path}']" do
           assert_select "input[name='edition[title]'][type='text']"
           assert_select "textarea[name='edition[summary]']"
           assert_select "textarea[name='edition[body]']"
@@ -107,7 +107,7 @@ module AdminEditionControllerTestHelpers
         get :edit, id: edition
 
         admin_edition_path = send("admin_#{edition_type}_path", edition)
-        assert_select "form#edition_edit[action='#{admin_edition_path}']" do
+        assert_select "form#edit_edition[action='#{admin_edition_path}']" do
           assert_select "input[name='edition[title]'][type='text']"
           assert_select "textarea[name='edition[body]']"
           assert_select "input[type='submit']"
@@ -218,7 +218,7 @@ module AdminEditionControllerTestHelpers
       view_test 'new should allow users to add reference metadata to an attachment' do
         get :new
 
-        assert_select "form#edition_new" do
+        assert_select "form#new_edition" do
           assert_select "input[type=text][name='edition[edition_attachments_attributes][0][attachment_attributes][isbn]']"
           assert_select "input[type=text][name='edition[edition_attachments_attributes][0][attachment_attributes][unique_reference]']"
           assert_select "input[type=text][name='edition[edition_attachments_attributes][0][attachment_attributes][command_paper_number]']"
@@ -253,7 +253,7 @@ module AdminEditionControllerTestHelpers
 
         get :edit, id: edition
 
-        assert_select "form#edition_edit" do
+        assert_select "form#edit_edition" do
           assert_select "input[type=text][name='edition[edition_attachments_attributes][0][attachment_attributes][isbn]']"
           assert_select "input[type=text][name='edition[edition_attachments_attributes][0][attachment_attributes][unique_reference]']"
           assert_select "input[type=text][name='edition[edition_attachments_attributes][0][attachment_attributes][command_paper_number]']"
@@ -307,7 +307,7 @@ module AdminEditionControllerTestHelpers
       view_test "new displays html version fields" do
         get :new
 
-        assert_select "form#edition_new" do
+        assert_select "form#new_edition" do
           assert_select "input[name='edition[html_version_attributes][title]'][type='text']"
           assert_select "textarea[name='edition[html_version_attributes][body]']"
         end
@@ -320,7 +320,7 @@ module AdminEditionControllerTestHelpers
       view_test "new displays edition image fields" do
         get :new
 
-        assert_select "form#edition_new" do
+        assert_select "form#new_edition" do
           assert_select "input[name='edition[images_attributes][0][alt_text]'][type='text']"
           assert_select "textarea[name='edition[images_attributes][0][caption]']"
           assert_select "input[name='edition[images_attributes][0][image_data_attributes][file]'][type='file']"
@@ -360,7 +360,7 @@ module AdminEditionControllerTestHelpers
       view_test "creating an edition with invalid data should still show image fields" do
         post :create, edition: controller_attributes_for(edition_type, title: "")
 
-        assert_select "form#edition_new" do
+        assert_select "form#new_edition" do
           assert_select "input[name='edition[images_attributes][0][alt_text]'][type='text']"
           assert_select "textarea[name='edition[images_attributes][0][caption]']"
           assert_select "input[name='edition[images_attributes][0][image_data_attributes][file]'][type='file']"
@@ -377,7 +377,7 @@ module AdminEditionControllerTestHelpers
 
         post :create, edition: attributes
 
-        assert_select "form#edition_new" do
+        assert_select "form#new_edition" do
           assert_select "input[name*='edition[images_attributes]'][type='file']", count: 1
         end
       end
@@ -392,7 +392,7 @@ module AdminEditionControllerTestHelpers
 
         post :create, edition: attributes
 
-        assert_select "form#edition_new" do
+        assert_select "form#new_edition" do
           assert_select "input[name='edition[images_attributes][0][alt_text]'][type='text'][value='some-alt-text']"
           assert_select "input[name='edition[images_attributes][0][image_data_attributes][file_cache]'][value$='minister-of-funk.960x640.jpg']"
           assert_select ".already_uploaded", text: "minister-of-funk.960x640.jpg already uploaded"
@@ -454,7 +454,7 @@ module AdminEditionControllerTestHelpers
 
         get :edit, id: edition
 
-        assert_select "form#edition_edit" do
+        assert_select "form#edit_edition" do
           assert_select "input[name='edition[images_attributes][0][alt_text]'][type='text'][value='blah']"
           assert_select ".image" do
             assert_select "img[src$='minister-of-funk.960x640.jpg']"
@@ -538,7 +538,7 @@ module AdminEditionControllerTestHelpers
         edition = create(edition_type)
         put :update, id: edition, edition: controller_attributes_for_instance(edition, title: "")
 
-        assert_select "form#edition_edit" do
+        assert_select "form#edit_edition" do
           assert_select "input[name='edition[images_attributes][0][image_data_attributes][file]'][type='file']"
         end
       end
@@ -554,7 +554,7 @@ module AdminEditionControllerTestHelpers
 
         put :update, id: edition, edition: attributes
 
-        assert_select "form#edition_edit" do
+        assert_select "form#edit_edition" do
           assert_select "input[name*='edition[images_attributes]'][type='file']", count: 1
         end
       end
@@ -570,7 +570,7 @@ module AdminEditionControllerTestHelpers
 
         put :update, id: edition, edition: attributes
 
-        assert_select "form#edition_edit" do
+        assert_select "form#edit_edition" do
           assert_select "input[name='edition[images_attributes][0][alt_text]'][value='some-alt-text']"
           assert_select "input[name='edition[images_attributes][0][image_data_attributes][file_cache]'][value$='minister-of-funk.960x640.jpg']"
           assert_select ".already_uploaded", text: "minister-of-funk.960x640.jpg already uploaded"
@@ -584,7 +584,7 @@ module AdminEditionControllerTestHelpers
 
         put :update, id: edition, edition: controller_attributes_for_instance(edition, lock_version: lock_version)
 
-        assert_select "form#edition_edit" do
+        assert_select "form#edit_edition" do
           assert_select "input[name='edition[images_attributes][0][alt_text]'][type='text']"
           assert_select "textarea[name='edition[images_attributes][0][caption]']"
           assert_select "input[name='edition[images_attributes][0][image_data_attributes][file]'][type='file']"
@@ -604,7 +604,7 @@ module AdminEditionControllerTestHelpers
 
         put :update, id: edition, edition: attributes
 
-        assert_select "form#edition_edit" do
+        assert_select "form#edit_edition" do
           assert_select "input[name*='edition[images_attributes]'][type='file']", count: 1
         end
       end
@@ -663,7 +663,7 @@ module AdminEditionControllerTestHelpers
 
         get :new
 
-        assert_select "form#edition_new" do
+        assert_select "form#new_edition" do
           assert_select "select[name*='edition[related_policy_ids]']" do
             assert_select "option[value='#{draft_policy.id}']"
             assert_select "option[value='#{submitted_policy.id}']"
@@ -694,7 +694,7 @@ module AdminEditionControllerTestHelpers
 
         get :edit, id: document
 
-        assert_select "form#edition_edit" do
+        assert_select "form#edit_edition" do
           assert_select "select[name*='edition[related_policy_ids]']"
         end
       end
@@ -753,7 +753,7 @@ module AdminEditionControllerTestHelpers
       view_test "new should display statistical data sets field" do
         get :new
 
-        assert_select "form#edition_new" do
+        assert_select "form#new_edition" do
           assert_select "select[name*='edition[statistical_data_set_document_ids]']"
         end
       end
@@ -776,7 +776,7 @@ module AdminEditionControllerTestHelpers
 
         get :edit, id: edition
 
-        assert_select "form#edition_edit" do
+        assert_select "form#edit_edition" do
           assert_select "select[name*='edition[statistical_data_set_document_ids]']"
         end
       end
@@ -812,7 +812,7 @@ module AdminEditionControllerTestHelpers
       view_test "new should display edition organisations field" do
         get :new
 
-        assert_select "form#edition_new" do
+        assert_select "form#new_edition" do
           assert_select "select[name*='edition[lead_organisation_ids][]']"
           assert_select "select[name*='edition[supporting_organisation_ids][]']"
         end
@@ -847,7 +847,7 @@ module AdminEditionControllerTestHelpers
 
         get :edit, id: edition
 
-        assert_select "form#edition_edit" do
+        assert_select "form#edit_edition" do
           assert_select "select[name*='edition[lead_organisation_ids][]']"
           assert_select "select[name*='edition[supporting_organisation_ids][]']"
         end
@@ -906,7 +906,7 @@ module AdminEditionControllerTestHelpers
       view_test "new should display topics field" do
         get :new
 
-        assert_select "form#edition_new" do
+        assert_select "form#new_edition" do
           assert_select "select[name*='edition[topic_ids]']"
         end
       end
@@ -929,7 +929,7 @@ module AdminEditionControllerTestHelpers
 
         get :edit, id: edition
 
-        assert_select "form#edition_edit" do
+        assert_select "form#edit_edition" do
           assert_select "select[name*='edition[topic_ids]']"
         end
       end
@@ -984,7 +984,7 @@ module AdminEditionControllerTestHelpers
       view_test "new should display edition role appointments field" do
         get :new
 
-        assert_select "form#edition_new" do
+        assert_select "form#new_edition" do
           assert_select "select[name*='edition[role_appointment_ids]']"
         end
       end
@@ -1007,7 +1007,7 @@ module AdminEditionControllerTestHelpers
 
         get :edit, id: edition
 
-        assert_select "form#edition_edit" do
+        assert_select "form#edit_edition" do
           assert_select "select[name*='edition[role_appointment_ids]']"
         end
       end
@@ -1047,7 +1047,7 @@ module AdminEditionControllerTestHelpers
       view_test "new should display edition ministerial roles field" do
         get :new
 
-        assert_select "form#edition_new" do
+        assert_select "form#new_edition" do
           assert_select "select[name*='edition[ministerial_role_ids]']"
         end
       end
@@ -1070,7 +1070,7 @@ module AdminEditionControllerTestHelpers
 
         get :edit, id: edition
 
-        assert_select "form#edition_edit" do
+        assert_select "form#edit_edition" do
           assert_select "select[name*='edition[ministerial_role_ids]']"
         end
       end
@@ -1132,7 +1132,7 @@ module AdminEditionControllerTestHelpers
         get :new
 
         admin_editions_path = send("admin_#{edition_type.to_s.tableize}_path")
-        assert_select "form#edition_new[action='#{admin_editions_path}']" do
+        assert_select "form#new_edition[action='#{admin_editions_path}']" do
           assert_select "label[for=edition_first_published_at]", text: "First published at (leave blank to use the publication time of this edition)"
           assert_select "select[name*='edition[first_published_at']", count: 5
         end
@@ -1144,7 +1144,7 @@ module AdminEditionControllerTestHelpers
         get :edit, id: edition
 
         admin_edition_path = send("admin_#{edition_type}_path", edition)
-        assert_select "form#edition_edit[action='#{admin_edition_path}']" do
+        assert_select "form#edit_edition[action='#{admin_edition_path}']" do
           assert_select "label[for=edition_first_published_at]", text: "First published at (leave blank to use the publication time of this edition)"
           assert_select "select[name*='edition[first_published_at']", count: 5
         end
@@ -1229,7 +1229,7 @@ module AdminEditionControllerTestHelpers
         get :new
 
         admin_editions_path = send("admin_#{edition_type}s_path")
-        assert_select "form#edition_new[action='#{admin_editions_path}']" do
+        assert_select "form#new_edition[action='#{admin_editions_path}']" do
           assert_select "input[name*='edition[related_mainstream_content_url]']"
           assert_select "input[name*='edition[related_mainstream_content_title]']"
           assert_select "input[name*='edition[additional_related_mainstream_content_url]']"
@@ -1242,7 +1242,7 @@ module AdminEditionControllerTestHelpers
         get :edit, id: edition
 
         admin_editions_path = send("admin_#{edition_type}_path", edition)
-        assert_select "form#edition_edit[action='#{admin_editions_path}']" do
+        assert_select "form#edit_edition[action='#{admin_editions_path}']" do
           assert_select "input[name*='edition[related_mainstream_content_url]']"
           assert_select "input[name*='edition[related_mainstream_content_title]']"
           assert_select "input[name*='edition[additional_related_mainstream_content_url]']"
@@ -1323,7 +1323,7 @@ module AdminEditionControllerTestHelpers
       view_test "when creating allow selection of alternative format provider for #{edition_type}" do
         get :new
 
-        assert_select "form#edition_new" do
+        assert_select "form#new_edition" do
           assert_select "select[name='edition[alternative_format_provider_id]']"
         end
       end
@@ -1333,7 +1333,7 @@ module AdminEditionControllerTestHelpers
 
         get :edit, id: draft
 
-        assert_select "form#edition_edit" do
+        assert_select "form#edit_edition" do
           assert_select "select[name='edition[alternative_format_provider_id]']"
         end
       end
@@ -1357,7 +1357,7 @@ module AdminEditionControllerTestHelpers
       view_test "when creating allows assignment to document series" do
         get :new
 
-        assert_select "form#edition_new" do
+        assert_select "form#new_edition" do
           assert_select "select[name='edition[document_series_ids][]']"
         end
       end
@@ -1368,7 +1368,7 @@ module AdminEditionControllerTestHelpers
 
         get :edit, id: edition
 
-        assert_select "form#edition_edit" do
+        assert_select "form#edit_edition" do
           assert_select "select[name='edition[document_series_ids][]']"
         end
       end
@@ -1417,7 +1417,7 @@ module AdminEditionControllerTestHelpers
 
         get :edit, id: publication
 
-        assert_select "form#edition_edit" do
+        assert_select "form#edit_edition" do
           assert_select "input[name='edition[access_limited]'][type=checkbox]"
           assert_select "input[name='edition[access_limited]'][type=checkbox][checked=checked]", count: 0
         end
@@ -1452,7 +1452,7 @@ module AdminEditionControllerTestHelpers
 
         get :edit, id: publication
 
-        assert_select "form#edition_edit" do
+        assert_select "form#edit_edition" do
           assert_select "input[name='edition[relevant_to_local_government]'][type=checkbox]"
           assert_select "input[name='edition[relevant_to_local_government]'][type=checkbox][checked=checked]", count: 0
         end
@@ -1474,7 +1474,7 @@ module AdminEditionControllerTestHelpers
       view_test "new should display topical events field" do
         get :new
 
-        assert_select "form#edition_new" do
+        assert_select "form#new_edition" do
           assert_select "select[name*='edition[topical_event_ids]']"
         end
       end
@@ -1497,7 +1497,7 @@ module AdminEditionControllerTestHelpers
 
         get :edit, id: edition
 
-        assert_select "form#edition_edit" do
+        assert_select "form#edit_edition" do
           assert_select "select[name*='edition[topical_event_ids]']"
         end
       end
@@ -1547,7 +1547,7 @@ module AdminEditionControllerTestHelpers
       view_test "new should display worldwide organisations field" do
         get :new
 
-        assert_select "form#edition_new" do
+        assert_select "form#new_edition" do
           assert_select "select[name*='edition[worldwide_organisation_ids]']"
         end
       end
@@ -1596,7 +1596,7 @@ module AdminEditionControllerTestHelpers
       view_test "new should display worldwide priorities field" do
         get :new
 
-        assert_select "form#edition_new" do
+        assert_select "form#new_edition" do
           assert_select "select[name*='edition[worldwide_priority_ids]']"
         end
       end

@@ -23,7 +23,7 @@ class Admin::SpeechesControllerTest < ActionController::TestCase
   view_test "new displays speech fields" do
     get :new
 
-    assert_select "form#edition_new" do
+    assert_select "form#new_edition" do
       assert_select "select[name='edition[speech_type_id]']"
       assert_select "select[name='edition[role_appointment_id]']"
       assert_select "select[name*='edition[delivered_on']", count: 5

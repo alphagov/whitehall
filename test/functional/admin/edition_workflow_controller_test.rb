@@ -102,7 +102,7 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
   end
 
   test 'publish redirects back to the edition with an error message if a stale object error is thrown' do
-    @edition.stubs(:publish_as).raises(ActiveRecord::StaleObjectError)
+    @edition.stubs(:publish_as).raises(ActiveRecord::StaleObjectError.new(@edition, :publish_as))
     post :publish, id: @edition, lock_version: 1
     assert_redirected_to admin_policy_path(@edition)
     assert_equal 'This document has been edited since you viewed it; you are now viewing the latest version', flash[:alert]
@@ -152,7 +152,7 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
   end
 
   test 'schedule redirects back to the edition with an error message if a stale object error is thrown' do
-    @edition.stubs(:schedule_as).raises(ActiveRecord::StaleObjectError)
+    @edition.stubs(:schedule_as).raises(ActiveRecord::StaleObjectError.new(@edition, :schedule))
     post :schedule, id: @edition, lock_version: 1
     assert_redirected_to admin_policy_path(@edition)
     assert_equal 'This document has been edited since you viewed it; you are now viewing the latest version', flash[:alert]
@@ -191,7 +191,7 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
   end
 
   test 'unschedule redirects back to the edition with an error message if a stale object error is thrown' do
-    @edition.stubs(:unschedule_as).raises(ActiveRecord::StaleObjectError)
+    @edition.stubs(:unschedule_as).raises(ActiveRecord::StaleObjectError.new(@edition, :unschedule))
     post :unschedule, id: @edition, lock_version: 1
     assert_redirected_to admin_policy_path(@edition)
     assert_equal 'This document has been edited since you viewed it; you are now viewing the latest version', flash[:alert]
@@ -224,7 +224,7 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
   end
 
   test 'submit redirects back to the edition with an error message if a stale object error is thrown' do
-    @edition.stubs(:submit!).raises(ActiveRecord::StaleObjectError)
+    @edition.stubs(:submit!).raises(ActiveRecord::StaleObjectError.new(@edition, :submit!))
     post :submit, id: @edition, lock_version: 1
     assert_redirected_to admin_policy_path(@edition)
     assert_equal 'This document has been edited since you viewed it; you are now viewing the latest version', flash[:alert]
@@ -299,7 +299,7 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
   end
 
   test 'reject redirects back to the edition with an error message if a stale object error is thrown' do
-    @edition.stubs(:reject!).raises(ActiveRecord::StaleObjectError)
+    @edition.stubs(:reject!).raises(ActiveRecord::StaleObjectError.new(@edtion, :reject!))
     post :reject, id: @edition, lock_version: 1
     assert_redirected_to admin_policy_path(@edition)
     assert_equal 'This document has been edited since you viewed it; you are now viewing the latest version', flash[:alert]
@@ -348,7 +348,7 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
   end
 
   test 'approve_retrospectively redirects back to the edition with an error message if a stale object error is thrown' do
-    @edition.stubs(:approve_retrospectively_as).raises(ActiveRecord::StaleObjectError)
+    @edition.stubs(:approve_retrospectively_as).raises(ActiveRecord::StaleObjectError.new(@edition, :approve_retrospectively_as))
     post :approve_retrospectively, id: @edition, lock_version: 1
     assert_redirected_to admin_policy_path(@edition)
     assert_equal 'This document has been edited since you viewed it; you are now viewing the latest version', flash[:alert]
@@ -410,7 +410,7 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
 
   test 'unpublish redirects back to the edition with an error message if a stale object error is thrown' do
     controller.stubs(:can?).with(:unpublish, @edition).returns(true)
-    @edition.stubs(:unpublish_as).raises(ActiveRecord::StaleObjectError)
+    @edition.stubs(:unpublish_as).raises(ActiveRecord::StaleObjectError.new(@edition, :unpublish_as))
     post :unpublish, id: @edition, lock_version: 1
     assert_redirected_to admin_policy_path(@edition)
     assert_equal 'This document has been edited since you viewed it; you are now viewing the latest version', flash[:alert]
@@ -458,7 +458,7 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
   end
 
   test 'convert_to_draft redirects back to the edition with an error message if a stale object error is thrown' do
-    @edition.stubs(:convert_to_draft!).raises(ActiveRecord::StaleObjectError)
+    @edition.stubs(:convert_to_draft!).raises(ActiveRecord::StaleObjectError.new(@edition, :convert_to_draft!))
     post :convert_to_draft, id: @edition, lock_version: 1
     assert_redirected_to admin_policy_path(@edition)
     assert_equal 'This document has been edited since you viewed it; you are now viewing the latest version', flash[:alert]

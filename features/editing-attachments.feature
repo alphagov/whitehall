@@ -21,7 +21,6 @@ Feature: Editing attachments
 
   Scenario: Remember uploaded file after validation failure
     Given I attempt to create an invalid publication with an attachment
-
     When I correct the invalid information for the publication
     Then I should see a link to the PDF attachment
 
