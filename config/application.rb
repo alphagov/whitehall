@@ -35,7 +35,7 @@ module Whitehall
 
     # Activate observers that should always be running.
     # Active record will be disabled when compiling assets.
-    if defined?(ActiveRecord)
+    if config.respond_to?(:active_record)
       config.active_record.observers = [
         :ministerial_role_search_index_observer,
         :policy_search_index_observer,
