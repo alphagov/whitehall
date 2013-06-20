@@ -87,7 +87,7 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
   view_test "new should display policy team field" do
     get :new
 
-    assert_select "form#new_edition" do
+    assert_select "form#edition_new" do
       assert_select "select[name='edition[policy_team_ids]']"
     end
   end

@@ -17,7 +17,7 @@ Given /^a published statistical data set "([^"]*)"$/ do |data_set_title|
 end
 
 When /^I follow the link to the "([^"]*)" document series$/ do |document_series_name|
-  within find('.document-series', match: :first) do
+  within('.document-series') do
     click_link document_series_name
   end
 end

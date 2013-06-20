@@ -9,37 +9,27 @@ module DocumentHelper
   end
 
   def set_lead_organisation_on_document(organisation, order = 1)
-    select organisation.name, from: "edition_lead_organisation_ids_#{order}"
+    if has_css?("select#edition_lead_organisation_ids_#{order}")
+      select organisation.name, from: "edition_lead_organisation_ids_#{order}"
+    end
   end
 
   def begin_drafting_document(options)
     if Organisation.count == 0
       create(:organisation)
     end
-    visit admin_root_path
-
-    # Make sure the dropdown is visible first, otherwise Capybara won't see the links
-    find('li.create-new strong', text: '+').click
-    within 'li.create-new' do
-      click_link options[:type].titleize
+    visit admin_editions_path
+    click_link "Create #{options[:type].titleize}"
+    fill_in "Title", with: options[:title]
+    fill_in "Body", with: options[:body] || "Any old iron"
+    fill_in "Summary", with: options[:summary] || 'one plus one euals two!'
+    fill_in_change_note_if_required
+    set_lead_organisation_on_document(Organisation.first)
+    if options[:alternative_format_provider]
+      select options[:alternative_format_provider].name, from: "edition_alternative_format_provider_id"
     end
-
-    within 'form' do
-      fill_in "edition_title", with: options[:title]
-      fill_in "edition_body", with: options[:body] || "Any old iron"
-      fill_in "edition_summary", with: options[:summary] || 'one plus one euals two!'
-      fill_in_change_note_if_required
-
-      unless options[:type] == 'world_location_news_article'
-        set_lead_organisation_on_document(Organisation.first)
-      end
-
-      if options[:alternative_format_provider]
-        select options[:alternative_format_provider].name, from: "edition_alternative_format_provider_id"
-      end
-      if options[:primary_mainstream_category]
-        select options[:primary_mainstream_category].title, from: "Primary detailed guidance category"
-      end
+    if options[:primary_mainstream_category]
+      select options[:primary_mainstream_category].title, from: "Primary detailed guidance category"
     end
   end
 
@@ -64,8 +54,8 @@ module DocumentHelper
 
   def begin_drafting_consultation(options)
     begin_drafting_document(options.merge(type: "consultation"))
-    select_date 10.days.from_now.to_s, from: "Opening Date"
-    select_date 40.days.from_now.to_s, from: "Closing Date"
+    select_date "Opening Date", with: 10.days.from_now.to_s
+    select_date "Closing Date", with: 40.days.from_now.to_s
   end
 
   def begin_drafting_world_location_news_article(options)
@@ -92,7 +82,7 @@ module DocumentHelper
     begin_drafting_document options.merge(type: 'speech', summary: "Some summary of the content")
     select speech_type.name, from: "Type"
     select "Colonel Mustard, Attorney General", from: "Speaker"
-    select_date 1.day.ago.to_s, from: "Delivered on"
+    select_date "Delivered on", with: 1.day.ago.to_s
     fill_in "Location", with: "The Drawing Room"
   end
 
@@ -109,7 +99,7 @@ module DocumentHelper
   end
 
   def fill_in_publication_fields
-    select_date "2010-01-01", from: "Publication date"
+    select_date "Publication date", with: "2010-01-01"
     select "Research and analysis", from: "Publication type"
   end
 
@@ -130,7 +120,7 @@ module DocumentHelper
 
   def publish(options = {})
     if options[:force]
-      click_link "Force Publish"
+      click_on "Force Publish"
       page.has_css?("#forcePublishModal", visible: true)
       within '#forcePublishModal' do
         fill_in 'reason', with: "because"

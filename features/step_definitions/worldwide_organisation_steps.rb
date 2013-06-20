@@ -34,6 +34,7 @@ end
 Then /^I should see the(?: updated)? worldwide organisation information on the public website$/ do
   worldwide_organisation = WorldwideOrganisation.last
   visit worldwide_organisation_path(worldwide_organisation)
+  assert page.has_content?(worldwide_organisation.logo_formatted_name)
   assert page.has_css?(".description strong", text: "organisation")
   assert page.has_css?("#our-services h2", text: 'Passport renewals')
 end
@@ -122,9 +123,7 @@ Then /^the "([^"]*)" office details should be shown on the public website$/ do |
 
   within "#{record_css_selector(worldwide_office)}.contact" do
     assert page.has_css?("h2", text: worldwide_office.contact.title)
-    within find('.vcard') do
-      assert page.has_content?(worldwide_office.contact.street_address)
-    end
+    assert page.has_css?('.vcard', text: worldwide_office.contact.street_address)
     assert page.has_css?('.tel', text: worldwide_office.contact.contact_numbers.first.number)
   end
 end

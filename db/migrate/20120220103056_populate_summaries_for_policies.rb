@@ -1,6 +1,6 @@
 class PopulateSummariesForPolicies < ActiveRecord::Migration
   class DocumentTable < ActiveRecord::Base
-    self.table_name = "documents"
+    set_table_name :documents
   end
   class PolicyTable < DocumentTable
   end

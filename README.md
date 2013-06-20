@@ -9,7 +9,8 @@ user-friendly manner. Documention can be found on [rdoc](http://rdoc.info/github
 
 ### Pre-requisites
 
-* Ruby >= 1.9.3
+* Ruby >= 1.9.2 (we have run it successfully against 1.9.2-p290 and
+  1.9.3-p0)
 * Rubygems and Bundler
 * Mysql
 * Imagemagick and Ghostscript (for generating thumbnails of uploaded
@@ -51,11 +52,21 @@ Note that using `bowler` or `foreman` will automatically use the
 
 ### Getting a copy of live data
 
-See the alphagov/development repo for the replication script
+There's a capistrano task which will download a dump of the mysql
+database and load it on your local machine:
+
+    cap db:import
+
+To use it, go to the `whitehall` directory in
+`alphagov-deployment` and then do:
+
+    $ SSH_USER=$USER DEPLOY_TO=production bundle exec cap db:import
+
+this will load data from production into your local database.
 
 ### Running the server locally
 
-    $ bundle exec rails s
+    $ script/rails s
 
 ## Creating new users in Production
 

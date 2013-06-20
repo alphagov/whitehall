@@ -26,7 +26,7 @@ FactoryGirl.define do
       lead_organisations { organisations }
     end
     creator
-    sequence(:title) { |index| "edition-title-#{index}" }
+    title "edition-title"
     body "edition-body"
     change_note "change-note"
     summary 'edition-summary'

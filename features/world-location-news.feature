@@ -38,6 +38,10 @@ Feature: World location news for people local to countries
     When I draft a valid world location news article "Beirut News"
     Then the world location news article "Beirut News" should have been created
 
+  Scenario: Cannot associate normal articles with a worldwide priority
+    When I draft a new news article "Normal news"
+    Then I cannot associate "Normal News" with worldwide priorities
+
   Scenario: Associate a world location news article with a worldwide organisation
     Given the worldwide organisation "Spanish Department" exists
     When I draft a valid world location news article "Spanish News"

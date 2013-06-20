@@ -201,6 +201,7 @@ Feature: Importing new editions
 
   Scenario: Importing speeches with blank delivered on means it must be filled in later, along with the deliverer
     Given a person called "Joe Bloggs"
+    And "Joe Bloggs" is the "Summer Intern" for the "Department for Transport"
     When I import the following data as CSV as "Speech" for "Department for Transport":
       """
       old_url,title,summary,body,organisation,policy_1,type,delivered_by,delivered_on,event_and_location,country_1

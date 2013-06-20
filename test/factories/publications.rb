@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :publication, class: Publication, parent: :edition do
-    sequence(:title) { |index| "publication-title-#{index}" }
+    title "publication-title"
     body  "publication-body"
     summary "publication-summary"
     publication_date { 10.days.ago.to_date }

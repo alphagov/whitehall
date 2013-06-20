@@ -48,10 +48,6 @@ class Locale < Struct.new(:code)
     I18n.t("language_names.#{code}", locale: ENGLISH_LOCALE_CODE)
   end
 
-  def native_and_english_language_name
-    "#{native_language_name} (#{english_language_name})"
-  end
-
   def rtl?
     I18n.t("i18n.direction", locale: code, default: "ltr") == "rtl"
   end

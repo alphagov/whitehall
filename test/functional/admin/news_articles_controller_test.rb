@@ -29,7 +29,7 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
   view_test "new displays news article fields" do
     get :new
 
-    assert_select "form#new_edition" do
+    assert_select "form#edition_new" do
       assert_select "select[name*='edition[news_article_type_id']"
     end
   end

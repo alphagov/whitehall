@@ -1,6 +1,6 @@
 When /^I create a fatality notice titled "([^"]*)" in the field "([^"]*)"$/ do |title, field|
   draft_fatality_notice(title, field)
-  publish(force: true)
+  publish force: true
 end
 
 Then /^the fatality notice should be visible on the public site$/ do
@@ -31,7 +31,7 @@ When /^I link the minister "([^"]*)" to the fatality notice$/ do |minister_name|
   select minister_name, from: "Ministers"
   check "edition_minor_change"
   click_button "Save"
-  publish(force: true)
+  publish force: true
 end
 
 Then /^I should see the minister's name listed at the top$/ do

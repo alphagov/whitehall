@@ -45,6 +45,8 @@ class Admin::EditionsController < Admin::BaseController
     else
       redirect_to default_filters
     end
+  rescue ActionController::RoutingError
+    redirect_to state: :draft
   end
 
   def show

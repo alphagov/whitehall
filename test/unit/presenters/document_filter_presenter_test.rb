@@ -15,7 +15,7 @@ class DocumentFilterPresenterTest < PresenterTestCase
   test 'json provides pagination info' do
     @filter.documents.stubs(:current_page).returns(2)
     @filter.documents.stubs(:count).returns(45)
-    @filter.documents.stubs(:total_pages).returns(3)
+    @filter.documents.stubs(:num_pages).returns(3)
     json = JSON.parse(DocumentFilterPresenter.new(@filter, @view_context).to_json)
     assert_equal 45, json['count']
     assert_equal 2, json['current_page']

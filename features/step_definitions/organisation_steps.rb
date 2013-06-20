@@ -92,8 +92,8 @@ When /^I add a new organisation called "([^"]*)"$/ do |organisation_name|
   fill_in 'Logo formatted name', with: organisation_name
   fill_in 'Description', with: 'Not important'
   select 'Ministerial department', from: 'Organisation type'
-  select 'Jazz Bizniz', from: 'organisation_topic_ids_0'
-  select 'Jazzy Bizzle', from: 'organisation_mainstream_category_ids_0'
+  select 'Jazz Bizniz', from: 'Topic 1'
+  select 'Jazzy Bizzle', from: 'Detailed guidance category 1'
   within '.mainstream-links' do
     fill_in 'Title', with: 'Mainstream link 1'
     fill_in 'Url', with: 'http://mainstream.co.uk'
@@ -114,7 +114,7 @@ When /^I visit the "([^"]*)" organisation$/ do |name|
 end
 
 When /^I feature the news article "([^"]*)" for "([^"]*)"$/ do |news_article_title, organisation_name|
-  step %%I feature the news article "#{news_article_title}" for "#{organisation_name}" with image "minister-of-funk.960x640.jpg"%
+  When %%I feature the news article "#{news_article_title}" for "#{organisation_name}" with image "minister-of-funk.960x640.jpg"%
 end
 
 When /^I feature the news article "([^"]*)" for "([^"]*)" with image "([^"]*)"$/ do |news_article_title, organisation_name, image_filename|
@@ -129,7 +129,7 @@ When /^I feature the news article "([^"]*)" for "([^"]*)" with image "([^"]*)"$/
     click_link "Feature"
   end
   attach_file "Select an image to be shown when featuring", Rails.root.join("test/fixtures/#{image_filename}")
-  fill_in :feature_alt_text, with: "An accessible description of the image"
+  fill_in :alt_text, with: "An accessible description of the image"
   click_button "Save"
 end
 
@@ -358,7 +358,7 @@ When /^I feature the topical event "([^"]*)" for "([^"]*)" with image "([^"]*)"$
     click_link "Feature"
   end
   attach_file "Select an image to be shown when featuring", Rails.root.join("test/fixtures/#{image_filename}")
-  fill_in :feature_alt_text, with: "An accessible description of the image"
+  fill_in :alt_text, with: "An accessible description of the image"
   click_button "Save"
 end
 

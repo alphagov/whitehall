@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :classification do
     sequence(:name) { |index| "classification-#{index}" }
-    description 'Classifcation description'
+    description { Faker::Lorem.sentence }
   end
 end

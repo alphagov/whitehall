@@ -13,7 +13,6 @@ module Edition::RelatedPolicies
 
     # Ensure that when we set policy ids we don't remove other types of edition from the array
     define_method(:related_policy_ids=) do |policy_ids|
-      policy_ids = Array.wrap(policy_ids).reject(&:blank?)
       new_policies = policy_ids.map {|id| Policy.find(id).document }
       other_related_documents = self.related_documents.reject { |document| document.latest_edition.is_a?(Policy) }
 
@@ -60,7 +59,9 @@ module Edition::RelatedPolicies
     end
   end
 
-  def search_index
-    super.merge("topics" => topics.map(&:slug)) {|k, ov, nv| ov + nv}
+  module InstanceMethods
+    def search_index
+      super.merge("topics" => topics.map(&:slug)) {|k, ov, nv| ov + nv}
+    end
   end
 end

@@ -7,7 +7,7 @@ class Api::PagePresenter < Struct.new(:page, :context)
       next_page_url: next_page_url,
       current_page: page.current_page,
       total: page.total_count,
-      pages: page.total_pages,
+      pages: page.num_pages,
       page_size: page.limit_value,
       start_index: start_index
     }.reject { |k, v| v.nil? }

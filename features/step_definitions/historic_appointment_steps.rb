@@ -50,7 +50,7 @@ end
 
 When /^I view the most recent past prime minister$/ do
   within '#modern-appointments' do
-    find('a', text: @most_recent_appointment.person.name).click
+    click_on @most_recent_appointment.person.name
   end
 end
 

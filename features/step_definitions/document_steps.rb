@@ -78,7 +78,7 @@ end
 Given /^a force published (document|publication|policy|news article|consultation|speech) "([^"]*)" was produced by the "([^"]*)" organisation$/ do |document_type, title, organisation_name|
   organisation = Organisation.find_by_name!(organisation_name)
   document_type = 'policy' if document_type == 'document'
-  edition = create("draft_#{document_class(document_type).name.underscore}".to_sym, title: title, organisations: [organisation])
+  create("draft_#{document_class(document_type).name.underscore}".to_sym, title: title, organisations: [organisation])
   visit admin_editions_path(state: :draft)
   click_link title
   publish(force: true)
@@ -128,16 +128,10 @@ When /^I publish (#{THE_DOCUMENT})$/ do |edition|
 end
 
 When /^someone publishes (#{THE_DOCUMENT})$/ do |edition|
-  as_user(create(:departmental_editor)) do
+  random_editor = create(:departmental_editor)
+  as_user(random_editor) do
     visit_document_preview edition.title
     publish(force: true)
-  end
-end
-
-When /^someone submits (#{THE_DOCUMENT})$/ do |edition|
-  as_user(create(:departmental_editor)) do
-    visit_document_preview edition.title
-    click_button "Submit"
   end
 end
 
@@ -202,14 +196,17 @@ Then /^I should not see the policy "([^"]*)" in the list of draft documents$/ do
 end
 
 Then /^(#{THE_DOCUMENT}) should be visible to the public$/ do |edition|
+  visit publications_path
   css_selector = record_css_selector(edition)
   case edition
   when Publication
-    visit publications_path
+    click_link "Publications"
   when NewsArticle, Speech
-    visit announcements_path
+    click_link "Announcements"
   when Consultation
-    visit consultations_path
+    click_link "Publications"
+    select "Consultations", from: "Publication type"
+    click_button "Refresh"
   when Policy
     visit policies_path
   when DetailedGuide
@@ -218,7 +215,7 @@ Then /^(#{THE_DOCUMENT}) should be visible to the public$/ do |edition|
   when WorldwidePriority
     visit worldwide_priorities_path
   else
-    raise "Don't know where to go for #{edition.class.name}s"
+    raise "Don't know what to click on for #{edition.class.name}s"
   end
   assert page.has_css?(css_selector, text: edition.title)
 end
@@ -280,8 +277,8 @@ Then /^I should see in the preview that "([^"]*)" does have an admin link to the
 end
 
 Then /^I should see the conflict between the (publication|policy|news article|consultation|speech) titles "([^"]*)" and "([^"]*)"$/ do |document_type, new_title, latest_title|
-  assert_equal new_title, find(".conflicting.new #edition_title").value
-  assert page.has_css?(".conflicting.latest .document .title", text: latest_title)
+  assert page.has_css?(".conflicting.new #edition_title", value: new_title)
+  assert page.has_css?(".conflicting.latest .document .title", value: latest_title)
 end
 
 Then /^my attempt to publish "([^"]*)" should fail$/ do |title|

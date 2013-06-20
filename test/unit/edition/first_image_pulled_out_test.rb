@@ -4,7 +4,11 @@ class Edition::FirstImagePulledOutTest < ActiveSupport::TestCase
   include ActionDispatch::TestProcess
 
   def edition_with_first_image_pulled_out(options = {})
-    edition = build(:draft_news_article, options)
+    edition = build(:edition, options)
+    class << edition
+      include Edition::FirstImagePulledOut
+    end
+    edition
   end
 
   test "reports that the first image is not available for adding inline" do

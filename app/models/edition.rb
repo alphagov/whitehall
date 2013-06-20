@@ -505,21 +505,21 @@ class Edition < ActiveRecord::Base
     errors_as_draft.empty?
   end
 
-  attr_accessor :trying_to_convert_to_draft
-
   def errors_as_draft
     if imported?
       begin
-        self.trying_to_convert_to_draft = true
+        self.apply_any_extra_validations_when_converting_from_imported_to_draft
         self.try_draft
         return valid? ? [] : errors
       ensure
         self.back_to_imported
-        self.trying_to_convert_to_draft = false
       end
     else
       valid? ? [] : errors
     end
+  end
+
+  def apply_any_extra_validations_when_converting_from_imported_to_draft
   end
 
   def set_public_timestamp

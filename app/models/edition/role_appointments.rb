@@ -18,7 +18,9 @@ module Edition::RoleAppointments
     true
   end
 
-  def search_index
-    super.merge("people" => role_appointments.map(&:slug))
+  module InstanceMethods
+    def search_index
+      super.merge("people" => role_appointments.map(&:slug))
+    end
   end
 end

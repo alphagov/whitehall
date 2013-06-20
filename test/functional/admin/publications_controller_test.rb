@@ -33,7 +33,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
   view_test "new displays publication fields" do
     get :new
 
-    assert_select "form#new_edition" do
+    assert_select "form#edition_new" do
       assert_select "select[name*='edition[publication_date']", count: 5
       assert_select "select[name='edition[publication_type_id]']"
     end
@@ -50,7 +50,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
   view_test "new should allow users to add publication metadata to an attachment" do
     get :new
 
-    assert_select "form#new_edition" do
+    assert_select "form#edition_new" do
       assert_select "input[type=text][name='edition[edition_attachments_attributes][0][attachment_attributes][order_url]']"
       assert_select "input[type=text][name='edition[edition_attachments_attributes][0][attachment_attributes][price]']"
     end
@@ -91,7 +91,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
 
     get :edit, id: publication
 
-    assert_select "form#edit_edition" do
+    assert_select "form#edition_edit" do
       assert_select "select[name='edition[publication_type_id]']"
       assert_select "select[name*='edition[publication_date']", count: 5
     end
@@ -103,7 +103,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
 
     get :edit, id: publication
 
-    assert_select "form#edit_edition" do
+    assert_select "form#edition_edit" do
       assert_select "input[type=text][name='edition[edition_attachments_attributes][0][attachment_attributes][order_url]']"
       assert_select "input[type=text][name='edition[edition_attachments_attributes][0][attachment_attributes][price]']"
     end

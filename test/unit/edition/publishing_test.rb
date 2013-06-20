@@ -261,10 +261,9 @@ class Edition::PublishingTest < ActiveSupport::TestCase
   test "publication does not update time of publication if minor change" do
     original_publishing_time = 1.day.ago
     edition = create(:submitted_edition, major_change_published_at: original_publishing_time, change_note: nil, minor_change: true)
-    Timecop.travel 1.day.from_now do
-      edition.publish_as(create(:departmental_editor))
-      assert_equal original_publishing_time, edition.major_change_published_at
-    end
+    Timecop.travel 1.day.from_now
+    edition.publish_as(create(:departmental_editor))
+    assert_equal original_publishing_time, edition.major_change_published_at
   end
 
   test "publication preserves time of first publication if provided" do
@@ -300,7 +299,7 @@ class Edition::PublishingTest < ActiveSupport::TestCase
     robot = create(:scheduled_publishing_robot)
     edition = create(:scheduled_edition, access_limited: true)
     assert edition.access_limited
-    Timecop.freeze(edition.scheduled_publication + 1.minute) do
+    Timecop.freeze(edition.scheduled_publication) do
       assert edition.publish_as(robot), edition.reason_to_prevent_publication_by(robot)
       refute edition.reload.access_limited?
     end

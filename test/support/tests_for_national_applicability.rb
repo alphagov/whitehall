@@ -5,7 +5,7 @@ module TestsForNationalApplicability
     view_test "new displays edition form with nation inapplicability fields" do
       get :new
 
-      assert_select "form#new_edition" do
+      assert_select "form#edition_new" do
         assert_nation_inapplicability_fields_exist
       end
     end
@@ -50,7 +50,7 @@ module TestsForNationalApplicability
 
       get :edit, id: edition
 
-      assert_select "form#edit_edition" do
+      assert_select "form#edition_edit" do
         assert_nation_inapplicability_fields_exist
         assert_nation_inapplicability_fields_set_as(index: 0, checked: false)
         assert_nation_inapplicability_fields_set_as(index: 1, checked: false)

@@ -34,7 +34,9 @@ module Edition::WorldLocations
     end
   end
 
-  def search_index
-    super.merge("world_locations" => world_locations.map(&:slug))
+  module InstanceMethods
+    def search_index
+      super.merge("world_locations" => world_locations.map(&:slug))
+    end
   end
 end

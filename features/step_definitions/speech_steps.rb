@@ -4,7 +4,7 @@ Given /^I start editing the speech "([^"]*)" changing the title to "([^"]*)"$/ d
 end
 
 Given /^"([^"]*)" submitted a speech "([^"]*)" with body "([^"]*)"$/ do |author, title, body|
-  step %{I am a writer called "#{author}"}
+  Given %{I am a writer called "#{author}"}
   visit new_admin_speech_path
   begin_drafting_speech title: title, body: body
   click_button 'Save'
@@ -114,11 +114,11 @@ Then /^I should be able to choose who wrote the article$/ do
 end
 
 Then /^I should be able to choose the date it was written on$/ do
-  select_date 1.day.ago.to_s, from: "Written on"
+  select_date "Written on", with: 1.day.ago.to_s
 end
 
 Then /^I cannot choose a location for the article$/ do
-  refute page.find("#edition_location", visible: :all).visible?
+  refute page.find("#edition_location").visible?
 end
 
 When /^I preview the authored article$/ do

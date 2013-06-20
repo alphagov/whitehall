@@ -626,6 +626,34 @@ class EditionTest < ActiveSupport::TestCase
     end
   end
 
+  def build_imported_edition_not_yet_valid_as_draft
+    build(:imported_edition).tap do |edition|
+      edition.class_eval do
+        validate :no_drafts_allowed
+        def no_drafts_allowed
+          errors.add(:base, 'no drafts allowed') if self.draft?
+        end
+      end
+    end
+  end
+
+  test 'valid_as_draft? is false for an imported edition that is not valid as a draft' do
+    edition = build_imported_edition_not_yet_valid_as_draft
+    # assert it is valid as itself, but refute that it's valid as a draft
+    assert edition.valid?
+    refute edition.valid_as_draft?
+  end
+
+  test 'valid_as_draft? is true for an imported edition that is valid as a draft' do
+    edition = build(:imported_edition)
+    assert edition.valid_as_draft?
+  end
+
+  test 'errors_as_draft shows any errors for an imported edition that is not valid as a draft' do
+    edition = build_imported_edition_not_yet_valid_as_draft
+    assert_equal ["no drafts allowed"], edition.errors_as_draft.to_a
+  end
+
   test "should store title in multiple languages" do
     edition = build(:edition)
     with_locale(:en) { edition.title = 'english-title' }

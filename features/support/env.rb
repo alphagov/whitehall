@@ -8,10 +8,11 @@ Bundler.require(:cucumber)
 
 require 'cucumber/rails'
 
-# Capybara defaults to CSS3 selectors rather than XPath.
-# If you'd prefer to use XPath, just uncomment this line and adjust any
-# selectors in your step definitions to use the XPath syntax.
-# Capybara.default_selector = :xpath
+# Capybara defaults to XPath selectors rather than Webrat's default of CSS3. In
+# order to ease the transition to Capybara we set the default here. If you'd
+# prefer to use XPath just remove this line and adjust any selectors in your
+# steps to use the XPath syntax.
+Capybara.default_selector = :css
 
 # By default, any exception happening in your Rails application will bubble up
 # to Cucumber so that your scenario will fail. This is a different from how
@@ -29,28 +30,28 @@ require 'cucumber/rails'
 # recommended as it will mask a lot of errors for you!
 #
 ActionController::Base.allow_rescue = false
+Cucumber::Rails::World.use_transactional_fixtures = false
 
-# The transaction strategy is fine (and faster) for plain-old cucumber tests. It's only the javaascript
-# tests where we spin up the app in a separate thread where we need to employ a truncation strategy
-# See https://github.com/cucumber/cucumber-rails/blob/master/features/choose_javascript_database_strategy.feature
-DatabaseCleaner.strategy = :transaction
-Cucumber::Rails::Database.javascript_strategy = :truncation
+# Remove/comment out the lines below if your app doesn't have a database.
+# For some databases (like MongoDB and CouchDB) you may need to use :truncation instead.
+begin
+  DatabaseCleaner.strategy = :truncation
+rescue NameError
+  raise "You need to add database_cleaner to your Gemfile (in the :test group) if you wish to use it."
+end
+
+Before do
+  create(:world_location, name: "United Kingdom", iso2: "GB")
+end
 
 # You may also want to configure DatabaseCleaner to use different strategies for certain features and scenarios.
 # See the DatabaseCleaner documentation for details. Example:
 #
 #   Before('@no-txn,@selenium,@culerity,@celerity,@javascript') do
-#     # { :except => [:widgets] } may not do what you expect here
-#     # as Cucumber::Rails::Database.javascript_strategy overrides
-#     # this setting.
-#     DatabaseCleaner.strategy = :truncation
+#     DatabaseCleaner.strategy = :truncation, {:except => %w[widgets]}
 #   end
 #
 #   Before('~@no-txn', '~@selenium', '~@culerity', '~@celerity', '~@javascript') do
 #     DatabaseCleaner.strategy = :transaction
 #   end
 #
-
-Before do
-  create(:world_location, name: "United Kingdom", iso2: "GB")
-end

@@ -371,7 +371,7 @@ module Whitehall::DocumentFilter
       document_scope = stub(name,
         count: stub_everything,
         current_page: stub_everything,
-        total_pages: stub_everything
+        num_pages: stub_everything
       )
       document_scope.stubs(:arel_table).returns(Edition.arel_table)
       document_scope.stubs(:without_editions_of_type).returns(document_scope)

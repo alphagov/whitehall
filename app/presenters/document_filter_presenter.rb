@@ -10,7 +10,7 @@ class DocumentFilterPresenter < Struct.new(:filter, :context)
     data = {
       count: filter.documents.count,
       current_page: filter.documents.current_page,
-      total_pages: filter.documents.total_pages,
+      total_pages: filter.documents.num_pages,
       total_count: filter.documents.total_count,
       results: filter.documents.map { |d| d.as_hash },
       results_any?: filter.documents.any?,

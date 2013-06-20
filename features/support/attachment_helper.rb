@@ -1,14 +1,10 @@
 module AttachmentHelper
   def attachment_thumbnail_path
-    within record_css_selector(@attachment) do
-      page.find("img")[:src]
-    end
+    page.find(".attachment img")[:src]
   end
 
   def attachment_path
-    within record_css_selector(@attachment) do
-      page.find_link(@attachment_title)[:href]
-    end
+    page.find(".attachment a")[:href]
   end
 
   def jpg_image

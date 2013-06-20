@@ -1,6 +1,6 @@
 class ReshuffleFollowingLiamFoxResignation < ActiveRecord::Migration
   class PeopleTable < ActiveRecord::Base
-    self.table_name = "people"
+    set_table_name :people
   end
 
   def change

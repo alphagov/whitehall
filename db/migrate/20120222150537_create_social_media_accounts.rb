@@ -1,6 +1,6 @@
 class CreateSocialMediaAccounts < ActiveRecord::Migration
   class SocialMediaServiceTable < ActiveRecord::Base
-    self.table_name = "social_media_services"
+    set_table_name :social_media_services
   end
   def change
     create_table :social_media_services, force: true do |t|

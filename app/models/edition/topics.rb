@@ -16,8 +16,10 @@ module Edition::Topics
     true
   end
 
-  def search_index
-    super.merge("topics" => topics.map(&:slug)) {|k, ov, nv| ov + nv}
+  module InstanceMethods
+    def search_index
+      super.merge("topics" => topics.map(&:slug)) {|k, ov, nv| ov + nv}
+    end
   end
 
   module ClassMethods

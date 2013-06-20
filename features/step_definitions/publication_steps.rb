@@ -17,9 +17,8 @@ end
 
 Given /^a published publication "([^"]*)" with a PDF attachment$/ do |title|
   publication = create(:published_publication, :with_attachment, title: title, body: "!@1")
-  @attachment = publication.attachments.first
-  @attachment_title = @attachment.title
-  @attachment_filename = @attachment.filename
+  @attachment_title = publication.attachments.first.title
+  @attachment_filename = publication.attachments.first.filename
 end
 
 Given /^I attempt to create an invalid publication with an attachment$/ do
@@ -64,10 +63,8 @@ end
 When /^I draft a new publication "([^"]*)" that does not apply to the nations:$/ do |title, nations|
   begin_drafting_publication(title)
   nations.raw.flatten.each do |nation_name|
-    within record_css_selector(Nation.find_by_name!(nation_name)) do
-      check nation_name
-      fill_in "Alternative url", with: "http://www.#{nation_name}.com/"
-    end
+    check nation_name
+    fill_in "Alternative url", with: "http://www.#{nation_name}.com/"
   end
   click_button "Save"
 end
@@ -98,7 +95,7 @@ When /^I draft a new publication "([^"]*)" referencing the data set "([^"]*)"$/ 
 end
 
 Then /^I should see in the preview that "([^"]*)" is taken from the live data in "([^"]*)"$/ do |title, data_set_name|
-  publish(force: true)
+  publish force: true
   click_on title
   click_on "View"
   assert has_css?(".live-data a", text: data_set_name)
@@ -117,8 +114,8 @@ When /^I remove the attachment from a new draft of the publication "([^"]*)"$/ d
 end
 
 When /^I correct the invalid information for the publication$/ do
-  fill_in :edition_title, with: "Validation error fixed"
-  fill_in :edition_body, with: "!@1"
+  fill_in "Title", with: "Validation error fixed"
+  fill_in "Body", with: "!@1"
   click_button "Save"
 end
 
@@ -164,9 +161,7 @@ When /^I update the attachment metadata from a new draft of the publication$/ do
   click_button "Create new edition"
   within "#edition_attachment_fields" do
     choose "Individual upload"
-    within 'div.well:first-child' do
-      fill_in "Title", with: "changed title not to be published yet"
-    end
+    fill_in "Title", with: "changed title not to be published yet"
   end
   fill_in_change_note_if_required
   click_button "Save"
@@ -208,7 +203,7 @@ Then /^the new data file should not be public until the draft is published$/ do
   assert page.has_no_css?(".attachment a[href*='#{@new_attachment_data.url}']")
 
   visit admin_publication_path(pub)
-  publish(force: true)
+  publish force: true
 
   visit public_document_path(pub)
 

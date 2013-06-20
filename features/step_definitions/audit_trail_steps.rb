@@ -1,3 +1,19 @@
+When /^I draft and then publish a new document$/ do
+  begin_drafting_publication('An exciting new publication')
+  click_on "Save"
+  publish force: true
+  @the_publication = Publication.find_by_title('An exciting new publication')
+end
+
+Then /^I should see an audit trail describing my publishing activity on the publication$/ do
+  visit admin_publication_path(@the_publication)
+
+  within '#history' do
+    assert page.has_css?('.version', text: 'Published by '+@user.name)
+    assert page.has_css?('.version', text: 'Created by '+@user.name)
+  end
+end
+
 Given /^a document that has gone through many changes$/ do
   begin_drafting_publication('An exciting new publication')
   click_on "Save"
@@ -17,17 +33,16 @@ When /^I visit the document to see the audit trail$/ do
 end
 
 Then /^I can traverse the audit trail with newer and older navigation$/ do
-  click_on 'History'
   within '#history' do
     assert page.has_css?('.version', count: 30)
     refute page.has_link? '<< Newer'
-    find('.audit-trail-nav', match: :first).click_link('Older >>')
+    click_on 'Older >>'
   end
   within '#history' do
     # there are 51 versions (1 real via create 50 fake from step above)
     assert page.has_css?('.version', count: 21)
     refute page.has_link? 'Older >>'
-    find('.audit-trail-nav', match: :first).click_link('<< Newer')
+    click_on '<< Newer'
   end
   within '#history' do
     assert page.has_css?('.version', count: 30)

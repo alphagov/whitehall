@@ -44,17 +44,15 @@ When /^I add a new "([^"]*)" role named "([^"]*)" to the "([^"]*)" worldwide org
   click_on "Save"
 end
 
-When /^I add a new "([^"]*)" translation to the role "([^"]*)" with:$/ do |locale_name, role_name, table|
+When /^I add a new "([^"]*)" translation to the role "([^"]*)" with:$/ do |locale, role_name, table|
   role = Role.find_by_name!(role_name)
   translation = table.rows_hash.stringify_keys
-  locale = Locale.find_by_language_name(locale_name)
-
   visit admin_roles_path
   within record_css_selector(role) do
     click_link "Manage translations"
   end
 
-  select locale.native_and_english_language_name, from: "Locale"
+  select locale, from: "Locale"
   click_on "Create translation"
   fill_in "Name", with: translation["name"]
   fill_in "Responsibilities", with: translation["responsibilities"]
@@ -66,7 +64,7 @@ Then /^I should be able to appoint "([^"]*)" to the new role$/ do |person_name|
   click_on role.name
   click_on "New appointment"
   select person_name, from: "Person"
-  select_date 1.day.ago.to_s, from: "Started at"
+  select_date "Started at", with: 1.day.ago.to_s
   click_on "Save"
 end
 

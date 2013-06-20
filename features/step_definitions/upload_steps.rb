@@ -1,15 +1,11 @@
 Then /^I should see a placeholder thumbnail whilst the attachment is being virus checked$/ do
   assert page.has_css?(".attachment a[href*='#{@attachment_filename}']", text: @attachment_title)
 
-  within('#details') do
-    assert_final_path(attachment_thumbnail_path, "thumbnail-placeholder.png")
-  end
+  assert_final_path(attachment_thumbnail_path, "thumbnail-placeholder.png")
 end
 
 Then /^clicking on the attachment redirects me to an explanatory page$/ do
-  within('#details') do
-    page.find_link(@attachment_title).click
-  end
+  page.find('.attachment a').click
   assert_match /placeholder/, page.current_path
 end
 
@@ -20,10 +16,8 @@ When /^the (?:attachment|image)s? (?:has|have) been virus\-checked$/ do
 end
 
 Then /^I can see the attachment thumbnail and download it$/ do
-  within('#details') do
-    assert_final_path(attachment_thumbnail_path, attachment_thumbnail_path)
-    assert_final_path(attachment_path, attachment_path)
-  end
+  assert_final_path(attachment_thumbnail_path, attachment_thumbnail_path)
+  assert_final_path(attachment_path, attachment_path)
 end
 
 Then /^the image will be quarantined for virus checking$/ do

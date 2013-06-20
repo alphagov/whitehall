@@ -8,8 +8,6 @@ class CaseStudy < Edition
   include Edition::WorldwideOrganisations
   include Edition::WorldwidePriorities
 
-  validates :first_published_at, presence: true, if: -> e { e.trying_to_convert_to_draft == true }
-
   def display_type_key
     "case_study"
   end
@@ -20,5 +18,19 @@ class CaseStudy < Edition
 
   def translatable?
     !non_english_edition?
+  end
+
+  def apply_any_extra_validations_when_converting_from_imported_to_draft
+    unless singleton_class.ancestors.include?(ImportToDraftValidations)
+      singleton_class.send(:include, ImportToDraftValidations)
+    end
+  end
+
+  module ImportToDraftValidations
+    extend ActiveSupport::Concern
+
+    included do
+      validates :first_published_at, presence: true
+    end
   end
 end

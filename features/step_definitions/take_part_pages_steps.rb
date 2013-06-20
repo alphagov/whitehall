@@ -45,7 +45,7 @@ Then /^I see the take part pages in my specified order including the new page on
 end
 
 Then /^I can click through to read all about my new page$/ do
-  find('a', text: @the_new_take_part_page.title).click
+  click_on @the_new_take_part_page.title
 
   assert page.has_css?('h1', text: @the_new_take_part_page.title)
   assert page.has_css?('.description', text: @the_new_take_part_page.summary)
