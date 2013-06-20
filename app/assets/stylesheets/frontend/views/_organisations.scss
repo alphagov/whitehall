@@ -308,29 +308,57 @@
     }
   }
 
-  .sub-organisation .page-header {
-    h1 {
-      float: left;
-      width: 33.33%;
-    }
-
-    .sub-organisation-name {
-      clear: both;
-      float: none;
-      width: 75%;
-
-      h2 {
-        @include heading-48;
-        clear: both;
-        font-weight: bold;
-        margin-top: $gutter-half;
+  .sub-organisation {
+    .page-header {
+      h1 {
+        float: left;
+        width: 33.33%;
       }
 
-      ul {
-        @extend %contain-floats;
-        li {
+      .sub-organisation-name {
+        clear: both;
+        float: none;
+        width: 75%;
+
+        h2 {
+          @include heading-48;
+          clear: both;
+          font-weight: bold;
+          margin-top: $gutter-half;
+        }
+
+        ul {
+          @extend %contain-floats;
+          li {
+            float: left;
+            margin : 0 $gutter $gutter-one-sixth 0;
+          }
+        }
+      }
+    }
+    .organisation-news {
+      article {
+        &.first {
           float: left;
-          margin : 0 $gutter $gutter-one-sixth 0;
+          width: 33.33%;
+          .content {
+            .image-holder, .text {
+              display: block;
+              width: 100%;
+              h2 {
+                @include core-19;
+              }
+              .summary {
+                @include core-14;
+              }
+            }
+          }
+        }
+        &.item-3 {
+          clear: none;
+        }
+        &.item-2 {
+          clear:left;
         }
       }
     }

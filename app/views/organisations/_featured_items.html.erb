@@ -2,47 +2,27 @@
   all_announcements_link ||= nil
 %>
 <section class="organisation-news featured-news items-<%= feature_list.current_feature_count %>" id="featured-documents">
-  <% if @organisation.organisation_type.sub_organisation? %>
-    <% if feature_list.any_current_features? %>
-      <%= render partial: 'shared/featured',
-                 collection: feature_list.current_featured.from(0).to(4),
-                 as: :feature,
-                 locals: { show_meta: true,
-                           extra_class: "secondary" } %>
-      <%= render partial: 'shared/recently_updated',
-                locals: { recently_updated: recently_updated,
-                          atom_url: organisation_url(organisation, format: "atom"),
-                          govdelivery_url: filter_email_signup_url(organisation: organisation.slug),
-                          extra_class: 'panel',
-                          all_announcements_link: all_announcements_link } %>
-    <% else %>
-      <%= render partial: 'shared/feeds',
-          locals: { atom_url: @atom_url,
-                    govdelivery_url: @govdelivery_url } %>
-    <% end %>
+  <% if feature_list.any_current_features? %>
+    <%= render partial: 'shared/featured',
+              locals: { feature: feature_list.current_featured.first,
+                        extra_class: 'first',
+                        show_meta: true,
+                        image_size: :s630 } %>
+    <%= render partial: 'shared/featured',
+               collection: feature_list.current_featured.to_a.from(1),
+               as: :feature,
+               locals: { show_meta: true,
+                         extra_class: "secondary" } %>
+    <%= render partial: 'shared/recently_updated',
+              locals: { recently_updated: recently_updated,
+                        atom_url: organisation_url(organisation, format: "atom"),
+                        govdelivery_url: filter_email_signup_url(organisation: organisation.slug),
+                        extra_class: 'panel',
+                        all_announcements_link: all_announcements_link } %>
   <% else %>
-    <% if feature_list.any_current_features? %>
-      <%= render partial: 'shared/featured',
-                locals: { feature: feature_list.current_featured.first,
-                          extra_class: 'first',
-                          show_meta: true,
-                          image_size: :s630 } %>
-      <%= render partial: 'shared/featured',
-                 collection: feature_list.current_featured.to_a.from(1),
-                 as: :feature,
-                 locals: { show_meta: true,
-                           extra_class: "secondary" } %>
-      <%= render partial: 'shared/recently_updated',
-                locals: { recently_updated: recently_updated,
-                          atom_url: organisation_url(organisation, format: "atom"),
-                          govdelivery_url: filter_email_signup_url(organisation: organisation.slug),
-                          extra_class: 'panel',
-                          all_announcements_link: all_announcements_link } %>
-    <% else %>
-      <%= render partial: 'shared/feeds',
-          locals: { atom_url: @atom_url,
-                    govdelivery_url: @govdelivery_url } %>
+    <%= render partial: 'shared/feeds',
+        locals: { atom_url: @atom_url,
+                  govdelivery_url: @govdelivery_url } %>
     <% end %>
-  <% end %>
 
 </section>
