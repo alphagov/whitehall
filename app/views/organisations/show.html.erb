@@ -4,9 +4,8 @@
 
 <%= organisation_wrapper(@organisation) do %>
 
-  <div class="block-1">
+  <div class="block-1 headings-block">
     <div class="inner-block">
-      <%= render partial: 'shared/available_languages', locals: {object: @organisation} %>
       <%= render 'header', organisation: @organisation, show_mainstream_links: true %>
     </div>
   </div>
