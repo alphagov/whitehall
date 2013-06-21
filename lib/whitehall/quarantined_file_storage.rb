@@ -1,3 +1,5 @@
+require 'whitehall/carrier_wave/sanitized_file'
+
 class Whitehall::QuarantinedFileStorage < CarrierWave::Storage::Abstract
   def store!(file)
     path = ::File.expand_path(uploader.store_path, uploader.incoming_root)
@@ -5,14 +7,7 @@ class Whitehall::QuarantinedFileStorage < CarrierWave::Storage::Abstract
   end
 
   def retrieve!(identifier)
-    path = ::File.expand_path(uploader.store_path(identifier), uploader.clean_root)
+    path = ::File.expand_path(uploader.store_path(identifier), Whitehall.clean_upload_path)
     CarrierWave::SanitizedFile.new(path)
-  end
-
-  CarrierWave::Uploader::Base.add_config :incoming_root
-  CarrierWave::Uploader::Base.add_config :clean_root
-
-  CarrierWave.configure do |config|
-    config.storage_engines[:quarantined_file] = self.name
   end
 end

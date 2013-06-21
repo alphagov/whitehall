@@ -2,69 +2,37 @@ class AttachmentsController < ApplicationController
   include UploadsControllerHelper
 
   def show
-    clean_path = Whitehall.clean_upload_path +
-                "system/uploads/attachment_data/file/#{params[:id]}/#{params[:file]}.#{params[:extension]}"
-    full_path = File.expand_path(clean_path)
-
-    if attachment_visible?(params[:id])
-      send_upload full_path, public: current_user.nil?
+    if attachment_visible?
+      send_upload file_path, public: current_user.nil?
     else
-      replacement = AttachmentData.find(params[:id]).replaced_by
+      replacement = attachment_data.replaced_by
       if replacement
         redirect_to replacement.url
       else
-        redirect_to_placeholder full_path
+        redirect_to_placeholder file_path
       end
     end
   end
 
   private
 
-  def attachment_visible?(attachment_data_id)
-    visible_edition?(attachment_data_id) ||
-    visible_consultation_response?(attachment_data_id) ||
-    visible_corporate_information_page?(attachment_data_id) ||
-    visible_supporting_page?(attachment_data_id) ||
-    visible_policy_group?(attachment_data_id)
+  def attachment_data
+    @attachment_data ||= AttachmentData.find(params[:id])
   end
 
-  def visible_edition?(attachment_data_id)
-    if edition_ids = EditionAttachment.joins(:attachment).
-        where(attachments: {attachment_data_id: attachment_data_id}).map(&:edition_id)
-      any_edition_visible?(edition_ids)
-    end
+  def file_path
+    File.join(Whitehall.clean_upload_path, path_to_attachment_or_thumbnail)
   end
 
-  def visible_consultation_response?(attachment_data_id)
-    if edition_ids = Response.joins(:attachments).
-        where(attachments: {attachment_data_id: attachment_data_id}).map(&:edition_id)
-      any_edition_visible?(edition_ids)
-    end
+  def file_with_extensions
+    [params[:file], params[:extension]].join('.')
   end
 
-  def visible_corporate_information_page?(attachment_data_id)
-    CorporateInformationPage.joins(:attachments).
-      where(attachments: {attachment_data_id: attachment_data_id}).exists?
+  def path_to_attachment_or_thumbnail
+    attachment_data.file.store_path(file_with_extensions)
   end
 
-  def visible_supporting_page?(attachment_data_id)
-    if edition_ids = SupportingPage.joins(:attachments).
-        where(attachments: {attachment_data_id: attachment_data_id}).map(&:edition_id)
-      any_edition_visible?(edition_ids)
-    end
-  end
-
-  def visible_policy_group?(attachment_data_id)
-    # Policy groups don't have workflows, so they're always live
-    PolicyAdvisoryGroup.joins(:attachments).
-      where(attachments: {attachment_data_id: attachment_data_id}).exists?
-  end
-
-  def any_edition_visible?(ids)
-    if current_user
-      Edition.accessible_to(current_user).where(id: ids).exists?
-    else
-      Edition.published.where(id: ids).exists?
-    end
+  def attachment_visible?
+    AttachmentVisibility.new(attachment_data, current_user).visible?
   end
 end

@@ -3,6 +3,13 @@ require 'test_helper'
 class PromotionalFeatureItemPresenterTest < ActionView::TestCase
   setup do
     setup_view_context
+    # Our overridden `path_to_image` helper method calls user_signed_in?, which isn't present in the
+    # view_context we get in an ActionView::TestCase - `user_signed_in?` is part of gds-sso and gets
+    # included into ApplicationController, but the controller Rails gives us for ActionView::TestCases
+    # doesn't inherit from it.
+    def @view_context.user_signed_in?
+      false
+    end
   end
 
   test '#css_classes returns "large" for double-width items' do

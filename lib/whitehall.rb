@@ -118,18 +118,13 @@ module Whitehall
       secrets["aws_secret_access_key"]
     end
 
-    def asset_storage_mechanism
-      if Rails.env.test?
-        :file
-      elsif %w{preview production}.include?(platform)
-        :quarantined_file
-      else
-        :file
-      end
+    # The base folder where incoming-uploads and clean-uploads live.
+    def uploads_root
+      (Rails.env.test? ? Rails.root.join('tmp/test') : Rails.root).to_s
     end
 
     def clean_upload_path
-      Rails.root.join('clean-uploads').realpath
+      File.join(uploads_root, 'clean-uploads')
     end
 
     def government_search_index_name

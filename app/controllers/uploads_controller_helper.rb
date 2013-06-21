@@ -20,7 +20,7 @@ module UploadsControllerHelper
   end
 
   def redirect_to_placeholder(path)
-    if image? path
+    if image?(File.extname(path))
       redirect_to view_context.path_to_image('thumbnail-placeholder.png')
     else
       redirect_to placeholder_url
@@ -31,8 +31,8 @@ module UploadsControllerHelper
     Mime::Type.lookup_by_extension(File.extname(path).from(1).downcase)
   end
 
-  def image?(path)
-    ['.jpg', '.jpeg', '.png', '.gif'].include?(File.extname(path))
+  def image?(extension)
+    ['.jpg', '.jpeg', '.png', '.gif'].include?(extension)
   end
 
   def upload_exists?(path)

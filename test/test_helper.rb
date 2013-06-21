@@ -73,6 +73,13 @@ class ActiveSupport::TestCase
     @routes_helper ||= Whitehall::UrlMaker.new
   end
 
+  def simulate_virus_scan(uploader)
+    absolute_path = File.join(CarrierWave::Uploader::Base.incoming_root, uploader.relative_path)
+    target_dir = File.join(Whitehall.clean_upload_path, File.dirname(uploader.relative_path))
+    FileUtils.mkdir_p(target_dir)
+    FileUtils.cp(absolute_path, target_dir)
+  end
+
   class << self
     def disable_database_queries
       self.use_transactional_fixtures = false
