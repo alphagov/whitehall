@@ -1,0 +1,10 @@
+.dashboard-index {
+  .quick-links {
+    @extend %contain-floats;
+    border-width: 1px 0;
+    border-style: solid;
+    border-color: $border-colour;
+    margin: 15px 0;
+    padding: 15px 0;
+  }
+}
