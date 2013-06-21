@@ -68,4 +68,10 @@ jQuery(document).ready(function($) {
   }
 
   $("form.js-supports-non-english").setupNonEnglishSupport();
+
+  if(window.ieVersion && ieVersion === 8){
+    $('textarea').each(function(i, el){
+      $(el).css('width', $(el).width());
+    });
+  }
 })
