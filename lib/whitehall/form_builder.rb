@@ -59,8 +59,8 @@ module Whitehall
     end
 
     def text_area(method, *args)
-      options.merge!(required: calculate_required(method, options))
       options = (args.last || {})
+      options.merge!(required: calculate_required(method, options))
       label_text = options.delete(:label_text)
       horizontal = options.delete(:horizontal)
       if horizontal

@@ -21,7 +21,7 @@
     },
     init: function(id){
       autoCompleter.$textarea = $(id);
-      autoCompleter.textarea = autoCompleter.$textarea[0];
+      autoCompleter.textarea = autoCompleter.$textarea[1];
       autoCompleter.$textarea.on('keyup', autoCompleter.onKeyUp);
       autoCompleter.$textarea.on('focus', autoCompleter.loadSuggestions);
 
@@ -227,6 +227,7 @@
         if (typeof autoCompleter.textarea.selectionEnd == "number") {
           return autoCompleter.textarea.selectionEnd;
         } else {
+
           range = document.selection.createRange().duplicate();
 
           textInputRange = autoCompleter.textarea.createTextRange();
