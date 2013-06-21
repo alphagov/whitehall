@@ -30,7 +30,7 @@ class TopicalEventsControllerTest < ActionController::TestCase
 
     get :show, id: topical_event
 
-    editions[0...6].each do |edition|
+    editions[0...5].each do |edition|
       assert_select_object edition.edition
     end
     refute_select_object editions.last.edition
@@ -55,6 +55,7 @@ class TopicalEventsControllerTest < ActionController::TestCase
 
   view_test "#show displays extra org logos for first-world-war-centenary" do
     topical_event = create(:topical_event, name: 'First World War Centenary')
+    create(:organisation_classification, lead: true, classification: topical_event)
 
     get :show, id: topical_event
 
@@ -70,6 +71,7 @@ class TopicalEventsControllerTest < ActionController::TestCase
 
   view_test "#show doesn't show extra org logos for non first-world-war-centenary" do
     topical_event = create(:topical_event, name: 'Something exciting')
+    create(:organisation_classification, lead: true, classification: topical_event)
 
     get :show, id: topical_event
 
