@@ -91,7 +91,7 @@
       </section>
     </header>
 
-    <div class="container-fluid">
+    <div class="container-fluid <%= content_for?(:page_class) ? yield(:page_class) : '' %>">
       <section class="row-fluid">
         <%= yield %>
       </section>

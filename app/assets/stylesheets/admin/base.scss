@@ -1,5 +1,6 @@
 @import "_conditionals";
 @import "_shims";
+@import "_colours";
 
 @import "alerts.scss";
 @import "change_notes.scss";
@@ -18,4 +19,11 @@
 @import "lists.scss";
 @import "get_involved.scss";
 
+// Helpers
+// Objects that can be used in more than one place throughout the admin
 @import "helpers/_document_list.scss";
+
+// Views
+// Controller specific styles. Usually named after the controller whos views
+// they relate to
+@import "views/_dashboard.scss";
