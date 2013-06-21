@@ -1,4 +1,3 @@
 <div class="feeds">
-  <%= link_to t("feeds.atom"), atom_url, class: "feed" %>
-  <%= link_to t('feeds.email_alerts'), govdelivery_url, class: 'govdelivery' unless govdelivery_url.blank? %>
+  <%= link_to t("feeds.atom"), atom_url, class: "feed" %>&nbsp;<%= link_to t('feeds.email_alerts').html_safe, govdelivery_url, class: 'govdelivery' unless govdelivery_url.blank? %>
 </div>
