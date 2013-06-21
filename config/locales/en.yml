@@ -232,7 +232,7 @@ en:
         speaker: Writer
   feeds:
     atom: atom
-    email_alerts: email alerts
+    email_alerts: email&nbsp;alerts
     latest_activity: Latest activity
   latest_feed:
     no_updates: There are no updates yet.

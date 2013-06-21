@@ -1,20 +1,16 @@
 .feed {
   display: inline-block;
-  padding: 0 5px 0 20px;
-  height: 16px;
-  margin-right: $gutter-one-third;
+  padding: 0 $gutter-one-third 0 $gutter-two-thirds;
   font-weight: bold;
-  background: image-url('feed-icon-black.png') 0 100% no-repeat;
+  background: image-url('feed-icon-black.png') 0 40% no-repeat;
 }
 .govdelivery {
   display: inline-block;
-  padding: 0 5px 0 25px;
-  height: 16px;
-  margin-right: $gutter-one-third;
+  padding: 0 $gutter-one-third 0 $gutter-two-thirds+$gutter-one-sixth;
   font-weight: bold;
-  background: image-url('mail-icon.png') 0 100% no-repeat;
+  background: image-url('mail-icon.png') 0 40% no-repeat;
   @include hidpi {
     background-image: image-url('mail-icon-2x.png');
-    background-size: 20px 14px;
+    background-size: $gutter-two-thirds 14px;
   }
 }
