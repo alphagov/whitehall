@@ -14,7 +14,7 @@ class TopicalEventsController < ClassificationsController
     @recently_changed_documents = @classification.recently_changed_documents
     @featured_editions = decorate_collection(@classification.classification_featurings.limit(6), FeaturedEditionPresenter)
     set_slimmer_organisations_header(@classification.organisations)
-
+    set_expiry 5.minuets
     respond_to do |format|
       format.html do
         @recently_changed_documents = @recently_changed_documents[0...3]

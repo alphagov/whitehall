@@ -11,7 +11,7 @@ class WorldwideOrganisationsController < PublicFacingController
   def show
     respond_to do |format|
       format.html do
-        expires_in 5.minutes, public: true
+        set_expiry 5.minutes
         @world_locations = @worldwide_organisation.world_locations
         @main_office = @worldwide_organisation.main_office if @worldwide_organisation.main_office
         @home_page_offices = @worldwide_organisation.home_page_offices
