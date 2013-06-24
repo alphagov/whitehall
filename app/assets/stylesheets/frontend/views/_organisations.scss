@@ -309,29 +309,34 @@
   }
 
   .sub-organisation {
-    .page-header {
-      h1 {
-        float: left;
-        width: 33.33%;
-      }
-
-      .sub-organisation-name {
-        clear: both;
-        float: none;
-        width: 75%;
-
-        h2 {
-          @include heading-48;
-          clear: both;
-          font-weight: bold;
-          margin-top: $gutter-half;
+    .headings-block {
+      .page-header {
+        h1 {
+          float: left;
+          width: 33.33%;
         }
 
-        ul {
-          @extend %contain-floats;
-          li {
-            float: left;
-            margin : 0 $gutter $gutter-one-sixth 0;
+        .sub-organisation-name {
+          clear: both;
+          float: none;
+          width: 75%;
+
+          h2 {
+            @include heading-48;
+            clear: both;
+            font-weight: bold;
+            margin-top: $gutter-half;
+          }
+
+          ul {
+            @extend %contain-floats;
+            li {
+              float: left;
+              margin : 0 $gutter $gutter-one-sixth 0;
+            }
+          }
+          .organisations-icon-list {
+            margin-top: 0;
           }
         }
       }
