@@ -17,19 +17,28 @@
           </div>
         </div>
       <% end %>
+      <% if @classification.organisations.any? %>
+        <aside class="meta">
+          <div class="inner-heading">
+            <dl>
+              <dt><%= t('document.headings.organisations', count: @classification.organisations.length) %>:</dt>
+              <dd>
+                <%= render  partial: 'organisations/organisations_name_list',
+                            locals: { organisations: @classification.organisations,
+                                      lead_organisations: @classification.lead_organisations } %>
+              </dd>
+            </dl>
+          </div>
+        </aside>
+      <% end %>
     </div>
   </header>
 
   <div class="block">
     <div class="inner-block">
       <div class="page-description">
-        <%= render partial: 'shared/recently_updated',
-                  locals: { recently_updated: @recently_changed_documents,
-                            atom_url: classification_url(@classification, format: "atom"),
-                            govdelivery_url: filter_email_signup_url(topic: @classification.slug) } %>
         <section class="description">
           <%= govspeak_to_html @classification.description %>
-
           <% if @classification.social_media_accounts.any? %>
             <%= render partial: 'shared/social_media_accounts',
                       locals: { socialable: @classification, followus: true } %>
@@ -41,21 +50,26 @@
 
   <div class="block">
     <div class="inner-block">
-      <% if @featured_editions.any? %>
-        <section class="featured-news items-<%= @featured_editions.length %>">
+      <section class="featured-news items-<%= @featured_editions.length %>">
+        <% if @featured_editions.any? %>
           <%= render partial: 'shared/featured_news',
                      collection: @featured_editions,
                      as: :edition,
                      locals: { image_size: :s465 } %>
-        </section>
-      <% end %>
+        <% end %>
+        <%= render partial: 'shared/recently_updated',
+                    locals: { recently_updated: @recently_changed_documents,
+                              atom_url: classification_url(@classification, format: "atom"),
+                              extra_class: 'panel',
+                              govdelivery_url: filter_email_signup_url(topic: @classification.slug) } %>
+      </section>
     </div>
   </div>
 
-  <div class="block">
+  <div class="documents-grid">
     <div class="inner-block">
       <% if @policies.any? %>
-        <section id="policies" class="policies heading-block">
+        <section id="policies" class="policies document-block">
           <h1 class="label">Policies</h1>
           <div class="content">
             <%= render partial: "policies/list_description", locals: {policies: @policies} %>
@@ -63,7 +77,7 @@
         </section>
       <% end %>
       <% if @publications.any? %>
-        <section id="publications" class="heading-block">
+        <section id="publications" class="document-block">
           <h1 class="label">Publications</h1>
           <div class="content">
             <%= render partial: "publications/list_description", locals: {publications: @publications} %>
@@ -74,7 +88,7 @@
         </section>
       <% end %>
       <% if @consultations.any? %>
-        <section id="consultations" class="heading-block">
+        <section id="consultations" class="document-block">
           <h1 class="label">Consultations</h1>
           <div class="content">
             <%= render partial: "publications/list_description", locals: {publications: @consultations} %>
@@ -85,7 +99,7 @@
         </section>
       <% end %>
       <% if @announcements.any? %>
-        <section id="announcements" class="heading-block">
+        <section id="announcements" class="document-block">
           <h1 class="label">Announcements</h1>
           <div class="content">
             <%= render partial: "announcements/list_description", locals: {announcements: @announcements} %>
@@ -96,7 +110,7 @@
         </section>
       <% end %>
       <% if @detailed_guides.any? %>
-        <section id="detailed-guidance" class="heading-block">
+        <section id="detailed-guidance" class="document-block">
           <h1 class="label">Detailed guidance</h1>
           <div class="content">
             <ol class="document-list">
@@ -110,7 +124,7 @@
         </section>
       <% end %>
       <% if @related_classifications.any? %>
-        <section id="related-topics" class="heading-block">
+        <section id="related-topics" class="document-block">
           <h1 class="label">Related topics</h1>
           <div class="content">
             <ol class="document-list">
@@ -123,47 +137,55 @@
           </div>
         </section>
       <% end %>
-      <section id="organisations" class="heading-block organisations">
-        <h1 class="label">Who&rsquo;s involved</h1>
-        <div class="content">
-          <ul>
-            <% @classification.lead_organisations.each do |organisation| %>
-              <%= content_tag_for(:li, organisation, class: organisation.slug) do %>
-                <%= link_to organisation_path(organisation),
-                      class: logo_classes(class_name: organisation.organisation_logo_type.class_name, stacked: true) do %>
-                  <span><%= organisation_logo_name(organisation) %></span>
+    </div>
+  </div>
+
+
+  <div class="block">
+    <div class="inner-block">
+      <% if @classification.lead_organisations.any? %>
+        <section id="organisations" class="heading-block organisations">
+          <h1 class="label">Who&rsquo;s involved</h1>
+          <div class="content">
+            <ul>
+              <% @classification.lead_organisations.each do |organisation| %>
+                <%= content_tag_for(:li, organisation, class: organisation.slug) do %>
+                  <%= link_to organisation_path(organisation),
+                        class: logo_classes(class_name: organisation.organisation_logo_type.class_name, stacked: true) do %>
+                    <span><%= organisation_logo_name(organisation) %></span>
+                  <% end %>
                 <% end %>
               <% end %>
-            <% end %>
-            <% if @classification.slug == 'first-world-war-centenary' %>
-              <li class="non-govuk imperial-war-museums">
-                <a href="http://www.iwm.org.uk">Imperial War Museums</a>
-              </li>
-              <li class="non-govuk english-heritage">
-                <a href="http://www.english-heritage.org.uk">English Heritage</a>
-              </li>
-              <li class="non-govuk commonwealth-war-graves-commission">
-                <a href="http://www.cwgc.org">Commonwealth War Graves Commission</a>
-              </li>
-              <li class="non-govuk arts-council-england">
-                <a href="http://www.artscouncil.org.uk">Arts Council England</a>
-              </li>
-              <li class="non-govuk bbc">
-                <a href="http://www.bbc.co.uk">BBC</a>
-              </li>
-              <li class="non-govuk british-library">
-                <a href="http://www.bl.uk">British Library</a>
-              </li>
-              <li class="non-govuk heritage-lottery-fund">
-                <a href="http://www.hlf.org.uk/ThenAndNow">Heritage Lottery Fund</a>
-              </li>
-              <li class="non-govuk war-memorials-trust">
-                <a href="http://www.warmemorials.org">War Memorials Trust</a>
-              </li>
-            <% end %>
-          </ul>
-        </div>
-      </section>
+              <% if @classification.slug == 'first-world-war-centenary' %>
+                <li class="non-govuk imperial-war-museums">
+                  <a href="http://www.iwm.org.uk">Imperial War Museums</a>
+                </li>
+                <li class="non-govuk english-heritage">
+                  <a href="http://www.english-heritage.org.uk">English Heritage</a>
+                </li>
+                <li class="non-govuk commonwealth-war-graves-commission">
+                  <a href="http://www.cwgc.org">Commonwealth War Graves Commission</a>
+                </li>
+                <li class="non-govuk arts-council-england">
+                  <a href="http://www.artscouncil.org.uk">Arts Council England</a>
+                </li>
+                <li class="non-govuk bbc">
+                  <a href="http://www.bbc.co.uk">BBC</a>
+                </li>
+                <li class="non-govuk british-library">
+                  <a href="http://www.bl.uk">British Library</a>
+                </li>
+                <li class="non-govuk heritage-lottery-fund">
+                  <a href="http://www.hlf.org.uk/ThenAndNow">Heritage Lottery Fund</a>
+                </li>
+                <li class="non-govuk war-memorials-trust">
+                  <a href="http://www.warmemorials.org">War Memorials Trust</a>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+        </section>
+      <% end %>
     </div>
   </div>
 <% end %>
