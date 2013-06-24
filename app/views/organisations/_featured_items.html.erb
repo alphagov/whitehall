@@ -21,8 +21,8 @@
                         all_announcements_link: all_announcements_link } %>
   <% else %>
     <%= render partial: 'shared/feeds',
-        locals: { atom_url: @atom_url,
-                  govdelivery_url: @govdelivery_url } %>
-    <% end %>
+        locals: { atom_url: organisation_url(organisation, format: "atom"),
+                  govdelivery_url: filter_email_signup_url(organisation: organisation.slug) } %>
+  <% end %>
 
 </section>
