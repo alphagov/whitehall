@@ -20,7 +20,7 @@ class TopicalEventsControllerTest < ActionController::TestCase
     assert_equal [news_article, policy], assigns(:featured_editions).collect(&:model)
   end
 
-  view_test "#show displays a maximum of 6 featured editions" do
+  view_test "#show displays a maximum of 5 featured editions" do
     topical_event = create(:topical_event)
     editions = []
     7.times do |i|
