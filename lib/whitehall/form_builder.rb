@@ -2,16 +2,13 @@ module Whitehall
   class FormBuilder < ActionView::Helpers::FormBuilder
 
     def label(method, text=nil, options={}, &block)
-      options = options.dup
+      label_options = {}
       if calculate_required(method, options)
-        options[:class] ||= ""
-        class_override = options[:class] << " required"
-        options.merge!(class: class_override.strip)
+        label_options.merge!(class: "required")
         text_override = text ? text : method.to_s.humanize
         text = "#{text_override}<span>*</span>".html_safe
       end
-      options.delete(:required)
-      label_tag = super(method, text, options)
+      label_tag = super(method, text, label_options)
     end
 
     def labelled_radio_button(label_text, *radio_button_args)

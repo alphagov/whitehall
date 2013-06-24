@@ -21,7 +21,7 @@
     },
     init: function(id){
       autoCompleter.$textarea = $(id);
-      autoCompleter.textarea = autoCompleter.$textarea[1];
+      autoCompleter.textarea = autoCompleter.$textarea[0];
       autoCompleter.$textarea.on('keyup', autoCompleter.onKeyUp);
       autoCompleter.$textarea.on('focus', autoCompleter.loadSuggestions);
 
