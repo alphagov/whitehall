@@ -6,7 +6,7 @@
       <div class="file_upload well">
         <h3>New image</h3>
         <%= images_fields.fields_for :image_data do |image_data_fields| %>
-          <%= image_data_fields.upload :file, required: false %>
+          <%= image_data_fields.upload :file %>
         <% end %>
         <%= images_fields.text_field :alt_text, label_text: 'Alt text' %>
         <%= images_fields.text_area :caption, rows: 2 %>
