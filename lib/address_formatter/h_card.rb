@@ -6,7 +6,7 @@ module AddressFormatter
   class HCard < Formatter
 
     def render
-      "<div class=\"adr\">\n#{interpolate_address_template}\n</div>\n".html_safe
+      "<p class=\"adr\">\n#{interpolate_address_template}\n</p>\n".html_safe
     end
 
     def interpolate_address_template

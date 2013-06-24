@@ -268,7 +268,7 @@ class GovspeakHelperTest < ActionView::TestCase
     Contact.stubs(:find_by_id).with('1').returns(contact)
     input = '[Contact:1]'
     output = govspeak_to_html(input)
-    contact_html = render('contacts/contact', contact: contact)
+    contact_html = render('contacts/contact', contact: contact, heading_tag: 'h3')
     assert_equal "<div class=\"govspeak\">#{contact_html}</div>", output
   end
 
@@ -308,7 +308,7 @@ class GovspeakHelperTest < ActionView::TestCase
     contact = build(:contact)
     Contact.stubs(:find_by_id).with('1').returns(contact)
     input = '[Contact:1]'
-    contact_html = render('contacts/contact', contact: contact)
+    contact_html = render('contacts/contact', contact: contact, heading_tag: 'h3')
     @controller.lookup_context.formats = ['atom']
     assert_nothing_raised(ActionView::MissingTemplate) do
       assert_equal "<div class=\"govspeak\">#{contact_html}</div>", govspeak_to_html(input)

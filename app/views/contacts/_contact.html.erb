@@ -1,4 +1,5 @@
 <%
+  heading_tag ||= 'h2'
   extra_class = []
   if local_assigns.include?(:contact_counter) and contact_counter % 3 == 0
     extra_class << "clear-contact"
@@ -9,7 +10,7 @@
 %>
 <%= content_tag_for(:div, contact, class: extra_class.join(' ')) do %>
   <div class="content">
-    <% unless local_assigns[:hide_title] %><h2><%= contact.title %></h2><% end %>
+    <% unless local_assigns[:hide_title] %><%= content_tag heading_tag, contact.title %><% end %>
 
     <div class="vcard contact-inner">
       <% if contact.has_postal_address? %>

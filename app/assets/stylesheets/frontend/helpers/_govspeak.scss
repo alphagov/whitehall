@@ -285,4 +285,36 @@
     border-left: 1px solid $border-colour;
     padding-left: $gutter-half;
   }
+
+  .contact {
+    @extend %contain-floats;
+    background: $panel-colour;
+    margin: $gutter $gutter-half*-1;
+    padding: $gutter-one-third $gutter-half;
+    position: relative;
+
+    h3 {
+      @include core-19;
+      font-weight: bold;
+    }
+    .adr,
+    .email-url-number,
+    .comments {
+      @include media(tablet){
+        width: 50%;
+        float: left;
+      }
+    }
+    .email-url-number {
+      p {
+        margin: 0;
+      }
+      span {
+        display: block;
+      }
+    }
+    .comments {
+      @include core-16;
+    }
+  }
 }
