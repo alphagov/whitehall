@@ -295,8 +295,8 @@ class TopicsControllerTest < ActionController::TestCase
     first_organisation = create(:ministerial_department)
     second_organisation = create(:sub_organisation)
     topic = create(:topic)
-    create(:organisation_classification, topic: topic, organisation: first_organisation, lead: true)
-    create(:organisation_classification, topic: topic, organisation: second_organisation, lead: false)
+    create(:organisation_classification, classification: topic, organisation: first_organisation, lead: true)
+    create(:organisation_classification, classification: topic, organisation: second_organisation, lead: false)
 
     get :show, id: topic
 
