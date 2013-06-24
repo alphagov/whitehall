@@ -26,7 +26,7 @@ class OrganisationsController < PublicFacingController
 
   def show
     recently_updated_source = @organisation.published_editions.in_reverse_chronological_order
-    expires_in 5.minutes, public: true
+    set_expiry 5.minutes
     respond_to do |format|
       format.html do
         @recently_updated = recently_updated_source.limit(3)
