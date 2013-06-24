@@ -92,7 +92,7 @@ module OrganisationControllerTestHelpers
         assert_select "a.feed[href=?]", organisation_url(organisation, format: :atom)
       end
 
-      view_test "#{org_type}:shows 3 most recently published editions associated with organisation" do
+      view_test "#{org_type}:shows 3 most recently published editions associated with organisation when featuring a doc" do
         # different edition types sort on different attributes
         editions = [create(:published_policy, first_published_at: 1.days.ago),
                   create(:published_publication, publication_date: 2.days.ago),
@@ -100,6 +100,10 @@ module OrganisationControllerTestHelpers
                   create(:published_speech, first_published_at: 4.days.ago)]
 
         organisation = create(org_type, editions: editions)
+
+        feature_list = create(:feature_list, featurable: organisation, locale: :en)
+        create(:feature, feature_list: feature_list, document: editions[0].document)
+
         get :show, id: organisation
 
         editions[0,3].each do |edition|
