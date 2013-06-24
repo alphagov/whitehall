@@ -16,7 +16,7 @@
     <section id="bulk_upload_attachments" class="tab-pane active">
       <%= fields_for bulk_upload_zip_file do |f| %>
         <%= f.errors %>
-        <%= f.label :zip_file, nil %>
+        <%= f.label :zip_file %>
         <%= f.file_field :zip_file %>
       <% end %>
       <div class="form-actions">
@@ -42,7 +42,7 @@
           <% end %>
 
           <%= attachment_fields.fields_for :attachment_data do |attachment_data_fields| %>
-            <%= attachment_data_fields.label :file, nil %>
+            <%= attachment_data_fields.label :file %>
             <%= attachment_data_fields.file_field :file %>
 
             <%= attachment_fields.check_box :accessible, label_text: "Attachment is accessible" %>
