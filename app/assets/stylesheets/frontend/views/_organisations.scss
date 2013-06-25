@@ -367,9 +367,6 @@
           clear:left;
         }
       }
-      @include media(tablet) {
-        padding-bottom: $gutter+$gutter-half;
-      }
     }
   }
 
@@ -740,6 +737,12 @@
           padding-left: 0;
         }
       }
+    }
+  }
+  .organisation-news {
+    @extend %contain-floats;
+      @include media(tablet) {
+      padding-bottom: $gutter+$gutter-half;
     }
   }
 
