@@ -17,7 +17,6 @@ module DocumentHelper
       create(:organisation)
     end
     visit admin_root_path
-
     # Make sure the dropdown is visible first, otherwise Capybara won't see the links
     find('li.create-new strong', text: '+').click
     within 'li.create-new' do
@@ -110,7 +109,7 @@ module DocumentHelper
 
   def fill_in_publication_fields
     select_date "2010-01-01", from: "Publication date"
-    select "Research and analysis", from: "Publication type"
+    select "Research and analysis", from: "edition_publication_type_id"
   end
 
   def visit_document_preview(title, scope = :scoped)

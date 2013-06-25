@@ -8,7 +8,7 @@
 
   <fieldset>
     <%= classification_form.text_field :name %>
-    <%= classification_form.text_area :description, class: 'previewable' %>
+    <%= classification_form.text_area :description, class: 'previewable', required: true %>
   </fieldset>
 
   <%= render partial: 'related_topics', locals: {classification_form: classification_form} %>

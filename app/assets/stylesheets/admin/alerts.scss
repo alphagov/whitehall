@@ -8,6 +8,8 @@ $notice-color: #1d5b25;
 $notice-background: #b1e7b9;
 $notice-border-color: #39b54a;
 
+$orange: #f47738;
+
 .flash-alert {
   color: $alert-color;
   background: $alert-background;
@@ -55,3 +57,16 @@ p.warning {
   font-weight: bold;
   margin: 15px 0;
 }
+
+.required span {
+  color: $orange;
+  padding: 3px 5px;
+}
+
+.form-horizontal {
+  .required span {
+    float: right;
+    clear: none;
+  }
+}
+

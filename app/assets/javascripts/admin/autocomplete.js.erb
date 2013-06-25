@@ -227,6 +227,7 @@
         if (typeof autoCompleter.textarea.selectionEnd == "number") {
           return autoCompleter.textarea.selectionEnd;
         } else {
+
           range = document.selection.createRange().duplicate();
 
           textInputRange = autoCompleter.textarea.createTextRange();

@@ -1,7 +1,7 @@
 <%= form_for [:admin, organisation, corporate_information_page], as: disabled ? :disabled_corporate_information_page : :corporate_information_page do |form| %>
   <%= form.hidden_field :lock_version %>
   <%= form.errors %>
-  
+
   <% unless form.object.persisted? %>
     <%= form.label :type_id, 'Type' %>
     <%= form.select :type_id, corporate_information_page_types(organisation), {disabled: organisation.corporate_information_pages.map(&:type_id), allow_blank: true}, {class: 'chzn-select', data: { placeholder: "Type of page..." }, disabled: disabled} %>
@@ -9,9 +9,9 @@
 
   <%= form.text_area :summary, label_text: "Summary", rows: 2, disabled: disabled %>
 
-  <%= form.text_area :body, label_text: "Body", class: "previewable", disabled: disabled %>
+  <%= form.text_area :body, label_text: "Body", class: "previewable", disabled: disabled, required: true %>
 
   <%= render partial: "admin/editions/attachment_fields", locals: { form: form, edition: corporate_information_page, parent_type: :corporate_information_page, show_inline_attachment_help: true } %>
-  
+
   <%= form.save_or_cancel cancel: [:admin, @organisation] %>
 <% end %>

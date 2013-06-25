@@ -3,6 +3,6 @@
           admin_worldwide_organisation_access_and_opening_time_path(accessible) :
           admin_worldwide_organisation_worldwide_office_access_and_opening_time_path(accessible.worldwide_organisation, accessible) do |form| %>
   <%= form.errors %>
-  <%= form.text_area :body, label_text: "Body", class: "previewable" %>
+  <%= form.text_area :body, label_text: "Body", class: "previewable", required: true %>
   <%= form.save_or_cancel cancel: accessible_path(accessible) %>
 <% end %>
