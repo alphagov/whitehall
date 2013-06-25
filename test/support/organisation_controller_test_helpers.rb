@@ -140,7 +140,7 @@ module OrganisationControllerTestHelpers
         refute_select ".social-media-accounts"
       end
 
-      view_test "#{org_type}:show hass a link to govdelivery if one exists" do
+      view_test "#{org_type}:show has a link to govdelivery if one exists" do
         organisation = create(org_type)
 
         get :show, id: organisation

@@ -36,13 +36,15 @@
     <% end %>
   <% end %>
 
-  <% if show_mainstream_links && organisation.mainstream_links.any? && !sub_organisation %>
-    <aside class="organisation-mainstream-links">
+  <%= content_tag_if_not_empty :aside, class: "organisation-mainstream-links" do %>
+    <%= render partial: 'shared/available_languages', locals: {object: @organisation} %>
+
+    <% if show_mainstream_links && organisation.mainstream_links.any? && !sub_organisation %>
       <ul>
         <% organisation.mainstream_links.only_the_initial_set.each do |link| %>
           <li><%= link_to link.title, link.url, ({rel: 'external'} if is_external?(link.url)) %></li>
         <% end %>
       </ul>
-    </aside>
+    <% end %>
   <% end %>
 </header>

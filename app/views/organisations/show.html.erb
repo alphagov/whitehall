@@ -98,6 +98,11 @@
     <% document_block_count = 0 %>
     <div class="block documents-grid">
       <div class="inner-block">
+        <% unless @feature_list.any_current_features? %>
+          <%= render partial: 'shared/feeds',
+              locals: { atom_url: organisation_url(@organisation, format: "atom"),
+                        govdelivery_url: filter_email_signup_url(organisation: @organisation.slug) } %>
+        <% end %>
         <h1 class="block-title">Documents</h1>
         <% if @announcements.any? %>
           <section id="announcements" class="document-block documents-<%= document_block_count+=1 %>">
