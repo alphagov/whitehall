@@ -1,8 +1,8 @@
 <%
   all_announcements_link ||= nil
 %>
-<section class="organisation-news featured-news items-<%= feature_list.current_feature_count %>" id="featured-documents">
-  <% if feature_list.any_current_features? %>
+<% if feature_list.any_current_features? %>
+  <section class="organisation-news featured-news items-<%= feature_list.current_feature_count %>" id="featured-documents">
     <%= render partial: 'shared/featured',
               locals: { feature: feature_list.current_featured.first,
                         extra_class: 'first',
@@ -19,6 +19,5 @@
                         govdelivery_url: filter_email_signup_url(organisation: organisation.slug),
                         extra_class: 'panel',
                         all_announcements_link: all_announcements_link } %>
-  <% end %>
-
-</section>
+  </section>
+<% end %>
