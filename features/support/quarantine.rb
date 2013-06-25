@@ -4,7 +4,7 @@ if ENV['TEST_ENV_NUMBER']
     @lock_file = File.open("tmp/cucumber_quarantine_files", "w")
     @lock_file.flock(File::LOCK_EX)
 
-    FileUtils.rm_rf(Whitehall.clean_uploads_root)
+    FileUtils.rm_rf(Whitehall.clean_uploads_root + '/system')
   end
 
   After("@quarantine-files") do
