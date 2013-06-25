@@ -1,6 +1,5 @@
 .documents-grid {
   margin-bottom: $gutter*2;
-  position: relative;
   .inner-block {
     @extend %contain-floats;
     padding: 0;
