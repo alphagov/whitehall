@@ -17,10 +17,34 @@
     margin: 0 $gutter-half $gutter-one-sixth;
   }
 
+  &.grid-size-1 {
+    .document-block {
+      width: 100%;
+
+      @include media(tablet){
+        h1 {
+          width: 33.33%;
+          float: left;
+          margin: $gutter-one-sixth 0 0;
+          text-indent: $gutter-half;
+        }
+        .content {
+          width: 66.66%;
+          float: left;
+          margin: 0;
+          ol, p {
+            margin: 0 $gutter-half;
+          }
+        }
+      }
+    }
+  }
+
   .document-block {
     margin: $gutter-two-thirds 0 $gutter-one-third;
 
-    &.documents-3 {
+    &.documents-3,
+    &.documents-5 {
       clear: both;
     }
 
