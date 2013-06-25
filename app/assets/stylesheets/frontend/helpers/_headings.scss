@@ -46,12 +46,13 @@
   }
 
   .heading-extra {
+    margin: 0 0 $gutter;
     @include media(tablet){
-      float: left;
-      margin-top: $gutter;
+      float: right;
       width: 33.33%;
+      margin: $gutter 0;
       @include right-to-left {
-        float: right;
+        float: left;
       }
     }
   }
@@ -66,8 +67,12 @@
   .meta {
     @extend %contain-floats;
     display: block;
-    clear: both;
     margin-bottom: $gutter;
+
+    @include media(tablet){
+      float: left;
+      width: 66.66%;
+    }
 
     dl {
       display: inline;
@@ -96,6 +101,9 @@
       dd {
         float: left;
         width: 60%;
+        @include media(desktop){
+          width: 70%;
+        }
         &.document-worldwide-organisations {
           width: 55%;
         }
