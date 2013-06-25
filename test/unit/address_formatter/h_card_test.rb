@@ -117,60 +117,60 @@ class AddressFormatter::HCardTest < ActiveSupport::TestCase
 
   def gb_addr
     <<-EOF.strip_heredoc
-    <div class="adr">
+    <p class="adr">
     <span class="fn">Recipient</span><br />
     <span class="street-address">Street</span><br />
     <span class="locality">Locality</span><br />
     <span class="region">Region</span><br />
     <span class="postal-code">Postcode</span><br />
     <span class="country-name">Country</span>
-    </div>
+    </p>
     EOF
   end
 
   def es_addr
     <<-EOF.strip_heredoc
-    <div class="adr">
+    <p class="adr">
     <span class="fn">Recipient</span><br />
     <span class="street-address">Street</span><br />
     <span class="postal-code">Postcode</span> <span class="locality">Locality</span> <span class="region">Region</span><br />
     <span class="country-name">Country</span>
-    </div>
+    </p>
     EOF
   end
 
   def jp_addr
     <<-EOF.strip_heredoc
-    <div class="adr">
+    <p class="adr">
     〒<span class="postal-code">Postcode</span><br />
     <span class="region">Region</span><span class="locality">Locality</span><span class="street-address">Street</span><br />
     <span class="fn">Recipient</span><br />
     <span class="country-name">Country</span>
-    </div>
+    </p>
     EOF
   end
 
   def addr_without_region
     <<-EOF.strip_heredoc
-    <div class="adr">
+    <p class="adr">
     <span class="fn">Recipient</span><br />
     <span class="street-address">Street</span><br />
     <span class="locality">Locality</span><br />
     <span class="postal-code">Postcode</span><br />
     <span class="country-name">Country</span>
-    </div>
+    </p>
     EOF
   end
 
   def addr_without_country
     <<-EOF.strip_heredoc
-    <div class="adr">
+    <p class="adr">
     <span class="fn">Recipient</span><br />
     <span class="street-address">Street</span><br />
     <span class="locality">Locality</span><br />
     <span class="region">Region</span><br />
     <span class="postal-code">Postcode</span>
-    </div>
+    </p>
     EOF
   end
 
