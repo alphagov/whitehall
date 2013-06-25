@@ -150,6 +150,9 @@
         @include media(tablet){
           margin: $gutter-two-thirds 0;
         }
+        a {
+          text-decoration: underline;
+        }
       }
       figcaption {
         @include core-16;
