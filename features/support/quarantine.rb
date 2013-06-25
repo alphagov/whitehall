@@ -1,9 +1,3 @@
-Around("@quarantine-files") do |scenario, block|
-  Whitehall::QuarantineFileStorageSimulator.enable do
-    block.call
-  end
-end
-
 # Simulate a mutex to stop these scenarios stomping on each other during parallel test runs
 if ENV['TEST_ENV_NUMBER']
   Before("@quarantine-files") do
