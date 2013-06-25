@@ -2,7 +2,7 @@ require 'whitehall/carrier_wave/sanitized_file'
 
 class Whitehall::QuarantinedFileStorage < CarrierWave::Storage::Abstract
   def store!(file)
-    path = ::File.expand_path(uploader.store_path, uploader.incoming_root)
+    path = ::File.expand_path(uploader.store_path, Whitehall.incoming_uploads_root)
     file.copy_to(path, uploader.permissions)
   end
 
