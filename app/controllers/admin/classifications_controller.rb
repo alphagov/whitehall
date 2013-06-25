@@ -3,7 +3,7 @@ class Admin::ClassificationsController < Admin::BaseController
 
   before_filter :default_arrays_of_ids_to_empty, only: [:update]
   before_filter :build_object, only: [:new]
-  before_filter :load_object, only: [:edit]
+  before_filter :load_object, only: [:show, :edit]
 
   def index
     @classifications = model_class.order(:name)

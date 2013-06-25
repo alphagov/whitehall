@@ -9,6 +9,8 @@ module Admin::TabbedNavHelper
       tab_navigation(world_location_tabs(content_object), *extra_classes, &block)
     when Person
       tab_navigation(person_tabs(content_object), *extra_classes, &block)
+    when TopicalEvent
+      tab_navigation(topical_event_tabs(content_object), *extra_classes, &block)
     end
   end
 
