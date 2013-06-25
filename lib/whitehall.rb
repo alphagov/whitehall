@@ -123,7 +123,7 @@ module Whitehall
       (Rails.env.test? ? Rails.root.join('tmp/test') : Rails.root).to_s
     end
 
-    def clean_upload_path
+    def clean_uploads_root
       File.join(uploads_root, 'clean-uploads')
     end
 

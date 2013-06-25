@@ -15,7 +15,7 @@ end
 
 When /^the (?:attachment|image)s? (?:has|have) been virus\-checked$/ do
   incoming_path = CarrierWave::Uploader::Base.incoming_root
-  clean_path = Whitehall.clean_upload_path
+  clean_path = Whitehall.clean_uploads_root
   FileUtils.cp_r(incoming_path.to_s + '/.', clean_path.to_s + "/")
 end
 

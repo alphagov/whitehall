@@ -21,7 +21,7 @@ class AttachmentsController < ApplicationController
   end
 
   def file_path
-    File.join(Whitehall.clean_upload_path, path_to_attachment_or_thumbnail)
+    File.join(Whitehall.clean_uploads_root, path_to_attachment_or_thumbnail)
   end
 
   def file_with_extensions

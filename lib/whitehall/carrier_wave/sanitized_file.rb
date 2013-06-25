@@ -11,14 +11,14 @@ module CarrierWave
       end
 
       def to_public_path
-        parent_folder = path_in_clean_folder? ? Whitehall.clean_upload_path : CarrierWave::Uploader::Base.incoming_root
+        parent_folder = path_in_clean_folder? ? Whitehall.clean_uploads_root : CarrierWave::Uploader::Base.incoming_root
         routing_prefix + strip_parent_folder(@path, parent_folder)
       end
 
       private
 
       def path_in_clean_folder?
-        @path.starts_with?(Whitehall.clean_upload_path)
+        @path.starts_with?(Whitehall.clean_uploads_root)
       end
 
       def strip_parent_folder(path, parent)

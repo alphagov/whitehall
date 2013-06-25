@@ -2,7 +2,7 @@ require 'test_helper'
 
 class UploadAccessTest < ActionDispatch::IntegrationTest
   def path_to_clean_upload(path)
-    path = File.join(Whitehall.clean_upload_path, path.from("/government/uploads".size))
+    path = File.join(Whitehall.clean_uploads_root, path.from("/government/uploads".size))
   end
 
   def nginx_path_to_clean_upload(path)
@@ -19,7 +19,7 @@ class UploadAccessTest < ActionDispatch::IntegrationTest
   def get_via_nginx(path)
     get path, {}, {
       "HTTP_X_SENDFILE_TYPE" => "X-Accel-Redirect",
-      "HTTP_X_ACCEL_MAPPING" => "#{Whitehall.clean_upload_path}/=/clean-uploads/"
+      "HTTP_X_ACCEL_MAPPING" => "#{Whitehall.clean_uploads_root}/=/clean-uploads/"
     }
   end
 

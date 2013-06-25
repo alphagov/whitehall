@@ -11,6 +11,6 @@ class WhitehallUploader < CarrierWave::Uploader::Base
   end
 
   def clean_path
-    File.join(Whitehall.clean_upload_path, relative_path)
+    File.join(Whitehall.clean_uploads_root, relative_path)
   end
 end

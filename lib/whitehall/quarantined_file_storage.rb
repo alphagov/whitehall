@@ -7,7 +7,7 @@ class Whitehall::QuarantinedFileStorage < CarrierWave::Storage::Abstract
   end
 
   def retrieve!(identifier)
-    path = ::File.expand_path(uploader.store_path(identifier), Whitehall.clean_upload_path)
+    path = ::File.expand_path(uploader.store_path(identifier), Whitehall.clean_uploads_root)
     CarrierWave::SanitizedFile.new(path)
   end
 end
