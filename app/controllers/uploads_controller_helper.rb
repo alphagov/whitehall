@@ -36,7 +36,10 @@ module UploadsControllerHelper
   end
 
   def upload_exists?(path)
-    full_path = File.expand_path(path)
-    File.exists?(full_path) && full_path.starts_with?(Whitehall.clean_uploads_root)
+    File.exists?(path) && file_is_clean?(path)
+  end
+
+  def file_is_clean?(path)
+    path.starts_with?(Whitehall.clean_uploads_root)
   end
 end
