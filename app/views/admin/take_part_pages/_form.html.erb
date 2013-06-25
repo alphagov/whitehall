@@ -7,15 +7,15 @@
     <%= form_for take_part_page, url: [:admin, take_part_page] do |form| %>
       <%= form.errors %>
       <%= form.text_field :title %>
-      <%= form.text_area :summary, rows: 2, class: 'js-summary-length-counting', data: { 'count-message-threshold' => 140, 'count-message-selector' => '.summary-length-info' }%>
+      <%= form.text_area :summary, rows: 2, class: 'js-summary-length-counting', data: { 'count-message-threshold' => 140, 'count-message-selector' => '.summary-length-info' } %>
       <div class="summary-length-info">Summary text should be 140 characters or fewer. <span class="count"></span></div>
-      <%= form.text_area :body, class: "previewable" %>
+      <%= form.text_area :body, class: "previewable", required: true %>
       <%= form.upload :image, horizontal: true %>
       <%= form.text_field :image_alt_text, horizontal: true, label_text: "Image description (alt text)" %>
       <%= form.save_or_cancel cancel: admin_take_part_pages_path %>
     <% end %>
   </div>
-  
+
   <div class="span4">
     <%= simple_formatting_sidebar %>
   </div>

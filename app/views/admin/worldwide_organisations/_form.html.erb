@@ -11,7 +11,7 @@
 
     <%= form.text_area :logo_formatted_name, rows: "4", style: "width: auto" %>
     <%= form.text_area :summary, rows: "4" %>
-    <%= form.text_area :description, class: "previewable" %>
+    <%= form.text_area :description, class: "previewable", required: true %>
     <%= form.text_area :services, class: "previewable" %>
 
     <%= form.fields_for :default_news_image do |image_fields| %>

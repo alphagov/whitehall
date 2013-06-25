@@ -51,7 +51,7 @@ class Admin::RoleAppointmentsControllerTest < ActionController::TestCase
     person = create(:person)
     post :create, role_id: role.id, role_appointment: {started_at: 3.days.ago}
     assert role.role_appointments.empty?
-    assert_select ".field_with_errors", text: "Person"
+    assert_select ".field_with_errors", text: "Person*"
   end
 
   test "create should curtail previous appointments if make_current is present" do
@@ -109,7 +109,7 @@ class Admin::RoleAppointmentsControllerTest < ActionController::TestCase
   view_test "update shows errors if validation failed" do
     appointment = create(:role_appointment, started_at: 3.days.ago, ended_at: 2.days.ago)
     put :update, id: appointment.id, role_appointment: {started_at: 1.day.from_now}
-    assert_select ".field_with_errors", text: "Started at"
+    assert_select ".field_with_errors", text: "Started at*"
   end
 
   test "delete removes an appointment" do

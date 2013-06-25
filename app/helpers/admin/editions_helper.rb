@@ -82,14 +82,14 @@ module Admin::EditionsHelper
   end
 
   class EditionFormBuilder < Whitehall::FormBuilder
-    def alternative_format_provider_select
+    def alternative_format_provider_select(alternative_format_required)
       if object.respond_to?(:alternative_format_provider)
         select_options = @template.options_for_select(
           organisations_for_edition_organisations_fields.map {|o| ["#{o.name} (#{o.alternative_format_contact_email || "-"})", o.id]},
           selected: object.alternative_format_provider_id,
           disabled: organisations_for_edition_organisations_fields.reject { |o| o.alternative_format_contact_email.present? }.map(&:id))
         @template.content_tag(:div, class: 'control-group') do
-          label(:alternative_format_provider_id, "Email address for ordering this #{object.format_name} in an alternative format") +
+          label(:alternative_format_provider_id, "Email address for ordering this #{object.format_name} in an alternative format", required: alternative_format_required) +
             @template.content_tag(:div, class: 'controls') do
               select(
                 :alternative_format_provider_id,
