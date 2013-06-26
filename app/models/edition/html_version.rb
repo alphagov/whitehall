@@ -11,7 +11,7 @@ module Edition::HtmlVersion
 
   included do
     has_one :html_version, foreign_key: :edition_id, dependent: :destroy
-    accepts_nested_attributes_for :html_version, allow_destroy: true
+    accepts_nested_attributes_for :html_version, allow_destroy: true, reject_if: :all_blank_or_empty_hashes
     add_trait Trait
   end
 end
