@@ -2,8 +2,9 @@ namespace :test do
   desc "Remove temporary 'uploaded' files from the filesystem"
   task :cleanup => :environment do
     puts "Removing temporary uploaded files."
-    FileUtils.rm_rf(Whitehall.incoming_uploads_root + '/system')
-    FileUtils.rm_rf(Whitehall.clean_uploads_root + '/system')
+    Dir.glob(Rails.root.join('tmp/test/env*/*uploads/system')).each do |uploads_folder|
+      FileUtils.rm_rf(uploads_folder)
+    end
     FileUtils.rm_rf Rails.root.join('tmp/test-bulk-upload-zip-file-tmp')
   end
 end

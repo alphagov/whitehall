@@ -120,7 +120,12 @@ module Whitehall
 
     # The base folder where incoming-uploads and clean-uploads live.
     def uploads_root
-      (Rails.env.test? ? Rails.root.join('tmp/test') : Rails.root).to_s
+      (Rails.env.test? ? uploads_root_for_test_env : Rails.root).to_s
+    end
+
+    def uploads_root_for_test_env
+      env_number = ENV['TEST_ENV_NUMBER'].blank? ? '1' : ENV['TEST_ENV_NUMBER']
+      Rails.root.join("tmp/test/env_#{env_number}")
     end
 
     def incoming_uploads_root

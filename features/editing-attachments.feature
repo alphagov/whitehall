@@ -24,14 +24,12 @@ Feature: Editing attachments
     When I correct the invalid information for the publication
     Then I should see a link to the PDF attachment
 
-  @quarantine-files
   Scenario: Attachments are virus-checked before publication
     Given a published publication "Legalise beards" with a PDF attachment
     When I visit the publication "Legalise beards"
     Then I should see a placeholder thumbnail whilst the attachment is being virus checked
     Then clicking on the attachment redirects me to an explanatory page
 
-  @quarantine-files
   Scenario: Attachments are viewable after being virus-checked
     Given a published publication "Legalise beards" with a PDF attachment
     And the attachment has been virus-checked
@@ -43,7 +41,6 @@ Feature: Editing attachments
     When I update the attachment metadata from a new draft of the publication
     Then the metadata changes should not be public until the draft is published
 
-  @quarantine-files
   Scenario: Replacing data on an attachment
     Given I am an editor
     And a published publication "Standard Beard Lengths" with a PDF attachment
