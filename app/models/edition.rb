@@ -187,7 +187,7 @@ class Edition < ActiveRecord::Base
   end
 
   def self.concrete_descendants
-    descendants.reject { |model| model.descendants.any? }
+    descendants.reject { |model| model.descendants.any? }.sort_by { |model| model.name }
   end
 
   def self.concrete_descendant_search_format_types
