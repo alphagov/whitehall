@@ -1,4 +1,3 @@
-<% model_name = model_class.name.underscore %>
 <% page_title model_name.humanize %>
 <nav class="actions">
   <%= link_to "Create #{model_name.humanize.downcase}", [:new, :admin, model_name], class: "btn new_resource", title: "Create a #{model_name.humanize.downcase}" %>

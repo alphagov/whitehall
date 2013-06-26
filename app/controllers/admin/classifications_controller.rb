@@ -1,5 +1,6 @@
 class Admin::ClassificationsController < Admin::BaseController
   helper_method :model_class
+  helper_method :model_name
 
   before_filter :default_arrays_of_ids_to_empty, only: [:update]
   before_filter :build_object, only: [:new]
@@ -56,14 +57,14 @@ class Admin::ClassificationsController < Admin::BaseController
     @classification = model_class.find(params[:id])
   end
 
-  private
-
-  def model_attribute_name
+  def model_name
     model_class.name.underscore
   end
 
+  private
+
   def object_params
-    params[model_attribute_name]
+    params[model_name]
   end
 
   def default_arrays_of_ids_to_empty
