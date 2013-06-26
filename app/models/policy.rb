@@ -35,10 +35,6 @@ class Policy < Edition
   end
 
   class Trait < Edition::Traits::Trait
-    def process_associations_after_save(edition)
-      edition.related_editions = @edition.related_editions
-    end
-
     def process_associations_before_save(edition)
       @edition.edition_policy_groups.each do |association|
         edition.edition_policy_groups.build(association.attributes.except(["id", "edition_id"]))
