@@ -22,7 +22,7 @@
           <%= link_to classification.name, [:edit, :admin, classification], title: "Edit #{model_name.humanize.downcase} #{classification.name}" %>
           (<%= link_to "view", classification, title: "View #{classification.name} on the public website" %>)
         </td>
-        <td class="description"><%= classification.description %></td>
+        <td class="description"><%= truncate(classification.description, length: 130, separator: ' ') %></td>
         <td class="details"><%= classification_contents_breakdown(classification) %></td>
         <td class="related">
           <ul>

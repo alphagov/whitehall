@@ -20,11 +20,9 @@
     <% @classifications.each do |classification| %>
       <%= content_tag_for(:tr, classification) do %>
         <td class="name">
-          <%= link_to classification.name, [:edit, :admin, classification], title: "Edit #{model_name.humanize.downcase} #{classification.name}" %><br />
-          - <%= link_to "view", classification, title: "View #{classification.name} on the public website" %><br />
-          - <%= link_to "featured items", [:admin, classification, :classification_featurings], title: "Manage featurings on #{classification.name}" %><br />
+          <%= link_to classification.name, [:admin, classification], title: "View #{model_name.humanize.downcase} #{classification.name}" %>
         </td>
-        <td class="description"><%= classification.description %></td>
+        <td class="description"><%= truncate(classification.description, length: 130, separator: ' ') %></td>
         <td class="details"><%= classification_contents_breakdown(classification) %></td>
         <td class="duration">
           <% if classification.start_date && classification.end_date %>
