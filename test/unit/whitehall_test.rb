@@ -1,28 +1,6 @@
 require 'test_helper'
 
 class WhitehallTest < ActiveSupport::TestCase
-  test 'use quarantined file store in preview' do
-    Whitehall.stubs(:platform).returns('preview')
-    Rails.stubs(:env).returns(ActiveSupport::StringInquirer.new('not-test-environment'))
-    assert_equal :quarantined_file, Whitehall.asset_storage_mechanism
-  end
-
-  test 'use quarantined file store in production' do
-    Whitehall.stubs(:platform).returns('production')
-    Rails.stubs(:env).returns(ActiveSupport::StringInquirer.new('not-test-environment'))
-    assert_equal :quarantined_file, Whitehall.asset_storage_mechanism
-  end
-
-  test 'always uses file storage in test environment' do
-    Whitehall.stubs(:platform).returns('production')
-    Rails.stubs(:env).returns(ActiveSupport::StringInquirer.new('test'))
-    assert_equal :file, Whitehall.asset_storage_mechanism
-  end
-
-  test 'use file storage if no access details set' do
-    assert_equal :file, Whitehall.asset_storage_mechanism
-  end
-
   test '.platform returns FACTER_govuk_platform if set' do
     ENV['FACTER_govuk_platform'] = 'preview'
     assert_equal 'preview', Whitehall.platform
@@ -46,6 +24,23 @@ class WhitehallTest < ActiveSupport::TestCase
       assert_match %r{\A/}, binary_path
       assert File.exists?(binary_path), "#{binary_path} must exist"
       assert File.executable?(binary_path), "#{binary_path} must be executable"
+    end
+  end
+
+  test 'Whitehall.uploads_root segregates per-test environment' do
+    begin
+      before = ENV['TEST_ENV_NUMBER']
+
+      ENV['TEST_ENV_NUMBER'] = ''
+      assert_equal Rails.root.join('tmp/test/env_1').to_s, Whitehall.uploads_root
+
+      ENV['TEST_ENV_NUMBER'] = '1'
+      assert_equal Rails.root.join('tmp/test/env_1').to_s, Whitehall.uploads_root
+
+      ENV['TEST_ENV_NUMBER'] = '2'
+      assert_equal Rails.root.join('tmp/test/env_2').to_s, Whitehall.uploads_root
+    ensure
+      ENV['TEST_ENV_NUMBER'] = before
     end
   end
 end

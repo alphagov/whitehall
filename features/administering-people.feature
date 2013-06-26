@@ -31,7 +31,6 @@ Scenario: Editing an existing translation
   Then when viewing the person "Amanda Appleford" with the locale "Français" I should see:
     | biography         | Elle est née. Elle a vécu. Elle est morte.                  |
 
-@quarantine-files
 Scenario: Images are virus-checked before publication
   When I add a new person called "Dave Cameroon"
   Then the image will be quarantined for virus checking

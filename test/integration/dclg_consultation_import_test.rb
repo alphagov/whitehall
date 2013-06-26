@@ -14,6 +14,7 @@ class DclgConsultationImportTest < ActiveSupport::TestCase
     import = Import.create_from_file(creator, file, "consultation", organisation.id)
     assert import.valid?, import.errors.full_messages.join(", ")
     import.perform
+
     assert_equal [], import.import_errors
 
     consultation = Consultation.first
@@ -25,6 +26,7 @@ class DclgConsultationImportTest < ActiveSupport::TestCase
 
     assert_equal 1, consultation.attachments.size
     attachment = consultation.attachments.first
+    simulate_virus_scan(attachment.attachment_data.file)
     assert_equal "9781409836148", attachment.isbn
     assert_equal "attachment-content", File.read(attachment.file.path)
 
@@ -34,6 +36,7 @@ class DclgConsultationImportTest < ActiveSupport::TestCase
     assert_equal 1, response.attachments.size
     attachment = response.attachments.first
     assert_equal "9780201101799", attachment.isbn
+    simulate_virus_scan(attachment.attachment_data.file)
     assert_equal "response-content", File.read(attachment.file.path)
   end
 end
