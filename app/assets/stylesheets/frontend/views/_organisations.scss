@@ -184,14 +184,6 @@
 
   .block-2 {
     padding-bottom: $gutter;
-    .items-0 {
-      .feeds {
-        margin: 0 $gutter-half;
-        .feed {
-          margin-right: 0;
-        }
-      }
-    }
   }
 
   .block-10 {
@@ -741,7 +733,7 @@
   }
   .organisation-news {
     @extend %contain-floats;
-      @include media(tablet) {
+    @include media(tablet) {
       padding-bottom: $gutter+$gutter-half;
     }
   }
