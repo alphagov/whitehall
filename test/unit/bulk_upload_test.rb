@@ -1,15 +1,6 @@
 require 'test_helper'
 
 class BulkUploadZipFileTest < ActiveSupport::TestCase
-  setup do
-    FileUtils.mkdir_p(Rails.root.join('test-bulk-upload-zip-files'))
-    Dir.stubs(:mktmpdir).returns(Rails.root.join('test-bulk-upload-zip-files'))
-  end
-
-  teardown do
-    FileUtils.rm_rf(Rails.root.join('test-bulk-upload-zip-files'))
-  end
-
   test 'is invalid without a zip_file' do
     refute BulkUpload::ZipFile.new(nil).valid?
   end
@@ -30,15 +21,15 @@ class BulkUploadZipFileTest < ActiveSupport::TestCase
     zf = BulkUpload::ZipFile.new(a_zip_file)
     extracted = zf.extracted_files
     assert_equal 2, extracted.size
-    assert extracted.include?(['two-pages.pdf', Rails.root.join('test-bulk-upload-zip-files', 'extracted', 'two-pages.pdf').to_s])
-    assert extracted.include?(['greenpaper.pdf', Rails.root.join('test-bulk-upload-zip-files', 'extracted', 'greenpaper.pdf').to_s])
+    assert extracted.include?(['two-pages.pdf', File.join(zf.temp_dir, 'extracted', 'two-pages.pdf').to_s])
+    assert extracted.include?(['greenpaper.pdf', File.join(zf.temp_dir, 'extracted', 'greenpaper.pdf').to_s])
   end
 
   test 'extracted_files ignores OS X resource fork files' do
     zf = BulkUpload::ZipFile.new(zip_file_with_os_x_resource_fork)
     extracted = zf.extracted_files
     assert_equal 1, extracted.size
-    assert extracted.include?(['greenpaper.pdf', Rails.root.join('test-bulk-upload-zip-files', 'extracted', 'greenpaper.pdf').to_s])
+    assert extracted.include?(['greenpaper.pdf', File.join(zf.temp_dir, 'extracted', 'greenpaper.pdf').to_s])
   end
 
   def not_a_zip_file

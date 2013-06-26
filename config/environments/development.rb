@@ -46,7 +46,7 @@ Whitehall::Application.configure do
     orig_host = config.asset_host
     config.asset_host = Proc.new do |source|
       if source =~ %r{system/uploads}
-        "https://assets.digital.cabinet-office.gov.uk/government/uploads"
+        "https://assets.digital.cabinet-office.gov.uk"
       else
         orig_host
       end

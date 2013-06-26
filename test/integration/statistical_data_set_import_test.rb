@@ -29,6 +29,8 @@ class StatisticalDataSetImportTest < ActiveSupport::TestCase
     assert_equal "Attachment title", attachment.title
     assert_equal "attachment-1-urn", attachment.unique_reference
     assert_equal Time.zone.parse("2011-05-23"), attachment.created_at
+
+    simulate_virus_scan(attachment.attachment_data.file)
     assert_equal "attachment-content", File.read(attachment.file.path)
   end
 end

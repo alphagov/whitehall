@@ -25,6 +25,7 @@ class DftPublicationWithJsonImportTest < ActiveSupport::TestCase
 
     assert_equal 1, publication.attachments.size
     attachment = publication.attachments.first
+    simulate_virus_scan(attachment.attachment_data.file)
     assert_equal "attachment-content", File.read(attachment.file.path)
   end
 end

@@ -91,13 +91,16 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     post :create, edition: attributes
 
     consultation = Consultation.last
+    response_form = consultation.consultation_participation.consultation_response_form
     assert_equal attributes[:summary], consultation.summary
     assert_equal attributes[:opening_on].to_date, consultation.opening_on
     assert_equal attributes[:closing_on].to_date, consultation.closing_on
     assert_equal "http://participation.com", consultation.consultation_participation.link_url
     assert_equal "countmein@participation.com", consultation.consultation_participation.email
-    assert_equal "the title of the response form", consultation.consultation_participation.consultation_response_form.title
-    assert consultation.consultation_participation.consultation_response_form.consultation_response_form_data.file.present?
+    assert_equal "the title of the response form", response_form.title
+
+    simulate_virus_scan(response_form.consultation_response_form_data.file)
+    assert response_form.consultation_response_form_data.file.present?
   end
 
   test "create should create a new consultation and a response with attachments" do
@@ -122,8 +125,11 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     consultation = Consultation.last
     assert_equal 'response-summary', consultation.response.summary
     assert_equal 1, consultation.response.attachments.length
-    assert_equal 'attachment-title', consultation.response.attachments.first.title
-    assert consultation.response.attachments.first.file.present?
+
+    attachment = consultation.response.attachments.first
+    assert_equal 'attachment-title', attachment.title
+    simulate_virus_scan(attachment.attachment_data.file)
+    assert attachment.file.present?
   end
 
   view_test "create should show the cached response attachment that's been uploaded if the consultation creation fails" do

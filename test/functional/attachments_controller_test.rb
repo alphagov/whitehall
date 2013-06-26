@@ -1,102 +1,81 @@
 require "test_helper"
 
 class AttachmentsControllerTest < ActionController::TestCase
-  test 'attachment documents that aren\'t visible and haven\'t been replaced are redirected to the placeholder url' do
-    ad = create(:attachment_data)
-    @controller.stubs(:attachment_visible?).with(ad.to_param).returns false
 
-    get :show, id: ad.to_param, file: 'uk-cheese-consumption-figures-2011', extension: 'pdf'
+  def get_show(attachment_data)
+    get :show, id: attachment_data.to_param, file: File.basename(attachment_data.filename, ".#{attachment_data.file_extension}"), extension: attachment_data.file_extension
+  end
+
+  test "attachment documents that aren't visible and haven't been replaced are redirected to the placeholder url" do
+    get_show create(:attachment_data)
 
     assert_redirected_to placeholder_url
   end
 
-  test 'attachment images that aren\'t visible and haven\'t been replaced are redirected to the placeholder image' do
-    ad = create(:attachment_data)
-    @controller.stubs(:attachment_visible?).with(ad.to_param).returns false
-
-    get :show, id: ad.to_param, file: 'uk-cheese-consumption-figures-2011-chart', extension: 'jpg'
+  test "attachment images that aren't visible and haven't been replaced are redirected to the placeholder image" do
+    get_show create(:image_attachment_data)
 
     assert_redirected_to @controller.view_context.path_to_image('thumbnail-placeholder.png')
   end
 
-  test 'attachments that aren\'t visible and haven\'t been replaced are redirected to the placeholder image' do
+  test "attachments that aren't visible and have been replaced are redirected to the replacement attachment" do
     replacement = create(:attachment_data)
-    ad = create(:attachment_data, replaced_by: replacement)
-    @controller.stubs(:attachment_visible?).with(ad.to_param).returns false
-
-    get :show, id: ad.to_param, file: 'uk-cheese-consumption-figures-2011-chart', extension: 'pdf'
+    attachment_data = create(:attachment_data, replaced_by: replacement)
+    get_show attachment_data
 
     assert_redirected_to replacement.url
   end
 
-  test 'attachments that are visible are sent to the browser' do
-    Whitehall.stubs(:clean_upload_path).returns(Rails.root.join('test','clean-uploads'))
-    begin
-      ad = create(:attachment_data)
-      @controller.stubs(:attachment_visible?).with(ad.to_param).returns true
+  test 'document attachments that are visible are sent to the browser inline' do
+    visible_edition = create( :published_publication, :with_attachment)
+    attachment_data = visible_edition.attachments.first.attachment_data
 
-      FileUtils.mkdir_p(Whitehall.clean_upload_path + "system/uploads/attachment_data/file/#{ad.to_param}/")
-      FileUtils.cp(Rails.root.join('test','fixtures','whitepaper.pdf'), Whitehall.clean_upload_path + "system/uploads/attachment_data/file/#{ad.to_param}/uk-cheese-consumption-figures-2011.pdf")
+    simulate_virus_scan(attachment_data.file)
+    get_show attachment_data
 
-      get :show, id: ad.to_param, file: 'uk-cheese-consumption-figures-2011', extension: 'pdf'
-
-      assert_response :success
-    ensure
-      FileUtils.rmtree(Whitehall.clean_upload_path)
-    end
+    assert_response :success
+    assert_match /^inline;/, response.headers['Content-Disposition']
+    assert_match attachment_data.filename, response.headers['Content-Disposition']
   end
 
   test 'attachments on policy groups are always visible' do
-    Whitehall.stubs(:clean_upload_path).returns(Rails.root.join('test','clean-uploads'))
-    begin
-      ad = create(:policy_group_attachment)
+    pg_attachment = create(:policy_group_attachment)
+    attachment_data = pg_attachment.attachment.attachment_data
 
-      ad_param = ad.attachment.attachment_data.to_param
+    simulate_virus_scan(attachment_data.file)
+    get_show attachment_data
 
-      FileUtils.mkdir_p(Whitehall.clean_upload_path + "system/uploads/attachment_data/file/#{ad_param}/")
-      FileUtils.cp(Rails.root.join('test','fixtures','whitepaper.pdf'), Whitehall.clean_upload_path + "system/uploads/attachment_data/file/#{ad_param}/uk-cheese-consumption-figures-2011.pdf")
-
-      get :show, id: ad_param, file: 'uk-cheese-consumption-figures-2011', extension: 'pdf'
-
-      assert_response :success
-    ensure
-      FileUtils.rmtree(Whitehall.clean_upload_path)
-    end
+    assert_response :success
+    assert_match attachment_data.filename, response.headers['Content-Disposition']
   end
 
   test 'attachments that are images are sent inline' do
-    Whitehall.stubs(:clean_upload_path).returns(Rails.root.join('test','clean-uploads'))
-    begin
-      ad = create(:attachment_data)
-      @controller.stubs(:attachment_visible?).with(ad.to_param).returns true
+    attachment_data = create(:image_attachment_data)
+    visible_edition = create( :published_publication, :with_attachment, attachments: [create(:attachment, attachment_data: attachment_data)])
 
-      FileUtils.mkdir_p(Whitehall.clean_upload_path + "system/uploads/attachment_data/file/#{ad.to_param}/")
-      FileUtils.cp(Rails.root.join('test','fixtures','minister-of-funk.960x640.jpg'), Whitehall.clean_upload_path + "system/uploads/attachment_data/file/#{ad.to_param}/minister-of-funk.960x640.jpg")
+    simulate_virus_scan(attachment_data.file)
+    get_show attachment_data
 
-      get :show, id: ad.to_param, file: 'minister-of-funk.960x640', extension: 'jpg'
-
-      assert_response :success
-      assert_match /^inline;/, response.headers['Content-Disposition']
-    ensure
-      FileUtils.rmtree(Whitehall.clean_upload_path)
-    end
+    assert_response :success
+    assert_match attachment_data.filename, response.headers['Content-Disposition']
+    assert_match /^inline;/, response.headers['Content-Disposition']
   end
 
-  test 'attachments that are documents are sent inline' do
-    Whitehall.stubs(:clean_upload_path).returns(Rails.root.join('test','clean-uploads'))
-    begin
-      ad = create(:attachment_data)
-      @controller.stubs(:attachment_visible?).with(ad.to_param).returns true
+  test "requesting an attachment's thumbnail returns the thumbnail inline" do
+    attachment_data = create(:attachment_data)
+    visible_edition = create( :published_publication, :with_attachment, attachments: [create(:attachment, attachment_data: attachment_data)])
+    simulate_virus_scan(attachment_data.file)
+    create_thumbnail_for_upload(attachment_data.file)
+    get :show, id: attachment_data.to_param, file: attachment_data.filename, extension: 'png'
 
-      FileUtils.mkdir_p(Whitehall.clean_upload_path + "system/uploads/attachment_data/file/#{ad.to_param}/")
-      FileUtils.cp(Rails.root.join('test','fixtures','whitepaper.pdf'), Whitehall.clean_upload_path + "system/uploads/attachment_data/file/#{ad.to_param}/uk-cheese-consumption-figures-2011.pdf")
+    assert_response :success
+    assert_match "#{attachment_data.filename}.png", response.headers['Content-Disposition']
+    assert_match /^inline;/, response.headers['Content-Disposition']
+  end
 
-      get :show, id: ad.to_param, file: 'uk-cheese-consumption-figures-2011', extension: 'pdf'
+  private
 
-      assert_response :success
-      assert_match /^inline;/, response.headers['Content-Disposition']
-    ensure
-      FileUtils.rmtree(Whitehall.clean_upload_path)
-    end
+  def create_thumbnail_for_upload(uploader)
+    FileUtils.touch("#{uploader.clean_path}.png")
   end
 end

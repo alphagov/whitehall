@@ -14,9 +14,7 @@ Then /^clicking on the attachment redirects me to an explanatory page$/ do
 end
 
 When /^the (?:attachment|image)s? (?:has|have) been virus\-checked$/ do
-  incoming_path = CarrierWave::Uploader::Base.incoming_root
-  clean_path = Whitehall.clean_upload_path
-  FileUtils.cp_r(incoming_path.to_s + '/.', clean_path.to_s + "/")
+  FileUtils.cp_r(Whitehall.incoming_uploads_root + '/.', Whitehall.clean_uploads_root + "/")
 end
 
 Then /^I can see the attachment thumbnail and download it$/ do
