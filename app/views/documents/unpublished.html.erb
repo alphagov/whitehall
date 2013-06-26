@@ -11,7 +11,7 @@
 
     <div class="document body">
       <% if @unpublishing.explanation.present? %>
-        <%= content_tag :p, @unpublishing.explanation %>
+        <%= govspeak_to_html @unpublishing.explanation %>
       <% end %>
 
       <% if @unpublishing.alternative_url.present? %>
