@@ -18,9 +18,9 @@ module TopicsHelper
   end
 
   def classification_contents_breakdown(classification)
-    [
-      pluralize(classification.policies.published.count, "published policy"),
-      pluralize(classification.detailed_guides.published.count, "published detailed guide")
-    ].to_sentence
+    capture do
+      concat content_tag(:span, pluralize(classification.policies.published.count, "published policy"))
+      concat content_tag(:span, pluralize(classification.detailed_guides.published.count, "published detailed guide"))
+    end
   end
 end

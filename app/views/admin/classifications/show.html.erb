@@ -11,14 +11,14 @@
     <section>
       <%= tab_navigation_for(@classification) do %>
 
-        <table class="table">
+        <table class="<%= model_name %> table">
           <tr>
             <th>Description</th>
             <td class="description"><%= @classification.description %></td>
           </tr>
 
           <tr>
-            <td>Details</td>
+            <td class="details">Details</td>
             <td class="details"><%= classification_contents_breakdown(@classification) %></td>
           </tr>
 
