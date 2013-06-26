@@ -2,16 +2,16 @@
   <nav id="proposition-menu">
     <%= link_to "Inside Government", root_path, id: 'proposition-name' %>
     <ul id="proposition-links">
+      <li><%= main_navigation_link_to "Departments", organisations_path %></li>
+      <li><%= main_navigation_link_to "Topics", topics_path %></li>
+      <li><%= main_navigation_link_to "Worldwide", world_locations_path(locale: :en) %></li>
       <li><%= main_navigation_link_to 'How government works', how_government_works_path %></li>
       <li><%= main_navigation_link_to "Get involved", get_involved_path %></li>
-      <li><%= main_navigation_link_to "Departments", organisations_path %></li>
-      <li><%= main_navigation_link_to "Worldwide", world_locations_path(locale: :en) %></li>
-      <li><%= main_navigation_link_to "Topics", topics_path %></li>
-      <li class="clear-child"><%= main_navigation_link_to "Announcements", announcements_path %></li>
-      <li><%= main_navigation_link_to "Consultations", publications_filter_path(publication_filter_option: 'consultations') %></li>
-      <li><%= main_navigation_link_to "Policies", policies_path %></li>
+      <li class="clear-child"><%= main_navigation_link_to "Policies", policies_path %></li>
       <li><%= main_navigation_link_to "Publications", publications_path %></li>
+      <li><%= main_navigation_link_to "Consultations", publications_filter_path(publication_filter_option: 'consultations') %></li>
       <li><%= main_navigation_link_to "Statistics", publications_filter_path(publication_filter_option: 'statistics') %></li>
+      <li><%= main_navigation_link_to "Announcements", announcements_path %></li>
     </ul>
   </nav>
   <div class="whitehall-top-bar<%= content_for?(:bar_colour_class) ? " #{yield(:bar_colour_class)}" : '' %>"></div>
