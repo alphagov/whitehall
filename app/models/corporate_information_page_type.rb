@@ -12,7 +12,7 @@ class CorporateInformationPageType
   end
 
   def title(organisation)
-    title_template % (organisation.respond_to?(:acronym) && organisation.acronym || "the #{organisation.name}")
+    title_template % (organisation.respond_to?(:acronym) && organisation.acronym || "#{organisation.name}")
   end
 
   def self.by_menu_heading(menu_heading)
