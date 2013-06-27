@@ -133,7 +133,7 @@ module Whitehall
     end
 
     def clean_uploads_root
-      File.join(uploads_root, 'clean-uploads')
+      real_path_for_x_accel_mapping(File.join(uploads_root, 'clean-uploads'))
     end
 
     def government_search_index_name
@@ -236,6 +236,10 @@ module Whitehall
 
     def secrets_path
       Rails.root + 'config' + 'whitehall_secrets.yml'
+    end
+
+    def real_path_for_x_accel_mapping(potentially_symlinked_path)
+      File.realpath(potentially_symlinked_path)
     end
   end
 end
