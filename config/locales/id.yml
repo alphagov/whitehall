@@ -7,14 +7,16 @@ id:
     heading: Pengumuman
   attachment:
     accessibility:
-      full_help_html:
-      heading:
-      request_a_different_format:
+      full_help_html: Untuk mendapatkan dokumen ini dalam format lain seperti braille,
+        audio atau format lainnya silahkan kirimkan email %{email} yang berisi alamat
+        Anda, nomor telepon dan judul dokumen yang diinginkan ("%{title}")%{references}.
+      heading: File ini tidak sesuai dengan pengguna teknologi bantu.
+      request_a_different_format: Meminta format lain.
     headings:
-      order_a_copy:
-      order_a_copy_full:
-      published:
-      reference:
+      order_a_copy: Memesan salinan
+      order_a_copy_full: Memesan salinan dokumen
+      published: Diterbitkan
+      reference: Ref
   change_notes:
     published: Diterbitkan
     updated: Diperbaharui
@@ -23,9 +25,9 @@ id:
     email: Email
   corporate_information_page:
     type:
-      personal_information_charter: piagam informasi pribadi
+      personal_information_charter: Piagam informasi pribadi
       publication_scheme: Skema publikasi
-      social_media_use:
+      social_media_use: Penggunaan media sosial
       welsh_language_scheme: Skema bahasa Wales
   date:
     formats:
@@ -36,17 +38,17 @@ id:
       advisory_groups: Kelompok penasehat
       applies_to_nations: Diterapkan pada
       attachments:
-        one:
-        other:
-      document_series: Seri
+        one: Dokumen
+        other: Dokumen-dokumen
+      document_series: Serial
       field_of_operation: Area operasi
       live_data: Data Live
       ministers:
         one: Menteri
         other: Menteri-menteri
       organisations:
-        one:
-        other:
+        one: Organisasi
+        other: Organisasi-organisasi
       policies:
         one: Kebijakan
         other: Kebijakan-kebijakan
@@ -67,30 +69,30 @@ id:
     read: Baca artikel %{title}
     speech:
       author_title:
-        minister:
-        speaker:
+        minister: Menteri
+        speaker: Penulis
       delivered_on: ! 'Dikirimkan pada:'
       delivery_title:
         minister: Menteri
         speaker: Pembicara
       originally_given_at: Disampaikan di %{location}
-      written_on:
+      written_on: ! 'Dituliskan pada:'
     type:
       announcement:
         one: Pengumuman
         other: Pengumuman-pengumuman
       authored_article:
-        one:
-        other:
+        one: Artikel yang ditulis
+        other: Artikel-artikel yang ditulis
       case_study:
         one: Studi kasus
-        other: Studi kasus
+        other: Studi-studi kasus
       closed_consultation:
         one: Konsultasi tertutup
         other: Konsultasi-konsultasi tertutup
       consultation:
         one: Konsultasi
-        other: ! 'Konsultasi-konsultasi  '
+        other: Konsultasi-konsultasi
       consultation_outcome:
         one: Hasil konsultasi
         other: Hasil-hasil konsultasi
@@ -113,13 +115,13 @@ id:
         one: Rilis FOI
         other: Rilis FOI
       form:
-        one: ! 'Formulir  '
+        one: Formulir
         other: Formulir-formulir
       government_response:
-        one:
-        other:
+        one: Respon Pemerintah
+        other: Respon-respon Pemerintah
       guidance:
-        one: ! 'Panduan  '
+        one: Panduan
         other: Panduan
       impact_assessment:
         one: Penilaian dampak
@@ -179,8 +181,8 @@ id:
         one: Set data statistik
         other: Set data statistik
       statistics:
-        one: ! 'Statistik '
-        other: ! 'Statistik-statistik '
+        one: Statistik
+        other: Statistik-statistik
       transcript:
         one: Transkrip
         other: Transkrip-transkrip
@@ -221,33 +223,33 @@ id:
         format: ! '%n%u'
   organisation:
     about:
-      read_more:
+      read_more: Baca lebih lanjut mengenai kerja kami
     corporate_information:
-      access_our_info:
-      foi_how_to:
-      foi_releases:
-      jobs_and_contacts:
-      transparency:
+      access_our_info: Akses informasi kami
+      foi_how_to: Bagaimana membuat permintaan FOI
+      foi_releases: Rilis-rilis FOI
+      jobs_and_contacts: Pekerjaan dan kontrak
+      transparency: Transparansi data
     headings:
-      chief_professional_officers:
-      contact:
-      corporate_information:
-      corporate_reports:
+      chief_professional_officers: Para kepala pejabat profesional kami
+      contact: Hubungi %{name}
+      corporate_information: Informasi korporat
+      corporate_reports: Laporan korporat
       making_foi_requests:
-      our_announcements:
+      our_announcements: Pengumuman-pengumuman kami
       our_mainstream_categories:
-      our_management:
-      our_ministers:
-      our_policies:
-      our_publications:
-      our_senior_military_officials:
-      our_services:
-      our_statistics:
-      our_topics:
-      plus_others:
-      special_representatives:
-      traffic_commissioners:
-      what_we_do:
+      our_management: Manajemen kami
+      our_ministers: Menteri-menteri kami
+      our_policies: Kebijakan-kebijakan kami
+      our_publications: Publikasi-publikasi kami
+      our_senior_military_officials: Para pejabat militer senior kami
+      our_services: Pelayanan-pelayanan kami
+      our_statistics: Statistik-statistik kami
+      our_topics: Kami bekerja pada bidang-bidang ini
+      plus_others: ! ' + lainnya'
+      special_representatives: Perwakilan khusus
+      traffic_commissioners: Komisioner lalu lintas
+      what_we_do: Kerja kami
     making_foi_requests:
       step1_html:
       step2_html:
@@ -266,8 +268,8 @@ id:
         one: Badan eksekutif non-departmen
         other: Badan-badan eksekutif non-departemen
       Executive office:
-        one:
-        other:
+        one: Kantor eksekutif
+        other: Kantor-kantor eksekutif
       Independent monitoring body:
         one: Badan pengawas independen
         other: Badan-badan pengawas independen
@@ -294,7 +296,7 @@ id:
   publications:
     heading: Publikasi-publikasi
     headings:
-      detail:
+      detail: Detail
   read_more: Baca lebih lanjut
   support:
     array:
@@ -308,7 +310,7 @@ id:
       country: Negara
       documents: Dokumen-dokumen
       mission: Misi kami
-      organisations: ! 'Organisasi-organisasi  '
+      organisations: Organisasi-organisasi
       priorities: Kebijakan-kebijakan
       publications: Publikasi-publikasi kami
       quick_links: Tautan cepat
@@ -321,15 +323,15 @@ id:
         one: Delegasi internasional
         other: Delegasi-delegasi internasional
       world_location:
-        one:
-        other:
+        one: Lokasi dunia
+        other: Lokasi-lokasi dunia
   worldwide_organisation:
     corporate_information:
       personal_information_charter_html: ! '%{link} menjelaskan tentang bagaimana
         kami memperlakukan informasi pribadi Anda'
       publication_scheme_html: Baca jenis-jenis informasi yang secara rutin kami muat
         di %{link}
-      social_media_use_html:
+      social_media_use_html: Baca kebijakan kami di %{link}
       welsh_language_scheme_html: Informasi lebih lanjut mengenai komitmen kami dalam
         memuat informasi di %{link}
     find_out_more: Baca profil keseluruhan dan semua rincian kontak

@@ -2,339 +2,341 @@ th:
   activerecord:
     attributes:
       detailed_guide:
-        primary_mainstream_category:
+        primary_mainstream_category: หมวดคู่มือเบื้องต้นอย่างละเอียด
   announcements:
-    heading:
+    heading: ข่าวสาร
   attachment:
     accessibility:
-      full_help_html:
-      heading:
-      request_a_different_format:
+      full_help_html: ต้องการเอกสารในรูปแบบอื่นเช่นอักษรเบรลล์, ไฟล์เสียง หรือไฟล์ชนิดอื่น
+        กรุณาอีเมล์%{email}พร้อมที่อยู่, เบอร์โทรศัพท์ และหัวข้อเอกสารที่ต้องการ("%{title}")%{references}.
+      heading: ไฟล์นี้อาจไม่เหมาะสำหรับผู้ใช้เทคโนโลยี่อำนวยความสะดวก
+      request_a_different_format: ขอรูปแบบอื่น
     headings:
-      order_a_copy:
-      order_a_copy_full:
-      published:
-      reference:
+      order_a_copy: สั่งสำเนาหนึ่งชุด
+      order_a_copy_full: สั่งสำเนาเอกสารหนึ่งชุด
+      published: ตีพิมพ์
+      reference: อ้างอิง
   change_notes:
-    published:
-    updated:
+    published: ติพิมพ์
+    updated: ปรับปรุง
   contact:
-    contact_form:
-    email:
+    contact_form: แบบฟอร์มการติดต่อ
+    email: อีเมล์
   corporate_information_page:
     type:
-      personal_information_charter:
-      publication_scheme:
-      social_media_use:
-      welsh_language_scheme:
+      personal_information_charter: กฎบัตรข้อมูลส่วนบุคคล
+      publication_scheme: โครงการสิ่งพิม์
+      social_media_use: การใช้สื่อสังคมออนล์
+      welsh_language_scheme: โครงการภาษาเวลช์
   date:
     formats:
-      default:
+      default: ! '%d %B %Y'
       long_ordinal: ! '%e %B %Y'
   document:
     headings:
-      advisory_groups:
-      applies_to_nations:
+      advisory_groups: กลุ่มที่ปรึกษา
+      applies_to_nations: นำไปใช้กับ
       attachments:
-        one:
-        other:
-      document_series:
-      field_of_operation:
-      live_data:
+        one: เอกสาร
+        other: เอกสารต่างๆ
+      document_series: ตอน
+      field_of_operation: ลักษณะงาน
+      live_data: ข้อมูลสด
       ministers:
-        one:
-        other:
+        one: รัฐมนตรี
+        other: รัฐมนตรี
       organisations:
-        one:
-        other:
+        one: องค์กร
+        other: องค์กร
       policies:
-        one:
-        other:
-      policy_team:
+        one: นโยบาย
+        other: นโยบาย
+      policy_team: ทีมนโยบาย
       topical_events:
         one:
         other:
       topics:
-        one:
-        other:
+        one: หัวข้อ
+        other: หัวข้อ
       world_locations:
-        one:
-        other:
+        one: ที่ตั้ง
+        other: ที่ตั้ง
       worldwide_organisations:
-        one:
-        other:
-    published:
-    read:
+        one: องค์กร
+        other: องค์กร
+    published: ตีพิมพ์
+    read: อ่าน%{title}บทความ
     speech:
       author_title:
-        minister:
-        speaker:
-      delivered_on:
+        minister: รัฐมนตรี
+        speaker: ผู้เขียน
+      delivered_on: กล่าวเมื่อ
       delivery_title:
-        minister:
-        speaker:
-      originally_given_at:
-      written_on:
+        minister: รัฐมนตรี
+        speaker: ผู้กล่าว
+      originally_given_at: สถานที่กล่าว%{location}
+      written_on: เขียนเมือ
     type:
       announcement:
-        one:
-        other:
+        one: ข่าวสาร
+        other: ข่าวสาร
       authored_article:
-        one:
-        other:
+        one: บทความที่เขียน
+        other: บทความที่เขียน
       case_study:
-        one:
-        other:
+        one: กรณีศึกษา
+        other: กรณีศึกษา
       closed_consultation:
-        one:
-        other:
+        one: การศึกษาแบบปิด
+        other: การศึกษาแบบปิด
       consultation:
-        one:
-        other:
+        one: การปรึกษา
+        other: การปรึกษา
       consultation_outcome:
-        one:
-        other:
+        one: ผลการปรึกษา
+        other: ผลการปรึกษา
       corporate_report:
-        one:
-        other:
+        one: รายงานบริษัท
+        other: รายงานบริษัท
       correspondence:
-        one:
-        other:
+        one: จดหมาย
+        other: จดหมาย
       detailed_guidance:
-        one:
-        other:
+        one: คู่มือโดยละเอียด
+        other: คู่มือโดยละเอียด
       draft_text:
-        one:
-        other:
+        one: ร่างข้อความ
+        other: ร่างข้อความ
       fatality_notice:
-        one:
-        other:
+        one: การแจ้งมรณะกรรม
+        other: การแจ้งมรณะกรรม
       foi_release:
-        one:
-        other:
+        one: ข้อมูลที่เปิดเผยได้
+        other: ข้อมูลที่เปิดเผยได้
       form:
-        one:
-        other:
+        one: แบบฟอร์ม
+        other: แบบฟอร์ม
       government_response:
-        one:
-        other:
+        one: การตอบสนองของรัฐบาล
+        other: การตอบสนองของรัฐบาล
       guidance:
-        one:
-        other:
+        one: คู่มือ
+        other: คู่มือ
       impact_assessment:
-        one:
-        other:
+        one: การประเมินผลกระทบ
+        other: การประเมินผลกระทบ
       imported:
-        one:
-        other:
+        one: ประเภทรอนำเข้า
+        other: ประเภทรอนำเข้า
       independent_report:
-        one:
-        other:
+        one: รายงานอิสระ
+        other: รายงานอิสระ
       map:
-        one:
-        other:
+        one: แผนที่
+        other: แผนที่
       national_statistics:
-        one:
-        other:
+        one: สถิติ-สถิติแห่งชาน
+        other: สถิติ-สถิติแห่งชาติ
       news_article:
-        one:
-        other:
+        one: บทความข่าว
+        other: บทความข่าว
       news_story:
-        one:
-        other:
+        one: ข่าว
+        other: ข่าว
       open_consultation:
-        one:
-        other:
+        one: การให้คำปรึกษาเปิด
+        other: การให้คำปรึกษาเปิด
       oral_statement:
-        one:
-        other:
+        one: แถลงการณ์ด้วยวาจาต่อรัฐสภา
+        other: แถลงการณ์ด้วยวาจาต่อรัฐสภา
       policy:
-        one:
-        other:
+        one: นโยบาย
+        other: นโยบาย
       policy_paper:
-        one:
-        other:
+        one: เอกสารนโยบาย
+        other: เอกสารนโยบาย
       press_release:
-        one:
-        other:
+        one: ข่าวประชาสัมพันธ์
+        other: ข่าวประชาสัมพันธ์
       promotional:
-        one:
-        other:
+        one: เอกสารเพี่อการประชาสัมพันธ์
+        other: เอกสารเพือการประชาสัมพันธ์
       publication:
-        one:
-        other:
+        one: สิ่งพิมพ์
+        other: สิ่งพิมพ์
       research:
-        one:
-        other:
+        one: บทวิจัยและบทวิเคราะห์
+        other: บทวิจัยและบทวิเคราะห์
       speaking_notes:
-        one:
-        other:
+        one: ประเด็นการพูด
+        other: ประเด็นการพูด
       speech:
-        one:
-        other:
+        one: สุนทรพจน์
+        other: สุนทรพจน์
       statement_to_parliament:
-        one:
-        other:
+        one: แถลงการณ์ต่อรัฐสภา
+        other: แถลงการณ์ต่อรัฐสภา
       statistical_data_set:
-        one:
-        other:
+        one: ชุดข้อมูลสถิติ
+        other: ชุดข้อมูลสถิติ
       statistics:
-        one:
-        other:
+        one: สถิติ
+        other: สถิติ
       transcript:
-        one:
-        other:
+        one: สำเนา
+        other: สำเนา
       transparency:
-        one:
-        other:
+        one: ข้อมูลโปร่งใส
+        other: ข้อมูลโปร่งใส
       worldwide_priority:
-        one:
-        other:
+        one: นโยบายสำคัญที่ใช้ทั่วโลก
+        other: นโยบายสำคัญที่ใช้ทั่วโลก
       written_statement:
-        one:
-        other:
-    updated:
-    view:
+        one: ! 'แถลงการเป็นลายลักษณ์อักษรต่อรัฐสภา '
+        other: ! 'แถลงการเป็นลายลักษณ์อักษรต่อรัฐสภา '
+    updated: ปรับปรุง
+    view: ดู '%{title}'
   document_filters:
-    description:
+    description: คุณสามารถใช้เครื่องมือค้นหาเพื่อแสดงผลเฉพาะหัวข้อที่ตรงกับความสนใจของคุณ
     no_results:
-      description:
-      title:
+      description: ลองค้นหาอีกครั้งด้วยคำค้นหาที่กว้างขึ้น
+      title: ไม่มีเอกสารที่ตรงตามต้องการ
     world_locations:
-      all:
-      label:
+      all: ที่ตั้งทั้งหมด
+      label: ที่ตั้งทั่วโลก
   feeds:
-    atom:
-    email_alerts:
-    latest_activity:
+    atom: ระบบการรับข่าวอะตอม
+    email_alerts: ระบบการแจ้งเตือนทางอีเมล์
+    latest_activity: กิจกรรมล่าสุด
   i18n:
     direction: ltr
   language_names:
     th: ไทย
   latest_feed:
-    no_updates:
-    title:
+    no_updates: ยังไม่มีการปรับปรุงข้อมูล
+    title: ล่าสุด
   number:
     human:
       storage_units:
-        format:
+        format: ! '%n%u'
   organisation:
     about:
-      read_more:
+      read_more: อ่านเพิ่มเติมเกี่ยวกับสิ่งที่เราทำ
     corporate_information:
-      access_our_info:
-      foi_how_to:
-      foi_releases:
-      jobs_and_contacts:
-      transparency:
+      access_our_info: เข้าถึงข้อมูลของเรา
+      foi_how_to: การร้องขอเกี่ยวกับการเปิดเผยข้อมูล
+      foi_releases: ข้อมูลที่เปิดเผยได้
+      jobs_and_contacts: งานและการทำสัญญา
+      transparency: ข้อมูลที่มีความโปร่งใส
     headings:
-      chief_professional_officers:
-      contact:
-      corporate_information:
-      corporate_reports:
+      chief_professional_officers: หัวหน้าผู้ชำนาญการ
+      contact: สัญญา %{name}
+      corporate_information: ข้อมูลบริษัท
+      corporate_reports: รายงานบริษัท
       making_foi_requests:
-      our_announcements:
+      our_announcements: ข่าวสารของเรา
       our_mainstream_categories:
-      our_management:
-      our_ministers:
-      our_policies:
-      our_publications:
-      our_senior_military_officials:
-      our_services:
-      our_statistics:
-      our_topics:
-      plus_others:
-      special_representatives:
-      traffic_commissioners:
-      what_we_do:
+      our_management: การบริหารจัดการของเรา
+      our_ministers: รัฐมนตรีของเรา
+      our_policies: นโยบายของเรา
+      our_publications: สิ่งพิมพ์ของเรา
+      our_senior_military_officials: เจ้าหน้าที่ทหารอาวุโสของเรา
+      our_services: บริการของเรา
+      our_statistics: สถิติของเรา
+      our_topics: เราทำงานในห้วข้อเหล่านี้
+      plus_others: ! '#ชื่อ?'
+      special_representatives: ผู้แทนพิเศษ
+      traffic_commissioners: ผู้บัญชาการจราจร
+      what_we_do: สิ่งที่เราทำ
     making_foi_requests:
       step1_html:
       step2_html:
       step3_html:
     type:
       Ad-hoc advisory group:
-        one:
-        other:
+        one: กลุ่มให้คำปรึกษาเฉพาะกิจ
+        other: กลุ่มให้คำปรึกษาเฉพาะกิจ
       Advisory non-departmental public body:
-        one:
-        other:
+        one: กลุ่มให้คำปรึกษาองค์กรอิสระ
+        other: กลุ่มให้คำปรึกษาองค์กรอิสระ
       Executive agency:
-        one:
-        other:
+        one: หน่วยงานบริหาร
+        other: หน่วยงานบริหาร
       Executive non-departmental public body:
-        one:
-        other:
+        one: องค์กรบริหาร
+        other: องค์กรบริหาร
       Executive office:
-        one:
-        other:
+        one: สำนักงานบริหาร
+        other: สำนักงานบริหาร
       Independent monitoring body:
-        one:
-        other:
+        one: หน่วยงานตรวจสอบอิสระ
+        other: หน่วยงานตรวจสอบอิสระ
       Ministerial department:
-        one:
-        other:
+        one: หน่วยงานที่อยู่ในกำกับของรัฐมนตรี
+        other: หน่วยงานที่อยู่ในกำกับของรัฐมนตรี
       Non-ministerial department:
-        one:
-        other:
+        one: หน่วยงานที่ไม่อยู่ในกำกับของรัฐมนตรี
+        other: หน่วยงานที่ไม่อยู่ในกำกับของรัฐมนตรี
       Other:
-        one:
-        other:
+        one: อื่นๆ
+        other: ! 'อื่นๆ '
       Public corporation:
-        one:
-        other:
+        one: บริษัทมหาชน
+        other: บริษัทมหาชน
       Sub-organisation:
-        one:
-        other:
+        one: องค์กรย่อย
+        other: องค์กรย่อย
       Tribunal non-departmental public body:
-        one:
-        other:
+        one: ศาลปกครอง
+        other: ศาลปกครอง
   policies:
-    heading:
+    heading: นโยบาย
   publications:
-    heading:
+    heading: สิ่งพิมพ์
     headings:
-      detail:
-  read_more:
+      detail: รายละเอียด
+  read_more: อ่านเพิ่มเติม
   support:
     array:
-      last_word_connector:
+      last_word_connector: และ
   time:
     formats:
-      long_ordinal:
+      long_ordinal: ! '%e %B %Y %H:%M'
   world_location:
     headings:
-      announcements:
-      country:
-      documents:
-      mission:
-      organisations:
-      priorities:
-      publications:
-      quick_links:
-      related_policies:
-      see_all:
-      statistics:
-    see_all:
+      announcements: ข่าวสารของเรา
+      country: ประเทศ
+      documents: เอกสาร
+      mission: ภาระกิจของเรา
+      organisations: องค์กร
+      priorities: นโยบายหลัก
+      publications: สิ่งพิมพ์ของเรา
+      quick_links: ลิงค์ด่วน
+      related_policies: นโยบายที่เกี่ยวข้อง
+      see_all: ดูทั้งหมด%{type}
+      statistics: สถิติของเรา
+    see_all: ดูทั้งหมด%{type}
     type:
       international_delegation:
-        one:
-        other:
+        one: ผู้แทนนานาประเทศ
+        other: คณะผู้แทนนานาประเทศ
       world_location:
-        one:
-        other:
+        one: ที่ตั้ง
+        other: ทีตั้ง
   worldwide_organisation:
     corporate_information:
-      personal_information_charter_html:
-      publication_scheme_html:
-      social_media_use_html:
-      welsh_language_scheme_html:
-    find_out_more:
+      personal_information_charter_html: ลิงค์นี้อธิบายถึงวิธีการที่เราปฏิบัติต่อข้อมูลส่วนบุคคลของคุณ
+      publication_scheme_html: อ่านประเภทข้อมูลซึ่งเราเผยแพร่เป็นประจำได้ที่ %{link}
+      social_media_use_html: อ่านนโยบายของเราได้ที่ %{link}
+      welsh_language_scheme_html: ค้นหาข้อมูลเกี่ยวกับพันธสัญญาในการตีพิมพ์ของเราได้ที่
+        %{link}.
+    find_out_more: ดูรายละเอียดและข้อมูลการติดต่อทั้งหมด
     headings:
-      about_us:
-      contact_us:
-      corporate_information:
-      follow_us:
-      our_people:
-      our_services:
-    location:
-    part_of:
+      about_us: เกี่ยวกับเรา
+      contact_us: ติดต่อเรา
+      corporate_information: ข้อมูลองค์กร
+      follow_us: ติดตามเรา
+      our_people: เจ้าหน้าที่ของเรา
+      our_services: บริการของเรา
+    location: ที่ตั้ง
+    part_of: ส่วนของ

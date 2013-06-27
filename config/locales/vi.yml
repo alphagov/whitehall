@@ -7,14 +7,18 @@ vi:
     heading: Thông báo
   attachment:
     accessibility:
-      full_help_html:
-      heading:
-      request_a_different_format:
+      full_help_html: ! 'Để yêu cầu tài liệu này dưới định dạng khác như tài liệu
+        chữ nổi, tiếng hay một định dạng file khác, xin mời email đến %{email}
+
+        cung cấp địa chỉ của bạn, số điện thoại cùng với tiêu đề của tài liệu ("%{tiêu
+        đề}")%{tham khảo}.'
+      heading: ! 'File này không phù hợp với công nghệ hỗ trợ của người dùng '
+      request_a_different_format: Yêu cầu một định dạng khác
     headings:
-      order_a_copy:
-      order_a_copy_full:
-      published:
-      reference:
+      order_a_copy: Đặt một bản sao
+      order_a_copy_full: Đặt một bản sao của ấn phẩm truyền thông
+      published: Đã đăng
+      reference: đối với
   change_notes:
     published: Xuất bản
     updated: Cập nhật
@@ -25,19 +29,19 @@ vi:
     type:
       personal_information_charter: Bảng thông tin cá nhân
       publication_scheme: Cơ chế Xuất bản
-      social_media_use:
+      social_media_use: Sử dụng mạng xã hội
       welsh_language_scheme: cơ chế ngôn ngữ của xứ Wales
   date:
     formats:
-      default:
-      long_ordinal:
+      default: ! '%d %B %Y'
+      long_ordinal: ! '%d %B %Y'
   document:
     headings:
       advisory_groups: Nhóm tham vấn
       applies_to_nations: Áp dụngng cho
       attachments:
-        one:
-        other:
+        one: Tài liệu
+        other: Tài liệu
       document_series: Chuỗi
       field_of_operation: Lĩnh vực hoạt động
       live_data: Dữ liệu cập nhật
@@ -45,8 +49,8 @@ vi:
         one: Thứ trưởng
         other: Các thứ trưởng
       organisations:
-        one:
-        other:
+        one: Tổ chức
+        other: Tổ chức
       policies:
         one: Chính sách
         other: Các chính sách
@@ -67,21 +71,21 @@ vi:
     read: Đọc bài có  %{tiêu đề}
     speech:
       author_title:
-        minister:
-        speaker:
-      delivered_on:
+        minister: Thứ trưởng
+        speaker: Tác giả
+      delivered_on: ! 'Đưa ra:'
       delivery_title:
         minister: Thứ trưởng
         speaker: Người phát biểu
       originally_given_at: Được đưa ra đầu tiên tại %{địa điểm}
-      written_on:
+      written_on: ! 'Viết vào:'
     type:
       announcement:
         one: Thông báo
         other: Các thông báo
       authored_article:
-        one:
-        other:
+        one: bài viết do tác giả
+        other: Các bài viết do tác giả
       case_study:
         one: Trường hợp cụ thể
         other: Các Trường hợp cụ thể
@@ -116,8 +120,8 @@ vi:
         one: Mẫu đơn
         other: Các mẫu đơn
       government_response:
-        one:
-        other:
+        one: Phản ứng của Chính phủ
+        other: các phản hồi của Chính phủ
       guidance:
         one: hướng dẫn
         other: hướng dẫn
@@ -221,33 +225,33 @@ vi:
         format: ! '%n%u'
   organisation:
     about:
-      read_more:
+      read_more: Xem thêm về những việc chúng tôi làm
     corporate_information:
-      access_our_info:
-      foi_how_to:
-      foi_releases:
-      jobs_and_contacts:
-      transparency:
+      access_our_info: Truy cập thông tin của chúng tôi
+      foi_how_to: Cách tạo một yêu cầu FOI
+      foi_releases: Tuyên bố FOI
+      jobs_and_contacts: Việc làm và hợp đồng
+      transparency: Minh bạch dữ liệu
     headings:
-      chief_professional_officers:
-      contact:
-      corporate_information:
-      corporate_reports:
+      chief_professional_officers: Các cán bộ phụ trách chuyên môn của chúng tôi
+      contact: Liên lạc %{tên}
+      corporate_information: Thông tin về phòng tổng hợp
+      corporate_reports: Các báo cáo của phòng tổng hợp
       making_foi_requests:
-      our_announcements:
+      our_announcements: Các thông báo của chúng tôi
       our_mainstream_categories:
-      our_management:
-      our_ministers:
-      our_policies:
-      our_publications:
-      our_senior_military_officials:
-      our_services:
-      our_statistics:
-      our_topics:
-      plus_others:
-      special_representatives:
-      traffic_commissioners:
-      what_we_do:
+      our_management: Ban quản lý
+      our_ministers: Các Thứ trưởng
+      our_policies: Các chính sách của chúng tôi
+      our_publications: Các tài liệu truyền thông của chúng tôi
+      our_senior_military_officials: Các quan chức quân đội cao cấp
+      our_services: Các dịch vụ của chúng tôi
+      our_statistics: Thống kê
+      our_topics: Những lĩnh vực chúng tôi hoạt động
+      plus_others: những điều khác
+      special_representatives: Đại diện đặc biệt
+      traffic_commissioners: Các ủy viên giao thông
+      what_we_do: Điều chúng tôi làm
     making_foi_requests:
       step1_html:
       step2_html:
@@ -266,8 +270,8 @@ vi:
         one: Phòng chuyên trách không thuộc cơ chế công
         other: Các phòng chuyên trách không thuộc cơ chế công
       Executive office:
-        one:
-        other:
+        one: Văn phòng chuyên trách
+        other: Các văn phòng chuyên trách
       Independent monitoring body:
         one: Cơ chế giám sát độc lập
         other: Các cơ chế giám sát độc lập
@@ -287,14 +291,14 @@ vi:
         one: Tổ chức phụ
         other: Các tổ chức phụ
       Tribunal non-departmental public body:
-        one:
-        other:
+        one: Cơ quan xét xử không thuộc cơ chế công
+        other: Các cơ quan xét xử không thuộc cơ chế công
   policies:
     heading: Các chính sách
   publications:
     heading: Tài liệu truyền thông
     headings:
-      detail:
+      detail: Chi tiết
   read_more: Đọc thêm
   support:
     array:
@@ -312,7 +316,7 @@ vi:
       priorities: Các ưu tiên
       publications: Tài liệu truyền thông của chúng tôi
       quick_links: Links nhanh
-      related_policies: ! 'Các chính sách liên quan '
+      related_policies: Các chính sách liên quan
       see_all: Xem tất cả các %{type} của chúng tôi
       statistics: Thống kê của chúng tôi
     see_all: Xem tất cả %{type} của chúng tôi
@@ -321,15 +325,15 @@ vi:
         one: Phái đoàn quốc tế
         other: Các phái đoàn quốc tế
       world_location:
-        one:
-        other:
+        one: Địa điểm trên thế giới
+        other: Các địa điểm trên thế giới
   worldwide_organisation:
     corporate_information:
       personal_information_charter_html: ! '%{link} của chúng tôi giải thích cách
         chúng tôi xử lý thông tin cá nhân của bạn'
-      publication_scheme_html: ! 'Xem các loại thông tin mà chúng tôi cập nhật thường
-        xuyên tại %{link} '
-      social_media_use_html:
+      publication_scheme_html: Xem các loại thông tin mà chúng tôi cập nhật thường
+        xuyên tại %{link}
+      social_media_use_html: Đọc chính sách của chúng tôi tại %{đường link}
       welsh_language_scheme_html: Tìm hiểu các cam kết của chúng tôi trong việc công
         bố thông tin tại %{link}
     find_out_more: Xem hồ sơ đầy đủ và tất cả các chi tiết liên hệ

@@ -2,14 +2,14 @@ bg:
   document:
     headings:
       attachments:
-        one:
-        other:
+        one: Документ
+        other: Документи
       ministers:
         one: Министър
         other: Министри
       organisations:
-        one:
-        other:
+        one: Организация
+        other: Организации
       policies:
         one: Политика
         other: Политики
@@ -20,8 +20,8 @@ bg:
         one: Тема
         other: Теми
       world_locations:
-        one: Световно място
-        other: Световни места
+        one: Световно местоположение
+        other: Световни местоположения
       worldwide_organisations:
         one: Разпространена по целия свят организация
         other: Разпространени по целия свят организации
@@ -36,8 +36,8 @@ bg:
         one: Съобщение
         other: Съобщения
       authored_article:
-        one:
-        other:
+        one: Авторска статия
+        other: Авторски статии
       case_study:
         one: Казус
         other: Казуси
@@ -63,8 +63,8 @@ bg:
         one: Чернова
         other: Чернови
       fatality_notice:
-        one:
-        other:
+        one: Уведомление за кончина
+        other: Уведомления за кончина
       foi_release:
         one: Съобщение във връзка със свободен достъп до информация
         other: Съобщения във връзка със свободен достъп до информация
@@ -72,8 +72,8 @@ bg:
         one: Формуляр
         other: Формуляри
       government_response:
-        one:
-        other:
+        one: Отговор на правителството
+        other: Отговори на правителството
       guidance:
         one: Насоки
         other: Насоки
@@ -81,8 +81,8 @@ bg:
         one: Оценка на влиянието
         other: Оценки на влиянието
       imported:
-        one:
-        other:
+        one: ! 'импортирано-очаква тип '
+        other: импортирано-очаква тип
       independent_report:
         one: Независим доклад
         other: Независими доклади
@@ -150,19 +150,21 @@ bg:
         one: Писмено изявление до парламента
         other: Писмени изявления до парламента
     published: Публикувано
-    read:
+    read: ! 'Прочетете статията %{title} '
     speech:
       author_title:
-        minister:
-        speaker:
+        minister: Министър
+        speaker: Министри
       delivered_on: Представено на
       delivery_title:
         minister: Министър
         speaker: Говорител
-      originally_given_at:
-      written_on:
+      originally_given_at: Произнесена в %{location}.
+      written_on: ! 'Написана на:
+
+'
     updated: обновено
-    view:
+    view: Вижте '%{title}'
   organisation:
     type:
       Ad-hoc advisory group:
@@ -178,8 +180,8 @@ bg:
         one: Изпълнителен неведомствен публичен орган
         other: Изпълнителни неведомствени публични органи
       Executive office:
-        one:
-        other:
+        one: Изпълнително бюро
+        other: Изпълнителни бюра
       Independent monitoring body:
         one: Независим мониторингов орган
         other: Независими мониторингови органи
@@ -202,33 +204,33 @@ bg:
         one: Трибунален неведомствен обществен орган
         other: Трибунални неведомствени обществени органи
     about:
-      read_more:
+      read_more: Прочетете повече за нашата дейност
     corporate_information:
-      access_our_info:
-      foi_how_to:
-      foi_releases:
-      jobs_and_contacts:
-      transparency:
+      access_our_info: Получете достъп до информацията ни
+      foi_how_to: Как да направите запитване по закона за достъпа до информация
+      foi_releases: Съобщения по закона за достъп до информация
+      jobs_and_contacts: Работни места и договори
+      transparency: Данни за прозрачността
     headings:
-      chief_professional_officers:
-      contact:
-      corporate_information:
-      corporate_reports:
+      chief_professional_officers: Нашите служители
+      contact: Свържете се с %{name}
+      corporate_information: Корпоративна информация
+      corporate_reports: Корпоративни доклади
       making_foi_requests:
-      our_announcements:
+      our_announcements: Съобщенията ни
       our_mainstream_categories:
-      our_management:
-      our_ministers:
-      our_policies:
-      our_publications:
-      our_senior_military_officials:
-      our_services:
-      our_statistics:
-      our_topics:
-      plus_others:
-      special_representatives:
-      traffic_commissioners:
-      what_we_do:
+      our_management: Нашето ръководство
+      our_ministers: Нашите министи
+      our_policies: Нашите политики
+      our_publications: Нашите публикации
+      our_senior_military_officials: Нашите висши военни служители
+      our_services: Услуги, които извършваме
+      our_statistics: Нашата статистика
+      our_topics: Работим по тези теми
+      plus_others: и други
+      special_representatives: Специални представители
+      traffic_commissioners: Комисари по трафика
+      what_we_do: Нашата дейност
     making_foi_requests:
       step1_html:
       step2_html:
@@ -251,9 +253,9 @@ bg:
       publications: Нашите публикации
       quick_links: Бързи връзки
       related_policies: Свързани политики
-      see_all:
+      see_all: Вижте всички наши %{type}
       statistics: Нашите статистики
-    see_all:
+    see_all: Вижте всички наши %{type}
   activerecord:
     attributes:
       detailed_guide:
@@ -262,14 +264,25 @@ bg:
     heading: Съобщения
   attachment:
     accessibility:
-      full_help_html:
-      heading:
-      request_a_different_format:
+      full_help_html: ! 'За да направите заявка за алтернативен формат на този документ
+        като Брайл, аудио или друг, моля
+
+        пратете електронна поща на %{email}
+
+        като упоменете Вашия адрес, телефон, както и заглавието на публикацията
+
+        ("%{title}")%{references}.
+
+'
+      heading: Този файл може да не е подходящ за хора, ползващи помощни технологии
+      request_a_different_format: ! 'Направете заявка за друг формат
+
+'
     headings:
-      order_a_copy:
-      order_a_copy_full:
-      published:
-      reference:
+      order_a_copy: Поръчайте копие
+      order_a_copy_full: Поръчайте копия
+      published: Публикувано
+      reference: Справка
   change_notes:
     published: Публикувано
     updated: Обновено
@@ -280,11 +293,11 @@ bg:
     type:
       personal_information_charter: Харта за персонална информация
       publication_scheme: Схема за публикации
-      social_media_use:
+      social_media_use: Ползване на социални медии
       welsh_language_scheme: Уелска езикова схема
   date:
     formats:
-      default:
+      default: ! '%d %B %Y'
       long_ordinal: ! '%e %B %Y'
   document_filters:
     description: Можете да използвате филтрите, за да видите резултатите, които пасват
@@ -309,27 +322,27 @@ bg:
   number:
     human:
       storage_units:
-        format:
+        format: ! '%n%u'
   policies:
     heading: Политики
   publications:
     heading: Публикации
     headings:
-      detail:
+      detail: Подробности
   read_more: Прочетете повече
   support:
     array:
-      last_word_connector: ! ' и '
+      last_word_connector: и
   time:
     formats:
-      long_ordinal:
+      long_ordinal: ! '%e %B %Y %H:%M'
   worldwide_organisation:
     corporate_information:
       personal_information_charter_html: Нашият %{link} дава информация за начина
         на ползване на личните Ви данни
       publication_scheme_html: Прочетете какви видове информация публикуваме в нашия
         %{link}.
-      social_media_use_html:
+      social_media_use_html: Вижте политиката ни по %{link}.
       welsh_language_scheme_html: Разберете повече за нашето задължение да публикуваме
         в %{link}.
     find_out_more: Вижте пълния профил и всички контакти

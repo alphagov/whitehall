@@ -2,17 +2,17 @@ de:
   document:
     headings:
       attachments:
-        one:
-        other:
+        one: Dokument
+        other: Dokumente
       ministers:
-        one:
-        other:
+        one: Minister
+        other: Minister
       organisations:
-        one:
-        other:
+        one: Organisation
+        other: Organisationen
       policies:
-        one:
-        other:
+        one: Politik
+        other: Politik
       topical_events:
         one:
         other:
@@ -20,8 +20,8 @@ de:
         one: Thema
         other: Themen
       world_locations:
-        one: Standort weltweit
-        other: Standorte weltweit
+        one: Vertretungen im Ausland
+        other: Vertretungen im Ausland
       worldwide_organisations:
         one: Weltweite Organisation
         other: Weltweite Organisationen
@@ -30,14 +30,14 @@ de:
       document_series: Reihe
       field_of_operation: Einsatzbereich
       live_data: Live-Daten
-      policy_team:
+      policy_team: Ressort
     type:
       announcement:
-        one: Ankündigung
-        other: Ankündigungen
+        one: Meldung
+        other: Meldungen
       authored_article:
-        one:
-        other:
+        one: Namensartikel
+        other: Namensartikel
       case_study:
         one: Fallstudie
         other: Fallstudien
@@ -72,32 +72,32 @@ de:
         one: Formular
         other: Formulare
       government_response:
-        one:
-        other:
+        one: Antwort der Regierung
+        other: Antworten der Regierung
       guidance:
         one: Hinweise
         other: Hinweise
       impact_assessment:
-        one:
-        other:
+        one: Folgenabschätzung
+        other: Folgenabschätzungen
       imported:
-        one:
-        other:
+        one: importiert - Warten auf Dokumententyp
+        other: importiert - Warten auf Dokumententyp
       independent_report:
         one: Unabhängiger Bericht
         other: Unabhängige Berichte
       map:
-        one:
-        other:
+        one: Karte
+        other: Karten
       national_statistics:
         one: Statistik - Nationale Statistik
         other: Statistik - Nationale Statistik
       news_article:
-        one: Presseartikel
-        other: Presseartikel
+        one: Artikel
+        other: Artikel
       news_story:
-        one: Pressemeldung
-        other: Pressemeldungen
+        one: Meldung
+        other: Meldungen
       open_consultation:
         one: Laufende Konsultation
         other: Laufende Konsultationen
@@ -105,11 +105,11 @@ de:
         one: Mündliche Erklärung vor dem Parlament
         other: Mündliche Erklärungen vor dem Parlament
       policy:
-        one:
-        other:
+        one: Politik
+        other: Politik
       policy_paper:
-        one:
-        other:
+        one: Grundsatzpapier
+        other: Grundsatzpapiere
       press_release:
         one: Pressemitteilung
         other: Pressemitteilungen
@@ -123,11 +123,11 @@ de:
         one: Forschung und Analyse
         other: Forschung und Analyse
       speaking_notes:
-        one: Sprechzettel
-        other: Sprechzettel
+        one: Redenotizen
+        other: Redenotizen
       speech:
         one: Rede
-        other: ! 'Reden '
+        other: Reden
       statement_to_parliament:
         one: Erklärung vor dem Parlament
         other: Erklärungen vor dem Parlament
@@ -135,33 +135,33 @@ de:
         one: Statistischer Datensatz
         other: Statistische Datensätze
       statistics:
-        one: ! 'Statistik '
+        one: Statistik
         other: Statistiken
       transcript:
-        one: Mitschrift/Niederschrift
-        other: Mitschriften/Niederschriften
+        one: Mitschrift
+        other: Mitschriften
       transparency:
         one: Transparenz-Daten
         other: Transparenz-Daten
       worldwide_priority:
-        one: Weltweite Priorität
-        other: Weltweite Prioritäten
+        one: Außenpolitische Priorität
+        other: Außenpolitische Prioritäten
       written_statement:
         one: Schriftliche Erklärung vor dem Parlament
         other: Schriftliche Erklärungen vor dem Parlament
-    published: ! 'veröffentlicht '
-    read: Lesen Sie den Artikel %{title}
+    published: Veröffentlicht
+    read: Artikel lesen %{title}
     speech:
       author_title:
-        minister:
-        speaker:
+        minister: Minister
+        speaker: Autor
       delivered_on: ! 'Gehalten am:'
       delivery_title:
-        minister:
-        speaker:
+        minister: Minister
+        speaker: Redner
       originally_given_at: Ursprünglich gehalten in %{location}.
-      written_on:
-    updated: aktualisiert
+      written_on: Geschrieben am
+    updated: Aktualisiert
     view: Schauen Sie sich '%{title}' an
   organisation:
     type:
@@ -176,10 +176,10 @@ de:
         other: Exekutivagenturen
       Executive non-departmental public body:
         one: Keinem Ministerium unterstelltes öffentliches Exekutivorgan
-        other: ! 'Keinem Ministerium unterstellte öffentliche Exekutivorgane '
+        other: Keinem Ministerium unterstellte öffentliche Exekutivorgane
       Executive office:
-        one:
-        other:
+        one: Exekutivbüro
+        other: Exekutivbüros
       Independent monitoring body:
         one: Unabhängiges Kontrollorgan
         other: Unabhängige Kontrollorgane
@@ -199,36 +199,36 @@ de:
         one: Unterorganisation
         other: Unterorganisationen
       Tribunal non-departmental public body:
-        one:
-        other:
+        one: Dem Ministerium nicht unterstelltes öffentliches Gerichtsorgan
+        other: Dem Ministerium nicht unterstellte öffentliche Gerichtsorgane
     about:
-      read_more:
+      read_more: Mehr
     corporate_information:
-      access_our_info:
-      foi_how_to:
-      foi_releases:
-      jobs_and_contacts:
-      transparency:
+      access_our_info: Information ansehen
+      foi_how_to: Wie Sie eine Anfrage nach dem Freedom of Information Act stellen
+      foi_releases: Veröffentlichungen nach dem Freedom of Information Act
+      jobs_and_contacts: Stellenanzeigen
+      transparency: Transparenzdaten
     headings:
-      chief_professional_officers:
-      contact:
-      corporate_information:
-      corporate_reports:
+      chief_professional_officers: Unsere leitenden Mitarbeiter
+      contact: ! '%{name} kontaktieren'
+      corporate_information: Administrative Informationen
+      corporate_reports: Berichte
       making_foi_requests:
-      our_announcements:
+      our_announcements: Unsere Meldungen
       our_mainstream_categories:
-      our_management:
-      our_ministers:
-      our_policies:
-      our_publications:
-      our_senior_military_officials:
-      our_services:
-      our_statistics:
-      our_topics:
-      plus_others:
-      special_representatives:
-      traffic_commissioners:
-      what_we_do:
+      our_management: Unser Management
+      our_ministers: Unsere Minister
+      our_policies: Unsere Politik
+      our_publications: Unsere Veröffentlichungen
+      our_senior_military_officials: Unser militärisches Personal
+      our_services: Unsere Dienstleistungen
+      our_statistics: Unsere Statistiken
+      our_topics: Unsere Arbeitsgebiete
+      plus_others: ! ' + andere'
+      special_representatives: Sonderbeauftragte
+      traffic_commissioners: Verkehrsbeauftragte
+      what_we_do: Was wir tun
     making_foi_requests:
       step1_html:
       step2_html:
@@ -239,10 +239,10 @@ de:
         one: Internationale Delegation
         other: Internationale Delegationen
       world_location:
-        one:
-        other:
+        one: Vertretungen im Ausland
+        other: Vertretungen im Ausland
     headings:
-      announcements: Unsere Ankündigungen
+      announcements: Unsere Meldungen
       country: Land
       documents: Dokumente
       mission: Unser Auftrag
@@ -250,29 +250,32 @@ de:
       priorities: Prioritäten
       publications: Unsere Veröffentlichungen
       quick_links: Quicklinks
-      related_policies: Relevante Politiken/Maßnahmen
+      related_policies: Ähnliche Sachgebiete
       see_all: Alle unsere %{type}
       statistics: Unsere Statistiken
     see_all: Alle unsere %{type}
   activerecord:
     attributes:
       detailed_guide:
-        primary_mainstream_category: Kategorie  detaillierte Hinweise
+        primary_mainstream_category: Kategorie detaillierte Hinweise
   announcements:
-    heading: Ankündigungen
+    heading: Meldungen
   attachment:
     accessibility:
-      full_help_html:
-      heading:
-      request_a_different_format:
+      full_help_html: Wenn Sie dieses Dokument in Braille-Schrift, als Audiodatei
+        oder in einem anderen Format erhalten möchten, senden Sie uns eine E-Mail
+        %{email} mit Ihrer Adresse, Telefonnummer und dem Titel der Publikation ("%{title}")%{references}.
+      heading: Für Nutzer technischer Hilfsmittel ist diese Datei möglicherweise nicht
+        geeignet
+      request_a_different_format: Anderes Format
     headings:
-      order_a_copy:
-      order_a_copy_full:
-      published:
-      reference:
+      order_a_copy: Exemplar bestellen
+      order_a_copy_full: Exemplar der Veröffentlichung bestellen
+      published: Veröffentlicht
+      reference: Aktenzeichen
   change_notes:
-    published: ! 'Veröffentlicht '
-    updated: Aktualisiert
+    published: veröffentlicht
+    updated: aktualisiert
   contact:
     contact_form: Kontaktformular
     email: E-Mail
@@ -280,7 +283,7 @@ de:
     type:
       personal_information_charter: Charta zum Schutz personenbezogener Daten
       publication_scheme: Publikationsprogramm
-      social_media_use:
+      social_media_use: Soziale Medien
       welsh_language_scheme: Walisisches Sprachprogramm
   date:
     formats:
@@ -300,43 +303,43 @@ de:
     email_alerts: Benachrichtigung per E-Mail
     latest_activity: Zuletzt aktiv
   i18n:
-    direction:
+    direction: ltr
   language_names:
-    de: Deutsch
+    de:
   latest_feed:
     no_updates: Es liegen noch keine Updates vor.
-    title: Neuester Feed
+    title: Aktuell
   number:
     human:
       storage_units:
-        format:
+        format: ! '%n%u'
   policies:
-    heading:
+    heading: Politik
   publications:
     heading: Veröffentlichungen
     headings:
-      detail:
-  read_more: Lesen Sie mehr dazu
+      detail: Details
+  read_more: Mehr dazu
   support:
     array:
       last_word_connector: und
   time:
     formats:
-      long_ordinal:
+      long_ordinal: ! '%e %B %Y %H:%M'
   worldwide_organisation:
     corporate_information:
       personal_information_charter_html: Unser %{link} erklärt, wie wir Ihre personenbezogenen
         Daten schützen.
       publication_scheme_html: Lesen Sie hier %{link}, welche Informationen wir routinemäßig
-        publizieren.
-      social_media_use_html:
-      welsh_language_scheme_html: Lesen Sie hier %{link} mehr zu unserer Verpflichtung
-        zur Veröffentlichung
-    find_out_more: Hier finden Sie das vollständige Profil und alle Kontaktdaten
+        publizieren
+      social_media_use_html: Unsere Politik zu %{link}
+      welsh_language_scheme_html: Mehr zu unserer Verpflichtung zur Veröffentlichung
+        in %{link}
+    find_out_more: Vollständiges Profil und alle Kontaktdaten
     headings:
       about_us: Über uns
       contact_us: Schreiben Sie uns
-      corporate_information: Behördeninformationen
+      corporate_information: Administrative Informationen
       follow_us: Folgen Sie uns
       our_people: Unsere Mitarbeiter
       our_services: Unsere Dienstleistungen

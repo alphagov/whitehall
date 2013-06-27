@@ -2,351 +2,351 @@ be:
   document:
     headings:
       attachments:
-        one:
+        one: Дакумент
         few:
         many:
-        other:
+        other: Дакументы
       ministers:
-        one:
+        one: Міністр
         few:
         many:
-        other:
+        other: Міністры
       organisations:
-        one:
+        one: Арганізацыя
         few:
         many:
-        other:
+        other: Арганізацыі
       policies:
-        one:
+        one: Напрамак дзейнасці
         few:
         many:
-        other:
+        other: Напрамкі дзейнасці
       topical_events:
         one:
         few:
         many:
         other:
       topics:
-        one:
+        one: Тэма
         few:
         many:
-        other:
+        other: Тэмы
       world_locations:
-        one:
+        one: Месцазнаходжанне ў свеце
         few:
         many:
-        other:
+        other: ! 'Месцазнаходжання '
       worldwide_organisations:
-        one:
+        one: Сусветная арганізацыя
         few:
         many:
-        other:
-      advisory_groups:
-      applies_to_nations:
-      document_series:
-      field_of_operation:
-      live_data:
-      policy_team:
+        other: Сусветныя арганізацыі
+      advisory_groups: Кансультацыйныя групы
+      applies_to_nations: У адносінах да
+      document_series: Серыя
+      field_of_operation: Сфера дзейнасці
+      live_data: Бягучая інфармацыя
+      policy_team: ! 'Палітычны аддзел '
     type:
       announcement:
-        one:
+        one: Аб'ява
         few:
         many:
-        other:
+        other: Аб'явы
       authored_article:
-        one:
+        one: Аўтарскі артыкул
         few:
         many:
-        other:
+        other: Аўтарскія артыкулы
       case_study:
-        one:
+        one: Тэматычнае даследаванне
         few:
         many:
-        other:
+        other: Тэматычныя даследаванні
       closed_consultation:
-        one:
+        one: Закрытая кансультацыя
         few:
         many:
-        other:
+        other: Закрытыя кансультацыі
       consultation:
-        one:
+        one: Кансультацыя
         few:
         many:
-        other:
+        other: Кансультацыі
       consultation_outcome:
-        one:
+        one: Вынік кансультацыі
         few:
         many:
-        other:
+        other: Вынікі кансультацыі
       corporate_report:
-        one:
+        one: Карпаратыўная справаздача
         few:
         many:
-        other:
+        other: Карпаратыўныя справаздачы
       correspondence:
-        one:
+        one: Перапіска
         few:
         many:
-        other:
+        other: Перапіска
       detailed_guidance:
-        one:
+        one: Падрабязнае кіраўніцтва
         few:
         many:
-        other:
+        other: Падрабязнае кіраўніцтва
       draft_text:
-        one:
+        one: Чарнавік
         few:
         many:
-        other:
+        other: Чарнавікі
       fatality_notice:
-        one:
+        one: Паведамленне
         few:
         many:
-        other:
+        other: Паведамленні
       foi_release:
-        one:
+        one: Рэліз у межах Закона аб свабодзе інфармацыі
         few:
         many:
-        other:
+        other: Рэлізы ў межах Закона аб свабодзе інфармацыі
       form:
-        one:
+        one: Форма
         few:
         many:
-        other:
+        other: Формы
       government_response:
-        one:
+        one: Адказ ўрада
         few:
         many:
-        other:
+        other: Адказы ўрада
       guidance:
-        one:
+        one: Кіраўніцтва
         few:
         many:
-        other:
+        other: Кіраўніцтва
       impact_assessment:
-        one:
+        one: Ацэнка ўплыву
         few:
         many:
-        other:
+        other: Ацэнкі ўплыву
       imported:
-        one:
+        one: імпартавана - чаканне тыпу
         few:
         many:
-        other:
+        other: імпартавана - чаканне тыпу
       independent_report:
-        one:
+        one: Незалежная справаздача
         few:
         many:
-        other:
+        other: Незалежныя справаздачы
       map:
-        one:
+        one: Карта
         few:
         many:
-        other:
+        other: Карты
       national_statistics:
-        one:
+        one: Статыстыка - нацыянальная статыстыка
         few:
         many:
-        other:
+        other: Статыстыка - нацыянальная статыстыка
       news_article:
-        one:
+        one: Артыкул
         few:
         many:
-        other:
+        other: Артыкулы
       news_story:
-        one:
+        one: Навіны
         few:
         many:
-        other:
+        other: Навіны
       open_consultation:
-        one:
+        one: Адкрытая кансультацыя
         few:
         many:
-        other:
+        other: Адкрытыя кансультацыі
       oral_statement:
-        one:
+        one: Вусны даклад у парламенце
         few:
         many:
-        other:
+        other: Вусныя даклады ў парламенце
       policy:
-        one:
+        one: Напрамак дзейнасці
         few:
         many:
-        other:
+        other: Напрамкі дзейнасці
       policy_paper:
-        one:
+        one: Праграмны дакумент
         few:
         many:
-        other:
+        other: Праграмныя дакументы
       press_release:
-        one:
+        one: Прэс-рэліз
         few:
         many:
-        other:
+        other: Прэс-рэлізы
       promotional:
-        one:
+        one: Рэкламны матэрыял
         few:
         many:
-        other:
+        other: Рэкламныя матэрыялы
       publication:
-        one:
+        one: Публікацыя
         few:
         many:
-        other:
+        other: Публікацыі
       research:
-        one:
+        one: Даследаванні і аналіз
         few:
         many:
-        other:
+        other: Даследаванні і аналіз
       speaking_notes:
-        one:
+        one: Нататкі да выступу
         few:
         many:
-        other:
+        other: Нататкі да выступу
       speech:
-        one:
+        one: Выступ
         few:
         many:
-        other:
+        other: Выступы
       statement_to_parliament:
-        one:
+        one: Заява ў парламенце
         few:
         many:
-        other:
+        other: Заявы ў парламенце
       statistical_data_set:
-        one:
+        one: Статыстычныя дадзеныя
         few:
         many:
-        other:
+        other: Статыстычныя дадзеныя
       statistics:
-        one:
+        one: Статыстыка
         few:
         many:
-        other:
+        other: Статыстыка
       transcript:
-        one:
+        one: Поўны тэкст
         few:
         many:
-        other:
+        other: Поўны тэкст
       transparency:
-        one:
+        one: Адкрытыя дадзеныя
         few:
         many:
-        other:
+        other: Адкрытыя дадзеныя
       worldwide_priority:
-        one:
+        one: Сусветны прыярытэт
         few:
         many:
-        other:
+        other: Сусветныя прыярытэты
       written_statement:
-        one:
+        one: Пісьмовая заява ў парламенце
         few:
         many:
-        other:
-    published:
-    read:
+        other: Пісьмовыя заявы ў парламенце
+    published: Апублікаваны
+    read: Чытаць %{title} артыкул
     speech:
       author_title:
-        minister:
-        speaker:
-      delivered_on:
+        minister: Міністр
+        speaker: Аўтар
+      delivered_on: ! 'Зроблена:'
       delivery_title:
-        minister:
-        speaker:
-      originally_given_at:
-      written_on:
-    updated:
-    view:
+        minister: Міністр
+        speaker: Прамоўца
+      originally_given_at: Упершыню прагучала ў %{location}.
+      written_on: Напісана
+    updated: Адноўлена
+    view: Паглядзець '%{title}'
   organisation:
     type:
       Ad-hoc advisory group:
-        one:
+        one: Спецыяльная кансультатыўная група
         few:
         many:
-        other:
+        other: Спецыяльныя кансультатыўныя групы
       Advisory non-departmental public body:
-        one:
+        one: ! 'Пазаведамасны кансультатыўны дзяржаўны орган '
         few:
         many:
-        other:
+        other: ! 'Пазаведамасныя кансультатыўныя дзяржаўныя органы '
       Executive agency:
-        one:
+        one: Выканаўчая ўстанова
         few:
         many:
-        other:
+        other: Выканаўчыя ўстановы
       Executive non-departmental public body:
-        one:
+        one: Пазаведамасны выканаўчы дзяржаўны орган
         few:
         many:
-        other:
+        other: Пазаведамасныя выканаўчыя дзяржаўныя органы
       Executive office:
-        one:
+        one: Выканаўчая ўстанова
         few:
         many:
-        other:
+        other: Выканаўчыя ўстановы
       Independent monitoring body:
-        one:
+        one: Незалежны орган кантролю
         few:
         many:
-        other:
+        other: Незалежныя органы кантролю
       Ministerial department:
-        one:
+        one: Міністэрскае ведамства
         few:
         many:
-        other:
+        other: Міністэрскія ведамствы
       Non-ministerial department:
-        one:
+        one: Не міністэрскае ведамства
         few:
         many:
-        other:
+        other: Не міністэрскія ведамствы
       Other:
-        one:
+        one: Іншае
         few:
         many:
-        other:
+        other: Іншыя
       Public corporation:
-        one:
+        one: Дзяржаўная карпарацыя
         few:
         many:
-        other:
+        other: Дзяржаўныя карпарацыі
       Sub-organisation:
-        one:
+        one: Падпарадкаваная арганізацыя
         few:
         many:
-        other:
+        other: Падпарадкаваныя арганізацыі
       Tribunal non-departmental public body:
-        one:
+        one: Трыбунал пазаведамаснага дзяржаўнага органу
         few:
         many:
-        other:
+        other: Трыбунал пазаведамасных дзяржаўных органаў
     about:
-      read_more:
+      read_more: Прачытайце больш пра нашу працу
     corporate_information:
-      access_our_info:
-      foi_how_to:
-      foi_releases:
-      jobs_and_contacts:
-      transparency:
+      access_our_info: Доступ да нашай інфармацыі
+      foi_how_to: Як зрабіць замову ў межах Закона аб свабодзе інфармацыі
+      foi_releases: Рэлізы ў межах Закона аб свабодзе інфармацыі
+      jobs_and_contacts: Праца і кантакты
+      transparency: Адкрытыя дадзеныя
     headings:
-      chief_professional_officers:
-      contact:
-      corporate_information:
-      corporate_reports:
+      chief_professional_officers: Нашы галоўныя прафесійныя афіцэры
+      contact: Звязацца з %{name}
+      corporate_information: Карпаратыўная інфармацыя
+      corporate_reports: Карпаратыўныя справаздачы
       making_foi_requests:
-      our_announcements:
+      our_announcements: Нашы абвесткі
       our_mainstream_categories:
-      our_management:
-      our_ministers:
-      our_policies:
-      our_publications:
-      our_senior_military_officials:
-      our_services:
-      our_statistics:
-      our_topics:
-      plus_others:
-      special_representatives:
-      traffic_commissioners:
-      what_we_do:
+      our_management: Наша кіраўніцтва
+      our_ministers: Нашы міністры
+      our_policies: Наша палітыка
+      our_publications: Нашы публікацыі
+      our_senior_military_officials: Нашы вышэйшыя ваенныя службоўцы
+      our_services: Нашы паслугі
+      our_statistics: Наша статыстыка
+      our_topics: Мы працуем па гэтым тэмам
+      plus_others: ! ' + іншыя'
+      special_representatives: Спецыяльныя прадстаўнікі
+      traffic_commissioners: Транспартны суд
+      what_we_do: Што мы робім
     making_foi_requests:
       step1_html:
       step2_html:
@@ -354,109 +354,115 @@ be:
   world_location:
     type:
       international_delegation:
-        one:
+        one: Міжнародная дэлегацыя
         few:
         many:
-        other:
+        other: Міжнародныя дэлегацыі
       world_location:
-        one:
+        one: Месцазнаходжанне ў свеце
         few:
         many:
-        other:
+        other: ! 'Месцазнаходжання '
     headings:
-      announcements:
-      country:
-      documents:
-      mission:
-      organisations:
-      priorities:
-      publications:
-      quick_links:
-      related_policies:
-      see_all:
-      statistics:
-    see_all:
+      announcements: Нашы аб'явы
+      country: Краіна
+      documents: Дакументы
+      mission: Наша місія
+      organisations: Арганізацыі
+      priorities: Прыярытэты
+      publications: Нашы публікацыі
+      quick_links: Хуткія спасылкі
+      related_policies: ! 'Падобныя напрамкі дзейнасці '
+      see_all: Паглядзець усе %{type}
+      statistics: Наша статыстыка
+    see_all: Паглядзець усе %{type}
   activerecord:
     attributes:
       detailed_guide:
-        primary_mainstream_category:
+        primary_mainstream_category: ! 'Першасная катэгорыя падрабязнага кіраўніцтва '
   announcements:
-    heading:
+    heading: Аб'явы
   attachment:
     accessibility:
-      full_help_html:
-      heading:
-      request_a_different_format:
+      full_help_html: Каб зарасіць гэты дакумент у іншым фармаце, такім як шрыфт Брайля,
+        аўдыё і інш. калі ласка, адпраўце электроннае паведамленне на %{email} з вашай
+        адрэсай, тэлефонным нумарам і назвай дакумента ("%{title}")%{references}.
+      heading: Гэты файл можа быць непрыдатным для карыстальнікаў дапаможных тэхналогій.
+      request_a_different_format: Запрасіць файл у іншым фармаце.
     headings:
-      order_a_copy:
-      order_a_copy_full:
-      published:
-      reference:
+      order_a_copy: Замовіць копію
+      order_a_copy_full: Замовіць копію гэтай публікацыі
+      published: Апублікаваны
+      reference: Спасылка
   change_notes:
-    published:
-    updated:
+    published: Апублікаваны
+    updated: Адноўлены
   contact:
-    contact_form:
-    email:
+    contact_form: Кантактная форма
+    email: Электронная пошта
   corporate_information_page:
     type:
-      personal_information_charter:
-      publication_scheme:
-      social_media_use:
-      welsh_language_scheme:
+      personal_information_charter: Статут аб асабістай інфармацыі
+      publication_scheme: Схема публікацый
+      social_media_use: Ужыванне сацыяльных медый
+      welsh_language_scheme: Валійская мова
   date:
     formats:
-      default:
+      default: ! '%d %B %Y'
       long_ordinal: ! '%e %B %Y'
   document_filters:
-    description:
+    description: Вы можаце выкарыстоўваць фільтры, каб пабачыць толькі тыя вынікі,
+      якія вас цікавяць.
     no_results:
-      description:
-      title:
+      description: Паспрабуйце зрабіць ваш запыт больш шырокім і паспрабуйце яшчэ
+        раз.
+      title: Няма адпаведных дакументаў.
     world_locations:
-      all:
-      label:
+      all: Усе месцазнаходжанні
+      label: Мы ў свеце
   feeds:
-    atom:
-    email_alerts:
-    latest_activity:
+    atom: атам
+    email_alerts: Апавяшчэнні па электроннай пошце
+    latest_activity: Апошнія аднаўленні
   i18n:
     direction: ltr
   language_names:
-    be: Беларуская
+    be: ! "Ð\x91ÐµÐ»Ð°Ñ\x80Ñ\x83Ñ\x81ÐºÐ°Ñ\x8F"
   latest_feed:
-    no_updates:
-    title:
+    no_updates: Ніякіх абнаўленняў пакуль няма.
+    title: Апошняе
   number:
     human:
       storage_units:
-        format:
+        format: ! '%n%u'
   policies:
-    heading:
+    heading: Напрамкі дзейнасці
   publications:
-    heading:
+    heading: Публікацыі
     headings:
-      detail:
-  read_more:
+      detail: Падрабязней
+  read_more: Чытаць Падрабязней
   support:
     array:
-      last_word_connector:
+      last_word_connector: і
   time:
     formats:
-      long_ordinal:
+      long_ordinal: ! '%e %B %Y %H:%M'
   worldwide_organisation:
     corporate_information:
-      personal_information_charter_html:
-      publication_scheme_html:
-      social_media_use_html:
-      welsh_language_scheme_html:
-    find_out_more:
+      personal_information_charter_html: Наша %{link}  тлумачыць, як мы ставімся да
+        Вашай асабістай інфармацыі.
+      publication_scheme_html: Чытайце пра тыпы інфармацыі, якую мы рэгулярна публікуем,
+        у нашым %{link}.
+      social_media_use_html: Прачытайце пра нашу палітыку датычна %{link}.
+      welsh_language_scheme_html: Даведайцеся аб нашых абавязках да публікацыі ў %{link}.
+    find_out_more: Паглядзець усю інфармацыю і кантактныя дадзеныя
     headings:
-      about_us:
-      contact_us:
-      corporate_information:
-      follow_us:
-      our_people:
-      our_services:
-    location:
-    part_of:
+      about_us: Пра нас
+      contact_us: Звяжыцеся з намі
+      corporate_information: Карпаратыўная іфармацыя
+      follow_us: Сачыце за намі
+      our_people: Нашы людзі
+      our_services: Нашы паслугі
+    location: Месцазнаходжанне
+    part_of: Частка

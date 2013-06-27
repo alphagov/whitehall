@@ -369,7 +369,7 @@ en:
     headings:
       detail: Detail
   document_filters:
-    description: You can use the filters to show&nbsp;only results that match your&nbsp;interests
+    description: You can use the filters to show only results that match your interests
     world_locations:
       label: World locations
       all: All locations

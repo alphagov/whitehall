@@ -2,20 +2,20 @@ ru:
   document:
     headings:
       attachments:
-        one:
+        one: Документ
         few:
         many:
-        other:
+        other: Документы
       ministers:
         one: Министр
         few:
         many:
         other: Министры
       organisations:
-        one:
+        one: Организация
         few:
         many:
-        other:
+        other: Организации
       policies:
         one: Стратегия
         few:
@@ -40,7 +40,7 @@ ru:
         one: Всемирная организация
         few:
         many:
-        other: Всемираные организации
+        other: Всемирные организации
       advisory_groups: Консультативные группы
       applies_to_nations: Применимо к
       document_series: Серии
@@ -54,10 +54,10 @@ ru:
         many:
         other: Объявления
       authored_article:
-        one:
+        one: Авторская статья
         few:
         many:
-        other:
+        other: Авторские статьи
       case_study:
         one: Ситуационный анализ
         few:
@@ -74,7 +74,7 @@ ru:
         many:
         other: Консультации
       consultation_outcome:
-        one: Результат консультаци
+        one: Результат консультации
         few:
         many:
         other: Результаты консультаций
@@ -104,20 +104,20 @@ ru:
         many:
         other: Уведомления о несчастных случаях
       foi_release:
-        one: Свобода распространения информации релиз
+        one: ! 'Свобода распространения информации '
         few:
         many:
-        other: Свобода распространения информации релизы
+        other: ! 'Свобода распространения информации '
       form:
         one: Форма
         few:
         many:
         other: Формы
       government_response:
-        one:
+        one: Ответ правительства
         few:
         many:
-        other:
+        other: Ответы правительства
       guidance:
         one: Руководство
         few:
@@ -199,10 +199,10 @@ ru:
         many:
         other: Исследования и аналитика
       speaking_notes:
-        one: Памятная записка
+        one: Тезисы выступления
         few:
         many:
-        other: Памятная записка
+        other: Тезисы выступления
       speech:
         one: Текст выступления
         few:
@@ -214,10 +214,10 @@ ru:
         many:
         other: Заявления парламенту
       statistical_data_set:
-        one: Набор статистических данных
+        one: Статистика
         few:
         many:
-        other: Наборы статистических данных
+        other: Статистические данные
       statistics:
         one: Статистика
         few:
@@ -247,16 +247,16 @@ ru:
     read: Прочитать статью %{title}
     speech:
       author_title:
-        minister:
-        speaker:
+        minister: Министр
+        speaker: Автор
       delivered_on: Представлено в
       delivery_title:
         minister: Министр
         speaker: Докладчик
       originally_given_at: Источник %{location}
-      written_on:
+      written_on: ! 'Написано: '
     updated: обновлено
-    view:
+    view: Просмотреть '%{title}'
   organisation:
     type:
       Ad-hoc advisory group:
@@ -275,15 +275,15 @@ ru:
         many:
         other: Исполнительные органы
       Executive non-departmental public body:
-        one: Исполнительный вневедомственный государственный орган
+        one: Исполнительное вневедомственное государственное учреждение
         few:
         many:
-        other: Исполнительные вневедомственные государственные органы
+        other: Исполнительные вневедомственные государственные учреждения
       Executive office:
-        one:
+        one: Исполнительный аппарат
         few:
         many:
-        other:
+        other: Исполнительные аппараты
       Independent monitoring body:
         one: Независимый наблюдательный орган
         few:
@@ -315,38 +315,38 @@ ru:
         many:
         other: Суб-организации
       Tribunal non-departmental public body:
-        one: Арбитражный вневедомственный государственный орган
+        one: Арбитражное вневедомственное государственное учреждение
         few:
         many:
-        other: Арбитражные вневедомственные государственные органы
+        other: Арбитражные вневедомственные государственные учреждения
     about:
-      read_more:
+      read_more: Читать далее о нашей деятельности
     corporate_information:
-      access_our_info:
-      foi_how_to:
-      foi_releases:
-      jobs_and_contacts:
-      transparency:
+      access_our_info: Доступ к нашей информации
+      foi_how_to: запрос  Свобода распространения информации
+      foi_releases: ! 'Свобода распространения информации '
+      jobs_and_contacts: Рабочие места и контракты
+      transparency: Данные о прозрачности
     headings:
-      chief_professional_officers:
-      contact:
-      corporate_information:
-      corporate_reports:
+      chief_professional_officers: Наши главные профессиональные служащие
+      contact: Обратиться к %{name}
+      corporate_information: Корпоративная информация
+      corporate_reports: Корпоративные отчеты
       making_foi_requests:
-      our_announcements:
+      our_announcements: Наши объявления
       our_mainstream_categories:
-      our_management:
-      our_ministers:
-      our_policies:
-      our_publications:
-      our_senior_military_officials:
-      our_services:
-      our_statistics:
-      our_topics:
-      plus_others:
-      special_representatives:
-      traffic_commissioners:
-      what_we_do:
+      our_management: Наше руководство
+      our_ministers: Наши министры
+      our_policies: Наша политика
+      our_publications: Наши публикации
+      our_senior_military_officials: Наши старшие военные чиновники
+      our_services: Наши службы
+      our_statistics: Наша статистика
+      our_topics: Мы работаем над данными вопросами
+      plus_others: + другие
+      special_representatives: Специальные преставители
+      traffic_commissioners: Сотрудники, Ответственные за транспортные перевозки
+      what_we_do: Чем мы занимаемся
     making_foi_requests:
       step1_html:
       step2_html:
@@ -359,10 +359,10 @@ ru:
         many:
         other: Международные представительства
       world_location:
-        one:
+        one: Место нахождения
         few:
         many:
-        other:
+        other: Места нахождения
     headings:
       announcements: Наши объявления
       country: Страна
@@ -381,17 +381,18 @@ ru:
       detailed_guide:
         primary_mainstream_category: Основная категория подробной инструкции
   announcements:
-    heading: Объявление
+    heading: Объявления
   attachment:
     accessibility:
-      full_help_html:
-      heading:
-      request_a_different_format:
+      full_help_html: Получить данный документ в ином формате (шрифт Брайля, аудиоформат)
+      heading: Данный документ может быть не доступен лицам, использующим вспомогательные
+        технологии
+      request_a_different_format: Получить в другом формате
     headings:
-      order_a_copy:
-      order_a_copy_full:
-      published:
-      reference:
+      order_a_copy: Заказать копию
+      order_a_copy_full: Заказать копию публикации
+      published: Опубликовано
+      reference: Ссылка
   change_notes:
     published: Опубликовано
     updated: Обновлено
@@ -402,27 +403,27 @@ ru:
     type:
       personal_information_charter: Раздел личной информации
       publication_scheme: Схема публикации
-      social_media_use:
+      social_media_use: Использование социальных сетей
       welsh_language_scheme: Выбор Уэльского языка
   date:
     formats:
-      default:
-      long_ordinal:
+      default: ! '%d %B %Y'
+      long_ordinal: ! '%e %B %Y'
   document_filters:
-    description: Чтобы увидеть результаты, соответствующие Вашим интересам, используйте
+    description: Чтобы увидеть результаты, соответствующие Вашим требовниям, используйте
       фильтры
     no_results:
       description: Расширьте параметры поиска и попытайтесь еще раз
       title: Соответствующих документов не найдено
     world_locations:
       all: Все места нахождения
-      label: Мировые места нахождения
+      label: Места нахождения
   feeds:
     atom: атом
     email_alerts: электронное оповещение
     latest_activity: Реестр активности
   i18n:
-    direction:
+    direction: письмо
   language_names:
     ru: Русский
   latest_feed:
@@ -431,33 +432,36 @@ ru:
   number:
     human:
       storage_units:
-        format:
+        format: ! '%n%u'
   policies:
     heading: Политика
   publications:
     heading: Публикации
     headings:
-      detail:
+      detail: Детали
   read_more: Подробнее
   support:
     array:
       last_word_connector: и
   time:
     formats:
-      long_ordinal:
+      long_ordinal: ! '%e %B %Y %H:%M'
   worldwide_organisation:
     corporate_information:
-      personal_information_charter_html:
-      publication_scheme_html:
-      social_media_use_html:
-      welsh_language_scheme_html:
+      personal_information_charter_html: По %{ссылке} объяснение о том, как мы обращаемся
+        с вашей личной информацией
+      publication_scheme_html: Прочитать информацию, которая обычно публикуется,  по
+        указанной %{ссылке}.
+      social_media_use_html: Ознакомиться с нашей политикой по %{ссылке}.
+      welsh_language_scheme_html: Выяснить о наших обязательствах по публикации можно
+        по %{ссылке}.
     find_out_more: Общая иформация и контакты
     headings:
       about_us: О нас
       contact_us: Связь с нами
       corporate_information: Корпоративная информация
       follow_us: Следите за нами
-      our_people: Наши люди
+      our_people: Наши сотрудники
       our_services: Наши услуги
     location: Расположение
-    part_of:
+    part_of: Является частью

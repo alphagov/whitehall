@@ -2,233 +2,233 @@ dr:
   document:
     headings:
       attachments:
-        one:
-        other:
+        one: سند
+        other: اسناد
       ministers:
-        one:
-        other:
+        one: وزیر
+        other: وزرا
       organisations:
-        one:
-        other:
+        one: سازمان
+        other: سازمان ها
       policies:
-        one:
-        other:
+        one: پالیسی
+        other: پالیسی ها
       topical_events:
         one:
         other:
       topics:
-        one:
-        other:
+        one: موضوع
+        other: موضوعات
       world_locations:
-        one:
-        other:
+        one: موقعیت جهانی
+        other: موقعیت های جهانی
       worldwide_organisations:
-        one:
-        other:
-      advisory_groups:
-      applies_to_nations:
-      document_series:
-      field_of_operation:
-      live_data:
-      policy_team:
+        one: سازمان جهانی
+        other: سازمان های جهانی
+      advisory_groups: گروپ های مشورتی
+      applies_to_nations: اطلاق میشود به
+      document_series: سلسله
+      field_of_operation: بخش عملیاتی
+      live_data: معلومات زنده
+      policy_team: تیم پالیسی
     type:
       announcement:
-        one:
-        other:
+        one: اعلان
+        other: اعلانات
       authored_article:
-        one:
-        other:
+        one: مقاله نوشته شده
+        other: مقاله های نوشته شده
       case_study:
-        one:
-        other:
+        one: بررسی  موردی
+        other: بررسی های موردی
       closed_consultation:
-        one:
-        other:
+        one: مشوره محرم
+        other: مشوره های محرم
       consultation:
-        one:
-        other:
+        one: مشوره
+        other: مشوره ها
       consultation_outcome:
-        one:
-        other:
+        one: نتیجه مشوره
+        other: نتایج مشوره
       corporate_report:
-        one:
-        other:
+        one: گزارش توحیدی
+        other: گزارشات توحیدی
       correspondence:
-        one:
-        other:
+        one: مطابقت
+        other: مطابقت ها
       detailed_guidance:
-        one:
-        other:
+        one: ! ' رهنمود مفصل'
+        other: رهنمود های مفصل
       draft_text:
-        one:
-        other:
+        one: متن مسوده
+        other: متون مسوده
       fatality_notice:
-        one:
-        other:
+        one: خبر  مرگ و میر
+        other: اخبار مرگ و میر
       foi_release:
-        one:
-        other:
+        one: نشرآزادی بیان
+        other: نشریه های آزادی بیان
       form:
-        one:
-        other:
+        one: فورمه
+        other: فورمه ها
       government_response:
-        one:
-        other:
+        one: جوابدهی دولت
+        other: جوابدهی های دولت
       guidance:
-        one:
-        other:
+        one: رهنمود
+        other: رهنمود
       impact_assessment:
-        one:
-        other:
+        one: بررسی تاثیرات
+        other: بررسی های تاثیرات
       imported:
-        one:
-        other:
+        one: وارد شده- نوع انتظار
+        other: وارد شده - نوع انتظار
       independent_report:
-        one:
-        other:
+        one: گزارش آزاد
+        other: گزارش های آزاد
       map:
-        one:
-        other:
+        one: نقشه
+        other: نقشه ها
       national_statistics:
-        one:
-        other:
+        one: احصایه ها - احصایه های ملی
+        other: احصایه ها - احصایه های ملی
       news_article:
-        one:
-        other:
+        one: مقاله جدید
+        other: مقاله خبری
       news_story:
-        one:
-        other:
+        one: گزارش خبری
+        other: گزارش های خبری
       open_consultation:
-        one:
-        other:
+        one: مشاورت باز
+        other: مشاورت های باز
       oral_statement:
-        one:
-        other:
+        one: بیانیه شفایی به پارلمان
+        other: بیانیه های شفایی به پارلمان
       policy:
-        one:
-        other:
+        one: پالیسی
+        other: پالیسی ها
       policy_paper:
-        one:
-        other:
+        one: سند پالیسی
+        other: سندهای پالیسی
       press_release:
-        one:
-        other:
+        one: اعلامیه مطبوعاتی
+        other: اعلامیه های مصبوعاتی
       promotional:
-        one:
-        other:
+        one: مواد تعلیمی
+        other: مواد تعلیمی
       publication:
-        one:
-        other:
+        one: نشر
+        other: نشریات
       research:
-        one:
-        other:
+        one: تحقیق و تجزیه
+        other: تحقیق و تجزیه
       speaking_notes:
-        one:
-        other:
+        one: یادداشت سخنرانی
+        other: یادداشت سخنرانی
       speech:
-        one:
-        other:
+        one: سخنرانی
+        other: سخنرانی ها
       statement_to_parliament:
-        one:
-        other:
+        one: بیانیه به پارلمان
+        other: بیانیه ها به پارلمان
       statistical_data_set:
-        one:
-        other:
+        one: ارقام احصائیوی
+        other: ارقام احصائیوی
       statistics:
-        one:
-        other:
+        one: احصائیه ها
+        other: احصائیه ها
       transcript:
-        one:
-        other:
+        one: نسخه
+        other: نسخه ها
       transparency:
-        one:
-        other:
+        one: ارقام شفافیت
+        other: ارقام شفافیت
       worldwide_priority:
-        one:
-        other:
+        one: اولویت جهانی
+        other: اولویت های جهانی
       written_statement:
-        one:
-        other:
-    published:
-    read:
+        one: بیانیه تحریری به پارلمان
+        other: بیانیه های تحریری به پارلمان
+    published: نشر شده
+    read: مقاله %{title} را بخوانید
     speech:
       author_title:
-        minister:
-        speaker:
-      delivered_on:
+        minister: وزیر
+        speaker: نویسنده
+      delivered_on: تحویل شده به
       delivery_title:
-        minister:
-        speaker:
-      originally_given_at:
-      written_on:
-    updated:
-    view:
+        minister: وزیر
+        speaker: سخنگوی
+      originally_given_at: اساساً داده شد در %{location}.
+      written_on: نوشته شد به
+    updated: به روز شده
+    view: ببینید'%{title}'
   organisation:
     type:
       Ad-hoc advisory group:
-        one:
-        other:
+        one: گروپ مشورتی حسب ضرورت
+        other: گروپ های مشورتی حسب ضرورت
       Advisory non-departmental public body:
-        one:
-        other:
+        one: نهاد عامه مشورتی غیر تشکیلاتی
+        other: نهاد های عامه مشورتی غیر تشکیلاتی
       Executive agency:
-        one:
-        other:
+        one: اداره اجرائیوی
+        other: ادارات اجرائیوی
       Executive non-departmental public body:
-        one:
-        other:
+        one: نهاد عامه مشورتی غیر تشکیلاتی
+        other: نهاد های عامه مشورتی غیر تشکیلاتی
       Executive office:
-        one:
-        other:
+        one: دفتر اجرائیوی
+        other: دفاتر اجرائیوی
       Independent monitoring body:
-        one:
-        other:
+        one: نهاد مستقل بازرسی
+        other: نهاد های مستقل بازرسی
       Ministerial department:
-        one:
-        other:
+        one: ریاست وزارتی
+        other: ریاست های وزراتی
       Non-ministerial department:
-        one:
-        other:
+        one: ریاست غیر وزارتی
+        other: ریاست های غیر وزارتی
       Other:
-        one:
-        other:
+        one: دیگر
+        other: دیگران
       Public corporation:
-        one:
-        other:
+        one: شرکت عامه
+        other: شرکت های عامه
       Sub-organisation:
-        one:
-        other:
+        one: سازمان فرعی
+        other: سازمان های فرعی
       Tribunal non-departmental public body:
-        one:
-        other:
+        one: نهاد عامه محاکماتی غیر تشکیلاتی
+        other: نهاد های عامه محاکماتی غیر تشکیلاتی
     about:
-      read_more:
+      read_more: جهت معلومات بیشتر در مورد فعالیت های ما بخوانید
     corporate_information:
-      access_our_info:
-      foi_how_to:
-      foi_releases:
-      jobs_and_contacts:
-      transparency:
+      access_our_info: دسترسی به معلومات
+      foi_how_to: شیوه درخواست کردن آزادی بیان
+      foi_releases: نشریه های آزادی بیان
+      jobs_and_contacts: وظایف و قرارداد ها
+      transparency: معلومات شفافیت
     headings:
-      chief_professional_officers:
-      contact:
-      corporate_information:
-      corporate_reports:
+      chief_professional_officers: مدیران مسلکی ارشد ما
+      contact: تماس %{name}
+      corporate_information: معلومات یکی شده
+      corporate_reports: گزارش های یکی شده
       making_foi_requests:
-      our_announcements:
+      our_announcements: اعلانات ما
       our_mainstream_categories:
-      our_management:
-      our_ministers:
-      our_policies:
-      our_publications:
-      our_senior_military_officials:
-      our_services:
-      our_statistics:
-      our_topics:
-      plus_others:
-      special_representatives:
-      traffic_commissioners:
-      what_we_do:
+      our_management: اداره ما
+      our_ministers: وزرای ما
+      our_policies: پالیسی های ما
+      our_publications: نشریات ما
+      our_senior_military_officials: اراکین ارشد نظامی
+      our_services: خدمات ما
+      our_statistics: احصائیه های ما
+      our_topics: ما روی این موضوعات کار میکنیم
+      plus_others: دیگران +
+      special_representatives: نماینده های خاص
+      traffic_commissioners: کمشنران ترافیک
+      what_we_do: ما روی چه کار میکنیم
     making_foi_requests:
       step1_html:
       step2_html:
@@ -236,105 +236,110 @@ dr:
   world_location:
     type:
       international_delegation:
-        one:
-        other:
+        one: هیئت بین المللی
+        other: هیئات بین المللی
       world_location:
-        one:
-        other:
+        one: موقعیت جهانی
+        other: موقعیت های جهانی
     headings:
-      announcements:
-      country:
-      documents:
-      mission:
-      organisations:
-      priorities:
-      publications:
-      quick_links:
-      related_policies:
-      see_all:
-      statistics:
-    see_all:
+      announcements: اعلانات ما
+      country: کشور
+      documents: اسناد
+      mission: ماموریت ما
+      organisations: سازمان ها
+      priorities: اولویت ها
+      publications: نشریات ما
+      quick_links: لینک های عاجل
+      related_policies: پالیسی های مرتبط
+      see_all: همه را ببینید %{type}
+      statistics: احصائیه های ما
+    see_all: همه را ببینید %{type}
   activerecord:
     attributes:
       detailed_guide:
-        primary_mainstream_category:
+        primary_mainstream_category: کتگوری رهنمود مفصل ابتدائی
   announcements:
-    heading:
+    heading: اعلانات
   attachment:
     accessibility:
-      full_help_html:
-      heading:
-      request_a_different_format:
+      full_help_html: جهت درخواست سند در فارمت بدیل مانند بریل، صوتی و یا هم در فارمت
+        متفاوت لطفاً آدرس، شماره تماس با نام نشریه ("%{title}")%{references} را ایمیل
+        %{email} کنید
+      heading: این فایل برای استعمال کننده گان تکنالوجی کمکی مناسب نخواهد بود
+      request_a_different_format: فارمت متفاوت را درخواست نمائید
     headings:
-      order_a_copy:
-      order_a_copy_full:
-      published:
-      reference:
+      order_a_copy: نقل را درخواست نمائید
+      order_a_copy_full: نقل نشریه را درخواست نمائید
+      published: نشر شده
+      reference: ماخذ
   change_notes:
-    published:
-    updated:
+    published: نشر شده
+    updated: به روز شده
   contact:
-    contact_form:
-    email:
+    contact_form: فارم تماس
+    email: ایمیل
   corporate_information_page:
     type:
-      personal_information_charter:
-      publication_scheme:
-      social_media_use:
-      welsh_language_scheme:
+      personal_information_charter: موافقه معلومات شخصی
+      publication_scheme: طرح انتشار
+      social_media_use: استفاده از رسانه اجتماعی
+      welsh_language_scheme: طرح زبان ویلش
   date:
     formats:
       default: ! '%d %B %Y'
       long_ordinal: ! '%e %B %Y'
   document_filters:
-    description:
+    description: شما میتوانید از فیلتر ها جهت نشان دادن و nbsp استفاده نمایید. تنها
+      نتایجی که با منفعت های شما و nbsp تطابق دارند
     no_results:
-      description:
-      title:
+      description: کوشش کنید بیشتر جستجو کنید و دوباره امتحان نمایید
+      title: اسنادی که در مطابقت باشند وجود ندارد
     world_locations:
-      all:
-      label:
+      all: تمام موقعیت ها
+      label: موقعیت های جهانی
   feeds:
     atom:
-    email_alerts:
-    latest_activity:
+    email_alerts: خبردهنده های ایمیل
+    latest_activity: فعالیت اخیر
   i18n:
     direction: rtl
   language_names:
     dr: دری
   latest_feed:
-    no_updates:
-    title:
+    no_updates: معلومات به روز شده هنوز وجود ندارد
+    title: اخیر
   number:
     human:
       storage_units:
-        format:
+        format: ! '%n%u'
   policies:
-    heading:
+    heading: پالیسی ها
   publications:
-    heading:
+    heading: نشریات
     headings:
-      detail:
-  read_more:
+      detail: تفصیل
+  read_more: بیشتر بخوانید
   support:
     array:
-      last_word_connector:
+      last_word_connector: و
   time:
     formats:
-      long_ordinal:
+      long_ordinal: ! '%e %B %Y %H:%M'
   worldwide_organisation:
     corporate_information:
-      personal_information_charter_html:
-      publication_scheme_html:
-      social_media_use_html:
-      welsh_language_scheme_html:
-    find_out_more:
+      personal_information_charter_html: ! '  %{link} ما شیوه برخود با معلومات شخصی
+        را تشریح مینماید'
+      publication_scheme_html: در مورد انواع معلوماتی بخوانید که ما به طور منظم نشر
+        می کنیم.
+      social_media_use_html: پالیسی ما را در %{link} بخوانید
+      welsh_language_scheme_html: در مورد تعهد ما به نشر در %{link} معلومات حاصل نمایید
+    find_out_more: نمایه مکمل و تفصیلات در مورد تماس ها را ببینید
     headings:
-      about_us:
-      contact_us:
-      corporate_information:
-      follow_us:
-      our_people:
-      our_services:
-    location:
-    part_of:
+      about_us: در مورد ما
+      contact_us: با ما تماس بگیرید
+      corporate_information: معلومات توحید شده
+      follow_us: ما را تعقیب نمایید
+      our_people: مردم ما
+      our_services: خدمات ما
+    location: موقعیت
+    part_of: بخشی از
