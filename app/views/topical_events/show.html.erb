@@ -67,7 +67,7 @@
   </div>
 
   <% document_block_count = 0 %>
-  <div class="documents-grid <%= "grid-size-#{[@policies, @publictions, @consultations, @announcements].compact.select(&:any?).length}" %>">
+  <div class="documents-grid <%= "grid-size-#{[@policies, @publications, @consultations, @announcements].compact.select(&:any?).length}" %>">
     <div class="inner-block">
       <% if @policies.any? %>
         <section id="policies" class="policies document-block documents-<%= document_block_count+=1 %>">
