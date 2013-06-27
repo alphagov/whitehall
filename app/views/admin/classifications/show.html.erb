@@ -1,58 +1,47 @@
 <% page_title @classification.name %>
-<div class="row-fluid classification-header">
-  <div class="span8">
-    <h1><%= @classification.name %></h1>
-    <%= link_to "View on website", classification_path(@classification) %>
-  </div>
-</div>
 
-<div class="row-fluid">
-  <div class="span12 classification-details">
-    <section>
-      <%= tab_navigation_for(@classification) do %>
+<% content_for :classification_tab do %>
+  <table class="<%= model_name %> table">
+    <tr>
+      <th>Description</th>
+      <td class="description"><%= @classification.description %></td>
+    </tr>
 
-        <table class="<%= model_name %> table">
-          <tr>
-            <th>Description</th>
-            <td class="description"><%= @classification.description %></td>
-          </tr>
+    <tr>
+      <td class="details">Details</td>
+      <td class="details"><%= classification_contents_breakdown(@classification) %></td>
+    </tr>
 
-          <tr>
-            <td class="details">Details</td>
-            <td class="details"><%= classification_contents_breakdown(@classification) %></td>
-          </tr>
+    <tr>
+      <td>Duration</td>
+      <td class="duration">
+        <% if @classification.start_date && @classification.end_date %>
+          <%= @classification.start_date %> to <%= @classification.end_date %>
+        <% end %>
+      </td>
+    </tr>
 
-          <tr>
-            <td>Duration</td>
-            <td class="duration">
-              <% if @classification.start_date && @classification.end_date %>
-                <%= @classification.start_date %> to <%= @classification.end_date %>
+    <tr>
+      <td>Related</td>
+      <td class="related">
+        <% if @classification.related_classifications.any? %>
+          <ul>
+            <% @classification.related_classifications.each do |pa| %>
+              <%= content_tag_for(:li, pa) do %>
+                <%= link_to pa.name, [:admin, pa], title: "Edit #{model_name.humanize.downcase} #{pa.name}" %>
               <% end %>
-            </td>
-          </tr>
+            <% end %>
+          </ul>
+        <% else %>
+          <em>None</em>
+        <% end %>
+      </td>
+    </tr>
+  </table>
 
-          <tr>
-            <td>Related</td>
-            <td class="related">
-              <% if @classification.related_classifications.any? %>
-                <ul>
-                  <% @classification.related_classifications.each do |pa| %>
-                    <%= content_tag_for(:li, pa) do %>
-                      <%= link_to pa.name, [:admin, pa], title: "Edit #{model_name.humanize.downcase} #{pa.name}" %>
-                    <% end %>
-                  <% end %>
-                </ul>
-              <% else %>
-                <em>None</em>
-              <% end %>
-            </td>
-          </tr>
-        </table>
-
-        <div class="form-actions">
-          <%= link_to "Edit", [:edit, :admin, @classification], class: "btn btn-large btn-primary"%>
-        </div>
-      <% end %>
-    </section>
+  <div class="form-actions">
+    <%= link_to "Edit", [:edit, :admin, @classification], class: "btn btn-large btn-primary"%>
   </div>
-</div>
+<% end %>
+
+<%= render partial: 'tab_wrapper' %>
