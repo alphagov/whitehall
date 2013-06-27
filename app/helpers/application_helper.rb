@@ -304,4 +304,15 @@ module ApplicationHelper
   def right_to_left?
     Locale.new(I18n.locale).rtl?
   end
+
+  def content_tag_if_not_empty(name, options = nil, &block)
+    content = capture do
+      yield
+    end
+    if content.present? && content.strip
+      content_tag(name, content, options)
+    else
+      ""
+    end
+  end
 end

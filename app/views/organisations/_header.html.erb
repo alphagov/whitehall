@@ -1,26 +1,15 @@
 <%
-  link_to_organisation ||= false
   logo_size ||= 'large'
   show_mainstream_links ||= false
-
-  link_to_sub_organisation = link_to_organisation
-
-  if organisation.organisation_type.sub_organisation?
-    sub_organisation = organisation
-    organisation = sub_organisation.parent_organisations.first
-    link_to_organisation = true
-    logo_size = 'large'
-  else
-    sub_organisation = nil
+  sub_organisation = organisation.organisation_type.sub_organisation?
+  if sub_organisation
+    logo_size = 'medium'
   end
 %>
+
 <header class="page-header">
   <%= content_tag :h1 do %>
-    <% if link_to_organisation %>
-      <%= link_to organisation, class: logo_classes(class_name: organisation.organisation_logo_type.class_name, size: logo_size, stacked: true) do %>
-        <span><%= organisation_logo_name(organisation) %></span>
-      <% end %>
-    <% else %>
+    <% unless sub_organisation %>
       <span class="<%= logo_classes(class_name: organisation.organisation_logo_type.class_name, size: logo_size, stacked: true) %>">
         <span><%= organisation_logo_name(organisation) %></span>
       </span>
@@ -28,24 +17,34 @@
   <% end %>
   <% if sub_organisation %>
     <%= content_tag :div, class: "sub-organisation-name" do %>
+
+
+        <ul class="organisations-icon-list">
+          <% organisation.parent_organisations.each do |organisation|%>
+            <%= content_tag_for(:li, organisation, class: organisation.slug) do %>
+              <%= link_to organisation_path(organisation),
+                          class: logo_classes(class_name: organisation.organisation_logo_type.class_name, size: 'medium') do %>
+                <span><%= organisation_logo_name(organisation, false) %></span>
+              <% end %>
+            <% end %>
+          <% end %>
+        </ul>
+
       <h2>
-        <% if link_to_sub_organisation %>
-          <%= link_to sub_organisation.name, sub_organisation, class: "sub-organisation-name" %>
-        <% else %>
-          <%= sub_organisation.name %>
-        <% end %>
+        <%= organisation.name %>
       </h2>
     <% end %>
   <% end %>
-  <aside class="organisation-mainstream-links">
-    <%= render partial: 'shared/available_languages', locals: {object: @organisation} %>
-    <% if show_mainstream_links && organisation.mainstream_links.any? && sub_organisation.nil? %>
-        <ul>
-          <% organisation.mainstream_links.only_the_initial_set.each do |link| %>
-            <li><%= link_to link.title, link.url, ({rel: 'external'} if is_external?(link.url)) %></li>
-          <% end %>
-        </ul>
-    <% end %>
-  </aside>
 
+  <%= content_tag_if_not_empty :aside, class: "organisation-mainstream-links" do %>
+    <%= render partial: 'shared/available_languages', locals: {object: @organisation} %>
+
+    <% if show_mainstream_links && organisation.mainstream_links.any? && !sub_organisation %>
+      <ul>
+        <% organisation.mainstream_links.only_the_initial_set.each do |link| %>
+          <li><%= link_to link.title, link.url, ({rel: 'external'} if is_external?(link.url)) %></li>
+        <% end %>
+      </ul>
+    <% end %>
+  <% end %>
 </header>
