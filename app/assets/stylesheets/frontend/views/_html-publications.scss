@@ -107,7 +107,7 @@
           margin: $gutter*2 0 $gutter-half;
         }
         .number {
-          background: $white image-url('html-publication/texture.png') repeat;
+          background: $white;
           padding-right: $gutter-one-third;
           font-weight: bold;
           @include media(tablet){
@@ -125,7 +125,7 @@
         position: relative;
         @include core-27;
         .number {
-          background: $white image-url('html-publication/texture.png') repeat;
+          background: $white;
           color: $secondary-text-colour;
           padding-right: $gutter-one-third;
           @include media(tablet){
@@ -208,6 +208,42 @@
           ol+p {
             margin-top: $gutter-one-third;
           }
+        }
+      }
+      .contact {
+        @extend %contain-floats;
+        background: $panel-colour;
+        margin: $gutter $gutter-half*-1;
+        padding: $gutter-one-third $gutter-half;
+        position: relative;
+
+        h4 {
+          @include core-19;
+          font-weight: bold;
+          margin: $gutter-one-third 0 0;
+        }
+        p {
+          @include copy-19;
+          margin: 0;
+        }
+        .adr,
+        .email-url-number,
+        .comments {
+          @include media(tablet){
+            width: 50%;
+            float: left;
+          }
+        }
+        .email-url-number {
+          p {
+            margin: 0;
+          }
+          span {
+            display: block;
+          }
+        }
+        .comments {
+          @include core-16;
         }
       }
     }
