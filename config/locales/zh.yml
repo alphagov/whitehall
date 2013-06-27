@@ -7,14 +7,14 @@ zh:
     heading: 公告
   attachment:
     accessibility:
-      full_help_html:
-      heading:
-      request_a_different_format:
+      full_help_html: 申请本文件的其它格式，如盲文、音频或者不同的文件类型，请发送邮件%{email}并写明您的地址、电话号码以及此报告的标题("%{title}")%{references}。
+      heading: 此文件可能对使用辅助技术的用户不适合。
+      request_a_different_format: 申请另一种格式。
     headings:
-      order_a_copy:
-      order_a_copy_full:
-      published:
-      reference:
+      order_a_copy: 订阅副本
+      order_a_copy_full: 订阅报告副本
+      published: 已发布
+      reference: Ref
   change_notes:
     published: 已发布
     updated: 已更新
@@ -24,20 +24,20 @@ zh:
   corporate_information_page:
     type:
       personal_information_charter: 个人信息资料
-      publication_scheme: 信息发布计划
-      social_media_use:
+      publication_scheme: 报告发布计划
+      social_media_use: 社交媒体使用
       welsh_language_scheme: 威尔士语言计划
   date:
     formats:
-      default:
-      long_ordinal:
+      default: ! '%d %B %Y'
+      long_ordinal: ! '%e %B %Y'
   document:
     headings:
       advisory_groups: 咨询小组
       applies_to_nations: 适用于
       attachments:
-        one:
-        other:
+        one: 文件
+        other: 文件
       document_series: 系列
       field_of_operation: 操作区域
       live_data: 实时数据
@@ -45,8 +45,8 @@ zh:
         one: 首相/大臣/秘书
         other: 首相/大臣/秘书
       organisations:
-        one:
-        other:
+        one: 机构
+        other: 机构
       policies:
         one: 政策
         other: 政策
@@ -61,27 +61,27 @@ zh:
         one: 世界地区位置
         other: 世界地区位置
       worldwide_organisations:
-        one: 世界范围内的组织
-        other: 世界范围内的组织
+        one: 世界范围内的机构
+        other: 世界范围内的机构
     published: 已发布
-    read: 阅读这篇%{title}文章
+    read: 阅读%{title}文章
     speech:
       author_title:
-        minister:
-        speaker:
+        minister: 首相/大臣/秘书
+        speaker: 作者
       delivered_on: 发表于：
       delivery_title:
         minister: 首相/大臣/秘书
         speaker: 演讲者
-      originally_given_at: 最初发表于%{location}
-      written_on:
+      originally_given_at: 最初发表于%{location}。
+      written_on: 撰写于：
     type:
       announcement:
         one: 公告
         other: 公告
       authored_article:
-        one:
-        other:
+        one: 撰写的文章
+        other: 撰写的文章
       case_study:
         one: 实例研究
         other: 实例研究
@@ -110,14 +110,14 @@ zh:
         one: 死亡通告
         other: 死亡通告
       foi_release:
-        one: 关于资讯自由的信息
-        other: 关于资讯自由的信息
+        one: 资讯自由(FOI)信息发布
+        other: 资讯自由(FOI)信息发布
       form:
         one: 表格
         other: 表格
       government_response:
-        one:
-        other:
+        one: 政府反应
+        other: 政府反应
       guidance:
         one: 指导
         other: 指导
@@ -158,8 +158,8 @@ zh:
         one: 新闻稿
         other: 新闻稿
       promotional:
-        one: 宣传资料
-        other: 宣传资料
+        one: 宣传材料
+        other: 宣传材料
       publication:
         one: 发布的报告
         other: 发布的报告
@@ -194,9 +194,9 @@ zh:
         one: 对议会的书面声明
         other: 对议会的书面声明
     updated: 已更新
-    view:
+    view: 阅读'%{title}'
   document_filters:
-    description: 您可以使用过滤功能显示只符合您需要的结果。
+    description: 您可以使用过滤功能显示&nbsp;只符合您需要的&nbsp;结果。
     no_results:
       description: 尝试扩大您的搜索范围并再次搜索。
       title: 没有符合的文件。
@@ -204,11 +204,11 @@ zh:
       all: 所有地区位置
       label: 世界地区位置
   feeds:
-    atom:
+    atom: atom
     email_alerts: 邮件提醒
     latest_activity: 最新活动
   i18n:
-    direction:
+    direction: ltr
   language_names:
     zh: 中文
   latest_feed:
@@ -217,36 +217,36 @@ zh:
   number:
     human:
       storage_units:
-        format:
+        format: ! '%n%u'
   organisation:
     about:
-      read_more:
+      read_more: 阅读更多关于我们的工作
     corporate_information:
-      access_our_info:
-      foi_how_to:
-      foi_releases:
-      jobs_and_contacts:
-      transparency:
+      access_our_info: 阅读我们的信息
+      foi_how_to: 如何进行资讯自由（FOI）申请
+      foi_releases: 资讯自由(FOI)信息发布
+      jobs_and_contacts: 职位及联系方式
+      transparency: 透明化数据
     headings:
-      chief_professional_officers:
-      contact:
-      corporate_information:
-      corporate_reports:
+      chief_professional_officers: 我们的首席专业官员
+      contact: 联系%{name}
+      corporate_information: 政府信息
+      corporate_reports: 政府报告
       making_foi_requests:
-      our_announcements:
+      our_announcements: 我们的公告
       our_mainstream_categories:
-      our_management:
-      our_ministers:
-      our_policies:
-      our_publications:
-      our_senior_military_officials:
-      our_services:
-      our_statistics:
-      our_topics:
-      plus_others:
-      special_representatives:
-      traffic_commissioners:
-      what_we_do:
+      our_management: 我们的管理层
+      our_ministers: 我们的首相/大臣/秘书
+      our_policies: 我们的政策
+      our_publications: 我们的报告
+      our_senior_military_officials: 我们的高级军事官员
+      our_services: 我们的服务
+      our_statistics: 我们的数据
+      our_topics: 我们围绕这些主题进行工作
+      plus_others: ! ' + 其他'
+      special_representatives: 特别代表
+      traffic_commissioners: 交通事务专员
+      what_we_do: 我们的工作
     making_foi_requests:
       step1_html:
       step2_html:
@@ -265,8 +265,8 @@ zh:
         one: 非政府公共执行机构
         other: 非政府公共执行机构
       Executive office:
-        one:
-        other:
+        one: 执行办公室
+        other: 执行办公室
       Independent monitoring body:
         one: 独立监督机构
         other: 独立监督机构
@@ -293,14 +293,14 @@ zh:
   publications:
     heading: 发布的报告
     headings:
-      detail:
+      detail: 详情
   read_more: 阅读更多
   support:
     array:
       last_word_connector: 和
   time:
     formats:
-      long_ordinal:
+      long_ordinal: ! '%e %B %Y %H:%M'
   world_location:
     headings:
       announcements: 我们的公告
@@ -320,13 +320,13 @@ zh:
         one: 国际代表
         other: 国际代表
       world_location:
-        one:
-        other:
+        one: 世界地区位置
+        other: 世界地区位置
   worldwide_organisation:
     corporate_information:
       personal_information_charter_html: 我们的%{link}解释了我们如何对待您的个人信息。
-      publication_scheme_html: 阅读我们在%{link}定期发布的信息类型。
-      social_media_use_html:
+      publication_scheme_html: 阅读我们在%{link}定期发布的信息。
+      social_media_use_html: 阅读我们在%{link}的政策
       welsh_language_scheme_html: 查阅我们在%{link}发布的信息。
     find_out_more: 查阅全部内容和联系方式
     headings:

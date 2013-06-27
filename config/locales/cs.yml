@@ -2,17 +2,17 @@ cs:
   document:
     headings:
       attachments:
-        one:
+        one: Dokument
         few:
-        other:
+        other: Dokumenty
       ministers:
         one: Ministr
         few:
         other: Ministři
       organisations:
-        one:
+        one: Organizace
         few:
-        other:
+        other: Organizace
       policies:
         one: Politika
         few:
@@ -35,19 +35,19 @@ cs:
         other: Světové organizace
       advisory_groups: Poradní skupiny
       applies_to_nations: Týká se
-      document_series:
+      document_series: Edice
       field_of_operation: Oblast působnosti
       live_data: Aktuální data
-      policy_team:
+      policy_team: Odpovědný tým
     type:
       announcement:
         one: Oznámení
         few:
         other: Oznámení
       authored_article:
-        one:
+        one: Autorský článek
         few:
-        other:
+        other: Autorské články
       case_study:
         one: Případová studie
         few:
@@ -85,17 +85,17 @@ cs:
         few:
         other: Hlášení závad
       foi_release:
-        one:
+        one: Zpráva vydaná na základě Zákona o svobodném přístupu k informacím
         few:
-        other:
+        other: Zprávy vydané za základě Zákona o svobodném přístupu k informacím
       form:
         one: Formulář
         few:
         other: Formuláře
       government_response:
-        one:
+        one: Odpověď vlády
         few:
-        other:
+        other: Odpovědi vlády
       guidance:
         one: Návod
         few:
@@ -105,9 +105,9 @@ cs:
         few:
         other: Vyhodnocení dopadů
       imported:
-        one:
+        one: importováno - očekává vyřízení
         few:
-        other:
+        other: importováno - očekává vyřízení
       independent_report:
         one: Nezávislá zpráva
         few:
@@ -129,9 +129,9 @@ cs:
         few:
         other: Zprávy
       open_consultation:
-        one:
+        one: Otevřená konzultace
         few:
-        other:
+        other: Otevřené konzultace
       oral_statement:
         one: Vystoupení v  parlamentu
         few:
@@ -185,9 +185,9 @@ cs:
         few:
         other: Přepisy
       transparency:
-        one:
+        one: Transparenost
         few:
-        other:
+        other: Transparentnost
       worldwide_priority:
         one: Světová priorita
         few:
@@ -197,19 +197,19 @@ cs:
         few:
         other: Písemná prohlášení do parlamentu
     published: Publikováno
-    read:
+    read: Čtěte %{title}
     speech:
       author_title:
-        minister:
-        speaker:
-      delivered_on:
+        minister: Minister
+        speaker: Autor
+      delivered_on: Doručeno
       delivery_title:
         minister: Ministr
         speaker: Řečník
-      originally_given_at:
-      written_on:
+      originally_given_at: Poprvé předneseno
+      written_on: Napsáno
     updated: Aktualizováno
-    view:
+    view: Náhled '%{title}'
   organisation:
     type:
       Ad-hoc advisory group:
@@ -229,9 +229,9 @@ cs:
         few:
         other: Výkonné nevládní agentury
       Executive office:
-        one:
+        one: Kancelář
         few:
-        other:
+        other: Kanceláře
       Independent monitoring body:
         one: Nezavislý monitorovací orgán
         few:
@@ -261,33 +261,33 @@ cs:
         few:
         other: Soudy - nevládní organizace
     about:
-      read_more:
+      read_more: Více o tom, co děláme
     corporate_information:
-      access_our_info:
-      foi_how_to:
-      foi_releases:
-      jobs_and_contacts:
-      transparency:
+      access_our_info: Přístup k našim informacím
+      foi_how_to: Jak zažádat o informace
+      foi_releases: Svoboda přístupu k informacím
+      jobs_and_contacts: Pracovní příležitosti
+      transparency: ! 'Data '
     headings:
-      chief_professional_officers:
-      contact:
-      corporate_information:
-      corporate_reports:
+      chief_professional_officers: Naše vedení
+      contact: Kontakt %{name}
+      corporate_information: Korporátní informace
+      corporate_reports: Korporátní zprávy
       making_foi_requests:
-      our_announcements:
+      our_announcements: Naše prohlášení
       our_mainstream_categories:
-      our_management:
-      our_ministers:
-      our_policies:
-      our_publications:
-      our_senior_military_officials:
-      our_services:
-      our_statistics:
-      our_topics:
-      plus_others:
-      special_representatives:
-      traffic_commissioners:
-      what_we_do:
+      our_management: Naše vedení
+      our_ministers: Naši ministři
+      our_policies: Naše politiky
+      our_publications: Naše publikace
+      our_senior_military_officials: Naši vojenští velitelé
+      our_services: Neše služby
+      our_statistics: Naše statistiky
+      our_topics: Pracujeme na těchto tématech
+      plus_others: další
+      special_representatives: Zvláštní reprezentanti
+      traffic_commissioners: Dopravní komisaři
+      what_we_do: Co děláme
     making_foi_requests:
       step1_html:
       step2_html:
@@ -299,9 +299,9 @@ cs:
         few:
         other: Mezinárodní delegace
       world_location:
-        one:
+        one: Světová lokace
         few:
-        other:
+        other: Světové lokace
     headings:
       announcements: Naše oznámení
       country: Země
@@ -318,19 +318,23 @@ cs:
   activerecord:
     attributes:
       detailed_guide:
-        primary_mainstream_category:
+        primary_mainstream_category: Návod
   announcements:
     heading: Oznámení
   attachment:
     accessibility:
-      full_help_html:
-      heading:
-      request_a_different_format:
+      full_help_html: Pokud potřebujete tento dokument v jiném formátu, například
+        v braillově písmu, jako audio nahrávku nebo v jiném formátu, prosím kontaktujte
+        %{email}. Nezapomeňte uvést vaši adresu a telefon, společně s názvem publikace
+        ("%{title}")%{references}.
+      heading: Tento dokument nemusí být přístupný pro občany používající asistenční
+        technologie
+      request_a_different_format: Žádat o jiný formát dokumentu
     headings:
-      order_a_copy:
-      order_a_copy_full:
-      published:
-      reference:
+      order_a_copy: Objednat kopii
+      order_a_copy_full: Objednat kopii této publikace
+      published: Uveřejněno
+      reference: Reference
   change_notes:
     published: Uveřejněno
     updated: Aktualizováno
@@ -339,24 +343,24 @@ cs:
     email: Email
   corporate_information_page:
     type:
-      personal_information_charter:
-      publication_scheme:
-      social_media_use:
+      personal_information_charter: Registr osobních informací
+      publication_scheme: Publikační plán
+      social_media_use: Použití sociálních sítí
       welsh_language_scheme: Welština
   date:
     formats:
-      default:
-      long_ordinal:
+      default: ! '%d %B %Y'
+      long_ordinal: ! '%e %B %Y'
   document_filters:
     description: Tyto filtry Vám ukáží pouze výstupy, které se shodují s vaším zadáním.
     no_results:
-      description: ! 'Prosím upravte vámi hledaný pojem a zkuste to znovu. '
+      description: Prosím upravte vámi hledaný pojem a zkuste to znovu.
       title: Systém nemůže nalézt Vámi požadované heslo.
     world_locations:
       all: Všude
-      label:
+      label: Světové lokace
   feeds:
-    atom:
+    atom: atom
     email_alerts: Upozornění na email
     latest_activity: Poslední aktivita
   i18n:
@@ -369,27 +373,28 @@ cs:
   number:
     human:
       storage_units:
-        format:
+        format: ! '%n%u'
   policies:
     heading: Politiky
   publications:
     heading: Publikace
     headings:
-      detail:
+      detail: Více
   read_more: Více
   support:
     array:
       last_word_connector: a
   time:
     formats:
-      long_ordinal:
+      long_ordinal: ! '%e %B %Y %H:%M'
   worldwide_organisation:
     corporate_information:
       personal_information_charter_html: Jak nakládáme s vašimi osobními informacemi
         %{link}
-      publication_scheme_html:
-      social_media_use_html:
-      welsh_language_scheme_html:
+      publication_scheme_html: Více o typech informací, které pravidelně zveřejňujeme
+        na %{link}.
+      social_media_use_html: Více o naší strategii o %{link}.
+      welsh_language_scheme_html: Více o našem závazku zvěřejňovat informace na %{link}.
     find_out_more: Celý profil a kontakty zde.
     headings:
       about_us: O nás

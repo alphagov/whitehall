@@ -2,233 +2,233 @@ hi:
   document:
     headings:
       attachments:
-        one:
-        other:
+        one: दस्तावेज़
+        other: दस्तावेजों
       ministers:
-        one:
-        other:
+        one: मंत्री
+        other: मंत्रीगण
       organisations:
-        one:
-        other:
+        one: संगठन
+        other: संगठनों
       policies:
-        one:
-        other:
+        one: नीति
+        other: नीतियां
       topical_events:
         one:
         other:
       topics:
-        one:
-        other:
+        one: विषय
+        other: विषयों
       world_locations:
-        one:
-        other:
+        one: वैश्विक स्थान
+        other: वैश्विक स्थान
       worldwide_organisations:
-        one:
-        other:
-      advisory_groups:
-      applies_to_nations:
-      document_series:
-      field_of_operation:
-      live_data:
-      policy_team:
+        one: विश्वव्यापी संगठन
+        other: विश्वव्यापी संगठन
+      advisory_groups: सलाहकार समूह
+      applies_to_nations: पर लागू
+      document_series: श्रृंखला
+      field_of_operation: प्रचालन क्षेत्र
+      live_data: सजीव आँकड़ा
+      policy_team: नीति टीम
     type:
       announcement:
-        one:
-        other:
+        one: घोषणा
+        other: घोषणाएं
       authored_article:
-        one:
-        other:
+        one: मूल आलेख
+        other: मूल आलेख
       case_study:
-        one:
-        other:
+        one: विषय अध्ययन
+        other: विषय अध्ययन
       closed_consultation:
-        one:
-        other:
+        one: बंद कमरे में परामर्श
+        other: बंद कमरे में परामर्श
       consultation:
-        one:
-        other:
+        one: परामर्श
+        other: परामर्श
       consultation_outcome:
-        one:
-        other:
+        one: परामर्श का नतीजा
+        other: परामर्श के नतीजे
       corporate_report:
-        one:
-        other:
+        one: कॉरपोरेट विवरण
+        other: कॉरपोरेट विवरण
       correspondence:
-        one:
-        other:
+        one: पत्र व्यवहार
+        other: पत्र व्यवहार
       detailed_guidance:
-        one:
-        other:
+        one: विस्तृत मार्गदर्शन
+        other: विस्तृत मार्गदर्शन
       draft_text:
-        one:
-        other:
+        one: मसौदा पाठ
+        other: मसौदे के पाठ
       fatality_notice:
-        one:
-        other:
+        one: विपत्ति की सूचना
+        other: विपत्ति की सूचना
       foi_release:
-        one:
-        other:
+        one: एफओआई की विज्ञप्ति
+        other: एफओआई की विज्ञप्तियां
       form:
-        one:
-        other:
+        one: प्रपत्र
+        other: प्रपत्र
       government_response:
-        one:
-        other:
+        one: सरकारी जवाब
+        other: सरकारी जवाब
       guidance:
-        one:
-        other:
+        one: मार्गदर्शन
+        other: मार्गदर्शन
       impact_assessment:
-        one:
-        other:
+        one: प्रभाव का आंकलन
+        other: प्रभाव का आंकलन
       imported:
-        one:
-        other:
+        one: आयातित - प्रतीक्षा का प्रकार
+        other: आयातित - प्रतीक्षा का प्रकार
       independent_report:
-        one:
-        other:
+        one: स्वतंत्र रिपोर्ट
+        other: स्वतंत्र रिपोर्टें
       map:
-        one:
-        other:
+        one: मानचित्र
+        other: मानचित्रों
       national_statistics:
-        one:
-        other:
+        one: सांख्यिकी - राष्ट्रीय सांख्यिकी
+        other: सांख्यिकी - राष्ट्रीय सांख्यिकी
       news_article:
-        one:
-        other:
+        one: समाचार लेख
+        other: समाचार लेख
       news_story:
-        one:
-        other:
+        one: समाचार कथा
+        other: समाचार कथाएं
       open_consultation:
-        one:
-        other:
+        one: खुला परामर्श
+        other: खुले परामर्श
       oral_statement:
-        one:
-        other:
+        one: संसद में मौखिक बयान
+        other: संसद में मौखिक बयान
       policy:
-        one:
-        other:
+        one: नीति
+        other: नीतियां
       policy_paper:
-        one:
-        other:
+        one: नीति पत्र
+        other: नीति पत्र
       press_release:
-        one:
-        other:
+        one: प्रेस विज्ञप्ति
+        other: प्रेस विज्ञप्तियां
       promotional:
-        one:
-        other:
+        one: प्रचार सामग्री
+        other: प्रचार सामग्री
       publication:
-        one:
-        other:
+        one: प्रकाशन
+        other: प्रकाशन
       research:
-        one:
-        other:
+        one: अनुसंधान एवं विश्लेषण
+        other: अनुसंधान एवं विश्लेषण
       speaking_notes:
-        one:
-        other:
+        one:  उदबोधन अंश
+        other:  उदबोधन अंश
       speech:
-        one:
-        other:
+        one: भाषण
+        other: भाषण
       statement_to_parliament:
-        one:
-        other:
+        one: संसद में बयान
+        other: संसद में बयान
       statistical_data_set:
-        one:
-        other:
+        one: सांख्यिकीय आंकड़े का समूह
+        other: सांख्यिकीय आंकड़े का समूह
       statistics:
-        one:
-        other:
+        one: आंकड़े
+        other: आंकड़े
       transcript:
-        one:
-        other:
+        one: प्रतिलिपि
+        other: प्रतिलिपियां
       transparency:
-        one:
-        other:
+        one: पारदर्शिता आंकड़े
+        other: पारदर्शिता आंकड़े
       worldwide_priority:
-        one:
-        other:
+        one: वैश्विक प्राथमिकता
+        other: वैश्विक प्राथमिकताएं
       written_statement:
-        one:
-        other:
-    published:
-    read:
+        one: संसद में लिखित बयान
+        other: संसद में लिखित बयान
+    published: प्रकाशित
+    read: पढ़ें {title}% लेख
     speech:
       author_title:
-        minister:
-        speaker:
-      delivered_on:
+        minister: मंत्री
+        speaker: लेखक 
+      delivered_on: ! 'को वितरित:'
       delivery_title:
-        minister:
-        speaker:
-      originally_given_at:
-      written_on:
-    updated:
-    view:
+        minister: मंत्री
+        speaker: वक्ता
+      originally_given_at: ! 'मूलत: %{location} पर दिया जाता है।'
+      written_on: लिखा गया
+    updated: अद्यतन
+    view: देखें '%{title}'
   organisation:
     type:
       Ad-hoc advisory group:
-        one:
-        other:
+        one: तदर्थ सलाहकार समूह
+        other: तदर्थ सलाहकार समूह
       Advisory non-departmental public body:
-        one:
-        other:
+        one: परामर्शी गैर-विभागीय सार्वजनिक निकाय
+        other: परामर्शी गैर-विभागीय सार्वजनिक निकाय
       Executive agency:
-        one:
-        other:
+        one: कार्यकारी एजेंसी
+        other: कार्यकारी एजेंसियां
       Executive non-departmental public body:
-        one:
-        other:
+        one: कार्यकारी गैर-विभागीय सार्वजनिक निकाय
+        other: कार्यकारी गैर-विभागीय सार्वजनिक निकाय
       Executive office:
-        one:
-        other:
+        one: अधिशासी कार्यालय
+        other: अधिशासी कार्यालय
       Independent monitoring body:
-        one:
-        other:
+        one: स्वतंत्र पर्यवेक्षण निकाय
+        other: स्वतंत्र पर्यवेक्षण निकाय
       Ministerial department:
-        one:
-        other:
+        one: मंत्रालय विभाग
+        other: मंत्रालय विभाग
       Non-ministerial department:
-        one:
-        other:
+        one: गैर-मंत्रालय विभाग
+        other: गैर-मंत्रालय विभाग
       Other:
-        one:
-        other:
+        one: अन्य
+        other: अन्य
       Public corporation:
-        one:
-        other:
+        one: सार्वजनिक निगम
+        other: सार्वजनिक निगम
       Sub-organisation:
-        one:
-        other:
+        one: उप-संगठन
+        other: उप-संगठन
       Tribunal non-departmental public body:
-        one:
-        other:
+        one: न्यायाधिकरण गैर-विभागीय सार्वजनिक निकाय
+        other: न्यायाधिकरण गैर-विभागीय सार्वजनिक निकाय
     about:
-      read_more:
+      read_more: पढ़ें हम और क्या करते हैं
     corporate_information:
-      access_our_info:
-      foi_how_to:
-      foi_releases:
-      jobs_and_contacts:
-      transparency:
+      access_our_info: हमारी  सूचना तक पहुंचें
+      foi_how_to: एफओआई निवेदन कैसे करें
+      foi_releases: एफओआई की विज्ञप्तियां
+      jobs_and_contacts: नौकरी एवं अनुबंध
+      transparency: पारदर्शिता आंकड़े
     headings:
-      chief_professional_officers:
-      contact:
-      corporate_information:
-      corporate_reports:
+      chief_professional_officers: हमारे मुख्य पेशेवर अधिकारी
+      contact: संपर्क %{name}
+      corporate_information: निकाय सूचना
+      corporate_reports: कम्पनी रपट
       making_foi_requests:
-      our_announcements:
+      our_announcements: हमारी घोषणाएं
       our_mainstream_categories:
-      our_management:
-      our_ministers:
-      our_policies:
-      our_publications:
-      our_senior_military_officials:
-      our_services:
-      our_statistics:
-      our_topics:
-      plus_others:
-      special_representatives:
-      traffic_commissioners:
-      what_we_do:
+      our_management: हमारा प्रबंधन
+      our_ministers: हमारे मंत्री
+      our_policies: हमारी नीतियां
+      our_publications: हमारे प्रकाशन
+      our_senior_military_officials: हमारे वरिष्ठ सैन्य अधिकारी
+      our_services: हमारी सेवाएं
+      our_statistics: हमारे आंकड़े
+      our_topics: हम इन विषयों पर काम करतें हैं
+      plus_others: + दूसरों
+      special_representatives: विशेष प्रतिनिधि
+      traffic_commissioners: यातायात आयुक्त
+      what_we_do: हम क्या करते हैं
     making_foi_requests:
       step1_html:
       step2_html:
@@ -236,105 +236,113 @@ hi:
   world_location:
     type:
       international_delegation:
-        one:
-        other:
+        one: अंतर्राष्ट्रीय प्रतिनिधिमंडल
+        other: अंतर्राष्ट्रीय प्रतिनिधिमंडल
       world_location:
-        one:
-        other:
+        one: वैश्विक स्थान
+        other: वैश्विक स्थान
     headings:
-      announcements:
-      country:
-      documents:
-      mission:
-      organisations:
-      priorities:
-      publications:
-      quick_links:
-      related_policies:
-      see_all:
-      statistics:
-    see_all:
+      announcements: हमारी घोषणाएं
+      country: देश
+      documents: दस्तावेज़
+      mission: हमारा लक्ष्य
+      organisations: संगठन
+      priorities: प्राथमिकताएं
+      publications: हमारे प्रकाशन
+      quick_links: क्विक लिंक्स
+      related_policies: सम्बंधित नीतियां
+      see_all: देखें हमारे सभी %{type}
+      statistics: हमारे आंकड़े
+    see_all: देखें हमारे सभी %{type}
   activerecord:
     attributes:
       detailed_guide:
-        primary_mainstream_category:
+        primary_mainstream_category: प्राथमिक विस्तृत मार्गदर्शन श्रेणी
   announcements:
-    heading:
+    heading: घोषणाएं
   attachment:
     accessibility:
-      full_help_html:
-      heading:
-      request_a_different_format:
+      full_help_html: ! 'इस  दस्तावेज को एक  वैकल्पिक प्रारूप जैसे कि ब्रेल, ऑडियो
+        में निवेदन करें, %{email}
+
+        अपना पता, टेलीफोन नंबर और प्रकाशन के  शीर्षक के साथ ("%{title}")%{references}.'
+      heading: संभव है  कि यह फाइल सहायक प्रोद्योगिकी का इस्तेमाल करने वालों के लिए
+        उपयोगी ना हो
+      request_a_different_format: एक  अलग प्रारूप का निवेदन
     headings:
-      order_a_copy:
-      order_a_copy_full:
-      published:
-      reference:
+      order_a_copy: प्रतिलिपि मंगाएँ
+      order_a_copy_full: प्रकाशन की प्रतिलिपि मंगाएँ
+      published: प्रकाशित
+      reference: संदर्भ
   change_notes:
-    published:
-    updated:
+    published: प्रकाशित
+    updated: अद्यतन
   contact:
-    contact_form:
-    email:
+    contact_form: संपर्क प्रपत्र
+    email: ईमेल
   corporate_information_page:
     type:
-      personal_information_charter:
-      publication_scheme:
-      social_media_use:
-      welsh_language_scheme:
+      personal_information_charter: व्यक्तिगत जानकारी चार्टर
+      publication_scheme: प्रकाशन योजना
+      social_media_use: सोशल मीडिया का प्रयोग
+      welsh_language_scheme: वेल्श भाषा योजना
   date:
     formats:
-      default:
+      default: ! '%e %B %Y'
       long_ordinal: ! '%e %B %Y'
   document_filters:
-    description:
+    description: आप फिल्टरों का उपयोग सिर्फ उन नतीजों को दर्शाने के लिए कर सकते हैं,
+      जिनमें आप की दिलचस्पी हो।
     no_results:
-      description:
-      title:
+      description: ! 'अपनी खोज़ को व्यापक बनाए और पुन: कोशिश करें'
+      title: मेल खाने वाले दस्तावेज़ नहीं हैं
     world_locations:
-      all:
-      label:
+      all: सभी स्थान
+      label: वैश्विक स्थान
   feeds:
-    atom:
-    email_alerts:
-    latest_activity:
+    atom: परमाणु
+    email_alerts: ईमेल सचेतक
+    latest_activity: नवीनतम गतिविधि
   i18n:
     direction: ltr
   language_names:
-    hi: हिन्दी
+    hi: हिंदी
   latest_feed:
-    no_updates:
-    title:
+    no_updates: अभी तक कोई नए समाचार नहीं हैं
+    title: नवीनतम
   number:
     human:
       storage_units:
-        format:
+        format: ! '%n%u'
   policies:
-    heading:
+    heading: नीतियां
   publications:
-    heading:
+    heading: प्रकाशन
     headings:
-      detail:
-  read_more:
+      detail: विस्तृत
+  read_more: विस्तार में पढ़ें
   support:
     array:
-      last_word_connector:
+      last_word_connector: और
   time:
     formats:
-      long_ordinal:
+      long_ordinal: ! '%e %B %Y %H:%M'
   worldwide_organisation:
     corporate_information:
-      personal_information_charter_html:
-      publication_scheme_html:
-      social_media_use_html:
-      welsh_language_scheme_html:
-    find_out_more:
+      personal_information_charter_html: हमारे %{link} बताते हैं कि हम कैसे आपकी व्यक्तिगत
+        सूचना का उपयोग करते हैं।
+      publication_scheme_html: सूचना के उन प्रकारों के बारे में पढ़ें, जिन्हें हम
+        अपने %{link} में नियमित रूप से प्रकाशित करते हैं।
+      social_media_use_html: इस बारे में हमारी नीतियां पढ़ें %{link}
+      welsh_language_scheme_html: हमारी प्रकाशन के प्रति वचनबद्धता के बारे में जानें
+        %(link)।
+    find_out_more: पूरी रूप रेखा और समस्त संपर्क विवरण देखें
     headings:
-      about_us:
-      contact_us:
-      corporate_information:
-      follow_us:
-      our_people:
-      our_services:
-    location:
-    part_of:
+      about_us: हमारे बारे में
+      contact_us: हमसे संपर्क करें
+      corporate_information: निकाय सूचना
+      follow_us: हमारा अनुसरण करें
+      our_people: हमारे लोग
+      our_services: हमारी सेवाएं
+    location: स्थान
+    part_of: का अंग

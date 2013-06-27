@@ -2,233 +2,233 @@ sq:
   document:
     headings:
       attachments:
-        one:
-        other:
+        one: Dokument
+        other: Dokumente
       ministers:
-        one:
-        other:
+        one: Minister
+        other: Ministra
       organisations:
-        one:
-        other:
+        one: Organizate
+        other: Organizata
       policies:
-        one:
-        other:
+        one: Politike
+        other: Politika
       topical_events:
         one:
         other:
       topics:
-        one:
-        other:
+        one: Teme
+        other: Tema
       world_locations:
-        one:
-        other:
+        one: Vendndodhje
+        other: Vendndodhje
       worldwide_organisations:
-        one:
-        other:
-      advisory_groups:
-      applies_to_nations:
-      document_series:
-      field_of_operation:
-      live_data:
-      policy_team:
+        one: Organizate boterore
+        other: Organizata boterore
+      advisory_groups: Grupe keshillues
+      applies_to_nations: Zbatohet mbi
+      document_series: Seri
+      field_of_operation: Fusha e veprimit
+      live_data: Te dhena direkte
+      policy_team: Skuadra e politikave
     type:
       announcement:
-        one:
-        other:
+        one: Lajmerim
+        other: Lajmerime
       authored_article:
-        one:
-        other:
+        one: Artikull autori
+        other: Artikuj autoresh
       case_study:
-        one:
-        other:
+        one: Rast studimi
+        other: Raste studimi
       closed_consultation:
-        one:
-        other:
+        one: Konsultim i mbyllur
+        other: Konsultime te mbyllur
       consultation:
-        one:
-        other:
+        one: Konsultim
+        other: Konsultime
       consultation_outcome:
-        one:
-        other:
+        one: Rezultati i konsultimit
+        other: Rezultatet e konsultimit
       corporate_report:
-        one:
-        other:
+        one: Raport i organizates
+        other: Raporte te organizates
       correspondence:
-        one:
-        other:
+        one: Korrespondence
+        other: Korrespondencat
       detailed_guidance:
-        one:
-        other:
+        one: Udhezim i detajuar
+        other: Udhezim i detajuar
       draft_text:
-        one:
-        other:
+        one: Draft tekst
+        other: draft tekste
       fatality_notice:
-        one:
-        other:
+        one: njoftim fataliteti
+        other: njoftime fataliteti
       foi_release:
-        one:
-        other:
+        one: Njoftim mbi Lirine e Informacionit
+        other: Njoftime mbi Lirine e Informacionit
       form:
-        one:
-        other:
+        one: Forme
+        other: Forma
       government_response:
-        one:
-        other:
+        one: Reagim qeveritar
+        other: Reagime qeveritare
       guidance:
-        one:
-        other:
+        one: Udhezime
+        other: Udhezime
       impact_assessment:
-        one:
-        other:
+        one: Vleresim i ndikimit
+        other: Vleresime te ndikimit
       imported:
-        one:
-        other:
+        one: Importuar - tipi pritje
+        other: Importuar - tipi pritje
       independent_report:
-        one:
-        other:
+        one: Raport i pavarur
+        other: Raporte te pavarur
       map:
-        one:
-        other:
+        one: Harte
+        other: Harta
       national_statistics:
-        one:
-        other:
+        one: Statistika - statistika kombetare
+        other: Statistika - statistika kombetare
       news_article:
-        one:
-        other:
+        one: Artikull lajm
+        other: Artikuj lajme
       news_story:
-        one:
-        other:
+        one: Ngjarje
+        other: Ngjarje
       open_consultation:
-        one:
-        other:
+        one: Konsultim i hapur
+        other: Konsultime te hapur
       oral_statement:
-        one:
-        other:
+        one: Deklarate per Parliamentin
+        other: Deklarata per Parlamentin
       policy:
-        one:
-        other:
+        one: Politike
+        other: Politika
       policy_paper:
-        one:
-        other:
+        one: dokument politikash
+        other: dokumente politikash
       press_release:
-        one:
-        other:
+        one: Njoftim shtyp
+        other: Njoftime shtypi
       promotional:
-        one:
-        other:
+        one: Material promovues
+        other: Material promovues
       publication:
-        one:
-        other:
+        one: Publikim
+        other: Publikime
       research:
-        one:
-        other:
+        one: kerkime dhe analiza
+        other: kerkime dhe analiza
       speaking_notes:
-        one:
-        other:
+        one: Pika fjalimi
+        other: Pika fjalimi
       speech:
-        one:
-        other:
+        one: Fjalim
+        other: Fjalime
       statement_to_parliament:
-        one:
-        other:
+        one: Deklarate per Parliamentin
+        other: Deklarata per Parlamentin
       statistical_data_set:
-        one:
-        other:
+        one: Grup te dhenash statistikore
+        other: Grupe te dhenash stasistikore
       statistics:
-        one:
-        other:
+        one: Statistika
+        other: Statistika
       transcript:
-        one:
-        other:
+        one: Transkript
+        other: Transkripte
       transparency:
-        one:
-        other:
+        one: Te dhena per transparencen
+        other: Te dhena per transparencen
       worldwide_priority:
-        one:
-        other:
+        one: Prioritet global
+        other: Prioritete globale
       written_statement:
-        one:
-        other:
-    published:
-    read:
+        one: Deklarate me shkrim per Parlamentin
+        other: Deklarata me shkrim per Parlamentin
+    published: publikuar
+    read: ! 'Lexo %{title} '
     speech:
       author_title:
-        minister:
-        speaker:
-      delivered_on:
+        minister: Minister
+        speaker: Shkrimtar
+      delivered_on: ! 'Dorezuar ne:'
       delivery_title:
-        minister:
-        speaker:
-      originally_given_at:
-      written_on:
-    updated:
-    view:
+        minister: Minister
+        speaker: Foles
+      originally_given_at: Origjinali dhene ne %{location}.
+      written_on: ! 'Shkruar më:'
+    updated: rifreskuar
+    view: Shiko '%{title}'
   organisation:
     type:
       Ad-hoc advisory group:
-        one:
-        other:
+        one: Grup keshilluese i posaçem
+        other: Grupe keshillues te posaçem
       Advisory non-departmental public body:
-        one:
-        other:
+        one: Organ keshillues publik jo-dikasterial
+        other: Organe keshillues publik jo-dikasterial
       Executive agency:
-        one:
-        other:
+        one: Agjensi Ekzekutive
+        other: Agjensi Ekzekutive
       Executive non-departmental public body:
-        one:
-        other:
+        one: Organ Ekzekutiv publik jo-dikasterial
+        other: Organe Ekzekutive publike jo-dikasteriale
       Executive office:
-        one:
-        other:
+        one: Zyre Ekzekutive
+        other: Zyra Ekzekutive
       Independent monitoring body:
-        one:
-        other:
+        one: Organ Monitorues publik
+        other: Organe monitoruese publike
       Ministerial department:
-        one:
-        other:
+        one: Dikaster
+        other: Dikastere
       Non-ministerial department:
-        one:
-        other:
+        one: Departament jo-ministror
+        other: Departamente jo-ministrore
       Other:
-        one:
-        other:
+        one: Tjeter
+        other: Te tjere
       Public corporation:
-        one:
-        other:
+        one: Korporate publike
+        other: Korporata publike
       Sub-organisation:
-        one:
-        other:
+        one: Nen-organizate
+        other: Nen-organizata
       Tribunal non-departmental public body:
-        one:
-        other:
+        one: Gjykate jo-dikasteriale publike
+        other: Gjykata jo-dikasteriale publike
     about:
-      read_more:
+      read_more: Lexo me shume se cfare bejme ne
     corporate_information:
-      access_our_info:
-      foi_how_to:
-      foi_releases:
-      jobs_and_contacts:
-      transparency:
+      access_our_info: Shiko informacionin tone
+      foi_how_to: Si te besh nje kerkese FOI
+      foi_releases: Njoftime FOI
+      jobs_and_contacts: Vende pune dhe kontrata
+      transparency: Te dhena transparence
     headings:
-      chief_professional_officers:
-      contact:
-      corporate_information:
-      corporate_reports:
+      chief_professional_officers: ! 'Zyrtaret tane kryesore profesioniste '
+      contact: Kontakt %{emri}
+      corporate_information: Informacion korporate
+      corporate_reports: Raporte korporate
       making_foi_requests:
-      our_announcements:
+      our_announcements: Njoftimet tona
       our_mainstream_categories:
-      our_management:
-      our_ministers:
-      our_policies:
-      our_publications:
-      our_senior_military_officials:
-      our_services:
-      our_statistics:
-      our_topics:
-      plus_others:
-      special_representatives:
-      traffic_commissioners:
-      what_we_do:
+      our_management: Manaxhimi yne
+      our_ministers: Ministrat tane
+      our_policies: Politikat tona
+      our_publications: Publikimet tona
+      our_senior_military_officials: Zyrtaret kryesore ushtarake
+      our_services: Sherbimet tona
+      our_statistics: Statistikat tona
+      our_topics: Ne punojme ne keto tema
+      plus_others: + te tjera
+      special_representatives: Perfaqesues speciale
+      traffic_commissioners: Komisionere te trafikut
+      what_we_do: Cfare bejme ne
     making_foi_requests:
       step1_html:
       step2_html:
@@ -236,105 +236,111 @@ sq:
   world_location:
     type:
       international_delegation:
-        one:
-        other:
+        one: Delegacion nderkombetare
+        other: Delegacione nderkombetare
       world_location:
-        one:
-        other:
+        one: Vendndodhje
+        other: Vendndodhje
     headings:
-      announcements:
-      country:
-      documents:
-      mission:
-      organisations:
-      priorities:
-      publications:
-      quick_links:
-      related_policies:
-      see_all:
-      statistics:
-    see_all:
+      announcements: Njoftimet tona
+      country: Vendi
+      documents: Dokumenta
+      mission: Misioni yne
+      organisations: Organizatat
+      priorities: Prioritetet
+      publications: Publikimet tona
+      quick_links: Lidhje te shpejta
+      related_policies: Politika me lidhje
+      see_all: Shiko te gjitha %{llojet}
+      statistics: Statistikat tona
+    see_all: Shiko te gjitha %{llojet}
   activerecord:
     attributes:
       detailed_guide:
-        primary_mainstream_category:
+        primary_mainstream_category: kategori primare udhezimesh te detajuara
   announcements:
-    heading:
+    heading: Njoftime shtypi
   attachment:
     accessibility:
-      full_help_html:
-      heading:
-      request_a_different_format:
+      full_help_html: Per te kerkuar kete dokument ne format alternativ si braille,
+        audio ose format tjeter te lutem email %{email} duke cituar adresen tende,
+        telefonin dhe titullin e publikimit ("%{title}")%{references}.
+      heading: Ky dokument mund te mos jete i pershtatshem per perdoruesit e teknologjise
+        ndihmuese.
+      request_a_different_format: Kerko nje format ndryshe
     headings:
-      order_a_copy:
-      order_a_copy_full:
-      published:
-      reference:
+      order_a_copy: Porosit nje kopje
+      order_a_copy_full: Porosit nje kopje te publikimit
+      published: Publikuar
+      reference: Ref
   change_notes:
-    published:
-    updated:
+    published: Publikuar
+    updated: Rifreskuar
   contact:
-    contact_form:
-    email:
+    contact_form: Forme kontakti
+    email: Email
   corporate_information_page:
     type:
-      personal_information_charter:
-      publication_scheme:
-      social_media_use:
-      welsh_language_scheme:
+      personal_information_charter: Informacion Personal
+      publication_scheme: Skeme publikimi
+      social_media_use: Perdorim media sociale
+      welsh_language_scheme: Skeme e gjuhes Uells
   date:
     formats:
-      default:
+      default: ! '%d %B %Y'
       long_ordinal: ! '%e %B %Y'
   document_filters:
-    description:
+    description: Ju mund te perdorni filtrat per te treguar&nbsp; vetem rezultatet
+      qe perputhen me interesin tuaj&nbsp;
     no_results:
-      description:
-      title:
+      description: Zgjero kerkimin dhe perpiqu perseri
+      title: Nuk gjendet cfare kerkoni
     world_locations:
-      all:
-      label:
+      all: Te gjitha vendndodhjet
+      label: Vendndodhje boterore
   feeds:
-    atom:
-    email_alerts:
-    latest_activity:
+    atom: atom
+    email_alerts: njoftime emaili
+    latest_activity: Aktiviteti me i fundit
   i18n:
     direction: ltr
   language_names:
     sq: Shqip
   latest_feed:
-    no_updates:
-    title:
+    no_updates: Nuk ka rifreskim
+    title: Me te fundit
   number:
     human:
       storage_units:
-        format:
+        format: ! '%n%u'
   policies:
-    heading:
+    heading: Politikat
   publications:
-    heading:
+    heading: Publikimet
     headings:
-      detail:
-  read_more:
+      detail: Detaj
+  read_more: Lexo me shume
   support:
     array:
-      last_word_connector:
+      last_word_connector: dhe
   time:
     formats:
-      long_ordinal:
+      long_ordinal: ! '%e %B %Y %H:%M'
   worldwide_organisation:
     corporate_information:
-      personal_information_charter_html:
-      publication_scheme_html:
-      social_media_use_html:
-      welsh_language_scheme_html:
-    find_out_more:
+      personal_information_charter_html: ! '%{link} shpjegon si trajtohet informacioni
+        juaj personal'
+      publication_scheme_html: Lexo mbi llojet e informacionit qe ne publikojme rregullisht
+        ne %{link}.
+      social_media_use_html: Lexo politikat tona ne %{link}
+      welsh_language_scheme_html: Meso mbi angazhimin tone ndaj publikimit ne %{link}
+    find_out_more: Shiko profilin e plote dhe kontaktet
     headings:
-      about_us:
-      contact_us:
-      corporate_information:
-      follow_us:
-      our_people:
-      our_services:
-    location:
-    part_of:
+      about_us: Rreth nesh
+      contact_us: Kontakto
+      corporate_information: Informacion korporate
+      follow_us: Na ndiq
+      our_people: Njerezit tane
+      our_services: Sherbimet tona
+    location: Vendndodhja
+    part_of: Pjese e

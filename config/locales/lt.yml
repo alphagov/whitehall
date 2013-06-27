@@ -2,292 +2,292 @@ lt:
   document:
     headings:
       attachments:
-        one:
+        one: Dokumentas
         few:
-        other:
+        other: Dokumentai
       ministers:
-        one:
+        one: Ministras
         few:
-        other:
+        other: Ministrai
       organisations:
-        one:
+        one: Organizacija
         few:
-        other:
+        other: Organizacijos
       policies:
-        one:
+        one: Strategija
         few:
-        other:
+        other: Strategijos
       topical_events:
         one:
         few:
         other:
       topics:
-        one:
+        one: Tema
         few:
-        other:
+        other: Temos
       world_locations:
-        one:
+        one: Geografinė vieta
         few:
-        other:
+        other: Geografinės vietos
       worldwide_organisations:
-        one:
+        one: Pasaulinė organizacija
         few:
-        other:
-      advisory_groups:
-      applies_to_nations:
-      document_series:
-      field_of_operation:
-      live_data:
-      policy_team:
+        other: Pasaulinės organizacijos
+      advisory_groups: Patariamosios grupės
+      applies_to_nations: Susiję su
+      document_series: Serijos
+      field_of_operation: Veiklos laukas
+      live_data: Naujausi duomenys
+      policy_team: Politikos komanda
     type:
       announcement:
-        one:
+        one: Pranešimas
         few:
-        other:
+        other: Pranešimai
       authored_article:
-        one:
+        one: Autoriaus straipsnis
         few:
-        other:
+        other: Autorių straipsniai
       case_study:
-        one:
+        one: Atvejo analizė
         few:
-        other:
+        other: Atvejų analizės
       closed_consultation:
-        one:
+        one: Pasibaigusi konsultacija
         few:
-        other:
+        other: Pasibaigusios konsultacijos
       consultation:
-        one:
+        one: Konsultacija
         few:
-        other:
+        other: Konsultacijos
       consultation_outcome:
-        one:
+        one: Konsultacijos rezultatas
         few:
-        other:
+        other: Konsultacijos rezultatai
       corporate_report:
-        one:
+        one: Bendra ataskaita
         few:
-        other:
+        other: Bendros ataskaitos
       correspondence:
-        one:
+        one: Korespondencija
         few:
-        other:
+        other: Korespondencija
       detailed_guidance:
-        one:
+        one: Detalesnė informacija
         few:
-        other:
+        other: Detalesnė informacija
       draft_text:
-        one:
+        one: Pirminis teksto variantas
         few:
-        other:
+        other: Pirminiai teksto variantai
       fatality_notice:
-        one:
+        one: Pranešimas apie nelaimę
         few:
-        other:
+        other: Pranešimas apie nelaimes
       foi_release:
-        one:
+        one: ! 'Informacijos laisvė: pranešimas'
         few:
-        other:
+        other: ! 'Informacijos laisvė: pranešimai'
       form:
-        one:
+        one: Forma
         few:
-        other:
+        other: Formos
       government_response:
-        one:
+        one: Vyriausybės atsakas
         few:
-        other:
+        other: Vyriausybės atsakai
       guidance:
-        one:
+        one: Informacija
         few:
-        other:
+        other: Informacija
       impact_assessment:
-        one:
+        one: Poveikio įvertinimas
         few:
-        other:
+        other: Poveikio įvertinimai
       imported:
-        one:
+        one: Patalpinta - laukiama publikavimo
         few:
-        other:
+        other: Patalpinta - laukiama publikavimo
       independent_report:
-        one:
+        one: Nepriklausoma ataskaita
         few:
-        other:
+        other: Nepriklausomos ataskaitos
       map:
-        one:
+        one: Žemėlapis
         few:
-        other:
+        other: Žemėlapiai
       national_statistics:
-        one:
+        one: ! 'Statistika - nacionalinė statistika '
         few:
-        other:
+        other: ! 'Statistika - nacionalinė statistika '
       news_article:
-        one:
+        one: Straipsnis
         few:
-        other:
+        other: Straipsniai
       news_story:
-        one:
+        one: Naujiena
         few:
-        other:
+        other: Naujienos
       open_consultation:
-        one:
+        one: Atvira konsultacija
         few:
-        other:
+        other: ! 'Atviros konsultacijos '
       oral_statement:
-        one:
+        one: Žodinis kreipimasis į parlamentą
         few:
-        other:
+        other: Žodiniai kreipimaisi į parlamentą
       policy:
-        one:
+        one: Strategija
         few:
-        other:
+        other: Strategija
       policy_paper:
-        one:
+        one: Strategijos dokumentas
         few:
-        other:
+        other: Strategijų dokumentai
       press_release:
-        one:
+        one: Pranešimas spaudai
         few:
-        other:
+        other: Pranešimai spaudai
       promotional:
-        one:
+        one: Reklaminė medžiaga
         few:
-        other:
+        other: Reklaminė medžiaga
       publication:
-        one:
+        one: Leidinys
         few:
-        other:
+        other: Leidiniai
       research:
-        one:
+        one: Tyrimas ir analizė
         few:
-        other:
+        other: Tyrimai ir analizės
       speaking_notes:
-        one:
+        one: Kalbos santrauka
         few:
-        other:
+        other: Kalbos santrauka
       speech:
-        one:
+        one: Kalba
         few:
-        other:
+        other: Kalbos
       statement_to_parliament:
-        one:
+        one: Kreipimasis į parlamentą
         few:
-        other:
+        other: Kreipimaisi į parlamentą
       statistical_data_set:
-        one:
+        one: Statistiniai duomenys
         few:
-        other:
+        other: Statistiniai duomenys
       statistics:
-        one:
+        one: Statistika
         few:
-        other:
+        other: Statistika
       transcript:
-        one:
+        one: Kalbos tekstas
         few:
-        other:
+        other: Kalbų tekstai
       transparency:
-        one:
+        one: Skaidrumo informacija
         few:
-        other:
+        other: Skaidrumo informacija
       worldwide_priority:
-        one:
+        one: Pasaulinis pioritetas
         few:
-        other:
+        other: Pasauliniai prioritetai
       written_statement:
-        one:
+        one: Rašytinis kreipimasis į parlamentą
         few:
-        other:
-    published:
-    read:
+        other: Rašytiniai kreipimaisi į parlamentą
+    published: publikuota
+    read: ! 'Skaitykite straipsnį %{title} '
     speech:
       author_title:
-        minister:
-        speaker:
-      delivered_on:
+        minister: Ministras
+        speaker: Autorius
+      delivered_on: ! 'Pasakyta:'
       delivery_title:
-        minister:
-        speaker:
-      originally_given_at:
-      written_on:
-    updated:
-    view:
+        minister: Ministras
+        speaker: Pranešėjas
+      originally_given_at: ! 'Vieta: %{vieta}.'
+      written_on: Parašyta
+    updated: atnaujinta
+    view: Žiūrėkite '%{title}'
   organisation:
     type:
       Ad-hoc advisory group:
-        one:
+        one: Specialioji patariamoji grupė
         few:
-        other:
+        other: Specialiosios patariamosios grupės
       Advisory non-departmental public body:
-        one:
+        one: Patariamoji nevyriausybinė organizacija
         few:
-        other:
+        other: Patariamosios nevyriausybinės organizacijos
       Executive agency:
-        one:
+        one: Vykdomoji agentūra
         few:
-        other:
+        other: Vykdomosios agentūros
       Executive non-departmental public body:
-        one:
+        one: Vykdomoji nevyriausybinė organizacija
         few:
-        other:
+        other: Vykdomosios nevyriausybinės organizacijos
       Executive office:
-        one:
+        one: Vykdomoji agentūra
         few:
-        other:
+        other: Vykdomosios agentūros
       Independent monitoring body:
-        one:
+        one: Nepriklausoma stebėsenos institucija
         few:
-        other:
+        other: Nepriklausomos stebėsenos institucijos
       Ministerial department:
-        one:
+        one: ! "\n  Ministerijos\n  departamentas\n"
         few:
-        other:
+        other: Ministerijų departamentai
       Non-ministerial department:
-        one:
+        one: Neministerinis departamentas
         few:
-        other:
+        other: Neministeriniai vyriausybės departamentai
       Other:
-        one:
+        one: Kita
         few:
-        other:
+        other: Kiti
       Public corporation:
-        one:
+        one: Valstybinė įmonė
         few:
-        other:
+        other: Valstybinės įmonės
       Sub-organisation:
-        one:
+        one: Organizacijos padalinys
         few:
-        other:
+        other: Organizacijos padaliniai
       Tribunal non-departmental public body:
-        one:
+        one: Nedepartinis viešasis tribunolas
         few:
-        other:
+        other: Nedepartiniai viešieji tribunolai
     about:
-      read_more:
+      read_more: Skaitykite daugiau apie mūsų veiklą
     corporate_information:
-      access_our_info:
-      foi_how_to:
-      foi_releases:
-      jobs_and_contacts:
-      transparency:
+      access_our_info: Prieiga prie mūsų informacijos
+      foi_how_to: Kaip pateikti užklausymą informacijai gauti
+      foi_releases: ! 'Informacijos laisvė: pranešimai'
+      jobs_and_contacts: Darbai ir sutartys
+      transparency: Skaidrumo informacija
     headings:
-      chief_professional_officers:
-      contact:
-      corporate_information:
-      corporate_reports:
+      chief_professional_officers: Mūsų vyriausieji pareigūnai
+      contact: Susisiekite su %{name}
+      corporate_information: Korporatyvinė informacija
+      corporate_reports: Korporatyvinės ataskaitos
       making_foi_requests:
-      our_announcements:
+      our_announcements: Mūsų skelbimai
       our_mainstream_categories:
-      our_management:
-      our_ministers:
-      our_policies:
-      our_publications:
-      our_senior_military_officials:
-      our_services:
-      our_statistics:
-      our_topics:
-      plus_others:
-      special_representatives:
-      traffic_commissioners:
-      what_we_do:
+      our_management: Mūsų vadovybė
+      our_ministers: Mūsų ministrai
+      our_policies: Mūsų strategijos
+      our_publications: Mūsų leidiniai
+      our_senior_military_officials: Mūsų vyriausieji kariuomenės pareigūnai
+      our_services: Mūsų paslaugos
+      our_statistics: Mūsų statistika
+      our_topics: Mes dirbame šiose srityse
+      plus_others: + kiti
+      special_representatives: Specialieji atstovai
+      traffic_commissioners: Eismo komisarai
+      what_we_do: Ką mes darome
     making_foi_requests:
       step1_html:
       step2_html:
@@ -295,107 +295,112 @@ lt:
   world_location:
     type:
       international_delegation:
-        one:
+        one: Tarptautinė delegacija
         few:
-        other:
+        other: Tarptautinės delegacijos
       world_location:
-        one:
+        one: Geografinė vieta
         few:
-        other:
+        other: Geografinės vietos
     headings:
-      announcements:
-      country:
-      documents:
-      mission:
-      organisations:
-      priorities:
-      publications:
-      quick_links:
-      related_policies:
-      see_all:
-      statistics:
-    see_all:
+      announcements: Mūsų skelbimai
+      country: Šalis
+      documents: Dokumentai
+      mission: Mūsų misija
+      organisations: Organizacijos
+      priorities: Prioritetai
+      publications: Mūsų publikacijos
+      quick_links: Greitos nuorodos
+      related_policies: Susijusios strategijos
+      see_all: Pažiūrėkite  mūsų %{type}
+      statistics: Mūsų statistika
+    see_all: Pažiūrėkite  mūsų %{type}
   activerecord:
     attributes:
       detailed_guide:
-        primary_mainstream_category:
+        primary_mainstream_category: Pagrindinės kategorijos
   announcements:
-    heading:
+    heading: Skelbimai
   attachment:
     accessibility:
-      full_help_html:
-      heading:
-      request_a_different_format:
+      full_help_html: Jei norėtumėte gauti šį dokumentą kitokiu formatu (brailio,
+        audio ar pan.), siųskite el. paštą %{email}, parašydami savo adresą, telefoną
+        bei leidinio pavadinimą ("%{title}")%{references}.
+      heading: Šis failas gali būti netinkamas, naudojantiems pagalbines technologijas.
+      request_a_different_format: Paprašykite kito formato
     headings:
-      order_a_copy:
-      order_a_copy_full:
-      published:
-      reference:
+      order_a_copy: Užsisakykite leidinį
+      order_a_copy_full: Užsisakykite leidinį
+      published: Publikuota
+      reference: Nuorodos
   change_notes:
-    published:
-    updated:
+    published: Publikuota
+    updated: Atnaujinta
   contact:
-    contact_form:
-    email:
+    contact_form: Parašykite mums
+    email: El.paštas
   corporate_information_page:
     type:
-      personal_information_charter:
-      publication_scheme:
-      social_media_use:
-      welsh_language_scheme:
+      personal_information_charter: Asmeninės informacijos apsauga
+      publication_scheme: Publikavimo schema
+      social_media_use: Socialinės medijos naudojimas
+      welsh_language_scheme: Valų kalbos schema
   date:
     formats:
-      default:
-      long_ordinal: ! '%e %B %Y'
+      default: ! '%Y %B %d'
+      long_ordinal: ! '%Y %B %e'
   document_filters:
-    description:
+    description: Galite naudoti filtrus &nbsp; kad būtų pateikiami tik jus dominantys&nbsp;
+      rezultatai
     no_results:
-      description:
-      title:
+      description: Praplėskite paiešką ir bandykite dar kartą
+      title: Dokumentų  nerasta
     world_locations:
-      all:
-      label:
+      all: Visos geografinės vietos
+      label: Geografinės vietos pasaulyje
   feeds:
-    atom:
-    email_alerts:
-    latest_activity:
+    atom: atom
+    email_alerts: pranešimai el. paštu
+    latest_activity: Paskutinės naujienos
   i18n:
     direction: ltr
   language_names:
     lt: Lietuvių
   latest_feed:
-    no_updates:
-    title:
+    no_updates: Atnaujinimų nėra
+    title: Paskutinės
   number:
     human:
       storage_units:
-        format:
+        format: ! '%n%u'
   policies:
-    heading:
+    heading: Strategijos
   publications:
-    heading:
+    heading: Leidiniai
     headings:
-      detail:
-  read_more:
+      detail: Detalesnė informacija
+  read_more: Skaitykite daugiau
   support:
     array:
-      last_word_connector:
+      last_word_connector: ir
   time:
     formats:
-      long_ordinal:
+      long_ordinal: ! '%Y %B %e %H:%M'
   worldwide_organisation:
     corporate_information:
-      personal_information_charter_html:
-      publication_scheme_html:
-      social_media_use_html:
-      welsh_language_scheme_html:
-    find_out_more:
+      personal_information_charter_html: Čia %{link} rasite paaiškinimą, kaip tvarkoma
+        Jūsų asmeninė informacija
+      publication_scheme_html: Sužinokite, kokią informaciją mes pastoviai pateikiame
+        puslapyje %{link}.
+      social_media_use_html: Perskaitykite mūsų strategiją%{link}.
+      welsh_language_scheme_html: Sužinokite apie mūsų įsipareigojimą skelbti %{link}.
+    find_out_more: Visa informacija apie mus ir  kontaktai
     headings:
-      about_us:
-      contact_us:
-      corporate_information:
-      follow_us:
-      our_people:
-      our_services:
-    location:
-    part_of:
+      about_us: Apie mus
+      contact_us: Parašykite mums
+      corporate_information: Korporatyvinė informacija
+      follow_us: Sekite mus
+      our_people: Mūsų darbuotojai
+      our_services: Mūsų paslaugos
+    location: Vieta
+    part_of: Dalis

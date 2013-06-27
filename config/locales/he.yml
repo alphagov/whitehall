@@ -2,20 +2,20 @@ he:
   document:
     headings:
       attachments:
-        one:
+        one: מסמך
         two:
         many:
-        other:
+        other: מסמכים
       ministers:
         one: שר
         two:
         many:
         other: שרים
       organisations:
-        one:
+        one: ארגון
         two:
         many:
-        other:
+        other: ארגונים
       policies:
         one: מדיניות
         two:
@@ -46,7 +46,7 @@ he:
       document_series: סדרות
       field_of_operation: שדה פעולה
       live_data: מידע פעיל
-      policy_team: תנאי מדיניות
+      policy_team: צוות מדיניות
     type:
       announcement:
         one: הודעה
@@ -54,10 +54,10 @@ he:
         many:
         other: הודעות
       authored_article:
-        one:
+        one: מאמר מאושר
         two:
         many:
-        other:
+        other: מאמרים מאושרים
       case_study:
         one: מקרה בוחן
         two:
@@ -114,10 +114,10 @@ he:
         many:
         other: טפסים
       government_response:
-        one:
+        one: תגובה ממשלתית
         two:
         many:
-        other:
+        other: תגובות ממשלתיות
       guidance:
         one: הדרכה
         two:
@@ -244,19 +244,19 @@ he:
         many:
         other: הצהרות בכתב לפרלמנט
     published: פורסם
-    read:
+    read: קראו את מאמר{title}%
     speech:
       author_title:
-        minister:
-        speaker:
+        minister: שר
+        speaker: מחבר
       delivered_on: ! 'נשלח ב:'
       delivery_title:
         minister: שר
         speaker: דובר
-      originally_given_at:
-      written_on:
+      originally_given_at: ניתן במקור ב {location}%
+      written_on: ! 'נכתב על:'
     updated: מעודכן
-    view:
+    view: ראה '{title}%'
   organisation:
     type:
       Ad-hoc advisory group:
@@ -280,10 +280,10 @@ he:
         many:
         other: מחלקות בקרה עצמאיות
       Executive office:
-        one:
+        one: משרד הנהלה
         two:
         many:
-        other:
+        other: משרדי הנהלה
       Independent monitoring body:
         one: גוף בקרה עצמאי
         two:
@@ -320,33 +320,33 @@ he:
         many:
         other: גופים משפטיים חוץ- מחלקתיים ציבוריים
     about:
-      read_more:
+      read_more: קרא/י עוד על פועלינו
     corporate_information:
-      access_our_info:
-      foi_how_to:
-      foi_releases:
-      jobs_and_contacts:
-      transparency:
+      access_our_info: גישה למידע
+      foi_how_to: כיצד להגיש בקשה לחופש המידע
+      foi_releases: שוחרר תחת חופש המידע
+      jobs_and_contacts: עבודות וחוזים
+      transparency: מידע נגיש
     headings:
-      chief_professional_officers:
-      contact:
-      corporate_information:
-      corporate_reports:
+      chief_professional_officers: אנשי המקצוע הבכירים שלנו
+      contact: חוזה {name}%
+      corporate_information: מידע מסחרי
+      corporate_reports: דו"חות מסחריים
       making_foi_requests:
-      our_announcements:
+      our_announcements: ההודעות שלנו
       our_mainstream_categories:
-      our_management:
-      our_ministers:
-      our_policies:
-      our_publications:
-      our_senior_military_officials:
-      our_services:
-      our_statistics:
-      our_topics:
-      plus_others:
-      special_representatives:
-      traffic_commissioners:
-      what_we_do:
+      our_management: ההנהלה שלנו
+      our_ministers: השרים שלנו
+      our_policies: המדיניות שלנו
+      our_publications: הפרסומים שלנו
+      our_senior_military_officials: הנספחים הצבאיים שלנו
+      our_services: השירותים שלנו
+      our_statistics: הנתונים שלנו
+      our_topics: אנו עוסקים בנושאים הללו
+      plus_others: ! ' + אחרים'
+      special_representatives: נציגים מיוחדים
+      traffic_commissioners: ממונים על תעבורה
+      what_we_do: מה אנחנו עושים
     making_foi_requests:
       step1_html:
       step2_html:
@@ -359,10 +359,10 @@ he:
         many:
         other: משלחות בין לאומיות
       world_location:
-        one:
+        one: מיקום עולמי
         two:
         many:
-        other:
+        other: מיקומים עולמיים
     headings:
       announcements: ההודעות שלנו
       country: מדינה
@@ -373,9 +373,9 @@ he:
       publications: הפרסומים שלנו
       quick_links: קישורים מהירים
       related_policies: מדיניות רלוונטית
-      see_all:
+      see_all: ראה כל {type}%
       statistics: הנתונים שלנו
-    see_all:
+    see_all: ראה כל {type}%
   activerecord:
     attributes:
       detailed_guide:
@@ -384,14 +384,18 @@ he:
     heading: הודעות
   attachment:
     accessibility:
-      full_help_html:
-      heading:
-      request_a_different_format:
+      full_help_html: ! 'כדי להזמין את המסמך בפורמט אלטרנטיבי כגון ברייל, אודיו או
+        סוגי קובץ שונים אנא שלח/י אימייל {title}% עם כתובת וטלפון יחד עם שם המסמך
+        המבוקש {title}")%{references}")%.
+
+'
+      heading: הקובץ אינו תומך במשתמשי טכנולוגית סיוע
+      request_a_different_format: אנא בקש/י פורמט אחר
     headings:
-      order_a_copy:
-      order_a_copy_full:
-      published:
-      reference:
+      order_a_copy: הזמן עותק
+      order_a_copy_full: הזמן עותק של הפרסום
+      published: פורסם
+      reference: הפניה
   change_notes:
     published: פורסם
     updated: עודכן
@@ -402,12 +406,12 @@ he:
     type:
       personal_information_charter: טבלת מידע אישי
       publication_scheme: תכנית פרסומים
-      social_media_use:
+      social_media_use: מדיה חברתית
       welsh_language_scheme: תכנית שפה וולשית
   date:
     formats:
-      default:
-      long_ordinal:
+      default: ! '%d %B %Y'
+      long_ordinal: ! '%e %B %Y'
   document_filters:
     description: ניתן לעשות שימוש בפילטרים כדי לראות תוצאות ממוקדות
     no_results:
@@ -430,30 +434,31 @@ he:
   number:
     human:
       storage_units:
-        format:
+        format: ! '%n%u'
   policies:
     heading: מדיניות
   publications:
-    heading: מדיניות
+    heading: פרסומים
     headings:
-      detail:
+      detail: פרטים
   read_more: קרא עוד
   support:
     array:
       last_word_connector: בנוסף
   time:
     formats:
-      long_ordinal:
+      long_ordinal: ! '%e %B %Y %H:%M'
   worldwide_organisation:
     corporate_information:
-      personal_information_charter_html:
-      publication_scheme_html:
-      social_media_use_html:
-      welsh_language_scheme_html:
+      personal_information_charter_html: ה{link}% מסביר אודות המדיניות שלנו כלפי מידע
+        פרטי
+      publication_scheme_html: קרא/י אודות סוגי מידע שאנחנו מפרסמים {link}%
+      social_media_use_html: קרא/י אודות המדיניות שלנו {link}%
+      welsh_language_scheme_html: מידע נוסף על המחויבות שלנו לפרסום {link}%
     find_out_more: ראה/י פרופיל מלא ופרטי התקשרות
     headings:
       about_us: אודותינו
-      contact_us: יצירת קשר
+      contact_us: צור קשר
       corporate_information: מידע תאגידי
       follow_us: עקבו אחרינו
       our_people: הצוות שלנו

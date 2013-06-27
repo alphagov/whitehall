@@ -7,14 +7,15 @@ ja:
     heading: ニュース
   attachment:
     accessibility:
-      full_help_html:
-      heading:
-      request_a_different_format:
+      full_help_html: この文書の点字版、音声版、その他のフォーマットをリクエストするには、%{email}に、ご住所、お電話番号、文書のタイトル
+        ("%{title}")%{references}.をお送り下さい。
+      heading: このファイルは支援技術のユーザーには利用できない場合があります
+      request_a_different_format: 異なるフォーマットを要求
     headings:
-      order_a_copy:
-      order_a_copy_full:
-      published:
-      reference:
+      order_a_copy: コピーを注文
+      order_a_copy_full: コピーを注文
+      published: 掲載日
+      reference: Ref
   change_notes:
     published: 掲載日
     updated: 更新日
@@ -25,19 +26,19 @@ ja:
     type:
       personal_information_charter: 個人情報保護法
       publication_scheme: 情報公開法
-      social_media_use:
+      social_media_use: ソーシャルメディア
       welsh_language_scheme: ウェールズ語スキーム
   date:
     formats:
-      default:
+      default: ! '%Y %B %d'
       long_ordinal: ! '%e %B %Y'
   document:
     headings:
       advisory_groups: 諮問グループ
-      applies_to_nations:
+      applies_to_nations: 対象国
       attachments:
-        one:
-        other:
+        one: お知らせ
+        other: お知らせ
       document_series: シリーズ
       field_of_operation: 担当分野
       live_data: 実データ
@@ -45,8 +46,8 @@ ja:
         one: 大臣
         other: 大臣
       organisations:
-        one:
-        other:
+        one: 組織
+        other: 組織
       policies:
         one: 政策
         other: 政策
@@ -61,27 +62,27 @@ ja:
         one: 地域
         other: 地域
       worldwide_organisations:
-        one: 国際的組織
-        other: 国際的組織
-    published: 掲載済
+        one: 組織名
+        other: 組織名
+    published: 掲載日
     read: ! '%{title} の記事を読む'
     speech:
       author_title:
-        minister:
-        speaker:
+        minister: 大臣
+        speaker: ライター
       delivered_on: 場所
       delivery_title:
         minister: 大臣
         speaker: スピーカー
-      originally_given_at: ! ' %{location} で実施'
-      written_on:
+      originally_given_at: ! '%{location} で実施'
+      written_on: ! 'Written on:'
     type:
       announcement:
         one: ニュース
         other: ニュース
       authored_article:
-        one:
-        other:
+        one: Authored article
+        other: Authored articles
       case_study:
         one: ケーススタディ
         other: ケーススタディ
@@ -98,8 +99,8 @@ ja:
         one: 事業報告
         other: 事業報告
       correspondence:
-        one: ニュース
-        other: ニュース
+        one: 通信文書
+        other: 通信文書
       detailed_guidance:
         one: 詳細説明
         other: 詳細説明
@@ -116,11 +117,11 @@ ja:
         one: フォーム
         other: フォーム
       government_response:
-        one:
-        other:
+        one: レスポンス
+        other: レスポンス
       guidance:
-        one: 説明
-        other: 説明
+        one: ガイダンス
+        other: ガイダンス
       impact_assessment:
         one: 影響評価
         other: 影響評価
@@ -158,8 +159,8 @@ ja:
         one: 新聞発表
         other: 新聞発表
       promotional:
-        one: ! '販促資料 '
-        other: ! '販促資料 '
+        one: 宣伝資料
+        other: 宣伝資料
       publication:
         one: 出版物
         other: 出版物
@@ -194,7 +195,7 @@ ja:
         one: 閣僚声明文
         other: 閣僚声明文
     updated: 更新
-    view: ! ' ''%{title}'' を見る'
+    view: ! '%{title}'' を見る'
   document_filters:
     description: 検索精度を上げるために、各種フィルターをご利用下さい
     no_results:
@@ -208,45 +209,45 @@ ja:
     email_alerts: email alerts
     latest_activity: 最新情報
   i18n:
-    direction:
+    direction: ltr
   language_names:
     ja: 日本語
   latest_feed:
-    no_updates:
+    no_updates: 更新情報はありません
     title: Latest
   number:
     human:
       storage_units:
-        format:
+        format: ! '%n%u'
   organisation:
     about:
-      read_more:
+      read_more: 続き
     corporate_information:
-      access_our_info:
-      foi_how_to:
-      foi_releases:
-      jobs_and_contacts:
-      transparency:
+      access_our_info: 情報開示
+      foi_how_to: 情報開示請求
+      foi_releases: 情報公開関連
+      jobs_and_contacts: 求人と調達
+      transparency: データ開示
     headings:
-      chief_professional_officers:
-      contact:
-      corporate_information:
-      corporate_reports:
+      chief_professional_officers: チーフ・プロフェッショナル・オフィサー
+      contact: 連絡先
+      corporate_information: 各種情報
+      corporate_reports: 各種レポート
       making_foi_requests:
-      our_announcements:
+      our_announcements: ニュース
       our_mainstream_categories:
-      our_management:
-      our_ministers:
-      our_policies:
-      our_publications:
-      our_senior_military_officials:
-      our_services:
-      our_statistics:
-      our_topics:
-      plus_others:
-      special_representatives:
-      traffic_commissioners:
-      what_we_do:
+      our_management: 幹部職員
+      our_ministers: 大臣
+      our_policies: 政策
+      our_publications: 出版物
+      our_senior_military_officials: 武官
+      our_services: 業務案内
+      our_statistics: 統計
+      our_topics: トピックス
+      plus_others: + その他
+      special_representatives: 特別代表
+      traffic_commissioners: 交通担当コミッショナー
+      what_we_do: 業務案内
     making_foi_requests:
       step1_html:
       step2_html:
@@ -259,14 +260,14 @@ ja:
         one: 非省庁公的諮問機関
         other: 非省庁公的諮問機関
       Executive agency:
-        one: 執行機関
-        other: 執行機関
+        one: エグゼクティブ・エージェンシー
+        other: エグゼクティブ・エージェンシー
       Executive non-departmental public body:
         one: 非省庁公的機関
         other: 非省庁公的機関
       Executive office:
-        one:
-        other:
+        one: エグゼクティブ・オフィス
+        other: エグゼクティブ・オフィス
       Independent monitoring body:
         one: 第三者評価機関
         other: 第三者評価機関
@@ -293,14 +294,14 @@ ja:
   publications:
     heading: 出版物
     headings:
-      detail:
+      detail: 詳細
   read_more: 続き
   support:
     array:
       last_word_connector: and
   time:
     formats:
-      long_ordinal:
+      long_ordinal: ! '%e %B %Y %H:%M'
   world_location:
     headings:
       announcements: 発表
@@ -320,21 +321,21 @@ ja:
         one: 海外代表団
         other: 海外代表団
       world_location:
-        one:
-        other:
+        one: 地域
+        other: 地域
   worldwide_organisation:
     corporate_information:
-      personal_information_charter_html: 個人情報の取り扱いについては %{link} をご覧下さい。
-      publication_scheme_html: 情報公開の種類については %{link} をご覧下さい。
-      social_media_use_html:
-      welsh_language_scheme_html: 情報公開の詳細については %{link} をご覧下さい。
+      personal_information_charter_html: 個人情報の取り扱いについては %{link} をご覧下さい
+      publication_scheme_html: 情報公開の種類については %{link} をご覧下さい
+      social_media_use_html: ! '%{link}に関する政策を読む'
+      welsh_language_scheme_html: 情報公開の詳細については %{link} をご覧下さい
     find_out_more: 業務案内と連絡先を見る
     headings:
       about_us: 大使館について
       contact_us: 連絡先
       corporate_information: 組織情報
       follow_us: Follow us
-      our_people: 幹部職員
+      our_people: 主な職員
       our_services: 業務内容
     location: アクセス
-    part_of:
+    part_of: 所属

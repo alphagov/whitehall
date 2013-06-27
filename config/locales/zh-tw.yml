@@ -2,339 +2,339 @@ zh-tw:
   activerecord:
     attributes:
       detailed_guide:
-        primary_mainstream_category:
+        primary_mainstream_category: 主要細節指引類
   announcements:
-    heading:
+    heading: 公告
   attachment:
     accessibility:
-      full_help_html:
-      heading:
-      request_a_different_format:
+      full_help_html: 尋求另一種檔案格式：點字或音檔
+      heading: 此檔案不適合使用科技輔助的使用者
+      request_a_different_format: 尋求別種格式
     headings:
-      order_a_copy:
-      order_a_copy_full:
-      published:
-      reference:
+      order_a_copy: 訂購備份
+      order_a_copy_full: 訂購發行刊物
+      published: 發行
+      reference: 參考
   change_notes:
-    published:
-    updated:
+    published: 發行
+    updated: 更新
   contact:
-    contact_form:
-    email:
+    contact_form: 聯絡資料表
+    email: 電子郵件
   corporate_information_page:
     type:
-      personal_information_charter:
-      publication_scheme:
-      social_media_use:
-      welsh_language_scheme:
+      personal_information_charter: 個人資訊表
+      publication_scheme: 出版計畫
+      social_media_use: 社群應用
+      welsh_language_scheme: 威爾士語言計畫
   date:
     formats:
-      default:
-      long_ordinal:
+      default: ! '%d %B %Y'
+      long_ordinal: ! '%e %B %Y'
   document:
     headings:
-      advisory_groups:
-      applies_to_nations:
+      advisory_groups: 諮詢組
+      applies_to_nations: 應用
       attachments:
-        one:
-        other:
-      document_series:
-      field_of_operation:
-      live_data:
+        one: 文件
+        other: 其他文件
+      document_series: 系列
+      field_of_operation: 運用領域
+      live_data: 即時資料
       ministers:
-        one:
-        other:
+        one: 部長
+        other: 其他部長
       organisations:
-        one:
-        other:
+        one: 組織
+        other: 其他組織
       policies:
-        one:
-        other:
-      policy_team:
+        one: 政策
+        other: 其他政策
+      policy_team: 政治組
       topical_events:
         one:
         other:
       topics:
-        one:
-        other:
+        one: 主題
+        other: 其他主題
       world_locations:
-        one:
-        other:
+        one: 全球駐點
+        other: 其他全球駐點
       worldwide_organisations:
-        one:
-        other:
-    published:
-    read:
+        one: 全球組織
+        other: 其他全球組織
+    published: 發行
+    read: 閱讀%{title}文章
     speech:
       author_title:
-        minister:
-        speaker:
-      delivered_on:
+        minister: 部長
+        speaker: 作者
+      delivered_on: 交付：
       delivery_title:
-        minister:
-        speaker:
-      originally_given_at:
-      written_on:
+        minister: 部長
+        speaker: 發言人
+      originally_given_at: 出自於%{location}.
+      written_on: ! '撰寫於:'
     type:
       announcement:
-        one:
-        other:
+        one: 公告
+        other: 其他公告
       authored_article:
-        one:
-        other:
+        one: 撰寫文章
+        other: 撰寫其他文章
       case_study:
-        one:
-        other:
+        one: 案例研究
+        other: 其他案例研究
       closed_consultation:
-        one:
-        other:
+        one: 專屬諮詢
+        other: 其他專屬諮詢
       consultation:
-        one:
-        other:
+        one: 諮詢
+        other: 其他諮詢
       consultation_outcome:
-        one:
-        other:
+        one: 諮詢結果
+        other: 其他諮詢結果
       corporate_report:
-        one:
-        other:
+        one: 公司報告
+        other: 其他公司報告
       correspondence:
-        one:
-        other:
+        one: 對應
+        other: 對應
       detailed_guidance:
-        one:
-        other:
+        one: 詳細指引
+        other: 詳細指引
       draft_text:
-        one:
-        other:
+        one: 內容
+        other: 其他內容
       fatality_notice:
-        one:
-        other:
+        one: 安全事故通知
+        other: 安全事故通知
       foi_release:
-        one:
-        other:
+        one: 政府公開訊息
+        other: 其他政府公開訊息
       form:
-        one:
-        other:
+        one: 表格
+        other: 其他表格
       government_response:
-        one:
-        other:
+        one: 政府回應
+        other: 政府其他回應
       guidance:
-        one:
-        other:
+        one: 指引
+        other: 指引
       impact_assessment:
-        one:
-        other:
+        one: 影響評估
+        other: 其他影響評估
       imported:
-        one:
-        other:
+        one: 輸入 - 等待中
+        other: 輸入 - 等待中
       independent_report:
-        one:
-        other:
+        one: 獨立報告
+        other: 其他獨立報告
       map:
-        one:
-        other:
+        one: 地圖
+        other: 其他地圖
       national_statistics:
-        one:
-        other:
+        one: 國家統計數據
+        other: 國家統計數據
       news_article:
-        one:
-        other:
+        one: 新聞
+        other: 其他新聞
       news_story:
-        one:
-        other:
+        one: 新聞
+        other: 其他新聞
       open_consultation:
-        one:
-        other:
+        one: 公開諮詢
+        other: 其他公開諮詢
       oral_statement:
-        one:
-        other:
+        one: 議會口頭聲明
+        other: 其他議會口頭聲明
       policy:
-        one:
-        other:
+        one: 政策
+        other: 其他政策
       policy_paper:
-        one:
-        other:
+        one: 政策報告
+        other: 其他政策報告
       press_release:
-        one:
-        other:
+        one: 新聞稿
+        other: 其他新聞稿
       promotional:
-        one:
-        other:
+        one: 宣傳資料
+        other: 宣傳資料
       publication:
-        one:
-        other:
+        one: 發行物
+        other: 其他發行物
       research:
-        one:
-        other:
+        one: 研究與分析
+        other: 研究與分析
       speaking_notes:
-        one:
-        other:
+        one: 演講稿
+        other: 演講稿
       speech:
-        one:
-        other:
+        one: 演講
+        other: 其他演講
       statement_to_parliament:
-        one:
-        other:
+        one: 議會聲明
+        other: 議會聲明
       statistical_data_set:
-        one:
-        other:
+        one: 統計數據資料
+        other: 其他統計數據料
       statistics:
-        one:
-        other:
+        one: 統計
+        other: 統計
       transcript:
-        one:
-        other:
+        one: 談話副本
+        other: 其他談話副本
       transparency:
-        one:
-        other:
+        one: 透明化數據
+        other: 透明化數據
       worldwide_priority:
-        one:
-        other:
+        one: 全球性工作重點
+        other: 全球性的其他工作重點
       written_statement:
-        one:
-        other:
-    updated:
-    view:
+        one: 提交國會的書面聲明
+        other: 提交國會的其他書面聲明
+    updated: 更新
+    view: 查看'%{title}'
   document_filters:
-    description:
+    description: 你可以使用過濾功能顯示&nbsp;只符合你需要的&nbsp;結果。
     no_results:
-      description:
-      title:
+      description: 嘗試擴大你的搜尋範圍並且再次搜索。
+      title: 沒有符合的文件。
     world_locations:
-      all:
-      label:
+      all: 所有地區位置
+      label: 世界地區位置
   feeds:
-    atom:
-    email_alerts:
-    latest_activity:
+    atom: atom
+    email_alerts: 電郵提示
+    latest_activity: 最新的活動
   i18n:
     direction: ltr
   language_names:
     zh-tw: 中文
   latest_feed:
-    no_updates:
-    title:
+    no_updates: 目前暫無更新。
+    title: 最新消息
   number:
     human:
       storage_units:
-        format:
+        format: ! '%n%u'
   organisation:
     about:
-      read_more:
+      read_more: 查閱更多關於我們的工作
     corporate_information:
-      access_our_info:
-      foi_how_to:
-      foi_releases:
-      jobs_and_contacts:
-      transparency:
+      access_our_info: 閱讀我們的資訊
+      foi_how_to: 如何進行資訊自由（FOI）申請
+      foi_releases: 資訊自由（FOI）資訊發布
+      jobs_and_contacts: 職位及聯絡方法
+      transparency: 透明化數據
     headings:
-      chief_professional_officers:
-      contact:
-      corporate_information:
-      corporate_reports:
+      chief_professional_officers: 我們的首席專業官員
+      contact: 聯繫%{name}
+      corporate_information: 政府資訊
+      corporate_reports: 政府報告
       making_foi_requests:
-      our_announcements:
+      our_announcements: 我們的公告
       our_mainstream_categories:
-      our_management:
-      our_ministers:
-      our_policies:
-      our_publications:
-      our_senior_military_officials:
-      our_services:
-      our_statistics:
-      our_topics:
-      plus_others:
-      special_representatives:
-      traffic_commissioners:
-      what_we_do:
+      our_management: 我們的管理層
+      our_ministers: 我們的首相/大臣
+      our_policies: 我們的政策
+      our_publications: 我們的出版物
+      our_senior_military_officials: 我們的高級軍事官員
+      our_services: 我們的服務
+      our_statistics: 我們的統計資料
+      our_topics: 我們工作的領域
+      plus_others: ! ' + 其他'
+      special_representatives: 特別代表
+      traffic_commissioners: 交通事務專員
+      what_we_do: 我們的工作
     making_foi_requests:
       step1_html:
       step2_html:
       step3_html:
     type:
       Ad-hoc advisory group:
-        one:
-        other:
+        one: 特別諮詢小組
+        other: 其他特別諮詢小組
       Advisory non-departmental public body:
-        one:
-        other:
+        one: 非政府諮詢公共機構
+        other: 其他非政府諮詢公共機構
       Executive agency:
-        one:
-        other:
+        one: 執行機構
+        other: 其他執行機構
       Executive non-departmental public body:
-        one:
-        other:
+        one: 非政府執行公共機構
+        other: 其他非政府執行公共機構
       Executive office:
-        one:
-        other:
+        one: 執行辦公室
+        other: 其他執行辦公室
       Independent monitoring body:
-        one:
-        other:
+        one: 獨立監察機構
+        other: 其他獨立監察機構
       Ministerial department:
-        one:
-        other:
+        one: 部長級部門
+        other: 其他部長級部門
       Non-ministerial department:
-        one:
-        other:
+        one: 非部長級部門
+        other: 其他非部級部門
       Other:
-        one:
-        other:
+        one: 其他
+        other: 其他
       Public corporation:
-        one:
-        other:
+        one: 公共團體
+        other: 其他公共團體
       Sub-organisation:
-        one:
-        other:
+        one: 次級組織
+        other: 其他次級組織
       Tribunal non-departmental public body:
-        one:
-        other:
+        one: 非政府特別法庭公共機構
+        other: 其他非政府特別法庭公共機構
   policies:
-    heading:
+    heading: 政策
   publications:
-    heading:
+    heading: 出版物
     headings:
-      detail:
-  read_more:
+      detail: 詳情
+  read_more: 閱讀更多
   support:
     array:
-      last_word_connector:
+      last_word_connector: 和
   time:
     formats:
-      long_ordinal:
+      long_ordinal: ! '%e %B %Y %H:%M'
   world_location:
     headings:
-      announcements:
-      country:
-      documents:
-      mission:
-      organisations:
-      priorities:
-      publications:
-      quick_links:
-      related_policies:
-      see_all:
-      statistics:
-    see_all:
+      announcements: 我們的公告
+      country: 國家
+      documents: 文件
+      mission: 我們的使命
+      organisations: 組織
+      priorities: 工作重點
+      publications: 我們的出版物
+      quick_links: 快速連結
+      related_policies: 相關政策
+      see_all: 查閱我們所有的%{type}
+      statistics: 我們的統計資料
+    see_all: 查閱我們所有的%{type}
     type:
       international_delegation:
-        one:
-        other:
+        one: 國際代表
+        other: 其他國際代表
       world_location:
-        one:
-        other:
+        one: 世界地區位置
+        other: 其他世界地區位置
   worldwide_organisation:
     corporate_information:
-      personal_information_charter_html:
-      publication_scheme_html:
-      social_media_use_html:
-      welsh_language_scheme_html:
-    find_out_more:
+      personal_information_charter_html: 我們的%{link}解釋我們如何處理你的個人資料。
+      publication_scheme_html: 查閱我們在%{link}定期發布的資訊。
+      social_media_use_html: 查閱我們在%{link}的政策。
+      welsh_language_scheme_html: 查閱我們在%{link}的發佈承諾。
+    find_out_more: 查閱全部資訊和聯絡資料
     headings:
-      about_us:
-      contact_us:
-      corporate_information:
-      follow_us:
-      our_people:
-      our_services:
-    location:
-    part_of:
+      about_us: 關於我們
+      contact_us: 聯絡我們
+      corporate_information: 詳細的資訊
+      follow_us: 關注我們
+      our_people: 主要館員
+      our_services: 我們的服務
+    location: 位置
+    part_of: 隸屬於

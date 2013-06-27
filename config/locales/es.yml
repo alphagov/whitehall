@@ -2,14 +2,14 @@ es:
   document:
     headings:
       attachments:
-        one:
-        other:
+        one: Documento
+        other: Documentos
       ministers:
         one: Ministro
         other: Ministros
       organisations:
-        one:
-        other:
+        one: Organización
+        other: Organizaciones
       policies:
         one: Política
         other: Políticas
@@ -28,7 +28,7 @@ es:
       advisory_groups: Grupos de consulta
       applies_to_nations: Sirve para
       document_series: Series
-      field_of_operation: ! 'Ãmbito de actuación '
+      field_of_operation: Ãmbito de actuación
       live_data: Datos activos
       policy_team: Equipo de política
     type:
@@ -36,8 +36,8 @@ es:
         one: Anuncio
         other: Anuncios
       authored_article:
-        one:
-        other:
+        one: Artículo de autor
+        other: Artículos de autor
       case_study:
         one: Caso de estudio práctico
         other: Casos de estudio práctico
@@ -66,14 +66,14 @@ es:
         one: Aviso de defunción
         other: Avisos de defunción
       foi_release:
-        one: ! 'Nota de prensa de Freedom of Information '
+        one: Nota de prensa de Freedom of Information
         other: Boletines de FOI
       form:
         one: Formulario
         other: Formularios
       government_response:
-        one:
-        other:
+        one: Respuesta gubernamental
+        other: Respuestas gubernamentales
       guidance:
         one: Instrucciones
         other: Instrucciones
@@ -150,17 +150,17 @@ es:
         one: Declaración escrita
         other: Declaraciones escritas
     published: Publicado
-    read:
+    read: Leer el artículo
     speech:
       author_title:
-        minister:
-        speaker:
+        minister: Ministro
+        speaker: Escritor
       delivered_on: Emitido el
       delivery_title:
         minister: Ministro
         speaker: Orador
-      originally_given_at:
-      written_on:
+      originally_given_at: Originalmente dado en %{lugar}
+      written_on: ! 'Escrito en:'
     updated: Actualizado
     view: Mirar '%{title}'
   organisation:
@@ -169,8 +169,8 @@ es:
         one: Grupo de consulta ad-hoc
         other: Grupos de consulta ad-hoc
       Advisory non-departmental public body:
-        one: ! 'Organismo públicoco consultivo no ministerial '
-        other: ! 'Organismos públicos consultivos no ministeriales '
+        one: Organismo públicoco consultivo no ministerial
+        other: Organismos públicos consultivos no ministeriales
       Executive agency:
         one: Agencia ejecutiva
         other: Agencias ejecutivas
@@ -178,8 +178,8 @@ es:
         one: Organismo ejecutivo público no ministerial
         other: Organismos ejecutivos públicos no ministeriales
       Executive office:
-        one:
-        other:
+        one: Oficina ejecutiva
+        other: Oficinas ejecutivas
       Independent monitoring body:
         one: Organismo independiente de supervisión
         other: Organismos independientes de supervisión
@@ -199,36 +199,36 @@ es:
         one: Sub-organización
         other: Sub-organizaciones
       Tribunal non-departmental public body:
-        one: ! 'Tribunal del NHS no dependiente del Ministerio '
-        other: ! 'Tribunales del NHS no dependientes del Ministerio '
+        one: Tribunal del NHS no dependiente del Ministerio
+        other: Tribunales del NHS no dependientes del Ministerio
     about:
-      read_more:
+      read_more: Leer más sobre qué hacemos
     corporate_information:
-      access_our_info:
-      foi_how_to:
-      foi_releases:
-      jobs_and_contacts:
-      transparency:
+      access_our_info: Acceda a nuestra información
+      foi_how_to: Cómo hacer una petición bajo la ley de libertad de información
+      foi_releases: Comunicados de la ley de libertad de información
+      jobs_and_contacts: Trabajos y contratos
+      transparency: Datos de transparencia
     headings:
-      chief_professional_officers:
-      contact:
-      corporate_information:
-      corporate_reports:
+      chief_professional_officers: Nuestros responsables administrativos
+      contact: Contacto %{nombre}
+      corporate_information: Información corporativa
+      corporate_reports: Informes corporativos
       making_foi_requests:
-      our_announcements:
+      our_announcements: Anuncios
       our_mainstream_categories:
-      our_management:
-      our_ministers:
-      our_policies:
-      our_publications:
-      our_senior_military_officials:
-      our_services:
-      our_statistics:
-      our_topics:
-      plus_others:
-      special_representatives:
-      traffic_commissioners:
-      what_we_do:
+      our_management: Equipo directivo
+      our_ministers: Nuestros ministros
+      our_policies: Nuestras políticas
+      our_publications: Nuestras publicaciones
+      our_senior_military_officials: Nuestros militares oficiales superiores
+      our_services: Nuestros servicios
+      our_statistics: Estadísticas
+      our_topics: Trabajamos en estos temas
+      plus_others: ! ' + otros'
+      special_representatives: Representantes especiales
+      traffic_commissioners: Inspector de tráfico
+      what_we_do: Qué hacemos
     making_foi_requests:
       step1_html:
       step2_html:
@@ -239,8 +239,8 @@ es:
         one: Delegación internacional
         other: Delegaciones internacionales
       world_location:
-        one:
-        other:
+        one: País
+        other: Países
     headings:
       announcements: Anuncios
       country: País
@@ -262,14 +262,17 @@ es:
     heading: Anuncios
   attachment:
     accessibility:
-      full_help_html:
-      heading:
-      request_a_different_format:
+      full_help_html: Para solicitar este documento en un formato diferente como braille,
+        audio o cualquier otro formato por favor envíe un email %{email} indicando
+        su dirección y teléfono acompañado con el título de la publicación  ("%{title}")%{references}.
+      heading: Este archivo puede estar no disponible para usuarios con tecnología
+        asistida
+      request_a_different_format: Solicítelo en un formato diferente
     headings:
-      order_a_copy:
-      order_a_copy_full:
-      published:
-      reference:
+      order_a_copy: Pida una copia
+      order_a_copy_full: Pida una copa de la publicación
+      published: Publicado
+      reference: Referencia
   change_notes:
     published: Publicado
     updated: Actualizado
@@ -280,7 +283,7 @@ es:
     type:
       personal_information_charter: Cédula de información personal
       publication_scheme: Esquema de publicación
-      social_media_use:
+      social_media_use: Uso de medios sociales
       welsh_language_scheme: Esquema de gales
   date:
     formats:
@@ -314,20 +317,23 @@ es:
   publications:
     heading: Publicaciones
     headings:
-      detail:
+      detail: Detalle
   read_more: Leer más
   support:
     array:
-      last_word_connector: ! ' y '
+      last_word_connector: y
   time:
     formats:
       long_ordinal: ! '%e %B %Y %H:%M'
   worldwide_organisation:
     corporate_information:
-      personal_information_charter_html:
-      publication_scheme_html:
-      social_media_use_html:
-      welsh_language_scheme_html:
+      personal_information_charter_html: El siguiente enlace %{link} explica cómo
+        tratamos tu información personal
+      publication_scheme_html: Lea acerca del tipo de información que publicamos en
+        el siguiente enlace %{link}
+      social_media_use_html: Lea nuestra política en %{link}
+      welsh_language_scheme_html: ! 'Encuentre más sobre nuestro compromiso de publicar
+        en %{link} '
     find_out_more: Vea el perfil completo y los detalles de contacto
     headings:
       about_us: Nosotros
