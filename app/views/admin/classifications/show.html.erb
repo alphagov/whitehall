@@ -1,6 +1,6 @@
 <% page_title @classification.name %>
 
-<% content_for :classification_tab do %>
+<% content_for :current_tab do %>
   <table class="<%= model_name %> table">
     <tr>
       <th>Description</th>
@@ -44,4 +44,4 @@
   </div>
 <% end %>
 
-<%= render partial: 'tab_wrapper' %>
+<%= render partial: 'tab_wrapper', locals: { model: @classification } %>

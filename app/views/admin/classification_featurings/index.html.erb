@@ -1,6 +1,6 @@
 <% page_title "Featured items on " + @classification.name %>
 
-<% content_for :classification_tab do %>
+<% content_for :current_tab do %>
   <h2>Featured items</h2>
   <% if @classification.classification_featurings.any? %>
     <%= form_for [:admin, @classification] do |form| %>
@@ -51,4 +51,4 @@
   </table>
 <% end %>
 
-<%= render partial: 'admin/classifications/tab_wrapper' %>
+<%= render partial: "admin/topical_events/tab_wrapper", locals: { model: @classification } %>

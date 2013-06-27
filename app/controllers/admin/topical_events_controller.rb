@@ -32,7 +32,4 @@ class Admin::TopicalEventsController < Admin::ClassificationsController
       render action: "edit"
     end
   end
-
-  def about
-  end
 end
