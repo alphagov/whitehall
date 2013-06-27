@@ -84,15 +84,17 @@ module OrganisationControllerTestHelpers
         assert_select_autodiscovery_link organisation_url(organisation, format: "atom")
       end
 
-      view_test "#{org_type}:show includes a link to the atom feed" do
+      view_test "#{org_type}:show includes a link to the atom feed and featured documents" do
         organisation = create(org_type)
-
+        feature_list = organisation.load_or_create_feature_list(:en)
+        edition = create(:published_news_article, first_published_at: 1.days.ago)
+        create(:feature, document: edition.document, feature_list: feature_list, ordering: 1)
         get :show, id: organisation
 
         assert_select "a.feed[href=?]", organisation_url(organisation, format: :atom)
       end
 
-      view_test "#{org_type}:shows 3 most recently published editions associated with organisation" do
+      view_test "#{org_type}:shows 3 most recently published editions associated with organisation when featuring a doc" do
         # different edition types sort on different attributes
         editions = [create(:published_policy, first_published_at: 1.days.ago),
                   create(:published_publication, publication_date: 2.days.ago),
@@ -100,6 +102,10 @@ module OrganisationControllerTestHelpers
                   create(:published_speech, first_published_at: 4.days.ago)]
 
         organisation = create(org_type, editions: editions)
+
+        feature_list = create(:feature_list, featurable: organisation, locale: :en)
+        create(:feature, feature_list: feature_list, document: editions[0].document)
+
         get :show, id: organisation
 
         editions[0,3].each do |edition|
@@ -136,8 +142,11 @@ module OrganisationControllerTestHelpers
         refute_select ".social-media-accounts"
       end
 
-      view_test "#{org_type}:show hass a link to govdelivery if one exists" do
+      view_test "#{org_type}:show has a link to govdelivery if one exists and featured documents" do
         organisation = create(org_type)
+        feature_list = organisation.load_or_create_feature_list(:en)
+        edition = create(:published_news_article, first_published_at: 1.days.ago)
+        create(:feature, document: edition.document, feature_list: feature_list, ordering: 1)
 
         get :show, id: organisation
 

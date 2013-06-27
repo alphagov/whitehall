@@ -220,9 +220,11 @@ class OrganisationsControllerTest < ActionController::TestCase
 
     get :show, id: sub_organisation
 
-    assert_select ".#{organisation.slug}" do
-      assert_select ".organisation-logo", "Ministry of Jam"
-      assert_select ".sub-organisation-name", "Marmalade Inspection Board"
+    assert_select ".sub-organisation-name" do
+      assert_select "h2", sub_organisation.name
+      assert_select ".organisations-icon-list" do
+        assert_select_object organisation
+      end
     end
   end
 

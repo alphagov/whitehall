@@ -300,20 +300,64 @@
     }
   }
 
-  .sub-organisation .page-header {
-    h1 {
-      float: left;
-      width: 33.33%;
+  .sub-organisation {
+    .headings-block {
+      .page-header {
+        h1 {
+          float: left;
+          width: 33.33%;
+        }
+
+        .sub-organisation-name {
+          clear: both;
+          float: none;
+          width: 75%;
+
+          h2 {
+            @include heading-48;
+            clear: both;
+            font-weight: bold;
+            margin-top: $gutter-half;
+          }
+
+          ul {
+            @extend %contain-floats;
+            li {
+              float: left;
+              margin : 0 $gutter $gutter-one-sixth 0;
+            }
+          }
+          .organisations-icon-list {
+            margin-top: 0;
+          }
+        }
+      }
     }
-
-    .sub-organisation-name {
-      float: left;
-      width: 66.66%;
-
-      h2 {
-        @include ig-core-48;
-        padding-left: $gutter-one-third;
-        margin-top: $gutter;
+    .organisation-news {
+      @extend %contain-floats;
+      article {
+        &.first {
+          float: left;
+          width: 33.33%;
+          .content {
+            .image-holder, .text {
+              display: block;
+              width: 100%;
+              h2 {
+                @include core-19;
+              }
+              .summary {
+                @include core-14;
+              }
+            }
+          }
+        }
+        &.item-3 {
+          clear: none;
+        }
+        &.item-2 {
+          clear:left;
+        }
       }
     }
   }
@@ -353,9 +397,6 @@
     }
     .content {
       padding: $gutter-half $gutter-half 0;
-      @include media(tablet){
-        padding-top: $gutter*1.5;
-      }
     }
   }
 
@@ -690,8 +731,12 @@
       }
     }
   }
-
-
+  .organisation-news {
+    @extend %contain-floats;
+    @include media(tablet) {
+      padding-bottom: $gutter+$gutter-half;
+    }
+  }
 
   // org color bands
 
