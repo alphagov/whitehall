@@ -150,7 +150,7 @@ ps:
         one: پارلمان ته لیکلې اعلامیه
         other: پارلمان ته لیکلې اعلامیې
     published: خپور شوی
-    read: دا مضمون ووایاست {title}%
+    read: دا مضمون ووایاست %{title}
     speech:
       author_title:
         minister: وزیر
@@ -159,10 +159,10 @@ ps:
       delivery_title:
         minister: وزیر
         speaker: ویونکی
-      originally_given_at: اصلاْ ورکړل شو په {location}%.
+      originally_given_at: اصلاْ ورکړل شو په ${location}.
       written_on: لیکلی دی په
     updated: تازه شوي
-    view: لید '{title}%'
+    view: لید '%{title}'
   organisation:
     type:
       Ad-hoc advisory group:
@@ -213,7 +213,7 @@ ps:
       transparency: د شفافیت معلومات
     headings:
       chief_professional_officers: زمونږه لوړپوړي مسلکی مدیران
-      contact: تماس  {name}%
+      contact: تماس  %{name}
       corporate_information: متحد معلومات
       corporate_reports: متحد راپورونه
       making_foi_requests:
@@ -253,9 +253,9 @@ ps:
       publications: زموږ نشریات
       quick_links: چټکی اړیکی
       related_policies: ارتباط لرونکی پالیسی ګانی
-      see_all: ټول وګوری {type}%
+      see_all: ټول وګوری %{type}
       statistics: زموږه احصایی
-    see_all: ټول وګوری {type}%
+    see_all: ټول وګوری %{type}
   activerecord:
     attributes:
       detailed_guide:
@@ -265,7 +265,7 @@ ps:
   attachment:
     accessibility:
       full_help_html: که غواړی چی دا سند په مختلف فارمت یعنی بریل، صوتی شکل کی ترلاسه
-        کړی {email}% لطفاْ خپل ادرس، تیلیفون نمبر او د سند نوم ایمیل کړی {title}")%{references}%")
+        کړی %{email} لطفاْ خپل ادرس، تیلیفون نمبر او د سند نوم ایمیل کړی ("%{title}")%{references}
       heading: دا فایل کیدای شی جی د کومکی تیکنالوژی د استعمالوونکو لپاره مناسب نه
         وی
       request_a_different_format: د یو مختلف فارمت غوښتنه وکړی
@@ -332,10 +332,10 @@ ps:
       personal_information_charter_html: ! ' زموږ تشریح کوی چې موږ د شخصی معلوماتو
         سره څرنګه چلند کوو'
       publication_scheme_html: زموږ د هغو معلوماتو په اړه ولولۍ چې هره ورڅ یې موږ
-        خپروو {link}%.
-      social_media_use_html: زموږه پالسی ولولی {link}%.
+        خپروو %{link}.
+      social_media_use_html: زموږه پالسی ولولی %{link}.
       welsh_language_scheme_html: د نشریاتو په اړه  زموږ د ژمنو  معلومات ترلاسه کړۍ
-        {link}%.
+        %{link}.
     find_out_more: بشپړ معلومات او د اړیکو په اړه ټول تفصیلات وګورۍ
     headings:
       about_us: زموږ په هکله

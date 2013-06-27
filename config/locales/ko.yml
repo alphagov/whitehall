@@ -195,9 +195,9 @@ ko:
         one: 의회로 서면 성명
         other: 의회로 서면 성명
     updated: 업데이트
-    view: ! '%{title}''을 확인하세요.'
+    view: ! '''%{title}'' 을 확인하세요.'
   document_filters:
-    description: ! '&nbsp; 원하시는 내용으로 써치를 제한하는 필터를 사용하실 수 있습니다.'
+    description: 원하시는 내용으로 써치를 제한하는 필터를 사용하실 수 있습니다
     no_results:
       description: 다시 써치해주시기 바랍니다.
       title: 매치되는 문서가 없습니다.
@@ -230,7 +230,7 @@ ko:
       transparency: 투명성 데이터
     headings:
       chief_professional_officers: 최고책임자
-      contact: ! '%{name}에게 연락하세요.'
+      contact: ! '%{name} 에게 연락하세요'
       corporate_information: 대사관 정보
       corporate_reports: 대사관 보고서
       making_foi_requests:

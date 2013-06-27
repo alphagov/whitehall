@@ -244,7 +244,7 @@ he:
         many:
         other: הצהרות בכתב לפרלמנט
     published: פורסם
-    read: קראו את מאמר{title}%
+    read: קראו את מאמר %{title}
     speech:
       author_title:
         minister: שר
@@ -253,10 +253,10 @@ he:
       delivery_title:
         minister: שר
         speaker: דובר
-      originally_given_at: ניתן במקור ב {location}%
+      originally_given_at: ניתן במקור ב %{location}
       written_on: ! 'נכתב על:'
     updated: מעודכן
-    view: ראה '{title}%'
+    view: ראה '%{title}'
   organisation:
     type:
       Ad-hoc advisory group:
@@ -329,7 +329,7 @@ he:
       transparency: מידע נגיש
     headings:
       chief_professional_officers: אנשי המקצוע הבכירים שלנו
-      contact: חוזה {name}%
+      contact: חוזה %{name}
       corporate_information: מידע מסחרי
       corporate_reports: דו"חות מסחריים
       making_foi_requests:
@@ -373,9 +373,9 @@ he:
       publications: הפרסומים שלנו
       quick_links: קישורים מהירים
       related_policies: מדיניות רלוונטית
-      see_all: ראה כל {type}%
+      see_all: ראה כל %{type}
       statistics: הנתונים שלנו
-    see_all: ראה כל {type}%
+    see_all: ראה כל %{type}
   activerecord:
     attributes:
       detailed_guide:
@@ -384,11 +384,10 @@ he:
     heading: הודעות
   attachment:
     accessibility:
-      full_help_html: ! 'כדי להזמין את המסמך בפורמט אלטרנטיבי כגון ברייל, אודיו או
-        סוגי קובץ שונים אנא שלח/י אימייל {title}% עם כתובת וטלפון יחד עם שם המסמך
-        המבוקש {title}")%{references}")%.
-
-'
+      full_help_html: |
+        כדי להזמין את המסמך בפורמט אלטרנטיבי כגון ברייל, אודיו או
+        סוגי קובץ שונים אנא שלח/י אימייל %{title} עם כתובת וטלפון יחד עם שם המסמך
+        המבוקש ("%{title}")%{references}.
       heading: הקובץ אינו תומך במשתמשי טכנולוגית סיוע
       request_a_different_format: אנא בקש/י פורמט אחר
     headings:
@@ -450,11 +449,11 @@ he:
       long_ordinal: ! '%e %B %Y %H:%M'
   worldwide_organisation:
     corporate_information:
-      personal_information_charter_html: ה{link}% מסביר אודות המדיניות שלנו כלפי מידע
+      personal_information_charter_html: ה%{link} מסביר אודות המדיניות שלנו כלפי מידע
         פרטי
-      publication_scheme_html: קרא/י אודות סוגי מידע שאנחנו מפרסמים {link}%
-      social_media_use_html: קרא/י אודות המדיניות שלנו {link}%
-      welsh_language_scheme_html: מידע נוסף על המחויבות שלנו לפרסום {link}%
+      publication_scheme_html: קרא/י אודות סוגי מידע שאנחנו מפרסמים %{link}
+      social_media_use_html: קרא/י אודות המדיניות שלנו %{link}
+      welsh_language_scheme_html: מידע נוסף על המחויבות שלנו לפרסום %{link}
     find_out_more: ראה/י פרופיל מלא ופרטי התקשרות
     headings:
       about_us: אודותינו

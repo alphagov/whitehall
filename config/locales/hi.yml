@@ -150,7 +150,7 @@ hi:
         one: संसद में लिखित बयान
         other: संसद में लिखित बयान
     published: प्रकाशित
-    read: पढ़ें {title}% लेख
+    read: पढ़ें %{title} लेख
     speech:
       author_title:
         minister: मंत्री

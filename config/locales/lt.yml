@@ -237,7 +237,7 @@ lt:
         few:
         other: Nepriklausomos stebėsenos institucijos
       Ministerial department:
-        one: ! "\n  Ministerijos\n  departamentas\n"
+        one: Ministerijos  departamentas
         few:
         other: Ministerijų departamentai
       Non-ministerial department:
@@ -392,7 +392,7 @@ lt:
         Jūsų asmeninė informacija
       publication_scheme_html: Sužinokite, kokią informaciją mes pastoviai pateikiame
         puslapyje %{link}.
-      social_media_use_html: Perskaitykite mūsų strategiją%{link}.
+      social_media_use_html: Perskaitykite mūsų strategiją %{link}.
       welsh_language_scheme_html: Sužinokite apie mūsų įsipareigojimą skelbti %{link}.
     find_out_more: Visa informacija apie mus ir  kontaktai
     headings:

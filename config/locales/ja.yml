@@ -75,7 +75,7 @@ ja:
         minister: 大臣
         speaker: スピーカー
       originally_given_at: ! '%{location} で実施'
-      written_on: ! 'Written on:'
+      written_on:
     type:
       announcement:
         one: ニュース

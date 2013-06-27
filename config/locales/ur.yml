@@ -20,7 +20,7 @@ ur:
         one: موضوع
         other: موضوعات
       world_locations:
-        one: ! ' محل وقوع'
+        one: محل وقوع
         other: محل ہائے وقوع
       worldwide_organisations:
         one: عالمی ادارہ
@@ -159,10 +159,10 @@ ur:
       delivery_title:
         minister: وزیر
         speaker: مقرر
-      originally_given_at: پہلی بار{location}% میں کی گئی
+      originally_given_at: پہلی بار%{location} میں کی گئی
       written_on: ! 'تحریر کی  تاریخ:'
     updated: تجدید شدہ
-    view: ! '{title}%'' دیکھئیے'
+    view: ! '''%{title}'' دیکھئیے'
   organisation:
     type:
       Ad-hoc advisory group:
@@ -211,7 +211,7 @@ ur:
       transparency: ٹرانسپیرنسی ڈیٹا
     headings:
       chief_professional_officers: ہمارے چیف پروفیشنل افسران
-      contact: رابطہ {name}%
+      contact: رابطہ %{name}
       corporate_information: کارپوریٹ معلومات
       corporate_reports: کارپوریٹ رپورٹس
       making_foi_requests:
@@ -253,7 +253,7 @@ ur:
       related_policies: متعلقہ پالیسیاں
       see_all: تما م دیکھئیے {type}%
       statistics: ہمارے اعدادو شمار
-    see_all: تما م دیکھئیے {type}%
+    see_all: تما م دیکھئیے %{type}
   activerecord:
     attributes:
       detailed_guide:
@@ -263,8 +263,8 @@ ur:
   attachment:
     accessibility:
       full_help_html: اس عبارت کو کسی دوسرے فارمیٹ مثلا بریل،آڈیو یا مختلف فائل ٹائپ
-        میں حاصل کرنے کے لئے برائے مہربانی ایمیل {email}% کیجئیے، جس میں اپنا پتا،ٹیلیفون
-        نمبراور  {title}")%{references}%") لکھئیے
+        میں حاصل کرنے کے لئے برائے مہربانی ایمیل %{email} کیجئیے، جس میں اپنا پتا،ٹیلیفون
+        نمبراور  %{title}"(%{references}") لکھئیے
       heading: ممکن ہےیہ فائل  معاون ٹیکنالوجی استعمال کرنے والوں کے لئے موزوں نہ
         ہو
       request_a_different_format: مختلف فارمیٹ طلب کیجئیے
@@ -328,12 +328,12 @@ ur:
       long_ordinal: ! '%e %B %Y %H:%M'
   worldwide_organisation:
     corporate_information:
-      personal_information_charter_html: ہمارے {link}% واضح کرتے ہیں کہ ہم آپکی ذاتی
+      personal_information_charter_html: ہمارے %{link} واضح کرتے ہیں کہ ہم آپکی ذاتی
         معلومات کو کیسے استعمال کرتے ہیں
-      publication_scheme_html: ! 'ہماری معمول کے مطابق  شائع کردہ معلومات کی نوعیت  {link}%
+      publication_scheme_html: ! 'ہماری معمول کے مطابق  شائع کردہ معلومات کی نوعیت  %{link}
         پرملاحظہ کیجئیے '
-      social_media_use_html: ہماری پالیسی  {link}% پر ملاحظہ کیجئیے
-      welsh_language_scheme_html: اشاعت کے باب میں ہمارے کمٹ منٹ {link}% میں ملاحظہ
+      social_media_use_html: ہماری پالیسی  %{link} پر ملاحظہ کیجئیے
+      welsh_language_scheme_html: اشاعت کے باب میں ہمارے کمٹ منٹ %{link} میں ملاحظہ
         کیجئیے
     find_out_more: مکمل پروفائل اوررابطے کی تمام تفصیلات دیکھئیے
     headings:

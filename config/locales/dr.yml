@@ -150,7 +150,7 @@ dr:
         one: بیانیه تحریری به پارلمان
         other: بیانیه های تحریری به پارلمان
     published: نشر شده
-    read: مقاله {title}% را بخوانید
+    read: مقاله %{title} را بخوانید
     speech:
       author_title:
         minister: وزیر
@@ -159,10 +159,10 @@ dr:
       delivery_title:
         minister: وزیر
         speaker: سخنگوی
-      originally_given_at: اساساً داده شد در {location}%.
+      originally_given_at: اساساً داده شد در %{location}.
       written_on: نوشته شد به
     updated: به روز شده
-    view: ببینید'{title}%'
+    view: ببینید'%{title}'
   organisation:
     type:
       Ad-hoc advisory group:
@@ -211,7 +211,7 @@ dr:
       transparency: معلومات شفافیت
     headings:
       chief_professional_officers: مدیران مسلکی ارشد ما
-      contact: تماس {name}%
+      contact: تماس %{name}
       corporate_information: معلومات یکی شده
       corporate_reports: گزارش های یکی شده
       making_foi_requests:
@@ -251,9 +251,9 @@ dr:
       publications: نشریات ما
       quick_links: لینک های عاجل
       related_policies: پالیسی های مرتبط
-      see_all: همه را ببینید {type}%
+      see_all: همه را ببینید %{type}
       statistics: احصائیه های ما
-    see_all: همه را ببینید {type}%
+    see_all: همه را ببینید %{type}
   activerecord:
     attributes:
       detailed_guide:
@@ -263,8 +263,8 @@ dr:
   attachment:
     accessibility:
       full_help_html: جهت درخواست سند در فارمت بدیل مانند بریل، صوتی و یا هم در فارمت
-        متفاوت لطفاً آدرس، شماره تماس با نام نشریه {title}")%{references}%") را ایمیل
-        {email}% کنید
+        متفاوت لطفاً آدرس، شماره تماس با نام نشریه ("%{title}")%{references} را ایمیل
+        %{email} کنید
       heading: این فایل برای استعمال کننده گان تکنالوجی کمکی مناسب نخواهد بود
       request_a_different_format: فارمت متفاوت را درخواست نمائید
     headings:
@@ -327,12 +327,12 @@ dr:
       long_ordinal: ! '%e %B %Y %H:%M'
   worldwide_organisation:
     corporate_information:
-      personal_information_charter_html: ! '  {link}% ما شیوه برخود با معلومات شخصی
+      personal_information_charter_html: ! '  %{link} ما شیوه برخود با معلومات شخصی
         را تشریح مینماید'
       publication_scheme_html: در مورد انواع معلوماتی بخوانید که ما به طور منظم نشر
         می کنیم.
-      social_media_use_html: پالیسی ما را در {link}% بخوانید
-      welsh_language_scheme_html: در مورد تعهد ما به نشر در {link}% معلومات حاصل نمایید
+      social_media_use_html: پالیسی ما را در %{link} بخوانید
+      welsh_language_scheme_html: در مورد تعهد ما به نشر در %{link} معلومات حاصل نمایید
     find_out_more: نمایه مکمل و تفصیلات در مورد تماس ها را ببینید
     headings:
       about_us: در مورد ما

@@ -8,8 +8,8 @@ fa:
   attachment:
     accessibility:
       full_help_html: برای درخواست این مقاله در ساختاری متفاوت مانند بریل، شنیداری
-        و یا گونه فایلی متفاوت لطفا به آدرس {email}% با درج آدرس، شماره تلفن به همراه
-        شماره کلاسه مقاله ایمیل بدهید  {%{title}"")%{references"").
+        و یا گونه فایلی متفاوت لطفا به آدرس %{email} با درج آدرس، شماره تلفن به همراه
+        شماره کلاسه مقاله ایمیل بدهید  ("%{title}")%{references}.
       heading: این فایل ممکن است برای کاربران فن آوری کمکی مناسب نباشد
       request_a_different_format: ساختار متفاوتی درخواست کنید
     headings:
@@ -66,7 +66,7 @@ fa:
         one: سازمان جهانی
         other: سازمان های جهانی
     published: منتشر شده
-    read: مقاله  {title}% را بخوانید
+    read: مقاله  %{title} را بخوانید
     speech:
       author_title:
         minister: معاون وزیر
@@ -75,7 +75,7 @@ fa:
       delivery_title:
         minister: معاون وزیر
         speaker: سخنگو
-      originally_given_at: ارائه شده در {location}%.
+      originally_given_at: ارائه شده در %{location}.
       written_on: ! 'نوشته شده در:'
     type:
       announcement:
@@ -196,7 +196,7 @@ fa:
         one: گزارش کتبی به پارلمان
         other: گزارش های کتبی به پارلمان
     updated: به روز رسانی شده
-    view: مشاهده '{title}%'
+    view: مشاهده '%{title}'
   document_filters:
     description: با استفاده از این فیلتر ها می توانید نتایج جستجو را به سلیقه ی خود
       محدود کنید
@@ -232,7 +232,7 @@ fa:
       transparency: داده های شفاف سازی
     headings:
       chief_professional_officers: افسران ارشد حرفه ای ما
-      contact: تماس با {name}%
+      contact: تماس با %{name}
       corporate_information: اطلاعات سازمانی
       corporate_reports: گزارش های سازمانی
       making_foi_requests:
@@ -315,9 +315,9 @@ fa:
       publications: انتشارات ما
       quick_links: دسترسی سریع
       related_policies: سیاست های مربوط
-      see_all: تمامی {type}% ما را مشاهده کنید
+      see_all: تمامی %{type} ما را مشاهده کنید
       statistics: آمار ما
-    see_all: تمامی {type}% ما را مشاهده کنید
+    see_all: تمامی %{type} ما را مشاهده کنید
     type:
       international_delegation:
         one: هیأت بین المللی
@@ -327,12 +327,12 @@ fa:
         other: موقعیت های جهانی
   worldwide_organisation:
     corporate_information:
-      personal_information_charter_html: ! '{link}% چگونگی نگهداری از اطلاعات شخصی
+      personal_information_charter_html: ! '%{link} چگونگی نگهداری از اطلاعات شخصی
         شما را توضیح می دهد'
-      publication_scheme_html: ! 'درباره نوع اطلاعاتی که ما به طور روال در  {link}%
+      publication_scheme_html: ! 'درباره نوع اطلاعاتی که ما به طور روال در %{link}
         منتشر می کنیم بخوانید '
-      social_media_use_html: سیاست ما را درباره  {link}% بخوانید
-      welsh_language_scheme_html: درباره تعهد ما به انتشار مطالب به  {link}% بخوانید
+      social_media_use_html: سیاست ما را درباره  %{link} بخوانید
+      welsh_language_scheme_html: درباره تعهد ما به انتشار مطالب به %{link} بخوانید
     find_out_more: مشاهده مشخصات کامل و تمام جزئیات تماس
     headings:
       about_us: درباره ما

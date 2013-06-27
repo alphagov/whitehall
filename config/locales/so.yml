@@ -251,9 +251,9 @@ so:
       publications: Daabacaadaheenna
       quick_links: Waddooyin xiriir degdeg ah
       related_policies: Siyaasado xiriir la leh
-      see_all: Fiiri dhammaan %{type}yadeenna
+      see_all: Fiiri dhammaan %{type} yadeenna
       statistics: Istaatistikadeenna
-    see_all: Fiiri dhammaan %{type}yadeenna
+    see_all: Fiiri dhammaan %{type} yadeenna
   activerecord:
     attributes:
       detailed_guide:
