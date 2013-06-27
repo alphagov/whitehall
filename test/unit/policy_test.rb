@@ -38,6 +38,27 @@ class PolicyTest < ActiveSupport::TestCase
     assert draft_policy.related_editions.include?(publication)
   end
 
+  test "should build a draft copy with references to related editions which have multiple drafts" do
+    editor = create(:departmental_editor)
+
+    published_policy = create(:published_policy)
+    first_draft = create(:draft_publication, related_editions: [published_policy])
+    assert first_draft.publish_as(editor, force: true)
+    first_draft.reload
+    second_draft = first_draft.create_draft(editor)
+    second_draft.change_note = 'change-note'
+    assert second_draft.valid?
+
+    draft_policy = published_policy.create_draft(editor)
+    draft_policy.change_note = 'change-note'
+    assert draft_policy.valid?
+
+    draft_policy.reload
+
+    assert draft_policy.related_editions.include?(first_draft)
+    assert draft_policy.related_editions.include?(second_draft)
+  end
+
   test "should build a draft copy with policy groups" do
     published_policy = create(:published_policy)
     policy_team = create(:policy_team, policies: [published_policy])
