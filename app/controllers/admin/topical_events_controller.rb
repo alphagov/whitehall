@@ -33,4 +33,6 @@ class Admin::TopicalEventsController < Admin::ClassificationsController
     end
   end
 
+  def about
+  end
 end

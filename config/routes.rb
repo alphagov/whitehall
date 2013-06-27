@@ -165,6 +165,9 @@ Whitehall::Application.routes.draw do
         resources :topics, path: "topics", except: [:show]
         resources :topical_events, path: "topical-events" do
           resources :classification_featurings, path: "featurings"
+          member do
+            get :about
+          end
         end
 
         resources :worldwide_organisations do
