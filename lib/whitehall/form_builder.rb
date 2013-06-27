@@ -3,11 +3,13 @@ module Whitehall
 
     def label(method, text=nil, options={}, &block)
       if calculate_required(method, options)
-        options[:class] ||= ""
-        class_override = options[:class] << " required"
-        options.merge!(class: class_override.strip)
-        text_override = text ? text : method.to_s.humanize
-        text = "#{text_override}<span>*</span>".html_safe
+        unless !options[:required].nil? && options[:required] == false
+          options[:class] ||= ""
+          class_override = options[:class] << " required"
+          options.merge!(class: class_override.strip)
+          text_override = text ? text : method.to_s.humanize
+          text = "#{text_override}<span>*</span>".html_safe
+        end
       end
       options.delete(:required)
       label_tag = super(method, text, options)
@@ -104,7 +106,7 @@ module Whitehall
       allow_removal_label_text = options.delete(:allow_removal_label_text) || "Check to remove #{method.to_s.humanize.downcase}"
 
       fields = file_field(method, options)
-      if object.send("#{method}_cache").present?
+      if object.respond_to?(:"#{method}_cache") && object.send("#{method}_cache").present?
         fields += file_cache_already_uploaded(method)
       end
       fields += hidden_field("#{method}_cache")
