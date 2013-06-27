@@ -77,7 +77,7 @@ module GovspeakHelper
   def bare_govspeak_to_html(govspeak, images = [], options = {}, &block)
     # pre-processors
     govspeak = remove_extra_quotes_from_blockquotes(govspeak)
-    govspeak = render_embedded_contacts(govspeak)
+    govspeak = render_embedded_contacts(govspeak, options[:contact_heading_tag])
 
     markup_to_nokogiri_doc(govspeak, images).tap do |nokogiri_doc|
       # post-processors
@@ -87,11 +87,12 @@ module GovspeakHelper
     end.to_html.html_safe
   end
 
-  def render_embedded_contacts(govspeak)
+  def render_embedded_contacts(govspeak, heading_tag)
     return govspeak if govspeak.blank?
+    heading_tag ||= 'h3'
     govspeak.gsub(GovspeakHelper::EMBEDDED_CONTACT_REGEXP) do
       if contact = Contact.find_by_id($1)
-        render(partial: 'contacts/contact', locals: { contact: contact, heading_tag: 'h3' }, formats: ["html"])
+        render(partial: 'contacts/contact', locals: { contact: contact, heading_tag: heading_tag }, formats: ["html"])
       else
         ''
       end
