@@ -24,4 +24,16 @@ class Admin::AboutPagesControllerTest < ActionController::TestCase
     end
     assert_not_nil @subject.about_page, "expected subject to have an about page"
   end
+
+  view_test "GET edit shows the form for editing an about page" do
+    about = create(:about_page, subject: @subject)
+    get :edit, topical_event_id: @subject.to_param
+    assert_select 'textarea[name*="summary"]', text: /#{about.summary}/
+  end
+
+  test "PUT update saves changes to the about page" do
+    about = create(:about_page, subject: @subject)
+    put :update, topical_event_id: @subject.to_param, about_page: { name: 'New name' }
+    assert_equal 'New name', about.reload.name
+  end
 end

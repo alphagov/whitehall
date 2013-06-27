@@ -1,6 +1,7 @@
 class Admin::AboutPagesController < Admin::BaseController
-  before_filter :build_page, only: [:new]
   before_filter :find_subject
+  before_filter :find_page, except: [:new, :create]
+  before_filter :build_page, only: [:new]
 
   helper_method :model_name, :human_friendly_model_name
 
@@ -8,9 +9,17 @@ class Admin::AboutPagesController < Admin::BaseController
     @page = AboutPage.new(params[:about_page])
     @page.subject = @subject
     if @page.save
-      redirect_to send("admin_#{model_name}_about_pages_path"), notice: "About page created"
+      redirect_to show_path, notice: 'About page created'
     else
       render action: 'new'
+    end
+  end
+
+  def update
+    if @page.update_attributes(params[:about_page])
+      redirect_to show_path, notice: 'About page saved'
+    else
+      render action: 'edit'
     end
   end
 
@@ -42,7 +51,15 @@ class Admin::AboutPagesController < Admin::BaseController
       send("admin_#{model_name}_about_pages_path")
     end
 
+    def find_page
+      @page = @subject.about_page
+    end
+
     def build_page
       @page = AboutPage.new
+    end
+
+    def show_path
+      send("admin_#{model_name}_about_pages_path")
     end
 end
