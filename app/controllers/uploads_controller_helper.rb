@@ -10,9 +10,9 @@ module UploadsControllerHelper
       end
 
       if mime_type = mime_type_for(path)
-        send_file path, type: mime_type_for(path), disposition: 'inline'
+        send_file real_path_for_x_accel_mapping(path), type: mime_type_for(path), disposition: 'inline'
       else
-        send_file path, disposition: 'inline'
+        send_file real_path_for_x_accel_mapping(path), disposition: 'inline'
       end
     else
       redirect_to_placeholder(path)
@@ -41,5 +41,9 @@ module UploadsControllerHelper
 
   def file_is_clean?(path)
     path.starts_with?(Whitehall.clean_uploads_root)
+  end
+
+  def real_path_for_x_accel_mapping(potentially_symlinked_path)
+    File.realpath(potentially_symlinked_path)
   end
 end
