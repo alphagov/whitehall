@@ -1,20 +1,33 @@
 <% page_title "Read more about #{@subject.name}" %>
 
 <% content_for :current_tab do %>
-  <table class="<%= model_name %> table">
-    <tr>
-      <th>Summary</th>
-      <td class="summary"></td>
-    </tr>
-    <tr>
-      <th>Body</th>
-      <td class="body"></td>
-    </tr>
-  </table>
+  <% if @page.present? %>
+    <table class="<%= model_name %> table">
+      <tr>
+        <th>Summary</th>
+        <td class="summary"><%= @page.summary %></td>
+      </tr>
+      <tr>
+        <th>Body</th>
+        <td class="body"><%= @page.body %></td>
+      </tr>
+      <tr>
+        <th>Read more link text</th>
+        <td class="read-more-link-text"><%= @page.read_more_link_text %></td>
+      </tr>
+    </table>
 
-  <div class="form-actions">
-    <%= link_to "Edit", [:edit, :admin, @subject], class: "btn btn-large btn-primary"%>
-  </div>
+    <div class="form-actions">
+      <%= link_to "Edit", [:edit, :admin, @subject], class: "btn btn-large btn-primary"%>
+    </div>
+  <% else %>
+    <p>
+      <%= @subject.name %> doesn't yet have a page showing more information about it.
+    </p>
+    <p>
+      <%= link_to 'Create one...', new_admin_topical_event_about_pages_path %>
+    </p>
+  <% end %>
 <% end %>
 
 <%= render partial: "admin/#{model_name.pluralize}/tab_wrapper", locals: { model: @subject } %>
