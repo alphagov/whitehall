@@ -3,7 +3,7 @@ module Whitehall
 
     def label(method, text=nil, options={}, &block)
       if calculate_required(method, options)
-        unless options[:required].present? && options[:required] == false
+        unless !options[:required].nil? && options[:required] == false
           options[:class] ||= ""
           class_override = options[:class] << " required"
           options.merge!(class: class_override.strip)
