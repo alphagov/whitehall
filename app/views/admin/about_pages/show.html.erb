@@ -4,16 +4,20 @@
   <% if @page.present? %>
     <table class="<%= model_name %> table">
       <tr>
-        <th>Summary</th>
-        <td class="summary"><%= @page.summary %></td>
-      </tr>
-      <tr>
-        <th>Body</th>
-        <td class="body"><%= @page.body %></td>
+        <th>Name</th>
+        <td class="name"><%= @page.name %></td>
       </tr>
       <tr>
         <th>Read more link text</th>
         <td class="read-more-link-text"><%= @page.read_more_link_text %></td>
+      </tr>
+      <tr>
+        <th>Summary</th>
+        <td class="summary"><%= @page.summary %></td>
+      </tr>
+      <tr>
+        <th width="20%">Body</th>
+        <td class="body"><%= @page.body %></td>
       </tr>
     </table>
 
