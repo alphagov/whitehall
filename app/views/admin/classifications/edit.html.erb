@@ -2,15 +2,15 @@
 
 <div class="span8">
   <section>
-    <h1>Edit <%= model_class.name.underscore.humanize.downcase %></h1>
-    <p class="warning">Warning: changes to <%= model_class.name.underscore.humanize.downcase %>s appear instantly on the live site.</p>
+    <h1>Edit <%= human_friendly_model_name.downcase %></h1>
+    <p class="warning">Warning: changes to <%= human_friendly_model_name.downcase %>s appear instantly on the live site.</p>
     <%= render partial: "form", locals: {classification: @classification, show_instantly_live_warning: true} %>
   </section>
 </div>
 
 <div class="sidebar span4">
   <section class="display_heading">
-    <h1>Delete <%= model_class.name.underscore.humanize.downcase %></h1>
+    <h1>Delete <%= human_friendly_model_name.downcase %></h1>
     <% if @classification.destroyable? %>
       <%= button_to 'Delete', admin_topic_path(@classification), method: :delete, confirm: "Are you sure you want to delete: #{@classification} ?", class: 'btn btn-danger' %>
     <% else %>

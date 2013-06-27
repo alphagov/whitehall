@@ -1,6 +1,5 @@
 class Admin::ClassificationsController < Admin::BaseController
-  helper_method :model_class
-  helper_method :model_name
+  helper_method :model_class, :model_name, :human_friendly_model_name
 
   before_filter :default_arrays_of_ids_to_empty, only: [:update]
   before_filter :build_object, only: [:new]
@@ -46,7 +45,7 @@ class Admin::ClassificationsController < Admin::BaseController
   end
 
   def human_friendly_model_name
-    model_class.name.underscore.humanize
+    model_name.humanize
   end
 
   def build_object
