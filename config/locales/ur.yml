@@ -2,14 +2,14 @@ ur:
   document:
     headings:
       attachments:
-        one:
-        other:
+        one: دستاویز
+        other: دستاویزات
       ministers:
         one: وزير
         other: وزراء
       organisations:
-        one:
-        other:
+        one: ادارہ
+        other: ادارے
       policies:
         one: پالیسی
         other: پالیسیاں
@@ -20,11 +20,11 @@ ur:
         one: موضوع
         other: موضوعات
       world_locations:
-        one: جغرافیائی محل وقوع
-        other: جغرافیائی محل ہائے وقوع
+        one: محل وقوع
+        other: محل ہائے وقوع
       worldwide_organisations:
-        one:
-        other:
+        one: عالمی ادارہ
+        other: عالمی ادرے
       advisory_groups: مشاورتی گروپس
       applies_to_nations: اطلاق ہوتا ہے
       document_series: سلسلہ
@@ -36,14 +36,14 @@ ur:
         one: اعلان
         other: اعلانات
       authored_article:
-        one:
-        other:
+        one: تحریر کردہ مضمون
+        other: تحریر کردہ مضامین
       case_study:
         one: کیس اسٹڈی
         other: کیس اسٹڈیز
       closed_consultation:
         one: مشاورت ختم
-        other: مشاورت ختم
+        other: ! ' مشاورت ختم'
       consultation:
         one: مشاورت
         other: مشاورت
@@ -60,20 +60,20 @@ ur:
         one: مفصل رہنمائی
         other: مفصل رہنمائی
       draft_text:
-        one: ڈرافٹ مسودہ
-        other: ڈرافٹ مسودات
+        one: ڈرافٹ متن
+        other: ڈرافٹ متن
       fatality_notice:
         one: وفات کی اطلاع
         other: وفات کی اطلاعات
       foi_release:
-        one: آزادئی معلومات کی نشریات
-        other: آزادئی معلومات کی نشریات
+        one: آزادئی معلومات کی اشاعت
+        other: آزادئی معلومات کی اشاعت
       form:
         one: فارم
         other: فارمز
       government_response:
-        one:
-        other:
+        one: حکومتی جوابی اقدام
+        other: حکومتی جوابی اقدامات
       guidance:
         one: رہنمائی
         other: رہنمائی
@@ -81,17 +81,17 @@ ur:
         one: اثرات کا تجزیہ
         other: اثرات کے تجزیے
       imported:
-        one:
-        other:
+        one: امپورٹڈ- نوع کا انتظار
+        other: امپورٹڈ- نوع کا انتظار
       independent_report:
         one: غیر جانبدار رپورٹ
         other: غیر جانبداررپورٹس
       map:
-        one:
-        other:
+        one: نقشہ
+        other: نقشے
       national_statistics:
-        one: اعدادوشمار- قومی اعدادوشمار
-        other: اعدادوشمار- قومی اعدادوشمار
+        one: شماریات- قومی اعدادوشمار
+        other: شماریات- قومی اعدادوشمار
       news_article:
         one: نیوزآرٹیکل
         other: نیوزآرٹیکلز
@@ -102,8 +102,8 @@ ur:
         one: جاری مشاورت
         other: جاری مشاورت
       oral_statement:
-        one: زبانی بیان
-        other: زبانی بیانات
+        one: پارلیمنٹ میں زبانی بیان
+        other: پارلیمنٹ میں زبانی بیانات
       policy:
         one: پالیسی
         other: پالیسیاں
@@ -120,11 +120,11 @@ ur:
         one: مطبوعہ
         other: مطبوعات
       research:
-        one: تحقیق و تجزیہ
-        other: تحقیق و تجزیہ
+        one: تحقیق وتجزیہ
+        other: تحقیق وتجزیہ
       speaking_notes:
-        one: تقریری نوٹس
-        other: تقریری نوٹس
+        one: تقریری نوٹ
+        other: تقریری نوٹ
       speech:
         one: تقریر
         other: تقاریر
@@ -132,8 +132,8 @@ ur:
         one: پارلیمنٹ میں بیان
         other: پارلیمنٹ میں بیانات
       statistical_data_set:
-        one: اعدادوشمار ڈیٹا سیٹ
-        other: اعدادو شمار ڈیٹا سیٹ
+        one: شماریاتی ڈیٹا سیٹ
+        other: ! ' شماریاتی ڈیٹا سیٹس'
       statistics:
         one: اعدادوشمار
         other: اعدادو شمار
@@ -144,42 +144,42 @@ ur:
         one: ٹرانسپیرنسی ڈیٹا
         other: ٹرانسپیرنسی ڈیٹا
       worldwide_priority:
-        one:
-        other:
+        one: عالمی ترجیح
+        other: عالمی ترجیحات
       written_statement:
-        one: تحریری بیان
-        other: تحریری بیانات
+        one: پارلیمنٹ میں تحریری بیان
+        other: پارلیمنٹ میں تحریری بیانات
     published: شائع شدہ
-    read: پڑھئیے %{title} مضمون
+    read: پڑھئیے {title}% مضمون
     speech:
       author_title:
-        minister:
-        speaker:
-      delivered_on:
+        minister: وزیر
+        speaker: مصنف
+      delivered_on: ! 'تقریرکی تاریخ:'
       delivery_title:
-        minister:
-        speaker:
-      originally_given_at:
-      written_on:
+        minister: وزیر
+        speaker: مقرر
+      originally_given_at: پہلی بار%{location} میں کی گئی
+      written_on: ! 'تحریر کی  تاریخ:'
     updated: تجدید شدہ
     view: ! '''%{title}'' دیکھئیے'
   organisation:
     type:
       Ad-hoc advisory group:
-        one: ایڈہاک مشاورتی گروپ
-        other: ایڈہاک مشاورتی گروپس
+        one: عارضی مشاورتی گروپ
+        other: عارضی مشاورتی گروپس
       Advisory non-departmental public body:
-        one: ! 'مشاورتی غیر شعبہ جاتی عوامی ادارہ '
+        one: مشاورتی غیر شعبہ جاتی عوامی ادارہ
         other: مشاورتی غیر شعبہ جاتی عوامی ادارے
       Executive agency:
-        one: نافذ کنندہ ایجنسی
-        other: نافذ کنندہ ایجنسیاں
+        one: انتظامی ایجنسی
+        other: انتظامی ایجنسیاں
       Executive non-departmental public body:
-        one: نافذ کنندہ غیر شعبہ جاتی عوامی ادارہ
-        other: نافذ کنندہ غیر شعبہ جاتی عوامی ادارے
+        one: انتظامی غیر شعبہ جاتی عوامی ادارہ
+        other: انتظامی غیر شعبہ جاتی عوامی ادارے
       Executive office:
-        one:
-        other:
+        one: انتظامی دفتر
+        other: انتظامی دفاتر
       Independent monitoring body:
         one: غیر جانبدار نگراں ادارہ
         other: غیر جانبدار نگراں ادارے
@@ -187,7 +187,7 @@ ur:
         one: وزارتی محکمہ
         other: وزارتی محکمہ جات
       Non-ministerial department:
-        one: ! 'غیروزارتی محکمہ '
+        one: غیروزارتی محکمہ
         other: غیروزارتی محکمہ جات
       Other:
         one: دیگر
@@ -196,39 +196,39 @@ ur:
         one: عوامی کارپوریشن
         other: عوامی کارپوریشنز
       Sub-organisation:
-        one: ! 'ذیلی تنظیم '
+        one: ذیلی تنظیم
         other: ذیلی تنظیمیں
       Tribunal non-departmental public body:
         one: ٹریبونل غیرشعبہ جاتی عوامی ادارہ
         other: ٹریبونل غیرشعبہ جاتی عوامی ادارے
     about:
-      read_more:
+      read_more: ہمارے کام کے بارے میں مزید پڑھئیے
     corporate_information:
-      access_our_info:
-      foi_how_to:
-      foi_releases:
-      jobs_and_contacts:
-      transparency:
+      access_our_info: ہماری معلومات تک رسائی حاصل کیجئیے
+      foi_how_to: آزادئی معلومات کی درخواست کیسے کی جائے
+      foi_releases: آزادئی معلومات کی اشاعتیں
+      jobs_and_contacts: ملازمتیں اورکنٹریکٹس
+      transparency: ٹرانسپیرنسی ڈیٹا
     headings:
-      chief_professional_officers:
-      contact:
-      corporate_information:
-      corporate_reports:
+      chief_professional_officers: ہمارے چیف پروفیشنل افسران
+      contact: رابطہ %{name}
+      corporate_information: کارپوریٹ معلومات
+      corporate_reports: کارپوریٹ رپورٹس
       making_foi_requests:
-      our_announcements:
+      our_announcements: ہمارے اعلانات
       our_mainstream_categories:
-      our_management:
-      our_ministers:
-      our_policies:
-      our_publications:
-      our_senior_military_officials:
-      our_services:
-      our_statistics:
-      our_topics:
-      plus_others:
-      special_representatives:
-      traffic_commissioners:
-      what_we_do:
+      our_management: ہماری انتظامیہ
+      our_ministers: ہمارے وزرا
+      our_policies: ہماری پالیسیاں
+      our_publications: ہماری اشاعتیں
+      our_senior_military_officials: ہمارے سینئیر فوجی اہلکار
+      our_services: ہماری خدمات
+      our_statistics: ہمارے اعدادو شمار
+      our_topics: ہم ان موضوعات پر کام کرتے ہیں
+      plus_others: دیگر+
+      special_representatives: خصوصی نمائندے
+      traffic_commissioners: ٹریفک کمشنرز
+      what_we_do: ہمارے فرائض
     making_foi_requests:
       step1_html:
       step2_html:
@@ -239,37 +239,40 @@ ur:
         one: عالمی وفد
         other: عالمی وفود
       world_location:
-        one:
-        other:
+        one: ! ' عالمی محل وقوع'
+        other: عالمی محل ہائے وقوع
     headings:
       announcements: ہمارے اعلانات
       country: ملک
       documents: دستاویزات
       mission: ہمارا مشن
-      organisations:
+      organisations: ادارے
       priorities: ترجیحات
       publications: ہماری مطبوعات
-      quick_links:
+      quick_links: فوری لنکس
       related_policies: متعلقہ پالیسیاں
-      see_all: تما م دیکھئیے %{type}
+      see_all: تما م دیکھئیے {type}%
       statistics: ہمارے اعدادو شمار
-    see_all: تما م دیکھئیے%{type}
+    see_all: تما م دیکھئیے %{type}
   activerecord:
     attributes:
       detailed_guide:
-        primary_mainstream_category:
+        primary_mainstream_category: ابتدائی مفصل رہنمائی کیٹیگری
   announcements:
-    heading:
+    heading: اعلانات
   attachment:
     accessibility:
-      full_help_html:
-      heading:
-      request_a_different_format:
+      full_help_html: اس عبارت کو کسی دوسرے فارمیٹ مثلا بریل،آڈیو یا مختلف فائل ٹائپ
+        میں حاصل کرنے کے لئے برائے مہربانی ایمیل %{email} کیجئیے، جس میں اپنا پتا،ٹیلیفون
+        نمبراور  %{title}"(%{references}") لکھئیے
+      heading: ممکن ہےیہ فائل  معاون ٹیکنالوجی استعمال کرنے والوں کے لئے موزوں نہ
+        ہو
+      request_a_different_format: مختلف فارمیٹ طلب کیجئیے
     headings:
-      order_a_copy:
-      order_a_copy_full:
-      published:
-      reference:
+      order_a_copy: کاپی منگائیے
+      order_a_copy_full: اشاعت کی کاپی طلب کیجئیے
+      published: شائع شدہ
+      reference: حوالہ
   change_notes:
     published: شائع شدہ
     updated: تجدیدشدہ
@@ -278,22 +281,23 @@ ur:
     email: ای میل
   corporate_information_page:
     type:
-      personal_information_charter:
-      publication_scheme:
-      social_media_use:
-      welsh_language_scheme:
+      personal_information_charter: ذاتی معلومات کاچارٹر
+      publication_scheme: اشاعتی اسکیم
+      social_media_use: سوشل میڈیاکااستعمال
+      welsh_language_scheme: ! ' ویلش زبان اسکیم'
   date:
     formats:
-      default:
-      long_ordinal:
+      default: ! '%d %B %Y'
+      long_ordinal: ! '%e %B %Y'
   document_filters:
-    description:
+    description: آپ صرف اپنی دلچسپی &nbsp;کے نتائج دیکھنے&nbsp;کے لئے فلٹرزاستعمال
+      کر سکتے ہیں
     no_results:
-      description:
-      title:
+      description: ! 'اپنی تلاش کو وسیع تر کرکے دوبارا کوشش کیجئیے '
+      title: مطلوبہ یا ملتا جلتا مضمون نہیں ملا
     world_locations:
-      all:
-      label:
+      all: تمام مقامات
+      label: عالمی مقامات
   feeds:
     atom: ایٹم
     email_alerts: ای میل الرٹس
@@ -308,33 +312,36 @@ ur:
   number:
     human:
       storage_units:
-        format:
+        format: ! '%n%u'
   policies:
-    heading:
+    heading: پالیسیاں
   publications:
-    heading:
+    heading: اشاعتیں
     headings:
-      detail:
+      detail: تفصیل
   read_more: آگے پڑھئیے
   support:
     array:
       last_word_connector: اور
   time:
     formats:
-      long_ordinal:
+      long_ordinal: ! '%e %B %Y %H:%M'
   worldwide_organisation:
     corporate_information:
-      personal_information_charter_html:
-      publication_scheme_html:
-      social_media_use_html:
-      welsh_language_scheme_html:
-    find_out_more:
+      personal_information_charter_html: ہمارے %{link} واضح کرتے ہیں کہ ہم آپکی ذاتی
+        معلومات کو کیسے استعمال کرتے ہیں
+      publication_scheme_html: ! 'ہماری معمول کے مطابق  شائع کردہ معلومات کی نوعیت  %{link}
+        پرملاحظہ کیجئیے '
+      social_media_use_html: ہماری پالیسی  %{link} پر ملاحظہ کیجئیے
+      welsh_language_scheme_html: اشاعت کے باب میں ہمارے کمٹ منٹ %{link} میں ملاحظہ
+        کیجئیے
+    find_out_more: مکمل پروفائل اوررابطے کی تمام تفصیلات دیکھئیے
     headings:
-      about_us:
-      contact_us:
-      corporate_information:
-      follow_us:
-      our_people:
-      our_services:
-    location:
-    part_of:
+      about_us: ہمارے بارے میں
+      contact_us: ہم سے رابطہ
+      corporate_information: کارپوریٹ معلومات
+      follow_us: ہمیں فالوکیجئیے
+      our_people: ہمارا عملہ
+      our_services: ہماری خدمات
+    location: مقام
+    part_of: حصہ

@@ -2,25 +2,25 @@ uk:
   document:
     headings:
       attachments:
-        one:
+        one: Документ
         few:
         many:
-        other:
+        other: Документи
       ministers:
         one: Міністр
         few:
         many:
         other: Міністри
       organisations:
-        one:
+        one: Організація
         few:
         many:
-        other:
+        other: Організації
       policies:
         one: Політика
         few:
         many:
-        other: Політика
+        other: Політики
       topical_events:
         one:
         few:
@@ -32,20 +32,20 @@ uk:
         many:
         other: Теми
       world_locations:
-        one: Місцезнаходження у світі
+        one: Країна
         few:
         many:
-        other: Місцезнаходження у світі
+        other: Країни
       worldwide_organisations:
-        one: Світова організація
+        one: Організація
         few:
         many:
-        other: Світові організації
+        other: Організації
       advisory_groups: Дорадчі групи
       applies_to_nations: Застосовується до
       document_series: Серія
       field_of_operation: Сфера діяльності
-      live_data: Дані в реальному часі
+      live_data: В реальному часі
       policy_team: Політичний відділ
     type:
       announcement:
@@ -54,12 +54,12 @@ uk:
         many:
         other: Оголошення
       authored_article:
-        one:
+        one: Стаття
         few:
         many:
-        other:
+        other: Статті
       case_study:
-        one: Тематчине дослідження
+        one: Тематичне дослідження
         few:
         many:
         other: Тематичні дослідження
@@ -77,7 +77,7 @@ uk:
         one: Результат обговорення
         few:
         many:
-        other: Результати обговорень
+        other: Результати обговорення
       corporate_report:
         one: Корпоративний звіт
         few:
@@ -104,7 +104,7 @@ uk:
         many:
         other: Повідомлення про смерть
       foi_release:
-        one: ! 'Відповідь на інформаційний запит '
+        one: Відповідь на інформаційний запит
         few:
         many:
         other: ! 'Відповіді на інформаційні запити '
@@ -114,10 +114,10 @@ uk:
         many:
         other: Форми
       government_response:
-        one:
+        one: Реакція уряду
         few:
         many:
-        other:
+        other: Реакція уряду
       guidance:
         one: Інструкції
         few:
@@ -172,7 +172,7 @@ uk:
         one: Політика
         few:
         many:
-        other: Політика
+        other: Політики
       policy_paper:
         one: Програмний документ
         few:
@@ -184,10 +184,10 @@ uk:
         many:
         other: Прес-релізи
       promotional:
-        one: Промоційний матеріал
+        one: Інформаційний матеріал
         few:
         many:
-        other: Промоційний матеріал
+        other: Інформаційний матеріал
       publication:
         one: Публікація
         few:
@@ -217,7 +217,7 @@ uk:
         one: Набір статистичних даних
         few:
         many:
-        other: Набір статистичних даних
+        other: Набори статистичних даних
       statistics:
         one: Статистика
         few:
@@ -247,16 +247,16 @@ uk:
     read: Читати %{title} статтю
     speech:
       author_title:
-        minister:
-        speaker:
-      delivered_on: ! 'Виголошено:'
+        minister: Міністр
+        speaker: Автор
+      delivered_on: Виголошено
       delivery_title:
         minister: Міністр
-        speaker: Спікер
+        speaker: Промовець
       originally_given_at: Уперше виголошено в %{location}.
-      written_on:
+      written_on: Написано
     updated: оновлено
-    view: Перегляди '%{title}'
+    view: Переглянути
   organisation:
     type:
       Ad-hoc advisory group:
@@ -265,40 +265,40 @@ uk:
         many:
         other: Тимчасові дорадчі групи
       Advisory non-departmental public body:
-        one: Дорадчий позавідомчий орган державної влади
+        one: Державний позавідомчий дорадчий орган
         few:
         many:
-        other: Дорадчі позавідомчі органи державної влади
+        other: Державні позавідомчі дорадчі органи
       Executive agency:
         one: Орган виконавчої влади
         few:
         many:
         other: Органи виконавчої влади
       Executive non-departmental public body:
-        one: Виконавчий позавідомчий орган державної влади
+        one: Державний позавідомчий виконавчий орган
         few:
         many:
-        other: Виконавчі позавідомчі органи державної влади
+        other: Державні позавідомчі виконавчі органи
       Executive office:
-        one:
+        one: Виконавчий комітет
         few:
         many:
-        other:
+        other: Виконавчі комітети
       Independent monitoring body:
         one: Незалежний моніторинговий орган
         few:
         many:
         other: Незалежні моніторингові органи
       Ministerial department:
-        one: Міністерство
+        one: Підрозділ міністерства
         few:
         many:
-        other: Міністерства
+        other: Підрозділи міністерства
       Non-ministerial department:
         one: Неміністерський департамент
         few:
         many:
-        other: ! 'Неміністерські департаменти '
+        other: Неміністерські департаменти
       Other:
         one: Інше
         few:
@@ -315,38 +315,38 @@ uk:
         many:
         other: Підрядні організації
       Tribunal non-departmental public body:
-        one: Судовий позавідомчий орган державної влади
+        one: Державна позавідомча судова інстанція
         few:
         many:
-        other: Судові позавідомчі органи державної влади
+        other: Державні позавідомчі судові інстанції
     about:
-      read_more:
+      read_more: Читати далі про нашу діяльність
     corporate_information:
-      access_our_info:
-      foi_how_to:
-      foi_releases:
-      jobs_and_contacts:
-      transparency:
+      access_our_info: Доступ до нашої інформації
+      foi_how_to: Як зробити інформаційний запит
+      foi_releases: ! 'Відповіді на інформаційні запити '
+      jobs_and_contacts: Вакансії та контракти
+      transparency: Прозорість інформації
     headings:
-      chief_professional_officers:
-      contact:
-      corporate_information:
-      corporate_reports:
+      chief_professional_officers: Наші головні спеціалісти
+      contact: Контактна особа  %{ім'я}
+      corporate_information: Корпоративна інформація
+      corporate_reports: Корпоративні звіти
       making_foi_requests:
-      our_announcements:
+      our_announcements: Наші оголошення
       our_mainstream_categories:
-      our_management:
-      our_ministers:
-      our_policies:
-      our_publications:
-      our_senior_military_officials:
-      our_services:
-      our_statistics:
-      our_topics:
-      plus_others:
-      special_representatives:
-      traffic_commissioners:
-      what_we_do:
+      our_management: Наше керівництво
+      our_ministers: Наші міністри
+      our_policies: Наша політика
+      our_publications: Наші публікації
+      our_senior_military_officials: Наші старші військові керівники
+      our_services: Наші послуги
+      our_statistics: Наша статистика
+      our_topics: Ми працюємо над цими темами
+      plus_others: ІМ'Я
+      special_representatives: Спеціальні представники
+      traffic_commissioners: Уповноважені з питань транспорту
+      what_we_do: Що ми робимо
     making_foi_requests:
       step1_html:
       step2_html:
@@ -359,10 +359,10 @@ uk:
         many:
         other: Міжнародні делегації
       world_location:
-        one:
+        one: Країна
         few:
         many:
-        other:
+        other: Країни
     headings:
       announcements: Наші оголошення
       country: Країна
@@ -371,7 +371,7 @@ uk:
       organisations: Організації
       priorities: Пріоритети
       publications: Наші публікації
-      quick_links: Прямі посилання
+      quick_links: Короткі посилання
       related_policies: Подібні документи
       see_all: Дивіться всі наші %{type}
       statistics: Наша статистика
@@ -379,30 +379,32 @@ uk:
   activerecord:
     attributes:
       detailed_guide:
-        primary_mainstream_category:
+        primary_mainstream_category: Первинна деталізована категорія
   announcements:
     heading: Оголошення
   attachment:
     accessibility:
-      full_help_html:
-      heading:
-      request_a_different_format:
+      full_help_html: Щоб запросити цей документ в іншому форматі, наприклад, шрифтом
+        Брайля, аудіо тощо, будь ласка, напишіть на електронну пошту %{email}, зазначивши
+        Вашу адресу, номер телефону та назву публікації ("%{title}")%{references}.
+      heading: Цей файл може не бути прийнятним для користувачів допоміжних технологій.
+      request_a_different_format: Запросити інший формат
     headings:
-      order_a_copy:
-      order_a_copy_full:
-      published:
-      reference:
+      order_a_copy: Замовити примірник
+      order_a_copy_full: Замовити примірник публікації
+      published: Опубліковано
+      reference: Ref
   change_notes:
     published: Опубліковано
     updated: Оновлено
   contact:
-    contact_form: Форма для контактів
-    email: E-пошта
+    contact_form: Форма зворотнього зв'язку
+    email: Електронна пошта
   corporate_information_page:
     type:
       personal_information_charter: Персональна інформація
       publication_scheme: План публікацій
-      social_media_use:
+      social_media_use: Використання соціальних медіа
       welsh_language_scheme: Програма збереження валійської мови
   date:
     formats:
@@ -410,24 +412,24 @@ uk:
       long_ordinal:
   document_filters:
     description: Ви можете скористатись фільтрами для отримання тільки тих результатів,
-      які збігаються з вашим запитом
+      що відповідають Вашому запиту
     no_results:
       description: Спробуйте розширити параметри пошуку та повторіть пошук.
       title: Документів не знайдено.
     world_locations:
       all: Будь-яке місце
-      label: Місцезнаходження у світі
+      label: Країна
   feeds:
     atom: атом
     email_alerts: сповіщення е-поштою
-    latest_activity: Останні події
+    latest_activity: Останні новини
   i18n:
     direction: ltr
   language_names:
     uk: Українська
   latest_feed:
     no_updates: Оновлень поки що немає.
-    title: Останній
+    title: Останні новини
   number:
     human:
       storage_units:
@@ -437,7 +439,7 @@ uk:
   publications:
     heading: Публікації
     headings:
-      detail:
+      detail: Деталі
   read_more: Читати далі
   support:
     array:
@@ -449,9 +451,9 @@ uk:
     corporate_information:
       personal_information_charter_html: ! 'Це %{link} пояснює наші принципи роботи
         з персональними даними. '
-      publication_scheme_html: Прочитайте про те, яку інформацію ми регулярно публікуємо
+      publication_scheme_html: Прочитайти, яку інформацію ми регулярно публікуємо
         у %{link}.
-      social_media_use_html:
+      social_media_use_html: Прочитайне про наші принципи роботи щодо %{link}.
       welsh_language_scheme_html: ! 'Дізнайтеся про наші зобов''язання щодо публікації
         інформації у %{link}. '
     find_out_more: Дивіться повний профіль та всі контакти
@@ -462,5 +464,5 @@ uk:
       follow_us: Слідкуйте за нами
       our_people: Наші співробітники
       our_services: Наші послуги
-    location: Місцезнаходження
-    part_of: Частина
+    location: Розташування
+    part_of: Організація

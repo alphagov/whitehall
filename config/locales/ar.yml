@@ -3,11 +3,11 @@ ar:
     headings:
       attachments:
         zero:
-        one:
+        one: وثيقة
         two:
         few:
         many:
-        other:
+        other: وثائق
       ministers:
         zero:
         one: وزير
@@ -17,11 +17,11 @@ ar:
         other: وزراء
       organisations:
         zero:
-        one:
+        one: مؤسسة
         two:
         few:
         many:
-        other:
+        other: مؤسسات
       policies:
         zero:
         one: سياسة
@@ -52,11 +52,11 @@ ar:
         other: المواقع في العالم
       worldwide_organisations:
         zero:
-        one: مكتب عالمي
+        one: مؤسسة في الخارج
         two:
         few:
         many:
-        other: مكاتب عالمية
+        other: مؤسسات في الخارج
       advisory_groups: جماعات استشارية
       applies_to_nations: ينطبق على
       document_series: سلسة
@@ -73,11 +73,11 @@ ar:
         other: إعلانات
       authored_article:
         zero:
-        one:
+        one: مقال مرخص
         two:
         few:
         many:
-        other:
+        other: مقالات مرخصة
       case_study:
         zero:
         one: دراسة حالة
@@ -87,11 +87,11 @@ ar:
         other: دراسات حالة
       closed_consultation:
         zero:
-        one: استشارة منتهية
+        one: مشاورة منتهية
         two:
         few:
         many:
-        other: استشارات منتهية
+        other: مشاورات منتهية
       consultation:
         zero:
         one: مشاورة
@@ -150,18 +150,18 @@ ar:
         other: نشرات وفق حرية الحصول على المعلومات
       form:
         zero:
-        one: ! 'نموذج '
+        one: نموذج
         two:
         few:
         many:
-        other: ! 'نماذج '
+        other: نماذج
       government_response:
         zero:
-        one:
+        one: رد من الحكومة
         two:
         few:
         many:
-        other:
+        other: ردود من الحكومة
       guidance:
         zero:
         one: توجيه
@@ -178,11 +178,11 @@ ar:
         other: تقييمات التأثير
       imported:
         zero:
-        one:
+        one: استلم - بانتظار الطباعة
         two:
         few:
         many:
-        other:
+        other: استلم - بانتظار الطباعة
       independent_report:
         zero:
         one: تقرير مستقل
@@ -192,11 +192,11 @@ ar:
         other: تقارير مستقلة
       map:
         zero:
-        one:
+        one: خريطة
         two:
         few:
         many:
-        other:
+        other: خرائط
       national_statistics:
         zero:
         one: إحصائية - إحصائية محلية
@@ -227,11 +227,11 @@ ar:
         other: مشاورات جارية
       oral_statement:
         zero:
-        one: تصريح شفهي
+        one: تصريح شفهي للبرلمان
         two:
         few:
         many:
-        other: تصريحات شفهية
+        other: تصريحات شفهية للبرلمان
       policy:
         zero:
         one: سياسة
@@ -325,11 +325,11 @@ ar:
         other: بيانات تتعلق بالشفافية
       worldwide_priority:
         zero:
-        one:
+        one: أولوية في الخارج
         two:
         few:
         many:
-        other:
+        other: أولويات في الخارج
       written_statement:
         zero:
         one: تصريح خطي
@@ -341,15 +341,15 @@ ar:
     read: اقرأ %{title} المقال
     speech:
       author_title:
-        minister:
-        speaker:
-      delivered_on:
+        minister: وزير
+        speaker: كاتب
+      delivered_on: تاريخ التسليم
       delivery_title:
-        minister:
-        speaker:
-      originally_given_at:
-      written_on:
-    updated: محدث
+        minister: وزير
+        speaker: متحدث
+      originally_given_at: ألقيت في %{location}
+      written_on: ! 'كتبت في:'
+    updated: تحديث
     view: اطلع على ’%{title}‘
   organisation:
     type:
@@ -383,11 +383,11 @@ ar:
         other: هيئات تنفيذية عامة غير حكومية
       Executive office:
         zero:
-        one:
+        one: مكتب تنفيذي
         two:
         few:
         many:
-        other:
+        other: مكاتب تنفيذية
       Independent monitoring body:
         zero:
         one: جهاز رقابي مستقل
@@ -438,33 +438,33 @@ ar:
         many:
         other: هيئات قضائية عامة غير حكومية
     about:
-      read_more:
+      read_more: اقرأ المزيد عن عملنا
     corporate_information:
-      access_our_info:
-      foi_how_to:
-      foi_releases:
-      jobs_and_contacts:
-      transparency:
+      access_our_info: اطلع على معلوماتنا
+      foi_how_to: كيفية تقديم طلب حرية الحصول على المعلومات
+      foi_releases: إصدارات حرية الحصول على المعلومات
+      jobs_and_contacts: الوظائف والعقود
+      transparency: بيانات تتعلق بالشفافية
     headings:
-      chief_professional_officers:
-      contact:
-      corporate_information:
-      corporate_reports:
+      chief_professional_officers: كبار المسؤولين المحترفين لدينا
+      contact: اتصل بـ%{name}
+      corporate_information: معلومات عن الوزارة
+      corporate_reports: تقارير الوزارة
       making_foi_requests:
-      our_announcements:
+      our_announcements: إعلاناتنا
       our_mainstream_categories:
-      our_management:
-      our_ministers:
-      our_policies:
-      our_publications:
-      our_senior_military_officials:
-      our_services:
-      our_statistics:
-      our_topics:
-      plus_others:
-      special_representatives:
-      traffic_commissioners:
-      what_we_do:
+      our_management: إدارتنا
+      our_ministers: وزراؤنا
+      our_policies: سياساتنا
+      our_publications: مطبوعاتنا
+      our_senior_military_officials: كبار المسؤولين العسكريين
+      our_services: خدماتنا
+      our_statistics: إحصائياتنا
+      our_topics: عملينا بشأن هذه المواضيع
+      plus_others: آخرون
+      special_representatives: الممثلون الخاصون
+      traffic_commissioners: مفوضو المرور
+      what_we_do: عملنا
     making_foi_requests:
       step1_html:
       step2_html:
@@ -480,20 +480,20 @@ ar:
         other: وفود دولية
       world_location:
         zero:
-        one:
+        one: بعثة في الخارج
         two:
         few:
         many:
-        other:
+        other: بعثات في الخارج
     headings:
       announcements: إعلاناتنا
       country: البلد
       documents: وثائق
       mission: مهمتنا
-      organisations:
+      organisations: مؤسسات
       priorities: أولويات
       publications: مطبوعاتنا
-      quick_links:
+      quick_links: وصلات سريعة
       related_policies: سياسات ذات صلة
       see_all: اطلع على كافة %{type}
       statistics: إحصائياتنا
@@ -501,43 +501,46 @@ ar:
   activerecord:
     attributes:
       detailed_guide:
-        primary_mainstream_category:
+        primary_mainstream_category: فئة توجيهات مفصلة أساسية
   announcements:
-    heading:
+    heading: إعلانات
   attachment:
     accessibility:
-      full_help_html:
-      heading:
-      request_a_different_format:
+      full_help_html: لاستلام وثيقة مكتوبة بشكل آخر، كلغة بريل أو وثيقة صوتية أو أي
+        نوع آخر من الوثائق، يرجى إرسال رسالة إلكترونية إلى %{email} مع كتابة عنوانك
+        ورقم هاتفك إلى جانب عنوان الوثيقة المطلوبة ("{title}")%{references}
+      heading: هذا المف قد لا يكون مناسبا لمستخدمي التكنولوجيا المساعدة على القراءة
+      request_a_different_format: طلب الوثيقة بشكل آخر
     headings:
-      order_a_copy:
-      order_a_copy_full:
-      published:
-      reference:
+      order_a_copy: طلب نسخة
+      order_a_copy_full: طلب نسخة عن المطبوعة
+      published: تاريخ النشر
+      reference: إشارة
   change_notes:
-    published: نشر
+    published: تاريخ النشر
     updated: تحديث
   contact:
     contact_form: نموذج اتصال
     email: بريد إلكتروني
   corporate_information_page:
     type:
-      personal_information_charter: المعلومات الشخصية الميثاق
-      publication_scheme:
-      social_media_use:
-      welsh_language_scheme:
+      personal_information_charter: ميثاق الاحتفاظ بالمعلومات الشخصية
+      publication_scheme: نظام المطبوعات
+      social_media_use: استخدام مواقع التواصل الاجتماعي
+      welsh_language_scheme: برنامج لغة ويلز
   date:
     formats:
       default: ! '%d %B %Y'
       long_ordinal: ! '%e %B %Y'
   document_filters:
-    description:
+    description: باستطاعتك استخدام الفلتر لعرض &nbsp; فقط النتائج التي تتطابق مع &nbsp;
+      اهتماماتك
     no_results:
-      description:
-      title:
+      description: حاول توسيع البحث وحاول البحث مجددا
+      title: ليس هناك وثائق تطابق البحث
     world_locations:
-      all:
-      label:
+      all: كافة المواقع
+      label: مواقع في العالم
   feeds:
     atom: آتوم
     email_alerts: إشعار بالبريد الإلكتروني
@@ -554,11 +557,11 @@ ar:
       storage_units:
         format: ! '%n%u'
   policies:
-    heading:
+    heading: سياسات
   publications:
-    heading:
+    heading: مطبوعات
     headings:
-      detail:
+      detail: تفاصيل
   read_more: اقرأ المزيد
   support:
     array:
@@ -568,11 +571,11 @@ ar:
       long_ordinal: ! '%e %B %Y %H:%M'
   worldwide_organisation:
     corporate_information:
-      personal_information_charter_html: لدينا %{link} الرابط يشرح كيفية التعامل مع
-        المعلومات الشخصية الخاصة بك
-      publication_scheme_html: قرأت عن أنواع المعلومات التي ننشرها بشكل روتيني في
+      personal_information_charter_html: ! '%{link} يشرح كيفية التعامل مع المعلومات
+        الشخصية الخاصة بك'
+      publication_scheme_html: إقرأ عن أنواع المعلومات التي ننشرها بشكل روتيني في
         موقعنا %{link} الرابط.
-      social_media_use_html:
+      social_media_use_html: اقرأ عن سياستنا تجاه %{link}
       welsh_language_scheme_html: معرفة التزامنا النشر في%{link} الرابط.
     find_out_more: اطلع على النبذة بالكامل وكافة تفاصيل الاتصال
     headings:

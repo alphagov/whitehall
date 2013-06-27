@@ -2,233 +2,233 @@ uz:
   document:
     headings:
       attachments:
-        one:
-        other:
+        one: Hujjat
+        other: Hujjatlar
       ministers:
-        one:
-        other:
+        one: Vazir
+        other: Vazirlar
       organisations:
-        one:
-        other:
+        one: Tashkilot
+        other: Tashkilotlar
       policies:
-        one:
-        other:
+        one: Dastur
+        other: Dasturlar
       topical_events:
         one:
         other:
       topics:
-        one:
-        other:
+        one: Mavzu
+        other: Mavzular
       world_locations:
-        one:
-        other:
+        one: Hududiy joylashuv
+        other: Hududiy joylashuvlar
       worldwide_organisations:
-        one:
-        other:
-      advisory_groups:
-      applies_to_nations:
-      document_series:
-      field_of_operation:
-      live_data:
-      policy_team:
+        one: Dunyoviy tashkilot
+        other: Dunyoviy tashkilotlar
+      advisory_groups: Maslahatchi guruh
+      applies_to_nations: ! 'Tegishli '
+      document_series: Bir talay
+      field_of_operation: Faoliyat sohasi
+      live_data: Mavjud ma'lumot
+      policy_team: Dastur guruhi
     type:
       announcement:
-        one:
-        other:
+        one: E'lon
+        other: E'lonlar
       authored_article:
-        one:
-        other:
+        one: Muallif maqolasi
+        other: Muallif maqolalari
       case_study:
-        one:
-        other:
+        one: Holat o'rganilishi
+        other: Holat o'rganilishlari
       closed_consultation:
-        one:
-        other:
+        one: Yopiq fikr almashish
+        other: Yopiq fikr almashishlar
       consultation:
-        one:
-        other:
+        one: Fikr almashish
+        other: Fikr almashishlar
       consultation_outcome:
-        one:
-        other:
+        one: Fikr almashish natijasi
+        other: Fikr almashish natijalari
       corporate_report:
-        one:
-        other:
+        one: Korporativ hisobot
+        other: Korporativ hisobotlar
       correspondence:
-        one:
-        other:
+        one: Muvofiqlik
+        other: Muvofiqliklar
       detailed_guidance:
-        one:
-        other:
+        one: Batafsil ko'mak
+        other: Batafsil ko'mak
       draft_text:
-        one:
-        other:
+        one: Matn loyihasi
+        other: Matn loyihalari
       fatality_notice:
-        one:
-        other:
+        one: Falokat haqida e'lon
+        other: Falokat haqida e'lonlar
       foi_release:
-        one:
-        other:
+        one: So'z erkinligiga bag'ishlangan nashr
+        other: So'z erkinligiga bag'ishlangan nashrlar
       form:
-        one:
-        other:
+        one: Anketa
+        other: Anketalar
       government_response:
-        one:
-        other:
+        one: Hukumat javobi
+        other: Hukumat javoblari
       guidance:
-        one:
-        other:
+        one: Rahbarlik
+        other: Rahbarlik
       impact_assessment:
-        one:
-        other:
+        one: Ta'sir etuvchi omillar tahlili
+        other: Ta'sir etuvchi omillar tahlillari
       imported:
-        one:
-        other:
+        one: ! 'yuklandi - kutilmoqda '
+        other: ! 'yuklandi - kutilmoqda '
       independent_report:
-        one:
-        other:
+        one: Mustaqil hisobot
+        other: Mustaqil hisobotlar
       map:
-        one:
-        other:
+        one: Xarita
+        other: Xaritalar
       national_statistics:
-        one:
-        other:
+        one: Statistika - milliy statistika
+        other: Statistika - milliy statistika
       news_article:
-        one:
-        other:
+        one: Yangi maqola
+        other: Yangi maqolalar
       news_story:
-        one:
-        other:
+        one: Yangilik
+        other: Yangiliklar
       open_consultation:
-        one:
-        other:
+        one: Ochiq fikr almashish
+        other: Ochiq fikr almashishlar
       oral_statement:
-        one:
-        other:
+        one: Parlament uchun og'zaki bayonot
+        other: Parlament uchun og'zaki bayonotlar
       policy:
-        one:
-        other:
+        one: Dastur
+        other: Dasturlar
       policy_paper:
-        one:
-        other:
+        one: Dasturga oid hujjat
+        other: Dasturga oid hujjatlar
       press_release:
-        one:
-        other:
+        one: Press reliz
+        other: Press relizlar
       promotional:
-        one:
-        other:
+        one: Reklama uchun manbalar
+        other: Reklama uchun manbalar
       publication:
-        one:
-        other:
+        one: Nashr
+        other: Nashrlar
       research:
-        one:
-        other:
+        one: Tadqiqot va tahlilllar
+        other: Tadqiqot va tahlilllar
       speaking_notes:
-        one:
-        other:
+        one: Nutq qaydlari
+        other: Nutq qaydlari
       speech:
-        one:
-        other:
+        one: Nutq
+        other: Nutqlar
       statement_to_parliament:
-        one:
-        other:
+        one: Parlament uchun hisobot
+        other: Parlament uchun hisobotlar
       statistical_data_set:
-        one:
-        other:
+        one: Statistika ma'lumot to'plami
+        other: Statistika ma'lumot to'plamlari
       statistics:
-        one:
-        other:
+        one: Statistika
+        other: Statistika
       transcript:
-        one:
-        other:
+        one: Matn
+        other: Matnlar
       transparency:
-        one:
-        other:
+        one: Ochiqlikka oid ma'lumotlar
+        other: Ochiqlikka oid ma'lumotlar
       worldwide_priority:
-        one:
-        other:
+        one: Dunyoviy prioritet
+        other: Dunyoviy prioritetlar
       written_statement:
-        one:
-        other:
-    published:
-    read:
+        one: Parlament uchun yozma hisobot
+        other: Parlament uchun yozma hisobotlar
+    published: nashr qilindi
+    read: Maqolani o'qish %{title}
     speech:
       author_title:
-        minister:
-        speaker:
-      delivered_on:
+        minister: Vazir
+        speaker: Muallif
+      delivered_on: ! 'Yetkazildi:'
       delivery_title:
-        minister:
-        speaker:
-      originally_given_at:
-      written_on:
-    updated:
-    view:
+        minister: Vazir
+        speaker: Spiker
+      originally_given_at: Aslida %{location} berilgan
+      written_on: ! 'Yozildi:'
+    updated: yangilandi
+    view: Nazorat '%{title}'
   organisation:
     type:
       Ad-hoc advisory group:
-        one:
-        other:
+        one: Tasodifiy masalalar uchun maslahatchi guruh
+        other: Tasodifiy masalalar uchun maslahatchi guruhlar
       Advisory non-departmental public body:
-        one:
-        other:
+        one: Hukumatga qarashli bo'lmagan maslahatchi organ
+        other: Hukumatga qarashli bo'lmagan maslahatchi organlar
       Executive agency:
-        one:
-        other:
+        one: Ijro etuvchi agentlik
+        other: Ijro etuvchi agentliklar
       Executive non-departmental public body:
-        one:
-        other:
+        one: Hukumatga qarashli bo'lmagan ijro etuvchi ijtimoiy organ
+        other: Hukumatga qarashli bo'lmagan ijro etuvchi ijtimoiy organlar
       Executive office:
-        one:
-        other:
+        one: Ijro etuvchi idora
+        other: Ijro etuvchi idoralar
       Independent monitoring body:
-        one:
-        other:
+        one: Mustaqil monitoring organi
+        other: Mustaqil monitoring organlari
       Ministerial department:
-        one:
-        other:
+        one: Vazirlik bo'limi
+        other: Vazirlik bo'limlari
       Non-ministerial department:
-        one:
-        other:
+        one: Nodavlat tashkilot
+        other: Nodavlat tashkilotlar
       Other:
-        one:
-        other:
+        one: Boshqa
+        other: Boshqalar
       Public corporation:
-        one:
-        other:
+        one: Ijtimoiy korporatsiya
+        other: Ijtimoiy korporatsiyalar
       Sub-organisation:
-        one:
-        other:
+        one: Filial tashkilot
+        other: Filial tashkilotlar
       Tribunal non-departmental public body:
-        one:
-        other:
+        one: Tribunalga oid hukumatga qarashli bo'lmagan organ
+        other: Tribunalga oid hukumatga qarashli bo'lmagan organlar
     about:
-      read_more:
+      read_more: Bizning faoliyatimiz haqida ko'proq ma'lumot oling
     corporate_information:
-      access_our_info:
-      foi_how_to:
-      foi_releases:
-      jobs_and_contacts:
-      transparency:
+      access_our_info: Biz haqimizda ma'lumotga ega bo'ling
+      foi_how_to: So'z erkinligiga oid so'rovni jo'natish
+      foi_releases: So'z erkinligiga oid nashrlar
+      jobs_and_contacts: Ish va shartnomalar
+      transparency: Ochiqlikka oid ma'lumotlar
     headings:
-      chief_professional_officers:
-      contact:
-      corporate_information:
-      corporate_reports:
+      chief_professional_officers: Bizning asosiy mutaxassislar
+      contact: ! '%{name} bog''laning'
+      corporate_information: Korporativ ma'lumot
+      corporate_reports: Korporativ hisobotlar
       making_foi_requests:
-      our_announcements:
+      our_announcements: Bizning e'lonlar
       our_mainstream_categories:
-      our_management:
-      our_ministers:
-      our_policies:
-      our_publications:
-      our_senior_military_officials:
-      our_services:
-      our_statistics:
-      our_topics:
-      plus_others:
-      special_representatives:
-      traffic_commissioners:
-      what_we_do:
+      our_management: Bizning rahbariyat
+      our_ministers: Bizning vazirlar
+      our_policies: Bizning dasturlar
+      our_publications: Bizning nashrlar
+      our_senior_military_officials: Bizning yuqori darajadagi harbiy vakillarimiz
+      our_services: Bizning xizmatlat
+      our_statistics: Bizning statistika
+      our_topics: Bu yonalishlar bo'yicha ishlaymiz
+      plus_others: ! ' + boshqalar'
+      special_representatives: Maxsus vakil
+      traffic_commissioners: Traffik va transport savollari bo'yicha komissar 
+      what_we_do: Bizning faoliyatimiz
     making_foi_requests:
       step1_html:
       step2_html:
@@ -236,105 +236,111 @@ uz:
   world_location:
     type:
       international_delegation:
-        one:
-        other:
+        one: Xalqaro delegatsiya
+        other: Xalqaro delegatsiyalar
       world_location:
-        one:
-        other:
+        one: Hududiy joylashuv
+        other: Hududiy joylashuvlar
     headings:
-      announcements:
-      country:
-      documents:
-      mission:
-      organisations:
-      priorities:
-      publications:
-      quick_links:
-      related_policies:
-      see_all:
-      statistics:
-    see_all:
+      announcements: Bizning e'lonlar
+      country: Mamlakat
+      documents: Hujjatlar
+      mission: Bizning vazifalar
+      organisations: Tashkilotlar
+      priorities: Prioritetlar
+      publications: Bizning nashrlar
+      quick_links: Tez bog'lanish linklari
+      related_policies: Oid dasturlar
+      see_all: Bizning butun %{type} ko'ring
+      statistics: Bizning statistika
+    see_all: Bizning butun %{type} ko'ring
   activerecord:
     attributes:
       detailed_guide:
-        primary_mainstream_category:
+        primary_mainstream_category: Asosiy batafsil ko'mak toifasi
   announcements:
-    heading:
+    heading: E'lonlar
   attachment:
     accessibility:
-      full_help_html:
-      heading:
-      request_a_different_format:
+      full_help_html: Bu hujjatni brayl,audio yoki boshqa formatda olish uchun quyidagi
+        elektron manzilga %{email} jismoniy manzilingiz, telefon raqamingiz va nashr
+        sarlavhasinini ("%{title}")%{references} kiritib xabar yuboring.
+      heading: Bu hujjat boshqa formatlarda mavjud emas.
+      request_a_different_format: Boshqa formatdagi hujjatni so'rash.
     headings:
-      order_a_copy:
-      order_a_copy_full:
-      published:
-      reference:
+      order_a_copy: Nusxa buyurtirish
+      order_a_copy_full: Nashrning nusxasini buyurtirish
+      published: Nashr qilindi
+      reference: Ishora
   change_notes:
-    published:
-    updated:
+    published: Nashr qilindi
+    updated: Yangilandi
   contact:
-    contact_form:
-    email:
+    contact_form: Aloqa uchun
+    email: Elektron manzil
   corporate_information_page:
     type:
-      personal_information_charter:
-      publication_scheme:
-      social_media_use:
-      welsh_language_scheme:
+      personal_information_charter: Shaxsiy ma'lumot nizomi
+      publication_scheme: Nashr rejasi
+      social_media_use: Jamoat media vositalarini qullanilishi
+      welsh_language_scheme: Uels tili rejasi
   date:
     formats:
-      default:
+      default: ! '%e %B %Y'
       long_ordinal: ! '%e %B %Y'
   document_filters:
-    description:
+    description: Sizni&nbsp; qiziqtirgan natijalarni ko'rish&nbsp; uchun filtrlarni
+      qullaning
     no_results:
-      description:
-      title:
+      description: Qidiruvni kengaytiring va yana bir bora urinib ko'ring.
+      title: Mos hujjatlar yoq.
     world_locations:
-      all:
-      label:
+      all: Hamma joylashuvlar
+      label: Hududiy joylashuvlar
   feeds:
-    atom:
-    email_alerts:
-    latest_activity:
+    atom: atom
+    email_alerts: ! 'elektron xabarlari orqali ogohlantirilish '
+    latest_activity: Eng so'nggi faoliyat
   i18n:
     direction: ltr
   language_names:
-    uz: Oʻzbekcha
+    uz: O'zbekcha
   latest_feed:
-    no_updates:
-    title:
+    no_updates: Yangiliklar yoq.
+    title: ! 'Eng so''nggi '
   number:
     human:
       storage_units:
-        format:
+        format: ! '%n%u'
   policies:
-    heading:
+    heading: Dasturlar
   publications:
-    heading:
+    heading: Nashrlar
     headings:
-      detail:
-  read_more:
+      detail: Tafsilot
+  read_more: Ko'proq ma'lumotga ega bo'ling
   support:
     array:
-      last_word_connector:
+      last_word_connector: va
   time:
     formats:
-      long_ordinal:
+      long_ordinal: ! '%e %B %Y %H:%M'
   worldwide_organisation:
     corporate_information:
-      personal_information_charter_html:
-      publication_scheme_html:
-      social_media_use_html:
-      welsh_language_scheme_html:
-    find_out_more:
+      personal_information_charter_html: Bizning %{link} qanday qilib shaxsiy ma'lumot
+        bilan ishlashimiz haqida sizga ma'lumot beradi 
+      publication_scheme_html: ! '%{link} Biz doimiy tarzda nashr etayotgan ma''lumot
+        haqida o''qing'
+      social_media_use_html: ! '%{link} Bizning dasturimiz haqida batafsil ma''lumot'
+      welsh_language_scheme_html: ! '%{link} Nashr etish uchun biz olib borayotgan
+        faoliyatimiz haqida o''qing'
+    find_out_more: To'liq profil va bog'lanish uchun ma'lumotni ko'ring
     headings:
-      about_us:
-      contact_us:
-      corporate_information:
-      follow_us:
-      our_people:
-      our_services:
-    location:
-    part_of:
+      about_us: Biz haqimizda
+      contact_us: Biz bilan bog'laning
+      corporate_information: Korporativ ma'lumot
+      follow_us: Bizni qayd eting
+      our_people: Bizning odamlar
+      our_services: Bizning xizmatlar
+    location: Joylashuv
+    part_of: Qismi

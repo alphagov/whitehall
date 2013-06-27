@@ -2,233 +2,235 @@ ps:
   document:
     headings:
       attachments:
-        one:
-        other:
+        one: سند
+        other: سندونه
       ministers:
-        one:
-        other:
+        one: وزیر
+        other: وزیران
       organisations:
-        one:
-        other:
+        one: اداره
+        other: ادارې
       policies:
-        one:
-        other:
+        one: پالیسي
+        other: پالیسی ګانې
       topical_events:
         one:
         other:
       topics:
-        one:
-        other:
+        one: موضوع
+        other: موضوع ګانې
       world_locations:
-        one:
-        other:
+        one: نړیوال موقعیت
+        other: نړیوال موقعیتونه
       worldwide_organisations:
-        one:
-        other:
-      advisory_groups:
-      applies_to_nations:
-      document_series:
-      field_of_operation:
-      live_data:
-      policy_team:
+        one: نړیواله اداره
+        other: نړیواله اداری
+      advisory_groups: مشورتی ګروپونه
+      applies_to_nations: پورې اړه لری
+      document_series: سلسله
+      field_of_operation: د کړنو څانګه
+      live_data: ژوندې اطلاعات
+      policy_team: د پالیسی ټیم
     type:
       announcement:
-        one:
-        other:
+        one: خبرتیا
+        other: خبرتیاوې
       authored_article:
-        one:
-        other:
+        one: تالیف شوی مضمون
+        other: تالیف شوي مضامین
       case_study:
-        one:
-        other:
+        one: موردی څیړنه
+        other: مودری څیړنی
       closed_consultation:
-        one:
-        other:
+        one: محرمه مشوره
+        other: محرمه مشوری
       consultation:
-        one:
-        other:
+        one: مشوره
+        other: مشوری
       consultation_outcome:
-        one:
-        other:
+        one: د مشوری پایله
+        other: د مشورو پایله
       corporate_report:
-        one:
-        other:
+        one: متحد راپور
+        other: متحد راپورونه
       correspondence:
-        one:
-        other:
+        one: ارتباط ساتنه
+        other: ارتباطات ساتنه
       detailed_guidance:
-        one:
-        other:
+        one: مفصله لارښوونه
+        other: مفصلی لارښوونی
       draft_text:
-        one:
-        other:
+        one: مسوده
+        other: مسودی
       fatality_notice:
-        one:
-        other:
+        one: دمړینی خبرتیا
+        other: دمړینی خبرتیاوی
       foi_release:
-        one:
-        other:
+        one: د بیان د آزادی خپرونه
+        other: د بیان د آزادی خپرونی
       form:
-        one:
-        other:
+        one: فارم
+        other: فارمونه
       government_response:
-        one:
-        other:
+        one: د دولت ځواب
+        other: د دولت ځوابونه
       guidance:
-        one:
-        other:
+        one: رهنمایی
+        other: رهنمایی
       impact_assessment:
-        one:
-        other:
+        one: د تاثیراتو څیړنه
+        other: د تاثیراتو څیړنی
       imported:
-        one:
-        other:
+        one: وارد شوی - د انتظار نمونه
+        other: وارد شوی - د انتظار نمونه
       independent_report:
-        one:
-        other:
+        one: آزاد راپور
+        other: آزاد راپورونه
       map:
-        one:
-        other:
+        one: نقشه
+        other: نقشی
       national_statistics:
-        one:
-        other:
+        one: شمیرنه - ملی شمیرنې
+        other: شمیرنه - ملی شمیرنې
       news_article:
-        one:
-        other:
+        one: خبری مقاله
+        other: خبری مقالی
       news_story:
-        one:
-        other:
+        one: خبری راپور
+        other: خبری راپورونه
       open_consultation:
-        one:
-        other:
+        one: آزاده مشوره
+        other: آزادې مشورې
       oral_statement:
-        one:
-        other:
+        one: پارلمان ته شفاهی اعلامیه
+        other: پارلمان ته شفاهی اعلامیی
       policy:
-        one:
-        other:
+        one: پالیسی
+        other: پالیسی ګانی
       policy_paper:
-        one:
-        other:
+        one: د پالیسۍ سند
+        other: د پالیسې سندونه
       press_release:
-        one:
-        other:
+        one: مطبوعاتی خبرپاڼه
+        other: مطبوعاتی خبرپاڼې
       promotional:
-        one:
-        other:
+        one: روزونکې مواد
+        other: روزونکی مواد
       publication:
-        one:
-        other:
+        one: خپرونه
+        other: خپرونې
       research:
-        one:
-        other:
+        one: څیړنه او تجزیه
+        other: ځیړنه او تجزیه
       speaking_notes:
-        one:
-        other:
+        one: د وینا یادښت
+        other: د وینا یادښتونه
       speech:
-        one:
-        other:
+        one: وینا
+        other: ویناوې
       statement_to_parliament:
-        one:
-        other:
+        one: پارلمان ته اعلامیه
+        other: پارلمان ته اعلامیې
       statistical_data_set:
-        one:
-        other:
+        one: د شمیرنې اطلاعات
+        other: د شمیرنې اطلاعات
       statistics:
-        one:
-        other:
+        one: شمیرنه
+        other: شمیرنه
       transcript:
-        one:
-        other:
+        one: لیکنه
+        other: لیکنې
       transparency:
-        one:
-        other:
+        one: د روڼوالې اطلاعات
+        other: د روڼوالي اطلاعات
       worldwide_priority:
-        one:
-        other:
+        one: نړیوال لومړیتوب
+        other: نړیوال لومړیتوبونه
       written_statement:
-        one:
-        other:
-    published:
-    read:
+        one: پارلمان ته لیکلې اعلامیه
+        other: پارلمان ته لیکلې اعلامیې
+    published: خپور شوی
+    read: دا مضمون ووایاست %{title}
     speech:
       author_title:
-        minister:
-        speaker:
-      delivered_on:
+        minister: وزیر
+        speaker: لیکونکی
+      delivered_on: پر دې نیټه ورکړل شو
       delivery_title:
-        minister:
-        speaker:
-      originally_given_at:
-      written_on:
-    updated:
-    view:
+        minister: وزیر
+        speaker: ویونکی
+      originally_given_at: اصلاْ ورکړل شو په ${location}.
+      written_on: لیکلی دی په
+    updated: تازه شوي
+    view: لید '%{title}'
   organisation:
     type:
       Ad-hoc advisory group:
-        one:
-        other:
+        one: اړ مشورتی ګروپ
+        other: اړ مشورتی ګروپونه
       Advisory non-departmental public body:
-        one:
-        other:
+        one: غیر تشکیلاتی عامه اداره
+        other: غیر تشکیلاتی عامه ادارې
       Executive agency:
-        one:
-        other:
+        one: اجرائیوی اداره
+        other: اجرائیوی ادارې
       Executive non-departmental public body:
-        one:
-        other:
+        one: غیر تشکیلاتی عامه اجرائیوی اداره
+        other: ! 'غیر تشکیلاتی عامه
+
+          اجرائیوی اداری'
       Executive office:
-        one:
-        other:
+        one: اجرائیوی دفتر
+        other: اجرائیوی دفترونه
       Independent monitoring body:
-        one:
-        other:
+        one: خپلواک څارونکی اداره
+        other: خپلواک څارونکی ادارې
       Ministerial department:
-        one:
-        other:
+        one: وزارتی څانګه
+        other: وزارتی څانګی
       Non-ministerial department:
-        one:
-        other:
+        one: غیروزارتی څانګه
+        other: غیر وزارتی څانګی
       Other:
-        one:
-        other:
+        one: نور
+        other: نور
       Public corporation:
-        one:
-        other:
+        one: عامه اتحادیه
+        other: عامه اتحادیی
       Sub-organisation:
-        one:
-        other:
+        one: فرعی دفتر
+        other: فرعی دفترونه
       Tribunal non-departmental public body:
-        one:
-        other:
+        one: غیر تشکیلاتی ټول ګته اداره
+        other: غیر تشکیلاتی ټول ګتې ادارې
     about:
-      read_more:
+      read_more: زمونږ د فعالیتونو په اړه نور معلومات ووایاست
     corporate_information:
-      access_our_info:
-      foi_how_to:
-      foi_releases:
-      jobs_and_contacts:
-      transparency:
+      access_our_info: زمونږمعلوماتو ته لاس رسی پیدا کړی
+      foi_how_to: څنګه کولای شی چی د بیان د آزادی درخواست جوړ کړی
+      foi_releases: د بیان د آزادی خپرونی
+      jobs_and_contacts: دندی او تړونونه
+      transparency: د شفافیت معلومات
     headings:
-      chief_professional_officers:
-      contact:
-      corporate_information:
-      corporate_reports:
+      chief_professional_officers: زمونږه لوړپوړي مسلکی مدیران
+      contact: تماس  %{name}
+      corporate_information: متحد معلومات
+      corporate_reports: متحد راپورونه
       making_foi_requests:
-      our_announcements:
+      our_announcements: زمونږه اعلانات
       our_mainstream_categories:
-      our_management:
-      our_ministers:
-      our_policies:
-      our_publications:
-      our_senior_military_officials:
-      our_services:
-      our_statistics:
-      our_topics:
-      plus_others:
-      special_representatives:
-      traffic_commissioners:
-      what_we_do:
+      our_management: زمونږه اداره
+      our_ministers: زموږه وزیران
+      our_policies: زموږه پالیسی ګانی
+      our_publications: زموږه نشریات
+      our_senior_military_officials: زموږه لوړپوړي نظامی اراکین
+      our_services: زموږه خدمتونه
+      our_statistics: زموږه احصائی
+      our_topics: موږ په دغه موضوعاتو کار کوو
+      plus_others: نور +
+      special_representatives: خصوصی نمایندګان
+      traffic_commissioners: د ترافیکو کمشنران
+      what_we_do: موږڅه کوو
     making_foi_requests:
       step1_html:
       step2_html:
@@ -236,105 +238,111 @@ ps:
   world_location:
     type:
       international_delegation:
-        one:
-        other:
+        one: نړیوال هیئت
+        other: نړیوال هیئتونه
       world_location:
-        one:
-        other:
+        one: په نړۍ کې موقعیت
+        other: په نړۍ کې موقعیتونه
     headings:
-      announcements:
-      country:
-      documents:
-      mission:
-      organisations:
-      priorities:
-      publications:
-      quick_links:
-      related_policies:
-      see_all:
-      statistics:
-    see_all:
+      announcements: زموږ اعلانات
+      country: هیواد
+      documents: سندونه
+      mission: زموږ ماموریت
+      organisations: دفترونه
+      priorities: وړاندیتوبونه
+      publications: زموږ نشریات
+      quick_links: چټکی اړیکی
+      related_policies: ارتباط لرونکی پالیسی ګانی
+      see_all: ټول وګوری %{type}
+      statistics: زموږه احصایی
+    see_all: ټول وګوری %{type}
   activerecord:
     attributes:
       detailed_guide:
-        primary_mainstream_category:
+        primary_mainstream_category: د مفصل لومړني لارښونې کتګوري
   announcements:
-    heading:
+    heading: اعلانونه
   attachment:
     accessibility:
-      full_help_html:
-      heading:
-      request_a_different_format:
+      full_help_html: که غواړی چی دا سند په مختلف فارمت یعنی بریل، صوتی شکل کی ترلاسه
+        کړی %{email} لطفاْ خپل ادرس، تیلیفون نمبر او د سند نوم ایمیل کړی ("%{title}")%{references}
+      heading: دا فایل کیدای شی جی د کومکی تیکنالوژی د استعمالوونکو لپاره مناسب نه
+        وی
+      request_a_different_format: د یو مختلف فارمت غوښتنه وکړی
     headings:
-      order_a_copy:
-      order_a_copy_full:
-      published:
-      reference:
+      order_a_copy: د کاپی غوښتنه وکړی
+      order_a_copy_full: د سند د کاپی غوښتنه وکړی
+      published: خپور شوی
+      reference: مواخذ
   change_notes:
-    published:
-    updated:
+    published: خپور شوی
+    updated: تازه شوی
   contact:
-    contact_form:
-    email:
+    contact_form: د اړیکوپاڼه
+    email: برښنالیک
   corporate_information_page:
     type:
-      personal_information_charter:
-      publication_scheme:
-      social_media_use:
-      welsh_language_scheme:
+      personal_information_charter: د شخصی معلوماتی په اړه سند
+      publication_scheme: د خپرولو پلان
+      social_media_use: د ټولنیزو رسنیو استعمال
+      welsh_language_scheme: د ویلز د ژبی پلان
   date:
     formats:
-      default:
+      default: ! '%d %B %Y'
       long_ordinal: ! '%e %B %Y'
   document_filters:
-    description:
+    description: تاسې کولای شي  د فیلترونه څخه یوازې د هغو پایلو د ښودلو په خاطر کار
+      واخلۍ چې ستاسې لپاره په زړه پوری وی
     no_results:
-      description:
-      title:
+      description: کوښښ وکړۍ لا زیات ولتوۍ او بیا کوښښ وکړۍ
+      title: سمون لرونکی اسناد شتون نه لری
     world_locations:
-      all:
-      label:
+      all: ټول موقعیتونه
+      label: نړیوال موقعیتونه
   feeds:
-    atom:
-    email_alerts:
-    latest_activity:
+    atom: اتم
+    email_alerts: د ایمیل خبرورکوونکي
+    latest_activity: اخیرنی فعالیت
   i18n:
-    direction: ltr
+    direction: rtl
   language_names:
     ps: پښتو
   latest_feed:
-    no_updates:
-    title:
+    no_updates: تر اوسه تازه معلومات په لاس کی نشته
+    title: آخرنی
   number:
     human:
       storage_units:
-        format:
+        format: ! '%n%u'
   policies:
-    heading:
+    heading: پالیسی ګانی
   publications:
-    heading:
+    heading: نشریات
     headings:
-      detail:
-  read_more:
+      detail: تفصیل
+  read_more: نور ووایاست
   support:
     array:
-      last_word_connector:
+      last_word_connector: او
   time:
     formats:
-      long_ordinal:
+      long_ordinal: ! '%e %B %Y %H:%M'
   worldwide_organisation:
     corporate_information:
-      personal_information_charter_html:
-      publication_scheme_html:
-      social_media_use_html:
-      welsh_language_scheme_html:
-    find_out_more:
+      personal_information_charter_html: ! ' زموږ تشریح کوی چې موږ د شخصی معلوماتو
+        سره څرنګه چلند کوو'
+      publication_scheme_html: زموږ د هغو معلوماتو په اړه ولولۍ چې هره ورڅ یې موږ
+        خپروو %{link}.
+      social_media_use_html: زموږه پالسی ولولی %{link}.
+      welsh_language_scheme_html: د نشریاتو په اړه  زموږ د ژمنو  معلومات ترلاسه کړۍ
+        %{link}.
+    find_out_more: بشپړ معلومات او د اړیکو په اړه ټول تفصیلات وګورۍ
     headings:
-      about_us:
-      contact_us:
-      corporate_information:
-      follow_us:
-      our_people:
-      our_services:
-    location:
-    part_of:
+      about_us: زموږ په هکله
+      contact_us: تماس ونیسی
+      corporate_information: متحد معلومات
+      follow_us: مونږ تعقیب کړی
+      our_people: زموږ خلک
+      our_services: زموږ خدمتونه
+    location: موقعیت
+    part_of: یوه برخه د

@@ -2,351 +2,355 @@ sr:
   document:
     headings:
       attachments:
-        one:
+        one: Dokument
         few:
         many:
-        other:
+        other: Dokumenti
       ministers:
-        one:
+        one: ministar
         few:
         many:
-        other:
+        other: ministri
       organisations:
-        one:
+        one: organizacija
         few:
         many:
-        other:
+        other: organizacije
       policies:
-        one:
+        one: politika
         few:
         many:
-        other:
+        other: politike
       topical_events:
         one:
         few:
         many:
         other:
       topics:
-        one:
+        one: tema
         few:
         many:
-        other:
+        other: teme
       world_locations:
-        one:
+        one: lokacija u svetu
         few:
         many:
-        other:
+        other: lokacije u svetu
       worldwide_organisations:
-        one:
+        one: svetska organizacija
         few:
         many:
-        other:
-      advisory_groups:
-      applies_to_nations:
-      document_series:
-      field_of_operation:
-      live_data:
-      policy_team:
+        other: svetske organizacije
+      advisory_groups: savetodavne grupe
+      applies_to_nations: Odnosi se na
+      document_series: serija
+      field_of_operation: polje delovanja
+      live_data: aktivni podaci
+      policy_team: politički tim
     type:
       announcement:
-        one:
+        one: Najava
         few:
         many:
-        other:
+        other: Najave
       authored_article:
-        one:
+        one: Autorski članak
         few:
         many:
-        other:
+        other: Autorski članci
       case_study:
-        one:
+        one: Studija slučaja
         few:
         many:
-        other:
+        other: Studije slučajeva
       closed_consultation:
-        one:
+        one: Zatvorene konsultacije
         few:
         many:
-        other:
+        other: Zatvorene konsultacije
       consultation:
-        one:
+        one: Konsultacije
         few:
         many:
-        other:
+        other: Konsultacije
       consultation_outcome:
-        one:
+        one: Ishod konsultacija
         few:
         many:
-        other:
+        other: Ishodi konsultacija
       corporate_report:
-        one:
+        one: organizacioni izveštaj
         few:
         many:
-        other:
+        other: organizacioni izveštaji
       correspondence:
-        one:
+        one: prepiska
         few:
         many:
-        other:
+        other: prepiske
       detailed_guidance:
-        one:
+        one: detaljno uputstvo
         few:
         many:
-        other:
+        other: detaljno uputstvo
       draft_text:
-        one:
+        one: Nacrt teksta
         few:
         many:
-        other:
+        other: Nacrti tekstova
       fatality_notice:
-        one:
+        one: Obaveštenje o smrtnim slučajevima
         few:
         many:
-        other:
+        other: Obaveštenja o smrtnim slučajevima
       foi_release:
-        one:
+        one: Odgovor na zahtev za pristup informaciji od javnog značaja
         few:
         many:
-        other:
+        other: Odgovori na zahteve za pristup informacijama od javnog značaja
       form:
-        one:
+        one: formular
         few:
         many:
-        other:
+        other: formulari
       government_response:
-        one:
+        one: odgovor Vlade
         few:
         many:
-        other:
+        other: odgovori Vlade
       guidance:
-        one:
+        one: uputstvo
         few:
         many:
-        other:
+        other: uputstvo
       impact_assessment:
-        one:
+        one: procena efekata
         few:
         many:
-        other:
+        other: procene efekata
       imported:
-        one:
+        one: uvezeno - utvrđivanje tipa
         few:
         many:
-        other:
+        other: uvezeno - utvrđivanje tipa
       independent_report:
-        one:
+        one: nezavisni izveštaj
         few:
         many:
-        other:
+        other: nezavisni izveštaj
       map:
-        one:
+        one: mapa
         few:
         many:
-        other:
+        other: mape
       national_statistics:
-        one:
+        one: statistika - nacionalna statistika
         few:
         many:
-        other:
+        other: statistika - nacionalna statistika
       news_article:
-        one:
+        one: Vest
         few:
         many:
-        other:
+        other: Vesti
       news_story:
-        one:
+        one: Vesti
         few:
         many:
-        other:
+        other: Vesti
       open_consultation:
-        one:
+        one: Otvorene konsultacije
         few:
         many:
-        other:
+        other: Otvorene konsultacije
       oral_statement:
-        one:
+        one: usmeno obraćanje Parlamentu
         few:
         many:
-        other:
+        other: usmena obraćanja Parlamentu
       policy:
-        one:
+        one: politika
         few:
         many:
-        other:
+        other: politike
       policy_paper:
-        one:
+        one: predlog politike
         few:
         many:
-        other:
+        other: predlozi politika
       press_release:
-        one:
+        one: saopštenje za medije
         few:
         many:
-        other:
+        other: saopštenja za medije
       promotional:
-        one:
+        one: promotivni materijal
         few:
         many:
-        other:
+        other: promotivni materijal
       publication:
-        one:
+        one: publikacija
         few:
         many:
-        other:
+        other: publikacije
       research:
-        one:
+        one: ! 'istraživanje i analiza
+
+'
         few:
         many:
-        other:
+        other: ! 'istraživanje i analiza
+
+'
       speaking_notes:
-        one:
+        one: teze za govor
         few:
         many:
-        other:
+        other: teze za govor
       speech:
-        one:
+        one: Govor
         few:
         many:
-        other:
+        other: Govori
       statement_to_parliament:
-        one:
+        one: obraćanje Parlamentu
         few:
         many:
-        other:
+        other: obraćanje Parlamentu
       statistical_data_set:
-        one:
+        one: set statističkih podataka
         few:
         many:
-        other:
+        other: set statističkih podataka
       statistics:
-        one:
+        one: statistika
         few:
         many:
-        other:
+        other: statistika
       transcript:
-        one:
+        one: transkript
         few:
         many:
-        other:
+        other: transkripti
       transparency:
-        one:
+        one: podaci o transparentnosti
         few:
         many:
-        other:
+        other: podaci o transparentnosti
       worldwide_priority:
-        one:
+        one: globalni prioritet
         few:
         many:
-        other:
+        other: globalni prioriteti
       written_statement:
-        one:
+        one: Pisana predstavka Parlamentu
         few:
         many:
-        other:
-    published:
-    read:
+        other: Pisane predstavke Parlamentu
+    published: objavljeno
+    read: Pročitajte %{naslov}
     speech:
       author_title:
-        minister:
-        speaker:
-      delivered_on:
+        minister: Ministar
+        speaker: Pisac
+      delivered_on: ! 'Objavljeno:'
       delivery_title:
-        minister:
-        speaker:
-      originally_given_at:
-      written_on:
-    updated:
-    view:
+        minister: Ministar
+        speaker: govornik
+      originally_given_at: Originalno objavljeno na %{lokacija}.
+      written_on: ! 'Napisano na:'
+    updated: ažurirano
+    view: Pogledajte '%{naslov}'
   organisation:
     type:
       Ad-hoc advisory group:
-        one:
+        one: ad hoc savetodavna grupa
         few:
         many:
-        other:
+        other: ad hoc savetodavne grupe
       Advisory non-departmental public body:
-        one:
+        one: savetodavno nevladino javno telo
         few:
         many:
-        other:
+        other: savetodavna nevladina javna tela
       Executive agency:
-        one:
+        one: izvršna agencija
         few:
         many:
-        other:
+        other: izvršne agencije
       Executive non-departmental public body:
-        one:
+        one: izvršno nevladino javno telo
         few:
         many:
-        other:
+        other: izvršna nevladina javna tela
       Executive office:
-        one:
+        one: Kabinet
         few:
         many:
-        other:
+        other: Kabineti
       Independent monitoring body:
-        one:
+        one: nezavisno nadzorno telo
         few:
         many:
-        other:
+        other: nezavisna nadzorna tela
       Ministerial department:
-        one:
+        one: ministarstvo
         few:
         many:
-        other:
+        other: ministarstva
       Non-ministerial department:
         one:
         few:
         many:
         other:
       Other:
-        one:
+        one: Drugo
         few:
         many:
-        other:
+        other: Drugi
       Public corporation:
-        one:
+        one: javno preduzeće
         few:
         many:
-        other:
+        other: javna preduzeća
       Sub-organisation:
-        one:
+        one: pod-organizacija
         few:
         many:
-        other:
+        other: pod-organizacije
       Tribunal non-departmental public body:
         one:
         few:
         many:
         other:
     about:
-      read_more:
+      read_more: Pročitajte više o našem radu
     corporate_information:
-      access_our_info:
-      foi_how_to:
-      foi_releases:
-      jobs_and_contacts:
-      transparency:
+      access_our_info: Pritupite našim informacijama
+      foi_how_to: Kako podneti zahtev za pristup informacijama od javnog značaja?
+      foi_releases: Odgovori na zahteve za pristup informacijama od javnog značaja
+      jobs_and_contacts: Poslovi i ugovori
+      transparency: podaci o transparentnosti
     headings:
-      chief_professional_officers:
-      contact:
-      corporate_information:
-      corporate_reports:
+      chief_professional_officers: Naši nadležni službenici
+      contact: Kontaktirajte %{name}
+      corporate_information: Informacije o organizaciji
+      corporate_reports: Izveštaji
       making_foi_requests:
-      our_announcements:
+      our_announcements: Naše objave
       our_mainstream_categories:
-      our_management:
-      our_ministers:
-      our_policies:
-      our_publications:
-      our_senior_military_officials:
-      our_services:
-      our_statistics:
-      our_topics:
-      plus_others:
-      special_representatives:
-      traffic_commissioners:
-      what_we_do:
+      our_management: Naše rukovodstvo
+      our_ministers: Naši ministri
+      our_policies: Naše politike
+      our_publications: Naše publikacije
+      our_senior_military_officials: Naši visoki vojni zvaničnici
+      our_services: Naše usluge
+      our_statistics: Naša statistika
+      our_topics: Radimo na ovim temama
+      plus_others: ! ' + drugi'
+      special_representatives: specijalni predstavnici
+      traffic_commissioners: poverenik za saobraćaj
+      what_we_do: Radimo na
     making_foi_requests:
       step1_html:
       step2_html:
@@ -354,50 +358,53 @@ sr:
   world_location:
     type:
       international_delegation:
-        one:
+        one: Međunarodna delegacija
         few:
         many:
-        other:
+        other: Međunarodne delegacije
       world_location:
-        one:
+        one: lokacija u svetu
         few:
         many:
-        other:
+        other: lokacije u svetu
     headings:
-      announcements:
-      country:
-      documents:
-      mission:
-      organisations:
-      priorities:
-      publications:
-      quick_links:
-      related_policies:
-      see_all:
-      statistics:
-    see_all:
+      announcements: naše objave
+      country: Država
+      documents: Dokumenti
+      mission: Naša misija
+      organisations: Organizacije
+      priorities: Prioriteti
+      publications: Naše publikacije
+      quick_links: Linkovi
+      related_policies: Povezane politike
+      see_all: Pogledajte sve naše %{ukucati}
+      statistics: Naša statistika
+    see_all: Pogledajte sve naše %{ukucati}
   activerecord:
     attributes:
       detailed_guide:
         primary_mainstream_category:
   announcements:
-    heading:
+    heading: Najave
   attachment:
     accessibility:
-      full_help_html:
-      heading:
-      request_a_different_format:
+      full_help_html: Zahtev za dobijanje ovog dokumenta u alternativnom formatu (Brajevo
+        pismo, zvučni zapis ili druga vrsta datoteke) molimo da uputite elektronsko
+        pismo na %{email} uz navođenje svoje adrese i telefonskog broja, te naziva
+        publikacije ("%{title}")%{references}.
+      heading: Ovaj dokument nije predviđen za korisnike pomagala.
+      request_a_different_format: Zatraži drugi format.
     headings:
-      order_a_copy:
-      order_a_copy_full:
-      published:
-      reference:
+      order_a_copy: Naruči primerak
+      order_a_copy_full: Naruči primerak publikacije
+      published: Objavljeno
+      reference: Ref
   change_notes:
-    published:
-    updated:
+    published: Obavljeno
+    updated: Ažurirano
   contact:
-    contact_form:
-    email:
+    contact_form: formular za kontakt
+    email: e-mail
   corporate_information_page:
     type:
       personal_information_charter:
@@ -409,54 +416,57 @@ sr:
       default:
       long_ordinal: ! '%e %B %Y'
   document_filters:
-    description:
+    description: Možete iskoristiti filter da biste videli rezultate u skladu sa vašim
+      interesovanjima
     no_results:
-      description:
-      title:
+      description: ! 'Pokušajte da proširite vašu potragu i pokušajte ponovo '
+      title: ! 'Nema dokumenata koji odgovaraju vašoj pretrazi '
     world_locations:
-      all:
-      label:
+      all: Sve lokacije
+      label: lokacije u svetu
   feeds:
-    atom:
-    email_alerts:
-    latest_activity:
+    atom: atom
+    email_alerts: obavštenje e-mailom
+    latest_activity: najnovije aktivnosti
   i18n:
     direction: ltr
   language_names:
     sr: Srpski
   latest_feed:
-    no_updates:
-    title:
+    no_updates: Nema novih podataka
+    title: najnovije
   number:
     human:
       storage_units:
         format:
   policies:
-    heading:
+    heading: Politike
   publications:
-    heading:
+    heading: Publikacije
     headings:
-      detail:
-  read_more:
+      detail: Detalj
+  read_more: Pročitajte više
   support:
     array:
-      last_word_connector:
+      last_word_connector: i
   time:
     formats:
       long_ordinal:
   worldwide_organisation:
     corporate_information:
-      personal_information_charter_html:
-      publication_scheme_html:
-      social_media_use_html:
-      welsh_language_scheme_html:
-    find_out_more:
+      personal_information_charter_html: ! '%{link} daje informacije o tome kako obrađujemo
+        vaše lične podatke. '
+      publication_scheme_html: Čitajte o tipovima informacija koje redovno objavljujemo
+        u  %{link}.
+      social_media_use_html: Pročitajte o našoj politici prema  %{link}.
+      welsh_language_scheme_html: Saznajte naš stav o objavljivanju u %{link}.
+    find_out_more: ! 'Pogledajte pun profil i sve kontakt detalje '
     headings:
-      about_us:
-      contact_us:
-      corporate_information:
-      follow_us:
-      our_people:
-      our_services:
-    location:
-    part_of:
+      about_us: O nama
+      contact_us: Kontakt
+      corporate_information: Informacije o organizaciji
+      follow_us: Pratite nas
+      our_people: Naše osoblje
+      our_services: Naše usluge
+    location: Lokacija
+    part_of: Deo

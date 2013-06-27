@@ -2,17 +2,17 @@ lv:
   document:
     headings:
       attachments:
-        one:
-        other:
+        one: Dokuments
+        other: Dokumenti
       ministers:
         one: Ministrs
         other: Ministri
       organisations:
-        one:
-        other:
+        one: Organizācija
+        other: Organizācijas
       policies:
-        one: Plāns
-        other: Politika
+        one: Darbības joma
+        other: Darbības jomas
       topical_events:
         one:
         other:
@@ -36,8 +36,8 @@ lv:
         one: Paziņojums
         other: Paziņojumi
       authored_article:
-        one:
-        other:
+        one: Autora raksts
+        other: Autora raksti
       case_study:
         one: Piemērs
         other: Piemēri
@@ -72,8 +72,8 @@ lv:
         one: Forma
         other: Formas
       government_response:
-        one:
-        other:
+        one: Valdības atbilde
+        other: Valdības atbildes
       guidance:
         one: Norādes
         other: Norādes
@@ -81,8 +81,8 @@ lv:
         one: Ietekmes novērtējums
         other: Ietekmes novērtējumi
       imported:
-        one: Importēts-gaidīšanas režīmā
-        other: Importēts-gaidīšanas režīmā
+        one: importēts-gaidīšanas režīmā
+        other: importēts-gaidīšanas režīmā
       independent_report:
         one: Neatkarīgs ziņojums
         other: Neatkarīgi ziņojumi
@@ -105,8 +105,8 @@ lv:
         one: Mutisks paziņojums parlamentam
         other: Mutiski paziņojumi parlamentam
       policy:
-        one: Plāns
-        other: Politika
+        one: Darbības joma
+        other: Darbības jomas
       policy_paper:
         one: Politikas dokuments
         other: Politikas dokumenti
@@ -153,15 +153,15 @@ lv:
     read: Lasīt %{title} rakstu
     speech:
       author_title:
-        minister:
-        speaker:
+        minister: Ministrs
+        speaker: Autors
       delivered_on: ! 'Datums:'
       delivery_title:
         minister: Ministrs
         speaker: Runas autors
       originally_given_at: Noturēta %{location}.
-      written_on:
-    updated: Atjaunināts
+      written_on: ! 'Sarakstīts:'
+    updated: atjaunināts
     view: Skatīt '%{title}'
   organisation:
     type:
@@ -169,8 +169,8 @@ lv:
         one: Konsultatīvā ad hoc kolēģija
         other: Konsultatīvās ad hoc kolēģijas
       Advisory non-departmental public body:
-        one: Konsultatīva kvazi autonoma nevalstiskā organizācija
-        other: Konsultatīvas kvazi autonomas nevalstiskās organizācijas
+        one: Konsultatīva kvazi autonoma sabiedriska organizācija
+        other: Konsultatīvas kvazi autonomas sabiedriskas organizācijas
       Executive agency:
         one: Izpildaģentūra
         other: Izpildaģentūras
@@ -178,8 +178,8 @@ lv:
         one: Kvazi autonoma nevalstiska izpildorganizācija
         other: Kvazi autonomas nevalstiskas izpildorganizācijas
       Executive office:
-        one:
-        other:
+        one: Izpildiestāde
+        other: Izpildiestādes
       Independent monitoring body:
         one: Neatkarīga uzraudzības iestāde
         other: Neatkarīgas uzraudzības iestādes
@@ -202,33 +202,33 @@ lv:
         one: Ar tiesu saistīta kvazi autonoma nevalstiskā organizācija
         other: Ar tiesu saistītas kvazi autonomas nevalstiskās organizācijas
     about:
-      read_more:
+      read_more: Uzzināt vairāk
     corporate_information:
-      access_our_info:
-      foi_how_to:
-      foi_releases:
-      jobs_and_contacts:
-      transparency:
+      access_our_info: Piekļūt informācijai
+      foi_how_to: Kā iesniegt informācijas pieprasījumu (FOI)
+      foi_releases: Informācijas atklātības (FOI) paziņojumi
+      jobs_and_contacts: Darbs un līgumi
+      transparency: Atklātība
     headings:
-      chief_professional_officers:
-      contact:
-      corporate_information:
-      corporate_reports:
+      chief_professional_officers: Mūsu atbildīgie speciālisti
+      contact: Sazināties %{name}
+      corporate_information: Korporatīva informācija
+      corporate_reports: Korporatīvi ziņojumi
       making_foi_requests:
-      our_announcements:
+      our_announcements: Mūsu paziņojumi
       our_mainstream_categories:
-      our_management:
-      our_ministers:
-      our_policies:
-      our_publications:
-      our_senior_military_officials:
-      our_services:
-      our_statistics:
-      our_topics:
-      plus_others:
-      special_representatives:
-      traffic_commissioners:
-      what_we_do:
+      our_management: Mūsu vadība
+      our_ministers: Mūsu ministri
+      our_policies: Mūsu darbības jomas
+      our_publications: Mūsu publikācijas
+      our_senior_military_officials: Augstākās militārās amatpersonas
+      our_services: Mūsu pakalpojumi
+      our_statistics: Statistika
+      our_topics: Mēs strādājam ar šiem jautājumiem
+      plus_others: ! ' + citi'
+      special_representatives: Īpašie pārstāvji
+      traffic_commissioners: Satiksmes komisāri
+      what_we_do: Par mums
     making_foi_requests:
       step1_html:
       step2_html:
@@ -239,8 +239,8 @@ lv:
         one: Starptautiskā delegācija
         other: Starptautiskās delegācijas
       world_location:
-        one:
-        other:
+        one: Vieta pasaulē
+        other: Vietas pasaulē
     headings:
       announcements: Paziņojumi
       country: Valsts
@@ -262,14 +262,16 @@ lv:
     heading: Paziņojumi
   attachment:
     accessibility:
-      full_help_html:
-      heading:
-      request_a_different_format:
+      full_help_html: Lai saņemtu dokumentu citā formātā, piemēram, Braila rakstā,
+        kā audio failu vai kā citādi, lūdzu, rakstiet uz epastu %{email} un norādiet
+        savu adresi, telefona numuru un dokumenta nosaukumu ("%{title}")%{references}.
+      heading: Datne, iespējams, nav piemērota izmantošanai ar palīgtehnoloģijām.
+      request_a_different_format: Pieprasīt citā formātā.
     headings:
-      order_a_copy:
-      order_a_copy_full:
-      published:
-      reference:
+      order_a_copy: ! 'Pasūtīt '
+      order_a_copy_full: ! 'Pasūtīt publikāciju '
+      published: Publicēts
+      reference: Ref.
   change_notes:
     published: Publicēts
     updated: Atjaunināts
@@ -280,14 +282,14 @@ lv:
     type:
       personal_information_charter: Personas datu harta
       publication_scheme: Publikāciju shēma
-      social_media_use:
+      social_media_use: Sociālie mēdiji
       welsh_language_scheme: Velsiešu valodas shēma
   date:
     formats:
       default: ! '%d %B %Y'
       long_ordinal: ! '%e %B %Y'
   document_filters:
-    description: Izmantojiet filtrus Jums interesējošo rezultātu atlasei
+    description: Izmantojiet filtrus Jums interesējošo rezultātu atlasei&nbsp;
     no_results:
       description: Paplašiniet meklēšanas nosacījumus un mēģiniet vēlreiz.
       title: Neviens dokuments neatbilst pieprasījumam.
@@ -308,13 +310,13 @@ lv:
   number:
     human:
       storage_units:
-        format:
+        format: ! '%n%u'
   policies:
     heading: Politika
   publications:
     heading: Publikācijas
     headings:
-      detail:
+      detail: Sīkāk
   read_more: Lasīt vairāk
   support:
     array:
@@ -328,7 +330,7 @@ lv:
         Jūsu sniegtā personīgā informācija
       publication_scheme_html: Iepazīsties ar informāciju, kāda parasti tiek publicēta
         mūsu %{link}
-      social_media_use_html:
+      social_media_use_html: Iepazīsties ar mūsu nostāju par %{link}.
       welsh_language_scheme_html: Vairāk par mūsu apņemšanos nodrošināt informācijas
         pieejamību %{link}
     find_out_more: Skatīt pilnu profilu un kontaktinformāciju

@@ -2,14 +2,14 @@ hy:
   document:
     headings:
       attachments:
-        one:
-        other:
+        one: Փաստաթուղթ
+        other: Փաստաթղթեր
       ministers:
         one: Նախարար
         other: Նախարարներ
       organisations:
-        one:
-        other:
+        one: Կազմակերպություն
+        other: Կազմակերպություններ
       policies:
         one: Քաղաքականություն
         other: Քաղաքականություններ
@@ -29,15 +29,15 @@ hy:
       applies_to_nations: Վերաբերվում է
       document_series: Մի շարք
       field_of_operation: Գործունեության ոլորտ
-      live_data:
+      live_data: առկա տեղեկատվություն
       policy_team: Քաղաքական թիմ
     type:
       announcement:
         one: Հայտարարություն
         other: Հայտարարություններ
       authored_article:
-        one:
-        other:
+        one: Հեղինակային հոդված
+        other: Հեղինակային հոդվածներ
       case_study:
         one: Թեմատիկ ուսումնասիրություն
         other: Թեմատիկ ուսումնասիրություններ
@@ -58,7 +58,7 @@ hy:
         other: Նամակագրություններ
       detailed_guidance:
         one: Մանրամասն ուղեցույց
-        other: Մանրամասն ուղեցույցներ
+        other: Մանրամասն ուղեցույցեր
       draft_text:
         one: Սևագիր տեքստ
         other: Սևագիր տեքստեր
@@ -72,8 +72,8 @@ hy:
         one: Ձևաթուղթ
         other: Ձևաթղթեր
       government_response:
-        one:
-        other:
+        one: Կառավարության արձագանք
+        other: Կառավարության արձագանքներ
       guidance:
         one: Ուղեցույց
         other: Ուղեցույցեր
@@ -81,8 +81,8 @@ hy:
         one: Ազդեցության գնահատում
         other: Ազդեցության գնահատումներ
       imported:
-        one: Ներկրման սպասման տեսակ
-        other: Ներկրման սպասման տեսակներ
+        one: Ներկրված - սպասման տեսակ
+        other: Ներկրված - սպասման տեսակներ
       independent_report:
         one: Անկախ հաշվետվություն
         other: Անկախ հաշվետվություններ
@@ -93,11 +93,11 @@ hy:
         one: Վիճակագրություն-ազգային վիճակագրություն
         other: Վիճակագրություն-ազգային վիճակագրություններ
       news_article:
-        one: Հոդված
-        other: Հոդվածներ
+        one: Տեղեկատվական հոդված
+        other: Տեղեկատվական հոդվածներ
       news_story:
-        one: Պատմություն
-        other: Պատմություններ
+        one: Լուր
+        other: Լուրեր
       open_consultation:
         one: Բաց խորհրդատվություն
         other: Բաց խորհրդատվություններ
@@ -108,14 +108,14 @@ hy:
         one: Քաղաքականություն
         other: Քաղաքականություններ
       policy_paper:
-        one: Քաղաքականության փաստաթուղթ
-        other: Քաղակականության փաստաթղթեր
+        one: Ծրագրային փաստաթուղթ
+        other: Ծրագրային փաստաթղթեր
       press_release:
         one: Մամլո հաղորդագրություն
         other: Մամլո հաղորդագրություններ
       promotional:
-        one: Գովազդային նյութ
-        other: Գովազդային նյութներ
+        one: Քարոզչական նյութ
+        other: Քարոզչական նյութներ
       publication:
         one: Հրապարակում
         other: Հրապարակումներ
@@ -141,8 +141,8 @@ hy:
         one: Վերծանում
         other: Վերծանումներ
       transparency:
-        one: Թափանցիկ տվյալ
-        other: Թափանցիկ տվյալներ
+        one: Բաց տեղեկատվություն
+        other: Բաց տեղեկատվություններ
       worldwide_priority:
         one: Համաշխարհային առաջնայնություն
         other: Համաշխարհային առաջնայնություններ
@@ -153,14 +153,14 @@ hy:
     read: Կարդացեք  %{title} հոդվածը
     speech:
       author_title:
-        minister:
-        speaker:
+        minister: Նախարար
+        speaker: Գրող
       delivered_on: Առաքվել է
       delivery_title:
         minister: Նախարար
         speaker: Խոսնակ
-      originally_given_at: Սկզբնապես տրվել է %{location}ում
-      written_on:
+      originally_given_at: Սկզբնապես տրվել է %{location} ում
+      written_on: Գրված է՝
     updated: Թարմացված
     view: Տես '%{title}'-ը
   organisation:
@@ -178,8 +178,8 @@ hy:
         one: Գլխավոր ոչ գերատեսչական հանրայի մարմին
         other: Գլխավոր ոչ գերատեսչական հանրային մարմիններ
       Executive office:
-        one:
-        other:
+        one: Գլխավոր գրասենյակ
+        other: Գլխավոր գրասենյակններ
       Independent monitoring body:
         one: Անկախ մոնիտորինգի մարմին
         other: Անկախ մոնիտորինգի մարմիններ
@@ -196,39 +196,39 @@ hy:
         one: Հանրային համագործակցություն
         other: Հանրային համագործակցություններ
       Sub-organisation:
-        one: Ենթա կազմակերպություն
-        other: Ենթա կազմակերպություններ
+        one: Ենթա-կազմակերպություն
+        other: Ենթա-կազմակերպություններ
       Tribunal non-departmental public body:
-        one: Տրիբունալը ոչ գերատեսչական պետական ​​մարմին
-        other: Տրիբունալը ոչ գերատեսչական պետական ​​մարմիններ
+        one: Տրիբունալ ոչ գերատեսչական պետական ​​մարմին
+        other: Տրիբունալ ոչ գերատեսչական պետական ​​մարմիններ
     about:
-      read_more:
+      read_more: Կարդալ ավելին մեր գործունեության մասին
     corporate_information:
-      access_our_info:
-      foi_how_to:
-      foi_releases:
-      jobs_and_contacts:
-      transparency:
+      access_our_info: Տեղեկատվություն մեր մասին
+      foi_how_to: Ինչպես կատարել տեղեկատվության հարցում
+      foi_releases: Տեղեկատվության հարցում
+      jobs_and_contacts: Աշխատանք և պայմանագրեր
+      transparency: Թափանցիկ տեղեկատվությ
     headings:
-      chief_professional_officers:
-      contact:
-      corporate_information:
-      corporate_reports:
+      chief_professional_officers: Մեր գլխավոր մասնագետները
+      contact: Տվյալ %{name}
+      corporate_information: Կորպորատիվ տեղեկատվություն
+      corporate_reports: Կորպորատիվ հաշվետվություններ
       making_foi_requests:
-      our_announcements:
+      our_announcements: Մեր հայտարարությունները
       our_mainstream_categories:
-      our_management:
-      our_ministers:
-      our_policies:
-      our_publications:
-      our_senior_military_officials:
-      our_services:
-      our_statistics:
-      our_topics:
-      plus_others:
-      special_representatives:
-      traffic_commissioners:
-      what_we_do:
+      our_management: Մեր ղեկավարումը
+      our_ministers: Մեր նաքարարներ
+      our_policies: Մեր քաղաքականությույնը
+      our_publications: Մեր հրատարակումները
+      our_senior_military_officials: Մեր ավագ զինվորական գծով ղեկավարները
+      our_services: Մեր ծառայությունները
+      our_statistics: Մեր ցուցանիշները
+      our_topics: Մենք աշքատում ենք տյալ թեմայի շուրջ
+      plus_others: ! ' + այլք'
+      special_representatives: Հատուկ ներկայացուցիչներ
+      traffic_commissioners: Երթևեկության հանձնաժողով
+      what_we_do: Ինչ ենք մենք անում
     making_foi_requests:
       step1_html:
       step2_html:
@@ -262,14 +262,17 @@ hy:
     heading: Հայտարարություններ
   attachment:
     accessibility:
-      full_help_html:
-      heading:
-      request_a_different_format:
+      full_help_html: ! "Այս փաստաթղթի այլ տարբերակ ստանալու համար՝ բռալյան, ձայնային
+        կամ այլ, խնդրում ենք դիմել \n%{email} նշելով ձեր հասցեն, հեռախոսահամարն ու
+        նյութը, որ հայցում եք (\"%{title}\")%{references}."
+      heading: այս նյութը հավանաբար հարմար չի լինի հատուկ կարիքների տեխնոլոգիաներ
+        ունեցող օգտատերների համար
+      request_a_different_format: Պահանջել այլ տարբերակ
     headings:
-      order_a_copy:
-      order_a_copy_full:
-      published:
-      reference:
+      order_a_copy: Պատվիրել կրկնօրինակը
+      order_a_copy_full: Պատվիրել հրապարակման կրկնօրինակը
+      published: Հրապարակված
+      reference: Հղում
   change_notes:
     published: Հրապարակված
     updated: Թարմացված
@@ -280,11 +283,11 @@ hy:
     type:
       personal_information_charter: Անձնական տվյալների կանոնադրություն
       publication_scheme: Հրապարակման համակարգ
-      social_media_use:
+      social_media_use: Սոցիալական լրատվամիջոցի օգտագործում
       welsh_language_scheme: Ուելսերենի կանոնադրություն
   date:
     formats:
-      default:
+      default: ! '%d %B %Y'
       long_ordinal: ! '%e %B %Y'
   document_filters:
     description: Դուք կարող եք օգտագործել ֆիլտրերը պահպանելու համար միայն ձեզ հետաքրքրող
@@ -309,28 +312,28 @@ hy:
   number:
     human:
       storage_units:
-        format:
+        format: ! '%n%u'
   policies:
     heading: Քաղաքականություն
   publications:
     heading: Հրապարակումներ
     headings:
-      detail:
+      detail: Տվյալ
   read_more: Կարդալ ավելին
   support:
     array:
       last_word_connector: և
   time:
     formats:
-      long_ordinal:
+      long_ordinal: ! '%e %B %Y %H:%M'
   worldwide_organisation:
     corporate_information:
-      personal_information_charter_html: Մեր %{link}ը կպարզաբանի մեր մոտեցումները
-        անձնական տեղեկատվությանը
+      personal_information_charter_html: ! 'Մեր %{link} ը կպարզաբանի մեր մոտեցումները
+        անձնական տեղեկատվությանը '
       publication_scheme_html: Կարդացեք այն ամնենի մասին ինչ մենք հրապարակում ենք
-        մեր %{link}ում
-      social_media_use_html:
-      welsh_language_scheme_html: Գտեք այստեղ %{link}ում հրապարակելու մեր պարտավորության
+        մեր %{link} ում
+      social_media_use_html: Կարդացեք մեր քաղաքականության մասին
+      welsh_language_scheme_html: Գտեք այստեղ %{link }ում հրապարակելու մեր պարտավորության
         մասին
     find_out_more: Տես՝ մեր ամբողջական պրոֆիլն ու կոնտակտային տվյալները
     headings:

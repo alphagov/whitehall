@@ -2,17 +2,17 @@ fr:
   document:
     headings:
       attachments:
-        one: Attachment
-        other: Attachments
+        one: Document
+        other: Documents
       ministers:
         one: Ministre
         other: Ministres
       organisations:
-        one: Organisation
-        other: Organisations
+        one: Organisme
+        other: Organismes
       policies:
         one: Priorité politique
-        other: ! 'Priorités politiques '
+        other: Priorités politiques
       topical_events:
         one:
         other:
@@ -29,20 +29,20 @@ fr:
       applies_to_nations: s'appliquant à
       document_series: Série
       field_of_operation: Domaine d'activité
-      live_data: ! 'Données '
+      live_data: Données
       policy_team: Equipe d'experts
     type:
       announcement:
         one: Annonce
         other: Annonces
       authored_article:
-        one:
-        other:
+        one: Article signé
+        other: Articles signés
       case_study:
         one: Etude de cas
         other: Etudes de cas
       closed_consultation:
-        one: Consultation closes
+        one: Consultation close
         other: Consultations closes
       consultation:
         one: Consultation
@@ -72,8 +72,8 @@ fr:
         one: Formulaire
         other: Formulaires
       government_response:
-        one:
-        other:
+        one: Réponse du gouvernement
+        other: Réponses du gouvernement
       guidance:
         one: Instructions
         other: Instructions
@@ -102,14 +102,14 @@ fr:
         one: Consultation ouverte
         other: Consultations ouvertes
       oral_statement:
-        one: ! 'Déclaration '
-        other: Déclarations
+        one: Déclaration orale au Parlement
+        other: Déclarations orales au Parlement
       policy:
         one: Priorité politique
-        other: ! 'Priorités politiques '
+        other: Priorités politiques
       policy_paper:
-        one: document d'orientation
-        other: documents d'orientation
+        one: Document d'orientation
+        other: Documents d'orientation
       press_release:
         one: Communiqué de presse
         other: Communiqués de presse
@@ -141,8 +141,8 @@ fr:
         one: Transcription
         other: Transcriptions
       transparency:
-        one: Données de transparence
-        other: Données de transparence
+        one: Transparence des données
+        other: Transparence des données
       worldwide_priority:
         one: Priorité internationale
         other: Priorités internationales
@@ -150,19 +150,19 @@ fr:
         one: Communiqué
         other: Communiqués
     published: publié
-    read: Lire l'article intitulé «%{title}»
+    read: Lire l'article intitulé %{title}
     speech:
       author_title:
-        minister:
-        speaker:
-      delivered_on:
+        minister: Ministre
+        speaker: Rédacteur
+      delivered_on: ! 'Prononcé le :'
       delivery_title:
-        minister:
-        speaker:
-      originally_given_at:
-      written_on:
+        minister: Ministre
+        speaker: Orateur
+      originally_given_at: ! 'Prononcé pour la première fois à : %{location}.'
+      written_on: ! 'Ecrit le : '
     updated: mise à  jour
-    view: Voir Â«%{title}Â»
+    view: Voir '%{title}'
   organisation:
     type:
       Ad-hoc advisory group:
@@ -178,8 +178,8 @@ fr:
         one: Organisme exécutif public non-ministériel
         other: Organismes exécutifs publics non-ministériels
       Executive office:
-        one:
-        other:
+        one: Service administratif
+        other: Services administratifs
       Independent monitoring body:
         one: Organisme de surveillance indépendant
         other: Organismes de surveillance indépendants
@@ -202,33 +202,33 @@ fr:
         one: Tribunal public non-ministériel
         other: Tribunaux publics non-ministériels
     about:
-      read_more:
+      read_more: En savoir plus
     corporate_information:
-      access_our_info:
-      foi_how_to:
-      foi_releases:
-      jobs_and_contacts:
-      transparency:
+      access_our_info: Accéder à nos informations
+      foi_how_to: Comment faire une demande dans le cadre de Freedom of Information
+      foi_releases: Communiqués Freedom of Information
+      jobs_and_contacts: Emploi et contrats
+      transparency: Données de transparence
     headings:
-      chief_professional_officers:
-      contact:
-      corporate_information:
-      corporate_reports:
+      chief_professional_officers: Nos responsables administratifs
+      contact: Contacter %{name}
+      corporate_information: Informations générales
+      corporate_reports: Rapports d'activité
       making_foi_requests:
-      our_announcements:
+      our_announcements: Nos actualités
       our_mainstream_categories:
-      our_management:
-      our_ministers:
-      our_policies:
-      our_publications:
-      our_senior_military_officials:
-      our_services:
-      our_statistics:
-      our_topics:
-      plus_others: + autre
-      special_representatives:
-      traffic_commissioners:
-      what_we_do:
+      our_management: Notre direction
+      our_ministers: Nos ministres
+      our_policies: Nos politiques
+      our_publications: Nos publications
+      our_senior_military_officials: Nos hauts responsables militaires
+      our_services: ! 'Nos services '
+      our_statistics: Nos statistiques
+      our_topics: Nos axes de travail
+      plus_others: ! ' + autres'
+      special_representatives: Représentants spéciaux
+      traffic_commissioners: Commissaires du trafic
+      what_we_do: Nos activités
     making_foi_requests:
       step1_html:
       step2_html:
@@ -242,14 +242,14 @@ fr:
         one: Localisation
         other: Localisations
     headings:
-      announcements: Nos annonces
+      announcements: Nos actualités
       country: Pays
       documents: Documents
       mission: Notre mission
       organisations: Organisations
       priorities: Priorités
       publications: Nos publications
-      quick_links: Liens rapides
+      quick_links: Liens directs
       related_policies: Priorités politiques connexes
       see_all: Voir tous nos %{type}
       statistics: Nos statistiques
@@ -259,17 +259,24 @@ fr:
       detailed_guide:
         primary_mainstream_category: Catégorie d'instructions détaillées
   announcements:
-    heading: Nos annonces
+    heading: Nos actualités
   attachment:
     accessibility:
-      full_help_html:
-      heading:
-      request_a_different_format:
+      full_help_html: ! '
+
+        Si vous souhaitez recevoir ce document dans un autre format (braille, audio
+        ou autre), merci d''envoyer un email à %{email}
+
+        en indiquant votre adresse, votre numéro de téléphone, ainsi que le titre
+        du document ("%{title}")%{references}.'
+      heading: ! 'Le format de ce document peut ne pas convenir aux utilisateurs de
+        technologies d''assistance '
+      request_a_different_format: Demander un format de document différent
     headings:
-      order_a_copy:
-      order_a_copy_full:
-      published:
-      reference:
+      order_a_copy: Commander une copie
+      order_a_copy_full: Commander une copie du document
+      published: Publié
+      reference: Réf
   change_notes:
     published: Publié
     updated: Mise à jour
@@ -278,9 +285,9 @@ fr:
     email: Email
   corporate_information_page:
     type:
-      personal_information_charter: Charte de renseignements personnels
+      personal_information_charter: Charte de données personnelles
       publication_scheme: Régime de publication
-      social_media_use:
+      social_media_use: ! 'Utilisation réseaux sociaux '
       welsh_language_scheme: Système de la langue galloise
   date:
     formats:
@@ -290,22 +297,22 @@ fr:
     description: Vous pouvez utiliser les filtres pour afficher uniquement les résultats
       qui correspondent à vos intérêts
     no_results:
-      description: Essayez de faire votre recherche plus large et essayez à nouveau.
+      description: Essayez d'élargir votre recherche et essayez à nouveau.
       title: Il n'existe aucun document correspondant.
     world_locations:
       all: Tous les endroits
-      label: Endroits du monde
+      label: Pays
   feeds:
-    atom: atome
+    atom: RSS
     email_alerts: alertes emails
     latest_activity: Dernière mise à jour
   i18n:
-    direction:
+    direction: ltr
   language_names:
     fr: Français
   latest_feed:
     no_updates: Il n'y a pas de mise à jour.
-    title: Documents les plus récents
+    title: Actualités
   number:
     human:
       storage_units:
@@ -315,11 +322,11 @@ fr:
   publications:
     heading: Publications
     headings:
-      detail:
+      detail: Détail
   read_more: En savoir plus
   support:
     array:
-      last_word_connector: ! ' et '
+      last_word_connector: et
   time:
     formats:
       long_ordinal: ! '%B %d, %Y %H:%M'
@@ -327,18 +334,18 @@ fr:
     corporate_information:
       personal_information_charter_html: Notre %{link} explique comment nous traitons
         vos renseignements personnels.
-      publication_scheme_html: Découvrez les types d'informations que nous publions
-        régulièrement dans notre %{link}
-      social_media_use_html:
-      welsh_language_scheme_html: Renseignez-vous sur notre engagement à l'édition
-        en %{link}
+      publication_scheme_html: En savoir plus sur les types d'informations régulièrement
+        publiés dans notre %{link}.
+      social_media_use_html: Lire notre politique d' %{link}.
+      welsh_language_scheme_html: En savoir plus sur notre engagement à l'édition
+        en %{link}.
     find_out_more: En savoir plus
     headings:
       about_us: L'ambassade
       contact_us: Contactez-nous
-      corporate_information: Informations sur la société
+      corporate_information: Informations générales
       follow_us: Suivez-nous
       our_people: Nos responsables
       our_services: Nos services
-    location: Emplacement
-    part_of: Une partie de
+    location: Pays
+    part_of: Organisme de référence

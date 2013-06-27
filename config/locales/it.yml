@@ -2,14 +2,14 @@ it:
   document:
     headings:
       attachments:
-        one:
-        other:
+        one: Documento
+        other: Documenti
       ministers:
         one: Ministro
         other: Ministri
       organisations:
-        one:
-        other:
+        one: Ente
+        other: Enti
       policies:
         one: Politica
         other: Politiche
@@ -23,8 +23,8 @@ it:
         one: Posizione geografica
         other: Posizioni geografiche
       worldwide_organisations:
-        one: Organizzazione mondiale
-        other: Organizzazioni mondiali
+        one: Organizzazione internazionale
+        other: Organizzazioni internazionali
       advisory_groups: Gruppi di consulenza
       applies_to_nations: Valido per
       document_series: Serie
@@ -36,8 +36,8 @@ it:
         one: Annuncio
         other: Annunci
       authored_article:
-        one:
-        other:
+        one: Articolo autorizzato
+        other: Articoli autorizzati
       case_study:
         one: Caso studio
         other: Casi studio
@@ -55,25 +55,25 @@ it:
         other: Relazioni aziendali
       correspondence:
         one: Corrispondenza
-        other: Corrispondenze
+        other: Corrispondenza
       detailed_guidance:
-        one: Indicazioni dettagliate
+        one: Indicazione dettagliata
         other: Indicazioni dettagliate
       draft_text:
         one: Bozza
         other: Bozze
       fatality_notice:
-        one: Nota di decesso
-        other: Note di decesso
+        one: Messaggio di errore
+        other: Messaggi di errore
       foi_release:
-        one: Comunicato FOI
-        other: Comunicati FOI
+        one: Comunicato FOI (accesso agli atti)
+        other: Comunicati FOI (accesso agli atti)
       form:
         one: Formulario
         other: Formulari
       government_response:
-        one:
-        other:
+        one: Risposta governativa
+        other: Risposte governative
       guidance:
         one: Indicazione
         other: Indicazione
@@ -102,8 +102,8 @@ it:
         one: Consultazione aperta
         other: Consultazioni aperte
       oral_statement:
-        one: Discorso in parlamento
-        other: Discorsi in parlamento
+        one: Dichiarazione in parlamento
+        other: Dichiarazioni in parlamento
       policy:
         one: Politica
         other: Politiche
@@ -123,8 +123,8 @@ it:
         one: Ricerca ed analisi
         other: Ricerca ed analisi
       speaking_notes:
-        one: Note
-        other: Note
+        one: Appunti
+        other: Appunti
       speech:
         one: Discorso
         other: Discorsi
@@ -150,19 +150,19 @@ it:
         one: Dichiarazione scritta al parlamento
         other: Dichiarazioni scritte al parlamento
     published: pubblicato
-    read: ! 'Leggere l''articolo intitolato %{title} '
+    read: Leggi l'articolo %{title}
     speech:
       author_title:
-        minister:
-        speaker:
+        minister: Ministro
+        speaker: Autore
       delivered_on: ! 'Consegnato il:'
       delivery_title:
         minister: Ministro
         speaker: Relatore
       originally_given_at: Tenuto originariamente a %{location}.
-      written_on:
+      written_on: ! 'Scritto su:'
     updated: aggiornato
-    view: Vedere '%{title}'
+    view: Visualizza '%{title}'
   organisation:
     type:
       Ad-hoc advisory group:
@@ -175,11 +175,11 @@ it:
         one: Agenzia esecutiva
         other: Agenzie esecutive
       Executive non-departmental public body:
-        one: Ente pubblico esecutivo non ministeriale
+        one: Ente pubblico direttivo non ministeriale
         other: Enti pubblici esecutivi non ministeriali
       Executive office:
-        one:
-        other:
+        one: Ufficio direttivo
+        other: Uffici direttivi
       Independent monitoring body:
         one: Ente di controllo autonomo
         other: Enti di controllo autonomi
@@ -199,36 +199,36 @@ it:
         one: Filiale
         other: Filiali
       Tribunal non-departmental public body:
-        one: ! 'Ente pubblico giudiziario non ministeriale '
-        other: ! 'Enti pubblici giudiziari non ministeriali '
+        one: Ente pubblico giudiziario non ministeriale
+        other: Enti pubblici giudiziari non ministeriali
     about:
-      read_more:
+      read_more: Scopri di più su cosa facciamo
     corporate_information:
-      access_our_info:
-      foi_how_to:
-      foi_releases:
-      jobs_and_contacts:
-      transparency:
+      access_our_info: Accedi alle nostre informazioni
+      foi_how_to: Come inoltrare una richiesta di accesso agli atti (FOI)
+      foi_releases: Comunicato FOI (accesso agli atti)
+      jobs_and_contacts: Posizioni lavorative e contratti
+      transparency: Dati sulla trasparenza
     headings:
-      chief_professional_officers:
-      contact:
-      corporate_information:
-      corporate_reports:
+      chief_professional_officers: I nostri dirigenti
+      contact: Contatta %{name}
+      corporate_information: Informazioni aziendali
+      corporate_reports: Relazioni aziendali
       making_foi_requests:
-      our_announcements:
+      our_announcements: I nostri annunci
       our_mainstream_categories:
-      our_management:
-      our_ministers:
-      our_policies:
-      our_publications:
-      our_senior_military_officials:
-      our_services:
-      our_statistics:
-      our_topics:
-      plus_others:
-      special_representatives:
-      traffic_commissioners:
-      what_we_do:
+      our_management: Il nostro corpo direttivo
+      our_ministers: I nostri ministri
+      our_policies: Le nostre politiche
+      our_publications: Le nostre pubblicazioni
+      our_senior_military_officials: I nostri alti ufficiali militari
+      our_services: I nostri servizi
+      our_statistics: Le nostre statistiche
+      our_topics: Di cosa ci occupiamo
+      plus_others: ! ' + altro'
+      special_representatives: Rappresentanti speciali
+      traffic_commissioners: Commissari per le attività commerciali
+      what_we_do: Cosa facciamo
     making_foi_requests:
       step1_html:
       step2_html:
@@ -239,21 +239,21 @@ it:
         one: Delegazione internazionale
         other: Delegazioni internazionali
       world_location:
-        one:
-        other:
+        one: Posizione geografica
+        other: Posizioni geografiche
     headings:
       announcements: I nostri annunci
       country: Paese
       documents: Documenti
       mission: La nostra missione
-      organisations: ! 'Organizzazioni '
+      organisations: Organizzazioni
       priorities: Priorità
       publications: Le nostre pubblicazioni
       quick_links: Link veloci
       related_policies: Politiche collegate
-      see_all: Vedere tutte le nostre %{type}
+      see_all: Vedi tutte le nostre %{type}
       statistics: Le nostre statistiche
-    see_all: Vedere tutte le nostre %{type}
+    see_all: Vedi tutte le nostre %{type}
   activerecord:
     attributes:
       detailed_guide:
@@ -262,42 +262,44 @@ it:
     heading: Annunci
   attachment:
     accessibility:
-      full_help_html:
-      heading:
-      request_a_different_format:
+      full_help_html: Per richiedere il presente documento in formato diverso, ad
+        es. in formato braille, audio o altro, scrivi a %{email} indicando il tuo
+        indirizzo e numero di telefono nonché il titolo della pubblicazione ("%{title}")%{references}.
+      heading: Il presente file potrebbe non essere adatto agli utenti di tecnologie
+        d'ausilio.
+      request_a_different_format: Richiedi un formato diverso.
     headings:
-      order_a_copy:
-      order_a_copy_full:
-      published:
-      reference:
+      order_a_copy: Ordina una copia
+      order_a_copy_full: Ordina una copia della pubblicazione
+      published: Pubblicato
+      reference: Rif
   change_notes:
     published: Pubblicato
     updated: Aggiornato
   contact:
-    contact_form: Per contattarci
+    contact_form: Contattaci
     email: Email
   corporate_information_page:
     type:
       personal_information_charter: Informazioni personali
       publication_scheme: Schema di pubblicazione
-      social_media_use:
+      social_media_use: Uso dei social media
       welsh_language_scheme: Schema gaelico
   date:
     formats:
       default: ! '%d %B %Y'
       long_ordinal: ! '%e %B %Y'
   document_filters:
-    description: Per visualizzare esclusivamente i risultati di proprio interesse,
-      utilizzare i filtri
+    description: ! 'Utilizza i filtri per visualizzare&nbsp;solo i risultati di tuo&nbsp;interesse '
     no_results:
-      description: Restringere la ricerca e riprovare
+      description: Amplia la ricerca e riprovare
       title: Non è stato trovato alcun documento corrispondente
     world_locations:
       all: Tutte le sedi
-      label: Sedi mondiali
+      label: Sedi internazionali
   feeds:
-    atom: atomo
-    email_alerts: ricezione messaggio email
+    atom: atom
+    email_alerts: avvisi di ricezione messaggio email
     latest_activity: Attività recente
   i18n:
     direction: Itr
@@ -315,7 +317,7 @@ it:
   publications:
     heading: Pubblicazioni
     headings:
-      detail:
+      detail: Dettaglio
   read_more: Per saperne di più
   support:
     array:
@@ -325,14 +327,15 @@ it:
       long_ordinal: ! '%e %B %Y %H:%M'
   worldwide_organisation:
     corporate_information:
-      personal_information_charter_html: Sulla pagina %{link} è possibile trovare
-        tutte le informazioni relative al trattamento dei dati personali.
-      publication_scheme_html: ! 'Sulla pagina %{link} è possibile trovare maggiori
-        dettagli sulle informazioni pubblicate di routine. '
-      social_media_use_html:
-      welsh_language_scheme_html: Sulla pagina %{link} è possibile trovare maggiori
-        informazioni su cosa pubblichiamo
-    find_out_more: Consultare il profilo completo e tutti i contatti
+      personal_information_charter_html: Per informazioni sul trattamento dei dati
+        personali, consulta la pagina %{link}.
+      publication_scheme_html: Per maggiori dettagli sul tipo di documenti pubblicati
+        di routine, consulta la pagina %{link}.
+      social_media_use_html: Per saperne di più sulla nostra politica, consulta la
+        pagina %{link}.
+      welsh_language_scheme_html: Per maggiori informazioni sul nostro impegno a pubblicare
+        quante più informazioni possibili, consulta la pagina %{link}.
+    find_out_more: Consulta il profilo completo e tutti i contatti
     headings:
       about_us: Chi siamo
       contact_us: Contatti

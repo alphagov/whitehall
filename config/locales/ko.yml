@@ -7,14 +7,15 @@ ko:
     heading: 공지사항
   attachment:
     accessibility:
-      full_help_html:
-      heading:
-      request_a_different_format:
+      full_help_html: 점자, 오디오 혹은 다른 타입의 ("%{title}")%{references} 파일을 다운로드받으시려면, 주소,
+        전화번호, 요청하시는 자료의 제목을 명시하여, %{email} 로 이메일을 주십시오.
+      heading: ! '본 파일은 지원 기술이 필요한 분들께 적합하지 않을 수 있습니다. '
+      request_a_different_format: 다른 포맷으로 요청
     headings:
-      order_a_copy:
-      order_a_copy_full:
-      published:
-      reference:
+      order_a_copy: 카피 주문하기
+      order_a_copy_full: 본 문서의 카피 주문하기
+      published: 퍼블리시
+      reference: 레퍼런스
   change_notes:
     published: 퍼블리시
     updated: 업데이트
@@ -25,7 +26,7 @@ ko:
     type:
       personal_information_charter: 개인정보 규정
       publication_scheme: 발행 계획
-      social_media_use:
+      social_media_use: 소셜미디어 사용
       welsh_language_scheme: 웨일스어 계획
   date:
     formats:
@@ -36,8 +37,8 @@ ko:
       advisory_groups: 자문 그룹
       applies_to_nations: 적용
       attachments:
-        one:
-        other:
+        one: 문서
+        other: 문서
       document_series: 시리즈
       field_of_operation: 오퍼레이션 필드
       live_data: 라이브 데이터
@@ -45,8 +46,8 @@ ko:
         one: 장관
         other: 장관
       organisations:
-        one:
-        other:
+        one: 기관
+        other: 기관
       policies:
         one: 정책
         other: 정책
@@ -63,25 +64,25 @@ ko:
       worldwide_organisations:
         one: 세계 기구
         other: 세계 기구
-    published: 출판물/발행물
-    read:
+    published: 발행
+    read: ! '%{title} 기사를 확인하세요'
     speech:
       author_title:
-        minister:
-        speaker:
-      delivered_on:
+        minister: 장관
+        speaker: 저자
+      delivered_on: 행사일시
       delivery_title:
         minister: 장관
-        speaker: 대변인
-      originally_given_at:
-      written_on:
+        speaker: 스피커
+      originally_given_at: 장소 %{location}
+      written_on: ! '작성일시:'
     type:
       announcement:
         one: 공지
         other: 공지
       authored_article:
-        one:
-        other:
+        one: 기사
+        other: 기사
       case_study:
         one: 케이스 스터디
         other: 케이스 스터디
@@ -89,8 +90,8 @@ ko:
         one: 비공개 협의
         other: 비공개 협의
       consultation:
-        one: 협의/회담/상담
-        other: 협의/회담/상담
+        one: 협의
+        other: 협의
       consultation_outcome:
         one: 협의 결과
         other: 협의 결과
@@ -116,8 +117,8 @@ ko:
         one: 문서
         other: 문서
       government_response:
-        one:
-        other:
+        one: 정부 대책
+        other: 정부 대책
       guidance:
         one: 안내
         other: 안내
@@ -194,9 +195,9 @@ ko:
         one: 의회로 서면 성명
         other: 의회로 서면 성명
     updated: 업데이트
-    view:
+    view: ! '''%{title}'' 을 확인하세요.'
   document_filters:
-    description: 원하시는 내용으로 써치를 제한하는 필터를 사용하실 수 있습니다.
+    description: 원하시는 내용으로 써치를 제한하는 필터를 사용하실 수 있습니다
     no_results:
       description: 다시 써치해주시기 바랍니다.
       title: 매치되는 문서가 없습니다.
@@ -217,36 +218,36 @@ ko:
   number:
     human:
       storage_units:
-        format:
+        format: ! '%n%u'
   organisation:
     about:
-      read_more:
+      read_more: 우리 업무에 대한 자세한 내용을 확인하세요.
     corporate_information:
-      access_our_info:
-      foi_how_to:
-      foi_releases:
-      jobs_and_contacts:
-      transparency:
+      access_our_info: 정보 접근
+      foi_how_to: FOI 요청하기
+      foi_releases: FOI 자료
+      jobs_and_contacts: 채용 및 연락처
+      transparency: 투명성 데이터
     headings:
-      chief_professional_officers:
-      contact:
-      corporate_information:
-      corporate_reports:
+      chief_professional_officers: 최고책임자
+      contact: ! '%{name} 에게 연락하세요'
+      corporate_information: 대사관 정보
+      corporate_reports: 대사관 보고서
       making_foi_requests:
-      our_announcements:
+      our_announcements: 뉴스
       our_mainstream_categories:
-      our_management:
-      our_ministers:
-      our_policies:
-      our_publications:
-      our_senior_military_officials:
-      our_services:
-      our_statistics:
-      our_topics:
-      plus_others:
-      special_representatives:
-      traffic_commissioners:
-      what_we_do:
+      our_management: 조직
+      our_ministers: 장관급
+      our_policies: 정책
+      our_publications: 자료
+      our_senior_military_officials: 고위 군관계자
+      our_services: 서비스
+      our_statistics: 통계자료
+      our_topics: 업무 토픽
+      plus_others: 기타
+      special_representatives: 특별 대사
+      traffic_commissioners: 트래픽 커미셔너
+      what_we_do: 업무 내용
     making_foi_requests:
       step1_html:
       step2_html:
@@ -265,8 +266,8 @@ ko:
         one: 행정 공공기관
         other: 행정 공공기관
       Executive office:
-        one:
-        other:
+        one: 행정 기관
+        other: 행정 기관
       Independent monitoring body:
         one: 독립 감시 기구
         other: 독립 감시 기구
@@ -278,7 +279,7 @@ ko:
         other: 비장관 부처
       Other:
         one: 기타
-        other: ! '기타  '
+        other: 기타
       Public corporation:
         one: 공기업
         other: 공기업
@@ -293,7 +294,7 @@ ko:
   publications:
     heading: 출판물
     headings:
-      detail:
+      detail: 디테일
   read_more: 더 자세한 정보 알아보기
   support:
     array:
@@ -312,22 +313,22 @@ ko:
       publications: 출판물
       quick_links: 퀵 링크
       related_policies: 관련 정책
-      see_all:
+      see_all: ! '%{type} 모두 둘러보기'
       statistics: 통계
-    see_all:
+    see_all: ! '%{type} 모두 둘러보기'
     type:
       international_delegation:
         one: 국제 사절단
         other: 국제 사절단
       world_location:
-        one:
-        other:
+        one: 월드 로케이션
+        other: 월드 로케이션
   worldwide_organisation:
     corporate_information:
-      personal_information_charter_html:
-      publication_scheme_html:
-      social_media_use_html:
-      welsh_language_scheme_html:
+      personal_information_charter_html: ! '%{link} 에서 개인정보 처리에 대한 안내'
+      publication_scheme_html: 정기적으로 공개되는 %{link} 정보에 대한 안내
+      social_media_use_html: ! '%{link} 에서 정책 정보 확인'
+      welsh_language_scheme_html: ! '%{link} 에서 정보 공개에 대한 내용'
     find_out_more: 프로필과 연락처 보기
     headings:
       about_us: 대사관 안내

@@ -2,16 +2,16 @@ el:
   document:
     headings:
       attachments:
-        one:
-        other:
+        one: Έγγραφο
+        other: Έγγραφα
       ministers:
         one: Υπουργός
         other: Υπουργοί
       organisations:
-        one:
-        other:
+        one: Οργανισμός
+        other: Οργανισμοί
       policies:
-        one: ! 'Πολιτική '
+        one: Πολιτική
         other: Πολιτικές
       topical_events:
         one:
@@ -26,24 +26,24 @@ el:
         one: Διεθνής οργανισμός
         other: Διεθνείς οργανισμοί
       advisory_groups: Συμβουλευτικές ομάδες
-      applies_to_nations: Εφαρμόζεται σε
+      applies_to_nations: Ισχύει
       document_series: Σειρά
       field_of_operation: Πεδίο δράσης
       live_data: Ροή δεδομένων
-      policy_team: Ομάδα πολιτικών συμβούλων
+      policy_team: Ομάδα πολιτικής
     type:
       announcement:
         one: Ανακοίνωση
         other: Ανακοινώσεις
       authored_article:
-        one:
-        other:
+        one: Κείμενο συντάκτη
+        other: Κείμενα συντακτών
       case_study:
         one: Παράδειγμα
         other: Παραδείγματα
       closed_consultation:
         one: Κλειστή διαβούλευση
-        other: ! 'Κλειστές διαβουλεύσεις '
+        other: Κλειστές διαβουλεύσεις
       consultation:
         one: Διαβούλευση
         other: Διαβουλεύσεις
@@ -52,13 +52,13 @@ el:
         other: Αποτελέσματα διαβούλευσης
       corporate_report:
         one: Έκθεση Οργανισμού
-        other: ! 'Εκθέσεις Οργανισμού '
+        other: Εκθέσεις Οργανισμού
       correspondence:
         one: Αλληλογραφία
-        other: Αλληλογραφίες
+        other: Αλληλογραφία
       detailed_guidance:
-        one: Λεπτομερής καθοδήγηση
-        other:
+        one: Οδηγίες
+        other: Οδηγίες
       draft_text:
         one: Προσχέδιο
         other: Προσχέδια
@@ -66,46 +66,46 @@ el:
         one: Ανακοίνωση θανάτου
         other: Ανακοινώσεις θανάτων
       foi_release:
-        one:
-        other:
+        one: Δημοσιοποίηση
+        other: Δημοσιοποίηση
       form:
-        one: Φόρμα
-        other: Φόρμες
+        one: Έντυπο
+        other: Έντυπα
       government_response:
-        one:
-        other:
+        one: Η θέση της Κυβέρνησης
+        other: Οι θέσεις της Κυβέρνησης
       guidance:
-        one: Καθοδήγηση
-        other:
+        one: Οδηγίες
+        other: Οδηγίες
       impact_assessment:
-        one: Αξιολόγηση επίδρασης
-        other: Αξιολογήσεις επίδρασης
+        one: Αξιολόγηση αποτελέσματος
+        other: Αξιολογήσεις αποτελέσματος
       imported:
-        one:
-        other:
+        one: ! ' εισηγμένο  - σε αναμονή'
+        other: εισηγμένα - σε αναμονή
       independent_report:
-        one: ! 'Ανεξάρτητη έκθεση '
-        other: Ανεξάρτητες εκθέσεις
+        one: Έκθεση ανεξάρτητης αρχής
+        other: Εκθέσεις ανεξάρτητων αρχών
       map:
-        one: ! 'Χάρτης '
+        one: Χάρτης
         other: Χάρτες
       national_statistics:
         one: Στατιστικά στοιχεία- εθνικά στατιστικά στοιχεία
-        other:
+        other: Στατιστικά στοιχεία- εθνικά στατιστικά στοιχεία
       news_article:
-        one: ! 'Είδηση '
-        other: ! 'Ειδήσεις '
+        one: Είδηση
+        other: Ειδήσεις
       news_story:
-        one: Νέο
+        one: Νέα
         other: Νέα
       open_consultation:
         one: Ανοιχτή διαβούλευση
         other: Ανοιχτές διαβουλεύσεις
       oral_statement:
-        one: Προφορική δήλωση στη Βουλή
-        other: Προφορικές δηλώσεις στη Βουλή
+        one: Δήλωση στη Βουλή
+        other: ! 'Δηλώσεις στη Βουλή '
       policy:
-        one: ! 'Πολιτική '
+        one: Πολιτική
         other: Πολιτικές
       policy_paper:
         one: Κείμενο πολιτικής
@@ -115,34 +115,34 @@ el:
         other: Δελτία Τύπου
       promotional:
         one: Προωθητικό υλικό
-        other:
+        other: Προωθητικό υλικό
       publication:
         one: Έκδοση
         other: Εκδόσεις
       research:
         one: Έρευνα και ανάλυση
-        other:
+        other: Έρευνα και ανάλυση
       speaking_notes:
-        one: Σημειώσεις ομιλίας
-        other:
+        one: Βασικά σημεία ομιλίας
+        other: Βασικά σημεία ομιλίας
       speech:
-        one: ! 'Ομιλία '
+        one: Ομιλία
         other: Ομιλίες
       statement_to_parliament:
-        one:
-        other:
+        one: Δήλωση στη Βουλή
+        other: ! 'Δηλώσεις στη Βουλή '
       statistical_data_set:
-        one: Σειρά στατιστικών στοιχείων
-        other: Σειρές στατιστικών στοιχείων
+        one: Στατιστικά στοιχεία
+        other: Στατιστικά στοιχεία
       statistics:
-        one: ! 'Στατιστικά στοιχεία '
-        other:
+        one: Στατιστικά στοιχεία
+        other: Στατιστικά στοιχεία
       transcript:
         one: Απομαγνητοφώνηση
         other: Απομαγνητοφωνήσεις
       transparency:
         one: Στοιχεία διαφάνειας
-        other:
+        other: Στοιχεία διαφάνειας
       worldwide_priority:
         one: Παγκόσμια προτεραιότητα
         other: Παγκόσμιες προτεραιότητες
@@ -150,19 +150,19 @@ el:
         one: Γραπτή  δήλωση στη Βουλή
         other: Γραπτές δηλώσεις στη Βουλή
     published: Δημοσιευμένο
-    read: ! 'Διαβάστε το άρθρο  %{title} '
+    read: Διαβάστε το άρθρο  %{title}
     speech:
       author_title:
-        minister:
-        speaker:
-      delivered_on: ! 'Παραδόθηκε στις: '
+        minister: Υπουργός
+        speaker: Συγγραφέας
+      delivered_on: ! 'Παραδόθηκε στις:'
       delivery_title:
         minister: Υπουργός
         speaker: Ομιλητής
-      originally_given_at: Δόθηκε για πρώτη φορά στο %{location}
-      written_on:
-    updated: ! 'Ανανεωμένο '
-    view:
+      originally_given_at: Δόθηκε αρχικά στο %{location}
+      written_on: ! 'Γραφτηκε τη: '
+    updated: ! 'ανανεωμένο '
+    view: Δείτε '%{title}'
   organisation:
     type:
       Ad-hoc advisory group:
@@ -178,8 +178,8 @@ el:
         one: Δημόσιο μη-κυβερνητικό εκτελεστικό όργανο
         other: Δημόσια μη-κυβερνητικά εκτελεστικά όργανα
       Executive office:
-        one:
-        other:
+        one: Διοικητικό γραφείο
+        other: Διοικητικά γραφεία
       Independent monitoring body:
         one: Ανεξάρτητο ελεγκτικό σώμα
         other: Ανεξάρτητα ελεγκτικά σώματα
@@ -187,8 +187,8 @@ el:
         one: Υπουργικό τμήμα
         other: Υπουργικά τμήματα
       Non-ministerial department:
-        one: Μη-υπουργικό τμήμα
-        other: Μη-υπουργικά τμήματα
+        one: Ανεξάρτητο τμήμα
+        other: Ανεξάρτητα τμήματα
       Other:
         one: Άλλο
         other: Άλλα
@@ -199,36 +199,37 @@ el:
         one: Θυγατρικός οργανισμός
         other: Θυγατρικοί οργανισμοί
       Tribunal non-departmental public body:
-        one:
-        other:
+        one: Αυτόνομο εξωκυβερνητικό όργανο
+        other: Αυτόνομα εξωκυβερνητικά οργανα
     about:
-      read_more:
+      read_more: Περισσότερα για τις δράσεις μας
     corporate_information:
-      access_our_info:
-      foi_how_to:
-      foi_releases:
-      jobs_and_contacts:
-      transparency:
+      access_our_info: Πρόσβαση στις πληροφορίες μας
+      foi_how_to: Διαδικάσία αιτήματος για πρόσβαση στις πληροφορίες μας βάσει της
+        νομοθεσίας για ελεύθερη πρόσβαση σεμ διοικητικά έγγραφα
+      foi_releases: Ελεύθερη πρόσβαση σε διοικητικά έγγραφα
+      jobs_and_contacts: Θέσεις εργασίας και συμβάσεις
+      transparency: Στοιχεία διαφάνειας
     headings:
-      chief_professional_officers:
-      contact:
-      corporate_information:
-      corporate_reports:
+      chief_professional_officers: Τα ανώτερα στελέχη της υπηρεσίας μας
+      contact: Επικοινωνήστε%{name}
+      corporate_information: Πληροφορίες για τον Οργανισμό
+      corporate_reports: Εκθέσεις Οργανισμού
       making_foi_requests:
-      our_announcements:
+      our_announcements: Οι ανακοινώσεις μας
       our_mainstream_categories:
-      our_management:
-      our_ministers:
-      our_policies:
-      our_publications:
-      our_senior_military_officials:
-      our_services:
-      our_statistics:
-      our_topics:
-      plus_others:
-      special_representatives:
-      traffic_commissioners:
-      what_we_do:
+      our_management: Η ηγεσία μας
+      our_ministers: Οι υπουργοί μας
+      our_policies: Οι πολιτικές μας
+      our_publications: Οι εκδόσεις μας
+      our_senior_military_officials: Η στρατιωτική ηγεσία
+      our_services: Οι υπηρεσίες μας
+      our_statistics: Τα στατιστικά μας
+      our_topics: Εργαζόμαστε στους παρακάτω τομείς
+      plus_others: και άλλα
+      special_representatives: Ειδικοί αντιπρόσωποι
+      traffic_commissioners: ! 'Ομάδα ρύθμισης μεταφορών '
+      what_we_do: Οι δράσεις μας
     making_foi_requests:
       step1_html:
       step2_html:
@@ -239,8 +240,8 @@ el:
         one: Διεθνής αντιπροσωπεία
         other: Διεθνείς αντιπροσωπείες
       world_location:
-        one:
-        other:
+        one: Χώρα
+        other: Χώρες
     headings:
       announcements: Οι ανακοινώσεις μας
       country: Χώρα
@@ -251,36 +252,40 @@ el:
       publications: Οι εκδόσεις μας
       quick_links: Σύντομοι σύνδεσμοι
       related_policies: Σχετικές πολιτικές
-      see_all:
+      see_all: Δείτε τα %{type}
       statistics: Τα στατιστικά στοιχεία μας
-    see_all:
+    see_all: Δείτε τα %{type}
   activerecord:
     attributes:
       detailed_guide:
-        primary_mainstream_category: Βασική λεπτομερής καθοδήγηση
+        primary_mainstream_category: Βασική κατηγορία οδηγιών
   announcements:
     heading: Ανακοινώσεις
   attachment:
     accessibility:
-      full_help_html:
-      heading:
-      request_a_different_format:
+      full_help_html: Για να ζητήσετε το παρόν έγγραφο σε εναλακτική μορφή, όπως σε
+        μπρέιλ, ηχητική μορφή ή άλλο τύπο αρχείου παρακαλούμε συμπληρώστε το email
+        σας %{email} τη διευθυνσή σας, το τηλέφωνό σας και τον τίτλο του εγγράφου
+        ("%{title}")%{references}.
+      heading: Το αρχείο μπορεί να μην είναι συμβατό με προγράμματα υποστηρικτικής
+        τεχνολογίας.
+      request_a_different_format: Εναλλακτικός τύπος αρχείου
     headings:
-      order_a_copy:
-      order_a_copy_full:
-      published:
-      reference:
+      order_a_copy: Ζητήστε αντίτυπο
+      order_a_copy_full: Ζητήστε αντιτυπο της έκδοσης
+      published: Δημοσιεύτηκε
+      reference: Σχετικά
   change_notes:
     published: Δημοσιευμένο
-    updated: ! 'Ανανεωμένο '
+    updated: Ανανεωμενη έκδοση
   contact:
     contact_form: Φόρμα επικοινωνίας
     email: Email
   corporate_information_page:
     type:
-      personal_information_charter: Καταστατικό προσωπικών δεδομένων
+      personal_information_charter: Προστασία προσωπικών δεδομένων
       publication_scheme: Σχέδιο έκδοσης
-      social_media_use:
+      social_media_use: Χρήση κοινωνικών δικτύων
       welsh_language_scheme: Πρόγραμμα Ουαλλικής γλώσσας
   date:
     formats:
@@ -297,11 +302,11 @@ el:
   feeds:
     atom:
     email_alerts:
-    latest_activity: Πρόσφατη δραστηριότητα
+    latest_activity: Πρόσφατες ενημερώσεις
   i18n:
     direction:
   language_names:
-    el:
+    el: ! 'Ελληνικά '
   latest_feed:
     no_updates: Δεν υπάρχουν ανανεώσεις ακόμα
     title: Πρόσφατα
@@ -310,11 +315,11 @@ el:
       storage_units:
         format:
   policies:
-    heading: ! 'Πολιτικές '
+    heading: Πολιτικές
   publications:
     heading: Εκδόσεις
     headings:
-      detail:
+      detail: Λεπτομέρεια
   read_more: Διαβάστε περισσότερα
   support:
     array:
@@ -324,19 +329,20 @@ el:
       long_ordinal:
   worldwide_organisation:
     corporate_information:
-      personal_information_charter_html: ΤΟ %{link} εξηγεί πώς χειριζόμαστε τα προσωπικά
+      personal_information_charter_html: Το %{link} εξηγεί πώς χειριζόμαστε τα προσωπικά
         σας δεδομένα
-      publication_scheme_html: Διαβάστε για τα είδη πληροφορίας που δημοσιεύουμε συνήθως
-        στο %{link}
-      social_media_use_html:
-      welsh_language_scheme_html:
+      publication_scheme_html: Μάθετε περισσότερα για τις πληροφορίας που δημοσιεύουμε
+        συνήθως στο %{link}
+      social_media_use_html: Μάθετε περισσότερα για την πολιτική μας στο %{link}.
+      welsh_language_scheme_html: Μάθετε περισσότερα για την δέσμευση μας στη δημοσίευση
+        στο %{link}.
     find_out_more: Πλήρες προφίλ και στοιχεία επικοινωνίας
     headings:
       about_us: Σχετικά με εμάς
       contact_us: Επικοινωνήστε μαζί μας
       corporate_information: Πληροφορίες για τον οργανισμό
-      follow_us:
-      our_people: Ανθρώπινο δυναμικό
+      follow_us: Ακολουθείστε μας
+      our_people: Τα στελέχη μας
       our_services: Οι υπηρεσίες μας
-    location: ! 'Τοποθεσία '
+    location: Χώρα
     part_of: Μέρος του
