@@ -73,7 +73,7 @@ module Whitehall::DocumentFilter
     end
 
     def keywords
-      if @keywords.present?
+      if @keywords.present? && @keywords.is_a?(String)
         @keywords.strip.split(/\s+/)
       else
         []
