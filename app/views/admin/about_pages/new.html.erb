@@ -4,7 +4,7 @@
   <div class="span8">
     <section>
       <h1>Create page about <%= @subject.name %></h1>
-      <%= render partial: 'form', locals: { url: new_admin_topical_event_about_pages_path(@subject, @page) } %>
+      <%= render partial: 'form', locals: { url: admin_topical_event_about_pages_path(@subject) } %>
     </section>
   </div>
 </div>

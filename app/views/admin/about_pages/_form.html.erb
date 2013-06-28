@@ -11,5 +11,5 @@
     <%= form.text_area :body, required: true %>
   </fieldset>
 
-  <%= form.save_or_cancel cancel: url_for([:admin, @subject, :about_pages]) %>
+  <%= form.save_or_cancel cancel: admin_topical_event_about_pages_path(@subject, @page) %>
 <% end %>
