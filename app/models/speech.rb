@@ -38,7 +38,7 @@ class Speech < Announcement
   end
 
   def delivered_by_minister?
-    role_appointment && role_appointment.role.ministerial?
+    role_appointment && role_appointment.role && role_appointment.role.ministerial?
   end
 
   private
