@@ -64,7 +64,6 @@ group :test do
   gem 'test_track', github: 'episko/test_track'
   gem 'timecop'
   gem 'webmock', require: false
-  gem 'minitest', '4.3.0'
   gem 'ci_reporter'
   gem 'database_cleaner', '1.0.1'
 end
