@@ -1,0 +1,10 @@
+<% if govspeak_headers(markdown).any? %>
+  <nav class="js-stick-at-top-when-scrolling">
+    <h1>Contents</h1>
+    <ol class="dash-list">
+      <% govspeak_headers(markdown).each do |header| %>
+        <li><%= link_to header.text, "##{header.id}" %></li>
+      <% end %>
+    </ol>
+  </nav>
+<% end %>
