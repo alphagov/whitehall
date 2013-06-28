@@ -25,7 +25,7 @@
       <% end %>
       <% if !(document.respond_to?(:statistics?) && document.statistics?) %>
         <% if document.respond_to?(:ministerial_roles) && document.ministerial_roles.any? %>
-          <dt><%= t('document.headings.ministers', count: document.ministerial_roles) %>:</dt>
+          <dt><%= t('document.headings.ministers', count: document.ministerial_roles.length) %>:</dt>
           <dd class="js-hide-other-links"><%= list_of_links_to_ministers(document.ministerial_roles) %></dd>
         <% end %>
         <% if document.respond_to?(:delivered_by_minister?) %>
