@@ -1,10 +1,1 @@
-<% page_title "Create page about #{@subject.name}" %>
-
-<div class="container-fluid">
-  <div class="span8">
-    <section>
-      <h1>Create page about <%= @subject.name %></h1>
-      <%= render partial: 'form', locals: { url: admin_topical_event_about_pages_path(@subject) } %>
-    </section>
-  </div>
-</div>
+<%= render partial: 'form', locals: { heading: 'Create page about', url: admin_topical_event_about_pages_path(@subject) } %>

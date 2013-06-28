@@ -1,15 +1,31 @@
-<p class="warning">Warning: changes to <%= human_friendly_model_name.downcase %>s appear instantly on the live site.</p>
+<% page_title "Create page about #{@subject.name}" %>
 
-<%= form_for [@subject, @page], url: url do |form| %>
-  <%= form.errors %>
-  <fieldset>
-    <%= form.text_field :name, required: true %>
-    <%= form.text_field :read_more_link_text, required: true %>
-  </fieldset>
-  <fieldset>
-    <%= form.text_area :summary, rows: 5, required: true %>
-    <%= form.text_area :body, required: true %>
-  </fieldset>
+<div class="span8">
+  <section>
+    <h1><%= heading %> <%= @subject.name %></h1>
 
-  <%= form.save_or_cancel cancel: admin_topical_event_about_pages_path(@subject, @page) %>
-<% end %>
+    <p class="warning">Warning: changes to <%= human_friendly_model_name.downcase %>s appear instantly on the live site.</p>
+
+    <%= form_for [@subject, @page], url: url do |form| %>
+      <%= form.errors %>
+      <fieldset>
+        <%= form.text_field :name, required: true %>
+        <%= form.text_field :read_more_link_text, required: true %>
+      </fieldset>
+      <fieldset>
+        <%= form.text_area :summary, rows: 5, required: true %>
+        <%= form.text_area :body, required: true %>
+      </fieldset>
+
+      <%= form.save_or_cancel cancel: admin_topical_event_about_pages_path(@subject, @page) %>
+    <% end %>
+  </section>
+</div>
+
+<div class="span4">
+  <%= sidebar_tabs govspeak_help: "Formatting Help" do |tabs| %>
+    <%= tabs.pane id: "govspeak_help" do %>
+      <%= render partial: "admin/editions/govspeak_help" %>
+    <% end %>
+  <% end %>
+</div>
