@@ -32,6 +32,6 @@ class HistoricAppointmentsController < PublicFacingController
   end
 
   def previous_appointments_with_unique_people
-    previous_appointments.uniq { |role_appointment| role_appointment.person }
+    previous_appointments.uniq_by { |role_appointment| role_appointment.person }
   end
 end
