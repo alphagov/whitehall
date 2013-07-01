@@ -53,4 +53,20 @@ class PublicFacingController < ApplicationController
   def decorate_collection(collection, presenter_class)
     Whitehall::Decorators::CollectionDecorator.new(collection, presenter_class, view_context)
   end
+
+  def clean_search_filter_params
+    clean_malformed_params_array(:topics)
+    clean_malformed_params_array(:departments)
+    clean_malformed_params_array(:people_ids)
+    clean_malformed_params_array(:world_locations)
+    clean_malformed_params(:page)
+    clean_malformed_params(:per_page)
+    clean_malformed_params(:date)
+    clean_malformed_params(:keywords)
+    clean_malformed_params(:locale)
+    clean_malformed_params(:relevant_to_local_government)
+    clean_malformed_params(:include_world_location_news)
+    clean_malformed_params(:publication_type)
+    clean_malformed_params(:announcement_type)
+  end
 end

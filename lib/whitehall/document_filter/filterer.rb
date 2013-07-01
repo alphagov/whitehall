@@ -7,13 +7,21 @@ module Whitehall::DocumentFilter
     self.number_of_documents_per_page = 40
 
     def initialize(params = {})
-      @params = params
-      @per_page = params[:per_page] || Whitehall::DocumentFilter::Filterer.number_of_documents_per_page
-      @page = params[:page]
-      @direction = params[:direction]
-      @date = parse_date(@params[:date]) if @params[:date].present?
-      @keywords = params[:keywords]
-      @locale = params[:locale]
+      @params          = params
+      @per_page        = params[:per_page] || Whitehall::DocumentFilter::Filterer.number_of_documents_per_page
+      @page            = params[:page]
+      @direction       = params[:direction]
+      @date            = parse_date(@params[:date])
+      @keywords        = params[:keywords]
+      @locale          = params[:locale]
+
+      @relevant_to_local_government = params[:relevant_to_local_government]
+      @include_world_location_news  = params[:include_world_location_news]
+
+      @topics          = @params[:topics]
+      @departments     = @params[:departments]
+      @people_ids      = @params[:people_id]
+      @world_locations = @params[:world_locations]
     end
 
     def announcements_search
@@ -33,11 +41,11 @@ module Whitehall::DocumentFilter
     end
 
     def selected_topics
-      find_by_slug(Classification, @params[:topics])
+      find_by_slug(Classification, @topics)
     end
 
     def selected_organisations
-      find_by_slug(Organisation, @params[:departments])
+      find_by_slug(Organisation, @departments)
     end
 
     def selected_publication_filter_option
@@ -50,30 +58,26 @@ module Whitehall::DocumentFilter
       Whitehall::AnnouncementFilterOption.find_by_slug(filter_option)
     end
 
-    def selected_consultation_type_option
-      @params[:consultation_type_option] unless @params[:consultation_type_option] == "all"
-    end
-
     def selected_people_option
-      if @params[:people_id].present? && @params[:people_id] != ["all"]
-        @params[:people_id].reject! {|l| l == "all"}
-        People.find(@params[:people_id])
+      if @people_ids && @people_ids.any? && @people_ids != ["all"]
+        @people_ids.reject! {|l| l == "all"}
+        People.where(id: @people_ids)
       else
         []
       end
     end
 
     def selected_locations
-      if @params[:world_locations].present? && @params[:world_locations] != ["all"]
-        @params[:world_locations].reject! {|l| l == "all"}
-        WorldLocation.find_all_by_slug(@params[:world_locations])
+      if @world_locations && @world_locations.any? && @world_locations != ["all"]
+        @world_locations.reject! {|l| l == "all"}
+        WorldLocation.find_all_by_slug(@world_locations)
       else
         []
       end
     end
 
     def keywords
-      if @keywords.present? && @keywords.is_a?(String)
+      if @keywords.present?
         @keywords.strip.split(/\s+/)
       else
         []
@@ -81,11 +85,11 @@ module Whitehall::DocumentFilter
     end
 
     def relevant_to_local_government
-      @params[:relevant_to_local_government].present? && @params[:relevant_to_local_government].to_s == '1'
+      @relevant_to_local_government.to_s == '1'
     end
 
     def include_world_location_news
-      @params[:include_world_location_news].present? && @params[:include_world_location_news].to_s == '1'
+      @include_world_location_news.to_s == '1'
     end
 
     private
@@ -100,12 +104,12 @@ module Whitehall::DocumentFilter
     end
 
     def parse_date(date)
-      Date.parse(date)
-      rescue ArgumentError => e
-        if e.message[/invalid date/]
-          return nil
-        else
-          raise e
+      Date.parse(date) if date.present?
+    rescue ArgumentError => e
+      if e.message[/invalid date/]
+        return nil
+      else
+        raise e
       end
     end
   end

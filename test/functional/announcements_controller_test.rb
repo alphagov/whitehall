@@ -14,7 +14,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
   should_show_local_government_items_for :news_article
 
   test "index should handle badly formatted params for topics and departments" do
-    get :index, departments: {"0" => "all"}, topics: {"0" => "all"}
+    get :index, departments: {"0" => "all"}, topics: {"0" => "all"}, keywords: [], world_location: {"0" => "all"}
   end
 
   view_test "index shows a mix of news and speeches" do
