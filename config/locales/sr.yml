@@ -248,7 +248,7 @@ sr:
         many:
         other: Pisane predstavke Parlamentu
     published: objavljeno
-    read: Pročitajte %{naslov}
+    read: Pročitajte %{title}
     speech:
       author_title:
         minister: Ministar
@@ -257,10 +257,10 @@ sr:
       delivery_title:
         minister: Ministar
         speaker: govornik
-      originally_given_at: Originalno objavljeno na %{lokacija}.
+      originally_given_at: Originalno objavljeno na %{location}.
       written_on: ! 'Napisano na:'
     updated: ažurirano
-    view: Pogledajte '%{naslov}'
+    view: Pogledajte '%{title}'
   organisation:
     type:
       Ad-hoc advisory group:
@@ -377,9 +377,9 @@ sr:
       publications: Naše publikacije
       quick_links: Linkovi
       related_policies: Povezane politike
-      see_all: Pogledajte sve naše %{ukucati}
+      see_all: Pogledajte sve naše %{type}
       statistics: Naša statistika
-    see_all: Pogledajte sve naše %{ukucati}
+    see_all: Pogledajte sve naše %{type}
   activerecord:
     attributes:
       detailed_guide:

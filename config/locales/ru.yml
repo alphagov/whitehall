@@ -448,13 +448,13 @@ ru:
       long_ordinal: ! '%e %B %Y %H:%M'
   worldwide_organisation:
     corporate_information:
-      personal_information_charter_html: По %{ссылке} объяснение о том, как мы обращаемся
+      personal_information_charter_html: По %{link} объяснение о том, как мы обращаемся
         с вашей личной информацией
       publication_scheme_html: Прочитать информацию, которая обычно публикуется,  по
-        указанной %{ссылке}.
-      social_media_use_html: Ознакомиться с нашей политикой по %{ссылке}.
+        указанной %{link}.
+      social_media_use_html: Ознакомиться с нашей политикой по %{link}.
       welsh_language_scheme_html: Выяснить о наших обязательствах по публикации можно
-        по %{ссылке}.
+        по %{link}.
     find_out_more: Общая иформация и контакты
     headings:
       about_us: О нас

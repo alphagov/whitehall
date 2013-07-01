@@ -211,7 +211,7 @@ sq:
       transparency: Te dhena transparence
     headings:
       chief_professional_officers: ! 'Zyrtaret tane kryesore profesioniste '
-      contact: Kontakt %{emri}
+      contact: Kontakt %{name}
       corporate_information: Informacion korporate
       corporate_reports: Raporte korporate
       making_foi_requests:
@@ -251,9 +251,9 @@ sq:
       publications: Publikimet tona
       quick_links: Lidhje te shpejta
       related_policies: Politika me lidhje
-      see_all: Shiko te gjitha %{llojet}
+      see_all: Shiko te gjitha %{type}
       statistics: Statistikat tona
-    see_all: Shiko te gjitha %{llojet}
+    see_all: Shiko te gjitha %{type}
   activerecord:
     attributes:
       detailed_guide:

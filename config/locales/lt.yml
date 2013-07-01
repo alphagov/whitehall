@@ -206,7 +206,7 @@ lt:
       delivery_title:
         minister: Ministras
         speaker: Pranešėjas
-      originally_given_at: ! 'Vieta: %{vieta}.'
+      originally_given_at: ! 'Vieta: %{location}.'
       written_on: Parašyta
     updated: atnaujinta
     view: Žiūrėkite '%{title}'

@@ -329,7 +329,7 @@ uk:
       transparency: Прозорість інформації
     headings:
       chief_professional_officers: Наші головні спеціалісти
-      contact: Контактна особа  %{ім'я}
+      contact: Контактна особа  %{name}
       corporate_information: Корпоративна інформація
       corporate_reports: Корпоративні звіти
       making_foi_requests:

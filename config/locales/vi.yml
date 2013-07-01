@@ -10,8 +10,7 @@ vi:
       full_help_html: ! 'Để yêu cầu tài liệu này dưới định dạng khác như tài liệu
         chữ nổi, tiếng hay một định dạng file khác, xin mời email đến %{email}
 
-        cung cấp địa chỉ của bạn, số điện thoại cùng với tiêu đề của tài liệu ("%{tiêu
-        đề}")%{tham khảo}.'
+        cung cấp địa chỉ của bạn, số điện thoại cùng với tiêu đề của tài liệu ("%{title}")%{references}.'
       heading: ! 'File này không phù hợp với công nghệ hỗ trợ của người dùng '
       request_a_different_format: Yêu cầu một định dạng khác
     headings:
@@ -68,7 +67,7 @@ vi:
         one: Tổ chức trên toàn thế giới
         other: Tổ chức trên toàn thế giới
     published: Đã xuất bản
-    read: Đọc bài có  %{tiêu đề}
+    read: Đọc bài có  %{title}
     speech:
       author_title:
         minister: Thứ trưởng
@@ -77,7 +76,7 @@ vi:
       delivery_title:
         minister: Thứ trưởng
         speaker: Người phát biểu
-      originally_given_at: Được đưa ra đầu tiên tại %{địa điểm}
+      originally_given_at: Được đưa ra đầu tiên tại %{location}
       written_on: ! 'Viết vào:'
     type:
       announcement:
@@ -234,7 +233,7 @@ vi:
       transparency: Minh bạch dữ liệu
     headings:
       chief_professional_officers: Các cán bộ phụ trách chuyên môn của chúng tôi
-      contact: Liên lạc %{tên}
+      contact: Liên lạc %{name}
       corporate_information: Thông tin về phòng tổng hợp
       corporate_reports: Các báo cáo của phòng tổng hợp
       making_foi_requests:
@@ -333,7 +332,7 @@ vi:
         chúng tôi xử lý thông tin cá nhân của bạn'
       publication_scheme_html: Xem các loại thông tin mà chúng tôi cập nhật thường
         xuyên tại %{link}
-      social_media_use_html: Đọc chính sách của chúng tôi tại %{đường link}
+      social_media_use_html: Đọc chính sách của chúng tôi tại %{link}
       welsh_language_scheme_html: Tìm hiểu các cam kết của chúng tôi trong việc công
         bố thông tin tại %{link}
     find_out_more: Xem hồ sơ đầy đủ và tất cả các chi tiết liên hệ
