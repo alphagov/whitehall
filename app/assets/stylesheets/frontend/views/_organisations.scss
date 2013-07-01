@@ -303,17 +303,12 @@
   .sub-organisation {
     .headings-block {
       .page-header {
-        h1 {
-          float: left;
-          width: 33.33%;
-        }
-
         .sub-organisation-name {
           clear: both;
           float: none;
           width: 75%;
 
-          h2 {
+          h1 {
             @include heading-48;
             clear: both;
             font-weight: bold;
@@ -323,7 +318,7 @@
           ul {
             @extend %contain-floats;
             li {
-              float: left;
+              display: inline-block;
               margin : 0 $gutter $gutter-one-sixth 0;
             }
           }

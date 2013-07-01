@@ -8,8 +8,8 @@
 %>
 
 <header class="page-header">
-  <%= content_tag :h1 do %>
-    <% unless sub_organisation %>
+  <% unless sub_organisation %>
+    <%= content_tag :h1 do %>
       <span class="<%= logo_classes(class_name: organisation.organisation_logo_type.class_name, size: logo_size, stacked: true) %>">
         <span><%= organisation_logo_name(organisation) %></span>
       </span>
@@ -30,9 +30,9 @@
           <% end %>
         </ul>
 
-      <h2>
+      <h1>
         <%= organisation.name %>
-      </h2>
+      </h1>
     <% end %>
   <% end %>
 
