@@ -221,7 +221,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     get :show, id: sub_organisation
 
     assert_select ".sub-organisation-name" do
-      assert_select "h2", sub_organisation.name
+      assert_select "h1", sub_organisation.name
       assert_select ".organisations-icon-list" do
         assert_select_object organisation
       end
