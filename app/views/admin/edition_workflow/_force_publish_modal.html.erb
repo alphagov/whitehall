@@ -6,7 +6,7 @@
   </div>
   <%= form_tag publish_admin_edition_path(@edition, lock_version: @edition.lock_version, force: true) do %>
     <div class="modal-body">
-      <%= text_area_tag :reason, "", rows: 7 %>
+      <%= text_field_tag :reason %>
     </div>
     <div class="modal-footer">
       <%= submit_tag "Force Publish", class: "btn-primary btn-warning" %>
