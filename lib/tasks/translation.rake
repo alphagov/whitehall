@@ -53,4 +53,18 @@ namespace :translation do
       end
     end
   end
+
+  desc "Check translation files for errors"
+  task :validate do
+    require 'data_hygiene/translation_validator'
+    logger = Logger.new(STDOUT)
+    validator = DataHygiene::TranslationValidator.new(File.expand_path("../../../config/locales", __FILE__), logger)
+    errors = validator.check!
+    if errors.any?
+      puts "Found #{errors.size} errors:"
+      puts errors.map(&:to_s).join("\n")
+    else
+      puts "Success! No unexpected interpolation keys found."
+    end
+  end
 end
