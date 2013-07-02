@@ -8,6 +8,7 @@ class TopicsController < ClassificationsController
     @related_classifications = @classification.related_classifications
     @recently_changed_documents = @classification.recently_changed_documents
     set_slimmer_organisations_header(@classification.organisations)
+    set_slimmer_page_owner_header(@classification.lead_organisations.first)
 
     expire_on_next_scheduled_publication(@classification.scheduled_editions +
       Publication.scheduled_in_topic([@classification]) +

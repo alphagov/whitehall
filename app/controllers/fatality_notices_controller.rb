@@ -3,6 +3,7 @@ class FatalityNoticesController < DocumentsController
     @related_policies = @document.published_related_policies
     @document = FatalityNoticePresenter.new(@document, @view_context)
     set_slimmer_organisations_header(@document.organisations)
+    set_slimmer_page_owner_header(@document.lead_organisations.first)
     set_slimmer_format_header("news")
   end
 

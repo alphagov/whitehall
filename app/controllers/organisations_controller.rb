@@ -33,6 +33,8 @@ class OrganisationsController < PublicFacingController
         if @organisation.live?
           @feature_list = OrganisationFeatureListPresenter.new(@organisation, view_context)
           set_slimmer_organisations_header([@organisation])
+          set_slimmer_page_owner_header(@organisation)
+
           expire_on_next_scheduled_publication(@organisation.scheduled_editions)
 
           if @organisation.organisation_type.executive_office?

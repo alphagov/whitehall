@@ -9,5 +9,6 @@ class GroupsController < PublicFacingController
       ]
     end
     set_slimmer_organisations_header([@organisation])
+    set_slimmer_page_owner_header(@organisation)
   end
 end

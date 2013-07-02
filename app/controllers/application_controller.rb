@@ -39,6 +39,19 @@ class ApplicationController < ActionController::Base
     set_slimmer_headers(organisations: "<#{organisations.map(&:analytics_identifier).join('><')}>")
   end
 
+  def set_slimmer_page_owner_header(organisation)
+    identifier = page_owner_identifier_for(organisation)
+    set_slimmer_headers(page_owner: identifier) if identifier
+  end
+
+  def page_owner_identifier_for(organisation)
+    organisation = organisation.is_a?(WorldwideOrganisation) ? organisation.sponsoring_organisation : organisation
+
+    if organisation && organisation.acronym.present?
+      organisation.acronym.downcase.parameterize.underscore
+    end
+  end
+
   def set_slimmer_format_header(format_name)
     set_slimmer_headers(format: format_name)
   end

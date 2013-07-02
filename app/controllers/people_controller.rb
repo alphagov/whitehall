@@ -5,6 +5,7 @@ class PeopleController < PublicFacingController
     respond_to do |format|
       format.html do
         set_slimmer_organisations_header(@person.organisations)
+        set_slimmer_page_owner_header(@person.organisations.first)
       end
       format.atom
     end
