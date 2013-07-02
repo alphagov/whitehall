@@ -427,7 +427,7 @@ be:
   i18n:
     direction: ltr
   language_names:
-    be: ! "Ð\x91ÐµÐ»Ð°Ñ\x80Ñ\x83Ñ\x81ÐºÐ°Ñ\x8F"
+    be: Беларуская
   latest_feed:
     no_updates: Ніякіх абнаўленняў пакуль няма.
     title: Апошняе
