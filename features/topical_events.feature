@@ -52,3 +52,9 @@ Scenario: Featuring news on an topical event page
   When I feature the news article "A speech" for topical event "An Event" with image "minister-of-funk.960x640.jpg"
   Then I should see the featured news articles in the "An Event" topical event are:
     | A speech | s465_minister-of-funk.960x640.jpg |
+
+Scenario: Adding more information about the event
+  Given I'm administering a topical event
+  And I add a page of information about the event
+  Then I should be able to edit the event's about page
+  And the information about the event should be visible on its public page

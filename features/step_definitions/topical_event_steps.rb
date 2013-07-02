@@ -92,6 +92,35 @@ Then /^I should see the featured news articles in the "([^"]*)" topical event ar
   expected_table.diff!(table)
 end
 
+Given(/^I'm administering a topical event$/) do
+  event = create(:topical_event)
+  visit admin_topical_event_path(event)
+end
+
+When(/^I add a page of information about the event$/) do
+  click_link 'About page'
+  click_link 'Create'
+  fill_in 'Name', with: 'Page about the event'
+  fill_in 'Read more link text', with: 'Read more'
+  fill_in 'Summary', with: 'Summary'
+  fill_in 'Body', with: 'Body'
+  click_button 'Save'
+end
+
+Then(/^I should be able to edit the event's about page$/) do
+  click_link 'Edit'
+  fill_in 'Name', with: 'About the event'
+  click_button 'Save'
+end
+
+Then(/^the information about the event should be visible on its public page$/) do
+  click_link 'View on website'
+  click_link 'Read more'
+  assert page.has_css?('h1.main', text: 'About the event')
+  assert page.has_css?('p.description', text: 'Summary')
+  assert page.has_css?('p', text: 'Body')
+end
+
 def create_topical_event(options = {})
   visit admin_root_path
   click_link "Topical events"
