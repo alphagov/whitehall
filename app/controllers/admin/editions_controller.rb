@@ -299,7 +299,7 @@ class Admin::EditionsController < Admin::BaseController
     if params[:edition][:html_version_attributes] &&
        params[:edition][:html_version_attributes][:title].blank? &&
        params[:edition][:html_version_attributes][:body].blank?
-      params[:edition][:html_version_attributes][:_destroy] = true
+       params[:edition][:html_version_attributes][:_destroy] = true
     end
   end
 
