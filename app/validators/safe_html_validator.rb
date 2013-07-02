@@ -1,6 +1,6 @@
 class SafeHtmlValidator < ActiveModel::Validator
   def validate(record)
-    return if Whitehall.skip_safe_html_validation
+    return if Whitehall.skip_safe_html_validation || record.marked_for_destruction?
     record.changes.each do |field_name, (old_value, new_value)|
       check_struct(record, field_name, new_value)
     end

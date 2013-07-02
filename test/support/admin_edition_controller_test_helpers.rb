@@ -312,6 +312,17 @@ module AdminEditionControllerTestHelpers
           assert_select "textarea[name='edition[html_version_attributes][body]']"
         end
       end
+
+      test "should destroy html verison when all fields are blank" do
+        edition = create("draft_#{edition_type}", :with_html_version)
+        put :update, id: edition, edition: controller_attributes_for_instance(edition,
+          html_version_attributes: {
+            title: "", body: "", id: edition.html_version.id
+          }
+        )
+        edition.reload
+        assert_equal nil, edition.html_version
+      end
     end
 
     def should_allow_attached_images_for(edition_type)
