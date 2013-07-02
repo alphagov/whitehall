@@ -99,7 +99,7 @@ jQuery(function($) {
     var accessLimitedByDefaultIds = publicationTypeChooser.data('access-limited-by-default-type-ids');
     var accessLimitedByDefault = function() {
       var chosenId = parseInt(publicationTypeChooser.val(), 10);
-      if ((""+accessLimitedByDefaultIds).indexOf(chosenId) >= 0) {
+      if (accessLimitedByDefaultIds.indexOf(chosenId) >= 0) {
         $("input[name$='[access_limited]'][type=checkbox]").attr('checked', 'checked');
       }
     }
