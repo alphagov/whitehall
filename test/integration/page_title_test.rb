@@ -16,9 +16,7 @@ class PageTitleTest < ActiveSupport::TestCase
   end
 
   def test_every_page_sets_a_title
-    Dir[Rails.root + "app/views/**/*.html.erb"].reject { |template|
-      is_partial?(template) || is_excluded?(template)
-    }.each do |template|
+    tested_templates.each do |template|
       assert_template_sets_page_title_or_uses_page_title_partial(template)
     end
   end
@@ -30,6 +28,12 @@ class PageTitleTest < ActiveSupport::TestCase
   end
 
   private
+
+  def tested_templates
+    Dir[Rails.root + "app/views/**/*.html.erb"].reject do |template|
+      is_partial?(template) || is_excluded?(template)
+    end
+  end
 
   def is_partial?(template)
     File.basename(template) =~ /^_/
