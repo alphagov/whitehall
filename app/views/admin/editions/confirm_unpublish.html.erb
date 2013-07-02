@@ -10,7 +10,7 @@
           <%= unpublish.hidden_field :slug %>
           <%= unpublish.label :unpublishing_reason_id, "Reason for unpublishing" %>
           <%= unpublish.select :unpublishing_reason_id, options_from_collection_for_select(UnpublishingReason.all, :id, :name) %>
-          <%= unpublish.text_area :explanation, label_text: 'Further explanation', rows: 5  %>
+          <%= unpublish.text_area :explanation, label_text: 'Further explanation', rows: 5, class: "previewable"  %>
           <p class="alert alert-info">Note: This explanation is shown on the public page of this <%= @edition.type.titleize.downcase %> when it is unpublished.</p>
           <%= unpublish.text_field :alternative_url, label_text: 'Alternative URL' %>
           <%= unpublish.check_box :redirect, label_text: 'Redirect to URL automatically?' %>
