@@ -66,14 +66,7 @@ class Publication < Publicationesque
   end
 
   def first_public_at
-    publication_date.to_datetime unless publication_date.nil?
-  end
-
-  def make_public_at(date)
-  end
-
-  def first_published_date
-    publication_date.to_date
+    publication_date
   end
 
   def statistics?
