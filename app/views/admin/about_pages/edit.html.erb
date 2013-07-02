@@ -1,1 +1,1 @@
-<%= render partial: 'form', locals: { heading: 'Edit page about', url: admin_topical_event_about_pages_path(@subject, @page) } %>
+<%= render partial: 'form', locals: { page_title: "Edit page about #{@subject.name}", url: admin_topical_event_about_pages_path(@subject, @page) } %>
