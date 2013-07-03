@@ -28,7 +28,7 @@ private
     response.headers[Slimmer::Headers::SEARCH_INDEX_HEADER] = 'detailed'
   end
 
-  def set_proposition
+  def set_slimmer_proposition
     set_slimmer_headers(proposition: "specialist")
   end
 

@@ -7,7 +7,8 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery
 
-  before_filter :set_proposition
+  before_filter :set_slimmer_proposition
+  before_filter :set_slimmer_application_name
   before_filter :set_audit_trail_whodunnit
 
   layout 'frontend'
@@ -31,7 +32,11 @@ class ApplicationController < ActionController::Base
     slimmer_template('header_footer_only')
   end
 
-  def set_proposition
+  def set_slimmer_application_name
+    set_slimmer_headers(application_name: 'inside_government')
+  end
+
+  def set_slimmer_proposition
     set_slimmer_headers(proposition: "government")
   end
 
