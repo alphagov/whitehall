@@ -31,7 +31,7 @@ module AdminEditionControllerScheduledPublishingTestHelpers
         assert_select '.scheduled-publication', /Scheduled publication proposed for/
       end
 
-      view_test "should display the 'Force Schedule' button for a submitted edition with schedule" do
+      view_test "should display the 'Force schedule' button for a submitted edition with schedule" do
         edition = create(edition_type, :submitted, scheduled_publication: 1.day.from_now)
         edition.stubs(:schedulable_by?).returns(false)
         edition.stubs(:schedulable_by?).with(anything, has_entry(force:true)).returns(true)
