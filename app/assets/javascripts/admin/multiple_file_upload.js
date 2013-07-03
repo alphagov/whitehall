@@ -16,7 +16,7 @@
         clone.children("label").each(function(i, el) {
           $(el).attr("for", $(el).attr("for").replace("_"+id+"_", "_"+newId+"_"));
         });
-        clone.children("input,textarea").each(function(i, el) {
+        clone.find("input,textarea").each(function(i, el) {
           if ($(el).attr('id')) {
             $(el).attr("id", $(el).attr("id").replace("_"+id+"_", "_"+newId+"_"));
           }
