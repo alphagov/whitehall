@@ -26,7 +26,7 @@
     <legend>Associations</legend>
     <%= hidden_field_tag "organisation[parent_organisation_ids][]", "", id: "organisation_parent_organisation_ids_default" %>
     <%= organisation_form.label :parent_organisation_ids, 'Sponsoring organisations' %>
-    <%= select_tag :parent_organisation_ids, options_from_collection_for_select(Organisation.with_translations(:en).all, 'id', 'select_name', organisation.parent_organisation_ids), multiple: true, class: 'chzn-select', include_blank: true, data: { placeholder: "Choose organisations..." } %>
+    <%= organisation_form.select :parent_organisation_ids, options_from_collection_for_select(Organisation.with_translations(:en).all - [organisation_form.object], 'id', 'select_name', organisation.parent_organisation_ids), {}, multiple: true, class: 'chzn-select', data: { placeholder: "Choose parent organisations..." } %>
 
     <h3>Topics</h3>
     <% organisation_form.object.organisation_classifications.each do |ot| %>
