@@ -20,6 +20,7 @@
     .type {
       @include core-27;
       color: $secondary-text-colour;
+      margin-bottom: $gutter-one-sixth;
     }
   }
   .heading-with-extra {
