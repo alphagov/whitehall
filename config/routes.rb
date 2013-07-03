@@ -213,6 +213,7 @@ Whitehall::Application.routes.draw do
           resources :editorial_remarks, only: [:new, :create], shallow: true
           resources :fact_check_requests, only: [:show, :create, :edit, :update], shallow: true
           resource :document_sources, path: "document-sources", except: [:show]
+          resources :attachments, except: [:show]
         end
 
         # Ensure that supporting page routes are just ids in admin
