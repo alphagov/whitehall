@@ -10,6 +10,7 @@ module("Uploading multiple files", {
     file_upload.append('<textarea id="edition_edition_attachments_attributes_0_attachment_attributes_caption" name="edition[edition_attachments_attributes][0][attachment_attributes][caption]"></textarea>');
     file_upload.append('<label for="edition_edition_attachments_attributes_0_attachment_attributes_file">File</label>');
     file_upload.append(this.first_input);
+    file_upload.append('<label for="edition_edition_attachments_attributes_0_attachment_attributes_accessible"><input id="edition_edition_attachments_attributes_0_attachment_attributes_accessible" name="edition[edition_attachments_attributes][0][attachment_attributes][accessible]" type="checkbox" value="1"> Acccessible</label>');
     file_upload.append('<input id="edition_edition_attachments_attributes_0_attachment_attributes_file_cache" name="edition[edition_attachments_attributes][0][attachment_attributes][file_cache]" type="hidden" />');
 
     this.fieldset.append(file_upload);
@@ -27,7 +28,7 @@ test("should add a new file input when a file is selected", function() {
   equal(this.fieldset.children(".file_upload").length, 2);
 });
 
-test("should not add a new file input when a selected file is clickd", function() {
+test("should not add a new file input when a selected file is clicked", function() {
   this.first_input.click();
   this.first_input.click();
   equal(this.fieldset.children(".file_upload").length, 2);
@@ -75,6 +76,18 @@ test("should increment the ID and name of the textareas for each set of new inpu
   latest_input = this.fieldset.find("textarea:last")[0];
   equal(latest_input.id, "edition_edition_attachments_attributes_2_attachment_attributes_caption");
   equal(latest_input.name, "edition[edition_attachments_attributes][2][attachment_attributes][caption]");
+});
+
+test("should increment the ID and name of the checkboxes for each set of new inputs added", function() {
+  fireClickEventOnLastFileInputOf(this.fieldset);
+  var latest_input = this.fieldset.find("input[type=checkbox]:last")[0];
+  equal(latest_input.id, "edition_edition_attachments_attributes_1_attachment_attributes_accessible");
+  equal(latest_input.name, "edition[edition_attachments_attributes][1][attachment_attributes][accessible]");
+
+  fireClickEventOnLastFileInputOf(this.fieldset);
+  latest_input = this.fieldset.find("input[type=checkbox]:last")[0];
+  equal(latest_input.id, "edition_edition_attachments_attributes_2_attachment_attributes_accessible");
+  equal(latest_input.name, "edition[edition_attachments_attributes][2][attachment_attributes][accessible]");
 });
 
 test("should increment the referenced ID of the file label for each set of new inputs added", function() {
