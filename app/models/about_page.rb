@@ -5,10 +5,10 @@ class AboutPage < ActiveRecord::Base
 
   belongs_to :subject, polymorphic: true
 
-  validates :name, presence: true, uniqueness: true
-  validates :read_more_link_text, presence: true
-  validates :summary, presence: true
-  validates :body, presence: true
+  validates :name, presence: true, uniqueness: true, length: { maximum: 255 }
+  validates :read_more_link_text, presence: true, length: { maximum: 255 }
+  validates :summary, presence: true, length: { maximum: (16.megabytes - 1) }
+  validates :body, presence: true, length: { maximum: (16.megabytes - 1) }
 
   searchable title: :name,
              link: :search_link,
