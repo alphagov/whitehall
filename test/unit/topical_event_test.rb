@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class TopicalEventTestTest < ActiveSupport::TestCase
+class TopicalEventTest < ActiveSupport::TestCase
   test "archive topical event when it ends" do
     topical_event = create(:topical_event, start_date: 1.year.ago.to_date, end_date: 1.day.ago.to_date)
     assert topical_event.archived?
