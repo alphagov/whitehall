@@ -59,7 +59,7 @@ module Whitehall::DocumentFilter
     end
 
     def selected_people_option
-      if @people_ids && @people_ids.any? && @people_ids != ["all"]
+      if @people_ids.try(:any?) && @people_ids != ["all"]
         @people_ids.reject! {|l| l == "all"}
         People.where(id: @people_ids)
       else
@@ -68,7 +68,7 @@ module Whitehall::DocumentFilter
     end
 
     def selected_locations
-      if @world_locations && @world_locations.any? && @world_locations != ["all"]
+      if @world_locations.try(:any?) && @world_locations != ["all"]
         @world_locations.reject! {|l| l == "all"}
         WorldLocation.find_all_by_slug(@world_locations)
       else
