@@ -8,7 +8,7 @@
 
     <% if @user.editable_by?(current_user) %>
       <%= form.label :organisation_id, 'Organisation' %>
-      <%= form.select :organisation_id, options_from_collection_for_select(Organisation.all, 'id', 'name', form.object.organisation_id), {}, class: 'chzn-select', data: { placeholder: "Choose your organisation" } %>
+      <%= form.select :organisation_id, options_from_collection_for_select(Organisation.with_translations(:en).all, 'id', 'select_name', form.object.organisation_id), {}, class: 'chzn-select', data: { placeholder: "Choose your organisation" } %>
 
       <%= form.label :world_location_ids, "Select the world locations" %>
       <%= form.select :world_location_ids,
