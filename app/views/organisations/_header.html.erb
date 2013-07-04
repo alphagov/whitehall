@@ -1,39 +1,38 @@
 <%
   logo_size ||= 'large'
   show_mainstream_links ||= false
+  link_to_organisation ||= false
   sub_organisation = organisation.organisation_type.sub_organisation?
-  if sub_organisation
-    logo_size = 'medium'
-  end
+  logo_size = 'medium' if sub_organisation
 %>
 
 <header class="page-header">
-  <% unless sub_organisation %>
-    <%= content_tag :h1 do %>
-      <span class="<%= logo_classes(class_name: organisation.organisation_logo_type.class_name, size: logo_size, stacked: true) %>">
-        <span><%= organisation_logo_name(organisation) %></span>
-      </span>
-    <% end %>
-  <% end %>
   <% if sub_organisation %>
-    <%= content_tag :div, class: "sub-organisation-name" do %>
-
-
-        <ul class="organisations-icon-list">
-          <% organisation.parent_organisations.each do |organisation|%>
-            <%= content_tag_for(:li, organisation, class: organisation.slug) do %>
-              <%= link_to organisation_path(organisation),
-                          class: logo_classes(class_name: organisation.organisation_logo_type.class_name, size: 'medium') do %>
-                <span><%= organisation_logo_name(organisation, false) %></span>
-              <% end %>
+    <div class="sub-organisation-name">
+      <ul class="organisations-icon-list">
+        <% organisation.parent_organisations.each do |organisation| %>
+          <%= content_tag_for(:li, organisation, class: organisation.slug) do %>
+            <%= link_to organisation_path(organisation),
+                        class: logo_classes(class_name: organisation.organisation_logo_type.class_name, size: 'medium') do %>
+              <span><%= organisation_logo_name(organisation, false) %></span>
             <% end %>
           <% end %>
-        </ul>
-
-      <h1>
-        <%= organisation.name %>
-      </h1>
-    <% end %>
+        <% end %>
+      </ul>
+      <h1><%= link_to_organisation ? link_to(organistion.name, organisation_path(organisation)) : organisation.name %></h1>
+    </div>
+  <% else %>
+    <h1>
+      <% if link_to_organisation %>
+        <%= link_to content_tag(:span, organisation_logo_name(organisation)),
+                    organisation_path(organisation),
+                    class: logo_classes(class_name: organisation.organisation_logo_type.class_name, size: logo_size, stacked: true) %>
+      <% else %>
+        <span class="<%= logo_classes(class_name: organisation.organisation_logo_type.class_name, size: logo_size, stacked: true) %>">
+          <span><%= organisation_logo_name(organisation) %></span>
+        </span>
+      <% end %>
+    </h1>
   <% end %>
 
   <%= content_tag_if_not_empty :aside, class: "organisation-mainstream-links" do %>
