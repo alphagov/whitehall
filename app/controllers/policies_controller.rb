@@ -19,8 +19,7 @@ class PoliciesController < DocumentsController
   end
 
   def index
-    clean_malformed_params_array(:topics)
-    clean_malformed_params_array(:departments)
+    clean_search_filter_params
 
     @filter = build_document_filter(params.reverse_merge({ page: 1, direction: 'alphabetical' }))
 

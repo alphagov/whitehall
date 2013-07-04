@@ -14,7 +14,7 @@ class PoliciesControllerTest < ActionController::TestCase
   should_show_local_government_items_for :policy
 
   test "index should handle badly formatted params for topics and departments" do
-    get :index, departments: {'0' => "all"}, topics: {'0' => "all"}
+    get :index, departments: {'0' => "all"}, topics: {'0' => "all"}, keywords: []
   end
 
   view_test "index only lists documents in the given locale" do

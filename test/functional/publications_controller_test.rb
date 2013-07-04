@@ -24,7 +24,7 @@ class PublicationsControllerTest < ActionController::TestCase
 
   test "index should handle badly formatted params for topics and departments" do
     assert_nothing_raised {
-      get :index, departments: {"0" => "all"}, topics: {"0" => "all"}
+      get :index, departments: {"0" => "all"}, topics: {"0" => "all"}, keywords: [], world_location: {"0" => "all"}
     }
   end
 
