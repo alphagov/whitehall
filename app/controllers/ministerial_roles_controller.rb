@@ -15,6 +15,7 @@ class MinisterialRolesController < PublicFacingController
     @ministerial_role = RolePresenter.new(MinisterialRole.find(params[:id]), view_context)
     @policies = decorate_collection(Policy.published.in_reverse_chronological_order.in_ministerial_role(@ministerial_role), PolicyPresenter)
     set_slimmer_organisations_header(@ministerial_role.organisations)
+    set_slimmer_page_owner_header(@ministerial_role.organisations.first)
   end
 
 private

@@ -17,6 +17,7 @@ class DocumentSeriesController < PublicFacingController
     @published_news_articles = decorate_collection(@document_series.published_news_articles.in_reverse_chronological_order, NewsArticlePresenter)
 
     set_slimmer_organisations_header([@document_series.organisation])
+    set_slimmer_page_owner_header(@document_series.organisation)
     expire_on_next_scheduled_publication(@document_series.scheduled_editions)
   end
 
