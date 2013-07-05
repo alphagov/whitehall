@@ -10,6 +10,8 @@ class AboutPage < ActiveRecord::Base
   validates :summary, presence: true, length: { maximum: (16.megabytes - 1) }
   validates :body, presence: true, length: { maximum: (16.megabytes - 1) }
 
+  validates_with SafeHtmlValidator
+
   searchable title: :name,
              link: :search_link,
              content: :indexable_content,
