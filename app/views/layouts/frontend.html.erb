@@ -19,6 +19,8 @@
     <div id="page" class="<%= content_for?(:page_class) ? yield(:page_class) : '' %>" >
       <%= yield %>
       <%= render_mustache_templates if Rails.env.development? %>
+
+      <div id="report-a-problem"></div>
     </div>
   </div>
 <% end %>

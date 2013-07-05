@@ -7,7 +7,8 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery
 
-  before_filter :set_proposition
+  before_filter :set_slimmer_proposition
+  before_filter :set_slimmer_application_name
   before_filter :set_audit_trail_whodunnit
 
   layout 'frontend'
@@ -31,12 +32,29 @@ class ApplicationController < ActionController::Base
     slimmer_template('header_footer_only')
   end
 
-  def set_proposition
+  def set_slimmer_application_name
+    set_slimmer_headers(application_name: 'inside_government')
+  end
+
+  def set_slimmer_proposition
     set_slimmer_headers(proposition: "government")
   end
 
   def set_slimmer_organisations_header(organisations)
     set_slimmer_headers(organisations: "<#{organisations.map(&:analytics_identifier).join('><')}>")
+  end
+
+  def set_slimmer_page_owner_header(organisation)
+    identifier = page_owner_identifier_for(organisation)
+    set_slimmer_headers(page_owner: identifier) if identifier
+  end
+
+  def page_owner_identifier_for(organisation)
+    organisation = organisation.is_a?(WorldwideOrganisation) ? organisation.sponsoring_organisation : organisation
+
+    if organisation && organisation.acronym.present?
+      organisation.acronym.downcase.parameterize.underscore
+    end
   end
 
   def set_slimmer_format_header(format_name)
