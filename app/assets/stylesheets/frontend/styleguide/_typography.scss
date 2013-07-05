@@ -13,10 +13,6 @@
 //  _ Style name refers to graphic style rather than semantic use
 //
 //      font-size: 45px;
-//      font-size: 4.5rem;
-//      _ Font-sizing in rems to avoid issues with relative sizing
-//        and DOM context. Font-size in pixels as fallback for
-//        older browsers.
 //
 //      line-height: (52/45);
 //      _ Unit-less, relative leading value.
@@ -29,13 +25,10 @@
 //        to default values) will increase the robustness of the style.
 //
 //      padding-top: 7px;
-//      padding-top: 0.7rem;
 //      padding-bottom: 5px;
-//      padding-bottom: 0.5rem;
 //      _ Set top and bottom padding values to ensure an appropriate
 //        vertical measure before & after the text, ideally sitting it
-//        on the 10px baseline grid. Rem sizing will allow the
-//        whitespace to scale proportionally along with the text.
+//        on the 10px baseline grid.
 //  }
 
 
@@ -55,7 +48,6 @@
   font-family: $NTA-Light;
   @if $is-print == false {
     font-size: 80px;
-    font-size: 8rem;
   } @else {
     font-size: 28pt;
   }
@@ -63,7 +55,7 @@
   font-weight: 400;
   text-transform: none;
   @media (max-width: 640px) {
-    font-size: 5.3rem;
+    font-size: 53px;
     line-height: $line-height-640;
   }
 }
@@ -72,19 +64,16 @@
 @mixin ig-core-48 {
   font-family: $NTA-Light;
   font-size: 48px;
-  font-size: 4.8rem;
   line-height: 1.0416666667; // 50 / 48
   font-weight: 400;
   text-transform: none;
   padding-top: 12px;
-  padding-top: 1.2rem;
   padding-bottom: 8px;
-  padding-bottom: 0.8rem;
   @media (max-width: 640px) {
-    font-size: 2.5rem;
+    font-size: 25px;
     line-height: (30/25);
-    padding-top: 0.8rem;
-    padding-bottom: 0.7rem;
+    padding-top: 8px;
+    padding-bottom: 7px;
   }
 }
 
@@ -92,19 +81,16 @@
 @mixin ig-core-36 {
   font-family: $NTA-Light;
   font-size: 36px;
-  font-size: 3.6rem;
   line-height: 1.1111111111; // 40/36
   font-weight: 400;
   text-transform: none;
   padding-top: 6px;
-  padding-top: 0.6rem;
   padding-bottom: 9px;
-  padding-bottom: 0.9rem;
   @media (max-width: 640px) {
-    font-size: 2.4rem;
+    font-size: 24px;
     line-height: (25/24);
-    padding-top: 0.8rem;
-    padding-bottom: 0.7rem;
+    padding-top: 8px;
+    padding-bottom: 7px;
   }
 }
 
@@ -112,19 +98,16 @@
 @mixin ig-core-27 {
   font-family: $NTA-Light;
   font-size: 27px;
-  font-size: 2.7rem;
   line-height: 1.1111111111; // 30px
   font-weight: 400;
   text-transform: none;
   padding-top: 2px;
-  padding-top: 0.2rem;
   padding-bottom: 3px;
-  padding-bottom: 0.3rem;
   @media (max-width: 640px) {
-    font-size: 1.9rem;
+    font-size: 19px;
     line-height: (25/19);
-    padding-top: 0.7rem;
-    padding-bottom: 0.3rem;
+    padding-top: 7px;
+    padding-bottom: 3px;
   }
 }
 
@@ -132,19 +115,16 @@
 @mixin ig-core-24 {
   font-family: $NTA-Light;
   font-size: 24px;
-  font-size: 2.4rem;
   line-height: (30/24); /* 30px */
   font-weight: 400;
   text-transform: none;
   padding-top: 3px;
-  padding-top: 0.3rem;
   padding-bottom: 2px;
-  padding-bottom: 0.2rem;
   @media (max-width: 640px) {
-    font-size: 1.7rem;
+    font-size: 17px;
     line-height: (25/17);
-    padding-top: 0.7rem;
-    padding-bottom: 0.7rem;
+    padding-top: 7px;
+    padding-bottom: 7px;
   }
 }
 
@@ -152,19 +132,16 @@
 @mixin ig-core-19 {
   font-family: $NTA-Light;
   font-size: 19px;
-  font-size: 1.9rem;
   line-height: (25/19); /* 25px */
   font-weight: 400;
   text-transform: none;
   padding-top: 7px;
-  padding-top: 0.7rem;
   padding-bottom: 3px;
-  padding-bottom: 0.3rem;
   @media (max-width: 640px) {
-    font-size: 1.3rem;
+    font-size: 13px;
     line-height: (20/13);
-    padding-top: 0.6rem;
-    padding-bottom: 0.4rem;
+    padding-top: 6px;
+    padding-bottom: 4px;
   }
 }
 
@@ -172,19 +149,16 @@
 @mixin ig-core-16 {
   font-family: $NTA-Light;
   font-size: 16px;
-  font-size: 1.6rem;
   line-height: (20/16); /* 20px */
   font-weight: 400;
   text-transform: none;
   padding-top: 5px;
-  padding-top: 0.5rem;
   padding-bottom: 5px;
-  padding-bottom: 0.5rem;
   @media (max-width: 640px) {
-    font-size: 1.3rem;
+    font-size: 13px;
     line-height: (20/13);
-    padding-top: 0.6rem;
-    padding-bottom: 0.4rem;
+    padding-top: 6px;
+    padding-bottom: 4px;
   }
 }
 
@@ -192,19 +166,16 @@
 @mixin ig-core-14 {
   font-family: $NTA-Light;
   font-size: 14px;
-  font-size: 1.4rem;
   line-height: 1.4285714286; // 20 / 14
   font-weight: 400;
   text-transform: none;
   padding-top: 6px;
-  padding-top: 0.6rem;
   padding-bottom: 4px;
-  padding-bottom: 0.4rem;
   @media (max-width: 640px) {
-    font-size: 1.2rem;
+    font-size: 12px;
     line-height: (15/12);
-    padding-top: 0.4rem;
-    padding-bottom: 0.1rem;
+    padding-top: 4px;
+    padding-bottom: 1px;
   }
 }
 

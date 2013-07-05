@@ -114,7 +114,6 @@
       zoom: 1;
 
       background: transparent image-url("accordian-arrow.png") 100% -40px no-repeat;
-      background-position: 100% -4rem;
 
       margin-left: 0;
       padding: 0.5em 2em;
@@ -137,7 +136,6 @@
 
       &.closed {
         background-position: 100% 6px;
-        background-position: 100% 0.6rem;
       }
     }
 
