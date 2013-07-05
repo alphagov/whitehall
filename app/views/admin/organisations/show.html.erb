@@ -25,7 +25,7 @@
               None
             <% end %>
           </td></tr>
-          <tr><th>Topics and Topical Events</th><td>
+          <tr><th>Topics and topical events</th><td>
             <% if @organisation.classifications.any? %>
               <%= @organisation.classifications.map {|t| link_to(t.name, [:edit, :admin, t]) }.to_sentence.html_safe %>
             <% else %>
@@ -43,7 +43,7 @@
             <tr><th><%= sma.social_media_service.name %></th><td><%= link_to sma.url, sma.url %></td></tr>
           <% end %>
           <tr><th>Crest</th><td><%= @organisation.organisation_logo_type.title %></td></tr>
-          <tr><th>Analytics Identifier</th><td><%= @organisation.analytics_identifier %></td></tr>
+          <tr><th>Analytics identifier</th><td><%= @organisation.analytics_identifier %></td></tr>
           <tr><th>Mainstream links</th>
             <td>
               <% if @organisation.mainstream_links.any? %>
