@@ -2,10 +2,7 @@ class TakePartPage < ActiveRecord::Base
 
   validates_with SafeHtmlValidator
   validates :title, :summary, presence: true, length: { maximum: 255 }
-  # default tokenizer does value.split(//) which takes forever on large strings
-  # and serves no purpose whatsoever on ruby > 1.9 - rails 3.2+ don't
-  # tokenize strings by default so it's safe to remove
-  validates :body, presence: true, length: { maximum: (16.megabytes - 1), tokenizer: ->(value) {value} }
+  validates :body, presence: true, length: { maximum: (16.megabytes - 1) }
 
   before_save :ensure_ordering!
   scope :in_order, -> { order(:ordering) }
