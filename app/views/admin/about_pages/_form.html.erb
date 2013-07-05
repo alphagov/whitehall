@@ -4,7 +4,7 @@
 
     <p class="warning">Warning: changes to <%= human_friendly_model_name.downcase %>s appear instantly on the live site.</p>
 
-    <%= form_for [@subject, @page], url: url do |form| %>
+    <%= form_for [@topical_event, @about_page], url: url do |form| %>
       <%= form.errors %>
       <fieldset>
         <%= form.text_field :name, required: true %>
@@ -15,7 +15,7 @@
         <%= form.text_area :body, required: true %>
       </fieldset>
 
-      <%= form.save_or_cancel cancel: admin_topical_event_about_pages_path(@subject, @page) %>
+      <%= form.save_or_cancel cancel: admin_topical_event_about_pages_path(@topical_event, @about_page) %>
     <% end %>
   </section>
 </div>

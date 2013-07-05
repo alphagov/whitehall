@@ -1,8 +1,7 @@
 class CreateAboutPages < ActiveRecord::Migration
   def change
     create_table :about_pages do |t|
-      t.integer :subject_id
-      t.string :subject_type
+      t.integer :topical_event_id
 
       t.string :name
       t.text :summary

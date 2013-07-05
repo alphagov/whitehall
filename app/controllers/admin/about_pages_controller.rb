@@ -1,30 +1,32 @@
 class Admin::AboutPagesController < Admin::BaseController
-  before_filter :find_subject
+  before_filter :find_topical_event
   before_filter :find_page, except: [:new, :create]
-  before_filter :build_page, only: [:new]
 
   helper_method :model_name, :human_friendly_model_name
 
+  def new
+    @about_page = AboutPage.new
+  end
+
   def create
-    @page = AboutPage.new(params[:about_page])
-    @page.subject = @subject
-    if @page.save
-      redirect_to show_path, notice: 'About page created'
+    @about_page = @topical_event.build_about_page(params[:about_page])
+    if @about_page.save
+      redirect_to admin_topical_event_about_pages_path, notice: 'About page created'
     else
       render action: 'new'
     end
   end
 
   def update
-    if @page.update_attributes(params[:about_page])
-      redirect_to show_path, notice: 'About page saved'
+    if @about_page.update_attributes(params[:about_page])
+      redirect_to admin_topical_event_about_pages_path, notice: 'About page saved'
     else
       render action: 'edit'
     end
   end
 
   def show
-    @page = @subject.about_page
+    @about_page = @topical_event.about_page
   end
 
   def model_name
@@ -36,30 +38,11 @@ class Admin::AboutPagesController < Admin::BaseController
   end
 
   private
-    def find_subject
-      @subject = TopicalEvent.find(params[:topical_event_id])
+    def find_topical_event
+      @topical_event = TopicalEvent.find(params[:topical_event_id])
     end
 
     def find_page
       @about_page = @topical_event.about_page
-    end
-
-    def build_page
-    end
-
-    def show_path
-      send("admin_#{model_name}_about_pages_path")
-    end
-
-    def find_page
-      @page = @subject.about_page
-    end
-
-    def build_page
-      @page = AboutPage.new
-    end
-
-    def show_path
-      send("admin_#{model_name}_about_pages_path")
     end
 end

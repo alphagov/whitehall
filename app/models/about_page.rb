@@ -3,7 +3,7 @@ class AboutPage < ActiveRecord::Base
 
   attr_accessible :body, :name, :summary, :read_more_link_text
 
-  belongs_to :subject, polymorphic: true
+  belongs_to :topical_event
 
   validates :name, presence: true, uniqueness: true, length: { maximum: 255 }
   validates :read_more_link_text, presence: true, length: { maximum: 255 }
@@ -18,7 +18,7 @@ class AboutPage < ActiveRecord::Base
              description: :summary
 
   def search_link
-    Whitehall.url_maker.topical_event_about_pages_path(subject.slug)
+    Whitehall.url_maker.topical_event_about_pages_path(topical_event.slug)
   end
 
   def indexable_content

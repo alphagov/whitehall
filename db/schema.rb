@@ -14,8 +14,7 @@
 ActiveRecord::Schema.define(:version => 20130627123819) do
 
   create_table "about_pages", :force => true do |t|
-    t.integer  "subject_id"
-    t.string   "subject_type"
+    t.integer  "topical_event_id"
     t.string   "name"
     t.text     "summary"
     t.text     "body"

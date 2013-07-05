@@ -1,25 +1,25 @@
-<% page_title @page.name %>
+<% page_title @about_page.name %>
 <% page_class "about-pages-pages-show about-page" %>
 
 <header class="block headings-block">
   <div class="inner-block floated-children">
-    <%= render 'shared/heading', heading: @subject.name, big: true, extra: true, url: topical_event_path(@subject) %>
+    <%= render 'shared/heading', heading: @topical_event.name, big: true, extra: true, url: topical_event_path(@topical_event) %>
   </div>
 </header>
 <article>
   <div class="sidebar-block">
     <div class="inner-block">
-      <%= render 'shared/govspeak_header_contents', markdown: @page.body %>
+      <%= render 'shared/govspeak_header_contents', markdown: @about_page.body %>
     </div>
   </div>
   <div class="content-block">
     <div class="inner-block">
-      <h1 class="main"><%= @page.name %></h1>
+      <h1 class="main"><%= @about_page.name %></h1>
       <p class="description">
-        <%= @page.summary %>
+        <%= @about_page.summary %>
       </p>
       <div class="body">
-        <%= govspeak_to_html @page.body %>
+        <%= govspeak_to_html @about_page.body %>
       </div>
     </div>
   </div>
