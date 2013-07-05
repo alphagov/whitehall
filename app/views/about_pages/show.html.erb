@@ -3,7 +3,7 @@
 
 <header class="block headings-block">
   <div class="inner-block floated-children">
-    <%= render 'shared/heading', heading: @topical_event.name, big: true, extra: true, url: topical_event_path(@topical_event) %>
+    <%= render partial: 'shared/heading', locals: { heading: @topical_event.name, big: true, extra: true, url: topical_event_path(@topical_event) } %>
   </div>
 </header>
 <article>
