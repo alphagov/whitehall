@@ -262,4 +262,13 @@
   .js-back-to-content-stop {
     clear: both;
   }
+  p.report-a-problem-toggle a {
+    @include core-16;
+    color: $secondary-text-colour;
+    text-decoration: underline;
+  }
+  .report-a-problem-container {
+    margin-left: 0;
+    max-width: 33em;
+  }
 }
