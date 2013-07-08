@@ -295,6 +295,8 @@ hy:
     no_results:
       description: Փորձեք առավել տարածական դարձնել ձեր փնտրածը և նորից փորձեք
       title: Համապատասխան ինֆորմացի չի գտնվել
+      tna_heading:
+      tna_link:
     world_locations:
       all: Բոլոր վայրերը
       label: Տեղակայված բառեր

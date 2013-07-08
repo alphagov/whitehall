@@ -540,6 +540,8 @@ cy:
       description: Rhowch gynnig ar wneud eich chwiliad yn fwy cyffredinol a rhoi
         cynnig arall arni.
       title: Nid oes dim dogfennau'n cyfateb.
+      tna_heading:
+      tna_link:
     world_locations:
       all: Pob lleoliad
       label: Lleoliadau byd

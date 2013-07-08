@@ -295,6 +295,8 @@ es-419:
     no_results:
       description: Pruebe ampliando su búsqueda y vuelva a intentarlo
       title: No hay documentos que coincidan con su búsqueda
+      tna_heading:
+      tna_link:
     world_locations:
       all: Todas las ubicaciones
       label: Ubicaciones globales

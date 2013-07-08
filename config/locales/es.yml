@@ -294,6 +294,8 @@ es:
     no_results:
       description: Haz una búsqueda más amplio e intentalo de nuevo
       title: No se ha producido ningún resultado
+      tna_heading:
+      tna_link:
     world_locations:
       all: Todos los lugares
       label: Lugares del mundo

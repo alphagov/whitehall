@@ -204,6 +204,8 @@ hu:
     no_results:
       description: Próbálja meg kibővíteni a keresési feltételeket!
       title: Nincs a keresésnek megfelelő dokumentum.
+      tna_heading:
+      tna_link:
     world_locations:
       all: Minden ország
       label: Országok

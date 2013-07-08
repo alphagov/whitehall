@@ -204,6 +204,8 @@ vi:
     no_results:
       description: thử làm cho tìm kiếm của bạn rộng hơn và thử lại
       title: Không có tài liệu phù hợp
+      tna_heading:
+      tna_link:
     world_locations:
       all: Tất cả địa điểm
       label: Các địa điểm trên thế giới

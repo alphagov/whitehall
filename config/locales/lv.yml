@@ -293,6 +293,8 @@ lv:
     no_results:
       description: Paplašiniet meklēšanas nosacījumus un mēģiniet vēlreiz.
       title: Neviens dokuments neatbilst pieprasījumam.
+      tna_heading:
+      tna_link:
     world_locations:
       all: Visas vietas
       label: Pasaules vietas

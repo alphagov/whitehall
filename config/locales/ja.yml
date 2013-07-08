@@ -201,6 +201,8 @@ ja:
     no_results:
       description: 検索内容を変更して再度検索下さい
       title: 該当するページはありません
+      tna_heading:
+      tna_link:
     world_locations:
       all: 全ての地域
       label: 地域

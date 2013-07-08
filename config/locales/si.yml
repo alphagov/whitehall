@@ -295,6 +295,8 @@ si:
     no_results:
       description: ඔබගේ සෙවුම පුළුල් කර නැවත සොයන්න
       title: ගැලපෙන ලේඛන කිසිවක් නැත
+      tna_heading:
+      tna_link:
     world_locations:
       all: සියලු ස්ථාන
       label: ලෝක ස්ථාන

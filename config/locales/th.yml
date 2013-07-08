@@ -201,6 +201,8 @@ th:
     no_results:
       description: ลองค้นหาอีกครั้งด้วยคำค้นหาที่กว้างขึ้น
       title: ไม่มีเอกสารที่ตรงตามต้องการ
+      tna_heading:
+      tna_link:
     world_locations:
       all: ที่ตั้งทั้งหมด
       label: ที่ตั้งทั่วโลก

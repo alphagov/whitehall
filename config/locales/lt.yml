@@ -355,6 +355,8 @@ lt:
     no_results:
       description: Praplėskite paiešką ir bandykite dar kartą
       title: Dokumentų  nerasta
+      tna_heading:
+      tna_link:
     world_locations:
       all: Visos geografinės vietos
       label: Geografinės vietos pasaulyje

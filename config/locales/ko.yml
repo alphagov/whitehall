@@ -201,6 +201,8 @@ ko:
     no_results:
       description: 다시 써치해주시기 바랍니다.
       title: 매치되는 문서가 없습니다.
+      tna_heading:
+      tna_link:
     world_locations:
       all: 모든 로케이션
       label: 월드 로케이션

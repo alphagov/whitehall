@@ -203,6 +203,8 @@ tr:
     no_results:
       description: Aramanızı genişleterek tekrar deneyiniz
       title: Eşleşen sonuç yok
+      tna_heading:
+      tna_link:
     world_locations:
       all: Tüm yerler
       label: Ülkeler

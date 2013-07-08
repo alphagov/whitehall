@@ -538,6 +538,8 @@ ar:
     no_results:
       description: حاول توسيع البحث وحاول البحث مجددا
       title: ليس هناك وثائق تطابق البحث
+      tna_heading:
+      tna_link:
     world_locations:
       all: كافة المواقع
       label: مواقع في العالم

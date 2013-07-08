@@ -295,6 +295,8 @@ ur:
     no_results:
       description: ! 'اپنی تلاش کو وسیع تر کرکے دوبارا کوشش کیجئیے '
       title: مطلوبہ یا ملتا جلتا مضمون نہیں ملا
+      tna_heading:
+      tna_link:
     world_locations:
       all: تمام مقامات
       label: عالمی مقامات

@@ -203,6 +203,8 @@ fa:
     no_results:
       description: جستجوی خود را گسترده تر و مجددا تلاش کنید
       title: اسناد منطبق وجود ندارد
+      tna_heading:
+      tna_link:
     world_locations:
       all: تمام نقاط
       label: موقعیت های جهانی

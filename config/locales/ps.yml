@@ -296,6 +296,8 @@ ps:
     no_results:
       description: کوښښ وکړۍ لا زیات ولتوۍ او بیا کوښښ وکړۍ
       title: سمون لرونکی اسناد شتون نه لری
+      tna_heading:
+      tna_link:
     world_locations:
       all: ټول موقعیتونه
       label: نړیوال موقعیتونه

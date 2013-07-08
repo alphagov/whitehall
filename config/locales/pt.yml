@@ -294,6 +294,8 @@ pt:
     no_results:
       description: Tente tornar sua busca mais abrangente e tente novamente
       title: Nenhum documento encontrado
+      tna_heading:
+      tna_link:
     world_locations:
       all: Todos os locais
       label: Locais no Mundo
