@@ -11,14 +11,16 @@ namespace :rummager do
   namespace :index do
     desc "indexes only government documents"
     task :government => [:environment, :warn_about_no_op] do
-      Rummageable.index(Whitehall.government_search_index, Whitehall.government_search_index_path)
-      Rummageable.commit(Whitehall.government_search_index_path)
+      index = Whitehall::SearchIndex.for(:government)
+      index.add_batch(Whitehall.government_search_index)
+      index.commit
     end
 
     desc "indexes only detailed guidance documents"
     task :detailed => [:environment, :warn_about_no_op] do
-      Rummageable.index(Whitehall.detailed_guidance_search_index, Whitehall.detailed_guidance_search_index_path)
-      Rummageable.commit(Whitehall.detailed_guidance_search_index_path)
+      index = Whitehall::SearchIndex.for(:detailed_guides)
+      index.add_batch(Whitehall.detailed_guidance_search_index)
+      index.commit
     end
   end
 
@@ -27,12 +29,12 @@ namespace :rummager do
 
   namespace :reset do
     task :government => [:environment, :warn_about_no_op] do
-      Rummageable.delete_all(Whitehall.government_search_index_path)
+      Whitehall::SearchIndex.for(:government).delete_all
       Rake::Task["rummager:index:government"].invoke
     end
 
     task :detailed => [:environment, :warn_about_no_op] do
-      Rummageable.delete_all(Whitehall.detailed_guidance_search_index_path)
+      Whitehall::SearchIndex.for(:detailed_guides).delete_all
       Rake::Task["rummager:index:detailed"].invoke
     end
   end
