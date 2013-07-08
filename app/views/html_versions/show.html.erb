@@ -8,7 +8,7 @@
         <%= content_tag_for(:li, organisation, class: organisation.slug) do %>
           <%= link_to organisation_path(organisation),
                       class: logo_classes(class_name: organisation.organisation_logo_type.class_name, size: 'medium', stacked: true) do %>
-            <span><%= organisation.logo_formatted_name %></span>
+            <span><%= organisation_logo_name(organisation) %></span>
           <% end %>
         <% end %>
       <% end %>
