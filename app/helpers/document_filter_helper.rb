@@ -30,8 +30,13 @@ module DocumentFilterHelper
 
   def publication_type_filter_options(publication_filter_options, selected_publication_filter_options = nil)
     selected_value = selected_publication_filter_options ? selected_publication_filter_options.slug : "all"
-    options_for_select([["All publication types", "all"]] +
-    publication_filter_options.sort_by { |a| a.label }.map { |pt| [pt.label, pt.slug] }, [selected_value])
+
+    options_with_group_key = publication_filter_options.select { |a| a.group_key.present? }
+    grouped_options = options_with_group_key.group_by(&:group_key)
+    publication_filter_options.reject! { |a| a.group_key.present? }
+    options_for_select([["All publication types", "all"]], [selected_value]) +
+    grouped_options_for_select(grouped_options.map { |a| [a[0].titleize, a[1].map { |pt| [pt.label, pt.slug] }]}, [selected_value]) +
+    options_for_select(publication_filter_options.sort_by { |a| a.label }.map { |pt| [pt.label, pt.slug] }, [selected_value])
   end
 
   def announcement_type_filter_options(announcement_filter_options, selected_announcement_filter_options = nil)
@@ -46,17 +51,10 @@ module DocumentFilterHelper
     people.map{ |a| [a.name, a.slug] }, [selected_value])
   end
 
-  def consultation_type_filter_options(selected_consultation_type)
-    selected_value = selected_consultation_type ? selected_consultation_type : "all"
-    types = ["Consultation outcome","Closed consultation","Open consultation"]
-    options_for_select([["All consultation types", "all"]] +
-    types.map{ |a|[a, a] }, [selected_value])
-  end
-
   def locations_options(locations, selected_locations)
     selected_value = selected_locations.any? ? selected_locations.map(&:slug) : ["all"]
     options_for_select([[t("document_filters.world_locations.all"), "all"]] +
-    locations.map { |a|[a.name, a.slug] }, selected_value)
+    locations.map { |a| [a.name, a.slug] }, selected_value)
   end
 
   def all_locations_with(type)

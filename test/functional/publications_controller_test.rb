@@ -196,7 +196,7 @@ class PublicationsControllerTest < ActionController::TestCase
   view_test "index shows selected publication_filter_option in the title " do
     get :index, publication_filter_option: 'consultations'
 
-    assert_select 'h1 span', ': Consultations'
+    assert_select 'h1 span', ': All consultations'
   end
 
   view_test "index highlights selected publication type filter options" do
