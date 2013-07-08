@@ -83,7 +83,7 @@
   }
 
   .keyline-header {
-    @include heading-27;
+    @include heading-36;
     border-bottom: 5px solid $inside-gov-nav;
     margin-bottom: $gutter-two-thirds;
   }
@@ -134,7 +134,7 @@
   .our-mission {
     margin-bottom: $gutter*2;
     p {
-      @include heading-36;
+      @include heading-24;
       @include bold;
     }
   }
