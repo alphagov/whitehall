@@ -127,7 +127,7 @@ end
 
 Then /^it should be shown as an authored article in the admin screen$/ do
   click_button "Save"
-  assert page.has_content?("Draft Authored Article")
+  assert page.has_content?("Draft authored article")
 end
 
 Then /^I should see who wrote it clearly labelled in the metadata$/ do

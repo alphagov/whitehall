@@ -5,7 +5,9 @@ Given /^I create a series called "([^"]*)" in the "([^"]*)" organisation$/ do |n
   within record_css_selector(organisation) do
     click_link organisation_name
   end
-  click_link "Document series"
+  within ".organisation-details" do
+    click_link "Document series"
+  end
   click_link "New series"
   fill_in "Name", with: name
   fill_in "Summary", with: "This is a summary of #{name}"
