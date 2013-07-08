@@ -376,7 +376,8 @@ en:
     no_results:
       title: There are no matching documents.
       description: Try making your search broader and try again.
-      tna_link: Please be aware only documents since 2010 have been migrated to GOV.UK, if you are looking for something from before then you can try searching <a href="http://webarchive.nationalarchives.gov.uk/adv_search/">the national archives</a>.
+      tna_heading: Older content
+      tna_link: Not all department publications from before May 2010 were migrated to GOV.UK. To find publications from before May 2010 try searching <a href="http://webarchive.nationalarchives.gov.uk/adv_search/">The National Archives</a>.
   attachment:
     headings:
       published: Published
