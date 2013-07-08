@@ -41,6 +41,15 @@
                   <% end %><% end %>
               </p>
               <p><%= link_to t('organisation.about.read_more'), about_organisation_path(@organisation), id: 'read_more_link' %></p>
+              <% if @organisation.slug === 'department-for-international-development' %>
+                <div class="uk-aid">
+                  <h2><a href="https://www.gov.uk/government/publications/uk-aid-standards-for-using-the-logo">UK aid from the British people</a></h2>
+                  <p>The UK aid logo is used widely in the countries where we work,
+                  on items such as health clinics, school books and emergency
+                  food supplies, to publicly acknowledge development programmes
+                  funded by the UK taxpayer.</p>
+                </div>
+              <% end %>
             </div>
           <% end %>
         </div>

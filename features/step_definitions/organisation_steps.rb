@@ -391,3 +391,18 @@ Then /^I should "([^"]*)" listed as a sponsoring organisation of "([^"]*)"$/ do 
     assert page.has_content?(supporting_org_name)
   end
 end
+
+Then /^I can see information about uk aid on the "(.*?)" page$/ do |org_name|
+  org = Organisation.find_by_name!(org_name)
+
+  visit organisation_path(org)
+  assert page.has_css?('.uk-aid')
+end
+
+Then /^I can not see information about uk aid on the "(.*?)" page$/ do |org_name|
+  org = Organisation.find_by_name!(org_name)
+
+  visit organisation_path(org)
+  refute page.has_css?('.uk-aid')
+end
+
