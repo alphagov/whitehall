@@ -161,10 +161,11 @@
     padding: $gutter 0 $gutter-half;
     border-bottom: 1px solid $border-colour;
     h2 {
-      @include ig-core-27;
+      @include core-27;
     }
     p {
-      @include ig-core-19;
+      @include core-19;
+      margin: $gutter-half 0;
     }
   }
 }

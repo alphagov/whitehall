@@ -15,7 +15,8 @@ class DocumentFilterPresenter < Struct.new(:filter, :context)
       results: filter.documents.map { |d| d.as_hash },
       results_any?: filter.documents.any?,
       no_results_title: context.t('document_filters.no_results.title'),
-      no_results_description: context.t('document_filters.no_results.description')
+      no_results_description: context.t('document_filters.no_results.description'),
+      no_results_tna_link: context.t('document_filters.no_results.tna_link')
     }
     if !filter.documents.last_page? || !filter.documents.first_page?
       data[:more_pages?] = true
