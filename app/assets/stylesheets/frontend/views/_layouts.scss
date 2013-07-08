@@ -19,12 +19,13 @@
   }
 }
 
-.report-a-problem-toggle {
+p.report-a-problem-toggle {
   clear: both;
   margin: $gutter;
 
   a {
     color: $secondary-text-colour;
+    text-decoration: underline;
   }
 }
 
