@@ -384,10 +384,13 @@ he:
     heading: הודעות
   attachment:
     accessibility:
-      full_help_html: |
-        כדי להזמין את המסמך בפורמט אלטרנטיבי כגון ברייל, אודיו או
+      full_help_html: ! 'כדי להזמין את המסמך בפורמט אלטרנטיבי כגון ברייל, אודיו או
+
         סוגי קובץ שונים אנא שלח/י אימייל %{title} עם כתובת וטלפון יחד עם שם המסמך
+
         המבוקש ("%{title}")%{references}.
+
+'
       heading: הקובץ אינו תומך במשתמשי טכנולוגית סיוע
       request_a_different_format: אנא בקש/י פורמט אחר
     headings:
@@ -416,6 +419,8 @@ he:
     no_results:
       description: נסי/ה להרחיב את החיפוש וחפש/י שוב
       title: אין מסמכים תואמים
+      tna_heading:
+      tna_link:
     world_locations:
       all: כל המיקומים
       label: מיקומים גלובאליים

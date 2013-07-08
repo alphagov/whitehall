@@ -295,6 +295,8 @@ sq:
     no_results:
       description: Zgjero kerkimin dhe perpiqu perseri
       title: Nuk gjendet cfare kerkoni
+      tna_heading:
+      tna_link:
     world_locations:
       all: Te gjitha vendndodhjet
       label: Vendndodhje boterore

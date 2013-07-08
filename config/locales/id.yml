@@ -203,6 +203,8 @@ id:
     no_results:
       description: Mohon perluas pencarian Anda dan coba kembali
       title: Dokumen tidak ditemukan
+      tna_heading:
+      tna_link:
     world_locations:
       all: Semua lokasi
       label: Lokasi-lokasi di dunia

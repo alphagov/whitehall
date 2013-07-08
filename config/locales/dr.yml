@@ -294,6 +294,8 @@ dr:
     no_results:
       description: کوشش کنید بیشتر جستجو کنید و دوباره امتحان نمایید
       title: اسنادی که در مطابقت باشند وجود ندارد
+      tna_heading:
+      tna_link:
     world_locations:
       all: تمام موقعیت ها
       label: موقعیت های جهانی

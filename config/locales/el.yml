@@ -296,6 +296,8 @@ el:
     no_results:
       description: Διευρύνετε την αναζήτησή σας και δοκιμάστε ξανά
       title: Δεν υπάρχουν αποτελέσματα
+      tna_heading:
+      tna_link:
     world_locations:
       all: Όλες οι τοποθεσίες
       label: Παγκόσμιες τοποθεσίες

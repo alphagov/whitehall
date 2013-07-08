@@ -356,6 +356,8 @@ cs:
     no_results:
       description: Prosím upravte vámi hledaný pojem a zkuste to znovu.
       title: Systém nemůže nalézt Vámi požadované heslo.
+      tna_heading:
+      tna_link:
     world_locations:
       all: Všude
       label: Světové lokace

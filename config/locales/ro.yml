@@ -359,6 +359,8 @@ ro:
     no_results:
       description: Lărgește aria de căutare şi încearcă din nou
       title: Nu există informații despre acest subiect
+      tna_heading:
+      tna_link:
     world_locations:
       all: Toate locațiile
       label: Locații

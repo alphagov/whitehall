@@ -294,6 +294,8 @@ uz:
     no_results:
       description: Qidiruvni kengaytiring va yana bir bora urinib ko'ring.
       title: Mos hujjatlar yoq.
+      tna_heading:
+      tna_link:
     world_locations:
       all: Hamma joylashuvlar
       label: Hududiy joylashuvlar
