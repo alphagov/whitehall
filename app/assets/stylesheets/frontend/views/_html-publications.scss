@@ -136,12 +136,20 @@
           }
         }
       }
-      h2, h3, h4, h5, h6 {
+      h2, h3, h4 {
         font-weight: bold;
         color: black;
         margin-top: $gutter;
         @include media(tablet){
           margin-top: ($gutter*2) + $gutter-two-thirds;
+        }
+      }
+      h5, h6 {
+        font-weight: bold;
+        color: black;
+        margin-top: $gutter;
+        &+p, &+ul, &+ol {
+          margin-top: 0;
         }
       }
       p, ul, ol {
