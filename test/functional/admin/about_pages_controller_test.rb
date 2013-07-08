@@ -18,7 +18,7 @@ class Admin::AboutPagesControllerTest < ActionController::TestCase
     assert_select 'textarea[name*="summary"]'
   end
 
-  view_test "POST create saves a new about page" do
+  test "POST create saves a new about page" do
     assert_difference 'AboutPage.count' do
       post :create, topical_event_id: @topical_event.to_param, about_page: attributes_for(:about_page)
     end
