@@ -39,14 +39,15 @@
       </div>
       <div class="consultation-lists">
         <div class="consultation-closing-soon">
-          <h3>Closing soon</h3>
+          <% @next_closing_consultations.each do |consultation| %>
+            <h3><%= consultation.time_until_closure %></h3>
+          <% end %>
           <ol class="document-list">
             <% @next_closing_consultations.each do |consultation| %>
               <%= content_tag_for(:li, consultation, class: 'document-row') do %>
-                <h3><%= link_to consultation.title, public_document_path(consultation) %></h3>
+                <h3><%= consultation.title %></h3>
                 <ul class="attributes">
-                  <li class="publication-date"><%= consultation.time_until_closure %></li>
-                  <li><%= link_to "Respond now", public_document_path(consultation) %></li>
+                  <li><%= link_to "Read and respond", public_document_path(consultation) %></li>
                 </ul>
               <% end %>
             <% end %>
