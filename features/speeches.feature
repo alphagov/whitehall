@@ -53,14 +53,6 @@ Scenario: Viewing a speech that's been submitted for review
   And I view the speech "Legalise beards"
   And I should see that "Beards for everyone!" is the speech body
 
-@not-quite-as-fake-search
-Scenario: Publishing a submitted speech
-  Given I am an editor
-  And a submitted speech "Stubble to be Outlawed" exists
-  When I publish the speech "Stubble to be Outlawed"
-  Then I should see the speech "Stubble to be Outlawed" in the list of published documents
-  And the speech "Stubble to be Outlawed" should be visible to the public
-
 @javascript
 Scenario: Creating authored articles (originally published externally)
   Given I am an editor
