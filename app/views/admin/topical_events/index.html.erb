@@ -1,4 +1,3 @@
-<% model_name = model_class.name.underscore %>
 <% page_title model_name.humanize %>
 <nav class="actions">
   <%= link_to "Create #{model_name.humanize.downcase}", [:new, :admin, model_name], class: "btn new_resource", title: "Create a #{model_name.humanize.downcase}" %>
@@ -10,22 +9,20 @@
 <table class="<%= model_name %> table table-striped">
   <thead>
     <tr>
-      <th width="15%">Name</th>
-      <th width="40%">Description</th>
-      <th width="25%">Details</th>
-      <th width="25%">Duration</th>
-      <th width="20%">Related</th>
+      <th width="18%">Name</th>
+      <th width="42%">Description</th>
+      <th width="20%">Details</th>
+      <th width="10%">Duration</th>
+      <th width="10%">Related</th>
     </tr>
   </thead>
   <tbody>
     <% @classifications.each do |classification| %>
       <%= content_tag_for(:tr, classification) do %>
         <td class="name">
-          <%= link_to classification.name, [:edit, :admin, classification], title: "Edit #{model_name.humanize.downcase} #{classification.name}" %><br />
-          - <%= link_to "view", classification, title: "View #{classification.name} on the public website" %><br />
-          - <%= link_to "featured items", [:admin, classification, :classification_featurings], title: "Manage featurings on #{classification.name}" %><br />
+          <%= link_to classification.name, [:admin, classification], title: "View #{model_name.humanize.downcase} #{classification.name}" %>
         </td>
-        <td class="description"><%= classification.description %></td>
+        <td class="description"><%= truncate(classification.description, length: 130, separator: ' ') %></td>
         <td class="details"><%= classification_contents_breakdown(classification) %></td>
         <td class="duration">
           <% if classification.start_date && classification.end_date %>

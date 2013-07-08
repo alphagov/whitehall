@@ -29,12 +29,18 @@ class NavigationSelectionTest < ActiveSupport::TestCase
   end
 
   def test_every_controller_selects_navigation_item
-    Dir[Rails.root + "app/controllers/*_controller.rb"].reject { |controller| is_excluded?(controller) }.each do |controller|
+    tested_controllers.each do |controller|
       assert_controller_select_main_navigation_path(controller)
     end
   end
 
   private
+
+  def tested_controllers
+    Dir[Rails.root + "app/controllers/*_controller.rb"].reject do |controller|
+      is_excluded?(controller)
+    end
+  end
 
   def is_excluded?(controller)
     EXCLUDED_CONTROLLERS.include?(controller)
@@ -43,7 +49,7 @@ class NavigationSelectionTest < ActiveSupport::TestCase
   def assert_controller_select_main_navigation_path(controller_file)
     controller = File.basename(controller_file).sub('_controller.rb', '')
     assert current_main_navigation_path(controller: controller),
-                 "could not find navigation path for controller: #{controller_file}"
+        "could not find navigation path for controller: #{controller_file}"
   end
 
 end

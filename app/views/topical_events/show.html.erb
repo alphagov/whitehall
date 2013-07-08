@@ -39,6 +39,11 @@
       <div class="page-description">
         <section class="description">
           <%= govspeak_to_html @classification.description %>
+          <% if @classification.about_page.present? %>
+            <p class="read-more">
+              <%= link_to @classification.about_page.read_more_link_text, topical_event_about_pages_path(@classification) %>
+            </p>
+          <% end %>
           <% if @classification.social_media_accounts.any? %>
             <%= render partial: 'shared/social_media_accounts',
                       locals: { socialable: @classification, followus: true } %>

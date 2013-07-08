@@ -63,10 +63,10 @@
   </div>
   <p class="warning">
     <% if show_instantly_live_warning %>
-      Warning: changes to <%= model_class.name.underscore.humanize.downcase %>s appear instantly on the live site.
+      Warning: changes to <%= human_friendly_model_name.downcase %>s appear instantly on the live site.
     <% end %>
     <% if show_consult_gds_warning %>
-      Do not create <%= model_class.name.underscore.humanize.downcase %>s without consulting GDS.
+      Do not create <%= human_friendly_model_name.downcase %>s without consulting GDS.
     <% end %>
   </p>
   <%= classification_form.save_or_cancel cancel: [:admin, model_class] %>

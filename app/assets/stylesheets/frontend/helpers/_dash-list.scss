@@ -1,6 +1,7 @@
 .dash-list {
   li {
     list-style-position: inside;
+    padding-top: $gutter-one-sixth;
     padding-right: $gutter-half;
 
     @media (min-width: 1px ){ // target modern browsers

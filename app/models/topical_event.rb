@@ -5,6 +5,8 @@ class TopicalEvent < Classification
              format: 'topical_event',
              description: :description_without_markup
 
+  has_one :about_page
+
   has_many :social_media_accounts, as: :socialable, dependent: :destroy
 
   has_many :announcements, through: :classification_memberships

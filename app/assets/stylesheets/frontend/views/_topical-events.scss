@@ -23,6 +23,11 @@
           @include core-24;
         }
       }
+      .read-more {
+        @include core-24;
+        margin: 20px 0;
+      }
+
       .social-media-accounts {
         @extend %contain-floats;
 

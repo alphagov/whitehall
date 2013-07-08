@@ -11,7 +11,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130613083527) do
+ActiveRecord::Schema.define(:version => 20130627123819) do
+
+  create_table "about_pages", :force => true do |t|
+    t.integer  "topical_event_id"
+    t.string   "name"
+    t.text     "summary"
+    t.text     "body"
+    t.string   "read_more_link_text"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
+  end
 
   create_table "access_and_opening_times", :force => true do |t|
     t.text     "body"

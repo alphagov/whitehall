@@ -1,6 +1,6 @@
 <% page_title "New topic" %>
 <div class="span8">
-<h1>New <%= model_class.name.underscore.humanize.downcase %></h1>
-<p class="warning">Do not create <%= model_class.name.underscore.humanize.downcase %>s without consulting GDS.</p>
+<h1>New <%= human_friendly_model_name.downcase %></h1>
+<p class="warning">Do not create <%= human_friendly_model_name.downcase %>s without consulting GDS.</p>
 <%= render partial: "form", locals: {classification: @classification, show_consult_gds_warning: true} %>
 </div>

@@ -6,5 +6,4 @@ class Admin::TopicalEventsControllerTest < ActionController::TestCase
   end
 
   should_be_an_admin_controller
-
 end
