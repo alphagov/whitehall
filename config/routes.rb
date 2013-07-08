@@ -99,7 +99,8 @@ Whitehall::Application.routes.draw do
       resource :about_pages, path: "about", only: [:show]
     end
 
-    resources :organisations, only: [:index, :show], localised: true do
+    resources :organisations, only: [:index], localised: false
+    resources :organisations, only: [:show], localised: true do
       resources :document_series, only: [:index, :show], path: 'series'
       member do
         get :about, localised: true
