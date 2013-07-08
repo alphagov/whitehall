@@ -20,7 +20,7 @@ module DocumentHelper
     # Make sure the dropdown is visible first, otherwise Capybara won't see the links
     find('li.create-new strong', text: '+').click
     within 'li.create-new' do
-      click_link options[:type].titleize
+      click_link options[:type].humanize
     end
 
     within 'form' do
