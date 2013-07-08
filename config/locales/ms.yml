@@ -200,6 +200,8 @@ ms:
     no_results:
       description:
       title:
+      tna_heading:
+      tna_link:
     world_locations:
       all:
       label:

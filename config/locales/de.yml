@@ -295,6 +295,8 @@ de:
     no_results:
       description: Formulieren Sie Ihre Suche allgemeiner.
       title: Ihre Suchanfrage hat keine Ergebnisse gebracht.
+      tna_heading:
+      tna_link:
     world_locations:
       all: Alle Standorte
       label: Standorte weltweit

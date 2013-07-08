@@ -299,6 +299,8 @@ fr:
     no_results:
       description: Essayez d'élargir votre recherche et essayez à nouveau.
       title: Il n'existe aucun document correspondant.
+      tna_heading:
+      tna_link:
     world_locations:
       all: Tous les endroits
       label: Pays

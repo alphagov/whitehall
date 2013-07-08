@@ -421,6 +421,8 @@ sr:
     no_results:
       description: ! 'Pokušajte da proširite vašu potragu i pokušajte ponovo '
       title: ! 'Nema dokumenata koji odgovaraju vašoj pretrazi '
+      tna_heading:
+      tna_link:
     world_locations:
       all: Sve lokacije
       label: lokacije u svetu

@@ -415,6 +415,8 @@ ru:
     no_results:
       description: Расширьте параметры поиска и попытайтесь еще раз
       title: Соответствующих документов не найдено
+      tna_heading:
+      tna_link:
     world_locations:
       all: Все места нахождения
       label: Места нахождения

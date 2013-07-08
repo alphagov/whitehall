@@ -296,6 +296,8 @@ hi:
     no_results:
       description: ! 'अपनी खोज़ को व्यापक बनाए और पुन: कोशिश करें'
       title: मेल खाने वाले दस्तावेज़ नहीं हैं
+      tna_heading:
+      tna_link:
     world_locations:
       all: सभी स्थान
       label: वैश्विक स्थान

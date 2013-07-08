@@ -416,6 +416,8 @@ uk:
     no_results:
       description: Спробуйте розширити параметри пошуку та повторіть пошук.
       title: Документів не знайдено.
+      tna_heading:
+      tna_link:
     world_locations:
       all: Будь-яке місце
       label: Країна

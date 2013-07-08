@@ -200,6 +200,8 @@ zh-tw:
     no_results:
       description: 嘗試擴大你的搜尋範圍並且再次搜索。
       title: 沒有符合的文件。
+      tna_heading:
+      tna_link:
     world_locations:
       all: 所有地區位置
       label: 世界地區位置

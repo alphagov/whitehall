@@ -296,6 +296,8 @@ so:
     no_results:
       description: Isku day in aad ballaariso baaritaankaaga oo mar kale isku day
       title: Ma jiraan qoraallo waafaqsan baaritaankaaga
+      tna_heading:
+      tna_link:
     world_locations:
       all: Dhammaan goobaha kala duwan
       label: Goobo dunida ka mid ah

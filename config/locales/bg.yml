@@ -305,6 +305,8 @@ bg:
     no_results:
       description: Разширете търсенето си и опитайте отново
       title: Няма намерени документи
+      tna_heading:
+      tna_link:
     world_locations:
       all: Всички места
       label: Световни места

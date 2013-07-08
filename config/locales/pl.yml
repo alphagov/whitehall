@@ -418,6 +418,8 @@ pl:
     no_results:
       description: Spróbuj poszerzyc kryteria wyszukiwania i spróbuj ponownie
       title: Nie ma dokumentów odpowiadających kryteriom
+      tna_heading:
+      tna_link:
     world_locations:
       all: Wszystkie lokalizacje
       label: Lokalizacje na świecie

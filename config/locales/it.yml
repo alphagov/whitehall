@@ -294,6 +294,8 @@ it:
     no_results:
       description: Amplia la ricerca e riprovare
       title: Non è stato trovato alcun documento corrispondente
+      tna_heading:
+      tna_link:
     world_locations:
       all: Tutte le sedi
       label: Sedi internazionali
