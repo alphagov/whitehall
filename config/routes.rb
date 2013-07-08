@@ -97,7 +97,8 @@ Whitehall::Application.routes.draw do
     resources :topics, path: "topics", only: [:index, :show]
     resources :topical_events, path: "topical-events", only: [:index, :show]
 
-    resources :organisations, only: [:index, :show], localised: true do
+    resources :organisations, only: [:index], localised: false
+    resources :organisations, only: [:show], localised: true do
       resources :document_series, only: [:index, :show], path: 'series'
       member do
         get :about, localised: true
