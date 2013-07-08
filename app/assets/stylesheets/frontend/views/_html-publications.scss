@@ -161,6 +161,9 @@
         a {
           text-decoration: underline;
         }
+        b, strong, i, em {
+          font-style: normal;
+        }
       }
       figcaption {
         @include core-16;
