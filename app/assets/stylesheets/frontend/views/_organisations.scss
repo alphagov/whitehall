@@ -499,8 +499,12 @@
     .uk-aid {
       @extend %contain-floats;
       border: 1px solid $border-colour;
-      padding: $gutter-half;
+      padding: $gutter-one-third;
       margin: $gutter 0;
+
+      @include media(desktop){
+        padding: $gutter-half;
+      }
 
       h2 {
         float: left;
@@ -508,10 +512,16 @@
         a {
           display: block;
           overflow: hidden;
-          width: 108px;
-          height: 115px;
-          text-indent: -999em;
+          width: 54px;
+          height: 58px;
+          text-indent: -9999em;
           background: transparent image-url("uk-aid-logo.png") no-repeat 0 0;
+          background-size: 100% 100%;
+
+          @include media(tablet){
+            width: 108px;
+            height: 115px;
+          }
         }
       }
       p {
