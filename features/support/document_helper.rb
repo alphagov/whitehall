@@ -129,11 +129,11 @@ module DocumentHelper
 
   def publish(options = {})
     if options[:force]
-      click_link "Force Publish"
+      click_link "Force publish"
       page.has_css?("#forcePublishModal", visible: true)
       within '#forcePublishModal' do
         fill_in 'reason', with: "because"
-        click_button 'Force Publish'
+        click_button 'Force publish'
       end
       unless options[:ignore_errors]
         refute_flash_alerts_exist

@@ -60,7 +60,7 @@ module("Change note label and field present with force publish button", {
     this.changeNoteTextarea = $("<textarea id='edition_change_note' />");
     this.publishingForm.append(this.changeNoteLabel);
     this.publishingForm.append(this.changeNoteTextarea);
-    this.publishingForm.append("<input type='submit' value='Force Publish'/>");
+    this.publishingForm.append("<input type='submit' value='Force publish'/>");
 
     $("#qunit-fixture").append(this.publishingForm);
     this.publishingForm.enableChangeNoteHighlighting();
@@ -68,5 +68,5 @@ module("Change note label and field present with force publish button", {
 });
 
 test("should insert a force publish button link before the form", function() {
-  equal(this.publishingForm.prev("a.button[href='#edition_publishing']").text(), "Force Publish");
+  equal(this.publishingForm.prev("a.button[href='#edition_publishing']").text(), "Force publish");
 });

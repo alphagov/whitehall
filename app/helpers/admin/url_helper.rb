@@ -58,7 +58,7 @@ module Admin::UrlHelper
   end
 
   def admin_cabinet_ministers_link
-    admin_header_link "Sort Cabinet Ministers", admin_cabinet_ministers_path
+    admin_header_link "Sort Cabinet ministers", admin_cabinet_ministers_path
   end
 
   def admin_get_involved_link
