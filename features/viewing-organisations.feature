@@ -42,3 +42,10 @@ Scenario: Organisation page lists promotional features for executive offices
   Given the executive office organisation "Number 32 - The Cheese Office" exists
   And the executive office has a promotional feature with an item
   Then I should see the promotional feature on the executive office page
+
+Scenario: DFID shows link to uk aid information
+  Given the organisation "Department for International Development" exists
+  And the organisation "Cabinet Office" exists
+  Then I can see information about uk aid on the "Department for International Development" page
+  And I can not see information about uk aid on the "Cabinet Office" page
+
