@@ -1,0 +1,40 @@
+.about-page {
+  @include media(desktop) {
+    .sidebar-block {
+      width: 33.33%;
+      float: left;
+
+      margin-top: -4px;
+    }
+    .content-block {
+      width: 66.66%;
+      float: right;
+    }
+  }
+  
+  .content-block h1 {
+    @include heading-36;
+    font-weight: bold
+  }
+
+  nav {
+    @include ig-core-16;
+    padding: ($gutter - $gutter-one-third) 0 $gutter;
+    h1 {
+      @include bold;
+    }
+  }
+  .description {
+    @include ig-core-24;
+    margin: 10px 0 20px;
+  }
+  .body {
+    h2 {
+      border-bottom: 1px solid $border-colour;
+
+      &:first-child {
+        margin-top: $gutter;
+      }
+    }
+  }
+}

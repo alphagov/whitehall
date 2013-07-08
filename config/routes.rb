@@ -95,7 +95,9 @@ Whitehall::Application.routes.draw do
     match "/consultations/:consultation_id/:id" => 'html_versions#show', as: 'consultation_html_version'
 
     resources :topics, path: "topics", only: [:index, :show]
-    resources :topical_events, path: "topical-events", only: [:index, :show]
+    resources :topical_events, path: "topical-events", only: [:index, :show] do
+      resource :about_pages, path: "about", only: [:show]
+    end
 
     resources :organisations, only: [:index, :show], localised: true do
       resources :document_series, only: [:index, :show], path: 'series'
@@ -163,7 +165,8 @@ Whitehall::Application.routes.draw do
         resources :operational_fields, except: [:show]
         resources :edition_organisations, only: [:edit, :update]
         resources :topics, path: "topics", except: [:show]
-        resources :topical_events, path: "topical-events", except: [:show] do
+        resources :topical_events, path: "topical-events" do
+          resource :about_pages, path: 'about'
           resources :classification_featurings, path: "featurings"
         end
 

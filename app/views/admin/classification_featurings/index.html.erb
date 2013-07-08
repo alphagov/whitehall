@@ -1,61 +1,54 @@
 <% page_title "Featured items on " + @classification.name %>
 
-<div class="span8">
-  <section>
-
-    <%= link_to "Back to #{@classification.class.name.underscore.humanize.downcase.pluralize}", [:admin, :topical_events] %>
-
-    <h1><%= @classification.class.name.underscore.humanize %> '<%= @classification.name %>'</h1>
-    <h2>Featured items</h2>
-    <% if @classification.classification_featurings.any? %>
-      <%= form_for [:admin, @classification] do |form| %>
-        <fieldset class="sortable">
-          <%= form.fields_for :classification_featurings do |cf_form| %>
-            <div class="well">
-              <%= cf_form.text_field :ordering, label_text: link_to(cf_form.object.edition.title, admin_edition_path(cf_form.object.edition)), class: "ordering" %>
-            </div>
-          <% end %>
-        </fieldset>
-        <%= form.submit "Save", class: "btn" %>
-      <% end %>
-    <% else %>
-      None
-    <% end %>
-
-    <h2>Published documents</h2>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Type</th>
-          <th>Title</th>
-          <th>Published</th>
-          <th></th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @classification.editions.published.each do |edition| %>
-          <%= content_tag_for :tr, edition do %>
-            <td class="type"><%= edition.type.titleize %></td>
-            <td><%= link_to edition.title, admin_edition_path(edition) %></td>
-            <td><%=l edition.major_change_published_at.to_date %></td>
-            <% featuring = @classification.featuring_of(edition) %>
-            <td><%= "Featured" if featuring %></td>
-            <td>
-              <% if featuring %>
-                <%= form_for([:admin, @classification, featuring], method: :delete, html: {class: "button_to"}) do |f| %>
-                  <%= f.submit "Unfeature", class: "btn btn-danger" %>
-                <% end %>
-              <% else %>
-                <%= link_to "Feature", polymorphic_path([:new, :admin, @classification, :classification_featuring], edition_id: edition.id), class: "btn" %>
-              <% end %>
-            </td>
-          <% end %>
+<% content_for :current_tab do %>
+  <h2>Featured items</h2>
+  <% if @classification.classification_featurings.any? %>
+    <%= form_for [:admin, @classification] do |form| %>
+      <fieldset class="sortable">
+        <%= form.fields_for :classification_featurings do |cf_form| %>
+          <div class="well">
+            <%= cf_form.text_field :ordering, label_text: link_to(cf_form.object.edition.title, admin_edition_path(cf_form.object.edition)), class: "ordering" %>
+          </div>
         <% end %>
-      </tbody>
-    </table>
+      </fieldset>
+      <%= form.submit "Save", class: "btn" %>
+    <% end %>
+  <% else %>
+    None
+  <% end %>
 
+  <h2>Published documents</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Title</th>
+        <th>Published</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @classification.editions.published.each do |edition| %>
+        <%= content_tag_for :tr, edition do %>
+          <td class="type"><%= edition.type.titleize %></td>
+          <td><%= link_to edition.title, admin_edition_path(edition) %></td>
+          <td><%=l edition.major_change_published_at.to_date %></td>
+          <% featuring = @classification.featuring_of(edition) %>
+          <td><%= "Featured" if featuring %></td>
+          <td>
+            <% if featuring %>
+              <%= form_for([:admin, @classification, featuring], method: :delete, html: {class: "button_to"}) do |f| %>
+                <%= f.submit "Unfeature", class: "btn btn-danger" %>
+              <% end %>
+            <% else %>
+              <%= link_to "Feature", polymorphic_path([:new, :admin, @classification, :classification_featuring], edition_id: edition.id), class: "btn" %>
+            <% end %>
+          </td>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
 
-
-  </section>
-</div>
+<%= render partial: "admin/topical_events/tab_wrapper", locals: { model: @classification } %>

@@ -7,48 +7,54 @@ Background:
   Given I am an editor
 
 Scenario: Adding a new topical event
-  When I create a new topical event "Moustache Growing Convention" with description "Annual convention on moustach growing"
-  Then I should see the topical event "Moustache Growing Convention" in the admin interface
-  And I should see the topical event "Moustache Growing Convention" on the frontend
+  When I create a new topical event "An Event" with description "A topical event"
+  Then I should see the topical event "An Event" in the admin interface
+  And I should see the topical event "An Event" on the frontend
 
 Scenario: Archiving a new topical event
-  When I create a new topical event "Moustache Growing Convention" with description "Annual convention on moustach growing" and it ends today
-  Then I should see the topical event "Moustache Growing Convention" in the admin interface
-  And I should not see the topical event "Moustache Growing Convention" on the topics listing
-  And I should see the topical event "Moustache Growing Convention" on the frontend is archived
+  When I create a new topical event "An Event" with description "A topical event" and it ends today
+  Then I should see the topical event "An Event" in the admin interface
+  And I should not see the topical event "An Event" on the topics listing
+  And I should see the topical event "An Event" on the frontend is archived
 
 Scenario: Associating a speech with a topical event
-  When I create a new topical event "Moustache Growing Convention" with description "Annual convention on moustach growing"
-  And I draft a new speech "Famous moustaches of the 19th century" relating it to topical event "Moustache Growing Convention"
-  And I force publish the speech "Famous moustaches of the 19th century"
-  Then I should see the speech "Famous moustaches of the 19th century" in the announcements section of the topical event "Moustache Growing Convention"
-  And the speech "Famous moustaches of the 19th century" shows it is related to the topical event "Moustache Growing Convention" on its public page
+  When I create a new topical event "An Event" with description "A topical event"
+  And I draft a new speech "A speech" relating it to topical event "An Event"
+  And I force publish the speech "A speech"
+  Then I should see the speech "A speech" in the announcements section of the topical event "An Event"
+  And the speech "A speech" shows it is related to the topical event "An Event" on its public page
 
 Scenario: Associating a news article with a topical event
-  When I create a new topical event "Moustache Growing Convention" with description "Annual convention on moustach growing"
-  And I draft a new news article "Famous moustaches of the 19th century" relating it to topical event "Moustache Growing Convention"
-  And I force publish the news article "Famous moustaches of the 19th century"
-  Then I should see the news article "Famous moustaches of the 19th century" in the announcements section of the topical event "Moustache Growing Convention"
-  And the news article "Famous moustaches of the 19th century" shows it is related to the topical event "Moustache Growing Convention" on its public page
+  When I create a new topical event "An Event" with description "A topical event"
+  And I draft a new news article "A speech" relating it to topical event "An Event"
+  And I force publish the news article "A speech"
+  Then I should see the news article "A speech" in the announcements section of the topical event "An Event"
+  And the news article "A speech" shows it is related to the topical event "An Event" on its public page
 
 Scenario: Associating a publication with a topical event
-  When I create a new topical event "Moustache Growing Convention" with description "Annual convention on moustach growing"
-  And I draft a new publication "Famous moustaches of the 19th century" relating it to topical event "Moustache Growing Convention"
-  And I force publish the publication "Famous moustaches of the 19th century"
-  Then I should see the publication "Famous moustaches of the 19th century" in the publications section of the topical event "Moustache Growing Convention"
-  And the publication "Famous moustaches of the 19th century" shows it is related to the topical event "Moustache Growing Convention" on its public page
+  When I create a new topical event "An Event" with description "A topical event"
+  And I draft a new publication "A speech" relating it to topical event "An Event"
+  And I force publish the publication "A speech"
+  Then I should see the publication "A speech" in the publications section of the topical event "An Event"
+  And the publication "A speech" shows it is related to the topical event "An Event" on its public page
 
 Scenario: Associating a consultation with a topical event
-  When I create a new topical event "Moustache Growing Convention" with description "Annual convention on moustach growing"
-  And I draft a new consultation "Should goatees be considered as Moustaches for the competition?" relating it to topical event "Moustache Growing Convention"
-  And I force publish the consultation "Should goatees be considered as Moustaches for the competition?"
-  Then I should see the consultation "Should goatees be considered as Moustaches for the competition?" in the consultations section of the topical event "Moustache Growing Convention"
-  And the consultation "Should goatees be considered as Moustaches for the competition?" shows it is related to the topical event "Moustache Growing Convention" on its public page
+  When I create a new topical event "An Event" with description "A topical event"
+  And I draft a new consultation "A Consultation" relating it to topical event "An Event"
+  And I force publish the consultation "A Consultation"
+  Then I should see the consultation "A Consultation" in the consultations section of the topical event "An Event"
+  And the consultation "A Consultation" shows it is related to the topical event "An Event" on its public page
 
 Scenario: Featuring news on an topical event page
-  When I create a new topical event "Moustache Growing Convention" with description "Annual convention on moustach growing"
-  And I draft a new news article "Famous moustaches of the 19th century" relating it to topical event "Moustache Growing Convention"
-  And I force publish the news article "Famous moustaches of the 19th century"
-  When I feature the news article "Famous moustaches of the 19th century" for topical event "Moustache Growing Convention" with image "minister-of-funk.960x640.jpg"
-  Then I should see the featured news articles in the "Moustache Growing Convention" topical event are:
-    | Famous moustaches of the 19th century | s465_minister-of-funk.960x640.jpg |
+  When I create a new topical event "An Event" with description "A topical event"
+  And I draft a new news article "A speech" relating it to topical event "An Event"
+  And I force publish the news article "A speech"
+  When I feature the news article "A speech" for topical event "An Event" with image "minister-of-funk.960x640.jpg"
+  Then I should see the featured news articles in the "An Event" topical event are:
+    | A speech | s465_minister-of-funk.960x640.jpg |
+
+Scenario: Adding more information about the event
+  Given I'm administering a topical event
+  And I add a page of information about the event
+  Then I should be able to edit the event's about page
+  And the information about the event should be visible on its public page
