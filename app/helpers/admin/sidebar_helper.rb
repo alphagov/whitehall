@@ -1,6 +1,6 @@
 module Admin::SidebarHelper
   def simple_formatting_sidebar
-    sidebar_tabs govspeak_help: "Formatting Help" do |tabs|
+    sidebar_tabs govspeak_help: "Formatting help" do |tabs|
       tabs.pane id: "govspeak_help" do
         render partial: "admin/editions/govspeak_help"
       end
@@ -11,7 +11,7 @@ module Admin::SidebarHelper
     options = {editing: false, history_count: 0, remarks_count: 0}.merge(options)
     {}.tap do |tabs|
       if options[:editing]
-        tabs[:govspeak_help] = "Formatting Help"
+        tabs[:govspeak_help] = "Formatting help"
       end
       tabs[:notes] = ["Notes", options[:remarks_count]]
       tabs[:history] = ["History", options[:history_count]]

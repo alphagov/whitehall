@@ -76,7 +76,7 @@
 
   <% if edition.respond_to?(:related_detailed_guides) %>
     <section>
-      <h2>Detailed Guides</h2>
+      <h2>Detailed guides</h2>
       <% if edition.related_detailed_guides.any? %>
         <%= render partial: "detailed_guides/list", locals: {detailed_guides: edition.related_detailed_guides} %>
       <% else %>
@@ -98,7 +98,7 @@
 
   <% if edition.respond_to?(:role_appointments) %>
     <section>
-      <h2>Ministerial Appointments</h2>
+      <h2>Ministerial appointments</h2>
       <% if edition.role_appointments.any? %>
         <%= render partial: "admin/role_appointments/list", locals: {role_appointments: edition.role_appointments} %>
       <% else %>

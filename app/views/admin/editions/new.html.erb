@@ -1,13 +1,13 @@
 <% page_title "New " + @edition.type.titleize %>
 <div class="span8">
   <section>
-    <h1>Create <%= @edition.type.titleize %></h1>
+    <h1>Create <%= @edition.type.underscore.humanize.downcase %></h1>
     <%= render partial: "form", locals: {edition: @edition} %>
   </section>
 </div>
 
 <div class="span4">
-  <%= sidebar_tabs govspeak_help: "Formatting Help" do |tabs| %>
+  <%= sidebar_tabs govspeak_help: "Formatting help" do |tabs| %>
     <%= tabs.pane id: "govspeak_help" do %>
       <%= render partial: "admin/editions/govspeak_help" %>
     <% end %>

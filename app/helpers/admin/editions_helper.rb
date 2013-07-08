@@ -9,9 +9,9 @@ module Admin::EditionsHelper
 
   def edition_description(edition)
     if (@edition.is_a?(Speech) && @edition.speech_type.written_article?)
-      type_description = @edition.speech_type.name.titlecase
+      type_description = @edition.speech_type.name.humanize.downcase
     else
-      type_description = @edition.type.underscore.titlecase
+      type_description = @edition.type.underscore.humanize.downcase
     end
 
     "#{@edition.state.capitalize} #{type_description}"
@@ -28,7 +28,7 @@ module Admin::EditionsHelper
   end
 
   def admin_document_series_header_link
-    admin_header_link "Document Series", admin_document_series_index_path, /^#{Whitehall.router_prefix}\/admin\/document_series/
+    admin_header_link "Document series", admin_document_series_index_path, /^#{Whitehall.router_prefix}\/admin\/document_series/
   end
 
   def link_to_filter(link, options, filter, html_options = {})
