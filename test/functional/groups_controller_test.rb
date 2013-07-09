@@ -40,4 +40,13 @@ class GroupsControllerTest < ActionController::TestCase
 
     refute_select "ul.group-members"
   end
+
+  view_test "should link back to sub-organisation's page" do
+    organisation = create(:sub_organisation)
+    group = create(:group, organisation: organisation, members: [])
+
+    get :show, organisation_id: organisation, id: group
+
+    assert_select "h1 a[href='#{organisation_path(organisation)}']"
+  end
 end
