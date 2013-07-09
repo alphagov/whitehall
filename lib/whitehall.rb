@@ -136,12 +136,8 @@ module Whitehall
       File.join(uploads_root, 'clean-uploads')
     end
 
-    def government_search_index_name
-      "government"
-    end
-
     def government_search_index_path
-      "/#{government_search_index_name}"
+      '/government'
     end
 
     def detailed_guidance_search_index_path
