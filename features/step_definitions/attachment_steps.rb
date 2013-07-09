@@ -3,7 +3,7 @@ When(/^I start drafting a news article$/) do
 end
 
 When(/^I add an attachment$/) do
-  click_on "Add attachment"
+  click_on "Save and add attachment"
   fill_in "Title", with: 'An attachment title'
   attach_file "File", Rails.root.join("features/fixtures", "attachment.pdf")
   click_on "Save"
@@ -13,11 +13,9 @@ end
 
 Then(/^I should see the attachment listed on the form with it's markdown code$/) do
   within record_css_selector(@attachment) do
-    assert page.has_content?(@attachment.title)
-    within '.markdown_code' do
-      assert page.has_content?('!@1')
-      assert page.has_content?('[InlineAttachment:1]')
-    end
+    assert_equal @attachment.title, find_field('Title').value
+    assert_equal '!@1', find_field('markdown').value
+    assert_equal '[InlineAttachment:1]', find_field('markdown_inline').value
   end
 end
 

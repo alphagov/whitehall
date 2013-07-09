@@ -54,7 +54,7 @@
         <% end %>
       </div>
     <% else %>
-      <div class="well">
+      <div class="well" id="attachment_<%= edition_attachments_fields.object.id %>">
         <%= edition_attachments_fields.fields_for :attachment do |attachment_fields| %>
           <%= attachment_fields.text_field :title %>
           <% if edition.allows_attachment_references? %>
@@ -74,9 +74,9 @@
         <% end %>
         <% if show_inline_attachment_help %>
           <p>Markdown to use:</p>
-          <input type="text" readonly="readonly" value="!@<%= i += 1 %>" />
+          <input type="text" readonly="readonly" name="markdown" value="!@<%= i += 1 %>" />
           <p>or</p>
-          <input type="text" readonly="readonly" value="[InlineAttachment:<%= i %>]" />
+          <input type="text" readonly="readonly" name="markdown_inline" value="[InlineAttachment:<%= i %>]" />
         <% end %>
       </div>
     <% end %>
