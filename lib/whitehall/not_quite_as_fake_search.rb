@@ -3,36 +3,14 @@ module Whitehall
   module NotQuiteAsFakeSearch
     def self.stop_faking_it_quite_so_much!
       store = Whitehall::NotQuiteAsFakeSearch::Store.new
-      ::Rummageable.implementation = Whitehall::NotQuiteAsFakeSearch::Rummageable.new(store)
+      SearchIndex.indexer_class.store = store
       Whitehall.government_search_client = Whitehall::NotQuiteAsFakeSearch::GdsApiRummager.new(
         Whitehall.government_search_index_path, store)
       Whitehall.search_backend = Whitehall::DocumentFilter::Rummager
     end
 
-    class Rummageable
-      def initialize(store)
-        @store = store
-      end
-
-      def index(documents, index_name)
-        @store.add(documents, index_name)
-      end
-
-      def delete(link, index_name)
-        @store.delete(link, index_name)
-      end
-
-      # We don't call this, so leave it empty
-      def amend(link, amendments, index_name)
-      end
-
-      # No impl seems neccessary
-      def commit(index_name)
-      end
-
-      # No impl seems neccessary
-      def validate_structure(hash, parents=[])
-      end
+    def self.start_faking_it_again!
+      SearchIndex.indexer_class.store = nil
     end
 
     class GdsApiRummager
