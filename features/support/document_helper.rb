@@ -25,8 +25,8 @@ module DocumentHelper
 
     within 'form' do
       fill_in "edition_title", with: options[:title]
-      fill_in "edition_body", with: options[:body] || "Any old iron"
-      fill_in "edition_summary", with: options[:summary] || 'one plus one euals two!'
+      fill_in "edition_body", with: options.fetch(:body, "Any old iron")
+      fill_in "edition_summary", with: options.fetch(:summary, 'one plus one euals two!')
       fill_in_change_note_if_required
 
       unless options[:type] == 'world_location_news_article'
@@ -78,8 +78,8 @@ module DocumentHelper
     select policy.title, from: "Related policies"
   end
 
-  def begin_drafting_statistical_data_set(title)
-    begin_drafting_document type: 'statistical_data_set', title: title, summary: "Some summary of the content"
+  def begin_drafting_statistical_data_set(options)
+    begin_drafting_document options.merge(type: 'statistical_data_set')
   end
 
   def begin_drafting_speech(options)

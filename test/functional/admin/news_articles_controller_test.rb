@@ -42,6 +42,17 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
     assert_select ".summary", text: "a-simple-summary"
   end
 
+  test "POST on :create redirects to new attachment page when attachment indicator is present" do
+    params = attributes_for(:news_article).merge(lead_organisation_ids: [create(:organisation).id])
+
+    assert_difference 'NewsArticle.count' do
+      post :create, edition: params, adding_attachment: 'Button text not important'
+    end
+
+    article = NewsArticle.last
+    assert_redirected_to new_admin_edition_attachment_url(article)
+  end
+
   private
 
   def controller_attributes_for(edition_type, attributes = {})

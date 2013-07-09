@@ -57,7 +57,7 @@ class Admin::EditionsController < Admin::BaseController
 
   def create
     if @edition.save
-      redirect_to admin_edition_path(@edition), notice: "The document has been saved"
+      redirect_to_edition_or_new_attachment_url
     else
       flash.now[:alert] = "There are some problems with the document"
       extract_edition_information_from_errors
@@ -137,6 +137,18 @@ class Admin::EditionsController < Admin::BaseController
 
   def edition_params
     (params[:edition] || {}).merge(creator: current_user)
+  end
+
+  def redirect_to_edition_or_new_attachment_url
+    if adding_attachment?
+      redirect_to new_admin_edition_attachment_url(@edition)
+    else
+     redirect_to admin_edition_url(@edition), notice: "The document has been saved"
+   end
+  end
+
+  def adding_attachment?
+    params[:adding_attachment].present?
   end
 
   def build_edition

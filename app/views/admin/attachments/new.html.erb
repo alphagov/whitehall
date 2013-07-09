@@ -1,1 +1,26 @@
-BOOM!
+
+<%= form_for [:admin, @edition, @attachment], url: admin_edition_attachments_path(@edition, @attachment) do |form| %>
+
+	<%= form.text_field :title %>
+
+  <% if @edition.allows_attachment_references? %>
+    <%= form.text_field :isbn, label_text: 'ISBN' %>
+    <%= form.text_field :unique_reference %>
+    <%= form.text_field :command_paper_number %>
+    <%= form.text_field :order_url, label_text: 'Order URL' %>
+    <%= form.text_field :price, label_text: "Price in £s" %>
+  <% end %>
+
+  <%= form.fields_for :attachment_data do |attachment_data_fields| %>
+    <%= attachment_data_fields.label :file, nil, required: false %>
+    <%= attachment_data_fields.file_field :file %>
+
+    <%= form.check_box :accessible, label_text: "Attachment is accessible" %>
+    <% if attachment_data_fields.object.file_cache.present? %>
+      <span class="already_uploaded"><%= File.basename(attachment_data_fields.object.file_cache) %> already uploaded</span>
+    <% end %>
+    <%= attachment_data_fields.hidden_field :file_cache %>
+  <% end %>
+
+  <%= form.submit 'Save', class: 'btn btn-large btn-primary' %>
+<% end %>
