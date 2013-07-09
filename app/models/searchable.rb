@@ -85,7 +85,7 @@ module Searchable
     end
 
     def rummager_index
-      is_a?(DetailedGuide) ? Whitehall.detailed_guidance_search_index_path : Whitehall.government_search_index_path
+      :government
     end
 
     module ClassMethods
@@ -133,7 +133,8 @@ module Searchable
 
     def perform
       if searchable_instance.can_index_in_search?
-        Rummageable.index(searchable_instance.search_index, searchable_instance.rummager_index)
+        index = Whitehall::SearchIndex.for(searchable_instance.rummager_index)
+        index.add(searchable_instance.search_index)
       end
     end
   end
@@ -145,7 +146,7 @@ module Searchable
     end
 
     def perform
-      Rummageable.delete(link, index)
+      Whitehall::SearchIndex.for(index).delete(link)
     end
   end
 end

@@ -31,6 +31,10 @@ class DetailedGuideTest < ActiveSupport::TestCase
     assert_equal "detailed_guidance", guide.search_index["format"]
   end
 
+  test 'should be added to the detailed guides rummager index' do
+    assert_equal :detailed_guides, build(:detailed_guide).rummager_index
+  end
+
   test "can be related to another detailed guide" do
     related_guide = create(:detailed_guide)
     guide = create(:detailed_guide, outbound_related_documents: [related_guide.document])
