@@ -1,6 +1,6 @@
 .worldwide-organisations-show {
   .keyline-header {
-    @include heading-27;
+    @include heading-36;
     border-bottom: 5px solid $inside-gov-nav;
     margin-bottom: $gutter-two-thirds;
   }
@@ -49,12 +49,39 @@
       font-weight: bold;
       margin-bottom: $gutter-half;
     }
+    .description {
+      .govspeak {
+        h2 {
+          @include core-19;
+          font-weight: bold;
+          padding-bottom: 0;
+        }
+        p {
+          margin-top: 0;
+          margin-bottom: $gutter-half;
+          padding-top: 0;
+        }
+      }
+    }
   }
 
   .our-services {
     .content {
       @include media(tablet){
         width: 66.66%;
+      }
+      .govspeak {
+        h2 {
+          @include core-19;
+          font-weight: bold;
+        }
+        h3 {
+          padding-bottom: 0;
+        }
+        p {
+          margin-top: 0;
+          padding-top: 0;
+        }
       }
     }
   }
@@ -79,9 +106,6 @@
   }
 
   .contact-us {
-    h1 {
-      margin: 0 $gutter-half;
-    }
     .contact {
       min-width: 0; // to overide something from static
       @include core-16;
@@ -150,4 +174,28 @@
       }
     }
   }
+  .contact-us,
+  .corporate-information {
+    h1 {
+      @include heading-27;
+      border-top: $gutter-one-sixth solid $black;
+      border-bottom: 1px solid $border-colour;
+      font-weight: bold;
+      margin: 0 $gutter-half;
+      padding: $gutter-two-thirds 0 $gutter-one-third 0;
+      @include media(tablet) {
+        margin: 0 $gutter-half;
+        padding: $gutter-two-thirds 0;
+      }
+    }
+  }
+  .corporate-information {
+    h1 {
+      border-bottom: 0;
+      margin: 0;
+      @include media(tablet) {
+        margin: 0;
+      }
+    }
+  }  
 }
