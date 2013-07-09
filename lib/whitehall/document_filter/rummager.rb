@@ -144,7 +144,7 @@ module Whitehall::DocumentFilter
     end
 
     def documents
-      if @results.empty? || @results['results'].empty?
+      if @results.empty? || @results['results'].blank?
         @documents ||= Kaminari.paginate_array([]).page(@page).per(@per_page)
       else
         objects = Edition.published.with_translations.includes(self.edition_eager_load).where(id: @results['results'].map{ |h| h["id"] })
