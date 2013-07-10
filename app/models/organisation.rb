@@ -214,6 +214,7 @@ class Organisation < ActiveRecord::Base
   include Featurable
 
   searchable title: :select_name,
+             acronym: :acronym,
              link: :search_link,
              content: :indexable_content,
              description: :description,

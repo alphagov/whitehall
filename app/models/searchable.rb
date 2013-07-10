@@ -2,7 +2,7 @@ module Searchable
   extend ActiveSupport::Concern
 
   SEARCH_FIELDS = [
-    :id, :title, :link, :content,
+    :id, :title, :acronym, :link, :content,
     :section, :subsection, :subsubsection,
     :format, :boost_phrases, :description,
     :organisations, :public_timestamp,
