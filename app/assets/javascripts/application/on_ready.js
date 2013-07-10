@@ -1,3 +1,4 @@
+// Happen as soon as the DOM is loaded and before assets are downloaded
 jQuery(function($) {
   $('.js-hide-other-links').hideOtherLinks();
   $('.js-hide-other-departments').hideOtherLinks({ linkElement: 'span', alwaysVisibleClass: '.lead' });
@@ -7,7 +8,6 @@ jQuery(function($) {
   $('.detailed-guides-show').trackExternalLinks();
 
   GOVUK.stickAtTopWhenScrolling.init();
-  GOVUK.backToContent.init();
 
   $('.js-toggle-change-notes').toggler({actLikeLightbox: true});
   $('.js-toggle-change-notes').click(function(){
@@ -34,4 +34,8 @@ jQuery(function($) {
   GOVUK.showHide.init();
   GOVUK.emailSignup.init();
   GOVUK.virtualTour.init();
+});
+// These want images to be loaded before they run so the page height doesn't change.
+jQuery(window).load(function(){
+  GOVUK.backToContent.init();
 });
