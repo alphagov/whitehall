@@ -268,7 +268,7 @@ class OrganisationTest < ActiveSupport::TestCase
   test 'should return search index data suitable for Rummageable' do
     organisation = create(:organisation, name: 'Ministry of Funk', acronym: 'MoF')
 
-    assert_equal 'Ministry of Funk (MoF)', organisation.search_index['title']
+    assert_equal 'Ministry of Funk', organisation.search_index['title']
     assert_equal 'MoF', organisation.search_index['acronym']
     assert_equal "/government/organisations/#{organisation.slug}", organisation.search_index['link']
     assert_equal organisation.indexable_content, organisation.search_index['indexable_content']
@@ -317,14 +317,14 @@ class OrganisationTest < ActiveSupport::TestCase
                   'indexable_content' => 'Bookish. ',
                   'format' => 'organisation',
                   'description' => 'Bookish.'}, results[1])
-    assert_equal({'title' => 'HMRC (hmrc)',
+    assert_equal({'title' => 'HMRC',
                   'acronym' => 'hmrc',
                   'link' => '/government/organisations/hmrc',
                   'indexable_content' => 'Taxing. ',
                   'format' => 'organisation',
                   'boost_phrases' => 'hmrc',
                   'description' => 'Taxing.'}, results[2])
-    assert_equal({'title' => 'Ministry of Defence (mod)',
+    assert_equal({'title' => 'Ministry of Defence',
                   'acronym' => 'mod',
                   'link' => '/government/organisations/ministry-of-defence',
                   'indexable_content' => 'Defensive. ',
