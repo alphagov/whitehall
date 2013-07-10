@@ -30,14 +30,10 @@ module("Document filter", {
 
     this.selections = this.resultsCount.find('.selections');
 
-    this.jsonNextPageLink = $('<link rel="next" type="application/json" />');
-    $('#qunit-fixture').append(this.jsonNextPageLink);
-
     this.ajaxData = {
       "next_page?": true,
       "next_page": 2,
       "next_page_url": '/next-page-url',
-      "next_page_json": '/next-page-url.json',
 
       "prev_page_url": '/prev-page-url',
       "more_pages?": true,
@@ -106,28 +102,6 @@ test("should update the email signup url", function() {
   equals(this.feedLinks.find('a[href="/email-signups"]').length, 1);
 });
 
-test("should visually hide the footer", function(){
-  $('#qunit-fixture').append('<div id="footer"></div>');
-
-  equals($('#footer.visuallyhidden').length, 0);
-  GOVUK.documentFilter.hideFooter();
-  equals($('#footer.visuallyhidden').length, 1);
-});
-
-test("should visually show the footer", function(){
-  $('#qunit-fixture').append('<div id="footer"></div><div id="show-more-documents"><i class="next"><a>next</a></i></div>');
-
-  GOVUK.documentFilter.hideFooter();
-  equals($('#footer.visuallyhidden').length, 1);
-
-  GOVUK.documentFilter.showFooter();
-  equals($('#footer.visuallyhidden').length, 1);
-
-  $('#show-more-documents').remove();
-  GOVUK.documentFilter.showFooter();
-  equals($('#footer.visuallyhidden').length, 0);
-});
-
 test("should make an ajax request on form submission to obtain filtered results", function() {
   this.filterForm.enableDocumentFilter();
 
@@ -135,19 +109,6 @@ test("should make an ajax request on form submission to obtain filtered results"
   var server = this.sandbox.useFakeServer();
 
   this.filterForm.submit();
-  server.respond();
-
-  sinon.assert.calledOnce(ajax);
-});
-
-test("should make an ajax request to load more results inline", function() {
-  this.filterForm.enableDocumentFilter();
-  GOVUK.documentFilter.renderTable(this.ajaxData);
-
-  var ajax = this.spy(jQuery, "ajax");
-  var server = this.sandbox.useFakeServer();
-
-  GOVUK.documentFilter.loadMoreInline();
   server.respond();
 
   sinon.assert.calledOnce(ajax);
@@ -193,31 +154,10 @@ test("should render results based on successful ajax response", function() {
   this.filterForm.submit();
   server.respond();
 
-  equals($('link[rel=next][type=application/json]').length, 1);
-  equals($('link[rel=next][type=application/json]').attr('href'), this.ajaxData.next_page_json);
   equals(this.filterResults.find(".document-row").length, 2);
   equals(this.filterResults.find(".document-row .document-series").text(), 'series-1');
   equals(this.filterResults.find(".document-row .topics").text(), 'topic-name-1, topic-name-2');
   equals(this.filterResults.find(".document-row .field-of-operation").text(), 'place-of-war');
-});
-
-test("should add extra results to table results", function() {
-  this.filterForm.enableDocumentFilter();
-
-  var server = this.sandbox.useFakeServer();
-  server.respondWith(JSON.stringify(this.ajaxData));
-
-  this.filterForm.submit();
-  server.respond();
-
-  equals(this.filterResults.find(".document-row").length, 2);
-
-  GOVUK.documentFilter.loadMoreInline();
-  server.respond();
-
-  equals($('link[rel=next][type=application/json]').length, 1);
-  equals($('link[rel=next][type=application/json]').attr('href'), this.ajaxData.next_page_json);
-  equals(this.filterResults.find(".document-row").length, 4);
 });
 
 test("should fire analytics on successful ajax response", function() {
