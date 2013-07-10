@@ -203,7 +203,7 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
         var $options = $("select option[value='"+removed+"']");
         if($options.length){
           $options.removeAttr("selected");
-          var $select = $options.parent("select");
+          var $select = $options.closest("select");
           if($select.find(':selected').length === 0){
             $select.find(">:first-child").prop("selected", true);
           };
@@ -229,13 +229,15 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
       return {
         html: $('.js-filter-results').html(),
         selected: $.map(documentFilter.$form.find('select'), function(n) {
-          var $n = $(n);
-          var id = $n.attr('id');
-          var titles = [];
+          var $n = $(n),
+              id = $n.attr('id'),
+              titles = [],
+              values = [];
           $("#" + id  + " option:selected").each(function(){
             titles.push($(this).text());
+            values.push($(this).attr('value'));
           });
-          return {id: id, value: $n.val(), title: titles};
+          return {id: id, value: values, title: titles};
         }),
         text: $.map(documentFilter.$form.find('input[type=text]'), function(n) {
           var $n = $(n);
