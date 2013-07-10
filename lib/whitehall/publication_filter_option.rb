@@ -26,7 +26,7 @@ module Whitehall
     PolicyPaper = create(id: 1, label: "Policy papers", search_format_types: PublicationType::PolicyPaper.search_format_types, publication_types: [PublicationType::PolicyPaper])
     Consultation = create(id: 2, slug: "consultations", label: "All consultations", search_format_types: ['publicationesque-consultation'], publication_types: [PublicationType::Consultation], group_key: 'consultations')
     OpenConsultation = create(id: 3, label: "Open consultation", search_format_types: ['consultation-open'], publication_types: [PublicationType::Consultation], group_key: 'consultations')
-    ClosedConsultation = create(id: 4, label: "Closed consultation", search_format_types: ['consultation-closed'], publication_types: [PublicationType::Consultation], group_key: 'consultations')
+    ClosedConsultation = create(id: 4, label: "Closed consultation", search_format_types: ['consultation-closed', 'consultation-outcome'], publication_types: [PublicationType::Consultation], group_key: 'consultations')
     OutcomeConsultation = create(id: 5, label: "Consultation outcome", search_format_types: ['consultation-outcome'], publication_types: [PublicationType::Consultation], group_key: 'consultations')
     ImpactAssessment = create(id: 6, label: "Impact assessments", search_format_types: PublicationType::ImpactAssessment.search_format_types, publication_types: [PublicationType::ImpactAssessment])
     Guidance = create(id: 7, label: "Guidance", search_format_types: PublicationType::Guidance.search_format_types, publication_types: [PublicationType::Guidance])
