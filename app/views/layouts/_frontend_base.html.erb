@@ -8,6 +8,8 @@
     <meta content="320" name="MobileOptimized">
     <meta content="width=device-width, initial-scale=1" name="viewport">
 
+    <%= meta_description_tag %>
+
     <title><%= page_title %></title>
     <% if right_to_left? %>
       <!--[if gt IE 8]><!--><%= stylesheet_link_tag "frontend/right-to-left.css" %><!--<![endif]-->
