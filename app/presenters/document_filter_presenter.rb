@@ -26,7 +26,6 @@ class DocumentFilterPresenter < Struct.new(:filter, :context)
       data[:next_page?] = true
       data[:next_page] = filter.documents.current_page + 1
       data[:next_page_url] = url(page: filter.documents.current_page + 1)
-      data[:next_page_json] = context.filter_json_url(page: filter.documents.current_page + 1)
     end
     unless filter.documents.first_page?
       data[:prev_page?] = true
