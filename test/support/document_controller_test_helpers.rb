@@ -325,18 +325,6 @@ module DocumentControllerTestHelpers
         end
       end
 
-      view_test "infinite pagination link should appear when there are more records for #{edition_type}" do
-        without_delay! do
-          documents = (1..4).to_a.map { |i| create("published_#{edition_type}", title: "keyword-#{i}") }
-
-          with_number_of_documents_per_page(3) do
-            get :index
-          end
-
-          assert_select "link[rel='next'][type='application/json']"
-        end
-      end
-
       view_test "should show previous page link when not on the first page for #{edition_type}" do
         without_delay! do
           documents = (1..4).to_a.map { |i| create("published_#{edition_type}", title: "keyword-#{i}") }
@@ -364,18 +352,6 @@ module DocumentControllerTestHelpers
             assert_select ".previous span", text: "1 of 3"
             assert_select ".next span", text: "3 of 3"
           end
-        end
-      end
-
-      view_test "should preserve query params in next pagination link for #{edition_type}" do
-        without_delay! do
-          documents = (1..4).to_a.map { |i| create("published_#{edition_type}", title: "keyword-#{i}") }
-
-          with_number_of_documents_per_page(3) do
-            get :index, keywords: 'keyword'
-          end
-
-          assert_select "link[rel=next][type='application/json'][href*='keywords=keyword']"
         end
       end
     end
