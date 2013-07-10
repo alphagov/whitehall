@@ -37,6 +37,6 @@ class DocumentFilterPresenter < Struct.new(:filter, :context)
   end
 
   def url(override_params)
-    context.url_for(context.params.merge(override_params).merge("_" => nil))
+    context.url_for(context.params.merge(override_params).merge("_" => nil).except(:format))
   end
 end
