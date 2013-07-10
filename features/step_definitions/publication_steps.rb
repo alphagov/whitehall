@@ -5,33 +5,17 @@ end
 
 Given /^a draft publication "([^"]*)" with a PDF attachment$/ do |title|
   publication = create(:draft_publication, :with_attachment, title: title, body:"!@1")
-  @attachment_title = publication.attachments.first.title
-  @attachment_filename = publication.attachments.first.filename
+  @attachment = publication.attachments.first
 end
 
 Given /^a submitted publication "([^"]*)" with a PDF attachment$/ do |title|
   publication = create(:submitted_publication, :with_attachment, title: title, body: "!@1")
-  @attachment_title = publication.attachments.first.title
-  @attachment_filename = publication.attachments.first.filename
+  @attachment = publication.attachments.first
 end
 
 Given /^a published publication "([^"]*)" with a PDF attachment$/ do |title|
   publication = create(:published_publication, :with_attachment, title: title, body: "!@1")
   @attachment = publication.attachments.first
-  @attachment_title = @attachment.title
-  @attachment_filename = @attachment.filename
-end
-
-Given /^I attempt to create an invalid publication with an attachment$/ do
-  begin_drafting_publication("")
-  @attachment_title = "Attachment Title"
-  @attachment_file = pdf_attachment
-  within ".attachments" do
-    choose "Individual upload"
-    fill_in "Title", with: @attachment_title
-    attach_file "File", @attachment_file
-  end
-  click_button "Save"
 end
 
 When /^I begin drafting a new publication "([^"]*)"$/ do |title|
@@ -123,16 +107,16 @@ When /^I correct the invalid information for the publication$/ do
 end
 
 Then /^I should not see a link to the PDF attachment$/ do
-  assert page.has_no_css?(".attachment .title", text: @attachment_title)
-  assert page.has_no_css?(".attachment a[href*='#{@attachment_filename}']", text: "Download attachment")
+  assert page.has_no_css?(".attachment .title", text: @attachment.title)
+  assert page.has_no_css?(".attachment a[href*='#{@attachment.filename}']", text: "Download attachment")
 end
 
 Then /^I should see a link to the PDF attachment$/ do
-  assert page.has_css?(".attachment a[href*='#{@attachment_filename}']", text: @attachment_title)
+  assert page.has_css?(".attachment a[href*='#{@attachment.filename}']", text: @attachment.title)
 end
 
 Then /^I should see a thumbnail of the first page of the PDF$/ do
-  assert page.has_css?(".attachment img[src*='#{@attachment_filename}.png']") || page.has_css?("div.img img[src*='#{@attachment_filename}.png']")
+  assert page.has_css?(".attachment img[src*='#{@attachment.filename}.png']") || page.has_css?("div.img img[src*='#{@attachment.filename}.png']")
 end
 
 Then /^I should see the summary of the publication "([^"]*)"$/ do |publication_title|
@@ -175,9 +159,9 @@ end
 Then /^the metadata changes should not be public until the draft is published$/ do
   click_link("Preview")
   assert page.has_css?(".attachment-details .title", text: "changed title not to be published yet")
-  refute page.has_css?(".attachment-details .title", text: @attachment_title)
+  refute page.has_css?(".attachment-details .title", text: @attachment.title)
   visit public_document_path(Publication.last)
-  assert page.has_css?(".attachment-details .title", text: @attachment_title)
+  assert page.has_css?(".attachment-details .title", text: @attachment.title)
   refute page.has_css?(".attachment-details .title", text: "changed title not to be published yet")
 end
 
@@ -204,7 +188,7 @@ Then /^the new data file should not be public until the draft is published$/ do
   assert_equal @new_attachment_filename, @new_attachment_data.filename
 
   visit public_document_path(pub)
-  assert page.has_css?(".attachment a[href*='#{@old_attachment_data.url}']", text: @attachment_title)
+  assert page.has_css?(".attachment a[href*='#{@old_attachment_data.url}']", text: @attachment.title)
   assert page.has_no_css?(".attachment a[href*='#{@new_attachment_data.url}']")
 
   visit admin_publication_path(pub)
@@ -213,7 +197,7 @@ Then /^the new data file should not be public until the draft is published$/ do
   visit public_document_path(pub)
 
   assert page.has_no_css?(".attachment a[href*='#{@old_attachment_data.url}']")
-  assert page.has_css?(".attachment a[href*='#{@new_attachment_data.url}']", text: @attachment_title)
+  assert page.has_css?(".attachment a[href*='#{@new_attachment_data.url}']", text: @attachment.title)
 end
 
 Then /^the old data file should redirect to the new data file$/ do
