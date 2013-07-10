@@ -12,7 +12,7 @@ namespace :attachments do
       query = "SELECT DISTINCT document_id FROM editions
         INNER JOIN edition_attachments on edition_attachments.edition_id = editions.id
         INNER JOIN attachments ON edition_attachments.attachment_id = attachments.id
-        INNER JOIN attachment_Data ON attachments.attachment_data_id = attachment_data.id
+        INNER JOIN attachment_data ON attachments.attachment_data_id = attachment_data.id
         WHERE editions.state IN ('published', 'draft') AND
               replaced_by_id IS NULL
               AND carrierwave_file LIKE \"%.#{ext}.#{ext}\""
