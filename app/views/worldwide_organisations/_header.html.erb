@@ -21,7 +21,7 @@
       <dl>
         <% if world_locations.any? %>
           <dt><%= t('worldwide_organisation.location') %>:</dt>
-          <dd><%= world_locations.map {|l| link_to(l.name, l) }.to_sentence.html_safe %></dd>
+          <dd class="js-hide-other-links"><%= world_locations.map {|l| link_to(l.name, l) }.to_sentence.html_safe %></dd>
         <% end %>
         <dt><%= t('worldwide_organisation.part_of') %>:</dt>
         <dd><%= organisation.sponsoring_organisations.map {|o| link_to(o.name, o, class: "sponsoring-organisation") }.to_sentence.html_safe %></dd>
