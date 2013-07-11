@@ -30,6 +30,9 @@
             <span class="dates"><%= absolute_date(@document.opening_on, class: 'opening-on') %> and <%= absolute_date(@document.closing_on, class: 'closing-on') %></span>
           </p>
         </div>
+        <div class="body">
+          <%= govspeak_to_html @document.published_consultation_response.summary %>
+        </div>
         <% if @document.published_consultation_response.attachments.any? %>
           <%= render partial: "documents/attachment_full_width",
                     locals: { document: @document.published_consultation_response,

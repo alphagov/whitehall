@@ -11,7 +11,7 @@ class Response < ActiveRecord::Base
   validates :published_on, recent_date: true, allow_blank: true
 
   def published?
-    attachments.any?
+    attachments.any? || summary.present?
   end
 
   def published_on_or_default
