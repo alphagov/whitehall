@@ -5,7 +5,7 @@
 <% if recently_changed_documents.any? %>
   <section id="recently-changed" class="latest-documents">
     <h1 class="label"><%= title %></h1>
-    <ol class="document-list lead-in <%= extra_class %>">
+    <ol class="document-list <%= extra_class %>">
       <% recently_changed_documents.each do |document| %>
         <%= content_tag_for :li, document, class: 'document-row' do %>
           <h3><%= link_to document.title, public_document_path(document) %></h3>
