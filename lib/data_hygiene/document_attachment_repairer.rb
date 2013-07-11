@@ -58,6 +58,11 @@ module DataHygiene
         end
       end
 
+      # Force a reload in case the counter cache has incremented the
+      # lock_version
+      # XXX: this may be a bug in Rails' optimistic locking
+      new_edition.reload
+
       # publish
       if new_edition.publish_as(user, force: true)
         add_remark_to_latest_edition('Re-editioned with corrected attachment filename(s)')
