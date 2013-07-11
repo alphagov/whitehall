@@ -6,6 +6,7 @@ class NewsArticlesController < DocumentsController
     @document = NewsArticlePresenter.new(@document, view_context)
     set_slimmer_organisations_header(@document.organisations)
     set_slimmer_page_owner_header(@document.lead_organisations.first)
+    set_meta_description(@document.summary)
   end
 
   private

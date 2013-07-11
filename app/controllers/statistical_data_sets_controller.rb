@@ -6,6 +6,10 @@ class StatisticalDataSetsController < DocumentsController
     end.sort
   end
 
+  def show
+    set_meta_description(@document.summary)
+  end
+
   private
 
   def document_class

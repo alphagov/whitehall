@@ -2,7 +2,6 @@
   header_title ||= ""
 %>
 <% page_title @document.title, "Documents" if page_title.blank? %>
-<% meta_description @document.summary %>
 
 <article class="document-page <%= @document.type.downcase %>">
   <header class="block headings-block">

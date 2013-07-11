@@ -424,6 +424,16 @@ module DocumentControllerTestHelpers
         refute_select "input[name='relevant_to_local_government']"
       end
     end
+
+    def should_set_meta_description_for(document_type)
+      test "#{document_type} should set a meaningful meta description" do
+        edition = create("published_#{document_type}", summary: "My first #{document_type}")
+
+        get :show, id: edition.document
+
+        assert_equal "My first #{document_type}", assigns(:meta_description)
+      end
+    end
   end
 
   private

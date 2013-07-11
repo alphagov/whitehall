@@ -7,6 +7,7 @@ class WorldwidePrioritiesController < DocumentsController
   end
 
   def show
+    set_meta_description(@document.summary)
   end
 
   def activity

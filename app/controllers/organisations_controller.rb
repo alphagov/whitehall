@@ -34,6 +34,7 @@ class OrganisationsController < PublicFacingController
           @feature_list = OrganisationFeatureListPresenter.new(@organisation, view_context)
           set_slimmer_organisations_header([@organisation])
           set_slimmer_page_owner_header(@organisation)
+          set_meta_description(@organisation.description)
 
           expire_on_next_scheduled_publication(@organisation.scheduled_editions)
 

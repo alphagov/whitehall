@@ -3,6 +3,13 @@ module OrganisationControllerTestHelpers
 
   module ClassMethods
     def should_display_organisation_page_elements_for(org_type)
+      test "#{org_type} sets meta description" do
+        organisation = create(org_type, description: 'my org description')
+
+        get :show, id: organisation
+
+        assert_equal 'my org description', assigns(:meta_description)
+      end
 
       view_test "#{org_type}:shows organisation name" do
         organisation = create(org_type,

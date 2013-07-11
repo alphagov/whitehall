@@ -10,16 +10,8 @@ module ApplicationHelper
     end
   end
 
-  def meta_description(description = nil)
-    if description
-      @meta_description = description
-    else
-      @meta_description
-    end
-  end
-
   def meta_description_tag
-    tag :meta, name: 'description', content: meta_description
+    tag :meta, name: 'description', content: @meta_description
   end
 
   def page_class(css_class)

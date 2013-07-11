@@ -410,4 +410,12 @@ class TopicsControllerTest < ActionController::TestCase
 
     refute_select ".topics"
   end
+
+  test "sets a meta description" do
+    topic = create(:topic, description: 'my description')
+
+    get :show, id: topic
+
+    assert_equal 'my description', assigns(:meta_description)
+  end
 end

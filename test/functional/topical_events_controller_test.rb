@@ -84,4 +84,12 @@ class TopicalEventsControllerTest < ActionController::TestCase
     refute_select '.imperial-war-museums'
     refute_select '.war-memorials-trust'
   end
+
+  test "sets a meta description" do
+    topical_event = create(:topical_event, description: 'my description')
+
+    get :show, id: topical_event
+
+    assert_equal 'my description', assigns(:meta_description)
+  end
 end

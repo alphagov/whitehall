@@ -4,6 +4,7 @@ class StatisticalDataSetsControllerTest < ActionController::TestCase
   should_be_a_public_facing_controller
   should_display_attachments_for :statistical_data_set
   should_be_previewable :statistical_data_set
+  should_set_meta_description_for :statistical_data_set
 
   view_test 'show displays published statistical data set' do
     published_statistical_data_set = create(:published_statistical_data_set)

@@ -97,4 +97,12 @@ class DocumentSeriesControllerTest < ActionController::TestCase
     assert_cache_control("max-age=#{Whitehall.default_cache_max_age/2}")
   end
 
+  test 'show should set a meta description' do
+    organisation = create(:organisation)
+    series = create(:document_series, organisation: organisation, summary: "my description")
+
+    get :show, organisation_id: organisation, id: series
+
+    assert_equal "my description", assigns(:meta_description)
+  end
 end

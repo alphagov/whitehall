@@ -2,7 +2,6 @@
 <% page_class "organisations-executive-office" %>
 <% bar_colour_class @organisation.slug %>
 <% atom_discovery_link_tag organisation_url(@organisation, format: :atom), "Latest activity" %>
-<% meta_description @organisation.description %>
 
 <%= organisation_wrapper(@organisation) do %>
   <header class="executive-office-header block">

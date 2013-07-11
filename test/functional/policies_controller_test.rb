@@ -12,6 +12,7 @@ class PoliciesControllerTest < ActionController::TestCase
   should_be_previewable :policy
   should_return_json_suitable_for_the_document_filter :policy
   should_show_local_government_items_for :policy
+  should_set_meta_description_for :policy
 
   test "index should handle badly formatted params for topics and departments" do
     get :index, departments: {'0' => "all"}, topics: {'0' => "all"}, keywords: []

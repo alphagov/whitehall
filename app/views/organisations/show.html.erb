@@ -1,7 +1,6 @@
 <% page_title @organisation.name %>
 <% page_class "organisations-show" %>
 <% atom_discovery_link_tag organisation_url(@organisation, format: :atom), "Latest activity" %>
-<% meta_description @organisation.description %>
 
 <%= organisation_wrapper(@organisation) do %>
 
