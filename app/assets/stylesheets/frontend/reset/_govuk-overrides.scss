@@ -15,6 +15,9 @@ body.js-enabled {
     #proposition-links li a.active {
       color: $inside-gov-secondary;
     }
+    #proposition-menu {
+      margin-top: $gutter+$gutter-one-sixth+2px;
+    }
   }
   form#search input.submit {
     background-color: $inside-gov-secondary;
