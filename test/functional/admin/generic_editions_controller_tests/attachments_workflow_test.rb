@@ -7,7 +7,7 @@ class Admin::GenericEditionsController::AttachmentsWorkflowTest < ActionControll
     login_as :policy_writer
   end
 
-  test "POST on :create redirects to new attachment page when attachment indicator is present" do
+  test "POST :create redirects to new attachment page when adding_attachment button clicked" do
     params = attributes_for(:edition).merge(lead_organisation_ids: [create(:organisation).id])
 
     assert_difference 'GenericEdition.count' do
@@ -16,5 +16,12 @@ class Admin::GenericEditionsController::AttachmentsWorkflowTest < ActionControll
 
     article = GenericEdition.last
     assert_redirected_to new_admin_edition_attachment_url(article)
+  end
+
+  test "PUT :update saves and redirects to new attachment page when adding_attachment button clicked" do
+    edition = create(:edition)
+    put :update, id: edition, edition: { title: 'New title' }, adding_attachment: 'Button text not important'
+    assert_redirected_to new_admin_edition_attachment_url(edition)
+    assert_equal 'New title', edition.reload.title
   end
 end

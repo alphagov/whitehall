@@ -83,7 +83,7 @@ class Admin::EditionsController < Admin::BaseController
           redirect_to admin_editions_path(session_filters.merge(state: :imported))
         end
       else
-        redirect_to admin_edition_path(@edition), notice: "The document has been saved"
+        redirect_to_edition_or_new_attachment_url
       end
     else
       flash.now[:alert] = "There are some problems with the document"
