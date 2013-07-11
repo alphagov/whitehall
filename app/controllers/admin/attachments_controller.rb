@@ -1,5 +1,6 @@
 class Admin::AttachmentsController < Admin::BaseController
   before_filter :find_edition
+  before_filter :find_attachment, only: [:edit, :update, :destroy]
 
   def new
     @attachment = Attachment.new(editions: [@edition], attachment_data: AttachmentData.new)
@@ -15,12 +16,7 @@ class Admin::AttachmentsController < Admin::BaseController
     end
   end
 
-  def edit
-    @attachment = @edition.attachments.find(params[:id])
-  end
-
   def update
-    @attachment = @edition.attachments.find(params[:id])
     if @attachment.update_attributes(remove_empty_attachment_params(params[:attachment]))
       redirect_to admin_edition_path(@edition, anchor: 'attachments')
     else
@@ -28,11 +24,20 @@ class Admin::AttachmentsController < Admin::BaseController
     end
   end
 
+  def destroy
+    @attachment.edition_attachments.destroy_all
+    redirect_to admin_edition_path(@edition, anchor: 'attachments'), notice: 'Attachment deleted'
+  end
+
+  private
   def find_edition
     @edition = Edition.find(params[:edition_id])
   end
 
-  private
+  def find_attachment
+    @attachment = @edition.attachments.find(params[:id])
+  end
+
   def remove_empty_attachment_params(attachments_hash)
     if attachments_hash[:attachment_data_attributes][:file]
       attachments_hash

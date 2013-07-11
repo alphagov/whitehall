@@ -54,4 +54,9 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     }
     assert_equal 'whitepaper.pdf',  attachment.reload.filename
   end
+
+  test "DELETE :destroy deletes an attachment" do
+    delete :destroy, edition_id: @edition, id: attachment
+    refute Attachment.exists?(attachment), 'attachment should have been deleted'
+  end
 end
