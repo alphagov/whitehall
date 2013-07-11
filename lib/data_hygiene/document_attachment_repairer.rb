@@ -49,7 +49,6 @@ module DataHygiene
 
       # create new draft
       new_edition = document.latest_edition.create_draft(user)
-      new_edition.minor_change = true
 
       # repair filename(s)
       new_edition.attachments.each do |attachment|
@@ -61,7 +60,9 @@ module DataHygiene
       # Force a reload in case the counter cache has incremented the
       # lock_version
       # XXX: this may be a bug in Rails' optimistic locking
-      new_edition.reload
+
+      new_edition = new_edition.reload
+      new_edition.minor_change = true
 
       # publish
       if new_edition.publish_as(user, force: true)

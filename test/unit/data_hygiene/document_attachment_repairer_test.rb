@@ -199,6 +199,24 @@ module DataHygiene
       assert_equal 1, draft_edition.editorial_remarks.count
     end
 
+    # edge cases
+
+    test 'documents in a series successfully get repaired' do
+      bad_attachment = create(:attachment, file: double_extension_file, title: 'attachment title')
+      simulate_virus_scan
+
+      series = create(:document_series)
+
+      edition = create( :publication, :published,
+                        alternative_format_provider: create(:organisation_with_alternative_format_contact_email),
+                        attachments: [bad_attachment],
+                        document_series: [series])
+      document = edition.document
+      repairer = repairer_for(document)
+
+      assert repairer.repair_attachments!
+    end
+
     private
 
     def repairer_for(document, logger=nil)
