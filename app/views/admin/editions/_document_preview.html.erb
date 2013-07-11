@@ -114,10 +114,9 @@
           <ul>
             <% @edition.attachments.each do |attachment| %>
               <%= content_tag_for :li, attachment do %>
-                <%= link_to(attachment.url) do %>
-                  <%= attachment_thumbnail(attachment) %>
-                  <%= attachment.title %>
-                <% end %>
+                <%= link_to attachment_thumbnail(attachment), attachment.url %>
+                <%= link_to attachment.title, attachment.url %>
+                <%= link_to 'Edit', edit_admin_edition_attachment_path(@edition, attachment) %>
               <% end %>
             <% end %>
           </ul>

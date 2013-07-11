@@ -27,6 +27,25 @@ When(/^I add an attachment$/) do
   @attachment = Attachment.last
 end
 
+When(/^I edit the attachment changing the title to "(.*?)"$/) do |new_title|
+  edition = @attachment.editions.first
+
+  visit admin_edition_path(edition)
+  click_on 'Attachments'
+
+  within "#attachments #{record_css_selector(@attachment)}" do
+    click_on 'Edit'
+  end
+  fill_in 'Title', with: new_title
+  click_on 'Save'
+end
+
+Then(/^the attachment should be titled "(.*?)"$/) do |expected_title|
+  within "#attachments #{record_css_selector(@attachment)}" do
+    assert page.has_css?('a', text: expected_title)
+  end
+end
+
 Then(/^I should see the attachment listed on the form with it's markdown code$/) do
   within record_css_selector(@attachment) do
     assert_equal @attachment.title, find_field('Title').value

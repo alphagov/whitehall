@@ -45,8 +45,11 @@ Feature: Managing attachments on editions
       When I save the consultation
       Then I should see the attachment listed on the attachments tab
 
-    # Scenario: Adding a response to a consultation!!
-
-    # Scenario: Updating an attachment on an edition
+    Scenario: Updating an attachment on an edition
+      Given a draft publication "Blah blah" with a PDF attachment
+      When I edit the attachment changing the title to "Something else"
+      Then the attachment should be titled "Something else"
 
     # Scenario: Removing an attachment from an edition
+
+    # Scenario: Adding a response to a consultation!!
