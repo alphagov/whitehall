@@ -1,0 +1,22 @@
+<fieldset id="edition_attachment_fields" class="attachments multiple_file_uploads tabbable">
+  <legend>Attachments</legend>
+
+  <%= form.submit 'Save and add attachment', name: 'adding_attachment', class: 'btn btn-small btn-primary' %>
+
+  <ul class="existing-attachments">
+  <% edition.attachments.each_with_index do |attachment, i| %>
+    <li class="clearfix well">
+      <%= attachment_thumbnail(attachment) %>
+      <span class="title"><%= attachment.title %></span>
+      <span class="file">File: <%= link_to attachment.filename, attachment.url %></span>
+      <%= attachment_metadata_tag(attachment) %>
+      <div class="markdown">
+        Markdown:
+        <%= text_field_tag :markdown, "!@#{i + 1}", readonly: true %>
+        or
+        <%= text_field_tag :markdown_inline, "[InlineAttachment:#{i + 1}]", readonly: true %>
+      </div>
+    </li>
+  <% end %>
+  </ul>
+</fieldset>

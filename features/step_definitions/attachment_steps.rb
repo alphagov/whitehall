@@ -47,11 +47,9 @@ Then(/^the attachment should be titled "(.*?)"$/) do |expected_title|
 end
 
 Then(/^I should see the attachment listed on the form with it's markdown code$/) do
-  within record_css_selector(@attachment) do
-    assert_equal @attachment.title, find_field('Title').value
-    assert_equal '!@1', find_field('markdown').value
-    assert_equal '[InlineAttachment:1]', find_field('markdown_inline').value
-  end
+  assert page.has_css?('span.title', text: @attachment.title)
+  assert_equal '!@1', find_field('markdown').value
+  assert_equal '[InlineAttachment:1]', find_field('markdown_inline').value
 end
 
 Then(/^I should see the attachment listed on the attachments tab$/) do
@@ -70,8 +68,5 @@ When(/^I add an attachment with additional references$/) do
 end
 
 Then(/^I should see the attachment listed on the form$/) do
-  within record_css_selector(@attachment) do
-    assert_equal @attachment.title, find_field('Title').value
-    assert_equal @attachment.unique_reference, find_field('Unique reference').value
-  end
+  assert page.has_css?('span.title', text: @attachment.title)
 end

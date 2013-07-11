@@ -119,3 +119,32 @@ pre {
 .span8 .govspeak strong {
   font-weight: normal;
 }
+
+ul.existing-attachments {
+  margin: $gutter 0;
+  list-style: none;
+
+  span.title {
+    font-weight: bold;
+  }
+
+  img {
+    float: left;
+
+    width: 105px;
+    height: 140px;
+
+    margin-right: $gutter-one-third;
+  }
+
+  span {
+    display: block;
+  }
+
+  div.markdown input {
+    clear: both;
+    width: 12em;
+
+    margin-top: $gutter-half;
+  }
+}

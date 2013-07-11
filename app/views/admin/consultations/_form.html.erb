@@ -1,11 +1,5 @@
 <%= standard_edition_form(edition) do |form| %>
-  <%= render partial: 'attachment_fields', locals: {
-              form: form,
-              edition: edition,
-              parent_type: :edition,
-              show_inline_attachment_help: edition.allows_inline_attachments?,
-              legend: 'Attachments - Consultation documents',
-              bulk_upload_zip_file: @bulk_upload_zip_file } %>
+  <%= render partial: 'attachments', locals: { form: form, edition: edition } %>
 
   <%= render partial: 'html_version_fields', locals: { form: form, edition: edition } %>
 
@@ -26,7 +20,7 @@
       <%= response_fields.label :published_on, 'Response published date (leave blank to use the time the first attachment was uploaded)' %>
       <%= response_fields.datetime_select :published_on, { include_blank: true, start_year: 1997, end_year: Date.today.year + 5 }, { class: 'date' } %>
       <%= response_fields.text_area :summary, class: "previewable" %>
-      <%= render partial: 'attachment_fields', locals: {
+      <%= render partial: 'admin/shared/attachment_fields', locals: {
                   form: response_fields, edition: edition, parent_type: :consultation_response,
                   show_inline_attachment_help: false, legend: 'Attachments - Consultation response documents' } %>
     <% end %>

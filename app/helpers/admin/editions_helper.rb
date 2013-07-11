@@ -190,4 +190,16 @@ module Admin::EditionsHelper
       false
     end
   end
+
+  def attachment_metadata_tag(attachment)
+    parts = []
+    %w(isbn unique_reference command_paper_number order_url price).each do |attr|
+      value = attachment.send(attr)
+      if value.present?
+        label = attr.humanize
+        parts << "#{label}: #{value}"
+      end
+    end
+    content_tag(:p, parts.join(', ')) if parts.any?
+  end
 end

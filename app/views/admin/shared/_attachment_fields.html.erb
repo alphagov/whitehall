@@ -2,12 +2,6 @@
 <fieldset id="<%= parent_type %>_attachment_fields" class="attachments multiple_file_uploads tabbable">
   <legend><%= defined?(legend) ? legend : "Attachments" %></legend>
 
-  <% if parent_type != :consultation_response %>
-    <%= form.submit 'Save and add attachment', name: 'adding_attachment', class: 'btn btn-small btn-primary' %>
-  <% end %>
-
-  <p>(Some note about the fact this will save the edition)</p>
-
   <% if bulk_upload_zip_file.present? %>
   <ul class="nav nav-tabs attachment-mode-select">
     <li class="active">

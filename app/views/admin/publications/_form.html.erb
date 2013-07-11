@@ -3,13 +3,7 @@
     <%= render partial: 'publication_date_fields', locals: { form: form } %>
   </fieldset>
 
-  <%= render partial: 'attachment_fields', locals: {
-              form: form,
-              edition: edition,
-              parent_type: :edition,
-              show_inline_attachment_help: edition.allows_inline_attachments?,
-              bulk_upload_zip_file: @bulk_upload_zip_file } %>
-
+  <%= render partial: 'attachments', locals: { form: form, edition: edition } %>
   <%= render partial: 'html_version_fields', locals: { form: form, edition: edition } %>
 
   <fieldset>

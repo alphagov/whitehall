@@ -25,3 +25,18 @@ class Admin::GenericEditionsController::AttachmentsWorkflowTest < ActionControll
     assert_equal 'New title', edition.reload.title
   end
 end
+
+class AttachableEditionsControllersTest < ActionController::TestCase
+  tests Admin::NewsArticlesController
+
+  setup do
+    login_as :policy_writer
+  end
+
+  view_test 'GET :edit displays attachments on the edition' do
+    edition = create(:news_article, :with_attachment)
+    get :edit, id: edition
+    attachment = edition.attachments.first
+    assert_select 'span.title', attachment.title
+  end
+end
