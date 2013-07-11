@@ -21,7 +21,7 @@ class DocumentSeries < ActiveRecord::Base
 
   searchable title: :name,
              link: :search_link,
-             content: :description,
+             content: :description_without_markup,
              description: :summary,
              slug: :slug
 
@@ -30,6 +30,10 @@ class DocumentSeries < ActiveRecord::Base
 
   def search_link
     Whitehall.url_maker.organisation_document_series_path(organisation, slug)
+  end
+
+  def description_without_markup
+    Govspeak::Document.new(description).to_text
   end
 
   def published_publications
