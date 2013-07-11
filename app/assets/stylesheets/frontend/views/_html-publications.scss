@@ -257,6 +257,239 @@
           @include core-16;
         }
       }
+      
+      
+      .player-container {
+        display: block;
+        overflow: hidden;
+        margin: $gutter 0;
+      
+        &.player-wide {
+          min-width: 580px;
+        }
+        
+        span {
+          display: block;
+          margin: 0;
+          padding: 0;
+        }
+        
+        .video {
+          position: relative;
+          z-index: 3000;
+          
+          iframe {
+            display: block;
+          }
+        }
+        
+        .logo {
+          display: none;
+        }
+      
+        .control-bar {
+          position: relative;
+          width: 100%;
+          height: 60px;
+          border-bottom: 1px solid $border-colour;
+          
+          button {
+            background: transparent;
+            border: none;
+            padding: 0;
+            cursor: pointer;
+          }
+          
+          button, a {          
+            &:focus {
+              background-color: orange;
+              outline: none;
+            }
+          }
+          
+          .player-controls {
+            .play, .pause {
+              position: absolute;
+              bottom: 0;
+              left: 0;
+              width: 40px;
+              height: 40px;
+              overflow: hidden;
+              text-indent: -5000%;
+              background-repeat: no-repeat;
+              background-position: center left;
+            }
+            
+            .play {
+              background-image: image-url('player-icon-play.png');
+            }
+            
+            .pause {
+              background-image: image-url('player-icon-pause.png');
+            }
+            
+            .rewind, .forward {
+              position: absolute;
+              top: 0;
+              z-index: 30;
+              height: 20px;
+              width: 40px;
+              overflow: hidden;
+              text-indent: -5000%;
+              background-repeat: no-repeat;
+              background-position: center left;
+           }
+            
+            .rewind {
+              left: 0;
+              background-image: image-url('player-icon-rewind.png');
+            }
+            
+            .forward {
+              left: 100%;
+              margin-left: -40px;
+              background-image: image-url('player-icon-forward.png');
+            }
+          }
+          
+          .volume-controls {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            height: 40px;
+            width: 180px;
+            overflow: visible;
+            
+            .mute {
+              position: absolute;
+              bottom: 0;
+              left: 120px;
+              height: 40px;
+              width: 50px;
+              padding-top: 1px;
+              font-size: 14px;
+              line-height: 40px;
+              text-align: center;
+            }
+            
+            .muted {
+              color: $light-blue;
+            }
+            
+            .muted::after {
+              content: "d";
+            }
+            
+            .muted ~ * {
+              opacity: 0.333;
+            }
+            
+            .vol-down, .vol-up {
+              position: absolute;
+              bottom: 0;
+              height: 40px;
+              width: 60px;
+              padding-top: 2px;
+              font-size: 24px;
+              line-height: 40px;
+              text-align: center;
+              z-index: 10;
+              
+              &:hover, &:focus {
+                color: $light-blue;
+              }
+           }
+            
+            .vol-down {
+              text-align: left;
+              padding-left: 10px;
+              left: 0;
+            }
+            
+            .vol-up {
+              text-align: right;
+              padding-right: 10px;
+              left: 60px;
+            }
+            
+            .vol-display {
+              position: absolute;
+              bottom: 0;
+              left: 20px;
+              height: 40px;
+              width: 0;
+              padding-left: 35px;
+              overflow: visible;
+              font-size: 14px;
+              font-weight: bold;
+              line-height: 40px;
+              background-repeat: no-repeat;
+              background-position: center left;
+              background-image: image-url('player-icon-volume.png');
+            }
+            
+            .muted ~ .vol-display {
+              text-decoration: line-through;
+            }
+          }
+          
+          .current-time {
+            position: absolute;
+            bottom: 0;
+            left: 50px;
+            height: 40px;
+            font-size: 14px;
+            line-height: 40px;
+            font-weight: bold;
+          }
+          
+          .duration-time {
+            display: none;
+            position: absolute;
+            bottom: 0;
+            right: 10px;
+            height: 40px;
+            line-height: 40px;
+            font-size: 16px;
+            font-weight: bold;
+          }
+          
+          .ui-slider {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 20px;
+            overflow: hidden;
+            background: $border-colour;
+      
+            .progress-bar {
+              position: absolute;
+              top: 0;
+              left: 0;
+              height: 100%;
+              padding-bottom: 1px;
+              background: $light-blue;
+            }
+            
+            .ui-slider-handle {
+              position: absolute;
+              top: 0;
+              height: 100%;
+              padding-bottom: 1px;
+              width: 20px;
+              color: rgba(0,0,0,0.5);
+              z-index: 10;
+            }
+          }
+        }
+        
+        .ui-helper-hidden-accessible {
+          position: absolute;
+          left: -5000%;
+        }
+      }
+
     }
   }
   .back-to-content {
