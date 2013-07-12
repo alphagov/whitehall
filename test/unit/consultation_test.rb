@@ -97,6 +97,13 @@ class ConsultationTest < ActiveSupport::TestCase
     assert_nil consultation.published_consultation_response
   end
 
+  test "published_consultation_response returns the response when just a summary is present" do
+    consultation = create(:published_consultation)
+    published_response = consultation.create_response!
+    published_response.stubs(:summary).returns("The summary")
+    assert_equal published_response, consultation.published_consultation_response
+  end
+
   test ".closed includes consultations closing in the past" do
     closed_consultation = create(:consultation, opening_on: 2.days.ago, closing_on: 1.day.ago)
 
