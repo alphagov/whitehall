@@ -61,6 +61,10 @@ class ApplicationController < ActionController::Base
     set_slimmer_headers(format: format_name)
   end
 
+  def set_meta_description(description)
+    @meta_description = description
+  end
+
   # Facebook referer changes the Rails array syntax in URLs.
   # Use this when the expected filter value can have multiple values.
   # This method converts a nested hash to a hash with just the values

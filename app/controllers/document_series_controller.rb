@@ -19,6 +19,7 @@ class DocumentSeriesController < PublicFacingController
     set_slimmer_organisations_header([@document_series.organisation])
     set_slimmer_page_owner_header(@document_series.organisation)
     expire_on_next_scheduled_publication(@document_series.scheduled_editions)
+    set_meta_description(@document_series.summary)
   end
 
   private
