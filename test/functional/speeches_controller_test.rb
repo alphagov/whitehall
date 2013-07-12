@@ -6,6 +6,7 @@ class SpeechesControllerTest < ActionController::TestCase
   should_show_related_policies_for :speech
   should_show_the_world_locations_associated_with :speech
   should_display_inline_images_for :speech
+  should_set_meta_description_for :speech
 
   view_test "should display generic details about the speech" do
     home_office = create(:organisation, name: "Home Office")

@@ -5,6 +5,7 @@ class ConsultationsControllerTest < ActionController::TestCase
   should_display_attachments_for :consultation
   should_display_inline_images_for :consultation
   should_show_inapplicable_nations :consultation
+  should_set_meta_description_for :consultation
 
   test 'index redirects to the publications index filtering consultations' do
     get :index

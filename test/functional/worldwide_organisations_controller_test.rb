@@ -12,6 +12,14 @@ class WorldwideOrganisationsControllerTest < ActionController::TestCase
     assert_equal organisation, assigns(:worldwide_organisation)
   end
 
+  test "sets meta description" do
+    organisation = create(:worldwide_organisation, summary: 'my summary')
+
+    get :show, id: organisation.id
+
+    assert_equal 'my summary', assigns(:meta_description)
+  end
+
   view_test "shows links to associated world locations" do
     location_1 = create(:world_location)
     location_2 = create(:world_location)

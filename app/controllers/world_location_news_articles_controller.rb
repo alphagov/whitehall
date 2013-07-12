@@ -4,6 +4,7 @@ class WorldLocationNewsArticlesController < DocumentsController
   def show
     # so it can pretend to have orgs
     @document = WorldLocationNewsArticlePresenter.new(@document)
+    set_meta_description(@document.summary)
   end
 
   def index

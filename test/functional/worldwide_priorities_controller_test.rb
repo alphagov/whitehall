@@ -6,6 +6,7 @@ class WorldwidePrioritiesControllerTest < ActionController::TestCase
   should_render_a_list_of :worldwide_priorities
   should_show_the_world_locations_associated_with :worldwide_priority
   should_display_inline_images_for :worldwide_priority
+  should_set_meta_description_for :worldwide_priority
 
   view_test "show displays worldwide priority details" do
     priority = create(:published_worldwide_priority,

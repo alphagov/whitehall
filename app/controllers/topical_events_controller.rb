@@ -15,6 +15,7 @@ class TopicalEventsController < ClassificationsController
     @featured_editions = decorate_collection(@classification.classification_featurings.limit(5), FeaturedEditionPresenter)
     set_slimmer_organisations_header(@classification.organisations)
     set_slimmer_page_owner_header(@classification.lead_organisations.first)
+    set_meta_description(@classification.description)
 
     set_expiry 5.minutes
     respond_to do |format|
