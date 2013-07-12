@@ -1,4 +1,4 @@
-Feature: Handling Fatalities
+Feature: Fatalities
 
   As a citizen,
   I want to see a rolling list of fatalities incurred by armed forces per field of operation,

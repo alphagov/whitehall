@@ -1,4 +1,4 @@
-Feature: Administering Corporate Information Pages
+Feature: Corporate Information Pages
 
 Scenario: Adding a corporate information page to an organisation
   Given I am an admin

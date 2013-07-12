@@ -1,7 +1,9 @@
 Feature: Editing draft policies
-In order to send the best version of a policy to the departmental editor
-A writer
-Should be able to edit and save draft policies
+In order to allow the public to view policies
+A writer should be able to edit and save draft policies
+A departmental editor should be able to publish policies
+In order to obtain useful information about government
+A member of the public Should be able to view policies
 
 Background:
   Given I am a writer
@@ -105,3 +107,107 @@ Scenario: Editing a draft policy that's been submitted to a second pair of eyes
   And I am an editor
   When I edit the policy "The policy" changing the title to "The new policy"
   Then I should see the policy "The new policy" in the list of submitted documents
+
+@not-quite-as-fake-search
+Scenario: Publishing a submitted publication
+  Given I am an editor
+  And a submitted policy "Ban Beards" exists
+  When I publish the policy "Ban Beards"
+  Then my attempt to publish "Ban Beards" should succeed
+  And I should see the policy "Ban Beards" in the list of published documents
+  And the policy "Ban Beards" should be visible to the public
+  And the writers who worked on the policy titled "Ban Beards" should be emailed about the publication
+
+Scenario: Trying to publish a policy that has been changed by another user
+  Given I am an editor
+  And a submitted policy "Ban Beards" exists
+  When I publish the policy "Ban Beards" but another user edits it while I am viewing it
+  Then my attempt to publish "Ban Beards" should fail
+
+Scenario: Maintain existing relationships
+  Given I am an editor
+  And a published news article "Government to reduce hirsuteness" with related published policies "Ban Beards" and "Unimportant"
+  When I publish a new edition of the policy "Ban Beards" with the new title "Ban Facial Hair"
+  And I visit the news article "Government to reduce hirsuteness"
+  Then I can see links to the related published policies "Ban Facial Hair" and "Unimportant"
+
+@not-quite-as-fake-search
+Scenario: Publishing a first edition without a change note
+  Given I am an editor
+  And a submitted policy "Ban Beards" exists
+  When I publish the policy "Ban Beards" without a change note
+  Then my attempt to publish "Ban Beards" should succeed
+  And I should see the policy "Ban Beards" in the list of published documents
+  And the policy "Ban Beards" should be visible to the public
+
+Scenario: Publishing a subsequent edition without a change note
+  Given I am an editor
+  And a published policy "Ban Beards" exists
+  When I create a new edition of the published policy "Ban Beards"
+  Then my attempt to save it should fail with error "Change note can't be blank"
+
+Scenario: Publishing a subsequent edition as a minor edit
+  Given I am an editor
+  And a published policy "Ban Beards" exists
+  When I publish a new edition of the policy "Ban Beards" as a minor change
+  Then my attempt to publish "Ban Beards" should succeed
+
+@not-quite-as-fake-search
+Scenario: Publishing a subsequent edition with a change note
+  Given I am an editor
+  And a published policy "Ban Beards" exists
+  When I publish a new edition of the policy "Ban Beards" with a change note "Exempted Santa Claus"
+  Then my attempt to publish "Ban Beards" should succeed
+  And I should see the policy "Ban Beards" in the list of published documents
+  And the policy "Ban Beards" should be visible to the public
+  And the change notes should appear in the history for the policy "Ban Beards" in reverse chronological order
+
+Scenario: Viewing a policy that's been submitted for review
+  Given "Ben Beardson" submitted "Legalise beards" with body "Beards for everyone!"
+  When I visit the list of documents awaiting review
+  And I view the policy "Legalise beards"
+  And I should see that "Beards for everyone!" is the policy body
+
+@not-quite-as-fake-search
+Scenario: Viewing policy publishing history
+  Given I am an editor
+  And a published policy "Ban Beards" exists
+  When I publish a new edition of the policy "Ban Beards" with a change note "Exempted Santa Claus"
+  And I publish a new edition of the policy "Ban Beards" with a change note "Exempted Gimli son of Gloin"
+  Then the policy "Ban Beards" should be visible to the public
+  And the change notes should appear in the history for the policy "Ban Beards" in reverse chronological order
+
+Scenario: Viewing a policy that appears in multiple topics
+  Given a published policy "Policy" that appears in the "Education" and "Work and pensions" topics
+  When I visit the policy "Policy"
+  Then I should see links to the "Education" and "Work and pensions" topics
+
+Scenario: Viewing a policy that has multiple responsible ministers
+  Given a published policy "Policy" that's the responsibility of:
+    | Ministerial Role  | Person          |
+    | Attorney General  | Colonel Mustard |
+    | Solicitor General | Professor Plum  |
+  When I visit the policy "Policy"
+  Then I should see that those responsible for the policy are:
+    | Ministerial Role  | Person          |
+    | Attorney General  | Colonel Mustard |
+    | Solicitor General | Professor Plum  |
+
+Scenario: Viewing a policy that is applicable to certain nations
+  Given a published policy "Haggis for every meal" that does not apply to the nations:
+    | Northern Ireland | Wales |
+  When I visit the policy "Haggis for every meal"
+  Then I should see that the policy only applies to:
+    | England | Scotland |
+
+Scenario: Viewing the activity around a policy
+  Given a published policy "What Makes A Beard" exists
+  And a published publication "Standard Beard Lengths" related to the policy "What Makes A Beard"
+  And a published consultation "Measuring Beard Length" related to the policy "What Makes A Beard"
+  And a published news article "Beards Give You Cancer" related to the policy "What Makes A Beard"
+  And a published speech "My Kingdom For A Beard" related to the policy "What Makes A Beard"
+  When I visit the activity of the published policy "What Makes A Beard"
+  Then I can see links to the recently changed document "Standard Beard Lengths"
+  And I can see links to the recently changed document "Measuring Beard Length"
+  And I can see links to the recently changed document "Beards Give You Cancer"
+  And I can see links to the recently changed document "My Kingdom For A Beard"

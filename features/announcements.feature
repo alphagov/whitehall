@@ -1,4 +1,4 @@
-Feature: Viewing news and speeches on one page
+Feature: Announcements
 
 @not-quite-as-fake-search
 Scenario: Viewing news articles and speeches together on the news and speeches page

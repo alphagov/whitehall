@@ -116,3 +116,9 @@ Feature: Administering worldwide organisation
     And I add a "Terms of reference" corporate information page to the worldwide organisation
     When I translate the "Terms of reference" corporate information page for the worldwide organisation "Department of Beards in France"
     Then I should be able to read the translated "Terms of reference" corporate information page for the worldwide organisation "Department of Beards in France" on the site
+
+  Scenario: Viewing a list of worldwide organisations
+    Given two worldwide organisations "UK Trade & Investment Australia" and "British Embassy Manama"
+    When I visit the worldwide organisations index page
+    Then I should see an alphabetical list containing "British Embassy Manama" and "UK Trade & Investment Australia"
+

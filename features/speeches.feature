@@ -1,6 +1,13 @@
-Feature: Editing draft speeches
+Feature: Speeches
 
-Scenario: Creating a new draft speech
+Scenario: Creating a new edition
+  Given I am a writer
+  And a published speech exists
+  When I create a new edition of the published speech
+  And I edit the new edition
+  Then the published speech should remain unchanged
+
+  Scenario: Creating a new draft speech
   Given I am a writer
   When I draft a new speech "Outlaw Moustaches"
   Then I should see the speech "Outlaw Moustaches" in the list of draft documents
@@ -40,6 +47,12 @@ Scenario: Submitting a draft speech to a second pair of eyes
   When I submit the speech "Outlaw Moustaches"
   Then I should see the speech "Outlaw Moustaches" in the list of submitted documents
 
+Scenario: Viewing a speech that's been submitted for review
+  Given "Ben Beardson" submitted a speech "Legalise beards" with body "Beards for everyone!"
+  When I visit the list of speeches awaiting review
+  And I view the speech "Legalise beards"
+  And I should see that "Beards for everyone!" is the speech body
+
 @javascript
 Scenario: Creating authored articles (originally published externally)
   Given I am an editor
@@ -54,3 +67,24 @@ Scenario: Viewing authored articles (originally published externally)
   Then it should be shown as an authored article in the admin screen
   When I preview the authored article
   Then I should see who wrote it clearly labelled in the metadata
+
+@not-quite-as-fake-search
+Scenario: Publishing a submitted speech
+  Given I am an editor
+  And a submitted speech "Stubble to be Outlawed" exists
+  When I publish the speech "Stubble to be Outlawed"
+  Then I should see the speech "Stubble to be Outlawed" in the list of published documents
+  And the speech "Stubble to be Outlawed" should be visible to the public
+
+Scenario: Viewing speeches made by a minister
+  Given "David Cameron" is the "Prime Minister" for the "Cabinet Office"
+  And a published speech "Abolish Fig Rolls" by "Prime Minister" on "June 23rd, 2010" at "The Mansion House"
+  When I visit the minister page for "Prime Minister"
+  Then I should see the speech "Abolish Fig Rolls"
+  When I visit the speech "Abolish Fig Rolls"
+  Then I should see the speech was delivered on "23 June 2010" at "The Mansion House"
+
+Scenario: Viewing a published speech with related policies
+  Given a published speech "Things I Have Thought" with related published policies "Policy 1" and "Policy 2"
+  When I visit the speech "Things I Have Thought"
+  Then I can see links to the related published policies "Policy 1" and "Policy 2"
