@@ -39,7 +39,7 @@ gem 'link_header'
 gem 'diffy'
 
 group :assets do
-  gem 'govuk_frontend_toolkit', '0.31.0'
+  gem 'govuk_frontend_toolkit', '0.32.0'
   gem 'sass', '3.2.8'
   gem 'sass-rails'
   gem 'uglifier'

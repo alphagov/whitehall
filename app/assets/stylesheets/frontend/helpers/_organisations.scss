@@ -432,6 +432,35 @@
   }
 }
 
+// HMRC
+.organisation-logo-hmrc {
+  @extend .organisation-logo-identity;
+
+  padding: 3px 0 2px 30px;
+  background-image: image-url("crests/hmrc_crest_13px.png");
+  background-position: 5px center;
+  background-size: auto 20px;
+}
+.organisation-logo-stacked-hmrc {
+  @extend .organisation-logo-identity;
+
+  padding: 20px 0 0 6px;
+  background-image: image-url("crests/hmrc_crest_13px.png");
+  background-position: 5px top;
+  background-size: auto 20px;
+}
+.organisation-logo-stacked-hmrc span {
+  display: block;
+  position: relative;
+  top: 3px;
+}
+@media all and (-webkit-min-device-pixel-ratio: 2) {
+  .organisation-logo-hmrc,
+  .organisation-logo-stacked-hmrc {
+    background-image: image-url("crests/hmrc_crest_13px_x2.png");
+  }
+}
+
 // Non-cornforming Medium
 .organisation-logo-no-identity-medium {
   @include media(tablet){
@@ -773,6 +802,39 @@
     .organisation-logo-eo-medium,
     .organisation-logo-stacked-eo-medium {
       background-image: image-url("crests/org_crest_18px_x2.png");
+    }
+  }
+}
+
+// HMRC Medium
+.organisation-logo-hmrc-medium {
+  @extend .organisation-logo-identity-medium;
+  @include media(tablet){
+    padding: 3px 0 2px 38px;
+    background-image: image-url("crests/hmrc_crest_18px.png");
+    background-position: 6px center;
+    background-size: auto 25px;
+  }
+}
+.organisation-logo-stacked-hmrc-medium {
+  @extend .organisation-logo-identity-medium;
+  @include media(tablet){
+    padding: 25px 0 0 7px;
+    background-image: image-url("crests/hmrc_crest_18px.png");
+    background-position: 6px top;
+    background-size: auto 25px;
+  }
+}
+@include media(tablet){
+  .organisation-logo-stacked-hmrc-medium span {
+    display: block;
+    position: relative;
+    top: 3px;
+  }
+  @media all and (-webkit-min-device-pixel-ratio: 2) {
+    .organisation-logo-hmrc-medium,
+    .organisation-logo-stacked-hmrc-medium {
+      background-image: image-url("crests/hmrc_crest_18px_x2.png");
     }
   }
 }
@@ -1119,6 +1181,39 @@
     .organisation-logo-eo-large,
     .organisation-logo-stacked-eo-large {
       background-image: image-url("crests/org_crest_27px_x2.png");
+    }
+  }
+}
+
+// HMRC Large
+.organisation-logo-hmrc-large {
+  @extend .organisation-logo-identity-large;
+  @include media(tablet){
+    padding: 5px 0 5px 56px;
+    background-image: image-url("crests/hmrc_crest_27px.png");
+    background-position: 9px center;
+    background-size: auto 40px;
+  }
+}
+.organisation-logo-stacked-hmrc-large {
+  @extend .organisation-logo-identity-large;
+  @include media(tablet){
+    padding: 40px 0 0 10px;
+    background-image: image-url("crests/hmrc_crest_27px.png");
+    background-position: 9px top;
+    background-size: auto 40px;
+  }
+}
+@include media(tablet){
+  .organisation-logo-stacked-hmrc-large span {
+    display: block;
+    position: relative;
+    top: 5px;
+  }
+  @media all and (-webkit-min-device-pixel-ratio: 2) {
+    .organisation-logo-hmrc-large,
+    .organisation-logo-stacked-hmrc-large {
+      background-image: image-url("crests/hmrc_crest_27px_x2.png");
     }
   }
 }
