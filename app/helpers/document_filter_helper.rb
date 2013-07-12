@@ -35,7 +35,7 @@ module DocumentFilterHelper
     grouped_options = options_with_group_key.group_by(&:group_key)
     publication_filter_options.reject! { |a| a.group_key.present? }
     options_for_select([["All publication types", "all"]], [selected_value]) +
-    grouped_options_for_select(grouped_options.map { |a| [a[0].titleize, a[1].map { |pt| [pt.label, pt.slug] }]}, [selected_value]) +
+    grouped_options_for_select(grouped_options.map { |a| [a[0], a[1].map { |pt| [pt.label, pt.slug] }]}, [selected_value]) +
     options_for_select(publication_filter_options.sort_by { |a| a.label }.map { |pt| [pt.label, pt.slug] }, [selected_value])
   end
 
