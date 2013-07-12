@@ -150,4 +150,32 @@ class BulkUpload
       @edition_params.delete(:edition_attachments_attributes)
     end
   end
+
+  class Attachments
+    extend ActiveModel::Naming
+    include ActiveModel::Validations
+    include ActiveModel::Conversion
+
+    attr_reader :attachments
+
+    def self.from_files(file_paths)
+      attachment_params = file_paths.map do |file|
+        { attachment_data_attributes: { file: File.open(file) } }
+      end
+
+      new(attachment_params)
+    end
+
+    def initialize(params)
+      @attachments = params.map {|p| Attachment.new(p) }
+    end
+
+    def to_model
+      self
+    end
+
+    def persisted?
+      false
+    end
+  end
 end

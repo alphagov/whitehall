@@ -253,3 +253,15 @@ class BulkUploadZipFileToAttachmentsTest < ActiveSupport::TestCase
     Struct.new(:filename, :id, :attachment_data_id).new(for_file, id, attachment_data_id)
   end
 end
+
+class BulkUpload::AttachmentsTest < ActiveSupport::TestCase
+  test "can be instantiated from an array of file paths" do
+    files = [ Rails.root.join('test','fixtures','greenpaper.pdf'), Rails.root.join('test','fixtures','whitepaper.pdf') ]
+
+    attachments = BulkUpload::Attachments.from_files(files)
+
+    assert_equal 2, attachments.attachments.size
+    assert_equal 'greenpaper.pdf', attachments.attachments[0].filename
+    assert_equal 'whitepaper.pdf', attachments.attachments[1].filename
+  end
+end
