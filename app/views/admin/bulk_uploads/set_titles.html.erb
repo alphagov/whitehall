@@ -1,0 +1,24 @@
+<div class="span6">
+	<section>
+		<h1>Set titles for your attachments</h1>
+		<%= form_for @bulk_upload, url: admin_edition_bulk_uploads_path(@edition)  do |form| %>
+			<ul class="uploaded-attachments">
+				<% @bulk_upload.attachments.each do |attachment| %>
+					<%= form.fields_for "attachments[]", attachment do |attachment_fields| %>
+						<li class="well">
+							<span class="file">Filename: <%= attachment_fields.object.filename %></span>
+							<%= attachment_fields.text_field :title %>
+							<%= attachment_fields.fields_for(:attachment_data) do |attachment_data| %>
+						    <%= attachment_data.hidden_field :file_cache %>
+					    <% end %>
+						</li>
+					<% end %>
+				<% end %>
+			</ul>
+
+			<div class="form-actions">
+				<%= form.submit 'Save', class: 'btn btn-primary btn-large' %>
+			</div>
+		<% end %>
+	</section>
+</div>

@@ -33,14 +33,15 @@ When(/^I upload multiple attachments as a zip file, providing titles for each fi
   click_on 'Save and add attachment'
   click_on 'Upload attachments from a ZIP file'
 
-  attach_file 'File', Rails.root.join('test/fixtures', 'two-pages-and-greenpaper.zip')
-  click_on 'Upload'
+  attach_file 'Zip file', Rails.root.join('test/fixtures', 'two-pages-and-greenpaper.zip')
+  click_on 'Upload zip'
 
-  within '#attachments li:nth-child(1)' do
+  #save_and_open_page
+  within '.uploaded-attachments li:nth-child(1)' do
     fill_in 'Title', with: 'Two pages attachment'
   end
 
-  within '#attachments li:nth-child(2)' do
+  within '.uploaded-attachments li:nth-child(2)' do
     fill_in 'Title', with: 'Greenpaper attachment'
   end
 

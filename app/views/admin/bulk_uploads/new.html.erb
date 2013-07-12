@@ -1,0 +1,16 @@
+<% page_title "Bulk upload for: #{@edition.title}" %>
+
+<div class="span6">
+  <section>
+		<h1>Bulk upload for: <%= @edition.title %></h1>
+
+		<%= form_for @bulk_upload_zip_file, url: upload_zip_admin_edition_bulk_uploads_path(@edition) do |form| %>
+		  <%= form.errors %>
+		  <%= form.label :zip_file %>
+		  <%= form.file_field :zip_file %>
+
+		  <%= form.submit 'Upload zip' %>
+		<% end %>
+
+	</section>
+</div>
