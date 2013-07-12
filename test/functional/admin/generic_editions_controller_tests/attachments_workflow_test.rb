@@ -39,4 +39,8 @@ class AttachableEditionsControllersTest < ActionController::TestCase
     attachment = edition.attachments.first
     assert_select 'span.title', attachment.title
   end
+
+  view_test 'GET :show lists attachments on the edition' do
+    skip 'TODO'
+  end
 end
