@@ -2,6 +2,32 @@ require 'tmpdir'
 require 'open3'
 
 class BulkUpload
+  extend ActiveModel::Naming
+  include ActiveModel::Validations
+  include ActiveModel::Conversion
+
+  attr_reader :attachments
+
+  def self.from_files(file_paths)
+    attachment_params = file_paths.map do |file|
+      { attachment_data_attributes: { file: File.open(file) } }
+    end
+
+    new(attachment_params)
+  end
+
+  def initialize(params)
+    @attachments = params.map {|p| Attachment.new(p) }
+  end
+
+  def to_model
+    self
+  end
+
+  def persisted?
+    false
+  end
+
   class ZipFile
     class << self
       attr_accessor :default_root_directory
@@ -65,34 +91,6 @@ class BulkUpload
     def is_a_zip?
       _, _, errs = Open3.popen3("#{Whitehall.system_binaries[:zipinfo]} -1 #{self.temp_location} > /dev/null")
       errs.read.empty?
-    end
-  end
-
-  class Attachments
-    extend ActiveModel::Naming
-    include ActiveModel::Validations
-    include ActiveModel::Conversion
-
-    attr_reader :attachments
-
-    def self.from_files(file_paths)
-      attachment_params = file_paths.map do |file|
-        { attachment_data_attributes: { file: File.open(file) } }
-      end
-
-      new(attachment_params)
-    end
-
-    def initialize(params)
-      @attachments = params.map {|p| Attachment.new(p) }
-    end
-
-    def to_model
-      self
-    end
-
-    def persisted?
-      false
     end
   end
 end

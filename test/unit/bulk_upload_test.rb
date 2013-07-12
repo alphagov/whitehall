@@ -1,5 +1,18 @@
 require 'test_helper'
 
+
+class BulkUploadTest < ActiveSupport::TestCase
+  test "can be instantiated from an array of file paths" do
+    files = [ Rails.root.join('test','fixtures','greenpaper.pdf'), Rails.root.join('test','fixtures','whitepaper.pdf') ]
+
+    attachments = BulkUpload.from_files(files)
+
+    assert_equal 2, attachments.attachments.size
+    assert_equal 'greenpaper.pdf', attachments.attachments[0].filename
+    assert_equal 'whitepaper.pdf', attachments.attachments[1].filename
+  end
+end
+
 class BulkUploadZipFileTest < ActiveSupport::TestCase
   test 'is invalid without a zip_file' do
     refute BulkUpload::ZipFile.new(nil).valid?
@@ -46,17 +59,5 @@ class BulkUploadZipFileTest < ActiveSupport::TestCase
 
   def zip_file_with_os_x_resource_fork
     ActionDispatch::Http::UploadedFile.new(filename: 'greenpaper-with-osx-resource-fork.zip', tempfile: File.open(Rails.root.join('test', 'fixtures', 'greenpaper-with-osx-resource-fork.zip')))
-  end
-end
-
-class BulkUpload::AttachmentsTest < ActiveSupport::TestCase
-  test "can be instantiated from an array of file paths" do
-    files = [ Rails.root.join('test','fixtures','greenpaper.pdf'), Rails.root.join('test','fixtures','whitepaper.pdf') ]
-
-    attachments = BulkUpload::Attachments.from_files(files)
-
-    assert_equal 2, attachments.attachments.size
-    assert_equal 'greenpaper.pdf', attachments.attachments[0].filename
-    assert_equal 'whitepaper.pdf', attachments.attachments[1].filename
   end
 end
