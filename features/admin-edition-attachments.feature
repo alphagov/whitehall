@@ -50,6 +50,7 @@ Feature: Managing attachments on editions
       When I edit the attachment changing the title to "Something else"
       Then the attachment should be titled "Something else"
 
-    # Scenario: Removing an attachment from an edition
-
-    # Scenario: Adding a response to a consultation!!
+    Scenario: Bulk uploading attachments
+      Given a draft news article "News article title" exists
+      When I upload multiple attachments as a zip file, providing titles for each file
+      Then I should see the attachments listed on the form

@@ -27,6 +27,31 @@ When(/^I add an attachment$/) do
   @attachment = Attachment.last
 end
 
+When(/^I upload multiple attachments as a zip file, providing titles for each file$/) do
+  @edition = Edition.last
+  visit edit_admin_edition_path(@edition)
+  click_on 'Save and add attachment'
+  click_on 'Upload attachments from a ZIP file'
+
+  attach_file 'File', Rails.root.join('test/fixtures', 'two-pages-and-greenpaper.zip')
+  click_on 'Upload'
+
+  within '#attachments li:nth-child(1)' do
+    fill_in 'Title', with: 'Two pages attachment'
+  end
+
+  within '#attachments li:nth-child(2)' do
+    fill_in 'Title', with: 'Greenpaper attachment'
+  end
+
+  click_on 'Save'
+end
+
+Then(/^I should see the attachments listed on the form$/) do
+  assert page.has_css?('span.title', text: 'Two pages attachment')
+  assert page.has_css?('span.title', text: 'Greenpaper attachment')
+end
+
 When(/^I edit the attachment changing the title to "(.*?)"$/) do |new_title|
   edition = @attachment.editions.first
 
