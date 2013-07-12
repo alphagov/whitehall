@@ -310,9 +310,9 @@ class Import < ActiveRecord::Base
     # This is so we can log information as we process
     # files without worrying about transactional
     # rollbacks for the actual import process.
-    Import.establish_connection Rails.configuration.database_configuration[Rails.env]
-    ImportError.establish_connection Rails.configuration.database_configuration[Rails.env]
-    ImportLog.establish_connection Rails.configuration.database_configuration[Rails.env]
+    Import.establish_connection ActiveRecord::Base.configurations[Rails.env]
+    ImportError.establish_connection ActiveRecord::Base.configurations[Rails.env]
+    ImportLog.establish_connection ActiveRecord::Base.configurations[Rails.env]
   end
 
   class ProgressLogger

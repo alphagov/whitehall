@@ -1,3 +1,5 @@
+require 'csv'
+
 module ConsultationCsvSampleHelpers
   def consultation_csv_sample(additional_fields = {}, extra_rows = [])
     data = minimally_valid_consultation_row.merge(additional_fields)
