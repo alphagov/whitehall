@@ -1,4 +1,4 @@
-Feature: Editing attachments
+Feature: Attachments
   In order to send the best version of a policy to the departmental editor
   A writer
   Should be able to manipulate the attachments on a document

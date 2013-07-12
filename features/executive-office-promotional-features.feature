@@ -1,4 +1,4 @@
-Feature: Administering promotional features for executive offices
+Feature: Promotional features for executive offices
 
   Background:
     Given I am an admin

@@ -1,4 +1,4 @@
-Feature: Viewing worldwide priorities
+Feature: Worldwide priorities
 
 Scenario: Viewing a worldwide priority in another language
   Given a worldwide priority which is available in english as "Priority for Spain" and in spanish as "Prioridad para España"
@@ -23,3 +23,15 @@ Scenario: Viewing the activity around a worldwide priority
   And I can see links to the recently changed document "Optimum unicorn horn length"
   And I can see links to the recently changed document "Latest unicorn sightings reported"
   And I can see links to the recently changed document "Unicorns and our future: Mark Web"
+
+Scenario: Publishing a submitted worldwide priority
+  Given I am a GDS editor
+  And a submitted worldwide priority "Military officer exchange" exists
+  When I publish the worldwide priority "Military officer exchange"
+  Then I should see the worldwide priority "Military officer exchange" in the list of published documents
+  And the worldwide priority "Military officer exchange" should be visible to the public
+
+Scenario: Creating a new draft worldwide priority
+  Given I am a GDS editor
+  When I draft a new worldwide priority "Military officer exchange"
+  Then I should see the worldwide priority "Military officer exchange" in the list of draft documents
