@@ -157,6 +157,15 @@
           margin-top: -1px;
           @include core-16;
         }
+        @include right-to-left{
+          border-left: 1px solid $border-colour;
+          border-right: 0;
+          margin: 3px 0 2px $gutter-one-third;
+          padding: 0 0 0 $gutter-one-third;
+          &.last {
+            border-left: 0;
+          }
+        }
       }
     }
   }
