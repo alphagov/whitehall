@@ -45,7 +45,7 @@ class BulkUpload
           reject { |l| l =~ /\A(Archive|creating):/ }.
           map { |f| f.gsub(/\Ainflating:\s+/, '') }.
           reject { |f| f =~ /\/__MACOSX\// }.
-          map { |f| [File.basename(f), File.expand_path(f)] }
+          map { |f| File.expand_path(f) }
     end
 
     def extract_contents
