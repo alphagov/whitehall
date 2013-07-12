@@ -223,6 +223,9 @@
           width: 33.33%;
           .content {
             padding-left: $gutter-half;
+            @include right-to-left{
+              padding-right: 0;
+            }
           }
         }
       }
