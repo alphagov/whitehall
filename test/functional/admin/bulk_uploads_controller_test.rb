@@ -21,4 +21,12 @@ class Admin::BulkUploadsControllerTest < ActionController::TestCase
 		assert_select 'li', /two-pages.pdf/
 		assert_select 'li', /greenpaper.pdf/
 	end
+
+	view_test 'POST :upload_zip lists errors and re-renders form when uploaded file is not valid' do
+		post :upload_zip, edition_id: @edition, bulk_upload_zip_file: { zip_file: fixture_file_upload('whitepaper.pdf') }
+
+		assert_response :success
+		assert_select '.errors', /not a zip file/
+		assert_select 'input[type=file]'
+	end
 end
