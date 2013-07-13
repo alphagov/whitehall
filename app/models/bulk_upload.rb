@@ -46,15 +46,13 @@ class BulkUpload
       false
     end
 
-    def initialize(zip_file, root_dir = BulkUpload::ZipFile.default_root_directory)
+    def initialize(zip_file=nil)
       @zip_file = zip_file
-      @root_dir = root_dir
-      FileUtils.mkdir_p(@root_dir)
       store_temporarily
     end
 
     def temp_dir
-      @temp_dir ||= Dir.mktmpdir(nil, @root_dir)
+      @temp_dir ||= Dir.mktmpdir(nil, BulkUpload::ZipFile.default_root_directory)
     end
 
     def store_temporarily

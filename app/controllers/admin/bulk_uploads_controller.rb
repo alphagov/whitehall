@@ -2,7 +2,7 @@ class Admin::BulkUploadsController < Admin::BaseController
 	before_filter :load_edition
 
 	def new
-		@bulk_upload_zip_file = BulkUpload::ZipFile.new(nil)
+		@bulk_upload_zip_file = BulkUpload::ZipFile.new
 	end
 
 	def upload_zip
