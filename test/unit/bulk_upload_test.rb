@@ -30,17 +30,17 @@ class BulkUploadZipFileTest < ActiveSupport::TestCase
     assert BulkUpload::ZipFile.new(a_zip_file).valid?
   end
 
-  test 'extracted_files returns extracted file paths' do
+  test 'extracted_file_paths returns extracted file paths' do
     zf = BulkUpload::ZipFile.new(a_zip_file)
-    extracted = zf.extracted_files
+    extracted = zf.extracted_file_paths
     assert_equal 2, extracted.size
     assert extracted.include?(File.join(zf.temp_dir, 'extracted', 'two-pages.pdf').to_s)
     assert extracted.include?(File.join(zf.temp_dir, 'extracted', 'greenpaper.pdf').to_s)
   end
 
-  test 'extracted_files ignores OS X resource fork files' do
+  test 'extracted_file_paths ignores OS X resource fork files' do
     zf = BulkUpload::ZipFile.new(zip_file_with_os_x_resource_fork)
-    extracted = zf.extracted_files
+    extracted = zf.extracted_file_paths
     assert_equal 1, extracted.size
     assert extracted.include?(File.join(zf.temp_dir, 'extracted', 'greenpaper.pdf').to_s)
   end

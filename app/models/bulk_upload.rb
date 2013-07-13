@@ -63,8 +63,8 @@ class BulkUpload
       FileUtils.cp(self.zip_file.tempfile, @temp_location)
     end
 
-    def extracted_files
-      @extracted_files ||=
+    def extracted_file_paths
+      @extracted_files_paths ||=
         extract_contents.
           split(/[\r\n]+/).
           map { |l| l.strip }.
