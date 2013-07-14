@@ -4,7 +4,7 @@
 <header class="block headings-block">
   <div class="inner-block floated-children">
     <%= render partial: 'shared/heading', locals: {
-          heading: "#{@topical_event.name}#{' <span class="archived">(Archived)</span>' if @topical_event.archived?}".html_safe,
+          heading: "#{h(@topical_event.name)}#{' <span class="archived">(Archived)</span>' if @topical_event.archived?}".html_safe,
           big: true,
           extra: true,
           url: topical_event_path(@topical_event)
