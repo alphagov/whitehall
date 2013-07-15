@@ -120,6 +120,10 @@ pre {
   font-weight: normal;
 }
 
+p.prompt {
+  margin: $gutter-one-third 0 $gutter;
+}
+
 ul.existing-attachments {
   margin: $gutter 0;
   list-style: none;
