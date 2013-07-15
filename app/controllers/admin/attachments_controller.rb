@@ -1,5 +1,7 @@
 class Admin::AttachmentsController < Admin::BaseController
   before_filter :find_edition
+  before_filter :limit_edition_access!
+  before_filter :enforce_permissions!
   before_filter :find_attachment, only: [:edit, :update, :destroy]
 
   def new
@@ -44,5 +46,9 @@ class Admin::AttachmentsController < Admin::BaseController
     else
       attachments_hash.except(:attachment_data_attributes)
     end
+  end
+
+  def enforce_permissions!
+    enforce_permission!(:update, @edition)
   end
 end

@@ -28,6 +28,12 @@ class Admin::BulkUploadsControllerTest < ActionController::TestCase
 		assert_select 'input[type=file]'
 	end
 
+  test 'bulk upload access is forbidden for users without access to the edition' do
+    login_as :world_editor
+    get :new, edition_id: @edition
+    assert_response :forbidden
+  end
+
 	view_test 'POST :upload_zip prompts for titles for each attachment in the Zip file' do
 		post :upload_zip, edition_id: @edition, bulk_upload_zip_file: { zip_file: fixture_file_upload('two-pages-and-greenpaper.zip') }
 

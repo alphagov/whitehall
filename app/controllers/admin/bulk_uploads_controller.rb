@@ -1,5 +1,7 @@
 class Admin::BulkUploadsController < Admin::BaseController
-	before_filter :load_edition
+	before_filter :find_edition
+  before_filter :limit_edition_access!
+  before_filter :enforce_permissions!
 
 	def new
 		@bulk_upload_zip_file = BulkUpload::ZipFile.new
@@ -26,7 +28,11 @@ class Admin::BulkUploadsController < Admin::BaseController
 
 	private
 
-	def load_edition
+	def find_edition
 		@edition = Edition.find(params[:edition_id])
 	end
+
+  def enforce_permissions!
+    enforce_permission!(:update, @edition)
+  end
 end
