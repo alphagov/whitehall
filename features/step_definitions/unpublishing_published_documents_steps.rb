@@ -24,7 +24,7 @@ Then /^I should see that the document was published in error on the public site$
   refute page.has_content?(edition.title)
   assert page.has_content?('The information on this page has been removed because it was published in error')
   assert page.has_content?('This page should never have existed')
-  assert page.has_css?('a[href="https://www.gov.uk/government/"]')
+  assert page.has_css?('a[href="https://www.gov.uk/government/how-government-works"]')
 end
 
 Then /^I should see that the document was published in error at the original url$/ do
@@ -32,7 +32,7 @@ Then /^I should see that the document was published in error at the original url
   refute page.has_content?(@document.title)
   assert page.has_content?('The information on this page has been removed because it was published in error')
   assert page.has_content?('This page should never have existed')
-  assert page.has_css?('a[href="https://www.gov.uk/government/"]')
+  assert page.has_css?('a[href="https://www.gov.uk/government/how-government-works"]')
 end
 
 When /^I unpublish the document and ask for a redirect$/ do
