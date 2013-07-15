@@ -7,7 +7,8 @@ class Classification < ActiveRecord::Base
              link: :search_link,
              content: :description,
              description: :description_without_markup,
-             format: 'topic'
+             format: 'topic',
+             slug: :slug
 
   has_many :classification_memberships
   has_many :editions, through: :classification_memberships

@@ -217,7 +217,8 @@ class Organisation < ActiveRecord::Base
              link: :search_link,
              content: :indexable_content,
              description: :description,
-             boost_phrases: :acronym
+             boost_phrases: :acronym,
+             slug: :slug
 
   extend FriendlyId
   friendly_id

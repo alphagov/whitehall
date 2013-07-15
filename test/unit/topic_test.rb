@@ -167,11 +167,15 @@ class TopicTest < ActiveSupport::TestCase
 
   test 'should return search index data suitable for Rummageable' do
     topic = create(:topic, name: "topic name", description: "topic description")
-
-    assert_equal 'topic name', topic.search_index['title']
-    assert_equal "/government/topics/#{topic.slug}", topic.search_index['link']
-    assert_equal 'topic description', topic.search_index['indexable_content']
-    assert_equal 'topic', topic.search_index['format']
+    assert_equal({
+                  'title' => 'topic name',
+                  'link' => '/government/topics/topic-name',
+                  'indexable_content' => 'topic description',
+                  'format' => 'topic',
+                  'description' => 'topic description',
+                  'slug' => 'topic-name'
+                  },
+                topic.search_index)
   end
 
   test 'should add topic to search index on creating' do

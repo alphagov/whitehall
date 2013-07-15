@@ -3,7 +3,8 @@ class TopicalEvent < Classification
              link: :search_link,
              content: :description,
              format: 'topical_event',
-             description: :description_without_markup
+             description: :description_without_markup,
+             slug: :slug
 
   has_one :about_page
 

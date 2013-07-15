@@ -7,6 +7,11 @@ class TopicalEventTestTest < ActiveSupport::TestCase
     assert_equal 0, TopicalEvent.active.count
   end
 
+  test "should include slug in search_index data" do
+    topical_event = create(:topical_event, name: "mazzops 2013")
+    assert_equal 'mazzops-2013', topical_event.search_index['slug']
+  end
+
   test "should not last more than a year" do
     topical_event = build(:topical_event, start_date: 3.days.ago.to_date, end_date: (Date.today + 1.year))
     refute topical_event.valid?
