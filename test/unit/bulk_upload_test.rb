@@ -2,14 +2,56 @@ require 'test_helper'
 
 
 class BulkUploadTest < ActiveSupport::TestCase
+
+  def fixture_file(filename)
+    File.open(File.join(Rails.root, 'test', 'fixtures', filename))
+  end
+
+  def valid_attachments
+    [ build(:attachment), build(:attachment) ]
+  end
+
+  def invalid_attachments
+    [ build(:attachment, title: ''), build(:attachment) ]
+  end
+
   test "can be instantiated from an array of file paths" do
-    files = [ Rails.root.join('test','fixtures','greenpaper.pdf'), Rails.root.join('test','fixtures','whitepaper.pdf') ]
+    files = [ fixture_file('greenpaper.pdf'), fixture_file('whitepaper.pdf') ]
 
     attachments = BulkUpload.from_files(files)
 
     assert_equal 2, attachments.attachments.size
     assert_equal 'greenpaper.pdf', attachments.attachments[0].filename
     assert_equal 'whitepaper.pdf', attachments.attachments[1].filename
+  end
+
+  test '#save_attachments_to_edition saves attachments to the edition' do
+    edition = create(:news_article)
+    bulk_upload = BulkUpload.new
+    bulk_upload.attachments = valid_attachments
+
+    assert_difference('edition.attachments.count', 2) do
+      assert bulk_upload.save_attachments_to_edition(edition), 'should return true'
+    end
+  end
+
+  test '#save_attachments_to_edition does not save attachments if they are invalid' do
+    edition = create(:news_article)
+    bulk_upload = BulkUpload.new
+    bulk_upload.attachments = invalid_attachments
+
+    assert_no_difference('edition.attachments.count') do
+      refute bulk_upload.save_attachments_to_edition(edition), 'should return false'
+    end
+  end
+
+  test '#save_attachments_to_edition adds errors when attachments are invalid' do
+    edition = create(:news_article)
+    bulk_upload = BulkUpload.new
+    bulk_upload.attachments = invalid_attachments
+    bulk_upload.save_attachments_to_edition(edition)
+
+    assert bulk_upload.errors[:base].any?
   end
 end
 

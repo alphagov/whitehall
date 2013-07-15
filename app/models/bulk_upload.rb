@@ -6,18 +6,20 @@ class BulkUpload
   include ActiveModel::Validations
   include ActiveModel::Conversion
 
-  attr_reader :attachments
+  validate :attachments_are_valid?
+
+  attr_accessor :attachments
 
   def self.from_files(file_paths)
     attachment_params = file_paths.map do |file|
       { attachment_data_attributes: { file: File.open(file) } }
     end
 
-    new(attachment_params)
+    new(attachments: attachment_params)
   end
 
-  def initialize(params)
-    @attachments = params.map {|p| Attachment.new(p) }
+  def initialize(params={})
+    @attachments = params.fetch(:attachments, []).map {|p| Attachment.new(p) }
   end
 
   def to_model
@@ -26,6 +28,21 @@ class BulkUpload
 
   def persisted?
     false
+  end
+
+  def save_attachments_to_edition(edition)
+    if valid?
+      edition.attachments << attachments
+    else
+      false
+    end
+  end
+
+  def attachments_are_valid?
+    attachments.each { |attachment| attachment.valid? }
+    unless attachments.all? { |attachment| attachment.valid? }
+      errors[:base] << 'Please enter missing fields for each attachment'
+    end
   end
 
   class ZipFile

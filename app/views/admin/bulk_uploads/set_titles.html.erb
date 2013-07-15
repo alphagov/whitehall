@@ -2,6 +2,8 @@
 	<section>
 		<h1>Set titles for your attachments</h1>
 		<%= form_for @bulk_upload, url: admin_edition_bulk_uploads_path(@edition)  do |form| %>
+			<%= form.errors %>
+
 			<ul class="uploaded-attachments">
 				<% @bulk_upload.attachments.each do |attachment| %>
 					<%= form.fields_for "attachments[]", attachment do |attachment_fields| %>
