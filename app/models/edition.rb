@@ -171,7 +171,8 @@ class Edition < ActiveRecord::Base
     only: :published_and_available_in_english,
     index_after: [],
     unindex_after: [],
-    search_format_types: :search_format_types
+    search_format_types: :search_format_types,
+    attachments: :extracted_attachment
   )
 
   def search_link
@@ -180,6 +181,18 @@ class Edition < ActiveRecord::Base
 
   def search_format_types
     [Edition.search_format_type]
+  end
+
+  def extracted_attachment
+    if allows_attachments?
+      attachments.map do |attachment|
+        if attachment.indexable?
+          tika = Rails.root.join('lib/tika-app-1.4.jar')
+          output = `java -jar #{tika} -t #{attachment.file.path}`
+          output
+        end
+      end
+    end
   end
 
   def self.search_format_type

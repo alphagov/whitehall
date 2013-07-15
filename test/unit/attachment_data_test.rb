@@ -56,6 +56,13 @@ class AttachmentDataTest < ActiveSupport::TestCase
     assert_equal "application/pdf", attachment.content_type
   end
 
+  test "should allow file in the indexable whitelist to be indexed" do
+    greenpaper_pdf = fixture_file_upload('greenpaper.pdf', nil)
+    attachment = create(:attachment_data, file: greenpaper_pdf)
+    attachment.reload
+    assert_equal true, attachment.indexable?
+  end
+
   test "should set page count for PDF on create" do
     two_pages_pdf = fixture_file_upload('two-pages.pdf')
     attachment = create(:attachment_data, file: two_pages_pdf)

@@ -24,6 +24,10 @@ class AttachmentData < ActiveRecord::Base
     content_type == AttachmentUploader::PDF_CONTENT_TYPE
   end
 
+  def indexable?
+    AttachmentUploader::INDEXABLE_TYPES.include?(file_extension)
+  end
+
   def update_file_attributes
     if carrierwave_file.present? && carrierwave_file_changed?
       self.content_type = file.file.content_type
