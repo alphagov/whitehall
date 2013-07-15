@@ -13,10 +13,14 @@ class PersonTest < ActiveSupport::TestCase
   test 'should return search index data suitable for Rummageable' do
     person = create(:person, forename: 'David', surname: 'Cameron', biography: 'David Cameron became Prime Minister in May 2010.')
 
-    assert_equal 'David Cameron', person.search_index['title']
-    assert_equal "/government/people/#{person.slug}", person.search_index['link']
-    assert_equal 'David Cameron became Prime Minister in May 2010.', person.search_index['indexable_content']
-    assert_equal 'person', person.search_index['format']
+    assert_equal({
+                  'title' => 'David Cameron',
+                  'link' => '/government/people/david-cameron',
+                  'indexable_content' => 'David Cameron became Prime Minister in May 2010.',
+                  'format' => 'person',
+                  'description' => '',
+                  'slug' => 'david-cameron'
+                  }, person.search_index) 
   end
 
   test "should be invalid without a name" do
