@@ -48,7 +48,7 @@
             <%= replacement_attachment_data_fields(attachment_fields) %>
           </div>
         <% end %>
-        <% if show_inline_attachment_help %>
+        <% if edition.allows_inline_attachments? %>
           <p>Markdown to use:</p>
           <input type="text" readonly="readonly" name="markdown" value="!@<%= i += 1 %>" />
           <p>or</p>
