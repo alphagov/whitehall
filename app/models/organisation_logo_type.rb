@@ -40,4 +40,7 @@ class OrganisationLogoType
   ExecutiveOffice = create(
     id: 11, title: "Executive Office", class_name: "eo"
   )
+  HMRevenueCustoms = create(
+    id: 12, title: "HM Revenue & Customs", class_name: "hmrc"
+  )
 end
