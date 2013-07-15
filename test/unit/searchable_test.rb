@@ -6,13 +6,10 @@ class SearchableTest < ActiveSupport::TestCase
   # lend itself to redefinition)
   class SearchableTestTopic < ActiveRecord::Base
     self.table_name = 'classifications'
+
     include Searchable
-    searchable(
-      link: :name,
-      only: :published,
-      index_after: [:save],
-      unindex_after: [:destroy]
-    )
+    searchable  link: :name, only: :published, index_after: [:save], unindex_after: [:destroy]
+
     scope :published, where(state: 'published')
   end
 
@@ -94,7 +91,7 @@ class SearchableTest < ActiveSupport::TestCase
 
   test 'Delete.later will enqueue an indexing job with the link for the object and the index to remove it from onto the rummager work queue' do
     s = SearchableTestTopic.create(name: 'woo', state: 'draft')
-    Searchable::Delete.expects(:new).with(s.name, Whitehall.government_search_index_path).returns :a_deletion_job
+    Searchable::Delete.expects(:new).with(s.name, :government).returns :a_deletion_job
     Delayed::Job.expects(:enqueue).with(:a_deletion_job, queue: Whitehall.rummager_work_queue_name)
     Searchable::Delete.later(s)
   end
@@ -113,21 +110,21 @@ class SearchableTest < ActiveSupport::TestCase
 
   test 'Index#perform will not index the object if it is not in searchable_instances' do
     s = SearchableTestTopic.create(name: 'woo', state: 'draft')
-    Rummageable.expects(:index).never
+    Whitehall::SearchIndex.indexer_class.any_instance.expects(:add_batch).never
     index_job = Searchable::Index.new(s.class.name, s.id)
     index_job.perform
   end
 
   test 'Index#perform will index the object if it is contained in searchable_instances' do
     s = SearchableTestTopic.create(name: 'woo', state: 'published')
-    Rummageable.expects(:index).with(s.search_index, Whitehall.government_search_index_path).once
+    Whitehall::SearchIndex.indexer_class.any_instance.expects(:add_batch).once
     index_job = Searchable::Index.new(s.class.name, s.id)
     index_job.perform
   end
 
   test 'Delete#perform will remove the link from the index' do
-    Rummageable.expects(:delete).with('woo', Whitehall.government_search_index_path).once
-    delete_job = Searchable::Delete.new('woo', Whitehall.government_search_index_path)
+    Whitehall::SearchIndex.indexer_class.any_instance.expects(:delete).with('woo').once
+    delete_job = Searchable::Delete.new('woo', :government)
     delete_job.perform
   end
 

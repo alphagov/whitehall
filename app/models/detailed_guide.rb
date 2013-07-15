@@ -48,6 +48,10 @@ class DetailedGuide < Edition
 
   validates_with HeadingHierarchyValidator
 
+  def rummager_index
+    :detailed_guides
+  end
+
   def related_detailed_guides
     (latest_outbound_related_detailed_guides + latest_inbound_related_detailed_guides).uniq
   end

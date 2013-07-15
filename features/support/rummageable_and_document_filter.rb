@@ -27,3 +27,7 @@ require 'whitehall/not_quite_as_fake_search'
 Before("@not-quite-as-fake-search") do
   Whitehall::NotQuiteAsFakeSearch.stop_faking_it_quite_so_much!
 end
+
+After("@not-quite-as-fake-search") do
+  Whitehall::NotQuiteAsFakeSearch.start_faking_it_again!
+end
