@@ -29,7 +29,8 @@ class WorldLocation < ActiveRecord::Base
              link: :search_link,
              content: :mission_statement,
              only: :active,
-             format: 'world_location'
+             format: 'world_location',
+             slug: :slug
 
   def search_link
     Whitehall.url_maker.world_location_path(slug)
