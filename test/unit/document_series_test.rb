@@ -121,4 +121,9 @@ class DocumentSeriesTest < ActiveSupport::TestCase
     series = create(:document_series, name: "Bob's bike")
     assert_equal 'bobs-bike', series.slug
   end
+
+  test "should inclue slug in search index data" do
+    series = create(:document_series, name: "Coffee for the win")
+    assert_equal 'coffee-for-the-win', series.search_index['slug']
+  end
 end

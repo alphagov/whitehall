@@ -238,14 +238,15 @@ class WorldLocationTest < ActiveSupport::TestCase
     inactive_location.destroy
   end
 
-  test 'search index data for a world locaiton includes name, mission statement, the correct link and format' do
+  test 'search index data for a world location includes name, mission statement, the correct link and format' do
     location = build(:world_location, name: 'hat land', slug: 'hat-land', mission_statement: 'helping people in hat land find out about other clothing')
 
-    assert_equal({'title' => location.name,
+    assert_equal({'title' => 'hat land',
                   'link' => '/government/world/hat-land',
                   'indexable_content' => 'helping people in hat land find out about other clothing',
                   'format' => 'world_location',
-                  'description' => ''}, location.search_index)
+                  'description' => '',
+                  'slug' => 'hat-land'}, location.search_index)
   end
 
   test 'search index includes data for all active locations' do

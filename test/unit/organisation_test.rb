@@ -308,22 +308,26 @@ class OrganisationTest < ActiveSupport::TestCase
     assert_equal 4, results.length
     assert_equal({'title' => 'Department for Culture and Sports',
                   'link' => '/government/organisations/department-for-culture-and-sports',
+                  'slug' => 'department-for-culture-and-sports',
                   'indexable_content' => 'Sporty. ',
                   'format' => 'organisation',
                   'description' => 'Sporty.'}, results[0])
     assert_equal({'title' => 'Department of Education',
                   'link' => '/government/organisations/department-of-education',
+                  'slug' => 'department-of-education',
                   'indexable_content' => 'Bookish. ',
                   'format' => 'organisation',
                   'description' => 'Bookish.'}, results[1])
     assert_equal({'title' => 'HMRC (hmrc)',
                   'link' => '/government/organisations/hmrc',
+                  'slug' => 'hmrc',
                   'indexable_content' => 'Taxing. ',
                   'format' => 'organisation',
                   'boost_phrases' => 'hmrc',
                   'description' => 'Taxing.'}, results[2])
     assert_equal({'title' => 'Ministry of Defence (mod)',
                   'link' => '/government/organisations/ministry-of-defence',
+                  'slug' => 'ministry-of-defence',
                   'indexable_content' => 'Defensive. ',
                   'format' => 'organisation',
                   'boost_phrases' => 'mod',

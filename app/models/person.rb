@@ -37,6 +37,7 @@ class Person < ActiveRecord::Base
   searchable title: :name,
              link: :search_link,
              content: :biography_without_markup,
+             slug: :slug,
              only: :without_a_current_ministerial_role #Already covered by MinisterialRole
 
   extend FriendlyId

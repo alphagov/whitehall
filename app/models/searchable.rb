@@ -9,7 +9,7 @@ module Searchable
     :people, :publication_type, :speech_type,
     :topics, :news_article_type, :display_type,
     :relevant_to_local_government,
-    :search_format_types, :world_locations
+    :search_format_types, :world_locations, :slug
   ]
 
   included do
