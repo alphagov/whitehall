@@ -11,10 +11,10 @@ class RoutingTest < ActionDispatch::IntegrationTest
     assert_select "script[src=?]", "#{Whitehall.router_prefix}/assets/application.js"
   end
 
-  test "visiting / on frontend redirects to #{Whitehall.router_prefix}" do
+  test "visiting #{Whitehall.router_prefix} on frontend redirects to /" do
     host! 'whitehall-frontend.production.alphagov.co.uk'
-    get "/"
-    assert_redirected_to "#{Whitehall.router_prefix}/"
+    get "#{Whitehall.router_prefix}"
+    assert_redirected_to "/"
   end
 
   test "visiting / on an admin host redirects to #{Whitehall.router_prefix}/admin" do
@@ -36,7 +36,7 @@ class RoutingTest < ActionDispatch::IntegrationTest
   end
 
   test "should allow access to non-admin URLs for requests through the single domain router" do
-    get_via_redirect "/government", {}, "HTTP_X_GOVUK_ROUTER_REQUEST" => true
+    get_via_redirect "/government/how-government-works", {}, "HTTP_X_GOVUK_ROUTER_REQUEST" => true
     assert_response :success
   end
 

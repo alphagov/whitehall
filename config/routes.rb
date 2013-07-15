@@ -17,7 +17,6 @@ Whitehall::Application.routes.draw do
   root to: redirect("/admin/"), constraints: lambda { |request|
     ::Whitehall.admin_hosts.include?(request.host)
   }
-  root to: redirect("/"), via: :get
 
   get '/browse/*parent_tag/:id', to: 'mainstream_categories#show'
 
@@ -37,7 +36,7 @@ Whitehall::Application.routes.draw do
     external_redirect '/organisations/ministry-of-defence-police-and-guarding-agency',
       "http://webarchive.nationalarchives.gov.uk/20121212174735/http://www.mod.uk/DefenceInternet/AboutDefence/WhatWeDo/SecurityandIntelligence/MDPGA/"
 
-    root to: "home#home", via: :get
+    root to: redirect("/", { prefix: '' }), via: :get
     get "/how-government-works" => "home#how_government_works", as: 'how_government_works'
     scope '/get-involved' do
       root to: 'home#get_involved', as: :get_involved, via: :get

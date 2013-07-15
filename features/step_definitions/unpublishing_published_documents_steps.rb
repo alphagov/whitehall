@@ -9,7 +9,7 @@ def unpublish_edition(edition)
   click_button 'Unpublish'
   select 'Published in error', from: 'Reason for unpublishing'
   fill_in 'Further explanation', with: 'This page should never have existed'
-  fill_in 'Alternative URL', with: 'https://www.gov.uk/government/'
+  fill_in 'Alternative URL', with: 'https://www.gov.uk/government/how-government-works'
   yield if block_given?
   click_button 'Unpublish'
 end
