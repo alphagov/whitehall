@@ -108,6 +108,10 @@ class ActiveSupport::TestCase
       setup do
         Whitehall::NotQuiteAsFakeSearch.stop_faking_it_quite_so_much!
       end
+
+      teardown do
+        Whitehall::NotQuiteAsFakeSearch.start_faking_it_again!
+      end
     end
   end
 

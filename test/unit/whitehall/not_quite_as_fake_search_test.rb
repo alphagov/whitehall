@@ -6,69 +6,72 @@ module Whitehall
     class Test < ActiveSupport::TestCase
       setup do
         @store = Store.new
+        SearchIndex.indexer_class.store = @store
+        @index = SearchIndex.indexer_class.new('http://rummager.test', 'government')
+      end
+
+      teardown do
+        SearchIndex.indexer_class.store = nil
       end
 
       test "a document is present in the store after adding to Rummageable" do
-        Rummageable.new(@store).index([{"link" => "/foo", "title" => "Foo"}], "government")
-        expected_index = {
-          "/foo" => {"link"=>"/foo", "title"=>"Foo"}
-        }
-        assert_equal expected_index, @store.index("government")
+        @index.add({ 'link' => '/foo', 'title' => 'Foo' })
+        expected_index = { '/foo' => { 'link' => '/foo', 'title' => 'Foo' } }
+        assert_equal expected_index, @store.index('government')
       end
 
       test "a document can be retrieved by advanced search" do
-        Rummageable.new(@store).index([{"link" => "/foo", "title" => "Foo"}], "government")
-        actual_results = GdsApiRummager.new("government", @store).advanced_search(per_page: "10", page: "1", keywords: "Foo")
+        @index.add({ 'link' => '/foo', 'title' => 'Foo' })
+        client = GdsApiRummager.new('government', @store)
+        actual_results = client.advanced_search(per_page: "10", page: "1", keywords: "Foo")
         expected_results = {
-          "total" => 1,
-          "results" => [
-            {"link" => "/foo", "title" => "Foo"}
-          ]
+          'total' => 1,
+          'results' => [{ 'link' => '/foo', 'title' => 'Foo' }]
         }
         assert_equal expected_results, actual_results
       end
 
       test "advanced search finds documents with the requested keywords in the title" do
-        Rummageable.new(@store).index(build_documents(*%w{Foo Bar}), "government")
+        @index.add_batch(build_documents(*%w{Foo Bar}))
         assert_search_returns_documents %w{Bar}, keywords: "Bar"
       end
 
       test "advanced search finds documents with the requested keywords in the description" do
-        Rummageable.new(@store).index(build_documents(*%w{Foo Bar}), "government")
+        @index.add_batch(build_documents(*%w{Foo Bar}))
         assert_search_returns_documents %w{Bar}, keywords: "Bar-description"
       end
 
       test "advanced search finds documents with the requested keywords in the indexable content" do
-        Rummageable.new(@store).index(build_documents(*%w{Foo Bar}), "government")
+        @index.add_batch(build_documents(*%w{Foo Bar}))
         assert_search_returns_documents %w{Bar}, keywords: "Bar-indexable_content"
       end
 
       test "advanced search can select documents with a field matching a list of values" do
-        Rummageable.new(@store).index(build_documents(*%w{Foo Bar}), "government")
+        @index.add_batch(build_documents(*%w{Foo Bar}))
         assert_search_returns_documents %w{Bar}, topics: ["Bar-topic1"]
       end
 
       test "advanced search can select documents with a field matching any item from a list of values" do
-        Rummageable.new(@store).index(build_documents(*%w{Foo Bar FooBar}), "government")
+        @index.add_batch(build_documents(*%w{Foo Bar FooBar}))
         assert_search_returns_documents %w{Foo Bar}, topics: ["Foo-topic2", "Bar-topic1"]
       end
 
       test "advanced search can select documents with a field matching a single value" do
-        Rummageable.new(@store).index(build_documents(*%w{Foo Bar}), "government")
+        @index.add_batch(build_documents(*%w{Foo Bar}))
         assert_search_returns_documents %w{Bar}, topics: "Bar-topic1"
       end
 
       test "advanced search for a field which is not present in a document does not return the document" do
         documents = build_documents(*%w{Foo Bar})
         documents[0]['world_locations'] = ["Hawaii"]
-        Rummageable.new(@store).index(documents, "government")
+        @index.add_batch(documents)
         assert_search_returns_documents %w{Foo}, world_locations: "Hawaii"
       end
 
       test "advanced search can select documents using a boolean filter" do
         documents = build_documents(*%w{Foo Bar})
         documents[0]['relevant_to_local_government'] = true
-        Rummageable.new(@store).index(documents, "government")
+        @index.add_batch(documents)
         assert_search_returns_documents %w{Foo}, relevant_to_local_government: "true"
         assert_search_returns_documents %w{Foo}, relevant_to_local_government: "1"
         assert_search_returns_documents %w{Bar}, relevant_to_local_government: "false"
@@ -93,7 +96,7 @@ module Whitehall
         documents[0]['public_timestamp'] = Time.zone.parse("2011-01-01 01:01:01")
         documents[1]['public_timestamp'] = Time.zone.parse("2011-02-02 02:02:02")
         documents[2]['public_timestamp'] = Time.zone.parse("2011-03-03 02:02:02")
-        Rummageable.new(@store).index(documents, "government")
+        @index.add_batch(documents)
         assert_search_returns_documents %w{Foo}, public_timestamp: {before: "2011-01-31"}
         assert_search_returns_documents %w{Bar Qux}, public_timestamp: {after: "2011-01-31"}
         assert_search_returns_documents %w{Bar}, public_timestamp: {after: "2011-01-31", before: "2011-02-28"}
@@ -104,7 +107,7 @@ module Whitehall
         documents[0]['public_timestamp'] = Time.zone.parse("2011-01-01 01:01:01")
         documents[1]['public_timestamp'] = Time.zone.parse("2011-03-03 02:02:02")
         documents[2]['public_timestamp'] = Time.zone.parse("2011-01-01 01:01:01")
-        Rummageable.new(@store).index(documents, "government")
+        @index.add_batch(documents)
         assert_search_returns_documents %w{Bar Foo Qux}, order: {title: "asc"}
         assert_search_returns_documents %w{Qux Foo Bar}, order: {title: "desc"}
         assert_search_returns_documents %w{Foo Qux Bar}, order: {public_timestamp: "asc", title: "asc"}
@@ -119,7 +122,7 @@ module Whitehall
 
       test "advanced search can be paginated" do
         documents = build_documents(*(1.upto(20).map {|n| "doc-#{n}"}))
-        Rummageable.new(@store).index(documents, "government")
+        @index.add_batch(documents)
         assert_search_returns_documents %w{doc-1 doc-2 doc-3}, page: 1, per_page: 3
         assert_search_returns_documents %w{doc-4 doc-5 doc-6}, page: 2, per_page: 3
         assert_search_returns_documents %w{doc-19 doc-20}, page: 7, per_page: 3
