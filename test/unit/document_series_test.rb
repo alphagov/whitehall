@@ -126,4 +126,9 @@ class DocumentSeriesTest < ActiveSupport::TestCase
     series = create(:document_series, name: "Coffee for the win")
     assert_equal 'coffee-for-the-win', series.search_index['slug']
   end
+
+  test "should index the description without markup" do
+    series = create(:document_series, name: "A doc series", description: "This is a *description*")
+    assert_equal "This is a description", series.search_index["indexable_content"]
+  end
 end
