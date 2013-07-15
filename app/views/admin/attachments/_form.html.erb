@@ -5,11 +5,7 @@
 	<%= form.text_field :title %>
 
   <% if edition.allows_attachment_references? %>
-    <%= form.text_field :isbn, label_text: 'ISBN' %>
-    <%= form.text_field :unique_reference %>
-    <%= form.text_field :command_paper_number %>
-    <%= form.text_field :order_url, label_text: 'Order URL' %>
-    <%= form.text_field :price, label_text: "Price in £s" %>
+    <%= render 'reference_fields', form: form %>
   <% end %>
 
   <%= form.fields_for :attachment_data do |attachment_data_fields| %>

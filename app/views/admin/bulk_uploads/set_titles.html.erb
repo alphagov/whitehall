@@ -10,6 +10,11 @@
 						<li class="well">
 							<span class="file">Filename: <%= attachment_fields.object.filename %></span>
 							<%= attachment_fields.text_field :title %>
+
+							<% if @edition.allows_attachment_references? %>
+								<%= render 'admin/attachments/reference_fields', form: attachment_fields %>
+							<% end %>
+
 							<%= attachment_fields.fields_for(:attachment_data) do |attachment_data| %>
 						    <%= attachment_data.hidden_field :file_cache %>
 					    <% end %>
