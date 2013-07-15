@@ -12,11 +12,7 @@ class Admin::StatisticalDataSetsControllerTest < ActionController::TestCase
   should_allow_editing_of :statistical_data_set
 
   should_allow_organisations_for :statistical_data_set
-  should_allow_attachments_for :statistical_data_set
-  should_allow_bulk_upload_attachments_for :statistical_data_set
   should_require_alternative_format_provider_for :statistical_data_set
-  show_should_display_attachments_for :statistical_data_set
-  should_allow_attachment_references_for :statistical_data_set
   should_show_inline_attachment_help_for :statistical_data_set
   should_prevent_modification_of_unmodifiable :statistical_data_set
   should_allow_alternative_format_provider_for :statistical_data_set

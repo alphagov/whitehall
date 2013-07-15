@@ -12,10 +12,7 @@ class Admin::DetailedGuidesControllerTest < ActionController::TestCase
 
   should_allow_organisations_for :detailed_guide
   should_allow_association_with_topics :detailed_guide
-  should_allow_attachments_for :detailed_guide
-  should_allow_bulk_upload_attachments_for :detailed_guide
   should_require_alternative_format_provider_for :detailed_guide
-  show_should_display_attachments_for :detailed_guide
   should_show_inline_attachment_help_for :detailed_guide
   should_allow_attached_images_for :detailed_guide
   should_prevent_modification_of_unmodifiable :detailed_guide
