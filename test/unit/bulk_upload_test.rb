@@ -68,8 +68,14 @@ class BulkUploadZipFileTest < ActiveSupport::TestCase
     refute BulkUpload::ZipFile.new(superficial_zip_file).valid?
   end
 
-  test 'is valid if the zip file is zippy' do
+  test 'is valid if the file is actually a zip' do
     assert BulkUpload::ZipFile.new(a_zip_file).valid?
+  end
+
+  test 'is invalid if the zip file contains illegal file types' do
+    zip_file = BulkUpload::ZipFile.new(a_zip_file_with_dodgy_file_types)
+    refute zip_file.valid?
+    assert_match /contains invalid files/, zip_file.errors[:zip_file][0]
   end
 
   test 'extracted_file_paths returns extracted file paths' do
@@ -87,8 +93,13 @@ class BulkUploadZipFileTest < ActiveSupport::TestCase
     assert extracted.include?(File.join(zf.temp_dir, 'extracted', 'greenpaper.pdf').to_s)
   end
 
+
+  def uploaded_file(fixture_filename)
+    ActionDispatch::Http::UploadedFile.new(filename: fixture_filename, tempfile: File.open(Rails.root.join('test', 'fixtures', fixture_filename)))
+  end
+
   def not_a_zip_file
-    ActionDispatch::Http::UploadedFile.new(filename: 'greenpaper.pdf', tempfile: File.open(Rails.root.join('test','fixtures','greenpaper.pdf')))
+    uploaded_file('greenpaper.pdf')
   end
 
   def superficial_zip_file
@@ -96,10 +107,14 @@ class BulkUploadZipFileTest < ActiveSupport::TestCase
   end
 
   def a_zip_file
-    ActionDispatch::Http::UploadedFile.new(filename: 'two-pages-and-greenpaper.zip', tempfile: File.open(Rails.root.join('test','fixtures','two-pages-and-greenpaper.zip')))
+    uploaded_file('two-pages-and-greenpaper.zip')
   end
 
   def zip_file_with_os_x_resource_fork
-    ActionDispatch::Http::UploadedFile.new(filename: 'greenpaper-with-osx-resource-fork.zip', tempfile: File.open(Rails.root.join('test', 'fixtures', 'greenpaper-with-osx-resource-fork.zip')))
+    uploaded_file('greenpaper-with-osx-resource-fork.zip')
+  end
+
+  def a_zip_file_with_dodgy_file_types
+    uploaded_file('sample_attachment_containing_exe.zip')
   end
 end

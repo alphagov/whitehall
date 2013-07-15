@@ -45,6 +45,14 @@ class Admin::BulkUploadsControllerTest < ActionController::TestCase
 		assert_select 'input[type=file]'
 	end
 
+	view_test 'POST :upload_zip with a zip file containing non-whitelisted file types gives an error message' do
+		post :upload_zip, edition_id: @edition, bulk_upload_zip_file: { zip_file: fixture_file_upload('sample_attachment_containing_exe.zip') }
+
+		assert_response :success
+		assert_select '.errors', /contains invalid files/
+		assert_select 'input[type=file]'
+	end
+
 	view_test 'POST :create with titles for attachments saves the attachments to the edition' do
 		post :create, edition_id: @edition, bulk_upload: valid_params
 

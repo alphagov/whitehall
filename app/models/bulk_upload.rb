@@ -58,6 +58,7 @@ class BulkUpload
 
     validates :zip_file, presence: true
     validate :is_a_zip_file
+    validate :contains_only_whitelisted_file_types
 
     def persisted?
       false
@@ -84,7 +85,7 @@ class BulkUpload
           split(/[\r\n]+/).
           map { |l| l.strip }.
           reject { |l| l =~ /\A(Archive|creating):/ }.
-          map { |f| f.gsub(/\Ainflating:\s+/, '') }.
+          map { |f| f.gsub(/\A(inflating|extracting):\s+/, '') }.
           reject { |f| f =~ /\/__MACOSX\// }.
           map { |f| File.expand_path(f) }
     end
@@ -94,18 +95,29 @@ class BulkUpload
     end
 
     def is_a_zip_file
-      unless @zip_file.nil?
-        errors.add(:zip_file, 'not a zip file') unless looks_like_a_zip? && is_a_zip?
+      if @zip_file.present?
+        errors.add(:zip_file, 'not a zip file') unless is_a_zip?
       end
-    end
-
-    def looks_like_a_zip?
-      @zip_file.original_filename =~ /\.zip\Z/
     end
 
     def is_a_zip?
       _, _, errs = Open3.popen3("#{Whitehall.system_binaries[:zipinfo]} -1 #{self.temp_location} > /dev/null")
       errs.read.empty?
+    end
+
+    private
+
+    def contains_only_whitelisted_file_types
+      if @zip_file.present? && is_a_zip? && contains_disallowed_file_types?
+        errors.add(:zip_file, 'contains invalid files')
+      end
+    end
+
+    def contains_disallowed_file_types?
+      extracted_file_paths.any? do |path|
+        extension = File.extname(path).sub(/^\./, '')
+        ! AttachmentUploader::EXTENSION_WHITE_LIST.include?(extension)
+      end
     end
   end
 end
