@@ -43,15 +43,6 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     end
   end
 
-  view_test "new should allow users to add publication metadata to an attachment" do
-    get :new
-
-    assert_select "form#new_edition" do
-      assert_select "input[type=text][name='edition[edition_attachments_attributes][0][attachment_attributes][order_url]']"
-      assert_select "input[type=text][name='edition[edition_attachments_attributes][0][attachment_attributes][price]']"
-    end
-  end
-
   test "create should create a new publication" do
     post :create, edition: controller_attributes_for(:publication,
       publication_date: Time.zone.parse("2001-10-21 00:00:00"),
@@ -90,18 +81,6 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     assert_select "form#edit_edition" do
       assert_select "select[name='edition[publication_type_id]']"
       assert_select "select[name*='edition[publication_date']", count: 5
-    end
-  end
-
-  view_test "edit should allow users to assign publication metadata to an attachment" do
-    publication = create(:publication, :with_attachment)
-    attachment = publication.attachments.first
-
-    get :edit, id: publication
-
-    assert_select "form#edit_edition" do
-      assert_select "input[type=text][name='edition[edition_attachments_attributes][0][attachment_attributes][order_url]']"
-      assert_select "input[type=text][name='edition[edition_attachments_attributes][0][attachment_attributes][price]']"
     end
   end
 
