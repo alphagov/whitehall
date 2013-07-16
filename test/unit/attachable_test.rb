@@ -118,10 +118,12 @@ class AttachableTest < ActiveSupport::TestCase
   end
 
   test 'should include attachment titles into #indexable_content' do
-    attachment = create(:attachment, title: "The title of the attachment")
-    edition = create(:publication, body: "Document body.")
+    test_pdf = fixture_file_upload('simple.pdf', 'application/pdf')
+    attachment = create(:attachment, file: test_pdf, title: "The title of the attachment")
+
+    edition = create(:publication)
     edition.attachments << attachment
 
-    assert_equal "Document body. Attachment: The title of the attachment", edition.indexable_content
+    assert_equal ["The title of the attachment \nThis is a test pdf.\n\n\n"], edition.search_index['attachments']
   end
 end

@@ -172,7 +172,7 @@ class Edition < ActiveRecord::Base
     index_after: [],
     unindex_after: [],
     search_format_types: :search_format_types,
-    attachments: :extracted_attachment
+    attachments: nil
   )
 
   def search_link
@@ -181,14 +181,6 @@ class Edition < ActiveRecord::Base
 
   def search_format_types
     [Edition.search_format_type]
-  end
-
-  def extracted_attachment
-    if allows_attachments?
-      attachments.map do |attachment|
-        attachment.extracted_text
-      end
-    end
   end
 
   def self.search_format_type
