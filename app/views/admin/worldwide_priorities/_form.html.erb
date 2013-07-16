@@ -1,8 +1,11 @@
-<%= edition_editing_tabs(edition) do |form| %>
-  <fieldset>
-    <legend>Associations</legend>
-    <%= render partial: 'world_location_fields', locals: { form: form, edition: edition } %>
-    <%= render partial: 'worldwide_organisation_fields', locals: { form: form, edition: edition } %>
-    <%= render partial: 'organisation_fields', locals: { form: form, edition: edition } %>
-  </fieldset>
+<%= edition_editing_tabs(edition) do %>
+  <%= standard_edition_form(edition) do |form| %>
+
+	  <fieldset>
+	    <legend>Associations</legend>
+	    <%= render partial: 'world_location_fields', locals: { form: form, edition: edition } %>
+	    <%= render partial: 'worldwide_organisation_fields', locals: { form: form, edition: edition } %>
+	    <%= render partial: 'organisation_fields', locals: { form: form, edition: edition } %>
+	  </fieldset>
+	<% end %>
 <% end %>

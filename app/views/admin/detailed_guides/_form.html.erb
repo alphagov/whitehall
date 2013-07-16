@@ -1,33 +1,36 @@
-<%= edition_editing_tabs(edition) do |form| %>
-  <fieldset>
-    <legend>Associations</legend>
-    <%= render partial: 'topic_fields', locals: { form: form, edition: edition } %>
+<%= edition_editing_tabs(edition) do %>
+  <%= standard_edition_form(edition) do |form| %>
 
-    <%= form.label :primary_mainstream_category_id, 'Primary detailed guidance category' %>
-    <%= form.select :primary_mainstream_category_id, mainstream_category_options(edition, edition.primary_mainstream_category_id), {}, class: 'chzn-select', data: { placeholder: "Choose a primary detailed guidance category..."} %>
+    <fieldset>
+      <legend>Associations</legend>
+      <%= render partial: 'topic_fields', locals: { form: form, edition: edition } %>
 
-    <%= form.label :other_mainstream_category_ids, 'Other detailed guidance categories' %>
-    <%= form.select :other_mainstream_category_ids, mainstream_category_options(edition, edition.other_mainstream_category_ids), {}, multiple: true, class: 'chzn-select', data: { placeholder: "Choose other detailed guidance categories..."} %>
+      <%= form.label :primary_mainstream_category_id, 'Primary detailed guidance category' %>
+      <%= form.select :primary_mainstream_category_id, mainstream_category_options(edition, edition.primary_mainstream_category_id), {}, class: 'chzn-select', data: { placeholder: "Choose a primary detailed guidance category..."} %>
 
-    <%= render partial: 'organisation_fields', locals: { form: form, edition: edition } %>
+      <%= form.label :other_mainstream_category_ids, 'Other detailed guidance categories' %>
+      <%= form.select :other_mainstream_category_ids, mainstream_category_options(edition, edition.other_mainstream_category_ids), {}, multiple: true, class: 'chzn-select', data: { placeholder: "Choose other detailed guidance categories..."} %>
 
-    <%= render partial: 'document_series_fields', locals: { form: form, edition: edition } %>
+      <%= render partial: 'organisation_fields', locals: { form: form, edition: edition } %>
 
-    <%= form.label :outbound_related_document_ids, 'Related guides' %>
-    <%= form.select :outbound_related_document_ids, options_from_collection_for_select(DetailedGuide.alphabetical.latest_edition.active, :document_id, :title, edition.outbound_related_document_ids), {}, multiple: true, class: 'chzn-select', data: { placeholder: "Choose related detailed guides..."} %>
-  </fieldset>
+      <%= render partial: 'document_series_fields', locals: { form: form, edition: edition } %>
 
-  <%= render partial: 'attachments', locals: { form: form, edition: edition } %>
+      <%= form.label :outbound_related_document_ids, 'Related guides' %>
+      <%= form.select :outbound_related_document_ids, options_from_collection_for_select(DetailedGuide.alphabetical.latest_edition.active, :document_id, :title, edition.outbound_related_document_ids), {}, multiple: true, class: 'chzn-select', data: { placeholder: "Choose related detailed guides..."} %>
+    </fieldset>
 
-  <fieldset>
-    <legend>Related Mainstream Content</legend>
-    <%= form.text_field :related_mainstream_content_url %>
-    <%= form.text_field :related_mainstream_content_title %>
-    <%= form.text_field :additional_related_mainstream_content_url %>
-    <%= form.text_field :additional_related_mainstream_content_title %>
-  </fieldset>
+    <%= render partial: 'attachments', locals: { form: form, edition: edition } %>
 
-  <%= render partial: 'nation_fields', locals: { form: form, edition: edition } %>
+    <fieldset>
+      <legend>Related Mainstream Content</legend>
+      <%= form.text_field :related_mainstream_content_url %>
+      <%= form.text_field :related_mainstream_content_title %>
+      <%= form.text_field :additional_related_mainstream_content_url %>
+      <%= form.text_field :additional_related_mainstream_content_title %>
+    </fieldset>
 
-  <%= render partial: 'first_published_at', locals: { form: form, edition: edition } %>
+    <%= render partial: 'nation_fields', locals: { form: form, edition: edition } %>
+
+    <%= render partial: 'first_published_at', locals: { form: form, edition: edition } %>
+  <% end %>
 <% end %>

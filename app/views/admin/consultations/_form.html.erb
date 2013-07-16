@@ -1,28 +1,31 @@
-<%= edition_editing_tabs(edition) do |form| %>
-  <%= render partial: 'attachments', locals: { form: form, edition: edition } %>
+<%= edition_editing_tabs(edition) do %>
+  <%= standard_edition_form(edition) do |form| %>
 
-  <%= render partial: 'html_version_fields', locals: { form: form, edition: edition } %>
+    <%= render partial: 'attachments', locals: { form: form, edition: edition } %>
 
-  <fieldset>
-    <legend>Associations</legend>
-    <%= render partial: 'related_policy_fields', locals: { form: form, edition: edition } %>
-    <%= render partial: 'organisation_fields', locals: { form: form, edition: edition } %>
-    <%= render partial: 'document_series_fields', locals: { form: form, edition: edition } %>
-    <%= render partial: 'minister_fields', locals: { form: form, edition: edition } %>
-    <%= render partial: 'topical_event_fields', locals: { form: form, edition: edition } %>
-    <%= render partial: 'worldwide_priority_fields', locals: { form: form, edition: edition } %>
-    <%= render partial: 'nation_fields', locals: { form: form, edition: edition } %>
-  </fieldset>
+    <%= render partial: 'html_version_fields', locals: { form: form, edition: edition } %>
 
-  <fieldset>
-    <legend>Consultation response</legend>
-    <%= form.fields_for :response do |response_fields| %>
-      <%= response_fields.label :published_on, 'Response published date (leave blank to use the time the first attachment was uploaded)' %>
-      <%= response_fields.datetime_select :published_on, { include_blank: true, start_year: 1997, end_year: Date.today.year + 5 }, { class: 'date' } %>
-      <%= response_fields.text_area :summary, class: "previewable" %>
-      <%= render partial: 'admin/shared/attachment_fields', locals: {
-                  form: response_fields, edition: edition, parent_type: :consultation_response,
-                  legend: 'Attachments - Consultation response documents' } %>
-    <% end %>
-  </fieldset>
+    <fieldset>
+      <legend>Associations</legend>
+      <%= render partial: 'related_policy_fields', locals: { form: form, edition: edition } %>
+      <%= render partial: 'organisation_fields', locals: { form: form, edition: edition } %>
+      <%= render partial: 'document_series_fields', locals: { form: form, edition: edition } %>
+      <%= render partial: 'minister_fields', locals: { form: form, edition: edition } %>
+      <%= render partial: 'topical_event_fields', locals: { form: form, edition: edition } %>
+      <%= render partial: 'worldwide_priority_fields', locals: { form: form, edition: edition } %>
+      <%= render partial: 'nation_fields', locals: { form: form, edition: edition } %>
+    </fieldset>
+
+    <fieldset>
+      <legend>Consultation response</legend>
+      <%= form.fields_for :response do |response_fields| %>
+        <%= response_fields.label :published_on, 'Response published date (leave blank to use the time the first attachment was uploaded)' %>
+        <%= response_fields.datetime_select :published_on, { include_blank: true, start_year: 1997, end_year: Date.today.year + 5 }, { class: 'date' } %>
+        <%= response_fields.text_area :summary, class: "previewable" %>
+        <%= render partial: 'admin/shared/attachment_fields', locals: {
+                    form: response_fields, edition: edition, parent_type: :consultation_response,
+                    legend: 'Attachments - Consultation response documents' } %>
+      <% end %>
+    </fieldset>
+  <% end %>
 <% end %>

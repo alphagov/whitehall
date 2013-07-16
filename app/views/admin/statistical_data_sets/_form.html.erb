@@ -1,11 +1,14 @@
-<%= edition_editing_tabs(edition) do |form| %>
-  <%= render partial: 'attachments', locals: { form: form, edition: edition } %>
+<%= edition_editing_tabs(edition) do %>
+  <%= standard_edition_form(edition) do |form| %>
 
-  <fieldset>
-    <legend>Associations</legend>
-    <%= render partial: 'document_series_fields', locals: { form: form, edition: edition } %>
-    <%= render partial: 'organisation_fields', locals: { form: form, edition: edition } %>
-  </fieldset>
+	  <%= render partial: 'attachments', locals: { form: form, edition: edition } %>
 
-  <%= render partial: 'first_published_at', locals: { form: form, edition: edition } %>
+	  <fieldset>
+	    <legend>Associations</legend>
+	    <%= render partial: 'document_series_fields', locals: { form: form, edition: edition } %>
+	    <%= render partial: 'organisation_fields', locals: { form: form, edition: edition } %>
+	  </fieldset>
+
+	  <%= render partial: 'first_published_at', locals: { form: form, edition: edition } %>
+	<% end %>
 <% end %>

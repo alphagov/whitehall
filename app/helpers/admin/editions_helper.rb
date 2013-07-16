@@ -179,7 +179,7 @@ module Admin::EditionsHelper
   def edition_editing_tabs(edition, &blk)
     tabs = { 'Document' => tab_url_for_edition(edition) }
     tabs['Attachments'] = tab_url_for_edition_attachments(edition) if edition.allows_attachments?
-    tab_navigation(tabs) { standard_edition_form(edition, &blk) }
+    tab_navigation(tabs) { yield blk }
   end
 
   def edition_information(information)

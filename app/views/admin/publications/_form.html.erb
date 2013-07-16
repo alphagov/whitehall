@@ -1,22 +1,25 @@
-<%= edition_editing_tabs(edition) do |form| %>
-  <fieldset>
-    <%= render partial: 'publication_date_fields', locals: { form: form } %>
-  </fieldset>
+<%= edition_editing_tabs(edition) do %>
+  <%= standard_edition_form(edition) do |form| %>
 
-  <%= render partial: 'attachments', locals: { form: form, edition: edition } %>
-  <%= render partial: 'html_version_fields', locals: { form: form, edition: edition } %>
+    <fieldset>
+      <%= render partial: 'publication_date_fields', locals: { form: form } %>
+    </fieldset>
 
-  <fieldset>
-    <legend>Associations</legend>
-    <%= render partial: 'related_policy_fields', locals: { form: form, edition: edition } %>
-    <%= render partial: 'organisation_fields', locals: { form: form, edition: edition } %>
-    <%= render partial: 'document_series_fields', locals: { form: form, edition: edition } %>
-    <%= render partial: 'minister_fields', locals: { form: form, edition: edition } %>
-    <%= render partial: 'topical_event_fields', locals: { form: form, edition: edition } %>
-    <%= render partial: 'world_location_fields', locals: { form: form, edition: edition } %>
-    <%= render partial: 'worldwide_priority_fields', locals: { form: form, edition: edition } %>
-    <%= render partial: 'statistical_data_set_fields', locals: { form: form, edition: edition } %>
-    <%= render partial: 'nation_fields', locals: { form: form, edition: edition } %>
-  </fieldset>
+    <%= render partial: 'attachments', locals: { form: form, edition: edition } %>
+    <%= render partial: 'html_version_fields', locals: { form: form, edition: edition } %>
 
+    <fieldset>
+      <legend>Associations</legend>
+      <%= render partial: 'related_policy_fields', locals: { form: form, edition: edition } %>
+      <%= render partial: 'organisation_fields', locals: { form: form, edition: edition } %>
+      <%= render partial: 'document_series_fields', locals: { form: form, edition: edition } %>
+      <%= render partial: 'minister_fields', locals: { form: form, edition: edition } %>
+      <%= render partial: 'topical_event_fields', locals: { form: form, edition: edition } %>
+      <%= render partial: 'world_location_fields', locals: { form: form, edition: edition } %>
+      <%= render partial: 'worldwide_priority_fields', locals: { form: form, edition: edition } %>
+      <%= render partial: 'statistical_data_set_fields', locals: { form: form, edition: edition } %>
+      <%= render partial: 'nation_fields', locals: { form: form, edition: edition } %>
+    </fieldset>
+
+  <% end %>
 <% end %>
