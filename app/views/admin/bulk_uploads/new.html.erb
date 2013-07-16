@@ -9,9 +9,7 @@
       <%= form.label :zip_file %>
       <%= form.file_field :zip_file %>
 
-      <div class="form-actions">
-        <%= form.submit 'Upload zip', class: 'btn btn-large btn-primary' %>
-      </div>
+      <%= form.form_actions(buttons: { commit: 'Upload zip'}, cancel: admin_edition_attachments_path(@edition)) %>
 		<% end %>
 
 	</section>

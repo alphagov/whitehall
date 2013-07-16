@@ -19,7 +19,5 @@
     <%= attachment_data_fields.hidden_field :file_cache %>
   <% end %>
 
-  <div class="form-actions">
-    <%= form.submit 'Save', class: 'btn btn-large btn-primary' %>
-  </div>
+  <%= form.save_or_cancel cancel: admin_edition_attachments_path(edition) %>
 <% end %>

@@ -15,7 +15,7 @@ class Admin::AttachmentsController < Admin::BaseController
     @attachment = Attachment.new(params[:attachment])
     @attachment.editions = [@edition]
     if @attachment.save
-      redirect_to [:edit, :admin, @edition], notice: "Attachment '#{@attachment.filename}' uploaded"
+      redirect_to admin_edition_attachments_path(@edition), notice: "Attachment '#{@attachment.filename}' uploaded"
     else
       render :new
     end
@@ -23,7 +23,7 @@ class Admin::AttachmentsController < Admin::BaseController
 
   def update
     if @attachment.update_attributes(remove_empty_attachment_params(params[:attachment]))
-      redirect_to admin_edition_path(@edition, anchor: 'attachments')
+      redirect_to admin_edition_attachments_path(@edition), notice: "Attachment '#{@attachment.filename}' uploaded"
     else
       render :edit
     end

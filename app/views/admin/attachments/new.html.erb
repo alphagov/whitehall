@@ -4,10 +4,6 @@
   <section>
 		<h1>Add attachment to: <%= @edition.title %></h1>
 
-		<p class="prompt">
-			<%= link_to 'Upload attachments from a ZIP file&hellip;'.html_safe, new_admin_edition_bulk_upload_path(@edition) %>
-		</p>
-
 		<%= render partial: 'form', locals: { edition: @edition, attachment: @attachment, url: admin_edition_attachments_path(@edition, @attachment) } %>
 	</section>
 </div>

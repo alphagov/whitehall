@@ -5,6 +5,10 @@
 		<h1>Edit <%= @edition.type.titleize %></h1>
 
 		<%= edition_editing_tabs(@edition) do %>
+
+			<%= link_to 'Add a new attachment', new_admin_edition_attachment_path(@edition) %> <br />
+			<%= link_to 'Upload attachments from a ZIP file&hellip;'.html_safe, new_admin_edition_bulk_upload_path(@edition) %>
+
 			<ul class="existing-attachments">
 				<% @edition.attachments.each do |attachment| %>
 					<li class="clearfix well">
