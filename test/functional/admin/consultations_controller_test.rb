@@ -16,7 +16,6 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
   should_allow_organisations_for :consultation
   should_allow_ministerial_roles_for :consultation
   should_require_alternative_format_provider_for :consultation
-  should_show_inline_attachment_help_for :consultation
   should_allow_html_versions_for :consultation
   should_allow_attached_images_for :consultation
   should_prevent_modification_of_unmodifiable :consultation

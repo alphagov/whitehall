@@ -13,7 +13,6 @@ class Admin::StatisticalDataSetsControllerTest < ActionController::TestCase
 
   should_allow_organisations_for :statistical_data_set
   should_require_alternative_format_provider_for :statistical_data_set
-  should_show_inline_attachment_help_for :statistical_data_set
   should_prevent_modification_of_unmodifiable :statistical_data_set
   should_allow_alternative_format_provider_for :statistical_data_set
   should_allow_assignment_to_document_series :statistical_data_set

@@ -212,45 +212,6 @@ module AdminEditionControllerTestHelpers
       end
     end
 
-    def should_show_inline_attachment_help_for(edition_type)
-      edition_class = class_for(edition_type)
-
-      view_test 'edit shows markdown hint for first attachment' do
-        draft_edition = create("draft_#{edition_type}", :with_attachment)
-        get :edit, id: draft_edition
-
-        assert_select "fieldset.attachments" do |nodes|
-          assert_equal 1, nodes[0].select("input[readonly][value=!@1]").length
-        end
-      end
-
-      view_test 'new shows markdown help for inline attachments' do
-        get :new
-
-        assert_select "#govspeak_help", text: /Attachments/
-      end
-
-      view_test 'edit shows markdown help for inline attachments' do
-        draft_edition = create("draft_#{edition_type}")
-        get :edit, id: draft_edition
-
-        assert_select "#govspeak_help", text: /Attachments/
-      end
-    end
-
-    def should_not_show_inline_attachment_help_for(edition_type)
-      edition_class = class_for(edition_type)
-
-      view_test 'edit does not show markdown hint for first attachment' do
-        draft_edition = create("draft_#{edition_type}", :with_attachment)
-        get :edit, id: draft_edition
-
-        assert_select "fieldset.attachments" do |nodes|
-          assert_equal 0, nodes[0].select("input[readonly][value=!@1]").length
-        end
-      end
-    end
-
     def should_allow_html_versions_for(edition_type)
       edition_class = class_for(edition_type)
 
