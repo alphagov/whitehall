@@ -5,7 +5,7 @@ module DocumentControllerTestHelpers
     def should_display_attachments_for(document_type)
       view_test "show displays document attachments" do
         attachment_1 = create(:attachment, file: fixture_file_upload('greenpaper.pdf', 'application/pdf'))
-        attachment_2 = create(:attachment, file: fixture_file_upload('sample-from-excel.csv', 'text/csv'))
+        attachment_2 = create(:attachment, file: fixture_file_upload('sample.rtf', 'text/rtf'))
         edition = create("published_#{document_type}", :with_alternative_format_provider, body: "!@1\n\n!@2", attachments: [attachment_1, attachment_2])
 
         get :show, id: edition.document
