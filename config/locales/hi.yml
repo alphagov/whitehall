@@ -275,8 +275,9 @@ hi:
       published: प्रकाशित
       reference: संदर्भ
   change_notes:
-    published: प्रकाशित
-    updated: अद्यतन
+    page_history:
+    published_at:
+    updated_at:
   contact:
     contact_form: संपर्क प्रपत्र
     email: ईमेल

@@ -19,8 +19,9 @@ tr:
       published: Yayında
       reference: Ref
   change_notes:
-    published: Yayında
-    updated: Güncellendi
+    page_history:
+    published_at:
+    updated_at:
   contact:
     contact_form: İletişim Formu
     email: E-posta

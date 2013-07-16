@@ -275,8 +275,9 @@ so:
       published: La-daabacay
       reference: Xigasho
   change_notes:
-    published: La-daabacay/nashriyey
-    updated: Wax lagu kordhiyey
+    page_history:
+    published_at:
+    updated_at:
   contact:
     contact_form: Foom cinwaan
     email: E-mail

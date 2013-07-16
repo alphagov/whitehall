@@ -16,8 +16,9 @@ az:
       published:
       reference:
   change_notes:
-    published: çap edilib
-    updated: Yenilənmiş
+    page_history:
+    published_at:
+    updated_at:
   contact:
     contact_form: Əlaqə vasitəsi
     email: elektron poçt

@@ -278,8 +278,9 @@ fr:
       published: Publié
       reference: Réf
   change_notes:
-    published: Publié
-    updated: Mise à jour
+    page_history: Historique de page
+    published_at:
+    updated_at:
   contact:
     contact_form: Formulaire de contact
     email: Email

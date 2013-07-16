@@ -275,8 +275,9 @@ ps:
       published: خپور شوی
       reference: مواخذ
   change_notes:
-    published: خپور شوی
-    updated: تازه شوی
+    page_history:
+    published_at:
+    updated_at:
   contact:
     contact_form: د اړیکوپاڼه
     email: برښنالیک

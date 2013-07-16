@@ -273,8 +273,9 @@ uz:
       published: Nashr qilindi
       reference: Ishora
   change_notes:
-    published: Nashr qilindi
-    updated: Yangilandi
+    page_history:
+    published_at:
+    updated_at:
   contact:
     contact_form: Aloqa uchun
     email: Elektron manzil

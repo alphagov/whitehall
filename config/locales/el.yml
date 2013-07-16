@@ -276,8 +276,9 @@ el:
       published: Δημοσιεύτηκε
       reference: Σχετικά
   change_notes:
-    published: Δημοσιευμένο
-    updated: Ανανεωμενη έκδοση
+    page_history:
+    published_at:
+    updated_at:
   contact:
     contact_form: Φόρμα επικοινωνίας
     email: Email

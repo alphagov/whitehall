@@ -394,8 +394,9 @@ ru:
       published: Опубликовано
       reference: Ссылка
   change_notes:
-    published: Опубликовано
-    updated: Обновлено
+    page_history:
+    published_at:
+    updated_at:
   contact:
     contact_form: Контактная форма
     email: Электронный адрес

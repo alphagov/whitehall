@@ -273,8 +273,9 @@ pt:
       published: Publicado
       reference: Ref
   change_notes:
-    published: Publicado
-    updated: Atualizado
+    page_history:
+    published_at:
+    updated_at:
   contact:
     contact_form: Formulário de contato
     email: E-mail

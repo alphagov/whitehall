@@ -334,8 +334,9 @@ lt:
       published: Publikuota
       reference: Nuorodos
   change_notes:
-    published: Publikuota
-    updated: Atnaujinta
+    page_history:
+    published_at:
+    updated_at:
   contact:
     contact_form: Parašykite mums
     email: El.paštas

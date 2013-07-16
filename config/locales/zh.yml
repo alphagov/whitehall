@@ -16,8 +16,9 @@ zh:
       published: 已发布
       reference: Ref
   change_notes:
-    published: 已发布
-    updated: 已更新
+    page_history:
+    published_at:
+    updated_at:
   contact:
     contact_form: 联系表格
     email: 邮件
