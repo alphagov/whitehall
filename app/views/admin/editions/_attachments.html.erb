@@ -1,9 +1,17 @@
 <fieldset id="edition_attachment_fields" class="attachments multiple_file_uploads tabbable">
   <legend>Attachments</legend>
 
-  <ul class="existing-attachments">
-  <% edition.attachments.each_with_index do |attachment, i| %>
-    <%= render partial: 'attachment', locals: { edition: edition, attachment: attachment, number: i + 1 } %>
+  <% if edition.new_record? %>
+    <p>
+      If you'd like to add an attachment to this document, please save
+      it first. You'll then find a new tab at the top of the page that you
+      can use to upload, edit and delete attachments.
+    </p>
+  <% else %>
+    <ul class="existing-attachments">
+    <% edition.attachments.each_with_index do |attachment, i| %>
+      <%= render partial: 'attachment', locals: { edition: edition, attachment: attachment, number: i + 1 } %>
+    <% end %>
+    </ul>
   <% end %>
-  </ul>
 </fieldset>
