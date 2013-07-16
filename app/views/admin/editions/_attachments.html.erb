@@ -1,8 +1,6 @@
 <fieldset id="edition_attachment_fields" class="attachments multiple_file_uploads tabbable">
   <legend>Attachments</legend>
 
-  <%= form.submit 'Save and add attachment', name: 'adding_attachment', class: 'btn btn-small btn-primary' %>
-
   <ul class="existing-attachments">
   <% edition.attachments.each_with_index do |attachment, i| %>
     <%= render partial: 'attachment', locals: { edition: edition, attachment: attachment, number: i + 1 } %>

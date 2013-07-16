@@ -172,7 +172,7 @@ module Admin::EditionsHelper
         concat render(partial: "change_notes",
                       locals: { form: form, edition: edition })
       end
-      concat form.save_or_cancel
+      concat form.save_or_continue_or_cancel
     end
   end
 

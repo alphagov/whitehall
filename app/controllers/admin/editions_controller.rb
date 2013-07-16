@@ -57,7 +57,7 @@ class Admin::EditionsController < Admin::BaseController
 
   def create
     if @edition.save
-      redirect_to_edition_or_new_attachment_url
+      redirect_to_show_or_edit
     else
       flash.now[:alert] = "There are some problems with the document"
       extract_edition_information_from_errors
@@ -83,7 +83,7 @@ class Admin::EditionsController < Admin::BaseController
           redirect_to admin_editions_path(session_filters.merge(state: :imported))
         end
       else
-        redirect_to_edition_or_new_attachment_url
+        redirect_to_show_or_edit
       end
     else
       flash.now[:alert] = "There are some problems with the document"
@@ -139,16 +139,13 @@ class Admin::EditionsController < Admin::BaseController
     (params[:edition] || {}).merge(creator: current_user)
   end
 
-  def redirect_to_edition_or_new_attachment_url
-    if adding_attachment?
-      redirect_to new_admin_edition_attachment_url(@edition)
+  def redirect_to_show_or_edit
+    message = "The document has been saved"
+    if params[:save_and_continue].present?
+      redirect_to [:edit, :admin, @edition], notice: message
     else
-     redirect_to admin_edition_url(@edition), notice: "The document has been saved"
+     redirect_to admin_edition_url(@edition), notice: message
    end
-  end
-
-  def adding_attachment?
-    params[:adding_attachment].present?
   end
 
   def build_edition
