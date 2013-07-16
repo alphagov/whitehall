@@ -1,12 +1,14 @@
 <aside class="meta">
   <div class="inner-heading">
     <dl>
-      <dt><%= t('document.headings.organisations', count: document.organisations.length) %>:</dt>
-      <dd>
-        <%= render  partial: 'organisations/organisations_name_list',
-                    locals: { organisations: document.sorted_organisations,
-                              lead_organisations: document.lead_organisations } %>
-      </dd>
+      <% if document.organisations.any?  %>
+        <dt><%= t('document.headings.organisations', count: document.organisations.length) %>:</dt>
+        <dd>
+          <%= render  partial: 'organisations/organisations_name_list',
+                      locals: { organisations: document.sorted_organisations,
+                                lead_organisations: document.lead_organisations } %>
+        </dd>
+      <% end %>
       <%= render  partial: 'document_extra_metadata',
                   locals: { document: document } %>
       <%= render  partial: 'documents/change_notes',
