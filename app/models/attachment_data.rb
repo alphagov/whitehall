@@ -28,6 +28,16 @@ class AttachmentData < ActiveRecord::Base
     AttachmentUploader::INDEXABLE_TYPES.include?(file_extension)
   end
 
+  def extracted_text
+    path = file.path
+    if indexable? && File.exist?(path)
+      tika = Rails.root.join('lib/tika-app-1.4.jar')
+      output = `java -jar #{tika} -t #{path}`
+      result = $?.success?
+      output if result
+    end
+  end
+
   def update_file_attributes
     if carrierwave_file.present? && carrierwave_file_changed?
       self.content_type = file.file.content_type

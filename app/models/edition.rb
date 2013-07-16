@@ -186,13 +186,7 @@ class Edition < ActiveRecord::Base
   def extracted_attachment
     if allows_attachments?
       attachments.map do |attachment|
-        path = attachment.file.path
-        if attachment.indexable? && File.exist?(path)
-          tika = Rails.root.join('lib/tika-app-1.4.jar')
-          output = `java -jar #{tika} -t #{path}`
-          result = $?.success?
-          output if result
-        end
+        attachment.extracted_text
       end
     end
   end

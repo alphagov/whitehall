@@ -191,7 +191,7 @@ class AttachmentTest < ActiveSupport::TestCase
     assert_delegated attachment, :url
     assert_delegated attachment, :content_type
     assert_delegated attachment, :pdf?
-    assert_delegated attachment, :indexable?
+    assert_delegated attachment, :extracted_text
     assert_delegated attachment, :file_extension
     assert_delegated attachment, :file_size
     assert_delegated attachment, :number_of_pages
