@@ -22,6 +22,7 @@
 p.report-a-problem-toggle {
   clear: both;
   margin: $gutter;
+  direction: ltr;
 
   a {
     color: $secondary-text-colour;
