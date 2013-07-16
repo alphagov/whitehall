@@ -112,8 +112,13 @@
         <h1>Attachments</h1>
         <% if @edition.attachments.any? %>
           <ul class="existing-attachments">
-            <% @edition.attachments.each_with_index do |attachment, i| %>
-              <%= render partial: 'attachment', locals: { edition: @edition, attachment: attachment, edit_actions: true } %>
+            <% @edition.attachments.each do |attachment| %>
+              <li class="clearfix well">
+                <%= attachment_thumbnail(attachment) %>
+                <span class="title"><%= attachment.title %></span>
+                <span class="file">File: <%= link_to attachment.filename, attachment.url %></span>
+                <%= attachment_metadata_tag(attachment) %>
+              </li>
             <% end %>
           </ul>
         <% else %>
