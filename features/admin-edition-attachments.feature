@@ -17,32 +17,11 @@ Feature: Managing attachments on editions
   Background:
     Given I am a writer in the organisation "Ministry of Grooming"
 
-    Scenario: Creating a news article with an attachment
+    Scenario: Creating an edition with an attachment
       When I start drafting a news article
       And I add an attachment
       Then I should see the attachment listed on the form with it's markdown code
       When I save the news article
-      Then I should see the attachment listed on the attachments tab
-
-    Scenario: Creating a publication with an attachment
-      When I start drafting a publication
-      And I add an attachment with additional references
-      Then I should see the attachment listed on the form
-      When I save the publication
-      Then I should see the attachment listed on the attachments tab
-
-    Scenario: Creating a statistical data set with an attachment
-      When I start drafting a statistical data set
-      And I add an attachment with additional references
-      Then I should see the attachment listed on the form with it's markdown code
-      When I save the statistical data set
-      Then I should see the attachment listed on the attachments tab
-
-    Scenario: Creating a consultation with an attachment
-      When I start drafting a consultation
-      And I add an attachment with additional references
-      Then I should see the attachment listed on the form
-      When I save the consultation
       Then I should see the attachment listed on the attachments tab
 
     Scenario: Updating an attachment on an edition

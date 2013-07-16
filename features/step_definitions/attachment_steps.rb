@@ -96,3 +96,15 @@ end
 Then(/^I should see the attachment listed on the form$/) do
   assert page.has_css?('span.title', text: @attachment.title)
 end
+
+When /^the (?:attachment|image)s? (?:has|have) been virus\-checked$/ do
+  FileUtils.cp_r(Whitehall.incoming_uploads_root + '/.', Whitehall.clean_uploads_root + "/")
+end
+
+Then /^the image will be quarantined for virus checking$/ do
+  assert_final_path(person_image_path, "thumbnail-placeholder.png")
+end
+
+Then /^the virus checked image will be available for viewing$/ do
+  assert_final_path(person_image_path, person_image_path)
+end
