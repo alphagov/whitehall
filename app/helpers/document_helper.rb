@@ -88,6 +88,10 @@ module DocumentHelper
   def attachment_thumbnail(attachment)
     if attachment.pdf?
       image_tag(attachment.url(:thumbnail), alt: "")
+    elsif %w{doc docx odt}.include? attachment.file_extension
+      image_tag('pub-cover-doc.png', alt: "")
+    elsif %w{xls xlsx ods csv}.include? attachment.file_extension
+      image_tag('pub-cover-spreadsheet.png', alt: "")
     else
       image_tag('pub-cover.png', alt: "")
     end
