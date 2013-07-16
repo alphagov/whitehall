@@ -1,4 +1,4 @@
-<%= standard_edition_form(edition) do |form| %>
+<%= edition_editing_tabs(edition) do |form| %>
   <fieldset>
     <legend>Associations</legend>
     <%= render partial: 'organisation_fields', locals: { form: form, edition: edition } %>

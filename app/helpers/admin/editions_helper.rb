@@ -160,6 +160,28 @@ module Admin::EditionsHelper
     end
   end
 
+  def tab_url_for_edition(edition)
+    if edition.new_record?
+      url_for([:new, :admin, edition.class.model_name.underscore])
+    else
+      url_for([:edit, :admin, edition])
+    end
+  end
+
+  def tab_url_for_edition_attachments(edition)
+    if edition.new_record?
+      '#edition_attachment_fields'
+    else
+      admin_edition_attachments_path(edition)
+    end
+  end
+
+  def edition_editing_tabs(edition, &blk)
+    tabs = { 'Document' => tab_url_for_edition(edition) }
+    tabs['Attachments'] = tab_url_for_edition_attachments(edition) if edition.allows_attachments?
+    tab_navigation(tabs) { standard_edition_form(edition, &blk) }
+  end
+
   def edition_information(information)
     content_tag(:div, class: "alert alert-info") do
       information
