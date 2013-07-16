@@ -73,6 +73,9 @@
     @include media(tablet){
       float: left;
       width: 66.66%;
+      @include right-to-left{
+        float: right;
+      }
     }
 
     dl {
