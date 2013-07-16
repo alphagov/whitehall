@@ -32,6 +32,7 @@ $department-of-energy-climate-change-websafe: #2b7cac;
 $department-of-health-websafe: #39836e;
 $foreign-commonwealth-office-websafe: #406e97;
 $hm-government-websafe: #347da4;
+$hm-revenue-customs-websafe: #008770;
 $hm-treasury-websafe: #832322;
 $home-office-websafe: #9440b2;
 $ministry-of-defence-websafe: #5A5C92;
@@ -112,6 +113,7 @@ $wales-office-websafe: #7a242a;
   .foreign-commonwealth-office #{$selector} { #{$property}: $foreign-commonwealth-office-websafe; }
   .government-equalities-office #{$selector} { #{$property}: $department-for-culture-media-sport-websafe; }
   .hm-government #{$selector} { #{$property}: $hm-government-websafe; }
+  .hm-revenue-customs #{$selector} { #{$property}: $hm-revenue-customs-websafe; }
   .hm-treasury #{$selector} { #{$property}: $hm-treasury-websafe; }
   .home-office #{$selector} { #{$property}: $home-office-websafe; }
   .ministry-of-defence #{$selector} { #{$property}: $ministry-of-defence-websafe; }
