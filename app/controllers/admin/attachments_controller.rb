@@ -4,6 +4,9 @@ class Admin::AttachmentsController < Admin::BaseController
   before_filter :enforce_permissions!
   before_filter :find_attachment, only: [:edit, :update, :destroy]
 
+  def index
+  end
+
   def new
     @attachment = Attachment.new(editions: [@edition], attachment_data: AttachmentData.new)
   end

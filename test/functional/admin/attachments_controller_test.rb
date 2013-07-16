@@ -1,20 +1,30 @@
 require 'test_helper'
 
 class Admin::AttachmentsControllerTest < ActionController::TestCase
-  setup do
-    login_as :gds_editor
-    @edition = create(:news_article)
-  end
+  should_be_an_admin_controller
 
   def attachment
     @attachment ||= create(:attachment, editions: [@edition])
   end
 
-  should_be_an_admin_controller
+  setup do
+    login_as :gds_editor
+    @edition = create(:news_article)
+  end
 
-  view_test "GET :new renders successfully" do
-    get :new, edition_id: @edition
+  view_test "GET :index lists the attachments for the edition" do
+    @edition.attachments << build(:attachment)
+    get :index, edition_id: @edition
+
     assert_response :success
+    assert_select 'li span.title', text: @edition.attachments[0].title
+  end
+
+  view_test "GET :new renders the attachment form" do
+    get :new, edition_id: @edition
+
+    assert_response :success
+    assert_select "input[name='attachment[title]']"
   end
 
   test "POST :create saves the attachment to the edition and redirects back to the edition edit page" do
