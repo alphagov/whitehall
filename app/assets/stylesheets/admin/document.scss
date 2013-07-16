@@ -151,4 +151,21 @@ ul.existing-attachments {
 
     margin-top: $gutter-half;
   }
+
+  ul.actions {
+    li {
+      display: inline;
+
+      margin-right: 0.3em;
+
+      &:after {
+        content: '|';
+        margin-left: 0.3em;
+      }
+
+      &:last-child:after {
+        content: '';
+      }
+    }
+  }
 }

@@ -111,14 +111,9 @@
       <section class="tab-pane" id="attachments">
         <h1>Attachments</h1>
         <% if @edition.attachments.any? %>
-          <ul>
-            <% @edition.attachments.each do |attachment| %>
-              <%= content_tag_for :li, attachment do %>
-                <%= link_to attachment_thumbnail(attachment), attachment.url %>
-                <%= link_to attachment.title, attachment.url %>
-                <%= link_to 'Edit', edit_admin_edition_attachment_path(@edition, attachment) %>
-                <%= link_to 'Delete', admin_edition_attachment_path(@edition, attachment), method: 'delete', confirm: 'Are you sure you want to delete this attachment?' %>
-              <% end %>
+          <ul class="existing-attachments">
+            <% @edition.attachments.each_with_index do |attachment, i| %>
+              <%= render partial: 'attachment', locals: { edition: @edition, attachment: attachment, edit_actions: true } %>
             <% end %>
           </ul>
         <% else %>

@@ -5,21 +5,7 @@
 
   <ul class="existing-attachments">
   <% edition.attachments.each_with_index do |attachment, i| %>
-    <li class="clearfix well">
-      <%= attachment_thumbnail(attachment) %>
-      <span class="title"><%= attachment.title %></span>
-      <span class="file">File: <%= link_to attachment.filename, attachment.url %></span>
-      <%= attachment_metadata_tag(attachment) %>
-
-      <% if edition.allows_inline_attachments? %>
-        <div class="markdown">
-          Markdown:
-          <%= text_field_tag :markdown, "!@#{i + 1}", readonly: true %>
-          or
-          <%= text_field_tag :markdown_inline, "[InlineAttachment:#{i + 1}]", readonly: true %>
-        </div>
-      <% end %>
-    </li>
+    <%= render partial: 'attachment', locals: { edition: edition, attachment: attachment, number: i + 1 } %>
   <% end %>
   </ul>
 </fieldset>
