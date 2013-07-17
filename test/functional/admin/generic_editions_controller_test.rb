@@ -7,17 +7,17 @@ class Admin::GenericEditionsControllerTest < ActionController::TestCase
     login_as :policy_writer
   end
 
-  test "POST :create redirects to edit page when 'Save and continue' button clicked" do
+  test "POST :create redirects to edit page when 'Save and continue editing' button clicked" do
     params = attributes_for(:edition).merge(lead_organisation_ids: [create(:organisation).id])
     assert_difference 'GenericEdition.count' do
-      post :create, edition: params, save_and_continue: 'Save and continue'
+      post :create, edition: params, save_and_continue: 'Save and continue editing'
     end
     assert_redirected_to edit_admin_generic_edition_url(GenericEdition.last)
   end
 
   test "PUT :update redirects to edit page when 'Save and continue' button clicked" do
     edition = create(:edition)
-    put :update, id: edition, edition: { title: 'New title' }, save_and_continue: 'Save and continue'
+    put :update, id: edition, edition: { title: 'New title' }, save_and_continue: 'Save and continue editing'
     assert_redirected_to edit_admin_generic_edition_url(GenericEdition.last)
   end
 end
