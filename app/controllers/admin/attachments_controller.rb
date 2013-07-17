@@ -32,7 +32,7 @@ class Admin::AttachmentsController < Admin::BaseController
 
   def destroy
     @attachment.edition_attachments.destroy_all
-    redirect_to admin_edition_path(@edition, anchor: 'attachments'), notice: 'Attachment deleted'
+    redirect_to admin_edition_attachments_path(@edition), notice: 'Attachment deleted'
   end
 
   private
