@@ -27,13 +27,13 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     assert_select "input[name='attachment[title]']"
   end
 
-  test "POST :create saves the attachment to the edition and redirects back to the edition edit page" do
+  test "POST :create saves the attachment to the edition and redirects" do
     post :create, edition_id: @edition, attachment: {
       title: 'Attachment title',
       attachment_data_attributes: { file: fixture_file_upload('whitepaper.pdf') }
     }
 
-    assert_redirected_to edit_admin_news_article_url(@edition)
+    assert_response :redirect
     assert_equal 1, @edition.reload.attachments.size
     assert_equal 'Attachment title', @edition.attachments[0].title
     assert_equal 'whitepaper.pdf', @edition.attachments[0].filename
