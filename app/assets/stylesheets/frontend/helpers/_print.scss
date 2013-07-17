@@ -88,11 +88,14 @@ aside.meta {
 }
 
 .document-filter-page {
-  .block-2 {
+  .filter-form {
     display: none;
   }
-  .block-4 {
+  .filtered-results {
     .inner-block {
+      a {
+        text-decoration: none;
+      }
       .feeds {
         display: none;
       }
@@ -107,9 +110,6 @@ aside.meta {
           h3 {
             font-weight: bold;
             padding-bottom: 0;
-            a {
-              text-decoration: none;
-            }
           }
           abbr[class="public_timestamp"]:after {
             content: none;
