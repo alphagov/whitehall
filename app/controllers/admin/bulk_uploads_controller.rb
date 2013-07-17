@@ -21,7 +21,7 @@ class Admin::BulkUploadsController < Admin::BaseController
 	def create
 		@bulk_upload = BulkUpload.new(params[:bulk_upload])
 		if @bulk_upload.save_attachments_to_edition(@edition)
-			redirect_to edit_admin_edition_path(@edition)
+			redirect_to admin_edition_attachments_path(@edition)
 		else
 			render :set_titles
 		end
