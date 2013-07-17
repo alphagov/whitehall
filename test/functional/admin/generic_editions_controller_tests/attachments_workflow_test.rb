@@ -32,9 +32,9 @@ class AttachableEditionsWithInlineSupportTest < ActionController::TestCase
     get :edit, id: edition
     attachment = edition.attachments.first
 
-    assert_select 'span.title', attachment.title
     assert_select "#govspeak_help", text: /Attachments/
-    assert_select 'fieldset.attachments input[readonly][value=!@1]'
+    assert_select 'li', text: %r(#{attachment.title})
+    assert_select 'li code', text: '!@1'
   end
 end
 
@@ -48,7 +48,7 @@ class AttachableEditionWithoutInlineSupportTest < ActionController::TestCase
     get :edit, id: edition
     attachment = edition.attachments.first
 
-    assert_select 'span.title', attachment.title
-    assert_select 'fieldset.attachments input[readonly][value=!@1]', count: 0
+    assert_select 'li', text: %r(#{attachment.title})
+    assert_select 'li code', count: 0
   end
 end

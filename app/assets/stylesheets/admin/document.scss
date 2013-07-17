@@ -139,7 +139,7 @@ div.span8 > section {
   }
 }
 
-ul.existing-attachments {
+ol.existing-attachments {
   margin: $gutter 0;
   list-style: none;
 
@@ -158,12 +158,5 @@ ul.existing-attachments {
 
   span {
     display: block;
-  }
-
-  div.markdown input {
-    clear: both;
-    width: 12em;
-
-    margin-top: $gutter-half;
   }
 }

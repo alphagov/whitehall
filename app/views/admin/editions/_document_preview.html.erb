@@ -111,7 +111,7 @@
       <section class="tab-pane" id="attachments">
         <h1>Attachments</h1>
         <% if @edition.attachments.any? %>
-          <ul class="existing-attachments">
+          <ol class="existing-attachments">
             <% @edition.attachments.each do |attachment| %>
               <li class="clearfix well">
                 <%= attachment_thumbnail(attachment) %>
@@ -120,7 +120,7 @@
                 <%= attachment_metadata_tag(attachment) %>
               </li>
             <% end %>
-          </ul>
+          </ol>
         <% else %>
           <p>No attachments</p>
         <% end %>

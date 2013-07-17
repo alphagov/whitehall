@@ -15,7 +15,7 @@
         </li>
       </ul>
 
-			<ul class="existing-attachments">
+			<ol class="existing-attachments">
 				<% @edition.attachments.each do |attachment| %>
 					<li class="clearfix well">
 					  <%= attachment_thumbnail(attachment) %>
@@ -33,7 +33,7 @@
 				    </ul>
 					</li>
 				<% end %>
-			</ul>
+			</ol>
 		<% end %>
 	</section>
 </div>
