@@ -5,30 +5,30 @@
 
 <div class="quick-links">
   <div class="span4">
-    <h3>Guidance for publishers</h3>
+    <h3>Writing and publishing</h3>
     <ul>
-      <li><a href="http://alphagov.github.io/inside-government-admin-guide/">IG admin user guide</a></li>
-      <li><a href="https://www.gov.uk/designprinciples/styleguide">Content principles</a></li>
+      <li><a href="https://www.gov.uk/designprinciples/styleguide">GOV.UK style guide</a></li>
+      <li><a href="http://alphagov.github.io/inside-government-admin-guide/">How to publish content on GOV.UK</a></li>
     </ul>
   </div>
   <div class="span4">
     <h3>Product development</h3>
     <ul>
-      <li><a href="https://insidegovuk.blog.gov.uk/">Inside GOV.UK</a></li>
+      <li><a href="https://insidegovuk.blog.gov.uk/">Inside GOV.UK blog</a></li>
       <li><a href="https://www.pivotaltracker.com/s/projects/367813">Development backlog (PivotalTracker)</a></li>
     </ul>
   </div>
   <div class="span4">
     <h3>Support</h3>
     <ul>
-      <li><a href="https://gov.uk/support/internal">GDS support form</a></li>
+      <li><a href="https://gov.uk/support/internal">GDS support form (Zendesk)</a></li>
     </ul>
   </div>
 </div>
 
 <div class="row-fluid">
   <div class="span6 draft-documents">
-    <h2>Your draft documents</h2>
+    <h2>My draft documents</h2>
     <%= render partial: 'document_table', locals: { documents: @draft_documents, title: 'draft documents' } %>
   </div>
   <% if current_user.organisation %>
