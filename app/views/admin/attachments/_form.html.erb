@@ -9,7 +9,12 @@
   <% end %>
 
   <%= form.fields_for :attachment_data do |attachment_data_fields| %>
-    <%= attachment_data_fields.label :file, nil, required: false %>
+
+    <% if attachment_data_fields.object.filename %>
+      <p>Current file: <%= link_to attachment_data_fields.object.filename, attachment_data_fields.object.url %></p>
+    <% end %>
+
+    <%= attachment_data_fields.label :file, (attachment_data_fields.object.filename ? 'Replace file' : nil), required: false %>
     <%= attachment_data_fields.file_field :file %>
 
     <%= form.check_box :accessible, label_text: "Attachment is accessible" %>
