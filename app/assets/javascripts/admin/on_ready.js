@@ -36,6 +36,7 @@ jQuery(document).ready(function($) {
   GOVUK.createNew.init();
   GOVUK.doubleClickProtection();
   GOVUK.duplicateFields.init();
+  GOVUK.formChangeProtection.init($('#edit_edition'), 'You have unsaved changes that will be lost if you leave this page.');
 
   $('.attachment-mode-select label[data-target]').click(function (e) {
     $(this).tab('show');
