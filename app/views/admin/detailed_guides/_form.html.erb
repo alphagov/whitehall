@@ -19,7 +19,7 @@
       <%= form.select :outbound_related_document_ids, options_from_collection_for_select(DetailedGuide.alphabetical.latest_edition.active, :document_id, :title, edition.outbound_related_document_ids), {}, multiple: true, class: 'chzn-select', data: { placeholder: "Choose related detailed guides..."} %>
     </fieldset>
 
-    <%= render partial: 'attachments', locals: { form: form, edition: edition } %>
+    <%= render partial: 'inline_attachments_info', locals: { form: form, edition: edition } %>
 
     <fieldset>
       <legend>Related Mainstream Content</legend>

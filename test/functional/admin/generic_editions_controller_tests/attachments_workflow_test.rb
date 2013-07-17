@@ -43,12 +43,12 @@ class AttachableEditionWithoutInlineSupportTest < ActionController::TestCase
 
   setup { login_as :policy_writer }
 
-  view_test 'GET :edit lists the attachments without markdown hints for editions that do not support inline attachments' do
+  view_test 'GET :edit does not list the attachments for editions that do not support inline attachments' do
     edition = create(:publication, :with_attachment)
     get :edit, id: edition
     attachment = edition.attachments.first
 
-    assert_select 'li', text: %r(#{attachment.title})
+    assert_select 'li', text: %r(#{attachment.title}), count: 0
     assert_select 'li code', count: 0
   end
 end
