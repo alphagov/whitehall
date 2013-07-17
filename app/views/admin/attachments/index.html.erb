@@ -3,7 +3,7 @@
 
 <div class="span8">
   <section>
-		<h1>Edit <%= @edition.type.titleize %></h1>
+		<h1>Edit <%= @edition.type.underscore.humanize.downcase %></h1>
 
 		<%= edition_editing_tabs(@edition) do %>
       <ul class="actions">
