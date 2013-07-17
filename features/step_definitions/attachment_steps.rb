@@ -14,7 +14,7 @@ Then(/^I should stay on the edit screen for the news article$/) do
 end
 
 When(/^I save my changes$/) do
-  click_on 'Save and Continue'
+  click_on 'Save and continue'
 end
 
 Then(/^I can visit the attachments page$/) do
