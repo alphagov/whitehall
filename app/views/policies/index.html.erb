@@ -10,7 +10,7 @@
   </div>
 </header>
 
-<div class="block-2">
+<div class="block-2 filter-form">
   <div class="inner-block">
     <% if Locale.current.english? %>
       <%= render partial: "documents/filter_form",
@@ -24,7 +24,7 @@
   </div>
 </div>
 
-<div class="block-3">
+<div class="block-3 filtered-results">
   <div class="inner-block">
     <% if Locale.current.english? %>
       <%= render partial: "documents/filter_results", locals: { filter: @filter } %>
