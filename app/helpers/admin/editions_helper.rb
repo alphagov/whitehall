@@ -168,17 +168,9 @@ module Admin::EditionsHelper
     end
   end
 
-  def tab_url_for_edition_attachments(edition)
-    if edition.new_record?
-      '#edition_attachment_fields'
-    else
-      admin_edition_attachments_path(edition)
-    end
-  end
-
   def edition_editing_tabs(edition, &blk)
     tabs = { 'Document' => tab_url_for_edition(edition) }
-    tabs['Attachments'] = tab_url_for_edition_attachments(edition) if edition.allows_attachments?
+    tabs['Attachments'] = admin_edition_attachments_path(edition) if edition.persisted? && edition.allows_attachments?
     tab_navigation(tabs) { yield blk }
   end
 
