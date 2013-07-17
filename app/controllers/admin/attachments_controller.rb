@@ -2,6 +2,7 @@ class Admin::AttachmentsController < Admin::BaseController
   before_filter :find_edition
   before_filter :limit_edition_access!
   before_filter :enforce_permissions!
+  before_filter :prevent_modification_of_unmodifiable_edition
   before_filter :find_attachment, only: [:edit, :update, :destroy]
 
   def index

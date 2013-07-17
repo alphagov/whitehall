@@ -39,6 +39,13 @@ class Admin::BaseController < ApplicationController
     forbidden!
   end
 
+  def prevent_modification_of_unmodifiable_edition
+    if @edition.unmodifiable?
+      notice = "You cannot modify a #{@edition.state} #{@edition.type.titleize}"
+      redirect_to admin_edition_path(@edition), notice: notice
+    end
+  end
+
   private
 
   def enforcer_for(subject)

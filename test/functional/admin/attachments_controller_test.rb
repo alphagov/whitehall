@@ -7,9 +7,21 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     @attachment ||= create(:attachment, editions: [@edition])
   end
 
+  def valid_attachment_params
+    { title: 'Attachment title',
+      attachment_data_attributes: { file: fixture_file_upload('whitepaper.pdf') } }
+  end
+
   setup do
     login_as :gds_editor
     @edition = create(:news_article)
+  end
+
+  test 'Actions are unavailable on unmodifiable editions' do
+    edition = create(:published_news_article)
+
+    get :index, edition_id: edition
+    assert_response :redirect
   end
 
   view_test "GET :index lists the attachments for the edition" do
@@ -28,10 +40,7 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
   end
 
   test "POST :create saves the attachment to the edition and redirects" do
-    post :create, edition_id: @edition, attachment: {
-      title: 'Attachment title',
-      attachment_data_attributes: { file: fixture_file_upload('whitepaper.pdf') }
-    }
+    post :create, edition_id: @edition, attachment: valid_attachment_params
 
     assert_response :redirect
     assert_equal 1, @edition.reload.attachments.size

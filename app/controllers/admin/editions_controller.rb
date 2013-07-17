@@ -165,13 +165,6 @@ class Admin::EditionsController < Admin::BaseController
     @information = information ? information.first : nil
   end
 
-  def prevent_modification_of_unmodifiable_edition
-    if @edition.unmodifiable?
-      notice = "You cannot modify a #{@edition.state} #{@edition.type.titleize}"
-      redirect_to admin_edition_path(@edition), notice: notice
-    end
-  end
-
   def default_arrays_of_ids_to_empty
     unless params[:edition][:organisation_ids]
       params[:edition][:lead_organisation_ids] ||= []

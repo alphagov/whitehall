@@ -21,6 +21,12 @@ class Admin::BulkUploadsControllerTest < ActionController::TestCase
 		end
 	end
 
+	test 'Actions are unavailable on unmodifiable editions' do
+		edition = create(:published_news_article)
+		get :new, edition_id: edition
+		assert_response :redirect
+	end
+
 	view_test 'GET :new displays a bulk upload form' do
 		get :new, edition_id: @edition
 
