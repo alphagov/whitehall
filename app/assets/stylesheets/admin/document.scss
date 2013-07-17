@@ -139,6 +139,17 @@ div.span8 > section {
   }
 }
 
+ol.uploaded-attachments {
+  margin: $gutter 0;
+  list-style: none;
+
+  span.file {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+}
+
 ol.existing-attachments {
   margin: $gutter 0;
   list-style: none;
