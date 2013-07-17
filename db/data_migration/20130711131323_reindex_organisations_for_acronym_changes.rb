@@ -1,1 +1,3 @@
-Rummageable.index(Organisation.search_index, Whitehall.government_search_index_path)
+index = Whitehall::SearchIndex.for(:government)
+index.add_batch(Organisation.search_index)
+index.commit
