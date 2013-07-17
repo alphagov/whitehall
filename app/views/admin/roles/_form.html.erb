@@ -8,7 +8,7 @@
   <%= form.errors %>
 
   <fieldset>
-    <%= form.text_field :name %>
+    <%= form.text_field :name, label_text: 'Role title' %>
     <%= form.label :type %>
     <%= form.select :type, grouped_options_for_select(role_type_options, role_type_option_value_for(role, role_type)) %>
     <%= form.label :organisation_ids, 'Organisations' %>
