@@ -128,6 +128,10 @@ div.attachments.index ul.actions {
   margin-left: $gutter-half;
 }
 
+div.span8 > section > h1:first-child {
+  margin-bottom: $gutter-half;
+}
+
 ul.existing-attachments {
   margin: $gutter 0;
   list-style: none;
