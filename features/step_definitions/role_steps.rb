@@ -29,7 +29,7 @@ When /^I add a new "([^"]*)" role named "([^"]*)" to the "([^"]*)"$/ do |role_ty
 
   visit admin_roles_path
   click_on "Create role"
-  fill_in "Name", with: role_name
+  fill_in "Role title", with: role_name
   select role_type, from: "Type"
   select organisation_name, from: "Organisations"
   click_on "Save"
@@ -38,7 +38,7 @@ end
 When /^I add a new "([^"]*)" role named "([^"]*)" to the "([^"]*)" worldwide organisation$/ do |role_type, role_name, worldwide_organisation_name|
   visit admin_roles_path
   click_on "Create role"
-  fill_in "Name", with: role_name
+  fill_in "Role title", with: role_name
   select role_type, from: "Type"
   select worldwide_organisation_name, from: "Worldwide organisations"
   click_on "Save"
