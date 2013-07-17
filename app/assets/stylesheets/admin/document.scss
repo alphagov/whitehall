@@ -124,6 +124,10 @@ p.prompt {
   margin: $gutter-one-third 0 $gutter;
 }
 
+div.attachments.index ul.actions {
+  margin-left: $gutter-half;
+}
+
 ul.existing-attachments {
   margin: $gutter 0;
   list-style: none;
@@ -150,22 +154,5 @@ ul.existing-attachments {
     width: 12em;
 
     margin-top: $gutter-half;
-  }
-
-  ul.actions {
-    li {
-      display: inline;
-
-      margin-right: 0.3em;
-
-      &:after {
-        content: '|';
-        margin-left: 0.3em;
-      }
-
-      &:last-child:after {
-        content: '';
-      }
-    }
   }
 }
