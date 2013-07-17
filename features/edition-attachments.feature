@@ -1,18 +1,4 @@
 Feature: Managing attachments on editions
-  Various edition types support attachments, i.e. Consultations, Detailed Guides
-  News Articles, Publications and Statistical Data Sets.
-
-  [MORE PREAMBLE HERE LATER]
-
-  Consultations have weird attachments (i.e. consultation/response) and automatically list all without markdown
-  Publications automatically list all attachments without the need for markdown
-  Statistical data set support attachments references
-  News articles have basic attachments without any references
-  Detailed guides have basic attachments without any references
-
-
-  Attachments are either diplayed automatically when viewing the edition, or are
-  explicility linked by placing inline markdown tags in the body of the edition.
 
   Background:
     Given I am a writer
