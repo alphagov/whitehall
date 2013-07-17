@@ -98,10 +98,11 @@ class ConsultationTest < ActiveSupport::TestCase
   end
 
   test "published_consultation_response returns the response when just a summary is present" do
-    consultation = create(:published_consultation)
+    consultation = create(:closed_consultation)
     published_response = consultation.create_response!
-    published_response.stubs(:summary).returns("The summary")
-    assert_equal published_response, consultation.published_consultation_response
+    published_response.summary = "This is the summary"
+    published_response.save
+    assert_equal published_response, consultation.reload.published_consultation_response
   end
 
   test ".closed includes consultations closing in the past" do
@@ -283,7 +284,7 @@ class ConsultationTest < ActiveSupport::TestCase
     today = Date.today
     consultation = create(:consultation)
     response = consultation.create_response!
-    response.stubs(:published_on_or_default).returns(today)
+    response.stubs(:published_on).returns(today)
 
     assert_equal today, consultation.response_published_on
   end

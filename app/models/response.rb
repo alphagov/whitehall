@@ -10,13 +10,26 @@ class Response < ActiveRecord::Base
 
   validates :published_on, recent_date: true, allow_blank: true
 
+  after_save :set_published_on
+
   def published?
+    published_on.present?
+  end
+
+  def ready_to_be_published?
     attachments.any? || summary.present?
   end
 
-  def published_on_or_default
-    if published?
-      published_on || consultation_response_attachments.order("created_at ASC").first.created_at
+  def set_published_on
+    if ready_to_be_published?
+      date = if consultation_response_attachments.any?
+        consultation_response_attachments.order("created_at ASC").first.created_at.to_date
+      else
+        Date.today
+      end
+      unless published?
+        update_column(:published_on, date)
+      end
     end
   end
 

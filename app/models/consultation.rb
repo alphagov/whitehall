@@ -21,6 +21,12 @@ class Consultation < Publicationesque
   accepts_nested_attributes_for :consultation_participation, reject_if: :all_blank_or_empty_hashes
   accepts_nested_attributes_for :response, reject_if: :all_blank_or_empty_hashes
 
+  scope :closed, -> { where("closing_on < ?",  Date.today)}
+  scope :closed_since, ->(earliest_closing_date) { closed.where('closing_on >= ?', earliest_closing_date.to_date) }
+  scope :open, -> { where('closing_on >= ? AND opening_on <= ?', Date.today, Date.today) }
+  scope :upcoming, -> { where('opening_on > ?', Date.today) }
+  scope :responded, -> { joins(:response).where("responses.published_on IS NOT NULL") }
+
   add_trait do
     def process_associations_after_save(edition)
       if @edition.consultation_participation.present?
@@ -64,7 +70,7 @@ class Consultation < Publicationesque
   end
 
   def response_published_on
-    response.published_on_or_default
+    response.published_on
   end
 
   def first_public_at
@@ -136,28 +142,6 @@ class Consultation < Publicationesque
   def must_have_consultation_as_publication_type
     unless publication_type_id == PublicationType::Consultation.id
       errors.add :publication_type_id, "must be set to consultation"
-    end
-  end
-
-  class << self
-    def closed
-      where 'closing_on < :today', today: Date.today
-    end
-
-    def closed_since(earliest_closing_date)
-      closed.where 'closing_on >= :earliest_closing_date', earliest_closing_date: earliest_closing_date.to_date
-    end
-
-    def open
-      where 'closing_on >= :today AND opening_on <= :today', today: Date.today
-    end
-
-    def upcoming
-      where 'opening_on > :today', today: Date.today
-    end
-
-    def responded
-      joins(response: :attachments)
     end
   end
 end
