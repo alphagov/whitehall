@@ -14,7 +14,7 @@
       <% end %>
     </ul>
     <div class="return">
-      <p><%= link_to "See more information about this publication", public_document_path(@document) %></p>
+      <p><%= link_to "See more information about this #{@document.display_type.downcase}", public_document_path(@document) %></p>
     </div>
   </div>
 </div>
