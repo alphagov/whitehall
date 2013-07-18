@@ -7,7 +7,6 @@ class Publicationesque < Edition
   include ::Attachable
 
   attachable :edition
-  force_review_of_bulk_attachments
 
   has_one :response, foreign_key: :edition_id, dependent: :destroy
 

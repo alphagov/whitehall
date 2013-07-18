@@ -13,7 +13,6 @@ class DetailedGuide < Edition
   delegate :section, :subsection, :subsubsection, to: :primary_mainstream_category, allow_nil: true
 
   attachable :edition
-  force_review_of_bulk_attachments
 
   class Trait < Edition::Traits::Trait
     def process_associations_after_save(edition)

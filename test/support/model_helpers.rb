@@ -50,15 +50,6 @@ module ModelHelpers
       end
     end
 
-    def should_force_review_of_bulk_uploaded_attachments
-      test 'should include the Attachable::ForceReviewOfBulkAttachments behaviour module' do
-        # *NOTE*. The ::Attachable::ForceReviewOfBulkAttachments module
-        # is tested separately so it should be enough to just test its
-        # inclusion here.
-        assert class_from_test_name.ancestors.include?(::Attachable::ForceReviewOfBulkAttachments)
-      end
-    end
-
     def should_allow_html_version
       test 'should include the HtmlVersion behaviour module' do
         # *NOTE*. The HtmlVersion module is tested separately so it

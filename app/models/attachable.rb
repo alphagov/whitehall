@@ -26,29 +26,6 @@ module Attachable
         end
       end
     end
-    def force_review_of_bulk_attachments
-      include Attachable::ForceReviewOfBulkAttachments
-    end
-  end
-
-  module ForceReviewOfBulkAttachments
-    extend ActiveSupport::Concern
-
-    included do
-      attr_accessor :attachments_were_bulk_uploaded
-      attr_accessor :bulk_upload_zip_file_invalid
-
-      validate :force_review_if_attachments_were_bulk_uploaded
-      validate :bulk_upload_zip_file_must_be_valid
-    end
-
-    def force_review_if_attachments_were_bulk_uploaded
-      errors.add(:information, 'Bulk upload successful: Make sure you check all the metadata is correct before saving') unless self.attachments_were_bulk_uploaded.nil?
-    end
-
-    def bulk_upload_zip_file_must_be_valid
-      errors.add(:base, 'Bulk upload failed: The Zip file was invalid') unless self.bulk_upload_zip_file_invalid.nil?
-    end
   end
 
   included do

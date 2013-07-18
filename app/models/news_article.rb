@@ -6,7 +6,6 @@ class NewsArticle < Newsesque
   include Edition::CanApplyToLocalGovernmentThroughRelatedPolicies
 
   attachable :edition
-  force_review_of_bulk_attachments
 
   validates :news_article_type_id, presence: true
   validate :only_news_article_allowed_invalid_data_can_be_awaiting_type
