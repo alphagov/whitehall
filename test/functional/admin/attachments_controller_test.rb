@@ -55,6 +55,13 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     assert_select "input[name='attachment[title]']"
   end
 
+  view_test "GET :new for a publication includes House of Commons metadata" do
+    publication = create(:publication)
+    get :new, edition_id: publication
+
+    assert_select "input[name='attachment[hoc_paper_number]']"
+  end
+
   test "POST :create saves the attachment to the edition and redirects" do
     post :create, edition_id: @edition, attachment: valid_attachment_params
 

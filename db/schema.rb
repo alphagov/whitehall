@@ -63,9 +63,9 @@ ActiveRecord::Schema.define(:version => 20130719101104) do
     t.string   "order_url"
     t.integer  "price_in_pence"
     t.integer  "attachment_data_id"
-    t.integer  "ordering"
     t.string   "hoc_paper_number"
-    t.string   "paliamentary_session"
+    t.string   "parliamentary_session"
+    t.integer  "ordering"
   end
 
   add_index "attachments", ["attachment_data_id"], :name => "index_attachments_on_attachment_data_id"
