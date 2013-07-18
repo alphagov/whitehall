@@ -10,7 +10,7 @@
   font-weight: bold;
   background: image-url('mail-icon.png') 0 40% no-repeat;
   @include hidpi {
-    background-image: image-url('mail-icon-2x.png');
+    background-image: image-url('mail-icon-x2.png');
     background-size: $gutter-two-thirds 14px;
   }
 }
