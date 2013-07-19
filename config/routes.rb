@@ -213,7 +213,9 @@ Whitehall::Application.routes.draw do
           resources :editorial_remarks, only: [:new, :create], shallow: true
           resources :fact_check_requests, only: [:show, :create, :edit, :update], shallow: true
           resource :document_sources, path: "document-sources", except: [:show]
-          resources :attachments, except: [:show]
+          resources :attachments, except: [:show] do
+            put :order, on: :collection
+          end
           resources :bulk_uploads, except: [:show, :edit, :update] do
             post :upload_zip, on: :collection
             get :set_titles, on: :member

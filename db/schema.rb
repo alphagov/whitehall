@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130627123819) do
+ActiveRecord::Schema.define(:version => 20130719101104) do
 
   create_table "about_pages", :force => true do |t|
     t.integer  "topical_event_id"
@@ -63,9 +63,11 @@ ActiveRecord::Schema.define(:version => 20130627123819) do
     t.string   "order_url"
     t.integer  "price_in_pence"
     t.integer  "attachment_data_id"
+    t.integer  "ordering"
   end
 
   add_index "attachments", ["attachment_data_id"], :name => "index_attachments_on_attachment_data_id"
+  add_index "attachments", ["ordering"], :name => "index_attachments_on_ordering"
 
   create_table "classification_featuring_image_data", :force => true do |t|
     t.string   "carrierwave_image"
