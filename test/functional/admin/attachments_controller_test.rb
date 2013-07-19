@@ -59,7 +59,7 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     assert_select "input[value=#{attachment.title}]"
   end
 
-  test "PUT :update changes attachment metadata with empty file payload" do
+  test "PUT :update with empty file payload still changes attachment metadata" do
     put :update, edition_id: @edition, id: attachment, attachment: {
       title: 'New title',
       attachment_data_attributes: { file_cache: '', id: attachment.attachment_data.id }
