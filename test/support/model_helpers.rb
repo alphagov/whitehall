@@ -60,10 +60,10 @@ module ModelHelpers
     end
 
     def should_allow_html_version
-      test 'should include the HtmlVersion behaviour module' do
-        # *NOTE*. The HtmlVersion module is tested separately so it
+      test 'should include the HasHtmlVersion behaviour module' do
+        # *NOTE*. The HasHtmlVersion module is tested separately so it
         # should be enough to just test its inclusion here.
-        assert class_from_test_name.ancestors.include?(Edition::HtmlVersion)
+        assert class_from_test_name.ancestors.include?(Edition::HasHtmlVersion)
       end
     end
 
