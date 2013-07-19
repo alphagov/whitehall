@@ -7,7 +7,7 @@ foreign_secretary_role = MinisterialRole.create!( name: 'Secretary of State for 
                                 responsibilities: 'The Secretary of State has overall responsibility for the work of the Foreign & Commonwealth Office, with particular focus on policy strategy, honours, Whitehall liaison and cyber-security.',
                                 organisations: [foreign_office],
                                 supports_historical_accounts: true)
-foreign_secretary_role.update_attribute(:slug, 'foreign-secretary')
+foreign_secretary_role.update_column(:slug, 'foreign-secretary')
 
 puts "Step 2. Assign William Hague to the new role"
 foreign_secretary_role_appointment = RoleAppointment.create!(person: william_hague, role: foreign_secretary_role, started_at: DateTime.new(2010, 5, 12))

@@ -59,7 +59,7 @@ class Policy < Edition
   end
 
   def update_published_related_publication_count
-    update_attribute(:published_related_publication_count, published_related_publications.count)
+    update_column(:published_related_publication_count, published_related_publications.count)
   end
 
   def policy_team

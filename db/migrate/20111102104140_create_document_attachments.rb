@@ -20,7 +20,7 @@ class CreateDocumentAttachments < ActiveRecord::Migration
     add_column :documents, :attachment_id, :integer
     DocumentAttachment.each do |document_attachment|
       document = DocumentTable.find(document_attachment.document_id)
-      document.update_attribute(:attachment_id, document_attachment.attachment_id)
+      document.update_column(:attachment_id, document_attachment.attachment_id)
     end
     drop_table :document_attachment
   end

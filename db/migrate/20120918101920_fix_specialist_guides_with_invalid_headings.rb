@@ -11,7 +11,7 @@ class FixSpecialistGuidesWithInvalidHeadings < ActiveRecord::Migration
         h3_markdown = "### #{first_heading.text}"
         fixed_headings = "\n\n#{extra_h2_markdown}\n\n#{h3_markdown}"
         fixed_body = specialist_guide.body.gsub(%r{###\s*#{first_heading.text}}, fixed_headings)
-        specialist_guide.update_attribute(:body, fixed_body)
+        specialist_guide.update_column(:body, fixed_body)
         puts "*** Inserted extra h2 in body of specialist guide with edition ID: #{specialist_guide.id}"
       end
     end

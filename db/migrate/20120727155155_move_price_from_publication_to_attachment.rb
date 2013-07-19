@@ -28,7 +28,7 @@ class MovePriceFromPublicationToAttachment < ActiveRecord::Migration
           if first_attachment.price_in_pence.present? && first_attachment.price_in_pence != published_edition.price_in_pence
             raise "The Price on the attachment is different from the one on the publication.  Aborting."
           else
-            first_attachment.update_attribute(:price_in_pence, published_edition.price_in_pence)
+            first_attachment.update_column(:price_in_pence, published_edition.price_in_pence)
           end
         end
       end

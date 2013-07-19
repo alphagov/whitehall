@@ -26,12 +26,12 @@ class AddAnalyticsCodeToOrganisation < ActiveRecord::Migration
 
     TYPES_TO_PREFIX.each do |name, prefix|
       if (organisation = OrganisationType.find_by_name(name))
-        organisation.update_attribute(:analytics_prefix, prefix)
+        organisation.update_column(:analytics_prefix, prefix)
       end
     end
 
     Organisation.find_each do |o|
-      o.update_attribute(:analytics_identifier, o.organisation_type.analytics_prefix + o.id.to_s)
+      o.update_column(:analytics_identifier, o.organisation_type.analytics_prefix + o.id.to_s)
     end
   end
 
