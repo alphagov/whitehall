@@ -6,7 +6,7 @@ module Attachable
       self.attachment_join_table_name = "#{class_name}_attachments".to_sym
 
       has_many attachment_join_table_name, foreign_key: "#{class_name}_id", dependent: :destroy
-      has_many :attachments, through: attachment_join_table_name
+      has_many :attachments, through: attachment_join_table_name, order: [:ordering, :id], before_add: :set_order
 
       no_substantive_attachment_attributes = ->(attrs) do
         att_attrs = attrs.fetch(:attachment_attributes, {})
@@ -73,6 +73,15 @@ module Attachable
 
   def indexable_attachment_content
     attachments.all.map { |a| "Attachment: #{a.title}" }.join(". ")
+  end
+
+  def set_order(new_attachment)
+    new_attachment.ordering = next_ordering unless new_attachment.ordering.present?
+  end
+
+  def next_ordering
+    max = attachments.maximum(:ordering)
+    max ? max + 1 : 0
   end
 
   module JoinModel

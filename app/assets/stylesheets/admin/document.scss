@@ -170,6 +170,15 @@ ol.existing-attachments {
   span {
     display: block;
   }
+
+  label {
+    display: inline;
+    font-weight: bold;
+  }
+
+  input.ordering {
+    width: 50px;
+  }
 }
 
 input[name="save_and_continue"] {

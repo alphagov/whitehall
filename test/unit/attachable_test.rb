@@ -16,6 +16,17 @@ class AttachableTest < ActiveSupport::TestCase
     assert_equal [attachment_1, attachment_2], publication.attachments
   end
 
+  test "new attachments are put to the end of the list" do
+    attachment_1 = create(:attachment, ordering: 0)
+    attachment_2 = create(:attachment, ordering: 1)
+    publication = create(:publication, :with_attachment, attachments: [attachment_1, attachment_2])
+
+    attachment_3 = build(:attachment)
+    publication.attachments << attachment_3
+
+    assert_equal [attachment_1, attachment_2, attachment_3], publication.attachments(true)
+  end
+
   test "should be invalid if an edition has an attachment but no alternative format provider" do
     attachment = build(:attachment)
     publication = build(:publication, attachments: [attachment], alternative_format_provider: nil)
