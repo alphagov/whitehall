@@ -3,7 +3,7 @@ class CacheNumberOfPublishedEditionsOnTopic < ActiveRecord::Migration
     has_many :topic_memberships
     has_many :published_editions, through: :topic_memberships, conditions: { state: "published" }, source: :edition
     def update_counts
-      update_attribute(:published_edition_count, published_editions.count)
+      update_column(:published_edition_count, published_editions.count)
     end
   end
 

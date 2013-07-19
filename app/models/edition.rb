@@ -442,7 +442,7 @@ class Edition < ActiveRecord::Base
   end
 
   def reset_force_published_flag
-    update_attribute(:force_published, false)
+    update_column(:force_published, false)
   end
 
   class << self

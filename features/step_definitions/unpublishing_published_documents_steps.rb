@@ -1,7 +1,7 @@
 Given /^a published document exists with a slug that does not match the title$/ do
   @document = create(:published_policy, title: 'Some Policy')
   @original_slug = @document.slug
-  @document.update_attribute(:title, 'Published in error')
+  @document.update_column(:title, 'Published in error')
 end
 
 def unpublish_edition(edition)

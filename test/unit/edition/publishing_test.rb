@@ -56,7 +56,7 @@ class Edition::PublishingControlsTest < ActiveSupport::TestCase
   test "is never approvable when invalid" do
     editor = create(:departmental_editor)
     edition = create(:submitted_edition, creator: editor)
-    edition.update_attribute(:title, nil)
+    edition.update_column(:title, nil)
     refute edition.approvable_by?(editor, force: true)
     assert_equal "This edition is invalid. Edit the edition to fix validation problems", edition.reason_to_prevent_approval_by(editor)
   end

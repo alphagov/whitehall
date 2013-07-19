@@ -38,8 +38,8 @@ For accurate, reliable and up to date information on this policy, visit the #{le
   puts "importing #{title.inspect}"
   policy = Policy.stub.create!(attributes)
   policy.publish_as(creator, force: true)
-  policy.update_attribute(:major_change_published_at, backdate)
-  policy.update_attribute(:updated_at, backdate)
+  policy.update_column(:major_change_published_at, backdate)
+  policy.update_column(:updated_at, backdate)
 end
 
 stubs = CSV.parse(File.open(Rails.root + "db/policy_stubs.csv", "r:UTF-8"), headers: true)

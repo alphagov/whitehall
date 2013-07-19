@@ -37,10 +37,10 @@ CSV.foreach('db/data_migration/20130708135841_update_publications_with_missing_t
 
 	if publication_type = find_publication_type(type)
 		puts "Publication (#{id}) (#{edition.state}) type being set to #{type}"
-		edition.update_attribute(:publication_type_id, publication_type.id)
+		edition.update_column(:publication_type_id, publication_type.id)
 	else
 		puts "Publication (#{id}) (#{edition.state}) type being forced to default (Guidance)"
-		edition.update_attribute(:publication_type_id, PublicationType::Guidance.id)
+		edition.update_column(:publication_type_id, PublicationType::Guidance.id)
 		forced_editions << edition
 	end
 end
