@@ -1,14 +1,14 @@
 <%= edition_editing_tabs(edition) do %>
   <%= standard_edition_form(edition) do |form| %>
 
-	  <%= render partial: 'inline_attachments_info', locals: { form: form, edition: edition } %>
+    <%= render partial: 'inline_attachments_info', locals: { form: form, edition: edition } %>
 
-	  <fieldset>
-	    <legend>Associations</legend>
-	    <%= render partial: 'document_series_fields', locals: { form: form, edition: edition } %>
-	    <%= render partial: 'organisation_fields', locals: { form: form, edition: edition } %>
-	  </fieldset>
+    <fieldset>
+      <legend>Associations</legend>
+      <%= render partial: 'document_series_fields', locals: { form: form, edition: edition } %>
+      <%= render partial: 'organisation_fields', locals: { form: form, edition: edition } %>
+    </fieldset>
 
-	  <%= render partial: 'first_published_at', locals: { form: form, edition: edition } %>
-	<% end %>
+    <%= render partial: 'first_published_at', locals: { form: form, edition: edition } %>
+  <% end %>
 <% end %>

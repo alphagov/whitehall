@@ -1,13 +1,13 @@
 <%= edition_editing_tabs(edition) do %>
   <%= standard_edition_form(edition) do |form| %>
 
-	  <fieldset>
-	    <legend>Associations</legend>
-	    <%= render partial: 'world_location_fields', locals: { form: form, edition: edition, world_location_required: true } %>
-	    <%= render partial: 'worldwide_organisation_fields', locals: { form: form, edition: edition, worldwide_organisation_required: true } %>
-	    <%= render partial: 'worldwide_priority_fields', locals: { form: form, edition: edition } %>
-	  </fieldset>
+    <fieldset>
+      <legend>Associations</legend>
+      <%= render partial: 'world_location_fields', locals: { form: form, edition: edition, world_location_required: true } %>
+      <%= render partial: 'worldwide_organisation_fields', locals: { form: form, edition: edition, worldwide_organisation_required: true } %>
+      <%= render partial: 'worldwide_priority_fields', locals: { form: form, edition: edition } %>
+    </fieldset>
 
-	  <%= render partial: 'first_published_at', locals: { form: form, edition: edition } %>
-	<% end %>
+    <%= render partial: 'first_published_at', locals: { form: form, edition: edition } %>
+  <% end %>
 <% end %>
