@@ -126,6 +126,7 @@ p.prompt {
 
 div.attachments.index ul.actions {
   margin-left: $gutter-half;
+  margin-bottom: $gutter;
 }
 
 // Tidy up spacing at top of document editing pages
@@ -151,7 +152,7 @@ ol.uploaded-attachments {
 }
 
 ol.existing-attachments {
-  margin: $gutter 0;
+  margin: 0;
   list-style: none;
 
   span.title {
