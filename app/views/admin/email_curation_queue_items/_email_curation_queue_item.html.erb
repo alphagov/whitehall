@@ -6,7 +6,7 @@
     <p><%= email_curation_queue_item.summary %></p>
   </td>
   <td class="actions">
-    <%= link_to 'View on website', public_document_url(email_curation_queue_item.edition), class: 'btn' %>
+    <%= link_to 'View on website', public_document_url(email_curation_queue_item.edition), class: 'btn', target: 'blank' %>
     <%= link_to 'Edit', [:edit, :admin, email_curation_queue_item], class: 'btn btn-primary' %>
     <%= button_to "Send", [:send_to_subscribers, :admin, email_curation_queue_item], method: :post, class: "btn btn-success", confirm: "Are you sure you wan to send this document to subscribers?" %>
     <%= button_to "Delete", [:admin, email_curation_queue_item], method: :delete, class: "btn btn-danger", confirm: "Are you sure you want to delete this from the queue; it will not be sent to subscribers?" %>
