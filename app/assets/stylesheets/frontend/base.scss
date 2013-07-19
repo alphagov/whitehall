@@ -73,9 +73,9 @@
   @import "helpers/_stick_at_top_when_scrolling.scss";
   @import "helpers/_sub-navigation.scss";
   @import "helpers/_worldwide-organisation-header.scss";
-  @import "../vendor/media-player/player-core.scss";
-  @import "../vendor/media-player/player-theme.scss";
-  @import "../vendor/media-player/player-fix.scss";
+
+  // helpers shared with admin
+  @import "../shared/helpers/_player-container.scss";
 }
 
 
