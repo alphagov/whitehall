@@ -74,4 +74,13 @@ jQuery(document).ready(function($) {
       $(el).css('width', $(el).width());
     });
   }
+
+  // admin attachments are sortable
+  $( "ol.existing-attachments.js-sortable" ).sortable({
+    stop: function (event, ui) {
+      $(this).find('input.ordering').each( function (index, input) {
+        $(input).val(index);
+      });
+    }
+  });
 })

@@ -171,6 +171,12 @@ ol.existing-attachments {
     display: block;
   }
 
+  label, input {
+    .js-enabled & {
+      display: none;
+    }
+  }
+
   label {
     display: inline;
     font-weight: bold;
