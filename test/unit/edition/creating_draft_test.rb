@@ -142,7 +142,7 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
 
   test "should build a draft copy even if parent is invalid" do
     published_policy = create(:published_policy)
-    published_policy.update_column(:title, nil)
+    published_policy.update_attributes(title: nil)
     refute published_policy.valid?
     draft_policy = published_policy.create_draft(create(:policy_writer))
     assert draft_policy.persisted?

@@ -3,7 +3,7 @@ editions.each do |edition|
   if edition.title
     puts "Updating edition '#{edition.title}'"
     edition.translations.each do |translation|
-      translation.update_column(:title, translation.title.strip)
+      translation.update_attributes(title: translation.title.strip)
     end
   end
 end
