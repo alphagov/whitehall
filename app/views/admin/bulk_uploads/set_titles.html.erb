@@ -1,31 +1,31 @@
 <% page_title "Bulk upload for: #{@edition.title}" %>
 
 <div class="span8">
-	<section>
-		<h1>Set titles for your attachments</h1>
-		<%= form_for @bulk_upload, url: admin_edition_bulk_uploads_path(@edition)  do |form| %>
-			<%= form.errors %>
+  <section>
+    <h1>Set titles for your attachments</h1>
+    <%= form_for @bulk_upload, url: admin_edition_bulk_uploads_path(@edition)  do |form| %>
+      <%= form.errors %>
 
-			<ol class="uploaded-attachments">
-				<% @bulk_upload.attachments.each do |attachment| %>
-					<%= form.fields_for "attachments[]", attachment do |attachment_fields| %>
-						<li class="well">
-							<span class="file">File: <%= attachment_fields.object.filename %></span>
-							<%= attachment_fields.text_field :title %>
+      <ol class="uploaded-attachments">
+        <% @bulk_upload.attachments.each do |attachment| %>
+          <%= form.fields_for "attachments[]", attachment do |attachment_fields| %>
+            <li class="well">
+              <span class="file">File: <%= attachment_fields.object.filename %></span>
+              <%= attachment_fields.text_field :title %>
 
-							<% if @edition.allows_attachment_references? %>
-								<%= render 'admin/attachments/reference_fields', form: attachment_fields %>
-							<% end %>
+              <% if @edition.allows_attachment_references? %>
+                <%= render 'admin/attachments/reference_fields', form: attachment_fields %>
+              <% end %>
 
-							<%= attachment_fields.fields_for(:attachment_data) do |attachment_data| %>
-						    <%= attachment_data.hidden_field :file_cache %>
-					    <% end %>
-						</li>
-					<% end %>
-				<% end %>
-			</ol>
+              <%= attachment_fields.fields_for(:attachment_data) do |attachment_data| %>
+                <%= attachment_data.hidden_field :file_cache %>
+              <% end %>
+            </li>
+          <% end %>
+        <% end %>
+      </ol>
 
-			<%= form.save_or_cancel cancel: admin_edition_attachments_path(@edition) %>
-		<% end %>
-	</section>
+      <%= form.save_or_cancel cancel: admin_edition_attachments_path(@edition) %>
+    <% end %>
+  </section>
 </div>
