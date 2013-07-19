@@ -26,7 +26,7 @@ class CopyCommandPaperNumbersFromPublicationsToTheirAttachments < ActiveRecord::
           if first_attachment.command_paper_number.present? && first_attachment.command_paper_number != published_edition.command_paper_number
             raise "The Command Paper number on the attachment is different from the one on the publication.  Aborting."
           else
-            first_attachment.update_attribute(:command_paper_number, published_edition.command_paper_number)
+            first_attachment.update_column(:command_paper_number, published_edition.command_paper_number)
           end
         end
       end

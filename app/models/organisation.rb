@@ -229,7 +229,7 @@ class Organisation < ActiveRecord::Base
 
   def ensure_analytics_identifier
     unless analytics_identifier.present?
-      update_attribute(:analytics_identifier, organisation_type.analytics_prefix + self.id.to_s)
+      update_column(:analytics_identifier, organisation_type.analytics_prefix + self.id.to_s)
     end
   end
 
