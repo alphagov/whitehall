@@ -290,7 +290,7 @@ en:
   change_notes:
     page_history: Page history
     published_at: Published %{date}
-    updated_at: Updated %{date}, <span class="toggle">see change history</span>
+    updated_at: Updated %{date}, <span class="toggle">see all updates</span>
   organisation:
     type:
       Ministerial department:
