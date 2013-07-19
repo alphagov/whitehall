@@ -1,4 +1,4 @@
-module Edition::DocumentSeries
+module Edition::WithDocumentSeries
   extend ActiveSupport::Concern
 
   class Trait < Edition::Traits::Trait

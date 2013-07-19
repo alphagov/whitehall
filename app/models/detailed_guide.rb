@@ -8,7 +8,7 @@ class DetailedGuide < Edition
   include Edition::AlternativeFormatProvider
   include Edition::FactCheckable
   include Edition::MainstreamCategory
-  include Edition::DocumentSeries
+  include Edition::WithDocumentSeries
 
   delegate :section, :subsection, :subsubsection, to: :primary_mainstream_category, allow_nil: true
 

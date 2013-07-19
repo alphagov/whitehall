@@ -1,6 +1,6 @@
 require "test_helper"
 
-class Edition::DocumentSeriesTest < ActiveSupport::TestCase
+class Edition::WithDocumentSeriesTest < ActiveSupport::TestCase
 
   test "should return search index suitable for Rummageable" do
     document_series = create(:document_series)

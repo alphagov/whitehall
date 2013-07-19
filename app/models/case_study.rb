@@ -3,7 +3,7 @@ class CaseStudy < Edition
   include Edition::RelatedPolicies
   include Edition::FactCheckable
   include Edition::FirstImagePulledOut
-  include Edition::DocumentSeries
+  include Edition::WithDocumentSeries
   include Edition::WorldLocations
   include Edition::WorldwideOrganisations
   include Edition::WorldwidePriorities
