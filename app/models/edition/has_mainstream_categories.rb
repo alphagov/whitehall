@@ -1,4 +1,4 @@
-module Edition::MainstreamCategory
+module Edition::HasMainstreamCategories
   extend ActiveSupport::Concern
 
   class Trait < Edition::Traits::Trait

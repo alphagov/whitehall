@@ -1,6 +1,6 @@
 require "test_helper"
 
-class Edition::MainstreamCategoriesTest < ActiveSupport::TestCase
+class Edition::HasMainstreamCategoriesTest < ActiveSupport::TestCase
   test "#mainstream_categories returns an array containing all associated mainstream categories" do
     primary_mainstream_category = create(:mainstream_category)
     other_mainstream_category = create(:mainstream_category)
