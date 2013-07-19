@@ -36,7 +36,9 @@
 // Styles for comment page elements
 #whitehall-wrapper {
   @import "helpers/_organisations.scss";
-  @import "helpers/_player-container.scss";
+
+  // helpers shared with frontend and admin
+  @import "../shared/helpers/_player-container.scss";
 }
 
 
