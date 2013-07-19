@@ -1,5 +1,3 @@
-require "edition/mainstream_category"
-
 class DetailedGuide < Edition
   include Edition::Images
   include Edition::NationalApplicability
@@ -8,7 +6,7 @@ class DetailedGuide < Edition
   include Edition::AlternativeFormatProvider
   include Edition::FactCheckable
   include Edition::MainstreamCategory
-  include Edition::DocumentSeries
+  include Edition::HasDocumentSeries
 
   delegate :section, :subsection, :subsubsection, to: :primary_mainstream_category, allow_nil: true
 
