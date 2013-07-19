@@ -223,6 +223,10 @@ class Admin::EditionsController < Admin::BaseController
     end
   end
 
+  def build_html_version
+    @edition.build_html_version unless @edition.html_version.present?
+  end
+
   def set_default_edition_locations
     if current_user.world_locations.any? && !@edition.world_locations.any?
       @edition.world_locations = current_user.world_locations
