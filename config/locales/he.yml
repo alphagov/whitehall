@@ -399,8 +399,9 @@ he:
       published: פורסם
       reference: הפניה
   change_notes:
-    published: פורסם
-    updated: עודכן
+    page_history:
+    published_at:
+    updated_at:
   contact:
     contact_form: טופס יצירת קשר
     email: דואר אלקטרוני

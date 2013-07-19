@@ -395,8 +395,9 @@ be:
       published: Апублікаваны
       reference: Спасылка
   change_notes:
-    published: Апублікаваны
-    updated: Адноўлены
+    page_history:
+    published_at:
+    updated_at:
   contact:
     contact_form: Кантактная форма
     email: Электронная пошта

@@ -19,8 +19,9 @@ hu:
       published: Közzététel időpontja
       reference: Ref
   change_notes:
-    published: Közzététel időpontja
-    updated: Frissítve
+    page_history:
+    published_at:
+    updated_at:
   contact:
     contact_form: Kapcsolati űrlap
     email: E-mail

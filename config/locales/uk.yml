@@ -395,8 +395,9 @@ uk:
       published: Опубліковано
       reference: Ref
   change_notes:
-    published: Опубліковано
-    updated: Оновлено
+    page_history:
+    published_at:
+    updated_at:
   contact:
     contact_form: Форма зворотнього зв'язку
     email: Електронна пошта

@@ -397,8 +397,9 @@ pl:
       published: Opublikowano
       reference: Odsyłacz
   change_notes:
-    published: Opublikowano
-    updated: Zaktualizowano
+    page_history:
+    published_at:
+    updated_at:
   contact:
     contact_form: Formularz kontaktowy
     email: Email

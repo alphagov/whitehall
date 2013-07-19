@@ -517,8 +517,9 @@ ar:
       published: تاريخ النشر
       reference: إشارة
   change_notes:
-    published: تاريخ النشر
-    updated: تحديث
+    page_history:
+    published_at:
+    updated_at:
   contact:
     contact_form: نموذج اتصال
     email: بريد إلكتروني

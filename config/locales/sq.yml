@@ -274,8 +274,9 @@ sq:
       published: Publikuar
       reference: Ref
   change_notes:
-    published: Publikuar
-    updated: Rifreskuar
+    page_history:
+    published_at:
+    updated_at:
   contact:
     contact_form: Forme kontakti
     email: Email

@@ -518,8 +518,9 @@ cy:
       published: Cyhoeddwyd
       reference: Cyf
   change_notes:
-    published: Cyhoeddwyd
-    updated: Diweddarwyd
+    page_history:
+    published_at:
+    updated_at:
   contact:
     contact_form: Ffurflen cysylltu
     email: E-bost

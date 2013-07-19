@@ -284,8 +284,9 @@ bg:
       published: Публикувано
       reference: Справка
   change_notes:
-    published: Публикувано
-    updated: Обновено
+    page_history:
+    published_at:
+    updated_at:
   contact:
     contact_form: Контактна форма
     email: И-мейл

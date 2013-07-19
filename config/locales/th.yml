@@ -17,8 +17,9 @@ th:
       published: ตีพิมพ์
       reference: อ้างอิง
   change_notes:
-    published: ติพิมพ์
-    updated: ปรับปรุง
+    page_history:
+    published_at:
+    updated_at:
   contact:
     contact_form: แบบฟอร์มการติดต่อ
     email: อีเมล์

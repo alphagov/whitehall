@@ -17,8 +17,9 @@ ja:
       published: 掲載日
       reference: Ref
   change_notes:
-    published: 掲載日
-    updated: 更新日
+    page_history:
+    published_at:
+    updated_at:
   contact:
     contact_form: 連絡フォーム
     email: Email

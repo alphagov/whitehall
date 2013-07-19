@@ -9,6 +9,7 @@
     display: inline-block;
     color: $link-colour;
     white-space: nowrap;
+    cursor: pointer;
 
     &:focus,
     &:hover {
@@ -39,7 +40,7 @@
     height: 0;
     position: absolute;
     top: -4px;
-    left: 20%;
+    left: 75%;
     margin-left: -2px;
     border-left: 5px solid transparent;
     border-right: 5px solid transparent;

@@ -274,8 +274,9 @@ ur:
       published: شائع شدہ
       reference: حوالہ
   change_notes:
-    published: شائع شدہ
-    updated: تجدیدشدہ
+    page_history:
+    published_at:
+    updated_at:
   contact:
     contact_form: کانٹیکٹ فارم
     email: ای میل
