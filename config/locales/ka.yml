@@ -1,8 +1,57 @@
 ka:
   activerecord:
     attributes:
+      attachment:
+        isbn:
+      attachment_data:
+        file:
+      corporate_information_page/corporate_information_page_attachments/attachment:
+        command_paper_number:
+        isbn:
+        order_url:
+        price:
+        title:
+        unique_reference:
+      corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
+        file:
       detailed_guide:
         primary_mainstream_category:
+      policy_advisory_group/policy_group_attachments/attachment:
+        command_paper_number:
+        isbn:
+        order_url:
+        price:
+        title:
+        unique_reference:
+      policy_advisory_group/policy_group_attachments/attachment/attachment_data:
+        file:
+      response/consultation_response_attachments/attachment:
+        command_paper_number:
+        isbn:
+        order_url:
+        price:
+        title:
+        unique_reference:
+      response/consultation_response_attachments/attachment/attachment_data:
+        file:
+      supporting_page/supporting_page_attachments/attachment:
+        command_paper_number:
+        isbn:
+        order_url:
+        price:
+        title:
+        unique_reference:
+      supporting_page/supporting_page_attachments/attachment/attachment_data:
+        file:
+    nested_attachment_data_field_names:
+      file:
+    nested_attachment_field_names:
+      command_paper_number:
+      isbn:
+      order_url:
+      price:
+      title:
+      unique_reference:
   announcements:
     heading:
   attachment:
