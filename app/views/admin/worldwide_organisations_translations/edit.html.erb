@@ -1,17 +1,26 @@
 <% page_title "Edit translation for: #{@english_worldwide_organisation.name}" %>
+<div class="span8">
+  <h1>Edit '<%= @translation_locale.native_language_name %> (<%= @translation_locale.english_language_name %>)' translation for: <%= @english_worldwide_organisation.name %></h1>
 
-<h1>Edit '<%= @translation_locale.native_language_name %> (<%= @translation_locale.english_language_name %>)' translation for: <%= @english_worldwide_organisation.name %></h1>
+  <%= form_for @translated_worldwide_organisation, url: admin_worldwide_organisation_translation_path(@translated_worldwide_organisation, translation_locale), method: :put do |form| %>
+    <%= form.errors %>
 
-<%= form_for @translated_worldwide_organisation, url: admin_worldwide_organisation_translation_path(@translated_worldwide_organisation, translation_locale), method: :put do |form| %>
-  <%= form.errors %>
+    <%= form.translated_text_field :name %>
 
-  <%= form.translated_text_field :name %>
+    <%= form.translated_text_area :summary %>
 
-  <%= form.translated_text_area :summary %>
+    <%= form.translated_text_area :description %>
 
-  <%= form.translated_text_area :description %>
+    <%= form.translated_text_area :services %>
 
-  <%= form.translated_text_area :services %>
+    <%= form.save_or_cancel cancel: admin_worldwide_organisation_translations_path(@english_worldwide_organisation) %>
+  <% end %>
+</div>
 
-  <%= form.save_or_cancel cancel: admin_worldwide_organisation_translations_path(@english_worldwide_organisation) %>
-<% end %>
+<div class="span4">
+  <%= sidebar_tabs govspeak_help: "Formatting help" do |tabs| %>
+    <%= tabs.pane id: "govspeak_help" do %>
+      <%= render partial: "admin/editions/govspeak_help" %>
+    <% end %>
+  <% end %>
+</div>
