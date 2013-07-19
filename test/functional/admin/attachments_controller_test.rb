@@ -32,6 +32,22 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     assert_select 'li span.title', text: @edition.attachments[0].title
   end
 
+  test "PUT :order saves the new order of attachments" do
+    attachment1 = build(:attachment)
+    attachment2 = build(:attachment)
+    attachment3 = build(:attachment)
+    @edition.attachments << [attachment1, attachment2, attachment3]
+
+    put :order, edition_id: @edition, ordering: {
+                                        attachment1.id.to_s => '1',
+                                        attachment2.id.to_s => '2',
+                                        attachment3.id.to_s => '0'
+                                      }
+
+    assert_response :redirect
+    assert_equal [attachment3, attachment1, attachment2], @edition.attachments(true)
+  end
+
   view_test "GET :new renders the attachment form" do
     get :new, edition_id: @edition
 

@@ -2,7 +2,7 @@
 
   <%= form.errors %>
 
-	<%= form.text_field :title %>
+  <%= form.text_field :title %>
 
   <% if edition.allows_attachment_references? %>
     <%= render 'reference_fields', form: form %>

@@ -5,7 +5,7 @@ module Whitehall::DocumentFilter
     attr_accessor :documents
 
     def publications_search
-      @documents = Publicationesque.published.includes(:document, :organisations, :attachments, response: :attachments)
+      @documents = Publicationesque.published.includes(:document, :organisations)
       apply_filters
     end
 

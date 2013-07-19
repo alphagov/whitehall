@@ -38,3 +38,14 @@ fieldset.sortable {
     background-color: white !important;
   }
 }
+
+.js-enabled ol.js-sortable {
+
+  li {
+    cursor: move;
+
+    label, a {
+      cursor: pointer;
+    }
+  }
+}

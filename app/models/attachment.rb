@@ -56,8 +56,6 @@ class Attachment < ActiveRecord::Base
     end
   end
 
-  private
-
   def destroy_attachment_data_if_required
     unless Attachment.where(attachment_data_id: attachment_data.id).any?
       attachment_data.destroy
