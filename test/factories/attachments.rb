@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :attachment do
-    title "attachment-title"
+    sequence(:title) { |index| "attachment-title-#{index}" }
 
     ignore do
       file { File.open(File.join(Rails.root, 'test', 'fixtures', 'greenpaper.pdf')) }

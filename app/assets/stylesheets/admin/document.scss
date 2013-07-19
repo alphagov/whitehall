@@ -119,3 +119,59 @@ pre {
 .span8 .govspeak strong {
   font-weight: normal;
 }
+
+p.prompt {
+  margin: $gutter-one-third 0 $gutter;
+}
+
+div.attachments.index ul.actions {
+  margin-left: $gutter-half;
+}
+
+// Tidy up spacing at top of document editing pages
+div.span8 > section {
+  & > h1:first-child {
+    margin-bottom: $gutter-half;
+  }
+
+  form > div:first-child + fieldset {
+    margin-top: 0;
+  }
+}
+
+ol.uploaded-attachments {
+  margin: $gutter 0;
+  list-style: none;
+
+  span.file {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+}
+
+ol.existing-attachments {
+  margin: $gutter 0;
+  list-style: none;
+
+  span.title {
+    font-weight: bold;
+  }
+
+  img {
+    float: left;
+
+    width: 105px;
+    height: 140px;
+
+    margin-right: $gutter-one-third;
+  }
+
+  span {
+    display: block;
+  }
+}
+
+input[name="save_and_continue"] {
+  margin-left: 0.4em;
+}

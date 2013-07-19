@@ -160,6 +160,20 @@ module Admin::EditionsHelper
     end
   end
 
+  def tab_url_for_edition(edition)
+    if edition.new_record?
+      url_for([:new, :admin, edition.class.model_name.underscore])
+    else
+      url_for([:edit, :admin, edition])
+    end
+  end
+
+  def edition_editing_tabs(edition, &blk)
+    tabs = { 'Document' => tab_url_for_edition(edition) }
+    tabs['Attachments'] = admin_edition_attachments_path(edition) if edition.persisted? && edition.allows_attachments?
+    tab_navigation(tabs) { yield blk }
+  end
+
   def edition_information(information)
     content_tag(:div, class: "alert alert-info") do
       information
@@ -172,7 +186,7 @@ module Admin::EditionsHelper
         concat render(partial: "change_notes",
                       locals: { form: form, edition: edition })
       end
-      concat form.save_or_cancel
+      concat form.save_or_continue_or_cancel
     end
   end
 
@@ -189,5 +203,17 @@ module Admin::EditionsHelper
     else
       false
     end
+  end
+
+  def attachment_metadata_tag(attachment)
+    parts = []
+    %w(isbn unique_reference command_paper_number order_url price).each do |attr|
+      value = attachment.send(attr)
+      if value.present?
+        label = attr.humanize
+        parts << "#{label}: #{value}"
+      end
+    end
+    content_tag(:p, parts.join(', ')) if parts.any?
   end
 end

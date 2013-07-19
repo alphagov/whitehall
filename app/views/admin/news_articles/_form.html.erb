@@ -1,22 +1,19 @@
-<%= standard_edition_form(edition) do |form| %>
+<%= edition_editing_tabs(edition) do %>
+  <%= standard_edition_form(edition) do |form| %>
 
-  <%= render partial: 'attachment_fields', locals: {
-              form: form,
-              edition: edition,
-              parent_type: :edition,
-              show_inline_attachment_help: edition.allows_inline_attachments?,
-              bulk_upload_zip_file: @bulk_upload_zip_file } %>
+    <%= render partial: 'inline_attachments_info', locals: { form: form, edition: edition } %>
 
-  <fieldset>
-    <legend>Associations</legend>
-    <%= render partial: 'related_policy_fields', locals: { form: form, edition: edition } %>
-    <%= render partial: 'document_series_fields', locals: { form: form, edition: edition } %>
-    <%= render partial: 'organisation_fields', locals: { form: form, edition: edition } %>
-    <%= render partial: 'appointment_fields', locals: { form: form, edition: edition } %>
-    <%= render partial: 'world_location_fields', locals: { form: form, edition: edition } %>
-    <%= render partial: 'topical_event_fields', locals: { form: form, edition: edition } %>
-    <%= render partial: 'worldwide_priority_fields', locals: { form: form, edition: edition } %>
-  </fieldset>
+    <fieldset>
+      <legend>Associations</legend>
+      <%= render partial: 'related_policy_fields', locals: { form: form, edition: edition } %>
+      <%= render partial: 'document_series_fields', locals: { form: form, edition: edition } %>
+      <%= render partial: 'organisation_fields', locals: { form: form, edition: edition } %>
+      <%= render partial: 'appointment_fields', locals: { form: form, edition: edition } %>
+      <%= render partial: 'world_location_fields', locals: { form: form, edition: edition } %>
+      <%= render partial: 'topical_event_fields', locals: { form: form, edition: edition } %>
+      <%= render partial: 'worldwide_priority_fields', locals: { form: form, edition: edition } %>
+    </fieldset>
 
-  <%= render partial: 'first_published_at', locals: { form: form, edition: edition } %>
+    <%= render partial: 'first_published_at', locals: { form: form, edition: edition } %>
+  <% end %>
 <% end %>

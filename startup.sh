@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ "$SHOW_PRODUCTION_IMAGES"=="" ]; then
+if [ -z "$SHOW_PRODUCTION_IMAGES" ]; then
   echo "You're not showing production images. "
   echo
   echo "If you want to, then run like this instead:"

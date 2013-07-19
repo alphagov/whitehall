@@ -111,16 +111,16 @@
       <section class="tab-pane" id="attachments">
         <h1>Attachments</h1>
         <% if @edition.attachments.any? %>
-          <ul>
+          <ol class="existing-attachments">
             <% @edition.attachments.each do |attachment| %>
-              <%= content_tag_for :li, attachment do %>
-                <%= link_to(attachment.url) do %>
-                  <%= attachment_thumbnail(attachment) %>
-                  <%= attachment.title %>
-                <% end %>
-              <% end %>
+              <li class="clearfix well">
+                <%= attachment_thumbnail(attachment) %>
+                <span class="title"><%= attachment.title %></span>
+                <span class="file">File: <%= link_to attachment.filename, attachment.url %></span>
+                <%= attachment_metadata_tag(attachment) %>
+              </li>
             <% end %>
-          </ul>
+          </ol>
         <% else %>
           <p>No attachments</p>
         <% end %>

@@ -15,14 +15,9 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
   should_allow_related_policies_for :consultation
   should_allow_organisations_for :consultation
   should_allow_ministerial_roles_for :consultation
-  should_allow_attachments_for :consultation
-  should_allow_bulk_upload_attachments_for :consultation
   should_require_alternative_format_provider_for :consultation
-  show_should_display_attachments_for :consultation
-  should_show_inline_attachment_help_for :consultation
   should_allow_html_versions_for :consultation
   should_allow_attached_images_for :consultation
-  should_allow_attachment_references_for :consultation
   should_prevent_modification_of_unmodifiable :consultation
   should_allow_alternative_format_provider_for :consultation
   should_allow_assignment_to_document_series :consultation
@@ -63,15 +58,6 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     consultation = assigns(:edition)
     assert_equal 1, consultation.response.consultation_response_attachments.length
     assert_not_nil consultation.response.consultation_response_attachments.first.attachment
-  end
-
-  view_test "new should allow users to add consultation metadata to an attachment" do
-    get :new
-
-    assert_select "form#new_edition" do
-      assert_select "input[type=text][name='edition[edition_attachments_attributes][0][attachment_attributes][order_url]']"
-      assert_select "input[type=text][name='edition[edition_attachments_attributes][0][attachment_attributes][price]']"
-    end
   end
 
   test "create should create a new consultation" do
