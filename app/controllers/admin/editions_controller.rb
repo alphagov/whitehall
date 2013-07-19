@@ -57,7 +57,7 @@ class Admin::EditionsController < Admin::BaseController
 
   def create
     if @edition.save
-      redirect_to admin_edition_path(@edition), notice: "The document has been saved"
+      redirect_to_show_or_edit
     else
       flash.now[:alert] = "There are some problems with the document"
       extract_edition_information_from_errors
@@ -83,7 +83,7 @@ class Admin::EditionsController < Admin::BaseController
           redirect_to admin_editions_path(session_filters.merge(state: :imported))
         end
       else
-        redirect_to admin_edition_path(@edition), notice: "The document has been saved"
+        redirect_to_show_or_edit
       end
     else
       flash.now[:alert] = "There are some problems with the document"
@@ -139,6 +139,15 @@ class Admin::EditionsController < Admin::BaseController
     (params[:edition] || {}).merge(creator: current_user)
   end
 
+  def redirect_to_show_or_edit
+    message = "The document has been saved"
+    if params[:save_and_continue].present?
+      redirect_to [:edit, :admin, @edition], notice: message
+    else
+     redirect_to admin_edition_url(@edition), notice: message
+   end
+  end
+
   def build_edition
     edition_locale = edition_params[:locale] || I18n.default_locale
     I18n.with_locale(edition_locale) do
@@ -154,13 +163,6 @@ class Admin::EditionsController < Admin::BaseController
   def extract_edition_information_from_errors
     information = @edition.errors.delete(:information)
     @information = information ? information.first : nil
-  end
-
-  def prevent_modification_of_unmodifiable_edition
-    if @edition.unmodifiable?
-      notice = "You cannot modify a #{@edition.state} #{@edition.type.titleize}"
-      redirect_to admin_edition_path(@edition), notice: notice
-    end
   end
 
   def default_arrays_of_ids_to_empty

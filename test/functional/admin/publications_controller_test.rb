@@ -14,13 +14,8 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
   should_allow_related_policies_for :publication
   should_allow_organisations_for :publication
   should_allow_ministerial_roles_for :publication
-  should_allow_attachments_for :publication
-  should_allow_bulk_upload_attachments_for :publication
   should_allow_references_to_statistical_data_sets_for :publication
   should_require_alternative_format_provider_for :publication
-  show_should_display_attachments_for :publication
-  should_allow_attachment_references_for :publication
-  should_not_show_inline_attachment_help_for :publication
   should_allow_html_versions_for :publication
   should_allow_attached_images_for :publication
   should_allow_association_between_world_locations_and :publication
@@ -44,15 +39,6 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
 
     assert_select "select[name='edition[publication_type_id]']" do
       assert_select "option", text: PublicationType::Consultation.singular_name, count: 0
-    end
-  end
-
-  view_test "new should allow users to add publication metadata to an attachment" do
-    get :new
-
-    assert_select "form#new_edition" do
-      assert_select "input[type=text][name='edition[edition_attachments_attributes][0][attachment_attributes][order_url]']"
-      assert_select "input[type=text][name='edition[edition_attachments_attributes][0][attachment_attributes][price]']"
     end
   end
 
@@ -94,18 +80,6 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     assert_select "form#edit_edition" do
       assert_select "select[name='edition[publication_type_id]']"
       assert_select "select[name*='edition[publication_date']", count: 5
-    end
-  end
-
-  view_test "edit should allow users to assign publication metadata to an attachment" do
-    publication = create(:publication, :with_attachment)
-    attachment = publication.attachments.first
-
-    get :edit, id: publication
-
-    assert_select "form#edit_edition" do
-      assert_select "input[type=text][name='edition[edition_attachments_attributes][0][attachment_attributes][order_url]']"
-      assert_select "input[type=text][name='edition[edition_attachments_attributes][0][attachment_attributes][price]']"
     end
   end
 

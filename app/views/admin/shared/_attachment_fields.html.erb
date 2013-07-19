@@ -1,30 +1,6 @@
-<% bulk_upload_zip_file ||= nil %>
 <fieldset id="<%= parent_type %>_attachment_fields" class="attachments multiple_file_uploads tabbable">
   <legend><%= defined?(legend) ? legend : "Attachments" %></legend>
 
-  <% if bulk_upload_zip_file.present? %>
-  <ul class="nav nav-tabs attachment-mode-select">
-    <li class="active">
-      <a href="#bulk_upload_attachments"><%= label_tag nil, class: 'radio inline', data: {target: '#bulk_upload_attachments'} do %><%= radio_button_tag :attachment_mode, 'bulk', bulk_upload_zip_file.errors.any? %> Bulk upload<% end %></a>
-    </li>
-    <li>
-      <a href="#individual_upload_attachments"><%= label_tag nil, class: 'radio inline', data: {target: '#individual_upload_attachments'} do %><%= radio_button_tag :attachment_mode, 'individual', bulk_upload_zip_file.errors.empty? %> Individual upload<% end %></a>
-    </li>
-  </ul>
-
-  <div class="tab-content">
-    <section id="bulk_upload_attachments" class="tab-pane active">
-      <%= fields_for bulk_upload_zip_file do |f| %>
-        <%= f.errors %>
-        <%= f.label :zip_file, nil, required: false %>
-        <%= f.file_field :zip_file %>
-      <% end %>
-      <div class="form-actions">
-        <%= form.submit("Bulk upload", class: "btn btn-primary btn-large") %>
-      </div>
-    </section>
-    <section id="individual_upload_attachments" class="tab-pane">
-  <% end %>
   <% i = 0 %>
   <%= form.fields_for "#{parent_type}_attachments" do |edition_attachments_fields| %>
     <% if edition_attachments_fields.object.new_record? %>
@@ -54,7 +30,7 @@
         <% end %>
       </div>
     <% else %>
-      <div class="well">
+      <div class="well" id="attachment_<%= edition_attachments_fields.object.id %>">
         <%= edition_attachments_fields.fields_for :attachment do |attachment_fields| %>
           <%= attachment_fields.text_field :title %>
           <% if edition.allows_attachment_references? %>
@@ -72,18 +48,13 @@
             <%= replacement_attachment_data_fields(attachment_fields) %>
           </div>
         <% end %>
-        <% if show_inline_attachment_help %>
+        <% if edition.allows_inline_attachments? %>
           <p>Markdown to use:</p>
-          <input type="text" readonly="readonly" value="!@<%= i += 1 %>" />
+          <input type="text" readonly="readonly" name="markdown" value="!@<%= i += 1 %>" />
           <p>or</p>
-          <input type="text" readonly="readonly" value="[InlineAttachment:<%= i %>]" />
+          <input type="text" readonly="readonly" name="markdown_inline" value="[InlineAttachment:<%= i %>]" />
         <% end %>
       </div>
     <% end %>
   <% end %>
-  <% if bulk_upload_zip_file.present? %>
-    </section>
-  </div>
-  <% end %>
-
 </fieldset>

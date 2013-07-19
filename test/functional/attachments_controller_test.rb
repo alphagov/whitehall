@@ -73,6 +73,15 @@ class AttachmentsControllerTest < ActionController::TestCase
     assert_match /^inline;/, response.headers['Content-Disposition']
   end
 
+  test 'requesting an attachment that has not been virus checked redirects to the placeholder page' do
+    attachment_data = create(:attachment_data)
+    visible_edition = create( :published_publication, :with_attachment, attachments: [create(:attachment, attachment_data: attachment_data)])
+
+    get_show attachment_data
+
+    assert_redirected_to placeholder_url
+  end
+
   private
 
   def create_thumbnail_for_upload(uploader)

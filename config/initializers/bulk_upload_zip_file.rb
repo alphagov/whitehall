@@ -3,3 +3,5 @@ BulkUpload::ZipFile.default_root_directory = if Rails.env.test?
 else
   Rails.root.join('bulk-upload-zip-file-tmp')
 end
+
+FileUtils.mkdir_p(BulkUpload::ZipFile.default_root_directory)

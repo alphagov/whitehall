@@ -25,13 +25,6 @@ Scenario: Adding multiple images
   When I select an image for the detailed guide
   Then I should be able to select another image for the detailed guide
 
-@javascript
-Scenario: Adding multiple attachments
-  Given I am a writer
-  Given I start drafting a new detailed guide
-  When I select an attachment for the detailed guide
-  Then I should be able to select another attachment for the detailed guide
-
 Scenario: Publishing a submitted detailed guide
   Given I am an editor
   Given two topics "Facial Hair" and "Hirsuteness" exist

@@ -2,6 +2,49 @@ require 'tmpdir'
 require 'open3'
 
 class BulkUpload
+  extend ActiveModel::Naming
+  include ActiveModel::Validations
+  include ActiveModel::Conversion
+
+  validate :attachments_are_valid?
+
+  attr_accessor :attachments
+
+  def self.from_files(file_paths)
+    attachment_params = file_paths.map do |file|
+      { attachment_data_attributes: { file: File.open(file) } }
+    end
+
+    new(attachments: attachment_params)
+  end
+
+  def initialize(params={})
+    @attachments = params.fetch(:attachments, []).map {|p| Attachment.new(p) }
+  end
+
+  def to_model
+    self
+  end
+
+  def persisted?
+    false
+  end
+
+  def save_attachments_to_edition(edition)
+    if valid?
+      edition.attachments << attachments
+    else
+      false
+    end
+  end
+
+  def attachments_are_valid?
+    attachments.each { |attachment| attachment.valid? }
+    unless attachments.all? { |attachment| attachment.valid? }
+      errors[:base] << 'Please enter missing fields for each attachment'
+    end
+  end
+
   class ZipFile
     class << self
       attr_accessor :default_root_directory
@@ -15,20 +58,19 @@ class BulkUpload
 
     validates :zip_file, presence: true
     validate :is_a_zip_file
+    validate :contains_only_whitelisted_file_types
 
     def persisted?
       false
     end
 
-    def initialize(zip_file, root_dir = BulkUpload::ZipFile.default_root_directory)
+    def initialize(zip_file=nil)
       @zip_file = zip_file
-      @root_dir = root_dir
-      FileUtils.mkdir_p(@root_dir)
       store_temporarily
     end
 
     def temp_dir
-      @temp_dir ||= Dir.mktmpdir(nil, @root_dir)
+      @temp_dir ||= Dir.mktmpdir(nil, BulkUpload::ZipFile.default_root_directory)
     end
 
     def store_temporarily
@@ -37,15 +79,15 @@ class BulkUpload
       FileUtils.cp(self.zip_file.tempfile, @temp_location)
     end
 
-    def extracted_files
-      @extracted_files ||=
+    def extracted_file_paths
+      @extracted_files_paths ||=
         extract_contents.
           split(/[\r\n]+/).
           map { |l| l.strip }.
           reject { |l| l =~ /\A(Archive|creating):/ }.
-          map { |f| f.gsub(/\Ainflating:\s+/, '') }.
+          map { |f| f.gsub(/\A(inflating|extracting):\s+/, '') }.
           reject { |f| f =~ /\/__MACOSX\// }.
-          map { |f| [File.basename(f), File.expand_path(f)] }
+          map { |f| File.expand_path(f) }
     end
 
     def extract_contents
@@ -53,101 +95,29 @@ class BulkUpload
     end
 
     def is_a_zip_file
-      unless @zip_file.nil?
-        errors.add(:zip_file, 'not a zip file') unless looks_like_a_zip? && is_a_zip?
+      if @zip_file.present?
+        errors.add(:zip_file, 'not a zip file') unless is_a_zip?
       end
-    end
-
-    def looks_like_a_zip?
-      @zip_file.original_filename =~ /\.zip\Z/
     end
 
     def is_a_zip?
       _, _, errs = Open3.popen3("#{Whitehall.system_binaries[:zipinfo]} -1 #{self.temp_location} > /dev/null")
       errs.read.empty?
     end
-  end
 
-  class ZipFileToAttachments
-    def initialize(zip_file, edition, edition_params)
-      @zip_file = zip_file
-      @edition = edition
-      @edition_params = edition_params
-    end
+    private
 
-    def manipulate_params!
-      remove_attachments_params
-      add_params_for_new_attachments
-      add_params_to_replace_existing_attachments
-      add_bulk_upload_flag
-    end
-
-    def new_attachments
-      if @new_attachments.nil?
-        @new_attachments = @zip_file.extracted_files
-        unless @edition.nil?
-          @new_attachments = @new_attachments.
-            reject { |(filename, location)|
-              @edition.attachments.any? { |a| filename == a.filename }
-            }
-        end
-      end
-      @new_attachments
-    end
-
-    def add_params_for_new_attachments
-      new_attachments.each do |filename, location|
-        add_edition_attachment_params({
-          'attachment_attributes' => {
-            'attachment_data_attributes' => {
-              'file' => ActionDispatch::Http::UploadedFile.new(filename: filename, tempfile: File.open(location))
-            }
-          }
-        })
+    def contains_only_whitelisted_file_types
+      if @zip_file.present? && is_a_zip? && contains_disallowed_file_types?
+        errors.add(:zip_file, 'contains invalid files')
       end
     end
 
-    def replacement_attachments
-      if @replacement_attachments.nil?
-        if @edition.nil?
-          @replacement_attachments = []
-        else
-          @replacement_attachments = @zip_file.extracted_files.
-            map { |(filename, location)|
-              [filename, location, @edition.edition_attachments.detect { |a| filename == a.attachment.filename }]
-            }.
-            reject { |(filename, location, edition_attachment)| edition_attachment.nil? }
-        end
+    def contains_disallowed_file_types?
+      extracted_file_paths.any? do |path|
+        extension = File.extname(path).sub(/^\./, '')
+        ! AttachmentUploader::EXTENSION_WHITE_LIST.include?(extension)
       end
-      @replacement_attachments
-    end
-
-    def add_params_to_replace_existing_attachments
-      replacement_attachments.each do |filename, location, edition_attachment|
-        add_edition_attachment_params({
-          'id' => edition_attachment.id.to_s,
-          'attachment_attributes' => {
-            'id' => edition_attachment.attachment.id.to_s,
-            'attachment_data_attributes' => {
-              'file' => ActionDispatch::Http::UploadedFile.new(filename: filename, tempfile: File.open(location)),
-              'to_replace_id' => edition_attachment.attachment.attachment_data_id.to_s
-            }
-          }
-        })
-      end
-    end
-
-    def add_bulk_upload_flag
-      @edition_params['attachments_were_bulk_uploaded'] = 'true'
-    end
-
-    def add_edition_attachment_params(params)
-      @edition_params['edition_attachments_attributes'] ||= []
-      @edition_params['edition_attachments_attributes'] << params
-    end
-
-    def remove_attachments_params
-      @edition_params.delete(:edition_attachments_attributes)
     end
   end
 end

@@ -3,7 +3,6 @@ require "test_helper"
 class PublicationTest < ActiveSupport::TestCase
   should_allow_image_attachments
   should_be_attachable
-  should_force_review_of_bulk_uploaded_attachments
   should_not_allow_inline_attachments
   should_allow_referencing_of_statistical_data_sets
   should_protect_against_xss_and_content_attacks_on :title, :body, :summary, :change_note

@@ -1,0 +1,9 @@
+<% page_title "Editing attachment: #{@attachment.title}" %>
+
+<div class="span8">
+  <section>
+    <h1>Editing attachment: <%= @attachment.title %></h1>
+
+    <%= render partial: 'form', locals: { edition: @edition, attachment: @attachment, url: admin_edition_attachment_path(@edition, @attachment) } %>
+  </section>
+</div>

@@ -1,20 +1,23 @@
-<%= standard_edition_form(edition) do |form| %>
-  <fieldset>
-    <legend>Associations</legend>
-    <%= render partial: 'organisation_fields', locals: { form: form, edition: edition, alternative_format_required: true } %>
-    <%= render partial: 'topic_fields', locals: { form: form, edition: edition } %>
-    <%= render partial: 'minister_fields', locals: { form: form, edition: edition } %>
-    <%= render partial: 'world_location_fields', locals: { form: form, edition: edition } %>
-    <%= render partial: 'worldwide_priority_fields', locals: { form: form, edition: edition } %>
-  </fieldset>
+<%= edition_editing_tabs(edition) do %>
+  <%= standard_edition_form(edition) do |form| %>
 
-  <fieldset>
-    <legend>Who's working on this?</legend>
-    <%= render partial: 'policy_team_fields', locals: { form: form } %>
-    <%= render partial: 'policy_advisory_group_fields', locals: { form: form, edition: edition } %>
-  </fieldset>
+    <fieldset>
+      <legend>Associations</legend>
+      <%= render partial: 'organisation_fields', locals: { form: form, edition: edition, alternative_format_required: true } %>
+      <%= render partial: 'topic_fields', locals: { form: form, edition: edition } %>
+      <%= render partial: 'minister_fields', locals: { form: form, edition: edition } %>
+      <%= render partial: 'world_location_fields', locals: { form: form, edition: edition } %>
+      <%= render partial: 'worldwide_priority_fields', locals: { form: form, edition: edition } %>
+    </fieldset>
 
-  <%= render partial: 'nation_fields', locals: { form: form, edition: edition } %>
+    <fieldset>
+      <legend>Who's working on this?</legend>
+      <%= render partial: 'policy_team_fields', locals: { form: form } %>
+      <%= render partial: 'policy_advisory_group_fields', locals: { form: form, edition: edition } %>
+    </fieldset>
 
-  <%= render partial: 'local_government_fields', locals: { form: form, edition: edition } %>
+    <%= render partial: 'nation_fields', locals: { form: form, edition: edition } %>
+
+    <%= render partial: 'local_government_fields', locals: { form: form, edition: edition } %>
+  <% end %>
 <% end %>

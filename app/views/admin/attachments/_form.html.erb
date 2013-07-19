@@ -1,0 +1,28 @@
+<%= form_for [:admin, edition, attachment], url: url do |form| %>
+
+  <%= form.errors %>
+
+	<%= form.text_field :title %>
+
+  <% if edition.allows_attachment_references? %>
+    <%= render 'reference_fields', form: form %>
+  <% end %>
+
+  <%= form.fields_for :attachment_data do |attachment_data_fields| %>
+
+    <% if attachment_data_fields.object.filename %>
+      <p>Current file: <%= link_to attachment_data_fields.object.filename, attachment_data_fields.object.url %></p>
+    <% end %>
+
+    <%= attachment_data_fields.label :file, (attachment_data_fields.object.filename ? 'Replace file' : nil), required: false %>
+    <%= attachment_data_fields.file_field :file %>
+
+    <%= form.check_box :accessible, label_text: "Attachment is accessible" %>
+    <% if attachment_data_fields.object.file_cache.present? %>
+      <span class="already_uploaded"><%= File.basename(attachment_data_fields.object.file_cache) %> already uploaded</span>
+    <% end %>
+    <%= attachment_data_fields.hidden_field :file_cache %>
+  <% end %>
+
+  <%= form.save_or_cancel cancel: admin_edition_attachments_path(edition) %>
+<% end %>

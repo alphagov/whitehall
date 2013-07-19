@@ -1,19 +1,22 @@
-<%= standard_edition_form(edition) do |form| %>
-  <% if edition.role_appointment.nil? %>
+<%= edition_editing_tabs(edition) do %>
+  <%= standard_edition_form(edition) do |form| %>
+
+    <% if edition.role_appointment.nil? %>
+      <fieldset>
+        <legend>Temporary associations</legend>
+        <p>This field will be overwritten once the deliverer of the speech is chosen: it is used to ensure the right department checks the speech after import.</p>
+        <%= render partial: 'organisation_fields', locals: { form: form, edition: edition } %>
+      </fieldset>
+    <% end %>
+
     <fieldset>
-      <legend>Temporary associations</legend>
-      <p>This field will be overwritten once the deliverer of the speech is chosen: it is used to ensure the right department checks the speech after import.</p>
-      <%= render partial: 'organisation_fields', locals: { form: form, edition: edition } %>
+      <legend>Associations</legend>
+      <%= render partial: 'related_policy_fields', locals: { form: form, edition: edition } %>
+      <%= render partial: 'document_series_fields', locals: { form: form, edition: edition } %>
+      <%= render partial: 'world_location_fields', locals: { form: form, edition: edition } %>
+      <%= render partial: 'worldwide_priority_fields', locals: { form: form, edition: edition } %>
+      <%= render partial: 'topical_event_fields', locals: { form: form, edition: edition } %>
     </fieldset>
+
   <% end %>
-
-  <fieldset>
-    <legend>Associations</legend>
-    <%= render partial: 'related_policy_fields', locals: { form: form, edition: edition } %>
-    <%= render partial: 'document_series_fields', locals: { form: form, edition: edition } %>
-    <%= render partial: 'world_location_fields', locals: { form: form, edition: edition } %>
-    <%= render partial: 'worldwide_priority_fields', locals: { form: form, edition: edition } %>
-    <%= render partial: 'topical_event_fields', locals: { form: form, edition: edition } %>
-  </fieldset>
-
 <% end %>

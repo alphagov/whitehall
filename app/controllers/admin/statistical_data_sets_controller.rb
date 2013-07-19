@@ -1,5 +1,4 @@
 class Admin::StatisticalDataSetsController < Admin::EditionsController
-  include Admin::EditionsController::Attachments
 
   private
 

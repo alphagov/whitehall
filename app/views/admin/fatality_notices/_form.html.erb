@@ -1,23 +1,26 @@
-<%= standard_edition_form(edition) do |form| %>
-  <fieldset>
-    <legend>Associations</legend>
-    <%= render partial: 'organisation_fields', locals: { form: form, edition: edition } %>
-    <%= render partial: 'appointment_fields', locals: { form: form, edition: edition } %>
-    <%= render partial: 'operational_field_fields', locals: { form: form, edition: edition } %>
+<%= edition_editing_tabs(edition) do %>
+  <%= standard_edition_form(edition) do |form| %>
 
-  </fieldset>
+    <fieldset>
+      <legend>Associations</legend>
+      <%= render partial: 'organisation_fields', locals: { form: form, edition: edition } %>
+      <%= render partial: 'appointment_fields', locals: { form: form, edition: edition } %>
+      <%= render partial: 'operational_field_fields', locals: { form: form, edition: edition } %>
 
-  <fieldset class="named fatality-notice-casualties js-duplicate-fields">
-    <legend>Roll call info (displays on the field of operation)</legend>
-    <%= form.text_area :roll_call_introduction, rows: 2, label_text: 'Introduction' %>
-    <h3>Casualties</h3>
-    <%= form.fields_for :fatality_notice_casualties do |casualty_form| %>
-      <div class="js-duplicate-fields-set well">
-        <%= casualty_form.text_area :personal_details, horizontal: true, rows: 2 %>
-        <%= casualty_form.hidden_field :_destroy, class: 'js-hidden-destroy' %>
-      </div>
-    <% end %>
-  </fieldset>
+    </fieldset>
 
-  <%= render partial: 'first_published_at', locals: { form: form, edition: edition } %>
+    <fieldset class="named fatality-notice-casualties js-duplicate-fields">
+      <legend>Roll call info (displays on the field of operation)</legend>
+      <%= form.text_area :roll_call_introduction, rows: 2, label_text: 'Introduction' %>
+      <h3>Casualties</h3>
+      <%= form.fields_for :fatality_notice_casualties do |casualty_form| %>
+        <div class="js-duplicate-fields-set well">
+          <%= casualty_form.text_area :personal_details, horizontal: true, rows: 2 %>
+          <%= casualty_form.hidden_field :_destroy, class: 'js-hidden-destroy' %>
+        </div>
+      <% end %>
+    </fieldset>
+
+    <%= render partial: 'first_published_at', locals: { form: form, edition: edition } %>
+  <% end %>
 <% end %>

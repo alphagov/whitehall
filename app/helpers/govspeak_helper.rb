@@ -65,6 +65,13 @@ module GovspeakHelper
     headers
   end
 
+  def inline_attachment_code_tags(number)
+    content_tag(:code, "!@#{number}") <<
+    ' or '.html_safe <<
+    content_tag(:code, "[InlineAttachment:#{number}]")
+  end
+
+
   private
   def remove_extra_quotes_from_blockquotes(govspeak)
     Whitehall::ExtraQuoteRemover.new.remove(govspeak)

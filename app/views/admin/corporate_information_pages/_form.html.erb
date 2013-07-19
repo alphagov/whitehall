@@ -11,7 +11,7 @@
 
   <%= form.text_area :body, label_text: "Body", class: "previewable", disabled: disabled, required: true %>
 
-  <%= render partial: "admin/editions/attachment_fields", locals: { form: form, edition: corporate_information_page, parent_type: :corporate_information_page, show_inline_attachment_help: true } %>
+  <%= render partial: "admin/shared/attachment_fields", locals: { form: form, edition: corporate_information_page, parent_type: :corporate_information_page } %>
 
   <%= form.save_or_cancel cancel: [:admin, @organisation] %>
 <% end %>
