@@ -53,6 +53,10 @@ module Attachable
     true
   end
 
+  def can_order_attachments?
+    !allows_inline_attachments?
+  end
+
   def has_thumbnail?
     thumbnailable_attachments.any?
   end

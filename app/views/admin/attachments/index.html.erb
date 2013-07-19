@@ -17,7 +17,7 @@
 
       <% if @edition.attachments.any? %>
 
-        <% if @edition.attachments.many? %>
+        <% if @edition.can_order_attachments? %>
           <p class="alert alert-info">
             To change the order of your attachments, drag them up or down and then click "Save attachment order" at
             the bottom of the page.
@@ -25,7 +25,7 @@
         <% end %>
 
         <%= form_tag order_admin_edition_attachments_path(@edition), method: :put do %>
-          <ol class="existing-attachments js-sortable">
+          <ol class="existing-attachments<%= ' js-sortable' if @edition.can_order_attachments? %>">
             <% @edition.attachments.each do |attachment| %>
               <li class="clearfix well">
                 <%= attachment_thumbnail(attachment) %>
@@ -33,8 +33,10 @@
                 <span class="file">File: <%= link_to attachment.filename, attachment.url %></span>
                 <%= attachment_metadata_tag(attachment) %>
 
-                <%= label_tag "ordering-#{attachment.id}", "Order:" %>
-                <%= text_field_tag "ordering[#{attachment.id}]", attachment.ordering, id: "ordering-#{attachment.id}", class: "ordering" %>
+                <% if @edition.can_order_attachments? %>
+                  <%= label_tag "ordering-#{attachment.id}", "Order:" %>
+                  <%= text_field_tag "ordering[#{attachment.id}]", attachment.ordering, id: "ordering-#{attachment.id}", class: "ordering" %>
+                <% end %>
 
                 <ul class="actions">
                   <li>
@@ -48,9 +50,10 @@
             <% end %>
           </ol>
 
-          <% if @edition.attachments.many? %>
+          <% if @edition.can_order_attachments? %>
             <%= submit_tag 'Save attachment order', class: 'btn btn-primary' %>
           <% end %>
+
         <% end %>
       <% end %>
     <% end %>
