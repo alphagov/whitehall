@@ -18,12 +18,13 @@ class AttachmentsControllerTest < ActionController::TestCase
     assert_redirected_to @controller.view_context.path_to_image('thumbnail-placeholder.png')
   end
 
-  test "attachments that aren't visible and have been replaced are redirected to the replacement attachment" do
+  test "attachments that aren't visible and have been replaced are permanently redirected to the replacement attachment" do
     replacement = create(:attachment_data)
     attachment_data = create(:attachment_data, replaced_by: replacement)
     get_show attachment_data
 
     assert_redirected_to replacement.url
+    assert_equal 301, response.status
   end
 
   test 'document attachments that are visible are sent to the browser inline' do

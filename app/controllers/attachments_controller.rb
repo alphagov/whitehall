@@ -7,7 +7,7 @@ class AttachmentsController < ApplicationController
     else
       replacement = attachment_data.replaced_by
       if replacement
-        redirect_to replacement.url
+        redirect_to replacement.url, status: 301
       else
         redirect_to_placeholder file_path
       end
