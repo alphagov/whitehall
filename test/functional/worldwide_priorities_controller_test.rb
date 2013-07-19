@@ -60,7 +60,7 @@ class WorldwidePrioritiesControllerTest < ActionController::TestCase
     get :show, id: priority.document, locale: 'fr'
 
     assert_select ".type", /Priorité internationale/
-    assert_select ".change-notes-title", /Publié/
+    assert_select ".change-notes-title", /Historique de page/
   end
 
   test '#activity loads the recently changed documents related to the priority' do

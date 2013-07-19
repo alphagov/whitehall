@@ -274,8 +274,9 @@ es-419:
       published: Publicado
       reference: Ref
   change_notes:
-    published: Publicado
-    updated: Actualizado
+    page_history:
+    published_at:
+    updated_at:
   contact:
     contact_form: Formulario de contacto
     email: Correo electrónico

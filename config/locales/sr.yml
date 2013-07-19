@@ -400,8 +400,9 @@ sr:
       published: Objavljeno
       reference: Ref
   change_notes:
-    published: Obavljeno
-    updated: Ažurirano
+    page_history:
+    published_at:
+    updated_at:
   contact:
     contact_form: formular za kontakt
     email: e-mail

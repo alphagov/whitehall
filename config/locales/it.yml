@@ -274,8 +274,9 @@ it:
       published: Pubblicato
       reference: Rif
   change_notes:
-    published: Pubblicato
-    updated: Aggiornato
+    page_history:
+    published_at:
+    updated_at:
   contact:
     contact_form: Contattaci
     email: Email

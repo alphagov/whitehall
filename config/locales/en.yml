@@ -288,8 +288,9 @@ en:
     contact_form: Contact form
   read_more: Read more
   change_notes:
-    published: Published
-    updated: Updated
+    page_history: Page history
+    published_at: Published %{date}
+    updated_at: Updated %{date}, <span class="toggle">see change history</span>
   organisation:
     type:
       Ministerial department:

@@ -274,8 +274,9 @@ de:
       published: Veröffentlicht
       reference: Aktenzeichen
   change_notes:
-    published: veröffentlicht
-    updated: aktualisiert
+    page_history:
+    published_at:
+    updated_at:
   contact:
     contact_form: Kontaktformular
     email: E-Mail

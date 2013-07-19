@@ -274,8 +274,9 @@ hy:
       published: Հրապարակված
       reference: Հղում
   change_notes:
-    published: Հրապարակված
-    updated: Թարմացված
+    page_history:
+    published_at:
+    updated_at:
   contact:
     contact_form: Կապի միջոց
     email: Էլելտրոնային հասցե

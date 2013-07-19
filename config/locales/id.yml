@@ -18,8 +18,9 @@ id:
       published: Diterbitkan
       reference: Ref
   change_notes:
-    published: Diterbitkan
-    updated: Diperbaharui
+    page_history:
+    published_at:
+    updated_at:
   contact:
     contact_form: Formulir kontak
     email: Email

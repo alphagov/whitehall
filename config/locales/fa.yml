@@ -18,8 +18,9 @@ fa:
       published: منتشر شده
       reference: مرجع
   change_notes:
-    published: منتشر شده
-    updated: به روز شده
+    page_history:
+    published_at:
+    updated_at:
   contact:
     contact_form: فرم ارتباط
     email: ایمیل

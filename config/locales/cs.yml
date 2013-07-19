@@ -336,8 +336,9 @@ cs:
       published: Uveřejněno
       reference: Reference
   change_notes:
-    published: Uveřejněno
-    updated: Aktualizováno
+    page_history:
+    published_at:
+    updated_at:
   contact:
     contact_form: Kontaktní formulář
     email: Email

@@ -16,9 +16,9 @@
           </dd>
           <% unless @document_series.published_editions.empty? %>
             <% most_recent_change = @document_series.published_editions.first.public_timestamp %>
-            <dt class="change-notes-title"><%= t('change_notes.updated') %>:</dt>
+            <dt class="change-notes-title"><%= t('change_notes.page_history') %>:</dt>
             <dd class="change-notes">
-              <%= absolute_date(most_recent_change, class: 'published-at') %>
+              <%= t('change_notes.published_at', date: absolute_date(most_recent_change, class: 'published-at')).html_safe %>
             </dd>
           <% end %>
         </dl>

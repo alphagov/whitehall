@@ -273,8 +273,9 @@ dr:
       published: نشر شده
       reference: ماخذ
   change_notes:
-    published: نشر شده
-    updated: به روز شده
+    page_history:
+    published_at:
+    updated_at:
   contact:
     contact_form: فارم تماس
     email: ایمیل

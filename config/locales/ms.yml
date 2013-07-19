@@ -16,8 +16,9 @@ ms:
       published:
       reference:
   change_notes:
-    published:
-    updated:
+    page_history:
+    published_at:
+    updated_at:
   contact:
     contact_form:
     email:

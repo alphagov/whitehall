@@ -19,8 +19,9 @@ vi:
       published: Đã đăng
       reference: đối với
   change_notes:
-    published: Xuất bản
-    updated: Cập nhật
+    page_history:
+    published_at:
+    updated_at:
   contact:
     contact_form: Mẫu liên hệ
     email: Email

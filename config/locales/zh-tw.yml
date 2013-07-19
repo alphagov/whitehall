@@ -16,8 +16,9 @@ zh-tw:
       published: 發行
       reference: 參考
   change_notes:
-    published: 發行
-    updated: 更新
+    page_history:
+    published_at:
+    updated_at:
   contact:
     contact_form: 聯絡資料表
     email: 電子郵件

@@ -273,8 +273,9 @@ lv:
       published: Publicēts
       reference: Ref.
   change_notes:
-    published: Publicēts
-    updated: Atjaunināts
+    page_history:
+    published_at:
+    updated_at:
   contact:
     contact_form: Saziņas forma
     email: E-pasts

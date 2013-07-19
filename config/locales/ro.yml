@@ -339,8 +339,9 @@ ro:
       published: ! 'Data publicării '
       reference: ! 'Referință '
   change_notes:
-    published: Publicat
-    updated: Actualizat
+    page_history:
+    published_at:
+    updated_at:
   contact:
     contact_form: Formular de contact
     email: Email

@@ -17,8 +17,9 @@ ko:
       published: 퍼블리시
       reference: 레퍼런스
   change_notes:
-    published: 퍼블리시
-    updated: 업데이트
+    page_history:
+    published_at:
+    updated_at:
   contact:
     contact_form: 콘택트 폼
     email: 이메일
