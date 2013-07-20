@@ -37,6 +37,12 @@ class Attachment < ActiveRecord::Base
     allow_blank: true, greater_than: 0
   }
 
+  def self.parliamentary_sessions
+    (1951..Time.zone.now.year).to_a.reverse.map do |year|
+      [Date.new(year).strftime('%Y'), Date.new(year + 1).strftime('%y')].join('/')
+    end
+  end
+
   def price
     return @price if @price
     return price_in_pence / 100.0 if price_in_pence

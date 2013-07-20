@@ -223,4 +223,12 @@ class AttachmentTest < ActiveSupport::TestCase
     attachment.stubs(:editions).returns([])
     assert attachment.accessible_by?(nil)
   end
+
+  test 'should generate list of parliamentary sessions' do
+    earliest_session = '1951/52'
+    now = Time.zone.now
+    latest_session = [now.strftime('%Y'), (now + 1.year).strftime('%y')].join('/')
+    assert_equal latest_session, Attachment.parliamentary_sessions.first
+    assert_equal earliest_session, Attachment.parliamentary_sessions.last
+  end
 end
