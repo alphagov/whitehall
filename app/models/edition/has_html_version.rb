@@ -1,4 +1,4 @@
-module Edition::HtmlVersion
+module Edition::HasHtmlVersion
   extend ActiveSupport::Concern
 
   class Trait < Edition::Traits::Trait

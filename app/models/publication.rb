@@ -6,7 +6,7 @@ class Publication < Publicationesque
   include Edition::AlternativeFormatProvider
   include Edition::WorldLocations
   include Edition::StatisticalDataSets
-  include Edition::HtmlVersion
+  include Edition::HasHtmlVersion
   include Edition::CanApplyToLocalGovernmentThroughRelatedPolicies
   include Edition::TopicalEvents
 

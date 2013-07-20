@@ -1,7 +1,7 @@
 class Admin::ConsultationsController < Admin::EditionsController
   include Admin::EditionsController::NationalApplicability
-  include Admin::EditionsController::HtmlVersion
 
+  before_filter :build_html_version, only: [:new, :edit]
   before_filter :build_image, only: [:new, :edit]
   before_filter :build_consultation_response_and_attachment, only: [:new, :edit]
   before_filter :cope_with_response_attachment_action_params, only: [:update]
