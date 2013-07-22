@@ -32,6 +32,12 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     assert_select 'li span.title', text: @edition.attachments[0].title
   end
 
+  view_test "GET :index shows metadata on each attachment" do
+    @edition.attachments << build(:attachment, isbn: '817525766-0')
+    get :index, edition_id: @edition
+    assert_select 'p', text: /ISBN: 817525766-0/
+  end
+
   test "PUT :order saves the new order of attachments" do
     attachment1 = build(:attachment)
     attachment2 = build(:attachment)
