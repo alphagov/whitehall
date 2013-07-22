@@ -252,8 +252,8 @@ class WorldLocationsControllerTest < ActionController::TestCase
 
     assert_select ".type", "Localisation"
     assert_select "#worldwide-priorities", /Priorités/
-    assert_select "#policies .see-all a", /Voir tous nos priorités politiques/
-    assert_select "#publications .see-all a", /Voir tous nos publications/
+    assert_select "#policies .see-all a", /Voir toutes nos priorités politiques/
+    assert_select "#publications .see-all a", /Voir toutes nos publications/
   end
 
   test "should only display translated priorities when requested for a locale" do
