@@ -2,7 +2,7 @@
 
   h2 {
     @include heading-36;
-    border-bottom: 5px solid $inside-gov-brand;
+    border-bottom: 5px solid black;
     margin-bottom: $gutter-half;
     @include media(tablet) {
       margin-bottom: $gutter;
@@ -176,7 +176,6 @@
               padding-right: $gutter-one-third;
               a {
                 font-weight: bold;
-                color: $fuschia;
               }
             }
           }
