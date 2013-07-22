@@ -1,2 +1,3 @@
 <%= form.text_field :hoc_paper_number, label_text: 'House of Commons paper number' %>
-<%= form.text_field :parliamentary_session %>
+<%= form.label :parliamentary_session %>
+<%= form.select :parliamentary_session, Attachment.parliamentary_sessions %>

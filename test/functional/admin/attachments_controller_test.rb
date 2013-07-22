@@ -66,6 +66,7 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     get :new, edition_id: publication
 
     assert_select "input[name='attachment[hoc_paper_number]']"
+    assert_select "option[value='#{Attachment.parliamentary_sessions.first}']"
   end
 
   test "POST :create saves the attachment to the edition and redirects" do
