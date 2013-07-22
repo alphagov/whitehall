@@ -132,7 +132,7 @@ module Whitehall::Uploader
       assert_equal "http://example.com/attachment.pdf", row.attributes[:attachments].first.attachment_source.url
     end
 
-    test "records the order_url, price, isbn, urn and command_paper_number on the first attachment" do
+    test "records the order_url, price, isbn, urn, command_paper_number, hoc_paper_number on the first attachment" do
       @attachment_cache.stubs(:fetch).with("http://example.com/attachment.pdf").returns(File.open(Rails.root.join("test", "fixtures", "two-pages.pdf")))
 
       row = new_publication_row({
@@ -178,36 +178,6 @@ module Whitehall::Uploader
           "country_4" => "fourth"
         })
       assert_equal world_locations, row.attributes[:world_locations]
-    end
-  end
-
-  class Whitehall::Uploader::PublicationRow::AttachmentMetadataBuilderTest < ActiveSupport::TestCase
-    def setup
-      @attachment = stub_everything('attachment')
-    end
-
-    test "does nothing if there are no attachments" do
-      Whitehall::Uploader::PublicationRow::AttachmentMetadataBuilder.build(nil, "order-url", "isbn", "urn", "command-paper-number", "")
-    end
-
-    test "does nothing if no attributes are set" do
-      Whitehall::Uploader::PublicationRow::AttachmentMetadataBuilder.build(@attachment, nil, nil, nil, nil, nil)
-    end
-
-    test "sets all attributes if given" do
-      @attachment.expects(:order_url=).with("order-url")
-      @attachment.expects(:isbn=).with("ISBN")
-      @attachment.expects(:unique_reference=).with("unique-reference")
-      @attachment.expects(:command_paper_number=).with("command-paper-number")
-      @attachment.expects(:price=).with("12.34")
-      Whitehall::Uploader::PublicationRow::AttachmentMetadataBuilder.build(@attachment, "order-url", "ISBN", "unique-reference", "command-paper-number", "12.34")
-    end
-
-    test "sets any subset of attributes that are given" do
-      @attachment.expects(:isbn=).with("ISBN")
-      @attachment.expects(:command_paper_number=).with("command-paper-number")
-      @attachment.expects(:price=).with("12.34")
-      Whitehall::Uploader::PublicationRow::AttachmentMetadataBuilder.build(@attachment, nil, "ISBN", nil, "command-paper-number", "12.34")
     end
   end
 end
