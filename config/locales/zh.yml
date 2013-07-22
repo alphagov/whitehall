@@ -246,7 +246,7 @@ zh:
     updated: 已更新
     view: 阅读'%{title}'
   document_filters:
-    description: 您可以使用过滤功能显示&nbsp;只符合您需要的&nbsp;结果。
+    description: 您可以使用过滤功能显示只符合您需要的结果。
     no_results:
       description: 尝试扩大您的搜索范围并再次搜索。
       title: 没有符合的文件。

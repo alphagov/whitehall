@@ -251,9 +251,9 @@ fr:
       publications: Nos publications
       quick_links: Liens directs
       related_policies: Priorités politiques connexes
-      see_all: Voir tous nos %{type}
+      see_all: Voir toutes nos %{type}
       statistics: Nos statistiques
-    see_all: Voir tous nos %{type}
+    see_all: Voir toutes nos %{type}
   activerecord:
     attributes:
       attachment:
