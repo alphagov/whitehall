@@ -35,7 +35,7 @@ class Attachment < ActiveRecord::Base
 
   def self.parliamentary_sessions
     (1951..Time.zone.now.year).to_a.reverse.map do |year|
-      [Date.new(year).strftime('%Y'), Date.new(year + 1).strftime('%y')].join('/')
+      [Date.new(year).strftime('%Y'), Date.new(year + 1).strftime('%y')].join('-')
     end
   end
 

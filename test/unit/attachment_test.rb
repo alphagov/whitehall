@@ -225,9 +225,9 @@ class AttachmentTest < ActiveSupport::TestCase
   end
 
   test 'should generate list of parliamentary sessions' do
-    earliest_session = '1951/52'
+    earliest_session = '1951-52'
     now = Time.zone.now
-    latest_session = [now.strftime('%Y'), (now + 1.year).strftime('%y')].join('/')
+    latest_session = [now.strftime('%Y'), (now + 1.year).strftime('%y')].join('-')
     assert_equal latest_session, Attachment.parliamentary_sessions.first
     assert_equal earliest_session, Attachment.parliamentary_sessions.last
   end
