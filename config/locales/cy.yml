@@ -585,6 +585,8 @@ cy:
       order_a_copy_full: Archebu copi o'r cyhoeddiad
       published: Cyhoeddwyd
       reference: Cyf
+      unnumbered_command_paper:
+      unnumbered_hoc_paper:
   change_notes:
     page_history:
     published_at:

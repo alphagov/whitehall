@@ -460,6 +460,8 @@ uk:
       order_a_copy_full: Замовити примірник публікації
       published: Опубліковано
       reference: Ref
+      unnumbered_command_paper:
+      unnumbered_hoc_paper:
   change_notes:
     page_history:
     published_at:

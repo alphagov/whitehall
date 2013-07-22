@@ -336,6 +336,8 @@ dr:
       order_a_copy_full: نقل نشریه را درخواست نمائید
       published: نشر شده
       reference: ماخذ
+      unnumbered_command_paper:
+      unnumbered_hoc_paper:
   change_notes:
     page_history:
     published_at:

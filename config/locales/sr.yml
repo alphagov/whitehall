@@ -465,6 +465,8 @@ sr:
       order_a_copy_full: Naruči primerak publikacije
       published: Objavljeno
       reference: Ref
+      unnumbered_command_paper:
+      unnumbered_hoc_paper:
   change_notes:
     page_history:
     published_at:

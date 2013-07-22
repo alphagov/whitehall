@@ -336,6 +336,8 @@ lv:
       order_a_copy_full: ! 'Pasūtīt publikāciju '
       published: Publicēts
       reference: Ref.
+      unnumbered_command_paper:
+      unnumbered_hoc_paper:
   change_notes:
     page_history:
     published_at:

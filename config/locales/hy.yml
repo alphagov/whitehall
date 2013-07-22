@@ -337,6 +337,8 @@ hy:
       order_a_copy_full: Պատվիրել հրապարակման կրկնօրինակը
       published: Հրապարակված
       reference: Հղում
+      unnumbered_command_paper:
+      unnumbered_hoc_paper:
   change_notes:
     page_history:
     published_at:

@@ -79,6 +79,8 @@ vi:
       order_a_copy_full: Đặt một bản sao của ấn phẩm truyền thông
       published: Đã đăng
       reference: đối với
+      unnumbered_command_paper:
+      unnumbered_hoc_paper:
   change_notes:
     page_history:
     published_at:

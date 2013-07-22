@@ -338,6 +338,8 @@ si:
       order_a_copy_full: ප්‍රකාශනයේ පිටපතක් ඇනවුම් කිරීමට
       published: පල කරනලද
       reference: අංකය
+      unnumbered_command_paper:
+      unnumbered_hoc_paper:
   change_notes:
     page_history:
     published_at:

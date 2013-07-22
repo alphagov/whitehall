@@ -400,6 +400,8 @@ cs:
       order_a_copy_full: Objednat kopii této publikace
       published: Uveřejněno
       reference: Reference
+      unnumbered_command_paper:
+      unnumbered_hoc_paper:
   change_notes:
     page_history:
     published_at:

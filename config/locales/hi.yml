@@ -338,6 +338,8 @@ hi:
       order_a_copy_full: प्रकाशन की प्रतिलिपि मंगाएँ
       published: प्रकाशित
       reference: संदर्भ
+      unnumbered_command_paper:
+      unnumbered_hoc_paper:
   change_notes:
     page_history:
     published_at:

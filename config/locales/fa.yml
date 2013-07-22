@@ -78,6 +78,8 @@ fa:
       order_a_copy_full: کپی سفارش دهید
       published: منتشر شده
       reference: مرجع
+      unnumbered_command_paper:
+      unnumbered_hoc_paper:
   change_notes:
     page_history:
     published_at:

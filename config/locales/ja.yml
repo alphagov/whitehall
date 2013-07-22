@@ -77,6 +77,8 @@ ja:
       order_a_copy_full: コピーを注文
       published: 掲載日
       reference: Ref
+      unnumbered_command_paper:
+      unnumbered_hoc_paper:
   change_notes:
     page_history:
     published_at:

@@ -78,6 +78,8 @@ id:
       order_a_copy_full: Memesan salinan dokumen
       published: Diterbitkan
       reference: Ref
+      unnumbered_command_paper:
+      unnumbered_hoc_paper:
   change_notes:
     page_history:
     published_at:

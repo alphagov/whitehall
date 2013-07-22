@@ -76,6 +76,8 @@ zh-tw:
       order_a_copy_full: 訂購發行刊物
       published: 發行
       reference: 參考
+      unnumbered_command_paper:
+      unnumbered_hoc_paper:
   change_notes:
     page_history:
     published_at:

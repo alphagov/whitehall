@@ -337,6 +337,8 @@ es-419:
       order_a_copy_full: Solicitar una copia de la publicación
       published: Publicado
       reference: Ref
+      unnumbered_command_paper:
+      unnumbered_hoc_paper:
   change_notes:
     page_history:
     published_at:

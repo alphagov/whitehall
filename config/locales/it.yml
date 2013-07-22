@@ -337,6 +337,8 @@ it:
       order_a_copy_full: Ordina una copia della pubblicazione
       published: Pubblicato
       reference: Rif
+      unnumbered_command_paper:
+      unnumbered_hoc_paper:
   change_notes:
     page_history:
     published_at:

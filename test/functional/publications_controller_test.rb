@@ -640,6 +640,22 @@ class PublicationsControllerTest < ActionController::TestCase
     end
   end
 
+  view_test 'show indicates when a command paper is unnumbered' do
+    edition = publication_with_attachment(unnumbered_command_paper: true)
+    get :show, id: edition.document
+    assert_select_object(edition.attachments.first) do
+      assert_select '.unnumbered-paper', text: 'Unnumbered command paper'
+    end
+  end
+
+  view_test 'show indicates when a House of Commons paper is unnumbered' do
+    edition = publication_with_attachment(unnumbered_hoc_paper: true)
+    get :show, id: edition.document
+    assert_select_object(edition.attachments.first) do
+      assert_select '.unnumbered-paper', text: 'Unnumbered act paper'
+    end
+  end
+
   private
 
   def publication_with_attachment(params = {})

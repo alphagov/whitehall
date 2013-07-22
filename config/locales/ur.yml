@@ -337,6 +337,8 @@ ur:
       order_a_copy_full: اشاعت کی کاپی طلب کیجئیے
       published: شائع شدہ
       reference: حوالہ
+      unnumbered_command_paper:
+      unnumbered_hoc_paper:
   change_notes:
     page_history:
     published_at:

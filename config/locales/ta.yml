@@ -338,6 +338,8 @@ ta:
       order_a_copy_full: வெளியீடு ஒன்றின் பிரதிக்கு கட்டளையிடுதல்
       published: பிரசுரிக்கப்பட்டது
       reference: குறிப்புரை
+      unnumbered_command_paper:
+      unnumbered_hoc_paper:
   change_notes:
     page_history:
     published_at:

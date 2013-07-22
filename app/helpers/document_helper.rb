@@ -130,6 +130,7 @@ Details of document required:
     references << "ISBN: #{attachment.isbn}" if attachment.isbn.present?
     references << "Unique reference: #{attachment.unique_reference}" if attachment.unique_reference.present?
     references << "Command paper number: #{attachment.command_paper_number}" if attachment.command_paper_number.present?
+    references << "HC: #{attachment.hoc_paper_number} #{attachment.parliamentary_session}" if attachment.hoc_paper_number.present?
     prefix = references.size == 1 ? "and its reference" : "and its references"
     references.any? ? ", #{prefix} (" + references.join(", ") + ")" : ""
   end

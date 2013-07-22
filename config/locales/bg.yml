@@ -347,6 +347,8 @@ bg:
       order_a_copy_full: Поръчайте копия
       published: Публикувано
       reference: Справка
+      unnumbered_command_paper:
+      unnumbered_hoc_paper:
   change_notes:
     page_history:
     published_at:

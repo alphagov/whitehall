@@ -337,6 +337,8 @@ de:
       order_a_copy_full: Exemplar der Veröffentlichung bestellen
       published: Veröffentlicht
       reference: Aktenzeichen
+      unnumbered_command_paper:
+      unnumbered_hoc_paper:
   change_notes:
     page_history:
     published_at:

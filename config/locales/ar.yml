@@ -584,6 +584,8 @@ ar:
       order_a_copy_full: طلب نسخة عن المطبوعة
       published: تاريخ النشر
       reference: إشارة
+      unnumbered_command_paper:
+      unnumbered_hoc_paper:
   change_notes:
     page_history:
     published_at:

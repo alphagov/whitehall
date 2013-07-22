@@ -338,6 +338,8 @@ ps:
       order_a_copy_full: د سند د کاپی غوښتنه وکړی
       published: خپور شوی
       reference: مواخذ
+      unnumbered_command_paper:
+      unnumbered_hoc_paper:
   change_notes:
     page_history:
     published_at:

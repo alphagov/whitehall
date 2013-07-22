@@ -77,6 +77,8 @@ th:
       order_a_copy_full: สั่งสำเนาเอกสารหนึ่งชุด
       published: ตีพิมพ์
       reference: อ้างอิง
+      unnumbered_command_paper:
+      unnumbered_hoc_paper:
   change_notes:
     page_history:
     published_at:

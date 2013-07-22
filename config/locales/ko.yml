@@ -77,6 +77,8 @@ ko:
       order_a_copy_full: 본 문서의 카피 주문하기
       published: 퍼블리시
       reference: 레퍼런스
+      unnumbered_command_paper:
+      unnumbered_hoc_paper:
   change_notes:
     page_history:
     published_at:

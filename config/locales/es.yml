@@ -337,6 +337,8 @@ es:
       order_a_copy_full: Pida una copa de la publicación
       published: Publicado
       reference: Referencia
+      unnumbered_command_paper:
+      unnumbered_hoc_paper:
   change_notes:
     page_history:
     published_at:

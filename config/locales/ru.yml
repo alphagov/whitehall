@@ -459,6 +459,8 @@ ru:
       order_a_copy_full: Заказать копию публикации
       published: Опубликовано
       reference: Ссылка
+      unnumbered_command_paper:
+      unnumbered_hoc_paper:
   change_notes:
     page_history:
     published_at:

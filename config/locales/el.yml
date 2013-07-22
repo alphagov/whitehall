@@ -339,6 +339,8 @@ el:
       order_a_copy_full: Ζητήστε αντιτυπο της έκδοσης
       published: Δημοσιεύτηκε
       reference: Σχετικά
+      unnumbered_command_paper:
+      unnumbered_hoc_paper:
   change_notes:
     page_history:
     published_at:

@@ -21,7 +21,18 @@
     <% end %>
     <p class="metadata">
       <% if attachment.isbn.present? or attachment.unique_reference.present? or attachment.command_paper_number.present? or attachment.hoc_paper_number.present? %>
-        <span class="references"><%= t('attachment.headings.reference') %>: <%= attachment_reference(attachment) %></span>
+        <span class="references">
+          <%= t('attachment.headings.reference') %>: <%= attachment_reference(attachment) %>
+        </span>
+      <% end %>
+      <% if attachment.unnumbered_command_paper? || attachment.unnumbered_hoc_paper? %>
+        <span class="unnumbered-paper">
+          <% if attachment.unnumbered_command_paper? %>
+            <%= t('attachment.headings.unnumbered_command_paper') %>
+          <% else %>
+            <%= t('attachment.headings.unnumbered_hoc_paper') %>
+          <% end %>
+        </span>
       <% end %>
       <% unless published_on.blank? %>
         <span class="changed"><%= t('attachment.headings.published') %>: <%= absolute_date(published_on) %></span>

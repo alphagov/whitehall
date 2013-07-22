@@ -76,6 +76,8 @@ zh:
       order_a_copy_full: 订阅报告副本
       published: 已发布
       reference: Ref
+      unnumbered_command_paper:
+      unnumbered_hoc_paper:
   change_notes:
     page_history:
     published_at:

@@ -336,6 +336,8 @@ pt:
       order_a_copy_full: Pedir uma cópia da publicação
       published: Publicado
       reference: Ref
+      unnumbered_command_paper:
+      unnumbered_hoc_paper:
   change_notes:
     page_history:
     published_at:

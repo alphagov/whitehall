@@ -460,6 +460,8 @@ be:
       order_a_copy_full: Замовіць копію гэтай публікацыі
       published: Апублікаваны
       reference: Спасылка
+      unnumbered_command_paper:
+      unnumbered_hoc_paper:
   change_notes:
     page_history:
     published_at:

@@ -464,6 +464,8 @@ he:
       order_a_copy_full: הזמן עותק של הפרסום
       published: פורסם
       reference: הפניה
+      unnumbered_command_paper:
+      unnumbered_hoc_paper:
   change_notes:
     page_history:
     published_at:
