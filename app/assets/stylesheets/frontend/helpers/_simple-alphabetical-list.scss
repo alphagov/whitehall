@@ -7,9 +7,9 @@
     position: relative;
     overflow: hidden;
     width: auto;
-    padding-left: 33.333%;
 
     @include media(tablet) {
+      padding-left: 33.333%;
       width: 66%;
     }
 
@@ -26,9 +26,7 @@
     }
     
     ul {
-      @include media(tablet) {
-        padding: 0 0 $gutter;
-      }
+      padding: 0 0 $gutter;
 
       li {
         @include core-19;
