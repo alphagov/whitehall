@@ -132,7 +132,7 @@ module Whitehall::Uploader
       assert_equal "http://example.com/attachment.pdf", row.attributes[:attachments].first.attachment_source.url
     end
 
-    test "records the order_url, price, isbn, urn, command_paper_number, hoc_paper_number on the first attachment" do
+    test "records any meta data onto the first attachment" do
       @attachment_cache.stubs(:fetch).with("http://example.com/attachment.pdf").returns(File.open(Rails.root.join("test", "fixtures", "two-pages.pdf")))
 
       row = new_publication_row({
@@ -141,8 +141,7 @@ module Whitehall::Uploader
         "order_url" => "http://example.com/order-it.php",
         "price" => "11.99",
         "isbn" => "1 86192 090 3",
-        "urn" => "10/899",
-        "command_paper_number" => "Cm 5861"
+        "urn" => "10/899"
       }, Logger.new(StringIO.new))
 
       attachment = Attachment.new(
@@ -150,8 +149,31 @@ module Whitehall::Uploader
         order_url: "http://example.com/order-it.php",
         price_in_pence: "1199",
         isbn: "1 86192 090 3",
-        unique_reference: "10/899",
-        command_paper_number: "Cm 5861"
+        unique_reference: "10/899"
+      )
+      assert_equal [attachment.attributes], row.attributes[:attachments].collect(&:attributes)
+    end
+
+    test "records any parlimentary paper information to the first attachment" do
+      @attachment_cache.stubs(:fetch).with("http://example.com/attachment.pdf").returns(File.open(Rails.root.join("test", "fixtures", "two-pages.pdf")))
+
+      row = new_publication_row({
+        'attachment_1_title' =>'title',
+        'attachment_1_url' => 'http://example.com/attachment.pdf',
+        'command_paper_number' => 'Cm 5861',
+        'hoc_paper_number' => '123456',
+        'parliamentary_session' => '2010-11',
+        'unnumbered_hoc_paper' => 'true',
+        'unnumbered_command_paper' => '',
+      }, Logger.new(StringIO.new))
+
+      attachment = Attachment.new(
+        title: "title",
+        command_paper_number: 'Cm 5861',
+        hoc_paper_number: '123456',
+        parliamentary_session: '2010-11',
+        unnumbered_hoc_paper: true,
+        unnumbered_command_paper: nil
       )
       assert_equal [attachment.attributes], row.attributes[:attachments].collect(&:attributes)
     end

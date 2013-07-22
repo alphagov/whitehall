@@ -6,6 +6,7 @@ module Whitehall::Uploader
         .multiple("document_series_#", 1..4)
         .required(%w{publication_type publication_date})
         .optional(%w{order_url price isbn urn command_paper_number}) # First attachment
+        .optional(%w{hoc_paper_number parliamentary_session unnumbered_hoc_paper unnumbered_command_paper}) # First attachment
         .ignored("ignore_*")
         .multiple(%w{attachment_#_url attachment_#_title}, 0..Row::ATTACHMENT_LIMIT)
         .optional('json_attachments')
@@ -99,6 +100,10 @@ module Whitehall::Uploader
       attachment.unique_reference = row["urn"]
       attachment.command_paper_number = row["command_paper_number"]
       attachment.price = row["price"]
+      attachment.hoc_paper_number = row["hoc_paper_number"]
+      attachment.parliamentary_session = row["parliamentary_session"]
+      attachment.unnumbered_hoc_paper = row["unnumbered_hoc_paper"]
+      attachment.unnumbered_command_paper = row["unnumbered_command_paper"]
     end
   end
 end
