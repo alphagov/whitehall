@@ -144,4 +144,8 @@ class HtmlAttachmentTest < ActiveSupport::TestCase
   test '#to_param returns the slug' do
     assert_equal 'slug', html_attachment.to_param
   end
+
+  test 'html? is true' do
+    assert html_attachment.html?
+  end
 end

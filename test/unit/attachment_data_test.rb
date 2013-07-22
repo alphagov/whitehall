@@ -170,4 +170,9 @@ class AttachmentDataTest < ActiveSupport::TestCase
     assert_equal replacer, to_be_replaced.replaced_by
     assert_equal replacer, replaced.reload.replaced_by
   end
+
+  test 'html? is false' do
+    attachment = build(:attachment_data)
+    refute attachment.html?
+  end
 end
