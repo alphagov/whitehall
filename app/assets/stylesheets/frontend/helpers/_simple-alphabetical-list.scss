@@ -7,10 +7,10 @@
     position: relative;
     overflow: hidden;
     width: auto;
-    padding-left: 25%;
 
     @include media(tablet) {
-      width: 75%;
+      padding-left: 33.333%;
+      width: 66%;
     }
 
     .image_holder {
@@ -18,39 +18,20 @@
     }
 
     h2 {
-      position: relative;
-      float: left;
-      display: inline;
-      width: 50px;
-      margin-left: -50px;
-      text-align: center;
-      @include ig-core-48;
+      @include core-80;
       font-weight: bold;
-      top: -3px;
-
       @include media(tablet) {
-        float: right;
-        width: 1em;
-        margin-right: -100%;
-        right: 200%;
-        padding: 0 $gutter-half;
-        padding-top: 4px;
-        top: 7px;
+        text-indent: -4px;
       }
     }
-
+    
     ul {
-      @include media(tablet) {
-        padding: 0 $gutter-half;
-      }
+      padding: 0 0 $gutter;
 
       li {
-        @include ig-core-19;
-        padding-bottom: 0;
-        
-        .role {
-          @include ig-core-14;
-        }
+        @include core-19;
+        padding: 5px 0;
+        border-bottom: 1px solid $border-colour;
       }
     }
   }
