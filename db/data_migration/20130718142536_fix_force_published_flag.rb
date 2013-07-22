@@ -3,7 +3,7 @@ require 'csv'
 gds_user = User.find_by_name!("GDS Inside Government Team")
 Edition::AuditTrail.whodunnit = gds_user
 
-CSV.foreach('db/data_migration/20130711131323_reindex_organisations_for_acronym_changes.csv') do |row|
+CSV.foreach('db/data_migration/20130718142536_fix_force_published_flag.csv') do |row|
   if document = Document.find_by_id(row.first)
     if edition = document.published_edition
       if (edition.force_published?) && edition.authors.include?(gds_user)
