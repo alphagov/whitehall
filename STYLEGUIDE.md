@@ -20,7 +20,7 @@ Within the frontend folder the basic structure of the files looks like:
     ./styleguide/
 
 
-The `base.scss` is the file that will be compiled with Sass. All other files should be referenced from it in the relevant sections. The IE variants enable us to use mixins which only show css to certain IE versions.
+The `base.scss` is the file that will be compiled with Sass. All other files should be referenced from it in the relevant sections. The IE variants (`base-ie[6-8].scss` which you should never need to edit as they include `base.scss`) enable us to use mixins which only show css to certain IE versions.
 
 ### `./helpers`
 
@@ -61,7 +61,7 @@ These are where you style the layout of a page and any elements which will only 
 
 ### `./resets`
 
-This contains the base html resets which remove most of the default styling a browser adds to elements. It also houses a reset to change any of the styles which have been added by static which might be flowing into the app.
+This contains the base html resets which remove most of the default styling a browser adds to elements. It also houses a reset to change any of the styles which have been added by [static][2] which might be flowing into the app.
 
 ### `./layouts`
 
@@ -70,7 +70,7 @@ There should be files in here for the views in `app/views/layouts`. They contain
 
 ### `./styleguide`
 
-These are a collection of Sass mixins. They shouldn't output any CSS when included and should only produce CSS when called from another file. Things should be put here and used before being standardised and moved into the frontend_toolkit.
+These are a collection of Sass mixins. They shouldn't output any CSS when included and should only produce CSS when called from another file. Things should be put here and used before being standardised and moved into the [frontend_toolkit][3].
 
 ## Layouts
 
@@ -107,7 +107,7 @@ So to create a standard top heading with navigation taking 25% width and content
       }
     }
     .content-block {
-      @include mediat(tablet){
+      @include media(tablet){
         width: 75%;
         float: left;
       ]
@@ -115,7 +115,7 @@ So to create a standard top heading with navigation taking 25% width and content
 
 ### Fonts
 
-The `ig-core-[0-9]{2}` font mixins are depricated. All new Sass should use the `core-[0-9]{2}` equivalents.
+The `ig-core-[0-9]{2}` font mixins are deprecated. All new Sass should use the `core-[0-9]{2}` equivalents.
 
 Always use the helper mixins. We don't have any generic styling for content markup, as such each view should define the font for its headings and paragraphs. Govspeak (markdown) is the exception to this where it should automatically get standard styling.
 
@@ -160,7 +160,9 @@ The standard wrapper for JavaScript files looks like:
 
 Using this format means you can write a unit test for `methodToDoSomething` by itself and check that it does exactly what you want it to do. Writing the same thing as a jQuery extension or as a clousured function means you couldn't then unit test the individual components.
 
-The init for your thing should then be called in `on_ready.js`.
+The init for your thing should then be called in `on_ready.js`. There are separate `on_ready.js` files for each of the admin and frontend.
+
+You should prefix any classes you wish your JavaScript to find with a [`js-` prefix][4]. This lets us easily see when refactoring code that there is some JavaScript behaviour associated to the object.
 
 ## Styles
 
@@ -173,3 +175,6 @@ If you want to add styles to things with the knowledge that JavaScript is availa
     }
 
 [1]: https://github.com/alphagov/govuk_frontend_toolkit#conditionals
+[2]: https://github.com/alphagov/static
+[3]: https://github.com/alphagov/govuk_frontend_toolkit
+[4]: https://github.com/alphagov/styleguides/blob/master/js.md#use-a-js--prefix-for-js-only-html-classes
