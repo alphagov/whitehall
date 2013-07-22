@@ -261,11 +261,11 @@
     p.circle{
       background-color:transparent;
       border:4px solid $inside-gov-secondary;
-      width:182px;
-      height:182px;
-      -moz-border-radius: 96px;
-      -webkit-border-radius: 96px;
-      border-radius: 96px;
+      width:200px;
+      height:200px;
+      -moz-border-radius: 105px;
+      -webkit-border-radius: 105px;
+      border-radius: 105px;
       display:block;
       margin: 5px auto 0;
       text-align:center;
@@ -285,7 +285,7 @@
         position: relative;
         top: $gutter-one-third;
         font-size:95px;
-        padding-top:0.35em;
+        padding-top:0.45em;
         padding-bottom:0;
         margin:0;
         font-weight: bold;
