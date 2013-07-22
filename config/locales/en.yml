@@ -60,12 +60,14 @@ en:
       price: Attachment price
       title: Attachment title
       unique_reference: Attachment unique reference
+      unnumbered_hoc_paper: Unnumbered House of Commons paper
     nested_attachment_data_field_names: &nested_attachment_data_field_names
       file: The attached file
     attributes:
       attachment:
         hoc_paper_number: House of Commons paper number
         isbn: ISBN
+        unnumbered_hoc_paper: Unnumbered House of Commons paper
       attachment_data:
         file: File
       corporate_information_page/corporate_information_page_attachments/attachment:
