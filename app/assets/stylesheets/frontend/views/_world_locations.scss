@@ -50,7 +50,9 @@
         };
 
         .letter {
-          @include heading-24;
+          @include core-27;
+          font-weight: bold;
+          padding-top: 5px;
         }
 
         .location-list {
