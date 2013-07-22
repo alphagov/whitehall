@@ -66,6 +66,8 @@ ActiveRecord::Schema.define(:version => 20130729085457) do
     t.string   "hoc_paper_number"
     t.string   "parliamentary_session"
     t.integer  "ordering"
+    t.boolean  "unnumbered_command_paper"
+    t.boolean  "unnumbered_hoc_paper"
   end
 
   add_index "attachments", ["attachment_data_id"], :name => "index_attachments_on_attachment_data_id"
