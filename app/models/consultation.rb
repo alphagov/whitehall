@@ -43,6 +43,10 @@ class Consultation < Publicationesque
     self.publication_type_id = PublicationType::Consultation.id
   end
 
+  def allows_inline_attachments?
+    false
+  end
+
   def not_yet_open?
     opening_on.nil? || (opening_on > Date.today)
   end
