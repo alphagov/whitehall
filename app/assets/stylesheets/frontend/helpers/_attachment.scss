@@ -20,6 +20,9 @@ $thumbnail-width: 99px;
     position: static;
     padding: 0;
     margin: 0;
+    &:after {
+      display: none;
+    }
   }
 
   .attachment-thumb {
