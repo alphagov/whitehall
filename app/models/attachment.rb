@@ -16,6 +16,7 @@ class Attachment < ActiveRecord::Base
 
   VALID_COMMAND_PAPER_NUMBER_PREFIXES = ['C.', 'Cd.', 'Cmd.', 'Cmnd.', 'Cm.']
 
+  validates_with AttachmentValidator
   validates :title, presence: true
   validates :isbn, isbn_format: true, allow_blank: true
   validates :command_paper_number, format: {
@@ -31,6 +32,12 @@ class Attachment < ActiveRecord::Base
   validates :price, numericality: {
     allow_blank: true, greater_than: 0
   }
+
+  def self.parliamentary_sessions
+    (1951..Time.zone.now.year).to_a.reverse.map do |year|
+      [Date.new(year).strftime('%Y'), Date.new(year + 1).strftime('%y')].join('-')
+    end
+  end
 
   def price
     return @price if @price

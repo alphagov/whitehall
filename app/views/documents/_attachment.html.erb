@@ -20,7 +20,7 @@
       <p class="extra-description"><%= extra_description %></p>
     <% end %>
     <p class="metadata">
-      <% if attachment.isbn.present? or attachment.unique_reference.present? or attachment.command_paper_number.present? %>
+      <% if attachment.isbn.present? or attachment.unique_reference.present? or attachment.command_paper_number.present? or attachment.hoc_paper_number.present? %>
         <span class="references"><%= t('attachment.headings.reference') %>: <%= attachment_reference(attachment) %></span>
       <% end %>
       <% unless published_on.blank? %>

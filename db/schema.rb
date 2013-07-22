@@ -63,6 +63,8 @@ ActiveRecord::Schema.define(:version => 20130719101104) do
     t.string   "order_url"
     t.integer  "price_in_pence"
     t.integer  "attachment_data_id"
+    t.string   "hoc_paper_number"
+    t.string   "parliamentary_session"
     t.integer  "ordering"
   end
 

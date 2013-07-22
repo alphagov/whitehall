@@ -501,11 +501,13 @@ ar:
   activerecord:
     attributes:
       attachment:
+        hoc_paper_number:
         isbn:
       attachment_data:
         file:
       corporate_information_page/corporate_information_page_attachments/attachment:
         command_paper_number:
+        hoc_paper_number:
         isbn:
         order_url:
         price:
@@ -517,6 +519,7 @@ ar:
         primary_mainstream_category: فئة توجيهات مفصلة أساسية
       policy_advisory_group/policy_group_attachments/attachment:
         command_paper_number:
+        hoc_paper_number:
         isbn:
         order_url:
         price:
@@ -526,6 +529,7 @@ ar:
         file:
       response/consultation_response_attachments/attachment:
         command_paper_number:
+        hoc_paper_number:
         isbn:
         order_url:
         price:
@@ -535,6 +539,7 @@ ar:
         file:
       supporting_page/supporting_page_attachments/attachment:
         command_paper_number:
+        hoc_paper_number:
         isbn:
         order_url:
         price:
@@ -546,6 +551,7 @@ ar:
       file:
     nested_attachment_field_names:
       command_paper_number:
+      hoc_paper_number:
       isbn:
       order_url:
       price:

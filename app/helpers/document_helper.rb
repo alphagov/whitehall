@@ -80,7 +80,13 @@ module DocumentHelper
     ref = []
     ref << "ISBN " + content_tag(:span, attachment.isbn, class: "isbn") if attachment.isbn.present?
     ref << content_tag(:span, attachment.unique_reference, class: "unique_reference") if attachment.unique_reference.present?
-    ref << content_tag(:span, attachment.command_paper_number, class: "command_paper_number") if attachment.command_paper_number.present?
+    if attachment.command_paper_number.present?
+      ref << content_tag(:span, attachment.command_paper_number, class: "command_paper_number")
+    end
+    if attachment.hoc_paper_number.present?
+      ref << content_tag(:span, "HC #{attachment.hoc_paper_number}", class: 'house_of_commons_paper_number') + ' ' +
+          content_tag(:span, attachment.parliamentary_session, class: 'parliamentary_session')
+    end
 
     ref.join(', ').html_safe
   end

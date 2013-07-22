@@ -54,22 +54,26 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
   end
 
   test "create should create a new publication and attachment with additional publication metadata" do
-    post :create, edition: controller_attributes_for(:publication).merge({
+    upload_file = fixture_file_upload('greenpaper.pdf', 'application/pdf')
+    post :create, edition: controller_attributes_for(:publication).merge(
       alternative_format_provider_id: create(:alternative_format_provider).id,
       edition_attachments_attributes: {
-        "0" => { attachment_attributes: attributes_for(:attachment,
-          title: "attachment-title",
-          order_url: 'http://example.com/publication',
-          price: "1.23").merge(attachment_data_attributes: {
-            file: fixture_file_upload('greenpaper.pdf', 'application/pdf')
-          })
+        '0' => {
+          attachment_attributes: attributes_for(:attachment,
+            title: 'attachment-title',
+            order_url: 'http://example.com/publication',
+            price: '1.23',
+            hoc_paper_number: '0123',
+            parliamentary_session: '1951/52'
+          ).merge(attachment_data_attributes: { file: upload_file }),
         }
       }
-    })
+    )
 
     created_publication = Publication.last
     assert_equal 'http://example.com/publication', created_publication.attachments.first.order_url
     assert_equal 1.23, created_publication.attachments.first.price
+    assert_equal '0123', created_publication.attachments.first.hoc_paper_number
   end
 
   view_test "edit displays publication fields" do
