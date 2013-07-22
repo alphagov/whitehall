@@ -123,6 +123,9 @@
         @include media(tablet) {
           width: 66.66%;
           clear: both;
+          @include right-to-left {
+            float: right;
+          }
         }
       }
     }
