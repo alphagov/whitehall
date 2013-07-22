@@ -120,7 +120,7 @@ class AttachableTest < ActiveSupport::TestCase
   test 'should include attachment content into the #search_index' do
     test_pdf = fixture_file_upload('simple.pdf', 'application/pdf')
     attachment = create(:attachment, file: test_pdf, title: "The title of the attachment",
-      hoc_paper_number: "1234", parliamentary_session: '2013/14', command_paper_number: "Cm. 1234",
+      hoc_paper_number: "1234", parliamentary_session: '2013-14', command_paper_number: "Cm. 1234",
       unique_reference: "w123", isbn: "0140620222"
     )
     edition = create(:publication)
