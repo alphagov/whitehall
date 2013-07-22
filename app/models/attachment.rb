@@ -24,10 +24,6 @@ class Attachment < ActiveRecord::Base
     allow_blank: true,
     message: "is invalid. The number must start with one of #{VALID_COMMAND_PAPER_NUMBER_PREFIXES.join(', ')}"
   }
-  validates :hoc_paper_number, numericality: {
-    only_integer: true,
-    if: 'hoc_paper_number.present?'
-  }
   validates :order_url, format: URI::regexp(%w(http https)), allow_blank: true
   validates :order_url, presence: {
     message: "must be entered as you've entered a price",
