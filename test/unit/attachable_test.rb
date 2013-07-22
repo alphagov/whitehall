@@ -117,13 +117,20 @@ class AttachableTest < ActiveSupport::TestCase
     assert_equal @greenpaper_pdf.url(:thumbnail), edition.thumbnail_url
   end
 
-  test 'should include attachment titles into #indexable_content' do
+  test 'should include attachment content into the #search_index' do
     test_pdf = fixture_file_upload('simple.pdf', 'application/pdf')
-    attachment = create(:attachment, file: test_pdf, title: "The title of the attachment")
-
+    attachment = create(:attachment, file: test_pdf, title: "The title of the attachment",
+      hoc_paper_number: "1234", parliamentary_session: '2013/14', command_paper_number: "Cm. 1234",
+      unique_reference: "w123", isbn: "0140620222"
+    )
     edition = create(:publication)
     edition.attachments << attachment
 
-    assert_equal ["The title of the attachment \nThis is a test pdf.\n\n\n"], edition.search_index['attachments']
+    assert_equal "The title of the attachment", edition.search_index['attachments'][0][:title]
+    assert_equal "\nThis is a test pdf.\n\n\n", edition.search_index['attachments'][0][:content]
+    assert_equal attachment.isbn, edition.search_index['attachments'][0][:isbn]
+    assert_equal attachment.unique_reference, edition.search_index['attachments'][0][:unique_reference]
+    assert_equal attachment.command_paper_number, edition.search_index['attachments'][0][:command_paper_number]
+    assert_equal attachment.hoc_paper_number, edition.search_index['attachments'][0][:hoc_paper_number]
   end
 end

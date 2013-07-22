@@ -79,7 +79,14 @@ module Attachable
 
   def extracted_attachments
     attachments.map do |attachment|
-      "#{attachment.title} #{attachment.extracted_text}"
+      {
+        title: attachment.title,
+        content: attachment.extracted_text,
+        isbn: attachment.isbn,
+        command_paper_number: attachment.command_paper_number,
+        unique_reference: attachment.unique_reference,
+        hoc_paper_number: attachment.hoc_paper_number
+      }
     end
   end
 
