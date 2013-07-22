@@ -259,11 +259,13 @@ si:
   activerecord:
     attributes:
       attachment:
+        hoc_paper_number:
         isbn:
       attachment_data:
         file:
       corporate_information_page/corporate_information_page_attachments/attachment:
         command_paper_number:
+        hoc_paper_number:
         isbn:
         order_url:
         price:
@@ -275,6 +277,7 @@ si:
         primary_mainstream_category: ප්‍රාථමික විස්තරාත්මක උපදෙස් වර්ගීකරණය
       policy_advisory_group/policy_group_attachments/attachment:
         command_paper_number:
+        hoc_paper_number:
         isbn:
         order_url:
         price:
@@ -284,6 +287,7 @@ si:
         file:
       response/consultation_response_attachments/attachment:
         command_paper_number:
+        hoc_paper_number:
         isbn:
         order_url:
         price:
@@ -293,6 +297,7 @@ si:
         file:
       supporting_page/supporting_page_attachments/attachment:
         command_paper_number:
+        hoc_paper_number:
         isbn:
         order_url:
         price:
@@ -304,6 +309,7 @@ si:
       file:
     nested_attachment_field_names:
       command_paper_number:
+      hoc_paper_number:
       isbn:
       order_url:
       price:

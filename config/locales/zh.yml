@@ -2,11 +2,13 @@ zh:
   activerecord:
     attributes:
       attachment:
+        hoc_paper_number:
         isbn:
       attachment_data:
         file:
       corporate_information_page/corporate_information_page_attachments/attachment:
         command_paper_number:
+        hoc_paper_number:
         isbn:
         order_url:
         price:
@@ -18,6 +20,7 @@ zh:
         primary_mainstream_category: 首要详细指导类别
       policy_advisory_group/policy_group_attachments/attachment:
         command_paper_number:
+        hoc_paper_number:
         isbn:
         order_url:
         price:
@@ -27,6 +30,7 @@ zh:
         file:
       response/consultation_response_attachments/attachment:
         command_paper_number:
+        hoc_paper_number:
         isbn:
         order_url:
         price:
@@ -36,6 +40,7 @@ zh:
         file:
       supporting_page/supporting_page_attachments/attachment:
         command_paper_number:
+        hoc_paper_number:
         isbn:
         order_url:
         price:
@@ -47,6 +52,7 @@ zh:
       file:
     nested_attachment_field_names:
       command_paper_number:
+      hoc_paper_number:
       isbn:
       order_url:
       price:

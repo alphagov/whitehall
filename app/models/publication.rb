@@ -33,6 +33,10 @@ class Publication < Publicationesque
     true
   end
 
+  def can_have_attached_house_of_commons_papers?
+    true
+  end
+
   def display_type
     publication_type.singular_name
   end

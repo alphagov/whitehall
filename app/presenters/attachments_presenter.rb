@@ -10,8 +10,16 @@ class AttachmentsPresenter < Struct.new(:edition)
       ActiveModel::Name.new(Attachment)
     end
 
-    %w(number_of_pages isbn unique_reference
-       command_paper_number order_url price).each do |name|
+    %w(
+      command_paper_number
+      hoc_paper_number
+      isbn
+      number_of_pages
+      order_url
+      parliamentary_session
+      price
+      unique_reference
+    ).each do |name|
       define_method(name.to_sym) { nil }
     end
 

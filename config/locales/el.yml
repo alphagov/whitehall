@@ -258,11 +258,13 @@ el:
   activerecord:
     attributes:
       attachment:
+        hoc_paper_number:
         isbn:
       attachment_data:
         file:
       corporate_information_page/corporate_information_page_attachments/attachment:
         command_paper_number:
+        hoc_paper_number:
         isbn:
         order_url:
         price:
@@ -274,6 +276,7 @@ el:
         primary_mainstream_category: Βασική κατηγορία οδηγιών
       policy_advisory_group/policy_group_attachments/attachment:
         command_paper_number:
+        hoc_paper_number:
         isbn:
         order_url:
         price:
@@ -283,6 +286,7 @@ el:
         file:
       response/consultation_response_attachments/attachment:
         command_paper_number:
+        hoc_paper_number:
         isbn:
         order_url:
         price:
@@ -292,6 +296,7 @@ el:
         file:
       supporting_page/supporting_page_attachments/attachment:
         command_paper_number:
+        hoc_paper_number:
         isbn:
         order_url:
         price:
@@ -303,6 +308,7 @@ el:
       file:
     nested_attachment_field_names:
       command_paper_number:
+      hoc_paper_number:
       isbn:
       order_url:
       price:

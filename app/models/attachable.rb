@@ -57,6 +57,10 @@ module Attachable
     !allows_inline_attachments?
   end
 
+  def can_have_attached_house_of_commons_papers?
+    false
+  end
+
   def has_thumbnail?
     thumbnailable_attachments.any?
   end
