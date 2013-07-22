@@ -135,13 +135,23 @@ div.span8 > section {
   }
 }
 
-input.paper-number {
-  float: left;
-  width: 16em;
+div.paper-number {
+  div.field_with_errors:first-child {
+    float: none
+  }
 
-  & + label {
+  div.field_with_errors,
+  input.paper-number {
     float: left;
-    margin-left: 2em;
+
+    & + label {
+      float: left;
+      margin-left: 2em;
+    }
+  }
+
+  input.paper-number {
+    width: 180px;
   }
 }
 
