@@ -82,6 +82,10 @@ class Consultation < Publicationesque
     true
   end
 
+  def can_have_attached_house_of_commons_papers?
+    true
+  end
+
   def has_consultation_participation?
     consultation_participation.present?
   end
