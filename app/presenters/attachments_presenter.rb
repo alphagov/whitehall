@@ -19,6 +19,8 @@ class AttachmentsPresenter < Struct.new(:edition)
       parliamentary_session
       price
       unique_reference
+      unnumbered_command_paper
+      unnumbered_hoc_paper
     ).each do |name|
       define_method(name.to_sym) { nil }
     end

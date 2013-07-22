@@ -135,6 +135,16 @@ div.span8 > section {
   }
 }
 
+input.paper-number {
+  float: left;
+  width: 16em;
+
+  & + label {
+    float: left;
+    margin-left: 2em;
+  }
+}
+
 ol.uploaded-attachments {
   margin: $gutter 0;
   list-style: none;
