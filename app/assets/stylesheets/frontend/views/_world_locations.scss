@@ -22,7 +22,7 @@
 
   .world-locations {
     h1 {
-      @include heading-27;
+      @include core-19;
     }
 
     .world-location-type {
@@ -47,12 +47,13 @@
         @include media(desktop){
           width: 66.66%;
           float: left;
+          padding-top: $gutter - $gutter-one-sixth;
         };
 
         .letter {
-          @include core-27;
+          @include core-80;
           font-weight: bold;
-          padding-top: 5px;
+          text-indent: -4px;
         }
 
         .location-list {
