@@ -153,12 +153,13 @@
     font-size:5em;
     padding-bottom:0;
     margin:0 0 ($gutter-one-third * -1);
-    color:$inside-gov-brand;
+    color:$grey-1;
     font-weight: bold;
     display:block;
     line-height:1em;
     a {
       text-decoration: none;
+      color: $black;
       &:hover,
       &:focus {
         text-decoration: underline;
@@ -206,21 +207,22 @@
         display: block;
         line-height: 1em;
         a {
-          color:$coalition-green;
+          color:$black;
         }
       }
 
       @include media(tablet) {
-        background-color:$panel-colour;
-        border:1px solid $panel-colour;
-        width:4em;
-        height:4em;
+        background-color:transparent;
+        border:0.1em solid $inside-gov-secondary;
+        width:2.8em;
+        height:3.8em;
+        padding: 0 0.5em;
         -moz-border-radius: 2em;
         -webkit-border-radius: 2em;
         border-radius: 5em;
 
         .count{
-          padding-top: 0.4em;
+          padding-top: 0.35em;
           font-size: 1.9em;
           font-weight: bold;
         }
@@ -237,10 +239,10 @@
 
     @include media(tablet) {
       span.invert {
-        background-color: $coalition-green;
-        border-color: $coalition-green;
-        .count a, span {
-          color: white;
+        background-color: $inside-gov-secondary;
+        border-color: $inside-gov-secondary;
+        .count a, .caption {
+          color: black;
         }
       }
     }
@@ -257,21 +259,22 @@
     }
 
     p.circle{
-      background-color:$panel-colour;
-      border:1px solid $panel-colour;
-      width:192px;
-      height:192px;
+      background-color:transparent;
+      border:4px solid $inside-gov-secondary;
+      width:182px;
+      height:182px;
       -moz-border-radius: 96px;
       -webkit-border-radius: 96px;
       border-radius: 96px;
       display:block;
-      margin: 0 auto;
+      margin: 5px auto 0;
       text-align:center;
       padding:0;
       margin-bottom: $gutter-half;
       vertical-align: middle;
       a {
         text-decoration: none;
+        color: $black;
         &:hover,
         &:focus {
           text-decoration: underline;
@@ -282,7 +285,7 @@
         position: relative;
         top: $gutter-one-third;
         font-size:95px;
-        padding-top:0.4em;
+        padding-top:0.35em;
         padding-bottom:0;
         margin:0;
         font-weight: bold;
@@ -295,7 +298,7 @@
   h2 {
     @include ig-core-36;
     padding-bottom: 1px;
-    border-bottom: 5px solid $inside-gov-brand;
+    border-bottom: 5px solid black;
     margin: $gutter 0 $gutter;
     clear:both;
 
@@ -364,10 +367,10 @@
     @include ig-core-14;
   }
   h2.coalition {
-    border-color: $coalition-green;
+    border-color: black;
   }
   .coalition h3 {
-    border-color: $coalition-green;
+    border-color: black;
     border-width: 5px;
     padding-top: $gutter - 9px;
   }
@@ -450,8 +453,9 @@
       }
       span.circle .caption {
         position: relative;
-        top: -5px;
+        top: -10px;
         @include ig-core-14;
+        line-height: 1;
       }
     }
   }
