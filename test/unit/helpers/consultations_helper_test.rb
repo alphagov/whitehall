@@ -34,22 +34,22 @@ class ConsultationsHelperTest < ActionView::TestCase
   end
 
   test "#consultation_response_published_phrase uses future tense if publish date is in future" do
-    response = stub('Response', published_on_or_default: 2.days.from_now, published?: true)
+    response = stub('Response', published_on: 2.days.from_now, published?: true)
     assert consultation_response_published_phrase(response).starts_with?("Publishing response on")
   end
 
   test "#consultation_response_published_phrase uses past tense if publish date is in past" do
-    response = stub('Response', published_on_or_default: 2.days.ago, published?: true)
+    response = stub('Response', published_on: 2.days.ago, published?: true)
     assert consultation_response_published_phrase(response).starts_with?("Published response on")
   end
 
   test "#consultation_response_published_phrase includes long form date" do
-    response = stub('Response', published_on_or_default: Date.new(2012, 12, 12), published?: true)
+    response = stub('Response', published_on: Date.new(2012, 12, 12), published?: true)
     assert_match Regexp.new(Regexp.escape("12 December 2012")), consultation_response_published_phrase(response)
   end
 
   test "#consultation_response_published_phrase shows not yet published if not published yet" do
-    response = stub('Response', published_on_or_default: nil, published?: false)
+    response = stub('Response', published_on: nil, published?: false)
     assert_equal "Not yet published", consultation_response_published_phrase(response)
   end
 

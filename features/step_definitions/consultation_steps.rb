@@ -48,7 +48,7 @@ Then /^the published date should be visible on save$/ do
   date = 1.day.ago.strftime("%Y-%m-%d")
   click_button "Save"
 
-  assert_equal date, find("abbr.published_on_or_default")[:title]
+  assert_equal date, find("abbr.published_on")[:title]
   publish force: true
 
   select_most_recent_consultation_from_list
