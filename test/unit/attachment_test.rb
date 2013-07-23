@@ -191,7 +191,6 @@ class AttachmentTest < ActiveSupport::TestCase
     assert_delegated attachment, :url
     assert_delegated attachment, :content_type
     assert_delegated attachment, :pdf?
-    assert_delegated attachment, :html?
     assert_delegated attachment, :file_extension
     assert_delegated attachment, :file_size
     assert_delegated attachment, :number_of_pages
@@ -231,5 +230,10 @@ class AttachmentTest < ActiveSupport::TestCase
     latest_session = [now.strftime('%Y'), (now + 1.year).strftime('%y')].join('-')
     assert_equal latest_session, Attachment.parliamentary_sessions.first
     assert_equal earliest_session, Attachment.parliamentary_sessions.last
+  end
+
+  test 'html? is false' do
+    attachment = build(:attachment)
+    refute attachment.html?
   end
 end
