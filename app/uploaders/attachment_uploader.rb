@@ -6,6 +6,8 @@ class AttachmentUploader < WhitehallUploader
   include CarrierWave::MimeTypes
 
   PDF_CONTENT_TYPE = 'application/pdf'
+  INDEXABLE_TYPES = %w(csv doc docx ods odt pdf ppt pptx rdf rtf txt xls xlsx xml)
+
   FALLBACK_THUMBNAIL_PDF = File.expand_path("../../assets/images/pub-cover.png", __FILE__)
   EXTENSION_WHITE_LIST = %w(csv doc docx jpg kml ods odt pdf png ppt pptx rdf rtf txt xls xlsx xml zip)
 
