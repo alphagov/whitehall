@@ -1,15 +1,7 @@
 class HomeController < PublicFacingController
   layout 'frontend'
 
-  before_filter :load_ministerial_department_count, only: [:home, :how_government_works]
-
-  def home
-    ministerial_department_type = OrganisationType.find_by_name('Ministerial department')
-    sub_organisation_type = OrganisationType.find_by_name('Sub-organisation')
-    @live_ministerial_departments = Organisation.where("organisation_type_id = ? AND govuk_status ='live'", ministerial_department_type).alphabetical
-    @live_other_departments = Organisation.where("organisation_type_id NOT IN (?,?) AND govuk_status='live'", ministerial_department_type, sub_organisation_type).alphabetical
-    @classifications = Classification.order(:name).where("(type = 'Topic' and published_policies_count <> 0) or (type = 'TopicalEvent')").alphabetical
-  end
+  before_filter :load_ministerial_department_count, only: :how_government_works
 
   def feed
     @recently_updated = Edition.published.in_reverse_chronological_order.includes(:document, :organisations).limit(10)

@@ -55,8 +55,8 @@ class HomeControllerTest < ActionController::TestCase
     end
   end
 
-  view_test "home includes header-context element to stop breadcrumbs being inserted" do
-    get :home
+  view_test "frontend layout includes header-context element to stop breadcrumbs being inserted" do
+    get :how_government_works
 
     assert_select ".header-context"
   end
@@ -69,14 +69,6 @@ class HomeControllerTest < ActionController::TestCase
 
     assert_equal 1, assigns[:policy_count]
     assert_select ".policy-count .count", "1"
-  end
-
-  view_test "home page shows a count of live ministerial departmernts" do
-    create(:ministerial_department, govuk_status: 'live')
-
-    get :home
-
-    assert_select '.live-ministerial-departments', '1'
   end
 
   view_test "how government works page shows a count of cabinet ministers, other ministers and total ministers" do
@@ -100,29 +92,6 @@ class HomeControllerTest < ActionController::TestCase
     assert_select '.cabinet-ministers .count', '2'
     assert_select '.other-ministers .count', '1'
     assert_select '.all-ministers .count', '4'
-  end
-
-  view_test "home page shows a count of live non-ministerial departmernts" do
-    # need to have the ministerial and suborg type so we can select non-ministerial
-    create(:ministerial_organisation_type)
-    create(:sub_organisation_type)
-
-    type = create(:non_ministerial_organisation_type)
-    org = create(:organisation, govuk_status: 'live', organisation_type: type)
-    sub_org = create(:sub_organisation, govuk_status: 'live', parent_organisations: [create(:ministerial_department)])
-
-    get :home
-
-    assert_select '.live-other-departments', '1'
-  end
-
-  test "home page lists topics with policies and topical events sorted alphabetically" do
-    topics = [[0, 'alpha'], [1, 'juliet'], [2, 'echo']].map { |n, name| create(:topic, published_policies_count: n, name: name) }
-    topical_event = create(:topical_event, name: 'foxtrot')
-
-    get :home
-
-    assert_equal [ topics[2], topical_event, topics[1]], assigns(:classifications)
   end
 
   test "get involved has counts of open and closed consultations" do
