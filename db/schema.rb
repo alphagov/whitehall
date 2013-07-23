@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130719101104) do
+ActiveRecord::Schema.define(:version => 20130723100817) do
 
   create_table "about_pages", :force => true do |t|
     t.integer  "topical_event_id"
@@ -63,9 +63,9 @@ ActiveRecord::Schema.define(:version => 20130719101104) do
     t.string   "order_url"
     t.integer  "price_in_pence"
     t.integer  "attachment_data_id"
+    t.integer  "ordering"
     t.string   "hoc_paper_number"
     t.string   "parliamentary_session"
-    t.integer  "ordering"
   end
 
   add_index "attachments", ["attachment_data_id"], :name => "index_attachments_on_attachment_data_id"
@@ -601,6 +601,15 @@ ActiveRecord::Schema.define(:version => 20130719101104) do
 
   add_index "force_publication_attempts", ["import_id"], :name => "index_force_publication_attempts_on_import_id"
 
+  create_table "funding_announcements", :force => true do |t|
+    t.integer  "organisation_id"
+    t.decimal  "funding",         :precision => 10, :scale => 0
+    t.datetime "startdate"
+    t.datetime "enddate"
+    t.datetime "created_at",                                     :null => false
+    t.datetime "updated_at",                                     :null => false
+  end
+
   create_table "group_memberships", :force => true do |t|
     t.integer  "group_id"
     t.integer  "person_id"
@@ -1036,6 +1045,15 @@ ActiveRecord::Schema.define(:version => 20130719101104) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "spending_announcements", :force => true do |t|
+    t.integer  "organisation_id"
+    t.decimal  "spending",        :precision => 10, :scale => 0
+    t.datetime "startdate"
+    t.datetime "enddate"
+    t.datetime "created_at",                                     :null => false
+    t.datetime "updated_at",                                     :null => false
   end
 
   create_table "sponsorships", :force => true do |t|

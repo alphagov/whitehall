@@ -164,6 +164,9 @@ class Organisation < ActiveRecord::Base
   has_many :sponsorships, dependent: :destroy
   has_many :sponsored_worldwide_organisations, through: :sponsorships, source: :worldwide_organisation
 
+  has_many :funding_announcements
+  has_many :spending_announcements
+  
   has_one :featured_topics_and_policies_list
   def featured_topics_and_policies_list_summary
     featured_topics_and_policies_list.try(:summary)
