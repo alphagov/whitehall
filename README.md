@@ -31,8 +31,11 @@ database.yml.
 
 ### Set up the database
 
-If you wish to use a sanitized export of the production data (recommended for internal staff)
-then see the alphagov/development repo for the replication script.
+If you wish to use a sanitized export of the production data (recommended for
+internal staff) then see the alphagov/development repo for the replication script.
+Once that is imported upgrade your import to the latest schema version with
+
+    $ bundle exec rake db:migrate
 
 Otherwise set up an empty database with:
 
