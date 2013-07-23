@@ -53,6 +53,10 @@ class Attachment < ActiveRecord::Base
     editions.all? { |e| e.accessible_by?(user) }
   end
 
+  def html?
+    false
+  end
+
   private
 
   def store_price_in_pence

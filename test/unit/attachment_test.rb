@@ -231,4 +231,9 @@ class AttachmentTest < ActiveSupport::TestCase
     assert_equal latest_session, Attachment.parliamentary_sessions.first
     assert_equal earliest_session, Attachment.parliamentary_sessions.last
   end
+
+  test 'html? is false' do
+    attachment = build(:attachment)
+    refute attachment.html?
+  end
 end
