@@ -28,6 +28,17 @@ database.yml.
 
     $ cd /path/to/whitehall
     $ bundle install
+
+### Set up the database
+
+If you wish to use a sanitized export of the production data (recommended for
+internal staff) then see the alphagov/development repo for the replication script.
+Once that is imported upgrade your import to the latest schema version with
+
+    $ bundle exec rake db:migrate
+
+Otherwise set up an empty database with:
+
     $ bundle exec rake db:create:all
     $ bundle exec rake db:schema:load
 
@@ -48,10 +59,6 @@ Alternatively run
 
 Note that using `bowler` or `foreman` will automatically use the
 `govuk_setenv` method for you.
-
-### Getting a copy of live data
-
-See the alphagov/development repo for the replication script
 
 ### Running the server locally
 
