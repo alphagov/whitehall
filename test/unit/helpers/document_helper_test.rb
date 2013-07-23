@@ -71,6 +71,12 @@ class DocumentHelperTest < ActionView::TestCase
     assert_match /pub-cover-spreadsheet\.png/, attachment_thumbnail(attachment)
   end
 
+  test "should return HTML specific thumbnail for HTML attachments" do
+    publication = create(:published_publication, :with_html_version)
+    attachments = AttachmentsPresenter.new(publication)
+    assert_match /pub-cover-html\.png/, attachment_thumbnail(attachments.first)
+  end
+
   test "should return PDF Document for humanized content type" do
     assert_equal '<abbr title="Portable Document Format">PDF</abbr>', humanized_content_type("pdf")
     assert_equal '<abbr title="Portable Document Format">PDF</abbr>', humanized_content_type("PDF")

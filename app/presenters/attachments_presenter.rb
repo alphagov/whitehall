@@ -39,6 +39,10 @@ class AttachmentsPresenter < Struct.new(:edition)
       false
     end
 
+    def html?
+      true
+    end
+
     def file_size
       html_version.body.size
     end
