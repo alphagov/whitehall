@@ -171,7 +171,8 @@ class Edition < ActiveRecord::Base
     only: :published_and_available_in_english,
     index_after: [],
     unindex_after: [],
-    search_format_types: :search_format_types
+    search_format_types: :search_format_types,
+    attachments: nil
   )
 
   def search_link

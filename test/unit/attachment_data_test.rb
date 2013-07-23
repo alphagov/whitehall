@@ -56,6 +56,13 @@ class AttachmentDataTest < ActiveSupport::TestCase
     assert_equal "application/pdf", attachment.content_type
   end
 
+  test "should allow file in the indexable whitelist to be indexed" do
+    greenpaper_pdf = fixture_file_upload('greenpaper.pdf', nil)
+    attachment = create(:attachment_data, file: greenpaper_pdf)
+    attachment.reload
+    assert_equal true, attachment.indexable?
+  end
+
   test "should set page count for PDF on create" do
     two_pages_pdf = fixture_file_upload('two-pages.pdf')
     attachment = create(:attachment_data, file: two_pages_pdf)
@@ -144,6 +151,12 @@ class AttachmentDataTest < ActiveSupport::TestCase
     greenpaper_pdf = fixture_file_upload('greenpaper.pdf', 'application/pdf')
     attachment = build(:attachment_data, file: greenpaper_pdf)
     assert_equal "pdf", attachment.file_extension
+  end
+
+  test "should return extracted_text if file present" do
+    test_pdf = fixture_file_upload('simple.pdf', 'application/pdf')
+    attachment = build(:attachment_data, file: test_pdf)
+    assert_equal "\nThis is a test pdf.\n\n\n", attachment.extracted_text
   end
 
   test 'if to_replace_id is set on an instance during save find the attachment_data with that id and set its replaced_by_id to the original instances id' do
