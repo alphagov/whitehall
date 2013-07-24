@@ -32,7 +32,7 @@ class AttachmentData < ActiveRecord::Base
     path = file.path
     if indexable? && File.exist?(path)
       tika = Rails.root.join('lib/tika-app-1.4.jar')
-      output = `java -Xms64m -Xmx256m -jar #{tika} -t #{path}`
+      output = `java -Xms64m -Xmx764m -jar #{tika} -t #{path}`
       result = $?.success?
       output if result
     end
