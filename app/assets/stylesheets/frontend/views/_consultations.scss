@@ -63,113 +63,71 @@ nav.consultations_scope {
 .consultation {
   &.consultation-closed,
   &.consultation-responded {
-    .heading-block {
-      color: lighten($text-colour, 20%);
+    .headings-block {
+      .consultation-alert {
+        border: $gutter-one-sixth solid $inside-gov-brand;
+        margin: 0 $gutter $gutter $gutter;
+        padding: $gutter-one-third $gutter-one-third $gutter-one-third $gutter;
+        h2 {
+          @include heading-36;
+          font-weight: bold;
+        }
+      }
     }
   }
+
+  .original-consultation {
+    @include heading-27;
+    font-weight: bold;
+    margin-bottom: $gutter-half;
+    @include media(tablet) {
+      margin-bottom: $gutter-half;
+    }
+  }
+
   .consultation-block {
+    @extend %contain-floats;
     background: $inside-gov-brand;
     color: $white;
-    margin: $gutter-one-third ($gutter-half*-1) 0;
-    @extend %contain-floats;
-    @include media(tablet){
-      margin: $gutter 0 0;
+    padding: $gutter;
+
+    .consultation-dates {
+      float: left;
+      width: 33.33%;
+      span {
+        display: block;
+        abbr {
+          @include core-27;
+          &.date {
+            font-weight: bold;
+          }
+        }
+      }
     }
-    
-    &+.consultation-block {
-      padding-top: 0;
+
+    .summary {
+      float: left;
       margin-top: 0;
-    }
-
-    &.consultation-open {
-      padding: $gutter-one-third 0;
-
-      h2, .jump {
-        @include ig-core-27;
-        padding: 0 $gutter-one-third;
+      width: 66.66%;
+      div {
+        border-left: 1px solid $white;
+        padding-left: $gutter-half;
+        margin-left: -$gutter-half + 1px;
       }
-      abbr {
-        display: block;
-        @include ig-core-48;
+      h2 {
+        @include heading-27;
         font-weight: bold;
-        padding: 0;
-        margin: 0;
-      }
-
-      .jump {
-        display: block;
-        margin: 0;
-        border-top: 1px solid $white;
-        padding-top: $gutter-half;
-
-        a {
-          color: $white;
-          background: transparent image-url("down-arrow.png") no-repeat $gutter-one-third 100%;
-          padding-left: $gutter-one-third + 40px;
+        padding-top: 0;
+        @include media(tablet) {
+          padding-top: 0;
         }
       }
-      @include media(desktop){
-        padding: 0 $gutter-half;
-
-        h2, .jump {
-          @include ig-core-19;
-          padding: $gutter-half 0;
-        }
-        h2 {
-          float: left;
-          width: 69%;
-          border-right: 1px solid $white;
-        }
-        .jump {
-          float: left;
-          border-top: 0;
-          width: 30%;
-
-          a {
-            display: block;
-            padding: 0 $gutter 0 $gutter + 40px;
-            margin-left: $gutter-half;
-            min-height: 75px;
-          }
-        }
-      }
-    }
-
-    &.consultation-closed {
-      padding: $gutter-two-thirds $gutter-half;
-      
       p {
-        @include ig-core-19;
-      }
-
-      h2 {
-        @include ig-core-48;
-        padding-top: 8px;
-      }
-
-      @include media(desktop){
-        padding: $gutter-half;
-      }
-    }
-
-    &.consultation-responded {
-      h2 {
-      }
-      .run-time {
-        @include ig-core-24;
-        padding: $gutter-half;
-        .dates {
-          white-space: nowrap;
-          abbr {
-            @include bold;
-          }
-        }
-      }
-      a {
-        text-decoration: underline;
+        @include core-19;
       }
     }
   }
+
   .participation {
     background: $panel-colour;
     @include ig-core-19;
