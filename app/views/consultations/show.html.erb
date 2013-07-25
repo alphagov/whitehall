@@ -40,24 +40,26 @@
         </div>
       <% else %>
         <% if @document.response_published? %>
-          <% if @document.response.attachments.any? %>
-            <%= render partial: "documents/attachment_full_width",
-                      locals: { document: @document.response,
-                        title: "Download the full outcome",
-                        published_on: @document.response_published_on } %>
-          <% end %>
-          <% if @document.response.summary.present? %>
-            <section class="heading-block">
-              <h1>Detail of outcome</h1>
-              <div class="content">
-                <article>
-                  <div class="body">
-                    <%= govspeak_to_html @document.response.summary %>
-                  </div>
-                </article>
-              </div>
-            </section>
-          <% end %>
+          <div class="consultation-response">
+            <% if @document.response.attachments.any? %>
+              <%= render partial: "documents/attachment_full_width",
+                        locals: { document: @document.response,
+                          title: "Download the full outcome",
+                          published_on: @document.response_published_on } %>
+            <% end %>
+            <% if @document.response.summary.present? %>
+              <section class="heading-block">
+                <h1>Detail of outcome</h1>
+                <div class="content">
+                  <article>
+                    <div class="body">
+                      <%= govspeak_to_html @document.response.summary %>
+                    </div>
+                  </article>
+                </div>
+              </section>
+            <% end %>
+          </div>
         <% end %>
         <h2 class="original-consultation">Original consultation</h2>
         <div class="consultation-block <%= consultation_css_class(@document) %>">

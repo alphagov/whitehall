@@ -65,7 +65,7 @@ nav.consultations_scope {
   &.consultation-responded {
     .consultation-alert {
       border: $gutter-one-sixth solid $inside-gov-brand;
-      margin: 0 $gutter $gutter $gutter;
+      margin: 0 $gutter ($gutter * 1.5) $gutter;
       padding: $gutter-half;
       h2 {
         @include heading-36;
@@ -100,6 +100,7 @@ nav.consultations_scope {
     background: $inside-gov-brand;
     color: $white;
     padding: $gutter;
+    margin-bottom: $gutter * 1.5;
 
     .consultation-dates {
       float: left;
@@ -136,6 +137,11 @@ nav.consultations_scope {
         @include core-19;
       }
     }
+  }
+
+  .consultation-response {
+    border-bottom: 1px solid $border-colour;
+    margin-bottom: $gutter-half;
   }
 
   .participation {
@@ -191,9 +197,5 @@ nav.consultations_scope {
         margin: $gutter-half 0;
       }
     }
-  }
-
-  .block-2 .heading-block {
-    padding-top: $gutter*1.5;
   }
 }
