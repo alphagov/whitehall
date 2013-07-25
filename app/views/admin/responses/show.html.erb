@@ -1,0 +1,23 @@
+<% page_title "Response for: #{@consultation.title}" %>
+<% page_class "response" %>
+
+<div class="span8">
+  <section>
+    <h1>Responses for <%= @consultation.title %></h1>
+
+    <%= consultation_editing_tabs(@consultation) do %>
+      <ul class="actions">
+        <% if @response %>
+          <li><%= link_to 'Upload new attachment', new_admin_consultation_response_attachment_path(@response) %></li>
+          <li><%= link_to 'Edit response', edit_admin_consultation_response_path(@consultation) %></li>
+        <% else %>
+          <li><%= link_to 'Add a response', new_admin_consultation_response_path(@consultation) %></li>
+        <% end %>
+      </ul>
+
+      <% if @response %>
+        <p><%= @response.summary %></p>
+      <% end %>
+    <% end %>
+  </section>
+</div>
