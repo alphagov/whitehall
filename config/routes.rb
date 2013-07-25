@@ -236,8 +236,11 @@ Whitehall::Application.routes.draw do
         resources :world_location_news_articles, path: 'world-location-news', except: [:index]
         resources :fatality_notices, path: 'fatalities', except: [:index]
         resources :consultations, except: [:index] do
-          resource :response, except: [:destroy] do
-            resources :attachments
+          resource :response, except: [:destroy]
+        end
+        resources :responses do
+          resources :attachments do
+            put :order, on: :collection
           end
         end
 

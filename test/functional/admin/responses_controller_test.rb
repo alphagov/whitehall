@@ -15,7 +15,7 @@ class Admin::ResponsesControllerTest < ActionController::TestCase
     assert_select 'a', text: 'Add a response'
   end
 
-  view_test "GET :show displays the details and an edit link if the consultation has a respones" do
+  view_test "GET :show when consultation has a response shows the response details and includes an edit link" do
     response = create_response
     get :show, consultation_id: @consultation
 

@@ -1,11 +1,11 @@
-<%= form_for [:admin, edition, attachment], url: url do |form| %>
+<%= form_for [:admin, attachable, attachment], url: [:admin, typecast_for_attachable_routing(attachable), attachment] do |form| %>
 
   <%= form.errors %>
 
   <%= form.text_field :title %>
 
-  <% if edition.allows_attachment_references? %>
-    <%= render 'reference_fields', edition: edition, form: form %>
+  <% if attachable.allows_attachment_references? %>
+    <%= render 'reference_fields', edition: attachable, form: form %>
   <% end %>
 
   <%= form.fields_for :attachment_data do |attachment_data_fields| %>
@@ -24,5 +24,5 @@
     <%= attachment_data_fields.hidden_field :file_cache %>
   <% end %>
 
-  <%= form.save_or_cancel cancel: admin_edition_attachments_path(edition) %>
+  <%= form.save_or_cancel cancel: attachable_attachments_path(attachable) %>
 <% end %>

@@ -52,22 +52,6 @@ Then /^the consultation response should be viewable$/ do
   should_have_consultation_response_attachment
 end
 
-When /^I specify the published response date of the consultation$/ do
-  select_date 1.day.ago.strftime("%Y-%m-%d"), from: "Response published date"
-end
-
-Then /^the published date should be visible on save$/ do
-  date = 1.day.ago.strftime("%Y-%m-%d")
-  click_button "Save"
-
-  assert_equal date, find("abbr.published_on")[:title]
-  publish force: true
-
-  select_most_recent_consultation_from_list
-  view_visible_consultation_on_website
-  should_have_consultation_response_attachment_with_published_date(date)
-end
-
 When /^I draft a new consultation "([^"]*)" relating it to the worldwide_priorities "([^"]*)" and "([^"]*)"$/ do |title, first_priority, second_priority|
   begin_drafting_news_article title: title
   select first_priority, from: "Worldwide priorities"

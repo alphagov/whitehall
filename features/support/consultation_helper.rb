@@ -10,10 +10,6 @@ module ConsultationHelper
   def should_have_consultation_response_attachment
     assert has_css?(".consultation-responded .attachment", count: 1)
   end
-
-  def should_have_consultation_response_attachment_with_published_date(date)
-    assert has_css?(".consultation-responded .attachment abbr.date[title='#{date}']")
-  end
 end
 
 World(ConsultationHelper)
