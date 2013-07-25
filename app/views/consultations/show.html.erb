@@ -55,7 +55,7 @@
           <% if @document.response.attachments.any? %>
             <%= render partial: "documents/attachment_full_width",
                       locals: { document: @document.response,
-                        title: "Download the consultation outcome",
+                        title: "Download the full outcome",
                         published_on: @document.response_published_on } %>
           <% end %>
         <% end %>
