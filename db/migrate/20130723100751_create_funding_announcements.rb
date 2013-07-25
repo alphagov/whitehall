@@ -3,8 +3,8 @@ class CreateFundingAnnouncements < ActiveRecord::Migration
     create_table :funding_announcements do |t|
       t.belongs_to :organisation
       t.decimal :funding
-      t.datetime :startdate
-      t.datetime :enddate
+      t.datetime :start_date
+      t.datetime :end_date
       t.timestamps
     end
   end

@@ -3,8 +3,8 @@ class CreateSpendingAnnouncements < ActiveRecord::Migration
     create_table :spending_announcements do |t|
       t.belongs_to :organisation
       t.decimal :spending
-      t.datetime :startdate
-      t.datetime :enddate
+      t.datetime :start_date
+      t.datetime :end_date
       t.timestamps
     end
   end
