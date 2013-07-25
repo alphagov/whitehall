@@ -10,6 +10,7 @@ class Consultation < Publicationesque
 
   validates :opening_on, presence: true, unless: ->(consultation) { consultation.can_have_some_invalid_data? }
   validates :closing_on, presence: true, unless: ->(consultation) { consultation.can_have_some_invalid_data? }
+  validates :external_url, presence: { if: :external? }
 
   validate :closing_on_must_be_after_opening_on
   validate :must_have_consultation_as_publication_type
