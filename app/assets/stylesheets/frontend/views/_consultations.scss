@@ -67,10 +67,13 @@ nav.consultations_scope {
       .consultation-alert {
         border: $gutter-one-sixth solid $inside-gov-brand;
         margin: 0 $gutter $gutter $gutter;
-        padding: $gutter-one-third $gutter-one-third $gutter-one-third $gutter;
+        padding: $gutter-half;
         h2 {
           @include heading-36;
           font-weight: bold;
+          @include media(tablet) {
+            padding-top: 0;
+          }
         }
       }
     }
@@ -129,7 +132,6 @@ nav.consultations_scope {
   }
 
   .participation {
-    background: $panel-colour;
     @include ig-core-19;
     margin: ($gutter*-1) ($gutter-half*-1) 0;
     @include media(tablet){

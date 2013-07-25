@@ -4,27 +4,33 @@
   summary = document.summary unless local_assigns.include?(:summary)
   published_on = '' unless local_assigns.include?(:published_on)
 %>
-<section class="attachment-full-width">
+<section class="heading-block">
   <% if attachments.any? %>
-    <div class="govspeak">
-      <h1><%= title %></h1>
-      <div class="first-attachment">
-        <%= render partial: "documents/attachment",
-                  object: attachments.first,
-                  locals: { alternative_format_contact_email: document.alternative_format_contact_email,
-                    extra_description: summary,
-                    published_on: published_on } %>
-      </div>
-      <% if attachments.more_than_one? %>
-        <div class="attachment-without-thumbnail">
-          <% attachments.remaining.each do |attachment| %>
-            <%= render partial: "documents/attachment",
-                       object: attachment,
-                       locals: { hide_thumbnail: false,
-                                 alternative_format_contact_email: document.alternative_format_contact_email } %>
-          <% end %>
+    <h1><%= title %></h1>
+    <div class="content">
+      <article>
+        <div class="body">
+          <div class="govspeak">
+            <div class="first-attachment">
+              <%= render partial: "documents/attachment",
+                        object: attachments.first,
+                        locals: { alternative_format_contact_email: document.alternative_format_contact_email,
+                          extra_description: summary,
+                          published_on: published_on } %>
+            </div>
+            <% if attachments.more_than_one? %>
+              <div class="attachment-without-thumbnail">
+                <% attachments.remaining.each do |attachment| %>
+                  <%= render partial: "documents/attachment",
+                             object: attachment,
+                             locals: { hide_thumbnail: false,
+                                       alternative_format_contact_email: document.alternative_format_contact_email } %>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
         </div>
-      <% end %>
+      </article>
     </div>
   <% else %>
     <p class="extra-description summary"><%= summary %></p>

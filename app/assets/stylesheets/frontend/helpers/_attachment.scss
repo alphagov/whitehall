@@ -4,7 +4,6 @@ $thumbnail-width: 99px;
   position: relative;
   margin: $gutter ($gutter-half*-1);
   padding: $gutter-half 0 0 ($thumbnail-width + $gutter);
-  background: $panel-colour;
   @extend %contain-floats;
   @include right-to-left {
     padding: $gutter-half ($thumbnail-width + $gutter) 0 0;
@@ -29,7 +28,7 @@ $thumbnail-width: 99px;
     position: relative;
     float: left;
     margin-top: $gutter-one-sixth;
-    margin-left: ($thumbnail-width*-1 - $gutter-half);
+    margin-left: -($thumbnail-width + $gutter);
     padding-bottom: $gutter-half;
     @include right-to-left {
       float: right;
@@ -92,12 +91,15 @@ $thumbnail-width: 99px;
       }
     }
   }
+  &.attachment:first-child {
+    margin-top: 0;
+    padding-top: 0;
+  }
 }
 
 .attachment-full-width {
   margin: $gutter ($gutter-half*-1);
   padding: $gutter-two-thirds $gutter-half $gutter-half;
-  background: $panel-colour;
   @extend %contain-floats;
   
   .attachment {
