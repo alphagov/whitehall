@@ -5,7 +5,7 @@
   <section>
     <h1>Edit <%= @attachable.type.underscore.humanize.downcase %></h1>
 
-    <%= edition_editing_tabs(@attachable) do %>
+    <%= attachable_editing_tabs(@attachable) do %>
       <ul class="actions">
         <li>
           <%= link_to 'Upload new attachment', new_admin_edition_attachment_path(@attachable) %>
