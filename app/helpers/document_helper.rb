@@ -115,6 +115,10 @@ module DocumentHelper
     attachment_info << "ISBN: #{attachment.isbn}" if attachment.isbn
     attachment_info << "Unique reference: #{attachment.unique_reference}" if attachment.unique_reference
     attachment_info << "Command paper number: #{attachment.command_paper_number}" if attachment.command_paper_number
+    if attachment.hoc_paper_number
+      attachment_info << "House of Commons paper number: #{attachment.hoc_paper_number}"
+      attachment_info << "Parliamentary session: #{attachment.parliamentary_session}"
+    end
     mail_to alternative_format_contact_email, alternative_format_contact_email,
       subject: "Request for '#{attachment.title}' in an alternative format",
       body: %(
