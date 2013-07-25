@@ -76,6 +76,9 @@
       <% end %>
 
 
+      <%= render partial: "documents/attachment_full_width",
+                locals: { document: @document, title: 'Documents', summary: nil } %>
+
 
       <section class="heading-block">
         <h1>Consultation detail</h1>
@@ -87,9 +90,6 @@
           </article>
         </div>
       </section>
-
-      <%= render partial: "documents/attachment_full_width",
-                locals: { document: @document, title: 'Documents', summary: nil } %>
 
       <% if @document.open? && @document.has_consultation_participation? %>
         <section id="response-formats" class="participation">
