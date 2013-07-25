@@ -3,6 +3,12 @@
 </fieldset>
 
 <fieldset>
+  <legend>Held on another website</legend>
+  <%= form.check_box :external, label_text: "This consultation is held on another website" %>
+  <%= form.text_field :external_url, label_text: "External Link URL" %>
+</fieldset>
+
+<fieldset>
   <legend>Ways to respond</legend>
   <%= form.fields_for :consultation_participation, edition.consultation_participation || edition.build_consultation_participation do |participation_fields| %>
     <%= participation_fields.text_field :link_url, label_text: 'Link URL' %>
