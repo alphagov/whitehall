@@ -40,9 +40,15 @@
         </div>
       <% else %>
         <% if @document.response_published? %>
+          <% if @document.response.attachments.any? %>
+            <%= render partial: "documents/attachment_full_width",
+                      locals: { document: @document.response,
+                        title: "Download the full outcome",
+                        published_on: @document.response_published_on } %>
+          <% end %>
           <% if @document.response.summary.present? %>
             <section class="heading-block">
-              <h1>Outcome</h1>
+              <h1>Detail of outcome</h1>
               <div class="content">
                 <article>
                   <div class="body">
@@ -51,12 +57,6 @@
                 </article>
               </div>
             </section>
-          <% end %>
-          <% if @document.response.attachments.any? %>
-            <%= render partial: "documents/attachment_full_width",
-                      locals: { document: @document.response,
-                        title: "Download the full outcome",
-                        published_on: @document.response_published_on } %>
           <% end %>
         <% end %>
         <h2 class="original-consultation">Original consultation</h2>
