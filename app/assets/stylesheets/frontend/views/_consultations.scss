@@ -145,57 +145,19 @@ nav.consultations_scope {
   }
 
   .participation {
-    @include ig-core-19;
-    margin: ($gutter*-1) ($gutter-half*-1) 0;
-    @include media(tablet){
-      margin: ($gutter*-1) 0 0 0;
-    }
-
     .content {
-      margin: 0 $gutter-one-third $gutter-half;
+      @include core-19;
     }
+    dd,
     p {
-      margin: $gutter-one-third 0;
+      margin-bottom: $gutter-half;
     }
-    a {
-      text-decoration: underline;
-    }
-    h2, .online {
-      @include ig-core-27;
-    }
-    h2 {
+    dt {
       font-weight: bold;
     }
-    dl {
-      dt {
-        @include ig-core-16;
-      }
-      dd {
-        margin-bottom: $gutter-one-third;
-      }
-    }
-    @include media(desktop){
-      padding-left: 33.333%;
-      @include right-to-left {
-        padding-left: 0;
-        padding-right: 33.33%;
-      }
-
-      .content {
-        margin: $gutter-one-third 0 $gutter-half $gutter-half;
-        @include right-to-left {
-          margin: $gutter-one-third $gutter-half $gutter-half 0;
-        }
-      }
-      h2 {
-        margin: 0 0 $gutter-half;
-      }
-      .online {
-        margin: $gutter-half 0;
-      }
-      p {
-        margin: $gutter-half 0;
-      }
+    .online {
+      @include core-24;
+      font-weight: bold;
     }
   }
 }
