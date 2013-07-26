@@ -604,8 +604,8 @@ ActiveRecord::Schema.define(:version => 20130723100817) do
   create_table "funding_announcements", :force => true do |t|
     t.integer  "organisation_id"
     t.decimal  "funding",         :precision => 10, :scale => 0
-    t.datetime "startdate"
-    t.datetime "enddate"
+    t.datetime "start_date"
+    t.datetime "end_date"
     t.datetime "created_at",                                     :null => false
     t.datetime "updated_at",                                     :null => false
   end
@@ -1050,8 +1050,8 @@ ActiveRecord::Schema.define(:version => 20130723100817) do
   create_table "spending_announcements", :force => true do |t|
     t.integer  "organisation_id"
     t.decimal  "spending",        :precision => 10, :scale => 0
-    t.datetime "startdate"
-    t.datetime "enddate"
+    t.datetime "start_date"
+    t.datetime "end_date"
     t.datetime "created_at",                                     :null => false
     t.datetime "updated_at",                                     :null => false
   end

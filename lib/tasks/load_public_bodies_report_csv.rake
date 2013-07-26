@@ -28,22 +28,22 @@ namespace :public_bodies do
 
         unless expenditure.nil?
           spending_announcement = SpendingAnnouncement.new
-          spending_announcement.startdate = DateTime.civil_from_format :local, args[:start_year].to_i
-          spending_announcement.enddate = DateTime.civil_from_format :local, args[:end_year].to_i
+          spending_announcement.start_date = DateTime.civil_from_format :local, args[:start_year].to_i
+          spending_announcement.end_date = DateTime.civil_from_format :local, args[:end_year].to_i
           spending_announcement.organisation_id = organisation.id
           spending_announcement.spending = expenditure
           spending_announcement.save
         end
         unless funding.nil?
           funding_announcement = FundingAnnouncement.new
-          funding_announcement.startdate = DateTime.civil_from_format :local, args[:start_year].to_i
-          funding_announcement.enddate = DateTime.civil_from_format :local, args[:end_year].to_i
+          funding_announcement.start_date = DateTime.civil_from_format :local, args[:start_year].to_i
+          funding_announcement.end_date = DateTime.civil_from_format :local, args[:end_year].to_i
           funding_announcement.organisation_id = organisation.id
           funding_announcement.funding = funding
           funding_announcement.save
         end
       end
     end
-    
+
   end
 end
