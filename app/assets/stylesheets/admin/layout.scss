@@ -218,6 +218,10 @@ header {
   }
 }
 
+.tabbable ul.actions {
+  margin: 0 0 $gutter 0;
+}
+
 .js-enabled .navbar .nav .js-hidden {
   display: none;
 }
