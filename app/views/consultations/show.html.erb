@@ -45,7 +45,8 @@
               <%= render partial: "documents/attachment_full_width",
                         locals: { document: @document.response,
                           title: "Download the full outcome",
-                          published_on: @document.response_published_on } %>
+                          published_on: @document.response_published_on,
+                          summary: nil } %>
             <% end %>
             <% if @document.response.summary.present? %>
               <section class="heading-block">
