@@ -93,9 +93,6 @@ nav.consultations_scope {
     @include heading-27;
     font-weight: bold;
     margin-bottom: $gutter-half;
-    @include media(tablet) {
-      margin-bottom: $gutter-half;
-    }
   }
 
   .consultation-block {
@@ -148,9 +145,6 @@ nav.consultations_scope {
         @include heading-27;
         font-weight: bold;
         padding-top: 0;
-        @include media(tablet) {
-          padding-top: 0;
-        }
       }
       p {
         @include core-19;
