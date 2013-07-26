@@ -23,7 +23,7 @@ $thumbnail-width: 99px;
     position: relative;
     float: left;
     margin-top: $gutter-one-sixth;
-    margin-left: -($thumbnail-width+$gutter-two-thirds)-$gutter-one-sixth;
+    margin-left: -($thumbnail-width + $gutter - $gutter-one-sixth);
     padding-bottom: $gutter-half;
     @include right-to-left {
       float: right;
