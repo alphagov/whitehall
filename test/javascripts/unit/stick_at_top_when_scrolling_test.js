@@ -24,3 +24,8 @@ test('should insert shim when sticking content', function(){
   equal($('.shim').length, 1);
 });
 
+test('should insert shim with minimum height', function(){
+  GOVUK.stickAtTopWhenScrolling.stick(this.$nav);
+  equal($('.shim').height(), 1);
+});
+
