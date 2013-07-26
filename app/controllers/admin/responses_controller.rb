@@ -1,5 +1,6 @@
 class Admin::ResponsesController < Admin::BaseController
   before_filter :find_consultation
+  before_filter :prevent_modification_of_unmodifiable_consultations
   before_filter :find_response, only: [:edit, :update]
 
   def show
@@ -39,5 +40,11 @@ class Admin::ResponsesController < Admin::BaseController
   def find_response
     @response = @consultation.response
     raise(ActiveRecord::RecordNotFound, "Could not find Response for Consulatation with ID #{@consultation.id}") unless @response
+  end
+
+  def prevent_modification_of_unmodifiable_consultations
+    if @consultation.unmodifiable?
+      redirect_to admin_edition_path(@consultation), notice: "You cannot modify a #{@consultation.state} #{@consultation.type.titleize}"
+    end
   end
 end

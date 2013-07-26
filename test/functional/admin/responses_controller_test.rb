@@ -5,7 +5,14 @@ class Admin::ResponsesControllerTest < ActionController::TestCase
 
   setup do
     login_as :policy_writer
-    @consultation = create(:closed_consultation)
+    @consultation = create(:draft_consultation, opening_on: 2.days.ago, closing_on: 1.day.ago)
+  end
+
+  test 'Actions are unavailable if consultation is unmodifiable' do
+    edition = create(:published_consultation)
+
+    get :show, consultation_id: edition
+    assert_response :redirect
   end
 
   view_test "GET :show has a link for adding a response" do
