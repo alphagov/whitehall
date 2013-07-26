@@ -58,7 +58,8 @@
     stick: function($el){
       if (!$el.hasClass('content-fixed')) {
         $el.data('scrolled-from', $el.offset().top);
-        $el.before('<div class="shim" style="width: '+ $el.width() + 'px; height: ' + $el.height() + 'px">&nbsp;</div>');
+        var height = Math.max($el.height(), 1);
+        $el.before('<div class="shim" style="width: '+ $el.width() + 'px; height: ' + height + 'px">&nbsp;</div>');
         $el.css('width', $el.width() + "px").addClass('content-fixed');
       }
     },
