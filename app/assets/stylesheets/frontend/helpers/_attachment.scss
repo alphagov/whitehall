@@ -2,17 +2,12 @@ $thumbnail-width: 99px;
 
 .attachment {
   position: relative;
-  margin: $gutter ($gutter-half*-1);
+  margin: $gutter 0;
   padding: $gutter-half 0 0 ($thumbnail-width + $gutter);
   @extend %contain-floats;
   @include right-to-left {
     padding: $gutter-half ($thumbnail-width + $gutter) 0 0;
   }
-  
-  @include media(tablet){
-    margin: $gutter 0;
-  }
-
   
   &.inline {
     background: transparent;
