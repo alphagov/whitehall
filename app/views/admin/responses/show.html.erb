@@ -3,27 +3,33 @@
 
 <div class="span8">
   <section>
-    <h1>Responses for <%= @edition.title %></h1>
+    <h1>Response for consultation</h1>
 
     <%= consultation_editing_tabs(@edition) do %>
 
       <% if @response %>
         <div class="summary">
-          <h2>Response summary</h2>
+          <h3>Response summary</h3>
           <%= govspeak_to_html @response.summary %>
+          <p>Published on <%= @response.published_on.to_s(:long_ordinal) %></p>
         </div>
       <% end %>
 
       <ul class="actions">
         <% if @response %>
-          <li><%= link_to 'Upload new attachment', new_admin_response_attachment_path(@response) %></li>
           <li><%= link_to 'Edit response', edit_admin_consultation_response_path(@edition) %></li>
         <% else %>
           <li><%= link_to 'Add a response', new_admin_consultation_response_path(@edition) %></li>
         <% end %>
       </ul>
 
-      <%= render('admin/attachments/attachments', attachable: @response) if @response && @response.attachments.any? %>
+      <% if @response %>
+        <h3>Response attachments (optional)</h3>
+        <ul class="actions">
+          <li><%= link_to 'Upload new attachment', new_admin_response_attachment_path(@response) %></li>
+        </ul>
+        <%= render('admin/attachments/attachments', attachable: @response) if @response.attachments.any? %>
+      <% end %>
     <% end %>
   </section>
 </div>
