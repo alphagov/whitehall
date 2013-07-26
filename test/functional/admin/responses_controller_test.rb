@@ -15,6 +15,12 @@ class Admin::ResponsesControllerTest < ActionController::TestCase
     assert_response :redirect
   end
 
+  test 'Access is forbidden to users who do not have access to the consultation' do
+    login_as :world_editor
+    get :show, consultation_id: @consultation
+    assert_response :forbidden
+  end
+
   view_test "GET :show has a link for adding a response" do
     get :show, consultation_id: @consultation
 

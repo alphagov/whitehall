@@ -1,11 +1,11 @@
-<% page_title "Response for: #{@consultation.title}" %>
+<% page_title "Response for: #{@edition.title}" %>
 <% page_class "response" %>
 
 <div class="span8">
   <section>
-    <h1>Responses for <%= @consultation.title %></h1>
+    <h1>Responses for <%= @edition.title %></h1>
 
-    <%= consultation_editing_tabs(@consultation) do %>
+    <%= consultation_editing_tabs(@edition) do %>
 
       <% if @response %>
         <div class="summary">
@@ -17,9 +17,9 @@
       <ul class="actions">
         <% if @response %>
           <li><%= link_to 'Upload new attachment', new_admin_response_attachment_path(@response) %></li>
-          <li><%= link_to 'Edit response', edit_admin_consultation_response_path(@consultation) %></li>
+          <li><%= link_to 'Edit response', edit_admin_consultation_response_path(@edition) %></li>
         <% else %>
-          <li><%= link_to 'Add a response', new_admin_consultation_response_path(@consultation) %></li>
+          <li><%= link_to 'Add a response', new_admin_consultation_response_path(@edition) %></li>
         <% end %>
       </ul>
 

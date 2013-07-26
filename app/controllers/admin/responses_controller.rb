@@ -1,18 +1,20 @@
 class Admin::ResponsesController < Admin::BaseController
   before_filter :find_consultation
-  before_filter :prevent_modification_of_unmodifiable_consultations
+  before_filter :limit_edition_access!
+  before_filter :enforce_edition_permissions!
+  before_filter :prevent_modification_of_unmodifiable_edition
   before_filter :find_response, only: [:edit, :update]
 
   def show
-    @response = @consultation.response
+    @response = @edition.response
   end
 
   def new
-    @response = @consultation.build_response(published_on: Date.today)
+    @response = @edition.build_response(published_on: Date.today)
   end
 
   def create
-    @response = @consultation.build_response(params[:response])
+    @response = @edition.build_response(params[:response])
     if @response.save
       redirect_to admin_consultation_response_path, notice: 'Response saved'
     else
@@ -34,17 +36,21 @@ class Admin::ResponsesController < Admin::BaseController
   private
 
   def find_consultation
-    @consultation = Consultation.find(params[:consultation_id])
+    @edition = Consultation.find(params[:consultation_id])
   end
 
   def find_response
-    @response = @consultation.response
-    raise(ActiveRecord::RecordNotFound, "Could not find Response for Consulatation with ID #{@consultation.id}") unless @response
+    @response = @edition.response
+    raise(ActiveRecord::RecordNotFound, "Could not find Response for Consulatation with ID #{@edition.id}") unless @response
+  end
+
+  def enforce_edition_permissions!
+    enforce_permission!(:update, @edition)
   end
 
   def prevent_modification_of_unmodifiable_consultations
-    if @consultation.unmodifiable?
-      redirect_to admin_edition_path(@consultation), notice: "You cannot modify a #{@consultation.state} #{@consultation.type.titleize}"
+    if @edition.unmodifiable?
+      redirect_to admin_edition_path(@edition), notice: "You cannot modify a #{@edition.state} #{@edition.type.titleize}"
     end
   end
 end
