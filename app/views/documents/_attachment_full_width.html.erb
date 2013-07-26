@@ -9,14 +9,12 @@
     <h1><%= title %></h1>
     <div class="content">
       <article>
-        <div class="body">
-          <div class="govspeak">
-            <% attachments.attachments.each do |attachment| %>
-              <%= render partial: "documents/attachment",
-                          object: attachment,
-                          locals: { alternative_format_contact_email: document.alternative_format_contact_email } %>
-            <% end %>
-          </div>
+        <div class="govspeak">
+          <% attachments.attachments.each do |attachment| %>
+            <%= render partial: "documents/attachment",
+                        object: attachment,
+                        locals: { alternative_format_contact_email: document.alternative_format_contact_email } %>
+          <% end %>
         </div>
       </article>
     </div>
