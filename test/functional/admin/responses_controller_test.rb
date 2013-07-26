@@ -32,7 +32,7 @@ class Admin::ResponsesControllerTest < ActionController::TestCase
   end
 
   test "POST :create with valid response params saves the response and redirects" do
-    post :create, consultation_id: @consultation, response: { summary: 'Response summary' }
+    post :create, consultation_id: @consultation, response: { summary: 'Response summary', published_on: Date.today }
 
     assert_response :redirect
     assert response = @consultation.response
@@ -47,13 +47,13 @@ class Admin::ResponsesControllerTest < ActionController::TestCase
 
   test "PUT :create with valid response params saves the changes to the response" do
     response = create_response
-    put :update, consultation_id: @consultation, response: { summary: 'New summary' }
+    put :update, consultation_id: @consultation, response: { summary: 'New summary', published_on: Date.today }
     assert_response :redirect
     assert_equal 'New summary', response.reload.summary
   end
 
 
   def create_response
-    @consultation.create_response!(summary: 'A summary of the response')
+    create(:response, summary: 'A summary of the response', consultation: @consultation)
   end
 end

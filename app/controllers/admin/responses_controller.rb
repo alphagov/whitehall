@@ -7,7 +7,7 @@ class Admin::ResponsesController < Admin::BaseController
   end
 
   def new
-    @response = @consultation.build_response
+    @response = @consultation.build_response(published_on: Date.today)
   end
 
   def create

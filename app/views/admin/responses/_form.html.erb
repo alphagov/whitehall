@@ -3,8 +3,8 @@
   <%= form.errors %>
 
 
-  <%= form.label :published_on, 'Response published date (leave blank to use the time the first attachment was uploaded)' %>
-  <%= form.datetime_select :published_on, { include_blank: true, start_year: 1997, end_year: Date.today.year + 5 }, { class: 'date' } %>
+  <%= form.label :published_on %>
+  <%= form.date_select :published_on, { include_blank: true, start_year: 1997, end_year: Date.today.year + 5 }, { class: 'date' } %>
   <%= form.text_area :summary, class: "previewable" %>
 
   <%= form.save_or_cancel cancel: admin_consultation_response_path(consultation) %>
