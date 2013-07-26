@@ -124,6 +124,19 @@ p.prompt {
   margin: $gutter-one-third 0 $gutter;
 }
 
+div.attachments.index {
+  ul.actions {
+    margin-left: $gutter-half;
+    margin-bottom: $gutter;
+  }
+
+  ol.existing-attachments {
+    ul.actions {
+      margin: 0;
+    }
+  }
+}
+
 // Tidy up spacing at top of document editing pages
 div.span8 > section {
   & > h1:first-child {
@@ -149,37 +162,30 @@ ol.uploaded-attachments {
 ol.existing-attachments {
   margin: 0;
   list-style: none;
-
-  span.title {
-    font-weight: bold;
-  }
-
-  img {
-    float: left;
-
-    width: 105px;
-    height: 140px;
-
-    margin-right: $gutter-one-third;
-  }
-
-  span {
-    display: block;
-  }
-
-  label, input {
-    .js-enabled & {
-      display: none;
+  .well {
+    padding: $gutter-one-third;
+    span.title {
+      font-weight: bold;
     }
-  }
 
-  label {
-    display: inline;
-    font-weight: bold;
-  }
+    span {
+      display: block;
+    }
 
-  input.ordering {
-    width: 50px;
+    label, input {
+      .js-enabled & {
+        display: none;
+      }
+    }
+
+    label {
+      display: inline;
+      font-weight: bold;
+    }
+
+    input.ordering {
+      width: 50px;
+    }
   }
 }
 
