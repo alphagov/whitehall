@@ -47,10 +47,4 @@ class Admin::ResponsesController < Admin::BaseController
   def enforce_edition_permissions!
     enforce_permission!(:update, @edition)
   end
-
-  def prevent_modification_of_unmodifiable_consultations
-    if @edition.unmodifiable?
-      redirect_to admin_edition_path(@edition), notice: "You cannot modify a #{@edition.state} #{@edition.type.titleize}"
-    end
-  end
 end
