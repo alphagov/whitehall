@@ -1,7 +1,6 @@
 <%
   attachments = AttachmentsPresenter.new(document)
   title = t('document.headings.attachments', count: attachments.length) unless local_assigns.include?(:title)
-  summary = document.summary unless local_assigns.include?(:summary)
   published_on = '' unless local_assigns.include?(:published_on)
 %>
 <section class="heading-block attachment-full-width">
@@ -13,7 +12,9 @@
           <% attachments.attachments.each do |attachment| %>
             <%= render partial: "documents/attachment",
                         object: attachment,
-                        locals: { alternative_format_contact_email: document.alternative_format_contact_email } %>
+                        locals: { 
+                          alternative_format_contact_email: document.alternative_format_contact_email,
+                          published_on: published_on} %>
           <% end %>
         </div>
       </article>
