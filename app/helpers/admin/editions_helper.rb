@@ -176,7 +176,6 @@ module Admin::EditionsHelper
 
   def edition_editing_tabs(edition, &blk)
     tabs = default_edition_tabs(edition)
-    tabs['Attachments'] = admin_edition_attachments_path(edition) if edition.persisted? && edition.allows_attachments?
     tab_navigation(tabs) { yield blk }
   end
 
