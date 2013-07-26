@@ -67,35 +67,6 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     assert response_form.consultation_response_form_data.file.present?
   end
 
-  test "create should create a new consultation and a response with attachments" do
-    attributes = controller_attributes_for(:consultation,
-      response_attributes: {
-        summary: 'response-summary',
-        consultation_response_attachments_attributes: {
-          '0' => {
-            attachment_attributes: {
-              title: 'attachment-title',
-              attachment_data_attributes: {
-                file: fixture_file_upload('greenpaper.pdf')
-              }
-            }
-          }
-        }
-      }
-    )
-
-    post :create, edition: attributes
-
-    consultation = Consultation.last
-    assert_equal 'response-summary', consultation.response.summary
-    assert_equal 1, consultation.response.attachments.length
-
-    attachment = consultation.response.attachments.first
-    assert_equal 'attachment-title', attachment.title
-    simulate_virus_scan(attachment.attachment_data.file)
-    assert attachment.file.present?
-  end
-
   test "create should create a new consultation without consultation participation if participation fields are all blank" do
     attributes = controller_attributes_for(:consultation,
       consultation_participation_attributes: {
@@ -182,13 +153,13 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
 
   view_test "show displays the response details and links to attachments" do
     consultation = create(:consultation)
-    response = consultation.create_response!(summary: 'response-summary')
+    response = create(:response, consultation: consultation)
     attachment = response.attachments.create!(title: 'attachment-title', attachment_data: create(:attachment_data,  file: fixture_file_upload('greenpaper.pdf')))
 
     get :show, id: consultation
 
     assert_select '.consultation_response' do
-      assert_select '.summary', text: 'response-summary'
+      assert_select '.summary', text: response.summary
       assert_select '.attachments .attachment .title', text: 'attachment-title'
       assert_select 'a[href=?]', attachment.file.url
     end

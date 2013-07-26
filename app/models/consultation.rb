@@ -65,12 +65,8 @@ class Consultation < Publicationesque
     closing_on.nil? || (closing_on < Date.today)
   end
 
-  def published_consultation_response
-    response if response && response.published?
-  end
-
   def response_published?
-    closed? && published_consultation_response.present?
+    closed? && response.present?
   end
 
   def response_published_on

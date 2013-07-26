@@ -9,10 +9,6 @@ class Response < ActiveRecord::Base
   validates :summary, presence: true, on: :create
   validates_with SafeHtmlValidator
 
-  def published?
-    attachments.any?
-  end
-
   def alternative_format_contact_email
     consultation.alternative_format_contact_email
   end

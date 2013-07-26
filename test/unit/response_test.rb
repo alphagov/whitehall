@@ -10,11 +10,6 @@ class ResponseTest < ActiveSupport::TestCase
     assert_nil ConsultationResponseAttachment.find_by_id(response_attachment.id)
   end
 
-  test "is only published once an attachment is present" do
-    refute build(:response).published?
-    assert build(:response, attachments: [build(:attachment)]).published?
-  end
-
   test "legacy responses without a summary are still valid" do
     response = create(:response)
     response.update_column(:summary, nil)

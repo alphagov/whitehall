@@ -44,15 +44,6 @@ FactoryGirl.define do
   end
 
   factory :consultation_with_response, parent: :closed_consultation do
-    response_attributes do
-      {
-        consultation_response_attachments_attributes: {
-          '0' => {
-            attachment_attributes: attributes_for(:attachment,
-              attachment_data_attributes: attributes_for(:attachment_data))
-          }
-        }
-      }
-    end
+    response { create(:response) }
   end
 end
