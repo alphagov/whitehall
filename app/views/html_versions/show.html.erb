@@ -14,7 +14,11 @@
       <% end %>
     </ul>
     <div class="return">
-      <p><%= link_to "See more information about this #{@document.display_type.downcase}", public_document_path(@document) %></p>
+      <% if @document.is_a?(Consultation) %>
+        <p><%= link_to "See more information about this consultation", public_document_path(@document) %></p>
+      <% else %>
+        <p><%= link_to "See more information about this publication", public_document_path(@document) %></p>
+      <% end %>
     </div>
   </div>
 </div>
