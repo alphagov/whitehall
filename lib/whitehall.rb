@@ -159,22 +159,34 @@ module Whitehall
     end
 
     def edition_classes
-      [NewsArticle, Speech, Policy, Publication, Consultation, WorldwidePriority, DetailedGuide, CaseStudy, StatisticalDataSet, FatalityNotice, WorldLocationNewsArticle]
+      [
+        CaseStudy,
+        FatalityNotice,
+        WorldwidePriority,
+        StatisticalDataSet,
+        Policy,
+        Consultation,
+        WorldLocationNewsArticle,
+        Speech,
+        DetailedGuide,
+        NewsArticle,
+        Publication
+      ]
     end
 
     def searchable_classes
       additional_classes = [
-        MinisterialRole,
         Organisation,
-        SupportingPage,
+        MinisterialRole,
+        Person,
         Topic,
         TopicalEvent,
         DocumentSeries,
-        OperationalField,
-        PolicyTeam,
-        PolicyAdvisoryGroup,
-        Person,
         CorporateInformationPage,
+        OperationalField,
+        PolicyAdvisoryGroup,
+        PolicyTeam,
+        SupportingPage,
         TakePartPage
       ]
       not_yet_searchable_classes = []
@@ -189,7 +201,7 @@ module Whitehall
           WorldwidePriority
         ]
       end
-      edition_classes + additional_classes - not_yet_searchable_classes
+      additional_classes + edition_classes - not_yet_searchable_classes
     end
 
     def edition_route_path_segments
