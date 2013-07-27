@@ -123,6 +123,7 @@ class AttachableTest < ActiveSupport::TestCase
       hoc_paper_number: "1234", parliamentary_session: '2013-14', command_paper_number: "Cm. 1234",
       unique_reference: "w123", isbn: "0140620222"
     )
+    attachment.stubs(:extracted_text).returns "\nThis is a test pdf.\n\n\n"
     edition = create(:publication)
     edition.attachments << attachment
 
