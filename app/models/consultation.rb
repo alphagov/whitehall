@@ -19,13 +19,12 @@ class Consultation < Publicationesque
   after_update { |p| p.published_related_policies.each(&:update_published_related_publication_count) }
 
   accepts_nested_attributes_for :consultation_participation, reject_if: :all_blank_or_empty_hashes
-  accepts_nested_attributes_for :response, reject_if: :all_blank_or_empty_hashes
 
   scope :closed, -> { where("closing_on < ?",  Date.today)}
   scope :closed_since, ->(earliest_closing_date) { closed.where('closing_on >= ?', earliest_closing_date.to_date) }
   scope :open, -> { where('closing_on >= ? AND opening_on <= ?', Date.today, Date.today) }
   scope :upcoming, -> { where('opening_on > ?', Date.today) }
-  scope :responded, -> { joins(:response).where("responses.published_on IS NOT NULL") }
+  scope :responded, -> { joins(:response) }
 
   add_trait do
     def process_associations_after_save(edition)
