@@ -1,4 +1,17 @@
 module Admin::AttachableHelper
+
+  def typecast_for_attachable_routing(attachable)
+    attachable.is_a?(Edition) ? attachable.becomes(Edition) : attachable
+  end
+
+  def attachable_editing_tabs(attachable, &blk)
+    if attachable.is_a?(Consultation)
+      consultation_editing_tabs(attachable) { yield blk }
+    else
+      edition_editing_tabs(attachable) { yield blk }
+    end
+  end
+
   def attachment_action_fields(fields, data_object_name = :attachment_data)
     return if fields.object.new_record?
     keep_destroy_or_replace =

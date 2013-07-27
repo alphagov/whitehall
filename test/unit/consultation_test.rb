@@ -78,33 +78,6 @@ class ConsultationTest < ActiveSupport::TestCase
     assert_equal "http://scot.gov.uk", draft_consultation.nation_inapplicabilities.find_by_nation_id(Nation.scotland.id).alternative_url
   end
 
-  test "#published_consultation_response provides access to the published response" do
-    consultation = create(:published_consultation)
-    published_response = consultation.create_response!
-    published_response.stubs(:published?).returns(true)
-    assert_equal published_response, consultation.published_consultation_response
-  end
-
-  test "#published_consultation_response returns nil if there is no response for this consultation" do
-    consultation = create(:published_consultation)
-    assert_nil consultation.published_consultation_response
-  end
-
-  test "#published_consultation_response returns nil if the response isn't published" do
-    consultation = create(:published_consultation)
-    published_response = consultation.create_response!
-    published_response.stubs(:published?).returns(false)
-    assert_nil consultation.published_consultation_response
-  end
-
-  test "published_consultation_response returns the response when just a summary is present" do
-    consultation = create(:closed_consultation)
-    published_response = consultation.create_response!
-    published_response.summary = "This is the summary"
-    published_response.save
-    assert_equal published_response, consultation.reload.published_consultation_response
-  end
-
   test ".closed includes consultations closing in the past" do
     closed_consultation = create(:consultation, opening_on: 2.days.ago, closing_on: 1.day.ago)
 
@@ -196,47 +169,9 @@ class ConsultationTest < ActiveSupport::TestCase
     assert_nil ConsultationParticipation.find_by_id(consultation_participation.id)
   end
 
-  test "should accept nested attributes for the consultation response" do
-    consultation = build(:consultation)
-    consultation.response_attributes = {
-      summary: 'response-summary'
-    }
-    consultation.save!
-
-    assert_equal 'response-summary', consultation.response.summary
-  end
-
-  test "should not build an empty consultation response if the attributes are blank" do
-    consultation = build(:consultation)
-    consultation.response_attributes = {
-      summary: nil
-    }
-    consultation.save!
-
-    assert_nil consultation.response
-  end
-
-  test "should not build an empty consultation response if the response attachment attributes are all blank" do
-    consultation = build(:consultation)
-    consultation.response_attributes = {
-      summary: '',
-      consultation_response_attachments_attributes: {
-        '0' => {
-          attachment_attributes: {
-            title: '',
-            file: ''
-          }
-        }
-      }
-    }
-    consultation.save!
-
-    assert_nil consultation.response
-  end
-
   test "should destroy the consultation response when the consultation is destroyed" do
     consultation = create(:consultation)
-    response = consultation.create_response!
+    response = create(:response, consultation: consultation)
 
     consultation.destroy
 
@@ -245,19 +180,18 @@ class ConsultationTest < ActiveSupport::TestCase
 
   test "should copy the response summary and link to the original attachments when creating a new draft" do
     consultation = create(:published_consultation)
-    response = consultation.create_response! summary: 'response-summary'
-    attachment = response.attachments.create! title: 'attachment-title'
-    attachment_data = attachment.create_attachment_data! file: fixture_file_upload('greenpaper.pdf')
+    response = create(:response, consultation: consultation)
+    attachment = response.attachments.create! title: 'attachment-title', attachment_data_attributes: { file: fixture_file_upload('greenpaper.pdf') }
 
     new_draft = consultation.create_draft(build(:user))
     new_draft.reload
 
-    assert_equal 'response-summary', new_draft.response.summary
+    assert_equal response.summary, new_draft.response.summary
     assert_not_equal response, new_draft.response
     assert_equal 1, new_draft.response.attachments.length
     assert_equal 'attachment-title', new_draft.response.attachments.first.title
     assert_not_equal attachment, new_draft.response.attachments.first
-    assert_equal attachment_data, new_draft.response.attachments.first.attachment_data
+    assert_equal attachment.attachment_data, new_draft.response.attachments.first.attachment_data
   end
 
   test "should report that the response has not been published if the consultation is still open" do
@@ -272,10 +206,9 @@ class ConsultationTest < ActiveSupport::TestCase
     refute consultation.response_published?
   end
 
-  test "should report that the response has been published if the consultation is closed and the response is published" do
+  test "should report that the response has been published if the consultation is closed" do
     consultation = create(:consultation, opening_on: 2.days.ago, closing_on: 1.day.ago)
-    response = consultation.create_response! summary: 'response-summary'
-    response.stubs(:published?).returns(true)
+    response = create(:response, consultation: consultation)
 
     assert consultation.response_published?
   end
@@ -283,7 +216,7 @@ class ConsultationTest < ActiveSupport::TestCase
   test "should return the published_on date of the response" do
     today = Date.today
     consultation = create(:consultation)
-    response = consultation.create_response!
+    response = create(:response, consultation: consultation)
     response.stubs(:published_on).returns(today)
 
     assert_equal today, consultation.response_published_on
@@ -318,9 +251,8 @@ class ConsultationTest < ActiveSupport::TestCase
 
   test "display_type when response published" do
     consultation = build(:consultation, opening_on: Date.new(2011, 5, 1), closing_on: Date.new(2011, 7, 1))
-    response = consultation.create_response!
+    response = create(:response, consultation: consultation)
     response.attachments << build(:attachment)
-    consultation.stubs(:published_consultation_response).returns(response)
     assert_equal "Consultation outcome", consultation.display_type
   end
 
@@ -342,9 +274,8 @@ class ConsultationTest < ActiveSupport::TestCase
 
   test "when the consultation has published the response search_format_types tags the consultation as consultation-outcome" do
     consultation = build(:consultation, opening_on: Date.new(2011, 5, 1), closing_on: Date.new(2011, 7, 1))
-    response = consultation.create_response!
+    response = create(:response, consultation: consultation)
     response.attachments << build(:attachment)
-    consultation.stubs(:published_consultation_response).returns(response)
     assert consultation.search_format_types.include?('consultation-outcome')
   end
 

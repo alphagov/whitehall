@@ -10,7 +10,7 @@ child :nation_inapplicabilities => :nation_inapplicabilities do
 end
 
 child :published_consultation_response do
-  object @document.published_consultation_response
+  object @document.response
   attributes :summary
 
   child :attachments => :attachments do

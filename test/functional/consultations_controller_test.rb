@@ -21,12 +21,12 @@ class ConsultationsControllerTest < ActionController::TestCase
   view_test 'show displays the summary of the published consultation response when there are response attachments' do
     closed_consultation = create(:published_consultation, opening_on: 2.days.ago, closing_on: 1.day.ago)
     response_attachment = create(:attachment)
-    response = closed_consultation.create_response!(summary: 'response-summary')
+    response = create(:response, consultation: closed_consultation)
     response.attachments << response_attachment
 
     get :show, id: closed_consultation.document
 
-    assert_select '.attachment-details .extra-description', text: 'response-summary'
+    assert_select '.attachment-details .extra-description', text: response.summary
   end
 
   view_test 'show displays consultation dates when consultation has finished' do
