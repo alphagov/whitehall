@@ -62,6 +62,14 @@ class OrganisationTest < ActiveSupport::TestCase
     refute organisation.valid?
   end
 
+  test 'should be valid with a blank alternative_format_contact_email if the org is closed' do
+    organisation = create(:organisation, alternative_format_contact_email: "alternative@example.com", govuk_status: 'closed')
+    create(:draft_publication, alternative_format_provider: organisation)
+    assert organisation.valid?
+    organisation.alternative_format_contact_email = ""
+    assert organisation.valid?
+  end
+
   test 'should be invalid with a URL that doesnt start with a protocol' do
     assert build(:organisation, url: nil).valid?
     assert build(:organisation, url: '').valid?
