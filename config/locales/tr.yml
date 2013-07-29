@@ -189,6 +189,9 @@ tr:
       independent_report:
         one: Bağımsız rapor
         other: Bağımsız raporlar
+      international_treaty:
+        one:
+        other:
       map:
         one: Harita
         other: Haritalar

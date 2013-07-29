@@ -190,6 +190,13 @@ ar:
         few:
         many:
         other: تقارير مستقلة
+      international_treaty:
+        zero:
+        one:
+        two:
+        few:
+        many:
+        other:
       map:
         zero:
         one: خريطة

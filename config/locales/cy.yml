@@ -190,6 +190,13 @@ cy:
         few:
         many:
         other: Adroddiadau annibynnol
+      international_treaty:
+        zero:
+        one:
+        two:
+        few:
+        many:
+        other:
       map:
         zero:
         one: Map

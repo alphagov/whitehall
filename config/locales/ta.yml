@@ -86,6 +86,9 @@ ta:
       independent_report:
         one: சுயாதீன அறிக்கை
         other: சுயாதீன அறிக்கைகள்
+      international_treaty:
+        one:
+        other:
       map:
         one: வரைபடம்
         other: வரைபடங்கள்

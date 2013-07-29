@@ -188,6 +188,9 @@ fa:
       independent_report:
         one: گزارش مستقل
         other: گزارش های مستقل
+      international_treaty:
+        one:
+        other:
       map:
         one: نقشه
         other: نقشه ها

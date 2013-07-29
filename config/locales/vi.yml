@@ -189,6 +189,9 @@ vi:
       independent_report:
         one: Báo cáo độc lập
         other: Các báo cáo độc lập
+      international_treaty:
+        one:
+        other:
       map:
         one: Bản đồ
         other: Các bản đồ

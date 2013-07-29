@@ -138,6 +138,11 @@ sr:
         few:
         many:
         other: nezavisni izveštaj
+      international_treaty:
+        one:
+        few:
+        many:
+        other:
       map:
         one: mapa
         few:

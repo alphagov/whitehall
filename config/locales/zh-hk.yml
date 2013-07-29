@@ -186,6 +186,9 @@ zh-hk:
       independent_report:
         one: 獨立報告
         other: 其他獨立報告
+      international_treaty:
+        one:
+        other:
       map:
         one: 地圖
         other: 其他地圖

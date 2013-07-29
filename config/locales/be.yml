@@ -138,6 +138,11 @@ be:
         few:
         many:
         other: Незалежныя справаздачы
+      international_treaty:
+        one:
+        few:
+        many:
+        other:
       map:
         one: Карта
         few:

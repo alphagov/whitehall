@@ -189,6 +189,9 @@ hu:
       independent_report:
         one: Független beszámoló
         other: Független beszámolók
+      international_treaty:
+        one:
+        other:
       map:
         one: Térkép
         other: Térképek

@@ -187,6 +187,9 @@ ko:
       independent_report:
         one: 독립 레포트
         other: 독립 레포트
+      international_treaty:
+        one:
+        other:
       map:
         one: 지도
         other: 지도

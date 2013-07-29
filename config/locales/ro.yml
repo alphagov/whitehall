@@ -112,6 +112,10 @@ ro:
         one: Raport independent
         few:
         other: Rapoarte independente
+      international_treaty:
+        one:
+        few:
+        other:
       map:
         one: Hartă
         few:

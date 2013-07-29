@@ -179,6 +179,9 @@ en:
       independent_report:
         one: Independent report
         other: Independent reports
+      international_treaty:
+        one: International treaty
+        other: International treaties
       map:
         one: Map
         other: Maps

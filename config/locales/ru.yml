@@ -138,6 +138,11 @@ ru:
         few:
         many:
         other: Независимые отчеты
+      international_treaty:
+        one:
+        few:
+        many:
+        other:
       map:
         one: Карта
         few:

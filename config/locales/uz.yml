@@ -86,6 +86,9 @@ uz:
       independent_report:
         one: Mustaqil hisobot
         other: Mustaqil hisobotlar
+      international_treaty:
+        one:
+        other:
       map:
         one: Xarita
         other: Xaritalar

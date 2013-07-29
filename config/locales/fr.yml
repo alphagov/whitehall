@@ -86,6 +86,9 @@ fr:
       independent_report:
         one: Rapport indépendant
         other: Rapports indépendants
+      international_treaty:
+        one:
+        other:
       map:
         one: Carte
         other: Cartes

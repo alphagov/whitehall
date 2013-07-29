@@ -86,6 +86,9 @@ so:
       independent_report:
         one: Warbixin madax bannaan
         other: Warbixinno madax bannaan
+      international_treaty:
+        one:
+        other:
       map:
         one: Khariidad
         other: Khariidado

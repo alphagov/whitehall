@@ -138,6 +138,11 @@ pl:
         few:
         many:
         other: Niezależne raporty
+      international_treaty:
+        one:
+        few:
+        many:
+        other:
       map:
         one: Mapa
         few:

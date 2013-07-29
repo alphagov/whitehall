@@ -187,6 +187,9 @@ ja:
       independent_report:
         one: 第三者機関によるレポート
         other: 第三者機関によるレポート
+      international_treaty:
+        one:
+        other:
       map:
         one: 地図
         other: 地図

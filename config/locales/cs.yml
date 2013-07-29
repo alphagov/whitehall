@@ -112,6 +112,10 @@ cs:
         one: Nezávislá zpráva
         few:
         other: Nezávislé zprávy
+      international_treaty:
+        one:
+        few:
+        other:
       map:
         one: Mapa
         few:

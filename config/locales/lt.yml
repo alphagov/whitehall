@@ -112,6 +112,10 @@ lt:
         one: Nepriklausoma ataskaita
         few:
         other: Nepriklausomos ataskaitos
+      international_treaty:
+        one:
+        few:
+        other:
       map:
         one: Žemėlapis
         few:

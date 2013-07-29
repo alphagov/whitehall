@@ -138,6 +138,11 @@ uk:
         few:
         many:
         other: Незалежні звіти
+      international_treaty:
+        one:
+        few:
+        many:
+        other:
       map:
         one: Мапа
         few:

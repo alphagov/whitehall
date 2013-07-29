@@ -186,6 +186,9 @@ zh:
       independent_report:
         one: 独立报告
         other: 独立报告
+      international_treaty:
+        one:
+        other:
       map:
         one: 地图
         other: 地图

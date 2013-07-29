@@ -186,6 +186,9 @@ az:
       independent_report:
         one: Müstəqil məruzə
         other: Müstəqil məruzələr
+      international_treaty:
+        one:
+        other:
       map:
         one: Xəritə
         other: xəritələr

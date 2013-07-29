@@ -187,6 +187,9 @@ th:
       independent_report:
         one: รายงานอิสระ
         other: รายงานอิสระ
+      international_treaty:
+        one:
+        other:
       map:
         one: แผนที่
         other: แผนที่

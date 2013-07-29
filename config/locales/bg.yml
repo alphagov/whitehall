@@ -86,6 +86,9 @@ bg:
       independent_report:
         one: Независим доклад
         other: Независими доклади
+      international_treaty:
+        one:
+        other:
       map:
         one: Карта
         other: Карти

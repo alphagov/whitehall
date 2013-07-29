@@ -188,6 +188,9 @@ id:
       independent_report:
         one: Laporan independen
         other: Laporan-laporan independen
+      international_treaty:
+        one:
+        other:
       map:
         one: Peta
         other: Peta-peta
