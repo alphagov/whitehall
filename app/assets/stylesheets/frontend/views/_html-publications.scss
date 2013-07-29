@@ -118,6 +118,9 @@
             margin: (-$gutter) 0 0 (-25%);
             width: 22%;
             padding: ($gutter+$gutter-one-sixth) 0 $gutter 3%;
+            @include ie(7) {
+              margin-left: -35%;
+            }
           }
         }
       }
