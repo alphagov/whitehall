@@ -32,7 +32,7 @@
             <p>This consultation closes on <span><%= absolute_date(@document.closing_on, class: 'closing-on') %></span></p>
           </div>
           <div class="summary">
-            <div>
+            <div class="summary-inner">
               <h2>Summary</h2>
               <p><%= @document.summary %></p>
             </div>
@@ -66,7 +66,7 @@
             <p>This consultation ran from <span><%= absolute_date(@document.opening_on, class: 'opening-on') %> to<br><%= absolute_date(@document.closing_on, class: 'closing-on') %></span></p>
           </div>
           <div class="summary">
-            <div>
+            <div class="summary-inner">
               <h2>Summary</h2>
               <p><%= @document.summary %></p>
             </div>
