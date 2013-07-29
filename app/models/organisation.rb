@@ -204,7 +204,7 @@ class Organisation < ActiveRecord::Base
   validates :alternative_format_contact_email, presence: {
     if: :provides_alternative_formats?,
     message: "can't be blank as there are editions which use this organisation as the alternative format provider"}
-  validates :govuk_status, inclusion: {in: %w{live joining exempt transitioning}}
+  validates :govuk_status, inclusion: {in: %w{live joining exempt transitioning closed}}
   validates :organisation_logo_type_id, presence: true
   validate :sub_organisations_must_have_a_parent
 
@@ -300,6 +300,10 @@ class Organisation < ActiveRecord::Base
 
   def transitioning?
     govuk_status == 'transitioning'
+  end
+
+  def closed?
+    govuk_status == 'closed'
   end
 
   def topics_with_content

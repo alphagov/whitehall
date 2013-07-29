@@ -44,6 +44,11 @@ class OrganisationTest < ActiveSupport::TestCase
     assert new_organisation.valid?
   end
 
+  test 'should be valid if govuk status is closed' do
+    new_organisation = build(:organisation, govuk_status: 'closed')
+    assert new_organisation.valid?
+  end
+
   test 'should be invalid if govuk status is not active, coming, exempt or transitioning' do
     new_organisation = build(:organisation, govuk_status: 'something-elese')
     refute new_organisation.valid?
