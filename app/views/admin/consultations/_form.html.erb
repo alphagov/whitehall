@@ -1,17 +1,21 @@
 <%= consultation_editing_tabs(edition) do %>
   <%= standard_edition_form(edition) do |form| %>
 
-    <%= render partial: 'html_version_fields', locals: { form: form, edition: edition } %>
+    <div class="js-external-url-set">
+      <%= render partial: 'html_version_fields', locals: { form: form, edition: edition } %>
+    </div>
 
     <fieldset>
       <legend>Associations</legend>
       <%= render partial: 'related_policy_fields', locals: { form: form, edition: edition } %>
       <%= render partial: 'organisation_fields', locals: { form: form, edition: edition } %>
-      <%= render partial: 'document_series_fields', locals: { form: form, edition: edition } %>
-      <%= render partial: 'minister_fields', locals: { form: form, edition: edition } %>
-      <%= render partial: 'topical_event_fields', locals: { form: form, edition: edition } %>
-      <%= render partial: 'worldwide_priority_fields', locals: { form: form, edition: edition } %>
-      <%= render partial: 'nation_fields', locals: { form: form, edition: edition } %>
+      <div class="js-external-url-set">
+        <%= render partial: 'document_series_fields', locals: { form: form, edition: edition } %>
+        <%= render partial: 'minister_fields', locals: { form: form, edition: edition } %>
+        <%= render partial: 'topical_event_fields', locals: { form: form, edition: edition } %>
+        <%= render partial: 'worldwide_priority_fields', locals: { form: form, edition: edition } %>
+        <%= render partial: 'nation_fields', locals: { form: form, edition: edition } %>
+      </div>
     </fieldset>
   <% end %>
 <% end %>

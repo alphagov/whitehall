@@ -52,6 +52,22 @@ jQuery(function($) {
 })(jQuery);
 
 (function($) {
+  var externalEdition = function() {
+    if ($('input#edition_external').prop('checked')) {
+      $('.js-external-url').show();
+      $('.js-external-url-set').hide();
+    } else {
+      $('.js-external-url-set').show();
+      $('.js-external-url').hide();
+      $('#edition_external_url').val('');
+    }
+  }
+
+  $('input#edition_external').change(externalEdition)
+  externalEdition();
+})(jQuery);
+
+(function($) {
   var hideScheduledPublication = function() {
     if ($('input#scheduled_publication_active').prop('checked')) {
       $('.scheduled_publication').show();
