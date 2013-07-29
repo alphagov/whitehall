@@ -27,8 +27,8 @@ module ConsultationCsvSampleHelpers
       "policy_4" => "",
       "consultation_ISBN" => "",
       "consultation_URN" => "",
-      "response_date" => "",
-      "response_summary" => ""
+      "response_date" => "20-Nov-2012",
+      "response_summary" => "summary required"
     }
   end
 

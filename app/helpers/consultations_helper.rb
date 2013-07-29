@@ -12,9 +12,8 @@ module ConsultationsHelper
   end
 
   def consultation_response_published_phrase(response)
-    return "Not yet published" unless response.published?
     date = render_datetime_microformat(response, :published_on) { response.published_on.to_s(:long_ordinal) }
-    (((response.published_on < Date.today) ? "Published response on " : "Publishing response on ") + date).html_safe
+    "Published response on #{date}".html_safe
   end
 
   def consultation_css_class(consultation)

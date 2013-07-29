@@ -168,9 +168,20 @@ module Admin::EditionsHelper
     end
   end
 
+  def default_edition_tabs(edition)
+    { 'Document' => tab_url_for_edition(edition) }.tap do |tabs|
+      tabs['Attachments'] = admin_edition_attachments_path(edition) if edition.persisted? && edition.allows_attachments?
+    end
+  end
+
   def edition_editing_tabs(edition, &blk)
-    tabs = { 'Document' => tab_url_for_edition(edition) }
-    tabs['Attachments'] = admin_edition_attachments_path(edition) if edition.persisted? && edition.allows_attachments?
+    tabs = default_edition_tabs(edition)
+    tab_navigation(tabs) { yield blk }
+  end
+
+  def consultation_editing_tabs(edition, &blk)
+    tabs = default_edition_tabs(edition)
+    tabs['Response'] = admin_consultation_response_path(edition) if edition.persisted?
     tab_navigation(tabs) { yield blk }
   end
 
