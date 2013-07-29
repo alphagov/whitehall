@@ -14,11 +14,7 @@
       <% end %>
     </ul>
     <div class="return">
-      <% if @document.is_a?(Consultation) %>
-        <p><%= link_to "See more information about this consultation", public_document_path(@document) %></p>
-      <% else %>
-        <p><%= link_to "See more information about this publication", public_document_path(@document) %></p>
-      <% end %>
+      <p><%= link_to "See more information about this #{html_version_see_more_display_type(@document)}", public_document_path(@document) %></p>
     </div>
   </div>
 </div>
