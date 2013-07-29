@@ -38,6 +38,7 @@ module Whitehall
     FoiRelease          = create(id: 14, label: "FOI releases", search_format_types: PublicationType::FoiRelease.search_format_types, publication_types: [PublicationType::FoiRelease], group_key: 'Corporate')
     Form                = create(id: 15, label: "Forms", search_format_types: PublicationType::Form.search_format_types, publication_types: [PublicationType::Form], group_key: 'Other')
     Map                 = create(id: 16, label: "Maps", search_format_types: PublicationType::Map.search_format_types, publication_types: [PublicationType::Map], group_key: 'Other')
-    PromotionalMaterial = create(id: 17, label: "Promotional material", search_format_types: PublicationType::PromotionalMaterial.search_format_types, publication_types: [PublicationType::PromotionalMaterial], group_key: 'Other')
+    InternationalTreaty = create(id: 17, label: "International treaties", search_format_types: PublicationType::InternationalTreaty.search_format_types, publication_types: [PublicationType::InternationalTreaty], group_key: 'Other')
+    PromotionalMaterial = create(id: 18, label: "Promotional material", search_format_types: PublicationType::PromotionalMaterial.search_format_types, publication_types: [PublicationType::PromotionalMaterial], group_key: 'Other')
   end
 end
