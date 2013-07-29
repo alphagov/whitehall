@@ -25,6 +25,10 @@ class AttachmentData < ActiveRecord::Base
     content_type == AttachmentUploader::PDF_CONTENT_TYPE
   end
 
+  def txt?
+    file_extension == "txt"
+  end
+
   def indexable?
     AttachmentUploader::INDEXABLE_TYPES.include?(file_extension)
   end
@@ -33,15 +37,24 @@ class AttachmentData < ActiveRecord::Base
     path = file.path
     if indexable? && File.exist?(path)
       if Whitehall.extract_text_feature?
-        extract_text(path)
+        if txt?
+          File.open(path).read
+        else
+          text_file_path = path.gsub(/\.[^\.]+$/, ".txt")
+          if File.exist?(text_file_path)
+            File.open(text_file_path).read
+          end
+        end
       end
     end
   end
 
-  def extract_text(path)
-    output = `tika -t #{path}`
-    result = $?.success?
-    output if result
+  def extract_text
+    text_file_path = file.path.gsub(/\.[^\.]+$/, ".txt")
+    unless txt?
+      cmd = %Q{tika -t "#{file.path}" > "#{text_file_path}"}
+      `#{cmd}`
+    end
   end
 
   def update_file_attributes

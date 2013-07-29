@@ -37,6 +37,7 @@ gem 'rails-i18n'
 gem 'globalize3', github: 'svenfuchs/globalize3', ref: 'ab69160ad'
 gem 'link_header'
 gem 'diffy'
+gem 'ansi'
 
 group :assets do
   gem 'govuk_frontend_toolkit', '0.32.0'
