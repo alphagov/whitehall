@@ -1,4 +1,8 @@
 module DocumentHelper
+  def html_version_see_more_display_type(edition)
+    edition.is_a?(Consultation) ? 'consultation' : 'publication'
+  end
+
   def published_or_updated(edition)
     edition.first_published_version? ? t('document.published') : t('document.updated')
   end
