@@ -12,6 +12,7 @@
   <%= form.text_area :body, label_text: "Body", class: "previewable", disabled: disabled, required: true %>
 
   <%= render partial: "admin/shared/attachment_fields", locals: { form: form, edition: corporate_information_page, parent_type: :corporate_information_page } %>
-
+  
+  <p class="warning">Warning: changes to corporate info pages appear instantly on the live site.</p>
   <%= form.save_or_cancel cancel: [:admin, @organisation] %>
 <% end %>

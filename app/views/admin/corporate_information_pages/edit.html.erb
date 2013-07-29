@@ -1,7 +1,7 @@
 <% page_title "Edit '#{@corporate_information_page.title}' for " + @organisation.name %>
 
 <h1>Edit '<%= @corporate_information_page.title %>' page for <%= link_to @organisation.name, [:admin, @organisation] %></h1>
-
+<p class="warning">Warning: changes to corporate info pages appear instantly on the live site.</p>
 <div class="row-fluid">
   <div class="span8">
     <section>
