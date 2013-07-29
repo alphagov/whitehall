@@ -105,6 +105,10 @@ nav.consultations_scope {
       padding: $gutter;
     }
 
+    a {
+      color: $white;
+    }
+
     .consultation-dates {
       @include media(tablet) {
         float: left;
@@ -145,6 +149,10 @@ nav.consultations_scope {
         @include heading-27;
         font-weight: bold;
         padding-top: 0;
+      }
+      h3 {
+        @include heading-24;
+        font-weight: bold;
       }
       p {
         @include core-19;
