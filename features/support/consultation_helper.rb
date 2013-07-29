@@ -7,7 +7,7 @@ module ConsultationHelper
     click_link("View")
   end
 
-  def should_have_consultation_response_attachment
+  def should_have_consultation_outcome_attachment
     assert has_css?(".consultation-responded .attachment", count: 1)
   end
 end

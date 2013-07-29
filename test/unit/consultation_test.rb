@@ -169,57 +169,57 @@ class ConsultationTest < ActiveSupport::TestCase
     assert_nil ConsultationParticipation.find_by_id(consultation_participation.id)
   end
 
-  test "should destroy the consultation response when the consultation is destroyed" do
+  test "should destroy the consultation outcome when the consultation is destroyed" do
     consultation = create(:consultation)
-    response = create(:response, consultation: consultation)
+    outcome = create(:consultation_outcome, consultation: consultation)
 
     consultation.destroy
 
-    assert_nil Response.find_by_id(response.id)
+    refute ConsultationOutcome.exists?(outcome)
   end
 
-  test "should copy the response summary and link to the original attachments when creating a new draft" do
+  test "should copy the outcome summary and link to the original attachments when creating a new draft" do
     consultation = create(:published_consultation)
-    response = create(:response, consultation: consultation)
-    attachment = response.attachments.create! title: 'attachment-title', attachment_data_attributes: { file: fixture_file_upload('greenpaper.pdf') }
+    outcome = create(:consultation_outcome, consultation: consultation)
+    attachment = outcome.attachments.create! title: 'attachment-title', attachment_data_attributes: { file: fixture_file_upload('greenpaper.pdf') }
 
     new_draft = consultation.create_draft(build(:user))
     new_draft.reload
 
-    assert_equal response.summary, new_draft.response.summary
-    assert_not_equal response, new_draft.response
-    assert_equal 1, new_draft.response.attachments.length
-    assert_equal 'attachment-title', new_draft.response.attachments.first.title
-    assert_not_equal attachment, new_draft.response.attachments.first
-    assert_equal attachment.attachment_data, new_draft.response.attachments.first.attachment_data
+    assert_equal outcome.summary, new_draft.outcome.summary
+    assert_not_equal outcome, new_draft.outcome
+    assert_equal 1, new_draft.outcome.attachments.length
+    assert_equal 'attachment-title', new_draft.outcome.attachments.first.title
+    assert_not_equal attachment, new_draft.outcome.attachments.first
+    assert_equal attachment.attachment_data, new_draft.outcome.attachments.first.attachment_data
   end
 
-  test "should report that the response has not been published if the consultation is still open" do
+  test "should report that the outcome has not been published if the consultation is still open" do
     consultation = create(:consultation, opening_on: 1.day.ago, closing_on: 1.month.from_now)
 
-    refute consultation.response_published?
+    refute consultation.outcome_published?
   end
 
-  test "should report that the response has not been published if the consultation is closed and there is no response" do
+  test "should report that the outcome has not been published if the consultation is closed and there is no outcome" do
     consultation = create(:consultation, opening_on: 2.days.ago, closing_on: 1.day.ago)
 
-    refute consultation.response_published?
+    refute consultation.outcome_published?
   end
 
-  test "should report that the response has been published if the consultation is closed" do
+  test "should report that the outcome has been published if the consultation is closed" do
     consultation = create(:consultation, opening_on: 2.days.ago, closing_on: 1.day.ago)
-    response = create(:response, consultation: consultation)
+    outcome = create(:consultation_outcome, consultation: consultation)
 
-    assert consultation.response_published?
+    assert consultation.outcome_published?
   end
 
-  test "should return the published_on date of the response" do
+  test "should return the published_on date of the outcome" do
     today = Date.today
     consultation = create(:consultation)
-    response = create(:response, consultation: consultation)
-    response.stubs(:published_on).returns(today)
+    outcome = create(:consultation_outcome, consultation: consultation)
+    outcome.stubs(:published_on).returns(today)
 
-    assert_equal today, consultation.response_published_on
+    assert_equal today, consultation.outcome_published_on
   end
 
   test "first published date is the date of consultation opening" do
@@ -249,10 +249,10 @@ class ConsultationTest < ActiveSupport::TestCase
     assert_equal "Closed consultation", consultation.display_type
   end
 
-  test "display_type when response published" do
+  test "display_type when outcome published" do
     consultation = build(:consultation, opening_on: Date.new(2011, 5, 1), closing_on: Date.new(2011, 7, 1))
-    response = create(:response, consultation: consultation)
-    response.attachments << build(:attachment)
+    outcome = create(:consultation_outcome, consultation: consultation)
+    outcome.attachments << build(:attachment)
     assert_equal "Consultation outcome", consultation.display_type
   end
 
@@ -272,10 +272,10 @@ class ConsultationTest < ActiveSupport::TestCase
     assert consultation.search_format_types.include?('consultation-closed')
   end
 
-  test "when the consultation has published the response search_format_types tags the consultation as consultation-outcome" do
+  test "when the consultation has published the outcome search_format_types tags the consultation as consultation-outcome" do
     consultation = build(:consultation, opening_on: Date.new(2011, 5, 1), closing_on: Date.new(2011, 7, 1))
-    response = create(:response, consultation: consultation)
-    response.attachments << build(:attachment)
+    outcome = create(:consultation_outcome, consultation: consultation)
+    outcome.attachments << build(:attachment)
     assert consultation.search_format_types.include?('consultation-outcome')
   end
 

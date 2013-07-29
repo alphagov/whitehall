@@ -58,7 +58,7 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
   end
 
   view_test "GET :new handles other 'attachable' things" do
-    response = @edition.response = create(:response)
+    response = @edition.outcome = create(:consultation_outcome)
     get :new, response_id: response
 
     assert_response :success
@@ -83,10 +83,10 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
   end
 
   test "POST :create handles response attachments and redirects to the response itself, rather than the attachments index" do
-    response = @edition.response = create(:response)
+    response = @edition.outcome = create(:consultation_outcome)
     post :create, response_id: response, attachment: valid_attachment_params
 
-    assert_redirected_to admin_consultation_response_url(@edition)
+    assert_redirected_to admin_consultation_outcome_url(@edition)
     assert_equal 1, response.reload.attachments.size
     assert_equal 'Attachment title', response.attachments[0].title
     assert_equal 'whitepaper.pdf', response.attachments[0].filename
@@ -131,7 +131,7 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
   end
 
   test "DELETE :destroy deletes attachments from other 'attachable' things" do
-    response = @edition.response = create(:response)
+    response = @edition.outcome = create(:consultation_outcome)
     attachment = create(:attachment)
     response.attachments << attachment
     delete :destroy, response_id: response, id: attachment

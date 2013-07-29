@@ -153,7 +153,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
 
   view_test "show displays the response details and links to attachments" do
     consultation = create(:consultation)
-    response = create(:response, consultation: consultation)
+    response = create(:consultation_outcome, consultation: consultation)
     attachment = response.attachments.create!(title: 'attachment-title', attachment_data: create(:attachment_data,  file: fixture_file_upload('greenpaper.pdf')))
 
     get :show, id: consultation

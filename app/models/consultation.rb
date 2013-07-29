@@ -14,6 +14,7 @@ class Consultation < Publicationesque
   validate :closing_on_must_be_after_opening_on
   validate :must_have_consultation_as_publication_type
 
+  has_one :outcome, class_name: 'ConsultationOutcome', foreign_key: :edition_id, dependent: :destroy
   has_one :consultation_participation, foreign_key: :edition_id, dependent: :destroy
 
   after_update { |p| p.published_related_policies.each(&:update_published_related_publication_count) }
@@ -24,7 +25,7 @@ class Consultation < Publicationesque
   scope :closed_since, ->(earliest_closing_date) { closed.where('closing_on >= ?', earliest_closing_date.to_date) }
   scope :open, -> { where('closing_on >= ? AND opening_on <= ?', Date.today, Date.today) }
   scope :upcoming, -> { where('opening_on > ?', Date.today) }
-  scope :responded, -> { joins(:response) }
+  scope :responded, -> { joins(:outcome) }
 
   add_trait do
     def process_associations_after_save(edition)
@@ -33,11 +34,11 @@ class Consultation < Publicationesque
         edition.create_consultation_participation(attributes)
       end
 
-      if @edition.response.present?
-        response_attributes = @edition.response.attributes.except('edition_id')
-        new_response = edition.create_response(response_attributes)
-        @edition.response.attachments.each do |attachment|
-          new_response.consultation_response_attachments.create(attachment: Attachment.create(attachment.attributes))
+      if @edition.outcome.present?
+        outcome_attributes = @edition.outcome.attributes.except('edition_id')
+        new_outcome = edition.create_outcome(outcome_attributes)
+        @edition.outcome.attachments.each do |attachment|
+          new_outcome.consultation_response_attachments.create(attachment: Attachment.create(attachment.attributes))
         end
       end
     end
@@ -64,12 +65,12 @@ class Consultation < Publicationesque
     closing_on.nil? || (closing_on < Date.today)
   end
 
-  def response_published?
-    closed? && response.present?
+  def outcome_published?
+    closed? && outcome.present?
   end
 
-  def response_published_on
-    response.published_on
+  def outcome_published_on
+    outcome.published_on
   end
 
   def first_public_at
@@ -96,7 +97,7 @@ class Consultation < Publicationesque
   end
 
   def display_type
-    if response_published?
+    if outcome_published?
       "Consultation outcome"
     elsif closed?
       "Closed consultation"
@@ -108,7 +109,7 @@ class Consultation < Publicationesque
   end
 
   def display_type_key
-    if response_published?
+    if outcome_published?
       "consultation_outcome"
     elsif closed?
       "closed_consultation"
@@ -121,7 +122,7 @@ class Consultation < Publicationesque
 
   def search_format_types
     consultation_type =
-      if response_published?
+      if outcome_published?
         'consultation-outcome'
       elsif closed?
         'consultation-closed'

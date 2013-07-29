@@ -8,8 +8,6 @@ class Publicationesque < Edition
 
   attachable :edition
 
-  has_one :response, foreign_key: :edition_id, dependent: :destroy
-
   def self.sti_names
     ([self] + descendants).map { |model| model.sti_name }
   end

@@ -24,17 +24,17 @@ Then /^I can see links to the consultations "([^"]*)" and "([^"]*)"$/ do |title_
   assert has_css?(".consultation a", text: title_2)
 end
 
-When /^I add a response to the consultation$/ do
+When /^I add an outcome to the consultation$/ do
   visit edit_admin_consultation_path(Consultation.last)
   click_button "Create new edition"
 
-  click_link "Response"
-  click_link "Add a response"
+  click_link "Outcome"
+  click_link "Add an outcome"
   fill_in "Summary", with: "Outcome summary"
   click_button "Save"
 
   click_link "Upload new attachment"
-  fill_in "Title", with: "Response Title"
+  fill_in "Title", with: "Outcome Title"
   attach_file "File", Rails.root.join("features/fixtures/attachment.pdf")
   click_button "Save"
 end
@@ -46,10 +46,10 @@ When /^I save and publish the amended consultation$/ do
   publish force: true
 end
 
-Then /^the consultation response should be viewable$/ do
+Then /^the consultation outcome should be viewable$/ do
   select_most_recent_consultation_from_list
   view_visible_consultation_on_website
-  should_have_consultation_response_attachment
+  should_have_consultation_outcome_attachment
 end
 
 When /^I draft a new consultation "([^"]*)" relating it to the worldwide_priorities "([^"]*)" and "([^"]*)"$/ do |title, first_priority, second_priority|

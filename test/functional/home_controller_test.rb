@@ -113,10 +113,10 @@ class HomeControllerTest < ActionController::TestCase
 
     # responded
     recent_outcomes = [
-      create(:consultation_with_response, opening_on: 2.years.ago, closing_on: 1.year.ago - 8.day),
-      create(:consultation_with_response, opening_on: 2.years.ago, closing_on: 1.year.ago - 7.day),
-      create(:consultation_with_response, opening_on: 2.years.ago, closing_on: 1.year.ago - 6.day),
-      create(:consultation_with_response, opening_on: 2.years.ago, closing_on: 1.year.ago - 5.day),
+      create(:consultation_with_outcome, opening_on: 2.years.ago, closing_on: 1.year.ago - 8.day),
+      create(:consultation_with_outcome, opening_on: 2.years.ago, closing_on: 1.year.ago - 7.day),
+      create(:consultation_with_outcome, opening_on: 2.years.ago, closing_on: 1.year.ago - 6.day),
+      create(:consultation_with_outcome, opening_on: 2.years.ago, closing_on: 1.year.ago - 5.day),
     ]
 
     get :get_involved

@@ -69,7 +69,7 @@ class Admin::AttachmentsController < Admin::BaseController
     when Edition
       admin_edition_attachments_path(attachable)
     when Response
-      admin_consultation_response_path(attachable.consultation)
+      admin_consultation_outcome_path(attachable.consultation)
     else
       [:admin, attachable, Attachment]
     end

@@ -1,15 +1,15 @@
-<% page_title "Response for: #{@edition.title}" %>
+<% page_title "Outcome for: #{@edition.title}" %>
 <% page_class "response" %>
 
 <div class="span8">
   <section>
-    <h1>Response for consultation</h1>
+    <h1>Outcome for consultation</h1>
 
     <%= consultation_editing_tabs(@edition) do %>
 
       <% if @response %>
         <div class="summary">
-          <h3>Response summary</h3>
+          <h3>Outcome summary</h3>
           <%= govspeak_to_html @response.summary %>
           <p>Published on <%= @response.published_on.to_s(:long_ordinal) %></p>
         </div>
@@ -17,9 +17,9 @@
 
       <ul class="actions">
         <% if @response %>
-          <li><%= link_to 'Edit response', edit_admin_consultation_response_path(@edition) %></li>
+          <li><%= link_to 'Edit outcome', edit_admin_consultation_outcome_path(@edition) %></li>
         <% else %>
-          <li><%= link_to 'Add a response', new_admin_consultation_response_path(@edition) %></li>
+          <li><%= link_to 'Add an outcome', new_admin_consultation_outcome_path(@edition) %></li>
         <% end %>
       </ul>
 

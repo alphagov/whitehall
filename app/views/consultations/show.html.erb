@@ -11,12 +11,12 @@
                   } %>
     </div>
 
-    <% if @document.closed? || @document.response_published? %>
+    <% if @document.closed? || @document.outcome_published? %>
       <div class="consultation-alert">
-        <% if @document.closed? and not @document.response_published? %>
+        <% if @document.closed? and not @document.outcome_published? %>
           <h2>We are analysing your responses</h2>
           <p>Visit this page again soon to download the outcome to this public feedback.</p>
-        <% elsif @document.response_published? %>
+        <% elsif @document.outcome_published? %>
           <h2>This consultation has concluded</h2>
         <% end %>
       </div>
@@ -39,21 +39,21 @@
           </div>
         </div>
       <% else %>
-        <% if @document.response_published? %>
+        <% if @document.outcome_published? %>
           <div class="consultation-response">
-            <% if @document.response.attachments.any? %>
+            <% if @document.outcome.attachments.any? %>
               <%= render partial: "documents/attachment_full_width",
-                        locals: { document: @document.response,
+                        locals: { document: @document.outcome,
                           title: "Download the full outcome",
-                          published_on: @document.response_published_on,
+                          published_on: @document.outcome_published_on,
                           summary: nil } %>
             <% end %>
-            <% if @document.response.summary.present? %>
+            <% if @document.outcome.summary.present? %>
               <section class="heading-block consultation-response-summary">
                 <h1>Detail of outcome</h1>
                 <div class="content">
                   <article>
-                    <%= govspeak_to_html @document.response.summary %>
+                    <%= govspeak_to_html @document.outcome.summary %>
                   </article>
                 </div>
               </section>

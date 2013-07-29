@@ -25,9 +25,9 @@ Scenario: Publishing a submitted consultation
   Then I should see the consultation "Beard Length Review" in the list of published documents
   And the consultation "Beard Length Review" should be visible to the public
 
-Scenario: Adding a response to a closed consultation
+Scenario: Adding an outcome to a closed consultation
   Given I am an editor
   And a closed consultation exists
-  When I add a response to the consultation
+  When I add an outcome to the consultation
   And I save and publish the amended consultation
-  Then the consultation response should be viewable
+  Then the consultation outcome should be viewable

@@ -120,12 +120,12 @@ module Whitehall::Uploader
       response_builder = stub('response_builder', build: response)
       ConsultationRow::ResponseBuilder.stubs(:new).with(row_attributes, 1, @attachment_cache, anything).returns(response_builder)
       row = consultation_row(row_attributes)
-      assert_equal response, row.response
+      assert_equal response, row.outcome
     end
 
     test "supplies an attribute list for the new consultation record" do
       row = consultation_row({})
-      attribute_keys = [:title, :summary, :body, :opening_on, :closing_on, :lead_organisations, :related_editions, :attachments, :alternative_format_provider, :response]
+      attribute_keys = [:title, :summary, :body, :opening_on, :closing_on, :lead_organisations, :related_editions, :attachments, :alternative_format_provider, :outcome]
       attribute_keys.each do |key|
         row.stubs(key).returns(key.to_s)
       end
