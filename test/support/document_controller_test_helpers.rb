@@ -89,7 +89,7 @@ module DocumentControllerTestHelpers
 
         get :show, id: edition.document
 
-        assert_select 'article .body figure.image.embedded img'
+        assert_select 'article figure.image.embedded img'
       end
     end
 

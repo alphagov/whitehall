@@ -26,7 +26,7 @@ class ConsultationsControllerTest < ActionController::TestCase
 
     get :show, id: closed_consultation.document
 
-    assert_select '.attachment-details .extra-description', text: response.summary
+    assert_select '.consultation-response-summary article', text: response.summary
   end
 
   view_test 'show displays consultation dates when consultation has finished' do
