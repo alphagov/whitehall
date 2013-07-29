@@ -2,18 +2,12 @@ $thumbnail-width: 99px;
 
 .attachment {
   position: relative;
-  margin: $gutter ($gutter-half*-1);
+  margin: $gutter 0;
   padding: $gutter-half 0 0 ($thumbnail-width + $gutter);
-  background: $panel-colour;
   @extend %contain-floats;
   @include right-to-left {
     padding: $gutter-half ($thumbnail-width + $gutter) 0 0;
   }
-  
-  @include media(tablet){
-    margin: $gutter 0;
-  }
-
   
   &.inline {
     background: transparent;
@@ -29,7 +23,7 @@ $thumbnail-width: 99px;
     position: relative;
     float: left;
     margin-top: $gutter-one-sixth;
-    margin-left: ($thumbnail-width*-1 - $gutter-half);
+    margin-left: -($thumbnail-width + $gutter - $gutter-one-sixth);
     padding-bottom: $gutter-half;
     @include right-to-left {
       float: right;
@@ -42,6 +36,10 @@ $thumbnail-width: 99px;
       width: $thumbnail-width;
       height: 140px;
       background: white;
+      outline: $gutter-one-sixth solid transparentize($black, 0.9);
+      @include ie-lte(7) {
+        border: $gutter-one-sixth solid $grey-3;
+      }
       @include box-shadow(0 2px 2px rgba(0,0,0,0.4));
     }
   }
@@ -92,47 +90,8 @@ $thumbnail-width: 99px;
       }
     }
   }
-}
-
-.attachment-full-width {
-  margin: $gutter ($gutter-half*-1);
-  padding: $gutter-two-thirds $gutter-half $gutter-half;
-  background: $panel-colour;
-  @extend %contain-floats;
-  
-  .attachment {
+  &:first-child {
     margin-top: 0;
-    margin-bottom: 0;
-    background: transparent;
-  }
-  
-  .attachment-without-thumbnail {
-    margin-top: $gutter;
-  }
-  
-  @include media(tablet){
-    margin: $gutter 0;
-    padding: $gutter-two-thirds $gutter-half  $gutter-half 34.8%;
-
-    @include right-to-left {
-      padding: $gutter-two-thirds 34.8% $gutter-half $gutter-half;
-    }
-    .attachment {
-      @include left-to-right {
-        padding-left: 0;
-      }
-      @include right-to-left {
-        padding-right: 0;
-      }
-      
-      .attachment-thumb {
-        @include left-to-right {
-          margin-left: ($thumbnail-width*-1 - $gutter);
-        }
-        @include right-to-left {
-          margin-left: ($thumbnail-width*-1 - $gutter);
-        }
-      }
-    }
+    padding-top: 0;
   }
 }
