@@ -461,6 +461,35 @@
   }
 }
 
+// UK Atomic Energy Authority
+.organisation-logo-ukaea {
+  @extend .organisation-logo-identity;
+
+  padding: 3px 0 2px 30px;
+  background-image: image-url("crests/ukaea_crest_13px.png");
+  background-position: 5px center;
+  background-size: auto 20px;
+}
+.organisation-logo-stacked-ukaea {
+  @extend .organisation-logo-identity;
+
+  padding: 20px 0 0 6px;
+  background-image: image-url("crests/ukaea_crest_13px.png");
+  background-position: 5px top;
+  background-size: auto 20px;
+}
+.organisation-logo-stacked-ukaea span {
+  display: block;
+  position: relative;
+  top: 3px;
+}
+@media all and (-webkit-min-device-pixel-ratio: 2) {
+  .organisation-logo-ukaea,
+  .organisation-logo-stacked-ukaea {
+    background-image: image-url("crests/ukaea_crest_13px_x2.png");
+  }
+}
+
 // Non-cornforming Medium
 .organisation-logo-no-identity-medium {
   @include media(tablet){
@@ -835,6 +864,39 @@
     .organisation-logo-hmrc-medium,
     .organisation-logo-stacked-hmrc-medium {
       background-image: image-url("crests/hmrc_crest_18px_x2.png");
+    }
+  }
+}
+
+// UK Atomic Energy Authority Medium
+.organisation-logo-ukaea-medium {
+  @extend .organisation-logo-identity-medium;
+  @include media(tablet){
+    padding: 3px 0 2px 38px;
+    background-image: image-url("crests/ukaea_crest_18px.png");
+    background-position: 6px center;
+    background-size: auto 25px;
+  }
+}
+.organisation-logo-stacked-ukaea-medium {
+  @extend .organisation-logo-identity-medium;
+  @include media(tablet){
+    padding: 25px 0 0 7px;
+    background-image: image-url("crests/ukaea_crest_18px.png");
+    background-position: 6px top;
+    background-size: auto 25px;
+  }
+}
+@include media(tablet){
+  .organisation-logo-stacked-ukaea-medium span {
+    display: block;
+    position: relative;
+    top: 3px;
+  }
+  @media all and (-webkit-min-device-pixel-ratio: 2) {
+    .organisation-logo-ukaea-medium,
+    .organisation-logo-stacked-ukaea-medium {
+      background-image: image-url("crests/ukaea_crest_18px_x2.png");
     }
   }
 }
@@ -1214,6 +1276,39 @@
     .organisation-logo-hmrc-large,
     .organisation-logo-stacked-hmrc-large {
       background-image: image-url("crests/hmrc_crest_27px_x2.png");
+    }
+  }
+}
+
+// UK Atomic Energy Authority Large
+.organisation-logo-ukaea-large {
+  @extend .organisation-logo-identity-large;
+  @include media(tablet){
+    padding: 5px 0 5px 56px;
+    background-image: image-url("crests/ukaea_crest_27px.png");
+    background-position: 9px center;
+    background-size: auto 40px;
+  }
+}
+.organisation-logo-stacked-ukaea-large {
+  @extend .organisation-logo-identity-large;
+  @include media(tablet){
+    padding: 40px 0 0 10px;
+    background-image: image-url("crests/ukaea_crest_27px.png");
+    background-position: 9px top;
+    background-size: auto 40px;
+  }
+}
+@include media(tablet){
+  .organisation-logo-stacked-ukaea-large span {
+    display: block;
+    position: relative;
+    top: 5px;
+  }
+  @media all and (-webkit-min-device-pixel-ratio: 2) {
+    .organisation-logo-ukaea-large,
+    .organisation-logo-stacked-ukaea-large {
+      background-image: image-url("crests/ukaea_crest_27px_x2.png");
     }
   }
 }
