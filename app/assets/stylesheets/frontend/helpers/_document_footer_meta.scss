@@ -19,10 +19,12 @@
       width: 66.6%;
     }
     dl {
-      padding-left: $gutter-half;
-      @include right-to-left {
-        padding-left: 0;
-        padding-right: $gutter-half;
+      @include media(tablet){
+        padding-left: $gutter-half;
+        @include right-to-left {
+          padding-left: 0;
+          padding-right: $gutter-half;
+        }
       }
     }
   }
