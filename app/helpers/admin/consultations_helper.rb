@@ -6,7 +6,7 @@ module Admin::ConsultationsHelper
        a summary here and upload the full outcome as an attachment once you have saved a summary."
     else
       "Here you can publish the feedback received from the public on this consultation.
-       Once you have saves a summary, you will be able to upload attachments containing their feedback.
+       Once you have saved a summary, you will be able to upload attachments containing their feedback.
        Note that publishing public feedback is optional"
     end
   end
