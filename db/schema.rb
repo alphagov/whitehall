@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130719101104) do
+ActiveRecord::Schema.define(:version => 20130729085457) do
 
   create_table "about_pages", :force => true do |t|
     t.integer  "topical_event_id"
@@ -586,6 +586,16 @@ ActiveRecord::Schema.define(:version => 20130719101104) do
   add_index "features", ["feature_list_id", "ordering"], :name => "index_features_on_feature_list_id_and_ordering", :unique => true
   add_index "features", ["feature_list_id"], :name => "index_features_on_feature_list_id"
   add_index "features", ["ordering"], :name => "index_features_on_ordering"
+
+  create_table "financial_reports", :force => true do |t|
+    t.integer "organisation_id"
+    t.integer "funding",         :limit => 8
+    t.integer "spending",        :limit => 8
+    t.integer "year"
+  end
+
+  add_index "financial_reports", ["organisation_id"], :name => "index_financial_reports_on_organisation_id"
+  add_index "financial_reports", ["year"], :name => "index_financial_reports_on_year"
 
   create_table "force_publication_attempts", :force => true do |t|
     t.integer  "import_id"
