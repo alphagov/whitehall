@@ -16,6 +16,7 @@ jQuery(function($) {
       window.changeNoteTrackingEventSent = true;
     }
   });
+  $('.js-toggle-footer-change-notes').toggler();
 
   $('.js-toggle-accessibility-warning').toggler({header: ".toggler", content: ".help-block"})
   $('.js-toggle-org-list').toggler({actLikeLightbox: true})
