@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130729124957) do
+ActiveRecord::Schema.define(:version => 20130730095758) do
 
   create_table "about_pages", :force => true do |t|
     t.integer  "topical_event_id"
@@ -594,6 +594,7 @@ ActiveRecord::Schema.define(:version => 20130729124957) do
     t.integer "year"
   end
 
+  add_index "financial_reports", ["organisation_id", "year"], :name => "index_financial_reports_on_organisation_id_and_year", :unique => true
   add_index "financial_reports", ["organisation_id"], :name => "index_financial_reports_on_organisation_id"
   add_index "financial_reports", ["year"], :name => "index_financial_reports_on_year"
 
