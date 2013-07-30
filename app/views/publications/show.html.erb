@@ -33,4 +33,10 @@
       </section>
     </div>
   </div>
+
+  <div class="block-5">
+    <div class="inner-block">
+      <%= render partial: 'documents/document_footer_meta', locals: { document: @document, policies: @related_policies } %>
+    </div>
+  </div>
 </div>

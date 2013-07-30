@@ -1,0 +1,41 @@
+<%
+  policies ||= nil
+  topics ||= []
+%>
+<div class="document-footer-meta">
+  <div class="history">
+    <dl>
+      <dt><%= t('document.footer_meta.published') %>:</dt>
+      <% if document.state != 'published' %>
+        <dd>Preview</dd>
+      <% else %>
+        <%-
+          history = document.change_history
+        -%>
+        <dd><%= absolute_date(history.last.public_timestamp) %></dd>
+
+        <% if history.length > 1 %>
+          <dt><%= t('document.footer_meta.updated') %>:</dt>
+          <dd><%= absolute_date(history.first.public_timestamp) %></dd>
+        <% end %>
+      <% end %>
+    </dl>
+  </div>
+  <div class="links">
+    <dl>
+      <% if document.organisations.any?  %>
+        <dt><%= t('document.headings.organisations', count: document.organisations.length) %>:</dt>
+        <dd>
+          <%= render  partial: 'organisations/organisations_name_list',
+                      locals: { organisations: document.sorted_organisations,
+                                lead_organisations: document.lead_organisations } %>
+        </dd>
+      <% end %>
+      <%= render  partial: 'documents/metadata_links',
+                  locals: { document: document, 
+                    topics: topics, 
+                    policies: policies } %>
+    </dl>
+  </div>
+</div>
+

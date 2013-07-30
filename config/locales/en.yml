@@ -266,6 +266,9 @@ en:
       author_title:
         minister: Minister
         speaker: Writer
+    footer_meta:
+      published: Published
+      updated: Updated
   feeds:
     atom: atom
     email_alerts: email&nbsp;alerts
