@@ -15,6 +15,7 @@ class Consultation < Publicationesque
   validate :must_have_consultation_as_publication_type
 
   has_one :outcome, class_name: 'ConsultationOutcome', foreign_key: :edition_id, dependent: :destroy
+  has_one :public_feedback, class_name: 'ConsultationPublicFeedback', foreign_key: :edition_id, dependent: :destroy
   has_one :consultation_participation, foreign_key: :edition_id, dependent: :destroy
 
   after_update { |p| p.published_related_policies.each(&:update_published_related_publication_count) }
@@ -35,10 +36,16 @@ class Consultation < Publicationesque
       end
 
       if @edition.outcome.present?
-        outcome_attributes = @edition.outcome.attributes.except('edition_id')
-        new_outcome = edition.create_outcome(outcome_attributes)
+        new_outcome = edition.create_outcome(@edition.outcome.attributes.except('edition_id'))
         @edition.outcome.attachments.each do |attachment|
           new_outcome.consultation_response_attachments.create(attachment: Attachment.create(attachment.attributes))
+        end
+      end
+
+      if @edition.public_feedback.present?
+        new_feedback = edition.create_public_feedback(@edition.public_feedback.attributes.except('edition_id'))
+        @edition.public_feedback.attachments.each do |attachment|
+          new_feedback.consultation_response_attachments.create(attachment: Attachment.create(attachment.attributes))
         end
       end
     end

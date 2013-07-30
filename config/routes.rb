@@ -237,6 +237,7 @@ Whitehall::Application.routes.draw do
         resources :fatality_notices, path: 'fatalities', except: [:index]
         resources :consultations, except: [:index] do
           resource :outcome, controller: 'responses', type: 'ConsultationOutcome', except: [:new, :destroy]
+          resource :public_feedback, controller: 'responses', type: 'ConsultationPublicFeedback', except: [:new, :destroy]
         end
         resources :responses do
           resources :attachments do

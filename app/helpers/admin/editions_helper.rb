@@ -181,6 +181,7 @@ module Admin::EditionsHelper
 
   def consultation_editing_tabs(edition, &blk)
     tabs = default_edition_tabs(edition)
+    tabs['Public feedback'] = admin_consultation_public_feedback_path(edition) if edition.persisted?
     tabs['Final outcome'] = admin_consultation_outcome_path(edition) if edition.persisted?
     tab_navigation(tabs) { yield blk }
   end

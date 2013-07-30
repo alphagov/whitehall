@@ -31,3 +31,10 @@ Scenario: Adding an outcome to a closed consultation
   When I add an outcome to the consultation
   And I save and publish the amended consultation
   Then the consultation outcome should be viewable
+
+Scenario: Adding public feedback to a closed consultation
+  Given I am an editor
+  And a closed consultation exists
+  When I add public feedback to the consultation
+  And I save and publish the amended consultation
+  Then the public feedback should be viewable

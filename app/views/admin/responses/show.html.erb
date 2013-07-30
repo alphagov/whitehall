@@ -1,24 +1,24 @@
-<% page_title "Outcome for: #{@edition.title}" %>
+<% page_title "#{@response.friendly_name.capitalize} for: #{@edition.title}" %>
 <% page_class "response" %>
 
 <div class="span8">
   <section>
-    <h1>Outcome for consultation</h1>
+      <h1><%= @response.friendly_name.capitalize %> for consultation</h1>
 
     <%= consultation_editing_tabs(@edition) do %>
 
       <% if @response.persisted? %>
         <div class="summary">
-          <h3>Outcome summary</h3>
+          <h3><%= @response.friendly_name.capitalize %> summary</h3>
           <%= govspeak_to_html @response.summary %>
           <p>Published on <%= @response.published_on.to_s(:long_ordinal) %></p>
         </div>
 
         <ul class="actions">
-          <li><%= link_to 'Edit outcome', edit_admin_consultation_outcome_path(@edition) %></li>
+          <li><%= link_to "Edit #{@response.friendly_name}", [:edit, :admin, @edition, @response.singular_routing_symbol] %></li>
         </ul>
 
-        <h3>Response attachments (optional)</h3>
+        <h3>Attachments (optional)</h3>
         <ul class="actions">
           <li><%= link_to 'Upload new attachment', new_admin_response_attachment_path(@response) %></li>
         </ul>
@@ -26,12 +26,10 @@
 
       <% else %>
         <p class="alert alert-info">
-          Here you can publish the final outcome of the consultation. 
-          Either provide the full details of the outcome below, or provide a summary here and upload
-          the full outcome as an attachment once you have saved a summary.
+          <%= consulation_response_help_text(@response) %>
         </p>
 
-        <%= render partial: 'form', locals: { consultation: @edition, response: @response } %>
+        <%= render partial: 'form', locals: { consultation: @edition, consultation_response: @response } %>
       <% end %>
     <% end %>
   </section>

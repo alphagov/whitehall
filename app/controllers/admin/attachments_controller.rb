@@ -36,7 +36,7 @@ class Admin::AttachmentsController < Admin::BaseController
 
   def update
     if @attachment.update_attributes(remove_empty_attachment_params(params[:attachment]))
-      redirect_to attachable_attachments_path(@attachable), notice: "Attachment '#{@attachment.filename}' uploaded"
+      redirect_to attachable_attachments_path(@attachable), notice: "Attachment '#{@attachment.filename}' updated"
     else
       render :edit
     end
@@ -69,7 +69,7 @@ class Admin::AttachmentsController < Admin::BaseController
     when Edition
       admin_edition_attachments_path(attachable)
     when Response
-      admin_consultation_outcome_path(attachable.consultation)
+      [:admin, attachable.consultation, attachable.singular_routing_symbol]
     else
       [:admin, attachable, Attachment]
     end

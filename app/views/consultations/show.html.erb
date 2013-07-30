@@ -14,7 +14,7 @@
     <% if @document.closed? || @document.outcome_published? %>
       <div class="consultation-alert">
         <% if @document.closed? and not @document.outcome_published? %>
-          <h2>We are analysing your responses</h2>
+          <h2>We are analysing your feedback</h2>
           <p>Visit this page again soon to download the outcome to this public feedback.</p>
         <% elsif @document.outcome_published? %>
           <h2>This consultation has concluded</h2>
@@ -39,8 +39,9 @@
           </div>
         </div>
       <% else %>
+
         <% if @document.outcome_published? %>
-          <div class="consultation-response">
+          <%= content_tag_for(:div, @document.outcome, class: 'consultation-response') do %>
             <% if @document.outcome.attachments.any? %>
               <%= render partial: "documents/attachment_full_width",
                         locals: { document: @document.outcome,
@@ -58,8 +59,30 @@
                 </div>
               </section>
             <% end %>
-          </div>
+          <% end %>
         <% end %>
+
+        <% if @document.public_feedback.present? %>
+          <%= content_tag_for(:div, @document.public_feedback, class: 'consultation-response') do %>
+            <% if @document.public_feedback.attachments.any? %>
+              <%= render partial: "documents/attachment_full_width",
+                        locals: { document: @document.public_feedback,
+                          title: "Feedback received",
+                          published_on: @document.public_feedback.published_on,
+                          summary: nil } %>
+            <% end %>
+
+            <section class="heading-block consultation-response-summary">
+              <h1>Detail of feedback received</h1>
+              <div class="content">
+                <article>
+                  <%= govspeak_to_html @document.public_feedback.summary %>
+                </article>
+              </div>
+            </section>
+          <% end %>
+        <% end %>
+
         <h2 class="original-consultation">Original consultation</h2>
         <div class="consultation-block <%= consultation_css_class(@document) %>">
           <div class="consultation-dates">

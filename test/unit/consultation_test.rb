@@ -194,6 +194,24 @@ class ConsultationTest < ActiveSupport::TestCase
     assert_equal attachment.attachment_data, new_draft.outcome.attachments.first.attachment_data
   end
 
+  test "copies public feedback and its attachments when creating a new draft" do
+    consultation = create(:published_consultation)
+    feedback = create(:consultation_public_feedback, consultation: consultation)
+    attachment = feedback.attachments.create! title: 'attachment-title', attachment_data_attributes: { file: fixture_file_upload('greenpaper.pdf') }
+
+    new_draft = consultation.create_draft(build(:user))
+    new_draft.reload
+
+    assert new_feedback = new_draft.public_feedback
+    assert_equal feedback.summary, new_feedback.summary
+    assert_not_equal feedback, new_feedback
+
+    assert_equal 1, new_feedback.attachments.length
+    assert_equal 'attachment-title', new_feedback.attachments.first.title
+    assert_not_equal attachment, new_feedback.attachments.first
+    assert_equal attachment.attachment_data, new_feedback.attachments.first.attachment_data
+  end
+
   test "should report that the outcome has not been published if the consultation is still open" do
     consultation = create(:consultation, opening_on: 1.day.ago, closing_on: 1.month.from_now)
 
