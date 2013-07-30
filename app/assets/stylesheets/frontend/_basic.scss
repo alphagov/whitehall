@@ -1,27 +1,24 @@
-
-a {
+a,
+a:visited {
   color: $link-colour;
-  text-decoration: none;
+}
 
-  &:hover,
-  &:focus {
-    text-decoration: underline;
-  }
+a:hover {
+  color: $link-hover-colour;
+}
 
-  &[rel="external"] {
-    @include external-link-13-no-hover;
-    @include media(tablet) {
-      @include external-link-19-no-hover;
-    }
+a:active {
+  color: $link-active-colour;
+}
+
+a[rel="external"] {
+  @include external-link-13;
+  @include media(tablet) {
+    @include external-link-19;
   }
 }
 
 a * {
   cursor: pointer;
 }
-
-a:active {
-  color: orange
-}
-
 
