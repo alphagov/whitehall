@@ -27,9 +27,10 @@
     <section class="consultations">
       <div class="head-section">
         <dl class="values">
-          <dt><%= @open_consultation_count %></dt>
-          <dd>Open consultations</dd>
-          <dt><%= @closed_consultation_count %></dt>
+          <dt><%= link_to @open_consultation_count, publications_filter_path(:publication_filter_option => 'open-consultations') %>
+        </dt>
+          <dd>Open consultations</dd> 
+          <dt><%=  link_to @closed_consultation_count, publications_filter_path(:publication_filter_option => 'closed-consultations') %></dt>
           <dd>Closed consultations in the past 12 months</dd>
           <% if false # this count not implemented yet %>
             <dt><a href="#">29</a></dt>
