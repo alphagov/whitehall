@@ -7,28 +7,31 @@
 
     <%= consultation_editing_tabs(@edition) do %>
 
-      <% if @response %>
+      <% if @response.persisted? %>
         <div class="summary">
           <h3>Outcome summary</h3>
           <%= govspeak_to_html @response.summary %>
           <p>Published on <%= @response.published_on.to_s(:long_ordinal) %></p>
         </div>
-      <% end %>
 
-      <ul class="actions">
-        <% if @response %>
+        <ul class="actions">
           <li><%= link_to 'Edit outcome', edit_admin_consultation_outcome_path(@edition) %></li>
-        <% else %>
-          <li><%= link_to 'Add an outcome', new_admin_consultation_outcome_path(@edition) %></li>
-        <% end %>
-      </ul>
+        </ul>
 
-      <% if @response %>
         <h3>Response attachments (optional)</h3>
         <ul class="actions">
           <li><%= link_to 'Upload new attachment', new_admin_response_attachment_path(@response) %></li>
         </ul>
         <%= render('admin/attachments/attachments', attachable: @response) if @response.attachments.any? %>
+
+      <% else %>
+        <p class="alert alert-info">
+          Here you can publish the final outcome of the consultation. 
+          Either provide the full details of the outcome below, or provide a summary here and upload
+          the full outcome as an attachment once you have saved a summary.
+        </p>
+
+        <%= render partial: 'form', locals: { consultation: @edition, response: @response } %>
       <% end %>
     <% end %>
   </section>

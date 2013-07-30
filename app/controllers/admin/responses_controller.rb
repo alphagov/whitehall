@@ -6,11 +6,7 @@ class Admin::ResponsesController < Admin::BaseController
   before_filter :find_response, only: [:edit, :update]
 
   def show
-    @response = @edition.outcome
-  end
-
-  def new
-    @response = @edition.build_outcome(published_on: Date.today)
+    @response = @edition.outcome || @edition.build_outcome(published_on: Date.today)
   end
 
   def create
@@ -18,7 +14,7 @@ class Admin::ResponsesController < Admin::BaseController
     if @response.save
       redirect_to admin_consultation_outcome_path(@edition), notice: 'Response saved'
     else
-      render :new
+      render :show
     end
   end
 

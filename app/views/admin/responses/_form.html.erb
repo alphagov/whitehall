@@ -1,18 +1,11 @@
-<div class="span8">
-  <section>
-    <h1>Response for: <%= @edition.title %></h1>
+<%= form_for [:admin, consultation, response], url: admin_consultation_outcome_path(consultation) do |form| %>
+
+  <%= form.errors %>
 
 
-    <%= form_for [:admin, consultation, response], url: admin_consultation_outcome_path(consultation) do |form| %>
+  <%= form.label :published_on %>
+  <%= form.date_select :published_on, { include_blank: true, start_year: 1997, end_year: Date.today.year + 5 }, { class: 'date' } %>
+  <%= form.text_area :summary, label_text: 'Detail/Summary', class: "previewable" %>
 
-      <%= form.errors %>
-
-
-      <%= form.label :published_on %>
-      <%= form.date_select :published_on, { include_blank: true, start_year: 1997, end_year: Date.today.year + 5 }, { class: 'date' } %>
-      <%= form.text_area :summary, class: "previewable" %>
-
-      <%= form.save_or_cancel cancel: admin_consultation_outcome_path(consultation) %>
-    <% end %>
-  </section>
-</div>
+  <%= form.save_or_cancel cancel: admin_consultation_outcome_path(consultation) %>
+<% end %>

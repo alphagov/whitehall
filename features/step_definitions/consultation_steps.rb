@@ -28,9 +28,8 @@ When /^I add an outcome to the consultation$/ do
   visit edit_admin_consultation_path(Consultation.last)
   click_button "Create new edition"
 
-  click_link "Outcome"
-  click_link "Add an outcome"
-  fill_in "Summary", with: "Outcome summary"
+  click_link "Final outcome"
+  fill_in "Detail/Summary", with: "Outcome summary"
   click_button "Save"
 
   click_link "Upload new attachment"
