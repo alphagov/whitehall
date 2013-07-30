@@ -33,7 +33,10 @@
 // gov.uk styles are scoped, will want to change these selectors to
 // body and *
 
-
+// BASIC
+#whitehall-wrapper {
+  @import "_basic.scss";
+}
 
 // HELPERS
 // Styles for comment page elements
