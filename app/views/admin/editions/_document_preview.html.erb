@@ -114,6 +114,7 @@
           <ol class="existing-attachments">
             <% @edition.attachments.each do |attachment| %>
               <li class="well">
+                <%= attachment_thumbnail(attachment) %>
                 <span class="title"><%= attachment.title %></span>
                 <span class="file">File: <%= link_to attachment.filename, attachment.url %></span>
                 <%= attachment_metadata_tag(attachment) %>
