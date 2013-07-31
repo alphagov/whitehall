@@ -150,7 +150,12 @@ ol.existing-attachments {
   margin: 0;
   list-style: none;
   .well {
+    @extend %contain-floats;
     padding: $gutter-one-third;
+    img {
+      float: left;
+      margin-right: 10px;
+    }
     span.title {
       font-weight: bold;
     }
