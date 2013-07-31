@@ -207,7 +207,6 @@ class Organisation < ActiveRecord::Base
   validates :govuk_status, inclusion: {in: %w{live joining exempt transitioning closed}}
   validates :organisation_logo_type_id, presence: true
   validate :sub_organisations_must_have_a_parent
-  validates :closed_at, presence: true, unless: ->(organisation) { ! organisation.closed? }
 
   include TranslatableModel
   translates :name, :logo_formatted_name, :acronym, :description, :about_us
