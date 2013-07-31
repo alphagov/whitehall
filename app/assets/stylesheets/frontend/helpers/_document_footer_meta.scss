@@ -41,6 +41,9 @@
       p, strong {
         font-weight: bold;
       }
+      .show-other-content {
+        @include bold-24;
+      }
     }
   }
   .footer-change-notes {
