@@ -124,19 +124,6 @@ p.prompt {
   margin: $gutter-one-third 0 $gutter;
 }
 
-div.attachments.index {
-  ul.actions {
-    margin-left: $gutter-half;
-    margin-bottom: $gutter;
-  }
-
-  ol.existing-attachments {
-    ul.actions {
-      margin: 0;
-    }
-  }
-}
-
 // Tidy up spacing at top of document editing pages
 div.span8 > section {
   & > h1:first-child {
@@ -186,6 +173,10 @@ ol.existing-attachments {
     input.ordering {
       width: 50px;
     }
+  }
+
+  ul.actions {
+    margin: 0;
   }
 }
 
