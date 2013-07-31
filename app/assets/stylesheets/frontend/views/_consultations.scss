@@ -107,6 +107,7 @@ nav.consultations_scope {
 
     a {
       color: $white;
+      text-decoration: underline;
       &[rel="external"] {
         @include external-link-white;
       }
