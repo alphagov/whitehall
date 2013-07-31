@@ -479,6 +479,8 @@ ActiveRecord::Schema.define(:version => 20130730095758) do
     t.string   "person_override"
     t.string   "locale",                                      :default => "en",    :null => false
     t.integer  "document_series_count",                       :default => 0,       :null => false
+    t.boolean  "external",                                    :default => false
+    t.string   "external_url"
   end
 
   add_index "editions", ["alternative_format_provider_id"], :name => "index_editions_on_alternative_format_provider_id"

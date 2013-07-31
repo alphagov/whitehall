@@ -3,22 +3,32 @@
 </fieldset>
 
 <fieldset>
-  <legend>Ways to respond</legend>
-  <%= form.fields_for :consultation_participation, edition.consultation_participation || edition.build_consultation_participation do |participation_fields| %>
-    <%= participation_fields.text_field :link_url, label_text: 'Link URL' %>
-    <%= participation_fields.text_field :email %>
-    <%= participation_fields.text_area :postal_address, rows: "4", style: "width: auto" %>
-    <%= participation_fields.fields_for :consultation_response_form, participation_fields.object.consultation_response_form || participation_fields.object.build_consultation_response_form do |response_form_fields| %>
-      <%= response_form_fields.text_field :title, label_text: "Downloadable response form title", required: false %>
-      <% if response_form_fields.object.persisted? %>
-        <div class="attachment">
-          <p>Current data: <%= link_to File.basename(response_form_fields.object.consultation_response_form_data.file.path), response_form_fields.object.consultation_response_form_data.file.url %></p>
-          <p>Actions: <%= attachment_action_fields(response_form_fields, :consultation_response_form_data) %></p>
+  <legend>Held on another website</legend>
+  <%= form.check_box :external, label_text: "This consultation is held on another website" %>
+  <div class="js-external-url">
+    <%= form.text_field :external_url, label_text: "External Link URL" %>
+  </div>
+</fieldset>
+
+<div class="js-external-url-set">
+  <fieldset>
+    <legend>Ways to respond</legend>
+    <%= form.fields_for :consultation_participation, edition.consultation_participation || edition.build_consultation_participation do |participation_fields| %>
+      <%= participation_fields.text_field :link_url, label_text: 'Link URL' %>
+      <%= participation_fields.text_field :email %>
+      <%= participation_fields.text_area :postal_address, rows: "4", style: "width: auto" %>
+      <%= participation_fields.fields_for :consultation_response_form, participation_fields.object.consultation_response_form || participation_fields.object.build_consultation_response_form do |response_form_fields| %>
+        <%= response_form_fields.text_field :title, label_text: "Downloadable response form title", required: false %>
+        <% if response_form_fields.object.persisted? %>
+          <div class="attachment">
+            <p>Current data: <%= link_to File.basename(response_form_fields.object.consultation_response_form_data.file.path), response_form_fields.object.consultation_response_form_data.file.url %></p>
+            <p>Actions: <%= attachment_action_fields(response_form_fields, :consultation_response_form_data) %></p>
+            <%= consultation_response_form_data_fields(response_form_fields) %>
+          </div>
+        <% else %>
           <%= consultation_response_form_data_fields(response_form_fields) %>
-        </div>
-      <% else %>
-        <%= consultation_response_form_data_fields(response_form_fields) %>
+        <% end %>
       <% end %>
     <% end %>
-  <% end %>
-</fieldset>
+  </fieldset>
+</div>
