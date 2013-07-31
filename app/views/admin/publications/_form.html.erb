@@ -5,6 +5,7 @@
       <%= render partial: 'publication_date_fields', locals: { form: form } %>
     </fieldset>
 
+    <%= render partial: 'inline_attachments_info', locals: { form: form, edition: edition } %>
     <%= render partial: 'html_version_fields', locals: { form: form, edition: edition } %>
 
     <fieldset>

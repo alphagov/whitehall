@@ -9,7 +9,8 @@
 <div class="span4">
   <%= sidebar_tabs govspeak_help: "Formatting help" do |tabs| %>
     <%= tabs.pane id: "govspeak_help" do %>
-      <%= render partial: "admin/editions/govspeak_help" %>
+      <%= render partial: "admin/editions/govspeak_help", 
+                 locals: { hide_inline_attachments_help: !@edition.allows_inline_attachments?, show_attachments_tab_help: true } %>
     <% end %>
   <% end %>
 </div>

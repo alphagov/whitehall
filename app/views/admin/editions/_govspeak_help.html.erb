@@ -1,3 +1,6 @@
+<% hide_inline_attachments_help ||= false %>
+<% show_attachments_tab_help ||= false %>
+
 <h1>Govspeak help</h1>
 
 <h2>Style</h2>
@@ -39,7 +42,7 @@ Don't use a single # - this is H1 and is for the title only</pre>
 <h2>Images</h2>
 <p>First upload your image(s), then:</p>
 <pre>!!<em>n</em></pre>
-<p>eg for the first image:</p>
+<p>e.g. for the first image:</p>
 <pre>!!1</pre>
 
 <h2>Video links</h2>
@@ -49,16 +52,22 @@ Don't use a single # - this is H1 and is for the title only</pre>
 <pre>[The Queen's Diamond Jubilee Concert](http://www.youtube.com/watch?v=OXHPWmnycno)</pre>
 <p>The title text does not show. The video will display in an embedded media player automatically.</p>
 
-<h2>Attachments</h2>
-<p><em>Not used on publications or consultations (attachments are placed automatically).</em></p>
-<p>First upload your attachment(s), then, to create an attachment callout box:</p>
-<pre>!@<em>n</em></pre>
-<p>Or, if you want to use a link to an attachment in a sentence or list:</p>
-<pre>[InlineAttachment:<em>n</em>]</pre>
-<p>eg for the first file:</p>
-<pre>!@1</pre>
-<p>or:</p>
-<pre>[InlineAttachment:1]</pre>
+<% unless hide_inline_attachments_help %>
+  <h2>Attachments</h2>
+  <% if show_attachments_tab_help %>
+    <p>Upload your attachment(s) on the 'Attachments' tab (you must save a draft edition to make the tab visible).</p>
+  <% else %>
+    <p>Upload your attachment(s) using the attachment fields in the form.</p>
+  <% end %>
+  <p>Add an attachment as a callout box:</p>
+  <pre>!@<em>n</em></pre>
+  <p>Or, if you want to use a link to an attachment in a sentence or list:</p>
+  <pre>[InlineAttachment:<em>n</em>]</pre>
+  <p>e.g. for the first file:</p>
+  <pre>!@1</pre>
+  <p>or:</p>
+  <pre>[InlineAttachment:1]</pre>
+<% end %>
 
 <h2>Tables</h2>
 <pre>| name | colour |

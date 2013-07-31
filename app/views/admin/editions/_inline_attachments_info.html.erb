@@ -1,28 +1,32 @@
+<% if edition.new_record? %>
+  <fieldset id="edition_attachment_fields" class="attachments">
+    <legend>Attachments</legend>
 
-<fieldset id="edition_attachment_fields" class="attachments">
-  <legend>Attachments</legend>
-
-  <% if edition.new_record? %>
     <p>
       If you'd like to add an attachment to this document, please save
       it first. You'll then find a new tab at the top of the page that you
       can use to upload, edit and delete attachments.
     </p>
-  <% elsif edition.attachments.any? %>
-    <p>
-      You can insert an attachment into your document by entering the
-      following snippets of Markdown:
-    </p>
+  </fieldset>
+<% elsif edition.allows_inline_attachments? %>
+  <fieldset id="edition_attachment_fields" class="attachments">
+    <legend>Attachments</legend>
 
-    <ol>
-      <% edition.attachments.each_with_index do |attachment, i| %>
-        <li>
-          <strong><%= attachment.title %></strong> - <%= inline_attachment_code_tags(i+1) %>
-        </li>
-      <% end %>
-    </ol>
-  <% else %>
-    <p>No attachments</p>
-  <% end %>
+    <% if edition.attachments.any? %>
+      <p>
+        You can insert an attachment into your document by entering the
+        following snippets of Markdown:
+      </p>
 
-</fieldset>
+      <ol>
+        <% edition.attachments.each_with_index do |attachment, i| %>
+          <li>
+            <strong><%= attachment.title %></strong> - <%= inline_attachment_code_tags(i+1) %>
+          </li>
+        <% end %>
+      </ol>
+    <% else %>
+      <p>No attachments</p>
+    <% end %>
+  </fieldset>
+<% end %>
