@@ -27,9 +27,7 @@ namespace :public_bodies do
         funding = clean_money(raw_funding)
 
         unless spending.nil? && funding.nil?
-          financial_report = FinancialReport.new
-          financial_report.year = args[:year].to_i
-          financial_report.organisation_id = organisation.id
+          financial_report = FinancialReport.where(organisation_id: organisation, year: args[:year].to_i).first_or_initialize
           financial_report.spending = spending
           financial_report.funding = funding
           financial_report.save
