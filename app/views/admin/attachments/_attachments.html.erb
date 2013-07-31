@@ -9,8 +9,7 @@
 <%= form_tag [:order, :admin, typecast_for_attachable_routing(attachable), Attachment], method: :put do %>
   <ol class="existing-attachments<%= ' js-sortable' if attachable.can_order_attachments? && attachable.attachments.many? %>">
     <% attachable.attachments.each do |attachment| %>
-      <li class="clearfix well">
-        <%= attachment_thumbnail(attachment) %>
+      <li class="well">
         <span class="title"><%= attachment.title %></span>
         <span class="file">File: <%= link_to attachment.filename, attachment.url %></span>
         <%= attachment_metadata_tag(attachment) %>
