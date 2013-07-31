@@ -324,6 +324,7 @@ sk:
       attachment:
         hoc_paper_number:
         isbn:
+        unnumbered_hoc_paper:
       attachment_data:
         file:
       corporate_information_page/corporate_information_page_attachments/attachment:
@@ -334,6 +335,7 @@ sk:
         price:
         title:
         unique_reference:
+        unnumbered_hoc_paper:
       corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
         file:
       detailed_guide:
@@ -346,6 +348,7 @@ sk:
         price:
         title:
         unique_reference:
+        unnumbered_hoc_paper:
       policy_advisory_group/policy_group_attachments/attachment/attachment_data:
         file:
       response/consultation_response_attachments/attachment:
@@ -356,6 +359,7 @@ sk:
         price:
         title:
         unique_reference:
+        unnumbered_hoc_paper:
       response/consultation_response_attachments/attachment/attachment_data:
         file:
       supporting_page/supporting_page_attachments/attachment:
@@ -366,6 +370,7 @@ sk:
         price:
         title:
         unique_reference:
+        unnumbered_hoc_paper:
       supporting_page/supporting_page_attachments/attachment/attachment_data:
         file:
     nested_attachment_data_field_names:
@@ -378,6 +383,7 @@ sk:
       price:
       title:
       unique_reference:
+      unnumbered_hoc_paper:
   announcements:
     heading:
   attachment:
@@ -390,6 +396,8 @@ sk:
       order_a_copy_full:
       published:
       reference:
+      unnumbered_command_paper:
+      unnumbered_hoc_paper:
   change_notes:
     page_history:
     published_at:

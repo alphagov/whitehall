@@ -135,6 +135,26 @@ div.span8 > section {
   }
 }
 
+div.paper-number {
+  div.field_with_errors:first-child {
+    float: none
+  }
+
+  div.field_with_errors,
+  input.paper-number {
+    float: left;
+
+    & + label {
+      float: left;
+      margin-left: 2em;
+    }
+  }
+
+  input.paper-number {
+    width: 180px;
+  }
+}
+
 ol.uploaded-attachments {
   margin: $gutter 0;
   list-style: none;

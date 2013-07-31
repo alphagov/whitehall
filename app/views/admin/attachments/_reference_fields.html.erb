@@ -1,6 +1,9 @@
 <%= form.text_field :isbn, label_text: 'ISBN' %>
 <%= form.text_field :unique_reference %>
-<%= form.text_field :command_paper_number %>
+<div class="paper-number clearfix">
+  <%= form.text_field :command_paper_number, class: 'paper-number' %>
+  <%= form.check_box :unnumbered_command_paper, label_text: 'Unnumbered' %>
+</div>
 <% if edition.can_have_attached_house_of_commons_papers? %>
   <%= render 'admin/attachments/hoc_reference_fields', form: form %>
 <% end %>
