@@ -1,8 +1,8 @@
-<% page_title "Add attachment to: #{@attachable.class.name.humanize.downcase}" %>
+<% page_title "Add attachment to: #{@attachable.class.name.underscore.humanize.downcase}" %>
 
 <div class="span8">
   <section>
-    <h1>Add attachment to <%= @attachable.class.name.humanize.downcase %></h1>
+    <h1>Add attachment to <%= @attachable.class.name.underscore.humanize.downcase %></h1>
 
     <%= render partial: 'form', locals: { attachable: @attachable, attachment: @attachment } %>
   </section>

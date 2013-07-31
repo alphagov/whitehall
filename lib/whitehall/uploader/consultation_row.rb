@@ -41,7 +41,7 @@ module Whitehall::Uploader
       @attachments ||= build_attachments
     end
 
-    def response
+    def outcome
       ResponseBuilder.new(@row, @line_number, @attachment_cache, @logger).build
     end
 
@@ -56,7 +56,7 @@ module Whitehall::Uploader
         related_editions: related_editions,
         attachments: attachments,
         alternative_format_provider: alternative_format_provider,
-        response: response
+        outcome: outcome
       }
     end
 
@@ -80,7 +80,7 @@ module Whitehall::Uploader
     class ResponseBuilder
       attr_reader :row
 
-      def initialize(row, line_number, attachment_cache, logger = Logger.new($stdout), response_class = Response)
+      def initialize(row, line_number, attachment_cache, logger = Logger.new($stdout), response_class = ConsultationOutcome)
         @row = row
         @attachment_cache = attachment_cache
         @line_number = line_number

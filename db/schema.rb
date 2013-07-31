@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130729085457) do
+ActiveRecord::Schema.define(:version => 20130729124957) do
 
   create_table "about_pages", :force => true do |t|
     t.integer  "topical_event_id"
@@ -979,8 +979,10 @@ ActiveRecord::Schema.define(:version => 20130729085457) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.date     "published_on"
+    t.string   "type"
   end
 
+  add_index "responses", ["edition_id", "type"], :name => "index_responses_on_edition_id_and_type"
   add_index "responses", ["edition_id"], :name => "index_responses_on_edition_id"
 
   create_table "role_appointments", :force => true do |t|

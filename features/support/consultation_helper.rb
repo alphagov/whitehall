@@ -6,10 +6,6 @@ module ConsultationHelper
   def view_visible_consultation_on_website
     click_link("View")
   end
-
-  def should_have_consultation_response_attachment
-    assert has_css?(".consultation-responded .attachment", count: 1)
-  end
 end
 
 World(ConsultationHelper)

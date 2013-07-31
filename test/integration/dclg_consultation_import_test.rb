@@ -30,11 +30,10 @@ class DclgConsultationImportTest < ActiveSupport::TestCase
     assert_equal "9781409836148", attachment.isbn
     assert_equal "attachment-content", File.read(attachment.file.path)
 
-    refute_nil consultation.response
-    response = consultation.response
+    assert outcome = consultation.outcome
 
-    assert_equal 1, response.attachments.size
-    attachment = response.attachments.first
+    assert_equal 1, outcome.attachments.size
+    attachment = outcome.attachments.first
     assert_equal "9780201101799", attachment.isbn
     simulate_virus_scan(attachment.attachment_data.file)
     assert_equal "response-content", File.read(attachment.file.path)
