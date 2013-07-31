@@ -60,6 +60,10 @@ class AttachmentData < ActiveRecord::Base
     unless txt?
       cmd = %Q{tika -t "#{file.path}" > "#{text_file_path}"}
       `#{cmd}`
+      unless $?.success?
+        tika_logger = Logger.new(Rails.root.join("log/tika.log"))
+        tika_logger.error("#{file.path}")
+      end
     end
   end
 
