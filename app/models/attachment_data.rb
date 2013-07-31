@@ -33,24 +33,30 @@ class AttachmentData < ActiveRecord::Base
     AttachmentUploader::INDEXABLE_TYPES.include?(file_extension)
   end
 
+  def text_file_path
+    file.path.gsub(/\.[^\.]+$/, ".txt")
+  end
+
+  def read_extracted_text(path)
+    if txt?
+      File.open(path).read
+    else
+      if File.exist?(text_file_path)
+        File.open(text_file_path).read
+      end
+    end
+  end
+
   def extracted_text
     path = file.path
     if indexable? && File.exist?(path)
       if Whitehall.extract_text_feature?
-        if txt?
-          File.open(path).read
-        else
-          text_file_path = path.gsub(/\.[^\.]+$/, ".txt")
-          if File.exist?(text_file_path)
-            File.open(text_file_path).read
-          end
-        end
+        read_extracted_text(path)
       end
     end
   end
 
   def extract_text
-    text_file_path = file.path.gsub(/\.[^\.]+$/, ".txt")
     unless txt?
       cmd = %Q{tika -t "#{file.path}" > "#{text_file_path}"}
       `#{cmd}`
