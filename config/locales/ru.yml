@@ -248,6 +248,11 @@ ru:
         few:
         many:
         other: Письменные заявления парламенту
+    footer_meta:
+      full_page_history:
+      page_history:
+      published:
+      updated:
     published: Опубликовано
     read: Прочитать статью %{title}
     speech:

@@ -152,6 +152,11 @@ sq:
       written_statement:
         one: Deklarate me shkrim per Parlamentin
         other: Deklarata me shkrim per Parlamentin
+    footer_meta:
+      full_page_history:
+      page_history:
+      published:
+      updated:
     published: publikuar
     read: ! 'Lexo %{title} '
     speech:

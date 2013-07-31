@@ -99,6 +99,11 @@ hu:
       default: ! '%Y %B %d'
       long_ordinal: ! '%Y %B %e'
   document:
+    footer_meta:
+      full_page_history:
+      page_history:
+      published:
+      updated:
     headings:
       advisory_groups: Tanácsadó testületek
       applies_to_nations: ! 'A következő nemzetekre vonatkozik:'

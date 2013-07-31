@@ -152,6 +152,11 @@ pt:
       written_statement:
         one: Declaração escrita ao Parlamento
         other: Declarações escritas ao Parlamento
+    footer_meta:
+      full_page_history:
+      page_history:
+      published:
+      updated:
     published: publicado
     read: Leia o %{title} artigo
     speech:

@@ -152,6 +152,11 @@ lv:
       written_statement:
         one: Rakstisks ziņojums parlamentam
         other: Rakstiski ziņojumi parlamentam
+    footer_meta:
+      full_page_history:
+      page_history:
+      published:
+      updated:
     published: publicēts
     read: Lasīt %{title} rakstu
     speech:

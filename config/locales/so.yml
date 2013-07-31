@@ -152,6 +152,11 @@ so:
       written_statement:
         one: Hadal qoran oo loo gudbiyo baarlamaanka
         other: Hadallo qoran oo loo gudbiyo baarlamaanka
+    footer_meta:
+      full_page_history:
+      page_history:
+      published:
+      updated:
     published: La-daabacay/nashriyey
     read: Akhri maqaalka %{title}
     speech:
