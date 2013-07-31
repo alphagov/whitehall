@@ -4,6 +4,6 @@
     <p class="summary"><%= document.summary %></p>
   <% end %>
   <% if document.respond_to?(:nation_inapplicabilities) and document.nation_inapplicabilities.any? %>
-  <p>Only applies to <%= only_applies_to_nations_list(@document) %></p>
+  <p>Only applies to <%= only_applies_to_nations_list(@document) %>.</p>
   <% end %>
 </div>
