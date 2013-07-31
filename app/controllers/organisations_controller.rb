@@ -60,7 +60,7 @@ class OrganisationsController < PublicFacingController
             @foi_contacts = @organisation.foi_contacts
           end
         else
-          render action: 'external'
+          render action: 'not_live'
         end
       end
       format.atom do

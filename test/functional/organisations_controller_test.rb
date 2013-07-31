@@ -244,28 +244,52 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_template 'show-executive-office'
   end
 
-  test "showing a joining organisation renders the external template" do
+  test "showing a joining organisation renders the not live template" do
     organisation = create(:organisation, govuk_status: 'joining')
 
     get :show, id: organisation
 
-    assert_template 'external'
+    assert_template 'not_live'
   end
 
-  test "showing an exempt organisation renders the external template" do
+  test "showing an exempt organisation renders the not live template" do
     organisation = create(:organisation, govuk_status: 'exempt')
 
     get :show, id: organisation
 
-    assert_template 'external'
+    assert_template 'not_live'
   end
 
-  test "showing an transitioning organisation renders the external template" do
+  test "showing an transitioning organisation renders the not live template" do
     organisation = create(:organisation, govuk_status: 'transitioning')
 
     get :show, id: organisation
 
-    assert_template 'external'
+    assert_template 'not_live'
+  end
+
+  test "showing a closed organisation renders the not live template" do
+    organisation = create(:organisation, govuk_status: 'closed')
+
+    get :show, id: organisation
+
+    assert_template 'not_live'
+  end
+
+  view_test "showing a closed organisation tells the user its closed" do
+    organisation = create(:organisation, govuk_status: 'closed')
+
+    get :show, id: organisation
+
+    assert_select '.information-block p', text: 'This organisation has closed'
+  end
+
+  view_test "showing a closed organisation with a closed date renders the date" do
+    organisation = create(:organisation, govuk_status: 'closed', closed_at: Time.zone.parse("2001-10-21 00:00:00"))
+
+    get :show, id: organisation
+
+    assert_select '.closed-at', text: '21 October 2001'
   end
 
   view_test "shows a link and thumbnail link of the organisation site when joining" do
