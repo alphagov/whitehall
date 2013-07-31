@@ -1211,6 +1211,12 @@
       }
     }
   }
+  .homepage-link {
+    margin-top: $gutter-two-thirds;
+    @include media(desktop) {
+      margin-top: $gutter;
+    }
+  }
   .main {
     @include ig-core-48;
     font-weight: bold;
