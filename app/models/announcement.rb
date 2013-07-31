@@ -4,6 +4,7 @@ class Announcement < Edition
   include Edition::RelatedPolicies
   include Edition::WorldLocations
   include Edition::TopicalEvents
+  include Edition::Topics
   include Edition::WorldwidePriorities
   include Edition::GovUkDelivery
 

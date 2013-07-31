@@ -17,7 +17,7 @@ module Edition::Topics
   end
 
   def search_index
-    super.merge("topics" => topics.map(&:slug)) {|k, ov, nv| ov + nv}
+    super.merge("topics" => topics.map(&:slug)) { |k, ov, nv| ov + nv }
   end
 
   module ClassMethods
@@ -33,5 +33,4 @@ module Edition::Topics
       scheduled.in_topic(topic)
     end
   end
-
 end

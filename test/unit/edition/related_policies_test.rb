@@ -8,24 +8,6 @@ class Edition::RelatedPoliciesTest < ActiveSupport::TestCase
     refute EditionRelation.exists?(relation.id)
   end
 
-  class ::EditionWithRelatedPolicies < GenericEdition
-    include Edition::RelatedPolicies
-
-    def search_link
-      'some_path'
-    end
-  end
-
-  FactoryGirl.define do
-    factory :edition_with_related_policies, class: EditionWithRelatedPolicies, parent: :edition
-  end
-
-  test "search_index contains topics associated via policies" do
-    edition = create(:edition_with_related_policies, related_editions: [create(:published_policy, topics: [create(:topic)])])
-
-    assert_equal edition.topics.map(&:slug), edition.search_index['topics']
-  end
-
   test "can set the policies without removing the other documents" do
     edition = create(:world_location_news_article)
     worldwide_priority = create(:worldwide_priority)

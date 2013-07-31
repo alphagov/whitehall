@@ -2,6 +2,7 @@
 class Publicationesque < Edition
   include Edition::RelatedPolicies
   include Edition::HasDocumentSeries
+  include Edition::Topics
   include Edition::WorldwidePriorities
   include Edition::GovUkDelivery
   include ::Attachable
