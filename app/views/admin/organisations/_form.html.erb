@@ -23,7 +23,7 @@
     <%= organisation_form.select :govuk_status, [["Currently live", "live"], ["Coming soon", "joining"], ["Exempt from joining", "exempt"], ["Currently transitioning", "transitioning"], ["Closed", "closed"]], {}, class: 'chzn-select' %>
     <%= organisation_form.label :closed_at, {class: "check-date-valid"} %>
     <div id="organisation_closed_at_group">
-      <%= organisation_form.datetime_select :closed_at, { end_year: Date.today.year }, { class: "date" } %>
+      <%= organisation_form.date_select :closed_at, { end_year: Date.today.year, include_blank: true, default: nil }, { class: "date" } %>
     </div>
   </fieldset>
   <fieldset>
