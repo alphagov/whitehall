@@ -12,8 +12,12 @@ module ConsultationsHelper
   end
 
   def consultation_outcome_published_phrase(outcome)
-    date = render_datetime_microformat(outcome, :published_on) { outcome.published_on.to_s(:long_ordinal) }
-    "Published outcome on #{date}".html_safe
+    if outcome.published_on
+      date = render_datetime_microformat(outcome, :published_on) { outcome.published_on.to_s(:long_ordinal) }
+      "Published outcome on #{date}".html_safe
+    else
+      'Not yet published'
+    end
   end
 
   def consultation_css_class(consultation)
