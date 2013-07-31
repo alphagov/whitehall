@@ -36,9 +36,9 @@
     dd {
       @include bold-24;
       padding-bottom: $gutter-half;
-      // organisations are included inside a p which has a default style of 
-      // font-weight: normal
-      p {
+      // some bits of metadata are included inside of other tags which have a 
+      // default style of font-weight: normal
+      p, strong {
         font-weight: bold;
       }
     }
