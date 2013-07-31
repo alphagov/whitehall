@@ -1,8 +1,8 @@
 require 'test_helper'
 
-class UrlValidatorTest < ActiveSupport::TestCase
+class UriValidatorTest < ActiveSupport::TestCase
   setup do
-    @validator = UrlValidator.new(attributes: [:url])
+    @validator = UriValidator.new(attributes: [:url])
   end
 
   test "validates http urls" do
@@ -26,9 +26,19 @@ class UrlValidatorTest < ActiveSupport::TestCase
     assert_equal ['is not valid. Make sure it starts with http(s)'], feature_link.errors[:url]
   end
 
-  test "invalid urls get an error" do
+  test "invalid urls get an error, without http" do
     feature_link = validate(PromotionalFeatureLink.new(url: 'example.com'))
     assert_equal ['is not valid. Make sure it starts with http(s)'], feature_link.errors[:url]
+  end
+
+  test "invalid urls get an error, with http" do
+    feature_link = validate(PromotionalFeatureLink.new(url: 'http ://example.com'))
+    assert_equal ['is not valid. Make sure it starts with http(s)'], feature_link.errors[:url]
+  end
+
+  test "invalid urls get an error, with http without a space" do
+    feature_link = validate(PromotionalFeatureLink.new(url: 'http://abc</option%3E'))
+    assert_equal ['is not valid.'], feature_link.errors[:url]
   end
 
   private

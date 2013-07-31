@@ -2,7 +2,7 @@ class MainstreamLink < ActiveRecord::Base
   belongs_to :linkable, polymorphic: true
 
   validates :url, :title, presence: true
-  validates :url, format: URI::regexp(%w(http https))
+  validates :url, uri: true
 
   DEFAULT_INITIAL_SET_SIZE = 5
 

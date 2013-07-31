@@ -5,7 +5,7 @@ class ConsultationParticipation < ActiveRecord::Base
                                 reject_if: :no_substantive_form_attributes?,
                                 allow_destroy: true
 
-  validates :link_url, format: URI::regexp(%w(http https)), allow_blank: true
+  validates :link_url, uri: true, allow_blank: true
   validates :email, email_format: { allow_blank: true }
 
   def has_link?
