@@ -33,7 +33,8 @@
   <div class="span4">
     <%= sidebar_tabs edition_tabs(@edition, remarks_count: @edition_remarks.length, history_count: @edition_history.total_count, editing: true) do |tabs| %>
       <%= tabs.pane class: "govspeak_help", id: "govspeak_help" do %>
-        <%= render partial: "govspeak_help" %>
+        <%= render partial: "govspeak_help",
+                   locals: { hide_inline_attachments_help: !@edition.allows_inline_attachments?, show_attachments_tab_help: true } %>
       <% end %>
 
       <%= tabs.pane class: "audit-trail", id: "notes" do %>

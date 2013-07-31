@@ -276,6 +276,10 @@ class Edition < ActiveRecord::Base
     false
   end
 
+  def allows_inline_attachments?
+    false
+  end
+
   def allows_supporting_pages?
     false
   end
