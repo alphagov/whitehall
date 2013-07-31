@@ -105,6 +105,17 @@ class OrganisationsControllerTest < ActionController::TestCase
     end
   end
 
+  test 'should exclude closed orgs from frontend list' do
+    ministerial_org_type = create(:ministerial_organisation_type)
+
+    organisation_1 = create(:organisation, organisation_type_id: ministerial_org_type.id)
+    organisation_2 = create(:organisation, organisation_type_id: ministerial_org_type.id, govuk_status: 'closed')
+
+    get :index
+
+    assert_equal assigns(:ministerial_departments), [organisation_1]
+  end
+
   view_test "shows organisation description" do
     organisation = create(:organisation,
       description: "organisation-description"
