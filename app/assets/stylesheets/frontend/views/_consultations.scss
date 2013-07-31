@@ -107,6 +107,9 @@ nav.consultations_scope {
 
     a {
       color: $white;
+      &[rel="external"] {
+        @include external-link-white;
+      }
     }
 
     .consultation-dates {

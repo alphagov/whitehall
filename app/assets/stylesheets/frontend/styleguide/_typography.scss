@@ -187,3 +187,18 @@
   font-weight: 400;
   color: $secondary-text-colour;
 }
+
+// TODO (@bfirsh): refactor frontend_toolkit external link mixin to work with 
+// white icons: https://github.com/alphagov/govuk_frontend_toolkit/pull/51
+@mixin external-link-white {
+  &:after {
+    background-image: image-url("external-link-white-12x12.png");
+    background-repeat: no-repeat;
+
+    @include device-pixel-ratio() {
+      background-image: image-url("external-link-white-24x24.png");
+      background-size: 12px 400px;
+    }
+  }
+}
+
