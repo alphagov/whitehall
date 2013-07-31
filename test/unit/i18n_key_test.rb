@@ -40,7 +40,7 @@ class I18nKeyTest < ActiveSupport::TestCase
   test "tranlsations for consultations are present" do
     assert_translation build(:open_consultation), "document.type"
     assert_translation build(:closed_consultation), "document.type"
-    assert_translation create(:consultation_with_response), "document.type"
+    assert_translation create(:consultation_with_outcome), "document.type"
   end
 
   test "translations for misc other edition types are present" do

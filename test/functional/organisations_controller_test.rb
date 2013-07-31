@@ -438,7 +438,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     consultation_2 = create(:published_consultation, organisations: [organisation], opening_on: 4.days.ago.to_date, closing_on: 1.days.ago.to_date)
     consultation_1 = create(:published_consultation, organisations: [organisation], opening_on: 3.days.ago.to_date)
     response_attachment = create(:attachment)
-    response = create(:response, consultation: consultation_3)
+    response = create(:consultation_outcome, consultation: consultation_3)
     response.attachments << response_attachment
 
     get :show, id: organisation

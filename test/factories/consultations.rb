@@ -43,7 +43,7 @@ FactoryGirl.define do
     closing_on { 1.day.ago }
   end
 
-  factory :consultation_with_response, parent: :closed_consultation do
-    response { create(:response) }
+  factory :consultation_with_outcome, parent: :closed_consultation do
+    outcome { create(:consultation_outcome) }
   end
 end

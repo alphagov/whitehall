@@ -20,16 +20,16 @@
       <section class="document_page tab-pane active" id="document">
         <%= render partial: 'edition', locals: { edition: @edition } %>
 
-        <% if @edition.is_a?(Consultation) && @edition.response.present? %>
+        <% if @edition.is_a?(Consultation) && @edition.outcome.present? %>
           <section class="consultation_response">
-            <h1>Consultation response</h1>
-            <p class="published_date"><%= consultation_response_published_phrase(@edition.response) %></p>
-            <% if @edition.response.summary.present? %>
-              <span class="summary"><%= @edition.response.summary %></span>
+            <h1>Consultation outcome</h1>
+            <p class="published_date"><%= consultation_outcome_published_phrase(@edition.outcome) %></p>
+            <% if @edition.outcome.summary.present? %>
+              <span class="summary"><%= @edition.outcome.summary %></span>
             <% end %>
-            <% if @edition.response.attachments.any? %>
+            <% if @edition.outcome.attachments.any? %>
               <ul class="attachments">
-                <% @edition.response.attachments.each do |attachment| %>
+                <% @edition.outcome.attachments.each do |attachment| %>
                   <li class="attachment">
                     <%= link_to attachment.title, attachment.file.url, class: 'title' %>
                   </li>

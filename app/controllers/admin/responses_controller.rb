@@ -6,19 +6,16 @@ class Admin::ResponsesController < Admin::BaseController
   before_filter :find_response, only: [:edit, :update]
 
   def show
-    @response = @edition.response
-  end
-
-  def new
-    @response = @edition.build_response(published_on: Date.today)
+    @response = response_class.find_by_edition_id(@edition) || response_class.new(published_on: Date.today)
   end
 
   def create
-    @response = @edition.build_response(params[:response])
+    @response = response_class.new(response_params)
+    @response.consultation = @edition
     if @response.save
-      redirect_to admin_consultation_response_path, notice: 'Response saved'
+      redirect_to [:admin, @edition, @response.singular_routing_symbol], notice: "#{@response.friendly_name.capitalize} saved"
     else
-      render :new
+      render :show
     end
   end
 
@@ -26,8 +23,8 @@ class Admin::ResponsesController < Admin::BaseController
   end
 
   def update
-    if @response.update_attributes(params[:response])
-      redirect_to admin_consultation_response_path, notice: 'Response updated'
+    if @response.update_attributes(response_params)
+      redirect_to [:admin, @edition, @response.singular_routing_symbol], notice: "#{@response.friendly_name.capitalize} updated"
     else
       render :edit
     end
@@ -40,11 +37,22 @@ class Admin::ResponsesController < Admin::BaseController
   end
 
   def find_response
-    @response = @edition.response
+    @response = response_class.find_by_edition_id(@edition)
     raise(ActiveRecord::RecordNotFound, "Could not find Response for Consulatation with ID #{@edition.id}") unless @response
   end
 
   def enforce_edition_permissions!
     enforce_permission!(:update, @edition)
+  end
+
+  def response_class
+    case params[:type]
+      when 'ConsultationOutcome' then ConsultationOutcome
+      when 'ConsultationPublicFeedback' then ConsultationPublicFeedback
+    end
+  end
+
+  def response_params
+    params[:consultation_outcome] || params[:consultation_public_feedback]
   end
 end

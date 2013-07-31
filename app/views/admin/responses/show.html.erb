@@ -1,34 +1,35 @@
-<% page_title "Response for: #{@edition.title}" %>
+<% page_title "#{@response.friendly_name.capitalize} for: #{@edition.title}" %>
 <% page_class "response" %>
 
 <div class="span8">
   <section>
-    <h1>Response for consultation</h1>
+      <h1><%= @response.friendly_name.capitalize %> for consultation</h1>
 
     <%= consultation_editing_tabs(@edition) do %>
 
-      <% if @response %>
+      <% if @response.persisted? %>
         <div class="summary">
-          <h3>Response summary</h3>
+          <h3><%= @response.friendly_name.capitalize %> summary</h3>
           <%= govspeak_to_html @response.summary %>
           <p>Published on <%= @response.published_on.to_s(:long_ordinal) %></p>
         </div>
-      <% end %>
 
-      <ul class="actions">
-        <% if @response %>
-          <li><%= link_to 'Edit response', edit_admin_consultation_response_path(@edition) %></li>
-        <% else %>
-          <li><%= link_to 'Add a response', new_admin_consultation_response_path(@edition) %></li>
-        <% end %>
-      </ul>
+        <ul class="actions">
+          <li><%= link_to "Edit #{@response.friendly_name}", [:edit, :admin, @edition, @response.singular_routing_symbol] %></li>
+        </ul>
 
-      <% if @response %>
-        <h3>Response attachments (optional)</h3>
+        <h3>Attachments (optional)</h3>
         <ul class="actions">
           <li><%= link_to 'Upload new attachment', new_admin_response_attachment_path(@response) %></li>
         </ul>
         <%= render('admin/attachments/attachments', attachable: @response) if @response.attachments.any? %>
+
+      <% else %>
+        <p class="alert alert-info">
+          <%= consulation_response_help_text(@response) %>
+        </p>
+
+        <%= render partial: 'form', locals: { consultation: @edition, consultation_response: @response } %>
       <% end %>
     <% end %>
   </section>

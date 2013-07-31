@@ -105,7 +105,7 @@ class UploadAccessTest < ActionDispatch::IntegrationTest
 
   test 'allows everyone access to attachments of published consultation responses' do
     attachment = create(:attachment)
-    create(:published_consultation, response: create(:response, attachments: [attachment]))
+    create(:published_consultation, outcome: create(:consultation_outcome, attachments: [attachment]))
     simulate_virus_scan(attachment.attachment_data.file)
 
     get_via_nginx attachment.url
@@ -115,7 +115,7 @@ class UploadAccessTest < ActionDispatch::IntegrationTest
 
   test 'blocks general access to attachments of unpublished consultation responses' do
     attachment = create(:attachment)
-    create(:draft_consultation, response: create(:response, attachments: [attachment]))
+    create(:draft_consultation, outcome: create(:consultation_outcome, attachments: [attachment]))
     simulate_virus_scan(attachment.attachment_data.file)
 
     get_via_nginx attachment.url

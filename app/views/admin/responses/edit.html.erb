@@ -1,3 +1,9 @@
-<% page_title "Editing response for: #{@edition.title}" %>
+<% page_title "Editing #{@response.friendly_name} for: #{@edition.title}" %>
 
-<%= render partial: 'form', locals: { consultation: @edition, response: @response } %>
+<div class="span8">
+  <section>
+    <h1>Editing <%= @response.friendly_name %> for consultation</h1>
+
+    <%= render partial: 'form', locals: { consultation: @edition, consultation_response: @response } %>
+  </section>
+</div>
