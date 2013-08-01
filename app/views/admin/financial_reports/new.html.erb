@@ -1,0 +1,19 @@
+<% page_title @organisation.name + " financial reports" %>
+<div class="row-fluid organisation-header">
+  <div class="span8">
+    <h1><%= @organisation.name %></h1>
+    <%= link_to "View on website", @organisation%>
+  </div>
+</div>
+
+<%= tab_navigation_for(@organisation) do %>
+<%= link_to "Back", action: 'index' %>
+<h2>Creating a Financial Report for <%= @organisation.name %></h2>
+
+<%= form_for @financial_report, url: {action: "create"} do |f| %>
+<%= f.text_field :year %>
+<%= f.text_field :funding %>
+<%= f.text_field :spending %>
+<%= f.submit "Create Report"%>
+<% end %>
+<% end %>
