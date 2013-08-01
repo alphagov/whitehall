@@ -56,6 +56,24 @@ class AttachmentData < ActiveRecord::Base
     end
   end
 
+  # If the file no longer exisits assume it was later found to have a virus.
+  # On development without the attachments they will be flagged as infected.
+  def virus_status
+    path = file.path
+    if path.starts_with?(Whitehall.clean_uploads_root) && File.exist?(path)
+      :clean
+    elsif incoming?(path)
+      :pending
+    else
+      :infected
+    end
+  end
+
+  def incoming?(path)
+    incoming_path = path.gsub(Whitehall.clean_uploads_root, Whitehall.incoming_uploads_root)
+    File.exist?(incoming_path)
+  end
+
   def update_file_attributes
     if carrierwave_file.present? && carrierwave_file_changed?
       self.content_type = file.file.content_type

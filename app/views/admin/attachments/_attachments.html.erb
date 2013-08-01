@@ -11,7 +11,10 @@
     <% attachable.attachments.each do |attachment| %>
       <%= content_tag_for(:li, attachment, class: "well") do %>
         <span class="title"><%= attachment.title %></span>
-        <span class="file">File: <%= link_to attachment.filename, attachment.url %></span>
+        <span class="file">
+          File: <%= link_to attachment.filename, attachment.url %>
+        </span>
+        <%= attachment_virus_status(attachment) %>
         <%= attachment_metadata_tag(attachment) %>
 
         <% if attachable.can_order_attachments? %>
