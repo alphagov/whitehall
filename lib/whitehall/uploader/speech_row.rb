@@ -4,7 +4,7 @@ module Whitehall::Uploader
       super
         .ignored("ignore_*")
         .required("type")
-        .multiple("policy_#", 1..4)
+        .multiple("policy_#", 0..4)
         .required(%w{delivered_by delivered_on event_and_location})
         .multiple("country_#", 0..4)
         .translatable(%w{title summary body})

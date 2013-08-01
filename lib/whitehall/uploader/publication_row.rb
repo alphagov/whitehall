@@ -2,8 +2,8 @@ module Whitehall::Uploader
   class PublicationRow < Row
     def self.validator
       super
-        .multiple("policy_#", 1..4)
-        .multiple("document_series_#", 1..4)
+        .multiple("policy_#", 0..4)
+        .multiple("document_series_#", 0..4)
         .required(%w{publication_type publication_date})
         .optional(%w{order_url price isbn urn command_paper_number}) # First attachment
         .optional(%w{hoc_paper_number parliamentary_session unnumbered_hoc_paper unnumbered_command_paper}) # First attachment
