@@ -132,7 +132,7 @@ module Whitehall::Uploader
       assert_equal "http://example.com/attachment.pdf", row.attributes[:attachments].first.attachment_source.url
     end
 
-    test "records the order_url, price, isbn, urn and command_paper_number on the first attachment" do
+    test "records any meta data onto the first attachment" do
       @attachment_cache.stubs(:fetch).with("http://example.com/attachment.pdf").returns(File.open(Rails.root.join("test", "fixtures", "two-pages.pdf")))
 
       row = new_publication_row({
@@ -141,8 +141,7 @@ module Whitehall::Uploader
         "order_url" => "http://example.com/order-it.php",
         "price" => "11.99",
         "isbn" => "1 86192 090 3",
-        "urn" => "10/899",
-        "command_paper_number" => "Cm 5861"
+        "urn" => "10/899"
       }, Logger.new(StringIO.new))
 
       attachment = Attachment.new(
@@ -150,8 +149,31 @@ module Whitehall::Uploader
         order_url: "http://example.com/order-it.php",
         price_in_pence: "1199",
         isbn: "1 86192 090 3",
-        unique_reference: "10/899",
-        command_paper_number: "Cm 5861"
+        unique_reference: "10/899"
+      )
+      assert_equal [attachment.attributes], row.attributes[:attachments].collect(&:attributes)
+    end
+
+    test "records any parlimentary paper information to the first attachment" do
+      @attachment_cache.stubs(:fetch).with("http://example.com/attachment.pdf").returns(File.open(Rails.root.join("test", "fixtures", "two-pages.pdf")))
+
+      row = new_publication_row({
+        'attachment_1_title' =>'title',
+        'attachment_1_url' => 'http://example.com/attachment.pdf',
+        'command_paper_number' => 'Cm 5861',
+        'hoc_paper_number' => '123456',
+        'parliamentary_session' => '2010-11',
+        'unnumbered_hoc_paper' => 'true',
+        'unnumbered_command_paper' => '',
+      }, Logger.new(StringIO.new))
+
+      attachment = Attachment.new(
+        title: "title",
+        command_paper_number: 'Cm 5861',
+        hoc_paper_number: '123456',
+        parliamentary_session: '2010-11',
+        unnumbered_hoc_paper: true,
+        unnumbered_command_paper: nil
       )
       assert_equal [attachment.attributes], row.attributes[:attachments].collect(&:attributes)
     end
@@ -178,36 +200,6 @@ module Whitehall::Uploader
           "country_4" => "fourth"
         })
       assert_equal world_locations, row.attributes[:world_locations]
-    end
-  end
-
-  class Whitehall::Uploader::PublicationRow::AttachmentMetadataBuilderTest < ActiveSupport::TestCase
-    def setup
-      @attachment = stub_everything('attachment')
-    end
-
-    test "does nothing if there are no attachments" do
-      Whitehall::Uploader::PublicationRow::AttachmentMetadataBuilder.build(nil, "order-url", "isbn", "urn", "command-paper-number", "")
-    end
-
-    test "does nothing if no attributes are set" do
-      Whitehall::Uploader::PublicationRow::AttachmentMetadataBuilder.build(@attachment, nil, nil, nil, nil, nil)
-    end
-
-    test "sets all attributes if given" do
-      @attachment.expects(:order_url=).with("order-url")
-      @attachment.expects(:isbn=).with("ISBN")
-      @attachment.expects(:unique_reference=).with("unique-reference")
-      @attachment.expects(:command_paper_number=).with("command-paper-number")
-      @attachment.expects(:price=).with("12.34")
-      Whitehall::Uploader::PublicationRow::AttachmentMetadataBuilder.build(@attachment, "order-url", "ISBN", "unique-reference", "command-paper-number", "12.34")
-    end
-
-    test "sets any subset of attributes that are given" do
-      @attachment.expects(:isbn=).with("ISBN")
-      @attachment.expects(:command_paper_number=).with("command-paper-number")
-      @attachment.expects(:price=).with("12.34")
-      Whitehall::Uploader::PublicationRow::AttachmentMetadataBuilder.build(@attachment, nil, "ISBN", nil, "command-paper-number", "12.34")
     end
   end
 end
