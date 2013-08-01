@@ -15,7 +15,7 @@
         </li>
       </ul>
 
-      <%= render('attachments', attachable: @attachable) if @edition.attachments.any? %>
+      <%= render('attachments', attachable: @attachable) if @attachable.attachments.any? %>
     <% end %>
   </section>
 </div>
