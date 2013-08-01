@@ -18,6 +18,8 @@ Feature: Managing attachments on editions
       And the attachment has been virus-checked
       When I replace the data file of the attachment in a new draft of the publication
       And the attachment has been virus-checked
-      Then the new data file should not be public until the draft is published
-      When I log out
-      Then the old data file should redirect to the new data file
+      Then the new data file should not be public
+      When I published the draft edition
+      And I log out
+      Then the new data file should be public
+      And the old data file should redirect to the new data file

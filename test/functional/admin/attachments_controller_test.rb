@@ -116,15 +116,17 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     assert_equal attachment_data, attachment.attachment_data
   end
 
-  test "PUT :update with a file replaces the attachment data" do
+  test "PUT :update with a file creates a replacement attachment data whilst leaving the original alone" do
     attachment = create(:attachment, editions: [@edition])
     old_data = attachment.attachment_data
     put :update, edition_id: @edition, id: attachment, attachment: {
       attachment_data_attributes: { to_replace_id: old_data.id, file: fixture_file_upload('whitepaper.pdf') }
     }
     attachment.reload
+    old_data.reload
 
     refute_equal old_data, attachment.attachment_data
+    assert_equal attachment.attachment_data, old_data.replaced_by
     assert_equal 'whitepaper.pdf',  attachment.filename
   end
 
