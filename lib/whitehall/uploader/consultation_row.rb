@@ -12,7 +12,7 @@ module Whitehall::Uploader
 
     def self.validator
       super
-        .multiple("policy_#", 1..4)
+        .multiple("policy_#", 0..4)
         .required(%w{opening_date closing_date})
         .optional(%w{consultation_ISBN consultation_URN})
         .required(%w{response_date response_summary})

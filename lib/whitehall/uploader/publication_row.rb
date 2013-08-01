@@ -2,10 +2,11 @@ module Whitehall::Uploader
   class PublicationRow < Row
     def self.validator
       super
-        .multiple("policy_#", 1..4)
-        .multiple("document_series_#", 1..4)
+        .multiple("policy_#", 0..4)
+        .multiple("document_series_#", 0..4)
         .required(%w{publication_type publication_date})
         .optional(%w{order_url price isbn urn command_paper_number}) # First attachment
+        .optional(%w{hoc_paper_number parliamentary_session unnumbered_hoc_paper unnumbered_command_paper}) # First attachment
         .ignored("ignore_*")
         .multiple(%w{attachment_#_url attachment_#_title}, 0..Row::ATTACHMENT_LIMIT)
         .optional('json_attachments')
@@ -37,7 +38,7 @@ module Whitehall::Uploader
     def attachments
       if @attachments.nil?
         @attachments = attachments_from_columns + attachments_from_json
-        AttachmentMetadataBuilder.build(@attachments.first, row["order_url"], row["isbn"], row["urn"], row["command_paper_number"], row["price"])
+        apply_meta_data_to_attachment(@attachments.first) if @attachments.any?
       end
       @attachments
     end
@@ -93,15 +94,16 @@ module Whitehall::Uploader
       end.compact
     end
 
-    class AttachmentMetadataBuilder
-      def self.build(attachment, order_url, isbn, unique_reference, command_paper_number, price)
-        return unless attachment && (order_url || isbn || unique_reference || command_paper_number || price)
-        attachment.order_url = order_url
-        attachment.isbn = isbn
-        attachment.unique_reference = unique_reference
-        attachment.command_paper_number = command_paper_number
-        attachment.price = price
-      end
+    def apply_meta_data_to_attachment(attachment)
+      attachment.order_url = row["order_url"]
+      attachment.isbn = row["isbn"]
+      attachment.unique_reference = row["urn"]
+      attachment.command_paper_number = row["command_paper_number"]
+      attachment.price = row["price"]
+      attachment.hoc_paper_number = row["hoc_paper_number"]
+      attachment.parliamentary_session = row["parliamentary_session"]
+      attachment.unnumbered_hoc_paper = row["unnumbered_hoc_paper"]
+      attachment.unnumbered_command_paper = row["unnumbered_command_paper"]
     end
   end
 end

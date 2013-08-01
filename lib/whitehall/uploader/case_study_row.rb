@@ -5,8 +5,8 @@ module Whitehall::Uploader
       super
         .required("first_published")
         .ignored("ignore_*")
-        .multiple("policy_#", 1..4)
-        .multiple("document_series_#", 1..4)
+        .multiple("policy_#", 0..4)
+        .multiple("document_series_#", 0..4)
     end
 
     def document_series

@@ -4,8 +4,8 @@ module Whitehall::Uploader
       super
         .ignored("ignore_*")
         .required(%w{news_article_type first_published})
-        .multiple("policy_#", 1..4)
-        .multiple("minister_#", 1..2)
+        .multiple("policy_#", 0..4)
+        .multiple("minister_#", 0..2)
         .multiple("country_#", 0..4)
         .multiple(%w{attachment_#_url attachment_#_title}, 0..Row::ATTACHMENT_LIMIT)
         .optional('json_attachments')
