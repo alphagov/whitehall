@@ -21,4 +21,15 @@ class Edition::TopicsTest < ActiveSupport::TestCase
 
     assert_equal @topic, new_edition.topics.first
   end
+
+  test "#topics should delegate to #policy_topics when no topics directly assigned" do
+    policy = create(:published_policy, topics: [@topic])
+    announcement = create(:news_article, related_editions: [policy])
+    assert_equal [@topic], announcement.topics
+  end
+
+  test "#topics doesn't call #policy_topics unless edition related to policies" do
+    guide = create(:detailed_guide)
+    assert_equal [], guide.topics
+  end
 end
