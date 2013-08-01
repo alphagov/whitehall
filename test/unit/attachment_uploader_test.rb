@@ -35,7 +35,7 @@ class AttachmentUploaderTest < ActiveSupport::TestCase
 
   test "zip file containing a non-whitelisted format should be rejected" do
     uploader = AttachmentUploader.new(stub("AR Model", id: 1), "mounted-as")
-    assert_raises CarrierWave::IntegrityError do
+    assert_raise CarrierWave::IntegrityError do
       uploader.store!(fixture_file_upload('sample_attachment_containing_exe.zip'))
     end
   end
@@ -51,7 +51,7 @@ class AttachmentUploaderTest < ActiveSupport::TestCase
 
   test "zip file containing a zip file should be rejected" do
     uploader = AttachmentUploader.new(stub("AR Model", id: 1), "mounted-as")
-    assert_raises CarrierWave::IntegrityError do
+    assert_raise CarrierWave::IntegrityError do
       uploader.store!(fixture_file_upload('sample_attachment_containing_zip.zip'))
     end
   end
@@ -59,7 +59,7 @@ class AttachmentUploaderTest < ActiveSupport::TestCase
   test "zip file containing files with non-UTF-8 filenames should be rejected" do
     uploader = AttachmentUploader.new(stub("AR Model", id: 1), "mounted-as")
     AttachmentUploader::ZipFile.any_instance.stubs(:filenames).raises(AttachmentUploader::ZipFile::NonUTF8ContentsError)
-    assert_raises CarrierWave::IntegrityError do
+    assert_raise CarrierWave::IntegrityError do
       uploader.store!(fixture_file_upload('sample_attachment.zip'))
     end
   end
@@ -85,7 +85,7 @@ class AttachmentUploaderTest < ActiveSupport::TestCase
   test 'zip file that is missing all the required ArcGIS files is not allowed' do
     uploader = AttachmentUploader.new(stub("AR Model", id: 1), 'mounted-as')
     AttachmentUploader::ZipFile.any_instance.stubs(:filenames).returns(broken_arcgis_file_list)
-    assert_raises CarrierWave::IntegrityError do
+    assert_raise CarrierWave::IntegrityError do
       uploader.store!(fixture_file_upload('sample_attachment.zip'))
     end
   end
@@ -93,7 +93,7 @@ class AttachmentUploaderTest < ActiveSupport::TestCase
   test 'zip file that looks like an ArcGIS file, but has extra files in it is not allowed' do
     uploader = AttachmentUploader.new(stub("AR Model", id: 1), 'mounted-as')
     AttachmentUploader::ZipFile.any_instance.stubs(:filenames).returns(comprehensive_arcgis_file_list + ['readme.txt', 'london.jpg', 'map-printout.pdf'])
-    assert_raises CarrierWave::IntegrityError do
+    assert_raise CarrierWave::IntegrityError do
       uploader.store!(fixture_file_upload('sample_attachment.zip'))
     end
   end
@@ -110,7 +110,7 @@ class AttachmentUploaderTest < ActiveSupport::TestCase
   test 'zip file that looks like an ArcGIS file with multiple sets of shapes is not allowed if one set of shapes is incomplete' do
     uploader = AttachmentUploader.new(stub("AR Model", id: 1), 'mounted-as')
     AttachmentUploader::ZipFile.any_instance.stubs(:filenames).returns(complete_and_broken_shape_arcgis_file_list)
-    assert_raises CarrierWave::IntegrityError do
+    assert_raise CarrierWave::IntegrityError do
       uploader.store!(fixture_file_upload('sample_attachment.zip'))
     end
   end

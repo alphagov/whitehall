@@ -75,7 +75,7 @@ class Whitehall::Uploader::AttachmentCacheTest < ActiveSupport::TestCase
   test "raises an error if the download didn't return a 200" do
     url = "http://example.com/attachment.pdf"
     stub_request(:get, url).to_return(body: "", status: 404)
-    assert_raises_retrieval_error_matching(/got response status 404/) do
+    assert_raise_retrieval_error_matching(/got response status 404/) do
       @cache.fetch(url)
     end
   end
@@ -83,21 +83,21 @@ class Whitehall::Uploader::AttachmentCacheTest < ActiveSupport::TestCase
   test "raises an error if the download times out" do
     url = "http://example.com/attachment.pdf"
     stub_request(:get, url).to_timeout
-    assert_raises_retrieval_error_matching(/due to Timeout/) do
+    assert_raise_retrieval_error_matching(/due to Timeout/) do
       @cache.fetch(url)
     end
   end
 
   test "raises an error if the url is not valid" do
     url = "http://this is not a valid url"
-    assert_raises_retrieval_error_matching(/due to invalid URL/) do
+    assert_raise_retrieval_error_matching(/due to invalid URL/) do
       @cache.fetch(url)
     end
   end
 
   test "raises an error if the url is not an http URL" do
     url = "this-is-not-even-http"
-    assert_raises_retrieval_error_matching(/url not understood to be HTTP/) do
+    assert_raise_retrieval_error_matching(/url not understood to be HTTP/) do
       @cache.fetch(url)
     end
   end
@@ -190,7 +190,7 @@ class Whitehall::Uploader::AttachmentCacheTest < ActiveSupport::TestCase
 
   private
 
-  def assert_raises_retrieval_error_matching(message_regexp)
+  def assert_raise_retrieval_error_matching(message_regexp)
     yield
     flunk "Should raise a Whitehall::Uploader::AttachmentCache::RetrievalError"
   rescue Whitehall::Uploader::AttachmentCache::RetrievalError => e

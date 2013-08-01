@@ -84,7 +84,7 @@ When /^I delete the worldwide organisation$/ do
 end
 
 Then /^the worldwide organisation should not be visible from the public website$/ do
-  assert_raises(ActiveRecord::RecordNotFound) do
+  assert_raise(ActiveRecord::RecordNotFound) do
     visit worldwide_organisation_path(@worldwide_organisation)
   end
 end

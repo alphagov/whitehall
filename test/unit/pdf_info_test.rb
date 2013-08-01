@@ -9,7 +9,7 @@ require "shellwords"
 
 class PdfInfoTest < ActiveSupport::TestCase
   def test_raises_if_executable_missing
-    assert_raises RuntimeError do
+    assert_raise RuntimeError do
       PdfInfo.new("/this/path/does/not/exist")
     end
   end

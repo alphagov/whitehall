@@ -288,10 +288,10 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     refute_select ".errors"
     consultation.reload
     assert_nil consultation.consultation_participation.consultation_response_form
-    assert_raises(ActiveRecord::RecordNotFound) do
+    assert_raise(ActiveRecord::RecordNotFound) do
       response_form.consultation_response_form_data.reload
     end
-    assert_raises(ActiveRecord::RecordNotFound) do
+    assert_raise(ActiveRecord::RecordNotFound) do
       response_form.reload
     end
   end

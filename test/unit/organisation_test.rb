@@ -504,7 +504,7 @@ class OrganisationTest < ActiveSupport::TestCase
   test "#for_slug! raises if the given page doesn't exist" do
     organisation = create(:organisation)
     tor = CorporateInformationPageType::TermsOfReference
-    assert_raises ActiveRecord::RecordNotFound do
+    assert_raise ActiveRecord::RecordNotFound do
       organisation.corporate_information_pages.for_slug!(tor.slug)
     end
   end

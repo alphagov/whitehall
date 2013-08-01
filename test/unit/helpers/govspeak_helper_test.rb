@@ -101,7 +101,7 @@ class GovspeakHelperTest < ActionView::TestCase
   end
 
   test "should raise exception when extracting header hierarchy with orphaned level 3 headings" do
-    e = assert_raises(OrphanedHeadingError) { govspeak_header_hierarchy("### Heading 3") }
+    e = assert_raise(OrphanedHeadingError) { govspeak_header_hierarchy("### Heading 3") }
     assert_equal "Heading 3", e.heading
   end
 

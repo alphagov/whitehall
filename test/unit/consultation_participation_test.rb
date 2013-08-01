@@ -73,7 +73,7 @@ class ConsultationParticipationTest < ActiveSupport::TestCase
 
     participation.destroy
 
-    assert_raises(ActiveRecord::RecordNotFound) do
+    assert_raise(ActiveRecord::RecordNotFound) do
       form.reload
     end
   end
@@ -93,7 +93,7 @@ class ConsultationParticipationTest < ActiveSupport::TestCase
   test "can be destroyed without an associated form" do
     participation = create(:consultation_participation, consultation_response_form: nil)
     participation.destroy
-    assert_raises(ActiveRecord::RecordNotFound) do
+    assert_raise(ActiveRecord::RecordNotFound) do
       participation.reload
     end
   end

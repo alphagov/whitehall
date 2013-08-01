@@ -100,12 +100,12 @@ class SearchableTest < ActiveSupport::TestCase
     class NonExistentClass; end
     Whitehall.stubs(:searchable_classes).returns([NonExistentClass])
     index_job = Searchable::Index.new('SearchableTest::SearchableTestTopic', 2_000)
-    assert_raises(ArgumentError) { index_job.perform }
+    assert_raise(ArgumentError) { index_job.perform }
   end
 
   test 'Index#perform will raise if the supplied object does not exist' do
     index_job = Searchable::Index.new('SearchableTest::SearchableTestTopic', 2_000)
-    assert_raises(ActiveRecord::RecordNotFound) { index_job.perform }
+    assert_raise(ActiveRecord::RecordNotFound) { index_job.perform }
   end
 
   test 'Index#perform will not index the object if it is not in searchable_instances' do

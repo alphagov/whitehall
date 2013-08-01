@@ -197,7 +197,7 @@ class AttachmentDataTest < ActiveSupport::TestCase
 
   test 'replace_with! won\'t let you replace an instance with itself' do
     self_referential = create(:attachment_data)
-    assert_raises(ActiveRecord::RecordInvalid) do
+    assert_raise(ActiveRecord::RecordInvalid) do
       self_referential.replace_with!(self_referential)
     end
   end
