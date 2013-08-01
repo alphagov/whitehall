@@ -169,37 +169,39 @@ ol.uploaded-attachments {
 ol.existing-attachments {
   margin: 0;
   list-style: none;
+  .well {
+    @extend %contain-floats;
+    padding: $gutter-one-third;
+    img {
+      float: left;
+      margin-right: 10px;
+    }
+    span.title {
+      font-weight: bold;
+    }
 
-  span.title {
-    font-weight: bold;
-  }
+    span {
+      display: block;
+    }
 
-  img {
-    float: left;
+    label, input {
+      .js-enabled & {
+        display: none;
+      }
+    }
 
-    width: 105px;
-    height: 140px;
+    label {
+      display: inline;
+      font-weight: bold;
+    }
 
-    margin-right: $gutter-one-third;
-  }
-
-  span {
-    display: block;
-  }
-
-  label, input {
-    .js-enabled & {
-      display: none;
+    input.ordering {
+      width: 50px;
     }
   }
 
-  label {
-    display: inline;
-    font-weight: bold;
-  }
-
-  input.ordering {
-    width: 50px;
+  ul.actions {
+    margin: 0;
   }
 }
 
