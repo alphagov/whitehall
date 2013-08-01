@@ -1,9 +1,12 @@
 class AttachmentsController < ApplicationController
   include UploadsControllerHelper
+  include PublicDocumentRoutesHelper
 
   def show
-    if attachment_visible?
+    if attachment_visibility.visible?
       send_upload file_path, public: current_user.nil?
+    elsif edition = attachment_visibility.unpublished_edition
+      redirect_to public_document_path(edition, id: edition.unpublishing.slug)
     else
       replacement = attachment_data.replaced_by
       if replacement
@@ -32,7 +35,7 @@ class AttachmentsController < ApplicationController
     attachment_data.file.store_path(file_with_extensions)
   end
 
-  def attachment_visible?
-    AttachmentVisibility.new(attachment_data, current_user).visible?
+  def attachment_visibility
+    @attachment_visibility ||= AttachmentVisibility.new(attachment_data, current_user)
   end
 end

@@ -7,56 +7,41 @@ class AttachmentVisibility
   end
 
   def visible?
-    visible_edition? ||
-    visible_consultation_response? ||
-    visible_corporate_information_page? ||
-    visible_supporting_page? ||
-    visible_policy_group?
+    visible_edition? || visible_corporate_information_page? || visible_policy_group?
+  end
+
+  def unpublished_edition
+    if unpublishing = Unpublishing.where(edition_id: edition_ids).first
+      Edition.unscoped.find(unpublishing.edition_id)
+    end
   end
 
   private
 
-  def attachment_data_id
+  def id
     attachment_data.id
   end
 
   def visible_edition?
-    if edition_ids = EditionAttachment.joins(:attachment).
-        where(attachments: {attachment_data_id: attachment_data_id}).map(&:edition_id)
-      any_edition_visible?(edition_ids)
-    end
-  end
-
-  def visible_consultation_response?
-    if edition_ids = Response.joins(:attachments).
-        where(attachments: {attachment_data_id: attachment_data_id}).map(&:edition_id)
-      any_edition_visible?(edition_ids)
+    if user
+      Edition.accessible_to(user).where(id: edition_ids).exists?
+    else
+      Edition.published.where(id: edition_ids).exists?
     end
   end
 
   def visible_corporate_information_page?
-    CorporateInformationPage.joins(:attachments).
-      where(attachments: {attachment_data_id: attachment_data_id}).exists?
-  end
-
-  def visible_supporting_page?
-    if edition_ids = SupportingPage.joins(:attachments).
-        where(attachments: {attachment_data_id: attachment_data_id}).map(&:edition_id)
-      any_edition_visible?(edition_ids)
-    end
+    CorporateInformationPage.joins(:attachments).where(attachments: {attachment_data_id: id}).exists?
   end
 
   def visible_policy_group?
-    # Policy groups don't have workflows, so they're always live
-    PolicyAdvisoryGroup.joins(:attachments).
-      where(attachments: {attachment_data_id: attachment_data_id}).exists?
+    PolicyAdvisoryGroup.joins(:attachments).where(attachments: {attachment_data_id: id}).exists?
   end
 
-  def any_edition_visible?(ids)
-    if user
-      Edition.accessible_to(user).where(id: ids).exists?
-    else
-      Edition.published.where(id: ids).exists?
-    end
+  def edition_ids
+    @edition_ids ||= [ EditionAttachment.joins(:attachment).where(attachments: {attachment_data_id: id}).pluck(:edition_id),
+                       Response.joins(:attachments).where(attachments: {attachment_data_id: id}).pluck(:edition_id),
+                       SupportingPage.joins(:attachments).where(attachments: {attachment_data_id: id}).pluck(:edition_id)
+                     ].flatten.uniq
   end
 end
