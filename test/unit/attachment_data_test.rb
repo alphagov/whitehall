@@ -16,6 +16,13 @@ class AttachmentDataTest < ActiveSupport::TestCase
     refute attachment.valid?
   end
 
+  test 'is invalid with an empty file' do
+    empty_file = fixture_file_upload('empty_file.txt', 'text/plain')
+    attachment = build(:attachment_data, file: empty_file)
+    refute attachment.valid?
+    assert_match /empty file/, attachment.errors[:file].first
+  end
+
   test 'should return filename even after reloading' do
     attachment = create(:attachment_data)
     refute_nil attachment.filename

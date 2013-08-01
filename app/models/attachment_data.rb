@@ -6,6 +6,7 @@ class AttachmentData < ActiveRecord::Base
   before_save :update_file_attributes
 
   validates :file, presence: true
+  validate :file_is_not_empty
 
   attr_accessor :to_replace_id
   belongs_to :replaced_by, class_name: 'AttachmentData'
@@ -81,5 +82,9 @@ class AttachmentData < ActiveRecord::Base
     PDFINFO_SERVICE.count_pages(file.path)
   rescue
     nil
+  end
+
+  def file_is_not_empty
+    errors.add(:file, "is an empty file") if file.present? && file.file.size.to_i == 0
   end
 end
