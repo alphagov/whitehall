@@ -31,7 +31,7 @@ class AttachmentsControllerTest < ActionController::TestCase
     visible_edition = create(:published_publication, :with_attachment)
     attachment_data = visible_edition.attachments.first.attachment_data
 
-    simulate_virus_scan(attachment_data.file)
+    VirusScanHelpers.simulate_virus_scan(attachment_data.file)
     get_show attachment_data
 
     assert_response :success
@@ -43,7 +43,7 @@ class AttachmentsControllerTest < ActionController::TestCase
     pg_attachment = create(:policy_group_attachment)
     attachment_data = pg_attachment.attachment.attachment_data
 
-    simulate_virus_scan(attachment_data.file)
+    VirusScanHelpers.simulate_virus_scan(attachment_data.file)
     get_show attachment_data
 
     assert_response :success
@@ -54,7 +54,7 @@ class AttachmentsControllerTest < ActionController::TestCase
     attachment_data = create(:image_attachment_data)
     visible_edition = create(:published_publication, :with_attachment, attachments: [create(:attachment, attachment_data: attachment_data)])
 
-    simulate_virus_scan(attachment_data.file)
+    VirusScanHelpers.simulate_virus_scan(attachment_data.file)
     get_show attachment_data
 
     assert_response :success
@@ -65,7 +65,7 @@ class AttachmentsControllerTest < ActionController::TestCase
   test "requesting an attachment's thumbnail returns the thumbnail inline" do
     attachment_data = create(:attachment_data)
     visible_edition = create(:published_publication, :with_attachment, attachments: [create(:attachment, attachment_data: attachment_data)])
-    simulate_virus_scan(attachment_data.file)
+    VirusScanHelpers.simulate_virus_scan(attachment_data.file)
     create_thumbnail_for_upload(attachment_data.file)
     get :show, id: attachment_data.to_param, file: attachment_data.filename, extension: 'png'
 

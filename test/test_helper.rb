@@ -14,6 +14,7 @@ require 'slimmer/test'
 require 'factories'
 require 'webmock/test_unit'
 require 'whitehall/not_quite_as_fake_search'
+require 'whitehall/virus_scan_helpers'
 
 Dir[Rails.root.join('test/support/*.rb')].each { |f| require f }
 
@@ -71,17 +72,6 @@ class ActiveSupport::TestCase
 
   def routes_helper
     @routes_helper ||= Whitehall::UrlMaker.new
-  end
-
-  def simulate_virus_scan(*uploaders)
-    uploaders = AttachmentData.all.map(&:file) if uploaders.empty?
-
-    uploaders.each do |uploader|
-      absolute_path = File.join(Whitehall.incoming_uploads_root, uploader.relative_path)
-      target_dir = File.join(Whitehall.clean_uploads_root, File.dirname(uploader.relative_path))
-      FileUtils.mkdir_p(target_dir)
-      FileUtils.cp(absolute_path, target_dir)
-    end
   end
 
   class << self

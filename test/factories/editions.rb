@@ -1,3 +1,5 @@
+require 'whitehall/virus_scan_helpers'
+
 class GenericEdition < Edition
   class << self
     attr_accessor :translatable
@@ -93,6 +95,9 @@ FactoryGirl.define do
     trait(:with_attachment) do
       association :alternative_format_provider, factory: :organisation_with_alternative_format_contact_email
       attachments { FactoryGirl.build_list :attachment, 1 }
+      after :build do |edition, evaluator|
+        VirusScanHelpers.simulate_virus_scan
+      end
     end
 
     trait(:with_document) do

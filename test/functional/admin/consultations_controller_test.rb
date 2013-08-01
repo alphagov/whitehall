@@ -63,7 +63,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     assert_equal "countmein@participation.com", consultation.consultation_participation.email
     assert_equal "the title of the response form", response_form.title
 
-    simulate_virus_scan(response_form.consultation_response_form_data.file)
+    VirusScanHelpers.simulate_virus_scan(response_form.consultation_response_form_data.file)
     assert response_form.consultation_response_form_data.file.present?
   end
 

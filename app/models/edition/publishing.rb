@@ -6,6 +6,7 @@ module Edition::Publishing
 
     validates :major_change_published_at, presence: true, if: -> edition { edition.published? }
     validate :change_note_present!, if: :change_note_required?
+    validate :attachment_passed_virus_scan!, if: :virus_check_required?
 
     scope :significant_change, where(minor_change: false)
   end
@@ -45,6 +46,14 @@ module Edition::Publishing
     if change_note.blank? && !minor_change
       errors[:change_note] = "can't be blank"
     end
+  end
+
+  def virus_check_required?
+    allows_attachments? && published?
+  end
+
+  def attachment_passed_virus_scan!
+    errors.add(:attachments, "must have passed virus scanning.") unless valid_virus_state?
   end
 
   def publishable_by?(user, options = {})
