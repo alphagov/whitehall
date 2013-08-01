@@ -58,7 +58,8 @@ class TopicsControllerTest < ActionController::TestCase
     user = login_as(:departmental_editor)
     policy = create(:published_policy, title: "policy-title", summary: "policy-summary")
     topic = create(:topic, policies: [policy])
-    news = create(:draft_news_article, scheduled_publication: Time.zone.now + Whitehall.default_cache_max_age * 2, related_editions: [policy])
+    publish_at = Time.zone.now + Whitehall.default_cache_max_age * 2
+    news = create(:draft_news_article, scheduled_publication: publish_at, related_editions: [policy])
     news.schedule_as(user, force: true)
 
     Timecop.freeze(Time.zone.now + Whitehall.default_cache_max_age * 1.5) do
