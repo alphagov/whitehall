@@ -166,17 +166,22 @@ Then /^the metadata changes should not be public until the draft is published$/ 
 end
 
 When /^I replace the data file of the attachment in a new draft of the publication$/ do
-  pub = Publication.last
-  visit edit_admin_publication_path(pub)
-  @old_attachment_data = pub.attachments.first.attachment_data
+  old_edition = Publication.last
+  visit edit_admin_publication_path(old_edition)
+  @old_attachment_data = old_edition.attachments.first.attachment_data
   new_file = pdf_attachment
   @new_attachment_filename = File.basename(new_file)
   click_button "Create new edition"
-  within "#edition_attachment_fields" do
-    choose "Individual upload"
-    choose 'Replace'
-    attach_file 'Replacement', new_file
+  new_edition = Publication.last
+  click_on 'Attachments'
+
+  within record_css_selector(new_edition.attachments.first) do
+    click_on 'Edit'
   end
+  attach_file 'Replace file', new_file
+  click_on 'Save'
+
+  ensure_path edit_admin_publication_path(new_edition)
   fill_in_change_note_if_required
   click_button "Save"
 end
