@@ -43,4 +43,7 @@ class OrganisationLogoType
   HMRevenueCustoms = create(
     id: 12, title: "HM Revenue & Customs", class_name: "hmrc"
   )
+  UKatomicenergyauthority = create(
+    id: 13, title: "UK Atomic Energy Authority", class_name: "ukaea"
+  )
 end
