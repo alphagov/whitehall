@@ -56,6 +56,10 @@
     .current-appointee {
       padding-top: 0;
       a {
+        text-decoration: none;
+        strong {
+          text-decoration: underline;
+        }
         &:hover,
         &:focus,
         &:active {

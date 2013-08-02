@@ -77,6 +77,7 @@
       @include border-radius(3px);
       padding: 2px $gutter-one-sixth;
       margin: 3px $gutter-half 10px;
+      text-decoration: none;
 
       &:after {
         display: inline-block;
