@@ -37,13 +37,13 @@ class AttachmentData < ActiveRecord::Base
     file.path.gsub(/\.[^\.]+$/, ".txt")
   end
 
+  def text_file_exists?
+    File.exist?(text_file_path)
+  end
+
   def read_extracted_text(path)
-    if txt?
-      File.open(path).read
-    else
-      if File.exist?(text_file_path)
-        File.open(text_file_path).read
-      end
+    if text_file_exists?
+      File.open(text_file_path).read
     end
   end
 
@@ -52,17 +52,6 @@ class AttachmentData < ActiveRecord::Base
     if indexable? && File.exist?(path)
       if Whitehall.extract_text_feature?
         read_extracted_text(path)
-      end
-    end
-  end
-
-  def extract_text
-    unless txt?
-      cmd = %Q{tika -t "#{file.path}" > "#{text_file_path}"}
-      `#{cmd}`
-      unless $?.success?
-        tika_logger = Logger.new(Rails.root.join("log/tika.log"))
-        tika_logger.error("#{file.path}")
       end
     end
   end
