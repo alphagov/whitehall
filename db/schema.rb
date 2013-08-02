@@ -884,6 +884,7 @@ ActiveRecord::Schema.define(:version => 20130730095758) do
     t.boolean  "handles_fatalities",                      :default => false
     t.integer  "important_board_members",                 :default => 1
     t.integer  "default_news_organisation_image_data_id"
+    t.datetime "closed_at"
   end
 
   add_index "organisations", ["default_news_organisation_image_data_id"], :name => "index_organisations_on_default_news_organisation_image_data_id"

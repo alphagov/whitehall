@@ -202,9 +202,9 @@ class Organisation < ActiveRecord::Base
   validates :url, uri: true, allow_blank: true
   validates :alternative_format_contact_email, email_format: {allow_blank: true}
   validates :alternative_format_contact_email, presence: {
-    if: :provides_alternative_formats?,
+    if: :requires_alternative_format?,
     message: "can't be blank as there are editions which use this organisation as the alternative format provider"}
-  validates :govuk_status, inclusion: {in: %w{live joining exempt transitioning}}
+  validates :govuk_status, inclusion: {in: %w{live joining exempt transitioning closed}}
   validates :organisation_logo_type_id, presence: true
   validate :sub_organisations_must_have_a_parent
 
@@ -302,6 +302,10 @@ class Organisation < ActiveRecord::Base
     govuk_status == 'transitioning'
   end
 
+  def closed?
+    govuk_status == 'closed'
+  end
+
   def topics_with_content
     topics.with_content
   end
@@ -365,6 +369,10 @@ class Organisation < ActiveRecord::Base
 
   def provides_alternative_formats?
     persisted? && Edition.where(alternative_format_provider_id: self.id).any?
+  end
+
+  def requires_alternative_format?
+    (! closed?) && provides_alternative_formats?
   end
 
   def unused_corporate_information_page_types
