@@ -38,6 +38,7 @@ gem 'globalize3', github: 'svenfuchs/globalize3', ref: 'ab69160ad'
 gem 'link_header'
 gem 'diffy'
 gem 'logstasher', '0.2.5'
+gem 'cache_digests'
 
 group :assets do
   gem 'govuk_frontend_toolkit', '0.32.0'
