@@ -14,6 +14,13 @@ module AttachmentHelper
   def jpg_image
     Rails.root.join("test/fixtures/minister-of-funk.960x640.jpg")
   end
+
+  def upload_new_attachment(file_path, attachment_title)
+    click_link "Upload new attachment"
+    fill_in "Title", with: attachment_title
+    attach_file "File", file_path
+    click_button "Save"
+  end
 end
 
 World(AttachmentHelper)

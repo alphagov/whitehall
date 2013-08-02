@@ -8,9 +8,9 @@
     <%= render 'reference_fields', edition: attachable, form: form %>
   <% end %>
 
-  <%= form.fields_for :attachment_data do |attachment_data_fields| %>
-
+  <%= form.fields_for(:attachment_data, include_id: false) do |attachment_data_fields| %>
     <% if attachment_data_fields.object.filename %>
+      <%= attachment_data_fields.hidden_field(:to_replace_id, value: attachment_data_fields.object.to_replace_id || attachment_data_fields.object.id) %>
       <p>Current file: <%= link_to attachment_data_fields.object.filename, attachment_data_fields.object.url %></p>
     <% end %>
 
