@@ -18,9 +18,13 @@ module DocumentHelper
     end
     visit admin_root_path
     # Make sure the dropdown is visible first, otherwise Capybara won't see the links
-    find('li.create-new strong', text: '+').click
-    within 'li.create-new' do
-      click_link options[:type].humanize
+    if options[:type] == "detailed_guide"
+      visit new_detailed_guides_page
+    else
+      find('li.create-new strong', text: '+').click
+      within 'li.create-new' do
+        click_link options[:type].humanize
+      end
     end
 
     within 'form' do
