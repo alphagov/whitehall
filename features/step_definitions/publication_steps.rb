@@ -166,35 +166,43 @@ Then /^the metadata changes should not be public until the draft is published$/ 
 end
 
 When /^I replace the data file of the attachment in a new draft of the publication$/ do
-  pub = Publication.last
-  visit edit_admin_publication_path(pub)
-  @old_attachment_data = pub.attachments.first.attachment_data
+  old_edition = Publication.last
+  visit edit_admin_publication_path(old_edition)
+  @old_attachment_data = old_edition.attachments.first.attachment_data
   new_file = pdf_attachment
   @new_attachment_filename = File.basename(new_file)
   click_button "Create new edition"
-  within "#edition_attachment_fields" do
-    choose "Individual upload"
-    choose 'Replace'
-    attach_file 'Replacement', new_file
+  @new_edition = Publication.last
+  click_on 'Attachments'
+
+  within record_css_selector(@new_edition.attachments.first) do
+    click_on 'Edit'
   end
+  attach_file 'Replace file', new_file
+  click_on 'Save'
+
+  ensure_path edit_admin_publication_path(@new_edition)
   fill_in_change_note_if_required
   click_button "Save"
 end
 
-Then /^the new data file should not be public until the draft is published$/ do
-  pub = Publication.last
-  @new_attachment_data = pub.attachments.first.attachment_data
+Then /^the new data file should not be public$/ do
+  @new_attachment_data = @new_edition.attachments.first.attachment_data
   assert_not_equal @old_attachment_data, @new_attachment_data
   assert_equal @new_attachment_filename, @new_attachment_data.filename
 
-  visit public_document_path(pub)
+  visit public_document_path(@new_edition)
   assert page.has_css?(".attachment a[href*='#{@old_attachment_data.url}']", text: @attachment.title)
   assert page.has_no_css?(".attachment a[href*='#{@new_attachment_data.url}']")
+end
 
-  visit admin_publication_path(pub)
+When(/^I published the draft edition$/) do
+  visit admin_publication_path(@new_edition)
   publish(force: true)
+end
 
-  visit public_document_path(pub)
+Then(/^the new data file should be public$/) do
+  visit public_document_path(@new_edition)
 
   assert page.has_no_css?(".attachment a[href*='#{@old_attachment_data.url}']")
   assert page.has_css?(".attachment a[href*='#{@new_attachment_data.url}']", text: @attachment.title)
