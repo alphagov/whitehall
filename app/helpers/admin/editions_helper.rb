@@ -89,7 +89,7 @@ module Admin::EditionsHelper
           selected: object.alternative_format_provider_id,
           disabled: organisations_for_edition_organisations_fields.reject { |o| o.alternative_format_contact_email.present? }.map(&:id))
         @template.content_tag(:div, class: 'control-group') do
-          label(:alternative_format_provider_id, "Email address for ordering this #{object.format_name} in an alternative format", required: alternative_format_required) +
+          label(:alternative_format_provider_id, "Email address for ordering attached files in an alternative format", required: alternative_format_required) +
             @template.content_tag(:div, class: 'controls') do
               select(
                 :alternative_format_provider_id,
