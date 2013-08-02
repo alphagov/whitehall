@@ -21,8 +21,11 @@
 
 p.report-a-problem-toggle {
   clear: both;
-  margin: $gutter;
+  margin: $gutter-half;
   direction: ltr;
+  @include media(tablet){
+    margin: $gutter;
+  }
 
   a {
     color: $secondary-text-colour;
