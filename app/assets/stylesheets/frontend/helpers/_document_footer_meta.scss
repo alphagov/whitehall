@@ -1,4 +1,7 @@
 .document-footer-meta {
+  // make js-footer work
+  clear: both;
+
   .history,
   .links {
     padding-bottom: $gutter;
