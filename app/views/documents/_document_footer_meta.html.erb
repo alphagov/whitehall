@@ -1,5 +1,5 @@
 <%
-  policies ||= nil
+  policies ||= []
   topics ||= []
   history = document.change_history
 %>
@@ -36,16 +36,16 @@
     <dl class="primary-metadata">
       <% if document.organisations.any?  %>
         <dt><%= t('document.headings.organisations', count: document.organisations.length) %>:</dt>
-        <dd>
-          <%= render  partial: 'organisations/organisations_name_list',
-                      locals: { organisations: document.sorted_organisations,
-                                lead_organisations: document.lead_organisations } %>
-        </dd>
+        <% organisations_link_array(document.lead_organisations, document.sorted_organisations).each do |item| %>
+          <dd><%= item.html_safe %></dd>
+        <% end %>
       <% end %>
-      <%= render  partial: 'documents/metadata_links',
-                  locals: { document: document, 
-                    topics: topics, 
-                    policies: policies } %>
+      <% document_metadata(document, policies, topics, true).each do |metadata| %>
+        <dt><%= metadata[:title] %>:</dt>
+        <% metadata[:data].each do |item| %>
+          <dd<% if metadata[:classes] %> class="<%= metadata[:classes].join(" ") %>"<% end %>><%= item.html_safe %></dd>
+        <% end %>
+      <% end %>
     </dl>
   </div>
 </div>

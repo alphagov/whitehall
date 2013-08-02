@@ -1,3 +1,7 @@
+<%
+  policies ||= []
+  topics ||= []
+%>
 <aside class="meta">
   <div class="inner-heading">
     <dl>
@@ -13,10 +17,12 @@
                   locals: { document: document } %>
       <%= render  partial: 'documents/change_notes',
                   locals: { document: document } %>
-      <%= render  partial: 'documents/metadata_links',
-                  locals: { document: document, 
-                    topics: topics, 
-                    policies: policies } %>
+
+      <% document_metadata(document, policies, topics).each do |metadata| %>
+        <dt><%= metadata[:title] %>:</dt>
+        <dd class="js-hide-other-links<% if metadata[:classes] %> <%= metadata[:classes].join(" ") %><% end %>"><%= metadata[:data].to_sentence.html_safe %></dd>
+      <% end %>
+
     </dl>
   </div>
 </aside>
