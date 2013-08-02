@@ -18,7 +18,7 @@
     <%= organisation_form.text_field :url %>
     <%= organisation_form.label :organisation_type_id, "Organisation type" %>
     <%= organisation_form.select :organisation_type_id, options_from_collection_for_select(OrganisationType.in_listing_order, "id", "name", organisation.organisation_type_id), {include_blank: true}, class: 'chzn-select', data: { placeholder: "Choose the organisation type..." } %>
-    <%= organisation_form.text_field :alternative_format_contact_email, label_text: "Email address for ordering publications or consultations in alternative formats" %>
+    <%= organisation_form.text_field :alternative_format_contact_email, label_text: "Email address for ordering attached files in an alternative format" %>
     <%= organisation_form.label :govuk_status, "Status on gov.uk" %>
     <%= organisation_form.select :govuk_status, [["Currently live", "live"], ["Coming soon", "joining"], ["Exempt from joining", "exempt"], ["Currently transitioning", "transitioning"]], {}, class: 'chzn-select' %>
   </fieldset>
