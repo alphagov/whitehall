@@ -33,10 +33,10 @@
   <% end %>
 
   <% if edition.published? %>
-    <%= link_to "View", public_document_url(edition), class: 'btn btn-primary public_version' %>
+    <%= link_to "View", public_document_url(edition), class: 'btn btn-primary public_version', target: '_blank' %>
   <% end %>
   <% if edition.previewable? %>
-    <%= link_to "Preview", preview_document_path(edition), class: 'btn btn-primary preview_version', target: '_new' %>
+    <%= link_to "Preview", preview_document_path(edition), class: 'btn btn-primary preview_version', target: '_blank' %>
   <% end %>
 
   <% if !edition.is_latest_edition? %>
