@@ -12,16 +12,17 @@ class OrganisationsController < PublicFacingController
     public_corporation_type = OrganisationType.find_by_name('Public corporation')
     executive_office_type = OrganisationType.find_by_name('Executive office')
 
-    @executive_offices = Organisation.where(organisation_type_id: executive_office_type).with_translations.includes(:organisation_type)
-    @ministerial_departments = Organisation.where(organisation_type_id: ministerial_department_type).alphabetical.includes(:organisation_type)
+    @executive_offices = Organisation.where(organisation_type_id: executive_office_type).with_translations.includes(:organisation_type).where('govuk_status != ?', 'closed')
+    @ministerial_departments = Organisation.where(organisation_type_id: ministerial_department_type).alphabetical.includes(:organisation_type).where('govuk_status != ?', 'closed')
 
-    @public_corporations = Organisation.where(organisation_type_id: public_corporation_type).alphabetical.includes(:organisation_type)
-    @non_ministerial_departments = Organisation.where(organisation_type_id: non_ministerial_department_type).alphabetical.includes(:organisation_type)
+    @public_corporations = Organisation.where(organisation_type_id: public_corporation_type).alphabetical.includes(:organisation_type).where('govuk_status != ?', 'closed')
+    @non_ministerial_departments = Organisation.where(organisation_type_id: non_ministerial_department_type).alphabetical.includes(:organisation_type).where('govuk_status != ?', 'closed')
 
     @agencies_and_government_bodies = Organisation.where('organisation_type_id NOT IN (?)', [
       ministerial_department_type, non_ministerial_department_type,
       public_corporation_type, executive_office_type
-    ] + OrganisationType.unlistable).with_translations.includes(:organisation_type).ordered_by_name_ignoring_prefix
+    ] + OrganisationType.unlistable).where('govuk_status != ?', 'closed')
+    .with_translations.includes(:organisation_type).ordered_by_name_ignoring_prefix
   end
 
   def show
@@ -60,7 +61,7 @@ class OrganisationsController < PublicFacingController
             @foi_contacts = @organisation.foi_contacts
           end
         else
-          render action: 'external'
+          render action: 'not_live'
         end
       end
       format.atom do

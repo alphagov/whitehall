@@ -60,6 +60,9 @@
           <% if @organisation.default_news_image %>
           <tr><th>Default news image</th><td><%= image_tag @organisation.default_news_image.file.url(:s300) %></td></tr>
           <% end %>
+          <% if @organisation.closed? && @organisation.closed_at %>
+            <tr><th>Organisation closed on</th><td><%= absolute_date(@organisation.closed_at) %></td></tr>
+          <% end %>
         </table>
 
         <div class="form-actions">
