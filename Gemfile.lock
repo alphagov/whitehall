@@ -164,6 +164,9 @@ GEM
     lograge (0.2.0)
       actionpack
       activesupport
+    logstash-event (1.1.5)
+    logstasher (0.2.5)
+      logstash-event
     lrucache (0.1.4)
       PriorityQueue (~> 0.1.2)
     mail (2.5.4)
@@ -361,6 +364,7 @@ DEPENDENCIES
   launchy (~> 2.3.0)
   link_header
   lograge
+  logstasher (= 0.2.5)
   mini_magick
   mocha (= 0.14.0)
   mysql2
