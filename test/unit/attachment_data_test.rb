@@ -160,10 +160,10 @@ class AttachmentDataTest < ActiveSupport::TestCase
     assert_equal "pdf", attachment.file_extension
   end
 
-  test "should return extracted_text if file present" do
+  test "should return extracted_text if text file present" do
     test_pdf = fixture_file_upload('simple.pdf', 'application/pdf')
     attachment = build(:attachment_data, file: test_pdf)
-    attachment.stubs(:extract_text).returns "\nThis is a test pdf.\n\n\n"
+    attachment.stubs(:read_extracted_text).returns "\nThis is a test pdf.\n\n\n"
     assert_equal "\nThis is a test pdf.\n\n\n", attachment.extracted_text
   end
 
