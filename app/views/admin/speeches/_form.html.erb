@@ -3,6 +3,7 @@
     <fieldset>
       <legend>Associations</legend>
       <%= render partial: 'related_policy_fields', locals: { form: form, edition: edition } %>
+      <%= render partial: 'topic_fields', locals: { form: form, edition: edition } %>
       <%= render partial: 'organisation_fields', locals: { form: form, edition: edition } %>
       <% if edition.imported? %>
         <p>This document contains temporary organisation associations to allow for import. These fields will be overwritten once the deliverer of the speech is chosen.</p>
