@@ -230,7 +230,9 @@ Whitehall::Application.routes.draw do
 
         resources :publications, except: [:index]
 
-        resources :policies, except: [:index]
+        resources :policies, except: [:index] do
+          member { get :topics }
+        end
         resources :worldwide_priorities, path: "priority", except: [:index]
         resources :news_articles, path: 'news', except: [:index]
         resources :world_location_news_articles, path: 'world-location-news', except: [:index]
