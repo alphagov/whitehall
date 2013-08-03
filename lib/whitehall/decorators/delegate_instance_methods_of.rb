@@ -32,7 +32,11 @@ module Whitehall
         delegate_options = delegate_options.merge(model_classes.pop) if model_classes.last.is_a? Hash
         # make sure each AR class is fully realised with methods for
         # their db attributes
-        model_classes.each { |mc| mc.define_attribute_methods if mc.respond_to?(:define_attribute_methods) }
+        model_classes.each do |model_class|
+          if model_class.respond_to?(:define_attribute_methods)
+            model_class.define_attribute_methods
+          end
+        end
 
         methods = model_classes.map { |mc| mc.instance_methods }.flatten.uniq
         without_methods_of = delegate_options.delete(:without_methods_of)

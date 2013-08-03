@@ -12,7 +12,8 @@ class AnnouncementsController < PublicFacingController
     end
 
     def documents
-      Whitehall::Decorators::CollectionDecorator.new(__getobj__.documents, AnnouncementPresenter, @view_context)
+      Whitehall::Decorators::CollectionDecorator.new(
+          __getobj__.documents, AnnouncementPresenter, @view_context)
     end
   end
 
