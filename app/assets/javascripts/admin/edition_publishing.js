@@ -163,3 +163,57 @@ jQuery(function($) {
     checkLength();
   }
 }(jQuery));
+
+(function($) {
+  var SetTopicsFromPolicy = {
+    init: function() {
+      this.$policies = $('select#edition_related_policy_ids');
+      this.$topics = $('select#edition_topic_ids');
+      if (this.$policies.length > 0 && this.$topics.length > 0) {
+        this.updateTopicsWhenPolicySelected();
+        label = $('label[for=edition_related_policy_ids]');
+        label.text(label.text() + ' (choosing policies will suggest some topics)');
+      }
+    },
+
+    policiesAdded: function(previous_selection, current_selection) {
+      if (null === current_selection) {
+        return [];
+      } else {
+        return $.grep(current_selection, function(n, i) {
+          return $.inArray(n, previous_selection) == -1;
+        });
+      }
+    },
+
+    updateTopicsWhenPolicySelected: function() {
+      var selected_policies = this.$policies.val() || [];
+      this.$policies.change(function(event) {
+        current_selection = $(this).val();
+        policies_added = SetTopicsFromPolicy.policiesAdded(selected_policies, current_selection);
+        selected_policies = current_selection;
+        if (policies_added.length > 0) {
+          SetTopicsFromPolicy.addTopicsForPolicy(policies_added[0]);
+        }
+      });
+    },
+
+    selectTopics: function(data, textStatus, jqXHR) {
+      $.each(data['topics'], function(i, topic) {
+        SetTopicsFromPolicy.$topics.find('option[value=' + topic.id + ']').prop('selected', true);
+        SetTopicsFromPolicy.$topics.trigger('liszt:updated');
+      });
+    },
+
+    addTopicsForPolicy: function(policy_id) {
+      url = '/government/admin/policies/' + policy_id + '/topics.json';
+      $.ajax({
+        url: url,
+        success: SetTopicsFromPolicy.selectTopics,
+        dataType: 'json'
+      });
+    }
+  };
+
+  SetTopicsFromPolicy.init();
+}(jQuery));
