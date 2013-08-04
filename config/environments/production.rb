@@ -23,6 +23,10 @@ Whitehall::Application.configure do
   # Enable lograge
   config.lograge.enabled = true
 
+  # Enable JSON-style logging
+  config.logstasher.enabled = true
+  config.logstasher.logger = Logger.new("#{Rails.root}/log/whitehall.json.event.app.log")
+
   # Defaults to Rails.root.join("public/assets")
   # config.assets.manifest = YOUR_PATH
 
