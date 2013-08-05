@@ -14,7 +14,7 @@ class Organisation < ActiveRecord::Base
   has_many :child_organisations,
             through: :child_organisational_relationships
   has_many :parent_organisations,
-            through: :parent_organisational_relationships
+            through: :parent_organisational_relationships, autosave: true
 
   has_many :edition_organisations,
             dependent: :destroy
@@ -163,7 +163,7 @@ class Organisation < ActiveRecord::Base
   has_many :sponsored_worldwide_organisations, through: :sponsorships, source: :worldwide_organisation
 
   has_many :financial_reports
-  
+
   has_one :featured_topics_and_policies_list
   def featured_topics_and_policies_list_summary
     featured_topics_and_policies_list.try(:summary)
