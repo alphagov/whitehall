@@ -152,6 +152,11 @@ ta:
       written_statement:
         one: பாராளுமன்றத்துக்கான எழுத்து மூலமான அறிக்கை
         other: பாராளுமன்றத்துக்கான எழுத்து மூலமான அறிக்கைகள்
+    footer_meta:
+      full_page_history:
+      page_history:
+      published:
+      updated:
     published: பிரசுரிக்கப்பட்டது
     read: கட்டுரையின் %{title} வாசிக்கவும்
     speech:

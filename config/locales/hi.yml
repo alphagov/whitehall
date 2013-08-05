@@ -152,6 +152,11 @@ hi:
       written_statement:
         one: संसद में लिखित बयान
         other: संसद में लिखित बयान
+    footer_meta:
+      full_page_history:
+      page_history:
+      published:
+      updated:
     published: प्रकाशित
     read: पढ़ें %{title} लेख
     speech:

@@ -1,0 +1,87 @@
+.document-footer-meta {
+  // make js-footer work
+  clear: both;
+
+  .history,
+  .links {
+    padding-bottom: $gutter;
+    @include media(tablet){
+      float: left;
+      @include right-to-left {
+        float: right;
+      }
+    }
+  }
+  .history {
+    @include media(tablet){
+      width: 33.3%;
+    }
+  }
+  .links {
+    @include media(tablet){
+      width: 66.6%;
+    }
+    dl {
+      @include media(tablet){
+        padding-left: $gutter-half;
+        @include right-to-left {
+          padding-left: 0;
+          padding-right: $gutter-half;
+        }
+      }
+    }
+  }
+  .primary-metadata {
+    dt {
+      @include core-16;
+      padding: ($gutter-one-sixth + $gutter-half) 0 $gutter-one-sixth 0;
+      &:first-child {
+        padding-top: $gutter-one-sixth;
+      }
+    }
+    dd {
+      @include bold-24;
+      // some bits of metadata are included inside of other tags which have a 
+      // default style of font-weight: normal
+      p, strong {
+        font-weight: bold;
+      }
+      .show-other-content {
+        @include bold-24;
+      }
+    }
+  }
+  .footer-change-notes {
+    .toggle {
+      display: inline-block;
+      white-space: nowrap;
+      padding-bottom: $gutter-one-third;
+      cursor: pointer;
+      text-decoration: underline;
+      color: $link-colour;
+      &:focus {
+        outline: none;
+      }
+      &:hover {
+        text-decoration: underline;
+        color: $link-hover-colour;
+      }
+      &:active {
+        color: $link-active-colour;
+      }
+    }
+    .overlay {
+      @include core-16;
+      h4 {
+        padding: $gutter-one-sixth 0;
+      }
+      dt {
+        font-weight: bold;
+      }
+      dd {
+        color: $secondary-text-colour;
+        padding-bottom: $gutter-one-third;
+      }
+    }
+  }
+}

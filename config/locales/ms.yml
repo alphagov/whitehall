@@ -96,6 +96,11 @@ ms:
       default:
       long_ordinal: ! '%e %B %Y'
   document:
+    footer_meta:
+      full_page_history:
+      page_history:
+      published:
+      updated:
     headings:
       advisory_groups:
       applies_to_nations:

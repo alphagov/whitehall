@@ -200,6 +200,11 @@ lt:
         one: Rašytinis kreipimasis į parlamentą
         few:
         other: Rašytiniai kreipimaisi į parlamentą
+    footer_meta:
+      full_page_history:
+      page_history:
+      published:
+      updated:
     published: publikuota
     read: ! 'Skaitykite straipsnį %{title} '
     speech:

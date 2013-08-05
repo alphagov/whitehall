@@ -152,6 +152,11 @@ de:
       written_statement:
         one: Schriftliche Erklärung vor dem Parlament
         other: Schriftliche Erklärungen vor dem Parlament
+    footer_meta:
+      full_page_history:
+      page_history:
+      published:
+      updated:
     published: Veröffentlicht
     read: Artikel lesen %{title}
     speech:

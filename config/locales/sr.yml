@@ -252,6 +252,11 @@ sr:
         few:
         many:
         other: Pisane predstavke Parlamentu
+    footer_meta:
+      full_page_history:
+      page_history:
+      published:
+      updated:
     published: objavljeno
     read: Pročitajte %{title}
     speech:

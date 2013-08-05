@@ -1,0 +1,52 @@
+<%
+  policies ||= []
+  topics ||= []
+  history = document.change_history
+%>
+<div class="document-footer-meta js-footer">
+  <div class="history">
+    <dl class="primary-metadata">
+      <dt><%= t('document.footer_meta.published') %>:</dt>
+      <% if document.state != 'published' %>
+        <dd>Preview</dd>
+      <% else %>
+        <dd><%= absolute_date(history.last.public_timestamp) %></dd>
+
+        <% if history.length > 1 %>
+          <dt><%= t('document.footer_meta.updated') %>:</dt>
+          <dd><%= absolute_date(history.first.public_timestamp) %></dd>
+        <% end %>
+      <% end %>
+    </dl>
+    <% if history.length > 1 %>
+      <div class="footer-change-notes js-toggle-footer-change-notes">
+        <p class="toggle">+ <%= t('document.footer_meta.full_page_history') %></p>
+        <div class="overlay js-hidden">
+          <dl>
+            <% history.each do |change| %>
+              <dt><%= absolute_time(change.public_timestamp, class: 'published-at') %></dt>
+              <dd><%= change.note %></dd>
+            <% end %>
+          </dl>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <div class="links">
+    <dl class="primary-metadata">
+      <% if document.organisations.any?  %>
+        <dt><%= t('document.headings.organisations', count: document.organisations.length) %>:</dt>
+        <% organisations_link_array(document.lead_organisations, document.sorted_organisations).each do |item| %>
+          <dd><%= item.html_safe %></dd>
+        <% end %>
+      <% end %>
+      <% document_metadata(document, policies, topics, true).each do |metadata| %>
+        <dt><%= metadata[:title] %>:</dt>
+        <% metadata[:data].each do |item| %>
+          <dd<% if metadata[:classes] %> class="<%= metadata[:classes].join(" ") %>"<% end %>><%= item.html_safe %></dd>
+        <% end %>
+      <% end %>
+    </dl>
+  </div>
+</div>
+

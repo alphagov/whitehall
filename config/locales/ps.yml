@@ -152,6 +152,11 @@ ps:
       written_statement:
         one: پارلمان ته لیکلې اعلامیه
         other: پارلمان ته لیکلې اعلامیې
+    footer_meta:
+      full_page_history:
+      page_history:
+      published:
+      updated:
     published: خپور شوی
     read: دا مضمون ووایاست %{title}
     speech:
