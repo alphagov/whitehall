@@ -5,10 +5,11 @@
   <article id="what-we-do">
     <div class="block-1">
       <div class="inner-block">
-        <%= render partial: 'organisations/header', locals: {
+        <%= render partial: 'header', locals: {
               organisation: @organisation,
               link_to_organisation: true
             } %>
+
         <div class="contextual-info js-stick-at-top-when-scrolling">
           <nav>
             <h1>About us</h1>
@@ -29,8 +30,13 @@
       </div>
     </div>
       <div class="block-2">
-        <%= render partial: 'shared/available_languages', locals: {object: @organisation, linkable: [:about, @organisation]} %>
         <div class="inner-block">
+          <%= content_tag :p, class: 'homepage-link' do %>
+            <%= link_to "#{@organisation.name} homepage", organisation_path(@organisation) %>
+          <% end %>
+          <aside class="organisation-mainstream-links">
+            <%= render partial: 'shared/available_languages', locals: {object: @organisation, linkable: [:about, @organisation]} %>
+          </aside>
           <h1 class="main"><%= t('organisation.headings.what_we_do') %></h1>
           <p class="description">
             <%= @organisation.description %>
