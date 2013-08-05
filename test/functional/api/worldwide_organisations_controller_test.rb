@@ -72,10 +72,4 @@ class Api::WorldwideOrganisationsControllerTest < ActionController::TestCase
     assert_response :not_found
     assert_equal 'not found', json_response['_response_info']['status']
   end
-
-  private
-
-  def json_response
-    ActiveSupport::JSON.decode(response.body)
-  end
 end
