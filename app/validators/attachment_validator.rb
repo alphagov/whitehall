@@ -61,7 +61,7 @@ class AttachmentValidator < ActiveModel::Validator
 
   def check_format_of_hoc_paper_number(attachment)
     number = attachment.hoc_paper_number
-    if number.present? && (number !~ /^\d{4}/)
+    if number.present? && (number !~ /^\d/)
       attachment.errors[:hoc_paper_number] << 'must start with a number'
     end
   end
