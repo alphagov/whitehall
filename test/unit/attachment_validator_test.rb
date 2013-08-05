@@ -35,9 +35,11 @@ class AttachmentValidatorTest < ActiveSupport::TestCase
   end
 
   test 'house of commons paper numbers starting with an integer are valid' do
-    attachment = build(:attachment, hoc_paper_number: '1234-i')
-    @validator.validate(attachment)
-    assert attachment.errors[:hoc_paper_number].empty?, 'expected no error'
+    %w(1 12 1234-i).each do |valid_hoc_number|
+      attachment = build(:attachment, hoc_paper_number: valid_hoc_number)
+      @validator.validate(attachment)
+      assert attachment.errors[:hoc_paper_number].empty?, "Expected no error with house of commons number: '#{valid_hoc_number}'"
+    end
   end
 
   test 'house of commons papers cannot have a number while unnumbered' do
