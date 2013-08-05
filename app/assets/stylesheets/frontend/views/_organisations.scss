@@ -1218,11 +1218,12 @@
     }
   }
   .main {
+    clear: both;
     @include ig-core-48;
     font-weight: bold;
 
     @include media(desktop){
-      margin: $gutter*3 0 $gutter-half;
+      padding: $gutter*3 0 $gutter-half;
     }
   }
   .description {
@@ -1287,6 +1288,49 @@
     h2 {
       @include ig-core-19;
       @include bold;
+    }
+  }
+  .wales-office {
+    .homepage-link {
+      @include media(desktop) {
+        float: left;
+        width: 50%;
+      }
+    }
+    .organisation-mainstream-links {
+      @include media(tablet){
+        float: left;
+        width: 50%;
+        padding-top: 0;
+        margin-top: ($gutter-one-third * -1);
+      }
+      .available-languages {
+        margin: $gutter-one-third 0 0 0;
+        ul {
+          @extend %contain-floats;
+          list-style: none;
+          padding: $gutter 0 $gutter-one-sixth;
+          border-bottom: 1px solid $border-colour;
+
+          li {
+            float: left;
+            display: block;
+            border-right: 1px solid $border-colour;
+            padding: 0 $gutter-one-third 0 0;
+            height: 16px;
+            margin: 3px $gutter-one-third 2px 0;
+            &.last {
+              border-right: 0;
+            }
+
+            a, span {
+              display: block;
+              margin-top: -1px;
+              @include core-16;
+            }
+          }
+        }
+      }
     }
   }
 }
