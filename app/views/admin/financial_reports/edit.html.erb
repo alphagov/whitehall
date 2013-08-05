@@ -7,14 +7,14 @@
 </div>
 
 <%= tab_navigation_for(@organisation) do %>
-<%= link_to "Back", action: 'index' %>
-<h2>Updating the <%= @financial_report.year %> Financial Report from <%= @organisation.name %></h2>
+  <%= link_to "Back", action: 'index' %>
+  <h2>Updating the <%= @financial_report.year %> Financial Report from <%= @organisation.name %></h2>
 
-
-<%= form_for @financial_report, url: {action: "update"} do |f| %>
-<%= f.text_field :year %>
-<%= f.text_field :funding %>
-<%= f.text_field :spending %>
-<%= f.submit "Update Report"%>
-<% end %>
+  <%= form_for @financial_report, url: {action: "update"} do |f| %>
+    <%= f.errors %>
+    <%= f.text_field :year %>
+    <%= f.text_field :funding %>
+    <%= f.text_field :spending %>
+    <%= f.submit "Update Report"%>
+  <% end %>
 <% end %>
