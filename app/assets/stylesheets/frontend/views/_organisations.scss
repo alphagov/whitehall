@@ -1216,7 +1216,7 @@
     font-weight: bold;
 
     @include media(desktop){
-      margin: ($gutter*3 + $gutter-half) 0 $gutter-half;
+      margin: $gutter*3 0 $gutter-half;
     }
   }
   .description {
