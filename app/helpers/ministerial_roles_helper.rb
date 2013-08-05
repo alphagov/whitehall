@@ -9,10 +9,7 @@ module MinisterialRolesHelper
 
   def array_of_links_to_ministers(ministers)
     ministers.map do |minister|
-      link_to minister.current_person_name(minister.name),
-        minister,
-        class: "minister",
-        id: "#{minister.class.name.underscore}_#{minister.id}"
-      end
+      link_to minister.current_person_name(minister.name), minister
+    end
   end
 end

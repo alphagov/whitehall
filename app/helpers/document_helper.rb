@@ -181,19 +181,21 @@ Details of document required:
       metadata << {
         title: t('document.headings.policies', count: policies.length),
         data: array_of_links_to_policies(policies),
-        classes: ['policies']
+        classes: ['document-policies']
       }
     end
     if topics.any?
       metadata << {
         title: t('document.headings.topics', count: topics.length),
-        data: array_of_links_to_topics(topics)
+        data: array_of_links_to_topics(topics),
+        classes: ['document-topics']
       }
     end
     if document.respond_to?(:topical_events) && document.topical_events.any?
       metadata << {
         title: t('document.headings.topical_events', count: document.topical_events.length),
-        data: array_of_links_to_topical_events(document.topical_events)
+        data: array_of_links_to_topical_events(document.topical_events),
+        classes: ['document-topical-events']
       }
     end
     if !(document.respond_to?(:statistics?) && document.statistics?)
@@ -201,7 +203,8 @@ Details of document required:
         metadata << {
 
           title: t('document.headings.ministers', count: document.ministerial_roles.length),
-          data: array_of_links_to_ministers(document.ministerial_roles)
+          data: array_of_links_to_ministers(document.ministerial_roles),
+          classes: ['document-ministerial-roles']
         }
       end
       if document.respond_to?(:delivered_by_minister?)
@@ -210,14 +213,14 @@ Details of document required:
             metadata << {
               title: t_delivery_title(document),
               data: [document.person_override],
-              classes: ['person']
+              classes: ['document-delivered-by-minister']
             }
           end
         else
           metadata << {
             title: t_delivery_title(document),
             data: [link_to_person(document.role_appointment.person)],
-            classes: ['person']
+            classes: ['document-delivered-by-minister']
           }
         end
       end
@@ -226,13 +229,14 @@ Details of document required:
       metadata << {
         title: t('document.headings.field_of_operation'),
         data: [link_to(document.operational_field.name, document.operational_field)],
-        classes: ['operational_field']
+        classes: ['document-operational-field']
       }
     end
     if document.respond_to?(:role_appointments) && document.role_appointments.any?
       metadata << {
         title: t('document.headings.ministers', count: document.role_appointments.length),
-        data: array_of_links_to_role_appointments(document.role_appointments)
+        data: array_of_links_to_role_appointments(document.role_appointments),
+        classes: ['document-role-appointments']
       }
     end
     if document.respond_to?(:world_locations) && document.world_locations.any?
@@ -252,14 +256,15 @@ Details of document required:
     if document.respond_to?(:inapplicable_nations) && document.inapplicable_nations.any? && !links_only
       metadata << {
         title: t('document.headings.applies_to_nations'),
-        data: [only_applies_to_nations_list(document)]
+        data: [only_applies_to_nations_list(document)],
+        classes: ['document-inapplicable_nations']
       }
     end
     if document.respond_to?(:policy_team) && document.policy_team
       metadata << {
         title: t('document.headings.policy_team'),
         data: [link_to(document.policy_team.name, document.policy_team)],
-        classes: ["policy_team"]
+        classes: ["document-policy-team"]
       }
     end
     if document.respond_to?(:policy_advisory_groups) && document.policy_advisory_groups.any?
@@ -272,14 +277,15 @@ Details of document required:
     if document.respond_to?(:part_of_series?) && document.part_of_series?
       metadata << {
         title: t('document.headings.document_series'),
-        data: array_of_links_to_document_series(document)
+        data: array_of_links_to_document_series(document),
+        classes: ["document-document-series"]
       }
     end
     if document.respond_to?(:statistical_data_sets) && document.statistical_data_sets.any?
       metadata << {
         title: t('document.headings.live_data'),
         data: array_of_links_to_statistical_data_sets(document.published_statistical_data_sets),
-        classes: ['live-data']
+        classes: ['document-statistical-data-sets']
       }
     end
     metadata

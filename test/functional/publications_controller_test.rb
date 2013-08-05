@@ -101,7 +101,7 @@ class PublicationsControllerTest < ActionController::TestCase
     publication = create(:published_publication, ministerial_roles: [minister])
     get :show, id: publication.document
 
-    assert_select_object minister
+    assert_select '.meta a', text: role.name
   end
 
   view_test "show not link ministers to national statistics publications" do

@@ -165,38 +165,45 @@ class DocumentHelperTest < ActionView::TestCase
   test "document_metadata generates policy metadata" do
     policy = create(:published_policy)
     edition = create(:news_article, related_policy_ids: [policy])
-    assert_equal [{
-      title: "Policy",
-      data: [%Q(<a href="#{public_document_path(policy)}" class="policy" id="policy_#{policy.id}">#{policy.title}</a>)],
-      classes: ["policies"]
-    }], document_metadata(edition, [policy])
+    metadata = document_metadata(edition, [policy])[0]
+    assert_equal metadata[:title], "Policy"
+    assert_select_within_html metadata[:data][0],
+                              "a[href=?]",
+                              public_document_path(policy),
+                              text: policy.title
   end
 
   test "document_metadata generates topic metadata" do
     topic = create(:topic)
     edition = create(:news_article, topics: [topic])
-    assert_equal [{
-      title: "Topic",
-      data: [%Q(<a href="#{topic_path(topic)}" class="topic" id="#{dom_id(topic)}">#{topic.name}</a>)]
-    }], document_metadata(edition, [], [topic])
+    metadata = document_metadata(edition, [], [topic])[0]
+    assert_equal metadata[:title], "Topic"
+    assert_select_within_html metadata[:data][0],
+                              "a[href=?]",
+                              topic_path(topic),
+                              text: topic.name
   end
 
   test "document_metadata generates topical event metadata" do
     topical_event = create(:topical_event)
     edition = create(:news_article, topical_events: [topical_event])
-    assert_equal [{
-      title: "Topical event",
-      data: [%Q(<a href="#{topical_event_path(topical_event)}" class="topic topical_event" id="#{dom_id(topical_event)}">#{topical_event.name}</a>)]
-    }], document_metadata(edition)
+    metadata = document_metadata(edition)[0]
+    assert_equal metadata[:title], "Topical event"
+    assert_select_within_html metadata[:data][0],
+                              "a[href=?]",
+                              topical_event_path(topical_event),
+                              text: topical_event.name
   end
 
   test "document_metadata generates ministerial role metadata" do
     role = create(:ministerial_role)
     edition = create(:policy, ministerial_roles: [role])
-    assert_equal [{
-      title: "Minister",
-      data: [%Q(<a href="#{ministerial_role_path(role)}" class="minister" id="#{dom_id(role)}">#{role.current_person_name(role.name)}</a>)]
-    }], document_metadata(edition)
+    metadata = document_metadata(edition)[0]
+    assert_equal metadata[:title], "Minister"
+    assert_select_within_html metadata[:data][0],
+                              "a[href=?]",
+                              ministerial_role_path(role),
+                              text: role.current_person_name(role.name)
   end
 
   test "document_metadata generates speech delivery metadata" do
@@ -204,21 +211,23 @@ class DocumentHelperTest < ActionView::TestCase
     ministerial_role = create(:ministerial_role)
     role_appointment = create(:role_appointment, role: ministerial_role, person: person)
     speech = create(:published_speech, role_appointment: role_appointment)
-    assert_equal [{
-      title: "Minister",
-      data: [%Q(<a href="#{person_path(person)}"><strong>#{person.name}</strong></a>)],
-      classes: ['person']
-    }], document_metadata(speech)
+    metadata = document_metadata(speech)[0]
+    assert_equal metadata[:title], "Minister"
+    assert_select_within_html metadata[:data][0],
+                              "a[href=?]",
+                              person_path(person),
+                              text: person.name
   end
 
   test "document_metadata generates operational_field metadata" do
     operational_field = build(:operational_field)
     edition = create(:published_fatality_notice, operational_field: operational_field)
-    assert_equal [{
-      title: "Field of operation",
-      data: [%Q(<a href="#{operational_field_path(edition.operational_field)}">#{edition.operational_field.name}</a>)],
-      classes: ['operational_field']
-    }], document_metadata(edition)
+    metadata = document_metadata(edition)[0]
+    assert_equal metadata[:title], "Field of operation"
+    assert_select_within_html metadata[:data][0],
+                              "a[href=?]",
+                              operational_field_path(operational_field),
+                              text: operational_field.name
   end
 
   test "document_metadata generates role_appointments metadata" do
@@ -226,10 +235,12 @@ class DocumentHelperTest < ActionView::TestCase
     ministerial_role = create(:ministerial_role)
     role_appointment = create(:role_appointment, role: ministerial_role, person: person)
     edition = create(:news_article, role_appointments: [role_appointment])
-    assert_equal [{
-      title: "Minister",
-      data: [%Q(<a href="#{person_path(person)}" class="person">#{person.name}</a>)]
-    }], document_metadata(edition)
+    metadata = document_metadata(edition)[0]
+    assert_equal metadata[:title], "Minister"
+    assert_select_within_html metadata[:data][0],
+                              "a[href=?]",
+                              person_path(person),
+                              text: person.name
   end
 
   test "document_metadata generates world_locations metadata" do
@@ -237,20 +248,21 @@ class DocumentHelperTest < ActionView::TestCase
     edition = create(:published_publication, world_locations: [world_location])
     metadata = document_metadata(edition)[0]
     assert_equal metadata[:title], "World location"
-    html = metadata[:data][0]
-    assert_select_within_html html, "a[href=?]", world_location_path(world_location)
-    assert_select_within_html html, 'a', world_location.name
-    assert_equal metadata[:classes], ["document-world-locations"]
+    assert_select_within_html metadata[:data][0],
+                              "a[href=?]",
+                              world_location_path(world_location),
+                              text: world_location.name
   end
 
   test "document_metadata generates worldwide_organisations metadata" do
     organisation = create(:worldwide_organisation)
     edition = create(:draft_worldwide_priority, worldwide_organisations: [organisation])
     metadata = document_metadata(edition)[0]
-    assert_equal(metadata[:title], "Worldwide organisation")
-    html = metadata[:data][0]
-    assert_select_within_html html, "a[href=?]", worldwide_organisation_path(organisation)
-    assert_select_within_html html, 'a', organisation.name
+    assert_equal metadata[:title], "Worldwide organisation"
+    assert_select_within_html metadata[:data][0],
+                              "a[href=?]",
+                              worldwide_organisation_path(organisation),
+                              text: organisation.name
   end
 
   test "document_metadata generates inapplicable_nations metadata" do
@@ -263,11 +275,12 @@ class DocumentHelperTest < ActionView::TestCase
   test "document_metadata generates policy_team metadata" do
     policy_team = create(:policy_team)
     edition = create(:policy, policy_teams: [policy_team])
-    assert_equal [{
-      title: "Policy team",
-      data: [%Q(<a href="#{policy_team_path(policy_team)}">#{policy_team.name}</a>)],
-      classes: ["policy_team"]
-    }], document_metadata(edition)
+    metadata = document_metadata(edition)[0]
+    assert_equal metadata[:title], "Policy team"
+    assert_select_within_html metadata[:data][0],
+                              "a[href=?]",
+                              policy_team_path(policy_team),
+                              text: policy_team.name
   end
 
   test "document_metadata generates policy_advisory_groups metadata" do
@@ -278,17 +291,18 @@ class DocumentHelperTest < ActionView::TestCase
     html = metadata[:data][0]
     assert_select_within_html html, "a[href=?]", policy_advisory_group_path(policy_advisory_group)
     assert_select_within_html html, 'a', policy_advisory_group.name
-    assert_equal metadata[:classes], ["document-policy-advisory-groups"]
   end
 
   test "document_metadata generates part_of_series metadata" do
     organisation = create(:organisation)
     series = create(:document_series, organisation: organisation)
     edition = create(:published_publication, document_series: [series])
-    assert_equal [{
-      title: "Series",
-      data: [%Q(<a href="#{organisation_document_series_path(organisation, series)}">#{series.name}</a>)]
-    }], document_metadata(edition)
+    metadata = document_metadata(edition)[0]
+    assert_equal metadata[:title], "Series"
+    assert_select_within_html metadata[:data][0],
+                              "a[href=?]",
+                              organisation_document_series_path(organisation, series),
+                              text: series.name
   end
 
   test "document_metadata generates statistical_data_sets metadata" do
@@ -296,9 +310,9 @@ class DocumentHelperTest < ActionView::TestCase
     edition = create(:published_publication, statistical_data_sets: [statistical_data_set])
     metadata = document_metadata(edition)[0]
     assert_equal(metadata[:title], "Live data")
-    assert_equal metadata[:classes], ["live-data"]
-    html = metadata[:data][0]
-    assert_select_within_html html, "a[href=?]", public_document_path(statistical_data_set)
-    assert_select_within_html html, 'a', statistical_data_set.title
+    assert_select_within_html metadata[:data][0],
+                              "a[href=?]",
+                              public_document_path(statistical_data_set),
+                              text: statistical_data_set.title
   end
 end

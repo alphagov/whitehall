@@ -85,7 +85,7 @@ Then /^I should see in the preview that "([^"]*)" is taken from the live data in
   publish(force: true)
   click_on title
   click_on "View"
-  assert has_css?(".live-data a", text: data_set_name)
+  assert has_css?(".document-statistical-data-sets a", text: data_set_name)
 end
 
 When /^I remove the attachment from the publication "([^"]*)"$/ do |title|
