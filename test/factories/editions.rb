@@ -100,6 +100,12 @@ FactoryGirl.define do
       end
     end
 
+    trait(:with_attachment_not_scanned) do
+      association :alternative_format_provider, factory: :organisation_with_alternative_format_contact_email
+      attachments { FactoryGirl.build_list :attachment, 1 }
+      skip_virus_checking true
+    end
+
     trait(:with_document) do
       document
     end
