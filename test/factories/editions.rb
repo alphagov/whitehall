@@ -96,7 +96,7 @@ FactoryGirl.define do
       association :alternative_format_provider, factory: :organisation_with_alternative_format_contact_email
       attachments { FactoryGirl.build_list :attachment, 1 }
       after :build do |edition, evaluator|
-        VirusScanHelpers.simulate_virus_scan
+        VirusScanHelpers.simulate_virus_scan(edition.attachments.first.attachment_data.file)
       end
     end
 
