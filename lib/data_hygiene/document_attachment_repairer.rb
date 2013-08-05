@@ -63,6 +63,7 @@ module DataHygiene
 
       new_edition = new_edition.reload
       new_edition.minor_change = true
+      new_edition.skip_virus_checking = true
 
       # publish
       if new_edition.publish_as(user, force: true)

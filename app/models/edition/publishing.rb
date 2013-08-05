@@ -8,6 +8,8 @@ module Edition::Publishing
     validate :change_note_present!, if: :change_note_required?
     validate :attachment_passed_virus_scan!, if: :virus_check_required?
 
+    attr_accessor :skip_virus_checking
+
     scope :significant_change, where(minor_change: false)
   end
 
@@ -49,7 +51,7 @@ module Edition::Publishing
   end
 
   def virus_check_required?
-    allows_attachments? && published?
+    allows_attachments? && published? && !skip_virus_checking
   end
 
   def attachment_passed_virus_scan!
