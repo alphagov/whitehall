@@ -4,6 +4,7 @@
   link_to_organisation ||= false
   sub_organisation = organisation.organisation_type.sub_organisation?
   logo_size = 'medium' if sub_organisation
+  languages_available ||= false
 %>
 
 <header class="page-header">
@@ -36,8 +37,9 @@
   <% end %>
 
   <%= content_tag_if_not_empty :aside, class: "organisation-mainstream-links" do %>
-    <%= render partial: 'shared/available_languages', locals: {object: @organisation} %>
-
+    <% if languages_available %>
+      <%= render partial: 'shared/available_languages', locals: {object: @organisation} %>
+    <% end %>
     <% if show_mainstream_links && organisation.mainstream_links.any? && !sub_organisation %>
       <ul>
         <% organisation.mainstream_links.only_the_initial_set.each do |link| %>
