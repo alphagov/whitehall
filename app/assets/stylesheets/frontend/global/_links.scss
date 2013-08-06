@@ -1,10 +1,15 @@
+// Inconsistent with rest of gov.uk. Pending discussion, see #712
 a {
   color: $link-colour;
   text-decoration: none;
 
   &:hover,
   &:focus {
+    color: $link-colour;
     text-decoration: underline;
+  }
+  &:active {
+    color: $orange
   }
 
   &[rel="external"] {
@@ -13,13 +18,10 @@ a {
       @include external-link-19-no-hover;
     }
   }
+
+  * {
+    cursor: pointer;
+  }
 }
 
-a * {
-  cursor: pointer;
-}
-
-a:active {
-  color: orange
-}
 
