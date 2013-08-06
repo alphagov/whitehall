@@ -37,7 +37,8 @@ module Admin::OrganisationHelper
       "Governance groups" => admin_organisation_groups_path(organisation),
       "People" => people_admin_organisation_path(organisation),
       "Corporate information pages" => admin_organisation_corporate_information_pages_path(organisation),
-      "Translations" => admin_organisation_translations_path(organisation)
+      "Translations" => admin_organisation_translations_path(organisation),
+      "Financial Reports" => admin_organisation_financial_reports_path(organisation)
     }
     tabs
   end
