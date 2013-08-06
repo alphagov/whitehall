@@ -1,0 +1,30 @@
+<% page_title @organisation.name + " financial reports" %>
+<div class="row-fluid organisation-header">
+  <div class="span8">
+    <h1><%= @organisation.name %></h1>
+    <%= link_to "View on website", @organisation%>
+  </div>
+</div>
+
+<%= tab_navigation_for(@organisation) do %>
+  <h2>Financial Reports for <%= @organisation.name %></h2>
+  <%= link_to "New", action: 'new' %>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+	<th>Year</th><th>Funding</th><th>Spending</th><th></th><th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @organisation.financial_reports.each do |report| %>
+	<tr>
+	  <td><%= report.year %></td>
+	  <td><%= number_to_currency(report.funding, precision: 0, unit: '&pound;') %></td>
+	  <td><%= number_to_currency(report.spending, precision: 0, unit: '&pound;') %></td>
+	  <td><%= link_to 'Edit', edit_admin_organisation_financial_report_path(@organisation, report), method: :get %></td>
+	  <td><%= link_to 'Destroy', admin_organisation_financial_report_path(@organisation, report), confirm: "Are you sure?", method: :delete %></td>
+	</tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
