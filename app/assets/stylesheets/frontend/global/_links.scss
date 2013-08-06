@@ -1,0 +1,25 @@
+a {
+  color: $link-colour;
+  text-decoration: none;
+
+  &:hover,
+  &:focus {
+    text-decoration: underline;
+  }
+
+  &[rel="external"] {
+    @include external-link-13-no-hover;
+    @include media(tablet) {
+      @include external-link-19-no-hover;
+    }
+  }
+}
+
+a * {
+  cursor: pointer;
+}
+
+a:active {
+  color: orange
+}
+
