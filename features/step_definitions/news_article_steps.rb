@@ -64,7 +64,7 @@ end
 
 Then /^the article mentions "([^"]*)" and links to their bio page$/ do |person_name|
   visit document_path(NewsArticle.last)
-  assert has_css?("a.person[href*='#{person_path(find_person(person_name))}']", text: person_name)
+  assert has_css?(".meta a[href*='#{person_path(find_person(person_name))}']", text: person_name)
 end
 
 Then /^the news article tag is the same as the person in the text$/ do

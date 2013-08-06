@@ -16,8 +16,11 @@ When /^I associate the policy advisory groups "([^"]*)" and "([^"]+)" with the p
 end
 
 Then /^I should see the policy advisory group "([^"]*)"$/ do |group_name|
-  group = PolicyAdvisoryGroup.where(name: group_name).first
-  assert page.has_css?("#{record_css_selector(group)}")
+  assert page.has_text?(group_name)
+end
+
+Then /^I should see a link to the policy advisory group "([^"]*)"$/ do |group_name|
+  assert page.has_css?('a', text: group_name)
 end
 
 Then /^I should see the policy advisory group "([^"]*)" hidden behind a "([^"]*)" link$/ do |group_name, button_text|

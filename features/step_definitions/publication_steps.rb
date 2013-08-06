@@ -135,7 +135,7 @@ Then /^I should see "([^"]*)" is a corporate publication of the "([^"]*)"$/ do |
 end
 
 Then /^I should see that the publication is about "([^"]*)"$/ do |world_location_name|
-  assert has_css?(".document-world-locations a", text: world_location_name)
+  assert has_css?(".meta a", text: world_location_name)
 end
 
 Then /^I should get a "([^"]*)" error$/ do |error_code|
