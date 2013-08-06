@@ -1,0 +1,24 @@
+a,
+a:visited {
+  color: $link-colour;
+}
+
+a:hover {
+  color: $link-hover-colour;
+}
+
+a:active {
+  color: $link-active-colour;
+}
+
+a[rel="external"] {
+  @include external-link-13;
+  @include media(tablet) {
+    @include external-link-19;
+  }
+}
+
+a * {
+  cursor: pointer;
+}
+

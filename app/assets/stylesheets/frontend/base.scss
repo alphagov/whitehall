@@ -33,12 +33,15 @@
 // gov.uk styles are scoped, will want to change these selectors to
 // body and *
 
-
+// GLOBAL
+#whitehall-wrapper {
+  @import "global/_links.scss";
+  @import "global/_js-hidden.scss";
+}
 
 // HELPERS
 // Styles for comment page elements
 
-@import "helpers/_global.scss";
 #whitehall-wrapper {
   @import "helpers/_activity-nav.scss";
   @import "helpers/_attachment.scss";

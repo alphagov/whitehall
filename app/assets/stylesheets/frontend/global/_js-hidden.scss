@@ -1,0 +1,6 @@
+
+// For use on js elements which don't want to flash when we load the page.
+body.js-enabled & .js-hidden {
+  display: none;
+}
+

@@ -10,11 +10,17 @@
     color: $link-colour;
     white-space: nowrap;
     cursor: pointer;
+    text-decoration: underline;
 
-    &:focus,
+    &:focus {
+      outline: none;
+    }
     &:hover {
       text-decoration: underline;
-      outline: none;
+      color: $link-hover-colour;
+    }
+    &:active {
+      color: $link-active-colour;
     }
   }
 

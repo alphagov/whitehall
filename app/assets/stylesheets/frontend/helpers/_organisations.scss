@@ -124,6 +124,10 @@
   &:link,
   &:visited {
     color: #000;
+    text-decoration: none;
+  }
+  &:hover {
+    text-decoration: underline;
   }
 
   span {
