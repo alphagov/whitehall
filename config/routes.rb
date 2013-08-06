@@ -159,6 +159,7 @@ Whitehall::Application.routes.draw do
             get :people
           end
           resource :featured_topics_and_policies_list, path: 'featured-topics-and-policies', only: [:show, :update]
+          resources :financial_reports, except: [:show]
         end
         resources :policy_teams, except: [:show]
         resources :policy_advisory_groups, except: [:show]
