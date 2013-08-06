@@ -1,0 +1,27 @@
+// Inconsistent with rest of gov.uk. Pending discussion, see #712
+a {
+  color: $link-colour;
+  text-decoration: none;
+
+  &:hover,
+  &:focus {
+    color: $link-colour;
+    text-decoration: underline;
+  }
+  &:active {
+    color: $orange
+  }
+
+  &[rel="external"] {
+    @include external-link-13-no-hover;
+    @include media(tablet) {
+      @include external-link-19-no-hover;
+    }
+  }
+
+  * {
+    cursor: pointer;
+  }
+}
+
+
