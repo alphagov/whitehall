@@ -49,7 +49,7 @@ end
 
 Then /^I should see the worldwide organisation listed on the page$/ do
   worldwide_organisation = WorldwideOrganisation.last
-  within record_css_selector(worldwide_organisation) do
+  within '.meta' do
     assert page.has_content?(worldwide_organisation.name)
   end
 end

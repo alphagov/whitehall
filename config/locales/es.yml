@@ -152,6 +152,11 @@ es:
       written_statement:
         one: Declaración escrita
         other: Declaraciones escritas
+    footer_meta:
+      full_page_history:
+      page_history:
+      published:
+      updated:
     published: Publicado
     read: Leer el artículo
     speech:

@@ -344,6 +344,11 @@ ar:
         few:
         many:
         other: تصريحات خطية
+    footer_meta:
+      full_page_history:
+      page_history:
+      published:
+      updated:
     published: نشر
     read: اقرأ %{title} المقال
     speech:

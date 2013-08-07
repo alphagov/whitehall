@@ -248,6 +248,11 @@ he:
         two:
         many:
         other: הצהרות בכתב לפרלמנט
+    footer_meta:
+      full_page_history:
+      page_history:
+      published:
+      updated:
     published: פורסם
     read: קראו את מאמר %{title}
     speech:

@@ -96,6 +96,11 @@ zh-tw:
       default: ! '%d %B %Y'
       long_ordinal: ! '%e %B %Y'
   document:
+    footer_meta:
+      full_page_history:
+      page_history:
+      published:
+      updated:
     headings:
       advisory_groups: 諮詢組
       applies_to_nations: 應用

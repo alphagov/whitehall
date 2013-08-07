@@ -98,7 +98,7 @@ module DocumentControllerTestHelpers
         published_policy = create(:published_policy)
         edition = create("published_#{document_type}", related_editions: [published_policy])
         get :show, id: edition.document
-        assert_select_object published_policy
+        assert_select '.meta a', text: published_policy.title
       end
 
       view_test "show doesn't display related unpublished policies for #{document_type}" do
@@ -153,9 +153,9 @@ module DocumentControllerTestHelpers
         get :show, id: edition.document
 
         assert_select '.document-world-locations' do
-          assert_select "##{dom_id(first_location)}", text: first_location.name
-          assert_select "##{dom_id(second_location)}", text: second_location.name
-          assert_select "##{dom_id(third_location)}", count: 0
+          assert_select "a", text: first_location.name
+          assert_select "a", text: second_location.name
+          assert_select "a", text: third_location.name, count: 0
         end
       end
 

@@ -200,6 +200,11 @@ cs:
         one: Písemná prohlášení do parlamentu
         few:
         other: Písemná prohlášení do parlamentu
+    footer_meta:
+      full_page_history:
+      page_history:
+      published:
+      updated:
     published: Publikováno
     read: Čtěte %{title}
     speech:

@@ -152,6 +152,11 @@ fr:
       written_statement:
         one: Communiqué
         other: Communiqués
+    footer_meta:
+      full_page_history:
+      page_history:
+      published:
+      updated:
     published: publié
     read: Lire l'article intitulé %{title}
     speech:

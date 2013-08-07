@@ -156,4 +156,163 @@ class DocumentHelperTest < ActionView::TestCase
     assert_dom_equal %Q(<a href="#{polymorphic_path([:about, organisation], locale: :cy)}">Cymraeg</a>),
       link_to_translated_object([:about, organisation], :cy)
   end
+
+  test "document_metadata does not have any links for simple document" do
+    edition = create(:publication)
+    assert_equal [], document_metadata(edition)
+  end
+
+  test "document_metadata generates policy metadata" do
+    policy = create(:published_policy)
+    edition = create(:news_article, related_policy_ids: [policy])
+    metadata = document_metadata(edition, [policy])[0]
+    assert_equal metadata[:title], "Policy"
+    assert_select_within_html metadata[:data][0],
+                              "a[href=?]",
+                              public_document_path(policy),
+                              text: policy.title
+  end
+
+  test "document_metadata generates topic metadata" do
+    topic = create(:topic)
+    edition = create(:news_article, topics: [topic])
+    metadata = document_metadata(edition, [], [topic])[0]
+    assert_equal metadata[:title], "Topic"
+    assert_select_within_html metadata[:data][0],
+                              "a[href=?]",
+                              topic_path(topic),
+                              text: topic.name
+  end
+
+  test "document_metadata generates topical event metadata" do
+    topical_event = create(:topical_event)
+    edition = create(:news_article, topical_events: [topical_event])
+    metadata = document_metadata(edition)[0]
+    assert_equal metadata[:title], "Topical event"
+    assert_select_within_html metadata[:data][0],
+                              "a[href=?]",
+                              topical_event_path(topical_event),
+                              text: topical_event.name
+  end
+
+  test "document_metadata generates ministerial role metadata" do
+    role = create(:ministerial_role)
+    edition = create(:policy, ministerial_roles: [role])
+    metadata = document_metadata(edition)[0]
+    assert_equal metadata[:title], "Minister"
+    assert_select_within_html metadata[:data][0],
+                              "a[href=?]",
+                              ministerial_role_path(role),
+                              text: role.current_person_name(role.name)
+  end
+
+  test "document_metadata generates speech delivery metadata" do
+    person = create(:person)
+    ministerial_role = create(:ministerial_role)
+    role_appointment = create(:role_appointment, role: ministerial_role, person: person)
+    speech = create(:published_speech, role_appointment: role_appointment)
+    metadata = document_metadata(speech)[0]
+    assert_equal metadata[:title], "Minister"
+    assert_select_within_html metadata[:data][0],
+                              "a[href=?]",
+                              person_path(person),
+                              text: person.name
+  end
+
+  test "document_metadata generates operational_field metadata" do
+    operational_field = build(:operational_field)
+    edition = create(:published_fatality_notice, operational_field: operational_field)
+    metadata = document_metadata(edition)[0]
+    assert_equal metadata[:title], "Field of operation"
+    assert_select_within_html metadata[:data][0],
+                              "a[href=?]",
+                              operational_field_path(operational_field),
+                              text: operational_field.name
+  end
+
+  test "document_metadata generates role_appointments metadata" do
+    person = create(:person)
+    ministerial_role = create(:ministerial_role)
+    role_appointment = create(:role_appointment, role: ministerial_role, person: person)
+    edition = create(:news_article, role_appointments: [role_appointment])
+    metadata = document_metadata(edition)[0]
+    assert_equal metadata[:title], "Minister"
+    assert_select_within_html metadata[:data][0],
+                              "a[href=?]",
+                              person_path(person),
+                              text: person.name
+  end
+
+  test "document_metadata generates world_locations metadata" do
+    world_location = create(:world_location)
+    edition = create(:published_publication, world_locations: [world_location])
+    metadata = document_metadata(edition)[0]
+    assert_equal metadata[:title], "World location"
+    assert_select_within_html metadata[:data][0],
+                              "a[href=?]",
+                              world_location_path(world_location),
+                              text: world_location.name
+  end
+
+  test "document_metadata generates worldwide_organisations metadata" do
+    organisation = create(:worldwide_organisation)
+    edition = create(:draft_worldwide_priority, worldwide_organisations: [organisation])
+    metadata = document_metadata(edition)[0]
+    assert_equal metadata[:title], "Worldwide organisation"
+    assert_select_within_html metadata[:data][0],
+                              "a[href=?]",
+                              worldwide_organisation_path(organisation),
+                              text: organisation.name
+  end
+
+  test "document_metadata generates inapplicable_nations metadata" do
+    edition = create(:publication, nation_inapplicabilities: [create(:nation_inapplicability, nation: Nation.england, alternative_url: nil)])
+    metadata = document_metadata(edition)[0]
+    assert_equal metadata[:title], "Applies to"
+    assert_match(/Wales/, metadata[:data][0])
+  end
+
+  test "document_metadata generates policy_team metadata" do
+    policy_team = create(:policy_team)
+    edition = create(:policy, policy_teams: [policy_team])
+    metadata = document_metadata(edition)[0]
+    assert_equal metadata[:title], "Policy team"
+    assert_select_within_html metadata[:data][0],
+                              "a[href=?]",
+                              policy_team_path(policy_team),
+                              text: policy_team.name
+  end
+
+  test "document_metadata generates policy_advisory_groups metadata" do
+    policy_advisory_group = create(:policy_advisory_group)
+    edition = create(:policy, policy_advisory_groups: [policy_advisory_group])
+    metadata = document_metadata(edition)[0]
+    assert_equal(metadata[:title], "Advisory groups")
+    html = metadata[:data][0]
+    assert_select_within_html html, "a[href=?]", policy_advisory_group_path(policy_advisory_group)
+    assert_select_within_html html, 'a', policy_advisory_group.name
+  end
+
+  test "document_metadata generates part_of_series metadata" do
+    organisation = create(:organisation)
+    series = create(:document_series, organisation: organisation)
+    edition = create(:published_publication, document_series: [series])
+    metadata = document_metadata(edition)[0]
+    assert_equal metadata[:title], "Series"
+    assert_select_within_html metadata[:data][0],
+                              "a[href=?]",
+                              organisation_document_series_path(organisation, series),
+                              text: series.name
+  end
+
+  test "document_metadata generates statistical_data_sets metadata" do
+    statistical_data_set = create(:published_statistical_data_set)
+    edition = create(:published_publication, statistical_data_sets: [statistical_data_set])
+    metadata = document_metadata(edition)[0]
+    assert_equal(metadata[:title], "Live data")
+    assert_select_within_html metadata[:data][0],
+                              "a[href=?]",
+                              public_document_path(statistical_data_set),
+                              text: statistical_data_set.title
+  end
 end

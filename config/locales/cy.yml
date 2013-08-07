@@ -344,6 +344,11 @@ cy:
         few:
         many:
         other: Datganiadau ysgrifenedig i'r Senedd
+    footer_meta:
+      full_page_history:
+      page_history:
+      published:
+      updated:
     published: cyhoeddwyd
     read: Darllenwch yr erthygl %{title}
     speech:

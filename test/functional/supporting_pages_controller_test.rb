@@ -127,8 +127,8 @@ class SupportingPagesControllerTest < ActionController::TestCase
 
     get :show, policy_id: policy.document, id: supporting_page
 
-    assert_select "a.topic", text: first_topic.name
-    assert_select "a.topic", text: second_topic.name
+    assert_select ".document-topics a", text: first_topic.name
+    assert_select ".document-topics a", text: second_topic.name
   end
 
   view_test "should link to organisations from within the metadata navigation" do
@@ -155,7 +155,7 @@ class SupportingPagesControllerTest < ActionController::TestCase
 
     get :show, policy_id: policy.document, id: supporting_page
 
-    assert_select "a.minister", text: "minister-name"
+    assert_select ".document-ministerial-roles a", text: "minister-name"
   end
 
   view_test "should not apply active class to the parent policy page navigation heading" do
@@ -209,9 +209,7 @@ class SupportingPagesControllerTest < ActionController::TestCase
 
     get :show, policy_id: policy.document, id: supporting_page
 
-    assert_select_object policy_team do
-      assert_select "a[href='#{policy_team_path(policy_team)}']", text: 'policy-team-name'
-    end
+    assert_select ".document-policy-team a[href='#{policy_team_path(policy_team)}']", text: 'policy-team-name'
 
   end
 
