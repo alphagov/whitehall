@@ -138,15 +138,15 @@ class Admin::AccessAndOpeningTimesControllerTest < ActionController::TestCase
     worldwide_organisation = create(:worldwide_organisation)
     office_for_other_org = create(:worldwide_office)
 
-    assert_raises ActiveRecord::RecordNotFound do
+    assert_raise ActiveRecord::RecordNotFound do
       get :edit, worldwide_organisation_id: worldwide_organisation, worldwide_office_id: office_for_other_org
     end
 
-    assert_raises ActiveRecord::RecordNotFound do
+    assert_raise ActiveRecord::RecordNotFound do
       post :create, worldwide_organisation_id: worldwide_organisation, worldwide_office_id: office_for_other_org, access_and_opening_times: { body: 'body' }
     end
 
-    assert_raises ActiveRecord::RecordNotFound do
+    assert_raise ActiveRecord::RecordNotFound do
       put :update, worldwide_organisation_id: worldwide_organisation, worldwide_office_id: office_for_other_org, access_and_opening_times: { body: 'body' }
     end
   end

@@ -24,6 +24,8 @@ end
 
 When /^the (?:attachment|image)s? (?:has|have) been virus\-checked$/ do
   FileUtils.cp_r(Whitehall.incoming_uploads_root + '/.', Whitehall.clean_uploads_root + "/")
+  FileUtils.rm_rf(Whitehall.incoming_uploads_root)
+  FileUtils.mkdir(Whitehall.incoming_uploads_root)
 end
 
 Then /^the image will be quarantined for virus checking$/ do

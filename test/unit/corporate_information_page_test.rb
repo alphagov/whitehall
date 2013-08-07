@@ -76,7 +76,7 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
   end
 
   test "when finding type by slug, raises if not found" do
-    assert_raises ActiveRecord::RecordNotFound do
+    assert_raise ActiveRecord::RecordNotFound do
       CorporateInformationPageType.find('does-not-exist')
     end
   end

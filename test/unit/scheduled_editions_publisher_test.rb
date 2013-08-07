@@ -4,7 +4,7 @@ class ScheduledEditionsPublisherTest < ActiveSupport::TestCase
   setup { @robot = create(:scheduled_publishing_robot) }
 
   test 'raises an exception if initialised without an AR Relation' do
-    exception = assert_raises ArgumentError do
+    exception = assert_raise ArgumentError do
       ScheduledEditionsPublisher.new([])
     end
     assert_equal 'editions_scope must be an ActiveRecord::Relation', exception.message
@@ -75,7 +75,7 @@ class ScheduledEditionsPublisherTest < ActiveSupport::TestCase
     publisher.expects(:publish_edition!).with(edition1).times(5)
     publisher.stubs(unpublished_editions_remaining?: true)
 
-    assert_raises ScheduledEditionsPublisher::PublishingFailure do
+    assert_raise ScheduledEditionsPublisher::PublishingFailure do
       publisher.publish_all!
     end
   end
@@ -86,7 +86,7 @@ class ScheduledEditionsPublisherTest < ActiveSupport::TestCase
     publisher.stubs(editions: [edition], log_cache: 'Log output')
     publisher.stubs(unpublished_editions_remaining?: true)
 
-    exception = assert_raises ScheduledEditionsPublisher::PublishingFailure do
+    exception = assert_raise ScheduledEditionsPublisher::PublishingFailure do
       publisher.publish_all!
     end
 

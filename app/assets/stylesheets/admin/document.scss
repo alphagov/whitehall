@@ -184,6 +184,16 @@ ol.existing-attachments {
       display: block;
     }
 
+    p.virus-scanning {
+      color: $notice-color;
+      background: $notice-background;
+    }
+
+    p.virus {
+      color: $alert-color;
+      background: $alert-background;
+    }
+
     label, input {
       .js-enabled & {
         display: none;

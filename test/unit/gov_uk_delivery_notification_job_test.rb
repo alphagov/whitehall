@@ -13,13 +13,13 @@ class GovUkDeliveryNotificationJobTest < ActiveSupport::TestCase
 
   test '#perform does not rescue non-400 API errors' do
     Whitehall.govuk_delivery_client.expects(:notify).raises(GdsApi::HTTPErrorResponse, 500)
-    exception = assert_raises(GdsApi::HTTPErrorResponse) { job.perform }
+    exception = assert_raise(GdsApi::HTTPErrorResponse) { job.perform }
     assert_equal 500, exception.code
   end
 
   test '#perform does not rescue any other non-API errors' do
     Whitehall.govuk_delivery_client.expects(:notify).raises(RuntimeError)
-    exception = assert_raises(RuntimeError) { job.perform }
+    exception = assert_raise(RuntimeError) { job.perform }
   end
 
   private

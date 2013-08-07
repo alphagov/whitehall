@@ -378,7 +378,7 @@ module AdminEditionAttachableControllerTestHelpers
         assert !edition.attachments.include?(attachment_2)
         assert edition.attachments.include?(attachment_3)
 
-        assert_raises(ActiveRecord::RecordNotFound) do
+        assert_raise(ActiveRecord::RecordNotFound) do
           attachment_2.reload
         end
 

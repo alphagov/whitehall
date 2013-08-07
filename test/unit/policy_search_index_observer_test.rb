@@ -39,6 +39,6 @@ class PolicySearchIndexObserverTest < ActiveSupport::TestCase
 
   test 'ReindexRelatedEditions#perform fails if the supplied policy cannot be found' do
     job = PolicySearchIndexObserver::ReindexRelatedEditions.new(1000)
-    assert_raises(ActiveRecord::RecordNotFound) { job.perform }
+    assert_raise(ActiveRecord::RecordNotFound) { job.perform }
   end
 end

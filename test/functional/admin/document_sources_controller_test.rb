@@ -27,7 +27,7 @@ class Admin::DocumentSourcesControllerTest < ActionController::TestCase
     edition.document.document_sources.reload
     assert edition.document.document_sources.empty?
     assert_equal 0, edition.document.document_sources.size
-    assert_raises ActiveRecord::RecordNotFound do
+    assert_raise ActiveRecord::RecordNotFound do
       document_source.reload
     end
     assert_redirected_to admin_policy_path(edition, anchor: 'document-sources')

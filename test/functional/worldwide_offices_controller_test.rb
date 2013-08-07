@@ -15,7 +15,7 @@ class WorldwideOfficesControllerTest < ActionController::TestCase
   end
 
   test "does not load offices from other organisation as there may be slug clashes" do
-    assert_raises ActiveRecord::RecordNotFound do
+    assert_raise ActiveRecord::RecordNotFound do
       get :show, worldwide_organisation_id: create(:worldwide_organisation), id: @worldwide_office
     end
   end

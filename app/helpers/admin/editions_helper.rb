@@ -170,7 +170,14 @@ module Admin::EditionsHelper
 
   def default_edition_tabs(edition)
     { 'Document' => tab_url_for_edition(edition) }.tap do |tabs|
-      tabs['Attachments'] = admin_edition_attachments_path(edition) if edition.persisted? && edition.allows_attachments?
+      if edition.allows_attachments? && edition.persisted?
+        text = if edition.attachments.count > 0
+          "Attachments <span class='badge'>#{edition.attachments.count}</span>".html_safe
+        else
+          "Attachments"
+        end
+        tabs[text] = admin_edition_attachments_path(edition)
+      end
     end
   end
 
@@ -216,6 +223,17 @@ module Admin::EditionsHelper
       (govspeak_embedded_contacts(edition.body).size < 1)
     else
       false
+    end
+  end
+
+  def attachment_virus_status(attachment)
+    case attachment.virus_status
+    when :clean
+      nil
+    when :pending
+      content_tag(:p, "Scanning For Viruses", class: "virus-scanning")
+    else
+      content_tag(:p, "Virus Found", class: "virus")
     end
   end
 

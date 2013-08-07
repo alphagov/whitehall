@@ -24,7 +24,7 @@ class OfficialDocsImportTest < ActiveSupport::TestCase
 
     assert_equal 1, publication.attachments.size
     attachment = publication.attachments.first
-    simulate_virus_scan(attachment.attachment_data.file)
+    VirusScanHelpers.simulate_virus_scan(attachment.attachment_data.file)
     assert_equal "attachment-1-content", File.read(attachment.file.path)
     assert_equal "1043 2007-08", attachment.hoc_paper_number
     assert_equal "2007-08", attachment.parliamentary_session

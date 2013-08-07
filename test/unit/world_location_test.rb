@@ -263,7 +263,7 @@ class WorldLocationTest < ActiveSupport::TestCase
     FeatureList.create!(featurable: world_location1, locale: :en)
     FeatureList.create!(featurable: world_location1, locale: :fr)
     FeatureList.create!(featurable: world_location2, locale: :en)
-    assert_raises ActiveRecord::RecordInvalid do
+    assert_raise ActiveRecord::RecordInvalid do
       FeatureList.create!(featurable: world_location2, locale: :en)
     end
   end

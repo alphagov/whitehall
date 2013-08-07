@@ -16,14 +16,14 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
   test "should raise an exception when attempting to build a draft copy of an draft edition" do
     draft_edition = create(:draft_edition)
     new_creator = create(:policy_writer)
-    e = assert_raises(RuntimeError) { draft_edition.create_draft(new_creator) }
+    e = assert_raise(RuntimeError) { draft_edition.create_draft(new_creator) }
     assert_equal "Cannot create new edition based on edition in the draft state", e.message
   end
 
   test "should raise an exception when attempting to build a draft copy of an archived edition" do
     archived_edition = create(:archived_edition)
     new_creator = create(:policy_writer)
-    e = assert_raises(RuntimeError) { archived_edition.create_draft(new_creator) }
+    e = assert_raise(RuntimeError) { archived_edition.create_draft(new_creator) }
     assert_equal "Cannot create new edition based on edition in the archived state", e.message
   end
 

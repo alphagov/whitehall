@@ -51,7 +51,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
 
   test "show responds with not found if appropriate translation doesn't exist" do
     world_location = create(:world_location)
-    assert_raises(ActiveRecord::RecordNotFound) do
+    assert_raise(ActiveRecord::RecordNotFound) do
       get :show, id: world_location, locale: 'fr'
     end
   end

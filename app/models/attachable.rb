@@ -41,6 +41,10 @@ module Attachable
     end
   end
 
+  def valid_virus_state?
+    attachments.all? { |a| a.virus_status == :clean }
+  end
+
   def allows_attachments?
     true
   end
