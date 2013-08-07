@@ -58,10 +58,10 @@ class AttachmentData < ActiveRecord::Base
   # If the file no longer exisits assume it was later found to have a virus.
   # On development without the downloaded attachments they will be flagged as infected.
   def virus_status
-    if File.exist?(path) && path.starts_with?(Whitehall.clean_uploads_root)
-      :clean
-    elsif incoming?
+    if incoming?
       :pending
+    elsif File.exist?(path)
+      :clean
     else
       :infected
     end
