@@ -18,7 +18,7 @@ class SpeechesControllerTest < ActionController::TestCase
 
     get :show, id: published_speech.document
 
-    assert_select ".person", "Theresa May" # \s* as \s* Secretary of State \s* in \s* Home Office/
+    assert_select ".meta a", "Theresa May" # \s* as \s* Secretary of State \s* in \s* Home Office/
     assert_select ".delivered-on", /1 June 2011/
     assert_select ".location", /The Guidhall/
   end
@@ -34,7 +34,7 @@ class SpeechesControllerTest < ActionController::TestCase
 
     get :show, id: published_speech.document
 
-    assert_select ".person", "Theresa May"
+    assert_select ".meta a", "Theresa May"
   end
 
   view_test "should display who gave the speech even if they are not a real person on IG" do
@@ -43,7 +43,7 @@ class SpeechesControllerTest < ActionController::TestCase
 
     get :show, id: published_speech.document
 
-    assert_select ".person", "The Queen"
+    assert_select ".meta dd", "The Queen"
   end
 
   view_test "should display details about a transcript" do

@@ -85,7 +85,7 @@ Then /^I should see in the preview that "([^"]*)" is taken from the live data in
   publish(force: true)
   click_on title
   click_on "View"
-  assert has_css?(".live-data a", text: data_set_name)
+  assert has_css?(".document-statistical-data-sets a", text: data_set_name)
 end
 
 When /^I remove the attachment from the publication "([^"]*)"$/ do |title|
@@ -135,8 +135,7 @@ Then /^I should see "([^"]*)" is a corporate publication of the "([^"]*)"$/ do |
 end
 
 Then /^I should see that the publication is about "([^"]*)"$/ do |world_location_name|
-  world_location = WorldLocation.find_by_name!(world_location_name)
-  assert has_css?(".document-world-locations #{record_css_selector(world_location)}")
+  assert has_css?(".meta a", text: world_location_name)
 end
 
 Then /^I should get a "([^"]*)" error$/ do |error_code|

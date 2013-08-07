@@ -26,7 +26,7 @@ Feature: Policy advisory groups
     When I associate the policy advisory group "PolGroup Inc." with the policy "Policy of things"
     And I force publish the policy "Policy of things"
     And I visit the policy "Policy of things"
-    Then I should see the policy advisory group "PolGroup Inc."
+    Then I should see a link to the policy advisory group "PolGroup Inc."
 
   Scenario: Associate multiple policy advisory groups to a policy
     Given a policy advisory group "PolGroup Inc." exists
@@ -35,8 +35,8 @@ Feature: Policy advisory groups
     When I associate the policy advisory groups "PolGroup Inc." and "Acme Policies Ltd" with the policy "Policy of all the stuff"
     And I force publish the policy "Policy of all the stuff"
     And I visit the policy "Policy of all the stuff"
-    Then I should see the policy advisory group "Acme Policies Ltd"
-    And I should see the policy advisory group "PolGroup Inc."
+    Then I should see a link to the policy advisory group "Acme Policies Ltd"
+    And I should see a link to the policy advisory group "PolGroup Inc."
 
   Scenario: Policy advisory groups have their own page
     Given a policy advisory group "ABC Advisories" exists

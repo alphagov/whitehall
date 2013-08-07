@@ -248,6 +248,11 @@ be:
         few:
         many:
         other: Пісьмовыя заявы ў парламенце
+    footer_meta:
+      full_page_history:
+      page_history:
+      published:
+      updated:
     published: Апублікаваны
     read: Чытаць %{title} артыкул
     speech:

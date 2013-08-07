@@ -152,6 +152,11 @@ ur:
       written_statement:
         one: پارلیمنٹ میں تحریری بیان
         other: پارلیمنٹ میں تحریری بیانات
+    footer_meta:
+      full_page_history:
+      page_history:
+      published:
+      updated:
     published: شائع شدہ
     read: پڑھئیے {title}% مضمون
     speech:

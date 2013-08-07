@@ -152,6 +152,11 @@ es-419:
       written_statement:
         one: Declaración escrita al Parlamento
         other: Declaraciones escritas al Parlamento
+    footer_meta:
+      full_page_history:
+      page_history:
+      published:
+      updated:
     published: publicado
     read: Lea el artículo %{title}
     speech:

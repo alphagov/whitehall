@@ -113,8 +113,8 @@ class PoliciesControllerTest < ActionController::TestCase
 
     get :show, id: edition.document
 
-    assert_select "a.topic", text: first_topic.name
-    assert_select "a.topic", text: second_topic.name
+    assert_select ".document-topics a", text: first_topic.name
+    assert_select ".document-topics a", text: second_topic.name
   end
 
   view_test "should not show topics where none exist" do
@@ -160,7 +160,7 @@ class PoliciesControllerTest < ActionController::TestCase
 
     get :show, id: edition.document
 
-    assert_select "a.minister", text: "minister-name"
+    assert_select ".document-ministerial-roles a", text: "minister-name"
   end
 
   view_test "should use role name if no minister is in role related to the policy" do
@@ -169,7 +169,7 @@ class PoliciesControllerTest < ActionController::TestCase
 
     get :show, id: edition.document
 
-    assert_select "a.minister", text: role.name
+    assert_select ".meta a", text: role.name
   end
 
   view_test "shows link to each policy section in the markdown" do
@@ -199,9 +199,7 @@ That's all
     policy_team = create(:policy_team, name: 'policy-team', email: 'policy-team@example.com')
     policy = create(:published_policy, policy_teams: [policy_team])
     get :show, id: policy.document
-    assert_select_object policy_team do
-      assert_select "a[href='#{policy_team_path(policy_team)}']", text: 'policy-team'
-    end
+    assert_select ".meta a[href='#{policy_team_path(policy_team)}']", text: 'policy-team'
   end
 
   view_test "show doesn't display the policy team section if the policy isn't associated with a policy team" do
@@ -240,7 +238,7 @@ That's all
 
     get :activity, id: policy.document
 
-    assert_select_object topic
+    assert_select '.meta a', text: topic.name
   end
 
   view_test "activity adds the current class to the activity link in the policy navigation" do

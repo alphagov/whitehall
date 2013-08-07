@@ -46,7 +46,7 @@ end
 
 Then /^I can view the field of operations information from a link in the metadata$/ do
   notice = FatalityNotice.last
-  click_link notice.operational_field.name
+  first(:link, notice.operational_field.name).click
 
   assert page.has_content?(notice.operational_field.description)
 end

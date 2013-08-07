@@ -152,6 +152,11 @@ si:
       written_statement:
         one: පාර්ලිමේන්තුවට කල ලිඛිත ප්‍රකාශය
         other: පාර්ලිමේන්තුවට කල ලිඛිත ප්‍රකාශ
+    footer_meta:
+      full_page_history:
+      page_history:
+      published:
+      updated:
     published: පල කරන ලදී
     read: ලිපිය  %{title} කියවන්න
     speech:

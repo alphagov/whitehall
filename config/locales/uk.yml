@@ -248,6 +248,11 @@ uk:
         few:
         many:
         other: Письмові заяви у парламенті
+    footer_meta:
+      full_page_history:
+      page_history:
+      published:
+      updated:
     published: опубліковано
     read: Читати %{title} статтю
     speech:

@@ -248,6 +248,11 @@ pl:
         few:
         many:
         other: Pisemne oświadczenia przed parlamentem
+    footer_meta:
+      full_page_history:
+      page_history:
+      published:
+      updated:
     published: opublikowano
     read: Przeczytaj %{title} artykuł
     speech:

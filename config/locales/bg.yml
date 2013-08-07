@@ -152,6 +152,11 @@ bg:
       written_statement:
         one: Писмено изявление до парламента
         other: Писмени изявления до парламента
+    footer_meta:
+      full_page_history:
+      page_history:
+      published:
+      updated:
     published: Публикувано
     read: ! 'Прочетете статията %{title} '
     speech:

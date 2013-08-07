@@ -152,6 +152,11 @@ hy:
       written_statement:
         one: Գրավոր դիմում խորհրդարան
         other: Գրավոր դիմումներ խորհրդարան
+    footer_meta:
+      full_page_history:
+      page_history:
+      published:
+      updated:
     published: հրապարակված
     read: Կարդացեք  %{title} հոդվածը
     speech:
