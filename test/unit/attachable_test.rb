@@ -40,6 +40,18 @@ class AttachableTest < ActiveSupport::TestCase
     refute publication.valid?
   end
 
+  test "should be invalid if an edition has an attachment but not yet passed virus scanning" do
+    attachment = build(:attachment)
+    attachment.stubs(:virus_status).returns :infected
+    publication = create(:publication, :with_attachment, attachments: [attachment])
+    publication.skip_virus_status_check = false
+    assert publication.valid?
+    user = create(:departmental_editor)
+    publication.change_note = "change-note"
+    assert_raise(ActiveRecord::RecordInvalid, "Validation failed: Attachments must have passed virus scanning") { publication.publish_as(user, force: true) }
+    refute publication.published?
+  end
+
   test "should be valid without alternative format provider if no attachments" do
     publication = build(:publication, attachments: [])
     assert publication.valid?

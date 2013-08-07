@@ -143,9 +143,9 @@ class HomePageListTest < ActiveSupport::TestCase
   end
 
   test '.get will raise ArgumentError if owned_by: and called: are not both present' do
-    assert_raises(ArgumentError) { HomePageList.get() }
-    assert_raises(ArgumentError) { HomePageList.get(owned_by: create(:organisation)) }
-    assert_raises(ArgumentError) { HomePageList.get(called: 'cates') }
+    assert_raise(ArgumentError) { HomePageList.get() }
+    assert_raise(ArgumentError) { HomePageList.get(owned_by: create(:organisation)) }
+    assert_raise(ArgumentError) { HomePageList.get(called: 'cates') }
   end
 
   test '#reorder_items! takes a list of items and reorders the existing list' do

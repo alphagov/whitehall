@@ -64,7 +64,7 @@ class SupportingPageTest < ActiveSupport::TestCase
     supporting_page = create(:supporting_page, edition: create(:draft_policy))
     assert supporting_page.destroyable?
     assert supporting_page.destroy
-    assert_raises(ActiveRecord::RecordNotFound) { supporting_page.reload }
+    assert_raise(ActiveRecord::RecordNotFound) { supporting_page.reload }
   end
 
   test 'should return search index data suitable for Rummageable' do

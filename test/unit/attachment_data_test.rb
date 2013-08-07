@@ -167,6 +167,26 @@ class AttachmentDataTest < ActiveSupport::TestCase
     assert_equal "\nThis is a test pdf.\n\n\n", attachment.extracted_text
   end
 
+  test "should return virus status as pending when in clean folder" do
+    test_pdf = fixture_file_upload('simple.pdf', 'application/pdf')
+    attachment = create(:attachment_data, file: test_pdf)
+    assert_equal :pending, attachment.virus_status
+  end
+
+  test "should return virus status as failed when not in incoming or clean folders" do
+    test_pdf = fixture_file_upload('simple.pdf', 'application/pdf')
+    attachment = create(:attachment_data, file: test_pdf)
+    FileUtils.rm attachment.file.path
+    assert_equal :infected, attachment.virus_status
+  end
+
+  test "should return virus status as clean when in the clean folder" do
+    test_pdf = fixture_file_upload('simple.pdf', 'application/pdf')
+    attachment = create(:attachment_data, file: test_pdf)
+    VirusScanHelpers.simulate_virus_scan(attachment.file)
+    assert_equal :clean, attachment.virus_status
+  end
+
   test 'if to_replace_id is set on an instance during save find the attachment_data with that id and set its replaced_by_id to the original instances id' do
     to_be_replaced = create(:attachment_data)
     replace_with = build(:attachment_data)
@@ -177,7 +197,7 @@ class AttachmentDataTest < ActiveSupport::TestCase
 
   test 'replace_with! won\'t let you replace an instance with itself' do
     self_referential = create(:attachment_data)
-    assert_raises(ActiveRecord::RecordInvalid) do
+    assert_raise(ActiveRecord::RecordInvalid) do
       self_referential.replace_with!(self_referential)
     end
   end

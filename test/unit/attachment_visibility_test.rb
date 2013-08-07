@@ -3,7 +3,7 @@ require 'test_helper'
 class AttachmentVisibilityTest < ActiveSupport::TestCase
 
   test '#visible? returns true when attachment data is associated with a published edition' do
-    edition = create(:published_publication, :with_attachment)
+    edition = create(:published_publication, :with_attachment_not_scanned)
     attachment_data = edition.attachments.first.attachment_data
     attachment_visibility = AttachmentVisibility.new(attachment_data,nil)
 
@@ -12,7 +12,7 @@ class AttachmentVisibilityTest < ActiveSupport::TestCase
   end
 
   test '#visible? returns false when edition is unpublished' do
-    edition = create(:draft_publication, :with_attachment)
+    edition = create(:draft_publication, :with_attachment_not_scanned)
     attachment_data = edition.attachments.first.attachment_data
     attachment_visibility = AttachmentVisibility.new(attachment_data,nil)
 

@@ -117,6 +117,7 @@
                 <%= attachment_thumbnail(attachment) %>
                 <span class="title"><%= attachment.title %></span>
                 <span class="file">File: <%= link_to attachment.filename, attachment.url %></span>
+                <%= attachment_virus_status(attachment) %>
                 <%= attachment_metadata_tag(attachment) %>
               </li>
             <% end %>

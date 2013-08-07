@@ -24,7 +24,7 @@ class RoutingTest < ActionDispatch::IntegrationTest
   end
 
   test "visiting unknown route should respond with 404 not found" do
-    assert_raises(ActionController::RoutingError) do
+    assert_raise(ActionController::RoutingError) do
       get "/government/path-unknown-to-application"
     end
   end
@@ -62,7 +62,7 @@ class RoutingTest < ActionDispatch::IntegrationTest
   test "admin is unreachable in preview from whitehall" do
     host! 'whitehall.preview.alphagov.co.uk'
     Rails.stubs(:env).returns(ActiveSupport::StringInquirer.new("production"))
-    assert_raises(ActionController::RoutingError) do
+    assert_raise(ActionController::RoutingError) do
       get "/government/admin"
     end
   end
@@ -78,7 +78,7 @@ class RoutingTest < ActionDispatch::IntegrationTest
   test "admin is unreachable in production from whitehall" do
     host! 'whitehall.production.alphagov.co.uk'
     Rails.stubs(:env).returns(ActiveSupport::StringInquirer.new("production"))
-    assert_raises(ActionController::RoutingError) do
+    assert_raise(ActionController::RoutingError) do
       get "/government/admin"
     end
   end
@@ -113,7 +113,7 @@ class RoutingTest < ActionDispatch::IntegrationTest
   end
 
   test "atom feed returns 404s for other content types" do
-    assert_raises ActionController::RoutingError do
+    assert_raise ActionController::RoutingError do
       get "/government/feed.json"
     end
   end
@@ -130,7 +130,7 @@ class RoutingTest < ActionDispatch::IntegrationTest
     edition = create(:draft_policy)
     supporting_page = create(:supporting_page, edition: edition)
 
-    assert_raises ActionController::RoutingError do
+    assert_raise ActionController::RoutingError do
       get "/government/admin/editions/#{edition.id}/supporting-pages/#{supporting_page.slug}"
     end
   end

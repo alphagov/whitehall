@@ -1,3 +1,5 @@
+require 'whitehall/virus_scan_helpers'
+
 class GenericEdition < Edition
   class << self
     attr_accessor :translatable
@@ -32,6 +34,8 @@ FactoryGirl.define do
     summary 'edition-summary'
 
     after :build do |edition, evaluator|
+      edition.skip_virus_status_check = true
+
       if evaluator.lead_organisations.empty? && evaluator.create_default_organisation
         edition.edition_organisations.build(edition: edition,
                                             organisation: FactoryGirl.build(:organisation),
@@ -91,6 +95,14 @@ FactoryGirl.define do
     end
 
     trait(:with_attachment) do
+      association :alternative_format_provider, factory: :organisation_with_alternative_format_contact_email
+      attachments { FactoryGirl.build_list :attachment, 1 }
+      after :build do |edition, evaluator|
+        VirusScanHelpers.simulate_virus_scan(edition.attachments.first.attachment_data.file)
+      end
+    end
+
+    trait(:with_attachment_not_scanned) do
       association :alternative_format_provider, factory: :organisation_with_alternative_format_contact_email
       attachments { FactoryGirl.build_list :attachment, 1 }
     end

@@ -33,7 +33,7 @@ class LocalisedModelTest < ActiveSupport::TestCase
   test "returns locale to original value even if decorated call fails" do
     I18n.locale = :original
     @model.stubs(:locale).raises("any error")
-    assert_raises(RuntimeError) { @localised_model.locale }
+    assert_raise(RuntimeError) { @localised_model.locale }
     assert_equal :original, I18n.locale
   end
 

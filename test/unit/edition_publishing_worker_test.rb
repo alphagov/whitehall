@@ -27,7 +27,7 @@ class EditionPublishingWorkerTest < ActiveSupport::TestCase
     edition = create(:edition, :scheduled, scheduled_publication: 1.day.ago)
     unprivileged_user = create(:user)
 
-    exception = assert_raises(EditionPublishingWorker::ScheduledPublishingFailure) do
+    exception = assert_raise(EditionPublishingWorker::ScheduledPublishingFailure) do
       EditionPublishingWorker.new.perform(edition.id, unprivileged_user.id)
     end
 

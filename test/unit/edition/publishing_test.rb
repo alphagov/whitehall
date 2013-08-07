@@ -328,7 +328,7 @@ class Edition::PublishingTest < ActiveSupport::TestCase
 
     Edition.find(edition.id).update_attributes(title: "new title")
 
-    assert_raises(ActiveRecord::StaleObjectError) do
+    assert_raise(ActiveRecord::StaleObjectError) do
       edition.publish_as(create(:departmental_editor))
     end
     refute Edition.find(edition.id).published?

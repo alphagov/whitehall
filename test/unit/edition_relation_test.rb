@@ -41,7 +41,7 @@ class EditionRelationTest < ActiveSupport::TestCase
 
   test "should not allow modification" do
     relation = create(:edition_relation)
-    assert_raises(ActiveRecord::ReadOnlyRecord) do
+    assert_raise(ActiveRecord::ReadOnlyRecord) do
       relation.update_attributes(updated_at: Time.zone.now)
     end
   end

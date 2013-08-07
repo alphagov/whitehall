@@ -177,7 +177,7 @@ class EditionTest < ActiveSupport::TestCase
 
   test "#creator= raises an exception if called for a persisted record" do
     edition = create(:edition)
-    assert_raises RuntimeError do
+    assert_raise RuntimeError do
       edition.creator = create(:user)
     end
   end

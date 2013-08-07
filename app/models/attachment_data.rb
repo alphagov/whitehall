@@ -1,7 +1,7 @@
 class AttachmentData < ActiveRecord::Base
   mount_uploader :file, AttachmentUploader, mount_on: :carrierwave_file
 
-  delegate :url, to: :file, allow_nil: true
+  delegate :url, :path, to: :file, allow_nil: true
 
   before_save :update_file_attributes
 
@@ -34,26 +34,42 @@ class AttachmentData < ActiveRecord::Base
   end
 
   def text_file_path
-    file.path.gsub(/\.[^\.]+$/, ".txt")
+    path.gsub(/\.[^\.]+$/, ".txt")
   end
 
   def text_file_exists?
     File.exist?(text_file_path)
   end
 
-  def read_extracted_text(path)
+  def read_extracted_text
     if text_file_exists?
       File.open(text_file_path).read
     end
   end
 
   def extracted_text
-    path = file.path
     if indexable? && File.exist?(path)
       if Whitehall.extract_text_feature?
-        read_extracted_text(path)
+        read_extracted_text
       end
     end
+  end
+
+  # If the file no longer exisits assume it was later found to have a virus.
+  # On development without the downloaded attachments they will be flagged as infected.
+  def virus_status
+    if incoming?
+      :pending
+    elsif File.exist?(path)
+      :clean
+    else
+      :infected
+    end
+  end
+
+  def incoming?
+    incoming_path = path.gsub(Whitehall.clean_uploads_root, Whitehall.incoming_uploads_root)
+    File.exist?(incoming_path)
   end
 
   def update_file_attributes
@@ -91,7 +107,7 @@ class AttachmentData < ActiveRecord::Base
   end
 
   def calculate_number_of_pages
-    PDFINFO_SERVICE.count_pages(file.path)
+    PDFINFO_SERVICE.count_pages(path)
   rescue
     nil
   end

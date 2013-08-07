@@ -11,7 +11,7 @@ class Admin::PromotionalFeaturesControllerTest < ActionController::TestCase
   test "GET :index returns a 404 if the organisation is not an executive office" do
     organisation = create(:ministerial_department)
 
-    assert_raises ActiveRecord::RecordNotFound do
+    assert_raise ActiveRecord::RecordNotFound do
       get :index, organisation_id: organisation
     end
   end

@@ -75,7 +75,7 @@ class HistoricAppointmentsControllerTest < ActionController::TestCase
   test "GET on :show raises a 404 if a person does not exist with a historical account in the specified role" do
     chancellor_account = create(:historical_account, roles: [chancellor_role])
 
-    assert_raises ActiveRecord::RecordNotFound do
+    assert_raise ActiveRecord::RecordNotFound do
       get :show, role: 'past-prime-ministers', person_id: chancellor_account.person.slug
     end
   end

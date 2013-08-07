@@ -7,7 +7,7 @@ class Attachment < ActiveRecord::Base
 
   delegate :url, :content_type, :pdf?,
     :extracted_text, :file_extension, :file_size,
-    :number_of_pages, :file, :filename,
+    :number_of_pages, :file, :filename, :virus_status,
     to: :attachment_data
 
   after_destroy :destroy_attachment_data_if_required
