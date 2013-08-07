@@ -43,7 +43,9 @@
       <% document_metadata(document, policies, topics, true).each do |metadata| %>
         <dt><%= metadata[:title] %>:</dt>
         <% metadata[:data].each do |item| %>
-          <dd<% if metadata[:classes] %> class="<%= metadata[:classes].join(" ") %>"<% end %>><%= item.html_safe %></dd>
+          <dd class="<%= metadata.fetch(:classes, []).join(' ') %>">
+            <%= item.html_safe %>
+          </dd>
         <% end %>
       <% end %>
     </dl>

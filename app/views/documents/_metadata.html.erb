@@ -20,7 +20,9 @@
 
       <% document_metadata(document, policies, topics).each do |metadata| %>
         <dt><%= metadata[:title] %>:</dt>
-        <dd class="js-hide-other-links<% if metadata[:classes] %> <%= metadata[:classes].join(" ") %><% end %>"><%= metadata[:data].to_sentence.html_safe %></dd>
+        <dd class="js-hide-other-links <%= metadata.fetch(:classes, []).join(' ') %>">
+          <%= metadata[:data].to_sentence.html_safe %>
+        </dd>
       <% end %>
 
     </dl>
