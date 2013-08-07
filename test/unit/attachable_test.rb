@@ -41,10 +41,10 @@ class AttachableTest < ActiveSupport::TestCase
   end
 
   test "should be invalid if an edition has an attachment but not yet passed virus scanning" do
-    Publication.any_instance.unstub(:virus_check_required?)
     attachment = build(:attachment)
     attachment.stubs(:virus_status).returns :infected
     publication = create(:publication, :with_attachment, attachments: [attachment])
+    publication.skip_virus_status_check = false
     assert publication.valid?
     user = create(:departmental_editor)
     publication.change_note = "change-note"
