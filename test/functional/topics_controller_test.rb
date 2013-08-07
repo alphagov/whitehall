@@ -4,6 +4,19 @@ class TopicsControllerTest < ActionController::TestCase
   include ActionDispatch::Routing::UrlFor
   include PublicDocumentRoutesHelper
 
+  def scheduled_publishing_time
+    Time.zone.now + Whitehall.default_cache_max_age * 2
+  end
+
+  def seconds_prior_to_publishing(seconds)
+    scheduled_publishing_time - seconds.seconds
+  end
+
+  def create_scheduled(type, attributes = {})
+    defaults = { scheduled_publication: scheduled_publishing_time }
+    create(type, defaults.merge(attributes))
+  end
+
   should_be_a_public_facing_controller
 
   view_test "shows topic title and description" do
@@ -29,51 +42,50 @@ class TopicsControllerTest < ActionController::TestCase
 
   test "#show sets Cache-Control: max-age to the time of the next scheduled policy" do
     user = login_as(:departmental_editor)
-    policy = create(:draft_policy, scheduled_publication: Time.zone.now + Whitehall.default_cache_max_age * 2)
+    policy = create_scheduled(:draft_policy)
     topic = create(:topic, policies: [policy])
     policy.schedule_as(user, force: true)
 
-    Timecop.freeze(Time.zone.now + Whitehall.default_cache_max_age * 1.5) do
+    seconds_until_published = 30
+    Timecop.freeze(seconds_prior_to_publishing(seconds_until_published)) do
       get :show, id: topic
     end
-
-    assert_cache_control("max-age=#{Whitehall.default_cache_max_age/2}")
+    assert_cache_control("max-age=#{seconds_until_published}")
   end
 
-  test "#show sets Cache-Control: max-age to the time of the next scheduled publication in an associated policy" do
+  test "#show sets Cache-Control: max-age to time of next scheduled publication in topic" do
     user = login_as(:departmental_editor)
-    policy = create(:published_policy, title: "policy-title", summary: "policy-summary")
-    topic = create(:topic, policies: [policy])
-    publication = create(:draft_publication, scheduled_publication: Time.zone.now + Whitehall.default_cache_max_age * 2, related_editions: [policy])
+    topic = create(:topic)
+    publication = create_scheduled(:draft_publication, topics: [topic])
     publication.schedule_as(user, force: true)
 
-    Timecop.freeze(Time.zone.now + Whitehall.default_cache_max_age * 1.5) do
+    seconds_until_published = 30
+    Timecop.freeze(seconds_prior_to_publishing(seconds_until_published)) do
       get :show, id: topic
     end
-
-    assert_cache_control("max-age=#{Whitehall.default_cache_max_age/2}")
+    assert_cache_control("max-age=#{seconds_until_published}")
   end
 
-  test "#show sets Cache-Control: max-age to the time of the next scheduled announcement in an associated policy" do
+  test "#show sets Cache-Control: max-age to time of next scheduled announcement in topic" do
     user = login_as(:departmental_editor)
-    policy = create(:published_policy, title: "policy-title", summary: "policy-summary")
-    topic = create(:topic, policies: [policy])
-    news = create(:draft_news_article, scheduled_publication: Time.zone.now + Whitehall.default_cache_max_age * 2, related_editions: [policy])
+    topic = create(:topic)
+    news = create_scheduled(:draft_news_article, topics: [topic])
     news.schedule_as(user, force: true)
 
-    Timecop.freeze(Time.zone.now + Whitehall.default_cache_max_age * 1.5) do
+    seconds_until_published = 30
+    Timecop.freeze(seconds_prior_to_publishing(seconds_until_published)) do
       get :show, id: topic
     end
-
-    assert_cache_control("max-age=#{Whitehall.default_cache_max_age/2}")
+    assert_cache_control("max-age=#{seconds_until_published}")
   end
 
   view_test "shows 3 published publications and links to more" do
-    policy = create(:published_policy, title: "policy-title", summary: "policy-summary")
-    topic = create(:topic, policies: [policy])
+    topic = create(:topic)
     published = []
     4.times do |i|
-      published << create(:published_publication, title: "title-#{i}", related_editions: [policy], publication_date: i.days.ago)
+      published << create(:published_publication, {
+        title: "title-#{i}", topics: [topic], publication_date: i.days.ago
+      })
     end
 
     get :show, id: topic
@@ -99,11 +111,12 @@ class TopicsControllerTest < ActionController::TestCase
   end
 
   view_test "shows 3 published announcement and links to more" do
-    policy = create(:published_policy, title: "policy-title", summary: "policy-summary")
-    topic = create(:topic, policies: [policy])
+    topic = create(:topic)
     published = []
     4.times do |i|
-      published << create(:published_news_article, title: "title-#{i}", related_editions: [policy], first_published_at: i.days.ago)
+      published << create(:published_news_article, {
+        title: "title-#{i}", topics: [topic], first_published_at: i.days.ago
+      })
     end
 
     get :show, id: topic

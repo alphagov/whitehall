@@ -111,6 +111,14 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
     refute_select "article.document .image img"
   end
 
+  view_test "topics returns list of the policy's topics when JSON requested" do
+    topics = [create(:topic), create(:topic)]
+    policy = create(:policy, topics: topics)
+    get :topics, id: policy, format: :json
+    assert_equal topics.first.name, json_response['topics'].first['name']
+    assert_equal topics.second.name, json_response['topics'].second['name']
+  end
+
   private
 
   def controller_attributes_for(edition_type, attributes = {})

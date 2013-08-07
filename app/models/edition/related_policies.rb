@@ -9,7 +9,7 @@ module Edition::RelatedPolicies
       source: :latest_edition,
       class_name: 'Policy'
     has_many :published_related_policies, through: :related_documents, source: :published_edition, class_name: 'Policy'
-    has_many :topics, through: :published_related_policies, uniq: true
+    has_many :policy_topics, through: :published_related_policies, uniq: true, source: :topics
 
     # Ensure that when we set policy ids we don't remove other types of edition from the array
     define_method(:related_policy_ids=) do |policy_ids|
@@ -61,6 +61,6 @@ module Edition::RelatedPolicies
   end
 
   def search_index
-    super.merge("topics" => topics.map(&:slug)) {|k, ov, nv| ov + nv}
+    super.merge("topics" => policy_topics.map(&:slug)) { |k, ov, nv| ov + nv }
   end
 end

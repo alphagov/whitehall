@@ -2,7 +2,7 @@ class Admin::EditionsController < Admin::BaseController
   before_filter :remove_blank_parameters
   before_filter :clean_edition_parameters, only: [:create, :update]
   before_filter :clear_scheduled_publication_if_not_activated, only: [:create, :update]
-  before_filter :find_edition, only: [:show, :edit, :update, :submit, :revise, :diff, :reject, :destroy, :confirm_unpublish]
+  before_filter :find_edition, only: [:show, :edit, :update, :submit, :revise, :diff, :reject, :destroy, :confirm_unpublish, :topics]
   before_filter :prevent_modification_of_unmodifiable_edition, only: [:edit, :update]
   before_filter :default_arrays_of_ids_to_empty, only: [:update]
   before_filter :delete_absent_edition_organisations, only: [:create, :update]
@@ -20,7 +20,7 @@ class Admin::EditionsController < Admin::BaseController
     case action_name
     when 'index'
       enforce_permission!(:see, edition_class || Edition)
-    when 'show'
+    when 'show', 'topics'
       enforce_permission!(:see, @edition)
     when 'new'
       enforce_permission!(:create, edition_class || Edition)

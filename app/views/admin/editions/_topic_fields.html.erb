@@ -1,2 +1,4 @@
-<%= form.label :topic_ids, 'Topics' %>
-<%= form.select :topic_ids, options_from_collection_for_select(Topic.order(:name), 'id', 'name', edition.topic_ids), {}, multiple: true, class: 'chzn-select', data: { placeholder: "Choose topics..."} %>
+<fieldset>
+  <%= form.label :topic_ids, 'Topics' %>
+  <%= form.select :topic_ids, options_from_collection_for_select(Topic.order(:name), 'id', 'name', edition.topic_ids), {}, multiple: true, class: 'chzn-select', data: { placeholder: "Choose topics..."} %>
+</fieldset>
