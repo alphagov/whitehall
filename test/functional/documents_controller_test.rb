@@ -18,7 +18,7 @@ class DocumentsControllerTest < ActionController::TestCase
     get :show, id: edition.document
 
     assert_response :not_found
-    assert_cache_control("max-age=#{Whitehall.default_cache_max_age}")
+    assert_cache_control("max-age=#{5.minutes}")
   end
 
   test "show responds with 'unpublished' and default cache control 'max-age' if document has been unpublished" do
