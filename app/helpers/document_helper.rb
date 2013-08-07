@@ -175,7 +175,7 @@ Details of document required:
     link_to native_language_name_for(locale), path
   end
 
-  def document_metadata(document, policies=[], topics=[], links_only=false)
+  def document_metadata(document, policies = [], topics = [], links_only = false)
     metadata = []
     if policies.any?
       metadata << {
