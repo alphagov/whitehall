@@ -8,4 +8,15 @@ section.govspeak_help {
     background: #eee;
     padding: 0.5em 1em;
   }
+
+  a {
+    cursor: pointer;
+  }
+
+  .collapse {
+    height: auto;
+  }
+  .js-enabled & .collapse {
+    height: 0;
+  }
 }
