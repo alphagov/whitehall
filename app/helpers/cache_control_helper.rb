@@ -5,9 +5,10 @@ module CacheControlHelper
   end
 
   def expire_on_next_scheduled_publication(scheduled_editions)
-    earliest_scheduled_publication = scheduled_editions.map(&:scheduled_publication).compact.min
-    max_age = max_age_for(earliest_scheduled_publication) if earliest_scheduled_publication
-    expires_in(max_age, public: true) if max_age
+    scheduled_times = scheduled_editions.map(&:scheduled_publication)
+    if next_scheduled_time = scheduled_times.compact.min
+      expires_in(max_age_for(next_scheduled_time), public: true)
+    end
   end
 
   def max_age_for(scheduled_publication)

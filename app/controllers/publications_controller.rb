@@ -6,7 +6,8 @@ class PublicationsController < DocumentsController
     end
 
     def documents
-      Whitehall::Decorators::CollectionDecorator.new(__getobj__.documents, PublicationesquePresenter, @view_context)
+      Whitehall::Decorators::CollectionDecorator.new(
+          __getobj__.documents, PublicationesquePresenter, @view_context)
     end
   end
 

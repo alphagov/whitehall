@@ -41,15 +41,21 @@ module Whitehall::DocumentFilter
     end
 
     def filter_by_topics!
-      @documents = @documents.published_in_topic(selected_topics) if selected_topics.any?
+      if selected_topics.any?
+        @documents = @documents.published_in_topic(selected_topics) 
+      end
     end
 
     def filter_by_departments!
-      @documents = @documents.in_organisation(selected_organisations) if selected_organisations.any?
+      if selected_organisations.any?
+        @documents = @documents.in_organisation(selected_organisations)
+      end
     end
 
     def filter_by_keywords!
-      @documents = @documents.with_title_or_summary_containing(*keywords) if keywords.any?
+      if keywords.any?
+        @documents = @documents.with_title_or_summary_containing(*keywords) 
+      end
     end
 
     def filter_by_date!
@@ -69,7 +75,9 @@ module Whitehall::DocumentFilter
         if selected_publication_filter_option.edition_types.any?
           edition_types = selected_publication_filter_option.edition_types
           editions = @documents.arel_table
-          @documents = @documents.where(editions[:publication_type_id].in(publication_ids).or(editions[:type].in(edition_types)))
+          @documents = @documents.where(
+            editions[:publication_type_id].in(publication_ids).or(
+              editions[:type].in(edition_types)))
         else
           @documents = @documents.where(publication_type_id: publication_ids)
         end
@@ -78,11 +86,16 @@ module Whitehall::DocumentFilter
 
     def filter_by_announcement_filter_option!
       if selected_announcement_type_option
-        @documents = @documents.where(@documents.arel_table[:type].in(selected_announcement_type_option.edition_types))
+        @documents = @documents.where(@documents.arel_table[:type].in(
+          selected_announcement_type_option.edition_types))
         if selected_announcement_type_option.speech_types.present?
-          @documents = @documents.where(@documents.arel_table[:speech_type_id].in(selected_announcement_type_option.speech_types.map(&:id)))
+          @documents = @documents.where(
+            @documents.arel_table[:speech_type_id].in(
+              selected_announcement_type_option.speech_types.map(&:id)))
         elsif selected_announcement_type_option.news_article_types.present?
-          @documents = @documents.where(@documents.arel_table[:news_article_type_id].in(selected_announcement_type_option.news_article_types.map(&:id)))
+          @documents = @documents.where(
+            @documents.arel_table[:news_article_type_id].in(
+              selected_announcement_type_option.news_article_types.map(&:id)))
         end
       end
     end

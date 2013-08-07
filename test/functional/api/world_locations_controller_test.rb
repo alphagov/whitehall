@@ -54,10 +54,4 @@ class Api::WorldLocationsControllerTest < ActionController::TestCase
 
     assert_equal 'ok', json_response['_response_info']['status']
   end
-
-  private
-
-  def json_response
-    ActiveSupport::JSON.decode(response.body)
-  end
 end

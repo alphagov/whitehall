@@ -159,6 +159,10 @@ class ActionController::TestCase
   def assert_login_required
     assert_redirected_to login_path
   end
+
+  def json_response
+    ActiveSupport::JSON.decode(response.body)
+  end
 end
 
 class ActionDispatch::IntegrationTest
