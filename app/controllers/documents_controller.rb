@@ -33,6 +33,7 @@ class DocumentsController < PublicFacingController
           render :unpublished
         end
       else
+        expires_in 5.minutes, public: true
         render text: "Not found", status: :not_found
       end
     end
