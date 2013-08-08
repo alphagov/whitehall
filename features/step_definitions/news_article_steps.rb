@@ -4,16 +4,6 @@ Given /^a published news article "([^"]*)" with related published policies "([^"
   create(:published_news_article, title: news_article_title, related_editions: [policy_1, policy_2])
 end
 
-Given /^a published news article "([^"]*)" for the organisation "([^"]*)"$/ do |title, organisation|
-  organisation = create(:organisation, name: organisation)
-  create(:published_news_article, title: title, organisations: [organisation])
-end
-
-Given /^a published news article "([^"]*)" for the policy "([^"]*)"$/ do |title, policy_name|
-  policy = Policy.find_by_title(policy_name) || create(:policy, title: policy_name)
-  create(:published_news_article, title: title, related_editions: [policy])
-end
-
 Given /^a published news article "([^"]*)" associated with "([^"]*)"$/ do |title, appointee|
   person = find_person(appointee)
   appointment = find_person(appointee).current_role_appointments.last
@@ -56,10 +46,6 @@ end
 
 When /^I attempt to add the article image into the markdown$/ do
   fill_in "Body", with: "body copy\n!!1\nmore body"
-end
-
-Then /^the news story "([^"]*)" should have been created$/ do |title|
-  refute NewsArticle.find_by_title(title).nil?
 end
 
 Then /^the article mentions "([^"]*)" and links to their bio page$/ do |person_name|

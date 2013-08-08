@@ -134,13 +134,6 @@ When /^someone publishes (#{THE_DOCUMENT})$/ do |edition|
   end
 end
 
-When /^someone submits (#{THE_DOCUMENT})$/ do |edition|
-  as_user(create(:departmental_editor)) do
-    visit_document_preview edition.title
-    click_button "Submit"
-  end
-end
-
 When /^I force publish (#{THE_DOCUMENT})$/ do |edition|
   visit_document_preview edition.title, :draft
   click_link "Edit"

@@ -41,15 +41,6 @@ When /^I view the (?:world location|international delegation) "([^"]*)"$/ do |na
   visit world_location_path(world_location)
 end
 
-When /^I navigate to the "([^"]*)" (?:world location|international delegation)'s (home) page$/ do |world_location_name, page_name|
-  within('.world_location nav') do
-    click_link \
-      case page_name
-      when 'home'   then 'Home'
-      end
-  end
-end
-
 When /^I visit the world locations page$/ do
   visit world_locations_path
 end
@@ -98,11 +89,6 @@ When /^I edit the "([^"]*)" translation for "([^"]*)" setting:$/ do |locale, nam
   click_on "Save"
 end
 
-When /^I visit the worldwide location "([^"]+)"$/ do |name|
-  world_location = WorldLocation.find_by_name!(name)
-  visit world_location_path(world_location)
-end
-
 Then /^I should see the featured items of the (?:world location|international delegation) "([^"]*)" are:$/ do |name, expected_table|
   world_location = WorldLocation.find_by_name!(name)
   visit world_location_path(world_location)
@@ -115,15 +101,6 @@ Then /^I should see the featured items of the (?:world location|international de
   end
   expected_table.diff!(table)
   expected_table.diff!(table)
-end
-
-Then /^I should see the "([^"]*)" (?:world location|international delegation)'s (home) page$/ do |world_location_name, page_name|
-  title =
-    case page_name
-    when 'home'   then world_location_name
-    end
-
-  assert page.has_css?('title', text: title)
 end
 
 Then /^I should see a (?:world location|international delegation) called "([^"]*)"$/ do |name|

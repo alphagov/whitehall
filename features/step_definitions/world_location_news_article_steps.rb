@@ -1,15 +1,5 @@
 # encoding: utf-8
 
-Given /^a world location news article "([^"]+)" exists$/ do |title|
-  create(:published_world_location_news_article, title: title)
-end
-
-Given /^a world location news article "([^"]+)" for the world location "([^"]+)" exists$/ do |title, location|
-  world_location = create(:world_location)
-  worldwide_organisation = create(:worldwide_organisation)
-  create(:published_world_location_news_article, title: title, world_locations: [world_location], worldwide_organisations: [worldwide_organisation])
-end
-
 When /^I draft a French\-only world location news article associated with "([^"]*)"$/ do |location_name|
   world_organisation = create(:worldwide_organisation, name: "Funky Consulate in #{location_name}")
   begin_drafting_world_location_news_article title: "French-only world location news article", body: 'test-body', summary: 'test-summary'
@@ -73,14 +63,6 @@ Then /^the worldwide organisation "([^"]+)" is listed as a producing org on the 
   world_org = WorldwideOrganisation.find_by_name(world_org_name)
   within '.meta' do
     assert page.has_link?(world_org.name, href: worldwide_organisation_path(world_org)), "should have a link to #{world_org.name} as a producing org, but I don't"
-  end
-end
-
-Then /^the world location news article "([^"]+)" appears on the worldwide priority "([^"]+)"$/ do |world_news_title, world_priority_title|
-  visit document_path(WorldwidePriority.find_by_title(world_priority_title))
-  world_location_news_article = WorldLocationNewsArticle.find_by_title(world_news_title)
-  within record_css_selector(world_location_news_article, 'recent') do
-    assert page.has_content?(world_location_news_article.title)
   end
 end
 

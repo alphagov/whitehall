@@ -26,21 +26,6 @@ Given /^a published speech "([^"]*)" with related published policies "([^"]*)" a
   create(:published_speech, title: speech_title, related_editions: [policy_1, policy_2])
 end
 
-Given /^a published speech "([^"]*)" for the organisation "([^"]*)"$/ do |title, organisation|
-  organisation = create(:organisation, name: organisation)
-  create(:published_speech, title: title, organisations: [organisation])
-end
-
-Given /^a published speech "([^"]*)" for the policy "([^"]*)"$/ do |title, policy_name|
-  policy = Policy.find_by_title(policy_name) || create(:policy, title: policy_name)
-  create(:published_speech, title: title, related_editions: [policy])
-end
-
-Given /^(\d+) published speeches for the organisation "([^"]*)"$/ do |count, organisation|
-  organisation = create(:organisation, name: organisation)
-  count.to_i.times { |i| create(:published_speech, title: "keyword-#{i}", organisations: [organisation]) }
-end
-
 When /^I edit the speech "([^"]*)" changing the title to "([^"]*)"$/ do |original_title, new_title|
   speech = Speech.find_by_title!(original_title)
   visit admin_edition_path(speech)

@@ -27,20 +27,9 @@ Then /^I cannot change my user details/ do
   assert page.has_no_css?("form")
 end
 
-When /^I set the role for "([^"]*)" to departmental editor$/ do |name|
-  begin_editing_user_details(name)
-  check "Departmental editor"
-  click_button "Save"
-end
-
 When /^I visit the admin author page for "([^"]*)"$/ do |name|
   user = User.find_by_name(name)
   visit admin_author_path(user)
-end
-
-Then /^I should see my organisation is "([^"]*)"$/ do |organisation|
-  visit admin_user_path(@user)
-  assert page.has_css?(".user .organisation", text: organisation)
 end
 
 Then /^I should see that I am logged in as a "([^"]*)"$/ do |role|
@@ -51,18 +40,8 @@ Then /^I should see that I am logged in as a "([^"]*)"$/ do |role|
   assert page.has_css?(".user .settings .role", text: role)
 end
 
-Then /^I should see my email address is "([^"]*)"$/ do |email_address|
-  visit admin_user_path(@user)
-  assert page.has_css?(".user .email", text: email_address)
-end
-
 Then /^I should see an email address "([^"]*)"$/ do |email_address|
   assert page.has_css?(".email", text: email_address)
-end
-
-Then /^I should see that I am a departmental editor$/ do
-  visit admin_user_path(@user)
-  assert page.has_css?(".role", "Departmental Editor")
 end
 
 When /^I visit the user list in the admin section$/ do

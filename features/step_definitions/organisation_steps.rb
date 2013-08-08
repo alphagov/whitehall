@@ -211,18 +211,6 @@ Then /^I should only see published policies belonging to the "([^"]*)" organisat
   assert editions.all? { |edition| organisation.editions.published.include?(edition) }
 end
 
-Then /^I should see the "([^"]*)" organisation's (.*) page$/ do |organisation_name, page_name|
-  title =
-    case page_name
-    when 'about'    then "About"
-    when 'news'     then "News"
-    when 'home'     then organisation_name
-    when 'policies' then  "Policies"
-    end
-
-  assert page.has_css?('title', text: title)
-end
-
 def navigate_to_organisation(page_name)
   within('nav.sub_navigation') do
     click_link page_name
@@ -236,11 +224,6 @@ end
 Then /^I cannot see links to Transparency data on the "([^"]*)" about page$/ do |name|
   visit_organisation_about_page name
   refute page.has_css?('a', text: 'Transparency data')
-end
-
-When /^I associate an FOI release to the "([^"]*)"$/ do |name|
-  organisation = Organisation.find_by_name!(name)
-  publication = create(:published_publication, :foi_release, organisations: [organisation])
 end
 
 Then /^I can see a link to "([^"]*)" on the "([^"]*)" about page$/ do |link_text, name|

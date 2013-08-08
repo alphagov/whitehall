@@ -230,13 +230,6 @@ Then /^I should see the pending fact check request to "([^"]*)" for policy "([^"
   assert page.has_css?(".fact_check_request.pending .from", text: email_address)
 end
 
-Then /^the published policy "([^"]*)" should remain unchanged$/ do |policy_title|
-  policy = Policy.find_by_title!(policy_title)
-  visit public_document_path(policy)
-  assert page.has_css?('h1', text: policy.title)
-  assert page.has_css?('.document .body', text: policy.body)
-end
-
 Then /^I should see that those responsible for the policy are:$/ do |table|
   table.hashes.each do |row|
     person = find_person(row["Person"])
@@ -352,17 +345,6 @@ Then /^I should not see a link to "([^"]*)" in the list of related documents$/ d
   refute page.has_css?("#inbound-links a", text: title), "unexpected link to '#{title}' found"
 end
 
-When /^I draft a new policy "([^"]*)" with a link "([^"]*)" in the body$/ do |title, url|
-  body = "A sentence with a [link](#{url}) in the middle."
-  begin_drafting_policy title: title, body: body
-  click_button "Save"
-end
-
-Given /^a published policy "([^"]*)" with a link "([^"]*)" in the body$/ do |title, url|
-  body = "A sentence with a [link](#{url}) in the middle."
-  create(:published_policy, title: title, body: body)
-end
-
 Given /^a (.*?) policy "([^"]*)" for the organisation "([^"]*)"$/ do |state, title, organisation|
   org = create(:organisation, name: organisation)
   create("#{state}_policy", title: title, organisations: [org])
@@ -372,19 +354,4 @@ Given /^a (.*?) policy "([^"]*)" for the organisations "([^"]*)" and "([^"]*)"$/
   org1 = create(:organisation, name: organisation1)
   org2 = create(:organisation, name: organisation2)
   create("#{state}_policy", title: title, organisations: [org1, org2])
-end
-
-When /^I visit the list of policies$/ do
-  visit "/government/policies"
-end
-
-Given /^(\d+) published policies for the organisation "([^"]+)"$/ do |count, organisation|
-  organisation = create(:organisation, name: organisation)
-  count.to_i.times { |i| create(:published_policy, title: "keyword-#{i}", organisations: [organisation]) }
-end
-
-When /^I relate it to the policy "([^"]*)"$/ do |title|
-  begin_editing_document Edition.last.title
-  select title, from: "Related policies"
-  click_on 'Save'
 end

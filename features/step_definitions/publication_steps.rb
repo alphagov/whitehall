@@ -3,11 +3,6 @@ Given /^a published publication "([^"]*)" exists that is about "([^"]*)"$/ do |p
   create(:published_publication, title: publication_title, world_locations: [world_location])
 end
 
-Given /^a draft publication "([^"]*)" with a PDF attachment$/ do |title|
-  publication = create(:draft_publication, :with_attachment, title: title, body:"!@1")
-  @attachment = publication.attachments.first
-end
-
 Given /^a submitted publication "([^"]*)" with a PDF attachment$/ do |title|
   publication = create(:submitted_publication, :with_attachment, title: title, body: "!@1")
   @attachment = publication.attachments.first
@@ -33,16 +28,6 @@ Given /^"([^"]*)" drafts a new publication "([^"]*)"$/ do |user_name, title|
     begin_drafting_publication(title)
     click_button "Save"
   end
-end
-
-Given /^a published publication "([^"]*)" for the organisation "([^"]*)"$/ do |title, organisation|
-  organisation = create(:organisation, name: organisation)
-  create(:published_publication, title: title, organisations: [organisation])
-end
-
-Given /^(\d+) published publications for the organisation "([^"]+)"$/ do |count, organisation|
-  organisation = create(:organisation, name: organisation)
-  count.to_i.times { |i| create(:published_publication, title: "keyword-#{i}", organisations: [organisation]) }
 end
 
 When /^I draft a new publication "([^"]*)" that does not apply to the nations:$/ do |title, nations|
@@ -88,29 +73,6 @@ Then /^I should see in the preview that "([^"]*)" is taken from the live data in
   assert has_css?(".document-statistical-data-sets a", text: data_set_name)
 end
 
-When /^I remove the attachment from the publication "([^"]*)"$/ do |title|
-  begin_editing_document title
-  choose "Remove"
-  click_button "Save"
-end
-
-When /^I remove the attachment from a new draft of the publication "([^"]*)"$/ do |title|
-  begin_new_draft_document title
-  choose "Remove"
-  click_button "Save"
-end
-
-When /^I correct the invalid information for the publication$/ do
-  fill_in :edition_title, with: "Validation error fixed"
-  fill_in :edition_body, with: "!@1"
-  click_button "Save"
-end
-
-Then /^I should not see a link to the PDF attachment$/ do
-  assert page.has_no_css?(".attachment .title", text: @attachment.title)
-  assert page.has_no_css?(".attachment a[href*='#{@attachment.filename}']", text: "Download attachment")
-end
-
 Then /^I should see a link to the PDF attachment$/ do
   assert page.has_css?(".attachment a[href*='#{@attachment.filename}']", text: @attachment.title)
 end
@@ -140,28 +102,6 @@ end
 
 Then /^I should get a "([^"]*)" error$/ do |error_code|
   assert_equal error_code.to_i, page.status_code
-end
-
-When /^I update the attachment metadata from a new draft of the publication$/ do
-  visit edit_admin_publication_path(Publication.last)
-  click_button "Create new edition"
-  within "#edition_attachment_fields" do
-    choose "Individual upload"
-    within 'div.well:first-child' do
-      fill_in "Title", with: "changed title not to be published yet"
-    end
-  end
-  fill_in_change_note_if_required
-  click_button "Save"
-end
-
-Then /^the metadata changes should not be public until the draft is published$/ do
-  click_link("Preview")
-  assert page.has_css?(".attachment-details .title", text: "changed title not to be published yet")
-  refute page.has_css?(".attachment-details .title", text: @attachment.title)
-  visit public_document_path(Publication.last)
-  assert page.has_css?(".attachment-details .title", text: @attachment.title)
-  refute page.has_css?(".attachment-details .title", text: "changed title not to be published yet")
 end
 
 When /^I replace the data file of the attachment in a new draft of the publication$/ do

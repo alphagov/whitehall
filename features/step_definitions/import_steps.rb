@@ -8,10 +8,6 @@ When /^I import the following data as CSV as "([^"]*)" for "([^"]*)":$/ do |docu
   import_data_as_document_type_for_organisation(data, document_type, organisation)
 end
 
-Then /^the import should fail and no editions are created$/ do
-  assert page.has_content?("Import failed")
-end
-
 Then /^the import succeeds, creating (\d+) imported publications? for "([^"]*)" with "([^"]*)" publication type$/ do |edition_count, organisation_name, publication_sub_type_slug|
   organisation = Organisation.find_by_name(organisation_name)
   publication_sub_type  = PublicationType.find_by_slug(publication_sub_type_slug)

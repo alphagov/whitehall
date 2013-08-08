@@ -42,27 +42,6 @@ Then /^I should be able to navigate to the english translation "([^"]*)"$/ do |e
   assert page.has_css?('h1', text: english_title)
 end
 
-Then /^I should be able to associate "([^"]*)" with the worldwide priority "([^"]*)"$/ do |title, priority|
-  begin_editing_document title
-  select priority, from: "Worldwide priorities"
-  click_on 'Save'
-end
-
-Then /^I cannot associate "([^"]*)" with worldwide priorities$/ do |title|
-  begin_editing_document title
-  refute page.has_css?("input[name='edition[worldwide_priority_ids][]']")
-end
-
-When /^I associate it with the worldwide priority "([^"]*)"$/ do |priority|
-  begin_editing_document title
-  select priority, from: "Worldwide priorities"
-  click_on 'Save'
-end
-
-Then /^the world location news article should still be related to the policy "([^"]*)"$/ do |policy|
-  assert Edition.last.related_policies.include?(Policy.find_by_title(policy))
-end
-
 When /^I visit the activity of the published priority "([^"]*)"$/ do |title|
   priority = WorldwidePriority.find_by_title!(title)
   visit activity_worldwide_priority_path(priority.document)
