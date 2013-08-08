@@ -12,7 +12,14 @@
     cursor: pointer;
 
     &:hover {
+      color: $link-hover-colour;
       text-decoration: underline;
+    }
+    &:active {
+      color: $link-active-colour
+    }
+    &:focus {
+      outline: none;
     }
   }
 
