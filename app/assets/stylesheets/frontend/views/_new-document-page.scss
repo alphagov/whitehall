@@ -21,7 +21,7 @@
   }
 
   .summary {
-    margin-top: $gutter;
+    padding-bottom: $gutter + $gutter-half;
 
     p {
       @include ig-core-24;
@@ -29,7 +29,7 @@
   }
 
   .sidebar {
-    padding-top: $gutter+$gutter-one-third;
+    padding-top: $gutter-one-third;
 
     p {
       @include ig-core-16;
@@ -37,7 +37,7 @@
   }
 
   .document {
-    padding: $gutter 0;
+    padding-bottom: $gutter;
   }
 
   .meta {

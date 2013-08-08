@@ -12,6 +12,12 @@
     </div>
   </header>
 
+  <div class="block-2 ">
+    <div class="inner-block">
+      <%= render partial: "document_summary", locals: { document: @document } %>
+    </div>
+  </div>
+
   <div class="block-2">
     <div class="inner-block">
       <%= render partial: "documents/attachment_full_width",

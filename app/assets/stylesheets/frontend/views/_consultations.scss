@@ -129,13 +129,13 @@ nav.consultations_scope {
       }
     }
 
-    .summary {
+    .consultation-summary {
       @include media(tablet) {
         float: left;
         margin-top: 0;
         width: 66.66%;
       }
-      .summary-inner {
+      .consultation-summary-inner {
         border-top: 1px solid $white;
         padding-top: $gutter-half;
         margin-top: -$gutter-half + 1px;
