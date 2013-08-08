@@ -241,7 +241,7 @@ class Admin::CreatingFactCheckRequestsControllerTest < ActionController::TestCas
   test "display an informational message when a fact check has been requested" do
     post :create, edition_id: @edition.id, fact_check_request: @attributes
 
-    assert_equal "The policy has been sent to fact-checker@example.com", flash[:notice]
+    assert_equal "The document has been sent to fact-checker@example.com", flash[:notice]
   end
 
   test "redirect back to the edition preview when a fact check has been requested" do
