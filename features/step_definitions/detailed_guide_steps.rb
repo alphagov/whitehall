@@ -9,11 +9,6 @@ Given /^a published detailed guide "([^"]*)" for the organisation "([^"]*)"$/ do
   create(:published_detailed_guide, title: title, organisations: [organisation])
 end
 
-Given /^(\d+) published detailed guides for the organisation "([^"]*)"$/ do |count, organisation|
-  organisation = create(:organisation, name: organisation)
-  count.to_i.times { |i| create(:published_detailed_guide, title: "keyword-#{i}", organisations: [organisation]) }
-end
-
 When /^I draft a new detailed guide "([^"]*)"$/ do |title|
   category = create(:mainstream_category)
   begin_drafting_document type: 'detailed_guide', title: title, primary_mainstream_category: category
@@ -63,10 +58,6 @@ When /^I select an attachment for the detailed guide$/ do
     choose "Individual upload"
     attach_file "File", Rails.root.join("features/fixtures", @attachment_filename)
   end
-end
-
-Then /^I should be able to select another attachment for the detailed guide$/ do
-  assert_equal 2, page.all(".attachments #individual_upload_attachments input[type=file]").length
 end
 
 Then /^I should see in the preview that "([^"]*)" is related to the detailed guide "([^"]*)"$/ do |title, related_title|
