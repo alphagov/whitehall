@@ -14,6 +14,7 @@ var url = phantom.args[0],
     page = require('webpage').create(),
     fs = require("fs"),
     lastTestCount, lastTestCountChange = +new Date(),
+    errorCount = 0,
     timeoutLength = 30e3; // 30seconds
 
 //Route "console.log()" calls from within the Page context to the main Phantom context (i.e. current "this")
@@ -24,6 +25,15 @@ page.onConsoleMessage = function(msg) {
   } else {
     console.log(msg);
   }
+};
+
+// https://github.com/ariya/phantomjs/wiki/Troubleshooting
+page.onError = function (msg, trace) {
+    console.log(msg);
+    trace.forEach(function(item) {
+        console.log('  ', item.file, ':', item.line);
+    });
+    errorCount += 1;
 };
 
 page.viewportSize = { width: 800, height: 600 }
@@ -66,10 +76,21 @@ function finished() {
 };
 
 function onfinishedTests() {
-  var output = page.evaluate(function() {
-      return JSON.stringify(window.qunitDone);
-  });
-  phantom.exit(JSON.parse(output).failed > 0 ? 1 : 0);
+  var exitCode = 0;
+
+  if (errorCount > 0) {
+    exitCode = 1;
+  }
+  else {
+    var output = page.evaluate(function() {
+        return JSON.stringify(window.qunitDone);
+    });
+    if (JSON.parse(output).failed > 0) {
+      exitCode = 1;
+    }
+  }
+
+  phantom.exit(exitCode);
 };
 
 function addLogging() {
