@@ -86,6 +86,14 @@ class BulkUploadZipFileTest < ActiveSupport::TestCase
     assert extracted.include?(File.join(zip_file.temp_dir, 'extracted', 'greenpaper.pdf').to_s)
   end
 
+  test 'cleanup_extracted_files deletes the files that were unzipped' do
+    zip_file = BulkUpload::ZipFile.new(a_zip_file)
+    extracted = zip_file.extracted_file_paths
+    zip_file.cleanup_extracted_files
+    assert extracted.none? { |path| File.exist?(path) }, 'files should be deleted'
+    refute File.exist?(zip_file.temp_dir), 'temporary dir should be deleted'
+  end
+
   test 'extracted_file_paths ignores OS X resource fork files' do
     zip_file = BulkUpload::ZipFile.new(zip_file_with_os_x_resource_fork)
     extracted = zip_file.extracted_file_paths

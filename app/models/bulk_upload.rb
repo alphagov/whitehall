@@ -90,8 +90,14 @@ class BulkUpload
           map { |f| File.expand_path(f) }
     end
 
+    def cleanup_extracted_files
+      FileUtils.rmtree(temp_dir, secure: true)
+    end
+
     def extract_contents
-      @unzip_output ||= `#{Whitehall.system_binaries[:unzip]} -o -d #{File.join(self.temp_dir, 'extracted')} #{self.temp_location}`
+      unzip = Whitehall.system_binaries[:unzip]
+      destination = File.join(self.temp_dir, 'extracted')
+      @unzip_output ||= `#{unzip} -o -d #{destination} #{self.temp_location}`
     end
 
     def is_a_zip_file
