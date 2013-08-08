@@ -12,39 +12,41 @@
 
 <div class="block world-locations">
   <div class="inner-block">
-    <% @world_locations.each do |type, locations| %>
-      <section id="<%= type.name.pluralize.parameterize %>" class="world-location-type js-filter-block">
-        <header class="type-heading">
-          <h1><%= type.name %></h1>
-          <p><span class="js-filter-count"><%= locations.length %></span> <span class="visuallyhidden">locations</span></p>
-        </header>
-        <div class="content">
-          <% if type === WorldLocationType::WorldLocation %>
-            <% locations.group_by {|location| location.name.first.upcase }.sort.each do |letter, locations| %>
-              <div class="js-filter-block">
-                <h2 class="letter"><%= letter %></h2>
-                <ol class="location-list">
-                  <% locations.each do |location| %>
-                    <%= render partial: 'world_location',
-                          locals: { world_location: location,
-                                    options: { class: 'js-filter-item',
-                                      "data-filter-terms" => "#{location.name} #{location.slug}" } } %>
-                  <% end %>
-                </ol>
-              </div>
-            <% end %>
-          <% else %>
-            <ol class="location-list">
-              <% locations.each do |location| %>
-                <%= render partial: 'world_location',
-                          locals: { world_location: location,
-                                    options: { class: 'js-filter-item',
-                                      "data-filter-terms" => "#{location.name} #{location.slug}" } } %>
+    <% cache @world_locations do %>
+      <% @world_locations.each do |type, locations| %>
+        <section id="<%= type.name.pluralize.parameterize %>" class="world-location-type js-filter-block">
+          <header class="type-heading">
+            <h1><%= type.name %></h1>
+            <p><span class="js-filter-count"><%= locations.length %></span> <span class="visuallyhidden">locations</span></p>
+          </header>
+          <div class="content">
+            <% if type === WorldLocationType::WorldLocation %>
+              <% locations.group_by {|location| location.name.first.upcase }.sort.each do |letter, locations| %>
+                <div class="js-filter-block">
+                  <h2 class="letter"><%= letter %></h2>
+                  <ol class="location-list">
+                    <% locations.each do |location| %>
+                      <%= render partial: 'world_location',
+                            locals: { world_location: location,
+                                      options: { class: 'js-filter-item',
+                                        "data-filter-terms" => "#{location.name} #{location.slug}" } } %>
+                    <% end %>
+                  </ol>
+                </div>
               <% end %>
-            </ol>
-          <% end %>
-        </div>
-      </section>
+            <% else %>
+              <ol class="location-list">
+                <% locations.each do |location| %>
+                  <%= render partial: 'world_location',
+                            locals: { world_location: location,
+                                      options: { class: 'js-filter-item',
+                                        "data-filter-terms" => "#{location.name} #{location.slug}" } } %>
+                <% end %>
+              </ol>
+            <% end %>
+          </div>
+        </section>
+      <% end %>
     <% end %>
     <div class="js-filter-no-results">
       <p>No world locations match that filter.</p>

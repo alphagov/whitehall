@@ -16,19 +16,23 @@
     <% if @topics.any? %>
       <div class="heading-block js-filter-block">
         <div class="content">
-          <%= render partial: "list", locals: { topics: @topics } %>
+          <% cache @topics do %>
+            <%= render partial: "list", locals: { topics: @topics } %>
+          <% end %>
         </div>
       </div>
     <% else %>
       <p>We don't have any topics with published documents at present.</p>
     <% end %>
     <% if @topical_events.any? %>
-      <div class="heading-block js-filter-block">
-          <h1 class="label">Topical events</h1>
-          <div class="content">
-            <%= render partial: "list", locals: { topics: @topical_events } %>
-          </div>
-      </div>
+      <% cache @topical_events do %>
+        <div class="heading-block js-filter-block">
+            <h1 class="label">Topical events</h1>
+            <div class="content">
+              <%= render partial: "list", locals: { topics: @topical_events } %>
+            </div>
+        </div>
+      <% end %>
     <% end %>
     <div class="js-filter-no-results">
       <p>No topics match that filter.</p>

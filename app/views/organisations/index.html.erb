@@ -13,97 +13,108 @@
 
   <div class="block-2">
     <div class="inner-block">
-      <div class="heading-block executive-offices js-filter-block" id="executive-offices">
-        <div class="content">
-          <ol>
-            <% @executive_offices.each do |executive_office| %>
-              <%= content_tag_for :li, executive_office,
-                                  class: 'department js-filter-item',
-                                    "data-filter-terms" => filter_terms(executive_office) do %>
-                <h2 id="<%= executive_office.slug %>" class="<%= executive_office.slug %>">
-                  <%= link_to organisation_path(executive_office), class: logo_classes(class_name: executive_office.organisation_logo_type.class_name, size: 'medium') do %>
-                    <span><%= organisation_logo_name(executive_office, false) %></span>
-                  <% end %>
-                </h2>
+      <% cache @executive_offices do %>
+        <div class="heading-block executive-offices js-filter-block" id="executive-offices">
+          <div class="content">
+            <ol>
+              <% @executive_offices.each do |executive_office| %>
+                <%= content_tag_for :li, executive_office,
+                                    class: 'department js-filter-item',
+                                      "data-filter-terms" => filter_terms(executive_office) do %>
+                  <h2 id="<%= executive_office.slug %>" class="<%= executive_office.slug %>">
+                    <%= link_to organisation_path(executive_office), class: logo_classes(class_name: executive_office.organisation_logo_type.class_name, size: 'medium') do %>
+                      <span><%= organisation_logo_name(executive_office, false) %></span>
+                    <% end %>
+                  </h2>
+                <% end %>
               <% end %>
-            <% end %>
-          </ol>
+            </ol>
+          </div>
         </div>
-      </div>
+      <% end %>
 
-      <div class="heading-block ministerial-departments js-hide-department-children js-filter-block">
-        <header id="departments" class="type-heading">
-          <h1>Ministerial departments</h1>
-          <%= organisation_count_paragraph(@ministerial_departments) %>
-        </header>
-        <div class="content">
-          <ol>
-            <% @ministerial_departments.each do |ministerial_department| %>
-              <%= content_tag_for :li, ministerial_department,
-                                  class: 'department js-filter-item',
-                                    "data-filter-terms" => filter_terms(ministerial_department) do %>
-                <h2 id="<%= ministerial_department.slug %>" class="<%= ministerial_department.slug %>">
-                  <%= link_to organisation_path(ministerial_department), class: logo_classes(class_name: ministerial_department.organisation_logo_type.class_name, size: 'medium') do %>
-                    <span><%= organisation_logo_name(ministerial_department, false) %></span>
-                  <% end %>
-                </h2>
-                <%= render partial: 'works_with', locals: { organisation: ministerial_department, link_to_homepage: true } %>
+      <% cache @ministerial_departments do %>
+        <div class="heading-block ministerial-departments js-hide-department-children js-filter-block">
+          <header id="departments" class="type-heading">
+            <h1>Ministerial departments</h1>
+            <%= organisation_count_paragraph(@ministerial_departments) %>
+          </header>
+          <div class="content">
+            <ol>
+              <% @ministerial_departments.each do |ministerial_department| %>
+                <%= content_tag_for :li, ministerial_department,
+                                    class: 'department js-filter-item',
+                                      "data-filter-terms" => filter_terms(ministerial_department) do %>
+                  <h2 id="<%= ministerial_department.slug %>" class="<%= ministerial_department.slug %>">
+                    <%= link_to organisation_path(ministerial_department), class: logo_classes(class_name: ministerial_department.organisation_logo_type.class_name, size: 'medium') do %>
+                      <span><%= organisation_logo_name(ministerial_department, false) %></span>
+                    <% end %>
+                  </h2>
+                  <%= render partial: 'works_with', locals: { organisation: ministerial_department, link_to_homepage: true } %>
+                <% end %>
               <% end %>
-            <% end %>
-          </ol>
+            </ol>
+          </div>
         </div>
-      </div>
-      <div class="heading-block other-departments js-filter-block js-hide-department-children">
-        <header id="non-ministerial-departments" class="type-heading">
-          <h1>Non ministerial departments</h1>
-          <%= organisation_count_paragraph(@non_ministerial_departments) %>
-        </header>
-        <div class="content">
-          <ol class="index-list">
-            <% @non_ministerial_departments.each do |organisation| %>
-              <%= content_tag_for :li, organisation, class: 'js-filter-item department',
-                            "data-filter-terms" => filter_terms(organisation) do %>
-                <%= link_to organisation.name, organisation_path(organisation), id: organisation.slug, class: 'department-link' %>
-                <%= render partial: 'works_with', locals: { organisation: organisation } %>
-              <% end %>
-            <% end %>
-          </ol>
-        </div>
-      </div>
+      <% end %>
 
-      <div class="heading-block other-departments js-filter-block">
-        <header id="agencies-and-public-bodies" class="type-heading">
-          <h1>Agencies &amp; other public bodies</h1>
-          <%= organisation_count_paragraph(@agencies_and_government_bodies) %>
-        </header>
-        <div class="content">
-          <ol class="index-list">
-            <% @agencies_and_government_bodies.each do |organisation| %>
-              <%= content_tag_for :li, organisation, class: 'js-filter-item',
-                            "data-filter-terms" => filter_terms(organisation) do %>
-                <%= link_to organisation.name, organisation_path(organisation) %>
+      <% cache @non_ministerial_departments do %>
+        <div class="heading-block other-departments js-filter-block js-hide-department-children">
+          <header id="non-ministerial-departments" class="type-heading">
+            <h1>Non ministerial departments</h1>
+            <%= organisation_count_paragraph(@non_ministerial_departments) %>
+          </header>
+          <div class="content">
+            <ol class="index-list">
+              <% @non_ministerial_departments.each do |organisation| %>
+                <%= content_tag_for :li, organisation, class: 'js-filter-item department',
+                              "data-filter-terms" => filter_terms(organisation) do %>
+                  <%= link_to organisation.name, organisation_path(organisation), id: organisation.slug, class: 'department-link' %>
+                  <%= render partial: 'works_with', locals: { organisation: organisation } %>
+                <% end %>
               <% end %>
-            <% end %>
-          </ol>
+            </ol>
+          </div>
         </div>
-      </div>
+      <% end %>
 
-      <div class="heading-block other-departments js-filter-block">
-        <header id="public-corporations" class="type-heading">
-          <h1>Public corporations</h1>
-          <%= organisation_count_paragraph(@public_corporations, with_live_on_govuk: false) %>
-        </header>
-        <div class="content">
-          <ol class="index-list">
-            <% @public_corporations.each do |organisation| %>
-              <%= content_tag_for :li, organisation, class: 'js-filter-item',
-                            "data-filter-terms" => filter_terms(organisation) do %>
-                <%= link_to organisation.name, organisation_path(organisation) %>
+      <% cache @agencies_and_government_bodies do %>
+        <div class="heading-block other-departments js-filter-block">
+          <header id="agencies-and-public-bodies" class="type-heading">
+            <h1>Agencies &amp; other public bodies</h1>
+            <%= organisation_count_paragraph(@agencies_and_government_bodies) %>
+          </header>
+          <div class="content">
+            <ol class="index-list">
+              <% @agencies_and_government_bodies.each do |organisation| %>
+                <%= content_tag_for :li, organisation, class: 'js-filter-item',
+                              "data-filter-terms" => filter_terms(organisation) do %>
+                  <%= link_to organisation.name, organisation_path(organisation) %>
+                <% end %>
               <% end %>
-            <% end %>
-          </ol>
+            </ol>
+          </div>
         </div>
-      </div>
+      <% end %>
+
+      <% cache @public_corporations do %>
+        <div class="heading-block other-departments js-filter-block">
+          <header id="public-corporations" class="type-heading">
+            <h1>Public corporations</h1>
+            <%= organisation_count_paragraph(@public_corporations, with_live_on_govuk: false) %>
+          </header>
+          <div class="content">
+            <ol class="index-list">
+              <% @public_corporations.each do |organisation| %>
+                <%= content_tag_for :li, organisation, class: 'js-filter-item',
+                              "data-filter-terms" => filter_terms(organisation) do %>
+                  <%= link_to organisation.name, organisation_path(organisation) %>
+                <% end %>
+              <% end %>
+            </ol>
+          </div>
+        </div>
+      <% end %>
 
     </div>
     <div class="js-filter-no-results">
