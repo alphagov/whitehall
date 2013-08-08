@@ -138,21 +138,6 @@ Given /^the worldwide organisation "([^"]*)" exists$/ do |worldwide_organisation
   create(:organisation_type, name: "Other") #Needed for sorting
 end
 
-When /^I begin editing a new worldwide organisation "([^"]*)"$/ do |worldwide_organisation_name|
-  visit new_admin_worldwide_organisation_path
-  fill_in "Name", with: worldwide_organisation_name
-  fill_in "Summary", with: "Worldwide organisation summary"
-  fill_in "Description", with: "Worldwide **organisation** description"
-end
-
-When /^I select world location "([^"]*)"$/ do |world_location_name|
-  select world_location_name, from: "World location"
-end
-
-When /^I click save$/ do
-  click_on "Save"
-end
-
 Given /^a worldwide organisation "([^"]*)" with offices "([^"]*)" and "([^"]*)"$/ do |worldwide_organisation_name, contact1_title, contact2_title|
   worldwide_organisation = create(:worldwide_organisation, name: worldwide_organisation_name)
   worldwide_organisation.add_office_to_home_page!(create(:worldwide_office, worldwide_organisation: worldwide_organisation, contact: create(:contact, title: contact1_title)))
@@ -174,16 +159,6 @@ Then /^the "([^"]*)" should be shown as the main office on the public website$/ 
   visit worldwide_organisation_path(worldwide_organisation)
   within "#{record_css_selector(worldwide_office)}.main" do
     assert page.has_content?(contact_title)
-  end
-end
-
-Then /^he is listed as the supporting position of "([^"]*)" on the worldwide organisation page$/ do |position_name|
-  worldwide_organisation = WorldwideOrganisation.last
-  person = Person.last
-  visit worldwide_organisation_path(worldwide_organisation)
-  within record_css_selector(person) do
-    assert page.has_content?(person.name)
-    assert page.has_css?('p.role', text: position_name)
   end
 end
 

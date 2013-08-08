@@ -23,12 +23,6 @@ Then /^I should see a link to the policy advisory group "([^"]*)"$/ do |group_na
   assert page.has_css?('a', text: group_name)
 end
 
-Then /^I should see the policy advisory group "([^"]*)" hidden behind a "([^"]*)" link$/ do |group_name, button_text|
-  group = PolicyAdvisoryGroup.where(name: group_name).first
-  assert page.has_css?(".visuallyhidden #{record_css_selector(group)}")
-  assert page.has_css?(".toggle.show-other-content", text: button_text)
-end
-
 When /^I visit the policy advisory group "([^"]*)"$/ do |group_name|
   group = PolicyAdvisoryGroup.where(name: group_name).first
   visit policy_advisory_group_path(group)
