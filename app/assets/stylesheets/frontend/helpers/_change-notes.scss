@@ -11,10 +11,8 @@
     white-space: nowrap;
     cursor: pointer;
 
-    &:focus,
     &:hover {
       text-decoration: underline;
-      outline: none;
     }
   }
 

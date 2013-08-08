@@ -3,15 +3,16 @@ a {
   color: $link-colour;
   text-decoration: none;
 
-  &:hover,
-  &:focus {
-    color: $link-colour;
+  &:visited {
+    color: $link-visited-colour
+  }
+  &:hover {
+    color: $link-hover-colour;
     text-decoration: underline;
   }
   &:active {
-    color: $orange
+    color: $link-active-colour
   }
-
   &[rel="external"] {
     @include external-link-13-no-hover;
     @include media(tablet) {

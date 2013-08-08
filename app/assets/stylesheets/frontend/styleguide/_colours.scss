@@ -4,6 +4,10 @@
 // https://github.com/alphagov/govuk_frontend_toolkit/blob/master/app/assets/stylesheets/_colours.scss
 // These are our custom extras
 
+// Overriding frontend toolkit
+$link-active-colour: $orange;
+$link-hover-colour: $link-colour;
+
 $detailed-guidance-brand: $light-blue;
 $detailed-guidance-background: #fff;
 
