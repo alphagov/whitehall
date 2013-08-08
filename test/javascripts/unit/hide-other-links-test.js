@@ -16,6 +16,16 @@ module("hide-other-things: hides all but first element in collection", {
       +     '<span><a href="http://en.wikipedia.org/wiki/blue">Blue</a></span> and '
       +     '<span><a href="http://en.wikipedia.org/wiki/yello">Yellow</a></span>.'
       +   '</dd>'
+      +   '<dt>The Two Main Four Main Things</dt>'
+      +   '<dd class="main-things js-hide-other-links">'
+      +     '<a href="http://en.wikipedia.org/wiki/animals">Animals</a>, '
+      +     '<a href="http://en.wikipedia.org/wiki/colours">Colours</a>, '
+      +   '</dd>'
+      +   '<dt>The Two Main Really Long Words</dt>'
+      +   '<dd class="long-words js-hide-other-links">'
+      +     '<a href="http://en.wikipedia.org/wiki/Lopado­temacho­selacho­galeo­kranio­leipsano­drim­hypo­trimmato­silphio­parao­melito­katakechy­meno­kichl­epi­kossypho­phatto­perister­alektryon­opte­kephallio­kigklo­peleio­lagoio­siraio­baphe­tragano­pterygon">Lopado­temacho­selacho­galeo­kranio­leipsano­drim­hypo­trimmato­silphio­parao­melito­katakechy­meno­kichl­epi­kossypho­phatto­perister­alektryon­opte­kephallio­kigklo­peleio­lagoio­siraio­baphe­tragano­pterygon</a>, '
+      +     '<a href="http://en.wikipedia.org/wiki/Pneumonoultramicroscopicsilicovolcanoconiosis">Pneumonoultramicroscopicsilicovolcanoconiosis</a>, '
+      +   '</dd>'
       + '</dl>');
     $('#qunit-fixture').append(this.$list);
   }
@@ -64,3 +74,14 @@ test("check class can be used to force elements to be visible", function() {
   $('.js-hide-other-links').hideOtherLinks({ alwaysVisibleClass: '.force' });
   ok($('.animals .other-content').length > 0 && $('.animals .other-content').children().length == 2);
 });
+
+test("when there are only two things, they are not hidden", function() {
+  $('.js-hide-other-links').hideOtherLinks();
+  ok($('.main-things .other-content').length === 0);
+});
+
+test("when there are two really long things, the second is hidden", function() {
+  $('.js-hide-other-links').hideOtherLinks();
+  ok($('.long-words .other-content').children().length == 1);
+});
+
