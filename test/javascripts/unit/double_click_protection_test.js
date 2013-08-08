@@ -12,7 +12,7 @@ test('clicking submit input disables the button', function() {
   var $submit_tag = this.$form.find('input[type=submit]');
   ok(!$submit_tag.prop('disabled'));
 
-  $submit_tag.on('click', function (e) {
+  this.$form.on('submit', function (e) {
     e.preventDefault();
     ok($submit_tag.prop('disabled'));
   });
@@ -25,7 +25,7 @@ test('clicking submit input creates a hidden input with the same name and value'
 
   var $submit_tag = this.$form.find('input[type=submit]');
 
-  $submit_tag.on('click', function (e) {
+  this.$form.on('submit', function (e) {
     e.preventDefault();
     equal($.find('form input[type=hidden][name=input_name][value=Save]').length, 1);
   });
