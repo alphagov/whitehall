@@ -39,6 +39,9 @@
 
   // helpers shared with frontend and admin
   @import "../shared/helpers/_player-container.scss";
+
+  // Support for bar charts
+  @import "helpers/_magna-charta.scss";
 }
 
 
