@@ -102,7 +102,6 @@
     <% end %>
 
     <%= submit_tag "Save", class: 'btn btn-primary' %>
-    <%= hidden_field_tag 'speed_save_convert', '' %>
-    <%= submit_tag "Save & Convert to Draft & Next", class: 'btn btn-success', id: "js-speed-convert" %>
+    <%= submit_tag "Save & Convert to Draft & Next", class: 'btn btn-success', id: "js-speed-convert", name: "speed_save_convert" %>
   <% end %>
 </div>
