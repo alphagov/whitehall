@@ -21,6 +21,7 @@ before_install:
   - "sh -e /etc/init.d/xvfb start"
   - cp config/database.travis.yml config/database.yml
   - mkdir clean-uploads
+  - mkdir infected-uploads
 branches:
   except:
     - master
