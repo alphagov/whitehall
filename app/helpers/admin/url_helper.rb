@@ -48,7 +48,7 @@ module Admin::UrlHelper
   end
 
   def admin_users_header_link
-    admin_header_link "Users", admin_users_path
+    admin_header_link "All users", admin_users_path
   end
 
   def admin_fields_of_operation_header_link

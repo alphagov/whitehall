@@ -9,15 +9,6 @@ body {
   padding-bottom: 40px;
 }
 
-header {
-  a:hover {
-    color: $white;
-  }
-    .open_website {
-    margin-right: 4em;
-  }
-}
-
 .row-fluid {
   .nav li + .nav-header {
     clear: both;
@@ -78,26 +69,20 @@ header {
           display: block;
         }
       }
-    }
-
-    .create-new {
-      position: relative;
-      strong {
-        display: block;
-        overflow: hidden;
-        padding: 9px 10px 11px;
-        line-height: 19px;
-        cursor: pointer;
-        &:hover {
-          color: #fff;
-        }
-
+      &.create-new {
+        position: relative;
         span {
-          position: absolute;
-          left: -9999em;
+          padding: 9px 10px 11px;
+          line-height: 19px;
+          cursor: pointer;
+          &:hover {
+            color: #fff;
+          }
         }
       }
     }
+
+
   }
 }
 
@@ -134,18 +119,25 @@ header {
 
 .navbar {
   .website {
-    background-color: #000;
-    width: 100%;
-    .brand {
-      margin-left: 0;
-      &:hover {
-        color: $white;
+    li {
+      &.brand {
+        margin-left: 0;
+        padding-right: 0;
+        a {
+          color: $white;
+          padding: 0;
+          &:after {
+            content: "|";
+            margin-left: $gutter-two-thirds;
+          }
+        }
       }
-      &:after {
-        content: "|";
-        margin-left: $gutter-two-thirds;
+      &:last-child a:after {
+        content: "";
       }
     }
+
+
     @include media(tablet) {
       width: auto;
     }

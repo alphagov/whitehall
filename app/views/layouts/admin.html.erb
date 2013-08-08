@@ -35,13 +35,11 @@
             <span class="icon-bar"></span>
           </a>
           <ul class="nav website">
-            <li><%= link_to "IG Admin", admin_root_path, class: "brand" %></li>
-            <li><%= link_to "View website", website_home_url, class: "open_website" %></li>
+            <li class="brand"><%= link_to "Dashboard", admin_root_path %></li>
+            <li class="brand"><%= link_to "View website", website_home_url %></li>
           </ul>
 
           <ul class="nav pull-right">
-            <%= admin_users_header_link %>
-            <%= admin_imports_header_link %>
             <li class="session-info-wrapper">
               <div id="session" class="session_info">
                 <% if user_signed_in? %>
@@ -52,6 +50,8 @@
                 <% end %>
               </div>
             </li>
+            <%= admin_users_header_link  %>
+            <%= admin_imports_header_link %>
           </ul>
         </div>
 
@@ -59,7 +59,7 @@
             <nav class="nav-collapse">
               <ul class="nav">
                 <li class="create-new js-create-new">
-                <strong><span>Create new </span>+</strong>
+                  <span>Create new<br />document</span>
                   <%= document_creation_dropdown %>
                 </li>
                 <%= admin_documents_header_link %>
