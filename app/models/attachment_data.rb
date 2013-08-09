@@ -56,6 +56,8 @@ class AttachmentData < ActiveRecord::Base
   end
 
   # On development without the downloaded attachments they will be flagged as pending.
+  # Need to specify clean upload root for the clean check as incoming files have the
+  # incoming path set.
   def virus_status
     if path.starts_with?(Whitehall.clean_uploads_root) && File.exist?(path)
       :clean
@@ -67,8 +69,17 @@ class AttachmentData < ActiveRecord::Base
   end
 
   def infected?
-    infected_path = path.gsub(Whitehall.clean_uploads_root, Whitehall.infected_uploads_root)
-    File.exist?(infected_path)
+    incoming_path = path
+    clean_path = path
+    infected_path_clean = incoming_path.gsub!(Whitehall.clean_uploads_root, Whitehall.infected_uploads_root)
+    infected_path_incoming = clean_path.gsub!(Whitehall.incoming_uploads_root, Whitehall.infected_uploads_root)
+    if infected_path_clean
+      File.exist?(infected_path_clean)
+    elsif infected_path_incoming
+      File.exist?(infected_path_incoming)
+    else
+      true
+    end
   end
 
   def update_file_attributes
