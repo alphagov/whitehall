@@ -389,6 +389,7 @@ DEPENDENCIES
   simplecov
   simplecov-rcov
   slimmer (= 3.18.0)
+  slop (= 3.4.5)
   statsd-ruby (~> 1.2.1)
   test-queue
   test_track!
