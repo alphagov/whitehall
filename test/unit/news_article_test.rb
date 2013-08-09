@@ -79,16 +79,6 @@ class NewsArticleTest < ActiveSupport::TestCase
     assert build(:news_article, state: 'draft', first_published_at: nil).valid_as_draft?
   end
 
-  test 'imported news article that are not valid_as_draft? do not create duplicate errors' do
-    news_article = build(:news_article, state: 'imported', first_published_at: nil)
-
-    refute news_article.valid_as_draft?
-    assert_equal ["can't be blank"], news_article.errors[:first_published_at]
-
-    refute news_article.valid_as_draft?
-    assert_equal ["can't be blank"], news_article.errors[:first_published_at]
-  end
-
   [:draft, :scheduled, :published, :submitted, :rejected].each do |state|
     test "#{state} news article is not valid when the news article type is 'imported-awaiting-type'" do
       news_article = build(:news_article, state: state, news_article_type: NewsArticleType.find_by_slug('imported-awaiting-type'))
