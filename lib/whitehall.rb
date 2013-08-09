@@ -11,6 +11,7 @@ module Whitehall
   mattr_accessor :skip_safe_html_validation
   mattr_accessor :govuk_delivery_client
   mattr_accessor :public_host
+  mattr_accessor :default_cache_max_age
 
   revision_file = "#{Rails.root}/REVISION"
   if File.exists?(revision_file)
@@ -88,10 +89,6 @@ module Whitehall
 
     def admin_whitelist?(request)
       !Rails.env.production? || ADMIN_HOSTS.include?(request.host)
-    end
-
-    def default_cache_max_age
-      30.minutes
     end
 
     def platform

@@ -35,7 +35,7 @@ class UploadAccessTest < ActionDispatch::IntegrationTest
     assert_equal 200, response.status
     assert_equal content_type, response.content_type
     assert_equal nginx_path_to_clean_upload(upload), response.headers['X-Accel-Redirect']
-    assert_equal "max-age=1800, public", response.header['Cache-Control']
+    assert_equal "max-age=#{Whitehall.default_cache_max_age}, public", response.header['Cache-Control']
   end
 
   def assert_sent_private_upload(upload, content_type)

@@ -221,6 +221,7 @@ module DocumentControllerTestHelpers
       test "#{document_type} should set an expiry of 30 minutes" do
         edition = create("published_#{document_type}")
         get :show, id: edition.document
+        Whitehall.stubs(:default_cache_max_age).returns(30.minutes)
         assert_equal 'max-age=1800, public', response.headers['Cache-Control']
       end
     end
