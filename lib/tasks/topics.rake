@@ -21,7 +21,7 @@ namespace :topics do
 
     [Announcement, Publicationesque].each do |edition_type|
       logger.info "-- Associating #{edition_type.name.downcase.pluralize} directly with policies' topics"
-      edition_type.includes(:policy_topics).find_each do |announcement|
+      edition_type.find_each do |announcement|
         TopicTransfer.new(logger, announcement).copy_topics_from_policies
       end
     end
