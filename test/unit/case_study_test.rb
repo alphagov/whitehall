@@ -38,14 +38,4 @@ class CaseStudyTest < ActiveSupport::TestCase
     refute build(:case_study, state: 'imported', first_published_at: nil).valid_as_draft?
     assert build(:case_study, state: 'draft', first_published_at: nil).valid_as_draft?
   end
-
-  test 'imported case study that are not valid_as_draft? do not create duplicate errors' do
-    case_study = build(:case_study, state: 'imported', first_published_at: nil)
-
-    refute case_study.valid_as_draft?
-    assert_equal ["can't be blank"], case_study.errors[:first_published_at]
-
-    refute case_study.valid_as_draft?
-    assert_equal ["can't be blank"], case_study.errors[:first_published_at]
-  end
 end

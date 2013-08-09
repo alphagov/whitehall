@@ -626,6 +626,14 @@ class EditionTest < ActiveSupport::TestCase
     end
   end
 
+  test "errors_as_draft does not have a side effect on the editions errors object" do
+    edition = build("imported_publication", publication_type: PublicationType::ImportedAwaitingType)
+    edition.valid?
+    assert_equal({}, edition.errors.messages)
+    edition.errors_as_draft
+    assert_equal({}, edition.errors.messages)
+  end
+
   test "should store title in multiple languages" do
     edition = build(:edition)
     with_locale(:en) { edition.title = 'english-title' }
