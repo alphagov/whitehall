@@ -8,6 +8,7 @@ env
 # Generate directories for upload tests
 mkdir -p ./incoming-uploads
 mkdir -p ./clean-uploads
+mkdir -p ./infected-uploads
 mkdir -p ./attachment-cache
 
 time bundle install --path "${HOME}/bundles/${JOB_NAME}" --deployment

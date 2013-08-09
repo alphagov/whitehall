@@ -13,6 +13,7 @@
 /coverage
 /test/reports
 /incoming-uploads
+/infected-uploads
 /clean-uploads
 /attachment-cache
 /*_import_errors.csv

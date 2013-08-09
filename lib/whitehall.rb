@@ -133,6 +133,10 @@ module Whitehall
       File.join(uploads_root, 'clean-uploads')
     end
 
+    def infected_uploads_root
+      File.join(uploads_root, 'infected-uploads')
+    end
+
     def government_search_index_path
       '/government'
     end
