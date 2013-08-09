@@ -170,7 +170,6 @@ class AttachmentDataTest < ActiveSupport::TestCase
   test "should return virus status as pending when in incoming folder" do
     test_pdf = fixture_file_upload('simple.pdf', 'application/pdf')
     attachment = create(:attachment_data, file: test_pdf)
-    refute attachment.infected?, "Should not be infected"
     assert_equal :pending, attachment.virus_status
   end
 

@@ -55,31 +55,25 @@ class AttachmentData < ActiveRecord::Base
     end
   end
 
-  # On development without the downloaded attachments they will be flagged as pending.
-  # Need to specify clean upload root for the clean check as incoming files have the
-  # incoming path set.
   def virus_status
-    if path.starts_with?(Whitehall.clean_uploads_root) && File.exist?(path)
-      :clean
-    elsif infected?
+    if File.exists?(infected_path)
       :infected
+    elsif File.exists?(clean_path)
+      :clean
     else
       :pending
     end
   end
 
-  def infected?
-    incoming_path = path
-    clean_path = path
-    infected_path_clean = incoming_path.gsub!(Whitehall.clean_uploads_root, Whitehall.infected_uploads_root)
-    infected_path_incoming = clean_path.gsub!(Whitehall.incoming_uploads_root, Whitehall.infected_uploads_root)
-    if infected_path_clean
-      File.exist?(infected_path_clean)
-    elsif infected_path_incoming
-      File.exist?(infected_path_incoming)
-    else
-      true
-    end
+  # Newly instantiated AttachmentData will report the file path as in the incoming
+  # directory because of the way Whitehall::QuarantinedFileStorage works. This method
+  # will return the expected clean path, regardless of what path reports.
+  def clean_path
+    path.gsub(Whitehall.incoming_uploads_root, Whitehall.clean_uploads_root)
+  end
+
+  def infected_path
+    clean_path.gsub(Whitehall.clean_uploads_root, Whitehall.infected_uploads_root)
   end
 
   def update_file_attributes
