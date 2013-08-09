@@ -57,7 +57,7 @@ class AttachmentData < ActiveRecord::Base
 
   # On development without the downloaded attachments they will be flagged as pending.
   def virus_status
-    if File.exist?(path)
+    if path.starts_with?(Whitehall.clean_uploads_root) && File.exist?(path)
       :clean
     elsif infected?
       :infected
