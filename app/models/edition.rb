@@ -514,13 +514,15 @@ class Edition < ActiveRecord::Base
 
   def errors_as_draft
     if imported?
+      original_errors = self.errors.dup
       begin
         self.trying_to_convert_to_draft = true
         self.try_draft
-        return valid? ? [] : errors
+        return valid? ? [] : errors.dup
       ensure
         self.back_to_imported
         self.trying_to_convert_to_draft = false
+        self.errors.initialize_dup(original_errors)
       end
     else
       valid? ? [] : errors
