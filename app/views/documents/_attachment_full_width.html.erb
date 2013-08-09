@@ -1,7 +1,6 @@
 <%
   attachments = AttachmentsPresenter.new(document)
   title = t('document.headings.attachments', count: attachments.length) unless local_assigns.include?(:title)
-  summary = document.summary unless local_assigns.include?(:summary)
   published_on = '' unless local_assigns.include?(:published_on)
 %>
 <section class="heading-block attachment-full-width">
@@ -10,27 +9,16 @@
     <div class="content">
       <article>
         <div class="govspeak">
-          <div class="first-attachment">
+          <% attachments.attachments.each do |attachment| %>
             <%= render partial: "documents/attachment",
-                      object: attachments.first,
-                      locals: { alternative_format_contact_email: document.alternative_format_contact_email,
-                        extra_description: summary,
+                      object: attachment,
+                      locals: {
+                        hide_thumbnail: false,
+                        alternative_format_contact_email: document.alternative_format_contact_email,
                         published_on: published_on } %>
-          </div>
-          <% if attachments.more_than_one? %>
-            <div class="attachment-without-thumbnail">
-              <% attachments.remaining.each do |attachment| %>
-                <%= render partial: "documents/attachment",
-                            object: attachment,
-                            locals: { hide_thumbnail: false,
-                                      alternative_format_contact_email: document.alternative_format_contact_email } %>
-              <% end %>
-            </div>
           <% end %>
         </div>
       </article>
     </div>
-  <% else %>
-    <p class="extra-description summary"><%= summary %></p>
   <% end %>
 </section>

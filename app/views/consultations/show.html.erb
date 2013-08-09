@@ -31,8 +31,8 @@
           <div class="consultation-dates">
             <p>This consultation closes on <span><%= absolute_date(@document.closing_on, class: 'closing-on') %></span></p>
           </div>
-          <div class="summary">
-            <div class="summary-inner">
+          <div class="consultation-summary">
+            <div class="consultation-summary-inner">
               <h2>Summary</h2>
               <p><%= @document.summary %></p>
               <% if @document.external? %>
