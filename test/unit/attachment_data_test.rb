@@ -167,16 +167,16 @@ class AttachmentDataTest < ActiveSupport::TestCase
     assert_equal "\nThis is a test pdf.\n\n\n", attachment.extracted_text
   end
 
-  test "should return virus status as pending when in clean folder" do
+  test "should return virus status as pending when in incoming folder" do
     test_pdf = fixture_file_upload('simple.pdf', 'application/pdf')
     attachment = create(:attachment_data, file: test_pdf)
     assert_equal :pending, attachment.virus_status
   end
 
-  test "should return virus status as failed when not in incoming or clean folders" do
+  test "should return virus status as failed when in infected folder" do
     test_pdf = fixture_file_upload('simple.pdf', 'application/pdf')
     attachment = create(:attachment_data, file: test_pdf)
-    FileUtils.rm attachment.file.path
+    VirusScanHelpers.simulate_virus_scan_infected(attachment.file)
     assert_equal :infected, attachment.virus_status
   end
 
