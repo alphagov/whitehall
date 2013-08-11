@@ -137,7 +137,7 @@ module OrganisationHelper
     link_to 'See all our policies', url
   end
 
-  def organisations_link_array(lead_organisations, organisations)
+  def organisations_link_array(lead_organisations, organisations, prefix = nil)
     all_organisations = []
     lead_organisations.map do |o|
       all_organisations << { organisation: o, lead: true }
@@ -147,7 +147,7 @@ module OrganisationHelper
     end
 
     all_organisations.map do |o|
-      content_tag_for :span, o[:organisation], ({class: "lead"} if o[:lead]) do
+      content_tag_for :span, o[:organisation], prefix, ({class: "lead"} if o[:lead]) do
         link_to o[:organisation].name, o[:organisation]
       end
     end
