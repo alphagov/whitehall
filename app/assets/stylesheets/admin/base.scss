@@ -1,6 +1,20 @@
-@import "_conditionals";
-@import "_shims";
-@import "_colours";
+
+// STYLEGUIDE
+// From the https://github.com/alphagov/govuk_frontend_toolkit
+@import "_colours.scss";
+@import "_conditionals.scss";
+@import "_css3.scss";
+@import "_shims.scss";
+@import "_typography.scss";
+
+// Frontend styleguide is used for rendering govspeak and some other things
+// it probably shouldn't be used for (e.g. $gutter).
+@import "frontend/styleguide/_dimensions.scss";
+@import "frontend/styleguide/_typography.scss";
+@import "frontend/styleguide/_colours.scss";
+@import "frontend/styleguide/_right-to-left.scss";
+
+
 
 @import "alerts.scss";
 @import "change_notes.scss";
@@ -20,7 +34,7 @@
 @import "lists.scss";
 @import "get_involved.scss";
 
-// Helpers
+// HELPERS
 // Objects that can be used in more than one place throughout the admin
 @import "helpers/_document_list.scss";
 @import "helpers/_navigation_controls.scss";
@@ -29,8 +43,7 @@
 // helpers shared with frontend
 @import "../shared/helpers/_player-container.scss";
 
-
-// Views
+// VIEWS
 // Controller specific styles. Usually named after the controller whos views
 // they relate to
 @import "views/_dashboard.scss";
