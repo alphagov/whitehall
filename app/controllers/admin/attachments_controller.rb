@@ -24,9 +24,10 @@ class Admin::AttachmentsController < Admin::BaseController
   def create
     @attachment = Attachment.new(params[:attachment])
     if @attachment.save
-      # NOTE: We have to do this merry dance because of the way attachable sets up a
-      # has_many :through relationship with editions. Once we drop the join model, we
-      # can simply build and save the attachment as normal.
+      # NOTE: We have to do this merry dance because of the way
+      # attachable sets up a has_many :through relationship with
+      # editions. Once we drop the join model, we can simply build and
+      # save the attachment as normal.
       @attachable.attachments << @attachment
       redirect_to attachable_attachments_path(@attachable), notice: "Attachment '#{@attachment.filename}' uploaded"
     else
