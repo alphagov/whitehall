@@ -33,6 +33,10 @@ class Attachment < ActiveRecord::Base
     allow_blank: true, greater_than: 0
   }
 
+  scope :with_filename, ->(basename) {
+    joins(:attachment_data).where('attachment_data.carrierwave_file = ?', basename)
+  }
+
   def self.parliamentary_sessions
     (1951..Time.zone.now.year).to_a.reverse.map do |year|
       [Date.new(year).strftime('%Y'), Date.new(year + 1).strftime('%y')].join('-')

@@ -1,6 +1,15 @@
 require 'tmpdir'
 require 'open3'
 
+# There are two ways to create and use a BulkUpload instance. You can
+# either a) call BulkUpload.from_files, which will build new Attachment
+# instances for you, or b) call BulkUpload.new and then assign a hash
+# (in a accepts_nested_attributes_for compliant format) via the
+# attachments_attributes= method.
+#
+# Use a) when rendering a form prompting for user input, and b) when
+# somebody has filled the form in, and is trying to save their changes.
+
 class BulkUpload
   extend ActiveModel::Naming
   include ActiveModel::Validations
@@ -8,18 +17,31 @@ class BulkUpload
 
   validate :attachments_are_valid?
 
-  attr_accessor :attachments
+  attr_reader :attachments
 
-  def self.from_files(file_paths)
-    attachment_params = file_paths.map do |file|
-      { attachment_data_attributes: { file: File.open(file) } }
+  def self.from_files(edition, file_paths)
+    new(edition).tap do |bulk_upload|
+      file_paths.each { |path| bulk_upload.build_attachment_for_file(path) }
     end
-
-    new(attachments: attachment_params)
   end
 
-  def initialize(params={})
-    @attachments = params.fetch(:attachments, []).map {|p| Attachment.new(p) }
+  def initialize(edition)
+    @edition = edition
+    @attachments = []
+  end
+
+  def build_attachment_for_file(path)
+    attachment = find_attachment_with_file(path) || Attachment.new
+    attachment.attachment_data_attributes = { file: File.open(path) }
+    @attachments << attachment
+  end
+
+  def attachments_attributes=(attributes)
+    @attachments = attributes.map do |index, params|
+      attachment_attrs = params.except(:attachment_data_attrs)
+      data_attrs = params.fetch(:attachment_data_attributes, {})
+      existing_attachment(attachment_attrs, data_attrs) || Attachment.new(params)
+    end
   end
 
   def to_model
@@ -30,9 +52,15 @@ class BulkUpload
     false
   end
 
-  def save_attachments_to_edition(edition)
+  def save_attachments
     if valid?
-      edition.attachments << attachments
+      attachments.each do |attachment|
+        if attachment.new_record?
+          EditionAttachment.create!(edition: @edition, attachment: attachment)
+        else
+          attachment.save!
+        end
+      end
     else
       false
     end
@@ -40,9 +68,29 @@ class BulkUpload
 
   def attachments_are_valid?
     attachments.each { |attachment| attachment.valid? }
-    unless attachments.all? { |attachment| attachment.valid? }
+    if attachments.all? { |attachment| attachment.valid? }
+      true
+    else
       errors[:base] << 'Please enter missing fields for each attachment'
+      false
     end
+  end
+
+  private
+
+  def find_attachment_with_file(path)
+    @edition.attachments.with_filename(File.basename(path)).first
+  end
+
+  def existing_attachment(attachment_attrs, data_attrs)
+    attachment = Attachment.find(attachment_attrs[:id])
+  rescue ActiveRecord::RecordNotFound
+    nil
+  else
+    attachment.attributes = attachment_attrs
+    attachment.attachment_data = AttachmentData.new(
+        data_attrs.merge(to_replace_id: attachment.attachment_data.id))
+    attachment
   end
 
   class ZipFile

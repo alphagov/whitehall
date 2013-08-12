@@ -1,56 +1,104 @@
 require 'test_helper'
 
-
 class BulkUploadTest < ActiveSupport::TestCase
 
   def fixture_file(filename)
     File.open(File.join(Rails.root, 'test', 'fixtures', filename))
   end
 
-  def valid_attachments
-    [ build(:attachment), build(:attachment) ]
+  def attachments_params(*pairs)
+    {}.tap do |params|
+      pairs.each_with_index do |pair, i|
+        attachment, data = pair
+        params[i.to_s] = attachment.merge(attachment_data_attributes: data)
+      end
+    end
   end
 
-  def invalid_attachments
-    [ build(:attachment, title: ''), build(:attachment) ]
+  # Parameters posted to #create for attachments with new filenames
+  def new_attachments_params
+    attachments_params(
+      [{ title: 'Title 1' }, { file: fixture_file('whitepaper.pdf') }],
+      [{ title: 'Title 2' }, { file: fixture_file('greenpaper.pdf') }]
+    )
   end
 
-  test "can be instantiated from an array of file paths" do
-    files = [ fixture_file('greenpaper.pdf'), fixture_file('whitepaper.pdf') ]
-
-    attachments = BulkUpload.from_files(files)
-
-    assert_equal 2, attachments.attachments.size
-    assert_equal 'greenpaper.pdf', attachments.attachments[0].filename
-    assert_equal 'whitepaper.pdf', attachments.attachments[1].filename
+  def invalid_new_attachments_params
+    new_attachments_params.tap { |params| params['0'][:title] = '' }
   end
 
-  test '#save_attachments_to_edition saves attachments to the edition' do
+  test '.from_files builds Attachment instances for an array of file paths' do
+    paths = %w(greenpaper.pdf whitepaper.pdf).map { |f| fixture_file(f).path }
+    bulk_upload = BulkUpload.from_files(create(:news_article), paths)
+    assert_equal 2, bulk_upload.attachments.size
+    assert_equal 'greenpaper.pdf', bulk_upload.attachments[0].filename
+    assert_equal 'whitepaper.pdf', bulk_upload.attachments[1].filename
+  end
+
+  test '.from_files loads attachments from the edition if filenames match' do
+    edition = create(:news_article, :with_attachment)
+    existing_filename = edition.attachments.first.filename
+    paths = ['whitepaper.pdf', existing_filename].map { |name| fixture_file(name).path }
+    bulk_upload = BulkUpload.from_files(edition, paths)
+    assert bulk_upload.attachments.first.new_record?, 'Attachment should be new record'
+    refute bulk_upload.attachments.last.new_record?, "Attachment shouldn't be new record"
+  end
+
+  test '.from_files always builds new AttachmentData instances' do
+    edition = create(:news_article, :with_attachment)
+    existing_filename = edition.attachments.first.filename
+    paths = ['whitepaper.pdf', existing_filename].map { |name| fixture_file(name).path }
+    bulk_upload = BulkUpload.from_files(edition, paths)
+    assert bulk_upload.attachments.all? { |a| a.attachment_data.new_record? }
+  end
+
+  test '#attachments_attributes builds new AttachmentData if file already attached' do
+    edition = create(:news_article, :with_attachment)
+    existing = edition.attachments.first
+    bulk_upload = BulkUpload.new(edition)
+    bulk_upload.attachments_attributes = attachments_params(
+      [{ id: existing.id, title: 'Title' }, {}]
+    )
+    attachment = bulk_upload.attachments.first
+    assert attachment.attachment_data.new_record?, 'AttachmentData should be new record'
+  end
+
+  test '#save_attachments saves attachments to the edition' do
     edition = create(:news_article)
-    bulk_upload = BulkUpload.new
-    bulk_upload.attachments = valid_attachments
-
+    bulk_upload = BulkUpload.new(edition)
+    bulk_upload.attachments_attributes = new_attachments_params
     assert_difference('edition.attachments.count', 2) do
-      assert bulk_upload.save_attachments_to_edition(edition), 'should return true'
+      assert bulk_upload.save_attachments, 'should return true'
     end
   end
 
-  test '#save_attachments_to_edition does not save attachments if they are invalid' do
-    edition = create(:news_article)
-    bulk_upload = BulkUpload.new
-    bulk_upload.attachments = invalid_attachments
+  test '#save_attachments updates existing attachments' do
+    edition = create(:news_article, :with_attachment)
+    existing = edition.attachments.first
+    new_title = 'New title for existing attachment'
+    bulk_upload = BulkUpload.new(edition)
+    bulk_upload.attachments_attributes = attachments_params(
+      [{ id: existing.id, title: new_title }, { file: fixture_file(existing.filename) }]
+    )
+    bulk_upload.save_attachments
+    assert_equal 1, edition.attachments.length
+    assert_equal new_title, edition.attachments.reload.first.title
+  end
 
+  test '#save_attachments does not save any attachments if one is invalid' do
+    edition = create(:news_article)
+    bulk_upload = BulkUpload.new(edition)
+    bulk_upload.attachments_attributes = invalid_new_attachments_params
     assert_no_difference('edition.attachments.count') do
-      refute bulk_upload.save_attachments_to_edition(edition), 'should return false'
+      refute bulk_upload.save_attachments, 'should return false'
     end
   end
 
-  test '#save_attachments_to_edition adds errors when attachments are invalid' do
+  test '#save_attachments adds errors when attachments are invalid' do
     edition = create(:news_article)
-    bulk_upload = BulkUpload.new
-    bulk_upload.attachments = invalid_attachments
-    bulk_upload.save_attachments_to_edition(edition)
-
+    bulk_upload = BulkUpload.new(edition)
+    bulk_upload.attachments_attributes = invalid_new_attachments_params
+    bulk_upload.save_attachments
     assert bulk_upload.errors[:base].any?
   end
 end
@@ -115,7 +163,7 @@ class BulkUploadZipFileTest < ActiveSupport::TestCase
   def superficial_zip_file
     ActionDispatch::Http::UploadedFile.new(
       filename: 'greenpaper-not-a-zip.zip',
-      tempfile: File.open(Rails.root.join('test','fixtures','greenpaper.pdf'))
+      tempfile: File.open(Rails.root.join('test', 'fixtures', 'greenpaper.pdf'))
     )
   end
 
