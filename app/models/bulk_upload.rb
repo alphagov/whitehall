@@ -57,7 +57,7 @@ class BulkUpload
     attr_reader :zip_file, :temp_location
 
     validates :zip_file, presence: true
-    validate :is_a_zip_file
+    validate :must_be_a_zip_file
     validate :contains_only_whitelisted_file_types
 
     def persisted?
@@ -80,14 +80,15 @@ class BulkUpload
     end
 
     def extracted_file_paths
-      @extracted_files_paths ||=
-        extract_contents.
-          split(/[\r\n]+/).
-          map { |l| l.strip }.
-          reject { |l| l =~ /\A(Archive|creating):/ }.
-          map { |f| f.gsub(/\A(inflating|extracting):\s+/, '') }.
-          reject { |f| f =~ /\/__MACOSX\// }.
-          map { |f| File.expand_path(f) }
+      if @extracted_files_paths.nil?
+        lines = extract_contents.split(/[\r\n]+/).map { |line| line.strip }
+        lines = lines
+          .reject { |line| line =~ /\A(Archive|creating):/ }
+          .reject { |line| line =~ /\/__MACOSX\// }
+        files = lines.map { |f| f.gsub(/\A(inflating|extracting):\s+/, '') }
+        @extracted_files_paths = files.map { |file| File.expand_path(file) }
+      end
+      @extracted_files_paths
     end
 
     def cleanup_extracted_files
@@ -100,14 +101,15 @@ class BulkUpload
       @unzip_output ||= `#{unzip} -o -d #{destination} #{self.temp_location}`
     end
 
-    def is_a_zip_file
-      if @zip_file.present?
-        errors.add(:zip_file, 'not a zip file') unless is_a_zip?
+    def must_be_a_zip_file
+      if @zip_file.present? && (! is_a_zip?)
+        errors.add(:zip_file, 'not a zip file')
       end
     end
 
     def is_a_zip?
-      _, _, errs = Open3.popen3("#{Whitehall.system_binaries[:zipinfo]} -1 #{self.temp_location} > /dev/null")
+      zipinfo = Whitehall.system_binaries[:zipinfo]
+      _, _, errs = Open3.popen3("#{zipinfo} -1 #{self.temp_location} > /dev/null")
       errs.read.empty?
     end
 
