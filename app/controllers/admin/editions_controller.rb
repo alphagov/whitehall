@@ -48,6 +48,10 @@ class Admin::EditionsController < Admin::BaseController
     end
   end
 
+  def search
+    @filter = Admin::EditionFilter.new(Edition, current_user, params.slice(:title).merge(state: 'active', per_page: 10))
+  end
+
   def show
     fetch_version_and_remark_trails
   end

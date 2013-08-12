@@ -14,6 +14,12 @@ module Admin::TabbedNavHelper
     end
   end
 
+  def document_series_tab_navigation(organisation, document_series, &block)
+    tabs = {  'Details' => admin_organisation_document_series_path(organisation, document_series),
+              'Series documents' => admin_document_series_documents_path(document_series) }
+    tab_navigation(tabs, [], &block)
+  end
+
   def person_tabs(person)
     { 'Details' => admin_person_path(person),
       'Translations' => admin_person_translations_path(person),

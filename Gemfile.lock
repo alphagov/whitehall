@@ -145,6 +145,9 @@ GEM
     i18n (0.6.4)
     isbn_validation (1.1.1)
       activerecord (>= 3)
+    jbuilder (1.5.0)
+      activesupport (>= 3.0.0)
+      multi_json (>= 1.2.0)
     journey (1.0.4)
     jquery-rails (1.0.19)
       railties (~> 3.0)
@@ -349,6 +352,7 @@ DEPENDENCIES
   govuk_frontend_toolkit (= 0.34.0)
   hash_syntax
   isbn_validation
+  jbuilder
   jquery-rails (= 1.0.19)
   kaminari
   kramdown (~> 0.13.8)

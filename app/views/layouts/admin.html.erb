@@ -110,5 +110,6 @@
         })();
       </script>
     <% end %>
+    <%= render_mustache_templates if Rails.env.development? %>
   </body>
 </html>

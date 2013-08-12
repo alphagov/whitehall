@@ -1,0 +1,26 @@
+<% page_title "#{@document_series.name}", "Document series" %>
+
+<p><%= link_to "Back to #{@document_series.organisation.name}", document_series_admin_organisation_path(@document_series.organisation) %></p>
+<h1><%= @document_series.name %></h1>
+<p><%= link_to "View on public site", organisation_document_series_path(@document_series.organisation, @document_series) %></p>
+
+<%= document_series_tab_navigation(@document_series.organisation, @document_series) do %>
+
+  <div class="document-finder">
+    <h2>Document finder</h2>
+
+    <%= form_tag search_admin_editions_path(format: :json), method: :get, remote: true, data: { type: 'json' } do %>
+      <%= search_field_tag :title, '', placeholder: 'Title or slug&hellip;'.html_safe, results: 5, autosave: 'unique', style: 'width:200px;margin-right:5px;float:left;' %>
+      <%= submit_tag 'Search' %>
+      <%= link_to 'reset', '#', class: 'js-doc-finder-reset', style: 'display: none' %>
+      <%= image_tag 'loading-2b2c2d.gif', class: 'js-loading', style: 'display: none;' %>
+    <% end %>
+
+    <div class="js-doc-finder-results"></div>
+  </div>
+
+
+  <ol id="series-documents">
+    <%= render partial: 'series_documents', collection: @document_series.latest_editions, as: :edition, locals: { document_series: @document_series } %>
+  </ol>
+<% end %>
