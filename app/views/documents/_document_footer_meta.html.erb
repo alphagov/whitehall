@@ -36,7 +36,7 @@
     <dl class="primary-metadata">
       <% if document.organisations.any?  %>
         <dt><%= t('document.headings.organisations', count: document.organisations.length) %>:</dt>
-        <% organisations_link_array(document.lead_organisations, document.sorted_organisations).each do |item| %>
+        <% organisations_link_array(document.lead_organisations, document.sorted_organisations, :footer).each do |item| %>
           <dd><%= item.html_safe %></dd>
         <% end %>
       <% end %>
@@ -51,4 +51,3 @@
     </dl>
   </div>
 </div>
-
