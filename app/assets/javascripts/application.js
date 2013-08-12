@@ -7,6 +7,7 @@
 //= require jquery_ujs
 //= require vendor/jquery/jquery-ui-1.10.2.custom
 //= require vendor/jquery/jquery.player.min
+//= require vendor/jquery/magna-charta.min
 //
 //= require govuk_toolkit
 //= require shared_mustache

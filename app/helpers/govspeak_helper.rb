@@ -85,6 +85,7 @@ module GovspeakHelper
     # pre-processors
     govspeak = remove_extra_quotes_from_blockquotes(govspeak)
     govspeak = render_embedded_contacts(govspeak, options[:contact_heading_tag])
+    govspeak = set_classes_for_charts(govspeak)
 
     markup_to_nokogiri_doc(govspeak, images).tap do |nokogiri_doc|
       # post-processors
@@ -106,6 +107,27 @@ module GovspeakHelper
     end
   end
 
+  def set_classes_for_charts(govspeak)
+    return govspeak if govspeak.blank?
+    
+    govspeak.gsub(/{barchart(.*)/) do
+      stacked = '.mc-stacked' if $1.include? 'stacked'
+      compact = '.compact' if $1.include? 'compact'
+      negative = '.mc-negative' if $1.include? 'negative'
+
+      [
+       '{:',
+       '.js-barchart-table', 
+       stacked,
+       compact,
+       negative,
+       '.left-key', 
+       '.mc-auto-outdent',
+       '}'
+      ].join(' ')
+    end
+  end
+  
   def replace_internal_admin_links_in(nokogiri_doc)
     nokogiri_doc.search('a').each do |anchor|
       next unless is_internal_admin_link?(uri = anchor['href'])

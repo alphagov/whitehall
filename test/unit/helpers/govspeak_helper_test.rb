@@ -324,6 +324,28 @@ class GovspeakHelperTest < ActionView::TestCase
     end
   end
 
+  test 'will add a barchart class to a marked table' do
+    input = '
+|col|
+|---|
+|val|
+{barchart}
+'
+    html = govspeak_to_html(input)
+    assert_select_within_html html, "table.js-barchart-table"
+  end
+  
+  test 'will add a stacked, compact, negative barchart class to a marked table' do
+        input = '
+|col|
+|---|
+|val|
+{barchart stacked compact negative}
+'
+    html = govspeak_to_html(input)
+    assert_select_within_html html, "table.mc-stacked.js-barchart-table.mc-negative.compact"
+  end  
+
   private
 
   def internal_preview_host
