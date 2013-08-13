@@ -295,8 +295,8 @@ class DocumentHelperTest < ActionView::TestCase
 
   test "document_metadata generates part_of_series metadata" do
     organisation = create(:organisation)
-    series = create(:document_series, organisation: organisation)
-    edition = create(:published_publication, document_series: [series])
+    edition = create(:published_publication)
+    series = create(:document_series, organisation: organisation, documents: [edition.document])
     metadata = document_metadata(edition)[0]
     assert_equal metadata[:title], "Series"
     assert_select_within_html metadata[:data][0],
