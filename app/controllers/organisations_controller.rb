@@ -44,7 +44,7 @@ class OrganisationsController < PublicFacingController
             render 'show-executive-office'
           else
             @policies = latest_presenters(@organisation.published_policies, translated: true)
-            @topics = @organisation.topics_with_content
+            @topics = @organisation.topics.with_content
             @mainstream_categories = @organisation.mainstream_categories
             @non_statistics_publications = latest_presenters(@organisation.published_non_statistics_publications, translated: true, count: 2)
             @statistics_publications = latest_presenters(@organisation.published_statistics_publications, translated: true, count: 2)

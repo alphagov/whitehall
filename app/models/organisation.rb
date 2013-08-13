@@ -306,10 +306,6 @@ class Organisation < ActiveRecord::Base
     govuk_status == 'closed'
   end
 
-  def topics_with_content
-    topics.with_content
-  end
-
   def name_without_prefix
     name.gsub(/^The/, "").strip
   end
