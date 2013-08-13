@@ -8,10 +8,6 @@ class OrganisationFeatureListPresenter < FeatureListPresenter
   end
 
   def limit
-    if @organisation.organisation_type.sub_organisation?
-      5
-    else
-      6
-    end
+    @organisation.organisation_type.sub_organisation? ? 5 : 6
   end
 end
