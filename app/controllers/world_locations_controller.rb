@@ -15,11 +15,11 @@ class WorldLocationsController < PublicFacingController
         @recently_updated = recently_updated_source.limit(3)
         priorities = WorldwidePriority.with_translations(I18n.locale).published.in_world_location(@world_location)
         @worldwide_priorities = decorate_collection(priorities, WorldwidePriorityPresenter)
-        @policies = latest_presenters(Policy.with_translations(I18n.locale).published.in_world_location(@world_location))
-        publications = Publication.with_translations(I18n.locale).published.in_world_location(@world_location)
-        @non_statistics_publications = latest_presenters(publications.not_statistics, count: 2)
-        @statistics_publications = latest_presenters(publications.statistics, count: 2)
-        @announcements = latest_presenters(Announcement.with_translations(I18n.locale).published.in_world_location(@world_location), count: 2)
+        @policies = latest_presenters(Policy.published.in_world_location(@world_location), translated: true)
+        publications = Publication.published.in_world_location(@world_location)
+        @non_statistics_publications = latest_presenters(publications.not_statistics, translated: true, count: 2)
+        @statistics_publications = latest_presenters(publications.statistics, translated: true, count: 2)
+        @announcements = latest_presenters(Announcement.published.in_world_location(@world_location), translated: true, count: 2)
         @feature_list = FeatureListPresenter.new(@world_location.feature_list_for_locale(I18n.locale), view_context).limit_to(5)
         @worldwide_organisations = @world_location.worldwide_organisations
       end
