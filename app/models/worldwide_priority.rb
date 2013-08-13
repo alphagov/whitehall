@@ -26,6 +26,10 @@ class WorldwidePriority < Edition
     super + [WorldwidePriority.search_format_type]
   end
 
+  def presenter
+    WorldwidePriorityPresenter
+  end
+
   def translatable?
     !non_english_edition?
   end

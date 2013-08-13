@@ -13,12 +13,13 @@ class WorldLocationsController < PublicFacingController
     respond_to do |format|
       format.html do
         @recently_updated = recently_updated_source.limit(3)
-        @worldwide_priorities = decorate_collection(WorldwidePriority.with_translations(I18n.locale).published.in_world_location(@world_location).in_reverse_chronological_order, WorldwidePriorityPresenter)
-        @policies = decorate_collection(Policy.with_translations(I18n.locale).published.in_world_location(@world_location).in_reverse_chronological_order.limit(3), PolicyPresenter)
-        publications = Publication.with_translations(I18n.locale).published.in_world_location(@world_location).in_reverse_chronological_order
-        @non_statistics_publications = decorate_collection(publications.not_statistics.limit(2), PublicationesquePresenter)
-        @statistics_publications = decorate_collection(publications.statistics.limit(2), PublicationesquePresenter)
-        @announcements = decorate_collection(Announcement.with_translations(I18n.locale).published.in_world_location(@world_location).in_reverse_chronological_order.limit(2), AnnouncementPresenter)
+        priorities = WorldwidePriority.with_translations(I18n.locale).published.in_world_location(@world_location)
+        @worldwide_priorities = decorate_collection(priorities, WorldwidePriorityPresenter)
+        @policies = latest_presenters(Policy.with_translations(I18n.locale).published.in_world_location(@world_location))
+        publications = Publication.with_translations(I18n.locale).published.in_world_location(@world_location)
+        @non_statistics_publications = latest_presenters(publications.not_statistics, count: 2)
+        @statistics_publications = latest_presenters(publications.statistics, count: 2)
+        @announcements = latest_presenters(Announcement.with_translations(I18n.locale).published.in_world_location(@world_location), count: 2)
         @feature_list = FeatureListPresenter.new(@world_location.feature_list_for_locale(I18n.locale), view_context).limit_to(5)
         @worldwide_organisations = @world_location.worldwide_organisations
       end

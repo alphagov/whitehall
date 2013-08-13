@@ -15,6 +15,10 @@ class Announcement < Edition
   def search_format_types
     super + [Announcement.search_format_type]
   end
+
+  def presenter
+    AnnouncementPresenter
+  end
 end
 
 require_relative 'newsesque'

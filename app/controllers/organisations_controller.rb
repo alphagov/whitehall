@@ -43,13 +43,13 @@ class OrganisationsController < PublicFacingController
             @promotional_features = PromotionalFeaturesPresenter.new(@organisation.promotional_features, view_context)
             render 'show-executive-office'
           else
-            @policies = decorate_collection(@organisation.published_policies.in_reverse_chronological_order.limit(3), PolicyPresenter)
+            @policies = latest_presenters(@organisation.published_policies)
             @topics = @organisation.topics_with_content
             @mainstream_categories = @organisation.mainstream_categories
-            @non_statistics_publications = decorate_collection(@organisation.published_non_statistics_publications.in_reverse_chronological_order.limit(2), PublicationesquePresenter)
-            @statistics_publications = decorate_collection(@organisation.published_statistics_publications.in_reverse_chronological_order.limit(2), PublicationesquePresenter)
-            @consultations = decorate_collection(@organisation.published_consultations.in_reverse_chronological_order.limit(2), PublicationesquePresenter)
-            @announcements = decorate_collection(@organisation.published_announcements.in_reverse_chronological_order.limit(2), AnnouncementPresenter)
+            @non_statistics_publications = latest_presenters(@organisation.published_non_statistics_publications, count: 2)
+            @statistics_publications = latest_presenters(@organisation.published_statistics_publications, count: 2)
+            @consultations = latest_presenters(@organisation.published_consultations, count: 2)
+            @announcements = latest_presenters(@organisation.published_announcements, count: 2)
             @ministers = ministers
             @important_board_members = board_members.take(@organisation.important_board_members)
             @board_members = board_members.from(@organisation.important_board_members)
@@ -75,7 +75,6 @@ class OrganisationsController < PublicFacingController
   end
 
   private
-
   def ministers
     @ministerial_roles ||= filled_roles_presenter_for(@organisation, :ministerial)
     @ministerial_roles.with_unique_people
