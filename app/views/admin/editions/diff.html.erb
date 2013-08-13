@@ -1,12 +1,17 @@
 <% page_title @edition.title, @edition.format_name %>
+<%
+  diff = render_edition_diff(@edition, @audit_trail_entry)
+%>
 <div class="span12">
-  <p class="alert">
-    This shows changes to the title, summary and body (it doesn't show changes to attachments or associations). When there are no changes nothing is displayed.
-    <br/>
-    <br/>
-    <%= link_to "Back to '#{@edition.title}'", admin_edition_path(@edition) %>.
-  </p>
+  <div class="page-header">
+    <h1>Changes to &lsquo;<%= @edition.title %>&rsquo;</h1>
+  </div>
+  <p>This page shows changes to the title, summary and body in this edition. It does not show changes to attachments or associations.</p>
+  <% if diff.blank? %>
+    <p><strong>There have been no changes in this edition.</strong></p>
+  <% end %>
+  <p><%= link_to "Back to edition", admin_edition_path(@edition), class: "btn" %></p>
   <section>
-    <%= render_edition_diff(@edition, @audit_trail_entry) %>
+    <%= diff %>
   </section>
 </div>
