@@ -1,5 +1,4 @@
 body {
-  padding-top: 100px;
   padding-bottom: 40px;
 }
 .sidebar-nav {
@@ -22,40 +21,49 @@ body {
 }
 
 #global-nav {
-  background-color: #3b3b3b;
-  border-top: 1px solid #444;
   clear: both;
   @extend %contain-floats;
 
   .toggler {
     &:after {
+      font-size: 10px;
+      margin-left: $gutter-one-sixth;
       content: " \25BC";
     }
   }
-  &.open {
+  .open {
     .toggler {
+      background-color: $light-blue-50;
+      color: $black;
       &:after {
         content: " \25B2";
       }
     }
   }
+}
 
+
+.navbar {
+  @extend %contain-floats;
+  margin-bottom: $gutter;
   nav {
     clear: both;
+    position: relative;
 
     @include media(tablet){
       clear: none;
       background: transparent;
       position: static;
-      margin-bottom: 0;
+      margin: 0;
     }
 
     li {
       display: block;
-      position: relative;
 
       @include media(tablet){
         display: inline;
+        text-align: center;
+        width: 16.4%;
       }
       .toggler {
         &:focus {
@@ -80,50 +88,87 @@ body {
           }
         }
       }
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+    .nav {
+      margin-left: $gutter-half;
+      width: auto;
+      li {
+        color: $white;
+        background-color: $black;
+        margin-right: 3px;
+        a, span {
+          @include core-16;
+          display: table-cell;
+          color: $white;
+          height: 40px;
+          padding-top: $gutter-one-third;
+          vertical-align: middle;
+          width: 16%;
+        }
+        &:last-child {
+          margin-right: 0;
+        }
+        &.active {
+          a, span {
+            color: $black;
+            background-color: $grey-2;
+          }
+        }
+        &:hover,
+        &.active:hover {
+          a, span {
+            color: $black;
+            background-color: $light-blue-50;
+          }
+        }
+
+      }
+    }
+  }
+  .visuallyhidden {
+    position: absolute;
+    left: -9999em;
+  }
+  .nav.pull-right {
+    color: $white;
+    margin: 0 $gutter-one-third 0 0;
+    width: 100%;
+    li {
+      a {
+        @include core-16;
+        color: $white;
+        padding-top: $gutter-one-third;
+        &:after {
+          content: "|";
+          margin: 0 $gutter-one-third;
+        }
+      }
+      .session-info-wrapper {
+        padding: 0 $gutter-two-thirds;
+        float: right;
+        @include media(tablet) {
+          float: left;
+        }
+      }
+      &:last-child a:after {
+        content: "";
+      }
     }
 
-
-  }
-}
-
-.navbar .visuallyhidden {
-  position: absolute;
-  left: -9999em;
-}
-
-.navbar-fixed-top,
-.navbar-fixed-bottom {
-  position: static;
-  margin: -100px 0 20px 0;
-  @include media(desktop) {
-    position: fixed;
-    margin: 0;
-  }
-}
-
-.navbar .nav.pull-right {
-  top: 0;
-  right: 0;
-  width: 100%;
-  .session-info-wrapper {
-    padding: 0 $gutter-two-thirds;
-    float: right;
     @include media(tablet) {
-      float: left;
+      width: auto;
     }
   }
-  @include media(tablet) {
-    width: auto;
-  }
-}
-
-.navbar {
   .website {
     li {
       &.brand {
         margin-left: 0;
         padding-right: 0;
         a {
+          @include core-16;
           color: $white;
           padding: 0;
           &:after {
@@ -142,9 +187,70 @@ body {
       width: auto;
     }
   }
-  .container-fluid {
-    padding: 0;
+  .navbar-inner {
+    background: #6d6d6d;
+    .container-fluid {
+      background: none;
+      padding: $gutter-half 0 $gutter-half 0;
+    }
+    .nav-collapse {
+      .dropdown-menu {
+        @include border-radius(0);
+        background-color: $light-blue-50;
+        width: 100%;
+        li {
+          float: left;
+          background: none;
+          a {
+            @include core-16;
+            color: $black;
+            padding: 2px $gutter-two-thirds 0 $gutter-one-third;
+            height: auto;
+            width: auto;
+            &:hover {
+              color: $white;
+            }
+          }
+        }
+      }
+      .more-nav {
+        @extend %contain-floats;
+        @include box-shadow(0 5px 10px rgba(0,0,0,0.2));
+        clear: both;
+        background-color: $light-blue-50;
+        margin-left: 0;
+        padding: $gutter-one-third;
+        position: absolute;
+        top: 61px;
+        width: 48.2%;
+        z-index: 10;
+        li {
+          background: none;
+          float: left;
+          margin: 0;
+          width: 33.33%;
+          a {
+            @include core-16;
+            color: $link-colour;
+            background: none;
+            height: auto;
+            padding: $gutter-one-sixth;
+            width: auto;
+          }
+        }
+      }
+      .right {
+        right: 10px;
+      }
+    }
   }
+}
+
+
+
+.navbar-fixed-top,
+.navbar-fixed-bottom {
+  position: static;
 }
 
 @include ie(6){

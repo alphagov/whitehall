@@ -28,7 +28,7 @@ module Admin::EditionsHelper
   end
 
   def admin_document_series_header_link
-    admin_header_link "Create/Edit document series", admin_document_series_index_path, /^#{Whitehall.router_prefix}\/admin\/document_series/
+    admin_header_link "Curate document series", admin_document_series_index_path, /^#{Whitehall.router_prefix}\/admin\/document_series/
   end
 
   def link_to_filter(link, options, filter, html_options = {})

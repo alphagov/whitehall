@@ -44,7 +44,7 @@
               <div id="session" class="session_info">
                 <% if user_signed_in? %>
                   <p class="navbar-text">
-                    <span class="current_user_name"><%= link_to current_user.name, admin_user_path(current_user), id: "#user_settings" %></span> |
+                    <span class="current_user_name"><%= link_to current_user.name, admin_user_path(current_user), id: "#user_settings" %></span>
                     <span class="logout"><%= link_to "Logout", "/auth/gds/sign_out" %></span>
                   </p>
                 <% end %>
@@ -55,31 +55,33 @@
           </ul>
         </div>
 
-         <div class="js-toggle-nav" id="global-nav">
+         <div id="global-nav">
             <nav class="nav-collapse">
               <ul class="nav">
-                <li class="create-new js-create-new">
-                  <span>Create new<br />document</span>
+                <li class="js-create-new">
+                  <a href="#navigation" class="toggler">Create new<br />document</a>
                   <%= document_creation_dropdown %>
                 </li>
                 <%= admin_documents_header_link %>
                 <%= admin_document_series_header_link %>
+                <%= admin_featured_header_link %>
                 <%= admin_user_organisation_header_link %>
-                <li><a href="#navigation" class="toggler">More&hellip;</a></li>
-                <ul class="nav content js-hidden">
-                  <%= admin_organisations_header_link %>
-                  <%= admin_policy_teams_header_link %>
-                  <%= admin_policy_advisory_groups_header_link %>
-                  <%= admin_roles_header_link %>
-                  <%= admin_people_header_link %>
-                  <%= admin_topics_header_link %>
-                  <%= admin_topical_events_header_link %>
-                  <%= admin_worldwide_organisations_header_link %>
-                  <%= admin_world_locations_header_link %>
-                  <%= admin_fields_of_operation_header_link %>
-                  <%= admin_cabinet_ministers_link %>
-                  <%= admin_get_involved_link %>
-                </ul>
+                <li class="js-more-nav"><a href="#navigation" class="toggler">More</a>
+                  <ul class="more-nav right">
+                    <%= admin_organisations_header_link %>
+                    <%= admin_policy_teams_header_link %>
+                    <%= admin_policy_advisory_groups_header_link %>
+                    <%= admin_roles_header_link %>
+                    <%= admin_people_header_link %>
+                    <%= admin_topics_header_link %>
+                    <%= admin_topical_events_header_link %>
+                    <%= admin_worldwide_organisations_header_link %>
+                    <%= admin_world_locations_header_link %>
+                    <%= admin_fields_of_operation_header_link %>
+                    <%= admin_cabinet_ministers_link %>
+                    <%= admin_get_involved_link %>
+                  </ul>
+                </li>
               </ul>
             </nav><!--/.nav-collapse -->
           </div>
