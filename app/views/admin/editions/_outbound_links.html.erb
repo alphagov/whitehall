@@ -118,6 +118,20 @@
     </section>
   <% end %>
 
+  <% if edition.can_be_associated_with_worldwide_organisations? %>
+    <section>
+      <h2>World Organisations</h2>
+      <% if edition.worldwide_organisations.any? %>
+        <ul>
+          <% edition.worldwide_organisations.each do |worldwide_organisation| %>
+          <li><%= link_to worldwide_organisation.name, worldwide_organisation_path(worldwide_organisation) %></li>
+          <% end %>
+        </ul>
+      <% else %>
+        <p>This document isn't assigned to any world organisations.</p>
+      <% end %>
+    </section>
+  <% end %>
 
   <% if edition.can_be_associated_with_worldwide_priorities? %>
     <section>
