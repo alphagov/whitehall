@@ -30,7 +30,7 @@ class OrganisationsController < PublicFacingController
     set_expiry 5.minutes
     respond_to do |format|
       format.html do
-        @recently_updated = recently_updated_source.limit(3)
+        @recently_updated = recently_updated_source.with_translations(I18n.locale).limit(3)
         if @organisation.live?
           @feature_list = OrganisationFeatureListPresenter.new(@organisation, view_context)
           set_slimmer_organisations_header([@organisation])
@@ -43,13 +43,13 @@ class OrganisationsController < PublicFacingController
             @promotional_features = PromotionalFeaturesPresenter.new(@organisation.promotional_features, view_context)
             render 'show-executive-office'
           else
-            @policies = latest_presenters(@organisation.published_policies)
+            @policies = latest_presenters(@organisation.published_policies, translated: true)
             @topics = @organisation.topics_with_content
             @mainstream_categories = @organisation.mainstream_categories
-            @non_statistics_publications = latest_presenters(@organisation.published_non_statistics_publications, count: 2)
-            @statistics_publications = latest_presenters(@organisation.published_statistics_publications, count: 2)
-            @consultations = latest_presenters(@organisation.published_consultations, count: 2)
-            @announcements = latest_presenters(@organisation.published_announcements, count: 2)
+            @non_statistics_publications = latest_presenters(@organisation.published_non_statistics_publications, translated: true, count: 2)
+            @statistics_publications = latest_presenters(@organisation.published_statistics_publications, translated: true, count: 2)
+            @consultations = latest_presenters(@organisation.published_consultations, translated: true, count: 2)
+            @announcements = latest_presenters(@organisation.published_announcements, translated: true, count: 2)
             @ministers = ministers
             @important_board_members = board_members.take(@organisation.important_board_members)
             @board_members = board_members.from(@organisation.important_board_members)
