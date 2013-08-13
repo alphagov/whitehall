@@ -31,11 +31,6 @@ class Organisation < ActiveRecord::Base
             class_name: "Edition",
             conditions: { state: "published" },
             source: :edition
-  has_many :force_published_editions,
-            through: :edition_organisations,
-            class_name: "Edition",
-            conditions: { state: "published", force_published: true },
-            source: :edition
   has_many :corporate_publications,
             through: :edition_organisations,
             class_name: "Publication",
@@ -163,7 +158,7 @@ class Organisation < ActiveRecord::Base
   has_many :sponsored_worldwide_organisations, through: :sponsorships, source: :worldwide_organisation
 
   has_many :financial_reports
-  
+
   has_one :featured_topics_and_policies_list
   def featured_topics_and_policies_list_summary
     featured_topics_and_policies_list.try(:summary)
