@@ -105,9 +105,8 @@ module Whitehall::Uploader
     end
 
     test "finds document series by slug in data_series column" do
-      document_series = stub("document series")
-      Finders::DocumentSeriesFinder.stubs(:find).with("name or slug", anything, anything).returns([document_series])
-      row = statistical_data_set_row("data_series" => "name or slug")
+      document_series = create(:document_series)
+      row = statistical_data_set_row("data_series" => document_series.slug)
       assert_equal [document_series], row.document_series
     end
 
