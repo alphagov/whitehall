@@ -7,17 +7,19 @@ module Admin
     end
 
     def editions
-      @editions ||= (
-        editions = @source
-        editions = editions.accessible_to(@current_user)
-        editions = editions.by_type(options[:type].classify) if options[:type]
-        editions = editions.__send__(options[:state]) if options[:state]
-        editions = editions.authored_by(author) if options[:author]
-        editions = editions.in_organisation(organisation) if options[:organisation]
-        editions = editions.with_title_containing(options[:title]) if options[:title]
-        editions = editions.in_world_location(selected_world_locations) if selected_world_locations.any?
-        editions.includes(:last_author, :translations).order("editions.updated_at DESC")
-      ).page(options[:page]).per(page_size)
+      @editions ||= editions_with_filter.page(options[:page]).per(page_size)
+    end
+
+    def editions_with_filter
+      editions = @source
+      editions = editions.accessible_to(@current_user)
+      editions = editions.by_type(options[:type].classify) if options[:type]
+      editions = editions.__send__(options[:state]) if options[:state]
+      editions = editions.authored_by(author) if options[:author]
+      editions = editions.in_organisation(organisation) if options[:organisation]
+      editions = editions.with_title_containing(options[:title]) if options[:title]
+      editions = editions.in_world_location(selected_world_locations) if selected_world_locations.any?
+      editions.includes(:last_author, :translations).order("editions.updated_at DESC")
     end
 
     def page_title
@@ -26,6 +28,18 @@ module Admin
 
     def page_size
       50
+    end
+
+    def published_count
+      editions_with_filter.published.length
+    end
+
+    def force_published_count
+      editions_with_filter.force_published.length
+    end
+
+    def force_published_percentage
+      "#{ (( force_published_count.to_f / published_count.to_f) * 100.0).round(2) } %"
     end
 
     def valid?

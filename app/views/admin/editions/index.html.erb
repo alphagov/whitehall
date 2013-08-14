@@ -6,8 +6,22 @@
     </div>
 
     <div class="collection span10">
-      <h1><%= "#{@filter.page_title} (#{@filter.editions.total_count})" %></h1>
-
+      <h1>
+        <%= "#{@filter.page_title}" %>
+      </h1>
+      <table class="table">
+        <tbody>
+          <tr>
+            <td>Documents</td>
+            <td><%= @filter.editions.total_count %></td>
+            <td>Published</td>
+            <td><%= @filter.published_count %></td>
+            <td>Force Published</td>
+            <td><%= @filter.force_published_count %></td>
+            <td><%= @filter.force_published_percentage %></td>
+          </tr>
+        </tbody>
+      </table>
       <%= paginate @filter.editions, theme: 'twitter-bootstrap' %>
       <table class="table table-striped">
         <thead>
