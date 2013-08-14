@@ -46,7 +46,7 @@ module Whitehall::Uploader
     test "finds document series by slug in document_series_n column" do
       document_series = create(:document_series)
       row = new_detailed_guide_row({"document_series_1" => document_series.slug})
-      assert_equal [document_series], row.attributes[:document_series]
+      assert_equal [document_series], row.document_series
     end
 
     test "finds topics by slug in topic_n column" do
@@ -69,12 +69,6 @@ module Whitehall::Uploader
         "detailed_guidance_category_2" => category_2.slug
       )
       assert_equal [category_2], row.attributes[:other_mainstream_categories]
-    end
-
-    test "finds document series by slug from document_series_n column" do
-      series = create(:document_series)
-      row = new_detailed_guide_row({"document_series_1" => series.slug})
-      assert_equal [series], row.attributes[:document_series]
     end
 
     test "finds related detailed guide by slug from related_detailed_guide_n column" do

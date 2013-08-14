@@ -79,7 +79,7 @@ module Whitehall::Uploader
     end
 
     def attributes
-      [:title, :summary, :body, :lead_organisations, :document_series,
+      [:title, :summary, :body, :lead_organisations,
        :attachments, :alternative_format_provider, :access_limited,
        :first_published_at, :change_note].map.with_object({}) do |name, result|
         result[name] = __send__(name)
