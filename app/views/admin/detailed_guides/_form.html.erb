@@ -13,8 +13,6 @@
 
       <%= render partial: 'organisation_fields', locals: { form: form, edition: edition } %>
 
-      <%= render partial: 'document_series_fields', locals: { form: form, edition: edition } %>
-
       <%= form.label :outbound_related_document_ids, 'Related guides' %>
       <%= form.select :outbound_related_document_ids, options_from_collection_for_select(DetailedGuide.alphabetical.latest_edition.active, :document_id, :title, edition.outbound_related_document_ids), {}, multiple: true, class: 'chzn-select', data: { placeholder: "Choose related detailed guides..."} %>
     </fieldset>

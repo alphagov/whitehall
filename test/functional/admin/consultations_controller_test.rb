@@ -20,7 +20,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
   should_allow_attached_images_for :consultation
   should_prevent_modification_of_unmodifiable :consultation
   should_allow_alternative_format_provider_for :consultation
-  should_allow_assignment_to_document_series :consultation
+  # should_allow_assignment_to_document_series :consultation
   should_allow_scheduled_publication_of :consultation
   should_allow_access_limiting_of :consultation
 
