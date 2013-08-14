@@ -110,7 +110,7 @@ module GovspeakHelper
   def set_classes_for_charts(govspeak)
     return govspeak if govspeak.blank?
     
-    govspeak.gsub(/{barchart(.*)/) do
+    govspeak.gsub(/{barchart(.*)}/) do
       stacked = '.mc-stacked' if $1.include? 'stacked'
       compact = '.compact' if $1.include? 'compact'
       negative = '.mc-negative' if $1.include? 'negative'
