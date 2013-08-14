@@ -9,10 +9,12 @@ class ResponseTest < ActiveSupport::TestCase
     assert_nil ConsultationResponseAttachment.find_by_id(response_attachment.id)
   end
 
-  test "legacy responses without a summary are still valid" do
-    response = create(:consultation_outcome)
-    response.update_column(:summary, nil)
-    assert response.reload.valid?
+  test "responses without a summary are only valid if they have attachments" do
+    response = build(:consultation_outcome, summary: nil)
+    refute response.valid?
+
+    response.attachments << build(:attachment)
+    assert response.valid?, response.errors.full_messages.inspect
   end
 
   test "should return the alternative_format_contact_email of the consultation" do

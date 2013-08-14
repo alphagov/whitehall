@@ -6,7 +6,7 @@ class Response < ActiveRecord::Base
   has_many :attachments, through: :consultation_response_attachments, order: [:ordering, :id], before_add: :set_order
 
   validates :published_on, recent_date: true, presence: true
-  validates :summary, presence: true, on: :create
+  validates_presence_of :summary, unless: :has_attachments
   validates_with SafeHtmlValidator
 
   def alternative_format_contact_email
@@ -15,5 +15,11 @@ class Response < ActiveRecord::Base
 
   def can_order_attachments?
     true
+  end
+
+  private
+
+  def has_attachments
+    attachments.any?
   end
 end

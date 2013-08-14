@@ -224,7 +224,7 @@ class ConsultationTest < ActiveSupport::TestCase
     refute consultation.outcome_published?
   end
 
-  test "should report that the outcome has been published if the consultation is closed" do
+  test "should report that the outcome has been published if the consultation is closed and there is an outcome" do
     consultation = create(:consultation, opening_on: 2.days.ago, closing_on: 1.day.ago)
     outcome = create(:consultation_outcome, consultation: consultation)
 

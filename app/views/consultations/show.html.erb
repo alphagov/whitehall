@@ -11,13 +11,13 @@
                   } %>
     </div>
 
-    <% if @document.closed? || @document.outcome_published? %>
+    <% if @document.closed? %>
       <div class="consultation-alert">
-        <% if @document.closed? and not @document.outcome_published? %>
+        <% if @document.outcome_published? %>
+          <h2>This consultation has concluded</h2>
+        <% else %>
           <h2>We are analysing your feedback</h2>
           <p>Visit this page again soon to download the outcome to this public feedback.</p>
-        <% elsif @document.outcome_published? %>
-          <h2>This consultation has concluded</h2>
         <% end %>
       </div>
     <% end %>
