@@ -48,6 +48,8 @@ class Edition < ActiveRecord::Base
     .where("edition_translations.title REGEXP :pattern OR documents.slug = :slug", pattern: pattern, slug: keywords)
   }
 
+  scope :force_published, -> { where(state: "published", force_published: true) }
+
   # @!group Callbacks
   before_save :set_public_timestamp
 
