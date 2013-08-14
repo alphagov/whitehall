@@ -32,7 +32,7 @@ module Admin::EditionsHelper
   end
 
   def link_to_filter(link, options, filter, html_options = {})
-    content_tag(:li, link_to(link.html_safe, url_for(filter.options.slice('state', 'type', 'author', 'organisation', 'title', 'world_location_ids').merge(options)), html_options), class: active_filter_if_options_match_class(filter, options))
+    content_tag(:li, link_to(link, url_for(filter.options.slice('state', 'type', 'author', 'organisation', 'title', 'world_location_ids').merge(options)), html_options), class: active_filter_if_options_match_class(filter, options))
   end
 
   def active_filter_if_options_match_class(filter, options)

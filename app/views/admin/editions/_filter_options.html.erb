@@ -82,7 +82,7 @@
       <%= link_to_filter 'Rejected', {locale: params[:locale], state: :rejected}, @filter, title: "Show only rejected #{document_type}" %>
       <%= link_to_filter 'Scheduled', {locale: params[:locale], state: :scheduled}, @filter, title: "Show only scheduled #{document_type}" %>
       <%= link_to_filter 'Published', {locale: params[:locale], state: :published}, @filter, title: "Show only published #{document_type}" %>
-      <%= link_to_filter 'Force Published <br/>(not reviewed)', {locale: params[:locale], state: :force_published}, @filter, title: "Show only force published #{document_type}" %>
+      <%= link_to_filter 'Force Published <br/>(not reviewed)'.html_safe, {locale: params[:locale], state: :force_published}, @filter, title: "Show only force published #{document_type}" %>
     <% end %>
   </ul>
 </nav>
