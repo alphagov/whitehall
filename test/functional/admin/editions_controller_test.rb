@@ -189,6 +189,14 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     assert_select "tr.force_published"
   end
 
+  view_test "should show force published editions when the filter is active" do
+    policy = create(:published_policy, force_published: true)
+    get :index, state: :force_published, type: :policy
+
+    assert_select_object(policy)
+    assert_select "tr.force_published"
+  end
+
   test "should not display the featured column when viewing all active editions" do
     create(:published_news_article)
 
