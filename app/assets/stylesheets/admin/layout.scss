@@ -1,11 +1,11 @@
 body {
-  padding-bottom: 40px;
+  padding-bottom: $gutter+$gutter-one-third;
 }
 .sidebar-nav {
-  padding: 9px 0;
+  padding: $gutter-one-third 0;
 }
 .sidebar {
-  padding-bottom: 40px;
+  padding-bottom: $gutter+$gutter-one-third;
 }
 
 .row-fluid {
@@ -29,6 +29,11 @@ body {
       font-size: 10px;
       margin-left: $gutter-one-sixth;
       content: " \25BC";
+    }
+    @include media(tablet) {
+      span {
+        display: block;
+      }
     }
   }
   .open {
@@ -61,9 +66,8 @@ body {
       display: block;
 
       @include media(tablet){
-        display: inline;
+        float: left;
         text-align: center;
-        width: 16.4%;
       }
       .toggler {
         &:focus {
@@ -77,36 +81,33 @@ body {
           display: block;
         }
       }
-      &.create-new {
-        position: relative;
-        span {
-          padding: 9px 10px 11px;
-          line-height: 19px;
-          cursor: pointer;
-          &:hover {
-            color: #fff;
-          }
-        }
-      }
       &:last-child {
         margin-right: 0;
       }
     }
     .nav {
-      margin-left: $gutter-half;
+      float: none;
+      margin: 0;
       width: auto;
       li {
         color: $white;
         background-color: $black;
-        margin-right: 3px;
-        a, span {
+        margin: 0 0 3px 0;
+        width: 100%;
+        a {
           @include core-16;
-          display: table-cell;
+          display: block;
           color: $white;
           height: 40px;
           padding-top: $gutter-one-third;
           vertical-align: middle;
-          width: 16%;
+          @include media(tablet) {
+            display: table-cell;
+            width: 16%;
+          }
+          @include ie-lte(7) {
+            width: auto;
+          }
         }
         &:last-child {
           margin-right: 0;
@@ -124,26 +125,36 @@ body {
             background-color: $light-blue-50;
           }
         }
-
+        @include media(tablet) {
+          margin: 0 0.23% 0 0;
+          width: 16.4%;
+        }
+      }
+      @include media(tablet) {
+        margin: 0 $gutter-half;
       }
     }
   }
   .visuallyhidden {
     position: absolute;
     left: -9999em;
+    @include ie(6) {
+      left: 0;
+    }
   }
   .nav.pull-right {
     color: $white;
-    margin: 0 $gutter-one-third 0 0;
-    width: 100%;
+    clear: both;
+    float: none;
+    width: auto;
     li {
       a {
-        @include core-16;
+        @include core-14;
         color: $white;
-        padding-top: $gutter-one-third;
+        padding: $gutter-one-third;
         &:after {
           content: "|";
-          margin: 0 $gutter-one-third;
+          margin-left: $gutter-half;
         }
       }
       .session-info-wrapper {
@@ -153,20 +164,25 @@ body {
           float: left;
         }
       }
+      &:first-child a {
+        padding-left: 0;
+      }
       &:last-child a:after {
         content: "";
       }
     }
 
     @include media(tablet) {
-      width: auto;
+      clear: none;
+      float: right;
+      margin: 0 $gutter-one-third 0 0;
     }
   }
   .website {
     li {
       &.brand {
         margin-left: 0;
-        padding-right: 0;
+        padding: 0 0 0 $gutter-one-third;
         a {
           @include core-16;
           color: $white;
@@ -175,6 +191,9 @@ body {
             content: "|";
             margin-left: $gutter-two-thirds;
           }
+        }
+        @include media(tablet) {
+          padding-left: $gutter-two-thirds;
         }
       }
       &:last-child a:after {
@@ -222,25 +241,54 @@ body {
         padding: $gutter-one-third;
         position: absolute;
         top: 61px;
-        width: 48.2%;
+        width: auto;
         z-index: 10;
         li {
           background: none;
           float: left;
           margin: 0;
-          width: 33.33%;
+          width: 50%;
           a {
             @include core-16;
             color: $link-colour;
             background: none;
             height: auto;
             padding: $gutter-one-sixth;
+            text-align: left;
             width: auto;
+          }
+          @include media(tablet) {
+            width: 33.33%;
+          }
+        }
+        @include ie(6) {
+          background-color: $grey-2;
+          position: static;
+          li {
+            width: 33.33%;
+            a {
+              color: $black;
+              text-decoration: underline;
+            }
           }
         }
       }
       .right {
-        right: 10px;
+        top: 305px;
+      }
+      @include media(tablet) {
+        .more-nav {
+          width: 48.2%;
+        }
+        .open {
+          .left {
+            left: 0;
+          }
+        }
+        .right {
+          right: $gutter-one-sixth;
+          top: 61px;
+        }
       }
     }
   }
@@ -254,9 +302,6 @@ body {
 }
 
 @include ie(6){
-  .navbar-fixed-top, .navbar-fixed-bottom {
-    position: absolute;
-  }
   .navbar .nav li {
     display: block;
     float: left;

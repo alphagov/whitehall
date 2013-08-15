@@ -40,16 +40,14 @@
           </ul>
 
           <ul class="nav pull-right">
-            <li class="session-info-wrapper">
-              <div id="session" class="session_info">
-                <% if user_signed_in? %>
-                  <p class="navbar-text">
-                    <span class="current_user_name"><%= link_to current_user.name, admin_user_path(current_user), id: "#user_settings" %></span>
-                    <span class="logout"><%= link_to "Logout", "/auth/gds/sign_out" %></span>
-                  </p>
-                <% end %>
-              </div>
-            </li>
+            <% if user_signed_in? %>
+              <li>
+                <%= link_to current_user.name, admin_user_path(current_user), id: "#user_settings" %>
+              </li>
+              <li>
+                <%= link_to "Logout", "/auth/gds/sign_out" %>
+              </li>
+            <% end %>
             <%= admin_users_header_link  %>
             <%= admin_imports_header_link %>
           </ul>
@@ -59,7 +57,7 @@
             <nav class="nav-collapse">
               <ul class="nav">
                 <li class="js-create-new">
-                  <a href="#navigation" class="toggler">Create new<br />document</a>
+                  <a href="#navigation" class="toggler"><span>Create new </span>document</a>
                   <%= document_creation_dropdown %>
                 </li>
                 <%= admin_documents_header_link %>

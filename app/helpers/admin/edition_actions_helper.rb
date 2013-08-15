@@ -91,7 +91,7 @@ module Admin::EditionActionsHelper
   end
 
   def document_creation_dropdown
-    content_tag(:ul, class: "more-nav") do
+    content_tag(:ul, class: "more-nav left") do
       [Policy, Publication, NewsArticle, FatalityNotice,
         Consultation, Speech, WorldwidePriority, CaseStudy,
         StatisticalDataSet, WorldLocationNewsArticle].map do |edition_type|
