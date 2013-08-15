@@ -7,3 +7,8 @@
     <%= render partial: 'form', locals: { consultation: @edition, consultation_response: @response } %>
   </section>
 </div>
+
+<div class="span4">
+  <%= render partial: "admin/editions/govspeak_help",
+  locals: { hide_inline_attachments_help: !@edition.allows_inline_attachments?, show_attachments_tab_help: true } %>
+</div>
