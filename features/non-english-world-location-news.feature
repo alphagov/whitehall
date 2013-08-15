@@ -23,7 +23,5 @@ Feature: World location news specific to native language speakers
 
   Scenario: Editing a right-to-left non-English edition
     Given a draft right-to-left non-English edition exists
-    When I view the right-to-left non-English edition in admin
-    Then I should see the document preview appears right-to-left
     When I edit the right-to-left non-English edition
     Then I should see that the form text fields are displayed right to left

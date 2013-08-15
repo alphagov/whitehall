@@ -14,7 +14,7 @@ class Admin::GenericEditionsController::DeletingDocumentsTest < ActionController
 
     assert_select "form[action='#{admin_generic_edition_path(draft_edition)}']" do
       assert_select "input[name='_method'][type='hidden'][value='delete']"
-      assert_select "input[type='submit'][value='Delete']"
+      assert_select "input[type='submit']"
     end
   end
 
@@ -24,7 +24,8 @@ class Admin::GenericEditionsController::DeletingDocumentsTest < ActionController
     get :show, id: submitted_edition
 
     assert_select "form[action='#{admin_generic_edition_path(submitted_edition)}']" do
-      assert_select "input[type='submit'][value='Delete']"
+      assert_select "input[name='_method'][type='hidden'][value='delete']"
+      assert_select "input[type='submit']"
     end
   end
 
@@ -33,7 +34,7 @@ class Admin::GenericEditionsController::DeletingDocumentsTest < ActionController
 
     get :show, id: published_edition
 
-    refute_select "input[type='submit'][value='Delete']"
+    refute_select "form[action='#{admin_generic_edition_path(published_edition)}'] input[name='_method'][type='hidden'][value='delete']"
   end
 
   view_test "show does not display the delete button for archived editions" do
@@ -41,7 +42,7 @@ class Admin::GenericEditionsController::DeletingDocumentsTest < ActionController
 
     get :show, id: archived_edition
 
-    refute_select "input[type='submit'][value='Delete']"
+    refute_select "form[action='#{admin_generic_edition_path(archived_edition)}'] input[name='_method'][type='hidden'][value='delete']"
   end
 
   test "destroy marks the edition as deleted" do
@@ -63,3 +64,4 @@ class Admin::GenericEditionsController::DeletingDocumentsTest < ActionController
     assert_equal "The document 'edition-title' has been deleted", flash[:notice]
   end
 end
+

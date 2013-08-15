@@ -1,0 +1,211 @@
+<div class="page-header">
+  <h1><%= @edition.title %></h1>
+  <p class="lead summary"><%= @edition.summary %></p>
+  <dl class="clearfix">
+    <dt>Type of document:</dt>
+    <dd><%= edition_type(@edition) %></dd>
+    <dt>Status:</dt>
+    <dd><%= @edition.state.capitalize %></dd>
+  </dl>
+  <% if @edition.non_english_edition? %>
+    <p><em>(This document is <%=@edition.primary_language_name %>-only)</em></p>
+  <% end %>
+</div>
+
+<%= render partial: "rejected_by", locals: { edition: @edition } %>
+<%= render partial: 'alerts', locals: {edition: @edition}  %>
+
+<section class="edition-view-edit-buttons">
+  <% if @edition.published? %>
+    <%= link_to "View on website", public_document_url(@edition), class: 'btn btn-large btn-primary public_version', target: '_blank' %>
+  <% else %>
+    <%= link_to "Preview on website", preview_document_path(@edition), class: 'btn btn-large btn-primary preview_version', target: '_blank' %>
+  <% end %>
+
+  <% if @edition.editable? %>
+    <%= edit_edition_button(@edition) %>
+  <% elsif @edition.is_latest_edition? and @edition.published? %>
+    <%= redraft_edition_button(@edition) %>
+  <% end %>
+</section>
+
+<% if @edition.change_note_required? %>
+  <section>
+    <h2>Change note</h2>
+    <p>
+      <% if @edition.minor_change? %>
+        <em>Minor change</em>
+      <% elsif @edition.change_note.blank? %>
+        <em>None</em>
+      <% else %>
+        <%= @edition.change_note %>
+      <% end %>
+    </p>
+  </section>
+<% end %>
+<% if @edition.allows_supporting_pages? %>
+  <section>
+    <h2>Supporting pages
+      <% if @edition.editable? %>
+        <span class="add_supporting_page pull-right">
+          <%= link_to new_admin_edition_supporting_page_path(@edition), title: "Add supporting page to #{@edition.title}", class: "btn" do %>
+          <i class="icon-plus-sign"></i> Add supporting page
+        <% end %>
+        </span>
+      <% end %>
+    </h2>
+
+    <% if @edition.supporting_pages.any? %>
+      <table class="table">
+        <% @edition.supporting_pages.each do |supporting_page| %>
+          <tr>
+            <td>
+              <%= link_to supporting_page.title, admin_supporting_page_path(supporting_page) %>
+            </td>
+          </tr>
+        <% end %>
+      </table>
+    <% end %>
+  </section>
+<% end %>
+
+<% if @edition.translatable? %>
+  <section class="translations" id="translations">
+    <h2>
+      Translations
+      <% if @edition.editable? and @edition.missing_translations.any? %>
+        <a href="#add-translation-modal" id="open-add-translation-modal" class="btn pull-right" data-toggle="modal"><i class="icon-plus-sign"></i> Add translation</a>
+      <% end %>
+    </h2>
+    <% if @edition.editable? and @edition.missing_translations.any? %>
+      <div id="add-translation-modal" class="modal hide">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h3>Add translation</h3>
+        </div>
+        <%= form_tag(admin_edition_translations_path(@edition)) do %>
+          <div class="modal-body">
+            <%= label_tag :translation_locale, 'Locale' %>
+            <%= select_locale :translation_locale, @edition.missing_translations %>
+          </div>
+          <div class="modal-footer">
+            <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+            <%= submit_tag "Add translation", class: "btn btn-primary" %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+    <% if @edition.non_english_translations.any? %>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Locale</th>
+            <th>Title</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @edition.non_english_translations.each do |translation| %>
+            <tr>
+              <td><%= Locale.new(translation.locale).english_language_name %></td>
+              <td><%= translation.title %></td>
+              <td>
+                <% if @edition.editable? %>
+                  <%= link_to "Edit", edit_admin_edition_translation_path(@edition, translation.locale), class: "btn btn-small" %>
+                <% end %>
+                <% if !@edition.published? %>
+                  <%= link_to "Preview", preview_document_path(@edition, locale: translation.locale), class: 'btn btn-small', target: '_blank' %>
+                <% end %>
+                <% if @edition.deletable? %>
+                  <%= button_to "Delete", admin_edition_translation_path(@edition, translation.locale), method: :delete, class: "btn btn-small btn-danger", confirm: "Are you sure you want to delete this translation?" %>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% else %>
+      <p><em>No translations added.</em></p>
+    <% end %>
+  </section>
+<% end %>
+
+<% if @edition.allows_attachments? %>
+  <section>
+    <h2>
+      Attachments
+      <% if @edition.editable? %>
+        <span class="pull-right">
+          <%= link_to admin_edition_attachments_path(@edition), title: "Edit attachments of #{@edition.title}", class: "btn" do %>
+            <i class="icon-edit"></i> Edit attachments
+          <% end %>
+        </span>
+      <% end %>
+    </h2>
+    <% if @edition.attachments.any? %>
+      <table class="table headless">
+        <% @edition.attachments.each do |attachment| %>
+          <tr>
+            <td><%= attachment.title %></td>
+            <td><%= link_to attachment.filename, attachment.url %></td>
+            <td class="virus-status"><%= attachment_virus_status(attachment) %></td>
+            <!--<td><%= attachment_metadata_tag(attachment) %></td>-->
+          </tr>
+        <% end %>
+      </table>
+    <% else %>
+      <p><em>No attachments added.</em></p>
+    <% end %>
+  </section>
+<% end %>
+
+<% if @edition.document.document_sources.any? or current_user.can_import? %>
+  <section id="document-sources-section">
+    <h2>Legacy URL redirects</h2>
+    <ul>
+      <% @edition.document.document_sources.map(&:url).each do |url| %>
+        <li><%= url %></li>
+      <% end %>
+    </ul>
+    <% if current_user.can_import? %>
+      <p><a href="#document-sources-modal" class="btn" data-toggle="modal">Edit URL redirects</a></p>
+      <div id="document-sources-modal" class="modal hide">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h3>Edit legacy URL redirects</h3>
+        </div>
+        <%= form_tag admin_edition_document_sources_path(@edition), method: :put do %>
+          <div class="modal-body">
+            <p>Enter one URL per line.</p>
+            <%= text_area_tag :document_sources, @edition.document.document_sources.map(&:url).join("\n"), rows: 20 %>
+          </div>
+          <div class="modal-footer">
+            <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+            <%= submit_tag "Save", class: "btn btn-primary" %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </section>
+<% end %>
+
+<% if @edition.respond_to?(:published_related_editions) %>
+  <section>
+    <h2>Links to this page</h2>
+
+    <% if @edition.published_related_editions.any? %>
+      <ul id="inbound-links">
+        <% @edition.published_related_editions.includes(:translations).each do |related_edition| %>
+          <li>
+            <%= link_to related_edition.title, admin_edition_path(related_edition) %>
+            (<%= related_edition.type.underscore.humanize %>)
+          </li>
+        <% end %>
+      </ul>
+    <% else %>
+      <p>No published documents link here.</p>
+    <% end %>
+
+  </section>
+<% end %>
+

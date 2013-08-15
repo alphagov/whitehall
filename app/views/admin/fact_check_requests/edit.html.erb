@@ -1,9 +1,9 @@
 <% page_title "Fact Checking for " + @edition.title %>
 
-<div class="span8 document-preview">
+<div class="span8">
+  <p class="lead">Please review all content:</p>
   <div class="tabbable">
     <ul class="nav nav-tabs">
-      <li><p class="guidance">Please review all content:</p></li>
       <li class="active"><a href="#document" data-toggle="tab">Document</a></li>
       <% if @edition.allows_supporting_pages? && @edition.supporting_pages.any? %>
         <li><a href="#supporting_pages" data-toggle="tab">Supporting pages</a></li>

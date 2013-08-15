@@ -50,8 +50,7 @@ Scenario: Submitting a draft speech to a second pair of eyes
 Scenario: Viewing a speech that's been submitted for review
   Given "Ben Beardson" submitted a speech "Legalise beards" with body "Beards for everyone!"
   When I visit the list of speeches awaiting review
-  And I view the speech "Legalise beards"
-  And I should see that "Beards for everyone!" is the speech body
+  Then I should see that "Legalise beards" is listed on the page
 
 @javascript
 Scenario: Creating authored articles (originally published externally)
@@ -65,7 +64,7 @@ Scenario: Viewing authored articles (originally published externally)
   Given I am an editor
   When I draft a new authored article "Colonel Mustard talks about beards to The Times"
   Then it should be shown as an authored article in the admin screen
-  When I preview the authored article
+  When I preview the document
   Then I should see who wrote it clearly labelled in the metadata
 
 @not-quite-as-fake-search

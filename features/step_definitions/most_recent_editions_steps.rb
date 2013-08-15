@@ -22,12 +22,12 @@ When /^I view the old edition of document "([^"]*)"$/ do |title|
 end
 
 Then /^I can click through to the most recent version of document "([^"]*)"$/ do |title|
-  click_on 'Go to most recent edition'
+  click_on 'Go to draft'
   assert_equal admin_edition_path(Edition.find_by_title(title).latest_edition), current_path
 end
 
 Then /^I cannot click through to the most recent version of document "([^"]*)"$/ do |arg1|
   assert page.has_css?('.alert.access-limited-latest-edition')
-  assert page.has_no_content?('Go to most recent edition')
+  assert page.has_no_content?('Go to draft')
 end
 

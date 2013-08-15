@@ -114,7 +114,7 @@ Then /^the import should fail with errors about an unrecognised policy$/ do
 end
 
 Then /^I can't make the imported (?:publication|speech|news article|consultation) into a draft edition yet$/ do
-  visit_document_preview Edition.imported.last.title
+  visit_edition_admin Edition.imported.last.title
 
   assert page.has_css?('input[type=submit][disabled=disabled][value="Convert to draft"]')
 end
@@ -145,7 +145,7 @@ end
 
 Then /^I can make the imported (?:publication|speech|news article|consultation) into a draft edition$/ do
   edition = Edition.imported.last
-  visit_document_preview edition.title
+  visit_edition_admin edition.title
 
   click_on 'Convert to draft'
 
@@ -199,7 +199,7 @@ end
 Then /^I can delete the imported edition if I choose to$/ do
   edition = Edition.imported.last
 
-  visit_document_preview edition.title
+  visit_edition_admin edition.title
   click_on 'Delete'
 
   assert edition.reload.deleted?

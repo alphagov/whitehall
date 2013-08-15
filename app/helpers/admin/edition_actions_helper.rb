@@ -1,33 +1,27 @@
 module Admin::EditionActionsHelper
   def edit_edition_button(edition)
-    link_to 'Edit', edit_admin_edition_path(edition), title: "Edit #{edition.title}", class: "btn"
+    link_to 'Edit draft', edit_admin_edition_path(edition), title: "Edit #{edition.title}", class: "btn btn-large"
   end
 
   def redraft_edition_button(edition)
-    button_to 'Create new edition', revise_admin_edition_path(edition), title: "Create new edition", class: "btn"
+    button_to 'Create new edition to edit', revise_admin_edition_path(edition), title: "Create new edition to edit", class: "btn btn-large"
   end
 
   def approve_retrospectively_edition_button(edition)
     confirmation_prompt = "Are you sure you want to retrospectively approve this document?"
     content_tag(:div, class: "approve_retrospectively_button") do
-      content_tag(:p, "Does it look ok?") +
-        capture do
-          form_for [:admin, edition], {
-            url: approve_retrospectively_admin_edition_path(edition, lock_version: edition.lock_version),
-            method: :post} do |form|
-            concat(form.submit "Looks good", confirm: confirmation_prompt, class: "btn btn-success")
-          end
+      capture do
+        form_for [:admin, edition], {
+          url: approve_retrospectively_admin_edition_path(edition, lock_version: edition.lock_version),
+          method: :post} do |form|
+          concat(form.submit "Looks good", confirm: confirmation_prompt, class: "btn btn-success")
+        end
       end
     end
   end
 
-  def most_recent_edition_button(edition)
-    link_to "Go to most recent edition", admin_edition_path(edition.latest_edition),
-            title: "Go to most recent edition of #{edition.title}", class: "btn"
-  end
-
   def submit_edition_button(edition)
-    button_to "Submit", submit_admin_edition_path(edition, lock_version: edition.lock_version), class: "btn btn-success"
+    button_to "Submit for 2nd eyes", submit_admin_edition_path(edition, lock_version: edition.lock_version), class: "btn btn-success"
   end
 
   def reject_edition_button(edition)
@@ -44,13 +38,11 @@ module Admin::EditionActionsHelper
   def publish_edition_form(edition, options = {})
     button_title = "Publish #{edition.title}"
     confirm = publish_edition_alerts(edition, options[:force])
-    css_classes = ["btn"]
-    css_classes << (options[:force] ? "btn-warning" : "btn-success")
     if options[:force]
       force_publish_path = force_publish_admin_edition_path(edition, options.merge(lock_version: edition.lock_version))
-      link_to "Force publish", force_publish_path, {class: css_classes.join(" "), "data-toggle" => "modal", "data-target" => "#forcePublishModal"}
+      link_to "Force publish", force_publish_path, {class: "btn", "data-toggle" => "modal", "data-target" => "#forcePublishModal"}
     else
-      button_to "Publish", publish_admin_edition_path(edition, options.merge(lock_version: edition.lock_version)), confirm: confirm, title: button_title, class: css_classes.join(" ")
+      button_to "Publish", publish_admin_edition_path(edition, options.merge(lock_version: edition.lock_version)), confirm: confirm, title: button_title, class: "btn btn-success"
     end
   end
 
@@ -74,7 +66,7 @@ module Admin::EditionActionsHelper
   end
 
   def delete_edition_button(edition)
-    button_to 'Delete', admin_edition_path(edition), method: :delete, title: "Delete", confirm: "Are you sure you want to delete the document?", class: "btn btn-danger"
+    button_to 'Discard draft', admin_edition_path(edition), method: :delete, title: "Delete", confirm: "Are you sure you want to delete the document?", class: "btn btn-danger"
   end
 
   def unpublish_edition_button(edition)

@@ -17,7 +17,6 @@
 
 
 @import "alerts.scss";
-@import "change_notes.scss";
 @import "document.scss";
 @import "forms.scss";
 @import "layout.scss";
@@ -34,6 +33,10 @@
 @import "lists.scss";
 @import "get_involved.scss";
 
+// GLOBAL
+// Styles that apply to all of admin.
+@import "global/_js-hidden.scss";
+
 // HELPERS
 // Objects that can be used in more than one place throughout the admin
 @import "helpers/_document_list.scss";
@@ -47,3 +50,4 @@
 // Controller specific styles. Usually named after the controller whos views
 // they relate to
 @import "views/_dashboard.scss";
+@import "views/_edition_show.scss";

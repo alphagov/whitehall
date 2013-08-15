@@ -30,4 +30,23 @@ class Admin::GenericEditionsController::RevisingDocumentsTest < ActionController
 
     refute_select "form[action='#{revise_admin_edition_path(archived_edition)}']"
   end
+
+  view_test "show for a new draft links back to its published edition" do
+    original_edition = create(:published_edition)
+    new_draft = original_edition.create_draft(create(:policy_writer))
+
+    get :show, id: new_draft
+
+    assert_select ".alert a", href: Whitehall.url_maker.admin_edition_path(original_edition)
+  end
+
+  view_test "show for a published edition links to a new draft" do
+    original_edition = create(:published_edition)
+    new_draft = original_edition.create_draft(create(:policy_writer))
+
+    get :show, id: original_edition
+
+    assert_select ".alert a", href: Whitehall.url_maker.admin_edition_path(new_draft)
+  end
 end
+

@@ -549,27 +549,6 @@ module AdminEditionControllerTestHelpers
         edition.reload
         assert_equal [image_2], edition.images
       end
-
-      view_test "shows the image" do
-        edition = create(edition_type)
-        image = create(:image, edition: edition)
-
-        get :show, id: edition
-
-        assert_select_object(image) do
-          assert_select "img[src=?]", %r{#{image.image_data.file}}
-        end
-      end
-
-      view_test "can embed image inline and see it in preview" do
-        edition = create(edition_type, body: "!!2")
-        image1 = create(:image, edition: edition)
-        image2 = create(:image, edition: edition)
-
-        get :show, id: edition
-
-        assert_select 'article .body figure.image.embedded img[src=?]', Whitehall.asset_host + image2.url
-      end
     end
 
     def should_allow_related_policies_for(document_type)
@@ -657,15 +636,6 @@ module AdminEditionControllerTestHelpers
           assert_select "h1", "Related policies"
           assert_select record_css_selector(policy)
         end
-      end
-
-      view_test "show displays related policies" do
-        policy = create(:policy)
-        document = create(document_type, related_editions: [policy])
-
-        get :show, id: document
-
-        assert_select_object policy
       end
     end
 
@@ -1208,40 +1178,9 @@ module AdminEditionControllerTestHelpers
         assert_equal "http://mainstream/updated-additional-content", edition.additional_related_mainstream_content_url
         assert_equal "Some Updated Additional Mainstream Content", edition.additional_related_mainstream_content_title
       end
-
-      view_test "show should list the links to mainstream content" do
-        edition = create(edition_type,
-          related_mainstream_content_url: "http://mainstream/content",
-          related_mainstream_content_title: "Some Mainstream Content",
-          additional_related_mainstream_content_url: "http://mainstream/additional-content",
-          additional_related_mainstream_content_title: "Some Additional Mainstream Content"
-        )
-
-        get :show, id: edition
-
-        assert_select '.related_mainstream_content' do
-          assert_select "a[href='http://mainstream/content']", text: 'Some Mainstream Content'
-          assert_select "a[href='http://mainstream/additional-content']", text: 'Some Additional Mainstream Content'
-        end
-      end
-
-      view_test "show should indicate a lack of links to mainstream content" do
-        edition = create(edition_type)
-        get :show, id: edition
-        assert_select '.related_mainstream_content', text: %r{doesn't have any related mainstream content}
-      end
     end
 
     def should_allow_alternative_format_provider_for(edition_type)
-      view_test "shows alternative format provider for #{edition_type}" do
-        organisation = create(:organisation_with_alternative_format_contact_email, name: "Ministry of Pop")
-        draft = create(:"draft_#{edition_type}", alternative_format_provider: organisation)
-
-        get :show, id: draft
-
-        assert_select "#associations a", organisation.name
-      end
-
       view_test "when creating allow selection of alternative format provider for #{edition_type}" do
         get :new
 

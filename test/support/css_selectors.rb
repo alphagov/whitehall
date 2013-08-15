@@ -98,11 +98,11 @@ module CssSelectors
   end
 
   def link_to_public_version_selector
-    ".actions .public_version"
+    ".public_version"
   end
 
   def link_to_preview_version_selector
-    ".actions .preview_version"
+    ".preview_version"
   end
 
   def policy_team_selector

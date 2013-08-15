@@ -257,7 +257,7 @@ Details of document required:
       metadata << {
         title: t('document.headings.applies_to_nations'),
         data: [only_applies_to_nations_list(document)],
-        classes: ['document-inapplicable_nations']
+        classes: ['document-inapplicable-nations']
       }
     end
     if document.respond_to?(:policy_team) && document.policy_team

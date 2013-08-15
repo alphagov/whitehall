@@ -1,35 +1,5 @@
 @import "utils/type_sizing";
 
-.document-preview {
-  .nav-tabs {
-    margin-bottom: 0;
-    .guidance {
-      padding: 8px 8px 8px 0;
-      line-height: 18px;
-      margin: 0;
-      font-weight: bold;
-    }
-  }
-
-  .tab-pane {
-    border-left: 1px solid #ddd;
-    border-right: 1px solid #ddd;
-    border-bottom: 3px solid #ccc;
-    padding: 3em 10% 1em 10%;
-    margin-bottom: 2em;
-    overflow: auto;
-    min-height: 20em;
-
-    &.document_page {
-      background: white;
-    }
-  }
-
-  h1 {
-    margin-bottom: 0.75em;
-  }
-}
-
 .document_page {
   background: #fcfcfc;
   border-left: 1px solid #ddd;
