@@ -7,39 +7,88 @@ module Admin
     end
 
     def editions
-      @editions ||= editions_with_filter.page(options[:page]).per(page_size)
+      @editions ||= editions_with_filter.includes(:last_author, :translations).order("editions.updated_at DESC").page(options[:page]).per(page_size)
     end
 
     def editions_with_filter
       editions = @source
       editions = editions.accessible_to(@current_user)
-      editions = editions.by_type(options[:type].classify) if options[:type]
+      editions = editions.by_type(type) if type
+      editions = editions.by_subtype(type, subtype) if subtype?
       editions = editions.__send__(options[:state]) if options[:state]
       editions = editions.authored_by(author) if options[:author]
       editions = editions.in_organisation(organisation) if options[:organisation]
       editions = editions.with_title_containing(options[:title]) if options[:title]
       editions = editions.in_world_location(selected_world_locations) if selected_world_locations.any?
-      editions.includes(:last_author, :translations).order("editions.updated_at DESC")
+      editions = editions.from_date(from_date) if from_date
+      editions = editions.to_date(to_date) if to_date
+      editions
+    end
+
+    def unpagenated_edtions
+      @unpagenated_edtions ||= editions_with_filter
     end
 
     def page_title
-      "#{ownership} #{edition_state} #{document_type.humanize.pluralize.downcase}#{title_matches}#{location_matches}".squeeze(' ')
+      "#{ownership} #{edition_state} #{type_for_display}#{title_matches}#{location_matches}".squeeze(' ')
     end
 
     def page_size
       50
     end
 
+    def type
+      if options[:type].present?
+        if subtype?
+          supertype.classify
+        else
+          options[:type].classify
+        end
+      end
+    end
+
+    def subtype?
+      options[:type].match("_subtype_") if options[:type]
+    end
+
+    def supertype
+      options[:type].sub(/_subtype_.*/, '') if options[:type]
+    end
+
+    def subtype
+      options[:type].sub(/.*_subtype_/, '') if options[:type]
+    end
+
+    def type_for_display
+      if options[:type].present?
+        if subtype?
+          subtype
+        else
+          options[:type].humanize.pluralize.downcase
+        end
+      else
+        "documents"
+      end
+    end
+
+    def show_stats
+      ['published'].include?(options[:state])
+    end
+
     def published_count
-      editions_with_filter.published.length
+      unpagenated_edtions.published.count
     end
 
     def force_published_count
-      editions_with_filter.force_published.length
+      unpagenated_edtions.force_published.count
     end
 
     def force_published_percentage
-      "#{ (( force_published_count.to_f / published_count.to_f) * 100.0).round(2) } %"
+      if published_count > 0
+        (( force_published_count.to_f / published_count.to_f) * 100.0).round(2)
+      else
+        0
+      end
     end
 
     def valid?
@@ -48,6 +97,14 @@ module Admin
       true
     rescue ActiveRecord::RecordNotFound
       false
+    end
+
+    def from_date
+      @from_date ||= Chronic.parse(options[:from_date], endian_precedence: :little) if options[:from_date]
+    end
+
+    def to_date
+      @to_date ||= Chronic.parse(options[:to_date], endian_precedence: :little) if options[:to_date]
     end
 
     private
@@ -79,11 +136,7 @@ module Admin
     end
 
     def edition_state
-      options[:state] unless options[:state] == 'active'
-    end
-
-    def document_type
-      options[:type].present? ? options[:type] : 'document'
+      options[:state].humanize.downcase if options[:state] && options[:state] != 'active'
     end
 
     def organisation

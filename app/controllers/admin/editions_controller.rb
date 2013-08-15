@@ -273,7 +273,7 @@ class Admin::EditionsController < Admin::BaseController
   end
 
   def params_filters
-    sanitized_filters(params.slice(:type, :state, :organisation, :author, :page, :title, :world_location_ids))
+    sanitized_filters(params.slice(:type, :state, :organisation, :author, :page, :title, :world_location_ids, :from_date, :to_date))
   end
 
   def params_filters_with_default_state
@@ -287,7 +287,7 @@ class Admin::EditionsController < Admin::BaseController
   end
 
   def filter
-    @filter ||= params_filters.any? && Admin::EditionFilter.new(edition_class, current_user, params_filters_with_default_state)
+    @filter ||= Admin::EditionFilter.new(edition_class, current_user, params_filters_with_default_state) if params_filters.any?
   end
 
   def detect_other_active_editors

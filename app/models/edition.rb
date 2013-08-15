@@ -464,12 +464,27 @@ class Edition < ActiveRecord::Base
       end
     end
 
+    # used by Admin::EditionFilter
     def by_type(type)
       where(type: type)
     end
 
+    # used by Admin::EditionFilter
+    def by_subtype(type, plural_name)
+      type.constantize.by_subtype_plural_name(plural_name)
+    end
+
+    # used by Admin::EditionFilter
     def in_world_location(world_location)
       joins(:world_locations).where('world_locations.id' => world_location)
+    end
+
+    def from_date(date)
+      where("editions.updated_at >= ?", date)
+    end
+
+    def to_date(date)
+      where("editions.updated_at <= ?", date)
     end
 
     def related_to(edition)

@@ -1,5 +1,5 @@
 <%
-  filter_by ||= [:title, :author, :world_location, :type, :state]
+  filter_by ||= [:title, :author, :world_location, :type, :state, :date]
 %>
 <nav class="well" style="padding: 8px 0;">
   <ul class="nav nav-list">
@@ -7,7 +7,7 @@
       <li class="nav-header">Filter by Title or Slug</li>
       <li>
         <%= form_tag("", method: :get, class: "pull-left") do %>
-          <%= pass_through_filter_options_as_hidden_fields(@filter, :organisation, :type, :state, :author, :world_location_ids) %>
+          <%= pass_through_filter_options_as_hidden_fields(@filter, :organisation, :type, :state, :author, :world_location_ids, :from_date, :to_date) %>
           <input type="search" id="search_title" name="title" value="<%= @filter.options[:title] %>" placeholder="Search title">
         <% end %>
       </li>
@@ -21,7 +21,7 @@
       <li class="organisation-filter <%= active_filter_unless_values_match_class(@filter, :organisation, current_user.organisation_id) %>">
         <%= form_tag("", method: :get) do %>
           <%= select_tag :organisation, options_from_collection_for_select(Organisation.with_translations(:en).all - [current_user.organisation], 'id', 'select_name', @filter.options[:organisation]), class: 'chzn-select', include_blank: true, data: { placeholder: "Other organisations..." } %>
-          <%= pass_through_filter_options_as_hidden_fields(@filter, :type, :state, :world_location_ids) %>
+          <%= pass_through_filter_options_as_hidden_fields(@filter, :type, :state, :world_location_ids, :from_date, :to_date) %>
           <%= submit_tag "Go", class: "btn" %>
         <% end %>
       </li>
@@ -29,7 +29,7 @@
       <li class="author-filter <%= active_filter_unless_values_match_class(@filter, :author, current_user.id.to_s) %>">
         <%= form_tag("", method: :get) do %>
           <%= select_tag :author, options_from_collection_for_select(User.all - [current_user], 'id', 'name', @filter.options[:author]), class: 'chzn-select', include_blank: true, data: { placeholder: "Other authors..." } %>
-          <%= pass_through_filter_options_as_hidden_fields(@filter, :type, :state, :world_location_ids) %>
+          <%= pass_through_filter_options_as_hidden_fields(@filter, :type, :state, :world_location_ids, :from_date, :to_date) %>
           <%= submit_tag "Go", class: "btn" %>
         <% end %>
       </li>
@@ -48,7 +48,7 @@
                          multiple: true,
                          class: 'chzn-select',
                          data: { placeholder: "World locations..."} %>
-          <%= pass_through_filter_options_as_hidden_fields(@filter, :organisation, :type, :state, :author) %>
+          <%= pass_through_filter_options_as_hidden_fields(@filter, :organisation, :type, :state, :author, :from_date, :to_date) %>
           <%= submit_tag "Go", class: "btn" %>
         <% end %>
       </li>
@@ -57,19 +57,17 @@
     <% if filter_by.include?(:type) %>
       <li class="nav-header">Filter by Kind</li>
       <%= link_to_filter 'All', {locale: params[:locale], type: nil}, @filter, title: "Show all kinds of document" %>
-      <%= link_to_filter 'Policies', {locale: params[:locale], type: 'policy'}, @filter, title: "Show only policies" %>
-      <%= link_to_filter 'Publications', {locale: params[:locale], type: 'publication'}, @filter, title: "Show only publications" %>
-      <%= link_to_filter 'News articles', {locale: params[:locale], type: 'news_article'}, @filter, title: "Show only news articles" %>
-      <%= link_to_filter 'Consultations', {locale: params[:locale], type: 'consultation'}, @filter, title: "Show only consultations" %>
-      <%= link_to_filter 'Speeches', {locale: params[:locale], type: 'speech'}, @filter, title: "Show only speeches" %>
-      <%= link_to_filter 'Detailed guide', {locale: params[:locale], type: 'detailed_guide'}, @filter, title: "Show only detailed guides" %>
-      <%= link_to_filter 'Worldwide priorities', {locale: params[:locale], type: 'worldwide_priorities'}, @filter, title: "Show only worldwide priorities" %>
-      <%= link_to_filter 'World location news article', {locale: params[:locale], type: 'world_location_news_article'}, @filter, title: "Show only worldwide priorities" %>
-      <%= link_to_filter 'Case studies', {locale: params[:locale], type: 'case_studies'}, @filter, title: "Show only case studies" %>
-      <%= link_to_filter 'Statistical data sets', {locale: params[:locale], type: 'statistical_data_sets'}, @filter, title: "Show only statistical data sets" %>
-      <% if current_user.can_handle_fatalities? %>
-        <%= link_to_filter 'Fatality notices', {locale: params[:locale], type: 'fatality_notices'}, @filter, title: "Show only fatality notices" %>
-      <% end %>
+      <li class="edition-kind-filter">
+        <%= form_tag("", method: :get) do  %>
+          <%= select_tag :type,
+                          options_for_select(filter_options_for_edition(current_user), @filter.options[:type]),
+                          class: 'chzn-select',
+                          include_blank: true,
+                          data: { placeholder: "Kind..."} %>
+            <%= pass_through_filter_options_as_hidden_fields(@filter, :organisation, :world_location_ids, :state, :author, :from_date, :to_date) %>
+            <%= submit_tag "Go", class: "btn" %>
+          <% end %>
+      </li>
     <% end %>
 
     <% if filter_by.include?(:state) %>
@@ -83,6 +81,20 @@
       <%= link_to_filter 'Scheduled', {locale: params[:locale], state: :scheduled}, @filter, title: "Show only scheduled #{document_type}" %>
       <%= link_to_filter 'Published', {locale: params[:locale], state: :published}, @filter, title: "Show only published #{document_type}" %>
       <%= link_to_filter 'Force Published <br/>(not reviewed)'.html_safe, {locale: params[:locale], state: :force_published}, @filter, title: "Show only force published #{document_type}" %>
+    <% end %>
+
+    <% if filter_by.include?(:date) %>
+      <li class="nav-header">Filter by date (last updated)</li>
+      <li class="date-filter">
+        <%= form_tag("", method: :get) do  %>
+          <%= label_tag :from_date, "From" %>
+          <%= text_field_tag :from_date, @filter.options[:from_date], class: 'date' %>
+          <%= label_tag :to_date, "To" %>
+          <%= text_field_tag :to_date, @filter.options[:to_date], class: 'date' %>
+          <%= pass_through_filter_options_as_hidden_fields(@filter, :organisation, :world_location_ids, :state, :author, :type) %>
+          <%= submit_tag "Go", class: "btn" %>
+        <% end %>
+      </li>
     <% end %>
   </ul>
 </nav>

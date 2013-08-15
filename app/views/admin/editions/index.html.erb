@@ -9,20 +9,23 @@
       <h1>
         <%= "#{@filter.page_title}" %>
       </h1>
-      <table class="table">
-        <tbody>
-          <tr>
-            <td>Documents</td>
-            <td><%= @filter.editions.total_count %></td>
-            <td>Published</td>
-            <td><%= @filter.published_count %></td>
-            <td>Force Published</td>
-            <td><%= @filter.force_published_count %></td>
-            <td><%= @filter.force_published_percentage %></td>
-          </tr>
-        </tbody>
-      </table>
-      <%= paginate @filter.editions, theme: 'twitter-bootstrap' %>
+      <div class="span7">
+        <%= paginate @filter.editions, theme: 'twitter-bootstrap' %>
+      </div>
+      <div class="span4">
+        <p class="publishing-stats">
+          <% if @filter.show_stats %>
+            Published
+            <span class="badge"><%= @filter.published_count %></span>
+            Force Published
+            <span class="badge badge-important"><%= @filter.force_published_count %></span>
+            <span class="badge badge-important"><%= @filter.force_published_percentage %>%</span>
+          <% else %>
+            Documents
+            <span class="badge"><%= @filter.editions.total_count %></span>
+          <% end %>
+        </p>
+      </div>
       <table class="table table-striped">
         <thead>
           <tr>
@@ -43,7 +46,7 @@
           <% end %>
           <% @filter.editions.each do |edition| %>
             <%= content_tag_for(:tr, edition, class: ('force_published' if edition.force_published?)) do %>
-              <td class="type"><%= edition.type.underscore.humanize %></td>
+              <td class="type"><%= edition.display_type %></td>
               <td class="title">
                 <span class="title"><%= link_to edition.title, admin_edition_path(edition), title: "View document #{edition.title}" %></span>
                 <% if edition.non_english_edition? %>

@@ -17,6 +17,15 @@ class Publication < Publicationesque
 
   after_update { |p| p.published_related_policies.each(&:update_published_related_publication_count) }
 
+  def self.subtypes
+    PublicationType.all
+  end
+
+  def self.by_subtype_plural_name(plural_name)
+    subtype = PublicationType.find_by_plural_name(plural_name)
+    where(publication_type_id: subtype.id) if subtype
+  end
+
   def self.not_statistics
     where("publication_type_id NOT IN (?)", PublicationType.statistical.map(&:id))
   end

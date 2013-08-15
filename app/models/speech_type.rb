@@ -1,7 +1,7 @@
 class SpeechType
   include ActiveRecordLikeInterface
 
-  attr_accessor :id, :name, :genus_key, :explanation, :key, :owner_key_group, :published_externally_key, :location_relevant
+  attr_accessor :id, :name, :plural_name, :genus_key, :explanation, :key, :owner_key_group, :published_externally_key, :location_relevant
 
   def self.create(attributes)
     super({
@@ -20,7 +20,11 @@ class SpeechType
   end
 
   def self.find_by_name(name)
-    all.detect { |pt| pt.name == name }
+    all.detect { |type| type.name == name }
+  end
+
+  def self.find_by_plural_name(plural_name)
+    all.detect { |type| type.plural_name == plural_name }
   end
 
   def self.find_by_slug(slug)
@@ -51,33 +55,39 @@ class SpeechType
 
   Transcript = create(
     id: 1, name: "Transcript", genus_key: "speech", key: "transcript",
-    explanation: "This is a transcript of the speech, exactly as it was delivered."
+    explanation: "This is a transcript of the speech, exactly as it was delivered.",
+    plural_name: "Transcripts"
   )
 
   DraftText = create(
     id: 2, name: "Draft text", genus_key: "speech", key: "draft_text",
-    explanation: "This is the text of the speech as drafted, which may differ slightly from the delivered version."
+    explanation: "This is the text of the speech as drafted, which may differ slightly from the delivered version.",
+    plural_name: "Draft texts"
   )
 
   SpeakingNotes = create(
     id: 3, name: "Speaking notes", genus_key: "speech", key: "speaking_notes",
-    explanation: "These are the speaker's notes, not a transcript of the speech as it was delivered."
+    explanation: "These are the speaker's notes, not a transcript of the speech as it was delivered.",
+    plural_name: "Speaking notes"
   )
 
   WrittenStatement = create(
-    id: 4, key: "written_statement", name: "Written statement to Parliament"
+    id: 4, key: "written_statement", name: "Written statement to Parliament",
+    plural_name: "Written statements to Parliament"
   )
 
   OralStatement = create(
-    id: 5, key: "oral_statement", name: "Oral statement to Parliament"
+    id: 5, key: "oral_statement", name: "Oral statement to Parliament",
+    plural_name: "Oral statements to Parliament"
   )
 
   AuthoredArticle = create(
     id: 6, key: "authored_article", name: "Authored article",
-    owner_key_group: "author_title", published_externally_key: "written_on", location_relevant: false
+    owner_key_group: "author_title", published_externally_key: "written_on", location_relevant: false,
+    plural_name: "Authored article"
   )
 
   ImportedAwaitingType = create(
-    id: 1000, key: "imported", name: "Imported - Awaiting Type"
+    id: 1000, key: "imported", name: "Imported - Awaiting Type", plural_name: "Imported"
   )
 end
