@@ -14,7 +14,7 @@
     <% end %>
     <ul>
       <% lead_organisations.each do |organisation| %>
-        <%= content_tag_for :li, organisation, class:  organisation.slug do %>
+        <%= content_tag_for :li, organisation, class: organisation_brand_colour_class(organisation) do %>
           <%= link_to organisation,
                       class: logo_classes(class_name: organisation.organisation_logo_type.class_name, stacked: !show_hm_government, use_identity: !show_hm_government) do %>
             <span><%= organisation_logo_name(organisation, !show_hm_government) %></span>
@@ -41,7 +41,7 @@
     <% end %>
   <% else %>
     <% organisations.each do |organisation| %>
-      <%= content_tag_for(:div, organisation, class: organisation.slug) do %>
+      <%= content_tag_for(:div, organisation, class: organisation_brand_colour_class(organisation)) do %>
         <%= link_to organisation,
                     class: logo_classes(class_name: organisation.organisation_logo_type.class_name, stacked: true, use_identity: true) do %>
           <span><%= organisation_logo_name(organisation) %></span>

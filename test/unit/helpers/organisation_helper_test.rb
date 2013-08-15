@@ -23,11 +23,28 @@ class OrganisationHelperTest < ActionView::TestCase
     assert_equal "Building Law and Hygiene", organisation_logo_name(organisation, false)
   end
 
-  test 'organisation header helper should place org specific class onto the div' do
+  test 'organisation_wrapper should place org specific class onto the div' do
     organisation = build(:organisation, slug: "organisation-slug-yeah", name: "Building Law and Hygiene")
     html = organisation_wrapper(organisation) {  }
     div = Nokogiri::HTML.fragment(html)/'div'
     assert_match /organisation-slug-yeah/, div.attr('class').value
+  end
+
+  test 'organisation_wrapper should place brand colour class onto the div' do
+    organisation = build(:organisation, organisation_brand_colour_id: OrganisationBrandColour::HMGovernment.id)
+    html = organisation_wrapper(organisation) {  }
+    div = Nokogiri::HTML.fragment(html)/'div'
+    assert_match /hm-government-brand-colour/, div.attr('class').value
+  end
+
+  test 'organisation_brand_colour_class generates blank class when org has no brand colour' do
+    org = build(:organisation)
+    assert_equal organisation_brand_colour_class(org), ""
+  end
+
+  test 'organisation_brand_colour_class generates correct class for brand colour' do
+    org = build(:organisation, organisation_brand_colour_id: 2)
+    assert_equal organisation_brand_colour_class(org), "cabinet-office-brand-colour"
   end
 
   test 'extra_board_member_class returns clear_person at correct interval when many important board members' do

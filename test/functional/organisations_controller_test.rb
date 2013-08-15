@@ -239,6 +239,12 @@ class OrganisationsControllerTest < ActionController::TestCase
     end
   end
 
+  view_test "#show uses the correct organisation brand colour" do
+    organisation = create(:organisation, organisation_brand_colour_id: OrganisationBrandColour::HMGovernment.id)
+    get :show, id: organisation
+    assert_select ".hm-government-brand-colour"
+  end
+
   test "showing a live organisation renders the show template" do
     organisation = create(:organisation, govuk_status: 'live')
 
@@ -817,13 +823,13 @@ class OrganisationsControllerTest < ActionController::TestCase
     refute_select special_representative_selector
   end
 
-  view_test "should place organisation specific css class on every organisation sub page" do
+  view_test "should place organisation brand colour css class on every organisation sub page" do
     ministerial_department = create(:organisation_type, name: "Ministerial Department")
-    organisation = create(:organisation, organisation_type: ministerial_department)
+    organisation = create(:organisation, organisation_type: ministerial_department, organisation_brand_colour_id: OrganisationBrandColour::HMGovernment.id)
 
     [:show, :about].each do |page|
       get page, id: organisation
-      assert_select "##{dom_id(organisation)}.#{organisation.slug}.ministerial-department"
+      assert_select "##{dom_id(organisation)}.#{organisation.organisation_brand_colour.class_name}-brand-colour.ministerial-department"
     end
   end
 

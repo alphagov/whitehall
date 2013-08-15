@@ -728,4 +728,15 @@ class OrganisationTest < ActiveSupport::TestCase
 
     assert_equal [organisation], Organisation.with_published_editions(:policy)
   end
+
+  test '#organisation_brand_colour fetches the brand colour' do
+    org = create(:organisation, organisation_brand_colour_id: 1)
+    assert_equal org.organisation_brand_colour, OrganisationBrandColour::AttorneyGeneralsOffice
+  end
+
+  test '#organisation_brand_colour= sets the brand colour' do
+    org = create(:organisation)
+    org.organisation_brand_colour = OrganisationBrandColour::AttorneyGeneralsOffice
+    assert_equal org.organisation_brand_colour_id, 1
+  end
 end

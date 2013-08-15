@@ -778,10 +778,10 @@
     border-bottom-width: 5px;
     border-bottom-style: solid;
   }
-  @include department-colours("h1", border-color);
-  @include department-colours("h2", border-color);
-  @include websafe-department-colours(".social-media-link .connect", background-color);
-  @include websafe-department-colours("a", color);
+  @include organisation-brand-colour("h1", border-color);
+  @include organisation-brand-colour("h2", border-color);
+  @include organisation-brand-colour(".social-media-link .connect", background-color, $websafe: true);
+  @include organisation-brand-colour("a", color, $websafe: true);
 }
 .organisations-external {
   @include media(desktop){
@@ -1153,9 +1153,9 @@
 // Used on:
 // organisations#about, corporate_information_page#show
 .organisation-page {
-  @include websafe-department-colours('nav a', color);
-  @include websafe-department-colours('.block-2 a', color);
-  @include websafe-department-colours('.body .attachment .accessibility-warning h3 .toggler', color);
+  @include organisation-brand-colour('nav a', color, $websafe: true);
+  @include organisation-brand-colour('.block-2 a', color, $websafe: true);
+  @include organisation-brand-colour('.body .attachment .accessibility-warning h3 .toggler', color, $websafe: true);
 
   @include media(desktop){
     .block-1 {
@@ -1269,7 +1269,7 @@
       }
     }
   }
-  @include department-colours('.corporate-info h1', border-color);
+  @include organisation-brand-colour('.corporate-info h1', border-color);
 }
 
 

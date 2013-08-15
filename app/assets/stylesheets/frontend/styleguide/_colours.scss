@@ -47,87 +47,84 @@ $office-of-the-leader-of-the-house-of-lords-websafe: #c2395d;
 $scotland-office-websafe: #405c8a;
 $the-office-of-the-leader-of-the-house-of-commons-websafe: #005f8f;
 $uk-export-finance-websafe: $link-colour;
+$uk-trade-investment-websafe: $link-colour;
 $wales-office-websafe: #7a242a;
 
-
-
-
-
+// Organisation brand colours
+// 
+// Organisation brand colours are specified manually because there is no 
+// fixed rule as to what colours organisations have. Colours are defined 
+// by OrganisationBrandColour and its associated CSS class here.
+//
+// NOTE: The mixin will create a new block inside the block it is included in. 
+// The downside of this approach is it requires at least 3 elements to be 
+// able to do anything – the parent element, the element with the colour 
+// class on and the element we're actually styling. This might be simpler 
+// if we did &.foo-brand-colour #{$selector} { ... }, but that will 
+// require refactoring.
+// 
 // Usage:
 //
 //   html:
-//
-//     <a href="..." class="cabinet-office">Cabinet Office</a>
+//    <div class="organisations-show">
+//      <div class="cabinet-office-brand-colour">
+//        <a href="...">Cabinet Office</a>
+//      </div>
+//    </div>
 //
 //   css:
-//     a {
-//       border-width: 2px;
-//       border-style: solid;
-//       @include department-colours(border-color);
+//     .organisations-show {
+//       a {
+//         border-width: 2px;
+//         border-style: solid;
+//       }
+//       @include organisation-brand-colour("a", border-color);
 //     }
 
-@mixin department-colours($selector, $property) {
-  .attorney-generals-office #{$selector} { #{$property}: $attorney-generals-office; }
-  .building-regulations-advisory-committee #{$selector} { #{$property}: $department-for-communities-and-local-government; }
-  .cabinet-office #{$selector} { #{$property}: $cabinet-office; }
-  .department-for-business-innovation-skills #{$selector} { #{$property}: $department-for-business-innovation-skills; }
-  .department-for-communities-and-local-government #{$selector} { #{$property}: $department-for-communities-and-local-government; }
-  .department-for-culture-media-sport #{$selector} { #{$property}: $department-for-culture-media-sport; }
-  .department-for-education #{$selector} { #{$property}: $department-for-education; }
-  .department-for-environment-food-rural-affairs #{$selector} { #{$property}: $department-for-environment-food-rural-affairs; }
-  .department-for-international-development #{$selector} { #{$property}: $department-for-international-development; }
-  .department-for-transport #{$selector} { #{$property}: $department-for-transport; }
-  .department-for-work-pensions #{$selector} { #{$property}: $department-for-work-pensions; }
-  .department-of-energy-climate-change #{$selector} { #{$property}: $department-of-energy-climate-change; }
-  .department-of-health #{$selector} { #{$property}: $department-of-health; }
-  .driving-standards-agency #{$selector} { #{$property}: $department-for-transport; }
-  .foreign-commonwealth-office #{$selector} { #{$property}: $foreign-commonwealth-office; }
-  .government-equalities-office #{$selector} { #{$property}: $department-for-culture-media-sport; }
-  .hm-government #{$selector} { #{$property}: $hm-government; }
-  .hm-revenue-customs #{$selector} { #{$property}: $hm-revenue-customs; }
-  .hm-treasury #{$selector} { #{$property}: $hm-treasury; }
-  .home-office #{$selector} { #{$property}: $home-office; }
-  .ministry-of-defence #{$selector} { #{$property}: $ministry-of-defence; }
-  .ministry-of-justice #{$selector} { #{$property}: $ministry-of-justice; }
-  .northern-ireland-office #{$selector} { #{$property}: $northern-ireland-office; }
-  .office-of-the-advocate-general-for-scotland #{$selector} { #{$property}: $office-of-the-advocate-general-for-scotland; }
-  .office-of-the-leader-of-the-house-of-lords #{$selector} { #{$property}: $office-of-the-leader-of-the-house-of-lords; }
-  .planning-inspectorate #{$selector} { #{$property}: $department-for-communities-and-local-government; }
-  .scotland-office #{$selector} { #{$property}: $scotland-office; }
-  .the-office-of-the-leader-of-the-house-of-commons #{$selector} { #{$property}: $the-office-of-the-leader-of-the-house-of-commons; }
-  .uk-export-finance #{$selector} { #{$property}: $uk-export-finance; }
-  .wales-office #{$selector} { #{$property}: $wales-office; }
+
+// All organisation colours as list of (class_name, colour, websafe colour)
+$all-organisation-brand-colours: 
+  'attorney-generals-office' $attorney-generals-office $attorney-generals-office-websafe,
+  'cabinet-office' $cabinet-office $cabinet-office-websafe,
+  'department-for-business-innovation-skills' $department-for-business-innovation-skills $department-for-business-innovation-skills-websafe,
+  'department-for-communities-and-local-government' $department-for-communities-and-local-government $department-for-communities-and-local-government-websafe,
+  'department-for-culture-media-sport' $department-for-culture-media-sport $department-for-culture-media-sport-websafe,
+  'department-for-education' $department-for-education $department-for-education-websafe,
+  'department-for-environment-food-rural-affairs' $department-for-environment-food-rural-affairs $department-for-environment-food-rural-affairs-websafe,
+  'department-for-international-development' $department-for-international-development $department-for-international-development-websafe,
+  'department-for-transport' $department-for-transport $department-for-transport-websafe,
+  'department-for-work-pensions' $department-for-work-pensions $department-for-work-pensions-websafe,
+  'department-of-energy-climate-change' $department-of-energy-climate-change $department-of-energy-climate-change-websafe,
+  'department-of-health' $department-of-health $department-of-health-websafe,
+  'foreign-commonwealth-office' $foreign-commonwealth-office $foreign-commonwealth-office-websafe,
+  'hm-government' $hm-government $hm-government-websafe,
+  'hm-revenue-customs' $hm-revenue-customs $hm-revenue-customs-websafe,
+  'hm-treasury' $hm-treasury $hm-treasury-websafe,
+  'home-office' $home-office $home-office-websafe,
+  'ministry-of-defence' $ministry-of-defence $ministry-of-defence-websafe,
+  'ministry-of-justice' $ministry-of-justice $ministry-of-justice-websafe,
+  'northern-ireland-office' $northern-ireland-office $northern-ireland-office-websafe,
+  'office-of-the-advocate-general-for-scotland' $office-of-the-advocate-general-for-scotland $office-of-the-advocate-general-for-scotland-websafe,
+  'office-of-the-leader-of-the-house-of-lords' $office-of-the-leader-of-the-house-of-lords $office-of-the-leader-of-the-house-of-lords-websafe,
+  'scotland-office' $scotland-office $scotland-office-websafe,
+  'the-office-of-the-leader-of-the-house-of-commons' $the-office-of-the-leader-of-the-house-of-commons $the-office-of-the-leader-of-the-house-of-commons-websafe,
+  'uk-export-finance' $uk-export-finance $uk-export-finance-websafe,
+  // TODO: blocked by govuk_frontend_toolkit#53
+  //'uk-trade-investment' $uk-trade-investment $uk-trade-investment-websafe,
+  'wales-office' $wales-office $wales-office-websafe;
+
+
+@mixin organisation-brand-colour($selector, $property, $websafe: false) {
+  @each $organisation in $all-organisation-brand-colours {
+    .#{nth($organisation, 1)}-brand-colour #{$selector} {
+      @if $websafe {
+        #{$property}: nth($organisation, 3);
+      }
+      @else {
+        #{$property}: nth($organisation, 2);
+      }
+    }
+  }
 }
 
-@mixin websafe-department-colours($selector, $property) {
-  .attorney-generals-office #{$selector} { #{$property}: $attorney-generals-office-websafe; }
-  .building-regulations-advisory-committee #{$selector} { #{$property}: $department-for-communities-and-local-government-websafe; }
-  .cabinet-office #{$selector} { #{$property}: $cabinet-office-websafe; }
-  .department-for-business-innovation-skills #{$selector} { #{$property}: $department-for-business-innovation-skills-websafe; }
-  .department-for-communities-and-local-government #{$selector} { #{$property}: $department-for-communities-and-local-government-websafe; }
-  .department-for-culture-media-sport #{$selector} { #{$property}: $department-for-culture-media-sport-websafe; }
-  .department-for-education #{$selector} { #{$property}: $department-for-education-websafe; }
-  .department-for-environment-food-rural-affairs #{$selector} { #{$property}: $department-for-environment-food-rural-affairs-websafe; }
-  .department-for-international-development #{$selector} { #{$property}: $department-for-international-development-websafe; }
-  .department-for-transport #{$selector} { #{$property}: $department-for-transport-websafe; }
-  .department-for-work-pensions #{$selector} { #{$property}: $department-for-work-pensions-websafe; }
-  .department-of-energy-climate-change #{$selector} { #{$property}: $department-of-energy-climate-change-websafe; }
-  .department-of-health #{$selector} { #{$property}: $department-of-health-websafe; }
-  .driving-standards-agency #{$selector} { #{$property}: $department-for-transport-websafe; }
-  .foreign-commonwealth-office #{$selector} { #{$property}: $foreign-commonwealth-office-websafe; }
-  .government-equalities-office #{$selector} { #{$property}: $department-for-culture-media-sport-websafe; }
-  .hm-government #{$selector} { #{$property}: $hm-government-websafe; }
-  .hm-revenue-customs #{$selector} { #{$property}: $hm-revenue-customs-websafe; }
-  .hm-treasury #{$selector} { #{$property}: $hm-treasury-websafe; }
-  .home-office #{$selector} { #{$property}: $home-office-websafe; }
-  .ministry-of-defence #{$selector} { #{$property}: $ministry-of-defence-websafe; }
-  .ministry-of-justice #{$selector} { #{$property}: $ministry-of-justice-websafe; }
-  .northern-ireland-office #{$selector} { #{$property}: $northern-ireland-office-websafe; }
-  .office-of-the-advocate-general-for-scotland #{$selector} { #{$property}: $office-of-the-advocate-general-for-scotland-websafe; }
-  .office-of-the-leader-of-the-house-of-lords #{$selector} { #{$property}: $office-of-the-leader-of-the-house-of-lords-websafe; }
-  .planning-inspectorate #{$selector} { #{$property}: $department-for-communities-and-local-government-websafe; }
-  .scotland-office #{$selector} { #{$property}: $scotland-office-websafe; }
-  .the-office-of-the-leader-of-the-house-of-commons #{$selector} { #{$property}: $the-office-of-the-leader-of-the-house-of-commons-websafe; }
-  .uk-export-finance #{$selector} { #{$property}: $uk-export-finance-websafe; }
-  .wales-office #{$selector} { #{$property}: $wales-office-websafe; }
-}
+
