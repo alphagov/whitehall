@@ -30,7 +30,7 @@ body {
       margin-left: $gutter-one-sixth;
       content: " \25BC";
     }
-    @include media(tablet) {
+    @include media(desktop) {
       span {
         display: block;
       }
@@ -65,7 +65,7 @@ body {
     li {
       display: block;
 
-      @include media(tablet){
+      @include media(desktop){
         float: left;
         text-align: center;
       }
@@ -77,7 +77,7 @@ body {
       }
       &.user-org {
         display: none;
-        @include media(tablet){
+        @include media(desktop){
           display: block;
         }
       }
@@ -101,7 +101,7 @@ body {
           height: 40px;
           padding-top: $gutter-one-third;
           vertical-align: middle;
-          @include media(tablet) {
+          @include media(desktop) {
             display: table-cell;
             width: 16%;
           }
@@ -125,12 +125,12 @@ body {
             background-color: $light-blue-50;
           }
         }
-        @include media(tablet) {
+        @include media(desktop) {
           margin: 0 0.23% 0 0;
           width: 16.4%;
         }
       }
-      @include media(tablet) {
+      @include media(desktop) {
         margin: 0 $gutter-half;
       }
     }
@@ -160,7 +160,7 @@ body {
       .session-info-wrapper {
         padding: 0 $gutter-two-thirds;
         float: right;
-        @include media(tablet) {
+        @include media(desktop) {
           float: left;
         }
       }
@@ -276,7 +276,7 @@ body {
       .right {
         top: 305px;
       }
-      @include media(tablet) {
+      @include media(desktop) {
         .more-nav {
           width: 48.2%;
         }
