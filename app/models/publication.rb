@@ -93,6 +93,10 @@ class Publication < Publicationesque
     !non_english_edition?
   end
 
+  def publishable
+    errors.add(:base, "must have an attachment") if attachments.empty? && !html_version.present?
+  end
+
   private
 
   def only_publications_allowed_invalid_data_can_be_awaiting_type

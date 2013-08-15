@@ -7,6 +7,7 @@ module Edition::Publishing
     validates :major_change_published_at, presence: true, if: -> edition { edition.published? }
     validate :change_note_present!, if: :change_note_required?
     validate :attachment_passed_virus_scan!, if: :virus_check_required?
+    validate :publishable, if: :published?
 
     attr_accessor :skip_virus_status_check
 
@@ -56,6 +57,10 @@ module Edition::Publishing
 
   def attachment_passed_virus_scan!
     errors.add(:attachments, "must have passed virus scanning.") unless valid_virus_state?
+  end
+
+  def publishable
+    true
   end
 
   def publishable_by?(user, options = {})
