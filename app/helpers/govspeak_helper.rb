@@ -3,6 +3,7 @@ require 'delegate'
 
 module GovspeakHelper
   EMBEDDED_CONTACT_REGEXP = /\[Contact\:([0-9]+)\]/
+  BARCHART_REGEXP = /{barchart(.*?)}/
 
   def govspeak_to_html(govspeak, images=[], options={})
     wrapped_in_govspeak_div(bare_govspeak_to_html(govspeak, images, options))
@@ -110,7 +111,7 @@ module GovspeakHelper
   def set_classes_for_charts(govspeak)
     return govspeak if govspeak.blank?
     
-    govspeak.gsub(/{barchart(.*)}/) do
+    govspeak.gsub(GovspeakHelper::BARCHART_REGEXP) do
       stacked = '.mc-stacked' if $1.include? 'stacked'
       compact = '.compact' if $1.include? 'compact'
       negative = '.mc-negative' if $1.include? 'negative'
