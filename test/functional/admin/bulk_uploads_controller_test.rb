@@ -73,6 +73,15 @@ class Admin::BulkUploadsControllerTest < ActionController::TestCase
     assert_select 'input[type=file]'
   end
 
+  view_test 'POST :upload_zip when replacing an attachment sets to_replace_id' do
+    existing_file = File.open(File.join(Rails.root, *%w(test fixtures greenpaper.pdf)))
+    existing = create(:attachment, file: existing_file)
+    @edition.attachments << existing
+    post_to_upload_zip('two-pages-and-greenpaper.zip')
+    assert_response :success
+    assert_select "input[name*='to_replace_id'][value='#{existing.attachment_data.id}']"
+  end
+
   view_test 'POST :upload_zip with illegal zip contents shows an error' do
     post_to_upload_zip('sample_attachment_containing_exe.zip')
     assert_response :success

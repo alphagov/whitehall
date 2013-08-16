@@ -15,7 +15,7 @@ class BulkUploadTest < ActiveSupport::TestCase
     end
   end
 
-  # Parameters posted to #create for attachments with new filenames
+  # Parameters suitable for posting to #create for attachments with new filenames
   def new_attachments_params
     attachments_params(
       [{ title: 'Title 1' }, { file: fixture_file('whitepaper.pdf') }],
@@ -37,8 +37,8 @@ class BulkUploadTest < ActiveSupport::TestCase
 
   test '.from_files loads attachments from the edition if filenames match' do
     edition = create(:news_article, :with_attachment)
-    existing_filename = edition.attachments.first.filename
-    paths = ['whitepaper.pdf', existing_filename].map { |name| fixture_file(name).path }
+    existing = edition.attachments.first
+    paths = ['whitepaper.pdf', existing.filename].map { |name| fixture_file(name).path }
     bulk_upload = BulkUpload.from_files(edition, paths)
     assert bulk_upload.attachments.first.new_record?, 'Attachment should be new record'
     refute bulk_upload.attachments.last.new_record?, "Attachment shouldn't be new record"
@@ -46,13 +46,23 @@ class BulkUploadTest < ActiveSupport::TestCase
 
   test '.from_files always builds new AttachmentData instances' do
     edition = create(:news_article, :with_attachment)
-    existing_filename = edition.attachments.first.filename
-    paths = ['whitepaper.pdf', existing_filename].map { |name| fixture_file(name).path }
+    existing = edition.attachments.first
+    paths = ['whitepaper.pdf', existing.filename].map { |name| fixture_file(name).path }
     bulk_upload = BulkUpload.from_files(edition, paths)
     assert bulk_upload.attachments.all? { |a| a.attachment_data.new_record? }
   end
 
-  test '#attachments_attributes builds new AttachmentData if file already attached' do
+  test '.from_files sets replaced_by on existing AttachmentData when file re-attached' do
+    edition = create(:news_article, :with_attachment)
+    existing = edition.attachments.first
+    paths = ['whitepaper.pdf', existing.filename].map { |name| fixture_file(name).path }
+    bulk_upload = BulkUpload.from_files(edition, paths)
+    new_attachment_data = bulk_upload.attachments.last.attachment_data
+    new_attachment_data.save!
+    assert_equal new_attachment_data, existing.attachment_data.reload.replaced_by
+  end
+
+  test '#attachments_attributes builds new AttachmentData when file attached' do
     edition = create(:news_article, :with_attachment)
     existing = edition.attachments.first
     bulk_upload = BulkUpload.new(edition)
@@ -61,6 +71,19 @@ class BulkUploadTest < ActiveSupport::TestCase
     )
     attachment = bulk_upload.attachments.first
     assert attachment.attachment_data.new_record?, 'AttachmentData should be new record'
+  end
+
+  test '#attachments_attributes sets replaced_by on existing AttachmentData when file re-attached' do
+    edition = create(:news_article, :with_attachment)
+    existing = edition.attachments.first
+    bulk_upload = BulkUpload.new(edition)
+    params = attachments_params(
+      [{ id: existing.id, title: 'Title' }, { file: fixture_file(existing.filename) }]
+    )
+    bulk_upload.attachments_attributes = params
+    bulk_upload.save_attachments
+    new_attachment_data = bulk_upload.attachments.first.attachment_data
+    assert_equal new_attachment_data, existing.attachment_data.reload.replaced_by
   end
 
   test '#save_attachments saves attachments to the edition' do

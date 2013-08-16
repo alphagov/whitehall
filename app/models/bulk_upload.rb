@@ -32,7 +32,9 @@ class BulkUpload
 
   def build_attachment_for_file(path)
     attachment = find_attachment_with_file(path) || Attachment.new
+    replaced_data_id = attachment.attachment_data.try(:id)
     attachment.attachment_data_attributes = { file: File.open(path) }
+    attachment.attachment_data.to_replace_id = replaced_data_id
     @attachments << attachment
   end
 
@@ -87,9 +89,10 @@ class BulkUpload
   rescue ActiveRecord::RecordNotFound
     nil
   else
+    replaced_data_id = attachment.attachment_data.id
     attachment.attributes = attachment_attrs
-    attachment.attachment_data = AttachmentData.new(
-        data_attrs.merge(to_replace_id: attachment.attachment_data.id))
+    attachment.attachment_data = AttachmentData.new(data_attrs)
+    attachment.attachment_data.to_replace_id = replaced_data_id
     attachment
   end
 
