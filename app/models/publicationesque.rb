@@ -13,6 +13,10 @@ class Publicationesque < Edition
     ([self] + descendants).map { |model| model.sti_name }
   end
 
+  def presenter
+    PublicationesquePresenter
+  end
+
   protected
 
   def search_format_types
