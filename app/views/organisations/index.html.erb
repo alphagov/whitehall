@@ -20,7 +20,7 @@
               <%= content_tag_for :li, executive_office,
                                   class: 'department js-filter-item',
                                     "data-filter-terms" => filter_terms(executive_office) do %>
-                <h2 id="<%= executive_office.slug %>" class="<%= executive_office.slug %>">
+                <h2 id="<%= executive_office.slug %>" class="<%= organisation_brand_colour_class(executive_office) %>">
                   <%= link_to organisation_path(executive_office), class: logo_classes(class_name: executive_office.organisation_logo_type.class_name, size: 'medium') do %>
                     <span><%= organisation_logo_name(executive_office, false) %></span>
                   <% end %>
@@ -42,7 +42,7 @@
               <%= content_tag_for :li, ministerial_department,
                                   class: 'department js-filter-item',
                                     "data-filter-terms" => filter_terms(ministerial_department) do %>
-                <h2 id="<%= ministerial_department.slug %>" class="<%= ministerial_department.slug %>">
+                <h2 id="<%= ministerial_department.slug %>" class="<%= organisation_brand_colour_class(ministerial_department) %>">
                   <%= link_to organisation_path(ministerial_department), class: logo_classes(class_name: ministerial_department.organisation_logo_type.class_name, size: 'medium') do %>
                     <span><%= organisation_logo_name(ministerial_department, false) %></span>
                   <% end %>

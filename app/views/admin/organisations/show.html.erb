@@ -43,6 +43,16 @@
             <tr><th><%= sma.social_media_service.name %></th><td><%= link_to sma.url, sma.url %></td></tr>
           <% end %>
           <tr><th>Crest</th><td><%= @organisation.organisation_logo_type.title %></td></tr>
+          <tr>
+            <th>Brand colour</th>
+            <td>
+              <% if @organisation.organisation_brand_colour %>
+                <%= @organisation.organisation_brand_colour.title %>
+              <% else %>
+                None
+              <% end %>
+            </td>
+          </tr>
           <tr><th>Analytics identifier</th><td><%= @organisation.analytics_identifier %></td></tr>
           <tr><th>Mainstream links</th>
             <td>

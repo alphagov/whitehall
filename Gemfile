@@ -40,7 +40,7 @@ gem 'logstasher', '0.2.5'
 gem 'slop', '3.4.5'
 
 group :assets do
-  gem 'govuk_frontend_toolkit', '0.32.0'
+  gem 'govuk_frontend_toolkit', '0.34.0'
   gem 'sass', '3.2.8'
   gem 'sass-rails'
   gem 'uglifier'

@@ -236,6 +236,14 @@ class Organisation < ActiveRecord::Base
     self.organisation_logo_type_id = organisation_logo_type && organisation_logo_type.id
   end
 
+  def organisation_brand_colour
+    OrganisationBrandColour.find_by_id(organisation_brand_colour_id)
+  end
+
+  def organisation_brand_colour=(organisation_brand_colour)
+    self.organisation_brand_colour_id = organisation_brand_colour && organisation_brand_colour.id
+  end
+
   def self.alphabetical(locale = I18n.locale)
     with_translations(locale).order('organisation_translations.name ASC')
   end

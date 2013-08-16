@@ -134,6 +134,7 @@
     direction: ltr;
   }
 }
+@include organisation-brand-colour(".organisation-logo", border-color);
 
 .organisation-logo-stacked-no-identity {
 }
@@ -1313,4 +1314,3 @@
   }
 }
 
-@include department-colours('.organisation-logo', border-color);
