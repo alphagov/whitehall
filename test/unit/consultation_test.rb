@@ -25,11 +25,6 @@ class ConsultationTest < ActiveSupport::TestCase
       assert_nil edition.first_public_at
     end
 
-    test "#{state} consultations with a blank opening on date have no first_published_date" do
-      edition = build(:consultation, state: state, opening_on: nil)
-      assert_nil edition.first_published_date
-    end
-
     test "#{state} consultations with a blank opening on date are not open?, they are not_yet_open?" do
       edition = build(:consultation, state: state, opening_on: nil)
       refute edition.open?
@@ -238,12 +233,6 @@ class ConsultationTest < ActiveSupport::TestCase
     outcome.stubs(:published_on).returns(today)
 
     assert_equal today, consultation.outcome_published_on
-  end
-
-  test "first published date is the date of consultation opening" do
-    consultation = create(:published_consultation, opening_on: 4.days.ago)
-
-    assert_equal 4.days.ago.to_date, consultation.first_published_date
   end
 
   test "make_public_at should not set first_published_at" do
