@@ -7,7 +7,11 @@ module Admin
     end
 
     def editions
-      @editions ||= editions_with_filter.includes(:last_author, :translations).order("editions.updated_at DESC").page(options[:page]).per(page_size)
+      @editions ||= editions_with_filter.
+                      includes(:last_author, :translations).
+                      order("editions.updated_at DESC").
+                      page(options[:page]).
+                      per( options.fetch(:per_page) { default_page_size } )
     end
 
     def editions_with_filter
@@ -33,7 +37,7 @@ module Admin
       "#{ownership} #{edition_state} #{type_for_display}#{title_matches}#{location_matches}".squeeze(' ')
     end
 
-    def page_size
+    def default_page_size
       50
     end
 
