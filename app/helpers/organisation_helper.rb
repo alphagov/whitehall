@@ -59,10 +59,18 @@ module OrganisationHelper
   end
 
   def organisation_wrapper(organisation, options = {}, &block)
-    classes = [organisation.slug]
+    classes = [organisation.slug, organisation_brand_colour_class(organisation)]
     classes << organisation.organisation_type.name.parameterize if organisation.respond_to?(:organisation_type)
     content_tag_for :div, organisation, class: classes.join(" ") do
       block.call
+    end
+  end
+
+  def organisation_brand_colour_class(organisation)
+    if organisation.organisation_brand_colour
+      "#{organisation.organisation_brand_colour.class_name}-brand-colour"
+    else
+      ""
     end
   end
 

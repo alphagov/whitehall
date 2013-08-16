@@ -11,6 +11,8 @@
     <%= organisation_form.text_area :logo_formatted_name, rows: "4", style: "width: auto" %>
     <%= organisation_form.label :organisation_logo_type_id, 'Logo crest' %>
     <%= organisation_form.select :organisation_logo_type_id, options_from_collection_for_select(OrganisationLogoType.all, "id", "title", organisation.organisation_logo_type_id), {}, class: 'chzn-select', data: { placeholder: "Choose logo crest..."} %>
+    <%= organisation_form.label :organisation_brand_colour_id, 'Brand colour' %>
+    <%= organisation_form.select :organisation_brand_colour_id, options_from_collection_for_select(OrganisationBrandColour.all, "id", "title", organisation.organisation_brand_colour_id), {include_blank: true}, class: 'chzn-select', data: { placeholder: "Choose brand colour..."} %>
     <%= organisation_form.fields_for :default_news_image do |image_fields| %>
       <%= render partial: "admin/shared/default_news_image_fields", locals: {image_fields: image_fields} %>
     <% end %>

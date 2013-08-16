@@ -12,7 +12,7 @@
     <div class="sub-organisation-name">
       <ul class="organisations-icon-list">
         <% organisation.parent_organisations.each do |organisation| %>
-          <%= content_tag_for(:li, organisation, class: organisation.slug) do %>
+          <%= content_tag_for(:li, organisation, class: organisation_brand_colour_class(organisation)) do %>
             <%= link_to organisation_path(organisation),
                         class: logo_classes(class_name: organisation.organisation_logo_type.class_name, size: 'medium') do %>
               <span><%= organisation_logo_name(organisation, false) %></span>
