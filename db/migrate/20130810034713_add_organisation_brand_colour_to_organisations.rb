@@ -21,9 +21,11 @@ class AddOrganisationBrandColourToOrganisations < ActiveRecord::Migration
   def up
     add_column :organisations, :organisation_brand_colour_id, :integer
 
+    Organisation.reset_column_information
+
     Organisation.find_each do |organisation|
       colour = nil
-      # First, handle any exceptions to the rule
+      # First, handle any exceptions to the rule
       case organisation.slug
         when "social-mobility-and-child-poverty-commission", "forestry-commission", "forest-research"
 
