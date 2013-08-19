@@ -68,6 +68,12 @@ class PublicationTest < ActiveSupport::TestCase
     end
   end
 
+  test 'shouldn\t be able to publish a publication without any attachments' do
+    published_publication = create(:published_publication)
+    published_publication.html_version = nil
+    refute published_publication.valid?
+  end
+
   test "should build a draft copy of the existing publication" do
     published_publication = create(:published_publication,
       :with_attachment,
