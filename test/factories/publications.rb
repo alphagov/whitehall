@@ -40,6 +40,10 @@ FactoryGirl.define do
       end
     end
 
+    trait(:without_html_version) do
+      html_version nil
+    end
+
     ignore do
       relevant_to_local_government { false }
     end

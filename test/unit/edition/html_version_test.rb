@@ -2,7 +2,7 @@ require 'test_helper'
 
 class Edition::HtmlVersionTest < ActiveSupport::TestCase
   test 'has optional html version' do
-    publication = build(:publication)
+    publication = build(:publication, :without_html_version)
     refute publication.html_version.present?
 
     publication.html_version_attributes = {
@@ -22,7 +22,7 @@ class Edition::HtmlVersionTest < ActiveSupport::TestCase
   end
 
   test 'html version is not saved if all blank' do
-    publication = build(:publication)
+    publication = build(:publication, :without_html_version)
     publication.html_version_attributes = {
       title: "",
       body: ""
