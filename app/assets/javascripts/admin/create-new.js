@@ -11,7 +11,7 @@
 
       if(createNew.$el.length){
         createNew.$dropdown = createNew.$el.find('.dropdown-menu');
-        createNew.$el.find('strong').on('click', createNew.toggle);
+        createNew.$el.find('span').on('click', createNew.toggle);
 
         // mouseUp rather than click because phantomJS was crashing
         $(root).on('mouseup', createNew.documentClick);

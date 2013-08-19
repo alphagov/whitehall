@@ -1,12 +1,18 @@
 module Admin::UrlHelper
   def admin_user_organisation_header_link
     if user_signed_in? && organisation = current_user.organisation
-      admin_header_link organisation.name, admin_organisation_path(organisation), nil, class: 'user-org'
+      admin_header_link 'Manage corporate information', admin_organisation_path(organisation), nil, class: 'user-org'
     end
   end
 
   def admin_topics_header_link
     admin_header_link "Topics", admin_topics_path
+  end
+
+  def admin_featured_header_link
+    if user_signed_in? && organisation = current_user.organisation
+      admin_header_link "Featured documents", features_admin_organisation_path(organisation, locale: nil)
+    end
   end
 
   def admin_topical_events_header_link
@@ -48,7 +54,7 @@ module Admin::UrlHelper
   end
 
   def admin_users_header_link
-    admin_header_link "Users", admin_users_path
+    admin_header_link "All users", admin_users_path
   end
 
   def admin_fields_of_operation_header_link

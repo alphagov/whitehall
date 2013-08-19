@@ -21,7 +21,7 @@ module DocumentHelper
     if options[:type] == "detailed_guide"
       visit new_detailed_guides_page
     else
-      find('li.create-new strong', text: '+').click
+      find('li.create-new a', text: 'Create new document').click
       within 'li.create-new' do
         click_link options[:type].humanize
       end
