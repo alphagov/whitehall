@@ -50,6 +50,6 @@ test("showResults renders results when there are some", function(){
   equals(this.$finderResults.find('ul.document-list li.document-row').length, 2);
   equals(this.$finderResults.find('.no-results').length, 0);
 
-  equals(this.$finderResults.find('ul li#publication_1_search a[href="/admin/publications/1"]').text(), 'First title');
-  equals(this.$finderResults.find('ul li#speech_2_search a[href="/admin/speeches/2"]').text(), 'Second title');
+  equals(this.$finderResults.find('ul li#search_publication_1 a[href="/admin/publications/1"]').text(), 'First title');
+  equals(this.$finderResults.find('ul li#search_speech_2 a[href="/admin/speeches/2"]').text(), 'Second title');
 });

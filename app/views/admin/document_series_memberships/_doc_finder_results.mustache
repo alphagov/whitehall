@@ -1,7 +1,7 @@
 {{#results_any?}}
   <ul class="document-list">
     {{#results}}
-      <li id="{{type}}_{{id}}_search" class="document-row">
+      <li id="search_{{type}}_{{id}}" class="document-row">
         <form action="" method="POST" data-remote="true" id="document_add_{{document_id}}">
           <input type="hidden" name="id" value="{{document_id}}">
           {{#in_series?}}
