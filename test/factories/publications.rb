@@ -5,6 +5,7 @@ FactoryGirl.define do
     summary "publication-summary"
     publication_date { 10.days.ago.to_date }
     publication_type_id { PublicationType::PolicyPaper.id }
+    association :html_version, strategy: :build
 
     trait(:corporate) do
       publication_type_id { PublicationType::CorporateReport.id }
