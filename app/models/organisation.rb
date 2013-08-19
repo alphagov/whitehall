@@ -384,7 +384,8 @@ class Organisation < ActiveRecord::Base
 
   def is_ndpb?
     [3,4,5].include? organisation_type_id
-end
+  end
+  
   private
 
   def sub_organisations_must_have_a_parent
