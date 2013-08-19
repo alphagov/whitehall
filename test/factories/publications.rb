@@ -31,15 +31,6 @@ FactoryGirl.define do
       publication_type_id { PublicationType::PolicyPaper.id }
     end
 
-    trait(:with_html_version) do
-      html_version_attributes do
-        {
-          title: "title",
-          body: "body"
-        }
-      end
-    end
-
     trait(:without_html_version) do
       html_version nil
     end

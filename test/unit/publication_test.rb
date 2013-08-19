@@ -17,7 +17,7 @@ class PublicationTest < ActiveSupport::TestCase
   end
 
   test 'slug of html version does not change when we republish several times' do
-    publication = create(:published_publication, :with_html_version)
+    publication = create(:published_publication)
     initial_slug = publication.html_version.slug
 
     new_draft = draft_with_new_title(publication, 'Title changed once')
@@ -28,7 +28,7 @@ class PublicationTest < ActiveSupport::TestCase
   end
 
   test 'slug of html version changes whilst in draft' do
-    publication = create(:draft_publication, :with_html_version)
+    publication = create(:draft_publication)
     assert_equal 'title', publication.html_version.slug
 
     publication.html_version.title = 'new title'

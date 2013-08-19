@@ -15,7 +15,7 @@ class Edition::HtmlVersionTest < ActiveSupport::TestCase
   end
 
   test 'html version is destroyed if the publication is destroyed' do
-    publication = create(:publication, :with_html_version)
+    publication = create(:publication)
     html_version = publication.html_version
     publication.destroy
     refute HtmlVersion.find_by_id(html_version.id)
@@ -42,7 +42,7 @@ class Edition::HtmlVersionTest < ActiveSupport::TestCase
   end
 
   test 'html version is copied over on republish' do
-    publication = create(:published_publication, :with_html_version)
+    publication = create(:published_publication)
     new_draft = publication.create_draft(create(:author))
 
     assert_equal publication.html_version.title, new_draft.html_version.title
