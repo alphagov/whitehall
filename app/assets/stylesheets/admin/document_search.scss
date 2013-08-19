@@ -4,6 +4,7 @@
 }
 
 .document-finder {
+  width: 500px;
   padding: $gutter-one-third $gutter-half;
   margin-bottom: $gutter;
   background-color: #f5f5f5;
@@ -14,7 +15,7 @@
 
     .document-row {
       form {
-        clear: both;
+        float: right;
         margin: 0;
       }
     }

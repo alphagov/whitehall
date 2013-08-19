@@ -2,12 +2,6 @@
   <ul class="document-list">
     {{#results}}
       <li id="{{type}}_{{id}}_search" class="document-row">
-        <a href="{{url}}">{{title}}</a>
-        <ul>
-          <li>{{{public_time}}}</li>
-          <li>{{{organisation}}}</li>
-          <li>{{display_type}}</li>
-        </ul>
         <form action="" method="POST" data-remote="true" id="document_add_{{document_id}}">
           <input type="hidden" name="id" value="{{document_id}}">
           {{#in_series?}}
@@ -17,6 +11,12 @@
             <input type="submit" value="Add to this series" class="btn">
           {{/in_series?}}
         </form>
+        <a href="{{url}}">{{title}}</a>
+        <ul>
+          <li>{{{public_time}}}</li>
+          <li>{{{organisation}}}</li>
+          <li>{{display_type}}</li>
+        </ul>
       </li>
     {{/results}}
   </ul>
