@@ -47,7 +47,7 @@ test("showResults renders results when there are some", function(){
   GOVUK.documentFinder.$results = this.$finderResults;
   GOVUK.documentFinder.showResults(null, this.requestData);
 
-  equals(this.$finderResults.find('ul.document-list li.document').length, 2);
+  equals(this.$finderResults.find('ul.document-list li.document-row').length, 2);
   equals(this.$finderResults.find('.no-results').length, 0);
 
   equals(this.$finderResults.find('ul li#publication_1_search a[href="/admin/publications/1"]').text(), 'First title');

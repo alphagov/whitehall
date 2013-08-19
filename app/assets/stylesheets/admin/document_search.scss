@@ -1,0 +1,22 @@
+.js-doc-finder-reset,
+.js-loading {
+  display: none;
+}
+
+.document-finder {
+  padding: $gutter-one-third $gutter-half;
+  margin-bottom: $gutter;
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+
+  .document-list {
+
+    .document-row {
+      form {
+        clear: both;
+        margin: 0;
+      }
+    }
+  }
+}
