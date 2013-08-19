@@ -28,7 +28,9 @@ class PublicationTest < ActiveSupport::TestCase
   end
 
   test 'slug of html version changes whilst in draft' do
-    publication = create(:draft_publication)
+    publication = build(:draft_publication)
+    publication.html_version.title = "title"
+    publication.save!
     assert_equal 'title', publication.html_version.slug
 
     publication.html_version.title = 'new title'
