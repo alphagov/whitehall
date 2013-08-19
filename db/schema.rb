@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130810034713) do
+ActiveRecord::Schema.define(:version => 20130813111957) do
 
   create_table "about_pages", :force => true do |t|
     t.integer  "topical_event_id"
@@ -886,6 +886,11 @@ ActiveRecord::Schema.define(:version => 20130810034713) do
     t.integer  "default_news_organisation_image_data_id"
     t.datetime "closed_at"
     t.integer  "organisation_brand_colour_id"
+    t.boolean  "ocpa_regulated"
+    t.boolean  "public_meetings"
+    t.boolean  "public_minutes"
+    t.boolean  "register_of_interests"
+    t.boolean  "regulatory_function"
   end
 
   add_index "organisations", ["default_news_organisation_image_data_id"], :name => "index_organisations_on_default_news_organisation_image_data_id"
