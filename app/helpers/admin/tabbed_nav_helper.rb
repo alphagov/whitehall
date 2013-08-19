@@ -15,8 +15,9 @@ module Admin::TabbedNavHelper
   end
 
   def document_series_tab_navigation(organisation, document_series, &block)
+    docs_tab_label = %Q(Series documents <span class="badge">#{document_series.documents.count}</span>).html_safe
     tabs = {  'Details' => admin_organisation_document_series_path(organisation, document_series),
-              'Series documents' => admin_document_series_documents_path(document_series) }
+              docs_tab_label => admin_document_series_documents_path(document_series) }
     tab_navigation(tabs, [], &block)
   end
 
