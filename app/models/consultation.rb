@@ -89,10 +89,6 @@ class Consultation < Publicationesque
   def make_public_at(date)
   end
 
-  def first_published_date
-    opening_on.to_date unless opening_on.nil?
-  end
-
   def allows_attachment_references?
     true
   end

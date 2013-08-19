@@ -440,10 +440,6 @@ class Edition < ActiveRecord::Base
     self.first_published_at ||= date
   end
 
-  def first_published_date
-    first_published_at
-  end
-
   def alternative_format_contact_email
     nil
   end
