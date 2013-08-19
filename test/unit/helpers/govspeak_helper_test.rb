@@ -344,7 +344,31 @@ class GovspeakHelperTest < ActionView::TestCase
 '
     html = govspeak_to_html(input)
     assert_select_within_html html, "table.mc-stacked.js-barchart-table.mc-negative.compact"
-  end  
+  end
+
+  test 'will make a marked table sortable' do
+    input = '
+|col|
+|---|
+|val|
+{sortable}
+    '
+    html = govspeak_to_html(input)
+    assert_select_within_html html, "table.sortable"
+  end
+
+  test 'will make a marked table sortable and a barchart' do
+    input = '
+|col|
+|---|
+|val|
+{sortable}
+{barchart}
+    '
+    html = govspeak_to_html(input)
+    assert_select_within_html html, "table.sortable.js-barchart-table"
+  end
+
 
   private
 

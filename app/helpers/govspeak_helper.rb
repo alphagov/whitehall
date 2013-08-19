@@ -4,6 +4,7 @@ require 'delegate'
 module GovspeakHelper
   EMBEDDED_CONTACT_REGEXP = /\[Contact\:([0-9]+)\]/
   BARCHART_REGEXP = /{barchart(.*?)}/
+  SORTABLE_REGEXP = /{sortable}/
 
   def govspeak_to_html(govspeak, images=[], options={})
     wrapped_in_govspeak_div(bare_govspeak_to_html(govspeak, images, options))
@@ -87,6 +88,7 @@ module GovspeakHelper
     govspeak = remove_extra_quotes_from_blockquotes(govspeak)
     govspeak = render_embedded_contacts(govspeak, options[:contact_heading_tag])
     govspeak = set_classes_for_charts(govspeak)
+    govspeak = set_classes_for_sortable_tables(govspeak)
 
     markup_to_nokogiri_doc(govspeak, images).tap do |nokogiri_doc|
       # post-processors
@@ -106,6 +108,12 @@ module GovspeakHelper
         ''
       end
     end
+  end
+
+  def set_classes_for_sortable_tables(govspeak)
+    return govspeak if govspeak.blank?
+
+    govspeak.gsub(GovspeakHelper::SORTABLE_REGEXP, "{:.sortable}")
   end
 
   def set_classes_for_charts(govspeak)
