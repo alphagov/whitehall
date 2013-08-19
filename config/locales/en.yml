@@ -432,8 +432,8 @@ en:
       heading: This file may not be suitable for users of assistive technology.
       request_a_different_format: Request a different format.
       full_help_html: |
-        To request this document in an alternative format such as braille, audio
-        or a different file type please email
+        If you use assistive technology and need a version of this document
+        in a more accesible format please email
         %{email}
         quoting your address, telephone number along with the title of the
         publication ("%{title}")%{references}.
