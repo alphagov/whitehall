@@ -68,13 +68,6 @@ class Whitehall::GovUkDelivery::NotifierTest < ActiveSupport::TestCase
     assert_equal notification_date_for(speech), Time.zone.parse('2011-01-01 12:13:14')
   end
 
-  test "#notification_date uses the major_change_published_at for the notification_date of consultations" do
-    consultation = create(:consultation)
-    consultation.major_change_published_at = Time.zone.parse('2011-01-01 12:13:14')
-    consultation.public_timestamp = Time.zone.parse('2010-12-31 12:13:14')
-    assert_equal notification_date_for(consultation), Time.zone.parse('2011-01-01 12:13:14')
-  end
-
   test "#notification_date uses the public_timestamp for the notification_date of other editions" do
     policy = create(:policy)
     policy.major_change_published_at = Time.zone.parse('2011-01-01 12:13:14')
