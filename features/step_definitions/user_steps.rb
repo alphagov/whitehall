@@ -22,7 +22,7 @@ Then /^I can see my user details/ do
 end
 
 Then /^I cannot change my user details/ do
-  assert page.has_no_css?("a", text: "Edit")
+  assert page.has_no_css?("a[href='#{edit_admin_user_path(@user)}']")
   visit edit_admin_user_path(@user)
   assert page.has_no_css?("form")
 end
