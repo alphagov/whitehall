@@ -22,6 +22,6 @@
 
 
   <ol id="series-documents" class="document-list">
-    <%= render partial: 'series_documents', collection: @document_series.latest_editions, as: :edition, locals: { document_series: @document_series } %>
+    <%= render partial: 'series_document', collection: @document_series.latest_editions, as: :edition, locals: { document_series: @document_series } %>
   </ol>
 <% end %>
