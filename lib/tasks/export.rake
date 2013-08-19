@@ -11,7 +11,9 @@ namespace :export do
 
   desc "Export list of documents"
   task :document_list => :environment do
-    CSV do |csv|
+    path = "tmp/document_list-#{Time.now.to_i}.csv"
+    puts "generating csv in #{path}"
+    CSV.open(path, "w") do |csv|
       csv << [
         "Document ID",
         "Document slug",
@@ -29,7 +31,7 @@ namespace :export do
           csv << [
             document.id,
             document.slug,
-            document.document_type,
+            document.display_type,
             document.latest_edition.state,
             document.published? ? routes_helper.public_document_url(edition, host: PUBLIC_HOST, protocol: "https") : nil,
             edition.id,
@@ -61,7 +63,14 @@ namespace :export do
         "Org",
         "URL",
         "Admin URL",
-        "Title"
+        "Title",
+        "Type",
+        "public_timestamp",
+        "People",
+        "Document series",
+        "Policies",
+        "Topics",
+        "Topical events"
       ]
 
       orgs.each do |org|
@@ -70,15 +79,14 @@ namespace :export do
             org.display_name,
             routes_helper.public_document_url(edition, host: PUBLIC_HOST, protocol: "https"),
             routes_helper.admin_edition_url(edition, host: ADMIN_HOST, protocol: "https"),
-            edition.title
-          ]
-        end
-        org.mainstream_links.each do |link|
-          csv << [
-            org.display_name,
-            link.url,
-            "",
-            link.title
+            edition.title,
+            edition.display_type,
+            edition.public_timestamp,
+            edition.respond_to?(:role_appointments) ? edition.role_appointments.map(&:slug).join('|') : nil,
+            edition.respond_to?(:document_series) ? edition.document_series.map(&:slug).join('|') : nil,
+            edition.respond_to?(:related_policies) ? edition.related_policies.map(&:slug).join('|') : nil,
+            edition.respond_to?(:topics) ? edition.topics.map(&:slug).join('|') : nil,
+            edition.respond_to?(:topical_events) ? edition.topical_events.map(&:slug).join('|') : nil,
           ]
         end
       end

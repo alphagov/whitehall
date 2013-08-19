@@ -1,6 +1,5 @@
 module PublicDocumentRoutesHelper
   def public_host
-    request ||= nil
     Whitehall.public_host_for(request.host) if request
   end
 
