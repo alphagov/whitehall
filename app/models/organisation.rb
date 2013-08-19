@@ -382,6 +382,9 @@ class Organisation < ActiveRecord::Base
     published_publications.where("editions.publication_type_id" => publication_type.id).any?
   end
 
+  def is_ndpb?
+    [3,4,5].include? organisation_type_id
+end
   private
 
   def sub_organisations_must_have_a_parent
