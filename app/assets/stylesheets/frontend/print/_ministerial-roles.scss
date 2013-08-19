@@ -1,0 +1,61 @@
+.ministers-index {
+  a {
+    text-decoration: none;
+  }
+  .image-holder a, p a {
+    &:after {
+      content: "";
+    }
+  }
+  #cabinet, #also-attends-cabinet {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    .person-excerpt {
+      list-style: none;
+      float: left;
+      width: 30%;
+      img {
+        //float: left;
+        width: 25%;
+      }
+      &:nth-child(3n+1) {
+        clear: both;
+      }
+      h3, p {
+        @include core-14;
+        margin-bottom: 0;
+        padding-bottom: 0;
+      }
+    }
+  }
+  .ministers-by-organisation {
+    h3 a, .role {
+      &:after {
+        content: "";
+      }
+    }
+    .minister-list {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      .person-excerpt {
+        list-style: none;
+        float: left;
+        width: 30%;
+        &:nth-child(3n+1) {
+          clear: both;
+        }
+        h4, p {
+          @include core-14;
+        }
+      }
+    }
+    .keyline {
+      clear: both;
+    }
+  }
+  .block-2 {
+    clear: both;
+  }
+}
