@@ -4,7 +4,7 @@ When /^I add an editorial remark "([^"]*)" to the document "([^"]*)"$/ do |remar
 
   create(:draft_publication, title: @document_title)
   visit admin_root_path
-  click_link "Documents"
+  click_link "Edit documents"
   click_link "Show documents by everyone"
   click_link "Show documents in any workflow state"
   click_link @document_title
@@ -14,7 +14,7 @@ When /^I add an editorial remark "([^"]*)" to the document "([^"]*)"$/ do |remar
 end
 
 Then /^my editorial remark should be visible with the document$/ do
-  click_link "Documents"
+  click_link "Edit documents"
   click_link "Show documents by everyone"
   click_link "Show documents in any workflow state"
   click_link @document_title

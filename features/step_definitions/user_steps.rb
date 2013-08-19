@@ -34,9 +34,7 @@ end
 
 Then /^I should see that I am logged in as a "([^"]*)"$/ do |role|
   visit admin_user_path(@user)
-  within "#session" do
-    click_link "#user_settings"
-  end
+  click_link "#user_settings"
   assert page.has_css?(".user .settings .role", text: role)
 end
 
