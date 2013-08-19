@@ -55,25 +55,6 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     assert_select_object(publication) { assert_select ".type", text: "Policy paper" }
   end
 
-  view_test 'JSON GET #search returns filter results as JSON' do
-    publication = create(:publication, title: 'search term')
-
-    get :search, title: 'search term', format: :json
-
-    assert_response :success
-
-    response_as_hash = JSON.parse(response.body)
-    assert_equal true, response_as_hash['results_any?']
-    assert_equal 1, response_as_hash['results'].size
-
-    publication_json = response_as_hash['results'][0]
-    assert_equal publication.id, publication_json['id']
-    assert_equal publication.document_id, publication_json['document_id']
-    assert_equal publication.title, publication_json['title']
-    assert_equal 'publication', publication_json['type']
-    assert_equal publication.display_type, publication_json['display_type']
-  end
-
   test "diffing against a previous version" do
     policy = create(:draft_policy)
     editor = create(:departmental_editor)

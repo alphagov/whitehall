@@ -162,7 +162,9 @@ Whitehall::Application.routes.draw do
           resources :financial_reports, except: [:show]
         end
         resources :document_series, only: [] do
-          resources :document_series_memberships, as: :documents, path: 'documents', only: [:index, :create, :destroy]
+          resources :document_series_memberships, as: :documents, path: 'documents', only: [:index, :create, :destroy] do
+            collection { get :search }
+          end
         end
         resources :policy_teams, except: [:show]
         resources :policy_advisory_groups, except: [:show]
@@ -196,7 +198,6 @@ Whitehall::Application.routes.draw do
         end
 
         resources :editions, only: [:index] do
-          collection { get :search }
           member do
             post :submit, to: 'edition_workflow#submit'
             post :revise

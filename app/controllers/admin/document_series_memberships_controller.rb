@@ -15,6 +15,10 @@ class Admin::DocumentSeriesMembershipsController  < Admin::BaseController
     flash.now[:notice] = %Q("#{@document.latest_edition.title}" removed from series)
   end
 
+  def search
+    @filter = Admin::EditionFilter.new(Edition, current_user, params.slice(:title).merge(state: 'active', per_page: 10))
+  end
+
   private
 
   def load_document_series

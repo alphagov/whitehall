@@ -9,7 +9,7 @@
   <div class="document-finder">
     <h2>Document finder</h2>
 
-    <%= form_tag search_admin_editions_path(format: :json), method: :get, remote: true, data: { type: 'json' } do %>
+    <%= form_tag search_admin_document_series_documents_path(format: :json), method: :get, remote: true, data: { type: 'json' } do %>
       <%= search_field_tag :title, '', placeholder: 'Title or slug&hellip;'.html_safe, results: 5, autosave: 'unique', style: 'width:200px;margin-right:5px;float:left;' %>
       <%= submit_tag 'Search', class: 'btn' %>
       <%= image_tag 'loading-2b2c2d.gif', class: 'js-loading' %>
