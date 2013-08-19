@@ -22,7 +22,7 @@ Then /^I can see my user details/ do
 end
 
 Then /^I cannot change my user details/ do
-  assert page.has_no_css?("a", text: "Edit")
+  assert page.has_no_css?("a[href='#{edit_admin_user_path(@user)}']")
   visit edit_admin_user_path(@user)
   assert page.has_no_css?("form")
 end
@@ -34,9 +34,7 @@ end
 
 Then /^I should see that I am logged in as a "([^"]*)"$/ do |role|
   visit admin_user_path(@user)
-  within "#session" do
-    click_link "#user_settings"
-  end
+  click_link "#user_settings"
   assert page.has_css?(".user .settings .role", text: role)
 end
 

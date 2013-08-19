@@ -31,7 +31,8 @@ jQuery(document).ready(function($) {
     $el.css('display', '');
   });
 
-  $('.js-toggle-nav').toggler({header: ".toggler", content: ".content", showArrow: false, actLikeLightbox: true})
+  $('.js-create-new').toggler({header: ".toggler", content: "ul", showArrow: false, actLikeLightbox: true});
+  $('.js-more-nav').toggler({header: ".toggler", content: "ul", showArrow: false, actLikeLightbox: true});
 
   GOVUK.createNew.init();
   GOVUK.doubleClickProtection();

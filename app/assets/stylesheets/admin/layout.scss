@@ -1,21 +1,11 @@
 body {
-  padding-top: 100px;
-  padding-bottom: 40px;
+  padding-bottom: $gutter+$gutter-one-third;
 }
 .sidebar-nav {
-  padding: 9px 0;
+  padding: $gutter-one-third 0;
 }
 .sidebar {
-  padding-bottom: 40px;
-}
-
-header {
-  a:hover {
-    color: $white;
-  }
-    .open_website {
-    margin-right: 4em;
-  }
+  padding-bottom: $gutter+$gutter-one-third;
 }
 
 .row-fluid {
@@ -31,40 +21,53 @@ header {
 }
 
 #global-nav {
-  background-color: #3b3b3b;
-  border-top: 1px solid #444;
   clear: both;
   @extend %contain-floats;
 
   .toggler {
     &:after {
+      font-size: 10px;
+      margin-left: $gutter-one-sixth;
       content: " \25BC";
     }
+    @include media(desktop) {
+      span {
+        display: block;
+      }
+    }
   }
-  &.open {
+  .open {
     .toggler {
+      background-color: $light-blue-50;
+      color: $black;
       &:after {
         content: " \25B2";
       }
     }
   }
+}
 
+
+.navbar {
+  @extend %contain-floats;
+  margin-bottom: $gutter;
   nav {
     clear: both;
+    position: relative;
 
     @include media(tablet){
       clear: none;
       background: transparent;
       position: static;
-      margin-bottom: 0;
+      margin: 0;
     }
 
     li {
       display: block;
-      position: relative;
 
-      @include media(tablet){
-        display: inline;
+      @include media(desktop){
+        float: left;
+        text-align: center;
       }
       .toggler {
         &:focus {
@@ -74,91 +77,231 @@ header {
       }
       &.user-org {
         display: none;
-        @include media(tablet){
+        @include media(desktop){
           display: block;
         }
       }
-    }
-
-    .create-new {
-      position: relative;
-      strong {
-        display: block;
-        overflow: hidden;
-        padding: 9px 10px 11px;
-        line-height: 19px;
-        cursor: pointer;
-        &:hover {
-          color: #fff;
-        }
-
-        span {
-          position: absolute;
-          left: -9999em;
-        }
+      &:last-child {
+        margin-right: 0;
       }
     }
-  }
-}
-
-.navbar .visuallyhidden {
-  position: absolute;
-  left: -9999em;
-}
-
-.navbar-fixed-top,
-.navbar-fixed-bottom {
-  position: static;
-  margin: -100px 0 20px 0;
-  @include media(desktop) {
-    position: fixed;
-    margin: 0;
-  }
-}
-
-.navbar .nav.pull-right {
-  top: 0;
-  right: 0;
-  width: 100%;
-  .session-info-wrapper {
-    padding: 0 $gutter-two-thirds;
-    float: right;
-    @include media(tablet) {
-      float: left;
-    }
-  }
-  @include media(tablet) {
-    width: auto;
-  }
-}
-
-.navbar {
-  .website {
-    background-color: #000;
-    width: 100%;
-    .brand {
-      margin-left: 0;
-      &:hover {
+    .nav {
+      float: none;
+      margin: 0;
+      width: auto;
+      li {
         color: $white;
+        background-color: $black;
+        margin: 0 0 3px 0;
+        width: 100%;
+        a {
+          @include core-16;
+          display: block;
+          color: $white;
+          height: 40px;
+          padding-top: $gutter-one-third;
+          vertical-align: middle;
+          @include media(desktop) {
+            display: table-cell;
+            width: 16%;
+          }
+          @include ie-lte(7) {
+            width: auto;
+          }
+        }
+        &:last-child {
+          margin-right: 0;
+        }
+        &.active {
+          a, span {
+            color: $black;
+            background-color: $grey-2;
+          }
+        }
+        &:hover,
+        &.active:hover {
+          a, span {
+            color: $black;
+            background-color: $light-blue-50;
+          }
+        }
+        @include media(desktop) {
+          margin: 0 0.23% 0 0;
+          width: 16.4%;
+        }
       }
-      &:after {
-        content: "|";
-        margin-left: $gutter-two-thirds;
+      @include media(desktop) {
+        margin: 0 $gutter-half;
       }
     }
+  }
+  .visuallyhidden {
+    position: absolute;
+    left: -9999em;
+    @include ie(6) {
+      left: 0;
+    }
+  }
+  .nav.pull-right {
+    color: $white;
+    clear: both;
+    float: none;
+    width: auto;
+    li {
+      a {
+        @include core-14;
+        color: $white;
+        padding: $gutter-one-third;
+        &:after {
+          content: "|";
+          margin-left: $gutter-half;
+        }
+      }
+      .session-info-wrapper {
+        padding: 0 $gutter-two-thirds;
+        float: right;
+        @include media(desktop) {
+          float: left;
+        }
+      }
+      &:first-child a {
+        padding-left: 0;
+      }
+      &:last-child a:after {
+        content: "";
+      }
+    }
+
+    @include media(tablet) {
+      clear: none;
+      float: right;
+      margin: 0 $gutter-one-third 0 0;
+    }
+  }
+  .website {
+    li {
+      &.brand {
+        margin-left: 0;
+        padding: 0 0 0 $gutter-one-third;
+        a {
+          @include core-16;
+          color: $white;
+          padding: 0;
+          &:after {
+            content: "|";
+            margin-left: $gutter-two-thirds;
+          }
+        }
+        @include media(tablet) {
+          padding-left: $gutter-two-thirds;
+        }
+      }
+      &:last-child a:after {
+        content: "";
+      }
+    }
+
+
     @include media(tablet) {
       width: auto;
     }
   }
-  .container-fluid {
-    padding: 0;
+  .navbar-inner {
+    background: #6d6d6d;
+    .container-fluid {
+      background: none;
+      padding: $gutter-half 0 $gutter-half 0;
+    }
+    .nav-collapse {
+      .dropdown-menu {
+        @include border-radius(0);
+        background-color: $light-blue-50;
+        width: 100%;
+        li {
+          float: left;
+          background: none;
+          a {
+            @include core-16;
+            color: $black;
+            padding: 2px $gutter-two-thirds 0 $gutter-one-third;
+            height: auto;
+            width: auto;
+            &:hover {
+              color: $white;
+            }
+          }
+        }
+      }
+      .more-nav {
+        @extend %contain-floats;
+        @include box-shadow(0 5px 10px rgba(0,0,0,0.2));
+        clear: both;
+        background-color: $light-blue-50;
+        margin-left: 0;
+        padding: $gutter-one-third;
+        position: absolute;
+        top: 61px;
+        width: auto;
+        z-index: 10;
+        li {
+          background: none;
+          float: left;
+          margin: 0;
+          width: 50%;
+          a {
+            @include core-16;
+            color: $link-colour;
+            background: none;
+            height: auto;
+            padding: $gutter-one-sixth;
+            text-align: left;
+            width: auto;
+          }
+          @include media(tablet) {
+            width: 33.33%;
+          }
+        }
+        @include ie(6) {
+          background-color: $grey-2;
+          position: static;
+          li {
+            width: 33.33%;
+            a {
+              color: $black;
+              text-decoration: underline;
+            }
+          }
+        }
+      }
+      .right {
+        top: 305px;
+      }
+      @include media(desktop) {
+        .more-nav {
+          width: 48.2%;
+        }
+        .open {
+          .left {
+            left: 0;
+          }
+        }
+        .right {
+          right: $gutter-one-sixth;
+          top: 61px;
+        }
+      }
+    }
   }
 }
 
+
+
+.navbar-fixed-top,
+.navbar-fixed-bottom {
+  position: static;
+}
+
 @include ie(6){
-  .navbar-fixed-top, .navbar-fixed-bottom {
-    position: absolute;
-  }
   .navbar .nav li {
     display: block;
     float: left;
