@@ -10,9 +10,9 @@ end
 Given /^I have imported a file that succeeded$/ do
   organisation = create(:organisation)
   data = %Q{
-old_url,title,summary,body,organisation,policy_1,publication_type,document_series_1,publication_date,order_url,price,isbn,urn,command_paper_number,ignore_1,attachment_1_url,attachment_1_title,country_1
-http://example.com/1,title-1,a-summary,a-body,,,,,14-Dec-2011,,,,,,,,,
-http://example.com/2,title-2,a-summary,a-body,,,,,14-Dec-2011,,,,,,,,,
+old_url,title,summary,body,organisation,policy_1,publication_type,document_series_1,publication_date,order_url,price,isbn,urn,command_paper_number,ignore_1,html_title,html_body,attachment_1_url,attachment_1_title,country_1
+http://example.com/1,title-1,a-summary,a-body,,,,,14-Dec-2011,,,,,,,html-title-A,html-body-A,,,
+http://example.com/2,title-2,a-summary,a-body,,,,,14-Dec-2011,,,,,,,html-title-B,html-body-B,,,
     }.strip
   @force_publish_import = import_data_as_document_type_for_organisation(data, 'Publication', organisation)
 end

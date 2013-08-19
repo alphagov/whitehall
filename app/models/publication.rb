@@ -14,6 +14,7 @@ class Publication < Publicationesque
   validates :publication_date, recent_date: true, unless: ->(edition) { edition.can_have_some_invalid_data? }
   validates :publication_type_id, presence: true
   validate :only_publications_allowed_invalid_data_can_be_awaiting_type
+  validate :must_have_attachment, if: :published?
 
   after_update { |p| p.published_related_policies.each(&:update_published_related_publication_count) }
 
@@ -100,6 +101,14 @@ class Publication < Publicationesque
 
   def translatable?
     !non_english_edition?
+  end
+
+  def must_have_attachment
+    errors.add(:base, "Must have an attachment") unless attachment_present?
+  end
+
+  def attachment_present?
+    !attachments.empty? || html_version.present?
   end
 
   private

@@ -225,7 +225,8 @@ module AdminEditionControllerTestHelpers
       end
 
       test "should destroy html version when all fields are blank" do
-        edition = create("draft_#{edition_type}", :with_html_version)
+        edition = create("draft_#{edition_type}")
+        edition.html_version = build(:html_version)
         put :update, id: edition, edition: controller_attributes_for_instance(edition,
           html_version_attributes: {
             title: "", body: "", id: edition.html_version.id
