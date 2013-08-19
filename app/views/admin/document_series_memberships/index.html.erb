@@ -5,6 +5,7 @@
 <p><%= link_to "View on public site", organisation_document_series_path(@document_series.organisation, @document_series) %></p>
 
 <%= document_series_tab_navigation(@document_series.organisation, @document_series) do %>
+  <p class="warning">Warning: changes to this document series will appear instantly on the live site.</p>
 
   <div class="document-finder">
     <h2>Document finder</h2>
