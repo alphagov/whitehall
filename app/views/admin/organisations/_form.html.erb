@@ -68,6 +68,23 @@
     </fieldset>
   <% end %>
 
+  <% if organisation.is_ndpb? %>
+    <fieldset>
+      <legend>Non-Departmental Public Body Information</legend>
+      <%= organisation_form.label :ocpa_regulated, 'OCPA Regulated' %>
+      <%= organisation_form.select :ocpa_regulated, [["OCPA Regulated", true], ["Not OCPA Regulated", false]], include_blank: true %>
+
+      <%= organisation_form.label :public_meetings, 'Public Meetings' %>
+      <%= organisation_form.select :public_meetings, [["Public Meetings", true], ["No Public Meetings", false]], include_blank: true %>
+      
+      <%= organisation_form.label :public_minutes, 'Public Minutes' %>
+      <%= organisation_form.select :public_minutes, [["Public Minutes", true], ["No Public Minutes", false]], include_blank: true %>
+
+      <%= organisation_form.label :regulatory_function, 'Regulatory Function' %>
+      <%= organisation_form.select :regulatory_function, [["Regulatory Function", true], ["No Regulatory Function", false]], include_blank: true %>
+    </fieldset>
+  <% end %>
+
   <p class="warning">
     <% if show_instantly_live_warning %>
       Warning: changes to organisations appear instantly on the live site.
