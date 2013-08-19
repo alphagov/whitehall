@@ -69,4 +69,13 @@ class PublicFacingController < ApplicationController
     clean_malformed_params(:publication_type)
     clean_malformed_params(:announcement_type)
   end
+
+  def latest_presenters(editions, params = {})
+    options = { translated: false, reverse: true, count: 3 }.merge(params)
+    latest = editions
+    latest = latest.with_translations(I18n.locale) if options[:translated]
+    latest = latest.in_reverse_chronological_order if options[:reverse]
+    latest = latest.limit(options[:count]) if options[:count]
+    latest.empty? ? [] : decorate_collection(latest, latest.first.presenter)
+  end
 end
