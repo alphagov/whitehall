@@ -11,7 +11,7 @@ module Admin::UrlHelper
 
   def admin_featured_header_link
     if user_signed_in? && organisation = current_user.organisation
-      admin_header_link "Featured documents", features_admin_organisation_path(organisation, locale: nil)
+      admin_header_link "Feature documents", features_admin_organisation_path(organisation, locale: nil)
     end
   end
 
