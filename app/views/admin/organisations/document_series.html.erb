@@ -15,8 +15,10 @@
         <h2>Document series</h2>
         <table class="table">
           <% @document_series.each do |document_series| %>
-            <tr><th><%= link_to document_series.name, admin_organisation_document_series_path(@organisation, document_series) %></th>
-              <td><%= pluralize(document_series.documents.count, "documents") %></tr>
+            <tr>
+              <td><%= link_to document_series.name, admin_organisation_document_series_path(@organisation, document_series) %></td>
+              <td><%= pluralize(document_series.documents.count, "documents") %></td>
+            </tr>
           <% end %>
         </table>
       <% end %>
