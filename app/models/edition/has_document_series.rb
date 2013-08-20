@@ -16,4 +16,10 @@ module Edition::HasDocumentSeries
   def search_index
     super.merge("document_series" => document_series.map(&:slug))
   end
+
+  # We allow document series to be assigned directly on an edition for speed tagging
+  def document_series_ids=(ids)
+    raise(StandardError, 'cannot assign document series to an unsaved edition') unless persisted?
+    document.document_series_ids = ids
+  end
 end
