@@ -1,8 +1,3 @@
-.js-doc-finder-reset,
-.js-loading {
-  display: none;
-}
-
 .document-finder {
   width: 500px;
   padding: $gutter-one-third $gutter-half;
@@ -23,5 +18,10 @@
 
   .error {
     color: #c06253;
+  }
+
+  .js-doc-finder-reset,
+  .js-loading {
+    display: none;
   }
 }
