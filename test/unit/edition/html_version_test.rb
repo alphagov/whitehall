@@ -2,7 +2,7 @@ require 'test_helper'
 
 class Edition::HtmlVersionTest < ActiveSupport::TestCase
   test 'has optional html version' do
-    publication = build(:publication)
+    publication = build(:publication, :without_html_version)
     refute publication.html_version.present?
 
     publication.html_version_attributes = {
@@ -15,14 +15,14 @@ class Edition::HtmlVersionTest < ActiveSupport::TestCase
   end
 
   test 'html version is destroyed if the publication is destroyed' do
-    publication = create(:publication, :with_html_version)
+    publication = create(:publication)
     html_version = publication.html_version
     publication.destroy
     refute HtmlVersion.find_by_id(html_version.id)
   end
 
   test 'html version is not saved if all blank' do
-    publication = build(:publication)
+    publication = build(:publication, :without_html_version)
     publication.html_version_attributes = {
       title: "",
       body: ""
@@ -42,7 +42,7 @@ class Edition::HtmlVersionTest < ActiveSupport::TestCase
   end
 
   test 'html version is copied over on republish' do
-    publication = create(:published_publication, :with_html_version)
+    publication = create(:published_publication)
     new_draft = publication.create_draft(create(:author))
 
     assert_equal publication.html_version.title, new_draft.html_version.title
@@ -55,10 +55,11 @@ class Edition::HtmlVersionTest < ActiveSupport::TestCase
 
   test 'slugs are saved on new html versions for editions that previously didn\'t have one' do
     editor = create(:gds_editor)
-    pub = create(:draft_publication, html_version: nil)
+    pub = create(:draft_publication, :without_html_version, :with_attachment)
     pub.publish_as(editor, force: true)
     draft = pub.create_draft(editor)
     draft.change_note = 'Added html version'
+    draft.attachments.clear
     draft.html_version = build(:html_version, title: 'things')
     draft.save!
 
