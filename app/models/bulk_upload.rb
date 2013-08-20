@@ -42,7 +42,7 @@ class BulkUpload
     @attachments = attributes.map do |index, params|
       attachment_attrs = params.except(:attachment_data_attrs)
       data_attrs = params.fetch(:attachment_data_attributes, {})
-      existing_attachment(attachment_attrs, data_attrs) || Attachment.new(params)
+      find_and_update_existing_attachment(attachment_attrs, data_attrs) || Attachment.new(params)
     end
   end
 
@@ -81,16 +81,14 @@ class BulkUpload
     @edition.attachments.with_filename(File.basename(path)).first
   end
 
-  def existing_attachment(attachment_attrs, data_attrs)
-    attachment = Attachment.find(attachment_attrs[:id])
-  rescue ActiveRecord::RecordNotFound
-    nil
-  else
-    replaced_data_id = attachment.attachment_data.id
-    attachment.attributes = attachment_attrs
-    attachment.attachment_data = AttachmentData.new(data_attrs)
-    attachment.attachment_data.to_replace_id = replaced_data_id
-    attachment
+  def find_and_update_existing_attachment(attachment_attrs, data_attrs)
+    if attachment = Attachment.find_by_id(attachment_attrs[:id])
+      replaced_data_id = attachment.attachment_data.id
+      attachment.attributes = attachment_attrs
+      attachment.attachment_data = AttachmentData.new(data_attrs)
+      attachment.attachment_data.to_replace_id = replaced_data_id
+      attachment
+    end
   end
 
   class ZipFile
