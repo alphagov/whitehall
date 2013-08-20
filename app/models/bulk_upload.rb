@@ -15,7 +15,7 @@ class BulkUpload
   include ActiveModel::Validations
   include ActiveModel::Conversion
 
-  validate :attachments_are_valid?
+  validate :attachments_must_be_valid
 
   attr_reader :attachments
 
@@ -68,13 +68,10 @@ class BulkUpload
     end
   end
 
-  def attachments_are_valid?
+  def attachments_must_be_valid
     attachments.each { |attachment| attachment.valid? }
-    if attachments.all? { |attachment| attachment.valid? }
-      true
-    else
+    unless attachments.all? { |attachment| attachment.valid? }
       errors[:base] << 'Please enter missing fields for each attachment'
-      false
     end
   end
 
