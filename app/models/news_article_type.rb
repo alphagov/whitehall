@@ -12,7 +12,11 @@ class NewsArticleType
   end
 
   def self.find_by_slug(slug)
-    all.detect { |pt| pt.slug == slug }
+    all.detect { |type| type.slug == slug }
+  end
+
+  def self.find_by_plural_name(plural_name)
+    all.detect { |type| type.plural_name == plural_name }
   end
 
   def self.all_slugs
@@ -20,7 +24,7 @@ class NewsArticleType
   end
 
   def self.by_prevalence
-    all.group_by { |pt| pt.prevalence }
+    all.group_by { |type| type.prevalence }
   end
 
   def self.ordered_by_prevalence

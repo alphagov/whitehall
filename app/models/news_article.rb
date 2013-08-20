@@ -10,6 +10,15 @@ class NewsArticle < Newsesque
   validates :news_article_type_id, presence: true
   validate :only_news_article_allowed_invalid_data_can_be_awaiting_type
 
+  def self.subtypes
+    NewsArticleType.all
+  end
+
+  def self.by_subtype_plural_name(plural_name)
+    subtype = NewsArticleType.find_by_plural_name(plural_name)
+    where(news_article_type_id: subtype.id) if subtype
+  end
+
   def news_article_type
     NewsArticleType.find_by_id(news_article_type_id)
   end

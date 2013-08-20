@@ -81,6 +81,7 @@ module Admin::EditionActionsHelper
     button_to 'Unpublish', confirm_unpublish_admin_edition_path(edition), title: "Unpublish", class: "btn btn-danger", method: :get
   end
 
+  # If adding new models also update filter_options_for_edition
   def document_creation_dropdown
     content_tag(:ul, class: "more-nav left") do
       [Policy, Publication, NewsArticle, FatalityNotice,
@@ -91,6 +92,32 @@ module Admin::EditionActionsHelper
         end if can?(:create, edition_type)
       end.compact.join.html_safe
     end
+  end
+
+  def filter_options_for_edition(user)
+    options = []
+    [
+      Policy,
+      Publication,
+      NewsArticle,
+      Consultation,
+      Speech,
+      DetailedGuide,
+      WorldwidePriority,
+      WorldLocationNewsArticle,
+      CaseStudy,
+      StatisticalDataSet,
+      FatalityNotice
+    ].map do |e|
+      next if e == FatalityNotice && !user.can_handle_fatalities?
+      options << [e.model_name.human, e.model_name.underscore]
+      if e.respond_to?(:subtypes)
+        e.subtypes.map do |subtype|
+          options << ["&nbsp;&nbsp;#{subtype.plural_name}".html_safe, "#{e.model_name.underscore}_subtype_#{subtype.plural_name}"]
+        end
+      end
+    end
+    options
   end
 
   private

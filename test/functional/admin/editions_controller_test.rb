@@ -46,12 +46,13 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     policy = create(:draft_policy)
     publication = create(:draft_publication)
     stub_filter = stub_edition_filter(editions: [policy, publication])
+    stub_filter.stubs(:show_stats)
     Admin::EditionFilter.stubs(:new).returns(stub_filter)
 
     get :index, state: :draft
 
     assert_select_object(policy) { assert_select ".type", text: "Policy" }
-    assert_select_object(publication) { assert_select ".type", text: "Publication" }
+    assert_select_object(publication) { assert_select ".type", text: "Policy paper" }
   end
 
   test "diffing against a previous version" do

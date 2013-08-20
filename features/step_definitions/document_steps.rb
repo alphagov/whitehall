@@ -100,6 +100,13 @@ When /^I select the "([^"]*)" filter$/ do |filter|
   click_link filter
 end
 
+When /^I select the "([^"]*)" edition filter$/ do |filter|
+  within ".edition-kind-filter" do
+    select filter
+    click_button "Go"
+  end
+end
+
 When /^I filter by author "([^"]*)"$/ do |author_filter|
   within ".author-filter" do
     select author_filter

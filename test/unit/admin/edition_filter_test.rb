@@ -73,11 +73,23 @@ class Admin::EditionFilterTest < ActiveSupport::TestCase
     assert_equal [world_location_news_article], Admin::EditionFilter.new(Edition, @current_user, type: 'world_location_news_article').editions
   end
 
+  test "should filter by subtype of press releases" do
+    press_release = create(:news_article, news_article_type: NewsArticleType::PressRelease)
+    assert_equal [press_release], Admin::EditionFilter.new(Edition, @current_user, type: 'news_article_subtype_Press releases').editions
+  end
+
   test "should filter by title" do
     detailed = create(:policy, title: "Test mcTest")
     policy = create(:policy, title: "A policy")
 
     assert_equal [detailed], Admin::EditionFilter.new(Edition, @current_user, title: "test").editions
+  end
+
+  test "should filter by date" do
+    older_policy = create(:draft_policy, updated_at: 3.days.ago)
+    newer_policy = create(:draft_policy, updated_at: 1.minute.ago)
+
+    assert_equal [newer_policy], Admin::EditionFilter.new(Edition, @current_user, from_date: 2.days.ago.to_date.to_s(:short)).editions
   end
 
   test "should return the editions ordered by most recent first" do
