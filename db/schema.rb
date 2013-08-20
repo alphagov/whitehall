@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130813111957) do
+ActiveRecord::Schema.define(:version => 20130820151644) do
 
   create_table "about_pages", :force => true do |t|
     t.integer  "topical_event_id"
@@ -491,6 +491,7 @@ ActiveRecord::Schema.define(:version => 20130813111957) do
   add_index "editions", ["locale"], :name => "index_editions_on_locale"
   add_index "editions", ["operational_field_id"], :name => "index_editions_on_operational_field_id"
   add_index "editions", ["primary_mainstream_category_id"], :name => "index_editions_on_primary_mainstream_category_id"
+  add_index "editions", ["public_timestamp", "document_id"], :name => "index_editions_on_public_timestamp_and_document_id"
   add_index "editions", ["public_timestamp"], :name => "index_editions_on_public_timestamp"
   add_index "editions", ["publication_date"], :name => "index_editions_on_publication_date"
   add_index "editions", ["publication_type_id"], :name => "index_editions_on_publication_type_id"
