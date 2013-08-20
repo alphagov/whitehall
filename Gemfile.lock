@@ -181,7 +181,7 @@ GEM
     multipart-post (1.2.0)
     mustache (0.99.4)
     mysql2 (0.3.11)
-    newrelic_rpm (3.6.3.111)
+    newrelic_rpm (3.6.6.147)
     nokogiri (1.5.10)
     null_logger (0.0.1)
     oauth2 (0.8.1)
