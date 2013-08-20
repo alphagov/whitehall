@@ -13,6 +13,15 @@ class Speech < Announcement
   delegate :display_type_key, :explanation, to: :speech_type
   validate :only_speeches_allowed_invalid_data_can_be_awaiting_type
 
+  def self.subtypes
+    SpeechType.all
+  end
+
+  def self.by_subtype_plural_name(plural_name)
+    subtype = SpeechType.find_by_plural_name(plural_name)
+    where(speech_type_id: subtype.id) if subtype
+  end
+
   def search_format_types
     super + [Speech.search_format_type] + speech_type.search_format_types
   end
@@ -22,7 +31,7 @@ class Speech < Announcement
   end
 
   def speech_type=(speech_type)
-    self.speech_type_id = speech_type && speech_type.id
+    self.speech_type_id = speech_type.id if speech_type
   end
 
   def display_type

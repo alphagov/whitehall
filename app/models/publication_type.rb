@@ -7,20 +7,12 @@ class PublicationType
 
   attr_accessor :id, :singular_name, :plural_name, :prevalence, :access_limited_by_default, :key
 
-  def slug
-    plural_name.downcase.gsub(/[^a-z]+/, "-")
-  end
-
-  def access_limited_by_default?
-    !! self.access_limited_by_default
-  end
-
   def self.access_limitable
     all.select(&:access_limited_by_default?)
   end
 
   def self.by_prevalence
-    all.group_by { |pt| pt.prevalence }
+    all.group_by { |type| type.prevalence }
   end
 
   def self.ordered_by_prevalence
@@ -28,7 +20,11 @@ class PublicationType
   end
 
   def self.find_by_slug(slug)
-    all.detect { |pt| pt.slug == slug }
+    all.detect { |type| type.slug == slug }
+  end
+
+  def self.find_by_plural_name(plural_name)
+    all.detect { |type| type.plural_name == plural_name }
   end
 
   def self.primary
@@ -49,6 +45,14 @@ class PublicationType
 
   def self.statistical
     [Statistics, NationalStatistics]
+  end
+
+  def slug
+    plural_name.downcase.gsub(/[^a-z]+/, "-")
+  end
+
+  def access_limited_by_default?
+    !! self.access_limited_by_default
   end
 
   def search_format_types
