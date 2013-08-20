@@ -1,6 +1,6 @@
 module PublicDocumentRoutesHelper
   def public_host
-    Whitehall.public_host_for(request.host) if request
+    Whitehall.public_host_for(request.host) if defined?(request) && request
   end
 
   def document_path(edition, options = {})
