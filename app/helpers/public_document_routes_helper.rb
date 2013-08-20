@@ -1,6 +1,6 @@
 module PublicDocumentRoutesHelper
   def public_host
-    Whitehall.public_host_for(request.host)
+    Whitehall.public_host_for(request.host) if request
   end
 
   def document_path(edition, options = {})
@@ -29,7 +29,7 @@ module PublicDocumentRoutesHelper
   end
 
   def public_document_url(edition, options = {})
-    document_url edition, options.merge(host: public_host)
+    document_url edition, {host: public_host}.merge(options)
   end
 
   def preview_document_url(edition, options = {})
