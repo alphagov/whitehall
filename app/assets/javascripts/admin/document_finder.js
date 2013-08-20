@@ -16,7 +16,7 @@
         .bind('ajax:beforeSend', documentFinder.requestSent)
         .bind('ajax:success', documentFinder.showResults)
         .bind('ajax:complete', documentFinder.reEnableForm)
-        .bind('ajax:error', documentFinder.displayError);
+        .bind('ajax:error', documentFinder.handleError);
 
       documentFinder.$form.find('input[type="search"]').focus();
 
@@ -41,8 +41,8 @@
       documentFinder.$form.find('input[type="submit"]').attr('disabled', false);
     },
 
-    displayError: function () {
-      // TODO: display an error
+    handleError: function () {
+      documentFinder.$results.html('<p class="error">There was an error. Please try again.</p>')
     },
 
     clearResults: function () {
