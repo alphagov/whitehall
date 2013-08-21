@@ -95,7 +95,7 @@ body {
         margin: 0 0 3px 0;
         width: 100%;
         a {
-          @include core-16;
+          font-size: 16px;
           display: block;
           color: $white;
           height: 40px;
@@ -149,12 +149,15 @@ body {
     width: auto;
     li {
       a {
-        @include core-14;
+        font-size: 14px;
         color: $white;
-        padding: $gutter-one-third;
+        padding: 0 $gutter-one-third $gutter-one-third;
         &:after {
           content: "|";
           margin-left: $gutter-half;
+        }
+        &:hover {
+          text-decoration: underline;
         }
       }
       .session-info-wrapper {
@@ -184,12 +187,15 @@ body {
         margin-left: 0;
         padding: 0 0 0 $gutter-one-third;
         a {
-          @include core-16;
+          font-size: 16px;
           color: $white;
           padding: 0;
           &:after {
             content: "|";
             margin-left: $gutter-two-thirds;
+          }
+          &:hover {
+            text-decoration: underline;
           }
         }
         @include media(tablet) {
@@ -221,7 +227,7 @@ body {
           float: left;
           background: none;
           a {
-            @include core-16;
+            font-size: 16px;
             color: $black;
             padding: 2px $gutter-two-thirds 0 $gutter-one-third;
             height: auto;
@@ -249,7 +255,7 @@ body {
           margin: 0;
           width: 50%;
           a {
-            @include core-16;
+            font-size: 16px;
             color: $link-colour;
             background: none;
             height: auto;
@@ -274,7 +280,7 @@ body {
         }
       }
       .right {
-        top: 305px;
+        top: auto;
       }
       @include media(desktop) {
         .more-nav {
