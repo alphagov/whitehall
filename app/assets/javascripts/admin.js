@@ -2,6 +2,8 @@
 //= require jquery-ui
 //= require jquery_ujs
 //= require vendor/jquery/jquery.player.min.js
+//= require vendor/jquery/magna-charta.min
+//= require ./application/convert-html-pub-charts
 //= require bootstrap
 //= require_tree ./common
 //= require ./application/toggler.js

@@ -79,6 +79,7 @@
             loading_indicator.hide();
             preview.html(data);
             showPreview();
+            govspeakBarcharts();
           },
           error: function(data) {
             alert(data.responseText);
