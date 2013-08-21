@@ -30,13 +30,12 @@ module Admin::OrganisationHelper
     organisation.non_english_translated_locales.each do |locale|
       tabs["Featured documents (#{locale.native_language_name})"] = features_admin_organisation_path(organisation, locale: locale.code)
     end
-
+    tabs["Corporate information pages"] = admin_organisation_corporate_information_pages_path(organisation)
     tabs["More"] = {
       "About us" => about_admin_organisation_path(organisation),
       "Social media accounts" => admin_organisation_social_media_accounts_path(organisation),
       "Governance groups" => admin_organisation_groups_path(organisation),
       "People" => people_admin_organisation_path(organisation),
-      "Corporate information pages" => admin_organisation_corporate_information_pages_path(organisation),
       "Translations" => admin_organisation_translations_path(organisation),
       "Financial Reports" => admin_organisation_financial_reports_path(organisation)
     }
