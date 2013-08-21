@@ -130,7 +130,6 @@ module GovspeakHelper
        stacked,
        compact,
        negative,
-       '.left-key', 
        '.mc-auto-outdent',
        '}'
       ].join(' ')
