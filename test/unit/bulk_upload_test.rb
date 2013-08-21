@@ -62,7 +62,7 @@ class BulkUploadTest < ActiveSupport::TestCase
     assert_equal new_attachment_data, existing.attachment_data.reload.replaced_by
   end
 
-  test '#attachments_attributes builds new AttachmentData when file attached' do
+  test '#attachments_attributes= builds new AttachmentData when existing file re-attached' do
     edition = create(:news_article, :with_attachment)
     existing = edition.attachments.first
     bulk_upload = BulkUpload.new(edition)
@@ -73,7 +73,7 @@ class BulkUploadTest < ActiveSupport::TestCase
     assert attachment.attachment_data.new_record?, 'AttachmentData should be new record'
   end
 
-  test '#attachments_attributes sets replaced_by on existing AttachmentData when file re-attached' do
+  test '#attachments_attributes= sets replaced_by on existing AttachmentData when file re-attached' do
     edition = create(:news_article, :with_attachment)
     existing = edition.attachments.first
     bulk_upload = BulkUpload.new(edition)
