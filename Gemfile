@@ -23,7 +23,6 @@ gem 'rummageable', '1.0.0'
 gem 'addressable'
 gem 'exception_notification', require: 'exception_notifier'
 gem 'aws-ses', require: 'aws/ses'
-gem 'newrelic_rpm'
 gem 'lograge'
 gem 'unicorn', '4.6.2'
 gem 'kaminari'
@@ -54,6 +53,10 @@ group :development, :test do
   gem 'parallel_tests'
   gem 'bullet'
   gem 'test-queue'
+end
+
+group :development do
+  gem 'newrelic_rpm'
 end
 
 group :test do
