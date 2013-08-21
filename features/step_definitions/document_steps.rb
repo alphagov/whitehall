@@ -260,8 +260,8 @@ end
 
 Then /^I should see in the preview that "([^"]*)" should related to "([^"]*)" and "([^"]*)" worldwide priorities$/ do |title, related_priority_1, related_priority_2|
   visit_document_preview title
-  assert has_css?("#related-priorities .worldwide_priority", text: related_priority_1)
-  assert has_css?("#related-priorities .worldwide_priority", text: related_priority_2)
+  assert has_content?(related_priority_1)
+  assert has_content?(related_priority_2)
 end
 
 Then /^I should see the conflict between the (publication|policy|news article|consultation|speech) titles "([^"]*)" and "([^"]*)"$/ do |document_type, new_title, latest_title|

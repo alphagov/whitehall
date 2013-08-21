@@ -288,6 +288,13 @@ Details of document required:
         classes: ['document-statistical-data-sets']
       }
     end
+    if document.respond_to?(:worldwide_priorities) && document.worldwide_priorities.any?
+      metadata << {
+        title: t('document.type.worldwide_priority', count: 2), # always want the plural form for consistency
+        data: document.worldwide_priorities.map {|priority| link_to(priority.title, priority) },
+        classes: ['document-worldwide-priorities']
+      }
+    end
     metadata
   end
 end
