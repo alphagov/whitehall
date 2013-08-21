@@ -205,13 +205,11 @@ module DataHygiene
       bad_attachment = create(:attachment, file: double_extension_file, title: 'attachment title')
       VirusScanHelpers.simulate_virus_scan
 
-      series = create(:document_series)
-
       edition = create( :publication, :published,
                         alternative_format_provider: create(:organisation_with_alternative_format_contact_email),
-                        attachments: [bad_attachment],
-                        document_series: [series])
+                        attachments: [bad_attachment])
       document = edition.document
+      series = create(:document_series, documents: [document])
       repairer = repairer_for(document)
 
       assert repairer.repair_attachments!

@@ -27,7 +27,6 @@ module Whitehall::Uploader
         summary: summary,
         body: body,
         lead_organisations: lead_organisations,
-        document_series: document_series,
         related_editions: related_editions,
         first_published_at: first_published_at
       }

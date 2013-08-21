@@ -93,6 +93,10 @@ module Whitehall::Uploader
       }
     end
 
+    def document_series
+      []
+    end
+
     protected
 
     def fields(range, pattern)

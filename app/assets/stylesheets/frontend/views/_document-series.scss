@@ -27,10 +27,6 @@
     padding: $gutter/2 0 $gutter/2 0;
   }
 
-  .govspeak {
-    padding-bottom: $gutter;
-  }
-
   @include media(desktop) {
     .block-2, .block-3 {
       float: left;

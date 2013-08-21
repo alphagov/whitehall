@@ -1,24 +1,19 @@
 <% page_title "#{@document_series.name}", "Document series" %>
 
-<p><%= link_to "Back to #{@document_series.organisation.name}", admin_organisation_path(@document_series.organisation) %></p>
-
+<p><%= link_to "Back to #{@document_series.organisation.name}", document_series_admin_organisation_path(@document_series.organisation) %></p>
+<h1><%= @document_series.name %></h1>
 <p><%= link_to "View on public site", organisation_document_series_path(@document_series.organisation, @document_series) %></p>
 
-<h1><%= @document_series.name %></h1>
+<%= document_series_tab_navigation(@document_series.organisation, @document_series) do %>
 
-<div class="description"><%= govspeak_to_html @document_series.description %></div>
+  <div class="summmary">
+    <%= @document_series.summary %>
+  </div>
 
-<% if @document_series.editions.any? %>
-  <ul>
-    <% @document_series.editions.each do |edition| %>
-      <%= content_tag_for :li, edition do %>
-        <%= document_series_edition_with_state(edition) %>
-      <% end %>
-    <% end %>
+  <%= govspeak_to_html @document_series.description %>
+
+  <ul class="actions">
+    <li><%= link_to "Edit details", edit_admin_organisation_document_series_path(@document_series.organisation, @document_series) %></li>
+    <li><%= link_to 'Delete this series', admin_organisation_document_series_path(@document_series.organisation, @document_series), method: :delete, confirm: "Are you sure you want to delete the document series?" %></li>
   </ul>
-<% else %>
-  <p>No associated editions</p>
 <% end %>
-
-<%= link_to "Edit", edit_admin_organisation_document_series_path(@document_series.organisation, @document_series), class: "btn" %>
-<%= button_to 'Delete', admin_organisation_document_series_path(@document_series.organisation, @document_series), method: :delete, title: "Delete", confirm: "Are you sure you want to delete the document series?", class: "btn btn-danger" %>

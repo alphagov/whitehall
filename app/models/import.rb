@@ -191,6 +191,7 @@ class Import < ActiveRecord::Base
     model = model_class.new(attributes)
     if model.save
       save_translation!(model, row, row_number) if row.translation_present?
+      assign_document_series!(model, row.document_series)
       row.legacy_urls.each do |legacy_url|
         DocumentSource.create!(document: model.document, url: legacy_url, import: self, row_number: row_number)
       end
@@ -297,6 +298,12 @@ class Import < ActiveRecord::Base
       end
     else
       record_errors_for(translation, true)
+    end
+  end
+
+  def assign_document_series!(model, document_series)
+    if document_series.any?
+      model.document.document_series << document_series
     end
   end
 

@@ -1,0 +1,7 @@
+$('#series-documents')
+  .html('<%=escape_javascript render(partial: "series_document", collection: @document_series.latest_editions, as: :edition, locals: { document_series: @document_series }) %>');
+$('#series-documents li#<%=dom_id(@document.latest_edition)%>').effect('highlight', {}, 1000);
+$('li#<%=dom_id(@document.latest_edition)%>_search').effect('highlight', {}, 1000);
+$('section.notices').html('<%=escape_javascript render(partial: "shared/notices") %>');
+$(".flash.notice, .flash.alert").flashNotice();
+$('#document_add_<%= @document.id %> input[type="submit"]').attr('disabled', true).val('Part of this series');

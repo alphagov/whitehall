@@ -20,7 +20,6 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
   should_prevent_modification_of_unmodifiable :news_article
   should_allow_overriding_of_first_published_at_for :news_article
   should_have_summary :news_article
-  should_allow_assignment_to_document_series :news_article
   should_allow_scheduled_publication_of :news_article
   should_allow_access_limiting_of :news_article
   should_allow_association_with_topical_events :news_article

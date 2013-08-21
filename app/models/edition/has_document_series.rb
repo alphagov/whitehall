@@ -1,17 +1,8 @@
 module Edition::HasDocumentSeries
   extend ActiveSupport::Concern
 
-  class Trait < Edition::Traits::Trait
-    def process_associations_before_save(edition)
-      edition.document_series = @edition.document_series
-    end
-  end
-
   included do
-    has_many :edition_document_series, foreign_key: :edition_id
-    has_many :document_series, through: :edition_document_series
-
-    add_trait Trait
+    has_many :document_series, through: :document
   end
 
   def can_be_grouped_in_series?
@@ -24,5 +15,11 @@ module Edition::HasDocumentSeries
 
   def search_index
     super.merge("document_series" => document_series.map(&:slug))
+  end
+
+  # We allow document series to be assigned directly on an edition for speed tagging
+  def document_series_ids=(ids)
+    raise(StandardError, 'cannot assign document series to an unsaved edition') unless persisted?
+    document.document_series_ids = ids
   end
 end

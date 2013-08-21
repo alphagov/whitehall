@@ -28,7 +28,7 @@ module Whitehall::Uploader
     end
 
     def document_series
-      Finders::DocumentSeriesFinder.find(row['document_series_1'], row['document_series_2'], row['document_series_3'], row['document_series_4'], @logger, @line_number)
+      Finders::SluggedModelFinder.new(DocumentSeries, @logger).find(fields(1..4, 'document_series_#'))
     end
 
     def ministerial_roles
@@ -67,7 +67,7 @@ module Whitehall::Uploader
 
     def attributes
       [:title, :summary, :body, :publication_date, :publication_type,
-       :related_editions, :lead_organisations, :document_series,
+       :related_editions, :lead_organisations,
        :ministerial_roles, :attachments, :alternative_format_provider,
        :world_locations, :html_version_attributes].map.with_object({}) do |name, result|
         result[name] = __send__(name)

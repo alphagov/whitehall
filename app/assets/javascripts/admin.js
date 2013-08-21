@@ -6,3 +6,5 @@
 //= require_tree ./common
 //= require ./application/toggler.js
 //= require_tree ./admin
+//= require shared_mustache
+//= require templates

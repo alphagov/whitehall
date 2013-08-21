@@ -1,7 +1,6 @@
 module Whitehall
   module Uploader
     module Finders
-      autoload :DocumentSeriesFinder, 'whitehall/uploader/finders/document_series_finder'
       autoload :MinisterialRolesFinder, 'whitehall/uploader/finders/ministerial_roles_finder'
       autoload :NewsArticleTypeFinder, 'whitehall/uploader/finders/news_article_type_finder'
       autoload :OperationalFieldFinder, 'whitehall/uploader/finders/operational_field_finder'

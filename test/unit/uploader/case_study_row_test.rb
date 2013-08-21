@@ -27,7 +27,7 @@ module Whitehall::Uploader
       doc_series_2 = create(:document_series)
       row = case_study_row({"document_series_1" => doc_series_1.slug, "document_series_2" => doc_series_2.slug})
       row.stubs(:organisation).returns(stubbed_organisation)
-      assert_equal [doc_series_1, doc_series_2], row.attributes[:document_series]
+      assert_equal [doc_series_1, doc_series_2], row.document_series
     end
 
     test "finds policies by slug in policy_n column" do

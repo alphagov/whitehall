@@ -562,31 +562,26 @@ class PublicationsControllerTest < ActionController::TestCase
 
   view_test 'index should show relevant document series information' do
     without_delay! do
-      organisation = create(:organisation)
-      series = create(:document_series, organisation: organisation)
-      publication = create(:published_publication, document_series: [series])
-
+      publication = create(:published_publication)
+      series = create(:document_series, documents: [publication.document])
       get :index
 
       assert_select_object(publication) do
-        assert_select ".document-series a[href=?]", organisation_document_series_path(organisation, series)
+        assert_select ".document-series a[href=?]", organisation_document_series_path(series.organisation, series)
       end
     end
   end
 
   view_test 'index requested as JSON includes document series information' do
     without_delay! do
-      organisation = create(:organisation)
-      series = create(:document_series, organisation: organisation)
-      publication = create(:published_publication, document_series: [series])
+      series = create(:document_series, documents: [create(:published_publication).document])
 
       get :index, format: :json
 
       json = ActiveSupport::JSON.decode(response.body)
-
       result = json['results'].first
 
-      assert_equal "Part of a series: <a href=\"#{organisation_document_series_path(organisation, series)}\">#{series.name}</a>", result['publication_series']
+      assert_equal "Part of a series: <a href=\"#{organisation_document_series_path(series.organisation, series)}\">#{series.name}</a>", result['publication_series']
     end
   end
 

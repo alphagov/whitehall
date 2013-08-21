@@ -1,0 +1,29 @@
+{{#results_any?}}
+  <ul class="document-list">
+    {{#results}}
+      <li id="search_{{type}}_{{id}}" class="document-row">
+        <form action="" method="POST" data-remote="true" id="document_add_{{document_id}}">
+          <input type="hidden" name="id" value="{{document_id}}">
+          {{#in_series?}}
+            <input type="submit" value="Part of this series" disabled="disabled"/>
+          {{/in_series?}}
+          {{^in_series?}}
+            <input type="submit" value="Add to this series" class="btn">
+          {{/in_series?}}
+        </form>
+        <a href="{{url}}">{{title}}</a>
+        <ul>
+          <li>{{{public_time}}}</li>
+          <li>{{{organisation}}}</li>
+          <li>{{display_type}}</li>
+        </ul>
+      </li>
+    {{/results}}
+  </ul>
+{{/results_any?}}
+
+{{^results_any?}}
+  <div class="no-results">
+    <p>No matching editions found</p>
+  </div>
+{{/results_any?}}

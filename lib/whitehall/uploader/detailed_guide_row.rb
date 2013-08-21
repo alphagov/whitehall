@@ -68,7 +68,6 @@ module Whitehall::Uploader
         :topics,
         :primary_mainstream_category,
         :other_mainstream_categories,
-        :document_series,
         :outbound_related_documents,
         :related_mainstream_content_url,
         :related_mainstream_content_title,

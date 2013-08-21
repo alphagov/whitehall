@@ -8,24 +8,28 @@ class Document < ActiveRecord::Base
 
   after_destroy :destroy_all_editions
 
-  has_many :editions
+  has_many :editions, inverse_of: :document
   has_many :edition_relations, dependent: :destroy
 
   has_one  :published_edition,
            class_name: 'Edition',
+           inverse_of: :document,
            conditions: { state: 'published' }
   has_one  :scheduled_edition,
            class_name: 'Edition',
+           inverse_of: :document,
            conditions: { state: 'scheduled' }
   has_one  :unpublished_edition,
            class_name: 'Edition',
+           inverse_of: :document,
            conditions: { state: %w[ draft submitted rejected ] }
   has_many :ever_published_editions,
            class_name: 'Edition',
+           inverse_of: :document,
            conditions: { state: %w[ published archived ] }
-
   has_one  :latest_edition,
            class_name: 'Edition',
+           inverse_of: :document,
            conditions: %(
              NOT EXISTS (
                SELECT 1 FROM editions e2
@@ -34,6 +38,8 @@ class Document < ActiveRecord::Base
                AND e2.state <> 'deleted'))
 
   has_many :document_sources, dependent: :destroy
+  has_many :document_series_membership
+  has_many :document_series, through: :document_series_membership
 
   after_create :ensure_document_has_a_slug
 
