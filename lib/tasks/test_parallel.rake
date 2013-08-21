@@ -7,7 +7,7 @@ namespace :test do
   task :in_parallel => :environment do
     ENV['CUCUMBER_FORMAT'] = 'progress'
     ENV['RAILS_ENV'] = 'test'
-    ['parallel:create', 'parallel:prepare', 'test_queue', 'parallel:features', 'test:javascript', 'test:cleanup'].each do |task|
+    ['parallel:create', 'parallel:prepare', 'test_queue', 'shared_mustache:compile', 'parallel:features', 'test:javascript', 'test:cleanup'].each do |task|
       Rake::Task[task].invoke
     end
   end

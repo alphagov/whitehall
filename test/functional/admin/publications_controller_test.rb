@@ -21,7 +21,6 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
   should_allow_association_between_world_locations_and :publication
   should_prevent_modification_of_unmodifiable :publication
   should_allow_alternative_format_provider_for :publication
-  should_allow_assignment_to_document_series :publication
   should_allow_scheduled_publication_of :publication
   should_allow_access_limiting_of :publication
 

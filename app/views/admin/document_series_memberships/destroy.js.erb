@@ -1,0 +1,4 @@
+$('#series-documents')
+  .html('<%=escape_javascript render(partial: "series_document", collection: @document_series.latest_editions, as: :edition, locals: { document_series: @document_series }) %>');
+$('section.notices').html('<%=escape_javascript render(partial: "shared/notices") %>');
+$(".flash.notice, .flash.alert").flashNotice();

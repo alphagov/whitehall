@@ -274,6 +274,17 @@ ActiveRecord::Schema.define(:version => 20130820151644) do
   add_index "document_series", ["organisation_id"], :name => "index_document_series_on_organisation_id"
   add_index "document_series", ["slug"], :name => "index_document_series_on_slug"
 
+  create_table "document_series_memberships", :force => true do |t|
+    t.integer  "document_series_id"
+    t.integer  "document_id"
+    t.integer  "ordering"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+  end
+
+  add_index "document_series_memberships", ["document_id", "document_series_id"], :name => "index_document_series_memberships_on_document_and_series_id"
+  add_index "document_series_memberships", ["document_series_id", "ordering"], :name => "index_document_series_memberships_on_series_id_and_ordering"
+
   create_table "document_sources", :force => true do |t|
     t.integer "document_id"
     t.string  "url",                           :null => false
@@ -480,7 +491,6 @@ ActiveRecord::Schema.define(:version => 20130820151644) do
     t.boolean  "relevant_to_local_government",                :default => false
     t.string   "person_override"
     t.string   "locale",                                      :default => "en",    :null => false
-    t.integer  "document_series_count",                       :default => 0,       :null => false
     t.boolean  "external",                                    :default => false
     t.string   "external_url"
   end

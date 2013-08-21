@@ -38,6 +38,7 @@ gem 'diffy'
 gem 'logstasher', '0.2.5'
 gem 'slop', '3.4.5'
 gem 'chronic'
+gem 'jbuilder'
 
 group :assets do
   gem 'govuk_frontend_toolkit', '0.34.0'

@@ -51,7 +51,7 @@ module Whitehall::Uploader
     end
 
     def document_series
-      Finders::DocumentSeriesFinder.find(row['data_series'], @logger, @line_number)
+      Finders::SluggedModelFinder.new(DocumentSeries, logger).find([row['data_series']])
     end
 
     def first_published_at
@@ -79,7 +79,7 @@ module Whitehall::Uploader
     end
 
     def attributes
-      [:title, :summary, :body, :lead_organisations, :document_series,
+      [:title, :summary, :body, :lead_organisations,
        :attachments, :alternative_format_provider, :access_limited,
        :first_published_at, :change_note].map.with_object({}) do |name, result|
         result[name] = __send__(name)

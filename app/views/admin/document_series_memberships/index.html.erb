@@ -1,0 +1,29 @@
+<% page_title "#{@document_series.name}", "Document series" %>
+
+<p><%= link_to "Back to #{@document_series.organisation.name}", document_series_admin_organisation_path(@document_series.organisation) %></p>
+<h1><%= @document_series.name %></h1>
+<p><%= link_to "View on public site", organisation_document_series_path(@document_series.organisation, @document_series) %></p>
+
+<%= document_series_tab_navigation(@document_series.organisation, @document_series) do %>
+  <p class="warning">Warning: changes to this document series will appear instantly on the live site.</p>
+
+  <div class="document-finder">
+    <h2>Document finder</h2>
+    <p>
+      This is a work-in-progress and only returns the first 10 results.<br />
+      Make your search as specific as possible.
+    </p>
+    <%= form_tag search_admin_document_series_documents_path(format: :json), method: :get, remote: true, data: { type: 'json' } do %>
+      <%= search_field_tag :title, '', placeholder: 'Title or slug&hellip;'.html_safe, results: 5, autosave: 'unique', style: 'width:200px;margin-right:5px;float:left;' %>
+      <%= submit_tag 'Search', class: 'btn' %>
+      <%= image_tag 'loading-2b2c2d.gif', class: 'js-loading' %>
+      <%= link_to 'reset', '#', class: 'js-doc-finder-reset' %>
+    <% end %>
+    <div class="js-doc-finder-results"></div>
+  </div>
+
+
+  <ol id="series-documents" class="document-list">
+    <%= render partial: 'series_document', collection: @document_series.latest_editions, as: :edition, locals: { document_series: @document_series } %>
+  </ol>
+<% end %>

@@ -49,7 +49,7 @@ module Whitehall::Uploader
     test "finds document series by slug in document_series_n column" do
       document_series = create(:document_series)
       row = new_publication_row({"document_series_1" => document_series.slug})
-      assert_equal [document_series], row.attributes[:document_series]
+      assert_equal [document_series], row.document_series
     end
 
     test "finds publication type by slug in the pub type column" do

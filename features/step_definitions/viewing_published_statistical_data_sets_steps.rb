@@ -4,12 +4,12 @@ end
 
 Given /^a published publication that's part of the "([^"]*)" document series$/ do |document_series_name|
   document_series = DocumentSeries.find_by_name!(document_series_name)
-  create(:published_publication, document_series: [document_series])
+  document_series.documents << create(:published_publication).document
 end
 
 Given /^a published statistical data set "([^"]*)" that's part of the "([^"]*)" document series$/ do |data_set_title, document_series_name|
   document_series = DocumentSeries.find_by_name!(document_series_name)
-  create(:published_statistical_data_set, title: data_set_title, document_series: [document_series])
+  document_series.documents << create(:published_statistical_data_set, title: data_set_title).document
 end
 
 Given /^a published statistical data set "([^"]*)"$/ do |data_set_title|

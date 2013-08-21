@@ -1,5 +1,4 @@
 class StatisticalDataSet < Publicationesque
-  include Edition::HasDocumentSeries
   include Edition::AlternativeFormatProvider
 
   def allows_attachment_references?

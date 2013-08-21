@@ -1273,52 +1273,6 @@ module AdminEditionControllerTestHelpers
       end
     end
 
-    def should_allow_assignment_to_document_series(edition_type)
-      edition_class = class_for(edition_type)
-
-      view_test "when creating allows assignment to document series" do
-        get :new
-
-        assert_select "form#new_edition" do
-          assert_select "select[name='edition[document_series_ids][]']"
-        end
-      end
-
-      view_test "when editing allows assignment to document series" do
-        series = create(:document_series)
-        edition = create(edition_type, document_series: [series])
-
-        get :edit, id: edition
-
-        assert_select "form#edit_edition" do
-          assert_select "select[name='edition[document_series_ids][]']"
-        end
-      end
-
-      view_test "shows assigned document series" do
-        series = create(:document_series)
-        edition = create(edition_type, document_series: [series])
-
-        get :show, id: edition
-
-        assert_select_object(series)
-      end
-
-      test "creating should create a new document with related document_series" do
-        series1 = create(:document_series)
-        series2 = create(:document_series)
-
-        attributes = controller_attributes_for(edition_type)
-
-        post :create, edition: attributes.merge(
-          document_series_ids: [series1.id, series2.id]
-        )
-
-        assert document = edition_class.last
-        assert_equal [series1, series2], document.document_series
-      end
-    end
-
     def should_allow_access_limiting_of(edition_type)
       edition_class = class_for(edition_type)
 

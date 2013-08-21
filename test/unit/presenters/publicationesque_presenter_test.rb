@@ -27,7 +27,7 @@ class PublicationesquePresenterTest < PresenterTestCase
   end
 
   test "should indicate when publication is not part of a series" do
-    publication = Publication.new(document_series: [])
+    publication = Publication.new
     presenter = PublicationesquePresenter.new(publication, @view_context)
     refute presenter.part_of_series?
   end

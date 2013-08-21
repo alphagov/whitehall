@@ -11,18 +11,16 @@ class Admin::DocumentSeriesController < Admin::BaseController
     if @document_series.save
       redirect_to admin_organisation_document_series_path(@organisation, @document_series)
     else
-      render action: :new
+      render :new
     end
   end
 
   def index
-    redir_args =
-      if current_user.organisation
-        [admin_organisation_document_series_index_path(current_user.organisation)]
-      else
-        [admin_organisations_path, notice: 'Choose an organisation to view all the document series belonging to it']
-      end
-    redirect_to *redir_args
+    if current_user.organisation
+      redirect_to admin_organisation_document_series_index_path(current_user.organisation)
+    else
+      redirect_to admin_organisations_path, notice: 'Choose an organisation to view all the document series belonging to it'
+    end
   end
 
   def show
@@ -35,7 +33,7 @@ class Admin::DocumentSeriesController < Admin::BaseController
     if @document_series.update_attributes(params[:document_series])
       redirect_to admin_organisation_document_series_path(@organisation, @document_series)
     else
-      render action: :edit
+      render :edit
     end
   end
 
@@ -45,7 +43,7 @@ class Admin::DocumentSeriesController < Admin::BaseController
       redirect_to admin_organisation_document_series_index_path(@document_series.organisation), notice: "document series destroyed"
     else
       redirect_to admin_organisation_document_series_path(@document_series.organisation, @document_series),
-                  alert: "Cannot destroy document series with associated content, please remove them first"
+                  alert: "Cannot destroy a document series with associated content. Please remove the associated documents first."
     end
   end
 
