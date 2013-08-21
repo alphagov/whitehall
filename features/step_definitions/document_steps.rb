@@ -119,8 +119,8 @@ When /^I visit the (publication|policy|news article|consultation) "([^"]*)"$/ do
   visit public_document_path(edition)
 end
 
-When /^I preview the (publication|policy|news article|consultation) "([^"]*)"$/ do |document_type, title|
-  edition = document_class(document_type).find_by_title!(title)
+When /^I preview "([^"]*)"$/ do |title|
+  edition = Edition.find_by_title!(title)
   visit preview_document_path(edition)
 end
 

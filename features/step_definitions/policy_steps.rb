@@ -187,11 +187,6 @@ When /^I view the policy titled "([^"]*)"$/ do |policy_title|
   visit admin_edition_path(policy)
 end
 
-When /^I preview the policy titled "([^"]*)"$/ do |policy_title|
-  policy = Policy.find_by_title!(policy_title)
-  visit document_preview_path(policy)
-end
-
 When /^I resubmit the policy titled "([^"]*)"$/ do |policy_title|
   policy = Policy.find_by_title!(policy_title)
   visit admin_edition_path(policy)
