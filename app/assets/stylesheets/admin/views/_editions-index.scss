@@ -1,34 +1,12 @@
 .editions-index {
 
-  nav {
+  .editions-filter {
     margin-top: 1em;
   }
 
   .publishing-stats {
     margin: 18px 0;
     text-align: right;
-  }
-
-  .author-filter, .organisation-filter, .world-location-filter {
-    form {
-      margin: 0 -15px;
-      padding: 0 15px;
-    }
-
-    &.active {
-      form {
-        color: white;
-        background-color: #08C;
-
-        .chzn-drop {
-          color: black;
-        }
-
-        .chzn-container-single .chzn-single {
-          color: #08C;
-        }
-      }
-    }
   }
 
   div.toggle_group {
@@ -74,29 +52,5 @@
       }
     }
   }
-
-  @include ie(6){
-    .nav-list {
-      li {
-        display: inline;
-        background: transparent;
-
-        a {
-          display: block;
-          padding: 3px 15px;
-          margin: 0 -15px;
-        }
-        &.active {
-          a {
-            color: #fff;
-            background-color: #08C;
-
-            &:hover {
-              background-color: #08C;
-            }
-          }
-        }
-      }
-    }
-  }
 }
+
