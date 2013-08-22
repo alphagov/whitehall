@@ -10,6 +10,30 @@
     </div>
   </div>
 
+  <div class="block-4">
+    <div class="inner-block">
+      <aside class="govuk-status information-block">
+        <p>
+          <% if @organisation.closed? %>
+            <% if @organisation.closed_at.present? %>
+              The <%= @organisation.name %> closed on <%= absolute_date(@organisation.closed_at, class: 'closed-at') %>
+            <% else %>
+              The <%= @organisation.name %> has closed
+            <% end %>
+          <% elsif @organisation.transitioning? %>
+            The <%= @organisation.name %> is in the process of joining GOV.UK. In the meantime, <%= link_to @organisation.url, @organisation.url, class: 'url-link' %> remains the official source.
+          <% elsif @organisation.joining? %>
+            The <%= @organisation.name %> currently has a separate website but will soon be incorporated into GOV.UK
+          <% elsif @organisation.url.present? %>
+            The <%= @organisation.name %> has a separate website
+          <% else %>
+            The <%= @organisation.name %> has no website
+          <% end %>
+        </p>
+      </aside>
+    </div>
+  </div>
+
   <div class="block-2">
     <div class="inner-block">
       <div class="description">
@@ -31,29 +55,6 @@
     </div>
   </div>
 
-  <div class="block-4">
-    <div class="inner-block">
-      <aside class="govuk-status information-block">
-        <p>
-          <% if @organisation.closed? %>
-            <% if @organisation.closed_at.present? %>
-              This organisation closed on <%= absolute_date(@organisation.closed_at, class: 'closed-at') %>
-            <% else %>
-              This organisation has closed
-            <% end %>
-          <% elsif @organisation.transitioning? %>
-            This organisation is in the process of joining GOV.UK. In the meantime, <%= link_to @organisation.url, @organisation.url, class: 'url-link' %> remains the official source.
-          <% elsif @organisation.joining? %>
-            This organisation currently has a separate website but will soon be incorporated into GOV.UK
-          <% elsif @organisation.url.present? %>
-            This organisation has a separate website
-          <% else %>
-            This organisation has no website
-          <% end %>
-        </p>
-      </aside>
-    </div>
-  </div>
 
   <% if @recently_updated.present? %>
     <div class="block-5">

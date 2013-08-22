@@ -789,7 +789,7 @@
       width: 66.66%;
       float: right;
       .inner-block {
-        padding-left: $gutter-one-third;
+        padding-left: $gutter-two-thirds+$gutter-one-sixth;
       }
     }
     .block-3 {
@@ -872,39 +872,20 @@
     }
   }
   .information-block {
-    @include ig-core-19;
-    padding: $gutter-two-thirds 33.33% $gutter-two-thirds 0;
-    margin-top: 0;
-    margin-bottom: $gutter;
+    margin: $gutter-half 0;
     min-height: $gutter;
     background-color: transparent;
-    border: solid $black 1px;
-    border-width: 5px 0 1px 0;
+    border: $gutter-one-sixth solid $inside-gov-secondary;
+    padding: $gutter-half;
     position: relative;
+    p {
+      @include core-36;
+      font-weight: bold;
+    }
 
     @include media(desktop) {
-      margin-bottom: $gutter*2;
-    }
-  }
-
-  .information-block:after {
-    content: "info";
-    text-indent: -9999px;
-    background-color: $inside-gov-brand;
-    background-image: image-url('icon-information-transparent.png');
-    background-position: center;
-    height: $gutter;
-    width: $gutter;
-    position: absolute;
-    overflow: hidden;
-    @include border-radius($gutter);
-
-    top: $gutter-one-third/2;
-    right: $gutter-one-third/2 ;
-
-    @include media(tablet) {
-      top: $gutter-one-third;
-      right: $gutter-one-third;
+      margin: 0 0 $gutter*2 0;
+      padding: $gutter-two-thirds;
     }
   }
 

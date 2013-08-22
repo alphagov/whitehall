@@ -298,7 +298,7 @@ class OrganisationsControllerTest < ActionController::TestCase
 
     get :show, id: organisation
 
-    assert_select '.information-block p', text: 'This organisation has closed'
+    assert_select '.information-block p', text: /closed/
   end
 
   view_test "showing a closed organisation with a closed date renders the date" do
