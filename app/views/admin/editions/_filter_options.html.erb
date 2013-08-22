@@ -14,18 +14,26 @@
     <% end %>
     <% if filter_by.include?(:author) %>
       <li class="nav-header">Filter by Organisation</li>
-      <li class="organisation-filter">
+      <li class="js-edition-select-filter">
         <%= form_tag("", method: :get) do %>
-          <%= select_tag :organisation, admin_organisation_filter_options(@filter, current_user), class: 'chzn-select', include_blank: true, data: { placeholder: "All organisations" } %>
+          <%= select_tag  :organisation,
+                          options_for_select(admin_organisation_filter_options(current_user), @filter.options[:organisation]),
+                          class: 'chzn-select',
+                          include_blank: true,
+                          data: { placeholder: "All organisations" } %>
           <%= pass_through_filter_options_as_hidden_fields(@filter, :type, :state, :world_location_ids, :from_date, :to_date) %>
           <%= submit_tag "Go", class: "btn" %>
         <% end %>
       </li>
 
       <li class="nav-header">Filter by Author</li>
-      <li class="author-filter">
+      <li class="js-edition-select-filter">
         <%= form_tag("", method: :get) do %>
-          <%= select_tag :author, admin_author_filter_options(@filter, current_user), class: 'chzn-select', include_blank: true, data: { placeholder: "All authors" } %>
+          <%= select_tag  :author,
+                          options_for_select(admin_author_filter_options(current_user), @filter.options[:author]),
+                          class: 'chzn-select',
+                          include_blank: true,
+                          data: { placeholder: "All authors" } %>
           <%= pass_through_filter_options_as_hidden_fields(@filter, :type, :state, :world_location_ids, :from_date, :to_date) %>
           <%= submit_tag "Go", class: "btn" %>
         <% end %>
@@ -44,7 +52,7 @@
                          options_from_collection_for_select(WorldLocation.ordered_by_name, 'id', 'name', @filter.options[:world_location_ids]),
                          multiple: true,
                          class: 'chzn-select',
-                         data: { placeholder: "World locations..."} %>
+                         data: { placeholder: "All locations"} %>
           <%= pass_through_filter_options_as_hidden_fields(@filter, :organisation, :type, :state, :author, :from_date, :to_date) %>
           <%= submit_tag "Go", class: "btn" %>
         <% end %>
@@ -53,14 +61,13 @@
 
     <% if filter_by.include?(:type) %>
       <li class="nav-header">Filter by Kind</li>
-      <%= link_to_filter 'All', {locale: params[:locale], type: nil}, @filter, title: "Show all kinds of document" %>
-      <li class="edition-kind-filter">
+      <li class="js-edition-select-filter">
         <%= form_tag("", method: :get) do  %>
           <%= select_tag :type,
                           options_for_select(filter_options_for_edition(current_user), @filter.options[:type]),
                           class: 'chzn-select',
                           include_blank: true,
-                          data: { placeholder: "Kind..."} %>
+                          data: { placeholder: "All types"} %>
             <%= pass_through_filter_options_as_hidden_fields(@filter, :organisation, :world_location_ids, :state, :author, :from_date, :to_date) %>
             <%= submit_tag "Go", class: "btn" %>
           <% end %>
@@ -69,15 +76,17 @@
 
     <% if filter_by.include?(:state) %>
       <li class="nav-header">Filter by state</li>
-      <% document_type = (@filter.options[:type] || "document").pluralize %>
-      <%= link_to_filter 'All', {locale: params[:locale], state: :active}, @filter, title: "Show #{document_type} in any workflow state" %>
-      <%= link_to_filter 'Imported (pre-draft)', {locale: params[:locale], state: :imported}, @filter, title: "Show only imported pre-draft #{document_type}" %>
-      <%= link_to_filter 'Drafts', {locale: params[:locale], state: :draft}, @filter, title: "Show only draft #{document_type}" %>
-      <%= link_to_filter 'Submitted', {locale: params[:locale], state: :submitted}, @filter, title: "Show only submitted #{document_type}" %>
-      <%= link_to_filter 'Rejected', {locale: params[:locale], state: :rejected}, @filter, title: "Show only rejected #{document_type}" %>
-      <%= link_to_filter 'Scheduled', {locale: params[:locale], state: :scheduled}, @filter, title: "Show only scheduled #{document_type}" %>
-      <%= link_to_filter 'Published', {locale: params[:locale], state: :published}, @filter, title: "Show only published #{document_type}" %>
-      <%= link_to_filter 'Force Published <br/>(not reviewed)'.html_safe, {locale: params[:locale], state: :force_published}, @filter, title: "Show only force published #{document_type}" %>
+      <li class="js-edition-select-filter">
+        <%= form_tag("", method: :get) do  %>
+          <%= select_tag :state,
+                          options_for_select(admin_state_filter_options(), @filter.options[:state]),
+                          class: 'chzn-select',
+                          include_blank: true,
+                          data: { placeholder: "All states"} %>
+            <%= pass_through_filter_options_as_hidden_fields(@filter, :organisation, :world_location_ids, :type, :author, :from_date, :to_date) %>
+            <%= submit_tag "Go", class: "btn" %>
+          <% end %>
+      </li>
     <% end %>
 
     <% if filter_by.include?(:date) %>
