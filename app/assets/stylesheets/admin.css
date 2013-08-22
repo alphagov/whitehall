@@ -5,5 +5,6 @@
  *
  *= require ./vendor/bootstrap
  *= require ./vendor/chosen
+ *= require ./shared/helpers/_magna-charta.scss
  *= require ./admin/base
 */
