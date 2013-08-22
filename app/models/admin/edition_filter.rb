@@ -114,10 +114,12 @@ module Admin
     private
 
     def selected_world_locations
-      if options[:world_location_ids] == "all" || options[:world_location_ids].blank?
+      if options[:world_location].blank?
         []
+      elsif options[:world_location] == "user"
+        @current_user.world_locations
       else
-        options[:world_location_ids]
+        [options[:world_location]]
       end
     end
 

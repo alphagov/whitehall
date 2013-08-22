@@ -7,7 +7,7 @@
       <li class="nav-header">Filter by Title or Slug</li>
       <li>
         <%= form_tag("", method: :get, class: "pull-left") do %>
-          <%= pass_through_filter_options_as_hidden_fields(@filter, :organisation, :type, :state, :author, :world_location_ids, :from_date, :to_date) %>
+          <%= pass_through_filter_options_as_hidden_fields(@filter, :organisation, :type, :state, :author, :world_location, :from_date, :to_date) %>
           <input type="search" id="search_title" name="title" value="<%= @filter.options[:title] %>" placeholder="Search title">
         <% end %>
       </li>
@@ -21,7 +21,7 @@
                           class: 'chzn-select',
                           include_blank: true,
                           data: { placeholder: "All organisations" } %>
-          <%= pass_through_filter_options_as_hidden_fields(@filter, :type, :state, :world_location_ids, :from_date, :to_date) %>
+          <%= pass_through_filter_options_as_hidden_fields(@filter, :type, :state, :world_location, :from_date, :to_date) %>
           <%= submit_tag "Go", class: "btn" %>
         <% end %>
       </li>
@@ -34,26 +34,22 @@
                           class: 'chzn-select',
                           include_blank: true,
                           data: { placeholder: "All authors" } %>
-          <%= pass_through_filter_options_as_hidden_fields(@filter, :type, :state, :world_location_ids, :from_date, :to_date) %>
+          <%= pass_through_filter_options_as_hidden_fields(@filter, :type, :state, :world_location, :from_date, :to_date) %>
           <%= submit_tag "Go", class: "btn" %>
         <% end %>
       </li>
     <% end %>
 
     <% if filter_by.include?(:world_location) %>
-      <li class="nav-header">Filter by World locations</li>
-      <% if current_user.world_locations.any? %>
-        <%= link_to_filter('My Locations', {world_location_ids: current_user.world_locations.map(&:id)}, @filter, title: "Show documents for your locations") %>
-      <% end %>
-      <%= link_to_filter('Everywhere', {locale: params[:locale], world_location_ids: "all"}, @filter, title: "Show documents for all locations") %>
-      <li class="world-location-filter <%= active_filter_unless_values_match_class(@filter, :world_location_ids, 'all', current_user.world_locations.map(&:id)) %>">
-        <%= form_tag("", method: :get) do  %>
-          <%= select_tag :world_location_ids,
-                         options_from_collection_for_select(WorldLocation.ordered_by_name, 'id', 'name', @filter.options[:world_location_ids]),
-                         multiple: true,
-                         class: 'chzn-select',
-                         data: { placeholder: "All locations"} %>
-          <%= pass_through_filter_options_as_hidden_fields(@filter, :organisation, :type, :state, :author, :from_date, :to_date) %>
+      <li class="nav-header">Filter by World location</li>
+      <li class="js-edition-select-filter">
+        <%= form_tag("", method: :get) do %>
+          <%= select_tag  :world_location,
+                          options_for_select(admin_world_location_filter_options(current_user), @filter.options[:world_location]),
+                          class: 'chzn-select',
+                          include_blank: true,
+                          data: { placeholder: "All locations" } %>
+          <%= pass_through_filter_options_as_hidden_fields(@filter, :type, :state, :author, :from_date, :to_date) %>
           <%= submit_tag "Go", class: "btn" %>
         <% end %>
       </li>

@@ -30,7 +30,7 @@ module Admin::EditionsHelper
   end
 
   def link_to_filter(link, options, filter, html_options = {})
-    content_tag(:li, link_to(link, url_for(filter.options.slice('state', 'type', 'author', 'organisation', 'title', 'world_location_ids').merge(options)), html_options), class: active_filter_if_options_match_class(filter, options))
+    content_tag(:li, link_to(link, url_for(filter.options.slice('state', 'type', 'author', 'organisation', 'title', 'world_location').merge(options)), html_options), class: active_filter_if_options_match_class(filter, options))
   end
 
   def active_filter_if_options_match_class(filter, options)
@@ -87,6 +87,14 @@ module Admin::EditionsHelper
       ["Published", :published],
       ["Force published (not reviewed)", :force_published],
     ]
+  end
+
+  def admin_world_location_filter_options(current_user)
+    options = []
+    if current_user.world_locations.any?
+      options << ["My locations", "user"]
+    end
+    options + WorldLocation.ordered_by_name.map { |l| [l.name, l.id] }
   end
 
   def viewing_all_active_editions?

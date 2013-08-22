@@ -57,7 +57,7 @@ class Admin::EditionFilterTest < ActiveSupport::TestCase
     policy = create(:draft_policy, world_locations: [location])
     another_edition = create(:published_policy, world_locations: [location])
 
-    assert_equal [policy], Admin::EditionFilter.new(Edition, @current_user, type: 'policy', state: 'draft', world_location_ids: [location.id]).editions
+    assert_equal [policy], Admin::EditionFilter.new(Edition, @current_user, type: 'policy', state: 'draft', world_location: location.id).editions
   end
 
   test "should filter by world location" do
@@ -65,7 +65,16 @@ class Admin::EditionFilterTest < ActiveSupport::TestCase
     consultation = create(:consultation)
     policy = create(:policy, world_locations: [location])
 
-    assert_equal [policy], Admin::EditionFilter.new(Edition, @current_user, world_location_ids: [location.id]).editions
+    assert_equal [policy], Admin::EditionFilter.new(Edition, @current_user, world_location: location.id).editions
+  end
+
+  test "should filter by user's world locations" do
+    location = create(:world_location)
+    user = create(:user, world_locations: [location])
+    consultation = create(:consultation)
+    policy = create(:policy, world_locations: [location])
+
+    assert_equal [policy], Admin::EditionFilter.new(Edition, user, world_location: "user").editions
   end
 
   test "should filter by world location news article" do
@@ -173,7 +182,7 @@ class Admin::EditionFilterTest < ActiveSupport::TestCase
 
   test "should generate page title when filtering by world location" do
     location = create(:world_location, name: 'Spain')
-    filter = Admin::EditionFilter.new(Edition, build(:user), world_location_ids: [location.to_param])
+    filter = Admin::EditionFilter.new(Edition, build(:user), world_location: location.to_param)
     assert_equal "Everyone's documents about Spain", filter.page_title
   end
 end
