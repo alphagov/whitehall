@@ -71,7 +71,7 @@ Then /^I should see both the news articles for Harriet Home$/ do
 end
 
 Then /^I should be informed I shouldn't use this image in the markdown$/ do
-  click_on "Edit"
+  click_on "Edit draft"
   assert has_no_css?("fieldset#image_fields .image input[value='!!1']")
 end
 

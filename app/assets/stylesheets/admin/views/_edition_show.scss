@@ -1,0 +1,53 @@
+.edition-show {
+  .page-header {
+    border-bottom: 0;
+    margin-bottom: 0;
+
+    h1 {
+      margin-bottom: 18px;
+    }
+    .lead {
+      margin-bottom: 18px;
+    }
+    dl {
+      @include type-18();
+    }
+    dd,
+    dt {
+      float: left
+    }
+    dt {
+      clear: left;
+    }
+  }
+
+  h2 {
+    padding-bottom: 9px;
+
+    .pull-right {
+      font-weight: normal;
+    }
+  }
+  section {
+    padding-bottom: 18px;
+  }
+  
+  .edition-buttons {
+    margin-bottom: 18px;
+  }
+
+  .edition-view-edit-buttons {
+    padding-bottom: 36px;
+  }
+
+  .modal {
+    form {
+      margin-bottom: 0;
+    }
+  }
+
+  .edition-sidebar {
+    margin-top: 18px;
+  }
+}
+

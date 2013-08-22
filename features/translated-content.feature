@@ -12,4 +12,4 @@ Feature: Providing translated content from gov.uk/government
     Given I am a GDS editor
     And I have drafted a translatable document "Military officer exchange"
     When I add a french translation "Échange officier de l'armée" to the "Military officer exchange" document
-    Then I should see in preview that "Military officer exchange" has a french translation "Échange officier de l'armée"
+    Then I should see on the admin edition page that "Military officer exchange" has a french translation "Échange officier de l'armée"

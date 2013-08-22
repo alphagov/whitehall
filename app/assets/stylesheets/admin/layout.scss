@@ -1,6 +1,13 @@
+html {
+  // Required to set the css `rem` sise for the font stacks currently used 
+  // in document-preview.
+  font-size: 62.5%;
+}
+
 body {
   padding-bottom: $gutter+$gutter-one-third;
 }
+
 .sidebar-nav {
   padding: $gutter-one-third 0;
 }

@@ -29,7 +29,7 @@ end
 When /^I edit the speech "([^"]*)" changing the title to "([^"]*)"$/ do |original_title, new_title|
   speech = Speech.find_by_title!(original_title)
   visit admin_edition_path(speech)
-  click_link "Edit"
+  click_link "Edit draft"
   fill_in "Title", with: new_title
   click_button "Save"
 end
@@ -73,11 +73,6 @@ When /^I draft a new speech "([^"]*)" relating it to the worldwide_priorities "(
   click_button "Save"
 end
 
-
-Then /^I should see that "([^"]*)" is the speech body$/ do |body|
-  assert page.has_css?(".document .body", text: body)
-end
-
 Then /^the published speech should remain unchanged$/ do
   visit public_document_path(@speech)
   assert page.has_css?('h1', text: @speech.title)
@@ -106,15 +101,15 @@ Then /^I cannot choose a location for the article$/ do
   refute page.find("#edition_location", visible: :all).visible?
 end
 
-When /^I preview the authored article$/ do
-  click_link "Preview"
-end
-
 Then /^it should be shown as an authored article in the admin screen$/ do
   click_button "Save"
-  assert page.has_content?("Draft authored article")
+  assert page.has_content?("Authored article")
 end
 
 Then /^I should see who wrote it clearly labelled in the metadata$/ do
   assert page.has_css?('dt', text: "Written on:")
+end
+
+Then(/^I should see that "(.*?)" is listed on the page$/) do |title|
+  assert page.has_content?(title)
 end

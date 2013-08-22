@@ -46,14 +46,8 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
 
     get :show, id: draft_policy
 
-    assert_select ".supporting_pages" do
-      assert_select_object(first_supporting_page) do
-        assert_select "a[href='#{admin_supporting_page_path(first_supporting_page)}']", text: first_supporting_page.title
-      end
-      assert_select_object(second_supporting_page) do
-        assert_select "a[href='#{admin_supporting_page_path(second_supporting_page)}']", text: second_supporting_page.title
-      end
-    end
+    assert_select "a[href='#{admin_supporting_page_path(first_supporting_page)}']", text: first_supporting_page.title
+    assert_select "a[href='#{admin_supporting_page_path(second_supporting_page)}']", text: second_supporting_page.title
   end
 
   view_test "does not show supporting pages list when empty" do
@@ -62,18 +56,6 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
     get :show, id: draft_policy
 
     refute_select ".supporting_pages .supporting_page"
-  end
-
-  view_test "show displays the policy team responsible for this policy" do
-    policy_team = create(:policy_team, name: 'policy-team', email: 'policy-team@example.com')
-    draft_policy = create(:draft_policy, policy_teams: [policy_team])
-
-    get :show, id: draft_policy
-
-    assert_select policy_team_selector do
-      assert_select '.name', text: 'policy-team'
-      assert_select 'a', text: 'policy-team@example.com'
-    end
   end
 
   view_test "show does not display the policy team section if no policy team is associated with the policy" do

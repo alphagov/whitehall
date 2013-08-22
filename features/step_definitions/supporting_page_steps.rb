@@ -65,7 +65,7 @@ When /^I edit the supporting page changing the title to "([^"]*)"$/ do |new_titl
 end
 
 When /^I remove the supporting page "([^"]*)" from "([^"]*)"$/ do |supporting_page_title, title|
-  visit_document_preview title
+  visit_edition_admin title
   click_link supporting_page_title
   click_button "Remove"
 end
@@ -75,15 +75,15 @@ Then /^I should see the conflict between the supporting page titles "([^"]*)" an
   assert_equal latest_title, find(".conflicting.latest #disabled_supporting_page_title[disabled]").value
 end
 
-Then /^I should see in the preview that "([^"]*)" includes the "([^"]*)" supporting page$/ do |title, supporting_title|
-  visit_document_preview title
-  assert has_css?(".supporting_page", text: supporting_title)
+Then /^I should see in the admin edition page that "([^"]*)" includes the "([^"]*)" supporting page$/ do |title, supporting_title|
+  visit_edition_admin title
+  assert has_css?("a", text: supporting_title)
   click_link supporting_title
   assert has_css?(".title", text: supporting_title)
 end
 
 Then /^I should see that the "([^"]*)" policy's "([^"]*)" supporting page has an attachment$/ do |title, supporting_title|
-  visit_document_preview title
+  visit_edition_admin title
   click_link supporting_title
   assert page.has_css?(".attachment a[href*='#{@attachment_filename}']", text: @attachment_title)
 end
@@ -97,8 +97,7 @@ Then /^I should see in the list of draft documents that "([^"]*)" has supporting
   end
 end
 
-Then /^I should see in the preview that the only supporting page for "([^"]*)" is "([^"]*)"$/ do |title, supporting_page_title|
-  visit_document_preview title
-  assert has_css?(".supporting_pages .supporting_page", count: 1)
-  assert has_css?(".supporting_pages", text: /#{supporting_page_title}/)
+Then /^I should see in the admin edition page that the only supporting page for "([^"]*)" is "([^"]*)"$/ do |title, supporting_page_title|
+  visit_edition_admin title
+  assert has_css?("a", text: /#{supporting_page_title}/, count: 1)
 end

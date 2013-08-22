@@ -1,0 +1,26 @@
+<% if edition.force_published? %>
+  <div class="alert alert-error force_published">
+    <p><strong>Warning</strong> This edition was force published and has not yet been reviewed by a second pair of eyes.</p>
+
+    <% if edition.approvable_retrospectively_by?(current_user) %>
+      <p><%= link_to "View this on the website", preview_document_path(@edition), target: '_blank' %> and check everything thoroughly.</p>
+      <p><%= approve_retrospectively_edition_button(edition) %></p>
+    <% end %>
+  </div>
+<% end %>
+<% if edition.pre_publication? && edition.scheduled_publication.present? %>
+  <div class="alert alert-info scheduled-publication">
+    <% if edition.scheduled? %>
+      <p>Scheduled for publication on <%= l edition.scheduled_publication, format: :long %>. </p>
+    <% else %>
+      <p>Scheduled publication proposed for <%= l edition.scheduled_publication, format: :long %>. </p>
+    <% end %>
+  </div>
+<% end %>
+<% if warn_about_lack_of_contacts_in_body?(edition) %>
+  <div class="alert alert-info no-contacts">
+    <p>This press release has no contact information embedded in the
+        body. You may want to edit it and add some.</p>
+  </div>
+<% end %>
+

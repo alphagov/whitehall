@@ -47,15 +47,6 @@ class Admin::FatalityNoticesControllerTest < ActionController::TestCase
     end
   end
 
-  view_test "shows assigned operational field" do
-    field = create(:operational_field)
-    edition = create(:fatality_notice, operational_field: field)
-
-    get :show, id: edition
-
-    assert_select "section", text: %r{#{field.name}}
-  end
-
   view_test "should display fields for new fatality notice casualties" do
     get :new
 

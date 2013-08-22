@@ -99,20 +99,8 @@ Given /^a draft right\-to\-left non\-English edition exists$/ do
   end
 end
 
-When /^I view the right\-to\-left non\-English edition in admin$/ do
-  visit admin_edition_path(@edition)
-end
-
-Then /^I should see the document preview appears right\-to\-left$/ do
-  within '#document article.right-to-left' do
-    page.has_content?(@edition.title)
-    page.has_content?(@edition.body)
-    page.has_content?(@edition.summary)
-  end
-end
-
 When /^I edit the right\-to\-left non\-English edition$/ do
-  click_on 'Edit'
+  ensure_path edit_admin_edition_path(@edition)
 end
 
 Then /^I should see that the form text fields are displayed right to left$/ do

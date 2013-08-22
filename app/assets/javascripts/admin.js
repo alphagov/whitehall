@@ -6,6 +6,7 @@
 //= require ./application/convert-html-pub-charts
 //= require bootstrap
 //= require_tree ./common
+//= require ./application/hide-extra-rows.js
 //= require ./application/toggler.js
 //= require_tree ./admin
 //= require shared_mustache

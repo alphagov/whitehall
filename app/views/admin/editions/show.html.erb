@@ -1,68 +1,79 @@
 <% page_title @edition.title, @edition.format_name %>
+<% page_class "edition-show" %>
 
-<% if @edition.imported? %>
-
-  <div class="span6 document-preview">
-    <%= render partial: 'document_preview' %>
+<div class="row-fluid">
+  <div class="<%= @edition.imported? ? "span6" : "span8" %> edition-metadata">
+    <%= render partial: 'show_metadata' %>
   </div>
 
-  <div class="span6">
-    <h2 class="pull-right"><%= edition_description(@edition) %></h2>
-
-    <%= render partial: 'navigation', locals: { edition: @edition } %>
-    <%= render partial: "rejected_by", locals: { edition: @edition } %>
-
-    <%= render partial: 'speed_tagging' %>
-  </div>
-
-<% else %>
-
-  <div class="span8 document-preview">
-    <%= render partial: 'document_preview' %>
-  </div>
-
-  <div class="span4">
-    <h2 class="pull-right"><%= edition_description(@edition) %></h2>
-
-    <%= render partial: 'navigation', locals: { edition: @edition } %>
-    <%= render partial: "rejected_by", locals: { edition: @edition } %>
-
-    <% if @edition.is_a?(Speech) %>
-      <%= render partial: 'speech_details' %>
-    <% end %>
-
-    <%= sidebar_tabs edition_tabs(@edition, remarks_count: @edition_remarks.length, history_count: @edition_history.total_count), class: 'remarks-history' do |tabs| %>
-      <%= tabs.pane class: "audit-trail", id: "notes" do %>
-        <h1>Notes</h1>
-        <%= link_to "Add new remark", new_admin_edition_editorial_remark_path(@edition), class: "btn add-remark" %>
-        <%= render_editorial_remarks_in_sidebar(@edition_remarks, @edition) %>
+  <div class="<%= @edition.imported? ? "span6" : "span4" %> edition-sidebar">
+    <section>
+      <% if @edition.imported? %>
+        <%= convert_to_draft_edition_form(@edition) %>
       <% end %>
 
-      <%= tabs.pane class: "audit-trail", id: "history" do %>
-        <div class="audit-trail-page">
-          <h1>Activity</h1>
-          <%= paginate @edition_history, theme: 'audit_trail' %>
-          <ul>
-            <%= render partial: "audit_trail_entry", collection: @edition_history %>
-          </ul>
-          <%= paginate @edition_history, theme: 'audit_trail' %>
-        </div>
+      <% if @edition.unschedulable_by?(current_user) %>
+        <%= unschedule_edition_button(@edition) %>
       <% end %>
 
-      <% if @edition.can_be_fact_checked? %>
-        <%= tabs.pane class: "fact_checking", id: "fact_checking" do %>
-          <h1>Fact checking</h1>
-          <%= render partial: 'fact_check_responses', locals: {edition: @edition}  %>
-          <section class="request">
-            <h1>Send request</h1>
-            <%= form_for [:admin, @edition, FactCheckRequest.new] do |f| %>
-              <%= f.text_field :email_address %>
-              <%= f.text_area :instructions, cols: nil, rows: nil, label_text: "Extra instructions" %>
-              <%= f.submit 'Send request', class: "btn" %>
-            <% end %>
-          </section>
+      <% if @edition.schedulable_by?(current_user) %>
+        <%= schedule_edition_form(@edition) %>
+      <% elsif @edition.schedulable_by?(current_user, force: true) %>
+        <%= schedule_edition_form(@edition, force: true) %>
+      <% end %>
+
+      <%= submit_edition_button(@edition) if @edition.submittable? %>
+
+      <% if @edition.publishable_by?(current_user, assuming_presence_of_change_note: true) %>
+        <%= publish_edition_form(@edition) %>
+      <% elsif @edition.publishable_by?(current_user, force: true, assuming_presence_of_change_note: true) %>
+        <%= render partial: "admin/edition_workflow/force_publish_modal", locals: { extra_css_classes: "hide" } %>
+        <%= publish_edition_form(@edition, force: true) %>
+      <% end %>
+
+      <%= reject_edition_button(@edition) if @edition.rejectable_by?(current_user) %>
+      <%= delete_edition_button(@edition) if @edition.deletable? %>
+      <%= unpublish_edition_button(@edition) if @edition.unpublishable_by?(current_user) %>
+    </section>
+
+    <%= render partial: "history_state", locals: { edition: @edition } %>
+    <% if @edition.imported? %>
+      <%= render partial: 'speed_tagging' %>
+    <% else %>
+      <%= sidebar_tabs edition_tabs(@edition, remarks_count: @edition_remarks.length, history_count: @edition_history.total_count), class: 'remarks-history' do |tabs| %>
+        <%= tabs.pane class: "audit-trail", id: "notes" do %>
+          <h1>Notes</h1>
+          <%= link_to "Add new remark", new_admin_edition_editorial_remark_path(@edition), class: "btn add-remark" %>
+          <%= render_editorial_remarks_in_sidebar(@edition_remarks, @edition) %>
+        <% end %>
+
+        <%= tabs.pane class: "audit-trail", id: "history" do %>
+          <div class="audit-trail-page">
+            <h1>Activity</h1>
+            <%= paginate @edition_history, theme: 'audit_trail' %>
+            <ul>
+              <%= render partial: "audit_trail_entry", collection: @edition_history %>
+            </ul>
+            <%= paginate @edition_history, theme: 'audit_trail' %>
+          </div>
+        <% end %>
+
+        <% if @edition.can_be_fact_checked? %>
+          <%= tabs.pane class: "fact_checking", id: "fact_checking" do %>
+            <h1>Fact checking</h1>
+            <%= render partial: 'fact_check_responses', locals: {edition: @edition}  %>
+            <section class="request">
+              <h1>Send request</h1>
+              <%= form_for [:admin, @edition, FactCheckRequest.new] do |f| %>
+                <%= f.text_field :email_address %>
+                <%= f.text_area :instructions, cols: nil, rows: nil, label_text: "Extra instructions" %>
+                <%= f.submit 'Send request', class: "btn" %>
+              <% end %>
+            </section>
+          <% end %>
         <% end %>
       <% end %>
-    </div>
-  <% end %>
-<% end %>
+    <% end %>
+  </div>
+</div>
+

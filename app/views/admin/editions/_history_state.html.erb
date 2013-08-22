@@ -1,0 +1,30 @@
+<% if edition.archived? %>
+  <div class="alert alert-error">
+    <p>This edition has been archived.</p>
+    <p><%= link_to "Go to most recent edition", admin_edition_path(edition.latest_edition), class: "btn btn-primary" %></p>
+  </div>
+<% elsif edition.pre_publication? && edition.latest_published_edition %>
+  <div class="alert alert-info">
+    <p>This is a new draft of a document that has already been published.</p>
+    <p>
+      <%= link_to "Go to published edition", admin_edition_path(edition.latest_published_edition), class: "btn btn-primary" %>
+      <% if edition.edition_to_diff_against %>
+        <%= link_to "See what's changed", diff_admin_edition_path(edition, audit_trail_entry_id: edition.edition_to_diff_against.id), class: "btn" %>
+      <% end %>
+    </p>
+  </div>
+<% elsif !edition.is_latest_edition? %>
+  <% if edition.latest_edition.accessible_by?(current_user) %>
+    <div class="alert alert-info">
+      <p>This document has a new draft. You are currently viewing the edition that is published on the website.</p>
+      <p><%= link_to "Go to draft", admin_edition_path(edition.latest_edition), class: "btn btn-primary" %></p>
+    </div>
+  <% else %>
+    <div class="alert alert-info access-limited-latest-edition">
+      <p>This isn't the most recent edition of this document - you are
+          unable to view the most recent edition because it can only be
+          accessed by members of the producing organisation.</p>
+    </div>
+  <% end %>
+<% end %>
+
