@@ -187,7 +187,7 @@ class AttachmentDataTest < ActiveSupport::TestCase
     assert_equal :clean, attachment.virus_status
   end
 
-  test 'if to_replace_id is set on an instance during save find the attachment_data with that id and set its replaced_by_id to the original instances id' do
+  test "should ensure instances know when they've been replaced by a new instance" do
     to_be_replaced = create(:attachment_data)
     replace_with = build(:attachment_data)
     replace_with.to_replace_id = to_be_replaced.id
@@ -195,7 +195,7 @@ class AttachmentDataTest < ActiveSupport::TestCase
     assert_equal replace_with, to_be_replaced.reload.replaced_by
   end
 
-  test 'replace_with! won\'t let you replace an instance with itself' do
+  test "replace_with! won't let you replace an instance with itself" do
     self_referential = create(:attachment_data)
     assert_raise(ActiveRecord::RecordInvalid) do
       self_referential.replace_with!(self_referential)

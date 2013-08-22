@@ -6,7 +6,7 @@ module Attachable
       self.attachment_join_table_name = "#{class_name}_attachments".to_sym
 
       has_many attachment_join_table_name, foreign_key: "#{class_name}_id", dependent: :destroy
-      has_many :attachments, through: attachment_join_table_name, order: [:ordering, :id], before_add: :set_order
+      has_many :attachments, through: attachment_join_table_name, order: 'attachments.ordering, attachments.id', before_add: :set_order
 
       no_substantive_attachment_attributes = ->(attrs) do
         att_attrs = attrs.fetch(:attachment_attributes, {})

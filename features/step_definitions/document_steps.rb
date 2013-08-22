@@ -75,6 +75,11 @@ Given /^a published (publication|policy|news article|consultation|speech) "([^"]
   end
 end
 
+Given(/^a draft publication "(.*?)" with attachment "(.*?)" exists$/) do |title, fixture_filename|
+  @edition = create(:draft_publication, :with_attachment, title: title)
+  @attachment = @edition.attachments.first
+end
+
 Given /^a force published (document|publication|policy|news article|consultation|speech) "([^"]*)" was produced by the "([^"]*)" organisation$/ do |document_type, title, organisation_name|
   organisation = Organisation.find_by_name!(organisation_name)
   document_type = 'policy' if document_type == 'document'
