@@ -119,6 +119,13 @@ When /^I filter by author "([^"]*)"$/ do |author_filter|
   end
 end
 
+When /^I filter by organisation "([^"]*)"$/ do |department|
+  within ".organisation-filter" do
+    select department
+    click_button "Go"
+  end
+end
+
 When /^I visit the (publication|policy|news article|consultation) "([^"]*)"$/ do |document_type, title|
   edition = document_class(document_type).find_by_title!(title)
   visit public_document_path(edition)

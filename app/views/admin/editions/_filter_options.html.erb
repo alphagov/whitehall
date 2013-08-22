@@ -12,23 +12,20 @@
         <% end %>
       </li>
     <% end %>
-
     <% if filter_by.include?(:author) %>
-      <li class="nav-header">Filter by Author</li>
-      <%= link_to_filter('Me', {locale: params[:locale], author: current_user, organisation: nil}, @filter, title: "Show documents by me") %>
-      <%= link_to_filter('My department', {locale: params[:locale], author: nil, organisation: current_user.organisation}, @filter, title: "Show documents by my department") %>
-
-      <li class="organisation-filter <%= active_filter_unless_values_match_class(@filter, :organisation, current_user.organisation_id) %>">
+      <li class="nav-header">Filter by Organisation</li>
+      <li class="organisation-filter">
         <%= form_tag("", method: :get) do %>
-          <%= select_tag :organisation, options_from_collection_for_select(Organisation.with_translations(:en).all - [current_user.organisation], 'id', 'select_name', @filter.options[:organisation]), class: 'chzn-select', include_blank: true, data: { placeholder: "Other organisations..." } %>
+          <%= select_tag :organisation, admin_organisation_filter_options(@filter, current_user), class: 'chzn-select', include_blank: true, data: { placeholder: "All organisations" } %>
           <%= pass_through_filter_options_as_hidden_fields(@filter, :type, :state, :world_location_ids, :from_date, :to_date) %>
           <%= submit_tag "Go", class: "btn" %>
         <% end %>
       </li>
-      <%= link_to_filter('Everyone', {locale: params[:locale], author: nil, organisation: nil}, @filter, title: "Show documents by everyone") %>
-      <li class="author-filter <%= active_filter_unless_values_match_class(@filter, :author, current_user.id.to_s) %>">
+
+      <li class="nav-header">Filter by Author</li>
+      <li class="author-filter">
         <%= form_tag("", method: :get) do %>
-          <%= select_tag :author, options_from_collection_for_select(User.all - [current_user], 'id', 'name', @filter.options[:author]), class: 'chzn-select', include_blank: true, data: { placeholder: "Other authors..." } %>
+          <%= select_tag :author, admin_author_filter_options(@filter, current_user), class: 'chzn-select', include_blank: true, data: { placeholder: "All authors" } %>
           <%= pass_through_filter_options_as_hidden_fields(@filter, :type, :state, :world_location_ids, :from_date, :to_date) %>
           <%= submit_tag "Go", class: "btn" %>
         <% end %>

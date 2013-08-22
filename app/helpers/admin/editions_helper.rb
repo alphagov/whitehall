@@ -64,6 +64,21 @@ module Admin::EditionsHelper
     end
   end
 
+  def admin_organisation_filter_options(filter, current_user)
+    organisations = Organisation.with_translations(:en).all
+    if current_user.organisation
+        organisations = [current_user.organisation] + (organisations - [current_user.organisation])
+    end
+    options_for_select(organisations.map { |o| [o.name, o.id] }, @filter.options[:organisation])
+  end
+
+  def admin_author_filter_options(filter, current_user)
+    options = [["Me", current_user.id]]
+    other_users = User.all - [current_user]
+    options += other_users.map { |u| [u.name, u.id] }
+    options_for_select(options, @filter.options[:author])
+  end
+
   def viewing_all_active_editions?
     params[:state] == 'active'
   end
