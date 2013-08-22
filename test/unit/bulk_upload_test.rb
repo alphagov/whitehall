@@ -86,12 +86,17 @@ class BulkUploadTest < ActiveSupport::TestCase
     assert_equal new_attachment_data, existing.attachment_data.reload.replaced_by
   end
 
-  test '#save_attachments saves attachments to the edition' do
-    edition = create(:news_article)
+  test "#save_attachments saves new attachments to the end of the edition's existing attachments" do
+    edition = create(:news_article, :with_attachment)
+    attachment = edition.attachments.first
     bulk_upload = BulkUpload.new(edition)
     bulk_upload.attachments_attributes = new_attachments_params
+
     assert_difference('edition.attachments.count', 2) do
       assert bulk_upload.save_attachments, 'should return true'
+      assert_equal attachment, edition.reload.attachments[0]
+      assert_equal 'Title 1', edition.attachments[1].title
+      assert_equal 'Title 2', edition.attachments[2].title
     end
   end
 

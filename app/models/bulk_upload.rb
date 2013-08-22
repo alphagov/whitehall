@@ -58,7 +58,7 @@ class BulkUpload
     if valid?
       attachments.each do |attachment|
         if attachment.new_record?
-          EditionAttachment.create!(edition: @edition, attachment: attachment)
+          @edition.attachments << attachment
         else
           attachment.save!
         end
