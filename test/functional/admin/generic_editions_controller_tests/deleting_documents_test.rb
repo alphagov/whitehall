@@ -34,7 +34,7 @@ class Admin::GenericEditionsController::DeletingDocumentsTest < ActionController
 
     get :show, id: published_edition
 
-    refute_select "form[action='#{admin_generic_edition_path(published_edition)}'] input[name='_method'][type='hidden'][value='delete']"
+    refute_select ".edition-sidebar input[name='_method'][type='hidden'][value='delete']"
   end
 
   view_test "show does not display the delete button for archived editions" do
