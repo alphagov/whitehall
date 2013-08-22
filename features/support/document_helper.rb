@@ -51,13 +51,13 @@ module DocumentHelper
   end
 
   def begin_editing_document(title)
-    visit_document_preview title
-    click_link "Edit"
+    visit_edition_admin title
+    click_link "Edit draft"
   end
 
   def begin_new_draft_document(title)
-    visit_document_preview title
-    click_button "Create new edition"
+    visit_edition_admin title
+    click_button "Create new edition to edit"
   end
 
   def begin_drafting_news_article(options)
@@ -116,9 +116,14 @@ module DocumentHelper
     select "Research and analysis", from: "edition_publication_type_id"
   end
 
-  def visit_document_preview(title, scope = :scoped)
+  def visit_edition_admin(title, scope = :scoped)
     document = Edition.send(scope).find_by_title(title)
     visit admin_edition_path(document)
+  end
+
+  def visit_document_preview(title, scope = :scoped)
+    document = Edition.send(scope).find_by_title(title)
+    visit preview_document_path(document)
   end
 
   def fill_in_change_note_if_required

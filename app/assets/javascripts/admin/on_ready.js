@@ -88,4 +88,8 @@ jQuery(document).ready(function($) {
 
   // Document series document finder
   GOVUK.documentFinder.init('.document-finder');
-})
+
+  // Inbound links on edition show page
+  $('#inbound-links').hideExtraRows({rows: 10});
+});
+

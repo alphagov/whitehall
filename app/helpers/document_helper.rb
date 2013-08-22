@@ -257,7 +257,7 @@ Details of document required:
       metadata << {
         title: t('document.headings.applies_to_nations'),
         data: [only_applies_to_nations_list(document)],
-        classes: ['document-inapplicable_nations']
+        classes: ['document-inapplicable-nations']
       }
     end
     if document.respond_to?(:policy_team) && document.policy_team
@@ -286,6 +286,13 @@ Details of document required:
         title: t('document.headings.live_data'),
         data: array_of_links_to_statistical_data_sets(document.published_statistical_data_sets),
         classes: ['document-statistical-data-sets']
+      }
+    end
+    if document.respond_to?(:worldwide_priorities) && document.worldwide_priorities.any?
+      metadata << {
+        title: t('document.type.worldwide_priority', count: 2), # always want the plural form for consistency
+        data: document.worldwide_priorities.map {|priority| link_to(priority.title, priority) },
+        classes: ['document-worldwide-priorities']
       }
     end
     metadata

@@ -62,24 +62,6 @@ module AdminEditionWorldLocationsBehaviour
         end
       end
 
-      view_test "should display the world locations to which the document relates" do
-        country = create(:world_location)
-        world_location = create(:world_location)
-        document = create(document_type, world_locations: [world_location, country])
-
-        get :show, id: document
-
-        assert_select_object(country)
-        assert_select_object(world_location)
-      end
-
-      view_test "should indicate that the document does not relate to any world location" do
-        document = create(document_type, world_locations: [])
-
-        get :show, id: document
-
-        assert_select "p", "This document isn't assigned to any world locations."
-      end
     end
   end
 end

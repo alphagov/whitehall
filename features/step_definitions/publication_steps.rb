@@ -69,12 +69,12 @@ end
 Then /^I should see in the preview that "([^"]*)" is taken from the live data in "([^"]*)"$/ do |title, data_set_name|
   publish(force: true)
   click_on title
-  click_on "View"
+  click_on "View on website"
   assert has_css?(".document-statistical-data-sets a", text: data_set_name)
 end
 
 Then /^I should see a link to the PDF attachment$/ do
-  assert page.has_css?(".attachment a[href*='#{@attachment.filename}']", text: @attachment.title)
+  assert page.has_css?("a[href*='#{@attachment.filename}']")
 end
 
 Then /^I should see a thumbnail of the first page of the PDF$/ do

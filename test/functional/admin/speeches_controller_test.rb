@@ -77,44 +77,6 @@ class Admin::SpeechesControllerTest < ActionController::TestCase
     assert_equal "new-location", speech.location
   end
 
-  view_test "should display details about the speech" do
-    home_office = create(:organisation, name: "Home Office")
-    home_secretary = create(:ministerial_role, name: "Secretary of State", organisations: [home_office])
-    theresa_may = create(:person, forename: "Theresa", surname: "May")
-    theresa_may_appointment = create(:role_appointment, role: home_secretary, person: theresa_may, started_at: Date.parse('2011-01-01'))
-    speech_type = SpeechType::Transcript
-    draft_speech = create(:draft_speech, speech_type: speech_type, role_appointment: theresa_may_appointment, delivered_on: Time.zone.parse("2011-06-01 00:00:00"), location: "The Guidhall")
-
-    get :show, id: draft_speech
-
-    assert_select ".details" do
-      assert_select ".type", "Transcript"
-      assert_select ".role_appointment" do
-        assert_select ".person", "Theresa May"
-        assert_select ".role", "Secretary of State"
-        assert_select ".organisations", "Home Office"
-      end
-      assert_select ".delivered_on", "1 June 2011 00:00"
-      assert_select ".location", "The Guidhall"
-    end
-  end
-
-  view_test "should display details about the speech when delivered by a person who isn't in IG" do
-    home_office = create(:organisation, name: "Home Office")
-    speech_type = SpeechType::Transcript
-    draft_speech = create(:draft_speech, speech_type: speech_type, person_override: "The Queen", delivered_on: Time.zone.parse("2011-06-01 00:00:00"), location: "The Guidhall", organisations: [home_office], role_appointment: nil)
-
-    get :show, id: draft_speech
-
-    assert_select ".details" do
-      assert_select ".type", "Transcript"
-      assert_select ".person", "The Queen"
-      assert_select ".organisations", "Home Office"
-      assert_select ".delivered_on", "1 June 2011 00:00"
-      assert_select ".location", "The Guidhall"
-    end
-  end
-
   private
 
   def controller_attributes_for(edition_type, attributes = {})

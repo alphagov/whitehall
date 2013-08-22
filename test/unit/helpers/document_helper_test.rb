@@ -315,4 +315,16 @@ class DocumentHelperTest < ActionView::TestCase
                               public_document_path(statistical_data_set),
                               text: statistical_data_set.title
   end
+
+  test 'document_metadata includes worldwdide priorities in metadata' do
+    priority = create(:published_worldwide_priority)
+    edition = create(:published_consultation, worldwide_priorities: [priority])
+
+    metadata = document_metadata(edition)[0]
+    assert_equal 'Worldwide priorities', metadata[:title]
+    assert_select_within_html metadata[:data][0],
+                              "a[href=?]",
+                              worldwide_priority_path(priority),
+                              text: priority.title
+  end
 end

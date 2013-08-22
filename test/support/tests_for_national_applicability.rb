@@ -129,30 +129,6 @@ module TestsForNationalApplicability
       assert_nation_inapplicability_fields_set_as(index: 2, checked: true, alternative_url: "http://www.northernireland.com/")
     end
 
-    view_test "show lists nation inapplicabilities when there are some" do
-      edition = create_edition
-      scotland_inapplicability = edition.nation_inapplicabilities.create!(nation: Nation.scotland, alternative_url: "http://scotland.com/")
-      wales_inapplicability = edition.nation_inapplicabilities.create!(nation: Nation.wales)
-
-      get :show, id: edition
-
-      assert_select ".nation_inapplicabilities" do
-        assert_select_object scotland_inapplicability, text: /Scotland/ do
-          assert_select ".alternative_url a[href='http://scotland.com/']"
-        end
-        assert_select_object wales_inapplicability, text: /Wales/ do
-          refute_select ".alternative_url a"
-        end
-      end
-    end
-
-    view_test "show explains the edition applies to all nations of the UK" do
-      edition = create_edition
-
-      get :show, id: edition
-
-      assert_select "p", "This document applies to the whole of the UK."
-    end
   end
   private
 

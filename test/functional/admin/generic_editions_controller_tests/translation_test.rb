@@ -12,15 +12,6 @@ class Admin::GenericEditionsController::TranslationTest < ActionController::Test
     GenericEdition.translatable = false
   end
 
-  view_test "show displays the number of translations excluding the default English translation" do
-    edition = create(:draft_edition)
-    with_locale(:es) { edition.update_attributes!(attributes_for("draft_edition")) }
-
-    get :show, id: edition
-
-    assert_select "a[href='#translations'] .badge", text: '1'
-  end
-
   view_test 'show displays a form to create missing translations' do
     edition = create(:draft_edition)
 
@@ -68,9 +59,7 @@ class Admin::GenericEditionsController::TranslationTest < ActionController::Test
 
     get :show, id: edition
 
-    assert_select "#translations .edition_translation.locale-fr" do
-      assert_select "a[href='#{edit_admin_edition_translation_path(edition, 'fr')}']", text: 'Edit'
-    end
+    assert_select "a[href='#{edit_admin_edition_translation_path(edition, 'fr')}']", text: 'Edit'
   end
 
   view_test "show displays a link to delete an existing translation" do
@@ -79,10 +68,8 @@ class Admin::GenericEditionsController::TranslationTest < ActionController::Test
 
     get :show, id: edition
 
-    assert_select "#translations .edition_translation.locale-fr" do
-      assert_select "form[action=?]", admin_edition_translation_path(edition, 'fr') do
-        assert_select "input[type='submit'][value=?]", "Delete"
-      end
+    assert_select "form[action=?]", admin_edition_translation_path(edition, 'fr') do
+      assert_select "input[type='submit'][value=?]", "Delete"
     end
   end
 
@@ -96,7 +83,7 @@ class Admin::GenericEditionsController::TranslationTest < ActionController::Test
     get :show, id: edition
 
     assert_select "#translations" do
-      assert_select "p", text: 'French translation'
+      assert_select "td", text: 'French'
     end
   end
 
@@ -107,9 +94,7 @@ class Admin::GenericEditionsController::TranslationTest < ActionController::Test
 
     get :show, id: edition
 
-    assert_select "#translations" do
-      assert_select "a[href='#{edit_admin_edition_translation_path(edition, 'fr')}']", count: 0
-    end
+    assert_select "#translations a[href='#{edit_admin_edition_translation_path(edition, 'fr')}']", count: 0
   end
 
   view_test "show omits the link to delete an existing translation unless the edition is deletable" do
@@ -119,9 +104,7 @@ class Admin::GenericEditionsController::TranslationTest < ActionController::Test
 
     get :show, id: edition
 
-    assert_select "#translations .edition_translation.locale-fr" do
-      assert_select "form[action=?]", admin_edition_translation_path(edition, 'fr'), count: 0
-    end
+    assert_select "#translations form[action=?]", admin_edition_translation_path(edition, 'fr'), count: 0
   end
 
   view_test "show displays all non-english translations" do
@@ -137,12 +120,8 @@ class Admin::GenericEditionsController::TranslationTest < ActionController::Test
     end
 
     assert_select "#translations" do
-      refute_select ".edition_translation.locale-en"
-      assert_select ".edition_translation.locale-fr" do
-        assert_select '.title', text: 'french-title'
-        assert_select '.summary', text: 'french-summary'
-        assert_select '.body', text: 'french-body-in-html'
-      end
+      refute_select "td", text: "english-title"
+      assert_select "td", text: 'french-title'
     end
   end
 end

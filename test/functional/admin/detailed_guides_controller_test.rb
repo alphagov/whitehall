@@ -84,20 +84,6 @@ class Admin::DetailedGuidesControllerTest < ActionController::TestCase
     assert_equal [], existing_edition.reload.other_mainstream_categories
   end
 
-  view_test "show displays association with mainstream categories" do
-    funk = create(:mainstream_category, title: "Funk")
-    soul = create(:mainstream_category, title: "Soul")
-
-    detailed_guide = create(:detailed_guide, primary_mainstream_category: funk, other_mainstream_categories: [soul])
-
-    get :show, id: detailed_guide
-
-    assert_select '#associations' do
-      assert_select 'a', funk.title
-      assert_select 'a', soul.title
-    end
-  end
-
   private
 
   def controller_attributes_for(edition_type, attributes = {})

@@ -97,20 +97,6 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     assert_equal Time.zone.parse("2001-06-18 00:00:00"), saved_publication.publication_date
   end
 
-  view_test "should display publication attributes" do
-    publication = create(:publication,
-      publication_date: Time.zone.parse("2001-05-31 00:00:00"),
-      publication_type_id: PublicationType::ResearchAndAnalysis.id
-    )
-
-    get :show, id: publication
-
-    assert_select ".document" do
-      assert_select ".publication_type", text: "Research and analysis"
-      assert_select ".publication_date", text: "31 May 2001 00:00"
-    end
-  end
-
   private
 
   def controller_attributes_for(edition_type, attributes = {})

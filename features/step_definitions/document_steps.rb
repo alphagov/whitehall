@@ -119,31 +119,35 @@ When /^I visit the (publication|policy|news article|consultation) "([^"]*)"$/ do
   visit public_document_path(edition)
 end
 
-When /^I preview the (publication|policy|news article|consultation) "([^"]*)"$/ do |document_type, title|
-  edition = document_class(document_type).find_by_title!(title)
+When /^I preview "([^"]*)"$/ do |title|
+  edition = Edition.find_by_title!(title)
   visit preview_document_path(edition)
 end
 
+When /^I preview the document$/ do
+  click_link "Preview on website"
+end
+
 When /^I submit (#{THE_DOCUMENT})$/ do |edition|
-  visit_document_preview edition.title
-  click_button "Submit"
+  visit_edition_admin edition.title
+  click_button "Submit for 2nd eyes"
 end
 
 When /^I publish (#{THE_DOCUMENT})$/ do |edition|
-  visit_document_preview edition.title
+  visit_edition_admin edition.title
   publish
 end
 
 When /^someone publishes (#{THE_DOCUMENT})$/ do |edition|
   as_user(create(:departmental_editor)) do
-    visit_document_preview edition.title
+    visit_edition_admin edition.title
     publish(force: true)
   end
 end
 
 When /^I force publish (#{THE_DOCUMENT})$/ do |edition|
-  visit_document_preview edition.title, :draft
-  click_link "Edit"
+  visit_edition_admin edition.title, :draft
+  click_link "Edit draft"
   fill_in_change_note_if_required
   click_button "Save"
   publish(force: true)
@@ -225,8 +229,8 @@ end
 
 Then /^I should see in the preview that "([^"]*)" should be in the "([^"]*)" and "([^"]*)" topics$/ do |title, first_topic, second_topic|
   visit_document_preview title
-  assert has_css?(".topic", text: first_topic)
-  assert has_css?(".topic", text: second_topic)
+  assert has_css?(".document-topics a", text: first_topic)
+  assert has_css?(".document-topics a", text: second_topic)
 end
 
 Then /^I should see in the preview that "([^"]*)" was produced by the "([^"]*)" and "([^"]*)" organisations$/ do |title, first_org, second_org|
@@ -237,46 +241,27 @@ end
 
 Then /^I should see in the preview that "([^"]*)" is associated with "([^"]*)" and "([^"]*)"$/ do |title, minister_1, minister_2|
   visit_document_preview title
-  assert has_css?(".ministerial_role", text: minister_1)
-  assert has_css?(".ministerial_role", text: minister_2)
+  assert has_css?(".document-ministerial-roles a", text: minister_1)
+  assert has_css?(".document-ministerial-roles a", text: minister_2)
 end
 
 Then /^I should see in the preview that "([^"]*)" does not apply to the nations:$/ do |title, nation_names|
   visit_document_preview title
   nation_names.raw.flatten.each do |nation_name|
-    assert has_css?(".nation_inapplicability", nation_name)
+    assert has_css?(".document-inapplicable-nations", text: /#{nation_name}/)
   end
 end
 
 Then /^I should see in the preview that "([^"]*)" should related to "([^"]*)" and "([^"]*)" policies$/ do |title, related_policy_1, related_policy_2|
   visit_document_preview title
-  assert has_css?("#related-policies .policy", text: related_policy_1)
-  assert has_css?("#related-policies .policy", text: related_policy_2)
+  assert has_css?(".document-policies a", text: related_policy_1)
+  assert has_css?(".document-policies a", text: related_policy_2)
 end
 
 Then /^I should see in the preview that "([^"]*)" should related to "([^"]*)" and "([^"]*)" worldwide priorities$/ do |title, related_priority_1, related_priority_2|
   visit_document_preview title
-  assert has_css?("#related-priorities .worldwide_priority", text: related_priority_1)
-  assert has_css?("#related-priorities .worldwide_priority", text: related_priority_2)
-end
-
-Then /^I should see in the preview that "([^"]*)" does (not )?have a public link to "([^"]*)"/ do |source_title, should_not_have_link, target_title|
-  visit_document_preview source_title
-  target_edition = Edition.find_by_title!(target_title)
-  target_url = policy_url(target_edition.document)
-
-  has_link = has_link?(target_title, href: target_url)
-  if should_not_have_link
-    refute has_link
-  else
-    assert has_link
-  end
-end
-
-Then /^I should see in the preview that "([^"]*)" does have an admin link to the (draft|published) edition of "([^"]*)"$/ do |source_title, state, target_title|
-  visit_document_preview source_title
-  target_edition = Edition.send(state).find_by_title!(target_title)
-  assert has_link?(state, href: admin_edition_path(target_edition))
+  assert has_content?(related_priority_1)
+  assert has_content?(related_priority_2)
 end
 
 Then /^I should see the conflict between the (publication|policy|news article|consultation|speech) titles "([^"]*)" and "([^"]*)"$/ do |document_type, new_title, latest_title|

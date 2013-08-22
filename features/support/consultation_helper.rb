@@ -4,7 +4,7 @@ module ConsultationHelper
   end
 
   def view_visible_consultation_on_website
-    click_link("View")
+    click_link("View on website")
   end
 end
 

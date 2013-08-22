@@ -84,17 +84,6 @@ class Edition::IdentifiableTest < ActiveSupport::TestCase
     assert policy.linkable?
   end
 
-  test "published editions with drafts waiting should be previewable" do
-    policy = create(:published_policy)
-    new_edition = policy.create_draft(create(:policy_writer))
-    assert policy.previewable?
-  end
-
-  test "published editions shouldn't be previewable" do
-    policy = create(:published_policy)
-    refute policy.previewable?
-  end
-
   test "update slug if title changes on draft edition" do
     policy = create(:draft_policy, title: "This is my policy")
     policy.update_attributes!(title: "Another thing")

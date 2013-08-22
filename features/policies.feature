@@ -28,7 +28,7 @@ Scenario: Creating a new draft policy that's the responsibility of multiple mini
     | Minister of Finance | John Smith |
     | Treasury Secretary  | Jane Doe   |
   When I draft a new policy "Pinch more pennies" associated with "John Smith" and "Jane Doe"
-  Then I should see in the preview that "Pinch more pennies" is associated with "Minister of Finance" and "Treasury Secretary"
+  Then I should see in the preview that "Pinch more pennies" is associated with "John Smith" and "Jane Doe"
 
 Scenario: Creating a new draft policy that applies to multiple nations
   When I draft a new policy "Outlaw Moustaches" that does not apply to the nations:
@@ -45,7 +45,7 @@ Scenario: Creating a new policy related to multiple worldwide prioirites
 Scenario: Adding a supporting page to a draft policy
   Given a draft policy "Outlaw Moustaches" exists
   When I add a supporting page "Handlebar Waxing" to the "Outlaw Moustaches" policy
-  Then I should see in the preview that "Outlaw Moustaches" includes the "Handlebar Waxing" supporting page
+  Then I should see in the admin edition page that "Outlaw Moustaches" includes the "Handlebar Waxing" supporting page
   And I should see in the list of draft documents that "Outlaw Moustaches" has supporting page "Handlebar Waxing"
 
 Scenario: Adding a supporting page with an attachment to a draft policy
@@ -56,7 +56,7 @@ Scenario: Adding a supporting page with an attachment to a draft policy
 Scenario: Removing a supporting page from a draft policy
   Given a draft policy "Bigger Brass" with supporting pages "Massive Trumpets" and "Giant Cornets"
   When I remove the supporting page "Massive Trumpets" from "Bigger Brass"
-  Then I should see in the preview that the only supporting page for "Bigger Brass" is "Giant Cornets"
+  Then I should see in the admin edition page that the only supporting page for "Bigger Brass" is "Giant Cornets"
 
 Scenario: Editing an existing draft policy
   Given a draft policy "Outlaw Moustaches" exists
@@ -72,7 +72,7 @@ Scenario: Editing an existing draft policy assigning multiple topics
 Scenario: Editing an existing supporting page
   Given a supporting page "Handlebar Waxing" exists on a draft policy "Outlaw Moustaches"
   When I edit the supporting page "Handlebar Waxing" changing the title to "Waxing Dangers"
-  Then I should see in the preview that "Outlaw Moustaches" includes the "Waxing Dangers" supporting page
+  Then I should see in the admin edition page that "Outlaw Moustaches" includes the "Waxing Dangers" supporting page
 
 Scenario: Trying to save a policy that has been changed by another user
   Given a draft policy "Outlaw Moustaches" exists
@@ -90,7 +90,7 @@ Scenario: Trying to save a supporting page that has been changed by another user
   When I save my changes to the supporting page
   Then I should see the conflict between the supporting page titles "Waxing Dangers" and "Something Else"
   When I edit the supporting page changing the title to "Waxing Dangers and Something Else"
-  Then I should see in the preview that "Outlaw Moustaches" includes the "Waxing Dangers and Something Else" supporting page
+  Then I should see in the admin edition page that "Outlaw Moustaches" includes the "Waxing Dangers and Something Else" supporting page
 
 Scenario: Submitting a draft policy to a second pair of eyes
   Given a draft policy "Outlaw Moustaches" exists
@@ -161,12 +161,6 @@ Scenario: Publishing a subsequent edition with a change note
   And I should see the policy "Ban Beards" in the list of published documents
   And the policy "Ban Beards" should be visible to the public
   And the change notes should appear in the history for the policy "Ban Beards" in reverse chronological order
-
-Scenario: Viewing a policy that's been submitted for review
-  Given "Ben Beardson" submitted "Legalise beards" with body "Beards for everyone!"
-  When I visit the list of documents awaiting review
-  And I view the policy "Legalise beards"
-  And I should see that "Beards for everyone!" is the policy body
 
 @not-quite-as-fake-search
 Scenario: Viewing policy publishing history

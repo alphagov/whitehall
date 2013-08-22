@@ -114,56 +114,6 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     assert_select ".summary", text: "a-simple-summary"
   end
 
-  view_test "show displays consultation opening date" do
-    consultation = create(:consultation, opening_on: Date.new(2011, 10, 10))
-    get :show, id: consultation
-    assert_select '.opening_on', text: 'Opened on 10 October 2011'
-  end
-
-  view_test "show displays consultation closing date" do
-    consultation = create(:consultation, opening_on: Date.new(2010, 01, 01), closing_on: Date.new(2011, 01, 01))
-    get :show, id: consultation
-    assert_select '.closing_on', text: 'Closed on 1 January 2011'
-  end
-
-  view_test "show displays consultation participation link" do
-    consultation_participation = create(:consultation_participation,
-      link_url: "http://participation.com",
-      email: "respond@consultations-r-us.com"
-    )
-    consultation = create(:consultation, consultation_participation: consultation_participation)
-    get :show, id: consultation
-    assert_select '.participation' do
-      assert_select 'a[href=?]', "http://participation.com", text: 'Respond online'
-      assert_select 'a[href=?]', "mailto:respond@consultations-r-us.com", text: 'respond@consultations-r-us.com'
-    end
-  end
-
-  view_test "show displays consultation postal address" do
-    consultation_participation = create(:consultation_participation,
-      postal_address: "Test street"
-    )
-    consultation = create(:consultation, consultation_participation: consultation_participation)
-    get :show, id: consultation
-    assert_select '.participation' do
-      assert_select '.postal-address', text: 'Test street'
-    end
-  end
-
-  view_test "show displays the response details and links to attachments" do
-    consultation = create(:consultation)
-    response = create(:consultation_outcome, consultation: consultation)
-    attachment = response.attachments.create!(title: 'attachment-title', attachment_data: create(:attachment_data,  file: fixture_file_upload('greenpaper.pdf')))
-
-    get :show, id: consultation
-
-    assert_select '.consultation_response' do
-      assert_select '.summary', text: response.summary
-      assert_select '.attachments .attachment .title', text: 'attachment-title'
-      assert_select 'a[href=?]', attachment.file.url
-    end
-  end
-
   view_test "edit displays consultation fields" do
     response_form = create(:consultation_response_form)
     participation = create(:consultation_participation, consultation_response_form: response_form)

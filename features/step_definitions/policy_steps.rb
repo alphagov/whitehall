@@ -160,14 +160,14 @@ end
 
 When /^I publish the policy "([^"]*)" but another user edits it while I am viewing it$/ do |title|
   policy = Policy.find_by_title!(title)
-  visit_document_preview title
+  visit_edition_admin title
   policy.update_attributes!(body: 'A new body')
   publish(ignore_errors: true)
 end
 
 When /^I publish the policy "([^"]*)" without a change note$/ do |title|
   policy = Policy.find_by_title!(title)
-  visit_document_preview title
+  visit_edition_admin title
   publish(without_change_note: true)
 end
 
@@ -238,7 +238,7 @@ Then /^I should see that those responsible for the policy are:$/ do |table|
 end
 
 Then /^I should see that "([^"]*)" is the policy body$/ do |policy_body|
-  assert page.has_css?(".document .body", text: policy_body)
+  assert page.has_css?(".body", text: policy_body)
 end
 
 Then /^I should see that the policy only applies to:$/ do |nation_names|
@@ -266,14 +266,14 @@ end
 Then /^I should see a link to the public version of the policy "([^"]*)"$/ do |policy_title|
   policy = Policy.published.find_by_title!(policy_title)
   visit admin_edition_path(policy)
-  assert_match public_document_path(policy), find(".actions a.public_version")[:href]
+  assert_match public_document_path(policy), find("a.public_version")[:href]
 end
 
 Then /^I should see a link to the preview version of the policy "([^"]*)"$/ do |policy_title|
   policy = Policy.find_by_title!(policy_title)
   visit admin_edition_path(policy)
   preview_path_regexp = Regexp.new(Regexp.escape(preview_document_path(policy)).gsub(/cachebust=[0-9]+/, 'cachebust=[0-9]+'))
-  assert_match preview_path_regexp, find(".actions a.preview_version")[:href]
+  assert_match preview_path_regexp, find("a.preview_version")[:href]
 end
 
 Then /^I should see the policy titled "([^"]*)" in the list of documents that need work$/ do |policy_title|
