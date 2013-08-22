@@ -2,11 +2,11 @@
 <% page_class "edition-show" %>
 
 <div class="row-fluid">
-  <div class="<% if @edition.imported? %>span6<% else %>span8<% end %> edition-metadata">
+  <div class="<%= @edition.imported? ? "span6" : "span8" %> edition-metadata">
     <%= render partial: 'show_metadata' %>
   </div>
 
-  <div class="<% if @edition.imported? %>span6<% else %>span4<% end %> edition-sidebar">
+  <div class="<%= @edition.imported? ? "span6" : "span4" %> edition-sidebar">
     <section>
       <% if @edition.imported? %>
         <%= convert_to_draft_edition_form(@edition) %>
