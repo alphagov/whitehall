@@ -24,9 +24,10 @@ class Admin::AttachmentsController < Admin::BaseController
   def create
     @attachment = Attachment.new(params[:attachment])
     if @attachment.save
-      # NOTE: We have to do this merry dance because of the way attachable sets up a
-      # has_many :through relationship with editions. Once we drop the join model, we
-      # can simply build and save the attachment as normal.
+      # NOTE: We have to do this merry dance because of the way
+      # attachable sets up a has_many :through relationship with
+      # editions. Once we drop the join model, we can simply build and
+      # save the attachment as normal.
       @attachable.attachments << @attachment
       redirect_to attachable_attachments_path(@attachable), notice: "Attachment '#{@attachment.filename}' uploaded"
     else
@@ -35,8 +36,9 @@ class Admin::AttachmentsController < Admin::BaseController
   end
 
   def update
-    if @attachment.update_attributes(remove_empty_attachment_params(params[:attachment]))
-      redirect_to attachable_attachments_path(@attachable), notice: "Attachment '#{@attachment.filename}' updated"
+    if @attachment.update_attributes(attachment_params)
+      message = "Attachment '#{@attachment.filename}' updated"
+      redirect_to attachable_attachments_path(@attachable), notice: message
     else
       render :edit
     end
@@ -75,11 +77,11 @@ class Admin::AttachmentsController < Admin::BaseController
     end
   end
 
-  def remove_empty_attachment_params(attachments_hash)
-    if attachments_hash[:attachment_data_attributes][:file]
-      attachments_hash
+  def attachment_params
+    if params[:attachment][:attachment_data_attributes][:file]
+      params[:attachment]
     else
-      attachments_hash.except(:attachment_data_attributes)
+      params[:attachment].except(:attachment_data_attributes)
     end
   end
 

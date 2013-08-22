@@ -3,12 +3,12 @@
 <div class="span8">
   <section>
     <h1>Set titles for your attachments</h1>
-    <%= form_for @bulk_upload, url: admin_edition_bulk_uploads_path(@edition)  do |form| %>
+    <%= form_for @bulk_upload, url: admin_edition_bulk_uploads_path(@edition) do |form| %>
       <%= form.errors %>
 
       <ol class="uploaded-attachments">
         <% @bulk_upload.attachments.each do |attachment| %>
-          <%= form.fields_for "attachments[]", attachment do |attachment_fields| %>
+          <%= form.fields_for :attachments, attachment do |attachment_fields| %>
             <li class="well">
               <span class="file">File: <%= attachment_fields.object.filename %></span>
               <%= attachment_fields.text_field :title %>
@@ -17,8 +17,11 @@
                 <%= render 'admin/attachments/reference_fields', edition: @edition, form: attachment_fields %>
               <% end %>
 
-              <%= attachment_fields.fields_for(:attachment_data) do |attachment_data| %>
-                <%= attachment_data.hidden_field :file_cache %>
+              <%= attachment_fields.fields_for :attachment_data, attachment_fields.object.attachment_data, include_id: false do |attachment_data_fields| %>
+                <%= attachment_data_fields.hidden_field :file_cache %>
+                <% if attachment_data_fields.object.to_replace_id %>
+                  <%= form.hidden_field(:to_replace_id, value: attachment_data_fields.object.to_replace_id) %>
+                <% end %>
               <% end %>
             </li>
           <% end %>

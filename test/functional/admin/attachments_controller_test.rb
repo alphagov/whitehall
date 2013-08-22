@@ -4,8 +4,10 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
   should_be_an_admin_controller
 
   def valid_attachment_params
-    { title: 'Attachment title',
-      attachment_data_attributes: { file: fixture_file_upload('whitepaper.pdf') } }
+    {
+      title: 'Attachment title',
+      attachment_data_attributes: { file: fixture_file_upload('whitepaper.pdf') }
+    }
   end
 
   setup do
