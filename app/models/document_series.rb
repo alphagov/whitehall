@@ -5,6 +5,7 @@ class DocumentSeries < ActiveRecord::Base
   belongs_to :organisation
 
   has_many :document_series_memberships
+  has_many :groups, class_name: 'DocumentSeriesGroup', order: 'document_series_groups.ordering'
   has_many :documents, through: :document_series_memberships, inverse_of: :document_series  do
     # This stops duplicate joins being created when appending existing docs to a series.
     def <<(*items)
