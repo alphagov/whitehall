@@ -95,6 +95,7 @@ module GovspeakHelper
       replace_internal_admin_links_in(nokogiri_doc, &block)
       add_class_to_last_blockquote_paragraph(nokogiri_doc)
       add_heading_numbers(nokogiri_doc) if options[:numbered_headings]
+      add_manual_heading_numbers(nokogiri_doc) if options[:manual_numbering]
     end.to_html.html_safe
   end
 
@@ -173,6 +174,21 @@ module GovspeakHelper
         "#{h2_depth}.#{h3_depth+=1}"
       end
       el.inner_html = el.document.fragment(%{<span class="number">#{number} </span>#{el.inner_html}})
+    end
+  end
+
+  def add_manual_heading_numbers(nokogiri_doc)
+    nokogiri_doc.css('h2, h3').each do |el|
+      if number = extract_number_from_heading(el)
+        heading_without_number = el.inner_html.gsub(number, '')
+        el.inner_html = el.document.fragment(%{<span class="number">#{number} </span>#{heading_without_number}})
+      end
+    end
+  end
+
+  def extract_number_from_heading(nokogiri_el)
+    if match = /\d+.?\d*/.match(nokogiri_el.inner_text)
+      match[0]
     end
   end
 

@@ -248,6 +248,12 @@ class GovspeakHelperTest < ActionView::TestCase
     assert_match %r(#{expected_output_2}), actual_output
   end
 
+  test "adds manual numbering to heading tags" do
+    input = "## 1. Main\n\n## 2. Second\n\n### Sub heading without a number\n\n## 42.12 Out of sequence"
+    expected_output = '<div class="govspeak"><h2 id="main"> <span class="number">1. </span> Main</h2> <h2 id="second"> <span class="number">2. </span> Second</h2> <h3 id="sub-heading-without-a-number">Sub heading without a number</h3> <h2 id="out-of-sequence"> <span class="number">42.12 </span> Out of sequence</h2></div>'
+    assert_equal expected_output, govspeak_to_html(input, [], manual_numbering: true).gsub(/\s+/, ' ')
+  end
+
   test "should not corrupt character encoding of numbered headings" do
     input = '# café'
     actual_output = govspeak_to_html(input, [], numbered_headings: true)
