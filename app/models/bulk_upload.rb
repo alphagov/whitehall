@@ -140,7 +140,7 @@ class BulkUpload
     def extract_contents
       unzip = Whitehall.system_binaries[:unzip]
       destination = File.join(self.temp_dir, 'extracted')
-      @unzip_output ||= `#{unzip} -o -d #{destination} #{self.temp_location}`
+      @unzip_output ||= `#{unzip} -o -d #{destination} #{self.temp_location.shellescape}`
     end
 
     def must_be_a_zip_file
@@ -151,7 +151,7 @@ class BulkUpload
 
     def is_a_zip?
       zipinfo = Whitehall.system_binaries[:zipinfo]
-      _, _, errs = Open3.popen3("#{zipinfo} -1 #{self.temp_location} > /dev/null")
+      _, _, errs = Open3.popen3("#{zipinfo} -1 #{self.temp_location.shellescape} > /dev/null")
       errs.read.empty?
     end
 
