@@ -9,7 +9,8 @@ class Admin::BulkUploadsController < Admin::BaseController
   end
 
   def upload_zip
-    @zip_file = BulkUpload::ZipFile.new(params[:bulk_upload_zip_file][:zip_file])
+    filename = params.fetch(:bulk_upload_zip_file, {})[:zip_file]
+    @zip_file = BulkUpload::ZipFile.new(filename)
     if @zip_file.valid?
       @bulk_upload = BulkUpload.from_files(@edition, @zip_file.extracted_file_paths)
       @zip_file.cleanup_extracted_files
