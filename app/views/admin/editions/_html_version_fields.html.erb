@@ -5,6 +5,7 @@
 
   <%= form.fields_for :html_version do |html_version_fields| %>
     <%= html_version_fields.text_field :title, label_text: "HTML version title", required: false %>
+    <%= html_version_fields.check_box :manually_numbered, label_text: 'Manually number headings' %>
     <%= html_version_fields.text_area :body, label_text: "HTML version text", class: "previewable", required: false %>
   <% end %>
 </fieldset>

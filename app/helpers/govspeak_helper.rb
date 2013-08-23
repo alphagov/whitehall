@@ -73,8 +73,16 @@ module GovspeakHelper
     content_tag(:code, "[InlineAttachment:#{number}]")
   end
 
+  def govspeak_options_for_html_version(html_version)
+    if html_version.manually_numbered?
+      { manually_numbered: true, contact_heading_tag: 'h4' }
+    else
+      { numbered_headings: true, contact_heading_tag: 'h4' }
+    end
+  end
 
   private
+
   def remove_extra_quotes_from_blockquotes(govspeak)
     Whitehall::ExtraQuoteRemover.new.remove(govspeak)
   end
@@ -95,7 +103,7 @@ module GovspeakHelper
       replace_internal_admin_links_in(nokogiri_doc, &block)
       add_class_to_last_blockquote_paragraph(nokogiri_doc)
       add_heading_numbers(nokogiri_doc) if options[:numbered_headings]
-      add_manual_heading_numbers(nokogiri_doc) if options[:manual_numbering]
+      add_manual_heading_numbers(nokogiri_doc) if options[:manually_numbered]
     end.to_html.html_safe
   end
 
