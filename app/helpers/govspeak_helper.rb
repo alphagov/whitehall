@@ -29,10 +29,17 @@ module GovspeakHelper
     bare_govspeak_to_html(partially_processed_govspeak, [])
   end
 
-  def govspeak_headers(govspeak, level = 2)
-    level = (level..level) unless level.is_a?(Range)
+  def govspeak_headers(govspeak, level=(2..2))
     build_govspeak_document(govspeak).headers.select do |header|
       level.cover?(header.level)
+    end
+  end
+
+  def html_version_govspeak_headers(html_version)
+    govspeak_headers(html_version.body).tap do |headers|
+      if html_version.manually_numbered?
+        headers.each { |header| header.text = header.text.gsub(/^(\d+.?\d*\s*)/, '') }
+      end
     end
   end
 

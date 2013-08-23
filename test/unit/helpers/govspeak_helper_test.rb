@@ -100,6 +100,14 @@ class GovspeakHelperTest < ActionView::TestCase
     ], headers
   end
 
+  test "#html_version_govspeak_headers strips numbers from manually numbered HtmlVersions" do
+    html_version = HtmlVersion.new(body: "## 1. First\n\n## 2. Second\n\n### 2.1 Sub", manually_numbered: true)
+    expected_headings =  [  Govspeak::Header.new("First", 2, "first"),
+                            Govspeak::Header.new("Second", 2, "second") ]
+
+    assert_equal expected_headings, html_version_govspeak_headers(html_version)
+  end
+
   test "should raise exception when extracting header hierarchy with orphaned level 3 headings" do
     e = assert_raise(OrphanedHeadingError) { govspeak_header_hierarchy("### Heading 3") }
     assert_equal "Heading 3", e.heading
