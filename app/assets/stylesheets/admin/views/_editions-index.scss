@@ -1,7 +1,26 @@
 .editions-index {
 
   .editions-filter {
-    margin-top: 1em;
+    background-color: #f5f5f5;
+    margin-top: 0;
+    padding: $gutter-one-sixth $gutter-one-third;
+    h2 {
+      font-size: 19px;
+    }
+    .filter-grouping {
+      border-top: 1px solid #ddd;
+      padding: $gutter-one-sixth 0 $gutter-one-third 0;
+      h3 {
+        font-size: 14px;
+      }
+      form {
+        margin-bottom: 0;
+        input {
+          @include border-radius(0);
+          width: 95%;
+        }
+      }
+    }
   }
 
   .publishing-stats {
@@ -48,6 +67,93 @@
         a {
           display: block;
           padding: 0.5em 0.75em;
+        }
+      }
+    }
+  }
+
+// Edition filter page styling to overide bootstrap
+  .well {
+    @include border-radius(0);
+    border: 0;
+    margin-top: 0;
+    .nav .nav-header {
+      color: $black;
+      font-size: 14px;
+      text-transform: none;
+    }
+  }
+  .table th,
+  .table td {
+    padding: $gutter-one-sixth;
+  }
+
+  .span7 {
+    margin-left: 0;
+  }
+  .pagination {
+    ul {
+      li {
+        a {
+          padding: $gutter-one-third;
+          line-height: 0.5;
+        }
+        &:first-child a,
+        &:last-child a {
+          @include border-radius(0);
+        }
+      }
+    }
+  }  
+
+  .span4 {
+    float: right;
+    .publishing-stats {
+      font-size: 16px;
+      .badge {
+        @include border-radius(0);
+        background: none;
+        color: $black;
+        font-size: 16px;
+        font-weight: bold;
+      }
+    }
+  }
+
+  .table-striped {
+    .type,
+    .updated-by {
+      width: 15%;
+    }
+    .title {
+      width: 50%;
+    }
+    .updated,
+    .state {
+      width: 10%;
+    }
+  }
+  
+  @include ie(6){
+    .nav-list {
+      li {
+        display: inline;
+        background: transparent;
+
+        a {
+          display: block;
+          padding: 3px 15px;
+          margin: 0 -15px;
+        }
+        &.active {
+          a {
+            color: #fff;
+            background-color: #08C;
+
+            &:hover {
+              background-color: #08C;
+            }
+          }
         }
       }
     }

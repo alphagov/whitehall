@@ -4,85 +4,97 @@
 <nav class="editions-filter">
   <h2>Filter list by:</h2>
   <% if filter_by.include?(:title) %>
-    <h3>Title or slug</h3>
-    <%= form_tag("", method: :get, class: "pull-left") do %>
-      <%= pass_through_filter_options_as_hidden_fields(@filter, :organisation, :type, :state, :author, :world_location, :from_date, :to_date) %>
-      <input type="search" id="search_title" name="title" value="<%= @filter.options[:title] %>" placeholder="Search title">
-    <% end %>
+    <div class="filter-grouping">
+      <h3>Title or slug</h3>
+      <%= form_tag("", method: :get, class: "") do %>
+        <%= pass_through_filter_options_as_hidden_fields(@filter, :organisation, :type, :state, :author, :world_location, :from_date, :to_date) %>
+        <input type="search" id="search_title" name="title" value="<%= @filter.options[:title] %>" placeholder="Search title">
+      <% end %>
+    </div>
   <% end %>
   <% if filter_by.include?(:author) %>
-    <h3>Organisation</h3>
-    <%= form_tag("", method: :get, class: "js-edition-select-filter") do %>
-      <%= select_tag  :organisation,
-                      options_for_select(admin_organisation_filter_options(current_user), @filter.options[:organisation]),
-                      class: 'chzn-select',
-                      include_blank: true,
-                      data: { placeholder: "All organisations" } %>
-      <%= pass_through_filter_options_as_hidden_fields(@filter, :type, :state, :world_location, :from_date, :to_date) %>
-      <%= submit_tag "Go", class: "btn" %>
-    <% end %>
+    <div class="filter-grouping">
+      <h3>Author</h3>
+      <%= form_tag("", method: :get, class: "js-edition-select-filter") do %>
+        <%= select_tag  :author,
+                        options_for_select(admin_author_filter_options(current_user), @filter.options[:author]),
+                        class: 'chzn-select',
+                        include_blank: true,
+                        data: { placeholder: "All authors" } %>
+        <%= pass_through_filter_options_as_hidden_fields(@filter, :type, :state, :world_location, :from_date, :to_date) %>
+        <%= submit_tag "Go", class: "btn" %>
+      <% end %>
 
-    <h3>or author</h3>
-    <%= form_tag("", method: :get, class: "js-edition-select-filter") do %>
-      <%= select_tag  :author,
-                      options_for_select(admin_author_filter_options(current_user), @filter.options[:author]),
-                      class: 'chzn-select',
-                      include_blank: true,
-                      data: { placeholder: "All authors" } %>
-      <%= pass_through_filter_options_as_hidden_fields(@filter, :type, :state, :world_location, :from_date, :to_date) %>
-      <%= submit_tag "Go", class: "btn" %>
-    <% end %>
+      <h3>or organisation</h3>
+      <%= form_tag("", method: :get, class: "js-edition-select-filter") do %>
+        <%= select_tag  :organisation,
+                        options_for_select(admin_organisation_filter_options(current_user), @filter.options[:organisation]),
+                        class: 'chzn-select',
+                        include_blank: true,
+                        data: { placeholder: "All organisations" } %>
+        <%= pass_through_filter_options_as_hidden_fields(@filter, :type, :state, :world_location, :from_date, :to_date) %>
+        <%= submit_tag "Go", class: "btn" %>
+      <% end %>
+    </div>
   <% end %>
 
   <% if filter_by.include?(:world_location) %>
-    <h3>Filter by World location</h3>
-    <%= form_tag("", method: :get, class: "js-edition-select-filter") do %>
-      <%= select_tag  :world_location,
-                      options_for_select(admin_world_location_filter_options(current_user), @filter.options[:world_location]),
-                      class: 'chzn-select',
-                      include_blank: true,
-                      data: { placeholder: "All locations" } %>
-      <%= pass_through_filter_options_as_hidden_fields(@filter, :type, :state, :author, :from_date, :to_date) %>
-      <%= submit_tag "Go", class: "btn" %>
-    <% end %>
+    <div class="filter-grouping">
+      <h3>World location</h3>
+      <%= form_tag("", method: :get, class: "js-edition-select-filter") do %>
+        <%= select_tag  :world_location,
+                        options_for_select(admin_world_location_filter_options(current_user), @filter.options[:world_location]),
+                        class: 'chzn-select',
+                        include_blank: true,
+                        data: { placeholder: "All locations" } %>
+        <%= pass_through_filter_options_as_hidden_fields(@filter, :type, :state, :author, :from_date, :to_date) %>
+        <%= submit_tag "Go", class: "btn" %>
+      <% end %>
+    </div>
   <% end %>
 
   <% if filter_by.include?(:type) %>
-    <h3>Type</h3>
-    <%= form_tag("", method: :get, class: "js-edition-select-filter") do  %>
-      <%= select_tag :type,
-                      options_for_select(filter_options_for_edition(current_user), @filter.options[:type]),
-                      class: 'chzn-select',
-                      include_blank: true,
-                      data: { placeholder: "All types"} %>
-        <%= pass_through_filter_options_as_hidden_fields(@filter, :organisation, :world_location_ids, :state, :author, :from_date, :to_date) %>
-        <%= submit_tag "Go", class: "btn" %>
-    <% end %>
+    <div class="filter-grouping">
+      <h3>Document type</h3>
+      <%= form_tag("", method: :get, class: "js-edition-select-filter") do  %>
+        <%= select_tag :type,
+                        options_for_select(filter_options_for_edition(current_user), @filter.options[:type]),
+                        class: 'chzn-select',
+                        include_blank: true,
+                        data: { placeholder: "All types"} %>
+          <%= pass_through_filter_options_as_hidden_fields(@filter, :organisation, :world_location_ids, :state, :author, :from_date, :to_date) %>
+          <%= submit_tag "Go", class: "btn" %>
+      <% end %>
+    </div>
   <% end %>
 
   <% if filter_by.include?(:state) %>
-    <h3>State</h3>
-    <%= form_tag("", method: :get, class: "js-edition-select-filter") do  %>
-      <%= select_tag :state,
-                      options_for_select(admin_state_filter_options(), @filter.options[:state]),
-                      class: 'chzn-select',
-                      include_blank: true,
-                      data: { placeholder: "All states"} %>
-        <%= pass_through_filter_options_as_hidden_fields(@filter, :organisation, :world_location_ids, :type, :author, :from_date, :to_date) %>
-        <%= submit_tag "Go", class: "btn" %>
-    <% end %>
+    <div class="filter-grouping">
+      <h3>State</h3>
+      <%= form_tag("", method: :get, class: "js-edition-select-filter") do  %>
+        <%= select_tag :state,
+                        options_for_select(admin_state_filter_options(), @filter.options[:state]),
+                        class: 'chzn-select',
+                        include_blank: true,
+                        data: { placeholder: "All states"} %>
+          <%= pass_through_filter_options_as_hidden_fields(@filter, :organisation, :world_location_ids, :type, :author, :from_date, :to_date) %>
+          <%= submit_tag "Go", class: "btn" %>
+      <% end %>
+    </div>
   <% end %>
 
   <% if filter_by.include?(:date) %>
-    <h3>Date (last updated)</h3>
-    <%= form_tag("", method: :get, class: "date-filter") do  %>
-      <%= label_tag :from_date, "From" %>
-      <%= text_field_tag :from_date, @filter.options[:from_date], class: 'date' %>
-      <%= label_tag :to_date, "To" %>
-      <%= text_field_tag :to_date, @filter.options[:to_date], class: 'date' %>
-      <%= pass_through_filter_options_as_hidden_fields(@filter, :organisation, :world_location_ids, :state, :author, :type) %>
-      <%= submit_tag "Go", class: "btn" %>
-    <% end %>
+    <div class="filter-grouping">
+      <h3>Date (last updated)</h3>
+      <%= form_tag("", method: :get, class: "date-filter") do  %>
+        <%= label_tag :from_date, "From" %>
+        <%= text_field_tag :from_date, @filter.options[:from_date], class: 'date' %>
+        <%= label_tag :to_date, "To" %>
+        <%= text_field_tag :to_date, @filter.options[:to_date], class: 'date' %>
+        <%= pass_through_filter_options_as_hidden_fields(@filter, :organisation, :world_location_ids, :state, :author, :type) %>
+        <%= submit_tag "Go", class: "btn" %>
+      <% end %>
+    </div>
   <% end %>
 </nav>
 
