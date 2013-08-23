@@ -94,7 +94,7 @@ module GovspeakHelper
       # post-processors
       replace_internal_admin_links_in(nokogiri_doc, &block)
       add_class_to_last_blockquote_paragraph(nokogiri_doc)
-      add_heading_numbers(nokogiri_doc, options[:numbered_heading_level]) if options[:numbered_heading_level]
+      add_heading_numbers(nokogiri_doc) if options[:numbered_headings]
     end.to_html.html_safe
   end
 
@@ -118,7 +118,7 @@ module GovspeakHelper
 
   def set_classes_for_charts(govspeak)
     return govspeak if govspeak.blank?
-    
+
     govspeak.gsub(GovspeakHelper::BARCHART_REGEXP) do
       stacked = '.mc-stacked' if $1.include? 'stacked'
       compact = '.compact' if $1.include? 'compact'
@@ -126,7 +126,7 @@ module GovspeakHelper
 
       [
        '{:',
-       '.js-barchart-table', 
+       '.js-barchart-table',
        stacked,
        compact,
        negative,
@@ -135,7 +135,7 @@ module GovspeakHelper
       ].join(' ')
     end
   end
-  
+
   def replace_internal_admin_links_in(nokogiri_doc)
     nokogiri_doc.search('a').each do |anchor|
       next unless is_internal_admin_link?(uri = anchor['href'])
@@ -164,17 +164,15 @@ module GovspeakHelper
     end
   end
 
-  def add_heading_numbers(nokogiri_doc, heading_levels)
-    nokogiri_doc.css(heading_levels.join(',')).reduce([0, 0]) do |levels, el|
-      if el.name == heading_levels[0]
-        levels = [levels[0] + 1, 0]
-        level_output = "#{levels[0]}."
+  def add_heading_numbers(nokogiri_doc)
+    h2_depth, h3_depth = 0, 0
+    nokogiri_doc.css('h2, h3').each do |el|
+      number = if el.name == 'h2'
+        "#{h2_depth+=1}."
       else
-        levels = [levels[0], levels[1] + 1]
-        level_output = levels[0] > 0 ? levels.join('.') : ""
+        "#{h2_depth}.#{h3_depth+=1}"
       end
-      el.inner_html = el.document.fragment(%{<span class="number">#{level_output} </span>#{el.inner_html}}).children unless level_output.empty?
-      levels
+      el.inner_html = el.document.fragment(%{<span class="number">#{number} </span>#{el.inner_html}})
     end
   end
 

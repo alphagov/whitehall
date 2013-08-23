@@ -37,7 +37,7 @@
 </header>
 <div class="block publication-content">
   <div class="inner-block floated-children">
-    <%= govspeak_to_html @html_version.body, @document.images, numbered_heading_level: ['h2','h3'], contact_heading_tag: 'h4' %>
+    <%= govspeak_to_html @html_version.body, @document.images, numbered_headings: true, contact_heading_tag: 'h4' %>
   </div>
 </div>
 <div class="js-back-to-content back-to-content">
