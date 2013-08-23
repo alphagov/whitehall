@@ -92,10 +92,6 @@ class BulkUpload
   end
 
   class ZipFile
-    class << self
-      attr_accessor :default_root_directory
-    end
-
     extend  ActiveModel::Naming
     include ActiveModel::Validations
     include ActiveModel::Conversion
@@ -116,7 +112,7 @@ class BulkUpload
     end
 
     def temp_dir
-      @temp_dir ||= Dir.mktmpdir(nil, BulkUpload::ZipFile.default_root_directory)
+      @temp_dir ||= Dir.mktmpdir(nil, BULK_UPLOAD_ZIPFILE_DEFAULT_ROOT_DIRECTORY)
     end
 
     def store_temporarily
