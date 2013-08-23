@@ -34,9 +34,13 @@ class Admin::BulkUploadsControllerTest < ActionController::TestCase
   end
 
   def post_to_upload_zip(filename)
-    post :upload_zip, edition_id: @edition, bulk_upload_zip_file: {
-      zip_file: fixture_file_upload(filename)
-    }
+    params = {}
+    if filename
+      params[:bulk_upload_zip_file] = {
+        zip_file: fixture_file_upload(filename)
+      }
+    end
+    post :upload_zip, { edition_id: @edition }.merge(params) 
   end
 
   test 'Actions are unavailable on unmodifiable editions' do
@@ -56,6 +60,11 @@ class Admin::BulkUploadsControllerTest < ActionController::TestCase
     login_as :world_editor
     get :new, edition_id: @edition
     assert_response :forbidden
+  end
+
+  view_test 'POST :upload_zip with no zip file requests that zip file be specified' do
+    post_to_upload_zip(nil)
+    assert_select 'ul.errors', /file can&#x27;t be blank/
   end
 
   view_test 'POST :upload_zip prompts for metadata for each file in the zip' do
