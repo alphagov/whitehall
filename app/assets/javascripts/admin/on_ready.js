@@ -91,5 +91,14 @@ jQuery(document).ready(function($) {
 
   // Inbound links on edition show page
   $('#inbound-links').hideExtraRows({rows: 10});
+
+  // show/hide unnumbered HTML headings markdown help
+  $('#edition_html_version_attributes_manually_numbered').change(function () {
+    if($(this).is(':checked')) {
+      $('.js-manual-numbering-help').show();
+    } else {
+      $('.js-manual-numbering-help').hide();
+    }
+  });
 });
 

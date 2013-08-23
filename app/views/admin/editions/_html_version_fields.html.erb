@@ -5,7 +5,16 @@
 
   <%= form.fields_for :html_version do |html_version_fields| %>
     <%= html_version_fields.text_field :title, label_text: "HTML version title", required: false %>
-    <%= html_version_fields.check_box :manually_numbered, label_text: 'Manually number headings' %>
     <%= html_version_fields.text_area :body, label_text: "HTML version text", class: "previewable", required: false %>
+    <%= html_version_fields.check_box :manually_numbered, label_text: 'Manually number headings' %>
+    <div class="js-manual-numbering-help<%= ' js-hidden' unless html_version_fields.object.manually_numbered? %>">
+      <pre>
+## 1. First heading
+### 1.1 First sub-heading
+### 1.2 Second sub-heading
+### Unnumbered sub-heading
+
+Manually number your headings as appropriate using the above numbering scheme.</pre>
+    </div>
   <% end %>
 </fieldset>
