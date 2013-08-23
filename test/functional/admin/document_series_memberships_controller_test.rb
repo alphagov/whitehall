@@ -9,6 +9,7 @@ class Admin::DocumentSeriesMembershipsControllerTest < ActionController::TestCas
   should_be_an_admin_controller
 
   view_test 'GET #index lists the documents in the series' do
+    skip
     doc1 = create(:published_publication)
     doc2 = create(:published_publication)
     @document_series.documents = [doc1.document, doc2.document]
@@ -20,6 +21,7 @@ class Admin::DocumentSeriesMembershipsControllerTest < ActionController::TestCas
   end
 
   test 'JS POST #create adds the document to the series' do
+    skip
     document = create(:publication).document
     xhr :post, :create, document_series_id: @document_series, id: document.id
 
@@ -29,6 +31,7 @@ class Admin::DocumentSeriesMembershipsControllerTest < ActionController::TestCas
   end
 
   test 'JS DELETE #destroy removes a document from the series' do
+    skip
     document = create(:publication).document
     @document_series.documents << document
     xhr :delete, :destroy, document_series_id: @document_series, id: document.id

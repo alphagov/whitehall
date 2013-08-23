@@ -568,7 +568,8 @@ class PublicationsControllerTest < ActionController::TestCase
   view_test 'index should show relevant document series information' do
     without_delay! do
       publication = create(:draft_publication)
-      series = create(:document_series, documents: [publication.document])
+      series = create(:document_series, :with_group)
+      series.groups.first.documents = [publication.document]
       publication.publish_as(create(:departmental_editor), force: true)
       get :index
 
@@ -581,7 +582,8 @@ class PublicationsControllerTest < ActionController::TestCase
   view_test 'index requested as JSON includes document series information' do
     without_delay! do
       publication = create(:draft_publication)
-      series = create(:document_series, documents: [publication.document])
+      series = create(:document_series, :with_group)
+      series.groups.first.documents = [publication.document]
       publication.publish_as(create(:departmental_editor), force: true)
 
       get :index, format: :json
@@ -589,7 +591,9 @@ class PublicationsControllerTest < ActionController::TestCase
       json = ActiveSupport::JSON.decode(response.body)
       result = json['results'].first
 
-      assert_equal "Part of a series: <a href=\"#{organisation_document_series_path(series.organisation, series)}\">#{series.name}</a>", result['publication_series']
+      path = organisation_document_series_path(series.organisation, series)
+      link = %Q{<a href="#{path}">#{series.name}</a>}
+      assert_equal %Q{Part of a series: #{link}}, result['publication_series']
     end
   end
 

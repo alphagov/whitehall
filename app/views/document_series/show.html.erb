@@ -14,11 +14,10 @@
             <%= render  partial: 'organisations/organisations_name_list',
                         locals: { lead_organisations: [@organisation] } %>
           </dd>
-          <% unless @document_series.published_editions.empty? %>
-            <% most_recent_change = @document_series.published_editions.first.public_timestamp %>
+          <% unless @editions.empty? %>
             <dt class="change-notes-title"><%= t('change_notes.page_history') %>:</dt>
             <dd class="change-notes">
-              <%= t('change_notes.published_at', date: absolute_date(most_recent_change, class: 'published-at')).html_safe %>
+              <%= t('change_notes.published_at', date: absolute_date(@editions.first.public_timestamp, class: 'published-at')).html_safe %>
             </dd>
           <% end %>
         </dl>

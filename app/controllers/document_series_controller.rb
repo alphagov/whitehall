@@ -8,7 +8,8 @@ class DocumentSeriesController < PublicFacingController
 
   def show
     @document_series = @organisation.document_series.find(params[:id])
-    @editions = decorate_collection(@document_series.published_editions, PublicationesquePresenter)
+    published_editions = @document_series.published_editions
+    @editions = decorate_collection(published_editions, PublicationesquePresenter)
     set_slimmer_organisations_header([@document_series.organisation])
     set_slimmer_page_owner_header(@document_series.organisation)
     expire_on_next_scheduled_publication(@document_series.scheduled_editions)

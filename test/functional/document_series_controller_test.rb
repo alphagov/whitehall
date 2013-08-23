@@ -13,7 +13,7 @@ class DocumentSeriesControllerTest < ActionController::TestCase
 
   view_test 'GET #show displays the document series and its published editions' do
     organisation = create(:organisation)
-    series = create(:document_series,
+    series = create(:document_series, :with_group,
       organisation: organisation,
       name: "series-name",
       description: "description-in-govspeak",
@@ -21,7 +21,7 @@ class DocumentSeriesControllerTest < ActionController::TestCase
     )
     publication = create(:published_publication)
     draft_publication = create(:draft_publication)
-    series.documents = [publication.document, draft_publication.document]
+    series.groups.first.documents = [publication.document, draft_publication.document]
 
     govspeak_transformation_fixture "description-in-govspeak" => "description-in-html" do
       get :show, organisation_id: organisation, id: series
@@ -37,10 +37,10 @@ class DocumentSeriesControllerTest < ActionController::TestCase
   test "GET #show sets Cache-Control: max-age to the time of the next scheduled publication in the series" do
     user = login_as(:departmental_editor)
     organisation = create(:organisation)
-    series = create(:document_series, organisation: organisation)
+    series = create(:document_series, :with_group, organisation: organisation)
     publication = create(:draft_publication, scheduled_publication: Time.zone.now + Whitehall.default_cache_max_age * 2)
     publication.reload.schedule_as(user, force: true)
-    series.documents << publication.document
+    series.groups.first.documents << publication.document
 
     Timecop.freeze(Time.zone.now + Whitehall.default_cache_max_age * 1.5) do
       get :show, organisation_id: organisation, id: series

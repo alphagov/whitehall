@@ -7,4 +7,12 @@ class DocumentSeriesGroupTest < ActiveSupport::TestCase
     series.groups << build(:document_series_group)
     assert_equal [1, 2], series.groups.reload.map(&:ordering)
   end
+
+  test 'groups should return its published editions' do
+    group = create(:document_series_group)
+    published = create(:published_publication)
+    draft = create(:draft_publication)
+    group.documents << [published.document, draft.document]
+    assert_equal [published], group.published_editions
+  end
 end
