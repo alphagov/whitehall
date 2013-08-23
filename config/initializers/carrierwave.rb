@@ -4,4 +4,5 @@ CarrierWave.configure do |config|
   config.storage_engines[:quarantined_file] = 'Whitehall::QuarantinedFileStorage'
   config.storage Whitehall::QuarantinedFileStorage
   config.enable_processing = false if Rails.env.test?
+  config.cache_dir = Rails.root.join "carrierwave-tmp"
 end
