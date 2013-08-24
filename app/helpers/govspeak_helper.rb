@@ -202,9 +202,7 @@ module GovspeakHelper
   end
 
   def extract_number_from_heading(nokogiri_el)
-    if match = /\d+.?\d*/.match(nokogiri_el.inner_text)
-      match[0]
-    end
+    nokogiri_el.inner_text[/\d+.?\d*/]
   end
 
   def markup_to_nokogiri_doc(govspeak, images = [])
