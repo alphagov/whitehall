@@ -162,8 +162,8 @@ class Import < ActiveRecord::Base
               progress_logger.already_imported(document_source)
             end
           else
-            Edition::AuditTrail.acting_as(automatic_data_importer) do
-              import_row(row, row_number, automatic_data_importer, progress_logger)
+            Edition::AuditTrail.acting_as(import_user) do
+              import_row(row, row_number, import_user, progress_logger)
             end
           end
         end
@@ -182,7 +182,7 @@ class Import < ActiveRecord::Base
     import_logs.map(&:to_s).join("\n")
   end
 
-  def automatic_data_importer
+  def import_user
     User.find_by_name!("Automatic Data Importer")
   end
 
