@@ -9,6 +9,10 @@ class DocumentSeriesGroup < ActiveRecord::Base
 
   before_create :assign_ordering
 
+  def self.visible
+    includes(:editions).where('editions.state = ?', 'published')
+  end
+
   def assign_ordering
     peers = document_series.present? ? document_series.groups.size : 0
     self.ordering = peers + 1

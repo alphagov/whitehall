@@ -23,14 +23,11 @@ class DocumentSeriesController < PublicFacingController
   end
 
   def visible_groups
-    groups = @document_series.groups.select do |group|
-      group.published_editions.present?
-    end
     items = []
-    groups.each do |group|
+    @document_series.groups.visible.each do |group|
       items << group
-      items << decorate_collection(
-          group.published_editions, PublicationesquePresenter)
+      editions = group.published_editions.includes(:document, :translations)
+      items << decorate_collection(editions, PublicationesquePresenter)
     end
     Hash[*items]
   end
