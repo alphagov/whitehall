@@ -8,8 +8,8 @@ class DocumentSeriesController < PublicFacingController
 
   def show
     @document_series = @organisation.document_series.find(params[:id])
-    published_editions = @document_series.published_editions
-    @editions = decorate_collection(published_editions, PublicationesquePresenter)
+    @groups = visible_groups
+    @most_recent_change = most_recent_change
     set_slimmer_organisations_header([@document_series.organisation])
     set_slimmer_page_owner_header(@document_series.organisation)
     expire_on_next_scheduled_publication(@document_series.scheduled_editions)
@@ -20,5 +20,24 @@ class DocumentSeriesController < PublicFacingController
 
   def load_organisation
     @organisation = Organisation.find(params[:organisation_id])
+  end
+
+  def visible_groups
+    groups = @document_series.groups.select do |group|
+      group.published_editions.present?
+    end
+    items = []
+    groups.each do |group|
+      items << group
+      items << decorate_collection(
+          group.published_editions, PublicationesquePresenter)
+    end
+    Hash[*items]
+  end
+
+  def most_recent_change
+    if @groups.present?
+      @document_series.published_editions.first.public_timestamp
+    end
   end
 end

@@ -17,4 +17,8 @@ class DocumentSeriesGroup < ActiveRecord::Base
   def published_editions
     editions.published
   end
+
+  def visible?
+    published_editions.present?
+  end
 end

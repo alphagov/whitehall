@@ -14,10 +14,10 @@
             <%= render  partial: 'organisations/organisations_name_list',
                         locals: { lead_organisations: [@organisation] } %>
           </dd>
-          <% unless @editions.empty? %>
+          <% unless @groups.empty? %>
             <dt class="change-notes-title"><%= t('change_notes.page_history') %>:</dt>
             <dd class="change-notes">
-              <%= t('change_notes.published_at', date: absolute_date(@editions.first.public_timestamp, class: 'published-at')).html_safe %>
+              <%= t('change_notes.published_at', date: absolute_date(@most_recent_change)).html_safe %>
             </dd>
           <% end %>
         </dl>
@@ -52,10 +52,16 @@
         </div>
       <% end %>
 
-      <% if @editions.any? %>
+      <% @groups.each do |group, editions| %>
         <div class="editions">
+          <h2><%= group.heading %></h2>
+          <% unless group.body.blank? %>
+            <div class="group-body">
+              <%= govspeak_to_html group.body %>
+            </div>
+          <% end %>
           <ol class="document-list">
-            <% @editions.each do |edition| %>
+            <% editions.each do |edition| %>
               <%= content_tag_for :li, edition, class: "document-row" do %>
                 <h3><%= edition.link %></h3>
                 <ul class="attributes">
