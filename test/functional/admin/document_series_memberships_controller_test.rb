@@ -2,20 +2,21 @@ require 'test_helper'
 
 class Admin::DocumentSeriesMembershipsControllerTest < ActionController::TestCase
   setup do
-    @document_series = create(:document_series)
+    @series = create(:document_series, :with_group)
+    @first_group = @series.groups.first
     login_as create(:policy_writer)
   end
 
   should_be_an_admin_controller
 
-  view_test 'GET #index lists the documents in the series' do
-    skip
+  view_test 'GET #index lists the groups and documents in the series' do
     doc1 = create(:published_publication)
     doc2 = create(:published_publication)
-    @document_series.documents = [doc1.document, doc2.document]
+    @first_group.documents = [doc1.document, doc2.document]
 
-    get :index, document_series_id: @document_series
+    get :index, document_series_id: @series
 
+    assert_select 'h2', @first_group.heading
     assert_select 'a', doc1.title
     assert_select 'a', doc2.title
   end
@@ -23,28 +24,28 @@ class Admin::DocumentSeriesMembershipsControllerTest < ActionController::TestCas
   test 'JS POST #create adds the document to the series' do
     skip
     document = create(:publication).document
-    xhr :post, :create, document_series_id: @document_series, id: document.id
+    xhr :post, :create, document_series_id: @series, id: document.id
 
     assert_response :success
     assert_template :create
-    assert @document_series.documents.include?(document), "Document #{document.id} should be in series"
+    assert @series.documents.include?(document)
   end
 
   test 'JS DELETE #destroy removes a document from the series' do
     skip
     document = create(:publication).document
-    @document_series.documents << document
-    xhr :delete, :destroy, document_series_id: @document_series, id: document.id
+    @series.documents << document
+    xhr :delete, :destroy, document_series_id: @series, id: document.id
 
     assert_response :success
     assert_template :destroy
-    refute @document_series.documents(true).include?(document), "Document #{document.id} should not be in series"
+    refute @series.documents(true).include?(document)
   end
 
   view_test 'JSON GET #search returns filter results as JSON' do
     publication = create(:publication, title: 'search term')
 
-    get :search, document_series_id: @document_series, title: 'search term', format: :json
+    get :search, document_series_id: @series, title: 'search term', format: :json
 
     assert_response :success
 
