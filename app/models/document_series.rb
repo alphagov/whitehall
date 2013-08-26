@@ -22,12 +22,6 @@ class DocumentSeries < ActiveRecord::Base
   extend FriendlyId
   friendly_id
 
-  def latest_editions
-    documents.map(&:latest_edition).compact.sort_by do |edition|
-      edition.public_timestamp.to_i
-    end.reverse
-  end
-
   def published_editions
     editions.published.in_reverse_chronological_order
   end

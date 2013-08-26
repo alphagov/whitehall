@@ -14,17 +14,6 @@ class DocumentSeriesTest < ActiveSupport::TestCase
     assert_equal [new, old], series.published_editions
   end
 
-  test 'returns latest editions from series in reverse chronological order' do
-    series = create(:document_series, :with_group)
-    draft = create(:draft_publication)
-    old = create(:published_publication, first_published_at: 2.days.ago)
-    new = create(:published_publication, first_published_at: 1.day.ago)
-    group = series.groups.first
-    group.documents = [draft.document, old.document, new.document]
-
-    assert_equal [new, old, draft], series.latest_editions
-  end
-
   test 'returns editions that are scheduled for publishing in the series' do
     series = create(:document_series, :with_group)
     publication = create(:published_publication, first_published_at: 2.days.ago)

@@ -22,6 +22,12 @@ class DocumentSeriesGroup < ActiveRecord::Base
     editions.published
   end
 
+  def latest_editions
+    documents.map(&:latest_edition).compact.sort_by do |edition|
+      edition.public_timestamp.to_i
+    end.reverse
+  end
+
   def visible?
     published_editions.present?
   end

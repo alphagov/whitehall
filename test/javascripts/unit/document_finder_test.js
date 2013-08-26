@@ -26,7 +26,6 @@ module("documentFinder", {
       ]
     }
 
-
     $('#qunit-fixture')
       .append(this.$finderForm)
       .append(this.$finderResults);
