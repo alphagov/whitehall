@@ -1,11 +1,15 @@
-<% page_title "#{@document_series.name}", "Document series" %>
+<% content_for :page_class, 'document-series-memberships index' %>
+<% page_title "#{@series.name}", "Document series" %>
 
-<p><%= link_to "Back to #{@document_series.organisation.name}", document_series_admin_organisation_path(@document_series.organisation) %></p>
-<h1><%= @document_series.name %></h1>
-<p><%= link_to "View on public site", organisation_document_series_path(@document_series.organisation, @document_series) %></p>
+<p><%= link_to "Back to #{@series.organisation.name}", document_series_admin_organisation_path(@series.organisation) %></p>
+<h1><%= @series.name %></h1>
+<p><%= link_to "View on public site", organisation_document_series_path(@series.organisation, @series) %></p>
 
-<%= document_series_tab_navigation(@document_series.organisation, @document_series) do %>
-  <p class="warning">Warning: changes to this document series will appear instantly on the live site.</p>
+<%= document_series_tab_navigation(@series.organisation, @series) do %>
+  <p class="warning">
+    Warning: Changes you make to document series' appear instantly
+    on the live site
+  </p>
 
   <div class="document-finder">
     <h2>Document finder</h2>
