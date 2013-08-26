@@ -1,11 +1,11 @@
-<% content_for :page_class, 'document-series-groups new' %>
-<% page_title 'Add a new group' %>
+<% content_for :page_class, 'document-series-groups edit' %>
+<% page_title 'Edit group' %>
 
 <div class="span8">
   <section>
-    <h1>Add a new group</h1>
+    <h1>Edit group</h1>
 
-    <%= render partial: 'form', locals: { url: admin_document_series_groups_path(@series) } %>
+    <%= render partial: 'form', locals: { url: admin_document_series_group_path(@series, @group) } %>
   </section>
 </div>
 

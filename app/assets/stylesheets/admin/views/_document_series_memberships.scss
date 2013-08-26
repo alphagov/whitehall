@@ -10,6 +10,18 @@
   section.group {
     $doc-group-base: #333;
 
+    hgroup {
+      position: relative;
+    }
+
+    p.edit {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+
+      margin: 0 0 3px 0;
+    }
+
     input.checkbox {
       position: absolute;
       top: $gutter-one-third - 1px;
@@ -18,6 +30,7 @@
 
     ul.controls {
       position: relative;
+      clear: both;
 
       margin: $gutter-one-third 0 0;
       padding: $gutter-one-third 0;

@@ -27,7 +27,12 @@
 
   <% @groups.each do |group| %>
     <section class="group">
-      <h2>Group: <%= group.heading %></h2>
+      <hgroup>
+        <h2>Group: <%= group.heading %></h2>
+        <p class="edit">
+          <%= link_to 'Edit heading and body', edit_admin_document_series_group_path(@series, group) %>
+        </p>
+      </hgroup>
       <%= form_tag '/path/to/update/memberships' do %>
         <ul class="controls">
           <li>
