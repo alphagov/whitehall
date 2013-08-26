@@ -1,0 +1,23 @@
+<% content_for :page_class, 'document-series-groups new' %>
+<% page_title 'Add a new group' %>
+
+<div class="span8">
+  <section>
+    <h1>Add a new group</h1>
+
+    <%= form_for [@series, @group], url: admin_document_series_groups_path(@series, @group) do |form| %>
+      <%= form.errors %>
+      <%= form.text_field :heading, required: true %>
+      <%= form.text_area :body, rows: 6 %>
+      <%= form.save_or_cancel(cancel: admin_document_series_documents_path(@series)) %>
+    <% end %>
+  </section>
+</div>
+
+<div class="span4">
+  <%= sidebar_tabs govspeak_help: "Formatting help" do |tabs| %>
+    <%= tabs.pane id: "govspeak_help" do %>
+      <%= render partial: "admin/editions/govspeak_help", locals: { hide_inline_attachments_help: true, show_attachments_tab_help: false } %>
+    <% end %>
+  <% end %>
+</div>

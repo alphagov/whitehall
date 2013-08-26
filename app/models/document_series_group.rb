@@ -7,10 +7,16 @@ class DocumentSeriesGroup < ActiveRecord::Base
 
   attr_accessible :body, :heading
 
+  validates :heading, presence: true
+
   before_create :assign_ordering
 
   def self.visible
     includes(:editions).where('editions.state = ?', 'published')
+  end
+
+  def self.default_attributes
+    { heading: 'Documents' }
   end
 
   def assign_ordering

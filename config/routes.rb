@@ -165,6 +165,7 @@ Whitehall::Application.routes.draw do
           resources :document_series_memberships, as: :documents, path: 'documents', only: [:index, :create, :destroy] do
             collection { get :search }
           end
+          resources :document_series_groups, as: :groups, path: 'groups'
         end
         resources :policy_teams, except: [:show]
         resources :policy_advisory_groups, except: [:show]

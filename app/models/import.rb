@@ -303,7 +303,9 @@ class Import < ActiveRecord::Base
 
   def assign_document_series!(model, document_series)
     if document_series.any?
-      groups = document_series.map { |series| series.groups.first_or_initialize }
+      groups = document_series.map do |series|
+        series.groups.first_or_initialize(DocumentSeriesGroup.default_attributes)
+      end
       model.document.document_series_groups << groups
     end
   end
