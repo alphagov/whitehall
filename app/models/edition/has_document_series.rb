@@ -19,7 +19,9 @@ module Edition::HasDocumentSeries
 
   # We allow document series to be assigned directly on an edition for speed tagging
   def document_series_ids=(ids)
-    raise(StandardError, 'cannot assign document series to an unsaved edition') unless persisted?
+    if new_record?
+      raise(StandardError, 'cannot assign document series to an unsaved edition')
+    end
     document.document_series_ids = ids
   end
 end
