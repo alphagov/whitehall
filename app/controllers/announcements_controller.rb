@@ -5,18 +5,6 @@ class AnnouncementsController < PublicFacingController
   respond_to :html, :json
   respond_to :atom, only: :index
 
-  class SearchAnnouncementsDecorator < SimpleDelegator
-    def initialize(filter, view_context)
-      super(filter)
-      @view_context = view_context
-    end
-
-    def documents
-      Whitehall::Decorators::CollectionDecorator.new(
-          __getobj__.documents, AnnouncementPresenter, @view_context)
-    end
-  end
-
   def index
     clean_search_filter_params
 
@@ -25,10 +13,10 @@ class AnnouncementsController < PublicFacingController
 
     respond_to do |format|
       format.html do
-        @filter = DocumentFilterPresenter.new(@filter, view_context)
+        @filter = DocumentFilterPresenter.new(@filter, view_context, AnnouncementPresenter)
       end
       format.json do
-        render json: AnnouncementFilterJsonPresenter.new(@filter, view_context)
+        render json: AnnouncementFilterJsonPresenter.new(@filter, view_context, AnnouncementPresenter)
       end
       format.atom do
         @announcements = @filter.documents.sort_by(&:public_timestamp).reverse
@@ -48,7 +36,7 @@ private
   def build_document_filter(params)
     document_filter = search_backend.new(params)
     document_filter.announcements_search
-    SearchAnnouncementsDecorator.new(document_filter, view_context)
+    document_filter
   end
 
   def scheduled_announcements
