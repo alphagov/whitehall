@@ -77,15 +77,16 @@ module Admin::EditionsHelper
     [["Me", current_user.id]] + other_users.map { |u| [u.name, u.id] }
   end
 
-  def admin_state_filter_options()
+  def admin_state_filter_options
     [
-      ["Imported (pre-draft)", :imported],
-      ["Draft", :draft],
-      ["Submitted", :submitted],
-      ["Rejected", :rejected],
-      ["Scheduled", :scheduled],
-      ["Published", :published],
-      ["Force published (not reviewed)", :force_published],
+      ["All states", 'active'],
+      ["Imported (pre-draft)", 'imported'],
+      ["Draft", 'draft'],
+      ["Submitted", 'submitted'],
+      ["Rejected", 'rejected'],
+      ["Scheduled", 'scheduled'],
+      ["Published", 'published'],
+      ["Force published (not reviewed)", 'force_published'],
     ]
   end
 

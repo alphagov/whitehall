@@ -74,9 +74,7 @@
       <%= form_tag("", method: :get, class: "js-edition-select-filter", id: 'state_filter') do  %>
         <%= select_tag :state,
                         options_for_select(admin_state_filter_options(), @filter.options[:state]),
-                        class: 'chzn-select',
-                        include_blank: true,
-                        data: { placeholder: "All states"} %>
+                        class: 'chzn-select-no-deselect' %>
           <%= pass_through_filter_options_as_hidden_fields(@filter, :organisation, :world_location_ids, :type, :author, :from_date, :to_date) %>
           <%= submit_tag "Go", class: "btn js-hidden" %>
       <% end %>
