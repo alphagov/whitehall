@@ -105,25 +105,16 @@ When /^I select the "([^"]*)" filter$/ do |filter|
   click_link filter
 end
 
-When /^I select the "([^"]*)" edition filter$/ do |filter|
-  within ".edition-kind-filter" do
-    select filter
-    click_button "Go"
-  end
+When /^I select the "([^"]*)" edition filter$/ do |edition_type|
+  filter_editions_by :type, edition_type
 end
 
-When /^I filter by author "([^"]*)"$/ do |author_filter|
-  within ".author-filter" do
-    select author_filter
-    click_button "Go"
-  end
+When /^I filter by author "([^"]*)"$/ do |author_name|
+  filter_editions_by :author, author_name
 end
 
-When /^I filter by organisation "([^"]*)"$/ do |department|
-  within ".organisation-filter" do
-    select department
-    click_button "Go"
-  end
+When /^I filter by organisation "([^"]*)"$/ do |organisation_name|
+  filter_editions_by :organisation, organisation_name
 end
 
 When /^I visit the (publication|policy|news article|consultation) "([^"]*)"$/ do |document_type, title|

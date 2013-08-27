@@ -124,7 +124,6 @@ When /^I feature the news article "([^"]*)" for "([^"]*)" with image "([^"]*)"$/
   locale = Locale.find_by_language_name("English")
   news_article = LocalisedModel.new(NewsArticle, locale.code).find_by_title(news_article_title)
   fill_in 'title', with: news_article_title.split.first
-  click_link 'Everyone'
   within record_css_selector(news_article) do
     click_link "Feature"
   end

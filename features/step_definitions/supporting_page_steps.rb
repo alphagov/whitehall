@@ -90,7 +90,6 @@ end
 
 Then /^I should see in the list of draft documents that "([^"]*)" has supporting page "([^"]*)"$/ do |title, supporting_page_title|
   visit admin_editions_path(state: :draft)
-  click_link "Show documents by everyone"
   edition = Edition.find_by_title!(title)
   within(record_css_selector(edition)) do
     assert has_css?(".supporting_pages", text: /#{supporting_page_title}/)

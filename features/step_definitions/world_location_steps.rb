@@ -53,7 +53,6 @@ def feature_news_article_in_world_location(news_article_title, world_location_na
   locale = Locale.find_by_language_name(locale)
   news_article = LocalisedModel.new(NewsArticle, locale.code).find_by_title(news_article_title)
   fill_in 'title', with: news_article.title.split.first
-  click_link 'Everywhere'
   within record_css_selector(news_article) do
     click_link "Feature"
   end
@@ -196,7 +195,6 @@ Then /^I cannot feature "([^"]*)" on the french "([^"]*)" page due to the lack o
   visit admin_world_location_path(world_location)
   click_link "Features (Français)"
   fill_in 'title', with: title.split.first
-  click_link 'Everywhere'
   assert page.has_no_css?("a.btn", text: "Feature")
 end
 

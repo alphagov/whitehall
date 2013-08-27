@@ -6,7 +6,7 @@
   <% if filter_by.include?(:title) %>
     <div class="filter-grouping">
       <h3>Title or slug</h3>
-      <%= form_tag("", method: :get) do %>
+      <%= form_tag("", method: :get, id: 'title_filter') do %>
         <%= pass_through_filter_options_as_hidden_fields(@filter, :organisation, :type, :state, :author, :world_location, :from_date, :to_date) %>
         <input type="search" id="search_title" name="title" value="<%= @filter.options[:title] %>" placeholder="Search title">
       <% end %>
@@ -15,7 +15,7 @@
   <% if filter_by.include?(:author) %>
     <div class="filter-grouping">
       <h3>Author</h3>
-      <%= form_tag("", method: :get, class: "js-edition-select-filter") do %>
+      <%= form_tag("", method: :get, class: "js-edition-select-filter", id: 'author_filter') do %>
         <%= select_tag  :author,
                         options_for_select(admin_author_filter_options(current_user), @filter.options[:author]),
                         class: 'chzn-select',
@@ -26,7 +26,7 @@
       <% end %>
 
       <h3>or organisation</h3>
-      <%= form_tag("", method: :get, class: "js-edition-select-filter") do %>
+      <%= form_tag("", method: :get, class: "js-edition-select-filter", id: 'organisation_filter') do %>
         <%= select_tag  :organisation,
                         options_for_select(admin_organisation_filter_options(current_user), @filter.options[:organisation]),
                         class: 'chzn-select',
@@ -41,7 +41,7 @@
   <% if filter_by.include?(:world_location) %>
     <div class="filter-grouping">
       <h3>World location</h3>
-      <%= form_tag("", method: :get, class: "js-edition-select-filter") do %>
+      <%= form_tag("", method: :get, class: "js-edition-select-filter", id: 'world_location_filter') do %>
         <%= select_tag  :world_location,
                         options_for_select(admin_world_location_filter_options(current_user), @filter.options[:world_location]),
                         class: 'chzn-select',
@@ -56,7 +56,7 @@
   <% if filter_by.include?(:type) %>
     <div class="filter-grouping">
       <h3>Document type</h3>
-      <%= form_tag("", method: :get, class: "js-edition-select-filter") do  %>
+      <%= form_tag("", method: :get, class: "js-edition-select-filter", id: 'type_filter') do  %>
         <%= select_tag :type,
                         options_for_select(filter_options_for_edition(current_user), @filter.options[:type]),
                         class: 'chzn-select',
@@ -71,7 +71,7 @@
   <% if filter_by.include?(:state) %>
     <div class="filter-grouping">
       <h3>State</h3>
-      <%= form_tag("", method: :get, class: "js-edition-select-filter") do  %>
+      <%= form_tag("", method: :get, class: "js-edition-select-filter", id: 'state_filter') do  %>
         <%= select_tag :state,
                         options_for_select(admin_state_filter_options(), @filter.options[:state]),
                         class: 'chzn-select',
