@@ -60,6 +60,7 @@ module Whitehall
             topical_events
             search_format_types
             world_locations
+            document_series
           },
           date: %w{public_timestamp},
           boolean: %w{relevant_to_local_government}

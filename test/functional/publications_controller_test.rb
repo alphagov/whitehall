@@ -567,8 +567,9 @@ class PublicationsControllerTest < ActionController::TestCase
 
   view_test 'index should show relevant document series information' do
     without_delay! do
-      publication = create(:published_publication)
+      publication = create(:draft_publication)
       series = create(:document_series, documents: [publication.document])
+      publication.publish_as(create(:departmental_editor), force: true)
       get :index
 
       assert_select_object(publication) do
@@ -579,7 +580,9 @@ class PublicationsControllerTest < ActionController::TestCase
 
   view_test 'index requested as JSON includes document series information' do
     without_delay! do
-      series = create(:document_series, documents: [create(:published_publication).document])
+      publication = create(:draft_publication)
+      series = create(:document_series, documents: [publication.document])
+      publication.publish_as(create(:departmental_editor), force: true)
 
       get :index, format: :json
 
