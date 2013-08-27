@@ -1,4 +1,4 @@
-class Admin::DocumentSeriesMembershipsController  < Admin::BaseController
+class Admin::DocumentSeriesMembershipsController < Admin::BaseController
   before_filter :load_document_series
   before_filter :load_document, only: [:create, :destroy]
 

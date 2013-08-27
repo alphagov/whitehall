@@ -9,6 +9,18 @@ class Admin::DocumentSeriesGroupsControllerTest < ActionController::TestCase
 
   should_be_an_admin_controller
 
+  view_test 'GET #index lists the groups and documents in the series' do
+    doc1 = create(:published_publication)
+    doc2 = create(:published_publication)
+    @group.documents = [doc1.document, doc2.document]
+
+    get :index, document_series_id: @series
+
+    assert_select 'h2', Regexp.new(@group.heading)
+    assert_select 'label', Regexp.new(doc1.title)
+    assert_select 'label', Regexp.new(doc2.title)
+  end
+
   view_test 'GET #new renders successfully' do
     get :new, document_series_id: @series
     assert_response :ok

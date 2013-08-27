@@ -2,6 +2,10 @@ class Admin::DocumentSeriesGroupsController < Admin::BaseController
   before_filter :load_document_series
   before_filter :load_document_series_group, only: [:edit, :update]
 
+  def index
+    @groups = @series.groups
+  end
+
   def new
     @group = @series.groups.build
   end
