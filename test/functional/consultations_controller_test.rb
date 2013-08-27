@@ -9,7 +9,7 @@ class ConsultationsControllerTest < ActionController::TestCase
 
   test 'index redirects to the publications index filtering consultations' do
     get :index
-    assert_redirected_to publications_path(publication_type: PublicationType::Consultation.plural_name.downcase)
+    assert_redirected_to publications_path(publication_type: Whitehall::PublicationFilterOption::Consultation.slug)
   end
 
   test 'show displays published consultations' do

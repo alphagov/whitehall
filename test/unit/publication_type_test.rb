@@ -51,12 +51,4 @@ class PublicationTypeTest < ActiveSupport::TestCase
       refute publication_type.search_format_types.include?('publicationesque-statistics')
     end
   end
-
-  test 'search_format_types tags the type with the publicationesque-consultation for the Consultation type' do
-    assert PublicationType::Consultation.search_format_types.include?('publicationesque-consultation')
-    (PublicationType.all - [PublicationType::Consultation]).each do |publication_type|
-      refute publication_type.search_format_types.include?('publicationesque-consultation')
-    end
-  end
-
 end

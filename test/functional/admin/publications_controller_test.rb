@@ -33,14 +33,6 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     end
   end
 
-  view_test "new doesn't allow consultation to be chosen as the type" do
-    get :new
-
-    assert_select "select[name='edition[publication_type_id]']" do
-      assert_select "option", text: PublicationType::Consultation.singular_name, count: 0
-    end
-  end
-
   test "create should create a new publication" do
     post :create, edition: controller_attributes_for(:publication,
       publication_date: Time.zone.parse("2001-10-21 00:00:00"),

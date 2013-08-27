@@ -54,12 +54,6 @@ class ConsultationTest < ActiveSupport::TestCase
     refute consultation.valid?
   end
 
-  test "should be invalid if publication type not set to consultation" do
-    consultation = build(:consultation)
-    consultation.publication_type_id = PublicationType::PolicyPaper
-    refute consultation.valid?
-  end
-
   test "should build a draft copy of the existing consultation with inapplicable nations" do
     published_consultation = create(:published_consultation, nation_inapplicabilities_attributes: [
       {nation: Nation.wales, alternative_url: "http://wales.gov.uk"},
