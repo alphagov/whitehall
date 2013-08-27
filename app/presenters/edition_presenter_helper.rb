@@ -6,9 +6,7 @@ module EditionPresenterHelper
       display_type: model.display_type,
       title: model.title,
       url: context.public_document_path(model),
-      organisations: model.organisations.map { |o|
-        context.organisation_display_name(o)
-      }.to_sentence.html_safe,
+      organisations: display_organisations.html_safe,
       display_date_microformat: display_date_microformat,
       public_timestamp: model.public_timestamp
     }
@@ -19,9 +17,7 @@ module EditionPresenterHelper
   end
 
   def display_organisations
-    organisations.map { |o|
-      context.organisation_display_name(o)
-    }.to_sentence
+    organisations.map { |o| context.organisation_display_name(o) }.to_sentence
   end
 
   def display_date_microformat
