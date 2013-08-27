@@ -1,6 +1,6 @@
 <%= content_tag_for(:li, edition, class: "document-row") do %>
   <label>
-    <%= check_box_tag(:selected, '1', false, class: 'checkbox') %>
+    <%= check_box_tag('documents[]', edition.document.id, false, class: 'checkbox', id: nil) %>
     <%= edition.title %>
   </label>
   (<%= link_to 'view page', admin_edition_path(edition) %>)

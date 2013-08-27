@@ -30,7 +30,7 @@
           by searching for documents (above), or moving them here from another group.
         </p>
       <% else %>
-        <%= form_tag '/path/to/update/memberships' do %>
+        <%= form_tag admin_document_series_group_members_path(@series, group), method: 'delete' do %>
           <ul class="controls">
             <li>
               <%= check_box_tag :select_all, group.id, false, class: 'checkbox' %>

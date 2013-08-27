@@ -164,6 +164,9 @@ Whitehall::Application.routes.draw do
         resources :document_series, only: [] do
           resources :document_series_groups, as: :groups, path: 'groups' do
             member { get :delete }
+            resource :document_series_group_membership, as: :members,
+                                                        path: 'members',
+                                                        only: [:destroy]
           end
         end
         resources :policy_teams, except: [:show]
