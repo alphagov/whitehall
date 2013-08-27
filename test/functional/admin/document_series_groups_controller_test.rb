@@ -38,7 +38,7 @@ class Admin::DocumentSeriesGroupsControllerTest < ActionController::TestCase
     group = DocumentSeriesGroup.last
     assert_equal 'New group', group.heading
     assert_equal 'Group body', group.body
-    assert_redirected_to admin_document_series_documents_path(@series)
+    assert_redirected_to admin_document_series_groups_path(@series)
   end
 
   view_test 'POST #create prompts for missing data if new group invalid' do
@@ -62,7 +62,7 @@ class Admin::DocumentSeriesGroupsControllerTest < ActionController::TestCase
     @group.reload
     assert_equal 'New heading', @group.heading
     assert_equal 'New body', @group.body
-    assert_redirected_to admin_document_series_documents_path(@series)
+    assert_redirected_to admin_document_series_groups_path(@series)
   end
 
   view_test 'PUT #update prompts for missing data if group invalid' do

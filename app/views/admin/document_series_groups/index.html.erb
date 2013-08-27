@@ -1,4 +1,4 @@
-<% content_for :page_class, 'document-series-memberships index' %>
+<% content_for :page_class, 'document-series-groups index' %>
 <% page_title "#{@series.name}", "Document series" %>
 
 <p><%= link_to "Back to #{@series.organisation.name}", document_series_admin_organisation_path(@series.organisation) %></p>
@@ -10,20 +10,6 @@
     Warning: Changes you make to document series' appear instantly
     on the live site
   </p>
-
-  <div class="document-finder">
-    <%= form_tag search_admin_document_series_documents_path(format: :json), method: :get, remote: true, data: { type: 'json' } do %>
-      <label for="title">Add a document</label>
-      <%= search_field_tag :title, '', placeholder: 'Title or slug&hellip;'.html_safe, results: 5, autosave: 'unique', style: 'width:200px;margin-right:5px;float:left;' %>
-      <%= submit_tag 'Search', class: 'btn' %>
-      <%= image_tag 'loading-2b2c2d.gif', class: 'js-loading' %>
-      <%= link_to 'reset', '#', class: 'js-doc-finder-reset' %>
-      <p class="tip">
-        Only the first 10 results are returned - be as specific as you can
-      </p>
-    <% end %>
-    <div class="js-doc-finder-results"></div>
-  </div>
 
   <% @groups.each do |group| %>
     <section class="group">

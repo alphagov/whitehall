@@ -13,7 +13,7 @@ class Admin::DocumentSeriesGroupsController < Admin::BaseController
   def create
     @group = @series.groups.build(params[:document_series_group])
     if @group.save
-      redirect_to admin_document_series_documents_path(@series),
+      redirect_to admin_document_series_groups_path(@series),
                   notice: "'#{@group.heading}' added"
     else
       render :new
@@ -22,7 +22,7 @@ class Admin::DocumentSeriesGroupsController < Admin::BaseController
 
   def update
     @group.update_attributes!(params[:document_series_group])
-    redirect_to admin_document_series_documents_path(@series),
+    redirect_to admin_document_series_groups_path(@series),
                 notice: "'#{@group.heading}' saved"
   rescue ActiveRecord::RecordInvalid
     render :edit
