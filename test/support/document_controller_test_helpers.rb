@@ -281,9 +281,8 @@ module DocumentControllerTestHelpers
             get :index
           end
 
-          fetched_documents = assigns(:filter).documents
-          (0..2).to_a.each { |i| assert fetched_documents.include?(documents[i]) }
-          (3..5).to_a.each { |i| refute fetched_documents.include?(documents[i]) }
+          (0..2).to_a.each { |i| assert_filtered_documents_include documents[i] }
+          (3..5).to_a.each { |i| refute_filtered_documents_include documents[i] }
         end
       end
 
@@ -296,9 +295,8 @@ module DocumentControllerTestHelpers
             get :index, page: 2
           end
 
-          fetched_documents = assigns(:filter).documents
-          (0..2).to_a.each { |i| refute fetched_documents.include?(documents[i]) }
-          (3..5).to_a.each { |i| assert fetched_documents.include?(documents[i]) }
+          (0..2).to_a.each { |i| refute_filtered_documents_include documents[i] }
+          (3..5).to_a.each { |i| assert_filtered_documents_include documents[i] }
         end
       end
 
@@ -400,9 +398,8 @@ module DocumentControllerTestHelpers
 
           get :index
 
-          fetched_documents = assigns(:filter).documents
-          assert fetched_documents.include?(announced_today[0])
-          assert fetched_documents.include?(announced_today[1])
+          assert_filtered_documents_include announced_today[0]
+          assert_filtered_documents_include announced_today[1]
         end
       end
 
@@ -412,9 +409,8 @@ module DocumentControllerTestHelpers
 
           get :index, relevant_to_local_government: 1
 
-          fetched_documents = assigns(:filter).documents
-          assert fetched_documents.include?(announced_today[0])
-          refute fetched_documents.include?(announced_today[1])
+          assert_filtered_documents_include announced_today[0]
+          refute_filtered_documents_include announced_today[1]
         end
       end
 
@@ -438,6 +434,14 @@ module DocumentControllerTestHelpers
   end
 
   private
+
+  def assert_filtered_documents_include(edition)
+    assert_includes assigns(:filter).documents.map(&:id), edition.id
+  end
+
+  def refute_filtered_documents_include(edition)
+    refute_includes assigns(:filter).documents.map(&:id), edition.id
+  end
 
   def controller_attributes_for_instance(edition, attribute_overrides = {})
     attributes = edition.attributes
