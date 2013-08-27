@@ -19,23 +19,30 @@
           <%= link_to 'Edit heading and body', edit_admin_document_series_group_path(@series, group) %>
         </p>
       </hgroup>
-      <%= form_tag '/path/to/update/memberships' do %>
-        <ul class="controls">
-          <li>
-            <%= check_box_tag :select_all, group.id, false, class: 'checkbox' %>
-          </li>
-          <li class="remove">
-            <%= submit_tag 'Remove', class: 'btn btn-mini btn-info' %>
-          </li>
-          <li class="move">
-            Move selected to
-            <%= select_tag :new_group, options_for_select(['Group 2']), 'data-convert' => 'no' %>
-            <%= submit_tag 'Move', class: 'btn btn-mini btn-info' %>
-          </li>
-        </ul>
-        <ol class="document-list">
-          <%= render partial: 'series_document', collection: group.latest_editions, as: :edition, locals: { document_series: @series } %>
-        </ol>
+      <% if group.latest_editions.empty? %>
+        <p class="hint">
+          This group doesn't have any documents in it yet &ndash; add some
+          by searching for documents (above), or moving them here from another group.
+        </p>
+      <% else %>
+        <%= form_tag '/path/to/update/memberships' do %>
+          <ul class="controls">
+            <li>
+              <%= check_box_tag :select_all, group.id, false, class: 'checkbox' %>
+            </li>
+            <li class="remove">
+              <%= submit_tag 'Remove', class: 'btn btn-mini btn-info' %>
+            </li>
+            <li class="move">
+              Move selected to
+              <%= select_tag :new_group, options_for_select(['Group 2']), 'data-convert' => 'no' %>
+              <%= submit_tag 'Move', class: 'btn btn-mini btn-info' %>
+            </li>
+          </ul>
+          <ol class="document-list">
+            <%= render partial: 'series_document', collection: group.latest_editions, as: :edition, locals: { document_series: @series } %>
+          </ol>
+        <% end %>
       <% end %>
     </section>
   <% end %>
