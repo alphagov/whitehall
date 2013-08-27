@@ -6,7 +6,7 @@
   <% if filter_by.include?(:title) %>
     <div class="filter-grouping">
       <h3>Title or slug</h3>
-      <%= form_tag("", method: :get, class: "") do %>
+      <%= form_tag("", method: :get) do %>
         <%= pass_through_filter_options_as_hidden_fields(@filter, :organisation, :type, :state, :author, :world_location, :from_date, :to_date) %>
         <input type="search" id="search_title" name="title" value="<%= @filter.options[:title] %>" placeholder="Search title">
       <% end %>
@@ -22,7 +22,7 @@
                         include_blank: true,
                         data: { placeholder: "All authors" } %>
         <%= pass_through_filter_options_as_hidden_fields(@filter, :type, :state, :world_location, :from_date, :to_date) %>
-        <%= submit_tag "Go", class: "btn" %>
+        <%= submit_tag "Go", class: "btn js-hidden" %>
       <% end %>
 
       <h3>or organisation</h3>
@@ -33,7 +33,7 @@
                         include_blank: true,
                         data: { placeholder: "All organisations" } %>
         <%= pass_through_filter_options_as_hidden_fields(@filter, :type, :state, :world_location, :from_date, :to_date) %>
-        <%= submit_tag "Go", class: "btn" %>
+        <%= submit_tag "Go", class: "btn js-hidden" %>
       <% end %>
     </div>
   <% end %>
@@ -48,7 +48,7 @@
                         include_blank: true,
                         data: { placeholder: "All locations" } %>
         <%= pass_through_filter_options_as_hidden_fields(@filter, :type, :state, :author, :from_date, :to_date) %>
-        <%= submit_tag "Go", class: "btn" %>
+        <%= submit_tag "Go", class: "btn js-hidden" %>
       <% end %>
     </div>
   <% end %>
@@ -63,7 +63,7 @@
                         include_blank: true,
                         data: { placeholder: "All types"} %>
           <%= pass_through_filter_options_as_hidden_fields(@filter, :organisation, :world_location_ids, :state, :author, :from_date, :to_date) %>
-          <%= submit_tag "Go", class: "btn" %>
+          <%= submit_tag "Go", class: "btn js-hidden" %>
       <% end %>
     </div>
   <% end %>
@@ -78,7 +78,7 @@
                         include_blank: true,
                         data: { placeholder: "All states"} %>
           <%= pass_through_filter_options_as_hidden_fields(@filter, :organisation, :world_location_ids, :type, :author, :from_date, :to_date) %>
-          <%= submit_tag "Go", class: "btn" %>
+          <%= submit_tag "Go", class: "btn js-hidden" %>
       <% end %>
     </div>
   <% end %>
@@ -92,7 +92,7 @@
         <%= label_tag :to_date, "To" %>
         <%= text_field_tag :to_date, @filter.options[:to_date], class: 'date' %>
         <%= pass_through_filter_options_as_hidden_fields(@filter, :organisation, :world_location_ids, :state, :author, :type) %>
-        <%= submit_tag "Go", class: "btn" %>
+        <%= submit_tag "Go", class: "btn js-hidden" %>
       <% end %>
     </div>
   <% end %>
