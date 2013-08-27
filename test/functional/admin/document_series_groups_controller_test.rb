@@ -22,6 +22,17 @@ class Admin::DocumentSeriesGroupsControllerTest < ActionController::TestCase
     assert_select 'section.group .alert', /doesn't have any documents/
   end
 
+  view_test 'GET #index lets you move docs to another group' do
+    @group.documents << create(:publication).document
+    @series.groups << build(:document_series_group)
+    group1, group2 = @series.groups
+    get :index, document_series_id: @series
+    assert_select 'section.group:nth-child(1)' do
+      assert_select "option[value='#{group1.id}']", count: 0
+      assert_select "option[value='#{group2.id}']", group2.heading
+    end
+  end
+
   view_test 'GET #new renders successfully' do
     get :new, document_series_id: @series
     assert_response :ok
