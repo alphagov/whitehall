@@ -98,7 +98,7 @@ module ApplicationHelper
   def publication_type_options
     [
       ["", [""]],
-      ["Common types", (PublicationType.primary - [PublicationType::Consultation]).map { |publication_type|
+      ["Common types", PublicationType.primary.map { |publication_type|
         [publication_type.singular_name, publication_type.id]
       }],
       ["Less common types", PublicationType.less_common.map { |publication_type|

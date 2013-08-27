@@ -58,12 +58,10 @@ class PublicationType
   def search_format_types
     types = ['publication-' + self.singular_name.parameterize]
     types += ['publication-statistics', 'publicationesque-statistics'] if PublicationType.statistical.include? self
-    types << 'publicationesque-consultation' if self == Consultation
     types
   end
 
   PolicyPaper            = create(id: 1, key: "policy_paper", singular_name: "Policy paper", plural_name: "Policy papers", prevalence: :primary)
-  Consultation           = create(id: 16, key: "consultation", singular_name: "Consultation", plural_name: "Consultations", prevalence: :primary)
 
   ImpactAssessment       = create(id: 2, key: "impact_assessment", singular_name: "Impact assessment", plural_name: "Impact assessments", prevalence: :primary)
   Guidance               = create(id: 3, key: "guidance", singular_name: "Guidance", plural_name: "Guidance", prevalence: :primary)

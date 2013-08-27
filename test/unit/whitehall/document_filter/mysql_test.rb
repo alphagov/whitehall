@@ -215,6 +215,15 @@ module Whitehall::DocumentFilter
       assert_same_elements [item_1, item_2, item_3, item_4], filter.documents
     end
 
+    test "can filter consultations" do
+      publication  = create(:published_publication)
+      consultation = create(:published_consultation)
+      filter = Whitehall::DocumentFilter::Mysql.new(publication_filter_option: 'consultations')
+      filter.publications_search
+
+      assert_equal [consultation], filter.documents
+    end
+
     test "can filter announcements by location" do
       world_location = create(:world_location)
       other_world_location = create(:world_location)
