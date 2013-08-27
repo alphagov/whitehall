@@ -30,9 +30,9 @@ class DocumentSeriesGroup < ActiveRecord::Base
   end
 
   def latest_editions
-    documents.map(&:latest_edition).compact.sort_by do |edition|
-      edition.public_timestamp.to_i
-    end.reverse
+    associations = { latest_edition: [:organisations, :translations] }
+    editions = documents.includes(associations).map(&:latest_edition)
+    editions.compact.sort_by { |edition| - edition.public_timestamp.to_i }
   end
 
   def visible?
