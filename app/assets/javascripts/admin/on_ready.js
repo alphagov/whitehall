@@ -1,7 +1,7 @@
 jQuery(document).ready(function($) {
   if(typeof GOVUK === 'undefined') { window.GOVUK = {}; }
-  $(".chzn-select").chosen({allow_single_deselect: true, search_contains: true, disable_search_threshold: 10});
-  $(".chzn-select-no-deselect").chosen({allow_single_deselect: false, search_contains: true, disable_search_threshold: 10});
+  $(".chzn-select").chosen({allow_single_deselect: true, search_contains: true, disable_search_threshold: 10, width: '100%'});
+  $(".chzn-select-no-deselect").chosen({allow_single_deselect: false, search_contains: true, disable_search_threshold: 10, width: '100%'});
 
   if(typeof ieVersion === 'undefined'){
     $(".chzn-select-non-ie").addClass('chzn-select').chosen({allow_single_deselect: true, search_contains: true});
