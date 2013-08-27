@@ -104,7 +104,7 @@
         }
       }
     }
-  }  
+  }
 
   .span4 {
     float: right;
@@ -121,19 +121,20 @@
   }
 
   .table-striped {
-    .type,
+    .type {
+      width: 110px;
+    }
     .updated-by {
-      width: 15%;
+      width: 100px;
     }
-    .title {
-      width: 50%;
+    .updated {
+      width: 75px
     }
-    .updated,
     .state {
-      width: 10%;
+      width: 70px;
     }
   }
-  
+
   @include ie(6){
     .nav-list {
       li {

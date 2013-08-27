@@ -86,7 +86,7 @@ module Admin::EditionActionsHelper
     end
   end
 
-  def filter_options_for_edition(user)
+  def filter_options_for_edition_type(user)
     options = []
     [
       Policy,

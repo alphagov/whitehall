@@ -58,7 +58,7 @@
       <h3>Document type</h3>
       <%= form_tag("", method: :get, class: "js-edition-select-filter", id: 'type_filter') do  %>
         <%= select_tag :type,
-                        options_for_select(filter_options_for_edition(current_user), @filter.options[:type]),
+                        options_for_select(filter_options_for_edition_type(current_user), @filter.options[:type]),
                         class: 'chzn-select',
                         include_blank: true,
                         data: { placeholder: "All types"} %>
