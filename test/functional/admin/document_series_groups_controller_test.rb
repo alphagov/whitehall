@@ -19,7 +19,7 @@ class Admin::DocumentSeriesGroupsControllerTest < ActionController::TestCase
 
   view_test "GET #index shows helpful message when a group is empty" do
     get :index, document_series_id: @series
-    assert_select 'section.group p.hint', /doesn't have any documents/
+    assert_select 'section.group .alert', /doesn't have any documents/
   end
 
   view_test 'GET #new renders successfully' do
@@ -70,5 +70,32 @@ class Admin::DocumentSeriesGroupsControllerTest < ActionController::TestCase
     put_update(heading: '')
     assert_response :success
     assert_select '.errors li', text: /Heading/
+  end
+
+  view_test "GET #delete explains you can't delete groups that have documents" do
+    @group.documents = [create(:publication).document]
+    @series.groups << build(:document_series_group)
+    get :delete, document_series_id: @series, id: @group
+    assert_select 'div.alert', /can't delete a group.*documents/
+    assert_select 'input[type="submit"]', count: 0
+  end
+
+  view_test "GET #delete explains you can't delete the last group" do
+    get :delete, document_series_id: @series, id: @group
+    assert_select 'div.alert', /can't\s+delete the last/
+    assert_select 'input[type="submit"]', count: 0
+  end
+
+  view_test 'GET #delete allows you to delete an empty group' do
+    @series.groups << build(:document_series_group)
+    get :delete, document_series_id: @series, id: @group
+    assert_select 'input[type="submit"][value="Delete"]'
+  end
+
+  view_test 'DELETE #destroy deletes group and redirects' do
+    assert_difference '@series.groups.count', -1 do
+      delete :destroy, document_series_id: @series, id: @group
+    end
+    assert_redirected_to admin_document_series_groups_path(@series)
   end
 end

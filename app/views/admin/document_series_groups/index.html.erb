@@ -15,12 +15,17 @@
     <section class="group">
       <hgroup>
         <h2>Group: <%= group.heading %></h2>
-        <p class="edit">
-          <%= link_to 'Edit heading and body', edit_admin_document_series_group_path(@series, group) %>
-        </p>
+        <ul class="actions">
+          <li>
+            <%= link_to 'Edit heading and body', edit_admin_document_series_group_path(@series, group) %>
+          </li>
+          <li>
+            <%= link_to 'Delete', delete_admin_document_series_group_path(@series, group) %>
+          </li>
+        </ul>
       </hgroup>
       <% if group.latest_editions.empty? %>
-        <p class="hint">
+        <p class="alert alert-info">
           This group doesn't have any documents in it yet &ndash; add some
           by searching for documents (above), or moving them here from another group.
         </p>

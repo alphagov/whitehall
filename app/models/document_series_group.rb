@@ -1,7 +1,8 @@
 class DocumentSeriesGroup < ActiveRecord::Base
   belongs_to :document_series
   has_many :memberships, class_name: 'DocumentSeriesGroupMembership',
-                         order: 'document_series_group_memberships.ordering'
+                         order: 'document_series_group_memberships.ordering',
+                         dependent: :destroy
   has_many :documents, through: :memberships
   has_many :editions, through: :documents
 

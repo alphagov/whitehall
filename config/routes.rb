@@ -162,7 +162,9 @@ Whitehall::Application.routes.draw do
           resources :financial_reports, except: [:show]
         end
         resources :document_series, only: [] do
-          resources :document_series_groups, as: :groups, path: 'groups'
+          resources :document_series_groups, as: :groups, path: 'groups' do
+            member { get :delete }
+          end
         end
         resources :policy_teams, except: [:show]
         resources :policy_advisory_groups, except: [:show]

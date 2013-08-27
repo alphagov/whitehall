@@ -15,15 +15,23 @@
         position: relative;
       }
 
-      p.edit {
+      ul.actions {
         position: absolute;
         bottom: 0;
         right: 0;
 
-        margin: 0 0 3px 0;
+        margin: 0 0 5px 0;
+
+        li:last-child {
+          margin-right: 0;
+          &:after {
+            content: '';
+            margin-left: 0;
+          }
+        }
       }
 
-      $controls-background: #f6f6f6;
+      $controls-background: #f3f3f3;
 
       input.checkbox {
         position: absolute;
@@ -31,15 +39,14 @@
         left: $gutter-one-third;
       }
 
-      p.hint,
+      p.alert,
       ul.controls {
         margin: $gutter-one-third 0 0;
       }
 
-      p.hint {
+      p.alert {
         margin-bottom: $gutter;
         padding: $gutter-half $gutter-one-third;
-        background: $controls-background;
 
         text-align: center;
       }
@@ -128,9 +135,14 @@
     }
   }
 
-  &.new {
+  &.new,
+  &.edit {
     form {
       margin-top: $gutter;
     }
+  }
+
+  &.delete form p {
+    margin-bottom: $gutter;
   }
 }

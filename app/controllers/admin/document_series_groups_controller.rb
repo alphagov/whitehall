@@ -1,6 +1,6 @@
 class Admin::DocumentSeriesGroupsController < Admin::BaseController
   before_filter :load_document_series
-  before_filter :load_document_series_group, only: [:edit, :update]
+  before_filter :load_document_series_group, only: [:delete, :destroy, :edit, :update]
 
   def index
     @groups = @series.groups
@@ -26,6 +26,12 @@ class Admin::DocumentSeriesGroupsController < Admin::BaseController
                 notice: "'#{@group.heading}' saved"
   rescue ActiveRecord::RecordInvalid
     render :edit
+  end
+
+  def destroy
+    @group.destroy
+    redirect_to admin_document_series_groups_path(@series),
+                notice: "'#{@group.heading}' was deleted"
   end
 
   private
