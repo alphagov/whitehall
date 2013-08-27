@@ -35,4 +35,10 @@ class FatalityNoticeTest < ActiveSupport::TestCase
     assert fatality_notice.search_format_types.include?('fatality-notice')
     assert fatality_notice.search_format_types.include?('announcement')
   end
+
+  test "search_index includes slug of operational field" do
+    operational_field = create(:operational_field)
+    fatality_notice = create(:published_fatality_notice, operational_field: operational_field)
+    assert_equal operational_field.slug, fatality_notice.search_index["operational_field"]
+  end
 end
