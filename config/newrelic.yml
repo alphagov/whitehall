@@ -199,7 +199,7 @@ development:
   # executed since starting the app server.
   # NOTE: There is substantial overhead when running in developer mode.
   # Do not use for production or load testing.
-  developer_mode: false
+  developer_mode: <%= ENV['ENABLE_NEWRELIC'] ? "true" : "false" %>
 
   # Enable textmate links
   # textmate: true

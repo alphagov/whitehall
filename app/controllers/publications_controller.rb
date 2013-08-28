@@ -1,16 +1,4 @@
 class PublicationsController < DocumentsController
-  class SearchPublicationesqueDecorator < SimpleDelegator
-    def initialize(filter, view_context)
-      super(filter)
-      @view_context = view_context
-    end
-
-    def documents
-      Whitehall::Decorators::CollectionDecorator.new(
-          __getobj__.documents, PublicationesquePresenter, @view_context)
-    end
-  end
-
   def index
     clean_search_filter_params
 
@@ -19,13 +7,15 @@ class PublicationsController < DocumentsController
 
     respond_to do |format|
       format.html do
-        @filter = DocumentFilterPresenter.new(@filter, view_context)
+        @filter = DocumentFilterPresenter.new(@filter, view_context, PublicationesquePresenter)
       end
       format.json do
-        render json: PublicationFilterJsonPresenter.new(@filter, view_context)
+        render json: PublicationFilterJsonPresenter.new(@filter, view_context, PublicationesquePresenter)
       end
       format.atom do
-        @publications = @filter.documents.sort_by(&:public_timestamp).reverse
+        documents = load_editions_by_id(@filter.documents.map(&:id))
+        @publications = Whitehall::Decorators::CollectionDecorator.new(
+          documents.sort_by(&:public_timestamp).reverse, PublicationesquePresenter, view_context)
       end
     end
   end
@@ -42,7 +32,7 @@ private
   def build_document_filter(params)
     document_filter = search_backend.new(params)
     document_filter.publications_search
-    SearchPublicationesqueDecorator.new(document_filter, view_context)
+    document_filter
   end
 
   def scheduled_publications

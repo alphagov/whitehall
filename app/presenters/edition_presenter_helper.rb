@@ -5,23 +5,27 @@ module EditionPresenterHelper
       type: model.type.underscore,
       display_type: model.display_type,
       title: model.title,
-      url: context.public_document_path(model),
-      organisations: model.organisations.map { |o|
-        context.organisation_display_name(o)
-      }.to_sentence.html_safe,
+      url: url,
+      organisations: display_organisations.html_safe,
       display_date_microformat: display_date_microformat,
       public_timestamp: model.public_timestamp
     }
   end
 
+  def url
+    if model.respond_to? :link
+      model.link
+    else
+      context.public_document_path(model)
+    end
+  end
+
   def link
-    context.link_to model.title, context.public_document_path(model)
+    context.link_to model.title, url
   end
 
   def display_organisations
-    organisations.map { |o|
-      context.organisation_display_name(o)
-    }.to_sentence
+    organisations.map { |o| context.organisation_display_name(o) }.to_sentence
   end
 
   def display_date_microformat
