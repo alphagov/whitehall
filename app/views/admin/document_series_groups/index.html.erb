@@ -34,7 +34,7 @@
           <%= form_tag admin_document_series_group_members_path(@series, group), method: 'delete' do %>
             <ul class="controls">
               <li>
-                <%= check_box_tag :select_all, group.id, false, class: 'checkbox' %>
+                <%= check_box_tag :select_all, group.id, false, id: nil, class: 'checkbox' %>
               </li>
               <li class="remove">
                 <%= submit_tag 'Remove', class: 'btn btn-mini btn-info' %>
