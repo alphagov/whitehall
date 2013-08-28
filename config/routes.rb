@@ -134,6 +134,7 @@ Whitehall::Application.routes.draw do
 
         resources :authors, only: [:show]
         resources :document_series, only: [:index]
+        resource :document_searches, only: [:show]
         resources :organisations do
           resources :groups, except: [:show]
           resources :document_series, except: [:index]
