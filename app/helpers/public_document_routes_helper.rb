@@ -14,12 +14,13 @@ module PublicDocumentRoutesHelper
   end
 
   def preview_document_path(edition, options = {})
-    query = {
-      preview: edition.latest_edition.id,
-      cachebust: Time.zone.now.getutc.to_i
-    }
-
+    query = { preview: edition.latest_edition.id, cachebust: Time.zone.now.getutc.to_i }
     document_path(edition, options.merge(query))
+  end
+
+  def preview_html_version_path(edition, html_version)
+    query = { preview: html_version.id, cachebust: Time.zone.now.getutc.to_i, id: edition.document.slug }
+    polymorphic_path([model_name_for_route_recognition(edition), html_version], query)
   end
 
   def document_url(edition, options = {})
