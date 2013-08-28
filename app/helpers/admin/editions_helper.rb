@@ -22,11 +22,11 @@ module Admin::EditionsHelper
   end
 
   def admin_documents_header_link
-    admin_header_link "Edit documents", admin_editions_path, /^#{Whitehall.router_prefix}\/admin\/(editions|publications|policies|news_articles|consultations|speeches)/
+    admin_header_link "Documents", admin_editions_path, /^#{Whitehall.router_prefix}\/admin\/(editions|publications|policies|news_articles|consultations|speeches)/
   end
 
   def admin_document_series_header_link
-    admin_header_link "Curate document series", admin_document_series_index_path, /^#{Whitehall.router_prefix}\/admin\/document_series/
+    admin_header_link "Document series", admin_document_series_index_path, /^#{Whitehall.router_prefix}\/admin\/document_series/
   end
 
   def link_to_filter(link, options, filter, html_options = {})
