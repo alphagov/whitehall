@@ -1,11 +1,11 @@
 <% page_title @filter.page_title %>
-<section class="documents">
+<section class="editions-index">
   <div class="row-fluid">
-    <div class="span2">
+    <div class="span3">
       <%= render partial: 'filter_options' %>
     </div>
 
-    <div class="collection span10">
+    <div class="collection span9">
       <h1>
         <%= "#{@filter.page_title}" %>
       </h1>
@@ -30,11 +30,11 @@
         <thead>
           <tr>
             <th class="type">Type</th>
-            <th>Title</th>
-            <th>Updated by</th>
-            <th>Updated</th>
+            <th class="title">Title</th>
+            <th class="updated-by">Updated by</th>
+            <th class="updated">Updated</th>
             <% if viewing_all_active_editions? %>
-              <th>State</th>
+              <th class="state">State</th>
             <% end %>
           </tr>
         </thead>

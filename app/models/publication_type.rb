@@ -23,10 +23,6 @@ class PublicationType
     all.detect { |type| type.slug == slug }
   end
 
-  def self.find_by_plural_name(plural_name)
-    all.detect { |type| type.plural_name == plural_name }
-  end
-
   def self.primary
     by_prevalence[:primary]
   end

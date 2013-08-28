@@ -201,7 +201,7 @@ jQuery(function($) {
     selectTopics: function(data, textStatus, jqXHR) {
       $.each(data['topics'], function(i, topic) {
         SetTopicsFromPolicy.$topics.find('option[value=' + topic.id + ']').prop('selected', true);
-        SetTopicsFromPolicy.$topics.trigger('liszt:updated');
+        SetTopicsFromPolicy.$topics.trigger('chosen:updated.chosen');
       });
     },
 

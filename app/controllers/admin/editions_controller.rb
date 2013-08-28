@@ -10,7 +10,6 @@ class Admin::EditionsController < Admin::BaseController
   before_filter :build_edition, only: [:new, :create]
   before_filter :build_edition_organisations, only: [:new, :edit]
   before_filter :detect_other_active_editors, only: [:edit]
-  before_filter :set_default_world_locations, only: :index
   before_filter :set_default_edition_locations, only: :new
   before_filter :enforce_permissions!
   before_filter :limit_edition_access!, only: [:show, :edit, :update, :submit, :revise, :diff, :reject, :destroy, :confirm_unpublish]
@@ -262,22 +261,16 @@ class Admin::EditionsController < Admin::BaseController
     end
   end
 
-  def set_default_world_locations
-    if current_user.world_locations.any?
-      params[:world_location_ids] ||= current_user.world_locations.map(&:id)
-    end
-  end
-
   def session_filters
     sanitized_filters(session[:document_filters] || {})
   end
 
   def params_filters
-    sanitized_filters(params.slice(:type, :state, :organisation, :author, :page, :title, :world_location_ids, :from_date, :to_date))
+    sanitized_filters(params.slice(:type, :state, :organisation, :author, :page, :title, :world_location, :from_date, :to_date))
   end
 
   def params_filters_with_default_state
-    params_filters.reverse_merge(state: 'active', world_location_ids: 'all')
+    params_filters.reverse_merge(state: 'active')
   end
 
   def sanitized_filters(filters)

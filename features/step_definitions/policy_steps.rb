@@ -277,9 +277,8 @@ Then /^I should see a link to the preview version of the policy "([^"]*)"$/ do |
 end
 
 Then /^I should see the policy titled "([^"]*)" in the list of documents that need work$/ do |policy_title|
-  visit admin_editions_path
-  click_link "Show only rejected documents"
   policy = Policy.find_by_title(policy_title)
+  filter_editions_by :state, "Rejected"
   assert page.has_css?("#{record_css_selector(policy)}", text: policy.title)
 end
 
@@ -304,8 +303,8 @@ Then /^I should see that it was rejected by "([^"]*)"$/ do |rejected_by|
 end
 
 Then /^I should see the policy titled "([^"]*)" in the list of submitted documents$/ do |policy_title|
-  visit admin_editions_path(state: :draft)
-  click_link "Show only submitted documents"
+  filter_editions_by :author, nil
+  filter_editions_by :state, 'Submitted'
   policy = Policy.find_by_title!(policy_title)
   assert page.has_css?("#{record_css_selector(policy)}", text: policy.title)
 end
