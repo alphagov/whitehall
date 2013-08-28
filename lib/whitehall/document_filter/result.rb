@@ -10,12 +10,8 @@ module Whitehall::DocumentFilter
       end
     end
 
-    def initialize(doc, all_orgs, all_topics, all_doc_series, all_operation_fields)
+    def initialize(doc)
       @doc = doc
-      @all_orgs = all_orgs
-      @all_topics = all_topics
-      @all_doc_series = all_doc_series
-      @all_operation_fields = all_operation_fields
     end
 
     def type
@@ -31,19 +27,38 @@ module Whitehall::DocumentFilter
     end
 
     def organisations
-      @doc.fetch('organisations', []).map { |slug| @all_orgs[slug] }.compact
+      @doc.fetch('organisations', []).map { |slug| fetch_from_cache(:organisation, slug) }.compact
     end
 
     def topics
-      @doc.fetch('topics', []).map { |slug| @all_topics[slug] }.compact
+      @doc.fetch('topics', []).map { |slug| fetch_from_cache(:topic, slug) }.compact
     end
 
     def document_series
-      @doc.fetch('document_series', []).map { |slug| @all_doc_series[slug] }.compact
+      @doc.fetch('document_series', []).map { |slug| fetch_from_cache(:document_series, slug) }.compact
     end
 
     def operational_field
-      @all_operation_fields[@doc['operational_field']]
+      fetch_from_cache(:operational_field, @doc['operational_field'])
     end
+
+  private
+    def fetch_from_cache(type, slug)
+      Rails.cache.fetch("#{type}-#{slug}", namespace: "results", expires_in: 30.minutes, race_condition_ttl: 1.second) do
+        case type
+        when :organisation
+          Organisation.includes(:translations).find_by_slug(slug)
+        when :topic
+          Classification.find_by_slug(slug)
+        when :document_series
+          DocumentSeries.includes(:organisation).find_by_slug(slug)
+        when :operational_field
+          OperationalField.find_by_slug(slug)
+        else
+          raise "Can't fetch '#{type}' -- unknown type"
+        end
+      end
+    end
+
   end
 end
