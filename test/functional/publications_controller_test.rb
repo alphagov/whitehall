@@ -23,6 +23,11 @@ class PublicationsControllerTest < ActionController::TestCase
   should_show_local_government_items_for :consultation
   should_set_meta_description_for :publication
 
+  def assert_publication_order(expected_order)
+    actual_order = assigns(:publications).map(&:model).map(&:id)
+    assert_equal expected_order.map(&:id), actual_order
+  end
+
   test "index should handle badly formatted params for topics and departments" do
     assert_nothing_raised {
       get :index, departments: {"0" => "all"}, topics: {"0" => "all"}, keywords: [], world_location: {"0" => "all"}
@@ -506,7 +511,7 @@ class PublicationsControllerTest < ActionController::TestCase
 
       get :index, format: :atom
 
-      assert_equal [ newest, middle, oldest ], assigns(:publications).map(&:model)
+      assert_publication_order [ newest, middle, oldest ]
     end
   end
 
@@ -518,7 +523,7 @@ class PublicationsControllerTest < ActionController::TestCase
 
       get :index, format: :atom
 
-      assert_equal [ newest, middle, oldest ], assigns(:publications).map(&:model)
+      assert_publication_order [ newest, middle, oldest ]
     end
   end
 
@@ -530,7 +535,7 @@ class PublicationsControllerTest < ActionController::TestCase
 
       get :index, format: :atom
 
-      assert_equal [ newest, middle, oldest ], assigns(:publications).map(&:model)
+      assert_publication_order [ newest, middle, oldest ]
     end
   end
 
@@ -562,8 +567,9 @@ class PublicationsControllerTest < ActionController::TestCase
 
   view_test 'index should show relevant document series information' do
     without_delay! do
-      publication = create(:published_publication)
+      publication = create(:draft_publication)
       series = create(:document_series, documents: [publication.document])
+      publication.publish_as(create(:departmental_editor), force: true)
       get :index
 
       assert_select_object(publication) do
@@ -574,7 +580,9 @@ class PublicationsControllerTest < ActionController::TestCase
 
   view_test 'index requested as JSON includes document series information' do
     without_delay! do
-      series = create(:document_series, documents: [create(:published_publication).document])
+      publication = create(:draft_publication)
+      series = create(:document_series, documents: [publication.document])
+      publication.publish_as(create(:departmental_editor), force: true)
 
       get :index, format: :json
 

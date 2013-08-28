@@ -32,6 +32,10 @@ class FatalityNotice < Announcement
     "fatality_notice"
   end
 
+  def search_index
+    super.merge("operational_field" => operational_field.slug)
+  end
+
   def search_format_types
     super + [FatalityNotice.search_format_type]
   end

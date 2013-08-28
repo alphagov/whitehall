@@ -60,6 +60,7 @@ module Whitehall
             topical_events
             search_format_types
             world_locations
+            document_series
           },
           date: %w{public_timestamp},
           boolean: %w{relevant_to_local_government}
@@ -159,12 +160,12 @@ module Whitehall
         date_filter_hash = date_filter_hash.stringify_keys
         document_hashes = date_filter_hash.inject(document_hashes) do |document_hashes, (direction, date_filter_value)|
           raise GdsApi::Rummager::SearchServiceError, "Invalid date #{date_filter_value}" unless valid_date?(date_filter_value)
-          date = Date.parse(date_filter_value)
+          date = Time.zone.parse(date_filter_value)
           predicate = case direction
           when "before"
-            ->(document_hash) { document_hash[field] && document_hash[field] <= date }
+            ->(document_hash) { document_hash[field] && Time.zone.parse(document_hash[field]) <= date }
           when "after"
-            ->(document_hash) { document_hash[field] && document_hash[field] >= date }
+            ->(document_hash) { document_hash[field] && Time.zone.parse(document_hash[field]) >= date }
           else
             ->(_) {true}
           end
@@ -185,7 +186,7 @@ module Whitehall
       def add(documents, index_name)
         docs = documents.is_a?(Hash) ? [documents] : documents
         docs.each do |document|
-          document = document.stringify_keys
+          document = normalize(document)
           index = self.index(index_name)
           index[document['link']] = document
         end
@@ -203,6 +204,17 @@ module Whitehall
 
       def initialize_index(index_name)
         @indexes[index_name] ||= {}
+      end
+
+    private
+      def normalize(document)
+        document = document.stringify_keys
+        document.each_with_object({}) do |(k,v), memo|
+          memo[k] = case v
+          when String, Array, Fixnum, TrueClass, FalseClass then v
+          else v.to_s
+          end
+        end
       end
     end
   end

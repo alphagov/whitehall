@@ -174,7 +174,8 @@ class Edition < ActiveRecord::Base
     index_after: [],
     unindex_after: [],
     search_format_types: :search_format_types,
-    attachments: nil
+    attachments: nil,
+    operational_field: nil
   )
 
   def search_link

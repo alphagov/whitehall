@@ -11,7 +11,7 @@ class AnnouncementPresenter < Whitehall::Decorators::Decorator
   end
 
   def field_of_operation
-    if model.respond_to?(:operational_field)
+    if model.respond_to?(:operational_field) && model.operational_field.present?
       "Field of operation: #{context.link_to(model.operational_field.name, model.operational_field)}"
     end
   end

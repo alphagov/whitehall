@@ -4,7 +4,7 @@ module Whitehall::DocumentFilter
   class RummagerTest < ActiveSupport::TestCase
 
     setup do
-      Whitehall.government_search_client.stubs(:advanced_search).returns []
+      Whitehall.government_search_client.stubs(:advanced_search).returns {}
     end
 
     def format_types(*classes)
@@ -34,12 +34,6 @@ module Whitehall::DocumentFilter
       rummager.announcements_search
     end
 
-    test 'announcements_search will eager load document and organisations' do
-      rummager = Rummager.new({})
-      rummager.announcements_search
-      assert_equal [:document, organisations: :translations], rummager.edition_eager_load
-    end
-
     test 'publications_search looks for Publications, Consultations, and StatisticalDataSets by default' do
       rummager = Rummager.new({})
       expect_search_by_format_types(format_types(Consultation, Publication, StatisticalDataSet))
@@ -52,23 +46,16 @@ module Whitehall::DocumentFilter
       rummager.publications_search
     end
 
-    test 'publications_search will eager load document and organisations' do
-      rummager = Rummager.new({})
-      rummager.publications_search
-      assert_equal [:document, organisations: :translations], rummager.edition_eager_load
-    end
-
     test 'policies_search looks for Policy documents' do
       rummager = Rummager.new({})
       expect_search_by_format_types(format_types(Policy))
       rummager.policies_search
     end
 
-    test 'policies_search will eager load document and organisations' do
+    test 'documents returns a paginated array' do
       rummager = Rummager.new({})
-      rummager.policies_search
-      assert_equal [:document, organisations: :translations], rummager.edition_eager_load
+      rummager.announcements_search
+      assert_kind_of Kaminari::PaginatableArray, rummager.documents
     end
-
   end
 end

@@ -7,17 +7,6 @@ class PoliciesController < DocumentsController
   respond_to :html
   respond_to :atom, only: :activity
 
-  class SearchPoliciesDecorator < SimpleDelegator
-    def initialize(filter, view_context)
-      super(filter)
-      @view_context = view_context
-    end
-
-    def documents
-      Whitehall::Decorators::CollectionDecorator.new(__getobj__.documents, PolicyPresenter, @view_context)
-    end
-  end
-
   def index
     clean_search_filter_params
 
@@ -25,10 +14,10 @@ class PoliciesController < DocumentsController
 
     respond_to do |format|
       format.html do
-        @filter = DocumentFilterPresenter.new(@filter, view_context)
+        @filter = DocumentFilterPresenter.new(@filter, view_context, PolicyPresenter)
       end
       format.json do
-        render json: PolicyFilterJsonPresenter.new(@filter, view_context)
+        render json: PolicyFilterJsonPresenter.new(@filter, view_context, PolicyPresenter)
       end
     end
   end
@@ -61,7 +50,7 @@ class PoliciesController < DocumentsController
   def build_document_filter(params)
     document_filter = search_backend.new(params)
     document_filter.policies_search
-    SearchPoliciesDecorator.new(document_filter, view_context)
+    document_filter
   end
 
   def analytics_format
