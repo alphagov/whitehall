@@ -50,7 +50,7 @@
         <div class="filter" id="department-filter">
           <div class="filter-inner">
             <%= label_tag "departments", "Department" %>
-            <%= select_tag "departments[]", organisation_filter_options(all_organisations_with(document_type), @filter.selected_organisations), class: "single-row-select", id: "departments" %>
+            <%= select_tag "departments[]", organisation_filter_options(@filter.selected_organisations), class: "single-row-select", id: "departments" %>
           </div>
         </div>
       <% end %>
