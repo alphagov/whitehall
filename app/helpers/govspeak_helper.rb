@@ -29,10 +29,17 @@ module GovspeakHelper
     bare_govspeak_to_html(partially_processed_govspeak, [])
   end
 
-  def govspeak_headers(govspeak, level = 2)
-    level = (level..level) unless level.is_a?(Range)
+  def govspeak_headers(govspeak, level=(2..2))
     build_govspeak_document(govspeak).headers.select do |header|
       level.cover?(header.level)
+    end
+  end
+
+  def html_version_govspeak_headers(html_version)
+    govspeak_headers(html_version.body).tap do |headers|
+      if html_version.manually_numbered?
+        headers.each { |header| header.text = header.text.gsub(/^(\d+.?\d*\s*)/, '') }
+      end
     end
   end
 
@@ -73,8 +80,13 @@ module GovspeakHelper
     content_tag(:code, "[InlineAttachment:#{number}]")
   end
 
+  def govspeak_options_for_html_version(html_version)
+    numbering_method = html_version.manually_numbered? ? :manual : :auto
+    { heading_numbering: numbering_method, contact_heading_tag: 'h4' }
+  end
 
   private
+
   def remove_extra_quotes_from_blockquotes(govspeak)
     Whitehall::ExtraQuoteRemover.new.remove(govspeak)
   end
@@ -94,7 +106,11 @@ module GovspeakHelper
       # post-processors
       replace_internal_admin_links_in(nokogiri_doc, &block)
       add_class_to_last_blockquote_paragraph(nokogiri_doc)
-      add_heading_numbers(nokogiri_doc, options[:numbered_heading_level]) if options[:numbered_heading_level]
+      if options[:heading_numbering] == :auto
+        add_heading_numbers(nokogiri_doc)
+      elsif options[:heading_numbering] == :manual
+        add_manual_heading_numbers(nokogiri_doc)
+      end
     end.to_html.html_safe
   end
 
@@ -118,7 +134,7 @@ module GovspeakHelper
 
   def set_classes_for_charts(govspeak)
     return govspeak if govspeak.blank?
-    
+
     govspeak.gsub(GovspeakHelper::BARCHART_REGEXP) do
       stacked = '.mc-stacked' if $1.include? 'stacked'
       compact = '.compact' if $1.include? 'compact'
@@ -126,7 +142,7 @@ module GovspeakHelper
 
       [
        '{:',
-       '.js-barchart-table', 
+       '.js-barchart-table',
        stacked,
        compact,
        negative,
@@ -135,7 +151,7 @@ module GovspeakHelper
       ].join(' ')
     end
   end
-  
+
   def replace_internal_admin_links_in(nokogiri_doc)
     nokogiri_doc.search('a').each do |anchor|
       next unless is_internal_admin_link?(uri = anchor['href'])
@@ -164,18 +180,29 @@ module GovspeakHelper
     end
   end
 
-  def add_heading_numbers(nokogiri_doc, heading_levels)
-    nokogiri_doc.css(heading_levels.join(',')).reduce([0, 0]) do |levels, el|
-      if el.name == heading_levels[0]
-        levels = [levels[0] + 1, 0]
-        level_output = "#{levels[0]}."
+  def add_heading_numbers(nokogiri_doc)
+    h2_depth, h3_depth = 0, 0
+    nokogiri_doc.css('h2, h3').each do |el|
+      number = if el.name == 'h2'
+        "#{h2_depth+=1}."
       else
-        levels = [levels[0], levels[1] + 1]
-        level_output = levels[0] > 0 ? levels.join('.') : ""
+        "#{h2_depth}.#{h3_depth+=1}"
       end
-      el.inner_html = el.document.fragment(%{<span class="number">#{level_output} </span>#{el.inner_html}}).children unless level_output.empty?
-      levels
+      el.inner_html = el.document.fragment(%{<span class="number">#{number} </span>#{el.inner_html}})
     end
+  end
+
+  def add_manual_heading_numbers(nokogiri_doc)
+    nokogiri_doc.css('h2, h3').each do |el|
+      if number = extract_number_from_heading(el)
+        heading_without_number = el.inner_html.gsub(number, '')
+        el.inner_html = el.document.fragment(%{<span class="number">#{number} </span>#{heading_without_number}})
+      end
+    end
+  end
+
+  def extract_number_from_heading(nokogiri_el)
+    nokogiri_el.inner_text[/\d+.?\d*/]
   end
 
   def markup_to_nokogiri_doc(govspeak, images = [])
