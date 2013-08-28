@@ -14,9 +14,8 @@ class NewsArticle < Newsesque
     NewsArticleType.all
   end
 
-  def self.by_subtype_plural_name(plural_name)
-    subtype = NewsArticleType.find_by_plural_name(plural_name)
-    where(news_article_type_id: subtype.id) if subtype
+  def self.by_subtype(subtype)
+    where(news_article_type_id: subtype.id)
   end
 
   def news_article_type

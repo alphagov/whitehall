@@ -470,8 +470,8 @@ class Edition < ActiveRecord::Base
     end
 
     # used by Admin::EditionFilter
-    def by_subtype(type, plural_name)
-      type.constantize.by_subtype_plural_name(plural_name)
+    def by_subtype(type, sub_type)
+      type.by_subtype(sub_type)
     end
 
     # used by Admin::EditionFilter

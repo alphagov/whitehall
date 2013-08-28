@@ -35,13 +35,6 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     get :index, type: :policy
   end
 
-  test 'should add world_location_ids param set to "all" if none is supplied' do
-    stub_filter = stub_edition_filter
-    Admin::EditionFilter.expects(:new).with(anything, anything, has_entry("world_location_ids" => "all")).returns(stub_filter)
-
-    get :index, type: :policy
-  end
-
   view_test 'should distinguish between edition types when viewing the list of editions' do
     policy = create(:draft_policy)
     publication = create(:draft_publication)

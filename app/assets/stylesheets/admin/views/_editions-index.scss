@@ -1,0 +1,174 @@
+.editions-index {
+
+  .editions-filter {
+    background-color: #f5f5f5;
+    margin-top: 0;
+    padding: $gutter-one-sixth $gutter-one-third;
+    h2 {
+      font-size: 19px;
+    }
+    .filter-grouping {
+      border-top: 1px solid #ddd;
+      padding: $gutter-one-sixth 0 $gutter-one-third 0;
+      label,
+      h3 {
+        font-size: 14px;
+        line-height: 27px;
+        margin-bottom: 0;
+        font-weight: bold;
+      }
+      form {
+        margin-bottom: 0;
+        input {
+          @include border-radius(0);
+          width: 95%;
+        }
+        select {
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  .publishing-stats {
+    margin: 18px 0;
+    text-align: right;
+  }
+
+  div.toggle_group {
+    display: inline;
+
+    a.toggle {
+      float: right;
+      margin-right: 2.5%;
+      margin-bottom: 0;
+      width: 12em;
+      text-align: right;
+    }
+  }
+
+  .label.force_published {
+    margin-left: 1em;
+  }
+
+  .additional_information {
+    padding: 0.4em 1em 0.2em 1em;
+    margin: 0.3em 0 0 0;
+
+    h4 {
+      margin: 0.2em 0 0.6em 0;
+      color: #777;
+    }
+
+    ul {
+      margin-left: 0;
+
+      li {
+        margin: 0;
+        display: block;
+        background: #fff;
+        margin-bottom: 0.5em;
+        border: 1px solid #eee;
+        border-bottom: 1px solid #ddd;
+
+        a {
+          display: block;
+          padding: 0.5em 0.75em;
+        }
+      }
+    }
+  }
+
+// Edition filter page styling to overide bootstrap
+  .well {
+    @include border-radius(0);
+    border: 0;
+    margin-top: 0;
+    .nav .nav-header {
+      color: $black;
+      font-size: 14px;
+      text-transform: none;
+    }
+  }
+  .table th,
+  .table td {
+    padding: $gutter-one-sixth;
+  }
+
+  .span7 {
+    margin-left: 0;
+  }
+  .pagination {
+    ul {
+      li {
+        a {
+          padding: $gutter-one-third;
+          line-height: 0.5;
+        }
+        &:first-child a,
+        &:last-child a {
+          @include border-radius(0);
+        }
+      }
+    }
+  }
+
+  .span4 {
+    float: right;
+    .publishing-stats {
+      font-size: 16px;
+      .badge {
+        @include border-radius(0);
+        background: none;
+        color: $black;
+        font-size: 16px;
+        font-weight: bold;
+
+        &:last-child {
+          padding-right: 0;
+        }
+      }
+    }
+  }
+
+  .table-striped {
+    .type {
+      width: 110px;
+    }
+    .updated-by {
+      width: 100px;
+    }
+    .updated {
+      width: 75px
+    }
+    .state {
+      width: 70px;
+    }
+  }
+
+  @include ie(6){
+    .nav-list {
+      li {
+        display: inline;
+        background: transparent;
+
+        a {
+          display: block;
+          padding: 3px 15px;
+          margin: 0 -15px;
+        }
+        &.active {
+          a {
+            color: #fff;
+            background-color: #08C;
+
+            &:hover {
+              background-color: #08C;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+

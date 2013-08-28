@@ -6,7 +6,7 @@ Scenario: Viewing only documents written by me
   And a draft publication "Another Publication" exists
   And I visit the list of draft documents
 
-  When I select the "Show documents by me" filter
+  When I filter by author "Me"
   Then I should see the publication "My Publication"
   And I should not see the publication "Another Publication"
 
@@ -18,7 +18,7 @@ Scenario: Viewing only publications written by me
   And I visit the list of draft documents
 
   When I filter by author "Janice"
-  And I select the "Publication" edition filter
+  And I select the "Publications" edition filter
   Then I should see the publication "Janice's Publication"
   And I should not see the policy "My Policy"
 
@@ -29,7 +29,7 @@ Scenario: Viewing only documents related to my department
   And a draft publication "Another Publication" was produced by the "Ministry of Post-it Notes" organisation
   And I visit the list of draft documents
 
-  When I select the "Show documents by my department" filter
+  When I filter by organisation "Department of Thumbtacks"
   Then I should see the publication "Thumbtack Publication"
   And I should not see the publication "Another Publication"
 
