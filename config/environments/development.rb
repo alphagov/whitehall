@@ -32,6 +32,9 @@ Whitehall::Application.configure do
 
   config.slimmer.asset_host = ENV['GOVUK_ASSET_ROOT'] || "https://static.preview.alphagov.co.uk"
 
+  # Disable cache in development
+  config.cache_store = :null_store
+
   config.after_initialize do
     Bullet.enable = true
     # Bullet.alert = true
@@ -40,7 +43,6 @@ Whitehall::Application.configure do
     Bullet.rails_logger = true
     # Bullet.airbrake = true
   end
-
 
   if ENV['SHOW_PRODUCTION_IMAGES']
     orig_host = config.asset_host

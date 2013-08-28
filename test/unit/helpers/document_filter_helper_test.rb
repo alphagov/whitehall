@@ -3,11 +3,6 @@ require 'test_helper'
 class DocumentFilterHelperTest < ActionView::TestCase
   include ApplicationHelper
 
-  test "#all_organisations_with returns all organisations that have published editions" do
-    Organisation.expects(:with_published_editions).with(:announcement)
-    all_organisations_with(:announcement)
-  end
-
   test "#all_locations_with :publication returns all world locations with publications, alphabetically" do
     final_scope = stub('final scope')
     final_scope.expects(:ordered_by_name)

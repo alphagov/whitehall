@@ -10,20 +10,23 @@ module DocumentFilterHelper
     grouped_options_for_select(grouped_classifications, selected_values)
   end
 
-  def organisation_filter_options(organisations, selected_organisations = [])
-    selected_values = selected_organisations.any? ? selected_organisations.map(&:slug) : ["all"]
-    grouped_organisations = {
-      'Ministerial departments' =>  organisations.with_translations
-                                    .ministerial_departments
-                                    .ordered_by_name_ignoring_prefix
-                                    .map { |o| [o.name, o.slug] },
+  def organisation_filter_options(selected_organisations = [])
+    grouped_organisations = Rails.cache.fetch("organisation_filter_options/grouped_organisations", expires_in: 30.minutes) do
+      {
+        'Ministerial departments' =>  Organisation.with_published_editions
+                                      .with_translations
+                                      .ministerial_departments
+                                      .ordered_by_name_ignoring_prefix
+                                      .map { |o| [o.name, o.slug] },
 
-      'Other departments & public bodies' =>  organisations
-                                              .with_translations
-                                              .non_ministerial_departments
-                                              .ordered_by_name_ignoring_prefix
-                                              .map { |o| [o.name, o.slug] }
-    }
+        'Other departments & public bodies' =>  Organisation.with_published_editions
+                                                .with_translations
+                                                .non_ministerial_departments
+                                                .ordered_by_name_ignoring_prefix
+                                                .map { |o| [o.name, o.slug] }
+      }
+    end
+    selected_values = selected_organisations.any? ? selected_organisations.map(&:slug) : ["all"]
     options_for_select([["All departments", "all"]], selected_values) +
     grouped_options_for_select(grouped_organisations, selected_values)
   end
@@ -63,15 +66,6 @@ module DocumentFilterHelper
       WorldLocation.with_announcements.ordered_by_name
     when :publication
       WorldLocation.with_publications.ordered_by_name
-    end
-  end
-
-  def all_organisations_with(type)
-    case type
-    when :publication
-      Organisation.with_published_editions(:publicationesque)
-    else
-      Organisation.with_published_editions(type)
     end
   end
 
