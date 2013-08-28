@@ -135,6 +135,17 @@ Whitehall::Application.routes.draw do
         resources :authors, only: [:show]
         resources :document_series, only: [:index]
         resource :document_searches, only: [:show]
+        resources :document_series, only: [] do
+          resources :document_series_groups, as: :groups, path: 'groups' do
+            member { get :delete }
+            resource :document_series_group_membership, as: :members,
+                                                        path: 'members',
+                                                        only: [:destroy]
+          end
+          resource :document_series_group_membership, as: :new_member,
+                                                      path: 'members',
+                                                      only: [:create]
+        end
         resources :organisations do
           resources :groups, except: [:show]
           resources :document_series, except: [:index]
@@ -161,14 +172,6 @@ Whitehall::Application.routes.draw do
           end
           resource :featured_topics_and_policies_list, path: 'featured-topics-and-policies', only: [:show, :update]
           resources :financial_reports, except: [:show]
-        end
-        resources :document_series, only: [] do
-          resources :document_series_groups, as: :groups, path: 'groups' do
-            member { get :delete }
-            resource :document_series_group_membership, as: :members,
-                                                        path: 'members',
-                                                        only: [:destroy]
-          end
         end
         resources :policy_teams, except: [:show]
         resources :policy_advisory_groups, except: [:show]

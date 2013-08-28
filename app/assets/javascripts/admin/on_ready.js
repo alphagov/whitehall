@@ -90,6 +90,7 @@ jQuery(document).ready(function($) {
 
   // Admin UI for document series
   GOVUK.documentFinder.init('.document-finder');
+  GOVUK.documentSeriesDocFinder.init();
   GOVUK.documentSeriesCheckboxSelector.init();
 
   // Inbound links on edition show page
