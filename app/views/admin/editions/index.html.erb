@@ -5,26 +5,37 @@
       <%= render partial: 'filter_options' %>
     </div>
 
-    <div class="collection span9">
+    <div class="span9">
       <h1>
         <%= "#{@filter.page_title}" %>
       </h1>
-      <div class="span7">
-        <%= paginate @filter.editions, theme: 'twitter-bootstrap' %>
-      </div>
-      <div class="span4">
-        <p class="publishing-stats">
-          <% if @filter.show_stats %>
-            Published
-            <span class="badge"><%= @filter.published_count %></span>
-            Force Published
-            <span class="badge badge-important"><%= @filter.force_published_count %></span>
-            <span class="badge badge-important"><%= @filter.force_published_percentage %>%</span>
-          <% else %>
-            Documents
-            <span class="badge"><%= @filter.editions.total_count %></span>
-          <% end %>
-        </p>
+      <div class="row-fluid">
+        <div class="span7">
+          <%= paginate @filter.editions, theme: 'twitter-bootstrap' %>
+        </div>
+        <div class="span5">
+          <div class="publishing-stats">
+            <% if @filter.show_stats %>
+              <div class="stat">
+                Published
+                <strong><%= @filter.published_count %></strong>
+              </div>
+              <div class="stat">
+                Force Published
+                <strong><%= @filter.force_published_count %></strong>
+              </div>
+              <div class="stat">
+              Percentage Force Published
+                <strong><%= @filter.force_published_percentage %>%</strong>
+              </div>
+              <% else %>
+              <div class="stat">
+                Documents
+                <strong><%= @filter.editions.total_count %></strong>
+              </div>
+            <% end %>
+          </div>
+        </div>
       </div>
       <table class="table table-striped">
         <thead>

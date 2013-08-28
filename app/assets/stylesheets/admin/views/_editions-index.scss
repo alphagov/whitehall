@@ -31,8 +31,12 @@
   }
 
   .publishing-stats {
-    margin: 18px 0;
+    font-size: 16px;
     text-align: right;
+    .stat{
+      float: right;
+      clear: right;
+    }
   }
 
   div.toggle_group {
@@ -108,24 +112,6 @@
         &:first-child a,
         &:last-child a {
           @include border-radius(0);
-        }
-      }
-    }
-  }
-
-  .span4 {
-    float: right;
-    .publishing-stats {
-      font-size: 16px;
-      .badge {
-        @include border-radius(0);
-        background: none;
-        color: $black;
-        font-size: 16px;
-        font-weight: bold;
-
-        &:last-child {
-          padding-right: 0;
         }
       }
     }

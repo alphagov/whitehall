@@ -1,5 +1,5 @@
 html {
-  // Required to set the css `rem` sise for the font stacks currently used 
+  // Required to set the css `rem` sise for the font stacks currently used
   // in document-preview.
   font-size: 62.5%;
 }
@@ -333,14 +333,6 @@ body {
       padding: 0;
       display: inline !important;
     }
-  }
-
-  .row-fluid .collection {
-    width: 81%;
-  }
-  .span1, .span2, .span3, .span4, .span5, .span6, .span7, .span8, .span9, .span10, .span11, .span12  {
-    float:left;
-    display:inline;
   }
 
   .nav-tabs {
