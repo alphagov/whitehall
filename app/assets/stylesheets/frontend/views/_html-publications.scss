@@ -71,7 +71,7 @@
       }
     }
   }
-  
+
   .in-page-navigation {
     color: $white;
     margin: 0 0 20px;
@@ -83,12 +83,18 @@
       li {
         list-style: decimal;
       }
+      &.unnumbered {
+        padding-left: 0;
+        li {
+          list-style: none;
+        }
+      }
     }
     a {
       color: $white;
     }
   }
-  
+
   .publication-content {
     position: relative;
     z-index: 2;

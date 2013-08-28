@@ -27,17 +27,17 @@
     </div>
     <nav class="in-page-navigation">
       <h2>Contents</h2>
-      <ol>
-        <% govspeak_headers(@html_version.body).each do |header| %>
+      <%= content_tag :ol, class: ('unnumbered' if @html_version.manually_numbered?) do %>
+        <% html_version_govspeak_headers(@html_version).each do |header| %>
           <li><%= link_to header.text, "##{header.id}" %></li>
         <% end %>
-      </ol>
+      <% end %>
     </nav>
   </div>
 </header>
 <div class="block publication-content">
   <div class="inner-block floated-children">
-    <%= govspeak_to_html @html_version.body, @document.images, numbered_heading_level: ['h2','h3'], contact_heading_tag: 'h4' %>
+    <%= govspeak_to_html @html_version.body, @document.images, govspeak_options_for_html_version(@html_version) %>
   </div>
 </div>
 <div class="js-back-to-content back-to-content">
