@@ -45,7 +45,7 @@ Whitehall::Application.configure do
   # config.logger = SyslogLogger.new
 
   # Use per-process in memory store in production
-  config.cache_store = :memory_cache, { size: 32.megabytes }
+  config.cache_store = :memory_store, { size: 32.megabytes }
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server
   config.action_controller.asset_host = Whitehall.asset_host
