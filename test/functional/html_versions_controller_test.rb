@@ -4,7 +4,7 @@ class HtmlVersionsControllerTest < ActionController::TestCase
   should_be_a_public_facing_controller
 
   test "#show displays the HTML version of the publication" do
-    publication = create(:published_publication, :with_html_version)
+    publication = create(:published_publication)
 
     get :show, publication_id: publication.document, id: publication.html_version.slug
 
@@ -14,7 +14,7 @@ class HtmlVersionsControllerTest < ActionController::TestCase
   end
 
   test "#show displays the published edition of the version" do
-    publication = create(:published_publication, :with_html_version)
+    publication = create(:published_publication)
     draft = publication.create_draft(create(:user))
 
     get :show, publication_id: publication.document, id: publication.html_version.slug
@@ -23,7 +23,7 @@ class HtmlVersionsControllerTest < ActionController::TestCase
   end
 
   test "#show 404s if the slug is wrong" do
-    publication = create(:published_publication, :with_html_version)
+    publication = create(:published_publication)
     get :show, publication_id: publication.document, id: 'not-the-real-slug'
     assert_response :not_found
   end
@@ -35,7 +35,7 @@ class HtmlVersionsControllerTest < ActionController::TestCase
   end
 
   test "#show 404s if the publication hasn't been published yet" do
-    publication = create(:draft_publication, :with_html_version)
+    publication = create(:draft_publication)
     get :show, publication_id: publication.document, id: 'slug'
     assert_response :not_found
   end
