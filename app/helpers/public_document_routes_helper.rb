@@ -22,6 +22,20 @@ module PublicDocumentRoutesHelper
     document_path(edition, options.merge(query))
   end
 
+  def preview_html_version_path(edition, html_version)
+    query = {
+      preview: html_version.id,
+      cachebust: Time.zone.now.getutc.to_i
+    }
+
+    case edition.type
+    when 'Publication'
+      publication_html_version_path(edition.document, html_version, query)
+    when 'Consultation'
+      consultation_html_version_path(edition.document, html_version, query)
+    end
+  end
+
   def document_url(edition, options = {})
     defaults = { id: edition.document }
     defaults[:locale] = edition.locale if edition.non_english_edition?
