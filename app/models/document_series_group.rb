@@ -8,7 +8,7 @@ class DocumentSeriesGroup < ActiveRecord::Base
 
   attr_accessible :body, :heading
 
-  validates :heading, presence: true
+  validates :heading, presence: true, uniqueness: { scope: :document_series_id }
 
   before_create :assign_ordering
 
