@@ -2,7 +2,7 @@ module Whitehall::DocumentFilter
   class ResultSet
     def initialize(results, page, per_page)
       @results = results
-      @docs = results['results']
+      @docs = results.is_a?(Hash) ? results['results'] : []
       @organisations = prefetch("organisations", Organisation.includes(:translations))
       @document_series = prefetch("document_series", DocumentSeries.scoped)
       @operational_fields = prefetch("operational_field", OperationalField.scoped)

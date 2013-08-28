@@ -2,11 +2,6 @@ require 'whitehall/document_filter/filterer'
 
 module Whitehall::DocumentFilter
   class Rummager < Filterer
-    attr_accessor :edition_eager_load
-    def edition_eager_load
-      @edition_eager_load ||= [:document, organisations: :translations]
-    end
-
     def announcements_search
       filter_args = standard_filter_args.merge(filter_by_announcement_type)
       @results = Whitehall.government_search_client.advanced_search(filter_args)
