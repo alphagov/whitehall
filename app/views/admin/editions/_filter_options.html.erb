@@ -59,7 +59,7 @@
       <%= form_tag("", method: :get, class: "js-edition-select-filter", id: 'type_filter') do  %>
         <%= select_tag :type,
                         filter_edition_type_options_for_select(current_user, @filter.options[:type]),
-                        class: 'chzn-select',
+                        class: 'chzn-select-no-search',
                         include_blank: true,
                         data: { placeholder: "All types"} %>
           <%= pass_through_filter_options_as_hidden_fields(@filter, :organisation, :world_location_ids, :state, :author, :from_date, :to_date) %>
@@ -74,7 +74,8 @@
       <%= form_tag("", method: :get, class: "js-edition-select-filter", id: 'state_filter') do  %>
         <%= select_tag :state,
                         options_for_select(admin_state_filter_options, @filter.options[:state]),
-                        class: 'chzn-select-no-deselect' %>
+                        class: 'chzn-select-no-search',
+                        data: { placeholder: "All states"} %>
           <%= pass_through_filter_options_as_hidden_fields(@filter, :organisation, :world_location_ids, :type, :author, :from_date, :to_date) %>
           <%= submit_tag "Go", class: "btn js-hidden" %>
       <% end %>

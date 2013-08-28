@@ -79,7 +79,7 @@ module Admin::EditionsHelper
 
   def admin_state_filter_options
     [
-      ["All states", 'active'],
+      [nil, 'active'],
       ["Imported (pre-draft)", 'imported'],
       ["Draft", 'draft'],
       ["Submitted", 'submitted'],
