@@ -278,6 +278,8 @@ en:
   latest_feed:
     no_updates: There are no updates yet.
     title: Latest
+  social_media:
+    follow_us: Follow us
   time:
     formats:
       long_ordinal: ! '%e %B %Y %H:%M'

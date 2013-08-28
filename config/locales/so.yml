@@ -395,6 +395,8 @@ so:
     headings:
       detail: Faahfaahin
   read_more: Sii akhri
+  social_media:
+    follow_us:
   support:
     array:
       last_word_connector: iyo

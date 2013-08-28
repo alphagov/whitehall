@@ -394,6 +394,8 @@ si:
     headings:
       detail: විස්තර
   read_more: තව කියවන්න
+  social_media:
+    follow_us:
   support:
     array:
       last_word_connector: සහ

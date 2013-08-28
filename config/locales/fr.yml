@@ -398,6 +398,8 @@ fr:
     headings:
       detail: Détail
   read_more: En savoir plus
+  social_media:
+    follow_us:
   support:
     array:
       last_word_connector: et

@@ -393,6 +393,8 @@ pt:
     headings:
       detail: Detalhes
   read_more: Leia mais
+  social_media:
+    follow_us:
   support:
     array:
       last_word_connector: e

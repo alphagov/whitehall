@@ -516,6 +516,8 @@ ru:
     headings:
       detail: Детали
   read_more: Подробнее
+  social_media:
+    follow_us:
   support:
     array:
       last_word_connector: и

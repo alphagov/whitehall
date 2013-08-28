@@ -519,6 +519,8 @@ pl:
     headings:
       detail: Szczegóły
   read_more: Czytaj więcej
+  social_media:
+    follow_us:
   support:
     array:
       last_word_connector: i

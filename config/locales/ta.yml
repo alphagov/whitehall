@@ -395,6 +395,8 @@ ta:
     headings:
       detail: விபரம்
   read_more: மேலும் வாசிக்கவும்
+  social_media:
+    follow_us:
   support:
     array:
       last_word_connector: மற்றும்

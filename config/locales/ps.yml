@@ -395,6 +395,8 @@ ps:
     headings:
       detail: تفصیل
   read_more: نور ووایاست
+  social_media:
+    follow_us:
   support:
     array:
       last_word_connector: او

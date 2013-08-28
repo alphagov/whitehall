@@ -394,6 +394,8 @@ de:
     headings:
       detail: Details
   read_more: Mehr dazu
+  social_media:
+    follow_us:
   support:
     array:
       last_word_connector: und

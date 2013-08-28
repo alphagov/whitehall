@@ -643,6 +643,8 @@ cy:
     headings:
       detail: Manylyn
   read_more: Darllen mwy
+  social_media:
+    follow_us: Dilynwch ni
   support:
     array:
       last_word_connector: a

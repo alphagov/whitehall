@@ -372,6 +372,8 @@ id:
     headings:
       detail: Detail
   read_more: Baca lebih lanjut
+  social_media:
+    follow_us:
   support:
     array:
       last_word_connector: dan

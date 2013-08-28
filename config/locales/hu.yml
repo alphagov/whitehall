@@ -373,6 +373,8 @@ hu:
     headings:
       detail: Részletek
   read_more: Tovább...
+  social_media:
+    follow_us:
   support:
     array:
       last_word_connector: és

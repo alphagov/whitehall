@@ -404,6 +404,8 @@ bg:
     headings:
       detail: Подробности
   read_more: Прочетете повече
+  social_media:
+    follow_us:
   support:
     array:
       last_word_connector: и

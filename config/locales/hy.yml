@@ -394,6 +394,8 @@ hy:
     headings:
       detail: Տվյալ
   read_more: Կարդալ ավելին
+  social_media:
+    follow_us:
   support:
     array:
       last_word_connector: և

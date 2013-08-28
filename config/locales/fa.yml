@@ -372,6 +372,8 @@ fa:
     headings:
       detail: جزئیات
   read_more: اطلاعات بیشتر
+  social_media:
+    follow_us:
   support:
     array:
       last_word_connector: و

@@ -372,6 +372,8 @@ tr:
     headings:
       detail: Detay
   read_more: Daha fazlası için
+  social_media:
+    follow_us:
   support:
     array:
       last_word_connector: ve

@@ -393,6 +393,8 @@ it:
     headings:
       detail: Dettaglio
   read_more: Per saperne di più
+  social_media:
+    follow_us:
   support:
     array:
       last_word_connector: e

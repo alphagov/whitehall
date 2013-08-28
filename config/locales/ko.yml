@@ -370,6 +370,8 @@ ko:
     headings:
       detail: 디테일
   read_more: 더 자세한 정보 알아보기
+  social_media:
+    follow_us:
   support:
     array:
       last_word_connector: 그리고
