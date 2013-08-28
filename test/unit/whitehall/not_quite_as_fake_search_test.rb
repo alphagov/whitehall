@@ -20,6 +20,12 @@ module Whitehall
         assert_equal expected_index, @store.index('government')
       end
 
+      test "date fields are converted to strings when fetched from the store" do
+        @index.add({ 'my_date' => Time.zone.parse("2013-01-01 12:13 +00:00"), 'link' => '/example' })
+        expected_index = { '/example' => { 'link' => '/example', 'my_date' => '2013-01-01 12:13:00 +0000' } }
+        assert_equal expected_index, @store.index('government')
+      end
+
       test "a document can be retrieved by advanced search" do
         @index.add({ 'link' => '/foo', 'title' => 'Foo' })
         client = GdsApiRummager.new('government', @store)
