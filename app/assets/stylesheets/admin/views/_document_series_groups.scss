@@ -1,10 +1,33 @@
 .document-series-groups {
   &.index {
-    .document-finder {
+    form.document-search {
       margin: $gutter 0;
+
+      h2 {
+        margin-bottom: $gutter-one-third;
+      }
 
       label {
         display: inline;
+      }
+
+      $spacing: 0.5em;
+
+      input#title,
+      select {
+        margin: 0 $spacing;
+      }
+
+      input#title {
+        width: 25%;
+        margin-right: 0.1em;
+      }
+
+      input.btn-mini {
+        margin-right: $spacing;
+      }
+      input.btn-info {
+        margin-left: $spacing;
       }
     }
 

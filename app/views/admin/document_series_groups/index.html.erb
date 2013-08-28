@@ -11,6 +11,19 @@
     on the live site
   </p>
 
+  <%= form_tag admin_document_searches_path(format: :json), method: :get, remote: true, data: { type: 'json' }, class: 'document-search' do %>
+    <h2>Add a document</h2>
+    <div>
+      <label for="title">Add</label>
+      <%= search_field_tag :title, '', placeholder: 'Title or slug&hellip;'.html_safe, results: 5, autosave: 'unique', autofocus: true %>
+      <%= submit_tag 'Find', class: 'btn btn-mini' %>
+      to the
+      <%= select_tag :new_group_id, options_from_collection_for_select(@groups, :id, :heading, include_nil: true) %>
+      group
+      <%= submit_tag 'Add', class: 'btn btn-info' %>
+    </div>
+  <% end %>
+
   <div>
     <% @groups.each do |group| %>
       <section class="group">
