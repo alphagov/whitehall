@@ -10,14 +10,21 @@
     .filter-grouping {
       border-top: 1px solid #ddd;
       padding: $gutter-one-sixth 0 $gutter-one-third 0;
+      label,
       h3 {
         font-size: 14px;
+        line-height: 27px;
+        margin-bottom: 0;
+        font-weight: bold;
       }
       form {
         margin-bottom: 0;
         input {
           @include border-radius(0);
           width: 95%;
+        }
+        select {
+          width: 100%;
         }
       }
     }
