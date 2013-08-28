@@ -4,6 +4,7 @@ module Whitehall::DocumentFilter
       @results = results
       @docs = results.is_a?(Hash) ? results['results'] : []
       @organisations = prefetch("organisations", Organisation.includes(:translations))
+      @topics = prefetch("topics", Classification.scoped)
       @document_series = prefetch("document_series", DocumentSeries.scoped)
       @operational_fields = prefetch("operational_field", OperationalField.scoped)
       @page = page
@@ -20,7 +21,7 @@ module Whitehall::DocumentFilter
 
     def merged_results
       @docs.map do |doc|
-        Result.new(doc, @organisations, @document_series, @operational_fields)
+        Result.new(doc, @organisations, @topics, @document_series, @operational_fields)
       end
     end
 

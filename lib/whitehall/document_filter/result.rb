@@ -10,9 +10,10 @@ module Whitehall::DocumentFilter
       end
     end
 
-    def initialize(doc, all_orgs, all_doc_series, all_operation_fields)
+    def initialize(doc, all_orgs, all_topics, all_doc_series, all_operation_fields)
       @doc = doc
       @all_orgs = all_orgs
+      @all_topics = all_topics
       @all_doc_series = all_doc_series
       @all_operation_fields = all_operation_fields
     end
@@ -31,6 +32,10 @@ module Whitehall::DocumentFilter
 
     def organisations
       @doc.fetch('organisations', []).map { |slug| @all_orgs[slug] }.compact
+    end
+
+    def topics
+      @doc.fetch('topics', []).map { |slug| @all_topics[slug] }.compact
     end
 
     def document_series
