@@ -82,9 +82,22 @@ class Admin::EditionFilterTest < ActiveSupport::TestCase
     assert_equal [world_location_news_article], Admin::EditionFilter.new(Edition, @current_user, type: 'world_location_news_article').editions
   end
 
-  test "should filter by subtype of press releases" do
+  test "should filter by news article sub-type" do
+    news_story    = create(:news_article, news_article_type: NewsArticleType::NewsStory)
     press_release = create(:news_article, news_article_type: NewsArticleType::PressRelease)
-    assert_equal [press_release], Admin::EditionFilter.new(Edition, @current_user, type: 'news_article_subtype_Press releases').editions
+    assert_equal [press_release], Admin::EditionFilter.new(Edition, @current_user, type: 'news_article_2').editions
+  end
+
+  test "should filter by speech sub-type" do
+    transcript     = create(:speech, speech_type: SpeechType::Transcript)
+    speaking_notes = create(:speech, speech_type: SpeechType::SpeakingNotes)
+    assert_equal [speaking_notes], Admin::EditionFilter.new(Edition, @current_user, type: 'speech_3').editions
+  end
+
+  test "should filter by publication sub-type" do
+    national_statistics = create(:publication, publication_type: PublicationType::NationalStatistics)
+    form                = create(:publication, publication_type: PublicationType::Form)
+    assert_equal [national_statistics], Admin::EditionFilter.new(Edition, @current_user, type: 'publication_15').editions
   end
 
   test "should filter by title" do
@@ -136,6 +149,11 @@ class Admin::EditionFilterTest < ActiveSupport::TestCase
   test "should generate page title when filtering by document type" do
     filter = Admin::EditionFilter.new(Edition, build(:user), type: 'news_article')
     assert_equal "Everyone's news articles", filter.page_title
+  end
+
+  test "should generate page title when filtering by document sub-type" do
+    filter = Admin::EditionFilter.new(Edition, build(:user), type: 'news_article_1')
+    assert_equal "Everyone's news stories", filter.page_title
   end
 
   test "should generate page title when filtering by any organisation" do

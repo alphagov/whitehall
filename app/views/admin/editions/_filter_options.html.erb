@@ -58,7 +58,7 @@
       <h3>Document type</h3>
       <%= form_tag("", method: :get, class: "js-edition-select-filter", id: 'type_filter') do  %>
         <%= select_tag :type,
-                        options_for_select(filter_options_for_edition_type(current_user), @filter.options[:type]),
+                        filter_edition_type_options_for_select(current_user, @filter.options[:type]),
                         class: 'chzn-select',
                         include_blank: true,
                         data: { placeholder: "All types"} %>
@@ -73,7 +73,7 @@
       <h3>State</h3>
       <%= form_tag("", method: :get, class: "js-edition-select-filter", id: 'state_filter') do  %>
         <%= select_tag :state,
-                        options_for_select(admin_state_filter_options(), @filter.options[:state]),
+                        options_for_select(admin_state_filter_options, @filter.options[:state]),
                         class: 'chzn-select-no-deselect' %>
           <%= pass_through_filter_options_as_hidden_fields(@filter, :organisation, :world_location_ids, :type, :author, :from_date, :to_date) %>
           <%= submit_tag "Go", class: "btn js-hidden" %>

@@ -18,7 +18,7 @@ Scenario: Viewing only publications written by me
   And I visit the list of draft documents
 
   When I filter by author "Janice"
-  And I select the "Publication" edition filter
+  And I select the "Publications" edition filter
   Then I should see the publication "Janice's Publication"
   And I should not see the policy "My Policy"
 

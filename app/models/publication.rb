@@ -21,9 +21,8 @@ class Publication < Publicationesque
     PublicationType.all
   end
 
-  def self.by_subtype_plural_name(plural_name)
-    subtype = PublicationType.find_by_plural_name(plural_name)
-    where(publication_type_id: subtype.id) if subtype
+  def self.by_subtype(subtype)
+    where(publication_type_id: subtype.id)
   end
 
   def self.not_statistics

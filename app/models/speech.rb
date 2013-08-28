@@ -17,9 +17,8 @@ class Speech < Announcement
     SpeechType.all
   end
 
-  def self.by_subtype_plural_name(plural_name)
-    subtype = SpeechType.find_by_plural_name(plural_name)
-    where(speech_type_id: subtype.id) if subtype
+  def self.by_subtype(subtype)
+    where(speech_type_id: subtype.id)
   end
 
   def search_format_types

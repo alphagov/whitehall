@@ -23,10 +23,6 @@ class SpeechType
     all.detect { |type| type.name == name }
   end
 
-  def self.find_by_plural_name(plural_name)
-    all.detect { |type| type.plural_name == plural_name }
-  end
-
   def self.find_by_slug(slug)
     all.detect { |type| type.slug == slug }
   end

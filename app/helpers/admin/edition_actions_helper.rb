@@ -86,9 +86,14 @@ module Admin::EditionActionsHelper
     end
   end
 
-  def filter_options_for_edition_type(user)
-    options = []
-    [
+  def filter_edition_type_options_for_select(user, selected)
+    edition_type_options_for_select(user, selected) + edition_sub_type_options_for_select(selected)
+  end
+
+  private
+
+  def edition_type_options_for_select(user, selected)
+    type_options_container = [
       Policy,
       Publication,
       NewsArticle,
@@ -100,19 +105,23 @@ module Admin::EditionActionsHelper
       CaseStudy,
       StatisticalDataSet,
       FatalityNotice
-    ].map do |e|
-      next if e == FatalityNotice && !user.can_handle_fatalities?
-      options << [e.model_name.human, e.model_name.underscore]
-      if e.respond_to?(:subtypes)
-        e.subtypes.map do |subtype|
-          options << ["&nbsp;&nbsp;#{subtype.plural_name}".html_safe, "#{e.model_name.underscore}_subtype_#{subtype.plural_name}"]
-        end
+    ].map do |edition_type|
+      unless edition_type == FatalityNotice && !user.can_handle_fatalities?
+        [edition_type.model_name.human.pluralize, edition_type.model_name.underscore]
       end
     end
-    options
+
+    options_for_select(type_options_container, selected)
   end
 
-  private
+  def edition_sub_type_options_for_select(selected)
+    subtype_options_hash = {
+      'Publication sub-types' => PublicationType.ordered_by_prevalence.map { |sub_type| [sub_type.plural_name, "publication_#{sub_type.id}"] },
+      'News article sub-types' => NewsArticleType.ordered_by_prevalence.map { |sub_type| [sub_type.plural_name, "news_article_#{sub_type.id}"] },
+      'Speech sub-types' => SpeechType.all.map { |sub_type| [sub_type.plural_name, "speech_#{sub_type.id}"] }
+    }
+    grouped_options_for_select(subtype_options_hash, selected)
+  end
 
   def publish_edition_alerts(edition, force)
     alerts = []

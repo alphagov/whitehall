@@ -1,5 +1,10 @@
 module Admin
   class EditionFilter
+    EDITION_TYPE_LOOKUP = Whitehall.edition_classes.reduce({}) do |lookup, klass|
+      lookup[klass.to_s] = klass
+      lookup
+    end
+
     attr_reader :options
 
     def initialize(source, current_user, options={})
@@ -18,7 +23,7 @@ module Admin
       editions = @source
       editions = editions.accessible_to(@current_user)
       editions = editions.by_type(type) if type
-      editions = editions.by_subtype(type, subtype) if subtype?
+      editions = editions.by_subtype(type, subtype) if subtype
       editions = editions.__send__(options[:state]) if options[:state]
       editions = editions.authored_by(author) if options[:author]
       editions = editions.in_organisation(organisation) if options[:organisation]
@@ -39,40 +44,6 @@ module Admin
 
     def default_page_size
       50
-    end
-
-    def type
-      if options[:type].present?
-        if subtype?
-          supertype.classify
-        else
-          options[:type].classify
-        end
-      end
-    end
-
-    def subtype?
-      options[:type].match("_subtype_") if options[:type]
-    end
-
-    def supertype
-      options[:type].sub(/_subtype_.*/, '') if options[:type]
-    end
-
-    def subtype
-      options[:type].sub(/.*_subtype_/, '') if options[:type]
-    end
-
-    def type_for_display
-      if options[:type].present?
-        if subtype?
-          subtype
-        else
-          options[:type].humanize.pluralize.downcase
-        end
-      else
-        "documents"
-      end
     end
 
     def show_stats
@@ -112,6 +83,34 @@ module Admin
     end
 
     private
+
+    def type
+      EDITION_TYPE_LOOKUP[options[:type].sub(/_\d+$/, '').classify] if options[:type]
+    end
+
+    def subtype
+      subtype_class.find_by_id(subtype_id) if type && subtype_id
+    end
+
+    def subtype_id
+      if options[:type] && options[:type][/\d+$/]
+        options[:type][/\d+$/].to_i
+      end
+    end
+
+    def subtype_class
+      "#{type}Type".constantize
+    end
+
+    def type_for_display
+      if subtype
+        subtype.plural_name.downcase
+      elsif type
+        type.model_name.human.pluralize.downcase
+      else
+        "documents"
+      end
+    end
 
     def selected_world_locations
       if options[:world_location].blank?
