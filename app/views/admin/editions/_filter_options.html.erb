@@ -87,9 +87,9 @@
       <h3>Date (last updated)</h3>
       <%= form_tag("", method: :get, class: "date-filter") do  %>
         <%= label_tag :from_date, "From" %>
-        <%= text_field_tag :from_date, @filter.options[:from_date], class: 'date' %>
+        <%= text_field_tag :from_date, @filter.options[:from_date], class: 'date', placeholder: "23/07/2013" %>
         <%= label_tag :to_date, "To" %>
-        <%= text_field_tag :to_date, @filter.options[:to_date], class: 'date' %>
+        <%= text_field_tag :to_date, @filter.options[:to_date], class: 'date', placeholder: "23/08/2013" %>
         <%= pass_through_filter_options_as_hidden_fields(@filter, :organisation, :world_location_ids, :state, :author, :type) %>
         <%= submit_tag "Go", class: "btn js-hidden" %>
       <% end %>
