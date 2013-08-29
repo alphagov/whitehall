@@ -392,7 +392,6 @@ th:
       quick_links: ลิงค์ด่วน
       related_policies: นโยบายที่เกี่ยวข้อง
       statistics: สถิติของเรา
-    see_all: ดูทั้งหมด%{type}
     type:
       international_delegation:
         one: ผู้แทนนานาประเทศ
@@ -400,6 +399,8 @@ th:
       world_location:
         one: ที่ตั้ง
         other: ทีตั้ง
+  shared:
+    see_all: ดูทั้งหมด%{type}
   worldwide_organisation:
     corporate_information:
       personal_information_charter_html: ลิงค์นี้อธิบายถึงวิธีการที่เราปฏิบัติต่อข้อมูลส่วนบุคคลของคุณ

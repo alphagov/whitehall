@@ -391,7 +391,6 @@ az:
       quick_links: Linklər
       related_policies: Uygün mövzular
       statistics: Bizim statistika
-    see_all: Bax bütün növ
     type:
       international_delegation:
         one: Beynəlxalq nümayəndəlik
@@ -399,6 +398,8 @@ az:
       world_location:
         one:
         other:
+  shared:
+    see_all: Bax bütün növ
   worldwide_organisation:
     corporate_information:
       personal_information_charter_html:

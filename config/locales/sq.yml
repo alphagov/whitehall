@@ -262,6 +262,7 @@ sq:
       quick_links: Lidhje te shpejta
       related_policies: Politika me lidhje
       statistics: Statistikat tona
+  shared:
     see_all: Shiko te gjitha %{type}
   activerecord:
     attributes:

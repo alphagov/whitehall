@@ -262,6 +262,7 @@ lv:
       quick_links: Ātrās saites
       related_policies: Saistītās politikas jomas
       statistics: Statistikas dati
+  shared:
     see_all: Skatīt visas %{type}
   activerecord:
     attributes:

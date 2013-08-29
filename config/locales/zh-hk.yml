@@ -391,7 +391,6 @@ zh-hk:
       quick_links: 快速連結
       related_policies: 相關政策
       statistics: 我們的統計資料
-    see_all: 查閱我們所有的%{type}
     type:
       international_delegation:
         one: 國際代表
@@ -399,6 +398,8 @@ zh-hk:
       world_location:
         one: 全球駐點
         other: 其他全球駐點
+  shared:
+    see_all: 查閱我們所有的%{type}
   worldwide_organisation:
     corporate_information:
       personal_information_charter_html: 我們的%{link}解釋我們如何處理你的個人資料。

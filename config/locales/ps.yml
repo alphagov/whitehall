@@ -264,6 +264,7 @@ ps:
       quick_links: چټکی اړیکی
       related_policies: ارتباط لرونکی پالیسی ګانی
       statistics: زموږه احصایی
+  shared:
     see_all: ټول وګوری %{type}
   activerecord:
     attributes:

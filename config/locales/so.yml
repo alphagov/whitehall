@@ -262,6 +262,7 @@ so:
       quick_links: Waddooyin xiriir degdeg ah
       related_policies: Siyaasado xiriir la leh
       statistics: Istaatistikadeenna
+  shared:
     see_all: Fiiri dhammaan %{type} yadeenna
   activerecord:
     attributes:

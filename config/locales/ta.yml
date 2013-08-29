@@ -262,6 +262,7 @@ ta:
       quick_links: விரைவான இணைப்புகள்
       related_policies: சம்பந்தப்பட்ட கொள்கைகள்
       statistics: எங்களது புள்ளிவிபரம்
+  shared:
     see_all: எங்களது அனைத்து %{type} பார்க்கவும்
   activerecord:
     attributes:

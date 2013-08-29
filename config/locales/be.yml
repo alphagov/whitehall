@@ -386,6 +386,7 @@ be:
       quick_links: Хуткія спасылкі
       related_policies: ! 'Падобныя напрамкі дзейнасці '
       statistics: Наша статыстыка
+  shared:
     see_all: Паглядзець усе %{type}
   activerecord:
     attributes:

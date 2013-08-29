@@ -324,6 +324,7 @@ lt:
       quick_links: Greitos nuorodos
       related_policies: Susijusios strategijos
       statistics: Mūsų statistika
+  shared:
     see_all: Pažiūrėkite  mūsų %{type}
   activerecord:
     attributes:

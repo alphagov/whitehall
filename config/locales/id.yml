@@ -394,7 +394,6 @@ id:
       quick_links: Tautan cepat
       related_policies: Kebijakan terkait
       statistics: Statistik-statistik kami
-    see_all: Lihat semua %{type}
     type:
       international_delegation:
         one: Delegasi internasional
@@ -402,6 +401,8 @@ id:
       world_location:
         one: Lokasi dunia
         other: Lokasi-lokasi dunia
+  shared:
+    see_all: Lihat semua %{type}
   worldwide_organisation:
     corporate_information:
       personal_information_charter_html: ! '%{link} menjelaskan tentang bagaimana

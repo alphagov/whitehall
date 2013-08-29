@@ -391,7 +391,6 @@ ms:
       quick_links:
       related_policies:
       statistics:
-    see_all:
     type:
       international_delegation:
         one:
@@ -399,6 +398,8 @@ ms:
       world_location:
         one:
         other:
+  shared:
+    see_all:
   worldwide_organisation:
     corporate_information:
       personal_information_charter_html:

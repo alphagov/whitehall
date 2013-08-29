@@ -262,6 +262,7 @@ hy:
       quick_links: Հղումներ
       related_policies: Համանման նյութեր
       statistics: Մեր վիճակագրությունը
+  shared:
     see_all: Տես՝ մեր բոլոր %{type} -ը
   activerecord:
     attributes:

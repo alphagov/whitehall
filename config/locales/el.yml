@@ -263,6 +263,7 @@ el:
       quick_links: Σύντομοι σύνδεσμοι
       related_policies: Σχετικές πολιτικές
       statistics: Τα στατιστικά στοιχεία μας
+  shared:
     see_all: Δείτε τα %{type}
   activerecord:
     attributes:

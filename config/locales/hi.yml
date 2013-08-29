@@ -262,6 +262,7 @@ hi:
       quick_links: क्विक लिंक्स
       related_policies: सम्बंधित नीतियां
       statistics: हमारे आंकड़े
+  shared:
     see_all: देखें हमारे सभी %{type}
   activerecord:
     attributes:

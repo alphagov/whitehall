@@ -394,7 +394,6 @@ fa:
       quick_links: دسترسی سریع
       related_policies: سیاست های مربوط
       statistics: آمار ما
-    see_all: تمامی %{type} ما را مشاهده کنید
     type:
       international_delegation:
         one: هیأت بین المللی
@@ -402,6 +401,8 @@ fa:
       world_location:
         one: موقعیت جهانی
         other: موقعیت های جهانی
+  shared:
+    see_all: تمامی %{type} ما را مشاهده کنید
   worldwide_organisation:
     corporate_information:
       personal_information_charter_html: ! '%{link} چگونگی نگهداری از اطلاعات شخصی

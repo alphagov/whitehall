@@ -390,6 +390,7 @@ sr:
       quick_links: Linkovi
       related_policies: Povezane politike
       statistics: Naša statistika
+  shared:
     see_all: Pogledajte sve naše %{type}
   activerecord:
     attributes:

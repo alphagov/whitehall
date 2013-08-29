@@ -262,6 +262,7 @@ dr:
       quick_links: لینک های عاجل
       related_policies: پالیسی های مرتبط
       statistics: احصائیه های ما
+  shared:
     see_all: همه را ببینید %{type}
   activerecord:
     attributes:

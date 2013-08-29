@@ -262,6 +262,7 @@ de:
       quick_links: Quicklinks
       related_policies: Ähnliche Sachgebiete
       statistics: Unsere Statistiken
+  shared:
     see_all: Alle unsere %{type}
   activerecord:
     attributes:

@@ -262,6 +262,7 @@ es-419:
       quick_links: Vínculos rápidos
       related_policies: Políticas relacionadas
       statistics: Nuestras estadísticas
+  shared:
     see_all: Vea todos nuestros %{type}
   activerecord:
     attributes:

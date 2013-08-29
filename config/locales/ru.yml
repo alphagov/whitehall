@@ -386,6 +386,7 @@ ru:
       quick_links: Быстрые ссылки
       related_policies: Публикации на схожие темы
       statistics: Наша статистика
+  shared:
     see_all: Посмотреть все наши %{type}
   activerecord:
     attributes:

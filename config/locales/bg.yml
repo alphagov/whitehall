@@ -264,6 +264,7 @@ bg:
       quick_links: Бързи връзки
       related_policies: Свързани политики
       statistics: Нашите статистики
+  shared:
     see_all: Вижте всички наши %{type}
   activerecord:
     attributes:

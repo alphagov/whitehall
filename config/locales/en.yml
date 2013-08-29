@@ -295,7 +295,6 @@ en:
       quick_links: Quick links
       related_policies: Related policies
       statistics: Our statistics
-    see_all: See all our %{type}
     type:
       international_delegation:
         one: International delegation
@@ -303,6 +302,8 @@ en:
       world_location:
         one: World location
         other: World locations
+  shared:
+    see_all: See all our %{type}
   worldwide_organisation:
     find_out_more: See full profile and all contact details
     part_of: Part of

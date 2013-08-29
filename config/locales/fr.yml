@@ -262,6 +262,7 @@ fr:
       quick_links: Liens directs
       related_policies: Priorités politiques connexes
       statistics: Nos statistiques
+  shared:
     see_all: Voir toutes nos %{type}
   activerecord:
     attributes:

@@ -392,7 +392,6 @@ ko:
       quick_links: 퀵 링크
       related_policies: 관련 정책
       statistics: 통계
-    see_all: ! '%{type} 모두 둘러보기'
     type:
       international_delegation:
         one: 국제 사절단
@@ -400,6 +399,8 @@ ko:
       world_location:
         one: 월드 로케이션
         other: 월드 로케이션
+  shared:
+    see_all: ! '%{type} 모두 둘러보기'
   worldwide_organisation:
     corporate_information:
       personal_information_charter_html: ! '%{link} 에서 개인정보 처리에 대한 안내'

@@ -391,7 +391,6 @@ zh:
       quick_links: 快速链接
       related_policies: 相关政策
       statistics: 我们的数据
-    see_all: 查阅我们所有的%{type}
     type:
       international_delegation:
         one: 国际代表
@@ -399,6 +398,8 @@ zh:
       world_location:
         one: 世界地区位置
         other: 世界地区位置
+  shared:
+    see_all: 查阅我们所有的%{type}
   worldwide_organisation:
     corporate_information:
       personal_information_charter_html: 我们的%{link}解释了我们如何对待您的个人信息。

@@ -392,7 +392,6 @@ ja:
       quick_links: Quick links
       related_policies: 関連政策
       statistics: 統計
-    see_all: ! '%{type} を全て見る'
     type:
       international_delegation:
         one: 海外代表団
@@ -400,6 +399,8 @@ ja:
       world_location:
         one: 地域
         other: 地域
+  shared:
+    see_all: ! '%{type} を全て見る'
   worldwide_organisation:
     corporate_information:
       personal_information_charter_html: 個人情報の取り扱いについては %{link} をご覧下さい

@@ -395,7 +395,6 @@ hu:
       quick_links: Gyorslinkek
       related_policies: Kapcsolódó szakpolitikák
       statistics: Statisztikák
-    see_all: ! ' %{type} - mindegyik megtekintése'
     type:
       international_delegation:
         one: Nemzetközi delegáció
@@ -403,6 +402,8 @@ hu:
       world_location:
         one: Ország
         other: Országok
+  shared:
+    see_all: ! ' %{type} - mindegyik megtekintése'
   worldwide_organisation:
     corporate_information:
       personal_information_charter_html: ! 'A következő oldalon olvashat róla, hogy

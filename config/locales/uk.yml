@@ -386,6 +386,7 @@ uk:
       quick_links: Короткі посилання
       related_policies: Подібні документи
       statistics: Наша статистика
+  shared:
     see_all: Дивіться всі наші %{type}
   activerecord:
     attributes:

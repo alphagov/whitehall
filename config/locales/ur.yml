@@ -262,6 +262,7 @@ ur:
       quick_links: فوری لنکس
       related_policies: متعلقہ پالیسیاں
       statistics: ہمارے اعدادو شمار
+  shared:
     see_all: تما م دیکھئیے %{type}
   activerecord:
     attributes:

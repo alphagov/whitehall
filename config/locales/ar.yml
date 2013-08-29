@@ -510,6 +510,7 @@ ar:
       quick_links: وصلات سريعة
       related_policies: سياسات ذات صلة
       statistics: إحصائياتنا
+  shared:
     see_all: اطلع على كافة %{type}
   activerecord:
     attributes:

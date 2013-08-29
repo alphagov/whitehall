@@ -262,6 +262,7 @@ tk:
       quick_links:
       related_policies:
       statistics:
+  shared:
     see_all:
   activerecord:
     attributes:

@@ -510,6 +510,7 @@ cy:
       quick_links: Dolenni cyflym
       related_policies: Polisïau perthnasol
       statistics: Ein hystadegau
+  shared:
     see_all: Gweld ein holl %{type}
   activerecord:
     attributes:

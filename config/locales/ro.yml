@@ -325,6 +325,7 @@ ro:
       quick_links: ! 'Link-uri rapide '
       related_policies: ! 'Priorități conexe '
       statistics: Statistici
+  shared:
     see_all: Toate %{type}
   activerecord:
     attributes:

@@ -324,6 +324,7 @@ cs:
       quick_links: Odkazy
       related_policies: Související témata
       statistics: Naše statistiky
+  shared:
     see_all: Podívejte se na
   activerecord:
     attributes:
