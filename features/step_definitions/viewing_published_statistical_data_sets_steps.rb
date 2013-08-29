@@ -1,5 +1,5 @@
 Given /^a document series "([^"]*)"$/ do |name|
-  create(:document_series, :with_group, name: name)
+  @document_series = create(:document_series, :with_group, name: name)
 end
 
 Given /^a published publication that's part of the "([^"]*)" document series$/ do |document_series_name|

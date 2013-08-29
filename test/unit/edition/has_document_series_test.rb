@@ -19,17 +19,16 @@ class Edition::HasDocumentSeriesTest < ActiveSupport::TestCase
   end
 
   test 'allows assignment of document series on a saved edition' do
-    skip
     edition = create(:imported_publication)
-    document_series = create(:document_series)
-    edition.document_series_ids = [document_series.id]
-
+    document_series = create(:document_series, :with_group)
+    edition.document_series_group_ids = [document_series.groups.first.id]
     assert_equal [document_series], edition.document.document_series
   end
 
   test 'raises an exception if attempt is made to set document series on a new edition' do
+    series = create(:document_series, :with_group)
     assert_raise(StandardError) do
-      Publication.new(document_series_ids: [create(:document_series).id])
+      Publication.new(document_series_group_ids: [series.groups.first.id])
     end
   end
 end

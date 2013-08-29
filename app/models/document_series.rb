@@ -6,7 +6,8 @@ class DocumentSeries < ActiveRecord::Base
 
   has_many :groups, class_name: 'DocumentSeriesGroup',
                     order: 'document_series_groups.ordering',
-                    dependent: :destroy
+                    dependent: :destroy,
+                    inverse_of: :document_series
   has_many :documents, through: :groups
   has_many :editions, through: :documents
 
