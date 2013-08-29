@@ -1,11 +1,11 @@
-<%
-  if edition.imported?
-    label_text = 'date required'
-  else
-    label_text = 'leave blank to use the publication time of this edition'
-  end
-%>
 <fieldset>
-  <%= form.label :first_published_at, "First published at (#{label_text})" %>
-  <%= form.datetime_select :first_published_at, { include_blank: true, start_year: 1997, end_year: Date.today.year + 5 }, { class: 'date' } %>
+  <% if edition.imported? %>
+    <%= form.label :first_published_at, "First published <span>*</span>".html_safe, class: 'required' %>
+  <% else %>
+    <%= form.label :first_published_at, "First published" %>
+  <% end %>
+  <%= form.datetime_select :first_published_at, { include_blank: true, start_year: 1945, end_year: Date.today.year + 1 }, { class: 'date' } %>
+  <% if edition.first_published_at.blank? && !edition.imported? %>
+    <p class="note">Note: only set this if backdating migrated content that has previously been published elsewhere.</p>
+  <% end %>
 </fieldset>

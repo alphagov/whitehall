@@ -70,7 +70,7 @@ module AdminEditionControllerScheduledPublishingTestHelpers
 
       test "create should not set scheduled_publication if scheduled_publication_active is not checked" do
         edition_attributes = controller_attributes_for(edition_type,
-          publication_date: Date.parse("2010-10-21"),
+          first_published_at: Date.parse("2010-10-21"),
           publication_type_id: PublicationType::ResearchAndAnalysis.id
         ).merge(scheduled_publication_attributes(Time.zone.now))
 
@@ -83,7 +83,7 @@ module AdminEditionControllerScheduledPublishingTestHelpers
       test "create should set scheduled_publication if scheduled_publication_active is checked" do
         selected_time = Time.zone.parse("2012-01-01 09:30")
         edition_attributes = controller_attributes_for(edition_type,
-          publication_date: Date.parse("2010-10-21"),
+          first_published_at: Date.parse("2010-10-21"),
           publication_type_id: PublicationType::ResearchAndAnalysis.id
         ).merge(scheduled_publication_attributes(selected_time))
 
@@ -131,7 +131,7 @@ module AdminEditionControllerScheduledPublishingTestHelpers
         edition = create(edition_type, scheduled_publication: selected_time)
 
         edition_attributes = controller_attributes_for_instance(edition,
-          {publication_date: Date.parse("2010-06-18")}.merge(scheduled_publication_attributes(selected_time))
+          {first_published_at: Date.parse("2010-06-18")}.merge(scheduled_publication_attributes(selected_time))
         )
 
         put :update, id: edition, edition: edition_attributes, scheduled_publication_active: "0"
@@ -145,7 +145,7 @@ module AdminEditionControllerScheduledPublishingTestHelpers
         selected_time = Time.zone.parse("2012-07-03 09:30")
 
         edition_attributes = controller_attributes_for_instance(edition,
-          {publication_date: Date.parse("2010-06-18")}.merge(scheduled_publication_attributes(selected_time))
+          {first_published_at: Date.parse("2010-06-18")}.merge(scheduled_publication_attributes(selected_time))
         )
         put :update, id: edition,
           edition: edition_attributes,

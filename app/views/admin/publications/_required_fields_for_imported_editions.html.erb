@@ -1,2 +1,4 @@
-<%= render partial: 'publication_type_fields', locals: { form: form, edition: edition } %>
-<%= render partial: 'publication_date_fields', locals: { form: form } %>
+<div class="row-fluid">
+  <%= render partial: 'publication_type_fields', locals: { form: form, edition: edition } %>
+  <%= render partial: 'first_published_at', locals: { form: form, edition: edition } %>
+</div>

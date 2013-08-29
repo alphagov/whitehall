@@ -28,19 +28,19 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     get :new
 
     assert_select "form#new_edition" do
-      assert_select "select[name*='edition[publication_date']", count: 5
+      assert_select "select[name*='edition[first_published_at']", count: 5
       assert_select "select[name='edition[publication_type_id]']"
     end
   end
 
   test "create should create a new publication" do
     post :create, edition: controller_attributes_for(:publication,
-      publication_date: Time.zone.parse("2001-10-21 00:00:00"),
+      first_published_at: Time.zone.parse("2001-10-21 00:00:00"),
       publication_type_id: PublicationType::ResearchAndAnalysis.id
     )
 
     created_publication = Publication.last
-    assert_equal Time.zone.parse("2001-10-21 00:00:00"), created_publication.publication_date
+    assert_equal Time.zone.parse("2001-10-21 00:00:00"), created_publication.first_published_at
     assert_equal PublicationType::ResearchAndAnalysis, created_publication.publication_type
   end
 
@@ -74,7 +74,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
 
     assert_select "form#edit_edition" do
       assert_select "select[name='edition[publication_type_id]']"
-      assert_select "select[name*='edition[publication_date']", count: 5
+      assert_select "select[name*='edition[first_published_at']", count: 5
     end
   end
 
@@ -82,11 +82,11 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     publication = create(:publication)
 
     put :update, id: publication, edition: controller_attributes_for_instance(publication,
-      publication_date: Time.zone.parse("2001-06-18 00:00:00")
+      first_published_at: Time.zone.parse("2001-06-18 00:00:00")
     )
 
     saved_publication = publication.reload
-    assert_equal Time.zone.parse("2001-06-18 00:00:00"), saved_publication.publication_date
+    assert_equal Time.zone.parse("2001-06-18 00:00:00"), saved_publication.first_published_at
   end
 
   private

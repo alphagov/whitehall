@@ -1,10 +1,6 @@
 <%= edition_editing_tabs(edition) do %>
   <%= standard_edition_form(edition) do |form| %>
 
-    <fieldset>
-      <%= render partial: 'publication_date_fields', locals: { form: form } %>
-    </fieldset>
-
     <%= render partial: 'inline_attachments_info', locals: { form: form, edition: edition } %>
     <%= render partial: 'html_version_fields', locals: { form: form, edition: edition } %>
 
@@ -21,5 +17,6 @@
       <%= render partial: 'nation_fields', locals: { form: form, edition: edition } %>
     </fieldset>
 
+    <%= render partial: 'first_published_at', locals: { form: form, edition: edition } %>
   <% end %>
 <% end %>

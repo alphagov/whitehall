@@ -26,7 +26,7 @@ Then /^the import succeeds, creating (\d+) imported publications? for "([^"]*)" 
   edition = Edition.imported.first
   assert_kind_of Publication, edition
   assert_equal organisation, edition.organisations.first
-  assert_nil edition.publication_date
+  assert_nil edition.first_published_at
 end
 
 Then /^the import succeeds, creating (\d+) imported publication for "([^"]*)"$/ do |edition_count, organisation_name|
@@ -127,7 +127,7 @@ end
 
 When /^I set the imported publication's publication date to "([^"]*)"$/ do |new_publication_date|
   begin_editing_document Edition.imported.last.title
-  select_date new_publication_date, from: "Publication date"
+  select_date new_publication_date, from: "First published *"
   click_on 'Save'
 end
 
@@ -139,7 +139,7 @@ end
 
 When /^I set the imported news article's first published date to "([^"]*)"$/ do |new_first_published_date|
   begin_editing_document Edition.imported.last.title
-  select_date new_first_published_date, from: "First published at"
+  select_date new_first_published_date, from: "First published *"
   click_on 'Save'
 end
 

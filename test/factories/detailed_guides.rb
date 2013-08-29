@@ -8,9 +8,7 @@ FactoryGirl.define do
   factory :draft_detailed_guide, parent: :detailed_guide, traits: [:draft]
   factory :submitted_detailed_guide, parent: :detailed_guide, traits: [:submitted]
   factory :rejected_detailed_guide, parent: :detailed_guide, traits: [:rejected]
-  factory :published_detailed_guide, parent: :detailed_guide, traits: [:published] do
-    first_published_at { 2.days.ago }
-  end
+  factory :published_detailed_guide, parent: :detailed_guide, traits: [:published]
   factory :deleted_detailed_guide, parent: :detailed_guide, traits: [:deleted]
   factory :archived_detailed_guide, parent: :detailed_guide, traits: [:archived]
   factory :scheduled_detailed_guide, parent: :detailed_guide, traits: [:scheduled]

@@ -15,7 +15,7 @@ class PublicationsControllerTest < ActionController::TestCase
   should_show_inapplicable_nations :publication
   should_show_related_policies_for :publication
   should_be_previewable :publication
-  should_paginate :publication, timestamp_key: :publication_date
+  should_paginate :publication, timestamp_key: :first_published_at
   should_paginate :consultation, timestamp_key: :opening_on
   should_return_json_suitable_for_the_document_filter :publication
   should_return_json_suitable_for_the_document_filter :consultation
@@ -66,7 +66,7 @@ class PublicationsControllerTest < ActionController::TestCase
 
   view_test "show should display publication metadata" do
     publication = create(:published_publication,
-      publication_date: Date.parse("1916-05-31"),
+      first_published_at: Date.parse("1916-05-31"),
       publication_type_id: PublicationType::Form.id
     )
 
@@ -230,7 +230,7 @@ class PublicationsControllerTest < ActionController::TestCase
 
   view_test "index orders publications by publication date by default" do
     without_delay! do
-      publications = 5.times.map {|i| create(:published_publication, publication_date: (10 - i).days.ago) }
+      publications = 5.times.map {|i| create(:published_publication, first_published_at: (10 - i).days.ago) }
 
       get :index
 
@@ -254,7 +254,7 @@ class PublicationsControllerTest < ActionController::TestCase
     without_delay! do
       documents = [
         consultation = create(:published_consultation, opening_on: 5.days.ago),
-        publication = create(:published_publication, publication_date: 4.days.ago)
+        publication = create(:published_publication, first_published_at: 4.days.ago)
       ]
 
       get :index
@@ -333,7 +333,7 @@ class PublicationsControllerTest < ActionController::TestCase
       org2 = create(:organisation, name: "other-org")
       publication = create(:published_publication, title: "publication-title",
                            organisations: [org, org2],
-                           publication_date: Date.parse("2012-03-14"),
+                           first_published_at: Date.parse("2012-03-14"),
                            publication_type: PublicationType::CorporateReport)
 
       get :index, format: :json
@@ -476,7 +476,7 @@ class PublicationsControllerTest < ActionController::TestCase
     without_delay! do
       org = create(:organisation, name: "org-name")
       other_org = create(:organisation, name: "other-org")
-      p1 = create(:published_publication, organisations: [org], publication_date: 2.days.ago.to_date)
+      p1 = create(:published_publication, organisations: [org], first_published_at: 2.days.ago.to_date)
       c1 = create(:published_consultation, organisations: [org], opening_on: 1.day.ago.to_date)
       p2 = create(:published_publication, organisations: [other_org])
 
@@ -503,11 +503,11 @@ class PublicationsControllerTest < ActionController::TestCase
     end
   end
 
-  test 'index atom feed orders publications according to publication_date (newest first)' do
+  test 'index atom feed orders publications according to first_published_at (newest first)' do
     without_delay! do
-      oldest = create(:published_publication, publication_date: 5.days.ago, title: "oldest")
-      newest = create(:published_publication, publication_date: 1.days.ago, title: "newest")
-      middle = create(:published_publication, publication_date: 3.days.ago, title: "middle")
+      oldest = create(:published_publication, first_published_at: 5.days.ago, title: "oldest")
+      newest = create(:published_publication, first_published_at: 1.days.ago, title: "newest")
+      middle = create(:published_publication, first_published_at: 3.days.ago, title: "middle")
 
       get :index, format: :atom
 
@@ -527,11 +527,11 @@ class PublicationsControllerTest < ActionController::TestCase
     end
   end
 
-  test 'index atom feed orders mixed publications and consultations according to publication_date or opening_on (newest first)' do
+  test 'index atom feed orders mixed publications and consultations according to first_published_at or opening_on (newest first)' do
     without_delay! do
-      oldest = create(:published_publication,  publication_date: 5.days.ago, title: "oldest")
+      oldest = create(:published_publication,  first_published_at: 5.days.ago, title: "oldest")
       newest = create(:published_consultation, opening_on: 1.days.ago, title: "newest")
-      middle = create(:published_publication,  publication_date: 3.days.ago, title: "middle")
+      middle = create(:published_publication,  first_published_at: 3.days.ago, title: "middle")
 
       get :index, format: :atom
 
