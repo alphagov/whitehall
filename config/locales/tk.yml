@@ -222,8 +222,10 @@ tk:
       contact:
       corporate_information:
       corporate_reports:
+      documents:
       making_foi_requests:
       our_announcements:
+      our_consultations:
       our_mainstream_categories:
       our_management:
       our_ministers:
@@ -259,8 +261,8 @@ tk:
       publications:
       quick_links:
       related_policies:
-      see_all:
       statistics:
+  shared:
     see_all:
   activerecord:
     attributes:
@@ -390,6 +392,8 @@ tk:
     headings:
       detail:
   read_more:
+  social_media:
+    follow_us:
   support:
     array:
       last_word_connector:

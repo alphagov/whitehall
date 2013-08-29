@@ -309,8 +309,10 @@ id:
       contact: Hubungi %{name}
       corporate_information: Informasi korporat
       corporate_reports: Laporan korporat
+      documents:
       making_foi_requests:
       our_announcements: Pengumuman-pengumuman kami
+      our_consultations:
       our_mainstream_categories:
       our_management: Manajemen kami
       our_ministers: Menteri-menteri kami
@@ -372,6 +374,8 @@ id:
     headings:
       detail: Detail
   read_more: Baca lebih lanjut
+  social_media:
+    follow_us:
   support:
     array:
       last_word_connector: dan
@@ -389,9 +393,7 @@ id:
       publications: Publikasi-publikasi kami
       quick_links: Tautan cepat
       related_policies: Kebijakan terkait
-      see_all: Lihat semua %{type}
       statistics: Statistik-statistik kami
-    see_all: Lihat semua %{type}
     type:
       international_delegation:
         one: Delegasi internasional
@@ -399,6 +401,8 @@ id:
       world_location:
         one: Lokasi dunia
         other: Lokasi-lokasi dunia
+  shared:
+    see_all: Lihat semua %{type}
   worldwide_organisation:
     corporate_information:
       personal_information_charter_html: ! '%{link} menjelaskan tentang bagaimana

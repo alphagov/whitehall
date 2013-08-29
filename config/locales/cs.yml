@@ -282,8 +282,10 @@ cs:
       contact: Kontakt %{name}
       corporate_information: Korporátní informace
       corporate_reports: Korporátní zprávy
+      documents:
       making_foi_requests:
       our_announcements: Naše prohlášení
+      our_consultations:
       our_mainstream_categories:
       our_management: Naše vedení
       our_ministers: Naši ministři
@@ -321,8 +323,8 @@ cs:
       publications: Naše publikace
       quick_links: Odkazy
       related_policies: Související témata
-      see_all: Podívejte se na
       statistics: Naše statistiky
+  shared:
     see_all: Podívejte se na
   activerecord:
     attributes:
@@ -456,6 +458,8 @@ cs:
     headings:
       detail: Více
   read_more: Více
+  social_media:
+    follow_us:
   support:
     array:
       last_word_connector: a

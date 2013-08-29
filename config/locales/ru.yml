@@ -342,8 +342,10 @@ ru:
       contact: Обратиться к %{name}
       corporate_information: Корпоративная информация
       corporate_reports: Корпоративные отчеты
+      documents:
       making_foi_requests:
       our_announcements: Наши объявления
+      our_consultations:
       our_mainstream_categories:
       our_management: Наше руководство
       our_ministers: Наши министры
@@ -383,8 +385,8 @@ ru:
       publications: Наши публикации
       quick_links: Быстрые ссылки
       related_policies: Публикации на схожие темы
-      see_all: Посмотреть все наши %{type}
       statistics: Наша статистика
+  shared:
     see_all: Посмотреть все наши %{type}
   activerecord:
     attributes:
@@ -516,6 +518,8 @@ ru:
     headings:
       detail: Детали
   read_more: Подробнее
+  social_media:
+    follow_us:
   support:
     array:
       last_word_connector: и

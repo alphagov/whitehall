@@ -222,8 +222,10 @@ dr:
       contact: تماس %{name}
       corporate_information: معلومات یکی شده
       corporate_reports: گزارش های یکی شده
+      documents:
       making_foi_requests:
       our_announcements: اعلانات ما
+      our_consultations:
       our_mainstream_categories:
       our_management: اداره ما
       our_ministers: وزرای ما
@@ -259,8 +261,8 @@ dr:
       publications: نشریات ما
       quick_links: لینک های عاجل
       related_policies: پالیسی های مرتبط
-      see_all: همه را ببینید %{type}
       statistics: احصائیه های ما
+  shared:
     see_all: همه را ببینید %{type}
   activerecord:
     attributes:
@@ -393,6 +395,8 @@ dr:
     headings:
       detail: تفصیل
   read_more: بیشتر بخوانید
+  social_media:
+    follow_us:
   support:
     array:
       last_word_connector: و

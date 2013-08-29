@@ -310,8 +310,10 @@ vi:
       contact: Liên lạc %{name}
       corporate_information: Thông tin về phòng tổng hợp
       corporate_reports: Các báo cáo của phòng tổng hợp
+      documents:
       making_foi_requests:
       our_announcements: Các thông báo của chúng tôi
+      our_consultations:
       our_mainstream_categories:
       our_management: Ban quản lý
       our_ministers: Các Thứ trưởng
@@ -373,6 +375,8 @@ vi:
     headings:
       detail: Chi tiết
   read_more: Đọc thêm
+  social_media:
+    follow_us:
   support:
     array:
       last_word_connector: và
@@ -390,9 +394,7 @@ vi:
       publications: Tài liệu truyền thông của chúng tôi
       quick_links: Links nhanh
       related_policies: Các chính sách liên quan
-      see_all: Xem tất cả các %{type} của chúng tôi
       statistics: Thống kê của chúng tôi
-    see_all: Xem tất cả %{type} của chúng tôi
     type:
       international_delegation:
         one: Phái đoàn quốc tế
@@ -400,6 +402,8 @@ vi:
       world_location:
         one: Địa điểm trên thế giới
         other: Các địa điểm trên thế giới
+  shared:
+    see_all: Xem tất cả %{type} của chúng tôi
   worldwide_organisation:
     corporate_information:
       personal_information_charter_html: ! '%{link} của chúng tôi giải thích cách

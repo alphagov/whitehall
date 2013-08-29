@@ -222,8 +222,10 @@ es:
       contact: Contacto %{name}
       corporate_information: Información corporativa
       corporate_reports: Informes corporativos
+      documents:
       making_foi_requests:
       our_announcements: Anuncios
+      our_consultations:
       our_mainstream_categories:
       our_management: Equipo directivo
       our_ministers: Nuestros ministros
@@ -259,8 +261,8 @@ es:
       publications: Publicaciones
       quick_links: Enlaces directos
       related_policies: Políticas relacionadas
-      see_all: Ver toda nuestra %{type}
       statistics: Nuestras estadísticas
+  shared:
     see_all: Ver toda nuestra %{type}
   activerecord:
     attributes:
@@ -393,6 +395,8 @@ es:
     headings:
       detail: Detalle
   read_more: Leer más
+  social_media:
+    follow_us:
   support:
     array:
       last_word_connector: y

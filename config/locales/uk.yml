@@ -342,8 +342,10 @@ uk:
       contact: Контактна особа  %{name}
       corporate_information: Корпоративна інформація
       corporate_reports: Корпоративні звіти
+      documents:
       making_foi_requests:
       our_announcements: Наші оголошення
+      our_consultations:
       our_mainstream_categories:
       our_management: Наше керівництво
       our_ministers: Наші міністри
@@ -383,8 +385,8 @@ uk:
       publications: Наші публікації
       quick_links: Короткі посилання
       related_policies: Подібні документи
-      see_all: Дивіться всі наші %{type}
       statistics: Наша статистика
+  shared:
     see_all: Дивіться всі наші %{type}
   activerecord:
     attributes:
@@ -517,6 +519,8 @@ uk:
     headings:
       detail: Деталі
   read_more: Читати далі
+  social_media:
+    follow_us:
   support:
     array:
       last_word_connector: та

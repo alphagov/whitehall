@@ -342,8 +342,10 @@ be:
       contact: Звязацца з %{name}
       corporate_information: Карпаратыўная інфармацыя
       corporate_reports: Карпаратыўныя справаздачы
+      documents:
       making_foi_requests:
       our_announcements: Нашы абвесткі
+      our_consultations:
       our_mainstream_categories:
       our_management: Наша кіраўніцтва
       our_ministers: Нашы міністры
@@ -383,8 +385,8 @@ be:
       publications: Нашы публікацыі
       quick_links: Хуткія спасылкі
       related_policies: ! 'Падобныя напрамкі дзейнасці '
-      see_all: Паглядзець усе %{type}
       statistics: Наша статыстыка
+  shared:
     see_all: Паглядзець усе %{type}
   activerecord:
     attributes:
@@ -518,6 +520,8 @@ be:
     headings:
       detail: Падрабязней
   read_more: Чытаць Падрабязней
+  social_media:
+    follow_us:
   support:
     array:
       last_word_connector: і

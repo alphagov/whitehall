@@ -283,8 +283,10 @@ ro:
       contact: Contactează-ne  %{name}
       corporate_information: Informaţii despre ambasadă
       corporate_reports: ! 'Rapoarte de management '
+      documents:
       making_foi_requests:
       our_announcements: ! 'Știri '
+      our_consultations:
       our_mainstream_categories:
       our_management: ! 'Echipa ambasadei '
       our_ministers: ! 'Miniștrii '
@@ -322,8 +324,8 @@ ro:
       publications: Documente
       quick_links: ! 'Link-uri rapide '
       related_policies: ! 'Priorități conexe '
-      see_all: Toate %{type}
       statistics: Statistici
+  shared:
     see_all: Toate %{type}
   activerecord:
     attributes:
@@ -459,6 +461,8 @@ ro:
     headings:
       detail: ! 'Mai multe '
   read_more: Află mai multe
+  social_media:
+    follow_us:
   support:
     array:
       last_word_connector: și

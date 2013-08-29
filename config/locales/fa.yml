@@ -309,8 +309,10 @@ fa:
       contact: تماس با %{name}
       corporate_information: اطلاعات سازمانی
       corporate_reports: گزارش های سازمانی
+      documents:
       making_foi_requests:
       our_announcements: اطلاعیه های ما
+      our_consultations:
       our_mainstream_categories:
       our_management: مدیریت ما
       our_ministers: معاونین وزیر ما
@@ -372,6 +374,8 @@ fa:
     headings:
       detail: جزئیات
   read_more: اطلاعات بیشتر
+  social_media:
+    follow_us:
   support:
     array:
       last_word_connector: و
@@ -389,9 +393,7 @@ fa:
       publications: انتشارات ما
       quick_links: دسترسی سریع
       related_policies: سیاست های مربوط
-      see_all: تمامی %{type} ما را مشاهده کنید
       statistics: آمار ما
-    see_all: تمامی %{type} ما را مشاهده کنید
     type:
       international_delegation:
         one: هیأت بین المللی
@@ -399,6 +401,8 @@ fa:
       world_location:
         one: موقعیت جهانی
         other: موقعیت های جهانی
+  shared:
+    see_all: تمامی %{type} ما را مشاهده کنید
   worldwide_organisation:
     corporate_information:
       personal_information_charter_html: ! '%{link} چگونگی نگهداری از اطلاعات شخصی

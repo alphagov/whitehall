@@ -2,7 +2,7 @@
 <% if socialable.social_media_accounts.any? %>
   <section>
     <% unless followus %>
-      <h2 class="label">Follow us</h2>
+      <h2 class="label"><%= t('social_media.follow_us') %></h2>
     <% end %>
     <ul class="social-media-accounts js-hide-extra-social-media">
       <% socialable.social_media_accounts.each do |account| %>

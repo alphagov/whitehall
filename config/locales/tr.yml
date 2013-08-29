@@ -309,8 +309,10 @@ tr:
       contact: İletişim %{name}
       corporate_information: Kurumsal bilgi
       corporate_reports: Kurumsal raporlar
+      documents:
       making_foi_requests:
       our_announcements: ! 'Duyurular '
+      our_consultations:
       our_mainstream_categories:
       our_management: Yönetim
       our_ministers: Bakanlarımız
@@ -372,6 +374,8 @@ tr:
     headings:
       detail: Detay
   read_more: Daha fazlası için
+  social_media:
+    follow_us:
   support:
     array:
       last_word_connector: ve
@@ -389,9 +393,7 @@ tr:
       publications: Yayınlarımız
       quick_links: Kısa Yollar
       related_policies: İlgili politikalar
-      see_all: Tamamını görüntüle
       statistics: İstatistiklerimiz
-    see_all: Tamamını görüntüle
     type:
       international_delegation:
         one: Uluslararası heyet
@@ -399,6 +401,8 @@ tr:
       world_location:
         one: ! 'Ülke '
         other: Ülkeler
+  shared:
+    see_all: Tamamını görüntüle
   worldwide_organisation:
     corporate_information:
       personal_information_charter_html: Bu %{link} bilgilerinizi nasıl sakladığımız

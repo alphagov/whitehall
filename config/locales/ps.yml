@@ -224,8 +224,10 @@ ps:
       contact: تماس  %{name}
       corporate_information: متحد معلومات
       corporate_reports: متحد راپورونه
+      documents:
       making_foi_requests:
       our_announcements: زمونږه اعلانات
+      our_consultations:
       our_mainstream_categories:
       our_management: زمونږه اداره
       our_ministers: زموږه وزیران
@@ -261,8 +263,8 @@ ps:
       publications: زموږ نشریات
       quick_links: چټکی اړیکی
       related_policies: ارتباط لرونکی پالیسی ګانی
-      see_all: ټول وګوری %{type}
       statistics: زموږه احصایی
+  shared:
     see_all: ټول وګوری %{type}
   activerecord:
     attributes:
@@ -395,6 +397,8 @@ ps:
     headings:
       detail: تفصیل
   read_more: نور ووایاست
+  social_media:
+    follow_us:
   support:
     array:
       last_word_connector: او

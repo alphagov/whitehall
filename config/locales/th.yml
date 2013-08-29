@@ -307,8 +307,10 @@ th:
       contact: สัญญา %{name}
       corporate_information: ข้อมูลบริษัท
       corporate_reports: รายงานบริษัท
+      documents:
       making_foi_requests:
       our_announcements: ข่าวสารของเรา
+      our_consultations:
       our_mainstream_categories:
       our_management: การบริหารจัดการของเรา
       our_ministers: รัฐมนตรีของเรา
@@ -370,6 +372,8 @@ th:
     headings:
       detail: รายละเอียด
   read_more: อ่านเพิ่มเติม
+  social_media:
+    follow_us:
   support:
     array:
       last_word_connector: และ
@@ -387,9 +391,7 @@ th:
       publications: สิ่งพิมพ์ของเรา
       quick_links: ลิงค์ด่วน
       related_policies: นโยบายที่เกี่ยวข้อง
-      see_all: ดูทั้งหมด%{type}
       statistics: สถิติของเรา
-    see_all: ดูทั้งหมด%{type}
     type:
       international_delegation:
         one: ผู้แทนนานาประเทศ
@@ -397,6 +399,8 @@ th:
       world_location:
         one: ที่ตั้ง
         other: ทีตั้ง
+  shared:
+    see_all: ดูทั้งหมด%{type}
   worldwide_organisation:
     corporate_information:
       personal_information_charter_html: ลิงค์นี้อธิบายถึงวิธีการที่เราปฏิบัติต่อข้อมูลส่วนบุคคลของคุณ

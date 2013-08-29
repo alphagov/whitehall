@@ -222,8 +222,10 @@ lv:
       contact: Sazināties %{name}
       corporate_information: Korporatīva informācija
       corporate_reports: Korporatīvi ziņojumi
+      documents:
       making_foi_requests:
       our_announcements: Mūsu paziņojumi
+      our_consultations:
       our_mainstream_categories:
       our_management: Mūsu vadība
       our_ministers: Mūsu ministri
@@ -259,8 +261,8 @@ lv:
       publications: Publikācijas
       quick_links: Ātrās saites
       related_policies: Saistītās politikas jomas
-      see_all: Skatīt visus %{type}
       statistics: Statistikas dati
+  shared:
     see_all: Skatīt visas %{type}
   activerecord:
     attributes:
@@ -392,6 +394,8 @@ lv:
     headings:
       detail: Sīkāk
   read_more: Lasīt vairāk
+  social_media:
+    follow_us:
   support:
     array:
       last_word_connector: un

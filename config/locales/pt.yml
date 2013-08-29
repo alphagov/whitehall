@@ -222,8 +222,10 @@ pt:
       contact: Contato %{name}
       corporate_information: Informações administrativas
       corporate_reports: Relatórios administrativos
+      documents:
       making_foi_requests:
       our_announcements: Nossos anúncios
+      our_consultations:
       our_mainstream_categories:
       our_management: Nossa administração
       our_ministers: Nossos ministros
@@ -259,8 +261,8 @@ pt:
       publications: Nossas publicações
       quick_links: Links
       related_policies: Políticas relacionadas
-      see_all: Veja todos os nossos %{type}
       statistics: Nossas estatísticas
+  shared:
     see_all: Veja todos os nossos %{type}
   activerecord:
     attributes:
@@ -393,6 +395,8 @@ pt:
     headings:
       detail: Detalhes
   read_more: Leia mais
+  social_media:
+    follow_us:
   support:
     array:
       last_word_connector: e

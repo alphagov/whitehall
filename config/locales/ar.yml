@@ -462,8 +462,10 @@ ar:
       contact: اتصل بـ%{name}
       corporate_information: معلومات عن الوزارة
       corporate_reports: تقارير الوزارة
+      documents:
       making_foi_requests:
       our_announcements: إعلاناتنا
+      our_consultations:
       our_mainstream_categories:
       our_management: إدارتنا
       our_ministers: وزراؤنا
@@ -507,8 +509,8 @@ ar:
       publications: مطبوعاتنا
       quick_links: وصلات سريعة
       related_policies: سياسات ذات صلة
-      see_all: اطلع على كافة %{type}
       statistics: إحصائياتنا
+  shared:
     see_all: اطلع على كافة %{type}
   activerecord:
     attributes:
@@ -641,6 +643,8 @@ ar:
     headings:
       detail: تفاصيل
   read_more: اقرأ المزيد
+  social_media:
+    follow_us:
   support:
     array:
       last_word_connector: و
