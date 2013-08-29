@@ -307,8 +307,10 @@ ko:
       contact: ! '%{name} 에게 연락하세요'
       corporate_information: 대사관 정보
       corporate_reports: 대사관 보고서
+      documents:
       making_foi_requests:
       our_announcements: 뉴스
+      our_consultations:
       our_mainstream_categories:
       our_management: 조직
       our_ministers: 장관급
@@ -370,6 +372,8 @@ ko:
     headings:
       detail: 디테일
   read_more: 더 자세한 정보 알아보기
+  social_media:
+    follow_us:
   support:
     array:
       last_word_connector: 그리고
@@ -387,9 +391,7 @@ ko:
       publications: 출판물
       quick_links: 퀵 링크
       related_policies: 관련 정책
-      see_all: ! '%{type} 모두 둘러보기'
       statistics: 통계
-    see_all: ! '%{type} 모두 둘러보기'
     type:
       international_delegation:
         one: 국제 사절단
@@ -397,6 +399,8 @@ ko:
       world_location:
         one: 월드 로케이션
         other: 월드 로케이션
+  shared:
+    see_all: ! '%{type} 모두 둘러보기'
   worldwide_organisation:
     corporate_information:
       personal_information_charter_html: ! '%{link} 에서 개인정보 처리에 대한 안내'

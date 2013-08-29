@@ -222,8 +222,10 @@ es-419:
       contact: Comuníquese con %{name}
       corporate_information: Información institucional
       corporate_reports: Reportes institucionales
+      documents:
       making_foi_requests:
       our_announcements: Nuestras novedades
+      our_consultations:
       our_mainstream_categories:
       our_management: Nuestra administración
       our_ministers: Nuestros ministros
@@ -259,8 +261,8 @@ es-419:
       publications: Nuestras publicaciones
       quick_links: Vínculos rápidos
       related_policies: Políticas relacionadas
-      see_all: Vea todos nuestros %{type}
       statistics: Nuestras estadísticas
+  shared:
     see_all: Vea todos nuestros %{type}
   activerecord:
     attributes:
@@ -394,6 +396,8 @@ es-419:
     headings:
       detail: Detalle
   read_more: Lea más
+  social_media:
+    follow_us:
   support:
     array:
       last_word_connector: y

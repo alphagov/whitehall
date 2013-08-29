@@ -222,8 +222,10 @@ ta:
       contact: தொடர்பு %{name}
       corporate_information: கூட்டாண்மைத் தகவல்
       corporate_reports: கூட்டாண்மை அறிக்கைகள்
+      documents:
       making_foi_requests:
       our_announcements: எங்களது அறிவிப்புகள்
+      our_consultations:
       our_mainstream_categories:
       our_management: எங்களது முகாமைத்துவம்
       our_ministers: எங்களது அமைச்சர்கள்
@@ -259,8 +261,8 @@ ta:
       publications: எங்களது வெளியீடுகள்
       quick_links: விரைவான இணைப்புகள்
       related_policies: சம்பந்தப்பட்ட கொள்கைகள்
-      see_all: எங்களது அனைத்து %{type} பார்க்கவும்
       statistics: எங்களது புள்ளிவிபரம்
+  shared:
     see_all: எங்களது அனைத்து %{type} பார்க்கவும்
   activerecord:
     attributes:
@@ -395,6 +397,8 @@ ta:
     headings:
       detail: விபரம்
   read_more: மேலும் வாசிக்கவும்
+  social_media:
+    follow_us:
   support:
     array:
       last_word_connector: மற்றும்

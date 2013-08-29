@@ -282,8 +282,10 @@ lt:
       contact: Susisiekite su %{name}
       corporate_information: Korporatyvinė informacija
       corporate_reports: Korporatyvinės ataskaitos
+      documents:
       making_foi_requests:
       our_announcements: Mūsų skelbimai
+      our_consultations:
       our_mainstream_categories:
       our_management: Mūsų vadovybė
       our_ministers: Mūsų ministrai
@@ -321,8 +323,8 @@ lt:
       publications: Mūsų publikacijos
       quick_links: Greitos nuorodos
       related_policies: Susijusios strategijos
-      see_all: Pažiūrėkite  mūsų %{type}
       statistics: Mūsų statistika
+  shared:
     see_all: Pažiūrėkite  mūsų %{type}
   activerecord:
     attributes:
@@ -455,6 +457,8 @@ lt:
     headings:
       detail: Detalesnė informacija
   read_more: Skaitykite daugiau
+  social_media:
+    follow_us:
   support:
     array:
       last_word_connector: ir

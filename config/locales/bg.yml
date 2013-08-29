@@ -224,8 +224,10 @@ bg:
       contact: Свържете се с %{name}
       corporate_information: Корпоративна информация
       corporate_reports: Корпоративни доклади
+      documents:
       making_foi_requests:
       our_announcements: Съобщенията ни
+      our_consultations:
       our_mainstream_categories:
       our_management: Нашето ръководство
       our_ministers: Нашите министи
@@ -261,8 +263,8 @@ bg:
       publications: Нашите публикации
       quick_links: Бързи връзки
       related_policies: Свързани политики
-      see_all: Вижте всички наши %{type}
       statistics: Нашите статистики
+  shared:
     see_all: Вижте всички наши %{type}
   activerecord:
     attributes:
@@ -404,6 +406,8 @@ bg:
     headings:
       detail: Подробности
   read_more: Прочетете повече
+  social_media:
+    follow_us:
   support:
     array:
       last_word_connector: и

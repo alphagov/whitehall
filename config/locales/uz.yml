@@ -222,8 +222,10 @@ uz:
       contact: ! '%{name} bog''laning'
       corporate_information: Korporativ ma'lumot
       corporate_reports: Korporativ hisobotlar
+      documents:
       making_foi_requests:
       our_announcements: Bizning e'lonlar
+      our_consultations:
       our_mainstream_categories:
       our_management: Bizning rahbariyat
       our_ministers: Bizning vazirlar
@@ -259,8 +261,8 @@ uz:
       publications: Bizning nashrlar
       quick_links: Tez bog'lanish linklari
       related_policies: Oid dasturlar
-      see_all: Bizning butun %{type} ko'ring
       statistics: Bizning statistika
+  shared:
     see_all: Bizning butun %{type} ko'ring
   activerecord:
     attributes:
@@ -393,6 +395,8 @@ uz:
     headings:
       detail: Tafsilot
   read_more: Ko'proq ma'lumotga ega bo'ling
+  social_media:
+    follow_us:
   support:
     array:
       last_word_connector: va

@@ -222,8 +222,10 @@ so:
       contact: La soo xiriir %{name}
       corporate_information: Macluumaad ku saabsan hay'ad
       corporate_reports: Warbixinno ku saabsan hay'ad
+      documents:
       making_foi_requests:
       our_announcements: Ogeysiisyadeenna
+      our_consultations:
       our_mainstream_categories:
       our_management: Maareeyeyaasheenna
       our_ministers: Wasiirradeenna
@@ -259,8 +261,8 @@ so:
       publications: Daabacaadaheenna
       quick_links: Waddooyin xiriir degdeg ah
       related_policies: Siyaasado xiriir la leh
-      see_all: Fiiri dhammaan %{type} yadeenna
       statistics: Istaatistikadeenna
+  shared:
     see_all: Fiiri dhammaan %{type} yadeenna
   activerecord:
     attributes:
@@ -395,6 +397,8 @@ so:
     headings:
       detail: Faahfaahin
   read_more: Sii akhri
+  social_media:
+    follow_us:
   support:
     array:
       last_word_connector: iyo

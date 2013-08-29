@@ -223,8 +223,10 @@ el:
       contact: Επικοινωνήστε%{name}
       corporate_information: Πληροφορίες για τον Οργανισμό
       corporate_reports: Εκθέσεις Οργανισμού
+      documents:
       making_foi_requests:
       our_announcements: Οι ανακοινώσεις μας
+      our_consultations:
       our_mainstream_categories:
       our_management: Η ηγεσία μας
       our_ministers: Οι υπουργοί μας
@@ -260,8 +262,8 @@ el:
       publications: Οι εκδόσεις μας
       quick_links: Σύντομοι σύνδεσμοι
       related_policies: Σχετικές πολιτικές
-      see_all: Δείτε τα %{type}
       statistics: Τα στατιστικά στοιχεία μας
+  shared:
     see_all: Δείτε τα %{type}
   activerecord:
     attributes:
@@ -395,6 +397,8 @@ el:
     headings:
       detail: Λεπτομέρεια
   read_more: Διαβάστε περισσότερα
+  social_media:
+    follow_us:
   support:
     array:
       last_word_connector: και

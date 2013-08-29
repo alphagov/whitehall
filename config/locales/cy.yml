@@ -462,8 +462,10 @@ cy:
       contact: Cyswllt %{name}
       corporate_information: Gwybodaeth gorfforaethol
       corporate_reports: Adroddiadau corfforaethol
+      documents: Dogfennau
       making_foi_requests:
       our_announcements: Ein cyhoeddiadau
+      our_consultations: Ein ymgynghoriadau
       our_mainstream_categories:
       our_management: Ein rheolaeth
       our_ministers: Ein gweinidogion
@@ -507,8 +509,8 @@ cy:
       publications: Ein cyhoeddiadau
       quick_links: Dolenni cyflym
       related_policies: Polisïau perthnasol
-      see_all: Gweld ein holl %{type}
       statistics: Ein hystadegau
+  shared:
     see_all: Gweld ein holl %{type}
   activerecord:
     attributes:
@@ -643,6 +645,8 @@ cy:
     headings:
       detail: Manylyn
   read_more: Darllen mwy
+  social_media:
+    follow_us: Dilynwch ni
   support:
     array:
       last_word_connector: a

@@ -222,8 +222,10 @@ fr:
       contact: Contacter %{name}
       corporate_information: Informations générales
       corporate_reports: Rapports d'activité
+      documents:
       making_foi_requests:
       our_announcements: Nos actualités
+      our_consultations:
       our_mainstream_categories:
       our_management: Notre direction
       our_ministers: Nos ministres
@@ -259,8 +261,8 @@ fr:
       publications: Nos publications
       quick_links: Liens directs
       related_policies: Priorités politiques connexes
-      see_all: Voir toutes nos %{type}
       statistics: Nos statistiques
+  shared:
     see_all: Voir toutes nos %{type}
   activerecord:
     attributes:
@@ -398,6 +400,8 @@ fr:
     headings:
       detail: Détail
   read_more: En savoir plus
+  social_media:
+    follow_us:
   support:
     array:
       last_word_connector: et

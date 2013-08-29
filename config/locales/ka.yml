@@ -306,8 +306,10 @@ ka:
       contact:
       corporate_information:
       corporate_reports:
+      documents:
       making_foi_requests:
       our_announcements:
+      our_consultations:
       our_mainstream_categories:
       our_management:
       our_ministers:
@@ -369,6 +371,8 @@ ka:
     headings:
       detail:
   read_more:
+  social_media:
+    follow_us:
   support:
     array:
       last_word_connector:
@@ -386,9 +390,7 @@ ka:
       publications:
       quick_links:
       related_policies:
-      see_all:
       statistics:
-    see_all:
     type:
       international_delegation:
         one:
@@ -396,6 +398,8 @@ ka:
       world_location:
         one:
         other:
+  shared:
+    see_all:
   worldwide_organisation:
     corporate_information:
       personal_information_charter_html:

@@ -222,8 +222,10 @@ sq:
       contact: Kontakt %{name}
       corporate_information: Informacion korporate
       corporate_reports: Raporte korporate
+      documents:
       making_foi_requests:
       our_announcements: Njoftimet tona
+      our_consultations:
       our_mainstream_categories:
       our_management: Manaxhimi yne
       our_ministers: Ministrat tane
@@ -259,8 +261,8 @@ sq:
       publications: Publikimet tona
       quick_links: Lidhje te shpejta
       related_policies: Politika me lidhje
-      see_all: Shiko te gjitha %{type}
       statistics: Statistikat tona
+  shared:
     see_all: Shiko te gjitha %{type}
   activerecord:
     attributes:
@@ -394,6 +396,8 @@ sq:
     headings:
       detail: Detaj
   read_more: Lexo me shume
+  social_media:
+    follow_us:
   support:
     array:
       last_word_connector: dhe

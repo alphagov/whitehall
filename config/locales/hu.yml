@@ -310,8 +310,10 @@ hu:
       contact: ! 'Kapcsolat felvétele: %{name}'
       corporate_information: Szervezeti információk
       corporate_reports: Testületi beszámolók
+      documents:
       making_foi_requests:
       our_announcements: Híreink
+      our_consultations:
       our_mainstream_categories:
       our_management: Vezetőségünk
       our_ministers: Minisztereink
@@ -373,6 +375,8 @@ hu:
     headings:
       detail: Részletek
   read_more: Tovább...
+  social_media:
+    follow_us:
   support:
     array:
       last_word_connector: és
@@ -390,9 +394,7 @@ hu:
       publications: Kiadványaink
       quick_links: Gyorslinkek
       related_policies: Kapcsolódó szakpolitikák
-      see_all: ! ' %{type} - mindegyik megtekintése'
       statistics: Statisztikák
-    see_all: ! ' %{type} - mindegyik megtekintése'
     type:
       international_delegation:
         one: Nemzetközi delegáció
@@ -400,6 +402,8 @@ hu:
       world_location:
         one: Ország
         other: Országok
+  shared:
+    see_all: ! ' %{type} - mindegyik megtekintése'
   worldwide_organisation:
     corporate_information:
       personal_information_charter_html: ! 'A következő oldalon olvashat róla, hogy

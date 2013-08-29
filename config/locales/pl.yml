@@ -342,8 +342,10 @@ pl:
       contact: Skontaktuj się z %{name}
       corporate_information: Informacje korporacyjne
       corporate_reports: Raporty korporacyjne
+      documents:
       making_foi_requests:
       our_announcements: Nasze ogłoszenia
+      our_consultations:
       our_mainstream_categories:
       our_management: Nasze kierownictwo
       our_ministers: Nasi ministrowie
@@ -383,8 +385,8 @@ pl:
       publications: Nasze publikacje
       quick_links: Szybkie linki
       related_policies: Powiązane polityki
-      see_all: Zobacz wszystkie nasze %{type}
       statistics: Nasze statystyki
+  shared:
     see_all: Zobacz wszystkie nasze %{type}
   activerecord:
     attributes:
@@ -519,6 +521,8 @@ pl:
     headings:
       detail: Szczegóły
   read_more: Czytaj więcej
+  social_media:
+    follow_us:
   support:
     array:
       last_word_connector: i

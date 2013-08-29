@@ -222,8 +222,10 @@ hi:
       contact: संपर्क %{name}
       corporate_information: निकाय सूचना
       corporate_reports: कम्पनी रपट
+      documents:
       making_foi_requests:
       our_announcements: हमारी घोषणाएं
+      our_consultations:
       our_mainstream_categories:
       our_management: हमारा प्रबंधन
       our_ministers: हमारे मंत्री
@@ -259,8 +261,8 @@ hi:
       publications: हमारे प्रकाशन
       quick_links: क्विक लिंक्स
       related_policies: सम्बंधित नीतियां
-      see_all: देखें हमारे सभी %{type}
       statistics: हमारे आंकड़े
+  shared:
     see_all: देखें हमारे सभी %{type}
   activerecord:
     attributes:
@@ -395,6 +397,8 @@ hi:
     headings:
       detail: विस्तृत
   read_more: विस्तार में पढ़ें
+  social_media:
+    follow_us:
   support:
     array:
       last_word_connector: और

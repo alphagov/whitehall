@@ -222,8 +222,10 @@ ur:
       contact: رابطہ %{name}
       corporate_information: کارپوریٹ معلومات
       corporate_reports: کارپوریٹ رپورٹس
+      documents:
       making_foi_requests:
       our_announcements: ہمارے اعلانات
+      our_consultations:
       our_mainstream_categories:
       our_management: ہماری انتظامیہ
       our_ministers: ہمارے وزرا
@@ -259,8 +261,8 @@ ur:
       publications: ہماری مطبوعات
       quick_links: فوری لنکس
       related_policies: متعلقہ پالیسیاں
-      see_all: تما م دیکھئیے {type}%
       statistics: ہمارے اعدادو شمار
+  shared:
     see_all: تما م دیکھئیے %{type}
   activerecord:
     attributes:
@@ -394,6 +396,8 @@ ur:
     headings:
       detail: تفصیل
   read_more: آگے پڑھئیے
+  social_media:
+    follow_us:
   support:
     array:
       last_word_connector: اور

@@ -278,6 +278,8 @@ en:
   latest_feed:
     no_updates: There are no updates yet.
     title: Latest
+  social_media:
+    follow_us: Follow us
   time:
     formats:
       long_ordinal: ! '%e %B %Y %H:%M'
@@ -292,9 +294,7 @@ en:
       publications: Our publications
       quick_links: Quick links
       related_policies: Related policies
-      see_all: See all our %{type}
       statistics: Our statistics
-    see_all: See all our %{type}
     type:
       international_delegation:
         one: International delegation
@@ -302,6 +302,8 @@ en:
       world_location:
         one: World location
         other: World locations
+  shared:
+    see_all: See all our %{type}
   worldwide_organisation:
     find_out_more: See full profile and all contact details
     part_of: Part of
@@ -377,6 +379,7 @@ en:
       our_mainstream_categories: We produce detailed guidance in these categories
       our_policies: Our policies
       our_announcements: Our announcements
+      our_consultations: Our consultations
       our_services: Our services
       our_publications: Our publications
       our_statistics: Our statistics
@@ -390,6 +393,7 @@ en:
       corporate_information: Corporate information
       corporate_reports: Corporate reports
       making_foi_requests: Make an FOI request
+      documents: Documents
     corporate_information:
       access_our_info: Access our information
       jobs_and_contacts: Jobs and contracts

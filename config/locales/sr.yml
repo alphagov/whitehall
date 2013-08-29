@@ -346,8 +346,10 @@ sr:
       contact: Kontaktirajte %{name}
       corporate_information: Informacije o organizaciji
       corporate_reports: Izveštaji
+      documents:
       making_foi_requests:
       our_announcements: Naše objave
+      our_consultations:
       our_mainstream_categories:
       our_management: Naše rukovodstvo
       our_ministers: Naši ministri
@@ -387,8 +389,8 @@ sr:
       publications: Naše publikacije
       quick_links: Linkovi
       related_policies: Povezane politike
-      see_all: Pogledajte sve naše %{type}
       statistics: Naša statistika
+  shared:
     see_all: Pogledajte sve naše %{type}
   activerecord:
     attributes:
@@ -522,6 +524,8 @@ sr:
     headings:
       detail: Detalj
   read_more: Pročitajte više
+  social_media:
+    follow_us:
   support:
     array:
       last_word_connector: i
