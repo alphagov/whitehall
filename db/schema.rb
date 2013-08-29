@@ -63,9 +63,9 @@ ActiveRecord::Schema.define(:version => 20130823095707) do
     t.string   "order_url"
     t.integer  "price_in_pence"
     t.integer  "attachment_data_id"
+    t.integer  "ordering"
     t.string   "hoc_paper_number"
     t.string   "parliamentary_session"
-    t.integer  "ordering"
     t.boolean  "unnumbered_command_paper"
     t.boolean  "unnumbered_hoc_paper"
   end
