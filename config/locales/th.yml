@@ -391,7 +391,6 @@ th:
       publications: สิ่งพิมพ์ของเรา
       quick_links: ลิงค์ด่วน
       related_policies: นโยบายที่เกี่ยวข้อง
-      see_all: ดูทั้งหมด%{type}
       statistics: สถิติของเรา
     see_all: ดูทั้งหมด%{type}
     type:

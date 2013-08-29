@@ -385,7 +385,6 @@ uk:
       publications: Наші публікації
       quick_links: Короткі посилання
       related_policies: Подібні документи
-      see_all: Дивіться всі наші %{type}
       statistics: Наша статистика
     see_all: Дивіться всі наші %{type}
   activerecord:

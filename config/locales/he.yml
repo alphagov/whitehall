@@ -385,7 +385,6 @@ he:
       publications: הפרסומים שלנו
       quick_links: קישורים מהירים
       related_policies: מדיניות רלוונטית
-      see_all: ראה כל %{type}
       statistics: הנתונים שלנו
     see_all: ראה כל %{type}
   activerecord:

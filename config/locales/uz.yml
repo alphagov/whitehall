@@ -261,7 +261,6 @@ uz:
       publications: Bizning nashrlar
       quick_links: Tez bog'lanish linklari
       related_policies: Oid dasturlar
-      see_all: Bizning butun %{type} ko'ring
       statistics: Bizning statistika
     see_all: Bizning butun %{type} ko'ring
   activerecord:

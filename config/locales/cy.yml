@@ -509,7 +509,6 @@ cy:
       publications: Ein cyhoeddiadau
       quick_links: Dolenni cyflym
       related_policies: Polisïau perthnasol
-      see_all: Gweld ein holl %{type}
       statistics: Ein hystadegau
     see_all: Gweld ein holl %{type}
   activerecord:

@@ -509,7 +509,6 @@ ar:
       publications: مطبوعاتنا
       quick_links: وصلات سريعة
       related_policies: سياسات ذات صلة
-      see_all: اطلع على كافة %{type}
       statistics: إحصائياتنا
     see_all: اطلع على كافة %{type}
   activerecord:

@@ -263,7 +263,6 @@ ps:
       publications: زموږ نشریات
       quick_links: چټکی اړیکی
       related_policies: ارتباط لرونکی پالیسی ګانی
-      see_all: ټول وګوری %{type}
       statistics: زموږه احصایی
     see_all: ټول وګوری %{type}
   activerecord:

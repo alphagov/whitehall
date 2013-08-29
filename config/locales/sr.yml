@@ -389,7 +389,6 @@ sr:
       publications: Naše publikacije
       quick_links: Linkovi
       related_policies: Povezane politike
-      see_all: Pogledajte sve naše %{type}
       statistics: Naša statistika
     see_all: Pogledajte sve naše %{type}
   activerecord:

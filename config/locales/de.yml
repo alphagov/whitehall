@@ -261,7 +261,6 @@ de:
       publications: Unsere Veröffentlichungen
       quick_links: Quicklinks
       related_policies: Ähnliche Sachgebiete
-      see_all: Alle unsere %{type}
       statistics: Unsere Statistiken
     see_all: Alle unsere %{type}
   activerecord:

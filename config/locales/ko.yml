@@ -391,7 +391,6 @@ ko:
       publications: 출판물
       quick_links: 퀵 링크
       related_policies: 관련 정책
-      see_all: ! '%{type} 모두 둘러보기'
       statistics: 통계
     see_all: ! '%{type} 모두 둘러보기'
     type:

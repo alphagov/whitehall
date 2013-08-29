@@ -261,7 +261,6 @@ dr:
       publications: نشریات ما
       quick_links: لینک های عاجل
       related_policies: پالیسی های مرتبط
-      see_all: همه را ببینید %{type}
       statistics: احصائیه های ما
     see_all: همه را ببینید %{type}
   activerecord:

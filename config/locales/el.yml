@@ -262,7 +262,6 @@ el:
       publications: Οι εκδόσεις μας
       quick_links: Σύντομοι σύνδεσμοι
       related_policies: Σχετικές πολιτικές
-      see_all: Δείτε τα %{type}
       statistics: Τα στατιστικά στοιχεία μας
     see_all: Δείτε τα %{type}
   activerecord:

@@ -385,7 +385,6 @@ ru:
       publications: Наши публикации
       quick_links: Быстрые ссылки
       related_policies: Публикации на схожие темы
-      see_all: Посмотреть все наши %{type}
       statistics: Наша статистика
     see_all: Посмотреть все наши %{type}
   activerecord:

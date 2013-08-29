@@ -323,7 +323,6 @@ lt:
       publications: Mūsų publikacijos
       quick_links: Greitos nuorodos
       related_policies: Susijusios strategijos
-      see_all: Pažiūrėkite  mūsų %{type}
       statistics: Mūsų statistika
     see_all: Pažiūrėkite  mūsų %{type}
   activerecord:

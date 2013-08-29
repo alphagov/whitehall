@@ -391,7 +391,6 @@ ja:
       publications: 出版物
       quick_links: Quick links
       related_policies: 関連政策
-      see_all: ! '%{type} を全て見る'
       statistics: 統計
     see_all: ! '%{type} を全て見る'
     type:

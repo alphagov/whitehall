@@ -261,7 +261,6 @@ lv:
       publications: Publikācijas
       quick_links: Ātrās saites
       related_policies: Saistītās politikas jomas
-      see_all: Skatīt visus %{type}
       statistics: Statistikas dati
     see_all: Skatīt visas %{type}
   activerecord:

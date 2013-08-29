@@ -324,7 +324,6 @@ ro:
       publications: Documente
       quick_links: ! 'Link-uri rapide '
       related_policies: ! 'Priorități conexe '
-      see_all: Toate %{type}
       statistics: Statistici
     see_all: Toate %{type}
   activerecord:

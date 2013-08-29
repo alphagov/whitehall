@@ -261,7 +261,6 @@ es:
       publications: Publicaciones
       quick_links: Enlaces directos
       related_policies: Políticas relacionadas
-      see_all: Ver toda nuestra %{type}
       statistics: Nuestras estadísticas
     see_all: Ver toda nuestra %{type}
   activerecord:

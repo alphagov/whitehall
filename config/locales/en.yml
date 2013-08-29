@@ -294,7 +294,6 @@ en:
       publications: Our publications
       quick_links: Quick links
       related_policies: Related policies
-      see_all: See all our %{type}
       statistics: Our statistics
     see_all: See all our %{type}
     type:

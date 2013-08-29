@@ -263,7 +263,6 @@ bg:
       publications: Нашите публикации
       quick_links: Бързи връзки
       related_policies: Свързани политики
-      see_all: Вижте всички наши %{type}
       statistics: Нашите статистики
     see_all: Вижте всички наши %{type}
   activerecord:

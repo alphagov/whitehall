@@ -385,7 +385,6 @@ pl:
       publications: Nasze publikacje
       quick_links: Szybkie linki
       related_policies: Powiązane polityki
-      see_all: Zobacz wszystkie nasze %{type}
       statistics: Nasze statystyki
     see_all: Zobacz wszystkie nasze %{type}
   activerecord:

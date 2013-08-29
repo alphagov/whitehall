@@ -385,7 +385,6 @@ be:
       publications: Нашы публікацыі
       quick_links: Хуткія спасылкі
       related_policies: ! 'Падобныя напрамкі дзейнасці '
-      see_all: Паглядзець усе %{type}
       statistics: Наша статыстыка
     see_all: Паглядзець усе %{type}
   activerecord:

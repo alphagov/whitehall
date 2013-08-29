@@ -261,7 +261,6 @@ hy:
       publications: Մեր հրատարակությունները
       quick_links: Հղումներ
       related_policies: Համանման նյութեր
-      see_all: Տես՝ մեր բոլոր %{type} -ը
       statistics: Մեր վիճակագրությունը
     see_all: Տես՝ մեր բոլոր %{type} -ը
   activerecord:

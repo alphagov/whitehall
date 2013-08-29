@@ -261,7 +261,6 @@ hi:
       publications: हमारे प्रकाशन
       quick_links: क्विक लिंक्स
       related_policies: सम्बंधित नीतियां
-      see_all: देखें हमारे सभी %{type}
       statistics: हमारे आंकड़े
     see_all: देखें हमारे सभी %{type}
   activerecord:

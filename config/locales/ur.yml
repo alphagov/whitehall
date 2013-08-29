@@ -261,7 +261,6 @@ ur:
       publications: ہماری مطبوعات
       quick_links: فوری لنکس
       related_policies: متعلقہ پالیسیاں
-      see_all: تما م دیکھئیے {type}%
       statistics: ہمارے اعدادو شمار
     see_all: تما م دیکھئیے %{type}
   activerecord:

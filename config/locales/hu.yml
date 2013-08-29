@@ -394,7 +394,6 @@ hu:
       publications: Kiadványaink
       quick_links: Gyorslinkek
       related_policies: Kapcsolódó szakpolitikák
-      see_all: ! ' %{type} - mindegyik megtekintése'
       statistics: Statisztikák
     see_all: ! ' %{type} - mindegyik megtekintése'
     type:

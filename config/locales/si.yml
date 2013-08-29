@@ -263,7 +263,6 @@ si:
       publications: අපේ ප්‍රකාශන
       quick_links: ක්ෂණික සන්ධිය
       related_policies: අදාල ප්‍රතිපත්තීන්
-      see_all: අපගේ සියලු %{type} බලන්න
       statistics: අපේ සංඛ්‍යා දත්ත
     see_all: අපගේ සියලු %{type} බලන්න
   activerecord:

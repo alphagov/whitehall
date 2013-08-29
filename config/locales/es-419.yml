@@ -261,7 +261,6 @@ es-419:
       publications: Nuestras publicaciones
       quick_links: Vínculos rápidos
       related_policies: Políticas relacionadas
-      see_all: Vea todos nuestros %{type}
       statistics: Nuestras estadísticas
     see_all: Vea todos nuestros %{type}
   activerecord:
