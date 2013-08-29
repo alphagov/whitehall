@@ -280,8 +280,15 @@
             list-style-position: inside;
           }
         }
-        .number {
-          background: none;
+        h3 {
+          margin-top: 0px;
+          .number {
+            background: none;
+            @include media(tablet){
+              width: $gutter-one-third*10;
+              margin-left: $gutter-one-third*-10;
+            }
+          }
         }
       }
     }
