@@ -16,8 +16,10 @@ body.js-enabled {
       color: $inside-gov-secondary;
     }
     #proposition-menu {
-      margin-top: $gutter+$gutter-one-sixth+2px;
-      // 37px is the amount of margin required to line up the nav list with the top of the search box after removing Inside Gov heading
+      @include media(desktop){
+        margin-top: $gutter+$gutter-one-sixth+2px;
+        // 37px is the amount of margin required to line up the nav list with the top of the search box after removing Inside Gov heading
+      }
     }
   }
   form#search input.submit {
