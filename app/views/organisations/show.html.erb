@@ -95,7 +95,7 @@
             <div class="content">
               <%= render partial: "policies/list_description", locals: {policies: @policies} %>
               <p class="see-all">
-                <%= link_to 'See all of our policies', policies_filter_path(@organisation) %>
+                <%= link_to t_see_all_our(:policy), policies_filter_path(@organisation) %>
               </p>
             </div>
           </section>
@@ -114,7 +114,7 @@
             <div class="content">
               <%= render partial: "announcements/list_description", locals: {announcements: @announcements} %>
               <p class="see-all">
-                <%= link_to "See all of our announcements", announcements_filter_path(@organisation) %>
+                <%= link_to t_see_all_our(:announcement), announcements_filter_path(@organisation) %>
               </p>
             </div>
           </section>
@@ -125,7 +125,7 @@
             <div class="content">
               <%= render partial: "publications/list_description", locals: {publications: @consultations} %>
               <p class="see-all">
-                <%= link_to 'See all of our consultations', publications_filter_path(@organisation, publication_filter_option: 'consultations') %>
+                <%= link_to t_see_all_our(:consultation), publications_filter_path(@organisation, publication_filter_option: 'consultations') %>
               </p>
             </div>
           </section>
@@ -136,7 +136,7 @@
             <div class="content">
               <%= render partial: "publications/list_description", locals: {publications: @non_statistics_publications} %>
               <p class="see-all">
-                <%= link_to 'See all of our publications', publications_filter_path(@organisation) %>
+                <%= link_to t_see_all_our(:publication), publications_filter_path(@organisation) %>
               </p>
             </div>
           </section>
@@ -147,7 +147,7 @@
             <div class="content">
               <%= render partial: "publications/list_description", locals: {publications: @statistics_publications} %>
               <p class="see-all">
-                <%= link_to 'See all of our statistics', publications_filter_path(@organisation, publication_filter_option: 'statistics') %>
+                <%= link_to t_see_all_our(:statistics), publications_filter_path(@organisation, publication_filter_option: 'statistics') %>
               </p>
             </div>
           </section>

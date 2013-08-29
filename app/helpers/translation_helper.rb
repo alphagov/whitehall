@@ -17,6 +17,8 @@ module TranslationHelper
     t("world_location.see_all", type: t("document.type.#{type}", count: 2).downcase)
   end
 
+  alias :t_see_all_our :t_world_location_see_all_our
+
   def t_delivery_title(document)
     if document.delivered_by_minister?
       t("document.speech.#{document.speech_type.owner_key_group}.minister")
