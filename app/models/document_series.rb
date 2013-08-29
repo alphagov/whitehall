@@ -20,7 +20,7 @@ class DocumentSeries < ActiveRecord::Base
   has_many :legacy_published_editions,
             through: :edition_document_series,
             conditions: { state: "published" },
-            order: 'publication_date desc',
+            order: 'first_published_at desc',
             source: :edition
   has_many :edition_document_series
 

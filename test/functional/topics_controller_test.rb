@@ -84,7 +84,7 @@ class TopicsControllerTest < ActionController::TestCase
     published = []
     4.times do |i|
       published << create(:published_publication, {
-        title: "title-#{i}", topics: [topic], publication_date: i.days.ago
+        title: "title-#{i}", topics: [topic], first_published_at: i.days.ago
       })
     end
 
@@ -270,7 +270,7 @@ class TopicsControllerTest < ActionController::TestCase
 
   test "show displays recently changed documents including the policy in reverse chronological order" do
     policy_1 = create(:published_policy, first_published_at: 2.weeks.ago)
-    publication_1 = create(:published_publication, publication_date: 6.weeks.ago, related_editions: [policy_1])
+    publication_1 = create(:published_publication, first_published_at: 6.weeks.ago, related_editions: [policy_1])
     policy_2 = create(:published_policy, first_published_at: 5.weeks.ago)
 
     topic = create(:topic, policies: [policy_1, policy_2])

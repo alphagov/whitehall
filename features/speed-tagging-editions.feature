@@ -18,7 +18,7 @@ Feature: Speed tagging editions
   Scenario: Speed tagging a newly imported publication
     When I go to speed tag a newly imported publication "Beard length statistics 2012"
     Then I should have to select the publication sub-type
-    And I should be able to set the publication date
+    Then I should be able to set the first published date
 
   Scenario: Speed tagging only shows relevant ministers
     Given "Joe Bloggs" is the "Minister" for the "DCLG"

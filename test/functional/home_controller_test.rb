@@ -147,7 +147,7 @@ class HomeControllerTest < ActionController::TestCase
       create(:published_policy, first_published_at: x.days.ago + 1.hour)
       create(:published_news_article, first_published_at: x.days.ago + 2.hours)
       create(:published_speech, delivered_on: x.days.ago + 3.hours)
-      create(:published_publication, publication_date: x.days.ago + 4.hours)
+      create(:published_publication, first_published_at: x.days.ago + 4.hours)
       create(:published_consultation, opening_on: x.days.ago + 5.hours)
     end
   end

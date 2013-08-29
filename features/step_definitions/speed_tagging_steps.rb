@@ -49,7 +49,7 @@ end
 
 Then /^I should be able to set the first published date$/ do
   assert page.has_css?("select[id*=edition_first_published_at_1i]")
-  select_datetime '14-Dec-2011 10:30', from: "First published at"
+  select_datetime '14-Dec-2011 10:30', from: "First published *"
 end
 
 Then /^I should be able to set the delivered date of the speech$/ do
@@ -60,11 +60,6 @@ end
 Then /^I should be able to set the consultation dates$/ do
   assert page.has_css?('select[id*=edition_opening_on]')
   assert page.has_css?('select[id*=edition_closing_on]')
-end
-
-Then /^I should be able to set the publication date$/ do
-  assert page.has_css?('select[id*=edition_publication_date]')
-  select_date '02-May-2013', from: "Publication date"
 end
 
 Then /^I can choose "([^"]*)" from an additional list of policies$/ do |policy_name|

@@ -80,7 +80,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
 
   view_test "show generates an atom feed with entries for latest activity" do
     world_location = create(:world_location)
-    pub = create(:published_publication, world_locations: [world_location], publication_date: 1.week.ago.to_date)
+    pub = create(:published_publication, world_locations: [world_location], first_published_at: 1.week.ago.to_date)
     pol = create(:published_policy, world_locations: [world_location], first_published_at: 1.day.ago)
 
     get :show, id: world_location, format: :atom
@@ -183,11 +183,11 @@ class WorldLocationsControllerTest < ActionController::TestCase
 
   test "should display world_location's latest two non-statistics publications in reverse chronological order" do
     world_location = create(:world_location)
-    publication_2 = create(:published_publication, world_locations: [world_location], publication_date: 2.days.ago)
-    publication_3 = create(:published_publication, world_locations: [world_location], publication_date: 3.days.ago)
-    publication_1 = create(:published_publication, world_locations: [world_location], publication_date: 1.day.ago)
+    publication_2 = create(:published_publication, world_locations: [world_location], first_published_at: 2.days.ago)
+    publication_3 = create(:published_publication, world_locations: [world_location], first_published_at: 3.days.ago)
+    publication_1 = create(:published_publication, world_locations: [world_location], first_published_at: 1.day.ago)
 
-    statistics_publication = create(:published_statistics, world_locations: [world_location], publication_date: 1.day.ago)
+    statistics_publication = create(:published_statistics, world_locations: [world_location], first_published_at: 1.day.ago)
 
     get :show, id: world_location
 
@@ -196,9 +196,9 @@ class WorldLocationsControllerTest < ActionController::TestCase
 
   view_test "should display 2 non-statistics publications with details and a link to publications filter if there are many publications" do
     world_location = create(:world_location)
-    publication_2 = create(:published_policy_paper, world_locations: [world_location], publication_date: 2.days.ago.to_date)
-    publication_3 = create(:published_policy_paper, world_locations: [world_location], publication_date: 3.days.ago.to_date)
-    publication_1 = create(:published_statistics, world_locations: [world_location], publication_date: 1.day.ago.to_date)
+    publication_2 = create(:published_policy_paper, world_locations: [world_location], first_published_at: 2.days.ago.to_date)
+    publication_3 = create(:published_policy_paper, world_locations: [world_location], first_published_at: 3.days.ago.to_date)
+    publication_1 = create(:published_statistics, world_locations: [world_location], first_published_at: 1.day.ago.to_date)
 
     get :show, id: world_location
 
@@ -215,18 +215,18 @@ class WorldLocationsControllerTest < ActionController::TestCase
 
   test "should display world location's latest two statistics publications in reverse chronological order" do
     world_location = create(:world_location)
-    publication_2 = create(:published_statistics, world_locations: [world_location], publication_date: 2.days.ago)
-    publication_3 = create(:published_statistics, world_locations: [world_location], publication_date: 3.days.ago)
-    publication_1 = create(:published_national_statistics, world_locations: [world_location], publication_date: 1.day.ago)
+    publication_2 = create(:published_statistics, world_locations: [world_location], first_published_at: 2.days.ago)
+    publication_3 = create(:published_statistics, world_locations: [world_location], first_published_at: 3.days.ago)
+    publication_1 = create(:published_national_statistics, world_locations: [world_location], first_published_at: 1.day.ago)
     get :show, id: world_location
     assert_equal [publication_1, publication_2], assigns[:statistics_publications].object
   end
 
   view_test "should display 2 statistics publications with details and a link to publications filter if there are many publications" do
     world_location = create(:world_location)
-    publication_2 = create(:published_statistics, world_locations: [world_location], publication_date: 2.days.ago.to_date)
-    publication_3 = create(:published_statistics, world_locations: [world_location], publication_date: 3.days.ago.to_date)
-    publication_1 = create(:published_national_statistics, world_locations: [world_location], publication_date: 1.day.ago.to_date)
+    publication_2 = create(:published_statistics, world_locations: [world_location], first_published_at: 2.days.ago.to_date)
+    publication_3 = create(:published_statistics, world_locations: [world_location], first_published_at: 3.days.ago.to_date)
+    publication_1 = create(:published_national_statistics, world_locations: [world_location], first_published_at: 1.day.ago.to_date)
 
     get :show, id: world_location
 
