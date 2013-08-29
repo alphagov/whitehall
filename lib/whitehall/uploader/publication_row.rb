@@ -15,7 +15,7 @@ module Whitehall::Uploader
         .multiple('html_body_#',0..50)
     end
 
-    def publication_date
+    def first_published_at
       Parsers::DateParser.parse(row['publication_date'], @logger, @line_number)
     end
 
@@ -32,7 +32,7 @@ module Whitehall::Uploader
     end
 
     def ministerial_roles
-      Finders::MinisterialRolesFinder.find(publication_date, row['minister_1'], row['minister_2'], @logger, @line_number)
+      Finders::MinisterialRolesFinder.find(first_published_at, row['minister_1'], row['minister_2'], @logger, @line_number)
     end
 
     def attachments
@@ -66,7 +66,7 @@ module Whitehall::Uploader
     end
 
     def attributes
-      [:title, :summary, :body, :publication_date, :publication_type,
+      [:title, :summary, :body, :first_published_at, :publication_type,
        :related_editions, :lead_organisations,
        :ministerial_roles, :attachments, :alternative_format_provider,
        :world_locations, :html_version_attributes].map.with_object({}) do |name, result|

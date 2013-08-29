@@ -500,12 +500,12 @@ class OrganisationsControllerTest < ActionController::TestCase
 
   test "should display organisation's latest two non-statistics and non-consultation publications in reverse chronological order" do
     organisation = create(:organisation)
-    publication_2 = create(:published_publication, organisations: [organisation], publication_date: 2.days.ago)
-    publication_3 = create(:published_publication, organisations: [organisation], publication_date: 3.days.ago)
-    publication_1 = create(:published_publication, organisations: [organisation], publication_date: 1.day.ago)
+    publication_2 = create(:published_publication, organisations: [organisation], first_published_at: 2.days.ago)
+    publication_3 = create(:published_publication, organisations: [organisation], first_published_at: 3.days.ago)
+    publication_1 = create(:published_publication, organisations: [organisation], first_published_at: 1.day.ago)
 
     consultation = create(:published_consultation, organisations: [organisation], opening_on: 1.days.ago)
-    statistics_publication = create(:published_publication, organisations: [organisation], publication_date: 1.day.ago, publication_type: PublicationType::Statistics)
+    statistics_publication = create(:published_publication, organisations: [organisation], first_published_at: 1.day.ago, publication_type: PublicationType::Statistics)
 
     get :show, id: organisation
 
@@ -514,9 +514,9 @@ class OrganisationsControllerTest < ActionController::TestCase
 
   view_test "should display 2 non-statistics publications with details and a link to publications filter if there are many publications" do
     organisation = create(:organisation)
-    publication_2 = create(:published_publication, organisations: [organisation], publication_date: 2.days.ago.to_date, publication_type: PublicationType::PolicyPaper)
-    publication_3 = create(:published_publication, organisations: [organisation], publication_date: 3.days.ago.to_date, publication_type: PublicationType::PolicyPaper)
-    publication_1 = create(:published_publication, organisations: [organisation], publication_date: 1.day.ago.to_date, publication_type: PublicationType::Statistics)
+    publication_2 = create(:published_publication, organisations: [organisation], first_published_at: 2.days.ago.to_date, publication_type: PublicationType::PolicyPaper)
+    publication_3 = create(:published_publication, organisations: [organisation], first_published_at: 3.days.ago.to_date, publication_type: PublicationType::PolicyPaper)
+    publication_1 = create(:published_publication, organisations: [organisation], first_published_at: 1.day.ago.to_date, publication_type: PublicationType::Statistics)
 
     get :show, id: organisation
 
@@ -533,18 +533,18 @@ class OrganisationsControllerTest < ActionController::TestCase
 
   test "should display organisation's latest two statistics publications in reverse chronological order" do
     organisation = create(:organisation)
-    publication_2 = create(:published_publication, organisations: [organisation], publication_date: 2.days.ago, publication_type: PublicationType::Statistics)
-    publication_3 = create(:published_publication, organisations: [organisation], publication_date: 3.days.ago, publication_type: PublicationType::Statistics)
-    publication_1 = create(:published_publication, organisations: [organisation], publication_date: 1.day.ago, publication_type: PublicationType::NationalStatistics)
+    publication_2 = create(:published_publication, organisations: [organisation], first_published_at: 2.days.ago, publication_type: PublicationType::Statistics)
+    publication_3 = create(:published_publication, organisations: [organisation], first_published_at: 3.days.ago, publication_type: PublicationType::Statistics)
+    publication_1 = create(:published_publication, organisations: [organisation], first_published_at: 1.day.ago, publication_type: PublicationType::NationalStatistics)
     get :show, id: organisation
     assert_equal [publication_1, publication_2], assigns[:statistics_publications].object
   end
 
   view_test "should display 2 statistics publications with details and a link to publications filter if there are many publications" do
     organisation = create(:organisation)
-    publication_2 = create(:published_publication, organisations: [organisation], publication_date: 2.days.ago.to_date, publication_type: PublicationType::Statistics)
-    publication_3 = create(:published_publication, organisations: [organisation], publication_date: 3.days.ago.to_date, publication_type: PublicationType::Statistics)
-    publication_1 = create(:published_publication, organisations: [organisation], publication_date: 1.day.ago.to_date, publication_type: PublicationType::NationalStatistics)
+    publication_2 = create(:published_publication, organisations: [organisation], first_published_at: 2.days.ago.to_date, publication_type: PublicationType::Statistics)
+    publication_3 = create(:published_publication, organisations: [organisation], first_published_at: 3.days.ago.to_date, publication_type: PublicationType::Statistics)
+    publication_1 = create(:published_publication, organisations: [organisation], first_published_at: 1.day.ago.to_date, publication_type: PublicationType::NationalStatistics)
 
     get :show, id: organisation
 
@@ -572,7 +572,7 @@ class OrganisationsControllerTest < ActionController::TestCase
 
   view_test "show generates an atom feed with entries for latest activity" do
     organisation = create(:organisation, name: "org-name")
-    pub = create(:published_publication, organisations: [organisation], publication_date: 4.weeks.ago.to_date)
+    pub = create(:published_publication, organisations: [organisation], first_published_at: 4.weeks.ago.to_date)
     pol = create(:published_policy, organisations: [organisation], first_published_at: 2.weeks.ago)
 
     get :show, id: organisation, format: :atom
@@ -624,9 +624,9 @@ class OrganisationsControllerTest < ActionController::TestCase
   end
 
   test "should display published corporate publications on about-us page in order published" do
-    old_published_corporate_publication = create(:published_corporate_publication, publication_date: Date.parse('2012-01-01'))
-    new_published_corporate_publication = create(:published_corporate_publication, publication_date: Date.parse('2012-01-03'))
-    middle_published_corporate_publication = create(:published_corporate_publication, publication_date: Date.parse('2012-01-02'))
+    old_published_corporate_publication = create(:published_corporate_publication, first_published_at: Date.parse('2012-01-01'))
+    new_published_corporate_publication = create(:published_corporate_publication, first_published_at: Date.parse('2012-01-03'))
+    middle_published_corporate_publication = create(:published_corporate_publication, first_published_at: Date.parse('2012-01-02'))
 
     organisation = create(:organisation, editions: [
       old_published_corporate_publication,

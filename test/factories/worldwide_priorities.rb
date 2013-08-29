@@ -8,9 +8,7 @@ FactoryGirl.define do
   factory :draft_worldwide_priority, parent: :worldwide_priority, traits: [:draft]
   factory :submitted_worldwide_priority, parent: :worldwide_priority, traits: [:submitted]
   factory :rejected_worldwide_priority, parent: :worldwide_priority, traits: [:rejected]
-  factory :published_worldwide_priority, parent: :worldwide_priority, traits: [:published] do
-    first_published_at { 2.days.ago }
-  end
+  factory :published_worldwide_priority, parent: :worldwide_priority, traits: [:published]
   factory :deleted_worldwide_priority, parent: :worldwide_priority, traits: [:deleted]
   factory :archived_worldwide_priority, parent: :worldwide_priority, traits: [:archived]
   factory :scheduled_worldwide_priority, parent: :worldwide_priority, traits: [:scheduled]

@@ -22,6 +22,7 @@ class DftPublicationWithJsonImportTest < ActiveSupport::TestCase
     assert_equal creator, publication.creator
     assert_equal [organisation], publication.organisations
     assert_equal [policy], publication.related_policies
+    assert_equal Date.new(2012, 10, 19), publication.first_published_at.to_date
 
     assert_equal 1, publication.attachments.size
     attachment = publication.attachments.first

@@ -48,26 +48,9 @@ class PublicationTest < ActiveSupport::TestCase
     refute publication.valid_as_draft?
   end
 
-  test 'imported publications are valid with a blank publication_date' do
-    publication = build(:publication, state: 'imported', publication_date: nil)
-    assert publication.valid?
-  end
-
-  test 'imported publications with a blank publication_date have no first_public_at' do
-    publication = build(:publication, state: 'imported', publication_date: nil)
-    assert_nil publication.first_public_at
-  end
-
-  [:draft, :scheduled, :published, :submitted, :rejected].each do |state|
-    test "#{state} editions are not valid when the publication type is 'imported-awaiting-type'" do
-      edition = build(:publication, state: state, publication_type: PublicationType.find_by_slug('imported-awaiting-type'))
-      refute edition.valid?
-    end
-
-    test "#{state} editions are not valid with a blank publication date" do
-      edition = build(:publication, state: state, publication_date: nil)
-      refute edition.valid?
-    end
+  test 'imported publications are not valid_as_draft? if the first_published_at timestamp is blank' do
+    publication = build(:publication, state: 'imported', first_published_at: nil)
+    refute publication.valid_as_draft?
   end
 
   test "shouldn't be able to publish a publication without any attachments" do
@@ -79,7 +62,7 @@ class PublicationTest < ActiveSupport::TestCase
   test "should build a draft copy of the existing publication" do
     published_publication = create(:published_publication,
       :with_attachment,
-      publication_date: Date.parse("2010-01-01"),
+      first_published_at: Date.parse("2010-01-01"),
       publication_type_id: PublicationType::ResearchAndAnalysis.id
     )
 
@@ -88,7 +71,7 @@ class PublicationTest < ActiveSupport::TestCase
     assert_kind_of Attachment, published_publication.attachments.first
     assert_not_equal published_publication.attachments, draft_publication.attachments
     assert_equal published_publication.attachments.first.attachment_data, draft_publication.attachments.first.attachment_data
-    assert_equal published_publication.publication_date, draft_publication.publication_date
+    assert_equal published_publication.first_published_at, draft_publication.first_published_at
     assert_equal published_publication.publication_type, draft_publication.publication_type
   end
 
@@ -107,29 +90,29 @@ class PublicationTest < ActiveSupport::TestCase
     assert publication.valid?
   end
 
-  test ".in_chronological_order returns publications in ascending order of publication_date" do
-    jan = create(:publication, publication_date: Date.parse("2011-01-01"))
-    mar = create(:publication, publication_date: Date.parse("2011-03-01"))
-    feb = create(:publication, publication_date: Date.parse("2011-02-01"))
+  test ".in_chronological_order returns publications in ascending order of first_published_at" do
+    jan = create(:publication, first_published_at: Date.parse("2011-01-01"))
+    mar = create(:publication, first_published_at: Date.parse("2011-03-01"))
+    feb = create(:publication, first_published_at: Date.parse("2011-02-01"))
     assert_equal [jan, feb, mar], Publication.in_chronological_order.all
   end
 
-  test ".in_reverse_chronological_order returns publications in descending order of publication_date" do
-    jan = create(:publication, publication_date: Date.parse("2011-01-01"))
-    mar = create(:publication, publication_date: Date.parse("2011-03-01"))
-    feb = create(:publication, publication_date: Date.parse("2011-02-01"))
+  test ".in_reverse_chronological_order returns publications in descending order of first_published_at" do
+    jan = create(:publication, first_published_at: Date.parse("2011-01-01"))
+    mar = create(:publication, first_published_at: Date.parse("2011-03-01"))
+    feb = create(:publication, first_published_at: Date.parse("2011-02-01"))
     assert_equal [mar, feb, jan], Publication.in_reverse_chronological_order.all
   end
 
-  test ".published_before returns editions whose publication_date is before the given date" do
-    jan = create(:publication, publication_date: Date.parse("2011-01-01"))
-    feb = create(:publication, publication_date: Date.parse("2011-02-01"))
+  test ".published_before returns editions whose first_published_at is before the given date" do
+    jan = create(:publication, first_published_at: Date.parse("2011-01-01"))
+    feb = create(:publication, first_published_at: Date.parse("2011-02-01"))
     assert_equal [jan], Publication.published_before("2011-01-29").all
   end
 
-  test ".published_after returns editions whose publication_date is after the given date" do
-    jan = create(:publication, publication_date: Date.parse("2011-01-01"))
-    feb = create(:publication, publication_date: Date.parse("2011-02-01"))
+  test ".published_after returns editions whose first_published_at is after the given date" do
+    jan = create(:publication, first_published_at: Date.parse("2011-01-01"))
+    feb = create(:publication, first_published_at: Date.parse("2011-02-01"))
     assert_equal [feb], Publication.published_after("2011-01-29").all
   end
 

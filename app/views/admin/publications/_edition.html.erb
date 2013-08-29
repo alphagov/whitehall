@@ -2,7 +2,6 @@
   <%= render partial: "standard_elements", locals: { edition: edition } %>
 
   <section class="contextual-info">
-    <p>Publication date: <span class="publication_date"><%= render_publication_date(edition) %></span></p>
     <% if edition.publication_type.present? %>
       <p>Publication type: <span class="publication_type"><%= edition.publication_type.singular_name %></span></p>
     <% end %>

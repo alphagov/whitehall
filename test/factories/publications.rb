@@ -3,7 +3,6 @@ FactoryGirl.define do
     sequence(:title) { |index| "publication-title-#{index}" }
     body  "publication-body"
     summary "publication-summary"
-    publication_date { 10.days.ago.to_date }
     publication_type_id { PublicationType::PolicyPaper.id }
     association :html_version, strategy: :build
 

@@ -104,7 +104,7 @@ module OrganisationControllerTestHelpers
       view_test "#{org_type}:shows 3 most recently published editions associated with organisation when featuring a doc" do
         # different edition types sort on different attributes
         editions = [create(:published_policy, first_published_at: 1.days.ago),
-                  create(:published_publication, publication_date: 2.days.ago),
+                  create(:published_publication, first_published_at: 2.days.ago),
                   create(:published_consultation, first_published_at: 3.days.ago),
                   create(:published_speech, first_published_at: 4.days.ago)]
 

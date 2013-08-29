@@ -6,8 +6,8 @@ class DocumentSeriesTest < ActiveSupport::TestCase
   test '#published_editions returns published editions in reverse chronological order' do
     series = create(:document_series)
     draft_publication = create(:draft_publication)
-    old_publication = create(:published_publication, publication_date: 2.days.ago)
-    new_publication = create(:published_publication, publication_date: 1.day.ago)
+    old_publication = create(:published_publication, first_published_at: 2.days.ago)
+    new_publication = create(:published_publication, first_published_at: 1.day.ago)
     series.documents = [draft_publication.document, old_publication.document, new_publication.document]
 
     assert_equal [new_publication, old_publication], series.published_editions
@@ -15,9 +15,9 @@ class DocumentSeriesTest < ActiveSupport::TestCase
 
   test '#latest_editions returns all the latest editions of associated documents in reverse chronological order' do
     series = create(:document_series)
-    old_publication = create(:published_publication, publication_date: 2.days.ago)
+    old_publication = create(:published_publication, first_published_at: 2.days.ago)
     draft_publication = create(:draft_publication)
-    new_publication = create(:published_publication, publication_date: 1.day.ago)
+    new_publication = create(:published_publication, first_published_at: 1.day.ago)
     series.documents = [draft_publication.document, old_publication.document, new_publication.document]
 
     assert_equal [new_publication, old_publication, draft_publication], series.latest_editions
@@ -25,7 +25,7 @@ class DocumentSeriesTest < ActiveSupport::TestCase
 
   test '#scheduled_editions returns any editions that are scheduled for publishing' do
     series = create(:document_series)
-    publication = create(:published_publication, publication_date: 2.days.ago)
+    publication = create(:published_publication, first_published_at: 2.days.ago)
     scheduled_publication = create(:scheduled_publication)
     series.documents = [scheduled_publication.document, publication.document]
 

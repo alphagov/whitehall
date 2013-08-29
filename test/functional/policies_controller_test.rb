@@ -287,7 +287,7 @@ That's all
   test "activity sets Cache-Control: max-age to the time of the next scheduled publication" do
     policy = create(:published_policy)
     user = login_as(:departmental_editor)
-    p1 = create(:published_publication, publication_date: Time.zone.now, related_editions: [policy])
+    p1 = create(:published_publication, first_published_at: Time.zone.now, related_editions: [policy])
     p2 = create(:draft_publication,
       scheduled_publication: Time.zone.now + Whitehall.default_cache_max_age * 2,
       related_editions: [policy])
@@ -300,16 +300,16 @@ That's all
     assert_cache_control("max-age=#{Whitehall.default_cache_max_age/2}")
   end
 
-  view_test "activity uses publication_date to indicate when a publication was changed" do
+  view_test "activity uses first_published_at to indicate when a publication was changed" do
     policy = create(:published_policy)
     edition = create(:published_publication,
       related_editions: [policy],
-      publication_date: Time.zone.now - 2.days)
+      first_published_at: Time.zone.now - 2.days)
 
     get :activity, id: policy.document
 
     assert_select_object edition do
-      assert_select '.date', text: %r{#{edition.publication_date.to_date.to_s(:long_ordinal)}}
+      assert_select '.date', text: %r{#{edition.first_published_at.to_date.to_s(:long_ordinal)}}
     end
   end
 
@@ -337,7 +337,7 @@ That's all
 
   test "activity orders recently changed documents in reverse chronological order" do
     policy = create(:published_policy)
-    publication = create(:published_publication, publication_date: 4.weeks.ago, related_editions: [policy])
+    publication = create(:published_publication, first_published_at: 4.weeks.ago, related_editions: [policy])
     consultation = create(:published_consultation, first_published_at: 1.weeks.ago, related_editions: [policy])
     news_article = create(:published_news_article, first_published_at: 3.weeks.ago, related_editions: [policy])
     speech = create(:published_speech, delivered_on: 2.weeks.ago, related_editions: [policy])
@@ -349,9 +349,9 @@ That's all
 
   view_test "activity uses pagination when there are many documents" do
     policy = create(:published_policy)
-    publication_1 = create(:published_publication, publication_date: 4.weeks.ago, related_editions: [policy])
-    publication_2 = create(:published_publication, publication_date: 3.weeks.ago, related_editions: [policy])
-    publication_3 = create(:published_publication, publication_date: 3.weeks.ago, related_editions: [policy])
+    publication_1 = create(:published_publication, first_published_at: 4.weeks.ago, related_editions: [policy])
+    publication_2 = create(:published_publication, first_published_at: 3.weeks.ago, related_editions: [policy])
+    publication_3 = create(:published_publication, first_published_at: 3.weeks.ago, related_editions: [policy])
 
     pagination = mock('pagination')
     pagination.expects(:per).with(40).once.returns(Edition.published.related_to(policy).page(2).per(1))
@@ -461,7 +461,7 @@ That's all
 
   view_test 'activity atom feed shows activity documents' do
     policy = create(:published_policy)
-    publication = create(:published_publication, publication_date: 4.weeks.ago.to_date, related_editions: [policy])
+    publication = create(:published_publication, first_published_at: 4.weeks.ago.to_date, related_editions: [policy])
     consultation = create(:published_consultation, opening_on: 1.weeks.ago.to_date, related_editions: [policy])
     news_article = create(:published_news_article, first_published_at: 3.weeks.ago, related_editions: [policy])
     speech = create(:published_speech, first_published_at: 2.weeks.ago.to_date, related_editions: [policy])
@@ -480,7 +480,7 @@ That's all
 
   view_test 'activity shows a link to email signup' do
     policy = create(:published_policy)
-    publication = create(:published_publication, publication_date: 4.weeks.ago, related_editions: [policy])
+    publication = create(:published_publication, first_published_at: 4.weeks.ago, related_editions: [policy])
 
     get :activity, id: policy.document
 

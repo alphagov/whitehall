@@ -57,14 +57,14 @@ module Whitehall::Uploader
       assert_equal PublicationType::Guidance, row.attributes[:publication_type]
     end
 
-    test "parses the publication date from the publication_date column" do
+    test "parses the published date from the publication_date column" do
       row = new_publication_row({"publication_date" => "16-May-12"})
-      assert_equal Date.parse("2012-05-16"), row.attributes[:publication_date]
+      assert_equal Date.parse("2012-05-16"), row.attributes[:first_published_at]
     end
 
-    test "leaves the publication date blank if the publication_date column is blank" do
+    test "leaves the published date blank if the publication_date column is blank" do
       row = new_publication_row({"publication_date" => ""})
-      assert_nil row.attributes[:publication_date]
+      assert_nil row.attributes[:first_published_at]
     end
 
     test "combines HTML body parts if present" do

@@ -355,7 +355,7 @@ class TopicTest < ActiveSupport::TestCase
     old_published_policy = create(:published_policy, topics: [topic], first_published_at: 1.month.ago)
     new_published_policy = create(:published_policy, topics: [topic], first_published_at: 1.day.ago)
     news_article = create(:published_news_article, related_editions: [old_published_policy], first_published_at: 1.week.ago)
-    publication = create(:published_publication, related_editions: [new_published_policy], publication_date: 2.weeks.ago)
+    publication = create(:published_publication, related_editions: [new_published_policy], first_published_at: 2.weeks.ago)
     speech = create(:published_speech, related_editions: [new_published_policy], first_published_at: 3.weeks.ago)
 
     assert_equal [new_published_policy, news_article, publication, speech, old_published_policy], topic.recently_changed_documents

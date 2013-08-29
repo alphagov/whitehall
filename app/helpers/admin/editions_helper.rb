@@ -1,11 +1,4 @@
 module Admin::EditionsHelper
-  def render_publication_date(edition)
-    if edition.publication_date.nil?
-      'to be set'
-    else
-      edition.publication_date.to_s(:long_ordinal)
-    end
-  end
 
   def edition_type(edition)
     if (@edition.is_a?(Speech) && @edition.speech_type.written_article?)

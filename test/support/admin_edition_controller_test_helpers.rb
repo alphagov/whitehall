@@ -1026,7 +1026,7 @@ module AdminEditionControllerTestHelpers
 
         admin_editions_path = send("admin_#{edition_type.to_s.tableize}_path")
         assert_select "form#new_edition[action='#{admin_editions_path}']" do
-          assert_select "label[for=edition_first_published_at]", text: "First published at (leave blank to use the publication time of this edition)"
+          assert_select "label[for=edition_first_published_at]", text: "First published"
           assert_select "select[name*='edition[first_published_at']", count: 5
         end
       end
@@ -1038,7 +1038,7 @@ module AdminEditionControllerTestHelpers
 
         admin_edition_path = send("admin_#{edition_type}_path", edition)
         assert_select "form#edit_edition[action='#{admin_edition_path}']" do
-          assert_select "label[for=edition_first_published_at]", text: "First published at (leave blank to use the publication time of this edition)"
+          assert_select "label[for=edition_first_published_at]", text: "First published"
           assert_select "select[name*='edition[first_published_at']", count: 5
         end
       end
@@ -1070,7 +1070,7 @@ module AdminEditionControllerTestHelpers
 
         get :show, id: edition
 
-        assert_select "label[for=edition_first_published_at]", text: "First published at (date required)"
+        assert_select "label[for=edition_first_published_at]", text: "First published *"
         assert_select "select[name*='edition[first_published_at']", count: 5
       end
     end
@@ -1219,7 +1219,7 @@ module AdminEditionControllerTestHelpers
       test "create should record the access_limited flag" do
         controller.current_user.organisation = create(:organisation); controller.current_user.save!
         post :create, edition: controller_attributes_for(edition_type,
-          publication_date: Date.parse("2010-10-21"),
+          first_published_at: Date.parse("2010-10-21"),
           access_limited: '1',
           lead_organisation_ids: [controller.current_user.organisation_id]
         )
@@ -1255,7 +1255,7 @@ module AdminEditionControllerTestHelpers
 
       test "create should record the relevant_to_local_government flag" do
         post :create, edition: controller_attributes_for(edition_type,
-          publication_date: Date.parse("2010-10-21"),
+          first_published_at: Date.parse("2010-10-21"),
           relevant_to_local_government: '1'
         )
 

@@ -10,8 +10,7 @@ class Publication < Publicationesque
   include Edition::CanApplyToLocalGovernmentThroughRelatedPolicies
   include Edition::TopicalEvents
 
-  validates :publication_date, presence: true, unless: ->(edition) { edition.can_have_some_invalid_data? }
-  validates :publication_date, recent_date: true, unless: ->(edition) { edition.can_have_some_invalid_data? }
+  validates :first_published_at, presence: true, if: -> e { e.trying_to_convert_to_draft == true }
   validates :publication_type_id, presence: true
   validate :only_publications_allowed_invalid_data_can_be_awaiting_type
   validate :must_have_attachment, if: :published?
@@ -76,10 +75,6 @@ class Publication < Publicationesque
 
   def national_statistic?
     publication_type == PublicationType::NationalStatistics
-  end
-
-  def first_public_at
-    publication_date
   end
 
   def statistics?
