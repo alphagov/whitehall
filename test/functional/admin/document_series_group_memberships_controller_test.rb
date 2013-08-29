@@ -13,6 +13,19 @@ class Admin::DocumentSeriesGroupMembershipsControllerTest < ActionController::Te
     { document_series_id: @series, group_id: @group }
   end
 
+  test 'POST #create adds a document to a group and redirects' do
+    document = create(:publication).document
+    assert_difference '@group.documents.size' do
+      post :create, id_params.merge(document_id: document.id)
+    end
+    assert_redirected_to admin_document_series_groups_path(@series)
+  end
+
+  test 'POST #create warns user when document not found' do
+    post :create, id_params.merge(document_id: 1234, title: 'blah')
+    assert_match /couldn't find.*blah/, flash[:alert]
+  end
+
   def remove_params
     id_params.merge(commit: 'Remove')
   end

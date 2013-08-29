@@ -2,6 +2,17 @@ class Admin::DocumentSeriesGroupMembershipsController < Admin::BaseController
   before_filter :load_document_series
   before_filter :load_document_series_group
 
+  def create
+    document = Document.where(id: params[:document_id]).first
+    if document
+      @group.documents << document
+      message = { notice: "'#{params[:title]}' added to '#{@group.heading}'" }
+    else
+      message = { alert: "We couldn't find a document titled '#{params[:title]}'" }
+    end
+    redirect_to admin_document_series_groups_path(@series), message
+  end
+
   def destroy
     document_ids = params.fetch(:documents, []).map(&:to_i)
     if document_ids.present?
