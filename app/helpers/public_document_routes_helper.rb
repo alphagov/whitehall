@@ -19,8 +19,13 @@ module PublicDocumentRoutesHelper
   end
 
   def preview_html_version_path(edition, html_version)
-    query = { preview: html_version.id, cachebust: Time.zone.now.getutc.to_i, id: edition.document.slug }
-    polymorphic_path([model_name_for_route_recognition(edition), html_version], query)
+    query = { preview: html_version.id, cachebust: Time.zone.now.getutc.to_i }
+
+    if edition.is_a?(Publication)
+      publication_html_version_path(edition.document, html_version, query)
+    else
+      consultation_html_version_path(edition.document, html_version, query)
+    end
   end
 
   def document_url(edition, options = {})
