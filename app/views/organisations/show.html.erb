@@ -121,7 +121,7 @@
         <% end %>
         <% if @consultations.any? %>
           <section id="consultations" class="document-block documents-<%= document_block_count+=1 %>">
-            <h1>Our consultations</h1>
+            <h1><%= t('organisation.headings.our_consultations') %></h1>
             <div class="content">
               <%= render partial: "publications/list_description", locals: {publications: @consultations} %>
               <p class="see-all">
