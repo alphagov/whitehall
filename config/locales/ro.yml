@@ -283,6 +283,7 @@ ro:
       contact: Contactează-ne  %{name}
       corporate_information: Informaţii despre ambasadă
       corporate_reports: ! 'Rapoarte de management '
+      documents:
       making_foi_requests:
       our_announcements: ! 'Știri '
       our_mainstream_categories:

@@ -107,7 +107,7 @@
     <% document_block_count = 0 %>
     <div class="block documents-grid">
       <div class="inner-block">
-        <h1 class="block-title">Documents</h1>
+        <h1 class="block-title"><%= t('organisation.headings.documents') %></h1>
         <% if @announcements.any? %>
           <section id="announcements" class="document-block documents-<%= document_block_count+=1 %>">
             <h1><%= t('organisation.headings.our_announcements') %></h1>

@@ -282,6 +282,7 @@ cs:
       contact: Kontakt %{name}
       corporate_information: Korporátní informace
       corporate_reports: Korporátní zprávy
+      documents:
       making_foi_requests:
       our_announcements: Naše prohlášení
       our_mainstream_categories:

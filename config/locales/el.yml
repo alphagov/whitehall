@@ -223,6 +223,7 @@ el:
       contact: Επικοινωνήστε%{name}
       corporate_information: Πληροφορίες για τον Οργανισμό
       corporate_reports: Εκθέσεις Οργανισμού
+      documents:
       making_foi_requests:
       our_announcements: Οι ανακοινώσεις μας
       our_mainstream_categories:

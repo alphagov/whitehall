@@ -222,6 +222,7 @@ pt:
       contact: Contato %{name}
       corporate_information: Informações administrativas
       corporate_reports: Relatórios administrativos
+      documents:
       making_foi_requests:
       our_announcements: Nossos anúncios
       our_mainstream_categories:

@@ -307,6 +307,7 @@ th:
       contact: สัญญา %{name}
       corporate_information: ข้อมูลบริษัท
       corporate_reports: รายงานบริษัท
+      documents:
       making_foi_requests:
       our_announcements: ข่าวสารของเรา
       our_mainstream_categories:

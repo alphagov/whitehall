@@ -309,6 +309,7 @@ tr:
       contact: İletişim %{name}
       corporate_information: Kurumsal bilgi
       corporate_reports: Kurumsal raporlar
+      documents:
       making_foi_requests:
       our_announcements: ! 'Duyurular '
       our_mainstream_categories:

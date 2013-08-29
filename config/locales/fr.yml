@@ -222,6 +222,7 @@ fr:
       contact: Contacter %{name}
       corporate_information: Informations générales
       corporate_reports: Rapports d'activité
+      documents:
       making_foi_requests:
       our_announcements: Nos actualités
       our_mainstream_categories:

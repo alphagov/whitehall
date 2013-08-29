@@ -222,6 +222,7 @@ dr:
       contact: تماس %{name}
       corporate_information: معلومات یکی شده
       corporate_reports: گزارش های یکی شده
+      documents:
       making_foi_requests:
       our_announcements: اعلانات ما
       our_mainstream_categories:

@@ -224,6 +224,7 @@ ps:
       contact: تماس  %{name}
       corporate_information: متحد معلومات
       corporate_reports: متحد راپورونه
+      documents:
       making_foi_requests:
       our_announcements: زمونږه اعلانات
       our_mainstream_categories:

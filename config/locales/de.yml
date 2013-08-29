@@ -222,6 +222,7 @@ de:
       contact: ! '%{name} kontaktieren'
       corporate_information: Administrative Informationen
       corporate_reports: Berichte
+      documents:
       making_foi_requests:
       our_announcements: Unsere Meldungen
       our_mainstream_categories:

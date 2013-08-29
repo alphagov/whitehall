@@ -342,6 +342,7 @@ uk:
       contact: Контактна особа  %{name}
       corporate_information: Корпоративна інформація
       corporate_reports: Корпоративні звіти
+      documents:
       making_foi_requests:
       our_announcements: Наші оголошення
       our_mainstream_categories:

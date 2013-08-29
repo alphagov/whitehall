@@ -222,6 +222,7 @@ sq:
       contact: Kontakt %{name}
       corporate_information: Informacion korporate
       corporate_reports: Raporte korporate
+      documents:
       making_foi_requests:
       our_announcements: Njoftimet tona
       our_mainstream_categories:

@@ -310,6 +310,7 @@ hu:
       contact: ! 'Kapcsolat felvétele: %{name}'
       corporate_information: Szervezeti információk
       corporate_reports: Testületi beszámolók
+      documents:
       making_foi_requests:
       our_announcements: Híreink
       our_mainstream_categories:

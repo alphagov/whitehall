@@ -307,6 +307,7 @@ ko:
       contact: ! '%{name} 에게 연락하세요'
       corporate_information: 대사관 정보
       corporate_reports: 대사관 보고서
+      documents:
       making_foi_requests:
       our_announcements: 뉴스
       our_mainstream_categories:
