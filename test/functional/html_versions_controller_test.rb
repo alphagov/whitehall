@@ -40,6 +40,29 @@ class HtmlVersionsControllerTest < ActionController::TestCase
     assert_response :not_found
   end
 
+  test "#show allows previewing of a draft edition's HTML version" do
+    draft_publication = create(:draft_publication)
+    html_version = draft_publication.html_version
+
+    login_as create(:departmental_editor)
+    get :show, publication_id: draft_publication.document, id: html_version.slug, preview: html_version.id
+
+    assert_response :success
+    assert_equal html_version, assigns(:html_version)
+  end
+
+  test '#show allows previewing draft HTML version for logged in users' do
+    user = create(:departmental_editor)
+    publication = create(:published_publication)
+    draft = publication.create_draft(user)
+
+    login_as user
+    get :show, publication_id: publication.document, id: publication.html_version.slug, preview: draft.html_version.id
+
+    assert_response :success
+    assert_equal draft.html_version, assigns(:html_version)
+  end
+
   test "finds consultations if the html version is for a consultation" do
     consultation = create(:published_consultation, :with_html_version)
 

@@ -13,28 +13,43 @@ class HtmlVersionsController < PublicFacingController
 
   def show
     @document = @edition
-    @html_version = @edition.html_version
   end
 
   private
 
   def find_edition
-    if (params[:publication_id])
-      @edition = Publication.published_as(params[:publication_id])
-    elsif (params[:consultation_id])
-      @edition = Consultation.published_as(params[:consultation_id])
+    if previewing?
+      @edition = Document.at_slug(edition_class, edition_slug).latest_edition
+    else
+      @edition = edition_class.published_as(edition_slug)
     end
 
     render text: "Not found", status: :not_found unless @edition
   end
 
   def find_html_version
-    unless @edition.html_version && (params[:id] == @edition.html_version.slug)
-      render text: "Not found", status: :not_found
+    if previewing?
+      @html_version = HtmlVersion.find(params[:preview])
+    else
+      @html_version = HtmlVersion.where(edition_id: @edition, slug: params[:id]).first
     end
+
+    render(text: "Not found", status: :not_found) unless @html_version
   end
 
   def analytics_format
     @edition.type.underscore.to_sym
+  end
+
+  def previewing?
+    user_signed_in? && params[:preview]
+  end
+
+  def edition_class
+    params[:publication_id] ? Publication : Consultation
+  end
+
+  def edition_slug
+    params[:publication_id] || params[:consultation_id]
   end
 end
