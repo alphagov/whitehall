@@ -15,8 +15,11 @@
     <h2>Add a document</h2>
     <div>
       <label for="title">Add</label>
-      <%= search_field_tag :title, '', placeholder: 'Title or slug&hellip;'.html_safe, results: 5, autosave: 'unique', autofocus: true %>
-      <input value="Find" type="button" id="find-documents" class="btn btn-mini"></input>
+      <div class="document-finder">
+        <%= search_field_tag :title, '', placeholder: 'Title or slug&hellip;'.html_safe, results: 5, autosave: 'unique', autofocus: true %>
+        <input value="Find" type="button" id="find-documents" class="btn btn-mini"></input>
+        <%= image_tag 'loading-666666.gif', class: 'js-loader' %>
+      </div>
       to the
       <%= select_tag :group_id, options_from_collection_for_select(@groups, :id, :heading, include_nil: true) %>
       group

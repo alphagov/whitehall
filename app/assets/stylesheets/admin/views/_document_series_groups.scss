@@ -23,6 +23,19 @@
         margin-right: 0.1em;
       }
 
+      div.document-finder {
+        position: relative;
+        display: inline;
+
+        img.js-loader {
+          display: none;
+
+          position: absolute;
+          top: 1px;
+          right: 4.3em;
+        }
+      }
+
       input.btn-mini {
         margin-right: $spacing;
       }

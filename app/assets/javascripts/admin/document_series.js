@@ -24,7 +24,8 @@
           documentSeriesDocFinder.selectDocFromMenu(event, ui);
         }
       });
-      this.$document_id_input = this.$search_term.siblings('[name="document_id"]');
+      this.$document_id_input = this.$search_term.parents('form').find('input[name="document_id"]');
+      this.$loader_indicator = this.$search_term.siblings('img.js-loader');
       this.setupEventHandlers();
     },
 
@@ -58,12 +59,16 @@
 
     searchForDocument: function() {
       var url = '/government/admin/document_searches.json';
+      this.$loader_indicator.show();
       $.ajax(url, {
         data: { title: this.$search_term.val() },
         success: function(data, textStatus, xhr) {
           documentSeriesDocFinder.showSearchResults(data['results']);
         },
-        error: this.showErrorMessage
+        error: this.showErrorMessage,
+        complete: function() {
+          documentSeriesDocFinder.$loader_indicator.hide();
+        }
       });
     },
 
