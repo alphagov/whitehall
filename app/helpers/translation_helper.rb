@@ -14,7 +14,7 @@ module TranslationHelper
   end
 
   def t_world_location_see_all_our(type)
-    t("world_location.see_all", type: t("document.type.#{type}", count: 2).downcase)
+    t("world_location.see_all", type: t("document.type.#{type}", count: 100).downcase)
   end
 
   alias :t_see_all_our :t_world_location_see_all_our
