@@ -13,11 +13,9 @@ module TranslationHelper
     t("document.type.#{document.display_type_key}", count: count)
   end
 
-  def t_world_location_see_all_our(type)
+  def t_see_all_our(type)
     t("world_location.see_all", type: t("document.type.#{type}", count: 100).downcase)
   end
-
-  alias :t_see_all_our :t_world_location_see_all_our
 
   def t_delivery_title(document)
     if document.delivered_by_minister?

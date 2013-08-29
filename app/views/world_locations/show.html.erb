@@ -80,7 +80,7 @@
           <div class="content">
             <%= render partial: "policies/list_description", locals: {policies: @policies} %>
             <p class="see-all">
-              <%= link_to t_world_location_see_all_our(:policy), policies_filter_path(@world_location) %>
+              <%= link_to t_see_all_our(:policy), policies_filter_path(@world_location) %>
             </p>
           </div>
         </section>
@@ -98,7 +98,7 @@
             <div class="content">
               <%= render partial: "announcements/list_description", locals: {announcements: @announcements} %>
               <p class="see-all">
-                <%= link_to t_world_location_see_all_our(:announcement), announcements_filter_path(@world_location, include_world_location_news: '1') %>
+                <%= link_to t_see_all_our(:announcement), announcements_filter_path(@world_location, include_world_location_news: '1') %>
               </p>
             </div>
           </section>
@@ -109,7 +109,7 @@
             <div class="content">
               <%= render partial: "publications/list_description", locals: {publications: @non_statistics_publications} %>
               <p class="see-all">
-                <%= link_to t_world_location_see_all_our(:publication), publications_filter_path(@world_location) %>
+                <%= link_to t_see_all_our(:publication), publications_filter_path(@world_location) %>
               </p>
             </div>
           </section>
@@ -120,7 +120,7 @@
             <div class="content">
               <%= render partial: "publications/list_description", locals: {publications: @statistics_publications} %>
               <p class="see-all">
-                <%= link_to t_world_location_see_all_our(:statistics), publications_filter_path(@world_location, publication_filter_option: 'statistics') %>
+                <%= link_to t_see_all_our(:statistics), publications_filter_path(@world_location, publication_filter_option: 'statistics') %>
               </p>
             </div>
           </section>
