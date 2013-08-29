@@ -58,5 +58,6 @@ class Admin::DocumentSeriesGroupMembershipsController < Admin::BaseController
 
   def load_document_series_group
     @group = @series.groups.find(params[:group_id])
+    session[:document_series_selected_group_id] = params[:group_id]
   end
 end

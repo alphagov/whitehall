@@ -21,7 +21,7 @@
         <%= image_tag 'loading-666666.gif', class: 'js-loader' %>
       </div>
       to the
-      <%= select_tag :group_id, options_from_collection_for_select(@groups, :id, :heading, include_nil: true) %>
+      <%= select_tag :group_id, options_from_collection_for_select(@groups, :id, :heading, session[:document_series_selected_group_id]) %>
       group
       <%= submit_tag 'Add', class: 'btn btn-info' %>
       <%= hidden_field_tag :document_id %>
