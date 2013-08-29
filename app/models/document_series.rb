@@ -4,7 +4,9 @@ class DocumentSeries < ActiveRecord::Base
 
   belongs_to :organisation
 
-  has_many :groups, class_name: 'DocumentSeriesGroup', order: 'document_series_groups.ordering'
+  has_many :groups, class_name: 'DocumentSeriesGroup',
+                    order: 'document_series_groups.ordering',
+                    dependent: :destroy
   has_many :documents, through: :groups
   has_many :editions, through: :documents
 
