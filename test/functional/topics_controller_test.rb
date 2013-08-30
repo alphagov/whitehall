@@ -268,7 +268,7 @@ class TopicsControllerTest < ActionController::TestCase
   test "show displays recently changed documents including the policy in reverse chronological order" do
     topic = create(:topic)
     policy_1 = create(:published_policy, first_published_at: 2.weeks.ago, topics: [topic])
-    publication_1 = create(:published_publication, publication_date: 6.weeks.ago, topics: [topic], related_documents: [policy_1.document])
+    publication_1 = create(:published_publication, first_published_at: 6.weeks.ago, topics: [topic], related_documents: [policy_1.document])
     policy_2 = create(:published_policy, first_published_at: 5.weeks.ago, topics: [topic])
 
     get :show, id: topic
