@@ -256,6 +256,9 @@ hu:
       statistics:
         one: Statisztika
         other: Statisztikák
+      statutory_guidance:
+        one:
+        other:
       transcript:
         one: Átirat
         other: Átiratok
@@ -375,6 +378,8 @@ hu:
     headings:
       detail: Részletek
   read_more: Tovább...
+  shared:
+    see_all: ! ' %{type} - mindegyik megtekintése'
   social_media:
     follow_us:
   support:
@@ -402,8 +407,6 @@ hu:
       world_location:
         one: Ország
         other: Országok
-  shared:
-    see_all: ! ' %{type} - mindegyik megtekintése'
   worldwide_organisation:
     corporate_information:
       personal_information_charter_html: ! 'A következő oldalon olvashat róla, hogy

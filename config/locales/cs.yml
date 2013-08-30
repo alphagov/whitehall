@@ -184,6 +184,10 @@ cs:
         one: Statistika
         few:
         other: Statistiky
+      statutory_guidance:
+        one:
+        few:
+        other:
       transcript:
         one: Přepis
         few:
@@ -324,8 +328,6 @@ cs:
       quick_links: Odkazy
       related_policies: Související témata
       statistics: Naše statistiky
-  shared:
-    see_all: Podívejte se na
   activerecord:
     attributes:
       attachment:
@@ -458,6 +460,8 @@ cs:
     headings:
       detail: Více
   read_more: Více
+  shared:
+    see_all: Podívejte se na
   social_media:
     follow_us:
   support:

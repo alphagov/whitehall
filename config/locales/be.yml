@@ -228,6 +228,11 @@ be:
         few:
         many:
         other: Статыстыка
+      statutory_guidance:
+        one:
+        few:
+        many:
+        other:
       transcript:
         one: Поўны тэкст
         few:
@@ -386,8 +391,6 @@ be:
       quick_links: Хуткія спасылкі
       related_policies: ! 'Падобныя напрамкі дзейнасці '
       statistics: Наша статыстыка
-  shared:
-    see_all: Паглядзець усе %{type}
   activerecord:
     attributes:
       attachment:
@@ -520,6 +523,8 @@ be:
     headings:
       detail: Падрабязней
   read_more: Чытаць Падрабязней
+  shared:
+    see_all: Паглядзець усе %{type}
   social_media:
     follow_us:
   support:

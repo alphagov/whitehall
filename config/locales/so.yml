@@ -140,6 +140,9 @@ so:
       statistics:
         one: Istaatistik
         other: Istaatistik
+      statutory_guidance:
+        one:
+        other:
       transcript:
         one: Qoraal la soo guuriyey
         other: Qoraallo la soo guuriyey
@@ -262,8 +265,6 @@ so:
       quick_links: Waddooyin xiriir degdeg ah
       related_policies: Siyaasado xiriir la leh
       statistics: Istaatistikadeenna
-  shared:
-    see_all: Fiiri dhammaan %{type} yadeenna
   activerecord:
     attributes:
       attachment:
@@ -397,6 +398,8 @@ so:
     headings:
       detail: Faahfaahin
   read_more: Sii akhri
+  shared:
+    see_all: Fiiri dhammaan %{type} yadeenna
   social_media:
     follow_us:
   support:

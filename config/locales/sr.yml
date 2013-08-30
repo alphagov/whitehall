@@ -232,6 +232,11 @@ sr:
         few:
         many:
         other: statistika
+      statutory_guidance:
+        one:
+        few:
+        many:
+        other:
       transcript:
         one: transkript
         few:
@@ -390,8 +395,6 @@ sr:
       quick_links: Linkovi
       related_policies: Povezane politike
       statistics: Naša statistika
-  shared:
-    see_all: Pogledajte sve naše %{type}
   activerecord:
     attributes:
       attachment:
@@ -524,6 +527,8 @@ sr:
     headings:
       detail: Detalj
   read_more: Pročitajte više
+  shared:
+    see_all: Pogledajte sve naše %{type}
   social_media:
     follow_us:
   support:

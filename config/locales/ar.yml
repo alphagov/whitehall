@@ -316,6 +316,13 @@ ar:
         few:
         many:
         other: إحصائيات
+      statutory_guidance:
+        zero:
+        one:
+        two:
+        few:
+        many:
+        other:
       transcript:
         zero:
         one: نص منسوخ
@@ -510,8 +517,6 @@ ar:
       quick_links: وصلات سريعة
       related_policies: سياسات ذات صلة
       statistics: إحصائياتنا
-  shared:
-    see_all: اطلع على كافة %{type}
   activerecord:
     attributes:
       attachment:
@@ -643,6 +648,8 @@ ar:
     headings:
       detail: تفاصيل
   read_more: اقرأ المزيد
+  shared:
+    see_all: اطلع على كافة %{type}
   social_media:
     follow_us:
   support:

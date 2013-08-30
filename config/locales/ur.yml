@@ -140,6 +140,9 @@ ur:
       statistics:
         one: اعدادوشمار
         other: اعدادو شمار
+      statutory_guidance:
+        one:
+        other:
       transcript:
         one: ٹرانسکرپٹ
         other: ٹرانسکرپٹس
@@ -262,8 +265,6 @@ ur:
       quick_links: فوری لنکس
       related_policies: متعلقہ پالیسیاں
       statistics: ہمارے اعدادو شمار
-  shared:
-    see_all: تما م دیکھئیے %{type}
   activerecord:
     attributes:
       attachment:
@@ -396,6 +397,8 @@ ur:
     headings:
       detail: تفصیل
   read_more: آگے پڑھئیے
+  shared:
+    see_all: تما م دیکھئیے %{type}
   social_media:
     follow_us:
   support:

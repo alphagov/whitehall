@@ -184,6 +184,10 @@ ro:
         one: Statistici
         few:
         other: Statistici
+      statutory_guidance:
+        one:
+        few:
+        other:
       transcript:
         one: Transcriere
         few:
@@ -325,8 +329,6 @@ ro:
       quick_links: ! 'Link-uri rapide '
       related_policies: ! 'Priorități conexe '
       statistics: Statistici
-  shared:
-    see_all: Toate %{type}
   activerecord:
     attributes:
       attachment:
@@ -461,6 +463,8 @@ ro:
     headings:
       detail: ! 'Mai multe '
   read_more: Află mai multe
+  shared:
+    see_all: Toate %{type}
   social_media:
     follow_us:
   support:

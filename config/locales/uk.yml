@@ -228,6 +228,11 @@ uk:
         few:
         many:
         other: Статистика
+      statutory_guidance:
+        one:
+        few:
+        many:
+        other:
       transcript:
         one: Транскрипт
         few:
@@ -386,8 +391,6 @@ uk:
       quick_links: Короткі посилання
       related_policies: Подібні документи
       statistics: Наша статистика
-  shared:
-    see_all: Дивіться всі наші %{type}
   activerecord:
     attributes:
       attachment:
@@ -519,6 +522,8 @@ uk:
     headings:
       detail: Деталі
   read_more: Читати далі
+  shared:
+    see_all: Дивіться всі наші %{type}
   social_media:
     follow_us:
   support:

@@ -140,6 +140,9 @@ dr:
       statistics:
         one: احصائیه ها
         other: احصائیه ها
+      statutory_guidance:
+        one:
+        other:
       transcript:
         one: نسخه
         other: نسخه ها
@@ -262,8 +265,6 @@ dr:
       quick_links: لینک های عاجل
       related_policies: پالیسی های مرتبط
       statistics: احصائیه های ما
-  shared:
-    see_all: همه را ببینید %{type}
   activerecord:
     attributes:
       attachment:
@@ -395,6 +396,8 @@ dr:
     headings:
       detail: تفصیل
   read_more: بیشتر بخوانید
+  shared:
+    see_all: همه را ببینید %{type}
   social_media:
     follow_us:
   support:
