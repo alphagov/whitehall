@@ -228,6 +228,11 @@ pl:
         few:
         many:
         other: Statystyki
+      statutory_guidance:
+        one:
+        few:
+        many:
+        other:
       transcript:
         one: Transkrypcja
         few:
@@ -386,8 +391,6 @@ pl:
       quick_links: Szybkie linki
       related_policies: Powiązane polityki
       statistics: Nasze statystyki
-  shared:
-    see_all: Zobacz wszystkie nasze %{type}
   activerecord:
     attributes:
       attachment:
@@ -521,6 +524,8 @@ pl:
     headings:
       detail: Szczegóły
   read_more: Czytaj więcej
+  shared:
+    see_all: Zobacz wszystkie nasze %{type}
   social_media:
     follow_us:
   support:

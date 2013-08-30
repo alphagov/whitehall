@@ -140,6 +140,9 @@ sw:
       statistics:
         one:
         other:
+      statutory_guidance:
+        one:
+        other:
       transcript:
         one:
         other:
@@ -262,8 +265,6 @@ sw:
       quick_links:
       related_policies:
       statistics:
-  shared:
-    see_all:
   activerecord:
     attributes:
       attachment:
@@ -392,6 +393,8 @@ sw:
     headings:
       detail:
   read_more:
+  shared:
+    see_all:
   social_media:
     follow_us:
   support:

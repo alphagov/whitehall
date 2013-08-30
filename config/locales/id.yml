@@ -255,6 +255,9 @@ id:
       statistics:
         one: Statistik
         other: Statistik-statistik
+      statutory_guidance:
+        one:
+        other:
       transcript:
         one: Transkrip
         other: Transkrip-transkrip
@@ -374,6 +377,8 @@ id:
     headings:
       detail: Detail
   read_more: Baca lebih lanjut
+  shared:
+    see_all: Lihat semua %{type}
   social_media:
     follow_us:
   support:
@@ -401,8 +406,6 @@ id:
       world_location:
         one: Lokasi dunia
         other: Lokasi-lokasi dunia
-  shared:
-    see_all: Lihat semua %{type}
   worldwide_organisation:
     corporate_information:
       personal_information_charter_html: ! '%{link} menjelaskan tentang bagaimana

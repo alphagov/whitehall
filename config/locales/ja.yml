@@ -254,6 +254,9 @@ ja:
       statistics:
         one: 統計
         other: 統計
+      statutory_guidance:
+        one:
+        other:
       transcript:
         one: スピーチ全文
         other: スピーチ全文
@@ -372,6 +375,8 @@ ja:
     headings:
       detail: 詳細
   read_more: 続き
+  shared:
+    see_all: ! '%{type} を全て見る'
   social_media:
     follow_us:
   support:
@@ -399,8 +404,6 @@ ja:
       world_location:
         one: 地域
         other: 地域
-  shared:
-    see_all: ! '%{type} を全て見る'
   worldwide_organisation:
     corporate_information:
       personal_information_charter_html: 個人情報の取り扱いについては %{link} をご覧下さい

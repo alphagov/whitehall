@@ -228,6 +228,11 @@ he:
         two:
         many:
         other: נתונים
+      statutory_guidance:
+        one:
+        two:
+        many:
+        other:
       transcript:
         one: תמלול
         two:
@@ -386,8 +391,6 @@ he:
       quick_links: קישורים מהירים
       related_policies: מדיניות רלוונטית
       statistics: הנתונים שלנו
-  shared:
-    see_all: ראה כל %{type}
   activerecord:
     attributes:
       attachment:
@@ -522,6 +525,8 @@ he:
     headings:
       detail: פרטים
   read_more: קרא עוד
+  shared:
+    see_all: ראה כל %{type}
   social_media:
     follow_us:
   support:

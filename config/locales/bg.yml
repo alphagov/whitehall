@@ -140,6 +140,9 @@ bg:
       statistics:
         one: Статистики
         other: Статистики
+      statutory_guidance:
+        one:
+        other:
       transcript:
         one: Препис
         other: Преписи
@@ -264,8 +267,6 @@ bg:
       quick_links: Бързи връзки
       related_policies: Свързани политики
       statistics: Нашите статистики
-  shared:
-    see_all: Вижте всички наши %{type}
   activerecord:
     attributes:
       attachment:
@@ -406,6 +407,8 @@ bg:
     headings:
       detail: Подробности
   read_more: Прочетете повече
+  shared:
+    see_all: Вижте всички наши %{type}
   social_media:
     follow_us:
   support:

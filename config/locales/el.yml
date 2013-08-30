@@ -140,6 +140,9 @@ el:
       statistics:
         one: Στατιστικά στοιχεία
         other: Στατιστικά στοιχεία
+      statutory_guidance:
+        one:
+        other:
       transcript:
         one: Απομαγνητοφώνηση
         other: Απομαγνητοφωνήσεις
@@ -263,8 +266,6 @@ el:
       quick_links: Σύντομοι σύνδεσμοι
       related_policies: Σχετικές πολιτικές
       statistics: Τα στατιστικά στοιχεία μας
-  shared:
-    see_all: Δείτε τα %{type}
   activerecord:
     attributes:
       attachment:
@@ -397,6 +398,8 @@ el:
     headings:
       detail: Λεπτομέρεια
   read_more: Διαβάστε περισσότερα
+  shared:
+    see_all: Δείτε τα %{type}
   social_media:
     follow_us:
   support:

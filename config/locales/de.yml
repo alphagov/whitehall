@@ -140,6 +140,9 @@ de:
       statistics:
         one: Statistik
         other: Statistiken
+      statutory_guidance:
+        one:
+        other:
       transcript:
         one: Mitschrift
         other: Mitschriften
@@ -262,8 +265,6 @@ de:
       quick_links: Quicklinks
       related_policies: Ähnliche Sachgebiete
       statistics: Unsere Statistiken
-  shared:
-    see_all: Alle unsere %{type}
   activerecord:
     attributes:
       attachment:
@@ -396,6 +397,8 @@ de:
     headings:
       detail: Details
   read_more: Mehr dazu
+  shared:
+    see_all: Alle unsere %{type}
   social_media:
     follow_us:
   support:

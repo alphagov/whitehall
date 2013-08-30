@@ -184,6 +184,10 @@ sk:
         one:
         few:
         other:
+      statutory_guidance:
+        one:
+        few:
+        other:
       transcript:
         one:
         few:
@@ -324,8 +328,6 @@ sk:
       quick_links:
       related_policies:
       statistics:
-  shared:
-    see_all:
   activerecord:
     attributes:
       attachment:
@@ -454,6 +456,8 @@ sk:
     headings:
       detail:
   read_more:
+  shared:
+    see_all:
   social_media:
     follow_us:
   support:

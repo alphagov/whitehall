@@ -140,6 +140,9 @@ lv:
       statistics:
         one: Statistika
         other: Statistika
+      statutory_guidance:
+        one:
+        other:
       transcript:
         one: Noraksts
         other: Noraksti
@@ -262,8 +265,6 @@ lv:
       quick_links: Ātrās saites
       related_policies: Saistītās politikas jomas
       statistics: Statistikas dati
-  shared:
-    see_all: Skatīt visas %{type}
   activerecord:
     attributes:
       attachment:
@@ -394,6 +395,8 @@ lv:
     headings:
       detail: Sīkāk
   read_more: Lasīt vairāk
+  shared:
+    see_all: Skatīt visas %{type}
   social_media:
     follow_us:
   support:

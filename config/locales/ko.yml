@@ -254,6 +254,9 @@ ko:
       statistics:
         one: 통계
         other: 통계
+      statutory_guidance:
+        one:
+        other:
       transcript:
         one: 트랜스크립트
         other: 트랜스크립트
@@ -372,6 +375,8 @@ ko:
     headings:
       detail: 디테일
   read_more: 더 자세한 정보 알아보기
+  shared:
+    see_all: ! '%{type} 모두 둘러보기'
   social_media:
     follow_us:
   support:
@@ -399,8 +404,6 @@ ko:
       world_location:
         one: 월드 로케이션
         other: 월드 로케이션
-  shared:
-    see_all: ! '%{type} 모두 둘러보기'
   worldwide_organisation:
     corporate_information:
       personal_information_charter_html: ! '%{link} 에서 개인정보 처리에 대한 안내'

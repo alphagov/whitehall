@@ -140,6 +140,9 @@ es:
       statistics:
         one: Estadísticas
         other: Estadísticas
+      statutory_guidance:
+        one:
+        other:
       transcript:
         one: Transcripción
         other: Transcripciones
@@ -262,8 +265,6 @@ es:
       quick_links: Enlaces directos
       related_policies: Políticas relacionadas
       statistics: Nuestras estadísticas
-  shared:
-    see_all: Ver toda nuestra %{type}
   activerecord:
     attributes:
       attachment:
@@ -395,6 +396,8 @@ es:
     headings:
       detail: Detalle
   read_more: Leer más
+  shared:
+    see_all: Ver toda nuestra %{type}
   social_media:
     follow_us:
   support:

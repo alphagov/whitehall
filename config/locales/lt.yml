@@ -184,6 +184,10 @@ lt:
         one: Statistika
         few:
         other: Statistika
+      statutory_guidance:
+        one:
+        few:
+        other:
       transcript:
         one: Kalbos tekstas
         few:
@@ -324,8 +328,6 @@ lt:
       quick_links: Greitos nuorodos
       related_policies: Susijusios strategijos
       statistics: Mūsų statistika
-  shared:
-    see_all: Pažiūrėkite  mūsų %{type}
   activerecord:
     attributes:
       attachment:
@@ -457,6 +459,8 @@ lt:
     headings:
       detail: Detalesnė informacija
   read_more: Skaitykite daugiau
+  shared:
+    see_all: Pažiūrėkite  mūsų %{type}
   social_media:
     follow_us:
   support:

@@ -316,6 +316,13 @@ cy:
         few:
         many:
         other: Ystadegau
+      statutory_guidance:
+        zero:
+        one:
+        two:
+        few:
+        many:
+        other:
       transcript:
         zero:
         one: Trawsgrifiad
@@ -510,8 +517,6 @@ cy:
       quick_links: Dolenni cyflym
       related_policies: Polisïau perthnasol
       statistics: Ein hystadegau
-  shared:
-    see_all: Gweld ein holl %{type}
   activerecord:
     attributes:
       attachment:
@@ -645,6 +650,8 @@ cy:
     headings:
       detail: Manylyn
   read_more: Darllen mwy
+  shared:
+    see_all: Gweld ein holl %{type}
   social_media:
     follow_us: Dilynwch ni
   support:

@@ -140,6 +140,9 @@ sq:
       statistics:
         one: Statistika
         other: Statistika
+      statutory_guidance:
+        one:
+        other:
       transcript:
         one: Transkript
         other: Transkripte
@@ -262,8 +265,6 @@ sq:
       quick_links: Lidhje te shpejta
       related_policies: Politika me lidhje
       statistics: Statistikat tona
-  shared:
-    see_all: Shiko te gjitha %{type}
   activerecord:
     attributes:
       attachment:
@@ -396,6 +397,8 @@ sq:
     headings:
       detail: Detaj
   read_more: Lexo me shume
+  shared:
+    see_all: Shiko te gjitha %{type}
   social_media:
     follow_us:
   support:
