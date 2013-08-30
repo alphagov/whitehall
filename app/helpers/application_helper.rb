@@ -185,13 +185,13 @@ module ApplicationHelper
   def absolute_time(time, options = {})
     content_tag(:abbr, l(time, format: :long_ordinal),
                 class: [options[:class], "datetime"].compact.join(" "),
-                title: time.iso8601)
+                title: time.iso8601) if time
   end
 
   def absolute_date(time, options = {})
     content_tag(:abbr, l(time.to_date, format: :long_ordinal),
                 class: [options[:class], "date"].compact.join(" "),
-                title: time.iso8601)
+                title: time.iso8601) if time
   end
 
   def main_navigation_link_to(name, path, html_options = {}, &block)
