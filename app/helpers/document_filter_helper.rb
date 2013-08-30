@@ -1,11 +1,13 @@
 module DocumentFilterHelper
   def classification_filter_options(selected_topics = [])
     selected_values = selected_topics.any? ? selected_topics.map(&:slug) : ["all"]
-    grouped_classifications = [
-      [ 'Topics', Topic.alphabetical.map { |o| [o.name, o.slug] } ],
-      [ 'Topical events', TopicalEvent.active
-                                      .order_by_start_date.map { |o| [o.name, o.slug] } ]
-    ]
+    grouped_classifications = Rails.cache.fetch("classification_filter_options/grouped_classifications", expires_in: 30.minutes) do
+      [
+        [ 'Topics', Topic.alphabetical.map { |o| [o.name, o.slug] } ],
+        [ 'Topical events', TopicalEvent.active
+                                        .order_by_start_date.map { |o| [o.name, o.slug] } ]
+      ]
+    end
     options_for_select([["All topics", "all"]], selected_values) +
     grouped_options_for_select(grouped_classifications, selected_values)
   end
