@@ -13,7 +13,7 @@ module DocumentFilterHelper
   end
 
   def organisation_filter_options(selected_organisations = [])
-    grouped_organisations = Rails.cache.fetch("organisation_filter_options/grouped_organisations", expires_in: 30.minutes) do
+    grouped_organisations = Rails.cache.fetch("organisation_filter_options/grouped_organisations/#{I18n.locale}", expires_in: 30.minutes) do
       {
         'Ministerial departments' =>  Organisation.with_published_editions
                                       .with_translations
