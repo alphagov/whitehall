@@ -254,6 +254,9 @@ th:
       statistics:
         one: สถิติ
         other: สถิติ
+      statutory_guidance:
+        one:
+        other:
       transcript:
         one: สำเนา
         other: สำเนา
@@ -372,6 +375,8 @@ th:
     headings:
       detail: รายละเอียด
   read_more: อ่านเพิ่มเติม
+  shared:
+    see_all: ดูทั้งหมด%{type}
   social_media:
     follow_us:
   support:
@@ -399,8 +404,6 @@ th:
       world_location:
         one: ที่ตั้ง
         other: ทีตั้ง
-  shared:
-    see_all: ดูทั้งหมด%{type}
   worldwide_organisation:
     corporate_information:
       personal_information_charter_html: ลิงค์นี้อธิบายถึงวิธีการที่เราปฏิบัติต่อข้อมูลส่วนบุคคลของคุณ

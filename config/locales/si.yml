@@ -140,6 +140,9 @@ si:
       statistics:
         one: සංඛ්යාන
         other: සංඛ්යාන
+      statutory_guidance:
+        one:
+        other:
       transcript:
         one: අනුපත
         other:  අනුපත්
@@ -264,8 +267,6 @@ si:
       quick_links: ක්ෂණික සන්ධිය
       related_policies: අදාල ප්‍රතිපත්තීන්
       statistics: අපේ සංඛ්‍යා දත්ත
-  shared:
-    see_all: අපගේ සියලු %{type} බලන්න
   activerecord:
     attributes:
       attachment:
@@ -396,6 +397,8 @@ si:
     headings:
       detail: විස්තර
   read_more: තව කියවන්න
+  shared:
+    see_all: අපගේ සියලු %{type} බලන්න
   social_media:
     follow_us:
   support:

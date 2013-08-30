@@ -140,6 +140,9 @@ ta:
       statistics:
         one: புள்ளிவிபரம்
         other: புள்ளிவிபரம்
+      statutory_guidance:
+        one:
+        other:
       transcript:
         one: உரை வடிவம்
         other: உரை வடிவங்கள்
@@ -262,8 +265,6 @@ ta:
       quick_links: விரைவான இணைப்புகள்
       related_policies: சம்பந்தப்பட்ட கொள்கைகள்
       statistics: எங்களது புள்ளிவிபரம்
-  shared:
-    see_all: எங்களது அனைத்து %{type} பார்க்கவும்
   activerecord:
     attributes:
       attachment:
@@ -397,6 +398,8 @@ ta:
     headings:
       detail: விபரம்
   read_more: மேலும் வாசிக்கவும்
+  shared:
+    see_all: எங்களது அனைத்து %{type} பார்க்கவும்
   social_media:
     follow_us:
   support:

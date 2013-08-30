@@ -256,6 +256,9 @@ tr:
       statistics:
         one: İstatistikler
         other: İstatistikler
+      statutory_guidance:
+        one:
+        other:
       transcript:
         one: Transkriptler
         other: Transkriptler
@@ -374,6 +377,8 @@ tr:
     headings:
       detail: Detay
   read_more: Daha fazlası için
+  shared:
+    see_all: Tamamını görüntüle
   social_media:
     follow_us:
   support:
@@ -401,8 +406,6 @@ tr:
       world_location:
         one: ! 'Ülke '
         other: Ülkeler
-  shared:
-    see_all: Tamamını görüntüle
   worldwide_organisation:
     corporate_information:
       personal_information_charter_html: Bu %{link} bilgilerinizi nasıl sakladığımız

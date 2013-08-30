@@ -256,6 +256,9 @@ vi:
       statistics:
         one: Thống kê
         other: Thống kê
+      statutory_guidance:
+        one:
+        other:
       transcript:
         one: Kịch bản
         other: Kịch bản
@@ -375,6 +378,8 @@ vi:
     headings:
       detail: Chi tiết
   read_more: Đọc thêm
+  shared:
+    see_all: Xem tất cả %{type} của chúng tôi
   social_media:
     follow_us:
   support:
@@ -402,8 +407,6 @@ vi:
       world_location:
         one: Địa điểm trên thế giới
         other: Các địa điểm trên thế giới
-  shared:
-    see_all: Xem tất cả %{type} của chúng tôi
   worldwide_organisation:
     corporate_information:
       personal_information_charter_html: ! '%{link} của chúng tôi giải thích cách

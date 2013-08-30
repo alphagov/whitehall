@@ -172,6 +172,9 @@ en:
       guidance:
         one: Guidance
         other: Guidance
+      statutory_guidance:
+        one: Statutory guidance
+        other: Statutory guidance
       impact_assessment:
         one: Impact assessment
         other: Impact assessments

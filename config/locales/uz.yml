@@ -140,6 +140,9 @@ uz:
       statistics:
         one: Statistika
         other: Statistika
+      statutory_guidance:
+        one:
+        other:
       transcript:
         one: Matn
         other: Matnlar
@@ -262,8 +265,6 @@ uz:
       quick_links: Tez bog'lanish linklari
       related_policies: Oid dasturlar
       statistics: Bizning statistika
-  shared:
-    see_all: Bizning butun %{type} ko'ring
   activerecord:
     attributes:
       attachment:
@@ -395,6 +396,8 @@ uz:
     headings:
       detail: Tafsilot
   read_more: Ko'proq ma'lumotga ega bo'ling
+  shared:
+    see_all: Bizning butun %{type} ko'ring
   social_media:
     follow_us:
   support:

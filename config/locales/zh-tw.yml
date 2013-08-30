@@ -253,6 +253,9 @@ zh-tw:
       statistics:
         one: 統計
         other: 統計
+      statutory_guidance:
+        one:
+        other:
       transcript:
         one: 談話副本
         other: 其他談話副本
@@ -371,6 +374,8 @@ zh-tw:
     headings:
       detail: 詳情
   read_more: 閱讀更多
+  shared:
+    see_all: 查閱我們所有的%{type}
   social_media:
     follow_us:
   support:
@@ -398,8 +403,6 @@ zh-tw:
       world_location:
         one: 世界地區位置
         other: 其他世界地區位置
-  shared:
-    see_all: 查閱我們所有的%{type}
   worldwide_organisation:
     corporate_information:
       personal_information_charter_html: 我們的%{link}解釋我們如何處理你的個人資料。

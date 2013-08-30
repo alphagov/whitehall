@@ -255,6 +255,9 @@ fa:
       statistics:
         one: آمار
         other: آمار
+      statutory_guidance:
+        one:
+        other:
       transcript:
         one: رونوشت
         other: رونوشت ها
@@ -374,6 +377,8 @@ fa:
     headings:
       detail: جزئیات
   read_more: اطلاعات بیشتر
+  shared:
+    see_all: تمامی %{type} ما را مشاهده کنید
   social_media:
     follow_us:
   support:
@@ -401,8 +406,6 @@ fa:
       world_location:
         one: موقعیت جهانی
         other: موقعیت های جهانی
-  shared:
-    see_all: تمامی %{type} ما را مشاهده کنید
   worldwide_organisation:
     corporate_information:
       personal_information_charter_html: ! '%{link} چگونگی نگهداری از اطلاعات شخصی
