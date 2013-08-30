@@ -181,9 +181,6 @@ class Admin::EditionsController < Admin::BaseController
     if @edition.can_be_associated_with_statistical_data_sets?
       params[:edition][:statistical_data_set_document_ids] ||= []
     end
-    if @edition.can_be_grouped_in_series?
-      params[:edition][:document_series_ids] ||= []
-    end
     if @edition.can_be_related_to_policies?
       params[:edition][:related_policy_ids] ||= []
     end
