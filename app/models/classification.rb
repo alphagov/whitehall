@@ -12,7 +12,7 @@ class Classification < ActiveRecord::Base
 
   has_many :classification_memberships
   has_many :editions, through: :classification_memberships
-  has_many :policies, through: :classification_memberships, :order => 'classification_memberships.ordering ASC'
+  has_many :policies, through: :classification_memberships, order: 'classification_memberships.ordering ASC'
   has_many :detailed_guides, through: :classification_memberships
   has_many :published_detailed_guides,
             through: :classification_memberships,
