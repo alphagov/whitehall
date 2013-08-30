@@ -283,6 +283,17 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
+  test 'PUT :update will not remove document from series' do
+    publication = create(:draft_publication)
+    document_series = create(:document_series, documents: [publication.document])
+    assert publication.document_series.include?(document_series)
+
+    put :update, id: publication.id, edition: { title: 'New title' }
+    assert_response :redirect
+    assert_equal 'New title', publication.reload.title
+    assert publication.document_series.include?(document_series)
+  end
+
   test "confirm_unpublish loads the edition and renders the confirm page" do
     login_as(create(:gds_editor))
     policy = create(:published_policy)
