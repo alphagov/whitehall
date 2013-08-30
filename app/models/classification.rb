@@ -108,12 +108,6 @@ class Classification < ActiveRecord::Base
     update_column(:published_policies_count, published_policies.count)
   end
 
-  def published_related_editions
-    policies.published.includes(
-      :published_related_editions
-    ).map(&:published_related_editions).flatten.uniq
-  end
-
   def destroyable?
     non_archived_policies = policies - archived_policies
     non_archived_policies.blank?
@@ -123,8 +117,8 @@ class Classification < ActiveRecord::Base
     Whitehall.url_maker.topic_path(slug)
   end
 
-  def recently_changed_documents
-    (policies.published + published_related_editions).sort_by(&:public_timestamp).reverse
+  def latest(limit = 3)
+    editions.published.without_editions_of_type(WorldLocationNewsArticle).in_reverse_chronological_order.includes(:translations).limit(limit)
   end
 
   def description_without_markup
