@@ -9,6 +9,27 @@ namespace :export do
     @routes_helper ||= Whitehall::UrlMaker.new(host: PUBLIC_HOST)
   end
 
+  desc "Export Redirector compatible document mappings"
+  task :redirector_mappings => :environment do
+    # XXX: Do not remove/refactor this without discussing with the
+    # transition team. This is required to generate redirections from
+    # old government sites to GOV.UK.
+    ENV['FACTER_govuk_platform'] ||= "production"
+
+    # Read off the MySQL slave - we want performance here and
+    # non-contention as this job runs for up to 45 minutes.
+    if ENV['FACTER_govuk_platform'] == 'production'
+      mysql_slave_config = ActiveRecord::Base.configurations['production'].merge('host' => 'slave.mysql')
+      ActiveRecord::Base.establish_connection(mysql_slave_config)
+    end
+
+    exporter = Whitehall::Exporters::DocumentMappings.new(ENV['FACTER_govuk_platform'])
+
+    CSV.open(Rails.root.join('public/government/all_document_attachment_and_non_document_mappings.csv'), 'wb') do |csv_out|
+      exporter.export(csv_out)
+    end
+  end
+
   desc "Export list of documents"
   task :document_list => :environment do
     path = "tmp/document_list-#{Time.now.to_i}.csv"
