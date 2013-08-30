@@ -40,7 +40,7 @@ class ClassificationTest < ActiveSupport::TestCase
     expected_order = [
       create(:published_policy, topics: [topic], first_published_at: 1.day.ago),
       create(:published_news_article, topics: [topic], first_published_at: 1.week.ago),
-      create(:published_publication, topics: [topic], publication_date: 2.weeks.ago),
+      create(:published_publication, topics: [topic], first_published_at: 2.weeks.ago),
       create(:published_speech, topics: [topic], first_published_at: 3.weeks.ago),
       create(:published_policy, topics: [topic], first_published_at: 4.weeks.ago)
     ]
